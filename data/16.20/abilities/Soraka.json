@@ -1,0 +1,886 @@
+[
+  {
+    "champion": "Soraka",
+    "kind": "E",
+    "name": "Equinox",
+    "page": {
+      "title": "Template:Data Soraka/Equinox",
+      "revid": 3907153
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "20 / 19 / 18 / 17 / 16",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                20,
+                19,
+                18,
+                17,
+                16
+              ]
+            }
+          }
+        ]
+      },
+      "cost": {
+        "text": "70 / 75 / 80 / 85 / 90",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                70,
+                75,
+                80,
+                85,
+                90
+              ]
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "0.25",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0.25
+            }
+          }
+        ]
+      },
+      "targetRange": {
+        "text": "925",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 925
+            }
+          }
+        ]
+      },
+      "effectRadius": {
+        "text": "260",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 260
+            },
+            "label": "Silence field which appears to affect in a very slightly larger radius than the damage and root radius checks cover"
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Location"
+      ],
+      "affects": [
+        "Enemies"
+      ],
+      "damageType": [
+        "Magic"
+      ],
+      "spellEffects": "spellaoe",
+      "spellShield": "special"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Soraka creates a celestial zone at the target location that deals magic damage to enemy champions within at the time of cast. The zone then persists for 1.5 seconds and silences enemies within.",
+        "leveling": [
+          {
+            "label": "Magic Damage",
+            "amount": {
+              "text": "70 / 95 / 120 / 145 / 170 (+ 40% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  70,
+                  95,
+                  120,
+                  145,
+                  170
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 40
+                  },
+                  "text": "(+ 40% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "silence",
+            "category": "control",
+            "wording": "silences",
+            "evidence": "The zone then persists for 1.5 seconds and silences enemies within.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "Afterwards, the zone erupts to deal the same damage to enemy champions within and root them for a duration.",
+        "leveling": [
+          {
+            "label": "Total Magic Damage",
+            "amount": {
+              "text": "140 / 190 / 240 / 290 / 340 (+ 80% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  140,
+                  190,
+                  240,
+                  290,
+                  340
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 80
+                  },
+                  "text": "(+ 80% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Root Duration",
+            "amount": {
+              "text": "1 / 1.25 / 1.5 / 1.75 / 2 seconds",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  1,
+                  1.25,
+                  1.5,
+                  1.75,
+                  2
+                ]
+              },
+              "unit": "s",
+              "scaling": [],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "root",
+            "category": "control",
+            "wording": "root",
+            "duration": {
+              "kind": "rank",
+              "values": [
+                1,
+                1.25,
+                1.5,
+                1.75,
+                2
+              ]
+            },
+            "evidence": "Afterwards, the zone erupts to deal the same damage to enemy champions within and root them for a duration.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Equinox's silence is marked as non-dispellable, so it is not removed by most cleanses. It is however allowed to be removed by cleanses that also grant immunity to it, such as Ragnarok.",
+      "Spell shield will not block the silence."
+    ]
+  },
+  {
+    "champion": "Soraka",
+    "kind": "I",
+    "name": "Salvation",
+    "page": {
+      "title": "Template:Data Soraka/Salvation",
+      "revid": 3681502
+    },
+    "ranks": 1,
+    "fields": {
+      "effectRadius": {
+        "text": "2500",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 2500
+            }
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Passive"
+      ],
+      "affects": [
+        "Self"
+      ],
+      "damageType": []
+    },
+    "parts": [
+      {
+        "label": "Innate",
+        "text": "Innate: Soraka gains 90% bonus movement speed while facing nearby allied champions that are below 40% of their maximum health.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Soraka will see an arrow indicating the direction in which she can gain the bonus movement speed."
+    ]
+  },
+  {
+    "champion": "Soraka",
+    "kind": "Q",
+    "name": "Starcall",
+    "page": {
+      "title": "Template:Data Soraka/Starcall",
+      "revid": 3953362
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "8 / 7 / 6 / 5 / 4",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                8,
+                7,
+                6,
+                5,
+                4
+              ]
+            }
+          }
+        ]
+      },
+      "cost": {
+        "text": "45 / 50 / 55 / 60 / 65",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                45,
+                50,
+                55,
+                60,
+                65
+              ]
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "0.25",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0.25
+            }
+          }
+        ]
+      },
+      "targetRange": {
+        "text": "800",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 800
+            }
+          }
+        ]
+      },
+      "effectRadius": {
+        "text": "265",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 265
+            }
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Location"
+      ],
+      "affects": [
+        "Self",
+        "Enemies"
+      ],
+      "damageType": [
+        "Magic"
+      ],
+      "spellEffects": "spellaoe",
+      "spellShield": "true",
+      "projectile": "true"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Soraka calls down a star upon the target location that grants sight of the area before landing after 0.25 / 0.3 / 0.35 / 0.4 / 0.45 / 0.5 / 0.55 / 0.6 / 0.65 / 0.7 / 0.75 / 0.8 / 0.85 / 0.9 / 0.95 / 1 (based on target range) seconds, dealing magic damage to enemies hit and slowing them by 30% for 1.5 seconds.",
+        "leveling": [
+          {
+            "label": "Magic Damage",
+            "amount": {
+              "text": "85 / 120 / 155 / 190 / 225 (+ 35% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  85,
+                  120,
+                  155,
+                  190,
+                  225
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 35
+                  },
+                  "text": "(+ 35% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "reveal",
+            "category": "vision",
+            "wording": "sight",
+            "duration": {
+              "kind": "constant",
+              "value": 1.5
+            },
+            "evidence": "Active: Soraka calls down a star upon the target location that grants sight of the area before landing after 0.25 / 0.3 / 0.35 / 0.4 / 0.45 / 0.5 / 0.55 / 0.6 / 0.65 / 0.7 / 0.75 / 0.8 / 0.85 / 0.9 / 0.95 / 1 (based on target range) seconds, dealing magic damage to enemies hit and slowing them by 30% for 1.5 seconds.",
+            "conditional": false
+          },
+          {
+            "type": "slow",
+            "category": "control",
+            "wording": "slowing",
+            "duration": {
+              "kind": "constant",
+              "value": 1.5
+            },
+            "amount": {
+              "kind": "constant",
+              "value": 30
+            },
+            "evidence": "Active: Soraka calls down a star upon the target location that grants sight of the area before landing after 0.25 / 0.3 / 0.35 / 0.4 / 0.45 / 0.5 / 0.55 / 0.6 / 0.65 / 0.7 / 0.75 / 0.8 / 0.85 / 0.9 / 0.95 / 1 (based on target range) seconds, dealing magic damage to enemies hit and slowing them by 30% for 1.5 seconds.",
+            "conditional": false
+          }
+        ],
+        "values": [
+          {
+            "series": {
+              "kind": "variable",
+              "variable": "target range",
+              "points": [
+                50,
+                100,
+                150,
+                200,
+                250,
+                300,
+                350,
+                400,
+                450,
+                500,
+                550,
+                600,
+                650,
+                700,
+                750,
+                800
+              ],
+              "values": [
+                0.25,
+                0.3,
+                0.35,
+                0.4,
+                0.45,
+                0.5,
+                0.55,
+                0.6,
+                0.65,
+                0.7,
+                0.75,
+                0.8,
+                0.85,
+                0.9,
+                0.95,
+                1
+              ]
+            },
+            "context": "Active: Soraka calls down a star upon the target location that grants sight of the area before landing after 0.25 / 0.3 / 0.35 / 0.4 / 0.45 / 0.5 / 0.55 / 0.6 / 0.65 / 0.7 / 0.75 / 0.8 / 0.85 / 0.9 / 0.95 / 1 (based on target range) seconds, dealing magic damage to enemies hit and slowing them by 30% for 1.5 seconds."
+          }
+        ]
+      },
+      {
+        "text": "If this hits at least one enemy champion, star dust returns to Soraka, granting her Rejuvenation for 2.5 seconds. While Soraka has Rejuvenation, casting Astral Infusion will also grant Rejuvenation to the target for the same duration.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "label": "Rejuvenation",
+        "text": "Rejuvenation: Heal every 0.2 seconds and gain bonus movement speed that decays over the duration.",
+        "leveling": [
+          {
+            "label": "Total Heal",
+            "amount": {
+              "text": "60 / 75 / 90 / 105 / 120 (+ 30% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  60,
+                  75,
+                  90,
+                  105,
+                  120
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 30
+                  },
+                  "text": "(+ 30% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Heal per Tick",
+            "amount": {
+              "text": "5 / 6.25 / 7.5 / 8.75 / 10 (+ 2.5% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  5,
+                  6.25,
+                  7.5,
+                  8.75,
+                  10
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 2.5
+                  },
+                  "text": "(+ 2.5% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Bonus Movement Speed",
+            "amount": {
+              "text": "20 / 22.5 / 25 / 27.5 / 30%",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  20,
+                  22.5,
+                  25,
+                  27.5,
+                  30
+                ]
+              },
+              "unit": "%",
+              "scaling": [],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "heal",
+            "category": "defense",
+            "wording": "Heal",
+            "evidence": "Rejuvenation: Heal every 0.2 seconds and gain bonus movement speed that decays over the duration.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Starcall counts as hitting even if it gets blocked by spell shield, granting Rejuvenation.",
+      "Both the initial hit and the Rejuvenation projectile can be intercepted.",
+      "Rejuvenation heals over 12 ticks, with the first 4 each healing for about 15% of the heal, the next 4 ticks for about 5.5% each, and the last 4 for about 4.5% each.",
+      "Rejuvenation won't be granted to Soraka and she won't be able to make use of the health cost reduction on Astral Infusion until the projectile gets to her, but she is able to Rejuvenate allies as soon as the target is hit."
+    ]
+  },
+  {
+    "champion": "Soraka",
+    "kind": "R",
+    "name": "Wish",
+    "page": {
+      "title": "Template:Data Soraka/Wish",
+      "revid": 3907154
+    },
+    "ranks": 3,
+    "fields": {
+      "cooldown": {
+        "text": "150 / 135 / 120",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                150,
+                135,
+                120
+              ]
+            }
+          }
+        ]
+      },
+      "cost": {
+        "text": "100",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 100
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "0.25",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0.25
+            }
+          }
+        ]
+      },
+      "effectRadius": {
+        "text": "Global",
+        "values": []
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Auto"
+      ],
+      "affects": [
+        "Allies"
+      ],
+      "damageType": []
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Soraka calls upon the stars, healing herself and all allied champions, increased by 50% on targets below 40% of their maximum health.",
+        "leveling": [
+          {
+            "label": "Heal",
+            "amount": {
+              "text": "150 / 250 / 350 (+ 50% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  150,
+                  250,
+                  350
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 50
+                  },
+                  "text": "(+ 50% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Increased Heal",
+            "amount": {
+              "text": "225 / 375 / 525 (+ 75% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  225,
+                  375,
+                  525
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 75
+                  },
+                  "text": "(+ 75% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "heal",
+            "category": "defense",
+            "wording": "healing",
+            "evidence": "Active: Soraka calls upon the stars, healing herself and all allied champions, increased by 50% on targets below 40% of their maximum health.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Due to several character stats needing to be recalculated each time a character spawns, casting Wish immediately upon respawning will cause its cooldown to be unaffected by ability haste, and the healing will not be increased by Soraka's ability power.",
+      "Untargetability does not invalidate the targeting of the heal.",
+      "Wish will not credit Soraka for assisting in a champion kill if the target ally is at full health.",
+      "Wish will apply heal effects (such as Summon Aery) prioritizing targets based on the Spawn ID, which is the order in which units were added to an ongoing game. For champions, this is the order they appear in from left to right in the loading screen.",
+      "Wish's effects occur before the cast time.",
+      "Wish will apply to units that are affected by Mordekaisers R even if Soraka is not in the same realm."
+    ]
+  },
+  {
+    "champion": "Soraka",
+    "kind": "W",
+    "name": "Astral Infusion",
+    "page": {
+      "title": "Template:Data Soraka/Astral Infusion",
+      "revid": 4007066
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "6 / 5 / 4 / 3 / 2",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                6,
+                5,
+                4,
+                3,
+                2
+              ]
+            }
+          }
+        ]
+      },
+      "cost": {
+        "text": "10%",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 10
+            }
+          }
+        ]
+      },
+      "costType": "maximum health + 40 / 45 / 50 / 55 / 60 mana",
+      "castTime": {
+        "text": "0.25",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0.25
+            }
+          }
+        ]
+      },
+      "targetRange": {
+        "text": "550",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 550
+            }
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Unit"
+      ],
+      "affects": [
+        "Allies",
+        "Self"
+      ],
+      "damageType": [],
+      "projectile": "false"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Soraka heals the target allied champion.",
+        "leveling": [
+          {
+            "label": "Heal",
+            "amount": {
+              "text": "90 / 110 / 130 / 150 / 170 (+ 50% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  90,
+                  110,
+                  130,
+                  150,
+                  170
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 50
+                  },
+                  "text": "(+ 50% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "heal",
+            "category": "defense",
+            "wording": "heals",
+            "evidence": "Active: Soraka heals the target allied champion.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "If cast while under Rejuvenation, the health cost will be reduced by a percentage.",
+        "leveling": [
+          {
+            "label": "Health Cost Reduction",
+            "amount": {
+              "text": "80 / 85 / 90 / 95 / 100%",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  80,
+                  85,
+                  90,
+                  95,
+                  100
+                ]
+              },
+              "unit": "%",
+              "scaling": [],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Reduced Health Cost",
+            "amount": {
+              "text": "2 / 1.5 / 1 / 0.5 / 0% of maximum health",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  2,
+                  1.5,
+                  1,
+                  0.5,
+                  0
+                ]
+              },
+              "unit": "%",
+              "scaling": [],
+              "unparsed": "",
+              "baseStat": "maxHealth"
+            }
+          }
+        ],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "text": "Astral Infusion cannot be cast if Soraka is below 5% of her maximum health.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Astral Infusion can also be targeted on allied decoys.",
+      "Astral Infusion can be cast even if Soraka doesn't have the sufficient amount of health to pay for the health cost while above 5% of her maximum health.\n  - As with all abilities with health costs, Astral Infusion will not reduce Soraka's health below 1.",
+      "Spirit Visage will only increase the health donated to allies if the target ally possesses it, although owning it will boost the heal that Soraka receives from Starcall and Wish.",
+      "Astral Infusion's effects occur before the cast time.",
+      "Astral Infusion has a forgiveness radius of 175 units."
+    ]
+  }
+]

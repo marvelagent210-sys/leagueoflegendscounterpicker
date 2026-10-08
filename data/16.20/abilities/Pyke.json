@@ -1,0 +1,837 @@
+[
+  {
+    "champion": "Pyke",
+    "kind": "E",
+    "name": "Phantom Undertow",
+    "page": {
+      "title": "Template:Data Pyke/Phantom Undertow",
+      "revid": 4044071
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "15 / 14 / 13 / 12 / 11",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                15,
+                14,
+                13,
+                12,
+                11
+              ]
+            }
+          }
+        ]
+      },
+      "cost": {
+        "text": "40",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 40
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "none",
+        "values": []
+      },
+      "targetRange": {
+        "text": "550",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 550
+            }
+          }
+        ]
+      },
+      "effectRadius": {
+        "text": "110",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 110
+            },
+            "label": "Phantom unit checking for nearby units"
+          }
+        ]
+      },
+      "width": {
+        "text": "220",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 220
+            },
+            "label": "Phantom tracking missile"
+          }
+        ]
+      },
+      "speed": {
+        "text": "3000",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 3000
+            },
+            "label": "Both dash and returning phantom's missile speed"
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Direction"
+      ],
+      "affects": [
+        "Self",
+        "Enemies"
+      ],
+      "damageType": [
+        "Physical"
+      ],
+      "spellEffects": "spellaoe",
+      "spellShield": "true",
+      "projectile": "true",
+      "grounded": "true",
+      "knockdown": "true"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Pyke dashes in the target direction, leaving behind a Phantom. Pyke is ghosted while the Phantom is active.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "dash",
+            "category": "movement",
+            "wording": "dashes",
+            "evidence": "Active: Pyke dashes in the target direction, leaving behind a Phantom.",
+            "conditional": false
+          },
+          {
+            "type": "ghosted",
+            "category": "movement",
+            "wording": "ghosted",
+            "evidence": "Pyke is ghosted while the Phantom is active.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "After 1 second, the Phantom homes back to Pyke to stun enemies around it and those it passes through along the way for 1.25 (+ 0.1 per 10 Lethality) seconds. Enemy champions hit also take physical damage.",
+        "leveling": [
+          {
+            "label": "Physical Damage",
+            "amount": {
+              "text": "100 / 150 / 200 / 250 / 300 (+ 100% bonus AD)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  100,
+                  150,
+                  200,
+                  250,
+                  300
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "bonusAD",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 100
+                  },
+                  "text": "(+ 100% bonus AD)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "stun",
+            "category": "control",
+            "wording": "stun",
+            "evidence": "After 1 second, the Phantom homes back to Pyke to stun enemies around it and those it passes through along the way for 1.25 (+ 0.1 per 10 Lethality) seconds.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "The dash distance can be extended to up to 900 units (estimated) when targeting across terrain.",
+      "Like most projectiles, the flying Phantom cannot hit targets whose center is behind the position it originates at or beyond the position it catches up to Pyke at, but the spell can hit targets behind its origin as long as their hitbox radius overlaps with the original unit Phantom's 110-radius check at the end of its lifespan."
+    ]
+  },
+  {
+    "champion": "Pyke",
+    "kind": "I",
+    "name": "Gift of the Drowned Ones",
+    "page": {
+      "title": "Template:Data Pyke/Gift of the Drowned Ones",
+      "revid": 4007005
+    },
+    "ranks": 1,
+    "fields": {
+      "effectRadius": {
+        "text": "1500",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 1500
+            }
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Passive"
+      ],
+      "affects": [
+        "Self"
+      ],
+      "damageType": []
+    },
+    "parts": [
+      {
+        "label": "Innate",
+        "text": "Innate: Pyke's maximum health cannot increase except through growth (per level), instead he gains 1 bonus attack damage per 14 bonus health.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "label": "Innate",
+        "text": "Innate: Pyke gains 1 bonus movement speed while in the river.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "label": "Innate",
+        "text": "Innate: Pyke stores 9% (+ 0.2% per 1 Lethality) of the post-mitigation damage he takes from enemy champions as grey health on his health bar, increased to 40% (+ 0.4% per 1 Lethality) while there are two or more visible enemy champions nearby. He can store up to 80 (+ 800% bonus AD) grey health, with an upper cap of 55% of his maximum health.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "reveal",
+            "category": "vision",
+            "wording": "visible",
+            "evidence": "Innate: Pyke stores 9% (+ 0.2% per 1 Lethality) of the post-mitigation damage he takes from enemy champions as grey health on his health bar, increased to 40% (+ 0.4% per 1 Lethality) while there are two or more visible enemy champions nearby.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "While Pyke is not visible to enemies, he rapidly consumes his grey health to heal for the same amount.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "reveal",
+            "category": "vision",
+            "wording": "visible",
+            "evidence": "While Pyke is not visible to enemies, he rapidly consumes his grey health to heal for the same amount.",
+            "conditional": true
+          },
+          {
+            "type": "heal",
+            "category": "defense",
+            "wording": "heal",
+            "evidence": "While Pyke is not visible to enemies, he rapidly consumes his grey health to heal for the same amount.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Game elements that increase health based on the champion's health (e.g Overgrowth) will increase the health before getting converted by Gift of the Drowned Ones, thus granting increased bonus AD.",
+      "Pyke converts bonus health to bonus AD at a gold efficiency of 93.75%.",
+      "Spirit Visage and Grievous Wounds take effect after Gift of the Drowned Ones's healing cap.",
+      "Pyke's grey health does not have a time limit, and will stay on his health bar until Pyke leaves enemy vision or dies.\n  - However, if his combined current health and grey health would start to exceed 100% of his maximum health, the excess grey health is lost.",
+      "Since Pyke's maximum health cannot be increased, Gift of the Drowned Ones reaches the upper cap of 55% of maximum health at 40.25 – 180.5 (based on level) bonus attack damage.",
+      "Untargetable champions count towards Pyke's modified grey health storing.",
+      "Amount of attack damage granted from list of items that grants health, converted with Gift of the Drowned Ones:"
+    ]
+  },
+  {
+    "champion": "Pyke",
+    "kind": "Q",
+    "name": "Bone Skewer",
+    "page": {
+      "title": "Template:Data Pyke/Bone Skewer",
+      "revid": 4007993
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "10 / 9.5 / 9 / 8.5 / 8",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                10,
+                9.5,
+                9,
+                8.5,
+                8
+              ]
+            }
+          }
+        ]
+      },
+      "cooldownStart": "post-effect",
+      "cost": {
+        "text": "70 / 75 / 80 / 85 / 90",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                70,
+                75,
+                80,
+                85,
+                90
+              ]
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "0.25",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0.25
+            },
+            "label": "Quick-release"
+          }
+        ]
+      },
+      "targetRange": {
+        "text": "400 / 400 / 516.667 / 633.333 / 750 / 866.667 / 983.333 / 1100 (based on channel time)",
+        "values": [
+          {
+            "series": {
+              "kind": "variable",
+              "variable": "channel time",
+              "points": [
+                0,
+                0.4,
+                0.5,
+                0.6,
+                0.7,
+                0.8,
+                0.9,
+                1
+              ],
+              "values": [
+                400,
+                400,
+                516.6666666666666,
+                633.3333333333334,
+                750,
+                866.6666666666667,
+                983.3333333333334,
+                1100
+              ]
+            }
+          }
+        ]
+      },
+      "effectRadius": {
+        "text": "550",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 550
+            },
+            "label": "Pull range"
+          }
+        ]
+      },
+      "width": {
+        "text": "140 • 200",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 140
+            },
+            "label": "Harpoon missile"
+          },
+          {
+            "series": {
+              "kind": "constant",
+              "value": 200
+            },
+            "label": "Thrust hitbox"
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Auto",
+        "Direction"
+      ],
+      "affects": [
+        "Enemies"
+      ],
+      "damageType": [
+        "Physical"
+      ],
+      "spellEffects": "spell",
+      "spellShield": "true",
+      "projectile": "special",
+      "silence": "true"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Pyke charges while being slowed by 20% for up to 3 seconds to increase Bone Skewer's range over the first second of the channel. Bone Skewer can be recast within the duration.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "channel",
+            "category": "other",
+            "wording": "charges",
+            "duration": {
+              "kind": "constant",
+              "value": 3
+            },
+            "evidence": "Active: Pyke charges while being slowed by 20% for up to 3 seconds to increase Bone Skewer's range over the first second of the channel.",
+            "conditional": false
+          },
+          {
+            "type": "slow",
+            "category": "control",
+            "wording": "slowed",
+            "duration": {
+              "kind": "constant",
+              "value": 3
+            },
+            "amount": {
+              "kind": "constant",
+              "value": 20
+            },
+            "evidence": "Active: Pyke charges while being slowed by 20% for up to 3 seconds to increase Bone Skewer's range over the first second of the channel.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "label": "Recast",
+        "text": "Recast: Pyke hurls his harpoon in the target direction, becoming unable to act while it is in flight and dealing physical damage to the first enemy hit and pulling them, during which they are also revealed, then slowing them by 90% for 1 second.",
+        "leveling": [
+          {
+            "label": "Physical Damage",
+            "amount": {
+              "text": "100 / 150 / 200 / 250 / 300 (+ 75% bonus AD)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  100,
+                  150,
+                  200,
+                  250,
+                  300
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "bonusAD",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 75
+                  },
+                  "text": "(+ 75% bonus AD)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "lockout",
+            "category": "other",
+            "wording": "unable to act",
+            "duration": {
+              "kind": "constant",
+              "value": 1
+            },
+            "evidence": "Recast: Pyke hurls his harpoon in the target direction, becoming unable to act while it is in flight and dealing physical damage to the first enemy hit and pulling them, during which they are also revealed, then slowing them by 90% for 1 second.",
+            "conditional": false
+          },
+          {
+            "type": "airborne",
+            "category": "control",
+            "wording": "pulling",
+            "duration": {
+              "kind": "constant",
+              "value": 1
+            },
+            "evidence": "Recast: Pyke hurls his harpoon in the target direction, becoming unable to act while it is in flight and dealing physical damage to the first enemy hit and pulling them, during which they are also revealed, then slowing them by 90% for 1 second.",
+            "conditional": false
+          },
+          {
+            "type": "reveal",
+            "category": "vision",
+            "wording": "revealed",
+            "duration": {
+              "kind": "constant",
+              "value": 1
+            },
+            "evidence": "Recast: Pyke hurls his harpoon in the target direction, becoming unable to act while it is in flight and dealing physical damage to the first enemy hit and pulling them, during which they are also revealed, then slowing them by 90% for 1 second.",
+            "conditional": false
+          },
+          {
+            "type": "slow",
+            "category": "control",
+            "wording": "slowing",
+            "duration": {
+              "kind": "constant",
+              "value": 1
+            },
+            "amount": {
+              "kind": "constant",
+              "value": 90
+            },
+            "evidence": "Recast: Pyke hurls his harpoon in the target direction, becoming unable to act while it is in flight and dealing physical damage to the first enemy hit and pulling them, during which they are also revealed, then slowing them by 90% for 1 second.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "Releasing the ability within 0.4 seconds causes Pyke to instead thrust his blade in the target direction, dealing the same damage to the closest enemy champion, or closest enemy otherwise.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "text": "If the charge is interrupted or completes without reactivation, Bone Skewer is cancelled and the ability is put on full cooldown but refunds 75% of the mana cost. Bone Skewer's mana cost is also refunded if it hits an enemy champion.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "interrupt",
+            "category": "other",
+            "wording": "interrupted",
+            "evidence": "If the charge is interrupted or completes without reactivation, Bone Skewer is cancelled and the ability is put on full cooldown but refunds 75% of the mana cost.",
+            "conditional": true
+          }
+        ],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "This ability always employs quick cast.",
+      "Only the charged version of Bone Skewer will be intercepted.",
+      "The pull can fling an enemy behind Pyke if the harpoon hits at close range.",
+      "This ability will cast from wherever the caster is at the end of the cast time.",
+      "The following table refers for interactions while Pyke is channeling:",
+      "The following table refers for interactions while Pyke is locked out from the harpoon being in flight:\n  - The lockout ends as soon as the missile fizzles from hitting a target or reaching maximum range, or being intercepted."
+    ]
+  },
+  {
+    "champion": "Pyke",
+    "kind": "R",
+    "name": "Death from Below",
+    "page": {
+      "title": "Template:Data Pyke/Death from Below",
+      "revid": 4007995
+    },
+    "ranks": 3,
+    "fields": {
+      "cooldown": {
+        "text": "100 / 85 / 70",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                100,
+                85,
+                70
+              ]
+            }
+          }
+        ]
+      },
+      "cooldownStart": "on-cast",
+      "cost": {
+        "text": "100",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 100
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "0.5",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0.5
+            }
+          }
+        ]
+      },
+      "targetRange": {
+        "text": "750",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 750
+            }
+          }
+        ]
+      },
+      "effectRadius": {
+        "text": "125 • 282.5 × 100",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 125
+            },
+            "label": "Circle check in the center"
+          },
+          {
+            "series": {
+              "kind": "constant",
+              "value": 282.5
+            },
+            "label": "Arms length x width, Direction of arms 45° off the coordinate axes"
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Location"
+      ],
+      "affects": [
+        "Self",
+        "Enemies"
+      ],
+      "damageType": [
+        "Physical True"
+      ],
+      "spellEffects": "special",
+      "spellShield": "true",
+      "grounded": "true"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Pyke marks the target location with the shape of an X before striking it, executing enemy champions within the area that are below 250 / 290 / 330 / 370 / 400 / 430 / 450 / 470 / 490 / 510 / 530 / 540 / 550 (based on level) (+ 80% bonus AD) (+ 1.5 per 1 Lethality) health. Other enemies hit and enemy champions above the threshold are instead dealt 50% of the amount as physical damage.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "execute",
+            "category": "offense",
+            "wording": "executing",
+            "evidence": "Active: Pyke marks the target location with the shape of an X before striking it, executing enemy champions within the area that are below 250 / 290 / 330 / 370 / 400 / 430 / 450 / 470 / 490 / 510 / 530 / 540 / 550 (based on level) (+ 80% bonus AD) (+ 1.5 per 1 Lethality) health.",
+            "conditional": false
+          }
+        ],
+        "values": [
+          {
+            "series": {
+              "kind": "variable",
+              "variable": "level",
+              "points": [
+                6,
+                7,
+                8,
+                9,
+                10,
+                11,
+                12,
+                13,
+                14,
+                15,
+                16,
+                17,
+                18
+              ],
+              "values": [
+                250,
+                290,
+                330,
+                370,
+                400,
+                430,
+                450,
+                470,
+                490,
+                510,
+                530,
+                540,
+                550
+              ]
+            },
+            "context": "Active: Pyke marks the target location with the shape of an X before striking it, executing enemy champions within the area that are below 250 / 290 / 330 / 370 / 400 / 430 / 450 / 470 / 490 / 510 / 530 / 540 / 550 (based on level) (+ 80% bonus AD) (+ 1.5 per 1 Lethality) health."
+          }
+        ]
+      },
+      {
+        "text": "If Death from Below hits an enemy champion or at least one is killed inside the X by the execution or an ally, Pyke will blink to the center of the X. For the latter case Pyke can also recast the ability within 20 seconds at no cost.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "blink",
+            "category": "movement",
+            "wording": "blink",
+            "evidence": "If Death from Below hits an enemy champion or at least one is killed inside the X by the execution or an ally, Pyke will blink to the center of the X.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "Each successful execution grants one Your Cut to the last assisting ally, instead of its natural assist gold. Otherwise, Pyke is granted a Your Cut for each enemy champion killed inside the X by an ally during Death from Below's cast time.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Applies raw damage to executed targets and area damage to targets above the threshold.",
+      "Death from Below's execute against an enemy champion will aggro nearby enemy minions.",
+      "Death from Below cannot execute clones. They are always dealt 50% physical damage.",
+      "If the target is in a zombie state, does not enter the death state, or is killed by the ability while above the execution threshold, Death from Below does not grant Your Cut nor the recast.",
+      "Spell shield does not prevent Pyke from blinking.",
+      "Death from Below cannot be interrupted; Pyke will always appear at the target location if enemy champions are caught inside the X even if he is moved (e.g. by being displaced) during the cast time.\n  - The only exception is if he is being suppressed, in which case he will not blink.",
+      "Axiom Arcanist does not refund the cooldown while Pyke is able to recast.\n  - Axiom Arcanist's tooltip counts it refunding Death from Below even when it doesn't.",
+      "Death from Below will not go on cooldown if Pyke dies during its cast.\n  - Pyke will still generate Your Cut from enemies that die inside the X before Pyke dies."
+    ]
+  },
+  {
+    "champion": "Pyke",
+    "kind": "W",
+    "name": "Ghostwater Dive",
+    "page": {
+      "title": "Template:Data Pyke/Ghostwater Dive",
+      "revid": 4050339
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "14 / 13 / 12 / 11 / 10",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                14,
+                13,
+                12,
+                11,
+                10
+              ]
+            }
+          }
+        ]
+      },
+      "cost": {
+        "text": "65",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 65
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "none",
+        "values": []
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Auto"
+      ],
+      "affects": [
+        "Self"
+      ],
+      "damageType": []
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Pyke submerges into water for 5 seconds, entering camouflage and gaining 45% (+ 2% per 1 Lethality) bonus movement speed that decays over the duration. Attacking or casting abilities ends Ghostwater Dive immediately.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "camouflage",
+            "category": "vision",
+            "wording": "camouflage",
+            "duration": {
+              "kind": "constant",
+              "value": 5
+            },
+            "evidence": "Active: Pyke submerges into water for 5 seconds, entering camouflage and gaining 45% (+ 2% per 1 Lethality) bonus movement speed that decays over the duration.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "Enemy champions within 1500 units of Pyke are alerted of his presence and whether he can execute them with Death from Below.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      }
+    ],
+    "custom": [
+      {
+        "label": "Detection Radius",
+        "text": "600"
+      }
+    ],
+    "notes": [
+      "When an enemy is alerted, sharks will circle underneath their feet while a sound will be played to them that changes based on health threshold.",
+      "Using a basic attack breaks the stealth at the end of the attack windup.",
+      "While submerged, a unique visual indicator will appear above Pyke if there are enemy champions closer than 700 units but farther than 600 units."
+    ]
+  }
+]

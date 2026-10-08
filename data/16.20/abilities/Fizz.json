@@ -1,0 +1,1047 @@
+[
+  {
+    "champion": "Fizz",
+    "kind": "E",
+    "name": "Playful",
+    "page": {
+      "title": "Template:Data Fizz/Playful",
+      "revid": 4008451
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "16 / 14 / 12 / 10 / 8",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                16,
+                14,
+                12,
+                10,
+                8
+              ]
+            }
+          }
+        ]
+      },
+      "cooldownStart": "post-effect",
+      "cost": {
+        "text": "75 / 80 / 85 / 90 / 95",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                75,
+                80,
+                85,
+                90,
+                95
+              ]
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "none",
+        "values": []
+      },
+      "targetRange": {
+        "text": "25 - 400",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 25
+            },
+            "label": "Minimum and maximum dash distance"
+          }
+        ]
+      },
+      "effectRadius": {
+        "text": "375",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 375
+            }
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Location"
+      ],
+      "affects": [
+        "Enemies"
+      ],
+      "damageType": [
+        "Magic"
+      ],
+      "spellEffects": "spellaoe",
+      "spellShield": "true",
+      "grounded": "true",
+      "knockdown": "special"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Fizz dashes to the target location while becoming untargetable, balancing on his trident for 0.75 seconds, during which he can cast Trickster after 0.15 seconds into the duration.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "dash",
+            "category": "movement",
+            "wording": "dashes",
+            "evidence": "Active: Fizz dashes to the target location while becoming untargetable, balancing on his trident for 0.75 seconds, during which he can cast Trickster after 0.15 seconds into the duration.",
+            "conditional": false
+          },
+          {
+            "type": "untargetable",
+            "category": "defense",
+            "wording": "untargetable",
+            "duration": {
+              "kind": "constant",
+              "value": 0.75
+            },
+            "evidence": "Active: Fizz dashes to the target location while becoming untargetable, balancing on his trident for 0.75 seconds, during which he can cast Trickster after 0.15 seconds into the duration.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "He then begins to hop off of his trident over 0.5 seconds, during which he gains 50% bonus movement speed, and afterwards becoming targetable and landing to create a splash that deals magic damage to nearby enemies and slows them for 2 seconds.",
+        "leveling": [
+          {
+            "label": "Magic Damage",
+            "amount": {
+              "text": "80 / 130 / 180 / 230 / 280 (+ 95% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  80,
+                  130,
+                  180,
+                  230,
+                  280
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 95
+                  },
+                  "text": "(+ 95% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Slow",
+            "amount": {
+              "text": "40 / 45 / 50 / 55 / 60%",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  40,
+                  45,
+                  50,
+                  55,
+                  60
+                ]
+              },
+              "unit": "%",
+              "scaling": [],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "slow",
+            "category": "control",
+            "wording": "slows",
+            "duration": {
+              "kind": "constant",
+              "value": 2
+            },
+            "amount": {
+              "kind": "rank",
+              "values": [
+                40,
+                45,
+                50,
+                55,
+                60
+              ]
+            },
+            "evidence": "He then begins to hop off of his trident over 0.5 seconds, during which he gains 50% bonus movement speed, and afterwards becoming targetable and landing to create a splash that deals magic damage to nearby enemies and slows them for 2 seconds.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "While hopping off of the trident, Fizz may input movement commands to direct his landing.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "This ability always employs quick cast.",
+      "Playful counts as an ability activation for the purposes of on-cast effects such as Spellblade and triggering Force Pulse passive.\n  - Detonating the ability early for Trickster does not.",
+      "The distance covered during Playful's directed splash is equal to half of Fizz's movement speed.",
+      "Playful cannot be used for approximately 0.5 seconds after using Urchin Strike.",
+      "Flash can be used while hopping off the trident, but not while balanced on it.",
+      "Fizz can receive aggro while hopping off the trident, but not while balanced on it",
+      "If Playful is cast while under the effect of a move block, Fizz will not become untargetable and will initiate the hop instantly.\n  - If Trickster is cast, the splash will not occur.",
+      "If Fizz casts Playful on top of himself after blinking and not moving from the blinked-to spot, the minimum dash distance of 25 units will not apply (casts at 0 range).",
+      "If Fizz enters stasis during either Playful or Trickster, the splash occurs after the stasis ends."
+    ]
+  },
+  {
+    "champion": "Fizz",
+    "kind": "E",
+    "name": "Trickster",
+    "page": {
+      "title": "Template:Data Fizz/Trickster",
+      "revid": 4007741
+    },
+    "ranks": 5,
+    "fields": {
+      "targetRange": {
+        "text": "75 - 300",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 75
+            },
+            "label": "Minimum and maximum dash distance"
+          }
+        ]
+      },
+      "effectRadius": {
+        "text": "225",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 225
+            }
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Location"
+      ],
+      "affects": [
+        "Enemies"
+      ],
+      "damageType": [
+        "Magic"
+      ],
+      "spellEffects": "spellaoe",
+      "spellShield": "true",
+      "grounded": "true",
+      "knockdown": "true"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Fizz dashes to the target location, hopping down and splashing onto the ground prematurely upon arrival to deal the same magic damage in a smaller radius but not applying the slow.",
+        "leveling": [
+          {
+            "label": "Magic Damage",
+            "amount": {
+              "text": "80 / 130 / 180 / 230 / 280 (+ 95% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  80,
+                  130,
+                  180,
+                  230,
+                  280
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 95
+                  },
+                  "text": "(+ 95% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "dash",
+            "category": "movement",
+            "wording": "dashes",
+            "evidence": "Active: Fizz dashes to the target location, hopping down and splashing onto the ground prematurely upon arrival to deal the same magic damage in a smaller radius but not applying the slow.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "This ability always employs quick cast.",
+      "Trickster does not count as an ability activation.",
+      "Both Playful and Trickster's dashes may be directed separately.",
+      "Flash cannot be used during the dash.",
+      "The splash occurs immediately if Fizz encounters terrain that cannot be dashed through (he has to be particularly close to the wall)."
+    ]
+  },
+  {
+    "champion": "Fizz",
+    "kind": "I",
+    "name": "Nimble Fighter",
+    "page": {
+      "title": "Template:Data Fizz/Nimble Fighter",
+      "revid": 4042251
+    },
+    "ranks": 1,
+    "fields": {},
+    "flags": {
+      "targeting": [
+        "Passive"
+      ],
+      "affects": [
+        "Self"
+      ],
+      "damageType": []
+    },
+    "parts": [
+      {
+        "label": "Innate",
+        "text": "Innate: Fizz is permanently ghosted and reduces every instance of pre-mitigation damage taken by 4 (+ 1% AP), up to a maximum of 50% reduction. The damage reduction is increased to 14 (+ 1% AP) against monsters.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "ghosted",
+            "category": "movement",
+            "wording": "ghosted",
+            "evidence": "Innate: Fizz is permanently ghosted and reduces every instance of pre-mitigation damage taken by 4 (+ 1% AP), up to a maximum of 50% reduction.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "No additional notes."
+    ]
+  },
+  {
+    "champion": "Fizz",
+    "kind": "Q",
+    "name": "Urchin Strike",
+    "page": {
+      "title": "Template:Data Fizz/Urchin Strike",
+      "revid": 3948968
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "8 / 7.5 / 7 / 6.5 / 6",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                8,
+                7.5,
+                7,
+                6.5,
+                6
+              ]
+            }
+          }
+        ]
+      },
+      "cost": {
+        "text": "50",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 50
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "none",
+        "values": []
+      },
+      "targetRange": {
+        "text": "550",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 550
+            }
+          }
+        ]
+      },
+      "range": {
+        "text": "550",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 550
+            },
+            "label": "Fixed dash distance"
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Unit"
+      ],
+      "affects": [
+        "Enemies"
+      ],
+      "damageType": [
+        "Physical Magic"
+      ],
+      "spellEffects": "spell",
+      "spellShield": "true",
+      "parry": "true",
+      "grounded": "true",
+      "knockdown": "true"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Fizz dashes a fixed distance in the direction of the target enemy. If they are in range upon arrival, he deals magic damage plus 100% AD physical damage and applies on-hit effects.",
+        "leveling": [
+          {
+            "label": "Magic Damage",
+            "amount": {
+              "text": "10 / 25 / 40 / 55 / 70 (+ 55% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  10,
+                  25,
+                  40,
+                  55,
+                  70
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 55
+                  },
+                  "text": "(+ 55% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "dash",
+            "category": "movement",
+            "wording": "dashes",
+            "evidence": "Active: Fizz dashes a fixed distance in the direction of the target enemy.",
+            "conditional": false
+          },
+          {
+            "type": "on-hit",
+            "category": "offense",
+            "wording": "on-hit",
+            "evidence": "If they are in range upon arrival, he deals magic damage plus 100% AD physical damage and applies on-hit effects.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "Seastone Trident and Chum the Waters can be cast during the dash.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Urchin Strike can only go through walls if the target is on the other side.",
+      "Urchin Strike only damages targets if within 200 units of their original location upon completion of the dash.",
+      "Fizz will be automatically ordered to basic attack the target after Urchin Strike.",
+      "Urchin Strike does not deal damage if the target is untargetable.",
+      "Life steal applies only on the physical damage component. Spell vamp applies to both the physical damage and bonus magic damage."
+    ]
+  },
+  {
+    "champion": "Fizz",
+    "kind": "R",
+    "name": "Chum the Waters",
+    "page": {
+      "title": "Template:Data Fizz/Chum the Waters",
+      "revid": 4010638
+    },
+    "ranks": 3,
+    "fields": {
+      "cooldown": {
+        "text": "120 / 100 / 80",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                120,
+                100,
+                80
+              ]
+            }
+          }
+        ]
+      },
+      "cost": {
+        "text": "100",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 100
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "0.25",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0.25
+            }
+          }
+        ]
+      },
+      "targetRange": {
+        "text": "1300",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 1300
+            }
+          }
+        ]
+      },
+      "speed": {
+        "text": "1300",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 1300
+            }
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Location"
+      ],
+      "affects": [
+        "Enemies"
+      ],
+      "damageType": [
+        "Magic"
+      ],
+      "spellEffects": "spellaoe",
+      "spellShield": "special",
+      "projectile": "special"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Fizz throws down a lure at the target location that attracts a shark, granting sight of the area before it emerges to chomp at the lure after 2 seconds, dealing magic damage to nearby enemies, knocking them back, though not through terrain, and slowing them for 2 seconds. The further the lure travels in its initial flight, the larger the shark that is attracted; increasing Chum the Waters' damage, slow, eruption radius and knock back distance.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "reveal",
+            "category": "vision",
+            "wording": "sight",
+            "duration": {
+              "kind": "constant",
+              "value": 2
+            },
+            "evidence": "Active: Fizz throws down a lure at the target location that attracts a shark, granting sight of the area before it emerges to chomp at the lure after 2 seconds, dealing magic damage to nearby enemies, knocking them back, though not through terrain, and slowing them for 2 seconds.",
+            "conditional": false
+          },
+          {
+            "type": "airborne",
+            "category": "control",
+            "wording": "knocking them back",
+            "duration": {
+              "kind": "constant",
+              "value": 2
+            },
+            "evidence": "Active: Fizz throws down a lure at the target location that attracts a shark, granting sight of the area before it emerges to chomp at the lure after 2 seconds, dealing magic damage to nearby enemies, knocking them back, though not through terrain, and slowing them for 2 seconds.",
+            "conditional": false
+          },
+          {
+            "type": "slow",
+            "category": "control",
+            "wording": "slowing",
+            "duration": {
+              "kind": "constant",
+              "value": 2
+            },
+            "evidence": "Active: Fizz throws down a lure at the target location that attracts a shark, granting sight of the area before it emerges to chomp at the lure after 2 seconds, dealing magic damage to nearby enemies, knocking them back, though not through terrain, and slowing them for 2 seconds.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "label": "Guppy (<455)",
+        "text": "Guppy (<455): 40% slow, 200 eruption radius and 150 unit knock back distance.",
+        "leveling": [
+          {
+            "label": "Guppy Damage",
+            "amount": {
+              "text": "180 / 300 / 420 (+ 60% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  180,
+                  300,
+                  420
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 60
+                  },
+                  "text": "(+ 60% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "label": "Chomper (455-910)",
+        "text": "Chomper (455-910): 125% damage, 60% slow, 325 eruption radius and 250 unit knock back distance.",
+        "leveling": [
+          {
+            "label": "Chomper Damage",
+            "amount": {
+              "text": "225 / 375 / 525 (+ 75% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  225,
+                  375,
+                  525
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 75
+                  },
+                  "text": "(+ 75% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [],
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 125
+            },
+            "context": "Chomper (455-910): 125% damage, 60% slow, 325 eruption radius and 250 unit knock back distance."
+          }
+        ]
+      },
+      {
+        "label": "Gigalodon (>910)",
+        "text": "Gigalodon (>910): 150% damage, 80% slow, 450 eruption radius and 350 unit knock back distance.",
+        "leveling": [
+          {
+            "label": "Gigalodon Damage",
+            "amount": {
+              "text": "270 / 450 / 630 (+ 90% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  270,
+                  450,
+                  630
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 90
+                  },
+                  "text": "(+ 90% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [],
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 150
+            },
+            "context": "Gigalodon (>910): 150% damage, 80% slow, 450 eruption radius and 350 unit knock back distance."
+          }
+        ]
+      },
+      {
+        "text": "Enemy champions can intercept the lure while it is in flight, which attaches to them upon contact and causes the shark to emerge at their position after the same delay. The lure's holder is slowed and revealed for the duration and afterwards is impacted by the eruption but is knocked up for 1 second instead of knocked back.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "slow",
+            "category": "control",
+            "wording": "slowed",
+            "duration": {
+              "kind": "constant",
+              "value": 1
+            },
+            "evidence": "The lure's holder is slowed and revealed for the duration and afterwards is impacted by the eruption but is knocked up for 1 second instead of knocked back.",
+            "conditional": false
+          },
+          {
+            "type": "true sight",
+            "category": "vision",
+            "wording": "revealed",
+            "duration": {
+              "kind": "constant",
+              "value": 1
+            },
+            "evidence": "The lure's holder is slowed and revealed for the duration and afterwards is impacted by the eruption but is knocked up for 1 second instead of knocked back.",
+            "conditional": false
+          },
+          {
+            "type": "airborne",
+            "category": "control",
+            "wording": "knocked up",
+            "duration": {
+              "kind": "constant",
+              "value": 1
+            },
+            "evidence": "The lure's holder is slowed and revealed for the duration and afterwards is impacted by the eruption but is knocked up for 1 second instead of knocked back.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Chum the Waters will not attach the lure to an enemy champion if they have a spell shield as well as against an enemy Malzahar with his Void Shift active (mitigation effect is consumed in both cases).\n  - The area of effect for the eruption will be at the target's location at the time of the attachment being blocked; the target will intercept the lure without getting attached to it.",
+      "Chum the Waters' lure missile will stop its movement upon colliding with Blade Whirl or Wind Wall specifically, creating the area of effect for the eruption prematurely without destroying the missile. Collision with Rebuttal will destroy it altogether, however.",
+      "This ability will cast from wherever the caster is at the end of the cast time.\n  - The targeted area does not change unless the ability was cast beyond maximum range.",
+      "If the lure attaches to an enemy champion, a countdown will appear at their position to signify when the shark is about to emerge. The countdown begins from 4, and ticks down by one every 0.5 seconds."
+    ]
+  },
+  {
+    "champion": "Fizz",
+    "kind": "W",
+    "name": "Seastone Trident",
+    "page": {
+      "title": "Template:Data Fizz/Seastone Trident",
+      "revid": 4015181
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "7 / 6 / 5 / 4 / 3",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                7,
+                6,
+                5,
+                4,
+                3
+              ]
+            }
+          }
+        ]
+      },
+      "cooldownStart": "post-effect",
+      "cost": {
+        "text": "30 / 40 / 50 / 60 / 70",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                30,
+                40,
+                50,
+                60,
+                70
+              ]
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "none",
+        "values": []
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Auto"
+      ],
+      "affects": [
+        "Enemies"
+      ],
+      "damageType": [
+        "Magic"
+      ],
+      "spellEffects": "special",
+      "spellShield": "true",
+      "parry": "special"
+    },
+    "parts": [
+      {
+        "label": "Passive",
+        "text": "Passive: Fizz's basic attacks rend enemies on-hit, dealing magic damage every 0.5 seconds over 3 seconds, refreshing on subsequent hits.",
+        "leveling": [
+          {
+            "label": "Total Passive Magic Damage",
+            "amount": {
+              "text": "30 / 45 / 60 / 75 / 90 (+ 25% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  30,
+                  45,
+                  60,
+                  75,
+                  90
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 25
+                  },
+                  "text": "(+ 25% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Passive Magic Damage per Tick",
+            "amount": {
+              "text": "5 / 7.5 / 10 / 12.5 / 15 (+ 4.16667% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  5,
+                  7.5,
+                  10,
+                  12.5,
+                  15
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 4.166666666666667
+                  },
+                  "text": "(+ 4.16667% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "on-hit",
+            "category": "offense",
+            "wording": "on-hit",
+            "evidence": "Passive: Fizz's basic attacks rend enemies on-hit, dealing magic damage every 0.5 seconds over 3 seconds, refreshing on subsequent hits.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "label": "Active",
+        "text": "Active: Fizz empowers his next basic attack within 4 seconds to have an uncancellable windup, gain 50 bonus range, and deal bonus magic damage.",
+        "leveling": [
+          {
+            "label": "Active Magic Damage",
+            "amount": {
+              "text": "50 / 75 / 100 / 125 / 150 (+ 45% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  50,
+                  75,
+                  100,
+                  125,
+                  150
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 45
+                  },
+                  "text": "(+ 45% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "uncancellable windup",
+            "category": "offense",
+            "wording": "uncancellable windup",
+            "evidence": "Active: Fizz empowers his next basic attack within 4 seconds to have an uncancellable windup, gain 50 bonus range, and deal bonus magic damage.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "If Seastone Trident kills its target, the cooldown is reduced to 1 second and the mana cost is refunded. Otherwise, if the target is not killed, Fizz's basic attacks deal bonus magic damage on-hit for the next 5 seconds.",
+        "leveling": [
+          {
+            "label": "Active On-Hit Magic Damage",
+            "amount": {
+              "text": "20 / 25 / 30 / 35 / 40 (+ 30% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  20,
+                  25,
+                  30,
+                  35,
+                  40
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 30
+                  },
+                  "text": "(+ 30% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "on-hit",
+            "category": "offense",
+            "wording": "on-hit",
+            "evidence": "Otherwise, if the target is not killed, Fizz's basic attacks deal bonus magic damage on-hit for the next 5 seconds.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "Seastone Trident's active damage can be applied against structures at 50% effectiveness. Active and on-hit damage deal an additional 90 bonus magic damage against monsters.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "text": "Seastone Trident resets Fizz's basic attack timer.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "attack reset",
+            "category": "offense",
+            "wording": "resets",
+            "evidence": "Seastone Trident resets Fizz's basic attack timer.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Applies spell damage on the empowered attack, persistent damage additionally tagged as indirect damage on the damage over time effect, and proc damage on the bonus damage on-hit.",
+      "Seastone Trident's interactions with dodging, blocking, and blinding effects.\n  - The passive bonus damage gets negated by dodging or blocking the attack, or if Fizz is blinded.\n  - The active:\n    - If the attacked enemy is dodging or if Fizz is blinded, the empowered attack won't deal any damage, but the empowered attack won't be consumed.\n    - If the attacked enemy is blocking, the empowered attack won't deal any damage despite being consumed. But the attack will apply the passive bonus damage of Seastone Trident.",
+      "The empowered attack will trigger against structures."
+    ]
+  }
+]

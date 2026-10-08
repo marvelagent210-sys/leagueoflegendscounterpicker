@@ -1,0 +1,1067 @@
+[
+  {
+    "champion": "Azir",
+    "kind": "E",
+    "name": "Shifting Sands",
+    "page": {
+      "title": "Template:Data Azir/Shifting Sands",
+      "revid": 4022609
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "22 / 20.5 / 19 / 17.5 / 16",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                22,
+                20.5,
+                19,
+                17.5,
+                16
+              ]
+            }
+          }
+        ]
+      },
+      "cost": {
+        "text": "60",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 60
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "none",
+        "values": []
+      },
+      "targetRange": {
+        "text": "1100",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 1100
+            }
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Unit"
+      ],
+      "affects": [
+        "Self",
+        "Enemies"
+      ],
+      "damageType": [
+        "Magic"
+      ],
+      "spellEffects": "spellaoe",
+      "spellShield": "true",
+      "grounded": "true",
+      "knockdown": "true"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Azir grants himself a shield for 1.5 seconds and dashes to the Sand Soldier closest to the cursor, dealing magic damage to enemies within his path.",
+        "leveling": [
+          {
+            "label": "Shield Strength",
+            "amount": {
+              "text": "70 / 110 / 150 / 190 / 230 (+ 60% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  70,
+                  110,
+                  150,
+                  190,
+                  230
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 60
+                  },
+                  "text": "(+ 60% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Magic Damage",
+            "amount": {
+              "text": "70 / 110 / 150 / 190 / 230 (+ 60% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  70,
+                  110,
+                  150,
+                  190,
+                  230
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 60
+                  },
+                  "text": "(+ 60% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "shield",
+            "category": "defense",
+            "wording": "shield",
+            "duration": {
+              "kind": "constant",
+              "value": 1.5
+            },
+            "evidence": "Active: Azir grants himself a shield for 1.5 seconds and dashes to the Sand Soldier closest to the cursor, dealing magic damage to enemies within his path.",
+            "conditional": false
+          },
+          {
+            "type": "dash",
+            "category": "movement",
+            "wording": "dashes",
+            "evidence": "Active: Azir grants himself a shield for 1.5 seconds and dashes to the Sand Soldier closest to the cursor, dealing magic damage to enemies within his path.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "If Azir dashes into an enemy champion, he stops and gains a charge of Arise!.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "text": "A summoned Sand Soldier is required to cast this ability. Azir can cast any of his abilities during the dash.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Azir will track the Sand Soldier if they change locations, such as by Conquering Sands.",
+      "Movement and attack commands will be canceled upon cast and cannot be issued again until Azir arrives at his final location."
+    ]
+  },
+  {
+    "champion": "Azir",
+    "kind": "I",
+    "name": "Shurima's Legacy",
+    "page": {
+      "title": "Template:Data Azir/Shurima's Legacy",
+      "revid": 3962342
+    },
+    "ranks": 1,
+    "fields": {
+      "staticCooldown": {
+        "text": "90",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 90
+            },
+            "label": "Starts after Sun Disc is destroyed/expired"
+          }
+        ]
+      },
+      "targetRange": {
+        "text": "700",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 700
+            }
+          }
+        ]
+      },
+      "tetherRadius": {
+        "text": "2000",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 2000
+            }
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Unit"
+      ],
+      "affects": [
+        "Turret ruins"
+      ],
+      "damageType": [
+        "Physical"
+      ],
+      "spellEffects": "spell",
+      "spellShield": "false",
+      "projectile": "false"
+    },
+    "parts": [
+      {
+        "label": "Innate",
+        "text": "Innate: Whenever a turret outside the enemy team's base is destroyed, a marker is placed above its ruins which can be targeted by Azir.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "label": "Innate - Disc of the Sun",
+        "text": "Innate - Disc of the Sun: Azir can select a marker to construct the Sun Disc above the ruins after a 0.5-second cast time. The Sun Disc will activate after being assembled over 5 seconds.\n\nAzir cannot construct a Sun Disc with the marker while he is affected by cast-inhibiting crowd control or a lockout that disables abilities.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "lockout",
+            "category": "other",
+            "wording": "lockout",
+            "evidence": "Azir cannot construct a Sun Disc with the marker while he is affected by cast-inhibiting crowd control or a lockout that disables abilities.",
+            "conditional": true
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "The Sun Disc functions the same as a standard inner turret but deals magic damage, gains 40% AP bonus attack damage, and grants its kill credit to Azir. The Sun Disc's health decays over 45 seconds and loses 100 armor and 100 magic resistance while Azir is not alive or is too far away.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "text": "See Pets for more details about the Sun Disc.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "No additional notes."
+    ]
+  },
+  {
+    "champion": "Azir",
+    "kind": "Q",
+    "name": "Conquering Sands",
+    "page": {
+      "title": "Template:Data Azir/Conquering Sands",
+      "revid": 4051339
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "14 / 12 / 10 / 8 / 6",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                14,
+                12,
+                10,
+                8,
+                6
+              ]
+            }
+          }
+        ]
+      },
+      "cost": {
+        "text": "70 / 80 / 90 / 100 / 110",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                70,
+                80,
+                90,
+                100,
+                110
+              ]
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "0.25",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0.25
+            }
+          }
+        ]
+      },
+      "targetRange": {
+        "text": "740",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 740
+            }
+          }
+        ]
+      },
+      "effectRadius": {
+        "text": "150 • 325",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 150
+            },
+            "label": "Dashing soldier dash collision radius"
+          },
+          {
+            "series": {
+              "kind": "constant",
+              "value": 325
+            },
+            "label": "Spear length"
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Location"
+      ],
+      "affects": [
+        "Enemies"
+      ],
+      "damageType": [
+        "Magic"
+      ],
+      "spellEffects": "spellaoe",
+      "spellShield": "true",
+      "projectile": "special"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Azir orders all Sand Soldiers to dash toward the target location, dealing magic damage to all enemies they pass through as well as those in front of them upon arrival, and slowing them by 25% for 1 second.",
+        "leveling": [
+          {
+            "label": "Magic Damage",
+            "amount": {
+              "text": "75 / 95 / 115 / 135 / 155 (+ 35 / 40 / 45 / 50 / 55% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  75,
+                  95,
+                  115,
+                  135,
+                  155
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "rank",
+                    "values": [
+                      35,
+                      40,
+                      45,
+                      50,
+                      55
+                    ]
+                  },
+                  "text": "(+ 35 / 40 / 45 / 50 / 55% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "slow",
+            "category": "control",
+            "wording": "slowing",
+            "duration": {
+              "kind": "constant",
+              "value": 1
+            },
+            "amount": {
+              "kind": "constant",
+              "value": 25
+            },
+            "evidence": "Active: Azir orders all Sand Soldiers to dash toward the target location, dealing magic damage to all enemies they pass through as well as those in front of them upon arrival, and slowing them by 25% for 1 second.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "Enemies hit by subsequent soldiers take no additional damage or slow.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "slow",
+            "category": "control",
+            "wording": "slow",
+            "evidence": "Enemies hit by subsequent soldiers take no additional damage or slow.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "A summoned Sand Soldier is required to cast this ability.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Sand Soldiers dash about 50 units further away from Azir than the target location, making them stab targets slightly further away.",
+      "Sand Soldiers will stop their movement upon colliding with Wind Wall or Rebuttal, but not Unbreakable.",
+      "Sand Soldiers will automatically turn to face nearby enemy champions after the dash.\n  - This happens even if they're in stealth.",
+      "If there are multiple active Sand Soldiers, rather than all soldiers arriving at the target location they make a formation around it instead.\n  - If the number of soldiers is 2, then neither will arrive at the location.\n  - If the number of soldiers is greater than 2, then 1 soldier will arrive at the location and the rest will arrive around it.\n  - This can produce unexpected results as soldiers arrive at different distances and locations and the determination of the placement is undocumented.\n    - This has gameplay implications for casting at max range."
+    ]
+  },
+  {
+    "champion": "Azir",
+    "kind": "R",
+    "name": "Emperor's Divide",
+    "page": {
+      "title": "Template:Data Azir/Emperor's Divide",
+      "revid": 4042859
+    },
+    "ranks": 3,
+    "fields": {
+      "cooldown": {
+        "text": "120 / 105 / 90",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                120,
+                105,
+                90
+              ]
+            }
+          }
+        ]
+      },
+      "cost": {
+        "text": "100",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 100
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "0.5",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0.5
+            }
+          }
+        ]
+      },
+      "targetRange": {
+        "text": "400 • -325",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 400
+            },
+            "label": "Charge distance in front of Azir, wall location"
+          },
+          {
+            "series": {
+              "kind": "constant",
+              "value": 325
+            },
+            "label": "Starting location behind Azir, see notes"
+          }
+        ]
+      },
+      "effectRadius": {
+        "text": "125",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 125
+            },
+            "label": "Soldier radius, 'lollipop' radius where they come to halt"
+          }
+        ]
+      },
+      "speed": {
+        "text": "1000 • 1400",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 1000
+            },
+            "label": "Knockback missiles speed"
+          },
+          {
+            "series": {
+              "kind": "constant",
+              "value": 1400
+            },
+            "label": "Soldiers dash speed"
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Direction"
+      ],
+      "affects": [
+        "Enemies"
+      ],
+      "damageType": [
+        "Magic"
+      ],
+      "spellEffects": "spellaoe",
+      "spellShield": "true",
+      "projectile": "special"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Azir calls forth a phalanx of soldiers from 175 units behind him, catching enemies from up to 325 units behind him and charging forward 575 units in the target direction.",
+        "leveling": [
+          {
+            "label": "Width",
+            "amount": {
+              "text": "6 / 7 / 8 soldiers",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  6,
+                  7,
+                  8
+                ]
+              },
+              "unit": "soldiers",
+              "scaling": [],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Width (charge)",
+            "amount": {
+              "text": "620 / 720 / 820",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  620,
+                  720,
+                  820
+                ]
+              },
+              "scaling": [],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Width (impassable wall)",
+            "amount": {
+              "text": "750 / 850 / 950",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  750,
+                  850,
+                  950
+                ]
+              },
+              "scaling": [],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "text": "Enemies impacted by the charge are dealt magic damage and knocked away over 1 second to a line 650 units in front of Azir.",
+        "leveling": [
+          {
+            "label": "Magic Damage",
+            "amount": {
+              "text": "200 / 400 / 600 (+ 75% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  200,
+                  400,
+                  600
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 75
+                  },
+                  "text": "(+ 75% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "airborne",
+            "category": "control",
+            "wording": "knocked away",
+            "duration": {
+              "kind": "constant",
+              "value": 1
+            },
+            "evidence": "Enemies impacted by the charge are dealt magic damage and knocked away over 1 second to a line 650 units in front of Azir.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "Upon finishing their charge, the soldiers stand as a wall for 5 seconds, acting as impassible terrain against enemies and granting sight of their surroundings. Azir and his allies can move through these soldiers.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "reveal",
+            "category": "vision",
+            "wording": "sight",
+            "evidence": "Upon finishing their charge, the soldiers stand as a wall for 5 seconds, acting as impassible terrain against enemies and granting sight of their surroundings.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Monsters are also knocked back.",
+      "The soldier units are spawned only 175 units behind Azir, but do not control the knock back directly. Each comes with a missile that travels the same path and conveys the damage and knockback effect.\n  - The furthest area (from 325 to 175 units behind Azir) is covered by a separate set of missiles with the same effects.\n  - All of the soldiers and their missiles will end the charge prematurely when one encounters Wind Wall / Unbreakable / Blade Whirl / Rebuttal or upon colliding with terrain that they cannot charge through.",
+      "The charge starts at 0.25 seconds into the cast time.",
+      "This ability will cast from wherever the caster is at the start of the cast time.",
+      "When the dash of the soldiers comes to a halt, all not-yet-affected enemies on top of the soldiers' landing locations (125 radius) are also knocked back.",
+      "Emperor's Divide will not be canceled if Azir dies during the cast time.",
+      "While the soldiers are charging forward, the wall is not impassable terrain.\n  - This means enemies that are immune to airborne effects can pass through the wall while its moving.",
+      "The wall will count as terrain for the purposes of 'into terrain' effects (e.g. Condemn, Dredge Line, Heroic Charge). This will only affect enemies, allies will pass through the wall in all circumstances, even if knocked into it by an enemy."
+    ]
+  },
+  {
+    "champion": "Azir",
+    "kind": "W",
+    "name": "Arise!",
+    "page": {
+      "title": "Template:Data Azir/Arise!",
+      "revid": 4044339
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "1.5",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 1.5
+            }
+          }
+        ]
+      },
+      "recharge": {
+        "text": "12 / 10.5 / 9 / 7.5 / 6",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                12,
+                10.5,
+                9,
+                7.5,
+                6
+              ]
+            }
+          }
+        ]
+      },
+      "cost": {
+        "text": "40 / 35 / 30 / 25 / 20",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                40,
+                35,
+                30,
+                25,
+                20
+              ]
+            }
+          }
+        ]
+      },
+      "costType": "mana + 1 sand soldier",
+      "castTime": {
+        "text": "0.25",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0.25
+            }
+          }
+        ]
+      },
+      "targetRange": {
+        "text": "525",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 525
+            }
+          }
+        ]
+      },
+      "tetherRadius": {
+        "text": "660",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 660
+            },
+            "label": "Soldier command range"
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Location"
+      ],
+      "affects": [
+        "Enemies"
+      ],
+      "damageType": [
+        "Magic"
+      ],
+      "spellEffects": "special",
+      "spellShield": "false",
+      "projectile": "false",
+      "parry": "true"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Azir summons a Sand Soldier at the target location that is untargetable, lasts 10 seconds, and grants sight of its surroundings. The Sand Soldier expires twice as fast while within range of an enemy turret, and does so instantly if Azir is too far away.\n\nAzir periodically stocks a Sand Soldier, up to a maximum of 2.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "untargetable",
+            "category": "defense",
+            "wording": "untargetable",
+            "evidence": "Active: Azir summons a Sand Soldier at the target location that is untargetable, lasts 10 seconds, and grants sight of its surroundings.",
+            "conditional": false
+          },
+          {
+            "type": "reveal",
+            "category": "vision",
+            "wording": "sight",
+            "evidence": "Active: Azir summons a Sand Soldier at the target location that is untargetable, lasts 10 seconds, and grants sight of its surroundings.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "When Azir declares a basic attack against an enemy in a soldier's attack range, the Sand Soldier attacks in his stead, thrusting their spear in the target's direction to deal magic damage to enemies struck in a line. Against the primary target, the Sand Soldier's attack applies both on-hit and on-attack effects, the damage of which is reduced to 50% effectiveness. Targets hit beyond the closest take 20 / 28 / 36 / 44 / 52 / 60 / 68 / 76 / 84 / 92 / 100 (based on level)% damage. Subsequent Sand Soldier attacks against the same target deal 25% damage without applying on-hit and on-attack effects.",
+        "leveling": [
+          {
+            "label": "Magic Damage",
+            "amount": {
+              "text": "0 / 8 / 16 / 24 / 32 / 40 / 48 / 56 / 64 / 72 / 80 / 88 / 96 / 104 / 112 / 120 / 128 / 136 / 144 / 152 / 160 / 168 / 176 / 184 / 192 / 200 / 208 / 216 / 224 / 232 / 240 / 248 / 256 / 264 / 272 / 280 / 288 / 296 / 304 / 312 / 320 (based on level) (+ 50 / 65 / 80 / 95 / 110) (+ 35 / 42.5 / 50 / 57.5 / 65% AP)",
+              "base": {
+                "kind": "variable",
+                "variable": "level",
+                "points": [
+                  1,
+                  10,
+                  11,
+                  12,
+                  13,
+                  14,
+                  15,
+                  16,
+                  17,
+                  18,
+                  19,
+                  20,
+                  21,
+                  22,
+                  23,
+                  24,
+                  25,
+                  26,
+                  27,
+                  28,
+                  29,
+                  30,
+                  31,
+                  32,
+                  33,
+                  34,
+                  35,
+                  36,
+                  37,
+                  38,
+                  39,
+                  40,
+                  41,
+                  42,
+                  43,
+                  44,
+                  45,
+                  46,
+                  47,
+                  48,
+                  49
+                ],
+                "values": [
+                  0,
+                  8,
+                  16,
+                  24,
+                  32,
+                  40,
+                  48,
+                  56,
+                  64,
+                  72,
+                  80,
+                  88,
+                  96,
+                  104,
+                  112,
+                  120,
+                  128,
+                  136,
+                  144,
+                  152,
+                  160,
+                  168,
+                  176,
+                  184,
+                  192,
+                  200,
+                  208,
+                  216,
+                  224,
+                  232,
+                  240,
+                  248,
+                  256,
+                  264,
+                  272,
+                  280,
+                  288,
+                  296,
+                  304,
+                  312,
+                  320
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "other:",
+                  "ratio": {
+                    "kind": "rank",
+                    "values": [
+                      50,
+                      65,
+                      80,
+                      95,
+                      110
+                    ]
+                  },
+                  "text": "(+ 50 / 65 / 80 / 95 / 110)"
+                },
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "rank",
+                    "values": [
+                      35,
+                      42.5,
+                      50,
+                      57.5,
+                      65
+                    ]
+                  },
+                  "text": "(+ 35 / 42.5 / 50 / 57.5 / 65% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "on-hit",
+            "category": "offense",
+            "wording": "on-hit",
+            "evidence": "Against the primary target, the Sand Soldier's attack applies both on-hit and on-attack effects, the damage of which is reduced to 50% effectiveness.",
+            "conditional": false
+          },
+          {
+            "type": "on-attack",
+            "category": "offense",
+            "wording": "on-attack",
+            "evidence": "Against the primary target, the Sand Soldier's attack applies both on-hit and on-attack effects, the damage of which is reduced to 50% effectiveness.",
+            "conditional": false
+          },
+          {
+            "type": "on-hit",
+            "category": "offense",
+            "wording": "on-hit",
+            "evidence": "Subsequent Sand Soldier attacks against the same target deal 25% damage without applying on-hit and on-attack effects.",
+            "conditional": false
+          },
+          {
+            "type": "on-attack",
+            "category": "offense",
+            "wording": "on-attack",
+            "evidence": "Subsequent Sand Soldier attacks against the same target deal 25% damage without applying on-hit and on-attack effects.",
+            "conditional": false
+          }
+        ],
+        "values": [
+          {
+            "series": {
+              "kind": "variable",
+              "variable": "level",
+              "points": [
+                1,
+                9,
+                10,
+                11,
+                12,
+                13,
+                14,
+                15,
+                16,
+                17,
+                18
+              ],
+              "values": [
+                20,
+                28,
+                36,
+                44,
+                52,
+                60,
+                68,
+                76,
+                84,
+                92,
+                100
+              ]
+            },
+            "context": "Targets hit beyond the closest take 20 / 28 / 36 / 44 / 52 / 60 / 68 / 76 / 84 / 92 / 100 (based on level)% damage."
+          }
+        ]
+      },
+      {
+        "text": "Sand Soldiers cannot attack structures, wards, nor traps.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "trap",
+            "category": "other",
+            "wording": "traps",
+            "evidence": "Sand Soldiers cannot attack structures, wards, nor traps.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "See Pets for more details about Sand Soldiers.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Soldiers' attacks deal area damage; against the main target, the damage is additionally tagged as basic damage.\n  - If a soldier's attack hits multiple champions, it will deal damage to them in order of their appearance in the pre-game Loading Screen, the order of which may matter for some effects that trigger just once for the first target hit.",
+      "Azir must rank Arise! as his first ability, and will do so automatically if he reaches level 2 before ranking an ability.",
+      "Azir can only command his soldiers to attack if he is able to declare basic attack commands himself, meaning crowd control effects that disable attacking, such as disarm, do not allow him to order his soldiers to attack in his stead.",
+      "Nearsighting effects will only allow Azir to perform attacks from soldiers within his own sight radius.",
+      "Commanding a soldier to attack will trigger on-attack effects, but will not apply any of these effects to the target hit.\n  - The attacks do not apply life steal.\n  - Energized will stack but not be consumed.\n  - Sundered Sky does not apply.\n    - However it does apply with Runaan's Hurricane for secondary targets if the main target is a champion.",
+      "Damage dealt by Hail of Blades will not be affected by the on-attack damage modifier.",
+      "The first soldier attack while Azir is affected by Hail of Blades may fail to trigger its true damage.",
+      "Damage to enemy champions from Sand Soldier stabs will draw minion aggro even if the enemy champion was not the primary target.",
+      "Sand Soldiers can damage Powder Kegs, Tentacles, and Sentinels, but only if they are the main target of the attack.",
+      "Sand Soldiers will attack the closest enemy to Azir when using attack move (or A + RMB / Shift + RMB) or auto-attack.",
+      "If an enemy has vision of a Sand Soldier, they will also gain vision of Azir even if he is out of sight.",
+      "While Navori Flickerblade is equipped, if Azir has 1 Arise! charge ready, the recharge timer will appear to restart when triggering Transcendence; the recharge timer is incurred normally."
+    ]
+  }
+]

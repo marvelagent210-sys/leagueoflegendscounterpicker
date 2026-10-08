@@ -1,0 +1,778 @@
+[
+  {
+    "champion": "Leona",
+    "kind": "E",
+    "name": "Zenith Blade",
+    "page": {
+      "title": "Template:Data Leona/Zenith Blade",
+      "revid": 4007645
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "12 / 10.5 / 9 / 7.5 / 6",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                12,
+                10.5,
+                9,
+                7.5,
+                6
+              ]
+            }
+          }
+        ]
+      },
+      "cost": {
+        "text": "40 / 45 / 50 / 55 / 60",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                40,
+                45,
+                50,
+                55,
+                60
+              ]
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "0.25",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0.25
+            }
+          }
+        ]
+      },
+      "targetRange": {
+        "text": "900",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 900
+            }
+          }
+        ]
+      },
+      "width": {
+        "text": "140",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 140
+            }
+          }
+        ]
+      },
+      "speed": {
+        "text": "2000",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 2000
+            }
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Direction"
+      ],
+      "affects": [
+        "Enemies"
+      ],
+      "damageType": [
+        "magic"
+      ],
+      "spellEffects": "aoe",
+      "spellShield": "true",
+      "projectile": "true",
+      "grounded": "true",
+      "knockdown": "true"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Leona projects her sword in the target direction that deals magic damage to enemies hit.",
+        "leveling": [
+          {
+            "label": "Magic Damage",
+            "amount": {
+              "text": "50 / 90 / 130 / 170 / 210 (+ 40% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  50,
+                  90,
+                  130,
+                  170,
+                  210
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 40
+                  },
+                  "text": "(+ 40% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "text": "After reaching its maximum range, if the sword hit an enemy champion during its flight, Leona dashes to 225 units beyond the location of the last champion struck and roots them for 0.5 seconds.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "dash",
+            "category": "movement",
+            "wording": "dashes",
+            "evidence": "After reaching its maximum range, if the sword hit an enemy champion during its flight, Leona dashes to 225 units beyond the location of the last champion struck and roots them for 0.5 seconds.",
+            "conditional": false
+          },
+          {
+            "type": "root",
+            "category": "control",
+            "wording": "roots",
+            "duration": {
+              "kind": "constant",
+              "value": 0.5
+            },
+            "evidence": "After reaching its maximum range, if the sword hit an enemy champion during its flight, Leona dashes to 225 units beyond the location of the last champion struck and roots them for 0.5 seconds.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "Leona is unable to move or attack while Zenith Blade is in flight. She can cast any of her abilities during the dash.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "lockout",
+            "category": "other",
+            "wording": "unable",
+            "evidence": "Leona is unable to move or attack while Zenith Blade is in flight.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Leona will fail to dash to and root the last champion struck if they are not within 3000 units of her by the time the sword missile fizzles from reaching maximum range.",
+      "Leona will not track the target if they change locations during her dash.\n  - She will only dash to their current location at the time the sword fizzled.",
+      "The root application on the last champion struck is applied at an inconsistent timing.",
+      "Leona will be ordered to basic attack the target she dashed to, after her dash completes.",
+      "Spell shield will block the damage, and prevent Leona from dashing as the last champion struck by her sword.",
+      "This ability will cast from wherever the caster is at the end of the cast time."
+    ]
+  },
+  {
+    "champion": "Leona",
+    "kind": "I",
+    "name": "Sunlight",
+    "page": {
+      "title": "Template:Data Leona/Sunlight",
+      "revid": 4038401
+    },
+    "ranks": 1,
+    "fields": {},
+    "flags": {
+      "targeting": [
+        "Passive"
+      ],
+      "affects": [
+        "Enemies"
+      ],
+      "damageType": [
+        "magic"
+      ],
+      "spellEffects": "spell",
+      "spellShield": "true"
+    },
+    "parts": [
+      {
+        "label": "Innate",
+        "text": "Innate: Leona's abilities mark enemies hit for 2.5 seconds, refreshing on subsequent hits.\n\nAllied champions' damaging attacks and abilities against a marked target will consume the mark to deal 32 – 151 (based on level) bonus magic damage.",
+        "leveling": [],
+        "mechanics": [],
+        "values": [
+          {
+            "series": {
+              "kind": "level",
+              "values": [
+                32,
+                39,
+                46,
+                53,
+                60,
+                67,
+                74,
+                81,
+                88,
+                95,
+                102,
+                109,
+                116,
+                123,
+                130,
+                137,
+                144,
+                151,
+                158,
+                165
+              ],
+              "past18": "wiki"
+            },
+            "context": "Allied champions' damaging attacks and abilities against a marked target will consume the mark to deal 32 – 151 (based on level) bonus magic damage."
+          }
+        ]
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Sunlight's damage respects enchantment redirection.",
+      "Zyra has a hidden passive that grants her 10% increased size for 33 seconds after having Sunlight applied to her."
+    ]
+  },
+  {
+    "champion": "Leona",
+    "kind": "Q",
+    "name": "Shield of Daybreak",
+    "page": {
+      "title": "Template:Data Leona/Shield of Daybreak",
+      "revid": 4001219
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "5",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 5
+            }
+          }
+        ]
+      },
+      "cooldownStart": "post-effect",
+      "cost": {
+        "text": "30 / 35 / 40 / 45 / 50",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                30,
+                35,
+                40,
+                45,
+                50
+              ]
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "none",
+        "values": []
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Auto"
+      ],
+      "affects": [
+        "Enemies"
+      ],
+      "damageType": [
+        "magic"
+      ],
+      "spellEffects": "spell",
+      "spellShield": "true",
+      "parry": "unknown"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Leona illuminates her shield, empowering her next basic attack within 6 seconds to have an uncancellable windup, gain 50 bonus range, deal bonus magic damage and stun the target for 1 second.",
+        "leveling": [
+          {
+            "label": "Bonus Magic Damage",
+            "amount": {
+              "text": "10 / 35 / 60 / 85 / 110 (+ 30% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  10,
+                  35,
+                  60,
+                  85,
+                  110
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 30
+                  },
+                  "text": "(+ 30% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "uncancellable windup",
+            "category": "offense",
+            "wording": "uncancellable windup",
+            "evidence": "Active: Leona illuminates her shield, empowering her next basic attack within 6 seconds to have an uncancellable windup, gain 50 bonus range, deal bonus magic damage and stun the target for 1 second.",
+            "conditional": false
+          },
+          {
+            "type": "stun",
+            "category": "control",
+            "wording": "stun",
+            "duration": {
+              "kind": "constant",
+              "value": 1
+            },
+            "evidence": "Active: Leona illuminates her shield, empowering her next basic attack within 6 seconds to have an uncancellable windup, gain 50 bonus range, deal bonus magic damage and stun the target for 1 second.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "Shield of Daybreak resets Leona's basic attack timer.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "attack reset",
+            "category": "offense",
+            "wording": "resets",
+            "evidence": "Shield of Daybreak resets Leona's basic attack timer.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "The enhanced attack will apply other on-hit effects and can critically strike as normal.\n  - Critical strikes do not interact with Shield of Daybreak's bonus damage.",
+      ": Shield of Daybreak's interactions with dodging, blocking.\n  - Shield of Daybreak's attack can miss, nullifying its effects entirely.",
+      "Shield of Daybreak's attack does not put Leona's basic attack on cooldown.\n  - This effectively performs a second attack reset.\n  - This is unlike other empowered attacks (including those which, similar to Shield of Daybreak, use a more unconventional spell cast rather than an attack override).\n  - Leona will wait out Shield of Daybreak's wind-down before automatically attacking, anyway. The player must issue the next attack themselves to gain the full benefit of the second reset.\n  - Shield of Daybreak shares this feature with Thundering Smash and Emberstrike.",
+      "The empowered attack can trigger against turrets exclusively."
+    ]
+  },
+  {
+    "champion": "Leona",
+    "kind": "R",
+    "name": "Solar Flare",
+    "page": {
+      "title": "Template:Data Leona/Solar Flare",
+      "revid": 4007649
+    },
+    "ranks": 3,
+    "fields": {
+      "cooldown": {
+        "text": "90 / 75 / 60",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                90,
+                75,
+                60
+              ]
+            }
+          }
+        ]
+      },
+      "cost": {
+        "text": "100",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 100
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "0.25",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0.25
+            }
+          }
+        ]
+      },
+      "targetRange": {
+        "text": "1200",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 1200
+            }
+          }
+        ]
+      },
+      "effectRadius": {
+        "text": "325 • 175 • 800",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 325
+            },
+            "label": "Damage radius"
+          },
+          {
+            "series": {
+              "kind": "constant",
+              "value": 175
+            },
+            "label": "Epicenter radius"
+          },
+          {
+            "series": {
+              "kind": "constant",
+              "value": 800
+            },
+            "label": "Area reveal radius"
+          }
+        ]
+      },
+      "innerRadius": {
+        "text": "100",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 100
+            }
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Location"
+      ],
+      "affects": [
+        "Enemies"
+      ],
+      "damageType": [
+        "magic"
+      ],
+      "spellEffects": "aoe",
+      "spellShield": "true"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Leona calls down a solar flare that strikes upon the target location after 0.625 seconds, granting sight of the area before impact and for another 3 seconds afterwards. Enemies hit are dealt magic damage and slowed by 80% for 1.75 seconds, and are also stunned for the same duration if they are struck by the epicenter.",
+        "leveling": [
+          {
+            "label": "Magic Damage",
+            "amount": {
+              "text": "150 / 225 / 300 (+ 80% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  150,
+                  225,
+                  300
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 80
+                  },
+                  "text": "(+ 80% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "reveal",
+            "category": "vision",
+            "wording": "sight",
+            "evidence": "Active: Leona calls down a solar flare that strikes upon the target location after 0.625 seconds, granting sight of the area before impact and for another 3 seconds afterwards.",
+            "conditional": false
+          },
+          {
+            "type": "slow",
+            "category": "control",
+            "wording": "slowed",
+            "duration": {
+              "kind": "constant",
+              "value": 1.75
+            },
+            "amount": {
+              "kind": "constant",
+              "value": 80
+            },
+            "evidence": "Enemies hit are dealt magic damage and slowed by 80% for 1.75 seconds, and are also stunned for the same duration if they are struck by the epicenter.",
+            "conditional": false
+          },
+          {
+            "type": "stun",
+            "category": "control",
+            "wording": "stunned",
+            "duration": {
+              "kind": "constant",
+              "value": 1.75
+            },
+            "evidence": "Enemies hit are dealt magic damage and slowed by 80% for 1.75 seconds, and are also stunned for the same duration if they are struck by the epicenter.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Solar Flare's visual effects are only visible to enemies if they have sight of the area it was cast upon.",
+      "The cast indicator shows 300 radius for the area of effect and 120 radius for the epicenter, however the actual hitbox radii are larger than those values.",
+      "The revealed radius is not obstructed by terrain or brush."
+    ]
+  },
+  {
+    "champion": "Leona",
+    "kind": "W",
+    "name": "Eclipse",
+    "page": {
+      "title": "Template:Data Leona/Eclipse",
+      "revid": 4042253
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "14 / 13 / 12 / 11 / 10",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                14,
+                13,
+                12,
+                11,
+                10
+              ]
+            }
+          }
+        ]
+      },
+      "cooldownStart": "on-cast",
+      "cost": {
+        "text": "60",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 60
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "none",
+        "values": []
+      },
+      "effectRadius": {
+        "text": "450",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 450
+            }
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Auto"
+      ],
+      "affects": [
+        "Self",
+        "Enemies"
+      ],
+      "damageType": [
+        "magic"
+      ],
+      "spellEffects": "spellaoe",
+      "spellShield": "special"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Leona raises her guard for 3 seconds, gaining flat pre-mitigation damage reduction of up to 50% of the damage instance and bonus armor and bonus magic resistance.",
+        "leveling": [
+          {
+            "label": "Flat Damage Reduction",
+            "amount": {
+              "text": "8 / 12 / 16 / 20 / 24",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  8,
+                  12,
+                  16,
+                  20,
+                  24
+                ]
+              },
+              "scaling": [],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Bonus Armor",
+            "amount": {
+              "text": "20 / 27.5 / 35 / 42.5 / 50 (+ 20% bonus armor)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  20,
+                  27.5,
+                  35,
+                  42.5,
+                  50
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "bonusArmor",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 20
+                  },
+                  "text": "(+ 20% bonus armor)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Bonus Magic Resistance",
+            "amount": {
+              "text": "20 / 27.5 / 35 / 42.5 / 50 (+ 20% bonus magic resistance)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  20,
+                  27.5,
+                  35,
+                  42.5,
+                  50
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "bonusMR",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 20
+                  },
+                  "text": "(+ 20% bonus magic resistance)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "text": "Her shield detonates after the duration, dealing magic damage to nearby enemies. If this hits an enemy, Leona's guard is extended for an additional 3 seconds.",
+        "leveling": [
+          {
+            "label": "Magic Damage",
+            "amount": {
+              "text": "55 / 85 / 115 / 145 / 175 (+ 40% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  55,
+                  85,
+                  115,
+                  145,
+                  175
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 40
+                  },
+                  "text": "(+ 40% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Neither the cast nor detonation of Eclipse interrupts any of Leona's previous orders or ongoing attack windups.",
+      "The resistance scaling will factor from all other sources, excluding Eclipse's flat bonus. This will recalculate over the duration.",
+      "Spell shield will block the damage but Eclipse's extended duration will not be prevented."
+    ]
+  }
+]

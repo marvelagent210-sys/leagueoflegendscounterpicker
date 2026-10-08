@@ -1,0 +1,699 @@
+[
+  {
+    "champion": "Zyra",
+    "kind": "E",
+    "name": "Grasping Roots",
+    "page": {
+      "title": "Template:Data Zyra/Grasping Roots",
+      "revid": 4013460
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "11",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 11
+            }
+          }
+        ]
+      },
+      "cost": {
+        "text": "70 / 75 / 80 / 85 / 90",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                70,
+                75,
+                80,
+                85,
+                90
+              ]
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "0.25",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0.25
+            }
+          }
+        ]
+      },
+      "targetRange": {
+        "text": "1100 • 1200",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 1100
+            },
+            "label": "Damaging missile"
+          },
+          {
+            "series": {
+              "kind": "constant",
+              "value": 1200
+            },
+            "label": "Seed sprout"
+          }
+        ]
+      },
+      "width": {
+        "text": "140 • 560",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 140
+            },
+            "label": "Damaging missile"
+          },
+          {
+            "series": {
+              "kind": "constant",
+              "value": 560
+            },
+            "label": "Seed Sprout (estimated)"
+          }
+        ]
+      },
+      "speed": {
+        "text": "1150",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 1150
+            }
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Direction"
+      ],
+      "affects": [
+        "Enemies"
+      ],
+      "damageType": [
+        "Magic"
+      ],
+      "spellEffects": "area of effect",
+      "spellShield": "true",
+      "projectile": "true"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Zyra shoots a surge of vines in the target direction that deals magic damage to enemies hit and roots them for a duration.",
+        "leveling": [
+          {
+            "label": "Magic Damage",
+            "amount": {
+              "text": "60 / 95 / 130 / 165 / 200 (+ 60% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  60,
+                  95,
+                  130,
+                  165,
+                  200
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 60
+                  },
+                  "text": "(+ 60% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Root Duration",
+            "amount": {
+              "text": "1 / 1.25 / 1.5 / 1.75 / 2 seconds",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  1,
+                  1.25,
+                  1.5,
+                  1.75,
+                  2
+                ]
+              },
+              "unit": "s",
+              "scaling": [],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "root",
+            "category": "control",
+            "wording": "roots",
+            "duration": {
+              "kind": "rank",
+              "values": [
+                1,
+                1.25,
+                1.5,
+                1.75,
+                2
+              ]
+            },
+            "evidence": "Active: Zyra shoots a surge of vines in the target direction that deals magic damage to enemies hit and roots them for a duration.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "If Grasping Roots hits a Seed, it sprouts into a Vine Lasher that lasts for 8 seconds.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "This ability will cast from wherever the caster is at the end of the cast time.",
+      "Zyra will be locked out of actions for 0.15 seconds after casting Grasping Roots.",
+      "Each Vine Lasher will generate 2 stacks of Conqueror and 1 stack of Electrocute."
+    ]
+  },
+  {
+    "champion": "Zyra",
+    "kind": "I",
+    "name": "Garden of Thorns",
+    "page": {
+      "title": "Template:Data Zyra/Garden of Thorns",
+      "revid": 3986877
+    },
+    "ranks": 1,
+    "fields": {
+      "staticCooldown": {
+        "text": "13.6 – 9.05 (based on level)",
+        "values": [
+          {
+            "series": {
+              "kind": "level",
+              "values": [
+                13.6,
+                13.33235294117647,
+                13.064705882352941,
+                12.797058823529412,
+                12.529411764705882,
+                12.261764705882353,
+                11.994117647058824,
+                11.726470588235294,
+                11.458823529411765,
+                11.191176470588236,
+                10.923529411764706,
+                10.655882352941177,
+                10.388235294117647,
+                10.120588235294118,
+                9.852941176470589,
+                9.58529411764706,
+                9.31764705882353,
+                9.05,
+                8.782352941176471,
+                8.514705882352942
+              ],
+              "past18": "wiki"
+            }
+          }
+        ]
+      },
+      "effectRadius": {
+        "text": "900",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 900
+            }
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Passive"
+      ],
+      "affects": [
+        "Self"
+      ],
+      "damageType": []
+    },
+    "parts": [
+      {
+        "label": "Innate",
+        "text": "Innate: Periodically, Zyra spawns one or two Seeds nearby that last for 30 seconds, granting sight over the surrounding area for 1 second.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "reveal",
+            "category": "vision",
+            "wording": "sight",
+            "duration": {
+              "kind": "constant",
+              "value": 1
+            },
+            "evidence": "Innate: Periodically, Zyra spawns one or two Seeds nearby that last for 30 seconds, granting sight over the surrounding area for 1 second.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "After 1 second, enemy champions can destroy Seeds by moving on top of them.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "text": "Zyra can only have a total of 8 Seeds planted at a time, preserving Seeds spawned by Rampant Growth over Seeds spawned by Garden of Thorns.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      ": The pattern/probability of Garden of Thorns spawning one seed or two.",
+      "Zyra tries to plant Seeds in brush and not on top of walls.",
+      "Zyra tries not to plant Seeds too close together and at different angles.",
+      "Zyra does not plant any Seeds if she is concealed within a brush (unless there is an enemy ward in it, in which case it takes her a little longer to plant the Seed) or when there is no room for additional ones.",
+      "Zyra does not plant any Seeds if she is within 1400 units of the coordinate points (400, 400) or (14000, 14000), which are roughly at the center of the fountains on Summoner's Rift.\n  - These same coordinates may not hold as fountain positions on other maps (e.g. on the Arena map, the Magma Chamber area overlaps with the second exclusion radius) and may prompt the implementation of this behaviour to be changed in the future.",
+      "Zyra tries to plant Seeds close to an enemy near her.",
+      ": Zyra tries to plant Seeds under enemy structures only if she is in basic attack range of them.",
+      ": Zyra tries to plant Seeds on the other side of the wall she is facing and/or standing right next to.",
+      ": Zyra tries to plant Seeds in the direction she is facing and/or moving.",
+      "Zyra tries to plant Seeds near jungle path entrances.",
+      ": Zyra tries to plant Seeds behind herself when she is walking through the river and there are no jungle path entrances near her.",
+      "Zyra tries to plant Seeds between herself and the enemy champion she has vision of (or is heading towards her) in a 45º angle to the left or to the right depending on where on lane she is standing.",
+      "Zyra tries to plant Seeds against the inner walls of epic monster pits (Dragon, Rift Herald, Baron Nashor)",
+      "Zyra has a hidden passive that grants her 10% increased size for 33 seconds after having Sunlight applied to her."
+    ]
+  },
+  {
+    "champion": "Zyra",
+    "kind": "Q",
+    "name": "Deadly Spines",
+    "page": {
+      "title": "Template:Data Zyra/Deadly Spines",
+      "revid": 4013461
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "7 / 6.5 / 6 / 5.5 / 5",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                7,
+                6.5,
+                6,
+                5.5,
+                5
+              ]
+            }
+          }
+        ]
+      },
+      "cost": {
+        "text": "55",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 55
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "0.25",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0.25
+            }
+          }
+        ]
+      },
+      "targetRange": {
+        "text": "800",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 800
+            }
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Location"
+      ],
+      "affects": [
+        "Enemies"
+      ],
+      "damageType": [
+        "Magic"
+      ],
+      "spellEffects": "area of effect",
+      "spellShield": "true"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Zyra sprouts thorny spines at the target location that appear after a 0.625-seconds delay, dealing magic damage to enemies hit.",
+        "leveling": [
+          {
+            "label": "Magic Damage",
+            "amount": {
+              "text": "60 / 100 / 140 / 180 / 220 (+ 65% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  60,
+                  100,
+                  140,
+                  180,
+                  220
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 65
+                  },
+                  "text": "(+ 65% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "text": "If Deadly Spine hits a Seed, it sprouts into a Thorn Spitter that lasts for 8 seconds.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Each Thorn Spitter will generate 2 stacks of Conqueror and 1 stack of Electrocute."
+    ]
+  },
+  {
+    "champion": "Zyra",
+    "kind": "R",
+    "name": "Stranglethorns",
+    "page": {
+      "title": "Template:Data Zyra/Stranglethorns",
+      "revid": 3945317
+    },
+    "ranks": 3,
+    "fields": {
+      "cooldown": {
+        "text": "110 / 100 / 90",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                110,
+                100,
+                90
+              ]
+            }
+          }
+        ]
+      },
+      "cost": {
+        "text": "100",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 100
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "0.25",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0.25
+            }
+          }
+        ]
+      },
+      "targetRange": {
+        "text": "700",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 700
+            }
+          }
+        ]
+      },
+      "effectRadius": {
+        "text": "560",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 560
+            }
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Location"
+      ],
+      "affects": [
+        "Enemies"
+      ],
+      "damageType": [
+        "Magic"
+      ],
+      "spellEffects": "area of effect",
+      "spellShield": "true"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Zyra summons a monstrous thicket at the target location that deals magic damage to enemies hit as it expands.",
+        "leveling": [
+          {
+            "label": "Magic Damage",
+            "amount": {
+              "text": "200 / 300 / 400 (+ 70% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  200,
+                  300,
+                  400
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 70
+                  },
+                  "text": "(+ 70% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "text": "After 2 seconds, the thicket snaps upward to knock up enemies within for 1 second.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "airborne",
+            "category": "control",
+            "wording": "knock up",
+            "duration": {
+              "kind": "constant",
+              "value": 1
+            },
+            "evidence": "After 2 seconds, the thicket snaps upward to knock up enemies within for 1 second.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "Plants hit by the thicket become enraged, restoring 50% of their current health, increasing their maximum health by 50%, gaining 25% increased size and refreshing their duration while the thicket expands. Additionally they attack in a flurry, launching two shots per attack, dealing 150% damage per flurry.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Plants grown during the 2 seconds prior to the displacement will also be enraged.",
+      "Plants already grown before Stranglethorns is cast will have their duration refreshed if they are inside the area of effect.",
+      "Stranglethorns' buff on Plants lasts 10 seconds, however the Plants normally die naturally after 8 seconds."
+    ]
+  },
+  {
+    "champion": "Zyra",
+    "kind": "W",
+    "name": "Rampant Growth",
+    "page": {
+      "title": "Template:Data Zyra/Rampant Growth",
+      "revid": 4044057
+    },
+    "ranks": 5,
+    "fields": {
+      "recharge": {
+        "text": "18 / 16 / 14 / 12 / 10",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                18,
+                16,
+                14,
+                12,
+                10
+              ]
+            }
+          }
+        ]
+      },
+      "cost": {
+        "text": "1",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 1
+            }
+          }
+        ]
+      },
+      "costType": "seed",
+      "castTime": {
+        "text": "none",
+        "values": []
+      },
+      "targetRange": {
+        "text": "850",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 850
+            }
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Location"
+      ],
+      "affects": [
+        "Self",
+        "Enemies"
+      ],
+      "damageType": [],
+      "spellShield": "false"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Zyra plants a Seed at the target location that remains for 60 seconds and grants sight over the surrounding area, though decreasing in radius after 1 second. After 1.5 seconds, enemy champions can destroy the Seed by stepping on it, which reveals them for 2 seconds.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "reveal",
+            "category": "vision",
+            "wording": "sight",
+            "evidence": "Active: Zyra plants a Seed at the target location that remains for 60 seconds and grants sight over the surrounding area, though decreasing in radius after 1 second.",
+            "conditional": false
+          },
+          {
+            "type": "true sight",
+            "category": "vision",
+            "wording": "reveals",
+            "duration": {
+              "kind": "constant",
+              "value": 2
+            },
+            "evidence": "After 1.5 seconds, enemy champions can destroy the Seed by stepping on it, which reveals them for 2 seconds.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "Zyra periodically stocks a Seed charge, up to a maximum of 2. Killing an enemy generates 35% charge toward a Seed, increased to 100% for large enemies and whenever scoring an enemy champion takedown.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "This ability always employs quick cast.",
+      "Upon first rank up, Rampant Growth gains 2 charges.",
+      "Seeds are untargetable.",
+      "Rampant Growth cannot be learnt at level 1."
+    ]
+  }
+]

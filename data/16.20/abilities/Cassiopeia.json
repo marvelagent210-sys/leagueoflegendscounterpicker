@@ -1,0 +1,936 @@
+[
+  {
+    "champion": "Cassiopeia",
+    "kind": "E",
+    "name": "Twin Fang",
+    "page": {
+      "title": "Template:Data Cassiopeia/Twin Fang",
+      "revid": 4064399
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "0.75",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0.75
+            }
+          }
+        ]
+      },
+      "cost": {
+        "text": "45",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 45
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "0.125",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0.125
+            }
+          }
+        ]
+      },
+      "targetRange": {
+        "text": "700",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 700
+            },
+            "label": "BUG: Displayed range, 765, is slightly larger than the real range"
+          }
+        ]
+      },
+      "speed": {
+        "text": "2500",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 2500
+            }
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Unit"
+      ],
+      "affects": [
+        "Enemies"
+      ],
+      "damageType": [
+        "Magic"
+      ],
+      "spellEffects": "spell",
+      "spellShield": "true",
+      "projectile": "true"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Cassiopeia launches her fangs at the target enemy that deal 50 – 120 (based on level) (+ 20% AP) magic damage. If this kills the target, Twin Fang's mana cost is refunded.",
+        "leveling": [],
+        "mechanics": [],
+        "values": [
+          {
+            "series": {
+              "kind": "level",
+              "values": [
+                50,
+                54.11764705882353,
+                58.23529411764706,
+                62.35294117647059,
+                66.47058823529412,
+                70.58823529411765,
+                74.70588235294117,
+                78.82352941176471,
+                82.94117647058823,
+                87.05882352941177,
+                91.1764705882353,
+                95.29411764705883,
+                99.41176470588235,
+                103.52941176470588,
+                107.64705882352942,
+                111.76470588235294,
+                115.88235294117646,
+                120,
+                124.11764705882354,
+                128.23529411764707
+              ],
+              "past18": "wiki"
+            },
+            "context": "Active: Cassiopeia launches her fangs at the target enemy that deal 50 – 120 (based on level) (+ 20% AP) magic damage."
+          }
+        ]
+      },
+      {
+        "text": "Against a poisoned target, Twin Fang deals bonus magic damage and heals Cassiopeia. The heal is reduced by 75% against minions and small and medium monsters.",
+        "leveling": [
+          {
+            "label": "Bonus Magic Damage",
+            "amount": {
+              "text": "20 / 45 / 70 / 95 / 120 (+ 45% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  20,
+                  45,
+                  70,
+                  95,
+                  120
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 45
+                  },
+                  "text": "(+ 45% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Total Enhanced Damage",
+            "amount": {
+              "text": "50 – 120 (based on level) (+ 20 / 45 / 70 / 95 / 120) (+ 65% AP)",
+              "base": {
+                "kind": "level",
+                "values": [
+                  50,
+                  54.11764705882353,
+                  58.23529411764706,
+                  62.35294117647059,
+                  66.47058823529412,
+                  70.58823529411765,
+                  74.70588235294117,
+                  78.82352941176471,
+                  82.94117647058823,
+                  87.05882352941177,
+                  91.1764705882353,
+                  95.29411764705883,
+                  99.41176470588235,
+                  103.52941176470588,
+                  107.64705882352942,
+                  111.76470588235294,
+                  115.88235294117646,
+                  120,
+                  124.117,
+                  128.234
+                ],
+                "past18": "game files"
+              },
+              "scaling": [
+                {
+                  "stat": "other:",
+                  "ratio": {
+                    "kind": "rank",
+                    "values": [
+                      20,
+                      45,
+                      70,
+                      95,
+                      120
+                    ]
+                  },
+                  "text": "(+ 20 / 45 / 70 / 95 / 120)"
+                },
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 65
+                  },
+                  "text": "(+ 65% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Heal",
+            "amount": {
+              "text": "10 / 11.5 / 13 / 14.5 / 16% AP",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  10,
+                  11.5,
+                  13,
+                  14.5,
+                  16
+                ]
+              },
+              "unit": "%",
+              "scaling": [],
+              "unparsed": "",
+              "baseStat": "AP"
+            }
+          },
+          {
+            "label": "Reduced Heal",
+            "amount": {
+              "text": "2.5 / 2.875 / 3.25 / 3.625 / 4% AP",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  2.5,
+                  2.875,
+                  3.25,
+                  3.625,
+                  4
+                ]
+              },
+              "unit": "%",
+              "scaling": [],
+              "unparsed": "",
+              "baseStat": "AP"
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "damage over time",
+            "category": "offense",
+            "wording": "poisoned",
+            "evidence": "Against a poisoned target, Twin Fang deals bonus magic damage and heals Cassiopeia.",
+            "conditional": false
+          },
+          {
+            "type": "heal",
+            "category": "defense",
+            "wording": "heals",
+            "evidence": "Against a poisoned target, Twin Fang deals bonus magic damage and heals Cassiopeia.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Upon reaching the target, Twin Fang will wait for an ongoing Noxious Blast to explode before dealing its damage.",
+      "Twin Fang's damage against poisoned targets:\n  - When maxed first: 70 – 240 (based on level) (+ 65% AP).\n  - When maxed second: 70 – 240 (based on level) (+ 65% AP).\n  - When maxed last: 70 – 240 (based on level) (+ 65% AP).",
+      "Twin Fang's cast indicator is incorrectly adding her own radius to the range like an edge range ability, and is therefore slightly larger than the actual cast range Twin Fang can cast at.",
+      "Using Twin Fang on an out-of-range target after completing a movement order causes Cassiopeia to move back to her original location after casting, if no other order is issued during the entire process.\n  - This may be a consequence of Twing Fang being a \"Walk in range of the target\" ability that does not interrupt movement commands.",
+      "If the target becomes untargetable, dies, or is too far away or no longer in sight during the cast time, this ability will cancel but does not go on cooldown nor pay its cost (if applicable)."
+    ]
+  },
+  {
+    "champion": "Cassiopeia",
+    "kind": "I",
+    "name": "Serpentine Grace",
+    "page": {
+      "title": "Template:Data Cassiopeia/Serpentine Grace",
+      "revid": 4060357
+    },
+    "ranks": 1,
+    "fields": {},
+    "flags": {
+      "targeting": [
+        "Passive"
+      ],
+      "affects": [
+        "Self"
+      ],
+      "damageType": []
+    },
+    "parts": [
+      {
+        "label": "Innate",
+        "text": "Innate: Cassiopeia increases the effectiveness of all movement speed bonuses by 5 – 36 (based on level)%.",
+        "leveling": [],
+        "mechanics": [],
+        "values": [
+          {
+            "series": {
+              "kind": "level",
+              "values": [
+                5,
+                6.823529411764706,
+                8.647058823529411,
+                10.470588235294118,
+                12.294117647058822,
+                14.117647058823529,
+                15.941176470588236,
+                17.764705882352942,
+                19.588235294117645,
+                21.41176470588235,
+                23.235294117647058,
+                25.058823529411764,
+                26.88235294117647,
+                28.705882352941178,
+                30.529411764705884,
+                32.35294117647059,
+                34.17647058823529,
+                36,
+                37.8235294117647,
+                39.64705882352941
+              ],
+              "past18": "wiki"
+            },
+            "context": "Innate: Cassiopeia increases the effectiveness of all movement speed bonuses by 5 – 36 (based on level)%."
+          }
+        ]
+      }
+    ],
+    "custom": [],
+    "notes": []
+  },
+  {
+    "champion": "Cassiopeia",
+    "kind": "Q",
+    "name": "Noxious Blast",
+    "page": {
+      "title": "Template:Data Cassiopeia/Noxious Blast",
+      "revid": 4060358
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "3.5",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 3.5
+            }
+          }
+        ]
+      },
+      "cost": {
+        "text": "50 / 55 / 60 / 65 / 70",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                50,
+                55,
+                60,
+                65,
+                70
+              ]
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "0.25",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0.25
+            }
+          }
+        ]
+      },
+      "targetRange": {
+        "text": "850",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 850
+            }
+          }
+        ]
+      },
+      "effectRadius": {
+        "text": "200",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 200
+            }
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Location"
+      ],
+      "affects": [
+        "Enemies"
+      ],
+      "damageType": [
+        "Magic"
+      ],
+      "spellEffects": "aoedot",
+      "spellShield": "true"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Cassiopeia creates a blast at the target location that explodes after a 0.4-second delay. Enemies within the blast are poisoned for 3 seconds, taking magic damage every 0.428571 seconds over the duration.",
+        "leveling": [
+          {
+            "label": "Total Magic Damage",
+            "amount": {
+              "text": "65 / 100 / 135 / 170 / 205 (+ 75% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  65,
+                  100,
+                  135,
+                  170,
+                  205
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 75
+                  },
+                  "text": "(+ 75% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Magic Damage Per Tick",
+            "amount": {
+              "text": "9.28571 / 14.2857 / 19.2857 / 24.2857 / 29.2857 (+ 10.7143% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  9.285714285714286,
+                  14.285714285714286,
+                  19.285714285714285,
+                  24.285714285714285,
+                  29.285714285714285
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 10.714285714285714
+                  },
+                  "text": "(+ 10.7143% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "damage over time",
+            "category": "offense",
+            "wording": "poisoned",
+            "evidence": "Enemies within the blast are poisoned for 3 seconds, taking magic damage every 0.428571 seconds over the duration.",
+            "conditional": false
+          }
+        ],
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0.42857142857142855
+            },
+            "context": "Enemies within the blast are poisoned for 3 seconds, taking magic damage every 0.428571 seconds over the duration."
+          }
+        ]
+      },
+      {
+        "text": "If Noxious Blast hits an enemy champion, Cassiopeia gains bonus movement speed that decays over 3 seconds.",
+        "leveling": [
+          {
+            "label": "Bonus Movement Speed",
+            "amount": {
+              "text": "30 / 35 / 40 / 45 / 50%",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  30,
+                  35,
+                  40,
+                  45,
+                  50
+                ]
+              },
+              "unit": "%",
+              "scaling": [],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Noxious Blast always uses quick cast, regardless of player settings.",
+      "The damage inflicted by Noxious Blast is calculated as follows: damage / 7 ticks rounded down to the nearest integer.\n  - For example: with 0 bonus AP Noxious Blast inflicts 75 damages over 7 ticks of damage, so 75/7 (≈10.71) deals first of all 10 damage, then (2 × 75/7) − 10 (≈11.43) deals in a second time 11 damages, then (3 × 75/7) − 10 − 11 (≈11.14) deals in a third time 11 damages, and so on.",
+      "The damage displayed for Noxious Blast DOT (Damage_over_time) always remains constant and corresponds to the previously mentioned formula: damage / 7 ticks rounded down to the nearest integer. It's important not to confuse the consistent displayed damage with the actual damage, which is updated with each tick, see tick and updates.\n  - With the same example as above, the damage displayed is always 10.",
+      "Occasionally, Noxious Blast may not deal the displayed damage. This discrepancy occurs when the calculated damage falls between 0.5 and 1. In such cases, rounding to the nearest integer, specifically rounding up, creates a 1-point difference. It's important to note that the damage is rounded down to the nearest integer.\n  - For example: with a Blasting Wand, Noxious Blast shows 75 + 90% of 45 = 115,5 magic damage so rounded to the nearest integer 116 magic damage, but really deals using the formula above 115 magic damage.",
+      "When Cassiopeia has precisely 20 bonus AP or 40 bonus AP. In this scenario, Noxious Blast may inflict 1 less damage than intended. Importantly, this bug occurs independently of rounding considerations.",
+      "Enemies within the blast of Noxious Blast are poisoned for something between 3.2 and 3.3 seconds."
+    ]
+  },
+  {
+    "champion": "Cassiopeia",
+    "kind": "R",
+    "name": "Petrifying Gaze",
+    "page": {
+      "title": "Template:Data Cassiopeia/Petrifying Gaze",
+      "revid": 4060360
+    },
+    "ranks": 3,
+    "fields": {
+      "cooldown": {
+        "text": "120 / 100 / 80",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                120,
+                100,
+                80
+              ]
+            }
+          }
+        ]
+      },
+      "cost": {
+        "text": "100",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 100
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "0.5",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0.5
+            }
+          }
+        ]
+      },
+      "effectRadius": {
+        "text": "850",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 850
+            },
+            "label": "950 but starts 100 units behind Cassiopeia. Because of this, range is slightly greater laterally"
+          }
+        ]
+      },
+      "angle": {
+        "text": "80°",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 80
+            },
+            "label": "Pending for test"
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Direction"
+      ],
+      "affects": [
+        "Enemies"
+      ],
+      "damageType": [
+        "Magic"
+      ],
+      "spellEffects": "spellaoe",
+      "spellShield": "true",
+      "projectile": "false"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Cassiopeia blasts enemies in a cone in the target direction, dealing magic damage to enemies struck within and slowing them by 40% for 2 seconds. Enemies with their facing direction towards her are instead stunned for the same duration.",
+        "leveling": [
+          {
+            "label": "Magic Damage",
+            "amount": {
+              "text": "125 / 225 / 325 (+ 75% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  125,
+                  225,
+                  325
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 75
+                  },
+                  "text": "(+ 75% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "slow",
+            "category": "control",
+            "wording": "slowing",
+            "duration": {
+              "kind": "constant",
+              "value": 2
+            },
+            "amount": {
+              "kind": "constant",
+              "value": 40
+            },
+            "evidence": "Active: Cassiopeia blasts enemies in a cone in the target direction, dealing magic damage to enemies struck within and slowing them by 40% for 2 seconds.",
+            "conditional": false
+          },
+          {
+            "type": "stun",
+            "category": "control",
+            "wording": "stunned",
+            "evidence": "Enemies with their facing direction towards her are instead stunned for the same duration.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "This ability will cast from wherever the caster is at the end of the cast time.",
+      "Regarding Petrifying Gaze applying the stun, facing Cassiopeia means facing the opposite general direction (angle) as her; this direction bisects an 180 degree arc of a radius through her and her enemy. In other words, effectively, she must be \"looking\" toward the enemy.",
+      "Cassiopeia will turn to face the target direction over the cast time.\n  - Petrifying Gaze's target direction will change if Cassiopeia's facing direction changes during the cast time (i.e. through knockbacks).\n    - The visual effect will not follow changes in Cassiopeia's facing direction and may not portray Petrifying Gaze's target direction accurately.",
+      "The facing direction of champions whose abilities/animations cause them to lock their facing or spin is always the direction they are moving in. For abilities that cause the champion to spin in place (e.g. Death Lotus, Judgment) it will factor the direction they were facing on cast.\n  - R is an exception and his facing direction is actually considered to be the direction he is facing."
+    ]
+  },
+  {
+    "champion": "Cassiopeia",
+    "kind": "W",
+    "name": "Miasma",
+    "page": {
+      "title": "Template:Data Cassiopeia/Miasma",
+      "revid": 3936292
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "24 / 22 / 20 / 18 / 16",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                24,
+                22,
+                20,
+                18,
+                16
+              ]
+            }
+          }
+        ]
+      },
+      "cost": {
+        "text": "70 / 75 / 80 / 85 / 90",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                70,
+                75,
+                80,
+                85,
+                90
+              ]
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "0.25",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0.25
+            }
+          }
+        ]
+      },
+      "targetRange": {
+        "text": "700",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 700
+            }
+          }
+        ]
+      },
+      "effectRadius": {
+        "text": "200",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 200
+            },
+            "label": "Individual poison clouds"
+          }
+        ]
+      },
+      "speed": {
+        "text": "3000",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 3000
+            }
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Location"
+      ],
+      "affects": [
+        "Enemies"
+      ],
+      "damageType": [
+        "Magic"
+      ],
+      "spellEffects": "aoedot",
+      "spellShield": "false",
+      "projectile": "true"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Cassiopeia spews forth 7 bolts of venom in an arc at the target location, creating toxic clouds at the area for 5 seconds.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "text": "Enemies within the clouds are poisoned to take magic damage every 0.263158 seconds and become grounded and slowed by an amount that decays over the area's duration.",
+        "leveling": [
+          {
+            "label": "Magic Damage Per Second",
+            "amount": {
+              "text": "20 / 25 / 30 / 35 / 40 (+ 10% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  20,
+                  25,
+                  30,
+                  35,
+                  40
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 10
+                  },
+                  "text": "(+ 10% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Total Magic Damage",
+            "amount": {
+              "text": "100 / 125 / 150 / 175 / 200 (+ 50% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  100,
+                  125,
+                  150,
+                  175,
+                  200
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 50
+                  },
+                  "text": "(+ 50% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Slow",
+            "amount": {
+              "text": "40 / 50 / 60 / 70 / 80%",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  40,
+                  50,
+                  60,
+                  70,
+                  80
+                ]
+              },
+              "unit": "%",
+              "scaling": [],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "damage over time",
+            "category": "offense",
+            "wording": "poisoned",
+            "evidence": "Enemies within the clouds are poisoned to take magic damage every 0.263158 seconds and become grounded and slowed by an amount that decays over the area's duration.",
+            "conditional": false
+          },
+          {
+            "type": "ground",
+            "category": "control",
+            "wording": "grounded",
+            "evidence": "Enemies within the clouds are poisoned to take magic damage every 0.263158 seconds and become grounded and slowed by an amount that decays over the area's duration.",
+            "conditional": false
+          },
+          {
+            "type": "slow",
+            "category": "control",
+            "wording": "slowed",
+            "amount": {
+              "kind": "rank",
+              "values": [
+                40,
+                50,
+                60,
+                70,
+                80
+              ]
+            },
+            "evidence": "Enemies within the clouds are poisoned to take magic damage every 0.263158 seconds and become grounded and slowed by an amount that decays over the area's duration.",
+            "conditional": false
+          }
+        ],
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0.2631578947368421
+            },
+            "context": "Enemies within the clouds are poisoned to take magic damage every 0.263158 seconds and become grounded and slowed by an amount that decays over the area's duration."
+          }
+        ]
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Miasma's slow and ground debuffs are each marked as non-dispellable, so they are not removed by most cleanses. Each is however allowed to be removed by cleanses that also grant immunity to the debuff type, such as Ragnarok.",
+      "If a target becomes untargetable while affected by the ground, the debuff will refresh to 0.25 seconds.",
+      "Wind Wall will block the portion of Miasma it destroys.",
+      "Miasma inflicts 5 / 6.25 / 7.5 / 8.75 / 10 (+ 2.5% AP) magic damage per tick, and in fact because there is 19 ticks and not 20 ticks, the total magic damage is currently not 100 / 125 / 150 / 175 / 200 (+ 50% AP) but 95 / 118.75 / 142.5 / 166.25 / 190 (+ 47.5% AP).\n  - Sometimes Miasma randomly inflicts only 18 ticks of damage."
+    ]
+  }
+]

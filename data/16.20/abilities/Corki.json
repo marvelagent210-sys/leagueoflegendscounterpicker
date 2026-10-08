@@ -1,0 +1,1110 @@
+[
+  {
+    "champion": "Corki",
+    "kind": "E",
+    "name": "Gatling Gun",
+    "page": {
+      "title": "Template:Data Corki/Gatling Gun",
+      "revid": 3948411
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "12",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 12
+            }
+          }
+        ]
+      },
+      "cooldownStart": "on-cast",
+      "cost": {
+        "text": "50 / 55 / 60 / 65 / 70",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                50,
+                55,
+                60,
+                65,
+                70
+              ]
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "none",
+        "values": []
+      },
+      "effectRadius": {
+        "text": "690",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 690
+            },
+            "label": "Cone radius"
+          }
+        ]
+      },
+      "angle": {
+        "text": "35°",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 35
+            },
+            "label": "Pending for test"
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Auto"
+      ],
+      "affects": [
+        "Enemies"
+      ],
+      "damageType": [
+        "physical"
+      ],
+      "spellEffects": "aoedot",
+      "spellShield": "false",
+      "projectile": "false"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Corki sprays bullets in a cone toward his facing direction for 4 seconds, dealing physical damage every 0.25 seconds to all enemies hit and applying a stack to them at the same tick rate for 2 seconds, refreshing with subsequent hits and stacking up to 4 times. Each stack reduces the target's armor and magic resistance.",
+        "leveling": [
+          {
+            "label": "Physical Damage Per Tick",
+            "amount": {
+              "text": "5 / 8.125 / 11.25 / 14.375 / 17.5 (+ 15% bonus AD)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  5,
+                  8.125,
+                  11.25,
+                  14.375,
+                  17.5
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "bonusAD",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 15
+                  },
+                  "text": "(+ 15% bonus AD)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Total Physical Damage",
+            "amount": {
+              "text": "80 / 130 / 180 / 230 / 280 (+ 240% bonus AD)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  80,
+                  130,
+                  180,
+                  230,
+                  280
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "bonusAD",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 240
+                  },
+                  "text": "(+ 240% bonus AD)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Resistances Reduction Per Stack",
+            "amount": {
+              "text": "3 / 3.5 / 4 / 4.5 / 5",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  3,
+                  3.5,
+                  4,
+                  4.5,
+                  5
+                ]
+              },
+              "scaling": [],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Total Resistances Reduction",
+            "amount": {
+              "text": "12 / 14 / 16 / 18 / 20",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  12,
+                  14,
+                  16,
+                  18,
+                  20
+                ]
+              },
+              "scaling": [],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "The maximum resistances reduction is applied after 4 ticks (1 second).",
+      "The direction of the gun firing changes depending on where Corki is facing.\n  - Corki will turn to face in the direction of the cursor upon casting Gatling Gun. He will also instantly turn when issuing an Attack order on enemies while Gatling Gun is active.\n  - Issuing an Attack Move order at a location will not cause Corki to instantly turn.",
+      "Gatling Gun's area of effect can hit close by enemies next to and behind him, due to registering enemies' edge."
+    ]
+  },
+  {
+    "champion": "Corki",
+    "kind": "I",
+    "name": "Hextech Munitions",
+    "page": {
+      "title": "Template:Data Corki/Hextech Munitions",
+      "revid": 4050625
+    },
+    "ranks": 1,
+    "fields": {},
+    "flags": {
+      "targeting": [
+        "Passive"
+      ],
+      "affects": [
+        "Self"
+      ],
+      "damageType": [
+        "Physical True"
+      ],
+      "spellEffects": "basic",
+      "parry": "true"
+    },
+    "parts": [
+      {
+        "label": "Innate",
+        "text": "Innate: Corki's basic attacks deal bonus true damage equal to 20% AD. This damage is affected by critical strike modifiers.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "critical strike",
+            "category": "offense",
+            "wording": "critical strike",
+            "evidence": "This damage is affected by critical strike modifiers.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "Runaan's Hurricane Wind's Fury bolts and all Spellblade effects are special cased to benefit from Hextech Munitions, causing them to deal bonus true damage equal to 20% of their pre-mitigation damage.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "The mixed damage is dealt in two simultaneous instances of damage, but will pretend to be a single instance for most effects (such as Conqueror stacking).\n  - The true damage is dealt in an instance before the physical damage.\n  - Both instances deal basic damage and thus natively apply life steal.\n  - The attack applies on-hit effects only once, right at the start.\n  - Even if the target dies from the true damage, the physical damage will still be applied to it.\n    - If the target dies from on-hit damage, the true damage portion will be skipped and only the physical damage applied."
+    ]
+  },
+  {
+    "champion": "Corki",
+    "kind": "Q",
+    "name": "Phosphorus Bomb",
+    "page": {
+      "title": "Template:Data Corki/Phosphorus Bomb",
+      "revid": 4007588
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "9 / 8.5 / 8 / 7.5 / 7",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                9,
+                8.5,
+                8,
+                7.5,
+                7
+              ]
+            }
+          }
+        ]
+      },
+      "cost": {
+        "text": "60 / 65 / 70 / 75 / 80",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                60,
+                65,
+                70,
+                75,
+                80
+              ]
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "0.25",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0.25
+            }
+          }
+        ]
+      },
+      "targetRange": {
+        "text": "825",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 825
+            }
+          }
+        ]
+      },
+      "effectRadius": {
+        "text": "275 • 500",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 275
+            }
+          },
+          {
+            "series": {
+              "kind": "constant",
+              "value": 500
+            },
+            "label": "Missile sight radius"
+          }
+        ]
+      },
+      "speed": {
+        "text": "1100",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 1100
+            }
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Location"
+      ],
+      "affects": [
+        "Enemies"
+      ],
+      "damageType": [
+        "Magic"
+      ],
+      "spellEffects": "spellaoe",
+      "spellShield": "true",
+      "projectile": "true"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Corki launches a bomb at the target location that briefly grants sight of its surroundings as it travels and explodes upon impact, dealing magic damage to enemies hit.",
+        "leveling": [
+          {
+            "label": "Magic Damage",
+            "amount": {
+              "text": "60 / 105 / 150 / 195 / 240 (+ 125% bonus AD) (+ 100% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  60,
+                  105,
+                  150,
+                  195,
+                  240
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "bonusAD",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 125
+                  },
+                  "text": "(+ 125% bonus AD)"
+                },
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 100
+                  },
+                  "text": "(+ 100% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "reveal",
+            "category": "vision",
+            "wording": "sight",
+            "evidence": "Active: Corki launches a bomb at the target location that briefly grants sight of its surroundings as it travels and explodes upon impact, dealing magic damage to enemies hit.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "The bomb also grants sight of the impact area for 6 seconds and reveals enemy champions hit for the same duration.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "reveal",
+            "category": "vision",
+            "wording": "sight",
+            "duration": {
+              "kind": "constant",
+              "value": 6
+            },
+            "evidence": "The bomb also grants sight of the impact area for 6 seconds and reveals enemy champions hit for the same duration.",
+            "conditional": false
+          },
+          {
+            "type": "reveal",
+            "category": "vision",
+            "wording": "reveals",
+            "duration": {
+              "kind": "constant",
+              "value": 6
+            },
+            "evidence": "The bomb also grants sight of the impact area for 6 seconds and reveals enemy champions hit for the same duration.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "The missile has a minimum travel time of 0.227 seconds."
+    ]
+  },
+  {
+    "champion": "Corki",
+    "kind": "R",
+    "name": "Missile Barrage",
+    "page": {
+      "title": "Template:Data Corki/Missile Barrage",
+      "revid": 4042863
+    },
+    "ranks": 3,
+    "fields": {
+      "cooldown": {
+        "text": "2",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 2
+            }
+          }
+        ]
+      },
+      "recharge": {
+        "text": "20",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 20
+            }
+          }
+        ]
+      },
+      "cost": {
+        "text": "35",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 35
+            }
+          }
+        ]
+      },
+      "costType": "mana + 1 ammo",
+      "castTime": {
+        "text": "0.175",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0.175
+            }
+          }
+        ]
+      },
+      "targetRange": {
+        "text": "1300 • 1500",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 1300
+            },
+            "label": "Standard missile range"
+          },
+          {
+            "series": {
+              "kind": "constant",
+              "value": 1500
+            },
+            "label": "Big One missile range"
+          }
+        ]
+      },
+      "effectRadius": {
+        "text": "150 • 300",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 150
+            },
+            "label": "Standard explosion radius"
+          },
+          {
+            "series": {
+              "kind": "constant",
+              "value": 300
+            },
+            "label": "Big One explosion radius"
+          }
+        ]
+      },
+      "width": {
+        "text": "80",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 80
+            },
+            "label": "Both standard and Big One missile width"
+          }
+        ]
+      },
+      "speed": {
+        "text": "2000",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 2000
+            },
+            "label": "Missile speed for both standard and Big One missiles"
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Direction"
+      ],
+      "affects": [
+        "Enemies"
+      ],
+      "damageType": [
+        "Physical"
+      ],
+      "spellEffects": "spellaoe",
+      "spellShield": "true",
+      "projectile": "true"
+    },
+    "parts": [
+      {
+        "label": "Passive",
+        "text": "Passive: Basic attacks on-hit against champions reduce Missile Barrage's remaining recharge time by 2 / 2.4 / 2.8 / 3.2 / 3.6 / 4 / 4.4 / 4.8 / 5.2 / 5.6 / 6 (based on critical strike chance) seconds.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "on-hit",
+            "category": "offense",
+            "wording": "on-hit",
+            "evidence": "Passive: Basic attacks on-hit against champions reduce Missile Barrage's remaining recharge time by 2 / 2.4 / 2.8 / 3.2 / 3.6 / 4 / 4.4 / 4.8 / 5.2 / 5.6 / 6 (based on critical strike chance) seconds.",
+            "conditional": false
+          }
+        ],
+        "values": [
+          {
+            "series": {
+              "kind": "variable",
+              "variable": "critical strike chance",
+              "points": [
+                0,
+                10,
+                20,
+                30,
+                40,
+                50,
+                60,
+                70,
+                80,
+                90,
+                100
+              ],
+              "values": [
+                2,
+                2.4,
+                2.8,
+                3.2,
+                3.6,
+                4,
+                4.4,
+                4.8,
+                5.2,
+                5.6,
+                6
+              ]
+            },
+            "context": "Passive: Basic attacks on-hit against champions reduce Missile Barrage's remaining recharge time by 2 / 2.4 / 2.8 / 3.2 / 3.6 / 4 / 4.4 / 4.8 / 5.2 / 5.6 / 6 (based on critical strike chance) seconds."
+          }
+        ]
+      },
+      {
+        "label": "Active",
+        "text": "Active: Corki fires a missile in the target direction that explodes upon the first enemy hit, dealing physical damage to enemies within the area.",
+        "leveling": [
+          {
+            "label": "Physical Damage",
+            "amount": {
+              "text": "90 / 170 / 250 (+ 85% bonus AD)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  90,
+                  170,
+                  250
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "bonusAD",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 85
+                  },
+                  "text": "(+ 85% bonus AD)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "text": "Corki periodically stocks a Missile Barrage charge, up to a maximum of 4. He gains 2 charges upon learning the ability and maximum charges upon respawning.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "text": "Every third missile Corki fires is a Big One, dealing 100% increased damage as well as gaining increased range and explosion radius.",
+        "leveling": [
+          {
+            "label": "Big One Physical Damage",
+            "amount": {
+              "text": "180 / 340 / 500 (+ 170% bonus AD)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  180,
+                  340,
+                  500
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "bonusAD",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 170
+                  },
+                  "text": "(+ 170% bonus AD)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Once Corki has learned the ability:\n  - He receives a buff that counts a cycle of the number of times Missile Barrage has been used since the last Big One.\n  - An indicator becomes visible below his health bar that tracks the number of missiles in reserve and whether a Big One is available. They are spent from left to right.",
+      "Corki retains progress towards a Big One when he dies.",
+      "This ability will cast from wherever the caster is at the start of the cast time.",
+      "Missile Barrage's effect radius is centered around the location of the missile as it collides.",
+      "Malignance damage from Missile Barrage does not count toward Eclipse passive."
+    ]
+  },
+  {
+    "champion": "Corki",
+    "kind": "W",
+    "name": "Special Delivery",
+    "page": {
+      "title": "Template:Data Corki/Special Delivery",
+      "revid": 3906612
+    },
+    "ranks": 5,
+    "fields": {
+      "castTime": {
+        "text": "none",
+        "values": []
+      },
+      "targetRange": {
+        "text": "1800",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 1800
+            }
+          }
+        ]
+      },
+      "effectRadius": {
+        "text": "200",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 200
+            }
+          }
+        ]
+      },
+      "speed": {
+        "text": "1500",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 1500
+            }
+          }
+        ]
+      },
+      "collisionRadius": {
+        "text": "100",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 100
+            }
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Location"
+      ],
+      "affects": [
+        "Enemies"
+      ],
+      "damageType": [
+        "Magic"
+      ],
+      "spellEffects": "aoedot",
+      "spellShield": "false",
+      "grounded": "true",
+      "knockdown": "false"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Corki dashes with displacement immunity to the target location, knocking aside all enemies in his path 500 units and leaving behind a trail of fire for 5 seconds, which grants sight of the area for its duration and for 3 seconds afterwards.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "dash",
+            "category": "movement",
+            "wording": "dashes",
+            "evidence": "Active: Corki dashes with displacement immunity to the target location, knocking aside all enemies in his path 500 units and leaving behind a trail of fire for 5 seconds, which grants sight of the area for its duration and for 3 seconds afterwards.",
+            "conditional": false
+          },
+          {
+            "type": "displacement-immune",
+            "category": "defense",
+            "wording": "displacement immunity",
+            "duration": {
+              "kind": "constant",
+              "value": 5
+            },
+            "evidence": "Active: Corki dashes with displacement immunity to the target location, knocking aside all enemies in his path 500 units and leaving behind a trail of fire for 5 seconds, which grants sight of the area for its duration and for 3 seconds afterwards.",
+            "conditional": false
+          },
+          {
+            "type": "airborne",
+            "category": "control",
+            "wording": "knocking aside",
+            "duration": {
+              "kind": "constant",
+              "value": 5
+            },
+            "evidence": "Active: Corki dashes with displacement immunity to the target location, knocking aside all enemies in his path 500 units and leaving behind a trail of fire for 5 seconds, which grants sight of the area for its duration and for 3 seconds afterwards.",
+            "conditional": false
+          },
+          {
+            "type": "reveal",
+            "category": "vision",
+            "wording": "sight",
+            "duration": {
+              "kind": "constant",
+              "value": 3
+            },
+            "evidence": "Active: Corki dashes with displacement immunity to the target location, knocking aside all enemies in his path 500 units and leaving behind a trail of fire for 5 seconds, which grants sight of the area for its duration and for 3 seconds afterwards.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "Enemies hit by Corki's dash or within the trail are burned and slowed by 90% for 2 seconds, refreshing every 0.25 seconds while inside the area. The burn deals 7.5 – 25 (based on level) (+ 50% bonus AD) (+ 6% AP) magic damage every 0.25 seconds.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "slow",
+            "category": "control",
+            "wording": "slowed",
+            "duration": {
+              "kind": "constant",
+              "value": 2
+            },
+            "amount": {
+              "kind": "constant",
+              "value": 90
+            },
+            "evidence": "Enemies hit by Corki's dash or within the trail are burned and slowed by 90% for 2 seconds, refreshing every 0.25 seconds while inside the area.",
+            "conditional": false
+          }
+        ],
+        "values": [
+          {
+            "series": {
+              "kind": "level",
+              "values": [
+                7.5,
+                7.5,
+                7.5,
+                7.5,
+                7.5,
+                7.5,
+                7.5,
+                8.75,
+                10,
+                11.25,
+                12.5,
+                13.75,
+                15,
+                16.25,
+                17.5,
+                20,
+                22.5,
+                25
+              ]
+            },
+            "context": "The burn deals 7.5 – 25 (based on level) (+ 50% bonus AD) (+ 6% AP) magic damage every 0.25 seconds."
+          }
+        ]
+      },
+      {
+        "text": "Casting Special Delivery instantly resets Valkyrie cooldown.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "text": "Special Delivery will cast at max range if cast beyond that.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Enemies that stay within the trail for its entire duration are dealt 210 – 700 (based on level) (+ 1400% bonus AD) (+ 168% AP) total magic damage."
+    ]
+  },
+  {
+    "champion": "Corki",
+    "kind": "W",
+    "name": "Valkyrie",
+    "page": {
+      "title": "Template:Data Corki/Valkyrie",
+      "revid": 4007589
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "20 / 18 / 16 / 14 / 12",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                20,
+                18,
+                16,
+                14,
+                12
+              ]
+            }
+          }
+        ]
+      },
+      "cost": {
+        "text": "80 / 85 / 90 / 95 / 100",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                80,
+                85,
+                90,
+                95,
+                100
+              ]
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "none",
+        "values": []
+      },
+      "targetRange": {
+        "text": "300 - 600",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 300
+            },
+            "label": "Minimum and maximum dash distance"
+          }
+        ]
+      },
+      "effectRadius": {
+        "text": "200",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 200
+            }
+          }
+        ]
+      },
+      "speed": {
+        "text": "650 + 100% movement speed",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 650
+            },
+            "label": "Dash speed"
+          }
+        ]
+      },
+      "collisionRadius": {
+        "text": "100",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 100
+            }
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Location"
+      ],
+      "affects": [
+        "Enemies"
+      ],
+      "damageType": [
+        "Magic"
+      ],
+      "spellEffects": "aoedot",
+      "spellShield": "false",
+      "grounded": "true",
+      "knockdown": "true"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Corki dashes to the target location and drops bombs that leave up to 3 blazing patches along his path, depending on the distance traveled. Each patch lasts 2.5 seconds.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "dash",
+            "category": "movement",
+            "wording": "dashes",
+            "evidence": "Active: Corki dashes to the target location and drops bombs that leave up to 3 blazing patches along his path, depending on the distance traveled.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "Enemies within the patches are dealt magic damage every 0.5 seconds, lingering for 1 second.",
+        "leveling": [
+          {
+            "label": "Magic Damage Per Tick",
+            "amount": {
+              "text": "30 / 45 / 60 / 75 / 90 (+ 40% bonus AD) (+ 30% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  30,
+                  45,
+                  60,
+                  75,
+                  90
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "bonusAD",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 40
+                  },
+                  "text": "(+ 40% bonus AD)"
+                },
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 30
+                  },
+                  "text": "(+ 30% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Total Magic Damage",
+            "amount": {
+              "text": "150 / 225 / 300 / 375 / 450 (+ 200% bonus AD) (+ 150% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  150,
+                  225,
+                  300,
+                  375,
+                  450
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "bonusAD",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 200
+                  },
+                  "text": "(+ 200% bonus AD)"
+                },
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 150
+                  },
+                  "text": "(+ 150% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "text": "Gatling Gun can be cast during the dash.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "No additional information."
+    ]
+  }
+]

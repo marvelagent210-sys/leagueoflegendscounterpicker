@@ -1,0 +1,1820 @@
+[
+  {
+    "champion": "Galio",
+    "kind": "E",
+    "name": "Justice Punch",
+    "page": {
+      "title": "Template:Data Galio/Justice Punch",
+      "revid": 4016963
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "11 / 10 / 9 / 8 / 7",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                11,
+                10,
+                9,
+                8,
+                7
+              ]
+            }
+          }
+        ]
+      },
+      "cost": {
+        "text": "50",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 50
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "0.4",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0.4
+            }
+          }
+        ]
+      },
+      "targetRange": {
+        "text": "250 - 650",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 250
+            },
+            "label": "Minimum and maximum dash distance"
+          }
+        ]
+      },
+      "width": {
+        "text": "400",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 400
+            }
+          }
+        ]
+      },
+      "speed": {
+        "text": "2300",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 2300
+            },
+            "label": "dash speed"
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Location"
+      ],
+      "affects": [
+        "Enemies"
+      ],
+      "damageType": [
+        "Magic"
+      ],
+      "spellEffects": "spellaoe",
+      "grounded": "true",
+      "knockdown": "special"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Galio steps back in the opposite direction over the cast time, then dashes to the target location until he hits an enemy champion or terrain.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "dash",
+            "category": "movement",
+            "wording": "steps back",
+            "evidence": "Active: Galio steps back in the opposite direction over the cast time, then dashes to the target location until he hits an enemy champion or terrain.",
+            "conditional": false
+          },
+          {
+            "type": "dash",
+            "category": "movement",
+            "wording": "dashes",
+            "evidence": "Active: Galio steps back in the opposite direction over the cast time, then dashes to the target location until he hits an enemy champion or terrain.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "Galio deals magic damage to enemies he passes through, reduced to 80% against non-champions, and knocks them up for 0.75 seconds as well as reveals them for the same duration.",
+        "leveling": [
+          {
+            "label": "Magic Damage",
+            "amount": {
+              "text": "100 / 135 / 170 / 205 / 240 (+ 100% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  100,
+                  135,
+                  170,
+                  205,
+                  240
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 100
+                  },
+                  "text": "(+ 100% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Non-Champion Damage",
+            "amount": {
+              "text": "80 / 108 / 136 / 164 / 192 (+ 80% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  80,
+                  108,
+                  136,
+                  164,
+                  192
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 80
+                  },
+                  "text": "(+ 80% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "airborne",
+            "category": "control",
+            "wording": "knocks them up",
+            "duration": {
+              "kind": "constant",
+              "value": 0.75
+            },
+            "evidence": "Galio deals magic damage to enemies he passes through, reduced to 80% against non-champions, and knocks them up for 0.75 seconds as well as reveals them for the same duration.",
+            "conditional": false
+          },
+          {
+            "type": "reveal",
+            "category": "vision",
+            "wording": "reveals",
+            "duration": {
+              "kind": "constant",
+              "value": 0.75
+            },
+            "evidence": "Galio deals magic damage to enemies he passes through, reduced to 80% against non-champions, and knocks them up for 0.75 seconds as well as reveals them for the same duration.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Galio will initiate the dash even if his step backwards is knocked down.",
+      "Galio's second dash will always dash the distance of the target direction. Having the step backwards cut short has no effect on the total distance gained.",
+      "The following table refers for interactions during Justice Punch's cast time and dash:"
+    ]
+  },
+  {
+    "champion": "Galio",
+    "kind": "E",
+    "name": "Righteous Gust",
+    "page": {
+      "title": "Template:Data Galio/Righteous Gust",
+      "revid": 3309687
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "13 / 12 / 11 / 10 / 9",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                13,
+                12,
+                11,
+                10,
+                9
+              ]
+            }
+          }
+        ]
+      },
+      "cost": {
+        "text": "60 / 65 / 70 / 75 / 80",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                60,
+                65,
+                70,
+                75,
+                80
+              ]
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "range": {
+        "text": "1180",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 1180
+            }
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Righteous Gust is a linear",
+        "pass-through skillshot."
+      ],
+      "affects": [],
+      "damageType": [
+        "magic"
+      ],
+      "spellEffects": "aoe",
+      "spellShield": "will block the ability.",
+      "projectile": "true"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Galio unleashes a gust of wind in the target direction, dealing magic damage to enemies hits, and leaving behind a directional draft for 5 seconds which grants allies bonus movement speed when they pass through it.",
+        "leveling": [
+          {
+            "label": "Magic Damage",
+            "amount": {
+              "text": "60 / 105 / 150 / 195 / 240 (+ 50% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  60,
+                  105,
+                  150,
+                  195,
+                  240
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 50
+                  },
+                  "text": "(+ 50% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Bonus Movement Speed",
+            "amount": {
+              "text": "30 / 35 / 40 / 45 / 50%",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  30,
+                  35,
+                  40,
+                  45,
+                  50
+                ]
+              },
+              "unit": "%",
+              "scaling": [],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Righteous Gust's bonus movement speed stacks multiplicatively while active.\n  - Allies facing opposite the draft will not receive the bonus movement speed."
+    ]
+  },
+  {
+    "champion": "Galio",
+    "kind": "I",
+    "name": "Colossal Smash",
+    "page": {
+      "title": "Template:Data Galio/Colossal Smash",
+      "revid": 4038336
+    },
+    "ranks": 1,
+    "fields": {
+      "staticCooldown": {
+        "text": "5",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 5
+            }
+          }
+        ]
+      },
+      "effectRadius": {
+        "text": "250",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 250
+            },
+            "label": "pending for confirmation"
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Passive"
+      ],
+      "affects": [
+        "Enemies"
+      ],
+      "damageType": [
+        "Magic"
+      ],
+      "spellEffects": "special",
+      "spellShield": "false",
+      "parry": "true"
+    },
+    "parts": [
+      {
+        "label": "Innate",
+        "text": "Innate: Periodically, Galio's next basic attack is empowered to have an uncancellable windup, gain 40% bonus attack speed and deal 15 – 115 (based on level) (+ 100% AD) (+ 40% AP) (+ 60% bonus magic resistance) modified magic damage to the target and all enemies near them.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "uncancellable windup",
+            "category": "offense",
+            "wording": "uncancellable windup",
+            "evidence": "Innate: Periodically, Galio's next basic attack is empowered to have an uncancellable windup, gain 40% bonus attack speed and deal 15 – 115 (based on level) (+ 100% AD) (+ 40% AP) (+ 60% bonus magic resistance) modified magic damage to the target and all enemies near them.",
+            "conditional": false
+          }
+        ],
+        "values": [
+          {
+            "series": {
+              "kind": "level",
+              "values": [
+                15,
+                20.88235294117647,
+                26.764705882352942,
+                32.64705882352941,
+                38.529411764705884,
+                44.41176470588235,
+                50.294117647058826,
+                56.1764705882353,
+                62.05882352941177,
+                67.94117647058823,
+                73.8235294117647,
+                79.70588235294117,
+                85.58823529411765,
+                91.47058823529412,
+                97.3529411764706,
+                103.23529411764706,
+                109.11764705882354,
+                115,
+                120.88235294117646,
+                126.76470588235294
+              ],
+              "past18": "wiki"
+            },
+            "context": "Innate: Periodically, Galio's next basic attack is empowered to have an uncancellable windup, gain 40% bonus attack speed and deal 15 – 115 (based on level) (+ 100% AD) (+ 40% AP) (+ 60% bonus magic resistance) modified magic damage to the target and all enemies near them."
+          }
+        ]
+      },
+      {
+        "text": "Whenever Galio hits at least one enemy champion or epic monster with an ability, Colossal Smash's current cooldown is reduced by 3 seconds. This may occur only once per cast.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "text": "Colossal Smash's damage based on its AD ratio can critically strike for 200% damage to all targets hit.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "critical strike",
+            "category": "offense",
+            "wording": "critically strike",
+            "evidence": "Colossal Smash's damage based on its AD ratio can critically strike for 200% damage to all targets hit.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Colossal Smash deals basic damage to the primary target but also triggers spell effects by also being tagged as spell damage, while dealing proc damage also tagged as area of effect to secondary targets.",
+      "Spellblade does not get converted to magic damage and it will deal its damage only to the primary target.",
+      "Colossal Smash applies on-hit effects to its primary target twice.",
+      "The empowered attack will not trigger against wards and plants.",
+      "Galio gains attack speed even on non-empowered attacks as long as the ability is not on cooldown.",
+      "Colossal Smash cannot be triggered against allies.",
+      "Even if the ability hit is spell shielded Colossal Smash's cooldown will still be reduced."
+    ]
+  },
+  {
+    "champion": "Galio",
+    "kind": "I",
+    "name": "Runic Skin",
+    "page": {
+      "title": "Template:Data Galio/Runic Skin",
+      "revid": 3216591
+    },
+    "ranks": 1,
+    "fields": {},
+    "flags": {
+      "targeting": [
+        "Runic Skin is a self-targeted buff."
+      ],
+      "affects": [],
+      "damageType": []
+    },
+    "parts": [
+      {
+        "label": "Innate",
+        "text": "Innate: Galio gains 50% of his magic resistance as ability power.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Magic resistance reduction (such as Wit's End) will affect Runic Skin in such a way Galio will also have his ability power reduced for the duration.",
+      "Considering his base magic resistance of 32.1 – 53.35 (based on level), Galio will gain 16.05 – 26.675 (based on level) bonus ability power from Runic Skin.",
+      "Runic Skin is triggered by Bulwark, as well as any bonus magic resistance effect, granting Galio temporary bonus ability power.\n  - Rabadon's Deathcap will boost Runic Skin's ratio to 67.5% of his magic resistance.\n  - Wooglet's Witchcap will boost Runic Skin's ratio to 62.5% of his magic resistance."
+    ]
+  },
+  {
+    "champion": "Galio",
+    "kind": "Q",
+    "name": "Resolute Smite",
+    "page": {
+      "title": "Template:Data Galio/Resolute Smite",
+      "revid": 3309845
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "7",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 7
+            }
+          }
+        ]
+      },
+      "cost": {
+        "text": "60 / 65 / 70 / 75 / 80",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                60,
+                65,
+                70,
+                75,
+                80
+              ]
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "range": {
+        "text": "940 / 235",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                940,
+                235
+              ]
+            }
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Resolute Smite is a ground-targeted area of effect."
+      ],
+      "affects": [],
+      "damageType": [
+        "magic"
+      ],
+      "spellEffects": "aoe",
+      "spellShield": "will block the ability.",
+      "projectile": "true"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Galio fires a concussive blast at the target area, dealing magic damage to enemies hit and slowing them for 2.5 seconds.",
+        "leveling": [
+          {
+            "label": "Magic Damage",
+            "amount": {
+              "text": "80 / 135 / 190 / 245 / 300 (+ 60% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  80,
+                  135,
+                  190,
+                  245,
+                  300
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 60
+                  },
+                  "text": "(+ 60% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Slow",
+            "amount": {
+              "text": "24 / 28 / 32 / 36 / 40%",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  24,
+                  28,
+                  32,
+                  36,
+                  40
+                ]
+              },
+              "unit": "%",
+              "scaling": [],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "slow",
+            "category": "control",
+            "wording": "slowing",
+            "duration": {
+              "kind": "constant",
+              "value": 2.5
+            },
+            "amount": {
+              "kind": "rank",
+              "values": [
+                24,
+                28,
+                32,
+                36,
+                40
+              ]
+            },
+            "evidence": "Active: Galio fires a concussive blast at the target area, dealing magic damage to enemies hit and slowing them for 2.5 seconds.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "No additional details."
+    ]
+  },
+  {
+    "champion": "Galio",
+    "kind": "Q",
+    "name": "Winds of War",
+    "page": {
+      "title": "Template:Data Galio/Winds of War",
+      "revid": 4016962
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "11 / 10 / 9 / 8 / 7",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                11,
+                10,
+                9,
+                8,
+                7
+              ]
+            }
+          }
+        ]
+      },
+      "cost": {
+        "text": "60 / 65 / 70 / 75 / 80",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                60,
+                65,
+                70,
+                75,
+                80
+              ]
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "0.25",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0.25
+            }
+          }
+        ]
+      },
+      "targetRange": {
+        "text": "825",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 825
+            }
+          }
+        ]
+      },
+      "effectRadius": {
+        "text": "150",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 150
+            },
+            "label": "Tornado radius"
+          }
+        ]
+      },
+      "width": {
+        "text": "120",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 120
+            },
+            "label": "Curving missile width"
+          }
+        ]
+      },
+      "speed": {
+        "text": "1400 • 50",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 1400
+            },
+            "label": "Curving missile speed"
+          },
+          {
+            "series": {
+              "kind": "constant",
+              "value": 50
+            },
+            "label": "Tornado speed, estimated"
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Location"
+      ],
+      "affects": [
+        "Enemies"
+      ],
+      "damageType": [
+        "Magic"
+      ],
+      "spellEffects": "special",
+      "spellShield": "special",
+      "projectile": "true"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Galio creates two windblasts 250 units to either side of him that arc out before converging to the target location, dealing magic damage to all enemies they pass through.",
+        "leveling": [
+          {
+            "label": "Magic Damage",
+            "amount": {
+              "text": "70 / 105 / 140 / 175 / 210 (+ 70% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  70,
+                  105,
+                  140,
+                  175,
+                  210
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 70
+                  },
+                  "text": "(+ 70% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "text": "When the blasts meet, the gusts form a tornado that persists for 2 seconds, slowly moving forward and dealing magic damage equal to 2% (+ 1% per 100 AP) of target's maximum health every 0.5 seconds to enemies within the area, capped at 150 per tick against monsters.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Deals area damage on the gust, and applies persistent area damage, additionally tagged as indirect damage for the tornado.",
+      "Spell shield will block the gusts damage but not the tornado's.",
+      "Wind Wall and Unbreakable can block each windblast individually.\n  - The tornado will not form if only one windblast reaches the target location.",
+      "This ability will cast from wherever the caster is at the end of the cast time."
+    ]
+  },
+  {
+    "champion": "Galio",
+    "kind": "R",
+    "name": "Hero's Entrance",
+    "page": {
+      "title": "Template:Data Galio/Hero's Entrance",
+      "revid": 4017997
+    },
+    "ranks": 3,
+    "fields": {
+      "cooldown": {
+        "text": "180 / 160 / 140",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                180,
+                160,
+                140
+              ]
+            }
+          }
+        ]
+      },
+      "cooldownStart": "on-cast",
+      "cost": {
+        "text": "100",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 100
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "none",
+        "values": []
+      },
+      "targetRange": {
+        "text": "4000 / 4750 / 5500",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                4000,
+                4750,
+                5500
+              ]
+            }
+          }
+        ]
+      },
+      "effectRadius": {
+        "text": "650",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 650
+            }
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Unit"
+      ],
+      "affects": [
+        "Allies",
+        "Enemies"
+      ],
+      "damageType": [
+        "Magic"
+      ],
+      "spellEffects": "area of effect",
+      "spellShield": "true",
+      "grounded": "true",
+      "knockdown": "false"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Galio prepares to make an entrance, channeling for 2.75 seconds and designating the target allied champion's location at the time of cast as his landing spot. Additionally, he resets Shield of Durand passive shield for himself and grants it to all allied champions within the area for 5 seconds.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "channel",
+            "category": "other",
+            "wording": "channeling",
+            "duration": {
+              "kind": "constant",
+              "value": 2.75
+            },
+            "evidence": "Active: Galio prepares to make an entrance, channeling for 2.75 seconds and designating the target allied champion's location at the time of cast as his landing spot.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "After channeling for 1.25 seconds, he gains crowd control immunity for the remaining duration, becomes untargetable, and leaps into the air for 0.8 seconds before dashing to his destination over 0.2 seconds. Afterwards, he lands and becomes targetable again, dealing magic damage to all nearby enemies upon impact, knocking them back 100 units over 0.75 seconds, and remaining in place for 0.5 seconds.",
+        "leveling": [
+          {
+            "label": "Magic Damage",
+            "amount": {
+              "text": "150 / 250 / 350 (+ 70% AP) (+ 100% bonus magic resistance)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  150,
+                  250,
+                  350
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 70
+                  },
+                  "text": "(+ 70% AP)"
+                },
+                {
+                  "stat": "bonusMR",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 100
+                  },
+                  "text": "(+ 100% bonus magic resistance)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "cc-immune",
+            "category": "defense",
+            "wording": "crowd control immunity",
+            "duration": {
+              "kind": "constant",
+              "value": 0.8
+            },
+            "evidence": "After channeling for 1.25 seconds, he gains crowd control immunity for the remaining duration, becomes untargetable, and leaps into the air for 0.8 seconds before dashing to his destination over 0.2 seconds.",
+            "conditional": false
+          },
+          {
+            "type": "untargetable",
+            "category": "defense",
+            "wording": "untargetable",
+            "duration": {
+              "kind": "constant",
+              "value": 0.8
+            },
+            "evidence": "After channeling for 1.25 seconds, he gains crowd control immunity for the remaining duration, becomes untargetable, and leaps into the air for 0.8 seconds before dashing to his destination over 0.2 seconds.",
+            "conditional": false
+          },
+          {
+            "type": "dash",
+            "category": "movement",
+            "wording": "dashing",
+            "evidence": "After channeling for 1.25 seconds, he gains crowd control immunity for the remaining duration, becomes untargetable, and leaps into the air for 0.8 seconds before dashing to his destination over 0.2 seconds.",
+            "conditional": false
+          },
+          {
+            "type": "airborne",
+            "category": "control",
+            "wording": "knocking them back",
+            "duration": {
+              "kind": "constant",
+              "value": 0.75
+            },
+            "evidence": "Afterwards, he lands and becomes targetable again, dealing magic damage to all nearby enemies upon impact, knocking them back 100 units over 0.75 seconds, and remaining in place for 0.5 seconds.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Hero's Entrance does not resist allied crowd control.",
+      "Hero's Entrance has a forgiveness radius of 175 units.",
+      "Galio cannot cast Hero's Entrance on allies he cannot see while nearsighted.",
+      "Galio will still cause an impact to occur at the destination even if he is unable to travel the full distance with the dash (e.g. by The Hextech Ultimatum and Realm of Death borders and terrain). Galio will dash as far as he can go, and thus, does not end the dash prematurely.",
+      "Galio will always dash 100 units minimum, and dash over his target's location if they are less than 100 units away from him.",
+      "Experimental Hexplate Overdrive, Fiendhunter Bolts Opening Barrage, and Zeke's Convergence Frostfire Tempest will activate at the end of Hero's Entrance's channel.",
+      "When becoming untargetable, Galio destroys enemy projectiles targeting him.",
+      "The following table refers for interactions while Galio is channeling:",
+      "Hero's Entrance's channel can only be interrupted by crowd control in the first 1.25 seconds."
+    ]
+  },
+  {
+    "champion": "Galio",
+    "kind": "R",
+    "name": "Idol of Durand",
+    "page": {
+      "title": "Template:Data Galio/Idol of Durand",
+      "revid": 3309685
+    },
+    "ranks": 3,
+    "fields": {
+      "cooldown": {
+        "text": "150 / 135 / 120",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                150,
+                135,
+                120
+              ]
+            }
+          }
+        ]
+      },
+      "cost": {
+        "text": "100",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 100
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "range": {
+        "text": "600 / 575",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                600,
+                575
+              ]
+            }
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Idol of Durand is a point-blank area of effect."
+      ],
+      "affects": [],
+      "damageType": [
+        "magic"
+      ],
+      "spellEffects": "aoe",
+      "spellShield": "will block the ability."
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Galio turns into a statue and channels for 2 seconds, halving incoming damage and taunting nearby enemies for the duration, which they cannot mitigate with crowd control reduction. Idol of Durand can't be cancelled by movement commands for the first 0.25 seconds of its duration if it strikes at least one enemy champion.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "taunt",
+            "category": "control",
+            "wording": "taunting",
+            "duration": {
+              "kind": "constant",
+              "value": 2
+            },
+            "evidence": "Active: Galio turns into a statue and channels for 2 seconds, halving incoming damage and taunting nearby enemies for the duration, which they cannot mitigate with crowd control reduction.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "When the channel ends, Galio bursts out of his statue form and deals magic damage to nearby enemies, increased by 10% for each basic attack he received while channeling, up to a maximum 80% increase.",
+        "leveling": [
+          {
+            "label": "Minimum Magic Damage",
+            "amount": {
+              "text": "200 / 300 / 400 (+ 60% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  200,
+                  300,
+                  400
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 60
+                  },
+                  "text": "(+ 60% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Bonus Magic Damage Per Hit",
+            "amount": {
+              "text": "20 / 30 / 40 (+ 6% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  20,
+                  30,
+                  40
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 6
+                  },
+                  "text": "(+ 6% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Maximum Magic Damage",
+            "amount": {
+              "text": "360 / 540 / 720 (+ 108% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  360,
+                  540,
+                  720
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 108
+                  },
+                  "text": "(+ 108% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "text": "While channeling, Galio can cast Bulwark and use instant cast actives, such as Ignite.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "The taunt can only be applied once to any given enemy unit.\n  - Preventing it or blocking it will not reapply the taunt.",
+      "Champions whose enhanced basic attacks apply hard crowd control (Decisive Strike, Bear Stance, Shield of Daybreak) can cancel Idol of Durand while taunted."
+    ]
+  },
+  {
+    "champion": "Galio",
+    "kind": "W",
+    "name": "Bulwark",
+    "page": {
+      "title": "Template:Data Galio/Bulwark",
+      "revid": 3309684
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "13",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 13
+            }
+          }
+        ]
+      },
+      "cost": {
+        "text": "60",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 60
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "range": {
+        "text": "800",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 800
+            }
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Bulwark is a self- and ally-targeted buff with a self-healing component."
+      ],
+      "affects": [],
+      "damageType": []
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Galio grants the target allied champion or himself bonus armor and bonus magic resistance for 4 seconds, and heals himself every time Bulwark's target takes damage, with each heal being 20% weaker than the last for each subsequent instance of damage.",
+        "leveling": [
+          {
+            "label": "Bonus Resistances",
+            "amount": {
+              "text": "30 / 45 / 60 / 75 / 90",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  30,
+                  45,
+                  60,
+                  75,
+                  90
+                ]
+              },
+              "scaling": [],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Initial Heal",
+            "amount": {
+              "text": "25 / 40 / 55 / 70 / 85 (+ 30% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  25,
+                  40,
+                  55,
+                  70,
+                  85
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 30
+                  },
+                  "text": "(+ 30% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Maximum Heal",
+            "amount": {
+              "text": "100 / 160 / 220 / 280 / 340 (+ 120% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  100,
+                  160,
+                  220,
+                  280,
+                  340
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 120
+                  },
+                  "text": "(+ 120% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Bulwark has no cast time and does not interrupt Galio's previous orders.",
+      "When Galio casts Bulwark on himself Runic Skin will grant him 15 / 22.5 / 30 / 37.5 / 45 ability power."
+    ]
+  },
+  {
+    "champion": "Galio",
+    "kind": "W",
+    "name": "Shield of Durand",
+    "page": {
+      "title": "Template:Data Galio/Shield of Durand",
+      "revid": 3990299
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "18 / 17 / 16 / 15 / 14",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                18,
+                17,
+                16,
+                15,
+                14
+              ]
+            }
+          }
+        ]
+      },
+      "cooldownStart": "on-cast",
+      "cost": {
+        "text": "50",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 50
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "none",
+        "values": []
+      },
+      "effectRadius": {
+        "text": "175 / 196.875 / 218.75 / 240.625 / 262.5 / 284.375 / 306.25 / 328.125 / 350 (based on channel time)",
+        "values": [
+          {
+            "series": {
+              "kind": "variable",
+              "variable": "channel time",
+              "points": [
+                0,
+                0.15625,
+                0.3125,
+                0.46875,
+                0.625,
+                0.78125,
+                0.9375,
+                1.09375,
+                1.25
+              ],
+              "values": [
+                175,
+                196.875,
+                218.75,
+                240.625,
+                262.5,
+                284.375,
+                306.25,
+                328.125,
+                350
+              ]
+            }
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Auto"
+      ],
+      "affects": [
+        "Self",
+        "Enemies"
+      ],
+      "damageType": [
+        "Magic"
+      ],
+      "spellEffects": "spellaoe",
+      "spellShield": "true",
+      "silence": "true"
+    },
+    "parts": [
+      {
+        "label": "Passive",
+        "text": "Passive: Galio gains Anti-Magic Bulwark, and restores it after 12 / 10 / 8 (based on level) seconds without taking damage.\n\nAnti-Magic Bulwark: Gain a shield that absorbs magic damage.",
+        "leveling": [
+          {
+            "label": "Magic Shield Strength",
+            "amount": {
+              "text": "7.5 / 9 / 10.5 / 12 / 13.5% of maximum health",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  7.5,
+                  9,
+                  10.5,
+                  12,
+                  13.5
+                ]
+              },
+              "unit": "%",
+              "scaling": [],
+              "unparsed": "",
+              "baseStat": "maxHealth"
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "shield",
+            "category": "defense",
+            "wording": "shield",
+            "evidence": "Anti-Magic Bulwark: Gain a shield that absorbs magic damage.",
+            "conditional": false
+          }
+        ],
+        "values": [
+          {
+            "series": {
+              "kind": "variable",
+              "variable": "level",
+              "points": [
+                1,
+                6,
+                11
+              ],
+              "values": [
+                12,
+                10,
+                8
+              ]
+            },
+            "context": "Passive: Galio gains Anti-Magic Bulwark, and restores it after 12 / 10 / 8 (based on level) seconds without taking damage."
+          }
+        ]
+      },
+      {
+        "label": "Active",
+        "text": "Active: Galio charges for up to 2 seconds, slowing himself by 15%, and gaining physical and magic damage reduction; charging increases Shield of Durand's radius, damage and taunt duration over the first 1.25 seconds of the channel.",
+        "leveling": [
+          {
+            "label": "Physical Damage Reduction",
+            "amount": {
+              "text": "12.5 / 15 / 17.5 / 20 / 22.5% (+ 1.5% per 100 AP) (+ 4% per 100 bonus magic resistance) (+ 0.5% per 100 bonus health)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  12.5,
+                  15,
+                  17.5,
+                  20,
+                  22.5
+                ]
+              },
+              "unit": "%",
+              "scaling": [
+                {
+                  "stat": "per100:AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 1.5
+                  },
+                  "text": "(+ 1.5% per 100 AP)"
+                },
+                {
+                  "stat": "per100:bonusMR",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 4
+                  },
+                  "text": "(+ 4% per 100 bonus magic resistance)"
+                },
+                {
+                  "stat": "per100:bonusHealth",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 0.5
+                  },
+                  "text": "(+ 0.5% per 100 bonus health)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Magic Damage Reduction",
+            "amount": {
+              "text": "25 / 30 / 35 / 40 / 45% (+ 4% per 100 AP) (+ 8% per 100 bonus magic resistance) (+ 1% per 100 bonus health)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  25,
+                  30,
+                  35,
+                  40,
+                  45
+                ]
+              },
+              "unit": "%",
+              "scaling": [
+                {
+                  "stat": "per100:AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 4
+                  },
+                  "text": "(+ 4% per 100 AP)"
+                },
+                {
+                  "stat": "per100:bonusMR",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 8
+                  },
+                  "text": "(+ 8% per 100 bonus magic resistance)"
+                },
+                {
+                  "stat": "per100:bonusHealth",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 1
+                  },
+                  "text": "(+ 1% per 100 bonus health)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "channel",
+            "category": "other",
+            "wording": "charges",
+            "duration": {
+              "kind": "constant",
+              "value": 2
+            },
+            "evidence": "Active: Galio charges for up to 2 seconds, slowing himself by 15%, and gaining physical and magic damage reduction; charging increases Shield of Durand's radius, damage and taunt duration over the first 1.25 seconds of the channel.",
+            "conditional": false
+          },
+          {
+            "type": "slow",
+            "category": "control",
+            "wording": "slowing",
+            "amount": {
+              "kind": "constant",
+              "value": 15
+            },
+            "evidence": "Active: Galio charges for up to 2 seconds, slowing himself by 15%, and gaining physical and magic damage reduction; charging increases Shield of Durand's radius, damage and taunt duration over the first 1.25 seconds of the channel.",
+            "conditional": false
+          },
+          {
+            "type": "taunt",
+            "category": "control",
+            "wording": "taunt",
+            "evidence": "Active: Galio charges for up to 2 seconds, slowing himself by 15%, and gaining physical and magic damage reduction; charging increases Shield of Durand's radius, damage and taunt duration over the first 1.25 seconds of the channel.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "Shield of Durand can be recast within the duration and does so automatically afterwards or if it is interrupted.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "interrupt",
+            "category": "other",
+            "wording": "interrupted",
+            "evidence": "Shield of Durand can be recast within the duration and does so automatically afterwards or if it is interrupted.",
+            "conditional": true
+          }
+        ],
+        "values": []
+      },
+      {
+        "label": "Recast",
+        "text": "Recast: Galio refreshes the damage reduction for 2 seconds and deals magic damage to nearby enemy champions, increased by 0 / 25 / 50 / 75 / 100 / 125 / 150 / 175 / 200 (based on channel time)%, as well as taunts them for 0.5 / 0.625 / 0.75 / 0.875 / 1 / 1.125 / 1.25 / 1.375 / 1.5 (based on channel time) seconds and, after a brief delay, sets their movement speed to a static 60 for the same duration but slightly longer.",
+        "leveling": [
+          {
+            "label": "Minimum Magic Damage",
+            "amount": {
+              "text": "20 / 30 / 40 / 50 / 60 (+ 30% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  20,
+                  30,
+                  40,
+                  50,
+                  60
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 30
+                  },
+                  "text": "(+ 30% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Maximum Magic Damage",
+            "amount": {
+              "text": "60 / 90 / 120 / 150 / 180 (+ 90% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  60,
+                  90,
+                  120,
+                  150,
+                  180
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 90
+                  },
+                  "text": "(+ 90% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "taunt",
+            "category": "control",
+            "wording": "taunts",
+            "duration": {
+              "kind": "variable",
+              "variable": "channel time",
+              "points": [
+                0,
+                0.15625,
+                0.3125,
+                0.46875,
+                0.625,
+                0.78125,
+                0.9375,
+                1.09375,
+                1.25
+              ],
+              "values": [
+                0.5,
+                0.625,
+                0.75,
+                0.875,
+                1,
+                1.125,
+                1.25,
+                1.375,
+                1.5
+              ]
+            },
+            "evidence": "Recast: Galio refreshes the damage reduction for 2 seconds and deals magic damage to nearby enemy champions, increased by 0 / 25 / 50 / 75 / 100 / 125 / 150 / 175 / 200 (based on channel time)%, as well as taunts them for 0.5 / 0.625 / 0.75 / 0.875 / 1 / 1.125 / 1.25 / 1.375 / 1.5 (based on channel time) seconds and, after a brief delay, sets their movement speed to a static 60 for the same duration but slightly longer.",
+            "conditional": false
+          }
+        ],
+        "values": [
+          {
+            "series": {
+              "kind": "variable",
+              "variable": "channel time",
+              "points": [
+                0,
+                0.15625,
+                0.3125,
+                0.46875,
+                0.625,
+                0.78125,
+                0.9375,
+                1.09375,
+                1.25
+              ],
+              "values": [
+                0,
+                25,
+                50,
+                75,
+                100,
+                125,
+                150,
+                175,
+                200
+              ]
+            },
+            "context": "Recast: Galio refreshes the damage reduction for 2 seconds and deals magic damage to nearby enemy champions, increased by 0 / 25 / 50 / 75 / 100 / 125 / 150 / 175 / 200 (based on channel time)%, as well as taunts them for 0.5 / 0.625 / 0.75 / 0.875 / 1 / 1.125 / 1.25 / 1.375 / 1.5 (based on channel time) seconds and, after a brief delay, sets their movement speed to a static 60 for the same duration but slightly longer."
+          },
+          {
+            "series": {
+              "kind": "variable",
+              "variable": "channel time",
+              "points": [
+                0,
+                0.15625,
+                0.3125,
+                0.46875,
+                0.625,
+                0.78125,
+                0.9375,
+                1.09375,
+                1.25
+              ],
+              "values": [
+                0.5,
+                0.625,
+                0.75,
+                0.875,
+                1,
+                1.125,
+                1.25,
+                1.375,
+                1.5
+              ]
+            },
+            "context": "Recast: Galio refreshes the damage reduction for 2 seconds and deals magic damage to nearby enemy champions, increased by 0 / 25 / 50 / 75 / 100 / 125 / 150 / 175 / 200 (based on channel time)%, as well as taunts them for 0.5 / 0.625 / 0.75 / 0.875 / 1 / 1.125 / 1.25 / 1.375 / 1.5 (based on channel time) seconds and, after a brief delay, sets their movement speed to a static 60 for the same duration but slightly longer."
+          }
+        ]
+      },
+      {
+        "text": "Galio is unable to basic attack or cast abilities for 0.4 seconds after the recast.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "lockout",
+            "category": "other",
+            "wording": "unable",
+            "duration": {
+              "kind": "constant",
+              "value": 0.4
+            },
+            "evidence": "Galio is unable to basic attack or cast abilities for 0.4 seconds after the recast.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "The static movement speed modifier overrides the target's base movement speed value to the modified amount, and their bonus movement speed value to 0.\n  - The modifier is not applied if the target is slow-immune.",
+      "Galio may still buffer his actions during the recast lockout.",
+      "The ability key does not need to be held down when buffered in other abilities except Winds of War.",
+      "The following table refers for interactions while Galio is channeling:"
+    ]
+  }
+]

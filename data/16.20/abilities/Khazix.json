@@ -1,0 +1,955 @@
+[
+  {
+    "champion": "Khazix",
+    "kind": "E",
+    "name": "Evolved Wings",
+    "page": {
+      "title": "Template:Data Kha'Zix/Evolved Wings",
+      "revid": 4072116
+    },
+    "ranks": 5,
+    "fields": {
+      "targetRange": {
+        "text": "1000",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 1000
+            },
+            "label": "Maximum dash distance"
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Location"
+      ],
+      "affects": [
+        "Enemies"
+      ],
+      "damageType": [
+        "physical"
+      ],
+      "spellEffects": "aoe",
+      "spellShield": "true",
+      "grounded": "true",
+      "knockdown": "true"
+    },
+    "parts": [
+      {
+        "label": "Evolved Bonus",
+        "text": "Evolved Bonus: Leap gains 300 bonus range, and the cooldown resets upon scoring a champion takedown.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Kha'Zix can use his summoner spells and item actives while leaping.",
+      "Buffering Interactions",
+      "Taste Their Fear can be buffered to cast after the leap ends if it is cast while the target is out of range. There is no check for the target coming in range during the leap.\n  - If the target is still out of range after landing, there will be a 0.5 second delay before Kha'Zix starts moving towards the target compared to manually casting Taste Their Fear after landing.",
+      "Void Spike & Void Assault can be buffered to cast after the leap ends."
+    ]
+  },
+  {
+    "champion": "Khazix",
+    "kind": "E",
+    "name": "Leap",
+    "page": {
+      "title": "Template:Data Kha'Zix/Leap",
+      "revid": 4072117
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "20 / 18 / 16 / 14 / 12",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                20,
+                18,
+                16,
+                14,
+                12
+              ]
+            }
+          }
+        ]
+      },
+      "cost": {
+        "text": "50",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 50
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "none",
+        "values": []
+      },
+      "targetRange": {
+        "text": "700",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 700
+            },
+            "label": "Maximum dash distance"
+          }
+        ]
+      },
+      "effectRadius": {
+        "text": "300",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 300
+            }
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Location"
+      ],
+      "affects": [
+        "Enemies"
+      ],
+      "damageType": [
+        "physical"
+      ],
+      "spellEffects": "spellaoe",
+      "spellShield": "true",
+      "grounded": "true",
+      "knockdown": "true"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Kha'Zix leaps to the target location, dealing physical damage to nearby enemies upon arrival.",
+        "leveling": [
+          {
+            "label": "Physical Damage",
+            "amount": {
+              "text": "65 / 100 / 135 / 170 / 205 (+ 40% bonus AD)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  65,
+                  100,
+                  135,
+                  170,
+                  205
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "bonusAD",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 40
+                  },
+                  "text": "(+ 40% bonus AD)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "dash",
+            "category": "movement",
+            "wording": "leaps",
+            "evidence": "Active: Kha'Zix leaps to the target location, dealing physical damage to nearby enemies upon arrival.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "Taste Their Fear can be cast during the dash.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Kha'Zix can use his summoner spells and item actives while leaping.",
+      "Buffering Interactions",
+      "Taste Their Fear can be buffered to cast after the leap ends if it is cast while the target is out of range. There is no check for the target coming in range during the leap.\n  - If the target is still out of range after landing, there will be a 0.5 second delay before Kha'Zix starts moving towards the target compared to manually casting Taste Their Fear after landing.",
+      "Void Spike & Void Assault can be buffered to cast after the leap ends."
+    ]
+  },
+  {
+    "champion": "Khazix",
+    "kind": "I",
+    "name": "Unseen Threat",
+    "page": {
+      "title": "Template:Data Kha'Zix/Unseen Threat",
+      "revid": 4064849
+    },
+    "ranks": 1,
+    "fields": {},
+    "flags": {
+      "targeting": [
+        "Passive"
+      ],
+      "affects": [
+        "Enemies"
+      ],
+      "damageType": [
+        "Magic"
+      ],
+      "spellEffects": "spell",
+      "spellShield": "false",
+      "parry": "true"
+    },
+    "parts": [
+      {
+        "label": "Innate",
+        "text": "Innate: Kha'Zix gains Unseen Threat whenever the enemy loses sight of him or he activates Void Assault.\n\nUnseen Threat: Kha'Zix empowers his next basic attack against an enemy champion to deal 22 – 141 (based on level) (+ 50% bonus AD) bonus magic damage and slow them by 25% for 2 seconds.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "reveal",
+            "category": "vision",
+            "wording": "sight",
+            "evidence": "Innate: Kha'Zix gains Unseen Threat whenever the enemy loses sight of him or he activates Void Assault.",
+            "conditional": false
+          },
+          {
+            "type": "slow",
+            "category": "control",
+            "wording": "slow",
+            "duration": {
+              "kind": "constant",
+              "value": 2
+            },
+            "amount": {
+              "kind": "constant",
+              "value": 25
+            },
+            "evidence": "Unseen Threat: Kha'Zix empowers his next basic attack against an enemy champion to deal 22 – 141 (based on level) (+ 50% bonus AD) bonus magic damage and slow them by 25% for 2 seconds.",
+            "conditional": false
+          }
+        ],
+        "values": [
+          {
+            "series": {
+              "kind": "level",
+              "values": [
+                22,
+                29,
+                36,
+                43,
+                50,
+                57,
+                64,
+                71,
+                78,
+                85,
+                92,
+                99,
+                106,
+                113,
+                120,
+                127,
+                134,
+                141,
+                148,
+                155
+              ],
+              "past18": "wiki"
+            },
+            "context": "Unseen Threat: Kha'Zix empowers his next basic attack against an enemy champion to deal 22 – 141 (based on level) (+ 50% bonus AD) bonus magic damage and slow them by 25% for 2 seconds."
+          }
+        ]
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Any form of vision loss may trigger Unseen Threat, such as Curse of the Black Mist, nearsight and Brushmaker.",
+      "Void Assault grants Unseen Threat even if Kha'Zix never becomes unseen (e.g. affected by true sight).\n  - Other stealth such as E does not do this.",
+      "Both the attack's damage and bonus spell damage are grouped under the same cast instance.\n  - Because of this, a single Unseen Threat attack does not trigger two Electrocute stacks."
+    ]
+  },
+  {
+    "champion": "Khazix",
+    "kind": "Q",
+    "name": "Evolved Reaper Claws",
+    "page": {
+      "title": "Template:Data Kha'Zix/Evolved Reaper Claws",
+      "revid": 3994647
+    },
+    "ranks": 5,
+    "fields": {
+      "targetRange": {
+        "text": "375",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 375
+            }
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Unit"
+      ],
+      "affects": [
+        "Enemies"
+      ],
+      "damageType": [
+        "Physical"
+      ],
+      "spellEffects": "single target",
+      "spellShield": "true"
+    },
+    "parts": [
+      {
+        "label": "Passive",
+        "text": "Passive: Kha'Zix gains 50 bonus range on his basic attacks and Taste Their Fear.\n\nEvolved Bonus: If the target is Isolated, the cooldown is reduced by 45%.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "A team's allies are champions, pets, minions and outer turrets.\n  - Monsters are considered allies for other monsters.\n  - Wards do not prevent Isolation.",
+      "A number of targetable champion summoned units are specifically tagged to not be a valid ally of a potentially Isolated target. These units are:\n  - Powder Keg\n  - Prophet of an Elder God\n  - Captive Audience\n  - Bushwhack\n  - Tunnel\n  - Absolution Mist Wraiths\n  - Noxious Trap\n  - Sovereign's Domination Mist Wraiths\n  - Dark Procession",
+      "Isolation effects are registered at the following timings for each ability:\n  - For Evolved Reaper Claws, the start of cast.\n  - For Evolved Spike Racks, when the enemy is hit.\n  - For Taste Their Fear, the end of cast. This means that if the target is no longer Isolated when the ability hits them, Taste Their Fear will not apply the respective bonuses.",
+      "Isolated targets are marked by an indicator, shown to Kha'Zix, when visible and within 2500 units of him. This indicator is independent of the actual effects and its timing may not be fully accurate.* If the target becomes untargetable, dies, or is too far away or no longer in sight during the cast time, this ability will cancel but does not go on cooldown nor pay its cost (if applicable)."
+    ]
+  },
+  {
+    "champion": "Khazix",
+    "kind": "Q",
+    "name": "Taste Their Fear",
+    "page": {
+      "title": "Template:Data Kha'Zix/Taste Their Fear",
+      "revid": 4006997
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "4",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 4
+            }
+          }
+        ]
+      },
+      "cost": {
+        "text": "20",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 20
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "0.25",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0.25
+            }
+          }
+        ]
+      },
+      "targetRange": {
+        "text": "325",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 325
+            }
+          }
+        ]
+      },
+      "effectRadius": {
+        "text": "375",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 375
+            },
+            "label": "Non-isolated radius between enemies / monsters"
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Unit"
+      ],
+      "affects": [
+        "Enemies"
+      ],
+      "damageType": [
+        "Physical"
+      ],
+      "spellEffects": "single target",
+      "spellShield": "true"
+    },
+    "parts": [
+      {
+        "label": "Passive",
+        "text": "Passive: Kha'Zix considers any enemy unit to be Isolated if they are not nearby to one of their allies. Taste Their Fear, Evolved Reaper Claws, and Evolved Spike Racks have special interactions against Isolated targets.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "label": "Active",
+        "text": "Active: Kha'Zix slashes the target enemy, dealing physical damage, increased to 210% against Isolated targets.",
+        "leveling": [
+          {
+            "label": "Physical Damage",
+            "amount": {
+              "text": "80 / 105 / 130 / 155 / 180 (+ 105% bonus AD)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  80,
+                  105,
+                  130,
+                  155,
+                  180
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "bonusAD",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 105
+                  },
+                  "text": "(+ 105% bonus AD)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Isolated Target Physical Damage",
+            "amount": {
+              "text": "168 / 220.5 / 273 / 325.5 / 378 (+ 220.5% bonus AD)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  168,
+                  220.5,
+                  273,
+                  325.5,
+                  378
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "bonusAD",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 220.5
+                  },
+                  "text": "(+ 220.5% bonus AD)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "A team's allies are champions, pets, minions and outer turrets.\n  - Monsters are considered allies for other monsters.\n  - Wards do not prevent Isolation.",
+      "A number of targetable champion summoned units are specifically tagged to not be a valid ally of a potentially Isolated target. These units are:\n  - Powder Keg\n  - Prophet of an Elder God\n  - Captive Audience\n  - Bushwhack\n  - Tunnel\n  - Absolution Mist Wraiths\n  - Noxious Trap\n  - Sovereign's Domination Mist Wraiths\n  - Dark Procession",
+      "Isolation effects are registered at the following timings for each ability:\n  - For Evolved Reaper Claws, the start of cast.\n  - For Evolved Spike Racks, when the enemy is hit.\n  - For Taste Their Fear, the end of cast. This means that if the target is no longer Isolated when the ability hits them, Taste Their Fear will not apply the respective bonuses.",
+      "Isolated targets are marked by an indicator, shown to Kha'Zix, when visible and within 2500 units of him. This indicator is independent of the actual effects and its timing may not be fully accurate.* If the target becomes untargetable, dies, or is too far away or no longer in sight during the cast time, this ability will cancel but does not go on cooldown nor pay its cost (if applicable)."
+    ]
+  },
+  {
+    "champion": "Khazix",
+    "kind": "R",
+    "name": "Evolved Adaptive Cloaking",
+    "page": {
+      "title": "Template:Data Kha'Zix/Evolved Adaptive Cloaking",
+      "revid": 3906950
+    },
+    "ranks": 3,
+    "fields": {},
+    "flags": {
+      "targeting": [
+        "Auto"
+      ],
+      "affects": [
+        "Self"
+      ],
+      "damageType": []
+    },
+    "parts": [
+      {
+        "label": "Evolved Bonus",
+        "text": "Evolved Bonus: The invisibility now lasts 2 seconds, and Void Assault can be recast twice.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "invisible",
+            "category": "vision",
+            "wording": "invisibility",
+            "evidence": "Evolved Bonus: The invisibility now lasts 2 seconds, and Void Assault can be recast twice.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "No additional details."
+    ]
+  },
+  {
+    "champion": "Khazix",
+    "kind": "R",
+    "name": "Void Assault",
+    "page": {
+      "title": "Template:Data Kha'Zix/Void Assault",
+      "revid": 3969560
+    },
+    "ranks": 3,
+    "fields": {
+      "cooldown": {
+        "text": "100 / 85 / 70",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                100,
+                85,
+                70
+              ]
+            }
+          }
+        ]
+      },
+      "cooldownStart": "on-cast",
+      "cost": {
+        "text": "100",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 100
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "none",
+        "values": []
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Auto"
+      ],
+      "affects": [
+        "Self"
+      ],
+      "damageType": []
+    },
+    "parts": [
+      {
+        "label": "Passive",
+        "text": "Passive: Each rank in Void Assault allows Kha'Zix to evolve one of his abilities, granting it additional effects. Evolving an ability causes him to enter a 2-second cast time.\n\nKha'Zix cannot evolve while he is affected by cast-inhibiting crowd control or a lockout that disables abilities.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "lockout",
+            "category": "other",
+            "wording": "lockout",
+            "evidence": "Kha'Zix cannot evolve while he is affected by cast-inhibiting crowd control or a lockout that disables abilities.",
+            "conditional": true
+          }
+        ],
+        "values": []
+      },
+      {
+        "label": "Active",
+        "text": "Active: Kha'Zix becomes invisible for 1.25 seconds, during which he gains 40% bonus movement speed.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "invisible",
+            "category": "vision",
+            "wording": "invisible",
+            "duration": {
+              "kind": "constant",
+              "value": 1.25
+            },
+            "evidence": "Active: Kha'Zix becomes invisible for 1.25 seconds, during which he gains 40% bonus movement speed.",
+            "conditional": false
+          }
+        ],
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 1.25
+            },
+            "context": "Active: Kha'Zix becomes invisible for 1.25 seconds, during which he gains 40% bonus movement speed."
+          }
+        ]
+      },
+      {
+        "text": "After 2 seconds of leaving invisibility, and for the next 12 seconds, Void Assault can be recast at no additional cost.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "invisible",
+            "category": "vision",
+            "wording": "invisibility",
+            "duration": {
+              "kind": "constant",
+              "value": 12
+            },
+            "evidence": "After 2 seconds of leaving invisibility, and for the next 12 seconds, Void Assault can be recast at no additional cost.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "label": "Recast",
+        "text": "Recast: Kha'Zix mimics the first cast's effects.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Each cast counts as an ability activation for the purposes of on-cast effects such as Spellblade and triggering Force Pulse passive.",
+      "Kha'Zix receives the evolution even if he dies while in cast time.",
+      "Every time Void Assault is ranked, a secondary menu will pop up for Kha'Zix to select an ability to evolve, this can only be done once per ability.\n  - The only way for Kha'Zix to evolve all of his abilities is to gain the fourth evolution point by being victorious in The Hunt is On! (by scoring a takedown on Rengar).",
+      "Using a basic attack breaks stealth at the end of the attack windup."
+    ]
+  },
+  {
+    "champion": "Khazix",
+    "kind": "W",
+    "name": "Evolved Spike Racks",
+    "page": {
+      "title": "Template:Data Kha'Zix/Evolved Spike Racks",
+      "revid": 4064850
+    },
+    "ranks": 5,
+    "fields": {},
+    "flags": {
+      "targeting": [
+        "Direction"
+      ],
+      "affects": [
+        "Enemies",
+        "Self"
+      ],
+      "damageType": [
+        "physical"
+      ],
+      "spellEffects": "aoe",
+      "spellShield": "special",
+      "projectile": "true"
+    },
+    "parts": [
+      {
+        "label": "Evolved Bonus",
+        "text": "Evolved Bonus: Void Spike now fires three clusters in a cone, slows by 40% and reveals enemy champions hit for 2.25 seconds. Multiple explosions do not deal additional damage against the same target nor provide Kha'Zix with extra healing.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "slow",
+            "category": "control",
+            "wording": "slows",
+            "duration": {
+              "kind": "constant",
+              "value": 2.25
+            },
+            "amount": {
+              "kind": "constant",
+              "value": 40
+            },
+            "evidence": "Evolved Bonus: Void Spike now fires three clusters in a cone, slows by 40% and reveals enemy champions hit for 2.25 seconds.",
+            "conditional": false
+          },
+          {
+            "type": "reveal",
+            "category": "vision",
+            "wording": "reveals",
+            "duration": {
+              "kind": "constant",
+              "value": 2.25
+            },
+            "evidence": "Evolved Bonus: Void Spike now fires three clusters in a cone, slows by 40% and reveals enemy champions hit for 2.25 seconds.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "Isolated targets hit by Evolved Spike Racks are slowed by 60% instead.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "slow",
+            "category": "control",
+            "wording": "slowed",
+            "amount": {
+              "kind": "constant",
+              "value": 60
+            },
+            "evidence": "Isolated targets hit by Evolved Spike Racks are slowed by 60% instead.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "This ability will cast from wherever the caster is at the end of the cast time.",
+      "An enemy cannot be hit by more than one cluster at a time; the missiles will not collide with enemies that have already been hit.",
+      "Evolved Spike Racks effect radius is centered around the location of the missile as it collides.",
+      "Spell shield will not block the reveal."
+    ]
+  },
+  {
+    "champion": "Khazix",
+    "kind": "W",
+    "name": "Void Spike",
+    "page": {
+      "title": "Template:Data Kha'Zix/Void Spike",
+      "revid": 3971345
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "9",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 9
+            }
+          }
+        ]
+      },
+      "cost": {
+        "text": "55 / 60 / 65 / 70 / 75",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                55,
+                60,
+                65,
+                70,
+                75
+              ]
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "0.25",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0.25
+            }
+          }
+        ]
+      },
+      "targetRange": {
+        "text": "1025",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 1025
+            }
+          }
+        ]
+      },
+      "effectRadius": {
+        "text": "275",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 275
+            }
+          }
+        ]
+      },
+      "width": {
+        "text": "140",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 140
+            }
+          }
+        ]
+      },
+      "speed": {
+        "text": "1700",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 1700
+            }
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Direction"
+      ],
+      "affects": [
+        "Enemies",
+        "Self"
+      ],
+      "damageType": [
+        "physical"
+      ],
+      "spellEffects": "spellaoe",
+      "spellShield": "true",
+      "projectile": "true"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Kha'Zix fires a bolt of spikes in the target direction that explodes upon hitting an enemy, dealing physical damage to nearby enemies.",
+        "leveling": [
+          {
+            "label": "Physical Damage",
+            "amount": {
+              "text": "75 / 105 / 135 / 165 / 195 (+ 100% bonus AD)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  75,
+                  105,
+                  135,
+                  165,
+                  195
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "bonusAD",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 100
+                  },
+                  "text": "(+ 100% bonus AD)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "text": "Kha'Zix heals himself if he is within the explosion.",
+        "leveling": [
+          {
+            "label": "Heal",
+            "amount": {
+              "text": "55 / 75 / 95 / 115 / 135 (+ 50% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  55,
+                  75,
+                  95,
+                  115,
+                  135
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 50
+                  },
+                  "text": "(+ 50% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "heal",
+            "category": "defense",
+            "wording": "heals",
+            "evidence": "Kha'Zix heals himself if he is within the explosion.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "This ability will cast from wherever the caster is at the end of the cast time.",
+      "Void Spike's effect radius is centered around the location of the missile as it collides."
+    ]
+  }
+]

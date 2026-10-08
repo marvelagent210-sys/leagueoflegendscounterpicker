@@ -1,0 +1,1794 @@
+[
+  {
+    "champion": "Briar",
+    "kind": "E",
+    "name": "Chilling Scream",
+    "page": {
+      "title": "Template:Data Briar/Chilling Scream",
+      "revid": 4007450
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "16",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 16
+            }
+          }
+        ]
+      },
+      "cooldownStart": "post-effect",
+      "cost": {
+        "text": "5%",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 5
+            }
+          }
+        ]
+      },
+      "costType": "current health",
+      "castTime": {
+        "text": "None • 0.15",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0.15
+            },
+            "label": "Recast time"
+          }
+        ]
+      },
+      "range": {
+        "text": "-100 • 400 / 420 / 440 / 460 / 480 / 500 / 520 / 540 / 560 / 580 / 600 (based on charge time)",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 100
+            },
+            "label": "Backwards rectangle reach"
+          },
+          {
+            "series": {
+              "kind": "variable",
+              "variable": "charge time",
+              "points": [
+                0,
+                0.1,
+                0.2,
+                0.3,
+                0.4,
+                0.5,
+                0.6,
+                0.7,
+                0.8,
+                0.9,
+                1
+              ],
+              "values": [
+                400,
+                420,
+                440,
+                460,
+                480,
+                500,
+                520,
+                540,
+                560,
+                580,
+                600
+              ]
+            }
+          }
+        ]
+      },
+      "width": {
+        "text": "380",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 380
+            }
+          }
+        ]
+      },
+      "speed": {
+        "text": "1900 • 1800",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 1900
+            },
+            "label": "Missile speed"
+          },
+          {
+            "series": {
+              "kind": "constant",
+              "value": 1800
+            },
+            "label": "Knockback speed"
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Direction",
+        "Auto"
+      ],
+      "affects": [
+        "Enemies",
+        "Self"
+      ],
+      "damageType": [
+        "Magic"
+      ],
+      "spellEffects": "spellaoe",
+      "spellShield": "true",
+      "projectile": "true",
+      "silence": "false"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Briar prepares to unleash a scream in the target direction, charging for up to 1 second, during which she increases Chilling Scream's damage and range, and gains 35% damage reduction and heals herself every 0.25 seconds.",
+        "leveling": [
+          {
+            "label": "Heal Per Tick",
+            "amount": {
+              "text": "2.5 / 2.875 / 3.25 / 3.625 / 4% maximum health",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  2.5,
+                  2.875,
+                  3.25,
+                  3.625,
+                  4
+                ]
+              },
+              "unit": "%",
+              "scaling": [],
+              "unparsed": "",
+              "baseStat": "maxHealth"
+            }
+          },
+          {
+            "label": "Maximum Heal",
+            "amount": {
+              "text": "10 / 11.5 / 13 / 14.5 / 16% maximum health",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  10,
+                  11.5,
+                  13,
+                  14.5,
+                  16
+                ]
+              },
+              "unit": "%",
+              "scaling": [],
+              "unparsed": "",
+              "baseStat": "maxHealth"
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "channel",
+            "category": "other",
+            "wording": "charging",
+            "duration": {
+              "kind": "constant",
+              "value": 1
+            },
+            "evidence": "Active: Briar prepares to unleash a scream in the target direction, charging for up to 1 second, during which she increases Chilling Scream's damage and range, and gains 35% damage reduction and heals herself every 0.25 seconds.",
+            "conditional": false
+          },
+          {
+            "type": "heal",
+            "category": "defense",
+            "wording": "heals",
+            "duration": {
+              "kind": "constant",
+              "value": 1
+            },
+            "evidence": "Active: Briar prepares to unleash a scream in the target direction, charging for up to 1 second, during which she increases Chilling Scream's damage and range, and gains 35% damage reduction and heals herself every 0.25 seconds.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "Chilling Scream can be recast within the duration, and does so automatically afterwards. Chilling Scream's charge cannot be interrupted by crowd control.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "interrupt",
+            "category": "other",
+            "wording": "interrupted",
+            "evidence": "Chilling Scream's charge cannot be interrupted by crowd control.",
+            "conditional": true
+          }
+        ],
+        "values": []
+      },
+      {
+        "label": "Recast",
+        "text": "Recast: Briar unleashes the scream in the direction she targeted at the time of cast, dealing magic damage to enemies hit and slowing them by 80% for 0.5 seconds.",
+        "leveling": [
+          {
+            "label": "Maximum Magic Damage",
+            "amount": {
+              "text": "80 / 115 / 150 / 185 / 220 (+ 100% bonus AD) (+ 100% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  80,
+                  115,
+                  150,
+                  185,
+                  220
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "bonusAD",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 100
+                  },
+                  "text": "(+ 100% bonus AD)"
+                },
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 100
+                  },
+                  "text": "(+ 100% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Minimum Magic Damage",
+            "amount": {
+              "text": "2 / 2.875 / 3.75 / 4.625 / 5.5 (+ 2.5% bonus AD) (+ 2.5% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  2,
+                  2.875,
+                  3.75,
+                  4.625,
+                  5.5
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "bonusAD",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 2.5
+                  },
+                  "text": "(+ 2.5% bonus AD)"
+                },
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 2.5
+                  },
+                  "text": "(+ 2.5% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "slow",
+            "category": "control",
+            "wording": "slowing",
+            "duration": {
+              "kind": "constant",
+              "value": 0.5
+            },
+            "amount": {
+              "kind": "constant",
+              "value": 80
+            },
+            "evidence": "Recast: Briar unleashes the scream in the direction she targeted at the time of cast, dealing magic damage to enemies hit and slowing them by 80% for 0.5 seconds.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "If Chilling Scream was charged for its full duration, enemies hit are also knocked back 575 units. If they collide with terrain, they will rebound to take bonus magic damage and become knocked up for 0.5 seconds and stunned for 1.5 seconds.",
+        "leveling": [
+          {
+            "label": "Bonus Magic Damage",
+            "amount": {
+              "text": "140 / 215 / 290 / 365 / 440 (+ 240% bonus AD) (+ 240% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  140,
+                  215,
+                  290,
+                  365,
+                  440
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "bonusAD",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 240
+                  },
+                  "text": "(+ 240% bonus AD)"
+                },
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 240
+                  },
+                  "text": "(+ 240% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Total Magic Damage",
+            "amount": {
+              "text": "220 / 330 / 440 / 550 / 660 (+ 340% bonus AD) (+ 340% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  220,
+                  330,
+                  440,
+                  550,
+                  660
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "bonusAD",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 340
+                  },
+                  "text": "(+ 340% bonus AD)"
+                },
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 340
+                  },
+                  "text": "(+ 340% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "airborne",
+            "category": "control",
+            "wording": "knocked back",
+            "evidence": "If Chilling Scream was charged for its full duration, enemies hit are also knocked back 575 units.",
+            "conditional": false
+          },
+          {
+            "type": "airborne",
+            "category": "control",
+            "wording": "knocked up",
+            "duration": {
+              "kind": "constant",
+              "value": 0.5
+            },
+            "evidence": "If they collide with terrain, they will rebound to take bonus magic damage and become knocked up for 0.5 seconds and stunned for 1.5 seconds.",
+            "conditional": false
+          },
+          {
+            "type": "stun",
+            "category": "control",
+            "wording": "stunned",
+            "duration": {
+              "kind": "constant",
+              "value": 1.5
+            },
+            "evidence": "If they collide with terrain, they will rebound to take bonus magic damage and become knocked up for 0.5 seconds and stunned for 1.5 seconds.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Chilling Scream increases its damage by its minimum every 0.025 seconds over the duration.",
+      "This ability will cast from wherever the caster is at the end of the cast time.",
+      "The following table refers for interactions while Briar is channeling:"
+    ]
+  },
+  {
+    "champion": "Briar",
+    "kind": "I",
+    "name": "Crimson Curse",
+    "page": {
+      "title": "Template:Data Briar/Crimson Curse",
+      "revid": 4038287
+    },
+    "ranks": 1,
+    "fields": {},
+    "flags": {
+      "targeting": [
+        "Passive"
+      ],
+      "affects": [
+        "Enemies",
+        "Self"
+      ],
+      "damageType": [
+        "Physical"
+      ],
+      "spellEffects": "proc",
+      "spellShield": "true",
+      "parry": "true"
+    },
+    "parts": [
+      {
+        "label": "Innate",
+        "text": "Innate: Briar's basic attacks on-hit and abilities inflict a bleed against enemies for 5 seconds, refreshing on subsequent applications, stacking up to 5 times and dealing 25% damage for stacks beyond the first. The bleed deals 10 – 50 (based on level) (+ 50% bonus AD) total physical damage and heals Briar for 2.5 – 12.5 (based on level) (+ 12.5% bonus AD) over the duration, increased by 2.5 – 12.5 (based on level) (+ 12.5% bonus AD) and 0.625 – 3.125 (based on level) (+ 3.125% bonus AD) for each subsequent stack respectively and up to a maximum of 20 – 100 (based on level) (+ 100% bonus AD) total physical damage and 5 – 25 (based on level) (+ 25% bonus AD) over the duration. If a target dies while bleeding, she will heal herself equal to 125% of the remaining bleed damage.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "on-hit",
+            "category": "offense",
+            "wording": "on-hit",
+            "evidence": "Innate: Briar's basic attacks on-hit and abilities inflict a bleed against enemies for 5 seconds, refreshing on subsequent applications, stacking up to 5 times and dealing 25% damage for stacks beyond the first.",
+            "conditional": false
+          },
+          {
+            "type": "heal",
+            "category": "defense",
+            "wording": "heals",
+            "evidence": "The bleed deals 10 – 50 (based on level) (+ 50% bonus AD) total physical damage and heals Briar for 2.5 – 12.5 (based on level) (+ 12.5% bonus AD) over the duration, increased by 2.5 – 12.5 (based on level) (+ 12.5% bonus AD) and 0.625 – 3.125 (based on level) (+ 3.125% bonus AD) for each subsequent stack respectively and up to a maximum of 20 – 100 (based on level) (+ 100% bonus AD) total physical damage and 5 – 25 (based on level) (+ 25% bonus AD) over the duration.",
+            "conditional": false
+          }
+        ],
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 25
+            },
+            "context": "Innate: Briar's basic attacks on-hit and abilities inflict a bleed against enemies for 5 seconds, refreshing on subsequent applications, stacking up to 5 times and dealing 25% damage for stacks beyond the first."
+          },
+          {
+            "series": {
+              "kind": "level",
+              "values": [
+                10,
+                12.352941176470589,
+                14.705882352941178,
+                17.058823529411764,
+                19.411764705882355,
+                21.764705882352942,
+                24.11764705882353,
+                26.470588235294116,
+                28.823529411764707,
+                31.176470588235293,
+                33.529411764705884,
+                35.88235294117647,
+                38.23529411764706,
+                40.58823529411765,
+                42.94117647058823,
+                45.294117647058826,
+                47.64705882352941,
+                50,
+                52.35294117647059,
+                54.705882352941174
+              ],
+              "past18": "wiki"
+            },
+            "context": "The bleed deals 10 – 50 (based on level) (+ 50% bonus AD) total physical damage and heals Briar for 2.5 – 12.5 (based on level) (+ 12.5% bonus AD) over the duration, increased by 2.5 – 12.5 (based on level) (+ 12.5% bonus AD) and 0.625 – 3.125 (based on level) (+ 3.125% bonus AD) for each subsequent stack respectively and up to a maximum of 20 – 100 (based on level) (+ 100% bonus AD) total physical damage and 5 – 25 (based on level) (+ 25% bonus AD) over the duration."
+          },
+          {
+            "series": {
+              "kind": "level",
+              "values": [
+                2.5,
+                3.088235294117647,
+                3.6764705882352944,
+                4.264705882352941,
+                4.852941176470589,
+                5.4411764705882355,
+                6.029411764705882,
+                6.61764705882353,
+                7.205882352941177,
+                7.794117647058823,
+                8.382352941176471,
+                8.970588235294118,
+                9.558823529411764,
+                10.147058823529413,
+                10.73529411764706,
+                11.323529411764707,
+                11.911764705882353,
+                12.5,
+                13.088235294117647,
+                13.676470588235295
+              ],
+              "past18": "wiki"
+            },
+            "context": "The bleed deals 10 – 50 (based on level) (+ 50% bonus AD) total physical damage and heals Briar for 2.5 – 12.5 (based on level) (+ 12.5% bonus AD) over the duration, increased by 2.5 – 12.5 (based on level) (+ 12.5% bonus AD) and 0.625 – 3.125 (based on level) (+ 3.125% bonus AD) for each subsequent stack respectively and up to a maximum of 20 – 100 (based on level) (+ 100% bonus AD) total physical damage and 5 – 25 (based on level) (+ 25% bonus AD) over the duration."
+          },
+          {
+            "series": {
+              "kind": "constant",
+              "value": 12.5
+            },
+            "context": "The bleed deals 10 – 50 (based on level) (+ 50% bonus AD) total physical damage and heals Briar for 2.5 – 12.5 (based on level) (+ 12.5% bonus AD) over the duration, increased by 2.5 – 12.5 (based on level) (+ 12.5% bonus AD) and 0.625 – 3.125 (based on level) (+ 3.125% bonus AD) for each subsequent stack respectively and up to a maximum of 20 – 100 (based on level) (+ 100% bonus AD) total physical damage and 5 – 25 (based on level) (+ 25% bonus AD) over the duration."
+          },
+          {
+            "series": {
+              "kind": "level",
+              "values": [
+                2.5,
+                3.088235294117647,
+                3.6764705882352944,
+                4.264705882352941,
+                4.852941176470589,
+                5.4411764705882355,
+                6.029411764705882,
+                6.617647058823529,
+                7.205882352941177,
+                7.794117647058823,
+                8.382352941176471,
+                8.970588235294118,
+                9.558823529411764,
+                10.147058823529413,
+                10.735294117647058,
+                11.323529411764707,
+                11.911764705882353,
+                12.5,
+                13.088235294117647,
+                13.676470588235293
+              ],
+              "past18": "wiki"
+            },
+            "context": "The bleed deals 10 – 50 (based on level) (+ 50% bonus AD) total physical damage and heals Briar for 2.5 – 12.5 (based on level) (+ 12.5% bonus AD) over the duration, increased by 2.5 – 12.5 (based on level) (+ 12.5% bonus AD) and 0.625 – 3.125 (based on level) (+ 3.125% bonus AD) for each subsequent stack respectively and up to a maximum of 20 – 100 (based on level) (+ 100% bonus AD) total physical damage and 5 – 25 (based on level) (+ 25% bonus AD) over the duration."
+          },
+          {
+            "series": {
+              "kind": "constant",
+              "value": 12.5
+            },
+            "context": "The bleed deals 10 – 50 (based on level) (+ 50% bonus AD) total physical damage and heals Briar for 2.5 – 12.5 (based on level) (+ 12.5% bonus AD) over the duration, increased by 2.5 – 12.5 (based on level) (+ 12.5% bonus AD) and 0.625 – 3.125 (based on level) (+ 3.125% bonus AD) for each subsequent stack respectively and up to a maximum of 20 – 100 (based on level) (+ 100% bonus AD) total physical damage and 5 – 25 (based on level) (+ 25% bonus AD) over the duration."
+          },
+          {
+            "series": {
+              "kind": "level",
+              "values": [
+                0.625,
+                0.7720588235294118,
+                0.9191176470588236,
+                1.0661764705882353,
+                1.2132352941176472,
+                1.3602941176470589,
+                1.5073529411764706,
+                1.6544117647058825,
+                1.8014705882352942,
+                1.9485294117647058,
+                2.0955882352941178,
+                2.2426470588235294,
+                2.389705882352941,
+                2.5367647058823533,
+                2.683823529411765,
+                2.8308823529411766,
+                2.9779411764705883,
+                3.125,
+                3.2720588235294117,
+                3.419117647058824
+              ],
+              "past18": "wiki"
+            },
+            "context": "The bleed deals 10 – 50 (based on level) (+ 50% bonus AD) total physical damage and heals Briar for 2.5 – 12.5 (based on level) (+ 12.5% bonus AD) over the duration, increased by 2.5 – 12.5 (based on level) (+ 12.5% bonus AD) and 0.625 – 3.125 (based on level) (+ 3.125% bonus AD) for each subsequent stack respectively and up to a maximum of 20 – 100 (based on level) (+ 100% bonus AD) total physical damage and 5 – 25 (based on level) (+ 25% bonus AD) over the duration."
+          },
+          {
+            "series": {
+              "kind": "constant",
+              "value": 3.125
+            },
+            "context": "The bleed deals 10 – 50 (based on level) (+ 50% bonus AD) total physical damage and heals Briar for 2.5 – 12.5 (based on level) (+ 12.5% bonus AD) over the duration, increased by 2.5 – 12.5 (based on level) (+ 12.5% bonus AD) and 0.625 – 3.125 (based on level) (+ 3.125% bonus AD) for each subsequent stack respectively and up to a maximum of 20 – 100 (based on level) (+ 100% bonus AD) total physical damage and 5 – 25 (based on level) (+ 25% bonus AD) over the duration."
+          },
+          {
+            "series": {
+              "kind": "level",
+              "values": [
+                20,
+                24.705882352941178,
+                29.411764705882355,
+                34.11764705882353,
+                38.82352941176471,
+                43.529411764705884,
+                48.23529411764706,
+                52.94117647058823,
+                57.64705882352941,
+                62.35294117647059,
+                67.05882352941177,
+                71.76470588235294,
+                76.47058823529412,
+                81.1764705882353,
+                85.88235294117646,
+                90.58823529411765,
+                95.29411764705883,
+                100,
+                104.70588235294117,
+                109.41176470588235
+              ],
+              "past18": "wiki"
+            },
+            "context": "The bleed deals 10 – 50 (based on level) (+ 50% bonus AD) total physical damage and heals Briar for 2.5 – 12.5 (based on level) (+ 12.5% bonus AD) over the duration, increased by 2.5 – 12.5 (based on level) (+ 12.5% bonus AD) and 0.625 – 3.125 (based on level) (+ 3.125% bonus AD) for each subsequent stack respectively and up to a maximum of 20 – 100 (based on level) (+ 100% bonus AD) total physical damage and 5 – 25 (based on level) (+ 25% bonus AD) over the duration."
+          },
+          {
+            "series": {
+              "kind": "constant",
+              "value": 100
+            },
+            "context": "The bleed deals 10 – 50 (based on level) (+ 50% bonus AD) total physical damage and heals Briar for 2.5 – 12.5 (based on level) (+ 12.5% bonus AD) over the duration, increased by 2.5 – 12.5 (based on level) (+ 12.5% bonus AD) and 0.625 – 3.125 (based on level) (+ 3.125% bonus AD) for each subsequent stack respectively and up to a maximum of 20 – 100 (based on level) (+ 100% bonus AD) total physical damage and 5 – 25 (based on level) (+ 25% bonus AD) over the duration."
+          },
+          {
+            "series": {
+              "kind": "level",
+              "values": [
+                5,
+                6.176470588235294,
+                7.352941176470589,
+                8.529411764705882,
+                9.705882352941178,
+                10.882352941176471,
+                12.058823529411764,
+                13.23529411764706,
+                14.411764705882353,
+                15.588235294117647,
+                16.764705882352942,
+                17.941176470588236,
+                19.11764705882353,
+                20.294117647058826,
+                21.47058823529412,
+                22.647058823529413,
+                23.823529411764707,
+                25,
+                26.176470588235293,
+                27.35294117647059
+              ],
+              "past18": "wiki"
+            },
+            "context": "The bleed deals 10 – 50 (based on level) (+ 50% bonus AD) total physical damage and heals Briar for 2.5 – 12.5 (based on level) (+ 12.5% bonus AD) over the duration, increased by 2.5 – 12.5 (based on level) (+ 12.5% bonus AD) and 0.625 – 3.125 (based on level) (+ 3.125% bonus AD) for each subsequent stack respectively and up to a maximum of 20 – 100 (based on level) (+ 100% bonus AD) total physical damage and 5 – 25 (based on level) (+ 25% bonus AD) over the duration."
+          },
+          {
+            "series": {
+              "kind": "constant",
+              "value": 25
+            },
+            "context": "The bleed deals 10 – 50 (based on level) (+ 50% bonus AD) total physical damage and heals Briar for 2.5 – 12.5 (based on level) (+ 12.5% bonus AD) over the duration, increased by 2.5 – 12.5 (based on level) (+ 12.5% bonus AD) and 0.625 – 3.125 (based on level) (+ 3.125% bonus AD) for each subsequent stack respectively and up to a maximum of 20 – 100 (based on level) (+ 100% bonus AD) total physical damage and 5 – 25 (based on level) (+ 25% bonus AD) over the duration."
+          }
+        ]
+      },
+      {
+        "text": "Briar has no base health regeneration, but she increases healing from all sources by 0 / 4 / 8 / 12 / 16 / 20 / 24 / 28 / 32 / 36 / 40 (based on missing health)% (+ 0 / 0.25 / 0.5 / 0.75 / 1 / 1.25 / 1.5 / 1.75 / 2 / 2.25 / 2.5 (based on missing health)% per 100 bonus health).",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "heal",
+            "category": "defense",
+            "wording": "base health regeneration",
+            "evidence": "Briar has no base health regeneration, but she increases healing from all sources by 0 / 4 / 8 / 12 / 16 / 20 / 24 / 28 / 32 / 36 / 40 (based on missing health)% (+ 0 / 0.25 / 0.5 / 0.75 / 1 / 1.25 / 1.5 / 1.75 / 2 / 2.25 / 2.5 (based on missing health)% per 100 bonus health).",
+            "conditional": false
+          }
+        ],
+        "values": [
+          {
+            "series": {
+              "kind": "variable",
+              "variable": "missing health",
+              "points": [
+                0,
+                10,
+                20,
+                30,
+                40,
+                50,
+                60,
+                70,
+                80,
+                90,
+                100
+              ],
+              "values": [
+                0,
+                4,
+                8,
+                12,
+                16,
+                20,
+                24,
+                28,
+                32,
+                36,
+                40
+              ]
+            },
+            "context": "Briar has no base health regeneration, but she increases healing from all sources by 0 / 4 / 8 / 12 / 16 / 20 / 24 / 28 / 32 / 36 / 40 (based on missing health)% (+ 0 / 0.25 / 0.5 / 0.75 / 1 / 1.25 / 1.5 / 1.75 / 2 / 2.25 / 2.5 (based on missing health)% per 100 bonus health)."
+          },
+          {
+            "series": {
+              "kind": "variable",
+              "variable": "missing health",
+              "points": [
+                0,
+                10,
+                20,
+                30,
+                40,
+                50,
+                60,
+                70,
+                80,
+                90,
+                100
+              ],
+              "values": [
+                0,
+                0.25,
+                0.5,
+                0.75,
+                1,
+                1.25,
+                1.5,
+                1.75,
+                2,
+                2.25,
+                2.5
+              ]
+            },
+            "context": "Briar has no base health regeneration, but she increases healing from all sources by 0 / 4 / 8 / 12 / 16 / 20 / 24 / 28 / 32 / 36 / 40 (based on missing health)% (+ 0 / 0.25 / 0.5 / 0.75 / 1 / 1.25 / 1.5 / 1.75 / 2 / 2.25 / 2.5 (based on missing health)% per 100 bonus health)."
+          }
+        ]
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "The bleed always heals Briar for 25% of the pre-mitigation damage dealt.\n  - Because of this, Briar will not heal on invulnerable targets.",
+      "Blood Frenzy area of effect damage around the target does not apply bleed stacks."
+    ]
+  },
+  {
+    "champion": "Briar",
+    "kind": "Q",
+    "name": "Head Rush",
+    "page": {
+      "title": "Template:Data Briar/Head Rush",
+      "revid": 3989856
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "13 / 12 / 11 / 10 / 9",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                13,
+                12,
+                11,
+                10,
+                9
+              ]
+            }
+          }
+        ]
+      },
+      "cost": {
+        "text": "5%",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 5
+            }
+          }
+        ]
+      },
+      "costType": "current health",
+      "castTime": {
+        "text": "none",
+        "values": []
+      },
+      "targetRange": {
+        "text": "475",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 475
+            }
+          }
+        ]
+      },
+      "speed": {
+        "text": "600 / 633.333 / 666.667 / 700 / 733.333 / 766.667 / 800 / 833.333 / 866.667 / 900 (based on distance)",
+        "values": [
+          {
+            "series": {
+              "kind": "variable",
+              "variable": "distance",
+              "points": [
+                0,
+                50,
+                100,
+                150,
+                200,
+                250,
+                300,
+                350,
+                400,
+                450
+              ],
+              "values": [
+                600,
+                633.3333333333334,
+                666.6666666666666,
+                700,
+                733.3333333333334,
+                766.6666666666666,
+                800,
+                833.3333333333334,
+                866.6666666666667,
+                900
+              ]
+            }
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Unit"
+      ],
+      "affects": [
+        "Enemies",
+        "Self"
+      ],
+      "damageType": [
+        "Physical"
+      ],
+      "spellEffects": "spell",
+      "spellShield": "true",
+      "grounded": "true",
+      "knockdown": "true"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Briar leaps to the target unit. If the target is an enemy, she deals physical damage, applies on-hit effects, triggers on-attack effects, stuns them for 0.85 seconds, and reduces their armor and magic resistance for 5 seconds.",
+        "leveling": [
+          {
+            "label": "Physical Damage",
+            "amount": {
+              "text": "60 / 85 / 110 / 135 / 160 (+ 80% bonus AD) (+ 60% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  60,
+                  85,
+                  110,
+                  135,
+                  160
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "bonusAD",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 80
+                  },
+                  "text": "(+ 80% bonus AD)"
+                },
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 60
+                  },
+                  "text": "(+ 60% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Resistances Reduction",
+            "amount": {
+              "text": "10 / 12.5 / 15 / 17.5 / 20%",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  10,
+                  12.5,
+                  15,
+                  17.5,
+                  20
+                ]
+              },
+              "unit": "%",
+              "scaling": [],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "dash",
+            "category": "movement",
+            "wording": "leaps",
+            "evidence": "Active: Briar leaps to the target unit.",
+            "conditional": false
+          },
+          {
+            "type": "on-hit",
+            "category": "offense",
+            "wording": "on-hit",
+            "evidence": "If the target is an enemy, she deals physical damage, applies on-hit effects, triggers on-attack effects, stuns them for 0.85 seconds, and reduces their armor and magic resistance for 5 seconds.",
+            "conditional": false
+          },
+          {
+            "type": "on-attack",
+            "category": "offense",
+            "wording": "on-attack",
+            "evidence": "If the target is an enemy, she deals physical damage, applies on-hit effects, triggers on-attack effects, stuns them for 0.85 seconds, and reduces their armor and magic resistance for 5 seconds.",
+            "conditional": false
+          },
+          {
+            "type": "stun",
+            "category": "control",
+            "wording": "stuns",
+            "duration": {
+              "kind": "constant",
+              "value": 0.85
+            },
+            "evidence": "If the target is an enemy, she deals physical damage, applies on-hit effects, triggers on-attack effects, stuns them for 0.85 seconds, and reduces their armor and magic resistance for 5 seconds.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "Head Rush resets Briar's basic attack timer.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "attack reset",
+            "category": "offense",
+            "wording": "resets",
+            "evidence": "Head Rush resets Briar's basic attack timer.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Head Rush can be cast on jungle plants, wards, and traps.\n  - It cannot be cast on structures.",
+      "Head Rush does not force the target's armor and magic resistance to update immediately outside of the natural stat update cycle, meaning its damage will typically still be mitigated by the unreduced armor value.",
+      "Head Rush's damage benefits from life steal.",
+      "Head Rush is a non-following dash.\n  - It picks its dash destination ~100 units in front of enemy targets, 75 units in front of enemy targets when already very close to them, 75 units in front of allied targets.\n  - If already within 75 units of her target, she dashes to her current location, which takes 0 time but still triggers dash effects such as Sudden Impact."
+    ]
+  },
+  {
+    "champion": "Briar",
+    "kind": "R",
+    "name": "Certain Death",
+    "page": {
+      "title": "Template:Data Briar/Certain Death",
+      "revid": 4051322
+    },
+    "ranks": 3,
+    "fields": {
+      "cooldown": {
+        "text": "120 / 100 / 80",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                120,
+                100,
+                80
+              ]
+            }
+          }
+        ]
+      },
+      "cooldownStart": "on-cast",
+      "cost": {
+        "text": "5%",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 5
+            }
+          }
+        ]
+      },
+      "costType": "current health",
+      "castTime": {
+        "text": "1 • 1.25",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 1
+            },
+            "label": "Time before kicking hemolith"
+          },
+          {
+            "series": {
+              "kind": "constant",
+              "value": 1.25
+            },
+            "label": "Time before dashing to target"
+          }
+        ]
+      },
+      "range": {
+        "text": "12000",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 12000
+            },
+            "label": "Missile range"
+          }
+        ]
+      },
+      "effectRadius": {
+        "text": "Global • 1500 • 575",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 1500
+            },
+            "label": "Frenzy non-marked target radius"
+          },
+          {
+            "series": {
+              "kind": "constant",
+              "value": 575
+            },
+            "label": "Fear radius on impact around target"
+          }
+        ]
+      },
+      "width": {
+        "text": "320",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 320
+            },
+            "label": "Missile width"
+          }
+        ]
+      },
+      "speed": {
+        "text": "2000 • 2500 – 5000",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 2000
+            },
+            "label": "Missile speed"
+          },
+          {
+            "series": {
+              "kind": "constant",
+              "value": 2500
+            },
+            "label": "Dash speed, accelerates over time"
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Direction"
+      ],
+      "affects": [
+        "Enemies",
+        "Self"
+      ],
+      "damageType": [
+        "Magic"
+      ],
+      "spellEffects": "spellaoe",
+      "spellShield": "true",
+      "projectile": "true",
+      "grounded": "true",
+      "knockdown": "false"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Briar kicks her pillory's hemolith in the target direction, briefly granting sight of its surroundings as it travels and marking the first enemy champion hit as her prey. The mark's application disrupts the target's ongoing channels. While the target is marked, they are revealed.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "reveal",
+            "category": "vision",
+            "wording": "sight",
+            "evidence": "Active: Briar kicks her pillory's hemolith in the target direction, briefly granting sight of its surroundings as it travels and marking the first enemy champion hit as her prey.",
+            "conditional": false
+          },
+          {
+            "type": "disrupt",
+            "category": "other",
+            "wording": "disrupts",
+            "evidence": "The mark's application disrupts the target's ongoing channels.",
+            "conditional": false
+          },
+          {
+            "type": "channel",
+            "category": "other",
+            "wording": "channels",
+            "evidence": "The mark's application disrupts the target's ongoing channels.",
+            "conditional": false
+          },
+          {
+            "type": "true sight",
+            "category": "vision",
+            "wording": "revealed",
+            "evidence": "While the target is marked, they are revealed.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "If a target is hit, Briar cleanses herself from all crowd control and becomes immune to them over a cast time, afterwards dashing to them with displacement immunity. Upon arrival, she creates an explosion around the marked target that deals magic damage to them and nearby enemies and fears all non-marked targets for 1.5 seconds, during which they are slowed by 35%. She then enters a state of Hematomania.",
+        "leveling": [
+          {
+            "label": "Magic Damage",
+            "amount": {
+              "text": "150 / 250 / 350 (+ 130% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  150,
+                  250,
+                  350
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 130
+                  },
+                  "text": "(+ 130% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "cleanse",
+            "category": "defense",
+            "wording": "cleanses",
+            "evidence": "If a target is hit, Briar cleanses herself from all crowd control and becomes immune to them over a cast time, afterwards dashing to them with displacement immunity.",
+            "conditional": false
+          },
+          {
+            "type": "cc-immune",
+            "category": "defense",
+            "wording": "immune to them",
+            "evidence": "If a target is hit, Briar cleanses herself from all crowd control and becomes immune to them over a cast time, afterwards dashing to them with displacement immunity.",
+            "conditional": true
+          },
+          {
+            "type": "dash",
+            "category": "movement",
+            "wording": "dashing",
+            "evidence": "If a target is hit, Briar cleanses herself from all crowd control and becomes immune to them over a cast time, afterwards dashing to them with displacement immunity.",
+            "conditional": false
+          },
+          {
+            "type": "displacement-immune",
+            "category": "defense",
+            "wording": "displacement immunity",
+            "evidence": "If a target is hit, Briar cleanses herself from all crowd control and becomes immune to them over a cast time, afterwards dashing to them with displacement immunity.",
+            "conditional": false
+          },
+          {
+            "type": "fear",
+            "category": "control",
+            "wording": "fears",
+            "duration": {
+              "kind": "constant",
+              "value": 1.5
+            },
+            "evidence": "Upon arrival, she creates an explosion around the marked target that deals magic damage to them and nearby enemies and fears all non-marked targets for 1.5 seconds, during which they are slowed by 35%.",
+            "conditional": false
+          },
+          {
+            "type": "slow",
+            "category": "control",
+            "wording": "slowed",
+            "duration": {
+              "kind": "constant",
+              "value": 1.5
+            },
+            "amount": {
+              "kind": "constant",
+              "value": 35
+            },
+            "evidence": "Upon arrival, she creates an explosion around the marked target that deals magic damage to them and nearby enemies and fears all non-marked targets for 1.5 seconds, during which they are slowed by 35%.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "label": "Hematomania",
+        "text": "Hematomania: Briar gains all effects of Blood Frenzy as well as bonus armor and bonus magic resistance equal to 20% AD, life steal, and additional bonus movement speed.",
+        "leveling": [
+          {
+            "label": "Life Steal",
+            "amount": {
+              "text": "10 / 15 / 20%",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  10,
+                  15,
+                  20
+                ]
+              },
+              "unit": "%",
+              "scaling": [],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Additional Bonus Movement Speed",
+            "amount": {
+              "text": "10 / 20 / 30%",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  10,
+                  20,
+                  30
+                ]
+              },
+              "unit": "%",
+              "scaling": [],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "life steal",
+            "category": "defense",
+            "wording": "life steal",
+            "evidence": "Hematomania: Briar gains all effects of Blood Frenzy as well as bonus armor and bonus magic resistance equal to 20% AD, life steal, and additional bonus movement speed.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "While in the empowered frenzy, Briar prioritizes attacking the marked target over all other units and regardless of range. If that target becomes invalid, she will shift back to her normal targeting priority until the marked target can be attacked again. Hematomania lasts until the mark is dispelled by any means, including Briar's or the target's death.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "text": "Casting Chilling Scream removes the target's mark and ends Hematomania early. Head Rush cast does not shift her targeting priority during Hematomania.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "The dash is considered an ability activation for the purposes of Sheen and Force Pulse.",
+      "Briar will track the target with the dash if they change locations.\n  - She will not stop tracking the target until she reaches them, as there is no maximum tracking distance.",
+      "Briar lands 100 units in front of her target at the end of the dash.",
+      "Briar will not initiate the second cast if she is being suppressed, is under resurrection, or is in the Realm of Death when her target is hit by the missile in the normal realm.\n  - Since Certain Death cleanses herself from all crowd control when the first cast hits, she will be able to start the second cast due to removing the suppression effect.",
+      "Briar will still dash to the target even if they die before she reaches them.",
+      "Briar will transition from having total crowd control immunity during the cast time of the dash, to having displacement immunity during the dash.",
+      "Briar will place herself onto the ground and interrupt displacements affecting her upon starting the second cast time.",
+      "Hematomania's targeting priorities differ slightly from that of Blood Frenzy:\n  - She will prioritize the marked target regardless of range and over all other units as long as it can be attacked.\n    - If the marked target is not available, then she shifts her priority to the nearest other champion, then large monster or minion, and then any other unit in a global radius.",
+      "Starting the second cast interrupts any spells that Briar is channeling.",
+      "The mark will expire if Hematomania's buff is dispelled.",
+      "Casting Blood Frenzy during Hematomania will not grant any additional bonuses nor will it override Hematomania's effects.\n  - Gaining Hematomania while Blood Frenzy is active will override the previous buff.\n  - Casting Blood Frenzy during Hematomania does allow the use of Snack Attack. However, both Blood Frenzys effects and the ability to use Snack Attack are immediately interrupted upon exiting Hematomania.",
+      "The disrupt is 'wrapped' into a status effect that causes the affected champion to display the \"Silenced\" UI on their health bar for 0.25 seconds, without actually applying the disabling effects of the silence crowd control type (functions as an indicator of the target becoming disrupted). This however ensures that the disrupt is also prevented by effects that would negate silences (such as crowd control immunity).",
+      "Experimental Hexplate Overdrive, Fiendhunter Bolts Opening Barrage, and Zeke's Convergence Frostfire Tempest will activate at the end of Certain Death's initial cast time. If the missile hits a target, the buff's duration is refreshed at the end of the dash.",
+      "This ability will cast from wherever the caster is at the start of the cast time.",
+      "The following table refers for interactions while Briar is in either the first or second cast time:",
+      "The following table refers for interactions while Briar is dashing:",
+      "The following table refers for interactions while Briar is in Hematomania:"
+    ]
+  },
+  {
+    "champion": "Briar",
+    "kind": "W",
+    "name": "Blood Frenzy",
+    "page": {
+      "title": "Template:Data Briar/Blood Frenzy",
+      "revid": 4072099
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "14 / 13 / 12 / 11 / 10",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                14,
+                13,
+                12,
+                11,
+                10
+              ]
+            }
+          }
+        ]
+      },
+      "cooldownStart": "on-cast",
+      "cost": {
+        "text": "5%",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 5
+            }
+          }
+        ]
+      },
+      "costType": "current health",
+      "castTime": {
+        "text": "none",
+        "values": []
+      },
+      "targetRange": {
+        "text": "75 - 300 • 650",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 75
+            },
+            "label": "Minimum and maximum dash distance"
+          },
+          {
+            "series": {
+              "kind": "constant",
+              "value": 650
+            },
+            "label": "Maximum extended dash distance across terrain"
+          }
+        ]
+      },
+      "effectRadius": {
+        "text": "1000 • 275",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 1000
+            },
+            "label": "Frenzy target radius"
+          },
+          {
+            "series": {
+              "kind": "constant",
+              "value": 275
+            },
+            "label": "Attack cleave radius around primary target"
+          }
+        ]
+      },
+      "speed": {
+        "text": "1200",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 1200
+            },
+            "label": "Dash speed"
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Location"
+      ],
+      "affects": [
+        "Enemies",
+        "Self"
+      ],
+      "damageType": [
+        "Physical"
+      ],
+      "spellEffects": "proc",
+      "parry": "true",
+      "grounded": "true",
+      "knockdown": "true"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Briar dashes in the target direction. If there is a nearby enemy upon her arrival, she gains Blood Frenzy for 5 seconds, during which she can cast Snack Attack.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "dash",
+            "category": "movement",
+            "wording": "dashes",
+            "evidence": "Active: Briar dashes in the target direction.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "label": "Blood Frenzy",
+        "text": "Blood Frenzy: Briar breaks free from her pillory, causing her to become forced to basic attack the nearest enemy. She reveals the target and gains ghosting, bonus attack speed and bonus movement speed, as well as empowering her basic attacks to have an uncancellable windup and deal physical damage to enemies surrounding her target. This damage is affected by critical strike modifiers.",
+        "leveling": [
+          {
+            "label": "Bonus Attack Speed",
+            "amount": {
+              "text": "55 / 65 / 75 / 85 / 95%",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  55,
+                  65,
+                  75,
+                  85,
+                  95
+                ]
+              },
+              "unit": "%",
+              "scaling": [],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Bonus Movement Speed",
+            "amount": {
+              "text": "24 / 33 / 42 / 51 / 60%",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  24,
+                  33,
+                  42,
+                  51,
+                  60
+                ]
+              },
+              "unit": "%",
+              "scaling": [],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Physical Damage",
+            "amount": {
+              "text": "60 / 70 / 80 / 90 / 100% AD",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  60,
+                  70,
+                  80,
+                  90,
+                  100
+                ]
+              },
+              "unit": "%",
+              "scaling": [],
+              "unparsed": "",
+              "baseStat": "AD"
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "reveal",
+            "category": "vision",
+            "wording": "reveals",
+            "evidence": "She reveals the target and gains ghosting, bonus attack speed and bonus movement speed, as well as empowering her basic attacks to have an uncancellable windup and deal physical damage to enemies surrounding her target.",
+            "conditional": false
+          },
+          {
+            "type": "ghosted",
+            "category": "movement",
+            "wording": "ghosting",
+            "evidence": "She reveals the target and gains ghosting, bonus attack speed and bonus movement speed, as well as empowering her basic attacks to have an uncancellable windup and deal physical damage to enemies surrounding her target.",
+            "conditional": false
+          },
+          {
+            "type": "uncancellable windup",
+            "category": "offense",
+            "wording": "uncancellable windup",
+            "evidence": "She reveals the target and gains ghosting, bonus attack speed and bonus movement speed, as well as empowering her basic attacks to have an uncancellable windup and deal physical damage to enemies surrounding her target.",
+            "conditional": false
+          },
+          {
+            "type": "critical strike",
+            "category": "offense",
+            "wording": "critical strike",
+            "evidence": "This damage is affected by critical strike modifiers.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "Briar prioritizes attacking champions, then large monsters or minions, and then any other unit. If she casts Head Rush on a minion or monster, she will shift her target priority to large monsters, minions or champions, then any other unit.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "text": "Blood Frenzy causes Briar to become unable to receive movement and attack commands. The frenzy ends early if there are no longer any nearby valid targets or Chilling Scream is cast. Blood Frenzy resets Briar's basic attack timer. Head Rush and Certain Death can be cast during the dash.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "attack reset",
+            "category": "offense",
+            "wording": "resets",
+            "evidence": "Blood Frenzy resets Briar's basic attack timer.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Blood Frenzy acquires targets regardless of if they are visible or not.\n  - This does not apply to stealthed targets.\n  - It cannot acquire wards, jungle plants, or structures however.",
+      "The target priority shift from casting Q on a minion or monster will occur even if the dash is interrupted.",
+      "If the main attack critically strikes, the cleave damage will do so as well.",
+      "Briar uses Frenzy as a resource to indicate the remaining duration of the frenzy, in seconds.",
+      "The following table refers for interactions while Briar is in her frenzy:\n  - While in the frenzy, Briar cannot control her movement nor declare who she attacks. She will automatically acquire a nearby enemy as her attack target based on a priority system, becoming forced to basic attack the target and consequently move into her attack range of them to do so.\n    - Disarming crowd control as well as any other lockout that would disable basic attacking will disable the forced attacks.\n    - Forced action crowd control will cause her forced attacks to be either overridden or disabled, depending on the actions being forced by the debuff."
+    ]
+  },
+  {
+    "champion": "Briar",
+    "kind": "W",
+    "name": "Snack Attack",
+    "page": {
+      "title": "Template:Data Briar/Snack Attack",
+      "revid": 4015000
+    },
+    "ranks": 5,
+    "fields": {
+      "castTime": {
+        "text": "none",
+        "values": []
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Auto"
+      ],
+      "affects": [
+        "Enemies",
+        "Self"
+      ],
+      "damageType": [
+        "Physical"
+      ],
+      "spellEffects": "spell",
+      "spellShield": "false",
+      "parry": "true"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Briar empowers her next basic attack within 5 seconds during Blood Frenzy to take a bite out of the target enemy, gaining 50 bonus range, dealing bonus physical damage and healing her for 5% of her maximum health plus a percentage of the post-mitigation damage dealt.",
+        "leveling": [
+          {
+            "label": "Bonus Physical Damage",
+            "amount": {
+              "text": "5 / 20 / 35 / 50 / 65 (+ 5% AD) (+ 9% (+ 2.5% per 100 bonus AD) of the target's missing health)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  5,
+                  20,
+                  35,
+                  50,
+                  65
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AD",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 5
+                  },
+                  "text": "(+ 5% AD)"
+                },
+                {
+                  "stat": "targetMissingHealth",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 9
+                  },
+                  "text": "(+ 9% (+ 2.5% per 100 bonus AD) of the target's missing health)",
+                  "modifiers": [
+                    {
+                      "stat": "per100:bonusAD",
+                      "ratio": {
+                        "kind": "constant",
+                        "value": 2.5
+                      },
+                      "text": "(+ 2.5% per 100 bonus AD)"
+                    }
+                  ]
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Heal Percentage",
+            "amount": {
+              "text": "24 / 28 / 32 / 36 / 40%",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  24,
+                  28,
+                  32,
+                  36,
+                  40
+                ]
+              },
+              "unit": "%",
+              "scaling": [],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "heal",
+            "category": "defense",
+            "wording": "healing",
+            "evidence": "Active: Briar empowers her next basic attack within 5 seconds during Blood Frenzy to take a bite out of the target enemy, gaining 50 bonus range, dealing bonus physical damage and healing her for 5% of her maximum health plus a percentage of the post-mitigation damage dealt.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "Snack Attack deals 110% damage against minions and monsters, with the damage based on the target's health ratio being capped at 400.",
+        "leveling": [
+          {
+            "label": "Non-Champion Bonus Damage",
+            "amount": {
+              "text": "5.5 / 22 / 38.5 / 55 / 71.5 (+ 5.5% AD) (+ 9.9% (+ 2.75% per 100 bonus AD) of the target's missing health)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  5.5,
+                  22,
+                  38.5,
+                  55,
+                  71.5
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AD",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 5.5
+                  },
+                  "text": "(+ 5.5% AD)"
+                },
+                {
+                  "stat": "targetMissingHealth",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 9.9
+                  },
+                  "text": "(+ 9.9% (+ 2.75% per 100 bonus AD) of the target's missing health)",
+                  "modifiers": [
+                    {
+                      "stat": "per100:bonusAD",
+                      "ratio": {
+                        "kind": "constant",
+                        "value": 2.75
+                      },
+                      "text": "(+ 2.75% per 100 bonus AD)"
+                    }
+                  ]
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "text": "Snack Attack resets Briar's basic attack timer.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "attack reset",
+            "category": "offense",
+            "wording": "resets",
+            "evidence": "Snack Attack resets Briar's basic attack timer.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Snack Attack can only be used during Blood Frenzy; if the frenzy ends at any point, the empowered attack will be lost immediately.",
+      "Snack Attack can be cast while Briar is charmed or taunted."
+    ]
+  }
+]

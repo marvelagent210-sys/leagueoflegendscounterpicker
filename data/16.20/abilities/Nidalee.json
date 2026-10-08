@@ -1,0 +1,1377 @@
+[
+  {
+    "champion": "Nidalee",
+    "kind": "E",
+    "name": "Primal Surge",
+    "page": {
+      "title": "Template:Data Nidalee/Primal Surge",
+      "revid": 3907033
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "12",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 12
+            }
+          }
+        ]
+      },
+      "cost": {
+        "text": "50 / 55 / 60 / 65 / 70",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                50,
+                55,
+                60,
+                65,
+                70
+              ]
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "0.25",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0.25
+            }
+          }
+        ]
+      },
+      "targetRange": {
+        "text": "900",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 900
+            }
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Unit"
+      ],
+      "affects": [
+        "Self",
+        "Allies"
+      ],
+      "damageType": []
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Nidalee revitalizes herself or the target allied champion, granting the target bonus attack speed for 7 seconds and healing them for an amount that is increased by 0 / 10 / 20 / 30 / 40 / 50 / 60 / 70 / 80 / 90 / 100 (based on target's missing health)%.",
+        "leveling": [
+          {
+            "label": "Bonus Attack Speed",
+            "amount": {
+              "text": "30 / 40 / 50 / 60 / 70%",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  30,
+                  40,
+                  50,
+                  60,
+                  70
+                ]
+              },
+              "unit": "%",
+              "scaling": [],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Minimum Heal",
+            "amount": {
+              "text": "50 / 75 / 100 / 125 / 150 (+ 35% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  50,
+                  75,
+                  100,
+                  125,
+                  150
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 35
+                  },
+                  "text": "(+ 35% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Maximum Heal",
+            "amount": {
+              "text": "100 / 150 / 200 / 250 / 300 (+ 70% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  100,
+                  150,
+                  200,
+                  250,
+                  300
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 70
+                  },
+                  "text": "(+ 70% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "heal",
+            "category": "defense",
+            "wording": "healing",
+            "duration": {
+              "kind": "constant",
+              "value": 7
+            },
+            "evidence": "Active: Nidalee revitalizes herself or the target allied champion, granting the target bonus attack speed for 7 seconds and healing them for an amount that is increased by 0 / 10 / 20 / 30 / 40 / 50 / 60 / 70 / 80 / 90 / 100 (based on target's missing health)%.",
+            "conditional": false
+          }
+        ],
+        "values": [
+          {
+            "series": {
+              "kind": "variable",
+              "variable": "target's missing health",
+              "points": [
+                0,
+                9.5,
+                19,
+                28.5,
+                38,
+                47.5,
+                57,
+                66.5,
+                76,
+                85.5,
+                95
+              ],
+              "values": [
+                0,
+                10,
+                20,
+                30,
+                40,
+                50,
+                60,
+                70,
+                80,
+                90,
+                100
+              ]
+            },
+            "context": "Active: Nidalee revitalizes herself or the target allied champion, granting the target bonus attack speed for 7 seconds and healing them for an amount that is increased by 0 / 10 / 20 / 30 / 40 / 50 / 60 / 70 / 80 / 90 / 100 (based on target's missing health)%."
+          }
+        ]
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "The bonus attack speed will persist through Cougar Form if Nidalee uses Primal Surge on herself."
+    ]
+  },
+  {
+    "champion": "Nidalee",
+    "kind": "E",
+    "name": "Swipe",
+    "page": {
+      "title": "Template:Data Nidalee/Swipe",
+      "revid": 3959337
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "6",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 6
+            }
+          }
+        ]
+      },
+      "castTime": {
+        "text": "0.25",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0.25
+            }
+          }
+        ]
+      },
+      "effectRadius": {
+        "text": "310",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 310
+            },
+            "label": "Center-to-edge, picks its targets at cast start"
+          }
+        ]
+      },
+      "angle": {
+        "text": "180°",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 180
+            }
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Direction"
+      ],
+      "affects": [
+        "Enemies"
+      ],
+      "damageType": [
+        "Magic"
+      ],
+      "spellEffects": "area of effect",
+      "spellShield": "true"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Nidalee slashes in an arc in the target direction, dealing magic damage to enemies hit.",
+        "leveling": [
+          {
+            "label": "Magic Damage",
+            "amount": {
+              "text": "70 / 130 / 190 / 250 (+ 70% bonus AD) (+ 55% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  70,
+                  130,
+                  190,
+                  250
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "bonusAD",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 70
+                  },
+                  "text": "(+ 70% bonus AD)"
+                },
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 55
+                  },
+                  "text": "(+ 55% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "This ability always employs quick cast.",
+      "This ability will cast from wherever the caster is at the start of the cast time.\n  - The visual effects will be seen from her position if she moves however."
+    ]
+  },
+  {
+    "champion": "Nidalee",
+    "kind": "I",
+    "name": "Prowl",
+    "page": {
+      "title": "Template:Data Nidalee/Prowl",
+      "revid": 4007706
+    },
+    "ranks": 1,
+    "fields": {
+      "effectRadius": {
+        "text": "3000 • 5500",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 3000
+            },
+            "label": "Range for granting Nidalee Hunt's movement speed bonus"
+          },
+          {
+            "series": {
+              "kind": "constant",
+              "value": 5500
+            },
+            "label": "Hunt increased bonus movement speed range when facing Hunted targets"
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Passive"
+      ],
+      "affects": [
+        "Enemies",
+        "Self"
+      ],
+      "damageType": []
+    },
+    "parts": [
+      {
+        "label": "Innate - Prowl",
+        "text": "Innate - Prowl: While in brush, Nidalee gains ghosting and 10% bonus movement speed, increased to 30% while facing a visible enemy champion within 1400 range. The bonuses persist for 2 seconds after leaving brush.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "brush",
+            "category": "other",
+            "wording": "brush",
+            "evidence": "Innate - Prowl: While in brush, Nidalee gains ghosting and 10% bonus movement speed, increased to 30% while facing a visible enemy champion within 1400 range.",
+            "conditional": false
+          },
+          {
+            "type": "ghosted",
+            "category": "movement",
+            "wording": "ghosting",
+            "evidence": "Innate - Prowl: While in brush, Nidalee gains ghosting and 10% bonus movement speed, increased to 30% while facing a visible enemy champion within 1400 range.",
+            "conditional": false
+          },
+          {
+            "type": "reveal",
+            "category": "vision",
+            "wording": "visible",
+            "evidence": "Innate - Prowl: While in brush, Nidalee gains ghosting and 10% bonus movement speed, increased to 30% while facing a visible enemy champion within 1400 range.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "label": "Innate - Hunt",
+        "text": "Innate - Hunt: Hitting enemy champions or monsters with Javelin Toss or Bushwhack applies a Hunted mark to the target for 4 seconds, during which they are revealed as well as grant sight of a 300-unit radius around them. If Nidalee is nearby when the target is hit, she gains ghosting and 10% bonus movement speed for 4 seconds, increased to 30% while she is facing a Hunted target. Additionally, the first cast of both Takedown and Pounce against a Hunted target is enhanced.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "true sight",
+            "category": "vision",
+            "wording": "revealed",
+            "duration": {
+              "kind": "constant",
+              "value": 4
+            },
+            "evidence": "Innate - Hunt: Hitting enemy champions or monsters with Javelin Toss or Bushwhack applies a Hunted mark to the target for 4 seconds, during which they are revealed as well as grant sight of a 300-unit radius around them.",
+            "conditional": false
+          },
+          {
+            "type": "reveal",
+            "category": "vision",
+            "wording": "sight",
+            "evidence": "Innate - Hunt: Hitting enemy champions or monsters with Javelin Toss or Bushwhack applies a Hunted mark to the target for 4 seconds, during which they are revealed as well as grant sight of a 300-unit radius around them.",
+            "conditional": false
+          },
+          {
+            "type": "ghosted",
+            "category": "movement",
+            "wording": "ghosting",
+            "duration": {
+              "kind": "constant",
+              "value": 4
+            },
+            "evidence": "If Nidalee is nearby when the target is hit, she gains ghosting and 10% bonus movement speed for 4 seconds, increased to 30% while she is facing a Hunted target.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "The bonus movement speed from Prowl and Hunt can stack, but cannot exceed 30%.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": []
+  },
+  {
+    "champion": "Nidalee",
+    "kind": "Q",
+    "name": "Javelin Toss",
+    "page": {
+      "title": "Template:Data Nidalee/Javelin Toss",
+      "revid": 3971597
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "6",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 6
+            }
+          }
+        ]
+      },
+      "cost": {
+        "text": "50 / 55 / 60 / 65 / 70",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                50,
+                55,
+                60,
+                65,
+                70
+              ]
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "0.25",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0.25
+            }
+          }
+        ]
+      },
+      "range": {
+        "text": "1500",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 1500
+            }
+          }
+        ]
+      },
+      "width": {
+        "text": "80",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 80
+            }
+          }
+        ]
+      },
+      "speed": {
+        "text": "1300",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 1300
+            }
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Direction"
+      ],
+      "affects": [
+        "Enemies"
+      ],
+      "damageType": [
+        "Magic"
+      ],
+      "spellEffects": "single target",
+      "spellShield": "true",
+      "projectile": "true"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Nidalee hurls a javelin in the target direction that deals magic damage to the first enemy hit, increased by 0 / 45 / 90 / 135 / 180 / 225 (based on distance traveled)%.",
+        "leveling": [
+          {
+            "label": "Minimum Magic Damage",
+            "amount": {
+              "text": "70 / 90 / 110 / 130 / 150 (+ 50% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  70,
+                  90,
+                  110,
+                  130,
+                  150
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 50
+                  },
+                  "text": "(+ 50% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Maximum Magic Damage",
+            "amount": {
+              "text": "227.5 / 292.5 / 357.5 / 422.5 / 487.5 (+ 162.5% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  227.5,
+                  292.5,
+                  357.5,
+                  422.5,
+                  487.5
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 162.5
+                  },
+                  "text": "(+ 162.5% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [],
+        "values": [
+          {
+            "series": {
+              "kind": "variable",
+              "variable": "distance traveled",
+              "points": [
+                525,
+                680,
+                835,
+                990,
+                1145,
+                1300
+              ],
+              "values": [
+                0,
+                45,
+                90,
+                135,
+                180,
+                225
+              ]
+            },
+            "context": "Active: Nidalee hurls a javelin in the target direction that deals magic damage to the first enemy hit, increased by 0 / 45 / 90 / 135 / 180 / 225 (based on distance traveled)%."
+          }
+        ]
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "This ability will cast from wherever the caster is at the start of the cast time.",
+      "The damage amplification is based on the distance from Nidalee's location at the end of the cast time to the struck target's center at the time of collision.\n  - The damage increase is very slightly higher than the spear's travel distance due to edge range behaviour of collisions and the distance being measured as the radius from the picked \"origin\" location at the end of the cast time, rather than just along the vector of the cast.\n  - The damage increase does not have distinct thresholds based on the distance the spear travelled.\n  - Picking Nidalee's location at the end of the cast time as the \"origin\" for the damage calculation may be unintended."
+    ]
+  },
+  {
+    "champion": "Nidalee",
+    "kind": "Q",
+    "name": "Takedown",
+    "page": {
+      "title": "Template:Data Nidalee/Takedown",
+      "revid": 3948934
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "6",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 6
+            }
+          }
+        ]
+      },
+      "cooldownStart": "post-effect",
+      "castTime": {
+        "text": "none",
+        "values": []
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Auto"
+      ],
+      "affects": [
+        "Self",
+        "Enemies"
+      ],
+      "damageType": [
+        "Magic"
+      ],
+      "spellEffects": "special",
+      "spellShield": "true",
+      "parry": "unknown"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Nidalee empowers her next basic attack within 10 seconds to have an uncancellable windup, gain 75 bonus range and deal modified magic damage that is increased by an amount for every 1% of the target's missing health.\n\nTakedown can critically strike for 100% AD bonus magic damage.",
+        "leveling": [
+          {
+            "label": "Minimum Magic Damage",
+            "amount": {
+              "text": "5 / 30 / 55 / 80 (+ 75% AD) (+ 40% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  5,
+                  30,
+                  55,
+                  80
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AD",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 75
+                  },
+                  "text": "(+ 75% AD)"
+                },
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 40
+                  },
+                  "text": "(+ 40% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Maximum Magic Damage",
+            "amount": {
+              "text": "10 / 67.5 / 137.5 / 220 (+ 150 / 168.75 / 187.5 / 206.25% AD) (+ 80 / 90 / 100 / 110% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  10,
+                  67.5,
+                  137.5,
+                  220
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AD",
+                  "ratio": {
+                    "kind": "rank",
+                    "values": [
+                      150,
+                      168.75,
+                      187.5,
+                      206.25
+                    ]
+                  },
+                  "text": "(+ 150 / 168.75 / 187.5 / 206.25% AD)"
+                },
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "rank",
+                    "values": [
+                      80,
+                      90,
+                      100,
+                      110
+                    ]
+                  },
+                  "text": "(+ 80 / 90 / 100 / 110% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Increased Damage Modifier",
+            "amount": {
+              "text": "1 / 1.25 / 1.5 / 1.75%",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  1,
+                  1.25,
+                  1.5,
+                  1.75
+                ]
+              },
+              "unit": "%",
+              "scaling": [],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Maximum Increased Damage",
+            "amount": {
+              "text": "100 / 125 / 150 / 175%",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  100,
+                  125,
+                  150,
+                  175
+                ]
+              },
+              "unit": "%",
+              "scaling": [],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "uncancellable windup",
+            "category": "offense",
+            "wording": "uncancellable windup",
+            "evidence": "Active: Nidalee empowers her next basic attack within 10 seconds to have an uncancellable windup, gain 75 bonus range and deal modified magic damage that is increased by an amount for every 1% of the target's missing health.",
+            "conditional": false
+          },
+          {
+            "type": "critical strike",
+            "category": "offense",
+            "wording": "critically strike",
+            "evidence": "Takedown can critically strike for 100% AD bonus magic damage.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "label": "Hunt Bonus",
+        "text": "Hunt Bonus: Hitting a Hunted target increases Takedown's damage by 30%.",
+        "leveling": [
+          {
+            "label": "Prowl-Enhanced Minimum Damage",
+            "amount": {
+              "text": "6.5 / 39 / 71.5 / 104 (+ 97.5% AD) (+ 52% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  6.5,
+                  39,
+                  71.5,
+                  104
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AD",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 97.5
+                  },
+                  "text": "(+ 97.5% AD)"
+                },
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 52
+                  },
+                  "text": "(+ 52% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Prowl-Enhanced Maximum Damage",
+            "amount": {
+              "text": "13 / 87.75 / 178.75 / 286 (+ 195 / 219.375 / 243.75 / 268.125% AD) (+ 104 / 117 / 130 / 143% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  13,
+                  87.75,
+                  178.75,
+                  286
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AD",
+                  "ratio": {
+                    "kind": "rank",
+                    "values": [
+                      195,
+                      219.375,
+                      243.75,
+                      268.125
+                    ]
+                  },
+                  "text": "(+ 195 / 219.375 / 243.75 / 268.125% AD)"
+                },
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "rank",
+                    "values": [
+                      104,
+                      117,
+                      130,
+                      143
+                    ]
+                  },
+                  "text": "(+ 104 / 117 / 130 / 143% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "text": "Takedown resets Nidalee's basic attack timer. Other damage converted to magic damage by Takedown are not increased by Takedown's respective effects. Nidalee loses Takedown's empowered attack immediately when she switches to Human Form.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "attack reset",
+            "category": "offense",
+            "wording": "resets",
+            "evidence": "Takedown resets Nidalee's basic attack timer.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Takedown's attack deals basic damage, but also triggers spell effects by also being tagged as spell damage.",
+      "Takedown's damage is not affected by critical strike modifiers, but the basic attack can still critically strike and the bonus damage from the critical strike is converted to magic damage.\n  - Takedown's damage modifier does not affect the bonus damage dealt by the critical strike.",
+      "Takedown converts the bonus damage dealt by Spellblade to magic damage from physical, but does not apply its damage modifier to the effect.",
+      "Takedown's damage will apply life steal.",
+      "Takedown's damage modifier does not apply against structures; the minimum damage is always applied.",
+      "- Parry interactions (dodge, block and blind)."
+    ]
+  },
+  {
+    "champion": "Nidalee",
+    "kind": "R",
+    "name": "Aspect of the Cougar",
+    "page": {
+      "title": "Template:Data Nidalee/Aspect of the Cougar",
+      "revid": 3547669
+    },
+    "ranks": 4,
+    "fields": {
+      "cooldown": {
+        "text": "3",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 3
+            }
+          }
+        ]
+      },
+      "castTime": {
+        "text": "none",
+        "values": []
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Auto"
+      ],
+      "affects": [
+        "Self"
+      ],
+      "damageType": []
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Nidalee switches between her Human Form and Cougar Form.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "label": "Cougar Form",
+        "text": "Cougar Form: Nidalee transforms into a cougar, gaining melee attacks with 125 range and access to her cougar abilities.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "label": "Human Form",
+        "text": "Human Form: Nidalee transforms into a human, gaining ranged attacks with 525 range and access to her human abilities. While in this form, applying a Hunted mark will reset Aspect of the Cougar's cooldown.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "text": "Nidalee begins with one rank in Aspect of the Cougar and can increase it at levels 6, 11, and 16. Cougar Form's abilities scale based on Aspect of the Cougar's rank.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Transformations do not count as ability activations for the purposes of on-cast effects such as Spellblade and triggering Force Pulse passive."
+    ]
+  },
+  {
+    "champion": "Nidalee",
+    "kind": "W",
+    "name": "Bushwhack",
+    "page": {
+      "title": "Template:Data Nidalee/Bushwhack",
+      "revid": 4015217
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "13 / 12 / 11 / 10 / 9",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                13,
+                12,
+                11,
+                10,
+                9
+              ]
+            }
+          }
+        ]
+      },
+      "cost": {
+        "text": "30 / 35 / 40 / 45 / 50",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                30,
+                35,
+                40,
+                45,
+                50
+              ]
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "0.25",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0.25
+            }
+          }
+        ]
+      },
+      "targetRange": {
+        "text": "900",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 900
+            }
+          }
+        ]
+      },
+      "collisionRadius": {
+        "text": "150",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 150
+            },
+            "label": "Detection radius"
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Location"
+      ],
+      "affects": [
+        "Enemies"
+      ],
+      "damageType": [
+        "Magic"
+      ],
+      "spellEffects": "special",
+      "spellShield": "true"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Nidalee lays a trap at the target location that becomes stealthed after arming over 1.5 seconds, lasting for up to 120 seconds and granting sight within its radius. The trap will spring upon contact with an enemy, dealing magic damage every second over 4 seconds.",
+        "leveling": [
+          {
+            "label": "Magic Damage Per Tick",
+            "amount": {
+              "text": "10 / 20 / 30 / 40 / 50 (+ 5% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  10,
+                  20,
+                  30,
+                  40,
+                  50
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 5
+                  },
+                  "text": "(+ 5% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Total Magic Damage",
+            "amount": {
+              "text": "40 / 80 / 120 / 160 / 200 (+ 20% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  40,
+                  80,
+                  120,
+                  160,
+                  200
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 20
+                  },
+                  "text": "(+ 20% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "trap",
+            "category": "other",
+            "wording": "stealthed",
+            "evidence": "Active: Nidalee lays a trap at the target location that becomes stealthed after arming over 1.5 seconds, lasting for up to 120 seconds and granting sight within its radius.",
+            "conditional": false
+          },
+          {
+            "type": "reveal",
+            "category": "vision",
+            "wording": "sight",
+            "evidence": "Active: Nidalee lays a trap at the target location that becomes stealthed after arming over 1.5 seconds, lasting for up to 120 seconds and granting sight within its radius.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "Traps have 6 maximum health and can only be damaged by champion basic attacks (2 hit points from ranged and 3 hit points from melee). Up to a maximum of 4 / 6 / 8 / 10 (based on level) traps may be active at once.",
+        "leveling": [],
+        "mechanics": [],
+        "values": [
+          {
+            "series": {
+              "kind": "variable",
+              "variable": "level",
+              "points": [
+                1,
+                6,
+                11,
+                16
+              ],
+              "values": [
+                4,
+                6,
+                8,
+                10
+              ]
+            },
+            "context": "Up to a maximum of 4 / 6 / 8 / 10 (based on level) traps may be active at once."
+          }
+        ]
+      },
+      {
+        "text": "See Pets for more details about traps.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Bushwhack deals persistent damage, additionally tagged as indirect damage, and applies spell effects."
+    ]
+  },
+  {
+    "champion": "Nidalee",
+    "kind": "W",
+    "name": "Pounce",
+    "page": {
+      "title": "Template:Data Nidalee/Pounce",
+      "revid": 4007707
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "6",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 6
+            },
+            "label": "Starts on cast"
+          }
+        ]
+      },
+      "castTime": {
+        "text": "none",
+        "values": []
+      },
+      "targetRange": {
+        "text": "375 • 750",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 375
+            },
+            "label": "Standard range"
+          },
+          {
+            "series": {
+              "kind": "constant",
+              "value": 750
+            },
+            "label": "Enhanced range"
+          }
+        ]
+      },
+      "effectRadius": {
+        "text": "250",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 250
+            },
+            "label": "Damage radius"
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Direction",
+        "Unit"
+      ],
+      "affects": [
+        "Enemies"
+      ],
+      "damageType": [
+        "Magic"
+      ],
+      "spellEffects": "area of effect",
+      "spellShield": "true",
+      "grounded": "true",
+      "knockdown": "true"
+    },
+    "parts": [
+      {
+        "label": "Passive",
+        "text": "Passive: Killing an enemy while in Cougar Form or using Pounce's Hunt bonus reduces Pounce's current cooldown to a minimum value.",
+        "leveling": [
+          {
+            "label": "Reduced Cooldown",
+            "amount": {
+              "text": "3 / 2.5 / 2 / 1.5 seconds",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  3,
+                  2.5,
+                  2,
+                  1.5
+                ]
+              },
+              "unit": "s",
+              "scaling": [],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "label": "Active",
+        "text": "Active: Nidalee leaps a fixed distance in the target direction. Upon arrival, she deals magic damage to nearby enemies.",
+        "leveling": [
+          {
+            "label": "Magic Damage",
+            "amount": {
+              "text": "55 / 100 / 145 / 190 (+ 50% bonus AD) (+ 30% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  55,
+                  100,
+                  145,
+                  190
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "bonusAD",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 50
+                  },
+                  "text": "(+ 50% bonus AD)"
+                },
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 30
+                  },
+                  "text": "(+ 30% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "dash",
+            "category": "movement",
+            "wording": "leaps",
+            "evidence": "Active: Nidalee leaps a fixed distance in the target direction.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "label": "Hunted Bonus",
+        "text": "Hunted Bonus: Nidalee can perform Pounce from an increased range on a Hunted enemy closest to the cursor. She will leap to the front of the target.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "text": "Takedown and Aspect of the Cougar can be cast during the dash.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "This ability always employs quick cast.",
+      "Pounce will not receive the reduced cooldown if the target becomes Hunted mid-air.",
+      "Casting Pounce on a Hunted target will extend the remaining duration of their Hunted debuff by 1.5 seconds, up to the original duration."
+    ]
+  }
+]

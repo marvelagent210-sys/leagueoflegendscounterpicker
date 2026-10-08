@@ -1,0 +1,24 @@
+{
+  "name": "lol-kit-counterpicker",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Kit-based 1v1 counter picker for League of Legends top lane",
+  "type": "module",
+  "engines": {
+    "node": ">=22.19"
+  },
+  "scripts": {
+    "fetch": "tsx pipeline/fetch.ts",
+    "build:data": "tsx pipeline/build.ts",
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@types/node": "22.20.5",
+    "tsx": "4.23.15",
+    "typescript": "7.0.2",
+    "undici": "8.10.2",
+    "vite": "7.1.12",
+    "vitest": "5.0.1"
+  }
+}

@@ -1,0 +1,1810 @@
+[
+  {
+    "champion": "Skarner",
+    "kind": "E",
+    "name": "Fracture",
+    "page": {
+      "title": "Template:Data Skarner/Fracture",
+      "revid": 3919804
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "14 / 13.5 / 13 / 12.5 / 12",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                14,
+                13.5,
+                13,
+                12.5,
+                12
+              ]
+            }
+          }
+        ]
+      },
+      "cost": {
+        "text": "55",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 55
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "0.25",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0.25
+            }
+          }
+        ]
+      },
+      "targetRange": {
+        "text": "1000",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 1000
+            }
+          }
+        ]
+      },
+      "width": {
+        "text": "140",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 140
+            }
+          }
+        ]
+      },
+      "speed": {
+        "text": "1500",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 1500
+            }
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Direction"
+      ],
+      "affects": [
+        "Enemies"
+      ],
+      "damageType": [
+        "Physical Magic"
+      ],
+      "spellEffects": "special",
+      "spellShield": "true",
+      "projectile": "true",
+      "parry": "special"
+    },
+    "parts": [
+      {
+        "label": "Passive",
+        "text": "Passive: Every time Skarner triggers Crystal Venom or stings an enemy with Impale, Fracture's current cooldown is reduced by the corresponding base duration of the disable.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "label": "Active",
+        "text": "Active: Skarner launches a blast of crystalline energy in the target direction that deals magic damage to enemies hit, slows them for 2.5 seconds, and marks them with Crystal Venom for 5 seconds.",
+        "leveling": [
+          {
+            "label": "Magic Damage",
+            "amount": {
+              "text": "40 / 65 / 90 / 115 / 140 (+ 20% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  40,
+                  65,
+                  90,
+                  115,
+                  140
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 20
+                  },
+                  "text": "(+ 20% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Slow",
+            "amount": {
+              "text": "30 / 35 / 40 / 45 / 50%",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  30,
+                  35,
+                  40,
+                  45,
+                  50
+                ]
+              },
+              "unit": "%",
+              "scaling": [],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "slow",
+            "category": "control",
+            "wording": "slows",
+            "duration": {
+              "kind": "constant",
+              "value": 2.5
+            },
+            "amount": {
+              "kind": "rank",
+              "values": [
+                30,
+                35,
+                40,
+                45,
+                50
+              ]
+            },
+            "evidence": "Active: Skarner launches a blast of crystalline energy in the target direction that deals magic damage to enemies hit, slows them for 2.5 seconds, and marks them with Crystal Venom for 5 seconds.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "label": "Crystal Venom",
+        "text": "Crystal Venom: Skarner's next basic attack against a marked target is empowered to consume the mark to deal bonus physical damage and stun them for 1.25 seconds.",
+        "leveling": [
+          {
+            "label": "Bonus Physical Damage",
+            "amount": {
+              "text": "30 / 50 / 70 / 90 / 110",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  30,
+                  50,
+                  70,
+                  90,
+                  110
+                ]
+              },
+              "scaling": [],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "stun",
+            "category": "control",
+            "wording": "stun",
+            "duration": {
+              "kind": "constant",
+              "value": 1.25
+            },
+            "evidence": "Crystal Venom: Skarner's next basic attack against a marked target is empowered to consume the mark to deal bonus physical damage and stun them for 1.25 seconds.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Fracture is disabled during Impale.",
+      "This ability will cast from wherever the caster is at the start of the cast time.",
+      "Fracture's projectile deals area damage, while the Crystal Venom on-hit effect deals proc damage.",
+      "Crystal Venom triggers even if the attack is blocked (stun applies), but not if it's dodged or he is Blind. The damage of the entire attack is negated in both cases."
+    ]
+  },
+  {
+    "champion": "Skarner",
+    "kind": "E",
+    "name": "Ixtal's Impact",
+    "page": {
+      "title": "Template:Data Skarner/Ixtal's Impact",
+      "revid": 4000401
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "22 / 21 / 20 / 19 / 18",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                22,
+                21,
+                20,
+                19,
+                18
+              ]
+            }
+          }
+        ]
+      },
+      "cooldownStart": "post-effect",
+      "cost": {
+        "text": "50 / 55 / 60 / 65 / 70",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                50,
+                55,
+                60,
+                65,
+                70
+              ]
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "none",
+        "values": []
+      },
+      "collisionRadius": {
+        "text": "160",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 160
+            },
+            "label": "Grab range"
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Direction"
+      ],
+      "affects": [],
+      "damageType": [
+        "Physical"
+      ],
+      "spellEffects": "spell",
+      "spellShield": "true",
+      "grounded": "true",
+      "knockdown": "false",
+      "silence": "true"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Skarner charges forward in the direction of the cursor for up to 2.75 seconds, during which he gains slow immunity, becomes ghosted, ignores terrain collision, and has unobstructed vision of the surrounding 650 units. He automatically navigates his movement along the way and is able to steer himself with a slow turn rate that increases over time, resetting upon changing direction. Ixtal's Impact can be recast after 1 second, and does so automatically after the duration.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "ghosted",
+            "category": "movement",
+            "wording": "ghosted",
+            "evidence": "Active: Skarner charges forward in the direction of the cursor for up to 2.75 seconds, during which he gains slow immunity, becomes ghosted, ignores terrain collision, and has unobstructed vision of the surrounding 650 units.",
+            "conditional": false
+          },
+          {
+            "type": "reveal",
+            "category": "vision",
+            "wording": "unobstructed vision",
+            "evidence": "Active: Skarner charges forward in the direction of the cursor for up to 2.75 seconds, during which he gains slow immunity, becomes ghosted, ignores terrain collision, and has unobstructed vision of the surrounding 650 units.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "Skarner begins the charge at a static amount of 150 movement speed that increases by 100 every 0.264, up to 950 total movement speed by the end of the duration. If Skarner collides with an enemy champion or large monster, he grabs them with his claws for the time of the remaining charge, attaching them to himself, suppressing them, revealing them, increasing the charge's turn rate to the maximum, and gaining 300 bonus movement speed, with a minimum total of 650 and a maximum total of 1150. If a target has been grabbed before the first 1.75 seconds of the charge, the remaining duration is set to 1 second, and set to 0.5 seconds otherwise. The charge does not ramp up in speed while a target is grabbed.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "attach",
+            "category": "movement",
+            "wording": "attaching",
+            "evidence": "If Skarner collides with an enemy champion or large monster, he grabs them with his claws for the time of the remaining charge, attaching them to himself, suppressing them, revealing them, increasing the charge's turn rate to the maximum, and gaining 300 bonus movement speed, with a minimum total of 650 and a maximum total of 1150.",
+            "conditional": false
+          },
+          {
+            "type": "suppression",
+            "category": "control",
+            "wording": "suppressing",
+            "evidence": "If Skarner collides with an enemy champion or large monster, he grabs them with his claws for the time of the remaining charge, attaching them to himself, suppressing them, revealing them, increasing the charge's turn rate to the maximum, and gaining 300 bonus movement speed, with a minimum total of 650 and a maximum total of 1150.",
+            "conditional": false
+          },
+          {
+            "type": "true sight",
+            "category": "vision",
+            "wording": "revealing",
+            "evidence": "If Skarner collides with an enemy champion or large monster, he grabs them with his claws for the time of the remaining charge, attaching them to himself, suppressing them, revealing them, increasing the charge's turn rate to the maximum, and gaining 300 bonus movement speed, with a minimum total of 650 and a maximum total of 1150.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "If Skarner's attached target collides with terrain, the charge ends, detaching them from him, dealing physical damage, stunning them for 1.1 seconds, and reducing Ixtal's Impact's cooldown by 35%.",
+        "leveling": [
+          {
+            "label": "Physical Damage",
+            "amount": {
+              "text": "30 / 60 / 90 / 120 / 150 (+ 120% bonus AD) (+ 6% of his maximum health)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  30,
+                  60,
+                  90,
+                  120,
+                  150
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "bonusAD",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 120
+                  },
+                  "text": "(+ 120% bonus AD)"
+                },
+                {
+                  "stat": "maxHealth",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 6
+                  },
+                  "text": "(+ 6% of his maximum health)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "stun",
+            "category": "control",
+            "wording": "stunning",
+            "duration": {
+              "kind": "constant",
+              "value": 1.1
+            },
+            "evidence": "If Skarner's attached target collides with terrain, the charge ends, detaching them from him, dealing physical damage, stunning them for 1.1 seconds, and reducing Ixtal's Impact's cooldown by 35%.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "label": "Recast",
+        "text": "Recast: Skarner ends Ixtal's Impact. If a target has been grabbed, he detaches them from himself.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "text": "Ixtal's Impact ends immediately if Skarner becomes immobilized or grounded, or is affected by any form of cast-inhibiting crowd control, during the charge. The grabbed target is detached if this occurs. While the target is grabbed, they are attached to Skarner 200 units in front of him.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "ground",
+            "category": "control",
+            "wording": "grounded",
+            "evidence": "Ixtal's Impact ends immediately if Skarner becomes immobilized or grounded, or is affected by any form of cast-inhibiting crowd control, during the charge.",
+            "conditional": true
+          }
+        ],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "While Ixtal's Impact is active, Skarner's movement speed is set to a static amount that cannot change by any means other than by the ability itself.\n  - Any movement speed modifiers gained before or during the charge are retained however, and will take effect after the charge if the duration permits.",
+      "The bonus movement speed from grabbing a target is 300 only if Skarner's movement speed was between 350 and 850 at the time.\n  - If Skarner was at less than 350 movement speed when he grabbed the target, his total movement speed is instead set to 650. If he was at 950 movement speed, his total movement speed is set to the cap of 1150.",
+      "Skarner gains a slightly larger field of view during Ixtal's Impact's charge.",
+      "Ixtal's Impact's attachment depends on the application of the suppression; if the suppression is not applied, neither is the attachment. Similarly, if the suppression is removed, so is the attachment.\n  - If the target resists the suppression through total crowd control immunity, displacement immunity, or a spell shield. Skarner will not attach them to himself, causing the charge to end instantly.\n  - If the target removes the suppression by any means, including with an applicable cleanse effect or dispel, they will detach themselves from Skarner immediately which forces the charge to end instantly and not apply any damage.",
+      "Skarner can move up to 550 units beyond the outer-edge of the battlefield with the charge.\n  - Once he has surpassed this boundary, Ixtal's Impact ends immediately and Skarner is moved to the nearest valid space.",
+      "Ixtal's Impact can interact with player-generated terrain.",
+      "If Skarner is inside terrain when the effect ends, he will be moved to the nearest valid space.",
+      "Enemies cannot see Skarner while he is inside terrain, unless they grant sight into the area of terrain he is inside (such as with Hawkshot or Heightened Senses) or have unobstructed vision.\n  - However, enemies will be notified when Skarner is inside nearby terrain while within a certain distance of him. An indicator will be visible to the enemy player's perspective to represent this.",
+      "The following table refers for interactions while Skarner is charging:",
+      "A special indicator for Ixtal's Impact's direction and expected ending location is visible to Skarner only during his charge."
+    ]
+  },
+  {
+    "champion": "Skarner",
+    "kind": "I",
+    "name": "Crystal Spires",
+    "page": {
+      "title": "Template:Data Skarner/Crystal Spires",
+      "revid": 3464570
+    },
+    "ranks": 1,
+    "fields": {
+      "effectRadius": {
+        "text": "1600",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 1600
+            }
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Passive"
+      ],
+      "affects": [
+        "Self"
+      ],
+      "damageType": []
+    },
+    "parts": [
+      {
+        "label": "Innate",
+        "text": "Innate: Skarner's presence spawns 6 Crystal Spires at set points across the battlefield:\n* One beside Baron Nashor pit\n* One beside Dragon pit\n* One near each of the camps for Blue Sentinel and Red Brambleback",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "text": "After minions have spawned, a Crystal Spire can be captured by champions by standing on it for 2 seconds, Once captured, the Crystal Spire is owned by the team until contested, and the defending team can stand on the spire to prevent the opposing team from capturing it.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "text": "Capturing a Crystal Spire grants sight of its radius for 1.5 seconds and locks it out from capture for 15 seconds. Crystal Spires grant 30 split among its captors, or 15 for a single captor.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "reveal",
+            "category": "vision",
+            "wording": "sight",
+            "duration": {
+              "kind": "constant",
+              "value": 1.5
+            },
+            "evidence": "Capturing a Crystal Spire grants sight of its radius for 1.5 seconds and locks it out from capture for 15 seconds.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "Skarner gains Crystal Charge while within range of a Crystal Spire controlled by his team, for 1.25 seconds after triggering Crystal Venom, and for 1.75 seconds after stinging an enemy champion with Impale.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "label": "Crystal Charge",
+        "text": "Crystal Charge: Skarner gains 70 – 120 (based on level) bonus movement speed and 43 – 160 (based on level)% bonus attack speed and restores 1% maximum mana every 0.5 seconds.",
+        "leveling": [],
+        "mechanics": [],
+        "values": [
+          {
+            "series": {
+              "kind": "level",
+              "values": [
+                70,
+                72,
+                74,
+                76,
+                78,
+                80,
+                82,
+                85,
+                88,
+                91,
+                94,
+                97,
+                100,
+                104,
+                108,
+                112,
+                116,
+                120
+              ]
+            },
+            "context": "Crystal Charge: Skarner gains 70 – 120 (based on level) bonus movement speed and 43 – 160 (based on level)% bonus attack speed and restores 1% maximum mana every 0.5 seconds."
+          },
+          {
+            "series": {
+              "kind": "level",
+              "values": [
+                43,
+                48,
+                53,
+                58,
+                63,
+                68,
+                73,
+                80,
+                87,
+                94,
+                101,
+                108,
+                115,
+                124,
+                133,
+                142,
+                151,
+                160
+              ]
+            },
+            "context": "Crystal Charge: Skarner gains 70 – 120 (based on level) bonus movement speed and 43 – 160 (based on level)% bonus attack speed and restores 1% maximum mana every 0.5 seconds."
+          }
+        ]
+      },
+      {
+        "text": "Crystal Spires near buff monsters start the game already captured by the side's respective team.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Crystal Charge's duration refreshes if it was gained by an ability."
+    ]
+  },
+  {
+    "champion": "Skarner",
+    "kind": "I",
+    "name": "Threads of Vibration",
+    "page": {
+      "title": "Template:Data Skarner/Threads of Vibration",
+      "revid": 4050105
+    },
+    "ranks": 1,
+    "fields": {},
+    "flags": {
+      "targeting": [
+        "Passive"
+      ],
+      "affects": [
+        "Enemies"
+      ],
+      "damageType": [
+        "Magic"
+      ],
+      "spellEffects": "proc",
+      "spellShield": "special",
+      "parry": "special"
+    },
+    "parts": [
+      {
+        "label": "Innate",
+        "text": "Innate: Skarner's basic attacks on-hit, Shattered Earth, Upheaval, and Impale apply a stack of Quaking to enemies hit for 4 seconds, refreshing on subsequent applications and stacking up to 3 times. Enemies afflicted with 3 stacks take magic damage equal to 5 – 9 (based on level)% of their maximum health over the duration, capped at 100 – 300 (based on level) against monsters.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "on-hit",
+            "category": "offense",
+            "wording": "on-hit",
+            "evidence": "Innate: Skarner's basic attacks on-hit, Shattered Earth, Upheaval, and Impale apply a stack of Quaking to enemies hit for 4 seconds, refreshing on subsequent applications and stacking up to 3 times.",
+            "conditional": false
+          }
+        ],
+        "values": [
+          {
+            "series": {
+              "kind": "level",
+              "values": [
+                5,
+                5.235294117647059,
+                5.470588235294118,
+                5.705882352941177,
+                5.9411764705882355,
+                6.176470588235294,
+                6.411764705882353,
+                6.647058823529411,
+                6.882352941176471,
+                7.117647058823529,
+                7.352941176470589,
+                7.588235294117647,
+                7.823529411764706,
+                8.058823529411764,
+                8.294117647058822,
+                8.529411764705882,
+                8.764705882352942,
+                9,
+                9.235294117647058,
+                9.470588235294118
+              ],
+              "past18": "wiki"
+            },
+            "context": "Enemies afflicted with 3 stacks take magic damage equal to 5 – 9 (based on level)% of their maximum health over the duration, capped at 100 – 300 (based on level) against monsters."
+          },
+          {
+            "series": {
+              "kind": "level",
+              "values": [
+                100,
+                111.76470588235294,
+                123.52941176470588,
+                135.29411764705884,
+                147.05882352941177,
+                158.8235294117647,
+                170.58823529411765,
+                182.3529411764706,
+                194.11764705882354,
+                205.88235294117646,
+                217.64705882352942,
+                229.41176470588238,
+                241.1764705882353,
+                252.94117647058823,
+                264.7058823529412,
+                276.47058823529414,
+                288.2352941176471,
+                300,
+                311.7647058823529,
+                323.5294117647059
+              ],
+              "past18": "wiki"
+            },
+            "context": "Enemies afflicted with 3 stacks take magic damage equal to 5 – 9 (based on level)% of their maximum health over the duration, capped at 100 – 300 (based on level) against monsters."
+          }
+        ]
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Basic attacks that are dodged by the target or missed while Skarner is blinded do not apply stacks of Quake. Blocked attacks will still apply stacks.",
+      "Spell shield prevents Quaking's application from Upheaval and Impale only."
+    ]
+  },
+  {
+    "champion": "Skarner",
+    "kind": "Q",
+    "name": "Crystal Slash",
+    "page": {
+      "title": "Template:Data Skarner/Crystal Slash",
+      "revid": 3919803
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "3.5 / 3.25 / 3 / 2.75 / 2.5",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                3.5,
+                3.25,
+                3,
+                2.75,
+                2.5
+              ]
+            }
+          }
+        ]
+      },
+      "cost": {
+        "text": "10",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 10
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "none",
+        "values": []
+      },
+      "effectRadius": {
+        "text": "350",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 350
+            }
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Auto"
+      ],
+      "affects": [
+        "Enemies",
+        "Self"
+      ],
+      "damageType": [
+        "Physical Magic"
+      ],
+      "spellEffects": "spellaoe",
+      "spellShield": "special"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Skarner slashes around himself, dealing physical damage to nearby enemies. If at least one enemy is hit, he becomes charged for 5 seconds, empowering subsequent casts of Crystal Slash to deal bonus magic damage.",
+        "leveling": [
+          {
+            "label": "Physical Damage",
+            "amount": {
+              "text": "1 / 1.5 / 2 / 2.5 / 3% of target's maximum health (+ 20% AD)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  1,
+                  1.5,
+                  2,
+                  2.5,
+                  3
+                ]
+              },
+              "unit": "%",
+              "scaling": [
+                {
+                  "stat": "AD",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 20
+                  },
+                  "text": "(+ 20% AD)"
+                }
+              ],
+              "unparsed": "",
+              "baseStat": "targetMaxHealth"
+            }
+          },
+          {
+            "label": "Bonus Magic Damage",
+            "amount": {
+              "text": "1 / 1.5 / 2 / 2.5 / 3% of target's maximum health (+ 20% AD) (+ 30% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  1,
+                  1.5,
+                  2,
+                  2.5,
+                  3
+                ]
+              },
+              "unit": "%",
+              "scaling": [
+                {
+                  "stat": "AD",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 20
+                  },
+                  "text": "(+ 20% AD)"
+                },
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 30
+                  },
+                  "text": "(+ 30% AP)"
+                }
+              ],
+              "unparsed": "",
+              "baseStat": "targetMaxHealth"
+            }
+          }
+        ],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "text": "Each instance of damage is capped at 200 against epic monsters.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "text": "Basic attacks reduce Crystal Slash's current cooldown by 0.25 seconds, increased to 1 second against champions.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Spell shield will block the damage but will not prevent Skarner from triggering the bonus effect.",
+      "Basic attacks against structures will not trigger the cooldown reduction.",
+      "As already noted, each damage instance is capped on its own, meaning that the maximum possible damage against an epic monster with one cast is 400.",
+      "In order to hit the cap, the target needs to have at least 20000 / 13333.3333333 / 10000 / 8000 / 6666.66666667 health (without considering the ratios)."
+    ]
+  },
+  {
+    "champion": "Skarner",
+    "kind": "Q",
+    "name": "Shattered Earth",
+    "page": {
+      "title": "Template:Data Skarner/Shattered Earth",
+      "revid": 4051324
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "8 / 6.75 / 5.5 / 4.25 / 3",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                8,
+                6.75,
+                5.5,
+                4.25,
+                3
+              ]
+            }
+          }
+        ]
+      },
+      "cooldownStart": "starts on-cast, but restarts each time an empowered attack is used as well as after casting upheaval",
+      "cost": {
+        "text": "30",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 30
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "0.35",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0.35
+            }
+          }
+        ]
+      },
+      "effectRadius": {
+        "text": "300",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 300
+            },
+            "label": "Attack splash radius, centered on target"
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Auto"
+      ],
+      "affects": [
+        "Self",
+        "Enemies"
+      ],
+      "damageType": [
+        "Physical"
+      ],
+      "spellEffects": "proc",
+      "spellShield": "false",
+      "parry": "true"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Skarner rips a boulder from the ground, empowering up to three of his next basic attacks within 5 seconds of each other. These attacks gain 25 bonus range, bonus attack speed, and deal bonus physical damage to the target and surrounding enemies, including structures.",
+        "leveling": [
+          {
+            "label": "Bonus Physical Damage per Hit",
+            "amount": {
+              "text": "10 / 20 / 30 / 40 / 50 (+ 90% bonus AD) (+ 3% of his bonus health)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  10,
+                  20,
+                  30,
+                  40,
+                  50
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "bonusAD",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 90
+                  },
+                  "text": "(+ 90% bonus AD)"
+                },
+                {
+                  "stat": "bonusHealth",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 3
+                  },
+                  "text": "(+ 3% of his bonus health)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Total Bonus Physical Damage",
+            "amount": {
+              "text": "30 / 60 / 90 / 120 / 150 (+270% bonus AD) (+ 9% of his bonus health)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  30,
+                  60,
+                  90,
+                  120,
+                  150
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "bonusAD",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 270
+                  },
+                  "text": "(+270% bonus AD)"
+                },
+                {
+                  "stat": "bonusHealth",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 9
+                  },
+                  "text": "(+ 9% of his bonus health)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Bonus Attack Speed",
+            "amount": {
+              "text": "20 / 25 / 30 / 35 / 40%",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  20,
+                  25,
+                  30,
+                  35,
+                  40
+                ]
+              },
+              "unit": "%",
+              "scaling": [],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "text": "The final attack slams the boulder, dealing an additional 11% of each target's maximum health physical damage and slowing afflicted enemies by 40% for 1 second. The additional damage is capped against monsters and is not applied against structures.",
+        "leveling": [
+          {
+            "label": "Monster Percent Health Damage Cap",
+            "amount": {
+              "text": "150 / 200 / 250 / 300 / 350",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  150,
+                  200,
+                  250,
+                  300,
+                  350
+                ]
+              },
+              "scaling": [],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "slow",
+            "category": "control",
+            "wording": "slowing",
+            "duration": {
+              "kind": "constant",
+              "value": 1
+            },
+            "amount": {
+              "kind": "constant",
+              "value": 40
+            },
+            "evidence": "The final attack slams the boulder, dealing an additional 11% of each target's maximum health physical damage and slowing afflicted enemies by 40% for 1 second.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "After 0.5 seconds of the cast, Skarner gains the ability to use Upheaval during Shattered Earth.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "text": "Casting Shattered Earth resets Skarner's basic attack timer. Shattered Earth's duration is paused during Ixtal's Impact.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "attack reset",
+            "category": "offense",
+            "wording": "resets",
+            "evidence": "Casting Shattered Earth resets Skarner's basic attack timer.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      ";General",
+      "The empowered attacks can be parried and will not trigger the area of effect if either the target blocks or dodges the attack, or if the attacks miss while Skarner is blinded.\n  - The attacks will be still consumed in all cases regardless.\n  - Note that if the main target is not blocking or dodging, then the area of effect can still deal damage to those who do.",
+      "Shattered Earth ends prematurely if Skarner initiates a Recall channel.",
+      "The empowered attacks have an uncancellable windup against champions, minions, and turrets only.\n  - Prior to Patch 14.9, the windup was uncancellable regardless of the target's type. It is currently unknown if the change was intentional or not, but seems to be partially intentional based on observation.\n  - Empowered attacks against other units can be interrupted by crowd control or casting Ixtal's Impact, but not by issuing movement commands.",
+      "The aforementioned unit types, as well as monsters, inhibitors, and the nexus are considered \"valid\" for Shattered Earth and will only trigger its effects when the main target was one of those. This includes:\n  - Triggering the damaging area of effect,\n  - Refreshing the duration when an empowered attack has begun,\n  - and consume empowered attacks only when they landed. (This way the attacks are not consumed when the target died beforehand.)",
+      "Attacking any other units will cause Skarner to use his normal basic attacks instead while Shattered Earth is expiring (but still benefit from the increased attack speed and range).",
+      "To be more precise about Ixtal's Impact's duration pause, it adds 0.25 seconds to the duration every 0.25 seconds, but will set it to an estimated minimum of 1.5 seconds if it would have been lower.",
+      "The slow applied by Shattered Earth is a generic slow debuff.",
+      "Shattered Earth is special cased to generate a stack of Spear of Shojin Focused Will.",
+      "Only the third hit of Shattered Earth triggers Tear of the Goddess and Archangel's Staff manaflow.",
+      ";Interactions & Other",
+      "The attack reset will not save time if Skarner possesses sufficiently high attack speed because of the ability's 0.35 seconds cast time. Starting from around 271.4285% bonus attack speed, basic attacking is fast enough to match the time with the reset and will be even faster with more, causing Shattered Earth to actually slow down the user at that point.\n  - However, this only takes attack speed into account and ignores various other factors, such as the damage and other bonuses from the ability and the fact that Skarner generally does not like building such high amounts of attack speed. Additionally, attempting to do the attack reset at such high attack speed is already a hard task, if not requires frame perfect execution to save any ticks worth of time.",
+      ";Known issues",
+      "Skarner's attack speed is not immediately updated upon casting Shattered Earth. Beginning the first attack shortly after casting results in an attack that does not benefit from the attack speed granted by the ability.",
+      "If Upheaval hits an enemy while a new instance of Shattered Earth is active, Shattered Earth's effects are immediately lost.",
+      "While Shattered Earth is active, it will not benefit from cooldown refund effects such as Transcendence or Navori Flickerblade Transcendence.\n  - This is not a Skarner-specific issue. Various abilities, including Ultimates, that grant a different ability in their slot after activation may suffer from this problem (e.g. Blood Frenzy and Snack Attack) and may be fixed or may have been fixed on a case-by-case basis.",
+      "The empowered attacks lack spell effects as they deal proc damage, which does not match with how empowered attacks supposed to behave in general.\n  - This is possibly a band-aid fix to avoid an issue where Shattered Earth would trigger various effects twice per attack instead of once, as it could be seen during the first PBE deploy of the rework's release, after which the ability was changed from spell damage to proc.",
+      "The buff used for Shattered Earth is fuzzy. Each attack removes 1 stack on a delay of up to 0.25 seconds. This has no known side effects currently.",
+      "The slow is also applied and removed in a fuzzy manner, meaning that sometimes it may last shorter or longer than intended, depending on the ticks."
+    ]
+  },
+  {
+    "champion": "Skarner",
+    "kind": "Q",
+    "name": "Upheaval",
+    "page": {
+      "title": "Template:Data Skarner/Upheaval",
+      "revid": 4080170
+    },
+    "ranks": 5,
+    "fields": {
+      "cost": {
+        "text": "none",
+        "values": []
+      },
+      "castTime": {
+        "text": "0.25 • none",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0.25
+            },
+            "label": "Normal cast"
+          }
+        ]
+      },
+      "range": {
+        "text": "1050",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 1050
+            }
+          }
+        ]
+      },
+      "effectRadius": {
+        "text": "300",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 300
+            },
+            "label": "Boulder splash radius, centered on target"
+          }
+        ]
+      },
+      "width": {
+        "text": "180",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 180
+            }
+          }
+        ]
+      },
+      "speed": {
+        "text": "1600",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 1600
+            }
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Direction"
+      ],
+      "affects": [
+        "Enemies"
+      ],
+      "damageType": [
+        "Physical"
+      ],
+      "spellEffects": "spellaoe",
+      "spellShield": "special",
+      "projectile": "true"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Skarner ends Shattered Earth by throwing his boulder in the target direction. It explodes upon colliding with the first enemy hit, applying the same damage and slow to the target and surrounding enemies as Shattered Earth's final empowered attack would.",
+        "leveling": [
+          {
+            "label": "Physical Damage",
+            "amount": {
+              "text": "10 / 20 / 30 / 40 / 50 (+ 90% bonus AD) (+ 3% of his bonus health) (+ 11% of target's maximum health)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  10,
+                  20,
+                  30,
+                  40,
+                  50
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "bonusAD",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 90
+                  },
+                  "text": "(+ 90% bonus AD)"
+                },
+                {
+                  "stat": "bonusHealth",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 3
+                  },
+                  "text": "(+ 3% of his bonus health)"
+                },
+                {
+                  "stat": "targetMaxHealth",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 11
+                  },
+                  "text": "(+ 11% of target's maximum health)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Maximum Monster Damage",
+            "amount": {
+              "text": "160 / 220 / 280 / 340 / 400 (+ 90% bonus AD) (+ 3% of his bonus health)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  160,
+                  220,
+                  280,
+                  340,
+                  400
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "bonusAD",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 90
+                  },
+                  "text": "(+ 90% bonus AD)"
+                },
+                {
+                  "stat": "bonusHealth",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 3
+                  },
+                  "text": "(+ 3% of his bonus health)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      ";General",
+      "While Upheaval can deal damage to structures, the missile can't directly hit them. They have to be within the radius of the explosion.",
+      "Spell shield will not prevent the explosion from occurring.* This ability will cast from wherever the caster is at the end of the cast time.\n  - The direction of cast will be updated to go toward the cast location.",
+      "The slow applied by Shattered Earth is a generic slow debuff.",
+      ";Known Issues",
+      "If Upheaval hits an enemy while a new instance of Shattered Earth is active, Shattered Earth's effects are immediately lost."
+    ]
+  },
+  {
+    "champion": "Skarner",
+    "kind": "R",
+    "name": "Impale",
+    "page": {
+      "title": "Template:Data Skarner/Impale",
+      "revid": 4059028
+    },
+    "ranks": 3,
+    "fields": {
+      "cooldown": {
+        "text": "120 / 105 / 90",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                120,
+                105,
+                90
+              ]
+            }
+          }
+        ]
+      },
+      "cooldownStart": "on-cast",
+      "cost": {
+        "text": "100",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 100
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "0.75",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0.75
+            }
+          }
+        ]
+      },
+      "range": {
+        "text": "-50 – 625",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 50
+            },
+            "label": "Height placement relative to Skarner, 675 total length"
+          }
+        ]
+      },
+      "width": {
+        "text": "350 • 200",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 350
+            },
+            "label": "Larger base"
+          },
+          {
+            "series": {
+              "kind": "constant",
+              "value": 200
+            },
+            "label": "Smaller base"
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Direction"
+      ],
+      "affects": [
+        "Self",
+        "Enemies"
+      ],
+      "damageType": [
+        "Magic"
+      ],
+      "spellEffects": "spellaoe",
+      "spellShield": "true",
+      "projectile": "false"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Skarner winds up his stingers over the cast time, then lashes them forward in an isosceles trapezoid in the target direction, dealing magic damage to enemies hit and impaling up to 3 of the closest enemy champions within the area to suppress them for 1.5 seconds. While suppressed, the targets are revealed and attached to Skarner. If he successfully impales at least one enemy champion, Skarner gains 40% bonus movement speed for the same duration.",
+        "leveling": [
+          {
+            "label": "Magic Damage",
+            "amount": {
+              "text": "150 / 250 / 350 (+ 100% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  150,
+                  250,
+                  350
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 100
+                  },
+                  "text": "(+ 100% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "suppression",
+            "category": "control",
+            "wording": "suppress",
+            "duration": {
+              "kind": "constant",
+              "value": 1.5
+            },
+            "evidence": "Active: Skarner winds up his stingers over the cast time, then lashes them forward in an isosceles trapezoid in the target direction, dealing magic damage to enemies hit and impaling up to 3 of the closest enemy champions within the area to suppress them for 1.5 seconds.",
+            "conditional": false
+          },
+          {
+            "type": "true sight",
+            "category": "vision",
+            "wording": "revealed",
+            "evidence": "While suppressed, the targets are revealed and attached to Skarner.",
+            "conditional": false
+          },
+          {
+            "type": "attach",
+            "category": "movement",
+            "wording": "attached",
+            "evidence": "While suppressed, the targets are revealed and attached to Skarner.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "If Impale is cast during Shattered Earth, Skarner automatically casts Upheaval in the direction of Impale's cast. Skarner is unable to basic attack, cast Shattered Earth or Ixtal's Impact, or use Flash during Impale. While the targets are impaled, they are attached to Skarner 300 units in front of him. Targets are placed 200 units in the same direction at the end of the effect.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Impale's attachment depends on the application of the suppression; if the suppression is not applied, neither is the attachment. Similarly, if the suppression is removed, so is the attachment.\n  - If a target resists the suppression by being immune to crowd control, displacement immune, or having a spell shield, Skarner will not attach them to himself.\n    - If all targets hit resist the suppression, Skarner will fail to attach any of them to himself and thus will not initiate Impale, causing the ability to behave as if no valid impale targets were hit.\n  - If a target removes the suppression by any means, including with an applicable cleanse effect or dispel, they will detach themselves from Skarner immediately.\n    - If all targets remove the suppression, Impale ends prematurely and is cancelled for Skarner.",
+      "If a target would be inside of terrain at the end of the effect, they are moved to the nearest valid space.",
+      "If a target would be on the other side of a wall, they are moved to the same side as Skarner.",
+      "During Impale, Skarner always faces in the direction of the nearest attached target.",
+      "This ability will cast from wherever the caster is at the end of the cast time.",
+      "The following table refers for interactions while Skarner is in Impale's cast time:",
+      "The following table refers for interactions while Skarner is performing Impale's enemy disable:"
+    ]
+  },
+  {
+    "champion": "Skarner",
+    "kind": "W",
+    "name": "Crystalline Exoskeleton",
+    "page": {
+      "title": "Template:Data Skarner/Crystalline Exoskeleton",
+      "revid": 3580081
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "13 / 12.5 / 12 / 11.5 / 11",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                13,
+                12.5,
+                12,
+                11.5,
+                11
+              ]
+            }
+          }
+        ]
+      },
+      "cooldownStart": "on-cast",
+      "cost": {
+        "text": "60",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 60
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "none",
+        "values": []
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Auto"
+      ],
+      "affects": [
+        "Self"
+      ],
+      "damageType": [],
+      "spellEffects": "shield"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Skarner grants himself a shield for up to 6 seconds, and while it holds, he gains bonus movement speed that doubles over the first 3 seconds.",
+        "leveling": [
+          {
+            "label": "Shield Strength",
+            "amount": {
+              "text": "9 / 10 / 11 / 12 / 13% maximum health (+ 80% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  9,
+                  10,
+                  11,
+                  12,
+                  13
+                ]
+              },
+              "unit": "%",
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 80
+                  },
+                  "text": "(+ 80% AP)"
+                }
+              ],
+              "unparsed": "",
+              "baseStat": "maxHealth"
+            }
+          },
+          {
+            "label": "Bonus Movement Speed",
+            "amount": {
+              "text": "8 / 10 / 12 / 14 / 16%",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  8,
+                  10,
+                  12,
+                  14,
+                  16
+                ]
+              },
+              "unit": "%",
+              "scaling": [],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Increased Bonus Movement Speed",
+            "amount": {
+              "text": "16 / 20 / 24 / 28 / 32%",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  16,
+                  20,
+                  24,
+                  28,
+                  32
+                ]
+              },
+              "unit": "%",
+              "scaling": [],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "shield",
+            "category": "defense",
+            "wording": "shield",
+            "duration": {
+              "kind": "constant",
+              "value": 6
+            },
+            "evidence": "Active: Skarner grants himself a shield for up to 6 seconds, and while it holds, he gains bonus movement speed that doubles over the first 3 seconds.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "No additional notes."
+    ]
+  },
+  {
+    "champion": "Skarner",
+    "kind": "W",
+    "name": "Seismic Bastion",
+    "page": {
+      "title": "Template:Data Skarner/Seismic Bastion",
+      "revid": 4008046
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "10 / 9 / 8 / 7 / 6",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                10,
+                9,
+                8,
+                7,
+                6
+              ]
+            }
+          }
+        ]
+      },
+      "cost": {
+        "text": "60 / 65 / 70 / 75 / 80",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                60,
+                65,
+                70,
+                75,
+                80
+              ]
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "0.3",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0.3
+            }
+          }
+        ]
+      },
+      "effectRadius": {
+        "text": "600 • 700",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 600
+            },
+            "label": "Radial missile range within an arc forward, increasing towards the edges of this angle"
+          },
+          {
+            "series": {
+              "kind": "constant",
+              "value": 700
+            },
+            "label": "Radial missile range at every other angle"
+          }
+        ]
+      },
+      "speed": {
+        "text": "1650",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 1650
+            },
+            "label": "Radial missile speed"
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Auto"
+      ],
+      "affects": [
+        "Enemies"
+      ],
+      "damageType": [
+        "Magical"
+      ],
+      "spellEffects": "spellaoe",
+      "spellShield": "true",
+      "projectile": "false"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Skarner slams his claws into the ground, shielding himself equal to 8% of his maximum health for 2.5 seconds and releasing a shockwave that quickly expands in a radius around him to deal magic damage to enemies hit and slow them by 20% for 1 second.",
+        "leveling": [
+          {
+            "label": "Magic Damage",
+            "amount": {
+              "text": "50 / 70 / 90 / 110 / 130 (+ 80% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  50,
+                  70,
+                  90,
+                  110,
+                  130
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 80
+                  },
+                  "text": "(+ 80% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "shield",
+            "category": "defense",
+            "wording": "shielding",
+            "duration": {
+              "kind": "constant",
+              "value": 2.5
+            },
+            "evidence": "Active: Skarner slams his claws into the ground, shielding himself equal to 8% of his maximum health for 2.5 seconds and releasing a shockwave that quickly expands in a radius around him to deal magic damage to enemies hit and slow them by 20% for 1 second.",
+            "conditional": false
+          },
+          {
+            "type": "slow",
+            "category": "control",
+            "wording": "slow",
+            "duration": {
+              "kind": "constant",
+              "value": 1
+            },
+            "amount": {
+              "kind": "constant",
+              "value": 20
+            },
+            "evidence": "Active: Skarner slams his claws into the ground, shielding himself equal to 8% of his maximum health for 2.5 seconds and releasing a shockwave that quickly expands in a radius around him to deal magic damage to enemies hit and slow them by 20% for 1 second.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "Skarner can move during Seismic Bastion's cast time.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "The shield is granted at the start of the cast time.",
+      "The shield ratio is equal to 50.4 – 200 (based on level) (+ 8% of his bonus health).",
+      "This ability will cast from wherever the caster is at the end of the cast time."
+    ]
+  }
+]

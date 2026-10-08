@@ -1,0 +1,880 @@
+[
+  {
+    "champion": "Kassadin",
+    "kind": "E",
+    "name": "Force Pulse",
+    "page": {
+      "title": "Template:Data Kassadin/Force Pulse",
+      "revid": 4007623
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "21 / 20 / 19 / 18 / 17",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                21,
+                20,
+                19,
+                18,
+                17
+              ]
+            }
+          }
+        ]
+      },
+      "cost": {
+        "text": "60 / 65 / 70 / 75 / 80",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                60,
+                65,
+                70,
+                75,
+                80
+              ]
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "0.25",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0.25
+            }
+          }
+        ]
+      },
+      "effectRadius": {
+        "text": "600 • 1800",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 600
+            }
+          },
+          {
+            "series": {
+              "kind": "constant",
+              "value": 1800
+            },
+            "label": "Ability cast detection radius for triggering the cooldown reduction"
+          }
+        ]
+      },
+      "angle": {
+        "text": "78°",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 78
+            }
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Direction"
+      ],
+      "affects": [
+        "Enemies"
+      ],
+      "damageType": [
+        "Magic"
+      ],
+      "spellEffects": "area of effect",
+      "spellShield": "true",
+      "projectile": "false"
+    },
+    "parts": [
+      {
+        "label": "Passive",
+        "text": "Passive: Each time Kassadin or a nearby champion casts an ability, Force Pulse's current cooldown is reduced by 0.75 seconds.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "label": "Active",
+        "text": "Active: Kassadin emits a pulse of void energy in a cone in the target direction that deals magic damage to enemies hit and slows them for 1 second.",
+        "leveling": [
+          {
+            "label": "Magic Damage",
+            "amount": {
+              "text": "70 / 100 / 130 / 160 / 190 (+ 70% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  70,
+                  100,
+                  130,
+                  160,
+                  190
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 70
+                  },
+                  "text": "(+ 70% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Slow",
+            "amount": {
+              "text": "50 / 55 / 60 / 65 / 70%",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  50,
+                  55,
+                  60,
+                  65,
+                  70
+                ]
+              },
+              "unit": "%",
+              "scaling": [],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "slow",
+            "category": "control",
+            "wording": "slows",
+            "duration": {
+              "kind": "constant",
+              "value": 1
+            },
+            "amount": {
+              "kind": "rank",
+              "values": [
+                50,
+                55,
+                60,
+                65,
+                70
+              ]
+            },
+            "evidence": "Active: Kassadin emits a pulse of void energy in a cone in the target direction that deals magic damage to enemies hit and slows them for 1 second.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Untargetable champions do not reduce Force Pulse's cooldown upon ability activations.",
+      "Toggle abilities and transformation abilities do not count as ability activations and will not reduce Force Pulse's cooldown.",
+      "This ability will cast from wherever the caster is at the end of the cast time."
+    ]
+  },
+  {
+    "champion": "Kassadin",
+    "kind": "I",
+    "name": "Void Stone",
+    "page": {
+      "title": "Template:Data Kassadin/Void Stone",
+      "revid": 3913958
+    },
+    "ranks": 1,
+    "fields": {},
+    "flags": {
+      "targeting": [
+        "Passive"
+      ],
+      "affects": [
+        "Self"
+      ],
+      "damageType": []
+    },
+    "parts": [
+      {
+        "label": "Innate",
+        "text": "Innate: Kassadin is permanently ghosted and takes 10% reduced magic damage.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "ghosted",
+            "category": "movement",
+            "wording": "ghosted",
+            "evidence": "Innate: Kassadin is permanently ghosted and takes 10% reduced magic damage.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "No additional details."
+    ]
+  },
+  {
+    "champion": "Kassadin",
+    "kind": "Q",
+    "name": "Null Sphere",
+    "page": {
+      "title": "Template:Data Kassadin/Null Sphere",
+      "revid": 4060362
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "9 / 8.5 / 8 / 7.5 / 7",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                9,
+                8.5,
+                8,
+                7.5,
+                7
+              ]
+            }
+          }
+        ]
+      },
+      "cost": {
+        "text": "60 / 65 / 70 / 75 / 80",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                60,
+                65,
+                70,
+                75,
+                80
+              ]
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "0.25",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0.25
+            }
+          }
+        ]
+      },
+      "targetRange": {
+        "text": "650",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 650
+            }
+          }
+        ]
+      },
+      "speed": {
+        "text": "1400",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 1400
+            }
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Unit"
+      ],
+      "affects": [
+        "Enemies",
+        "Self"
+      ],
+      "damageType": [
+        "Magic"
+      ],
+      "spellEffects": "spell",
+      "spellShield": "true",
+      "projectile": "true"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Kassadin fires an orb of void energy at the target enemy that deals magic damage and disrupts their ongoing channels.",
+        "leveling": [
+          {
+            "label": "Magic Damage",
+            "amount": {
+              "text": "65 / 95 / 125 / 155 / 185 (+ 80% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  65,
+                  95,
+                  125,
+                  155,
+                  185
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 80
+                  },
+                  "text": "(+ 80% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "disrupt",
+            "category": "other",
+            "wording": "disrupts",
+            "evidence": "Active: Kassadin fires an orb of void energy at the target enemy that deals magic damage and disrupts their ongoing channels.",
+            "conditional": false
+          },
+          {
+            "type": "channel",
+            "category": "other",
+            "wording": "channels",
+            "evidence": "Active: Kassadin fires an orb of void energy at the target enemy that deals magic damage and disrupts their ongoing channels.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "He also gains a shield that absorbs magic damage for 1.5 seconds.",
+        "leveling": [
+          {
+            "label": "Magic Shield Strength",
+            "amount": {
+              "text": "80 / 110 / 140 / 170 / 200 (+ 30% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  80,
+                  110,
+                  140,
+                  170,
+                  200
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 30
+                  },
+                  "text": "(+ 30% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "shield",
+            "category": "defense",
+            "wording": "shield",
+            "duration": {
+              "kind": "constant",
+              "value": 1.5
+            },
+            "evidence": "He also gains a shield that absorbs magic damage for 1.5 seconds.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "The shield is granted at the start of the cast time."
+    ]
+  },
+  {
+    "champion": "Kassadin",
+    "kind": "R",
+    "name": "Riftwalk",
+    "page": {
+      "title": "Template:Data Kassadin/Riftwalk",
+      "revid": 4060363
+    },
+    "ranks": 3,
+    "fields": {
+      "cooldown": {
+        "text": "5 / 3.5 / 2",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                5,
+                3.5,
+                2
+              ]
+            }
+          }
+        ]
+      },
+      "cost": {
+        "text": "40 / 80 / 160 / 320 / 640 (based on Stacks)",
+        "values": [
+          {
+            "series": {
+              "kind": "variable",
+              "variable": "Stacks",
+              "points": [
+                0,
+                1,
+                2,
+                3,
+                4
+              ],
+              "values": [
+                40,
+                80,
+                160,
+                320,
+                640
+              ]
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "0.25",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0.25
+            }
+          }
+        ]
+      },
+      "targetRange": {
+        "text": "500",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 500
+            },
+            "label": "Maximum range, has no minimum range"
+          }
+        ]
+      },
+      "effectRadius": {
+        "text": "270",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 270
+            }
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Location"
+      ],
+      "affects": [
+        "Enemies"
+      ],
+      "damageType": [
+        "Magic"
+      ],
+      "spellEffects": "area of effect",
+      "spellShield": "true",
+      "grounded": "true"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Kassadin blinks toward the target location, dealing magic damage to all nearby enemies upon arrival. He then gains a stack of Riftwalk for 15 seconds, refreshing on subsequent casts and stacking up to 4 times.",
+        "leveling": [
+          {
+            "label": "Magic Damage",
+            "amount": {
+              "text": "80 / 95 / 110 (+ 50% AP) (+ 2% maximum mana)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  80,
+                  95,
+                  110
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 50
+                  },
+                  "text": "(+ 50% AP)"
+                },
+                {
+                  "stat": "maxMana",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 2
+                  },
+                  "text": "(+ 2% maximum mana)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "blink",
+            "category": "movement",
+            "wording": "blinks",
+            "evidence": "Active: Kassadin blinks toward the target location, dealing magic damage to all nearby enemies upon arrival.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "label": "Riftwalk",
+        "text": "Riftwalk: For each stack, Riftwalk deals bonus magic damage at an increased mana cost.",
+        "leveling": [
+          {
+            "label": "Bonus Damage Per Stack",
+            "amount": {
+              "text": "35 / 45 / 55 (+ 7% AP) (+ 1% maximum mana)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  35,
+                  45,
+                  55
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 7
+                  },
+                  "text": "(+ 7% AP)"
+                },
+                {
+                  "stat": "maxMana",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 1
+                  },
+                  "text": "(+ 1% maximum mana)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Maximum Bonus Damage",
+            "amount": {
+              "text": "140 / 180 / 220 (+ 28% AP) (+ 4% maximum mana)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  140,
+                  180,
+                  220
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 28
+                  },
+                  "text": "(+ 28% AP)"
+                },
+                {
+                  "stat": "maxMana",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 4
+                  },
+                  "text": "(+ 4% maximum mana)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Maximum Magic Damage",
+            "amount": {
+              "text": "220 / 275 / 330 (+ 78% AP) (+ 6% maximum mana)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  220,
+                  275,
+                  330
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 78
+                  },
+                  "text": "(+ 78% AP)"
+                },
+                {
+                  "stat": "maxMana",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 6
+                  },
+                  "text": "(+ 6% maximum mana)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Flash can be used during the cast time, allowing Kassadin to blink further away.",
+      "Pinging Riftwalk will additionally display the remaining duration of its stacks."
+    ]
+  },
+  {
+    "champion": "Kassadin",
+    "kind": "W",
+    "name": "Nether Blade",
+    "page": {
+      "title": "Template:Data Kassadin/Nether Blade",
+      "revid": 4022982
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "7",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 7
+            }
+          }
+        ]
+      },
+      "cooldownStart": "post-effect",
+      "cost": {
+        "text": "1",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 1
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "none",
+        "values": []
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Auto"
+      ],
+      "affects": [
+        "Self"
+      ],
+      "damageType": [
+        "Magic"
+      ],
+      "spellEffects": "special",
+      "spellShield": "special",
+      "parry": "special"
+    },
+    "parts": [
+      {
+        "label": "Passive",
+        "text": "Passive: Kassadin's basic attacks deal 25 (+ 10% AP) bonus magic damage on-hit.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "on-hit",
+            "category": "offense",
+            "wording": "on-hit",
+            "evidence": "Passive: Kassadin's basic attacks deal 25 (+ 10% AP) bonus magic damage on-hit.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "label": "Active",
+        "text": "Active: Kassadin empowers his next basic attack on-hit within 5 seconds to have an uncancellable windup, gain 50 bonus range, deal increased bonus magic damage, and restore mana, with the restoration amount quintupled against champions.",
+        "leveling": [
+          {
+            "label": "Increased Bonus Magic Damage",
+            "amount": {
+              "text": "50 / 75 / 100 / 125 / 150 (+ 80% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  50,
+                  75,
+                  100,
+                  125,
+                  150
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 80
+                  },
+                  "text": "(+ 80% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Mana Restored",
+            "amount": {
+              "text": "4 / 4.5 / 5 / 5.5 / 6% of missing mana",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  4,
+                  4.5,
+                  5,
+                  5.5,
+                  6
+                ]
+              },
+              "unit": "%",
+              "scaling": [],
+              "unparsed": "",
+              "baseStat": "missingMana"
+            }
+          },
+          {
+            "label": "Mana Restored Against Champions",
+            "amount": {
+              "text": "20 / 22.5 / 25 / 27.5 / 30% of missing mana",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  20,
+                  22.5,
+                  25,
+                  27.5,
+                  30
+                ]
+              },
+              "unit": "%",
+              "scaling": [],
+              "unparsed": "",
+              "baseStat": "missingMana"
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "on-hit",
+            "category": "offense",
+            "wording": "on-hit",
+            "evidence": "Active: Kassadin empowers his next basic attack on-hit within 5 seconds to have an uncancellable windup, gain 50 bonus range, deal increased bonus magic damage, and restore mana, with the restoration amount quintupled against champions.",
+            "conditional": false
+          },
+          {
+            "type": "uncancellable windup",
+            "category": "offense",
+            "wording": "uncancellable windup",
+            "evidence": "Active: Kassadin empowers his next basic attack on-hit within 5 seconds to have an uncancellable windup, gain 50 bonus range, deal increased bonus magic damage, and restore mana, with the restoration amount quintupled against champions.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "Nether Blade resets Kassadin's basic attack timer.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "attack reset",
+            "category": "offense",
+            "wording": "resets",
+            "evidence": "Nether Blade resets Kassadin's basic attack timer.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "The passive damage applies proc damage and the active damage applies spell damage.",
+      "The enhanced attack will apply other on-hit effects and can critically strike as normal.",
+      "Nether Blade will not grant mana if the attack is dodged or if it misses, but will do so if the attack is blocked. In all cases the damage is parried.",
+      "Spell shield will block the active damage but not the passive one.",
+      "The passive bonus damage applies to structures.",
+      "The empowered attack will trigger but not be consumed nor apply its effects against structures."
+    ]
+  }
+]

@@ -1,0 +1,711 @@
+[
+  {
+    "champion": "Vayne",
+    "kind": "E",
+    "name": "Condemn",
+    "page": {
+      "title": "Template:Data Vayne/Condemn",
+      "revid": 4008541
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "20 / 18 / 16 / 14 / 12",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                20,
+                18,
+                16,
+                14,
+                12
+              ]
+            }
+          }
+        ]
+      },
+      "cost": {
+        "text": "90",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 90
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "0.25",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0.25
+            }
+          }
+        ]
+      },
+      "targetRange": {
+        "text": "550",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 550
+            }
+          }
+        ]
+      },
+      "speed": {
+        "text": "2200 • 2000",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 2200
+            },
+            "label": "Missile speed"
+          },
+          {
+            "series": {
+              "kind": "constant",
+              "value": 2000
+            },
+            "label": "Knockback speed"
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Unit"
+      ],
+      "affects": [
+        "Enemies"
+      ],
+      "damageType": [
+        "physical"
+      ],
+      "spellEffects": "spell",
+      "spellShield": "true",
+      "projectile": "true"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Vayne fires a heavy bolt at the target enemy that deals physical damage and knocks them back 475 units, though not through terrain.",
+        "leveling": [
+          {
+            "label": "Physical Damage",
+            "amount": {
+              "text": "50 / 85 / 120 / 155 / 190 (+ 50% bonus AD)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  50,
+                  85,
+                  120,
+                  155,
+                  190
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "bonusAD",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 50
+                  },
+                  "text": "(+ 50% bonus AD)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "airborne",
+            "category": "control",
+            "wording": "knocks them back",
+            "evidence": "Active: Vayne fires a heavy bolt at the target enemy that deals physical damage and knocks them back 475 units, though not through terrain.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "If the target collides with terrain, they take bonus physical damage and become stunned for 1.5 seconds.",
+        "leveling": [
+          {
+            "label": "Bonus Physical Damage",
+            "amount": {
+              "text": "75 / 127.5 / 180 / 232.5 / 285 (+ 75% bonus AD)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  75,
+                  127.5,
+                  180,
+                  232.5,
+                  285
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "bonusAD",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 75
+                  },
+                  "text": "(+ 75% bonus AD)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Total Physical Damage",
+            "amount": {
+              "text": "125 / 212.5 / 300 / 387.5 / 475 (+ 125% bonus AD)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  125,
+                  212.5,
+                  300,
+                  387.5,
+                  475
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "bonusAD",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 125
+                  },
+                  "text": "(+ 125% bonus AD)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "stun",
+            "category": "control",
+            "wording": "stunned",
+            "duration": {
+              "kind": "constant",
+              "value": 1.5
+            },
+            "evidence": "If the target collides with terrain, they take bonus physical damage and become stunned for 1.5 seconds.",
+            "conditional": false
+          }
+        ],
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 1.5
+            },
+            "context": "If the target collides with terrain, they take bonus physical damage and become stunned for 1.5 seconds."
+          }
+        ]
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Condemn's displacement direction is determined at the end of the cast time.\n  - Because of this, Vayne may use Flash during the cast time to create a better angle.",
+      "Cleansing the knock back will also end the displacement early.",
+      "The spell indicator for this ability also displays the direction for the knock back relative to Vayne's position.",
+      "Condemn's stun duration starts when Vayne's target collides with a wall (they can be immobilized for up to 2 seconds depending on displacement duration based on distance traveled).",
+      "Condemn's missile will fail to fire if Vayne is suppressed during the cast time.",
+      "Condemn can interact with player-generated terrain.",
+      "If the target becomes untargetable, dies, or is too far away or no longer in sight during the cast time, this ability will cancel but does not go on cooldown nor pay its cost (if applicable)."
+    ]
+  },
+  {
+    "champion": "Vayne",
+    "kind": "I",
+    "name": "Night Hunter",
+    "page": {
+      "title": "Template:Data Vayne/Night Hunter",
+      "revid": 3920984
+    },
+    "ranks": 1,
+    "fields": {
+      "effectRadius": {
+        "text": "2000",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 2000
+            },
+            "label": "Enemy champion check"
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Passive"
+      ],
+      "affects": [
+        "Self"
+      ],
+      "damageType": []
+    },
+    "parts": [
+      {
+        "label": "Innate",
+        "text": "Innate: Vayne gains 30 bonus movement speed while facing a nearby visible enemy champion, increased to 90 while under the effects of Final Hour.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "reveal",
+            "category": "vision",
+            "wording": "visible",
+            "evidence": "Innate: Vayne gains 30 bonus movement speed while facing a nearby visible enemy champion, increased to 90 while under the effects of Final Hour.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "The bonus movement speed persists for 2 seconds after Vayne loses sight of an enemy champion."
+    ]
+  },
+  {
+    "champion": "Vayne",
+    "kind": "Q",
+    "name": "Tumble",
+    "page": {
+      "title": "Template:Data Vayne/Tumble",
+      "revid": 4078271
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "6 / 5 / 4 / 3 / 2",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                6,
+                5,
+                4,
+                3,
+                2
+              ]
+            }
+          }
+        ]
+      },
+      "cooldownStart": "post-effect",
+      "cost": {
+        "text": "30",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 30
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "none",
+        "values": []
+      },
+      "range": {
+        "text": "300",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 300
+            },
+            "label": "Dash distance"
+          }
+        ]
+      },
+      "speed": {
+        "text": "500 + 100% movement speed",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 500
+            },
+            "label": "Dash speed"
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Direction"
+      ],
+      "affects": [
+        "Self"
+      ],
+      "damageType": [
+        "physical"
+      ],
+      "spellEffects": "special",
+      "parry": "true",
+      "grounded": "true",
+      "knockdown": "true"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Vayne dashes a fixed distance in the target direction, though not through terrain, and empowers her next basic attack within 3 seconds to have an uncancellable windup and deal bonus physical damage.",
+        "leveling": [
+          {
+            "label": "Bonus Physical Damage",
+            "amount": {
+              "text": "75 / 85 / 95 / 105 / 115% AD (+ 50% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  75,
+                  85,
+                  95,
+                  105,
+                  115
+                ]
+              },
+              "unit": "%",
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 50
+                  },
+                  "text": "(+ 50% AP)"
+                }
+              ],
+              "unparsed": "",
+              "baseStat": "AD"
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "dash",
+            "category": "movement",
+            "wording": "dashes",
+            "evidence": "Active: Vayne dashes a fixed distance in the target direction, though not through terrain, and empowers her next basic attack within 3 seconds to have an uncancellable windup and deal bonus physical damage.",
+            "conditional": false
+          },
+          {
+            "type": "uncancellable windup",
+            "category": "offense",
+            "wording": "uncancellable windup",
+            "evidence": "Active: Vayne dashes a fixed distance in the target direction, though not through terrain, and empowers her next basic attack within 3 seconds to have an uncancellable windup and deal bonus physical damage.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "Tumble resets Vayne's basic attack timer.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "attack reset",
+            "category": "offense",
+            "wording": "resets",
+            "evidence": "Tumble resets Vayne's basic attack timer.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "This ability always employs quick cast.",
+      "The basic attack portion of Tumble's damage is tagged as basic damage and spell damage, while the bonus damage is tagged as spell damage.",
+      "The bonus damage applies life steal.",
+      "Although Tumble will reset the basic attack timer, Vayne cannot attack until the animation is complete.",
+      "Vayne can cast Final Hour during Tumble. She does not become invisible during the dash."
+    ]
+  },
+  {
+    "champion": "Vayne",
+    "kind": "R",
+    "name": "Final Hour",
+    "page": {
+      "title": "Template:Data Vayne/Final Hour",
+      "revid": 3807995
+    },
+    "ranks": 3,
+    "fields": {
+      "cooldown": {
+        "text": "100 / 85 / 70",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                100,
+                85,
+                70
+              ]
+            }
+          }
+        ]
+      },
+      "cooldownStart": "on-cast",
+      "cost": {
+        "text": "80",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 80
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "none",
+        "values": []
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Auto"
+      ],
+      "affects": [
+        "Self"
+      ],
+      "damageType": []
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Vayne equips her crossbow, gaining bonus attack damage for a duration.",
+        "leveling": [
+          {
+            "label": "Effect Duration",
+            "amount": {
+              "text": "8 / 10 / 12 seconds",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  8,
+                  10,
+                  12
+                ]
+              },
+              "unit": "s",
+              "scaling": [],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Bonus Attack Damage",
+            "amount": {
+              "text": "35 / 50 / 65",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  35,
+                  50,
+                  65
+                ]
+              },
+              "scaling": [],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "text": "While active, Final Hour empowers Night Hunter to have tripled bonus movement speed and Tumble to have a reduced cooldown. Additionally, Tumble cast grants Vayne invisibility for 1 second. Attacking or casting abilities ends the stealth immediately.",
+        "leveling": [
+          {
+            "label": "Tumble Cooldown Reduction",
+            "amount": {
+              "text": "30 / 40 / 50%",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  30,
+                  40,
+                  50
+                ]
+              },
+              "unit": "%",
+              "scaling": [],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "invisible",
+            "category": "vision",
+            "wording": "invisibility",
+            "duration": {
+              "kind": "constant",
+              "value": 1
+            },
+            "evidence": "Additionally, Tumble cast grants Vayne invisibility for 1 second.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "Scoring an enemy champion takedown within 3 seconds of damaging them will extend Final Hour's duration by 4 seconds, up to its original duration.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Vayne's animations and basic attack projectiles change slightly during Final Hour.",
+      "Tumble's visual effects can be seen by enemies upon Vayne becoming invisible.",
+      "Using a basic attack breaks the stealth at the start of the attack windup."
+    ]
+  },
+  {
+    "champion": "Vayne",
+    "kind": "W",
+    "name": "Silver Bolts",
+    "page": {
+      "title": "Template:Data Vayne/Silver Bolts",
+      "revid": 4057477
+    },
+    "ranks": 5,
+    "fields": {},
+    "flags": {
+      "targeting": [
+        "Passive"
+      ],
+      "affects": [
+        "Enemies"
+      ],
+      "damageType": [
+        "true"
+      ],
+      "spellEffects": "proc",
+      "spellShield": "false",
+      "parry": "true"
+    },
+    "parts": [
+      {
+        "label": "Passive",
+        "text": "Passive: Vayne's basic attacks on-hit and Condemn apply a stack of Silver Bolts for 3.5 seconds, refreshing on subsequent applications, expiring upon attacking a new enemy, and stacking up to 3 times.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "on-hit",
+            "category": "offense",
+            "wording": "on-hit",
+            "evidence": "Passive: Vayne's basic attacks on-hit and Condemn apply a stack of Silver Bolts for 3.5 seconds, refreshing on subsequent applications, expiring upon attacking a new enemy, and stacking up to 3 times.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "The third stack consumes them all to deal bonus true damage, with a minimum threshold.",
+        "leveling": [
+          {
+            "label": "Bonus True Damage",
+            "amount": {
+              "text": "4 / 5.5 / 7 / 8.5 / 10% of target's maximum health",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  4,
+                  5.5,
+                  7,
+                  8.5,
+                  10
+                ]
+              },
+              "unit": "%",
+              "scaling": [],
+              "unparsed": "",
+              "baseStat": "targetMaxHealth"
+            }
+          },
+          {
+            "label": "Minimum Bonus Damage",
+            "amount": {
+              "text": "40 / 55 / 70 / 85 / 100",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  40,
+                  55,
+                  70,
+                  85,
+                  100
+                ]
+              },
+              "scaling": [],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "text": "Silver Bolts deals modified damage against monsters.",
+        "leveling": [
+          {
+            "label": "Monster Damage",
+            "amount": {
+              "text": "140 / 155 / 170 / 185 / 200",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  140,
+                  155,
+                  170,
+                  185,
+                  200
+                ]
+              },
+              "scaling": [],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Stacks are not removed if Vayne switches to attacking a target immune to Silver Bolts (structures, wards).",
+      "Silver Bolts do not apply to additional targets with Runaan's Hurricane.",
+      "The stacks can be consumed even if the target is in stasis."
+    ]
+  }
+]

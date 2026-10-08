@@ -1,0 +1,1177 @@
+[
+  {
+    "champion": "Elise",
+    "kind": "E",
+    "name": "Cocoon",
+    "page": {
+      "title": "Template:Data Elise/Cocoon",
+      "revid": 3906643
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "12 / 11.5 / 11 / 10.5 / 10",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                12,
+                11.5,
+                11,
+                10.5,
+                10
+              ]
+            }
+          }
+        ]
+      },
+      "cost": {
+        "text": "50",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 50
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "0.25",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0.25
+            }
+          }
+        ]
+      },
+      "targetRange": {
+        "text": "1100",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 1100
+            }
+          }
+        ]
+      },
+      "width": {
+        "text": "110",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 110
+            }
+          }
+        ]
+      },
+      "speed": {
+        "text": "1600",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 1600
+            }
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Direction"
+      ],
+      "affects": [
+        "Enemies"
+      ],
+      "damageType": [],
+      "spellShield": "true",
+      "projectile": "true"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Elise fires a web in the target direction, stunning the first enemy hit for a few seconds, during which they are also revealed.",
+        "leveling": [
+          {
+            "label": "Stun Duration",
+            "amount": {
+              "text": "1.6 / 1.8 / 2 / 2.2 / 2.4 seconds",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  1.6,
+                  1.8,
+                  2,
+                  2.2,
+                  2.4
+                ]
+              },
+              "unit": "s",
+              "scaling": [],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "stun",
+            "category": "control",
+            "wording": "stunning",
+            "duration": {
+              "kind": "rank",
+              "values": [
+                1.6,
+                1.8,
+                2,
+                2.2,
+                2.4
+              ]
+            },
+            "evidence": "Active: Elise fires a web in the target direction, stunning the first enemy hit for a few seconds, during which they are also revealed.",
+            "conditional": false
+          },
+          {
+            "type": "true sight",
+            "category": "vision",
+            "wording": "revealed",
+            "evidence": "Active: Elise fires a web in the target direction, stunning the first enemy hit for a few seconds, during which they are also revealed.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "This ability will cast from wherever the caster is at the end of the cast time.",
+      "Cocoon deals no damage and thus does not trigger turret aggro, or effects such as Elixir of Sorcery and Sudden Impact activation.",
+      "Cocoon will activate combat status despite not dealing any damage."
+    ]
+  },
+  {
+    "champion": "Elise",
+    "kind": "E",
+    "name": "Rappel",
+    "page": {
+      "title": "Template:Data Elise/Rappel",
+      "revid": 4007596
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "22 / 21 / 20 / 19 / 18",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                22,
+                21,
+                20,
+                19,
+                18
+              ]
+            }
+          }
+        ]
+      },
+      "cooldownStart": "post-effect",
+      "castTime": {
+        "text": "none",
+        "values": []
+      },
+      "targetRange": {
+        "text": "825 • 900",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 825
+            },
+            "label": "Location-targeted recast range, and recast range for descending onto targets with recast input (E2)"
+          },
+          {
+            "series": {
+              "kind": "constant",
+              "value": 900
+            },
+            "label": "Recast range for descending onto targets with attack commands (RMB)"
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Location",
+        "Unit"
+      ],
+      "affects": [
+        "Self",
+        "Enemies"
+      ],
+      "damageType": [],
+      "grounded": "true"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Elise and her Spiderlings lift up into the air over 0.6 seconds, immediately becoming untargetable and unable to act, and afterwards vanishing for up to 1.95 seconds and granting sight of the surrounding 900 units for the duration.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "untargetable",
+            "category": "defense",
+            "wording": "untargetable",
+            "duration": {
+              "kind": "constant",
+              "value": 1.95
+            },
+            "evidence": "Active: Elise and her Spiderlings lift up into the air over 0.6 seconds, immediately becoming untargetable and unable to act, and afterwards vanishing for up to 1.95 seconds and granting sight of the surrounding 900 units for the duration.",
+            "conditional": false
+          },
+          {
+            "type": "lockout",
+            "category": "other",
+            "wording": "unable to act",
+            "duration": {
+              "kind": "constant",
+              "value": 1.95
+            },
+            "evidence": "Active: Elise and her Spiderlings lift up into the air over 0.6 seconds, immediately becoming untargetable and unable to act, and afterwards vanishing for up to 1.95 seconds and granting sight of the surrounding 900 units for the duration.",
+            "conditional": false
+          },
+          {
+            "type": "untargetable",
+            "category": "defense",
+            "wording": "vanishing",
+            "duration": {
+              "kind": "constant",
+              "value": 1.95
+            },
+            "evidence": "Active: Elise and her Spiderlings lift up into the air over 0.6 seconds, immediately becoming untargetable and unable to act, and afterwards vanishing for up to 1.95 seconds and granting sight of the surrounding 900 units for the duration.",
+            "conditional": false
+          },
+          {
+            "type": "reveal",
+            "category": "vision",
+            "wording": "sight",
+            "duration": {
+              "kind": "constant",
+              "value": 1.95
+            },
+            "evidence": "Active: Elise and her Spiderlings lift up into the air over 0.6 seconds, immediately becoming untargetable and unable to act, and afterwards vanishing for up to 1.95 seconds and granting sight of the surrounding 900 units for the duration.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "Rappel can be recast instantly on a target enemy within the duration, or without a target after a delay for the duration, and does the latter automatically after the duration.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "label": "Recast",
+        "text": "Recast: Elise and her Spiderlings reappear and descend onto the ground over 0.4 seconds, becoming targetable and able to act again afterwards. Additionally, Spider Queen bonuses are increased for 5 seconds.",
+        "leveling": [
+          {
+            "label": "Spider Effects Increase",
+            "amount": {
+              "text": "40 / 55 / 70 / 85 / 100%",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  40,
+                  55,
+                  70,
+                  85,
+                  100
+                ]
+              },
+              "unit": "%",
+              "scaling": [],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "text": "If the recast was used on a target enemy, Elise and her Spiderlings descend behind the target's location. Otherwise, she and her Spiderlings will descend onto their current position without a target.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "blink",
+            "category": "movement",
+            "wording": "descend",
+            "evidence": "If the recast was used on a target enemy, Elise and her Spiderlings descend behind the target's location.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "Rappel's recast can be used while affected by cast-inhibiting crowd control.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "When Elise casts Rappel, a circle outlines the area in which a target can be selected to descend upon.\n  - Elise will always attempt to position behind her target at the same offset if she descends within than Rappel's max range (825), provided there is enough space at the other side. If the target is at the edge of the recast's radius, Elise will not appear at the exact offset behind her target but as close to them as possible instead.\n    - For example, if the target's edge is barely within range for the recast, she will appear in front of them.\n  - If Elise's location-targeted recast is used by issuing a movement command within the respective range of Rappel, she will descend as normal but then move to the location that the movement command was issued; her movement commands will not be interrupted from descending.",
+      "The delay for recasting without a target after Elise has lifted into the air is inconsistent.\n  - The recast has a 0.33-seconds delay for issued movement commands, and a 0.5-second delay if the recast input itself is used.",
+      "While Elise is lifting up into the air, she can buffer Rappel's recast by targeting an enemy with an attack command or the recast input itself in the meantime. She however cannot buffer Rappel's location-targeted recast.\n  - The initial cast can also directly target an enemy to buffer the recast.\n  - Elise will lift up into the air 0.05 seconds shorter in this case.",
+      "The bonuses granted for descending are not lost if Elise switches to Human Form.",
+      "Rappel can be cast on any targetable enemy unit (champions, minions, monsters, wards, traps, and jungle plants) except structures.",
+      "If Elise is positioned within the radius of the unit she's using the initial target cast on, Rappel will instead register as a self-cast and not immediately descend.",
+      "Elise can Rappel to Rift Herald from the other side of the Baron Nashor pit as well as to Dragon by standing near the Scryer's Bloom spawn locations. This is a result of sight being granted in a smaller circle than the target range limit for descending and the Summoner's Rift map having height variations.",
+      "If Elise enters resurrection during Rappel, she will descend back down immediately.",
+      "The following table refers for interactions while Elise is in Rappel:"
+    ]
+  },
+  {
+    "champion": "Elise",
+    "kind": "I",
+    "name": "Spider Queen",
+    "page": {
+      "title": "Template:Data Elise/Spider Queen",
+      "revid": 4064845
+    },
+    "ranks": 1,
+    "fields": {},
+    "flags": {
+      "targeting": [
+        "Passive"
+      ],
+      "affects": [],
+      "damageType": [
+        "Magic"
+      ],
+      "spellEffects": "special",
+      "parry": "special",
+      "onHitEffects": "special"
+    },
+    "parts": [
+      {
+        "label": "Innate - Human Form",
+        "text": "Innate - Human Form: Elise gains one dormant Spiderling whenever she hits an enemy with an ability, storing once per cast and up to 2 – 5 (based on level) at a time. She stores the maximum number of Spiderlings when the game starts and upon respawning.",
+        "leveling": [],
+        "mechanics": [],
+        "values": [
+          {
+            "series": {
+              "kind": "level",
+              "values": [
+                2,
+                3,
+                4,
+                5
+              ]
+            },
+            "context": "Innate - Human Form: Elise gains one dormant Spiderling whenever she hits an enemy with an ability, storing once per cast and up to 2 – 5 (based on level) at a time."
+          }
+        ]
+      },
+      {
+        "label": "Innate - Spider Form",
+        "text": "Innate - Spider Form: Elise's basic attacks deal 14 – 44 (based on level) (+ 15% AP) bonus magic damage and heal her for 6 – 12 (based on level) (+ 8% AP) on-hit.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "heal",
+            "category": "defense",
+            "wording": "heal",
+            "evidence": "Innate - Spider Form: Elise's basic attacks deal 14 – 44 (based on level) (+ 15% AP) bonus magic damage and heal her for 6 – 12 (based on level) (+ 8% AP) on-hit.",
+            "conditional": false
+          },
+          {
+            "type": "on-hit",
+            "category": "offense",
+            "wording": "on-hit",
+            "evidence": "Innate - Spider Form: Elise's basic attacks deal 14 – 44 (based on level) (+ 15% AP) bonus magic damage and heal her for 6 – 12 (based on level) (+ 8% AP) on-hit.",
+            "conditional": false
+          }
+        ],
+        "values": [
+          {
+            "series": {
+              "kind": "level",
+              "values": [
+                14,
+                24,
+                34,
+                44
+              ]
+            },
+            "context": "Innate - Spider Form: Elise's basic attacks deal 14 – 44 (based on level) (+ 15% AP) bonus magic damage and heal her for 6 – 12 (based on level) (+ 8% AP) on-hit."
+          },
+          {
+            "series": {
+              "kind": "level",
+              "values": [
+                6,
+                8,
+                10,
+                12
+              ]
+            },
+            "context": "Innate - Spider Form: Elise's basic attacks deal 14 – 44 (based on level) (+ 15% AP) bonus magic damage and heal her for 6 – 12 (based on level) (+ 8% AP) on-hit."
+          }
+        ]
+      },
+      {
+        "text": "See Pets for more details about Spiderlings.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Spider Form's effects do not apply to structures.",
+      "If an ability hits while Elise is already in Spider Form, a Spiderling will spawn near her rather than being stored.",
+      "The Spiderlings have a leash range.",
+      "Spider Form's basic attacks will apply other on-hit effects and can critically strike as normal (the bonus damage does not).\n  - Spider Form's bonus damage and healing can be blocked, dodge and are not applied if Elise is blind.",
+      "Applies proc damage on the bonus magic damage on-hit in Spider Form.",
+      "The Spiderlings apply area damage."
+    ]
+  },
+  {
+    "champion": "Elise",
+    "kind": "Q",
+    "name": "Neurotoxin",
+    "page": {
+      "title": "Template:Data Elise/Neurotoxin",
+      "revid": 3982568
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "6",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 6
+            }
+          }
+        ]
+      },
+      "cost": {
+        "text": "80 / 85 / 90 / 95 / 100",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                80,
+                85,
+                90,
+                95,
+                100
+              ]
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "0.25",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0.25
+            }
+          }
+        ]
+      },
+      "targetRange": {
+        "text": "575",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 575
+            }
+          }
+        ]
+      },
+      "speed": {
+        "text": "2200",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 2200
+            }
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Unit"
+      ],
+      "affects": [
+        "Enemies"
+      ],
+      "damageType": [
+        "magic"
+      ],
+      "spellEffects": "single",
+      "spellShield": "true",
+      "projectile": "true"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Elise fires a toxin at the target enemy that deals magic damage, with the damage based on the target's health ratio being capped against monsters.",
+        "leveling": [
+          {
+            "label": "Magic Damage",
+            "amount": {
+              "text": "40 / 70 / 100 / 130 / 160 (+ 4% (+ 3% per 100 AP) of target's current health)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  40,
+                  70,
+                  100,
+                  130,
+                  160
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "targetCurrentHealth",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 4
+                  },
+                  "text": "(+ 4% (+ 3% per 100 AP) of target's current health)",
+                  "modifiers": [
+                    {
+                      "stat": "per100:AP",
+                      "ratio": {
+                        "kind": "constant",
+                        "value": 3
+                      },
+                      "text": "(+ 3% per 100 AP)"
+                    }
+                  ]
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Capped Monster Damage",
+            "amount": {
+              "text": "65 / 85 / 105 / 125 / 145 (+ 90% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  65,
+                  85,
+                  105,
+                  125,
+                  145
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 90
+                  },
+                  "text": "(+ 90% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "If the target becomes untargetable, dies, or is too far away or no longer in sight during the cast time, this ability will cancel but does not go on cooldown nor pay its cost (if applicable).",
+      "With the exceptions of Elise's Death Blossom, Victorious, Blood Moon, and Super Galaxy skins; Neurotoxin's VFX size will scale uncapped based off the total damage it does."
+    ]
+  },
+  {
+    "champion": "Elise",
+    "kind": "Q",
+    "name": "Venomous Bite",
+    "page": {
+      "title": "Template:Data Elise/Venomous Bite",
+      "revid": 3982567
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "6",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 6
+            }
+          }
+        ]
+      },
+      "castTime": {
+        "text": "0.25",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0.25
+            }
+          }
+        ]
+      },
+      "targetRange": {
+        "text": "475",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 475
+            }
+          }
+        ]
+      },
+      "speed": {
+        "text": "1150",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 1150
+            }
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Unit"
+      ],
+      "affects": [
+        "Enemies"
+      ],
+      "damageType": [
+        "magic"
+      ],
+      "spellEffects": "spell",
+      "spellShield": "true",
+      "parry": "special",
+      "grounded": "true",
+      "knockdown": "true"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Elise pounces at the target enemy with her fangs and bites them, dealing magic damage and applying on-hit effects, as well as revealing them for 0.528 from the start of the cast time. The damage based on the target's health ratio is capped against monsters.",
+        "leveling": [
+          {
+            "label": "Magic Damage",
+            "amount": {
+              "text": "50 / 80 / 110 / 140 / 170 (+ 8% (+ 3% per 100 AP) of target's missing health)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  50,
+                  80,
+                  110,
+                  140,
+                  170
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "targetMissingHealth",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 8
+                  },
+                  "text": "(+ 8% (+ 3% per 100 AP) of target's missing health)",
+                  "modifiers": [
+                    {
+                      "stat": "per100:AP",
+                      "ratio": {
+                        "kind": "constant",
+                        "value": 3
+                      },
+                      "text": "(+ 3% per 100 AP)"
+                    }
+                  ]
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Capped Monster Damage",
+            "amount": {
+              "text": "65 / 85 / 105 / 125 / 145 (+ 90% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  65,
+                  85,
+                  105,
+                  125,
+                  145
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 90
+                  },
+                  "text": "(+ 90% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "dash",
+            "category": "movement",
+            "wording": "pounces",
+            "evidence": "Active: Elise pounces at the target enemy with her fangs and bites them, dealing magic damage and applying on-hit effects, as well as revealing them for 0.528 from the start of the cast time.",
+            "conditional": false
+          },
+          {
+            "type": "on-hit",
+            "category": "offense",
+            "wording": "on-hit",
+            "evidence": "Active: Elise pounces at the target enemy with her fangs and bites them, dealing magic damage and applying on-hit effects, as well as revealing them for 0.528 from the start of the cast time.",
+            "conditional": false
+          },
+          {
+            "type": "reveal",
+            "category": "vision",
+            "wording": "revealing",
+            "evidence": "Active: Elise pounces at the target enemy with her fangs and bites them, dealing magic damage and applying on-hit effects, as well as revealing them for 0.528 from the start of the cast time.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "If there are active Spiderlings or Volatile Spiderlings nearby, they will dash alongside Elise to the target upon Venomous Bite's cast and reprioritize them.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "dash",
+            "category": "movement",
+            "wording": "dash",
+            "evidence": "If there are active Spiderlings or Volatile Spiderlings nearby, they will dash alongside Elise to the target upon Venomous Bite's cast and reprioritize them.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Elise will not dash if the target is within basic attack range.\n  - This ability is disabled while grounded or rooted even if Elise is in the range in which she does not dash.",
+      "If Elise is allowed to dash, Venomous Bite can be used to cross sufficiently thin terrain.",
+      "Spiderlings can cross walls and terrain to reach Venomous Bite's target and will attack provided Elise stays within their leash range.\n  - There is a maximum range in which Spiderlings or Volatile Spiderlings can dash to the target.",
+      "Spiderlings will dash even if they are crowd controlled.",
+      "Venomous Bite will always apply its effects after the cast time, even if the dash is interrupted.",
+      "Venomous Bite's reveal is a small area around the target, making it possible for them to exit the reveal radius and lose vision.",
+      "Venomous Bite will still deal its damage but not apply on-hit effects if it is blocked or dodged. It cannot be missed while Elise is blinded.",
+      "If the target becomes untargetable, dies, or is too far away or no longer in sight during the cast time, this ability will cancel but does not go on cooldown nor pay its cost (if applicable).",
+      "With the exceptions of Elise's Death Blossom, Victorious, Blood Moon, and Super Galaxy skins; Venomous Bite's VFX size will scale uncapped based off the total damage it does."
+    ]
+  },
+  {
+    "champion": "Elise",
+    "kind": "R",
+    "name": "Spider Form / Human Form",
+    "page": {
+      "title": "Template:Data Elise/Spider Form / Human Form",
+      "revid": 3979322
+    },
+    "ranks": 4,
+    "fields": {
+      "cooldown": {
+        "text": "3",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 3
+            }
+          }
+        ]
+      },
+      "castTime": {
+        "text": "none",
+        "values": []
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Auto"
+      ],
+      "affects": [
+        "Self"
+      ],
+      "damageType": []
+    },
+    "parts": [
+      {
+        "label": "Passive",
+        "text": "Passive: Spider Queen bonuses are increased.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "label": "Toggle",
+        "text": "Toggle: Elise switches between her Human Form and Spider Form.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "label": "Spider Form",
+        "text": "Spider Form: Elise transforms into a spider, gaining 25 base movement speed, melee basic attacks with 125 range, and access to her arachnid abilities. Additionally, she summons all stored Spiderlings and heals them to full health.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "heal",
+            "category": "defense",
+            "wording": "heals",
+            "evidence": "Additionally, she summons all stored Spiderlings and heals them to full health.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "label": "Human Form",
+        "text": "Human Form: Elise transforms into a human, gaining ranged basic attacks, and access to her human abilities. Additionally, she stores all active Spiderlings.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "text": "Elise begins with one rank in Spider Form / Human Form and can increase it at levels 6, 11, and 16.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Transformations do not count as ability activations for the purposes of on-cast effects such as Spellblade and triggering Force Pulse passive.",
+      "If Spider Form is cast during a basic attack windup, Elise will perform a Spider Form basic attack that benefits from the bonus damage and healing from Spider Queen, but remain at Human Form basic attack range, despite not using a projectile. This basic attack is considered a melee attack and thus will not trigger Runaan's Hurricane's Wind's Fury bolts.\n  - Spider Form and Human Form have separate cooldowns."
+    ]
+  },
+  {
+    "champion": "Elise",
+    "kind": "W",
+    "name": "Skittering Frenzy",
+    "page": {
+      "title": "Template:Data Elise/Skittering Frenzy",
+      "revid": 4064846
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "6",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 6
+            }
+          }
+        ]
+      },
+      "cooldownStart": "on-cast",
+      "castTime": {
+        "text": "none",
+        "values": []
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Auto"
+      ],
+      "affects": [
+        "Spiderlings",
+        "Self"
+      ],
+      "damageType": []
+    },
+    "parts": [
+      {
+        "label": "Passive",
+        "text": "Passive: Elise's Spiderlings gain bonus attack speed.",
+        "leveling": [
+          {
+            "label": "Spiderling Bonus Attack Speed",
+            "amount": {
+              "text": "5 / 10 / 15 / 20 / 25%",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  5,
+                  10,
+                  15,
+                  20,
+                  25
+                ]
+              },
+              "unit": "%",
+              "scaling": [],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "label": "Active",
+        "text": "Active: Elise and her Spiderlings gain bonus attack speed for 3 seconds.",
+        "leveling": [
+          {
+            "label": "Bonus Attack Speed",
+            "amount": {
+              "text": "70 / 85 / 100 / 115 / 130%",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  70,
+                  85,
+                  100,
+                  115,
+                  130
+                ]
+              },
+              "unit": "%",
+              "scaling": [],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "text": "Skittering Frenzy resets Elise's basic attack timer. Elise loses Skittering Frenzy immediately when she switches to Human Form.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "attack reset",
+            "category": "offense",
+            "wording": "resets",
+            "evidence": "Skittering Frenzy resets Elise's basic attack timer.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "This bonus attack speed can surpass the attack speed cap."
+    ]
+  },
+  {
+    "champion": "Elise",
+    "kind": "W",
+    "name": "Volatile Spiderling",
+    "page": {
+      "title": "Template:Data Elise/Volatile Spiderling",
+      "revid": 3906822
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "12",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 12
+            }
+          }
+        ]
+      },
+      "cost": {
+        "text": "60 / 70 / 80 / 90 / 100",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                60,
+                70,
+                80,
+                90,
+                100
+              ]
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "0.125",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0.125
+            }
+          }
+        ]
+      },
+      "targetRange": {
+        "text": "950",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 950
+            }
+          }
+        ]
+      },
+      "effectRadius": {
+        "text": "275",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 275
+            },
+            "label": "Explosion radius"
+          }
+        ]
+      },
+      "collisionRadius": {
+        "text": "150",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 150
+            }
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Location"
+      ],
+      "affects": [
+        "Enemies"
+      ],
+      "damageType": [
+        "magic"
+      ],
+      "spellEffects": "spellaoe",
+      "spellShield": "true"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Elise summons an untargetable venom-gorged spider that lasts for 3 seconds. The spider searches for nearby targets and crawls to them after a delay of 0.75 seconds and otherwise crawls to the target location before doing so without incurring a delay, navigating its path upon encountering terrain.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "untargetable",
+            "category": "defense",
+            "wording": "untargetable",
+            "duration": {
+              "kind": "constant",
+              "value": 3
+            },
+            "evidence": "Active: Elise summons an untargetable venom-gorged spider that lasts for 3 seconds.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "The spider gains bonus movement speed based on its proximity to the detected target. When the spider comes into contact with an enemy, or upon expiring otherwise, it instantly explodes to deal magic damage to nearby enemies.",
+        "leveling": [
+          {
+            "label": "Magic Damage",
+            "amount": {
+              "text": "60 / 100 / 140 / 180 / 220 (+ 75% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  60,
+                  100,
+                  140,
+                  180,
+                  220
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 75
+                  },
+                  "text": "(+ 75% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "text": "The spider prioritizes the nearest enemy if it detects one before reaching the target location, and champions always if it detects one after doing so.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      }
+    ],
+    "custom": [
+      {
+        "label": "Seeking Radius",
+        "text": "550"
+      }
+    ],
+    "notes": [
+      "If Volatile Spiderling dashes to a target due to Venomous Bite, it will not expire before finishing its jump.\n  - It can still collide with enemies while dashing, but since this proximity check is repeated only every so often, it might phase through an enemy on its way without detecting the collision if dashing quickly enough.",
+      "The spiderling checks for nearby targets every 0.264, both for potential enemies to chase down and to explode 'on-contact'. Because of this, it may walk closer to an enemy than its \"collision radius\" before exploding."
+    ]
+  }
+]

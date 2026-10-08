@@ -1,0 +1,1000 @@
+[
+  {
+    "champion": "Seraphine",
+    "kind": "E",
+    "name": "Beat Drop",
+    "page": {
+      "title": "Template:Data Seraphine/Beat Drop",
+      "revid": 4060366
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "11",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 11
+            }
+          }
+        ]
+      },
+      "cost": {
+        "text": "60",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 60
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "0.25",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0.25
+            }
+          }
+        ]
+      },
+      "targetRange": {
+        "text": "1300",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 1300
+            }
+          }
+        ]
+      },
+      "width": {
+        "text": "140",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 140
+            }
+          }
+        ]
+      },
+      "speed": {
+        "text": "1200",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 1200
+            }
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Direction"
+      ],
+      "affects": [
+        "Enemies"
+      ],
+      "damageType": [
+        "Magic"
+      ],
+      "spellEffects": "spellaoe",
+      "spellShield": "true",
+      "projectile": "true"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Seraphine fires a heavy soundwave in the target direction that deals magic damage to enemies hit, reduced to 70% against minions, and slows them by 99% for a few seconds.",
+        "leveling": [
+          {
+            "label": "Magic Damage",
+            "amount": {
+              "text": "70 / 100 / 130 / 160 / 190 (+ 50% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  70,
+                  100,
+                  130,
+                  160,
+                  190
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 50
+                  },
+                  "text": "(+ 50% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Minion Damage",
+            "amount": {
+              "text": "49 / 70 / 91 / 112 / 133 (+ 35% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  49,
+                  70,
+                  91,
+                  112,
+                  133
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 35
+                  },
+                  "text": "(+ 35% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Disable Duration",
+            "amount": {
+              "text": "1.1 / 1.2 / 1.3 / 1.4 / 1.5 seconds",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  1.1,
+                  1.2000000000000002,
+                  1.3,
+                  1.4,
+                  1.5
+                ]
+              },
+              "unit": "s",
+              "scaling": [],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "slow",
+            "category": "control",
+            "wording": "slows",
+            "amount": {
+              "kind": "constant",
+              "value": 99
+            },
+            "evidence": "Active: Seraphine fires a heavy soundwave in the target direction that deals magic damage to enemies hit, reduced to 70% against minions, and slows them by 99% for a few seconds.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "Enemies that are already slowed are also rooted for the same duration.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "slow",
+            "category": "control",
+            "wording": "slowed",
+            "evidence": "Enemies that are already slowed are also rooted for the same duration.",
+            "conditional": false
+          },
+          {
+            "type": "root",
+            "category": "control",
+            "wording": "rooted",
+            "evidence": "Enemies that are already slowed are also rooted for the same duration.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "Enemies that are immobilized or grounded are also stunned for the same duration.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "ground",
+            "category": "control",
+            "wording": "grounded",
+            "evidence": "Enemies that are immobilized or grounded are also stunned for the same duration.",
+            "conditional": false
+          },
+          {
+            "type": "stun",
+            "category": "control",
+            "wording": "stunned",
+            "evidence": "Enemies that are immobilized or grounded are also stunned for the same duration.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Beat Drop will only be empowered from slows, immobilizes, and grounding effects applied by herself or her allies.",
+      "Beat Drop uses a modified icon for the second and third stack of Stage Presence.",
+      "Beat Drop may still be empowered even if the disable ends shortly after the ability hits.",
+      "The root and the stun cannot apply at the same time.\n  - The root will only apply if the target is slowed and not immobilized or grounded.\n    - The stun will apply as normal; it does not consider if the target is slowed.\n  - The root will be overridden by the stun if the target is hit by Beat Drop again while they were rooted by it.",
+      "A quarter note will appear next to an enemy champion while they are slowed and two quarter notes tied will appear if they are immobilized or grounded.\n  - This indicates if Beat Drop will apply an additional crowd control effect if it strikes the target.",
+      "This ability will cast from wherever the caster is at the end of the cast time."
+    ]
+  },
+  {
+    "champion": "Seraphine",
+    "kind": "I",
+    "name": "Stage Presence",
+    "page": {
+      "title": "Template:Data Seraphine/Stage Presence",
+      "revid": 4019648
+    },
+    "ranks": 1,
+    "fields": {
+      "effectRadius": {
+        "text": "800",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 800
+            },
+            "label": "Note granting radius"
+          }
+        ]
+      },
+      "speed": {
+        "text": "3000",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 3000
+            },
+            "label": "Note missiles speed"
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Passive"
+      ],
+      "affects": [
+        "Self",
+        "Allies",
+        "Enemies"
+      ],
+      "damageType": [
+        "Magic"
+      ],
+      "spellEffects": "proc",
+      "spellShield": "false",
+      "projectile": "true",
+      "parry": "false"
+    },
+    "parts": [
+      {
+        "label": "Innate - Echo",
+        "text": "Innate - Echo: Seraphine's basic ability casts each generate a stack of Echo, stacking up to 2 times. At 2 stacks, the next basic ability cast consumes them all to cast an additional time at no cost after a 0.033 delay. Seraphine gains maximum stacks of Echo when the game starts and upon respawning.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "label": "Innate - Harmony",
+        "text": "Innate - Harmony: Seraphine's ability casts grant a Note to herself and nearby allied champions that lasts 6 seconds, refreshes on subsequent Notes and stacks up to 4 times on each unit.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "text": "While any amount of Notes are active, Seraphine's next basic attack is empowered to have an uncancellable windup, gain 25 bonus attack range per Note, and fire all Notes at the target, with each one dealing 4 – 25 (based on level) (+ 4% AP) magic damage, reduced by 75% for Notes from allies.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "uncancellable windup",
+            "category": "offense",
+            "wording": "uncancellable windup",
+            "evidence": "While any amount of Notes are active, Seraphine's next basic attack is empowered to have an uncancellable windup, gain 25 bonus attack range per Note, and fire all Notes at the target, with each one dealing 4 – 25 (based on level) (+ 4% AP) magic damage, reduced by 75% for Notes from allies.",
+            "conditional": false
+          }
+        ],
+        "values": [
+          {
+            "series": {
+              "kind": "level",
+              "values": [
+                4,
+                5.235294117647059,
+                6.470588235294118,
+                7.705882352941177,
+                8.941176470588236,
+                10.176470588235293,
+                11.411764705882353,
+                12.647058823529413,
+                13.882352941176471,
+                15.117647058823529,
+                16.352941176470587,
+                17.58823529411765,
+                18.823529411764707,
+                20.058823529411764,
+                21.294117647058826,
+                22.529411764705884,
+                23.764705882352942,
+                25,
+                26.235294117647058,
+                27.47058823529412
+              ],
+              "past18": "wiki"
+            },
+            "context": "While any amount of Notes are active, Seraphine's next basic attack is empowered to have an uncancellable windup, gain 25 bonus attack range per Note, and fire all Notes at the target, with each one dealing 4 – 25 (based on level) (+ 4% AP) magic damage, reduced by 75% for Notes from allies."
+          }
+        ]
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Echo Details:",
+      "Echo's current stacks are represented by a counter under Seraphine's health bar, visible to all players. The last stack is highlighted to indicate that an Echo cast is ready.",
+      "Since all of Seraphine's basic abilities have a cast time, the total delay to cast an Echoed ability is 0.264 + 0.033 = 0.297 seconds total.",
+      "Seraphine's basic abilities alternate their icons between 3 different ones each, depending on the current amount of stacks she has.",
+      "Seraphine's basic abilities gain a 9999 second timer to highlight them with a yellow border.\n  - The timer is purely visual and serves no gameplay purpose.",
+      "The additional cast must complete for Echo stacks to be consumed; if the cast time does not finish, does not begin at all, or if the ability fails to cast, Seraphine will keep her stacks.",
+      "The additional cast does not affect the cooldown of the mimicked ability.",
+      "The additional cast counts as a separate cast instance for the purpose of e.g. Electrocute or Conqueror.",
+      "Harmony Details:",
+      "Notes orbit at a radius of 100 from the center of their holder and they fire from this location.",
+      "The empowered attack can critically strike.",
+      "The empowered attack will not trigger and Notes will not be consumed against wards or jungle plants.",
+      "Notes are fired one after another with a short delay.",
+      "Seraphine can grant Notes to more than 4 allied champions.",
+      "Harmony does not grant Notes to clones.",
+      "Harmony grants Notes even if the ally is untargetable.",
+      "The Notes will fire from allies regardless of how far they are away from Seraphine.",
+      "Seraphine gains a faint blue attack range indicator when there are Notes present.",
+      "Other Details:",
+      "Seraphine, while alive, will play music if there is at least one ally champion nearby.\n  - This is audible to Seraphine and all allied champions that are in range of Harmony, indicative of if they can receive a Note or not."
+    ]
+  },
+  {
+    "champion": "Seraphine",
+    "kind": "Q",
+    "name": "High Note",
+    "page": {
+      "title": "Template:Data Seraphine/High Note",
+      "revid": 4042889
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "8 / 7.5 / 7 / 6.5 / 6",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                8,
+                7.5,
+                7,
+                6.5,
+                6
+              ]
+            }
+          }
+        ]
+      },
+      "cost": {
+        "text": "60 / 70 / 80 / 90 / 100",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                60,
+                70,
+                80,
+                90,
+                100
+              ]
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "0.25",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0.25
+            }
+          }
+        ]
+      },
+      "targetRange": {
+        "text": "900",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 900
+            }
+          }
+        ]
+      },
+      "effectRadius": {
+        "text": "350",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 350
+            }
+          }
+        ]
+      },
+      "speed": {
+        "text": "1300 • 875",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 1300
+            },
+            "label": "Missile travel speed"
+          },
+          {
+            "series": {
+              "kind": "constant",
+              "value": 875
+            },
+            "label": "Expansion rate"
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Location"
+      ],
+      "affects": [
+        "Enemies"
+      ],
+      "damageType": [
+        "Magic"
+      ],
+      "spellEffects": "spellaoe",
+      "spellShield": "true",
+      "projectile": "true"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Seraphine hurls a soundwave to the target location that upon arrival expands in a radius over 0.4 seconds, dealing magic damage to enemies within the area.",
+        "leveling": [
+          {
+            "label": "Magic Damage",
+            "amount": {
+              "text": "60 / 85 / 110 / 135 / 160 (+ 40% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  60,
+                  85,
+                  110,
+                  135,
+                  160
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 40
+                  },
+                  "text": "(+ 40% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "text": "Against champions and monsters, the damage is increased by 0 / 7.5 / 15 / 22.5 / 30 / 37.5 / 45 / 52.5 / 60 / 67.5 / 75 (based on target's missing health)%.",
+        "leveling": [
+          {
+            "label": "Maximum Enhanced Damage",
+            "amount": {
+              "text": "105 / 148.75 / 192.5 / 236.25 / 280 (+ 70% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  105,
+                  148.75,
+                  192.5,
+                  236.25,
+                  280
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 70
+                  },
+                  "text": "(+ 70% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [],
+        "values": [
+          {
+            "series": {
+              "kind": "variable",
+              "variable": "target's missing health",
+              "points": [
+                0,
+                7.5,
+                15,
+                22.5,
+                30,
+                37.5,
+                45,
+                52.5,
+                60,
+                67.5,
+                75
+              ],
+              "values": [
+                0,
+                7.5,
+                15,
+                22.5,
+                30,
+                37.5,
+                45,
+                52.5,
+                60,
+                67.5,
+                75
+              ]
+            },
+            "context": "Against champions and monsters, the damage is increased by 0 / 7.5 / 15 / 22.5 / 30 / 37.5 / 45 / 52.5 / 60 / 67.5 / 75 (based on target's missing health)%."
+          }
+        ]
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "High Note uses a modified icon for the second and third stack of Stage Presence.",
+      "The maximum damage of High Note uses a cosmetic critical strike.",
+      "High Note will fire from wherever Seraphine is at the end of the cast time.",
+      "The impact delay depends solely on the missile speed. It is 0 seconds to 0.75 seconds (after end of cast time) within the standard cast radius, but can be increased further by Seraphine being moved away from the cast location during the cast time.",
+      "The area of effect is covered via expansion in seven distinct rings and targets can only be hit once.",
+      "The range indicator for the target range has a radius of 950 units, but the center of High Note can only be cast up to 900 units. The area indicator shows the proper 350 area of effect radius and cast location."
+    ]
+  },
+  {
+    "champion": "Seraphine",
+    "kind": "R",
+    "name": "Encore",
+    "page": {
+      "title": "Template:Data Seraphine/Encore",
+      "revid": 4008035
+    },
+    "ranks": 3,
+    "fields": {
+      "cooldown": {
+        "text": "160 / 140 / 120",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                160,
+                140,
+                120
+              ]
+            }
+          }
+        ]
+      },
+      "cost": {
+        "text": "100",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 100
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "0.5 • 0.5",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0.5
+            },
+            "label": "See notes"
+          },
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0.5
+            },
+            "label": "See notes"
+          }
+        ]
+      },
+      "targetRange": {
+        "text": "1300",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 1300
+            }
+          }
+        ]
+      },
+      "width": {
+        "text": "320",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 320
+            }
+          }
+        ]
+      },
+      "speed": {
+        "text": "1600",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 1600
+            }
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Direction"
+      ],
+      "affects": [
+        "Enemies"
+      ],
+      "damageType": [
+        "Magic"
+      ],
+      "spellEffects": "spellaoe",
+      "spellShield": "true",
+      "projectile": "true"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Seraphine projects a captivating force in the target direction that deals magic damage to enemies hit, charms them, during which they are revealed, and slows them by 40% for a duration, increasing by 15% every 0.25 seconds over the duration up to 99%.",
+        "leveling": [
+          {
+            "label": "Magic Damage",
+            "amount": {
+              "text": "150 / 200 / 250 (+ 40% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  150,
+                  200,
+                  250
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 40
+                  },
+                  "text": "(+ 40% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Disable Duration",
+            "amount": {
+              "text": "1.25 / 1.5 / 1.75 seconds",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  1.25,
+                  1.5,
+                  1.75
+                ]
+              },
+              "unit": "s",
+              "scaling": [],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "charm",
+            "category": "control",
+            "wording": "charms",
+            "evidence": "Active: Seraphine projects a captivating force in the target direction that deals magic damage to enemies hit, charms them, during which they are revealed, and slows them by 40% for a duration, increasing by 15% every 0.25 seconds over the duration up to 99%.",
+            "conditional": false
+          },
+          {
+            "type": "reveal",
+            "category": "vision",
+            "wording": "revealed",
+            "evidence": "Active: Seraphine projects a captivating force in the target direction that deals magic damage to enemies hit, charms them, during which they are revealed, and slows them by 40% for a duration, increasing by 15% every 0.25 seconds over the duration up to 99%.",
+            "conditional": false
+          },
+          {
+            "type": "slow",
+            "category": "control",
+            "wording": "slows",
+            "amount": {
+              "kind": "constant",
+              "value": 40
+            },
+            "evidence": "Active: Seraphine projects a captivating force in the target direction that deals magic damage to enemies hit, charms them, during which they are revealed, and slows them by 40% for a duration, increasing by 15% every 0.25 seconds over the duration up to 99%.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "Encore's projectile resets its remaining travel distance whenever it hits an allied or enemy champion, excluding Seraphine. Allied champions hit gain 4 Notes.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Encore has two cast times. Both last 0.5 seconds. The wave will always project after the first cast time, and the second cast time only serves as a lock out for Seraphine.\n  - Seraphine cannot buffer casts during the first cast time, but she may do so during the second cast time.",
+      "Clones also count for Encore's extension.",
+      "Encore will not extend on enemy champions that are untargetable, but will do so for allied champions.",
+      "If Encore's projectile is negated via spell shield, this will also prevent it from resetting its travel distance.",
+      "This ability will cast from wherever the caster is at the end of the cast time.\n  - Encore fires from Seraphine's location at the end of the initial cast time.",
+      "There is no limit as to how many times the wave can extend.",
+      "Each Encore cast cannot extend from the same champion more than once.\n  - : Champions that died, clearing marker buffs"
+    ]
+  },
+  {
+    "champion": "Seraphine",
+    "kind": "W",
+    "name": "Surround Sound",
+    "page": {
+      "title": "Template:Data Seraphine/Surround Sound",
+      "revid": 3990364
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "22",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 22
+            }
+          }
+        ]
+      },
+      "cost": {
+        "text": "70 / 75 / 80 / 85 / 90",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                70,
+                75,
+                80,
+                85,
+                90
+              ]
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "0.25",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0.25
+            }
+          }
+        ]
+      },
+      "effectRadius": {
+        "text": "800",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 800
+            }
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Auto"
+      ],
+      "affects": [
+        "Self",
+        "Allies"
+      ],
+      "damageType": [],
+      "projectile": "special"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Seraphine grants a shield to herself and nearby allied champions for 2.5 seconds. For the same duration, she also gains 20% (+ 2% per 100 AP) decaying bonus movement speed and grants other allies 8% (+ 0.8% per 100 AP) bonus movement speed.",
+        "leveling": [
+          {
+            "label": "Shield Strength",
+            "amount": {
+              "text": "60 / 80 / 100 / 120 / 140 (+ 20% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  60,
+                  80,
+                  100,
+                  120,
+                  140
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 20
+                  },
+                  "text": "(+ 20% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "shield",
+            "category": "defense",
+            "wording": "shield",
+            "duration": {
+              "kind": "constant",
+              "value": 2.5
+            },
+            "evidence": "Active: Seraphine grants a shield to herself and nearby allied champions for 2.5 seconds.",
+            "conditional": false
+          }
+        ],
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 8
+            },
+            "context": "For the same duration, she also gains 20% (+ 2% per 100 AP) decaying bonus movement speed and grants other allies 8% (+ 0.8% per 100 AP) bonus movement speed."
+          },
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0.8
+            },
+            "context": "For the same duration, she also gains 20% (+ 2% per 100 AP) decaying bonus movement speed and grants other allies 8% (+ 0.8% per 100 AP) bonus movement speed."
+          }
+        ]
+      },
+      {
+        "text": "If Seraphine already had a shield at the time of cast, Surround Sound will pulse after the duration, healing herself and nearby allied champions.",
+        "leveling": [
+          {
+            "label": "Heal",
+            "amount": {
+              "text": "8 / 10 / 12 / 14 / 16% of target's missing health",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  8,
+                  10,
+                  12,
+                  14,
+                  16
+                ]
+              },
+              "unit": "%",
+              "scaling": [],
+              "unparsed": "",
+              "baseStat": "targetMissingHealth"
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "shield",
+            "category": "defense",
+            "wording": "shield",
+            "evidence": "If Seraphine already had a shield at the time of cast, Surround Sound will pulse after the duration, healing herself and nearby allied champions.",
+            "conditional": true
+          },
+          {
+            "type": "heal",
+            "category": "defense",
+            "wording": "healing",
+            "evidence": "If Seraphine already had a shield at the time of cast, Surround Sound will pulse after the duration, healing herself and nearby allied champions.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "Surround Sound's shield and bonus movement speed can stack up to 2 times. Seraphine can move during Surround Sound's cast time.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Surround Sound uses a modified icon for the second and third stack of Stage Presence.",
+      "Surround Sound's effects are gained at the start of the cast time.",
+      "Seraphine can move during the cast time.",
+      "Casting Surround Sound again during the pulse's delay refreshes the delay.",
+      "The heal will be canceled and the indicator will disappear upon Seraphine dying.",
+      "Once the pulse delay ends, the heal occurs instantly on Seraphine and all nearby allied champions.\n  - There is a missile that flows through all allied champions which can be blocked by Wind Wall, without affecting the heal however.",
+      "Surround Sound will affect untargetable allies.",
+      "Seraphines decaying bonus movement speed decays by 50% of its maximum value over the first 1.25 seconds, then stays at half value for the remainder of the duration."
+    ]
+  }
+]

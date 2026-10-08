@@ -1,0 +1,741 @@
+[
+  {
+    "champion": "Alistar",
+    "kind": "E",
+    "name": "Trample",
+    "page": {
+      "title": "Template:Data Alistar/Trample",
+      "revid": 4075181
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "12 / 11.5 / 11 / 10.5 / 10",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                12,
+                11.5,
+                11,
+                10.5,
+                10
+              ]
+            }
+          }
+        ]
+      },
+      "cooldownStart": "on-cast",
+      "cost": {
+        "text": "50 / 55 / 60 / 65 / 70",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                50,
+                55,
+                60,
+                65,
+                70
+              ]
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "none",
+        "values": []
+      },
+      "effectRadius": {
+        "text": "350",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 350
+            }
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Auto"
+      ],
+      "affects": [
+        "Self",
+        "Enemies"
+      ],
+      "damageType": [
+        "Magic"
+      ],
+      "spellEffects": "special",
+      "spellShield": "special",
+      "parry": "special"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Alistar tramples the ground around him every 0.5 seconds over 5 seconds, becoming ghosted and dealing magic damage to nearby enemies. Each time this damages at least one enemy champion, he generates a stack of Trample that lasts for the remaining duration, stacking up to 5 times.",
+        "leveling": [
+          {
+            "label": "Magic Damage Per Tick",
+            "amount": {
+              "text": "8 / 11 / 14 / 17 / 20 (+ 7% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  8,
+                  11,
+                  14,
+                  17,
+                  20
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 7
+                  },
+                  "text": "(+ 7% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Total Magic Damage",
+            "amount": {
+              "text": "80 / 110 / 140 / 170 / 200 (+ 70% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  80,
+                  110,
+                  140,
+                  170,
+                  200
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 70
+                  },
+                  "text": "(+ 70% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "ghosted",
+            "category": "movement",
+            "wording": "ghosted",
+            "evidence": "Active: Alistar tramples the ground around him every 0.5 seconds over 5 seconds, becoming ghosted and dealing magic damage to nearby enemies.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "At 5 stacks, Alistar's next basic attack on-hit against a champion within 6 seconds ends Trample's effects to deal 20 – 275 (based on level) bonus magic damage and stun the target for 1 second.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "on-hit",
+            "category": "offense",
+            "wording": "on-hit",
+            "evidence": "At 5 stacks, Alistar's next basic attack on-hit against a champion within 6 seconds ends Trample's effects to deal 20 – 275 (based on level) bonus magic damage and stun the target for 1 second.",
+            "conditional": false
+          },
+          {
+            "type": "stun",
+            "category": "control",
+            "wording": "stun",
+            "duration": {
+              "kind": "constant",
+              "value": 1
+            },
+            "evidence": "At 5 stacks, Alistar's next basic attack on-hit against a champion within 6 seconds ends Trample's effects to deal 20 – 275 (based on level) bonus magic damage and stun the target for 1 second.",
+            "conditional": false
+          }
+        ],
+        "values": [
+          {
+            "series": {
+              "kind": "level",
+              "values": [
+                20,
+                35,
+                50,
+                65,
+                80,
+                95,
+                110,
+                125,
+                140,
+                155,
+                170,
+                185,
+                200,
+                215,
+                230,
+                245,
+                260,
+                275,
+                290,
+                305
+              ],
+              "past18": "wiki"
+            },
+            "context": "At 5 stacks, Alistar's next basic attack on-hit against a champion within 6 seconds ends Trample's effects to deal 20 – 275 (based on level) bonus magic damage and stun the target for 1 second."
+          }
+        ]
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "The on-hit effect is single-use and Alistar's buff is removed as soon as it is consumed; it can only be applied once by the triggering attack instance.\n  - For example, Guinsoo's Rageblade Phantom Hit can trigger it if the triggering attack did not, but cannot apply it again if the triggering attack consumed it.",
+      "The on-hit effect can be blocked by spell shield, but the attack cannot.",
+      "The on-hit effect is consumed if the attack is blocked, but not if it is dodged or missed while Alistar is blinded. In all cases, the attack's effects are negated as normal."
+    ]
+  },
+  {
+    "champion": "Alistar",
+    "kind": "I",
+    "name": "Triumphant Roar",
+    "page": {
+      "title": "Template:Data Alistar/Triumphant Roar",
+      "revid": 4007561
+    },
+    "ranks": 1,
+    "fields": {
+      "staticCooldown": {
+        "text": "3",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 3
+            }
+          }
+        ]
+      },
+      "effectRadius": {
+        "text": "1000 • 950",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 1000
+            },
+            "label": "Range for generating stacks from enemy deaths"
+          },
+          {
+            "series": {
+              "kind": "constant",
+              "value": 950
+            },
+            "label": "Heal radius"
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Passive"
+      ],
+      "affects": [
+        "Self",
+        "Allies"
+      ],
+      "damageType": [],
+      "projectile": "special"
+    },
+    "parts": [
+      {
+        "label": "Innate",
+        "text": "Innate: Alistar generates a stack of Triumph for each enemy champion he stuns or displaces with his abilities, and each time a nearby enemy minion or non-epic monster dies. He generates 7 stacks if a nearby enemy champion or epic monster dies.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "stun",
+            "category": "control",
+            "wording": "stuns",
+            "evidence": "Innate: Alistar generates a stack of Triumph for each enemy champion he stuns or displaces with his abilities, and each time a nearby enemy minion or non-epic monster dies.",
+            "conditional": false
+          },
+          {
+            "type": "airborne",
+            "category": "control",
+            "wording": "displaces",
+            "evidence": "Innate: Alistar generates a stack of Triumph for each enemy champion he stuns or displaces with his abilities, and each time a nearby enemy minion or non-epic monster dies.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "At 7 stacks, Alistar consumes them all to heal himself for 5% of his maximum health and nearby allied champions for 7% of his maximum health.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "heal",
+            "category": "defense",
+            "wording": "heal",
+            "evidence": "At 7 stacks, Alistar consumes them all to heal himself for 5% of his maximum health and nearby allied champions for 7% of his maximum health.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "Triumphant Roar can occur only once every few seconds, though Alistar may still generate stacks before then.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "If Alistar is at 7 stacks when Triumphant Roar comes off cooldown, he will roar as soon as it elapses.",
+      "Alistar does not gain stacks for unsuccessfully trying to apply crowd control, for instance against a crowd control immune target.",
+      "Healing occurs simultaneously for Alistar and his allies.\n  - There is a VFX projectile (700 missile speed) that cannot be destroyed by Wind Wall and is unrelated to the actual heal.",
+      "Alistar loses all Triumph stacks upon dying."
+    ]
+  },
+  {
+    "champion": "Alistar",
+    "kind": "Q",
+    "name": "Pulverize",
+    "page": {
+      "title": "Template:Data Alistar/Pulverize",
+      "revid": 4075173
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "14 / 13 / 12 / 11 / 10",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                14,
+                13,
+                12,
+                11,
+                10
+              ]
+            }
+          }
+        ]
+      },
+      "cost": {
+        "text": "50 / 55 / 60 / 65 / 70",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                50,
+                55,
+                60,
+                65,
+                70
+              ]
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "0.25 • 0.15",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0.25
+            },
+            "label": "Standard cast time"
+          },
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0.15
+            },
+            "label": "Reduced cast time when buffered during Headbutt's dash"
+          }
+        ]
+      },
+      "effectRadius": {
+        "text": "375",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 375
+            }
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Auto"
+      ],
+      "affects": [
+        "Enemies"
+      ],
+      "damageType": [
+        "Magic"
+      ],
+      "spellEffects": "spellaoe",
+      "spellShield": "true"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Alistar smashes the ground beneath him, dealing magic damage to nearby enemies and stunning and knocking them up simultaneously for 1 second.",
+        "leveling": [
+          {
+            "label": "Magic Damage",
+            "amount": {
+              "text": "60 / 100 / 140 / 180 / 220 (+ 80% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  60,
+                  100,
+                  140,
+                  180,
+                  220
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 80
+                  },
+                  "text": "(+ 80% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "stun",
+            "category": "control",
+            "wording": "stunning",
+            "duration": {
+              "kind": "constant",
+              "value": 1
+            },
+            "evidence": "Active: Alistar smashes the ground beneath him, dealing magic damage to nearby enemies and stunning and knocking them up simultaneously for 1 second.",
+            "conditional": false
+          },
+          {
+            "type": "airborne",
+            "category": "control",
+            "wording": "knocking them up",
+            "duration": {
+              "kind": "constant",
+              "value": 1
+            },
+            "evidence": "Active: Alistar smashes the ground beneath him, dealing magic damage to nearby enemies and stunning and knocking them up simultaneously for 1 second.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Pulverize can be buffered during Headbutt to cast with reduced cast time when the dash ends.",
+      "Displacement immunity will also resist the application of the stun.",
+      "This ability will cast from wherever the caster is at the end of the cast time."
+    ]
+  },
+  {
+    "champion": "Alistar",
+    "kind": "R",
+    "name": "Unbreakable Will",
+    "page": {
+      "title": "Template:Data Alistar/Unbreakable Will",
+      "revid": 4075182
+    },
+    "ranks": 3,
+    "fields": {
+      "cooldown": {
+        "text": "120 / 100 / 80",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                120,
+                100,
+                80
+              ]
+            }
+          }
+        ]
+      },
+      "cooldownStart": "on-cast",
+      "cost": {
+        "text": "100",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 100
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "0.25",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0.25
+            }
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Auto"
+      ],
+      "affects": [
+        "Self"
+      ],
+      "damageType": []
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Alistar cleanses himself of all crowd control. For the next 7 seconds, he reduces incoming damage.",
+        "leveling": [
+          {
+            "label": "Damage Reduction",
+            "amount": {
+              "text": "55 / 65 / 75%",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  55,
+                  65,
+                  75
+                ]
+              },
+              "unit": "%",
+              "scaling": [],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "cleanse",
+            "category": "defense",
+            "wording": "cleanses",
+            "evidence": "Active: Alistar cleanses himself of all crowd control.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "True damage cannot be reduced by any means and will deal full damage to Alistar during Unbreakable Will.",
+      "Unbreakable Will's modifier to incoming damage stacks additively with Hemoplague for a total reduction of 45/55/65%."
+    ]
+  },
+  {
+    "champion": "Alistar",
+    "kind": "W",
+    "name": "Headbutt",
+    "page": {
+      "title": "Template:Data Alistar/Headbutt",
+      "revid": 4075174
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "14 / 13 / 12 / 11 / 10",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                14,
+                13,
+                12,
+                11,
+                10
+              ]
+            }
+          }
+        ]
+      },
+      "cost": {
+        "text": "50 / 55 / 60 / 65 / 70",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                50,
+                55,
+                60,
+                65,
+                70
+              ]
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "none",
+        "values": []
+      },
+      "targetRange": {
+        "text": "650",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 650
+            },
+            "label": "Target range"
+          }
+        ]
+      },
+      "speed": {
+        "text": "1200 • 1544",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 1200
+            },
+            "label": "See notes"
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Unit"
+      ],
+      "affects": [
+        "Enemies"
+      ],
+      "damageType": [
+        "Magic"
+      ],
+      "spellEffects": "spell",
+      "spellShield": "true",
+      "grounded": "true",
+      "knockdown": "true"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Alistar dashes to the target enemy's location. If they are within 400 units upon arrival, he deals them magic damage and knocks them back 700 units over 0.5 seconds while also stunning them for 0.75 seconds.",
+        "leveling": [
+          {
+            "label": "Magic Damage",
+            "amount": {
+              "text": "55 / 110 / 165 / 220 / 275 (+ 100% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  55,
+                  110,
+                  165,
+                  220,
+                  275
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 100
+                  },
+                  "text": "(+ 100% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "dash",
+            "category": "movement",
+            "wording": "dashes",
+            "evidence": "Active: Alistar dashes to the target enemy's location.",
+            "conditional": false
+          },
+          {
+            "type": "airborne",
+            "category": "control",
+            "wording": "knocks them back",
+            "duration": {
+              "kind": "constant",
+              "value": 0.5
+            },
+            "evidence": "If they are within 400 units upon arrival, he deals them magic damage and knocks them back 700 units over 0.5 seconds while also stunning them for 0.75 seconds.",
+            "conditional": false
+          },
+          {
+            "type": "stun",
+            "category": "control",
+            "wording": "stunning",
+            "duration": {
+              "kind": "constant",
+              "value": 0.75
+            },
+            "evidence": "If they are within 400 units upon arrival, he deals them magic damage and knocks them back 700 units over 0.5 seconds while also stunning them for 0.75 seconds.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "The dash speed depends on the inverse of the distance to the target:\n  - If Alistar's radius overlaps with his target's, he will dash with 1200 speed.\n  - If Alistar is further from his target than the previous condition, he will dash with (1200 × dash distance) / (dash distance - sum of radiuses).\n    - At maximum target range, against an enemy with a 65 gameplay radius (median of all champions), Alistar will dash with 1544 speed (reaching his target within 0.429 seconds).\n    - Both the lower the dash distance and the larger Alistar and/or his target, the faster the dash becomes; this scales hyperbolically (dash speed can theoretically scale up to ∞).",
+      "When Pulverize is buffered during the dash, the knock back distance is reduced to 200 units.",
+      "The CC duration of the ability can be reduced by up to 33.33% Tenacity, due to airborne not being reducible while the stun is.",
+      "The knockback direction is in a straight line from Alistar's original location at start of cast and the enemy when Alistar's dash ends.",
+      "Headbutt can knock enemies through terrain. The knockback stops short on walls that cannot be surpassed but the disable duration is not changed.",
+      "The spell indicator for this ability also displays the direction for the knock back relative to Alistar's position.",
+      "Alistar's attack range is reduced to -375 during Headbutt, to prevent him from being able to attack the target when he completes the dash.",
+      "Displacement immunity will not resist the application of the stun."
+    ]
+  }
+]

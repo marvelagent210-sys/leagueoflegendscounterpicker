@@ -1,0 +1,1868 @@
+[
+  {
+    "champion": "Fiddlesticks",
+    "kind": "A",
+    "name": "Basic Attack",
+    "page": {
+      "title": "Template:Data Fiddlesticks/Basic Attack",
+      "revid": 3952101
+    },
+    "ranks": 1,
+    "fields": {
+      "attackRange": {
+        "text": "225 / 480",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                225,
+                480
+              ]
+            },
+            "label": "Maximum range"
+          }
+        ]
+      },
+      "speed": {
+        "text": "N/A / 1750",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 1750
+            },
+            "label": "Projectile attack"
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Unit"
+      ],
+      "affects": [
+        "Enemies"
+      ],
+      "damageType": [
+        "Physical"
+      ],
+      "spellEffects": "attack",
+      "projectile": "special",
+      "parry": "true"
+    },
+    "parts": [
+      {
+        "text": "Basic Attack: Fiddlesticks launches a globe of dread at the target, dealing 100% AD physical damage, applying on-hit effects, and triggering on-attack effects.\n\nWithin close range, Fiddlesticks slashes its target, dealing the same damage and applying the same effects, causing the attack to become non-projectile.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "on-hit",
+            "category": "offense",
+            "wording": "on-hit",
+            "evidence": "Basic Attack: Fiddlesticks launches a globe of dread at the target, dealing 100% AD physical damage, applying on-hit effects, and triggering on-attack effects.",
+            "conditional": false
+          },
+          {
+            "type": "on-attack",
+            "category": "offense",
+            "wording": "on-attack",
+            "evidence": "Basic Attack: Fiddlesticks launches a globe of dread at the target, dealing 100% AD physical damage, applying on-hit effects, and triggering on-attack effects.",
+            "conditional": false
+          },
+          {
+            "type": "projectile",
+            "category": "other",
+            "wording": "non-projectile",
+            "evidence": "Within close range, Fiddlesticks slashes its target, dealing the same damage and applying the same effects, causing the attack to become non-projectile.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": []
+  },
+  {
+    "champion": "Fiddlesticks",
+    "kind": "E",
+    "name": "Dark Wind",
+    "page": {
+      "title": "Template:Data Fiddlesticks/Dark Wind",
+      "revid": 2939265
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "10",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 10
+            }
+          }
+        ]
+      },
+      "cost": {
+        "text": "70 / 75 / 80 / 85 / 90",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                70,
+                75,
+                80,
+                85,
+                90
+              ]
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "targetRange": {
+        "text": "750",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 750
+            }
+          }
+        ]
+      },
+      "effectRadius": {
+        "text": "450",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 450
+            }
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Unit",
+        "Auto"
+      ],
+      "affects": [
+        "Enemies"
+      ],
+      "damageType": [
+        "Magic"
+      ],
+      "spellEffects": "special",
+      "spellShield": "true",
+      "projectile": "true"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Fiddlesticks sends a crow to the target enemy that bounces to nearby enemies up to 5 times, prioritizing targets not yet hit or targets affected by Drain, dealing magic damage with each bounce and silencing them for 1.25 seconds once.",
+        "leveling": [
+          {
+            "label": "Magic Damage per Bounce",
+            "amount": {
+              "text": "60 / 80 / 100 / 120 / 140 (+ 45% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  60,
+                  80,
+                  100,
+                  120,
+                  140
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 45
+                  },
+                  "text": "(+ 45% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Total Single-Target Damage",
+            "amount": {
+              "text": "180 / 240 / 300 / 360 / 420 (+ 135% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  180,
+                  240,
+                  300,
+                  360,
+                  420
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 135
+                  },
+                  "text": "(+ 135% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "silence",
+            "category": "control",
+            "wording": "silencing",
+            "duration": {
+              "kind": "constant",
+              "value": 1.25
+            },
+            "evidence": "Active: Fiddlesticks sends a crow to the target enemy that bounces to nearby enemies up to 5 times, prioritizing targets not yet hit or targets affected by Drain, dealing magic damage with each bounce and silencing them for 1.25 seconds once.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "Monsters take twice as much damage.",
+        "leveling": [
+          {
+            "label": "Monster Damage per Bounce",
+            "amount": {
+              "text": "120 / 160 / 200 / 240 / 280 (+ 90% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  120,
+                  160,
+                  200,
+                  240,
+                  280
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 90
+                  },
+                  "text": "(+ 90% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Monster Total Single-Target Damage",
+            "amount": {
+              "text": "360 / 480 / 600 / 720 / 840 (+ 270% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  360,
+                  480,
+                  600,
+                  720,
+                  840
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 270
+                  },
+                  "text": "(+ 270% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Applies spell damage in a area of effect range.",
+      "The crow will vanish if the target becomes untargetable but will keep on bouncing if the target has died.",
+      "- Surprise Party Fiddlesticks has this special icon for this ability."
+    ]
+  },
+  {
+    "champion": "Fiddlesticks",
+    "kind": "E",
+    "name": "Reap",
+    "page": {
+      "title": "Template:Data Fiddlesticks/Reap",
+      "revid": 3906828
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "10 / 9 / 8 / 7 / 6",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                10,
+                9,
+                8,
+                7,
+                6
+              ]
+            }
+          }
+        ]
+      },
+      "cost": {
+        "text": "40 / 45 / 50 / 55 / 60",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                40,
+                45,
+                50,
+                55,
+                60
+              ]
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "0.4",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0.4
+            }
+          }
+        ]
+      },
+      "targetRange": {
+        "text": "850",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 850
+            }
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Location"
+      ],
+      "affects": [],
+      "damageType": [
+        "Magic"
+      ],
+      "spellEffects": "aoe",
+      "spellShield": "true"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Fiddlesticks slashes the target location with its scythe, dealing magic damage to enemies within the area and slowing them for 1.25 seconds.",
+        "leveling": [
+          {
+            "label": "Magic Damage",
+            "amount": {
+              "text": "70 / 105 / 140 / 175 / 210 (+ 50% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  70,
+                  105,
+                  140,
+                  175,
+                  210
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 50
+                  },
+                  "text": "(+ 50% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Slow",
+            "amount": {
+              "text": "30 / 35 / 40 / 45 / 50%",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  30,
+                  35,
+                  40,
+                  45,
+                  50
+                ]
+              },
+              "unit": "%",
+              "scaling": [],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "slow",
+            "category": "control",
+            "wording": "slowing",
+            "duration": {
+              "kind": "constant",
+              "value": 1.25
+            },
+            "amount": {
+              "kind": "rank",
+              "values": [
+                30,
+                35,
+                40,
+                45,
+                50
+              ]
+            },
+            "evidence": "Active: Fiddlesticks slashes the target location with its scythe, dealing magic damage to enemies within the area and slowing them for 1.25 seconds.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "Enemies hit in the center of the area are also silenced for 1.25 seconds.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "silence",
+            "category": "control",
+            "wording": "silenced",
+            "duration": {
+              "kind": "constant",
+              "value": 1.25
+            },
+            "evidence": "Enemies hit in the center of the area are also silenced for 1.25 seconds.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "- Surprise Party Fiddlesticks has a special icon for this ability."
+    ]
+  },
+  {
+    "champion": "Fiddlesticks",
+    "kind": "I",
+    "name": "A Harmless Scarecrow",
+    "page": {
+      "title": "Template:Data Fiddlesticks/A Harmless Scarecrow",
+      "revid": 4058532
+    },
+    "ranks": 1,
+    "fields": {
+      "effectRadius": {
+        "text": "900",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 900
+            },
+            "label": "Reveal radius, center to edge"
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Vector"
+      ],
+      "affects": [
+        "Self"
+      ],
+      "damageType": []
+    },
+    "parts": [
+      {
+        "label": "Innate - Scarecrow Effigy",
+        "text": "Innate - Scarecrow Effigy: Fiddlesticks begins the game with an exclusive Scarecrow Effigy, which permanently occupies the trinket slot. Fiddlesticks can pretend to be an Effigy by standing still and not acting nor being acted upon for 2 seconds, during which it hides its health bar, adjusts its body into a scarecrow and extends its arm out to expose its lantern.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "label": "Innate - A Harmless Scarecrow",
+        "text": "Innate - A Harmless Scarecrow: From level 6 onward, placing an Effigy also summons a Sweeper Drone at the location for 6 seconds.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "The 2-second duration stated in the ability description is not accurate. The actual time required is slightly longer and appears to be inconsistent. It usually takes approximately 2.2 seconds, but may take up to 4.4 seconds after casting a spell for unknown reasons.",
+      "Attempting to impersonate an Effigy, or maintaining the impersonation, will be interrupted if Fiddlesticks:\n  - Moves.\n    - There is a brief grace period after moving where Fiddlesticks is still considered an effigy.\n  - Is affected by a crowd control effect.\n  - Is hit by an ability.\n  - Takes damage.\n    - Fiddlesticks can still enter the effigy state while taking damage from non-champion units due to the preparation time being uninterrupted by non-champion damage.\n    - Ocean Drake and Hextech Drake are exceptions, as their attacks apply crowd control effects which interfere with the impersonation.\n  - Declares an attack.\n  - Casts an ability or summoner spell.\n  - Uses an item's active effect, potion, or consumable, including Support Quest items and Control Ward.\n    - Using Scarecrow Effigy does not interrupt the impersonation.\n  - Begins channeling.",
+      "While pretending to be an effigy, when standing within a 225 radius of a faelight, Fiddlesticks imitates superward visual effects for 39 seconds or until interrupted.\n  - While within 75-225 radius of a faelight, Fiddlesticks will blink into a 75 radius of the faelight's location.",
+      "The trinket slot can still be temporarily replaced by Eye of the Herald.",
+      "- Surprise Party Fiddlesticks has a special icon for this ability."
+    ]
+  },
+  {
+    "champion": "Fiddlesticks",
+    "kind": "I",
+    "name": "Dread",
+    "page": {
+      "title": "Template:Data Fiddlesticks/Dread",
+      "revid": 3166174
+    },
+    "ranks": 1,
+    "fields": {},
+    "flags": {
+      "targeting": [
+        "Passive"
+      ],
+      "affects": [
+        "Self"
+      ],
+      "damageType": []
+    },
+    "parts": [
+      {
+        "label": "Innate",
+        "text": "Innate: Standing still or channeling abilities for 1.5 seconds grants Fiddlesticks 25 / 30 / 35 / 40 (based on level)% bonus movement speed, that lasts for 1.5 seconds once he starts moving. Being immobilized will not trigger Dread, and will reset the timer.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "channel",
+            "category": "other",
+            "wording": "channeling",
+            "duration": {
+              "kind": "constant",
+              "value": 1.5
+            },
+            "evidence": "Innate: Standing still or channeling abilities for 1.5 seconds grants Fiddlesticks 25 / 30 / 35 / 40 (based on level)% bonus movement speed, that lasts for 1.5 seconds once he starts moving.",
+            "conditional": false
+          }
+        ],
+        "values": [
+          {
+            "series": {
+              "kind": "variable",
+              "variable": "level",
+              "points": [
+                1,
+                6,
+                11,
+                16
+              ],
+              "values": [
+                25,
+                30,
+                35,
+                40
+              ]
+            },
+            "context": "Innate: Standing still or channeling abilities for 1.5 seconds grants Fiddlesticks 25 / 30 / 35 / 40 (based on level)% bonus movement speed, that lasts for 1.5 seconds once he starts moving."
+          }
+        ]
+      },
+      {
+        "text": "After 5 seconds of not moving, Fiddlesticks will stand completely still.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Standing still and basic attacking will not reset Dread's timer.",
+      "Unlike Guerrilla Warfare Fiddlesticks can perform other actions so long as he does not move.",
+      "If the player orders Fiddlesticks to move to his current position (clicking to move on top of Fiddlesticks), Dread activates even without Fiddlesticks moving.\n  - This way it's possible to activate Dread infinitely."
+    ]
+  },
+  {
+    "champion": "Fiddlesticks",
+    "kind": "Q",
+    "name": "Terrify",
+    "page": {
+      "title": "Template:Data Fiddlesticks/Terrify",
+      "revid": 4058043
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "15 / 14.5 / 14 / 13.5 / 13",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                15,
+                14.5,
+                14,
+                13.5,
+                13
+              ]
+            }
+          }
+        ]
+      },
+      "cost": {
+        "text": "65",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 65
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "0.35",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0.35
+            }
+          }
+        ]
+      },
+      "targetRange": {
+        "text": "575",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 575
+            }
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Unit"
+      ],
+      "affects": [
+        "Enemies"
+      ],
+      "damageType": [
+        "Magic"
+      ],
+      "spellEffects": "spell",
+      "spellShield": "true",
+      "projectile": "true"
+    },
+    "parts": [
+      {
+        "label": "Passive",
+        "text": "Passive: While Fiddlesticks has been out of combat for at least 2.25 seconds and is not visible to the enemy team, or is impersonating an Effigy, its damaging ability will additionally fear targets hit for a duration.",
+        "leveling": [
+          {
+            "label": "Fear Duration",
+            "amount": {
+              "text": "1.2 / 1.4 / 1.6 / 1.8 / 2 seconds",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  1.2,
+                  1.4,
+                  1.6,
+                  1.8,
+                  2
+                ]
+              },
+              "unit": "s",
+              "scaling": [],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "reveal",
+            "category": "vision",
+            "wording": "visible",
+            "evidence": "Passive: While Fiddlesticks has been out of combat for at least 2.25 seconds and is not visible to the enemy team, or is impersonating an Effigy, its damaging ability will additionally fear targets hit for a duration.",
+            "conditional": true
+          },
+          {
+            "type": "fear",
+            "category": "control",
+            "wording": "fear",
+            "duration": {
+              "kind": "rank",
+              "values": [
+                1.2,
+                1.4,
+                1.6,
+                1.8,
+                2
+              ]
+            },
+            "evidence": "Passive: While Fiddlesticks has been out of combat for at least 2.25 seconds and is not visible to the enemy team, or is impersonating an Effigy, its damaging ability will additionally fear targets hit for a duration.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "label": "Active",
+        "text": "Active: Fiddlesticks launches a crow at the target enemy which arrives after 0.35 seconds, dealing magic damage and fearing them for a duration. Terrify has a minimum damage threshold and is capped at 400 against monsters.",
+        "leveling": [
+          {
+            "label": "Magic Damage",
+            "amount": {
+              "text": "4 / 4.5 / 5 / 5.5 / 6% (+ 3% per 100 AP) of target's current health",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  4,
+                  4.5,
+                  5,
+                  5.5,
+                  6
+                ]
+              },
+              "unit": "%",
+              "scaling": [
+                {
+                  "stat": "per100:AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 3
+                  },
+                  "text": "(+ 3% per 100 AP)"
+                }
+              ],
+              "unparsed": "",
+              "baseStat": "targetCurrentHealth"
+            }
+          },
+          {
+            "label": "Minimum Damage",
+            "amount": {
+              "text": "40 / 60 / 80 / 100 / 120",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  40,
+                  60,
+                  80,
+                  100,
+                  120
+                ]
+              },
+              "scaling": [],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Fear Duration",
+            "amount": {
+              "text": "1.2 / 1.4 / 1.6 / 1.8 / 2 seconds",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  1.2,
+                  1.4,
+                  1.6,
+                  1.8,
+                  2
+                ]
+              },
+              "unit": "s",
+              "scaling": [],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "fear",
+            "category": "control",
+            "wording": "fearing",
+            "duration": {
+              "kind": "rank",
+              "values": [
+                1.2,
+                1.4,
+                1.6,
+                1.8,
+                2
+              ]
+            },
+            "evidence": "Active: Fiddlesticks launches a crow at the target enemy which arrives after 0.35 seconds, dealing magic damage and fearing them for a duration.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "Targets feared by Fiddlesticks by any means cannot be affected by it again for a duration equal to Terrify's cooldown. Against these targets, Terrify's damage and minimum threshold are doubled.",
+        "leveling": [
+          {
+            "label": "Increased Magic Damage",
+            "amount": {
+              "text": "8 / 9 / 10 / 11 / 12% (+ 6% per 100 AP) of target's current health",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  8,
+                  9,
+                  10,
+                  11,
+                  12
+                ]
+              },
+              "unit": "%",
+              "scaling": [
+                {
+                  "stat": "per100:AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 6
+                  },
+                  "text": "(+ 6% per 100 AP)"
+                }
+              ],
+              "unparsed": "",
+              "baseStat": "targetCurrentHealth"
+            }
+          },
+          {
+            "label": "Increased Minimum Damage",
+            "amount": {
+              "text": "80 / 120 / 160 / 200 / 240",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  80,
+                  120,
+                  160,
+                  200,
+                  240
+                ]
+              },
+              "scaling": [],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "text": "Terrify slows affected targets by 90%.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "slow",
+            "category": "control",
+            "wording": "slows",
+            "amount": {
+              "kind": "constant",
+              "value": 90
+            },
+            "evidence": "Terrify slows affected targets by 90%.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "The fear-immunity timer is not refreshed by subsequent attempts to fear the target.\n  - Epic monsters are immune to the crowd control effect of fear, but are still affected by the fear-immunity timer. Terrify will therefore deal doubled damage to them while the timer is active.",
+      "The fear-immunity timer is applied even if the target is crowd control immune. It is not applied if the effect is blocked by a spell shield.",
+      "The fear from Terrify is applied at the end of the cast time, regardless of the target's distance.\n  - Since V14.14, the missile can be destroyed by projectile-interception effects.",
+      "Terrify will still cast and affect the target even if Fiddlesticks dies or loses sight of them during the cast time.",
+      "The meaning of \"out of combat\" in Terrify's description is somewhat imprecise. For the purposes of its passive, Fiddlesticks becomes eligible to fear approximately 2.25 seconds after it has stopped dealing damage, not taken damage from an enemy champion, and not been affected by crowd control.\n  - Dealing damage to any unit counts for this purpose, including champions, minions, monsters, turrets, inhibitors, jungle plants, wards, and summoned units.\n    - Damage dealt to monsters by Jungle Companions also does not reset the timer.\n  - Using Exhaust on an enemy champion also breaks this state despite dealing no damage. Other non-damaging summoner spells do not.\n  - Damage from non-champion units does not break this state. However, crowd control from non-champion units still does, which is especially relevant when fighting Ocean Drake and Hextech Drake.",
+      "Enemy sight from any source can prevent the unseen condition from being satisfied.\n  - impersonating an effigy allows Bountiful Harvest and Reap to fear enemies even when seen.",
+      "The passive portion does not communicate any information to Fiddlesticks, its allies, nor its enemies, of whether Fiddlesticks is eligible to apply fear.\n  - While Fiddlesticks is channeling Crowstorm, a visual indicator will circle around enemy champions if the unseen requirement was satisfied when the channel began. This indicator is visible only to Fiddlesticks, but does not guarantee that Crowstorm will apply fear, as enemy gaining sight or taking champion damage during the channel can invalidate the passive before Crowstorm deals damage.\n  - The indicator briefly appears when Crowstorm is cast even if Terrify has not been learned, but disappears almost immediately.",
+      "There is a very brief grace period after Fiddlesticks becomes visible or enters combat during which Terrify's passive can remain active.\n  - This allows Fiddlesticks to move slightly out of vision-blocking terrain, such as brush, or immediately retaliate after being revealed and still apply fear.\n  - This grace period is shorter than the cast times of Fiddlesticks's basic abilities, so the fear-applying effect can not affect multiple basic abilities.\n  - Crowstorm is an exception. After Fiddlesticks blinks from an unseen location into enemy vision using Crowstorm, an ability immediately cast after arriving will still apply fear before the grace period expires. This allows interactions such as Crowstorm into Reap, as well as the Crowstorm–Bountiful Harvest–Flash interaction.",
+      "Flashing into enemy vision immediately removes Terrify's passive fear-applying eligibility and removes the normal grace period.\n  - However, if an ability that is already eligible to apply fear is cast during the grace period before using Flash, that cast retains its fear effect after the Flash. This allows for the Crowstorm–Bountiful Harvest–Flash interaction.",
+      "The interaction between Terrify's passive and monsters differs from its interaction with enemy champions.\n  - If Fiddlesticks is out of combat and not visible to a particular monster, Bountiful Harvest, Reap, and Crowstorm will always apply fear to that monster even if Fiddlesticks is visible to the enemy team.\n    - Visibility is checked individually for each monster. Fiddlesticks may be visible to other monsters, including monsters from the same camp, without preventing fear against a monster whose sight of it is obstructed.\n  - If Fiddlesticks is out of combat and is visible to a particular monster, Bountiful Harvest will not apply fear to that monster.\n  - If Fiddlesticks is out of combat, is visible to a particular monster as well as being visible to the enemy team, Reap and Crowstorm will not apply fear to that monster.\n    - Crowstorm behaves differently against monsters than against champions. Even if Crowstorm's initial channel location is visible to a particular monster and to the enemy team, if the first damaging instance of Crowstorm occurs in a location where Fiddlesticks is not visible to that monster, that monster will be feared.\n      - Subsequent damage instances of Crowstorm cannot independently satisfy the out-of-combat condition because the first instance has already caused Fiddlesticks to enter combat.",
+      "Minions use the same fear conditions as enemy champions.",
+      "The player's screen will have a visual effect when successfully feared by Terrify.",
+      "- Surprise Party Fiddlesticks has a special icon for this ability."
+    ]
+  },
+  {
+    "champion": "Fiddlesticks",
+    "kind": "R",
+    "name": "Crowstorm",
+    "page": {
+      "title": "Template:Data Fiddlesticks/Crowstorm",
+      "revid": 4004933
+    },
+    "ranks": 3,
+    "fields": {
+      "cooldown": {
+        "text": "140 / 110 / 80",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                140,
+                110,
+                80
+              ]
+            }
+          }
+        ]
+      },
+      "cooldownStart": "on-cast",
+      "cost": {
+        "text": "100",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 100
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "none",
+        "values": []
+      },
+      "targetRange": {
+        "text": "800",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 800
+            }
+          }
+        ]
+      },
+      "effectRadius": {
+        "text": "600",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 600
+            }
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Location"
+      ],
+      "affects": [],
+      "damageType": [
+        "Magic"
+      ],
+      "spellEffects": "aoedot",
+      "grounded": "true",
+      "silence": "true"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Fiddlesticks channels for 1.5 seconds, then blinks to the target location upon completion with a murder of crows flying wildly around it for 5 seconds, dealing magic damage every 0.25 seconds to nearby enemies.",
+        "leveling": [
+          {
+            "label": "Magic Damage per Tick",
+            "amount": {
+              "text": "37.5 / 62.5 / 87.5 (+ 12.5% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  37.5,
+                  62.5,
+                  87.5
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 12.5
+                  },
+                  "text": "(+ 12.5% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Total Magic Damage",
+            "amount": {
+              "text": "750 / 1250 / 1750 (+ 250% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  750,
+                  1250,
+                  1750
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 250
+                  },
+                  "text": "(+ 250% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "channel",
+            "category": "other",
+            "wording": "channels",
+            "duration": {
+              "kind": "constant",
+              "value": 1.5
+            },
+            "evidence": "Active: Fiddlesticks channels for 1.5 seconds, then blinks to the target location upon completion with a murder of crows flying wildly around it for 5 seconds, dealing magic damage every 0.25 seconds to nearby enemies.",
+            "conditional": false
+          },
+          {
+            "type": "blink",
+            "category": "movement",
+            "wording": "blinks",
+            "evidence": "Active: Fiddlesticks channels for 1.5 seconds, then blinks to the target location upon completion with a murder of crows flying wildly around it for 5 seconds, dealing magic damage every 0.25 seconds to nearby enemies.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Roots do not interrupt the ability despite being a movement channel.",
+      "Fiddlesticks will always blink to its intended location even if its position changes during the channel without being interrupted (e.g. by Realm Warp).",
+      "Experimental Hexplate Overdrive, Fiendhunter Bolts Opening Barrage, and Zeke's Convergence Frostfire Tempest will activate at the end of Crowstorm's channel.",
+      "- Surprise Party Fiddlesticks has a special icon for this ability.",
+      "The following table refers for interactions while Fiddlesticks is channeling:"
+    ]
+  },
+  {
+    "champion": "Fiddlesticks",
+    "kind": "W",
+    "name": "Bountiful Harvest",
+    "page": {
+      "title": "Template:Data Fiddlesticks/Bountiful Harvest",
+      "revid": 3936351
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "10 / 9.5 / 9 / 8.5 / 8",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                10,
+                9.5,
+                9,
+                8.5,
+                8
+              ]
+            }
+          }
+        ]
+      },
+      "cooldownStart": "on-cast",
+      "cost": {
+        "text": "60 / 65 / 70 / 75 / 80",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                60,
+                65,
+                70,
+                75,
+                80
+              ]
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "0.25",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0.25
+            }
+          }
+        ]
+      },
+      "effectRadius": {
+        "text": "650",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 650
+            }
+          }
+        ]
+      },
+      "tetherRadius": {
+        "text": "725",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 725
+            }
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Proximity"
+      ],
+      "affects": [
+        "Enemies"
+      ],
+      "damageType": [
+        "Magic"
+      ],
+      "spellEffects": "aoedot",
+      "spellShield": "special",
+      "silence": "true"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Fiddlesticks forms a tether between itself and each nearby enemy over the cast time, then channels for up to 2 seconds to harvest their souls, revealing them in the process.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "tether",
+            "category": "other",
+            "wording": "tether",
+            "duration": {
+              "kind": "constant",
+              "value": 2
+            },
+            "evidence": "Active: Fiddlesticks forms a tether between itself and each nearby enemy over the cast time, then channels for up to 2 seconds to harvest their souls, revealing them in the process.",
+            "conditional": false
+          },
+          {
+            "type": "channel",
+            "category": "other",
+            "wording": "channels",
+            "duration": {
+              "kind": "constant",
+              "value": 2
+            },
+            "evidence": "Active: Fiddlesticks forms a tether between itself and each nearby enemy over the cast time, then channels for up to 2 seconds to harvest their souls, revealing them in the process.",
+            "conditional": false
+          },
+          {
+            "type": "true sight",
+            "category": "vision",
+            "wording": "revealing",
+            "evidence": "Active: Fiddlesticks forms a tether between itself and each nearby enemy over the cast time, then channels for up to 2 seconds to harvest their souls, revealing them in the process.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "While Fiddlesticks is channeling, the tethered enemies are dealt magic damage every 0.25 seconds. The final tick at the end of the channel deals additional magic damage, capped at 400 against monsters. Bountiful Harvest deals 135% damage against monsters and 50% damage against minions.",
+        "leveling": [
+          {
+            "label": "Damage per second",
+            "amount": {
+              "text": "60 / 90 / 120 / 150 / 180 (+ 45% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  60,
+                  90,
+                  120,
+                  150,
+                  180
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 45
+                  },
+                  "text": "(+ 45% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Damage per Instance",
+            "amount": {
+              "text": "15 / 22.5 / 30 / 37.5 / 45 (+ 11.25% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  15,
+                  22.5,
+                  30,
+                  37.5,
+                  45
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 11.25
+                  },
+                  "text": "(+ 11.25% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Last Tick of Damage",
+            "amount": {
+              "text": "15 / 22.5 / 30 / 37.5 / 45 (+ 11.25% AP) (+ 12 / 14.5 / 17 / 19.5 / 22% of target's missing health)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  15,
+                  22.5,
+                  30,
+                  37.5,
+                  45
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 11.25
+                  },
+                  "text": "(+ 11.25% AP)"
+                },
+                {
+                  "stat": "targetMissingHealth",
+                  "ratio": {
+                    "kind": "rank",
+                    "values": [
+                      12,
+                      14.5,
+                      17,
+                      19.5,
+                      22
+                    ]
+                  },
+                  "text": "(+ 12 / 14.5 / 17 / 19.5 / 22% of target's missing health)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Total Magic Damage",
+            "amount": {
+              "text": "120 / 180 / 240 / 300 / 360 (+ 90% AP) (+ 12 / 14.5 / 17 / 19.5 / 22% of target's missing health)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  120,
+                  180,
+                  240,
+                  300,
+                  360
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 90
+                  },
+                  "text": "(+ 90% AP)"
+                },
+                {
+                  "stat": "targetMissingHealth",
+                  "ratio": {
+                    "kind": "rank",
+                    "values": [
+                      12,
+                      14.5,
+                      17,
+                      19.5,
+                      22
+                    ]
+                  },
+                  "text": "(+ 12 / 14.5 / 17 / 19.5 / 22% of target's missing health)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [],
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 135
+            },
+            "context": "Bountiful Harvest deals 135% damage against monsters and 50% damage against minions."
+          },
+          {
+            "series": {
+              "kind": "constant",
+              "value": 50
+            },
+            "context": "Bountiful Harvest deals 135% damage against monsters and 50% damage against minions."
+          }
+        ]
+      },
+      {
+        "text": "Fiddlesticks heals itself for a portion of the pre-mitigation damage dealt, modified to 45% against monsters and 15% against minions.",
+        "leveling": [
+          {
+            "label": "Champion Heal Portion",
+            "amount": {
+              "text": "25 / 32.5 / 40 / 47.5 / 55%",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  25,
+                  32.5,
+                  40,
+                  47.5,
+                  55
+                ]
+              },
+              "unit": "%",
+              "scaling": [],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Total Heal per Champion",
+            "amount": {
+              "text": "30 / 58.5 / 96 / 142.5 / 198 (+ 22.5 / 29.25 / 36 / 42.75 / 49.5% AP) (+ 3 / 4.7125 / 6.8 / 9.2625 / 12.1% of target's missing health)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  30,
+                  58.5,
+                  96,
+                  142.5,
+                  198
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "rank",
+                    "values": [
+                      22.5,
+                      29.25,
+                      36,
+                      42.75,
+                      49.5
+                    ]
+                  },
+                  "text": "(+ 22.5 / 29.25 / 36 / 42.75 / 49.5% AP)"
+                },
+                {
+                  "stat": "targetMissingHealth",
+                  "ratio": {
+                    "kind": "rank",
+                    "values": [
+                      3,
+                      4.7125,
+                      6.8,
+                      9.2625,
+                      12.1
+                    ]
+                  },
+                  "text": "(+ 3 / 4.7125 / 6.8 / 9.2625 / 12.1% of target's missing health)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Total Heal per Monster",
+            "amount": {
+              "text": "72.9 / 109.35 / 145.8 / 182.25 / 218.7 (+ 54.675% AP) (+ 7.29 / 8.80875 / 10.3275 / 11.8463 / 13.365% of target's missing health)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  72.9,
+                  109.35000000000001,
+                  145.8,
+                  182.25,
+                  218.70000000000002
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 54.675000000000004
+                  },
+                  "text": "(+ 54.675% AP)"
+                },
+                {
+                  "stat": "targetMissingHealth",
+                  "ratio": {
+                    "kind": "rank",
+                    "values": [
+                      7.290000000000002,
+                      8.808750000000002,
+                      10.327500000000002,
+                      11.846250000000001,
+                      13.365000000000002
+                    ]
+                  },
+                  "text": "(+ 7.29 / 8.80875 / 10.3275 / 11.8463 / 13.365% of target's missing health)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Total Heal per Minion",
+            "amount": {
+              "text": "9 / 13.5 / 18 / 22.5 / 27 (+ 6.75% AP) (+ 0.9 / 1.0875 / 1.275 / 1.4625 / 1.65% of target's missing health)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  9,
+                  13.5,
+                  18,
+                  22.5,
+                  27
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 6.75
+                  },
+                  "text": "(+ 6.75% AP)"
+                },
+                {
+                  "stat": "targetMissingHealth",
+                  "ratio": {
+                    "kind": "rank",
+                    "values": [
+                      0.8999999999999999,
+                      1.0875,
+                      1.275,
+                      1.4625,
+                      1.65
+                    ]
+                  },
+                  "text": "(+ 0.9 / 1.0875 / 1.275 / 1.4625 / 1.65% of target's missing health)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "heal",
+            "category": "defense",
+            "wording": "heals",
+            "evidence": "Fiddlesticks heals itself for a portion of the pre-mitigation damage dealt, modified to 45% against monsters and 15% against minions.",
+            "conditional": false
+          }
+        ],
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 45
+            },
+            "context": "Fiddlesticks heals itself for a portion of the pre-mitigation damage dealt, modified to 45% against monsters and 15% against minions."
+          },
+          {
+            "series": {
+              "kind": "constant",
+              "value": 15
+            },
+            "context": "Fiddlesticks heals itself for a portion of the pre-mitigation damage dealt, modified to 45% against monsters and 15% against minions."
+          }
+        ]
+      },
+      {
+        "text": "Bountiful Harvest ends if all targets have died or broken their tethers. If the channel was not interrupted, 60% of the current cooldown is refunded.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "text": "A nearby enemy is required to cast this ability. The target does not have to be visible to be tethered by this ability.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "reveal",
+            "category": "vision",
+            "wording": "visible",
+            "evidence": "The target does not have to be visible to be tethered by this ability.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Spell shield will block the tether's application but not the damage of one already applied.",
+      "- Surprise Party Fiddlesticks has a special icon for this ability.",
+      "The following table refers for interactions while Fiddlesticks is channeling:"
+    ]
+  },
+  {
+    "champion": "Fiddlesticks",
+    "kind": "W",
+    "name": "Drain",
+    "page": {
+      "title": "Template:Data Fiddlesticks/Drain",
+      "revid": 2937884
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "4 / 3.75 / 3.5 / 3.25 / 3",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                4,
+                3.75,
+                3.5,
+                3.25,
+                3
+              ]
+            }
+          }
+        ]
+      },
+      "cost": {
+        "text": "80 / 90 / 100 / 110 / 120",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                80,
+                90,
+                100,
+                110,
+                120
+              ]
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "targetRange": {
+        "text": "575",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 575
+            }
+          }
+        ]
+      },
+      "tetherRadius": {
+        "text": "650",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 650
+            }
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Unit"
+      ],
+      "affects": [
+        "Enemies",
+        "Self"
+      ],
+      "damageType": [
+        "Magic"
+      ],
+      "spellEffects": "spellpersist",
+      "spellShield": "special",
+      "projectile": "false"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Fiddlesticks tethers himself to the target enemy and channels for up to 5 seconds. While channeling, he deals magic damage each second, and heals himself for a percentage of the damage done.",
+        "leveling": [
+          {
+            "label": "Magic Damage per Second",
+            "amount": {
+              "text": "80 / 105 / 130 / 155 / 180 (+ 45% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  80,
+                  105,
+                  130,
+                  155,
+                  180
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 45
+                  },
+                  "text": "(+ 45% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Total Magic Damage",
+            "amount": {
+              "text": "400 / 525 / 650 / 775 / 900 (+ 225% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  400,
+                  525,
+                  650,
+                  775,
+                  900
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 225
+                  },
+                  "text": "(+ 225% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Heal Ratio",
+            "amount": {
+              "text": "60 / 65 / 70 / 75 / 80%",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  60,
+                  65,
+                  70,
+                  75,
+                  80
+                ]
+              },
+              "unit": "%",
+              "scaling": [],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Heal per Second",
+            "amount": {
+              "text": "48 / 68.25 / 91 / 116.25 / 144 (+ 27 / 29.25 / 31.5 / 33.75 / 36% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  48,
+                  68.25,
+                  91,
+                  116.25,
+                  144
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "rank",
+                    "values": [
+                      27,
+                      29.25,
+                      31.499999999999996,
+                      33.75,
+                      36
+                    ]
+                  },
+                  "text": "(+ 27 / 29.25 / 31.5 / 33.75 / 36% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Total Heal",
+            "amount": {
+              "text": "240 / 341.25 / 455 / 581.25 / 720 (+ 135 / 146.25 / 157.5 / 168.75 / 180% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  240,
+                  341.25,
+                  455,
+                  581.25,
+                  720
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "rank",
+                    "values": [
+                      135,
+                      146.25,
+                      157.49999999999997,
+                      168.75,
+                      180
+                    ]
+                  },
+                  "text": "(+ 135 / 146.25 / 157.5 / 168.75 / 180% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "tether",
+            "category": "other",
+            "wording": "tethers",
+            "duration": {
+              "kind": "constant",
+              "value": 5
+            },
+            "evidence": "Active: Fiddlesticks tethers himself to the target enemy and channels for up to 5 seconds.",
+            "conditional": false
+          },
+          {
+            "type": "channel",
+            "category": "other",
+            "wording": "channels",
+            "duration": {
+              "kind": "constant",
+              "value": 5
+            },
+            "evidence": "Active: Fiddlesticks tethers himself to the target enemy and channels for up to 5 seconds.",
+            "conditional": false
+          },
+          {
+            "type": "heal",
+            "category": "defense",
+            "wording": "heals",
+            "evidence": "While channeling, he deals magic damage each second, and heals himself for a percentage of the damage done.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "If the target breaks the tether by moving out of range, Drain ends immediately. If the target dies before the channel completes, the cooldown is reduced by its remaining duration.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Drain deals damage every 0.25 seconds.",
+      "Drain has a brief channel time (0.1 seconds) on cast before activation.",
+      "Drain's channel will be interrupted if Fiddlesticks performs any other action, uses item actives, or is disabled.\n  - Using summoner spells (except Flash and Teleport) will not interrupt the channel.",
+      "Drain will not continue channeling through Death Defied or Icathian Surprise.",
+      "Drain will continue channeling through untargetable abilities (Playful, Sanguine Pool) so long as the target remains in tether range.",
+      "Spell shield will block applying the tether but will not block damage from one already applied."
+    ]
+  }
+]

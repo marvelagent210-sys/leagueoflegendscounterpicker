@@ -1,0 +1,899 @@
+[
+  {
+    "champion": "Nocturne",
+    "kind": "E",
+    "name": "Unspeakable Horror",
+    "page": {
+      "title": "Template:Data Nocturne/Unspeakable Horror",
+      "revid": 4015219
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "15 / 14 / 13 / 12 / 11",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                15,
+                14,
+                13,
+                12,
+                11
+              ]
+            }
+          }
+        ]
+      },
+      "cost": {
+        "text": "60 / 65 / 70 / 75 / 80",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                60,
+                65,
+                70,
+                75,
+                80
+              ]
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "none",
+        "values": []
+      },
+      "targetRange": {
+        "text": "425",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 425
+            }
+          }
+        ]
+      },
+      "effectRadius": {
+        "text": "1000",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 1000
+            },
+            "label": "Fear MS radius"
+          }
+        ]
+      },
+      "tetherRadius": {
+        "text": "465",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 465
+            }
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Unit"
+      ],
+      "affects": [
+        "Enemies"
+      ],
+      "damageType": [
+        "Magic"
+      ],
+      "spellEffects": "special",
+      "spellShield": "special",
+      "projectile": "false"
+    },
+    "parts": [
+      {
+        "label": "Passive",
+        "text": "Passive: Nocturne gains 90% bonus movement speed while facing nearby feared targets.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "fear",
+            "category": "control",
+            "wording": "feared",
+            "evidence": "Passive: Nocturne gains 90% bonus movement speed while facing nearby feared targets.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "label": "Active",
+        "text": "Active: Nocturne torments the target, forming a tether between himself and the target for 2 seconds, during which the target takes magic damage every 0.5 seconds over the duration.",
+        "leveling": [
+          {
+            "label": "Total Magic Damage",
+            "amount": {
+              "text": "80 / 125 / 170 / 215 / 260 (+ 100% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  80,
+                  125,
+                  170,
+                  215,
+                  260
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 100
+                  },
+                  "text": "(+ 100% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Magic Damage per Tick",
+            "amount": {
+              "text": "20 / 31.25 / 42.5 / 53.75 / 65 (+ 25% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  20,
+                  31.25,
+                  42.5,
+                  53.75,
+                  65
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 25
+                  },
+                  "text": "(+ 25% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "tether",
+            "category": "other",
+            "wording": "tether",
+            "duration": {
+              "kind": "constant",
+              "value": 2
+            },
+            "evidence": "Active: Nocturne torments the target, forming a tether between himself and the target for 2 seconds, during which the target takes magic damage every 0.5 seconds over the duration.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "If the tether is not broken by the end of its duration, the target is feared for a duration while being slowed by 90%.",
+        "leveling": [
+          {
+            "label": "Disable Duration",
+            "amount": {
+              "text": "1.25 / 1.5 / 1.75 / 2 / 2.25 seconds",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  1.25,
+                  1.5,
+                  1.75,
+                  2,
+                  2.25
+                ]
+              },
+              "unit": "s",
+              "scaling": [],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "fear",
+            "category": "control",
+            "wording": "feared",
+            "evidence": "If the tether is not broken by the end of its duration, the target is feared for a duration while being slowed by 90%.",
+            "conditional": false
+          },
+          {
+            "type": "slow",
+            "category": "control",
+            "wording": "slowed",
+            "amount": {
+              "kind": "constant",
+              "value": 90
+            },
+            "evidence": "If the tether is not broken by the end of its duration, the target is feared for a duration while being slowed by 90%.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Unspeakable Horror deals persistent damage, additionally tagged as indirect damage, and applies spell effects.",
+      "Feared enemies in a 180° total angle within Nocturne's facing direction will trigger Unspeakable Horror's passive.",
+      "Casting Unspeakable Horror may grant Nocturne permanent ghosting until he has died.",
+      "Spell shield will block the tether's application but not the damage and aftereffects of one already applied."
+    ]
+  },
+  {
+    "champion": "Nocturne",
+    "kind": "I",
+    "name": "Umbra Blades",
+    "page": {
+      "title": "Template:Data Nocturne/Umbra Blades",
+      "revid": 4007794
+    },
+    "ranks": 1,
+    "fields": {
+      "staticCooldown": {
+        "text": "12",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 12
+            }
+          }
+        ]
+      },
+      "effectRadius": {
+        "text": "360",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 360
+            }
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Passive"
+      ],
+      "affects": [
+        "Enemies"
+      ],
+      "damageType": [
+        "Physical"
+      ],
+      "spellEffects": "special",
+      "spellShield": "false",
+      "parry": "true"
+    },
+    "parts": [
+      {
+        "label": "Innate",
+        "text": "Innate: Periodically, Nocturne empowers his next basic attack to slash in a circle, dealing 120% AD physical damage to the target and nearby enemies and healing himself for 13 – 30 (based on level) (+ 30% AP) per enemy hit. Against minions, Umbra Blades' damage to secondary targets and healing are reduced by 50% and it applies on-hit effects to all targets at 100% effectiveness.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "heal",
+            "category": "defense",
+            "wording": "healing",
+            "evidence": "Innate: Periodically, Nocturne empowers his next basic attack to slash in a circle, dealing 120% AD physical damage to the target and nearby enemies and healing himself for 13 – 30 (based on level) (+ 30% AP) per enemy hit.",
+            "conditional": false
+          },
+          {
+            "type": "on-hit",
+            "category": "offense",
+            "wording": "on-hit",
+            "evidence": "Against minions, Umbra Blades' damage to secondary targets and healing are reduced by 50% and it applies on-hit effects to all targets at 100% effectiveness.",
+            "conditional": false
+          }
+        ],
+        "values": [
+          {
+            "series": {
+              "kind": "level",
+              "values": [
+                13,
+                14,
+                15,
+                16,
+                17,
+                18,
+                19,
+                20,
+                21,
+                22,
+                23,
+                24,
+                25,
+                26,
+                27,
+                28,
+                29,
+                30,
+                31,
+                32
+              ],
+              "past18": "wiki"
+            },
+            "context": "Innate: Periodically, Nocturne empowers his next basic attack to slash in a circle, dealing 120% AD physical damage to the target and nearby enemies and healing himself for 13 – 30 (based on level) (+ 30% AP) per enemy hit."
+          }
+        ]
+      },
+      {
+        "text": "Umbra Blades can critically strike against the primary target, modifying the physical damage dealt to 220% AD.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "critical strike",
+            "category": "offense",
+            "wording": "critically strike",
+            "evidence": "Umbra Blades can critically strike against the primary target, modifying the physical damage dealt to 220% AD.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "Basic attacks reduce Umbra Blades' cooldown by 1 second, increased to 3 against enemy champions and monsters.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "The primary target of the enhanced attack is dealt basic damage while the secondary targets of the slash are dealt proc damage.",
+      "The empowered attack will not trigger against structures nor wards.\n  - Basic attacks against them will still grant the cooldown reduction.",
+      "Parry effects will only block the damage dealt to the primary target."
+    ]
+  },
+  {
+    "champion": "Nocturne",
+    "kind": "Q",
+    "name": "Duskbringer",
+    "page": {
+      "title": "Template:Data Nocturne/Duskbringer",
+      "revid": 4026429
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "8",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 8
+            }
+          }
+        ]
+      },
+      "cost": {
+        "text": "60 / 65 / 70 / 75 / 80",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                60,
+                65,
+                70,
+                75,
+                80
+              ]
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "0.25",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0.25
+            }
+          }
+        ]
+      },
+      "range": {
+        "text": "1200",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 1200
+            },
+            "label": "Shadow blade missile range"
+          }
+        ]
+      },
+      "effectRadius": {
+        "text": "150",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 150
+            },
+            "label": "Dusk Trail blob radiuses"
+          }
+        ]
+      },
+      "width": {
+        "text": "120",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 120
+            },
+            "label": "Shadow blade missile width"
+          }
+        ]
+      },
+      "speed": {
+        "text": "1600",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 1600
+            }
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Direction"
+      ],
+      "affects": [
+        "Self",
+        "Enemies"
+      ],
+      "damageType": [
+        "Physical"
+      ],
+      "spellEffects": "area of effect",
+      "spellShield": "true",
+      "projectile": "true"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Nocturne casts out a shadow blade in the target direction that leaves a Dusk Trail in its wake, dealing physical damage to enemies hit. Enemy champions and large monsters hit will leave a Dusk Trail behind while moving. Dusk Trails last 5 seconds and will slowly disappear afterwards.",
+        "leveling": [
+          {
+            "label": "Physical damage",
+            "amount": {
+              "text": "65 / 105 / 145 / 185 / 225 (+ 85% bonus AD)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  65,
+                  105,
+                  145,
+                  185,
+                  225
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "bonusAD",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 85
+                  },
+                  "text": "(+ 85% bonus AD)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "text": "While on the Dusk Trail, Nocturne is ghosted and gains bonus attack damage and bonus total movement speed.",
+        "leveling": [
+          {
+            "label": "Bonus Attack Damage",
+            "amount": {
+              "text": "15 / 25 / 35 / 45 / 55",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  15,
+                  25,
+                  35,
+                  45,
+                  55
+                ]
+              },
+              "scaling": [],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Bonus Movement Speed",
+            "amount": {
+              "text": "20 / 25 / 30 / 35 / 40%",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  20,
+                  25,
+                  30,
+                  35,
+                  40
+                ]
+              },
+              "unit": "%",
+              "scaling": [],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "ghosted",
+            "category": "movement",
+            "wording": "ghosted",
+            "evidence": "While on the Dusk Trail, Nocturne is ghosted and gains bonus attack damage and bonus total movement speed.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Duskbringer checks for and hits targets 25 units outside of the missile's maximum range.",
+      "Duskbringer's damage is not increased by the bonus AD gained from its trail, meaning that casting it again while on the trail from the last cast will not result in higher damage.\n  - It is observed from seasons ago that this is intentionally hard-coded into the ability to avoid the projectile increasing its own damage. This feature is somewhat deprecated as it also limits chain-casting Duskbringer.",
+      "Duskbringer's Dusk Trail will expose the path of affected units until its duration ends. It is a form of obscured vision; the trail indirectly reveals the location of enemy units even in the fog of war, including those shrouded by stealth.",
+      "Spell shield will block the damage and also prevents the Dusk Trail from following the target.",
+      "The formed Dusk Trail does not disappear if Duskbringer is intercepted by Wind Wall or Unbreakable.",
+      "This ability will cast from wherever the caster is at the start of the cast time.",
+      "The bonus movement speed stacks multiplicatively with other sources of movement speed boosts."
+    ]
+  },
+  {
+    "champion": "Nocturne",
+    "kind": "R",
+    "name": "Paranoia",
+    "page": {
+      "title": "Template:Data Nocturne/Paranoia",
+      "revid": 4064858
+    },
+    "ranks": 3,
+    "fields": {
+      "cooldown": {
+        "text": "160 / 130 / 100",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                160,
+                130,
+                100
+              ]
+            },
+            "label": "Starts after recast times out or is used"
+          }
+        ]
+      },
+      "cooldownStart": "post-effect",
+      "cost": {
+        "text": "100",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 100
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "none",
+        "values": []
+      },
+      "targetRange": {
+        "text": "2500 / 3250 / 4000",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                2500,
+                3250,
+                4000
+              ]
+            }
+          }
+        ]
+      },
+      "effectRadius": {
+        "text": "Global",
+        "values": []
+      },
+      "speed": {
+        "text": "1800",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 1800
+            }
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Auto",
+        "Unit"
+      ],
+      "affects": [
+        "Enemies"
+      ],
+      "damageType": [
+        "Physical"
+      ],
+      "spellEffects": "spell",
+      "spellShield": "true",
+      "grounded": "special",
+      "knockdown": "false"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Nocturne terrorizes all enemy champions, nearsighting them for 6 seconds, during which their sight radius is reduced by 300 units. He can recast Paranoia for the same duration after 0.25 seconds.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "nearsight",
+            "category": "control",
+            "wording": "nearsighting",
+            "duration": {
+              "kind": "constant",
+              "value": 6
+            },
+            "evidence": "Active: Nocturne terrorizes all enemy champions, nearsighting them for 6 seconds, during which their sight radius is reduced by 300 units.",
+            "conditional": false
+          },
+          {
+            "type": "reveal",
+            "category": "vision",
+            "wording": "sight",
+            "duration": {
+              "kind": "constant",
+              "value": 6
+            },
+            "evidence": "Active: Nocturne terrorizes all enemy champions, nearsighting them for 6 seconds, during which their sight radius is reduced by 300 units.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "label": "Recast",
+        "text": "Recast: Nocturne dashes with displacement immunity to the target enemy champion, dealing physical damage upon arrival.",
+        "leveling": [
+          {
+            "label": "Physical Damage",
+            "amount": {
+              "text": "150 / 275 / 400 (+ 120% bonus AD)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  150,
+                  275,
+                  400
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "bonusAD",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 120
+                  },
+                  "text": "(+ 120% bonus AD)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "dash",
+            "category": "movement",
+            "wording": "dashes",
+            "evidence": "Recast: Nocturne dashes with displacement immunity to the target enemy champion, dealing physical damage upon arrival.",
+            "conditional": false
+          },
+          {
+            "type": "displacement-immune",
+            "category": "defense",
+            "wording": "displacement immunity",
+            "evidence": "Recast: Nocturne dashes with displacement immunity to the target enemy champion, dealing physical damage upon arrival.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "Nocturne can cast any of his abilities and item actives during the dash.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Nocturne will track the target if they change locations.\n  - He will not stop tracking the target until he reaches them, as there is no maximum tracking distance.",
+      "Enemy players affected by Paranoia's nearsight cannot interact with the allied portrait icons on the HUD.",
+      "Paranoia's nearsight will apply to enemy champions that are untargetable or are dead, and will persist through death.",
+      "Nocturne can cast any of his abilities, summoner spells (excluding Hexflash), or item actives during flight.\n  - Using a dash or blink ability will interrupt the flight.\n  - The flight will also be interrupted if Nocturne is affected by a Blast Cone triggered by an allied champion.",
+      "Paranoia cannot be recast while grounded or rooted.",
+      "Paranoia's nearsight does not apply to clones.",
+      "Experimental Hexplate Overdrive, Fiendhunter Bolts Opening Barrage, and Zeke's Convergence Frostfire Tempest will activate immediately upon Paranoia's first cast. If the recast is used, the buff's duration is refreshed at the end of the dash.",
+      "A spell indicator telegraphed to Nocturne and his allies will be placed on all enemy champions within range of Paranoia's recast while the ability is active. The following images display the indicator for the default skin:"
+    ]
+  },
+  {
+    "champion": "Nocturne",
+    "kind": "W",
+    "name": "Shroud of Darkness",
+    "page": {
+      "title": "Template:Data Nocturne/Shroud of Darkness",
+      "revid": 3948584
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "20 / 18 / 16 / 14 / 12",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                20,
+                18,
+                16,
+                14,
+                12
+              ]
+            }
+          }
+        ]
+      },
+      "cost": {
+        "text": "50",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 50
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "none",
+        "values": []
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Auto"
+      ],
+      "affects": [
+        "Self"
+      ],
+      "damageType": []
+    },
+    "parts": [
+      {
+        "label": "Passive",
+        "text": "Passive: Nocturne gains bonus attack speed.",
+        "leveling": [
+          {
+            "label": "Bonus Attack Speed",
+            "amount": {
+              "text": "30 / 35 / 40 / 45 / 50%",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  30,
+                  35,
+                  40,
+                  45,
+                  50
+                ]
+              },
+              "unit": "%",
+              "scaling": [],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "label": "Active",
+        "text": "Active: Nocturne gains a spell shield for 1.5 seconds. Upon successfully blocking a hostile effect, Shroud of Darkness' bonus attack speed is doubled for 5 seconds.",
+        "leveling": [
+          {
+            "label": "Enhanced Bonus Attack Speed",
+            "amount": {
+              "text": "60 / 70 / 80 / 90 / 100%",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  60,
+                  70,
+                  80,
+                  90,
+                  100
+                ]
+              },
+              "unit": "%",
+              "scaling": [],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "spell shield",
+            "category": "defense",
+            "wording": "spell shield",
+            "duration": {
+              "kind": "constant",
+              "value": 1.5
+            },
+            "evidence": "Active: Nocturne gains a spell shield for 1.5 seconds.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "If Shroud of Darkness is active when Nocturne re-casts Paranoia to dash to a target, its duration is refreshed every 0.25 seconds during the dash."
+    ]
+  }
+]

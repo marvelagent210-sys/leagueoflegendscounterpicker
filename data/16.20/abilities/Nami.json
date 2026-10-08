@@ -1,0 +1,913 @@
+[
+  {
+    "champion": "Nami",
+    "kind": "E",
+    "name": "Tidecaller's Blessing",
+    "page": {
+      "title": "Template:Data Nami/Tidecaller's Blessing",
+      "revid": 4042884
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "11",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 11
+            }
+          }
+        ]
+      },
+      "cost": {
+        "text": "55 / 60 / 65 / 70 / 75",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                55,
+                60,
+                65,
+                70,
+                75
+              ]
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "none",
+        "values": []
+      },
+      "targetRange": {
+        "text": "800",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 800
+            }
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Unit"
+      ],
+      "affects": [
+        "Self",
+        "Allies"
+      ],
+      "damageType": [
+        "Magic"
+      ],
+      "spellEffects": "proc",
+      "spellShield": "false",
+      "parry": "true"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Nami blesses herself or an allied champion for 6 seconds, empowering their next 3 basic attacks or abilities to each deal bonus magic damage and slow enemies for 1 second.",
+        "leveling": [
+          {
+            "label": "Bonus Magic Damage Per Hit",
+            "amount": {
+              "text": "20 / 35 / 50 / 65 / 80 (+ 20% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  20,
+                  35,
+                  50,
+                  65,
+                  80
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 20
+                  },
+                  "text": "(+ 20% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Total Bonus Magic Damage",
+            "amount": {
+              "text": "60 / 105 / 150 / 195 / 240 (+ 60% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  60,
+                  105,
+                  150,
+                  195,
+                  240
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 60
+                  },
+                  "text": "(+ 60% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Slow",
+            "amount": {
+              "text": "15 / 20 / 25 / 30 / 35% (+ 5% per 100 AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  15,
+                  20,
+                  25,
+                  30,
+                  35
+                ]
+              },
+              "unit": "%",
+              "scaling": [
+                {
+                  "stat": "per100:AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 5
+                  },
+                  "text": "(+ 5% per 100 AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "slow",
+            "category": "control",
+            "wording": "slow",
+            "duration": {
+              "kind": "constant",
+              "value": 1
+            },
+            "amount": {
+              "kind": "rank",
+              "values": [
+                15,
+                20,
+                25,
+                30,
+                35
+              ]
+            },
+            "evidence": "Active: Nami blesses herself or an allied champion for 6 seconds, empowering their next 3 basic attacks or abilities to each deal bonus magic damage and slow enemies for 1 second.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "Empowered abilities that apply area damage only deal 33 – 66 (based on level)% of the bonus damage to non-champions.",
+        "leveling": [],
+        "mechanics": [],
+        "values": [
+          {
+            "series": {
+              "kind": "level",
+              "values": [
+                33,
+                34.94117647058823,
+                36.88235294117647,
+                38.8235294117647,
+                40.76470588235294,
+                42.705882352941174,
+                44.64705882352941,
+                46.588235294117645,
+                48.529411764705884,
+                50.470588235294116,
+                52.41176470588235,
+                54.35294117647059,
+                56.294117647058826,
+                58.23529411764706,
+                60.17647058823529,
+                62.11764705882353,
+                64.05882352941177,
+                66,
+                67.9412,
+                69.8824
+              ],
+              "past18": "game files"
+            },
+            "context": "Empowered abilities that apply area damage only deal 33 – 66 (based on level)% of the bonus damage to non-champions."
+          }
+        ]
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Tidecaller's Blessing has a forgiveness radius of 175 units.",
+      "The effect will not trigger against structures nor wards.",
+      "The empowerment given to allies respects enchantment redirection.",
+      "Damage instances of Tidecaller's Blessing beyond the first do not count as separate applications for the purposes of Electrocute."
+    ]
+  },
+  {
+    "champion": "Nami",
+    "kind": "I",
+    "name": "Surging Tides",
+    "page": {
+      "title": "Template:Data Nami/Surging Tides",
+      "revid": 3985614
+    },
+    "ranks": 1,
+    "fields": {},
+    "flags": {
+      "targeting": [
+        "Passive"
+      ],
+      "affects": [
+        "Allies"
+      ],
+      "damageType": []
+    },
+    "parts": [
+      {
+        "label": "Innate",
+        "text": "Innate: Nami's abilities grant 100 (+ 25% AP) bonus movement speed to allied champions hit, decaying over 1.5 seconds. The bonus is doubled from Tidal Wave.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Tidal Wave uses a separate empowered buff that has priority over the normal buff, and it will be used even if the full/current strength of the empowered buff is weaker than the full-strength normal buff.\n  - If the normal buff remains ongoing when the empowered buff expires, it will then begin with full strength and completely decay over its remaining duration."
+    ]
+  },
+  {
+    "champion": "Nami",
+    "kind": "Q",
+    "name": "Aqua Prison",
+    "page": {
+      "title": "Template:Data Nami/Aqua Prison",
+      "revid": 4007696
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "12 / 11 / 10 / 9 / 8",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                12,
+                11,
+                10,
+                9,
+                8
+              ]
+            }
+          }
+        ]
+      },
+      "cost": {
+        "text": "60",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 60
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "0.25",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0.25
+            }
+          }
+        ]
+      },
+      "targetRange": {
+        "text": "850",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 850
+            }
+          }
+        ]
+      },
+      "effectRadius": {
+        "text": "200 • 225",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 200
+            },
+            "label": "Effect radius for enemies"
+          },
+          {
+            "series": {
+              "kind": "constant",
+              "value": 225
+            },
+            "label": "Effect radius for Surging Tides on allies, could also be 160 + edge radius, this is pending for test"
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Location"
+      ],
+      "affects": [
+        "Enemies"
+      ],
+      "damageType": [
+        "Magic"
+      ],
+      "spellEffects": "area of effect",
+      "spellShield": "true",
+      "projectile": "true"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Nami launches a bubble at the target location that lands after 0.726, dealing magic damage to enemies hit and suspending them for 1.5 seconds, during which they are revealed.",
+        "leveling": [
+          {
+            "label": "Magic Damage",
+            "amount": {
+              "text": "90 / 145 / 200 / 255 / 310 (+ 50% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  90,
+                  145,
+                  200,
+                  255,
+                  310
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 50
+                  },
+                  "text": "(+ 50% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "reveal",
+            "category": "vision",
+            "wording": "revealed",
+            "duration": {
+              "kind": "constant",
+              "value": 1.5
+            },
+            "evidence": "Active: Nami launches a bubble at the target location that lands after 0.726, dealing magic damage to enemies hit and suspending them for 1.5 seconds, during which they are revealed.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "Allied champions are granted Surging Tides in a slightly larger area.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "The combined time from the start of the cast time to the bubble landing is 0.264 + 0.726 = 0.99 seconds.",
+      "Aqua Prison provides the status effect that allows Last Breath to be cast."
+    ]
+  },
+  {
+    "champion": "Nami",
+    "kind": "R",
+    "name": "Tidal Wave",
+    "page": {
+      "title": "Template:Data Nami/Tidal Wave",
+      "revid": 3712330
+    },
+    "ranks": 3,
+    "fields": {
+      "cooldown": {
+        "text": "120 / 110 / 100",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                120,
+                110,
+                100
+              ]
+            }
+          }
+        ]
+      },
+      "cost": {
+        "text": "100",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 100
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "0.5",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0.5
+            }
+          }
+        ]
+      },
+      "targetRange": {
+        "text": "2750",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 2750
+            }
+          }
+        ]
+      },
+      "effectRadius": {
+        "text": "750",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 750
+            },
+            "label": "vision radius"
+          }
+        ]
+      },
+      "width": {
+        "text": "500",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 500
+            }
+          }
+        ]
+      },
+      "speed": {
+        "text": "850",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 850
+            }
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Direction"
+      ],
+      "affects": [
+        "Enemies"
+      ],
+      "damageType": [
+        "Magic"
+      ],
+      "spellEffects": "spellaoe",
+      "spellShield": "true",
+      "projectile": "true"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Nami surges a tidal wave in the target direction, granting sight around its trajectory as it travels, dealing magic damage to enemies hit, knocking them up for 0.5 seconds, and slowing them by 70% for 2 / 2.2 / 2.4 / 2.6 / 2.8 / 3 / 3.2 / 3.4 / 3.6 / 3.8 / 4 (based on distance traveled) seconds.",
+        "leveling": [
+          {
+            "label": "Magic Damage",
+            "amount": {
+              "text": "150 / 250 / 350 (+ 60% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  150,
+                  250,
+                  350
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 60
+                  },
+                  "text": "(+ 60% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "reveal",
+            "category": "vision",
+            "wording": "sight",
+            "duration": {
+              "kind": "constant",
+              "value": 0.5
+            },
+            "evidence": "Active: Nami surges a tidal wave in the target direction, granting sight around its trajectory as it travels, dealing magic damage to enemies hit, knocking them up for 0.5 seconds, and slowing them by 70% for 2 / 2.2 / 2.4 / 2.6 / 2.8 / 3 / 3.2 / 3.4 / 3.6 / 3.8 / 4 (based on distance traveled) seconds.",
+            "conditional": false
+          },
+          {
+            "type": "airborne",
+            "category": "control",
+            "wording": "knocking them up",
+            "duration": {
+              "kind": "constant",
+              "value": 0.5
+            },
+            "evidence": "Active: Nami surges a tidal wave in the target direction, granting sight around its trajectory as it travels, dealing magic damage to enemies hit, knocking them up for 0.5 seconds, and slowing them by 70% for 2 / 2.2 / 2.4 / 2.6 / 2.8 / 3 / 3.2 / 3.4 / 3.6 / 3.8 / 4 (based on distance traveled) seconds.",
+            "conditional": false
+          },
+          {
+            "type": "slow",
+            "category": "control",
+            "wording": "slowing",
+            "duration": {
+              "kind": "variable",
+              "variable": "distance traveled",
+              "points": [
+                0,
+                275,
+                550,
+                825,
+                1100,
+                1375,
+                1650,
+                1925,
+                2200,
+                2475,
+                2750
+              ],
+              "values": [
+                2,
+                2.2,
+                2.4,
+                2.6,
+                2.8,
+                3,
+                3.2,
+                3.4,
+                3.6,
+                3.8,
+                4
+              ]
+            },
+            "amount": {
+              "kind": "constant",
+              "value": 70
+            },
+            "evidence": "Active: Nami surges a tidal wave in the target direction, granting sight around its trajectory as it travels, dealing magic damage to enemies hit, knocking them up for 0.5 seconds, and slowing them by 70% for 2 / 2.2 / 2.4 / 2.6 / 2.8 / 3 / 3.2 / 3.4 / 3.6 / 3.8 / 4 (based on distance traveled) seconds.",
+            "conditional": false
+          }
+        ],
+        "values": [
+          {
+            "series": {
+              "kind": "variable",
+              "variable": "distance traveled",
+              "points": [
+                0,
+                275,
+                550,
+                825,
+                1100,
+                1375,
+                1650,
+                1925,
+                2200,
+                2475,
+                2750
+              ],
+              "values": [
+                2,
+                2.2,
+                2.4,
+                2.6,
+                2.8,
+                3,
+                3.2,
+                3.4,
+                3.6,
+                3.8,
+                4
+              ]
+            },
+            "context": "Active: Nami surges a tidal wave in the target direction, granting sight around its trajectory as it travels, dealing magic damage to enemies hit, knocking them up for 0.5 seconds, and slowing them by 70% for 2 / 2.2 / 2.4 / 2.6 / 2.8 / 3 / 3.2 / 3.4 / 3.6 / 3.8 / 4 (based on distance traveled) seconds."
+          }
+        ]
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "This ability will cast from wherever the caster is at the end of the cast time.",
+      "Surging Tides will trigger immediately on Nami on-cast.",
+      "The wave travels over 3.267."
+    ]
+  },
+  {
+    "champion": "Nami",
+    "kind": "W",
+    "name": "Ebb and Flow",
+    "page": {
+      "title": "Template:Data Nami/Ebb and Flow",
+      "revid": 4007697
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "10",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 10
+            }
+          }
+        ]
+      },
+      "cost": {
+        "text": "70 / 75 / 80 / 85 / 90",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                70,
+                75,
+                80,
+                85,
+                90
+              ]
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "0.25",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0.25
+            }
+          }
+        ]
+      },
+      "targetRange": {
+        "text": "725",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 725
+            }
+          }
+        ]
+      },
+      "effectRadius": {
+        "text": "800",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 800
+            },
+            "label": "Bounce range"
+          }
+        ]
+      },
+      "speed": {
+        "text": "2500 • 1500",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 2500
+            },
+            "label": "Initial speed"
+          },
+          {
+            "series": {
+              "kind": "constant",
+              "value": 1500
+            },
+            "label": "Bounce speed"
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Unit"
+      ],
+      "affects": [
+        "Enemies",
+        "Allies"
+      ],
+      "damageType": [
+        "Magic"
+      ],
+      "spellEffects": "aoe",
+      "spellShield": "true",
+      "projectile": "true"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Nami unleashes a stream of water onto the target champion or herself, which then bounces to nearby unaffected champions up to twice, alternating between enemies and allies and Nami.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "text": "Ebb and Flow heals allies and deals magic damage to enemies, with each bounce modifying the effectiveness of the next by -20% (+ 15% per 100 AP).",
+        "leveling": [
+          {
+            "label": "Heal",
+            "amount": {
+              "text": "55 / 80 / 105 / 130 / 155 (+ 40% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  55,
+                  80,
+                  105,
+                  130,
+                  155
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 40
+                  },
+                  "text": "(+ 40% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Minimum Heal",
+            "amount": {
+              "text": "33 / 48 / 63 / 78 / 93 (+ 24% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  33,
+                  48,
+                  63,
+                  78,
+                  93
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 24
+                  },
+                  "text": "(+ 24% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Magic Damage",
+            "amount": {
+              "text": "60 / 95 / 130 / 165 / 200 (+ 50% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  60,
+                  95,
+                  130,
+                  165,
+                  200
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 50
+                  },
+                  "text": "(+ 50% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Minimum Damage",
+            "amount": {
+              "text": "36 / 57 / 78 / 99 / 120 (+ 30% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  36,
+                  57,
+                  78,
+                  99,
+                  120
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 30
+                  },
+                  "text": "(+ 30% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "heal",
+            "category": "defense",
+            "wording": "heals",
+            "evidence": "Ebb and Flow heals allies and deals magic damage to enemies, with each bounce modifying the effectiveness of the next by -20% (+ 15% per 100 AP).",
+            "conditional": false
+          }
+        ],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "If cast on an enemy with a spell shield they will not take damage but Ebb and Flow will still continue to bounce, and the target who blocked the ability may be targeted again by the final bounce.",
+      "If the target becomes untargetable, dies, or is too far away or no longer in sight during the cast time, this ability will cancel but does not go on cooldown nor pay its cost (if applicable)."
+    ]
+  }
+]

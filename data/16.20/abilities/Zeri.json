@@ -1,0 +1,1277 @@
+[
+  {
+    "champion": "Zeri",
+    "kind": "E",
+    "name": "Spark Surge",
+    "page": {
+      "title": "Template:Data Zeri/Spark Surge",
+      "revid": 4015351
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "24 / 22.5 / 21 / 19.5 / 18",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                24,
+                22.5,
+                21,
+                19.5,
+                18
+              ]
+            }
+          }
+        ]
+      },
+      "cooldownStart": "on-cast",
+      "cost": {
+        "text": "90 / 85 / 80 / 75 / 70",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                90,
+                85,
+                80,
+                75,
+                70
+              ]
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "None",
+        "values": []
+      },
+      "range": {
+        "text": "300",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 300
+            },
+            "label": "Standard dash distance"
+          }
+        ]
+      },
+      "speed": {
+        "text": "600 + 100% movement speed",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 600
+            }
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Direction"
+      ],
+      "affects": [
+        "Enemies",
+        "Self"
+      ],
+      "damageType": [
+        "Magic"
+      ],
+      "spellEffects": "proc",
+      "parry": "true",
+      "grounded": "true",
+      "knockdown": "true"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Zeri dashes in the target direction. She will dash farther across terrain if Spark Surge was cast within 50 units of any, gaining unobstructed vision of the surrounding 800 units and revealing herself while there are enemy champions within 1500 units of her.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "dash",
+            "category": "movement",
+            "wording": "dashes",
+            "evidence": "Active: Zeri dashes in the target direction.",
+            "conditional": false
+          },
+          {
+            "type": "reveal",
+            "category": "vision",
+            "wording": "unobstructed vision",
+            "evidence": "She will dash farther across terrain if Spark Surge was cast within 50 units of any, gaining unobstructed vision of the surrounding 800 units and revealing herself while there are enemy champions within 1500 units of her.",
+            "conditional": false
+          },
+          {
+            "type": "reveal",
+            "category": "vision",
+            "wording": "revealing",
+            "evidence": "She will dash farther across terrain if Spark Surge was cast within 50 units of any, gaining unobstructed vision of the surrounding 800 units and revealing herself while there are enemy champions within 1500 units of her.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "Afterwards, she gains Lightning Rounds for 5 seconds, empowering Burst Fire to deal bonus magic damage to the first enemy hit, increased by critical strike damage (based on critical strike chance), and pierce through enemies. Targets after the first take modified damage which does not apply on-hit effects or life steal nor trigger on-attack effects, but is affected by critical strike modifiers.",
+        "leveling": [
+          {
+            "label": "Burst Fire Bonus Magic Damage",
+            "amount": {
+              "text": "22 / 24 / 26 / 28 / 30 (+ 20% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  22,
+                  24,
+                  26,
+                  28,
+                  30
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 20
+                  },
+                  "text": "(+ 20% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Burst Fire Secondary Target Damage",
+            "amount": {
+              "text": "80 / 85 / 90 / 95 / 100%",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  80,
+                  85,
+                  90,
+                  95,
+                  100
+                ]
+              },
+              "unit": "%",
+              "scaling": [],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "on-hit",
+            "category": "offense",
+            "wording": "on-hit",
+            "evidence": "Targets after the first take modified damage which does not apply on-hit effects or life steal nor trigger on-attack effects, but is affected by critical strike modifiers.",
+            "conditional": false
+          },
+          {
+            "type": "life steal",
+            "category": "defense",
+            "wording": "life steal",
+            "evidence": "Targets after the first take modified damage which does not apply on-hit effects or life steal nor trigger on-attack effects, but is affected by critical strike modifiers.",
+            "conditional": false
+          },
+          {
+            "type": "on-attack",
+            "category": "offense",
+            "wording": "on-attack",
+            "evidence": "Targets after the first take modified damage which does not apply on-hit effects or life steal nor trigger on-attack effects, but is affected by critical strike modifiers.",
+            "conditional": false
+          },
+          {
+            "type": "critical strike",
+            "category": "offense",
+            "wording": "critical strike",
+            "evidence": "Targets after the first take modified damage which does not apply on-hit effects or life steal nor trigger on-attack effects, but is affected by critical strike modifiers.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "Spark Surge's current cooldown is reduced by 0.5 seconds whenever Zeri hits at least one enemy with a charged basic attack or Burst Fire, increased to 1.5 seconds if the latter critically strikes.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "critical strike",
+            "category": "offense",
+            "wording": "critically strikes",
+            "evidence": "Spark Surge's current cooldown is reduced by 0.5 seconds whenever Zeri hits at least one enemy with a charged basic attack or Burst Fire, increased to 1.5 seconds if the latter critically strikes.",
+            "conditional": true
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "Spark Surge resets Zeri's basic attack timer and Burst Fire cooldown. Ultrashock Laser and Lightning Crash can be cast during the dash.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "attack reset",
+            "category": "offense",
+            "wording": "resets",
+            "evidence": "Spark Surge resets Zeri's basic attack timer and Burst Fire cooldown.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Spark Surge's extended dash travels based on the thickness of the terrain, up to a maximum distance.",
+      "The following table refers for interactions while Zeri is dashing:"
+    ]
+  },
+  {
+    "champion": "Zeri",
+    "kind": "I",
+    "name": "Living Battery",
+    "page": {
+      "title": "Template:Data Zeri/Living Battery",
+      "revid": 4051663
+    },
+    "ranks": 1,
+    "fields": {
+      "cost": {
+        "text": "10 • 100",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 10
+            },
+            "label": "Regular zaps"
+          },
+          {
+            "series": {
+              "kind": "constant",
+              "value": 100
+            },
+            "label": "Full charge zap"
+          }
+        ]
+      },
+      "costType": "charge",
+      "attackRange": {
+        "text": "550",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 550
+            }
+          }
+        ]
+      },
+      "speed": {
+        "text": "N/A",
+        "values": []
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Unit"
+      ],
+      "affects": [
+        "Self"
+      ],
+      "damageType": [
+        "magic"
+      ],
+      "spellEffects": "spell",
+      "spellShield": "special",
+      "projectile": "false",
+      "parry": "false"
+    },
+    "parts": [
+      {
+        "label": "Innate",
+        "text": "Innate: Zeri generates 1 charge for every 40 units she travels by any means and 10 charge every time she casts Burst Fire, up to a maximum of 100 charge. Her basic attacks consume charge to deal modified damage.\nZeri gains maximum charge when the game starts and upon respawning.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "text": "Basic Attack: Zeri zaps the target, dealing 10 – 25 (based on level) (+ 3% AP) magic damage, applying spell effects as spell damage, triggering on-cast effects and executing the target if they are below 70 – 160 (based on level) (+ 20% AP) health. This cannot critically strike and does not apply nor trigger on-hit and on-attack effects.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "critical strike",
+            "category": "offense",
+            "wording": "critically strike",
+            "evidence": "This cannot critically strike and does not apply nor trigger on-hit and on-attack effects.",
+            "conditional": true
+          },
+          {
+            "type": "on-hit",
+            "category": "offense",
+            "wording": "on-hit",
+            "evidence": "This cannot critically strike and does not apply nor trigger on-hit and on-attack effects.",
+            "conditional": true
+          },
+          {
+            "type": "on-attack",
+            "category": "offense",
+            "wording": "on-attack",
+            "evidence": "This cannot critically strike and does not apply nor trigger on-hit and on-attack effects.",
+            "conditional": true
+          }
+        ],
+        "values": [
+          {
+            "series": {
+              "kind": "level",
+              "values": [
+                10,
+                10.635294117647058,
+                11.301470588235293,
+                11.998529411764705,
+                12.726470588235294,
+                13.48529411764706,
+                14.274999999999999,
+                15.095588235294118,
+                15.947058823529412,
+                16.82941176470588,
+                17.74264705882353,
+                18.686764705882354,
+                19.661764705882355,
+                20.66764705882353,
+                21.70441176470588,
+                22.772058823529413,
+                23.870588235294118,
+                25,
+                26.16029411764706,
+                27.351470588235298
+              ],
+              "past18": "wiki"
+            },
+            "context": "Basic Attack: Zeri zaps the target, dealing 10 – 25 (based on level) (+ 3% AP) magic damage, applying spell effects as spell damage, triggering on-cast effects and executing the target if they are below 70 – 160 (based on level) (+ 20% AP) health."
+          },
+          {
+            "series": {
+              "kind": "level",
+              "values": [
+                70,
+                75.29411764705883,
+                80.58823529411765,
+                85.88235294117646,
+                91.17647058823529,
+                96.47058823529412,
+                101.76470588235294,
+                107.05882352941177,
+                112.35294117647058,
+                117.64705882352942,
+                122.94117647058823,
+                128.23529411764707,
+                133.52941176470588,
+                138.8235294117647,
+                144.11764705882354,
+                149.41176470588235,
+                154.70588235294116,
+                160,
+                165.29411764705884,
+                170.58823529411762
+              ],
+              "past18": "wiki"
+            },
+            "context": "Basic Attack: Zeri zaps the target, dealing 10 – 25 (based on level) (+ 3% AP) magic damage, applying spell effects as spell damage, triggering on-cast effects and executing the target if they are below 70 – 160 (based on level) (+ 20% AP) health."
+          }
+        ]
+      },
+      {
+        "text": "At full charge, Zeri's next attack is empowered to consume all charge to deal 75 – 160 (based on level) (+ 110% AP) (+ 1 – 11 (based on level)% of target's maximum health) magic damage. The damage based on the target's health ratio is capped at 300 against monsters.",
+        "leveling": [],
+        "mechanics": [],
+        "values": [
+          {
+            "series": {
+              "kind": "level",
+              "values": [
+                75,
+                80,
+                85,
+                90,
+                95,
+                100,
+                105,
+                110,
+                115,
+                120,
+                125,
+                130,
+                135,
+                140,
+                145,
+                150,
+                155,
+                160,
+                165,
+                170
+              ],
+              "past18": "wiki"
+            },
+            "context": "At full charge, Zeri's next attack is empowered to consume all charge to deal 75 – 160 (based on level) (+ 110% AP) (+ 1 – 11 (based on level)% of target's maximum health) magic damage."
+          },
+          {
+            "series": {
+              "kind": "level",
+              "values": [
+                1,
+                1.5882352941176472,
+                2.1764705882352944,
+                2.764705882352941,
+                3.3529411764705883,
+                3.9411764705882355,
+                4.529411764705882,
+                5.11764705882353,
+                5.705882352941177,
+                6.294117647058823,
+                6.882352941176471,
+                7.470588235294118,
+                8.058823529411764,
+                8.647058823529413,
+                9.23529411764706,
+                9.823529411764707,
+                10.411764705882353,
+                11,
+                11.588235294117647,
+                12.176470588235295
+              ],
+              "past18": "wiki"
+            },
+            "context": "At full charge, Zeri's next attack is empowered to consume all charge to deal 75 – 160 (based on level) (+ 110% AP) (+ 1 – 11 (based on level)% of target's maximum health) magic damage."
+          }
+        ]
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Charged attacks only deal the base damage to structures.",
+      "Uncharged attacks do not execute enemies that are shielded or invulnerable while below the health threshold.",
+      "Spell shield will only block a fully charged attack. Uncharged attacks are not blocked.",
+      "The attack's range is affected by attack range modifiers (Rapid Firecannon) (tested on patch 26.12).",
+      "Uncharged and charged attacks trigger Tear of the Goddess Mana Charge and Manaflow Band.",
+      "Attacking a turret does not consume Crystalline Overgrowth.",
+      "The empowered attack will trigger but not be consumed against wards or jungle plants.",
+      "If Last Hit Indicator enabled, it will indicate Living Battery's execute threshold instead of its usual function."
+    ]
+  },
+  {
+    "champion": "Zeri",
+    "kind": "Q",
+    "name": "Burst Fire",
+    "page": {
+      "title": "Template:Data Zeri/Burst Fire",
+      "revid": 4062236
+    },
+    "ranks": 5,
+    "fields": {
+      "staticCooldown": {
+        "text": "1 ÷ Zeri's attack speed",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 1
+            }
+          }
+        ]
+      },
+      "cost": {
+        "text": "None",
+        "values": []
+      },
+      "range": {
+        "text": "750 + 100% bonus attack range",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 750
+            },
+            "label": "Active spray missile reaches"
+          }
+        ]
+      },
+      "width": {
+        "text": "80",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 80
+            },
+            "label": "Active spray missiles"
+          }
+        ]
+      },
+      "speed": {
+        "text": "2600 • 3400",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 2600
+            },
+            "label": "Active spray missile speed"
+          },
+          {
+            "series": {
+              "kind": "constant",
+              "value": 3400
+            },
+            "label": "Empowered spray missile speed while Overcharged"
+          }
+        ]
+      },
+      "angle": {
+        "text": "5° • 2°",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 5
+            },
+            "label": "Angle at which the outermost missiles fan out from one another, 2.5 degree from the center"
+          },
+          {
+            "series": {
+              "kind": "constant",
+              "value": 2
+            },
+            "label": "Decreased spread angle while Overcharged"
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Direction"
+      ],
+      "affects": [
+        "Self",
+        "Enemies"
+      ],
+      "damageType": [
+        "Physical"
+      ],
+      "spellEffects": "special",
+      "spellShield": "false",
+      "projectile": "true",
+      "parry": "special"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Zeri fires a burst of 7 rounds in the target direction over the cast time, each dealing physical damage to the first enemy hit.",
+        "leveling": [
+          {
+            "label": "Total Physical Damage",
+            "amount": {
+              "text": "22 / 26 / 30 / 34 / 38 (+ 102 / 104 / 106 / 108 / 110% AD)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  22,
+                  26,
+                  30,
+                  34,
+                  38
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AD",
+                  "ratio": {
+                    "kind": "rank",
+                    "values": [
+                      102,
+                      104,
+                      106,
+                      108,
+                      110
+                    ]
+                  },
+                  "text": "(+ 102 / 104 / 106 / 108 / 110% AD)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Total Critical Strike Damage",
+            "amount": {
+              "text": "44 / 52 / 60 / 68 / 76 (+ 204 / 208 / 212 / 216 / 220% AD)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  44,
+                  52,
+                  60,
+                  68,
+                  76
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AD",
+                  "ratio": {
+                    "kind": "rank",
+                    "values": [
+                      204,
+                      208,
+                      212,
+                      216,
+                      220
+                    ]
+                  },
+                  "text": "(+ 204 / 208 / 212 / 216 / 220% AD)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Physical Damage per Hit",
+            "amount": {
+              "text": "3.14286 / 3.71429 / 4.28571 / 4.85714 / 5.42857 (+ 14.5714 / 14.8571 / 15.1429 / 15.4286 / 15.7143% AD)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  3.142857142857143,
+                  3.7142857142857144,
+                  4.285714285714286,
+                  4.857142857142858,
+                  5.428571428571429
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AD",
+                  "ratio": {
+                    "kind": "rank",
+                    "values": [
+                      14.571428571428571,
+                      14.857142857142858,
+                      15.142857142857142,
+                      15.428571428571427,
+                      15.714285714285714
+                    ]
+                  },
+                  "text": "(+ 14.5714 / 14.8571 / 15.1429 / 15.4286 / 15.7143% AD)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Critical Strike per Hit",
+            "amount": {
+              "text": "6.28571 / 7.42857 / 8.57143 / 9.71429 / 10.8571 (+ 29.1429 / 29.7143 / 30.2857 / 30.8571 / 31.4286% AD)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  6.285714285714286,
+                  7.428571428571429,
+                  8.571428571428571,
+                  9.714285714285715,
+                  10.857142857142858
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AD",
+                  "ratio": {
+                    "kind": "rank",
+                    "values": [
+                      29.142857142857142,
+                      29.714285714285715,
+                      30.285714285714285,
+                      30.857142857142854,
+                      31.428571428571427
+                    ]
+                  },
+                  "text": "(+ 29.1429 / 29.7143 / 30.2857 / 30.8571 / 31.4286% AD)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "text": "Burst Fire's projectile is treated as a basic attack: it hits any enemy unit a typical basic attack can; deals basic damage; can critically strike for 200% damage; and applies on-hit and on-attack effects to the first enemy hit. Burst Fire's cooldown and cast time are reduced with attack speed, with the maximum of 1.5 attacks per second. 60% of attack speed in excess of the cap is converted into bonus attack damage.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "critical strike",
+            "category": "offense",
+            "wording": "critically strike",
+            "evidence": "Burst Fire's projectile is treated as a basic attack: it hits any enemy unit a typical basic attack can; deals basic damage; can critically strike for 200% damage; and applies on-hit and on-attack effects to the first enemy hit.",
+            "conditional": false
+          },
+          {
+            "type": "on-hit",
+            "category": "offense",
+            "wording": "on-hit",
+            "evidence": "Burst Fire's projectile is treated as a basic attack: it hits any enemy unit a typical basic attack can; deals basic damage; can critically strike for 200% damage; and applies on-hit and on-attack effects to the first enemy hit.",
+            "conditional": false
+          },
+          {
+            "type": "on-attack",
+            "category": "offense",
+            "wording": "on-attack",
+            "evidence": "Burst Fire's projectile is treated as a basic attack: it hits any enemy unit a typical basic attack can; deals basic damage; can critically strike for 200% damage; and applies on-hit and on-attack effects to the first enemy hit.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "Zeri can cast Burst Fire even while silenced.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "silence",
+            "category": "control",
+            "wording": "silenced",
+            "evidence": "Zeri can cast Burst Fire even while silenced.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      }
+    ],
+    "custom": [
+      {
+        "label": "Standard Cast Time",
+        "text": "100% of Zeri's windup time (0.237462 at base attack speed)"
+      },
+      {
+        "label": "Cast Time while Overcharged",
+        "text": "80% of Zeri's windup time (0.18997 at base attack speed)"
+      }
+    ],
+    "notes": [
+      "Burst Fire is automatically learned with her first skill point upon spawning.",
+      "Burst Fire deals basic damage and does not trigger spell effects. It is additionally tagged as area of effect when damaging targets after the first.",
+      "Burst Fire is still locked out while Zeri is affected by any form of other cast-inhibiting crowd control.\n  - Silence is special cased to specifically not disable Burst Fire.\n  - Polymorph, despite functioning identically to silence, will still lock Burst Fire from being cast.",
+      "Any of Burst Fire's rounds hitting a champion will draw minion aggro, regardless of whether or not other targets were hit first by Burst Fire's rounds.\n  - A lightning chain from a Lightning Crash empowered Burst Fire will not draw minion aggro.",
+      "Casting Burst Fire does not cancel previous attack (Living Battery) and movement orders.",
+      "Burst Fire does not trigger Tear of the Goddess Mana Charge.",
+      "Burst Fire's cooldown is not reduced by Navori Flickerblade Transcendence.",
+      "Tantrum, Nimble Fighter, and Eclipse flat damage reduction apply to each of the 7 instances of damage from Burst Fire.\n  - Warden's Mail flat damage reduction and cap only apply to the first instance of damage.\n  - Guardian's Horn flat damage reduction only applies to the first instance of damage, but handles it as damage-over-time (reduced to 25% effectiveness).",
+      "Burst Fire still counts as an ability activation for the purposes of on-cast effects such as triggering Force Pulse passive.\n  - It does not count as an ability activation for Spellblade.",
+      "Burst Fire can hit all enemy units that a basic attack would be able to target. This does include jungle plants, structures, and wards.\n  - Wards will only be hit once by Burst Fire. Stealthed wards and traps will not take damage.\n    - Burst Fire will still apply on-attack effects to stealthed traps and wards.\n    - Neeko will be hit multiple times while disguised as a ward, but any subsequent rounds will continue to travel through.\n  - Champion-summoned units behave differently depending on the unit.\n    - Powder Keg and Dark Procession are hit only once by Burst Fire, and any subsequent rounds not empowered by Spark Surge will stop upon reaching the same object.\n    - Sentinel is hit only once by Burst Fire, but any subsequent rounds will continue to travel through the Sentinel.",
+      "If Burst Fire hits an enemy while Zeri is not visible to enemies, the area around her (400 units) will be revealed for 4.5 seconds.",
+      "Burst Fire rolls critical strike for all rounds as well as the additional physical damage dealt when Zeri is Overcharged.",
+      "Burst Fire is parried by dodge and block.\n  - Blind causes Burst Fire to cast in a random direction. The rounds will still deal damage to enemies hit.",
+      "Burst Fire's rounds are each fired in the target direction from where Zeri is at the time.",
+      "Only attack speed granted by being Overcharged can exceed the cap of 1.5.\n  - Hail of Blades does not allow Zeri to exceed her attack speed cap.",
+      "Item and rune effects that trigger off of attacking (e.g., Fleet Footwork and Kraken Slayer) will only trigger if Burst Fire hits a unit.",
+      "If Zeri would reach maximum Energized stacks from a Burst Fire cast, the remaining rounds will trigger Energized's effect.",
+      "Burst Fire's cast-indicator does not show range increases; modified range VFX are still visible around the champion model.",
+      "Burst Fire can apply the effect of Horizon Focus when the enemy hit is within the last 50 units of this ability.",
+      "Burst Fire uses a modified icon when empowered by Spark Surge () and Lightning Crash () as well as both ().",
+      "Destroying a ward that is targetable but not visible to Zeri's team (e.g. a Control Ward in Fog of War) via Burst Fire uniquely allows her to remove its accompanying ward timer (if it exists) without seeing the ward being destroyed.",
+      "If Zeri is affected by an ally Tempered Fate during Burst Fire's cast time, she will be able to cast it during the effect.",
+      "The bonus AD calculates off of excess bonus attack speed percent - not the raw excess attack speed.\n  - For example, if she has 150% bonus attack speed percent, but needs only 135% to reach the 1.5 attack speed cap, she will gain 0.6 × (150−135)0.6 × 159 AD\n  - The excess attack speed is calculated after any cripple effects (like Frozen Heart Winter's Caress), meaning they can reduce both her attack speed and attack damage.\n  - The excess attack speed is calculated before Lightning Crash applies its effects. Using it won't change the attack damage, despite her gaining additional attack speed and the cap changing."
+    ]
+  },
+  {
+    "champion": "Zeri",
+    "kind": "R",
+    "name": "Lightning Crash",
+    "page": {
+      "title": "Template:Data Zeri/Lightning Crash",
+      "revid": 4016978
+    },
+    "ranks": 3,
+    "fields": {
+      "cooldown": {
+        "text": "80 / 75 / 70",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                80,
+                75,
+                70
+              ]
+            }
+          }
+        ]
+      },
+      "cooldownStart": "post-effect",
+      "cost": {
+        "text": "100",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 100
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "0.25",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0.25
+            }
+          }
+        ]
+      },
+      "effectRadius": {
+        "text": "825",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 825
+            },
+            "label": "Nova radius"
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Auto"
+      ],
+      "affects": [
+        "Self",
+        "Enemies"
+      ],
+      "damageType": [
+        "Physical Magic"
+      ],
+      "spellEffects": "special",
+      "spellShield": "special",
+      "projectile": "false"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Zeri discharges an electric nova that deals magic damage to nearby enemies. If this hits at least one enemy champion, she enters Overcharged for 5 seconds. Hitting an enemy champion with an ability or charged attack will extend the duration by 2.5 seconds, up to its original duration.",
+        "leveling": [
+          {
+            "label": "Magic Damage",
+            "amount": {
+              "text": "150 / 250 / 350 (+ 60% bonus AD) (+ 110% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  150,
+                  250,
+                  350
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "bonusAD",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 60
+                  },
+                  "text": "(+ 60% bonus AD)"
+                },
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 110
+                  },
+                  "text": "(+ 110% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "label": "Overcharged",
+        "text": "Overcharged: Zeri gains 15% bonus movement speed and 30% bonus attack speed and an increased attack speed cap of 1.6875. Burst Fire is empowered to have a 20% shorter cast time and a decreased spread angle, and instead fires 3 rounds that travel with increased speed. The first round to hit an enemy per cast instance chains electricity to the nearest visible enemy within 650 units of the target, up to 4 subsequent targets, to deal 40% AD physical damage. This damage can critically strike for 40% AD bonus physical damage.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "reveal",
+            "category": "vision",
+            "wording": "visible",
+            "evidence": "The first round to hit an enemy per cast instance chains electricity to the nearest visible enemy within 650 units of the target, up to 4 subsequent targets, to deal 40% AD physical damage.",
+            "conditional": false
+          },
+          {
+            "type": "critical strike",
+            "category": "offense",
+            "wording": "critically strike",
+            "evidence": "This damage can critically strike for 40% AD bonus physical damage.",
+            "conditional": false
+          }
+        ],
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 1.6875
+            },
+            "context": "Overcharged: Zeri gains 15% bonus movement speed and 30% bonus attack speed and an increased attack speed cap of 1.6875."
+          }
+        ]
+      },
+      {
+        "text": "During Overcharged, Zeri can generate stacks of Hypercharged from enemy champions that last 2.5 seconds. She generates 1 stack for each one she hits with an ability or charged attack, increased to 3 on abilities that critically strike. Subsequent hits refresh the duration of Hypercharged. Burst Fire grants stacks only against the first target hit.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "critical strike",
+            "category": "offense",
+            "wording": "critically strike",
+            "evidence": "She generates 1 stack for each one she hits with an ability or charged attack, increased to 3 on abilities that critically strike.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "label": "Hypercharged",
+        "text": "Hypercharged: For each stack, Zeri gains 1.5% bonus movement speed.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "text": "Zeri can move during Lightning Crash's cast time.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Lightning Crash does not interrupt Zeri's previous orders.",
+      "Zeri can stack Hypercharged up to 100,000 times.",
+      "Applies area damage for the nova and proc damage for the chain lightning.",
+      "Spell shield blocks Lightning Crash's initial nova but does not prevent Zeri from becoming Overcharged.\n  - It does not block Burst Fire electricity chain.",
+      "Clones count for granting Overcharge.",
+      "Lightning Crash's and Spark Surge empowerments to Burst Fire can combine together.",
+      "Burst Fire electricity chain will not chain across structures.",
+      "Entering resurrection causes Zeri to lose all stacks of Hypercharged.\n  - Overcharged is not removed, however.\n  - Zeri will not be able to gain stacks of Hypercharged again after reviving while Overcharged is active.",
+      "This ability will cast from wherever the caster is at the end of the cast time."
+    ]
+  },
+  {
+    "champion": "Zeri",
+    "kind": "W",
+    "name": "Ultrashock Laser",
+    "page": {
+      "title": "Template:Data Zeri/Ultrashock Laser",
+      "revid": 4060386
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "12 / 11 / 10 / 9 / 8",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                12,
+                11,
+                10,
+                9,
+                8
+              ]
+            }
+          }
+        ]
+      },
+      "cost": {
+        "text": "50 / 60 / 70 / 80 / 90",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                50,
+                60,
+                70,
+                80,
+                90
+              ]
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "0.55 / 0.528 / 0.495 / 0.462 / 0.429 / 0.396 / 0.363 / 0.33 / 0.3 (based on bonus attack speed)",
+        "values": [
+          {
+            "series": {
+              "kind": "variable",
+              "variable": "bonus attack speed",
+              "points": [
+                0,
+                24.4444,
+                61.1111,
+                97.7778,
+                134.444,
+                171.111,
+                207.778,
+                244.444,
+                277.778
+              ],
+              "values": [
+                0.55,
+                0.528,
+                0.495,
+                0.462,
+                0.429,
+                0.396,
+                0.363,
+                0.33,
+                0.3
+              ]
+            }
+          }
+        ]
+      },
+      "range": {
+        "text": "1200 • -50 – 1550",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 1200
+            },
+            "label": "Initial missile"
+          },
+          {
+            "series": {
+              "kind": "constant",
+              "value": 50
+            },
+            "label": "1600 units total empowered length"
+          }
+        ]
+      },
+      "width": {
+        "text": "80 • 200",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 80
+            },
+            "label": "Initial missile"
+          },
+          {
+            "series": {
+              "kind": "constant",
+              "value": 200
+            },
+            "label": "Laser beam width"
+          }
+        ]
+      },
+      "speed": {
+        "text": "2500",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 2500
+            },
+            "label": "Initial missile"
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Direction"
+      ],
+      "affects": [
+        "Enemies"
+      ],
+      "damageType": [
+        "Magic"
+      ],
+      "spellEffects": "special",
+      "spellShield": "true",
+      "projectile": "special"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Zeri fires an electric pulse in the target direction that deals physical damage to the first enemy hit and slows them for 2 seconds.\n\nIf the pulse hits terrain, it transforms into a laser in a line that grants sight of the area for 1.75 seconds and fires after 0.85 seconds, applying the same effects to enemies hit and critically striking for 150% damage against champions and monsters.",
+        "leveling": [
+          {
+            "label": "Physical Damage",
+            "amount": {
+              "text": "30 / 70 / 110 / 150 / 190 (+ 100% AD) (+ 50% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  30,
+                  70,
+                  110,
+                  150,
+                  190
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AD",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 100
+                  },
+                  "text": "(+ 100% AD)"
+                },
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 50
+                  },
+                  "text": "(+ 50% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Critical Strike Damage",
+            "amount": {
+              "text": "45 / 105 / 165 / 225 / 285 (+ 150% AD) (+ 75% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  45,
+                  105,
+                  165,
+                  225,
+                  285
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AD",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 150
+                  },
+                  "text": "(+ 150% AD)"
+                },
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 75
+                  },
+                  "text": "(+ 75% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Slow",
+            "amount": {
+              "text": "30 / 35 / 40 / 45 / 50%",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  30,
+                  35,
+                  40,
+                  45,
+                  50
+                ]
+              },
+              "unit": "%",
+              "scaling": [],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "slow",
+            "category": "control",
+            "wording": "slows",
+            "duration": {
+              "kind": "constant",
+              "value": 2
+            },
+            "amount": {
+              "kind": "rank",
+              "values": [
+                30,
+                35,
+                40,
+                45,
+                50
+              ]
+            },
+            "evidence": "Active: Zeri fires an electric pulse in the target direction that deals physical damage to the first enemy hit and slows them for 2 seconds.",
+            "conditional": false
+          },
+          {
+            "type": "reveal",
+            "category": "vision",
+            "wording": "sight",
+            "duration": {
+              "kind": "constant",
+              "value": 1.75
+            },
+            "evidence": "If the pulse hits terrain, it transforms into a laser in a line that grants sight of the area for 1.75 seconds and fires after 0.85 seconds, applying the same effects to enemies hit and critically striking for 150% damage against champions and monsters.",
+            "conditional": false
+          },
+          {
+            "type": "critical strike",
+            "category": "offense",
+            "wording": "critically striking",
+            "evidence": "If the pulse hits terrain, it transforms into a laser in a line that grants sight of the area for 1.75 seconds and fires after 0.85 seconds, applying the same effects to enemies hit and critically striking for 150% damage against champions and monsters.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Applies spell damage for the pulse and area damage for the laser.",
+      "The pulse missile is blocked by projectile-interception effects but not the laser.",
+      "Ultrashock Laser interacts with player-generated terrain.",
+      "This ability will cast from wherever the caster is at the start of the cast time."
+    ]
+  }
+]

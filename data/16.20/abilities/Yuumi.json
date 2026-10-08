@@ -1,0 +1,1509 @@
+[
+  {
+    "champion": "Yuumi",
+    "kind": "E",
+    "name": "Zoomies",
+    "page": {
+      "title": "Template:Data Yuumi/Zoomies",
+      "revid": 4026487
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "10",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 10
+            }
+          }
+        ]
+      },
+      "cost": {
+        "text": "80 / 90 / 100 / 110 / 120",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                80,
+                90,
+                100,
+                110,
+                120
+              ]
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "none",
+        "values": []
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Auto"
+      ],
+      "affects": [
+        "Self",
+        "Allies"
+      ],
+      "damageType": []
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Yuumi grants herself a shield and gains bonus attack speed for 3 seconds. She also gains 20% bonus movement speed while the shield holds.",
+        "leveling": [
+          {
+            "label": "Shield",
+            "amount": {
+              "text": "65 / 90 / 115 / 140 / 165 (+ 40% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  65,
+                  90,
+                  115,
+                  140,
+                  165
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 40
+                  },
+                  "text": "(+ 40% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Bonus Attack Speed",
+            "amount": {
+              "text": "25 / 27.5 / 30 / 32.5 / 35% (+ 8% per 100 AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  25,
+                  27.5,
+                  30,
+                  32.5,
+                  35
+                ]
+              },
+              "unit": "%",
+              "scaling": [
+                {
+                  "stat": "per100:AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 8
+                  },
+                  "text": "(+ 8% per 100 AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "shield",
+            "category": "defense",
+            "wording": "shield",
+            "duration": {
+              "kind": "constant",
+              "value": 3
+            },
+            "evidence": "Active: Yuumi grants herself a shield and gains bonus attack speed for 3 seconds.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "label": "Attached Bonus",
+        "text": "Attached Bonus: Zoomies affects the Anchor instead of Yuumi and additionally restores mana to the Anchor, increased by 0 / 10 / 20 / 30 / 40 / 50 / 60 / 70 / 80 / 90 / 100 (based on Anchor's missing mana)%.",
+        "leveling": [
+          {
+            "label": "Minimum Mana Restored",
+            "amount": {
+              "text": "20 / 24 / 28 / 32 / 36",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  20,
+                  24,
+                  28,
+                  32,
+                  36
+                ]
+              },
+              "scaling": [],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Maximum Mana Restored",
+            "amount": {
+              "text": "40 / 48 / 56 / 64 / 72",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  40,
+                  48,
+                  56,
+                  64,
+                  72
+                ]
+              },
+              "scaling": [],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [],
+        "values": [
+          {
+            "series": {
+              "kind": "variable",
+              "variable": "Anchor's missing mana",
+              "points": [
+                30,
+                35,
+                40,
+                45,
+                50,
+                55,
+                60,
+                65,
+                70,
+                75,
+                80
+              ],
+              "values": [
+                0,
+                10,
+                20,
+                30,
+                40,
+                50,
+                60,
+                70,
+                80,
+                90,
+                100
+              ]
+            },
+            "context": "Attached Bonus: Zoomies affects the Anchor instead of Yuumi and additionally restores mana to the Anchor, increased by 0 / 10 / 20 / 30 / 40 / 50 / 60 / 70 / 80 / 90 / 100 (based on Anchor's missing mana)%."
+          }
+        ]
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "The Anchor's mana bar will briefly become a light blue upon restoring the mana."
+    ]
+  },
+  {
+    "champion": "Yuumi",
+    "kind": "I",
+    "name": "Bop 'n' Block",
+    "page": {
+      "title": "Template:Data Yuumi/Bop 'n' Block",
+      "revid": 3534699
+    },
+    "ranks": 1,
+    "fields": {
+      "staticCooldown": {
+        "text": "18 – 6 (based on level)",
+        "values": [
+          {
+            "series": {
+              "kind": "level",
+              "values": [
+                18,
+                17.294117647058822,
+                16.58823529411765,
+                15.882352941176471,
+                15.176470588235293,
+                14.470588235294118,
+                13.764705882352942,
+                13.058823529411764,
+                12.352941176470587,
+                11.647058823529413,
+                10.941176470588236,
+                10.235294117647058,
+                9.529411764705882,
+                8.823529411764707,
+                8.117647058823529,
+                7.411764705882353,
+                6.705882352941176,
+                6
+              ]
+            }
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Passive"
+      ],
+      "affects": [
+        "Self"
+      ],
+      "damageType": [],
+      "projectile": "false",
+      "parry": "special"
+    },
+    "parts": [
+      {
+        "label": "Innate",
+        "text": "Innate: Periodically, Yuumi's next basic attack against enemy champions will restore 25 – 100 (based on level) (+ 8% maximum mana) mana and grant her a shield for 45 – 300 (based on level) (+ 25% AP) that lasts until destroyed.\nThis attack gains 25 bonus range, has an uncancellable windup, and becomes non-projectile.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "shield",
+            "category": "defense",
+            "wording": "shield",
+            "evidence": "Innate: Periodically, Yuumi's next basic attack against enemy champions will restore 25 – 100 (based on level) (+ 8% maximum mana) mana and grant her a shield for 45 – 300 (based on level) (+ 25% AP) that lasts until destroyed.",
+            "conditional": false
+          },
+          {
+            "type": "uncancellable windup",
+            "category": "offense",
+            "wording": "uncancellable windup",
+            "evidence": "This attack gains 25 bonus range, has an uncancellable windup, and becomes non-projectile.",
+            "conditional": false
+          },
+          {
+            "type": "projectile",
+            "category": "other",
+            "wording": "non-projectile",
+            "evidence": "This attack gains 25 bonus range, has an uncancellable windup, and becomes non-projectile.",
+            "conditional": false
+          }
+        ],
+        "values": [
+          {
+            "series": {
+              "kind": "level",
+              "values": [
+                25,
+                29.411764705882355,
+                33.82352941176471,
+                38.23529411764706,
+                42.64705882352941,
+                47.05882352941177,
+                51.470588235294116,
+                55.88235294117647,
+                60.294117647058826,
+                64.70588235294117,
+                69.11764705882354,
+                73.52941176470588,
+                77.94117647058823,
+                82.35294117647058,
+                86.76470588235294,
+                91.17647058823529,
+                95.58823529411765,
+                100
+              ]
+            },
+            "context": "Innate: Periodically, Yuumi's next basic attack against enemy champions will restore 25 – 100 (based on level) (+ 8% maximum mana) mana and grant her a shield for 45 – 300 (based on level) (+ 25% AP) that lasts until destroyed."
+          },
+          {
+            "series": {
+              "kind": "level",
+              "values": [
+                45,
+                60,
+                75,
+                90,
+                105,
+                120,
+                135,
+                150,
+                165,
+                180,
+                195,
+                210,
+                225,
+                240,
+                255,
+                270,
+                285,
+                300
+              ]
+            },
+            "context": "Innate: Periodically, Yuumi's next basic attack against enemy champions will restore 25 – 100 (based on level) (+ 8% maximum mana) mana and grant her a shield for 45 – 300 (based on level) (+ 25% AP) that lasts until destroyed."
+          }
+        ]
+      },
+      {
+        "label": "Attached Bonus",
+        "text": "Attached Bonus: The shield transfers to the Anchor.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "This ability will apply to a basic attack already in flight, but will not augment it into a non-projectile.",
+      "Bop 'n' Block will not proc if the attack is dodged or Yuumi misses the attack while blinded. It will proc even if the attack is blocked.",
+      "Although the shield doesn't expire, it will never stack with itself.",
+      "Considering Yuumi's base mana, Bop 'n' Block's mana restore is increased by at least 35.2 – 96.4 (based on level)."
+    ]
+  },
+  {
+    "champion": "Yuumi",
+    "kind": "I",
+    "name": "Feline Friendship",
+    "page": {
+      "title": "Template:Data Yuumi/Feline Friendship",
+      "revid": 4026485
+    },
+    "ranks": 1,
+    "fields": {
+      "staticCooldown": {
+        "text": "20 – 8 (based on level)",
+        "values": [
+          {
+            "series": {
+              "kind": "level",
+              "values": [
+                20,
+                19,
+                18,
+                17,
+                16,
+                15,
+                14,
+                13,
+                12,
+                11,
+                10,
+                9,
+                8
+              ]
+            }
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Passive"
+      ],
+      "affects": [
+        "Self",
+        "Allies",
+        "Enemies"
+      ],
+      "damageType": [],
+      "projectile": "false",
+      "parry": "unknown"
+    },
+    "parts": [
+      {
+        "label": "Innate",
+        "text": "Innate: Periodically, Yuumi's next basic attack against an enemy champion is empowered to have an uncancellable windup, gain 50 bonus range and become non-projectile. Upon hitting them with the basic attack or Prowling Projectile, or upon a Final Chapter hit on ally champions while attached, the buff is consumed to heal her for 20 – 110 (based on level) (+ 30% AP). If she is attached to an ally or does so within 4 seconds, they are healed for the same amount.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "uncancellable windup",
+            "category": "offense",
+            "wording": "uncancellable windup",
+            "evidence": "Innate: Periodically, Yuumi's next basic attack against an enemy champion is empowered to have an uncancellable windup, gain 50 bonus range and become non-projectile.",
+            "conditional": false
+          },
+          {
+            "type": "projectile",
+            "category": "other",
+            "wording": "non-projectile",
+            "evidence": "Innate: Periodically, Yuumi's next basic attack against an enemy champion is empowered to have an uncancellable windup, gain 50 bonus range and become non-projectile.",
+            "conditional": false
+          },
+          {
+            "type": "heal",
+            "category": "defense",
+            "wording": "heal",
+            "evidence": "Upon hitting them with the basic attack or Prowling Projectile, or upon a Final Chapter hit on ally champions while attached, the buff is consumed to heal her for 20 – 110 (based on level) (+ 30% AP).",
+            "conditional": false
+          }
+        ],
+        "values": [
+          {
+            "series": {
+              "kind": "level",
+              "values": [
+                20,
+                25.294117647058822,
+                30.588235294117645,
+                35.88235294117647,
+                41.17647058823529,
+                46.470588235294116,
+                51.76470588235294,
+                57.05882352941176,
+                62.35294117647059,
+                67.64705882352942,
+                72.94117647058823,
+                78.23529411764706,
+                83.52941176470588,
+                88.82352941176471,
+                94.11764705882352,
+                99.41176470588235,
+                104.70588235294117,
+                110,
+                115.29411764705883,
+                120.58823529411764
+              ],
+              "past18": "wiki"
+            },
+            "context": "Upon hitting them with the basic attack or Prowling Projectile, or upon a Final Chapter hit on ally champions while attached, the buff is consumed to heal her for 20 – 110 (based on level) (+ 30% AP)."
+          }
+        ]
+      },
+      {
+        "label": "Innate",
+        "text": "Innate: While attached to an ally, Yuumi grants them 2 permanent Friendship stacks whenever they kill enemy champions or minions. The ally with the highest Friendship stacks becomes Yuumi's Best Friend, which empowers her abilities with additional effects while she is attached to them.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Feline Friendship will not be consumed if Yuumi isn't missing health, except when triggered by a basic attack. While attached, it won't be consumed if both Yuumi and her anchor aren't missing health.",
+      "Enemy hits with Final Chapter won't trigger Feline Friendship.",
+      "Ability hit against enemy champions while detached can only heal Yuumi.",
+      "Feline Friendship will apply to a basic attack already in flight.",
+      "If there are multiple allies who have equal Friendship stacks, the one Yuumi is currently attached to becomes her Best Friend.",
+      "Empowered attack interaction with parrying effects (dodge, block).\n  - If Yuumi is blinded, Feline Friendship won't be consumed.",
+      "does Yuumi generate more friendship stacks from champion kills?"
+    ]
+  },
+  {
+    "champion": "Yuumi",
+    "kind": "Q",
+    "name": "Prowling Projectile",
+    "page": {
+      "title": "Template:Data Yuumi/Prowling Projectile",
+      "revid": 4008652
+    },
+    "ranks": 6,
+    "fields": {
+      "cooldown": {
+        "text": "6.5",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 6.5
+            }
+          }
+        ]
+      },
+      "cooldownStart": "starts on-cast when unattached, starts post-effect when attached, starts immediately when detaching",
+      "cost": {
+        "text": "50 / 55 / 60 / 65 / 70 / 75",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                50,
+                55,
+                60,
+                65,
+                70,
+                75
+              ]
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "none",
+        "values": []
+      },
+      "targetRange": {
+        "text": "850",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 850
+            }
+          }
+        ]
+      },
+      "width": {
+        "text": "120",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 120
+            }
+          }
+        ]
+      },
+      "speed": {
+        "text": "950 • 850 • 1650",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 950
+            },
+            "label": "Missile speed"
+          },
+          {
+            "series": {
+              "kind": "constant",
+              "value": 850
+            },
+            "label": "Channeling missile speed"
+          },
+          {
+            "series": {
+              "kind": "constant",
+              "value": 1650
+            },
+            "label": "Accelerated attached missile speed"
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Direction"
+      ],
+      "affects": [
+        "Enemies"
+      ],
+      "damageType": [
+        "Magic"
+      ],
+      "spellEffects": "spell",
+      "spellShield": "true",
+      "projectile": "true",
+      "silence": "true"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Yuumi fires an errant missile in the target direction that deals magic damage to the first enemy hit. If the target is a champion, they are also revealed and slowed by 20% for 1 second.",
+        "leveling": [
+          {
+            "label": "Magic Damage",
+            "amount": {
+              "text": "60 / 95 / 130 / 165 / 200 / 235 (+ 20% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  60,
+                  95,
+                  130,
+                  165,
+                  200,
+                  235
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 20
+                  },
+                  "text": "(+ 20% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "reveal",
+            "category": "vision",
+            "wording": "revealed",
+            "duration": {
+              "kind": "constant",
+              "value": 1
+            },
+            "evidence": "If the target is a champion, they are also revealed and slowed by 20% for 1 second.",
+            "conditional": false
+          },
+          {
+            "type": "slow",
+            "category": "control",
+            "wording": "slowed",
+            "duration": {
+              "kind": "constant",
+              "value": 1
+            },
+            "amount": {
+              "kind": "constant",
+              "value": 20
+            },
+            "evidence": "If the target is a champion, they are also revealed and slowed by 20% for 1 second.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "label": "Attached Bonus",
+        "text": "Attached Bonus: Yuumi channels for up to 1.35 seconds to steer the missile at a slower speed. After being in flight for the same duration, the missile accelerates in its current direction for 0.5 seconds to deal increased damage and apply a stronger slow against champions that decays to 20% over 2 seconds.",
+        "leveling": [
+          {
+            "label": "Increased Damage",
+            "amount": {
+              "text": "80 / 135 / 190 / 245 / 300 / 355 (+ 30% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  80,
+                  135,
+                  190,
+                  245,
+                  300,
+                  355
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 30
+                  },
+                  "text": "(+ 30% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Enhanced Slow",
+            "amount": {
+              "text": "50 / 53 / 56 / 59 / 62 / 65%",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  50,
+                  53,
+                  56,
+                  59,
+                  62,
+                  65
+                ]
+              },
+              "unit": "%",
+              "scaling": [],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "channel",
+            "category": "other",
+            "wording": "channels",
+            "duration": {
+              "kind": "constant",
+              "value": 1.35
+            },
+            "evidence": "Attached Bonus: Yuumi channels for up to 1.35 seconds to steer the missile at a slower speed.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "label": "Best Friend Bonus",
+        "text": "Best Friend Bonus: Prowling Projectile always applies its enhanced slow against champions and hitting a champion grants her Best Friend bonus magic damage on-hit for 5 seconds, increased by 0 / 7.5 / 15 / 22.5 / 30 / 37.5 / 45 / 52.5 / 60 / 67.5 / 75 (based on Anchor's critical strike chance)%.",
+        "leveling": [
+          {
+            "label": "Minimum Bonus Magic Damage On-Hit",
+            "amount": {
+              "text": "10 / 12 / 14 / 16 / 18 / 20 (+ 5% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  10,
+                  12,
+                  14,
+                  16,
+                  18,
+                  20
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 5
+                  },
+                  "text": "(+ 5% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Maximum Bonus Magic Damage On-Hit",
+            "amount": {
+              "text": "17.5 / 21 / 24.5 / 28 / 31.5 / 35 (+ 8.75% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  17.5,
+                  21,
+                  24.5,
+                  28,
+                  31.5,
+                  35
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 8.75
+                  },
+                  "text": "(+ 8.75% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "on-hit",
+            "category": "offense",
+            "wording": "on-hit",
+            "evidence": "Best Friend Bonus: Prowling Projectile always applies its enhanced slow against champions and hitting a champion grants her Best Friend bonus magic damage on-hit for 5 seconds, increased by 0 / 7.5 / 15 / 22.5 / 30 / 37.5 / 45 / 52.5 / 60 / 67.5 / 75 (based on Anchor's critical strike chance)%.",
+            "conditional": false
+          }
+        ],
+        "values": [
+          {
+            "series": {
+              "kind": "variable",
+              "variable": "Anchor's critical strike chance",
+              "points": [
+                0,
+                10,
+                20,
+                30,
+                40,
+                50,
+                60,
+                70,
+                80,
+                90,
+                100
+              ],
+              "values": [
+                0,
+                7.5,
+                15,
+                22.5,
+                30,
+                37.5,
+                45,
+                52.5,
+                60,
+                67.5,
+                75
+              ]
+            },
+            "context": "Best Friend Bonus: Prowling Projectile always applies its enhanced slow against champions and hitting a champion grants her Best Friend bonus magic damage on-hit for 5 seconds, increased by 0 / 7.5 / 15 / 22.5 / 30 / 37.5 / 45 / 52.5 / 60 / 67.5 / 75 (based on Anchor's critical strike chance)%."
+          }
+        ]
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Prowling Projectile is able to turn clockwise or counter-clockwise at a rate of 90° per 0.5 seconds. The missile can turn a maximum of 243° in both directions combined before accelerating.",
+      "Prowling Projectile can be buffered 0.5 seconds before it comes off cooldown.",
+      "The Best Friend's empowerment respects enchantment redirection.",
+      "The following table refers for interactions while Yuumi is channeling:"
+    ]
+  },
+  {
+    "champion": "Yuumi",
+    "kind": "R",
+    "name": "Final Chapter",
+    "page": {
+      "title": "Template:Data Yuumi/Final Chapter",
+      "revid": 4047717
+    },
+    "ranks": 3,
+    "fields": {
+      "cooldown": {
+        "text": "120 / 110 / 100",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                120,
+                110,
+                100
+              ]
+            }
+          }
+        ]
+      },
+      "cooldownStart": "post-effect",
+      "cost": {
+        "text": "100",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 100
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "none",
+        "values": []
+      },
+      "targetRange": {
+        "text": "1100",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 1100
+            }
+          }
+        ]
+      },
+      "width": {
+        "text": "450",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 450
+            }
+          }
+        ]
+      },
+      "speed": {
+        "text": "3000",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 3000
+            }
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Direction"
+      ],
+      "affects": [
+        "Self",
+        "Allies",
+        "Enemies"
+      ],
+      "damageType": [
+        "Magic"
+      ],
+      "spellEffects": "spellaoe",
+      "spellShield": "special",
+      "projectile": "true",
+      "silence": "true"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Yuumi and Book channel for up to 3.5 seconds, during which they are ghosted, to launch 5 magical waves in the target direction.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "channel",
+            "category": "other",
+            "wording": "channel",
+            "duration": {
+              "kind": "constant",
+              "value": 3.5
+            },
+            "evidence": "Active: Yuumi and Book channel for up to 3.5 seconds, during which they are ghosted, to launch 5 magical waves in the target direction.",
+            "conditional": false
+          },
+          {
+            "type": "ghosted",
+            "category": "movement",
+            "wording": "ghosted",
+            "duration": {
+              "kind": "constant",
+              "value": 3.5
+            },
+            "evidence": "Active: Yuumi and Book channel for up to 3.5 seconds, during which they are ghosted, to launch 5 magical waves in the target direction.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "Allied champions hit by the waves are healed, with each heal instance beyond maximum health being converted into a shield that lasts for 1.5 seconds plus the remaining channel duration instead.",
+        "leveling": [
+          {
+            "label": "Heal per Hit",
+            "amount": {
+              "text": "30 / 50 / 70 (+ 12% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  30,
+                  50,
+                  70
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 12
+                  },
+                  "text": "(+ 12% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Total Heal",
+            "amount": {
+              "text": "150 / 250 / 350 (+ 60% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  150,
+                  250,
+                  350
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 60
+                  },
+                  "text": "(+ 60% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "heal",
+            "category": "defense",
+            "wording": "healed",
+            "duration": {
+              "kind": "constant",
+              "value": 1.5
+            },
+            "evidence": "Allied champions hit by the waves are healed, with each heal instance beyond maximum health being converted into a shield that lasts for 1.5 seconds plus the remaining channel duration instead.",
+            "conditional": false
+          },
+          {
+            "type": "shield",
+            "category": "defense",
+            "wording": "shield",
+            "duration": {
+              "kind": "constant",
+              "value": 1.5
+            },
+            "evidence": "Allied champions hit by the waves are healed, with each heal instance beyond maximum health being converted into a shield that lasts for 1.5 seconds plus the remaining channel duration instead.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "Enemies struck by the waves take magic damage and are slowed by 10% for 1.25 seconds. The slow stacks and refreshes on subsequent hits, up to a total strength of 50%. Subsequent waves against enemies hit deal 25% damage.",
+        "leveling": [
+          {
+            "label": "Magic Damage per Hit",
+            "amount": {
+              "text": "75 / 125 / 175 (+ 25% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  75,
+                  125,
+                  175
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 25
+                  },
+                  "text": "(+ 25% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Reduced Damage per Hit",
+            "amount": {
+              "text": "18.75 / 31.25 / 43.75 (+ 6.25% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  18.75,
+                  31.25,
+                  43.75
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 6.25
+                  },
+                  "text": "(+ 6.25% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Total Magic Damage",
+            "amount": {
+              "text": "150 / 250 / 350 (+ 50% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  150,
+                  250,
+                  350
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 50
+                  },
+                  "text": "(+ 50% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "slow",
+            "category": "control",
+            "wording": "slowed",
+            "duration": {
+              "kind": "constant",
+              "value": 1.25
+            },
+            "amount": {
+              "kind": "constant",
+              "value": 10
+            },
+            "evidence": "Enemies struck by the waves take magic damage and are slowed by 10% for 1.25 seconds.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "label": "Attached Bonus",
+        "text": "Attached Bonus: Yuumi can steer the direction of the waves if initially cast while attached. Detaching causes her to lose this bonus for the duration. Additionally, Feline Friendship can trigger from also hitting allied champions.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "label": "Best Friend Bonus",
+        "text": "Best Friend Bonus: Final Chapter's heal to the Best Friend is increased by 30 / 35 / 40 / 45 / 50 / 55 / 60 (based on level)%.",
+        "leveling": [],
+        "mechanics": [],
+        "values": [
+          {
+            "series": {
+              "kind": "variable",
+              "variable": "level",
+              "points": [
+                6,
+                7,
+                8,
+                9,
+                10,
+                11,
+                12
+              ],
+              "values": [
+                30,
+                35,
+                40,
+                45,
+                50,
+                55,
+                60
+              ]
+            },
+            "context": "Best Friend Bonus: Final Chapter's heal to the Best Friend is increased by 30 / 35 / 40 / 45 / 50 / 55 / 60 (based on level)%."
+          }
+        ]
+      },
+      {
+        "text": "While not attached, Yuumi can move while channeling Final Chapter.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Yuumi becomes ghosted for the channel and, if not presently attached with You and Me!, will remain ghosted until she attaches and detaches again.",
+      "While attached, Cloud Dragon Soul will not activate until Yuumi detaches.",
+      "Spell shield will only block a single instance of damage.",
+      "Yuumi's facing direction during the channel is considered to be in Final Chapter's target direction.\n  - Using Hexflash during the channel will always cause Yuumi to blink in the target direction of Final Chapter.",
+      "Feline Friendship will not be triggered if Yuumi and her anchor aren't missing health after the wave hit.",
+      "The VFX will follow Yuumi's location, but the actual hitbox of each wave won't.",
+      "The following table refers for interactions while Yuumi is channeling:"
+    ]
+  },
+  {
+    "champion": "Yuumi",
+    "kind": "W",
+    "name": "You and Me!",
+    "page": {
+      "title": "Template:Data Yuumi/You and Me!",
+      "revid": 4011487
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldownStart": "special",
+      "staticCooldown": {
+        "text": "10 / 5 / 0 (based on level)",
+        "values": [
+          {
+            "series": {
+              "kind": "variable",
+              "variable": "level",
+              "points": [
+                1,
+                6,
+                11
+              ],
+              "values": [
+                10,
+                5,
+                0
+              ]
+            },
+            "label": "Starts after completing the channel"
+          }
+        ]
+      },
+      "castTime": {
+        "text": "none",
+        "values": []
+      },
+      "targetRange": {
+        "text": "700",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 700
+            }
+          }
+        ]
+      },
+      "speed": {
+        "text": "1200 / 1300 / 1400 / 1500 / 1600",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                1200,
+                1300,
+                1400,
+                1500,
+                1600
+              ]
+            },
+            "label": "Dash speed"
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Unit",
+        "Direction"
+      ],
+      "affects": [
+        "Allies"
+      ],
+      "damageType": [],
+      "grounded": "true",
+      "knockdown": "true",
+      "silence": "true"
+    },
+    "parts": [
+      {
+        "label": "Passive",
+        "text": "Passive: While Yuumi is attached, she is untargetable (except by turrets and inbound projectiles) and casts her abilities from the Anchor's position, empowering them with additional effects.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "untargetable",
+            "category": "defense",
+            "wording": "untargetable",
+            "evidence": "Passive: While Yuumi is attached, she is untargetable (except by turrets and inbound projectiles) and casts her abilities from the Anchor's position, empowering them with additional effects.",
+            "conditional": false
+          },
+          {
+            "type": "projectile",
+            "category": "other",
+            "wording": "projectiles",
+            "evidence": "Passive: While Yuumi is attached, she is untargetable (except by turrets and inbound projectiles) and casts her abilities from the Anchor's position, empowering them with additional effects.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "label": "Active",
+        "text": "Active: Yuumi channels for 0.25 seconds, then upon completion dashes to the target allied champion and attaches to them upon arrival, designating them as her Anchor. You and Me! can be recast after 0.5 seconds of the attachment.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "channel",
+            "category": "other",
+            "wording": "channels",
+            "duration": {
+              "kind": "constant",
+              "value": 0.25
+            },
+            "evidence": "Active: Yuumi channels for 0.25 seconds, then upon completion dashes to the target allied champion and attaches to them upon arrival, designating them as her Anchor.",
+            "conditional": false
+          },
+          {
+            "type": "dash",
+            "category": "movement",
+            "wording": "dashes",
+            "evidence": "Active: Yuumi channels for 0.25 seconds, then upon completion dashes to the target allied champion and attaches to them upon arrival, designating them as her Anchor.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "label": "Recast - Change of Plan",
+        "text": "Recast - Change of Plan: Yuumi detaches from her Anchor and dashes to the target allied champion to attach to them, refreshing the recast. She will detach automatically if her Anchor dies or under certain circumstances. If recast without a valid target, Yuumi will detach and dash 250-units in the target direction, placing You and Me! on a 0.25-second cooldown if it is not already on cooldown.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "dash",
+            "category": "movement",
+            "wording": "dashes",
+            "evidence": "Recast - Change of Plan: Yuumi detaches from her Anchor and dashes to the target allied champion to attach to them, refreshing the recast.",
+            "conditional": false
+          },
+          {
+            "type": "attach",
+            "category": "movement",
+            "wording": "attach",
+            "evidence": "Recast - Change of Plan: Yuumi detaches from her Anchor and dashes to the target allied champion to attach to them, refreshing the recast.",
+            "conditional": false
+          },
+          {
+            "type": "dash",
+            "category": "movement",
+            "wording": "dash",
+            "evidence": "If recast without a valid target, Yuumi will detach and dash 250-units in the target direction, placing You and Me!",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "Yuumi will be knocked down by any immobilizing or polymorphing crowd control during the dash to the ally.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "knockdown",
+            "category": "control",
+            "wording": "knocked down",
+            "evidence": "Yuumi will be knocked down by any immobilizing or polymorphing crowd control during the dash to the ally.",
+            "conditional": true
+          },
+          {
+            "type": "polymorph",
+            "category": "control",
+            "wording": "polymorphing",
+            "evidence": "Yuumi will be knocked down by any immobilizing or polymorphing crowd control during the dash to the ally.",
+            "conditional": true
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "Yuumi starts with a skill point in You and Me! and Prowling Projectile instead has 6 ranks.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "label": "Best Friend Bonus",
+        "text": "Best Friend Bonus: Yuumi gains heal and shield power and her Best Friend gains healing on-hit.\n\n\nYou and Me! is placed on a 5-second cooldown if Yuumi becomes immobilized, grounded, or polymorphed.",
+        "leveling": [
+          {
+            "label": "Heal and Shield Power",
+            "amount": {
+              "text": "4 / 5 / 6 / 7 / 8%",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  4,
+                  5,
+                  6,
+                  7,
+                  8
+                ]
+              },
+              "unit": "%",
+              "scaling": [],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Healing On-Hit",
+            "amount": {
+              "text": "3 / 4 / 5 / 6 / 7 (+ 3% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  3,
+                  4,
+                  5,
+                  6,
+                  7
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 3
+                  },
+                  "text": "(+ 3% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "heal",
+            "category": "defense",
+            "wording": "healing",
+            "evidence": "Best Friend Bonus: Yuumi gains heal and shield power and her Best Friend gains healing on-hit.",
+            "conditional": false
+          },
+          {
+            "type": "on-hit",
+            "category": "offense",
+            "wording": "on-hit",
+            "evidence": "Best Friend Bonus: Yuumi gains heal and shield power and her Best Friend gains healing on-hit.",
+            "conditional": false
+          },
+          {
+            "type": "ground",
+            "category": "control",
+            "wording": "grounded",
+            "evidence": "is placed on a 5-second cooldown if Yuumi becomes immobilized, grounded, or polymorphed.",
+            "conditional": false
+          },
+          {
+            "type": "polymorph",
+            "category": "control",
+            "wording": "polymorphed",
+            "evidence": "is placed on a 5-second cooldown if Yuumi becomes immobilized, grounded, or polymorphed.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "The Best Friend's healing on-hit is affected by Yuumi's heal and shield power.",
+      "Yuumi will track the target if they change locations.\n  - She will not stop tracking the target until she reaches them, as there is no maximum tracking distance.",
+      "If the target moves 2000 or more units away from Yuumi during the dash, it will be interrupted and You and Me! will be placed on full cooldown.",
+      "The 0.5-second cooldown will be incurred whenever Yuumi attaches to an Anchor, whether by the active or the recast.",
+      "Attempting to recast You and Me! on an ally that is out of range will briefly glow a range indicator of the ability and indicate that the target is \"Out of Range!\".",
+      "You and Me! does not count as an ability activation for the purposes of on-cast effects such as Spellblade and triggering Force Pulse passive.",
+      "You and Me! does not count as a buff for Summon Aery.",
+      "The initial cast and recast of You and Me! have a forgiveness radius of 175 units.\n  - This behavior can override her direction-targeted dash to discard any target.",
+      "Yuumi can channel the Eye of the Herald while attached.",
+      "Yuumi will automatically detach in the following circumstances:\n  - When her Anchor starts a Teleport channel.\n  - After the Anchor completes a Recall channel.\n  - Her Anchor is sent to the Realm of Death.\n  - She is pulled by Fate's Call.\n  - When she or her Anchor enters resurrection.\n    - If Yuumi is channeling You and Me! or already dashing towards an ally who enters resurrection, then she will successfully attach to the resurrecting ally, and she will be able to heal/shield them during it.",
+      "Yuumi doesn't detach instantly when her Anchor dies. There's a small grace period in which she can recast You and Me! to attach to another champion without the channel or dash in the target direction.",
+      "Yuumi can dash to targetable zombie state allies (currently only Glory in Death), but she cannot attach when she reaches them.\n  - The same goes for allies channeling Teleport.",
+      "While attached to the Anchor, Yuumi is considered in being at her Anchor's position, regardless of where she is visually placed near them. For example, turret shots will appear as if they were hitting the Anchor, but in reality they're actually hitting Yuumi.\n  - However, for the purposes of You and Me!, such as casting it or being unattached for other reasons, Yuumi will be in the position where she visually is. For example, when she is in the blue team, dashing to a north-east ally is considerably slower than dashing to a south-west ally.",
+      "Her monster aggression transfers to the Anchor.",
+      "Enemies are credited an assist on Yuumi if they damaged the Anchor at any point and she dies within the standard credit timer.",
+      "Yuumi will always be visible if her Anchor can be seen, and she will always not be visible if her Anchor cannot be seen. These rules apply regardless of reveal effects and stealth.",
+      "Yuumi will not vanish if her Anchor does.",
+      "If Yuumi is on the blue team, she will remain attached on the southwest side; if Yuumi is on the red team, she will remain on the northeast. While channeling Final Chapter, she will be behind her Anchor.",
+      "The player's screen will briefly flash red if Yuumi is affected by a immobilizing or grounding effect, or if she forcibly detaches from her Anchor.",
+      "Sleep does not count for knocking the dash down.",
+      "The Anchor's health bar will have a different frame to indicate the attached status:",
+      "The following table refers for interactions while Yuumi is channeling:",
+      "The following table refers for interactions while Yuumi is attached:",
+      ";Buffering Interactions",
+      "All of Yuumi's abilities can be buffered while channeling and dashing.\n  - Summon Aery and Tear of the Goddess would not trigger from the heal or shield when buffered."
+    ]
+  }
+]

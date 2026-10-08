@@ -1,0 +1,1006 @@
+[
+  {
+    "champion": "Lulu",
+    "kind": "E",
+    "name": "Help, Pix!",
+    "page": {
+      "title": "Template:Data Lulu/Help, Pix!",
+      "revid": 3945270
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "10 / 9.5 / 9 / 8.5 / 8",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                10,
+                9.5,
+                9,
+                8.5,
+                8
+              ]
+            }
+          }
+        ]
+      },
+      "cost": {
+        "text": "60 / 65 / 70 / 75 / 80",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                60,
+                65,
+                70,
+                75,
+                80
+              ]
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "none",
+        "values": []
+      },
+      "targetRange": {
+        "text": "650",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 650
+            }
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Unit"
+      ],
+      "affects": [
+        "Enemies",
+        "Allies",
+        "Self"
+      ],
+      "damageType": [
+        "Magic"
+      ],
+      "spellEffects": "spell",
+      "spellShield": "special",
+      "projectile": "false"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Lulu can cast Help, Pix! on herself or an ally or enemy.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "label": "Enemy Cast",
+        "text": "Enemy Cast: Lulu sends Pix to the far side of the target enemy for 4 seconds, dealing magic damage and revealing them for the same duration.",
+        "leveling": [
+          {
+            "label": "Magic Damage",
+            "amount": {
+              "text": "70 / 110 / 150 / 190 / 230 (+ 50% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  70,
+                  110,
+                  150,
+                  190,
+                  230
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 50
+                  },
+                  "text": "(+ 50% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "true sight",
+            "category": "vision",
+            "wording": "revealing",
+            "duration": {
+              "kind": "constant",
+              "value": 4
+            },
+            "evidence": "Enemy Cast: Lulu sends Pix to the far side of the target enemy for 4 seconds, dealing magic damage and revealing them for the same duration.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "label": "Self / Ally Cast",
+        "text": "Self / Ally Cast: Lulu sends Pix to the target ally for 6.25 seconds. If the target is a champion, they are granted a shield for 2.5 seconds.",
+        "leveling": [
+          {
+            "label": "Shield Strength",
+            "amount": {
+              "text": "70 / 110 / 150 / 190 / 230 (+ 50% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  70,
+                  110,
+                  150,
+                  190,
+                  230
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 50
+                  },
+                  "text": "(+ 50% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "shield",
+            "category": "defense",
+            "wording": "shield",
+            "duration": {
+              "kind": "constant",
+              "value": 2.5
+            },
+            "evidence": "If the target is a champion, they are granted a shield for 2.5 seconds.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Help, Pix! can be self-cast.",
+      "If the player casts Help, Pix! on a non-champion target, the spell script will first search for a targetable allied or enemy champion within 75 radius around the target. If there is at least one, it'll apply the effects to the closest one instead of the initial target.\n  - Allies or enemies or proximity take priortity?\n  - This effect does not respect that the champion may not be visible to Lulu and not a valid target for normal selection for this reason. Therefore it can for instance apply the effects to stealthed enemy champions this way.\n  - Since the original cast did not target the champion, some effects (such as Guardian) may behave incorrectly.\n  - It is not known in which patch this effect was added.",
+      "Spell shield and Riposte will block the damage but Pix will still follow regardless.",
+      "Pix will continue to assist the target ally for the full duration even if the shield breaks (the same applies for the shield if the target ally leaves Pix's leash range).",
+      "Pix's Glitterlance bolt can be fired while he is away from Lulu from his location and towards the cursor (effectively extending Glitterlance range)."
+    ]
+  },
+  {
+    "champion": "Lulu",
+    "kind": "I",
+    "name": "Pix, Faerie Companion",
+    "page": {
+      "title": "Template:Data Lulu/Pix, Faerie Companion",
+      "revid": 4046485
+    },
+    "ranks": 1,
+    "fields": {
+      "width": {
+        "text": "60",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 60
+            },
+            "label": "Bolt missile width"
+          }
+        ]
+      },
+      "speed": {
+        "text": "900 - 2600",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 900
+            },
+            "label": "Bolt missile speed, 5200 acceleration; reaching maximum speed within 0.33 seconds"
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Passive"
+      ],
+      "affects": [
+        "Self"
+      ],
+      "damageType": [
+        "Magic"
+      ],
+      "spellEffects": "proc",
+      "projectile": "true",
+      "parry": "false"
+    },
+    "parts": [
+      {
+        "label": "Innate",
+        "text": "Innate: Lulu is assisted by Pix, an untargetable faerie, who follows her around and fires a barrage of 3 bolts towards her target whenever she uses a basic attack on-attack. Each bolt deals 5 – 39 (based on level) (+ 5% AP) magic damage to the first enemy it collides with, for a total of 15 – 117 (based on level) (+ 15% AP) on hitting a single target with all three bolts.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "untargetable",
+            "category": "defense",
+            "wording": "untargetable",
+            "evidence": "Innate: Lulu is assisted by Pix, an untargetable faerie, who follows her around and fires a barrage of 3 bolts towards her target whenever she uses a basic attack on-attack.",
+            "conditional": false
+          },
+          {
+            "type": "on-attack",
+            "category": "offense",
+            "wording": "on-attack",
+            "evidence": "Innate: Lulu is assisted by Pix, an untargetable faerie, who follows her around and fires a barrage of 3 bolts towards her target whenever she uses a basic attack on-attack.",
+            "conditional": false
+          }
+        ],
+        "values": [
+          {
+            "series": {
+              "kind": "level",
+              "values": [
+                5,
+                7,
+                9,
+                11,
+                13,
+                15,
+                17,
+                19,
+                21,
+                23,
+                25,
+                27,
+                29,
+                31,
+                33,
+                35,
+                37,
+                39,
+                41,
+                43
+              ],
+              "past18": "wiki"
+            },
+            "context": "Each bolt deals 5 – 39 (based on level) (+ 5% AP) magic damage to the first enemy it collides with, for a total of 15 – 117 (based on level) (+ 15% AP) on hitting a single target with all three bolts."
+          },
+          {
+            "series": {
+              "kind": "level",
+              "values": [
+                15,
+                21,
+                27,
+                33,
+                39,
+                45,
+                51,
+                57,
+                63,
+                69,
+                75,
+                81,
+                87,
+                93,
+                99,
+                105,
+                111,
+                117,
+                123,
+                129
+              ],
+              "past18": "wiki"
+            },
+            "context": "Each bolt deals 5 – 39 (based on level) (+ 5% AP) magic damage to the first enemy it collides with, for a total of 15 – 117 (based on level) (+ 15% AP) on hitting a single target with all three bolts."
+          }
+        ]
+      },
+      {
+        "text": "Casting Help, Pix! on an ally champion transfers Pix's help to them, causing him to fire the bolts dependent on their basic attacks.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "text": "Pix snaps back to Lulu if she is too far away.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      }
+    ],
+    "custom": [
+      {
+        "label": "Leash Range",
+        "text": "1600 • 2050"
+      }
+    ],
+    "notes": [
+      "Pix's bolts do not fire alongside abilities that apply on-hit effects (e.g. Runaan's Hurricane).",
+      "Pix does not fire if the target dies.",
+      "Pix fires from his own location and not from the unit he is following.",
+      "When on an ally champion, Pix's damage respects enchantment redirection.",
+      "The empowered attack does not trigger against structures nor wards.\n  - Neither of them will intercept Pix's bolts."
+    ]
+  },
+  {
+    "champion": "Lulu",
+    "kind": "Q",
+    "name": "Glitterlance",
+    "page": {
+      "title": "Template:Data Lulu/Glitterlance",
+      "revid": 3881438
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "7",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 7
+            }
+          }
+        ]
+      },
+      "cost": {
+        "text": "50 / 55 / 60 / 65 / 70",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                50,
+                55,
+                60,
+                65,
+                70
+              ]
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "0.25",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0.25
+            }
+          }
+        ]
+      },
+      "range": {
+        "text": "950",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 950
+            }
+          }
+        ]
+      },
+      "width": {
+        "text": "120",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 120
+            }
+          }
+        ]
+      },
+      "speed": {
+        "text": "1450",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 1450
+            }
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Direction"
+      ],
+      "affects": [
+        "Enemies"
+      ],
+      "damageType": [
+        "Magic"
+      ],
+      "spellEffects": "area of effect",
+      "spellShield": "true",
+      "projectile": "true"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Lulu and Pix each fire a magic bolt towards the target point, each one dealing magic damage to enemies hit, reduced to 70% against minions, and slowing them by 80% decaying over 2 seconds.",
+        "leveling": [
+          {
+            "label": "Magic Damage",
+            "amount": {
+              "text": "60 / 95 / 130 / 165 / 200 (+ 50% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  60,
+                  95,
+                  130,
+                  165,
+                  200
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 50
+                  },
+                  "text": "(+ 50% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Minion Damage",
+            "amount": {
+              "text": "42 / 66.5 / 91 / 115.5 / 140 (+ 35% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  42,
+                  66.5,
+                  91,
+                  115.5,
+                  140
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 35
+                  },
+                  "text": "(+ 35% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "slow",
+            "category": "control",
+            "wording": "slowing",
+            "duration": {
+              "kind": "constant",
+              "value": 2
+            },
+            "amount": {
+              "kind": "constant",
+              "value": 80
+            },
+            "evidence": "Active: Lulu and Pix each fire a magic bolt towards the target point, each one dealing magic damage to enemies hit, reduced to 70% against minions, and slowing them by 80% decaying over 2 seconds.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "Enemies take 50% damage from a second bolt.",
+        "leveling": [
+          {
+            "label": "Reduced Damage",
+            "amount": {
+              "text": "30 / 47.5 / 65 / 82.5 / 100 (+ 25% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  30,
+                  47.5,
+                  65,
+                  82.5,
+                  100
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 25
+                  },
+                  "text": "(+ 25% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Total Magic Damage",
+            "amount": {
+              "text": "90 / 142.5 / 195 / 247.5 / 300 (+ 75% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  90,
+                  142.5,
+                  195,
+                  247.5,
+                  300
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 75
+                  },
+                  "text": "(+ 75% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Reduced Minion Damage",
+            "amount": {
+              "text": "21 / 33.25 / 45.5 / 57.75 / 70 (+ 17.5% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  21,
+                  33.25,
+                  45.5,
+                  57.75,
+                  70
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 17.5
+                  },
+                  "text": "(+ 17.5% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Total Minion Damage",
+            "amount": {
+              "text": "63 / 99.75 / 136.5 / 173.25 / 210 (+ 52.5% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  62.99999999999999,
+                  99.75,
+                  136.5,
+                  173.25,
+                  210
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 52.5
+                  },
+                  "text": "(+ 52.5% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "This ability will cast from wherever the caster is at the end of the cast time.\n  - Pix fires his bolt from wherever he is when Lulu casts Glitterlance. Lulu's bolt will fire from wherever she is at the end of the cast time.\n    - Depending on cursor position both bolts can either crossfire, fire in parallel, or in opposite directions."
+    ]
+  },
+  {
+    "champion": "Lulu",
+    "kind": "R",
+    "name": "Wild Growth",
+    "page": {
+      "title": "Template:Data Lulu/Wild Growth",
+      "revid": 4007674
+    },
+    "ranks": 3,
+    "fields": {
+      "cooldown": {
+        "text": "120 / 100 / 80",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                120,
+                100,
+                80
+              ]
+            }
+          }
+        ]
+      },
+      "cost": {
+        "text": "100",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 100
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "none",
+        "values": []
+      },
+      "targetRange": {
+        "text": "900",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 900
+            }
+          }
+        ]
+      },
+      "effectRadius": {
+        "text": "400 • 400",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 400
+            },
+            "label": "Knock up radius"
+          },
+          {
+            "series": {
+              "kind": "constant",
+              "value": 400
+            },
+            "label": "Slow aura radius"
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Unit"
+      ],
+      "affects": [
+        "Allies",
+        "Self",
+        "Enemies"
+      ],
+      "damageType": [],
+      "spellShield": "true"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Lulu enlarges herself or the target allied champion, knocking up nearby enemies for 1 second. For the next 7 seconds, the target gains bonus health and 40% increased size and slows nearby enemies, which lingers for 0.25 seconds.",
+        "leveling": [
+          {
+            "label": "Bonus Health",
+            "amount": {
+              "text": "275 / 425 / 575 (+ 55% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  275,
+                  425,
+                  575
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 55
+                  },
+                  "text": "(+ 55% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Slow",
+            "amount": {
+              "text": "30 / 45 / 60%",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  30,
+                  45,
+                  60
+                ]
+              },
+              "unit": "%",
+              "scaling": [],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "airborne",
+            "category": "control",
+            "wording": "knocking up",
+            "duration": {
+              "kind": "constant",
+              "value": 1
+            },
+            "evidence": "Active: Lulu enlarges herself or the target allied champion, knocking up nearby enemies for 1 second.",
+            "conditional": false
+          },
+          {
+            "type": "slow",
+            "category": "control",
+            "wording": "slows",
+            "duration": {
+              "kind": "constant",
+              "value": 0.25
+            },
+            "amount": {
+              "kind": "rank",
+              "values": [
+                30,
+                45,
+                60
+              ]
+            },
+            "evidence": "For the next 7 seconds, the target gains bonus health and 40% increased size and slows nearby enemies, which lingers for 0.25 seconds.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Wild Growth's size increase scales additively with other size increases.",
+      "Enemies are also knocked back over 275 units during the knock up."
+    ]
+  },
+  {
+    "champion": "Lulu",
+    "kind": "W",
+    "name": "Whimsy",
+    "page": {
+      "title": "Template:Data Lulu/Whimsy",
+      "revid": 4007673
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "18",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 18
+            }
+          }
+        ]
+      },
+      "cost": {
+        "text": "65",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 65
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "0.2419 • None",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0.2419
+            },
+            "label": "Enemy cast"
+          }
+        ]
+      },
+      "targetRange": {
+        "text": "650",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 650
+            }
+          }
+        ]
+      },
+      "speed": {
+        "text": "2250",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 2250
+            },
+            "label": "Polymorph travel speed"
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Unit"
+      ],
+      "affects": [
+        "Enemies",
+        "Allies",
+        "Self"
+      ],
+      "damageType": [],
+      "spellShield": "true",
+      "projectile": "true"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Lulu can cast Whimsy on herself or a champion.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "label": "Enemy Cast",
+        "text": "Enemy Cast: Lulu launches a spell onto the target enemy champion that polymorphs them into a harmless critter for a duration, during which their movement speed is reduced by 60, and disarms them for the same duration.",
+        "leveling": [
+          {
+            "label": "Disable Duration",
+            "amount": {
+              "text": "1.2 / 1.4 / 1.6 / 1.8 / 2 seconds",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  1.2,
+                  1.4,
+                  1.6,
+                  1.8,
+                  2
+                ]
+              },
+              "unit": "s",
+              "scaling": [],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "polymorph",
+            "category": "control",
+            "wording": "polymorphs",
+            "evidence": "Enemy Cast: Lulu launches a spell onto the target enemy champion that polymorphs them into a harmless critter for a duration, during which their movement speed is reduced by 60, and disarms them for the same duration.",
+            "conditional": false
+          },
+          {
+            "type": "disarm",
+            "category": "control",
+            "wording": "disarms",
+            "evidence": "Enemy Cast: Lulu launches a spell onto the target enemy champion that polymorphs them into a harmless critter for a duration, during which their movement speed is reduced by 60, and disarms them for the same duration.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "label": "Self / Ally Cast",
+        "text": "Self / Ally Cast: Lulu instantly casts erratic magic upon the target allied champion or herself, granting the target bonus attack speed and 25% (+ 5% per 100 AP) bonus movement speed for a duration.",
+        "leveling": [
+          {
+            "label": "Bonus Attack Speed",
+            "amount": {
+              "text": "20 / 22.5 / 25 / 27.5 / 30%",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  20,
+                  22.5,
+                  25,
+                  27.5,
+                  30
+                ]
+              },
+              "unit": "%",
+              "scaling": [],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Effect Duration",
+            "amount": {
+              "text": "3 / 3.25 / 3.5 / 3.75 / 4 seconds",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  3,
+                  3.25,
+                  3.5,
+                  3.75,
+                  4
+                ]
+              },
+              "unit": "s",
+              "scaling": [],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Whimsy's movement speed reduction will apply to the target's bonus movement speed.\n  - If their bonus movement speed would be reduced below 0, their base movement speed is reduced instead equal to the remaining reduction, or by the full amount if the target has no bonus movement speed.",
+      "Whimsy's movement speed reduction is not affected by slow resist.",
+      "If the target becomes untargetable, dies, or is too far away or no longer in sight during the cast time, this ability will cancel but still go on cooldown and pay its cost.\n  - This only applies to the enemy cast."
+    ]
+  }
+]

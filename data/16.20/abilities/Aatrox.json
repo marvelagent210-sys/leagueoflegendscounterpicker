@@ -1,0 +1,1847 @@
+[
+  {
+    "champion": "Aatrox",
+    "kind": "E",
+    "name": "Blades of Torment",
+    "page": {
+      "title": "Template:Data Aatrox/Blades of Torment",
+      "revid": 3919802
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "12 / 11 / 10 / 9 / 8",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                12,
+                11,
+                10,
+                9,
+                8
+              ]
+            }
+          }
+        ]
+      },
+      "cost": {
+        "text": "30",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 30
+            }
+          }
+        ]
+      },
+      "costType": "health",
+      "targetRange": {
+        "text": "1000",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 1000
+            }
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Direction"
+      ],
+      "affects": [
+        "Enemies"
+      ],
+      "damageType": [
+        "Physical"
+      ],
+      "spellEffects": "area of effect",
+      "spellShield": "true",
+      "projectile": "true"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Aatrox unleashes two converging energy waves in the target direction, filling 20% of his Blood Well, dealing physical damage to all units hit and slowing for 2 seconds.",
+        "leveling": [
+          {
+            "label": "Physical Damage",
+            "amount": {
+              "text": "80 / 120 / 160 / 200 / 240 (+ 70% bonus AD)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  80,
+                  120,
+                  160,
+                  200,
+                  240
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "bonusAD",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 70
+                  },
+                  "text": "(+ 70% bonus AD)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Slow",
+            "amount": {
+              "text": "30 / 35 / 40 / 45 / 50%",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  30,
+                  35,
+                  40,
+                  45,
+                  50
+                ]
+              },
+              "unit": "%",
+              "scaling": [],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "slow",
+            "category": "control",
+            "wording": "slowing",
+            "duration": {
+              "kind": "constant",
+              "value": 2
+            },
+            "amount": {
+              "kind": "rank",
+              "values": [
+                30,
+                35,
+                40,
+                45,
+                50
+              ]
+            },
+            "evidence": "Active: Aatrox unleashes two converging energy waves in the target direction, filling 20% of his Blood Well, dealing physical damage to all units hit and slowing for 2 seconds.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Units may only be damaged by one projectile of Blades of Torment per cast.",
+      "The ability fires two narrow skillshots, converging at a fixed range. Very small units (such as minions) can potentially avoid the damage and slow altogether if the blades are fired from a close enough range.",
+      "Flash can be cast during the cast animation of Blades of Torment. If done so, the ability resolves after Flash from the location Aatrox flashes to.",
+      "Has a width of 150 decreasing as it converges on its max range."
+    ]
+  },
+  {
+    "champion": "Aatrox",
+    "kind": "E",
+    "name": "Umbral Dash",
+    "page": {
+      "title": "Template:Data Aatrox/Umbral Dash",
+      "revid": 4064836
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "9 / 8 / 7 / 6 / 5",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                9,
+                8,
+                7,
+                6,
+                5
+              ]
+            }
+          }
+        ]
+      },
+      "castTime": {
+        "text": "none",
+        "values": []
+      },
+      "targetRange": {
+        "text": "75 - 300 • 500",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 75
+            },
+            "label": "Minimum and maximum dash distance"
+          },
+          {
+            "series": {
+              "kind": "constant",
+              "value": 500
+            },
+            "label": "Maximum extended dash distance across terrain"
+          }
+        ]
+      },
+      "speed": {
+        "text": "800 • 1340",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 800
+            },
+            "label": "Dash speed, slightly higher when measured"
+          },
+          {
+            "series": {
+              "kind": "constant",
+              "value": 1340
+            },
+            "label": "Maximum increased dash speed, when dashing through wide terrain"
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Location"
+      ],
+      "affects": [
+        "Self"
+      ],
+      "damageType": [],
+      "grounded": "true",
+      "knockdown": "true"
+    },
+    "parts": [
+      {
+        "label": "Passive",
+        "text": "Passive: Aatrox heals for 16% (+ 1.3% per 100 bonus health) of non-persistent post-mitigation damage he deals against enemy champions.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "heal",
+            "category": "defense",
+            "wording": "heals",
+            "evidence": "Passive: Aatrox heals for 16% (+ 1.3% per 100 bonus health) of non-persistent post-mitigation damage he deals against enemy champions.",
+            "conditional": false
+          },
+          {
+            "type": "damage over time",
+            "category": "offense",
+            "wording": "persistent",
+            "evidence": "Passive: Aatrox heals for 16% (+ 1.3% per 100 bonus health) of non-persistent post-mitigation damage he deals against enemy champions.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "label": "Active",
+        "text": "Active: Aatrox dashes in the target direction.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "dash",
+            "category": "movement",
+            "wording": "dashes",
+            "evidence": "Active: Aatrox dashes in the target direction.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "Umbral Dash resets Aatrox's basic attack timer and can be cast during his other abilities without cancelling them and vice versa.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "attack reset",
+            "category": "offense",
+            "wording": "resets",
+            "evidence": "Umbral Dash resets Aatrox's basic attack timer and can be cast during his other abilities without cancelling them and vice versa.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "The dash distance can be extended to up-to 500 units when targeting across terrain. It will only extend for the distance needed to cross the wall.\n  - This may upscale his dash speed so that the dash takes the same total time as the standard maximum-range dash.",
+      "If Umbral Dash is cast towards a movement command's end point, Umbral Dash will re-issue a movement command to that point when the dash ends.\n  - He will be unable to buffer any commands during the dash if it is casted this way.",
+      "Aatrox's model darkens for 1.5 seconds upon casting Umbral Dash, which is a remnant of an attack damage buff he received before it got removed in V9.9."
+    ]
+  },
+  {
+    "champion": "Aatrox",
+    "kind": "I",
+    "name": "Blood Well",
+    "page": {
+      "title": "Template:Data Aatrox/Blood Well",
+      "revid": 3288754
+    },
+    "ranks": 1,
+    "fields": {
+      "staticCooldown": {
+        "text": "180 / 160 / 140 / 120 (based on level)",
+        "values": [
+          {
+            "series": {
+              "kind": "variable",
+              "variable": "level",
+              "points": [
+                1,
+                6,
+                11,
+                16
+              ],
+              "values": [
+                180,
+                160,
+                140,
+                120
+              ]
+            }
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Passive"
+      ],
+      "affects": [
+        "Self"
+      ],
+      "damageType": [],
+      "spellEffects": "heal"
+    },
+    "parts": [
+      {
+        "text": "Aatrox fills his Blood Well through his abilities, depleting by (20% maximum) per second while out of combat. When the Blood Well is filled, Aatrox becomes Hellbent for 4 seconds as the Blood Well drains. While Hellbent, dealing or taking damage against enemy champions or neutral monsters will completely fill the Blood Well and refresh Hellbent's duration.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "label": "Hellbent",
+        "text": "Hellbent: Aatrox gains 25% increased base AD and 30% / 40% / 50% / 60% (based on level) bonus attack speed. Upon taking fatal damage Aatrox will revive over 3 seconds, recovering 30% of maximum health over the duration. Upon reviving, Aatrox instantly recovers 100% of Blood Well. Aatrox's revive is then put on a cooldown.",
+        "leveling": [],
+        "mechanics": [],
+        "values": [
+          {
+            "series": {
+              "kind": "variable",
+              "variable": "level",
+              "points": [
+                1,
+                6,
+                11,
+                16
+              ],
+              "values": [
+                "30%",
+                "40%",
+                "50%",
+                "60%"
+              ]
+            },
+            "context": "Hellbent: Aatrox gains 25% increased base AD and 30% / 40% / 50% / 60% (based on level) bonus attack speed."
+          }
+        ]
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Aatrox's resource bar colors red when Hellbent is active (light red when the revive is off cooldown, dark red when on cooldown)",
+      "Chronoshift and Guardian Angel passive will take precedence over Blood Well's revive.",
+      "Blood Well's stasis causes Aatrox to become untargetable, which will reset turret aggro.",
+      "Tethers from abilities (Soul Shackles) will remain active while Aatrox is reviving.",
+      "Blood Well's healing component interacts with Spirit Visage passive."
+    ]
+  },
+  {
+    "champion": "Aatrox",
+    "kind": "I",
+    "name": "Deathbringer Stance",
+    "page": {
+      "title": "Template:Data Aatrox/Deathbringer Stance",
+      "revid": 4076803
+    },
+    "ranks": 1,
+    "fields": {
+      "staticCooldown": {
+        "text": "22 – 10 (based on level)",
+        "values": [
+          {
+            "series": {
+              "kind": "level",
+              "values": [
+                22,
+                21.294117647058822,
+                20.58823529411765,
+                19.88235294117647,
+                19.176470588235293,
+                18.470588235294116,
+                17.764705882352942,
+                17.058823529411764,
+                16.352941176470587,
+                15.647058823529413,
+                14.941176470588236,
+                14.235294117647058,
+                13.529411764705882,
+                12.823529411764707,
+                12.117647058823529,
+                11.411764705882353,
+                10.705882352941176,
+                10,
+                9.294117647058824,
+                8.588235294117647
+              ],
+              "past18": "wiki"
+            }
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Passive"
+      ],
+      "affects": [
+        "Self",
+        "Enemies"
+      ],
+      "damageType": [
+        "magic"
+      ],
+      "spellEffects": "proc",
+      "spellShield": "false",
+      "parry": "true"
+    },
+    "parts": [
+      {
+        "label": "Innate",
+        "text": "Innate: Periodically, Aatrox empowers his next basic attack to gain 50 bonus range and deal bonus magic damage equal to 4 – 10 (based on level)% of the target's maximum health, capped at 100 – 320 (based on level) against monsters. Deathbringer Stance's damage applies life steal.\n\nAatrox heals for the post-mitigation bonus damage dealt, reduced to 25% against minions.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "life steal",
+            "category": "defense",
+            "wording": "life steal",
+            "evidence": "Deathbringer Stance's damage applies life steal.",
+            "conditional": false
+          },
+          {
+            "type": "heal",
+            "category": "defense",
+            "wording": "heals",
+            "evidence": "Aatrox heals for the post-mitigation bonus damage dealt, reduced to 25% against minions.",
+            "conditional": false
+          }
+        ],
+        "values": [
+          {
+            "series": {
+              "kind": "level",
+              "values": [
+                4,
+                4.352941176470588,
+                4.705882352941177,
+                5.0588235294117645,
+                5.411764705882353,
+                5.764705882352941,
+                6.117647058823529,
+                6.470588235294118,
+                6.8235294117647065,
+                7.1764705882352935,
+                7.529411764705882,
+                7.882352941176471,
+                8.235294117647058,
+                8.588235294117647,
+                8.941176470588236,
+                9.294117647058822,
+                9.647058823529413,
+                10,
+                10.352941176470587,
+                10.705882352941178
+              ],
+              "past18": "wiki"
+            },
+            "context": "Innate: Periodically, Aatrox empowers his next basic attack to gain 50 bonus range and deal bonus magic damage equal to 4 – 10 (based on level)% of the target's maximum health, capped at 100 – 320 (based on level) against monsters."
+          },
+          {
+            "series": {
+              "kind": "level",
+              "values": [
+                100,
+                112.94117647058823,
+                125.88235294117646,
+                138.8235294117647,
+                151.76470588235293,
+                164.70588235294116,
+                177.6470588235294,
+                190.58823529411765,
+                203.52941176470588,
+                216.47058823529412,
+                229.41176470588235,
+                242.35294117647058,
+                255.2941176470588,
+                268.2352941176471,
+                281.1764705882353,
+                294.11764705882354,
+                307.05882352941177,
+                320,
+                332.94117647058823,
+                345.88235294117646
+              ],
+              "past18": "wiki"
+            },
+            "context": "Innate: Periodically, Aatrox empowers his next basic attack to gain 50 bonus range and deal bonus magic damage equal to 4 – 10 (based on level)% of the target's maximum health, capped at 100 – 320 (based on level) against monsters."
+          },
+          {
+            "series": {
+              "kind": "constant",
+              "value": 25
+            },
+            "context": "Aatrox heals for the post-mitigation bonus damage dealt, reduced to 25% against minions."
+          }
+        ]
+      },
+      {
+        "text": "Whenever Aatrox hits at least one enemy champion or large monster with a basic attack on-hit or an ability, Deathbringer Stance's current cooldown is reduced by 2 seconds, doubled to 4 if he hits with the Sweetspot of The Darkin Blade.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "on-hit",
+            "category": "offense",
+            "wording": "on-hit",
+            "evidence": "Whenever Aatrox hits at least one enemy champion or large monster with a basic attack on-hit or an ability, Deathbringer Stance's current cooldown is reduced by 2 seconds, doubled to 4 if he hits with the Sweetspot of The Darkin Blade.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Aatrox will assume stance when an enemy champion is in range of Infernal Chains.\n  - The toggle expression (default CTRL + 5) switches between stances manually.",
+      "If Deathbringer Stance's empowered attack becomes available during a standard attack's windup, it will not be consumed or trigger the bonus damage.",
+      "The cooldown reduction applies even if an ability's hit is countered by spell shield.",
+      "If available upon death, Deathbringer Stance begins incurring its cooldown, but becomes available upon respawn.",
+      "The empowered attack will not trigger against structures and wards."
+    ]
+  },
+  {
+    "champion": "Aatrox",
+    "kind": "Q",
+    "name": "Dark Flight",
+    "page": {
+      "title": "Template:Data Aatrox/Dark Flight",
+      "revid": 3919797
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "13 / 12.5 / 12 / 11.5 / 11",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                13,
+                12.5,
+                12,
+                11.5,
+                11
+              ]
+            }
+          }
+        ]
+      },
+      "targetRange": {
+        "text": "650",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 650
+            }
+          }
+        ]
+      },
+      "effectRadius": {
+        "text": "225",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 225
+            }
+          }
+        ]
+      },
+      "innerRadius": {
+        "text": "75",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 75
+            }
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Ground"
+      ],
+      "affects": [
+        "Enemies"
+      ],
+      "damageType": [
+        "Physical"
+      ],
+      "spellEffects": "area of effect",
+      "spellShield": "true",
+      "grounded": "true",
+      "knockdown": "false"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: After a brief delay, Aatrox dashes to the target area with displacement immunity, filling 20% of his Blood Well, dealing physical damage to nearby units upon landing, and knocking up all units in the epicenter for 1 second.",
+        "leveling": [
+          {
+            "label": "Physical Damage",
+            "amount": {
+              "text": "20 / 50 / 80 / 110 / 140 (+ 110% AD)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  20,
+                  50,
+                  80,
+                  110,
+                  140
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AD",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 110
+                  },
+                  "text": "(+ 110% AD)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "displacement-immune",
+            "category": "defense",
+            "wording": "displacement immunity",
+            "duration": {
+              "kind": "constant",
+              "value": 1
+            },
+            "evidence": "Active: After a brief delay, Aatrox dashes to the target area with displacement immunity, filling 20% of his Blood Well, dealing physical damage to nearby units upon landing, and knocking up all units in the epicenter for 1 second.",
+            "conditional": false
+          },
+          {
+            "type": "airborne",
+            "category": "control",
+            "wording": "knocking up",
+            "duration": {
+              "kind": "constant",
+              "value": 1
+            },
+            "evidence": "Active: After a brief delay, Aatrox dashes to the target area with displacement immunity, filling 20% of his Blood Well, dealing physical damage to nearby units upon landing, and knocking up all units in the epicenter for 1 second.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Dark Flight possesses a considerable overhead for a dash ability, able to traverse many walls that are otherwise much wider than the indicator suggests is possible to vault.",
+      "If Aatrox is sent airborne or forced into Blood Well stasis during the initial flight time, Dark Flight will fail and will not cause him to dash.\n  - Other forms of crowd control applied while the animation is in progress will be suspended until the animation finishes.",
+      "Dark Flight does not cancel other commands. Aatrox will immediately begin attacking after he lands.",
+      "With smartcast on, Dark Flight will be cast immediately and at 650-range if the cursor is beyond that.",
+      "Flash cannot be cast during Dark Flight.",
+      "Dark Flight has a 0.6 second cast time. 0.3 second wind-up, and 0.3 second wind-down."
+    ]
+  },
+  {
+    "champion": "Aatrox",
+    "kind": "Q",
+    "name": "The Darkin Blade",
+    "page": {
+      "title": "Template:Data Aatrox/The Darkin Blade",
+      "revid": 4074361
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "14 / 12 / 10 / 8 / 6",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                14,
+                12,
+                10,
+                8,
+                6
+              ]
+            }
+          }
+        ]
+      },
+      "cooldownStart": "cooldown starts on first cast and restarts on each successive recast",
+      "castTime": {
+        "text": "0.6",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0.6
+            }
+          }
+        ]
+      },
+      "range": {
+        "text": "Varied",
+        "values": []
+      },
+      "effectRadius": {
+        "text": "Varied",
+        "values": []
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Direction"
+      ],
+      "affects": [
+        "Enemies"
+      ],
+      "damageType": [
+        "Physical"
+      ],
+      "spellEffects": "spellaoe",
+      "spellShield": "true"
+    },
+    "parts": [
+      {
+        "text": "Aatrox can activate The Darkin Blade three times before the ability goes on cooldown, with a 1-second static cooldown between casts. If Aatrox does not recast the ability within 4 seconds of the previous cast, it goes on cooldown.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "label": "Active",
+        "text": "Active: Aatrox performs a strike with his greatsword for each of the three casts, dealing physical damage to enemies hit within an area. Enemies hit within a Sweetspot of the area take 75% bonus damage and are also knocked up for 0.25 seconds. Each subsequent cast gains 25% more damage.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "airborne",
+            "category": "control",
+            "wording": "knocked up",
+            "duration": {
+              "kind": "constant",
+              "value": 0.25
+            },
+            "evidence": "Enemies hit within a Sweetspot of the area take 75% bonus damage and are also knocked up for 0.25 seconds.",
+            "conditional": false
+          }
+        ],
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 25
+            },
+            "context": "Each subsequent cast gains 25% more damage."
+          }
+        ]
+      },
+      {
+        "label": "First Cast",
+        "text": "First Cast: Aatrox's first strike affects a 625 × 180-unit rectangular area in the target direction, with him centered on the back line and the Sweetspot at the farthest edge.",
+        "leveling": [
+          {
+            "label": "First Cast Damage",
+            "amount": {
+              "text": "10 / 25 / 40 / 55 / 70 (+ 60 / 67.5 / 75 / 82.5 / 90% AD)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  10,
+                  25,
+                  40,
+                  55,
+                  70
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AD",
+                  "ratio": {
+                    "kind": "rank",
+                    "values": [
+                      60,
+                      67.5,
+                      75,
+                      82.5,
+                      90
+                    ]
+                  },
+                  "text": "(+ 60 / 67.5 / 75 / 82.5 / 90% AD)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "First Sweetspot Damage",
+            "amount": {
+              "text": "17.5 / 43.75 / 70 / 96.25 / 122.5 (+ 105 / 118.125 / 131.25 / 144.375 / 157.5% AD)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  17.5,
+                  43.75,
+                  70,
+                  96.25,
+                  122.5
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AD",
+                  "ratio": {
+                    "kind": "rank",
+                    "values": [
+                      105,
+                      118.125,
+                      131.25,
+                      144.375,
+                      157.5
+                    ]
+                  },
+                  "text": "(+ 105 / 118.125 / 131.25 / 144.375 / 157.5% AD)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "label": "Second Cast",
+        "text": "Second Cast: Aatrox's second strike affects a trapezoidal area in the target direction, with the Sweetspot at the farthest edge. The hitbox begins 100-units behind Aatrox and extends 475-units in front of him, measuring between 300 and 500-units wide from behind to in front.",
+        "leveling": [
+          {
+            "label": "Second Cast Damage",
+            "amount": {
+              "text": "12.5 / 31.25 / 50 / 68.75 / 87.5 (+ 75 / 84.375 / 93.75 / 103.125 / 112.5% AD)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  12.5,
+                  31.25,
+                  50,
+                  68.75,
+                  87.5
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AD",
+                  "ratio": {
+                    "kind": "rank",
+                    "values": [
+                      75,
+                      84.375,
+                      93.75,
+                      103.125,
+                      112.5
+                    ]
+                  },
+                  "text": "(+ 75 / 84.375 / 93.75 / 103.125 / 112.5% AD)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Second Sweetspot Damage",
+            "amount": {
+              "text": "21.875 / 54.6875 / 87.5 / 120.313 / 153.125 (+ 131.25 / 147.656 / 164.063 / 180.469 / 196.875% AD)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  21.875,
+                  54.6875,
+                  87.5,
+                  120.3125,
+                  153.125
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AD",
+                  "ratio": {
+                    "kind": "rank",
+                    "values": [
+                      131.25,
+                      147.65625,
+                      164.0625,
+                      180.46875,
+                      196.875
+                    ]
+                  },
+                  "text": "(+ 131.25 / 147.656 / 164.063 / 180.469 / 196.875% AD)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "label": "Third Cast",
+        "text": "Third Cast: Aatrox's third strike affects a 300-radius circular area centered on a target location that is 200 units in front of him, with a 180-radius Sweetspot within.",
+        "leveling": [
+          {
+            "label": "Third Cast Damage",
+            "amount": {
+              "text": "15 / 37.5 / 60 / 82.5 / 105 (+ 90 / 101.25 / 112.5 / 123.75 / 135% AD)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  15,
+                  37.5,
+                  60,
+                  82.5,
+                  105
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AD",
+                  "ratio": {
+                    "kind": "rank",
+                    "values": [
+                      90,
+                      101.25,
+                      112.5,
+                      123.75,
+                      135
+                    ]
+                  },
+                  "text": "(+ 90 / 101.25 / 112.5 / 123.75 / 135% AD)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Third Sweetspot Damage",
+            "amount": {
+              "text": "26.25 / 65.625 / 105 / 144.375 / 183.75 (+ 157.5 / 177.188 / 196.875 / 216.563 / 236.25% AD)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  26.25,
+                  65.625,
+                  105,
+                  144.375,
+                  183.75
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AD",
+                  "ratio": {
+                    "kind": "rank",
+                    "values": [
+                      157.5,
+                      177.1875,
+                      196.875,
+                      216.5625,
+                      236.25
+                    ]
+                  },
+                  "text": "(+ 157.5 / 177.188 / 196.875 / 216.563 / 236.25% AD)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "text": "The Darkin Blade deals 55 / 60 / 65 / 70 (based on level)% damage against minions. Against monsters, the first cast deals 25 bonus physical damage, which is affected by the subsequent cast and Sweetspot damage modifiers; and the knock up duration from hitting the Sweetspot against them is doubled to 0.5 seconds.",
+        "leveling": [
+          {
+            "label": "Maximum Non-Minion Non-Sweetspot Damage",
+            "amount": {
+              "text": "37.5 / 93.75 / 150 / 206.25 / 262.5 (+ 225 / 253.125 / 281.25 / 309.375 / 337.5% AD)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  37.5,
+                  93.75,
+                  150,
+                  206.25,
+                  262.5
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AD",
+                  "ratio": {
+                    "kind": "rank",
+                    "values": [
+                      225,
+                      253.125,
+                      281.25,
+                      309.375,
+                      337.5
+                    ]
+                  },
+                  "text": "(+ 225 / 253.125 / 281.25 / 309.375 / 337.5% AD)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Maximum Non-Minion Sweetspot Damage",
+            "amount": {
+              "text": "65.625 / 164.063 / 262.5 / 360.938 / 459.375 (+ 393.75 / 442.969 / 492.188 / 541.406 / 590.625% AD)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  65.625,
+                  164.0625,
+                  262.5,
+                  360.9375,
+                  459.375
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AD",
+                  "ratio": {
+                    "kind": "rank",
+                    "values": [
+                      393.75,
+                      442.96875,
+                      492.1875,
+                      541.40625,
+                      590.625
+                    ]
+                  },
+                  "text": "(+ 393.75 / 442.969 / 492.188 / 541.406 / 590.625% AD)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "airborne",
+            "category": "control",
+            "wording": "knock up",
+            "evidence": "Against monsters, the first cast deals 25 bonus physical damage, which is affected by the subsequent cast and Sweetspot damage modifiers; and the knock up duration from hitting the Sweetspot against them is doubled to 0.5 seconds.",
+            "conditional": false
+          }
+        ],
+        "values": [
+          {
+            "series": {
+              "kind": "variable",
+              "variable": "level",
+              "points": [
+                1,
+                6,
+                11,
+                16
+              ],
+              "values": [
+                55,
+                60,
+                65,
+                70
+              ]
+            },
+            "context": "The Darkin Blade deals 55 / 60 / 65 / 70 (based on level)% damage against minions."
+          }
+        ]
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "The first and second casts function like any point-blank AOE (ground/area effect centered at or offset to the caster). An enemy is considered to be hit by them based on edge range - i.e. the hit registers if any part of the enemy's gameplay radius is within the hitbox.",
+      "The third cast, as well as the Sweetspot of the first and second cast, register their hit based on center range. The enemy's center must be within the hitbox to apply the effects.",
+      "As implied by the previous point, the Sweetspot for the first and second cast is implemented as separate areas of effect to the main component of the ability. Enemies must be within both areas to trigger the bonus damage, knock up and Deathbringer Stance cooldown reduction.\n  - The 'target hit successfully' SFX plays whenever an enemy is within the Sweetspot - meaning it is possible to trigger the sound effect without affecting an enemy.",
+      "Each cast counts as an ability activation for the purposes of on-cast effects such as Spellblade and triggering Force Pulse passive.",
+      "The Darkin Blade's angle of cast is fixed during the cast time, i.e. it maintains its direction in relation to Aatrox and does not respect any changes in his facing direction.",
+      "If Aatrox changes his position during The Darkin Blade's cast, his real facing direction for effects such as Petrifying Gaze is the direction he is moving and not the direction the model is facing.",
+      "Aatrox cannot declare basic attacks shortly after casting The Darkin Blade.",
+      "This ability will cast from wherever the caster is at the end of the cast time."
+    ]
+  },
+  {
+    "champion": "Aatrox",
+    "kind": "R",
+    "name": "Massacre",
+    "page": {
+      "title": "Template:Data Aatrox/Massacre",
+      "revid": 3919837
+    },
+    "ranks": 3,
+    "fields": {
+      "cooldown": {
+        "text": "100 / 85 / 70",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                100,
+                85,
+                70
+              ]
+            }
+          }
+        ]
+      },
+      "effectRadius": {
+        "text": "550",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 550
+            }
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "None"
+      ],
+      "affects": [
+        "Self",
+        "Enemies"
+      ],
+      "damageType": [
+        "Magic"
+      ],
+      "spellEffects": "area of effect",
+      "spellShield": "true"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Aatrox draws in the blood of his foes, dealing magic damage to nearby enemy champions and filling 20% of his Blood Well for each enemy champion hit.",
+        "leveling": [
+          {
+            "label": "Magic Damage",
+            "amount": {
+              "text": "200 / 300 / 400 (+ 100% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  200,
+                  300,
+                  400
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 100
+                  },
+                  "text": "(+ 100% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "text": "Additionally, Aatrox gains bonus attack speed and 225 bonus attack range for 12 seconds.",
+        "leveling": [
+          {
+            "label": "Attack Speed",
+            "amount": {
+              "text": "40 / 50 / 60%",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  40,
+                  50,
+                  60
+                ]
+              },
+              "unit": "%",
+              "scaling": [],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Flash can be cast during the cast animation of Massacre. If done so, the ability resolves after Flash in the location Aatrox flashes to."
+    ]
+  },
+  {
+    "champion": "Aatrox",
+    "kind": "R",
+    "name": "World Ender",
+    "page": {
+      "title": "Template:Data Aatrox/World Ender",
+      "revid": 3959270
+    },
+    "ranks": 3,
+    "fields": {
+      "cooldown": {
+        "text": "120 / 100 / 80",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                120,
+                100,
+                80
+              ]
+            }
+          }
+        ]
+      },
+      "cooldownStart": "on-cast",
+      "castTime": {
+        "text": "0.25",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0.25
+            }
+          }
+        ]
+      },
+      "effectRadius": {
+        "text": "600",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 600
+            },
+            "label": "Flee radius"
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Auto"
+      ],
+      "affects": [
+        "Self",
+        "Enemies"
+      ],
+      "damageType": []
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Aatrox unleashes his true form for 10 seconds, fearing nearby enemy minions and monsters for 3 seconds, during which they are gradually slowed by up to 99% over the duration. He also gains bonus movement speed that decays by 10% of the current bonus every 0.25 seconds, lasting until World Ender has ended.",
+        "leveling": [
+          {
+            "label": "Bonus Movement Speed",
+            "amount": {
+              "text": "60 / 80 / 100%",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  60,
+                  80,
+                  100
+                ]
+              },
+              "unit": "%",
+              "scaling": [],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "fear",
+            "category": "control",
+            "wording": "fearing",
+            "duration": {
+              "kind": "constant",
+              "value": 3
+            },
+            "evidence": "Active: Aatrox unleashes his true form for 10 seconds, fearing nearby enemy minions and monsters for 3 seconds, during which they are gradually slowed by up to 99% over the duration.",
+            "conditional": false
+          },
+          {
+            "type": "slow",
+            "category": "control",
+            "wording": "slowed",
+            "duration": {
+              "kind": "constant",
+              "value": 3
+            },
+            "evidence": "Active: Aatrox unleashes his true form for 10 seconds, fearing nearby enemy minions and monsters for 3 seconds, during which they are gradually slowed by up to 99% over the duration.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "Whenever Aatrox scores a champion takedown, he extends the duration by 5 seconds, up to its original length, and becomes unleashed again.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "text": "During World Ender, Aatrox gains bonus attack damage, has 5% increased size, is ghosted, and receives increased self-healing from all sources.",
+        "leveling": [
+          {
+            "label": "Bonus Attack Damage",
+            "amount": {
+              "text": "20 / 30 / 40% AD",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  20,
+                  30,
+                  40
+                ]
+              },
+              "unit": "%",
+              "scaling": [],
+              "unparsed": "",
+              "baseStat": "AD"
+            }
+          },
+          {
+            "label": "Increased Healing",
+            "amount": {
+              "text": "50 / 75 / 100%",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  50,
+                  75,
+                  100
+                ]
+              },
+              "unit": "%",
+              "scaling": [],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "ghosted",
+            "category": "movement",
+            "wording": "ghosted",
+            "evidence": "During World Ender, Aatrox gains bonus attack damage, has 5% increased size, is ghosted, and receives increased self-healing from all sources.",
+            "conditional": false
+          },
+          {
+            "type": "heal",
+            "category": "defense",
+            "wording": "self-healing",
+            "evidence": "During World Ender, Aatrox gains bonus attack damage, has 5% increased size, is ghosted, and receives increased self-healing from all sources.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "Aatrox can move during World Ender's cast time.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "His resource bar indicates the remaining duration of World Ender.",
+      "While World Ender is active, the screen will have a red tint. Near the end of the duration, the tint is intensified.",
+      "World Ender persists through resurrection effects.\n  - World Ender's healing amplification applies to the health gained by resurrecting.",
+      "World Ender will cast from wherever Aatrox is at the end of the cast time.",
+      "Casting World Ender while it is still active removes the timer on the resource bar.\n  - If this happens while using Primordian Aatrox, the intensified tint effect of World Ender will stay on the screen for the rest of the game."
+    ]
+  },
+  {
+    "champion": "Aatrox",
+    "kind": "W",
+    "name": "Blood Thirst / Blood Price",
+    "page": {
+      "title": "Template:Data Aatrox/Blood Thirst / Blood Price",
+      "revid": 3919801
+    },
+    "ranks": 5,
+    "fields": {
+      "staticCooldown": {
+        "text": "0.5",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0.5
+            }
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Unit",
+        "Self"
+      ],
+      "affects": [
+        "Unit",
+        "Self"
+      ],
+      "damageType": [
+        "Physical"
+      ],
+      "spellEffects": "heal",
+      "spellShield": "false",
+      "onHitEffects": "special"
+    },
+    "parts": [
+      {
+        "label": "Passive",
+        "text": "Passive: Aatrox applies a bonus on-hit effect on every third hit against non-structures.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "label": "Toggle Off – Blood Thirst",
+        "text": "Toggle Off – Blood Thirst: Aatrox heals himself on-hit.",
+        "leveling": [
+          {
+            "label": "Heal",
+            "amount": {
+              "text": "30 / 45 / 60 / 75 / 90 (+ 6.5% missing health)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  30,
+                  45,
+                  60,
+                  75,
+                  90
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "missingHealth",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 6.5
+                  },
+                  "text": "(+ 6.5% missing health)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "heal",
+            "category": "defense",
+            "wording": "heals",
+            "evidence": "Toggle Off – Blood Thirst: Aatrox heals himself on-hit.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "label": "Toggle On – Blood Price",
+        "text": "Toggle On – Blood Price: Aatrox deals bonus on-hit physical damage and fills 20% of his Blood Well.",
+        "leveling": [
+          {
+            "label": "Physical Damage",
+            "amount": {
+              "text": "50 / 85 / 120 / 155 / 190 (+ 75% bonus AD)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  50,
+                  85,
+                  120,
+                  155,
+                  190
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "bonusAD",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 75
+                  },
+                  "text": "(+ 75% bonus AD)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "The attack counter between Blood Thirst and Blood Price is shared, meaning that toggling the ability with one empowered attack prepared will immediately allow use of the empowered attack of the other.",
+      "Toggling between Blood Thirst and Blood Price does not reset the basic attack timer. It will, however, cancel an empowered basic attack in its windup animation if it is toggled during that time.",
+      "Toggled abilities do not count as ability activation for the purposes of effects such as Spellblade or Force Pulse.",
+      "Aatrox's basic attack animation correlates with the amount of stacks for Blood Thirst/Price. The first basic attack animation (after leveling up Blood Thirst/Price or proccing an empowered basic attack) is Aatrox swinging his sword to the left, the second is to the right and the third basic attack animation (which will be affected by Blood Thirst/Price) is Aatrox stabbing the target.",
+      "Blood Thirst/Price will not proc against turrets or wards.",
+      "The triggering attack will apply other on-hit effects and can critically strike as normal.\n  - Unlike most other on-hit physical damage, Blood Price's bonus damage does not apply life steal; this is a special case. The triggering attack will still apply life steal.\n  - However, using Death's Dance would then heal Aatrox for 15% of the Blood Price's bonus damage.\n  - Blood Thirst/Price will miss if Aatrox is blinded.\n  - Critical strikes do not interact with the bonus damage of Blood Thirst/Blood Price.\n  - If Blood Thirst/Price is blocked, the effect will still apply, but the base damage will not.\n  - If Blood Thirst/Price is dodged, the effect and base damage will apply as normal."
+    ]
+  },
+  {
+    "champion": "Aatrox",
+    "kind": "W",
+    "name": "Infernal Chains",
+    "page": {
+      "title": "Template:Data Aatrox/Infernal Chains",
+      "revid": 4064835
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "18 / 16.5 / 15 / 13.5 / 12",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                18,
+                16.5,
+                15,
+                13.5,
+                12
+              ]
+            }
+          }
+        ]
+      },
+      "castTime": {
+        "text": "0.25",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0.25
+            }
+          }
+        ]
+      },
+      "range": {
+        "text": "825 • 765",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 825
+            }
+          },
+          {
+            "series": {
+              "kind": "constant",
+              "value": 765
+            }
+          }
+        ]
+      },
+      "width": {
+        "text": "160",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 160
+            }
+          }
+        ]
+      },
+      "speed": {
+        "text": "1800",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 1800
+            }
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Direction"
+      ],
+      "affects": [
+        "Enemies"
+      ],
+      "damageType": [
+        "Physical"
+      ],
+      "spellEffects": "spell",
+      "spellShield": "special",
+      "projectile": "true"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Aatrox sends a chain in the target direction that deals physical damage to the first enemy hit, doubled against minions, and slowing them for 1.5 seconds.",
+        "leveling": [
+          {
+            "label": "Physical Damage",
+            "amount": {
+              "text": "30 / 40 / 50 / 60 / 70 (+ 40% AD)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  30,
+                  40,
+                  50,
+                  60,
+                  70
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AD",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 40
+                  },
+                  "text": "(+ 40% AD)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Minion Damage",
+            "amount": {
+              "text": "60 / 80 / 100 / 120 / 140 (+ 80% AD)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  60,
+                  80,
+                  100,
+                  120,
+                  140
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AD",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 80
+                  },
+                  "text": "(+ 80% AD)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Slow",
+            "amount": {
+              "text": "25 / 27.5 / 30 / 32.5 / 35%",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  25,
+                  27.5,
+                  30,
+                  32.5,
+                  35
+                ]
+              },
+              "unit": "%",
+              "scaling": [],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "slow",
+            "category": "control",
+            "wording": "slowing",
+            "duration": {
+              "kind": "constant",
+              "value": 1.5
+            },
+            "amount": {
+              "kind": "rank",
+              "values": [
+                25,
+                27.5,
+                30,
+                32.5,
+                35
+              ]
+            },
+            "evidence": "Active: Aatrox sends a chain in the target direction that deals physical damage to the first enemy hit, doubled against minions, and slowing them for 1.5 seconds.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "If this hits an enemy champion or large monster, a tether is formed between the target and the ground beneath them for 1.5 seconds, during which they are revealed.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "tether",
+            "category": "other",
+            "wording": "tether",
+            "duration": {
+              "kind": "constant",
+              "value": 1.5
+            },
+            "evidence": "If this hits an enemy champion or large monster, a tether is formed between the target and the ground beneath them for 1.5 seconds, during which they are revealed.",
+            "conditional": false
+          },
+          {
+            "type": "true sight",
+            "category": "vision",
+            "wording": "revealed",
+            "duration": {
+              "kind": "constant",
+              "value": 1.5
+            },
+            "evidence": "If this hits an enemy champion or large monster, a tether is formed between the target and the ground beneath them for 1.5 seconds, during which they are revealed.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "If the tether is not broken by the end of its duration, the target is dealt the same physical damage again and pulled to the center of the area.",
+        "leveling": [
+          {
+            "label": "Total Damage",
+            "amount": {
+              "text": "60 / 80 / 100 / 120 / 140 (+ 80% AD)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  60,
+                  80,
+                  100,
+                  120,
+                  140
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AD",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 80
+                  },
+                  "text": "(+ 80% AD)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "airborne",
+            "category": "control",
+            "wording": "pulled",
+            "evidence": "If the tether is not broken by the end of its duration, the target is dealt the same physical damage again and pulled to the center of the area.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "The impact area is oriented relative to Aatrox's position when the projectile hits, not where the projectile originated from.",
+      "The location that the target is dragged to is not at the target's original location, but slightly closer towards Aatrox's position when the zone expires.",
+      "Spell shield will block the chain's application and initial damage but not the aftereffects of one already applied.",
+      "This ability's damage is calculated based on the caster's current stats and changes dynamically.",
+      "This ability will cast from wherever the caster is at the end of the cast time.",
+      "Infernal Chains maintains its casting angle direction in relation to Aatrox if he moves during the cast time."
+    ]
+  }
+]

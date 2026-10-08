@@ -1,0 +1,1335 @@
+[
+  {
+    "champion": "Ambessa",
+    "kind": "E",
+    "name": "Lacerate",
+    "page": {
+      "title": "Template:Data Ambessa/Lacerate",
+      "revid": 4077910
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "13 / 12 / 11 / 10 / 9",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                13,
+                12,
+                11,
+                10,
+                9
+              ]
+            }
+          }
+        ]
+      },
+      "cost": {
+        "text": "70",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 70
+            }
+          }
+        ]
+      },
+      "costType": "energy",
+      "castTime": {
+        "text": "none",
+        "values": []
+      },
+      "effectRadius": {
+        "text": "325",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 325
+            }
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Auto"
+      ],
+      "affects": [
+        "Enemies"
+      ],
+      "damageType": [
+        "Physical"
+      ],
+      "spellEffects": "spellaoe",
+      "spellShield": "true"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Ambessa enters a 0.225-second lockout and spins her twin drakehounds around her to deal physical damage to nearby enemies and slow them by 99% decaying over 1 second.\n\nDrakehound's Step dash may be buffered during the lockout or initiated within 0.275 seconds of the lockout ending; in either case, she will spin a second time at the end of the dash to apply the same effects at no additional cost.",
+        "leveling": [
+          {
+            "label": "Physical Damage",
+            "amount": {
+              "text": "40 / 60 / 80 / 100 / 120 (+ 50% bonus AD)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  40,
+                  60,
+                  80,
+                  100,
+                  120
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "bonusAD",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 50
+                  },
+                  "text": "(+ 50% bonus AD)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Total Physical Damage",
+            "amount": {
+              "text": "80 / 120 / 160 / 200 / 240 (+ 100% bonus AD)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  80,
+                  120,
+                  160,
+                  200,
+                  240
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "bonusAD",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 100
+                  },
+                  "text": "(+ 100% bonus AD)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "lockout",
+            "category": "other",
+            "wording": "lockout",
+            "duration": {
+              "kind": "constant",
+              "value": 1
+            },
+            "evidence": "Active: Ambessa enters a 0.225-second lockout and spins her twin drakehounds around her to deal physical damage to nearby enemies and slow them by 99% decaying over 1 second.",
+            "conditional": false
+          },
+          {
+            "type": "slow",
+            "category": "control",
+            "wording": "slow",
+            "duration": {
+              "kind": "constant",
+              "value": 1
+            },
+            "amount": {
+              "kind": "constant",
+              "value": 99
+            },
+            "evidence": "Active: Ambessa enters a 0.225-second lockout and spins her twin drakehounds around her to deal physical damage to nearby enemies and slow them by 99% decaying over 1 second.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Ambessa will cast the second spin of Lacerate from wherever she is at the end of the dash.\n  - She will spin a second time even if the dash is interrupted.",
+      "The following table refers for interactions while Ambessa is locked out:"
+    ]
+  },
+  {
+    "champion": "Ambessa",
+    "kind": "I",
+    "name": "Drakehound's Step",
+    "page": {
+      "title": "Template:Data Ambessa/Drakehound's Step",
+      "revid": 4078254
+    },
+    "ranks": 1,
+    "fields": {
+      "targetRange": {
+        "text": "175 - 350",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 175
+            },
+            "label": "Minimum and maximum dash distance"
+          }
+        ]
+      },
+      "speed": {
+        "text": "770 / 830 / 890 / 950 (based on level) + 100% movement speed",
+        "values": [
+          {
+            "series": {
+              "kind": "variable",
+              "variable": "level",
+              "points": [
+                1,
+                6,
+                11,
+                16
+              ],
+              "values": [
+                770,
+                830,
+                890,
+                950
+              ]
+            }
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Passive"
+      ],
+      "affects": [
+        "Self",
+        "Enemies"
+      ],
+      "damageType": [
+        "physical"
+      ],
+      "spellEffects": "proc",
+      "spellShield": "false",
+      "parry": "true",
+      "grounded": "true",
+      "knockdown": "true"
+    },
+    "parts": [
+      {
+        "label": "Innate",
+        "text": "Innate: During the lockout of Ambessa's abilities, inputting an attack or movement command causes her to dash to or towards the target or location, respectively, after the lockout ends. This dash cannot pass through terrain.\nAmbessa cannot dash while immobilized or grounded.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "lockout",
+            "category": "other",
+            "wording": "lockout",
+            "evidence": "Innate: During the lockout of Ambessa's abilities, inputting an attack or movement command causes her to dash to or towards the target or location, respectively, after the lockout ends.",
+            "conditional": false
+          },
+          {
+            "type": "dash",
+            "category": "movement",
+            "wording": "dash",
+            "evidence": "Innate: During the lockout of Ambessa's abilities, inputting an attack or movement command causes her to dash to or towards the target or location, respectively, after the lockout ends.",
+            "conditional": false
+          },
+          {
+            "type": "ground",
+            "category": "control",
+            "wording": "grounded",
+            "evidence": "Ambessa cannot dash while immobilized or grounded.",
+            "conditional": true
+          }
+        ],
+        "values": []
+      },
+      {
+        "label": "Innate",
+        "text": "Innate: Whenever Ambessa casts an ability, she generates a stack of Medarda Maxim after the ability's respective lockout for 4 seconds, refreshing with subsequent casts and stacking up to 3 times. Basic attacks consume one stack each to become empowered.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "label": "Medarda Maxim",
+        "text": "Medarda Maxim: Ambessa's next basic attack on-attack is empowered to have an uncancellable windup, gain 75 bonus range and 50% bonus attack speed, deal 5 – 25 (based on level) (+ 20% bonus AD) bonus physical damage, which applies life steal, and restore 40 / 55 / 70 (based on level) energy.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "on-attack",
+            "category": "offense",
+            "wording": "on-attack",
+            "evidence": "Medarda Maxim: Ambessa's next basic attack on-attack is empowered to have an uncancellable windup, gain 75 bonus range and 50% bonus attack speed, deal 5 – 25 (based on level) (+ 20% bonus AD) bonus physical damage, which applies life steal, and restore 40 / 55 / 70 (based on level) energy.",
+            "conditional": false
+          },
+          {
+            "type": "uncancellable windup",
+            "category": "offense",
+            "wording": "uncancellable windup",
+            "evidence": "Medarda Maxim: Ambessa's next basic attack on-attack is empowered to have an uncancellable windup, gain 75 bonus range and 50% bonus attack speed, deal 5 – 25 (based on level) (+ 20% bonus AD) bonus physical damage, which applies life steal, and restore 40 / 55 / 70 (based on level) energy.",
+            "conditional": false
+          },
+          {
+            "type": "life steal",
+            "category": "defense",
+            "wording": "life steal",
+            "evidence": "Medarda Maxim: Ambessa's next basic attack on-attack is empowered to have an uncancellable windup, gain 75 bonus range and 50% bonus attack speed, deal 5 – 25 (based on level) (+ 20% bonus AD) bonus physical damage, which applies life steal, and restore 40 / 55 / 70 (based on level) energy.",
+            "conditional": false
+          }
+        ],
+        "values": [
+          {
+            "series": {
+              "kind": "level",
+              "values": [
+                5,
+                6.176470588235294,
+                7.352941176470589,
+                8.529411764705882,
+                9.705882352941178,
+                10.882352941176471,
+                12.058823529411764,
+                13.235294117647058,
+                14.411764705882353,
+                15.588235294117647,
+                16.764705882352942,
+                17.941176470588236,
+                19.11764705882353,
+                20.294117647058826,
+                21.470588235294116,
+                22.647058823529413,
+                23.823529411764707,
+                25,
+                26.176470588235293,
+                27.352941176470587
+              ],
+              "past18": "wiki"
+            },
+            "context": "Medarda Maxim: Ambessa's next basic attack on-attack is empowered to have an uncancellable windup, gain 75 bonus range and 50% bonus attack speed, deal 5 – 25 (based on level) (+ 20% bonus AD) bonus physical damage, which applies life steal, and restore 40 / 55 / 70 (based on level) energy."
+          },
+          {
+            "series": {
+              "kind": "variable",
+              "variable": "level",
+              "points": [
+                1,
+                7,
+                13
+              ],
+              "values": [
+                40,
+                55,
+                70
+              ]
+            },
+            "context": "Medarda Maxim: Ambessa's next basic attack on-attack is empowered to have an uncancellable windup, gain 75 bonus range and 50% bonus attack speed, deal 5 – 25 (based on level) (+ 20% bonus AD) bonus physical damage, which applies life steal, and restore 40 / 55 / 70 (based on level) energy."
+          }
+        ]
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Stacks of Medarda Maxim are consumed on-hit, so means of applying on-hit effects without attacking (eg. Guinsoo's Rageblade) will consume them without dealing bonus physical damage or restoring energy.",
+      "Medarda Maxim stacks are granted the moment Ambessa is able to start her dash upon casting her abilities.",
+      "If an Attack command has been queued during an ability lockout and both:",
+      "# the player issues a Hold (default J) or Stop (default S) command, and",
+      "# the acquired target is within Ambessa's attack range after the end of the lockout\n  - then Ambessa's dash will cancel.",
+      "If Ambessa is immobilized or grounded during an ability's lockout, any attack or movement commands inputted during the lockout will not be buffered to cast at the end of the lockout, even if the crowd control has worn off by the time she is able to move (and thus dash).\n  - This also applies vice versa where she has successfully buffered an inputted attack or movement command but is afterwards affected with the aforementioned crowd control types during the remaining lockout time. This causes the buffer to be cancelled and the dash to fail to trigger as a consequence.\n  - Attack commands will not be buffered to cast at the end of the lockout even while grounded.",
+      "If multiple attack and movement commands are inputted during the lockout of an ability, the most recent one is used for the dash's targeting.\n  - If the most recent input is not an attack or movement command, the dash will not trigger.\n    - In this case, the buffer for the previous attack/movement command was cancelled by a new non-attack/movement command such as an input for an ability cast.",
+      "During Drakehound's Step, a visual indicator is visible to Ambessa displaying the eventual dash's direction and destination location.",
+      "The number of available attacks empowered by Medarda Maxim are visible as pips under Ambessa's health bar, only visible to the player.",
+      "The following table refers for interactions while Ambessa is dashing:"
+    ]
+  },
+  {
+    "champion": "Ambessa",
+    "kind": "Q",
+    "name": "Cunning Sweep",
+    "page": {
+      "title": "Template:Data Ambessa/Cunning Sweep",
+      "revid": 4077875
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "14 / 13 / 12 / 11 / 10",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                14,
+                13,
+                12,
+                11,
+                10
+              ]
+            }
+          }
+        ]
+      },
+      "cooldownStart": "on-cast",
+      "cost": {
+        "text": "70",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 70
+            }
+          }
+        ]
+      },
+      "costType": "energy",
+      "castTime": {
+        "text": "none",
+        "values": []
+      },
+      "effectRadius": {
+        "text": "275 • 135 • 400",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 275
+            },
+            "label": "Inner radius"
+          },
+          {
+            "series": {
+              "kind": "constant",
+              "value": 135
+            },
+            "label": "Radius around Ambessa"
+          },
+          {
+            "series": {
+              "kind": "constant",
+              "value": 400
+            },
+            "label": "Outer radius"
+          }
+        ]
+      },
+      "angle": {
+        "text": "180°",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 180
+            }
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Direction"
+      ],
+      "affects": [
+        "Enemies"
+      ],
+      "damageType": [
+        "Physical"
+      ],
+      "spellEffects": "spellaoe",
+      "spellShield": "true",
+      "projectile": "false"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Ambessa enters a 0.225-second lockout, at the end of which she slashes with her twin drakehounds in a cone in the target direction, dealing physical damage to enemies hit. The damage is doubled against enemies hit by the outer edge.\n\nDrakehound's Step dash may be buffered during the lockout or initiated within 0.275 seconds of the lockout ending, and Ambessa will perform the dash after her slash completes.",
+        "leveling": [
+          {
+            "label": "Physical Damage",
+            "amount": {
+              "text": "20 / 30 / 40 / 50 / 60 (+ 30% bonus AD) (+ 2 / 2.25 / 2.5 / 2.75 / 3% (+ 1.5% per 100 bonus AD) of target's maximum health)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  20,
+                  30,
+                  40,
+                  50,
+                  60
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "bonusAD",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 30
+                  },
+                  "text": "(+ 30% bonus AD)"
+                },
+                {
+                  "stat": "targetMaxHealth",
+                  "ratio": {
+                    "kind": "rank",
+                    "values": [
+                      2,
+                      2.25,
+                      2.5,
+                      2.75,
+                      3
+                    ]
+                  },
+                  "text": "(+ 2 / 2.25 / 2.5 / 2.75 / 3% (+ 1.5% per 100 bonus AD) of target's maximum health)",
+                  "modifiers": [
+                    {
+                      "stat": "per100:bonusAD",
+                      "ratio": {
+                        "kind": "constant",
+                        "value": 1.5
+                      },
+                      "text": "(+ 1.5% per 100 bonus AD)"
+                    }
+                  ]
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Increased Physical Damage",
+            "amount": {
+              "text": "40 / 60 / 80 / 100 / 120 (+ 60% bonus AD) (+ 4 / 4.5 / 5 / 5.5 / 6% (+ 3% per 100 bonus AD) of target's maximum health)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  40,
+                  60,
+                  80,
+                  100,
+                  120
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "bonusAD",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 60
+                  },
+                  "text": "(+ 60% bonus AD)"
+                },
+                {
+                  "stat": "targetMaxHealth",
+                  "ratio": {
+                    "kind": "rank",
+                    "values": [
+                      4,
+                      4.5,
+                      5,
+                      5.5,
+                      6
+                    ]
+                  },
+                  "text": "(+ 4 / 4.5 / 5 / 5.5 / 6% (+ 3% per 100 bonus AD) of target's maximum health)",
+                  "modifiers": [
+                    {
+                      "stat": "per100:bonusAD",
+                      "ratio": {
+                        "kind": "constant",
+                        "value": 3
+                      },
+                      "text": "(+ 3% per 100 bonus AD)"
+                    }
+                  ]
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "lockout",
+            "category": "other",
+            "wording": "lockout",
+            "duration": {
+              "kind": "constant",
+              "value": 0.225
+            },
+            "evidence": "Active: Ambessa enters a 0.225-second lockout, at the end of which she slashes with her twin drakehounds in a cone in the target direction, dealing physical damage to enemies hit.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "If this hits at least one enemy, Ambessa can cast Sundering Slam within the next 4 seconds.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "text": "Against monsters, Cunning Sweep deals 75 bonus physical damage and the damage based on their health ratio is capped at 100 – 300 (based on level).",
+        "leveling": [],
+        "mechanics": [],
+        "values": [
+          {
+            "series": {
+              "kind": "level",
+              "values": [
+                100,
+                111.76470588235294,
+                123.52941176470588,
+                135.29411764705884,
+                147.05882352941177,
+                158.8235294117647,
+                170.58823529411765,
+                182.3529411764706,
+                194.11764705882354,
+                205.88235294117646,
+                217.6470588235294,
+                229.41176470588235,
+                241.1764705882353,
+                252.94117647058823,
+                264.7058823529412,
+                276.47058823529414,
+                288.2352941176471,
+                300,
+                311.7647058823529,
+                323.52941176470586
+              ],
+              "past18": "wiki"
+            },
+            "context": "Against monsters, Cunning Sweep deals 75 bonus physical damage and the damage based on their health ratio is capped at 100 – 300 (based on level)."
+          }
+        ]
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Cunning Sweep will slash from wherever Ambessa is at the end of the lockout.\n  - If her facing direction changes before the lockout completes, the slash will be performed towards the new direction.",
+      "The following table refers for interactions while Ambessa is locked out:"
+    ]
+  },
+  {
+    "champion": "Ambessa",
+    "kind": "Q",
+    "name": "Sundering Slam",
+    "page": {
+      "title": "Template:Data Ambessa/Sundering Slam",
+      "revid": 4077904
+    },
+    "ranks": 5,
+    "fields": {
+      "cost": {
+        "text": "70",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 70
+            }
+          }
+        ]
+      },
+      "costType": "energy",
+      "castTime": {
+        "text": "none",
+        "values": []
+      },
+      "range": {
+        "text": "650",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 650
+            }
+          }
+        ]
+      },
+      "width": {
+        "text": "80",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 80
+            }
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Direction"
+      ],
+      "affects": [
+        "Enemies"
+      ],
+      "damageType": [
+        "Physical"
+      ],
+      "spellEffects": "spellaoe",
+      "spellShield": "true",
+      "projectile": "false"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Ambessa enters a 0.225-second lockout, at the end of which she slams her twin drakehounds in a line in the target direction, dealing physical damage to enemies hit. The damage is doubled against the first enemy hit.\n\nDrakehound's Step dash may be buffered during the lockout or initiated within 0.275 seconds of the lockout ending, and Ambessa will perform the dash after her slam completes.",
+        "leveling": [
+          {
+            "label": "Physical Damage",
+            "amount": {
+              "text": "25 / 37.5 / 50 / 62.5 / 75 (+ 45% bonus AD) (+ 2 / 2.25 / 2.5 / 2.75 / 3% (+ 2% per 100 bonus AD) of the target's maximum health)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  25,
+                  37.5,
+                  50,
+                  62.5,
+                  75
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "bonusAD",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 45
+                  },
+                  "text": "(+ 45% bonus AD)"
+                },
+                {
+                  "stat": "targetMaxHealth",
+                  "ratio": {
+                    "kind": "rank",
+                    "values": [
+                      2,
+                      2.25,
+                      2.5,
+                      2.75,
+                      3
+                    ]
+                  },
+                  "text": "(+ 2 / 2.25 / 2.5 / 2.75 / 3% (+ 2% per 100 bonus AD) of the target's maximum health)",
+                  "modifiers": [
+                    {
+                      "stat": "per100:bonusAD",
+                      "ratio": {
+                        "kind": "constant",
+                        "value": 2
+                      },
+                      "text": "(+ 2% per 100 bonus AD)"
+                    }
+                  ]
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Increased Physical Damage",
+            "amount": {
+              "text": "50 / 75 / 100 / 125 / 150 (+ 90% bonus AD) (+ 4 / 4.5 / 5 / 5.5 / 6% (+ 4% per 100 bonus AD) of the target's maximum health)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  50,
+                  75,
+                  100,
+                  125,
+                  150
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "bonusAD",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 90
+                  },
+                  "text": "(+ 90% bonus AD)"
+                },
+                {
+                  "stat": "targetMaxHealth",
+                  "ratio": {
+                    "kind": "rank",
+                    "values": [
+                      4,
+                      4.5,
+                      5,
+                      5.5,
+                      6
+                    ]
+                  },
+                  "text": "(+ 4 / 4.5 / 5 / 5.5 / 6% (+ 4% per 100 bonus AD) of the target's maximum health)",
+                  "modifiers": [
+                    {
+                      "stat": "per100:bonusAD",
+                      "ratio": {
+                        "kind": "constant",
+                        "value": 4
+                      },
+                      "text": "(+ 4% per 100 bonus AD)"
+                    }
+                  ]
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "lockout",
+            "category": "other",
+            "wording": "lockout",
+            "duration": {
+              "kind": "constant",
+              "value": 0.225
+            },
+            "evidence": "Active: Ambessa enters a 0.225-second lockout, at the end of which she slams her twin drakehounds in a line in the target direction, dealing physical damage to enemies hit.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "Against monsters, Sundering Slam deals 75 bonus physical damage and the damage based on their health ratio is capped at 100 – 300 (based on level).",
+        "leveling": [],
+        "mechanics": [],
+        "values": [
+          {
+            "series": {
+              "kind": "level",
+              "values": [
+                100,
+                111.76470588235294,
+                123.52941176470588,
+                135.29411764705884,
+                147.05882352941177,
+                158.8235294117647,
+                170.58823529411765,
+                182.3529411764706,
+                194.11764705882354,
+                205.88235294117646,
+                217.6470588235294,
+                229.41176470588235,
+                241.1764705882353,
+                252.94117647058823,
+                264.7058823529412,
+                276.47058823529414,
+                288.2352941176471,
+                300,
+                311.7647058823529,
+                323.52941176470586
+              ],
+              "past18": "wiki"
+            },
+            "context": "Against monsters, Sundering Slam deals 75 bonus physical damage and the damage based on their health ratio is capped at 100 – 300 (based on level)."
+          }
+        ]
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Sundering Slam will slam from wherever Ambessa is at the end of the lockout.\n  - If her facing direction changes before the lockout completes, the slam will be performed towards the new direction.",
+      "The following table refers for interactions while Ambessa is locked out:"
+    ]
+  },
+  {
+    "champion": "Ambessa",
+    "kind": "R",
+    "name": "Public Execution",
+    "page": {
+      "title": "Template:Data Ambessa/Public Execution",
+      "revid": 4077930
+    },
+    "ranks": 3,
+    "fields": {
+      "cooldown": {
+        "text": "130 / 115 / 100",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                130,
+                115,
+                100
+              ]
+            }
+          }
+        ]
+      },
+      "castTime": {
+        "text": "0.7",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0.7
+            }
+          }
+        ]
+      },
+      "range": {
+        "text": "1250",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 1250
+            }
+          }
+        ]
+      },
+      "width": {
+        "text": "130",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 130
+            }
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Direction"
+      ],
+      "affects": [
+        "Enemies"
+      ],
+      "damageType": [
+        "Physical"
+      ],
+      "spellEffects": "spell",
+      "spellShield": "true",
+      "grounded": "true"
+    },
+    "parts": [
+      {
+        "label": "Passive",
+        "text": "Passive: Ambessa gains armor penetration and heals herself for a percentage of the post-mitigation damage she deals to enemies with her active abilities. The healing effectiveness is reduced to 25% against minions and monsters.",
+        "leveling": [
+          {
+            "label": "Armor Penetration",
+            "amount": {
+              "text": "10 / 20 / 30%",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  10,
+                  20,
+                  30
+                ]
+              },
+              "unit": "%",
+              "scaling": [],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Healing Percentage",
+            "amount": {
+              "text": "15 / 17.5 / 20% (+ 50% life steal)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  15,
+                  17.5,
+                  20
+                ]
+              },
+              "unit": "%",
+              "scaling": [
+                {
+                  "stat": "other:life steal",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 50
+                  },
+                  "text": "(+ 50% life steal)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Reduced Healing Percentage",
+            "amount": {
+              "text": "3.75 / 4.375 / 5% (+ 12.5% life steal)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  3.75,
+                  4.375,
+                  5
+                ]
+              },
+              "unit": "%",
+              "scaling": [
+                {
+                  "stat": "other:life steal",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 12.5
+                  },
+                  "text": "(+ 12.5% life steal)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "heal",
+            "category": "defense",
+            "wording": "heals",
+            "evidence": "Passive: Ambessa gains armor penetration and heals herself for a percentage of the post-mitigation damage she deals to enemies with her active abilities.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "label": "Active",
+        "text": "Active: Ambessa prepares a strike in a line in the target direction, then blinks behind the farthest enemy champion within the area and seizes them. If she successfully seizes the target, Ambessa attaches them to herself and suppresses them for 0.75 seconds. While the target is suppressed, they are revealed and Ambessa picks them up off the ground before crashing them back down, afterwards dealing physical damage and stunning them for 0.4 seconds.",
+        "leveling": [
+          {
+            "label": "Physical Damage",
+            "amount": {
+              "text": "150 / 250 / 350 (+ 80% bonus AD)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  150,
+                  250,
+                  350
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "bonusAD",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 80
+                  },
+                  "text": "(+ 80% bonus AD)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "blink",
+            "category": "movement",
+            "wording": "blinks",
+            "evidence": "Active: Ambessa prepares a strike in a line in the target direction, then blinks behind the farthest enemy champion within the area and seizes them.",
+            "conditional": false
+          },
+          {
+            "type": "attach",
+            "category": "movement",
+            "wording": "attaches",
+            "evidence": "If she successfully seizes the target, Ambessa attaches them to herself and suppresses them for 0.75 seconds.",
+            "conditional": false
+          },
+          {
+            "type": "suppression",
+            "category": "control",
+            "wording": "suppresses",
+            "duration": {
+              "kind": "constant",
+              "value": 0.75
+            },
+            "evidence": "If she successfully seizes the target, Ambessa attaches them to herself and suppresses them for 0.75 seconds.",
+            "conditional": false
+          },
+          {
+            "type": "true sight",
+            "category": "vision",
+            "wording": "revealed",
+            "duration": {
+              "kind": "constant",
+              "value": 0.4
+            },
+            "evidence": "While the target is suppressed, they are revealed and Ambessa picks them up off the ground before crashing them back down, afterwards dealing physical damage and stunning them for 0.4 seconds.",
+            "conditional": false
+          },
+          {
+            "type": "stun",
+            "category": "control",
+            "wording": "stunning",
+            "duration": {
+              "kind": "constant",
+              "value": 0.4
+            },
+            "evidence": "While the target is suppressed, they are revealed and Ambessa picks them up off the ground before crashing them back down, afterwards dealing physical damage and stunning them for 0.4 seconds.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "Ambessa is displacement immune and unable to act during the cast time and while the target is suppressed. Drakehound's Step dash may be buffered during the cast time or lockout, as well as initiated within 0.275 seconds of the lockout ending.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "displacement-immune",
+            "category": "defense",
+            "wording": "displacement immune",
+            "evidence": "Ambessa is displacement immune and unable to act during the cast time and while the target is suppressed.",
+            "conditional": false
+          },
+          {
+            "type": "lockout",
+            "category": "other",
+            "wording": "unable to act",
+            "evidence": "Ambessa is displacement immune and unable to act during the cast time and while the target is suppressed.",
+            "conditional": true
+          }
+        ],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Displacement immunity may linger for up to an additional 0.1 seconds after the suppression ends due to fuzziness.",
+      "Public Execution's attachment depends on the application of the suppression; if the suppression is not applied, neither is the attachment. Similarly, if the suppression is removed, so is the attachment.\n  - If the target resists the suppression by being immune to crowd control, displacement immune, or having a spell shield, Ambessa will not attach them to herself.\n    - She will be unable to apply the damage and stun in this case since the suppression was not applied in the first place.\n    - She will still blink to the target in this case.\n  - If the target removes the suppression by any means, including with an applicable cleanse effect or dispel, they will instantly detach themselves from Ambessa, which causes the ability to cancel immediately.\n    - She will fail to apply the damage and stun to the target since the suppression was removed from them early in this case.\n    - Her lockout and displacement immunity also ends prematurely in this case.",
+      "The target is attached to Ambessa a small distance in front of her.",
+      "Ambessa attaches the target to herself a second time, before detaching them at the end of the suppression.",
+      "If Ambessa would blink inside the attack range of an enemy turret, including the Nexus Obelisk, Public Execution will instead attempt to position her outside of it.",
+      "Ambessa will reveal herself during the cast time if there is an enemy champion nearby.",
+      "Ambessa will search for enemies in the direction she is facing at the end of cast time.\n  - This direction can be changed by Encore.",
+      "If Ambessa successfully seizes a target, any regular movement orders issued before doing so are discarded before the lockout ends.\n  - This does not affect movement orders issued during the lockout.",
+      "Ambessa is also special-cased to be immune to polymorphs while she is displacement immune.",
+      "Public Execution will trigger a stack of Electrocute and Eclipse Ever Rising Moon for the suppression application and the damage dealt.",
+      "Public Execution will not queue Flash if Ambessa attempts to use the summoner spell during the cast time.",
+      "The following table refers for interactions while Ambessa is in cast time and during the lockout:"
+    ]
+  },
+  {
+    "champion": "Ambessa",
+    "kind": "W",
+    "name": "Repudiation",
+    "page": {
+      "title": "Template:Data Ambessa/Repudiation",
+      "revid": 4077907
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "18 / 17 / 16 / 15 / 14",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                18,
+                17,
+                16,
+                15,
+                14
+              ]
+            }
+          }
+        ]
+      },
+      "cost": {
+        "text": "70",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 70
+            }
+          }
+        ]
+      },
+      "costType": "energy",
+      "castTime": {
+        "text": "none",
+        "values": []
+      },
+      "effectRadius": {
+        "text": "325",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 325
+            }
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Auto"
+      ],
+      "affects": [
+        "Enemies"
+      ],
+      "damageType": [
+        "Physical"
+      ],
+      "spellEffects": "spellaoe",
+      "spellShield": "true"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Ambessa braces herself for up to 0.5 seconds, during which in the first 0.225 seconds she is unable to act. After Ambessa finishes bracing, she smashes the ground beneath her, dealing physical damage to nearby enemies.\n\nDrakehound's Step dash may be buffered during the lockout or initiated within 0.25 seconds of the lockout ending.",
+        "leveling": [
+          {
+            "label": "Physical Damage",
+            "amount": {
+              "text": "50 / 75 / 100 / 125 / 150 (+ 50% bonus AD)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  50,
+                  75,
+                  100,
+                  125,
+                  150
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "bonusAD",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 50
+                  },
+                  "text": "(+ 50% bonus AD)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "lockout",
+            "category": "other",
+            "wording": "unable to act",
+            "evidence": "Active: Ambessa braces herself for up to 0.5 seconds, during which in the first 0.225 seconds she is unable to act.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "Additionally, Ambessa shields herself at the time of cast for 50 – 320 (based on level) (+ 150% bonus AD) for 1.5 seconds. If the shield mitigates any amount of damage taken from champions, large monsters, or turrets before Ambessa smashes the ground, Repudiation's damage is increased by 50%.",
+        "leveling": [
+          {
+            "label": "Increased Physical Damage",
+            "amount": {
+              "text": "75 / 112.5 / 150 / 187.5 / 225 (+ 75% bonus AD)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  75,
+                  112.5,
+                  150,
+                  187.5,
+                  225
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "bonusAD",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 75
+                  },
+                  "text": "(+ 75% bonus AD)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "shield",
+            "category": "defense",
+            "wording": "shields",
+            "duration": {
+              "kind": "constant",
+              "value": 1.5
+            },
+            "evidence": "Additionally, Ambessa shields herself at the time of cast for 50 – 320 (based on level) (+ 150% bonus AD) for 1.5 seconds.",
+            "conditional": false
+          }
+        ],
+        "values": [
+          {
+            "series": {
+              "kind": "level",
+              "values": [
+                50,
+                65.88235294117646,
+                81.76470588235294,
+                97.64705882352942,
+                113.52941176470588,
+                129.41176470588235,
+                145.29411764705884,
+                161.1764705882353,
+                177.05882352941177,
+                192.94117647058823,
+                208.8235294117647,
+                224.7058823529412,
+                240.58823529411765,
+                256.47058823529414,
+                272.3529411764706,
+                288.2352941176471,
+                304.11764705882354,
+                320,
+                335.88235294117646,
+                351.7647058823529
+              ],
+              "past18": "wiki"
+            },
+            "context": "Additionally, Ambessa shields herself at the time of cast for 50 – 320 (based on level) (+ 150% bonus AD) for 1.5 seconds."
+          }
+        ]
+      },
+      {
+        "text": "Ambessa will smash the ground at the end of Drakehound's Step dash if she would finish bracing during it, and otherwise always smashes the ground from wherever she is at the end of the bracing time.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Repudiation's bracing time is unaffected by the initiation of Drakehound's Step dash.\n  - Ambessa will smash the ground from wherever she is at the end of the bracing time even if the dash ends or completes its travel before the brace is finished.\n    - She will remain in place until the brace is finished in this case.\n    - If the brace would however finish during the dash, due to the specific timing of the dash's initiation, Ambessa will smash the ground at the end of the dash instead.\n      - This would apply in cases where the dash is initiated shortly before the bracing is finished.",
+      "Repudiation's shield buff and shield health on the health bar UI are not granted to and displayed on the caster on-cast, but rather only after a very short, inconsistent delay from the time of cast.",
+      "The following table refers for interactions while Ambessa is locked out:\n  - Ambessa will smash the ground instantly upon entering resurrection."
+    ]
+  }
+]

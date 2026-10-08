@@ -1,0 +1,1278 @@
+[
+  {
+    "champion": "Rell",
+    "kind": "E",
+    "name": "Attract and Repel",
+    "page": {
+      "title": "Template:Data Rell/Attract and Repel",
+      "revid": 3906695
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "13",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 13
+            }
+          }
+        ]
+      },
+      "cost": {
+        "text": "40",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 40
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "0.35 / 0.25 / None",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                0.35,
+                0.25
+              ]
+            },
+            "label": "Self-cast"
+          }
+        ]
+      },
+      "targetRange": {
+        "text": "1500",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 1500
+            }
+          }
+        ]
+      },
+      "effectRadius": {
+        "text": "250",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 250
+            },
+            "label": "Radius around Rell and her ally"
+          }
+        ]
+      },
+      "width": {
+        "text": "320",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 320
+            },
+            "label": "Full width between Rell and her ally"
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Unit",
+        "Auto"
+      ],
+      "affects": [
+        "Enemies"
+      ],
+      "damageType": [
+        "Magic"
+      ],
+      "spellEffects": "spellaoe",
+      "spellShield": "true"
+    },
+    "parts": [
+      {
+        "label": "Passive",
+        "text": "Passive: Rell forms a tether between her and the ally bound by Attract and Repel, and grants the ally 10% of her total armor and 10% of her total magic resistance while they are nearby.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "tether",
+            "category": "other",
+            "wording": "tether",
+            "evidence": "Passive: Rell forms a tether between her and the ally bound by Attract and Repel, and grants the ally 10% of her total armor and 10% of her total magic resistance while they are nearby.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "label": "Active",
+        "text": "Active: Rell binds herself and the target allied champion nearest to the cursor with Attract and Repel. Rell can then recast Attract and Repel while the tether persists.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "label": "Recast",
+        "text": "Recast: Rell erupts the tether, dealing magic damage and stunning enemies between and around both herself and the bound ally for 0.5 seconds.",
+        "leveling": [
+          {
+            "label": "Magic Damage",
+            "amount": {
+              "text": "80 / 120 / 160 / 200 / 240 (+ 30% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  80,
+                  120,
+                  160,
+                  200,
+                  240
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 30
+                  },
+                  "text": "(+ 30% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "stun",
+            "category": "control",
+            "wording": "stunning",
+            "duration": {
+              "kind": "constant",
+              "value": 0.5
+            },
+            "evidence": "Recast: Rell erupts the tether, dealing magic damage and stunning enemies between and around both herself and the bound ally for 0.5 seconds.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "Rell can self-target to dispel the current bind if she and her bound ally are not near enemy champions, and if she has not casted an ability nor taken damage from or attacked enemy champions within the last 3 seconds. Only one ally can be bound at a time, and selecting a new ally overrides the previous bind.\nAttract and Repel will incur a 2.75-second cooldown with no cost if Rell binds to an ally and a 1-second cooldown with no cost if she self-targets.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "The effects render before the cast time.",
+      "All units can see the effective area of the tether. Both conduits can see the tether range when within 600 units of it.",
+      "Attract and Repel can be cast on allies even if they are untargetable.\n  - Rell has an arrow indicator that points to the other conduit. Depending on the distance it glows blue (0–900), yellow (900–2020), and red (2020+)",
+      "Attract and Repel will be placed on a very short cooldown (less than 0.1 seconds) when the tether is reapplied to the bound ally after the two become in tether range again.",
+      "Rell immediately unbinds from tethered allies when they or she dies.",
+      "Rell cannot begin, end, or erupt a tether by using the Self-Cast hotkey."
+    ]
+  },
+  {
+    "champion": "Rell",
+    "kind": "E",
+    "name": "Full Tilt",
+    "page": {
+      "title": "Template:Data Rell/Full Tilt",
+      "revid": 4008009
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "14 / 13 / 12 / 11 / 10",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                14,
+                13,
+                12,
+                11,
+                10
+              ]
+            }
+          }
+        ]
+      },
+      "cost": {
+        "text": "40",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 40
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "none",
+        "values": []
+      },
+      "targetRange": {
+        "text": "1200",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 1200
+            }
+          }
+        ]
+      },
+      "effectRadius": {
+        "text": "300 • 2200 • 1600",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 300
+            },
+            "label": "Explosion radius"
+          },
+          {
+            "series": {
+              "kind": "constant",
+              "value": 2200
+            },
+            "label": "Empowered ally detection range for granting the enhanced MS, estimated"
+          },
+          {
+            "series": {
+              "kind": "constant",
+              "value": 1600
+            },
+            "label": "Enemy champion detection range for granting the enhanced MS, estimated"
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Unit",
+        "Auto"
+      ],
+      "affects": [
+        "Self",
+        "Allies",
+        "Enemies"
+      ],
+      "damageType": [
+        "Magic"
+      ],
+      "spellEffects": "spellaoe",
+      "spellShield": "true"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Rell powers up herself and the target allied champion for 3 seconds, both gaining 15% bonus movement speed, increased to 30% while facing the empowered ally or a visible enemy champion.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "reveal",
+            "category": "vision",
+            "wording": "visible",
+            "evidence": "Active: Rell powers up herself and the target allied champion for 3 seconds, both gaining 15% bonus movement speed, increased to 30% while facing the empowered ally or a visible enemy champion.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "Additionally, Rell's next basic attack or Shattering Strike within 5 seconds creates an explosion around the target that deals bonus magic damage, capped at 150 – 300 (based on level) against monsters and structures.",
+        "leveling": [
+          {
+            "label": "Bonus Magic Damage",
+            "amount": {
+              "text": "5 / 5.5 / 6 / 6.5 / 7% (+ 3% per 100 AP) of target's maximum health",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  5,
+                  5.5,
+                  6,
+                  6.5,
+                  7
+                ]
+              },
+              "unit": "%",
+              "scaling": [
+                {
+                  "stat": "per100:AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 3
+                  },
+                  "text": "(+ 3% per 100 AP)"
+                }
+              ],
+              "unparsed": "",
+              "baseStat": "targetMaxHealth"
+            }
+          }
+        ],
+        "mechanics": [],
+        "values": [
+          {
+            "series": {
+              "kind": "level",
+              "values": [
+                150,
+                158.8235294117647,
+                167.64705882352942,
+                176.47058823529412,
+                185.29411764705884,
+                194.11764705882354,
+                202.94117647058823,
+                211.76470588235293,
+                220.58823529411765,
+                229.41176470588238,
+                238.23529411764707,
+                247.05882352941177,
+                255.88235294117646,
+                264.7058823529412,
+                273.52941176470586,
+                282.3529411764706,
+                291.1764705882353,
+                300,
+                308.82352941176475,
+                317.6470588235294
+              ],
+              "past18": "wiki"
+            },
+            "context": "Additionally, Rell's next basic attack or Shattering Strike within 5 seconds creates an explosion around the target that deals bonus magic damage, capped at 150 – 300 (based on level) against monsters and structures."
+          }
+        ]
+      },
+      {
+        "text": "If cast without a valid target, or self-cast, Full Tilt will automatically target the closest allied champion in range.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "If Shattering Strike hits more than one enemy, the Full Tilt explosion will be centered around the unit with the lowest Spawn ID.\n  - \"Spawn ID\" is an unofficial abbreviation to describe the spawn order for all units at the beginning of games."
+    ]
+  },
+  {
+    "champion": "Rell",
+    "kind": "I",
+    "name": "Break the Mold",
+    "page": {
+      "title": "Template:Data Rell/Break the Mold",
+      "revid": 4050368
+    },
+    "ranks": 1,
+    "fields": {},
+    "flags": {
+      "targeting": [
+        "Passive"
+      ],
+      "affects": [
+        "Self",
+        "Enemies"
+      ],
+      "damageType": [
+        "magic"
+      ],
+      "spellEffects": "proc",
+      "spellShield": "false",
+      "parry": "true"
+    },
+    "parts": [
+      {
+        "label": "Innate",
+        "text": "Innate: Rell's basic attacks deal bonus magic damage on-hit equal to the sum of 5% of her total armor and 5% of her total magic resistance.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "on-hit",
+            "category": "offense",
+            "wording": "on-hit",
+            "evidence": "Innate: Rell's basic attacks deal bonus magic damage on-hit equal to the sum of 5% of her total armor and 5% of her total magic resistance.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "label": "Innate",
+        "text": "Innate: Rell's basic attacks on-hit and abilities against non-minions apply a stack of Break The Mold for 5 seconds, refreshing on subsequent hits and stacking up to 5 times. Each stack reduces the target's armor and magic resistance by 3% for a maximum of 15% reduction.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "on-hit",
+            "category": "offense",
+            "wording": "on-hit",
+            "evidence": "Innate: Rell's basic attacks on-hit and abilities against non-minions apply a stack of Break The Mold for 5 seconds, refreshing on subsequent hits and stacking up to 5 times.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "Rell gains bonus armor and bonus magic resistance equal to the sum of resistances reduced from all afflicted enemies.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "text": "Break the Mold will reduce the target's armor and magic resistance by a minimum of 1.5 – 3 (based on level).",
+        "leveling": [],
+        "mechanics": [],
+        "values": [
+          {
+            "series": {
+              "kind": "level",
+              "values": [
+                1.5,
+                1.588235294117647,
+                1.6764705882352942,
+                1.7647058823529411,
+                1.8529411764705883,
+                1.9411764705882353,
+                2.0294117647058822,
+                2.1176470588235294,
+                2.2058823529411766,
+                2.2941176470588234,
+                2.3823529411764706,
+                2.4705882352941178,
+                2.5588235294117645,
+                2.647058823529412,
+                2.735294117647059,
+                2.823529411764706,
+                2.9117647058823533,
+                3,
+                3.088235294117647,
+                3.1764705882352944
+              ],
+              "past18": "wiki"
+            },
+            "context": "Break the Mold will reduce the target's armor and magic resistance by a minimum of 1.5 – 3 (based on level)."
+          }
+        ]
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "The attacks do not affect structures.",
+      "The first stack of Break the Mold that is applied to a target will snapshot the targets current armor and magic resistance. All subsequent stacks will reduce the targets resistances based on the snapshotted amount, even if the target's total resistances change. This snapshot lasts until the debuff expires.\n  - For example, applying a stack of Break the Mold to a champion with 100 armor and magic resistance will reduce their resistance by 3 and grant Rell the lost stats. If their resistances are then boosted to 500 before another stack is applied, the subsequent stack will only reduce their resistance by a further 3 despite 3% of 500 being 15.\n  - Another example, when a target has temporarily gained increased resistances before Rell applies the first stack of Break the Mold then the snapshot of the target's stats will be of the increased amount. This can result in targets losing significantly more resistances after the duration of the increase ends, for as long as the stacks don't fall off.\n  - If a target has 100 base resistances, and they are increased to 500 temporarily before Break the Mold is applied, then the target will lose a total of 15 resistances, up to a total of 75 resistances at 5 stacks, and when the target's resistance buff ends they would only have 25 remaining."
+    ]
+  },
+  {
+    "champion": "Rell",
+    "kind": "Q",
+    "name": "Shattering Strike",
+    "page": {
+      "title": "Template:Data Rell/Shattering Strike",
+      "revid": 4008008
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "11 / 10.5 / 10 / 9.5 / 9",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                11,
+                10.5,
+                10,
+                9.5,
+                9
+              ]
+            }
+          }
+        ]
+      },
+      "cost": {
+        "text": "50",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 50
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "0.4",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0.4
+            }
+          }
+        ]
+      },
+      "range": {
+        "text": "520 • -220",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 520
+            },
+            "label": "Rectangle forward range"
+          },
+          {
+            "series": {
+              "kind": "constant",
+              "value": 220
+            },
+            "label": "Rectangle backward range"
+          }
+        ]
+      },
+      "width": {
+        "text": "150",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 150
+            },
+            "label": "Rectangle width"
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Direction"
+      ],
+      "affects": [
+        "Enemies"
+      ],
+      "damageType": [
+        "magic"
+      ],
+      "spellEffects": "spellaoe",
+      "spellShield": "true",
+      "projectile": "false"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Rell thrusts her lance in the target direction, lunging forward 100 units and destroying the damage-mitigating shields of all enemies hit (excluding the shields of monsters) before dealing them magic damage and stunning them for 0.65 seconds.",
+        "leveling": [
+          {
+            "label": "Magic Damage",
+            "amount": {
+              "text": "60 / 100 / 140 / 180 / 220 (+ 60% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  60,
+                  100,
+                  140,
+                  180,
+                  220
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 60
+                  },
+                  "text": "(+ 60% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "dash",
+            "category": "movement",
+            "wording": "lunging",
+            "evidence": "Active: Rell thrusts her lance in the target direction, lunging forward 100 units and destroying the damage-mitigating shields of all enemies hit (excluding the shields of monsters) before dealing them magic damage and stunning them for 0.65 seconds.",
+            "conditional": false
+          },
+          {
+            "type": "shield",
+            "category": "defense",
+            "wording": "shields",
+            "duration": {
+              "kind": "constant",
+              "value": 0.65
+            },
+            "evidence": "Active: Rell thrusts her lance in the target direction, lunging forward 100 units and destroying the damage-mitigating shields of all enemies hit (excluding the shields of monsters) before dealing them magic damage and stunning them for 0.65 seconds.",
+            "conditional": false
+          },
+          {
+            "type": "stun",
+            "category": "control",
+            "wording": "stunning",
+            "duration": {
+              "kind": "constant",
+              "value": 0.65
+            },
+            "evidence": "Active: Rell thrusts her lance in the target direction, lunging forward 100 units and destroying the damage-mitigating shields of all enemies hit (excluding the shields of monsters) before dealing them magic damage and stunning them for 0.65 seconds.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "Rell will not lunge forward after the cast time if she was immobilized, grounded, or silenced during it. She is also unable to act for 0.35 seconds after the cast time.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "dash",
+            "category": "movement",
+            "wording": "lunge",
+            "evidence": "Rell will not lunge forward after the cast time if she was immobilized, grounded, or silenced during it.",
+            "conditional": false
+          },
+          {
+            "type": "ground",
+            "category": "control",
+            "wording": "grounded",
+            "evidence": "Rell will not lunge forward after the cast time if she was immobilized, grounded, or silenced during it.",
+            "conditional": false
+          },
+          {
+            "type": "silence",
+            "category": "control",
+            "wording": "silenced",
+            "evidence": "Rell will not lunge forward after the cast time if she was immobilized, grounded, or silenced during it.",
+            "conditional": false
+          },
+          {
+            "type": "lockout",
+            "category": "other",
+            "wording": "unable to act",
+            "duration": {
+              "kind": "constant",
+              "value": 0.35
+            },
+            "evidence": "She is also unable to act for 0.35 seconds after the cast time.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "This ability will cast from wherever the caster is at the end of the cast time."
+    ]
+  },
+  {
+    "champion": "Rell",
+    "kind": "R",
+    "name": "Magnet Storm",
+    "page": {
+      "title": "Template:Data Rell/Magnet Storm",
+      "revid": 4008010
+    },
+    "ranks": 3,
+    "fields": {
+      "cooldown": {
+        "text": "120 / 100 / 80",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                120,
+                100,
+                80
+              ]
+            }
+          }
+        ]
+      },
+      "cooldownStart": "on-cast",
+      "cost": {
+        "text": "100",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 100
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "0.25",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0.25
+            }
+          }
+        ]
+      },
+      "effectRadius": {
+        "text": "450 • 375",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 450
+            },
+            "label": "Initial knockup radius"
+          },
+          {
+            "series": {
+              "kind": "constant",
+              "value": 375
+            },
+            "label": "Continous kinetics effect radius, center to edge"
+          }
+        ]
+      },
+      "innerRadius": {
+        "text": "225",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 225
+            },
+            "label": "Pulls target into at least this radius, continuous kinetics does not affect targets already in this radius"
+          }
+        ]
+      },
+      "speed": {
+        "text": "300",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 300
+            },
+            "label": "Kinematic attraction speed, in units per second"
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Auto"
+      ],
+      "affects": [
+        "Enemies"
+      ],
+      "damageType": [
+        "Magic"
+      ],
+      "spellEffects": "aoedot",
+      "spellShield": "special"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Rell erupts with magnetic fury, pulling nearby enemies inward and creating a gravitational field around her for the next 2 seconds that deals magic damage every 0.25 seconds to nearby enemies and drags them towards her.",
+        "leveling": [
+          {
+            "label": "Magic Damage Per Tick",
+            "amount": {
+              "text": "18.75 / 31.25 / 43.75 (+ 13.75% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  18.75,
+                  31.25,
+                  43.75
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 13.75
+                  },
+                  "text": "(+ 13.75% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Total Magic Damage",
+            "amount": {
+              "text": "150 / 250 / 350 (+ 110% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  150,
+                  250,
+                  350
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 110
+                  },
+                  "text": "(+ 110% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "airborne",
+            "category": "control",
+            "wording": "pulling",
+            "duration": {
+              "kind": "constant",
+              "value": 2
+            },
+            "evidence": "Active: Rell erupts with magnetic fury, pulling nearby enemies inward and creating a gravitational field around her for the next 2 seconds that deals magic damage every 0.25 seconds to nearby enemies and drags them towards her.",
+            "conditional": false
+          },
+          {
+            "type": "drag",
+            "category": "control",
+            "wording": "drags",
+            "evidence": "Active: Rell erupts with magnetic fury, pulling nearby enemies inward and creating a gravitational field around her for the next 2 seconds that deals magic damage every 0.25 seconds to nearby enemies and drags them towards her.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "This ability will cast from wherever the caster is at the end of the cast time.",
+      "Magnet Storm will not drag units that are:\n  - Dashing.\n  - Being displaced (e.g. by airborne effects)\n  - Attached.\n  - Displacement immune.\n  - Immune to crowd control.",
+      "Spell shield will block the initial pull but not the dragging effect.",
+      "Magnet Storm cannot be cast again while it is active."
+    ]
+  },
+  {
+    "champion": "Rell",
+    "kind": "W",
+    "name": "Ferromancy: Crash Down",
+    "page": {
+      "title": "Template:Data Rell/Ferromancy: Crash Down",
+      "revid": 4007762
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "10",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 10
+            }
+          }
+        ]
+      },
+      "cost": {
+        "text": "40",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 40
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "0.625",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0.625
+            }
+          }
+        ]
+      },
+      "targetRange": {
+        "text": "100 - 400",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 100
+            },
+            "label": "Minimum and maximum initial dash distance"
+          }
+        ]
+      },
+      "effectRadius": {
+        "text": "180",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 180
+            }
+          }
+        ]
+      },
+      "collisionRadius": {
+        "text": "200",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 200
+            },
+            "label": "Sliding dash collision radius"
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Location"
+      ],
+      "affects": [
+        "Enemies"
+      ],
+      "damageType": [
+        "Magic"
+      ],
+      "spellEffects": "spellaoe",
+      "spellShield": "true",
+      "grounded": "true",
+      "knockdown": "true"
+    },
+    "parts": [
+      {
+        "label": "Passive - Mounted Alacrity",
+        "text": "Passive - Mounted Alacrity: While Rell is Mounted, she gains bonus movement speed.",
+        "leveling": [
+          {
+            "label": "Bonus Movement Speed",
+            "amount": {
+              "text": "20 / 25 / 30 / 35 / 40",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  20,
+                  25,
+                  30,
+                  35,
+                  40
+                ]
+              },
+              "scaling": [],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "label": "Active",
+        "text": "Active: Rell becomes Dismounted and leaps to the target location over the cast time, granting herself a shield that lasts until destroyed or casting Ferromancy: Mount Up. Upon arrival, she deals magic damage to nearby enemies, stuns them for 0.8 seconds, and knocks them up for 0.4 seconds. She will continue sliding forward another 320 units over 0.5 seconds, though not through terrain, affecting further enemies along her path.",
+        "leveling": [
+          {
+            "label": "Shield Strength",
+            "amount": {
+              "text": "20 / 40 / 60 / 80 / 100 (+ 11% maximum health)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  20,
+                  40,
+                  60,
+                  80,
+                  100
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "maxHealth",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 11
+                  },
+                  "text": "(+ 11% maximum health)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Magic Damage",
+            "amount": {
+              "text": "60 / 90 / 120 / 150 / 180 (+ 60% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  60,
+                  90,
+                  120,
+                  150,
+                  180
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 60
+                  },
+                  "text": "(+ 60% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "dash",
+            "category": "movement",
+            "wording": "leaps",
+            "evidence": "Active: Rell becomes Dismounted and leaps to the target location over the cast time, granting herself a shield that lasts until destroyed or casting Ferromancy: Mount Up.",
+            "conditional": false
+          },
+          {
+            "type": "shield",
+            "category": "defense",
+            "wording": "shield",
+            "evidence": "Active: Rell becomes Dismounted and leaps to the target location over the cast time, granting herself a shield that lasts until destroyed or casting Ferromancy: Mount Up.",
+            "conditional": false
+          },
+          {
+            "type": "stun",
+            "category": "control",
+            "wording": "stuns",
+            "duration": {
+              "kind": "constant",
+              "value": 0.8
+            },
+            "evidence": "Upon arrival, she deals magic damage to nearby enemies, stuns them for 0.8 seconds, and knocks them up for 0.4 seconds.",
+            "conditional": false
+          },
+          {
+            "type": "airborne",
+            "category": "control",
+            "wording": "knocks them up",
+            "duration": {
+              "kind": "constant",
+              "value": 0.4
+            },
+            "evidence": "Upon arrival, she deals magic damage to nearby enemies, stuns them for 0.8 seconds, and knocks them up for 0.4 seconds.",
+            "conditional": false
+          },
+          {
+            "type": "dash",
+            "category": "movement",
+            "wording": "sliding",
+            "evidence": "She will continue sliding forward another 320 units over 0.5 seconds, though not through terrain, affecting further enemies along her path.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "While Rell is Dismounted, she can cast Ferromancy: Mount Up. Upon completing a Recall channel or respawning, Rell will automatically revert to Mounted form without casting the ability and reset Ferromancy: Mount Up cooldown.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "text": "This ability can be cast only while Rell is Mounted. Rell can cast Magnet Storm during the dash, and is considered to be dismounted at the start of the cast time.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Mounted Alacrity grants 15 bonus movement speed if the ability has not been learned (rank 0).",
+      "Rell slides between 250 and 350 units in testing, depending on how far the spell was targeted. It is not known where this is intended.",
+      "If Rell dashes before a wall on the map, the slide will cover a shorter distance to the terrain over the same time, moving slower.\n  - Interaction with player-made walls.",
+      "The following table refers for interactions while Rell is dashing/in cast time:"
+    ]
+  },
+  {
+    "champion": "Rell",
+    "kind": "W",
+    "name": "Ferromancy: Mount Up",
+    "page": {
+      "title": "Template:Data Rell/Ferromancy: Mount Up",
+      "revid": 3976244
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "10",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 10
+            }
+          }
+        ]
+      },
+      "castTime": {
+        "text": "none",
+        "values": []
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Auto"
+      ],
+      "affects": [
+        "Enemies"
+      ],
+      "damageType": [
+        "Magic"
+      ],
+      "spellEffects": "spell",
+      "spellShield": "true",
+      "parry": "true",
+      "grounded": "false",
+      "knockdown": "special"
+    },
+    "parts": [
+      {
+        "label": "Passive",
+        "text": "Passive: While Rell is Dismounted, she gains 15% bonus armor, 15% bonus magic resistance, 20% bonus attack speed, and 75 bonus attack range.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "label": "Active",
+        "text": "Active: Rell becomes Mounted, gaining 30% bonus movement speed decaying over 2 seconds and empowering her next basic attack within 3.5 seconds to have a 0.2-second cast time, gain 100 bonus attack range and 40% bonus attack speed, and cause her to charge at the target's location. Upon arrival or collision of the charge, her basic attack deals bonus magic damage, stuns the target for 0.6 seconds, and flings them 150 units over herself, though not through terrain, over 0.4 seconds.",
+        "leveling": [
+          {
+            "label": "Bonus Magic Damage",
+            "amount": {
+              "text": "10 / 25 / 40 / 55 / 70 (+ 40% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  10,
+                  25,
+                  40,
+                  55,
+                  70
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 40
+                  },
+                  "text": "(+ 40% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "dash",
+            "category": "movement",
+            "wording": "charge",
+            "evidence": "Active: Rell becomes Mounted, gaining 30% bonus movement speed decaying over 2 seconds and empowering her next basic attack within 3.5 seconds to have a 0.2-second cast time, gain 100 bonus attack range and 40% bonus attack speed, and cause her to charge at the target's location.",
+            "conditional": false
+          },
+          {
+            "type": "stun",
+            "category": "control",
+            "wording": "stuns",
+            "duration": {
+              "kind": "constant",
+              "value": 0.6
+            },
+            "evidence": "Upon arrival or collision of the charge, her basic attack deals bonus magic damage, stuns the target for 0.6 seconds, and flings them 150 units over herself, though not through terrain, over 0.4 seconds.",
+            "conditional": false
+          },
+          {
+            "type": "airborne",
+            "category": "control",
+            "wording": "flings",
+            "duration": {
+              "kind": "constant",
+              "value": 0.4
+            },
+            "evidence": "Upon arrival or collision of the charge, her basic attack deals bonus magic damage, stuns the target for 0.6 seconds, and flings them 150 units over herself, though not through terrain, over 0.4 seconds.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "While Rell is Mounted, she can cast Ferromancy: Crash Down.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "text": "Ferromancy: Mount Up resets Rell's basic attack timer. This ability can be cast only while Rell is Dismounted.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "attack reset",
+            "category": "offense",
+            "wording": "resets",
+            "evidence": "Ferromancy: Mount Up resets Rell's basic attack timer.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Rell will always respawn and start the game as mounted.",
+      "The basic attack reset is not considered one for Hail of Blades.",
+      "Rell can use the empowered attack even while grounded or rooted.",
+      "The dash can be knocked down but the attack's effects will still be applied.",
+      "Displacement immunity will not resist the application of the stun.",
+      "If the target becomes untargetable, dies, or is too far away or no longer in sight during the empowered attack's cast time, it is cancelled but not consumed."
+    ]
+  }
+]

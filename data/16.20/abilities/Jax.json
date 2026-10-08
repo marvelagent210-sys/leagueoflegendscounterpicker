@@ -1,0 +1,1018 @@
+[
+  {
+    "champion": "Jax",
+    "kind": "E",
+    "name": "Counter Strike",
+    "page": {
+      "title": "Template:Data Jax/Counter Strike",
+      "revid": 4026415
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "17 / 15 / 13 / 11 / 9",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                17,
+                15,
+                13,
+                11,
+                9
+              ]
+            }
+          }
+        ]
+      },
+      "cooldownStart": "post-effect",
+      "cost": {
+        "text": "50 / 60 / 70 / 80 / 90",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                50,
+                60,
+                70,
+                80,
+                90
+              ]
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "None",
+        "values": []
+      },
+      "effectRadius": {
+        "text": "375",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 375
+            }
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Auto"
+      ],
+      "affects": [
+        "Self",
+        "Enemies"
+      ],
+      "damageType": [
+        "magic"
+      ],
+      "spellEffects": "aoe",
+      "spellShield": "true"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Jax enters Evasion for 2 seconds: a defensive stance that causes him to dodge all incoming non-turret basic attacks and take 25% reduced damage from all area of effect abilities sourced from champions.\n\nCounter Strike can be recast after 1 second, and does so automatically after the duration.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "dodge",
+            "category": "defense",
+            "wording": "dodge",
+            "duration": {
+              "kind": "constant",
+              "value": 2
+            },
+            "evidence": "Active: Jax enters Evasion for 2 seconds: a defensive stance that causes him to dodge all incoming non-turret basic attacks and take 25% reduced damage from all area of effect abilities sourced from champions.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "label": "Recast",
+        "text": "Recast: Jax deals magic damage to nearby enemies, with the total damage increased by 20% for each attack dodged, up to a 100% increase, and stuns them for 1 second.",
+        "leveling": [
+          {
+            "label": "Minimum Magic Damage",
+            "amount": {
+              "text": "40 / 70 / 100 / 130 / 160 (+ 70% AP) (+ 4% of target's maximum health)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  40,
+                  70,
+                  100,
+                  130,
+                  160
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 70
+                  },
+                  "text": "(+ 70% AP)"
+                },
+                {
+                  "stat": "targetMaxHealth",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 4
+                  },
+                  "text": "(+ 4% of target's maximum health)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Maximum Magic Damage",
+            "amount": {
+              "text": "80 / 140 / 200 / 260 / 320 (+ 140% AP) (+ 8% of target's maximum health)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  80,
+                  140,
+                  200,
+                  260,
+                  320
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 140
+                  },
+                  "text": "(+ 140% AP)"
+                },
+                {
+                  "stat": "targetMaxHealth",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 8
+                  },
+                  "text": "(+ 8% of target's maximum health)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "stun",
+            "category": "control",
+            "wording": "stuns",
+            "duration": {
+              "kind": "constant",
+              "value": 1
+            },
+            "evidence": "Recast: Jax deals magic damage to nearby enemies, with the total damage increased by 20% for each attack dodged, up to a 100% increase, and stuns them for 1 second.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "The initial cast and the manual recast count as ability activations for the purposes of on-cast effects such as Spellblade and triggering Force Pulse passive.",
+      "Counter Strike will also dodge abilities that can trigger on-hit effects (Parrrley, Mystic Shot) which will count towards Counter Strike's increased damage. There are exceptions of abilities that Counter Strike will not dodge but will dodge the damage from on-hit effects that they trigger (Alpha Strike, Piercing Darkness).",
+      "The damage based on the target's maximum health is capped at 9000 against monsters. This is a placeholder value and impossible to reach because it requires a monster to have over 128571 health."
+    ]
+  },
+  {
+    "champion": "Jax",
+    "kind": "I",
+    "name": "Relentless Assault",
+    "page": {
+      "title": "Template:Data Jax/Relentless Assault",
+      "revid": 4038387
+    },
+    "ranks": 1,
+    "fields": {},
+    "flags": {
+      "targeting": [
+        "Passive"
+      ],
+      "affects": [
+        "Enemies",
+        "Self"
+      ],
+      "damageType": []
+    },
+    "parts": [
+      {
+        "label": "Innate",
+        "text": "Innate: Jax's basic attacks generate a stack of Relentless Assault on-attack for 2.5 seconds, refreshing on subsequent attacks and stacking up to 8 times. Stacks expire one by one every 0.25 seconds when the duration ends.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "on-attack",
+            "category": "offense",
+            "wording": "on-attack",
+            "evidence": "Innate: Jax's basic attacks generate a stack of Relentless Assault on-attack for 2.5 seconds, refreshing on subsequent attacks and stacking up to 8 times.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "label": "Relentless Assault",
+        "text": "Relentless Assault: For each stack, Jax gains 5 / 6.5 / 8 / 9.5 / 11 / 12.5 / 14 (based on level)% bonus attack speed, up to a maximum of 40 / 52 / 64 / 76 / 88 / 100 / 112 (based on level)%.",
+        "leveling": [],
+        "mechanics": [],
+        "values": [
+          {
+            "series": {
+              "kind": "variable",
+              "variable": "level",
+              "points": [
+                1,
+                4,
+                7,
+                10,
+                13,
+                16,
+                19
+              ],
+              "values": [
+                5,
+                6.5,
+                8,
+                9.5,
+                11,
+                12.5,
+                14
+              ]
+            },
+            "context": "Relentless Assault: For each stack, Jax gains 5 / 6.5 / 8 / 9.5 / 11 / 12.5 / 14 (based on level)% bonus attack speed, up to a maximum of 40 / 52 / 64 / 76 / 88 / 100 / 112 (based on level)%."
+          },
+          {
+            "series": {
+              "kind": "variable",
+              "variable": "level",
+              "points": [
+                1,
+                4,
+                7,
+                10,
+                13,
+                16,
+                19
+              ],
+              "values": [
+                40,
+                52,
+                64,
+                76,
+                88,
+                100,
+                112
+              ]
+            },
+            "context": "Relentless Assault: For each stack, Jax gains 5 / 6.5 / 8 / 9.5 / 11 / 12.5 / 14 (based on level)% bonus attack speed, up to a maximum of 40 / 52 / 64 / 76 / 88 / 100 / 112 (based on level)%."
+          }
+        ]
+      },
+      {
+        "label": "Grandmaster at Angling",
+        "text": "Grandmaster at Angling: While out-of-combat with champions and idle in the river for 10 seconds, Jax will occasionally catch a fish, granting him 1 and 1 ability power for 5 seconds. He catches a fish at an average rate of one every 15 seconds. He also has a 5% chance to catch a rare fish that grants 10 and 10 ability power for 5 seconds.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Jax will start fishing while idle in the river if he is in-combat with only monsters (e.g. Epic monsters).",
+      "Jax catching a fish is a random event and will play a special animation.",
+      "The total number of fish caught during the game is displayed when fishing as Grandmaster at Angling passive.",
+      "Relentless Assault uses its old icon in the Death Recap."
+    ]
+  },
+  {
+    "champion": "Jax",
+    "kind": "Q",
+    "name": "Leap Strike",
+    "page": {
+      "title": "Template:Data Jax/Leap Strike",
+      "revid": 4026413
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "8 / 7.5 / 7 / 6.5 / 6",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                8,
+                7.5,
+                7,
+                6.5,
+                6
+              ]
+            }
+          }
+        ]
+      },
+      "cost": {
+        "text": "50",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 50
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "false",
+        "values": []
+      },
+      "targetRange": {
+        "text": "700",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 700
+            }
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Unit"
+      ],
+      "affects": [
+        "Enemies"
+      ],
+      "damageType": [
+        "physical"
+      ],
+      "spellEffects": "single",
+      "spellShield": "true",
+      "grounded": "true",
+      "knockdown": "true"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Jax dashes to the target unit's location.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "dash",
+            "category": "movement",
+            "wording": "dashes",
+            "evidence": "Active: Jax dashes to the target unit's location.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "If the target is an enemy and they are in range upon arrival, Jax deals physical damage to them.",
+        "leveling": [
+          {
+            "label": "Physical Damage",
+            "amount": {
+              "text": "65 / 105 / 145 / 185 / 225 (+ 100% bonus AD)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  65,
+                  105,
+                  145,
+                  185,
+                  225
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "bonusAD",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 100
+                  },
+                  "text": "(+ 100% bonus AD)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "text": "Jax can cast any of his abilities during the dash.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Leap Strike cannot be cast on structures.",
+      "If the target is an enemy champion, Jax will be ordered to basic attack them after the dash ends.",
+      "Spell shield will block the damage, including when empowered."
+    ]
+  },
+  {
+    "champion": "Jax",
+    "kind": "R",
+    "name": "Grandmaster-at-Arms",
+    "page": {
+      "title": "Template:Data Jax/Grandmaster-at-Arms",
+      "revid": 3973573
+    },
+    "ranks": 3,
+    "fields": {
+      "cooldown": {
+        "text": "110 / 100 / 90",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                110,
+                100,
+                90
+              ]
+            }
+          }
+        ]
+      },
+      "cooldownStart": "on-cast",
+      "cost": {
+        "text": "100",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 100
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "0.25",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0.25
+            }
+          }
+        ]
+      },
+      "effectRadius": {
+        "text": "375",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 375
+            }
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Auto"
+      ],
+      "affects": [
+        "Enemies",
+        "Self"
+      ],
+      "damageType": [
+        "Magic"
+      ],
+      "spellEffects": "special",
+      "spellShield": "special",
+      "parry": "special"
+    },
+    "parts": [
+      {
+        "label": "Passive",
+        "text": "Passive: Jax's basic attacks generate a stack of Grandmaster-at-Arms on-hit for 2.5 seconds, refreshing on subsequent hits and stacking up to 2 times. At 2 stacks, his next basic attack on-hit is empowered to have an uncancellable windup and consume all stacks to deal additional magic damage, reduced to 50% against structures. While Grandmaster-at-Arms is active, the empowered attack triggers at 1 stack instead.",
+        "leveling": [
+          {
+            "label": "Additional Magic Damage",
+            "amount": {
+              "text": "75 / 130 / 185 (+ 60% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  75,
+                  130,
+                  185
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 60
+                  },
+                  "text": "(+ 60% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "on-hit",
+            "category": "offense",
+            "wording": "on-hit",
+            "evidence": "Passive: Jax's basic attacks generate a stack of Grandmaster-at-Arms on-hit for 2.5 seconds, refreshing on subsequent hits and stacking up to 2 times.",
+            "conditional": false
+          },
+          {
+            "type": "on-hit",
+            "category": "offense",
+            "wording": "on-hit",
+            "evidence": "At 2 stacks, his next basic attack on-hit is empowered to have an uncancellable windup and consume all stacks to deal additional magic damage, reduced to 50% against structures.",
+            "conditional": false
+          },
+          {
+            "type": "uncancellable windup",
+            "category": "offense",
+            "wording": "uncancellable windup",
+            "evidence": "At 2 stacks, his next basic attack on-hit is empowered to have an uncancellable windup and consume all stacks to deal additional magic damage, reduced to 50% against structures.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "label": "Active",
+        "text": "Active: Jax swings his lantern around, dealing magic damage to nearby enemies. If this hits a champion, he gains bonus armor, increased for each champion hit beyond the first, and bonus magic resistance equal to 60% of that amount as well as 10% increased size for 8 seconds.",
+        "leveling": [
+          {
+            "label": "Magic Damage",
+            "amount": {
+              "text": "100 / 175 / 250 (+ 100% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  100,
+                  175,
+                  250
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 100
+                  },
+                  "text": "(+ 100% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Bonus Armor",
+            "amount": {
+              "text": "45 / 60 / 75 (+ 40% bonus AD)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  45,
+                  60,
+                  75
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "bonusAD",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 40
+                  },
+                  "text": "(+ 40% bonus AD)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Bonus Magic Resistance",
+            "amount": {
+              "text": "27 / 36 / 45 (+ 24% bonus AD)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  27,
+                  36,
+                  45
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "bonusAD",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 24
+                  },
+                  "text": "(+ 24% bonus AD)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Bonus Armor per Champion Hit",
+            "amount": {
+              "text": "20 / 25 / 30 (+ 10% bonus AD)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  20,
+                  25,
+                  30
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "bonusAD",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 10
+                  },
+                  "text": "(+ 10% bonus AD)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Bonus Magic Resistance per Champion Hit",
+            "amount": {
+              "text": "12 / 15 / 18 (+ 6% bonus AD)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  12,
+                  15,
+                  18
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "bonusAD",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 6
+                  },
+                  "text": "(+ 6% bonus AD)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "size change",
+            "category": "other",
+            "wording": "size",
+            "evidence": "If this hits a champion, he gains bonus armor, increased for each champion hit beyond the first, and bonus magic resistance equal to 60% of that amount as well as 10% increased size for 8 seconds.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "Jax can move during Grandmaster-at-Arms' cast time.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "The on-hit deals proc damage. The swing deals area damage.",
+      "The bonus resistances are represented by a glowing aura around Jax that grows with each enemy champion hit beyond the first.",
+      "The additional magic damage can be dodged and blocked but it cannot miss.",
+      "Spell shield will only block the additional damage from the third attack if it is empowered.",
+      "The empowered attack will trigger but not be consumed nor apply its effects against wards.\n  - Stacks will still be generated when attacking them.",
+      "The empowered attack is applied in a separate damage instance from Jax's basic attacks.\n  - This causes effects like Bone Plating to be applied twice.",
+      "* This ability will cast from wherever the caster is at the end of the cast time."
+    ]
+  },
+  {
+    "champion": "Jax",
+    "kind": "R",
+    "name": "Grandmaster's Might",
+    "page": {
+      "title": "Template:Data Jax/Grandmaster's Might",
+      "revid": 3444495
+    },
+    "ranks": 3,
+    "fields": {
+      "cooldown": {
+        "text": "80",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 80
+            },
+            "label": "Starts on cast"
+          }
+        ]
+      },
+      "cost": {
+        "text": "100",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 100
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "none",
+        "values": []
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Auto"
+      ],
+      "affects": [
+        "Enemies",
+        "Self"
+      ],
+      "damageType": [
+        "Magic"
+      ],
+      "spellEffects": "proc",
+      "spellShield": "special",
+      "parry": "special"
+    },
+    "parts": [
+      {
+        "label": "Passive",
+        "text": "Passive: Jax's basic attacks generate a stack of Grandmaster's Might on-hit for 2.5 seconds, refreshing on subsequent hits and stacking up to 2 times. At 2 stacks, his next basic attack is empowered to consume them all to deal bonus magic damage.",
+        "leveling": [
+          {
+            "label": "Bonus Magic Damage",
+            "amount": {
+              "text": "100 / 140 / 180 (+ 70% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  100,
+                  140,
+                  180
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 70
+                  },
+                  "text": "(+ 70% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "on-hit",
+            "category": "offense",
+            "wording": "on-hit",
+            "evidence": "Passive: Jax's basic attacks generate a stack of Grandmaster's Might on-hit for 2.5 seconds, refreshing on subsequent hits and stacking up to 2 times.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "label": "Active",
+        "text": "Active: Jax gains bonus armor and bonus magic resistance for 8 seconds.",
+        "leveling": [
+          {
+            "label": "Bonus Armor",
+            "amount": {
+              "text": "30 / 50 / 70 (+ 50% bonus AD)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  30,
+                  50,
+                  70
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "bonusAD",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 50
+                  },
+                  "text": "(+ 50% bonus AD)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Bonus Magic Resistance",
+            "amount": {
+              "text": "30 / 50 / 70 (+ 20% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  30,
+                  50,
+                  70
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 20
+                  },
+                  "text": "(+ 20% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "The bonus magic damage can be dodged and blocked but it cannot miss.",
+      "Grandmaster's Might's bonus resistances are calculated both on-cast and will update dynamically every 0.25 seconds over the duration.",
+      "Spell shield will only block the bonus damage from the third attack if it is empowered.",
+      "The empowered attack will trigger but not be consumed nor apply its effects against structures and wards.\n  - Stacks will still be generated when attacking them."
+    ]
+  },
+  {
+    "champion": "Jax",
+    "kind": "W",
+    "name": "Empower",
+    "page": {
+      "title": "Template:Data Jax/Empower",
+      "revid": 3973571
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "7 / 6 / 5 / 4 / 3",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                7,
+                6,
+                5,
+                4,
+                3
+              ]
+            }
+          }
+        ]
+      },
+      "cooldownStart": "post-effect",
+      "cost": {
+        "text": "30",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 30
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "none",
+        "values": []
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Auto"
+      ],
+      "affects": [
+        "Self",
+        "Enemies"
+      ],
+      "damageType": [
+        "magic"
+      ],
+      "spellEffects": "spell",
+      "spellShield": "true",
+      "parry": "true"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Jax empowers his next basic attack or Leap Strike against an enemy within 10 seconds to deal additional magic damage, reduced to 50% against structures. If Empower is used on a basic attack, it will gain 50 bonus range and have an uncancellable windup.",
+        "leveling": [
+          {
+            "label": "Additional Magic Damage",
+            "amount": {
+              "text": "50 / 85 / 120 / 155 / 190 (+ 60% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  50,
+                  85,
+                  120,
+                  155,
+                  190
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 60
+                  },
+                  "text": "(+ 60% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "uncancellable windup",
+            "category": "offense",
+            "wording": "uncancellable windup",
+            "evidence": "If Empower is used on a basic attack, it will gain 50 bonus range and have an uncancellable windup.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "Empower resets Jax's basic attack timer.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "attack reset",
+            "category": "offense",
+            "wording": "resets",
+            "evidence": "Empower resets Jax's basic attack timer.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Empower is applied in a separate damage instance from Jax's basic attacks.\n  - This causes effects like Bone Plating to be applied twice."
+    ]
+  }
+]

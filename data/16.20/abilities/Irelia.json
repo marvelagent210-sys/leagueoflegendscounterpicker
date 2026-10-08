@@ -1,0 +1,1549 @@
+[
+  {
+    "champion": "Irelia",
+    "kind": "E",
+    "name": "Equilibrium Strike",
+    "page": {
+      "title": "Template:Data Irelia/Equilibrium Strike",
+      "revid": 2704794
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "8",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 8
+            }
+          }
+        ]
+      },
+      "cost": {
+        "text": "50 / 55 / 60 / 65 / 70",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                50,
+                55,
+                60,
+                65,
+                70
+              ]
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "targetRange": {
+        "text": "325",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 325
+            }
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Equilibrium Strike is a single-targeted ability."
+      ],
+      "affects": [],
+      "damageType": [
+        "magic"
+      ],
+      "spellEffects": "single",
+      "spellShield": "will block the damage and the slow/stun."
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Irelia pierces the target enemy, dealing them magic damage and slowing them by 60% for a duration.",
+        "leveling": [
+          {
+            "label": "Magic Damage",
+            "amount": {
+              "text": "80 / 120 / 160 / 200 / 240 (+ 50% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  80,
+                  120,
+                  160,
+                  200,
+                  240
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 50
+                  },
+                  "text": "(+ 50% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Disable Duration",
+            "amount": {
+              "text": "1 / 1.25 / 1.5 / 1.75 / 2",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  1,
+                  1.25,
+                  1.5,
+                  1.75,
+                  2
+                ]
+              },
+              "scaling": [],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "slow",
+            "category": "control",
+            "wording": "slowing",
+            "amount": {
+              "kind": "constant",
+              "value": 60
+            },
+            "evidence": "Active: Irelia pierces the target enemy, dealing them magic damage and slowing them by 60% for a duration.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "If her percentile health is equal to or less than her target's, she stuns them instead.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "stun",
+            "category": "control",
+            "wording": "stuns",
+            "evidence": "If her percentile health is equal to or less than her target's, she stuns them instead.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "No additional details."
+    ]
+  },
+  {
+    "champion": "Irelia",
+    "kind": "E",
+    "name": "Flawless Duet",
+    "page": {
+      "title": "Template:Data Irelia/Flawless Duet",
+      "revid": 4021834
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "16 / 14.5 / 13 / 11.5 / 10",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                16,
+                14.5,
+                13,
+                11.5,
+                10
+              ]
+            }
+          }
+        ]
+      },
+      "cooldownStart": "post-effect",
+      "cost": {
+        "text": "50",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 50
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "None",
+        "values": []
+      },
+      "targetRange": {
+        "text": "775",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 775
+            }
+          }
+        ]
+      },
+      "effectRadius": {
+        "text": "Global",
+        "values": []
+      },
+      "width": {
+        "text": "140",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 140
+            },
+            "label": "Convergence missile full width"
+          }
+        ]
+      },
+      "speed": {
+        "text": "2000 • Distance ÷ 0.1 s",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 2000
+            },
+            "label": "Missile speed to location"
+          },
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0.1
+            },
+            "label": "Convergence missile always takes this amount of time to travel between blades regardless of range"
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Location"
+      ],
+      "affects": [
+        "Enemies"
+      ],
+      "damageType": [
+        "Magic"
+      ],
+      "spellEffects": "area of effect",
+      "spellShield": "true",
+      "projectile": "true"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Irelia sends a blade to the target location for 3.5 seconds. Flawless Duet can be recast after 0.15 seconds while the blade is active, and does so automatically at the end of its duration.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "label": "Recast",
+        "text": "Recast: Irelia sends a second blade to the target location, or to her current position if Flawless Duet was recast automatically.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "text": "Once both blades have been placed, they fly toward each other regardless of distance and converge over 0.25 seconds, afterwards dealing magic damage to all enemies within a line between them and stunning them for 0.75 seconds, during which they are revealed.",
+        "leveling": [
+          {
+            "label": "Magic Damage",
+            "amount": {
+              "text": "70 / 110 / 150 / 190 / 230 (+ 100% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  70,
+                  110,
+                  150,
+                  190,
+                  230
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 100
+                  },
+                  "text": "(+ 100% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "stun",
+            "category": "control",
+            "wording": "stunning",
+            "duration": {
+              "kind": "constant",
+              "value": 0.75
+            },
+            "evidence": "Once both blades have been placed, they fly toward each other regardless of distance and converge over 0.25 seconds, afterwards dealing magic damage to all enemies within a line between them and stunning them for 0.75 seconds, during which they are revealed.",
+            "conditional": false
+          },
+          {
+            "type": "reveal",
+            "category": "vision",
+            "wording": "revealed",
+            "duration": {
+              "kind": "constant",
+              "value": 0.75
+            },
+            "evidence": "Once both blades have been placed, they fly toward each other regardless of distance and converge over 0.25 seconds, afterwards dealing magic damage to all enemies within a line between them and stunning them for 0.75 seconds, during which they are revealed.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "Flawless Duet's recast can be used during Bladesurge and the cast time of Vanguard's Edge, but is not used automatically while she is affected by cast-inhibiting crowd control or a lockout that disables abilities. Each of the blades' travel times are 0.264.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "lockout",
+            "category": "other",
+            "wording": "lockout",
+            "evidence": "Flawless Duet's recast can be used during Bladesurge and the cast time of Vanguard's Edge, but is not used automatically while she is affected by cast-inhibiting crowd control or a lockout that disables abilities.",
+            "conditional": true
+          }
+        ],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Both casts count as an ability activation for the purposes of on-cast effects such as Spellblade and triggering Force Pulse passive.\n  - If the ability is not manually recasted, the secondary effect will trigger and it will be considered as an ability activation. This is the only ability with this interaction in the game.",
+      "Flawless Duet will recast automatically at its end during Defiant Dance despite being disabled.",
+      "Flawless Duet will also recast automatically upon entering resurrection.",
+      "The outgoing blades will stop flight upon touching projectile blocking effects. The converging blades will instead be destroyed upon contact with such effects.\n  - The blades will not stun nor deal damage if they fail to converge (i.e Wind Wall).",
+      "Both of Flawless Duet's casts will be buffered and cast when their cooldowns end if the player attempts to cast each within 0.3 seconds of their cooldown ending."
+    ]
+  },
+  {
+    "champion": "Irelia",
+    "kind": "I",
+    "name": "Ionian Fervor",
+    "page": {
+      "title": "Template:Data Irelia/Ionian Fervor",
+      "revid": 4045313
+    },
+    "ranks": 1,
+    "fields": {},
+    "flags": {
+      "targeting": [
+        "Passive"
+      ],
+      "affects": [
+        "Self"
+      ],
+      "damageType": [
+        "Magic"
+      ],
+      "spellEffects": "proc",
+      "parry": "unknown"
+    },
+    "parts": [
+      {
+        "label": "Innate",
+        "text": "Innate: Irelia generates a stack of Ionian Fervor for each enemy champion hit by her abilities, or if she hits at least one non-champion, lasting for 6 seconds, refreshing on basic attacks and ability hits against enemy champions, large monsters, and structures, and stacking up to 4 times.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "label": "Ionian Fervor",
+        "text": "Ionian Fervor: For each stack, Irelia gains 10 – 25 (based on level)% bonus attack speed, up to a maximum of 40 – 100 (based on level)%. At maximum stacks, Irelia's basic attacks are empowered to deal 10 – 61 (based on level) (+ 20% bonus AD) bonus magic damage on-hit, reduced to 50% against structures.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "on-hit",
+            "category": "offense",
+            "wording": "on-hit",
+            "evidence": "At maximum stacks, Irelia's basic attacks are empowered to deal 10 – 61 (based on level) (+ 20% bonus AD) bonus magic damage on-hit, reduced to 50% against structures.",
+            "conditional": false
+          }
+        ],
+        "values": [
+          {
+            "series": {
+              "kind": "level",
+              "values": [
+                10,
+                10.882352941176471,
+                11.764705882352942,
+                12.647058823529411,
+                13.529411764705882,
+                14.411764705882353,
+                15.294117647058822,
+                16.176470588235293,
+                17.058823529411764,
+                17.941176470588236,
+                18.823529411764707,
+                19.705882352941174,
+                20.588235294117645,
+                21.470588235294116,
+                22.352941176470587,
+                23.235294117647058,
+                24.11764705882353,
+                25,
+                25.88235294117647,
+                26.764705882352942
+              ],
+              "past18": "wiki"
+            },
+            "context": "Ionian Fervor: For each stack, Irelia gains 10 – 25 (based on level)% bonus attack speed, up to a maximum of 40 – 100 (based on level)%."
+          },
+          {
+            "series": {
+              "kind": "level",
+              "values": [
+                40,
+                43.529411764705884,
+                47.05882352941177,
+                50.588235294117645,
+                54.11764705882353,
+                57.64705882352941,
+                61.17647058823529,
+                64.70588235294117,
+                68.23529411764706,
+                71.76470588235294,
+                75.29411764705883,
+                78.8235294117647,
+                82.35294117647058,
+                85.88235294117646,
+                89.41176470588235,
+                92.94117647058823,
+                96.47058823529412,
+                100,
+                103.52941176470588,
+                107.05882352941177
+              ],
+              "past18": "wiki"
+            },
+            "context": "Ionian Fervor: For each stack, Irelia gains 10 – 25 (based on level)% bonus attack speed, up to a maximum of 40 – 100 (based on level)%."
+          },
+          {
+            "series": {
+              "kind": "level",
+              "values": [
+                10,
+                13,
+                16,
+                19,
+                22,
+                25,
+                28,
+                31,
+                34,
+                37,
+                40,
+                43,
+                46,
+                49,
+                52,
+                55,
+                58,
+                61,
+                64,
+                67
+              ],
+              "past18": "wiki"
+            },
+            "context": "At maximum stacks, Irelia's basic attacks are empowered to deal 10 – 61 (based on level) (+ 20% bonus AD) bonus magic damage on-hit, reduced to 50% against structures."
+          }
+        ]
+      },
+      {
+        "label": "Innate - Unsteady",
+        "text": "Innate - Unsteady: Enemy champions and large monsters hit by Flawless Duet or Vanguard's Edge initial barrage are marked as Unsteady for 5 seconds. The mark can be consumed by Bladesurge.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      ": Parry interactions (block and dodge).",
+      "Ionian Fervor will not deal damage if the attack misses due to blind, but its duration will be refreshed.\n  - Bladesurge cannot be missed while Irelia is blinded, applying Ionian Fervor from the ability will not be prevented from that parry effect.",
+      "Ionian Fervor stacks are represented by a counter under Irelia's health bar. It is highlighted while the ability is at its maximum effect."
+    ]
+  },
+  {
+    "champion": "Irelia",
+    "kind": "Q",
+    "name": "Bladesurge",
+    "page": {
+      "title": "Template:Data Irelia/Bladesurge",
+      "revid": 4057466
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "10 / 9 / 8 / 7 / 6",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                10,
+                9,
+                8,
+                7,
+                6
+              ]
+            }
+          }
+        ]
+      },
+      "cost": {
+        "text": "15",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 15
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "none",
+        "values": []
+      },
+      "targetRange": {
+        "text": "600",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 600
+            }
+          }
+        ]
+      },
+      "speed": {
+        "text": "1400 + 100% movement speed",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 1400
+            }
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Unit"
+      ],
+      "affects": [
+        "Enemies",
+        "Self"
+      ],
+      "damageType": [
+        "Physical"
+      ],
+      "spellEffects": "special",
+      "spellShield": "true",
+      "parry": "true",
+      "grounded": "true",
+      "knockdown": "true",
+      "onHitEffects": "true"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Irelia dashes 100 units through the target enemy's location, and upon collision or dash completion, she deals physical damage, applies on-hit effects, and heals herself. Bladesurge deals 50 – 237 (based on level) bonus physical damage to minions.",
+        "leveling": [
+          {
+            "label": "Physical Damage",
+            "amount": {
+              "text": "5 / 25 / 45 / 65 / 85 (+ 80% AD)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  5,
+                  25,
+                  45,
+                  65,
+                  85
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AD",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 80
+                  },
+                  "text": "(+ 80% AD)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Heal",
+            "amount": {
+              "text": "9 / 10 / 11 / 12 / 13% AD",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  9,
+                  10,
+                  11,
+                  12,
+                  13
+                ]
+              },
+              "unit": "%",
+              "scaling": [],
+              "unparsed": "",
+              "baseStat": "AD"
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "dash",
+            "category": "movement",
+            "wording": "dashes",
+            "evidence": "Active: Irelia dashes 100 units through the target enemy's location, and upon collision or dash completion, she deals physical damage, applies on-hit effects, and heals herself.",
+            "conditional": false
+          },
+          {
+            "type": "on-hit",
+            "category": "offense",
+            "wording": "on-hit",
+            "evidence": "Active: Irelia dashes 100 units through the target enemy's location, and upon collision or dash completion, she deals physical damage, applies on-hit effects, and heals herself.",
+            "conditional": false
+          },
+          {
+            "type": "heal",
+            "category": "defense",
+            "wording": "heals",
+            "evidence": "Active: Irelia dashes 100 units through the target enemy's location, and upon collision or dash completion, she deals physical damage, applies on-hit effects, and heals herself.",
+            "conditional": false
+          }
+        ],
+        "values": [
+          {
+            "series": {
+              "kind": "level",
+              "values": [
+                50,
+                61,
+                72,
+                83,
+                94,
+                105,
+                116,
+                127,
+                138,
+                149,
+                160,
+                171,
+                182,
+                193,
+                204,
+                215,
+                226,
+                237,
+                248,
+                259
+              ],
+              "past18": "wiki"
+            },
+            "context": "Bladesurge deals 50 – 237 (based on level) bonus physical damage to minions."
+          }
+        ]
+      },
+      {
+        "text": "Bladesurge's current cooldown is reduced to 0.2 seconds upon collision of targets marked as Unsteady, and is reset if the target dies to or during Bladesurge's dash.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "text": "Flawless Duet can be cast during the dash.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Bladesurge will be buffered and cast when the cooldown ends or is reset if the player attempts to cast it within 0.5 seconds of the cooldown ending/resetting.",
+      "Bladesurge deals basic damage, but also triggers spell effects by also being tagged as spell damage.",
+      "If the target dies during Bladesurge's dash, the cooldown is fully refunded and Irelia may also cast her other abilities during the dash.",
+      "If the target dies to Bladesurge and was also marked, the cooldown is still fully refunded.",
+      "Bladesurge will only allow Irelia to dash through walls if there is enough space for her on the other side.",
+      "Bladesurge deals its damage and consumes marks when Irelia collides with the target, or at the end of the dash if the target moves away.\n  - Bladesurge will not deal damage if the dash is interrupted beforehand.\n    - The damage will be dealt if the target is in collision range when the dash is interrupted however.\n    - Flash will interrupt the dash but Irelia will still collide with and deal damage to her target if the blink leaves her in contact with it at the new location.\n  - Irelia will complete her remaining dash distance even if the damage is dealt earlier.\n  - If the target is untargetable, Bladesurge will instead deals its damage at the end of the dash, rather than on collision.",
+      "Irelia will automatically be ordered to acquire and attack Bladesurge's target as soon as the dash completes.\n  - If a different target than Bladesurge's is selected during the dash, she will acquire that different target instead."
+    ]
+  },
+  {
+    "champion": "Irelia",
+    "kind": "R",
+    "name": "Transcendent Blades",
+    "page": {
+      "title": "Template:Data Irelia/Transcendent Blades",
+      "revid": 2704797
+    },
+    "ranks": 3,
+    "fields": {
+      "cooldown": {
+        "text": "100 / 80 / 60",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                100,
+                80,
+                60
+              ]
+            }
+          }
+        ]
+      },
+      "cost": {
+        "text": "100",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 100
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "targetRange": {
+        "text": "1000",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 1000
+            }
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Transcendent Blades is a linear",
+        "pass-through skillshot."
+      ],
+      "affects": [],
+      "damageType": [
+        "physical"
+      ],
+      "spellEffects": "aoe",
+      "spellShield": "will block one blade's worth of damage.",
+      "projectile": "true"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Irelia summons 4 spirit blades and fires one in a line towards the cursor, dealing physical damage to all enemies it passes through.",
+        "leveling": [
+          {
+            "label": "Physical Damage Per Blade",
+            "amount": {
+              "text": "80 / 120 / 160 (+ 70% bonus AD) (+ 50% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  80,
+                  120,
+                  160
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "bonusAD",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 70
+                  },
+                  "text": "(+ 70% bonus AD)"
+                },
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 50
+                  },
+                  "text": "(+ 50% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Total Physical Damage",
+            "amount": {
+              "text": "320 / 480 / 640 (+ 280% bonus AD) (+ 200% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  320,
+                  480,
+                  640
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "bonusAD",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 280
+                  },
+                  "text": "(+ 280% bonus AD)"
+                },
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 200
+                  },
+                  "text": "(+ 200% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "text": "Transcendent Blades can then be cast 3 more times at no additional cost to fire each of Irelia's remaining blades, incurring a 0.5 seconds delay in between each cast.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "text": "Each blade heals Irelia for 25% of the damage it deals to enemy champions, and 10% of the damage it deals to enemy minions and monsters.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Once active Irelia has 10 seconds to use all four charges before Transcendent Blades goes on cooldown, or does so immediately if all four blades have been used before the duration expires.\n  - All activations of Transcendent Blades have no cast time and do not interrupt Irelia's movement.\n    - Each one counts as a trigger for the purposes of Spellblade."
+    ]
+  },
+  {
+    "champion": "Irelia",
+    "kind": "R",
+    "name": "Vanguard's Edge",
+    "page": {
+      "title": "Template:Data Irelia/Vanguard's Edge",
+      "revid": 4057346
+    },
+    "ranks": 3,
+    "fields": {
+      "cooldown": {
+        "text": "125 / 105 / 85",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                125,
+                105,
+                85
+              ]
+            }
+          }
+        ]
+      },
+      "cost": {
+        "text": "100",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 100
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "0.4",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0.4
+            }
+          }
+        ]
+      },
+      "targetRange": {
+        "text": "1000",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 1000
+            }
+          }
+        ]
+      },
+      "width": {
+        "text": "320",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 320
+            }
+          }
+        ]
+      },
+      "speed": {
+        "text": "2000",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 2000
+            }
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Direction"
+      ],
+      "affects": [
+        "Enemies"
+      ],
+      "damageType": [
+        "Magic"
+      ],
+      "spellEffects": "special",
+      "spellShield": "special",
+      "projectile": "true"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Irelia launches a barrage of blades in the target direction, expanding outward upon hitting an enemy champion, dealing magic damage to all enemies hit and revealing them for 1 second.",
+        "leveling": [
+          {
+            "label": "Magic Damage",
+            "amount": {
+              "text": "125 / 200 / 275 (+ 100% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  125,
+                  200,
+                  275
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 100
+                  },
+                  "text": "(+ 100% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "reveal",
+            "category": "vision",
+            "wording": "revealing",
+            "duration": {
+              "kind": "constant",
+              "value": 1
+            },
+            "evidence": "Active: Irelia launches a barrage of blades in the target direction, expanding outward upon hitting an enemy champion, dealing magic damage to all enemies hit and revealing them for 1 second.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "After expanding, the blades drop on the ground, knocking all enemy units away from them, though not rendering them airborne, and forming a spade-shaped perimeter around the enemy champion hit for 2.5 seconds that grants sight of its surroundings. Enemies that pass through the blades for the first time are dealt the same magic damage and are slowed by 90% for 1.5 seconds.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "airborne",
+            "category": "control",
+            "wording": "airborne",
+            "duration": {
+              "kind": "constant",
+              "value": 2.5
+            },
+            "evidence": "After expanding, the blades drop on the ground, knocking all enemy units away from them, though not rendering them airborne, and forming a spade-shaped perimeter around the enemy champion hit for 2.5 seconds that grants sight of its surroundings.",
+            "conditional": false
+          },
+          {
+            "type": "reveal",
+            "category": "vision",
+            "wording": "sight",
+            "evidence": "After expanding, the blades drop on the ground, knocking all enemy units away from them, though not rendering them airborne, and forming a spade-shaped perimeter around the enemy champion hit for 2.5 seconds that grants sight of its surroundings.",
+            "conditional": false
+          },
+          {
+            "type": "slow",
+            "category": "control",
+            "wording": "slowed",
+            "duration": {
+              "kind": "constant",
+              "value": 1.5
+            },
+            "amount": {
+              "kind": "constant",
+              "value": 90
+            },
+            "evidence": "Enemies that pass through the blades for the first time are dealt the same magic damage and are slowed by 90% for 1.5 seconds.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "The perimeter will point at the same angle Irelia cast it from, but based on the target's center.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Vanguard's Edge deals area damage, and applies spell effects. The damage dealt by the blades after they land on the ground is additionally tagged as indirect.",
+      "Enemies that cross the perimeter are not marked Unsteady.",
+      "This ability will cast from wherever the caster is at the end of the cast time.",
+      "Vanguard's Edge maintains its casting angle direction in relation to Irelia if she moves during the cast time.",
+      "In addition to its projectile, Vanguard's Edge will check for enemy champions within a 90-unit radius area from the projectile's origin point.\n  - The projectile interacts with projectile-blocking effects but the area check doesn't.",
+      "The blades will still expand if the champion hit by the blades is protected by a spell shield.",
+      "The sight is granted in a 1350 unit radius at the location of the enemy champion at the time of being hit and can be blocked by terrain.",
+      "If this spell is cast while there are blades from a previous Vanguard's Edge still active, the previous blades will disappear."
+    ]
+  },
+  {
+    "champion": "Irelia",
+    "kind": "W",
+    "name": "Defiant Dance",
+    "page": {
+      "title": "Template:Data Irelia/Defiant Dance",
+      "revid": 4057467
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "20 / 18 / 16 / 14 / 12",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                20,
+                18,
+                16,
+                14,
+                12
+              ]
+            }
+          }
+        ]
+      },
+      "cooldownStart": "post-effect",
+      "cost": {
+        "text": "70 / 75 / 80 / 85 / 90",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                70,
+                75,
+                80,
+                85,
+                90
+              ]
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "None • 0.25",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0.25
+            },
+            "label": "Recast"
+          }
+        ]
+      },
+      "range": {
+        "text": "775 • 895",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 775
+            },
+            "label": "Recast swipe missile range"
+          },
+          {
+            "series": {
+              "kind": "constant",
+              "value": 895
+            },
+            "label": "Recast swipe total range"
+          }
+        ]
+      },
+      "effectRadius": {
+        "text": "300 • 120",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 300
+            },
+            "label": "Recast point blank radius"
+          },
+          {
+            "series": {
+              "kind": "constant",
+              "value": 120
+            },
+            "label": "Recast 'lollipop' radius at end of missile range"
+          }
+        ]
+      },
+      "width": {
+        "text": "240",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 240
+            },
+            "label": "Recast swipe missile width"
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Auto",
+        "Direction"
+      ],
+      "affects": [
+        "Self",
+        "Enemies"
+      ],
+      "damageType": [
+        "Physical"
+      ],
+      "spellEffects": "spellaoe",
+      "spellShield": "true",
+      "projectile": "false",
+      "silence": "false"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Irelia assumes a defensive stance with her blades to charge for up to 1.5 seconds, during which she reduces incoming physical damage by 40 – 70 (based on level)% (+ 8% per 100 AP) and incoming magic damage by 20 – 35 (based on level)% (+ 4% per 100 AP). Additionally, Defiant Dance's damage increases over the first 0.75 seconds of the channel.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "channel",
+            "category": "other",
+            "wording": "charge",
+            "duration": {
+              "kind": "constant",
+              "value": 1.5
+            },
+            "evidence": "Active: Irelia assumes a defensive stance with her blades to charge for up to 1.5 seconds, during which she reduces incoming physical damage by 40 – 70 (based on level)% (+ 8% per 100 AP) and incoming magic damage by 20 – 35 (based on level)% (+ 4% per 100 AP).",
+            "conditional": false
+          }
+        ],
+        "values": [
+          {
+            "series": {
+              "kind": "level",
+              "values": [
+                40,
+                41.76470588235294,
+                43.529411764705884,
+                45.294117647058826,
+                47.05882352941177,
+                48.82352941176471,
+                50.588235294117645,
+                52.35294117647059,
+                54.11764705882353,
+                55.88235294117647,
+                57.64705882352941,
+                59.41176470588235,
+                61.17647058823529,
+                62.94117647058823,
+                64.70588235294117,
+                66.47058823529412,
+                68.23529411764706,
+                70,
+                71.7647,
+                73.5294
+              ],
+              "past18": "game files"
+            },
+            "context": "Active: Irelia assumes a defensive stance with her blades to charge for up to 1.5 seconds, during which she reduces incoming physical damage by 40 – 70 (based on level)% (+ 8% per 100 AP) and incoming magic damage by 20 – 35 (based on level)% (+ 4% per 100 AP)."
+          },
+          {
+            "series": {
+              "kind": "level",
+              "values": [
+                20,
+                20.88235294117647,
+                21.764705882352942,
+                22.647058823529413,
+                23.529411764705884,
+                24.411764705882355,
+                25.294117647058822,
+                26.176470588235293,
+                27.058823529411764,
+                27.941176470588236,
+                28.823529411764707,
+                29.705882352941174,
+                30.588235294117645,
+                31.470588235294116,
+                32.35294117647059,
+                33.23529411764706,
+                34.11764705882353,
+                35
+              ]
+            },
+            "context": "Active: Irelia assumes a defensive stance with her blades to charge for up to 1.5 seconds, during which she reduces incoming physical damage by 40 – 70 (based on level)% (+ 8% per 100 AP) and incoming magic damage by 20 – 35 (based on level)% (+ 4% per 100 AP)."
+          },
+          {
+            "series": {
+              "kind": "constant",
+              "value": 4
+            },
+            "context": "Active: Irelia assumes a defensive stance with her blades to charge for up to 1.5 seconds, during which she reduces incoming physical damage by 40 – 70 (based on level)% (+ 8% per 100 AP) and incoming magic damage by 20 – 35 (based on level)% (+ 4% per 100 AP)."
+          }
+        ]
+      },
+      {
+        "text": "Defiant Dance can be recast within the duration, and does so automatically afterwards. Defiant Dance's charge cannot be interrupted by crowd control.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "interrupt",
+            "category": "other",
+            "wording": "interrupted",
+            "evidence": "Defiant Dance's charge cannot be interrupted by crowd control.",
+            "conditional": true
+          }
+        ],
+        "values": []
+      },
+      {
+        "label": "Recast",
+        "text": "Recast: Irelia swipes her blades in the target direction, dealing physical damage to enemies around her and within a line, increased by 0 / 20 / 40 / 60 / 80 / 100 / 120 / 140 / 160 / 180 / 200 (based on channel time)%. She also retains the damage reduction for 0.5 seconds.",
+        "leveling": [
+          {
+            "label": "Minimum Physical Damage",
+            "amount": {
+              "text": "10 / 20 / 30 / 40 / 50 (+ 40% AD) (+ 50% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  10,
+                  20,
+                  30,
+                  40,
+                  50
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AD",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 40
+                  },
+                  "text": "(+ 40% AD)"
+                },
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 50
+                  },
+                  "text": "(+ 50% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Maximum Physical Damage",
+            "amount": {
+              "text": "30 / 60 / 90 / 120 / 150 (+ 120% AD) (+ 150% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  30,
+                  60,
+                  90,
+                  120,
+                  150
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AD",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 120
+                  },
+                  "text": "(+ 120% AD)"
+                },
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 150
+                  },
+                  "text": "(+ 150% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [],
+        "values": [
+          {
+            "series": {
+              "kind": "variable",
+              "variable": "channel time",
+              "points": [
+                0,
+                0.075,
+                0.15,
+                0.225,
+                0.3,
+                0.375,
+                0.45,
+                0.525,
+                0.6,
+                0.675,
+                0.75
+              ],
+              "values": [
+                0,
+                20,
+                40,
+                60,
+                80,
+                100,
+                120,
+                140,
+                160,
+                180,
+                200
+              ]
+            },
+            "context": "Recast: Irelia swipes her blades in the target direction, dealing physical damage to enemies around her and within a line, increased by 0 / 20 / 40 / 60 / 80 / 100 / 120 / 140 / 160 / 180 / 200 (based on channel time)%."
+          }
+        ]
+      },
+      {
+        "text": "Defiant Dance's recast can be used while affected by cast-inhibiting crowd control. Ionian Fervor duration is paused during the charge; if Ionian Fervor has less than 1 second remaining when the charge starts, it is set to 1 second when the charge ends.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Enemies around Irelia will be dealt the damage once the recast's cast time ends, while enemies within the line are dealt the damage via a missile that reaches the furthest targets after a 0.066 delay after the recast's cast time.",
+      "Quick Casting utilizes hold-and-release for the two casts.",
+      "Defiant Dance reaches 100% physical damage reduction at 857.14 – 428.57 (based on level) AP.",
+      "Defiant Dance reaches 100% magic damage reduction at 2285.71 – 1857.14 (based on level) AP.",
+      "Defiant Dance will also recast automatically upon entering resurrection.",
+      "This ability will cast from wherever the caster is at the end of the cast time.\n  - This refers to the recast.",
+      "The following table refers for interactions while Irelia is channeling:"
+    ]
+  },
+  {
+    "champion": "Irelia",
+    "kind": "W",
+    "name": "Hiten Style",
+    "page": {
+      "title": "Template:Data Irelia/Hiten Style",
+      "revid": 2704795
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "15",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 15
+            }
+          }
+        ]
+      },
+      "cost": {
+        "text": "40",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 40
+            }
+          }
+        ]
+      },
+      "costType": "mana"
+    },
+    "flags": {
+      "targeting": [
+        "* Hiten Style's passive is an on-hit effect.",
+        "* Hiten Style's active is a self-targeted buff with an on-hit effect component."
+      ],
+      "affects": [],
+      "damageType": [
+        "true"
+      ],
+      "spellEffects": "false"
+    },
+    "parts": [
+      {
+        "label": "Passive",
+        "text": "Passive: Irelia's basic attacks heal her.",
+        "leveling": [
+          {
+            "label": "Healing",
+            "amount": {
+              "text": "5 / 7 / 9 / 11 / 13",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  5,
+                  7,
+                  9,
+                  11,
+                  13
+                ]
+              },
+              "scaling": [],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "label": "Active",
+        "text": "Active: Irelia's basic attacks deal bonus true damage and double Hiten Style's healing for 6 seconds.",
+        "leveling": [
+          {
+            "label": "Bonus True Damage",
+            "amount": {
+              "text": "15 / 30 / 45 / 60 / 75",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  15,
+                  30,
+                  45,
+                  60,
+                  75
+                ]
+              },
+              "scaling": [],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Enhanced Healing",
+            "amount": {
+              "text": "10 / 14 / 18 / 22 / 26",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  10,
+                  14,
+                  18,
+                  22,
+                  26
+                ]
+              },
+              "scaling": [],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Hiten Style does not have a cast time and does not interrupt Irelia's movement.",
+      "Hiten Style's true damage does not affect structures but the passive healing does.",
+      "The on-hit healing is not lost while Hiten Style is on cooldown."
+    ]
+  }
+]

@@ -1,0 +1,1225 @@
+[
+  {
+    "champion": "Locke",
+    "kind": "E",
+    "name": "Ashen Pursuit",
+    "page": {
+      "title": "Template:Data Locke/Ashen Pursuit",
+      "revid": 4052832
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "10",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 10
+            }
+          }
+        ]
+      },
+      "cooldownStart": "post-effect",
+      "cost": {
+        "text": "30 / 40 / 50 / 60 / 70",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                30,
+                40,
+                50,
+                60,
+                70
+              ]
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "0.5",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0.5
+            }
+          }
+        ]
+      },
+      "targetRange": {
+        "text": "375",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 375
+            },
+            "label": "Maximum blink range (estimated), has no minimum blink range"
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Location"
+      ],
+      "affects": [
+        "Self",
+        "Enemies"
+      ],
+      "damageType": [
+        "Magic"
+      ],
+      "spellEffects": "special",
+      "spellShield": "special",
+      "projectile": "false",
+      "parry": "special",
+      "grounded": "true",
+      "knockdown": "true"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Locke blinks to the target location, dealing magic damage to nearby enemies upon arrival.",
+        "leveling": [
+          {
+            "label": "Blink Magic Damage",
+            "amount": {
+              "text": "40 / 50 / 60 / 70 / 80 (+ 40% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  40,
+                  50,
+                  60,
+                  70,
+                  80
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 40
+                  },
+                  "text": "(+ 40% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "blink",
+            "category": "movement",
+            "wording": "blinks",
+            "evidence": "Active: Locke blinks to the target location, dealing magic damage to nearby enemies upon arrival.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "After a 0.1-second delay, he empowers his next attack command within 4 seconds to gain 275 bonus range and cause him to dash in the target's direction, dealing magic damage to nearby enemies along the way, and applying on-hit effects to the primary target hit.",
+        "leveling": [
+          {
+            "label": "Dash Magic Damage",
+            "amount": {
+              "text": "40 / 60 / 80 / 100 / 120 (+ 40% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  40,
+                  60,
+                  80,
+                  100,
+                  120
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 40
+                  },
+                  "text": "(+ 40% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Total Magic Damage",
+            "amount": {
+              "text": "80 / 110 / 140 / 170 / 200 (+ 80% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  80,
+                  110,
+                  140,
+                  170,
+                  200
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 80
+                  },
+                  "text": "(+ 80% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "dash",
+            "category": "movement",
+            "wording": "dash",
+            "evidence": "After a 0.1-second delay, he empowers his next attack command within 4 seconds to gain 275 bonus range and cause him to dash in the target's direction, dealing magic damage to nearby enemies along the way, and applying on-hit effects to the primary target hit.",
+            "conditional": false
+          },
+          {
+            "type": "on-hit",
+            "category": "offense",
+            "wording": "on-hit",
+            "evidence": "After a 0.1-second delay, he empowers his next attack command within 4 seconds to gain 275 bonus range and cause him to dash in the target's direction, dealing magic damage to nearby enemies along the way, and applying on-hit effects to the primary target hit.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "Scoring a takedown against an enemy champion resets the cooldown.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "text": "Locke cannot perform the dash while immobilized or grounded.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "ground",
+            "category": "control",
+            "wording": "grounded",
+            "evidence": "Locke cannot perform the dash while immobilized or grounded.",
+            "conditional": true
+          }
+        ],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Ashen Pursuit's damage types:\n  - The blink deals area damage.\n  - The dash deals spell damage to the primary target and area damage to secondary targets.",
+      "Ashen's Pursuit's dash:\n  - Does not count as a basic attack and will not trigger any basic attack-specific interactions (e.g. on-attack effects, basic attack timer, etc) unless it is special cased to do so.\n    - It is special cased to not deal damage to the primary target if Locke is blinded or if the target was under the effect of a spell that granted them dodging or blocking effects.\n  - Travels a fixed distance towards the target except in cases where Locke would dash through the target and beyond his attack range. If such cases would occur, it will instead dash him to 125 units beyond their location (within attack range of the target).\n  - Is disabled if Locke is affected by any immobilizing crowd control or if he is grounded.\n    - He loses the bonus attack range and is also completely unable to perform the empowered attack. If he can attack a target under this circumstance, he will basic attack them normally without consuming the empowered attack.\n    - For the former case, the only exceptions are berserk and taunt. These crowd control types will force Locke to perform the dash ability against the source of the disable.\n  - Can dash through terrain, provided the primary target is on the other side.\n    - It will however fail to cast if the target is at the very edge of Locke's attack range and is over terrain (no terrain grace).\n  - Orders Locke to attack the primary target at its end.\n  - Cannot be performed while Locke is disarmed, though he retains the bonus attack range.",
+      "If a champion takedown is scored while Ashen Pursuit is active, the ability's cooldown will be reset in addition to allowing Locke to cast Ashen Pursuit even while it is already active.\n  - If cast while the effect is already active, Ashen Pursuit's duration for the dash attack is refreshed after the blink.",
+      "Spell shield can block either the blink damage or the dash damage, but not both.",
+      "Soul Ignition can be cast during Ashen Pursuit's dash.\n  - Any other ability is queued instead."
+    ]
+  },
+  {
+    "champion": "Locke",
+    "kind": "I",
+    "name": "Silver Stake",
+    "page": {
+      "title": "Template:Data Locke/Silver Stake",
+      "revid": 4038404
+    },
+    "ranks": 1,
+    "fields": {},
+    "flags": {
+      "targeting": [
+        "Passive"
+      ],
+      "affects": [
+        "Enemies"
+      ],
+      "damageType": [
+        "Magic"
+      ],
+      "spellEffects": "proc",
+      "parry": "true"
+    },
+    "parts": [
+      {
+        "label": "Innate",
+        "text": "Innate: Locke's basic attacks deal 5 – 40 (based on level) (+ 10% AP) bonus magic damage on-hit, increased by 0 / 7.14286 / 14.2857 / 21.4286 / 28.5714 / 35.7143 / 42.8571 / 50 / 57.1429 / 64.2857 / 71.4286 / 78.5714 / 85.7143 / 92.8571 / 100 (based on target's missing health)%, up to 10 – 80 (based on level) (+ 20% AP).",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "on-hit",
+            "category": "offense",
+            "wording": "on-hit",
+            "evidence": "Innate: Locke's basic attacks deal 5 – 40 (based on level) (+ 10% AP) bonus magic damage on-hit, increased by 0 / 7.14286 / 14.2857 / 21.4286 / 28.5714 / 35.7143 / 42.8571 / 50 / 57.1429 / 64.2857 / 71.4286 / 78.5714 / 85.7143 / 92.8571 / 100 (based on target's missing health)%, up to 10 – 80 (based on level) (+ 20% AP).",
+            "conditional": false
+          }
+        ],
+        "values": [
+          {
+            "series": {
+              "kind": "level",
+              "values": [
+                5,
+                7.0588235294117645,
+                9.117647058823529,
+                11.176470588235293,
+                13.235294117647058,
+                15.294117647058824,
+                17.352941176470587,
+                19.411764705882355,
+                21.470588235294116,
+                23.529411764705884,
+                25.58823529411765,
+                27.647058823529413,
+                29.705882352941178,
+                31.764705882352942,
+                33.82352941176471,
+                35.88235294117647,
+                37.94117647058823,
+                40,
+                42.05882352941177,
+                44.11764705882353
+              ],
+              "past18": "wiki"
+            },
+            "context": "Innate: Locke's basic attacks deal 5 – 40 (based on level) (+ 10% AP) bonus magic damage on-hit, increased by 0 / 7.14286 / 14.2857 / 21.4286 / 28.5714 / 35.7143 / 42.8571 / 50 / 57.1429 / 64.2857 / 71.4286 / 78.5714 / 85.7143 / 92.8571 / 100 (based on target's missing health)%, up to 10 – 80 (based on level) (+ 20% AP)."
+          },
+          {
+            "series": {
+              "kind": "variable",
+              "variable": "target's missing health",
+              "points": [
+                0,
+                5,
+                10,
+                15,
+                20,
+                25,
+                30,
+                35,
+                40,
+                45,
+                50,
+                55,
+                60,
+                65,
+                70
+              ],
+              "values": [
+                0,
+                7.142857142857143,
+                14.285714285714286,
+                21.428571428571427,
+                28.571428571428573,
+                35.714285714285715,
+                42.857142857142854,
+                50,
+                57.142857142857146,
+                64.28571428571429,
+                71.42857142857143,
+                78.57142857142857,
+                85.71428571428571,
+                92.85714285714286,
+                100
+              ]
+            },
+            "context": "Innate: Locke's basic attacks deal 5 – 40 (based on level) (+ 10% AP) bonus magic damage on-hit, increased by 0 / 7.14286 / 14.2857 / 21.4286 / 28.5714 / 35.7143 / 42.8571 / 50 / 57.1429 / 64.2857 / 71.4286 / 78.5714 / 85.7143 / 92.8571 / 100 (based on target's missing health)%, up to 10 – 80 (based on level) (+ 20% AP)."
+          },
+          {
+            "series": {
+              "kind": "level",
+              "values": [
+                10,
+                14.117647058823529,
+                18.235294117647058,
+                22.352941176470587,
+                26.470588235294116,
+                30.58823529411765,
+                34.705882352941174,
+                38.82352941176471,
+                42.94117647058823,
+                47.05882352941177,
+                51.1764705882353,
+                55.294117647058826,
+                59.411764705882355,
+                63.529411764705884,
+                67.64705882352942,
+                71.76470588235294,
+                75.88235294117646,
+                80,
+                84.11764705882354,
+                88.23529411764706
+              ],
+              "past18": "wiki"
+            },
+            "context": "Innate: Locke's basic attacks deal 5 – 40 (based on level) (+ 10% AP) bonus magic damage on-hit, increased by 0 / 7.14286 / 14.2857 / 21.4286 / 28.5714 / 35.7143 / 42.8571 / 50 / 57.1429 / 64.2857 / 71.4286 / 78.5714 / 85.7143 / 92.8571 / 100 (based on target's missing health)%, up to 10 – 80 (based on level) (+ 20% AP)."
+          }
+        ]
+      }
+    ],
+    "custom": [],
+    "notes": []
+  },
+  {
+    "champion": "Locke",
+    "kind": "Q",
+    "name": "Ritual Nails",
+    "page": {
+      "title": "Template:Data Locke/Ritual Nails",
+      "revid": 4046580
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "10 / 9 / 8 / 7 / 6",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                10,
+                9,
+                8,
+                7,
+                6
+              ]
+            }
+          }
+        ]
+      },
+      "cooldownStart": "post-effect",
+      "cost": {
+        "text": "70",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 70
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "0.25",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0.25
+            }
+          }
+        ]
+      },
+      "targetRange": {
+        "text": "950",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 950
+            }
+          }
+        ]
+      },
+      "width": {
+        "text": "100",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 100
+            }
+          }
+        ]
+      },
+      "speed": {
+        "text": "1650",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 1650
+            }
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Direction"
+      ],
+      "affects": [
+        "Enemies"
+      ],
+      "damageType": [
+        "Magic"
+      ],
+      "spellEffects": "special",
+      "spellShield": "special",
+      "projectile": "true",
+      "parry": "special"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Locke hurls a nail in the target direction that deals magic damage to enemies hit, slows them by 25% for 1 second, and applies a stack of Soul Nails for 4 seconds, refreshing on subsequent applications and stacking up to 3 times. Against targets with at least 2 stacks, the slow is increased to 60% and lasts for 2 seconds.\n\nRitual Nails can be recast twice more within 4 seconds of the activation at no additional cost, with a 0.5-second static cooldown between casts.",
+        "leveling": [
+          {
+            "label": "Magic Damage per Nail",
+            "amount": {
+              "text": "40 / 48 / 56 / 64 / 72 (+ 20% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  40,
+                  48,
+                  56,
+                  64,
+                  72
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 20
+                  },
+                  "text": "(+ 20% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Maximum Nail Damage",
+            "amount": {
+              "text": "120 / 144 / 168 / 192 / 216 (+ 60% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  120,
+                  144,
+                  168,
+                  192,
+                  216
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 60
+                  },
+                  "text": "(+ 60% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "slow",
+            "category": "control",
+            "wording": "slows",
+            "duration": {
+              "kind": "constant",
+              "value": 1
+            },
+            "amount": {
+              "kind": "constant",
+              "value": 25
+            },
+            "evidence": "Active: Locke hurls a nail in the target direction that deals magic damage to enemies hit, slows them by 25% for 1 second, and applies a stack of Soul Nails for 4 seconds, refreshing on subsequent applications and stacking up to 3 times.",
+            "conditional": false
+          },
+          {
+            "type": "slow",
+            "category": "control",
+            "wording": "slow",
+            "duration": {
+              "kind": "constant",
+              "value": 2
+            },
+            "evidence": "Against targets with at least 2 stacks, the slow is increased to 60% and lasts for 2 seconds.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "label": "Recast",
+        "text": "Recast: Locke mimics the first cast's effects. For each recast not used when Ritual Nails ends, 20 – 35 (based on level)% of the ability's cooldown and mana cost is refunded, up to a 40 – 70 (based on level)% refund for two remaining recasts.",
+        "leveling": [],
+        "mechanics": [],
+        "values": [
+          {
+            "series": {
+              "kind": "level",
+              "values": [
+                20,
+                20.88235294117647,
+                21.764705882352942,
+                22.647058823529413,
+                23.529411764705884,
+                24.411764705882355,
+                25.294117647058822,
+                26.176470588235293,
+                27.058823529411764,
+                27.941176470588236,
+                28.823529411764707,
+                29.705882352941174,
+                30.588235294117645,
+                31.470588235294116,
+                32.35294117647059,
+                33.23529411764706,
+                34.11764705882353,
+                35,
+                35.8824,
+                36.7647
+              ],
+              "past18": "game files"
+            },
+            "context": "For each recast not used when Ritual Nails ends, 20 – 35 (based on level)% of the ability's cooldown and mana cost is refunded, up to a 40 – 70 (based on level)% refund for two remaining recasts."
+          },
+          {
+            "series": {
+              "kind": "level",
+              "values": [
+                40,
+                41.76470588235294,
+                43.529411764705884,
+                45.294117647058826,
+                47.05882352941177,
+                48.82352941176471,
+                50.588235294117645,
+                52.35294117647059,
+                54.11764705882353,
+                55.88235294117647,
+                57.64705882352941,
+                59.41176470588235,
+                61.17647058823529,
+                62.94117647058823,
+                64.70588235294117,
+                66.47058823529412,
+                68.23529411764706,
+                70,
+                71.7647,
+                73.5294
+              ],
+              "past18": "game files"
+            },
+            "context": "For each recast not used when Ritual Nails ends, 20 – 35 (based on level)% of the ability's cooldown and mana cost is refunded, up to a 40 – 70 (based on level)% refund for two remaining recasts."
+          }
+        ]
+      },
+      {
+        "text": "Locke's next damaging basic attack or Ashen Pursuit against an enemy with Soul Nails stacks consumes them all to deal bonus magic damage based on the amount of stacks.",
+        "leveling": [
+          {
+            "label": "One Stack Bonus Damage",
+            "amount": {
+              "text": "18 / 26 / 34 / 42 / 50 (+ 25 / 27.5 / 30 / 32.5 / 35% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  18,
+                  26,
+                  34,
+                  42,
+                  50
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "rank",
+                    "values": [
+                      25,
+                      27.5,
+                      30,
+                      32.5,
+                      35
+                    ]
+                  },
+                  "text": "(+ 25 / 27.5 / 30 / 32.5 / 35% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Two Stacks Bonus Damage",
+            "amount": {
+              "text": "43.2 / 62.4 / 81.6 / 100.8 / 120 (+ 60 / 66 / 72 / 78 / 84% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  43.199999999999996,
+                  62.4,
+                  81.6,
+                  100.80000000000001,
+                  120
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "rank",
+                    "values": [
+                      60,
+                      66,
+                      72,
+                      78,
+                      84
+                    ]
+                  },
+                  "text": "(+ 60 / 66 / 72 / 78 / 84% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Three Stacks Bonus Damage",
+            "amount": {
+              "text": "75.6 / 109.2 / 142.8 / 176.4 / 210 (+ 105 / 115.5 / 126 / 136.5 / 147% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  75.6,
+                  109.19999999999999,
+                  142.8,
+                  176.4,
+                  210
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "rank",
+                    "values": [
+                      105,
+                      115.5,
+                      126,
+                      136.5,
+                      147
+                    ]
+                  },
+                  "text": "(+ 105 / 115.5 / 126 / 136.5 / 147% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Maximum Total Magic Damage",
+            "amount": {
+              "text": "195.6 / 253.2 / 310.8 / 368.4 / 426 (+ 165 / 175.5 / 186 / 196.5 / 207% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  195.60000000000002,
+                  253.20000000000002,
+                  310.8,
+                  368.4,
+                  426
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "rank",
+                    "values": [
+                      165,
+                      175.5,
+                      186,
+                      196.5,
+                      207
+                    ]
+                  },
+                  "text": "(+ 165 / 175.5 / 186 / 196.5 / 207% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Applies area damage for the nail missile and deals spell damage for the stack consumption.",
+      "Spell shield will block the nail missile but not the stack consumption.",
+      "The stacks will not be consumed if the triggering basic attack is dodged, blocked, or missed while Locke is blinded.",
+      "This ability will cast from wherever the caster is at the start of the cast time."
+    ]
+  },
+  {
+    "champion": "Locke",
+    "kind": "R",
+    "name": "Purgatory",
+    "page": {
+      "title": "Template:Data Locke/Purgatory",
+      "revid": 4051476
+    },
+    "ranks": 3,
+    "fields": {
+      "cooldown": {
+        "text": "120 / 100 / 80",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                120,
+                100,
+                80
+              ]
+            }
+          }
+        ]
+      },
+      "cooldownStart": "on-cast",
+      "cost": {
+        "text": "100",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 100
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "0.5",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0.5
+            }
+          }
+        ]
+      },
+      "targetRange": {
+        "text": "950",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 950
+            }
+          }
+        ]
+      },
+      "effectRadius": {
+        "text": "400",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 400
+            }
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Location"
+      ],
+      "affects": [
+        "Enemies",
+        "Self"
+      ],
+      "damageType": [
+        "Magic True"
+      ],
+      "spellEffects": "special",
+      "spellShield": "special",
+      "projectile": "special"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Locke throws a totem artifact that travels to the target location over 0.5 seconds. After landing for 0.25 seconds, the totem fires latching nails at nearby enemies: dealing magic damage, slowing them by 99% decaying over 2 seconds, revealing them for 1 second, and marking enemy champions hit for 5 seconds. Marked enemies are executed below a portion of their health. Successful executions refresh the mark duration on all affected targets.",
+        "leveling": [
+          {
+            "label": "Magic Damage",
+            "amount": {
+              "text": "150 / 225 / 300 (+ 60% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  150,
+                  225,
+                  300
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 60
+                  },
+                  "text": "(+ 60% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Execute Threshold",
+            "amount": {
+              "text": "10 / 11 / 12% (+ 0.5% per Sealed Champion stack) of the target's maximum health",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  10,
+                  11,
+                  12
+                ]
+              },
+              "unit": "%",
+              "scaling": [
+                {
+                  "stat": "other:per sealed champion stack",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 0.5
+                  },
+                  "text": "(+ 0.5% per Sealed Champion stack)"
+                }
+              ],
+              "unparsed": "",
+              "baseStat": "targetMaxHealth"
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "slow",
+            "category": "control",
+            "wording": "slowing",
+            "duration": {
+              "kind": "constant",
+              "value": 2
+            },
+            "amount": {
+              "kind": "constant",
+              "value": 99
+            },
+            "evidence": "After landing for 0.25 seconds, the totem fires latching nails at nearby enemies: dealing magic damage, slowing them by 99% decaying over 2 seconds, revealing them for 1 second, and marking enemy champions hit for 5 seconds.",
+            "conditional": false
+          },
+          {
+            "type": "reveal",
+            "category": "vision",
+            "wording": "revealing",
+            "duration": {
+              "kind": "constant",
+              "value": 1
+            },
+            "evidence": "After landing for 0.25 seconds, the totem fires latching nails at nearby enemies: dealing magic damage, slowing them by 99% decaying over 2 seconds, revealing them for 1 second, and marking enemy champions hit for 5 seconds.",
+            "conditional": false
+          },
+          {
+            "type": "execute",
+            "category": "offense",
+            "wording": "executed",
+            "evidence": "Marked enemies are executed below a portion of their health.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "Once all marks expire, and if at least one champion was executed, the totem seals the souls of all executed champions and drops to the ground both over 2.25 seconds. It then lingers for a duration equal to Purgatory's remaining cooldown, but for no less than 10 seconds. Locke can move near the totem to collect it, and for each soul sealed it will both reduce Purgatory's current cooldown by 20% of its total cooldown and grant him a permanent Sealed Champion stack.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "The totem grants sight of the area for 1.25 seconds after the landing delay.\n  - If an enemy champion was marked, it grants sight in the area for 3 seconds instead.",
+      "Applies area damage with the nail and deals raw damage to executed targets.",
+      "Spell shield will block the nail from the totem but not the execute.",
+      "The totem missile can be destroyed by projectile-interception effects. The homing nails that the totem fires upon targets cannot be however.",
+      "Champions that take fatal damage from another source (such as by Purgatory's initial damage) and not by the execute will still count for having their soul sealed away.",
+      "Clones can be marked and executed, but cannot have their soul be sealed away.",
+      "Champions in a zombie state can be marked, but cannot be executed.",
+      "Champions protected by invulnerability cannot be executed but will count as the execution being successfully triggered against them if they were below the threshold, sealing their soul away.",
+      "Champions with a minimum health threshold will not be executed by any means, even if they are below the execution threshold. The execution may still trigger if the mark lingers after the minimum health threshold effect expires.",
+      "Resurrection effect interactions:\n  - Guardian Angel Rebirth and R will always prevent the resurrected champion from having their soul sealed away.\n  - I will allow the totem to free his soul away when the resurrection is triggered.\n  - If the resurrection effects of I and I trigger from taking lethal damage by Purgatory's initial damage, they will still count for having their soul sealed away.\n    - If the execution triggered their resurrection, however, their souls will not be sealed away.",
+      "The totem will remain on the ground no matter how distant Locke is from it and/or if he dies.",
+      "This ability will cast from wherever the caster is at the end of the cast time."
+    ]
+  },
+  {
+    "champion": "Locke",
+    "kind": "W",
+    "name": "Soul Ignition",
+    "page": {
+      "title": "Template:Data Locke/Soul Ignition",
+      "revid": 4062633
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "18 / 17 / 16 / 15 / 14",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                18,
+                17,
+                16,
+                15,
+                14
+              ]
+            }
+          }
+        ]
+      },
+      "cooldownStart": "post-effect",
+      "cost": {
+        "text": "50 / 55 / 60 / 65 / 70",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                50,
+                55,
+                60,
+                65,
+                70
+              ]
+            }
+          }
+        ]
+      },
+      "costType": "mana (+ 0.5% current health per 0.25 seconds)",
+      "castTime": {
+        "text": "none",
+        "values": []
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Auto"
+      ],
+      "affects": [
+        "Self"
+      ],
+      "damageType": []
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Locke ignites his soul for 6 seconds, becoming ghosted and gaining 40 – 70 (based on level)% bonus attack speed and 40% (+ 2% per 100 AP) bonus movement speed, with the latter decaying to 20% over 1 second after 1.5 seconds have elapsed.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "ghosted",
+            "category": "movement",
+            "wording": "ghosted",
+            "duration": {
+              "kind": "constant",
+              "value": 1
+            },
+            "evidence": "Active: Locke ignites his soul for 6 seconds, becoming ghosted and gaining 40 – 70 (based on level)% bonus attack speed and 40% (+ 2% per 100 AP) bonus movement speed, with the latter decaying to 20% over 1 second after 1.5 seconds have elapsed.",
+            "conditional": false
+          }
+        ],
+        "values": [
+          {
+            "series": {
+              "kind": "level",
+              "values": [
+                40,
+                41.76470588235294,
+                43.529411764705884,
+                45.294117647058826,
+                47.05882352941177,
+                48.82352941176471,
+                50.588235294117645,
+                52.35294117647059,
+                54.11764705882353,
+                55.88235294117647,
+                57.64705882352941,
+                59.41176470588235,
+                61.17647058823529,
+                62.94117647058823,
+                64.70588235294117,
+                66.47058823529412,
+                68.23529411764706,
+                70,
+                71.76470588235294,
+                73.52941176470588
+              ],
+              "past18": "wiki"
+            },
+            "context": "Active: Locke ignites his soul for 6 seconds, becoming ghosted and gaining 40 – 70 (based on level)% bonus attack speed and 40% (+ 2% per 100 AP) bonus movement speed, with the latter decaying to 20% over 1 second after 1.5 seconds have elapsed."
+          }
+        ]
+      },
+      {
+        "text": "Additionally, during the effect he stores an amount of grey health on his health bar equal to 100% of the post-mitigation damage he takes from enemy champions, up to a cap, plus the total amount of health expended from Soul Ignition's health cost. Locke additionally stores up to 40 – 200 (based on level) (+ 20% AP) grey health for himself, based on his missing health and Soul Ignition's elapsed duration. The missing health portion of this additional grey health stored reaches its maximum when his current health is at or below 150 – 450 (based on level) (+ 60% AP).",
+        "leveling": [
+          {
+            "label": "Damage taken grey health cap",
+            "amount": {
+              "text": "40 / 60 / 80 / 100 / 120 (+ 100% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  40,
+                  60,
+                  80,
+                  100,
+                  120
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 100
+                  },
+                  "text": "(+ 100% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [],
+        "values": [
+          {
+            "series": {
+              "kind": "level",
+              "values": [
+                40,
+                49.411764705882355,
+                58.82352941176471,
+                68.23529411764706,
+                77.64705882352942,
+                87.05882352941177,
+                96.47058823529412,
+                105.88235294117646,
+                115.29411764705883,
+                124.70588235294117,
+                134.11764705882354,
+                143.52941176470588,
+                152.94117647058823,
+                162.3529411764706,
+                171.76470588235293,
+                181.1764705882353,
+                190.58823529411765,
+                200,
+                209.41176470588235,
+                218.8235294117647
+              ],
+              "past18": "wiki"
+            },
+            "context": "Locke additionally stores up to 40 – 200 (based on level) (+ 20% AP) grey health for himself, based on his missing health and Soul Ignition's elapsed duration."
+          },
+          {
+            "series": {
+              "kind": "level",
+              "values": [
+                150,
+                167.64705882352942,
+                185.29411764705884,
+                202.94117647058823,
+                220.58823529411765,
+                238.23529411764707,
+                255.88235294117646,
+                273.52941176470586,
+                291.1764705882353,
+                308.8235294117647,
+                326.47058823529414,
+                344.11764705882354,
+                361.7647058823529,
+                379.4117647058823,
+                397.05882352941177,
+                414.70588235294116,
+                432.3529411764706,
+                450,
+                467.6470588235294,
+                485.29411764705884
+              ],
+              "past18": "wiki"
+            },
+            "context": "The missing health portion of this additional grey health stored reaches its maximum when his current health is at or below 150 – 450 (based on level) (+ 60% AP)."
+          }
+        ]
+      },
+      {
+        "text": "After 0.5 seconds, Soul Ignition can be recast within the duration, and does so automatically afterwards.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "label": "Recast",
+        "text": "Recast: Locke ends Soul Ignition and consumes his grey health to heal for the same amount.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "heal",
+            "category": "defense",
+            "wording": "heal",
+            "evidence": "Recast: Locke ends Soul Ignition and consumes his grey health to heal for the same amount.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "Soul Ignition's recast can be used while affected by cast-inhibiting crowd control.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Health cost totals approximately 11.335% of his maximum health when cast at full health over the full duration.",
+      "The health cost updates dynamically with Locke's current health, costing less the lower his remaining health is. It is not based on his current health at the time of cast.",
+      "If Locke's total maximum health is less than or equal to a value of 150 – 450 (based on level) (+ 60% AP), he will not store any additional grey health based on his missing health and Soul Ignition's duration.\n  - This may occur in situations where Locke has very high amounts of ability power while not having as much total health.",
+      "Soul Ignition's recast does not interrupt Recall."
+    ]
+  }
+]

@@ -1,0 +1,847 @@
+[
+  {
+    "champion": "Garen",
+    "kind": "A",
+    "name": "Basic Attack",
+    "page": {
+      "title": "Template:Data Garen/Basic Attack",
+      "revid": 3129581
+    },
+    "ranks": 1,
+    "fields": {
+      "attackRange": {
+        "text": "175",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 175
+            }
+          }
+        ]
+      },
+      "speed": {
+        "text": "N/A",
+        "values": []
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Unit"
+      ],
+      "affects": [
+        "Enemies"
+      ],
+      "damageType": [
+        "Physical"
+      ]
+    },
+    "parts": [
+      {
+        "label": "Basic Attack",
+        "text": "Basic Attack: Garen swings at his target with his sword, dealing 100% AD physical damage and applying on-hit effects.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "text": "Garen's basic attacks can critically strike, instead trusting his sword forward to deal the full Expression error: Unexpected end of expression% (+ Expression error: Unexpected end of expression%) AD physical damage and apply critical effects.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "critical strike",
+            "category": "offense",
+            "wording": "critical effects",
+            "evidence": "Garen's basic attacks can critically strike, instead trusting his sword forward to deal the full Expression error: Unexpected end of expression% (+ Expression error: Unexpected end of expression%) AD physical damage and apply critical effects.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "Garen's attack speed benefits from 62.5% of his total bonus attack speed.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Acquisition range is the distance at which Garen will automatically acquire attack targets if 'Auto attacking' is enabled within the game options (enabled by default). This does not increase with sources of bonus attack range.",
+      "The windup time is the portion of the attack animation that must be completed in order to deal damage.\n  - Base wind-up time refers to the time spend winding up attacks at base attack speed."
+    ]
+  },
+  {
+    "champion": "Garen",
+    "kind": "E",
+    "name": "Judgment",
+    "page": {
+      "title": "Template:Data Garen/Judgment",
+      "revid": 4009435
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "9 / 8.25 / 7.5 / 6.75 / 6",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                9,
+                8.25,
+                7.5,
+                6.75,
+                6
+              ]
+            }
+          }
+        ]
+      },
+      "cooldownStart": "post-effect",
+      "castTime": {
+        "text": "none",
+        "values": []
+      },
+      "effectRadius": {
+        "text": "325",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 325
+            }
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Auto"
+      ],
+      "affects": [
+        "Self",
+        "Enemies"
+      ],
+      "damageType": [
+        "Physical"
+      ],
+      "spellEffects": "aoedot",
+      "spellShield": "false"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Garen rapidly spins his sword around himself 7 (+ 1 per 25% bonus attack speed) times over 3 seconds, becoming unable to declare basic attacks but gaining ghosting and dealing physical damage to nearby enemies periodically. Judgment can be recast after 1 second while active, and does so automatically after it ends.",
+        "leveling": [
+          {
+            "label": "Physical Damage Per Spin",
+            "amount": {
+              "text": "4 / 7 / 10 / 13 / 16 (+ 40 / 43 / 46 / 49 / 52% AD)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  4,
+                  7,
+                  10,
+                  13,
+                  16
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AD",
+                  "ratio": {
+                    "kind": "rank",
+                    "values": [
+                      40,
+                      43,
+                      46,
+                      49,
+                      52
+                    ]
+                  },
+                  "text": "(+ 40 / 43 / 46 / 49 / 52% AD)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Critical Strike Damage Per Spin",
+            "amount": {
+              "text": "5.2 / 9.1 / 13 / 16.9 / 20.8 (+ 52 / 55.9 / 59.8 / 63.7 / 67.6% AD)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  5.2,
+                  9.100000000000001,
+                  13,
+                  16.900000000000002,
+                  20.8
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AD",
+                  "ratio": {
+                    "kind": "rank",
+                    "values": [
+                      52,
+                      55.900000000000006,
+                      59.800000000000004,
+                      63.7,
+                      67.60000000000001
+                    ]
+                  },
+                  "text": "(+ 52 / 55.9 / 59.8 / 63.7 / 67.6% AD)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "lockout",
+            "category": "other",
+            "wording": "unable",
+            "evidence": "Active: Garen rapidly spins his sword around himself 7 (+ 1 per 25% bonus attack speed) times over 3 seconds, becoming unable to declare basic attacks but gaining ghosting and dealing physical damage to nearby enemies periodically.",
+            "conditional": false
+          },
+          {
+            "type": "ghosted",
+            "category": "movement",
+            "wording": "ghosting",
+            "evidence": "Active: Garen rapidly spins his sword around himself 7 (+ 1 per 25% bonus attack speed) times over 3 seconds, becoming unable to declare basic attacks but gaining ghosting and dealing physical damage to nearby enemies periodically.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "Enemy champions hit 6 times by Judgment are inflicted with 25% armor reduction for 6 seconds, with the duration refreshing upon the 7th hit and every 6th hit thereafter.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "text": "Judgment deals 25% increased damage against the nearest enemy hit.",
+        "leveling": [
+          {
+            "label": "Increased Damage Per Spin",
+            "amount": {
+              "text": "5 / 8.75 / 12.5 / 16.25 / 20 (+ 50 / 53.75 / 57.5 / 61.25 / 65% AD)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  5,
+                  8.75,
+                  12.5,
+                  16.25,
+                  20
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AD",
+                  "ratio": {
+                    "kind": "rank",
+                    "values": [
+                      50,
+                      53.75,
+                      57.5,
+                      61.25,
+                      65
+                    ]
+                  },
+                  "text": "(+ 50 / 53.75 / 57.5 / 61.25 / 65% AD)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Increased Critical Strike Damage Per Spin",
+            "amount": {
+              "text": "6.5 / 11.375 / 16.25 / 21.125 / 26 (+ 65 / 69.875 / 74.75 / 79.625 / 84.5% AD)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  6.5,
+                  11.375,
+                  16.25,
+                  21.125,
+                  26
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AD",
+                  "ratio": {
+                    "kind": "rank",
+                    "values": [
+                      65,
+                      69.875,
+                      74.75,
+                      79.625,
+                      84.5
+                    ]
+                  },
+                  "text": "(+ 65 / 69.875 / 74.75 / 79.625 / 84.5% AD)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [],
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 25
+            },
+            "context": "Judgment deals 25% increased damage against the nearest enemy hit."
+          }
+        ]
+      },
+      {
+        "label": "Recast",
+        "text": "Recast: Garen ends Judgment.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "text": "Judgment can critically strike for 130% damage.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "critical strike",
+            "category": "offense",
+            "wording": "critically strike",
+            "evidence": "Judgment can critically strike for 130% damage.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "At level 20, Garen will spin a minimum of 9 times.",
+      "Deactivating the ability manually does not count as an ability activation for the purposes of on-cast effects such as Spellblade and triggering Force Pulse passive.",
+      "Each spin triggers a stack of Conqueror.",
+      "For the purpose of moving closer to an enemy when right clicking them, Judgment also reduces Garen's attack range to 100 for the duration.",
+      "Judgment only scales with bonus attack speed from items and growth (per level).",
+      "Judgment cancels Garen's last movement command upon ending.",
+      "Each spin deals damage simultaneously to all enemies within its range when the spin is completed.",
+      "The spin animation is capped at 200% bonus attack speed, but the amount of ticks will keep on scaling.",
+      "The armor reduction stacks multiplicatively with other percentage armor penetration effects."
+    ]
+  },
+  {
+    "champion": "Garen",
+    "kind": "I",
+    "name": "Perseverance",
+    "page": {
+      "title": "Template:Data Garen/Perseverance",
+      "revid": 4038338
+    },
+    "ranks": 1,
+    "fields": {},
+    "flags": {
+      "targeting": [
+        "Passive"
+      ],
+      "affects": [
+        "Self"
+      ],
+      "damageType": [],
+      "spellEffects": "heal"
+    },
+    "parts": [
+      {
+        "label": "Innate",
+        "text": "Innate: Garen regenerates an additional 1.5 – 10.1 (based on level)% of his maximum health every 5 seconds.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "heal",
+            "category": "defense",
+            "wording": "regenerates",
+            "evidence": "Innate: Garen regenerates an additional 1.5 – 10.1 (based on level)% of his maximum health every 5 seconds.",
+            "conditional": false
+          }
+        ],
+        "values": [
+          {
+            "series": {
+              "kind": "level",
+              "values": [
+                1.5,
+                1.7,
+                1.9,
+                2.1,
+                2.3,
+                2.5,
+                3.3,
+                4.1,
+                4.9,
+                5.7,
+                6.5,
+                7.300000000000001,
+                8.100000000000001,
+                8.500000000000002,
+                8.900000000000002,
+                9.3,
+                9.700000000000001,
+                10.100000000000001,
+                10.500000000000002,
+                10.900000000000002
+              ],
+              "past18": "wiki"
+            },
+            "context": "Innate: Garen regenerates an additional 1.5 – 10.1 (based on level)% of his maximum health every 5 seconds."
+          }
+        ]
+      },
+      {
+        "text": "Perseverance is lost for 8 seconds if Garen takes damage from champions, epic monsters, or turrets, or if he is hit by an enemy ability or affected by an enemy summoner spell, refreshing on subsequent damage and hits taken from them.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Perseverance does not go on nor refresh its cooldown from damage which was:\n  - Reduced to or equal to 0 damage.\n  - Dealt to shields.\n  - Absorbed by invulnerability."
+    ]
+  },
+  {
+    "champion": "Garen",
+    "kind": "Q",
+    "name": "Decisive Strike",
+    "page": {
+      "title": "Template:Data Garen/Decisive Strike",
+      "revid": 4004895
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "8",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 8
+            }
+          }
+        ]
+      },
+      "cooldownStart": "post-effect",
+      "castTime": {
+        "text": "none",
+        "values": []
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Auto"
+      ],
+      "affects": [
+        "Self",
+        "Enemies"
+      ],
+      "damageType": [
+        "Physical"
+      ],
+      "spellEffects": "spell",
+      "spellShield": "special",
+      "parry": "true",
+      "knockdown": "false"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Garen cleanses himself of all slows and gains 35% bonus movement speed for a duration.",
+        "leveling": [
+          {
+            "label": "Movement Speed Duration",
+            "amount": {
+              "text": "1.4 / 1.95 / 2.5 / 3.05 / 3.6",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  1.4,
+                  1.95,
+                  2.5,
+                  3.05,
+                  3.6
+                ]
+              },
+              "scaling": [],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "cleanse",
+            "category": "defense",
+            "wording": "cleanses",
+            "evidence": "Active: Garen cleanses himself of all slows and gains 35% bonus movement speed for a duration.",
+            "conditional": false
+          },
+          {
+            "type": "slow",
+            "category": "control",
+            "wording": "slows",
+            "evidence": "Active: Garen cleanses himself of all slows and gains 35% bonus movement speed for a duration.",
+            "conditional": true
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "Additionally, Garen empowers his next basic attack within 4.5 seconds to have an uncancellable windup, lunge at the target, deal bonus physical damage, and silence them for 1.5 seconds.",
+        "leveling": [
+          {
+            "label": "Bonus Physical Damage",
+            "amount": {
+              "text": "30 / 60 / 90 / 120 / 150 (+ 50% AD)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  30,
+                  60,
+                  90,
+                  120,
+                  150
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AD",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 50
+                  },
+                  "text": "(+ 50% AD)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "uncancellable windup",
+            "category": "offense",
+            "wording": "uncancellable windup",
+            "evidence": "Additionally, Garen empowers his next basic attack within 4.5 seconds to have an uncancellable windup, lunge at the target, deal bonus physical damage, and silence them for 1.5 seconds.",
+            "conditional": false
+          },
+          {
+            "type": "dash",
+            "category": "movement",
+            "wording": "lunge",
+            "evidence": "Additionally, Garen empowers his next basic attack within 4.5 seconds to have an uncancellable windup, lunge at the target, deal bonus physical damage, and silence them for 1.5 seconds.",
+            "conditional": false
+          },
+          {
+            "type": "silence",
+            "category": "control",
+            "wording": "silence",
+            "duration": {
+              "kind": "constant",
+              "value": 1.5
+            },
+            "evidence": "Additionally, Garen empowers his next basic attack within 4.5 seconds to have an uncancellable windup, lunge at the target, deal bonus physical damage, and silence them for 1.5 seconds.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "Decisive Strike resets Garen's basic attack timer.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "attack reset",
+            "category": "offense",
+            "wording": "resets",
+            "evidence": "Decisive Strike resets Garen's basic attack timer.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "The enhanced attack will apply other on-hit effects and can critically strike as normal (the bonus damage does not).\n  - The bonus damage will also apply life steal.\n  - The bonus damage is applied to structures.",
+      "Decisive Strike locks Garen out of using basic attacks for a short period of time. This is shortened with attack speed.",
+      "The enhanced attack will still complete and hit the target even if they become untargetable during the attack's windup.",
+      "Decisive Strike will not prevent the reapplication of slows (e.g. the persistent slow from Pillar of Ice will be immediately reapplied after removal if Garen is still within its area of effect).",
+      "Spell shield will only negate the silence.",
+      "Decisive Strike's lunge can pass very thin terrain and will otherwise not be able to. In any case, Garen will still hit his target.[https://www.youtube.com/watch?v=0qi54mu_gxg]"
+    ]
+  },
+  {
+    "champion": "Garen",
+    "kind": "R",
+    "name": "Demacian Justice",
+    "page": {
+      "title": "Template:Data Garen/Demacian Justice",
+      "revid": 4042864
+    },
+    "ranks": 3,
+    "fields": {
+      "cooldown": {
+        "text": "120 / 100 / 80",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                120,
+                100,
+                80
+              ]
+            }
+          }
+        ]
+      },
+      "castTime": {
+        "text": "0.435",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0.435
+            }
+          }
+        ]
+      },
+      "targetRange": {
+        "text": "400",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 400
+            }
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Unit"
+      ],
+      "affects": [
+        "Enemies"
+      ],
+      "damageType": [
+        "True"
+      ],
+      "spellEffects": "spell",
+      "spellShield": "true"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Garen calls upon the might of Demacia onto the target enemy champion, dealing them true damage as well as revealing them for 1 second at the start of the cast time.",
+        "leveling": [
+          {
+            "label": "True Damage",
+            "amount": {
+              "text": "125 / 200 / 275 (+ 25 / 30 / 35% of target's missing health)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  125,
+                  200,
+                  275
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "targetMissingHealth",
+                  "ratio": {
+                    "kind": "rank",
+                    "values": [
+                      25,
+                      30,
+                      35
+                    ]
+                  },
+                  "text": "(+ 25 / 30 / 35% of target's missing health)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "true sight",
+            "category": "vision",
+            "wording": "revealing",
+            "duration": {
+              "kind": "constant",
+              "value": 1
+            },
+            "evidence": "Active: Garen calls upon the might of Demacia onto the target enemy champion, dealing them true damage as well as revealing them for 1 second at the start of the cast time.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "The target will die if they're at least under 20 / 23.0769230769 / 25.9259259259% maximum health + 100 / 153.846153846 / 203.703703704 flat health on top of that. This does not count effects that mitigate true damage, such as shields.",
+      "If Garen dies during Demacian Justice's cast time, it will visually appear as on cooldown and he won't be able to cast it until the cooldown has elapsed.\n  - This is fixed by clicking Demacian Justice's icon on the UI at the bottom of the screen.",
+      "If the target becomes untargetable, dies, or is too far away or no longer in sight during the cast time, this ability will cancel but does not go on cooldown nor pay its cost (if applicable)."
+    ]
+  },
+  {
+    "champion": "Garen",
+    "kind": "W",
+    "name": "Courage",
+    "page": {
+      "title": "Template:Data Garen/Courage",
+      "revid": 4064595
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "22 / 19.5 / 17 / 14.5 / 12",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                22,
+                19.5,
+                17,
+                14.5,
+                12
+              ]
+            }
+          }
+        ]
+      },
+      "cooldownStart": "on-cast",
+      "castTime": {
+        "text": "none",
+        "values": []
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Auto"
+      ],
+      "affects": [
+        "Self"
+      ],
+      "damageType": []
+    },
+    "parts": [
+      {
+        "label": "Passive",
+        "text": "Passive: Whenever Garen kills an enemy, he generates a stack of Courage, stacking up to 150 times.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "label": "Courage",
+        "text": "Courage: For each stack, Garen gains 0.2 bonus armor and 0.2 bonus magic resistance, up to a maximum of 30 bonus resistances each.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "label": "Active",
+        "text": "Active: Garen reduces incoming damage for 4 seconds. For the first 0.75 seconds, Garen additionally grants himself a shield and 60% tenacity.",
+        "leveling": [
+          {
+            "label": "Damage Reduction",
+            "amount": {
+              "text": "25 / 29 / 33 / 37 / 41%",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  25,
+                  29,
+                  33,
+                  37,
+                  41
+                ]
+              },
+              "unit": "%",
+              "scaling": [],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Shield Strength",
+            "amount": {
+              "text": "65 / 85 / 105 / 125 / 145 (+ 18% bonus health)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  65,
+                  85,
+                  105,
+                  125,
+                  145
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "bonusHealth",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 18
+                  },
+                  "text": "(+ 18% bonus health)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "shield",
+            "category": "defense",
+            "wording": "shield",
+            "evidence": "For the first 0.75 seconds, Garen additionally grants himself a shield and 60% tenacity.",
+            "conditional": false
+          },
+          {
+            "type": "tenacity",
+            "category": "defense",
+            "wording": "tenacity",
+            "evidence": "For the first 0.75 seconds, Garen additionally grants himself a shield and 60% tenacity.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Courage's bonus resistances can be obtained by any of Garen's damage sources (basic attacks, abilities, summoner spells, runes, item actives).\n  - This does not include last hits transferred to Garen artificially.",
+      "The kills on these enemy unit types count towards Courage stacks:\n  - Champions (Only kills, assists don't grant stacks)\n  - All minions and monsters\n  - Champion summoned units (e.g. Noxious Trap, Powder Keg)\n  - All pets and clones.\n    - The bonus is equal for all these units; large units do not grant a larger bonus.",
+      "The kills on these enemy unit types do not count towards Courage stacks:\n  - Wards.\n  - Turrets (including Sun Disk) and other structures\n  - Jungle plants.\n  - Units destroyed by 'trampling' such as seeds, goo or tunnels.\n  - Tentacles and Dark Procession",
+      "Courage will only grant bonus resistances from units killed by Garen himself. Eye of the Herald does not count.",
+      "The Tenacity increase stacks additively with the tenacity reduction from Brittle, but multiplicatively with other sources."
+    ]
+  }
+]

@@ -1,0 +1,811 @@
+[
+  {
+    "champion": "Ryze",
+    "kind": "E",
+    "name": "Spell Flux",
+    "page": {
+      "title": "Template:Data Ryze/Spell Flux",
+      "revid": 4064864
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "3.5 / 3.25 / 3 / 2.75 / 2.5",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                3.5,
+                3.25,
+                3,
+                2.75,
+                2.5
+              ]
+            }
+          }
+        ]
+      },
+      "cost": {
+        "text": "40 / 50 / 60 / 70 / 80",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                40,
+                50,
+                60,
+                70,
+                80
+              ]
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "0.25",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0.25
+            }
+          }
+        ]
+      },
+      "targetRange": {
+        "text": "550",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 550
+            }
+          }
+        ]
+      },
+      "effectRadius": {
+        "text": "350",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 350
+            },
+            "label": "Bounce range"
+          }
+        ]
+      },
+      "speed": {
+        "text": "4000 • 1500",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 4000
+            },
+            "label": "Initial orb missile speed"
+          },
+          {
+            "series": {
+              "kind": "constant",
+              "value": 1500
+            },
+            "label": "Spreading bounce missiles speed"
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Unit"
+      ],
+      "affects": [
+        "Enemies"
+      ],
+      "damageType": [
+        "Magic"
+      ],
+      "spellEffects": "spell",
+      "spellShield": "true",
+      "projectile": "special"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Ryze projects an orb upon the target enemy that deals magic damage.\n\n\nThe target and surrounding enemies are also marked with Flux for 4 seconds. Ryze's basic abilities against Flux targets consume the mark to become empowered with an additional effect.",
+        "leveling": [
+          {
+            "label": "Magic Damage",
+            "amount": {
+              "text": "60 / 90 / 120 / 150 / 180 (+ 50% AP) (+ 2% bonus mana)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  60,
+                  90,
+                  120,
+                  150,
+                  180
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 50
+                  },
+                  "text": "(+ 50% AP)"
+                },
+                {
+                  "stat": "bonusMana",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 2
+                  },
+                  "text": "(+ 2% bonus mana)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "label": "Flux Bonus",
+        "text": "Flux Bonus: Spell Flux spreads farther.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Spell Flux's second cast on a target will apply a new Flux debuff as well as triggering the previous one (effectively refreshing the duration).",
+      "The \"main\" missile of Spell Flux is blocked by projectile-intercepting effects, while the spreading bounce missiles are not.",
+      "bounce range to-edge or to-center?\n  - Game data notes additional range checks of 400 (bounce range) and 500 (Q damage bounce range) against 'large' enemies.",
+      "If the target becomes untargetable, dies, or is too far away or no longer in sight during the cast time, this ability will cancel but does not go on cooldown nor pay its cost (if applicable)."
+    ]
+  },
+  {
+    "champion": "Ryze",
+    "kind": "I",
+    "name": "Arcane Mastery",
+    "page": {
+      "title": "Template:Data Ryze/Arcane Mastery",
+      "revid": 4059875
+    },
+    "ranks": 1,
+    "fields": {},
+    "flags": {
+      "targeting": [
+        "Passive"
+      ],
+      "affects": [
+        "Self"
+      ],
+      "damageType": []
+    },
+    "parts": [
+      {
+        "label": "Innate",
+        "text": "Innate: Ryze increases his maximum mana by (10% per 100 AP).",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Any increase in maximum mana is treated as bonus mana.",
+      "With Rabadon's Deathcap, a total of Expression error: Unexpected operator *% (10% AP) maximum mana is gained.",
+      "Arcane Mastery together with Archangel's Staff or Seraph's Embrace creates a recursive stat loop: ability power giving mana and so on.",
+      "Another way to create a recursive stat loop, is to have any converter of mana to health (Winter's Approach, Fimbulwinter or the U.R.F. buff) and Riftmaker. The first converter giving mana to health, Riftmaker giving health to ability power and Arcane Mastery giving ability power to mana."
+    ]
+  },
+  {
+    "champion": "Ryze",
+    "kind": "Q",
+    "name": "Overload",
+    "page": {
+      "title": "Template:Data Ryze/Overload",
+      "revid": 4064862
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "5",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 5
+            }
+          }
+        ]
+      },
+      "cost": {
+        "text": "40 / 38 / 36 / 34 / 32",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                40,
+                38,
+                36,
+                34,
+                32
+              ]
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "0.25",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0.25
+            }
+          }
+        ]
+      },
+      "targetRange": {
+        "text": "1000",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 1000
+            }
+          }
+        ]
+      },
+      "width": {
+        "text": "110",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 110
+            }
+          }
+        ]
+      },
+      "speed": {
+        "text": "1700",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 1700
+            }
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Direction"
+      ],
+      "affects": [
+        "Enemies"
+      ],
+      "damageType": [
+        "Magic"
+      ],
+      "spellEffects": "special",
+      "spellShield": "true",
+      "projectile": "true"
+    },
+    "parts": [
+      {
+        "label": "Passive",
+        "text": "Passive: Ryze's other basic ability casts reset Overload's cooldown and charge a Rune stack for 4 seconds, refreshing on subsequent casts and stacking up to 2 times.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "label": "Active",
+        "text": "Active: Ryze unleashes a runic blast in the target direction that deals magic damage to the first enemy hit and consumes all Rune stacks.",
+        "leveling": [
+          {
+            "label": "Magic Damage",
+            "amount": {
+              "text": "75 / 95 / 115 / 135 / 155 (+ 55% AP) (+ 2% bonus mana)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  75,
+                  95,
+                  115,
+                  135,
+                  155
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 55
+                  },
+                  "text": "(+ 55% AP)"
+                },
+                {
+                  "stat": "bonusMana",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 2
+                  },
+                  "text": "(+ 2% bonus mana)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "text": "If Ryze consumed 2 stacks, he gains bonus movement speed for 2 seconds.",
+        "leveling": [
+          {
+            "label": "Bonus Movement Speed",
+            "amount": {
+              "text": "28 / 32 / 36 / 40 / 44%",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  28,
+                  32,
+                  36,
+                  40,
+                  44
+                ]
+              },
+              "unit": "%",
+              "scaling": [],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "label": "Flux Bonus",
+        "text": "Flux Bonus: Overload deals 15 / 40 / 65 / 90 (based on Realm Warp's Rank)% increased damage and spreads to surrounding Fluxed enemies.",
+        "leveling": [],
+        "mechanics": [],
+        "values": [
+          {
+            "series": {
+              "kind": "variable",
+              "variable": "Realm Warp's Rank",
+              "points": [
+                0,
+                1,
+                2,
+                3
+              ],
+              "values": [
+                15,
+                40,
+                65,
+                90
+              ]
+            },
+            "context": "Flux Bonus: Overload deals 15 / 40 / 65 / 90 (based on Realm Warp's Rank)% increased damage and spreads to surrounding Fluxed enemies."
+          }
+        ]
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Overload can be buffered 0.5 seconds before it comes off cooldown.",
+      "Overload can be buffered while casting either Spell Flux or Rune Prison to cast immediately after the previous spell's cast time.",
+      "Applies spell damage to the primary target and area damage to secondary targets affected by Flux.",
+      "This ability will cast from wherever the caster is at the start of the cast time."
+    ]
+  },
+  {
+    "champion": "Ryze",
+    "kind": "R",
+    "name": "Realm Warp",
+    "page": {
+      "title": "Template:Data Ryze/Realm Warp",
+      "revid": 4064863
+    },
+    "ranks": 3,
+    "fields": {
+      "cooldown": {
+        "text": "180 / 160 / 140",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                180,
+                160,
+                140
+              ]
+            }
+          }
+        ]
+      },
+      "cost": {
+        "text": "100",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 100
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "none",
+        "values": []
+      },
+      "targetRange": {
+        "text": "1000 • 3000",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 1000
+            },
+            "label": "Minimum cast range"
+          },
+          {
+            "series": {
+              "kind": "constant",
+              "value": 3000
+            },
+            "label": "Maximum cast range"
+          }
+        ]
+      },
+      "effectRadius": {
+        "text": "465 • 515",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 465
+            },
+            "label": "Portal radius"
+          },
+          {
+            "series": {
+              "kind": "constant",
+              "value": 515
+            },
+            "label": "Destination area reveal radius during channel"
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Location"
+      ],
+      "affects": [
+        "Allies"
+      ],
+      "damageType": [],
+      "grounded": "true",
+      "silence": "true"
+    },
+    "parts": [
+      {
+        "label": "Passive",
+        "text": "Passive: Overload Flux empowered damage is increased.",
+        "leveling": [
+          {
+            "label": "Bonus Overload Damage",
+            "amount": {
+              "text": "40 / 65 / 90%",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  40,
+                  65,
+                  90
+                ]
+              },
+              "unit": "%",
+              "scaling": [],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "label": "Active",
+        "text": "Active: Ryze channels for 2 seconds to open a portal beneath him, marking the target location as its destination and granting sight of the target area. Ryze is able to act while channeling, but the portal will cancel if he is interrupted.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "channel",
+            "category": "other",
+            "wording": "channels",
+            "duration": {
+              "kind": "constant",
+              "value": 2
+            },
+            "evidence": "Active: Ryze channels for 2 seconds to open a portal beneath him, marking the target location as its destination and granting sight of the target area.",
+            "conditional": false
+          },
+          {
+            "type": "reveal",
+            "category": "vision",
+            "wording": "sight",
+            "evidence": "Active: Ryze channels for 2 seconds to open a portal beneath him, marking the target location as its destination and granting sight of the target area.",
+            "conditional": false
+          },
+          {
+            "type": "interrupt",
+            "category": "other",
+            "wording": "interrupted",
+            "evidence": "Ryze is able to act while channeling, but the portal will cancel if he is interrupted.",
+            "conditional": true
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "Upon completion, Ryze and all allied units within the portal will blink to the location and become rooted, disarmed, silenced and untargetable for 0.75 seconds.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "blink",
+            "category": "movement",
+            "wording": "blink",
+            "evidence": "Upon completion, Ryze and all allied units within the portal will blink to the location and become rooted, disarmed, silenced and untargetable for 0.75 seconds.",
+            "conditional": false
+          },
+          {
+            "type": "root",
+            "category": "control",
+            "wording": "rooted",
+            "duration": {
+              "kind": "constant",
+              "value": 0.75
+            },
+            "evidence": "Upon completion, Ryze and all allied units within the portal will blink to the location and become rooted, disarmed, silenced and untargetable for 0.75 seconds.",
+            "conditional": false
+          },
+          {
+            "type": "disarm",
+            "category": "control",
+            "wording": "disarmed",
+            "duration": {
+              "kind": "constant",
+              "value": 0.75
+            },
+            "evidence": "Upon completion, Ryze and all allied units within the portal will blink to the location and become rooted, disarmed, silenced and untargetable for 0.75 seconds.",
+            "conditional": false
+          },
+          {
+            "type": "silence",
+            "category": "control",
+            "wording": "silenced",
+            "duration": {
+              "kind": "constant",
+              "value": 0.75
+            },
+            "evidence": "Upon completion, Ryze and all allied units within the portal will blink to the location and become rooted, disarmed, silenced and untargetable for 0.75 seconds.",
+            "conditional": false
+          },
+          {
+            "type": "untargetable",
+            "category": "defense",
+            "wording": "untargetable",
+            "duration": {
+              "kind": "constant",
+              "value": 0.75
+            },
+            "evidence": "Upon completion, Ryze and all allied units within the portal will blink to the location and become rooted, disarmed, silenced and untargetable for 0.75 seconds.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Blinked units retain the same relative positions to one another upon arrival.",
+      "Realm Warp will teleport allies even if they are in a zombie state, are untargetable, or are affected by crowd control.",
+      "Realm Warp will not teleport allies that are using an ability that preloads UnstoppableForceMarker or are being affected by another ally's Realm Warp first.",
+      "Realm Warp will still teleport an allied Rift Herald that is winding up its leap.",
+      "Realm Warp has various interactions with channeled abilities that are being performed by an ally. Some channels will prevent their caster from being teleported and others will not.\n  - For channels that do not prevent the teleport, Realm Warp will specifically not apply its silence to the caster.\n  - Cast times will not prevent the teleport.\n  - The following channels will prevent the teleport:\n    - R\n    - R\n    - R\n    - R\n    - Q\n    - R\n    - Recall / Empowered Recall\n    - Teleport / Unleashed Teleport",
+      "The following table refers for interactions while Ryze is channeling:"
+    ]
+  },
+  {
+    "champion": "Ryze",
+    "kind": "W",
+    "name": "Rune Prison",
+    "page": {
+      "title": "Template:Data Ryze/Rune Prison",
+      "revid": 3989878
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "11 / 10.5 / 10 / 9.5 / 9",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                11,
+                10.5,
+                10,
+                9.5,
+                9
+              ]
+            }
+          }
+        ]
+      },
+      "cost": {
+        "text": "50 / 60 / 70 / 80 / 90",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                50,
+                60,
+                70,
+                80,
+                90
+              ]
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "0.25",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0.25
+            }
+          }
+        ]
+      },
+      "targetRange": {
+        "text": "550",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 550
+            }
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Unit"
+      ],
+      "affects": [
+        "Enemies"
+      ],
+      "damageType": [
+        "Magic"
+      ],
+      "spellEffects": "single target",
+      "spellShield": "true"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Ryze seizes the target enemy, dealing magic damage and slowing them by 50% for 1.5 seconds.",
+        "leveling": [
+          {
+            "label": "Magic Damage",
+            "amount": {
+              "text": "60 / 90 / 120 / 150 / 180 (+ 60% AP) (+ 3% bonus mana)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  60,
+                  90,
+                  120,
+                  150,
+                  180
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 60
+                  },
+                  "text": "(+ 60% AP)"
+                },
+                {
+                  "stat": "bonusMana",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 3
+                  },
+                  "text": "(+ 3% bonus mana)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "slow",
+            "category": "control",
+            "wording": "slowing",
+            "duration": {
+              "kind": "constant",
+              "value": 1.5
+            },
+            "amount": {
+              "kind": "constant",
+              "value": 50
+            },
+            "evidence": "Active: Ryze seizes the target enemy, dealing magic damage and slowing them by 50% for 1.5 seconds.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "label": "Flux Bonus",
+        "text": "Flux Bonus: The target is rooted instead of slowed.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "root",
+            "category": "control",
+            "wording": "rooted",
+            "evidence": "Flux Bonus: The target is rooted instead of slowed.",
+            "conditional": false
+          },
+          {
+            "type": "slow",
+            "category": "control",
+            "wording": "slowed",
+            "evidence": "Flux Bonus: The target is rooted instead of slowed.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Rune Prison can be buffered 0.5 seconds before it comes off cooldown.",
+      "If the target becomes untargetable, dies, or is too far away or no longer in sight during the cast time, this ability will cancel but does not go on cooldown nor pay its cost (if applicable)."
+    ]
+  }
+]

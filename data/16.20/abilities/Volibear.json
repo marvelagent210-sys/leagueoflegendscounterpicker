@@ -1,0 +1,1908 @@
+[
+  {
+    "champion": "Volibear",
+    "kind": "E",
+    "name": "Majestic Roar",
+    "page": {
+      "title": "Template:Data Volibear/Majestic Roar",
+      "revid": 3037120
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "11",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 11
+            }
+          }
+        ]
+      },
+      "cost": {
+        "text": "60 / 65 / 70 / 75 / 80",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                60,
+                65,
+                70,
+                75,
+                80
+              ]
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "none",
+        "values": []
+      },
+      "effectRadius": {
+        "text": "425",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 425
+            }
+          }
+        ]
+      },
+      "speed": {
+        "text": "200",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 200
+            },
+            "label": "knockback speed"
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "None"
+      ],
+      "affects": [],
+      "damageType": [
+        "Magic"
+      ],
+      "spellEffects": "spellaoe",
+      "spellShield": "true"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Volibear roars with might, dealing magic damage to all nearby enemies, knocking them back 70 units and slowing them for 3 seconds. Minions and monsters are instead feared and slowed by 100% for the same duration.",
+        "leveling": [
+          {
+            "label": "Magic Damage",
+            "amount": {
+              "text": "60 / 105 / 150 / 195 / 240 (+ 60% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  60,
+                  105,
+                  150,
+                  195,
+                  240
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 60
+                  },
+                  "text": "(+ 60% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Slow",
+            "amount": {
+              "text": "30 / 35 / 40 / 45 / 50%",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  30,
+                  35,
+                  40,
+                  45,
+                  50
+                ]
+              },
+              "unit": "%",
+              "scaling": [],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "airborne",
+            "category": "control",
+            "wording": "knocking them back",
+            "duration": {
+              "kind": "constant",
+              "value": 3
+            },
+            "evidence": "Active: Volibear roars with might, dealing magic damage to all nearby enemies, knocking them back 70 units and slowing them for 3 seconds.",
+            "conditional": false
+          },
+          {
+            "type": "slow",
+            "category": "control",
+            "wording": "slowing",
+            "duration": {
+              "kind": "constant",
+              "value": 3
+            },
+            "amount": {
+              "kind": "rank",
+              "values": [
+                30,
+                35,
+                40,
+                45,
+                50
+              ]
+            },
+            "evidence": "Active: Volibear roars with might, dealing magic damage to all nearby enemies, knocking them back 70 units and slowing them for 3 seconds.",
+            "conditional": false
+          },
+          {
+            "type": "fear",
+            "category": "control",
+            "wording": "feared",
+            "evidence": "Minions and monsters are instead feared and slowed by 100% for the same duration.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "Enemies who are dashing or are airborne during Majestic Roar are dealt an additional 8% of their maximum health as magic damage.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "dash",
+            "category": "movement",
+            "wording": "dashing",
+            "evidence": "Enemies who are dashing or are airborne during Majestic Roar are dealt an additional 8% of their maximum health as magic damage.",
+            "conditional": false
+          },
+          {
+            "type": "airborne",
+            "category": "control",
+            "wording": "airborne",
+            "evidence": "Enemies who are dashing or are airborne during Majestic Roar are dealt an additional 8% of their maximum health as magic damage.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "No additional information."
+    ]
+  },
+  {
+    "champion": "Volibear",
+    "kind": "E",
+    "name": "Sky Splitter",
+    "page": {
+      "title": "Template:Data Volibear/Sky Splitter",
+      "revid": 4008614
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "16",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 16
+            }
+          }
+        ]
+      },
+      "cooldownStart": "on-cast",
+      "cost": {
+        "text": "50",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 50
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "none",
+        "values": []
+      },
+      "targetRange": {
+        "text": "1200",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 1200
+            }
+          }
+        ]
+      },
+      "effectRadius": {
+        "text": "325 • 425",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 325
+            },
+            "label": "Damage radius"
+          },
+          {
+            "series": {
+              "kind": "constant",
+              "value": 425
+            },
+            "label": "Shield granting radius"
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Location"
+      ],
+      "affects": [
+        "Enemies",
+        "Self"
+      ],
+      "damageType": [
+        "Magic"
+      ],
+      "spellEffects": "spellaoe",
+      "spellShield": "true"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Volibear summons a lightning bolt to strike at the target location after a 2-second delay, granting sight of the area for 1 second after the first second of the delay. If Volibear is within the strike, he gains a shield equal to 14% of his maximum health (+ 75% AP) for 3 seconds.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "reveal",
+            "category": "vision",
+            "wording": "sight",
+            "duration": {
+              "kind": "constant",
+              "value": 1
+            },
+            "evidence": "Active: Volibear summons a lightning bolt to strike at the target location after a 2-second delay, granting sight of the area for 1 second after the first second of the delay.",
+            "conditional": false
+          },
+          {
+            "type": "shield",
+            "category": "defense",
+            "wording": "shield",
+            "duration": {
+              "kind": "constant",
+              "value": 3
+            },
+            "evidence": "If Volibear is within the strike, he gains a shield equal to 14% of his maximum health (+ 75% AP) for 3 seconds.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "The bolt deals magic damage to enemies hit, capped against non-champions, and slows them by 40% for 2 seconds.",
+        "leveling": [
+          {
+            "label": "Magic Damage",
+            "amount": {
+              "text": "80 / 110 / 140 / 170 / 200 (+ 70% AP) (+ 11 / 12 / 13 / 14 / 15% of target's maximum health)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  80,
+                  110,
+                  140,
+                  170,
+                  200
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 70
+                  },
+                  "text": "(+ 70% AP)"
+                },
+                {
+                  "stat": "targetMaxHealth",
+                  "ratio": {
+                    "kind": "rank",
+                    "values": [
+                      11,
+                      12,
+                      13,
+                      14,
+                      15
+                    ]
+                  },
+                  "text": "(+ 11 / 12 / 13 / 14 / 15% of target's maximum health)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Non-Champion Capped Damage",
+            "amount": {
+              "text": "150 / 265 / 380 / 495 / 610 (+ 70% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  150,
+                  265,
+                  380,
+                  495,
+                  610
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 70
+                  },
+                  "text": "(+ 70% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "slow",
+            "category": "control",
+            "wording": "slows",
+            "duration": {
+              "kind": "constant",
+              "value": 2
+            },
+            "amount": {
+              "kind": "constant",
+              "value": 40
+            },
+            "evidence": "The bolt deals magic damage to enemies hit, capped against non-champions, and slows them by 40% for 2 seconds.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Enemies cannot see the location of the cast for the first second, but they can already tell that the spell is underway by noticing Volibear's cast animation.\n  - Volibear can cast Sky Splitter during the movement speed boost from Thundering Smash to prevent the animation from playing.",
+      "Volibear will receive the shield even if he is untargetable."
+    ]
+  },
+  {
+    "champion": "Volibear",
+    "kind": "I",
+    "name": "Chosen of the Storm",
+    "page": {
+      "title": "Template:Data Volibear/Chosen of the Storm",
+      "revid": 2930043
+    },
+    "ranks": 1,
+    "fields": {
+      "staticCooldown": {
+        "text": "120",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 120
+            }
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Passive"
+      ],
+      "affects": [
+        "Self"
+      ],
+      "damageType": []
+    },
+    "parts": [
+      {
+        "label": "Innate",
+        "text": "Innate: When Volibear's health drops below 30% of his maximum health he regenerates 30% of his maximum health over 6 seconds .",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Chosen of the Storm's cooldown starts as soon as it activates.",
+      "If the cooldown ends while Volibear is under 30% health Chosen of the Storm will not trigger unless he takes damage.",
+      "If Volibear is killed directly from anywhere higher than 30% health Chosen of the Storm will not activate and therefore will not go on cooldown."
+    ]
+  },
+  {
+    "champion": "Volibear",
+    "kind": "I",
+    "name": "The Relentless Storm",
+    "page": {
+      "title": "Template:Data Volibear/The Relentless Storm",
+      "revid": 4064866
+    },
+    "ranks": 1,
+    "fields": {
+      "effectRadius": {
+        "text": "450",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 450
+            },
+            "label": "Maximum range to chain between targets"
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Passive"
+      ],
+      "affects": [
+        "Self",
+        "Enemies"
+      ],
+      "damageType": [
+        "Magic"
+      ],
+      "spellEffects": "proc",
+      "spellShield": "false",
+      "projectile": "false",
+      "parry": "special"
+    },
+    "parts": [
+      {
+        "label": "Innate",
+        "text": "Innate: Whenever Volibear damages at least one enemy with a basic attack or ability, he generates a stack of The Relentless Storm for 6 seconds, refreshing on subsequent damage and stacking up to 5 times. At 5 stacks, Volibear gains Lightning Claws.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "label": "The Relentless Storm",
+        "text": "The Relentless Storm: For each stack, Volibear gains 5% (+ 4% per 100 AP) bonus attack speed, up to 25% (+ 20% per 100 AP).",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "label": "Lightning Claws",
+        "text": "Lightning Claws: Volibear's claws ignite with lightning, empowering his basic attacks on-hit to deal 11 – 60 (based on level) (+ 20% bonus AD) (+ 45% AP) bonus magic damage to the target and the nearest visible enemy within 450 units of the target, chaining up to 4 subsequent targets.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "on-hit",
+            "category": "offense",
+            "wording": "on-hit",
+            "evidence": "Lightning Claws: Volibear's claws ignite with lightning, empowering his basic attacks on-hit to deal 11 – 60 (based on level) (+ 20% bonus AD) (+ 45% AP) bonus magic damage to the target and the nearest visible enemy within 450 units of the target, chaining up to 4 subsequent targets.",
+            "conditional": false
+          },
+          {
+            "type": "reveal",
+            "category": "vision",
+            "wording": "visible",
+            "evidence": "Lightning Claws: Volibear's claws ignite with lightning, empowering his basic attacks on-hit to deal 11 – 60 (based on level) (+ 20% bonus AD) (+ 45% AP) bonus magic damage to the target and the nearest visible enemy within 450 units of the target, chaining up to 4 subsequent targets.",
+            "conditional": false
+          }
+        ],
+        "values": [
+          {
+            "series": {
+              "kind": "level",
+              "values": [
+                11,
+                12,
+                13,
+                15,
+                17,
+                19,
+                22,
+                25,
+                28,
+                31,
+                34,
+                37,
+                40,
+                44,
+                48,
+                52,
+                56,
+                60,
+                64,
+                68
+              ],
+              "past18": "wiki"
+            },
+            "context": "Lightning Claws: Volibear's claws ignite with lightning, empowering his basic attacks on-hit to deal 11 – 60 (based on level) (+ 20% bonus AD) (+ 45% AP) bonus magic damage to the target and the nearest visible enemy within 450 units of the target, chaining up to 4 subsequent targets."
+          }
+        ]
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Volibear's spikes visually grow as The Relentless Storm stacks.",
+      "Stacks of The Relentless Storm are also granted on-hit, but will specifically not be if the target is invulnerable.",
+      "While at four stacks, the next attack or ability on-hit reaching the fifth stack will be empowered by Lightning Claws.",
+      "A stack of The Relentless Storm is not gained if the attack is dodged and/or missed if Volibear is blinded. A stack is granted even if the attack is blocked. In all cases, Lightning Claws will not apply (on-hit damage is parried and the bounce is prevented).\n  - Since Frenzied Maul cannot be missed while Volibear is blinded, gaining stacks from The Relentless Storm and applying Lighting Claws from the ability will not be prevented from that parry effect.",
+      "The empowered attacks do not affect structures nor wards."
+    ]
+  },
+  {
+    "champion": "Volibear",
+    "kind": "Q",
+    "name": "Rolling Thunder",
+    "page": {
+      "title": "Template:Data Volibear/Rolling Thunder",
+      "revid": 3037879
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "12 / 11 / 10 / 9 / 8",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                12,
+                11,
+                10,
+                9,
+                8
+              ]
+            },
+            "label": "Starts after the enhanced attack is consumed or the duration ends."
+          }
+        ]
+      },
+      "cost": {
+        "text": "40",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 40
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "none",
+        "values": []
+      }
+    },
+    "flags": {
+      "targeting": [
+        "None"
+      ],
+      "affects": [
+        "Self"
+      ],
+      "damageType": [
+        "physical"
+      ],
+      "spellEffects": "proc",
+      "spellShield": "true",
+      "parry": "special"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Volibear drops on all fours and gains bonus movement speed for the next 4 seconds, increased when moving towards a nearby visible enemy champion within 1800 units of him.",
+        "leveling": [
+          {
+            "label": "Bonus Movement Speed",
+            "amount": {
+              "text": "15 / 17.5 / 20 / 22.5 / 25%",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  15,
+                  17.5,
+                  20,
+                  22.5,
+                  25
+                ]
+              },
+              "unit": "%",
+              "scaling": [],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Increased Movement Speed",
+            "amount": {
+              "text": "30 / 37.5 / 45 / 52.5 / 60%",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  30,
+                  37.5,
+                  45,
+                  52.5,
+                  60
+                ]
+              },
+              "unit": "%",
+              "scaling": [],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "reveal",
+            "category": "vision",
+            "wording": "visible",
+            "evidence": "Active: Volibear drops on all fours and gains bonus movement speed for the next 4 seconds, increased when moving towards a nearby visible enemy champion within 1800 units of him.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "For the duration, Volibear's next basic attack becomes an unstoppable basic attack, dealing bonus physical damage and instantly rooting the target for 0.25 seconds before flinging them over his shoulder.",
+        "leveling": [
+          {
+            "label": "Bonus Physical Damage",
+            "amount": {
+              "text": "30 / 60 / 90 / 120 / 150",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  30,
+                  60,
+                  90,
+                  120,
+                  150
+                ]
+              },
+              "scaling": [],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "root",
+            "category": "control",
+            "wording": "rooting",
+            "duration": {
+              "kind": "constant",
+              "value": 0.25
+            },
+            "evidence": "For the duration, Volibear's next basic attack becomes an unstoppable basic attack, dealing bonus physical damage and instantly rooting the target for 0.25 seconds before flinging them over his shoulder.",
+            "conditional": false
+          },
+          {
+            "type": "airborne",
+            "category": "control",
+            "wording": "flinging",
+            "evidence": "For the duration, Volibear's next basic attack becomes an unstoppable basic attack, dealing bonus physical damage and instantly rooting the target for 0.25 seconds before flinging them over his shoulder.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "Rolling Thunder resets Volibear's basic attack timer.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "attack reset",
+            "category": "offense",
+            "wording": "resets",
+            "evidence": "Rolling Thunder resets Volibear's basic attack timer.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Rolling Thunder's bonus damage affects structures.",
+      "Enemy can be flinged through very thin walls.",
+      "Volibear will retain the bonus movement speed for Rolling Thunder's full duration even if he flings his target before it expires.",
+      "When Volibear changes direction (from \"towards champions\" to any other direction), his bonus movement speed decays over 1 second.",
+      "Rolling Thunder can be blocked and dodged but the displacement cannot be negated by blinding effects.",
+      "Spell shields can block all the basic attack's effect other than the root."
+    ]
+  },
+  {
+    "champion": "Volibear",
+    "kind": "Q",
+    "name": "Thundering Smash",
+    "page": {
+      "title": "Template:Data Volibear/Thundering Smash",
+      "revid": 4046590
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "12 / 11.5 / 11 / 10.5 / 10",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                12,
+                11.5,
+                11,
+                10.5,
+                10
+              ]
+            }
+          }
+        ]
+      },
+      "cooldownStart": "post-effect",
+      "cost": {
+        "text": "50",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 50
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "none",
+        "values": []
+      },
+      "effectRadius": {
+        "text": "2000",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 2000
+            },
+            "label": "Enemy champion check"
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Auto"
+      ],
+      "affects": [
+        "Self",
+        "Enemies"
+      ],
+      "damageType": [
+        "Physical"
+      ],
+      "spellEffects": "special",
+      "spellShield": "true",
+      "parry": "true",
+      "grounded": "false",
+      "knockdown": "special"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Volibear drops on all fours, becoming ghosted and gaining bonus movement speed for 4 seconds, doubled while facing a nearby visible enemy champion.",
+        "leveling": [
+          {
+            "label": "Bonus Movement Speed",
+            "amount": {
+              "text": "12 / 15.5 / 19 / 22.5 / 26%",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  12,
+                  15.5,
+                  19,
+                  22.5,
+                  26
+                ]
+              },
+              "unit": "%",
+              "scaling": [],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Increased Bonus Movement Speed",
+            "amount": {
+              "text": "24 / 31 / 38 / 45 / 52%",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  24,
+                  31,
+                  38,
+                  45,
+                  52
+                ]
+              },
+              "unit": "%",
+              "scaling": [],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "ghosted",
+            "category": "movement",
+            "wording": "ghosted",
+            "duration": {
+              "kind": "constant",
+              "value": 4
+            },
+            "evidence": "Active: Volibear drops on all fours, becoming ghosted and gaining bonus movement speed for 4 seconds, doubled while facing a nearby visible enemy champion.",
+            "conditional": false
+          },
+          {
+            "type": "reveal",
+            "category": "vision",
+            "wording": "visible",
+            "evidence": "Active: Volibear drops on all fours, becoming ghosted and gaining bonus movement speed for 4 seconds, doubled while facing a nearby visible enemy champion.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "During this time, Volibear's next basic attack has a modified windup time and is empowered to have an uncancellable windup, gain 25 bonus range, and pounce on the target, dealing bonus physical damage and stunning them for 1 second. This damage applies life steal.",
+        "leveling": [
+          {
+            "label": "Bonus Physical Damage",
+            "amount": {
+              "text": "10 / 20 / 30 / 40 / 50 (+ 160% bonus AD)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  10,
+                  20,
+                  30,
+                  40,
+                  50
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "bonusAD",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 160
+                  },
+                  "text": "(+ 160% bonus AD)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "uncancellable windup",
+            "category": "offense",
+            "wording": "uncancellable windup",
+            "evidence": "During this time, Volibear's next basic attack has a modified windup time and is empowered to have an uncancellable windup, gain 25 bonus range, and pounce on the target, dealing bonus physical damage and stunning them for 1 second.",
+            "conditional": false
+          },
+          {
+            "type": "dash",
+            "category": "movement",
+            "wording": "pounce",
+            "evidence": "During this time, Volibear's next basic attack has a modified windup time and is empowered to have an uncancellable windup, gain 25 bonus range, and pounce on the target, dealing bonus physical damage and stunning them for 1 second.",
+            "conditional": false
+          },
+          {
+            "type": "stun",
+            "category": "control",
+            "wording": "stunning",
+            "duration": {
+              "kind": "constant",
+              "value": 1
+            },
+            "evidence": "During this time, Volibear's next basic attack has a modified windup time and is empowered to have an uncancellable windup, gain 25 bonus range, and pounce on the target, dealing bonus physical damage and stunning them for 1 second.",
+            "conditional": false
+          },
+          {
+            "type": "life steal",
+            "category": "defense",
+            "wording": "applies",
+            "evidence": "This damage applies life steal.",
+            "conditional": false
+          },
+          {
+            "type": "life steal",
+            "category": "defense",
+            "wording": "life steal",
+            "evidence": "This damage applies life steal.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "If Volibear becomes immobilized or polymorphed by an enemy during Thundering Smash, the effect ends prematurely and the cooldown is reset.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "polymorph",
+            "category": "control",
+            "wording": "polymorphed",
+            "evidence": "If Volibear becomes immobilized or polymorphed by an enemy during Thundering Smash, the effect ends prematurely and the cooldown is reset.",
+            "conditional": true
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "Thundering Smash resets Volibear's basic attack timer.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "attack reset",
+            "category": "offense",
+            "wording": "resets",
+            "evidence": "Thundering Smash resets Volibear's basic attack timer.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      }
+    ],
+    "custom": [
+      {
+        "label": "Attack Windup Time",
+        "text": "0.4 (- 0.1 per 100% bonus attack speed)"
+      }
+    ],
+    "notes": [
+      "Thundering Smash's bonus damage cannot critically strike; the base damage of the attack can, however.\n  - Despite this, Randuin's Omen Resilience reduces Thundering Smash's total damage.",
+      "Thundering Smash deals basic damage, but also triggers spell effects by also being tagged as spell damage.",
+      "Thundering Smash will still apply its effects to the target even if the dash is interrupted, but not if he goes into resurrection.",
+      "Thundering Smash's attack triggers against structures and wards, consuming the effect but dealing its bonus damage, if applicable.",
+      "The windup for the attack completes even if the target becomes untargetable but the stun and damage do not apply.",
+      "The player's screen will flash red briefly and cue a sound effect when Volibear becomes immobilized while Thundering Smash is active.",
+      "Thundering Smash's attack does not put Volibear's basic attack on cooldown.\n  - This results in the same functionality as Shield of Daybreak and Emberstrike, effectively being a double attack reset.",
+      "If Thundering Smash's buff appears as the first on the buff bar, the empowered attack will fail against structures."
+    ]
+  },
+  {
+    "champion": "Volibear",
+    "kind": "R",
+    "name": "Stormbringer",
+    "page": {
+      "title": "Template:Data Volibear/Stormbringer",
+      "revid": 4007765
+    },
+    "ranks": 3,
+    "fields": {
+      "cooldown": {
+        "text": "160 / 135 / 110",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                160,
+                135,
+                110
+              ]
+            }
+          }
+        ]
+      },
+      "cooldownStart": "on-cast",
+      "cost": {
+        "text": "100",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 100
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "none",
+        "values": []
+      },
+      "targetRange": {
+        "text": "700",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 700
+            },
+            "label": "Maximum dash distance"
+          }
+        ]
+      },
+      "effectRadius": {
+        "text": "300 • 500 • 700",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 300
+            },
+            "label": "Damage radius"
+          },
+          {
+            "series": {
+              "kind": "constant",
+              "value": 500
+            },
+            "label": "Slow radius"
+          },
+          {
+            "series": {
+              "kind": "constant",
+              "value": 700
+            },
+            "label": "Turret damage and disable radius"
+          }
+        ]
+      },
+      "speed": {
+        "text": "750",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 750
+            },
+            "label": "Dash speed"
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Location"
+      ],
+      "affects": [
+        "Enemies",
+        "Self"
+      ],
+      "damageType": [
+        "Physical"
+      ],
+      "spellEffects": "spellaoe",
+      "spellShield": "true",
+      "grounded": "true",
+      "knockdown": "false"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Volibear gains Stormbringer for 12 seconds and leaps to the target location with displacement immunity over 1 second, granting sight of the area in a 500 radius during the travel.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "dash",
+            "category": "movement",
+            "wording": "leaps",
+            "evidence": "Active: Volibear gains Stormbringer for 12 seconds and leaps to the target location with displacement immunity over 1 second, granting sight of the area in a 500 radius during the travel.",
+            "conditional": false
+          },
+          {
+            "type": "displacement-immune",
+            "category": "defense",
+            "wording": "displacement immunity",
+            "duration": {
+              "kind": "constant",
+              "value": 1
+            },
+            "evidence": "Active: Volibear gains Stormbringer for 12 seconds and leaps to the target location with displacement immunity over 1 second, granting sight of the area in a 500 radius during the travel.",
+            "conditional": false
+          },
+          {
+            "type": "reveal",
+            "category": "vision",
+            "wording": "sight",
+            "evidence": "Active: Volibear gains Stormbringer for 12 seconds and leaps to the target location with displacement immunity over 1 second, granting sight of the area in a 500 radius during the travel.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "label": "Stormbringer",
+        "text": "Stormbringer: Volibear gains ghosting, bonus health, 50 bonus attack range, 25 increased range on Frenzied Maul, and 35% increased size.",
+        "leveling": [
+          {
+            "label": "Bonus Health",
+            "amount": {
+              "text": "175 / 350 / 525",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  175,
+                  350,
+                  525
+                ]
+              },
+              "scaling": [],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "ghosted",
+            "category": "movement",
+            "wording": "ghosting",
+            "evidence": "Stormbringer: Volibear gains ghosting, bonus health, 50 bonus attack range, 25 increased range on Frenzied Maul, and 35% increased size.",
+            "conditional": false
+          },
+          {
+            "type": "size change",
+            "category": "other",
+            "wording": "size",
+            "evidence": "Stormbringer: Volibear gains ghosting, bonus health, 50 bonus attack range, 25 increased range on Frenzied Maul, and 35% increased size.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "Volibear impacts after 1 second, slowing nearby enemies by 50% decaying over 1 second. Enemies within the epicenter are also dealt physical damage.",
+        "leveling": [
+          {
+            "label": "Physical Damage",
+            "amount": {
+              "text": "300 / 500 / 700 (+ 250% bonus AD) (+ 125% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  300,
+                  500,
+                  700
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "bonusAD",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 250
+                  },
+                  "text": "(+ 250% bonus AD)"
+                },
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 125
+                  },
+                  "text": "(+ 125% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "slow",
+            "category": "control",
+            "wording": "slowing",
+            "duration": {
+              "kind": "constant",
+              "value": 1
+            },
+            "amount": {
+              "kind": "constant",
+              "value": 50
+            },
+            "evidence": "Volibear impacts after 1 second, slowing nearby enemies by 50% decaying over 1 second.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "Volibear also disables enemy turrets in an area for a duration, rendering them unable to attack, as well as dealing them the same damage.",
+        "leveling": [
+          {
+            "label": "Turret Disable Duration",
+            "amount": {
+              "text": "2 / 3 / 4 seconds",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  2,
+                  3,
+                  4
+                ]
+              },
+              "unit": "s",
+              "scaling": [],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "text": "Thundering Smash duration will be paused for the leap.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "dash",
+            "category": "movement",
+            "wording": "leap",
+            "evidence": "Thundering Smash duration will be paused for the leap.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Stormbringer will disable any turret that is not the Nexus Obelisk, even if it is untargetable.\n  - Stormbringer will not deal damage to untargetable turrets.",
+      "Volibear grows to his new size over 1.25 seconds, starting 0.25 seconds after landing, and shrinks back to his normal size over 0.5 seconds after Stormbinger's status ends, respectively.",
+      "Volibear leaps over 1 second regardless of distance or movement speed.\n  - Volibear impacts immediately at his current location if Stormbringer is cast over terrain he cannot pass through (due to not being able to cover the distance required).",
+      "The additional bonuses are granted on-cast.",
+      "The turret disable debuff is named Ohmwrecker.",
+      "Disabling a turret does not prevent aggro of the current target it is locked onto. The increased turret shot damage from Ohmwrecker is also reset.\n  - Turrets maintain the same targeting behavior even when disabled; damaging an enemy champion will still draw turret aggro. However, if the turret's desired target leaves range or has become an invalid target, it will lock onto the most previous target it was going to attack prior to becoming disabled, or instead, find a new one if that condition is not applicable.",
+      "The following table refers for interactions while Volibear is dashing:"
+    ]
+  },
+  {
+    "champion": "Volibear",
+    "kind": "R",
+    "name": "Thunder Claws",
+    "page": {
+      "title": "Template:Data Volibear/Thunder Claws",
+      "revid": 2983372
+    },
+    "ranks": 3,
+    "fields": {
+      "cooldown": {
+        "text": "100 / 90 / 80",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                100,
+                90,
+                80
+              ]
+            }
+          }
+        ]
+      },
+      "cost": {
+        "text": "100",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 100
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "0.1",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0.1
+            }
+          }
+        ]
+      },
+      "effectRadius": {
+        "text": "500",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 500
+            }
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "None"
+      ],
+      "affects": [
+        "Enemies"
+      ],
+      "damageType": [
+        "Magic"
+      ],
+      "spellEffects": "spellaoe",
+      "spellShield": "true"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: After a 0.1 second delay, Volibear erupts with thunder, increasing in size and striking up to 8 nearby enemies with chain lightning, dealing them magic damage.",
+        "leveling": [
+          {
+            "label": "Magic Damage",
+            "amount": {
+              "text": "75 / 115 / 155 (+ 40% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  75,
+                  115,
+                  155
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 40
+                  },
+                  "text": "(+ 40% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "text": "Afterwards, for 12 seconds, Volibear's basic attacks are empowered with the lightning, dealing the same damage as bonus magic damage on-hit that also instantly bounces to up to 7 nearby unaffected enemies.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "on-hit",
+            "category": "offense",
+            "wording": "on-hit",
+            "evidence": "Afterwards, for 12 seconds, Volibear's basic attacks are empowered with the lightning, dealing the same damage as bonus magic damage on-hit that also instantly bounces to up to 7 nearby unaffected enemies.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      ": Thunder Claw's interactions with dodging, blocking, and blinding effects via basic attack."
+    ]
+  },
+  {
+    "champion": "Volibear",
+    "kind": "W",
+    "name": "Frenzied Maul",
+    "page": {
+      "title": "Template:Data Volibear/Frenzied Maul",
+      "revid": 4008612
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "5",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 5
+            }
+          }
+        ]
+      },
+      "cost": {
+        "text": "20 / 25 / 30 / 35 / 40",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                20,
+                25,
+                30,
+                35,
+                40
+              ]
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "0.25",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0.25
+            }
+          }
+        ]
+      },
+      "targetRange": {
+        "text": "325 • 350",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 325
+            },
+            "label": "Cast range"
+          },
+          {
+            "series": {
+              "kind": "constant",
+              "value": 350
+            },
+            "label": "Enhanced cast range during Stormbringer (R)"
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Unit"
+      ],
+      "affects": [
+        "Enemies",
+        "Self"
+      ],
+      "damageType": [
+        "physical"
+      ],
+      "spellEffects": "special",
+      "spellShield": "true",
+      "parry": "special",
+      "onHitEffects": "true"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Volibear slashes the target enemy with his claws to deal physical damage, apply on-hit effects, trigger on-attack effects, and mark the target Wounded for 8 seconds.",
+        "leveling": [
+          {
+            "label": "Physical Damage",
+            "amount": {
+              "text": "5 / 30 / 55 / 80 / 105 (+ 110% AD) (+ 6% of his bonus health)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  5,
+                  30,
+                  55,
+                  80,
+                  105
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AD",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 110
+                  },
+                  "text": "(+ 110% AD)"
+                },
+                {
+                  "stat": "bonusHealth",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 6
+                  },
+                  "text": "(+ 6% of his bonus health)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "on-hit",
+            "category": "offense",
+            "wording": "on-hit",
+            "evidence": "Active: Volibear slashes the target enemy with his claws to deal physical damage, apply on-hit effects, trigger on-attack effects, and mark the target Wounded for 8 seconds.",
+            "conditional": false
+          },
+          {
+            "type": "on-attack",
+            "category": "offense",
+            "wording": "on-attack",
+            "evidence": "Active: Volibear slashes the target enemy with his claws to deal physical damage, apply on-hit effects, trigger on-attack effects, and mark the target Wounded for 8 seconds.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "label": "Wounded Bonus",
+        "text": "Wounded Bonus: If the target is already Wounded, Volibear takes a bite out of them instead, dealing 50% (+ 25% per 100 bonus AD) increased damage and healing himself. The heal is halved against minions.",
+        "leveling": [
+          {
+            "label": "Heal",
+            "amount": {
+              "text": "20 / 35 / 50 / 65 / 80 (+ 8 / 11 / 14 / 17 / 20% of his missing health)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  20,
+                  35,
+                  50,
+                  65,
+                  80
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "missingHealth",
+                  "ratio": {
+                    "kind": "rank",
+                    "values": [
+                      8,
+                      11,
+                      14,
+                      17,
+                      20
+                    ]
+                  },
+                  "text": "(+ 8 / 11 / 14 / 17 / 20% of his missing health)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Minion Heal",
+            "amount": {
+              "text": "10 / 17.5 / 25 / 32.5 / 40 (+ 4 / 5.5 / 7 / 8.5 / 10% of his missing health)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  10,
+                  17.5,
+                  25,
+                  32.5,
+                  40
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "missingHealth",
+                  "ratio": {
+                    "kind": "rank",
+                    "values": [
+                      4,
+                      5.5,
+                      7,
+                      8.5,
+                      10
+                    ]
+                  },
+                  "text": "(+ 4 / 5.5 / 7 / 8.5 / 10% of his missing health)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "heal",
+            "category": "defense",
+            "wording": "healing",
+            "evidence": "Wounded Bonus: If the target is already Wounded, Volibear takes a bite out of them instead, dealing 50% (+ 25% per 100 bonus AD) increased damage and healing himself.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "Frenzied Maul applies life steal.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "life steal",
+            "category": "defense",
+            "wording": "applies",
+            "evidence": "Frenzied Maul applies life steal.",
+            "conditional": false
+          },
+          {
+            "type": "life steal",
+            "category": "defense",
+            "wording": "life steal",
+            "evidence": "Frenzied Maul applies life steal.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Volibear will be ordered to basic attack the target after casting Frenzied Maul.",
+      "Frenzied Maul deals basic damage, but also triggers spell effects by also being tagged as spell damage.",
+      "Frenzied Maul's bite heals even if it is blocked by spell shield.",
+      "Frenzied Maul's strike can be dodged and blocked, but it cannot miss if Volibear is blinded. The Wound mark does not apply if dodged, but will otherwise do so regardless.\n  - The bite can be blocked but Volibear still heals. It does not heal nor deal damage if the bite is dodged. The bite cannot miss if Volibear is blinded.",
+      "Frenzied Maul deals bonus damage and heals if the target is still Wounded after the cast time. If the mark wears off before the cast time completes, the ability's animation will appear as if the bite was applied but there is no bonus damage or heal.",
+      "If the target becomes untargetable, dies, or is too far away or no longer in sight during the cast time, this ability will cancel but does not go on cooldown nor pay its cost (if applicable)."
+    ]
+  },
+  {
+    "champion": "Volibear",
+    "kind": "W",
+    "name": "Frenzy",
+    "page": {
+      "title": "Template:Data Volibear/Frenzy",
+      "revid": 3166310
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "18",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 18
+            }
+          }
+        ]
+      },
+      "cost": {
+        "text": "35",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 35
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "targetRange": {
+        "text": "350",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 350
+            }
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Unit"
+      ],
+      "affects": [
+        "Self",
+        "Enemies"
+      ],
+      "damageType": [
+        "physical"
+      ],
+      "spellEffects": "spell",
+      "spellShield": "true"
+    },
+    "parts": [
+      {
+        "label": "Passive",
+        "text": "Passive: Volibear's basic attacks grant bonus attack speed for 4 seconds, stacking up to 3 times. At 3 stacks, Volibear gains the ability to cast Frenzy.",
+        "leveling": [
+          {
+            "label": "Bonus Attack Speed Per Stack",
+            "amount": {
+              "text": "9 / 13 / 17 / 21 / 25%",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  9,
+                  13,
+                  17,
+                  21,
+                  25
+                ]
+              },
+              "unit": "%",
+              "scaling": [],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Total Bonus Attack Speed",
+            "amount": {
+              "text": "27 / 39 / 51 / 63 / 75%",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  27,
+                  39,
+                  51,
+                  63,
+                  75
+                ]
+              },
+              "unit": "%",
+              "scaling": [],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "label": "Active",
+        "text": "Active: Volibear bites the target enemy, dealing physical damage, increasing by 0 / 10 / 20 / 30 / 40 / 50 / 60 / 70 / 80 / 90 / 100 (based on target's missing health)%.",
+        "leveling": [
+          {
+            "label": "Minimum Physical Damage",
+            "amount": {
+              "text": "60 / 110 / 160 / 210 / 260 (+ 15% bonus health)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  60,
+                  110,
+                  160,
+                  210,
+                  260
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "bonusHealth",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 15
+                  },
+                  "text": "(+ 15% bonus health)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Maximum Physical Damage",
+            "amount": {
+              "text": "120 / 220 / 320 / 420 / 520 (+ 30% bonus health)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  120,
+                  220,
+                  320,
+                  420,
+                  520
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "bonusHealth",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 30
+                  },
+                  "text": "(+ 30% bonus health)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [],
+        "values": [
+          {
+            "series": {
+              "kind": "variable",
+              "variable": "target's missing health",
+              "points": [
+                0,
+                10,
+                20,
+                30,
+                40,
+                50,
+                60,
+                70,
+                80,
+                90,
+                100
+              ],
+              "values": [
+                0,
+                10,
+                20,
+                30,
+                40,
+                50,
+                60,
+                70,
+                80,
+                90,
+                100
+              ]
+            },
+            "context": "Active: Volibear bites the target enemy, dealing physical damage, increasing by 0 / 10 / 20 / 30 / 40 / 50 / 60 / 70 / 80 / 90 / 100 (based on target's missing health)%."
+          }
+        ]
+      },
+      {
+        "text": "Frenzy's cooldown is halved if it is used on a minion or monster.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "No additional notes."
+    ]
+  }
+]
