@@ -9,6 +9,22 @@ Values marked "at max rank, level 20" assume every ability is maxed; see PLAN.md
 |---|--:|--:|--:|--:|--:|--:|--:|--:|--:|--:|
 | Pyke | 2833.2 | 16.83 | 1398.3 Mana | 101.3 | 0.995 | 0.201 | 129.4 | 72.3 | 150 | 330 |
 
+## Fight profile (what the interaction ledger uses)
+
+| Form | Attack range | Ranged | Projectile | Missile speed | Attack modifiers |
+|---|--:|---|---|--:|---|
+| Pyke | 150 | no | no | – | – |
+
+Cooldowns at max rank. Flags: the wiki's interaction flags (yes, no, partly). * marks an effect that applies only under a condition.
+
+| Slot | Ability | Cooldown | Delivery | Applies to the enemy | Movement | Gives itself |
+|---|---|--:|---|---|---|---|
+| E | Phantom Undertow | 11 | projectile yes; spell shield yes; grounded yes; knockdown yes | stun | dash | – |
+| I | Gift of the Drowned Ones | – | – | – | – | heal |
+| Q | Bone Skewer | 8 | projectile partly; spell shield yes; disruptable yes | airborne (pull) 1 s; slow 3 s 20% | – | – |
+| R | Death from Below | 70 | spell shield yes; grounded yes | – | blink | – |
+| W | Ghostwater Dive | 10 | – | – | – | camouflage 5 s |
+
 ## Innate: Gift of the Drowned Ones
 
 Source: [Template:Data Pyke/Gift of the Drowned Ones](https://wiki.leagueoflegends.com/en-us/Template:Data_Pyke/Gift_of_the_Drowned_Ones?oldid=4007005) (revision 4007005). Ranks: 1.

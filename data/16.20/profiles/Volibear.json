@@ -1,0 +1,313 @@
+{
+  "champion": "Volibear",
+  "name": "Volibear",
+  "gameplayRadius": 80,
+  "moveSpeed": 340,
+  "attacks": [
+    {
+      "form": "volibear",
+      "formName": "Volibear",
+      "range": 150,
+      "ranged": false,
+      "projectile": false,
+      "attackSpeed": 0.90031,
+      "attackDamage": 133.828,
+      "windup": 0.333219,
+      "modifiers": [
+        "The Relentless Storm"
+      ]
+    }
+  ],
+  "abilities": [
+    {
+      "champion": "Volibear",
+      "kind": "E",
+      "name": "Sky Splitter",
+      "page": {
+        "title": "Template:Data Volibear/Sky Splitter",
+        "revid": 4008614
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "location"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "yes"
+      },
+      "applies": [
+        {
+          "type": "slow",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "slow"
+            },
+            {
+              "page": "Template:Data Volibear/Sky Splitter",
+              "revid": 4008614,
+              "quote": "The bolt deals magic damage to enemies hit, capped against non-champions, and slows them by 40% for 2 seconds."
+            }
+          ],
+          "duration": 2,
+          "amount": 40
+        }
+      ],
+      "movement": [],
+      "states": [
+        {
+          "state": "shield",
+          "evidence": [
+            {
+              "page": "Template:Data Volibear/Sky Splitter",
+              "revid": 4008614,
+              "quote": "If Volibear is within the strike, he gains a shield equal to 14% of his maximum health (+ 75% AP) for 3 seconds."
+            }
+          ],
+          "duration": 3
+        }
+      ],
+      "cooldown": 16,
+      "castTime": 0,
+      "range": 1200,
+      "notes": [
+        "Volibear will receive the shield even if he is untargetable."
+      ]
+    },
+    {
+      "champion": "Volibear",
+      "kind": "I",
+      "name": "The Relentless Storm",
+      "page": {
+        "title": "Template:Data Volibear/The Relentless Storm",
+        "revid": 4064866
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "passive"
+        ],
+        "affectsEnemies": true,
+        "projectile": "no",
+        "spellShield": "no",
+        "parry": "partly",
+        "attack": "attack modifier"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "boostsAttacks": true,
+      "notes": [
+        "Stacks of The Relentless Storm are also granted on-hit, but will specifically not be if the target is invulnerable.",
+        "While at four stacks, the next attack or ability on-hit reaching the fifth stack will be empowered by Lightning Claws.",
+        "A stack of The Relentless Storm is not gained if the attack is dodged and/or missed if Volibear is blinded. A stack is granted even if the attack is blocked. In all cases, Lightning Claws will not apply (on-hit damage is parried and the bounce is prevented).\n  - Since Frenzied Maul cannot be missed while Volibear is blinded, gaining stacks from The Relentless Storm and applying Lighting Claws from the ability will not be prevented from that parry effect."
+      ]
+    },
+    {
+      "champion": "Volibear",
+      "kind": "Q",
+      "name": "Thundering Smash",
+      "page": {
+        "title": "Template:Data Volibear/Thundering Smash",
+        "revid": 4046590
+      },
+      "damageTypes": [
+        "physical"
+      ],
+      "delivery": {
+        "targeting": [
+          "auto"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "yes",
+        "parry": "yes",
+        "grounded": "no",
+        "knockdown": "partly",
+        "attack": "attack"
+      },
+      "applies": [
+        {
+          "type": "stun",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "stun"
+            },
+            {
+              "page": "Template:Data Volibear/Thundering Smash",
+              "revid": 4046590,
+              "quote": "During this time, Volibear's next basic attack has a modified windup time and is empowered to have an uncancellable windup, gain 25 bonus range, and pounce on the target, dealing bonus physical damage and stunning them for 1 second."
+            }
+          ],
+          "duration": 1
+        }
+      ],
+      "movement": [
+        {
+          "type": "dash",
+          "evidence": [
+            {
+              "page": "Dash",
+              "revid": 4035700,
+              "quote": "unit-targeted"
+            }
+          ],
+          "targeting": "unit-targeted"
+        }
+      ],
+      "states": [
+        {
+          "state": "heal",
+          "evidence": [
+            {
+              "page": "Template:Data Volibear/Thundering Smash",
+              "revid": 4046590,
+              "quote": "This damage applies life steal."
+            },
+            {
+              "page": "Template:Data Volibear/Thundering Smash",
+              "revid": 4046590,
+              "quote": "This damage applies life steal."
+            }
+          ]
+        }
+      ],
+      "cooldown": 10,
+      "castTime": 0,
+      "boostsAttacks": true,
+      "notes": [
+        "Thundering Smash will still apply its effects to the target even if the dash is interrupted, but not if he goes into resurrection.",
+        "The windup for the attack completes even if the target becomes untargetable but the stun and damage do not apply."
+      ]
+    },
+    {
+      "champion": "Volibear",
+      "kind": "R",
+      "name": "Stormbringer",
+      "page": {
+        "title": "Template:Data Volibear/Stormbringer",
+        "revid": 4007765
+      },
+      "damageTypes": [
+        "physical"
+      ],
+      "delivery": {
+        "targeting": [
+          "location"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "yes",
+        "grounded": "yes",
+        "knockdown": "no"
+      },
+      "applies": [
+        {
+          "type": "slow",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "slow"
+            },
+            {
+              "page": "Template:Data Volibear/Stormbringer",
+              "revid": 4007765,
+              "quote": "Volibear impacts after 1 second, slowing nearby enemies by 50% decaying over 1 second."
+            }
+          ],
+          "duration": 1,
+          "amount": 50
+        }
+      ],
+      "movement": [
+        {
+          "type": "dash",
+          "evidence": [
+            {
+              "page": "Dash",
+              "revid": 4035700,
+              "quote": "location-targeted"
+            }
+          ],
+          "targeting": "location-targeted",
+          "interruptible": false
+        }
+      ],
+      "states": [
+        {
+          "state": "displacement immune",
+          "evidence": [
+            {
+              "page": "Template:Data Volibear/Stormbringer",
+              "revid": 4007765,
+              "quote": "Active: Volibear gains Stormbringer for 12 seconds and leaps to the target location with displacement immunity over 1 second, granting sight of the area in a 500 radius during the travel."
+            }
+          ],
+          "duration": 1
+        }
+      ],
+      "cooldown": 110,
+      "castTime": 0,
+      "range": 700,
+      "speed": 750,
+      "notes": [
+        "Stormbringer will disable any turret that is not the Nexus Obelisk, even if it is untargetable.\n  - Stormbringer will not deal damage to untargetable turrets.",
+        "The following table refers for interactions while Volibear is dashing:"
+      ]
+    },
+    {
+      "champion": "Volibear",
+      "kind": "W",
+      "name": "Frenzied Maul",
+      "page": {
+        "title": "Template:Data Volibear/Frenzied Maul",
+        "revid": 4008612
+      },
+      "damageTypes": [
+        "physical"
+      ],
+      "delivery": {
+        "targeting": [
+          "unit"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "yes",
+        "parry": "partly",
+        "attack": "on-hit"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [
+        {
+          "state": "heal",
+          "evidence": [
+            {
+              "page": "Template:Data Volibear/Frenzied Maul",
+              "revid": 4008612,
+              "quote": "Frenzied Maul applies life steal."
+            },
+            {
+              "page": "Template:Data Volibear/Frenzied Maul",
+              "revid": 4008612,
+              "quote": "Frenzied Maul applies life steal."
+            }
+          ]
+        }
+      ],
+      "cooldown": 5,
+      "castTime": 0.25,
+      "range": 325,
+      "notes": [
+        "Frenzied Maul's bite heals even if it is blocked by spell shield.",
+        "Frenzied Maul's strike can be dodged and blocked, but it cannot miss if Volibear is blinded. The Wound mark does not apply if dodged, but will otherwise do so regardless.\n  - The bite can be blocked but Volibear still heals. It does not heal nor deal damage if the bite is dodged. The bite cannot miss if Volibear is blinded.",
+        "If the target becomes untargetable, dies, or is too far away or no longer in sight during the cast time, this ability will cancel but does not go on cooldown nor pay its cost (if applicable)."
+      ]
+    }
+  ]
+}

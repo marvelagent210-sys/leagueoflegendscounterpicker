@@ -1,0 +1,180 @@
+{
+  "champion": "Ezreal",
+  "name": "Ezreal",
+  "gameplayRadius": 65,
+  "moveSpeed": 325,
+  "attacks": [
+    {
+      "form": "ezreal",
+      "formName": "Ezreal",
+      "range": 550,
+      "ranged": true,
+      "projectile": true,
+      "missileSpeed": 2000,
+      "attackSpeed": 0.932266,
+      "attackDamage": 133.744,
+      "windup": 0.202074,
+      "modifiers": []
+    }
+  ],
+  "abilities": [
+    {
+      "champion": "Ezreal",
+      "kind": "E",
+      "name": "Arcane Shift",
+      "page": {
+        "title": "Template:Data Ezreal/Arcane Shift",
+        "revid": 3989862
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "location"
+        ],
+        "affectsEnemies": true,
+        "projectile": "yes",
+        "spellShield": "yes",
+        "grounded": "yes"
+      },
+      "applies": [],
+      "movement": [
+        {
+          "type": "blink",
+          "evidence": [
+            {
+              "page": "Blink",
+              "revid": 4047228
+            }
+          ]
+        }
+      ],
+      "states": [],
+      "cooldown": 14,
+      "castTime": 0.25,
+      "range": 475,
+      "speed": 2000,
+      "notes": [
+        "The target is revealed as soon as Ezreal fires the missile at them."
+      ]
+    },
+    {
+      "champion": "Ezreal",
+      "kind": "I",
+      "name": "Rising Spell Force",
+      "page": {
+        "title": "Template:Data Ezreal/Rising Spell Force",
+        "revid": 3932280
+      },
+      "damageTypes": [],
+      "delivery": {
+        "targeting": [
+          "passive"
+        ],
+        "affectsEnemies": false
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "boostsAttacks": true,
+      "notes": [
+        "Rising Spell Force will stack even if the abilities hit were blocked by spell shields."
+      ]
+    },
+    {
+      "champion": "Ezreal",
+      "kind": "Q",
+      "name": "Mystic Shot",
+      "page": {
+        "title": "Template:Data Ezreal/Mystic Shot",
+        "revid": 4064006
+      },
+      "damageTypes": [
+        "physical"
+      ],
+      "delivery": {
+        "targeting": [
+          "location"
+        ],
+        "affectsEnemies": true,
+        "projectile": "yes",
+        "spellShield": "partly",
+        "parry": "yes",
+        "attack": "on-hit"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "cooldown": 4.5,
+      "castTime": 0.25,
+      "range": 1200,
+      "speed": 2000,
+      "notes": [
+        "Even if the ability is blocked by spell shield it will still trigger the cooldown reduction."
+      ]
+    },
+    {
+      "champion": "Ezreal",
+      "kind": "R",
+      "name": "Trueshot Barrage",
+      "page": {
+        "title": "Template:Data Ezreal/Trueshot Barrage",
+        "revid": 4013235
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "direction"
+        ],
+        "affectsEnemies": true,
+        "projectile": "yes",
+        "spellShield": "yes"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "cooldown": 90,
+      "castTime": 1,
+      "speed": 2000,
+      "notes": [
+        "Trueshot Barrage's projectile has an icon on the mini-map while it is in flight. It can be seen by only Ezreal and his allies."
+      ]
+    },
+    {
+      "champion": "Ezreal",
+      "kind": "W",
+      "name": "Essence Flux",
+      "page": {
+        "title": "Template:Data Ezreal/Essence Flux",
+        "revid": 4059864
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "location"
+        ],
+        "affectsEnemies": true,
+        "projectile": "yes",
+        "spellShield": "partly",
+        "parry": "partly",
+        "attack": "attack"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "cooldown": 8,
+      "castTime": 0.25,
+      "range": 1200,
+      "speed": 1700,
+      "notes": [
+        "Block and Dodge prevents the mark from being triggered by a basic attack.",
+        "Spell shield prevents the mark from being triggered by an ability. If the mark is triggered by a basic attack, spell shield will prevent Essence Flux's damage."
+      ]
+    }
+  ]
+}

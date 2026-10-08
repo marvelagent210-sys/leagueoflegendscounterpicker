@@ -1,0 +1,277 @@
+{
+  "champion": "AurelionSol",
+  "name": "Aurelion Sol",
+  "gameplayRadius": 80,
+  "moveSpeed": 340,
+  "attacks": [
+    {
+      "form": "aurelion-sol",
+      "formName": "Aurelion Sol",
+      "range": 550,
+      "ranged": true,
+      "projectile": true,
+      "missileSpeed": 4000,
+      "attackSpeed": 0.809359,
+      "attackDamage": 120.928,
+      "windup": 0.18945,
+      "modifiers": []
+    }
+  ],
+  "abilities": [
+    {
+      "champion": "AurelionSol",
+      "kind": "E",
+      "name": "Singularity",
+      "page": {
+        "title": "Template:Data Aurelion Sol/Singularity",
+        "revid": 4038217
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "location"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "partly"
+      },
+      "applies": [
+        {
+          "type": "kinematics",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "kinematics"
+            }
+          ]
+        }
+      ],
+      "movement": [],
+      "states": [],
+      "cooldown": 12,
+      "castTime": 0.2,
+      "range": 940,
+      "execute": [
+        {
+          "page": "Template:Data Aurelion Sol/Singularity",
+          "revid": 4038217,
+          "quote": "Enemies within the center are executed below 5% (+ 2.6% per 100 Stardust) of their maximum health, excluding epic monsters."
+        }
+      ],
+      "notes": [
+        "Spell shield will block a single instance of damage.",
+        "Singularity's execute against an enemy champion will aggro nearby enemy minions."
+      ]
+    },
+    {
+      "champion": "AurelionSol",
+      "kind": "I",
+      "name": "Cosmic Creator",
+      "page": {
+        "title": "Template:Data Aurelion Sol/Cosmic Creator",
+        "revid": 3963005
+      },
+      "damageTypes": [],
+      "delivery": {
+        "targeting": [
+          "passive"
+        ],
+        "affectsEnemies": false
+      },
+      "applies": [],
+      "movement": [],
+      "states": []
+    },
+    {
+      "champion": "AurelionSol",
+      "kind": "Q",
+      "name": "Breath of Light",
+      "page": {
+        "title": "Template:Data Aurelion Sol/Breath of Light",
+        "revid": 4057543
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "direction"
+        ],
+        "affectsEnemies": true,
+        "projectile": "no",
+        "spellShield": "partly",
+        "disruptable": "yes"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "cooldown": 3,
+      "castTime": 0,
+      "range": 940,
+      "channel": [
+        {
+          "type": "charged",
+          "evidence": [
+            {
+              "page": "Channel",
+              "revid": 4002276
+            }
+          ]
+        }
+      ],
+      "notes": [
+        "Breath of Light's total mana cost after channeling it for its maximum duration is 90 / 105 / 120 / 135 / 7937.5.",
+        "Breath of Light's burn places a timer on the primary target, which ticks in 0.2 second intervals. Thus, at 5 completed intervals, the burst damage is triggered.\n  - The timer's visuals themselves otherwise serve no other purpose than gameplay clarity.\n  - The timer is placed on the initial primary target and any new primary targets that are acquired during the channel.\n    - It falls off and resets to zero if a target is not hit within 1 second of no longer being afflicted by the burn.",
+        "Spell shield will only block the burst damage.",
+        "The following table refers to interactions while Aurelion Sol is channeling:"
+      ]
+    },
+    {
+      "champion": "AurelionSol",
+      "kind": "R",
+      "name": "Falling Star",
+      "page": {
+        "title": "Template:Data Aurelion Sol/Falling Star",
+        "revid": 3978297
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "location"
+        ],
+        "affectsEnemies": true,
+        "projectile": "no",
+        "spellShield": "yes"
+      },
+      "applies": [
+        {
+          "type": "stun",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "stun"
+            },
+            {
+              "page": "Template:Data Aurelion Sol/Falling Star",
+              "revid": 3978297,
+              "quote": "Active: Aurelion Sol calls down a star that strikes the target location after 1.25 seconds, dealing magic damage to enemies hit and stunning them for 1 second."
+            }
+          ],
+          "duration": 1
+        }
+      ],
+      "movement": [],
+      "states": [],
+      "cooldown": 100,
+      "castTime": 0,
+      "range": 1250
+    },
+    {
+      "champion": "AurelionSol",
+      "kind": "R",
+      "name": "The Skies Descend",
+      "page": {
+        "title": "Template:Data Aurelion Sol/The Skies Descend",
+        "revid": 3936269
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "location"
+        ],
+        "affectsEnemies": true,
+        "projectile": "no",
+        "spellShield": "yes"
+      },
+      "applies": [
+        {
+          "type": "airborne",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "airborne: knock up"
+            },
+            {
+              "page": "Template:Data Aurelion Sol/The Skies Descend",
+              "revid": 3936269,
+              "quote": "Active: Aurelion Sol calls down a giant star that strikes the target location after 2 seconds, dealing 25% increased damage in a larger area and knocking up enemies hit for 1 second."
+            }
+          ],
+          "variant": "knock up",
+          "duration": 1
+        },
+        {
+          "type": "slow",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "slow"
+            },
+            {
+              "page": "Template:Data Aurelion Sol/The Skies Descend",
+              "revid": 3936269,
+              "quote": "Additionally, the impact sends a massive shockwave that rapidly expands from the area over 3 seconds, dealing magic damage to enemy champions and epic monsters hit, slowing all enemies hit by 50% for 1 second, and revealing them for 1.5 seconds."
+            }
+          ],
+          "duration": 1,
+          "amount": 50
+        }
+      ],
+      "movement": [],
+      "states": [],
+      "notes": [
+        "The shockwave's radius is fixed.\n  - The shockwave is not blocked."
+      ]
+    },
+    {
+      "champion": "AurelionSol",
+      "kind": "W",
+      "name": "Astral Flight",
+      "page": {
+        "title": "Template:Data Aurelion Sol/Astral Flight",
+        "revid": 4057545
+      },
+      "damageTypes": [],
+      "delivery": {
+        "targeting": [
+          "direction"
+        ],
+        "affectsEnemies": false,
+        "grounded": "yes",
+        "knockdown": "yes"
+      },
+      "applies": [],
+      "movement": [
+        {
+          "type": "dash",
+          "evidence": [
+            {
+              "page": "Dash",
+              "revid": 4035700,
+              "quote": "direction-targeted"
+            }
+          ],
+          "targeting": "direction-targeted",
+          "interruptible": true
+        }
+      ],
+      "states": [],
+      "cooldown": 14,
+      "castTime": 0.4,
+      "range": 1500,
+      "speed": 340,
+      "notes": [
+        "The following table refers for interactions while Aurelion Sol is dashing:"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,270 @@
+{
+  "champion": "Riven",
+  "name": "Riven",
+  "gameplayRadius": 65,
+  "moveSpeed": 340,
+  "attacks": [
+    {
+      "form": "riven",
+      "formName": "Riven",
+      "range": 125,
+      "ranged": false,
+      "projectile": false,
+      "attackSpeed": 1.05517,
+      "attackDamage": 122.995,
+      "windup": 0.157952,
+      "modifiers": [
+        "Runic Blade"
+      ]
+    }
+  ],
+  "abilities": [
+    {
+      "champion": "Riven",
+      "kind": "E",
+      "name": "Valor",
+      "page": {
+        "title": "Template:Data Riven/Valor",
+        "revid": 3959341
+      },
+      "damageTypes": [],
+      "delivery": {
+        "targeting": [
+          "direction"
+        ],
+        "affectsEnemies": false,
+        "grounded": "yes",
+        "knockdown": "yes"
+      },
+      "applies": [],
+      "movement": [
+        {
+          "type": "dash",
+          "evidence": [
+            {
+              "page": "Dash",
+              "revid": 4035700,
+              "quote": "direction-targeted"
+            }
+          ],
+          "targeting": "direction-targeted",
+          "interruptible": true
+        }
+      ],
+      "states": [
+        {
+          "state": "shield",
+          "evidence": [
+            {
+              "page": "Template:Data Riven/Valor",
+              "revid": 3959341,
+              "quote": "Active: Riven dashes in the target direction, though not through terrain, while granting herself a shield for 1.5 seconds."
+            }
+          ],
+          "duration": 1.5
+        }
+      ],
+      "cooldown": 6,
+      "castTime": 0,
+      "range": 250,
+      "notes": [
+        "Q may be cast during W or R cast times if they're used at the end or briefly after the dash."
+      ]
+    },
+    {
+      "champion": "Riven",
+      "kind": "I",
+      "name": "Runic Blade",
+      "page": {
+        "title": "Template:Data Riven/Runic Blade",
+        "revid": 3989876
+      },
+      "damageTypes": [
+        "physical"
+      ],
+      "delivery": {
+        "targeting": [
+          "passive"
+        ],
+        "affectsEnemies": true,
+        "parry": "yes",
+        "attack": "attack modifier"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [
+        {
+          "state": "heal",
+          "evidence": [
+            {
+              "page": "Template:Data Riven/Runic Blade",
+              "revid": 3989876,
+              "quote": "The bonus damage is affected by critical strike modifiers and applies life steal at 100% effectiveness."
+            },
+            {
+              "page": "Template:Data Riven/Runic Blade",
+              "revid": 3989876,
+              "quote": "The bonus damage is affected by critical strike modifiers and applies life steal at 100% effectiveness."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "champion": "Riven",
+      "kind": "Q",
+      "name": "Broken Wings",
+      "page": {
+        "title": "Template:Data Riven/Broken Wings",
+        "revid": 4025373
+      },
+      "damageTypes": [
+        "physical"
+      ],
+      "delivery": {
+        "targeting": [
+          "auto",
+          "unit"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "yes",
+        "grounded": "yes",
+        "knockdown": "yes"
+      },
+      "applies": [
+        {
+          "type": "airborne",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "airborne: knock back"
+            },
+            {
+              "page": "Template:Data Riven/Broken Wings",
+              "revid": 4025373,
+              "quote": "Third Cast: Riven mimics the first cast's effects in a larger area while also knocking back enemies hit 75 units over 0.5 seconds."
+            }
+          ],
+          "variant": "knock back",
+          "duration": 0.5
+        }
+      ],
+      "movement": [
+        {
+          "type": "dash",
+          "evidence": [
+            {
+              "page": "Dash",
+              "revid": 4035700,
+              "quote": "direction-targeted"
+            }
+          ],
+          "targeting": "direction-targeted",
+          "interruptible": true
+        }
+      ],
+      "states": [],
+      "cooldown": 13,
+      "castTime": 0,
+      "boostsAttacks": true,
+      "notes": [
+        "The Third Cast may have an extended dash range when crossing terrain.",
+        "The Third Cast's knockup debuff is not removed early if the forced movement is interrupted.",
+        "Any forced movement affecting the target being knocked up is interrupted when the knockup debuff is removed."
+      ]
+    },
+    {
+      "champion": "Riven",
+      "kind": "R",
+      "name": "Blade of the Exile",
+      "page": {
+        "title": "Template:Data Riven/Blade of the Exile",
+        "revid": 4046587
+      },
+      "damageTypes": [],
+      "delivery": {
+        "targeting": [
+          "auto"
+        ],
+        "affectsEnemies": false
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "cooldown": 60,
+      "castTime": 0.25,
+      "boostsAttacks": true
+    },
+    {
+      "champion": "Riven",
+      "kind": "R",
+      "name": "Wind Slash",
+      "page": {
+        "title": "Template:Data Riven/Wind Slash",
+        "revid": 4046588
+      },
+      "damageTypes": [
+        "physical"
+      ],
+      "delivery": {
+        "targeting": [
+          "direction"
+        ],
+        "affectsEnemies": true,
+        "projectile": "yes",
+        "spellShield": "yes"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "castTime": 0.25,
+      "range": 1100,
+      "speed": 1600,
+      "notes": [
+        "Wind Slash's wave is made up of three individual missiles spread in a cone.\n  - Each enemy can be damaged by only one missile."
+      ]
+    },
+    {
+      "champion": "Riven",
+      "kind": "W",
+      "name": "Ki Burst",
+      "page": {
+        "title": "Template:Data Riven/Ki Burst",
+        "revid": 4024218
+      },
+      "damageTypes": [
+        "physical"
+      ],
+      "delivery": {
+        "targeting": [
+          "auto"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "yes"
+      },
+      "applies": [
+        {
+          "type": "stun",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "stun"
+            },
+            {
+              "page": "Template:Data Riven/Ki Burst",
+              "revid": 4024218,
+              "quote": "Active: Riven emits a flash of runic energy, dealing physical damage to nearby enemies and stunning them for 0.75 seconds."
+            }
+          ],
+          "duration": 0.75
+        }
+      ],
+      "movement": [],
+      "states": [],
+      "cooldown": 7,
+      "castTime": 0.25
+    }
+  ]
+}

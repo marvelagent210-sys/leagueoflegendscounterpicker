@@ -1,0 +1,271 @@
+{
+  "champion": "Milio",
+  "name": "Milio",
+  "gameplayRadius": 55,
+  "moveSpeed": 330,
+  "attacks": [
+    {
+      "form": "milio",
+      "formName": "Milio",
+      "range": 525,
+      "ranged": true,
+      "projectile": true,
+      "missileSpeed": 1900,
+      "attackSpeed": 0.993719,
+      "attackDamage": 110.928,
+      "windup": 0.172512,
+      "modifiers": [
+        "Fired Up!"
+      ]
+    }
+  ],
+  "abilities": [
+    {
+      "champion": "Milio",
+      "kind": "E",
+      "name": "Warm Hugs",
+      "page": {
+        "title": "Template:Data Milio/Warm Hugs",
+        "revid": 3908079
+      },
+      "damageTypes": [],
+      "delivery": {
+        "targeting": [
+          "unit"
+        ],
+        "affectsEnemies": false
+      },
+      "applies": [],
+      "movement": [],
+      "states": [
+        {
+          "state": "shield",
+          "evidence": [
+            {
+              "page": "Template:Data Milio/Warm Hugs",
+              "revid": 3908079,
+              "quote": "Active: Milio envelops himself or the target allied champion in protective flames, granting the target a shield and bonus movement speed for 2.5 seconds."
+            }
+          ],
+          "duration": 2.5
+        }
+      ],
+      "cooldown": 13,
+      "castTime": 0,
+      "range": 650
+    },
+    {
+      "champion": "Milio",
+      "kind": "I",
+      "name": "Fired Up!",
+      "page": {
+        "title": "Template:Data Milio/Fired Up!",
+        "revid": 4074280
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "passive"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "partly",
+        "parry": "yes",
+        "attack": "attack modifier"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "notes": [
+        "Spell shield will not block Fired Up! if applied by a basic attack."
+      ]
+    },
+    {
+      "champion": "Milio",
+      "kind": "Q",
+      "name": "Ultra Mega Fire Kick",
+      "page": {
+        "title": "Template:Data Milio/Ultra Mega Fire Kick",
+        "revid": 4074323
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "direction"
+        ],
+        "affectsEnemies": true,
+        "projectile": "yes",
+        "spellShield": "yes"
+      },
+      "applies": [
+        {
+          "type": "airborne",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "airborne: knock back"
+            },
+            {
+              "page": "Template:Data Milio/Ultra Mega Fire Kick",
+              "revid": 4074323,
+              "quote": "Active: After a 0.25-second delay, Milio kicks a fireball in the target direction that grants sight of its path and knocks back and stuns the first enemy it hits over 1 second."
+            }
+          ],
+          "variant": "knock back",
+          "duration": 1
+        },
+        {
+          "type": "slow",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "slow"
+            },
+            {
+              "page": "Template:Data Milio/Ultra Mega Fire Kick",
+              "revid": 4074323,
+              "quote": "Upon collision, the ball bounces once in the same direction from the target's location, granting sight of the area before exploding in the same radius after a brief delay, dealing magic damage to enemies hit and slowing them for 1.5 seconds."
+            }
+          ],
+          "duration": 1.5,
+          "amount": 60
+        },
+        {
+          "type": "stun",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "stun"
+            },
+            {
+              "page": "Template:Data Milio/Ultra Mega Fire Kick",
+              "revid": 4074323,
+              "quote": "Active: After a 0.25-second delay, Milio kicks a fireball in the target direction that grants sight of its path and knocks back and stuns the first enemy it hits over 1 second."
+            }
+          ],
+          "duration": 1
+        }
+      ],
+      "movement": [],
+      "states": [],
+      "cooldown": 10,
+      "castTime": 0,
+      "range": 1200,
+      "speed": 1200
+    },
+    {
+      "champion": "Milio",
+      "kind": "R",
+      "name": "Breath of Life",
+      "page": {
+        "title": "Template:Data Milio/Breath of Life",
+        "revid": 3908080
+      },
+      "damageTypes": [],
+      "delivery": {
+        "targeting": [
+          "auto"
+        ],
+        "affectsEnemies": false
+      },
+      "applies": [],
+      "movement": [],
+      "states": [
+        {
+          "state": "tenacity",
+          "evidence": [
+            {
+              "page": "Tenacity",
+              "revid": 4021927
+            },
+            {
+              "page": "Template:Data Milio/Breath of Life",
+              "revid": 3908080,
+              "quote": "Active: Milio explodes in soothing flames, healing and cleansing himself and nearby allied champions of non-airborne crowd control, and granting them 65% tenacity for 3 seconds."
+            },
+            {
+              "page": "Template:Data Milio/Breath of Life",
+              "revid": 3908080,
+              "quote": "Active: Milio explodes in soothing flames, healing and cleansing himself and nearby allied champions of non-airborne crowd control, and granting them 65% tenacity for 3 seconds."
+            }
+          ],
+          "duration": 3,
+          "amount": 65
+        },
+        {
+          "state": "cleanse",
+          "removes": [
+            "blind",
+            "cripple",
+            "disarm",
+            "berserk",
+            "charm",
+            "fear",
+            "taunt",
+            "ground",
+            "nearsight",
+            "root",
+            "silence",
+            "polymorph",
+            "drowsy",
+            "sleep",
+            "slow",
+            "stun",
+            "suspension",
+            "suppression"
+          ],
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Summary"
+            }
+          ]
+        },
+        {
+          "state": "heal",
+          "evidence": [
+            {
+              "page": "Template:Data Milio/Breath of Life",
+              "revid": 3908080,
+              "quote": "Active: Milio explodes in soothing flames, healing and cleansing himself and nearby allied champions of non-airborne crowd control, and granting them 65% tenacity for 3 seconds."
+            }
+          ],
+          "duration": 3
+        }
+      ],
+      "cooldown": 130,
+      "castTime": 0,
+      "notes": [
+        "Breath of Life affects untargetable units."
+      ]
+    },
+    {
+      "champion": "Milio",
+      "kind": "W",
+      "name": "Cozy Campfire",
+      "page": {
+        "title": "Template:Data Milio/Cozy Campfire",
+        "revid": 4007694
+      },
+      "damageTypes": [],
+      "delivery": {
+        "targeting": [
+          "location",
+          "unit"
+        ],
+        "affectsEnemies": false
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "cooldown": 21,
+      "castTime": 0.25,
+      "range": 650
+    }
+  ]
+}

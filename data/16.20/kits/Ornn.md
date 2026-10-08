@@ -9,6 +9,22 @@ Values marked "at max rank, level 20" assume every ability is maxed; see PLAN.md
 |---|--:|--:|--:|--:|--:|--:|--:|--:|--:|--:|
 | Ornn | 2803.5 | 26.70 | 1619.2 Mana | 137.8 | 0.871 | 0.251 | 135.3 | 72.3 | 175 | 335 |
 
+## Fight profile (what the interaction ledger uses)
+
+| Form | Attack range | Ranged | Projectile | Missile speed | Attack modifiers |
+|---|--:|---|---|--:|---|
+| Ornn | 175 | no | no | – | Living Forge |
+
+Cooldowns at max rank. Flags: the wiki's interaction flags (yes, no, partly). * marks an effect that applies only under a condition.
+
+| Slot | Ability | Cooldown | Delivery | Applies to the enemy | Movement | Gives itself |
+|---|---|--:|---|---|---|---|
+| E | Searing Charge | 12 | spell shield yes; grounded yes; knockdown yes | airborne (knock up) 1.25 s*; stun 1.25 s* | dash | – |
+| I | Living Forge | – | spell shield yes; parry yes; disruptable yes; attack modifier | airborne (knock back) 0.4 s | – | – |
+| Q | Volcanic Rupture | 7 | projectile yes; spell shield partly | airborne (knock aside) 4 s; slow 2 s 40% | – | – |
+| R | Call of the Forge God | 100 | projectile yes; spell shield partly; grounded partly; knockdown yes | airborne (knock up) 1 s; slow 2 s 60%; stun 1 s | dash (recast) | – |
+| W | Bellows Breath | 10 | projectile no; spell shield partly; grounded no | – | lunge | displacement immune |
+
 ## Innate: Living Forge
 
 Source: [Template:Data Ornn/Living Forge](https://wiki.leagueoflegends.com/en-us/Template:Data_Ornn/Living_Forge?oldid=4063954) (revision 4063954). Ranks: 1.

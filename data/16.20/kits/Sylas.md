@@ -9,6 +9,23 @@ Values marked "at max rank, level 20" assume every ability is maxed; see PLAN.md
 |---|--:|--:|--:|--:|--:|--:|--:|--:|--:|--:|
 | Sylas | 2999.1 | 26.70 | 1776.6 Mana | 120.0 | 1.089 | 0.154 | 131.3 | 82.1 | 175 | 340 |
 
+## Fight profile (what the interaction ledger uses)
+
+| Form | Attack range | Ranged | Projectile | Missile speed | Attack modifiers |
+|---|--:|---|---|--:|---|
+| Sylas | 175 | no | no | – | Petricite Burst |
+
+Cooldowns at max rank. Flags: the wiki's interaction flags (yes, no, partly). * marks an effect that applies only under a condition.
+
+| Slot | Ability | Cooldown | Delivery | Applies to the enemy | Movement | Gives itself |
+|---|---|--:|---|---|---|---|
+| E | Abduct | – | projectile yes; spell shield yes; grounded yes; knockdown yes | airborne (knock up) 0.5 s; stun 0.5 s | dash (when hitting a unit) | – |
+| E | Abscond | 9 | grounded yes; knockdown yes | – | dash | – |
+| I | Petricite Burst | – | spell shield no; parry partly; attack modifier | – | – | – |
+| Q | Chain Lash | 6 | projectile no; spell shield yes | slow 1.5 s 35% | – | – |
+| R | Hijack | 30 | projectile yes; spell shield yes | reveal | – | – |
+| W | Kingslayer | 6 | spell shield yes; grounded yes; knockdown yes | – | dash | heal |
+
 ## Innate: Petricite Burst
 
 Source: [Template:Data Sylas/Petricite Burst](https://wiki.leagueoflegends.com/en-us/Template:Data_Sylas/Petricite_Burst?oldid=4061737) (revision 4061737). Ranks: 1.

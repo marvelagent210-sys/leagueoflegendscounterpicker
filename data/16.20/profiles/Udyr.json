@@ -1,0 +1,274 @@
+{
+  "champion": "Udyr",
+  "name": "Udyr",
+  "gameplayRadius": 65,
+  "moveSpeed": 350,
+  "attacks": [
+    {
+      "form": "udyr",
+      "formName": "Udyr",
+      "range": 125,
+      "ranged": false,
+      "projectile": false,
+      "attackSpeed": 1.03347,
+      "attackDamage": 140.66,
+      "windup": 0.191588,
+      "modifiers": [
+        "Bridge Between"
+      ]
+    }
+  ],
+  "abilities": [
+    {
+      "champion": "Udyr",
+      "kind": "E",
+      "name": "Blazing Stampede",
+      "page": {
+        "title": "Template:Data Udyr/Blazing Stampede",
+        "revid": 4052353
+      },
+      "damageTypes": [],
+      "delivery": {
+        "targeting": [
+          "auto"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "yes",
+        "parry": "yes",
+        "grounded": "partly",
+        "knockdown": "partly"
+      },
+      "applies": [
+        {
+          "type": "stun",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "stun"
+            },
+            {
+              "page": "Template:Data Udyr/Blazing Stampede",
+              "revid": 4052353,
+              "quote": "Active - Stance: Udyr enters Stampede Stance, empowering his basic attacks to have an uncancellable windup and pounce on the target to stun them for 0.75 seconds."
+            }
+          ],
+          "duration": 0.75
+        }
+      ],
+      "movement": [
+        {
+          "type": "dash",
+          "evidence": [
+            {
+              "page": "Dash",
+              "revid": 4035700,
+              "quote": "unit-targeted"
+            }
+          ],
+          "targeting": "unit-targeted"
+        }
+      ],
+      "states": [
+        {
+          "state": "cc immune",
+          "evidence": [
+            {
+              "page": "Template:Data Udyr/Blazing Stampede",
+              "revid": 4052353,
+              "quote": "He also gains immunity to crowd control for 1.5 seconds."
+            }
+          ],
+          "duration": 1.5
+        }
+      ],
+      "cooldown": 6,
+      "castTime": 0,
+      "notes": [
+        "Udyr cannot dash while grounded or rooted, but he will still declare the empowered attack.",
+        "The empowered attack will still apply its effects even if the dash is interrupted.",
+        "The empowered attacks will not trigger nor be consumed if they hit a structure or ward or are parried.",
+        "Each empowered attack is considered to belong to its own cast instance.\n  - The immunity to the stun is not applied in any case."
+      ]
+    },
+    {
+      "champion": "Udyr",
+      "kind": "I",
+      "name": "Bridge Between",
+      "page": {
+        "title": "Template:Data Udyr/Bridge Between",
+        "revid": 3983420
+      },
+      "damageTypes": [],
+      "delivery": {
+        "targeting": [
+          "passive"
+        ],
+        "affectsEnemies": false,
+        "parry": "yes",
+        "attack": "attack modifier"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "boostsAttacks": true,
+      "notes": [
+        "Axiom Arcanist will affect the Awakened cast of all abilities, but does not refund the cooldown of Awakened Spirit.\n  - Only Wilding Claw lightning damage is amplified. The on-hit damage is not increased.",
+        "The empowered attacks will not get consumed if they are parried."
+      ]
+    },
+    {
+      "champion": "Udyr",
+      "kind": "Q",
+      "name": "Wilding Claw",
+      "page": {
+        "title": "Template:Data Udyr/Wilding Claw",
+        "revid": 4049976
+      },
+      "damageTypes": [
+        "physical",
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "auto"
+        ],
+        "affectsEnemies": true,
+        "projectile": "yes",
+        "spellShield": "partly",
+        "parry": "yes",
+        "attack": "on-hit"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "cooldown": 6,
+      "castTime": 0,
+      "boostsAttacks": true,
+      "notes": [
+        "Spell shield will only block an empowered attack's application of the lightning strikes.",
+        "The empowered attacks will not trigger nor be consumed if they hit a structure or ward or are parried."
+      ]
+    },
+    {
+      "champion": "Udyr",
+      "kind": "R",
+      "name": "Wingborne Storm",
+      "page": {
+        "title": "Template:Data Udyr/Wingborne Storm",
+        "revid": 4008208
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "auto"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "no",
+        "parry": "yes",
+        "attack": "on-hit"
+      },
+      "applies": [
+        {
+          "type": "slow",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "slow"
+            },
+            {
+              "page": "Template:Data Udyr/Wingborne Storm",
+              "revid": 4008208,
+              "quote": "Additionally, Udyr summons a blizzard around himself for 4 seconds that deals magic damage every 0.5 seconds to nearby enemies and slows them while they remain within."
+            }
+          ],
+          "amount": 30
+        }
+      ],
+      "movement": [],
+      "states": [],
+      "cooldown": 6,
+      "castTime": 0,
+      "notes": [
+        "The storm will remain active even if Udyr dies. Any commands it was issued to follow a target will not be interrupted.",
+        "The empowered attacks will not trigger nor be consumed if they hit a structure or ward or are parried."
+      ]
+    },
+    {
+      "champion": "Udyr",
+      "kind": "W",
+      "name": "Iron Mantle",
+      "page": {
+        "title": "Template:Data Udyr/Iron Mantle",
+        "revid": 4013279
+      },
+      "damageTypes": [],
+      "delivery": {
+        "targeting": [
+          "auto"
+        ],
+        "affectsEnemies": false,
+        "parry": "yes",
+        "attack": "on-hit"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [
+        {
+          "state": "heal",
+          "evidence": [
+            {
+              "page": "Template:Data Udyr/Iron Mantle",
+              "revid": 4013279,
+              "quote": "Active - Stance: Udyr enters Mantle Stance, empowering his next two basic attacks on-hit to gain life steal and heal him for 1.2% of his maximum health (+ 8% AP)."
+            },
+            {
+              "page": "Template:Data Udyr/Iron Mantle",
+              "revid": 4013279,
+              "quote": "Active - Stance: Udyr enters Mantle Stance, empowering his next two basic attacks on-hit to gain life steal and heal him for 1.2% of his maximum health (+ 8% AP)."
+            },
+            {
+              "page": "Template:Data Udyr/Iron Mantle",
+              "revid": 4013279,
+              "quote": "Recast - Awaken: Udyr increases the shield's strength, stacking with the remaining shield from the first cast, and heals every 0.25 seconds over the next 4 seconds, as well as causes the empowered attacks to instead gain doubled life steal and heal him for 2.4% of his maximum health (+ 16% AP)."
+            },
+            {
+              "page": "Template:Data Udyr/Iron Mantle",
+              "revid": 4013279,
+              "quote": "Recast - Awaken: Udyr increases the shield's strength, stacking with the remaining shield from the first cast, and heals every 0.25 seconds over the next 4 seconds, as well as causes the empowered attacks to instead gain doubled life steal and heal him for 2.4% of his maximum health (+ 16% AP)."
+            },
+            {
+              "page": "Template:Data Udyr/Iron Mantle",
+              "revid": 4013279,
+              "quote": "Recast - Awaken: Udyr increases the shield's strength, stacking with the remaining shield from the first cast, and heals every 0.25 seconds over the next 4 seconds, as well as causes the empowered attacks to instead gain doubled life steal and heal him for 2.4% of his maximum health (+ 16% AP)."
+            }
+          ]
+        },
+        {
+          "state": "shield",
+          "evidence": [
+            {
+              "page": "Template:Data Udyr/Iron Mantle",
+              "revid": 4013279,
+              "quote": "Additionally, Udyr grants himself a shield for 4 seconds."
+            },
+            {
+              "page": "Template:Data Udyr/Iron Mantle",
+              "revid": 4013279,
+              "quote": "Recast - Awaken: Udyr increases the shield's strength, stacking with the remaining shield from the first cast, and heals every 0.25 seconds over the next 4 seconds, as well as causes the empowered attacks to instead gain doubled life steal and heal him for 2.4% of his maximum health (+ 16% AP)."
+            }
+          ],
+          "duration": 4
+        }
+      ],
+      "cooldown": 6,
+      "castTime": 0,
+      "notes": [
+        "The empowered attacks will not trigger nor be consumed if they hit a structure or ward or are parried."
+      ]
+    }
+  ]
+}

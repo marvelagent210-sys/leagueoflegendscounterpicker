@@ -9,6 +9,22 @@ Values marked "at max rank, level 20" assume every ability is maxed; see PLAN.md
 |---|--:|--:|--:|--:|--:|--:|--:|--:|--:|--:|
 | Jinx | 2694.8 | 13.58 | 1243.3 Mana | 122.9 | 0.748 | 0.237 | 108.6 | 54.6 | 525 | 325 |
 
+## Fight profile (what the interaction ledger uses)
+
+| Form | Attack range | Ranged | Projectile | Missile speed | Attack modifiers |
+|---|--:|---|---|--:|---|
+| Jinx | 525 | yes | yes | – | – |
+
+Cooldowns at max rank. Flags: the wiki's interaction flags (yes, no, partly). * marks an effect that applies only under a condition.
+
+| Slot | Ability | Cooldown | Delivery | Applies to the enemy | Movement | Gives itself |
+|---|---|--:|---|---|---|---|
+| E | Flame Chompers! | 10 | projectile partly; spell shield partly | knockdown 1.5 s; root 1.5 s; knockdown | – | – |
+| I | Get Excited! | – | – | – | – | – |
+| Q | Switcheroo! | 0.9 | spell shield no; parry yes | – | – | – |
+| R | Super Mega Death Rocket! | 45 | projectile yes; spell shield partly | – | – | – |
+| W | Zap! | 4 | projectile yes; spell shield yes | slow 2 s 80% | – | – |
+
 ## Innate: Get Excited!
 
 Source: [Template:Data Jinx/Get Excited!](https://wiki.leagueoflegends.com/en-us/Template:Data_Jinx/Get_Excited!?oldid=3973632) (revision 3973632). Ranks: 1.

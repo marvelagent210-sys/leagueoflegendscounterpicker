@@ -1,0 +1,221 @@
+{
+  "champion": "Sona",
+  "name": "Sona",
+  "gameplayRadius": 65,
+  "moveSpeed": 325,
+  "attacks": [
+    {
+      "form": "sona",
+      "formName": "Sona",
+      "range": 550,
+      "ranged": true,
+      "projectile": true,
+      "missileSpeed": 1500,
+      "attackSpeed": 0.935278,
+      "attackDamage": 107.995,
+      "windup": 0.183711,
+      "modifiers": [
+        "Power Chord"
+      ]
+    }
+  ],
+  "abilities": [
+    {
+      "champion": "Sona",
+      "kind": "E",
+      "name": "Song of Celerity",
+      "page": {
+        "title": "Template:Data Sona/Song of Celerity",
+        "revid": 4012188
+      },
+      "damageTypes": [],
+      "delivery": {
+        "targeting": [
+          "auto"
+        ],
+        "affectsEnemies": false
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "cooldown": 14,
+      "castTime": 0
+    },
+    {
+      "champion": "Sona",
+      "kind": "I",
+      "name": "Power Chord",
+      "page": {
+        "title": "Template:Data Sona/Power Chord",
+        "revid": 4047882
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "passive"
+        ],
+        "affectsEnemies": false,
+        "spellShield": "yes",
+        "parry": "yes",
+        "attack": "attack modifier"
+      },
+      "applies": [
+        {
+          "type": "slow",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "slow"
+            },
+            {
+              "page": "Template:Data Sona/Power Chord",
+              "revid": 4047882,
+              "quote": "* Song of Celerity - Tempo: Slows the target by 50% (+ 4% per 100 AP) for 2 seconds, capped at 99%."
+            }
+          ],
+          "duration": 2,
+          "amount": 50
+        }
+      ],
+      "movement": [],
+      "states": [],
+      "boostsAttacks": true,
+      "notes": [
+        "Power Chord stacks are represented by a counter under Sona's health bar, visible to the player only. It will light up when the empowered effect is available.\n  - When Power Chord is ready, Sona gains a ring around her. This ring will have a different color depending on the last ability used (blue, green or purple).\n  - The effect does not change if abilities are used while the projectile is in motion.",
+        "The triggering attack will apply other on-hit effects and can critically strike as normal."
+      ]
+    },
+    {
+      "champion": "Sona",
+      "kind": "Q",
+      "name": "Hymn of Valor",
+      "page": {
+        "title": "Template:Data Sona/Hymn of Valor",
+        "revid": 4049803
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "auto"
+        ],
+        "affectsEnemies": true,
+        "projectile": "yes",
+        "spellShield": "yes",
+        "attack": "attack"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "cooldown": 8,
+      "castTime": 0,
+      "speed": 1300
+    },
+    {
+      "champion": "Sona",
+      "kind": "R",
+      "name": "Crescendo",
+      "page": {
+        "title": "Template:Data Sona/Crescendo",
+        "revid": 4047883
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "direction"
+        ],
+        "affectsEnemies": true,
+        "projectile": "yes",
+        "spellShield": "yes"
+      },
+      "applies": [
+        {
+          "type": "stun",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "stun"
+            },
+            {
+              "page": "Template:Data Sona/Crescendo",
+              "revid": 4047883,
+              "quote": "Active: Sona strikes an irresistible chord in the target direction that deals magic damage to enemies hit and stuns them for 1.5 seconds."
+            }
+          ],
+          "duration": 1.5
+        }
+      ],
+      "movement": [],
+      "states": [],
+      "cooldown": 100,
+      "castTime": 0.25,
+      "range": 1000,
+      "speed": 2400
+    },
+    {
+      "champion": "Sona",
+      "kind": "W",
+      "name": "Aria of Perseverance",
+      "page": {
+        "title": "Template:Data Sona/Aria of Perseverance",
+        "revid": 4008052
+      },
+      "damageTypes": [],
+      "delivery": {
+        "targeting": [
+          "auto"
+        ],
+        "affectsEnemies": false,
+        "projectile": "yes"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [
+        {
+          "state": "heal",
+          "evidence": [
+            {
+              "page": "Template:Data Sona/Aria of Perseverance",
+              "revid": 4008052,
+              "quote": "Active: Sona heals herself and sends out a tone to heal the most wounded allied champion nearby."
+            },
+            {
+              "page": "Template:Data Sona/Aria of Perseverance",
+              "revid": 4008052,
+              "quote": "Sona gains a stack of Accelerando whenever she heals a wounded ally or shields a minimum amount of damage for an ally with Aria of Perseverance."
+            }
+          ]
+        },
+        {
+          "state": "shield",
+          "evidence": [
+            {
+              "page": "Template:Data Sona/Aria of Perseverance",
+              "revid": 4008052,
+              "quote": "Melody Bonus: Sona and tagged allied champions are granted a shield for 1.5 seconds."
+            },
+            {
+              "page": "Template:Data Sona/Aria of Perseverance",
+              "revid": 4008052,
+              "quote": "Sona gains a stack of Accelerando whenever she heals a wounded ally or shields a minimum amount of damage for an ally with Aria of Perseverance."
+            }
+          ],
+          "duration": 1.5
+        }
+      ],
+      "cooldown": 10,
+      "castTime": 0,
+      "speed": 1300,
+      "notes": [
+        "The projectile of Aria of Perseverance will follow an ally in stealth but will not reveal them."
+      ]
+    }
+  ]
+}

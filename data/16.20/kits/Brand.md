@@ -9,6 +9,22 @@ Values marked "at max rank, level 20" assume every ability is maxed; see PLAN.md
 |---|--:|--:|--:|--:|--:|--:|--:|--:|--:|--:|
 | Brand | 2634.8 | 16.32 | 882.0 Mana | 116.0 | 0.927 | 0.202 | 106.6 | 55.6 | 550 | 340 |
 
+## Fight profile (what the interaction ledger uses)
+
+| Form | Attack range | Ranged | Projectile | Missile speed | Attack modifiers |
+|---|--:|---|---|--:|---|
+| Brand | 550 | yes | yes | 2000 | – |
+
+Cooldowns at max rank. Flags: the wiki's interaction flags (yes, no, partly). * marks an effect that applies only under a condition.
+
+| Slot | Ability | Cooldown | Delivery | Applies to the enemy | Movement | Gives itself |
+|---|---|--:|---|---|---|---|
+| E | Conflagration | 9 | projectile no; spell shield yes | – | – | – |
+| I | Blaze | – | spell shield yes | – | – | – |
+| Q | Sear | 6 | projectile yes; spell shield yes | stun 1.75 s | – | – |
+| R | Pyroclasm | 80 | projectile yes; spell shield partly | slow 0.25 s 60% | – | – |
+| W | Pillar of Flame | 8 | spell shield yes | – | – | – |
+
 ## Innate: Blaze
 
 Source: [Template:Data Brand/Blaze](https://wiki.leagueoflegends.com/en-us/Template:Data_Brand/Blaze?oldid=4052621) (revision 4052621). Ranks: 1.

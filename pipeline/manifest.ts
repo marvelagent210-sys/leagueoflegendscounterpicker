@@ -18,5 +18,7 @@ export interface Manifest {
     championData: { title: string; revid: number };
     level20Table: { title: string; revid: number };
     dataTemplates: { pages: number; missing: string[] };
+    /** Glossary pages (WIKI_GLOSSARY_PAGES); fetched with the rest, or alone with --only glossary. */
+    glossary?: { pages: number; missing: string[]; fetchedAt: string };
   };
 }

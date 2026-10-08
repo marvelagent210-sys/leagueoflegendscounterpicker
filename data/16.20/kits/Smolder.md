@@ -9,6 +9,22 @@ Values marked "at max rank, level 20" assume every ability is maxed; see PLAN.md
 |---|--:|--:|--:|--:|--:|--:|--:|--:|--:|--:|
 | Smolder | 2541.5 | 15.55 | 1086.6 Mana | 103.2 | 1.140 | 0.140 | 102.7 | 54.6 | 550 | 330 |
 
+## Fight profile (what the interaction ledger uses)
+
+| Form | Attack range | Ranged | Projectile | Missile speed | Attack modifiers |
+|---|--:|---|---|--:|---|
+| Smolder | 550 | yes | yes | 1800 | – |
+
+Cooldowns at max rank. Flags: the wiki's interaction flags (yes, no, partly). * marks an effect that applies only under a condition.
+
+| Slot | Ability | Cooldown | Delivery | Applies to the enemy | Movement | Gives itself |
+|---|---|--:|---|---|---|---|
+| E | Flap, Flap, Flap | 16 | spell shield partly; parry no; grounded yes | – | – | – |
+| I | Dragon Practice | – | spell shield yes; parry yes | – | – | – |
+| Q | Super Scorcher Breath | 3.5 | projectile yes; spell shield yes; parry partly; on-hit | – | – | heal |
+| R | MMOOOMMMM! | 100 | projectile yes; spell shield yes | slow 2 s 40% | – | heal 2 s |
+| W | Achooo! | 10 | projectile yes; spell shield partly | slow 1.5 s 35% | – | – |
+
 ## Innate: Dragon Practice
 
 Source: [Template:Data Smolder/Dragon Practice](https://wiki.leagueoflegends.com/en-us/Template:Data_Smolder/Dragon_Practice?oldid=4078266) (revision 4078266). Ranks: 1.

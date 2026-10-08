@@ -9,6 +9,22 @@ Values marked "at max rank, level 20" assume every ability is maxed; see PLAN.md
 |---|--:|--:|--:|--:|--:|--:|--:|--:|--:|--:|
 | Nilah | 2556.2 | 23.70 | 1038.3 Mana | 97.3 | 0.862 | 0.255 | 109.6 | 72.3 | 225 | 340 |
 
+## Fight profile (what the interaction ledger uses)
+
+| Form | Attack range | Ranged | Projectile | Missile speed | Attack modifiers |
+|---|--:|---|---|--:|---|
+| Nilah | 225 | no | no | – | – |
+
+Cooldowns at max rank. Flags: the wiki's interaction flags (yes, no, partly). * marks an effect that applies only under a condition.
+
+| Slot | Ability | Cooldown | Delivery | Applies to the enemy | Movement | Gives itself |
+|---|---|--:|---|---|---|---|
+| E | Slipstream | 12 | spell shield yes; grounded yes; knockdown yes | – | dash | – |
+| I | Joy Unending | – | – | – | – | heal; shield |
+| Q | Formless Blade | 4 | projectile no; spell shield partly; parry partly; on-hit | – | – | heal; shield |
+| R | Apotheosis | 80 | spell shield partly | airborne (pull); slow 3 s 10% | – | heal; shield |
+| W | Jubilant Veil | 22 | – | – | – | dodge attacks 2.25 s |
+
 ## Innate: Joy Unending
 
 Source: [Template:Data Nilah/Joy Unending](https://wiki.leagueoflegends.com/en-us/Template:Data_Nilah/Joy_Unending?oldid=3960984) (revision 3960984). Ranks: 1.

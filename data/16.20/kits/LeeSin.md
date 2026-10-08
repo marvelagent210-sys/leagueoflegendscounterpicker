@@ -9,6 +9,25 @@ Values marked "at max rank, level 20" assume every ability is maxed; see PLAN.md
 |---|--:|--:|--:|--:|--:|--:|--:|--:|--:|--:|
 | Lee Sin | 2768.8 | 21.27 | 200.0 Energy | 132.9 | 1.035 | 0.189 | 124.5 | 72.3 | 125 | 345 |
 
+## Fight profile (what the interaction ledger uses)
+
+| Form | Attack range | Ranged | Projectile | Missile speed | Attack modifiers |
+|---|--:|---|---|--:|---|
+| Lee Sin | 125 | no | no | – | Flurry |
+
+Cooldowns at max rank. Flags: the wiki's interaction flags (yes, no, partly). * marks an effect that applies only under a condition.
+
+| Slot | Ability | Cooldown | Delivery | Applies to the enemy | Movement | Gives itself |
+|---|---|--:|---|---|---|---|
+| E | Cripple | – | spell shield yes | slow 4 s 75% | – | – |
+| E | Tempest | 8 | spell shield yes | reveal | – | – |
+| I | Flurry | – | parry yes; attack modifier | – | – | – |
+| Q | Resonating Strike | – | spell shield yes; grounded yes; knockdown yes | – | dash | – |
+| Q | Sonic Wave | 6 | projectile yes; spell shield yes | reveal | – | – |
+| R | Dragon's Rage | 60 | spell shield yes | airborne (knock back, knock up) 0.8 s; root 0.8 s | – | – |
+| W | Iron Will | – | – | – | – | heal 4 s |
+| W | Safeguard | 7 | grounded yes; knockdown yes | – | dash | – |
+
 ## Innate: Flurry
 
 Source: [Template:Data Lee Sin/Flurry](https://wiki.leagueoflegends.com/en-us/Template:Data_Lee_Sin/Flurry?oldid=4015078) (revision 4015078). Ranks: 1.

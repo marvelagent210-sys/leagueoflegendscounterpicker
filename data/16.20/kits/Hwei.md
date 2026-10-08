@@ -9,6 +9,32 @@ Values marked "at max rank, level 20" assume every ability is maxed; see PLAN.md
 |---|--:|--:|--:|--:|--:|--:|--:|--:|--:|--:|
 | Hwei | 2723.5 | 16.32 | 1070.0 Mana | 118.9 | 1.013 | 0.185 | 113.4 | 55.6 | 550 | 330 |
 
+## Fight profile (what the interaction ledger uses)
+
+| Form | Attack range | Ranged | Projectile | Missile speed | Attack modifiers |
+|---|--:|---|---|--:|---|
+| Hwei | 550 | yes | yes | 2800 | – |
+
+Cooldowns at max rank. Flags: the wiki's interaction flags (yes, no, partly). * marks an effect that applies only under a condition.
+
+| Slot | Ability | Cooldown | Delivery | Applies to the enemy | Movement | Gives itself |
+|---|---|--:|---|---|---|---|
+| E | Crushing Maw | – | spell shield yes | airborne (pull)*; slow 1.25 s 70% | – | – |
+| E | Molten Fissure | – | projectile yes; spell shield partly | slow 35% | – | – |
+| E | Stirring Lights | – | spell shield no; attack | – | – | – |
+| E | Subject: Torment | 10 | – | – | – | – |
+| I | Signature of the Visionary | – | spell shield yes | – | – | – |
+| Q | Devastating Fire | – | projectile yes; spell shield yes | – | – | – |
+| Q | Fleeting Current | – | projectile no | – | – | – |
+| Q | Grim Visage | – | projectile yes; spell shield yes | fear 1.5 s; knockdown 1.5 s; slow 1.5 s 70%; knockdown | – | – |
+| Q | Subject: Disaster | 6 | – | – | – | – |
+| R | Spiraling Despair | 80 | projectile yes; spell shield partly | slow 0.25 s 10%; reveal | – | – |
+| R | Wash Brush | – | – | – | – | – |
+| W | Gaze of the Abyss | – | projectile yes; spell shield yes | root 2.5 s; reveal | – | – |
+| W | Pool of Reflection | – | – | – | – | shield 0.5 s |
+| W | Severing Bolt | – | spell shield yes | – | – | – |
+| W | Subject: Serenity | 16 | – | – | – | – |
+
 ## Innate: Signature of the Visionary
 
 Source: [Template:Data Hwei/Signature of the Visionary](https://wiki.leagueoflegends.com/en-us/Template:Data_Hwei/Signature_of_the_Visionary?oldid=4038347) (revision 4038347). Ranks: 1.

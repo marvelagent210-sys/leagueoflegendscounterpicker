@@ -1,0 +1,238 @@
+{
+  "champion": "Chogath",
+  "name": "Cho'Gath",
+  "gameplayRadius": 80,
+  "moveSpeed": 345,
+  "attacks": [
+    {
+      "form": "cho-gath",
+      "formName": "Cho'Gath",
+      "range": 125,
+      "ranged": false,
+      "projectile": false,
+      "attackSpeed": 0.834985,
+      "attackDamage": 151.593,
+      "windup": 0.26228,
+      "modifiers": []
+    }
+  ],
+  "abilities": [
+    {
+      "champion": "Chogath",
+      "kind": "E",
+      "name": "Vorpal Spikes",
+      "page": {
+        "title": "Template:Data Cho'Gath/Vorpal Spikes",
+        "revid": 4057853
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "auto"
+        ],
+        "affectsEnemies": true,
+        "projectile": "yes",
+        "spellShield": "no",
+        "parry": "no",
+        "attack": "attack"
+      },
+      "applies": [
+        {
+          "type": "slow",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "slow"
+            },
+            {
+              "page": "Template:Data Cho'Gath/Vorpal Spikes",
+              "revid": 4057853,
+              "quote": "Enemies struck are dealt magic damage and slowed by an amount that decays over 1.5 seconds."
+            }
+          ],
+          "duration": 1.5,
+          "amount": 50
+        }
+      ],
+      "movement": [],
+      "states": [],
+      "cooldown": 4,
+      "castTime": 0,
+      "range": 650,
+      "speed": 1475,
+      "boostsAttacks": true,
+      "notes": [
+        "The missiles are launched from an offset 25 units in front of Cho'Gath and towards the target's location on-attack-complete.\n  - When attacking enemies within 25 units center-to-center of Cho'Gath, the missile will fire in the opposite direction.",
+        "Cho'Gath's size factors into the wideness of the hitbox Vorpal Spikes has. External size modifiers (Wild Growth) contribute to this.\n  - At certain size thresholds, the missile gets replaced by a different one with a different width. At each step, the width grows by 30, except for the 3rd missile, where it only grows by 10.\n  - Some of the size thresholds are placed very weird.\n  - The missile range is unchanged."
+      ]
+    },
+    {
+      "champion": "Chogath",
+      "kind": "I",
+      "name": "Carnivore",
+      "page": {
+        "title": "Template:Data Cho'Gath/Carnivore",
+        "revid": 4038297
+      },
+      "damageTypes": [],
+      "delivery": {
+        "targeting": [
+          "passive"
+        ],
+        "affectsEnemies": false
+      },
+      "applies": [],
+      "movement": [],
+      "states": [
+        {
+          "state": "heal",
+          "evidence": [
+            {
+              "page": "Template:Data Cho'Gath/Carnivore",
+              "revid": 4038297,
+              "quote": "Innate: Whenever Cho'Gath kills an enemy, it heals for 18 – 52 (based on level) and restores 4.72 – 9.48 (based on level) mana."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "champion": "Chogath",
+      "kind": "Q",
+      "name": "Rupture",
+      "page": {
+        "title": "Template:Data Cho'Gath/Rupture",
+        "revid": 4053169
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "location"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "yes"
+      },
+      "applies": [
+        {
+          "type": "airborne",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "airborne: knock up"
+            },
+            {
+              "page": "Template:Data Cho'Gath/Rupture",
+              "revid": 4053169,
+              "quote": "Active: Cho'Gath ruptures the target location after a 0.627 delay, granting sight of the area before dealing magic damage to enemies within and knocking them up for 1 second, and afterwards slowing them by 60% for 1.5 seconds."
+            }
+          ],
+          "variant": "knock up",
+          "duration": 1
+        },
+        {
+          "type": "slow",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "slow"
+            },
+            {
+              "page": "Template:Data Cho'Gath/Rupture",
+              "revid": 4053169,
+              "quote": "Active: Cho'Gath ruptures the target location after a 0.627 delay, granting sight of the area before dealing magic damage to enemies within and knocking them up for 1 second, and afterwards slowing them by 60% for 1.5 seconds."
+            }
+          ],
+          "duration": 1.5,
+          "amount": 60
+        }
+      ],
+      "movement": [],
+      "states": [],
+      "cooldown": 6,
+      "castTime": 0.5,
+      "range": 950,
+      "notes": [
+        "Cleansing the airborne will not prevent the slow.\n  - The slow itself can also not be blocked by spell shield, but will always be prevented if the airborne was."
+      ]
+    },
+    {
+      "champion": "Chogath",
+      "kind": "R",
+      "name": "Feast",
+      "page": {
+        "title": "Template:Data Cho'Gath/Feast",
+        "revid": 3932267
+      },
+      "damageTypes": [
+        "true"
+      ],
+      "delivery": {
+        "targeting": [
+          "unit"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "yes"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "cooldown": 60,
+      "castTime": 0.25,
+      "range": 175,
+      "notes": [
+        "If the target becomes untargetable, dies, or is too far away or no longer in sight during the cast time, this ability will cancel but does not go on cooldown nor pay its cost (if applicable).",
+        "If an enemy champion has health below the amount of true damage Feast deals, they will be marked for execution. This indicator does not consider shields or invulnerability."
+      ]
+    },
+    {
+      "champion": "Chogath",
+      "kind": "W",
+      "name": "Feral Scream",
+      "page": {
+        "title": "Template:Data Cho'Gath/Feral Scream",
+        "revid": 4052916
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "direction"
+        ],
+        "affectsEnemies": true,
+        "projectile": "no",
+        "spellShield": "yes"
+      },
+      "applies": [
+        {
+          "type": "silence",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "silence"
+            },
+            {
+              "page": "Template:Data Cho'Gath/Feral Scream",
+              "revid": 4052916,
+              "quote": "Enemy champions and Rift Scuttlers hit are also silenced for a duration."
+            }
+          ],
+          "duration": 2
+        }
+      ],
+      "movement": [],
+      "states": [],
+      "cooldown": 9,
+      "castTime": 0.5,
+      "range": 650
+    }
+  ]
+}

@@ -9,6 +9,22 @@ Values marked "at max rank, level 20" assume every ability is maxed; see PLAN.md
 |---|--:|--:|--:|--:|--:|--:|--:|--:|--:|--:|
 | Lux | 2526.8 | 16.32 | 902.1 Mana | 118.9 | 1.038 | 0.151 | 123.3 | 55.6 | 550 | 330 |
 
+## Fight profile (what the interaction ledger uses)
+
+| Form | Attack range | Ranged | Projectile | Missile speed | Attack modifiers |
+|---|--:|---|---|--:|---|
+| Lux | 550 | yes | yes | 1600 | Illumination |
+
+Cooldowns at max rank. Flags: the wiki's interaction flags (yes, no, partly). * marks an effect that applies only under a condition.
+
+| Slot | Ability | Cooldown | Delivery | Applies to the enemy | Movement | Gives itself |
+|---|---|--:|---|---|---|---|
+| E | Lucent Singularity | 8 | projectile yes; spell shield yes | slow 45% | – | – |
+| I | Illumination | – | spell shield partly; attack modifier | – | – | – |
+| Q | Light Binding | 10 | projectile yes; spell shield yes | root 2 s | – | – |
+| R | Final Spark | 40 | projectile no; spell shield yes | – | – | – |
+| W | Prismatic Barrier | 10 | projectile partly | – | – | – |
+
 ## Innate: Illumination
 
 Source: [Template:Data Lux/Illumination](https://wiki.leagueoflegends.com/en-us/Template:Data_Lux/Illumination?oldid=4059694) (revision 4059694). Ranks: 1.

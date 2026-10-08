@@ -1,0 +1,320 @@
+{
+  "champion": "Yuumi",
+  "name": "Yuumi",
+  "gameplayRadius": 55,
+  "moveSpeed": 330,
+  "attacks": [
+    {
+      "form": "yuumi",
+      "formName": "Yuumi",
+      "range": 425,
+      "ranged": true,
+      "projectile": true,
+      "missileSpeed": 1500,
+      "attackSpeed": 0.747906,
+      "attackDamage": 109.962,
+      "windup": 0.208917,
+      "modifiers": [
+        "Feline Friendship"
+      ]
+    }
+  ],
+  "abilities": [
+    {
+      "champion": "Yuumi",
+      "kind": "E",
+      "name": "Zoomies",
+      "page": {
+        "title": "Template:Data Yuumi/Zoomies",
+        "revid": 4026487
+      },
+      "damageTypes": [],
+      "delivery": {
+        "targeting": [
+          "auto"
+        ],
+        "affectsEnemies": false
+      },
+      "applies": [],
+      "movement": [],
+      "states": [
+        {
+          "state": "shield",
+          "evidence": [
+            {
+              "page": "Template:Data Yuumi/Zoomies",
+              "revid": 4026487,
+              "quote": "Active: Yuumi grants herself a shield and gains bonus attack speed for 3 seconds."
+            }
+          ],
+          "duration": 3
+        }
+      ],
+      "cooldown": 10,
+      "castTime": 0,
+      "boostsAttacks": true
+    },
+    {
+      "champion": "Yuumi",
+      "kind": "I",
+      "name": "Feline Friendship",
+      "page": {
+        "title": "Template:Data Yuumi/Feline Friendship",
+        "revid": 4026485
+      },
+      "damageTypes": [],
+      "delivery": {
+        "targeting": [
+          "passive"
+        ],
+        "affectsEnemies": true,
+        "projectile": "no",
+        "attack": "attack modifier"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [
+        {
+          "state": "heal",
+          "evidence": [
+            {
+              "page": "Template:Data Yuumi/Feline Friendship",
+              "revid": 4026485,
+              "quote": "Upon hitting them with the basic attack or Prowling Projectile, or upon a Final Chapter hit on ally champions while attached, the buff is consumed to heal her for 20 – 110 (based on level) (+ 30% AP)."
+            }
+          ]
+        }
+      ],
+      "cooldown": 8,
+      "notes": [
+        "Empowered attack interaction with parrying effects (dodge, block).\n  - If Yuumi is blinded, Feline Friendship won't be consumed."
+      ]
+    },
+    {
+      "champion": "Yuumi",
+      "kind": "Q",
+      "name": "Prowling Projectile",
+      "page": {
+        "title": "Template:Data Yuumi/Prowling Projectile",
+        "revid": 4008652
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "direction"
+        ],
+        "affectsEnemies": true,
+        "projectile": "yes",
+        "spellShield": "yes",
+        "disruptable": "yes",
+        "attack": "on-hit"
+      },
+      "applies": [
+        {
+          "type": "slow",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "slow"
+            },
+            {
+              "page": "Template:Data Yuumi/Prowling Projectile",
+              "revid": 4008652,
+              "quote": "If the target is a champion, they are also revealed and slowed by 20% for 1 second."
+            }
+          ],
+          "duration": 1,
+          "amount": 20,
+          "condition": "If the target is a champion, they are also revealed and slowed by 20% for 1 second."
+        }
+      ],
+      "movement": [],
+      "states": [],
+      "cooldown": 6.5,
+      "castTime": 0,
+      "range": 850,
+      "speed": 950,
+      "channel": [
+        {
+          "type": "normal",
+          "evidence": [
+            {
+              "page": "Channel",
+              "revid": 4002276,
+              "quote": "normal"
+            }
+          ]
+        }
+      ],
+      "boostsAttacks": true,
+      "notes": [
+        "Prowling Projectile is able to turn clockwise or counter-clockwise at a rate of 90° per 0.5 seconds. The missile can turn a maximum of 243° in both directions combined before accelerating.",
+        "Prowling Projectile can be buffered 0.5 seconds before it comes off cooldown.",
+        "The following table refers for interactions while Yuumi is channeling:"
+      ]
+    },
+    {
+      "champion": "Yuumi",
+      "kind": "R",
+      "name": "Final Chapter",
+      "page": {
+        "title": "Template:Data Yuumi/Final Chapter",
+        "revid": 4047717
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "direction"
+        ],
+        "affectsEnemies": true,
+        "projectile": "yes",
+        "spellShield": "partly",
+        "disruptable": "yes"
+      },
+      "applies": [
+        {
+          "type": "slow",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "slow"
+            },
+            {
+              "page": "Template:Data Yuumi/Final Chapter",
+              "revid": 4047717,
+              "quote": "Enemies struck by the waves take magic damage and are slowed by 10% for 1.25 seconds."
+            }
+          ],
+          "duration": 1.25,
+          "amount": 10
+        }
+      ],
+      "movement": [],
+      "states": [],
+      "cooldown": 100,
+      "castTime": 0,
+      "range": 1100,
+      "speed": 3000,
+      "channel": [
+        {
+          "type": "normal",
+          "evidence": [
+            {
+              "page": "Channel",
+              "revid": 4002276,
+              "quote": "normal"
+            }
+          ]
+        }
+      ],
+      "notes": [
+        "Yuumi becomes ghosted for the channel and, if not presently attached with You and Me!, will remain ghosted until she attaches and detaches again.",
+        "Spell shield will only block a single instance of damage.",
+        "Yuumi's facing direction during the channel is considered to be in Final Chapter's target direction.\n  - Using Hexflash during the channel will always cause Yuumi to blink in the target direction of Final Chapter.",
+        "The following table refers for interactions while Yuumi is channeling:"
+      ]
+    },
+    {
+      "champion": "Yuumi",
+      "kind": "W",
+      "name": "You and Me!",
+      "page": {
+        "title": "Template:Data Yuumi/You and Me!",
+        "revid": 4011487
+      },
+      "damageTypes": [],
+      "delivery": {
+        "targeting": [
+          "unit",
+          "direction"
+        ],
+        "affectsEnemies": false,
+        "grounded": "yes",
+        "knockdown": "yes",
+        "disruptable": "yes",
+        "attack": "on-hit"
+      },
+      "applies": [],
+      "movement": [
+        {
+          "type": "dash",
+          "evidence": [
+            {
+              "page": "Dash",
+              "revid": 4035700,
+              "quote": "unit-targeted"
+            }
+          ],
+          "targeting": "unit-targeted",
+          "interruptible": true,
+          "interruptedByCC": true
+        }
+      ],
+      "states": [
+        {
+          "state": "untargetable",
+          "evidence": [
+            {
+              "page": "Untargetability",
+              "revid": 3965000,
+              "quote": "Does not destroy inbound projectiles, special cased to be targetable to turrets"
+            },
+            {
+              "page": "Template:Data Yuumi/You and Me!",
+              "revid": 4011487,
+              "quote": "Passive: While Yuumi is attached, she is untargetable (except by turrets and inbound projectiles) and casts her abilities from the Anchor's position, empowering them with additional effects."
+            }
+          ],
+          "note": "Does not destroy inbound projectiles, special cased to be targetable to turrets"
+        },
+        {
+          "state": "heal",
+          "evidence": [
+            {
+              "page": "Template:Data Yuumi/You and Me!",
+              "revid": 4011487,
+              "quote": "Best Friend Bonus: Yuumi gains heal and shield power and her Best Friend gains healing on-hit."
+            }
+          ]
+        }
+      ],
+      "cooldown": 0,
+      "castTime": 0,
+      "range": 700,
+      "speed": 1600,
+      "channel": [
+        {
+          "type": "movement",
+          "evidence": [
+            {
+              "page": "Channel",
+              "revid": 4002276,
+              "quote": "movement"
+            }
+          ]
+        }
+      ],
+      "notes": [
+        "The Best Friend's healing on-hit is affected by Yuumi's heal and shield power.",
+        "If the target moves 2000 or more units away from Yuumi during the dash, it will be interrupted and You and Me! will be placed on full cooldown.",
+        "The initial cast and recast of You and Me! have a forgiveness radius of 175 units.\n  - This behavior can override her direction-targeted dash to discard any target.",
+        "Yuumi can channel the Eye of the Herald while attached.",
+        "Yuumi will automatically detach in the following circumstances:\n  - When her Anchor starts a Teleport channel.\n  - After the Anchor completes a Recall channel.\n  - Her Anchor is sent to the Realm of Death.\n  - She is pulled by Fate's Call.\n  - When she or her Anchor enters resurrection.\n    - If Yuumi is channeling You and Me! or already dashing towards an ally who enters resurrection, then she will successfully attach to the resurrecting ally, and she will be able to heal/shield them during it.",
+        "Yuumi doesn't detach instantly when her Anchor dies. There's a small grace period in which she can recast You and Me! to attach to another champion without the channel or dash in the target direction.",
+        "Yuumi can dash to targetable zombie state allies (currently only Glory in Death), but she cannot attach when she reaches them.\n  - The same goes for allies channeling Teleport.",
+        "While attached to the Anchor, Yuumi is considered in being at her Anchor's position, regardless of where she is visually placed near them. For example, turret shots will appear as if they were hitting the Anchor, but in reality they're actually hitting Yuumi.\n  - However, for the purposes of You and Me!, such as casting it or being unattached for other reasons, Yuumi will be in the position where she visually is. For example, when she is in the blue team, dashing to a north-east ally is considerably slower than dashing to a south-west ally.",
+        "Yuumi will always be visible if her Anchor can be seen, and she will always not be visible if her Anchor cannot be seen. These rules apply regardless of reveal effects and stealth.",
+        "If Yuumi is on the blue team, she will remain attached on the southwest side; if Yuumi is on the red team, she will remain on the northeast. While channeling Final Chapter, she will be behind her Anchor.",
+        "Sleep does not count for knocking the dash down.",
+        "The following table refers for interactions while Yuumi is channeling:",
+        "All of Yuumi's abilities can be buffered while channeling and dashing.\n  - Summon Aery and Tear of the Goddess would not trigger from the heal or shield when buffered."
+      ]
+    }
+  ]
+}

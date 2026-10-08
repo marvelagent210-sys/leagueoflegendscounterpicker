@@ -9,6 +9,22 @@ Values marked "at max rank, level 20" assume every ability is maxed; see PLAN.md
 |---|--:|--:|--:|--:|--:|--:|--:|--:|--:|--:|
 | Maokai | 2808.5 | 19.75 | 1220.6 Mana | 128.9 | 1.090 | 0.275 | 137.3 | 72.3 | 125 | 335 |
 
+## Fight profile (what the interaction ledger uses)
+
+| Form | Attack range | Ranged | Projectile | Missile speed | Attack modifiers |
+|---|--:|---|---|--:|---|
+| Maokai | 125 | no | no | – | Sap Magic |
+
+Cooldowns at max rank. Flags: the wiki's interaction flags (yes, no, partly). * marks an effect that applies only under a condition.
+
+| Slot | Ability | Cooldown | Delivery | Applies to the enemy | Movement | Gives itself |
+|---|---|--:|---|---|---|---|
+| E | Sapling Toss | 14 | projectile yes; spell shield yes | slow 2 s 45% | – | – |
+| I | Sap Magic | 18.8235 | parry partly; attack modifier | – | – | heal |
+| Q | Bramble Smash | 5 | projectile yes; spell shield yes | airborne (knock back); slow 0.25 s 99%; stun 0.5 s | – | – |
+| R | Nature's Grasp | 90 | projectile yes; spell shield yes | root 0.75 s | – | – |
+| W | Twisted Advance | 10 | spell shield yes; grounded yes; knockdown yes | root 1.4 s | dash | untargetable 1.4 s |
+
 ## Innate: Sap Magic
 
 Source: [Template:Data Maokai/Sap Magic](https://wiki.leagueoflegends.com/en-us/Template:Data_Maokai/Sap_Magic?oldid=4038409) (revision 4038409). Ranks: 1.

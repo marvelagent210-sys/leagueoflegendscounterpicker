@@ -1,0 +1,313 @@
+{
+  "champion": "Qiyana",
+  "name": "Qiyana",
+  "gameplayRadius": 65,
+  "moveSpeed": 335,
+  "attacks": [
+    {
+      "form": "qiyana",
+      "formName": "Qiyana",
+      "range": 150,
+      "ranged": false,
+      "projectile": false,
+      "attackSpeed": 0.946103,
+      "attackDamage": 124.962,
+      "windup": 0.162068,
+      "modifiers": [
+        "Royal Privilege"
+      ]
+    }
+  ],
+  "abilities": [
+    {
+      "champion": "Qiyana",
+      "kind": "E",
+      "name": "Audacity",
+      "page": {
+        "title": "Template:Data Qiyana/Audacity",
+        "revid": 4052493
+      },
+      "damageTypes": [
+        "physical"
+      ],
+      "delivery": {
+        "targeting": [
+          "unit"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "yes",
+        "grounded": "yes",
+        "knockdown": "yes"
+      },
+      "applies": [],
+      "movement": [
+        {
+          "type": "dash",
+          "evidence": [
+            {
+              "page": "Dash",
+              "revid": 4035700,
+              "quote": "unit-targeted"
+            }
+          ],
+          "targeting": "unit-targeted",
+          "interruptible": true
+        }
+      ],
+      "states": [],
+      "cooldown": 7,
+      "castTime": 0,
+      "range": 650,
+      "speed": 600,
+      "notes": [
+        "Audacity only damages targets if within 250 range upon completion of the dash.",
+        "Qiyana will automatically be ordered to acquire and attack Audacity's target as soon as the dash completes."
+      ]
+    },
+    {
+      "champion": "Qiyana",
+      "kind": "I",
+      "name": "Royal Privilege",
+      "page": {
+        "title": "Template:Data Qiyana/Royal Privilege",
+        "revid": 3985639
+      },
+      "damageTypes": [
+        "physical"
+      ],
+      "delivery": {
+        "targeting": [
+          "passive"
+        ],
+        "affectsEnemies": true,
+        "attack": "attack modifier"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "notes": [
+        "Royal Privilege's trigger from a basic attack can be blocked (additional damage is negated and the on-target cooldown does not apply).",
+        ": Royal Privilege's interaction with parrying effects (dodge, blind)."
+      ]
+    },
+    {
+      "champion": "Qiyana",
+      "kind": "Q",
+      "name": "Edge of Ixtal",
+      "page": {
+        "title": "Template:Data Qiyana/Edge of Ixtal",
+        "revid": 4057472
+      },
+      "damageTypes": [
+        "physical"
+      ],
+      "delivery": {
+        "targeting": [
+          "direction"
+        ],
+        "affectsEnemies": true,
+        "projectile": "no",
+        "spellShield": "yes"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "cooldown": 7,
+      "castTime": 0.25,
+      "range": 525,
+      "notes": [
+        "If cast during Audacity and the target uses a dash or blink or is no longer in vision, Edge of Ixtal will aim at the target's last location prior to them starting the dash or blink or being in vision."
+      ]
+    },
+    {
+      "champion": "Qiyana",
+      "kind": "Q",
+      "name": "Elemental Wrath",
+      "page": {
+        "title": "Template:Data Qiyana/Elemental Wrath",
+        "revid": 4057473
+      },
+      "damageTypes": [
+        "physical"
+      ],
+      "delivery": {
+        "targeting": [
+          "direction"
+        ],
+        "affectsEnemies": true,
+        "projectile": "yes",
+        "spellShield": "yes"
+      },
+      "applies": [
+        {
+          "type": "slow",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "slow"
+            },
+            {
+              "page": "Template:Data Qiyana/Elemental Wrath",
+              "revid": 4057473,
+              "quote": "River: The blast roots enemies hit for 0.5 seconds, then slows them by 20% for 1 second."
+            }
+          ],
+          "duration": 1,
+          "amount": 20
+        },
+        {
+          "type": "root",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "root"
+            },
+            {
+              "page": "Template:Data Qiyana/Elemental Wrath",
+              "revid": 4057473,
+              "quote": "River: The blast roots enemies hit for 0.5 seconds, then slows them by 20% for 1 second."
+            }
+          ],
+          "duration": 0.5
+        }
+      ],
+      "movement": [],
+      "states": [
+        {
+          "state": "invisible",
+          "evidence": [
+            {
+              "page": "Stealth",
+              "revid": 4013411,
+              "quote": "(Brush)"
+            },
+            {
+              "page": "Template:Data Qiyana/Elemental Wrath",
+              "revid": 4057473,
+              "quote": "Brush: The blade creates a grass field around Qiyana that lasts for up to 3 seconds, granting her invisibility and 20% bonus movement speed until she attacks, casts an ability other than Terrashape, or exits the field."
+            }
+          ],
+          "duration": 3,
+          "condition": "(Brush)"
+        }
+      ],
+      "range": 865,
+      "speed": 1600,
+      "notes": [
+        "Using a basic attack breaks the stealth at the start of the attack windup."
+      ]
+    },
+    {
+      "champion": "Qiyana",
+      "kind": "R",
+      "name": "Supreme Display of Talent",
+      "page": {
+        "title": "Template:Data Qiyana/Supreme Display of Talent",
+        "revid": 4007999
+      },
+      "damageTypes": [
+        "physical"
+      ],
+      "delivery": {
+        "targeting": [
+          "direction"
+        ],
+        "affectsEnemies": true,
+        "projectile": "partly",
+        "spellShield": "yes"
+      },
+      "applies": [
+        {
+          "type": "airborne",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "airborne: knock back"
+            },
+            {
+              "page": "Template:Data Qiyana/Supreme Display of Talent",
+              "revid": 4007999,
+              "quote": "Active: Qiyana sweeps a windblast in the target direction that knocks back enemies hit by 375 units, though not through terrain, and stops upon hitting Terrain."
+            }
+          ],
+          "variant": "knock back"
+        },
+        {
+          "type": "stun",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "stun"
+            },
+            {
+              "page": "Template:Data Qiyana/Supreme Display of Talent",
+              "revid": 4007999,
+              "quote": "The windblast creates a cascading shockwave across any River or Brush it passes through, as well as around the borders of Terrain it reaches, dealing physical damage to enemies hit, stunning them for 0.5 / 1 (based on proximity) seconds, and briefly granting sight of the area along its path."
+            }
+          ],
+          "duration": 0.5
+        }
+      ],
+      "movement": [],
+      "states": [],
+      "cooldown": 120,
+      "castTime": 0.25,
+      "range": 875,
+      "speed": 2000,
+      "notes": [
+        "Projectile-intercepting effects will block the windblast but not the shockwave."
+      ]
+    },
+    {
+      "champion": "Qiyana",
+      "kind": "W",
+      "name": "Terrashape",
+      "page": {
+        "title": "Template:Data Qiyana/Terrashape",
+        "revid": 4007752
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "location"
+        ],
+        "affectsEnemies": false,
+        "grounded": "yes",
+        "knockdown": "yes",
+        "attack": "on-hit"
+      },
+      "applies": [],
+      "movement": [
+        {
+          "type": "dash",
+          "evidence": [
+            {
+              "page": "Dash",
+              "revid": 4035700,
+              "quote": "location-targeted"
+            }
+          ],
+          "targeting": "location-targeted",
+          "interruptible": true
+        }
+      ],
+      "states": [],
+      "cooldown": 7,
+      "castTime": 0,
+      "range": 1100,
+      "speed": 440,
+      "boostsAttacks": true,
+      "notes": [
+        "Terrashape has no minimum dash range.",
+        "Passive bonus damage from basic attacks can be blocked.",
+        ": Passive bonus damage interaction with parrying effects (dodge, blind)."
+      ]
+    }
+  ]
+}

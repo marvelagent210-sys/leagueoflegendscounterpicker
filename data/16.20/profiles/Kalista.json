@@ -1,0 +1,327 @@
+{
+  "champion": "Kalista",
+  "name": "Kalista",
+  "gameplayRadius": 65,
+  "moveSpeed": 330,
+  "attacks": [
+    {
+      "form": "kalista",
+      "formName": "Kalista",
+      "range": 525,
+      "ranged": true,
+      "projectile": true,
+      "missileSpeed": 2600,
+      "attackSpeed": 1.30814,
+      "attackDamage": 150.409,
+      "windup": 0.336083,
+      "modifiers": []
+    }
+  ],
+  "abilities": [
+    {
+      "champion": "Kalista",
+      "kind": "A",
+      "name": "Basic Attack",
+      "page": {
+        "title": "Template:Data Kalista/Basic Attack",
+        "revid": 3951529
+      },
+      "damageTypes": [
+        "physical"
+      ],
+      "delivery": {
+        "targeting": [
+          "unit"
+        ],
+        "affectsEnemies": true,
+        "projectile": "yes",
+        "parry": "yes"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "speed": 2600,
+      "boostsAttacks": true
+    },
+    {
+      "champion": "Kalista",
+      "kind": "E",
+      "name": "Rend",
+      "page": {
+        "title": "Template:Data Kalista/Rend",
+        "revid": 4004071
+      },
+      "damageTypes": [
+        "physical"
+      ],
+      "delivery": {
+        "targeting": [
+          "proximity"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "yes",
+        "parry": "partly",
+        "attack": "on-hit"
+      },
+      "applies": [
+        {
+          "type": "slow",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "slow"
+            },
+            {
+              "page": "Template:Data Kalista/Rend",
+              "revid": 4004071,
+              "quote": "Active: Kalista rips out the lodged spears from all nearby enemies afflicted with Rend stacks, consuming the stacks on each target to deal physical damage and slow them for 2 seconds."
+            }
+          ],
+          "duration": 2,
+          "amount": 42
+        }
+      ],
+      "movement": [],
+      "states": [],
+      "cooldown": 8,
+      "castTime": 0.25,
+      "notes": [
+        "Rend cannot activate on untargetable enemies.",
+        "Rend can be used during the dash of Martial Poise, and during the cast time of Pierce. If Rend is used during the cast time of Pierce, before the projectile spawns, doing so will repeat the first-spear damage to a target already damaged by Rend, in addition to empowering the projectile with Rend's effects.",
+        "A stack is not applied if the attack is dodged, blocked or missed while Kalista is blinded.",
+        "Pierce does not apply a stack of Rend if blocked by spell shield."
+      ]
+    },
+    {
+      "champion": "Kalista",
+      "kind": "I",
+      "name": "Martial Poise",
+      "page": {
+        "title": "Template:Data Kalista/Martial Poise",
+        "revid": 4024157
+      },
+      "damageTypes": [],
+      "delivery": {
+        "targeting": [
+          "direction"
+        ],
+        "affectsEnemies": false,
+        "grounded": "yes",
+        "knockdown": "yes"
+      },
+      "applies": [],
+      "movement": [
+        {
+          "type": "dash",
+          "evidence": [
+            {
+              "page": "Dash",
+              "revid": 4035700,
+              "quote": "direction-targeted"
+            }
+          ],
+          "targeting": "direction-targeted",
+          "interruptible": true,
+          "interruptedByCC": true
+        }
+      ],
+      "states": [],
+      "boostsAttacks": true,
+      "notes": [
+        "Basic attacks and Pierce cannot be cast while dashing, unless animation cancelled with a movement command.",
+        "Kalista must wait for her auto attack windup or cast animation to finish, before she dashes. However, Kalista will dash immediately if the movement command to dash is input after her auto attack windup finishes.",
+        "Martial Poise also \"remembers\" your auto attack target after dashing, letting you dash repeatedly by only clicking the ground.",
+        "Martial Poise cannot keep up with attack speed values greater than 2.1, due to the combination of her auto attack windup taking too long, and her dashes being too slow. Movement speed bonuses make it less of an issue.\n  - Sufficiently high attack speeds can also cause Martial Poise to interpret movement inputs as dash inputs, during the dash of a previous auto attack (such as jumping towards attack-move inputs).",
+        "Move commands inputted during an attack windup or the cast time of Pierce while Kalista is immobilized or grounded will fail to cast and thus prevent the dash from triggering.",
+        "If multiple move commands are inputted during the attack windup, the most recent one is used for the dash's targeting.\n  - If the most recent input is not a move command, the dash will not trigger.\n    - In this case, the buffer for the previous move command was cancelled by a new non-move command such as an input for an attack or ability cast.\n  - The move command will still be buffered to the end of the immobilization or the end of the attack windup or cast time of Pierce while grounded if it has not been overridden by other inputs.",
+        "Kalista's facing direction will change immediately on move command even among multiple inputs, but will not visually update until the dash.",
+        "The facing direction when dashing is considered to be in the direction of the dash, not her apparent facing direction based on her model's animation state.",
+        "Dash distance decreases as the dash direction becomes closer to the minimum direction. This defines a forward distance for basic attacks and a backwards distance for Pierce.",
+        "Empirical testing has given the following values below.\n  - Basic attack dash range given the angle θ:\n    - \\begin{cases}(175 + (125 \\times \\sin(\\theta))) \\times T \\end{cases}\n      - Where T = 0.800, 0.875, 0.950, 1.000 depending on the tier of Boots (T0, T1, T2, T3)\n    - Minimum dash range of 225 units when dashing backwards\n  - Pierce's dash range given the angle θ:\n    - \\begin{cases} 150 + (150 \\times \\sin(\\theta)) & \\mathrm{Backwards} \\\\ 300 & \\mathrm{Otherwise} \\end{cases}",
+        "There is a very brief grace period after completing a basic attack windup wherein Kalista can still input a movement command to trigger the dash.",
+        "The dash speed is unaffected by additive movement speed modifiers.",
+        "There are a total of 24 different dash ranges based on direction with Boots and Pierce being cast.",
+        "Kalista will automatically be issued an attack command on her attack target at the end of the dash, as long as they remain in her attack range by then.",
+        "The attack move (default A + MB1) click feature checks for targets in brief intervals only if Kalista is not dashing.",
+        "Sleep does not count for knocking the dash down."
+      ]
+    },
+    {
+      "champion": "Kalista",
+      "kind": "Q",
+      "name": "Pierce",
+      "page": {
+        "title": "Template:Data Kalista/Pierce",
+        "revid": 3997075
+      },
+      "damageTypes": [
+        "physical"
+      ],
+      "delivery": {
+        "targeting": [
+          "direction"
+        ],
+        "affectsEnemies": true,
+        "projectile": "yes",
+        "spellShield": "yes"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "cooldown": 9,
+      "castTime": 0.25,
+      "range": 1200,
+      "speed": 2400,
+      "notes": [
+        "Pierce cannot be cast during the dash of Martial Poise unless animation cancelled with a movement command."
+      ]
+    },
+    {
+      "champion": "Kalista",
+      "kind": "R",
+      "name": "Fate's Call",
+      "page": {
+        "title": "Template:Data Kalista/Fate's Call",
+        "revid": 4015001
+      },
+      "damageTypes": [],
+      "delivery": {
+        "targeting": [
+          "proximity"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "yes",
+        "knockdown": "no"
+      },
+      "applies": [
+        {
+          "type": "airborne",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "airborne: knock up"
+            },
+            {
+              "page": "Template:Data Kalista/Fate's Call",
+              "revid": 4015001,
+              "quote": "Upon the dash ending by collision or arriving to the targeted location, the Oathsworn knocks back all nearby enemies and keeps them airborne for a set duration, while simultaneously landing to their base attack range from the closest target hit."
+            }
+          ],
+          "variant": "knock up",
+          "duration": 2
+        }
+      ],
+      "movement": [
+        {
+          "type": "dash",
+          "evidence": [
+            {
+              "page": "Dash",
+              "revid": 4035700,
+              "quote": "auto-targeted; (Oathsworn pull-in)"
+            }
+          ],
+          "targeting": "auto-targeted",
+          "condition": "(Oathsworn pull-in)",
+          "interruptible": false
+        },
+        {
+          "type": "dash",
+          "evidence": [
+            {
+              "page": "Dash",
+              "revid": 4035700,
+              "quote": "location-targeted; (Oathsworn selected dash)"
+            }
+          ],
+          "targeting": "location-targeted",
+          "condition": "(Oathsworn selected dash)",
+          "interruptible": false
+        },
+        {
+          "type": "lunge",
+          "evidence": [
+            {
+              "page": "Dash",
+              "revid": 4035700,
+              "quote": "(Oathsworn when landing at max range from the impact)"
+            }
+          ],
+          "condition": "(Oathsworn when landing at max range from the impact)",
+          "interruptible": false
+        }
+      ],
+      "states": [
+        {
+          "state": "cleanse",
+          "removes": [
+            "airborne",
+            "blind",
+            "cripple",
+            "disarm",
+            "berserk",
+            "charm",
+            "fear",
+            "taunt",
+            "ground",
+            "nearsight",
+            "root",
+            "silence",
+            "polymorph",
+            "drowsy",
+            "sleep",
+            "slow",
+            "stun",
+            "suspension",
+            "suppression"
+          ],
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Summary"
+            }
+          ]
+        }
+      ],
+      "cooldown": 120,
+      "castTime": 0,
+      "range": 1200,
+      "notes": [
+        "If the Oathsworn does not hit any targets with the knock up effect, the dash will simply end and they will reappear at the target location.",
+        "The following will defer Fate's Call's effects at the time of cast to the end of their duration if the Oathsworn is:\n  - In a cast time.\n  - Channeling.\n    - Fate's Call will not defer by the following channels: Recall, Defiant Dance, Realm Warp, and The Culling.\n    - Fate's Call cannot be cast during the following channels: Teleport, Gate, Grand Starfall, Hero's Entrance and Stand United.\n  - Using an ability that preloads UnstoppableForceMarker.\n    - If the Oathsworn is still occupied after 6 seconds of being deferred from this time, Fate's Call will cancel.",
+        "Fate's Call will not pull the Oathsworn if they are dashing but they will be retrieved after 1 second regardless.",
+        "Fate's Call can be cast even if the Oathsworn is untargetable."
+      ]
+    },
+    {
+      "champion": "Kalista",
+      "kind": "W",
+      "name": "Sentinel",
+      "page": {
+        "title": "Template:Data Kalista/Sentinel",
+        "revid": 4007621
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "location"
+        ],
+        "affectsEnemies": true
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "cooldown": 50,
+      "castTime": 0.5,
+      "range": 1400,
+      "notes": [
+        "The damage is dealt on-attack of Kalista's basic attack if she applies the second mark. If the Oathsworn does so instead, the damage is dealt on-hit of their basic attack.",
+        "The Sentinel's sight reveal on enemy champions is accredited for assists and potentially kills (if they die shortly after being spotted).\n  - It does not reveal stealthed targets.",
+        "Soul Mark's interaction with parrying effects (dodge, block, blind)."
+      ]
+    }
+  ]
+}

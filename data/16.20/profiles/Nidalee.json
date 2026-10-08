@@ -1,0 +1,264 @@
+{
+  "champion": "Nidalee",
+  "name": "Nidalee",
+  "gameplayRadius": 65,
+  "moveSpeed": 335,
+  "attacks": [
+    {
+      "form": "nidalee",
+      "formName": "Nidalee",
+      "range": 525,
+      "ranged": true,
+      "projectile": true,
+      "missileSpeed": 2500,
+      "attackSpeed": 1.04199,
+      "attackDamage": 126.828,
+      "windup": 0.143955,
+      "modifiers": []
+    },
+    {
+      "form": "nidalee-cougar-form",
+      "formName": "Cougar Form",
+      "range": 125,
+      "ranged": false,
+      "projectile": false,
+      "attackSpeed": 1.04199,
+      "attackDamage": 126.828,
+      "windup": 0.143955,
+      "modifiers": []
+    }
+  ],
+  "abilities": [
+    {
+      "champion": "Nidalee",
+      "kind": "E",
+      "name": "Primal Surge",
+      "page": {
+        "title": "Template:Data Nidalee/Primal Surge",
+        "revid": 3907033
+      },
+      "damageTypes": [],
+      "delivery": {
+        "targeting": [
+          "unit"
+        ],
+        "affectsEnemies": false
+      },
+      "applies": [],
+      "movement": [],
+      "states": [
+        {
+          "state": "heal",
+          "evidence": [
+            {
+              "page": "Template:Data Nidalee/Primal Surge",
+              "revid": 3907033,
+              "quote": "Active: Nidalee revitalizes herself or the target allied champion, granting the target bonus attack speed for 7 seconds and healing them for an amount that is increased by 0 / 10 / 20 / 30 / 40 / 50 / 60 / 70 / 80 / 90 / 100 (based on target's missing health)%."
+            }
+          ],
+          "duration": 7
+        }
+      ],
+      "cooldown": 12,
+      "castTime": 0.25,
+      "range": 900,
+      "boostsAttacks": true
+    },
+    {
+      "champion": "Nidalee",
+      "kind": "E",
+      "name": "Swipe",
+      "page": {
+        "title": "Template:Data Nidalee/Swipe",
+        "revid": 3959337
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "direction"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "yes"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "cooldown": 6,
+      "castTime": 0.25
+    },
+    {
+      "champion": "Nidalee",
+      "kind": "I",
+      "name": "Prowl",
+      "page": {
+        "title": "Template:Data Nidalee/Prowl",
+        "revid": 4007706
+      },
+      "damageTypes": [],
+      "delivery": {
+        "targeting": [
+          "passive"
+        ],
+        "affectsEnemies": true
+      },
+      "applies": [
+        {
+          "type": "reveal",
+          "evidence": [
+            {
+              "page": "Template:List of true sight abilities",
+              "revid": 3860444
+            }
+          ]
+        }
+      ],
+      "movement": [],
+      "states": []
+    },
+    {
+      "champion": "Nidalee",
+      "kind": "Q",
+      "name": "Javelin Toss",
+      "page": {
+        "title": "Template:Data Nidalee/Javelin Toss",
+        "revid": 3971597
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "direction"
+        ],
+        "affectsEnemies": true,
+        "projectile": "yes",
+        "spellShield": "yes"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "cooldown": 6,
+      "castTime": 0.25,
+      "range": 1500,
+      "speed": 1300
+    },
+    {
+      "champion": "Nidalee",
+      "kind": "Q",
+      "name": "Takedown",
+      "page": {
+        "title": "Template:Data Nidalee/Takedown",
+        "revid": 3948934
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "auto"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "yes",
+        "attack": "attack"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "cooldown": 6,
+      "castTime": 0,
+      "boostsAttacks": true,
+      "notes": [
+        "- Parry interactions (dodge, block and blind)."
+      ]
+    },
+    {
+      "champion": "Nidalee",
+      "kind": "R",
+      "name": "Aspect of the Cougar",
+      "page": {
+        "title": "Template:Data Nidalee/Aspect of the Cougar",
+        "revid": 3547669
+      },
+      "damageTypes": [],
+      "delivery": {
+        "targeting": [
+          "auto"
+        ],
+        "affectsEnemies": false
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "cooldown": 3,
+      "castTime": 0
+    },
+    {
+      "champion": "Nidalee",
+      "kind": "W",
+      "name": "Bushwhack",
+      "page": {
+        "title": "Template:Data Nidalee/Bushwhack",
+        "revid": 4015217
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "location"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "yes"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "cooldown": 9,
+      "castTime": 0.25,
+      "range": 900
+    },
+    {
+      "champion": "Nidalee",
+      "kind": "W",
+      "name": "Pounce",
+      "page": {
+        "title": "Template:Data Nidalee/Pounce",
+        "revid": 4007707
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "direction",
+          "unit"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "yes",
+        "grounded": "yes",
+        "knockdown": "yes"
+      },
+      "applies": [],
+      "movement": [
+        {
+          "type": "dash",
+          "evidence": [
+            {
+              "page": "Dash",
+              "revid": 4035700,
+              "quote": "location-targeted"
+            }
+          ],
+          "targeting": "location-targeted",
+          "interruptible": true
+        }
+      ],
+      "states": [],
+      "cooldown": 6,
+      "castTime": 0,
+      "range": 375
+    }
+  ]
+}

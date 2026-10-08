@@ -1,0 +1,320 @@
+{
+  "champion": "Sylas",
+  "name": "Sylas",
+  "gameplayRadius": 65,
+  "moveSpeed": 340,
+  "attacks": [
+    {
+      "form": "sylas",
+      "formName": "Sylas",
+      "range": 175,
+      "ranged": false,
+      "projectile": false,
+      "attackSpeed": 1.08894,
+      "attackDamage": 119.995,
+      "windup": 0.154042,
+      "modifiers": [
+        "Petricite Burst"
+      ]
+    }
+  ],
+  "abilities": [
+    {
+      "champion": "Sylas",
+      "kind": "E",
+      "name": "Abduct",
+      "page": {
+        "title": "Template:Data Sylas/Abduct",
+        "revid": 4008064
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "direction"
+        ],
+        "affectsEnemies": true,
+        "projectile": "yes",
+        "spellShield": "yes",
+        "grounded": "yes",
+        "knockdown": "yes"
+      },
+      "applies": [
+        {
+          "type": "airborne",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "airborne: knock up"
+            },
+            {
+              "page": "Template:Data Sylas/Abduct",
+              "revid": 4008064,
+              "quote": "Upon hitting the target, Sylas dashes to their location and knocks them up for 0.5 seconds upon arrival."
+            }
+          ],
+          "variant": "knock up",
+          "duration": 0.5
+        },
+        {
+          "type": "stun",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "stun"
+            },
+            {
+              "page": "Template:Data Sylas/Abduct",
+              "revid": 4008064,
+              "quote": "Active: Sylas whips out his chains in the target direction that deal magic damage to the first enemy hit and reveal and stun them for 0.5 seconds."
+            }
+          ],
+          "duration": 0.5
+        }
+      ],
+      "movement": [
+        {
+          "type": "dash",
+          "evidence": [
+            {
+              "page": "Dash",
+              "revid": 4035700,
+              "quote": "auto-targeted; (when hitting a unit)"
+            }
+          ],
+          "targeting": "auto-targeted",
+          "condition": "(when hitting a unit)",
+          "interruptible": true
+        }
+      ],
+      "states": [],
+      "castTime": 0.25,
+      "range": 950,
+      "speed": 2500,
+      "notes": [
+        "Sylas will not dash to his target if the chains are blocked by spell shield.",
+        "The target will be revealed for 2 seconds if the dash is interrupted.",
+        "Abduct will still apply the knock up if the target is untargetable by the end of the dash.",
+        "Sylas is unable to perform actions while dashing to the target, and becomes able to again after 0.05 seconds of the dash ending.",
+        "Sylas will not dash to the target hit if he is channeling or dashing from a Hijacked ability.\n  - Abduct will not apply the knock up when this happens.\n  - If the chains connect before a pre-channel cast time is complete then Sylas will dash to the target and the ability will cancel."
+      ]
+    },
+    {
+      "champion": "Sylas",
+      "kind": "E",
+      "name": "Abscond",
+      "page": {
+        "title": "Template:Data Sylas/Abscond",
+        "revid": 4007757
+      },
+      "damageTypes": [],
+      "delivery": {
+        "targeting": [
+          "location"
+        ],
+        "affectsEnemies": false,
+        "grounded": "yes",
+        "knockdown": "yes"
+      },
+      "applies": [],
+      "movement": [
+        {
+          "type": "dash",
+          "evidence": [
+            {
+              "page": "Dash",
+              "revid": 4035700,
+              "quote": "location-targeted"
+            }
+          ],
+          "targeting": "location-targeted",
+          "interruptible": true
+        }
+      ],
+      "states": [],
+      "cooldown": 9,
+      "castTime": 0,
+      "range": 400,
+      "speed": 1450
+    },
+    {
+      "champion": "Sylas",
+      "kind": "I",
+      "name": "Petricite Burst",
+      "page": {
+        "title": "Template:Data Sylas/Petricite Burst",
+        "revid": 4061737
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "passive"
+        ],
+        "affectsEnemies": false,
+        "spellShield": "no",
+        "parry": "partly",
+        "attack": "attack modifier"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "boostsAttacks": true,
+      "notes": [
+        "Petricite Burst only applies on-hit effects to the primary target.",
+        "Petricite Burst can be dodged, blocked, or missed while Sylas is blinded as the primary target but not as a secondary target."
+      ]
+    },
+    {
+      "champion": "Sylas",
+      "kind": "Q",
+      "name": "Chain Lash",
+      "page": {
+        "title": "Template:Data Sylas/Chain Lash",
+        "revid": 4046589
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "location"
+        ],
+        "affectsEnemies": true,
+        "projectile": "no",
+        "spellShield": "yes"
+      },
+      "applies": [
+        {
+          "type": "slow",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "slow"
+            },
+            {
+              "page": "Template:Data Sylas/Chain Lash",
+              "revid": 4046589,
+              "quote": "Active: Sylas lashes out two chains that converge to the target location and extend beyond it up to a maximum range, dealing magic damage to enemies hit and slowing them for 1.5 seconds."
+            }
+          ],
+          "duration": 1.5,
+          "amount": 35
+        }
+      ],
+      "movement": [],
+      "states": [],
+      "cooldown": 6,
+      "castTime": 0.4,
+      "range": 50
+    },
+    {
+      "champion": "Sylas",
+      "kind": "R",
+      "name": "Hijack",
+      "page": {
+        "title": "Template:Data Sylas/Hijack",
+        "revid": 4050139
+      },
+      "damageTypes": [],
+      "delivery": {
+        "targeting": [
+          "unit"
+        ],
+        "affectsEnemies": true,
+        "projectile": "yes",
+        "spellShield": "yes"
+      },
+      "applies": [
+        {
+          "type": "reveal",
+          "evidence": [
+            {
+              "page": "Template:List of true sight abilities",
+              "revid": 3860444
+            }
+          ]
+        }
+      ],
+      "movement": [],
+      "states": [],
+      "cooldown": 30,
+      "castTime": 0.25,
+      "range": 950,
+      "speed": 2200,
+      "notes": [
+        "Clones do not copy Hijack's target cooldown indicator, potentially revealing them to Sylas.\n  - Inherent Glamour does not hide her personal cooldown indicator, nor does she copy her allies'.",
+        "If the target becomes untargetable, dies, or is too far away or no longer in sight during the cast time, this ability will cancel but does not go on cooldown nor pay its cost (if applicable).** If the same happens when casting an on-target stolen ability, the ability will instead cancel and go on cooldown.",
+        "If Hijack is intercepted by Unbreakable, Sylas will gain a copy of R instead and an on-target cooldown will be applied to him.\n  - If Braum has an on-target cooldown on him (by being previously Hijacked) upon interception, no ultimate will be stolen.",
+        "Hijack's missile will only be destroyed and not replicated against Rebuttal. Sylas will not gain a copy of Golden Eclipse.",
+        "Comeuppance - Sylas can cast Abscond, but doing so ends the channel prematurely. If Comeuppance is cast after Abduct but before the chains hit a target, Sylas isn't pulled to the target and the channel continues as usual.",
+        "Missile Barrage - Gains max charges.",
+        "Grandmaster-at-Arms - Applies magic damage on-hit while holding onto Grandmaster-at-Arms and while it is active.",
+        "The Culling - Can cast Abscond and Abduct freely during the channel.",
+        "Golden Eclipse - Sylas basic attacks and abilities apply stacks of Overwhelm, which will execute targets below the threshold.",
+        "Spray and Pray - Gains 300 attack range and his attacks produce missiles that travel 850 range. These attacks are classified as melee.",
+        "Final Hour - Gains the AD and MS bonuses. Additionally, Sylas gains invisibility when he casts Chain Lash.",
+        "Final Chapter - Can freely cast abilities during the channel."
+      ]
+    },
+    {
+      "champion": "Sylas",
+      "kind": "W",
+      "name": "Kingslayer",
+      "page": {
+        "title": "Template:Data Sylas/Kingslayer",
+        "revid": 4026459
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "unit"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "yes",
+        "grounded": "yes",
+        "knockdown": "yes"
+      },
+      "applies": [],
+      "movement": [
+        {
+          "type": "dash",
+          "evidence": [
+            {
+              "page": "Dash",
+              "revid": 4035700,
+              "quote": "unit-targeted"
+            }
+          ],
+          "targeting": "unit-targeted",
+          "interruptible": true
+        }
+      ],
+      "states": [
+        {
+          "state": "heal",
+          "evidence": [
+            {
+              "page": "Template:Data Sylas/Kingslayer",
+              "revid": 4026459,
+              "quote": "If this damages a champion, Sylas is also healed, increased by 0 / 10 / 20 / 30 / 40 / 50 / 60 / 70 / 80 / 90 / 100 (based on his missing health)%."
+            }
+          ]
+        }
+      ],
+      "cooldown": 6,
+      "castTime": 0,
+      "range": 400,
+      "notes": [
+        "The damage will be dealt if the dash completed uninterrupted, and regardless of how far the target's location is at the end of the dash.\n  - Sylas will heal even if the target champion dies before the dash is completed.\n  - The only exception is if the target becomes untargetable, in which case Kingslayer will have no effect."
+      ]
+    }
+  ]
+}

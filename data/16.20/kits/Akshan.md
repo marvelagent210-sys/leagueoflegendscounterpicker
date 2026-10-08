@@ -9,6 +9,22 @@ Values marked "at max rank, level 20" assume every ability is maxed; see PLAN.md
 |---|--:|--:|--:|--:|--:|--:|--:|--:|--:|--:|
 | Akshan | 2714.2 | 16.53 | 1136.6 Mana | 111.0 | 0.953 | 0.140 | 118.4 | 54.6 | 500 | 330 |
 
+## Fight profile (what the interaction ledger uses)
+
+| Form | Attack range | Ranged | Projectile | Missile speed | Attack modifiers |
+|---|--:|---|---|--:|---|
+| Akshan | 500 | yes | yes | 2000 | Dirty Fighting |
+
+Cooldowns at max rank. Flags: the wiki's interaction flags (yes, no, partly). * marks an effect that applies only under a condition.
+
+| Slot | Ability | Cooldown | Delivery | Applies to the enemy | Movement | Gives itself |
+|---|---|--:|---|---|---|---|
+| E | Heroic Swing | 12 | projectile yes; spell shield partly; parry yes; grounded partly; knockdown yes; on-hit | – | dash (second cast); dash (third cast) | heal |
+| I | Dirty Fighting | – | projectile yes; spell shield no; parry yes; attack modifier | – | – | – |
+| Q | Avengerang | 5 | projectile yes; spell shield partly | – | – | – |
+| R | Comeuppance | 70 | projectile yes; spell shield partly; disruptable yes | reveal | – | heal |
+| W | Going Rogue | 2 | – | – | – | camouflage 2 s |
+
 ## Innate: Dirty Fighting
 
 Source: [Template:Data Akshan/Dirty Fighting](https://wiki.leagueoflegends.com/en-us/Template:Data_Akshan/Dirty_Fighting?oldid=4074628) (revision 4074628). Ranks: 1.

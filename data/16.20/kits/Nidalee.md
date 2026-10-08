@@ -9,6 +9,26 @@ Values marked "at max rank, level 20" assume every ability is maxed; see PLAN.md
 |---|--:|--:|--:|--:|--:|--:|--:|--:|--:|--:|
 | Nidalee | 2753.5 | 17.80 | 1179.9 Mana | 126.8 | 1.042 | 0.144 | 130.3 | 58.5 | 525 | 335 |
 
+## Fight profile (what the interaction ledger uses)
+
+| Form | Attack range | Ranged | Projectile | Missile speed | Attack modifiers |
+|---|--:|---|---|--:|---|
+| Nidalee | 525 | yes | yes | 2500 | – |
+| Cougar Form | 125 | no | no | – | – |
+
+Cooldowns at max rank. Flags: the wiki's interaction flags (yes, no, partly). * marks an effect that applies only under a condition.
+
+| Slot | Ability | Cooldown | Delivery | Applies to the enemy | Movement | Gives itself |
+|---|---|--:|---|---|---|---|
+| E | Primal Surge | 12 | – | – | – | heal 7 s |
+| E | Swipe | 6 | spell shield yes | – | – | – |
+| I | Prowl | – | – | reveal | – | – |
+| Q | Javelin Toss | 6 | projectile yes; spell shield yes | – | – | – |
+| Q | Takedown | 6 | spell shield yes; attack | – | – | – |
+| R | Aspect of the Cougar | 3 | – | – | – | – |
+| W | Bushwhack | 9 | spell shield yes | – | – | – |
+| W | Pounce | 6 | spell shield yes; grounded yes; knockdown yes | – | dash | – |
+
 ## Innate: Prowl
 
 Source: [Template:Data Nidalee/Prowl](https://wiki.leagueoflegends.com/en-us/Template:Data_Nidalee/Prowl?oldid=4007706) (revision 4007706). Ranks: 1.

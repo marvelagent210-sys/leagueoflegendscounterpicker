@@ -9,6 +9,23 @@ Values marked "at max rank, level 20" assume every ability is maxed; see PLAN.md
 |---|--:|--:|--:|--:|--:|--:|--:|--:|--:|--:|
 | Qiyana | 2851.5 | 25.70 | 1554.9 Mana | 125.0 | 0.946 | 0.162 | 119.5 | 72.3 | 150 | 335 |
 
+## Fight profile (what the interaction ledger uses)
+
+| Form | Attack range | Ranged | Projectile | Missile speed | Attack modifiers |
+|---|--:|---|---|--:|---|
+| Qiyana | 150 | no | no | – | Royal Privilege |
+
+Cooldowns at max rank. Flags: the wiki's interaction flags (yes, no, partly). * marks an effect that applies only under a condition.
+
+| Slot | Ability | Cooldown | Delivery | Applies to the enemy | Movement | Gives itself |
+|---|---|--:|---|---|---|---|
+| E | Audacity | 7 | spell shield yes; grounded yes; knockdown yes | – | dash | – |
+| I | Royal Privilege | – | attack modifier | – | – | – |
+| Q | Edge of Ixtal | 7 | projectile no; spell shield yes | – | – | – |
+| Q | Elemental Wrath | – | projectile yes; spell shield yes | slow 1 s 20%; root 0.5 s | – | invisible 3 s |
+| R | Supreme Display of Talent | 120 | projectile partly; spell shield yes | airborne (knock back); stun 0.5 s | – | – |
+| W | Terrashape | 7 | grounded yes; knockdown yes; on-hit | – | dash | – |
+
 ## Innate: Royal Privilege
 
 Source: [Template:Data Qiyana/Royal Privilege](https://wiki.leagueoflegends.com/en-us/Template:Data_Qiyana/Royal_Privilege?oldid=3985639) (revision 3985639). Ranks: 1.

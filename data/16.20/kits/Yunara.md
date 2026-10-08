@@ -9,6 +9,24 @@ Values marked "at max rank, level 20" assume every ability is maxed; see PLAN.md
 |---|--:|--:|--:|--:|--:|--:|--:|--:|--:|--:|
 | Yunara | 2753.2 | 14.82 | 1159.9 Mana | 114.0 | 0.906 | 0.179 | 111.5 | 54.6 | 575 | 325 |
 
+## Fight profile (what the interaction ledger uses)
+
+| Form | Attack range | Ranged | Projectile | Missile speed | Attack modifiers |
+|---|--:|---|---|--:|---|
+| Yunara | 575 | yes | yes | 2500 | – |
+
+Cooldowns at max rank. Flags: the wiki's interaction flags (yes, no, partly). * marks an effect that applies only under a condition.
+
+| Slot | Ability | Cooldown | Delivery | Applies to the enemy | Movement | Gives itself |
+|---|---|--:|---|---|---|---|
+| E | Kanmei's Steps | 9 | – | – | – | – |
+| E | Untouchable Shadow | 9 | grounded yes; knockdown yes | – | dash | – |
+| I | Vow of the First Lands | – | parry yes | – | – | – |
+| Q | Cultivation of Spirit | – | projectile yes; spell shield no; on-hit | – | – | heal |
+| R | Transcend One's Self | 80 | – | – | – | – |
+| W | Arc of Judgment | 10 | projectile yes; spell shield partly | slow 1.5 s 99% | – | – |
+| W | Arc of Ruin | 10 | projectile no; spell shield yes | slow 1 s 99% | – | – |
+
 ## Innate: Vow of the First Lands
 
 Source: [Template:Data Yunara/Vow of the First Lands](https://wiki.leagueoflegends.com/en-us/Template:Data_Yunara/Vow_of_the_First_Lands?oldid=4058999) (revision 4058999). Ranks: 1.

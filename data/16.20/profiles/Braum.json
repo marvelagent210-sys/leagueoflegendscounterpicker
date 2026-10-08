@@ -1,0 +1,264 @@
+{
+  "champion": "Braum",
+  "name": "Braum",
+  "gameplayRadius": 80,
+  "moveSpeed": 335,
+  "attacks": [
+    {
+      "form": "braum",
+      "formName": "Braum",
+      "range": 125,
+      "ranged": false,
+      "projectile": false,
+      "attackSpeed": 1.08725,
+      "attackDamage": 117.928,
+      "windup": 0.211543,
+      "modifiers": [
+        "Concussive Blows"
+      ]
+    }
+  ],
+  "abilities": [
+    {
+      "champion": "Braum",
+      "kind": "E",
+      "name": "Unbreakable",
+      "page": {
+        "title": "Template:Data Braum/Unbreakable",
+        "revid": 4012056
+      },
+      "damageTypes": [],
+      "delivery": {
+        "targeting": [
+          "direction"
+        ],
+        "affectsEnemies": false
+      },
+      "applies": [],
+      "movement": [],
+      "states": [
+        {
+          "state": "projectile block",
+          "evidence": [
+            {
+              "page": "Projectile",
+              "revid": 3999064
+            },
+            {
+              "page": "Template:Data Braum/Unbreakable",
+              "revid": 4012056,
+              "quote": "Active: Braum sets his shield in the target direction for a duration, creating a barrier in front of him that intercepts all incoming hostile projectiles and reduces the damage Braum takes through it from enemies in the target direction."
+            }
+          ],
+          "duration": 4
+        }
+      ],
+      "cooldown": 8,
+      "castTime": 0,
+      "notes": [
+        "Definitions\n  - Incoming: Damage sources coming from somewhere facing the shield. Those coming from different sides are not affected.\n  - Projectiles: Sped up entities not classified as a unit (champions, minions, monsters, etc.)\n  - Intercepting: A projectile hitting Braum because he is standing in front of the intended target. In addition to being redirected, an intercepted projectile is also destroyed after hitting Braum (although this is only applicable to pass-through projectiles).",
+        "Unbreakable's full damage reduction can block multiple instances of damage if they're dealt at the same time.",
+        "Moving units do not count for being blocked by Unbreakable.\n  - Champion summoned units are not classified as units until they hit the ground (e.g. Sapling Toss) and thus will interact with Unbreakable whilst en route.",
+        "Projectiles whose effects trigger on collision will still trigger - dealing damage, applying debuffs, creating area of effects and marking the target as 'hit'.",
+        "Projectiles that create an area of effect upon their collision will still affect other units and not only Braum.",
+        "Projectiles that cannot hit Braum or his allies (such as an enemy Prismatic Barrier) will not be intercepted.\n  - Starcall Rejuvenation projectile is however blocked.",
+        "The damage reduction will affect any source of damage whose origin is in front of the shield. This includes:\n  - All intercepted projectiles.\n  - Melee and non-projectile-based ranged attacks.\n  - Instantaneous direction-targeted abilities (e.g. Arcanopulse, Final Spark, Life Form Disintegration Ray.)\n  - Instantaneously-placed ground-targeted abilities (e.g. Lay Waste, Pillar of Flame, Rupture) relative to the ability's center and not the caster's.\n  - Point-blank area-of-effects (e.g. Ground Slam, Tantrum, Time Bomb not targeted at Braum)\n  - Instantaneous targeted abilities (e.g. Malefic Visions, Transfusion, Time Bomb targeted at Braum) and AoE DoT (e.g. Spirit Fire, Tormented Shadow, Poison Trail).",
+        "If Braum is protected by a spell shield, both it and the one-time-use full damage reduction can be consumed by a single blockable spell.\n  - The one-time-use full damage reduction will not be consumed if the damage source is nothing but true damage.",
+        "Unbreakable will grant assist credit if the enemy whose damaging projectile is blocked from is killed within 10 seconds."
+      ]
+    },
+    {
+      "champion": "Braum",
+      "kind": "I",
+      "name": "Concussive Blows",
+      "page": {
+        "title": "Template:Data Braum/Concussive Blows",
+        "revid": 4038222
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "passive"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "yes",
+        "parry": "partly",
+        "attack": "attack modifier"
+      },
+      "applies": [
+        {
+          "type": "stun",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "stun"
+            },
+            {
+              "page": "Template:Data Braum/Concussive Blows",
+              "revid": 4038222,
+              "quote": "The fourth stack against a target consumes them all to deal 26 – 196 (based on level) magic damage and stun them for 1.25 / 1.5 / 1.75 (based on level) seconds."
+            }
+          ],
+          "duration": 1.75
+        }
+      ],
+      "movement": [],
+      "states": [],
+      "notes": [
+        "Concussive Blows won't be applied if the attack is dodged or blocked or if the attack misses."
+      ]
+    },
+    {
+      "champion": "Braum",
+      "kind": "Q",
+      "name": "Winter's Bite",
+      "page": {
+        "title": "Template:Data Braum/Winter's Bite",
+        "revid": 4007579
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "direction"
+        ],
+        "affectsEnemies": true,
+        "projectile": "yes",
+        "spellShield": "yes"
+      },
+      "applies": [
+        {
+          "type": "slow",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "slow"
+            },
+            {
+              "page": "Template:Data Braum/Winter's Bite",
+              "revid": 4007579,
+              "quote": "Active: Braum propels ice from his shield in the target direction, dealing magic damage to the first enemy hit and slowing them by 70% decaying over 2 seconds."
+            }
+          ],
+          "duration": 2,
+          "amount": 70
+        }
+      ],
+      "movement": [],
+      "states": [],
+      "cooldown": 6,
+      "castTime": 0.25,
+      "range": 1050,
+      "speed": 1700
+    },
+    {
+      "champion": "Braum",
+      "kind": "R",
+      "name": "Glacial Fissure",
+      "page": {
+        "title": "Template:Data Braum/Glacial Fissure",
+        "revid": 4007580
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "direction"
+        ],
+        "affectsEnemies": true,
+        "projectile": "yes",
+        "spellShield": "yes"
+      },
+      "applies": [
+        {
+          "type": "airborne",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "airborne: knock up"
+            },
+            {
+              "page": "Template:Data Braum/Glacial Fissure",
+              "revid": 4007580,
+              "quote": "The first target hit is knocked up for at least 0.6 seconds, increased if they are further away from Braum."
+            }
+          ],
+          "variant": "knock up",
+          "duration": 2
+        },
+        {
+          "type": "slow",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "slow"
+            },
+            {
+              "page": "Template:Data Braum/Glacial Fissure",
+              "revid": 4007580,
+              "quote": "A field of ice is created along the fissure's path, lasting for 4 seconds and slowing enemies within the area every 0.25 seconds."
+            }
+          ],
+          "amount": 60
+        }
+      ],
+      "movement": [],
+      "states": [],
+      "cooldown": 100,
+      "castTime": 0.5,
+      "range": 1200,
+      "speed": 1400
+    },
+    {
+      "champion": "Braum",
+      "kind": "W",
+      "name": "Stand Behind Me",
+      "page": {
+        "title": "Template:Data Braum/Stand Behind Me",
+        "revid": 3906582
+      },
+      "damageTypes": [],
+      "delivery": {
+        "targeting": [
+          "unit"
+        ],
+        "affectsEnemies": false,
+        "grounded": "yes",
+        "knockdown": "yes"
+      },
+      "applies": [],
+      "movement": [
+        {
+          "type": "dash",
+          "evidence": [
+            {
+              "page": "Dash",
+              "revid": 4035700,
+              "quote": "unit-targeted"
+            }
+          ],
+          "targeting": "unit-targeted",
+          "interruptible": true
+        }
+      ],
+      "states": [],
+      "cooldown": 8,
+      "castTime": 0,
+      "range": 650,
+      "notes": [
+        "If there are no nearby enemy champions, Braum will dash to land up-to 150 units on the far side of his target.",
+        "The maximum dash range without enemy champions present is ~650. An enemy champion on the far side of the ally will allow Braum to dash a total of up-to 800 units.",
+        "If Unbreakable is cast during the dash, Winter's Bite and Glacial Fissure may also be cast.",
+        "If the dash is interrupted, neither Braum nor his ally receive the bonus resistances."
+      ]
+    }
+  ]
+}

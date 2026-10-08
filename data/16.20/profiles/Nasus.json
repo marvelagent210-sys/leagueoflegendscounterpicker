@@ -1,0 +1,190 @@
+{
+  "champion": "Nasus",
+  "name": "Nasus",
+  "gameplayRadius": 80,
+  "moveSpeed": 350,
+  "attacks": [
+    {
+      "form": "nasus",
+      "formName": "Nasus",
+      "range": 125,
+      "ranged": false,
+      "projectile": false,
+      "attackSpeed": 1.07461,
+      "attackDamage": 145.66,
+      "windup": 0.187413,
+      "modifiers": []
+    }
+  ],
+  "abilities": [
+    {
+      "champion": "Nasus",
+      "kind": "E",
+      "name": "Spirit Fire",
+      "page": {
+        "title": "Template:Data Nasus/Spirit Fire",
+        "revid": 4035787
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "location"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "no"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "cooldown": 12,
+      "castTime": 0.25,
+      "range": 650
+    },
+    {
+      "champion": "Nasus",
+      "kind": "I",
+      "name": "Soul Eater",
+      "page": {
+        "title": "Template:Data Nasus/Soul Eater",
+        "revid": 4057470
+      },
+      "damageTypes": [],
+      "delivery": {
+        "targeting": [
+          "passive"
+        ],
+        "affectsEnemies": false
+      },
+      "applies": [],
+      "movement": [],
+      "states": [
+        {
+          "state": "heal",
+          "evidence": [
+            {
+              "page": "Template:Data Nasus/Soul Eater",
+              "revid": 4057470,
+              "quote": "Innate: Nasus gains 10 / 15 / 20 (based on level)% life steal."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "champion": "Nasus",
+      "kind": "Q",
+      "name": "Siphoning Strike",
+      "page": {
+        "title": "Template:Data Nasus/Siphoning Strike",
+        "revid": 4064857
+      },
+      "damageTypes": [
+        "physical"
+      ],
+      "delivery": {
+        "targeting": [
+          "auto"
+        ],
+        "affectsEnemies": false,
+        "spellShield": "no",
+        "parry": "yes",
+        "attack": "attack"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "cooldown": 3.5,
+      "castTime": 0,
+      "boostsAttacks": true
+    },
+    {
+      "champion": "Nasus",
+      "kind": "R",
+      "name": "Fury of the Sands",
+      "page": {
+        "title": "Template:Data Nasus/Fury of the Sands",
+        "revid": 4007699
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "auto"
+        ],
+        "affectsEnemies": false
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "cooldown": 80,
+      "castTime": 0.2
+    },
+    {
+      "champion": "Nasus",
+      "kind": "W",
+      "name": "Wither",
+      "page": {
+        "title": "Template:Data Nasus/Wither",
+        "revid": 4064193
+      },
+      "damageTypes": [],
+      "delivery": {
+        "targeting": [
+          "unit"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "yes"
+      },
+      "applies": [
+        {
+          "type": "cripple",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "cripple"
+            },
+            {
+              "page": "Template:Data Nasus/Wither",
+              "revid": 4064193,
+              "quote": "Active: Nasus ages the target enemy champion for 5 seconds, slowing them by 35% and crippling them by 75% of that amount, both increasing every second over the duration."
+            }
+          ],
+          "duration": 5,
+          "amount": 75
+        },
+        {
+          "type": "slow",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "slow"
+            },
+            {
+              "page": "Template:Data Nasus/Wither",
+              "revid": 4064193,
+              "quote": "Active: Nasus ages the target enemy champion for 5 seconds, slowing them by 35% and crippling them by 75% of that amount, both increasing every second over the duration."
+            }
+          ],
+          "duration": 5,
+          "amount": 35
+        }
+      ],
+      "movement": [],
+      "states": [],
+      "cooldown": 11,
+      "castTime": 0.25,
+      "range": 700,
+      "notes": [
+        "Wither interrupts the target's attack windup when it is first applied.",
+        "If Wither's duration is affected by Tenacity the effects will apply slower (negative tenacity percentage) or faster (positive tenacity percentage) so the maximum values are still reached when the modified duration ends.",
+        "Both slow and cripple from Wither are considered to be a single debuff.\n  - Therefore, slow immunity will prevent both, even without technical cripple immunity.",
+        "If the target becomes untargetable, dies, or is too far away or no longer in sight during the cast time, this ability will cancel but does not go on cooldown nor pay its cost (if applicable)."
+      ]
+    }
+  ]
+}

@@ -9,13 +9,21 @@ Values marked "at max rank, level 20" assume every ability is maxed; see PLAN.md
 |---|--:|--:|--:|--:|--:|--:|--:|--:|--:|--:|
 | Xin Zhao | 2704.5 | 21.77 | 1355.6 Mana | 122.0 | 1.089 | 0.172 | 121.5 | 72.3 | 175 | 345 |
 
-## Innate: Challenge
+## Fight profile (what the interaction ledger uses)
 
-Source: [Template:Data Xin Zhao/Challenge](https://wiki.leagueoflegends.com/en-us/Template:Data_Xin_Zhao/Challenge?oldid=3943096) (revision 3943096). Ranks: 1.
+| Form | Attack range | Ranged | Projectile | Missile speed | Attack modifiers |
+|---|--:|---|---|--:|---|
+| Xin Zhao | 175 | no | no | – | Determination |
 
-Targeting: Challenge is an on-hit effect · Affects: – · Damage type: – · Spell shield blocks it: – · Projectile: – · Parry: – · Disabled by grounded: – · Usable while knocked down: –
+Cooldowns at max rank. Flags: the wiki's interaction flags (yes, no, partly). * marks an effect that applies only under a condition.
 
-Innate: Enemies hit by Xin Zhao's basic attacks and Audacious Charge have their armor reduced by 15% for 3 seconds, refreshing with every hit. Only one enemy can be affected by Challenge at any given time.
+| Slot | Ability | Cooldown | Delivery | Applies to the enemy | Movement | Gives itself |
+|---|---|--:|---|---|---|---|
+| E | Audacious Charge | 11 | spell shield yes; grounded yes; knockdown yes | slow 0.5 s 30% | dash | – |
+| I | Determination | – | spell shield partly; attack modifier | – | – | heal |
+| Q | Three Talon Strike | 5 | spell shield partly; parry yes; attack | airborne (knock up) 0.75 s | – | – |
+| R | Crescent Guard | 100 | projectile no; spell shield yes | airborne (knock back) 0.75 s; stun 0.75 s | – | invulnerable 4 s |
+| W | Wind Becomes Lightning | 8 | projectile no; spell shield yes | slow 50% | – | heal |
 
 ## Innate: Determination
 
@@ -56,14 +64,6 @@ Notes:
 - ;Challenged Details
 - Spell shield will block the mark application from W, but not from basic attacks and E.
 
-## Innate: Tireless Warrior
-
-Source: [Template:Data Xin Zhao/Tireless Warrior](https://wiki.leagueoflegends.com/en-us/Template:Data_Xin_Zhao/Tireless_Warrior?oldid=3943099) (revision 3943099). Ranks: 1.
-
-Targeting: Tireless Warrior is an on-hit effect · Affects: – · Damage type: – · Spell shield blocks it: – · Projectile: – · Parry: – · Disabled by grounded: – · Usable while knocked down: –
-
-Innate: Xin Zhao is healed for every 3 attacks that he lands. This amount increases every 2 levels.
-
 ## Q: Three Talon Strike
 
 Source: [Template:Data Xin Zhao/Three Talon Strike](https://wiki.leagueoflegends.com/en-us/Template:Data_Xin_Zhao/Three_Talon_Strike?oldid=3986754) (revision 3986754). Ranks: 5.
@@ -100,34 +100,6 @@ Notes:
 - Spell shield will only block the knock up.
 - The enhanced attacks present input buffering during their wind-up animation (Xin Zhao cannot be issued any commands until after it ends).
 - The attack counter displayed on Xin Zhao's status bar is incremented on-hit.
-
-## W: Battle Cry
-
-Source: [Template:Data Xin Zhao/Battle Cry](https://wiki.leagueoflegends.com/en-us/Template:Data_Xin_Zhao/Battle_Cry?oldid=2972815) (revision 2972815). Ranks: 5.
-
-| Field | Value |
-|---|---|
-| Cooldown | 16 / 15 / 14 / 13 / 12 |
-| Cost | 40 mana |
-
-Targeting: * Battle Cry's passive is an on-hit effect with an on-attack effect component., * Battle Cry's active is a self-targeted buff. · Affects: – · Damage type: – · Spell shield blocks it: – · Projectile: – · Parry: – · Disabled by grounded: – · Usable while knocked down: –
-
-Passive: Every third basic attack on-attack causes Xin Zhao to critically strike for modified damage, and heal him on-hit.
-
-- **Critical Strike Damage:** 125 / 137.5 / 150 / 162.5 / 175% AD → at max rank, level 20: 175% of AD
-- **Healing:** 30 / 35 / 40 / 45 / 50 (+ 20% bonus AD) (+ 40% AP) → at max rank, level 20: 50 (+ 20% bonusAD) (+ 40% AP)
-- **Mechanics:** critical strike
-
-Active: Xin Zhao gains bonus attack speed for 5 seconds.
-
-- **Bonus Attack speed:** 40 / 45 / 50 / 55 / 60% → at max rank, level 20: 60%
-
-Notes:
-
-- Battle Cry has no cast time and does not interrupt Xin Zhao's previous orders.
-- Xin Zhao can heal by attacking structures.
-- Battle Cry's healing will interact with Guinsoo's Rageblade Phantom Hit while the critical strike will not.
-- Battle Cry's critical strike will always deal the same damage regardless of Xin Zhao's critical strike chance and/or bonus critical strike damage, with the third basic attack always dealing 125 / 137.5 / 150 / 162.5 / 175% AD while the first two can deal 200% AD (or 250% AD if Xin Zhao has purchased Infinity Edge)
 
 ## W: Wind Becomes Lightning
 
@@ -241,32 +213,6 @@ Notes:
 - Pets, traps, ground AoEs, DoTs, and delayed-damage abilities (e.g. Death Mark, Explosive Charge, Hemoplague) will not damage Xin Zhao if the enemy champion source is outside the circle when the damage applies.
 - This ability will cast from wherever the caster is at the end of the cast time.
 - Displacement immunity will also resist the application of the stun.
-
-## R: Crescent Sweep
-
-Source: [Template:Data Xin Zhao/Crescent Sweep](https://wiki.leagueoflegends.com/en-us/Template:Data_Xin_Zhao/Crescent_Sweep?oldid=2704899) (revision 2704899). Ranks: 3.
-
-| Field | Value |
-|---|---|
-| Cooldown | 120 / 110 / 100 |
-| Cost | 100 mana |
-| Effect radius | 187.5 |
-
-Targeting: Crescent Guard is a point-blank area of effect with a self-targeted buff component. · Affects: – · Damage type: physical · Spell shield blocks it: will block the ability (xin zhao will still gain the bonus resistances) · Projectile: – · Parry: – · Disabled by grounded: – · Usable while knocked down: –
-
-Active: Xin Zhao sweeps around him, knocking back all non-Challenged enemies, stunning them for 0.75 seconds, and dealing them physical damage, capped at 600 (+ 100% bonus AD) against monsters.
-
-- **Physical Damage:** 75 / 175 / 275 (+ 15% of target's current health) (+ 100% bonus AD) → at max rank, level 20: 275 (+ 15% targetCurrentHealth) (+ 100% bonusAD)
-- **Mechanics:** airborne (0.75 s); stun (0.75 s)
-
-Each enemy champion hit by Crescent Sweep grants Xin Zhao bonus armor and bonus magic resistance for 6 seconds.
-
-- **Bonus Resistances Per Champion:** 15 / 20 / 25 → at max rank, level 20: 25
-- **Maximum Bonus Resistances:** 75 / 100 / 125 → at max rank, level 20: 125
-
-Notes:
-
-- No additional details.
 
 ## Game files
 

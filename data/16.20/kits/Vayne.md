@@ -9,6 +9,22 @@ Values marked "at max rank, level 20" assume every ability is maxed; see PLAN.md
 |---|--:|--:|--:|--:|--:|--:|--:|--:|--:|--:|
 | Vayne | 2507.2 | 13.37 | 920.3 Mana | 106.2 | 1.027 | 0.171 | 113.5 | 54.6 | 550 | 330 |
 
+## Fight profile (what the interaction ledger uses)
+
+| Form | Attack range | Ranged | Projectile | Missile speed | Attack modifiers |
+|---|--:|---|---|--:|---|
+| Vayne | 550 | yes | yes | 2000 | Silver Bolts |
+
+Cooldowns at max rank. Flags: the wiki's interaction flags (yes, no, partly). * marks an effect that applies only under a condition.
+
+| Slot | Ability | Cooldown | Delivery | Applies to the enemy | Movement | Gives itself |
+|---|---|--:|---|---|---|---|
+| E | Condemn | 12 | projectile yes; spell shield yes | airborne (knock back); stun 1.5 s* | – | – |
+| I | Night Hunter | – | – | – | – | – |
+| Q | Tumble | 2 | parry yes; grounded yes; knockdown yes; attack | – | dash | – |
+| R | Final Hour | 70 | – | – | – | invisible 1 s |
+| W | Silver Bolts | – | spell shield no; parry yes; attack modifier | – | – | – |
+
 ## Innate: Night Hunter
 
 Source: [Template:Data Vayne/Night Hunter](https://wiki.leagueoflegends.com/en-us/Template:Data_Vayne/Night_Hunter?oldid=3920984) (revision 3920984). Ranks: 1.

@@ -9,6 +9,22 @@ Values marked "at max rank, level 20" assume every ability is maxed; see PLAN.md
 |---|--:|--:|--:|--:|--:|--:|--:|--:|--:|--:|
 | Rengar | 2635.2 | 15.83 | 4.0 Ferocity | 127.0 | 1.060 | 0.189 | 116.6 | 72.3 | 125 | 345 |
 
+## Fight profile (what the interaction ledger uses)
+
+| Form | Attack range | Ranged | Projectile | Missile speed | Attack modifiers |
+|---|--:|---|---|--:|---|
+| Rengar | 125 | no | no | – | Unseen Predator |
+
+Cooldowns at max rank. Flags: the wiki's interaction flags (yes, no, partly). * marks an effect that applies only under a condition.
+
+| Slot | Ability | Cooldown | Delivery | Applies to the enemy | Movement | Gives itself |
+|---|---|--:|---|---|---|---|
+| E | Bola Strike | 10 | projectile yes; spell shield yes | slow 1.75 s 90%; root; reveal | – | – |
+| I | Unseen Predator | – | parry yes; grounded partly; knockdown yes; attack modifier | – | dash | – |
+| Q | Savagery | 4 | spell shield no; parry yes; on-hit | – | – | – |
+| R | Thrill of the Hunt | 80 | spell shield no; parry yes; grounded no; attack | reveal | – | camouflage 2 s |
+| W | Battle Roar | 10 | spell shield yes | – | – | cleanse (19 CC types); heal |
+
 ## Innate: Unseen Predator
 
 Source: [Template:Data Rengar/Unseen Predator](https://wiki.leagueoflegends.com/en-us/Template:Data_Rengar/Unseen_Predator?oldid=4059878) (revision 4059878). Ranks: 1.

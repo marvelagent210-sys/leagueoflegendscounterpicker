@@ -1,0 +1,227 @@
+{
+  "champion": "Gwen",
+  "name": "Gwen",
+  "gameplayRadius": 65,
+  "moveSpeed": 340,
+  "attacks": [
+    {
+      "form": "gwen",
+      "formName": "Gwen",
+      "range": 150,
+      "ranged": false,
+      "projectile": false,
+      "attackSpeed": 0.995299,
+      "attackDamage": 121.995,
+      "windup": 0.19765,
+      "modifiers": [
+        "A Thousand Cuts"
+      ]
+    }
+  ],
+  "abilities": [
+    {
+      "champion": "Gwen",
+      "kind": "E",
+      "name": "Skip 'n Slash",
+      "page": {
+        "title": "Template:Data Gwen/Skip 'n Slash",
+        "revid": 4026400
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "location"
+        ],
+        "affectsEnemies": false,
+        "grounded": "yes",
+        "knockdown": "yes",
+        "attack": "on-hit"
+      },
+      "applies": [],
+      "movement": [
+        {
+          "type": "dash",
+          "evidence": [
+            {
+              "page": "Dash",
+              "revid": 4035700,
+              "quote": "location-targeted"
+            }
+          ],
+          "targeting": "location-targeted",
+          "interruptible": true
+        }
+      ],
+      "states": [],
+      "cooldown": 11,
+      "castTime": 0,
+      "range": 350,
+      "boostsAttacks": true,
+      "notes": [
+        "Skip 'n Slash has no minimum dash range."
+      ]
+    },
+    {
+      "champion": "Gwen",
+      "kind": "I",
+      "name": "A Thousand Cuts",
+      "page": {
+        "title": "Template:Data Gwen/A Thousand Cuts",
+        "revid": 4051343
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "passive"
+        ],
+        "affectsEnemies": true,
+        "parry": "yes",
+        "attack": "attack modifier"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [
+        {
+          "state": "heal",
+          "evidence": [
+            {
+              "page": "Template:Data Gwen/A Thousand Cuts",
+              "revid": 4051343,
+              "quote": "* Heals Gwen for 67% of post-mitigation damage dealt against champions, capped at 12 – 40 (based on level) (+ 7% AP) per instance."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "champion": "Gwen",
+      "kind": "Q",
+      "name": "Snip Snip!",
+      "page": {
+        "title": "Template:Data Gwen/Snip Snip!",
+        "revid": 4026398
+      },
+      "damageTypes": [
+        "magic",
+        "true"
+      ],
+      "delivery": {
+        "targeting": [
+          "direction"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "partly",
+        "attack": "on-hit"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "cooldown": 3.5,
+      "castTime": 0.5,
+      "notes": [
+        "Subsequent basic attacks on-hit also refresh the duration of Snippy stacks.",
+        "Spell shield blocks only one snip."
+      ]
+    },
+    {
+      "champion": "Gwen",
+      "kind": "R",
+      "name": "Needlework",
+      "page": {
+        "title": "Template:Data Gwen/Needlework",
+        "revid": 4007603
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "direction"
+        ],
+        "affectsEnemies": true,
+        "projectile": "yes",
+        "spellShield": "partly"
+      },
+      "applies": [
+        {
+          "type": "slow",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "slow"
+            },
+            {
+              "page": "Template:Data Gwen/Needlework",
+              "revid": 4007603,
+              "quote": "Active: Gwen launches a needle in the target direction that deals magic damage to enemies hit and slows them for 1.5 seconds."
+            }
+          ],
+          "duration": 1.5,
+          "amount": 60
+        }
+      ],
+      "movement": [],
+      "states": [],
+      "cooldown": 80,
+      "castTime": 0.25,
+      "range": 100,
+      "speed": 1800,
+      "notes": [
+        "The needles of each cast will fire based on Gwen's location at 0.264 into each cast time (in case of the first cast, this is at the end of the cast time).\n  - The needles fire from 100 units behind the cast location.\n  - The width of all needle missiles decreases with their distance travelled, forming an approximately triangular missile hitbox.\n  - Needles of the same cast all travel the same line at a slight delay after one another. The visual origins are offset (by 70 and 110 units to either side from the center missile spawn location), but the actual hitting missiles all follow the central line.",
+        "Spell shield blocks only one needle."
+      ]
+    },
+    {
+      "champion": "Gwen",
+      "kind": "W",
+      "name": "Hallowed Mist",
+      "page": {
+        "title": "Template:Data Gwen/Hallowed Mist",
+        "revid": 3973613
+      },
+      "damageTypes": [],
+      "delivery": {
+        "targeting": [
+          "auto"
+        ],
+        "affectsEnemies": false
+      },
+      "applies": [],
+      "movement": [],
+      "states": [
+        {
+          "state": "untargetable",
+          "evidence": [
+            {
+              "page": "Untargetability",
+              "revid": 3965000,
+              "quote": "Does not destroy inbound projectiles for non-champion missiles but does so for champion missiles that attempt to pass through the mist, special cased to be targetable to turrets and monsters as well as enemies inside the mist"
+            },
+            {
+              "page": "Template:Data Gwen/Hallowed Mist",
+              "revid": 3973613,
+              "quote": "While inside the mist, Gwen becomes ghosted, gains bonus armor and bonus magic resistance and is untargetable to all enemies (except turrets and monsters) outside of the mist."
+            }
+          ],
+          "note": "Does not destroy inbound projectiles for non-champion missiles but does so for champion missiles that attempt to pass through the mist, special cased to be targetable to turrets and monsters as well as enemies inside the mist"
+        }
+      ],
+      "cooldown": 18,
+      "castTime": 0,
+      "speed": 2000,
+      "notes": [
+        "Hallowed Mist's untargetability does not apply to monsters nor turrets, meaning they are allowed to gain aggro against Gwen and attack her regardless of being in the mist or not.\n  - However, Gwen will not take damage from monsters that hit her and are outside of the mist.",
+        "Hallowed Mist does not grant untargetability against enemy pets inside the zone if their source is outside, but does grant untargetability against enemy pets outside the zone even if their source is inside.",
+        "All projectiles targeted at Gwen by enemy champions outside the mist are destroyed upon attempting to pass through the mist or being inside the mist.\n  - Targeted projectiles sourced by minions or monsters will not be destroyed and can still hit Gwen even if they are outside of the zone.",
+        "If Gwen dashes out of the area, the mist will automatically move to the dash's destination instead of Gwen's location.\n  - The mist will stop moving immediately if the dash is interrupted.",
+        "The recast will move the mist's center 75 units through Gwen's location at the time.\n  - If she is dashing, the mist will move 75 units through her dash destination instead.",
+        "Hallowed Mist will indicate that Gwen is Immune whenever an effect attempts to hit Gwen."
+      ]
+    }
+  ]
+}

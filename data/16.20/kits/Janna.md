@@ -9,6 +9,22 @@ Values marked "at max rank, level 20" assume every ability is maxed; see PLAN.md
 |---|--:|--:|--:|--:|--:|--:|--:|--:|--:|--:|
 | Janna | 2339.9 | 16.32 | 1343.3 Mana | 96.2 | 0.994 | 0.201 | 116.5 | 55.6 | 550 | 325 |
 
+## Fight profile (what the interaction ledger uses)
+
+| Form | Attack range | Ranged | Projectile | Missile speed | Attack modifiers |
+|---|--:|---|---|--:|---|
+| Janna | 550 | yes | yes | 1800 | Tailwind |
+
+Cooldowns at max rank. Flags: the wiki's interaction flags (yes, no, partly). * marks an effect that applies only under a condition.
+
+| Slot | Ability | Cooldown | Delivery | Applies to the enemy | Movement | Gives itself |
+|---|---|--:|---|---|---|---|
+| E | Eye of the Storm | 12 | – | – | – | shield 4 s |
+| I | Tailwind | – | attack modifier | – | – | – |
+| Q | Howling Gale | 14 | projectile yes; spell shield yes | airborne (knock up) | – | – |
+| R | Monsoon | 100 | spell shield yes; disruptable yes | airborne (knock back) 0.5 s | – | heal 3 s |
+| W | Zephyr | 6 | projectile yes; spell shield yes | slow 2 s 36% | – | – |
+
 ## Innate: Tailwind
 
 Source: [Template:Data Janna/Tailwind](https://wiki.leagueoflegends.com/en-us/Template:Data_Janna/Tailwind?oldid=3985378) (revision 3985378). Ranks: 1.

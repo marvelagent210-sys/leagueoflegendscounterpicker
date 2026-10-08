@@ -9,6 +9,22 @@ Values marked "at max rank, level 20" assume every ability is maxed; see PLAN.md
 |---|--:|--:|--:|--:|--:|--:|--:|--:|--:|--:|
 | Gangplank | 2871.8 | 17.80 | 1459.9 Mana | 146.6 | 1.092 | 0.151 | 123.4 | 72.3 | 125 | 345 |
 
+## Fight profile (what the interaction ledger uses)
+
+| Form | Attack range | Ranged | Projectile | Missile speed | Attack modifiers |
+|---|--:|---|---|--:|---|
+| Gangplank | 125 | no | no | – | Trial by Fire |
+
+Cooldowns at max rank. Flags: the wiki's interaction flags (yes, no, partly). * marks an effect that applies only under a condition.
+
+| Slot | Ability | Cooldown | Delivery | Applies to the enemy | Movement | Gives itself |
+|---|---|--:|---|---|---|---|
+| E | Powder Keg | 13 | projectile no; spell shield yes | slow 2 s 80% | – | – |
+| I | Trial by Fire | 15 | spell shield no; parry partly; attack modifier | – | – | – |
+| Q | Parrrley | 4.5 | projectile yes; spell shield yes; parry yes; on-hit | – | – | – |
+| R | Cannon Barrage | 120 | spell shield yes | slow 0.5 s 30% | – | – |
+| W | Remove Scurvy | 14 | – | – | – | cleanse (19 CC types) |
+
 ## Innate: Trial by Fire
 
 Source: [Template:Data Gangplank/Trial by Fire](https://wiki.leagueoflegends.com/en-us/Template:Data_Gangplank/Trial_by_Fire?oldid=4038337) (revision 4038337). Ranks: 1.

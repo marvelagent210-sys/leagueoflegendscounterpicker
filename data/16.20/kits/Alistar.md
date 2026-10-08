@@ -9,6 +9,22 @@ Values marked "at max rank, level 20" assume every ability is maxed; see PLAN.md
 |---|--:|--:|--:|--:|--:|--:|--:|--:|--:|--:|
 | Alistar | 3044.8 | 25.22 | 1136.6 Mana | 135.7 | 0.886 | 0.339 | 132.4 | 72.3 | 125 | 335 |
 
+## Fight profile (what the interaction ledger uses)
+
+| Form | Attack range | Ranged | Projectile | Missile speed | Attack modifiers |
+|---|--:|---|---|--:|---|
+| Alistar | 125 | no | no | – | – |
+
+Cooldowns at max rank. Flags: the wiki's interaction flags (yes, no, partly). * marks an effect that applies only under a condition.
+
+| Slot | Ability | Cooldown | Delivery | Applies to the enemy | Movement | Gives itself |
+|---|---|--:|---|---|---|---|
+| E | Trample | 10 | spell shield partly; parry partly; attack | stun 1 s | – | – |
+| I | Triumphant Roar | 3 | projectile partly | – | – | heal |
+| Q | Pulverize | 10 | spell shield yes | airborne (knock up) 1 s; stun 1 s | – | – |
+| R | Unbreakable Will | 80 | – | – | – | cleanse (19 CC types) |
+| W | Headbutt | 10 | spell shield yes; grounded yes; knockdown yes | airborne (knock back) 0.5 s*; stun 0.75 s* | dash | – |
+
 ## Innate: Triumphant Roar
 
 Source: [Template:Data Alistar/Triumphant Roar](https://wiki.leagueoflegends.com/en-us/Template:Data_Alistar/Triumphant_Roar?oldid=4007561) (revision 4007561). Ranks: 1.

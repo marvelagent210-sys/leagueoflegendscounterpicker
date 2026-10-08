@@ -9,6 +9,22 @@ Values marked "at max rank, level 20" assume every ability is maxed; see PLAN.md
 |---|--:|--:|--:|--:|--:|--:|--:|--:|--:|--:|
 | Renekton | 2842.8 | 22.75 | 100.0 Fury | 150.6 | 1.025 | 0.173 | 137.3 | 68.3 | 125 | 345 |
 
+## Fight profile (what the interaction ledger uses)
+
+| Form | Attack range | Ranged | Projectile | Missile speed | Attack modifiers |
+|---|--:|---|---|--:|---|
+| Renekton | 125 | no | no | – | Reign of Anger |
+
+Cooldowns at max rank. Flags: the wiki's interaction flags (yes, no, partly). * marks an effect that applies only under a condition.
+
+| Slot | Ability | Cooldown | Delivery | Applies to the enemy | Movement | Gives itself |
+|---|---|--:|---|---|---|---|
+| E | Slice and Dice | 10 | spell shield yes; grounded yes; knockdown yes | – | dash | – |
+| I | Reign of Anger | – | attack modifier | – | – | – |
+| Q | Cull the Meek | 7 | spell shield yes | – | – | heal |
+| R | Dominus | 80 | spell shield no | – | – | – |
+| W | Ruthless Predator | 8 | spell shield yes; parry yes; attack | stun 0.75 s | – | shield |
+
 ## Innate: Reign of Anger
 
 Source: [Template:Data Renekton/Reign of Anger](https://wiki.leagueoflegends.com/en-us/Template:Data_Renekton/Reign_of_Anger?oldid=3961774) (revision 3961774). Ranks: 1.

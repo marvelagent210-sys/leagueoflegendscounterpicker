@@ -9,6 +9,22 @@ Values marked "at max rank, level 20" assume every ability is maxed; see PLAN.md
 |---|--:|--:|--:|--:|--:|--:|--:|--:|--:|--:|
 | Mordekaiser | 2690.2 | 19.75 | 0.0 Shield | 139.7 | 0.748 | 0.283 | 119.6 | 72.3 | 175 | 335 |
 
+## Fight profile (what the interaction ledger uses)
+
+| Form | Attack range | Ranged | Projectile | Missile speed | Attack modifiers |
+|---|--:|---|---|--:|---|
+| Mordekaiser | 175 | no | no | – | Darkness Rise |
+
+Cooldowns at max rank. Flags: the wiki's interaction flags (yes, no, partly). * marks an effect that applies only under a condition.
+
+| Slot | Ability | Cooldown | Delivery | Applies to the enemy | Movement | Gives itself |
+|---|---|--:|---|---|---|---|
+| E | Death's Grasp | 8 | projectile no; spell shield yes | airborne (pull) | – | – |
+| I | Darkness Rise | – | spell shield no; parry yes; attack modifier | – | – | – |
+| Q | Obliterate | 4 | projectile no; spell shield yes | – | – | – |
+| R | Realm of Death | 100 | spell shield partly | attack speed slow; slow 7 s 75%; reveal | – | cleanse (4 CC types); heal 7 s |
+| W | Indestructible | 8 | – | – | – | shield 4 s; heal |
+
 ## Innate: Darkness Rise
 
 Source: [Template:Data Mordekaiser/Darkness Rise](https://wiki.leagueoflegends.com/en-us/Template:Data_Mordekaiser/Darkness_Rise?oldid=4070051) (revision 4070051). Ranks: 1.
@@ -37,48 +53,6 @@ Notes:
 - Dusk and Dawn Spellblade on-hit event is special cased to generate an additional Darkness Rise stack.
     - The on-hit event is not triggered if the triggering attack is dodged, blocked, or missed while Mordekaiser is blinded, thus not generating a Darkness Rise stack. It is still triggered against invulnerable targets, generating a Darkness Rise stack.
 - Darkness Rise's area damage alone does not refresh Darkness Rise's buff.
-
-## Innate: Iron Man
-
-Source: [Template:Data Mordekaiser/Iron Man](https://wiki.leagueoflegends.com/en-us/Template:Data_Mordekaiser/Iron_Man?oldid=2780409) (revision 2780409). Ranks: 1.
-
-Targeting: Passive · Affects: Self · Damage type: – · Spell shield blocks it: – · Projectile: – · Parry: – · Disabled by grounded: – · Usable while knocked down: –
-
-Innate: Mordekaiser shields himself for 25% of the damage dealt by his abilities, halved to 12.5% against enemy minions and capped at 25% maximum health.
-
-- **Mechanics:** shield
-
-After a 1.5 seconds delay, Iron Man's shield decays at a rate of 1.5% base health per second down to a minimum of 6.25% maximum health .
-
-Notes:
-
-- Iron Man does not benefit from item damage (Hextech Gunblade, Nashor's Tooth) but does so from a Child of the Grave's basic attacks as well as Dragon Force.
-- Iron Man's shield is not used for Mordekaiser's ability costs, only his health.
-
-## Q: Mace of Spades
-
-Source: [Template:Data Mordekaiser/Mace of Spades](https://wiki.leagueoflegends.com/en-us/Template:Data_Mordekaiser/Mace_of_Spades?oldid=2780536) (revision 2780536). Ranks: 5.
-
-| Field | Value |
-|---|---|
-| Cooldown | 10 / 8.5 / 7 / 5.5 / 4 |
-| Cost | 20 / 23 / 26 / 29 / 32 health |
-
-Targeting: Self · Affects: Enemies · Damage type: magic · Spell shield blocks it: true · Projectile: – · Parry: – · Disabled by grounded: – · Usable while knocked down: –
-
-Active: Mordekaiser's next three basic attacks deal bonus magic damage, with the third hit dealing double of that.
-
-- **First / Second Bonus Magic Damage:** 10 / 20 / 30 / 40 / 50 (+ 50 / 60 / 70 / 80 / 90% AD) (+ 60% AP) → at max rank, level 20: 50 (+ 90% AD) (+ 60% AP)
-- **Third Bonus Magic Damage:** 20 / 40 / 60 / 80 / 100 (+ 100 / 120 / 140 / 160 / 180% AD) (+ 120% AP) → at max rank, level 20: 100 (+ 180% AD) (+ 120% AP)
-- **Total Bonus Damage:** 40 / 80 / 120 / 160 / 200 (+ 200 / 240 / 280 / 320 / 360% AD) (+ 240% AP) → at max rank, level 20: 200 (+ 360% AD) (+ 240% AP)
-
-Mace of Spades resets Mordekaiser's autoattack timer.
-
-Notes:
-
-- Mace of Spades does not multiply Spellblade or other on-hit effects' damage.
-- The enhanced attacks will apply on-hit effects if they can apply basic attack damage, but they do not affect structures.
-- The attacks can be blocked and dodged and the modifier will be consumed if Mordekaiser is blinded.
 
 ## Q: Obliterate
 
@@ -110,42 +84,6 @@ Notes:
     - Rank 3: 210 – 317.8 (based on level) (+ 168% bonus AD) (+ 98% AP)
     - Rank 4: 268.25 – 379.9 (based on level) (+ 174% bonus AD) (+ 101.5% AP)
     - Rank 5: 330 – 445.5 (based on level) (+ 180% bonus AD) (+ 105% AP)
-
-## W: Harvester of Sorrow
-
-Source: [Template:Data Mordekaiser/Harvester of Sorrow](https://wiki.leagueoflegends.com/en-us/Template:Data_Mordekaiser/Harvester_of_Sorrow?oldid=3166739) (revision 3166739). Ranks: 5.
-
-| Field | Value |
-|---|---|
-| Cooldown | 12 / 11 / 10 / 9 / 8 |
-| Cost | 25 / 35 / 45 / 55 / 65 health |
-| Target range | 1000 |
-| Effect radius | 250 / 125 |
-
-Targeting: Self, Unit · Affects: Self, Allies · Damage type: magic · Spell shield blocks it: false · Projectile: – · Parry: – · Disabled by grounded: – · Usable while knocked down: –
-
-Passive: Mordekaiser gains bonus experience when killing a minion near allies equal to 50% of the experience he lost due to them being there, which totals at 82.6 / 71.7333 / 66.3 / 63.04 / 60.8667 (based on champions)% of the minion's experience bounty.
-
-Active - First Cast: Mordekaiser targets an allied champion or minion and for the next 4 seconds they gain up to 75 bonus movement speed while moving towards each other (increasing the further apart they are), which lingers for 1.5 seconds. When near enough to each other, each deal magic damage in an area of effect around themselves every second for the duration (melee and caster minions have a smaller AoE). Harvester of Sorrow ends if Mordekaiser or his ally dies.
-
-- **Magic Damage Per Second:** 35 / 45 / 55 / 65 / 75 (+ 22.5% AP) → at max rank, level 20: 75 (+ 22.5% AP)
-- **Total Magic Damage:** 140 / 180 / 220 / 260 / 300 (+ 90% AP) → at max rank, level 20: 300 (+ 90% AP)
-
-For the next 4 seconds, Mordekaiser can reactivate Harvester of Sorrow to end its primary effects and trigger a secondary effect, which triggers automatically at the end of the duration. If activated while no allies are nearby, Mordekaiser will highlight an area around him and can reactivate the ability as normal. The first ally to come in range will automatically gain the effect, too.
-
-Active - Second Cast: Mordekaiser constricts the area, dealing magic damage to all enemies near himself and his ally as well as healing himself and his ally for the same amount, from up to 2 enemies hit in their respective areas. Healing is reduced to 25% when harvesting minions.
-
-- **Harvest Damage:** 50 / 85 / 120 / 155 / 190 (+ 30% AP) → at max rank, level 20: 190 (+ 30% AP)
-- **Heal Per Enemy:** 50 / 85 / 120 / 155 / 190 (+ 30% AP) → at max rank, level 20: 190 (+ 30% AP)
-- **Maximum Heal:** 100 / 170 / 240 / 310 / 380 (+ 60% AP) → at max rank, level 20: 380 (+ 60% AP)
-- **Heal from Minions:** 12.5 / 21.25 / 30 / 38.75 / 47.5 (+ 7.5% AP) → at max rank, level 20: 47.5 (+ 7.5% AP)
-- **Maximum Heal from Minions:** 25 / 42.5 / 60 / 77.5 / 95 (+ 15% AP) → at max rank, level 20: 95 (+ 15% AP)
-- **Mechanics:** heal
-
-Notes:
-
-- Harvester of Sorrow has no cast time and does not interrupt Mordekaiser's previous orders.
-- Reference: Champions usually receive 100% – 21.7333333333% (based on champions) of the experience bounty.
 
 ## W: Indestructible
 
@@ -205,70 +143,6 @@ Notes:
 - Death's Grasp will still pull even if Mordekaiser dies.
 - Death's Grasp will only be visible from the enemy team's perspective if it is at least 300 units into their sight.
 - This ability will cast from wherever the caster is at the start of the cast time.
-
-## E: Siphon of Destruction
-
-Source: [Template:Data Mordekaiser/Siphon of Destruction](https://wiki.leagueoflegends.com/en-us/Template:Data_Mordekaiser/Siphon_of_Destruction?oldid=2780538) (revision 2780538). Ranks: 5.
-
-| Field | Value |
-|---|---|
-| Cooldown | 6 / 5.75 / 5.5 / 5.25 / 5 |
-| Cost | 24 / 36 / 48 / 60 / 72 health |
-| Effect radius | 675 |
-| Angle | 50° |
-
-Targeting: Direction · Affects: Enemies, Self · Damage type: magic · Spell shield blocks it: special · Projectile: – · Parry: – · Disabled by grounded: – · Usable while knocked down: –
-
-Active: Mordekaiser deals magic damage to all enemies in a cone in the target direction.
-
-- **Magic Damage:** 35 / 65 / 95 / 125 / 155 (+ 60% AD) (+ 60% AP) → at max rank, level 20: 155 (+ 60% AD) (+ 60% AP)
-
-For each enemy champion hit, Mordekaiser generates a bonus percentage of Iron Man shield.
-
-- **Bonus Shield:** 15 / 17.5 / 20 / 22.5 / 25% → at max rank, level 20: 25%
-
-Notes:
-
-- Spell shield will block the damage and the bonus shield.
-
-## R: Children of the Grave
-
-Source: [Template:Data Mordekaiser/Children of the Grave](https://wiki.leagueoflegends.com/en-us/Template:Data_Mordekaiser/Children_of_the_Grave?oldid=2793521) (revision 2793521). Ranks: 3.
-
-| Field | Value |
-|---|---|
-| Cooldown | 120 / 105 / 90 |
-| Target range | 650 |
-| Effect radius | 1125 / Global |
-
-Targeting: Unit · Affects: Enemies · Damage type: magic · Spell shield blocks it: true · Projectile: – · Parry: – · Disabled by grounded: – · Usable while knocked down: –
-
-Passive - Dragon Force: Mordekaiser's basic attacks and abilities Curse the Dragon for 10 seconds.
-
-Active: Mordekaiser curses the target enemy champion, dealing magic damage and healing himself for the same amount. 25% of the damage and healing is applied instantly, while the other 75% is applied over 10 seconds.
-
-- **Total Magic Damage:** 25 / 30 / 35% (+ 4% per 100 AP) of target's maximum health → at max rank, level 20: 35% of targetMaxHealth (+ 4% per100:AP)
-- **Initial Magic Damage:** 6.25 / 7.5 / 8.75% (+ 1% per 100 AP) of target's maximum health → at max rank, level 20: 8.75% of targetMaxHealth (+ 1% per100:AP)
-- **Magic Damage Per Second:** 1.875 / 2.25 / 2.625% (+ 0.3% per 100 AP) of target's maximum health → at max rank, level 20: 2.625% of targetMaxHealth (+ 0.3% per100:AP)
-- **Mechanics:** heal
-
-Curse: If Mordekaiser's team scores an enemy champion takedown on a Cursed enemy, he temporarily enslaves their soul as a controllable ghost. Enslaving the Dragon will kill Mordekaiser's current ghost and prevent him from summoning a new one while it survives.
-
-- **Ghost Duration:** 45 / 60 / 75 → at max rank, level 20: 75
-
-Second Active: While a ghost is active, Children of the Grave can be used to move them to the target location.
-
-Champion ghosts gain 100% of Mordekaiser's bonus AD as bonus AD and 15% of Mordekaiser's maximum health as bonus health, and while Mordekaiser has a champion enslaved he gains 25% of their bonus health as bonus health and 30% of their AP as bonus AP. Dragon ghosts gain bonus range and modified movement speed.
-
-- **Bonus Attack Range:** 0 / 75 / 150 → at max rank, level 20: 150
-- **Bonus Movement Speed:** -50 / 0 / 50 → at max rank, level 20: 50
-
-Notes:
-
-- Children of the Grave will grant Mordekaiser a ghost and bonus stats at the start of Death Defied, Icathian Surprise or Glory in Death.
-- Children of the Grave will not grant Mordekaiser a ghost or bonus stats if the target is revived by Guardian Angel, World Ender, Cell Division, or Chronoshift.
-- Mordekaiser cannot cast Children of the Grave while the Dragon Force's ghost is alive.
-- The Dragon Ghost applies effects as a standard pet, but also applies AoE effects.
 
 ## R: Realm of Death
 

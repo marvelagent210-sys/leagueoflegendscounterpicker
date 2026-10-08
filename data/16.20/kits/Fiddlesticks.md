@@ -9,6 +9,23 @@ Values marked "at max rank, level 20" assume every ability is maxed; see PLAN.md
 |---|--:|--:|--:|--:|--:|--:|--:|--:|--:|--:|
 | Fiddlesticks | 2734.5 | 17.30 | 1050.6 Mana | 107.1 | 0.884 | 0.339 | 126.4 | 55.6 | 480 | 335 |
 
+## Fight profile (what the interaction ledger uses)
+
+| Form | Attack range | Ranged | Projectile | Missile speed | Attack modifiers |
+|---|--:|---|---|--:|---|
+| Fiddlesticks | 480 | yes | yes | 1750 | – |
+
+Cooldowns at max rank. Flags: the wiki's interaction flags (yes, no, partly). * marks an effect that applies only under a condition.
+
+| Slot | Ability | Cooldown | Delivery | Applies to the enemy | Movement | Gives itself |
+|---|---|--:|---|---|---|---|
+| A | Basic Attack | – | projectile partly; parry yes; on-hit | – | – | – |
+| E | Reap | 6 | spell shield yes | silence 1.25 s; slow 1.25 s 50% | – | – |
+| I | A Harmless Scarecrow | – | – | reveal | blink | – |
+| Q | Terrify | 13 | projectile yes; spell shield yes | fear 2 s; slow 90% | – | – |
+| R | Crowstorm | 80 | grounded yes; disruptable yes | – | blink | – |
+| W | Bountiful Harvest | 8 | spell shield partly; disruptable yes | reveal | – | heal |
+
 ## Innate: A Harmless Scarecrow
 
 Source: [Template:Data Fiddlesticks/A Harmless Scarecrow](https://wiki.leagueoflegends.com/en-us/Template:Data_Fiddlesticks/A_Harmless_Scarecrow?oldid=4058532) (revision 4058532). Ranks: 1.
@@ -43,25 +60,6 @@ Notes:
     - While within 75-225 radius of a faelight, Fiddlesticks will blink into a 75 radius of the faelight's location.
 - The trinket slot can still be temporarily replaced by Eye of the Herald.
 - - Surprise Party Fiddlesticks has a special icon for this ability.
-
-## Innate: Dread
-
-Source: [Template:Data Fiddlesticks/Dread](https://wiki.leagueoflegends.com/en-us/Template:Data_Fiddlesticks/Dread?oldid=3166174) (revision 3166174). Ranks: 1.
-
-Targeting: Passive · Affects: Self · Damage type: – · Spell shield blocks it: – · Projectile: – · Parry: – · Disabled by grounded: – · Usable while knocked down: –
-
-Innate: Standing still or channeling abilities for 1.5 seconds grants Fiddlesticks 25 / 30 / 35 / 40 (based on level)% bonus movement speed, that lasts for 1.5 seconds once he starts moving. Being immobilized will not trigger Dread, and will reset the timer.
-
-- **Mechanics:** channel (1.5 s)
-
-After 5 seconds of not moving, Fiddlesticks will stand completely still.
-
-Notes:
-
-- Standing still and basic attacking will not reset Dread's timer.
-- Unlike Guerrilla Warfare Fiddlesticks can perform other actions so long as he does not move.
-- If the player orders Fiddlesticks to move to his current position (clicking to move on top of Fiddlesticks), Dread activates even without Fiddlesticks moving.
-    - This way it's possible to activate Dread infinitely.
 
 ## Q: Terrify
 
@@ -177,70 +175,6 @@ Notes:
 - Spell shield will block the tether's application but not the damage of one already applied.
 - - Surprise Party Fiddlesticks has a special icon for this ability.
 - The following table refers for interactions while Fiddlesticks is channeling:
-
-## W: Drain
-
-Source: [Template:Data Fiddlesticks/Drain](https://wiki.leagueoflegends.com/en-us/Template:Data_Fiddlesticks/Drain?oldid=2937884) (revision 2937884). Ranks: 5.
-
-| Field | Value |
-|---|---|
-| Cooldown | 4 / 3.75 / 3.5 / 3.25 / 3 |
-| Cost | 80 / 90 / 100 / 110 / 120 mana |
-| Target range | 575 |
-| Tether radius | 650 |
-
-Targeting: Unit · Affects: Enemies, Self · Damage type: Magic · Spell shield blocks it: special · Projectile: false · Parry: – · Disabled by grounded: – · Usable while knocked down: –
-
-Active: Fiddlesticks tethers himself to the target enemy and channels for up to 5 seconds. While channeling, he deals magic damage each second, and heals himself for a percentage of the damage done.
-
-- **Magic Damage per Second:** 80 / 105 / 130 / 155 / 180 (+ 45% AP) → at max rank, level 20: 180 (+ 45% AP)
-- **Total Magic Damage:** 400 / 525 / 650 / 775 / 900 (+ 225% AP) → at max rank, level 20: 900 (+ 225% AP)
-- **Heal Ratio:** 60 / 65 / 70 / 75 / 80% → at max rank, level 20: 80%
-- **Heal per Second:** 48 / 68.25 / 91 / 116.25 / 144 (+ 27 / 29.25 / 31.5 / 33.75 / 36% AP) → at max rank, level 20: 144 (+ 36% AP)
-- **Total Heal:** 240 / 341.25 / 455 / 581.25 / 720 (+ 135 / 146.25 / 157.5 / 168.75 / 180% AP) → at max rank, level 20: 720 (+ 180% AP)
-- **Mechanics:** tether (5 s); channel (5 s); heal
-
-If the target breaks the tether by moving out of range, Drain ends immediately. If the target dies before the channel completes, the cooldown is reduced by its remaining duration.
-
-Notes:
-
-- Drain deals damage every 0.25 seconds.
-- Drain has a brief channel time (0.1 seconds) on cast before activation.
-- Drain's channel will be interrupted if Fiddlesticks performs any other action, uses item actives, or is disabled.
-    - Using summoner spells (except Flash and Teleport) will not interrupt the channel.
-- Drain will not continue channeling through Death Defied or Icathian Surprise.
-- Drain will continue channeling through untargetable abilities (Playful, Sanguine Pool) so long as the target remains in tether range.
-- Spell shield will block applying the tether but will not block damage from one already applied.
-
-## E: Dark Wind
-
-Source: [Template:Data Fiddlesticks/Dark Wind](https://wiki.leagueoflegends.com/en-us/Template:Data_Fiddlesticks/Dark_Wind?oldid=2939265) (revision 2939265). Ranks: 5.
-
-| Field | Value |
-|---|---|
-| Cooldown | 10 |
-| Cost | 70 / 75 / 80 / 85 / 90 mana |
-| Target range | 750 |
-| Effect radius | 450 |
-
-Targeting: Unit, Auto · Affects: Enemies · Damage type: Magic · Spell shield blocks it: true · Projectile: true · Parry: – · Disabled by grounded: – · Usable while knocked down: –
-
-Active: Fiddlesticks sends a crow to the target enemy that bounces to nearby enemies up to 5 times, prioritizing targets not yet hit or targets affected by Drain, dealing magic damage with each bounce and silencing them for 1.25 seconds once.
-
-- **Magic Damage per Bounce:** 60 / 80 / 100 / 120 / 140 (+ 45% AP) → at max rank, level 20: 140 (+ 45% AP)
-- **Total Single-Target Damage:** 180 / 240 / 300 / 360 / 420 (+ 135% AP) → at max rank, level 20: 420 (+ 135% AP)
-- **Mechanics:** silence (1.25 s)
-
-Monsters take twice as much damage.
-
-- **Monster Damage per Bounce:** 120 / 160 / 200 / 240 / 280 (+ 90% AP) → at max rank, level 20: 280 (+ 90% AP)
-- **Monster Total Single-Target Damage:** 360 / 480 / 600 / 720 / 840 (+ 270% AP) → at max rank, level 20: 840 (+ 270% AP)
-
-Notes:
-
-- Applies spell damage in a area of effect range.
-- The crow will vanish if the target becomes untargetable but will keep on bouncing if the target has died.
-- - Surprise Party Fiddlesticks has this special icon for this ability.
 
 ## E: Reap
 

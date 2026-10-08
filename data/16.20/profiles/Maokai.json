@@ -1,0 +1,313 @@
+{
+  "champion": "Maokai",
+  "name": "Maokai",
+  "gameplayRadius": 80,
+  "moveSpeed": 335,
+  "attacks": [
+    {
+      "form": "maokai",
+      "formName": "Maokai",
+      "range": 125,
+      "ranged": false,
+      "projectile": false,
+      "attackSpeed": 1.09043,
+      "attackDamage": 128.894,
+      "windup": 0.275121,
+      "modifiers": [
+        "Sap Magic"
+      ]
+    }
+  ],
+  "abilities": [
+    {
+      "champion": "Maokai",
+      "kind": "E",
+      "name": "Sapling Toss",
+      "page": {
+        "title": "Template:Data Maokai/Sapling Toss",
+        "revid": 4007687
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "location"
+        ],
+        "affectsEnemies": true,
+        "projectile": "yes",
+        "spellShield": "yes"
+      },
+      "applies": [
+        {
+          "type": "slow",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "slow"
+            },
+            {
+              "page": "Template:Data Maokai/Sapling Toss",
+              "revid": 4007687,
+              "quote": "The Sapling explodes upon colliding with an enemy or when it expires, dealing magic damage to nearby enemies, capped at 300 against non-champions, and slowing them by 45% for 2 seconds."
+            }
+          ],
+          "duration": 2,
+          "amount": 45
+        }
+      ],
+      "movement": [],
+      "states": [],
+      "cooldown": 14,
+      "castTime": 0.25,
+      "range": 1100,
+      "notes": [
+        "Sapling Toss's cast does not initially fling the actual Sapling unit but instead a Sapling-like projectile that can be destroyed by projectile-interception effects.\n  - The projectile will stop its flight upon colliding with Unbreakable, causing the Sapling to land in front of the barrier."
+      ]
+    },
+    {
+      "champion": "Maokai",
+      "kind": "I",
+      "name": "Sap Magic",
+      "page": {
+        "title": "Template:Data Maokai/Sap Magic",
+        "revid": 4038409
+      },
+      "damageTypes": [],
+      "delivery": {
+        "targeting": [
+          "passive"
+        ],
+        "affectsEnemies": false,
+        "parry": "partly",
+        "attack": "attack modifier"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [
+        {
+          "state": "heal",
+          "evidence": [
+            {
+              "page": "Template:Data Maokai/Sap Magic",
+              "revid": 4038409,
+              "quote": "Innate: Periodically, Maokai empowers his next basic attack to have an uncancellable windup and heal him for 4 – 12.8 (based on level)% maximum health after a 0.25-second delay."
+            }
+          ]
+        }
+      ],
+      "cooldown": 18.8235,
+      "boostsAttacks": true,
+      "notes": [
+        "Sap Magic does not occur if the attack is dodged and/or missed if Maokai is blinded. It will occur if it is blocked.",
+        "If Maokai possesses a spell shield and it consumes an enemy ability, he will still receive the cooldown reduction."
+      ]
+    },
+    {
+      "champion": "Maokai",
+      "kind": "Q",
+      "name": "Bramble Smash",
+      "page": {
+        "title": "Template:Data Maokai/Bramble Smash",
+        "revid": 4046583
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "direction"
+        ],
+        "affectsEnemies": true,
+        "projectile": "yes",
+        "spellShield": "yes"
+      },
+      "applies": [
+        {
+          "type": "airborne",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "airborne: knock back"
+            },
+            {
+              "page": "Template:Data Maokai/Bramble Smash",
+              "revid": 4046583,
+              "quote": "Enemies near Maokai are also stunned for 0.5 seconds and knocked back up to 300 units based on their proximity to him."
+            }
+          ],
+          "variant": "knock back"
+        },
+        {
+          "type": "slow",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "slow"
+            },
+            {
+              "page": "Template:Data Maokai/Bramble Smash",
+              "revid": 4046583,
+              "quote": "Active: Maokai sends a shockwave in the target direction that deals magic damage to enemies hit and slows them by 99% for 0.25 seconds."
+            }
+          ],
+          "duration": 0.25,
+          "amount": 99
+        },
+        {
+          "type": "stun",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "stun"
+            },
+            {
+              "page": "Template:Data Maokai/Bramble Smash",
+              "revid": 4046583,
+              "quote": "Enemies near Maokai are also stunned for 0.5 seconds and knocked back up to 300 units based on their proximity to him."
+            }
+          ],
+          "duration": 0.5
+        }
+      ],
+      "movement": [],
+      "states": [],
+      "cooldown": 5,
+      "castTime": 0.3,
+      "range": 600,
+      "speed": 1600,
+      "notes": [
+        "Displacement immunity will also resist the application of the stun."
+      ]
+    },
+    {
+      "champion": "Maokai",
+      "kind": "R",
+      "name": "Nature's Grasp",
+      "page": {
+        "title": "Template:Data Maokai/Nature's Grasp",
+        "revid": 3681487
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "direction"
+        ],
+        "affectsEnemies": true,
+        "projectile": "yes",
+        "spellShield": "yes"
+      },
+      "applies": [
+        {
+          "type": "root",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "root"
+            },
+            {
+              "page": "Template:Data Maokai/Nature's Grasp",
+              "revid": 3681487,
+              "quote": "Each bramble deals magic damage to enemies hit and roots them for 0.75 / 0.9 / 1.05 / 1.2 / 1.35 / 1.5 / 1.65 / 1.8 / 1.95 / 2.1 / 2.25 (based on distance traveled) seconds."
+            }
+          ],
+          "duration": 0.75
+        }
+      ],
+      "movement": [],
+      "states": [],
+      "cooldown": 90,
+      "castTime": 0.5,
+      "range": 3000,
+      "speed": 100,
+      "notes": [
+        "The brambles are made up of 4 missiles each which trail 100 units behind one another. The front missile carries the visual effect. When colliding with a champion, all missiles of one bramble are destroyed simultaneously.\n  - Missiles destroyed by other means such as Blade Whirl may not destroy their fellows from the same branch, resulting in one or more invisible missiles that may still collide."
+      ]
+    },
+    {
+      "champion": "Maokai",
+      "kind": "W",
+      "name": "Twisted Advance",
+      "page": {
+        "title": "Template:Data Maokai/Twisted Advance",
+        "revid": 3946300
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "unit"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "yes",
+        "grounded": "yes",
+        "knockdown": "yes"
+      },
+      "applies": [
+        {
+          "type": "root",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "root"
+            },
+            {
+              "page": "Template:Data Maokai/Twisted Advance",
+              "revid": 3946300,
+              "quote": "Upon arrival, he deals magic damage and roots them for a duration."
+            }
+          ],
+          "duration": 1.4
+        }
+      ],
+      "movement": [
+        {
+          "type": "dash",
+          "evidence": [
+            {
+              "page": "Dash",
+              "revid": 4035700,
+              "quote": "unit-targeted"
+            }
+          ],
+          "targeting": "unit-targeted",
+          "interruptible": true
+        }
+      ],
+      "states": [
+        {
+          "state": "untargetable",
+          "evidence": [
+            {
+              "page": "Untargetability",
+              "revid": 3965000
+            },
+            {
+              "page": "Template:Data Maokai/Twisted Advance",
+              "revid": 3946300,
+              "quote": "Active: Maokai dashes to the target enemy while being untargetable."
+            }
+          ],
+          "duration": 1.4
+        }
+      ],
+      "cooldown": 10,
+      "castTime": 0,
+      "range": 525,
+      "speed": 1300,
+      "notes": [
+        "Maokai will track the target if they change locations.\n  - He will dash to the target's previous location without applying Twisted Advance's effects if the target is too far away or moves beyond 2000 units.\n  - He will stop dashing if the target is too far away the moment the dash begins.",
+        "Twisted Advance will fail to deal damage and apply the root if the target is untargetable upon arrival."
+      ]
+    }
+  ]
+}

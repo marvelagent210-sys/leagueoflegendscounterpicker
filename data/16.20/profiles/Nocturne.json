@@ -1,0 +1,277 @@
+{
+  "champion": "Nocturne",
+  "name": "Nocturne",
+  "gameplayRadius": 65,
+  "moveSpeed": 345,
+  "attacks": [
+    {
+      "form": "nocturne",
+      "formName": "Nocturne",
+      "range": 125,
+      "ranged": false,
+      "projectile": false,
+      "attackSpeed": 1.10382,
+      "attackDamage": 113.129,
+      "windup": 0.181674,
+      "modifiers": [
+        "Umbra Blades"
+      ]
+    }
+  ],
+  "abilities": [
+    {
+      "champion": "Nocturne",
+      "kind": "E",
+      "name": "Unspeakable Horror",
+      "page": {
+        "title": "Template:Data Nocturne/Unspeakable Horror",
+        "revid": 4015219
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "unit"
+        ],
+        "affectsEnemies": true,
+        "projectile": "no",
+        "spellShield": "partly"
+      },
+      "applies": [
+        {
+          "type": "fear",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "fear"
+            },
+            {
+              "page": "Template:Data Nocturne/Unspeakable Horror",
+              "revid": 4015219,
+              "quote": "Passive: Nocturne gains 90% bonus movement speed while facing nearby feared targets."
+            }
+          ],
+          "duration": 2.25
+        },
+        {
+          "type": "slow",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "slow"
+            },
+            {
+              "page": "Template:Data Nocturne/Unspeakable Horror",
+              "revid": 4015219,
+              "quote": "If the tether is not broken by the end of its duration, the target is feared for a duration while being slowed by 90%."
+            }
+          ],
+          "amount": 90,
+          "condition": "If the tether is not broken by the end of its duration, the target is feared for a duration while being slowed by 90%."
+        }
+      ],
+      "movement": [],
+      "states": [],
+      "cooldown": 11,
+      "castTime": 0,
+      "range": 425,
+      "notes": [
+        "Spell shield will block the tether's application but not the damage and aftereffects of one already applied."
+      ]
+    },
+    {
+      "champion": "Nocturne",
+      "kind": "I",
+      "name": "Umbra Blades",
+      "page": {
+        "title": "Template:Data Nocturne/Umbra Blades",
+        "revid": 4007794
+      },
+      "damageTypes": [
+        "physical"
+      ],
+      "delivery": {
+        "targeting": [
+          "passive"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "no",
+        "parry": "yes",
+        "attack": "attack modifier"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [
+        {
+          "state": "heal",
+          "evidence": [
+            {
+              "page": "Template:Data Nocturne/Umbra Blades",
+              "revid": 4007794,
+              "quote": "Innate: Periodically, Nocturne empowers his next basic attack to slash in a circle, dealing 120% AD physical damage to the target and nearby enemies and healing himself for 13 – 30 (based on level) (+ 30% AP) per enemy hit."
+            }
+          ]
+        }
+      ],
+      "cooldown": 12,
+      "notes": [
+        "Parry effects will only block the damage dealt to the primary target."
+      ]
+    },
+    {
+      "champion": "Nocturne",
+      "kind": "Q",
+      "name": "Duskbringer",
+      "page": {
+        "title": "Template:Data Nocturne/Duskbringer",
+        "revid": 4026429
+      },
+      "damageTypes": [
+        "physical"
+      ],
+      "delivery": {
+        "targeting": [
+          "direction"
+        ],
+        "affectsEnemies": true,
+        "projectile": "yes",
+        "spellShield": "yes"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "cooldown": 8,
+      "castTime": 0.25,
+      "range": 1200,
+      "speed": 1600,
+      "boostsAttacks": true,
+      "notes": [
+        "Duskbringer checks for and hits targets 25 units outside of the missile's maximum range.",
+        "Duskbringer's damage is not increased by the bonus AD gained from its trail, meaning that casting it again while on the trail from the last cast will not result in higher damage.\n  - It is observed from seasons ago that this is intentionally hard-coded into the ability to avoid the projectile increasing its own damage. This feature is somewhat deprecated as it also limits chain-casting Duskbringer.",
+        "Duskbringer's Dusk Trail will expose the path of affected units until its duration ends. It is a form of obscured vision; the trail indirectly reveals the location of enemy units even in the fog of war, including those shrouded by stealth.",
+        "Spell shield will block the damage and also prevents the Dusk Trail from following the target.",
+        "The formed Dusk Trail does not disappear if Duskbringer is intercepted by Wind Wall or Unbreakable."
+      ]
+    },
+    {
+      "champion": "Nocturne",
+      "kind": "R",
+      "name": "Paranoia",
+      "page": {
+        "title": "Template:Data Nocturne/Paranoia",
+        "revid": 4064858
+      },
+      "damageTypes": [
+        "physical"
+      ],
+      "delivery": {
+        "targeting": [
+          "auto",
+          "unit"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "yes",
+        "grounded": "partly",
+        "knockdown": "no"
+      },
+      "applies": [
+        {
+          "type": "nearsight",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "nearsight"
+            },
+            {
+              "page": "Template:Data Nocturne/Paranoia",
+              "revid": 4064858,
+              "quote": "Active: Nocturne terrorizes all enemy champions, nearsighting them for 6 seconds, during which their sight radius is reduced by 300 units."
+            }
+          ],
+          "duration": 6
+        }
+      ],
+      "movement": [
+        {
+          "type": "dash",
+          "evidence": [
+            {
+              "page": "Dash",
+              "revid": 4035700,
+              "quote": "unit-targeted"
+            }
+          ],
+          "targeting": "unit-targeted",
+          "interruptible": false
+        }
+      ],
+      "states": [
+        {
+          "state": "displacement immune",
+          "evidence": [
+            {
+              "page": "Template:Data Nocturne/Paranoia",
+              "revid": 4064858,
+              "quote": "Recast: Nocturne dashes with displacement immunity to the target enemy champion, dealing physical damage upon arrival."
+            }
+          ]
+        }
+      ],
+      "cooldown": 100,
+      "castTime": 0,
+      "range": 4000,
+      "speed": 1800,
+      "notes": [
+        "Paranoia's nearsight will apply to enemy champions that are untargetable or are dead, and will persist through death.",
+        "Nocturne can cast any of his abilities, summoner spells (excluding Hexflash), or item actives during flight.\n  - Using a dash or blink ability will interrupt the flight.\n  - The flight will also be interrupted if Nocturne is affected by a Blast Cone triggered by an allied champion.",
+        "Paranoia cannot be recast while grounded or rooted.",
+        "Experimental Hexplate Overdrive, Fiendhunter Bolts Opening Barrage, and Zeke's Convergence Frostfire Tempest will activate immediately upon Paranoia's first cast. If the recast is used, the buff's duration is refreshed at the end of the dash."
+      ]
+    },
+    {
+      "champion": "Nocturne",
+      "kind": "W",
+      "name": "Shroud of Darkness",
+      "page": {
+        "title": "Template:Data Nocturne/Shroud of Darkness",
+        "revid": 3948584
+      },
+      "damageTypes": [],
+      "delivery": {
+        "targeting": [
+          "auto"
+        ],
+        "affectsEnemies": false
+      },
+      "applies": [],
+      "movement": [],
+      "states": [
+        {
+          "state": "spell shield",
+          "evidence": [
+            {
+              "page": "Spell shield",
+              "revid": 3981674
+            },
+            {
+              "page": "Template:Data Nocturne/Shroud of Darkness",
+              "revid": 3948584,
+              "quote": "Active: Nocturne gains a spell shield for 1.5 seconds."
+            }
+          ],
+          "duration": 1.5
+        }
+      ],
+      "cooldown": 12,
+      "castTime": 0,
+      "boostsAttacks": true,
+      "notes": [
+        "If Shroud of Darkness is active when Nocturne re-casts Paranoia to dash to a target, its duration is refreshed every 0.25 seconds during the dash."
+      ]
+    }
+  ]
+}

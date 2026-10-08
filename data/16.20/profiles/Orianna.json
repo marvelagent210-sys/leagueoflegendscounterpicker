@@ -1,0 +1,222 @@
+{
+  "champion": "Orianna",
+  "name": "Orianna",
+  "gameplayRadius": 65,
+  "moveSpeed": 325,
+  "attacks": [
+    {
+      "form": "orianna",
+      "formName": "Orianna",
+      "range": 525,
+      "ranged": true,
+      "projectile": true,
+      "missileSpeed": 1500,
+      "attackSpeed": 1.11088,
+      "attackDamage": 95.129,
+      "windup": 0.157927,
+      "modifiers": [
+        "Clockwork Windup"
+      ]
+    }
+  ],
+  "abilities": [
+    {
+      "champion": "Orianna",
+      "kind": "E",
+      "name": "Command: Protect",
+      "page": {
+        "title": "Template:Data Orianna/Command: Protect",
+        "revid": 3804030
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "unit"
+        ],
+        "affectsEnemies": true,
+        "projectile": "yes",
+        "spellShield": "yes"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [
+        {
+          "state": "shield",
+          "evidence": [
+            {
+              "page": "Template:Data Orianna/Command: Protect",
+              "revid": 3804030,
+              "quote": "Active: Orianna commands The Ball to fly to herself or the target allied champion and attach itself to the target, dealing magic damage to enemies it passes through and granting the target a shield for 2.5 seconds upon arrival."
+            }
+          ],
+          "duration": 2.5
+        }
+      ],
+      "cooldown": 9,
+      "castTime": 0,
+      "range": 1120,
+      "speed": 1850,
+      "notes": [
+        "The Ball will remain where Command: Protect's target ally died or, if they died or became untargetable before The Ball reaches them, it will instead snap back to Orianna.\n  - The Ball will return to Orianna if Command: Protect's target ally moves too far away from her (The Ball will always respect its leash range, which is increased by 100 when attached to allied champions).",
+        "The Ball will join Command: Protect's target ally in stealth if they are affected by it when Orianna targets them.",
+        "The Ball snaps back to Orianna upon being intercepted by projectile-blocking effects."
+      ]
+    },
+    {
+      "champion": "Orianna",
+      "kind": "I",
+      "name": "Clockwork Windup",
+      "page": {
+        "title": "Template:Data Orianna/Clockwork Windup",
+        "revid": 4026443
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "passive"
+        ],
+        "affectsEnemies": true,
+        "parry": "yes",
+        "attack": "attack modifier"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "notes": [
+        "Runaan's Hurricane extra bolts will cause Clockwork Winding to reset its stacks, as she hits targets other than her latest one on-hit."
+      ]
+    },
+    {
+      "champion": "Orianna",
+      "kind": "Q",
+      "name": "Command: Attack",
+      "page": {
+        "title": "Template:Data Orianna/Command: Attack",
+        "revid": 3995779
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "location"
+        ],
+        "affectsEnemies": true,
+        "projectile": "partly",
+        "spellShield": "yes"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "cooldown": 3,
+      "castTime": 0,
+      "range": 825,
+      "speed": 1400
+    },
+    {
+      "champion": "Orianna",
+      "kind": "R",
+      "name": "Command: Shockwave",
+      "page": {
+        "title": "Template:Data Orianna/Command: Shockwave",
+        "revid": 4026444
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "auto"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "yes"
+      },
+      "applies": [
+        {
+          "type": "airborne",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "airborne: pull"
+            },
+            {
+              "page": "Template:Data Orianna/Command: Shockwave",
+              "revid": 4026444,
+              "quote": "Active: Orianna commands The Ball to unleash a shockwave that deals magic damage to nearby enemies, stuns them for 0.75 seconds, and pulls them over 325 units, though not through terrain."
+            }
+          ],
+          "variant": "pull"
+        },
+        {
+          "type": "stun",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "stun"
+            },
+            {
+              "page": "Template:Data Orianna/Command: Shockwave",
+              "revid": 4026444,
+              "quote": "Active: Orianna commands The Ball to unleash a shockwave that deals magic damage to nearby enemies, stuns them for 0.75 seconds, and pulls them over 325 units, though not through terrain."
+            }
+          ],
+          "duration": 0.75
+        }
+      ],
+      "movement": [],
+      "states": [],
+      "cooldown": 80,
+      "castTime": 0.5,
+      "notes": [
+        "Displacement immunity will not resist the application of the stun."
+      ]
+    },
+    {
+      "champion": "Orianna",
+      "kind": "W",
+      "name": "Command: Dissonance",
+      "page": {
+        "title": "Template:Data Orianna/Command: Dissonance",
+        "revid": 3958109
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "auto"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "yes"
+      },
+      "applies": [
+        {
+          "type": "slow",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "slow"
+            },
+            {
+              "page": "Template:Data Orianna/Command: Dissonance",
+              "revid": 3958109,
+              "quote": "Enemies that move within the field are slowed by the same amount, decaying over 2 seconds after leaving."
+            }
+          ],
+          "duration": 2
+        }
+      ],
+      "movement": [],
+      "states": [],
+      "cooldown": 7,
+      "castTime": 0
+    }
+  ]
+}

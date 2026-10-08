@@ -9,6 +9,25 @@ Values marked "at max rank, level 20" assume every ability is maxed; see PLAN.md
 |---|--:|--:|--:|--:|--:|--:|--:|--:|--:|--:|
 | Heimerdinger | 2622.8 | 17.82 | 778.3 Mana | 109.1 | 0.825 | 0.242 | 101.6 | 55.6 | 550 | 340 |
 
+## Fight profile (what the interaction ledger uses)
+
+| Form | Attack range | Ranged | Projectile | Missile speed | Attack modifiers |
+|---|--:|---|---|--:|---|
+| Heimerdinger | 550 | yes | yes | 1500 | – |
+
+Cooldowns at max rank. Flags: the wiki's interaction flags (yes, no, partly). * marks an effect that applies only under a condition.
+
+| Slot | Ability | Cooldown | Delivery | Applies to the enemy | Movement | Gives itself |
+|---|---|--:|---|---|---|---|
+| E | CH-2 Electron Storm Grenade | 11 | projectile yes; spell shield yes | slow 2 s 35%; stun 1.5 s | – | – |
+| E | CH-3X Lightning Grenade | 11 | projectile yes; spell shield yes | slow 2 s 35%; stun 1.5 s | – | – |
+| I | Hextech Affinity | – | – | – | – | – |
+| Q | H-28G Evolution Turret | 20 | projectile yes; spell shield no; parry yes | – | – | slow immune |
+| Q | H-28Q Apex Turret | 1 | projectile yes; spell shield no; parry yes | – | – | – |
+| R | UPGRADE!!! | 70 | – | – | – | – |
+| W | Hextech Micro-Rockets | 7 | projectile yes; spell shield yes | – | – | – |
+| W | Hextech Rocket Swarm | 7 | projectile yes; spell shield yes | – | – | – |
+
 ## Innate: Hextech Affinity
 
 Source: [Template:Data Heimerdinger/Hextech Affinity](https://wiki.leagueoflegends.com/en-us/Template:Data_Heimerdinger/Hextech_Affinity?oldid=3428651) (revision 3428651). Ranks: 1.

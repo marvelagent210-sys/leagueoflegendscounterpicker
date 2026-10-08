@@ -9,6 +9,22 @@ Values marked "at max rank, level 20" assume every ability is maxed; see PLAN.md
 |---|--:|--:|--:|--:|--:|--:|--:|--:|--:|--:|
 | Katarina | 2795.8 | 21.27 | 0.0 None | 120.9 | 1.013 | 0.148 | 124.4 | 72.3 | 125 | 335 |
 
+## Fight profile (what the interaction ledger uses)
+
+| Form | Attack range | Ranged | Projectile | Missile speed | Attack modifiers |
+|---|--:|---|---|--:|---|
+| Katarina | 125 | no | no | – | – |
+
+Cooldowns at max rank. Flags: the wiki's interaction flags (yes, no, partly). * marks an effect that applies only under a condition.
+
+| Slot | Ability | Cooldown | Delivery | Applies to the enemy | Movement | Gives itself |
+|---|---|--:|---|---|---|---|
+| E | Shunpo | 8 | spell shield yes; parry partly; grounded yes; on-hit | – | blink | – |
+| I | Voracity | – | spell shield yes; parry partly; on-hit | – | – | – |
+| Q | Bouncing Blade | 7 | projectile yes; spell shield yes | – | – | – |
+| R | Death Lotus | 45 | projectile yes; spell shield partly; parry no; disruptable yes; on-hit | grievous wounds | – | – |
+| W | Preparation | 11 | – | – | – | – |
+
 ## Innate: Voracity
 
 Source: [Template:Data Katarina/Voracity](https://wiki.leagueoflegends.com/en-us/Template:Data_Katarina/Voracity?oldid=4038392) (revision 4038392). Ranks: 1.

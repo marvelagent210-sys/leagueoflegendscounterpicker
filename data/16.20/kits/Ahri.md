@@ -9,6 +9,22 @@ Values marked "at max rank, level 20" assume every ability is maxed; see PLAN.md
 |---|--:|--:|--:|--:|--:|--:|--:|--:|--:|--:|
 | Ahri | 2635.2 | 14.30 | 909.6 Mana | 112.0 | 0.938 | 0.213 | 103.6 | 55.6 | 550 | 330 |
 
+## Fight profile (what the interaction ledger uses)
+
+| Form | Attack range | Ranged | Projectile | Missile speed | Attack modifiers |
+|---|--:|---|---|--:|---|
+| Ahri | 550 | yes | yes | 1750 | – |
+
+Cooldowns at max rank. Flags: the wiki's interaction flags (yes, no, partly). * marks an effect that applies only under a condition.
+
+| Slot | Ability | Cooldown | Delivery | Applies to the enemy | Movement | Gives itself |
+|---|---|--:|---|---|---|---|
+| E | Charm | 12 | projectile yes; spell shield yes | charm 1.8 s; knockdown 1.8 s; slow 65%; knockdown | – | – |
+| I | Essence Theft | – | – | – | – | heal |
+| Q | Orb of Deception | 7 | projectile yes; spell shield partly | – | – | – |
+| R | Spirit Rush | 100 | projectile yes; spell shield yes; grounded yes; knockdown yes | – | dash | – |
+| W | Fox-Fire | 5 | projectile yes; spell shield yes | – | – | – |
+
 ## Innate: Essence Theft
 
 Source: [Template:Data Ahri/Essence Theft](https://wiki.leagueoflegends.com/en-us/Template:Data_Ahri/Essence_Theft?oldid=4038191) (revision 4038191). Ranks: 1.
@@ -20,22 +36,6 @@ Innate: Ahri generates a stack of Essence Fragment whenever she kills a minion o
 - **Mechanics:** heal
 
 Additionally, whenever Ahri scores a champion takedown within 3 seconds of damaging them, she consumes their essence to heal herself for 75 – 165 (based on level) (+ 30% AP).
-
-Notes:
-
-- No additional details.
-
-## Innate: Vastayan Grace
-
-Source: [Template:Data Ahri/Vastayan Grace](https://wiki.leagueoflegends.com/en-us/Template:Data_Ahri/Vastayan_Grace?oldid=3074592) (revision 3074592). Ranks: 1.
-
-| Field | Value |
-|---|---|
-| Static cooldown | 9 |
-
-Targeting: Passive · Affects: Self · Damage type: – · Spell shield blocks it: – · Projectile: – · Parry: – · Disabled by grounded: – · Usable while knocked down: –
-
-Innate: Whenever Ahri lands 2 ability hits against a champion within 1.5 seconds, she gains 20% bonus movement speed for 3 seconds. This effect cannot occur again every few seconds.
 
 Notes:
 

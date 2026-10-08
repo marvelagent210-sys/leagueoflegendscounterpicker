@@ -1,0 +1,346 @@
+{
+  "champion": "Poppy",
+  "name": "Poppy",
+  "gameplayRadius": 55,
+  "moveSpeed": 345,
+  "attacks": [
+    {
+      "form": "poppy",
+      "formName": "Poppy",
+      "range": 125,
+      "ranged": false,
+      "projectile": false,
+      "attackSpeed": 0.965266,
+      "attackDamage": 134.66,
+      "windup": 0.242809,
+      "modifiers": [
+        "Iron Ambassador"
+      ]
+    }
+  ],
+  "abilities": [
+    {
+      "champion": "Poppy",
+      "kind": "E",
+      "name": "Heroic Charge",
+      "page": {
+        "title": "Template:Data Poppy/Heroic Charge",
+        "revid": 3946254
+      },
+      "damageTypes": [
+        "physical"
+      ],
+      "delivery": {
+        "targeting": [
+          "unit"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "yes",
+        "grounded": "yes",
+        "knockdown": "yes"
+      },
+      "applies": [
+        {
+          "type": "airborne",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "airborne: knock back"
+            },
+            {
+              "page": "Template:Data Poppy/Heroic Charge",
+              "revid": 3946254,
+              "quote": "If they are in range upon arrival, she deals physical damage and carries them along with her for up to 400 units."
+            }
+          ],
+          "variant": "knock back",
+          "duration": 2,
+          "condition": "If they are in range upon arrival, she deals physical damage and carries them along with her for up to 400 units."
+        },
+        {
+          "type": "stun",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "stun"
+            },
+            {
+              "page": "Template:Data Poppy/Heroic Charge",
+              "revid": 3946254,
+              "quote": "If the target hits terrain, she stops to deal the same physical damage again and stuns them for a duration."
+            }
+          ],
+          "duration": 2,
+          "condition": "If the target hits terrain, she stops to deal the same physical damage again and stuns them for a duration."
+        }
+      ],
+      "movement": [
+        {
+          "type": "dash",
+          "evidence": [
+            {
+              "page": "Dash",
+              "revid": 4035700,
+              "quote": "unit-targeted"
+            }
+          ],
+          "targeting": "unit-targeted",
+          "interruptible": true
+        }
+      ],
+      "states": [],
+      "cooldown": 10,
+      "castTime": 0,
+      "range": 475,
+      "speed": 1800,
+      "notes": [
+        "Heroic Charge can apply spell effects twice (once when Poppy hits her target and once she stuns them against a wall).\n  - Both instances of damage and crowd control are all the same cast instance. Effects that only trigger once per spell cast will not trigger twice.",
+        "Poppy dashes slightly less far than the distance she pushes the target.",
+        "The dash does not follow targets. The target's position at the time of Heroic Charge's cast is the direction Poppy will dash towards.\n  - Poppy does not carry nor deal damage to the target if they have left a certain radius before she collides with them."
+      ]
+    },
+    {
+      "champion": "Poppy",
+      "kind": "I",
+      "name": "Iron Ambassador",
+      "page": {
+        "title": "Template:Data Poppy/Iron Ambassador",
+        "revid": 3994225
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "passive"
+        ],
+        "affectsEnemies": false,
+        "projectile": "yes",
+        "spellShield": "no",
+        "parry": "yes",
+        "attack": "attack modifier"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [
+        {
+          "state": "shield",
+          "evidence": [
+            {
+              "page": "Template:Data Poppy/Iron Ambassador",
+              "revid": 3994225,
+              "quote": "Poppy can move over the buckler to retrieve it, gaining a shield for 11 – 20 (based on level)% of her maximum health for 3 seconds."
+            }
+          ],
+          "duration": 3
+        }
+      ],
+      "cooldown": 6,
+      "speed": 1600
+    },
+    {
+      "champion": "Poppy",
+      "kind": "Q",
+      "name": "Hammer Shock",
+      "page": {
+        "title": "Template:Data Poppy/Hammer Shock",
+        "revid": 4064860
+      },
+      "damageTypes": [
+        "physical"
+      ],
+      "delivery": {
+        "targeting": [
+          "direction"
+        ],
+        "affectsEnemies": true,
+        "projectile": "no",
+        "spellShield": "partly"
+      },
+      "applies": [
+        {
+          "type": "slow",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "slow"
+            },
+            {
+              "page": "Template:Data Poppy/Hammer Shock",
+              "revid": 4064860,
+              "quote": "The impact creates a field for 1 second that slows enemies within, which then ruptures to deal the same physical damage."
+            }
+          ],
+          "amount": 32
+        }
+      ],
+      "movement": [],
+      "states": [],
+      "cooldown": 4,
+      "castTime": 0.3325,
+      "range": 460,
+      "notes": [
+        "Spell shields will block only a single instance of damage."
+      ]
+    },
+    {
+      "champion": "Poppy",
+      "kind": "R",
+      "name": "Keeper's Verdict",
+      "page": {
+        "title": "Template:Data Poppy/Keeper's Verdict",
+        "revid": 4007992
+      },
+      "damageTypes": [
+        "physical"
+      ],
+      "delivery": {
+        "targeting": [
+          "auto",
+          "direction"
+        ],
+        "affectsEnemies": true,
+        "projectile": "yes",
+        "spellShield": "yes",
+        "disruptable": "yes"
+      },
+      "applies": [
+        {
+          "type": "airborne",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "airborne: knock back"
+            },
+            {
+              "page": "Template:Data Poppy/Keeper's Verdict",
+              "revid": 4007992,
+              "quote": "Active: Poppy charges while being slowed by 15% for up to 4 seconds to increase Keeper's Verdict's range and knock back distance over 0.5 seconds after the first 0.5 seconds of the channel."
+            }
+          ],
+          "variant": "knock back, knock up",
+          "duration": 0.5
+        }
+      ],
+      "movement": [],
+      "states": [],
+      "cooldown": 100,
+      "castTime": 0.25,
+      "range": 500,
+      "speed": 2500,
+      "channel": [
+        {
+          "type": "charged",
+          "evidence": [
+            {
+              "page": "Channel",
+              "revid": 4002276
+            }
+          ]
+        }
+      ],
+      "notes": [
+        "The erupting hammer of the charged cast that sends out a missile will be centered on the first champion struck, not at the location the missile collided with them.",
+        "Enemies within the enemy team's fountain (at least 400 units away from the center of the fountain) that are hit by a Keeper's Verdict that would knock them back are instead knocked up for 0.75 seconds and not rendered untargetable, like the uncharged effect. They still receive the full damage.",
+        "Keeper's Verdict does not destroy in-flight projectiles for enemies hit if they are rendered untargetable.",
+        "Keeper's Verdict's airborne debuff is non-dispellable and thus cannot be removed by cleansing effects.\n  - The debuff will remove itself automatically when the forced movement ends.",
+        "Experimental Hexplate Overdrive, Fiendhunter Bolts Opening Barrage, and Zeke's Convergence Frostfire Tempest activate after 0.2 seconds into the cast time of Keeper's Verdict's recast. They do not activate if the first cast's channel is interrupted or times out.",
+        "The following table refers for interactions while Poppy is channeling:"
+      ]
+    },
+    {
+      "champion": "Poppy",
+      "kind": "W",
+      "name": "Steadfast Presence",
+      "page": {
+        "title": "Template:Data Poppy/Steadfast Presence",
+        "revid": 4051176
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "auto"
+        ],
+        "affectsEnemies": false,
+        "spellShield": "yes"
+      },
+      "applies": [
+        {
+          "type": "airborne",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "airborne: knock up"
+            },
+            {
+              "page": "Template:Data Poppy/Steadfast Presence",
+              "revid": 4051176,
+              "quote": "Active: Poppy gains 40% bonus movement speed and creates an aura around herself for 2 seconds, causing all enemies who attempt to dash into or within it to be dealt magic damage and knocked up for 0.5 seconds."
+            }
+          ],
+          "variant": "knock up",
+          "duration": 0.5
+        },
+        {
+          "type": "ground",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "ground"
+            },
+            {
+              "page": "Template:Data Poppy/Steadfast Presence",
+              "revid": 4051176,
+              "quote": "If a target was successfully interrupted, they become grounded and slowed by 25% for 2 seconds."
+            }
+          ],
+          "duration": 2,
+          "condition": "If a target was successfully interrupted, they become grounded and slowed by 25% for 2 seconds."
+        },
+        {
+          "type": "slow",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "slow"
+            },
+            {
+              "page": "Template:Data Poppy/Steadfast Presence",
+              "revid": 4051176,
+              "quote": "If a target was successfully interrupted, they become grounded and slowed by 25% for 2 seconds."
+            }
+          ],
+          "duration": 2,
+          "amount": 25,
+          "condition": "If a target was successfully interrupted, they become grounded and slowed by 25% for 2 seconds."
+        },
+        {
+          "type": "dash cancel",
+          "duration": 2,
+          "evidence": [
+            {
+              "page": "Dash",
+              "revid": 4035700
+            }
+          ]
+        }
+      ],
+      "movement": [],
+      "states": [],
+      "cooldown": 12,
+      "castTime": 0,
+      "notes": [
+        "Steadfast Presence does not stop dashes if the unit is crowd control immune, displacement immune, untargetable, or protected by spell shield in the process (e.g. Death Mark, Stormbringer, Unstoppable Force).\n  - Dashes when the unit is crowd control immune or displacement immune still trigger the aura and take the damage, but do not get knocked up and thus also never become grounded and slowed.\n  - Spell shields deny all the effects if Steadfast Presence is triggered by their holder, and are consumed in the process.\n  - Being untargetable prevents Steadfast Presence from triggering, but this does not prevent it from triggering against another, targetable dash."
+      ]
+    }
+  ]
+}

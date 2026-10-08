@@ -1,0 +1,232 @@
+{
+  "champion": "Soraka",
+  "name": "Soraka",
+  "gameplayRadius": 65,
+  "moveSpeed": 325,
+  "attacks": [
+    {
+      "form": "soraka",
+      "formName": "Soraka",
+      "range": 550,
+      "ranged": true,
+      "projectile": true,
+      "missileSpeed": 1000,
+      "attackSpeed": 0.888019,
+      "attackDamage": 108.995,
+      "windup": 0.210581,
+      "modifiers": []
+    }
+  ],
+  "abilities": [
+    {
+      "champion": "Soraka",
+      "kind": "E",
+      "name": "Equinox",
+      "page": {
+        "title": "Template:Data Soraka/Equinox",
+        "revid": 3907153
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "location"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "partly"
+      },
+      "applies": [
+        {
+          "type": "silence",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "silence"
+            },
+            {
+              "page": "Template:Data Soraka/Equinox",
+              "revid": 3907153,
+              "quote": "The zone then persists for 1.5 seconds and silences enemies within."
+            }
+          ],
+          "duration": 2
+        },
+        {
+          "type": "root",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "root"
+            },
+            {
+              "page": "Template:Data Soraka/Equinox",
+              "revid": 3907153,
+              "quote": "Afterwards, the zone erupts to deal the same damage to enemy champions within and root them for a duration."
+            }
+          ],
+          "duration": 2
+        }
+      ],
+      "movement": [],
+      "states": [],
+      "cooldown": 16,
+      "castTime": 0.25,
+      "range": 925,
+      "notes": [
+        "Equinox's silence is marked as non-dispellable, so it is not removed by most cleanses. It is however allowed to be removed by cleanses that also grant immunity to it, such as Ragnarok.",
+        "Spell shield will not block the silence."
+      ]
+    },
+    {
+      "champion": "Soraka",
+      "kind": "I",
+      "name": "Salvation",
+      "page": {
+        "title": "Template:Data Soraka/Salvation",
+        "revid": 3681502
+      },
+      "damageTypes": [],
+      "delivery": {
+        "targeting": [
+          "passive"
+        ],
+        "affectsEnemies": false
+      },
+      "applies": [],
+      "movement": [],
+      "states": []
+    },
+    {
+      "champion": "Soraka",
+      "kind": "Q",
+      "name": "Starcall",
+      "page": {
+        "title": "Template:Data Soraka/Starcall",
+        "revid": 3953362
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "location"
+        ],
+        "affectsEnemies": true,
+        "projectile": "yes",
+        "spellShield": "yes"
+      },
+      "applies": [
+        {
+          "type": "slow",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "slow"
+            },
+            {
+              "page": "Template:Data Soraka/Starcall",
+              "revid": 3953362,
+              "quote": "Active: Soraka calls down a star upon the target location that grants sight of the area before landing after 0.25 / 0.3 / 0.35 / 0.4 / 0.45 / 0.5 / 0.55 / 0.6 / 0.65 / 0.7 / 0.75 / 0.8 / 0.85 / 0.9 / 0.95 / 1 (based on target range) seconds, dealing magic damage to enemies hit and slowing them by 30% for 1.5 seconds."
+            }
+          ],
+          "duration": 1.5,
+          "amount": 30
+        }
+      ],
+      "movement": [],
+      "states": [
+        {
+          "state": "heal",
+          "evidence": [
+            {
+              "page": "Template:Data Soraka/Starcall",
+              "revid": 3953362,
+              "quote": "Rejuvenation: Heal every 0.2 seconds and gain bonus movement speed that decays over the duration."
+            }
+          ]
+        }
+      ],
+      "cooldown": 4,
+      "castTime": 0.25,
+      "range": 800,
+      "notes": [
+        "Starcall counts as hitting even if it gets blocked by spell shield, granting Rejuvenation.",
+        "Both the initial hit and the Rejuvenation projectile can be intercepted.",
+        "Rejuvenation won't be granted to Soraka and she won't be able to make use of the health cost reduction on Astral Infusion until the projectile gets to her, but she is able to Rejuvenate allies as soon as the target is hit."
+      ]
+    },
+    {
+      "champion": "Soraka",
+      "kind": "R",
+      "name": "Wish",
+      "page": {
+        "title": "Template:Data Soraka/Wish",
+        "revid": 3907154
+      },
+      "damageTypes": [],
+      "delivery": {
+        "targeting": [
+          "auto"
+        ],
+        "affectsEnemies": false
+      },
+      "applies": [],
+      "movement": [],
+      "states": [
+        {
+          "state": "heal",
+          "evidence": [
+            {
+              "page": "Template:Data Soraka/Wish",
+              "revid": 3907154,
+              "quote": "Active: Soraka calls upon the stars, healing herself and all allied champions, increased by 50% on targets below 40% of their maximum health."
+            }
+          ]
+        }
+      ],
+      "cooldown": 120,
+      "castTime": 0.25,
+      "notes": [
+        "Untargetability does not invalidate the targeting of the heal."
+      ]
+    },
+    {
+      "champion": "Soraka",
+      "kind": "W",
+      "name": "Astral Infusion",
+      "page": {
+        "title": "Template:Data Soraka/Astral Infusion",
+        "revid": 4007066
+      },
+      "damageTypes": [],
+      "delivery": {
+        "targeting": [
+          "unit"
+        ],
+        "affectsEnemies": false,
+        "projectile": "no"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [
+        {
+          "state": "heal",
+          "evidence": [
+            {
+              "page": "Template:Data Soraka/Astral Infusion",
+              "revid": 4007066,
+              "quote": "Active: Soraka heals the target allied champion."
+            }
+          ]
+        }
+      ],
+      "cooldown": 2,
+      "castTime": 0.25,
+      "range": 550
+    }
+  ]
+}

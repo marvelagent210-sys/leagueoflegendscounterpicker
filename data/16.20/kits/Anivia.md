@@ -9,6 +9,22 @@ Values marked "at max rank, level 20" assume every ability is maxed; see PLAN.md
 |---|--:|--:|--:|--:|--:|--:|--:|--:|--:|--:|
 | Anivia | 2359.2 | 16.32 | 1379.9 Mana | 113.9 | 0.864 | 0.231 | 99.6 | 55.6 | 600 | 325 |
 
+## Fight profile (what the interaction ledger uses)
+
+| Form | Attack range | Ranged | Projectile | Missile speed | Attack modifiers |
+|---|--:|---|---|--:|---|
+| Anivia | 600 | yes | yes | 1600 | – |
+
+Cooldowns at max rank. Flags: the wiki's interaction flags (yes, no, partly). * marks an effect that applies only under a condition.
+
+| Slot | Ability | Cooldown | Delivery | Applies to the enemy | Movement | Gives itself |
+|---|---|--:|---|---|---|---|
+| E | Frostbite | 4 | projectile yes; spell shield yes | – | – | – |
+| I | Rebirth | 240 | – | – | – | resurrection 6 s |
+| Q | Flash Frost | 7 | projectile yes; spell shield partly | slow 3 s 20%; stun 1.5 s | – | – |
+| R | Glacial Storm | 2 | spell shield no; disruptable yes | slow 20% | – | – |
+| W | Crystallize | 17 | spell shield no | airborne (knock back) | – | – |
+
 ## Innate: Rebirth
 
 Source: [Template:Data Anivia/Rebirth](https://wiki.leagueoflegends.com/en-us/Template:Data_Anivia/Rebirth?oldid=3906517) (revision 3906517). Ranks: 1.

@@ -42,3 +42,73 @@ export function rawDir(dataset: string): string {
 export function datasetDir(dataset: string): string {
   return path.join(DATA_DIR, dataset);
 }
+
+/**
+ * Wiki pages whose lists classify abilities (every dash, every spell shield, every source
+ * of each crowd control type, ...), whose definitions the interaction rules cite, and whose
+ * game rules the duel simulator encodes. They are maintained by the wiki's editors and
+ * pinned by revision like every other page.
+ */
+export const WIKI_GLOSSARY_PAGES = [
+  // Lists of abilities by mechanic
+  "Projectile",
+  "Spell shield",
+  "Untargetability",
+  "Invulnerability",
+  "Dash",
+  "Blink",
+  "Channel",
+  "Stealth",
+  "Grievous Wounds",
+  "Tenacity",
+  "Types of Crowd Control/Summary",
+  "Types of Crowd Control/Sources",
+  "Template:List of true sight abilities",
+  "Template:Tip data/Minimum health threshold",
+  "Template:Tip data/Resurrection",
+  "Template:Tip data/Slow-immune",
+  "Template:Tip data/Displacement immune",
+  // Definitions cited by the interaction rules
+  "Template:Tip data/Blind",
+  "Template:Tip data/Dodge",
+  "Template:Tip data/Block",
+  "Template:Tip data/Knockdown",
+  "Template:Tip data/Lunge",
+  "Template:Tip data/Untargetable",
+  "Template:Tip data/Stasis (buff)",
+  "Template:Tip data/Spell shield",
+  "Template:Tip data/Cc-immune",
+  "Template:Tip data/Cleanse",
+  "Template:Tip data/Tenacity",
+  "Template:Tip data/Execute",
+  "Template:Tip data/Cast-inhibiting crowd control",
+  "Template:Tip data/Disarming crowd control",
+  "Template:Tip data/Homing projectile destruction",
+  "Template:Tip data/Uncancellable windup",
+  "Template:Tip data/Charm",
+  "Template:Tip data/Flee",
+  "Template:Tip data/Taunt",
+  "Template:Tip data/Berserk",
+  "Template:Tip data/Sleep",
+  "Template:Tip data/Polymorph",
+  "Types of Crowd Control",
+  "Range",
+  // Game rules the duel simulator encodes (engine/rules/), and the stat gold values of the stat budget
+  "Armor",
+  "Magic resistance",
+  "Armor penetration",
+  "Magic penetration",
+  "Damage",
+  "Damage modifier",
+  "Shield",
+  "Healing",
+  "Critical strike",
+  "Movement speed",
+  "Slow resist",
+  "Haste",
+  "Attack speed",
+  "Basic attack",
+  "Cast time",
+  "Template:Rounded up to next game tick",
+  "Module:Gold value/data",
+];

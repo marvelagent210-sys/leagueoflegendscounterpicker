@@ -1,0 +1,257 @@
+{
+  "champion": "Caitlyn",
+  "name": "Caitlyn",
+  "gameplayRadius": 65,
+  "moveSpeed": 325,
+  "attacks": [
+    {
+      "form": "caitlyn",
+      "formName": "Caitlyn",
+      "range": 650,
+      "ranged": true,
+      "projectile": true,
+      "missileSpeed": 2500,
+      "attackSpeed": 1.17263,
+      "attackDamage": 136.727,
+      "windup": 0.151014,
+      "modifiers": [
+        "Headshot"
+      ]
+    }
+  ],
+  "abilities": [
+    {
+      "champion": "Caitlyn",
+      "kind": "E",
+      "name": "90 Caliber Net",
+      "page": {
+        "title": "Template:Data Caitlyn/90 Caliber Net",
+        "revid": 4007584
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "direction"
+        ],
+        "affectsEnemies": true,
+        "projectile": "yes",
+        "spellShield": "yes",
+        "grounded": "yes",
+        "knockdown": "yes"
+      },
+      "applies": [
+        {
+          "type": "slow",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "slow"
+            },
+            {
+              "page": "Template:Data Caitlyn/90 Caliber Net",
+              "revid": 4007584,
+              "quote": "The net deals magic damage to the first enemy hit and slows them by 50% for 1 second."
+            }
+          ],
+          "duration": 1,
+          "amount": 50
+        }
+      ],
+      "movement": [
+        {
+          "type": "dash",
+          "evidence": [
+            {
+              "page": "Dash",
+              "revid": 4035700,
+              "quote": "direction-targeted; (reverse-targeted)"
+            }
+          ],
+          "targeting": "direction-targeted",
+          "condition": "(reverse-targeted)",
+          "interruptible": true
+        }
+      ],
+      "states": [],
+      "cooldown": 8,
+      "castTime": 0.15,
+      "range": 800,
+      "speed": 1600,
+      "notes": [
+        "If Caitlyn buffers Piltover Peacemaker during 90 Caliber Net's cast time, Piltover Peacemaker will start after the cast time.\n  - If Caitlyn buffers an ability or basic attack during this ability's cast time, the buffered ability or basic attack will instead start after the dash ends.\n  - Other abilities can be cast while dashing if they are input after the cast time.",
+        "90 Caliber Net's missile will fail to fire if Caitlyn is suppressed during the cast time."
+      ]
+    },
+    {
+      "champion": "Caitlyn",
+      "kind": "I",
+      "name": "Headshot",
+      "page": {
+        "title": "Template:Data Caitlyn/Headshot",
+        "revid": 3982560
+      },
+      "damageTypes": [
+        "physical"
+      ],
+      "delivery": {
+        "targeting": [
+          "passive"
+        ],
+        "affectsEnemies": false,
+        "projectile": "yes",
+        "spellShield": "no",
+        "parry": "yes",
+        "attack": "attack modifier"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "speed": 3000,
+      "boostsAttacks": true
+    },
+    {
+      "champion": "Caitlyn",
+      "kind": "Q",
+      "name": "Piltover Peacemaker",
+      "page": {
+        "title": "Template:Data Caitlyn/Piltover Peacemaker",
+        "revid": 4007583
+      },
+      "damageTypes": [
+        "physical"
+      ],
+      "delivery": {
+        "targeting": [
+          "direction"
+        ],
+        "affectsEnemies": true,
+        "projectile": "yes",
+        "spellShield": "yes"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "cooldown": 6,
+      "castTime": 0.625,
+      "range": 1300,
+      "speed": 2200,
+      "notes": [
+        "Enemies hit while protected by a spell shield will still be considered a target for calculating damage for subsequent hits."
+      ]
+    },
+    {
+      "champion": "Caitlyn",
+      "kind": "R",
+      "name": "Ace in the Hole",
+      "page": {
+        "title": "Template:Data Caitlyn/Ace in the Hole",
+        "revid": 3982561
+      },
+      "damageTypes": [
+        "physical"
+      ],
+      "delivery": {
+        "targeting": [
+          "unit"
+        ],
+        "affectsEnemies": true,
+        "projectile": "yes",
+        "spellShield": "yes",
+        "disruptable": "yes"
+      },
+      "applies": [
+        {
+          "type": "reveal",
+          "evidence": [
+            {
+              "page": "Template:List of true sight abilities",
+              "revid": 3860444
+            }
+          ]
+        }
+      ],
+      "movement": [],
+      "states": [],
+      "cooldown": 90,
+      "castTime": 0.375,
+      "range": 3500,
+      "speed": 3200,
+      "channel": [
+        {
+          "type": "normal",
+          "evidence": [
+            {
+              "page": "Channel",
+              "revid": 4002276,
+              "quote": "normal"
+            }
+          ]
+        }
+      ],
+      "boostsAttacks": true,
+      "notes": [
+        "The following will cancel Ace in the Hole's channel (mana expenditure is not compensated):\n  - Caitlyn is interrupted.\n  - The target becomes untargetable.\n  - Caitlyn or her target dies.",
+        "Ace in the Hole reveals the target and Caitlyn through a buff that lasts for up to 4 seconds.\n  - The buff is applied to the target from the start of the cast time.\n  - The buff ends prematurely when the channel is canceled or the bullet hits an enemy.\n    - The target is revealed for 1 second if the buff is ended prematurely.\n    - It is not removed if the cast time is cancelled or the bullet missile is destroyed.",
+        "The bullet missile will fail to hit the primary target if they are untargetable upon arrival, dealing no damage.",
+        "The ability also goes on a 5-second cooldown if Caitlyn enters resurrection during the cast time.\n  - The cast time does not end prematurely but the channel will be immediately canceled the moment the cast time completes.",
+        "If the target becomes untargetable, dies, or is too far away or no longer in sight during the cast time, this ability will cancel but does not go on cooldown nor pay its cost (if applicable).** This excludes losing sight of the target.",
+        "The following table refers for interactions while Caitlyn is channeling:"
+      ]
+    },
+    {
+      "champion": "Caitlyn",
+      "kind": "W",
+      "name": "Yordle Snap Trap",
+      "page": {
+        "title": "Template:Data Caitlyn/Yordle Snap Trap",
+        "revid": 4080202
+      },
+      "damageTypes": [],
+      "delivery": {
+        "targeting": [
+          "location"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "yes"
+      },
+      "applies": [
+        {
+          "type": "root",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "root"
+            },
+            {
+              "page": "Template:Data Caitlyn/Yordle Snap Trap",
+              "revid": 4080202,
+              "quote": "The next enemy champion that springs the trap is rooted for 1.5 seconds and revealed for 3 seconds, as well as takes additional damage from the Headshot granted by this ability."
+            }
+          ],
+          "duration": 1.5
+        },
+        {
+          "type": "reveal",
+          "evidence": [
+            {
+              "page": "Template:List of true sight abilities",
+              "revid": 3860444
+            }
+          ]
+        }
+      ],
+      "movement": [],
+      "states": [],
+      "cooldown": 10,
+      "castTime": 0.25,
+      "range": 800,
+      "notes": [
+        "Immunity means not being trap at the same location for a duration, they can still be trap in other place if walk in by themselves."
+      ]
+    }
+  ]
+}

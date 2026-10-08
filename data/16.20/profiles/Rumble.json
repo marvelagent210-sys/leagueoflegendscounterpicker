@@ -1,0 +1,201 @@
+{
+  "champion": "Rumble",
+  "name": "Rumble",
+  "gameplayRadius": 80,
+  "moveSpeed": 345,
+  "attacks": [
+    {
+      "form": "rumble",
+      "formName": "Rumble",
+      "range": 125,
+      "ranged": false,
+      "projectile": false,
+      "attackSpeed": 0.878289,
+      "attackDamage": 126.928,
+      "windup": 0.227716,
+      "modifiers": [
+        "Junkyard Titan"
+      ]
+    }
+  ],
+  "abilities": [
+    {
+      "champion": "Rumble",
+      "kind": "E",
+      "name": "Electro Harpoon",
+      "page": {
+        "title": "Template:Data Rumble/Electro Harpoon",
+        "revid": 4008020
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "direction"
+        ],
+        "affectsEnemies": true,
+        "projectile": "yes",
+        "spellShield": "yes"
+      },
+      "applies": [
+        {
+          "type": "slow",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "slow"
+            },
+            {
+              "page": "Template:Data Rumble/Electro Harpoon",
+              "revid": 4008020,
+              "quote": "Active: Rumble generates 20 Heat to shoot a harpoon in the target direction that deals magic damage to the first enemy hit, inflicting them with magic resistance reduction for 4 seconds and slowing them for 2 seconds."
+            }
+          ],
+          "duration": 2,
+          "amount": 35
+        }
+      ],
+      "movement": [],
+      "states": [],
+      "cooldown": 6,
+      "castTime": 0.25,
+      "range": 950,
+      "speed": 2000,
+      "notes": [
+        "Electro Harpoon's missile will fail to fire if Rumble is suppressed during the cast time."
+      ]
+    },
+    {
+      "champion": "Rumble",
+      "kind": "I",
+      "name": "Junkyard Titan",
+      "page": {
+        "title": "Template:Data Rumble/Junkyard Titan",
+        "revid": 4064861
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "passive"
+        ],
+        "affectsEnemies": false,
+        "parry": "yes",
+        "attack": "attack modifier"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "boostsAttacks": true
+    },
+    {
+      "champion": "Rumble",
+      "kind": "Q",
+      "name": "Flamespitter",
+      "page": {
+        "title": "Template:Data Rumble/Flamespitter",
+        "revid": 4034705
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "auto"
+        ],
+        "affectsEnemies": true,
+        "projectile": "no",
+        "spellShield": "no"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "cooldown": 6,
+      "castTime": 0,
+      "range": 600
+    },
+    {
+      "champion": "Rumble",
+      "kind": "R",
+      "name": "The Equalizer",
+      "page": {
+        "title": "Template:Data Rumble/The Equalizer",
+        "revid": 4008021
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "vector"
+        ],
+        "affectsEnemies": true,
+        "projectile": "no",
+        "spellShield": "no"
+      },
+      "applies": [
+        {
+          "type": "slow",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "slow"
+            },
+            {
+              "page": "Template:Data Rumble/The Equalizer",
+              "revid": 4008021,
+              "quote": "Enemies struck by the impact or within the field are marked Burning for 1 second, taking magic damage every 0.25 seconds and being slowed by 35%, refreshing while in the area."
+            }
+          ],
+          "amount": 35
+        }
+      ],
+      "movement": [],
+      "states": [],
+      "cooldown": 80,
+      "castTime": 0.5833,
+      "range": 1700,
+      "speed": 1600,
+      "notes": [
+        "The Equalizer's cumulative hitbox consists of a row of six rockets, each having a circular area of effect with a radius of 205 units. Each rocket drops at an offset of 180 units from the previous in the vector of cast.\n  - The missile that manages the rockets being deployed starts 150 units behind the target vector origin, and thus drops the first rocket at 30 units in front of the cast vector origin, which is equivalent to a period of 0.132 from the cast point."
+      ]
+    },
+    {
+      "champion": "Rumble",
+      "kind": "W",
+      "name": "Scrap Shield",
+      "page": {
+        "title": "Template:Data Rumble/Scrap Shield",
+        "revid": 3923327
+      },
+      "damageTypes": [],
+      "delivery": {
+        "targeting": [
+          "auto"
+        ],
+        "affectsEnemies": false
+      },
+      "applies": [],
+      "movement": [],
+      "states": [
+        {
+          "state": "shield",
+          "evidence": [
+            {
+              "page": "Template:Data Rumble/Scrap Shield",
+              "revid": 3923327,
+              "quote": "Active: Rumble generates 20 Heat to grant himself a shield for 1.5 seconds."
+            }
+          ],
+          "duration": 1.5
+        }
+      ],
+      "cooldown": 6,
+      "castTime": 0
+    }
+  ]
+}

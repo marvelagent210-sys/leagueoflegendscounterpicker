@@ -1,0 +1,245 @@
+{
+  "champion": "Malphite",
+  "name": "Malphite",
+  "gameplayRadius": 80,
+  "moveSpeed": 335,
+  "attacks": [
+    {
+      "form": "malphite",
+      "formName": "Malphite",
+      "range": 125,
+      "ranged": false,
+      "projectile": false,
+      "attackSpeed": 1.16257,
+      "attackDamage": 140.66,
+      "windup": 0.214766,
+      "modifiers": []
+    }
+  ],
+  "abilities": [
+    {
+      "champion": "Malphite",
+      "kind": "E",
+      "name": "Ground Slam",
+      "page": {
+        "title": "Template:Data Malphite/Ground Slam",
+        "revid": 3985874
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "auto"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "yes"
+      },
+      "applies": [
+        {
+          "type": "cripple",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "cripple"
+            },
+            {
+              "page": "Template:Data Malphite/Ground Slam",
+              "revid": 3985874,
+              "quote": "Active: Malphite slams the ground beneath him, dealing magic damage to nearby enemies and crippling them for 3 seconds."
+            }
+          ],
+          "duration": 3,
+          "amount": 50
+        }
+      ],
+      "movement": [],
+      "states": [],
+      "cooldown": 7,
+      "castTime": 0.2419
+    },
+    {
+      "champion": "Malphite",
+      "kind": "I",
+      "name": "Granite Shield",
+      "page": {
+        "title": "Template:Data Malphite/Granite Shield",
+        "revid": 3973718
+      },
+      "damageTypes": [],
+      "delivery": {
+        "targeting": [
+          "passive"
+        ],
+        "affectsEnemies": false
+      },
+      "applies": [],
+      "movement": [],
+      "states": [
+        {
+          "state": "shield",
+          "evidence": [
+            {
+              "page": "Template:Data Malphite/Granite Shield",
+              "revid": 3973718,
+              "quote": "Innate - Granite Shield: Malphite grants himself a shield equal to 10% of his maximum health."
+            }
+          ]
+        }
+      ],
+      "cooldown": 6
+    },
+    {
+      "champion": "Malphite",
+      "kind": "Q",
+      "name": "Seismic Shard",
+      "page": {
+        "title": "Template:Data Malphite/Seismic Shard",
+        "revid": 4003493
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "unit"
+        ],
+        "affectsEnemies": true,
+        "projectile": "yes",
+        "spellShield": "partly"
+      },
+      "applies": [
+        {
+          "type": "slow",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "slow"
+            },
+            {
+              "page": "Template:Data Malphite/Seismic Shard",
+              "revid": 4003493,
+              "quote": "Active: Malphite sends a shard to the target enemy that deals magic damage and slows them for 3 seconds upon impact."
+            }
+          ],
+          "duration": 3,
+          "amount": 40
+        }
+      ],
+      "movement": [],
+      "states": [],
+      "cooldown": 8,
+      "castTime": 0.25,
+      "range": 625,
+      "speed": 1200,
+      "notes": [
+        "Seismic Shard's movement speed gain is based off the target's movement speed raw total movement speed lost at the time of impact.\n  - For example, targets that were already slowed by another effect will grant Malphite diminished movement speed, while targets that are slowed by another effect after being impacted by Seismic Shard will not.\n  - Slow-resistant and slow-immune targets will reduce or nullify Malphite's gain.",
+        "If the target becomes untargetable, dies, or is too far away or no longer in sight during the cast time, this ability will cancel but does not go on cooldown nor pay its cost (if applicable)."
+      ]
+    },
+    {
+      "champion": "Malphite",
+      "kind": "R",
+      "name": "Unstoppable Force",
+      "page": {
+        "title": "Template:Data Malphite/Unstoppable Force",
+        "revid": 4074437
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "location"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "yes",
+        "grounded": "yes",
+        "knockdown": "no"
+      },
+      "applies": [
+        {
+          "type": "airborne",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "airborne: knock up"
+            },
+            {
+              "page": "Template:Data Malphite/Unstoppable Force",
+              "revid": 4074437,
+              "quote": "Upon arrival, he deals magic damage to nearby enemies and knocks them up for 1.5 seconds."
+            }
+          ],
+          "variant": "knock up",
+          "duration": 1.5
+        }
+      ],
+      "movement": [
+        {
+          "type": "dash",
+          "evidence": [
+            {
+              "page": "Dash",
+              "revid": 4035700,
+              "quote": "location-targeted"
+            }
+          ],
+          "targeting": "location-targeted",
+          "interruptible": false
+        }
+      ],
+      "states": [
+        {
+          "state": "displacement immune",
+          "evidence": [
+            {
+              "page": "Template:Data Malphite/Unstoppable Force",
+              "revid": 4074437,
+              "quote": "Active: Malphite dashes with displacement immunity to the target location."
+            }
+          ]
+        }
+      ],
+      "cooldown": 100,
+      "castTime": 0,
+      "range": 1000,
+      "speed": 1500,
+      "notes": [
+        "Unstoppable Force has no minimum dash range.",
+        "The dash speed can be up-to doubled if Unstoppable Force is targeted at the middle of a wall so that his destination ends up on the other side.\n  - It will be decreased if his destination ends up closer to him than his target location.",
+        "If Malphite dies during his dash, the ability cancels.\n  - If the dash is interrupted without Malphite dying, for instance when he enters resurrection during Unstoppable Force, he halts and the ability instead affects enemies at the stopped location."
+      ]
+    },
+    {
+      "champion": "Malphite",
+      "kind": "W",
+      "name": "Thunderclap",
+      "page": {
+        "title": "Template:Data Malphite/Thunderclap",
+        "revid": 4013417
+      },
+      "damageTypes": [
+        "physical"
+      ],
+      "delivery": {
+        "targeting": [
+          "auto"
+        ],
+        "affectsEnemies": false,
+        "spellShield": "no",
+        "parry": "yes",
+        "attack": "attack"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "cooldown": 8,
+      "castTime": 0,
+      "boostsAttacks": true
+    }
+  ]
+}

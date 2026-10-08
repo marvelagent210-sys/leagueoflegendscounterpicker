@@ -1,0 +1,279 @@
+{
+  "champion": "Rakan",
+  "name": "Rakan",
+  "gameplayRadius": 65,
+  "moveSpeed": 335,
+  "attacks": [
+    {
+      "form": "rakan",
+      "formName": "Rakan",
+      "range": 300,
+      "ranged": false,
+      "projectile": false,
+      "attackSpeed": 1.00962,
+      "attackDamage": 130.828,
+      "windup": 0.169795,
+      "modifiers": [
+        "Fey Feathers"
+      ]
+    }
+  ],
+  "abilities": [
+    {
+      "champion": "Rakan",
+      "kind": "E",
+      "name": "Battle Dance",
+      "page": {
+        "title": "Template:Data Rakan/Battle Dance",
+        "revid": 4008001
+      },
+      "damageTypes": [],
+      "delivery": {
+        "targeting": [
+          "unit"
+        ],
+        "affectsEnemies": false,
+        "grounded": "yes",
+        "knockdown": "yes"
+      },
+      "applies": [],
+      "movement": [
+        {
+          "type": "dash",
+          "evidence": [
+            {
+              "page": "Dash",
+              "revid": 4035700,
+              "quote": "unit-targeted"
+            }
+          ],
+          "targeting": "unit-targeted",
+          "interruptible": true,
+          "interruptedByCC": true
+        }
+      ],
+      "states": [
+        {
+          "state": "shield",
+          "evidence": [
+            {
+              "page": "Template:Data Rakan/Battle Dance",
+              "revid": 4008001,
+              "quote": "Active: Rakan grants a shield to the target allied champion for 3 seconds and then dashes to and around them."
+            }
+          ],
+          "duration": 3
+        }
+      ],
+      "cooldown": 12,
+      "castTime": 0,
+      "range": 700,
+      "speed": 1250,
+      "notes": [
+        "Sleep does not count for knocking the dash down."
+      ]
+    },
+    {
+      "champion": "Rakan",
+      "kind": "I",
+      "name": "Fey Feathers",
+      "page": {
+        "title": "Template:Data Rakan/Fey Feathers",
+        "revid": 4016025
+      },
+      "damageTypes": [],
+      "delivery": {
+        "targeting": [
+          "passive"
+        ],
+        "affectsEnemies": false,
+        "spellShield": "no",
+        "parry": "no",
+        "attack": "attack modifier"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [
+        {
+          "state": "shield",
+          "evidence": [
+            {
+              "page": "Template:Data Rakan/Fey Feathers",
+              "revid": 4016025,
+              "quote": "Innate: Periodically, Rakan grants himself a shield for 30 – 225 (based on level) (+ 95% AP) that lasts until broken."
+            }
+          ]
+        }
+      ],
+      "cooldown": 12.75,
+      "notes": [
+        "The cooldown reduction is granted even if the ability is blocked by a spell shield or Riposte.",
+        "The cooldown reduction is granted even if the attack is blocked, dodged, or misses due to blind."
+      ]
+    },
+    {
+      "champion": "Rakan",
+      "kind": "Q",
+      "name": "Gleaming Quill",
+      "page": {
+        "title": "Template:Data Rakan/Gleaming Quill",
+        "revid": 3996425
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "direction"
+        ],
+        "affectsEnemies": true,
+        "projectile": "yes",
+        "spellShield": "partly"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [
+        {
+          "state": "heal",
+          "evidence": [
+            {
+              "page": "Template:Data Rakan/Gleaming Quill",
+              "revid": 3996425,
+              "quote": "After 3 seconds or if an allied champion enters the radius, Rakan heals himself and nearby allied champions for 40 / 50 / 60 / 70 / 80 / 90 / 100 / 110 / 120 / 130 / 140 / 150 / 160 / 170 / 180 / 190 / 200 / 210 / 220 / 230 (based on level) (+ 55% AP)."
+            }
+          ]
+        }
+      ],
+      "cooldown": 7,
+      "castTime": 0.25,
+      "range": 900,
+      "speed": 1850,
+      "notes": [
+        "Spell shield will not prevent the marked area from being formed.",
+        "The heal can activate immediately after the projectile hits the target, before the healing return animation completes.",
+        "The heal will trigger and affect Rakan even if he is untargetable."
+      ]
+    },
+    {
+      "champion": "Rakan",
+      "kind": "R",
+      "name": "The Quickness",
+      "page": {
+        "title": "Template:Data Rakan/The Quickness",
+        "revid": 3971183
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "auto"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "yes"
+      },
+      "applies": [
+        {
+          "type": "charm",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "charm"
+            },
+            {
+              "page": "Template:Data Rakan/The Quickness",
+              "revid": 3971183,
+              "quote": "During this time, he deals magic damage to enemies he collides with and charms and slows them by 75% for a duration."
+            }
+          ],
+          "duration": 1.5
+        },
+        {
+          "type": "slow",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "slow"
+            },
+            {
+              "page": "Template:Data Rakan/The Quickness",
+              "revid": 3971183,
+              "quote": "During this time, he deals magic damage to enemies he collides with and charms and slows them by 75% for a duration."
+            }
+          ],
+          "amount": 75
+        }
+      ],
+      "movement": [],
+      "states": [],
+      "cooldown": 90,
+      "castTime": 0.5
+    },
+    {
+      "champion": "Rakan",
+      "kind": "W",
+      "name": "Grand Entrance",
+      "page": {
+        "title": "Template:Data Rakan/Grand Entrance",
+        "revid": 4007760
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "location"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "yes",
+        "grounded": "yes",
+        "knockdown": "yes"
+      },
+      "applies": [
+        {
+          "type": "airborne",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "airborne: knock up"
+            },
+            {
+              "page": "Template:Data Rakan/Grand Entrance",
+              "revid": 4007760,
+              "quote": "After a 0.35-second delay upon arrival, he deals magic damage to nearby enemies and knocks them up for 1 second."
+            }
+          ],
+          "variant": "knock up",
+          "duration": 1
+        }
+      ],
+      "movement": [
+        {
+          "type": "dash",
+          "evidence": [
+            {
+              "page": "Dash",
+              "revid": 4035700,
+              "quote": "location-targeted"
+            }
+          ],
+          "targeting": "location-targeted",
+          "interruptible": true,
+          "interruptedByCC": true
+        }
+      ],
+      "states": [],
+      "cooldown": 10,
+      "castTime": 0,
+      "range": 650,
+      "speed": 1700,
+      "notes": [
+        "Grand Entrance has no minimum dash range.",
+        "Sleep does not count for knocking the dash down."
+      ]
+    }
+  ]
+}

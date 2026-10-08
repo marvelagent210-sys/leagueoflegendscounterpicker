@@ -9,6 +9,22 @@ Values marked "at max rank, level 20" assume every ability is maxed; see PLAN.md
 |---|--:|--:|--:|--:|--:|--:|--:|--:|--:|--:|
 | Azir | 2698.8 | 21.75 | 1106.6 Mana | 124.8 | 1.307 | 0.120 | 123.3 | 55.6 | 525 | 330 |
 
+## Fight profile (what the interaction ledger uses)
+
+| Form | Attack range | Ranged | Projectile | Missile speed | Attack modifiers |
+|---|--:|---|---|--:|---|
+| Azir | 525 | yes | no | – | – |
+
+Cooldowns at max rank. Flags: the wiki's interaction flags (yes, no, partly). * marks an effect that applies only under a condition.
+
+| Slot | Ability | Cooldown | Delivery | Applies to the enemy | Movement | Gives itself |
+|---|---|--:|---|---|---|---|
+| E | Shifting Sands | 16 | spell shield yes; grounded yes; knockdown yes | – | dash (only after using | shield 1.5 s |
+| I | Shurima's Legacy | 90 | projectile no; spell shield no | – | – | – |
+| Q | Conquering Sands | 6 | projectile partly; spell shield yes | slow 1 s 25% | – | – |
+| R | Emperor's Divide | 90 | projectile partly; spell shield yes | airborne (knock back) 1 s | – | – |
+| W | Arise! | 6 | projectile no; spell shield no; parry yes; on-hit | – | dash ) | – |
+
 ## Innate: Shurima's Legacy
 
 Source: [Template:Data Azir/Shurima's Legacy](https://wiki.leagueoflegends.com/en-us/Template:Data_Azir/Shurima's_Legacy?oldid=3962342) (revision 3962342). Ranks: 1.

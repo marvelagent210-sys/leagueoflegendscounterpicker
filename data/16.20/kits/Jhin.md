@@ -9,6 +9,23 @@ Values marked "at max rank, level 20" assume every ability is maxed; see PLAN.md
 |---|--:|--:|--:|--:|--:|--:|--:|--:|--:|--:|
 | Jhin | 2759.2 | 14.57 | 1283.3 Mana | 147.5 | 0.625 | 0.250 | 116.4 | 54.6 | 550 | 330 |
 
+## Fight profile (what the interaction ledger uses)
+
+| Form | Attack range | Ranged | Projectile | Missile speed | Attack modifiers |
+|---|--:|---|---|--:|---|
+| Jhin | 550 | yes | yes | 2600 | Whisper |
+
+Cooldowns at max rank. Flags: the wiki's interaction flags (yes, no, partly). * marks an effect that applies only under a condition.
+
+| Slot | Ability | Cooldown | Delivery | Applies to the enemy | Movement | Gives itself |
+|---|---|--:|---|---|---|---|
+| A | Basic Attack | – | projectile yes; parry yes; on-hit | – | – | – |
+| E | Captive Audience | 14 | projectile partly; spell shield yes | slow 2 s 35% | – | – |
+| I | Whisper | – | parry yes; attack modifier | – | – | – |
+| Q | Dancing Grenade | 5 | projectile yes; spell shield partly | – | – | – |
+| R | Curtain Call | 90 | projectile yes; spell shield yes; disruptable yes | slow 0.5 s 80% | – | – |
+| W | Deadly Flourish | 12 | projectile yes; spell shield yes | root 2.25 s | – | – |
+
 ## Innate: Whisper
 
 Source: [Template:Data Jhin/Whisper](https://wiki.leagueoflegends.com/en-us/Template:Data_Jhin/Whisper?oldid=4075448) (revision 4075448). Ranks: 1.

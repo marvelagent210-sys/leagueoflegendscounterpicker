@@ -10,6 +10,28 @@ Values marked "at max rank, level 20" assume every ability is maxed; see PLAN.md
 | Gnar | 2093.5 | 29.08 | 100.0 Rage | 122.9 | 1.362 | 0.107 | 104.8 | 55.6 | 175 | 335 |
 | Mega Gnar | 3039.1 | 29.08 | 100.0 Rage | 178.1 | 0.686 | 0.213 | 167.3 | 127.9 | 175 | 335 |
 
+## Fight profile (what the interaction ledger uses)
+
+| Form | Attack range | Ranged | Projectile | Missile speed | Attack modifiers |
+|---|--:|---|---|--:|---|
+| Gnar | 511.765 | no | no | 1500 | Rage Gene; Hyper |
+| Mega Gnar | 175 | no | no | – | Rage Gene; Hyper |
+
+Cooldowns at max rank. Flags: the wiki's interaction flags (yes, no, partly). * marks an effect that applies only under a condition.
+
+| Slot | Ability | Cooldown | Delivery | Applies to the enemy | Movement | Gives itself |
+|---|---|--:|---|---|---|---|
+| E | Crunch | 12 | spell shield yes; grounded yes; knockdown yes | slow 0.5 s 80% | dash | – |
+| E | Hop | 12 | spell shield yes; grounded yes; knockdown yes | slow 0.5 s 80% | dash Mega Gnar | – |
+| I | Mega Gnar | – | – | – | – | – |
+| I | Mini Gnar | – | – | – | – | – |
+| I | Rage Gene | – | attack modifier | – | – | – |
+| Q | Boomerang Throw | 10 | projectile yes; spell shield yes | slow 2 s 35% | – | – |
+| Q | Boulder Toss | 10 | projectile yes; spell shield yes | slow 2 s 50% | – | – |
+| R | GNAR! | 30 | projectile no; spell shield yes | airborne (knock back) 1.75 s; slow 45%; stun 1.75 s | – | – |
+| W | Hyper | – | spell shield no; parry yes; attack modifier | – | – | – |
+| W | Wallop | 7 | projectile no; spell shield yes | stun 1.25 s | – | – |
+
 ## Innate: Mega Gnar
 
 Source: [Template:Data Gnar/Mega Gnar](https://wiki.leagueoflegends.com/en-us/Template:Data_Gnar/Mega_Gnar?oldid=4038339) (revision 4038339). Ranks: 1.

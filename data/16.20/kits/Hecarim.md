@@ -9,6 +9,22 @@ Values marked "at max rank, level 20" assume every ability is maxed; see PLAN.md
 |---|--:|--:|--:|--:|--:|--:|--:|--:|--:|--:|
 | Hecarim | 2709.5 | 21.75 | 1066.6 Mana | 138.8 | 0.999 | 0.250 | 139.2 | 72.3 | 175 | 345 |
 
+## Fight profile (what the interaction ledger uses)
+
+| Form | Attack range | Ranged | Projectile | Missile speed | Attack modifiers |
+|---|--:|---|---|--:|---|
+| Hecarim | 175 | no | no | – | – |
+
+Cooldowns at max rank. Flags: the wiki's interaction flags (yes, no, partly). * marks an effect that applies only under a condition.
+
+| Slot | Ability | Cooldown | Delivery | Applies to the enemy | Movement | Gives itself |
+|---|---|--:|---|---|---|---|
+| E | Devastating Charge | 16 | spell shield yes; parry partly; grounded partly; knockdown partly; attack | airborne (knock back) 0.25 s*; stun 0.25 s* | dash | – |
+| I | Warpath | – | – | – | – | – |
+| Q | Rampage | 4 | spell shield yes | – | – | – |
+| R | Onslaught of Shadows | 100 | projectile yes; spell shield yes; grounded yes; knockdown no | fear 0.75 s; slow 0% | dash (unstoppable) | displacement immune 2.5 s |
+| W | Spirit of Dread | 14 | spell shield no | – | – | heal |
+
 ## Innate: Warpath
 
 Source: [Template:Data Hecarim/Warpath](https://wiki.leagueoflegends.com/en-us/Template:Data_Hecarim/Warpath?oldid=3985372) (revision 3985372). Ranks: 1.

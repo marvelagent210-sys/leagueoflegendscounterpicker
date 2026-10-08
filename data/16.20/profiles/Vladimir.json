@@ -1,0 +1,252 @@
+{
+  "champion": "Vladimir",
+  "name": "Vladimir",
+  "gameplayRadius": 65,
+  "moveSpeed": 330,
+  "attacks": [
+    {
+      "form": "vladimir",
+      "formName": "Vladimir",
+      "range": 450,
+      "ranged": true,
+      "projectile": true,
+      "missileSpeed": 1600,
+      "attackSpeed": 0.916791,
+      "attackDamage": 113.995,
+      "windup": 0.215282,
+      "modifiers": []
+    }
+  ],
+  "abilities": [
+    {
+      "champion": "Vladimir",
+      "kind": "E",
+      "name": "Tides of Blood",
+      "page": {
+        "title": "Template:Data Vladimir/Tides of Blood",
+        "revid": 3853799
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "auto"
+        ],
+        "affectsEnemies": true,
+        "projectile": "yes",
+        "spellShield": "yes",
+        "disruptable": "yes"
+      },
+      "applies": [
+        {
+          "type": "slow",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "slow; (self and enemies)"
+            },
+            {
+              "page": "Template:Data Vladimir/Tides of Blood",
+              "revid": 3853799,
+              "quote": "Active: Vladimir charges for up to 1.5 seconds, during which he increases Tides of Blood's damage over the first second of the channel, and becomes slowed by 20% afterwards for the remaining duration."
+            }
+          ],
+          "amount": 20
+        }
+      ],
+      "movement": [],
+      "states": [],
+      "cooldown": 5,
+      "castTime": 0,
+      "speed": 4000,
+      "channel": [
+        {
+          "type": "charged",
+          "evidence": [
+            {
+              "page": "Channel",
+              "revid": 4002276
+            }
+          ]
+        }
+      ],
+      "notes": [
+        "The spell indicator shows 11 equally spaced missile indicators when hovering the ability in the HUD, however the spell actually casts 15 equally spaced missiles.",
+        "The following table refers for interactions while Vladimir is channeling:"
+      ]
+    },
+    {
+      "champion": "Vladimir",
+      "kind": "I",
+      "name": "Crimson Pact",
+      "page": {
+        "title": "Template:Data Vladimir/Crimson Pact",
+        "revid": 4073468
+      },
+      "damageTypes": [],
+      "delivery": {
+        "targeting": [
+          "passive"
+        ],
+        "affectsEnemies": false
+      },
+      "applies": [],
+      "movement": [],
+      "states": []
+    },
+    {
+      "champion": "Vladimir",
+      "kind": "Q",
+      "name": "Transfusion",
+      "page": {
+        "title": "Template:Data Vladimir/Transfusion",
+        "revid": 3997094
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "unit"
+        ],
+        "affectsEnemies": true,
+        "projectile": "no",
+        "spellShield": "yes"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [
+        {
+          "state": "heal",
+          "evidence": [
+            {
+              "page": "Template:Data Vladimir/Transfusion",
+              "revid": 3997094,
+              "quote": "Active: Vladimir drains blood from the target enemy, dealing magic damage and healing himself."
+            },
+            {
+              "page": "Template:Data Vladimir/Transfusion",
+              "revid": 3997094,
+              "quote": "Casting Transfusion during the surge consumes all Crimson Rush to deal 85% increased damage and heal Vladimir for an additional 30 – 200 (based on level) (+ 5% (+ 4% per 100 AP) of his missing health)."
+            }
+          ]
+        }
+      ],
+      "cooldown": 4.6,
+      "castTime": 0.25,
+      "range": 600,
+      "notes": [
+        "Even though the healing effect is visualized as a projectile, the healing itself triggers as soon as the cast time completes.",
+        "Transfusion's cast is special cased to not be cancelled if the target becomes untargetable, dies, or is too far away or no longer in sight during the cast time.\n  - If the target is untargetable by the time the cast completes, however, Tranfusion will not deal them damage but still grant Vladimir the healing."
+      ]
+    },
+    {
+      "champion": "Vladimir",
+      "kind": "R",
+      "name": "Hemoplague",
+      "page": {
+        "title": "Template:Data Vladimir/Hemoplague",
+        "revid": 4039794
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "location"
+        ],
+        "affectsEnemies": true,
+        "projectile": "no",
+        "spellShield": "partly"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [
+        {
+          "state": "heal",
+          "evidence": [
+            {
+              "page": "Template:Data Vladimir/Hemoplague",
+              "revid": 4039794,
+              "quote": "After the duration, the infection bursts to deal magic damage to all affected targets and, after a 0.4-second delay, heal Vladimir for each infected champion, reduced to 40% for champions beyond the first."
+            }
+          ]
+        }
+      ],
+      "cooldown": 120,
+      "castTime": 0,
+      "range": 625,
+      "notes": [
+        "Spell shield does not negate the detonation."
+      ]
+    },
+    {
+      "champion": "Vladimir",
+      "kind": "W",
+      "name": "Sanguine Pool",
+      "page": {
+        "title": "Template:Data Vladimir/Sanguine Pool",
+        "revid": 4034923
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "auto"
+        ],
+        "affectsEnemies": true
+      },
+      "applies": [
+        {
+          "type": "slow",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "slow"
+            },
+            {
+              "page": "Template:Data Vladimir/Sanguine Pool",
+              "revid": 4034923,
+              "quote": "Enemies within the pool are dealt magic damage every 0.5 seconds over the duration and are slowed by 40%."
+            }
+          ],
+          "amount": 40
+        }
+      ],
+      "movement": [],
+      "states": [
+        {
+          "state": "untargetable",
+          "evidence": [
+            {
+              "page": "Untargetability",
+              "revid": 3965000
+            },
+            {
+              "page": "Template:Data Vladimir/Sanguine Pool",
+              "revid": 4034923,
+              "quote": "Active: Vladimir sinks into a pool of blood, becoming untargetable and ghosted for 2 seconds."
+            }
+          ],
+          "duration": 2
+        },
+        {
+          "state": "heal",
+          "evidence": [
+            {
+              "page": "Template:Data Vladimir/Sanguine Pool",
+              "revid": 4034923,
+              "quote": "Vladimir heals himself for 30% of the pre-mitigation damage dealt, reduced to 18% against minions."
+            }
+          ]
+        }
+      ],
+      "cooldown": 16,
+      "castTime": 0
+    }
+  ]
+}

@@ -1,0 +1,264 @@
+{
+  "champion": "Jhin",
+  "name": "Jhin",
+  "gameplayRadius": 65,
+  "moveSpeed": 330,
+  "attacks": [
+    {
+      "form": "jhin",
+      "formName": "Jhin",
+      "range": 550,
+      "ranged": true,
+      "projectile": true,
+      "missileSpeed": 2600,
+      "attackSpeed": 0.625,
+      "attackDamage": 147.526,
+      "windup": 0.25,
+      "modifiers": [
+        "Whisper"
+      ]
+    }
+  ],
+  "abilities": [
+    {
+      "champion": "Jhin",
+      "kind": "A",
+      "name": "Basic Attack",
+      "page": {
+        "title": "Template:Data Jhin/Basic Attack",
+        "revid": 4075435
+      },
+      "damageTypes": [
+        "physical"
+      ],
+      "delivery": {
+        "targeting": [
+          "unit"
+        ],
+        "affectsEnemies": true,
+        "projectile": "yes",
+        "parry": "yes",
+        "attack": "on-hit"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "speed": 2600,
+      "notes": [
+        "The 3000 missile speed for critical strikes also applies to Whisper 4th shot, which is a guaranteed critical strike."
+      ]
+    },
+    {
+      "champion": "Jhin",
+      "kind": "E",
+      "name": "Captive Audience",
+      "page": {
+        "title": "Template:Data Jhin/Captive Audience",
+        "revid": 4007613
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "location"
+        ],
+        "affectsEnemies": true,
+        "projectile": "partly",
+        "spellShield": "yes"
+      },
+      "applies": [
+        {
+          "type": "slow",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "slow"
+            },
+            {
+              "page": "Template:Data Jhin/Captive Audience",
+              "revid": 4007613,
+              "quote": "Blooming Lotus Traps slow enemies within the area by 35% for 2 seconds before exploding, dealing magic damage to enemies."
+            }
+          ],
+          "duration": 2,
+          "amount": 35
+        }
+      ],
+      "movement": [],
+      "states": [],
+      "cooldown": 14,
+      "castTime": 0.25,
+      "range": 750,
+      "notes": [
+        "The Lotus Trap will stop upon encountering a Wind Wall or Unbreakable.",
+        "The reveal debuff is named Caught Out.\n  - This debuff is shared between Captive Audience and Curtain Call."
+      ]
+    },
+    {
+      "champion": "Jhin",
+      "kind": "I",
+      "name": "Whisper",
+      "page": {
+        "title": "Template:Data Jhin/Whisper",
+        "revid": 4075448
+      },
+      "damageTypes": [
+        "physical"
+      ],
+      "delivery": {
+        "targeting": [
+          "passive"
+        ],
+        "affectsEnemies": true,
+        "parry": "yes",
+        "attack": "attack modifier"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "boostsAttacks": true
+    },
+    {
+      "champion": "Jhin",
+      "kind": "Q",
+      "name": "Dancing Grenade",
+      "page": {
+        "title": "Template:Data Jhin/Dancing Grenade",
+        "revid": 4007611
+      },
+      "damageTypes": [
+        "physical"
+      ],
+      "delivery": {
+        "targeting": [
+          "unit"
+        ],
+        "affectsEnemies": true,
+        "projectile": "yes",
+        "spellShield": "partly"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "cooldown": 5,
+      "castTime": 0.25,
+      "range": 550,
+      "speed": 1800,
+      "notes": [
+        "Spell shield will not prevent the canister from bouncing.",
+        "If the target becomes untargetable, dies, or is too far away or no longer in sight during the cast time, this ability will cancel but does not go on cooldown nor pay its cost (if applicable)."
+      ]
+    },
+    {
+      "champion": "Jhin",
+      "kind": "R",
+      "name": "Curtain Call",
+      "page": {
+        "title": "Template:Data Jhin/Curtain Call",
+        "revid": 4007615
+      },
+      "damageTypes": [
+        "physical"
+      ],
+      "delivery": {
+        "targeting": [
+          "direction"
+        ],
+        "affectsEnemies": true,
+        "projectile": "yes",
+        "spellShield": "yes",
+        "disruptable": "yes"
+      },
+      "applies": [
+        {
+          "type": "slow",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "slow"
+            },
+            {
+              "page": "Template:Data Jhin/Curtain Call",
+              "revid": 4007615,
+              "quote": "The bullet stops upon hitting an enemy champion, slowing them by 80% for 0.5 seconds and revealing them for 2 seconds."
+            }
+          ],
+          "duration": 0.5,
+          "amount": 80
+        }
+      ],
+      "movement": [],
+      "states": [],
+      "cooldown": 90,
+      "castTime": 1,
+      "range": 3500,
+      "speed": 5000,
+      "channel": [
+        {
+          "type": "normal",
+          "evidence": [
+            {
+              "page": "Channel",
+              "revid": 4002276,
+              "quote": "normal"
+            }
+          ]
+        }
+      ],
+      "notes": [
+        "Leveling up the ability while channeling will change the final cooldown.",
+        "The reveal debuff is named Caught Out.\n  - This debuff is shared between Captive Audience and Curtain Call.",
+        "The following table refers for interactions while Jhin is channeling:"
+      ]
+    },
+    {
+      "champion": "Jhin",
+      "kind": "W",
+      "name": "Deadly Flourish",
+      "page": {
+        "title": "Template:Data Jhin/Deadly Flourish",
+        "revid": 4021795
+      },
+      "damageTypes": [
+        "physical"
+      ],
+      "delivery": {
+        "targeting": [
+          "direction"
+        ],
+        "affectsEnemies": true,
+        "projectile": "yes",
+        "spellShield": "yes"
+      },
+      "applies": [
+        {
+          "type": "root",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "root"
+            },
+            {
+              "page": "Template:Data Jhin/Deadly Flourish",
+              "revid": 4021795,
+              "quote": "Hitting a marked champion roots them for a duration and grants Jhin Every Moment Matters bonus movement speed."
+            }
+          ],
+          "duration": 2.25
+        }
+      ],
+      "movement": [],
+      "states": [],
+      "cooldown": 12,
+      "castTime": 0.75,
+      "range": 2520,
+      "notes": [
+        "Uniquely, Deadly Flourish is special-cased to be intercepted by valid counters because it looks like a blockable missile, even though it functionally is not a missile."
+      ]
+    }
+  ]
+}

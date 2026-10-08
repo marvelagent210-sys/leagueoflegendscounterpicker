@@ -9,6 +9,22 @@ Values marked "at max rank, level 20" assume every ability is maxed; see PLAN.md
 |---|--:|--:|--:|--:|--:|--:|--:|--:|--:|--:|
 | Braum | 2812.5 | 28.17 | 1195.9 Mana | 117.9 | 1.087 | 0.212 | 133.3 | 72.3 | 125 | 335 |
 
+## Fight profile (what the interaction ledger uses)
+
+| Form | Attack range | Ranged | Projectile | Missile speed | Attack modifiers |
+|---|--:|---|---|--:|---|
+| Braum | 125 | no | no | – | Concussive Blows |
+
+Cooldowns at max rank. Flags: the wiki's interaction flags (yes, no, partly). * marks an effect that applies only under a condition.
+
+| Slot | Ability | Cooldown | Delivery | Applies to the enemy | Movement | Gives itself |
+|---|---|--:|---|---|---|---|
+| E | Unbreakable | 8 | – | – | – | projectile block 4 s |
+| I | Concussive Blows | – | spell shield yes; parry partly; attack modifier | stun 1.75 s | – | – |
+| Q | Winter's Bite | 6 | projectile yes; spell shield yes | slow 2 s 70% | – | – |
+| R | Glacial Fissure | 100 | projectile yes; spell shield yes | airborne (knock up) 2 s; slow 60% | – | – |
+| W | Stand Behind Me | 8 | grounded yes; knockdown yes | – | dash | – |
+
 ## Innate: Concussive Blows
 
 Source: [Template:Data Braum/Concussive Blows](https://wiki.leagueoflegends.com/en-us/Template:Data_Braum/Concussive_Blows?oldid=4038222) (revision 4038222). Ranks: 1.

@@ -9,6 +9,22 @@ Values marked "at max rank, level 20" assume every ability is maxed; see PLAN.md
 |---|--:|--:|--:|--:|--:|--:|--:|--:|--:|--:|
 | LeBlanc | 2721.8 | 18.32 | 891.6 Mana | 98.3 | 0.842 | 0.198 | 104.6 | 55.6 | 525 | 340 |
 
+## Fight profile (what the interaction ledger uses)
+
+| Form | Attack range | Ranged | Projectile | Missile speed | Attack modifiers |
+|---|--:|---|---|--:|---|
+| LeBlanc | 525 | yes | yes | 1700 | – |
+
+Cooldowns at max rank. Flags: the wiki's interaction flags (yes, no, partly). * marks an effect that applies only under a condition.
+
+| Slot | Ability | Cooldown | Delivery | Applies to the enemy | Movement | Gives itself |
+|---|---|--:|---|---|---|---|
+| E | Ethereal Chains | 11 | projectile yes; spell shield partly | root 1.5 s*; reveal | – | – |
+| I | Mirror Image | 60 | – | – | – | invisible 1 s |
+| Q | Sigil of Malice | 6 | projectile yes; spell shield yes | – | – | – |
+| R | Mimic | 25 | – | – | dash; blink (recast) | – |
+| W | Distortion | 10 | spell shield yes; grounded yes; knockdown yes | – | dash; blink / | – |
+
 ## Innate: Mirror Image
 
 Source: [Template:Data LeBlanc/Mirror Image](https://wiki.leagueoflegends.com/en-us/Template:Data_LeBlanc/Mirror_Image?oldid=4035723) (revision 4035723). Ranks: 1.
@@ -32,31 +48,6 @@ Notes:
 - The clone has a leash range.
 - If Mirror Image triggers while LeBlanc is tethering to a target with Ethereal Chains (or its Mimicked version), her clone will not produce a fake tether, giving away which is the real one.
 - Using a basic attack breaks the stealth at the end of the attack windup.
-
-## Q: Shatter Orb
-
-Source: [Template:Data LeBlanc/Shatter Orb](https://wiki.leagueoflegends.com/en-us/Template:Data_LeBlanc/Shatter_Orb?oldid=2642818) (revision 2642818). Ranks: 5.
-
-| Field | Value |
-|---|---|
-| Cooldown | 6 |
-| Cost | 40 / 45 / 50 / 55 / 60 mana |
-| Target range | 700 |
-| Speed | 2000 |
-
-Targeting: Unit · Affects: Enemies · Damage type: Magic · Spell shield blocks it: true · Projectile: true · Parry: – · Disabled by grounded: – · Usable while knocked down: –
-
-Active: LeBlanc projects an orb towards the target enemy, dealing magic damage.
-
-- **Magic Damage:** 55 / 90 / 125 / 160 / 195 (+ 50% AP) → at max rank, level 20: 195 (+ 50% AP)
-
-If Shatter Orb triggers Sigil of Malice, the orb bounces to the closest charged Sigil and damages its next target, dealing 60% damage to minions.
-
-- **Minion Rebound Damage:** 33 / 54 / 75 / 96 / 117 (+ 30% AP) → at max rank, level 20: 117 (+ 30% AP)
-
-Notes:
-
-- Apply Single target spell effect to the main target and area of effect to nearby enemies affected by Sigil of Malice.
 
 ## Q: Sigil of Malice
 
@@ -190,41 +181,6 @@ Notes:
 
 - Mimic will default to Mimic: Sigil of Malice if LeBlanc ranks up Mimic without having used any abilities beforehand (even if she has not yet learned Sigil of Malice).
 - Both Mimic: Ethereal Chains and Mimic: Sigil of Malice will apply damage twice if the original ability's condition to do so is met.
-
-## R: Mimic Shatter Orb
-
-Source: [Template:Data LeBlanc/Mimic Shatter Orb](https://wiki.leagueoflegends.com/en-us/Template:Data_LeBlanc/Mimic_Shatter_Orb?oldid=2642819) (revision 2642819). Ranks: 3.
-
-| Field | Value |
-|---|---|
-| Cooldown | 54 / 42 / 30 |
-
-Targeting: Unit · Affects: Enemies · Damage type: Magic · Spell shield blocks it: true · Projectile: true · Parry: – · Disabled by grounded: – · Usable while knocked down: –
-
-Active: Shatter Orb's magic damage is modified.
-
-- **Magic Damage:** 150 / 275 / 400 (+ 60% AP) → at max rank, level 20: 400 (+ 60% AP)
-
-Notes:
-
-- Apply single target spell effect to the main target and area of effect to nearby enemies.
-
-## R: Shadow of the Rose
-
-Source: [Template:Data LeBlanc/Shadow of the Rose](https://wiki.leagueoflegends.com/en-us/Template:Data_LeBlanc/Shadow_of_the_Rose?oldid=2644898) (revision 2644898). Ranks: 3.
-
-| Field | Value |
-|---|---|
-| Cooldown | 160 / 140 / 120 |
-| Range | Global |
-
-Targeting: Ground · Affects: Enemies · Damage type: None · Spell shield blocks it: – · Projectile: – · Parry: – · Disabled by grounded: – · Usable while knocked down: –
-
-Active: LeBlanc summons a Mimic at the target location, refunding Mimic's cooldown but placing Shadow of the Rose on its own cooldown. This Mimic immediately disappears upon casting its selected ability.
-
-Notes:
-
-- No additional details.
 
 ## Game files
 

@@ -1,0 +1,240 @@
+{
+  "champion": "Darius",
+  "name": "Darius",
+  "gameplayRadius": 65,
+  "moveSpeed": 340,
+  "attacks": [
+    {
+      "form": "darius",
+      "formName": "Darius",
+      "range": 175,
+      "ranged": false,
+      "projectile": false,
+      "attackSpeed": 0.747906,
+      "attackDamage": 162.325,
+      "windup": 0.293707,
+      "modifiers": [
+        "Hemorrhage"
+      ]
+    }
+  ],
+  "abilities": [
+    {
+      "champion": "Darius",
+      "kind": "E",
+      "name": "Apprehend",
+      "page": {
+        "title": "Template:Data Darius/Apprehend",
+        "revid": 3906616
+      },
+      "damageTypes": [],
+      "delivery": {
+        "targeting": [
+          "direction"
+        ],
+        "affectsEnemies": true,
+        "projectile": "no",
+        "spellShield": "yes"
+      },
+      "applies": [
+        {
+          "type": "airborne",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "airborne: knock up"
+            },
+            {
+              "page": "Template:Data Darius/Apprehend",
+              "revid": 3906616,
+              "quote": "Active: Darius sweeps his axe in a cone in the target direction, granting sight of the area for 1 second while pulling enemies hit towards him."
+            }
+          ],
+          "variant": "knock up, pull"
+        },
+        {
+          "type": "slow",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "slow"
+            },
+            {
+              "page": "Template:Data Darius/Apprehend",
+              "revid": 3906616,
+              "quote": "Upon arrival, they rebound 150 units off of him, remaining airborne and becoming slowed by 40% for 1 second."
+            }
+          ],
+          "duration": 1,
+          "amount": 40
+        }
+      ],
+      "movement": [],
+      "states": [],
+      "cooldown": 16,
+      "castTime": 0.25,
+      "notes": [
+        "Enemies hit by Apprehend will quickly be dragged to Darius before rebounding over a longer period.\n  - The slow duration starts as soon as the target rebounds off of Darius.\n  - : The rebound location is determined when the target reaches Darius' location.\n  - The rebound's forced movement's duration is roughly 0.5 seconds, finishing before the airborne duration ends.\n  - : There is no stun applied for the same duration of the airborne, meaning brittle cannot extend the disable duration. It will not increase the slow duration in most situations because of the negative tenacity falling off before the slow is applied."
+      ]
+    },
+    {
+      "champion": "Darius",
+      "kind": "I",
+      "name": "Hemorrhage",
+      "page": {
+        "title": "Template:Data Darius/Hemorrhage",
+        "revid": 4063939
+      },
+      "damageTypes": [
+        "physical"
+      ],
+      "delivery": {
+        "targeting": [
+          "passive"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "partly",
+        "parry": "yes",
+        "attack": "attack modifier"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "boostsAttacks": true,
+      "notes": [
+        "Darius attacks and abilities have to deal damage to apply Hemorrhage.\n  - Hemorrhage cannot be applied to/refreshed against invulnerable targets.\n  - Hemorrhage can be applied to and refreshed against shielded targets.\n  - Hemorrhage can also be applied on-hit, but will specifically not do so if the target is invulnerable.",
+        "Spell shield prevents Hemorrhage's application from abilities only."
+      ]
+    },
+    {
+      "champion": "Darius",
+      "kind": "Q",
+      "name": "Decimate",
+      "page": {
+        "title": "Template:Data Darius/Decimate",
+        "revid": 4007591
+      },
+      "damageTypes": [
+        "physical"
+      ],
+      "delivery": {
+        "targeting": [
+          "auto"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "yes"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [
+        {
+          "state": "heal",
+          "evidence": [
+            {
+              "page": "Template:Data Darius/Decimate",
+              "revid": 4007591,
+              "quote": "Against champions and large monsters hit, Darius heals for 17 / 34 / 51 (based on number of targets hit by the outer radius)% of his missing health."
+            }
+          ]
+        }
+      ],
+      "cooldown": 5,
+      "castTime": 0,
+      "notes": [
+        "Decimate will cancel if Darius enters stasis or uses Dash during the delay.\n  - After the delay, Decimate will be placed on a 1-second cooldown."
+      ]
+    },
+    {
+      "champion": "Darius",
+      "kind": "R",
+      "name": "Noxian Guillotine",
+      "page": {
+        "title": "Template:Data Darius/Noxian Guillotine",
+        "revid": 4004898
+      },
+      "damageTypes": [
+        "true"
+      ],
+      "delivery": {
+        "targeting": [
+          "unit"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "yes",
+        "grounded": "yes",
+        "knockdown": "no"
+      },
+      "applies": [],
+      "movement": [
+        {
+          "type": "lunge",
+          "evidence": [
+            {
+              "page": "Dash",
+              "revid": 4035700
+            }
+          ],
+          "interruptible": false
+        }
+      ],
+      "states": [],
+      "cooldown": 80,
+      "castTime": 0.3667,
+      "range": 475,
+      "notes": [
+        "Darius will only leap towards the target if it is at range, or leap backwards if it is very close.\n  - This leap can pass very thin terrain and will otherwise not be able to. In any case, Darius will still hit the target.[https://www.youtube.com/watch?v=jE6vb4IqvC8]\n  - The ability is disabled while grounded or rooted even if Darius is in the range in which he does not leap.",
+        "If the target becomes untargetable, dies, or is too far away or no longer in sight during the cast time, this ability will cancel but does not go on cooldown nor pay its cost (if applicable)."
+      ]
+    },
+    {
+      "champion": "Darius",
+      "kind": "W",
+      "name": "Crippling Strike",
+      "page": {
+        "title": "Template:Data Darius/Crippling Strike",
+        "revid": 4013692
+      },
+      "damageTypes": [
+        "physical"
+      ],
+      "delivery": {
+        "targeting": [
+          "auto"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "yes",
+        "parry": "yes",
+        "attack": "attack"
+      },
+      "applies": [
+        {
+          "type": "slow",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "slow"
+            },
+            {
+              "page": "Template:Data Darius/Crippling Strike",
+              "revid": 4013692,
+              "quote": "Active: Darius empowers his next basic attack within 4 seconds to have an uncancellable windup, gain 25 bonus range, deal bonus physical damage and slow the target by 90% for 1 second."
+            }
+          ],
+          "duration": 1,
+          "amount": 90
+        }
+      ],
+      "movement": [],
+      "states": [],
+      "cooldown": 5,
+      "castTime": 0,
+      "boostsAttacks": true,
+      "notes": [
+        "Spell shields will negate all effects of Crippling Strike, including the damage of the basic attack itself."
+      ]
+    }
+  ]
+}

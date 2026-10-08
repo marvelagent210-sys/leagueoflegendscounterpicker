@@ -9,23 +9,21 @@ Values marked "at max rank, level 20" assume every ability is maxed; see PLAN.md
 |---|--:|--:|--:|--:|--:|--:|--:|--:|--:|--:|
 | Volibear | 2695.2 | 23.75 | 1726.6 Mana | 133.8 | 0.900 | 0.333 | 137.3 | 72.3 | 150 | 340 |
 
-## Innate: Chosen of the Storm
+## Fight profile (what the interaction ledger uses)
 
-Source: [Template:Data Volibear/Chosen of the Storm](https://wiki.leagueoflegends.com/en-us/Template:Data_Volibear/Chosen_of_the_Storm?oldid=2930043) (revision 2930043). Ranks: 1.
+| Form | Attack range | Ranged | Projectile | Missile speed | Attack modifiers |
+|---|--:|---|---|--:|---|
+| Volibear | 150 | no | no | – | The Relentless Storm |
 
-| Field | Value |
-|---|---|
-| Static cooldown | 120 |
+Cooldowns at max rank. Flags: the wiki's interaction flags (yes, no, partly). * marks an effect that applies only under a condition.
 
-Targeting: Passive · Affects: Self · Damage type: – · Spell shield blocks it: – · Projectile: – · Parry: – · Disabled by grounded: – · Usable while knocked down: –
-
-Innate: When Volibear's health drops below 30% of his maximum health he regenerates 30% of his maximum health over 6 seconds .
-
-Notes:
-
-- Chosen of the Storm's cooldown starts as soon as it activates.
-- If the cooldown ends while Volibear is under 30% health Chosen of the Storm will not trigger unless he takes damage.
-- If Volibear is killed directly from anywhere higher than 30% health Chosen of the Storm will not activate and therefore will not go on cooldown.
+| Slot | Ability | Cooldown | Delivery | Applies to the enemy | Movement | Gives itself |
+|---|---|--:|---|---|---|---|
+| E | Sky Splitter | 16 | spell shield yes | slow 2 s 40% | – | shield 3 s |
+| I | The Relentless Storm | – | projectile no; spell shield no; parry partly; attack modifier | – | – | – |
+| Q | Thundering Smash | 10 | spell shield yes; parry yes; grounded no; knockdown partly; attack | stun 1 s | dash | heal |
+| R | Stormbringer | 110 | spell shield yes; grounded yes; knockdown no | slow 1 s 50% | dash (unstoppable) | displacement immune 1 s |
+| W | Frenzied Maul | 5 | spell shield yes; parry partly; on-hit | – | – | heal |
 
 ## Innate: The Relentless Storm
 
@@ -53,42 +51,6 @@ Notes:
 - A stack of The Relentless Storm is not gained if the attack is dodged and/or missed if Volibear is blinded. A stack is granted even if the attack is blocked. In all cases, Lightning Claws will not apply (on-hit damage is parried and the bounce is prevented).
     - Since Frenzied Maul cannot be missed while Volibear is blinded, gaining stacks from The Relentless Storm and applying Lighting Claws from the ability will not be prevented from that parry effect.
 - The empowered attacks do not affect structures nor wards.
-
-## Q: Rolling Thunder
-
-Source: [Template:Data Volibear/Rolling Thunder](https://wiki.leagueoflegends.com/en-us/Template:Data_Volibear/Rolling_Thunder?oldid=3037879) (revision 3037879). Ranks: 5.
-
-| Field | Value |
-|---|---|
-| Cooldown | 12 / 11 / 10 / 9 / 8 |
-| Cost | 40 mana |
-| Cast time | none |
-
-Targeting: None · Affects: Self · Damage type: physical · Spell shield blocks it: true · Projectile: – · Parry: special · Disabled by grounded: – · Usable while knocked down: –
-
-Active: Volibear drops on all fours and gains bonus movement speed for the next 4 seconds, increased when moving towards a nearby visible enemy champion within 1800 units of him.
-
-- **Bonus Movement Speed:** 15 / 17.5 / 20 / 22.5 / 25% → at max rank, level 20: 25%
-- **Increased Movement Speed:** 30 / 37.5 / 45 / 52.5 / 60% → at max rank, level 20: 60%
-- **Mechanics:** reveal
-
-For the duration, Volibear's next basic attack becomes an unstoppable basic attack, dealing bonus physical damage and instantly rooting the target for 0.25 seconds before flinging them over his shoulder.
-
-- **Bonus Physical Damage:** 30 / 60 / 90 / 120 / 150 → at max rank, level 20: 150
-- **Mechanics:** root (0.25 s); airborne
-
-Rolling Thunder resets Volibear's basic attack timer.
-
-- **Mechanics:** attack reset
-
-Notes:
-
-- Rolling Thunder's bonus damage affects structures.
-- Enemy can be flinged through very thin walls.
-- Volibear will retain the bonus movement speed for Rolling Thunder's full duration even if he flings his target before it expires.
-- When Volibear changes direction (from "towards champions" to any other direction), his bonus movement speed decays over 1 second.
-- Rolling Thunder can be blocked and dodged but the displacement cannot be negated by blinding effects.
-- Spell shields can block all the basic attack's effect other than the root.
 
 ## Q: Thundering Smash
 
@@ -174,62 +136,6 @@ Notes:
 - Frenzied Maul deals bonus damage and heals if the target is still Wounded after the cast time. If the mark wears off before the cast time completes, the ability's animation will appear as if the bite was applied but there is no bonus damage or heal.
 - If the target becomes untargetable, dies, or is too far away or no longer in sight during the cast time, this ability will cancel but does not go on cooldown nor pay its cost (if applicable).
 
-## W: Frenzy
-
-Source: [Template:Data Volibear/Frenzy](https://wiki.leagueoflegends.com/en-us/Template:Data_Volibear/Frenzy?oldid=3166310) (revision 3166310). Ranks: 5.
-
-| Field | Value |
-|---|---|
-| Cooldown | 18 |
-| Cost | 35 mana |
-| Target range | 350 |
-
-Targeting: Unit · Affects: Self, Enemies · Damage type: physical · Spell shield blocks it: true · Projectile: – · Parry: – · Disabled by grounded: – · Usable while knocked down: –
-
-Passive: Volibear's basic attacks grant bonus attack speed for 4 seconds, stacking up to 3 times. At 3 stacks, Volibear gains the ability to cast Frenzy.
-
-- **Bonus Attack Speed Per Stack:** 9 / 13 / 17 / 21 / 25% → at max rank, level 20: 25%
-- **Total Bonus Attack Speed:** 27 / 39 / 51 / 63 / 75% → at max rank, level 20: 75%
-
-Active: Volibear bites the target enemy, dealing physical damage, increasing by 0 / 10 / 20 / 30 / 40 / 50 / 60 / 70 / 80 / 90 / 100 (based on target's missing health)%.
-
-- **Minimum Physical Damage:** 60 / 110 / 160 / 210 / 260 (+ 15% bonus health) → at max rank, level 20: 260 (+ 15% bonusHealth)
-- **Maximum Physical Damage:** 120 / 220 / 320 / 420 / 520 (+ 30% bonus health) → at max rank, level 20: 520 (+ 30% bonusHealth)
-
-Frenzy's cooldown is halved if it is used on a minion or monster.
-
-Notes:
-
-- No additional notes.
-
-## E: Majestic Roar
-
-Source: [Template:Data Volibear/Majestic Roar](https://wiki.leagueoflegends.com/en-us/Template:Data_Volibear/Majestic_Roar?oldid=3037120) (revision 3037120). Ranks: 5.
-
-| Field | Value |
-|---|---|
-| Cooldown | 11 |
-| Cost | 60 / 65 / 70 / 75 / 80 mana |
-| Cast time | none |
-| Effect radius | 425 |
-| Speed | 200 |
-
-Targeting: None · Affects: – · Damage type: Magic · Spell shield blocks it: true · Projectile: – · Parry: – · Disabled by grounded: – · Usable while knocked down: –
-
-Active: Volibear roars with might, dealing magic damage to all nearby enemies, knocking them back 70 units and slowing them for 3 seconds. Minions and monsters are instead feared and slowed by 100% for the same duration.
-
-- **Magic Damage:** 60 / 105 / 150 / 195 / 240 (+ 60% AP) → at max rank, level 20: 240 (+ 60% AP)
-- **Slow:** 30 / 35 / 40 / 45 / 50% → at max rank, level 20: 50%
-- **Mechanics:** airborne (3 s); slow (3 s, 50%); fear
-
-Enemies who are dashing or are airborne during Majestic Roar are dealt an additional 8% of their maximum health as magic damage.
-
-- **Mechanics:** dash; airborne
-
-Notes:
-
-- No additional information.
-
 ## E: Sky Splitter
 
 Source: [Template:Data Volibear/Sky Splitter](https://wiki.leagueoflegends.com/en-us/Template:Data_Volibear/Sky_Splitter?oldid=4008614) (revision 4008614). Ranks: 5.
@@ -311,31 +217,6 @@ Notes:
 - Disabling a turret does not prevent aggro of the current target it is locked onto. The increased turret shot damage from Ohmwrecker is also reset.
     - Turrets maintain the same targeting behavior even when disabled; damaging an enemy champion will still draw turret aggro. However, if the turret's desired target leaves range or has become an invalid target, it will lock onto the most previous target it was going to attack prior to becoming disabled, or instead, find a new one if that condition is not applicable.
 - The following table refers for interactions while Volibear is dashing:
-
-## R: Thunder Claws
-
-Source: [Template:Data Volibear/Thunder Claws](https://wiki.leagueoflegends.com/en-us/Template:Data_Volibear/Thunder_Claws?oldid=2983372) (revision 2983372). Ranks: 3.
-
-| Field | Value |
-|---|---|
-| Cooldown | 100 / 90 / 80 |
-| Cost | 100 mana |
-| Cast time | 0.1 |
-| Effect radius | 500 |
-
-Targeting: None · Affects: Enemies · Damage type: Magic · Spell shield blocks it: true · Projectile: – · Parry: – · Disabled by grounded: – · Usable while knocked down: –
-
-Active: After a 0.1 second delay, Volibear erupts with thunder, increasing in size and striking up to 8 nearby enemies with chain lightning, dealing them magic damage.
-
-- **Magic Damage:** 75 / 115 / 155 (+ 40% AP) → at max rank, level 20: 155 (+ 40% AP)
-
-Afterwards, for 12 seconds, Volibear's basic attacks are empowered with the lightning, dealing the same damage as bonus magic damage on-hit that also instantly bounces to up to 7 nearby unaffected enemies.
-
-- **Mechanics:** on-hit
-
-Notes:
-
-- : Thunder Claw's interactions with dodging, blocking, and blinding effects via basic attack.
 
 ## Game files
 

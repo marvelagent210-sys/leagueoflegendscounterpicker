@@ -1,0 +1,388 @@
+{
+  "champion": "Ornn",
+  "name": "Ornn",
+  "gameplayRadius": 80,
+  "moveSpeed": 335,
+  "attacks": [
+    {
+      "form": "ornn",
+      "formName": "Ornn",
+      "range": 175,
+      "ranged": false,
+      "projectile": false,
+      "attackSpeed": 0.870812,
+      "attackDamage": 137.828,
+      "windup": 0.251202,
+      "modifiers": [
+        "Living Forge"
+      ]
+    }
+  ],
+  "abilities": [
+    {
+      "champion": "Ornn",
+      "kind": "E",
+      "name": "Searing Charge",
+      "page": {
+        "title": "Template:Data Ornn/Searing Charge",
+        "revid": 4007982
+      },
+      "damageTypes": [
+        "physical"
+      ],
+      "delivery": {
+        "targeting": [
+          "direction"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "yes",
+        "grounded": "yes",
+        "knockdown": "yes"
+      },
+      "applies": [
+        {
+          "type": "airborne",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "airborne: knock up"
+            },
+            {
+              "page": "Template:Data Ornn/Searing Charge",
+              "revid": 4007982,
+              "quote": "If Ornn collides with terrain during the charge, he creates a shockwave that knocks up and stuns nearby enemies for 1.25 seconds and deals the same damage if they were not already hit by the charge."
+            }
+          ],
+          "variant": "knock up",
+          "duration": 1.25,
+          "condition": "If Ornn collides with terrain during the charge, he creates a shockwave that knocks up and stuns nearby enemies for 1.25 seconds and deals the same damage if they were not already hit by the charge."
+        },
+        {
+          "type": "stun",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "stun"
+            },
+            {
+              "page": "Template:Data Ornn/Searing Charge",
+              "revid": 4007982,
+              "quote": "If Ornn collides with terrain during the charge, he creates a shockwave that knocks up and stuns nearby enemies for 1.25 seconds and deals the same damage if they were not already hit by the charge."
+            }
+          ],
+          "duration": 1.25,
+          "condition": "If Ornn collides with terrain during the charge, he creates a shockwave that knocks up and stuns nearby enemies for 1.25 seconds and deals the same damage if they were not already hit by the charge."
+        }
+      ],
+      "movement": [
+        {
+          "type": "dash",
+          "evidence": [
+            {
+              "page": "Dash",
+              "revid": 4035700,
+              "quote": "direction-targeted"
+            }
+          ],
+          "targeting": "direction-targeted",
+          "interruptible": true
+        }
+      ],
+      "states": [],
+      "cooldown": 12,
+      "castTime": 0.35,
+      "range": 800,
+      "speed": 1600,
+      "notes": [
+        "Spell shields may only block one instance of damage.",
+        "Brittle enemies without Tenacity of their own will be stunned for a total of 1.625 seconds.",
+        "Ornn will not dash after the cast time if he is airborne or resurrecting.",
+        "Displacement immunity will also resist the application of the stun.",
+        "The following table refers for interactions while Ornn is in cast time and dashing:\n  - The lockout lingers briefly after the dash ends."
+      ]
+    },
+    {
+      "champion": "Ornn",
+      "kind": "I",
+      "name": "Living Forge",
+      "page": {
+        "title": "Template:Data Ornn/Living Forge",
+        "revid": 4063954
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "passive"
+        ],
+        "affectsEnemies": false,
+        "spellShield": "yes",
+        "parry": "yes",
+        "disruptable": "yes",
+        "attack": "attack modifier"
+      },
+      "applies": [
+        {
+          "type": "airborne",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "airborne: knock back"
+            },
+            {
+              "page": "Template:Data Ornn/Living Forge",
+              "revid": 4063954,
+              "quote": "His basic attacks on-hit against enemies afflicted with Brittle are empowered to knock them back a short distance over 0.4 seconds."
+            }
+          ],
+          "variant": "knock back",
+          "duration": 0.4
+        }
+      ],
+      "movement": [],
+      "states": [],
+      "channel": [
+        {
+          "type": "objective",
+          "evidence": [
+            {
+              "page": "Channel",
+              "revid": 4002276,
+              "quote": "objective"
+            }
+          ]
+        }
+      ],
+      "notes": [
+        "The item that Ornn upgrades for the ally is decided at the start of the forge channel.\n  - If the ally moves the item into a different slot during the channel, it will still be the item that gets upgraded.",
+        "Ornn's basic attacks against Brittle enemies will end the duration of the debuff on-hit prematurely even if the knock back was not applied. This does not trigger the consumed effect that deals the bonus damage, unless the target was an epic monster.",
+        "Brittle's Tenacity reduction will benefit all applicable types of crowd control, not just immobilizes and silences. The following do not consume Brittle but benefit from the reduction: blinds, cripples, disarms, grounds, and slows.",
+        "Spell shield will block both the knock back and the bonus damage from Ornn's empowered brittle attack.",
+        "The Masterwork item upgrade on an ally will fail if the ally was channeling the Rift Herald Rodeo at the time of the forge's completion.",
+        "The following table refers for interactions while Ornn is channeling:\n  - All of Ornn's actions are disabled during the first 0.5 seconds of the channel."
+      ]
+    },
+    {
+      "champion": "Ornn",
+      "kind": "Q",
+      "name": "Volcanic Rupture",
+      "page": {
+        "title": "Template:Data Ornn/Volcanic Rupture",
+        "revid": 3998234
+      },
+      "damageTypes": [
+        "physical"
+      ],
+      "delivery": {
+        "targeting": [
+          "direction"
+        ],
+        "affectsEnemies": true,
+        "projectile": "yes",
+        "spellShield": "partly"
+      },
+      "applies": [
+        {
+          "type": "airborne",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "airborne: knock aside"
+            },
+            {
+              "page": "Template:Data Ornn/Volcanic Rupture",
+              "revid": 3998234,
+              "quote": "After a 1.125-second delay, a magma pillar then erupts at the location to knock aside enemies, though not through terrain, and linger as impassible terrain for 4 seconds."
+            }
+          ],
+          "variant": "knock aside",
+          "duration": 4
+        },
+        {
+          "type": "slow",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "slow"
+            },
+            {
+              "page": "Template:Data Ornn/Volcanic Rupture",
+              "revid": 3998234,
+              "quote": "Active: Ornn sends a fissure in the target direction that deals physical damage to enemies hit and slows them by 40% for 2 seconds."
+            }
+          ],
+          "duration": 2,
+          "amount": 40
+        }
+      ],
+      "movement": [],
+      "states": [],
+      "cooldown": 7,
+      "castTime": 0.25,
+      "range": 750,
+      "speed": 1800,
+      "notes": [
+        "Spell shield will not prevent the knock aside from the magma pillar forming."
+      ]
+    },
+    {
+      "champion": "Ornn",
+      "kind": "R",
+      "name": "Call of the Forge God",
+      "page": {
+        "title": "Template:Data Ornn/Call of the Forge God",
+        "revid": 4007985
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "direction"
+        ],
+        "affectsEnemies": true,
+        "projectile": "yes",
+        "spellShield": "partly",
+        "grounded": "partly",
+        "knockdown": "yes"
+      },
+      "applies": [
+        {
+          "type": "airborne",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "airborne: knock up"
+            },
+            {
+              "page": "Template:Data Ornn/Call of the Forge God",
+              "revid": 4007985,
+              "quote": "The elemental deals the same damage to enemies it passes through and knocks them up and stuns them for 1 second, reduced to 0.5 seconds after the first enemy champion hit."
+            }
+          ],
+          "variant": "knock up",
+          "duration": 1
+        },
+        {
+          "type": "slow",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "slow"
+            },
+            {
+              "page": "Template:Data Ornn/Call of the Forge God",
+              "revid": 4007985,
+              "quote": "The elemental deals magic damage to enemies it passes through and slows them for 2 seconds."
+            }
+          ],
+          "duration": 2,
+          "amount": 60
+        },
+        {
+          "type": "stun",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "stun"
+            },
+            {
+              "page": "Template:Data Ornn/Call of the Forge God",
+              "revid": 4007985,
+              "quote": "The elemental deals the same damage to enemies it passes through and knocks them up and stuns them for 1 second, reduced to 0.5 seconds after the first enemy champion hit."
+            }
+          ],
+          "duration": 1
+        }
+      ],
+      "movement": [
+        {
+          "type": "dash",
+          "evidence": [
+            {
+              "page": "Dash",
+              "revid": 4035700,
+              "quote": "direction-targeted; (recast)"
+            }
+          ],
+          "targeting": "direction-targeted",
+          "condition": "(recast)",
+          "interruptible": true
+        }
+      ],
+      "states": [],
+      "cooldown": 100,
+      "castTime": 0.5,
+      "range": 300,
+      "speed": 1600,
+      "notes": [
+        "Call of the Forge God cannot be recast while grounded or rooted.",
+        "Brittle enemies without Tenacity of their own will be stunned for a total of 1.3 seconds.",
+        "Spell shields may only block one pass.",
+        "Ornn becomes locked out of all actions during the recast's dash and for 0.5 seconds afterwards.",
+        "Displacement immunity will also resist the application of the stun."
+      ]
+    },
+    {
+      "champion": "Ornn",
+      "kind": "W",
+      "name": "Bellows Breath",
+      "page": {
+        "title": "Template:Data Ornn/Bellows Breath",
+        "revid": 4011962
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "direction"
+        ],
+        "affectsEnemies": true,
+        "projectile": "no",
+        "spellShield": "partly",
+        "grounded": "no"
+      },
+      "applies": [],
+      "movement": [
+        {
+          "type": "lunge",
+          "evidence": [
+            {
+              "page": "Dash",
+              "revid": 4035700
+            }
+          ]
+        }
+      ],
+      "states": [
+        {
+          "state": "displacement immune",
+          "evidence": [
+            {
+              "page": "Template:Data Ornn/Bellows Breath",
+              "revid": 4011962,
+              "quote": "Active: Ornn marches forward in the target direction over 0.75 seconds, gaining displacement immunity and becoming unable to act for the duration."
+            }
+          ]
+        }
+      ],
+      "cooldown": 10,
+      "castTime": 0,
+      "range": 500,
+      "notes": [
+        "While lunging, special VFX will be played when Ornn is first affected by crowd control, even if that crowd control is not resisted by displacement immunity.",
+        "Spell shield will negate the final instance of damage and prevents Brittle from being applied."
+      ]
+    }
+  ]
+}

@@ -9,6 +9,26 @@ Values marked "at max rank, level 20" assume every ability is maxed; see PLAN.md
 |---|--:|--:|--:|--:|--:|--:|--:|--:|--:|--:|
 | Elise | 2763.5 | 17.30 | 1307.3 Mana | 114.0 | 0.840 | 0.223 | 118.5 | 55.6 | 550 | 330 |
 
+## Fight profile (what the interaction ledger uses)
+
+| Form | Attack range | Ranged | Projectile | Missile speed | Attack modifiers |
+|---|--:|---|---|--:|---|
+| Elise | 550 | yes | yes | 1600 | Spider Queen |
+| Spider Form | 125 | no | no | – | Spider Queen |
+
+Cooldowns at max rank. Flags: the wiki's interaction flags (yes, no, partly). * marks an effect that applies only under a condition.
+
+| Slot | Ability | Cooldown | Delivery | Applies to the enemy | Movement | Gives itself |
+|---|---|--:|---|---|---|---|
+| E | Cocoon | 10 | projectile yes; spell shield yes | stun 2.4 s; reveal | – | – |
+| E | Rappel | 18 | grounded yes | – | blink | untargetable 0.6 s |
+| I | Spider Queen | – | parry partly; attack modifier | – | – | heal |
+| Q | Neurotoxin | 6 | projectile yes; spell shield yes | – | – | – |
+| Q | Venomous Bite | 6 | spell shield yes; parry partly; grounded yes; knockdown yes; on-hit | – | dash | – |
+| R | Spider Form / Human Form | 3 | – | – | – | heal |
+| W | Skittering Frenzy | 6 | – | – | – | – |
+| W | Volatile Spiderling | 12 | spell shield yes | – | – | – |
+
 ## Innate: Spider Queen
 
 Source: [Template:Data Elise/Spider Queen](https://wiki.leagueoflegends.com/en-us/Template:Data_Elise/Spider_Queen?oldid=4064845) (revision 4064845). Ranks: 1.

@@ -1,0 +1,246 @@
+# Counters to Orianna (patch 26.20)
+
+Every champion ranked by what its kit does against Orianna's, from the interaction ledger: projectile blocks, spell shields,
+parries, dash stops, crowd control and its defenses, range and more (PLAN.md §5). This ranking is **partial**: it weighs the
+interactions but doesn't play the fight out. The duel simulator replaces it as each champion's behavior is verified.
+
+"For" sums the interactions in the champion's favor, "against" those in Orianna's; net = for − against.
+A hard counter shuts down part of a kit every time it is used (projectile block, attack dodge, attack block, blind, disarm, attack speed slow, attack reflect, dash stop, grounding, range) with an impact of 0.4 or more (0.5 for range).
+Run `npm run matchup -- <champion> Orianna` for the full ledger of a matchup, with sources.
+
+## Top 10
+
+### 1. Elise (net +0.96)
+
+- **0.80** untargetable: Rappel makes Elise untargetable, dodging Orianna's Command: Shockwave. Untargetable for 0.6 s; Command: Shockwave takes 0.5 s to land, enough to react. (Elise E Rappel → Orianna R Command: Shockwave)
+- **0.32** untargetable: Rappel makes Elise untargetable, dodging Orianna's Command: Protect. Untargetable for 0.6 s; Command: Protect takes 0.61 s to land, enough to react. (Elise E Rappel → Orianna E Command: Protect)
+
+### 2. Sivir (net +0.96)
+
+- **0.80** spell shield: Spell Shield's spell shield blocks Orianna's Command: Shockwave. Spell shield for 1.5 s, long enough to use ahead of Command: Shockwave. A spell shield blocks only the first enemy ability that reaches it. (Sivir E Spell Shield → Orianna R Command: Shockwave)
+- **0.32** spell shield: Spell Shield's spell shield blocks Orianna's Command: Protect. Spell shield for 1.5 s, long enough to use ahead of Command: Protect. A spell shield blocks only the first enemy ability that reaches it. (Sivir E Spell Shield → Orianna E Command: Protect)
+
+### 3. Bard (net +0.91)
+
+- **0.80** untargetable: Tempered Fate makes Bard untargetable, dodging Orianna's Command: Shockwave. Untargetable for 2.5 s, long enough to use ahead of Command: Shockwave. (Bard R Tempered Fate → Orianna R Command: Shockwave)
+- **0.21** untargetable: Tempered Fate makes Bard untargetable, dodging Orianna's Command: Protect. Untargetable for 2.5 s, long enough to use ahead of Command: Protect. (Bard R Tempered Fate → Orianna E Command: Protect)
+
+### 4. Lissandra (net +0.91)
+
+- **0.80** untargetable: Frozen Tomb makes Lissandra untargetable, dodging Orianna's Command: Shockwave. Untargetable for 2.5 s, long enough to use ahead of Command: Shockwave. (Lissandra R Frozen Tomb → Orianna R Command: Shockwave)
+- **0.21** untargetable: Frozen Tomb makes Lissandra untargetable, dodging Orianna's Command: Protect. Untargetable for 2.5 s, long enough to use ahead of Command: Protect. (Lissandra R Frozen Tomb → Orianna E Command: Protect)
+
+### 5. Fiora (net +0.83)
+
+- **0.90** parry: Riposte parries Orianna's Command: Shockwave and stuns back. Parry for 0.75 s; Command: Shockwave takes 0.5 s to land, enough to react. Negating Command: Shockwave's immobilizing effect turns Riposte's slow into a stun (2 s). (Fiora W Riposte → Orianna R Command: Shockwave)
+- **0.33** parry: Riposte parries Orianna's Command: Protect. Parry for 0.75 s; Command: Protect takes 0.61 s to land, enough to react. (Fiora W Riposte → Orianna E Command: Protect)
+- **0.06** attack speed slow: Riposte cuts Orianna's attack speed by 25% for 2 s. 2 s on a 16 s cooldown. (Fiora W Riposte → Orianna basic attacks)
+- Watch out: Orianna's basic attacks reach 375 units farther than Fiora's (525 vs 150 attack range).
+
+### 6. Vladimir (net +0.82)
+
+- **0.80** untargetable: Sanguine Pool makes Vladimir untargetable, dodging Orianna's Command: Shockwave. Untargetable for 2 s, long enough to use ahead of Command: Shockwave. (Vladimir W Sanguine Pool → Orianna R Command: Shockwave)
+- **0.33** untargetable: Sanguine Pool makes Vladimir untargetable, dodging Orianna's Command: Protect. Untargetable for 2 s, long enough to use ahead of Command: Protect. (Vladimir W Sanguine Pool → Orianna E Command: Protect)
+- Watch out: Orianna's basic attacks reach 75 units farther than Vladimir's (525 vs 450 attack range).
+
+### 7. Aurora (net +0.82)
+
+- **0.70** untargetable: Between Worlds makes Aurora untargetable, dodging Orianna's Command: Shockwave. Untargetable for 0.4 s; Command: Shockwave takes 0.5 s to land, enough to react. Does not destroy inbound projectiles. (Aurora R Between Worlds → Orianna R Command: Shockwave)
+- **0.20** untargetable: Between Worlds makes Aurora untargetable, dodging Orianna's Command: Protect. Untargetable for 0.4 s; Command: Protect takes 0.61 s to land, enough to react. Does not destroy inbound projectiles. (Aurora R Between Worlds → Orianna E Command: Protect)
+- **0.08** cc immunity: Between Worlds is displacement immune, ignoring Orianna's Command: Shockwave (airborne) during it. Only during Between Worlds (0.4 s). (Aurora R Between Worlds → Orianna R Command: Shockwave)
+
+### 8. Nocturne (net +0.80)
+
+- **0.80** spell shield: Shroud of Darkness's spell shield blocks Orianna's Command: Shockwave. Spell shield for 1.5 s, long enough to use ahead of Command: Shockwave. A spell shield blocks only the first enemy ability that reaches it. (Nocturne W Shroud of Darkness → Orianna R Command: Shockwave)
+- **0.38** spell shield: Shroud of Darkness's spell shield blocks Orianna's Command: Protect. Spell shield for 1.5 s, long enough to use ahead of Command: Protect. A spell shield blocks only the first enemy ability that reaches it. (Nocturne W Shroud of Darkness → Orianna E Command: Protect)
+- **0.08** cc immunity: Paranoia is displacement immune, ignoring Orianna's Command: Shockwave (airborne) during it. Only during Paranoia. (Nocturne R Paranoia → Orianna R Command: Shockwave)
+- Watch out: Orianna's basic attacks reach 400 units farther than Nocturne's (525 vs 125 attack range).
+
+### 9. Xayah (net +0.80)
+
+- **0.70** untargetable: Featherstorm makes Xayah untargetable, dodging Orianna's Command: Shockwave. Untargetable for 1.5 s, long enough to use ahead of Command: Shockwave. (Xayah R Featherstorm → Orianna R Command: Shockwave)
+- **0.20** untargetable: Featherstorm makes Xayah untargetable, dodging Orianna's Command: Protect. Untargetable for 1.5 s, long enough to use ahead of Command: Protect. (Xayah R Featherstorm → Orianna E Command: Protect)
+
+### 10. Rek'Sai (net +0.77)
+
+- **0.80** untargetable: Void Rush makes Rek'Sai untargetable, dodging Orianna's Command: Shockwave. Untargetable for 1.5 s, long enough to use ahead of Command: Shockwave. (Rek'Sai R Void Rush → Orianna R Command: Shockwave)
+- **0.21** untargetable: Void Rush makes Rek'Sai untargetable, dodging Orianna's Command: Protect. Untargetable for 1.5 s, long enough to use ahead of Command: Protect. (Rek'Sai R Void Rush → Orianna E Command: Protect)
+- **0.08** cc immunity: Void Rush is displacement immune, ignoring Orianna's Command: Shockwave (airborne) during it. Only during Void Rush (1.5 s). (Rek'Sai R Void Rush → Orianna R Command: Shockwave)
+- Watch out: Orianna's basic attacks reach 350 units farther than Rek'Sai's (525 vs 175 attack range).
+
+## Full ranking
+
+| # | Champion | Net | For | Against | Hard counters |
+|--:|---|--:|--:|--:|---|
+| 1 | Elise | +0.96 | 0.96 | 0.00 |  |
+| 2 | Sivir | +0.96 | 0.96 | 0.00 |  |
+| 3 | Bard | +0.91 | 0.91 | 0.00 |  |
+| 4 | Lissandra | +0.91 | 0.91 | 0.00 |  |
+| 5 | Fiora | +0.83 | 1.08 | 0.25 |  |
+| 6 | Vladimir | +0.82 | 0.97 | 0.15 |  |
+| 7 | Aurora | +0.82 | 0.82 | 0.00 |  |
+| 8 | Nocturne | +0.80 | 1.07 | 0.27 |  |
+| 9 | Xayah | +0.80 | 0.80 | 0.00 |  |
+| 10 | Rek'Sai | +0.77 | 0.93 | 0.16 |  |
+| 11 | Camille | +0.75 | 0.88 | 0.13 |  |
+| 12 | Maokai | +0.74 | 1.01 | 0.27 |  |
+| 13 | Ekko | +0.74 | 0.92 | 0.18 |  |
+| 14 | Morgana | +0.74 | 0.84 | 0.10 |  |
+| 15 | Evelynn | +0.73 | 0.91 | 0.18 |  |
+| 16 | Shaco | +0.73 | 0.91 | 0.18 |  |
+| 17 | Gwen | +0.71 | 0.96 | 0.25 |  |
+| 18 | Master Yi | +0.69 | 1.03 | 0.34 |  |
+| 19 | Kayle | +0.69 | 0.69 | 0.00 |  |
+| 20 | Zaahen | +0.66 | 0.82 | 0.16 |  |
+| 21 | Zed | +0.62 | 0.80 | 0.18 |  |
+| 22 | Milio | +0.61 | 0.61 | 0.00 |  |
+| 23 | Kled | +0.60 | 0.69 | 0.09 |  |
+| 24 | Udyr | +0.59 | 0.86 | 0.27 |  |
+| 25 | Yuumi | +0.58 | 1.03 | 0.45 |  |
+| 26 | Warwick | +0.54 | 0.90 | 0.36 |  |
+| 27 | Kalista | +0.53 | 0.53 | 0.00 |  |
+| 28 | Samira | +0.43 | 0.43 | 0.00 |  |
+| 29 | Kindred | +0.42 | 0.42 | 0.00 |  |
+| 30 | Braum | +0.41 | 0.68 | 0.27 | projectile block (Unbreakable) |
+| 31 | Mel | +0.41 | 0.41 | 0.00 |  |
+| 32 | Alistar | +0.39 | 0.66 | 0.27 |  |
+| 33 | Pantheon | +0.35 | 0.56 | 0.21 |  |
+| 34 | Teemo | +0.35 | 0.35 | 0.00 |  |
+| 35 | Yasuo | +0.34 | 0.50 | 0.16 |  |
+| 36 | Tristana | +0.32 | 0.32 | 0.00 |  |
+| 37 | Kayn | +0.30 | 0.91 | 0.61 |  |
+| 38 | Olaf | +0.30 | 0.83 | 0.53 |  |
+| 39 | Sion | +0.28 | 0.83 | 0.55 |  |
+| 40 | Lulu | +0.25 | 0.25 | 0.00 |  |
+| 41 | Xin Zhao | +0.22 | 0.45 | 0.23 |  |
+| 42 | Rengar | +0.15 | 0.68 | 0.53 |  |
+| 43 | Gangplank | +0.14 | 0.67 | 0.53 |  |
+| 44 | Ashe | +0.14 | 0.14 | 0.00 |  |
+| 45 | Senna | +0.12 | 0.12 | 0.00 |  |
+| 46 | Annie | +0.11 | 0.11 | 0.00 |  |
+| 47 | Anivia | +0.09 | 0.09 | 0.00 |  |
+| 48 | Corki | +0.08 | 0.08 | 0.00 |  |
+| 49 | Vex | +0.08 | 0.08 | 0.00 |  |
+| 50 | Nilah | +0.05 | 0.25 | 0.20 |  |
+| 51 | Aphelios | +0.05 | 0.05 | 0.00 |  |
+| 52 | Heimerdinger | +0.05 | 0.05 | 0.00 |  |
+| 53 | Malzahar | +0.03 | 0.43 | 0.40 |  |
+| 54 | K'Sante | +0.03 | 0.16 | 0.13 |  |
+| 55 | Jax | +0.01 | 0.28 | 0.27 |  |
+| 56 | Ahri | 0.00 | 0.00 | 0.00 |  |
+| 57 | Azir | 0.00 | 0.00 | 0.00 |  |
+| 58 | Brand | 0.00 | 0.00 | 0.00 |  |
+| 59 | Cassiopeia | 0.00 | 0.00 | 0.00 |  |
+| 60 | Draven | 0.00 | 0.00 | 0.00 |  |
+| 61 | Ezreal | 0.00 | 0.00 | 0.00 |  |
+| 62 | Gnar | 0.00 | 0.00 | 0.00 |  |
+| 63 | Hwei | 0.00 | 0.00 | 0.00 |  |
+| 64 | Jayce | 0.00 | 0.00 | 0.00 |  |
+| 65 | Jinx | 0.00 | 0.00 | 0.00 |  |
+| 66 | Kai'Sa | 0.00 | 0.00 | 0.00 |  |
+| 67 | Karma | 0.00 | 0.00 | 0.00 |  |
+| 68 | Kennen | 0.00 | 0.00 | 0.00 |  |
+| 69 | Kog'Maw | 0.00 | 0.00 | 0.00 |  |
+| 70 | LeBlanc | 0.00 | 0.00 | 0.00 |  |
+| 71 | Lux | 0.00 | 0.00 | 0.00 |  |
+| 72 | Nami | 0.00 | 0.00 | 0.00 |  |
+| 73 | Neeko | 0.00 | 0.00 | 0.00 |  |
+| 74 | Nidalee | 0.00 | 0.00 | 0.00 |  |
+| 75 | Renata Glasc | 0.00 | 0.00 | 0.00 |  |
+| 76 | Seraphine | 0.00 | 0.00 | 0.00 |  |
+| 77 | Smolder | 0.00 | 0.00 | 0.00 |  |
+| 78 | Sona | 0.00 | 0.00 | 0.00 |  |
+| 79 | Soraka | 0.00 | 0.00 | 0.00 |  |
+| 80 | Swain | 0.00 | 0.00 | 0.00 |  |
+| 81 | Syndra | 0.00 | 0.00 | 0.00 |  |
+| 82 | Twitch | 0.00 | 0.00 | 0.00 |  |
+| 83 | Vayne | 0.00 | 0.00 | 0.00 |  |
+| 84 | Veigar | 0.00 | 0.00 | 0.00 |  |
+| 85 | Viktor | 0.00 | 0.00 | 0.00 |  |
+| 86 | Yunara | 0.00 | 0.00 | 0.00 |  |
+| 87 | Zeri | 0.00 | 0.00 | 0.00 |  |
+| 88 | Ziggs | 0.00 | 0.00 | 0.00 |  |
+| 89 | Zilean | 0.00 | 0.00 | 0.00 |  |
+| 90 | Zoe | 0.00 | 0.00 | 0.00 |  |
+| 91 | Zyra | 0.00 | 0.00 | 0.00 |  |
+| 92 | Malphite | -0.01 | 0.26 | 0.27 |  |
+| 93 | Thresh | -0.03 | 0.00 | 0.03 |  |
+| 94 | Jarvan IV | -0.04 | 0.08 | 0.12 |  |
+| 95 | Yone | -0.04 | 0.08 | 0.12 |  |
+| 96 | Graves | -0.04 | 0.00 | 0.04 |  |
+| 97 | Caitlyn | -0.06 | 0.22 | 0.28 |  |
+| 98 | Aurelion Sol | -0.06 | 0.00 | 0.06 |  |
+| 99 | Varus | -0.06 | 0.00 | 0.06 |  |
+| 100 | Ivern | -0.07 | 0.00 | 0.07 |  |
+| 101 | Taric | -0.08 | 0.42 | 0.50 |  |
+| 102 | Hecarim | -0.08 | 0.08 | 0.16 |  |
+| 103 | Ornn | -0.08 | 0.08 | 0.16 |  |
+| 104 | Volibear | -0.09 | 0.08 | 0.17 |  |
+| 105 | Rakan | -0.10 | 0.00 | 0.10 |  |
+| 106 | Fizz | -0.12 | 0.00 | 0.12 |  |
+| 107 | Sylas | -0.12 | 0.00 | 0.12 |  |
+| 108 | Urgot | -0.12 | 0.00 | 0.12 |  |
+| 109 | Briar | -0.13 | 0.00 | 0.13 |  |
+| 110 | Lillia | -0.13 | 0.00 | 0.13 |  |
+| 111 | Quinn | -0.14 | 0.00 | 0.14 |  |
+| 112 | Viego | -0.15 | 0.08 | 0.23 |  |
+| 113 | Garen | -0.16 | 0.31 | 0.47 |  |
+| 114 | Rammus | -0.16 | 0.27 | 0.43 |  |
+| 115 | Wukong | -0.16 | 0.00 | 0.16 |  |
+| 116 | Rell | -0.16 | 0.00 | 0.16 |  |
+| 117 | Shyvana | -0.17 | 0.08 | 0.25 |  |
+| 118 | Bel'Veth | -0.17 | 0.00 | 0.17 |  |
+| 119 | Qiyana | -0.17 | 0.00 | 0.17 |  |
+| 120 | Akali | -0.18 | 0.00 | 0.18 |  |
+| 121 | Ambessa | -0.18 | 0.00 | 0.18 |  |
+| 122 | Lee Sin | -0.18 | 0.00 | 0.18 |  |
+| 123 | Riven | -0.18 | 0.00 | 0.18 |  |
+| 124 | Talon | -0.18 | 0.00 | 0.18 |  |
+| 125 | Illaoi | -0.19 | 0.08 | 0.27 |  |
+| 126 | Sett | -0.19 | 0.08 | 0.27 |  |
+| 127 | Irelia | -0.22 | 0.00 | 0.22 |  |
+| 128 | Aatrox | -0.23 | 0.00 | 0.23 |  |
+| 129 | Nautilus | -0.23 | 0.00 | 0.23 |  |
+| 130 | Tryndamere | -0.23 | 0.00 | 0.23 |  |
+| 131 | Akshan | -0.25 | 0.00 | 0.25 |  |
+| 132 | Diana | -0.25 | 0.00 | 0.25 |  |
+| 133 | Kassadin | -0.25 | 0.00 | 0.25 |  |
+| 134 | Pyke | -0.25 | 0.00 | 0.25 |  |
+| 135 | Sejuani | -0.25 | 0.00 | 0.25 |  |
+| 136 | Nasus | -0.26 | 0.27 | 0.53 |  |
+| 137 | Galio | -0.26 | 0.00 | 0.26 |  |
+| 138 | Amumu | -0.27 | 0.00 | 0.27 |  |
+| 139 | Kha'Zix | -0.27 | 0.00 | 0.27 |  |
+| 140 | Leona | -0.27 | 0.00 | 0.27 |  |
+| 141 | Locke | -0.27 | 0.00 | 0.27 |  |
+| 142 | Renekton | -0.27 | 0.00 | 0.27 |  |
+| 143 | Jhin | -0.28 | 0.00 | 0.28 |  |
+| 144 | Lucian | -0.28 | 0.00 | 0.28 |  |
+| 145 | Miss Fortune | -0.28 | 0.00 | 0.28 |  |
+| 146 | Vel'Koz | -0.28 | 0.00 | 0.28 |  |
+| 147 | Xerath | -0.31 | 0.00 | 0.31 |  |
+| 148 | Vi | -0.32 | 0.08 | 0.40 |  |
+| 149 | Ryze | -0.35 | 0.00 | 0.35 |  |
+| 150 | Twisted Fate | -0.35 | 0.00 | 0.35 |  |
+| 151 | Shen | -0.36 | 0.27 | 0.63 |  |
+| 152 | Gragas | -0.37 | 0.00 | 0.37 |  |
+| 153 | Karthus | -0.38 | 0.00 | 0.38 |  |
+| 154 | Fiddlesticks | -0.40 | 0.00 | 0.40 |  |
+| 155 | Janna | -0.40 | 0.00 | 0.40 |  |
+| 156 | Mordekaiser | -0.41 | 0.06 | 0.47 |  |
+| 157 | Skarner | -0.44 | 0.06 | 0.50 |  |
+| 158 | Zac | -0.46 | 0.00 | 0.46 |  |
+| 159 | Darius | -0.47 | 0.00 | 0.47 |  |
+| 160 | Katarina | -0.47 | 0.00 | 0.47 |  |
+| 161 | Poppy | -0.47 | 0.00 | 0.47 |  |
+| 162 | Trundle | -0.47 | 0.00 | 0.47 |  |
+| 163 | Yorick | -0.47 | 0.00 | 0.47 |  |
+| 164 | Taliyah | -0.48 | 0.00 | 0.48 |  |
+| 165 | Tahm Kench | -0.49 | 0.00 | 0.49 |  |
+| 166 | Blitzcrank | -0.53 | 0.00 | 0.53 |  |
+| 167 | Cho'Gath | -0.53 | 0.00 | 0.53 |  |
+| 168 | Dr. Mundo | -0.53 | 0.00 | 0.53 |  |
+| 169 | Rumble | -0.53 | 0.00 | 0.53 |  |
+| 170 | Singed | -0.53 | 0.00 | 0.53 |  |
+| 171 | Naafiri | -0.58 | 0.00 | 0.58 |  |
+| 172 | Nunu & Willump | -0.78 | 0.12 | 0.90 |  |

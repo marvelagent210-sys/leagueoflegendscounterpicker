@@ -9,6 +9,22 @@ Values marked "at max rank, level 20" assume every ability is maxed; see PLAN.md
 |---|--:|--:|--:|--:|--:|--:|--:|--:|--:|--:|
 | Aurora | 2770.2 | 16.82 | 1065.0 Mana | 112.0 | 0.931 | 0.215 | 111.5 | 57.6 | 550 | 335 |
 
+## Fight profile (what the interaction ledger uses)
+
+| Form | Attack range | Ranged | Projectile | Missile speed | Attack modifiers |
+|---|--:|---|---|--:|---|
+| Aurora | 550 | yes | yes | 1750 | Spirit Abjuration |
+
+Cooldowns at max rank. Flags: the wiki's interaction flags (yes, no, partly). * marks an effect that applies only under a condition.
+
+| Slot | Ability | Cooldown | Delivery | Applies to the enemy | Movement | Gives itself |
+|---|---|--:|---|---|---|---|
+| E | The Weirding | 11 | projectile no; spell shield yes; grounded partly; knockdown yes | slow 1 s 80% | dash (reverse-targeted) | – |
+| I | Spirit Abjuration | – | spell shield no; parry yes; attack modifier | – | – | heal |
+| Q | Twofold Hex | 7 | projectile yes; spell shield yes | – | – | – |
+| R | Between Worlds | 100 | projectile no; spell shield yes; grounded partly; knockdown no | slow 2 s 30% | dash (unstoppable) (when colliding with the border); dash (unstoppable) (initial cast) | untargetable 0.4 s; displacement immune 0.4 s |
+| W | Across the Veil | 18 | grounded yes; knockdown yes | – | dash | invisible 4 s |
+
 ## Innate: Spirit Abjuration
 
 Source: [Template:Data Aurora/Spirit Abjuration](https://wiki.leagueoflegends.com/en-us/Template:Data_Aurora/Spirit_Abjuration?oldid=4064315) (revision 4064315). Ranks: 1.

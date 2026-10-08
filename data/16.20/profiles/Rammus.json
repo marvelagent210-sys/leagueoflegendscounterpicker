@@ -1,0 +1,300 @@
+{
+  "champion": "Rammus",
+  "name": "Rammus",
+  "gameplayRadius": 65,
+  "moveSpeed": 335,
+  "attacks": [
+    {
+      "form": "rammus",
+      "formName": "Rammus",
+      "range": 125,
+      "ranged": false,
+      "projectile": false,
+      "attackSpeed": 0.972237,
+      "attackDamage": 119.079,
+      "windup": 0.235711,
+      "modifiers": []
+    }
+  ],
+  "abilities": [
+    {
+      "champion": "Rammus",
+      "kind": "E",
+      "name": "Frenzying Taunt",
+      "page": {
+        "title": "Template:Data Rammus/Frenzying Taunt",
+        "revid": 4052309
+      },
+      "damageTypes": [],
+      "delivery": {
+        "targeting": [
+          "unit"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "yes"
+      },
+      "applies": [
+        {
+          "type": "taunt",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "taunt"
+            },
+            {
+              "page": "Template:Data Rammus/Frenzying Taunt",
+              "revid": 4052309,
+              "quote": "Active: Rammus taunts the target enemy champion or monster for a duration."
+            }
+          ],
+          "duration": 2
+        }
+      ],
+      "movement": [],
+      "states": [],
+      "cooldown": 12,
+      "castTime": 0.25,
+      "range": 325,
+      "notes": [
+        "If the target becomes untargetable, dies, or is too far away or no longer in sight during the cast time, this ability will cancel but does not go on cooldown nor pay its cost (if applicable)."
+      ]
+    },
+    {
+      "champion": "Rammus",
+      "kind": "I",
+      "name": "Spiked Shell",
+      "page": {
+        "title": "Template:Data Rammus/Spiked Shell",
+        "revid": 3910990
+      },
+      "damageTypes": [],
+      "delivery": {
+        "targeting": [
+          "passive"
+        ],
+        "affectsEnemies": false
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "boostsAttacks": true
+    },
+    {
+      "champion": "Rammus",
+      "kind": "Q",
+      "name": "Powerball",
+      "page": {
+        "title": "Template:Data Rammus/Powerball",
+        "revid": 3988570
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "auto"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "yes",
+        "grounded": "no",
+        "disruptable": "yes"
+      },
+      "applies": [
+        {
+          "type": "airborne",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "airborne: knock back"
+            },
+            {
+              "page": "Template:Data Rammus/Powerball",
+              "revid": 3988570,
+              "quote": "Rammus stops rolling upon colliding with an enemy, dealing magic damage to all nearby enemies and knocking them back 125 units, though not through terrain."
+            }
+          ],
+          "variant": "knock back"
+        },
+        {
+          "type": "slow",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "slow"
+            },
+            {
+              "page": "Template:Data Rammus/Powerball",
+              "revid": 3988570,
+              "quote": "Enemies hit are then stunned and revealed for 0.4 seconds, as well as slowed for 1 second."
+            }
+          ],
+          "duration": 1,
+          "amount": 80
+        },
+        {
+          "type": "stun",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "stun"
+            },
+            {
+              "page": "Template:Data Rammus/Powerball",
+              "revid": 3988570,
+              "quote": "Enemies hit are then stunned and revealed for 0.4 seconds, as well as slowed for 1 second."
+            }
+          ],
+          "duration": 0.4
+        }
+      ],
+      "movement": [],
+      "states": [],
+      "cooldown": 6,
+      "castTime": 0,
+      "channel": [
+        {
+          "type": "normal",
+          "evidence": [
+            {
+              "page": "Channel",
+              "revid": 4002276,
+              "quote": "normal"
+            }
+          ]
+        }
+      ],
+      "notes": [
+        "Powerball is not a movement channel, and so will not be interrupted by root and ground.",
+        "Displacement immunity will also resist the application of the stun.",
+        "The following table refers for interactions while Rammus is channeling:"
+      ]
+    },
+    {
+      "champion": "Rammus",
+      "kind": "R",
+      "name": "Soaring Slam",
+      "page": {
+        "title": "Template:Data Rammus/Soaring Slam",
+        "revid": 4008005
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "location"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "partly",
+        "grounded": "yes",
+        "knockdown": "no"
+      },
+      "applies": [
+        {
+          "type": "airborne",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "airborne: knock up"
+            },
+            {
+              "page": "Template:Data Rammus/Soaring Slam",
+              "revid": 4008005,
+              "quote": "If Soaring Slam was cast during Powerball, enemies within the epicenter of the impact are also knocked up for 0.75 seconds and are dealt Powerball damage."
+            }
+          ],
+          "variant": "knock up",
+          "duration": 0.75,
+          "condition": "If Soaring Slam was cast during Powerball, enemies within the epicenter of the impact are also knocked up for 0.75 seconds and are dealt Powerball damage."
+        },
+        {
+          "type": "slow",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "slow"
+            },
+            {
+              "page": "Template:Data Rammus/Soaring Slam",
+              "revid": 4008005,
+              "quote": "Upon arrival, he creates an impact that deals magic damage to nearby enemies and slows them for 1.5 seconds."
+            }
+          ],
+          "duration": 1.5,
+          "amount": 50
+        }
+      ],
+      "movement": [
+        {
+          "type": "dash",
+          "evidence": [
+            {
+              "page": "Dash",
+              "revid": 4035700,
+              "quote": "location-targeted"
+            }
+          ],
+          "targeting": "location-targeted",
+          "interruptible": false
+        }
+      ],
+      "states": [],
+      "cooldown": 90,
+      "castTime": 0,
+      "range": 800,
+      "speed": 900,
+      "notes": [
+        "Spell shield will block the impact (including with Powerball) but not each aftershock.",
+        "Rammus is required to have at least 461.5 total movement speed average over the last second to be able to cast Soaring Slam further than its base maximum dash range (>800 units).",
+        "Soaring Slam will not impact nor generate aftershocks if the dash is interrupted.",
+        "The following table refers for interactions while Rammus is dashing:"
+      ]
+    },
+    {
+      "champion": "Rammus",
+      "kind": "W",
+      "name": "Defensive Ball Curl",
+      "page": {
+        "title": "Template:Data Rammus/Defensive Ball Curl",
+        "revid": 3982827
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "auto"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "no",
+        "attack": "on-hit"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [
+        {
+          "state": "reflect attacks",
+          "duration": 7,
+          "evidence": [
+            {
+              "page": "Template:Data Rammus/Defensive Ball Curl",
+              "revid": 3982827,
+              "quote": "enemies that use a basic attack on-hit against Rammus are dealt"
+            }
+          ]
+        }
+      ],
+      "cooldown": 7,
+      "castTime": 0,
+      "notes": [
+        "Defensive Ball Curl will return damage from attacks and/or abilities that apply on-hit effects (Mystic Shot) as well as from Runaan's Hurricane Wind's Fury (will not return damage from turrets, H-28G Evolution Turret, or Jack in the Box)."
+      ]
+    }
+  ]
+}

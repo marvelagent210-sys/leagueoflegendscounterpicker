@@ -9,6 +9,22 @@ Values marked "at max rank, level 20" assume every ability is maxed; see PLAN.md
 |---|--:|--:|--:|--:|--:|--:|--:|--:|--:|--:|
 | Draven | 2720.2 | 17.52 | 1127.9 Mana | 130.9 | 1.040 | 0.150 | 117.5 | 54.6 | 550 | 330 |
 
+## Fight profile (what the interaction ledger uses)
+
+| Form | Attack range | Ranged | Projectile | Missile speed | Attack modifiers |
+|---|--:|---|---|--:|---|
+| Draven | 550 | yes | yes | 1600 | – |
+
+Cooldowns at max rank. Flags: the wiki's interaction flags (yes, no, partly). * marks an effect that applies only under a condition.
+
+| Slot | Ability | Cooldown | Delivery | Applies to the enemy | Movement | Gives itself |
+|---|---|--:|---|---|---|---|
+| E | Stand Aside | 12 | projectile yes; spell shield yes | airborne (knock aside) 2 s; slow 2 s 40% | – | – |
+| I | League of Draven | – | – | – | – | – |
+| Q | Spinning Axe | 8 | projectile partly; parry yes; attack | – | – | – |
+| R | Whirling Death | 80 | projectile yes; spell shield partly | – | – | – |
+| W | Blood Rush | 12 | – | – | – | – |
+
 ## Innate: League of Draven
 
 Source: [Template:Data Draven/League of Draven](https://wiki.leagueoflegends.com/en-us/Template:Data_Draven/League_of_Draven?oldid=4040578) (revision 4040578). Ranks: 1.

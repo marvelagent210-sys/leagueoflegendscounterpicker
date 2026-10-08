@@ -9,6 +9,22 @@ Values marked "at max rank, level 20" assume every ability is maxed; see PLAN.md
 |---|--:|--:|--:|--:|--:|--:|--:|--:|--:|--:|
 | Darius | 2893.8 | 28.68 | 1403.6 Mana | 162.3 | 0.748 | 0.294 | 139.3 | 72.3 | 175 | 340 |
 
+## Fight profile (what the interaction ledger uses)
+
+| Form | Attack range | Ranged | Projectile | Missile speed | Attack modifiers |
+|---|--:|---|---|--:|---|
+| Darius | 175 | no | no | – | Hemorrhage |
+
+Cooldowns at max rank. Flags: the wiki's interaction flags (yes, no, partly). * marks an effect that applies only under a condition.
+
+| Slot | Ability | Cooldown | Delivery | Applies to the enemy | Movement | Gives itself |
+|---|---|--:|---|---|---|---|
+| E | Apprehend | 16 | projectile no; spell shield yes | airborne (knock up, pull); slow 1 s 40% | – | – |
+| I | Hemorrhage | – | spell shield partly; parry yes; attack modifier | – | – | – |
+| Q | Decimate | 5 | spell shield yes | – | – | heal |
+| R | Noxian Guillotine | 80 | spell shield yes; grounded yes; knockdown no | – | lunge (unstoppable) | – |
+| W | Crippling Strike | 5 | spell shield yes; parry yes; attack | slow 1 s 90% | – | – |
+
 ## Innate: Hemorrhage
 
 Source: [Template:Data Darius/Hemorrhage](https://wiki.leagueoflegends.com/en-us/Template:Data_Darius/Hemorrhage?oldid=4063939) (revision 4063939). Ranks: 1.

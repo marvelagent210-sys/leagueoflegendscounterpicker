@@ -9,6 +9,22 @@ Values marked "at max rank, level 20" assume every ability is maxed; see PLAN.md
 |---|--:|--:|--:|--:|--:|--:|--:|--:|--:|--:|
 | Ekko | 2601.8 | 26.70 | 1656.6 Mana | 117.0 | 1.094 | 0.149 | 114.6 | 72.3 | 125 | 340 |
 
+## Fight profile (what the interaction ledger uses)
+
+| Form | Attack range | Ranged | Projectile | Missile speed | Attack modifiers |
+|---|--:|---|---|--:|---|
+| Ekko | 125 | no | no | – | Z-Drive Resonance |
+
+Cooldowns at max rank. Flags: the wiki's interaction flags (yes, no, partly). * marks an effect that applies only under a condition.
+
+| Slot | Ability | Cooldown | Delivery | Applies to the enemy | Movement | Gives itself |
+|---|---|--:|---|---|---|---|
+| E | Phase Dive | 7 | spell shield yes; parry yes; grounded yes; knockdown yes; attack | – | dash; blink | – |
+| I | Z-Drive Resonance | – | spell shield yes; parry yes; attack modifier | – | – | – |
+| Q | Timewinder | 7 | projectile yes; spell shield partly | slow 60% | – | – |
+| R | Chronobreak | 50 | spell shield yes; grounded yes; knockdown no | – | dash (unstoppable) | stasis 0.5 s; untargetable 0.5 s; heal 0.5 s |
+| W | Parallel Convergence | 14 | projectile no; spell shield yes; parry yes | slow 40%; stun 2.25 s* | – | shield 2 s |
+
 ## Innate: Z-Drive Resonance
 
 Source: [Template:Data Ekko/Z-Drive Resonance](https://wiki.leagueoflegends.com/en-us/Template:Data_Ekko/Z-Drive_Resonance?oldid=4022978) (revision 4022978). Ranks: 1.

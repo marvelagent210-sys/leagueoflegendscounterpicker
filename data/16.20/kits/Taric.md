@@ -9,6 +9,22 @@ Values marked "at max rank, level 20" assume every ability is maxed; see PLAN.md
 |---|--:|--:|--:|--:|--:|--:|--:|--:|--:|--:|
 | Taric | 2591.8 | 15.83 | 1479.9 Mana | 123.8 | 0.871 | 0.268 | 124.6 | 68.3 | 150 | 340 |
 
+## Fight profile (what the interaction ledger uses)
+
+| Form | Attack range | Ranged | Projectile | Missile speed | Attack modifiers |
+|---|--:|---|---|--:|---|
+| Taric | 150 | no | no | – | Bravado |
+
+Cooldowns at max rank. Flags: the wiki's interaction flags (yes, no, partly). * marks an effect that applies only under a condition.
+
+| Slot | Ability | Cooldown | Delivery | Applies to the enemy | Movement | Gives itself |
+|---|---|--:|---|---|---|---|
+| E | Dazzle | 12 | projectile no; spell shield yes | stun 1.5 s | – | – |
+| I | Bravado | – | parry partly; attack modifier | – | – | – |
+| Q | Starlight's Touch | 15 | – | – | – | heal |
+| R | Cosmic Radiance | 120 | – | – | – | invulnerable 2.5 s |
+| W | Bastion | 15 | – | – | – | shield 2.5 s |
+
 ## Innate: Bravado
 
 Source: [Template:Data Taric/Bravado](https://wiki.leagueoflegends.com/en-us/Template:Data_Taric/Bravado?oldid=3986177) (revision 3986177). Ranks: 1.

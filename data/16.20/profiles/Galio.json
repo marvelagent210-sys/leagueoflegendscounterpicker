@@ -1,0 +1,346 @@
+{
+  "champion": "Galio",
+  "name": "Galio",
+  "gameplayRadius": 80,
+  "moveSpeed": 340,
+  "attacks": [
+    {
+      "form": "galio",
+      "formName": "Galio",
+      "range": 150,
+      "ranged": false,
+      "projectile": false,
+      "attackSpeed": 0.809359,
+      "attackDamage": 127.828,
+      "windup": 0.254831,
+      "modifiers": [
+        "Colossal Smash"
+      ]
+    }
+  ],
+  "abilities": [
+    {
+      "champion": "Galio",
+      "kind": "E",
+      "name": "Justice Punch",
+      "page": {
+        "title": "Template:Data Galio/Justice Punch",
+        "revid": 4016963
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "location"
+        ],
+        "affectsEnemies": true,
+        "grounded": "yes",
+        "knockdown": "partly"
+      },
+      "applies": [
+        {
+          "type": "airborne",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "airborne: knock up"
+            },
+            {
+              "page": "Template:Data Galio/Justice Punch",
+              "revid": 4016963,
+              "quote": "Galio deals magic damage to enemies he passes through, reduced to 80% against non-champions, and knocks them up for 0.75 seconds as well as reveals them for the same duration."
+            }
+          ],
+          "variant": "knock up",
+          "duration": 0.75
+        }
+      ],
+      "movement": [
+        {
+          "type": "dash",
+          "evidence": [
+            {
+              "page": "Dash",
+              "revid": 4035700,
+              "quote": "location-targeted"
+            }
+          ],
+          "targeting": "location-targeted"
+        },
+        {
+          "type": "lunge",
+          "evidence": [
+            {
+              "page": "Dash",
+              "revid": 4035700,
+              "quote": "(backwards windup)"
+            }
+          ],
+          "condition": "(backwards windup)"
+        }
+      ],
+      "states": [],
+      "cooldown": 7,
+      "castTime": 0.4,
+      "range": 250,
+      "speed": 2300,
+      "notes": [
+        "Galio will initiate the dash even if his step backwards is knocked down.",
+        "Galio's second dash will always dash the distance of the target direction. Having the step backwards cut short has no effect on the total distance gained.",
+        "The following table refers for interactions during Justice Punch's cast time and dash:"
+      ]
+    },
+    {
+      "champion": "Galio",
+      "kind": "I",
+      "name": "Colossal Smash",
+      "page": {
+        "title": "Template:Data Galio/Colossal Smash",
+        "revid": 4038336
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "passive"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "no",
+        "parry": "yes",
+        "attack": "attack modifier"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "cooldown": 5,
+      "boostsAttacks": true,
+      "notes": [
+        "Colossal Smash applies on-hit effects to its primary target twice.",
+        "Even if the ability hit is spell shielded Colossal Smash's cooldown will still be reduced."
+      ]
+    },
+    {
+      "champion": "Galio",
+      "kind": "Q",
+      "name": "Winds of War",
+      "page": {
+        "title": "Template:Data Galio/Winds of War",
+        "revid": 4016962
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "location"
+        ],
+        "affectsEnemies": true,
+        "projectile": "yes",
+        "spellShield": "partly"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "cooldown": 7,
+      "castTime": 0.25,
+      "range": 825,
+      "speed": 1400,
+      "notes": [
+        "Spell shield will block the gusts damage but not the tornado's.",
+        "Wind Wall and Unbreakable can block each windblast individually.\n  - The tornado will not form if only one windblast reaches the target location."
+      ]
+    },
+    {
+      "champion": "Galio",
+      "kind": "R",
+      "name": "Hero's Entrance",
+      "page": {
+        "title": "Template:Data Galio/Hero's Entrance",
+        "revid": 4017997
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "unit"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "yes",
+        "grounded": "yes",
+        "knockdown": "no"
+      },
+      "applies": [
+        {
+          "type": "airborne",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "airborne: knock back"
+            },
+            {
+              "page": "Template:Data Galio/Hero's Entrance",
+              "revid": 4017997,
+              "quote": "Afterwards, he lands and becomes targetable again, dealing magic damage to all nearby enemies upon impact, knocking them back 100 units over 0.75 seconds, and remaining in place for 0.5 seconds."
+            }
+          ],
+          "variant": "knock back",
+          "duration": 0.75
+        }
+      ],
+      "movement": [
+        {
+          "type": "dash",
+          "evidence": [
+            {
+              "page": "Dash",
+              "revid": 4035700,
+              "quote": "location-targeted"
+            }
+          ],
+          "targeting": "location-targeted",
+          "interruptible": false
+        }
+      ],
+      "states": [
+        {
+          "state": "untargetable",
+          "evidence": [
+            {
+              "page": "Untargetability",
+              "revid": 3965000
+            },
+            {
+              "page": "Template:Data Galio/Hero's Entrance",
+              "revid": 4017997,
+              "quote": "After channeling for 1.25 seconds, he gains crowd control immunity for the remaining duration, becomes untargetable, and leaps into the air for 0.8 seconds before dashing to his destination over 0.2 seconds."
+            }
+          ],
+          "duration": 1.25
+        },
+        {
+          "state": "cc immune",
+          "evidence": [
+            {
+              "page": "Template:Data Galio/Hero's Entrance",
+              "revid": 4017997,
+              "quote": "After channeling for 1.25 seconds, he gains crowd control immunity for the remaining duration, becomes untargetable, and leaps into the air for 0.8 seconds before dashing to his destination over 0.2 seconds."
+            }
+          ],
+          "duration": 0.8
+        }
+      ],
+      "cooldown": 140,
+      "castTime": 0,
+      "range": 5500,
+      "channel": [
+        {
+          "type": "movement",
+          "evidence": [
+            {
+              "page": "Channel",
+              "revid": 4002276,
+              "quote": "movement"
+            }
+          ]
+        }
+      ],
+      "notes": [
+        "Hero's Entrance does not resist allied crowd control.",
+        "Galio will still cause an impact to occur at the destination even if he is unable to travel the full distance with the dash (e.g. by The Hextech Ultimatum and Realm of Death borders and terrain). Galio will dash as far as he can go, and thus, does not end the dash prematurely.",
+        "Galio will always dash 100 units minimum, and dash over his target's location if they are less than 100 units away from him.",
+        "Experimental Hexplate Overdrive, Fiendhunter Bolts Opening Barrage, and Zeke's Convergence Frostfire Tempest will activate at the end of Hero's Entrance's channel.",
+        "When becoming untargetable, Galio destroys enemy projectiles targeting him.",
+        "The following table refers for interactions while Galio is channeling:",
+        "Hero's Entrance's channel can only be interrupted by crowd control in the first 1.25 seconds."
+      ]
+    },
+    {
+      "champion": "Galio",
+      "kind": "W",
+      "name": "Shield of Durand",
+      "page": {
+        "title": "Template:Data Galio/Shield of Durand",
+        "revid": 3990299
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "auto"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "yes",
+        "disruptable": "yes"
+      },
+      "applies": [
+        {
+          "type": "taunt",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "taunt"
+            },
+            {
+              "page": "Template:Data Galio/Shield of Durand",
+              "revid": 3990299,
+              "quote": "Active: Galio charges for up to 2 seconds, slowing himself by 15%, and gaining physical and magic damage reduction; charging increases Shield of Durand's radius, damage and taunt duration over the first 1.25 seconds of the channel."
+            }
+          ]
+        },
+        {
+          "type": "slow",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "movement speed reductions"
+            },
+            {
+              "page": "Template:Data Galio/Shield of Durand",
+              "revid": 3990299,
+              "quote": "Active: Galio charges for up to 2 seconds, slowing himself by 15%, and gaining physical and magic damage reduction; charging increases Shield of Durand's radius, damage and taunt duration over the first 1.25 seconds of the channel."
+            }
+          ],
+          "amount": 15
+        }
+      ],
+      "movement": [],
+      "states": [
+        {
+          "state": "shield",
+          "evidence": [
+            {
+              "page": "Template:Data Galio/Shield of Durand",
+              "revid": 3990299,
+              "quote": "Anti-Magic Bulwark: Gain a shield that absorbs magic damage."
+            }
+          ]
+        }
+      ],
+      "cooldown": 14,
+      "castTime": 0,
+      "channel": [
+        {
+          "type": "charged",
+          "evidence": [
+            {
+              "page": "Channel",
+              "revid": 4002276
+            }
+          ]
+        }
+      ],
+      "notes": [
+        "The static movement speed modifier overrides the target's base movement speed value to the modified amount, and their bonus movement speed value to 0.\n  - The modifier is not applied if the target is slow-immune.",
+        "The following table refers for interactions while Galio is channeling:"
+      ]
+    }
+  ]
+}

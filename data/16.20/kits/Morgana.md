@@ -9,6 +9,22 @@ Values marked "at max rank, level 20" assume every ability is maxed; see PLAN.md
 |---|--:|--:|--:|--:|--:|--:|--:|--:|--:|--:|
 | Morgana | 2675.2 | 13.37 | 1519.9 Mana | 124.8 | 0.813 | 0.172 | 107.6 | 55.6 | 450 | 335 |
 
+## Fight profile (what the interaction ledger uses)
+
+| Form | Attack range | Ranged | Projectile | Missile speed | Attack modifiers |
+|---|--:|---|---|--:|---|
+| Morgana | 450 | yes | yes | 1600 | – |
+
+Cooldowns at max rank. Flags: the wiki's interaction flags (yes, no, partly). * marks an effect that applies only under a condition.
+
+| Slot | Ability | Cooldown | Delivery | Applies to the enemy | Movement | Gives itself |
+|---|---|--:|---|---|---|---|
+| E | Black Shield | 16 | – | – | – | shield 5 s; cc immune 5 s |
+| I | Soul Siphon | – | – | – | – | heal |
+| Q | Dark Binding | 10 | projectile yes; spell shield yes | root 3 s | – | – |
+| R | Soul Shackles | 100 | projectile no; spell shield partly | slow 20%; stun 2 s*; reveal | – | – |
+| W | Tormented Shadow | 12 | spell shield no | – | – | – |
+
 ## Innate: Soul Siphon
 
 Source: [Template:Data Morgana/Soul Siphon](https://wiki.leagueoflegends.com/en-us/Template:Data_Morgana/Soul_Siphon?oldid=3985603) (revision 3985603). Ranks: 1.
@@ -74,33 +90,6 @@ Active: Morgana torments the soil at the target location, causing the area to be
 Notes:
 
 - Damage from multiple Tormented Shadows does not stack.
-
-## W: Tormented Soil
-
-Source: [Template:Data Morgana/Tormented Soil](https://wiki.leagueoflegends.com/en-us/Template:Data_Morgana/Tormented_Soil?oldid=3166766) (revision 3166766). Ranks: 5.
-
-| Field | Value |
-|---|---|
-| Cooldown | 12 |
-| Cost | 70 / 85 / 100 / 115 / 130 mana |
-| Target range | 900 |
-| Effect radius | 275 |
-
-Targeting: Ground · Affects: Enemies · Damage type: Magic · Spell shield blocks it: false · Projectile: – · Parry: – · Disabled by grounded: – · Usable while knocked down: –
-
-Active: Morgana infects the target area for 5 seconds, causing enemies who stand on the location to take magic damage every half second, increased by 0% / 5% / 10% / 15% / 20% / 25% / 30% / 35% / 40% / 45% / 50% (based on target's missing health).
-
-- **Minimum Damage Per Half Second:** 8 / 16 / 24 / 32 / 40 (+ 11% AP) → at max rank, level 20: 40 (+ 11% AP)
-- **Maximum Damage Per Half Second:** 12 / 24 / 36 / 48 / 60 (+ 16.5% AP) → at max rank, level 20: 60 (+ 16.5% AP)
-- **Minimum Total Damage:** 80 / 160 / 240 / 320 / 400 (+ 110% AP) → at max rank, level 20: 400 (+ 110% AP)
-- **Maximum Total Damage:** 120 / 240 / 360 / 480 / 600 (+ 165% AP) → at max rank, level 20: 600 (+ 165% AP)
-
-Tormented Soil's cooldown is reduced by 5% whenever Soul Siphon triggers.
-
-Notes:
-
-- Tormented Soil's first tick occurs as soon as Morgana casts.
-- Damage from multiple Tormented Soils do not stack.
 
 ## E: Black Shield
 

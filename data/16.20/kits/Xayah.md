@@ -9,6 +9,22 @@ Values marked "at max rank, level 20" assume every ability is maxed; see PLAN.md
 |---|--:|--:|--:|--:|--:|--:|--:|--:|--:|--:|
 | Xayah | 2734.2 | 18.00 | 1126.6 Mana | 128.8 | 1.163 | 0.152 | 107.6 | 54.6 | 525 | 330 |
 
+## Fight profile (what the interaction ledger uses)
+
+| Form | Attack range | Ranged | Projectile | Missile speed | Attack modifiers |
+|---|--:|---|---|--:|---|
+| Xayah | 525 | yes | yes | 2500 | Clean Cuts |
+
+Cooldowns at max rank. Flags: the wiki's interaction flags (yes, no, partly). * marks an effect that applies only under a condition.
+
+| Slot | Ability | Cooldown | Delivery | Applies to the enemy | Movement | Gives itself |
+|---|---|--:|---|---|---|---|
+| E | Bladecaller | 8 | projectile yes; spell shield partly | root 1.25 s | – | – |
+| I | Clean Cuts | – | projectile partly; spell shield no; parry partly; attack modifier | – | – | – |
+| Q | Double Daggers | 8 | projectile partly; spell shield partly | – | – | – |
+| R | Featherstorm | 100 | projectile partly; spell shield yes | – | – | untargetable 1.5 s |
+| W | Deadly Plumage | 14 | projectile yes; on-hit | – | – | – |
+
 ## Innate: Clean Cuts
 
 Source: [Template:Data Xayah/Clean Cuts](https://wiki.leagueoflegends.com/en-us/Template:Data_Xayah/Clean_Cuts?oldid=4070748) (revision 4070748). Ranks: 1.

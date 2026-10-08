@@ -1,5 +1,6 @@
 /** Markdown reports committed next to each dataset, for people to review. */
 import type { AbilityRecord, Amount, Mechanic, Series } from "../engine/abilities";
+import type { KitProfile } from "../engine/profiles";
 import { TOP_LANE_MAX_LEVEL, statsAtLevel } from "../engine/stats";
 import type { Champion } from "../engine/types";
 import type { AbilityBuild } from "./abilities/build";
@@ -9,6 +10,7 @@ import type { GameAbility } from "./abilities/gameSpells";
 import { formatSeries } from "./abilities/marked";
 import { WIKI_BASE } from "./config";
 import type { Reconciled } from "./gameFiles";
+import { fightProfileSection } from "./ledgerPages";
 import type { Manifest } from "./manifest";
 
 const fixed = (value: number, digits: number) => value.toFixed(digits);
@@ -255,7 +257,13 @@ function gameSection(data: KitGameData): string[] {
   return lines;
 }
 
-export function kitPage(manifest: Manifest, champion: Champion, records: AbilityRecord[], gameData?: KitGameData): string {
+export function kitPage(
+  manifest: Manifest,
+  champion: Champion,
+  records: AbilityRecord[],
+  gameData?: KitGameData,
+  profile?: KitProfile,
+): string {
   const lines = [
     `# ${champion.name}, ${champion.title} (patch ${manifest.patch})`,
     "",
@@ -276,6 +284,7 @@ export function kitPage(manifest: Manifest, champion: Champion, records: Ability
     );
   }
   lines.push("");
+  if (profile) lines.push(...fightProfileSection(profile));
   const sorted = [...records].sort((a, b) => KIND_ORDER.indexOf(a.kind) - KIND_ORDER.indexOf(b.kind));
   for (const record of sorted) lines.push(...abilitySection(record));
   if (gameData) lines.push(...gameSection(gameData));
@@ -299,6 +308,7 @@ export function abilitiesReport(
     `- Ability records: ${coverage.records} (${kinds.join(", ")}) for ${coverage.champions} champions.`,
     `- Leveling values fully understood: ${coverage.levelingParsed} of ${coverage.levelingStats} (${percent(coverage.levelingParsed, coverage.levelingStats)}).`,
     `- Mechanics read from descriptions: ${coverage.mechanics}. Crowd control applied: ${coverage.controlEffects}, with a duration: ${coverage.controlWithDuration} (${percent(coverage.controlWithDuration, coverage.controlEffects)}).`,
+    `- Pages of removed abilities, skipped: ${build.legacy.length} (listed at the end).`,
     `- Templates without a handler: ${[...build.unknownTemplates].map(([name, n]) => `${name} (${n})`).join(", ") || "none"}.`,
     `- Warnings: ${build.warnings.length === 0 ? "none" : ""}`,
     ...build.warnings.map((warning) => `  - ${warning}`),
@@ -345,6 +355,13 @@ export function abilitiesReport(
     "| Ability | Effect | Sentence |",
     "|---|---|---|",
     ...coverage.controlWithoutDuration.map((c) => `| ${cell(c.ability)} | ${c.type} | ${cell(c.evidence)} |`),
+    "",
+    `## Pages of removed abilities (${build.legacy.length})`,
+    "",
+    "The wiki keeps the data pages of abilities that were reworked away. A page counts as current only when a slot redirect",
+    "(`Template:Data <Champion>/Q`) or the champion's skill list in Module:ChampionData points to it.",
+    "",
+    ...build.legacy.map((page) => `- ${page.champion}: ${cell(page.title.replace(/^Template:Data /, ""))} (revision ${page.revid})`),
   ];
   return `${lines.join("\n")}\n`;
 }

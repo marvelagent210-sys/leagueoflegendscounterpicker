@@ -9,6 +9,22 @@ Values marked "at max rank, level 20" assume every ability is maxed; see PLAN.md
 |---|--:|--:|--:|--:|--:|--:|--:|--:|--:|--:|
 | Cho'Gath | 2492.5 | 25.72 | 1449.9 Mana | 151.6 | 0.835 | 0.262 | 126.5 | 72.3 | 125 | 345 |
 
+## Fight profile (what the interaction ledger uses)
+
+| Form | Attack range | Ranged | Projectile | Missile speed | Attack modifiers |
+|---|--:|---|---|--:|---|
+| Cho'Gath | 125 | no | no | – | – |
+
+Cooldowns at max rank. Flags: the wiki's interaction flags (yes, no, partly). * marks an effect that applies only under a condition.
+
+| Slot | Ability | Cooldown | Delivery | Applies to the enemy | Movement | Gives itself |
+|---|---|--:|---|---|---|---|
+| E | Vorpal Spikes | 4 | projectile yes; spell shield no; parry no; attack | slow 1.5 s 50% | – | – |
+| I | Carnivore | – | – | – | – | heal |
+| Q | Rupture | 6 | spell shield yes | airborne (knock up) 1 s; slow 1.5 s 60% | – | – |
+| R | Feast | 60 | spell shield yes | – | – | – |
+| W | Feral Scream | 9 | projectile no; spell shield yes | silence 2 s | – | – |
+
 ## Innate: Carnivore
 
 Source: [Template:Data Cho'Gath/Carnivore](https://wiki.leagueoflegends.com/en-us/Template:Data_Cho'Gath/Carnivore?oldid=4038297) (revision 4038297). Ranks: 1.

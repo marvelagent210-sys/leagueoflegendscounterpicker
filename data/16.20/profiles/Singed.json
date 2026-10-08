@@ -1,0 +1,230 @@
+{
+  "champion": "Singed",
+  "name": "Singed",
+  "gameplayRadius": 65,
+  "moveSpeed": 345,
+  "attacks": [
+    {
+      "form": "singed",
+      "formName": "Singed",
+      "range": 125,
+      "ranged": false,
+      "projectile": false,
+      "attackSpeed": 0.933522,
+      "attackDamage": 129.861,
+      "windup": 0.214242,
+      "modifiers": []
+    }
+  ],
+  "abilities": [
+    {
+      "champion": "Singed",
+      "kind": "E",
+      "name": "Fling",
+      "page": {
+        "title": "Template:Data Singed/Fling",
+        "revid": 4026605
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "unit"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "yes"
+      },
+      "applies": [
+        {
+          "type": "airborne",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "airborne: pull"
+            },
+            {
+              "page": "Template:Data Singed/Fling",
+              "revid": 4026605,
+              "quote": "Active: Singed flings the target enemy 550 units over himself over 0.693, dealing magic damage."
+            }
+          ],
+          "variant": "pull",
+          "duration": 2
+        },
+        {
+          "type": "root",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "root"
+            },
+            {
+              "page": "Template:Data Singed/Fling",
+              "revid": 4026605,
+              "quote": "If the target lands on Mega Adhesive area of effect after the displacement, they are rooted for a duration."
+            }
+          ],
+          "duration": 2,
+          "condition": "If the target lands on Mega Adhesive area of effect after the displacement, they are rooted for a duration."
+        }
+      ],
+      "movement": [],
+      "states": [],
+      "cooldown": 8,
+      "castTime": 0.25,
+      "range": 125,
+      "notes": [
+        "Slow-immune enemies will not be rooted when flung into Mega Adhesive.",
+        "If the target becomes untargetable, dies, or is too far away or no longer in sight during the cast time, this ability will cancel but does not go on cooldown nor pay its cost (if applicable)."
+      ]
+    },
+    {
+      "champion": "Singed",
+      "kind": "I",
+      "name": "Noxious Slipstream",
+      "page": {
+        "title": "Template:Data Singed/Noxious Slipstream",
+        "revid": 3985843
+      },
+      "damageTypes": [],
+      "delivery": {
+        "targeting": [
+          "passive"
+        ],
+        "affectsEnemies": false
+      },
+      "applies": [],
+      "movement": [],
+      "states": []
+    },
+    {
+      "champion": "Singed",
+      "kind": "Q",
+      "name": "Poison Trail",
+      "page": {
+        "title": "Template:Data Singed/Poison Trail",
+        "revid": 4006737
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "auto"
+        ],
+        "affectsEnemies": true
+      },
+      "applies": [
+        {
+          "type": "grievous wounds",
+          "condition": "while under the effects of",
+          "evidence": [
+            {
+              "page": "Grievous Wounds",
+              "revid": 3969410,
+              "quote": "while under the effects of"
+            }
+          ]
+        }
+      ],
+      "movement": [],
+      "states": [],
+      "cooldown": 1,
+      "castTime": 0
+    },
+    {
+      "champion": "Singed",
+      "kind": "R",
+      "name": "Insanity Potion",
+      "page": {
+        "title": "Template:Data Singed/Insanity Potion",
+        "revid": 4005000
+      },
+      "damageTypes": [],
+      "delivery": {
+        "targeting": [
+          "auto"
+        ],
+        "affectsEnemies": false
+      },
+      "applies": [
+        {
+          "type": "grievous wounds",
+          "evidence": [
+            {
+              "page": "Grievous Wounds",
+              "revid": 3969410
+            }
+          ]
+        }
+      ],
+      "movement": [],
+      "states": [],
+      "cooldown": 100,
+      "castTime": 0
+    },
+    {
+      "champion": "Singed",
+      "kind": "W",
+      "name": "Mega Adhesive",
+      "page": {
+        "title": "Template:Data Singed/Mega Adhesive",
+        "revid": 4001677
+      },
+      "damageTypes": [],
+      "delivery": {
+        "targeting": [
+          "location"
+        ],
+        "affectsEnemies": true,
+        "projectile": "yes",
+        "spellShield": "no"
+      },
+      "applies": [
+        {
+          "type": "ground",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "ground"
+            },
+            {
+              "page": "Template:Data Singed/Mega Adhesive",
+              "revid": 4001677,
+              "quote": "Active: Singed spills a potent adhesive that lands at the target location after 0.375 seconds, creating a field for 3 seconds that grounds enemies within and slows them."
+            }
+          ]
+        },
+        {
+          "type": "slow",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "slow"
+            },
+            {
+              "page": "Template:Data Singed/Mega Adhesive",
+              "revid": 4001677,
+              "quote": "Active: Singed spills a potent adhesive that lands at the target location after 0.375 seconds, creating a field for 3 seconds that grounds enemies within and slows them."
+            }
+          ],
+          "amount": 70
+        }
+      ],
+      "movement": [],
+      "states": [],
+      "cooldown": 13,
+      "castTime": 0.25,
+      "range": 1000,
+      "notes": [
+        "The goo missile is a projectile. It has a fixed travel time but is independent from when the zone is established. It is destructible by effects such as Wind Wall and will destroy item spell shields if the goo missile is thrown past an enemy champion.",
+        "Mega Adhesive's slow and ground debuffs are each marked as non-dispellable, so they are not removed by most cleanses. Each is however allowed to be removed by cleanses that also grant immunity to the debuff type, such as Ragnarok."
+      ]
+    }
+  ]
+}

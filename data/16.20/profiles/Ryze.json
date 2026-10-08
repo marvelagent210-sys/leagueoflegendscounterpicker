@@ -1,0 +1,227 @@
+{
+  "champion": "Ryze",
+  "name": "Ryze",
+  "gameplayRadius": 65,
+  "moveSpeed": 340,
+  "attacks": [
+    {
+      "form": "ryze",
+      "formName": "Ryze",
+      "range": 550,
+      "ranged": true,
+      "projectile": true,
+      "missileSpeed": 2400,
+      "attackSpeed": 0.917332,
+      "attackDamage": 113.995,
+      "windup": 0.218024,
+      "modifiers": []
+    }
+  ],
+  "abilities": [
+    {
+      "champion": "Ryze",
+      "kind": "E",
+      "name": "Spell Flux",
+      "page": {
+        "title": "Template:Data Ryze/Spell Flux",
+        "revid": 4064864
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "unit"
+        ],
+        "affectsEnemies": true,
+        "projectile": "partly",
+        "spellShield": "yes"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "cooldown": 2.5,
+      "castTime": 0.25,
+      "range": 550,
+      "speed": 4000,
+      "notes": [
+        "The \"main\" missile of Spell Flux is blocked by projectile-intercepting effects, while the spreading bounce missiles are not.",
+        "If the target becomes untargetable, dies, or is too far away or no longer in sight during the cast time, this ability will cancel but does not go on cooldown nor pay its cost (if applicable)."
+      ]
+    },
+    {
+      "champion": "Ryze",
+      "kind": "I",
+      "name": "Arcane Mastery",
+      "page": {
+        "title": "Template:Data Ryze/Arcane Mastery",
+        "revid": 4059875
+      },
+      "damageTypes": [],
+      "delivery": {
+        "targeting": [
+          "passive"
+        ],
+        "affectsEnemies": false
+      },
+      "applies": [],
+      "movement": [],
+      "states": []
+    },
+    {
+      "champion": "Ryze",
+      "kind": "Q",
+      "name": "Overload",
+      "page": {
+        "title": "Template:Data Ryze/Overload",
+        "revid": 4064862
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "direction"
+        ],
+        "affectsEnemies": true,
+        "projectile": "yes",
+        "spellShield": "yes"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "cooldown": 5,
+      "castTime": 0.25,
+      "range": 1000,
+      "speed": 1700
+    },
+    {
+      "champion": "Ryze",
+      "kind": "R",
+      "name": "Realm Warp",
+      "page": {
+        "title": "Template:Data Ryze/Realm Warp",
+        "revid": 4064863
+      },
+      "damageTypes": [],
+      "delivery": {
+        "targeting": [
+          "location"
+        ],
+        "affectsEnemies": false,
+        "grounded": "yes",
+        "disruptable": "yes"
+      },
+      "applies": [],
+      "movement": [
+        {
+          "type": "blink",
+          "evidence": [
+            {
+              "page": "Blink",
+              "revid": 4047228
+            }
+          ]
+        }
+      ],
+      "states": [
+        {
+          "state": "untargetable",
+          "evidence": [
+            {
+              "page": "Untargetability",
+              "revid": 3965000
+            },
+            {
+              "page": "Template:Data Ryze/Realm Warp",
+              "revid": 4064863,
+              "quote": "Upon completion, Ryze and all allied units within the portal will blink to the location and become rooted, disarmed, silenced and untargetable for 0.75 seconds."
+            }
+          ],
+          "duration": 0.75
+        }
+      ],
+      "cooldown": 140,
+      "castTime": 0,
+      "range": 1000,
+      "channel": [
+        {
+          "type": "movement",
+          "evidence": [
+            {
+              "page": "Channel",
+              "revid": 4002276,
+              "quote": "movement"
+            }
+          ]
+        }
+      ],
+      "notes": [
+        "Realm Warp will teleport allies even if they are in a zombie state, are untargetable, or are affected by crowd control.",
+        "Realm Warp has various interactions with channeled abilities that are being performed by an ally. Some channels will prevent their caster from being teleported and others will not.\n  - For channels that do not prevent the teleport, Realm Warp will specifically not apply its silence to the caster.\n  - Cast times will not prevent the teleport.\n  - The following channels will prevent the teleport:\n    - R\n    - R\n    - R\n    - R\n    - Q\n    - R\n    - Recall / Empowered Recall\n    - Teleport / Unleashed Teleport",
+        "The following table refers for interactions while Ryze is channeling:"
+      ]
+    },
+    {
+      "champion": "Ryze",
+      "kind": "W",
+      "name": "Rune Prison",
+      "page": {
+        "title": "Template:Data Ryze/Rune Prison",
+        "revid": 3989878
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "unit"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "yes"
+      },
+      "applies": [
+        {
+          "type": "slow",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "slow"
+            },
+            {
+              "page": "Template:Data Ryze/Rune Prison",
+              "revid": 3989878,
+              "quote": "Active: Ryze seizes the target enemy, dealing magic damage and slowing them by 50% for 1.5 seconds."
+            }
+          ],
+          "duration": 1.5,
+          "amount": 50
+        },
+        {
+          "type": "root",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "root"
+            },
+            {
+              "page": "Template:Data Ryze/Rune Prison",
+              "revid": 3989878,
+              "quote": "Flux Bonus: The target is rooted instead of slowed."
+            }
+          ]
+        }
+      ],
+      "movement": [],
+      "states": [],
+      "cooldown": 9,
+      "castTime": 0.25,
+      "range": 550,
+      "notes": [
+        "If the target becomes untargetable, dies, or is too far away or no longer in sight during the cast time, this ability will cancel but does not go on cooldown nor pay its cost (if applicable)."
+      ]
+    }
+  ]
+}

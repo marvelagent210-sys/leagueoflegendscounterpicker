@@ -9,6 +9,23 @@ Values marked "at max rank, level 20" assume every ability is maxed; see PLAN.md
 |---|--:|--:|--:|--:|--:|--:|--:|--:|--:|--:|
 | Camille | 2596.8 | 24.23 | 1397.6 Mana | 142.7 | 0.961 | 0.201 | 123.5 | 72.3 | 125 | 340 |
 
+## Fight profile (what the interaction ledger uses)
+
+| Form | Attack range | Ranged | Projectile | Missile speed | Attack modifiers |
+|---|--:|---|---|--:|---|
+| Camille | 125 | no | no | – | Adaptive Defenses |
+
+Cooldowns at max rank. Flags: the wiki's interaction flags (yes, no, partly). * marks an effect that applies only under a condition.
+
+| Slot | Ability | Cooldown | Delivery | Applies to the enemy | Movement | Gives itself |
+|---|---|--:|---|---|---|---|
+| E | Hookshot | 12 | projectile yes; grounded partly; knockdown yes | – | dash | – |
+| E | Wall Dive | – | spell shield yes; grounded partly; knockdown yes | airborne (knock back) 0.75 s; stun 0.75 s | dash | – |
+| I | Adaptive Defenses | 8 | parry yes; attack modifier | – | – | shield 2 s |
+| Q | Precision Protocol | 5 | spell shield no; parry yes; attack | – | – | – |
+| R | The Hextech Ultimatum | 90 | spell shield yes; grounded yes; knockdown no | airborne (knock back) 4 s; disrupt 4 s | dash (unstoppable) | untargetable 0.5 s; displacement immune 0.5 s |
+| W | Tactical Sweep | 10 | projectile no; spell shield yes | slow 2 s 80% | – | heal |
+
 ## Innate: Adaptive Defenses
 
 Source: [Template:Data Camille/Adaptive Defenses](https://wiki.leagueoflegends.com/en-us/Template:Data_Camille/Adaptive_Defenses?oldid=4051341) (revision 4051341). Ranks: 1.

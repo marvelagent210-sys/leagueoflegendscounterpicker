@@ -1,0 +1,205 @@
+{
+  "champion": "Karthus",
+  "name": "Karthus",
+  "gameplayRadius": 65,
+  "moveSpeed": 335,
+  "attacks": [
+    {
+      "form": "karthus",
+      "formName": "Karthus",
+      "range": 450,
+      "ranged": true,
+      "projectile": true,
+      "missileSpeed": 1500,
+      "attackSpeed": 0.884332,
+      "attackDamage": 109.911,
+      "windup": 0.388711,
+      "modifiers": []
+    }
+  ],
+  "abilities": [
+    {
+      "champion": "Karthus",
+      "kind": "E",
+      "name": "Defile",
+      "page": {
+        "title": "Template:Data Karthus/Defile",
+        "revid": 4006733
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "auto"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "no"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "cooldown": 0.5,
+      "castTime": 0
+    },
+    {
+      "champion": "Karthus",
+      "kind": "I",
+      "name": "Death Defied",
+      "page": {
+        "title": "Template:Data Karthus/Death Defied",
+        "revid": 3985387
+      },
+      "damageTypes": [],
+      "delivery": {
+        "targeting": [
+          "passive"
+        ],
+        "affectsEnemies": false
+      },
+      "applies": [],
+      "movement": [],
+      "states": [
+        {
+          "state": "untargetable",
+          "evidence": [
+            {
+              "page": "Untargetability",
+              "revid": 3965000,
+              "quote": "Does not destroy inbound projectiles"
+            },
+            {
+              "page": "Template:Data Karthus/Death Defied",
+              "revid": 3985387,
+              "quote": "While under this state, Karthus becomes untargetable and immune to crowd control as well as prevents all incoming damage, but is also rendered unable to move, declare basic attacks, use summoner spells, and activate items."
+            }
+          ],
+          "note": "Does not destroy inbound projectiles",
+          "condition": "Only after taking fatal damage."
+        },
+        {
+          "state": "cc immune",
+          "evidence": [
+            {
+              "page": "Template:Data Karthus/Death Defied",
+              "revid": 3985387,
+              "quote": "While under this state, Karthus becomes untargetable and immune to crowd control as well as prevents all incoming damage, but is also rendered unable to move, declare basic attacks, use summoner spells, and activate items."
+            }
+          ],
+          "condition": "Only after taking fatal damage."
+        }
+      ],
+      "notes": [
+        "Death Defied's untargetability does not destroy in-flight projectiles.",
+        "Karthus cannot be executed by the Aspect of the Dragon during Death Defied."
+      ]
+    },
+    {
+      "champion": "Karthus",
+      "kind": "Q",
+      "name": "Lay Waste",
+      "page": {
+        "title": "Template:Data Karthus/Lay Waste",
+        "revid": 4011136
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "location"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "yes"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "cooldown": 1,
+      "castTime": 0.25,
+      "range": 875
+    },
+    {
+      "champion": "Karthus",
+      "kind": "R",
+      "name": "Requiem",
+      "page": {
+        "title": "Template:Data Karthus/Requiem",
+        "revid": 4015394
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "auto"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "yes",
+        "disruptable": "yes"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "cooldown": 160,
+      "castTime": 0.25,
+      "channel": [
+        {
+          "type": "normal",
+          "evidence": [
+            {
+              "page": "Channel",
+              "revid": 4002276,
+              "quote": "normal"
+            }
+          ]
+        }
+      ],
+      "notes": [
+        "Requiem's channel is telegraphed to all enemy champions by a beam of light that descends on all targets, including if they are untargetable or even dead.",
+        "The following table refers for interactions while Karthus is channeling:"
+      ]
+    },
+    {
+      "champion": "Karthus",
+      "kind": "W",
+      "name": "Wall of Pain",
+      "page": {
+        "title": "Template:Data Karthus/Wall of Pain",
+        "revid": 3990033
+      },
+      "damageTypes": [],
+      "delivery": {
+        "targeting": [
+          "location"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "no"
+      },
+      "applies": [
+        {
+          "type": "slow",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "slow"
+            },
+            {
+              "page": "Template:Data Karthus/Wall of Pain",
+              "revid": 3990033,
+              "quote": "Enemies that touch the wall are inflicted with 25% magic resistance reduction and become slowed for 5 seconds, decaying over the duration."
+            }
+          ],
+          "duration": 5,
+          "amount": 80
+        }
+      ],
+      "movement": [],
+      "states": [],
+      "cooldown": 15,
+      "castTime": 0.25,
+      "range": 1000
+    }
+  ]
+}

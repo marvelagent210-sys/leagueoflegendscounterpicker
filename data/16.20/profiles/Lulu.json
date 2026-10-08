@@ -1,0 +1,268 @@
+{
+  "champion": "Lulu",
+  "name": "Lulu",
+  "gameplayRadius": 55,
+  "moveSpeed": 330,
+  "attacks": [
+    {
+      "form": "lulu",
+      "formName": "Lulu",
+      "range": 550,
+      "ranged": true,
+      "projectile": true,
+      "missileSpeed": 1450,
+      "attackSpeed": 0.901539,
+      "attackDamage": 98.129,
+      "windup": 0.207978,
+      "modifiers": [
+        "Pix, Faerie Companion"
+      ]
+    }
+  ],
+  "abilities": [
+    {
+      "champion": "Lulu",
+      "kind": "E",
+      "name": "Help, Pix!",
+      "page": {
+        "title": "Template:Data Lulu/Help, Pix!",
+        "revid": 3945270
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "unit"
+        ],
+        "affectsEnemies": true,
+        "projectile": "no",
+        "spellShield": "partly"
+      },
+      "applies": [
+        {
+          "type": "reveal",
+          "evidence": [
+            {
+              "page": "Template:List of true sight abilities",
+              "revid": 3860444
+            }
+          ]
+        }
+      ],
+      "movement": [],
+      "states": [],
+      "cooldown": 8,
+      "castTime": 0,
+      "range": 650,
+      "notes": [
+        "If the player casts Help, Pix! on a non-champion target, the spell script will first search for a targetable allied or enemy champion within 75 radius around the target. If there is at least one, it'll apply the effects to the closest one instead of the initial target.\n  - Allies or enemies or proximity take priortity?\n  - This effect does not respect that the champion may not be visible to Lulu and not a valid target for normal selection for this reason. Therefore it can for instance apply the effects to stealthed enemy champions this way.\n  - Since the original cast did not target the champion, some effects (such as Guardian) may behave incorrectly.\n  - It is not known in which patch this effect was added.",
+        "Spell shield and Riposte will block the damage but Pix will still follow regardless."
+      ]
+    },
+    {
+      "champion": "Lulu",
+      "kind": "I",
+      "name": "Pix, Faerie Companion",
+      "page": {
+        "title": "Template:Data Lulu/Pix, Faerie Companion",
+        "revid": 4046485
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "passive"
+        ],
+        "affectsEnemies": false,
+        "projectile": "yes",
+        "parry": "no",
+        "attack": "attack modifier"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "speed": 900,
+      "notes": [
+        "Pix's bolts do not fire alongside abilities that apply on-hit effects (e.g. Runaan's Hurricane).",
+        "The empowered attack does not trigger against structures nor wards.\n  - Neither of them will intercept Pix's bolts."
+      ]
+    },
+    {
+      "champion": "Lulu",
+      "kind": "Q",
+      "name": "Glitterlance",
+      "page": {
+        "title": "Template:Data Lulu/Glitterlance",
+        "revid": 3881438
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "direction"
+        ],
+        "affectsEnemies": true,
+        "projectile": "yes",
+        "spellShield": "yes"
+      },
+      "applies": [
+        {
+          "type": "slow",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "slow"
+            },
+            {
+              "page": "Template:Data Lulu/Glitterlance",
+              "revid": 3881438,
+              "quote": "Active: Lulu and Pix each fire a magic bolt towards the target point, each one dealing magic damage to enemies hit, reduced to 70% against minions, and slowing them by 80% decaying over 2 seconds."
+            }
+          ],
+          "duration": 2,
+          "amount": 80
+        }
+      ],
+      "movement": [],
+      "states": [],
+      "cooldown": 7,
+      "castTime": 0.25,
+      "range": 950,
+      "speed": 1450
+    },
+    {
+      "champion": "Lulu",
+      "kind": "R",
+      "name": "Wild Growth",
+      "page": {
+        "title": "Template:Data Lulu/Wild Growth",
+        "revid": 4007674
+      },
+      "damageTypes": [],
+      "delivery": {
+        "targeting": [
+          "unit"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "yes"
+      },
+      "applies": [
+        {
+          "type": "airborne",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "airborne: knock up"
+            },
+            {
+              "page": "Template:Data Lulu/Wild Growth",
+              "revid": 4007674,
+              "quote": "Active: Lulu enlarges herself or the target allied champion, knocking up nearby enemies for 1 second."
+            }
+          ],
+          "variant": "knock up",
+          "duration": 1
+        },
+        {
+          "type": "slow",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "slow"
+            },
+            {
+              "page": "Template:Data Lulu/Wild Growth",
+              "revid": 4007674,
+              "quote": "For the next 7 seconds, the target gains bonus health and 40% increased size and slows nearby enemies, which lingers for 0.25 seconds."
+            }
+          ],
+          "duration": 0.25,
+          "amount": 60
+        }
+      ],
+      "movement": [],
+      "states": [],
+      "cooldown": 80,
+      "castTime": 0,
+      "range": 900
+    },
+    {
+      "champion": "Lulu",
+      "kind": "W",
+      "name": "Whimsy",
+      "page": {
+        "title": "Template:Data Lulu/Whimsy",
+        "revid": 4007673
+      },
+      "damageTypes": [],
+      "delivery": {
+        "targeting": [
+          "unit"
+        ],
+        "affectsEnemies": true,
+        "projectile": "yes",
+        "spellShield": "yes"
+      },
+      "applies": [
+        {
+          "type": "disarm",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "disarm"
+            },
+            {
+              "page": "Template:Data Lulu/Whimsy",
+              "revid": 4007673,
+              "quote": "Enemy Cast: Lulu launches a spell onto the target enemy champion that polymorphs them into a harmless critter for a duration, during which their movement speed is reduced by 60, and disarms them for the same duration."
+            }
+          ],
+          "duration": 2
+        },
+        {
+          "type": "polymorph",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "polymorph"
+            },
+            {
+              "page": "Template:Data Lulu/Whimsy",
+              "revid": 4007673,
+              "quote": "Enemy Cast: Lulu launches a spell onto the target enemy champion that polymorphs them into a harmless critter for a duration, during which their movement speed is reduced by 60, and disarms them for the same duration."
+            }
+          ],
+          "duration": 2
+        },
+        {
+          "type": "slow",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "movement speed reductions"
+            }
+          ]
+        }
+      ],
+      "movement": [],
+      "states": [],
+      "cooldown": 18,
+      "castTime": 0.2419,
+      "range": 650,
+      "speed": 2250,
+      "boostsAttacks": true,
+      "notes": [
+        "If the target becomes untargetable, dies, or is too far away or no longer in sight during the cast time, this ability will cancel but still go on cooldown and pay its cost.\n  - This only applies to the enemy cast."
+      ]
+    }
+  ]
+}

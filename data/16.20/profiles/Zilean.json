@@ -1,0 +1,254 @@
+{
+  "champion": "Zilean",
+  "name": "Zilean",
+  "gameplayRadius": 65,
+  "moveSpeed": 335,
+  "attacks": [
+    {
+      "form": "zilean",
+      "formName": "Zilean",
+      "range": 550,
+      "ranged": true,
+      "projectile": true,
+      "missileSpeed": 1500,
+      "attackSpeed": 0.91979,
+      "attackDamage": 110.995,
+      "windup": 0.195697,
+      "modifiers": []
+    }
+  ],
+  "abilities": [
+    {
+      "champion": "Zilean",
+      "kind": "E",
+      "name": "Time Warp",
+      "page": {
+        "title": "Template:Data Zilean/Time Warp",
+        "revid": 3433210
+      },
+      "damageTypes": [],
+      "delivery": {
+        "targeting": [
+          "unit"
+        ],
+        "affectsEnemies": true,
+        "projectile": "no",
+        "spellShield": "yes"
+      },
+      "applies": [
+        {
+          "type": "slow",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "slow"
+            },
+            {
+              "page": "Template:Data Zilean/Time Warp",
+              "revid": 3433210,
+              "quote": "If the target is an enemy, they are slowed."
+            }
+          ],
+          "condition": "If the target is an enemy, they are slowed."
+        }
+      ],
+      "movement": [],
+      "states": [],
+      "cooldown": 15,
+      "castTime": 0,
+      "range": 550
+    },
+    {
+      "champion": "Zilean",
+      "kind": "I",
+      "name": "Time in a Bottle",
+      "page": {
+        "title": "Template:Data Zilean/Time in a Bottle",
+        "revid": 4056302
+      },
+      "damageTypes": [],
+      "delivery": {
+        "targeting": [
+          "unit"
+        ],
+        "affectsEnemies": false,
+        "disruptable": "yes"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "cooldown": 120,
+      "range": 875,
+      "channel": [
+        {
+          "type": "objective",
+          "evidence": [
+            {
+              "page": "Channel",
+              "revid": 4002276,
+              "quote": "objective"
+            }
+          ]
+        }
+      ],
+      "notes": [
+        "The target allied champion is not required to be within range of Zilean for the channel to complete successfully, it will complete regardless of if they move to a far distance.",
+        "The channel from Time in a Bottle is not interrupted even if the allied champion suddenly levels up. However, no experience will be granted to either player, and the passive will not go on cooldown.",
+        "The following table refers for interactions while Zilean is channeling:"
+      ]
+    },
+    {
+      "champion": "Zilean",
+      "kind": "Q",
+      "name": "Time Bomb",
+      "page": {
+        "title": "Template:Data Zilean/Time Bomb",
+        "revid": 4008679
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "location"
+        ],
+        "affectsEnemies": true,
+        "projectile": "yes",
+        "spellShield": "yes"
+      },
+      "applies": [
+        {
+          "type": "stun",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "stun"
+            },
+            {
+              "page": "Template:Data Zilean/Time Bomb",
+              "revid": 4008679,
+              "quote": "The bomb detonates immediately if another bomb attaches itself to the same unit, stunning nearby enemies for a duration."
+            }
+          ],
+          "duration": 1.5
+        }
+      ],
+      "movement": [],
+      "states": [],
+      "cooldown": 8,
+      "castTime": 0.25,
+      "range": 900,
+      "notes": [
+        "Time Bombs are not visible to enemies if they attach to an ally that is stealthed and vice versa.",
+        "Time Bomb can deal damage to the enemy holder through untargetablility.",
+        "Spell shield will prevent the application of Time Bomb and its detonation damage as well as block the stun, but not its immediate detonation if the target already has a Time Bomb on them."
+      ]
+    },
+    {
+      "champion": "Zilean",
+      "kind": "R",
+      "name": "Chronoshift",
+      "page": {
+        "title": "Template:Data Zilean/Chronoshift",
+        "revid": 3907350
+      },
+      "damageTypes": [],
+      "delivery": {
+        "targeting": [
+          "unit"
+        ],
+        "affectsEnemies": false
+      },
+      "applies": [],
+      "movement": [],
+      "states": [
+        {
+          "state": "untargetable",
+          "evidence": [
+            {
+              "page": "Untargetability",
+              "revid": 3965000,
+              "quote": "Does not destroy inbound projectiles"
+            },
+            {
+              "page": "Template:Data Zilean/Chronoshift",
+              "revid": 3907350,
+              "quote": "If the target takes fatal damage within the duration, they enter resurrection for 3 seconds, becoming invulnerable, untargetable, and unable to act."
+            }
+          ],
+          "duration": 3,
+          "note": "Does not destroy inbound projectiles"
+        },
+        {
+          "state": "invulnerable",
+          "evidence": [
+            {
+              "page": "Invulnerability",
+              "revid": 3990045
+            },
+            {
+              "page": "Template:Data Zilean/Chronoshift",
+              "revid": 3907350,
+              "quote": "If the target takes fatal damage within the duration, they enter resurrection for 3 seconds, becoming invulnerable, untargetable, and unable to act."
+            }
+          ],
+          "duration": 3
+        },
+        {
+          "state": "resurrection",
+          "evidence": [
+            {
+              "page": "Template:Tip data/Resurrection",
+              "revid": 4060644
+            },
+            {
+              "page": "Template:Data Zilean/Chronoshift",
+              "revid": 3907350,
+              "quote": "If the target takes fatal damage within the duration, they enter resurrection for 3 seconds, becoming invulnerable, untargetable, and unable to act."
+            }
+          ],
+          "duration": 3
+        },
+        {
+          "state": "heal",
+          "evidence": [
+            {
+              "page": "Template:Data Zilean/Chronoshift",
+              "revid": 3907350,
+              "quote": "Afterwards, they revive while being healed."
+            }
+          ]
+        }
+      ],
+      "cooldown": 60,
+      "castTime": 0,
+      "range": 900,
+      "notes": [
+        "Chronoshift's untargetability does not destroy in-flight projectiles."
+      ]
+    },
+    {
+      "champion": "Zilean",
+      "kind": "W",
+      "name": "Rewind",
+      "page": {
+        "title": "Template:Data Zilean/Rewind",
+        "revid": 4008463
+      },
+      "damageTypes": [],
+      "delivery": {
+        "targeting": [
+          "auto"
+        ],
+        "affectsEnemies": false
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "cooldown": 6,
+      "castTime": 0
+    }
+  ]
+}

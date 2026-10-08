@@ -9,6 +9,22 @@ Values marked "at max rank, level 20" assume every ability is maxed; see PLAN.md
 |---|--:|--:|--:|--:|--:|--:|--:|--:|--:|--:|
 | Ashe | 2596.2 | 14.32 | 968.3 Mana | 118.0 | 1.046 | 0.210 | 116.5 | 54.6 | 600 | 325 |
 
+## Fight profile (what the interaction ledger uses)
+
+| Form | Attack range | Ranged | Projectile | Missile speed | Attack modifiers |
+|---|--:|---|---|--:|---|
+| Ashe | 600 | yes | yes | 2500 | Frost Shot |
+
+Cooldowns at max rank. Flags: the wiki's interaction flags (yes, no, partly). * marks an effect that applies only under a condition.
+
+| Slot | Ability | Cooldown | Delivery | Applies to the enemy | Movement | Gives itself |
+|---|---|--:|---|---|---|---|
+| E | Hawkshot | 50 | projectile partly; spell shield no | – | – | – |
+| I | Frost Shot | – | spell shield yes; parry yes; attack modifier | slow 2 s 31.1765% | – | – |
+| Q | Ranger's Focus | – | projectile yes; spell shield no; parry yes; on-hit | – | – | heal |
+| R | Enchanted Crystal Arrow | 60 | projectile yes; spell shield yes | stun 1 s | – | – |
+| W | Volley | 4 | projectile yes; spell shield yes | – | – | – |
+
 ## Innate: Frost Shot
 
 Source: [Template:Data Ashe/Frost Shot](https://wiki.leagueoflegends.com/en-us/Template:Data_Ashe/Frost_Shot?oldid=4062251) (revision 4062251). Ranks: 1.

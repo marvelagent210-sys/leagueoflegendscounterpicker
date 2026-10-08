@@ -9,6 +9,24 @@ Values marked "at max rank, level 20" assume every ability is maxed; see PLAN.md
 |---|--:|--:|--:|--:|--:|--:|--:|--:|--:|--:|
 | Kayn | 2680.5 | 22.75 | 1393.3 Mana | 132.9 | 1.024 | 0.183 | 126.5 | 72.3 | 175 | 340 |
 
+## Fight profile (what the interaction ledger uses)
+
+| Form | Attack range | Ranged | Projectile | Missile speed | Attack modifiers |
+|---|--:|---|---|--:|---|
+| Kayn | 175 | no | no | – | – |
+
+Cooldowns at max rank. Flags: the wiki's interaction flags (yes, no, partly). * marks an effect that applies only under a condition.
+
+| Slot | Ability | Cooldown | Delivery | Applies to the enemy | Movement | Gives itself |
+|---|---|--:|---|---|---|---|
+| E | Shadow Step | 13 | grounded yes | – | – | heal |
+| I | The Darkin Scythe | – | – | – | – | untargetable 6 s; invulnerable 6 s; heal |
+| I | The Darkin Scythe | – | – | – | – | untargetable; invulnerable; heal |
+| I | The Darkin Scythe | – | – | – | – | untargetable; invulnerable |
+| Q | Reaping Slash | 5 | spell shield partly; grounded yes; knockdown yes | – | dash | – |
+| R | Umbral Trespass | 80 | spell shield partly; grounded yes; knockdown no; disruptable yes | reveal | dash (unstoppable); dash (unstoppable) (first cast) | untargetable 0.25 s; heal |
+| W | Blade's Reach | 9 | projectile no; spell shield yes | airborne (knock up) 1 s; slow 1.5 s 90% | – | – |
+
 ## Innate: The Darkin Scythe
 
 Source: [Template:Data Kayn/The Darkin Scythe](https://wiki.leagueoflegends.com/en-us/Template:Data_Kayn/The_Darkin_Scythe?oldid=4053172) (revision 4053172). Ranks: 1.

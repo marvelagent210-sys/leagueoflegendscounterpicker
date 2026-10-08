@@ -9,6 +9,22 @@ Values marked "at max rank, level 20" assume every ability is maxed; see PLAN.md
 |---|--:|--:|--:|--:|--:|--:|--:|--:|--:|--:|
 | Gragas | 2901.5 | 15.33 | 1324.3 Mana | 132.8 | 0.927 | 0.270 | 136.3 | 72.3 | 125 | 330 |
 
+## Fight profile (what the interaction ledger uses)
+
+| Form | Attack range | Ranged | Projectile | Missile speed | Attack modifiers |
+|---|--:|---|---|--:|---|
+| Gragas | 125 | no | no | – | – |
+
+Cooldowns at max rank. Flags: the wiki's interaction flags (yes, no, partly). * marks an effect that applies only under a condition.
+
+| Slot | Ability | Cooldown | Delivery | Applies to the enemy | Movement | Gives itself |
+|---|---|--:|---|---|---|---|
+| E | Body Slam | 12 | spell shield yes; grounded yes; knockdown yes | airborne (knock back) 1 s; stun 1 s | dash | – |
+| I | Happy Hour | 6 | – | – | – | heal |
+| Q | Barrel Roll | 6 | projectile yes; spell shield yes | slow 60% | – | – |
+| R | Explosive Cask | 70 | projectile yes; spell shield yes | airborne (knock back) 1 s | – | – |
+| W | Drunken Rage | 5 | spell shield yes; parry yes; disruptable yes; attack | – | – | – |
+
 ## Innate: Happy Hour
 
 Source: [Template:Data Gragas/Happy Hour](https://wiki.leagueoflegends.com/en-us/Template:Data_Gragas/Happy_Hour?oldid=3985369) (revision 3985369). Ranks: 1.

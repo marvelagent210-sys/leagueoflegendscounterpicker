@@ -1,0 +1,210 @@
+{
+  "champion": "Yorick",
+  "name": "Yorick",
+  "gameplayRadius": 80,
+  "moveSpeed": 340,
+  "attacks": [
+    {
+      "form": "yorick",
+      "formName": "Yorick",
+      "range": 175,
+      "ranged": false,
+      "projectile": false,
+      "attackSpeed": 0.870812,
+      "attackDamage": 160.325,
+      "windup": 0.236848,
+      "modifiers": []
+    }
+  ],
+  "abilities": [
+    {
+      "champion": "Yorick",
+      "kind": "E",
+      "name": "Mourning Mist",
+      "page": {
+        "title": "Template:Data Yorick/Mourning Mist",
+        "revid": 4046036
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "location"
+        ],
+        "affectsEnemies": true,
+        "projectile": "yes",
+        "spellShield": "yes"
+      },
+      "applies": [
+        {
+          "type": "slow",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "slow"
+            },
+            {
+              "page": "Template:Data Yorick/Mourning Mist",
+              "revid": 4046036,
+              "quote": "Enemy champions and monsters hit are slowed by 30% for 1.5 seconds and marked as Cursed for 4 seconds."
+            }
+          ],
+          "duration": 1.5,
+          "amount": 30
+        }
+      ],
+      "movement": [],
+      "states": [],
+      "cooldown": 8,
+      "castTime": 0.25,
+      "range": 700,
+      "speed": 1800,
+      "notes": [
+        "The Mist Walkers do not leap if they are immobilized or grounded, or if the marked target is untargetable."
+      ]
+    },
+    {
+      "champion": "Yorick",
+      "kind": "I",
+      "name": "Shepherd of Souls",
+      "page": {
+        "title": "Template:Data Yorick/Shepherd of Souls",
+        "revid": 4008645
+      },
+      "damageTypes": [],
+      "delivery": {
+        "targeting": [
+          "passive"
+        ],
+        "affectsEnemies": false
+      },
+      "applies": [],
+      "movement": [],
+      "states": []
+    },
+    {
+      "champion": "Yorick",
+      "kind": "Q",
+      "name": "Awakening",
+      "page": {
+        "title": "Template:Data Yorick/Awakening",
+        "revid": 3907373
+      },
+      "damageTypes": [],
+      "delivery": {
+        "targeting": [
+          "proximity"
+        ],
+        "affectsEnemies": false
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "castTime": 0,
+      "range": 1000
+    },
+    {
+      "champion": "Yorick",
+      "kind": "Q",
+      "name": "Last Rites",
+      "page": {
+        "title": "Template:Data Yorick/Last Rites",
+        "revid": 4001491
+      },
+      "damageTypes": [
+        "physical"
+      ],
+      "delivery": {
+        "targeting": [
+          "auto"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "no",
+        "parry": "yes",
+        "attack": "attack"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [
+        {
+          "state": "heal",
+          "evidence": [
+            {
+              "page": "Template:Data Yorick/Last Rites",
+              "revid": 4001491,
+              "quote": "Active: Yorick empowers his next basic attack within 5 seconds to have an uncancellable windup, gain 50 bonus range, deal bonus physical damage, and heal him."
+            }
+          ]
+        }
+      ],
+      "cooldown": 4,
+      "castTime": 0,
+      "boostsAttacks": true
+    },
+    {
+      "champion": "Yorick",
+      "kind": "R",
+      "name": "Eulogy of the Isles",
+      "page": {
+        "title": "Template:Data Yorick/Eulogy of the Isles",
+        "revid": 3972823
+      },
+      "damageTypes": [],
+      "delivery": {
+        "targeting": [
+          "location"
+        ],
+        "affectsEnemies": false
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "cooldown": 100,
+      "castTime": 0.5,
+      "range": 600
+    },
+    {
+      "champion": "Yorick",
+      "kind": "W",
+      "name": "Dark Procession",
+      "page": {
+        "title": "Template:Data Yorick/Dark Procession",
+        "revid": 4051828
+      },
+      "damageTypes": [],
+      "delivery": {
+        "targeting": [
+          "location"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "no"
+      },
+      "applies": [
+        {
+          "type": "airborne",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "airborne: knock aside"
+            },
+            {
+              "page": "Template:Data Yorick/Dark Procession",
+              "revid": 4051828,
+              "quote": "Active: Yorick summons a ring of spirits around the target location that arises after a 0.75-second delay, knocking aside enemies hit by the walls over 0.25 seconds, though not through terrain."
+            }
+          ],
+          "variant": "knock aside",
+          "duration": 0.25
+        }
+      ],
+      "movement": [],
+      "states": [],
+      "cooldown": 12,
+      "castTime": 0,
+      "range": 600
+    }
+  ]
+}

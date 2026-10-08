@@ -9,6 +9,22 @@ Values marked "at max rank, level 20" assume every ability is maxed; see PLAN.md
 |---|--:|--:|--:|--:|--:|--:|--:|--:|--:|--:|
 | Lucian | 2607.5 | 16.53 | 1165.6 Mana | 117.0 | 0.952 | 0.158 | 110.6 | 54.6 | 500 | 335 |
 
+## Fight profile (what the interaction ledger uses)
+
+| Form | Attack range | Ranged | Projectile | Missile speed | Attack modifiers |
+|---|--:|---|---|--:|---|
+| Lucian | 500 | yes | yes | 2800 | Lightslinger |
+
+Cooldowns at max rank. Flags: the wiki's interaction flags (yes, no, partly). * marks an effect that applies only under a condition.
+
+| Slot | Ability | Cooldown | Delivery | Applies to the enemy | Movement | Gives itself |
+|---|---|--:|---|---|---|---|
+| E | Relentless Pursuit | 14 | grounded yes; knockdown yes | – | dash | – |
+| I | Lightslinger | – | parry yes; attack modifier | – | – | heal; shield |
+| Q | Piercing Light | 5 | projectile no; spell shield yes | – | – | – |
+| R | The Culling | 90 | projectile yes; spell shield partly; disruptable yes | – | – | – |
+| W | Ardent Blaze | 10 | projectile yes; spell shield partly; parry partly | – | – | – |
+
 ## Innate: Lightslinger
 
 Source: [Template:Data Lucian/Lightslinger](https://wiki.leagueoflegends.com/en-us/Template:Data_Lucian/Lightslinger?oldid=4064854) (revision 4064854). Ranks: 1.

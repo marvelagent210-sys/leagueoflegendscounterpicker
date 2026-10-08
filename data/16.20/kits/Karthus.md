@@ -9,6 +9,22 @@ Values marked "at max rank, level 20" assume every ability is maxed; see PLAN.md
 |---|--:|--:|--:|--:|--:|--:|--:|--:|--:|--:|
 | Karthus | 2783.2 | 17.32 | 1076.6 Mana | 109.9 | 0.884 | 0.389 | 113.4 | 55.6 | 450 | 335 |
 
+## Fight profile (what the interaction ledger uses)
+
+| Form | Attack range | Ranged | Projectile | Missile speed | Attack modifiers |
+|---|--:|---|---|--:|---|
+| Karthus | 450 | yes | yes | 1500 | – |
+
+Cooldowns at max rank. Flags: the wiki's interaction flags (yes, no, partly). * marks an effect that applies only under a condition.
+
+| Slot | Ability | Cooldown | Delivery | Applies to the enemy | Movement | Gives itself |
+|---|---|--:|---|---|---|---|
+| E | Defile | 0.5 | spell shield no | – | – | – |
+| I | Death Defied | – | – | – | – | untargetable; cc immune |
+| Q | Lay Waste | 1 | spell shield yes | – | – | – |
+| R | Requiem | 160 | spell shield yes; disruptable yes | – | – | – |
+| W | Wall of Pain | 15 | spell shield no | slow 5 s 80% | – | – |
+
 ## Innate: Death Defied
 
 Source: [Template:Data Karthus/Death Defied](https://wiki.leagueoflegends.com/en-us/Template:Data_Karthus/Death_Defied?oldid=3985387) (revision 3985387). Ranks: 1.

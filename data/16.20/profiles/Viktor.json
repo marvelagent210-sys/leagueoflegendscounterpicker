@@ -1,0 +1,255 @@
+{
+  "champion": "Viktor",
+  "name": "Viktor",
+  "gameplayRadius": 65,
+  "moveSpeed": 335,
+  "attacks": [
+    {
+      "form": "viktor",
+      "formName": "Viktor",
+      "range": 525,
+      "ranged": true,
+      "projectile": true,
+      "missileSpeed": 2300,
+      "attackSpeed": 0.931025,
+      "attackDamage": 111.995,
+      "windup": 0.193335,
+      "modifiers": []
+    }
+  ],
+  "abilities": [
+    {
+      "champion": "Viktor",
+      "kind": "E",
+      "name": "Hextech Ray",
+      "page": {
+        "title": "Template:Data Viktor/Hextech Ray",
+        "revid": 4008553
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "vector"
+        ],
+        "affectsEnemies": true,
+        "projectile": "yes",
+        "spellShield": "yes"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "cooldown": 8,
+      "castTime": 0,
+      "range": 550,
+      "speed": 1050,
+      "notes": [
+        "If Hextech Ray is intercepted, the initial ray is not destroyed.\n  - However, the capability to be blocked only applies to the laser as it hits the ground. Viktor can cast the ability over the wall and it will not be destroyed or intercepted.\n  - Augmented Hextech Ray will still cause the entire target area to explode even if the laser is blocked."
+      ]
+    },
+    {
+      "champion": "Viktor",
+      "kind": "I",
+      "name": "Glorious Evolution",
+      "page": {
+        "title": "Template:Data Viktor/Glorious Evolution",
+        "revid": 3954293
+      },
+      "damageTypes": [],
+      "delivery": {
+        "targeting": [
+          "passive"
+        ],
+        "affectsEnemies": false
+      },
+      "applies": [],
+      "movement": [],
+      "states": []
+    },
+    {
+      "champion": "Viktor",
+      "kind": "Q",
+      "name": "Siphon Power",
+      "page": {
+        "title": "Template:Data Viktor/Siphon Power",
+        "revid": 3971354
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "unit"
+        ],
+        "affectsEnemies": true,
+        "projectile": "partly",
+        "spellShield": "yes",
+        "parry": "yes",
+        "attack": "attack"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [
+        {
+          "state": "shield",
+          "evidence": [
+            {
+              "page": "Template:Data Viktor/Siphon Power",
+              "revid": 3971354,
+              "quote": "He also grants himself a shield for 40 – 140 (based on level) (+ 25% AP) for 2.5 seconds and gains Discharge for 4 seconds."
+            }
+          ],
+          "duration": 2.5
+        }
+      ],
+      "cooldown": 5,
+      "castTime": 0.25,
+      "range": 600,
+      "speed": 2000,
+      "notes": [
+        "Spell shield does not prevent Viktor from gaining Discharge.",
+        "Only the initial projectile can be intercepted.",
+        "If the target becomes untargetable, dies, or is too far away or no longer in sight during the cast time, this ability will cancel but does not go on cooldown nor pay its cost (if applicable)."
+      ]
+    },
+    {
+      "champion": "Viktor",
+      "kind": "R",
+      "name": "Arcane Storm",
+      "page": {
+        "title": "Template:Data Viktor/Arcane Storm",
+        "revid": 4011945
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "location",
+          "unit"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "partly"
+      },
+      "applies": [
+        {
+          "type": "disrupt",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "disrupt"
+            }
+          ]
+        }
+      ],
+      "movement": [],
+      "states": [],
+      "cooldown": 80,
+      "castTime": 0.25,
+      "range": 700,
+      "usableWhileDisabled": {
+        "which": "recast",
+        "evidence": [
+          {
+            "page": "Template:Data Viktor/Arcane Storm",
+            "revid": 4011945,
+            "quote": "recast can be used while affected by cast-inhibiting crowd control"
+          }
+        ]
+      },
+      "notes": [
+        "The singularity will remain active even if Viktor dies and will automatically follow the nearest enemy champion in range at the time of his death, if it wasn't locked on already.\n  - The singularity will only be issued to automatically follow a nearby champion once; it will not lock on to a new target if its current target becomes invalid.\n  - Any commands it was issued prior to his death will not be interrupted.",
+        "Spell shield will only block the initial damage.",
+        "The disrupt is 'wrapped' into a status effect that causes affected champions to display the \"Silenced\" UI on their health bar for 0.25 seconds, without actually applying the disabling effects of the silence crowd control type (functions as an indicator of the target becoming disrupted). This however ensures that the disrupt is also prevented by effects that would negate silences (such as crowd control immunity)."
+      ]
+    },
+    {
+      "champion": "Viktor",
+      "kind": "W",
+      "name": "Gravity Field",
+      "page": {
+        "title": "Template:Data Viktor/Gravity Field",
+        "revid": 4070086
+      },
+      "damageTypes": [],
+      "delivery": {
+        "targeting": [
+          "location"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "yes"
+      },
+      "applies": [
+        {
+          "type": "knockdown",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "knockdown"
+            },
+            {
+              "page": "Template:Data Viktor/Gravity Field",
+              "revid": 4070086,
+              "quote": "The fifth stack consumes them all to knock down and stun the target for 1.5 seconds."
+            }
+          ],
+          "duration": 1.5
+        },
+        {
+          "type": "slow",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "slow"
+            },
+            {
+              "page": "Template:Data Viktor/Gravity Field",
+              "revid": 4070086,
+              "quote": "After a 0.75-second delay, it activates to slow enemies within for 1 second, refreshing every 0.25 seconds while they remain inside."
+            }
+          ],
+          "duration": 1,
+          "amount": 45
+        },
+        {
+          "type": "stun",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "stun"
+            },
+            {
+              "page": "Template:Data Viktor/Gravity Field",
+              "revid": 4070086,
+              "quote": "The fifth stack consumes them all to knock down and stun the target for 1.5 seconds."
+            }
+          ],
+          "duration": 1.5
+        },
+        {
+          "type": "knockdown",
+          "evidence": [
+            {
+              "page": "Dash",
+              "revid": 4035700
+            }
+          ]
+        }
+      ],
+      "movement": [],
+      "states": [],
+      "cooldown": 13,
+      "castTime": 0.25,
+      "range": 800,
+      "notes": [
+        "Gravity Field applies a single debuff for both the slow and the stack.\n  - Targets can be applied further stacks after having their stacks consumed for the first time.\n    - Stacks are always consumed upon the fifth stack, but only the first instance of stacks being consumed can trigger the crowd control effects.\n  - The debuff lasts for 1 second.",
+        "If an enemy enters the area of effect while untargetable, they may generate stacks even after becoming stunned once, causing them to get stunned up-to 3 times by a single Gravity Field."
+      ]
+    }
+  ]
+}

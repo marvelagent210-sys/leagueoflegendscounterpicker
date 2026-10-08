@@ -9,28 +9,21 @@ Values marked "at max rank, level 20" assume every ability is maxed; see PLAN.md
 |---|--:|--:|--:|--:|--:|--:|--:|--:|--:|--:|
 | Yuumi | 1856.9 | 15.82 | 1324.9 Mana | 110.0 | 0.748 | 0.209 | 107.6 | 46.6 | 425 | 330 |
 
-## Innate: Bop 'n' Block
+## Fight profile (what the interaction ledger uses)
 
-Source: [Template:Data Yuumi/Bop 'n' Block](https://wiki.leagueoflegends.com/en-us/Template:Data_Yuumi/Bop_'n'_Block?oldid=3534699) (revision 3534699). Ranks: 1.
+| Form | Attack range | Ranged | Projectile | Missile speed | Attack modifiers |
+|---|--:|---|---|--:|---|
+| Yuumi | 425 | yes | yes | 1500 | Feline Friendship |
 
-| Field | Value |
-|---|---|
-| Static cooldown | 18 – 6 (based on level) |
+Cooldowns at max rank. Flags: the wiki's interaction flags (yes, no, partly). * marks an effect that applies only under a condition.
 
-Targeting: Passive · Affects: Self · Damage type: – · Spell shield blocks it: – · Projectile: false · Parry: special · Disabled by grounded: – · Usable while knocked down: –
-
-Innate: Periodically, Yuumi's next basic attack against enemy champions will restore 25 – 100 (based on level) (+ 8% maximum mana) mana and grant her a shield for 45 – 300 (based on level) (+ 25% AP) that lasts until destroyed. This attack gains 25 bonus range, has an uncancellable windup, and becomes non-projectile.
-
-- **Mechanics:** shield; uncancellable windup; projectile
-
-Attached Bonus: The shield transfers to the Anchor.
-
-Notes:
-
-- This ability will apply to a basic attack already in flight, but will not augment it into a non-projectile.
-- Bop 'n' Block will not proc if the attack is dodged or Yuumi misses the attack while blinded. It will proc even if the attack is blocked.
-- Although the shield doesn't expire, it will never stack with itself.
-- Considering Yuumi's base mana, Bop 'n' Block's mana restore is increased by at least 35.2 – 96.4 (based on level).
+| Slot | Ability | Cooldown | Delivery | Applies to the enemy | Movement | Gives itself |
+|---|---|--:|---|---|---|---|
+| E | Zoomies | 10 | – | – | – | shield 3 s |
+| I | Feline Friendship | 8 | projectile no; attack modifier | – | – | heal |
+| Q | Prowling Projectile | 6.5 | projectile yes; spell shield yes; disruptable yes; on-hit | slow 1 s 20%* | – | – |
+| R | Final Chapter | 100 | projectile yes; spell shield partly; disruptable yes | slow 1.25 s 10% | – | – |
+| W | You and Me! | 0 | grounded yes; knockdown yes; disruptable yes; on-hit | – | dash | untargetable; heal |
 
 ## Innate: Feline Friendship
 
@@ -267,9 +260,6 @@ game formula supplies 19-20; "confirmed"/"differs": the wiki defines 19-20 and t
 
 | Ability | Value | Outcome | Level 18 | Level 19 | Level 20 | Game formula |
 |---|---|---|--:|--:|--:|---|
-| Bop 'n' Block | description: Innate: Periodically, Yuumi's next basic attack against enemy champions will res | no match | 100 | – | – | – |
-| Bop 'n' Block | description: Innate: Periodically, Yuumi's next basic attack against enemy champions will res | no match | 300 | – | – | – |
-| Bop 'n' Block | staticCooldown | no match | 6 | – | – | – |
 | Feline Friendship | description: Upon hitting them with the basic attack or Prowling Projectile, or upon a Final  | confirmed | 110 | 115.294 | 120.588 | YuumiP.HealAmount: linear 20 → 110 over levels 1-18, continues past 18 |
 
 All 5 level-based formulas in the game files (1 linked to wiki values above):

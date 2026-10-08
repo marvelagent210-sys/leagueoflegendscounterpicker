@@ -9,6 +9,22 @@ Values marked "at max rank, level 20" assume every ability is maxed; see PLAN.md
 |---|--:|--:|--:|--:|--:|--:|--:|--:|--:|--:|
 | Sett | 2911.8 | 16.83 | 0.0 Grit | 138.7 | 0.840 | 0.255 | 125.4 | 68.3 | 125 | 340 |
 
+## Fight profile (what the interaction ledger uses)
+
+| Form | Attack range | Ranged | Projectile | Missile speed | Attack modifiers |
+|---|--:|---|---|--:|---|
+| Sett | 125 | no | no | – | Pit Grit |
+
+Cooldowns at max rank. Flags: the wiki's interaction flags (yes, no, partly). * marks an effect that applies only under a condition.
+
+| Slot | Ability | Cooldown | Delivery | Applies to the enemy | Movement | Gives itself |
+|---|---|--:|---|---|---|---|
+| E | Facebreaker | 10 | projectile no; spell shield yes | airborne (pull) 0.5 s; slow 0.5 s 70%; stun 1 s* | – | – |
+| I | Pit Grit | – | parry yes; attack modifier | – | – | heal |
+| Q | Knuckle Down | 5 | spell shield no; parry partly; attack | – | – | – |
+| R | The Show Stopper | 80 | spell shield yes; grounded yes; knockdown no | slow 1 s 99%; suppression; reveal | dash (unstoppable) | displacement immune |
+| W | Haymaker | 12 | projectile no; spell shield yes | – | – | shield 3 s |
+
 ## Innate: Pit Grit
 
 Source: [Template:Data Sett/Pit Grit](https://wiki.leagueoflegends.com/en-us/Template:Data_Sett/Pit_Grit?oldid=4018819) (revision 4018819). Ranks: 1.

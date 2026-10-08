@@ -9,6 +9,22 @@ Values marked "at max rank, level 20" assume every ability is maxed; see PLAN.md
 |---|--:|--:|--:|--:|--:|--:|--:|--:|--:|--:|
 | Kassadin | 2868.1 | 15.83 | 2110.9 Mana | 135.7 | 1.106 | 0.136 | 99.7 | 55.6 | 150 | 335 |
 
+## Fight profile (what the interaction ledger uses)
+
+| Form | Attack range | Ranged | Projectile | Missile speed | Attack modifiers |
+|---|--:|---|---|--:|---|
+| Kassadin | 150 | no | no | – | – |
+
+Cooldowns at max rank. Flags: the wiki's interaction flags (yes, no, partly). * marks an effect that applies only under a condition.
+
+| Slot | Ability | Cooldown | Delivery | Applies to the enemy | Movement | Gives itself |
+|---|---|--:|---|---|---|---|
+| E | Force Pulse | 17 | projectile no; spell shield yes | slow 1 s 70% | – | – |
+| I | Void Stone | – | – | – | – | – |
+| Q | Null Sphere | 7 | projectile yes; spell shield yes | disrupt | – | shield 1.5 s |
+| R | Riftwalk | 2 | spell shield yes; grounded yes | – | blink | – |
+| W | Nether Blade | 7 | spell shield partly; parry partly; attack | – | – | – |
+
 ## Innate: Void Stone
 
 Source: [Template:Data Kassadin/Void Stone](https://wiki.leagueoflegends.com/en-us/Template:Data_Kassadin/Void_Stone?oldid=3913958) (revision 3913958). Ranks: 1.

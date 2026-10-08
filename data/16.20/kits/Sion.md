@@ -9,6 +9,23 @@ Values marked "at max rank, level 20" assume every ability is maxed; see PLAN.md
 |---|--:|--:|--:|--:|--:|--:|--:|--:|--:|--:|
 | Sion | 2365.9 | 24.73 | 1422.6 Mana | 146.7 | 0.853 | 0.292 | 118.6 | 72.3 | 175 | 345 |
 
+## Fight profile (what the interaction ledger uses)
+
+| Form | Attack range | Ranged | Projectile | Missile speed | Attack modifiers |
+|---|--:|---|---|--:|---|
+| Sion | 175 | no | no | – | Glory in Death |
+
+Cooldowns at max rank. Flags: the wiki's interaction flags (yes, no, partly). * marks an effect that applies only under a condition.
+
+| Slot | Ability | Cooldown | Delivery | Applies to the enemy | Movement | Gives itself |
+|---|---|--:|---|---|---|---|
+| E | Roar of the Slayer | 8 | projectile partly; spell shield yes | slow 2.5 s 60% | – | – |
+| I | Death Surge | 100 | – | – | – | – |
+| I | Glory in Death | – | parry yes; attack modifier | – | – | stasis 1.5 s; untargetable 1.5 s; heal |
+| Q | Decimating Smash | 6 | projectile no; spell shield yes; disruptable yes | airborne (knock up); slow 0.25 s 50%; stun | – | – |
+| R | Unstoppable Onslaught | 60 | spell shield yes; grounded yes; disruptable no | airborne (knock up, pull) 0.5 s; slow 3 s 50%; stun 0.5 s | lunge | cc immune 8 s |
+| W | Soul Furnace | 11 | spell shield yes | – | – | shield 6 s |
+
 ## Innate: Death Surge
 
 Source: [Template:Data Sion/Death Surge](https://wiki.leagueoflegends.com/en-us/Template:Data_Sion/Death_Surge?oldid=3968660) (revision 3968660). Ranks: 1.

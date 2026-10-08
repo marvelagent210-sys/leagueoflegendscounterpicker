@@ -9,6 +9,22 @@ Values marked "at max rank, level 20" assume every ability is maxed; see PLAN.md
 |---|--:|--:|--:|--:|--:|--:|--:|--:|--:|--:|
 | Ezreal | 2605.8 | 16.78 | 1751.6 Mana | 133.7 | 0.932 | 0.202 | 106.6 | 54.6 | 550 | 325 |
 
+## Fight profile (what the interaction ledger uses)
+
+| Form | Attack range | Ranged | Projectile | Missile speed | Attack modifiers |
+|---|--:|---|---|--:|---|
+| Ezreal | 550 | yes | yes | 2000 | – |
+
+Cooldowns at max rank. Flags: the wiki's interaction flags (yes, no, partly). * marks an effect that applies only under a condition.
+
+| Slot | Ability | Cooldown | Delivery | Applies to the enemy | Movement | Gives itself |
+|---|---|--:|---|---|---|---|
+| E | Arcane Shift | 14 | projectile yes; spell shield yes; grounded yes | – | blink | – |
+| I | Rising Spell Force | – | – | – | – | – |
+| Q | Mystic Shot | 4.5 | projectile yes; spell shield partly; parry yes; on-hit | – | – | – |
+| R | Trueshot Barrage | 90 | projectile yes; spell shield yes | – | – | – |
+| W | Essence Flux | 8 | projectile yes; spell shield partly; parry partly; attack | – | – | – |
+
 ## Innate: Rising Spell Force
 
 Source: [Template:Data Ezreal/Rising Spell Force](https://wiki.leagueoflegends.com/en-us/Template:Data_Ezreal/Rising_Spell_Force?oldid=3932280) (revision 3932280). Ranks: 1.

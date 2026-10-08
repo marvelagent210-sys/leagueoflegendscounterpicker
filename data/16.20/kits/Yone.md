@@ -9,6 +9,22 @@ Values marked "at max rank, level 20" assume every ability is maxed; see PLAN.md
 |---|--:|--:|--:|--:|--:|--:|--:|--:|--:|--:|
 | Yone | 2684.8 | 22.25 | 500.0 Flow | 101.3 | 1.055 | 0.208 | 123.5 | 72.3 | 175 | 345 |
 
+## Fight profile (what the interaction ledger uses)
+
+| Form | Attack range | Ranged | Projectile | Missile speed | Attack modifiers |
+|---|--:|---|---|--:|---|
+| Yone | 175 | no | no | – | Way of the Hunter |
+
+Cooldowns at max rank. Flags: the wiki's interaction flags (yes, no, partly). * marks an effect that applies only under a condition.
+
+| Slot | Ability | Cooldown | Delivery | Applies to the enemy | Movement | Gives itself |
+|---|---|--:|---|---|---|---|
+| E | Soul Unbound | 10 | spell shield no; grounded yes; knockdown partly | – | dash (second cast); dash (first cast) | displacement immune |
+| I | Way of the Hunter | – | parry yes; attack modifier | – | – | – |
+| Q | Mortal Steel | 4 | projectile partly; spell shield yes; parry partly; grounded partly; knockdown yes; on-hit | airborne (knock up) 0.75 s | dash | – |
+| R | Fate Sealed | 80 | projectile no; spell shield partly; grounded yes | airborne (knock up, pull) 0.75 s; knockdown 1 s; stun 1 s; knockdown | blink | – |
+| W | Spirit Cleave | 14 | projectile no; spell shield yes | – | – | shield 1.5 s |
+
 ## Innate: Way of the Hunter
 
 Source: [Template:Data Yone/Way of the Hunter](https://wiki.leagueoflegends.com/en-us/Template:Data_Yone/Way_of_the_Hunter?oldid=4058456) (revision 4058456). Ranks: 1.

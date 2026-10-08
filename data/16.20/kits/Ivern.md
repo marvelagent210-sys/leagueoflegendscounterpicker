@@ -9,6 +9,22 @@ Values marked "at max rank, level 20" assume every ability is maxed; see PLAN.md
 |---|--:|--:|--:|--:|--:|--:|--:|--:|--:|--:|
 | Ivern | 2576.8 | 23.72 | 1629.9 Mana | 109.0 | 1.075 | 0.186 | 119.4 | 55.6 | 475 | 330 |
 
+## Fight profile (what the interaction ledger uses)
+
+| Form | Attack range | Ranged | Projectile | Missile speed | Attack modifiers |
+|---|--:|---|---|--:|---|
+| Ivern | 475 | yes | yes | 2000 | – |
+
+Cooldowns at max rank. Flags: the wiki's interaction flags (yes, no, partly). * marks an effect that applies only under a condition.
+
+| Slot | Ability | Cooldown | Delivery | Applies to the enemy | Movement | Gives itself |
+|---|---|--:|---|---|---|---|
+| E | Triggerseed | 7 | spell shield yes | slow 2 s 60% | – | shield 2 s |
+| I | Friend of the Forest | – | disruptable yes | – | – | – |
+| Q | Rootcaller | 10 | projectile yes; spell shield yes; grounded partly; knockdown yes | root 2 s | dash (when clicking a rooted target) | – |
+| R | Daisy! | 120 | – | airborne (knock up); stun | – | – |
+| W | Brushmaker | 20 | projectile yes; spell shield no; parry yes | – | – | – |
+
 ## Innate: Friend of the Forest
 
 Source: [Template:Data Ivern/Friend of the Forest](https://wiki.leagueoflegends.com/en-us/Template:Data_Ivern/Friend_of_the_Forest?oldid=4038386) (revision 4038386). Ranks: 1.

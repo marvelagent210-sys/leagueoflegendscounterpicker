@@ -9,6 +9,22 @@ Values marked "at max rank, level 20" assume every ability is maxed; see PLAN.md
 |---|--:|--:|--:|--:|--:|--:|--:|--:|--:|--:|
 | Zoe | 2714.5 | 19.30 | 916.6 Mana | 122.9 | 0.965 | 0.167 | 113.4 | 55.6 | 550 | 340 |
 
+## Fight profile (what the interaction ledger uses)
+
+| Form | Attack range | Ranged | Projectile | Missile speed | Attack modifiers |
+|---|--:|---|---|--:|---|
+| Zoe | 550 | yes | yes | 1600 | More Sparkles! |
+
+Cooldowns at max rank. Flags: the wiki's interaction flags (yes, no, partly). * marks an effect that applies only under a condition.
+
+| Slot | Ability | Cooldown | Delivery | Applies to the enemy | Movement | Gives itself |
+|---|---|--:|---|---|---|---|
+| E | Sleepy Trouble Bubble | 14 | projectile yes; spell shield partly | sleep 2.25 s; slow 2.25 s 30%; drowsy 1.4 s | – | – |
+| I | More Sparkles! | – | projectile no; spell shield no; parry yes; attack modifier | – | – | – |
+| Q | Paddle Star! | 6.5 | projectile yes; spell shield yes | – | – | – |
+| R | Portal Jump | 5 | grounded yes | – | blink | – |
+| W | Spell Thief | 0.25 | projectile yes; spell shield yes | – | – | – |
+
 ## Innate: More Sparkles!
 
 Source: [Template:Data Zoe/More Sparkles!](https://wiki.leagueoflegends.com/en-us/Template:Data_Zoe/More_Sparkles!?oldid=3986875) (revision 3986875). Ranks: 1.

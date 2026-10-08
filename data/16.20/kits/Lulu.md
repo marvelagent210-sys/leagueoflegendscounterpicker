@@ -9,6 +9,22 @@ Values marked "at max rank, level 20" assume every ability is maxed; see PLAN.md
 |---|--:|--:|--:|--:|--:|--:|--:|--:|--:|--:|
 | Lulu | 2374.2 | 17.80 | 1431.6 Mana | 98.1 | 0.902 | 0.208 | 116.5 | 55.6 | 550 | 330 |
 
+## Fight profile (what the interaction ledger uses)
+
+| Form | Attack range | Ranged | Projectile | Missile speed | Attack modifiers |
+|---|--:|---|---|--:|---|
+| Lulu | 550 | yes | yes | 1450 | Pix, Faerie Companion |
+
+Cooldowns at max rank. Flags: the wiki's interaction flags (yes, no, partly). * marks an effect that applies only under a condition.
+
+| Slot | Ability | Cooldown | Delivery | Applies to the enemy | Movement | Gives itself |
+|---|---|--:|---|---|---|---|
+| E | Help, Pix! | 8 | projectile no; spell shield partly | reveal | – | – |
+| I | Pix, Faerie Companion | – | projectile yes; parry no; attack modifier | – | – | – |
+| Q | Glitterlance | 7 | projectile yes; spell shield yes | slow 2 s 80% | – | – |
+| R | Wild Growth | 80 | spell shield yes | airborne (knock up) 1 s; slow 0.25 s 60% | – | – |
+| W | Whimsy | 18 | projectile yes; spell shield yes | disarm 2 s; polymorph 2 s; slow | – | – |
+
 ## Innate: Pix, Faerie Companion
 
 Source: [Template:Data Lulu/Pix, Faerie Companion](https://wiki.leagueoflegends.com/en-us/Template:Data_Lulu/Pix,_Faerie_Companion?oldid=4046485) (revision 4046485). Ranks: 1.

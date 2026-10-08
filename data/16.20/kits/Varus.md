@@ -9,6 +9,22 @@ Values marked "at max rank, level 20" assume every ability is maxed; see PLAN.md
 |---|--:|--:|--:|--:|--:|--:|--:|--:|--:|--:|
 | Varus | 2664.8 | 14.32 | 1106.6 Mana | 125.9 | 1.111 | 0.158 | 102.7 | 54.6 | 575 | 330 |
 
+## Fight profile (what the interaction ledger uses)
+
+| Form | Attack range | Ranged | Projectile | Missile speed | Attack modifiers |
+|---|--:|---|---|--:|---|
+| Varus | 575 | yes | yes | 2000 | – |
+
+Cooldowns at max rank. Flags: the wiki's interaction flags (yes, no, partly). * marks an effect that applies only under a condition.
+
+| Slot | Ability | Cooldown | Delivery | Applies to the enemy | Movement | Gives itself |
+|---|---|--:|---|---|---|---|
+| E | Hail of Arrows | 10 | projectile yes; spell shield yes | slow 50%; grievous wounds | – | – |
+| I | Living Vengeance | – | – | – | – | – |
+| Q | Piercing Arrow | 12 | projectile yes; spell shield yes; disruptable yes | – | – | – |
+| R | Chain of Corruption | 60 | projectile yes; spell shield yes | root 2 s | – | – |
+| W | Blighted Quiver | 40 | spell shield partly; parry yes; on-hit | – | – | – |
+
 ## Innate: Living Vengeance
 
 Source: [Template:Data Varus/Living Vengeance](https://wiki.leagueoflegends.com/en-us/Template:Data_Varus/Living_Vengeance?oldid=4026465) (revision 4026465). Ranks: 1.

@@ -1,0 +1,251 @@
+{
+  "champion": "Lillia",
+  "name": "Lillia",
+  "gameplayRadius": 65,
+  "moveSpeed": 330,
+  "attacks": [
+    {
+      "form": "lillia",
+      "formName": "Lillia",
+      "range": 325,
+      "ranged": false,
+      "projectile": false,
+      "attackSpeed": 0.956847,
+      "attackDamage": 121.962,
+      "windup": 0.153691,
+      "modifiers": []
+    }
+  ],
+  "abilities": [
+    {
+      "champion": "Lillia",
+      "kind": "E",
+      "name": "Swirlseed",
+      "page": {
+        "title": "Template:Data Lillia/Swirlseed",
+        "revid": 4007662
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "location"
+        ],
+        "affectsEnemies": true,
+        "projectile": "partly",
+        "spellShield": "partly"
+      },
+      "applies": [
+        {
+          "type": "slow",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "slow"
+            },
+            {
+              "page": "Template:Data Lillia/Swirlseed",
+              "revid": 4007662,
+              "quote": "The seed detonates upon hitting an enemy or terrain while on the ground, dealing magic damage to enemies in a cone, slowing them by 40% for 3 seconds and revealing them for 2 seconds."
+            }
+          ],
+          "duration": 3,
+          "amount": 40
+        }
+      ],
+      "movement": [],
+      "states": [],
+      "cooldown": 12,
+      "castTime": 0.4,
+      "range": 700,
+      "speed": 5000,
+      "notes": [
+        "Swirlseed's origin is determined from Lillia's position at the start of cast, the rolling direction is determined from Lillia's position at the end of cast (when the projectile is created, not when the seed starts rolling).",
+        "Spell shield does not prevent the seed from detonating thus striking nearby targets.",
+        "Projectile destroying effects will still make the rolling seed detonate upon colliding with them, but not when the initial arcing missile is destroyed.\n  - If Unbreakable blocks the initial projectile, it is destroyed and deals 0 damage to him, as well as not triggering the cone-shaped area of effect."
+      ]
+    },
+    {
+      "champion": "Lillia",
+      "kind": "I",
+      "name": "Dream-Laden Bough",
+      "page": {
+        "title": "Template:Data Lillia/Dream-Laden Bough",
+        "revid": 4038402
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "passive"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "yes"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [
+        {
+          "state": "heal",
+          "evidence": [
+            {
+              "page": "Template:Data Lillia/Dream-Laden Bough",
+              "revid": 4038402,
+              "quote": "Lillia heals herself for 39 (+ 15% AP) against large monsters and 6 – 90 (based on level) (+ 30% AP) against champions over the duration of Dream Dust, reduced to 15% effectiveness for each target afflicted beyond the first."
+            }
+          ]
+        }
+      ],
+      "notes": [
+        "Dream Dust is applied even if the target takes no damage from an ability, e.g. by being shielded or invulnerable, but not when the ability hit is prevented in the first place (e.g. spell shield)."
+      ]
+    },
+    {
+      "champion": "Lillia",
+      "kind": "Q",
+      "name": "Blooming Blows",
+      "page": {
+        "title": "Template:Data Lillia/Blooming Blows",
+        "revid": 4007646
+      },
+      "damageTypes": [
+        "magic",
+        "true"
+      ],
+      "delivery": {
+        "targeting": [
+          "auto"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "yes"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "cooldown": 4,
+      "castTime": 0.25,
+      "notes": [
+        "Spell shield will not prevent Lillia from gaining a Prance stack."
+      ]
+    },
+    {
+      "champion": "Lillia",
+      "kind": "R",
+      "name": "Lilting Lullaby",
+      "page": {
+        "title": "Template:Data Lillia/Lilting Lullaby",
+        "revid": 4078262
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "auto"
+        ],
+        "affectsEnemies": true,
+        "projectile": "yes",
+        "spellShield": "partly"
+      },
+      "applies": [
+        {
+          "type": "sleep",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "sleep"
+            },
+            {
+              "page": "Template:Data Lillia/Lilting Lullaby",
+              "revid": 4078262,
+              "quote": "The next instance of non-persistent damage that a sleeping target takes from champions, large monsters or turrets consumes the debuff to deal additional magic damage."
+            }
+          ],
+          "duration": 3
+        },
+        {
+          "type": "slow",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "slow"
+            },
+            {
+              "page": "Template:Data Lillia/Lilting Lullaby",
+              "revid": 4078262,
+              "quote": "Active: Lillia casts a magical lullaby over all enemy champions affected by Dream Dust, which arrives after 0.3 seconds and renders them drowsy for 1.5 seconds, slowing them by 10%."
+            }
+          ],
+          "amount": 10
+        },
+        {
+          "type": "drowsy",
+          "evidence": [
+            {
+              "page": "Template:Data Lillia/Lilting Lullaby",
+              "revid": 4078262,
+              "quote": "Active: Lillia casts a magical lullaby over all enemy champions affected by Dream Dust, which arrives after 0.3 seconds and renders them drowsy for 1.5 seconds, slowing them by 10%."
+            }
+          ],
+          "duration": 1.5
+        }
+      ],
+      "movement": [],
+      "states": [],
+      "cooldown": 110,
+      "castTime": 0.4,
+      "notes": [
+        "Spell shield will not prevent falling asleep nor block the wake-up damage.\n  - The lullaby's drowsy application will be blocked.",
+        "Lilting Lullaby's missile will not hit a target that becomes untargetable during the cast time or while it is travelling, or is in another realm."
+      ]
+    },
+    {
+      "champion": "Lillia",
+      "kind": "W",
+      "name": "Watch Out! Eep!",
+      "page": {
+        "title": "Template:Data Lillia/Watch Out! Eep!",
+        "revid": 4007660
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "location"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "yes",
+        "grounded": "yes",
+        "knockdown": "yes"
+      },
+      "applies": [],
+      "movement": [
+        {
+          "type": "dash",
+          "evidence": [
+            {
+              "page": "Dash",
+              "revid": 4035700,
+              "quote": "location-targeted"
+            }
+          ],
+          "targeting": "location-targeted",
+          "interruptible": true
+        }
+      ],
+      "states": [],
+      "cooldown": 10,
+      "castTime": 0,
+      "range": 500,
+      "notes": [
+        "Lillia dashes to her target location over 0.6 to 0.767 seconds, but cannot move before the strike goes off at 0.767 seconds, regardless."
+      ]
+    }
+  ]
+}

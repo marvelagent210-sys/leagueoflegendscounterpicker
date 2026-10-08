@@ -1,0 +1,316 @@
+{
+  "champion": "Nautilus",
+  "name": "Nautilus",
+  "gameplayRadius": 80,
+  "moveSpeed": 325,
+  "attacks": [
+    {
+      "form": "nautilus",
+      "formName": "Nautilus",
+      "range": 175,
+      "ranged": false,
+      "projectile": false,
+      "attackSpeed": 0.82635,
+      "attackDamage": 122.895,
+      "windup": 0.370754,
+      "modifiers": [
+        "Staggering Blow"
+      ]
+    }
+  ],
+  "abilities": [
+    {
+      "champion": "Nautilus",
+      "kind": "E",
+      "name": "Riptide",
+      "page": {
+        "title": "Template:Data Nautilus/Riptide",
+        "revid": 4007701
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "auto"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "yes"
+      },
+      "applies": [
+        {
+          "type": "slow",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "slow"
+            },
+            {
+              "page": "Template:Data Nautilus/Riptide",
+              "revid": 4007701,
+              "quote": "Each wave deals magic damage to enemies hit, reduced to 50% against those hit by subsequent waves beyond the first, and slows them by an amount that decays over 1.5 seconds."
+            }
+          ],
+          "duration": 1.5,
+          "amount": 50
+        }
+      ],
+      "movement": [],
+      "states": [],
+      "cooldown": 5,
+      "castTime": 0.25
+    },
+    {
+      "champion": "Nautilus",
+      "kind": "I",
+      "name": "Staggering Blow",
+      "page": {
+        "title": "Template:Data Nautilus/Staggering Blow",
+        "revid": 4072880
+      },
+      "damageTypes": [
+        "physical"
+      ],
+      "delivery": {
+        "targeting": [
+          "passive"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "partly",
+        "parry": "yes",
+        "attack": "attack modifier"
+      },
+      "applies": [
+        {
+          "type": "root",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "root"
+            },
+            {
+              "page": "Template:Data Nautilus/Staggering Blow",
+              "revid": 4072880,
+              "quote": "Innate: Nautilus' basic attacks are empowered to deal 14 – 116 (based on level) bonus physical damage and root the target for 0.75 / 1 / 1.25 / 1.5 (based on level) seconds."
+            }
+          ],
+          "duration": 1.5
+        }
+      ],
+      "movement": [],
+      "states": [],
+      "notes": [
+        "Spell shield will block the root but not the bonus damage.",
+        "Staggering Blow's enhanced attack can be blocked and dodged (the on-target cooldown will still be applied).\n  - It will fail to trigger while he is blinded."
+      ]
+    },
+    {
+      "champion": "Nautilus",
+      "kind": "Q",
+      "name": "Dredge Line",
+      "page": {
+        "title": "Template:Data Nautilus/Dredge Line",
+        "revid": 4060365
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "direction"
+        ],
+        "affectsEnemies": true,
+        "projectile": "yes",
+        "spellShield": "partly",
+        "grounded": "yes",
+        "knockdown": "yes"
+      },
+      "applies": [
+        {
+          "type": "airborne",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "airborne: pull"
+            },
+            {
+              "page": "Template:Data Nautilus/Dredge Line",
+              "revid": 4060365,
+              "quote": "If the anchor hits an enemy, it deals magic damage, reveals them for 1.15 seconds, stuns them for 1 second, and drags them toward Nautilus while he also dashes toward them, both over 0.9 seconds."
+            }
+          ],
+          "variant": "pull",
+          "duration": 0.9,
+          "condition": "If the anchor hits an enemy, it deals magic damage, reveals them for 1.15 seconds, stuns them for 1 second, and drags them toward Nautilus while he also dashes toward them, both over 0.9 seconds."
+        },
+        {
+          "type": "stun",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "stun"
+            },
+            {
+              "page": "Template:Data Nautilus/Dredge Line",
+              "revid": 4060365,
+              "quote": "If the anchor hits an enemy, it deals magic damage, reveals them for 1.15 seconds, stuns them for 1 second, and drags them toward Nautilus while he also dashes toward them, both over 0.9 seconds."
+            }
+          ],
+          "duration": 1,
+          "condition": "If the anchor hits an enemy, it deals magic damage, reveals them for 1.15 seconds, stuns them for 1 second, and drags them toward Nautilus while he also dashes toward them, both over 0.9 seconds."
+        }
+      ],
+      "movement": [
+        {
+          "type": "dash",
+          "evidence": [
+            {
+              "page": "Dash",
+              "revid": 4035700,
+              "quote": "auto-targeted; (when hitting a unit)"
+            }
+          ],
+          "targeting": "auto-targeted",
+          "condition": "(when hitting a unit)",
+          "interruptible": true
+        },
+        {
+          "type": "dash",
+          "evidence": [
+            {
+              "page": "Dash",
+              "revid": 4035700,
+              "quote": "terrain-targeted"
+            }
+          ],
+          "targeting": "terrain-targeted",
+          "interruptible": true
+        }
+      ],
+      "states": [],
+      "cooldown": 10,
+      "castTime": 0.25,
+      "range": 1122,
+      "speed": 2000,
+      "notes": [
+        "Nautilus will dash all the way to the target's location if Dredge Line executed them or they negated the displacement.",
+        "Dredge Line will not interrupt any movement commands Nautilus was issued pre-cast so long as their directions somewhat correlate (this is intentional to smooth out traveling/escaping).",
+        "Spell shield will block the ability but Nautilus will still dash partway to the target.",
+        "The anchor projectile will stop if Nautilus dies while the projectile is traveling. Enemies hit will still be dealt damage. The drag and root are not applied if Nautilus did not initiate the dash.",
+        "Displacement immunity will not resist the application of the stun."
+      ]
+    },
+    {
+      "champion": "Nautilus",
+      "kind": "R",
+      "name": "Depth Charge",
+      "page": {
+        "title": "Template:Data Nautilus/Depth Charge",
+        "revid": 4007702
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "unit"
+        ],
+        "affectsEnemies": true,
+        "projectile": "no",
+        "spellShield": "yes"
+      },
+      "applies": [
+        {
+          "type": "airborne",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "airborne: knock up"
+            },
+            {
+              "page": "Template:Data Nautilus/Depth Charge",
+              "revid": 4007702,
+              "quote": "Enemies hit by the eruptions are dealt magic damage, knocked up for 1 second, and stunned for a duration."
+            }
+          ],
+          "variant": "knock up",
+          "duration": 1
+        },
+        {
+          "type": "stun",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "stun"
+            },
+            {
+              "page": "Template:Data Nautilus/Depth Charge",
+              "revid": 4007702,
+              "quote": "Enemies hit by the eruptions are dealt magic damage, knocked up for 1 second, and stunned for a duration."
+            }
+          ],
+          "duration": 1
+        }
+      ],
+      "movement": [],
+      "states": [],
+      "cooldown": 80,
+      "castTime": 0.46,
+      "range": 825,
+      "speed": 275,
+      "notes": [
+        "Depth Charge will not stop chasing if the target dies or becomes untargetable.",
+        "Displacement immunity will not resist the application of the stun.",
+        "If the target becomes untargetable, dies, or is too far away or no longer in sight during the cast time, this ability will cancel but does not go on cooldown nor pay its cost (if applicable)."
+      ]
+    },
+    {
+      "champion": "Nautilus",
+      "kind": "W",
+      "name": "Titan's Wrath",
+      "page": {
+        "title": "Template:Data Nautilus/Titan's Wrath",
+        "revid": 3981480
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "auto"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "partly",
+        "parry": "partly"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [
+        {
+          "state": "shield",
+          "evidence": [
+            {
+              "page": "Template:Data Nautilus/Titan's Wrath",
+              "revid": 3981480,
+              "quote": "Active: Nautilus grants himself a shield for 6 seconds, and while it holds, his basic attacks are empowered to apply Pain of Wrath to the target and enemies near them."
+            }
+          ],
+          "duration": 6
+        }
+      ],
+      "cooldown": 12,
+      "castTime": 0,
+      "boostsAttacks": true,
+      "notes": [
+        "Pain of Wrath will not be applied if the basic attack is dodged or blocked, but will be applied if it is missed.",
+        "Spell shield will block the ability (but only a single application)."
+      ]
+    }
+  ]
+}

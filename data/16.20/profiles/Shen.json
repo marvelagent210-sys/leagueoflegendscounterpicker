@@ -1,0 +1,273 @@
+{
+  "champion": "Shen",
+  "name": "Shen",
+  "gameplayRadius": 65,
+  "moveSpeed": 340,
+  "attacks": [
+    {
+      "form": "shen",
+      "formName": "Shen",
+      "range": 125,
+      "ranged": false,
+      "projectile": false,
+      "attackSpeed": 1.13506,
+      "attackDamage": 122.995,
+      "windup": 0.15295,
+      "modifiers": []
+    }
+  ],
+  "abilities": [
+    {
+      "champion": "Shen",
+      "kind": "E",
+      "name": "Shadow Dash",
+      "page": {
+        "title": "Template:Data Shen/Shadow Dash",
+        "revid": 4007754
+      },
+      "damageTypes": [
+        "physical"
+      ],
+      "delivery": {
+        "targeting": [
+          "location"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "yes",
+        "grounded": "yes",
+        "knockdown": "yes"
+      },
+      "applies": [
+        {
+          "type": "taunt",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "taunt"
+            },
+            {
+              "page": "Template:Data Shen/Shadow Dash",
+              "revid": 4007754,
+              "quote": "Active: Shen dashes to the target location, dealing physical damage to enemy champions and monsters he passes through and taunting them for 1.5 seconds."
+            }
+          ],
+          "duration": 1.5
+        }
+      ],
+      "movement": [
+        {
+          "type": "dash",
+          "evidence": [
+            {
+              "page": "Dash",
+              "revid": 4035700,
+              "quote": "location-targeted"
+            }
+          ],
+          "targeting": "location-targeted",
+          "interruptible": true
+        }
+      ],
+      "states": [],
+      "cooldown": 10,
+      "castTime": 0,
+      "range": 300,
+      "speed": 800,
+      "notes": [
+        "Casting Flash during Shadow Dash will end the dash prematurely, but the end-of-dash collision check will hit enemies at the blink's location still.\n  - This still cannot affect the same enemy more than once.",
+        "The energy restore from Shadow Dash may only occur once."
+      ]
+    },
+    {
+      "champion": "Shen",
+      "kind": "I",
+      "name": "Ki Barrier",
+      "page": {
+        "title": "Template:Data Shen/Ki Barrier",
+        "revid": 3985839
+      },
+      "damageTypes": [],
+      "delivery": {
+        "targeting": [
+          "passive"
+        ],
+        "affectsEnemies": false
+      },
+      "applies": [],
+      "movement": [],
+      "states": [
+        {
+          "state": "shield",
+          "evidence": [
+            {
+              "page": "Template:Data Shen/Ki Barrier",
+              "revid": 3985839,
+              "quote": "Innate: After completing an ability's effects, Shen grants himself a shield for 47 – 120 (based on level) (+ 13% bonus health) for 2.5 seconds."
+            }
+          ],
+          "duration": 2.5
+        }
+      ],
+      "cooldown": 11,
+      "notes": [
+        "Spirit's Refuge will grant the shield and/or the cooldown reduction after the protective zone disappears. It does not need to block attacks to trigger the cooldown reduction, just touch an ally champion at any point of the duration.",
+        "Shadow Dash will grant the shield when the dash ends. It will grant the cooldown reduction upon hitting an enemy champion.\n  - If the dash is interrupted, the shield will instead be received the moment the crowd control source is applied, before damage calculation (if any).",
+        "Stand United will give the shield and/or the cooldown reduction upon completing the channel."
+      ]
+    },
+    {
+      "champion": "Shen",
+      "kind": "Q",
+      "name": "Twilight Assault",
+      "page": {
+        "title": "Template:Data Shen/Twilight Assault",
+        "revid": 4008038
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "auto"
+        ],
+        "affectsEnemies": true,
+        "projectile": "partly",
+        "spellShield": "yes",
+        "parry": "yes",
+        "attack": "attack"
+      },
+      "applies": [
+        {
+          "type": "slow",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "slow"
+            },
+            {
+              "page": "Template:Data Shen/Twilight Assault",
+              "revid": 4008038,
+              "quote": "Enemy champions hit by the Spirit Blade along its path are slowed for the next 2 seconds while moving away from Shen."
+            }
+          ],
+          "duration": 2,
+          "amount": 45
+        }
+      ],
+      "movement": [],
+      "states": [],
+      "cooldown": 5,
+      "castTime": 0,
+      "speed": 2000,
+      "boostsAttacks": true,
+      "notes": [
+        "The Spirit Blade will stop in place upon colliding with projectile-intercepting effects. If this occurs, Shen will not gain the empowered attacks as the Spirit Blade failed to complete its travel to him.",
+        "When it is recalled, the Spirit Blade also checks for units whose gameplay radius it overlaps with (equal to a 0 radius check) before flying off, allowing it to hit enemies whose center is behind the missile origin."
+      ]
+    },
+    {
+      "champion": "Shen",
+      "kind": "R",
+      "name": "Stand United",
+      "page": {
+        "title": "Template:Data Shen/Stand United",
+        "revid": 4004939
+      },
+      "damageTypes": [],
+      "delivery": {
+        "targeting": [
+          "unit"
+        ],
+        "affectsEnemies": false,
+        "grounded": "yes",
+        "disruptable": "yes"
+      },
+      "applies": [],
+      "movement": [
+        {
+          "type": "blink",
+          "evidence": [
+            {
+              "page": "Blink",
+              "revid": 4047228
+            }
+          ]
+        }
+      ],
+      "states": [
+        {
+          "state": "shield",
+          "evidence": [
+            {
+              "page": "Template:Data Shen/Stand United",
+              "revid": 4004939,
+              "quote": "Active: Shen focuses his will, channeling for 3 seconds and granting the target allied champion a shield for 5 seconds at the time of cast, increased by 0 / 10 / 20 / 30 / 40 / 50 / 60 (based on target's missing health)%."
+            }
+          ],
+          "duration": 5
+        }
+      ],
+      "cooldown": 160,
+      "castTime": 0,
+      "channel": [
+        {
+          "type": "movement",
+          "evidence": [
+            {
+              "page": "Channel",
+              "revid": 4002276,
+              "quote": "movement"
+            }
+          ]
+        }
+      ],
+      "notes": [
+        "Stand United can target allies via the mini map or on their portraits or by using the F2 - F5 keys (none of this can be done if Shen is affected by nearsight or his target is untargetable).",
+        "Shen will turn to face towards his target ally at the start of the channel.\n  - If the target is stealthed, enemies could, in theory, use this to estimate their location.",
+        "Shen will channel so long as his target is alive (even if the granted shield is broken). If his target dies, the channel is canceled and Stand United goes on full cooldown.\n  - Interrupting Stand United's channel will not remove the shield prematurely.",
+        "The target's screen will glow purple to telegraph that Shen has targeted them with Stand United.\n  - It will change back when the channel ends.",
+        "Shen finds the nearest visible enemy champion within 2000 range from the ally or the nearest invisible champion within 600 range to place himself 175 units from his ally towards that enemy.",
+        "Experimental Hexplate Overdrive, Fiendhunter Bolts Opening Barrage, and Zeke's Convergence Frostfire Tempest will activate at the end of Stand United's channel.",
+        "The following table refers for interactions while Shen is channeling:"
+      ]
+    },
+    {
+      "champion": "Shen",
+      "kind": "W",
+      "name": "Spirit's Refuge",
+      "page": {
+        "title": "Template:Data Shen/Spirit's Refuge",
+        "revid": 3977238
+      },
+      "damageTypes": [],
+      "delivery": {
+        "targeting": [
+          "auto"
+        ],
+        "affectsEnemies": false
+      },
+      "applies": [],
+      "movement": [],
+      "states": [
+        {
+          "state": "block attacks",
+          "evidence": [
+            {
+              "page": "Template:Data Shen/Spirit's Refuge",
+              "revid": 3977238,
+              "quote": "After 2 seconds, or when Shen or an allied champion enters the area, the Spirit Blade generates a protective zone for 1.75 seconds, blocking all non-turret basic attacks that hit Shen or allied champions in the area."
+            }
+          ],
+          "duration": 1.75
+        }
+      ],
+      "cooldown": 10,
+      "castTime": 0,
+      "notes": [
+        "Spirit's Refuge will also block damage from all abilities that use basic damage (Lunge, Mystic Shot, Steel Tempest)."
+      ]
+    }
+  ]
+}

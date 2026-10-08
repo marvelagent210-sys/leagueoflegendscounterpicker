@@ -9,6 +9,22 @@ Values marked "at max rank, level 20" assume every ability is maxed; see PLAN.md
 |---|--:|--:|--:|--:|--:|--:|--:|--:|--:|--:|
 | Teemo | 2660.2 | 18.28 | 825.6 Mana | 113.0 | 1.149 | 0.174 | 112.5 | 55.6 | 500 | 330 |
 
+## Fight profile (what the interaction ledger uses)
+
+| Form | Attack range | Ranged | Projectile | Missile speed | Attack modifiers |
+|---|--:|---|---|--:|---|
+| Teemo | 500 | yes | yes | 1500 | Toxic Shot |
+
+Cooldowns at max rank. Flags: the wiki's interaction flags (yes, no, partly). * marks an effect that applies only under a condition.
+
+| Slot | Ability | Cooldown | Delivery | Applies to the enemy | Movement | Gives itself |
+|---|---|--:|---|---|---|---|
+| E | Toxic Shot | – | spell shield no; parry yes; attack modifier | – | – | – |
+| I | Guerrilla Warfare | – | – | – | – | invisible |
+| Q | Blinding Dart | 7 | projectile yes; spell shield yes | blind 3 s | – | – |
+| R | Noxious Trap | 25 | projectile yes; spell shield partly | slow 4 s 50% | – | – |
+| W | Move Quick | 14 | – | – | – | – |
+
 ## Innate: Guerrilla Warfare
 
 Source: [Template:Data Teemo/Guerrilla Warfare](https://wiki.leagueoflegends.com/en-us/Template:Data_Teemo/Guerrilla_Warfare?oldid=4010103) (revision 4010103). Ranks: 1.

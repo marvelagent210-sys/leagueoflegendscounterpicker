@@ -9,6 +9,22 @@ Values marked "at max rank, level 20" assume every ability is maxed; see PLAN.md
 |---|--:|--:|--:|--:|--:|--:|--:|--:|--:|--:|
 | Taliyah | 2595.2 | 19.28 | 1060.0 Mana | 122.9 | 0.825 | 0.196 | 110.4 | 53.6 | 525 | 330 |
 
+## Fight profile (what the interaction ledger uses)
+
+| Form | Attack range | Ranged | Projectile | Missile speed | Attack modifiers |
+|---|--:|---|---|--:|---|
+| Taliyah | 525 | yes | yes | 2100 | – |
+
+Cooldowns at max rank. Flags: the wiki's interaction flags (yes, no, partly). * marks an effect that applies only under a condition.
+
+| Slot | Ability | Cooldown | Delivery | Applies to the enemy | Movement | Gives itself |
+|---|---|--:|---|---|---|---|
+| E | Unraveled Earth | 14 | projectile no; spell shield yes | slow 20%; stun 0.75 s; airborne 0.75 s | – | – |
+| I | Rock Surfing | 2 | – | – | – | – |
+| Q | Threaded Volley | 3 | projectile yes; spell shield partly | slow 1.5 s 40% | – | – |
+| R | Weaver's Wall | 120 | projectile yes; spell shield no; grounded partly; knockdown yes; disruptable yes | airborne (knock aside) | dash (second cast while channeling) | – |
+| W | Seismic Shove | 8 | spell shield yes | airborne (knock aside, knock back, pull) 1 s | – | – |
+
 ## Innate: Rock Surfing
 
 Source: [Template:Data Taliyah/Rock Surfing](https://wiki.leagueoflegends.com/en-us/Template:Data_Taliyah/Rock_Surfing?oldid=3986175) (revision 3986175). Ranks: 1.

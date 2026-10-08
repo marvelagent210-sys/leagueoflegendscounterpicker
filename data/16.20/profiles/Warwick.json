@@ -1,0 +1,407 @@
+{
+  "champion": "Warwick",
+  "name": "Warwick",
+  "gameplayRadius": 74.75,
+  "moveSpeed": 335,
+  "attacks": [
+    {
+      "form": "warwick",
+      "formName": "Warwick",
+      "range": 125,
+      "ranged": false,
+      "projectile": false,
+      "attackSpeed": 0.888925,
+      "attackDamage": 114.163,
+      "windup": 0.196867,
+      "modifiers": []
+    }
+  ],
+  "abilities": [
+    {
+      "champion": "Warwick",
+      "kind": "E",
+      "name": "Primal Howl",
+      "page": {
+        "title": "Template:Data Warwick/Primal Howl",
+        "revid": 4047663
+      },
+      "damageTypes": [],
+      "delivery": {
+        "targeting": [
+          "auto"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "yes"
+      },
+      "applies": [
+        {
+          "type": "fear",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "fear"
+            },
+            {
+              "page": "Template:Data Warwick/Primal Howl",
+              "revid": 4047663,
+              "quote": "Recast: Warwick howls, ending Primal Howl's effects and fearing nearby enemies for 1 second, slowing them by 90%."
+            }
+          ],
+          "duration": 1
+        },
+        {
+          "type": "slow",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "slow"
+            },
+            {
+              "page": "Template:Data Warwick/Primal Howl",
+              "revid": 4047663,
+              "quote": "Recast: Warwick howls, ending Primal Howl's effects and fearing nearby enemies for 1 second, slowing them by 90%."
+            }
+          ],
+          "amount": 90
+        }
+      ],
+      "movement": [],
+      "states": [],
+      "cooldown": 11,
+      "castTime": 0,
+      "boostsAttacks": true
+    },
+    {
+      "champion": "Warwick",
+      "kind": "I",
+      "name": "Eternal Hunger",
+      "page": {
+        "title": "Template:Data Warwick/Eternal Hunger",
+        "revid": 4051829
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "passive"
+        ],
+        "affectsEnemies": false,
+        "spellShield": "no",
+        "parry": "yes",
+        "attack": "on-hit"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [
+        {
+          "state": "heal",
+          "evidence": [
+            {
+              "page": "Template:Data Warwick/Eternal Hunger",
+              "revid": 4051829,
+              "quote": "While below 50% maximum health, Warwick also heals for 100% of the post-mitigation damage dealt by Eternal Hunger, increased to 250% while below 25% maximum health."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "champion": "Warwick",
+      "kind": "Q",
+      "name": "Jaws of the Beast",
+      "page": {
+        "title": "Template:Data Warwick/Jaws of the Beast",
+        "revid": 4007380
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "unit"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "yes",
+        "parry": "yes",
+        "grounded": "partly",
+        "knockdown": "partly",
+        "disruptable": "yes",
+        "attack": "on-hit"
+      },
+      "applies": [],
+      "movement": [
+        {
+          "type": "dash",
+          "evidence": [
+            {
+              "page": "Dash",
+              "revid": 4035700,
+              "quote": "auto-targeted; (when held)"
+            }
+          ],
+          "targeting": "auto-targeted",
+          "condition": "(when held)"
+        },
+        {
+          "type": "lunge",
+          "evidence": [
+            {
+              "page": "Dash",
+              "revid": 4035700,
+              "quote": "(before holding down the key)"
+            }
+          ],
+          "condition": "(before holding down the key)"
+        }
+      ],
+      "states": [
+        {
+          "state": "heal",
+          "evidence": [
+            {
+              "page": "Template:Data Warwick/Jaws of the Beast",
+              "revid": 4007380,
+              "quote": "Active: Warwick lunges at the target enemy over 0.264 and bites them, dealing magic damage, healing himself for a percentage of the post-mitigation damage dealt, applying on-hit effects and life steal, and triggering on-attack effects."
+            },
+            {
+              "page": "Template:Data Warwick/Jaws of the Beast",
+              "revid": 4007380,
+              "quote": "Active: Warwick lunges at the target enemy over 0.264 and bites them, dealing magic damage, healing himself for a percentage of the post-mitigation damage dealt, applying on-hit effects and life steal, and triggering on-attack effects."
+            }
+          ]
+        },
+        {
+          "state": "displacement immune",
+          "evidence": [
+            {
+              "page": "Template:Data Warwick/Jaws of the Beast",
+              "revid": 4007380,
+              "quote": "While Jaws of the Beast is active, Warwick is displacement immune and clamps his jaw on the target, following all of their movement."
+            }
+          ]
+        }
+      ],
+      "cooldown": 6,
+      "castTime": 0,
+      "range": 365,
+      "channel": [
+        {
+          "type": "movement",
+          "evidence": [
+            {
+              "page": "Channel",
+              "revid": 4002276,
+              "quote": "movement"
+            }
+          ]
+        },
+        {
+          "type": "charged",
+          "evidence": [
+            {
+              "page": "Channel",
+              "revid": 4002276
+            }
+          ]
+        }
+      ],
+      "notes": [
+        "The healing is calculated only from Jaws of the Beast's damage, while additional effects, such as on-hits, are not.",
+        "The lunge always places Warwick to his attack range to the center of his target, while the dash will place him up to the edge of his attack range from the target's edge.",
+        "Jaws of the Beast's channel cannot be initiated while grounded or rooted. Warwick can only use the normal cast.\n  - The channel will not be interrupted by either of the two effects, despite the lock-on being a movement channel.",
+        "Jaws of the Beast is the only ability in the game that combines channeling with displacement immunity. Every interrupting crowd control effect that is not resisted by the displacement immunity will prematurely stop the dash.\n  - The bite can still occur if cast before the crowd control application, but Warwick cannot start channeling.\n  - Abilities that apply both stun and airborne at the same time will cause Warwick to ignore the displacement, but prematurely stop the channel and the dash.\n    - This occurs unless the ability's stun portion is able to be resisted by displacement immunity, in which case Warwick will ignore both the displacement and the stun and be able to continue the channel and dash.",
+        "The following table refers for interactions while Warwick is channeling:\n  - Flash, Teleport, Hexflash, and Recall are disabled during the first 0.4 seconds of the channel."
+      ]
+    },
+    {
+      "champion": "Warwick",
+      "kind": "R",
+      "name": "Infinite Duress",
+      "page": {
+        "title": "Template:Data Warwick/Infinite Duress",
+        "revid": 4052859
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "direction"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "partly",
+        "parry": "yes",
+        "grounded": "yes",
+        "knockdown": "no",
+        "disruptable": "yes",
+        "attack": "on-hit"
+      },
+      "applies": [
+        {
+          "type": "knockdown",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "knockdown"
+            },
+            {
+              "page": "Template:Data Warwick/Infinite Duress",
+              "revid": 4052859,
+              "quote": "He then knocks them down and channels for up to 1.5 seconds to suppress, reveal, and deal magic damage every 0.25 seconds, revealing himself in the process."
+            }
+          ],
+          "duration": 1.5
+        },
+        {
+          "type": "suppression",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "suppression"
+            },
+            {
+              "page": "Template:Data Warwick/Infinite Duress",
+              "revid": 4052859,
+              "quote": "He then knocks them down and channels for up to 1.5 seconds to suppress, reveal, and deal magic damage every 0.25 seconds, revealing himself in the process."
+            }
+          ]
+        },
+        {
+          "type": "knockdown",
+          "evidence": [
+            {
+              "page": "Dash",
+              "revid": 4035700
+            }
+          ]
+        },
+        {
+          "type": "reveal",
+          "evidence": [
+            {
+              "page": "Template:List of true sight abilities",
+              "revid": 3860444
+            }
+          ]
+        }
+      ],
+      "movement": [
+        {
+          "type": "dash",
+          "evidence": [
+            {
+              "page": "Dash",
+              "revid": 4035700,
+              "quote": "direction-targeted"
+            }
+          ],
+          "targeting": "direction-targeted",
+          "interruptible": false
+        }
+      ],
+      "states": [
+        {
+          "state": "cc immune",
+          "evidence": [
+            {
+              "page": "Template:Data Warwick/Infinite Duress",
+              "revid": 4052859,
+              "quote": "Active: Warwick leaps in the target direction with crowd control immunity, stopping upon hitting an enemy champion."
+            }
+          ]
+        },
+        {
+          "state": "heal",
+          "evidence": [
+            {
+              "page": "Template:Data Warwick/Infinite Duress",
+              "revid": 4052859,
+              "quote": "This damage applies life steal."
+            },
+            {
+              "page": "Template:Data Warwick/Infinite Duress",
+              "revid": 4052859,
+              "quote": "This damage applies life steal."
+            },
+            {
+              "page": "Template:Data Warwick/Infinite Duress",
+              "revid": 4052859,
+              "quote": "Warwick heals for 100% of all post-mitigation damage he deals to the target during Infinite Duress."
+            }
+          ]
+        }
+      ],
+      "cooldown": 70,
+      "castTime": 0.1,
+      "range": 250,
+      "channel": [
+        {
+          "type": "normal",
+          "evidence": [
+            {
+              "page": "Channel",
+              "revid": 4002276,
+              "quote": "normal"
+            }
+          ]
+        }
+      ],
+      "notes": [
+        "Infinite Duress deals a total of 6 damage instances:\n  - The 1st, 3rd, and 5th ticks deals 2/9ths of the total damage as a single instance while applying both spell and on-hit effects, and triggering on-attack effects.\n  - The 2nd, 4th, and 6th ticks deal 1/9ths of the total damage as a single instance while applying spell effects but not on-hit effects.",
+        "If Warwick does not collide with a champion, he will slide a fixed distance past the maximum range during which he is no longer crowd control immune and unable to declare basic attacks or cast movement abilities, including Flash, but being able to cast Jaws of the Beast and Blood Hunt, with the former also interrupting the slide.\n  - Warwick is able to cast Primal Howl at any time during the dash.",
+        "Activating Zhonya's Hourglass during the dash interrupts it.",
+        "Warwick gains the cc-immunity at the start of the cast time.",
+        "Cleansing the suppression does not interrupt the channel and Warwick will continue to strike but not deal any damage.\n  - Infinite Duress is special cased to have its channel interrupted by Fate's Call.",
+        "During the suppresion, Warwick is cc-immune to E, however, he is not immune to Fling, Fling or other effects.",
+        "If the target is crowd control immune or protected by spell shield upon collision, Warwick will not start the channel.\n  - Spell shield will not prevent the effects of Infinite Duress if Warwick is already channeling.",
+        "If the target is in a zombie state, Warwick will stop the channel after ~0.5 seconds of hitting them.",
+        "Experimental Hexplate Overdrive, Fiendhunter Bolts Opening Barrage, and Zeke's Convergence Frostfire Tempest will activate at the end of the dash. If the dash collides with an enemy, the items are instead activated after 0.45 seconds into the channel, and the buff's duration is refreshed at the end of the channel.",
+        "The following table refers for interactions while Warwick is channeling:"
+      ]
+    },
+    {
+      "champion": "Warwick",
+      "kind": "W",
+      "name": "Blood Hunt",
+      "page": {
+        "title": "Template:Data Warwick/Blood Hunt",
+        "revid": 4052302
+      },
+      "damageTypes": [],
+      "delivery": {
+        "targeting": [
+          "auto"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "no"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [
+        {
+          "state": "heal",
+          "evidence": [
+            {
+              "page": "Template:Data Warwick/Blood Hunt",
+              "revid": 4052302,
+              "quote": "Passive: Warwick senses all enemy champions on the map who are damaged below 50% of their maximum health by him or an allied source, marking them with Blood Hunt until they regenerate or heal above this threshold again."
+            },
+            {
+              "page": "Template:Data Warwick/Blood Hunt",
+              "revid": 4052302,
+              "quote": "Passive: Warwick senses all enemy champions on the map who are damaged below 50% of their maximum health by him or an allied source, marking them with Blood Hunt until they regenerate or heal above this threshold again."
+            }
+          ]
+        }
+      ],
+      "cooldown": 40,
+      "castTime": 0.5,
+      "boostsAttacks": true
+    }
+  ]
+}

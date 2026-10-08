@@ -9,6 +9,22 @@ Values marked "at max rank, level 20" assume every ability is maxed; see PLAN.md
 |---|--:|--:|--:|--:|--:|--:|--:|--:|--:|--:|
 | Wukong | 2556.8 | 16.28 | 1608.2 Mana | 134.8 | 1.078 | 0.193 | 123.4 | 68.3 | 175 | 340 |
 
+## Fight profile (what the interaction ledger uses)
+
+| Form | Attack range | Ranged | Projectile | Missile speed | Attack modifiers |
+|---|--:|---|---|--:|---|
+| Wukong | 175 | no | no | – | Stone Skin |
+
+Cooldowns at max rank. Flags: the wiki's interaction flags (yes, no, partly). * marks an effect that applies only under a condition.
+
+| Slot | Ability | Cooldown | Delivery | Applies to the enemy | Movement | Gives itself |
+|---|---|--:|---|---|---|---|
+| E | Nimbus Strike | 7 | projectile no; spell shield yes; grounded yes; knockdown yes | – | dash | – |
+| I | Stone Skin | – | spell shield yes; parry yes; attack modifier | – | – | heal |
+| Q | Crushing Blow | 6 | spell shield yes; parry yes; attack | – | – | – |
+| R | Cyclone | 90 | spell shield partly | airborne (knock up) 0.6 s | – | – |
+| W | Warrior Trickster | 18 | spell shield yes; parry yes; grounded yes; knockdown yes | – | dash | invisible 1 s |
+
 ## Innate: Stone Skin
 
 Source: [Template:Data Wukong/Stone Skin](https://wiki.leagueoflegends.com/en-us/Template:Data_Wukong/Stone_Skin?oldid=3986748) (revision 3986748). Ranks: 1.
@@ -56,33 +72,6 @@ Notes:
 - The basic attack portion of Crushing Blow is tagged as both basic damage and spell damage, while the bonus damage portion is proc damage.
 - Crushing Blow triggers on structures and wards but the armor reduction is not applied.
 - Issuing a Hold command (default J) or Stop command (default S) after Crushing Blow's attack has started will cancel the animation, however the attack will still be launched and Wukong will be unable to move until that point.
-
-## W: Decoy
-
-Source: [Template:Data Wukong/Decoy](https://wiki.leagueoflegends.com/en-us/Template:Data_Wukong/Decoy?oldid=3907362) (revision 3907362). Ranks: 5.
-
-| Field | Value |
-|---|---|
-| Cooldown | 18 / 16 / 14 / 12 / 10 |
-| Cost | 50 / 55 / 60 / 65 / 70 mana |
-| Effect radius | 175 |
-
-Targeting: Auto · Affects: Enemies · Damage type: magic · Spell shield blocks it: true · Projectile: – · Parry: – · Disabled by grounded: – · Usable while knocked down: –
-
-Active: Wukong is pushed 100 units away, entering invisibility for 1.5 seconds and leaving behind a decoy of himself.
-
-- **Mechanics:** dash; invisible (1.5 s)
-
-After 1.5 seconds, the decoy performs a circular attack around itself for 0.5 seconds, dealing magic damage to all nearby enemies before disappearing.
-
-- **Magic Damage:** 70 / 115 / 160 / 205 / 250 (+ 60% AP) → at max rank, level 20: 250 (+ 60% AP)
-
-Notes:
-
-- Decoy has no cast time.
-- If the decoy is killed before it vanishes, it will not deal any damage.
-- The Decoy cannot be targeted by allies, unless it's from an auto-targeted effect (i.e Heal, Divine Judgement).
-- Killing it rewards 25 gold and 44 experience.
 
 ## W: Warrior Trickster
 

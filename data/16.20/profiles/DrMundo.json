@@ -1,0 +1,212 @@
+{
+  "champion": "DrMundo",
+  "name": "Dr. Mundo",
+  "gameplayRadius": 80,
+  "moveSpeed": 345,
+  "attacks": [
+    {
+      "form": "dr-mundo",
+      "formName": "Dr. Mundo",
+      "range": 125,
+      "ranged": false,
+      "projectile": false,
+      "attackSpeed": 1.07559,
+      "attackDamage": 110.163,
+      "windup": 0.149046,
+      "modifiers": []
+    }
+  ],
+  "abilities": [
+    {
+      "champion": "DrMundo",
+      "kind": "E",
+      "name": "Blunt Force Trauma",
+      "page": {
+        "title": "Template:Data Dr. Mundo/Blunt Force Trauma",
+        "revid": 4059881
+      },
+      "damageTypes": [
+        "physical"
+      ],
+      "delivery": {
+        "targeting": [
+          "auto"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "no",
+        "parry": "yes",
+        "attack": "attack"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "cooldown": 6,
+      "castTime": 0,
+      "range": 650,
+      "boostsAttacks": true,
+      "notes": [
+        "Targets flung away are rendered untargetable in the process."
+      ]
+    },
+    {
+      "champion": "DrMundo",
+      "kind": "I",
+      "name": "Goes Where He Pleases",
+      "page": {
+        "title": "Template:Data Dr. Mundo/Goes Where He Pleases",
+        "revid": 4038331
+      },
+      "damageTypes": [],
+      "delivery": {
+        "targeting": [
+          "passive"
+        ],
+        "affectsEnemies": false,
+        "projectile": "no"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [
+        {
+          "state": "heal",
+          "evidence": [
+            {
+              "page": "Template:Data Dr. Mundo/Goes Where He Pleases",
+              "revid": 4038331,
+              "quote": "Mundo regenerates an additional 0.4 – 2.3 (based on level)% of his maximum health every 5 seconds."
+            },
+            {
+              "page": "Template:Data Dr. Mundo/Goes Where He Pleases",
+              "revid": 4038331,
+              "quote": "Mundo can move near the canister to consume it, healing himself for 4% of his maximum health and reducing the cooldown of Goes Where He Pleases by 15 seconds."
+            }
+          ]
+        }
+      ],
+      "cooldown": 15,
+      "notes": [
+        "Upon being triggered by a hostile immobilizing effect, Goes Where He Pleases will also grant Dr. Mundo immunity to additional immobilizing effects from the same cast instance.\n  - Abilities where non-immobilizing effects and damage are nested into immobilizing ones will have them also prevented. Non-immobilizing effects and damage applied separately (the vast majority of cases) are not prevented.",
+        "Spell shield and Black Shield take priority over Goes Where He Pleases.",
+        "The canister cannot be interacted with while untargetable."
+      ]
+    },
+    {
+      "champion": "DrMundo",
+      "kind": "Q",
+      "name": "Infected Bonesaw",
+      "page": {
+        "title": "Template:Data Dr. Mundo/Infected Bonesaw",
+        "revid": 4008441
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "direction"
+        ],
+        "affectsEnemies": true,
+        "projectile": "yes",
+        "spellShield": "yes"
+      },
+      "applies": [
+        {
+          "type": "slow",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "slow"
+            },
+            {
+              "page": "Template:Data Dr. Mundo/Infected Bonesaw",
+              "revid": 4008441,
+              "quote": "Mundo throws an infected bonesaw in the target direction that deals magic damage to the first enemy hit and slows them by 40% for 2 seconds."
+            }
+          ],
+          "duration": 2,
+          "amount": 40
+        }
+      ],
+      "movement": [],
+      "states": [
+        {
+          "state": "heal",
+          "evidence": [
+            {
+              "page": "Template:Data Dr. Mundo/Infected Bonesaw",
+              "revid": 4008441,
+              "quote": "Mundo heals for 50% of the health cost, increased to 100% against champions or monsters."
+            }
+          ]
+        }
+      ],
+      "cooldown": 4,
+      "castTime": 0.25,
+      "range": 1050,
+      "speed": 2000,
+      "notes": [
+        "Spell shield blocking the ability's effects on the enemy does not prevent Dr. Mundo from receiving the health cost refund."
+      ]
+    },
+    {
+      "champion": "DrMundo",
+      "kind": "R",
+      "name": "Maximum Dosage",
+      "page": {
+        "title": "Template:Data Dr. Mundo/Maximum Dosage",
+        "revid": 4037515
+      },
+      "damageTypes": [],
+      "delivery": {
+        "targeting": [
+          "auto"
+        ],
+        "affectsEnemies": false
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "cooldown": 120,
+      "castTime": 0
+    },
+    {
+      "champion": "DrMundo",
+      "kind": "W",
+      "name": "Heart Zapper",
+      "page": {
+        "title": "Template:Data Dr. Mundo/Heart Zapper",
+        "revid": 4038332
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "auto"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "partly"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [
+        {
+          "state": "heal",
+          "evidence": [
+            {
+              "page": "Template:Data Dr. Mundo/Heart Zapper",
+              "revid": 4038332,
+              "quote": "Mundo detonates the defibrillator, dealing magic damage to nearby enemies and healing for 50% of grey health, increased to 100% if at least one enemy champion or large monster is hit."
+            }
+          ]
+        }
+      ],
+      "cooldown": 15,
+      "castTime": 0,
+      "notes": [
+        "Spell shield will only block the detonation."
+      ]
+    }
+  ]
+}

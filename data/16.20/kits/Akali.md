@@ -9,6 +9,22 @@ Values marked "at max rank, level 20" assume every ability is maxed; see PLAN.md
 |---|--:|--:|--:|--:|--:|--:|--:|--:|--:|--:|
 | Akali | 2940.1 | 26.70 | 200.0 Energy | 126.9 | 1.018 | 0.137 | 115.4 | 77.3 | 125 | 345 |
 
+## Fight profile (what the interaction ledger uses)
+
+| Form | Attack range | Ranged | Projectile | Missile speed | Attack modifiers |
+|---|--:|---|---|--:|---|
+| Akali | 125 | no | no | – | Assassin's Mark |
+
+Cooldowns at max rank. Flags: the wiki's interaction flags (yes, no, partly). * marks an effect that applies only under a condition.
+
+| Slot | Ability | Cooldown | Delivery | Applies to the enemy | Movement | Gives itself |
+|---|---|--:|---|---|---|---|
+| E | Shuriken Flip | 10 | projectile yes; spell shield yes; grounded yes; knockdown yes | reveal | dash (second cast); dash (reverse-targeted in first cast) | – |
+| I | Assassin's Mark | – | spell shield no; parry yes; attack modifier | – | – | – |
+| Q | Five Point Strike | 1.5 | projectile yes; spell shield yes | slow 0.5 s 50% | – | – |
+| R | Perfect Execution | 60 | spell shield yes; grounded yes; knockdown yes | – | dash (second cast); dash (first cast) | – |
+| W | Twilight Shroud | 16 | – | – | – | invisible 7 s |
+
 ## Innate: Assassin's Mark
 
 Source: [Template:Data Akali/Assassin's Mark](https://wiki.leagueoflegends.com/en-us/Template:Data_Akali/Assassin's_Mark?oldid=4074464) (revision 4074464). Ranks: 1.
@@ -38,30 +54,6 @@ Notes:
 - The ring will be created around the last target hit by Five Point Strike.
 - The empowered attack will trigger but not be consumed nor apply its effects against structures and wards.
 
-## Innate: Twin Disciplines
-
-Source: [Template:Data Akali/Twin Disciplines](https://wiki.leagueoflegends.com/en-us/Template:Data_Akali/Twin_Disciplines?oldid=3172071) (revision 3172071). Ranks: 1.
-
-| Field | Value |
-|---|---|
-| Static cooldown | 8 / 7 / 6 / 5 / 4 (based on level) |
-
-Targeting: Passive · Affects: Self · Damage type: Magic · Spell shield blocks it: false · Projectile: – · Parry: special · Disabled by grounded: – · Usable while knocked down: –
-
-Akali's first two basic attacks are empowered.
-
-Discipline of Might: Akali's first basic attack heals her for 5 – 60 (based on level) (+ 60% bonus AD) (+ 45% AP) health.
-
-- **Mechanics:** heal
-
-Discipline of Force: Akali's second basic attack within 4 seconds deals an additional 10 – 100 (based on level) (+ 50% bonus AD) (+ 75% AP) on-hit magic damage.
-
-Notes:
-
-- Twin Disciplines works against structures.
-- Parry effects will not stop Twin Disciplines to occur.
-    - It also won't block the bonus damage from the second attack.
-
 ## Q: Five Point Strike
 
 Source: [Template:Data Akali/Five Point Strike](https://wiki.leagueoflegends.com/en-us/Template:Data_Akali/Five_Point_Strike?oldid=4074596) (revision 4074596). Ranks: 5.
@@ -87,32 +79,6 @@ Notes:
 - Five Point Strike will hit enemies after only 0.1875 / 0.16875 / 0.15 / 0.13125 (based on level) seconds (75% of cast time) into the cast time.
     - Due to any actions only starting on integer game ticks, the effective cast time rounds up to 0.264 / 0.231 / 0.231 / 0.198 (based on level) and the hit will occur at 0.198 / 0.198 / 0.165 / 0.132 (based on level) seconds into it.
 - This ability will cast from wherever the caster is at the end of the cast time.
-
-## Q: Mark of the Assassin
-
-Source: [Template:Data Akali/Mark of the Assassin](https://wiki.leagueoflegends.com/en-us/Template:Data_Akali/Mark_of_the_Assassin?oldid=3906506) (revision 3906506). Ranks: 5.
-
-| Field | Value |
-|---|---|
-| Cooldown | 6 / 5.5 / 5 / 4.5 / 4 |
-| Cost | 60 energy |
-| Target range | 600 |
-
-Targeting: Unit · Affects: Enemies, Self · Damage type: Magic · Spell shield blocks it: special · Projectile: true · Parry: true · Disabled by grounded: – · Usable while knocked down: –
-
-Active: Akali throws her kama at the target enemy, dealing magic damage and marking them for 6 seconds.
-
-- **Magic Damage:** 35 / 55 / 75 / 95 / 115 (+ 40% AP) → at max rank, level 20: 115 (+ 40% AP)
-
-Basic attacks detonate the mark, dealing bonus magic damage and restoring 40 energy.
-
-- **Bonus Magic Damage:** 45 / 70 / 95 / 120 / 145 (+ 50% AP) → at max rank, level 20: 145 (+ 50% AP)
-- **Total Magic Damage:** 80 / 125 / 170 / 215 / 260 (+ 90% AP) → at max rank, level 20: 260 (+ 90% AP)
-
-Notes:
-
-- Mark of the Assassin will apply spell effects to both the initial missile and the damage dealt when the debuff is detonated.
-- Spell shield will block the missile damage but not the debuff detonation.
 
 ## W: Twilight Shroud
 
@@ -149,28 +115,6 @@ Notes:
 - It is possible for Akali to detonate the smoke bomb on the far side of terrain from her current location.
 - Twilight Shroud's effects begin at the start of the cast time.
 - Using a basic attack breaks the stealth at the start of the attack windup.
-
-## E: Crescent Slash
-
-Source: [Template:Data Akali/Crescent Slash](https://wiki.leagueoflegends.com/en-us/Template:Data_Akali/Crescent_Slash?oldid=2700762) (revision 2700762). Ranks: 5.
-
-| Field | Value |
-|---|---|
-| Cooldown | 5 / 4.5 / 4 / 3.5 / 3 |
-| Cost | 60 / 55 / 50 / 45 / 40 energy |
-| Effect radius | 300 |
-
-Targeting: None · Affects: Enemies · Damage type: Physical · Spell shield blocks it: true · Projectile: – · Parry: – · Disabled by grounded: – · Usable while knocked down: –
-
-Active: Akali flourishes her kamas, dealing physical damage to all enemies around her.
-
-- **Physical damage:** 70 / 100 / 130 / 160 / 190 (+ 80% bonus AD) (+ 60% AP) → at max rank, level 20: 190 (+ 80% bonusAD) (+ 60% AP)
-
-Crescent Slash cooldown is reduced by 60% whenever it kills at least one enemy.
-
-Notes:
-
-- No additional details.
 
 ## E: Shuriken Flip
 
@@ -257,33 +201,6 @@ Notes:
     - Enemies already hit by either of Perfect Execution's casts cannot be affected more than once by the same cast.
 - Shuriken Flip can be used during the initial dash if it is cast after Perfect Execution's cast time finishes.
 
-## R: Shadow Dance
-
-Source: [Template:Data Akali/Shadow Dance](https://wiki.leagueoflegends.com/en-us/Template:Data_Akali/Shadow_Dance?oldid=2705824) (revision 2705824). Ranks: 3.
-
-| Field | Value |
-|---|---|
-| Cooldown | 2 |
-| Recharge | 30 / 22.5 / 15 |
-| Cost | 1 essence |
-| Target range | 700 |
-| Speed | 2000 |
-
-Targeting: Unit · Affects: Enemies · Damage type: Magic · Spell shield blocks it: true · Projectile: – · Parry: – · Disabled by grounded: true · Usable while knocked down: true
-
-Passive: Akali periodically stores up to 3 charges of Essence of Shadow. Champion takedowns grant one charge.
-
-Akali immediately gains 3 Essences of Shadow upon learning the ability.
-
-Active: Akali dashes to the target enemy, dealing magic damage. Akali will land between 100 and 200 units on the far side of her target based on how close they were, halved versus Marked targets.
-
-- **Magic damage:** 50 / 100 / 150 (+ 35% AP) → at max rank, level 20: 150 (+ 35% AP)
-- **Mechanics:** dash
-
-Notes:
-
-- Shadow Dance will automatically queue a basic attack against her target.
-
 ## Game files
 
 Cooldowns and costs of each slot's main ability, wiki vs game files:
@@ -304,8 +221,6 @@ game formula supplies 19-20; "confirmed"/"differs": the wiki defines 19-20 and t
 | Ability | Value | Outcome | Level 18 | Level 19 | Level 20 | Game formula |
 |---|---|---|--:|--:|--:|---|
 | Assassin's Mark | description: Swinging Kama: Akali's next basic attack is empowered to have an uncancellable w | confirmed | 182 | 197 | 212 | AkaliP.Damage: breakpoints at levels 8, 14 (level 1: 35) |
-| Twin Disciplines | description: Discipline of Might: Akali's first basic attack heals her for 5 – 60 (based on l | no match | 60 | – | – | – |
-| Twin Disciplines | description: Discipline of Force: Akali's second basic attack within 4 seconds deals an addit | no match | 100 | – | – | – |
 
 All 12 level-based formulas in the game files (1 linked to wiki values above):
 

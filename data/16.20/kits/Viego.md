@@ -9,6 +9,22 @@ Values marked "at max rank, level 20" assume every ability is maxed; see PLAN.md
 |---|--:|--:|--:|--:|--:|--:|--:|--:|--:|--:|
 | Viego | 2773.5 | 20.77 | 0.0 None | 135.7 | 1.014 | 0.162 | 124.5 | 72.3 | 200 | 345 |
 
+## Fight profile (what the interaction ledger uses)
+
+| Form | Attack range | Ranged | Projectile | Missile speed | Attack modifiers |
+|---|--:|---|---|--:|---|
+| Viego | 200 | no | no | – | – |
+
+Cooldowns at max rank. Flags: the wiki's interaction flags (yes, no, partly). * marks an effect that applies only under a condition.
+
+| Slot | Ability | Cooldown | Delivery | Applies to the enemy | Movement | Gives itself |
+|---|---|--:|---|---|---|---|
+| E | Harrowed Path | 6 | projectile partly | – | – | camouflage 1 s |
+| I | Sovereign's Domination | – | grounded no | – | blink | untargetable 1 s; heal |
+| Q | Blade of the Ruined King | 3 | projectile no; spell shield yes; parry partly; on-hit | – | – | heal |
+| R | Heartbreaker | 80 | spell shield yes; parry partly; grounded yes; on-hit | airborne (knock back); slow 0.25 s 99% | blink | displacement immune |
+| W | Spectral Maw | 8 | projectile yes; spell shield yes; grounded yes; knockdown yes; disruptable yes | stun | dash | – |
+
 ## Innate: Sovereign's Domination
 
 Source: [Template:Data Viego/Sovereign's Domination](https://wiki.leagueoflegends.com/en-us/Template:Data_Viego/Sovereign's_Domination?oldid=4063480) (revision 4063480). Ranks: 1.

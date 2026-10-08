@@ -9,6 +9,22 @@ Values marked "at max rank, level 20" assume every ability is maxed; see PLAN.md
 |---|--:|--:|--:|--:|--:|--:|--:|--:|--:|--:|
 | Renata Glasc | 2393.5 | 16.32 | 1333.3 Mana | 108.0 | 0.884 | 0.213 | 119.4 | 55.6 | 550 | 330 |
 
+## Fight profile (what the interaction ledger uses)
+
+| Form | Attack range | Ranged | Projectile | Missile speed | Attack modifiers |
+|---|--:|---|---|--:|---|
+| Renata Glasc | 550 | yes | yes | 1800 | Leverage |
+
+Cooldowns at max rank. Flags: the wiki's interaction flags (yes, no, partly). * marks an effect that applies only under a condition.
+
+| Slot | Ability | Cooldown | Delivery | Applies to the enemy | Movement | Gives itself |
+|---|---|--:|---|---|---|---|
+| E | Loyalty Program | 10 | projectile yes; spell shield partly | slow 2 s 30% | – | shield 3 s |
+| I | Leverage | – | spell shield partly; attack modifier | – | – | – |
+| Q | Handshake | 16 | projectile yes; spell shield partly | airborne (knock back); root 1 s; stun 0.5 s*; reveal | – | – |
+| R | Hostile Takeover | 110 | projectile yes; spell shield yes | berserk 2.25 s | – | – |
+| W | Bailout | 24 | – | – | – | – |
+
 ## Innate: Leverage
 
 Source: [Template:Data Renata Glasc/Leverage](https://wiki.leagueoflegends.com/en-us/Template:Data_Renata_Glasc/Leverage?oldid=3997432) (revision 3997432). Ranks: 1.

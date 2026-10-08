@@ -1,0 +1,271 @@
+{
+  "champion": "Quinn",
+  "name": "Quinn",
+  "gameplayRadius": 65,
+  "moveSpeed": 330,
+  "attacks": [
+    {
+      "form": "quinn",
+      "formName": "Quinn",
+      "range": 525,
+      "ranged": true,
+      "projectile": true,
+      "missileSpeed": 2000,
+      "attackSpeed": 1.07522,
+      "attackDamage": 121.928,
+      "windup": 0.163165,
+      "modifiers": [
+        "Harrier"
+      ]
+    }
+  ],
+  "abilities": [
+    {
+      "champion": "Quinn",
+      "kind": "E",
+      "name": "Vault",
+      "page": {
+        "title": "Template:Data Quinn/Vault",
+        "revid": 4024768
+      },
+      "damageTypes": [
+        "physical"
+      ],
+      "delivery": {
+        "targeting": [
+          "unit"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "yes",
+        "grounded": "yes",
+        "knockdown": "yes"
+      },
+      "applies": [
+        {
+          "type": "airborne",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "airborne: knock back"
+            },
+            {
+              "page": "Template:Data Quinn/Vault",
+              "revid": 4024768,
+              "quote": "Active: Quinn dashes to the target enemy, marking them with Harrier, dealing physical damage, knocking them back a very short distance over 0.5 seconds, and slowing them by 50% decaying over 1.5 seconds."
+            }
+          ],
+          "variant": "knock back",
+          "duration": 0.5
+        },
+        {
+          "type": "slow",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "slow"
+            },
+            {
+              "page": "Template:Data Quinn/Vault",
+              "revid": 4024768,
+              "quote": "Active: Quinn dashes to the target enemy, marking them with Harrier, dealing physical damage, knocking them back a very short distance over 0.5 seconds, and slowing them by 50% decaying over 1.5 seconds."
+            }
+          ],
+          "duration": 1.5,
+          "amount": 50
+        }
+      ],
+      "movement": [
+        {
+          "type": "dash",
+          "evidence": [
+            {
+              "page": "Dash",
+              "revid": 4035700,
+              "quote": "unit-targeted"
+            }
+          ],
+          "targeting": "unit-targeted",
+          "interruptible": true
+        }
+      ],
+      "states": [],
+      "cooldown": 8,
+      "castTime": 0,
+      "range": 600,
+      "speed": 2500,
+      "boostsAttacks": true,
+      "notes": [
+        "Quinn will track the target if they change locations.\n  - She will dash to the target's previous location without applying Vault's effects if the target is too far away or moves beyond 1200 units.",
+        "Vault resets Quinn's remaining attack cooldown a short delay after the first dash ends (even if interrupted).\n  - This delay is a fuzzy 0.25 to 0.5 seconds and this matches up with the moment the target of Vault is marked with Harrier.",
+        "Vault's knock back also interrupts the windup of basic attacks with uncancellable windups."
+      ]
+    },
+    {
+      "champion": "Quinn",
+      "kind": "I",
+      "name": "Harrier",
+      "page": {
+        "title": "Template:Data Quinn/Harrier",
+        "revid": 4024765
+      },
+      "damageTypes": [
+        "physical"
+      ],
+      "delivery": {
+        "targeting": [
+          "passive"
+        ],
+        "affectsEnemies": false,
+        "spellShield": "no",
+        "parry": "yes",
+        "attack": "attack modifier"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "cooldown": 7,
+      "notes": [
+        "Harrier is consumed even if it is parried, the attack is negated in any case."
+      ]
+    },
+    {
+      "champion": "Quinn",
+      "kind": "Q",
+      "name": "Blinding Assault",
+      "page": {
+        "title": "Template:Data Quinn/Blinding Assault",
+        "revid": 4056272
+      },
+      "damageTypes": [
+        "physical"
+      ],
+      "delivery": {
+        "targeting": [
+          "direction"
+        ],
+        "affectsEnemies": true,
+        "projectile": "yes",
+        "spellShield": "yes"
+      },
+      "applies": [
+        {
+          "type": "nearsight",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "nearsight"
+            },
+            {
+              "page": "Template:Data Quinn/Blinding Assault",
+              "revid": 4056272,
+              "quote": "The primary target is nearsighted for 1.75 seconds if they are a champion, reducing their sight radius to 350 units."
+            }
+          ],
+          "duration": 1.75
+        }
+      ],
+      "movement": [],
+      "states": [],
+      "cooldown": 9,
+      "castTime": 0.25,
+      "range": 1050,
+      "speed": 1550,
+      "notes": [
+        "Blinding Assault's nearsight will persist through death."
+      ]
+    },
+    {
+      "champion": "Quinn",
+      "kind": "R",
+      "name": "Behind Enemy Lines",
+      "page": {
+        "title": "Template:Data Quinn/Behind Enemy Lines",
+        "revid": 4021953
+      },
+      "damageTypes": [],
+      "delivery": {
+        "targeting": [
+          "auto"
+        ],
+        "affectsEnemies": false,
+        "grounded": "yes",
+        "disruptable": "yes"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "cooldown": 3,
+      "castTime": 0.25,
+      "channel": [
+        {
+          "type": "normal",
+          "evidence": [
+            {
+              "page": "Channel",
+              "revid": 4002276,
+              "quote": "normal"
+            }
+          ]
+        }
+      ],
+      "notes": [
+        "Taking damage from non-minions removes the bonus movement speed buff temporarily by suppressing it with the status effect of a slow.\n  - This slow is not affected by slow resist or slow immunity, but it can be cleansed.\n  - While the slow is in effect, Behind Enemy Lines is not considered to grant increased movement speed for the purpose of Celerity.",
+        "Behind Enemy Lines does not refund its mana cost if the channel was canceled via recast.\n  - The only exception is if Quinn's mana falls below the mana cost, in which case she is granted enough mana back (the equal amount needed) to be able to cast Behind Enemy Lines again.",
+        "If Valor is spawned by respawning or returning to the summoning platform, Skystrike will be disabled from being manually cast for 2.5 seconds upon uniting. However, it will still automatically activate upon declaring a basic attack or casting Blinding Assault or Vault.",
+        "The following table refers for interactions while Quinn is channeling:\n  - Behind Enemy Lines is not a movement channel, and so will not be interrupted by root and ground."
+      ]
+    },
+    {
+      "champion": "Quinn",
+      "kind": "R",
+      "name": "Skystrike",
+      "page": {
+        "title": "Template:Data Quinn/Skystrike",
+        "revid": 4024769
+      },
+      "damageTypes": [
+        "physical"
+      ],
+      "delivery": {
+        "targeting": [
+          "auto"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "yes"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "castTime": 0
+    },
+    {
+      "champion": "Quinn",
+      "kind": "W",
+      "name": "Heightened Senses",
+      "page": {
+        "title": "Template:Data Quinn/Heightened Senses",
+        "revid": 4024767
+      },
+      "damageTypes": [],
+      "delivery": {
+        "targeting": [
+          "auto"
+        ],
+        "affectsEnemies": false,
+        "spellShield": "no"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "cooldown": 30,
+      "castTime": 0,
+      "boostsAttacks": true,
+      "notes": [
+        "Quinn marks enemy champions who were previously unseen but were revealed Heightened Senses in order to gain assist credit, lasting for the standard credit timer."
+      ]
+    }
+  ]
+}

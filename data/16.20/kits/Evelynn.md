@@ -9,6 +9,23 @@ Values marked "at max rank, level 20" assume every ability is maxed; see PLAN.md
 |---|--:|--:|--:|--:|--:|--:|--:|--:|--:|--:|
 | Evelynn | 2569.2 | 23.25 | 1140.9 Mana | 120.0 | 0.942 | 0.163 | 129.4 | 72.3 | 125 | 335 |
 
+## Fight profile (what the interaction ledger uses)
+
+| Form | Attack range | Ranged | Projectile | Missile speed | Attack modifiers |
+|---|--:|---|---|--:|---|
+| Evelynn | 125 | no | no | – | – |
+
+Cooldowns at max rank. Flags: the wiki's interaction flags (yes, no, partly). * marks an effect that applies only under a condition.
+
+| Slot | Ability | Cooldown | Delivery | Applies to the enemy | Movement | Gives itself |
+|---|---|--:|---|---|---|---|
+| E | Empowered Whiplash | – | spell shield yes; parry partly; grounded yes; knockdown yes; on-hit | – | dash | – |
+| E | Whiplash | 8 | projectile no; spell shield yes; parry partly; on-hit | – | – | – |
+| I | Demon Shade | – | – | – | – | camouflage; heal |
+| Q | Hate Spike | 4 | projectile yes; spell shield yes; on-hit | – | – | – |
+| R | Last Caress | 80 | projectile no; spell shield yes; grounded yes | – | blink | untargetable |
+| W | Allure | 11 | spell shield partly; attack | charm 2.25 s; slow 0.75 s 45% | – | – |
+
 ## Innate: Demon Shade
 
 Source: [Template:Data Evelynn/Demon Shade](https://wiki.leagueoflegends.com/en-us/Template:Data_Evelynn/Demon_Shade?oldid=4038334) (revision 4038334). Ranks: 1.
@@ -32,37 +49,6 @@ Notes:
     - If Evelynn's last issued order was to cast E, her transition into the stealth will be followed by an automatic command for casting the ability (if no other orders were issued in the meantime).
 - Whenever Demon Shade activates, a puff of purple smoke will briefly appear around her.
 - Using a basic attack breaks the stealth at the start of the attack windup.
-
-## Innate: Shadow Walk
-
-Source: [Template:Data Evelynn/Shadow Walk](https://wiki.leagueoflegends.com/en-us/Template:Data_Evelynn/Shadow_Walk?oldid=3166173) (revision 3166173). Ranks: 1.
-
-| Field | Value |
-|---|---|
-| Effect radius | 700 |
-
-Targeting: Shadow Walk is a self-targeted buff. · Affects: – · Damage type: – · Spell shield blocks it: – · Projectile: – · Parry: – · Disabled by grounded: – · Usable while knocked down: –
-
-Passive: Evelynn becomes camouflaged after being out-of-combat for 6 / 5 / 4 / 3 (based on level) seconds, regenerating 2% missing mana every second and ignoring unit collision.
-
-- **Mechanics:** camouflage (depends on level s)
-
-Entering combat or using an ability ends Shadow Walk, though not being seen by nearby enemy champions.
-
-Notes:
-
-- Whenever Shadow Walk activates a puff of purple smoke will trigger and a grey circle will appear around Evelynn and then she will start running differently.
-    - The circle indicates the range from which enemies will spot her if she gets too close.
-      - Whenever Evelynn approaches a visible enemy champion an eye will appear above them (only visible to her) This eye will change colors depending on how close Evelynn is to them.
-        - Yellow means she is about to be spotted.
-        - Red means she has been.
-          - When spotted, an exclamation mark will appear above Evelynn (only visible to her and her allies)
-            - She will not be spotted if hiding in brush or if inside fog of war.
-            - She will be spotted by an enemy she has no sight of but Shadow Walk's stealth will not break.
-            - She will be spotted if she runs into an enemy Control Ward.
-- The following can break Shadow Walk's stealth:
-    - Certain summoner spells (Exhaust, Heal, Ignite, Recall, Smite, Teleport)
-    - Evelynn herself capturing a neutral or enemy altar in Twisted Treeline (red eye for neutral and yellow one for enemy but nevertheless she will be seen by enemies)
 
 ## Q: Hate Spike
 
@@ -161,28 +147,6 @@ Notes:
 - If the target becomes untargetable, dies, or is too far away or no longer in sight during the cast time, this ability will cancel but still go on cooldown and pay its cost.
     - Allure will restart its cooldown whenever the mark debuff is removed.
 
-## W: Dark Frenzy
-
-Source: [Template:Data Evelynn/Dark Frenzy](https://wiki.leagueoflegends.com/en-us/Template:Data_Evelynn/Dark_Frenzy?oldid=2704784) (revision 2704784). Ranks: 5.
-
-| Field | Value |
-|---|---|
-| Cooldown | 15 |
-| Cost | 40 mana |
-
-Targeting: Dark Frenzy is a self-targeted buff. · Affects: – · Damage type: – · Spell shield blocks it: – · Projectile: – · Parry: – · Disabled by grounded: – · Usable while knocked down: –
-
-Active: Evelynn enters a frenzy, removing all slows affecting her. For the next 3 seconds, she gains bonus movement speed and is ghosted.
-
-- **Bonus Movement Speed:** 30 / 40 / 50 / 60 / 70% → at max rank, level 20: 70%
-- **Mechanics:** ghosted
-
-Dark Frenzy's cooldown is reduced by 1 second every time Evelynn damages an enemy champion with an ability, and its cooldown is refreshed on enemy champion takedowns.
-
-Notes:
-
-- Dark Frenzy has no cast time and does not interrupt Evelynn's previous orders.
-
 ## E: Empowered Whiplash
 
 Source: [Template:Data Evelynn/Empowered Whiplash](https://wiki.leagueoflegends.com/en-us/Template:Data_Evelynn/Empowered_Whiplash?oldid=3984296) (revision 3984296). Ranks: 5.
@@ -206,30 +170,6 @@ Notes:
 - There is no time-out period on Empowered Whiplash.
 - Empowered Whiplash can be blocked but cannot be dodged and/or missed if Evelynn is blinded.
 - If the target becomes untargetable, dies, or is too far away or no longer in sight during the cast time, this ability will cancel but does not go on cooldown nor pay its cost (if applicable).
-
-## E: Ravage
-
-Source: [Template:Data Evelynn/Ravage](https://wiki.leagueoflegends.com/en-us/Template:Data_Evelynn/Ravage?oldid=2704785) (revision 2704785). Ranks: 5.
-
-| Field | Value |
-|---|---|
-| Cooldown | 9 |
-| Cost | 50 / 55 / 60 / 65 / 70 mana |
-| Target range | 225 |
-
-Targeting: Ravage is a single-targeted ability with a self-targeted buff component. · Affects: – · Damage type: physical · Spell shield blocks it: will block one hit's worth of damage. · Projectile: – · Parry: – · Disabled by grounded: – · Usable while knocked down: –
-
-Active: Evelynn slashes her target twice, dealing physical damage and applying on-hit effects with each slash. Additionally, she gains bonus attack speed for 3 seconds.
-
-- **Physical Damage Per Slash:** 35 / 55 / 75 / 95 / 115 (+ 50% bonus AD) (+ 50% AP) → at max rank, level 20: 115 (+ 50% bonusAD) (+ 50% AP)
-- **Total Physical Damage:** 70 / 110 / 150 / 190 / 230 (+ 100% bonus AD) (+ 100% AP) → at max rank, level 20: 230 (+ 100% bonusAD) (+ 100% AP)
-- **Bonus Attack Speed:** 60 / 75 / 90 / 105 / 120% → at max rank, level 20: 120%
-
-Notes:
-
-- If Ravage's first hit kills its target Evelynn will strike another nearby target with the second one.
-- If the target dies while Ravage is being cast its sound and its animation will play but neither buff nor damage will be applied and it will not go on cooldown.
-    - If Evelynn loses sight of her target between the animation's beginning and its end Ravage will be canceled and will not go on cooldown.
 
 ## E: Whiplash
 
@@ -259,33 +199,6 @@ Notes:
 
 - Whiplash can be dodged and blocked but may not miss if Evelynn is blinded.
 - If the target becomes untargetable, dies, or is too far away or no longer in sight during the cast time, this ability will cancel but does not go on cooldown nor pay its cost (if applicable).
-
-## R: Agony's Embrace
-
-Source: [Template:Data Evelynn/Agony's Embrace](https://wiki.leagueoflegends.com/en-us/Template:Data_Evelynn/Agony's_Embrace?oldid=2704783) (revision 2704783). Ranks: 3.
-
-| Field | Value |
-|---|---|
-| Cooldown | 120 / 100 / 80 |
-| Cost | 100 mana |
-| Target range | 650 |
-| Effect radius | 250 |
-
-Targeting: Agony's Embrace is a ground-targeted area of effect with a self-targeted buff component. · Affects: – · Damage type: magic · Spell shield blocks it: will block the damage and prevent the shield from growing in strength. · Projectile: – · Parry: – · Disabled by grounded: – · Usable while knocked down: –
-
-Active: Evelynn impales enemies in target area, dealing magic damage and slowing them for 2 seconds, capped at 1000 against monsters.
-
-- **Magic Damage:** 15 / 20 / 25% (+ 1% per 100 AP) of target's current health → at max rank, level 20: 25% of targetCurrentHealth (+ 1% per100:AP)
-- **Slow:** 40 / 60 / 80% → at max rank, level 20: 80%
-- **Mechanics:** slow (2 s, 80%)
-
-Evelynn siphons her victims' pain, shielding herself for up to 6 seconds for every enemy champion hit by Agony's Embrace.
-
-- **Shield Strength Per Champion:** 150 / 225 / 300 → at max rank, level 20: 300
-
-Notes:
-
-- When casting Agony's Embrace the damage will be applied after a brief delay (~0.25 seconds)
 
 ## R: Last Caress
 

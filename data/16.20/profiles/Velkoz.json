@@ -1,0 +1,258 @@
+{
+  "champion": "Velkoz",
+  "name": "Vel'Koz",
+  "gameplayRadius": 65,
+  "moveSpeed": 340,
+  "attacks": [
+    {
+      "form": "vel-koz",
+      "formName": "Vel'Koz",
+      "range": 525,
+      "ranged": true,
+      "projectile": false,
+      "attackSpeed": 0.838421,
+      "attackDamage": 116.78,
+      "windup": 0.238544,
+      "modifiers": [
+        "Organic Deconstruction"
+      ]
+    }
+  ],
+  "abilities": [
+    {
+      "champion": "Velkoz",
+      "kind": "E",
+      "name": "Tectonic Disruption",
+      "page": {
+        "title": "Template:Data Vel'Koz/Tectonic Disruption",
+        "revid": 3952590
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "location"
+        ],
+        "affectsEnemies": true,
+        "projectile": "partly",
+        "spellShield": "yes"
+      },
+      "applies": [
+        {
+          "type": "airborne",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "airborne: knock back"
+            },
+            {
+              "page": "Template:Data Vel'Koz/Tectonic Disruption",
+              "revid": 3952590,
+              "quote": "Active: Vel'Koz hurls a disruptive anomaly that lands to the target location after 0.25 / 0.25 / 0.273077 / 0.296154 / 0.319231 / 0.342308 / 0.365385 / 0.388462 / 0.411538 / 0.434615 / 0.457692 / 0.480769 / 0.503846 / 0.526923 / 0.55 (based on cast distance) seconds, dealing magic damage to enemies hit and knocking them up and stunning them for 0.75 seconds, as well as granting sight of the area briefly."
+            }
+          ],
+          "variant": "knock back, knock up",
+          "duration": 0.75
+        },
+        {
+          "type": "stun",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "stun"
+            },
+            {
+              "page": "Template:Data Vel'Koz/Tectonic Disruption",
+              "revid": 3952590,
+              "quote": "Active: Vel'Koz hurls a disruptive anomaly that lands to the target location after 0.25 / 0.25 / 0.273077 / 0.296154 / 0.319231 / 0.342308 / 0.365385 / 0.388462 / 0.411538 / 0.434615 / 0.457692 / 0.480769 / 0.503846 / 0.526923 / 0.55 (based on cast distance) seconds, dealing magic damage to enemies hit and knocking them up and stunning them for 0.75 seconds, as well as granting sight of the area briefly."
+            }
+          ],
+          "duration": 0.75
+        }
+      ],
+      "movement": [],
+      "states": [],
+      "cooldown": 10,
+      "castTime": 0.25,
+      "range": 800,
+      "notes": [
+        "While the effect is fully prevented by blocking the missile (e.g. with Unbreakable and Wind Wall), the missile may not be destroyed visually.",
+        "The area of effect indicator appears at the end of the cast time.\n  - It will persist even if the cast cancels (e.g. Vel'Koz dies before cast time completes) despite the projectile not firing.",
+        "Displacement immunity will also resist the application of the stun."
+      ]
+    },
+    {
+      "champion": "Velkoz",
+      "kind": "I",
+      "name": "Organic Deconstruction",
+      "page": {
+        "title": "Template:Data Vel'Koz/Organic Deconstruction",
+        "revid": 3986690
+      },
+      "damageTypes": [
+        "true"
+      ],
+      "delivery": {
+        "targeting": [
+          "passive"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "yes",
+        "attack": "attack modifier"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "notes": [
+        "The stack duration will not be refreshed if the attack misses due to blind.",
+        "Interaction between duration refresh on basic attacks and parry effects (dodge and block)."
+      ]
+    },
+    {
+      "champion": "Velkoz",
+      "kind": "Q",
+      "name": "Plasma Fission",
+      "page": {
+        "title": "Template:Data Vel'Koz/Plasma Fission",
+        "revid": 4008544
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "direction",
+          "auto"
+        ],
+        "affectsEnemies": true,
+        "projectile": "yes",
+        "spellShield": "yes"
+      },
+      "applies": [
+        {
+          "type": "slow",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "slow"
+            },
+            {
+              "page": "Template:Data Vel'Koz/Plasma Fission",
+              "revid": 4008544,
+              "quote": "Active: Vel'Koz fires a plasma bolt in the target direction that deals magic damage to the first enemy hit and slows them by 70% decaying over a duration."
+            }
+          ],
+          "duration": 2.6,
+          "amount": 70
+        }
+      ],
+      "movement": [],
+      "states": [],
+      "cooldown": 7,
+      "castTime": 0.25,
+      "range": 1100,
+      "speed": 1300,
+      "notes": [
+        "An enemy cannot be hit by multiple bolts even when having blocked one with a spell shield.",
+        "Plasma Fission can reach a maximum 1595 units diagonally (ignoring the split missile's width and enemy hitbox radius), reaching this distance after a total of about ~1.65 seconds.* This ability will cast from wherever the caster is at the end of the cast time."
+      ]
+    },
+    {
+      "champion": "Velkoz",
+      "kind": "R",
+      "name": "Life Form Disintegration Ray",
+      "page": {
+        "title": "Template:Data Vel'Koz/Life Form Disintegration Ray",
+        "revid": 4012050
+      },
+      "damageTypes": [
+        "magic",
+        "true"
+      ],
+      "delivery": {
+        "targeting": [
+          "direction",
+          "auto"
+        ],
+        "affectsEnemies": true,
+        "projectile": "no",
+        "disruptable": "yes"
+      },
+      "applies": [
+        {
+          "type": "slow",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "slow"
+            },
+            {
+              "page": "Template:Data Vel'Koz/Life Form Disintegration Ray",
+              "revid": 4012050,
+              "quote": "The beam deals magic damage to enemies hit every 0.2 seconds, and slows them by 20%, lingering for 1 second."
+            }
+          ],
+          "duration": 1,
+          "amount": 20
+        }
+      ],
+      "movement": [],
+      "states": [],
+      "cooldown": 80,
+      "castTime": 0,
+      "range": 1555,
+      "channel": [
+        {
+          "type": "normal",
+          "evidence": [
+            {
+              "page": "Channel",
+              "revid": 4002276,
+              "quote": "normal"
+            }
+          ]
+        }
+      ],
+      "notes": [
+        "Vel'Koz will reveal himself if the ray is near an enemy champion.",
+        "The following table refers for interactions while Vel'Koz is channeling:"
+      ]
+    },
+    {
+      "champion": "Velkoz",
+      "kind": "W",
+      "name": "Void Rift",
+      "page": {
+        "title": "Template:Data Vel'Koz/Void Rift",
+        "revid": 4008545
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "direction"
+        ],
+        "affectsEnemies": true,
+        "projectile": "partly",
+        "spellShield": "partly"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "cooldown": 15,
+      "castTime": 0,
+      "range": 1105,
+      "speed": 1700,
+      "notes": [
+        "Unbreakable and Wind Wall will block the ripple and prevent the rift from forming further, but they will not destroy the section that was created already.",
+        "Spell shield only blocks one instance of damage."
+      ]
+    }
+  ]
+}

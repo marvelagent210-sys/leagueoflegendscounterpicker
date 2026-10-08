@@ -9,6 +9,23 @@ Values marked "at max rank, level 20" assume every ability is maxed; see PLAN.md
 |---|--:|--:|--:|--:|--:|--:|--:|--:|--:|--:|
 | Fizz | 2724.5 | 21.77 | 1339.6 Mana | 117.0 | 1.059 | 0.192 | 116.5 | 72.3 | 175 | 335 |
 
+## Fight profile (what the interaction ledger uses)
+
+| Form | Attack range | Ranged | Projectile | Missile speed | Attack modifiers |
+|---|--:|---|---|--:|---|
+| Fizz | 175 | no | no | – | – |
+
+Cooldowns at max rank. Flags: the wiki's interaction flags (yes, no, partly). * marks an effect that applies only under a condition.
+
+| Slot | Ability | Cooldown | Delivery | Applies to the enemy | Movement | Gives itself |
+|---|---|--:|---|---|---|---|
+| E | Playful | 8 | spell shield yes; grounded yes; knockdown partly | slow 2 s 60% | dash | untargetable 0.75 s |
+| E | Trickster | – | spell shield yes; grounded yes; knockdown yes | – | dash | – |
+| I | Nimble Fighter | – | – | – | – | – |
+| Q | Urchin Strike | 6 | spell shield yes; parry yes; grounded yes; knockdown yes; on-hit | – | dash | – |
+| R | Chum the Waters | 80 | projectile partly; spell shield partly | airborne (knock back, knock up) 2 s; slow 2 s; reveal | – | – |
+| W | Seastone Trident | 3 | spell shield yes; parry partly; attack | – | – | – |
+
 ## Innate: Nimble Fighter
 
 Source: [Template:Data Fizz/Nimble Fighter](https://wiki.leagueoflegends.com/en-us/Template:Data_Fizz/Nimble_Fighter?oldid=4042251) (revision 4042251). Ranks: 1.

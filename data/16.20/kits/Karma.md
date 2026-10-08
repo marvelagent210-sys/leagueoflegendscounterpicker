@@ -9,6 +9,25 @@ Values marked "at max rank, level 20" assume every ability is maxed; see PLAN.md
 |---|--:|--:|--:|--:|--:|--:|--:|--:|--:|--:|
 | Karma | 2773.5 | 16.32 | 1160.6 Mana | 108.0 | 0.908 | 0.178 | 126.3 | 55.6 | 525 | 335 |
 
+## Fight profile (what the interaction ledger uses)
+
+| Form | Attack range | Ranged | Projectile | Missile speed | Attack modifiers |
+|---|--:|---|---|--:|---|
+| Karma | 525 | yes | yes | 1500 | – |
+
+Cooldowns at max rank. Flags: the wiki's interaction flags (yes, no, partly). * marks an effect that applies only under a condition.
+
+| Slot | Ability | Cooldown | Delivery | Applies to the enemy | Movement | Gives itself |
+|---|---|--:|---|---|---|---|
+| E | Defiance | – | – | – | – | shield 2.5 s |
+| E | Inspire | 8 | – | – | – | shield 2.5 s |
+| I | Gathering Fire | – | – | – | – | – |
+| Q | Inner Flame | 5 | projectile yes; spell shield yes | slow 1.5 s 40% | – | – |
+| Q | Soulflare | – | projectile yes; spell shield partly | slow 50% | – | – |
+| R | Mantra | 34 | – | – | – | – |
+| W | Focused Resolve | 12 | projectile no; spell shield partly | root 2 s*; reveal | – | – |
+| W | Renewal | – | projectile no; spell shield partly | root 1.25 s; reveal | – | heal |
+
 ## Innate: Gathering Fire
 
 Source: [Template:Data Karma/Gathering Fire](https://wiki.leagueoflegends.com/en-us/Template:Data_Karma/Gathering_Fire?oldid=3985386) (revision 3985386). Ranks: 1.

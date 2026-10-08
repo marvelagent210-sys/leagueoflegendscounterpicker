@@ -9,6 +9,28 @@ Values marked "at max rank, level 20" assume every ability is maxed; see PLAN.md
 |---|--:|--:|--:|--:|--:|--:|--:|--:|--:|--:|
 | Jayce | 2733.5 | 17.80 | 1259.9 Mana | 142.6 | 1.046 | 0.144 | 120.3 | 55.6 | 125 | 335 |
 
+## Fight profile (what the interaction ledger uses)
+
+| Form | Attack range | Ranged | Projectile | Missile speed | Attack modifiers |
+|---|--:|---|---|--:|---|
+| Jayce | 125 | no | no | – | – |
+| Cannon Stance | 500 | yes | yes | – | – |
+
+Cooldowns at max rank. Flags: the wiki's interaction flags (yes, no, partly). * marks an effect that applies only under a condition.
+
+| Slot | Ability | Cooldown | Delivery | Applies to the enemy | Movement | Gives itself |
+|---|---|--:|---|---|---|---|
+| E | Acceleration Gate | 16 | – | – | – | – |
+| E | Thundering Blow | 10 | spell shield yes | airborne (knock back); root | – | – |
+| I | Hextech Capacitor | – | – | – | – | – |
+| I | Hextech Capacitor 2 | – | – | – | – | – |
+| Q | Shock Blast | 8 | projectile yes; spell shield yes | – | – | – |
+| Q | To the Skies! | 6 | spell shield yes; grounded yes; knockdown yes | slow 2 s 60% | dash | – |
+| R | Transform Mercury Cannon | 6 | parry yes; attack | – | – | – |
+| R | Transform Mercury Hammer | 6 | parry yes; attack | – | – | – |
+| W | Hyper Charge | 5 | parry yes; attack | – | – | – |
+| W | Lightning Field | 10 | on-hit | – | – | – |
+
 ## Innate: Hextech Capacitor
 
 Source: [Template:Data Jayce/Hextech Capacitor](https://wiki.leagueoflegends.com/en-us/Template:Data_Jayce/Hextech_Capacitor?oldid=4042868) (revision 4042868). Ranks: 1.

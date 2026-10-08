@@ -9,6 +9,22 @@ Values marked "at max rank, level 20" assume every ability is maxed; see PLAN.md
 |---|--:|--:|--:|--:|--:|--:|--:|--:|--:|--:|
 | Udyr | 2473.2 | 20.75 | 1254.3 Mana | 140.7 | 1.033 | 0.192 | 123.4 | 72.3 | 125 | 350 |
 
+## Fight profile (what the interaction ledger uses)
+
+| Form | Attack range | Ranged | Projectile | Missile speed | Attack modifiers |
+|---|--:|---|---|--:|---|
+| Udyr | 125 | no | no | – | Bridge Between |
+
+Cooldowns at max rank. Flags: the wiki's interaction flags (yes, no, partly). * marks an effect that applies only under a condition.
+
+| Slot | Ability | Cooldown | Delivery | Applies to the enemy | Movement | Gives itself |
+|---|---|--:|---|---|---|---|
+| E | Blazing Stampede | 6 | spell shield yes; parry yes; grounded partly; knockdown partly | stun 0.75 s | dash | cc immune 1.5 s |
+| I | Bridge Between | – | parry yes; attack modifier | – | – | – |
+| Q | Wilding Claw | 6 | projectile yes; spell shield partly; parry yes; on-hit | – | – | – |
+| R | Wingborne Storm | 6 | spell shield no; parry yes; on-hit | slow 30% | – | – |
+| W | Iron Mantle | 6 | parry yes; on-hit | – | – | heal; shield 4 s |
+
 ## Innate: Bridge Between
 
 Source: [Template:Data Udyr/Bridge Between](https://wiki.leagueoflegends.com/en-us/Template:Data_Udyr/Bridge_Between?oldid=3983420) (revision 3983420). Ranks: 1.
@@ -39,56 +55,6 @@ Notes:
 - The global cooldown will not incur on abilities that are currently on a greater cooldown.
 - The empowered attacks will not get consumed if they are parried.
 - Awakened Spirit's cast also activates Monk Training and empowers the next 2 attacks by the stances unawakened effects as well, overriding unused unawakened stance attacks.
-
-## Innate: Monkey's Agility
-
-Source: [Template:Data Udyr/Monkey's Agility](https://wiki.leagueoflegends.com/en-us/Template:Data_Udyr/Monkey's_Agility?oldid=3443263) (revision 3443263). Ranks: 1.
-
-Targeting: Passive · Affects: Self · Damage type: – · Spell shield blocks it: – · Projectile: – · Parry: – · Disabled by grounded: – · Usable while knocked down: –
-
-Innate - Four Stances: Udyr has no ultimate ability and instead has 4 basic abilities. Each ability grants a Stance: a unique passive effect that lasts until casting a different ability. Switching Stances will prevent his previous Stance from triggering any more on-hit effects, and incur a 1.5-second global cooldown on his other abilities.
-
-Starting at level 16, all abilities can gain a 6th rank.
-
-Innate: Udyr's ability casts generate a stack of Monkey's Agility for 5 seconds, refreshing on subsequent casts and stacking up to 3 times. Monkey's Agility: For each stack, Udyr gains 5 bonus movement speed and 10% bonus attack speed, up to 15 bonus movement speed and 30% bonus attack speed.
-
-Notes:
-
-- Cloud Dragon Soul increased movement speed buff is special cased to activate on all of Udyr's spell casts due to not having a traditional ultimate.
-- The global cooldown will not incur on abilities that are currently on a greater cooldown.
-- Udyr does not receive extra skill points for his extra ability ranks, meaning he will not be able to reach maximum rank on all of his abilities unless he can level beyond the normal limit (e.g. Ultra Rapid Fire).
-
-## Q: Tiger Stance
-
-Source: [Template:Data Udyr/Tiger Stance](https://wiki.leagueoflegends.com/en-us/Template:Data_Udyr/Tiger_Stance?oldid=3439667) (revision 3439667). Ranks: 6.
-
-| Field | Value |
-|---|---|
-| Cooldown | 6 |
-| Cost | 45 – 28 (based on level) mana |
-| Cast time | none |
-
-Targeting: Auto · Affects: Enemies · Damage type: physical · Spell shield blocks it: false · Projectile: – · Parry: special · Disabled by grounded: – · Usable while knocked down: –
-
-Stance: Udyr's basic attacks on-hit generate a stack of Tiger. At 3 stacks, his next basic attack is empowered to consume them all to inflict Tiger Strike, and also generates a Tiger stack.
-
-Tiger Strike: The target is dealt bonus physical damage every 0.5 seconds over 2 seconds. Leftover damage is dealt instantly upon subsequent infliction.
-
-- **Total Bonus Physical Damage:** 30 / 60 / 90 / 120 / 150 / 180 (+ 110 / 125 / 140 / 155 / 170 / 185% AD) → at max rank, level 20: 180 (+ 185% AD)
-- **Bonus Physical Damage per Tick:** 7.5 / 15 / 22.5 / 30 / 37.5 / 45 (+ 27.5 / 31.25 / 35 / 38.75 / 42.5 / 46.25% AD) → at max rank, level 20: 45 (+ 46.25% AD)
-
-Active: Udyr gains bonus attack speed for 5 seconds, and instantly generates 3 Tiger stacks.
-
-- **Bonus Attack Speed:** 30 / 40 / 50 / 60 / 70 / 80% → at max rank, level 20: 80%
-
-Notes:
-
-- The name of the buff granted by entering Tiger Stance is Tiger Speed.
-- The triggering attack will generate the first stack toward the next, meaning the effect will always trigger on every 3rd attack. Guinsoo's Rageblade will reduce this number to every 2nd attack, with Udyr's attack animations coded to "look ahead" and trigger the empowered-attack animation if he attacks a target while at 1 stack while Guinsoo's Rage is active.
-- Tiger Stance's primed damage over time does not persist through stance changes.
-- Unlike most on-hit physical damage, the bonus damage from Tiger Stance will not apply life steal.
-- The on-hit application of the DoT cannot be dodged nor blocked, but it can miss.
-- The empowered attack will not trigger against structures.
 
 ## Q: Wilding Claw
 
@@ -170,64 +136,6 @@ Notes:
 - The empowered attacks will not trigger nor be consumed if they hit a structure or ward or are parried.
 - The increased life steal is a buff that expires after two valid attacks have been completed, as opposed to an on-attack modifier for your next two attacks. This means that while the buff is active, Ravenous Hydra will heal at the increased life steal value.
 
-## W: Turtle Stance
-
-Source: [Template:Data Udyr/Turtle Stance](https://wiki.leagueoflegends.com/en-us/Template:Data_Udyr/Turtle_Stance?oldid=3440547) (revision 3440547). Ranks: 6.
-
-| Field | Value |
-|---|---|
-| Cooldown | 6 |
-| Cost | 45 – 28 (based on level) mana |
-| Cast time | none |
-
-Targeting: Auto · Affects: Self · Damage type: – · Spell shield blocks it: – · Projectile: – · Parry: – · Disabled by grounded: – · Usable while knocked down: –
-
-Stance: Udyr's basic attacks on-hit generate a stack of Turtle. At 3 stacks, his next basic attack is empowered to consume them all to heal himself for 2 / 2.2 / 2.4 / 2.6 / 2.8 / 3 / 3.2 / 3.4 / 3.6 / 3.8 / 4 (based on missing health)% of his maximum health, and also generates a Turtle stack. This effect does not trigger if Udyr is at full health.
-
-- **Mechanics:** heal
-
-Active: Udyr shields himself for up to 5 seconds, and instantly generates 3 Turtle stacks.
-
-- **Shield Strength:** 60 / 90 / 120 / 150 / 180 / 210 (+ 45% AP) → at max rank, level 20: 210 (+ 45% AP)
-- **Mechanics:** shield (5 s)
-
-Notes:
-
-- The name of the buff granted by entering Turtle Stance is Spiritual Shell.
-- The triggering attack will generate the first stack toward the next, meaning the effect will always trigger on every 3rd attack. Guinsoo's Rageblade will reduce this number to every 2nd attack, with Udyr's attack animations coded to "look ahead" and trigger the empowered-attack animation if he attacks a target while at 1 stack while Guinsoo's Rage is active.
-- The empowered attack will not trigger against structures.
-
-## E: Bear Stance
-
-Source: [Template:Data Udyr/Bear Stance](https://wiki.leagueoflegends.com/en-us/Template:Data_Udyr/Bear_Stance?oldid=3439669) (revision 3439669). Ranks: 6.
-
-| Field | Value |
-|---|---|
-| Cooldown | 6 |
-| Cost | 45 – 28 (based on level) mana |
-| Cast time | none |
-
-Targeting: Auto · Affects: Self · Damage type: – · Spell shield blocks it: true · Projectile: – · Parry: true · Disabled by grounded: – · Usable while knocked down: –
-
-Stance: Udyr's basic attacks are empowered to have an uncancellable windup and stun the target for 1 second. The target is then marked Mauled for 5 seconds, becoming immune to the stun.
-
-- **Mechanics:** uncancellable windup; stun (1 s)
-
-Active: Udyr gains bonus movement speed and ghosting for the next few seconds. During this time, his basic attacks against enemy champions are empowered to lunge 50 units toward them, unless they are marked Mauled.
-
-- **Bonus Movement Speed:** 15 / 20 / 25 / 30 / 35 / 40% → at max rank, level 20: 40%
-- **Buff Duration:** 2 / 2.25 / 2.5 / 2.75 / 3 / 3.25 → at max rank, level 20: 3.25
-- **Mechanics:** ghosted; dash
-
-Notes:
-
-- The name of the buff granted by entering Bear Stance is Primal Charge.
-- The name of the immunity debuff granted from Bear Stance is Mauled.
-- Bear Stance's self-displacement does not count as a dash for the purposes of Sudden Impact.
-- The triggering attack will apply other on-hit effects and can critically strike as normal.
-- Spell shield and crowd control immunity will consume the attack, meaning the on-target stun immunity is also incurred in the process.
-- The empowered attack will not trigger against structures.
-
 ## E: Blazing Stampede
 
 Source: [Template:Data Udyr/Blazing Stampede](https://wiki.leagueoflegends.com/en-us/Template:Data_Udyr/Blazing_Stampede?oldid=4052353) (revision 4052353). Ranks: 6.
@@ -262,34 +170,6 @@ Notes:
 - The empowered attacks will not trigger nor be consumed if they hit a structure or ward or are parried.
 - Each empowered attack is considered to belong to its own cast instance.
     - The immunity to the stun is not applied in any case.
-
-## R: Phoenix Stance
-
-Source: [Template:Data Udyr/Phoenix Stance](https://wiki.leagueoflegends.com/en-us/Template:Data_Udyr/Phoenix_Stance?oldid=3439670) (revision 3439670). Ranks: 6.
-
-| Field | Value |
-|---|---|
-| Cooldown | 6 |
-| Cost | 45 – 28 (based on level) mana |
-| Cast time | none |
-| Effect radius | 625 / 250 |
-
-Targeting: Auto · Affects: Self, Enemies · Damage type: magic · Spell shield blocks it: false · Projectile: false · Parry: – · Disabled by grounded: – · Usable while knocked down: –
-
-Stance: Udyr's basic attacks on-hit generate a stack of Phoenix. At 3 stacks, his next basic attack is empowered to unleash fire in a cone in front of him that deals magic damage to enemies hit, and also generate a Phoenix stack.
-
-- **Cone Damage:** 60 / 110 / 160 / 210 / 260 / 310 (+ 80% AP) → at max rank, level 20: 310 (+ 80% AP)
-
-Active: Udyr creates an aura of pulsing fire for 4 seconds, dealing magic damage each second to nearby enemies. He also instantly generates 3 Phoenix stacks.
-
-- **Total Magic Damage:** 40 / 80 / 120 / 160 / 200 / 240 (+ 100% AP) → at max rank, level 20: 240 (+ 100% AP)
-- **Magic Damage Per Tick:** 10 / 20 / 30 / 40 / 50 / 60 (+ 25% AP) → at max rank, level 20: 60 (+ 25% AP)
-
-Notes:
-
-- The name of the buff granted by entering Phoenix Stance is Phoenix Flame.
-- The triggering attack will generate the first stack toward the next, meaning the effect will always trigger on every 3rd attack. Guinsoo's Rageblade will reduce this number to every 2nd attack, with Udyr's attack animations coded to "look ahead" and trigger the empowered-attack animation if he attacks a target while at 1 stack while Guinsoo's Rage is active.
-- The empowered attack will trigger and be consumed but will not deal its damage against structures.
 
 ## R: Wingborne Storm
 
@@ -360,16 +240,13 @@ game formula supplies 19-20; "confirmed"/"differs": the wiki defines 19-20 and t
 
 | Ability | Value | Outcome | Level 18 | Level 19 | Level 20 | Game formula |
 |---|---|---|--:|--:|--:|---|
-| Bear Stance | cost | no match | 28 | – | – | – |
 | Blazing Stampede | description: Recast - Awaken: Udyr gains 75 bonus attack range and an additional 30 – 40 (bas | confirmed | 40 | 40.5882 | 41.1765 | UdyrE.MoveSpeedBonus: linear 0.3 → 0.4 over levels 1-18, continues past 18 |
 | Blazing Stampede | cost | no match | 23 | 22 | 21 | – |
-| Tiger Stance | cost | no match | 28 | – | – | – |
 | Wilding Claw | description: Recast - Awaken: Udyr gains an additional 20 – 70 (based on level)% bonus attack | no match | 70 | 72.9412 | 75.8824 | – |
 | Wilding Claw | description: The empowered attacks deal an additional 2 – 4 (based on level)% (+ 1.5% per 100 | confirmed | 4 | 4.11765 | 4.23529 | UdyrQ.Q2TotalOnHitHPDamage: linear 0.02 → 0.04 over levels 1-18, continues past 18 |
 | Wilding Claw | description: Udyr's next two basic attacks on-hit in any Stance within 4 seconds are each emp | no match | 3 | 3.08824 | 3.17647 | – |
 | Wilding Claw | description: Udyr's next two basic attacks on-hit in any Stance within 4 seconds are each emp | no match | 18 | 18.5294 | 19.0588 | – |
 | Wilding Claw | description: Each lightning strike deals a minimum of 40 – 160 (based on level) against minio | confirmed | 160 | 167.059 | 174.118 | UdyrQ.LightningDamageToMinionsMin: linear 40 → 160 over levels 1-18, continues past 18 |
-| Phoenix Stance | cost | no match | 28 | – | – | – |
 | Wingborne Storm | description: Active - Stance: Udyr enters Storm Stance, empowering his next two basic attacks | confirmed | 40 | 41.7647 | 43.5294 | UdyrR.PulseDamage: linear 10 → 40 over levels 1-18, continues past 18 |
 | Wingborne Storm | description: The storm applies the same effects as the blizzard but deals bonus magic damage  | no match | 1.75 | 1.79412 | 1.83824 | – |
 | Wingborne Storm | description: Against monsters, the storm's per-tick damage deals a minimum of 5 – 35 (based o | confirmed | 35 | 36.7647 | 38.5294 | UdyrR.{af259c48}: linear 5 → 35 over levels 1-18, continues past 18 |
@@ -379,7 +256,6 @@ game formula supplies 19-20; "confirmed"/"differs": the wiki defines 19-20 and t
 | Iron Mantle | Total Healing | no match | 75 | 78.8235 | 82.6471 | – |
 | Iron Mantle | Heal per Tick | no match | 4.6875 | 4.92647 | 5.16544 | – |
 | Iron Mantle | cost | no match | 23 | 22 | 21 | – |
-| Turtle Stance | cost | no match | 28 | – | – | – |
 
 All 18 level-based formulas in the game files (7 linked to wiki values above):
 

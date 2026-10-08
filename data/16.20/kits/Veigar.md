@@ -9,6 +9,22 @@ Values marked "at max rank, level 20" assume every ability is maxed; see PLAN.md
 |---|--:|--:|--:|--:|--:|--:|--:|--:|--:|--:|
 | Veigar | 2703.8 | 18.30 | 1001.3 Mana | 105.1 | 0.900 | 0.212 | 120.3 | 57.6 | 550 | 340 |
 
+## Fight profile (what the interaction ledger uses)
+
+| Form | Attack range | Ranged | Projectile | Missile speed | Attack modifiers |
+|---|--:|---|---|--:|---|
+| Veigar | 550 | yes | yes | 1500 | – |
+
+Cooldowns at max rank. Flags: the wiki's interaction flags (yes, no, partly). * marks an effect that applies only under a condition.
+
+| Slot | Ability | Cooldown | Delivery | Applies to the enemy | Movement | Gives itself |
+|---|---|--:|---|---|---|---|
+| E | Event Horizon | 14 | spell shield yes | knockdown 2.5 s; stun 2.5 s; knockdown | – | – |
+| I | Phenomenal Evil Power | – | – | – | – | – |
+| Q | Baleful Strike | 4 | projectile yes; spell shield yes | – | – | – |
+| R | Primordial Burst | 60 | projectile yes; spell shield yes | – | – | – |
+| W | Dark Matter | 8 | spell shield yes | – | – | – |
+
 ## Innate: Phenomenal Evil Power
 
 Source: [Template:Data Veigar/Phenomenal Evil Power](https://wiki.leagueoflegends.com/en-us/Template:Data_Veigar/Phenomenal_Evil_Power?oldid=3932550) (revision 3932550). Ranks: 1.

@@ -9,6 +9,23 @@ Values marked "at max rank, level 20" assume every ability is maxed; see PLAN.md
 |---|--:|--:|--:|--:|--:|--:|--:|--:|--:|--:|
 | Corki | 2576.5 | 16.32 | 1136.6 Mana | 101.2 | 0.999 | 0.116 | 115.5 | 54.6 | 550 | 325 |
 
+## Fight profile (what the interaction ledger uses)
+
+| Form | Attack range | Ranged | Projectile | Missile speed | Attack modifiers |
+|---|--:|---|---|--:|---|
+| Corki | 550 | yes | yes | 2000 | Hextech Munitions |
+
+Cooldowns at max rank. Flags: the wiki's interaction flags (yes, no, partly). * marks an effect that applies only under a condition.
+
+| Slot | Ability | Cooldown | Delivery | Applies to the enemy | Movement | Gives itself |
+|---|---|--:|---|---|---|---|
+| E | Gatling Gun | 12 | projectile no; spell shield no | – | – | – |
+| I | Hextech Munitions | – | parry yes; attack modifier | – | – | – |
+| Q | Phosphorus Bomb | 7 | projectile yes; spell shield yes | – | – | – |
+| R | Missile Barrage | 20 | projectile yes; spell shield yes; on-hit | – | – | – |
+| W | Special Delivery | – | spell shield no; grounded yes; knockdown no | airborne 5 s; slow 2 s 90% | – | displacement immune 5 s |
+| W | Valkyrie | 12 | spell shield no; grounded yes; knockdown yes | – | dash | – |
+
 ## Innate: Hextech Munitions
 
 Source: [Template:Data Corki/Hextech Munitions](https://wiki.leagueoflegends.com/en-us/Template:Data_Corki/Hextech_Munitions?oldid=4050625) (revision 4050625). Ranks: 1.

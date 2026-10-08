@@ -1,0 +1,348 @@
+{
+  "champion": "Khazix",
+  "name": "Kha'Zix",
+  "gameplayRadius": 65,
+  "moveSpeed": 345,
+  "attacks": [
+    {
+      "form": "kha-zix",
+      "formName": "Kha'Zix",
+      "range": 125,
+      "ranged": false,
+      "projectile": false,
+      "attackSpeed": 1.02268,
+      "attackDamage": 120.962,
+      "windup": 0.196088,
+      "modifiers": [
+        "Unseen Threat"
+      ]
+    }
+  ],
+  "abilities": [
+    {
+      "champion": "Khazix",
+      "kind": "E",
+      "name": "Evolved Wings",
+      "page": {
+        "title": "Template:Data Kha'Zix/Evolved Wings",
+        "revid": 4072116
+      },
+      "damageTypes": [
+        "physical"
+      ],
+      "delivery": {
+        "targeting": [
+          "location"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "yes",
+        "grounded": "yes",
+        "knockdown": "yes"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "range": 1000
+    },
+    {
+      "champion": "Khazix",
+      "kind": "E",
+      "name": "Leap",
+      "page": {
+        "title": "Template:Data Kha'Zix/Leap",
+        "revid": 4072117
+      },
+      "damageTypes": [
+        "physical"
+      ],
+      "delivery": {
+        "targeting": [
+          "location"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "yes",
+        "grounded": "yes",
+        "knockdown": "yes"
+      },
+      "applies": [],
+      "movement": [
+        {
+          "type": "dash",
+          "evidence": [
+            {
+              "page": "Dash",
+              "revid": 4035700,
+              "quote": "location-targeted"
+            }
+          ],
+          "targeting": "location-targeted",
+          "interruptible": true
+        }
+      ],
+      "states": [],
+      "cooldown": 12,
+      "castTime": 0,
+      "range": 700
+    },
+    {
+      "champion": "Khazix",
+      "kind": "I",
+      "name": "Unseen Threat",
+      "page": {
+        "title": "Template:Data Kha'Zix/Unseen Threat",
+        "revid": 4064849
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "passive"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "no",
+        "parry": "yes",
+        "attack": "attack modifier"
+      },
+      "applies": [
+        {
+          "type": "slow",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "slow"
+            },
+            {
+              "page": "Template:Data Kha'Zix/Unseen Threat",
+              "revid": 4064849,
+              "quote": "Unseen Threat: Kha'Zix empowers his next basic attack against an enemy champion to deal 22 – 141 (based on level) (+ 50% bonus AD) bonus magic damage and slow them by 25% for 2 seconds."
+            }
+          ],
+          "duration": 2,
+          "amount": 25
+        }
+      ],
+      "movement": [],
+      "states": [],
+      "notes": [
+        "Void Assault grants Unseen Threat even if Kha'Zix never becomes unseen (e.g. affected by true sight).\n  - Other stealth such as E does not do this."
+      ]
+    },
+    {
+      "champion": "Khazix",
+      "kind": "Q",
+      "name": "Evolved Reaper Claws",
+      "page": {
+        "title": "Template:Data Kha'Zix/Evolved Reaper Claws",
+        "revid": 3994647
+      },
+      "damageTypes": [
+        "physical"
+      ],
+      "delivery": {
+        "targeting": [
+          "unit"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "yes"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "range": 375,
+      "notes": [
+        "Isolated targets are marked by an indicator, shown to Kha'Zix, when visible and within 2500 units of him. This indicator is independent of the actual effects and its timing may not be fully accurate.* If the target becomes untargetable, dies, or is too far away or no longer in sight during the cast time, this ability will cancel but does not go on cooldown nor pay its cost (if applicable)."
+      ]
+    },
+    {
+      "champion": "Khazix",
+      "kind": "Q",
+      "name": "Taste Their Fear",
+      "page": {
+        "title": "Template:Data Kha'Zix/Taste Their Fear",
+        "revid": 4006997
+      },
+      "damageTypes": [
+        "physical"
+      ],
+      "delivery": {
+        "targeting": [
+          "unit"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "yes"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "cooldown": 4,
+      "castTime": 0.25,
+      "range": 325,
+      "notes": [
+        "Isolated targets are marked by an indicator, shown to Kha'Zix, when visible and within 2500 units of him. This indicator is independent of the actual effects and its timing may not be fully accurate.* If the target becomes untargetable, dies, or is too far away or no longer in sight during the cast time, this ability will cancel but does not go on cooldown nor pay its cost (if applicable)."
+      ]
+    },
+    {
+      "champion": "Khazix",
+      "kind": "R",
+      "name": "Evolved Adaptive Cloaking",
+      "page": {
+        "title": "Template:Data Kha'Zix/Evolved Adaptive Cloaking",
+        "revid": 3906950
+      },
+      "damageTypes": [],
+      "delivery": {
+        "targeting": [
+          "auto"
+        ],
+        "affectsEnemies": false
+      },
+      "applies": [],
+      "movement": [],
+      "states": [
+        {
+          "state": "invisible",
+          "evidence": [
+            {
+              "page": "Stealth",
+              "revid": 4013411
+            },
+            {
+              "page": "Template:Data Kha'Zix/Evolved Adaptive Cloaking",
+              "revid": 3906950,
+              "quote": "Evolved Bonus: The invisibility now lasts 2 seconds, and Void Assault can be recast twice."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "champion": "Khazix",
+      "kind": "R",
+      "name": "Void Assault",
+      "page": {
+        "title": "Template:Data Kha'Zix/Void Assault",
+        "revid": 3969560
+      },
+      "damageTypes": [],
+      "delivery": {
+        "targeting": [
+          "auto"
+        ],
+        "affectsEnemies": false
+      },
+      "applies": [],
+      "movement": [],
+      "states": [
+        {
+          "state": "invisible",
+          "evidence": [
+            {
+              "page": "Stealth",
+              "revid": 4013411
+            },
+            {
+              "page": "Template:Data Kha'Zix/Void Assault",
+              "revid": 3969560,
+              "quote": "Active: Kha'Zix becomes invisible for 1.25 seconds, during which he gains 40% bonus movement speed."
+            }
+          ],
+          "duration": 1.25
+        }
+      ],
+      "cooldown": 70,
+      "castTime": 0,
+      "notes": [
+        "Using a basic attack breaks stealth at the end of the attack windup."
+      ]
+    },
+    {
+      "champion": "Khazix",
+      "kind": "W",
+      "name": "Evolved Spike Racks",
+      "page": {
+        "title": "Template:Data Kha'Zix/Evolved Spike Racks",
+        "revid": 4064850
+      },
+      "damageTypes": [
+        "physical"
+      ],
+      "delivery": {
+        "targeting": [
+          "direction"
+        ],
+        "affectsEnemies": true,
+        "projectile": "yes",
+        "spellShield": "partly"
+      },
+      "applies": [
+        {
+          "type": "slow",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "slow"
+            },
+            {
+              "page": "Template:Data Kha'Zix/Evolved Spike Racks",
+              "revid": 4064850,
+              "quote": "Evolved Bonus: Void Spike now fires three clusters in a cone, slows by 40% and reveals enemy champions hit for 2.25 seconds."
+            }
+          ],
+          "duration": 2.25,
+          "amount": 40
+        }
+      ],
+      "movement": [],
+      "states": [],
+      "notes": [
+        "An enemy cannot be hit by more than one cluster at a time; the missiles will not collide with enemies that have already been hit.",
+        "Evolved Spike Racks effect radius is centered around the location of the missile as it collides.",
+        "Spell shield will not block the reveal."
+      ]
+    },
+    {
+      "champion": "Khazix",
+      "kind": "W",
+      "name": "Void Spike",
+      "page": {
+        "title": "Template:Data Kha'Zix/Void Spike",
+        "revid": 3971345
+      },
+      "damageTypes": [
+        "physical"
+      ],
+      "delivery": {
+        "targeting": [
+          "direction"
+        ],
+        "affectsEnemies": true,
+        "projectile": "yes",
+        "spellShield": "yes"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [
+        {
+          "state": "heal",
+          "evidence": [
+            {
+              "page": "Template:Data Kha'Zix/Void Spike",
+              "revid": 3971345,
+              "quote": "Kha'Zix heals himself if he is within the explosion."
+            }
+          ]
+        }
+      ],
+      "cooldown": 9,
+      "castTime": 0.25,
+      "range": 1025,
+      "speed": 1700,
+      "notes": [
+        "Void Spike's effect radius is centered around the location of the missile as it collides."
+      ]
+    }
+  ]
+}

@@ -9,6 +9,22 @@ Values marked "at max rank, level 20" assume every ability is maxed; see PLAN.md
 |---|--:|--:|--:|--:|--:|--:|--:|--:|--:|--:|
 | Amumu | 2533.5 | 25.72 | 1071.6 Mana | 131.7 | 1.010 | 0.232 | 111.7 | 72.3 | 125 | 335 |
 
+## Fight profile (what the interaction ledger uses)
+
+| Form | Attack range | Ranged | Projectile | Missile speed | Attack modifiers |
+|---|--:|---|---|--:|---|
+| Amumu | 125 | no | no | – | Cursed Touch |
+
+Cooldowns at max rank. Flags: the wiki's interaction flags (yes, no, partly). * marks an effect that applies only under a condition.
+
+| Slot | Ability | Cooldown | Delivery | Applies to the enemy | Movement | Gives itself |
+|---|---|--:|---|---|---|---|
+| E | Tantrum | 5 | spell shield yes; on-hit | – | – | – |
+| I | Cursed Touch | – | spell shield partly; parry yes; attack modifier | – | – | – |
+| Q | Bandage Toss | 12 | projectile yes; spell shield partly; grounded yes; knockdown yes | stun 1 s | dash (when hitting a unit) | – |
+| R | Curse of the Sad Mummy | 100 | spell shield yes | knockdown 1.5 s; stun 1.5 s; knockdown | – | – |
+| W | Despair | 1 | spell shield no | – | – | – |
+
 ## Innate: Cursed Touch
 
 Source: [Template:Data Amumu/Cursed Touch](https://wiki.leagueoflegends.com/en-us/Template:Data_Amumu/Cursed_Touch?oldid=4046475) (revision 4046475). Ranks: 1.

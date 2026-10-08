@@ -1,0 +1,270 @@
+{
+  "champion": "Irelia",
+  "name": "Irelia",
+  "gameplayRadius": 65,
+  "moveSpeed": 335,
+  "attacks": [
+    {
+      "form": "irelia",
+      "formName": "Irelia",
+      "range": 200,
+      "ranged": false,
+      "projectile": false,
+      "attackSpeed": 0.978506,
+      "attackDamage": 133.828,
+      "windup": 0.201043,
+      "modifiers": [
+        "Ionian Fervor"
+      ]
+    }
+  ],
+  "abilities": [
+    {
+      "champion": "Irelia",
+      "kind": "E",
+      "name": "Flawless Duet",
+      "page": {
+        "title": "Template:Data Irelia/Flawless Duet",
+        "revid": 4021834
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "location"
+        ],
+        "affectsEnemies": true,
+        "projectile": "yes",
+        "spellShield": "yes"
+      },
+      "applies": [
+        {
+          "type": "stun",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "stun"
+            },
+            {
+              "page": "Template:Data Irelia/Flawless Duet",
+              "revid": 4021834,
+              "quote": "Once both blades have been placed, they fly toward each other regardless of distance and converge over 0.25 seconds, afterwards dealing magic damage to all enemies within a line between them and stunning them for 0.75 seconds, during which they are revealed."
+            }
+          ],
+          "duration": 0.75
+        }
+      ],
+      "movement": [],
+      "states": [],
+      "cooldown": 10,
+      "castTime": 0,
+      "range": 775,
+      "speed": 2000,
+      "notes": [
+        "The outgoing blades will stop flight upon touching projectile blocking effects. The converging blades will instead be destroyed upon contact with such effects.\n  - The blades will not stun nor deal damage if they fail to converge (i.e Wind Wall)."
+      ]
+    },
+    {
+      "champion": "Irelia",
+      "kind": "I",
+      "name": "Ionian Fervor",
+      "page": {
+        "title": "Template:Data Irelia/Ionian Fervor",
+        "revid": 4045313
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "passive"
+        ],
+        "affectsEnemies": false,
+        "attack": "attack modifier"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "boostsAttacks": true,
+      "notes": [
+        ": Parry interactions (block and dodge).",
+        "Ionian Fervor will not deal damage if the attack misses due to blind, but its duration will be refreshed.\n  - Bladesurge cannot be missed while Irelia is blinded, applying Ionian Fervor from the ability will not be prevented from that parry effect."
+      ]
+    },
+    {
+      "champion": "Irelia",
+      "kind": "Q",
+      "name": "Bladesurge",
+      "page": {
+        "title": "Template:Data Irelia/Bladesurge",
+        "revid": 4057466
+      },
+      "damageTypes": [
+        "physical"
+      ],
+      "delivery": {
+        "targeting": [
+          "unit"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "yes",
+        "parry": "yes",
+        "grounded": "yes",
+        "knockdown": "yes",
+        "attack": "on-hit"
+      },
+      "applies": [],
+      "movement": [
+        {
+          "type": "dash",
+          "evidence": [
+            {
+              "page": "Dash",
+              "revid": 4035700,
+              "quote": "unit-targeted"
+            }
+          ],
+          "targeting": "unit-targeted",
+          "interruptible": true
+        }
+      ],
+      "states": [
+        {
+          "state": "heal",
+          "evidence": [
+            {
+              "page": "Template:Data Irelia/Bladesurge",
+              "revid": 4057466,
+              "quote": "Active: Irelia dashes 100 units through the target enemy's location, and upon collision or dash completion, she deals physical damage, applies on-hit effects, and heals herself."
+            }
+          ]
+        }
+      ],
+      "cooldown": 6,
+      "castTime": 0,
+      "range": 600,
+      "speed": 1400,
+      "notes": [
+        "If the target dies during Bladesurge's dash, the cooldown is fully refunded and Irelia may also cast her other abilities during the dash.",
+        "Bladesurge will only allow Irelia to dash through walls if there is enough space for her on the other side.",
+        "Bladesurge deals its damage and consumes marks when Irelia collides with the target, or at the end of the dash if the target moves away.\n  - Bladesurge will not deal damage if the dash is interrupted beforehand.\n    - The damage will be dealt if the target is in collision range when the dash is interrupted however.\n    - Flash will interrupt the dash but Irelia will still collide with and deal damage to her target if the blink leaves her in contact with it at the new location.\n  - Irelia will complete her remaining dash distance even if the damage is dealt earlier.\n  - If the target is untargetable, Bladesurge will instead deals its damage at the end of the dash, rather than on collision.",
+        "Irelia will automatically be ordered to acquire and attack Bladesurge's target as soon as the dash completes.\n  - If a different target than Bladesurge's is selected during the dash, she will acquire that different target instead."
+      ]
+    },
+    {
+      "champion": "Irelia",
+      "kind": "R",
+      "name": "Vanguard's Edge",
+      "page": {
+        "title": "Template:Data Irelia/Vanguard's Edge",
+        "revid": 4057346
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "direction"
+        ],
+        "affectsEnemies": true,
+        "projectile": "yes",
+        "spellShield": "partly"
+      },
+      "applies": [
+        {
+          "type": "slow",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "slow"
+            },
+            {
+              "page": "Template:Data Irelia/Vanguard's Edge",
+              "revid": 4057346,
+              "quote": "Enemies that pass through the blades for the first time are dealt the same magic damage and are slowed by 90% for 1.5 seconds."
+            }
+          ],
+          "duration": 1.5,
+          "amount": 90
+        }
+      ],
+      "movement": [],
+      "states": [],
+      "cooldown": 85,
+      "castTime": 0.4,
+      "range": 1000,
+      "speed": 2000,
+      "notes": [
+        "In addition to its projectile, Vanguard's Edge will check for enemy champions within a 90-unit radius area from the projectile's origin point.\n  - The projectile interacts with projectile-blocking effects but the area check doesn't.",
+        "The blades will still expand if the champion hit by the blades is protected by a spell shield.",
+        "The sight is granted in a 1350 unit radius at the location of the enemy champion at the time of being hit and can be blocked by terrain."
+      ]
+    },
+    {
+      "champion": "Irelia",
+      "kind": "W",
+      "name": "Defiant Dance",
+      "page": {
+        "title": "Template:Data Irelia/Defiant Dance",
+        "revid": 4057467
+      },
+      "damageTypes": [
+        "physical"
+      ],
+      "delivery": {
+        "targeting": [
+          "auto",
+          "direction"
+        ],
+        "affectsEnemies": true,
+        "projectile": "no",
+        "spellShield": "yes",
+        "disruptable": "no"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "cooldown": 12,
+      "castTime": 0.25,
+      "range": 775,
+      "channel": [
+        {
+          "type": "uninterruptible",
+          "evidence": [
+            {
+              "page": "Channel",
+              "revid": 4002276,
+              "quote": "uninterruptible"
+            }
+          ]
+        },
+        {
+          "type": "charged",
+          "evidence": [
+            {
+              "page": "Channel",
+              "revid": 4002276
+            }
+          ]
+        }
+      ],
+      "usableWhileDisabled": {
+        "which": "recast",
+        "evidence": [
+          {
+            "page": "Template:Data Irelia/Defiant Dance",
+            "revid": 4057467,
+            "quote": "recast can be used while affected by cast-inhibiting crowd control"
+          }
+        ]
+      },
+      "notes": [
+        "Enemies around Irelia will be dealt the damage once the recast's cast time ends, while enemies within the line are dealt the damage via a missile that reaches the furthest targets after a 0.066 delay after the recast's cast time.",
+        "The following table refers for interactions while Irelia is channeling:"
+      ]
+    }
+  ]
+}

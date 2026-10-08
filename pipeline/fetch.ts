@@ -4,11 +4,14 @@
  * data/<dataset>/wiki-revisions.json.
  *
  * Usage: npm run fetch
+ *        npm run fetch -- --only glossary   (refetch just the glossary pages of the latest dataset)
  */
 import path from "node:path";
 import {
+  RAW_DIR,
   WIKI_BASE,
   WIKI_CHAMPION_DATA_PAGE,
+  WIKI_GLOSSARY_PAGES,
   WIKI_LEVEL20_PAGE,
   WIKI_LICENSE,
   datasetDir,
@@ -16,7 +19,8 @@ import {
   patchName,
   rawDir,
 } from "./config";
-import { writeJson, writeText } from "./lib/files";
+import { latestDataset } from "./datasets";
+import { readJson, writeJson, writeText } from "./lib/files";
 import { mapLimit } from "./lib/http";
 import type { Manifest } from "./manifest";
 import { parseChampionData } from "./parse/championData";
@@ -30,7 +34,34 @@ function log(message: string): void {
   console.log(`[fetch] ${message}`);
 }
 
+/** The wiki's glossary pages: lists of abilities by mechanic, and the definitions rules cite. */
+async function fetchGlossary(raw: string): Promise<{ pages: wiki.WikiPage[]; missing: string[]; fetchedAt: string }> {
+  const fetchedAt = new Date().toISOString();
+  const result = await wiki.getPages(WIKI_GLOSSARY_PAGES);
+  await writeJson(path.join(raw, "wiki", "glossary.json"), result.pages);
+  log(`Wiki: ${result.pages.length} glossary pages${result.missing.length > 0 ? `, missing: ${result.missing.join(", ")}` : ""}`);
+  return { ...result, fetchedAt };
+}
+
+/** Refetches only the glossary pages into the latest dataset and updates its provenance files. */
+async function glossaryOnly(): Promise<void> {
+  const dataset = await latestDataset(RAW_DIR, "ddragon");
+  const out = datasetDir(dataset);
+  const glossary = await fetchGlossary(rawDir(dataset));
+  const manifest = await readJson<Manifest>(path.join(out, "manifest.json"));
+  manifest.wiki.glossary = { pages: glossary.pages.length, missing: glossary.missing, fetchedAt: glossary.fetchedAt };
+  await writeJson(path.join(out, "manifest.json"), manifest);
+  const revisions = await readJson<Record<string, number>>(path.join(out, "wiki-revisions.json"));
+  for (const page of glossary.pages) revisions[page.title] = page.revid;
+  const sorted = Object.fromEntries(Object.entries(revisions).sort(([a], [b]) => a.localeCompare(b)));
+  await writeJson(path.join(out, "wiki-revisions.json"), sorted);
+}
+
 async function main(): Promise<void> {
+  const only = process.argv.includes("--only") ? process.argv[process.argv.indexOf("--only") + 1] : undefined;
+  if (only === "glossary") return glossaryOnly();
+  if (only !== undefined) throw new Error(`Unknown --only value: ${only}`);
+
   const ddragonVersion = await ddragon.latestVersion();
   const cdragonVersion = await cdragon.contentVersion();
   const dataset = datasetName(ddragonVersion);
@@ -88,6 +119,7 @@ async function main(): Promise<void> {
   });
   await writeJson(path.join(raw, "wiki", "data-templates.json"), templates.pages);
   if (templates.missing.length > 0) log(`Wiki: ${templates.missing.length} listed pages were missing`);
+  const glossary = await fetchGlossary(raw);
 
   const manifest: Manifest = {
     dataset,
@@ -101,6 +133,7 @@ async function main(): Promise<void> {
       championData: { title: WIKI_CHAMPION_DATA_PAGE, revid: championData.revid },
       level20Table: { title: WIKI_LEVEL20_PAGE, revid: level20.revid },
       dataTemplates: { pages: templates.pages.length, missing: templates.missing },
+      glossary: { pages: glossary.pages.length, missing: glossary.missing, fetchedAt: glossary.fetchedAt },
     },
   };
   const out = datasetDir(dataset);
@@ -109,7 +142,7 @@ async function main(): Promise<void> {
   const revisions = Object.fromEntries(
     [
       [WIKI_LEVEL20_PAGE, level20.revid] as const,
-      ...[championData, ...templates.pages].map((page) => [page.title, page.revid] as const),
+      ...[championData, ...templates.pages, ...glossary.pages].map((page) => [page.title, page.revid] as const),
     ].sort(([a], [b]) => a.localeCompare(b)),
   );
   await writeJson(path.join(out, "wiki-revisions.json"), revisions);

@@ -9,6 +9,22 @@ Values marked "at max rank, level 20" assume every ability is maxed; see PLAN.md
 |---|--:|--:|--:|--:|--:|--:|--:|--:|--:|--:|
 | Master Yi | 2704.8 | 20.28 | 1076.9 Mana | 114.2 | 1.013 | 0.241 | 131.3 | 72.3 | 175 | 355 |
 
+## Fight profile (what the interaction ledger uses)
+
+| Form | Attack range | Ranged | Projectile | Missile speed | Attack modifiers |
+|---|--:|---|---|--:|---|
+| Master Yi | 175 | no | no | – | Double Strike |
+
+Cooldowns at max rank. Flags: the wiki's interaction flags (yes, no, partly). * marks an effect that applies only under a condition.
+
+| Slot | Ability | Cooldown | Delivery | Applies to the enemy | Movement | Gives itself |
+|---|---|--:|---|---|---|---|
+| E | Wuju Style | 14 | parry partly; on-hit | – | – | – |
+| I | Double Strike | – | parry partly; attack modifier | – | – | – |
+| Q | Alpha Strike | 18 | spell shield partly; parry partly; grounded yes; on-hit | – | blink | untargetable |
+| R | Highlander | 85 | – | – | – | slow immune 7 s; cleanse (2 CC types) |
+| W | Meditate | 10 | disruptable yes | – | – | heal 4 s |
+
 ## Innate: Double Strike
 
 Source: [Template:Data Master Yi/Double Strike](https://wiki.leagueoflegends.com/en-us/Template:Data_Master_Yi/Double_Strike?oldid=4057839) (revision 4057839). Ranks: 1.

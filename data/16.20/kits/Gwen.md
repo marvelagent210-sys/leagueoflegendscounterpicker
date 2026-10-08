@@ -9,6 +9,22 @@ Values marked "at max rank, level 20" assume every ability is maxed; see PLAN.md
 |---|--:|--:|--:|--:|--:|--:|--:|--:|--:|--:|
 | Gwen | 2881.5 | 26.70 | 1116.6 Mana | 122.0 | 0.995 | 0.198 | 135.4 | 72.3 | 150 | 340 |
 
+## Fight profile (what the interaction ledger uses)
+
+| Form | Attack range | Ranged | Projectile | Missile speed | Attack modifiers |
+|---|--:|---|---|--:|---|
+| Gwen | 150 | no | no | – | A Thousand Cuts |
+
+Cooldowns at max rank. Flags: the wiki's interaction flags (yes, no, partly). * marks an effect that applies only under a condition.
+
+| Slot | Ability | Cooldown | Delivery | Applies to the enemy | Movement | Gives itself |
+|---|---|--:|---|---|---|---|
+| E | Skip 'n Slash | 11 | grounded yes; knockdown yes; on-hit | – | dash | – |
+| I | A Thousand Cuts | – | parry yes; attack modifier | – | – | heal |
+| Q | Snip Snip! | 3.5 | spell shield partly; on-hit | – | – | – |
+| R | Needlework | 80 | projectile yes; spell shield partly | slow 1.5 s 60% | – | – |
+| W | Hallowed Mist | 18 | – | – | – | untargetable |
+
 ## Innate: A Thousand Cuts
 
 Source: [Template:Data Gwen/A Thousand Cuts](https://wiki.leagueoflegends.com/en-us/Template:Data_Gwen/A_Thousand_Cuts?oldid=4051343) (revision 4051343). Ranks: 1.

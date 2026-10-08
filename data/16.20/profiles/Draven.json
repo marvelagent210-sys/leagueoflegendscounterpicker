@@ -1,0 +1,197 @@
+{
+  "champion": "Draven",
+  "name": "Draven",
+  "gameplayRadius": 65,
+  "moveSpeed": 330,
+  "attacks": [
+    {
+      "form": "draven",
+      "formName": "Draven",
+      "range": 550,
+      "ranged": true,
+      "projectile": true,
+      "missileSpeed": 1600,
+      "attackSpeed": 1.03952,
+      "attackDamage": 130.861,
+      "windup": 0.150208,
+      "modifiers": []
+    }
+  ],
+  "abilities": [
+    {
+      "champion": "Draven",
+      "kind": "E",
+      "name": "Stand Aside",
+      "page": {
+        "title": "Template:Data Draven/Stand Aside",
+        "revid": 4034694
+      },
+      "damageTypes": [
+        "physical"
+      ],
+      "delivery": {
+        "targeting": [
+          "direction"
+        ],
+        "affectsEnemies": true,
+        "projectile": "yes",
+        "spellShield": "yes"
+      },
+      "applies": [
+        {
+          "type": "airborne",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "airborne: knock aside"
+            },
+            {
+              "page": "Template:Data Draven/Stand Aside",
+              "revid": 4034694,
+              "quote": "Active: Draven throws a fan of axes in a line in the target direction, dealing physical damage to enemies hit, knocking them aside, though not through terrain, and slowing them for 2 seconds."
+            }
+          ],
+          "variant": "knock aside",
+          "duration": 2
+        },
+        {
+          "type": "slow",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "slow"
+            },
+            {
+              "page": "Template:Data Draven/Stand Aside",
+              "revid": 4034694,
+              "quote": "Active: Draven throws a fan of axes in a line in the target direction, dealing physical damage to enemies hit, knocking them aside, though not through terrain, and slowing them for 2 seconds."
+            }
+          ],
+          "duration": 2,
+          "amount": 40
+        }
+      ],
+      "movement": [],
+      "states": [],
+      "cooldown": 12,
+      "castTime": 0.25,
+      "range": 1100,
+      "speed": 1400
+    },
+    {
+      "champion": "Draven",
+      "kind": "I",
+      "name": "League of Draven",
+      "page": {
+        "title": "Template:Data Draven/League of Draven",
+        "revid": 4040578
+      },
+      "damageTypes": [],
+      "delivery": {
+        "targeting": [
+          "passive"
+        ],
+        "affectsEnemies": false
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "notes": [
+        "League of Draven will trigger upon receiving an assist on an enemy executed by Death from Below.",
+        "When receiving gold from an ally executing a minion through Shared Riches (World Atlas, Runic Compass), Draven is also awarded a Strike stack.\n  - A Strike stack lasts up to 10 seconds or until Draven fails to catch an axe or a nearby minion dies without him killing it. Upon reacing 6 stacks, Draven consumes the stacks to gain 2 stacks of Adoration.\n  - Other sources of gaining Strike stacks were removed in patch V25.06."
+      ]
+    },
+    {
+      "champion": "Draven",
+      "kind": "Q",
+      "name": "Spinning Axe",
+      "page": {
+        "title": "Template:Data Draven/Spinning Axe",
+        "revid": 3997560
+      },
+      "damageTypes": [
+        "physical"
+      ],
+      "delivery": {
+        "targeting": [
+          "auto"
+        ],
+        "affectsEnemies": false,
+        "projectile": "partly",
+        "parry": "yes",
+        "attack": "attack"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "cooldown": 8,
+      "castTime": 0,
+      "notes": [
+        "Spinning Axes may optically bypass Wind Wall and Blade Whirl but they will be destroyed upon collision. Unbreakable will not prevent the axe from bouncing off when Braum is the target.",
+        "The axe will still bounce against parrying effects."
+      ]
+    },
+    {
+      "champion": "Draven",
+      "kind": "R",
+      "name": "Whirling Death",
+      "page": {
+        "title": "Template:Data Draven/Whirling Death",
+        "revid": 4040576
+      },
+      "damageTypes": [
+        "physical"
+      ],
+      "delivery": {
+        "targeting": [
+          "direction",
+          "auto"
+        ],
+        "affectsEnemies": true,
+        "projectile": "yes",
+        "spellShield": "partly"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "cooldown": 80,
+      "castTime": 0.5,
+      "speed": 2000,
+      "execute": [
+        {
+          "page": "Template:Data Draven/Whirling Death",
+          "revid": 4040576,
+          "quote": "Enemy champions that are damaged to or while below a health threshold equal to the number of Adoration stacks are executed."
+        }
+      ],
+      "notes": [
+        "Whirling Death's projectile has an icon on the mini-map while it is in flight. It can be seen by only Draven and his allies.",
+        "Spell shield will block one instance of damage."
+      ]
+    },
+    {
+      "champion": "Draven",
+      "kind": "W",
+      "name": "Blood Rush",
+      "page": {
+        "title": "Template:Data Draven/Blood Rush",
+        "revid": 3982566
+      },
+      "damageTypes": [],
+      "delivery": {
+        "targeting": [
+          "auto"
+        ],
+        "affectsEnemies": false
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "cooldown": 12,
+      "castTime": 0,
+      "boostsAttacks": true
+    }
+  ]
+}

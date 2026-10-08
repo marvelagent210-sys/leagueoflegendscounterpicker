@@ -165,6 +165,18 @@ describe("ability dataset", () => {
     }
   });
 
+  it("keeps only current abilities, not the pages of reworked-away ones", () => {
+    const names = (champion: string) => all.filter((record) => record.champion === champion).map((record) => record.name);
+    // Kayle's pre-2019 ultimate and Dr. Mundo's pre-2021 kit still have wiki pages.
+    expect(names("Kayle")).not.toContain("Intervention");
+    expect(names("Kayle")).toContain("Divine Judgment");
+    expect(names("DrMundo")).not.toContain("Burning Agony");
+    expect(names("DrMundo")).toContain("Heart Zapper");
+    // Variants the wiki links to the live kit stay: Corki's Special Delivery, both of Jayce's forms.
+    expect(names("Corki")).toContain("Special Delivery");
+    expect(names("Jayce")).toEqual(expect.arrayContaining(["Shock Blast", "To the Skies!", "Transform Mercury Hammer"]));
+  });
+
   it("understands nearly every leveling value", () => {
     const stats = all.flatMap((record) => record.parts.flatMap((part) => part.leveling));
     const understood = stats.filter((stat) => stat.amount.base && stat.amount.unparsed === "");

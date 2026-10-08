@@ -288,51 +288,6 @@
   },
   {
     "champion": "Ahri",
-    "kind": "I",
-    "name": "Vastayan Grace",
-    "page": {
-      "title": "Template:Data Ahri/Vastayan Grace",
-      "revid": 3074592
-    },
-    "ranks": 1,
-    "fields": {
-      "staticCooldown": {
-        "text": "9",
-        "values": [
-          {
-            "series": {
-              "kind": "constant",
-              "value": 9
-            }
-          }
-        ]
-      }
-    },
-    "flags": {
-      "targeting": [
-        "Passive"
-      ],
-      "affects": [
-        "Self"
-      ],
-      "damageType": []
-    },
-    "parts": [
-      {
-        "label": "Innate",
-        "text": "Innate: Whenever Ahri lands 2 ability hits against a champion within 1.5 seconds, she gains 20% bonus movement speed for 3 seconds. This effect cannot occur again every few seconds.",
-        "leveling": [],
-        "mechanics": [],
-        "values": []
-      }
-    ],
-    "custom": [],
-    "notes": [
-      "No additional details."
-    ]
-  },
-  {
-    "champion": "Ahri",
     "kind": "Q",
     "name": "Orb of Deception",
     "page": {

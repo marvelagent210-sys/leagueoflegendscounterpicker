@@ -9,6 +9,23 @@ Values marked "at max rank, level 20" assume every ability is maxed; see PLAN.md
 |---|--:|--:|--:|--:|--:|--:|--:|--:|--:|--:|
 | Rell | 2665.2 | 24.22 | 1106.6 Mana | 114.0 | 0.871 | 0.215 | 108.7 | 63.4 | 175 | 315 |
 
+## Fight profile (what the interaction ledger uses)
+
+| Form | Attack range | Ranged | Projectile | Missile speed | Attack modifiers |
+|---|--:|---|---|--:|---|
+| Rell | 175 | no | no | – | Break the Mold |
+
+Cooldowns at max rank. Flags: the wiki's interaction flags (yes, no, partly). * marks an effect that applies only under a condition.
+
+| Slot | Ability | Cooldown | Delivery | Applies to the enemy | Movement | Gives itself |
+|---|---|--:|---|---|---|---|
+| E | Full Tilt | 10 | spell shield yes; attack | stun | – | – |
+| I | Break the Mold | – | spell shield no; parry yes; attack modifier | – | – | – |
+| Q | Shattering Strike | 9 | projectile no; spell shield yes | stun 0.65 s | lunge | shield 0.65 s |
+| R | Magnet Storm | 80 | spell shield partly | airborne (pull) 2 s; kinematics | – | – |
+| W | Ferromancy: Crash Down | 10 | spell shield yes; grounded yes; knockdown yes | airborne (knock up) 0.4 s; stun 0.8 s | dash | shield |
+| W | Ferromancy: Mount Up | 10 | spell shield yes; parry yes; grounded no; knockdown partly; attack | airborne (pull) 0.4 s; stun 0.6 s | dash | – |
+
 ## Innate: Break the Mold
 
 Source: [Template:Data Rell/Break the Mold](https://wiki.leagueoflegends.com/en-us/Template:Data_Rell/Break_the_Mold?oldid=4050368) (revision 4050368). Ranks: 1.
@@ -131,44 +148,6 @@ Notes:
 - The dash can be knocked down but the attack's effects will still be applied.
 - Displacement immunity will not resist the application of the stun.
 - If the target becomes untargetable, dies, or is too far away or no longer in sight during the empowered attack's cast time, it is cancelled but not consumed.
-
-## E: Attract and Repel
-
-Source: [Template:Data Rell/Attract and Repel](https://wiki.leagueoflegends.com/en-us/Template:Data_Rell/Attract_and_Repel?oldid=3906695) (revision 3906695). Ranks: 5.
-
-| Field | Value |
-|---|---|
-| Cooldown | 13 |
-| Cost | 40 mana |
-| Cast time | 0.35 / 0.25 / None |
-| Target range | 1500 |
-| Effect radius | 250 |
-| Width | 320 |
-
-Targeting: Unit, Auto · Affects: Enemies · Damage type: Magic · Spell shield blocks it: true · Projectile: – · Parry: – · Disabled by grounded: – · Usable while knocked down: –
-
-Passive: Rell forms a tether between her and the ally bound by Attract and Repel, and grants the ally 10% of her total armor and 10% of her total magic resistance while they are nearby.
-
-- **Mechanics:** tether
-
-Active: Rell binds herself and the target allied champion nearest to the cursor with Attract and Repel. Rell can then recast Attract and Repel while the tether persists.
-
-Recast: Rell erupts the tether, dealing magic damage and stunning enemies between and around both herself and the bound ally for 0.5 seconds.
-
-- **Magic Damage:** 80 / 120 / 160 / 200 / 240 (+ 30% AP) → at max rank, level 20: 240 (+ 30% AP)
-- **Mechanics:** stun (0.5 s)
-
-Rell can self-target to dispel the current bind if she and her bound ally are not near enemy champions, and if she has not casted an ability nor taken damage from or attacked enemy champions within the last 3 seconds. Only one ally can be bound at a time, and selecting a new ally overrides the previous bind. Attract and Repel will incur a 2.75-second cooldown with no cost if Rell binds to an ally and a 1-second cooldown with no cost if she self-targets.
-
-Notes:
-
-- The effects render before the cast time.
-- All units can see the effective area of the tether. Both conduits can see the tether range when within 600 units of it.
-- Attract and Repel can be cast on allies even if they are untargetable.
-    - Rell has an arrow indicator that points to the other conduit. Depending on the distance it glows blue (0–900), yellow (900–2020), and red (2020+)
-- Attract and Repel will be placed on a very short cooldown (less than 0.1 seconds) when the tether is reapplied to the bound ally after the two become in tether range again.
-- Rell immediately unbinds from tethered allies when they or she dies.
-- Rell cannot begin, end, or erupt a tether by using the Self-Cast hotkey.
 
 ## E: Full Tilt
 

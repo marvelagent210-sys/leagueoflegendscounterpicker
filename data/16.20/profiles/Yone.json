@@ -1,0 +1,343 @@
+{
+  "champion": "Yone",
+  "name": "Yone",
+  "gameplayRadius": 65,
+  "moveSpeed": 345,
+  "attacks": [
+    {
+      "form": "yone",
+      "formName": "Yone",
+      "range": 175,
+      "ranged": false,
+      "projectile": false,
+      "attackSpeed": 1.05517,
+      "attackDamage": 101.33,
+      "windup": 0.208497,
+      "modifiers": [
+        "Way of the Hunter"
+      ]
+    }
+  ],
+  "abilities": [
+    {
+      "champion": "Yone",
+      "kind": "E",
+      "name": "Soul Unbound",
+      "page": {
+        "title": "Template:Data Yone/Soul Unbound",
+        "revid": 4050165
+      },
+      "damageTypes": [
+        "true"
+      ],
+      "delivery": {
+        "targeting": [
+          "direction",
+          "auto"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "no",
+        "grounded": "yes",
+        "knockdown": "partly"
+      },
+      "applies": [],
+      "movement": [
+        {
+          "type": "dash",
+          "evidence": [
+            {
+              "page": "Dash",
+              "revid": 4035700,
+              "quote": "auto-targeted; (second cast)"
+            }
+          ],
+          "targeting": "auto-targeted",
+          "condition": "(second cast)"
+        },
+        {
+          "type": "dash",
+          "evidence": [
+            {
+              "page": "Dash",
+              "revid": 4035700,
+              "quote": "direction-targeted; (first cast)"
+            }
+          ],
+          "targeting": "direction-targeted",
+          "condition": "(first cast)"
+        }
+      ],
+      "states": [
+        {
+          "state": "displacement immune",
+          "evidence": [
+            {
+              "page": "Template:Data Yone/Soul Unbound",
+              "revid": 4050165,
+              "quote": "Recast: Yone dashes back to his body with displacement immunity, ending Spirit Form and consuming the marks on each champion to deal true damage equal to the total amount of damage stored against each of them."
+            }
+          ]
+        }
+      ],
+      "cooldown": 10,
+      "castTime": 0.225,
+      "range": 300,
+      "speed": 1200,
+      "notes": [
+        "Only Yone's initial dash can be interrupted.",
+        "Yone is displacement immune during the recast's cast time.",
+        "Yone's body unit cannot be interacted with by any means. It will despawn as soon as Yone's dash back ends.",
+        "Soul Unbound's recast does not interrupt Yone's last movement or attack order.",
+        "Yone will place himself onto the ground and interrupt displacements affecting him upon recasting.",
+        "Some examples of effects that can delay Soul Unbound's automatic recast:\n  - Attack windup\n  - Cast time\n  - Channels (excluding Hexflash)\n  - Lockouts\n  - Dashes\n  - Immobilizes, Silence, Ground, and Stasis\n  - Devour\n  - Fate's Call\n    - Yone instantly appears at his body's location the moment this effect ends.\n  - Realm Warp",
+        "If Yone dies or enters resurrection with Spirit Form, he will immediately initiate the recast and dash back to his body while dead or resurrecting.\n  - If he dies during the recast, the dash back is not interrupted.\n  - His death animation will play upon arriving to his body.",
+        "The detonation damage cannot be dodged by becoming untargetable.",
+        "The following table refers for interactions while Yone is in cast time and dashing back to his body:"
+      ]
+    },
+    {
+      "champion": "Yone",
+      "kind": "I",
+      "name": "Way of the Hunter",
+      "page": {
+        "title": "Template:Data Yone/Way of the Hunter",
+        "revid": 4058456
+      },
+      "damageTypes": [
+        "physical",
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "passive"
+        ],
+        "affectsEnemies": true,
+        "parry": "yes",
+        "attack": "attack modifier"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "boostsAttacks": true,
+      "notes": [
+        "The mixed damage is dealt in two simultaneous instances of damage, but will pretend to be a single instance for most effects (such as Conqueror stacks).\n  - Both instances deal basic damage and thus natively apply life steal.\n  - The attack applies on-hit effects only once, right at the start.\n  - Even if the target dies from the magic damage, the physical damage will still be applied to it.\n    - If the target dies from on-hit damage, the magic damage portion will be skipped and only the physical damage applied."
+      ]
+    },
+    {
+      "champion": "Yone",
+      "kind": "Q",
+      "name": "Mortal Steel",
+      "page": {
+        "title": "Template:Data Yone/Mortal Steel",
+        "revid": 4072825
+      },
+      "damageTypes": [
+        "physical"
+      ],
+      "delivery": {
+        "targeting": [
+          "direction"
+        ],
+        "affectsEnemies": true,
+        "projectile": "partly",
+        "spellShield": "yes",
+        "parry": "partly",
+        "grounded": "partly",
+        "knockdown": "yes",
+        "attack": "on-hit"
+      },
+      "applies": [
+        {
+          "type": "airborne",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "airborne: knock up"
+            },
+            {
+              "page": "Template:Data Yone/Mortal Steel",
+              "revid": 4072825,
+              "quote": "Gathering Storm Bonus: Yone dashes a fixed distance in the target direction and unleashes a whirlwind in the same direction, both applying and triggering the same effects and additionally knocking up enemies hit in their path for 0.75 seconds, but being unable to affect the same target twice."
+            }
+          ],
+          "variant": "knock up",
+          "duration": 0.75
+        }
+      ],
+      "movement": [
+        {
+          "type": "dash",
+          "evidence": [
+            {
+              "page": "Dash",
+              "revid": 4035700,
+              "quote": "direction-targeted"
+            }
+          ],
+          "targeting": "direction-targeted",
+          "interruptible": true
+        }
+      ],
+      "states": [],
+      "cooldown": 4,
+      "castTime": 0.35,
+      "range": 450,
+      "speed": 1500,
+      "notes": [
+        "All three of the thrust, whirlwind and dash roll for a critical strike on each individual target hit.",
+        "Blinking during Mortal Steel's cast with two stacks of Gathering Storm (after the cast time) will end the dash prematurely but enemies in range of Yone at the new location are affected. The whirlwind's trajectory cannot be changed once it has already been unleashed.",
+        "Only the whirlwind can be intercepted.",
+        "Each parry has different interactions with this ability, whether it's the first target of Mortal Steel or the secondary one. In either case Yone still gains a stack of Gathering Storm and his whirlwind knock up cannot be negated by parries:\n  - Dodge and Block: first target does not take damage, secondary target does take damage.\n  - Blind: both first target and secondary target take damage.",
+        "Spell shield does not prevent Yone from receiving a stack.",
+        "Mortal Steel is disabled while grounded or rooted if Yone has two stacks of Gathering Storm.",
+        "The dash can cross terrain.",
+        "If Yone gets knocked back during the 3rd cast, the dash will only damage and knockup around Yone's current position then will stop colliding, making Yone play Mortal Steel's dash winddown animation while still visually dashing."
+      ]
+    },
+    {
+      "champion": "Yone",
+      "kind": "R",
+      "name": "Fate Sealed",
+      "page": {
+        "title": "Template:Data Yone/Fate Sealed",
+        "revid": 4009198
+      },
+      "damageTypes": [
+        "physical",
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "direction"
+        ],
+        "affectsEnemies": true,
+        "projectile": "no",
+        "spellShield": "partly",
+        "grounded": "yes"
+      },
+      "applies": [
+        {
+          "type": "airborne",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "airborne: knock up"
+            },
+            {
+              "page": "Template:Data Yone/Fate Sealed",
+              "revid": 4009198,
+              "quote": "After 0.3 seconds, a gust rushes along the same area that deals equal parts physical and magic damage to marked enemies within and pulls them towards the location Yone blinked to, then knocks them up for 0.75 seconds."
+            }
+          ],
+          "variant": "knock up, pull",
+          "duration": 0.75
+        },
+        {
+          "type": "knockdown",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "knockdown"
+            },
+            {
+              "page": "Template:Data Yone/Fate Sealed",
+              "revid": 4009198,
+              "quote": "Active: Yone prepares a strike over the cast time, then marks all enemies within an area in the target direction, knocking them down and stunning them for 1 second."
+            }
+          ],
+          "duration": 1
+        },
+        {
+          "type": "stun",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "stun"
+            },
+            {
+              "page": "Template:Data Yone/Fate Sealed",
+              "revid": 4009198,
+              "quote": "Active: Yone prepares a strike over the cast time, then marks all enemies within an area in the target direction, knocking them down and stunning them for 1 second."
+            }
+          ],
+          "duration": 1
+        },
+        {
+          "type": "knockdown",
+          "evidence": [
+            {
+              "page": "Dash",
+              "revid": 4035700
+            }
+          ]
+        }
+      ],
+      "movement": [
+        {
+          "type": "blink",
+          "evidence": [
+            {
+              "page": "Blink",
+              "revid": 4047228
+            }
+          ]
+        }
+      ],
+      "states": [],
+      "cooldown": 80,
+      "castTime": 0.75,
+      "range": 1000,
+      "notes": [
+        "Fate Sealed will not stun enemies that are displacement immune.",
+        "Yone will reveal himself during the cast time if there is an enemy champion nearby.",
+        "When striking against spell shield, Yone will still blink to the last champion hit even if they block the effects to themselves."
+      ]
+    },
+    {
+      "champion": "Yone",
+      "kind": "W",
+      "name": "Spirit Cleave",
+      "page": {
+        "title": "Template:Data Yone/Spirit Cleave",
+        "revid": 4066502
+      },
+      "damageTypes": [
+        "physical",
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "direction"
+        ],
+        "affectsEnemies": true,
+        "projectile": "no",
+        "spellShield": "yes"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [
+        {
+          "state": "shield",
+          "evidence": [
+            {
+              "page": "Template:Data Yone/Spirit Cleave",
+              "revid": 4066502,
+              "quote": "If this hits an enemy, Yone grants himself a shield for 40 – 90 (based on level) (+ 65% bonus AD) for 1.5 seconds, increased by 100% if it hits a champion and by 50% for each subsequent champion hit."
+            }
+          ],
+          "duration": 1.5
+        }
+      ],
+      "cooldown": 14,
+      "castTime": 0.5,
+      "notes": [
+        "Despite Spirit Cleave generally hitting targets' edge range, it cannot hit targets whose center is behind him.\n  - This behaviour is common with missiles, however some cone spells such as this one also do it.",
+        "Spell shield does not prevent Yone from receiving and/or increasing the shield."
+      ]
+    }
+  ]
+}

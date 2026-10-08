@@ -9,6 +9,22 @@ Values marked "at max rank, level 20" assume every ability is maxed; see PLAN.md
 |---|--:|--:|--:|--:|--:|--:|--:|--:|--:|--:|
 | Milio | 2290.5 | 14.83 | 1210.6 Mana | 110.9 | 0.994 | 0.173 | 116.5 | 55.6 | 525 | 330 |
 
+## Fight profile (what the interaction ledger uses)
+
+| Form | Attack range | Ranged | Projectile | Missile speed | Attack modifiers |
+|---|--:|---|---|--:|---|
+| Milio | 525 | yes | yes | 1900 | Fired Up! |
+
+Cooldowns at max rank. Flags: the wiki's interaction flags (yes, no, partly). * marks an effect that applies only under a condition.
+
+| Slot | Ability | Cooldown | Delivery | Applies to the enemy | Movement | Gives itself |
+|---|---|--:|---|---|---|---|
+| E | Warm Hugs | 13 | – | – | – | shield 2.5 s |
+| I | Fired Up! | – | spell shield partly; parry yes; attack modifier | – | – | – |
+| Q | Ultra Mega Fire Kick | 10 | projectile yes; spell shield yes | airborne (knock back) 1 s; slow 1.5 s 60%; stun 1 s | – | – |
+| R | Breath of Life | 130 | – | – | – | tenacity 3 s; cleanse (18 CC types); heal 3 s |
+| W | Cozy Campfire | 21 | – | – | – | – |
+
 ## Innate: Fired Up!
 
 Source: [Template:Data Milio/Fired Up!](https://wiki.leagueoflegends.com/en-us/Template:Data_Milio/Fired_Up!?oldid=4074280) (revision 4074280). Ranks: 1.

@@ -9,6 +9,22 @@ Values marked "at max rank, level 20" assume every ability is maxed; see PLAN.md
 |---|--:|--:|--:|--:|--:|--:|--:|--:|--:|--:|
 | Vi | 2719.8 | 29.67 | 1573.2 Mana | 137.7 | 0.897 | 0.251 | 122.4 | 72.3 | 125 | 340 |
 
+## Fight profile (what the interaction ledger uses)
+
+| Form | Attack range | Ranged | Projectile | Missile speed | Attack modifiers |
+|---|--:|---|---|--:|---|
+| Vi | 125 | no | no | – | Denting Blows |
+
+Cooldowns at max rank. Flags: the wiki's interaction flags (yes, no, partly). * marks an effect that applies only under a condition.
+
+| Slot | Ability | Cooldown | Delivery | Applies to the enemy | Movement | Gives itself |
+|---|---|--:|---|---|---|---|
+| E | Relentless Force | 8 | spell shield partly; parry yes; attack | – | – | – |
+| I | Blast Shield | 12 | spell shield no | – | – | shield 3 s |
+| Q | Vault Breaker | 6 | spell shield yes; grounded yes; knockdown yes; disruptable yes | airborne (knock back) | dash | – |
+| R | Cease and Desist | 90 | spell shield yes; grounded yes; knockdown no | airborne (knock aside, knock up) 1.3 s; stun 0.75 s; reveal | dash (unstoppable) | displacement immune |
+| W | Denting Blows | – | spell shield no; parry partly; attack modifier | – | – | – |
+
 ## Innate: Blast Shield
 
 Source: [Template:Data Vi/Blast Shield](https://wiki.leagueoflegends.com/en-us/Template:Data_Vi/Blast_Shield?oldid=4064865) (revision 4064865). Ranks: 1.

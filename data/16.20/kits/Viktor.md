@@ -9,6 +9,22 @@ Values marked "at max rank, level 20" assume every ability is maxed; see PLAN.md
 |---|--:|--:|--:|--:|--:|--:|--:|--:|--:|--:|
 | Viktor | 2566.5 | 20.78 | 1289.9 Mana | 112.0 | 0.931 | 0.193 | 109.5 | 55.6 | 525 | 335 |
 
+## Fight profile (what the interaction ledger uses)
+
+| Form | Attack range | Ranged | Projectile | Missile speed | Attack modifiers |
+|---|--:|---|---|--:|---|
+| Viktor | 525 | yes | yes | 2300 | – |
+
+Cooldowns at max rank. Flags: the wiki's interaction flags (yes, no, partly). * marks an effect that applies only under a condition.
+
+| Slot | Ability | Cooldown | Delivery | Applies to the enemy | Movement | Gives itself |
+|---|---|--:|---|---|---|---|
+| E | Hextech Ray | 8 | projectile yes; spell shield yes | – | – | – |
+| I | Glorious Evolution | – | – | – | – | – |
+| Q | Siphon Power | 5 | projectile partly; spell shield yes; parry yes; attack | – | – | shield 2.5 s |
+| R | Arcane Storm | 80 | spell shield partly | disrupt | – | – |
+| W | Gravity Field | 13 | spell shield yes | knockdown 1.5 s; slow 1 s 45%; stun 1.5 s; knockdown | – | – |
+
 ## Innate: Glorious Evolution
 
 Source: [Template:Data Viktor/Glorious Evolution](https://wiki.leagueoflegends.com/en-us/Template:Data_Viktor/Glorious_Evolution?oldid=3954293) (revision 3954293). Ranks: 1.
@@ -92,43 +108,6 @@ Notes:
 - Gravity Field will remain active if Viktor dies.
 - Gravity Field's animation can be seen by both teams through fog of war.
 - If an enemy enters the area of effect while untargetable, they may generate stacks even after becoming stunned once, causing them to get stunned up-to 3 times by a single Gravity Field.
-
-## E: Death Ray
-
-Source: [Template:Data Viktor/Death Ray](https://wiki.leagueoflegends.com/en-us/Template:Data_Viktor/Death_Ray?oldid=3966260) (revision 3966260). Ranks: 5.
-
-| Field | Value |
-|---|---|
-| Cooldown | 12 / 11 / 10 / 9 / 8 |
-| Cost | 70 / 80 / 90 / 100 / 110 mana |
-| Cast time | none |
-| Target range | 550 |
-| Range | 500 |
-| Effect radius | 500 |
-| Width | 90 |
-| Speed | 1050 / 1500 |
-
-Targeting: Vector · Affects: Enemies · Damage type: Magic · Spell shield blocks it: true · Projectile: true · Parry: – · Disabled by grounded: – · Usable while knocked down: –
-
-Active: Viktor fires an energy beam along the target path that deals magic damage to enemies hit and briefly grants sight of the area.
-
-- **Magic Damage:** 70 / 110 / 150 / 190 / 230 (+ 50% AP) → at max rank, level 20: 230 (+ 50% AP)
-- **Mechanics:** reveal
-
-Augment: Aftershock — The path explodes along the beam's wake after 1 second, dealing magic damage to enemies hit.
-
-- **Magic Damage:** 20 / 50 / 80 / 110 / 140 (+ 80% AP) → at max rank, level 20: 140 (+ 80% AP)
-- **Total Magic Damage:** 90 / 160 / 230 / 300 / 370 (+ 130% AP) → at max rank, level 20: 370 (+ 130% AP)
-
-Notes:
-
-- Viktor may freely act while the ray is traveling.
-    - The effected area is set upon casting, no matter how far away Viktor moves. Unlike a leash, Death Ray will not break off its own effect.
-- The laser grants a moderate area of sight around where the beam strikes the ground.
-- If Death Ray is intercepted, the initial ray is not destroyed.
-    - However, the capability to be blocked only applies to the laser as it hits the ground. Viktor can cast the ability over the wall and it will not be destroyed or intercepted.
-    - Augmented Death Ray will still cause the entire target area to explode even if the laser is blocked.
-- If Viktor dies while he is firing the beam it only deals damage up to the location at the time of his death.
 
 ## E: Hextech Ray
 
@@ -224,52 +203,6 @@ Notes:
 - The disrupt is 'wrapped' into a status effect that causes affected champions to display the "Silenced" UI on their health bar for 0.25 seconds, without actually applying the disabling effects of the silence crowd control type (functions as an indicator of the target becoming disrupted). This however ensures that the disrupt is also prevented by effects that would negate silences (such as crowd control immunity).
 - After becoming augmented, an alternate icon is used for the recast of Arcane Storm.
 - The champion that Arcane Storm is following will have an overhead indicator.
-
-## R: Chaos Storm
-
-Source: [Template:Data Viktor/Chaos Storm](https://wiki.leagueoflegends.com/en-us/Template:Data_Viktor/Chaos_Storm?oldid=3841140) (revision 3841140). Ranks: 3.
-
-| Field | Value |
-|---|---|
-| Cooldown | 120 / 100 / 80 |
-| Cost | 100 mana |
-| Cast time | 0.25 |
-| Target range | 700 |
-| Effect radius | 350 / 700 |
-| Speed | 200 / 300 / 250 / 375 |
-| Cooldown starts | post-effect |
-
-Targeting: Location · Affects: Enemies · Damage type: Magic · Spell shield blocks it: true · Projectile: – · Parry: – · Disabled by grounded: – · Usable while knocked down: –
-
-Active: Viktor conjures a singularity at the target location, dealing magic damage to enemies within the area and disrupting their channeled abilities.
-
-- **Magic Damage:** 100 / 175 / 250 (+ 50% AP) → at max rank, level 20: 250 (+ 50% AP)
-- **Mechanics:** disrupt; channel
-
-The singularity then remains active for 6.5 seconds, dealing magic damage to enemies within it every second and granting sight of the area. The singularity targets the nearest champion hit by its initial damage and will follow them, moving faster based on its proximity to Viktor.
-
-- **Magic Damage Per Tick:** 65 / 105 / 145 (+ 45% AP) → at max rank, level 20: 145 (+ 45% AP)
-- **Total Magic Damage:** 490 / 805 / 1120 (+ 320% AP) → at max rank, level 20: 1120 (+ 320% AP)
-- **Mechanics:** reveal
-
-Chaos Storm can be recast at any time while the singularity is active.
-
-Recast: Viktor directs the singularity to the target location or enemy champion.
-
-Augment: Perfect Storm — The singularity moves 25% faster.
-
-Chaos Storm's recast can be used while affected by cast-inhibiting crowd control.
-
-Notes:
-
-- The disrupt is 'wrapped' into a status effect that says the target is Silenced for 0.25 seconds, but it does not actually silence. It however makes sure that the disrupt is prevented by immunity to silences.
-- Viktor can command the singularity regardless of how far away he is from it.
-- The singularity will remain active even if Viktor dies. Any commands it was issued prior to his death will not be interrupted.
-- Chaos Storm reaches its maximum speed at 300 units and minimum speed at 900 units away from Viktor.
-- Including the initial damage, Chaos Storm deals 7 instances of damage.
-- The storm will follow its target even if they are not visible, effectively giving away their position.
-- Chaos Storm can be recast to follow Viktor. However, upon reaching him, the singularity will stop following Viktor.
-- Chaos Storm is not obstructed by terrain.
 
 ## Game files
 

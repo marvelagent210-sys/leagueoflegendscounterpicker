@@ -9,19 +9,21 @@ Values marked "at max rank, level 20" assume every ability is maxed; see PLAN.md
 |---|--:|--:|--:|--:|--:|--:|--:|--:|--:|--:|
 | Shyvana | 2493.2 | 19.78 | 100.0 Fury | 140.7 | 0.889 | 0.176 | 113.7 | 72.3 | 150 | 350 |
 
-## Innate: Fury of the Dragonborn
+## Fight profile (what the interaction ledger uses)
 
-Source: [Template:Data Shyvana/Fury of the Dragonborn](https://wiki.leagueoflegends.com/en-us/Template:Data_Shyvana/Fury_of_the_Dragonborn?oldid=3994882) (revision 3994882). Ranks: 1.
+| Form | Attack range | Ranged | Projectile | Missile speed | Attack modifiers |
+|---|--:|---|---|--:|---|
+| Shyvana | 150 | no | no | – | – |
 
-Targeting: Passive · Affects: Self · Damage type: – · Spell shield blocks it: – · Projectile: – · Parry: – · Disabled by grounded: – · Usable while knocked down: –
+Cooldowns at max rank. Flags: the wiki's interaction flags (yes, no, partly). * marks an effect that applies only under a condition.
 
-Innate: Shyvana gains 5 bonus armor and 5 bonus magic resistance, which are each increased by 5 for every elemental drake or Elder Dragon her team slays.
-
-Additionally, Shyvana deals 20% increased damage to Dragons.
-
-Notes:
-
-- Fury of the Dragonborn's increased damage modifier to Dragons does not affect true damage.
+| Slot | Ability | Cooldown | Delivery | Applies to the enemy | Movement | Gives itself |
+|---|---|--:|---|---|---|---|
+| E | Molten Burst | 8 | projectile yes; spell shield yes | slow | – | – |
+| I | Scalemail | – | – | – | – | – |
+| Q | Emberstrike | 6 | spell shield no; attack | – | – | – |
+| R | Dragon's Descent | – | spell shield yes; grounded yes; knockdown no | fear 0.75 s; slow 0.75 s 99% | dash (unstoppable) | displacement immune 0.75 s |
+| W | Inferno Aegis | 10 | spell shield yes | – | – | shield 2.5 s; heal |
 
 ## Innate: Scalemail
 
@@ -86,85 +88,6 @@ Notes:
     - In Human Form, only Q2 will put it on cooldown; in Dragon Form, only Q3 will.
     - This results in the same functionality as Shield of Daybreak and Thundering Smash, effectively being a triple/quintuple attack reset.
 
-## Q: Twin Bite
-
-Source: [Template:Data Shyvana/Twin Bite](https://wiki.leagueoflegends.com/en-us/Template:Data_Shyvana/Twin_Bite?oldid=3987398) (revision 3987398). Ranks: 5.
-
-| Field | Value |
-|---|---|
-| Cooldown | 8 / 7.5 / 7 / 6.5 / 6 |
-| Cast time | none |
-| Effect radius | 325 / 250 |
-| Angle | 180° |
-| Cooldown starts | post-effect |
-
-Targeting: Auto · Affects: Enemies · Damage type: Physical · Spell shield blocks it: true · Projectile: – · Parry: true · Disabled by grounded: – · Usable while knocked down: –
-
-Active: Shyvana empowers her next basic attack within 6 seconds to gain 25 bonus range, deal 100% AD (+ 50% AP) physical damage, and cause her to strike again after 0.25 seconds to deal bonus physical damage. The second strike applies on-hit effects, triggers on-attack effects, and will critically strike for 200% damage if the triggering attack does.
-
-- **Bonus Physical Damage:** 20 / 40 / 60 / 80 / 100% AD (+ 25% AP) → at max rank, level 20: 100% of AD (+ 25% AP)
-- **Mechanics:** on-hit; on-attack; critical strike
-
-After consuming the empowered attack, her next two basic attacks within 5 seconds gain bonus attack speed.
-
-- **Bonus Attack Speed:** 50 / 55 / 60 / 65 / 70% → at max rank, level 20: 70%
-
-Basic attacks reduce Twin Bite's current cooldown by 0.5 seconds on-hit.
-
-- **Mechanics:** on-hit
-
-Dragon Form Bonus: Twin Bite damages all enemies in a cone in front of Shyvana and additionally applies the second strike after 0.25 seconds to enemies near the primary target, with the same effects to all targets hit, but with the exception of the second strike not triggering on-attack effects for secondary targets struck. Additionally, Twin Bite's empowered attack has an uncancellable windup.
-
-- **Mechanics:** on-attack; uncancellable windup
-
-Twin Bite resets Shyvana's basic attack timer.
-
-- **Mechanics:** attack reset
-
-Notes:
-
-- Applies spell damage and procs basic damage required effects.
-- Dragon Form's Twin Bite can attack stealthed units in the area.
-- Dragon Form's Twin Bite only applies the attack to enemies that would be hit by the second strike.
-- In Dragon Form, both strikes belong to the same cast instance. In Human Form, they belong in separate ones.
-- Since the second strike applies after the ability goes on cooldown, it will reduce its own cooldown.
-- Unlike most on-hit effects, the one reducing the cooldown of Twin Bite also triggers against structures.
-- In Dragon Form, Twin Bite consumes an additional stack of Hail of Blades.
-- In Dragon Form, Twin Bite's area of effect can target units that are normally untargetable to abilities, such as wards, jungle plants.
-    - This allows Dragon Form Twin Bite to instantly destroy Dark Procession.
-- The initial empowered attack rolls a critical strike once for both strikes; either both will critically strike, or none will. If Sundered Sky Lightshield Strike is ready, both strikes will critically strike.
-
-## W: Burnout
-
-Source: [Template:Data Shyvana/Burnout](https://wiki.leagueoflegends.com/en-us/Template:Data_Shyvana/Burnout?oldid=3985842) (revision 3985842). Ranks: 5.
-
-| Field | Value |
-|---|---|
-| Cooldown | 12 |
-| Cast time | none |
-| Effect radius | 162.5 / 350 / 365 / 380 (based on Dragon's Descent's rank) |
-| Cooldown starts | on-cast |
-
-Targeting: Auto · Affects: Enemies · Damage type: magic · Spell shield blocks it: false · Projectile: – · Parry: unknown · Disabled by grounded: – · Usable while knocked down: –
-
-Active: Shyvana surrounds herself in flames for 3 seconds, gaining decaying bonus movement speed and dealing magic damage every 0.5 seconds to nearby enemies.
-
-- **Bonus Movement Speed:** 30 / 35 / 40 / 45 / 50% (+ 10% per 100 AP) → at max rank, level 20: 50% (+ 10% per100:AP)
-- **Bonus Movement Speed Decay:** 4.5 / 5.25 / 6 / 6.75 / 7.5% → at max rank, level 20: 7.5%
-- **Magic Damage Per Tick:** 10 / 15 / 20 / 25 / 30 (+ 10% bonus AD) → at max rank, level 20: 30 (+ 10% bonusAD)
-
-During this time, Shyvana's basic attacks deal bonus magic damage on-hit to surrounding enemies and extend the duration of Burnout by 1 second, which can occur up to 4 times for a total of 4 additional seconds.
-
-- **Bonus Magic Damage:** 5 / 7 / 9 / 11 / 13 (+ 5% bonus AD) → at max rank, level 20: 13 (+ 5% bonusAD)
-- **Mechanics:** on-hit
-
-Dragon Form Bonus: Burnout's radius increases, scaling with Dragon's Descent rank.
-
-Notes:
-
-- Magic damage on-hit can be dodged and miss due to blind.
-- : Magic damage on-hit's interactions with blocking effects.
-
 ## W: Inferno Aegis
 
 Source: [Template:Data Shyvana/Inferno Aegis](https://wiki.leagueoflegends.com/en-us/Template:Data_Shyvana/Inferno_Aegis?oldid=4021912) (revision 4021912). Ranks: 5.
@@ -193,43 +116,6 @@ Recast: Shyvana consumes the shield to explode, dealing magic damage to nearby e
 Dragon Form Bonus: If the explosion hits an enemy champion, Shyvana heals herself for 60 – 100 (based on level) (+ 4 – 8 (based on level)% missing health).
 
 - **Mechanics:** heal
-
-## E: Flame Breath
-
-Source: [Template:Data Shyvana/Flame Breath](https://wiki.leagueoflegends.com/en-us/Template:Data_Shyvana/Flame_Breath?oldid=3985841) (revision 3985841). Ranks: 5.
-
-| Field | Value |
-|---|---|
-| Cooldown | 12 / 11 / 10 / 9 / 8 |
-| Cast time | 0.25 / 0.3333 |
-| Target range | 925 |
-| Effect radius | 345 |
-| Width | 120 |
-| Speed | 1600 / 1575 |
-
-Targeting: Direction, Location · Affects: Enemies · Damage type: magic · Spell shield blocks it: true · Projectile: true · Parry: unknown · Disabled by grounded: – · Usable while knocked down: –
-
-Active: Shyvana unleashes a fireball in the target direction that stops upon hitting an enemy champion, dealing magic damage to all enemies hit and marking them for 5 seconds.
-
-- **Magic Damage:** 85 / 125 / 165 / 205 / 245 (+ 50% bonus AD) (+ 70% AP) → at max rank, level 20: 245 (+ 50% bonusAD) (+ 70% AP)
-
-Shyvana's basic attacks against marked enemies are empowered to deal bonus magic damage on-hit equal to 3% (+ 1% per 100 bonus AD) of the target's maximum health, capped at 150 against monsters.
-
-- **Mechanics:** on-hit
-
-Dragon Form Bonus: The fireball explodes upon hitting an enemy champion or reaching the target location, dealing increased magic damage and creating a scorched field for 4 seconds. Enemies within the field are marked once and dealt 20 / 24.1667 / 28.3333 / 32.5 / 36.6667 / 40.8333 / 45 / 49.1667 / 53.3333 / 57.5 / 61.6667 / 65.8333 / 70 / 74.1667 / 78.3333 (based on level) (+ 7.5% bonus AD) (+ 10% AP) magic damage every 0.5 seconds.
-
-- **Increased Damage:** 75 / 80 / 85 / 90 / 95 / 100 / 105 / 110 / 115 / 120 / 125 / 130 / 135 / 140 / 145 (based on level) (+ 85 / 125 / 165 / 205 / 245) (+ 100% bonus AD) (+ 90% AP) → at max rank, level 20: depends on level (+ 245% other:) (+ 100% bonusAD) (+ 90% AP)
-
-Notes:
-
-- The fireball applies area damage and the on-hit effect against marked targets deals proc damage.
-    - In Dragon Form, the fiery explosion applies area damage and the burning scorch deals persistent area damage to all enemies within the area of effect.
-- In Dragon Form, both areas of effect will be centered on the first champion struck, not at the location the missile collided with them.
-- This ability will cast from wherever the caster is at the end of the cast time.
-- In Dragon Form, the visual mark will not be applied to non-champions, but the debuff will still be applied for gameplay purposes.
-- Magic damage on-hit can be dodged by dodging effects.
-- : Magic damage on-hit's interactions with blocking and blinding effects.
 
 ## E: Molten Burst
 
