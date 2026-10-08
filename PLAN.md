@@ -10,8 +10,8 @@ A static web app for top lane. You pick the enemy champion, and it ranks every c
 
 | Rule | Detail |
 |---|---|
-| Kits only | No win rates, matchup statistics, tier lists or meta. No runes or summoner spells. Correctness is checked with hand-written tests (§8), not statistics. |
-| Level 20 | Completing the Top Lane Role Quest raises the level cap from 18 to 20, so both champions are level 20. Base stats keep growing through level 20. Skill points stop at 18, so basic abilities are rank 5 and the ultimate is rank 3. Effects that scale with champion level use the game's own formulas, which say whether they keep growing past 18 or cap there. |
+| Kits only | No win rates, matchup statistics, tier lists or meta. No runes or summoner spells, with one exception: Udyr's Triple Tonic (§4.1). Correctness is checked with hand-written tests (§8), not statistics. |
+| Level 20 | Completing the Top Lane Role Quest raises the level cap from 18 to 20, so both champions are level 20. Base stats keep growing through level 20. Effects that scale with champion level use the game's own formulas, which say whether they keep growing past 18 or cap there. Skill points work differently for Udyr (§4.1). |
 | Pure 1v1 | No draft, teammates, jungler or lane phases, and no early-game power spikes. |
 | Any champion | You can play every champion, so all 173 are candidates. The enemy can also be any champion; champions the client tags as top lane are listed first. |
 | Static web app | No backend, accounts or API keys. |
@@ -57,6 +57,12 @@ The result goes into `data/<patch>/`, committed to the repo along with a per-pat
 - **Stats.** A stat at level *n* = base + growth × (*n* − 1) × (0.7025 + 0.0175 × (*n* − 1)). At level 20 that is 19.665 × growth, compared with 17 × growth at level 18.
 - **Attack speed and windup.** Attack speed growth is bonus attack speed, scaled by the champion's attack-speed ratio. Attack windup comes from the windup parameters.
 - **Other basics.** Collision radius (which affects skillshot hit chance), movement speed, health and resource regeneration, and resource pool.
+- **Ability ranks and skill points.** A champion gains one skill point per level.
+  - **Everyone except Udyr** has every ability fully ranked once 18 points are spent. A few start with one ability already learned (the R of Elise, Jayce, Karma and Nidalee; Yuumi's W), and Aphelios spends his points on bonus stats instead of abilities. For all of them, levels 19 and 20 add stats only.
+  - **Udyr** has no ultimate and four abilities with 6 ranks each (24 ranks). He's the only champion whose skill points continue past 18: he gets points at levels 19 and 20, for 20 in total. Triple Tonic's Elixir of Skill adds a 21st point if he drinks it before level 18.
+  - Even with 21 points, 3 of Udyr's ranks stay empty, so his rank split is a real choice. The engine tries every valid split in each matchup and uses the best one, and you can pin a split instead.
+  - Triple Tonic is a rune, so it's the one exception to "no runes". It's a setting that's on by default for Udyr. When it's on, the rune's other two elixirs (Force and Avarice) also apply, with the effects the wiki gives them.
+  - Several of Udyr's Awaken bonuses keep scaling with champion level through level 20. For example, the bonus attack speed from Wilding Claw's Awaken goes from 70% at level 18 to about 75.9% at level 20.
 - **Forms and states.** Mini/Mega Gnar, Kayle's evolutions, Nidalee/Jayce/Elise forms, Udyr's stances and awakenings, Shyvana's dragon form, and others.
 - **Stack assumptions.** Some kits grow with game time: Nasus Q, Sion W health, Cho'Gath R, Smolder Q, Gangplank's ultimate upgrades and others. The default is "typical by the time a top laner reaches level 20", adjustable per champion.
 
@@ -187,13 +193,13 @@ Every scenario starts at level 20 with full HP and resource and everything off c
 1. **Enemy picker.** A ranked list of all champions with score bars and the top three reasons for each.
 2. **Matchup page.** Verdict, scenario results, key interactions, fight timelines, side-by-side level-20 numbers, and the assumptions used.
 3. **Kit page.** Everything the engine knows about one champion, with evidence links, so you can audit it.
-4. **Settings.** Stat budget, environment toggles, reaction time, stack assumptions and scenario weights.
+4. **Settings.** Stat budget, environment toggles, reaction time, stack assumptions, scenario weights, and Udyr's Triple Tonic and rank split.
 
 Every pairing (173 × 172) is precomputed for the default settings at build time. When you change settings, the selected enemy's list is recomputed in a background Web Worker.
 
 ## 8. Validation without statistics
 
-1. **Math tests.** Level-20 stats against the wiki's level-20 table; damage, penetration, tenacity and slow stacking.
+1. **Math tests.** Level-20 stats against the wiki's level-20 table; damage, penetration, tenacity and slow stacking; skill points (every champion fully ranked at 18; Udyr at 20 points, or 21 with Triple Tonic).
 2. **Interaction tests.** For example:
    - Yasuo W blocks the Q3 whirlwind but not Darius E.
    - Poppy W doesn't stop Malphite R.
