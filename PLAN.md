@@ -1,6 +1,6 @@
 # Kit-Based Counter Picker: Plan
 
-Status: planning. Data sources checked on 2026-10-08 against patch 26.20 (Data Dragon 16.20.1).
+Status: M1 done; M2 next (see §13). Data sources checked on 2026-10-08 against patch 26.20 (Data Dragon 16.20.1).
 
 ## 1. What we're building
 
@@ -15,7 +15,7 @@ A static web app for top lane. You pick the enemy champion, and it ranks every c
 | Pure 1v1 | No draft, teammates, jungler or lane phases, and no early-game power spikes. |
 | Any champion | You can play every champion, so all 173 are candidates. The enemy can also be any champion; champions the client tags as top lane are listed first. |
 | Static web app | No backend, accounts or API keys. |
-| Open | The stat budget at level 20 (§10). |
+| Stat budget | Both champions get the same amount of gold, as plain stats only (§10). |
 
 ## 2. How a counter is decided
 
@@ -37,8 +37,8 @@ The simulator decides the score. The ledger explains it and flags hard counters.
 |---|---|---|
 | LoL Wiki `Module:ChampionData/data` | Base stats and growth; attack windup parameters (`as_ratio`, `windup_modifier`, `attack_delay_offset`); pathing and selection radius; client positions | Current. Each entry records its last-changed patch (up to V26.20). |
 | LoL Wiki ability data, `Template:Data <Champion>/<Ability>` | Values per rank and ratios; cooldown, cost, range, width, missile speed, cast time; flags `targeting`, `projectile`, `spellshield`, `parry`, `grounded`, `knockdown`; **notes** with edge-case interactions | 2,251 pages covering every form and variant (Mini and Mega Gnar, Hwei's 10 spells, Aphelios's weapons, Udyr's awakened stances, and so on). Fetched through the MediaWiki API at 50 pages per request and pinned by revision ID. |
-| CommunityDragon game files (16.20) | Authoritative numbers and formulas: spell calculations (including the level-scaling formulas that decide behavior past level 18), cast times, windup cancel rules, missile data, collision radius | Cross-checks the wiki and wins when the wiki lags behind a patch. |
-| Data Dragon 16.20.1 | Champion and ability icons; a third cross-check for stats and cooldowns | Tooltip text isn't used because it's partly unfilled placeholders. |
+| CommunityDragon game files (16.20) | Authoritative numbers and formulas: base stats, spell calculations (including the level-scaling formulas that decide behavior past level 18), cast times, windup cancel rules, missile data, collision radius | Cross-checks the wiki. A value they state for a champion's base form replaces the wiki's, and each replacement is logged in `reports/game-files.md`. |
+| Data Dragon 16.20.1 | Champion roster, ability ranks, icons | Not used for stats: 16.20 reports 0 attack damage per level for every champion. Tooltip text isn't used because it's partly unfilled placeholders. |
 | Wiki page "List of champions/Statistics at level 20" | Test oracle for our level-20 stat math | |
 | Meraki Analytics | Not used | Stale since about mid-2025 and missing Zaahen and Locke. |
 
@@ -226,12 +226,14 @@ Every pairing (173 × 172) is precomputed for the default settings at build time
 | M7 | Behavior waves 2 and 3 | All remaining top-lane champions, then all 173, are simulated. |
 | M8 | Patch automation | A scheduled job refetches the data, rebuilds, runs the tests, and opens a PR with a diff report. |
 
-## 10. Open decision: the stat budget at level 20
+## 10. Stat budget at level 20 (decided)
 
-With zero items, ability ratios (AP, bonus AD, bonus HP) add nothing at level 20, so a large part of many kits is never measured.
+With zero items, ability ratios (AP, bonus AD, bonus HP) would add nothing at level 20, and a large part of many kits would never be measured. So both champions get the **same gold budget, spent on plain stats only**, with no item passives or actives:
+- The gold is allocated according to each champion's own ratios.
+- Defensive stats are split against the opponent's damage type.
+- Stats are priced at their base gold values from the wiki.
 
-- **(a) Pure kit, no items.** The strictest reading of "kits only". Champions whose kits scale through ratios (for example Kayle and Vladimir) look weaker than they are, and champions with big base numbers look stronger.
-- **(b) Equal raw-stat budget (recommended).** Everyone gets the same gold. It's spent on plain stats only (no item passives), allocated by the champion's own ratios, with defensive stats split against the opponent's damage type. A slider runs from 0 gold (option a) up to a full build.
+A slider runs from 0 gold (pure kit) up to a full build. The default amount is set in M4, once the simulator can show its effect.
 
 ## 11. Tech and layout
 
@@ -253,3 +255,20 @@ web/        the app
 - **The 1D simplification.** Side-stepping, cones and facing are approximated by the hit model.
 - **Assumptions shape the results.** Reaction time, environment, stacks and behaviors are all explicit, adjustable and shown on every matchup page.
 - **Legal.** The app needs Riot's fan-project disclaimer and attribution under the wiki's license.
+
+## 13. Progress
+
+### M1: data pipeline and level-20 stat math (done)
+
+- `npm run fetch` downloads every source for the current patch. That's 173 champions, 174 game data files and 2,436 wiki data pages, of which 1,206 are redirects. Exact versions and wiki revisions are recorded per patch.
+- `npm run build:data` writes `data/16.20/`. The engine computes base stats at any level up to 20, including attack speed and windup. Every one of the 175 champion forms matches the wiki's level-20 table, which serves as the test oracle. The one exception is documented: the table shows Jhin's attack speed growing, but his attack speed ratio is 0, so in game it doesn't.
+- Skill points are modeled: everyone is fully ranked at 18; Udyr has 20 points at level 20, or 21 with Triple Tonic, and his rank splits are listed.
+- Findings:
+  - Data Dragon 16.20.1 reports 0 AD per level for every champion. The game files confirm the real values (for example, Darius gains 5 AD per level).
+  - The game files replaced 16 wiki values:
+    - Vi's AD per level: 3.5 → 3.9;
+    - Singed's and Vayne's attack-speed ratios;
+    - Locke's selection radius;
+    - 12 attack windup values for 11 champions that the wiki hadn't updated.
+  - Differences for Mega Gnar and Kled's two forms are reported but not applied.
+  - Senna's attack cast time scales with level and stops at 18. This is the game's flag (`mScalePastDefaultMaxLevel`) that decides what keeps growing at levels 19 and 20. M2 reads the same flag for abilities.
