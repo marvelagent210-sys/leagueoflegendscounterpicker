@@ -12,6 +12,7 @@
     "build:data": "tsx pipeline/build.ts",
     "matchup": "tsx pipeline/cli/matchup.ts",
     "counters": "tsx pipeline/cli/counters.ts",
+    "duel": "tsx pipeline/cli/duel.ts",
     "test": "vitest run",
     "typecheck": "tsc --noEmit"
   },

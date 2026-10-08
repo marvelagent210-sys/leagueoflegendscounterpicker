@@ -5,6 +5,7 @@
  *   data/<dataset>/abilities/<id>.json   every ability of each champion, read from the wiki
  *   data/<dataset>/kits/<id>.md          a readable page per champion, for auditing
  *   data/<dataset>/glossary.json         the wiki's lists of abilities by mechanic, and its CC rules
+ *   data/<dataset>/rules.json            game rules read from the wiki for the simulator (stat gold values)
  *   data/<dataset>/profiles/<id>.json    what each ability does in a fight, for the interaction ledger
  *   data/<dataset>/counters/<id>.md      every champion ranked against each enemy by the ledger (partial)
  *   data/<dataset>/rankings.json         the same rankings, machine-readable
@@ -27,6 +28,7 @@ import { readGameAbilities } from "./abilities/gameSpells";
 import { reconcileWithGameFiles } from "./gameFiles";
 import { buildGlossary } from "./glossary/build";
 import { buildProfiles } from "./profiles/build";
+import { GOLD_VALUE_PAGE, parseGoldValues } from "./rules";
 import { normalizeOracle } from "./oracle";
 import { buildChampions } from "./normalize";
 import { type GameRecordStats, parseCharacterRecord } from "./parse/characterRecord";
@@ -111,6 +113,9 @@ async function main(): Promise<void> {
   const glossaryPages = await readJson<WikiPage[]>(path.join(raw, "wiki", "glossary.json"));
   const glossary = buildGlossary(glossaryPages, pages, abilities.records);
   await writeJson(path.join(out, "glossary.json"), glossary);
+  const goldValues = glossaryPages.find((page) => page.title === GOLD_VALUE_PAGE);
+  if (!goldValues) throw new Error(`Missing wiki page ${GOLD_VALUE_PAGE}; run npm run fetch -- --only glossary`);
+  await writeJson(path.join(out, "rules.json"), parseGoldValues(goldValues));
   log(
     `Glossary: ${glossary.entries.length} list entries from ${Object.keys(glossary.pages).length} wiki pages, ` +
       `${glossary.crowdControl.length} crowd control rules, ${glossary.unresolved.length} unresolved mentions`,

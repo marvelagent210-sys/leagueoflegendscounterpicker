@@ -45,8 +45,9 @@ export function datasetDir(dataset: string): string {
 
 /**
  * Wiki pages whose lists classify abilities (every dash, every spell shield, every source
- * of each crowd control type, ...) and whose definitions the interaction rules cite.
- * They are maintained by the wiki's editors and pinned by revision like every other page.
+ * of each crowd control type, ...), whose definitions the interaction rules cite, and whose
+ * game rules the duel simulator encodes. They are maintained by the wiki's editors and
+ * pinned by revision like every other page.
  */
 export const WIKI_GLOSSARY_PAGES = [
   // Lists of abilities by mechanic
@@ -84,6 +85,30 @@ export const WIKI_GLOSSARY_PAGES = [
   "Template:Tip data/Disarming crowd control",
   "Template:Tip data/Homing projectile destruction",
   "Template:Tip data/Uncancellable windup",
+  "Template:Tip data/Charm",
+  "Template:Tip data/Flee",
+  "Template:Tip data/Taunt",
+  "Template:Tip data/Berserk",
+  "Template:Tip data/Sleep",
+  "Template:Tip data/Polymorph",
   "Types of Crowd Control",
   "Range",
+  // Game rules the duel simulator encodes (engine/rules/), and the stat gold values of the stat budget
+  "Armor",
+  "Magic resistance",
+  "Armor penetration",
+  "Magic penetration",
+  "Damage",
+  "Damage modifier",
+  "Shield",
+  "Healing",
+  "Critical strike",
+  "Movement speed",
+  "Slow resist",
+  "Haste",
+  "Attack speed",
+  "Basic attack",
+  "Cast time",
+  "Template:Rounded up to next game tick",
+  "Module:Gold value/data",
 ];

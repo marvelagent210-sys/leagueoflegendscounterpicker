@@ -1,6 +1,6 @@
 # Kit-Based Counter Picker: Plan
 
-Status: M1, M2 and M3 done; M4 next (see §13). Data sources checked on 2026-10-08 against patch 26.20 (Data Dragon 16.20.1).
+Status: M1 to M4 done; M5 next (see §13). Data sources checked on 2026-10-08 against patch 26.20 (Data Dragon 16.20.1).
 
 ## 1. What we're building
 
@@ -234,7 +234,7 @@ With zero items, ability ratios (AP, bonus AD, bonus HP) would add nothing at le
 - Defensive stats are split against the opponent's damage type.
 - Stats are priced at their base gold values from the wiki.
 
-A slider runs from 0 gold (pure kit) up to a full build. The default amount is set in M4, once the simulator can show its effect.
+A slider runs from 0 gold (pure kit) up to a full build. The default is 15,000 gold, about what a top laner has when the role quest takes it to level 20 (set in M4; see §13).
 
 ## 11. Tech and layout
 
@@ -317,3 +317,80 @@ web/        the app
   - profile facts;
   - the §8 interaction tests: Wind Wall blocks the Steel Tempest whirlwind but not Darius's E; Poppy's W doesn't stop Malphite's R; Teemo's blind doesn't make Parrrley miss; Riposte stuns back only against immobilizing effects;
   - ranking sanity checks.
+
+### M4: simulator core and global rules (done)
+
+- **Global rules** (`engine/rules/`). Each rule comes from a wiki page pinned by revision (the pages are fetched with the glossary) and is unit-tested against the wiki's own examples:
+  - damage: resistance multipliers, including negative resistances; flat reduction, then percentage reduction, then percentage penetration, then lethality and flat magic penetration; damage dealt modifiers add up, damage received modifiers multiply;
+  - shields absorb after resistances, the one expiring soonest first (Black Shield and Camille's W first of all), by damage type; Grievous Wounds cuts healing and health regeneration by 40%; critical strikes deal 200%;
+  - movement speed soft caps; only the strongest slow applies; slow resist;
+  - crowd control: what each of the 21 types disables, as in the wiki's summary table (a test keeps the two in step); tenacity, which multiplies within a group of sources and adds across groups; what it shortens; displacements; immobilizing types;
+  - timing: 30 ticks per second, with durations rounded up to the next tick; ability haste; the attack speed cap and floor; the attack timer (windup, launch, then cooldown).
+- **Kit format** (`engine/sim/spec.ts`). A fighter has level-20 stats, a basic attack, and abilities.
+  - Each ability is a delivery plus effects:
+    - deliveries: self, aura, unit-targeted (instant or a homing missile), line skillshot, ground circle, dash, blink;
+    - effects: damage (with ratios of the caster's or target's stats), crowd control, knock-ups, knock-backs and pulls, shields, heals, defensive states, timed stat changes, damage over time, Grievous Wounds, cleanses, empowered attacks, attack resets, executes, projectile walls, delayed effects.
+  - Channels and the wiki's interaction flags are part of the format.
+  - Kit hooks handle what the generic effects can't. M5 compiles real champions into this format.
+- **The fight** (`engine/sim/simulate.ts`, `combat.ts`, `actions.ts`):
+  - Every interaction of the ledger happens in the fight as the wiki describes it, including:
+    - spell shields; parries (Riposte stuns back only after negating an immobilizing effect); dodges, blocks and reflected damage;
+    - blinds, which count only if present when an attack is declared; projectile walls and blocking auras;
+    - untargetability, which drops homing missiles and attack windups and cancels a targeted cast without its cooldown;
+    - crowd control and displacement immunity; knockdowns on dashes; channel interrupts;
+    - minimum health thresholds against executes; sleep that a hit ends but damage over time doesn't.
+  - One dimension, with the wiki's range rules:
+    - attacks are measured edge to edge, unit-targeted spells and auras center to center, and skillshots center to the target's edge;
+    - champions collide by pathing radius (35 for most);
+    - charm drags, fear drives away, taunt forces attacks;
+    - a target that walks out of attack range during a windup cancels the attack.
+  - Windups and casts that end on the same tick all complete before either takes effect, so neither side gets the first word. Two deaths on one tick are a draw. The two sides alternate going first.
+- **Skillshots.**
+  - The hit chance compares the time until impact with the time the target needs to step out, after a 0.25 s reaction.
+  - Decisive skillshots split the fight into a world where they land and one where they miss, weighted by that chance, up to 64 branches. A skillshot is decisive if it applies crowd control or deals at least 15% of the target's maximum health.
+  - Minor ones count by their expected value.
+  - A ready dash or blink can dodge.
+  - The result is an exact probability under the model, and deterministic.
+- **Default behavior** (`engine/sim/behavior.ts`):
+  - It sees what the enemy starts only after the reaction time.
+  - It saves defensive tools for the threats they answer:
+    - a spell shield or untargetability for crowd control or a big hit;
+    - a dodge for basic attacks;
+    - crowd control immunity for immobilizing effects;
+    - projectile blockers for projectiles;
+    - a minimum health threshold for lethal damage;
+    - a dash for a decisive skillshot.
+  - It cleanses long crowd control and finishes with executes.
+  - It leads with crowd control, throwing crowd control skillshots only when they're likely to land, and uses damage on cooldown.
+  - It weaves attack resets between attacks, closes gaps, and kites when it out-ranges the enemy.
+  - When chasing, it gets close enough that the target can't walk out of range during the windup.
+  - Modes: fight, trade (walk in, use the burst, back off), hold (hit back without chasing), kite, flee.
+- **Scenarios** (`engine/sim/scenarios.ts`). These are the six of §6, each scored from −1 to +1 and weighted 0.25 / 0.25 / 0.2 / 0.15 / 0.1 / 0.05:
+  - The all-ins start from each side's longest opener, or its attack range.
+  - The short trade is scored as the health exchanged in your trade minus in theirs.
+  - Spacing applies only when one side out-ranges the other by 100 units or out-runs it by 15.
+  - Escape compares how often each side gets away from the other's all-in, within 8 s or 1,400 units.
+- **Stat budget** (`engine/budget.ts`, prices in `data/<dataset>/rules.json` from Module:Gold value/data):
+  - It buys AD, AP, attack speed, crit, ability haste, lethality, magic penetration, health, armor and magic resistance in 50-gold steps.
+  - Each step goes to whichever stat raises ln(damage per second against the enemy) + ln(effective health against the enemy's damage mix) the most. Damage follows the champion's own ratios; ability shields and heals count toward effective health.
+  - The allocation runs twice, so each side answers what the other bought.
+  - The default is 15,000 gold.
+- **Command.** `npm run duel -- Garen Darius [--gold 15000] [--log brawl] [--sweep]` prints every scenario, what each side bought, a fight's timeline, and the score at budgets from 0 to 20,000 gold. Until M5 compiles the abilities, champions fight with base stats and basic attacks only.
+- **Assumptions to review** (all in one place: `SimSettings` and `scenarios.ts`):
+  - reaction time 0.25 s; hit-model spread 0.06 s;
+  - an attack is cancelled once the target is past attack range (the wiki doesn't give a margin);
+  - a trade lasts at most 4 s, and is over once the trader is 700 units away;
+  - spell shields and similar tools are kept for crowd control or a hit worth 15% of maximum health.
+- **Speed.** A matchup (budget plus six scenarios) takes about 26 ms with stats only, so all 29,756 pairings take about 13 minutes on one core. Real kits will cost more; M6 spreads the precompute across cores.
+- **Tests.** 388 pass, 82 of them new:
+  - the rules against the wiki's examples;
+  - every generic mechanic on synthetic kits whose results are worked out by hand:
+    - attack timing, missile travel, crits, empowered attacks and attack resets;
+    - blinds, dodges, parries, projectile walls;
+    - stuns and tenacity, slows and the soft cap, sleep, charm, fear and taunt;
+    - delayed effects, dashes and knockdowns, channel interrupts;
+    - spell shields with and without time to react, Riposte, untargetability during a cast time, cleanses, minimum health against executes;
+    - shields, Grievous Wounds, damage over time and regeneration;
+  - branching: weights sum to 1 over 16 branches, the expected value applies below the branch limit, and a dash dodges;
+  - kiting, chasing, trades and escapes; mirror symmetry; the budget.
+
