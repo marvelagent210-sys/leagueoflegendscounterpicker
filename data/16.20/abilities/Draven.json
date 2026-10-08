@@ -1,0 +1,810 @@
+[
+  {
+    "champion": "Draven",
+    "kind": "E",
+    "name": "Stand Aside",
+    "page": {
+      "title": "Template:Data Draven/Stand Aside",
+      "revid": 4034694
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "16 / 15 / 14 / 13 / 12",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                16,
+                15,
+                14,
+                13,
+                12
+              ]
+            }
+          }
+        ]
+      },
+      "cost": {
+        "text": "70",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 70
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "0.25",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0.25
+            }
+          }
+        ]
+      },
+      "targetRange": {
+        "text": "1100",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 1100
+            }
+          }
+        ]
+      },
+      "width": {
+        "text": "260",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 260
+            }
+          }
+        ]
+      },
+      "speed": {
+        "text": "1400",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 1400
+            }
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Direction"
+      ],
+      "affects": [
+        "Enemies"
+      ],
+      "damageType": [
+        "Physical"
+      ],
+      "spellEffects": "aoe",
+      "spellShield": "true",
+      "projectile": "true"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Draven throws a fan of axes in a line in the target direction, dealing physical damage to enemies hit, knocking them aside, though not through terrain, and slowing them for 2 seconds.",
+        "leveling": [
+          {
+            "label": "Physical Damage",
+            "amount": {
+              "text": "75 / 110 / 145 / 180 / 215 (+ 50% bonus AD)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  75,
+                  110,
+                  145,
+                  180,
+                  215
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "bonusAD",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 50
+                  },
+                  "text": "(+ 50% bonus AD)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Slow",
+            "amount": {
+              "text": "20 / 25 / 30 / 35 / 40%",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  20,
+                  25,
+                  30,
+                  35,
+                  40
+                ]
+              },
+              "unit": "%",
+              "scaling": [],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "airborne",
+            "category": "control",
+            "wording": "knocking them aside",
+            "duration": {
+              "kind": "constant",
+              "value": 2
+            },
+            "evidence": "Active: Draven throws a fan of axes in a line in the target direction, dealing physical damage to enemies hit, knocking them aside, though not through terrain, and slowing them for 2 seconds.",
+            "conditional": false
+          },
+          {
+            "type": "slow",
+            "category": "control",
+            "wording": "slowing",
+            "duration": {
+              "kind": "constant",
+              "value": 2
+            },
+            "amount": {
+              "kind": "rank",
+              "values": [
+                20,
+                25,
+                30,
+                35,
+                40
+              ]
+            },
+            "evidence": "Active: Draven throws a fan of axes in a line in the target direction, dealing physical damage to enemies hit, knocking them aside, though not through terrain, and slowing them for 2 seconds.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "This ability will cast from wherever the caster is at the end of the cast time."
+    ]
+  },
+  {
+    "champion": "Draven",
+    "kind": "I",
+    "name": "League of Draven",
+    "page": {
+      "title": "Template:Data Draven/League of Draven",
+      "revid": 4040578
+    },
+    "ranks": 1,
+    "fields": {},
+    "flags": {
+      "targeting": [
+        "Passive"
+      ],
+      "affects": [
+        "Self"
+      ],
+      "damageType": []
+    },
+    "parts": [
+      {
+        "label": "Innate",
+        "text": "Innate: When Draven catches a Spinning Axe, kills a non-champion, or destroys a turret, he gains a stack of Adoration.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "text": "When Draven kills an enemy champion, he consumes all of his Adoration stacks and gains 25 + (2 × stacks) bonus gold.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "text": "Draven loses 50% of his Adoration stacks upon death.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Upon reaching 150 Adoration stacks, and every 100 stacks thereafter, as well as when he cashes at least 150 stacks in, Draven automatically sends a chat message notifying all players.",
+      "A chat message will display to all players whenever:\n  - League of Draven grants over 300 gold.\n  - League of Draven gets reduced.",
+      "None of the parts of League of Draven require actually using a Spinning Axe for a kill to get Adoration stacks, as well as to cash Adoration stacks.",
+      "League of Draven will trigger upon receiving an assist on an enemy executed by Death from Below.",
+      "When receiving gold from an ally executing a minion through Shared Riches (World Atlas, Runic Compass), Draven is also awarded a Strike stack.\n  - A Strike stack lasts up to 10 seconds or until Draven fails to catch an axe or a nearby minion dies without him killing it. Upon reacing 6 stacks, Draven consumes the stacks to gain 2 stacks of Adoration.\n  - Other sources of gaining Strike stacks were removed in patch V25.06."
+    ]
+  },
+  {
+    "champion": "Draven",
+    "kind": "Q",
+    "name": "Spinning Axe",
+    "page": {
+      "title": "Template:Data Draven/Spinning Axe",
+      "revid": 3997560
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "12 / 11 / 10 / 9 / 8",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                12,
+                11,
+                10,
+                9,
+                8
+              ]
+            }
+          }
+        ]
+      },
+      "cooldownStart": "on-cast",
+      "cost": {
+        "text": "45",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 45
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "none",
+        "values": []
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Auto"
+      ],
+      "affects": [
+        "Self"
+      ],
+      "damageType": [
+        "Physical"
+      ],
+      "spellEffects": "basic",
+      "projectile": "special",
+      "parry": "true",
+      "onHitEffects": "special"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Draven starts spinning his axe, empowering his next basic attack within 5.8 seconds to deal bonus physical damage.",
+        "leveling": [
+          {
+            "label": "Bonus Physical Damage",
+            "amount": {
+              "text": "40 / 45 / 50 / 55 / 60 (+ 75 / 85 / 95 / 105 / 115% bonus AD)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  40,
+                  45,
+                  50,
+                  55,
+                  60
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "bonusAD",
+                  "ratio": {
+                    "kind": "rank",
+                    "values": [
+                      75,
+                      85,
+                      95,
+                      105,
+                      115
+                    ]
+                  },
+                  "text": "(+ 75 / 85 / 95 / 105 / 115% bonus AD)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "text": "Upon hitting the target, the axe then ricochets off of them to land after roughly 1.4 seconds, with the location being determined by Draven's current movement. If Draven catches the axe, he gains Spinning Axe's empowered attack again.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "text": "Draven can hold up to two Spinning Axes at once.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "The landing location is determined by Draven's movement speed and direction at the time Spinning Axe hits the target. If Draven is actually moving, it will bounce directly into his path. Otherwise, it will bounce back towards his current location, either landing directly onto him or to his sides.",
+      "Spinning Axe will place a visual cue on the ground where it will land. This visual cue is visible to both teams, although Draven himself will see a more prominent marker.",
+      "Axes take roughly 1.35-1.40s to go from target to landing point. This is not affected by attack speed, movement speed or level.",
+      "Recasting Spinning Axe will refresh the buff and add another axe if possible.\n  - There is no limit to how many axes can be juggled at once, just the limit of 2 of them at a time in Draven's hands.",
+      "Draven used to be able to catch (steal) an enemy Dravens axes. This event also prompted a few unique voice lines.",
+      "Spinning Axes may optically bypass Wind Wall and Blade Whirl but they will be destroyed upon collision. Unbreakable will not prevent the axe from bouncing off when Braum is the target.",
+      "Unbreakable will not prevent the axe from bouncing off when Braum is not the target.",
+      "The axe will still bounce against parrying effects.",
+      "Runaan's Hurricane Wind's Fury does not interact with the effects of the axes.",
+      "If a Spinning Axe is readied during a basic attack wind-up, the effects will be applied to the fired attack.",
+      "Spinning Axe attacks deal their total increased damage in a single instance of basic damage.",
+      "Spinning Axe may fail to properly bounce back if it hits Zaahen during or shortly after Cultivation of War revive.",
+      "The empowered attack will not trigger against structures.\n  - The duration will refresh on-attack against them.",
+      "Spinning Axe has an indicator that appears on the ground for Draven to stand on. Some skins have a unique indicator.",
+      "Gladiator Draven Axe Indicator.png"
+    ]
+  },
+  {
+    "champion": "Draven",
+    "kind": "R",
+    "name": "Whirling Death",
+    "page": {
+      "title": "Template:Data Draven/Whirling Death",
+      "revid": 4040576
+    },
+    "ranks": 3,
+    "fields": {
+      "cooldown": {
+        "text": "100 / 90 / 80",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                100,
+                90,
+                80
+              ]
+            }
+          }
+        ]
+      },
+      "cooldownStart": "on-cast",
+      "cost": {
+        "text": "100",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 100
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "0.5",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0.5
+            }
+          }
+        ]
+      },
+      "targetRange": {
+        "text": "Global",
+        "values": []
+      },
+      "width": {
+        "text": "320",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 320
+            },
+            "label": "missile width"
+          }
+        ]
+      },
+      "speed": {
+        "text": "2000",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 2000
+            }
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Direction",
+        "Auto"
+      ],
+      "affects": [
+        "Enemies"
+      ],
+      "damageType": [
+        "Physical"
+      ],
+      "spellEffects": "spellaoe",
+      "spellShield": "special",
+      "projectile": "true"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Draven hurls two massive axes in the target direction that briefly grant sight of their surroundings and deal physical damage to enemies hit. Enemy champions that are damaged to or while below a health threshold equal to the number of Adoration stacks are executed.",
+        "leveling": [
+          {
+            "label": "Physical Damage",
+            "amount": {
+              "text": "200 / 300 / 400 (+ 110 / 130 / 150% bonus AD)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  200,
+                  300,
+                  400
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "bonusAD",
+                  "ratio": {
+                    "kind": "rank",
+                    "values": [
+                      110,
+                      130,
+                      150
+                    ]
+                  },
+                  "text": "(+ 110 / 130 / 150% bonus AD)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Total Physical Damage",
+            "amount": {
+              "text": "400 / 600 / 800 (+ 220 / 260 / 300% bonus AD)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  400,
+                  600,
+                  800
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "bonusAD",
+                  "ratio": {
+                    "kind": "rank",
+                    "values": [
+                      220,
+                      260,
+                      300
+                    ]
+                  },
+                  "text": "(+ 220 / 260 / 300% bonus AD)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "reveal",
+            "category": "vision",
+            "wording": "sight",
+            "evidence": "Active: Draven hurls two massive axes in the target direction that briefly grant sight of their surroundings and deal physical damage to enemies hit.",
+            "conditional": false
+          },
+          {
+            "type": "execute",
+            "category": "offense",
+            "wording": "executed",
+            "evidence": "Enemy champions that are damaged to or while below a health threshold equal to the number of Adoration stacks are executed.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "Whirling Death can be recast after 1 second while the axes are traveling, and does so automatically after the axes hit an enemy champion or the edge of the map.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "label": "Recast",
+        "text": "Recast: Draven forces the axes to reverse direction, slowly coming to a stop before homing back to him, dealing the same damage to enemies hit.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "text": "Whirling Death deals 100 / 95 / 90.25 / 85.7375 / 81.4506 / 77.3781 / 73.5092 / 69.8337 / 66.342 / 63.0249 / 59.8737 / 56.88 / 54.036 / 51.3342 / 50 (based on enemies hit)% damage, resetting upon reversing direction.",
+        "leveling": [
+          {
+            "label": "Minimum Physical Damage",
+            "amount": {
+              "text": "100 / 150 / 200 (+ 55 / 65 / 75% bonus AD)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  100,
+                  150,
+                  200
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "bonusAD",
+                  "ratio": {
+                    "kind": "rank",
+                    "values": [
+                      55,
+                      65,
+                      75
+                    ]
+                  },
+                  "text": "(+ 55 / 65 / 75% bonus AD)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Minimum Total Damage",
+            "amount": {
+              "text": "200 / 300 / 400 (+ 110 / 130 / 150% bonus AD)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  200,
+                  300,
+                  400
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "bonusAD",
+                  "ratio": {
+                    "kind": "rank",
+                    "values": [
+                      110,
+                      130,
+                      150
+                    ]
+                  },
+                  "text": "(+ 110 / 130 / 150% bonus AD)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [],
+        "values": [
+          {
+            "series": {
+              "kind": "variable",
+              "variable": "enemies hit",
+              "points": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7,
+                8,
+                9,
+                10,
+                11,
+                12,
+                13,
+                14
+              ],
+              "values": [
+                100,
+                95,
+                90.25,
+                85.73749999999998,
+                81.45062499999999,
+                77.37809374999998,
+                73.50918906249998,
+                69.83372960937497,
+                66.34204312890623,
+                63.02494097246091,
+                59.873693923837855,
+                56.880009227645964,
+                54.03600876626366,
+                51.33420832795048,
+                50
+              ]
+            },
+            "context": "Whirling Death deals 100 / 95 / 90.25 / 85.7375 / 81.4506 / 77.3781 / 73.5092 / 69.8337 / 66.342 / 63.0249 / 59.8737 / 56.88 / 54.036 / 51.3342 / 50 (based on enemies hit)% damage, resetting upon reversing direction."
+          }
+        ]
+      },
+      {
+        "text": "Enemies can be hit only once per pass.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Whirling Death's projectile has an icon on the mini-map while it is in flight. It can be seen by only Draven and his allies.",
+      "Spell shield will block one instance of damage.",
+      "This ability will cast from wherever the caster is at the end of the cast time."
+    ]
+  },
+  {
+    "champion": "Draven",
+    "kind": "W",
+    "name": "Blood Rush",
+    "page": {
+      "title": "Template:Data Draven/Blood Rush",
+      "revid": 3982566
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "12",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 12
+            }
+          }
+        ]
+      },
+      "cooldownStart": "on-cast",
+      "cost": {
+        "text": "40 / 35 / 30 / 25 / 20",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                40,
+                35,
+                30,
+                25,
+                20
+              ]
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "none",
+        "values": []
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Auto"
+      ],
+      "affects": [
+        "Self"
+      ],
+      "damageType": []
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Draven enters an adrenaline rush, gaining bonus attack speed for 3 seconds as well as decaying bonus movement speed and ghosting for 1.5 seconds.",
+        "leveling": [
+          {
+            "label": "Bonus Attack Speed",
+            "amount": {
+              "text": "20 / 25 / 30 / 35 / 40%",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  20,
+                  25,
+                  30,
+                  35,
+                  40
+                ]
+              },
+              "unit": "%",
+              "scaling": [],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Bonus Movement Speed",
+            "amount": {
+              "text": "50 / 55 / 60 / 65 / 70%",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  50,
+                  55,
+                  60,
+                  65,
+                  70
+                ]
+              },
+              "unit": "%",
+              "scaling": [],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "ghosted",
+            "category": "movement",
+            "wording": "ghosting",
+            "duration": {
+              "kind": "constant",
+              "value": 1.5
+            },
+            "evidence": "Active: Draven enters an adrenaline rush, gaining bonus attack speed for 3 seconds as well as decaying bonus movement speed and ghosting for 1.5 seconds.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "Catching a Spinning Axe resets Blood Rush's cooldown.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Activating Blood Rush while the effect is already active will refresh the duration."
+    ]
+  }
+]

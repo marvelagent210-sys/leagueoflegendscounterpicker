@@ -1,0 +1,1144 @@
+[
+  {
+    "champion": "LeeSin",
+    "kind": "E",
+    "name": "Cripple",
+    "page": {
+      "title": "Template:Data Lee Sin/Cripple",
+      "revid": 4007641
+    },
+    "ranks": 5,
+    "fields": {
+      "cost": {
+        "text": "25",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 25
+            }
+          }
+        ]
+      },
+      "costType": "energy",
+      "castTime": {
+        "text": "none",
+        "values": []
+      },
+      "effectRadius": {
+        "text": "550",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 550
+            }
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Proximity"
+      ],
+      "affects": [
+        "Enemies"
+      ],
+      "damageType": [],
+      "spellShield": "true"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Lee Sin slows nearby enemies marked by Tempest, decaying in strength over 4 seconds.",
+        "leveling": [
+          {
+            "label": "Slow",
+            "amount": {
+              "text": "35 / 45 / 55 / 65 / 75%",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  35,
+                  45,
+                  55,
+                  65,
+                  75
+                ]
+              },
+              "unit": "%",
+              "scaling": [],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "slow",
+            "category": "control",
+            "wording": "slows",
+            "duration": {
+              "kind": "constant",
+              "value": 4
+            },
+            "amount": {
+              "kind": "rank",
+              "values": [
+                35,
+                45,
+                55,
+                65,
+                75
+              ]
+            },
+            "evidence": "Active: Lee Sin slows nearby enemies marked by Tempest, decaying in strength over 4 seconds.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "A nearby marked enemy is required to cast this ability.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": []
+  },
+  {
+    "champion": "LeeSin",
+    "kind": "E",
+    "name": "Tempest",
+    "page": {
+      "title": "Template:Data Lee Sin/Tempest",
+      "revid": 4016969
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "8",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 8
+            },
+            "label": "Starts on first cast"
+          }
+        ]
+      },
+      "cooldownStart": "on-cast",
+      "cost": {
+        "text": "50",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 50
+            }
+          }
+        ]
+      },
+      "costType": "energy",
+      "castTime": {
+        "text": "0.25",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0.25
+            }
+          }
+        ]
+      },
+      "effectRadius": {
+        "text": "450",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 450
+            }
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Auto"
+      ],
+      "affects": [
+        "Enemies"
+      ],
+      "damageType": [
+        "Magic"
+      ],
+      "spellEffects": "spellaoe",
+      "spellShield": "true"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Lee Sin smashes the ground beneath him, dealing magic damage to nearby enemies, marking them for 4 seconds and, if they are not invisible when struck, revealing them for the same duration.",
+        "leveling": [
+          {
+            "label": "Magic Damage",
+            "amount": {
+              "text": "35 / 60 / 85 / 110 / 135 (+ 90% AD)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  35,
+                  60,
+                  85,
+                  110,
+                  135
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AD",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 90
+                  },
+                  "text": "(+ 90% AD)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "invisible",
+            "category": "vision",
+            "wording": "invisible",
+            "duration": {
+              "kind": "constant",
+              "value": 4
+            },
+            "evidence": "Active: Lee Sin smashes the ground beneath him, dealing magic damage to nearby enemies, marking them for 4 seconds and, if they are not invisible when struck, revealing them for the same duration.",
+            "conditional": true
+          },
+          {
+            "type": "true sight",
+            "category": "vision",
+            "wording": "revealing",
+            "duration": {
+              "kind": "constant",
+              "value": 4
+            },
+            "evidence": "Active: Lee Sin smashes the ground beneath him, dealing magic damage to nearby enemies, marking them for 4 seconds and, if they are not invisible when struck, revealing them for the same duration.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "If Tempest hits an enemy, Lee Sin can cast Cripple within the next 3 seconds after a 0.1-second delay.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Tempest's sight reveal only reveals the affected targets, but visually also lights up the Fog of War in a 400 radius.",
+      "Tempest's sight reveal is not removed when Lee Sin casts Cripple (unlike Sonic Wave).",
+      "This ability will cast from wherever the caster is at the end of the cast time."
+    ]
+  },
+  {
+    "champion": "LeeSin",
+    "kind": "I",
+    "name": "Flurry",
+    "page": {
+      "title": "Template:Data Lee Sin/Flurry",
+      "revid": 4015078
+    },
+    "ranks": 1,
+    "fields": {},
+    "flags": {
+      "targeting": [
+        "Passive"
+      ],
+      "affects": [
+        "Self"
+      ],
+      "damageType": [],
+      "parry": "true"
+    },
+    "parts": [
+      {
+        "label": "Innate",
+        "text": "Innate: After casting an ability, Lee Sin's next 2 basic attacks on-hit within 3 seconds gain 40% bonus attack speed and restore energy.\n\nThe first attack restores 20 / 30 / 40 (based on level) energy and the second attack restores 10 / 15 / 20 (based on level) energy.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "on-hit",
+            "category": "offense",
+            "wording": "on-hit",
+            "evidence": "Innate: After casting an ability, Lee Sin's next 2 basic attacks on-hit within 3 seconds gain 40% bonus attack speed and restore energy.",
+            "conditional": false
+          }
+        ],
+        "values": [
+          {
+            "series": {
+              "kind": "variable",
+              "variable": "level",
+              "points": [
+                1,
+                7,
+                13
+              ],
+              "values": [
+                20,
+                30,
+                40
+              ]
+            },
+            "context": "The first attack restores 20 / 30 / 40 (based on level) energy and the second attack restores 10 / 15 / 20 (based on level) energy."
+          },
+          {
+            "series": {
+              "kind": "variable",
+              "variable": "level",
+              "points": [
+                1,
+                7,
+                13
+              ],
+              "values": [
+                10,
+                15,
+                20
+              ]
+            },
+            "context": "The first attack restores 20 / 30 / 40 (based on level) energy and the second attack restores 10 / 15 / 20 (based on level) energy."
+          }
+        ]
+      }
+    ],
+    "custom": [],
+    "notes": []
+  },
+  {
+    "champion": "LeeSin",
+    "kind": "Q",
+    "name": "Resonating Strike",
+    "page": {
+      "title": "Template:Data Lee Sin/Resonating Strike",
+      "revid": 4026428
+    },
+    "ranks": 5,
+    "fields": {
+      "cost": {
+        "text": "25",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 25
+            }
+          }
+        ]
+      },
+      "costType": "energy",
+      "castTime": {
+        "text": "none",
+        "values": []
+      },
+      "targetRange": {
+        "text": "1250",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 1250
+            },
+            "label": "Cast range"
+          }
+        ]
+      },
+      "speed": {
+        "text": "1350 + 100% movement speed",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 1350
+            },
+            "label": "Ideal; bugged at different distances"
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Proximity"
+      ],
+      "affects": [
+        "Enemies"
+      ],
+      "damageType": [
+        "Physical"
+      ],
+      "spellEffects": "spell",
+      "spellShield": "true",
+      "grounded": "true",
+      "knockdown": "true"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Lee Sin dashes to the nearby enemy marked by Sonic Wave. Upon arrival, he consumes the mark and deals physical damage, increased by 0 / 10 / 20 / 30 / 40 / 50 / 60 / 70 / 80 / 90 / 100 (based on target's missing health)%.",
+        "leveling": [
+          {
+            "label": "Minimum Physical Damage",
+            "amount": {
+              "text": "60 / 90 / 120 / 150 / 180 (+ 90% bonus AD)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  60,
+                  90,
+                  120,
+                  150,
+                  180
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "bonusAD",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 90
+                  },
+                  "text": "(+ 90% bonus AD)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Maximum Physical Damage",
+            "amount": {
+              "text": "120 / 180 / 240 / 300 / 360 (+ 180% bonus AD)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  120,
+                  180,
+                  240,
+                  300,
+                  360
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "bonusAD",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 180
+                  },
+                  "text": "(+ 180% bonus AD)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "dash",
+            "category": "movement",
+            "wording": "dashes",
+            "evidence": "Active: Lee Sin dashes to the nearby enemy marked by Sonic Wave.",
+            "conditional": false
+          }
+        ],
+        "values": [
+          {
+            "series": {
+              "kind": "variable",
+              "variable": "target's missing health",
+              "points": [
+                0,
+                10,
+                20,
+                30,
+                40,
+                50,
+                60,
+                70,
+                80,
+                90,
+                100
+              ],
+              "values": [
+                0,
+                10,
+                20,
+                30,
+                40,
+                50,
+                60,
+                70,
+                80,
+                90,
+                100
+              ]
+            },
+            "context": "Upon arrival, he consumes the mark and deals physical damage, increased by 0 / 10 / 20 / 30 / 40 / 50 / 60 / 70 / 80 / 90 / 100 (based on target's missing health)%."
+          }
+        ]
+      },
+      {
+        "text": "The marked enemy must be within range in order to cast this ability. Iron Will and Cripple can be cast during the dash.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Lee Sin will track the target if they change locations.\n  - He will dash to the target's previous location without consuming the mark if the target is too far away or moves beyond 2000 units.",
+      "Lee Sin will attempt to place himself on top of the target upon arrival.\n  - The damage dealt by Resonating Strike can be negated if the target blinks. Sometimes, Lee Sin will end the dash at their last location but appear on top of the target after a short delay.\n  - Originally, Lee Sin would land 50 units in front of his target. Since there are no patch notes where this is noted to have changed, landing on top of his target may be a bug.",
+      "Resonating Strike cannot be cast without the marked target nearby or if the target is untargetable.",
+      "If Resonating Strike interrupts another dash, Tempest and Dragon's Rage can be cast during it (both otherwise cannot be cast)."
+    ]
+  },
+  {
+    "champion": "LeeSin",
+    "kind": "Q",
+    "name": "Sonic Wave",
+    "page": {
+      "title": "Template:Data Lee Sin/Sonic Wave",
+      "revid": 4070797
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "10 / 9 / 8 / 7 / 6",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                10,
+                9,
+                8,
+                7,
+                6
+              ]
+            },
+            "label": "Starts on first cast"
+          }
+        ]
+      },
+      "cooldownStart": "on-cast",
+      "cost": {
+        "text": "50",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 50
+            }
+          }
+        ]
+      },
+      "costType": "energy",
+      "castTime": {
+        "text": "0.25",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0.25
+            }
+          }
+        ]
+      },
+      "targetRange": {
+        "text": "1200",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 1200
+            }
+          }
+        ]
+      },
+      "effectRadius": {
+        "text": "400",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 400
+            },
+            "label": "Reveal radius; does not see through terrain or brush"
+          }
+        ]
+      },
+      "width": {
+        "text": "120",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 120
+            }
+          }
+        ]
+      },
+      "speed": {
+        "text": "1800",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 1800
+            }
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Direction"
+      ],
+      "affects": [
+        "Enemies"
+      ],
+      "damageType": [
+        "Physical"
+      ],
+      "spellEffects": "spell",
+      "spellShield": "true",
+      "projectile": "true"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Lee Sin fires a sonic blast in the target direction that deals physical damage to the first enemy hit and marks them for 3 seconds, during which they are revealed.",
+        "leveling": [
+          {
+            "label": "Physical Damage",
+            "amount": {
+              "text": "60 / 90 / 120 / 150 / 180 (+ 90% bonus AD)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  60,
+                  90,
+                  120,
+                  150,
+                  180
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "bonusAD",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 90
+                  },
+                  "text": "(+ 90% bonus AD)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "true sight",
+            "category": "vision",
+            "wording": "revealed",
+            "duration": {
+              "kind": "constant",
+              "value": 3
+            },
+            "evidence": "Active: Lee Sin fires a sonic blast in the target direction that deals physical damage to the first enemy hit and marks them for 3 seconds, during which they are revealed.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "While the target is marked, Lee Sin can cast Resonating Strike.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "This ability will cast from wherever the caster is at the start of the cast time."
+    ]
+  },
+  {
+    "champion": "LeeSin",
+    "kind": "R",
+    "name": "Dragon's Rage",
+    "page": {
+      "title": "Template:Data Lee Sin/Dragon's Rage",
+      "revid": 4032576
+    },
+    "ranks": 3,
+    "fields": {
+      "cooldown": {
+        "text": "110 / 85 / 60",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                110,
+                85,
+                60
+              ]
+            }
+          }
+        ]
+      },
+      "castTime": {
+        "text": "0.25",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0.25
+            }
+          }
+        ]
+      },
+      "targetRange": {
+        "text": "375",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 375
+            }
+          }
+        ]
+      },
+      "collisionRadius": {
+        "text": "160",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 160
+            },
+            "label": "Checks for collision every 0.25 seconds, estimated"
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Unit"
+      ],
+      "affects": [
+        "Enemies"
+      ],
+      "damageType": [
+        "Physical"
+      ],
+      "spellEffects": "aoe",
+      "spellShield": "true"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Lee Sin roots the target enemy champion over the cast time, then roundhouse kicks them to deal physical damage and knock them back up to 800 units over 0.8 seconds, rendering them airborne for 1 second.",
+        "leveling": [
+          {
+            "label": "Physical Damage",
+            "amount": {
+              "text": "175 / 400 / 625 (+ 200% bonus AD)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  175,
+                  400,
+                  625
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "bonusAD",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 200
+                  },
+                  "text": "(+ 200% bonus AD)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "root",
+            "category": "control",
+            "wording": "roots",
+            "duration": {
+              "kind": "constant",
+              "value": 0.8
+            },
+            "evidence": "Active: Lee Sin roots the target enemy champion over the cast time, then roundhouse kicks them to deal physical damage and knock them back up to 800 units over 0.8 seconds, rendering them airborne for 1 second.",
+            "conditional": false
+          },
+          {
+            "type": "airborne",
+            "category": "control",
+            "wording": "knock them back",
+            "duration": {
+              "kind": "constant",
+              "value": 0.8
+            },
+            "evidence": "Active: Lee Sin roots the target enemy champion over the cast time, then roundhouse kicks them to deal physical damage and knock them back up to 800 units over 0.8 seconds, rendering them airborne for 1 second.",
+            "conditional": false
+          },
+          {
+            "type": "airborne",
+            "category": "control",
+            "wording": "airborne",
+            "duration": {
+              "kind": "constant",
+              "value": 1
+            },
+            "evidence": "Active: Lee Sin roots the target enemy champion over the cast time, then roundhouse kicks them to deal physical damage and knock them back up to 800 units over 0.8 seconds, rendering them airborne for 1 second.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "Enemies that collide with the displaced enemy while it is airborne take the same damage plus bonus physical damage and are knocked up for 1 second.",
+        "leveling": [
+          {
+            "label": "Collision Physical Damage",
+            "amount": {
+              "text": "175 / 400 / 625 (+ 200% bonus AD) (+ 12 / 15 / 18% of primary target's bonus health)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  175,
+                  400,
+                  625
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "bonusAD",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 200
+                  },
+                  "text": "(+ 200% bonus AD)"
+                },
+                {
+                  "stat": "other:of primary target's bonus health",
+                  "ratio": {
+                    "kind": "rank",
+                    "values": [
+                      12,
+                      15,
+                      18
+                    ]
+                  },
+                  "text": "(+ 12 / 15 / 18% of primary target's bonus health)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "airborne",
+            "category": "control",
+            "wording": "airborne",
+            "duration": {
+              "kind": "constant",
+              "value": 1
+            },
+            "evidence": "Enemies that collide with the displaced enemy while it is airborne take the same damage plus bonus physical damage and are knocked up for 1 second.",
+            "conditional": false
+          },
+          {
+            "type": "airborne",
+            "category": "control",
+            "wording": "knocked up",
+            "duration": {
+              "kind": "constant",
+              "value": 1
+            },
+            "evidence": "Enemies that collide with the displaced enemy while it is airborne take the same damage plus bonus physical damage and are knocked up for 1 second.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "If Dragon's Rage kills the primary target, it will still knock them back, causing the target's corpse to be displaced and collide with enemies it passes through.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "The spell indicator for this ability also displays the direction for the knock back relative to Lee Sin's position.",
+      "The displacement's direction is decided at the moment of impact and not by Lee Sin and his target's relative locations at the start of the cast (the only way for Lee Sin to control where his target is displaced is by using Flash before the cast time of Dragon's Rage ends).",
+      "If the airborne debuff is removed from the target, its ability to collide with enemies is removed aswell, even if the target has not come to a stop yet.\n  - The airborne debuff and with it collision of the target remains for the normal duration even if its trajectory is displaced by another source (i.e - Headbutt).\n  - The target may still collide with other enemies for the remaining airborne duration after they reach their destination, as the airborne debuff lasts longer than the displacement.",
+      "The knock back distance is intended to be 800, but due to a bug, this is reduced by up-to the sum of Lee Sin's and his target's gameplay radius, depending on how far they are away from one another at the end of the cast time.",
+      "Dragon's Rage will not knock back killed champions that enter a zombie state upon dying, or a Yone with his Spirit Form active.",
+      "Dragon's Rage will knock back killed champions even if they were immune to the displacement at the time of being hit (e.g. with displacement immunity or crowd control immunity).",
+      "If Dragon's Rage's primary target is slain by the ability, their death timer and animation are deferred until their corpse's displacement ends.",
+      "If the target becomes untargetable, dies, or is too far away or no longer in sight during the cast time, this ability will cancel but does not go on cooldown nor pay its cost (if applicable)."
+    ]
+  },
+  {
+    "champion": "LeeSin",
+    "kind": "W",
+    "name": "Iron Will",
+    "page": {
+      "title": "Template:Data Lee Sin/Iron Will",
+      "revid": 3992654
+    },
+    "ranks": 5,
+    "fields": {
+      "cost": {
+        "text": "25",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 25
+            }
+          }
+        ]
+      },
+      "costType": "energy",
+      "castTime": {
+        "text": "none",
+        "values": []
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Auto"
+      ],
+      "affects": [
+        "Self"
+      ],
+      "damageType": []
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Lee Sin gains omnivamp for 4 seconds.",
+        "leveling": [
+          {
+            "label": "Omnivamp",
+            "amount": {
+              "text": "10 / 14 / 18 / 22 / 26%",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  10,
+                  14,
+                  18,
+                  22,
+                  26
+                ]
+              },
+              "unit": "%",
+              "scaling": [],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "omnivamp",
+            "category": "defense",
+            "wording": "omnivamp",
+            "duration": {
+              "kind": "constant",
+              "value": 4
+            },
+            "evidence": "Active: Lee Sin gains omnivamp for 4 seconds.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "No additional details."
+    ]
+  },
+  {
+    "champion": "LeeSin",
+    "kind": "W",
+    "name": "Safeguard",
+    "page": {
+      "title": "Template:Data Lee Sin/Safeguard",
+      "revid": 4024314
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "7",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 7
+            },
+            "label": "Starts on first cast"
+          }
+        ]
+      },
+      "cooldownStart": "on-cast",
+      "cost": {
+        "text": "50",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 50
+            }
+          }
+        ]
+      },
+      "costType": "energy",
+      "castTime": {
+        "text": "none",
+        "values": []
+      },
+      "targetRange": {
+        "text": "700",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 700
+            }
+          }
+        ]
+      },
+      "speed": {
+        "text": "1350 + 100% movement speed",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 1350
+            }
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Unit"
+      ],
+      "affects": [],
+      "damageType": [],
+      "grounded": "true",
+      "knockdown": "true"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Lee Sin dashes to the target allied unit's location. If the ally is a champion upon arrival, both they and Lee Sin gain a shield for 2 seconds.\nIf the target is a minion or ward, Lee Sin also shields himself.\nLee Sin can self-cast Safeguard to shield himself.",
+        "leveling": [
+          {
+            "label": "Shield Strength",
+            "amount": {
+              "text": "60 / 105 / 150 / 195 / 240 (+ 80% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  60,
+                  105,
+                  150,
+                  195,
+                  240
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 80
+                  },
+                  "text": "(+ 80% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "dash",
+            "category": "movement",
+            "wording": "dashes",
+            "evidence": "Active: Lee Sin dashes to the target allied unit's location.",
+            "conditional": false
+          },
+          {
+            "type": "shield",
+            "category": "defense",
+            "wording": "shield",
+            "duration": {
+              "kind": "constant",
+              "value": 2
+            },
+            "evidence": "If the ally is a champion upon arrival, both they and Lee Sin gain a shield for 2 seconds.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "After Safeguard is cast, Lee Sin can cast Iron Will within the next 3 seconds.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "text": "Iron Will and Cripple can be cast during the dash.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Lee Sin cannot self-cast Safeguard while grounded or rooted.",
+      "Safeguard can be used on any targetable allied unit excluding structures.\n  - This includes champions, minions, wards, and champion summoned units (e.g. Noxious Trap, Demacian Standard, Dark Passage).",
+      "If no unit is directly targeted, Safeguard will search for wards in a 100 radius to target.\n  - This aids Lee Sin in performing the dash to a ward he just placed.",
+      "Safeguard will not grant its shield if the dash is interrupted.\n  - If the dash overrides or is overridden by Resonating Strike, he will grant the shield immediately rather than on arrival.",
+      "If Safeguard's dash interrupts another dash, Tempest and Dragon's Rage can be cast during it (both otherwise cannot be cast)."
+    ]
+  }
+]

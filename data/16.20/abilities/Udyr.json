@@ -1,0 +1,2459 @@
+[
+  {
+    "champion": "Udyr",
+    "kind": "E",
+    "name": "Bear Stance",
+    "page": {
+      "title": "Template:Data Udyr/Bear Stance",
+      "revid": 3439669
+    },
+    "ranks": 6,
+    "fields": {
+      "cooldown": {
+        "text": "6",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 6
+            }
+          }
+        ]
+      },
+      "cost": {
+        "text": "45 – 28 (based on level)",
+        "values": [
+          {
+            "series": {
+              "kind": "level",
+              "values": [
+                45,
+                44,
+                43,
+                42,
+                41,
+                40,
+                39,
+                38,
+                37,
+                36,
+                35,
+                34,
+                33,
+                32,
+                31,
+                30,
+                29,
+                28
+              ]
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "none",
+        "values": []
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Auto"
+      ],
+      "affects": [
+        "Self"
+      ],
+      "damageType": [],
+      "spellShield": "true",
+      "parry": "true",
+      "onHitEffects": "special"
+    },
+    "parts": [
+      {
+        "label": "Stance",
+        "text": "Stance: Udyr's basic attacks are empowered to have an uncancellable windup and stun the target for 1 second. The target is then marked Mauled for 5 seconds, becoming immune to the stun.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "uncancellable windup",
+            "category": "offense",
+            "wording": "uncancellable windup",
+            "evidence": "Stance: Udyr's basic attacks are empowered to have an uncancellable windup and stun the target for 1 second.",
+            "conditional": false
+          },
+          {
+            "type": "stun",
+            "category": "control",
+            "wording": "stun",
+            "duration": {
+              "kind": "constant",
+              "value": 1
+            },
+            "evidence": "Stance: Udyr's basic attacks are empowered to have an uncancellable windup and stun the target for 1 second.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "label": "Active",
+        "text": "Active: Udyr gains bonus movement speed and ghosting for the next few seconds. During this time, his basic attacks against enemy champions are empowered to lunge 50 units toward them, unless they are marked Mauled.",
+        "leveling": [
+          {
+            "label": "Bonus Movement Speed",
+            "amount": {
+              "text": "15 / 20 / 25 / 30 / 35 / 40%",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  15,
+                  20,
+                  25,
+                  30,
+                  35,
+                  40
+                ]
+              },
+              "unit": "%",
+              "scaling": [],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Buff Duration",
+            "amount": {
+              "text": "2 / 2.25 / 2.5 / 2.75 / 3 / 3.25",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  2,
+                  2.25,
+                  2.5,
+                  2.75,
+                  3,
+                  3.25
+                ]
+              },
+              "scaling": [],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "ghosted",
+            "category": "movement",
+            "wording": "ghosting",
+            "evidence": "Active: Udyr gains bonus movement speed and ghosting for the next few seconds.",
+            "conditional": false
+          },
+          {
+            "type": "dash",
+            "category": "movement",
+            "wording": "lunge",
+            "evidence": "During this time, his basic attacks against enemy champions are empowered to lunge 50 units toward them, unless they are marked Mauled.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "The name of the buff granted by entering Bear Stance is Primal Charge.",
+      "The name of the immunity debuff granted from Bear Stance is Mauled.",
+      "Bear Stance's self-displacement does not count as a dash for the purposes of Sudden Impact.",
+      "The triggering attack will apply other on-hit effects and can critically strike as normal.",
+      "Spell shield and crowd control immunity will consume the attack, meaning the on-target stun immunity is also incurred in the process.",
+      "The empowered attack will not trigger against structures."
+    ]
+  },
+  {
+    "champion": "Udyr",
+    "kind": "E",
+    "name": "Blazing Stampede",
+    "page": {
+      "title": "Template:Data Udyr/Blazing Stampede",
+      "revid": 4052353
+    },
+    "ranks": 6,
+    "fields": {
+      "cooldown": {
+        "text": "6",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 6
+            },
+            "label": "Starts on-cast, but recasting refreshes the cooldown"
+          }
+        ]
+      },
+      "cooldownStart": "on-cast",
+      "cost": {
+        "text": "40 – 23 (based on level)",
+        "values": [
+          {
+            "series": {
+              "kind": "level",
+              "values": [
+                40,
+                39,
+                38,
+                37,
+                36,
+                35,
+                34,
+                33,
+                32,
+                31,
+                30,
+                29,
+                28,
+                27,
+                26,
+                25,
+                24,
+                23,
+                22,
+                21
+              ],
+              "past18": "wiki"
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "none",
+        "values": []
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Auto"
+      ],
+      "affects": [
+        "Self",
+        "Enemies"
+      ],
+      "damageType": [],
+      "spellShield": "true",
+      "parry": "true",
+      "grounded": "special",
+      "knockdown": "special"
+    },
+    "parts": [
+      {
+        "label": "Active - Stance",
+        "text": "Active - Stance: Udyr enters Stampede Stance, empowering his basic attacks to have an uncancellable windup and pounce on the target to stun them for 0.75 seconds. This cannot affect the same target more than once every few seconds.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "uncancellable windup",
+            "category": "offense",
+            "wording": "uncancellable windup",
+            "evidence": "Active - Stance: Udyr enters Stampede Stance, empowering his basic attacks to have an uncancellable windup and pounce on the target to stun them for 0.75 seconds.",
+            "conditional": false
+          },
+          {
+            "type": "dash",
+            "category": "movement",
+            "wording": "pounce",
+            "evidence": "Active - Stance: Udyr enters Stampede Stance, empowering his basic attacks to have an uncancellable windup and pounce on the target to stun them for 0.75 seconds.",
+            "conditional": false
+          },
+          {
+            "type": "stun",
+            "category": "control",
+            "wording": "stun",
+            "duration": {
+              "kind": "constant",
+              "value": 0.75
+            },
+            "evidence": "Active - Stance: Udyr enters Stampede Stance, empowering his basic attacks to have an uncancellable windup and pounce on the target to stun them for 0.75 seconds.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "Additionally, Udyr becomes ghosted and gains bonus movement speed for 4 seconds, which decays to 30% effectiveness over 1.5 seconds.",
+        "leveling": [
+          {
+            "label": "Bonus Movement Speed",
+            "amount": {
+              "text": "25 / 31 / 37 / 43 / 49 / 55% (+ 5% per 100 bonus AD)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  25,
+                  31,
+                  37,
+                  43,
+                  49,
+                  55
+                ]
+              },
+              "unit": "%",
+              "scaling": [
+                {
+                  "stat": "per100:bonusAD",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 5
+                  },
+                  "text": "(+ 5% per 100 bonus AD)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Decayed Bonus Movement Speed",
+            "amount": {
+              "text": "7.5 / 9.3 / 11.1 / 12.9 / 14.7 / 16.5% (+ 1.5% per 100 bonus AD)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  7.5,
+                  9.3,
+                  11.1,
+                  12.9,
+                  14.7,
+                  16.5
+                ]
+              },
+              "unit": "%",
+              "scaling": [
+                {
+                  "stat": "per100:bonusAD",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 1.5
+                  },
+                  "text": "(+ 1.5% per 100 bonus AD)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "ghosted",
+            "category": "movement",
+            "wording": "ghosted",
+            "duration": {
+              "kind": "constant",
+              "value": 4
+            },
+            "evidence": "Additionally, Udyr becomes ghosted and gains bonus movement speed for 4 seconds, which decays to 30% effectiveness over 1.5 seconds.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "label": "Recast - Awaken",
+        "text": "Recast - Awaken: Udyr gains 75 bonus attack range and an additional 30 – 40 (based on level)% (+ 10% per 100 bonus AD) bonus movement speed. He also gains immunity to crowd control for 1.5 seconds.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "cc-immune",
+            "category": "defense",
+            "wording": "immunity to crowd control",
+            "duration": {
+              "kind": "constant",
+              "value": 1.5
+            },
+            "evidence": "He also gains immunity to crowd control for 1.5 seconds.",
+            "conditional": false
+          }
+        ],
+        "values": [
+          {
+            "series": {
+              "kind": "level",
+              "values": [
+                30,
+                30.58823529411765,
+                31.176470588235293,
+                31.764705882352942,
+                32.35294117647059,
+                32.94117647058823,
+                33.529411764705884,
+                34.11764705882353,
+                34.705882352941174,
+                35.294117647058826,
+                35.88235294117647,
+                36.470588235294116,
+                37.05882352941177,
+                37.64705882352941,
+                38.23529411764706,
+                38.82352941176471,
+                39.411764705882355,
+                40,
+                40.588235294117645,
+                41.1764705882353
+              ],
+              "past18": "wiki"
+            },
+            "context": "Recast - Awaken: Udyr gains 75 bonus attack range and an additional 30 – 40 (based on level)% (+ 10% per 100 bonus AD) bonus movement speed."
+          }
+        ]
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Udyr cannot dash while grounded or rooted, but he will still declare the empowered attack.",
+      "The empowered attack will still apply its effects even if the dash is interrupted.",
+      "The empowered attacks will not trigger nor be consumed if they hit a structure or ward or are parried.",
+      "Each empowered attack is considered to belong to its own cast instance.\n  - The immunity to the stun is not applied in any case."
+    ]
+  },
+  {
+    "champion": "Udyr",
+    "kind": "I",
+    "name": "Bridge Between",
+    "page": {
+      "title": "Template:Data Udyr/Bridge Between",
+      "revid": 3983420
+    },
+    "ranks": 1,
+    "fields": {},
+    "flags": {
+      "targeting": [
+        "Passive"
+      ],
+      "affects": [
+        "Self"
+      ],
+      "damageType": [],
+      "parry": "true"
+    },
+    "parts": [
+      {
+        "label": "Innate - Awakened Spirit",
+        "text": "Innate - Awakened Spirit: Udyr has no ultimate ability and instead has 4 basic abilities that each incur a 1.5-second global cooldown when cast. Each ability grants a Stance that empowers his basic attacks, and switching Stances will replace the empowered attacks of the previous Stance.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "text": "Periodically, after Udyr enters a Stance, he can cast it again at no cost after 0.25 seconds and within the following 5 seconds to Awaken it, empowering the Stance with an additional effect and placing the effect on cooldown.\nIf Udyr does not consume the Awaken cast within the duration and has not switched Stances, his current Stance's respective ability incurs a 0.25-second cooldown. Awakened Spirit is placed on full cooldown at the start of the game.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "label": "Innate - Monk Training",
+        "text": "Innate - Monk Training: After casting an ability, Udyr empowers his next two basic attacks on-hit within 4 seconds to gain 30% bonus attack speed and refund 5% of Awakened Spirit's total cooldown, though not if the remaining cooldown is less than 1 second.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "on-hit",
+            "category": "offense",
+            "wording": "on-hit",
+            "evidence": "Innate - Monk Training: After casting an ability, Udyr empowers his next two basic attacks on-hit within 4 seconds to gain 30% bonus attack speed and refund 5% of Awakened Spirit's total cooldown, though not if the remaining cooldown is less than 1 second.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      }
+    ],
+    "custom": [
+      {
+        "label": "Cooldown",
+        "text": "50 / 40 / 30 / 20 (based on level)"
+      }
+    ],
+    "notes": [
+      "Awakened Spirit's cooldown is affected by ah ultimate haste.",
+      "Awakened ability casts are special cased to trigger Experimental Hexplate Overdrive, Zeke's Convergence Frostfire Tempest, and Cloud Dragon Soul increased movement speed.",
+      "The Awakened casts of Wilding Claw and Wingborne Storm are special cased to trigger Malignance Hatefog from their damage.",
+      "Axiom Arcanist will affect the Awakened cast of all abilities, but does not refund the cooldown of Awakened Spirit.\n  - Only Wilding Claw lightning damage is amplified. The on-hit damage is not increased.",
+      "Axiom Arc Flux does not count neither Awakened Spirit nor Wingborne Storm as ultimate abilities.",
+      "Awakened Spirit's cooldown is tracked on his health bar by an Awakening resource, visible to all teams. This secondary resource bar is non-descript and represents the effect's percentage charge.\n  - The bar has a white color when Awakened Spirit is under 80% charge, a yellow color when at 80% charge or above, and a red color when an Awaken cast is available.",
+      "Switching Stances will not cause any additional effects granted by the previous one to end prematurely.",
+      "The global cooldown will not incur on abilities that are currently on a greater cooldown.",
+      "The empowered attacks will not get consumed if they are parried.",
+      "Awakened Spirit's cast also activates Monk Training and empowers the next 2 attacks by the stances unawakened effects as well, overriding unused unawakened stance attacks."
+    ]
+  },
+  {
+    "champion": "Udyr",
+    "kind": "I",
+    "name": "Monkey's Agility",
+    "page": {
+      "title": "Template:Data Udyr/Monkey's Agility",
+      "revid": 3443263
+    },
+    "ranks": 1,
+    "fields": {},
+    "flags": {
+      "targeting": [
+        "Passive"
+      ],
+      "affects": [
+        "Self"
+      ],
+      "damageType": []
+    },
+    "parts": [
+      {
+        "label": "Innate - Four Stances",
+        "text": "Innate - Four Stances: Udyr has no ultimate ability and instead has 4 basic abilities. Each ability grants a Stance: a unique passive effect that lasts until casting a different ability. Switching Stances will prevent his previous Stance from triggering any more on-hit effects, and incur a 1.5-second global cooldown on his other abilities.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "text": "Starting at level 16, all abilities can gain a 6th rank.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "label": "Innate",
+        "text": "Innate: Udyr's ability casts generate a stack of Monkey's Agility for 5 seconds, refreshing on subsequent casts and stacking up to 3 times.\n\nMonkey's Agility: For each stack, Udyr gains 5 bonus movement speed and 10% bonus attack speed, up to 15 bonus movement speed and 30% bonus attack speed.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Cloud Dragon Soul increased movement speed buff is special cased to activate on all of Udyr's spell casts due to not having a traditional ultimate.",
+      "The global cooldown will not incur on abilities that are currently on a greater cooldown.",
+      "Udyr does not receive extra skill points for his extra ability ranks, meaning he will not be able to reach maximum rank on all of his abilities unless he can level beyond the normal limit (e.g. Ultra Rapid Fire)."
+    ]
+  },
+  {
+    "champion": "Udyr",
+    "kind": "Q",
+    "name": "Tiger Stance",
+    "page": {
+      "title": "Template:Data Udyr/Tiger Stance",
+      "revid": 3439667
+    },
+    "ranks": 6,
+    "fields": {
+      "cooldown": {
+        "text": "6",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 6
+            }
+          }
+        ]
+      },
+      "cost": {
+        "text": "45 – 28 (based on level)",
+        "values": [
+          {
+            "series": {
+              "kind": "level",
+              "values": [
+                45,
+                44,
+                43,
+                42,
+                41,
+                40,
+                39,
+                38,
+                37,
+                36,
+                35,
+                34,
+                33,
+                32,
+                31,
+                30,
+                29,
+                28
+              ]
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "none",
+        "values": []
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Auto"
+      ],
+      "affects": [
+        "Enemies"
+      ],
+      "damageType": [
+        "physical"
+      ],
+      "spellEffects": "dot",
+      "spellShield": "false",
+      "parry": "special"
+    },
+    "parts": [
+      {
+        "label": "Stance",
+        "text": "Stance: Udyr's basic attacks on-hit generate a stack of Tiger. At 3 stacks, his next basic attack is empowered to consume them all to inflict Tiger Strike, and also generates a Tiger stack.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "label": "Tiger Strike",
+        "text": "Tiger Strike: The target is dealt bonus physical damage every 0.5 seconds over 2 seconds. Leftover damage is dealt instantly upon subsequent infliction.",
+        "leveling": [
+          {
+            "label": "Total Bonus Physical Damage",
+            "amount": {
+              "text": "30 / 60 / 90 / 120 / 150 / 180 (+ 110 / 125 / 140 / 155 / 170 / 185% AD)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  30,
+                  60,
+                  90,
+                  120,
+                  150,
+                  180
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AD",
+                  "ratio": {
+                    "kind": "rank",
+                    "values": [
+                      110,
+                      125,
+                      140,
+                      155,
+                      170,
+                      185
+                    ]
+                  },
+                  "text": "(+ 110 / 125 / 140 / 155 / 170 / 185% AD)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Bonus Physical Damage per Tick",
+            "amount": {
+              "text": "7.5 / 15 / 22.5 / 30 / 37.5 / 45 (+ 27.5 / 31.25 / 35 / 38.75 / 42.5 / 46.25% AD)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  7.5,
+                  15,
+                  22.5,
+                  30,
+                  37.5,
+                  45
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AD",
+                  "ratio": {
+                    "kind": "rank",
+                    "values": [
+                      27.5,
+                      31.25,
+                      35,
+                      38.75,
+                      42.5,
+                      46.25
+                    ]
+                  },
+                  "text": "(+ 27.5 / 31.25 / 35 / 38.75 / 42.5 / 46.25% AD)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "label": "Active",
+        "text": "Active: Udyr gains bonus attack speed for 5 seconds, and instantly generates 3 Tiger stacks.",
+        "leveling": [
+          {
+            "label": "Bonus Attack Speed",
+            "amount": {
+              "text": "30 / 40 / 50 / 60 / 70 / 80%",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  30,
+                  40,
+                  50,
+                  60,
+                  70,
+                  80
+                ]
+              },
+              "unit": "%",
+              "scaling": [],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "The name of the buff granted by entering Tiger Stance is Tiger Speed.",
+      "The triggering attack will generate the first stack toward the next, meaning the effect will always trigger on every 3rd attack. Guinsoo's Rageblade will reduce this number to every 2nd attack, with Udyr's attack animations coded to \"look ahead\" and trigger the empowered-attack animation if he attacks a target while at 1 stack while Guinsoo's Rage is active.",
+      "Tiger Stance's primed damage over time does not persist through stance changes.",
+      "Unlike most on-hit physical damage, the bonus damage from Tiger Stance will not apply life steal.",
+      "The on-hit application of the DoT cannot be dodged nor blocked, but it can miss.",
+      "The empowered attack will not trigger against structures."
+    ]
+  },
+  {
+    "champion": "Udyr",
+    "kind": "Q",
+    "name": "Wilding Claw",
+    "page": {
+      "title": "Template:Data Udyr/Wilding Claw",
+      "revid": 4049976
+    },
+    "ranks": 6,
+    "fields": {
+      "cooldown": {
+        "text": "6",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 6
+            },
+            "label": "Starts on-cast, but recasting refreshes the cooldown"
+          }
+        ]
+      },
+      "cooldownStart": "on-cast",
+      "cost": {
+        "text": "20",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 20
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "none",
+        "values": []
+      },
+      "effectRadius": {
+        "text": "450",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 450
+            },
+            "label": "Lightning bounce radius"
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Auto"
+      ],
+      "affects": [
+        "Self",
+        "Enemies"
+      ],
+      "damageType": [
+        "Physical Magic"
+      ],
+      "spellEffects": "special",
+      "spellShield": "special",
+      "projectile": "true",
+      "parry": "true"
+    },
+    "parts": [
+      {
+        "label": "Active - Stance",
+        "text": "Active - Stance: Udyr enters Claw Stance, empowering his next two basic attacks to gain 50 bonus range and deal bonus physical damage on-hit, capped at 15 (+ 100% bonus AD) (+ 50% AP) against monsters.",
+        "leveling": [
+          {
+            "label": "Bonus Physical Damage",
+            "amount": {
+              "text": "3 / 4 / 5 / 6 / 7 / 8% (+ 3.5% per 100 bonus AD) of target's maximum health",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  3,
+                  4,
+                  5,
+                  6,
+                  7,
+                  8
+                ]
+              },
+              "unit": "%",
+              "scaling": [
+                {
+                  "stat": "per100:bonusAD",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 3.5
+                  },
+                  "text": "(+ 3.5% per 100 bonus AD)"
+                }
+              ],
+              "unparsed": "",
+              "baseStat": "targetMaxHealth"
+            }
+          },
+          {
+            "label": "Total Physical Damage",
+            "amount": {
+              "text": "6 / 8 / 10 / 12 / 14 / 16% (+ 7% per 100 bonus AD) of target's maximum health",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  6,
+                  8,
+                  10,
+                  12,
+                  14,
+                  16
+                ]
+              },
+              "unit": "%",
+              "scaling": [
+                {
+                  "stat": "per100:bonusAD",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 7
+                  },
+                  "text": "(+ 7% per 100 bonus AD)"
+                }
+              ],
+              "unparsed": "",
+              "baseStat": "targetMaxHealth"
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "on-hit",
+            "category": "offense",
+            "wording": "on-hit",
+            "evidence": "Active - Stance: Udyr enters Claw Stance, empowering his next two basic attacks to gain 50 bonus range and deal bonus physical damage on-hit, capped at 15 (+ 100% bonus AD) (+ 50% AP) against monsters.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "Additionally, Udyr gains bonus attack speed and deals bonus physical damage on-hit for 4 seconds.",
+        "leveling": [
+          {
+            "label": "Bonus Attack Speed",
+            "amount": {
+              "text": "20 / 32 / 44 / 56 / 68 / 80%",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  20,
+                  32,
+                  44,
+                  56,
+                  68,
+                  80
+                ]
+              },
+              "unit": "%",
+              "scaling": [],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Bonus Physical Damage On-Hit",
+            "amount": {
+              "text": "6 / 12 / 18 / 24 / 30 / 36 (+ 20% bonus AD) (+ 1 / 1.2 / 1.4 / 1.6 / 1.8 / 2% bonus health)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  6,
+                  12,
+                  18,
+                  24,
+                  30,
+                  36
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "bonusAD",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 20
+                  },
+                  "text": "(+ 20% bonus AD)"
+                },
+                {
+                  "stat": "bonusHealth",
+                  "ratio": {
+                    "kind": "rank",
+                    "values": [
+                      1,
+                      1.2,
+                      1.4,
+                      1.6,
+                      1.8,
+                      2
+                    ]
+                  },
+                  "text": "(+ 1 / 1.2 / 1.4 / 1.6 / 1.8 / 2% bonus health)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "on-hit",
+            "category": "offense",
+            "wording": "on-hit",
+            "evidence": "Additionally, Udyr gains bonus attack speed and deals bonus physical damage on-hit for 4 seconds.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "label": "Recast - Awaken",
+        "text": "Recast - Awaken: Udyr gains an additional 20 – 70 (based on level)% bonus attack speed. The empowered attacks deal an additional 2 – 4 (based on level)% (+ 1.5% per 100 bonus AD) (+ 0.1% per 100 bonus health) of the target's maximum health bonus physical damage if used within 4 seconds. Udyr's next two basic attacks on-hit in any Stance within 4 seconds are each empowered to strike with lightning 6 times over 1 second, dealing bonus magic damage equal to 1.5 – 3 (based on level)% (+ 0.6% per 100 AP) of the target's maximum health per hit, chaining to up to 3 nearby visible enemies and being able to hit the same target multiple times, for a total of 9 – 18 (based on level)% (+ 3.6% per 100 AP) of the target's maximum health. Each lightning strike deals a minimum of 40 – 160 (based on level) against minions and is capped at 15 (+ 100% bonus AD) (+ 50% AP) against monsters.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "on-hit",
+            "category": "offense",
+            "wording": "on-hit",
+            "evidence": "Udyr's next two basic attacks on-hit in any Stance within 4 seconds are each empowered to strike with lightning 6 times over 1 second, dealing bonus magic damage equal to 1.5 – 3 (based on level)% (+ 0.6% per 100 AP) of the target's maximum health per hit, chaining to up to 3 nearby visible enemies and being able to hit the same target multiple times, for a total of 9 – 18 (based on level)% (+ 3.6% per 100 AP) of the target's maximum health.",
+            "conditional": false
+          },
+          {
+            "type": "reveal",
+            "category": "vision",
+            "wording": "visible",
+            "evidence": "Udyr's next two basic attacks on-hit in any Stance within 4 seconds are each empowered to strike with lightning 6 times over 1 second, dealing bonus magic damage equal to 1.5 – 3 (based on level)% (+ 0.6% per 100 AP) of the target's maximum health per hit, chaining to up to 3 nearby visible enemies and being able to hit the same target multiple times, for a total of 9 – 18 (based on level)% (+ 3.6% per 100 AP) of the target's maximum health.",
+            "conditional": false
+          }
+        ],
+        "values": [
+          {
+            "series": {
+              "kind": "level",
+              "values": [
+                20,
+                22.941176470588236,
+                25.88235294117647,
+                28.823529411764707,
+                31.764705882352942,
+                34.705882352941174,
+                37.64705882352941,
+                40.58823529411765,
+                43.529411764705884,
+                46.470588235294116,
+                49.411764705882355,
+                52.352941176470594,
+                55.294117647058826,
+                58.23529411764706,
+                61.1764705882353,
+                64.11764705882354,
+                67.05882352941177,
+                70,
+                72.94117647058823,
+                75.88235294117648
+              ],
+              "past18": "wiki"
+            },
+            "context": "Recast - Awaken: Udyr gains an additional 20 – 70 (based on level)% bonus attack speed."
+          },
+          {
+            "series": {
+              "kind": "level",
+              "values": [
+                2,
+                2.1176470588235294,
+                2.235294117647059,
+                2.3529411764705883,
+                2.4705882352941178,
+                2.588235294117647,
+                2.7058823529411766,
+                2.8235294117647056,
+                2.9411764705882355,
+                3.0588235294117645,
+                3.1764705882352944,
+                3.2941176470588234,
+                3.411764705882353,
+                3.5294117647058822,
+                3.6470588235294117,
+                3.764705882352941,
+                3.8823529411764706,
+                4,
+                4.117647058823529,
+                4.235294117647059
+              ],
+              "past18": "wiki"
+            },
+            "context": "The empowered attacks deal an additional 2 – 4 (based on level)% (+ 1.5% per 100 bonus AD) (+ 0.1% per 100 bonus health) of the target's maximum health bonus physical damage if used within 4 seconds."
+          },
+          {
+            "series": {
+              "kind": "level",
+              "values": [
+                1.5,
+                1.588235294117647,
+                1.6764705882352942,
+                1.7647058823529411,
+                1.8529411764705883,
+                1.9411764705882353,
+                2.0294117647058822,
+                2.1176470588235294,
+                2.2058823529411766,
+                2.2941176470588234,
+                2.3823529411764706,
+                2.4705882352941178,
+                2.5588235294117645,
+                2.647058823529412,
+                2.735294117647059,
+                2.823529411764706,
+                2.9117647058823533,
+                3,
+                3.088235294117647,
+                3.1764705882352944
+              ],
+              "past18": "wiki"
+            },
+            "context": "Udyr's next two basic attacks on-hit in any Stance within 4 seconds are each empowered to strike with lightning 6 times over 1 second, dealing bonus magic damage equal to 1.5 – 3 (based on level)% (+ 0.6% per 100 AP) of the target's maximum health per hit, chaining to up to 3 nearby visible enemies and being able to hit the same target multiple times, for a total of 9 – 18 (based on level)% (+ 3.6% per 100 AP) of the target's maximum health."
+          },
+          {
+            "series": {
+              "kind": "level",
+              "values": [
+                9,
+                9.529411764705882,
+                10.058823529411764,
+                10.588235294117647,
+                11.117647058823529,
+                11.647058823529411,
+                12.176470588235293,
+                12.705882352941178,
+                13.235294117647058,
+                13.764705882352942,
+                14.294117647058822,
+                14.823529411764707,
+                15.352941176470589,
+                15.882352941176471,
+                16.411764705882355,
+                16.941176470588236,
+                17.470588235294116,
+                18,
+                18.529411764705884,
+                19.058823529411764
+              ],
+              "past18": "wiki"
+            },
+            "context": "Udyr's next two basic attacks on-hit in any Stance within 4 seconds are each empowered to strike with lightning 6 times over 1 second, dealing bonus magic damage equal to 1.5 – 3 (based on level)% (+ 0.6% per 100 AP) of the target's maximum health per hit, chaining to up to 3 nearby visible enemies and being able to hit the same target multiple times, for a total of 9 – 18 (based on level)% (+ 3.6% per 100 AP) of the target's maximum health."
+          },
+          {
+            "series": {
+              "kind": "constant",
+              "value": 3.5999999999999996
+            },
+            "context": "Udyr's next two basic attacks on-hit in any Stance within 4 seconds are each empowered to strike with lightning 6 times over 1 second, dealing bonus magic damage equal to 1.5 – 3 (based on level)% (+ 0.6% per 100 AP) of the target's maximum health per hit, chaining to up to 3 nearby visible enemies and being able to hit the same target multiple times, for a total of 9 – 18 (based on level)% (+ 3.6% per 100 AP) of the target's maximum health."
+          },
+          {
+            "series": {
+              "kind": "level",
+              "values": [
+                40,
+                47.05882352941177,
+                54.11764705882353,
+                61.17647058823529,
+                68.23529411764706,
+                75.29411764705883,
+                82.35294117647058,
+                89.41176470588235,
+                96.47058823529412,
+                103.52941176470588,
+                110.58823529411765,
+                117.6470588235294,
+                124.70588235294117,
+                131.76470588235293,
+                138.8235294117647,
+                145.88235294117646,
+                152.94117647058823,
+                160,
+                167.05882352941177,
+                174.11764705882354
+              ],
+              "past18": "wiki"
+            },
+            "context": "Each lightning strike deals a minimum of 40 – 160 (based on level) against minions and is capped at 15 (+ 100% bonus AD) (+ 50% AP) against monsters."
+          }
+        ]
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Deals spell damage to the primary target and applies area damage on the lightning strikes.",
+      "The lightning strikes can deal up to 9% – 18% (based on level) (+ 4.8% per 100 AP) of the target's maximum health bonus magic damage per empowered basic attack against an isolated target.\n  - If both empowered attacks are used on the same isolated target, the lightning strikes can deal up to 18% – 36% (based on level) (+ 9.6% per 100 AP) of the target's maximum health bonus magic damage.",
+      "The lightning strikes from two separate empowered attacks can overlap with each other on the same target for additional damage.",
+      "Spell shield will only block an empowered attack's application of the lightning strikes.",
+      "The empowered attacks will not trigger nor be consumed if they hit a structure or ward or are parried."
+    ]
+  },
+  {
+    "champion": "Udyr",
+    "kind": "R",
+    "name": "Phoenix Stance",
+    "page": {
+      "title": "Template:Data Udyr/Phoenix Stance",
+      "revid": 3439670
+    },
+    "ranks": 6,
+    "fields": {
+      "cooldown": {
+        "text": "6",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 6
+            }
+          }
+        ]
+      },
+      "cost": {
+        "text": "45 – 28 (based on level)",
+        "values": [
+          {
+            "series": {
+              "kind": "level",
+              "values": [
+                45,
+                44,
+                43,
+                42,
+                41,
+                40,
+                39,
+                38,
+                37,
+                36,
+                35,
+                34,
+                33,
+                32,
+                31,
+                30,
+                29,
+                28
+              ]
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "none",
+        "values": []
+      },
+      "effectRadius": {
+        "text": "625 / 250",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                625,
+                250
+              ]
+            },
+            "label": "Wave radius"
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Auto"
+      ],
+      "affects": [
+        "Self",
+        "Enemies"
+      ],
+      "damageType": [
+        "magic"
+      ],
+      "spellEffects": "spellaoe",
+      "spellShield": "false",
+      "projectile": "false"
+    },
+    "parts": [
+      {
+        "label": "Stance",
+        "text": "Stance: Udyr's basic attacks on-hit generate a stack of Phoenix. At 3 stacks, his next basic attack is empowered to unleash fire in a cone in front of him that deals magic damage to enemies hit, and also generate a Phoenix stack.",
+        "leveling": [
+          {
+            "label": "Cone Damage",
+            "amount": {
+              "text": "60 / 110 / 160 / 210 / 260 / 310 (+ 80% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  60,
+                  110,
+                  160,
+                  210,
+                  260,
+                  310
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 80
+                  },
+                  "text": "(+ 80% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "label": "Active",
+        "text": "Active: Udyr creates an aura of pulsing fire for 4 seconds, dealing magic damage each second to nearby enemies. He also instantly generates 3 Phoenix stacks.",
+        "leveling": [
+          {
+            "label": "Total Magic Damage",
+            "amount": {
+              "text": "40 / 80 / 120 / 160 / 200 / 240 (+ 100% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  40,
+                  80,
+                  120,
+                  160,
+                  200,
+                  240
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 100
+                  },
+                  "text": "(+ 100% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Magic Damage Per Tick",
+            "amount": {
+              "text": "10 / 20 / 30 / 40 / 50 / 60 (+ 25% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  10,
+                  20,
+                  30,
+                  40,
+                  50,
+                  60
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 25
+                  },
+                  "text": "(+ 25% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "The name of the buff granted by entering Phoenix Stance is Phoenix Flame.",
+      "The triggering attack will generate the first stack toward the next, meaning the effect will always trigger on every 3rd attack. Guinsoo's Rageblade will reduce this number to every 2nd attack, with Udyr's attack animations coded to \"look ahead\" and trigger the empowered-attack animation if he attacks a target while at 1 stack while Guinsoo's Rage is active.",
+      "The empowered attack will trigger and be consumed but will not deal its damage against structures."
+    ]
+  },
+  {
+    "champion": "Udyr",
+    "kind": "R",
+    "name": "Wingborne Storm",
+    "page": {
+      "title": "Template:Data Udyr/Wingborne Storm",
+      "revid": 4008208
+    },
+    "ranks": 6,
+    "fields": {
+      "cooldown": {
+        "text": "6",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 6
+            },
+            "label": "Starts on-cast, but recasting refreshes the cooldown"
+          }
+        ]
+      },
+      "cooldownStart": "on-cast",
+      "cost": {
+        "text": "40 – 23 (based on level)",
+        "values": [
+          {
+            "series": {
+              "kind": "level",
+              "values": [
+                40,
+                39,
+                38,
+                37,
+                36,
+                35,
+                34,
+                33,
+                32,
+                31,
+                30,
+                29,
+                28,
+                27,
+                26,
+                25,
+                24,
+                23,
+                22,
+                21
+              ],
+              "past18": "wiki"
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "none",
+        "values": []
+      },
+      "effectRadius": {
+        "text": "370 • 1300",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 370
+            },
+            "label": "Storm and empowered attack radius, center to edge"
+          },
+          {
+            "series": {
+              "kind": "constant",
+              "value": 1300
+            },
+            "label": "Storm lock-on radius"
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Auto"
+      ],
+      "affects": [
+        "Self",
+        "Enemies"
+      ],
+      "damageType": [
+        "magic"
+      ],
+      "spellEffects": "aoedot",
+      "spellShield": "false",
+      "parry": "true"
+    },
+    "parts": [
+      {
+        "label": "Active - Stance",
+        "text": "Active - Stance: Udyr enters Storm Stance, empowering his next two basic attacks on-hit to deal 10 – 40 (based on level) (+ 35% AP) magic damage to nearby enemies.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "on-hit",
+            "category": "offense",
+            "wording": "on-hit",
+            "evidence": "Active - Stance: Udyr enters Storm Stance, empowering his next two basic attacks on-hit to deal 10 – 40 (based on level) (+ 35% AP) magic damage to nearby enemies.",
+            "conditional": false
+          }
+        ],
+        "values": [
+          {
+            "series": {
+              "kind": "level",
+              "values": [
+                10,
+                11.764705882352942,
+                13.529411764705882,
+                15.294117647058822,
+                17.058823529411764,
+                18.823529411764707,
+                20.588235294117645,
+                22.352941176470587,
+                24.11764705882353,
+                25.88235294117647,
+                27.647058823529413,
+                29.41176470588235,
+                31.176470588235293,
+                32.94117647058823,
+                34.705882352941174,
+                36.470588235294116,
+                38.23529411764706,
+                40,
+                41.76470588235294,
+                43.529411764705884
+              ],
+              "past18": "wiki"
+            },
+            "context": "Active - Stance: Udyr enters Storm Stance, empowering his next two basic attacks on-hit to deal 10 – 40 (based on level) (+ 35% AP) magic damage to nearby enemies."
+          }
+        ]
+      },
+      {
+        "text": "Additionally, Udyr summons a blizzard around himself for 4 seconds that deals magic damage every 0.5 seconds to nearby enemies and slows them while they remain within. Minions take 50 / 60 / 70 / 80 (based on level)% damage.",
+        "leveling": [
+          {
+            "label": "Magic Damage per Tick",
+            "amount": {
+              "text": "10 / 18 / 26 / 34 / 42 / 50 (+ 17.5% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  10,
+                  18,
+                  26,
+                  34,
+                  42,
+                  50
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 17.5
+                  },
+                  "text": "(+ 17.5% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Total Magic Damage",
+            "amount": {
+              "text": "80 / 144 / 208 / 272 / 336 / 400 (+ 140% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  80,
+                  144,
+                  208,
+                  272,
+                  336,
+                  400
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 140
+                  },
+                  "text": "(+ 140% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Slow",
+            "amount": {
+              "text": "15 / 18 / 21 / 24 / 27 / 30%",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  15,
+                  18,
+                  21,
+                  24,
+                  27,
+                  30
+                ]
+              },
+              "unit": "%",
+              "scaling": [],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "slow",
+            "category": "control",
+            "wording": "slows",
+            "amount": {
+              "kind": "rank",
+              "values": [
+                15,
+                18,
+                21,
+                24,
+                27,
+                30
+              ]
+            },
+            "evidence": "Additionally, Udyr summons a blizzard around himself for 4 seconds that deals magic damage every 0.5 seconds to nearby enemies and slows them while they remain within.",
+            "conditional": false
+          }
+        ],
+        "values": [
+          {
+            "series": {
+              "kind": "variable",
+              "variable": "level",
+              "points": [
+                1,
+                6,
+                11,
+                16
+              ],
+              "values": [
+                50,
+                60,
+                70,
+                80
+              ]
+            },
+            "context": "Minions take 50 / 60 / 70 / 80 (based on level)% damage."
+          }
+        ]
+      },
+      {
+        "label": "Recast - Awaken",
+        "text": "Recast - Awaken: Udyr ends the blizzard if it is active and unleashes a glacial storm for 4 seconds that is able to move on its own, as well as causes the empowered attacks to instead deal their damage to enemies within that storm. The storm applies the same effects as the blizzard but deals bonus magic damage equal to 1 – 1.75 (based on level)% (+ 0.4375% per 100 AP) of the target's maximum health per tick and slows by an additional 5%. Against monsters, the storm's per-tick damage deals a minimum of 5 – 35 (based on level) and is capped at 10 – 50 (based on level).",
+        "leveling": [
+          {
+            "label": "Increased Slow",
+            "amount": {
+              "text": "20 / 23 / 26 / 29 / 32 / 35%",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  20,
+                  23,
+                  26,
+                  29,
+                  32,
+                  35
+                ]
+              },
+              "unit": "%",
+              "scaling": [],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "slow",
+            "category": "control",
+            "wording": "slows",
+            "amount": {
+              "kind": "rank",
+              "values": [
+                20,
+                23,
+                26,
+                29,
+                32,
+                35
+              ]
+            },
+            "evidence": "The storm applies the same effects as the blizzard but deals bonus magic damage equal to 1 – 1.75 (based on level)% (+ 0.4375% per 100 AP) of the target's maximum health per tick and slows by an additional 5%.",
+            "conditional": false
+          }
+        ],
+        "values": [
+          {
+            "series": {
+              "kind": "level",
+              "values": [
+                1,
+                1.0441176470588236,
+                1.088235294117647,
+                1.1323529411764706,
+                1.1764705882352942,
+                1.2205882352941178,
+                1.2647058823529411,
+                1.3088235294117647,
+                1.3529411764705883,
+                1.3970588235294117,
+                1.4411764705882353,
+                1.4852941176470589,
+                1.5294117647058822,
+                1.573529411764706,
+                1.6176470588235294,
+                1.661764705882353,
+                1.7058823529411766,
+                1.75,
+                1.7941176470588236,
+                1.8382352941176472
+              ],
+              "past18": "wiki"
+            },
+            "context": "The storm applies the same effects as the blizzard but deals bonus magic damage equal to 1 – 1.75 (based on level)% (+ 0.4375% per 100 AP) of the target's maximum health per tick and slows by an additional 5%."
+          },
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0.4375
+            },
+            "context": "The storm applies the same effects as the blizzard but deals bonus magic damage equal to 1 – 1.75 (based on level)% (+ 0.4375% per 100 AP) of the target's maximum health per tick and slows by an additional 5%."
+          },
+          {
+            "series": {
+              "kind": "level",
+              "values": [
+                5,
+                6.764705882352941,
+                8.529411764705882,
+                10.294117647058822,
+                12.058823529411764,
+                13.823529411764707,
+                15.588235294117647,
+                17.352941176470587,
+                19.11764705882353,
+                20.88235294117647,
+                22.647058823529413,
+                24.41176470588235,
+                26.176470588235293,
+                27.941176470588236,
+                29.705882352941174,
+                31.470588235294116,
+                33.23529411764706,
+                35,
+                36.76470588235294,
+                38.529411764705884
+              ],
+              "past18": "wiki"
+            },
+            "context": "Against monsters, the storm's per-tick damage deals a minimum of 5 – 35 (based on level) and is capped at 10 – 50 (based on level)."
+          },
+          {
+            "series": {
+              "kind": "level",
+              "values": [
+                10,
+                12.352941176470589,
+                14.705882352941178,
+                17.058823529411764,
+                19.411764705882355,
+                21.764705882352942,
+                24.11764705882353,
+                26.47058823529412,
+                28.823529411764707,
+                31.176470588235293,
+                33.529411764705884,
+                35.88235294117647,
+                38.23529411764706,
+                40.58823529411765,
+                42.94117647058824,
+                45.294117647058826,
+                47.64705882352941,
+                50,
+                52.35294117647059,
+                54.70588235294118
+              ],
+              "past18": "wiki"
+            },
+            "context": "Against monsters, the storm's per-tick damage deals a minimum of 5 – 35 (based on level) and is capped at 10 – 50 (based on level)."
+          }
+        ]
+      },
+      {
+        "text": "The storm grants sight of its surroundings and prioritizes following the last enemy Udyr attacked while it was active, then enemy champions, then non-champions, then Udyr. The storm can only follow visible enemies.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "reveal",
+            "category": "vision",
+            "wording": "sight",
+            "evidence": "The storm grants sight of its surroundings and prioritizes following the last enemy Udyr attacked while it was active, then enemy champions, then non-champions, then Udyr.",
+            "conditional": false
+          },
+          {
+            "type": "reveal",
+            "category": "vision",
+            "wording": "visible",
+            "evidence": "The storm can only follow visible enemies.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      }
+    ],
+    "custom": [
+      {
+        "label": "Storm Speed",
+        "text": "109.5 – 250 (based on level)"
+      }
+    ],
+    "notes": [
+      "The storm that Udyr surrounds himself with is independent from the unleashed storm.\n  - He can still cast Wingborne Storm to surround himself with a storm while an unleashed storm from an Awakened cast is active.\n  - Using the Awakened cast ends the storm around Udyr if it is active and summons a separate storm that is able to move on its own.",
+      "The slow debuff has a duration equal to the storm's remaining duration and is removed immediately when the unit leaves the storm's area of effect.\n  - Units receive the debuff whenever they are in the storm, even after having it removed from leaving the area.",
+      "If the target Udyr has most recently attacked is invalid and there are no nearby enemies then the storm will follow him instead.\n  - The storm can follow Udyr regardless of how far away he is from it.",
+      "The storm will remain active even if Udyr dies. Any commands it was issued to follow a target will not be interrupted.",
+      "The storm will follow its target even if they are not visible, but only for up to 1 second.\n  - If it does not gain vision of its target within that time, it changes its target.",
+      "The storm is obstructed by terrain. If it encounters terrain, then it will automatically navigate its path towards the target.",
+      "The empowered attacks will not trigger nor be consumed if they hit a structure or ward or are parried."
+    ]
+  },
+  {
+    "champion": "Udyr",
+    "kind": "W",
+    "name": "Iron Mantle",
+    "page": {
+      "title": "Template:Data Udyr/Iron Mantle",
+      "revid": 4013279
+    },
+    "ranks": 6,
+    "fields": {
+      "cooldown": {
+        "text": "6",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 6
+            },
+            "label": "Starts on-cast, but recasting refreshes the cooldown"
+          }
+        ]
+      },
+      "cooldownStart": "on-cast",
+      "cost": {
+        "text": "40 – 23 (based on level)",
+        "values": [
+          {
+            "series": {
+              "kind": "level",
+              "values": [
+                40,
+                39,
+                38,
+                37,
+                36,
+                35,
+                34,
+                33,
+                32,
+                31,
+                30,
+                29,
+                28,
+                27,
+                26,
+                25,
+                24,
+                23,
+                22,
+                21
+              ],
+              "past18": "wiki"
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "none",
+        "values": []
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Auto"
+      ],
+      "affects": [
+        "Self"
+      ],
+      "damageType": [],
+      "spellEffects": "spell",
+      "parry": "true"
+    },
+    "parts": [
+      {
+        "label": "Active - Stance",
+        "text": "Active - Stance: Udyr enters Mantle Stance, empowering his next two basic attacks on-hit to gain life steal and heal him for 1.2% of his maximum health (+ 8% AP).",
+        "leveling": [
+          {
+            "label": "Life Steal",
+            "amount": {
+              "text": "15 / 16 / 17 / 18 / 19 / 20%",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  15,
+                  16,
+                  17,
+                  18,
+                  19,
+                  20
+                ]
+              },
+              "unit": "%",
+              "scaling": [],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "on-hit",
+            "category": "offense",
+            "wording": "on-hit",
+            "evidence": "Active - Stance: Udyr enters Mantle Stance, empowering his next two basic attacks on-hit to gain life steal and heal him for 1.2% of his maximum health (+ 8% AP).",
+            "conditional": false
+          },
+          {
+            "type": "life steal",
+            "category": "defense",
+            "wording": "life steal",
+            "evidence": "Active - Stance: Udyr enters Mantle Stance, empowering his next two basic attacks on-hit to gain life steal and heal him for 1.2% of his maximum health (+ 8% AP).",
+            "conditional": false
+          },
+          {
+            "type": "heal",
+            "category": "defense",
+            "wording": "heal",
+            "evidence": "Active - Stance: Udyr enters Mantle Stance, empowering his next two basic attacks on-hit to gain life steal and heal him for 1.2% of his maximum health (+ 8% AP).",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "Additionally, Udyr grants himself a shield for 4 seconds.",
+        "leveling": [
+          {
+            "label": "Shield Strength",
+            "amount": {
+              "text": "45 / 65 / 85 / 105 / 125 / 145 (+ 50% bonus AD) (+ 40% AP) (+ 2 / 2.3 / 2.6 / 2.9 / 3.2 / 3.5% maximum health)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  45,
+                  65,
+                  85,
+                  105,
+                  125,
+                  145
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "bonusAD",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 50
+                  },
+                  "text": "(+ 50% bonus AD)"
+                },
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 40
+                  },
+                  "text": "(+ 40% AP)"
+                },
+                {
+                  "stat": "maxHealth",
+                  "ratio": {
+                    "kind": "rank",
+                    "values": [
+                      2,
+                      2.3,
+                      2.6,
+                      2.9,
+                      3.2,
+                      3.5
+                    ]
+                  },
+                  "text": "(+ 2 / 2.3 / 2.6 / 2.9 / 3.2 / 3.5% maximum health)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "shield",
+            "category": "defense",
+            "wording": "shield",
+            "duration": {
+              "kind": "constant",
+              "value": 4
+            },
+            "evidence": "Additionally, Udyr grants himself a shield for 4 seconds.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "label": "Recast - Awaken",
+        "text": "Recast - Awaken: Udyr increases the shield's strength, stacking with the remaining shield from the first cast, and heals every 0.25 seconds over the next 4 seconds, as well as causes the empowered attacks to instead gain doubled life steal and heal him for 2.4% of his maximum health (+ 16% AP).",
+        "leveling": [
+          {
+            "label": "Increased Shield Strength",
+            "amount": {
+              "text": "20 – 150 (based on level) (+ 45 / 65 / 85 / 105 / 125 / 145) (+ 100% bonus AD) (+ 65% AP) (+ 8% maximum health)",
+              "base": {
+                "kind": "level",
+                "values": [
+                  20,
+                  27.647058823529413,
+                  35.294117647058826,
+                  42.94117647058823,
+                  50.58823529411765,
+                  58.23529411764706,
+                  65.88235294117646,
+                  73.52941176470588,
+                  81.1764705882353,
+                  88.82352941176471,
+                  96.47058823529412,
+                  104.11764705882354,
+                  111.76470588235294,
+                  119.41176470588236,
+                  127.05882352941177,
+                  134.7058823529412,
+                  142.3529411764706,
+                  150,
+                  157.64705882352942,
+                  165.29411764705884
+                ],
+                "past18": "wiki"
+              },
+              "scaling": [
+                {
+                  "stat": "other:",
+                  "ratio": {
+                    "kind": "rank",
+                    "values": [
+                      45,
+                      65,
+                      85,
+                      105,
+                      125,
+                      145
+                    ]
+                  },
+                  "text": "(+ 45 / 65 / 85 / 105 / 125 / 145)"
+                },
+                {
+                  "stat": "bonusAD",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 100
+                  },
+                  "text": "(+ 100% bonus AD)"
+                },
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 65
+                  },
+                  "text": "(+ 65% AP)"
+                },
+                {
+                  "stat": "maxHealth",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 8
+                  },
+                  "text": "(+ 8% maximum health)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Total Healing",
+            "amount": {
+              "text": "10 – 75 (based on level) (+ 22.5 / 32.5 / 42.5 / 52.5 / 62.5 / 72.5) (+ 50% bonus AD) (+ 32.5% AP) (+ 4% maximum health)",
+              "base": {
+                "kind": "level",
+                "values": [
+                  10,
+                  13.823529411764707,
+                  17.647058823529413,
+                  21.470588235294116,
+                  25.294117647058826,
+                  29.11764705882353,
+                  32.94117647058823,
+                  36.76470588235294,
+                  40.58823529411765,
+                  44.411764705882355,
+                  48.23529411764706,
+                  52.05882352941177,
+                  55.88235294117647,
+                  59.70588235294118,
+                  63.529411764705884,
+                  67.3529411764706,
+                  71.1764705882353,
+                  75,
+                  78.82352941176471,
+                  82.64705882352942
+                ],
+                "past18": "wiki"
+              },
+              "scaling": [
+                {
+                  "stat": "other:",
+                  "ratio": {
+                    "kind": "rank",
+                    "values": [
+                      22.5,
+                      32.5,
+                      42.5,
+                      52.5,
+                      62.5,
+                      72.5
+                    ]
+                  },
+                  "text": "(+ 22.5 / 32.5 / 42.5 / 52.5 / 62.5 / 72.5)"
+                },
+                {
+                  "stat": "bonusAD",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 50
+                  },
+                  "text": "(+ 50% bonus AD)"
+                },
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 32.5
+                  },
+                  "text": "(+ 32.5% AP)"
+                },
+                {
+                  "stat": "maxHealth",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 4
+                  },
+                  "text": "(+ 4% maximum health)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Heal per Tick",
+            "amount": {
+              "text": "0.625 – 4.6875 (based on level) (+ 1.40625 / 2.03125 / 2.65625 / 3.28125 / 3.90625 / 4.53125) (+ 3.125% bonus AD) (+ 2.03125% AP) (+ 0.25% maximum health)",
+              "base": {
+                "kind": "level",
+                "values": [
+                  0.625,
+                  0.8639705882352942,
+                  1.1029411764705883,
+                  1.3419117647058822,
+                  1.5808823529411766,
+                  1.8198529411764706,
+                  2.0588235294117645,
+                  2.297794117647059,
+                  2.5367647058823533,
+                  2.775735294117647,
+                  3.014705882352941,
+                  3.2536764705882355,
+                  3.4926470588235294,
+                  3.731617647058824,
+                  3.9705882352941178,
+                  4.209558823529412,
+                  4.4485294117647065,
+                  4.6875,
+                  4.926470588235294,
+                  5.165441176470589
+                ],
+                "past18": "wiki"
+              },
+              "scaling": [
+                {
+                  "stat": "other:",
+                  "ratio": {
+                    "kind": "rank",
+                    "values": [
+                      1.40625,
+                      2.03125,
+                      2.65625,
+                      3.28125,
+                      3.90625,
+                      4.53125
+                    ]
+                  },
+                  "text": "(+ 1.40625 / 2.03125 / 2.65625 / 3.28125 / 3.90625 / 4.53125)"
+                },
+                {
+                  "stat": "bonusAD",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 3.125
+                  },
+                  "text": "(+ 3.125% bonus AD)"
+                },
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 2.03125
+                  },
+                  "text": "(+ 2.03125% AP)"
+                },
+                {
+                  "stat": "maxHealth",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 0.25
+                  },
+                  "text": "(+ 0.25% maximum health)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Increased Life Steal",
+            "amount": {
+              "text": "30 / 32 / 34 / 36 / 38 / 40%",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  30,
+                  32,
+                  34,
+                  36,
+                  38,
+                  40
+                ]
+              },
+              "unit": "%",
+              "scaling": [],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "shield",
+            "category": "defense",
+            "wording": "shield's",
+            "evidence": "Recast - Awaken: Udyr increases the shield's strength, stacking with the remaining shield from the first cast, and heals every 0.25 seconds over the next 4 seconds, as well as causes the empowered attacks to instead gain doubled life steal and heal him for 2.4% of his maximum health (+ 16% AP).",
+            "conditional": false
+          },
+          {
+            "type": "heal",
+            "category": "defense",
+            "wording": "heals",
+            "evidence": "Recast - Awaken: Udyr increases the shield's strength, stacking with the remaining shield from the first cast, and heals every 0.25 seconds over the next 4 seconds, as well as causes the empowered attacks to instead gain doubled life steal and heal him for 2.4% of his maximum health (+ 16% AP).",
+            "conditional": false
+          },
+          {
+            "type": "life steal",
+            "category": "defense",
+            "wording": "life steal",
+            "evidence": "Recast - Awaken: Udyr increases the shield's strength, stacking with the remaining shield from the first cast, and heals every 0.25 seconds over the next 4 seconds, as well as causes the empowered attacks to instead gain doubled life steal and heal him for 2.4% of his maximum health (+ 16% AP).",
+            "conditional": false
+          },
+          {
+            "type": "heal",
+            "category": "defense",
+            "wording": "heal",
+            "evidence": "Recast - Awaken: Udyr increases the shield's strength, stacking with the remaining shield from the first cast, and heals every 0.25 seconds over the next 4 seconds, as well as causes the empowered attacks to instead gain doubled life steal and heal him for 2.4% of his maximum health (+ 16% AP).",
+            "conditional": false
+          }
+        ],
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 2.4
+            },
+            "context": "Recast - Awaken: Udyr increases the shield's strength, stacking with the remaining shield from the first cast, and heals every 0.25 seconds over the next 4 seconds, as well as causes the empowered attacks to instead gain doubled life steal and heal him for 2.4% of his maximum health (+ 16% AP)."
+          },
+          {
+            "series": {
+              "kind": "constant",
+              "value": 16
+            },
+            "context": "Recast - Awaken: Udyr increases the shield's strength, stacking with the remaining shield from the first cast, and heals every 0.25 seconds over the next 4 seconds, as well as causes the empowered attacks to instead gain doubled life steal and heal him for 2.4% of his maximum health (+ 16% AP)."
+          }
+        ]
+      },
+      {
+        "text": "Healing on-hit is reduced to 60% against minions.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "on-hit",
+            "category": "offense",
+            "wording": "on-hit",
+            "evidence": "Healing on-hit is reduced to 60% against minions.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "The empowered attacks apply spell effects to the target.",
+      "The empowered attacks will not trigger nor be consumed if they hit a structure or ward or are parried.",
+      "The increased life steal is a buff that expires after two valid attacks have been completed, as opposed to an on-attack modifier for your next two attacks. This means that while the buff is active, Ravenous Hydra will heal at the increased life steal value."
+    ]
+  },
+  {
+    "champion": "Udyr",
+    "kind": "W",
+    "name": "Turtle Stance",
+    "page": {
+      "title": "Template:Data Udyr/Turtle Stance",
+      "revid": 3440547
+    },
+    "ranks": 6,
+    "fields": {
+      "cooldown": {
+        "text": "6",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 6
+            }
+          }
+        ]
+      },
+      "cost": {
+        "text": "45 – 28 (based on level)",
+        "values": [
+          {
+            "series": {
+              "kind": "level",
+              "values": [
+                45,
+                44,
+                43,
+                42,
+                41,
+                40,
+                39,
+                38,
+                37,
+                36,
+                35,
+                34,
+                33,
+                32,
+                31,
+                30,
+                29,
+                28
+              ]
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "none",
+        "values": []
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Auto"
+      ],
+      "affects": [
+        "Self"
+      ],
+      "damageType": []
+    },
+    "parts": [
+      {
+        "label": "Stance",
+        "text": "Stance: Udyr's basic attacks on-hit generate a stack of Turtle. At 3 stacks, his next basic attack is empowered to consume them all to heal himself for 2 / 2.2 / 2.4 / 2.6 / 2.8 / 3 / 3.2 / 3.4 / 3.6 / 3.8 / 4 (based on missing health)% of his maximum health, and also generates a Turtle stack. This effect does not trigger if Udyr is at full health.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "heal",
+            "category": "defense",
+            "wording": "heal",
+            "evidence": "At 3 stacks, his next basic attack is empowered to consume them all to heal himself for 2 / 2.2 / 2.4 / 2.6 / 2.8 / 3 / 3.2 / 3.4 / 3.6 / 3.8 / 4 (based on missing health)% of his maximum health, and also generates a Turtle stack.",
+            "conditional": false
+          }
+        ],
+        "values": [
+          {
+            "series": {
+              "kind": "variable",
+              "variable": "missing health",
+              "points": [
+                0,
+                10,
+                20,
+                30,
+                40,
+                50,
+                60,
+                70,
+                80,
+                90,
+                100
+              ],
+              "values": [
+                2,
+                2.2,
+                2.4,
+                2.6,
+                2.8,
+                3,
+                3.2,
+                3.4,
+                3.6,
+                3.8,
+                4
+              ]
+            },
+            "context": "At 3 stacks, his next basic attack is empowered to consume them all to heal himself for 2 / 2.2 / 2.4 / 2.6 / 2.8 / 3 / 3.2 / 3.4 / 3.6 / 3.8 / 4 (based on missing health)% of his maximum health, and also generates a Turtle stack."
+          }
+        ]
+      },
+      {
+        "label": "Active",
+        "text": "Active: Udyr shields himself for up to 5 seconds, and instantly generates 3 Turtle stacks.",
+        "leveling": [
+          {
+            "label": "Shield Strength",
+            "amount": {
+              "text": "60 / 90 / 120 / 150 / 180 / 210 (+ 45% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  60,
+                  90,
+                  120,
+                  150,
+                  180,
+                  210
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 45
+                  },
+                  "text": "(+ 45% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "shield",
+            "category": "defense",
+            "wording": "shields",
+            "duration": {
+              "kind": "constant",
+              "value": 5
+            },
+            "evidence": "Active: Udyr shields himself for up to 5 seconds, and instantly generates 3 Turtle stacks.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "The name of the buff granted by entering Turtle Stance is Spiritual Shell.",
+      "The triggering attack will generate the first stack toward the next, meaning the effect will always trigger on every 3rd attack. Guinsoo's Rageblade will reduce this number to every 2nd attack, with Udyr's attack animations coded to \"look ahead\" and trigger the empowered-attack animation if he attacks a target while at 1 stack while Guinsoo's Rage is active.",
+      "The empowered attack will not trigger against structures."
+    ]
+  }
+]

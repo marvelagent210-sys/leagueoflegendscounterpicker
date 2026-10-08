@@ -1,6 +1,6 @@
 # Kit-Based Counter Picker: Plan
 
-Status: M1 done; M2 next (see §13). Data sources checked on 2026-10-08 against patch 26.20 (Data Dragon 16.20.1).
+Status: M1 and M2 done; M3 next (see §13). Data sources checked on 2026-10-08 against patch 26.20 (Data Dragon 16.20.1).
 
 ## 1. What we're building
 
@@ -272,3 +272,22 @@ web/        the app
     - 12 attack windup values for 11 champions that the wiki hadn't updated.
   - Differences for Mega Gnar and Kled's two forms are reported but not applied.
   - Senna's attack cast time scales with level and stops at 18. This is the game's flag (`mScalePastDefaultMaxLevel`) that decides what keeps growing at levels 19 and 20. M2 reads the same flag for abilities.
+
+### M2: ability records and kit pages (done)
+
+- The wiki's ability pages are parsed with a small wikitext engine. Its value templates (`{{ap}}`, `{{pp}}`, `{{pplevel}}`) are ported from the wiki's own Lua module, so ranks and level progressions come out exactly as the wiki computes them.
+- `data/16.20/abilities/` holds 1,057 ability records for all 173 champions:
+  - every innate, Q, W, E and R, plus 10 basic-attack pages;
+  - cooldowns, costs, ranges, widths, speeds and cast times;
+  - the interaction flags: projectile, spell shield, parry, grounded, knocked down;
+  - values by rank and by level with their scaling ratios. 99.7% of 1,973 leveling values are fully understood; the 5 exceptions are one-off formulas such as Syndra's AP².
+  - crowd control and other mechanics with their durations, and the wiki's notes verbatim.
+- `data/16.20/kits/` has a readable page per champion, with every value linked to the exact wiki revision.
+- Level 19-20 findings:
+  - The game files write the "scale past level 18" flag only when it is false. A level formula without it keeps scaling at 19 and 20.
+  - Of the level-based values the wiki defines up to level 20, all 144 that link to a game formula agree with it, with no disagreements.
+  - 15 values that stop at 18 on the wiki were extended to level 20 from the game formulas.
+  - 94 level-based values have no matching game formula. Their levels 19-20 are marked unknown and get checked per champion in M5.
+- 39 of 1,188 ability cooldowns and costs differ between the wiki and the game files, for example Mordekaiser's R and Camille's W cooldowns. They are listed in `reports/abilities.md` but not applied, because an ability's root spell in the game files isn't always the one whose values apply. They are resolved per champion in M5.
+- Limitation: mechanics are read from the wiki's keywords. For example, Poppy's W lists "dash" because enemies dash into it. M3 gives each ability's mechanics their exact roles (applies, triggers on, blocks).
+

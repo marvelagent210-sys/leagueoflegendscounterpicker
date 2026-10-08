@@ -1,0 +1,2110 @@
+[
+  {
+    "champion": "AurelionSol",
+    "kind": "E",
+    "name": "Comet of Legend",
+    "page": {
+      "title": "Template:Data Aurelion Sol/Comet of Legend",
+      "revid": 3906558
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "80 / 75 / 70 / 65 / 60",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                80,
+                75,
+                70,
+                65,
+                60
+              ]
+            },
+            "label": "Starts post-effect"
+          }
+        ]
+      },
+      "cost": {
+        "text": "60",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 60
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "none",
+        "values": []
+      },
+      "range": {
+        "text": "5500 / 6000 / 6500 / 7000 / 7500",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                5500,
+                6000,
+                6500,
+                7000,
+                7500
+              ]
+            }
+          }
+        ]
+      },
+      "speed": {
+        "text": "600 / 650 / 700 / 750 / 800",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                600,
+                650,
+                700,
+                750,
+                800
+              ]
+            }
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Direction",
+        "Auto"
+      ],
+      "affects": [
+        "Self"
+      ],
+      "damageType": [],
+      "grounded": "true",
+      "knockdown": "true"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Aurelion Sol pulls in his Stars and takes flight, dashing in the target direction. While in flight, he has unobstructed vision and sets his movement speed to a static amount.",
+        "leveling": [
+          {
+            "label": "Static Movement Speed",
+            "amount": {
+              "text": "600 / 650 / 700 / 750 / 800",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  600,
+                  650,
+                  700,
+                  750,
+                  800
+                ]
+              },
+              "scaling": [],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "dash",
+            "category": "movement",
+            "wording": "dashing",
+            "evidence": "Active: Aurelion Sol pulls in his Stars and takes flight, dashing in the target direction.",
+            "conditional": false
+          },
+          {
+            "type": "reveal",
+            "category": "vision",
+            "wording": "unobstructed vision",
+            "evidence": "While in flight, he has unobstructed vision and sets his movement speed to a static amount.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "Aurelion Sol will be knocked down by any immobilizing crowd control during the dash.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "knockdown",
+            "category": "control",
+            "wording": "knocked down",
+            "evidence": "Aurelion Sol will be knocked down by any immobilizing crowd control during the dash.",
+            "conditional": true
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "Comet of Legend can be recast after 1.5 seconds during flight, and automatically does so at maximum range or upon taking damage from enemy champions or turrets.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "label": "Recast",
+        "text": "Recast: Aurelion Sol ends Comet of Legend early.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "text": "Taking champion or turret damage while Comet of Legend is not active places it on a 4-second static cooldown. Aurelion Sol will be revealed while he is inside terrain and is in the line of sight of nearby enemies.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "reveal",
+            "category": "vision",
+            "wording": "revealed",
+            "evidence": "Aurelion Sol will be revealed while he is inside terrain and is in the line of sight of nearby enemies.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "Starsurge can be used during the dash.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "The spot at which the flight will reach maximum range is highlighted to Aurelion Sol.",
+      "The following table refers to interactions during Comet of Legend:"
+    ]
+  },
+  {
+    "champion": "AurelionSol",
+    "kind": "E",
+    "name": "Singularity",
+    "page": {
+      "title": "Template:Data Aurelion Sol/Singularity",
+      "revid": 4038217
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "12",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 12
+            }
+          }
+        ]
+      },
+      "cooldownStart": "post-effect",
+      "cost": {
+        "text": "90",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 90
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "0.2",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0.2
+            }
+          }
+        ]
+      },
+      "targetRange": {
+        "text": "750 – 920 (based on level)",
+        "values": [
+          {
+            "series": {
+              "kind": "level",
+              "values": [
+                750,
+                760,
+                770,
+                780,
+                790,
+                800,
+                810,
+                820,
+                830,
+                840,
+                850,
+                860,
+                870,
+                880,
+                890,
+                900,
+                910,
+                920,
+                930,
+                940
+              ],
+              "past18": "wiki"
+            }
+          }
+        ]
+      },
+      "effectRadius": {
+        "text": "√(275² + 16.93² × Stardust)",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 275
+            },
+            "label": "Radius at 0 Stardust"
+          }
+        ]
+      },
+      "innerRadius": {
+        "text": "√(137.5² + 8.46² × Stardust)",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 137.5
+            },
+            "label": "Radius at 0 Stardust"
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Location"
+      ],
+      "affects": [
+        "Enemies"
+      ],
+      "damageType": [
+        "Magic"
+      ],
+      "spellEffects": "aoedot",
+      "spellShield": "special"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Aurelion Sol conjures a black hole at the target location after a 0.5-second delay that lasts for 5 seconds, granting sight of the area and dealing magic damage every 0.25 seconds to enemies within.",
+        "leveling": [
+          {
+            "label": "Magic Damage per Tick",
+            "amount": {
+              "text": "2.5 / 3.75 / 5 / 6.25 / 7.5 (+ 3% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  2.5,
+                  3.75,
+                  5,
+                  6.25,
+                  7.5
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 3
+                  },
+                  "text": "(+ 3% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Total Magic Damage",
+            "amount": {
+              "text": "50 / 75 / 100 / 125 / 150 (+ 60% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  50,
+                  75,
+                  100,
+                  125,
+                  150
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 60
+                  },
+                  "text": "(+ 60% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "reveal",
+            "category": "vision",
+            "wording": "sight",
+            "evidence": "Active: Aurelion Sol conjures a black hole at the target location after a 0.5-second delay that lasts for 5 seconds, granting sight of the area and dealing magic damage every 0.25 seconds to enemies within.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "Enemies in the black hole are dragged inward until they reach the center, and minions and monsters also have their movement speed reduced to a static 0. Enemies within the center are executed below 5% (+ 2.6% per 100 Stardust) of their maximum health, excluding epic monsters.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "drag",
+            "category": "control",
+            "wording": "dragged",
+            "evidence": "Enemies in the black hole are dragged inward until they reach the center, and minions and monsters also have their movement speed reduced to a static 0.",
+            "conditional": false
+          },
+          {
+            "type": "execute",
+            "category": "offense",
+            "wording": "executed",
+            "evidence": "Enemies within the center are executed below 5% (+ 2.6% per 100 Stardust) of their maximum health, excluding epic monsters.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "After Singularity ends, it generates 1 Stardust for each full second that enemy champions were inside it, as well as varying amounts for enemy units that were killed while being within the area:\n* Champions and epic monsters grant 2 Stardust.\n* Large minions and monsters grant 2 Stardust.\n* Small minions and monsters grant 1 Stardust.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Clones are counted as champions for all of this ability's effects and grant stacks of Stardust if they are killed in the area.",
+      "The damage area hits targets by their edge, while the kinematics area hits targets by their center. This makes a slight fringe where targets may be damaged without displacing them.",
+      "Spell shield will block a single instance of damage.",
+      "Singularity's execute against an enemy champion will aggro nearby enemy minions."
+    ]
+  },
+  {
+    "champion": "AurelionSol",
+    "kind": "I",
+    "name": "Center of the Universe",
+    "page": {
+      "title": "Template:Data Aurelion Sol/Center of the Universe",
+      "revid": 3906555
+    },
+    "ranks": 1,
+    "fields": {
+      "cooldown": {
+        "text": "1",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 1
+            },
+            "label": "The time within which the same star cannot damage the same target twice."
+          }
+        ]
+      },
+      "effectRadius": {
+        "text": "325",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 325
+            }
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Passive"
+      ],
+      "affects": [
+        "Self",
+        "Enemies"
+      ],
+      "damageType": [
+        "Magic"
+      ],
+      "spellEffects": "aoe",
+      "spellShield": "true",
+      "projectile": "false"
+    },
+    "parts": [
+      {
+        "label": "Innate",
+        "text": "Innate: Aurelion Sol is constantly orbited by three Stars, each doing a full circumference in 5.25 seconds, and beyond them exists an Outer Limit affecting his damaging abilities.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "text": "Each Star deals 12 – 120 (based on level) (+ 5 – 25 (based on level) (+ 25% AP) magic damage to enemies that come into contact with them as well as executes enemy minions that have less than 25 health, including if they are brought to or below that threshold.",
+        "leveling": [],
+        "mechanics": [],
+        "values": [
+          {
+            "series": {
+              "kind": "level",
+              "values": [
+                12,
+                14,
+                16,
+                18,
+                20,
+                23,
+                26,
+                32,
+                38,
+                44,
+                50,
+                60,
+                70,
+                80,
+                90,
+                100,
+                110,
+                120
+              ]
+            },
+            "context": "Each Star deals 12 – 120 (based on level) (+ 5 – 25 (based on level) (+ 25% AP) magic damage to enemies that come into contact with them as well as executes enemy minions that have less than 25 health, including if they are brought to or below that threshold."
+          },
+          {
+            "series": {
+              "kind": "level",
+              "values": [
+                5,
+                10,
+                15,
+                20,
+                25
+              ]
+            },
+            "context": "Each Star deals 12 – 120 (based on level) (+ 5 – 25 (based on level) (+ 25% AP) magic damage to enemies that come into contact with them as well as executes enemy minions that have less than 25 health, including if they are brought to or below that threshold."
+          }
+        ]
+      }
+    ],
+    "custom": [
+      {
+        "label": "Outer Limit",
+        "text": "650"
+      }
+    ],
+    "notes": [
+      "The Stars orbit counterclockwise around Aurelion Sol.",
+      "Aurelion Sol's Stars have independent vision hitboxes, meaning that they may remain visible even while he is within a brush, and must be in the brush themselves in order to be hidden.",
+      "An individual Star must complete at least one third of its orbit before it can damage the same target again.",
+      "In the event that an enemy orbits around Aurelion Sol at the same rate as his Stars without leaving their hitbox, they will take damage once every third of the way around."
+    ]
+  },
+  {
+    "champion": "AurelionSol",
+    "kind": "I",
+    "name": "Cosmic Creator",
+    "page": {
+      "title": "Template:Data Aurelion Sol/Cosmic Creator",
+      "revid": 3963005
+    },
+    "ranks": 1,
+    "fields": {},
+    "flags": {
+      "targeting": [
+        "Passive"
+      ],
+      "affects": [
+        "Self"
+      ],
+      "damageType": []
+    },
+    "parts": [
+      {
+        "label": "Innate",
+        "text": "Innate: Aurelion Sol's damaging abilities against enemies generate him permanent stacks of Stardust, which gradually augments his abilities.\n* Breath of Light: Bursts deal bonus magic damage based on the target's maximum health.\n* Astral Flight: Range is increased by 7.5 units per Stardust.\n* Singularity: Outer and inner radius increased equal to 15% Stardust, and the execution threshold is increased.\n* Falling Star / The Skies Descend: Impact radius increased equal to 15% Stardust.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Singularity relative size and ratio stays the same when affected by Cosmic Creator's size modifier."
+    ]
+  },
+  {
+    "champion": "AurelionSol",
+    "kind": "Q",
+    "name": "Breath of Light",
+    "page": {
+      "title": "Template:Data Aurelion Sol/Breath of Light",
+      "revid": 4057543
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "3",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 3
+            }
+          }
+        ]
+      },
+      "cooldownStart": "post-effect",
+      "cost": {
+        "text": "30 / 35 / 40 / 45 / 50",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                30,
+                35,
+                40,
+                45,
+                50
+              ]
+            }
+          }
+        ]
+      },
+      "costType": "mana (+ 7.5 / 8.75 / 10 / 11.25 / 12.5 mana per 0.25 seconds)",
+      "castTime": {
+        "text": "none",
+        "values": []
+      },
+      "range": {
+        "text": "750 – 920 (based on level)",
+        "values": [
+          {
+            "series": {
+              "kind": "level",
+              "values": [
+                750,
+                760,
+                770,
+                780,
+                790,
+                800,
+                810,
+                820,
+                830,
+                840,
+                850,
+                860,
+                870,
+                880,
+                890,
+                900,
+                910,
+                920,
+                930,
+                940
+              ],
+              "past18": "game files"
+            }
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Direction"
+      ],
+      "affects": [
+        "Self",
+        "Enemies"
+      ],
+      "damageType": [
+        "Magic"
+      ],
+      "spellEffects": "special",
+      "spellShield": "special",
+      "projectile": "false",
+      "silence": "true"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Aurelion Sol charges for up to 3.25 seconds to exhale a beam of starfire, during which he can steer the beam in the target direction. The beam collides with the first enemy hit to burn them, revealing them and dealing magic damage to them and surrounding enemies every 0.125 seconds. Secondary targets are dealt 50% damage.",
+        "leveling": [
+          {
+            "label": "Magic Damage per Tick",
+            "amount": {
+              "text": "5.625 / 7.5 / 9.375 / 11.25 / 13.125 (+ 6.875% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  5.625,
+                  7.5,
+                  9.375,
+                  11.25,
+                  13.125
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 6.875
+                  },
+                  "text": "(+ 6.875% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Magic Damage per Second",
+            "amount": {
+              "text": "45 / 60 / 75 / 90 / 105 (+ 55% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  45,
+                  60,
+                  75,
+                  90,
+                  105
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 55
+                  },
+                  "text": "(+ 55% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Total Maximum Magic Damage",
+            "amount": {
+              "text": "146.25 / 195 / 243.75 / 292.5 (+ 178.75% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  146.25,
+                  195,
+                  243.75,
+                  292.5
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 178.75
+                  },
+                  "text": "(+ 178.75% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Secondary Target Damage per Tick",
+            "amount": {
+              "text": "2.8125 / 3.75 / 4.6875 / 5.625 / 6.5625 (+ 3.4375% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  2.8125,
+                  3.75,
+                  4.6875,
+                  5.625,
+                  6.5625
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 3.4375
+                  },
+                  "text": "(+ 3.4375% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Secondary Magic Damage per Second",
+            "amount": {
+              "text": "22.5 / 30 / 37.5 / 45 / 52.5 (+ 27.5% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  22.5,
+                  30,
+                  37.5,
+                  45,
+                  52.5
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 27.5
+                  },
+                  "text": "(+ 27.5% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Secondary Target Total Maximum Damage",
+            "amount": {
+              "text": "73.125 / 97.5 / 121.875 / 146.25 (+ 89.375% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  73.125,
+                  97.5,
+                  121.875,
+                  146.25
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 89.375
+                  },
+                  "text": "(+ 89.375% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "channel",
+            "category": "other",
+            "wording": "charges",
+            "duration": {
+              "kind": "constant",
+              "value": 3.25
+            },
+            "evidence": "Active: Aurelion Sol charges for up to 3.25 seconds to exhale a beam of starfire, during which he can steer the beam in the target direction.",
+            "conditional": false
+          },
+          {
+            "type": "reveal",
+            "category": "vision",
+            "wording": "revealing",
+            "evidence": "The beam collides with the first enemy hit to burn them, revealing them and dealing magic damage to them and surrounding enemies every 0.125 seconds.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "Against the primary target, the beam will deal a burst of bonus magic damage for each full second that it burns them, and additionally generates 2 Stardust if they are a champion. The damage based on the target's health ratio is capped at 300 against monsters.",
+        "leveling": [
+          {
+            "label": "Bonus Magic Damage",
+            "amount": {
+              "text": "60 / 70 / 80 / 90 / 100 (+ 30% AP) (+ (3.1% Stardust)% of target's maximum health)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  60,
+                  70,
+                  80,
+                  90,
+                  100
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 30
+                  },
+                  "text": "(+ 30% AP)"
+                }
+              ],
+              "unparsed": "(+ (3.1% Stardust)% of target's maximum health)"
+            }
+          }
+        ],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "text": "Breath of Light can be recast within the duration, and does so automatically afterwards.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "label": "Recast",
+        "text": "Recast: Aurelion Sol ends Breath of Light early.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "text": "At rank 5, Breath of Light's channel duration is increased to 160 seconds.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "text": "If the channel is cancelled within the first 0.25 seconds, Breath of Light is placed on a 1-second lockout but does not go on cooldown.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "lockout",
+            "category": "other",
+            "wording": "lockout",
+            "duration": {
+              "kind": "constant",
+              "value": 1
+            },
+            "evidence": "If the channel is cancelled within the first 0.25 seconds, Breath of Light is placed on a 1-second lockout but does not go on cooldown.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      }
+    ],
+    "custom": [
+      {
+        "label": "Turn rate",
+        "text": "180°/s"
+      }
+    ],
+    "notes": [
+      "This ability always employs quick cast.",
+      "Applies persistent damage on the burst and persistent area damage on the beam.",
+      "Breath of Light's total mana cost after channeling it for its maximum duration is 90 / 105 / 120 / 135 / 7937.5.",
+      "Breath of Light's bursts against an enemy champion will aggro nearby enemy minions.",
+      "Breath of Light's burn places a timer on the primary target, which ticks in 0.2 second intervals. Thus, at 5 completed intervals, the burst damage is triggered.\n  - The timer's visuals themselves otherwise serve no other purpose than gameplay clarity.\n  - The timer is placed on the initial primary target and any new primary targets that are acquired during the channel.\n    - It falls off and resets to zero if a target is not hit within 1 second of no longer being afflicted by the burn.",
+      "Spell shield will only block the burst damage.",
+      "The following table refers to interactions while Aurelion Sol is channeling:"
+    ]
+  },
+  {
+    "champion": "AurelionSol",
+    "kind": "Q",
+    "name": "Starsurge",
+    "page": {
+      "title": "Template:Data Aurelion Sol/Starsurge",
+      "revid": 3906556
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "12 / 11 / 10 / 9 / 8",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                12,
+                11,
+                10,
+                9,
+                8
+              ]
+            },
+            "label": "Starts post-effect"
+          }
+        ]
+      },
+      "cost": {
+        "text": "60 / 70 / 80 / 90 / 100",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                60,
+                70,
+                80,
+                90,
+                100
+              ]
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "none",
+        "values": []
+      },
+      "effectRadius": {
+        "text": "75 - ∞",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 75
+            },
+            "label": "Infinity"
+          }
+        ]
+      },
+      "speed": {
+        "text": "850 / 800 / 750 / 700 / 650 / 600 (based on duration)",
+        "values": [
+          {
+            "series": {
+              "kind": "variable",
+              "variable": "duration",
+              "points": [
+                0,
+                0.15,
+                0.3,
+                0.44999999999999996,
+                0.6,
+                "0.75+"
+              ],
+              "values": [
+                850,
+                800,
+                750,
+                700,
+                650,
+                600
+              ]
+            }
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Direction",
+        "Auto"
+      ],
+      "affects": [
+        "Enemies"
+      ],
+      "damageType": [
+        "Magic"
+      ],
+      "spellEffects": "spellaoe",
+      "spellShield": "true",
+      "projectile": "true"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Aurelion Sol fires a star in the target direction that expands as long as it remains within the Outer Limit, granting him 20% bonus movement speed while active. If he moves faster than the star, the speed of the star will increase to stay within the Outer Limit.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "text": "Starsurge can be recast after 0.25 seconds while the star is active, and does so automatically when the star travels beyond the Outer Limit.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "label": "Recast",
+        "text": "Recast: Aurelion Sol detonates the star, dealing magic damage to nearby enemies and stunning them for a duration, which is increased by 0 / 25 / 50 / 75 / 100 / 125 / 150 / 175 / 200 / 225 / 250 / 275 / 300 (based on time traveled)%.",
+        "leveling": [
+          {
+            "label": "Magic Damage",
+            "amount": {
+              "text": "70 / 110 / 150 / 190 / 230 (+ 65% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  70,
+                  110,
+                  150,
+                  190,
+                  230
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 65
+                  },
+                  "text": "(+ 65% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Minimum Stun Duration",
+            "amount": {
+              "text": "0.55 / 0.6 / 0.65 / 0.7 / 0.75",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  0.55,
+                  0.6000000000000001,
+                  0.65,
+                  0.7,
+                  0.75
+                ]
+              },
+              "scaling": [],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Maximum Stun Duration",
+            "amount": {
+              "text": "2.2 / 2.4 / 2.6 / 2.8 / 3",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  2.2,
+                  2.4000000000000004,
+                  2.6,
+                  2.8,
+                  3
+                ]
+              },
+              "scaling": [],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "stun",
+            "category": "control",
+            "wording": "stunning",
+            "duration": {
+              "kind": "rank",
+              "values": [
+                0.55,
+                0.6000000000000001,
+                0.65,
+                0.7,
+                0.75
+              ]
+            },
+            "evidence": "Recast: Aurelion Sol detonates the star, dealing magic damage to nearby enemies and stunning them for a duration, which is increased by 0 / 25 / 50 / 75 / 100 / 125 / 150 / 175 / 200 / 225 / 250 / 275 / 300 (based on time traveled)%.",
+            "conditional": false
+          }
+        ],
+        "values": [
+          {
+            "series": {
+              "kind": "variable",
+              "variable": "time traveled",
+              "points": [
+                0,
+                0.1875,
+                0.375,
+                0.5625,
+                0.75,
+                1.28125,
+                1.8125,
+                2.34375,
+                2.875,
+                3.40625,
+                3.9375,
+                4.46875,
+                5
+              ],
+              "values": [
+                0,
+                25,
+                50,
+                75,
+                100,
+                125,
+                150,
+                175,
+                200,
+                225,
+                250,
+                275,
+                300
+              ]
+            },
+            "context": "Recast: Aurelion Sol detonates the star, dealing magic damage to nearby enemies and stunning them for a duration, which is increased by 0 / 25 / 50 / 75 / 100 / 125 / 150 / 175 / 200 / 225 / 250 / 275 / 300 (based on time traveled)%."
+          }
+        ]
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "The initial cast count as an ability activation for the purposes of on-cast effects such as Spellblade and triggering Force Pulse passive.\n  - Detonating the ability manually does not.",
+      "So long as Aurelion Sol manages to keep Starsurge within the Outer Limit, it will continue to expand until detonated or out of range.",
+      "Starsurge's size grows by 36.67 units per second."
+    ]
+  },
+  {
+    "champion": "AurelionSol",
+    "kind": "R",
+    "name": "Falling Star",
+    "page": {
+      "title": "Template:Data Aurelion Sol/Falling Star",
+      "revid": 3978297
+    },
+    "ranks": 3,
+    "fields": {
+      "cooldown": {
+        "text": "120 / 110 / 100",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                120,
+                110,
+                100
+              ]
+            }
+          }
+        ]
+      },
+      "cost": {
+        "text": "100",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 100
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "none",
+        "values": []
+      },
+      "targetRange": {
+        "text": "1250",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 1250
+            }
+          }
+        ]
+      },
+      "effectRadius": {
+        "text": "√(275² + 16.93² × Stardust)",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 275
+            },
+            "label": "Radius at 0 Stardust"
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Location"
+      ],
+      "affects": [
+        "Enemies"
+      ],
+      "damageType": [
+        "Magic"
+      ],
+      "spellEffects": "spellaoe",
+      "spellShield": "true",
+      "projectile": "false"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Aurelion Sol calls down a star that strikes the target location after 1.25 seconds, dealing magic damage to enemies hit and stunning them for 1 second. This generates 5 Stardust for each enemy champion hit.",
+        "leveling": [
+          {
+            "label": "Magic Damage",
+            "amount": {
+              "text": "150 / 250 / 350 (+ 75% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  150,
+                  250,
+                  350
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 75
+                  },
+                  "text": "(+ 75% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "stun",
+            "category": "control",
+            "wording": "stunning",
+            "duration": {
+              "kind": "constant",
+              "value": 1
+            },
+            "evidence": "Active: Aurelion Sol calls down a star that strikes the target location after 1.25 seconds, dealing magic damage to enemies hit and stunning them for 1 second.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "Once Falling Star has been learned, gathering 75 Stardust causes the next cast of Falling Star to transform into The Skies Descend, empowering the impact with new effects.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Aurelion Sol will transform Falling Star into The Skies Descend each time he gathers 75 Stardust from the last time he used the empowered cast, or once he has gathered that amount after learning the ability.",
+      "Stardust required for transformation is denoted by a progress bar over Falling Star in the HUD."
+    ]
+  },
+  {
+    "champion": "AurelionSol",
+    "kind": "R",
+    "name": "The Skies Descend",
+    "page": {
+      "title": "Template:Data Aurelion Sol/The Skies Descend",
+      "revid": 3936269
+    },
+    "ranks": 3,
+    "fields": {
+      "effectRadius": {
+        "text": "5000",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 5000
+            },
+            "label": "Shockwave radius, pending for test"
+          }
+        ]
+      },
+      "innerRadius": {
+        "text": "√(388.91² + 21.85² × Stardust)",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 388.91
+            },
+            "label": "Radius at 0 Stardust"
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Location"
+      ],
+      "affects": [
+        "Enemies"
+      ],
+      "damageType": [
+        "Magic"
+      ],
+      "spellEffects": "spellaoe",
+      "spellShield": "true",
+      "projectile": "false"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Aurelion Sol calls down a giant star that strikes the target location after 2 seconds, dealing 25% increased damage in a larger area and knocking up enemies hit for 1 second.",
+        "leveling": [
+          {
+            "label": "Empowered Magic Damage",
+            "amount": {
+              "text": "187.5 / 312.5 / 437.5 (+ 93.75% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  187.5,
+                  312.5,
+                  437.5
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 93.75
+                  },
+                  "text": "(+ 93.75% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "airborne",
+            "category": "control",
+            "wording": "knocking up",
+            "duration": {
+              "kind": "constant",
+              "value": 1
+            },
+            "evidence": "Active: Aurelion Sol calls down a giant star that strikes the target location after 2 seconds, dealing 25% increased damage in a larger area and knocking up enemies hit for 1 second.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "Additionally, the impact sends a massive shockwave that rapidly expands from the area over 3 seconds, dealing magic damage to enemy champions and epic monsters hit, slowing all enemies hit by 50% for 1 second, and revealing them for 1.5 seconds.",
+        "leveling": [
+          {
+            "label": "Magic Damage",
+            "amount": {
+              "text": "135 / 225 / 315 (+ 67.5% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  135,
+                  225,
+                  315
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 67.5
+                  },
+                  "text": "(+ 67.5% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "slow",
+            "category": "control",
+            "wording": "slowing",
+            "duration": {
+              "kind": "constant",
+              "value": 1
+            },
+            "amount": {
+              "kind": "constant",
+              "value": 50
+            },
+            "evidence": "Additionally, the impact sends a massive shockwave that rapidly expands from the area over 3 seconds, dealing magic damage to enemy champions and epic monsters hit, slowing all enemies hit by 50% for 1 second, and revealing them for 1.5 seconds.",
+            "conditional": false
+          },
+          {
+            "type": "reveal",
+            "category": "vision",
+            "wording": "revealing",
+            "duration": {
+              "kind": "constant",
+              "value": 1.5
+            },
+            "evidence": "Additionally, the impact sends a massive shockwave that rapidly expands from the area over 3 seconds, dealing magic damage to enemy champions and epic monsters hit, slowing all enemies hit by 50% for 1 second, and revealing them for 1.5 seconds.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "Enemies hit by the star are immune to the shockwave.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "The shockwave radius and path are globally visible on the minimap.",
+      "The shockwave's radius is fixed.\n  - The shockwave is not blocked."
+    ]
+  },
+  {
+    "champion": "AurelionSol",
+    "kind": "R",
+    "name": "Voice of Light",
+    "page": {
+      "title": "Template:Data Aurelion Sol/Voice of Light",
+      "revid": 3906559
+    },
+    "ranks": 3,
+    "fields": {
+      "cooldown": {
+        "text": "110 / 90 / 70",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                110,
+                90,
+                70
+              ]
+            }
+          }
+        ]
+      },
+      "cost": {
+        "text": "100",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 100
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "0.35",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0.35
+            }
+          }
+        ]
+      },
+      "targetRange": {
+        "text": "1500",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 1500
+            }
+          }
+        ]
+      },
+      "width": {
+        "text": "240",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 240
+            }
+          }
+        ]
+      },
+      "speed": {
+        "text": "4500",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 4500
+            }
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Direction"
+      ],
+      "affects": [
+        "Enemies"
+      ],
+      "damageType": [
+        "Magic"
+      ],
+      "spellEffects": "spellaoe",
+      "spellShield": "true",
+      "projectile": "false"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Aurelion Sol exhales a wave of star fire in the target direction, granting sight of the area for 2 seconds from the start of the cast time, dealing magic damage to enemies within its path, slowing them for 2 seconds and, if they are within the Outer Limit, stunning them for 0.125 seconds and knocking them back to it, though not through terrain.",
+        "leveling": [
+          {
+            "label": "Magic Damage",
+            "amount": {
+              "text": "150 / 250 / 350 (+ 70% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  150,
+                  250,
+                  350
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 70
+                  },
+                  "text": "(+ 70% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Slow",
+            "amount": {
+              "text": "40 / 50 / 60%",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  40,
+                  50,
+                  60
+                ]
+              },
+              "unit": "%",
+              "scaling": [],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "reveal",
+            "category": "vision",
+            "wording": "sight",
+            "duration": {
+              "kind": "constant",
+              "value": 2
+            },
+            "evidence": "Active: Aurelion Sol exhales a wave of star fire in the target direction, granting sight of the area for 2 seconds from the start of the cast time, dealing magic damage to enemies within its path, slowing them for 2 seconds and, if they are within the Outer Limit, stunning them for 0.125 seconds and knocking them back to it, though not through terrain.",
+            "conditional": false
+          },
+          {
+            "type": "slow",
+            "category": "control",
+            "wording": "slowing",
+            "duration": {
+              "kind": "constant",
+              "value": 2
+            },
+            "amount": {
+              "kind": "rank",
+              "values": [
+                40,
+                50,
+                60
+              ]
+            },
+            "evidence": "Active: Aurelion Sol exhales a wave of star fire in the target direction, granting sight of the area for 2 seconds from the start of the cast time, dealing magic damage to enemies within its path, slowing them for 2 seconds and, if they are within the Outer Limit, stunning them for 0.125 seconds and knocking them back to it, though not through terrain.",
+            "conditional": false
+          },
+          {
+            "type": "stun",
+            "category": "control",
+            "wording": "stunning",
+            "duration": {
+              "kind": "constant",
+              "value": 0.125
+            },
+            "evidence": "Active: Aurelion Sol exhales a wave of star fire in the target direction, granting sight of the area for 2 seconds from the start of the cast time, dealing magic damage to enemies within its path, slowing them for 2 seconds and, if they are within the Outer Limit, stunning them for 0.125 seconds and knocking them back to it, though not through terrain.",
+            "conditional": false
+          },
+          {
+            "type": "airborne",
+            "category": "control",
+            "wording": "knocking them back",
+            "evidence": "Active: Aurelion Sol exhales a wave of star fire in the target direction, granting sight of the area for 2 seconds from the start of the cast time, dealing magic damage to enemies within its path, slowing them for 2 seconds and, if they are within the Outer Limit, stunning them for 0.125 seconds and knocking them back to it, though not through terrain.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "Aurelion Sol channels over 0.3 seconds until the star fire reaches maximum range. Voice of Light cannot be interrupted by any crowd control.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "channel",
+            "category": "other",
+            "wording": "channels",
+            "duration": {
+              "kind": "constant",
+              "value": 0.3
+            },
+            "evidence": "Aurelion Sol channels over 0.3 seconds until the star fire reaches maximum range.",
+            "conditional": false
+          },
+          {
+            "type": "interrupt",
+            "category": "other",
+            "wording": "interrupted",
+            "evidence": "Voice of Light cannot be interrupted by any crowd control.",
+            "conditional": true
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "Celestial Expansion can be cast during Voice of Light.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "This ability will cast from wherever the caster is at the end of the cast time.\n  - The displacement will begin as soon as the target is hit.",
+      "Aurelion Sol will reveal himself during the channel if there is an enemy champion near the area.",
+      "Displacement immunity will also resist the application of the stun."
+    ]
+  },
+  {
+    "champion": "AurelionSol",
+    "kind": "W",
+    "name": "Astral Flight",
+    "page": {
+      "title": "Template:Data Aurelion Sol/Astral Flight",
+      "revid": 4057545
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "22 / 20 / 18 / 16 / 14",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                22,
+                20,
+                18,
+                16,
+                14
+              ]
+            }
+          }
+        ]
+      },
+      "cooldownStart": "post-effect",
+      "cost": {
+        "text": "50 / 55 / 60 / 65 / 70",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                50,
+                55,
+                60,
+                65,
+                70
+              ]
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "0.4 • None",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0.4
+            },
+            "label": "Initial cast  (0.375, rounded to the next game tick)"
+          }
+        ]
+      },
+      "targetRange": {
+        "text": "1500 (+ 7.5 × Stardust)",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 1500
+            }
+          }
+        ]
+      },
+      "speed": {
+        "text": "340 + 100% movement speed • 170 + 50% movement speed",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 340
+            },
+            "label": "Dash speed"
+          },
+          {
+            "series": {
+              "kind": "constant",
+              "value": 170
+            },
+            "label": "Dash speed while channeling Breath of Light"
+          },
+          {
+            "series": {
+              "kind": "constant",
+              "value": 50
+            },
+            "label": "Dash speed while channeling Breath of Light"
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Direction"
+      ],
+      "affects": [
+        "Self"
+      ],
+      "damageType": [],
+      "grounded": "true",
+      "knockdown": "true"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Aurelion Sol dashes in the target direction and resets Breath of Light cooldown. During flight, he has unobstructed vision and Breath of Light has no cooldown and maximum channel duration and its non-burst flat damage is increased, but Astral Flight's dash speed is reduced by 50% during its channel.",
+        "leveling": [
+          {
+            "label": "Breath of Light Flat Damage Modifier",
+            "amount": {
+              "text": "108 / 109 / 110 / 111 / 112%",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  108,
+                  109,
+                  110,
+                  111,
+                  112
+                ]
+              },
+              "unit": "%",
+              "scaling": [],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "dash",
+            "category": "movement",
+            "wording": "dashes",
+            "evidence": "Active: Aurelion Sol dashes in the target direction and resets Breath of Light cooldown.",
+            "conditional": false
+          },
+          {
+            "type": "reveal",
+            "category": "vision",
+            "wording": "unobstructed vision",
+            "evidence": "During flight, he has unobstructed vision and Breath of Light has no cooldown and maximum channel duration and its non-burst flat damage is increased, but Astral Flight's dash speed is reduced by 50% during its channel.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "Aurelion Sol will be knocked down by any immobilizing crowd control during the dash.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "knockdown",
+            "category": "control",
+            "wording": "knocked down",
+            "evidence": "Aurelion Sol will be knocked down by any immobilizing crowd control during the dash.",
+            "conditional": true
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "Astral Flight can be recast after 0.5 seconds during the dash, and does so automatically upon arrival.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "label": "Recast",
+        "text": "Recast: Aurelion Sol ends Astral Flight.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "text": "Scoring a champion takedown within 3 seconds of damaging them reduces Astral Flight's current cooldown by 90% of its total cooldown.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "text": "Aurelion Sol will not dash after the cast time if he was immobilized or grounded during it. He can cast any of his abilities during the dash. Breath of Light channel will be interrupted if Astral Flight ends or Singularity or Falling Star / The Skies Descend is cast during the flight, but the ability will automatically be cast afterwards.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "ground",
+            "category": "control",
+            "wording": "grounded",
+            "evidence": "Aurelion Sol will not dash after the cast time if he was immobilized or grounded during it.",
+            "conditional": true
+          }
+        ],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "If a takedown is scored while Astral Flight is active, the cooldown will be reduced after it ends.",
+      "Astral Flight cannot be used in the first 15 seconds of the game.",
+      "The following table refers for interactions while Aurelion Sol is dashing:"
+    ]
+  },
+  {
+    "champion": "AurelionSol",
+    "kind": "W",
+    "name": "Celestial Expansion",
+    "page": {
+      "title": "Template:Data Aurelion Sol/Celestial Expansion",
+      "revid": 3906557
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "8 / 6.5 / 5 / 3.5 / 2",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                8,
+                6.5,
+                5,
+                3.5,
+                2
+              ]
+            },
+            "label": "Starts post-effect"
+          }
+        ]
+      },
+      "cost": {
+        "text": "70 / 80 / 90 / 100 / 110",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                70,
+                80,
+                90,
+                100,
+                110
+              ]
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "none",
+        "values": []
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Auto"
+      ],
+      "affects": [
+        "Enemies"
+      ],
+      "damageType": [
+        "Magic"
+      ],
+      "spellEffects": "aoe",
+      "spellShield": "true",
+      "projectile": "false"
+    },
+    "parts": [
+      {
+        "label": "Passive",
+        "text": "Passive: Center of the Universe base damage is increased.",
+        "leveling": [
+          {
+            "label": "Bonus Damage",
+            "amount": {
+              "text": "5 / 10 / 15 / 20 / 25",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  5,
+                  10,
+                  15,
+                  20,
+                  25
+                ]
+              },
+              "scaling": [],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "label": "Active",
+        "text": "Active: Aurelion Sol expands his Stars to the Outer Limit for 3 seconds, rotating them at a high but decaying speed, and increasing their total damage by 40%.",
+        "leveling": [
+          {
+            "label": "Total Damage",
+            "amount": {
+              "text": "16.8 – 168 (based on level) (+ 7 / 14 / 21 / 28 / 35) (+ 35% AP)",
+              "base": {
+                "kind": "level",
+                "values": [
+                  16.799999999999997,
+                  19.599999999999998,
+                  22.4,
+                  25.2,
+                  28,
+                  32.2,
+                  36.4,
+                  44.8,
+                  53.199999999999996,
+                  61.599999999999994,
+                  70,
+                  84,
+                  98,
+                  112,
+                  126,
+                  140,
+                  154,
+                  168
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "other:",
+                  "ratio": {
+                    "kind": "rank",
+                    "values": [
+                      7,
+                      14,
+                      21,
+                      28,
+                      35
+                    ]
+                  },
+                  "text": "(+ 7 / 14 / 21 / 28 / 35)"
+                },
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 35
+                  },
+                  "text": "(+ 35% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "text": "Celestial Expansion can be recast after 1 second within the duration, and does so automatically after the duration or casting Comet of Legend.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "label": "Recast",
+        "text": "Recast: Aurelion Sol commands the stars to retract, granting him 40% bonus movement speed that decays over 1.5 seconds.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "text": "Celestial Expansion's recast can be used while affected by cast-inhibiting crowd control.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "The initial cast counts as an ability activation for the purposes of on-cast effects such as Spellblade and triggering Force Pulse passive.\n  - Deactivating the ability manually does not."
+    ]
+  }
+]

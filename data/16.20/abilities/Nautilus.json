@@ -1,0 +1,1118 @@
+[
+  {
+    "champion": "Nautilus",
+    "kind": "E",
+    "name": "Riptide",
+    "page": {
+      "title": "Template:Data Nautilus/Riptide",
+      "revid": 4007701
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "7 / 6.5 / 6 / 5.5 / 5",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                7,
+                6.5,
+                6,
+                5.5,
+                5
+              ]
+            }
+          }
+        ]
+      },
+      "cost": {
+        "text": "50 / 60 / 70 / 80 / 90",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                50,
+                60,
+                70,
+                80,
+                90
+              ]
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "0.25",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0.25
+            }
+          }
+        ]
+      },
+      "effectRadius": {
+        "text": "0 - 350 • 215 - 465 • 350 - 590",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0
+            },
+            "label": "First wave"
+          },
+          {
+            "series": {
+              "kind": "constant",
+              "value": 215
+            },
+            "label": "Second wave, offset by 25 units"
+          },
+          {
+            "series": {
+              "kind": "constant",
+              "value": 350
+            },
+            "label": "Third wave, offset by 25 units"
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Auto"
+      ],
+      "affects": [
+        "Enemies"
+      ],
+      "damageType": [
+        "Magic"
+      ],
+      "spellEffects": "spellaoe",
+      "spellShield": "true"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Nautilus sends three waves of explosions that radiate from him over 0.561 seconds. Each wave deals magic damage to enemies hit, reduced to 50% against those hit by subsequent waves beyond the first, and slows them by an amount that decays over 1.5 seconds.",
+        "leveling": [
+          {
+            "label": "Magic Damage",
+            "amount": {
+              "text": "55 / 90 / 125 / 160 / 195 (+ 50% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  55,
+                  90,
+                  125,
+                  160,
+                  195
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 50
+                  },
+                  "text": "(+ 50% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Reduced Damage",
+            "amount": {
+              "text": "27.5 / 45 / 62.5 / 80 / 97.5 (+ 25% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  27.5,
+                  45,
+                  62.5,
+                  80,
+                  97.5
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 25
+                  },
+                  "text": "(+ 25% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Maximum Total Damage",
+            "amount": {
+              "text": "110 / 180 / 250 / 320 / 390 (+ 100% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  110,
+                  180,
+                  250,
+                  320,
+                  390
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 100
+                  },
+                  "text": "(+ 100% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Slow",
+            "amount": {
+              "text": "30 / 35 / 40 / 45 / 50%",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  30,
+                  35,
+                  40,
+                  45,
+                  50
+                ]
+              },
+              "unit": "%",
+              "scaling": [],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "slow",
+            "category": "control",
+            "wording": "slows",
+            "duration": {
+              "kind": "constant",
+              "value": 1.5
+            },
+            "amount": {
+              "kind": "rank",
+              "values": [
+                30,
+                35,
+                40,
+                45,
+                50
+              ]
+            },
+            "evidence": "Each wave deals magic damage to enemies hit, reduced to 50% against those hit by subsequent waves beyond the first, and slows them by an amount that decays over 1.5 seconds.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "The first hit against monsters deals bonus magic damage.",
+        "leveling": [
+          {
+            "label": "Monster Bonus Damage",
+            "amount": {
+              "text": "125 / 165 / 205 / 245 / 285 (+ 50% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  125,
+                  165,
+                  205,
+                  245,
+                  285
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 50
+                  },
+                  "text": "(+ 50% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "This ability will cast from wherever the caster is at the end of the cast time.",
+      "The first wave is centered around Nautilus, while the second and third wave are centered at an offset of 25 units in front of Nautilus at the original cast location.\n  - Because of this, there is a zone each in which you can be hit by only 1 wave, or all 3 waves, respectively, without moving.",
+      "The first wave happens at 0 seconds after the cast time ends, the second wave at 0.297 seconds and the third wave at 0.561 seconds.\n  - The intended timing may be 0.25 seconds for each delay, however these are the measured, effective times.",
+      "The explosions are only a visual effect. The first wave has 8, the seconds has 9, and the third wave has 10 explosions, equally distributed around the rings, starting with one explosion directly in Nautilus facing direction on each."
+    ]
+  },
+  {
+    "champion": "Nautilus",
+    "kind": "I",
+    "name": "Staggering Blow",
+    "page": {
+      "title": "Template:Data Nautilus/Staggering Blow",
+      "revid": 4072880
+    },
+    "ranks": 1,
+    "fields": {},
+    "flags": {
+      "targeting": [
+        "Passive"
+      ],
+      "affects": [
+        "Enemies"
+      ],
+      "damageType": [
+        "Physical"
+      ],
+      "spellEffects": "proc",
+      "spellShield": "special",
+      "parry": "true"
+    },
+    "parts": [
+      {
+        "label": "Innate",
+        "text": "Innate: Nautilus' basic attacks are empowered to deal 14 – 116 (based on level) bonus physical damage and root the target for 0.75 / 1 / 1.25 / 1.5 (based on level) seconds.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "root",
+            "category": "control",
+            "wording": "root",
+            "duration": {
+              "kind": "variable",
+              "variable": "level",
+              "points": [
+                1,
+                6,
+                11,
+                16
+              ],
+              "values": [
+                0.75,
+                1,
+                1.25,
+                1.5
+              ]
+            },
+            "evidence": "Innate: Nautilus' basic attacks are empowered to deal 14 – 116 (based on level) bonus physical damage and root the target for 0.75 / 1 / 1.25 / 1.5 (based on level) seconds.",
+            "conditional": false
+          }
+        ],
+        "values": [
+          {
+            "series": {
+              "kind": "level",
+              "values": [
+                14,
+                20,
+                26,
+                32,
+                38,
+                44,
+                50,
+                56,
+                62,
+                68,
+                74,
+                80,
+                86,
+                92,
+                98,
+                104,
+                110,
+                116,
+                122,
+                128
+              ],
+              "past18": "wiki"
+            },
+            "context": "Innate: Nautilus' basic attacks are empowered to deal 14 – 116 (based on level) bonus physical damage and root the target for 0.75 / 1 / 1.25 / 1.5 (based on level) seconds."
+          },
+          {
+            "series": {
+              "kind": "variable",
+              "variable": "level",
+              "points": [
+                1,
+                6,
+                11,
+                16
+              ],
+              "values": [
+                0.75,
+                1,
+                1.25,
+                1.5
+              ]
+            },
+            "context": "Innate: Nautilus' basic attacks are empowered to deal 14 – 116 (based on level) bonus physical damage and root the target for 0.75 / 1 / 1.25 / 1.5 (based on level) seconds."
+          }
+        ]
+      },
+      {
+        "text": "This effect cannot occur on the same target more than once every few seconds.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Spell shield will block the root but not the bonus damage.",
+      "Staggering Blow's enhanced attack can be blocked and dodged (the on-target cooldown will still be applied).\n  - It will fail to trigger while he is blinded.",
+      "The empowered attack will not trigger against structures."
+    ]
+  },
+  {
+    "champion": "Nautilus",
+    "kind": "Q",
+    "name": "Dredge Line",
+    "page": {
+      "title": "Template:Data Nautilus/Dredge Line",
+      "revid": 4060365
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "14 / 13 / 12 / 11 / 10",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                14,
+                13,
+                12,
+                11,
+                10
+              ]
+            }
+          }
+        ]
+      },
+      "cost": {
+        "text": "60",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 60
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "0.25",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0.25
+            }
+          }
+        ]
+      },
+      "range": {
+        "text": "1122",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 1122
+            },
+            "label": "The missile is destroyed on the tick it passes 1100 distance, resulting in this unorthodox max-range collision behavior compared to other missiles"
+          }
+        ]
+      },
+      "width": {
+        "text": "180 • 0",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 180
+            },
+            "label": "Unit collision"
+          },
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0
+            },
+            "label": "Terrain collision"
+          }
+        ]
+      },
+      "speed": {
+        "text": "2000",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 2000
+            }
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Direction"
+      ],
+      "affects": [
+        "Self",
+        "Enemies"
+      ],
+      "damageType": [
+        "Magic"
+      ],
+      "spellEffects": "spell",
+      "spellShield": "special",
+      "projectile": "true",
+      "grounded": "true",
+      "knockdown": "true"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Nautilus hurls his anchor in the target direction that stops on the first enemy or terrain hit.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "text": "If the anchor hits an enemy, it deals magic damage, reveals them for 1.15 seconds, stuns them for 1 second, and drags them toward Nautilus while he also dashes toward them, both over 0.9 seconds.",
+        "leveling": [
+          {
+            "label": "Magic Damage",
+            "amount": {
+              "text": "85 / 125 / 165 / 205 / 245 (+ 90% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  85,
+                  125,
+                  165,
+                  205,
+                  245
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 90
+                  },
+                  "text": "(+ 90% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "reveal",
+            "category": "vision",
+            "wording": "reveals",
+            "duration": {
+              "kind": "constant",
+              "value": 1.15
+            },
+            "evidence": "If the anchor hits an enemy, it deals magic damage, reveals them for 1.15 seconds, stuns them for 1 second, and drags them toward Nautilus while he also dashes toward them, both over 0.9 seconds.",
+            "conditional": false
+          },
+          {
+            "type": "stun",
+            "category": "control",
+            "wording": "stuns",
+            "duration": {
+              "kind": "constant",
+              "value": 1
+            },
+            "evidence": "If the anchor hits an enemy, it deals magic damage, reveals them for 1.15 seconds, stuns them for 1 second, and drags them toward Nautilus while he also dashes toward them, both over 0.9 seconds.",
+            "conditional": false
+          },
+          {
+            "type": "airborne",
+            "category": "control",
+            "wording": "drags",
+            "duration": {
+              "kind": "constant",
+              "value": 0.9
+            },
+            "evidence": "If the anchor hits an enemy, it deals magic damage, reveals them for 1.15 seconds, stuns them for 1 second, and drags them toward Nautilus while he also dashes toward them, both over 0.9 seconds.",
+            "conditional": false
+          },
+          {
+            "type": "dash",
+            "category": "movement",
+            "wording": "dashes",
+            "evidence": "If the anchor hits an enemy, it deals magic damage, reveals them for 1.15 seconds, stuns them for 1 second, and drags them toward Nautilus while he also dashes toward them, both over 0.9 seconds.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "If the anchor hits terrain, Nautilus dashes to that location and 50% of Dredge Line's cooldown and mana cost are refunded.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "dash",
+            "category": "movement",
+            "wording": "dashes",
+            "evidence": "If the anchor hits terrain, Nautilus dashes to that location and 50% of Dredge Line's cooldown and mana cost are refunded.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "Nautilus is unable to move or attack while Dredge Line is in flight. He can cast any of his abilities during the dash.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "lockout",
+            "category": "other",
+            "wording": "unable",
+            "evidence": "Nautilus is unable to move or attack while Dredge Line is in flight.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Dredge Line has two hitboxes. The outer hitbox, shown by a visual effect on the ground, will hit champions edge-to-edge. The inner hitbox, shown by the anchor, can hit terrain. Near thinner walls, this can cause the ability to hit a champion on the other side.",
+      "Dredge Line turns Nautilus facing direction accordingly upon hitting a valid target.",
+      "Dredge Line can interact with player-generated terrain.",
+      "Nautilus will dash all the way to the target's location if Dredge Line executed them or they negated the displacement.",
+      "Dredge Line will not interrupt any movement commands Nautilus was issued pre-cast so long as their directions somewhat correlate (this is intentional to smooth out traveling/escaping).",
+      "Spell shield will block the ability but Nautilus will still dash partway to the target.",
+      "The anchor projectile will stop if Nautilus dies while the projectile is traveling. Enemies hit will still be dealt damage. The drag and root are not applied if Nautilus did not initiate the dash.",
+      "Displacement immunity will not resist the application of the stun.",
+      "This ability will cast from wherever the caster is at the start of the cast time.",
+      "The following table refers for interactions during Dredge Line's cast time."
+    ]
+  },
+  {
+    "champion": "Nautilus",
+    "kind": "R",
+    "name": "Depth Charge",
+    "page": {
+      "title": "Template:Data Nautilus/Depth Charge",
+      "revid": 4007702
+    },
+    "ranks": 3,
+    "fields": {
+      "cooldown": {
+        "text": "120 / 100 / 80",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                120,
+                100,
+                80
+              ]
+            }
+          }
+        ]
+      },
+      "cost": {
+        "text": "100",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 100
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "0.46",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0.46
+            }
+          }
+        ]
+      },
+      "targetRange": {
+        "text": "825",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 825
+            }
+          }
+        ]
+      },
+      "effectRadius": {
+        "text": "225 • 300 • 750",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 225
+            },
+            "label": "Underway eruptions, estimated"
+          },
+          {
+            "series": {
+              "kind": "constant",
+              "value": 300
+            },
+            "label": "Final eruption"
+          },
+          {
+            "series": {
+              "kind": "constant",
+              "value": 750
+            },
+            "label": "Seeking charge sight radius"
+          }
+        ]
+      },
+      "speed": {
+        "text": "275 + 466.67 per second",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 275
+            }
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Unit"
+      ],
+      "affects": [
+        "Enemies"
+      ],
+      "damageType": [
+        "magic"
+      ],
+      "spellEffects": "aoe",
+      "spellShield": "true",
+      "projectile": "false"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Nautilus sends out a Depth Charge that chases the target enemy champion, accelerating over time and creating eruptions every 0.264 in its wake that also briefly grant sight of the area. Enemies hit by the eruptions are dealt magic damage, knocked up for 1 second, and stunned for a duration.",
+        "leveling": [
+          {
+            "label": "Magic Damage",
+            "amount": {
+              "text": "125 / 175 / 225 (+ 40% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  125,
+                  175,
+                  225
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 40
+                  },
+                  "text": "(+ 40% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Stun Duration",
+            "amount": {
+              "text": "1 / 1.5 / 2 seconds",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  1,
+                  1.5,
+                  2
+                ]
+              },
+              "unit": "s",
+              "scaling": [],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "reveal",
+            "category": "vision",
+            "wording": "sight",
+            "evidence": "Active: Nautilus sends out a Depth Charge that chases the target enemy champion, accelerating over time and creating eruptions every 0.264 in its wake that also briefly grant sight of the area.",
+            "conditional": false
+          },
+          {
+            "type": "airborne",
+            "category": "control",
+            "wording": "knocked up",
+            "duration": {
+              "kind": "constant",
+              "value": 1
+            },
+            "evidence": "Enemies hit by the eruptions are dealt magic damage, knocked up for 1 second, and stunned for a duration.",
+            "conditional": false
+          },
+          {
+            "type": "stun",
+            "category": "control",
+            "wording": "stunned",
+            "duration": {
+              "kind": "constant",
+              "value": 1
+            },
+            "evidence": "Enemies hit by the eruptions are dealt magic damage, knocked up for 1 second, and stunned for a duration.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "Upon reaching the primary target, the Depth Charge erupts a final time at their location. The primary target takes increased damage, is stunned for the same duration, and knocked up for a modified duration.",
+        "leveling": [
+          {
+            "label": "Increased Damage",
+            "amount": {
+              "text": "150 / 275 / 400 (+ 80% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  150,
+                  275,
+                  400
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 80
+                  },
+                  "text": "(+ 80% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Knock Up Duration",
+            "amount": {
+              "text": "1 / 1.5 / 2 seconds",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  1,
+                  1.5,
+                  2
+                ]
+              },
+              "unit": "s",
+              "scaling": [],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "stun",
+            "category": "control",
+            "wording": "stunned",
+            "duration": {
+              "kind": "rank",
+              "values": [
+                1,
+                1.5,
+                2
+              ]
+            },
+            "evidence": "The primary target takes increased damage, is stunned for the same duration, and knocked up for a modified duration.",
+            "conditional": false
+          },
+          {
+            "type": "airborne",
+            "category": "control",
+            "wording": "knocked up",
+            "duration": {
+              "kind": "rank",
+              "values": [
+                1,
+                1.5,
+                2
+              ]
+            },
+            "evidence": "The primary target takes increased damage, is stunned for the same duration, and knocked up for a modified duration.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Depth Charge starts in an offset from whichever direction Nautilus is facing at the end of the cast time.\n  - Since Dredge Line causes Nautilus to change his facing direction upon hitting a valid target, Depth Charge's starting point can be changed with a quick Dredge Line + Depth Charge combo.",
+      "Enemies a certain distance away from the charge / eruption are instead knocked back.",
+      "Depth Charge's final eruption will occur prematurely if the primary target moves more than 3000 units away from it.",
+      "Depth Charge will not stop chasing if the target dies or becomes untargetable.",
+      "Dredge Line will not override Depth Charge's knock up.",
+      "Displacement immunity will not resist the application of the stun.",
+      "If the target becomes untargetable, dies, or is too far away or no longer in sight during the cast time, this ability will cancel but does not go on cooldown nor pay its cost (if applicable)."
+    ]
+  },
+  {
+    "champion": "Nautilus",
+    "kind": "W",
+    "name": "Titan's Wrath",
+    "page": {
+      "title": "Template:Data Nautilus/Titan's Wrath",
+      "revid": 3981480
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "12",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 12
+            }
+          }
+        ]
+      },
+      "cooldownStart": "on-cast",
+      "cost": {
+        "text": "60",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 60
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "none",
+        "values": []
+      },
+      "effectRadius": {
+        "text": "250",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 250
+            },
+            "label": "Centered on target"
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Auto"
+      ],
+      "affects": [
+        "Self",
+        "Enemies"
+      ],
+      "damageType": [
+        "Magic"
+      ],
+      "spellEffects": "special",
+      "spellShield": "special",
+      "parry": "special"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Nautilus grants himself a shield for 6 seconds, and while it holds, his basic attacks are empowered to apply Pain of Wrath to the target and enemies near them.",
+        "leveling": [
+          {
+            "label": "Shield Strength",
+            "amount": {
+              "text": "50 / 60 / 70 / 80 / 90 (+ 8 / 9 / 10 / 11 / 12% maximum health)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  50,
+                  60,
+                  70,
+                  80,
+                  90
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "maxHealth",
+                  "ratio": {
+                    "kind": "rank",
+                    "values": [
+                      8,
+                      9,
+                      10,
+                      11,
+                      12
+                    ]
+                  },
+                  "text": "(+ 8 / 9 / 10 / 11 / 12% maximum health)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "shield",
+            "category": "defense",
+            "wording": "shield",
+            "duration": {
+              "kind": "constant",
+              "value": 6
+            },
+            "evidence": "Active: Nautilus grants himself a shield for 6 seconds, and while it holds, his basic attacks are empowered to apply Pain of Wrath to the target and enemies near them.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "label": "Pain of Wrath",
+        "text": "Pain of Wrath: The target takes magic damage over time, half dealt immediately and the other half dealt after 1.25 seconds.",
+        "leveling": [
+          {
+            "label": "Total Magic Damage",
+            "amount": {
+              "text": "30 / 40 / 50 / 60 / 70 (+ 40% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  30,
+                  40,
+                  50,
+                  60,
+                  70
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 40
+                  },
+                  "text": "(+ 40% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Magic Damage per Instance",
+            "amount": {
+              "text": "15 / 20 / 25 / 30 / 35 (+ 20% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  15,
+                  20,
+                  25,
+                  30,
+                  35
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 20
+                  },
+                  "text": "(+ 20% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "text": "Titan's Wrath resets Nautilus' basic attack timer.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "attack reset",
+            "category": "offense",
+            "wording": "resets",
+            "evidence": "Titan's Wrath resets Nautilus' basic attack timer.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Pain of Wrath's first damage instance is tagged as spell damage, while the second damage instance is tagged as persistent damage.",
+      "Pain of Wrath damage over time debuff gains another stack when reapplied to the target, but doesn't restart its tick timer. Additional stacks of Pain of Wrath expire when the original debuff does and do not deal any additional damage.\n  - Pain of Wraths debuff can last up to 0.25 seconds after dealing the second instance of damage.",
+      "Pain of Wrath will be applied by Nautilus's basic attack if he is affected by Titan's Wrath at the start of the attack windup, even if Titan's Wrath expires during the windup.",
+      "Pain of Wrath will not be applied if the basic attack is dodged or blocked, but will be applied if it is missed.",
+      "Spell shield will block the ability (but only a single application).",
+      "The empowered attack does not apply Pain of Wrath to structures."
+    ]
+  }
+]

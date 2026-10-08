@@ -1,0 +1,1220 @@
+[
+  {
+    "champion": "Zaahen",
+    "kind": "E",
+    "name": "Aureate Rush",
+    "page": {
+      "title": "Template:Data Zaahen/Aureate Rush",
+      "revid": 4022487
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "10 / 9.5 / 9 / 8.5 / 8",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                10,
+                9.5,
+                9,
+                8.5,
+                8
+              ]
+            }
+          }
+        ]
+      },
+      "cost": {
+        "text": "40",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 40
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "none",
+        "values": []
+      },
+      "targetRange": {
+        "text": "350",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 350
+            },
+            "label": "Maximum dash distance"
+          }
+        ]
+      },
+      "effectRadius": {
+        "text": "375",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 375
+            },
+            "label": "Outer radius"
+          }
+        ]
+      },
+      "innerRadius": {
+        "text": "200",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 200
+            }
+          }
+        ]
+      },
+      "speed": {
+        "text": "900",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 900
+            },
+            "label": "Static"
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Location"
+      ],
+      "affects": [
+        "Self",
+        "Enemies"
+      ],
+      "damageType": [
+        "Physical Magic"
+      ],
+      "spellEffects": "spellaoe",
+      "spellShield": "true",
+      "grounded": "true",
+      "knockdown": "true"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Zaahen dashes to the target location. Upon arrival, he flourishes his glaive to deal physical damage to nearby enemies.",
+        "leveling": [
+          {
+            "label": "Physical Damage",
+            "amount": {
+              "text": "40 / 60 / 80 / 100 / 120 (+ 50% bonus AD)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  40,
+                  60,
+                  80,
+                  100,
+                  120
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "bonusAD",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 50
+                  },
+                  "text": "(+ 50% bonus AD)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "dash",
+            "category": "movement",
+            "wording": "dashes",
+            "evidence": "Active: Zaahen dashes to the target location.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "Enemies hit by the outer edge are dealt 50% increased physical damage and bonus magic damage, with the latter capped at 400 against monsters.",
+        "leveling": [
+          {
+            "label": "Increased Physical Damage",
+            "amount": {
+              "text": "60 / 90 / 120 / 150 / 180 (+ 75% bonus AD)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  60,
+                  90,
+                  120,
+                  150,
+                  180
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "bonusAD",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 75
+                  },
+                  "text": "(+ 75% bonus AD)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Bonus Magic Damage",
+            "amount": {
+              "text": "4 / 4.5 / 5 / 5.5 / 6% of the target's maximum health",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  4,
+                  4.5,
+                  5,
+                  5.5,
+                  6
+                ]
+              },
+              "unit": "%",
+              "scaling": [],
+              "unparsed": "",
+              "baseStat": "targetMaxHealth"
+            }
+          }
+        ],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "text": "Aureate Rush deals 50 bonus physical damage against monsters.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Aureate Rush has no minimum dash range.",
+      "The mixed damage is applied in two instances, and the physical damage will be dealt first within the same game tick.\n  - If the physical damage finishes off the unit, the magic damage will not be dealt against it.",
+      "The following table refers for interactions while Zaahen is dashing:"
+    ]
+  },
+  {
+    "champion": "Zaahen",
+    "kind": "I",
+    "name": "Cultivation of War",
+    "page": {
+      "title": "Template:Data Zaahen/Cultivation of War",
+      "revid": 4060321
+    },
+    "ranks": 1,
+    "fields": {},
+    "flags": {
+      "targeting": [
+        "Passive"
+      ],
+      "affects": [
+        "Self"
+      ],
+      "damageType": [],
+      "spellShield": "false",
+      "parry": "true"
+    },
+    "parts": [
+      {
+        "label": "Innate",
+        "text": "Innate: Zaahen generates a stack of Determination for each enemy champion damaged by his basic attacks and abilities, lasting for 5 seconds, refreshing on subsequent triggers, and stacking up to 12 times. After the duration, the stacks expire by 1 / 2 / 3 / 4 / 5 (based on Seconds) every 0.5 seconds.",
+        "leveling": [],
+        "mechanics": [],
+        "values": [
+          {
+            "series": {
+              "kind": "variable",
+              "variable": "Seconds",
+              "points": [
+                0,
+                0.5,
+                1,
+                1.5,
+                2
+              ],
+              "values": [
+                1,
+                2,
+                3,
+                4,
+                5
+              ]
+            },
+            "context": "After the duration, the stacks expire by 1 / 2 / 3 / 4 / 5 (based on Seconds) every 0.5 seconds."
+          }
+        ]
+      },
+      {
+        "label": "Determination",
+        "text": "Determination: For each stack, Zaahen gains bonus attack damage equal to 1.5 – 2.8 (based on level)% AD. At maximum stacks, Zaahen becomes filled with Determination, causing him to double the bonus to 36 – 67.2 (based on level)% AD.\n\nPeriodically, if Zaahen would take lethal damage while at maximum stacks of Determination, he refreshes its duration and enters resurrection for 4 seconds: becoming invulnerable, untargetable, and unable to act. Additionally, he restores 30 / 45 / 60 / 75 (based on level)% of his maximum health over the duration. Afterwards, he revives himself and refreshes the duration of Determination.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "revive",
+            "category": "defense",
+            "wording": "resurrection",
+            "duration": {
+              "kind": "constant",
+              "value": 4
+            },
+            "evidence": "Periodically, if Zaahen would take lethal damage while at maximum stacks of Determination, he refreshes its duration and enters resurrection for 4 seconds: becoming invulnerable, untargetable, and unable to act.",
+            "conditional": false
+          },
+          {
+            "type": "invulnerable",
+            "category": "defense",
+            "wording": "invulnerable",
+            "duration": {
+              "kind": "constant",
+              "value": 4
+            },
+            "evidence": "Periodically, if Zaahen would take lethal damage while at maximum stacks of Determination, he refreshes its duration and enters resurrection for 4 seconds: becoming invulnerable, untargetable, and unable to act.",
+            "conditional": false
+          },
+          {
+            "type": "untargetable",
+            "category": "defense",
+            "wording": "untargetable",
+            "duration": {
+              "kind": "constant",
+              "value": 4
+            },
+            "evidence": "Periodically, if Zaahen would take lethal damage while at maximum stacks of Determination, he refreshes its duration and enters resurrection for 4 seconds: becoming invulnerable, untargetable, and unable to act.",
+            "conditional": false
+          },
+          {
+            "type": "lockout",
+            "category": "other",
+            "wording": "unable to act",
+            "evidence": "Periodically, if Zaahen would take lethal damage while at maximum stacks of Determination, he refreshes its duration and enters resurrection for 4 seconds: becoming invulnerable, untargetable, and unable to act.",
+            "conditional": false
+          }
+        ],
+        "values": [
+          {
+            "series": {
+              "kind": "level",
+              "values": [
+                1.5,
+                1.576470588235294,
+                1.6529411764705881,
+                1.7294117647058824,
+                1.8058823529411765,
+                1.8823529411764706,
+                1.9588235294117646,
+                2.0352941176470587,
+                2.111764705882353,
+                2.188235294117647,
+                2.264705882352941,
+                2.341176470588235,
+                2.4176470588235293,
+                2.4941176470588236,
+                2.5705882352941174,
+                2.6470588235294117,
+                2.723529411764706,
+                2.8,
+                2.8764705882352937,
+                2.9529411764705884
+              ],
+              "past18": "wiki"
+            },
+            "context": "Determination: For each stack, Zaahen gains bonus attack damage equal to 1.5 – 2.8 (based on level)% AD."
+          },
+          {
+            "series": {
+              "kind": "level",
+              "values": [
+                36,
+                37.83529411764706,
+                39.67058823529412,
+                41.50588235294117,
+                43.34117647058823,
+                45.17647058823529,
+                47.01176470588235,
+                48.84705882352941,
+                50.68235294117646,
+                52.51764705882353,
+                54.35294117647058,
+                56.18823529411764,
+                58.0235294117647,
+                59.85882352941175,
+                61.69411764705882,
+                63.52941176470587,
+                65.36470588235292,
+                67.19999999999999,
+                69.03529411764706,
+                70.8705882352941
+              ],
+              "past18": "wiki"
+            },
+            "context": "At maximum stacks, Zaahen becomes filled with Determination, causing him to double the bonus to 36 – 67.2 (based on level)% AD."
+          },
+          {
+            "series": {
+              "kind": "variable",
+              "variable": "level",
+              "points": [
+                1,
+                6,
+                11,
+                16
+              ],
+              "values": [
+                30,
+                45,
+                60,
+                75
+              ]
+            },
+            "context": "Additionally, he restores 30 / 45 / 60 / 75 (based on level)% of his maximum health over the duration."
+          }
+        ]
+      }
+    ],
+    "custom": [
+      {
+        "label": "Static Cooldown",
+        "text": "300 / 240 / 180 / 120 (based on level)"
+      }
+    ],
+    "notes": [
+      "The bonus attack damage granted by Determination stacks will update dynamically with Zaahen's total attack damage.",
+      "Determination stacks are generated per damage instance per champion damaged with Zaahen's attacks and abilities.\n  - Q initial cast empowered attack can generate a stack for each strike.\n  - Both passes of W can generate a stack.\n  - Both E swing and R shockwave generate a stack for every champion hit.\n  - Triggerseed generates a stack for every champion hit when cast on Zaahen.",
+      "During the resurrection's health restoration, Zaahen's current health is set to a percentage of his maximum health equal to the cumulative amount of health restored on that restoration tick, for every single tick.\n  - In other words, his current health will always be overridden by the percentage of health he is supposed to have restored on every restoration tick, to prevent him from healing or restoring health by other sources.",
+      "Upon the resurrection being triggered, all summoner spells that are not already on cooldown are placed on a 5-second cooldown.",
+      "The untargetability from the resurrection does not destroy in-flight projectiles.",
+      "Cultivation of War's resurrection takes priority over Guardian Angel Rebirth, but grants priority to Chronoshift.",
+      "The resurrection does not activate if Zaahen is killed by the Nexus Obelisk.",
+      "Invulnerability will prevent stacks from being generated, as no damage is dealt.",
+      "Spell shield will not prevent stacks from being generated, even if no damage is dealt.",
+      "Cultivation of War stacks additively with Infernal Might and Overlord's Bloodmail Retribution and multiplicatively with mid lane quest's bonus AD multiplier.",
+      "Determination stacks are displayed in a secondary resource bar under Zaahen's health bar.\n  - The bar is white at <4 stacks, yellow at &ge;4 stacks and orange at &ge;9 stacks.\n    - At maximum stacks, if the revive is available, the bar will be red and will remain red after Zaahen revives until he loses stacks again.",
+      "There's a short delay between the stacks falling off and the removal of the revive. If Zaahen triggers it during this time, it will fail to go on cooldown.",
+      "The following table refers for interactions while Zaahen is locked out during the resurrection:"
+    ]
+  },
+  {
+    "champion": "Zaahen",
+    "kind": "Q",
+    "name": "The Darkin Glaive",
+    "page": {
+      "title": "Template:Data Zaahen/The Darkin Glaive",
+      "revid": 4060370
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "10 / 9 / 8 / 7 / 6",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                10,
+                9,
+                8,
+                7,
+                6
+              ]
+            }
+          }
+        ]
+      },
+      "cooldownStart": "post-effect",
+      "cost": {
+        "text": "25",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 25
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "none",
+        "values": []
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Auto"
+      ],
+      "affects": [
+        "Self",
+        "Enemies"
+      ],
+      "damageType": [
+        "Physical"
+      ],
+      "spellEffects": "special",
+      "spellShield": "special",
+      "parry": "true"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Zaahen empowers his next basic attack within 4 seconds to have an uncancellable windup and gain 25 bonus range. On-attack, he strikes the target twice. If the target was a champion, minion, or monster, he also heals himself. The strikes deal modified physical damage and the heal is reduced to 50% against minions and monsters.\n\nEach strike applies on-hit effects and can critically strike for 50% AD bonus physical damage.",
+        "leveling": [
+          {
+            "label": "Total Physical Damage",
+            "amount": {
+              "text": "15 / 30 / 45 / 60 / 75 (+ 100% AD) (+ 20 / 25 / 30 / 35 / 40% bonus AD)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  15,
+                  30,
+                  45,
+                  60,
+                  75
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AD",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 100
+                  },
+                  "text": "(+ 100% AD)"
+                },
+                {
+                  "stat": "bonusAD",
+                  "ratio": {
+                    "kind": "rank",
+                    "values": [
+                      20,
+                      25,
+                      30,
+                      35,
+                      40
+                    ]
+                  },
+                  "text": "(+ 20 / 25 / 30 / 35 / 40% bonus AD)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Physical Damage per Hit",
+            "amount": {
+              "text": "7.5 / 15 / 22.5 / 30 / 37.5 (+ 50% AD) (+ 10 / 12.5 / 15 / 17.5 / 20% bonus AD)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  7.5,
+                  15,
+                  22.5,
+                  30,
+                  37.5
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AD",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 50
+                  },
+                  "text": "(+ 50% AD)"
+                },
+                {
+                  "stat": "bonusAD",
+                  "ratio": {
+                    "kind": "rank",
+                    "values": [
+                      10,
+                      12.5,
+                      15,
+                      17.5,
+                      20
+                    ]
+                  },
+                  "text": "(+ 10 / 12.5 / 15 / 17.5 / 20% bonus AD)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Champion Healing",
+            "amount": {
+              "text": "5 / 6 / 7 / 8 / 9% of his maximum health",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  5,
+                  6,
+                  7,
+                  8,
+                  9
+                ]
+              },
+              "unit": "%",
+              "scaling": [],
+              "unparsed": "",
+              "baseStat": "maxHealth"
+            }
+          },
+          {
+            "label": "Non-Champion Healing",
+            "amount": {
+              "text": "2.5 / 3 / 3.5 / 4 / 4.5% of his maximum health",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  2.5,
+                  3,
+                  3.5,
+                  4,
+                  4.5
+                ]
+              },
+              "unit": "%",
+              "scaling": [],
+              "unparsed": "",
+              "baseStat": "maxHealth"
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "uncancellable windup",
+            "category": "offense",
+            "wording": "uncancellable windup",
+            "evidence": "Active: Zaahen empowers his next basic attack within 4 seconds to have an uncancellable windup and gain 25 bonus range.",
+            "conditional": false
+          },
+          {
+            "type": "on-attack",
+            "category": "offense",
+            "wording": "On-attack",
+            "evidence": "On-attack, he strikes the target twice.",
+            "conditional": false
+          },
+          {
+            "type": "heal",
+            "category": "defense",
+            "wording": "heals",
+            "evidence": "If the target was a champion, minion, or monster, he also heals himself.",
+            "conditional": false
+          },
+          {
+            "type": "on-hit",
+            "category": "offense",
+            "wording": "on-hit",
+            "evidence": "Each strike applies on-hit effects and can critically strike for 50% AD bonus physical damage.",
+            "conditional": false
+          },
+          {
+            "type": "critical strike",
+            "category": "offense",
+            "wording": "critically strike",
+            "evidence": "Each strike applies on-hit effects and can critically strike for 50% AD bonus physical damage.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "After 1.5 seconds of using the empowered attack, The Darkin Glaive can be recast within the next 4 seconds at no additional cost, modifying it with a new effect.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "label": "Recast",
+        "text": "Recast: Zaahen empowers his next basic attack within 4 seconds to have an uncancellable windup, gain 25 bonus range, deal bonus physical damage and knock up the target for 0.75 seconds.",
+        "leveling": [
+          {
+            "label": "Bonus Physical Damage",
+            "amount": {
+              "text": "30 / 60 / 90 / 120 / 150 (+ 20 / 25 / 30 / 35 / 40% bonus AD)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  30,
+                  60,
+                  90,
+                  120,
+                  150
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "bonusAD",
+                  "ratio": {
+                    "kind": "rank",
+                    "values": [
+                      20,
+                      25,
+                      30,
+                      35,
+                      40
+                    ]
+                  },
+                  "text": "(+ 20 / 25 / 30 / 35 / 40% bonus AD)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "uncancellable windup",
+            "category": "offense",
+            "wording": "uncancellable windup",
+            "evidence": "Recast: Zaahen empowers his next basic attack within 4 seconds to have an uncancellable windup, gain 25 bonus range, deal bonus physical damage and knock up the target for 0.75 seconds.",
+            "conditional": false
+          },
+          {
+            "type": "airborne",
+            "category": "control",
+            "wording": "knock up",
+            "duration": {
+              "kind": "constant",
+              "value": 0.75
+            },
+            "evidence": "Recast: Zaahen empowers his next basic attack within 4 seconds to have an uncancellable windup, gain 25 bonus range, deal bonus physical damage and knock up the target for 0.75 seconds.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "The Darkin Glaive deals 200% damage against monsters.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "text": "Both casts of The Darkin Glaive reset Zaahen's basic attack timer.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "attack reset",
+            "category": "offense",
+            "wording": "reset",
+            "evidence": "Both casts of The Darkin Glaive reset Zaahen's basic attack timer.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "The Darkin Glaive's damage is tagged as basic damage and spell damage, which allows it to trigger spell effects.",
+      "Spell shield will only block the knock up from the recast.",
+      "Since the healing is granted on-attack, parrying effects will not prevent Zaahen from gaining the heal. Otherwise, parrying effects will negate all other aspects of The Darkin Glaive's attacks while consuming them.",
+      "The ability will not heal against wards, plants, or structures.",
+      "Upon being put in resurrection and if The Darkin Glaive is active, it is placed on cooldown immediately.",
+      "The first cast's double-strike attack:\n  - Rolls critical strike once for both strikes.\n  - Does not cause Zaahen to attack twice.\n    - Effects that trigger on-attack or interact with the attack windup will only trigger once and thus do not interact with The Darkin Glaive. (e.g. Lethal Tempo, Hail of Blades).\n  - Will consume Bone Plating once.\n    - If the first strike triggers the rune, the second one will get blocked by it.\n    - If the first strike is blocked by the rune, the second one will not.",
+      "The 1.5-second delay is not \"fuzzy\" (it will never take up to another 0.25 seconds) and so will never correctly sync up with Sheen like Precision Protocol."
+    ]
+  },
+  {
+    "champion": "Zaahen",
+    "kind": "R",
+    "name": "Grim Deliverance",
+    "page": {
+      "title": "Template:Data Zaahen/Grim Deliverance",
+      "revid": 4007768
+    },
+    "ranks": 3,
+    "fields": {
+      "cooldown": {
+        "text": "110 / 95 / 80",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                110,
+                95,
+                80
+              ]
+            }
+          }
+        ]
+      },
+      "cost": {
+        "text": "100",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 100
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "0.5",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0.5
+            }
+          }
+        ]
+      },
+      "targetRange": {
+        "text": "10 - 600",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 10
+            },
+            "label": "Minimum and maximum dash distance"
+          }
+        ]
+      },
+      "effectRadius": {
+        "text": "550",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 550
+            }
+          }
+        ]
+      },
+      "speed": {
+        "text": "2800",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 2800
+            },
+            "label": "Dash speed"
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Location"
+      ],
+      "affects": [
+        "Self",
+        "Enemies"
+      ],
+      "damageType": [
+        "Physical"
+      ],
+      "spellEffects": "spellaoe",
+      "spellShield": "special",
+      "grounded": "true",
+      "knockdown": "special"
+    },
+    "parts": [
+      {
+        "label": "Passive",
+        "text": "Passive: Zaahen gains armor penetration.",
+        "leveling": [
+          {
+            "label": "Armor Penetration",
+            "amount": {
+              "text": "10 / 20 / 30%",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  10,
+                  20,
+                  30
+                ]
+              },
+              "unit": "%",
+              "scaling": [],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "label": "Active",
+        "text": "Active: Zaahen gains crowd control immunity over the cast time, then launches with displacement immunity into the air to the target location. He then slams his glaive down after a 0.6-second delay, unleashing a shockwave that deals physical damage to nearby enemies and heals him for each champion hit.",
+        "leveling": [
+          {
+            "label": "Physical Damage",
+            "amount": {
+              "text": "250 / 400 / 550 (+ 200% bonus AD)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  250,
+                  400,
+                  550
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "bonusAD",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 200
+                  },
+                  "text": "(+ 200% bonus AD)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Healing per Champion hit",
+            "amount": {
+              "text": "82.5 / 132 / 181.5 (+ 66% bonus AD)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  82.5,
+                  132,
+                  181.5
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "bonusAD",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 66
+                  },
+                  "text": "(+ 66% bonus AD)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "cc-immune",
+            "category": "defense",
+            "wording": "crowd control immunity",
+            "evidence": "Active: Zaahen gains crowd control immunity over the cast time, then launches with displacement immunity into the air to the target location.",
+            "conditional": false
+          },
+          {
+            "type": "dash",
+            "category": "movement",
+            "wording": "launches",
+            "evidence": "Active: Zaahen gains crowd control immunity over the cast time, then launches with displacement immunity into the air to the target location.",
+            "conditional": false
+          },
+          {
+            "type": "displacement-immune",
+            "category": "defense",
+            "wording": "displacement immunity",
+            "evidence": "Active: Zaahen gains crowd control immunity over the cast time, then launches with displacement immunity into the air to the target location.",
+            "conditional": false
+          },
+          {
+            "type": "heal",
+            "category": "defense",
+            "wording": "heals",
+            "evidence": "He then slams his glaive down after a 0.6-second delay, unleashing a shockwave that deals physical damage to nearby enemies and heals him for each champion hit.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "Zaahen is unable to act and gains 50% damage reduction from the start of the cast time. He retains these effects as well as the displacement immunity during the delay before the slam and for up-to an additional 0.25 seconds afterwards.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "lockout",
+            "category": "other",
+            "wording": "unable to act",
+            "evidence": "Zaahen is unable to act and gains 50% damage reduction from the start of the cast time.",
+            "conditional": false
+          },
+          {
+            "type": "displacement-immune",
+            "category": "defense",
+            "wording": "displacement immunity",
+            "evidence": "He retains these effects as well as the displacement immunity during the delay before the slam and for up-to an additional 0.25 seconds afterwards.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "The lockout, damage reduction, and displacement immunity may last for up to an additional 0.25 seconds after the slam due to fuzziness.",
+      "The healing per champion is equal to 33% of the damage numbers, not the damage dealt.",
+      "Spell shield will block the damage but not the heal.",
+      "If Zaahen blinks or has his dash otherwise interrupted while ascending into the air, Grim Deliverance's effects are canceled; he will not slam the ground and will not update his animations correctly, additionally, he will be able to move during the lockout.",
+      "If Zaahen moves during the 0.6-second delay, he will slam down at his new location despite the indicator not moving.",
+      "Zaahen will transition from having total crowd control immunity during the cast time, to having displacement immunity during the dash and the slam delay.",
+      "The following table refers for interactions while Zaahen is in cast time and during the lockout:"
+    ]
+  },
+  {
+    "champion": "Zaahen",
+    "kind": "W",
+    "name": "Dreaded Return",
+    "page": {
+      "title": "Template:Data Zaahen/Dreaded Return",
+      "revid": 4050171
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "14 / 13.5 / 13 / 12.5 / 12",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                14,
+                13.5,
+                13,
+                12.5,
+                12
+              ]
+            }
+          }
+        ]
+      },
+      "cost": {
+        "text": "50",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 50
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "0.5",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0.5
+            }
+          }
+        ]
+      },
+      "targetRange": {
+        "text": "850",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 850
+            }
+          }
+        ]
+      },
+      "width": {
+        "text": "140",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 140
+            }
+          }
+        ]
+      },
+      "speed": {
+        "text": "2900 • 900",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 2900
+            },
+            "label": "Missile speed"
+          },
+          {
+            "series": {
+              "kind": "constant",
+              "value": 900
+            },
+            "label": "Pull speed"
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Direction"
+      ],
+      "affects": [
+        "Enemies"
+      ],
+      "damageType": [
+        "Physical"
+      ],
+      "spellEffects": "spellaoe",
+      "spellShield": "true",
+      "projectile": "true"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Zaahen extends his glaive in the target direction, dealing physical damage to enemies hit. Upon reaching maximum range, all enemies hit are dealt physical damage, stunned for 0.25 seconds, and pulled 225 units toward Zaahen.",
+        "leveling": [
+          {
+            "label": "Initial Physical Damage",
+            "amount": {
+              "text": "40 / 60 / 80 / 100 / 120 (+ 50% bonus AD)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  40,
+                  60,
+                  80,
+                  100,
+                  120
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "bonusAD",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 50
+                  },
+                  "text": "(+ 50% bonus AD)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Subsequent Physical Damage",
+            "amount": {
+              "text": "30 / 50 / 70 / 90 / 110 (+ 30% bonus AD)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  30,
+                  50,
+                  70,
+                  90,
+                  110
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "bonusAD",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 30
+                  },
+                  "text": "(+ 30% bonus AD)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Total Physical Damage",
+            "amount": {
+              "text": "70 / 110 / 150 / 190 / 230 (+ 80% bonus AD)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  70,
+                  110,
+                  150,
+                  190,
+                  230
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "bonusAD",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 80
+                  },
+                  "text": "(+ 80% bonus AD)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "stun",
+            "category": "control",
+            "wording": "stunned",
+            "duration": {
+              "kind": "constant",
+              "value": 0.25
+            },
+            "evidence": "Upon reaching maximum range, all enemies hit are dealt physical damage, stunned for 0.25 seconds, and pulled 225 units toward Zaahen.",
+            "conditional": false
+          },
+          {
+            "type": "airborne",
+            "category": "control",
+            "wording": "pulled",
+            "evidence": "Upon reaching maximum range, all enemies hit are dealt physical damage, stunned for 0.25 seconds, and pulled 225 units toward Zaahen.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Spell shield will block both passes, as well as the second one individually if circumstances permit.",
+      "Intercepting the initial projectile will instantly trigger Dreaded Return's pull.",
+      "Displacement immunity will not resist the application of the stun.",
+      "The damage, stun, and pull from hitting the target do not occur if Zaahen is dead by the time the missile reaches maximum range.",
+      "The projectile is shown on the minimap and Dreaded Return can be cast targeting the minimap.",
+      "This ability will cast from wherever the caster is at the end of the cast time.",
+      "Dreaded Return maintains its casting angle direction in relation to Zaahen if he moves during the cast time.",
+      "Dreaded Return briefly provides vision over an area.\n  - How big is the vision bubble and how long does it last?"
+    ]
+  }
+]

@@ -1,0 +1,1109 @@
+[
+  {
+    "champion": "Morgana",
+    "kind": "E",
+    "name": "Black Shield",
+    "page": {
+      "title": "Template:Data Morgana/Black Shield",
+      "revid": 4050925
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "26 / 23.5 / 21 / 18.5 / 16",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                26,
+                23.5,
+                21,
+                18.5,
+                16
+              ]
+            }
+          }
+        ]
+      },
+      "cost": {
+        "text": "80",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 80
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "none",
+        "values": []
+      },
+      "targetRange": {
+        "text": "800",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 800
+            }
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Unit"
+      ],
+      "affects": [
+        "Self",
+        "Allies"
+      ],
+      "damageType": []
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Morgana grants a shield to the target allied champion or herself for 5 seconds, which absorbs incoming magic damage and grants crowd control immunity while it holds.",
+        "leveling": [
+          {
+            "label": "Magic Shield Strength",
+            "amount": {
+              "text": "100 / 155 / 210 / 265 / 320 (+ 70% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  100,
+                  155,
+                  210,
+                  265,
+                  320
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 70
+                  },
+                  "text": "(+ 70% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "shield",
+            "category": "defense",
+            "wording": "shield",
+            "duration": {
+              "kind": "constant",
+              "value": 5
+            },
+            "evidence": "Active: Morgana grants a shield to the target allied champion or herself for 5 seconds, which absorbs incoming magic damage and grants crowd control immunity while it holds.",
+            "conditional": false
+          },
+          {
+            "type": "cc-immune",
+            "category": "defense",
+            "wording": "crowd control immunity",
+            "duration": {
+              "kind": "constant",
+              "value": 5
+            },
+            "evidence": "Active: Morgana grants a shield to the target allied champion or herself for 5 seconds, which absorbs incoming magic damage and grants crowd control immunity while it holds.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Black Shield will not resist self nor allied crowd control (including e.g. an allied Tempered Fate).",
+      "Black Shield will not resist nearsight.",
+      "Black Shield negates crowd control effects before any magic damage is absorbed; even if the shield is broken by an enemy dealing enough damage, its associated disables will not apply. Shield-destroying effects bypass this however, since they destroy the shield before applying their effects.",
+      "Although not considered a crowd control effect, Black Shield is special-cased to block Test of Spirit spirit pull, but does not prevent R tether, R, W, R.",
+      "Black Shield does not prevent Chum the Waters from attaching.",
+      "Black Shield takes priority over other sources of crowd control immunity and those that grant immunity to specific types of crowd control (displacement immunity and slow immunity).",
+      "Spell shield will take priority over Black Shield.",
+      "Black Shield will always take priority over regular shields. If used in conjunction with Lifeline, the most recently-applied one will have priority however.",
+      "Black Shield has a forgiveness radius of 175 units."
+    ]
+  },
+  {
+    "champion": "Morgana",
+    "kind": "I",
+    "name": "Soul Siphon",
+    "page": {
+      "title": "Template:Data Morgana/Soul Siphon",
+      "revid": 3985603
+    },
+    "ranks": 1,
+    "fields": {},
+    "flags": {
+      "targeting": [
+        "Passive"
+      ],
+      "affects": [
+        "Self"
+      ],
+      "damageType": []
+    },
+    "parts": [
+      {
+        "label": "Innate",
+        "text": "Innate: Morgana heals herself for 18% of the post-mitigation damage dealt by her abilities against champions, large minions, and medium and large monsters.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "heal",
+            "category": "defense",
+            "wording": "heals",
+            "evidence": "Innate: Morgana heals herself for 18% of the post-mitigation damage dealt by her abilities against champions, large minions, and medium and large monsters.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "No additional details."
+    ]
+  },
+  {
+    "champion": "Morgana",
+    "kind": "Q",
+    "name": "Dark Binding",
+    "page": {
+      "title": "Template:Data Morgana/Dark Binding",
+      "revid": 3936353
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "10",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 10
+            }
+          }
+        ]
+      },
+      "cost": {
+        "text": "50 / 55 / 60 / 65 / 70",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                50,
+                55,
+                60,
+                65,
+                70
+              ]
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "0.25",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0.25
+            }
+          }
+        ]
+      },
+      "range": {
+        "text": "1300",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 1300
+            }
+          }
+        ]
+      },
+      "width": {
+        "text": "140",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 140
+            }
+          }
+        ]
+      },
+      "speed": {
+        "text": "1200",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 1200
+            }
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Direction"
+      ],
+      "affects": [
+        "Enemies"
+      ],
+      "damageType": [
+        "Magic"
+      ],
+      "spellEffects": "single target",
+      "spellShield": "true",
+      "projectile": "true"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Morgana throws a sphere of dark magic in the target direction that deals magic damage to the first enemy hit and roots them for a duration.",
+        "leveling": [
+          {
+            "label": "Magic Damage",
+            "amount": {
+              "text": "80 / 135 / 190 / 245 / 300 (+ 90% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  80,
+                  135,
+                  190,
+                  245,
+                  300
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 90
+                  },
+                  "text": "(+ 90% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Root Duration",
+            "amount": {
+              "text": "2 / 2.25 / 2.5 / 2.75 / 3 seconds",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  2,
+                  2.25,
+                  2.5,
+                  2.75,
+                  3
+                ]
+              },
+              "unit": "s",
+              "scaling": [],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "root",
+            "category": "control",
+            "wording": "roots",
+            "duration": {
+              "kind": "rank",
+              "values": [
+                2,
+                2.25,
+                2.5,
+                2.75,
+                3
+              ]
+            },
+            "evidence": "Active: Morgana throws a sphere of dark magic in the target direction that deals magic damage to the first enemy hit and roots them for a duration.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "This ability will cast from wherever the caster is at the start of the cast time."
+    ]
+  },
+  {
+    "champion": "Morgana",
+    "kind": "R",
+    "name": "Soul Shackles",
+    "page": {
+      "title": "Template:Data Morgana/Soul Shackles",
+      "revid": 4020315
+    },
+    "ranks": 3,
+    "fields": {
+      "cooldown": {
+        "text": "120 / 110 / 100",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                120,
+                110,
+                100
+              ]
+            }
+          }
+        ]
+      },
+      "cost": {
+        "text": "100",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 100
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "0.35",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0.35
+            }
+          }
+        ]
+      },
+      "effectRadius": {
+        "text": "625",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 625
+            },
+            "label": "Latch-on range"
+          }
+        ]
+      },
+      "tetherRadius": {
+        "text": "625",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 625
+            }
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Proximity"
+      ],
+      "affects": [
+        "Enemies"
+      ],
+      "damageType": [
+        "Magic"
+      ],
+      "spellEffects": "aoe",
+      "spellShield": "special",
+      "projectile": "false"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Morgana latches chains of energy onto nearby enemy champions over the cast time, dealing magic damage and forming a tether between herself and each target for 3 seconds, during which she gains bonus movement speed and the targets are revealed and slowed by 20%.",
+        "leveling": [
+          {
+            "label": "Magic Damage",
+            "amount": {
+              "text": "200 / 275 / 350 (+ 80% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  200,
+                  275,
+                  350
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 80
+                  },
+                  "text": "(+ 80% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Total Magic Damage",
+            "amount": {
+              "text": "400 / 550 / 700 (+ 160% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  400,
+                  550,
+                  700
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 160
+                  },
+                  "text": "(+ 160% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Bonus Movement Speed",
+            "amount": {
+              "text": "20 / 40 / 60%",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  20,
+                  40,
+                  60
+                ]
+              },
+              "unit": "%",
+              "scaling": [],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "tether",
+            "category": "other",
+            "wording": "tether",
+            "duration": {
+              "kind": "constant",
+              "value": 3
+            },
+            "evidence": "Active: Morgana latches chains of energy onto nearby enemy champions over the cast time, dealing magic damage and forming a tether between herself and each target for 3 seconds, during which she gains bonus movement speed and the targets are revealed and slowed by 20%.",
+            "conditional": false
+          },
+          {
+            "type": "true sight",
+            "category": "vision",
+            "wording": "revealed",
+            "evidence": "Active: Morgana latches chains of energy onto nearby enemy champions over the cast time, dealing magic damage and forming a tether between herself and each target for 3 seconds, during which she gains bonus movement speed and the targets are revealed and slowed by 20%.",
+            "conditional": false
+          },
+          {
+            "type": "slow",
+            "category": "control",
+            "wording": "slowed",
+            "amount": {
+              "kind": "constant",
+              "value": 20
+            },
+            "evidence": "Active: Morgana latches chains of energy onto nearby enemy champions over the cast time, dealing magic damage and forming a tether between herself and each target for 3 seconds, during which she gains bonus movement speed and the targets are revealed and slowed by 20%.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "If a target does not break their tether by the end of its duration, they are dealt the same magic damage again and become stunned for a duration, during which they are revealed.",
+        "leveling": [
+          {
+            "label": "Stun Duration",
+            "amount": {
+              "text": "1.5 / 1.75 / 2 seconds",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  1.5,
+                  1.75,
+                  2
+                ]
+              },
+              "unit": "s",
+              "scaling": [],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "stun",
+            "category": "control",
+            "wording": "stunned",
+            "duration": {
+              "kind": "rank",
+              "values": [
+                1.5,
+                1.75,
+                2
+              ]
+            },
+            "evidence": "If a target does not break their tether by the end of its duration, they are dealt the same magic damage again and become stunned for a duration, during which they are revealed.",
+            "conditional": false
+          },
+          {
+            "type": "true sight",
+            "category": "vision",
+            "wording": "revealed",
+            "evidence": "If a target does not break their tether by the end of its duration, they are dealt the same magic damage again and become stunned for a duration, during which they are revealed.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "An enemy champion within 575 units is required to cast this ability. The target does not have to be visible to be tethered by this ability.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "reveal",
+            "category": "vision",
+            "wording": "visible",
+            "evidence": "The target does not have to be visible to be tethered by this ability.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Spell shield will block the tether's application and initial damage but not the aftereffects of one already applied.",
+      "Morgana will turn to face southeast upon casting Soul Shackles.",
+      "Soul Shackles checks for nearby valid targets around a location that is Morgana's exact location at the start of the cast time.\n  - In other words, the latch-on radius is from a fixed location around Soul Shackles' cast point in which targets are acquired; targets around Morgana's location at the end of the cast time that are not within this radius will not be targeted, since her location after the cast starts is not considered.\n    - Enemies that were outside of the latch-on radius at the time of cast that enter it afterwards, during the cast time, will be targeted.",
+      "A circle indicator for Soul Shackles' maximum tether range is visible to Morgana and her tethered targets only."
+    ]
+  },
+  {
+    "champion": "Morgana",
+    "kind": "W",
+    "name": "Tormented Shadow",
+    "page": {
+      "title": "Template:Data Morgana/Tormented Shadow",
+      "revid": 4065640
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "12",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 12
+            }
+          }
+        ]
+      },
+      "cost": {
+        "text": "70 / 80 / 90 / 100 / 110",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                70,
+                80,
+                90,
+                100,
+                110
+              ]
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "0.25",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0.25
+            }
+          }
+        ]
+      },
+      "targetRange": {
+        "text": "900",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 900
+            }
+          }
+        ]
+      },
+      "effectRadius": {
+        "text": "280",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 280
+            }
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Location"
+      ],
+      "affects": [
+        "Enemies"
+      ],
+      "damageType": [
+        "Magic"
+      ],
+      "spellEffects": "aoedot",
+      "spellShield": "false"
+    },
+    "parts": [
+      {
+        "label": "Passive",
+        "text": "Passive: Tormented Shadow's current cooldown is reduced by 5% of its total cooldown whenever Soul Siphon triggers. Simultaneous triggers from multiple targets will stack the cooldown reduction.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "label": "Active",
+        "text": "Active: Morgana torments the soil at the target location, causing the area to become desecrated for 5 seconds. Enemies within take magic damage on-cast and every 0.5 seconds thereafter, increased by 0 / 10 / 20 / 30 / 40 / 50 / 60 / 70 / 80 / 90 / 100 (based on target's missing health)%. Tormented Shadow deals 170% damage against monsters.",
+        "leveling": [
+          {
+            "label": "Minimum Damage Per Tick",
+            "amount": {
+              "text": "9 / 15.5 / 22 / 28.5 / 35 (+ 10% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  9,
+                  15.5,
+                  22,
+                  28.5,
+                  35
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 10
+                  },
+                  "text": "(+ 10% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Maximum Damage Per Tick",
+            "amount": {
+              "text": "18 / 31 / 44 / 57 / 70 (+ 20% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  18,
+                  31,
+                  44,
+                  57,
+                  70
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 20
+                  },
+                  "text": "(+ 20% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Minimum Total Damage",
+            "amount": {
+              "text": "90 / 155 / 220 / 285 / 350 (+ 100% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  90,
+                  155,
+                  220,
+                  285,
+                  350
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 100
+                  },
+                  "text": "(+ 100% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Maximum Total Damage",
+            "amount": {
+              "text": "180 / 310 / 440 / 570 / 700 (+ 200% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  180,
+                  310,
+                  440,
+                  570,
+                  700
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 200
+                  },
+                  "text": "(+ 200% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [],
+        "values": [
+          {
+            "series": {
+              "kind": "variable",
+              "variable": "target's missing health",
+              "points": [
+                0,
+                10,
+                20,
+                30,
+                40,
+                50,
+                60,
+                70,
+                80,
+                90,
+                100
+              ],
+              "values": [
+                0,
+                10,
+                20,
+                30,
+                40,
+                50,
+                60,
+                70,
+                80,
+                90,
+                100
+              ]
+            },
+            "context": "Enemies within take magic damage on-cast and every 0.5 seconds thereafter, increased by 0 / 10 / 20 / 30 / 40 / 50 / 60 / 70 / 80 / 90 / 100 (based on target's missing health)%."
+          }
+        ]
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Damage from multiple Tormented Shadows does not stack."
+    ]
+  },
+  {
+    "champion": "Morgana",
+    "kind": "W",
+    "name": "Tormented Soil",
+    "page": {
+      "title": "Template:Data Morgana/Tormented Soil",
+      "revid": 3166766
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "12",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 12
+            }
+          }
+        ]
+      },
+      "cost": {
+        "text": "70 / 85 / 100 / 115 / 130",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                70,
+                85,
+                100,
+                115,
+                130
+              ]
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "targetRange": {
+        "text": "900",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 900
+            }
+          }
+        ]
+      },
+      "effectRadius": {
+        "text": "275",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 275
+            }
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Ground"
+      ],
+      "affects": [
+        "Enemies"
+      ],
+      "damageType": [
+        "Magic"
+      ],
+      "spellEffects": "dot",
+      "spellShield": "false"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Morgana infects the target area for 5 seconds, causing enemies who stand on the location to take magic damage every half second, increased by 0% / 5% / 10% / 15% / 20% / 25% / 30% / 35% / 40% / 45% / 50% (based on target's missing health).",
+        "leveling": [
+          {
+            "label": "Minimum Damage Per Half Second",
+            "amount": {
+              "text": "8 / 16 / 24 / 32 / 40 (+ 11% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  8,
+                  16,
+                  24,
+                  32,
+                  40
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 11
+                  },
+                  "text": "(+ 11% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Maximum Damage Per Half Second",
+            "amount": {
+              "text": "12 / 24 / 36 / 48 / 60 (+ 16.5% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  12,
+                  24,
+                  36,
+                  48,
+                  60
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 16.5
+                  },
+                  "text": "(+ 16.5% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Minimum Total Damage",
+            "amount": {
+              "text": "80 / 160 / 240 / 320 / 400 (+ 110% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  80,
+                  160,
+                  240,
+                  320,
+                  400
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 110
+                  },
+                  "text": "(+ 110% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Maximum Total Damage",
+            "amount": {
+              "text": "120 / 240 / 360 / 480 / 600 (+ 165% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  120,
+                  240,
+                  360,
+                  480,
+                  600
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 165
+                  },
+                  "text": "(+ 165% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [],
+        "values": [
+          {
+            "series": {
+              "kind": "variable",
+              "variable": "target's missing health",
+              "points": [
+                "0%",
+                "10%",
+                "20%",
+                "30%",
+                "40%",
+                "50%",
+                "60%",
+                "70%",
+                "80%",
+                "90%",
+                "100%"
+              ],
+              "values": [
+                "0%",
+                "5%",
+                "10%",
+                "15%",
+                "20%",
+                "25%",
+                "30%",
+                "35%",
+                "40%",
+                "45%",
+                "50%"
+              ]
+            },
+            "context": "Active: Morgana infects the target area for 5 seconds, causing enemies who stand on the location to take magic damage every half second, increased by 0% / 5% / 10% / 15% / 20% / 25% / 30% / 35% / 40% / 45% / 50% (based on target's missing health)."
+          }
+        ]
+      },
+      {
+        "text": "Tormented Soil's cooldown is reduced by 5% whenever Soul Siphon triggers.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Tormented Soil's first tick occurs as soon as Morgana casts.",
+      "Damage from multiple Tormented Soils do not stack."
+    ]
+  }
+]

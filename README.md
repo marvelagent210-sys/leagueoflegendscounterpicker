@@ -2,7 +2,7 @@
 
 A kit-based 1v1 counter picker for top lane: pick the enemy champion, get every champion ranked by how well its kit beats theirs at level 20, with the reasoning behind each result. No win rates or statistics.
 
-Status: milestone 1 of 8 is done (data pipeline and level-20 stat math). See [PLAN.md](PLAN.md) for the plan and progress.
+Status: milestones 1 and 2 of 8 are done (data pipeline, level-20 stats, and every champion's abilities). See [PLAN.md](PLAN.md) for the plan and progress.
 
 ## Setup
 
@@ -25,10 +25,13 @@ Each patch gets a folder named after its Data Dragon version, e.g. `data/16.20/`
 | File | Contents |
 |---|---|
 | `champions.json` | Every champion with its forms and base stats |
+| `abilities/<champion>.json` | Every ability: cooldowns, costs, ranges, interaction flags, values by rank and level, crowd control with durations, and the wiki's notes |
+| `kits/<champion>.md` | A readable page per champion for checking the data, with links to the exact wiki revisions |
 | `oracle/level20.json` | The wiki's level-20 stat table, which the tests check the stat math against |
 | `manifest.json`, `wiki-revisions.json` | The exact source versions and wiki revisions used |
 | `reports/level20-stats.md` | Base stats of every form at level 20 |
-| `reports/game-files.md` | Where the game files disagree with the wiki, and which value is used |
+| `reports/game-files.md` | Where the game files disagree with the wiki on base stats, and which value is used |
+| `reports/abilities.md` | Parsing coverage, level 19-20 values, and ability cooldowns and costs that differ from the game files |
 
 Tests run offline against the committed data.
 

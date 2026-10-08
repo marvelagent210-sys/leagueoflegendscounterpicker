@@ -1,0 +1,944 @@
+[
+  {
+    "champion": "TwistedFate",
+    "kind": "E",
+    "name": "Stacked Deck",
+    "page": {
+      "title": "Template:Data Twisted Fate/Stacked Deck",
+      "revid": 3963571
+    },
+    "ranks": 5,
+    "fields": {},
+    "flags": {
+      "targeting": [
+        "Passive"
+      ],
+      "affects": [
+        "Enemies",
+        "Self"
+      ],
+      "damageType": [
+        "Magic"
+      ],
+      "spellEffects": "proc",
+      "spellShield": "false",
+      "projectile": "true",
+      "parry": "special"
+    },
+    "parts": [
+      {
+        "label": "Passive",
+        "text": "Passive: Twisted Fate gains bonus attack speed. His basic attacks on-hit generate a stack of Stacked Deck, stacking up to 3 times. At 3 stacks, his next basic attack is empowered to consume them all to deal bonus magic damage, reduced to 50% against structures.\n\nTwisted Fate gains maximum stacks of Stacked Deck upon respawning.",
+        "leveling": [
+          {
+            "label": "Bonus Attack Speed",
+            "amount": {
+              "text": "15 / 25 / 35 / 45 / 55%",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  15,
+                  25,
+                  35,
+                  45,
+                  55
+                ]
+              },
+              "unit": "%",
+              "scaling": [],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Bonus Magic Damage",
+            "amount": {
+              "text": "65 / 90 / 115 / 140 / 165 (+ 20% bonus AD) (+ 40% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  65,
+                  90,
+                  115,
+                  140,
+                  165
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "bonusAD",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 20
+                  },
+                  "text": "(+ 20% bonus AD)"
+                },
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 40
+                  },
+                  "text": "(+ 40% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "on-hit",
+            "category": "offense",
+            "wording": "on-hit",
+            "evidence": "His basic attacks on-hit generate a stack of Stacked Deck, stacking up to 3 times.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Stacked Deck can be dodged and/or missed if Twisted Fate is blinded (the on-hit effect is not consumed in either case) but cannot be blocked (the enhanced attack is consumed and the bonus damage is still applied).",
+      "As of patch V14.2, Twisted Fate is intended to gain maximum stacks of Stacked Deck upon learning the ability, but currently does not.",
+      "The empowered attack will trigger against structures but not wards."
+    ]
+  },
+  {
+    "champion": "TwistedFate",
+    "kind": "I",
+    "name": "Loaded Dice",
+    "page": {
+      "title": "Template:Data Twisted Fate/Loaded Dice",
+      "revid": 4005221
+    },
+    "ranks": 1,
+    "fields": {},
+    "flags": {
+      "targeting": [
+        "Passive"
+      ],
+      "affects": [
+        "Self"
+      ],
+      "damageType": []
+    },
+    "parts": [
+      {
+        "label": "Innate",
+        "text": "Innate: Whenever Twisted Fate kills an enemy, he generates 1 / 2 / 3 / 4 / 5 / 6 (based on chance). He also has a chance equal to his critical strike chance to generate an additional 1 – 6 (based on chance).",
+        "leveling": [],
+        "mechanics": [],
+        "values": [
+          {
+            "series": {
+              "kind": "variable",
+              "variable": "chance",
+              "points": [
+                13.333333333333334,
+                13.333333333333334,
+                13.333333333333334,
+                13.333333333333334,
+                13.333333333333334,
+                33.333333333333336
+              ],
+              "values": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6
+              ]
+            },
+            "context": "Innate: Whenever Twisted Fate kills an enemy, he generates 1 / 2 / 3 / 4 / 5 / 6 (based on chance)."
+          }
+        ]
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "The expected bonus gold gained per unit killed is 4.\n  - The expected additional gold due to critical strike chance is 3."
+    ]
+  },
+  {
+    "champion": "TwistedFate",
+    "kind": "Q",
+    "name": "Wild Cards",
+    "page": {
+      "title": "Template:Data Twisted Fate/Wild Cards",
+      "revid": 3950864
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "6 / 5.75 / 5.5 / 5.25 / 5",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                6,
+                5.75,
+                5.5,
+                5.25,
+                5
+              ]
+            }
+          }
+        ]
+      },
+      "cost": {
+        "text": "60 / 70 / 80 / 90 / 100",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                60,
+                70,
+                80,
+                90,
+                100
+              ]
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "0.25",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0.25
+            }
+          }
+        ]
+      },
+      "targetRange": {
+        "text": "1450",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 1450
+            }
+          }
+        ]
+      },
+      "width": {
+        "text": "80",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 80
+            }
+          }
+        ]
+      },
+      "speed": {
+        "text": "1000",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 1000
+            }
+          }
+        ]
+      },
+      "angle": {
+        "text": "56°",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 56
+            },
+            "label": "cards are fired at -28°, 0°, and 28° from the cast direction"
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Direction"
+      ],
+      "affects": [
+        "Enemies"
+      ],
+      "damageType": [
+        "Magic"
+      ],
+      "spellEffects": "area of effect",
+      "spellShield": "true",
+      "projectile": "true"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Twisted Fate throws a fan of three cards in a cone in the target direction that each deal magic damage to enemies hit.",
+        "leveling": [
+          {
+            "label": "Magic Damage",
+            "amount": {
+              "text": "60 / 105 / 150 / 195 / 240 (+ 50% bonus AD) (+ 85% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  60,
+                  105,
+                  150,
+                  195,
+                  240
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "bonusAD",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 50
+                  },
+                  "text": "(+ 50% bonus AD)"
+                },
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 85
+                  },
+                  "text": "(+ 85% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "text": "Enemies can be damaged only once per pass.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "This ability will cast from wherever the caster is at the end of the cast time."
+    ]
+  },
+  {
+    "champion": "TwistedFate",
+    "kind": "R",
+    "name": "Destiny",
+    "page": {
+      "title": "Template:Data Twisted Fate/Destiny",
+      "revid": 4017975
+    },
+    "ranks": 3,
+    "fields": {
+      "cooldown": {
+        "text": "170 / 140 / 110",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                170,
+                140,
+                110
+              ]
+            },
+            "label": "Starts after recast times out or is used"
+          }
+        ]
+      },
+      "cooldownStart": "post-effect",
+      "cost": {
+        "text": "100",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 100
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "none",
+        "values": []
+      },
+      "targetRange": {
+        "text": "5500",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 5500
+            }
+          }
+        ]
+      },
+      "effectRadius": {
+        "text": "Global",
+        "values": []
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Auto",
+        "Location"
+      ],
+      "affects": [
+        "Enemies",
+        "Allies",
+        "Self"
+      ],
+      "damageType": [],
+      "spellShield": "true",
+      "grounded": "special",
+      "silence": "true"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Twisted Fate marks all targetable enemy champions, revealing them for a duration. Destiny can be recast after 0.5 seconds within the duration.",
+        "leveling": [
+          {
+            "label": "Effect Duration",
+            "amount": {
+              "text": "6 / 8 / 10 seconds",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  6,
+                  8,
+                  10
+                ]
+              },
+              "unit": "s",
+              "scaling": [],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "true sight",
+            "category": "vision",
+            "wording": "revealing",
+            "evidence": "Active: Twisted Fate marks all targetable enemy champions, revealing them for a duration.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "label": "Recast - Gate",
+        "text": "Recast - Gate: Twisted Fate channels for 1.5 seconds before blinking to the target location, destroying enemy projectiles targeting him in the process.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "channel",
+            "category": "other",
+            "wording": "channels",
+            "duration": {
+              "kind": "constant",
+              "value": 1.5
+            },
+            "evidence": "Recast - Gate: Twisted Fate channels for 1.5 seconds before blinking to the target location, destroying enemy projectiles targeting him in the process.",
+            "conditional": false
+          },
+          {
+            "type": "blink",
+            "category": "movement",
+            "wording": "blinking",
+            "evidence": "Recast - Gate: Twisted Fate channels for 1.5 seconds before blinking to the target location, destroying enemy projectiles targeting him in the process.",
+            "conditional": false
+          },
+          {
+            "type": "projectile",
+            "category": "other",
+            "wording": "projectiles",
+            "evidence": "Recast - Gate: Twisted Fate channels for 1.5 seconds before blinking to the target location, destroying enemy projectiles targeting him in the process.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Both casts count as ability activations for the purposes of on-cast effects such as Spellblade and triggering Force Pulse passive.",
+      "Twisted Fate cannot recast Destiny while grounded or rooted.",
+      "The nearsight from Paranoia will overpower the reveal from Destiny regardless of which one was cast first (enemy champions can still be revealed by Destiny after Paranoia ends if durations permit).",
+      "Using the recast will inform allies with a ping.\n  - Both allies and enemies can see an indicator at the targeted location of where Twisted Fate will appear.",
+      "The following table refers for interactions while Twisted Fate is channeling:\n  - Item actives with cast times as well as Titanic Hydra are disabled during the channel.\n    - Trying to cast a disabled item active will buffer it to cast at the completion of the channel."
+    ]
+  },
+  {
+    "champion": "TwistedFate",
+    "kind": "W",
+    "name": "Pick a Card",
+    "page": {
+      "title": "Template:Data Twisted Fate/Pick a Card",
+      "revid": 4004668
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "6",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 6
+            }
+          }
+        ]
+      },
+      "cooldownStart": "post-effect",
+      "cost": {
+        "text": "50 / 55 / 60 / 65 / 70",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                50,
+                55,
+                60,
+                65,
+                70
+              ]
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "none",
+        "values": []
+      },
+      "effectRadius": {
+        "text": "325",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 325
+            },
+            "label": "Red card explosion"
+          }
+        ]
+      },
+      "speed": {
+        "text": "1500",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 1500
+            },
+            "label": "Attack missile speed, same as basic attacks"
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Auto"
+      ],
+      "affects": [
+        "Enemies",
+        "Self"
+      ],
+      "damageType": [
+        "Magic"
+      ],
+      "spellEffects": "spell",
+      "spellShield": "true",
+      "projectile": "true",
+      "parry": "true"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Twisted Fate cycles through three cards for 6 seconds, hovering each for 0.5 seconds at a time. Pick a Card can be recast within the duration, which selects the current card hovered.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "text": "Recast: Twisted Fate empowers his next basic attack within 6 seconds to have a 0.25-second cast time, deal modified magic damage, and apply an additional effect based on the card selected. This attack cannot critically strike but its damage is increased based on critical strike chance.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "critical strike",
+            "category": "offense",
+            "wording": "critically strike",
+            "evidence": "This attack cannot critically strike but its damage is increased based on critical strike chance.",
+            "conditional": true
+          }
+        ],
+        "values": []
+      },
+      {
+        "label": "Blue Card Bonus",
+        "text": "Blue Card Bonus: Deals magic damage, increased by 0 / 5.75 / 11.5 / 17.25 / 23 / 28.75 / 34.5 / 40.25 / 46 / 51.75 / 57.5 (based on critical strike chance)%, and restores mana.",
+        "leveling": [
+          {
+            "label": "Magic Damage",
+            "amount": {
+              "text": "40 / 60 / 80 / 100 / 120 (+ 100% AD) (+ 100% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  40,
+                  60,
+                  80,
+                  100,
+                  120
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AD",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 100
+                  },
+                  "text": "(+ 100% AD)"
+                },
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 100
+                  },
+                  "text": "(+ 100% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Mana Restored",
+            "amount": {
+              "text": "70 / 90 / 110 / 130 / 150",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  70,
+                  90,
+                  110,
+                  130,
+                  150
+                ]
+              },
+              "scaling": [],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [],
+        "values": [
+          {
+            "series": {
+              "kind": "variable",
+              "variable": "critical strike chance",
+              "points": [
+                0,
+                10,
+                20,
+                30,
+                40,
+                50,
+                60,
+                70,
+                80,
+                90,
+                100
+              ],
+              "values": [
+                0,
+                5.75,
+                11.5,
+                17.25,
+                23,
+                28.75,
+                34.5,
+                40.25,
+                46,
+                51.75,
+                57.5
+              ]
+            },
+            "context": "Blue Card Bonus: Deals magic damage, increased by 0 / 5.75 / 11.5 / 17.25 / 23 / 28.75 / 34.5 / 40.25 / 46 / 51.75 / 57.5 (based on critical strike chance)%, and restores mana."
+          }
+        ]
+      },
+      {
+        "text": "Red Card Bonus: Deals magic damage to the target and surrounding enemies, increased by 0 / 3.5 / 7 / 10.5 / 14 / 17.5 / 21 / 24.5 / 28 / 31.5 / 35 (based on critical strike chance)%. All targets hit are slowed for 2.5 seconds.",
+        "leveling": [
+          {
+            "label": "Magic Damage",
+            "amount": {
+              "text": "30 / 45 / 60 / 75 / 90 (+ 100% AD) (+ 70% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  30,
+                  45,
+                  60,
+                  75,
+                  90
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AD",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 100
+                  },
+                  "text": "(+ 100% AD)"
+                },
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 70
+                  },
+                  "text": "(+ 70% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Slow",
+            "amount": {
+              "text": "30 / 35 / 40 / 45 / 50%",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  30,
+                  35,
+                  40,
+                  45,
+                  50
+                ]
+              },
+              "unit": "%",
+              "scaling": [],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "slow",
+            "category": "control",
+            "wording": "slowed",
+            "duration": {
+              "kind": "constant",
+              "value": 2.5
+            },
+            "amount": {
+              "kind": "rank",
+              "values": [
+                30,
+                35,
+                40,
+                45,
+                50
+              ]
+            },
+            "evidence": "All targets hit are slowed for 2.5 seconds.",
+            "conditional": false
+          }
+        ],
+        "values": [
+          {
+            "series": {
+              "kind": "variable",
+              "variable": "critical strike chance",
+              "points": [
+                0,
+                10,
+                20,
+                30,
+                40,
+                50,
+                60,
+                70,
+                80,
+                90,
+                100
+              ],
+              "values": [
+                0,
+                3.5,
+                7,
+                10.5,
+                14,
+                17.5,
+                21,
+                24.5,
+                28,
+                31.5,
+                35
+              ]
+            },
+            "context": "Red Card Bonus: Deals magic damage to the target and surrounding enemies, increased by 0 / 3.5 / 7 / 10.5 / 14 / 17.5 / 21 / 24.5 / 28 / 31.5 / 35 (based on critical strike chance)%."
+          }
+        ]
+      },
+      {
+        "text": "Gold Card Bonus: Deals magic damage, increased by 0 / 2.5 / 5 / 7.5 / 10 / 12.5 / 15 / 17.5 / 20 / 22.5 / 25 (based on critical strike chance)%, and stuns the target for a duration.",
+        "leveling": [
+          {
+            "label": "Magic Damage",
+            "amount": {
+              "text": "15 / 22.5 / 30 / 37.5 / 45 (+ 100% AD) (+ 50% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  15,
+                  22.5,
+                  30,
+                  37.5,
+                  45
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AD",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 100
+                  },
+                  "text": "(+ 100% AD)"
+                },
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 50
+                  },
+                  "text": "(+ 50% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Stun Duration",
+            "amount": {
+              "text": "1 / 1.25 / 1.5 / 1.75 / 2 seconds",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  1,
+                  1.25,
+                  1.5,
+                  1.75,
+                  2
+                ]
+              },
+              "unit": "s",
+              "scaling": [],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "stun",
+            "category": "control",
+            "wording": "stuns",
+            "duration": {
+              "kind": "rank",
+              "values": [
+                1,
+                1.25,
+                1.5,
+                1.75,
+                2
+              ]
+            },
+            "evidence": "Gold Card Bonus: Deals magic damage, increased by 0 / 2.5 / 5 / 7.5 / 10 / 12.5 / 15 / 17.5 / 20 / 22.5 / 25 (based on critical strike chance)%, and stuns the target for a duration.",
+            "conditional": false
+          }
+        ],
+        "values": [
+          {
+            "series": {
+              "kind": "variable",
+              "variable": "critical strike chance",
+              "points": [
+                0,
+                10,
+                20,
+                30,
+                40,
+                50,
+                60,
+                70,
+                80,
+                90,
+                100
+              ],
+              "values": [
+                0,
+                2.5,
+                5,
+                7.5,
+                10,
+                12.5,
+                15,
+                17.5,
+                20,
+                22.5,
+                25
+              ]
+            },
+            "context": "Gold Card Bonus: Deals magic damage, increased by 0 / 2.5 / 5 / 7.5 / 10 / 12.5 / 15 / 17.5 / 20 / 22.5 / 25 (based on critical strike chance)%, and stuns the target for a duration."
+          }
+        ]
+      },
+      {
+        "text": "Pick a Card's recast resets Twisted Fate's basic attack timer. The recast can be used while affected by cast-inhibiting crowd control.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "attack reset",
+            "category": "offense",
+            "wording": "resets",
+            "evidence": "Pick a Card's recast resets Twisted Fate's basic attack timer.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "The initial cast counts as an ability activation for the purposes of on-cast effects such as Spellblade and triggering Force Pulse passive.\n  - Recasting the ability does not.",
+      "The first card shown is random but the order always remains the same (Blue Card, Red Card, Gold Card, repeat).\n  - Upon activation, an indicator visible to allies and enemies appears above Twisted Fate to show him shuffling his deck of cards while remaining in the same order, the card he can choose at every moment glows over the others. The selected card is specified for the duration of the enhanced attack.",
+      "The interval until the next card is hovered is 0.528 every time, instead of some times 0.528 and other times 0.495.",
+      "If the target becomes untargetable, dies, or is too far away during the empowered attack's cast time, it is cancelled but not consumed.",
+      "The empowered attack will trigger against structures and buildings but not wards and plants.",
+      "The empowered attack is special cased to not trigger a stack of Fiendhunter Bolts Opening Barrage."
+    ]
+  }
+]

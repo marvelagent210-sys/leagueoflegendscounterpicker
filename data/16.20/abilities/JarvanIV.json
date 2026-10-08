@@ -1,0 +1,815 @@
+[
+  {
+    "champion": "JarvanIV",
+    "kind": "E",
+    "name": "Demacian Standard",
+    "page": {
+      "title": "Template:Data Jarvan IV/Demacian Standard",
+      "revid": 4013709
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "12 / 11.5 / 11 / 10.5 / 10",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                12,
+                11.5,
+                11,
+                10.5,
+                10
+              ]
+            }
+          }
+        ]
+      },
+      "cost": {
+        "text": "55",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 55
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "none",
+        "values": []
+      },
+      "targetRange": {
+        "text": "860",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 860
+            }
+          }
+        ]
+      },
+      "effectRadius": {
+        "text": "200 • 1000 • 700",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 200
+            },
+            "label": "Impact radius"
+          },
+          {
+            "series": {
+              "kind": "constant",
+              "value": 1000
+            },
+            "label": "Aura radius"
+          },
+          {
+            "series": {
+              "kind": "constant",
+              "value": 700
+            },
+            "label": "Sight range"
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Location"
+      ],
+      "affects": [
+        "Self",
+        "Enemies"
+      ],
+      "damageType": [
+        "Magic"
+      ],
+      "spellEffects": "aoe",
+      "spellShield": "true"
+    },
+    "parts": [
+      {
+        "label": "Passive",
+        "text": "Passive: Jarvan IV gains bonus attack speed.",
+        "leveling": [
+          {
+            "label": "Bonus Attack Speed",
+            "amount": {
+              "text": "20 / 22.5 / 25 / 27.5 / 30%",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  20,
+                  22.5,
+                  25,
+                  27.5,
+                  30
+                ]
+              },
+              "unit": "%",
+              "scaling": [],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "label": "Active",
+        "text": "Active: Jarvan IV throws a Demacian flag to the target location, dealing magic damage to enemies within the area.",
+        "leveling": [
+          {
+            "label": "Magic Damage",
+            "amount": {
+              "text": "80 / 120 / 160 / 200 / 240 (+ 80% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  80,
+                  120,
+                  160,
+                  200,
+                  240
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 80
+                  },
+                  "text": "(+ 80% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "text": "The flag then remains for 8 seconds, granting sight of its surroundings and providing an aura that grants Demacian Standard's passive bonus attack speed to all nearby allied champions as well as Jarvan IV himself.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "reveal",
+            "category": "vision",
+            "wording": "sight",
+            "evidence": "The flag then remains for 8 seconds, granting sight of its surroundings and providing an aura that grants Demacian Standard's passive bonus attack speed to all nearby allied champions as well as Jarvan IV himself.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "The attack speed granted from a deployed Demacian Standard stacks additively with Demacian Standard's passive permanent bonus attack speed to Jarvan IV, but the aura from multiple Demacian Standards does not stack.\n  - Jarvan IV gains a total of 40 / 45 / 50 / 55 / 60% bonus attack speed from Demacian Standard while near the flag.",
+      "The flag has a 13.6 pathing radius and a 65 gameplay radius.\n  - The gameplay radius matters to Dragon Strike.",
+      "Demacian Standard can be targeted by allied abilities (Teleport, Safeguard). The target type is the same as a minion.",
+      "Demacian Standard is untargetable to enemies."
+    ]
+  },
+  {
+    "champion": "JarvanIV",
+    "kind": "I",
+    "name": "Martial Cadence",
+    "page": {
+      "title": "Template:Data Jarvan IV/Martial Cadence",
+      "revid": 4003791
+    },
+    "ranks": 1,
+    "fields": {},
+    "flags": {
+      "targeting": [
+        "Passive"
+      ],
+      "affects": [
+        "Enemies"
+      ],
+      "damageType": [
+        "Physical"
+      ],
+      "spellEffects": "proc",
+      "spellShield": "false",
+      "parry": "true"
+    },
+    "parts": [
+      {
+        "label": "Innate",
+        "text": "Innate: Jarvan IV's basic attacks are empowered to deal bonus physical damage equal to 8% of the target's current health, with a minimum threshold of 20 and capped at 400 against non-champion targets.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "text": "This effect cannot occur on the same target more than once every few seconds.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Martial Cadence's damage is based on the current health of the target before any damage of the attack has been dealt.",
+      "Martial Cadence's damage is dealt after the main attack damage.\n  - If the target dies to the main attack damage, the additional damage will not be dealt.",
+      "The empowered attack will not trigger against structures."
+    ]
+  },
+  {
+    "champion": "JarvanIV",
+    "kind": "Q",
+    "name": "Dragon Strike",
+    "page": {
+      "title": "Template:Data Jarvan IV/Dragon Strike",
+      "revid": 4042687
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "10 / 9 / 8 / 7 / 6",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                10,
+                9,
+                8,
+                7,
+                6
+              ]
+            }
+          }
+        ]
+      },
+      "cost": {
+        "text": "45 / 50 / 55 / 60 / 65",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                45,
+                50,
+                55,
+                60,
+                65
+              ]
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "0.4",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0.4
+            }
+          }
+        ]
+      },
+      "range": {
+        "text": "65 – 785 • 0 – 850",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 65
+            },
+            "label": "Minimum and maximum area & dash range"
+          },
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0
+            },
+            "label": "Flag detection minimum and maximum distance"
+          }
+        ]
+      },
+      "width": {
+        "text": "136 • 300",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 136
+            },
+            "label": "Damage area width"
+          },
+          {
+            "series": {
+              "kind": "constant",
+              "value": 300
+            },
+            "label": "Flag detection width"
+          }
+        ]
+      },
+      "collisionRadius": {
+        "text": "180",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 180
+            },
+            "label": "Dash collision radius"
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Direction"
+      ],
+      "affects": [
+        "Self",
+        "Enemies"
+      ],
+      "damageType": [
+        "Physical"
+      ],
+      "spellEffects": "aoe",
+      "spellShield": "true",
+      "grounded": "false",
+      "knockdown": "true"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Jarvan IV extends his lance in the target direction, dealing physical damage to enemies hit and inflicting them with armor reduction for 3 seconds.",
+        "leveling": [
+          {
+            "label": "Physical Damage",
+            "amount": {
+              "text": "90 / 130 / 170 / 210 / 250 (+ 145% bonus AD)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  90,
+                  130,
+                  170,
+                  210,
+                  250
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "bonusAD",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 145
+                  },
+                  "text": "(+ 145% bonus AD)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Armor Reduction",
+            "amount": {
+              "text": "10 / 14 / 18 / 22 / 26% of target's armor",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  10,
+                  14,
+                  18,
+                  22,
+                  26
+                ]
+              },
+              "unit": "%",
+              "scaling": [],
+              "unparsed": "",
+              "baseStat": "targetArmor"
+            }
+          }
+        ],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "text": "If the lance connects with a deployed Demacian Standard, Jarvan IV dashes to its location, knocking up nearby enemies around him and along his path for 0.75 seconds.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "dash",
+            "category": "movement",
+            "wording": "dashes",
+            "evidence": "If the lance connects with a deployed Demacian Standard, Jarvan IV dashes to its location, knocking up nearby enemies around him and along his path for 0.75 seconds.",
+            "conditional": false
+          },
+          {
+            "type": "airborne",
+            "category": "control",
+            "wording": "knocking up",
+            "duration": {
+              "kind": "constant",
+              "value": 0.75
+            },
+            "evidence": "If the lance connects with a deployed Demacian Standard, Jarvan IV dashes to its location, knocking up nearby enemies around him and along his path for 0.75 seconds.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "Jarvan IV can cast any of his abilities during the dash.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "The armor reduction is applied after the damage. The damage dealt does not benefit from it in this case.",
+      "This ability will cast from wherever the caster is at the end of the cast time.",
+      "Dragon Strike will still pull Jarvan IV to Demacian Standard even if he is immobilized or grounded.",
+      "Flash will interrupt the dash to a Demacian Standard but Jarvan IV will still knock up at the new location.\n  - Casting Flash right before the dash begins will cause Jarvan IV to be pulled to the flag from the new position.\n  - Enemies already hit by Dragon Strike cannot be affected more than once.",
+      "The knockup also slightly moves the target, landing 50–100 units in a random direction.",
+      "If Dragon Strike hits multiple Demacian Standards in the range, it will pull Jarvan IV to the one furthest from his position."
+    ]
+  },
+  {
+    "champion": "JarvanIV",
+    "kind": "R",
+    "name": "Cataclysm",
+    "page": {
+      "title": "Template:Data Jarvan IV/Cataclysm",
+      "revid": 4017869
+    },
+    "ranks": 3,
+    "fields": {
+      "cooldown": {
+        "text": "120 / 105 / 90",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                120,
+                105,
+                90
+              ]
+            }
+          }
+        ]
+      },
+      "cooldownStart": "post-effect",
+      "cost": {
+        "text": "100",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 100
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "none",
+        "values": []
+      },
+      "targetRange": {
+        "text": "650",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 650
+            }
+          }
+        ]
+      },
+      "effectRadius": {
+        "text": "350 • 1700",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 350
+            },
+            "label": "Terrain creation radius"
+          },
+          {
+            "series": {
+              "kind": "constant",
+              "value": 1700
+            },
+            "label": "Sight range (from center of the whole structure)"
+          }
+        ]
+      },
+      "speed": {
+        "text": "Distance to target ÷ 0.35 s",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0.35
+            },
+            "label": "Dash speed varies based on cast distance"
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Unit"
+      ],
+      "affects": [
+        "Self",
+        "Enemies"
+      ],
+      "damageType": [
+        "Physical"
+      ],
+      "spellEffects": "aoe",
+      "spellShield": "special",
+      "grounded": "true",
+      "knockdown": "false"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Jarvan IV leaps with displacement immunity to the target enemy champion's location over 0.35 seconds, dealing physical damage to all nearby enemies upon arrival.",
+        "leveling": [
+          {
+            "label": "Physical Damage",
+            "amount": {
+              "text": "200 / 325 / 450 (+ 180% bonus AD)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  200,
+                  325,
+                  450
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "bonusAD",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 180
+                  },
+                  "text": "(+ 180% bonus AD)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "dash",
+            "category": "movement",
+            "wording": "leaps",
+            "evidence": "Active: Jarvan IV leaps with displacement immunity to the target enemy champion's location over 0.35 seconds, dealing physical damage to all nearby enemies upon arrival.",
+            "conditional": false
+          },
+          {
+            "type": "displacement-immune",
+            "category": "defense",
+            "wording": "displacement immunity",
+            "duration": {
+              "kind": "constant",
+              "value": 0.35
+            },
+            "evidence": "Active: Jarvan IV leaps with displacement immunity to the target enemy champion's location over 0.35 seconds, dealing physical damage to all nearby enemies upon arrival.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "Upon impact, he creates a circle of impassable terrain that knocks aside enemies within the perimeter over 0.15 seconds, knocking them out of the circle if they are on the outer edge and pulling them in otherwise. The terrain lasts for 3.5 seconds and grants sight of the area. Cataclysm can be recast after 0.75 seconds while the terrain is present.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "airborne",
+            "category": "control",
+            "wording": "knocks aside",
+            "duration": {
+              "kind": "constant",
+              "value": 0.15
+            },
+            "evidence": "Upon impact, he creates a circle of impassable terrain that knocks aside enemies within the perimeter over 0.15 seconds, knocking them out of the circle if they are on the outer edge and pulling them in otherwise.",
+            "conditional": false
+          },
+          {
+            "type": "reveal",
+            "category": "vision",
+            "wording": "sight",
+            "evidence": "The terrain lasts for 3.5 seconds and grants sight of the area.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "label": "Recast",
+        "text": "Recast: Jarvan IV destroys the terrain created by Cataclysm.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      }
+    ],
+    "custom": [
+      {
+        "label": "Impassable perimeter",
+        "text": "255 • 445"
+      }
+    ],
+    "notes": [
+      "The initial cast and the manual recast count as ability activations for the purposes of on-cast effects such as Spellblade and triggering Force Pulse passive.\n  - If the ability is not manually recasted, the secondary effect will trigger without being considered as an ability activation.",
+      "Spell shield will block the damage but not the terrain generation.",
+      "If Jarvan IV's leap is interrupted by another by another forced movement (eg. old Impale), the terrain will be generated at Jarvan IV's location when the forced movement ends.",
+      "Cataclysm will not deal damage, generate terrain, nor refund its cooldown if Jarvan IV is killed while leaping.",
+      "The perimeter is made up of 24 units with 95 pathing radius, 65 gameplay radius and 1350 sight radius each. Only every other unit is rendered visible.",
+      "Searing Charge will not destroy the whole ring but only the part that Ornn collides with."
+    ]
+  },
+  {
+    "champion": "JarvanIV",
+    "kind": "W",
+    "name": "Golden Aegis",
+    "page": {
+      "title": "Template:Data Jarvan IV/Golden Aegis",
+      "revid": 3906940
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "9",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 9
+            }
+          }
+        ]
+      },
+      "cost": {
+        "text": "30",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 30
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "none",
+        "values": []
+      },
+      "effectRadius": {
+        "text": "600",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 600
+            }
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Auto"
+      ],
+      "affects": [
+        "Self",
+        "Enemies"
+      ],
+      "damageType": [],
+      "spellShield": "true"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Jarvan IV slows all nearby enemies for 2 seconds.",
+        "leveling": [
+          {
+            "label": "Slow",
+            "amount": {
+              "text": "15 / 20 / 25 / 30 / 35%",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  15,
+                  20,
+                  25,
+                  30,
+                  35
+                ]
+              },
+              "unit": "%",
+              "scaling": [],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "slow",
+            "category": "control",
+            "wording": "slows",
+            "duration": {
+              "kind": "constant",
+              "value": 2
+            },
+            "amount": {
+              "kind": "rank",
+              "values": [
+                15,
+                20,
+                25,
+                30,
+                35
+              ]
+            },
+            "evidence": "Active: Jarvan IV slows all nearby enemies for 2 seconds.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "Jarvan IV also grants himself a shield for 4 seconds, increased by 1.3% of his maximum health for each enemy champion hit by Golden Aegis.",
+        "leveling": [
+          {
+            "label": "Shield Strength",
+            "amount": {
+              "text": "60 / 80 / 100 / 120 / 140 (+ 70% bonus AD)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  60,
+                  80,
+                  100,
+                  120,
+                  140
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "bonusAD",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 70
+                  },
+                  "text": "(+ 70% bonus AD)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "shield",
+            "category": "defense",
+            "wording": "shield",
+            "duration": {
+              "kind": "constant",
+              "value": 4
+            },
+            "evidence": "Jarvan IV also grants himself a shield for 4 seconds, increased by 1.3% of his maximum health for each enemy champion hit by Golden Aegis.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Golden Aegis deals no damage and thus does not trigger turret aggro, or effects such as Elixir of Sorcery and Sudden Impact activation.",
+      "Golden Aegis will activate combat status despite not dealing any damage."
+    ]
+  }
+]

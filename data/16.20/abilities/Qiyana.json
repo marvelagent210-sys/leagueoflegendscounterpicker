@@ -1,0 +1,1158 @@
+[
+  {
+    "champion": "Qiyana",
+    "kind": "E",
+    "name": "Audacity",
+    "page": {
+      "title": "Template:Data Qiyana/Audacity",
+      "revid": 4052493
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "11 / 10 / 9 / 8 / 7",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                11,
+                10,
+                9,
+                8,
+                7
+              ]
+            }
+          }
+        ]
+      },
+      "cost": {
+        "text": "40 / 45 / 50 / 55 / 60",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                40,
+                45,
+                50,
+                55,
+                60
+              ]
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "none",
+        "values": []
+      },
+      "targetRange": {
+        "text": "650",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 650
+            }
+          }
+        ]
+      },
+      "speed": {
+        "text": "600 + 100% movement speed",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 600
+            },
+            "label": "Capped at 1200"
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Unit"
+      ],
+      "affects": [
+        "Enemies",
+        "Self"
+      ],
+      "damageType": [
+        "physical"
+      ],
+      "spellEffects": "single",
+      "spellShield": "true",
+      "grounded": "true",
+      "knockdown": "true"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Qiyana dashes a fixed distance in the direction of the target enemy. If they are in range upon arrival, she deals physical damage.",
+        "leveling": [
+          {
+            "label": "Physical Damage",
+            "amount": {
+              "text": "50 / 90 / 130 / 170 / 210 (+ 50% bonus AD)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  50,
+                  90,
+                  130,
+                  170,
+                  210
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "bonusAD",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 50
+                  },
+                  "text": "(+ 50% bonus AD)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "dash",
+            "category": "movement",
+            "wording": "dashes",
+            "evidence": "Active: Qiyana dashes a fixed distance in the direction of the target enemy.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "Qiyana can cast any of her abilities during the dash.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Audacity only damages targets if within 250 range upon completion of the dash.",
+      "Qiyana will automatically be ordered to acquire and attack Audacity's target as soon as the dash completes."
+    ]
+  },
+  {
+    "champion": "Qiyana",
+    "kind": "I",
+    "name": "Royal Privilege",
+    "page": {
+      "title": "Template:Data Qiyana/Royal Privilege",
+      "revid": 3985639
+    },
+    "ranks": 1,
+    "fields": {},
+    "flags": {
+      "targeting": [
+        "Passive"
+      ],
+      "affects": [
+        "Enemies"
+      ],
+      "damageType": [
+        "physical"
+      ],
+      "spellEffects": "proc",
+      "parry": "unknown"
+    },
+    "parts": [
+      {
+        "label": "Innate",
+        "text": "Innate: Qiyana's basic attacks on-hit and basic abilities deal 15 – 83 (based on level) (+ 25% bonus AD) (+ 30% AP) additional physical damage.\n\nThis effect cannot occur on the same target more than once every few seconds.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "on-hit",
+            "category": "offense",
+            "wording": "on-hit",
+            "evidence": "Innate: Qiyana's basic attacks on-hit and basic abilities deal 15 – 83 (based on level) (+ 25% bonus AD) (+ 30% AP) additional physical damage.",
+            "conditional": false
+          }
+        ],
+        "values": [
+          {
+            "series": {
+              "kind": "level",
+              "values": [
+                15,
+                19,
+                23,
+                27,
+                31,
+                35,
+                39,
+                43,
+                47,
+                51,
+                55,
+                59,
+                63,
+                67,
+                71,
+                75,
+                79,
+                83,
+                87,
+                91
+              ],
+              "past18": "wiki"
+            },
+            "context": "Innate: Qiyana's basic attacks on-hit and basic abilities deal 15 – 83 (based on level) (+ 25% bonus AD) (+ 30% AP) additional physical damage."
+          }
+        ]
+      },
+      {
+        "text": "Gathering an Element with Terrashape resets Royal Privilege's per-target cooldown for enemies affected by Royal Privilege using a different Element (or no Element).",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Royal Privilege's trigger from a basic attack can be blocked (additional damage is negated and the on-target cooldown does not apply).",
+      "Royal Privilege will not apply a cooldown to targets that are hit with an Elemental Wrath that has a different Element than the Element Qiyana currently holds.\n  - This does not occur if a new Elemental Wrath with a different Element is cast before the first one lands.",
+      "The effect will not trigger against structures nor wards.",
+      ": Royal Privilege's interaction with parrying effects (dodge, blind).",
+      "Royal Privilege is applied in a separate damage instance from Qiyana's basic attacks and abilities.\n  - This causes effects like Bone Plating and Black Cleaver Carve to be applied twice."
+    ]
+  },
+  {
+    "champion": "Qiyana",
+    "kind": "Q",
+    "name": "Edge of Ixtal",
+    "page": {
+      "title": "Template:Data Qiyana/Edge of Ixtal",
+      "revid": 4057472
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "7",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 7
+            }
+          }
+        ]
+      },
+      "cost": {
+        "text": "35",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 35
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "0.25",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0.25
+            }
+          }
+        ]
+      },
+      "range": {
+        "text": "525 • -40",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 525
+            },
+            "label": "Rectangle forward range"
+          },
+          {
+            "series": {
+              "kind": "constant",
+              "value": 40
+            },
+            "label": "Rectangle backward range"
+          }
+        ]
+      },
+      "width": {
+        "text": "140",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 140
+            },
+            "label": "Rectangle width"
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Direction"
+      ],
+      "affects": [
+        "Enemies"
+      ],
+      "damageType": [
+        "Physical"
+      ],
+      "spellEffects": "area of effect",
+      "spellShield": "true",
+      "projectile": "false"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Qiyana slashes forward in the target direction, dealing physical damage to enemies in a line, reduced to 75% damage against targets beyond the first. Edge of Ixtal deals 160% damage against monsters.",
+        "leveling": [
+          {
+            "label": "Physical Damage",
+            "amount": {
+              "text": "80 / 110 / 140 / 170 / 200 (+ 90% bonus AD)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  80,
+                  110,
+                  140,
+                  170,
+                  200
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "bonusAD",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 90
+                  },
+                  "text": "(+ 90% bonus AD)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Reduced Damage",
+            "amount": {
+              "text": "60 / 82.5 / 105 / 127.5 / 150 (+ 67.5% bonus AD)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  60,
+                  82.5,
+                  105,
+                  127.5,
+                  150
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "bonusAD",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 67.5
+                  },
+                  "text": "(+ 67.5% bonus AD)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "text": "Gathering an Element with Terrashape resets Edge of Ixtal's cooldown and upgrades it into Elemental Wrath.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "text": "If cast during Audacity dash towards an enemy champion and the target is within 150 units of Qiyana at the end of the dash, Edge of Ixtal will autonomously aim at the target.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "If cast during Audacity and the target uses a dash or blink or is no longer in vision, Edge of Ixtal will aim at the target's last location prior to them starting the dash or blink or being in vision.",
+      "This ability will cast from wherever the caster is at the end of the cast time."
+    ]
+  },
+  {
+    "champion": "Qiyana",
+    "kind": "Q",
+    "name": "Elemental Wrath",
+    "page": {
+      "title": "Template:Data Qiyana/Elemental Wrath",
+      "revid": 4057473
+    },
+    "ranks": 5,
+    "fields": {
+      "range": {
+        "text": "865 • -50",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 865
+            },
+            "label": "Maximum total range (Estimated)"
+          },
+          {
+            "series": {
+              "kind": "constant",
+              "value": 50
+            },
+            "label": "Backwards check"
+          }
+        ]
+      },
+      "width": {
+        "text": "250 • 200",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 250
+            },
+            "label": "Initial sidewards check"
+          },
+          {
+            "series": {
+              "kind": "constant",
+              "value": 200
+            },
+            "label": "Hurl missile and explosion missile width"
+          }
+        ]
+      },
+      "speed": {
+        "text": "1600 • 2000",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 1600
+            },
+            "label": "Hurl missile speed"
+          },
+          {
+            "series": {
+              "kind": "constant",
+              "value": 2000
+            },
+            "label": "Explosion missile speed"
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Direction"
+      ],
+      "affects": [
+        "Enemies",
+        "Self"
+      ],
+      "damageType": [
+        "Physical"
+      ],
+      "spellEffects": "area of effect",
+      "spellShield": "true",
+      "projectile": "true"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Qiyana hurls her blade in the target direction that blasts in a line upon hitting an enemy or maximum range, consuming the current Element to empower the blade with an additional effect.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "text": "Enemies hit are dealt Edge of Ixtal's damage, reduced to 75% against subsequent enemies beyond the closest. Elemental Wrath deals 160% damage against monsters.",
+        "leveling": [
+          {
+            "label": "Physical Damage",
+            "amount": {
+              "text": "80 / 110 / 140 / 170 / 200 (+ 90% bonus AD)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  80,
+                  110,
+                  140,
+                  170,
+                  200
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "bonusAD",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 90
+                  },
+                  "text": "(+ 90% bonus AD)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Reduced Damage",
+            "amount": {
+              "text": "60 / 82.5 / 105 / 127.5 / 150 (+ 67.5% bonus AD)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  60,
+                  82.5,
+                  105,
+                  127.5,
+                  150
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "bonusAD",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 67.5
+                  },
+                  "text": "(+ 67.5% bonus AD)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "label": "Brush",
+        "text": "Brush: The blade creates a grass field around Qiyana that lasts for up to 3 seconds, granting her invisibility and 20% bonus movement speed until she attacks, casts an ability other than Terrashape, or exits the field.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "invisible",
+            "category": "vision",
+            "wording": "invisibility",
+            "evidence": "Brush: The blade creates a grass field around Qiyana that lasts for up to 3 seconds, granting her invisibility and 20% bonus movement speed until she attacks, casts an ability other than Terrashape, or exits the field.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "label": "River",
+        "text": "River: The blast roots enemies hit for 0.5 seconds, then slows them by 20% for 1 second.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "root",
+            "category": "control",
+            "wording": "roots",
+            "duration": {
+              "kind": "constant",
+              "value": 0.5
+            },
+            "evidence": "River: The blast roots enemies hit for 0.5 seconds, then slows them by 20% for 1 second.",
+            "conditional": false
+          },
+          {
+            "type": "slow",
+            "category": "control",
+            "wording": "slows",
+            "duration": {
+              "kind": "constant",
+              "value": 1
+            },
+            "amount": {
+              "kind": "constant",
+              "value": 20
+            },
+            "evidence": "River: The blast roots enemies hit for 0.5 seconds, then slows them by 20% for 1 second.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "label": "Terrain",
+        "text": "Terrain: The blast deals 60% increased damage against enemies below 50% of their maximum health. Subsequent targets beyond the closest that are below the threshold take 35% increased damage instead.",
+        "leveling": [
+          {
+            "label": "Increased Damage",
+            "amount": {
+              "text": "128 / 176 / 224 / 272 / 320 (+ 144% bonus AD)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  128,
+                  176,
+                  224,
+                  272,
+                  320
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "bonusAD",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 144
+                  },
+                  "text": "(+ 144% bonus AD)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Subsequent Increased Damage",
+            "amount": {
+              "text": "108 / 148.5 / 189 / 229.5 / 270 (+ 121.5% bonus AD)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  108,
+                  148.5,
+                  189,
+                  229.5,
+                  270
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "bonusAD",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 121.50000000000001
+                  },
+                  "text": "(+ 121.5% bonus AD)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "This ability will cast from wherever the caster is at the end of the cast time.",
+      "Using a basic attack breaks the stealth at the start of the attack windup."
+    ]
+  },
+  {
+    "champion": "Qiyana",
+    "kind": "R",
+    "name": "Supreme Display of Talent",
+    "page": {
+      "title": "Template:Data Qiyana/Supreme Display of Talent",
+      "revid": 4007999
+    },
+    "ranks": 3,
+    "fields": {
+      "cooldown": {
+        "text": "120",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 120
+            }
+          }
+        ]
+      },
+      "cost": {
+        "text": "100",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 100
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "0.25",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0.25
+            }
+          }
+        ]
+      },
+      "targetRange": {
+        "text": "875",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 875
+            },
+            "label": "Windblast missile range"
+          }
+        ]
+      },
+      "effectRadius": {
+        "text": "11000",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 11000
+            },
+            "label": "Shockwave range limit on terrain borders"
+          }
+        ]
+      },
+      "width": {
+        "text": "280 • 120",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 280
+            },
+            "label": "Windblast missile width"
+          },
+          {
+            "series": {
+              "kind": "constant",
+              "value": 120
+            },
+            "label": "Shockwave width"
+          }
+        ]
+      },
+      "speed": {
+        "text": "2000 • 2840",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 2000
+            },
+            "label": "Windblast missile speed"
+          },
+          {
+            "series": {
+              "kind": "constant",
+              "value": 2840
+            },
+            "label": "Shockwave speed"
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Direction"
+      ],
+      "affects": [
+        "Enemies",
+        "Terrain"
+      ],
+      "damageType": [
+        "physical"
+      ],
+      "spellEffects": "spellaoe",
+      "spellShield": "true",
+      "projectile": "special"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Qiyana sweeps a windblast in the target direction that knocks back enemies hit by 375 units, though not through terrain, and stops upon hitting Terrain.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "airborne",
+            "category": "control",
+            "wording": "knocks back",
+            "evidence": "Active: Qiyana sweeps a windblast in the target direction that knocks back enemies hit by 375 units, though not through terrain, and stops upon hitting Terrain.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "The windblast creates a cascading shockwave across any River or Brush it passes through, as well as around the borders of Terrain it reaches, dealing physical damage to enemies hit, stunning them for 0.5 / 1 (based on proximity) seconds, and briefly granting sight of the area along its path. The damage based on the target's health ratio is capped against monsters.",
+        "leveling": [
+          {
+            "label": "Physical Damage",
+            "amount": {
+              "text": "100 / 200 / 300 (+ 125% bonus AD) (+ 10% of target's maximum health)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  100,
+                  200,
+                  300
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "bonusAD",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 125
+                  },
+                  "text": "(+ 125% bonus AD)"
+                },
+                {
+                  "stat": "targetMaxHealth",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 10
+                  },
+                  "text": "(+ 10% of target's maximum health)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Capped Monster Health Damage",
+            "amount": {
+              "text": "500 / 750 / 1000 (+ 125% bonus AD)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  500,
+                  750,
+                  1000
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "bonusAD",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 125
+                  },
+                  "text": "(+ 125% bonus AD)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "stun",
+            "category": "control",
+            "wording": "stunning",
+            "duration": {
+              "kind": "variable",
+              "variable": "proximity",
+              "points": [
+                0,
+                "X"
+              ],
+              "values": [
+                0.5,
+                1
+              ]
+            },
+            "evidence": "The windblast creates a cascading shockwave across any River or Brush it passes through, as well as around the borders of Terrain it reaches, dealing physical damage to enemies hit, stunning them for 0.5 / 1 (based on proximity) seconds, and briefly granting sight of the area along its path.",
+            "conditional": false
+          },
+          {
+            "type": "reveal",
+            "category": "vision",
+            "wording": "sight",
+            "evidence": "The windblast creates a cascading shockwave across any River or Brush it passes through, as well as around the borders of Terrain it reaches, dealing physical damage to enemies hit, stunning them for 0.5 / 1 (based on proximity) seconds, and briefly granting sight of the area along its path.",
+            "conditional": false
+          }
+        ],
+        "values": [
+          {
+            "series": {
+              "kind": "variable",
+              "variable": "proximity",
+              "points": [
+                0,
+                "X"
+              ],
+              "values": [
+                0.5,
+                1
+              ]
+            },
+            "context": "The windblast creates a cascading shockwave across any River or Brush it passes through, as well as around the borders of Terrain it reaches, dealing physical damage to enemies hit, stunning them for 0.5 / 1 (based on proximity) seconds, and briefly granting sight of the area along its path."
+          }
+        ]
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "The windblast needs only to reach near terrain to trigger the terrain shockwave.",
+      "The shockwave grants sight along each part of its path for 0.75 seconds.",
+      "Artificial terrain (e.g, Crystallize, Weaver's Wall, Pillar of Ice) touching map terrain will be treated as a single piece of terrain, even when bridging two pieces of map terrain together; the shockwave will wrap around all connecting terrain. The shockwave's path is determined once it initially spreads; any expired terrain will be treated as if it were still there.",
+      "Projectile-intercepting effects will block the windblast but not the shockwave.",
+      "This ability will cast from wherever the caster is at the end of the cast time."
+    ]
+  },
+  {
+    "champion": "Qiyana",
+    "kind": "W",
+    "name": "Terrashape",
+    "page": {
+      "title": "Template:Data Qiyana/Terrashape",
+      "revid": 4007752
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "7",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 7
+            }
+          }
+        ]
+      },
+      "cost": {
+        "text": "25 / 30 / 35 / 40 / 45",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                25,
+                30,
+                35,
+                40,
+                45
+              ]
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "none",
+        "values": []
+      },
+      "targetRange": {
+        "text": "1100",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 1100
+            }
+          }
+        ]
+      },
+      "effectRadius": {
+        "text": "366",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 366
+            },
+            "label": "Element targeting range"
+          }
+        ]
+      },
+      "speed": {
+        "text": "440 + 100% movement speed",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 440
+            }
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Location"
+      ],
+      "affects": [
+        "Self"
+      ],
+      "damageType": [
+        "magic"
+      ],
+      "spellEffects": "proc",
+      "parry": "unknown",
+      "grounded": "true",
+      "knockdown": "true"
+    },
+    "parts": [
+      {
+        "label": "Passive",
+        "text": "Passive: While holding an Element, Qiyana gains bonus attack speed, 25 bonus attack range and bonus magic damage on her basic attacks on-hit and basic abilities. While out-of-combat and moving near the Element currently being held, she gains bonus movement speed.",
+        "leveling": [
+          {
+            "label": "Bonus Attack Speed",
+            "amount": {
+              "text": "15 / 20 / 25 / 30 / 35%",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  15,
+                  20,
+                  25,
+                  30,
+                  35
+                ]
+              },
+              "unit": "%",
+              "scaling": [],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Bonus Magic Damage",
+            "amount": {
+              "text": "8 / 16 / 24 / 32 / 40 (+ 20% bonus AD) (+ 45% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  8,
+                  16,
+                  24,
+                  32,
+                  40
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "bonusAD",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 20
+                  },
+                  "text": "(+ 20% bonus AD)"
+                },
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 45
+                  },
+                  "text": "(+ 45% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Bonus Movement Speed",
+            "amount": {
+              "text": "3 / 5 / 7 / 9 / 11%",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  3,
+                  5,
+                  7,
+                  9,
+                  11
+                ]
+              },
+              "unit": "%",
+              "scaling": [],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "on-hit",
+            "category": "offense",
+            "wording": "on-hit",
+            "evidence": "Passive: While holding an Element, Qiyana gains bonus attack speed, 25 bonus attack range and bonus magic damage on her basic attacks on-hit and basic abilities.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "label": "Active",
+        "text": "Active: Qiyana dashes up to 300 units towards the target location to gather the Element of the nearest Brush, River or Terrain she targeted.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "dash",
+            "category": "movement",
+            "wording": "dashes",
+            "evidence": "Active: Qiyana dashes up to 300 units towards the target location to gather the Element of the nearest Brush, River or Terrain she targeted.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "A target Element is required to cast this ability.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "text": "Once Terrashape has been learned, Qiyana is automatically given the Terrain element upon respawning.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "text": "Qiyana can cast any of her abilities during the dash.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Terrashape has no minimum dash range.",
+      "Terrashape does not interact with player-generated terrain.",
+      "The water puddles formed by the Ocean Rift on Summoner's Rift count as valid terrain for obtaining the River element.",
+      "The brushes grown by Brushmaker count for gathering the Brush element.",
+      "Passive bonus damage from basic attacks can be blocked.",
+      ": Passive bonus damage interaction with parrying effects (dodge, blind)."
+    ]
+  }
+]

@@ -1,0 +1,826 @@
+[
+  {
+    "champion": "Nasus",
+    "kind": "E",
+    "name": "Spirit Fire",
+    "page": {
+      "title": "Template:Data Nasus/Spirit Fire",
+      "revid": 4035787
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "12",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 12
+            }
+          }
+        ]
+      },
+      "cost": {
+        "text": "60 / 70 / 80 / 90 / 100",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                60,
+                70,
+                80,
+                90,
+                100
+              ]
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "0.25",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0.25
+            }
+          }
+        ]
+      },
+      "targetRange": {
+        "text": "650",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 650
+            }
+          }
+        ]
+      },
+      "effectRadius": {
+        "text": "400 • 200",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 400
+            },
+            "label": "Area of effect radius"
+          },
+          {
+            "series": {
+              "kind": "constant",
+              "value": 200
+            },
+            "label": "Sight radius"
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Location"
+      ],
+      "affects": [
+        "Enemies"
+      ],
+      "damageType": [
+        "Magic"
+      ],
+      "spellEffects": "aoedot",
+      "spellShield": "false"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Nasus unleashes a spirit fire at the target location, granting sight of the area for 2.5 seconds and, after a 0.264 delay, dealing magic damage to enemies within.",
+        "leveling": [
+          {
+            "label": "Magic Damage",
+            "amount": {
+              "text": "50 / 80 / 110 / 140 / 170 (+ 60% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  50,
+                  80,
+                  110,
+                  140,
+                  170
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 60
+                  },
+                  "text": "(+ 60% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "reveal",
+            "category": "vision",
+            "wording": "sight",
+            "duration": {
+              "kind": "constant",
+              "value": 2.5
+            },
+            "evidence": "Active: Nasus unleashes a spirit fire at the target location, granting sight of the area for 2.5 seconds and, after a 0.264 delay, dealing magic damage to enemies within.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "The fire then remains for 5 seconds, dealing magic damage each second to enemies within and inflicting them with armor reduction, lingering for 1 second.",
+        "leveling": [
+          {
+            "label": "Magic Damage Per Tick",
+            "amount": {
+              "text": "10 / 16 / 22 / 28 / 34 (+ 12% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  10,
+                  16,
+                  22,
+                  28,
+                  34
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 12
+                  },
+                  "text": "(+ 12% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Total Magic Damage",
+            "amount": {
+              "text": "100 / 160 / 220 / 280 / 340 (+ 120% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  100,
+                  160,
+                  220,
+                  280,
+                  340
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 120
+                  },
+                  "text": "(+ 120% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Armor Reduction",
+            "amount": {
+              "text": "30 / 35 / 40 / 45 / 50% of target's armor",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  30,
+                  35,
+                  40,
+                  45,
+                  50
+                ]
+              },
+              "unit": "%",
+              "scaling": [],
+              "unparsed": "",
+              "baseStat": "targetArmor"
+            }
+          }
+        ],
+        "mechanics": [],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "No additional details."
+    ]
+  },
+  {
+    "champion": "Nasus",
+    "kind": "I",
+    "name": "Soul Eater",
+    "page": {
+      "title": "Template:Data Nasus/Soul Eater",
+      "revid": 4057470
+    },
+    "ranks": 1,
+    "fields": {},
+    "flags": {
+      "targeting": [
+        "Passive"
+      ],
+      "affects": [
+        "Self"
+      ],
+      "damageType": []
+    },
+    "parts": [
+      {
+        "label": "Innate",
+        "text": "Innate: Nasus gains 10 / 15 / 20 (based on level)% life steal.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "life steal",
+            "category": "defense",
+            "wording": "⟦0⟧% life steal",
+            "evidence": "Innate: Nasus gains 10 / 15 / 20 (based on level)% life steal.",
+            "conditional": false
+          }
+        ],
+        "values": [
+          {
+            "series": {
+              "kind": "variable",
+              "variable": "level",
+              "points": [
+                1,
+                7,
+                13
+              ],
+              "values": [
+                10,
+                15,
+                20
+              ]
+            },
+            "context": "Innate: Nasus gains 10 / 15 / 20 (based on level)% life steal."
+          }
+        ]
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "No additional details."
+    ]
+  },
+  {
+    "champion": "Nasus",
+    "kind": "Q",
+    "name": "Siphoning Strike",
+    "page": {
+      "title": "Template:Data Nasus/Siphoning Strike",
+      "revid": 4064857
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "7.5 / 6.5 / 5.5 / 4.5 / 3.5",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                7.5,
+                6.5,
+                5.5,
+                4.5,
+                3.5
+              ]
+            }
+          }
+        ]
+      },
+      "cooldownStart": "post-effect",
+      "cost": {
+        "text": "20",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 20
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "none",
+        "values": []
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Auto"
+      ],
+      "affects": [
+        "Self"
+      ],
+      "damageType": [
+        "Physical"
+      ],
+      "spellEffects": "special",
+      "spellShield": "false",
+      "parry": "true"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Nasus empowers his next basic attack within 10 seconds to have an uncancellable windup, gain 50 bonus range, and deal bonus physical damage. Siphoning Strike's flat bonus damage is affected by critical strike modifiers.",
+        "leveling": [
+          {
+            "label": "Bonus Physical Damage",
+            "amount": {
+              "text": "30 / 50 / 70 / 90 / 110 (+ 100% of Siphoning Strike stacks)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  30,
+                  50,
+                  70,
+                  90,
+                  110
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "other:of siphoning strike stacks",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 100
+                  },
+                  "text": "(+ 100% of Siphoning Strike stacks)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "uncancellable windup",
+            "category": "offense",
+            "wording": "uncancellable windup",
+            "evidence": "Active: Nasus empowers his next basic attack within 10 seconds to have an uncancellable windup, gain 50 bonus range, and deal bonus physical damage.",
+            "conditional": false
+          },
+          {
+            "type": "critical strike",
+            "category": "offense",
+            "wording": "critical strike",
+            "evidence": "Siphoning Strike's flat bonus damage is affected by critical strike modifiers.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "If Siphoning Strike kills the target, Nasus permanently gains 4 stacks, increased to 10 if the target is a champion, large minion, or large monster.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "text": "Siphoning Strike resets Nasus basic attack timer.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "attack reset",
+            "category": "offense",
+            "wording": "resets",
+            "evidence": "Siphoning Strike resets Nasus basic attack timer.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Both Siphoning Strike's base damage and damage from stacks are treated as basic damage but also trigger spell effects by also being tagged as spell damage.\n  - The basic attack is also considered a part of Siphoning Strike and treated as both basic damage and spell damage.",
+      "Nasus can gain Siphoning Strike stacks by killing any enemy unit, this includes champions, minions, monsters, wards, turrets, and pets.\n  - Jungle plants and structures that are not turrets (e.g. inhibitors) will not grant stacks.",
+      "Siphoning Strike will not generate stacks from secondary units killed by other effects (e.g. Tiamat).",
+      "Siphoning Strike will trigger Tear of the Goddess Manaflow."
+    ]
+  },
+  {
+    "champion": "Nasus",
+    "kind": "R",
+    "name": "Fury of the Sands",
+    "page": {
+      "title": "Template:Data Nasus/Fury of the Sands",
+      "revid": 4007699
+    },
+    "ranks": 3,
+    "fields": {
+      "cooldown": {
+        "text": "120 / 100 / 80",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                120,
+                100,
+                80
+              ]
+            }
+          }
+        ]
+      },
+      "cooldownStart": "on-cast",
+      "cost": {
+        "text": "100",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 100
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "0.2",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0.2
+            }
+          }
+        ]
+      },
+      "effectRadius": {
+        "text": "400 + 0.8 per 1% bonus size",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 400
+            },
+            "label": "Beyond Nasus' base gameplay radius of 80 units"
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Auto"
+      ],
+      "affects": [
+        "Self"
+      ],
+      "damageType": [
+        "Magic"
+      ],
+      "spellEffects": "aoedot"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Nasus empowers himself for 15 seconds, gaining bonus health, bonus armor, bonus magic resistance, increased size, and 50 bonus attack range for the duration.",
+        "leveling": [
+          {
+            "label": "Bonus Health",
+            "amount": {
+              "text": "300 / 450 / 600",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  300,
+                  450,
+                  600
+                ]
+              },
+              "scaling": [],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Bonus Resistances",
+            "amount": {
+              "text": "40 / 55 / 70",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  40,
+                  55,
+                  70
+                ]
+              },
+              "scaling": [],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Increased Size",
+            "amount": {
+              "text": "30 / 35 / 40%",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  30,
+                  35,
+                  40
+                ]
+              },
+              "unit": "%",
+              "scaling": [],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "text": "While Nasus is empowered, he deals magic damage every 0.5 seconds to nearby enemies, capped at 240 per second, and Siphoning Strike cooldown is halved.",
+        "leveling": [
+          {
+            "label": "Magic Damage Per Tick",
+            "amount": {
+              "text": "1.5 / 2 / 2.5% (+ 0.5% per 100 AP) of target's maximum health",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  1.5,
+                  2,
+                  2.5
+                ]
+              },
+              "unit": "%",
+              "scaling": [
+                {
+                  "stat": "per100:AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 0.5
+                  },
+                  "text": "(+ 0.5% per 100 AP)"
+                }
+              ],
+              "unparsed": "",
+              "baseStat": "targetMaxHealth"
+            }
+          },
+          {
+            "label": "Total Magic Damage",
+            "amount": {
+              "text": "45 / 60 / 75% (+ 15% per 100 AP) of target's maximum health",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  45,
+                  60,
+                  75
+                ]
+              },
+              "unit": "%",
+              "scaling": [
+                {
+                  "stat": "per100:AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 15
+                  },
+                  "text": "(+ 15% per 100 AP)"
+                }
+              ],
+              "unparsed": "",
+              "baseStat": "targetMaxHealth"
+            }
+          }
+        ],
+        "mechanics": [],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Fury of the Sands' bonus health is not affected by Grievous Wounds and Nasus retains it once the duration ends."
+    ]
+  },
+  {
+    "champion": "Nasus",
+    "kind": "W",
+    "name": "Wither",
+    "page": {
+      "title": "Template:Data Nasus/Wither",
+      "revid": 4064193
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "15 / 14 / 13 / 12 / 11",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                15,
+                14,
+                13,
+                12,
+                11
+              ]
+            }
+          }
+        ]
+      },
+      "cost": {
+        "text": "80",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 80
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "0.25",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0.25
+            }
+          }
+        ]
+      },
+      "targetRange": {
+        "text": "700",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 700
+            }
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Unit"
+      ],
+      "affects": [
+        "Enemies"
+      ],
+      "damageType": [],
+      "spellShield": "true"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Nasus ages the target enemy champion for 5 seconds, slowing them by 35% and crippling them by 75% of that amount, both increasing every second over the duration.",
+        "leveling": [
+          {
+            "label": "Maximum Slow",
+            "amount": {
+              "text": "47 / 59 / 71 / 83 / 95%",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  47,
+                  59,
+                  71,
+                  83,
+                  95
+                ]
+              },
+              "unit": "%",
+              "scaling": [],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Additional Slow Per Second",
+            "amount": {
+              "text": "3 / 6 / 9 / 12 / 15%",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  3,
+                  6,
+                  9,
+                  12,
+                  15
+                ]
+              },
+              "unit": "%",
+              "scaling": [],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Maximum Cripple",
+            "amount": {
+              "text": "35.25 / 44.25 / 53.25 / 62.25 / 71.25%",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  35.25,
+                  44.25,
+                  53.25,
+                  62.25,
+                  71.25
+                ]
+              },
+              "unit": "%",
+              "scaling": [],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Additional Cripple Per Second",
+            "amount": {
+              "text": "2.25 / 4.5 / 6.75 / 9 / 11.25%",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  2.25,
+                  4.5,
+                  6.75,
+                  9,
+                  11.25
+                ]
+              },
+              "unit": "%",
+              "scaling": [],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "slow",
+            "category": "control",
+            "wording": "slowing",
+            "duration": {
+              "kind": "constant",
+              "value": 5
+            },
+            "amount": {
+              "kind": "constant",
+              "value": 35
+            },
+            "evidence": "Active: Nasus ages the target enemy champion for 5 seconds, slowing them by 35% and crippling them by 75% of that amount, both increasing every second over the duration.",
+            "conditional": false
+          },
+          {
+            "type": "cripple",
+            "category": "control",
+            "wording": "crippling",
+            "duration": {
+              "kind": "constant",
+              "value": 5
+            },
+            "amount": {
+              "kind": "constant",
+              "value": 75
+            },
+            "evidence": "Active: Nasus ages the target enemy champion for 5 seconds, slowing them by 35% and crippling them by 75% of that amount, both increasing every second over the duration.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Wither interrupts the target's attack windup when it is first applied.",
+      "If Wither's duration is affected by Tenacity the effects will apply slower (negative tenacity percentage) or faster (positive tenacity percentage) so the maximum values are still reached when the modified duration ends.",
+      "Wither's cripple effectiveness calculates from its slow's base values, thus slow resist will not interact with the attack speed modifier indirectly.",
+      "Both slow and cripple from Wither are considered to be a single debuff.\n  - Therefore, slow immunity will prevent both, even without technical cripple immunity.",
+      "If the target becomes untargetable, dies, or is too far away or no longer in sight during the cast time, this ability will cancel but does not go on cooldown nor pay its cost (if applicable)."
+    ]
+  }
+]

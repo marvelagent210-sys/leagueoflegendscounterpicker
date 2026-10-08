@@ -1,0 +1,725 @@
+[
+  {
+    "champion": "Blitzcrank",
+    "kind": "E",
+    "name": "Power Fist",
+    "page": {
+      "title": "Template:Data Blitzcrank/Power Fist",
+      "revid": 4041159
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "7 / 6.5 / 6 / 5.5 / 5",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                7,
+                6.5,
+                6,
+                5.5,
+                5
+              ]
+            }
+          }
+        ]
+      },
+      "cooldownStart": "post-effect",
+      "cost": {
+        "text": "25",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 25
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "none",
+        "values": []
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Auto"
+      ],
+      "affects": [
+        "Enemy",
+        "Structure"
+      ],
+      "damageType": [
+        "Physical"
+      ],
+      "spellEffects": "special",
+      "spellShield": "true",
+      "parry": "true"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Blitzcrank empowers their next basic attack within 5 seconds to have an uncancellable windup, deal 100% AD (+ 25% AP) bonus physical damage and knock up the target for 1 second. This damage is affected by critical strike modifiers.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "uncancellable windup",
+            "category": "offense",
+            "wording": "uncancellable windup",
+            "evidence": "Active: Blitzcrank empowers their next basic attack within 5 seconds to have an uncancellable windup, deal 100% AD (+ 25% AP) bonus physical damage and knock up the target for 1 second.",
+            "conditional": false
+          },
+          {
+            "type": "airborne",
+            "category": "control",
+            "wording": "knock up",
+            "duration": {
+              "kind": "constant",
+              "value": 1
+            },
+            "evidence": "Active: Blitzcrank empowers their next basic attack within 5 seconds to have an uncancellable windup, deal 100% AD (+ 25% AP) bonus physical damage and knock up the target for 1 second.",
+            "conditional": false
+          },
+          {
+            "type": "critical strike",
+            "category": "offense",
+            "wording": "critical strike",
+            "evidence": "This damage is affected by critical strike modifiers.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "Power Fist resets Blitzcrank's basic attack timer.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "attack reset",
+            "category": "offense",
+            "wording": "resets",
+            "evidence": "Power Fist resets Blitzcrank's basic attack timer.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Power Fist deals basic damage, but also triggers spell effects by also being tagged as spell damage.\n  - This includes the basic attack itself.",
+      "Spell shield prevents the knockup and the damage, including the damage of the basic attack itself.",
+      "The enhanced attack will still complete and hit the target even if they become untargetable during the attack's windup.",
+      "The knockup does not trigger against structures, jungle plants, and wards.\n  - The Power Fist buff does not get consumed if the knockup doesn't trigger, allowing Blitzcrank to repeatedly attack structures for bonus damage.",
+      "The target is displaced a short distance during the knockup in a random direction."
+    ]
+  },
+  {
+    "champion": "Blitzcrank",
+    "kind": "I",
+    "name": "Mana Barrier",
+    "page": {
+      "title": "Template:Data Blitzcrank/Mana Barrier",
+      "revid": 3908089
+    },
+    "ranks": 1,
+    "fields": {
+      "staticCooldown": {
+        "text": "90",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 90
+            },
+            "label": "Starts immediately when the shield is gained"
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Passive"
+      ],
+      "affects": [
+        "Self"
+      ],
+      "damageType": []
+    },
+    "parts": [
+      {
+        "label": "Innate",
+        "text": "Innate: Periodically, when damaged to 30% maximum health, Blitzcrank generates a shield equal to 35% of maximum mana, lasting for up to 10 seconds.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "shield",
+            "category": "defense",
+            "wording": "shield",
+            "duration": {
+              "kind": "constant",
+              "value": 10
+            },
+            "evidence": "Innate: Periodically, when damaged to 30% maximum health, Blitzcrank generates a shield equal to 35% of maximum mana, lasting for up to 10 seconds.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "The shield will absorb the portion of incoming damage that would reduce health past 30%.",
+      "Mana Barrier's interactions with other shield effects that trigger before taking damage that would reduce below 30% health:\n  - Mana Barrier will trigger simultaneously with the Lifeline effect from Hexdrinker, Maw of Malmortius, or Immortal Shieldbow if Blitzcrank takes damage while above 30% health, and trigger before them when the damage is taken while below 30% health.\n    - Mana Barrier will always trigger simultaneously with the Lifeline effect from Sterak's Gage if Blitzcrank takes damage while above or below 30% health."
+    ]
+  },
+  {
+    "champion": "Blitzcrank",
+    "kind": "Q",
+    "name": "Rocket Grab",
+    "page": {
+      "title": "Template:Data Blitzcrank/Rocket Grab",
+      "revid": 4026708
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "20 / 19 / 18 / 17 / 16",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                20,
+                19,
+                18,
+                17,
+                16
+              ]
+            }
+          }
+        ]
+      },
+      "cost": {
+        "text": "100",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 100
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "0.25",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0.25
+            }
+          }
+        ]
+      },
+      "range": {
+        "text": "1115 • 1020",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 1115
+            },
+            "label": "Missile + rectangle check combined range. Supposed to be 1150, but currently bugged"
+          },
+          {
+            "series": {
+              "kind": "constant",
+              "value": 1020
+            },
+            "label": "Maximum range via other check"
+          }
+        ]
+      },
+      "width": {
+        "text": "140 • 60",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 140
+            },
+            "label": "Missile collision width"
+          },
+          {
+            "series": {
+              "kind": "constant",
+              "value": 60
+            },
+            "label": "Width of rectangle check at the end, unusually thin"
+          }
+        ]
+      },
+      "speed": {
+        "text": "1800 • 1800",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 1800
+            },
+            "label": "Missile speed"
+          },
+          {
+            "series": {
+              "kind": "constant",
+              "value": 1800
+            },
+            "label": "Pull speed"
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Direction"
+      ],
+      "affects": [
+        "Enemies"
+      ],
+      "damageType": [
+        "Magic"
+      ],
+      "spellEffects": "spell",
+      "spellShield": "true",
+      "projectile": "true"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Blitzcrank fires their right hand in the target direction that catches the first enemy hit, dealing them magic damage, stunning them for 0.65 seconds, and pulling them towards Blitzcrank, during which they are revealed.",
+        "leveling": [
+          {
+            "label": "Magic Damage",
+            "amount": {
+              "text": "110 / 160 / 210 / 260 / 310 (+ 120% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  110,
+                  160,
+                  210,
+                  260,
+                  310
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 120
+                  },
+                  "text": "(+ 120% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "stun",
+            "category": "control",
+            "wording": "stunning",
+            "duration": {
+              "kind": "constant",
+              "value": 0.65
+            },
+            "evidence": "Active: Blitzcrank fires their right hand in the target direction that catches the first enemy hit, dealing them magic damage, stunning them for 0.65 seconds, and pulling them towards Blitzcrank, during which they are revealed.",
+            "conditional": false
+          },
+          {
+            "type": "airborne",
+            "category": "control",
+            "wording": "pulling",
+            "duration": {
+              "kind": "constant",
+              "value": 0.65
+            },
+            "evidence": "Active: Blitzcrank fires their right hand in the target direction that catches the first enemy hit, dealing them magic damage, stunning them for 0.65 seconds, and pulling them towards Blitzcrank, during which they are revealed.",
+            "conditional": false
+          },
+          {
+            "type": "reveal",
+            "category": "vision",
+            "wording": "revealed",
+            "duration": {
+              "kind": "constant",
+              "value": 0.65
+            },
+            "evidence": "Active: Blitzcrank fires their right hand in the target direction that catches the first enemy hit, dealing them magic damage, stunning them for 0.65 seconds, and pulling them towards Blitzcrank, during which they are revealed.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "Blitzcrank is unable to move or attack while Rocket Grab is in flight and for 0.25 seconds after it hits an enemy.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "lockout",
+            "category": "other",
+            "wording": "unable",
+            "duration": {
+              "kind": "constant",
+              "value": 0.25
+            },
+            "evidence": "Blitzcrank is unable to move or attack while Rocket Grab is in flight and for 0.25 seconds after it hits an enemy.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Rocket Grab's range is composed of a missile with 1080 range, and a smaller center-range area check at the end (colloquially known as a 'lollipop').\n  - The area check is currently half as long as it is supposed to be, reducing the intended 1150 range of the ability to 1115 range.\n    - Hitting an enemy with this area check only also fails to play the ability's hit SFX. This makes it possible to easily distinguish whether the target was picked up by the missile collision or 'lollipop'.\n  - Targets larger than 95 units in radius can be hit by a different edge-range circle check at the end of the missile.",
+      "The airborne debuff lasts for up-to 1 second but will end prematurely when the target's movement stops, while the stun will persist (if duration permits).",
+      "Displacement immunity will not resist the application of the stun.",
+      "The target's destination lies 75 units in front of Blitzcrank at the start of cast time.\n  - If the target is closer than this, the effect will still move them to this location.\n  - If this location would be inside static terrain, the target's destination will end up on Blitzcrank's side, even if that means pulling them right on top of Blitzcrank.\n    - This can occasionally fail.",
+      "If Blitzcrank is being moved (e.g. Airborne, Kinematics or Fate's Call) during the grab, the target will be pulled towards Blitzcranks old location.",
+      "Blitzcrank will be ordered to basic attack the target once the target arrives.",
+      "If the target dies to Rocket Grab's damage, they will not be pulled.",
+      "This ability will cast from wherever the caster is at the end of the cast time."
+    ]
+  },
+  {
+    "champion": "Blitzcrank",
+    "kind": "R",
+    "name": "Static Field",
+    "page": {
+      "title": "Template:Data Blitzcrank/Static Field",
+      "revid": 3956748
+    },
+    "ranks": 3,
+    "fields": {
+      "cooldown": {
+        "text": "60 / 40 / 20",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                60,
+                40,
+                20
+              ]
+            }
+          }
+        ]
+      },
+      "cost": {
+        "text": "100",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 100
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "0.25",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0.25
+            }
+          }
+        ]
+      },
+      "effectRadius": {
+        "text": "600",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 600
+            }
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Auto"
+      ],
+      "affects": [
+        "Enemies"
+      ],
+      "damageType": [
+        "Magic"
+      ],
+      "spellEffects": "special",
+      "spellShield": "true",
+      "parry": "special"
+    },
+    "parts": [
+      {
+        "label": "Passive",
+        "text": "Passive: While Static Field is not on cooldown, Blitzcrank's basic attacks apply a stack to the target on-hit. While the target is afflicted, one stack is consumed every 1 second to strike them with lightning, dealing magic damage each time.",
+        "leveling": [
+          {
+            "label": "Magic Damage",
+            "amount": {
+              "text": "50 / 100 / 150 (+ 30 / 40 / 50% AP) (+ 2% maximum mana)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  50,
+                  100,
+                  150
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "rank",
+                    "values": [
+                      30,
+                      40,
+                      50
+                    ]
+                  },
+                  "text": "(+ 30 / 40 / 50% AP)"
+                },
+                {
+                  "stat": "maxMana",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 2
+                  },
+                  "text": "(+ 2% maximum mana)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "on-hit",
+            "category": "offense",
+            "wording": "on-hit",
+            "evidence": "Passive: While Static Field is not on cooldown, Blitzcrank's basic attacks apply a stack to the target on-hit.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "label": "Active",
+        "text": "Active: Blitzcrank detonates a static field that destroys the damage-mitigating shields of all nearby enemies, excluding the shields of monsters, and then deals them magic damage and silences them for 0.5 seconds.",
+        "leveling": [
+          {
+            "label": "Magic Damage",
+            "amount": {
+              "text": "275 / 400 / 525 (+ 100% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  275,
+                  400,
+                  525
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 100
+                  },
+                  "text": "(+ 100% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "shield",
+            "category": "defense",
+            "wording": "shields",
+            "duration": {
+              "kind": "constant",
+              "value": 0.5
+            },
+            "evidence": "Active: Blitzcrank detonates a static field that destroys the damage-mitigating shields of all nearby enemies, excluding the shields of monsters, and then deals them magic damage and silences them for 0.5 seconds.",
+            "conditional": false
+          },
+          {
+            "type": "silence",
+            "category": "control",
+            "wording": "silences",
+            "duration": {
+              "kind": "constant",
+              "value": 0.5
+            },
+            "evidence": "Active: Blitzcrank detonates a static field that destroys the damage-mitigating shields of all nearby enemies, excluding the shields of monsters, and then deals them magic damage and silences them for 0.5 seconds.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Blitzcrank's attacks do not have to deal damage to apply the mark.",
+      "Blitzcrank's attacks will not apply a mark if the attack is dodged or missed while Blitzcrank is blinded.\n  - A mark will still be applied if the attack is blocked.",
+      "The mark will be consumed even if the target becomes untargetable.",
+      "The lightning bolts deal spell damage while the static field applies area damage.",
+      "This ability will cast from wherever the caster is at the end of the cast time.",
+      "Even if Static Field is blocked by a spell shield, it will still destroy any existing damage shields on the target."
+    ]
+  },
+  {
+    "champion": "Blitzcrank",
+    "kind": "W",
+    "name": "Overdrive",
+    "page": {
+      "title": "Template:Data Blitzcrank/Overdrive",
+      "revid": 3906572
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "15",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 15
+            }
+          }
+        ]
+      },
+      "cooldownStart": "on-cast",
+      "cost": {
+        "text": "75",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 75
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "none",
+        "values": []
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Auto"
+      ],
+      "affects": [
+        "Self"
+      ],
+      "damageType": [
+        "magic"
+      ],
+      "spellEffects": "proc",
+      "parry": "true"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Blitzcrank shifts into overdrive, gaining bonus attack speed for 5 seconds and bonus movement speed that decays to 10% over the first 2.9 seconds.",
+        "leveling": [
+          {
+            "label": "Bonus Attack Speed",
+            "amount": {
+              "text": "30 / 40 / 50 / 60 / 70%",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  30,
+                  40,
+                  50,
+                  60,
+                  70
+                ]
+              },
+              "unit": "%",
+              "scaling": [],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Initial Bonus Movement Speed",
+            "amount": {
+              "text": "60 / 65 / 70 / 75 / 80%",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  60,
+                  65,
+                  70,
+                  75,
+                  80
+                ]
+              },
+              "unit": "%",
+              "scaling": [],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "text": "When Overdrive ends, Blitzcrank is slowed by 30% for 1.5 seconds.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "slow",
+            "category": "control",
+            "wording": "slowed",
+            "duration": {
+              "kind": "constant",
+              "value": 1.5
+            },
+            "amount": {
+              "kind": "constant",
+              "value": 30
+            },
+            "evidence": "When Overdrive ends, Blitzcrank is slowed by 30% for 1.5 seconds.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "The movement speed boost's decay is linear. On the first stat update after the buff is gained, the boost does not decay.",
+      "The self-slow is affected by slow resist and Tenacity."
+    ]
+  }
+]

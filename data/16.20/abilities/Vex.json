@@ -1,0 +1,1168 @@
+[
+  {
+    "champion": "Vex",
+    "kind": "E",
+    "name": "Looming Darkness",
+    "page": {
+      "title": "Template:Data Vex/Looming Darkness",
+      "revid": 4034711
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "12",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 12
+            }
+          }
+        ]
+      },
+      "cost": {
+        "text": "70 / 80 / 90 / 100 / 110",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                70,
+                80,
+                90,
+                100,
+                110
+              ]
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "0.25",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0.25
+            }
+          }
+        ]
+      },
+      "targetRange": {
+        "text": "800",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 800
+            }
+          }
+        ]
+      },
+      "effectRadius": {
+        "text": "200 / 213 / 226 / 239 / 252 / 265 / 278 / 291 / 300 (based on cast distance)",
+        "values": [
+          {
+            "series": {
+              "kind": "variable",
+              "variable": "cast distance",
+              "points": [
+                0,
+                "X",
+                "X",
+                "X",
+                "X",
+                "X",
+                "X",
+                "X",
+                800
+              ],
+              "values": [
+                200,
+                213,
+                226,
+                239,
+                252,
+                265,
+                278,
+                291,
+                300
+              ]
+            }
+          }
+        ]
+      },
+      "speed": {
+        "text": "1300",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 1300
+            }
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Location"
+      ],
+      "affects": [
+        "Enemies"
+      ],
+      "damageType": [
+        "Magic"
+      ],
+      "spellEffects": "spellaoe",
+      "spellShield": "true",
+      "projectile": "true"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Vex tosses her Shadow to explode at the target location, dealing magic damage to enemies hit and slowing them for 2 seconds. The explosion's radius increases based on cast distance.",
+        "leveling": [
+          {
+            "label": "Magic Damage",
+            "amount": {
+              "text": "50 / 70 / 90 / 110 / 130 (+ 40 / 45 / 50 / 55 / 60% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  50,
+                  70,
+                  90,
+                  110,
+                  130
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "rank",
+                    "values": [
+                      40,
+                      45,
+                      50,
+                      55,
+                      60
+                    ]
+                  },
+                  "text": "(+ 40 / 45 / 50 / 55 / 60% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Slow",
+            "amount": {
+              "text": "30 / 35 / 40 / 45 / 50%",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  30,
+                  35,
+                  40,
+                  45,
+                  50
+                ]
+              },
+              "unit": "%",
+              "scaling": [],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "slow",
+            "category": "control",
+            "wording": "slowing",
+            "duration": {
+              "kind": "constant",
+              "value": 2
+            },
+            "amount": {
+              "kind": "rank",
+              "values": [
+                30,
+                35,
+                40,
+                45,
+                50
+              ]
+            },
+            "evidence": "Active: Vex tosses her Shadow to explode at the target location, dealing magic damage to enemies hit and slowing them for 2 seconds.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "Killing an enemy with Looming Darkness refunds 10% of Doom's cooldown, increased to 25% for champion kills.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "No additional details."
+    ]
+  },
+  {
+    "champion": "Vex",
+    "kind": "I",
+    "name": "Doom 'n Gloom",
+    "page": {
+      "title": "Template:Data Vex/Doom 'n Gloom",
+      "revid": 3986733
+    },
+    "ranks": 1,
+    "fields": {
+      "staticCooldown": {
+        "text": "25 / 22 / 19 / 16 (based on level)",
+        "values": [
+          {
+            "series": {
+              "kind": "variable",
+              "variable": "level",
+              "points": [
+                1,
+                6,
+                11,
+                16
+              ],
+              "values": [
+                25,
+                22,
+                19,
+                16
+              ]
+            }
+          }
+        ]
+      },
+      "effectRadius": {
+        "text": "1600",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 1600
+            },
+            "label": "Dash and blink detection radius"
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Passive"
+      ],
+      "affects": [
+        "Self",
+        "Enemies"
+      ],
+      "damageType": [
+        "Magic"
+      ],
+      "spellEffects": "proc",
+      "spellShield": "special",
+      "projectile": "false",
+      "parry": "true"
+    },
+    "parts": [
+      {
+        "label": "Passive - Doom",
+        "text": "Passive - Doom: Periodically, Vex empowers her next basic ability to knock down and fear enemies hit for 0.75 / 1 / 1.25 / 1.5 (based on level) seconds, during which they are slowed by 60 / 63.9 / 67.8 / 71.7 / 75.6 / 79.5 / 83.4 / 87.3 / 91.2 / 95.1 / 99 (based on distance from Vex)%. If Looming Darkness triggers Doom, enemies hit will flee from the epicenter instead.\nDoom's cooldown resets upon respawning.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "knockdown",
+            "category": "control",
+            "wording": "knock down",
+            "duration": {
+              "kind": "variable",
+              "variable": "level",
+              "points": [
+                1,
+                6,
+                9,
+                13
+              ],
+              "values": [
+                0.75,
+                1,
+                1.25,
+                1.5
+              ]
+            },
+            "evidence": "Passive - Doom: Periodically, Vex empowers her next basic ability to knock down and fear enemies hit for 0.75 / 1 / 1.25 / 1.5 (based on level) seconds, during which they are slowed by 60 / 63.9 / 67.8 / 71.7 / 75.6 / 79.5 / 83.4 / 87.3 / 91.2 / 95.1 / 99 (based on distance from Vex)%.",
+            "conditional": false
+          },
+          {
+            "type": "fear",
+            "category": "control",
+            "wording": "fear",
+            "duration": {
+              "kind": "variable",
+              "variable": "level",
+              "points": [
+                1,
+                6,
+                9,
+                13
+              ],
+              "values": [
+                0.75,
+                1,
+                1.25,
+                1.5
+              ]
+            },
+            "evidence": "Passive - Doom: Periodically, Vex empowers her next basic ability to knock down and fear enemies hit for 0.75 / 1 / 1.25 / 1.5 (based on level) seconds, during which they are slowed by 60 / 63.9 / 67.8 / 71.7 / 75.6 / 79.5 / 83.4 / 87.3 / 91.2 / 95.1 / 99 (based on distance from Vex)%.",
+            "conditional": false
+          },
+          {
+            "type": "slow",
+            "category": "control",
+            "wording": "slowed",
+            "duration": {
+              "kind": "variable",
+              "variable": "level",
+              "points": [
+                1,
+                6,
+                9,
+                13
+              ],
+              "values": [
+                0.75,
+                1,
+                1.25,
+                1.5
+              ]
+            },
+            "amount": {
+              "kind": "variable",
+              "variable": "distance from Vex",
+              "points": [
+                250,
+                305,
+                360,
+                415,
+                470,
+                525,
+                580,
+                635,
+                690,
+                745,
+                800
+              ],
+              "values": [
+                60,
+                63.9,
+                67.8,
+                71.7,
+                75.6,
+                79.5,
+                83.4,
+                87.3,
+                91.2,
+                95.1,
+                99
+              ]
+            },
+            "evidence": "Passive - Doom: Periodically, Vex empowers her next basic ability to knock down and fear enemies hit for 0.75 / 1 / 1.25 / 1.5 (based on level) seconds, during which they are slowed by 60 / 63.9 / 67.8 / 71.7 / 75.6 / 79.5 / 83.4 / 87.3 / 91.2 / 95.1 / 99 (based on distance from Vex)%.",
+            "conditional": false
+          },
+          {
+            "type": "fear",
+            "category": "control",
+            "wording": "flee",
+            "evidence": "If Looming Darkness triggers Doom, enemies hit will flee from the epicenter instead.",
+            "conditional": false
+          }
+        ],
+        "values": [
+          {
+            "series": {
+              "kind": "variable",
+              "variable": "level",
+              "points": [
+                1,
+                6,
+                9,
+                13
+              ],
+              "values": [
+                0.75,
+                1,
+                1.25,
+                1.5
+              ]
+            },
+            "context": "Passive - Doom: Periodically, Vex empowers her next basic ability to knock down and fear enemies hit for 0.75 / 1 / 1.25 / 1.5 (based on level) seconds, during which they are slowed by 60 / 63.9 / 67.8 / 71.7 / 75.6 / 79.5 / 83.4 / 87.3 / 91.2 / 95.1 / 99 (based on distance from Vex)%."
+          },
+          {
+            "series": {
+              "kind": "variable",
+              "variable": "distance from Vex",
+              "points": [
+                250,
+                305,
+                360,
+                415,
+                470,
+                525,
+                580,
+                635,
+                690,
+                745,
+                800
+              ],
+              "values": [
+                60,
+                63.9,
+                67.8,
+                71.7,
+                75.6,
+                79.5,
+                83.4,
+                87.3,
+                91.2,
+                95.1,
+                99
+              ]
+            },
+            "context": "Passive - Doom: Periodically, Vex empowers her next basic ability to knock down and fear enemies hit for 0.75 / 1 / 1.25 / 1.5 (based on level) seconds, during which they are slowed by 60 / 63.9 / 67.8 / 71.7 / 75.6 / 79.5 / 83.4 / 87.3 / 91.2 / 95.1 / 99 (based on distance from Vex)%."
+          }
+        ]
+      },
+      {
+        "label": "Innate - Gloom",
+        "text": "Innate - Gloom: Nearby enemy champions and monsters that dash or blink will be marked with Gloom for 6 seconds. Vex's next basic attack, which becomes non-projectile, or basic ability hit against an enemy with Gloom will detonate the mark. Looming Darkness will also inflict Gloom, but cannot detonate it.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "dash",
+            "category": "movement",
+            "wording": "dash",
+            "evidence": "Innate - Gloom: Nearby enemy champions and monsters that dash or blink will be marked with Gloom for 6 seconds.",
+            "conditional": false
+          },
+          {
+            "type": "blink",
+            "category": "movement",
+            "wording": "blink",
+            "evidence": "Innate - Gloom: Nearby enemy champions and monsters that dash or blink will be marked with Gloom for 6 seconds.",
+            "conditional": false
+          },
+          {
+            "type": "projectile",
+            "category": "other",
+            "wording": "non-projectile",
+            "evidence": "Vex's next basic attack, which becomes non-projectile, or basic ability hit against an enemy with Gloom will detonate the mark.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "Gloom's detonation deals 40 – 150 (based on level) (+ 25% AP) bonus magic damage and refunds 25% of Doom's cooldown. Against non-champions, this instead deals 40 / 45 / 50 / 55 / 60 (based on level)% damage and refunds 10% of Doom's cooldown.",
+        "leveling": [],
+        "mechanics": [],
+        "values": [
+          {
+            "series": {
+              "kind": "level",
+              "values": [
+                40,
+                46.470588235294116,
+                52.94117647058823,
+                59.411764705882355,
+                65.88235294117646,
+                72.35294117647058,
+                78.82352941176471,
+                85.29411764705883,
+                91.76470588235294,
+                98.23529411764706,
+                104.70588235294117,
+                111.17647058823529,
+                117.64705882352942,
+                124.11764705882354,
+                130.58823529411765,
+                137.05882352941177,
+                143.52941176470588,
+                150,
+                156.47058823529412,
+                162.94117647058823
+              ],
+              "past18": "wiki"
+            },
+            "context": "Gloom's detonation deals 40 – 150 (based on level) (+ 25% AP) bonus magic damage and refunds 25% of Doom's cooldown."
+          },
+          {
+            "series": {
+              "kind": "variable",
+              "variable": "level",
+              "points": [
+                1,
+                6,
+                9,
+                13,
+                16
+              ],
+              "values": [
+                40,
+                45,
+                50,
+                55,
+                60
+              ]
+            },
+            "context": "Against non-champions, this instead deals 40 / 45 / 50 / 55 / 60 (based on level)% damage and refunds 10% of Doom's cooldown."
+          }
+        ]
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Gloom will mark Rift Herald and Rift Scuttler when they use their dashes.",
+      "Gloom can mark clones, but not other pets.",
+      "Gloom's mark has a very brief cooldown and refreshes on subsequent dashes or blinks nearby enemies use.",
+      "Gloom's mark duration will refresh to 0.5 seconds when Vex starts an attack windup against a target that has a mark which is about to expire.",
+      "Gloom will mark enemies even if they are untargetable.",
+      "Gloom will mark enemies that are inside the detection radius when they blink, but will not mark those that blink inside from far away.",
+      "Doom's cooldown starts as soon as the basic ability is cast.",
+      "Doom's fear will not be removed when Vex dies, unlike any other fear in the game.",
+      "Non-champions (e.g. Rift Scuttler) are not knocked down by the fear-empowered ability.",
+      "Spell shield will block all of Doom's effects but not Gloom's empowered attack nor mark.",
+      "Nearby enemies that become displaced do not count for being marked by Gloom.",
+      "Soul Unbound recast does not cause the caster to be marked by Gloom.",
+      "Vex's basic abilities use a different icon when Doom is ready:\n  - Mistral Bolt\n  - Personal Space\n  - Looming Darkness"
+    ]
+  },
+  {
+    "champion": "Vex",
+    "kind": "Q",
+    "name": "Mistral Bolt",
+    "page": {
+      "title": "Template:Data Vex/Mistral Bolt",
+      "revid": 4053302
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "8 / 7 / 6 / 5 / 4",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                8,
+                7,
+                6,
+                5,
+                4
+              ]
+            }
+          }
+        ]
+      },
+      "cost": {
+        "text": "45 / 50 / 55 / 60 / 65",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                45,
+                50,
+                55,
+                60,
+                65
+              ]
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "0.15",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0.15
+            }
+          }
+        ]
+      },
+      "range": {
+        "text": "1200",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 1200
+            }
+          }
+        ]
+      },
+      "width": {
+        "text": "360 • 160",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 360
+            },
+            "label": "Initial width"
+          },
+          {
+            "series": {
+              "kind": "constant",
+              "value": 160
+            },
+            "label": "Reduced width"
+          }
+        ]
+      },
+      "speed": {
+        "text": "600 • 3200",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 600
+            },
+            "label": "Initial missile speed"
+          },
+          {
+            "series": {
+              "kind": "constant",
+              "value": 3200
+            },
+            "label": "Increased missile speed"
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Direction"
+      ],
+      "affects": [
+        "Enemies"
+      ],
+      "damageType": [
+        "Magic"
+      ],
+      "spellEffects": "spellaoe",
+      "spellShield": "true",
+      "projectile": "true"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Vex launches a wave of mist in the target direction that deals magic damage to enemies hit. After travelling 500 units, the wave accelerates but also narrows itself.",
+        "leveling": [
+          {
+            "label": "Magic Damage",
+            "amount": {
+              "text": "70 / 115 / 160 / 205 / 250 (+ 70% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  70,
+                  115,
+                  160,
+                  205,
+                  250
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 70
+                  },
+                  "text": "(+ 70% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "This ability will cast from wherever the caster is at the end of the cast time.\n  - Mistral Bolt will fire from wherever Vex is at the end of the cast time, towards the originally targeted location or 1200 units in the originally targeted direction if cast beyond that."
+    ]
+  },
+  {
+    "champion": "Vex",
+    "kind": "R",
+    "name": "Shadow Surge",
+    "page": {
+      "title": "Template:Data Vex/Shadow Surge",
+      "revid": 4057925
+    },
+    "ranks": 3,
+    "fields": {
+      "cooldown": {
+        "text": "140 / 120 / 100",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                140,
+                120,
+                100
+              ]
+            },
+            "label": "Starts post-effect of initial cast"
+          }
+        ]
+      },
+      "cooldownStart": "post-effect",
+      "cost": {
+        "text": "100",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 100
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "0.25 • None",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0.25
+            },
+            "label": "Active"
+          }
+        ]
+      },
+      "range": {
+        "text": "2000 / 2500 / 3000",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                2000,
+                2500,
+                3000
+              ]
+            },
+            "label": "Shadow missile range"
+          }
+        ]
+      },
+      "effectRadius": {
+        "text": "650 • Global",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 650
+            },
+            "label": "Missile sight radius"
+          }
+        ]
+      },
+      "width": {
+        "text": "260",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 260
+            },
+            "label": "First cast missile width"
+          }
+        ]
+      },
+      "speed": {
+        "text": "1600 • 2200",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 1600
+            },
+            "label": "First cast missile speed"
+          },
+          {
+            "series": {
+              "kind": "constant",
+              "value": 2200
+            },
+            "label": "Dash speed, estimated"
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Direction",
+        "Auto"
+      ],
+      "affects": [
+        "Self",
+        "Enemies"
+      ],
+      "damageType": [
+        "Magic"
+      ],
+      "spellEffects": "spell",
+      "spellShield": "true",
+      "projectile": "true",
+      "grounded": "special",
+      "knockdown": "false"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Vex sends her Shadow in the target direction, which grants sight around its trajectory and deals magic damage to enemies hit.",
+        "leveling": [
+          {
+            "label": "Magic Damage",
+            "amount": {
+              "text": "75 / 125 / 175 (+ 20% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  75,
+                  125,
+                  175
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 20
+                  },
+                  "text": "(+ 20% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "reveal",
+            "category": "vision",
+            "wording": "sight",
+            "evidence": "Active: Vex sends her Shadow in the target direction, which grants sight around its trajectory and deals magic damage to enemies hit.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "Shadow stops upon hitting an enemy champion to mark them for 4 seconds, during which they are revealed. Shadow Surge can be recast while the target is marked.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "true sight",
+            "category": "vision",
+            "wording": "revealed",
+            "duration": {
+              "kind": "constant",
+              "value": 4
+            },
+            "evidence": "Shadow stops upon hitting an enemy champion to mark them for 4 seconds, during which they are revealed.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "label": "Recast",
+        "text": "Recast: Vex dashes towards the marked target with displacement immunity. Upon arrival, she consumes their mark and deals magic damage.",
+        "leveling": [
+          {
+            "label": "Magic Damage",
+            "amount": {
+              "text": "150 / 250 / 350 (+ 50% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  150,
+                  250,
+                  350
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 50
+                  },
+                  "text": "(+ 50% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Total Magic Damage",
+            "amount": {
+              "text": "225 / 375 / 525 (+ 70% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  225,
+                  375,
+                  525
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 70
+                  },
+                  "text": "(+ 70% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "dash",
+            "category": "movement",
+            "wording": "dashes",
+            "evidence": "Recast: Vex dashes towards the marked target with displacement immunity.",
+            "conditional": false
+          },
+          {
+            "type": "displacement-immune",
+            "category": "defense",
+            "wording": "displacement immunity",
+            "evidence": "Recast: Vex dashes towards the marked target with displacement immunity.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "If Vex scores a takedown against Shadow Surge's marked target within 8 seconds of its application, Vex can cast Shadow Surge again within 12 seconds at no cost after 0.5 seconds, repeating the effects.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "This ability will cast from wherever the caster is at the end of the cast time.",
+      "Vex's dash will track the target if they change locations.\n  - She will not stop tracking the target until she reaches them, as there is no maximum tracking distance.",
+      "Shadow Surge grants sight of the area along its path for 0.4 seconds each.",
+      "Shadow Surge cannot be recast while grounded or rooted, or if the target is untargetable.",
+      "Shadow Surge grants the additional cast from scoring the takedown even if the target died to the ability.",
+      "The following table refers for interactions while Vex is dashing:\n  - All movement spells are disabled during the first 0.25 seconds of the dash."
+    ]
+  },
+  {
+    "champion": "Vex",
+    "kind": "W",
+    "name": "Personal Space",
+    "page": {
+      "title": "Template:Data Vex/Personal Space",
+      "revid": 4008547
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "16 / 15 / 14 / 13 / 12",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                16,
+                15,
+                14,
+                13,
+                12
+              ]
+            }
+          }
+        ]
+      },
+      "cost": {
+        "text": "75",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 75
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "0.25",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0.25
+            }
+          }
+        ]
+      },
+      "effectRadius": {
+        "text": "475 • 550",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 475
+            },
+            "label": "Standard radius"
+          },
+          {
+            "series": {
+              "kind": "constant",
+              "value": 550
+            },
+            "label": "Enhanced radius against dashing enemies"
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Auto"
+      ],
+      "affects": [
+        "Self",
+        "Enemies"
+      ],
+      "damageType": [
+        "Magic"
+      ],
+      "spellEffects": "spellaoe",
+      "spellShield": "true"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Vex emits a deafening scream around her before the cast time, dealing magic damage to nearby enemies and granting herself a shield for 2.5 seconds.\n\nThe scream's radius is slightly increased against enemies that are dashing.",
+        "leveling": [
+          {
+            "label": "Shield Strength",
+            "amount": {
+              "text": "50 / 75 / 100 / 125 / 150 (+ 75% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  50,
+                  75,
+                  100,
+                  125,
+                  150
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 75
+                  },
+                  "text": "(+ 75% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Magic Damage",
+            "amount": {
+              "text": "80 / 120 / 160 / 200 / 240 (+ 30% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  80,
+                  120,
+                  160,
+                  200,
+                  240
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 30
+                  },
+                  "text": "(+ 30% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "shield",
+            "category": "defense",
+            "wording": "shield",
+            "duration": {
+              "kind": "constant",
+              "value": 2.5
+            },
+            "evidence": "Active: Vex emits a deafening scream around her before the cast time, dealing magic damage to nearby enemies and granting herself a shield for 2.5 seconds.",
+            "conditional": false
+          },
+          {
+            "type": "dash",
+            "category": "movement",
+            "wording": "dashing",
+            "evidence": "The scream's radius is slightly increased against enemies that are dashing.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "Vex can move during Personal Space's cast time.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": []
+  }
+]

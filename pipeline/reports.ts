@@ -1,6 +1,13 @@
 /** Markdown reports committed next to each dataset, for people to review. */
+import type { AbilityRecord, Amount, Mechanic, Series } from "../engine/abilities";
 import { TOP_LANE_MAX_LEVEL, statsAtLevel } from "../engine/stats";
 import type { Champion } from "../engine/types";
+import type { AbilityBuild } from "./abilities/build";
+import type { AbilityCoverage } from "./abilities/coverage";
+import type { LevelLink, ValueCheck } from "./abilities/crossCheck";
+import type { GameAbility } from "./abilities/gameSpells";
+import { formatSeries } from "./abilities/marked";
+import { WIKI_BASE } from "./config";
 import type { Reconciled } from "./gameFiles";
 import type { Manifest } from "./manifest";
 
@@ -78,5 +85,266 @@ export function gameFilesReport(manifest: Manifest, reconciled: Reconciled): str
       lines.push(`| ${d.form} | ${d.stat} | ${formatValue(d.wiki)} | ${formatValue(d.game)} | ${d.reason} |`);
     }
   }
+  return `${lines.join("\n")}\n`;
+}
+
+// ----- Abilities -----
+
+const KIND_LABELS: Record<string, string> = { I: "Innate", Q: "Q", W: "W", E: "E", R: "R", A: "Basic attack", other: "Other" };
+const KIND_ORDER = ["I", "Q", "W", "E", "R", "A", "other"];
+
+function wikiUrl(title: string, revid: number): string {
+  return `${WIKI_BASE}${encodeURI(title.replace(/ /g, "_"))}?oldid=${revid}`;
+}
+
+function cell(text: string): string {
+  return text.replace(/\|/g, "\\|").replace(/\n/g, "<br>");
+}
+
+/** The value at max rank and level 20, with a note when the wiki stops at level 18. */
+export function valueAtLevel20(series: Series | undefined, ranks: number): string {
+  if (!series) return "–";
+  switch (series.kind) {
+    case "constant":
+      return formatSeries(series);
+    case "rank":
+      return formatSeries({ kind: "constant", value: series.values[Math.min(ranks, series.values.length) - 1] ?? 0 });
+    case "level":
+      return series.values.length >= 20
+        ? formatSeries({ kind: "constant", value: series.values[19] ?? 0 })
+        : `${formatSeries({ kind: "constant", value: series.values.at(-1) ?? 0 })} (level ${series.values.length}; levels 19–20 not on the wiki)`;
+    case "variable":
+      return `depends on ${series.variable}`;
+  }
+}
+
+function amountAtMax(amount: Amount, ranks: number): string {
+  const base = amount.base ? `${valueAtLevel20(amount.base, ranks)}${amount.unit === "%" ? "%" : amount.unit ? ` ${amount.unit}` : ""}` : "";
+  const of = amount.baseStat ? ` of ${amount.baseStat}` : "";
+  const scaling = amount.scaling.map((term) => {
+    const modifiers = term.modifiers?.length ? ` [${term.modifiers.map((m) => `${valueAtLevel20(m.ratio, ranks)}% ${m.stat}`).join(", ")}]` : "";
+    return ` (+ ${valueAtLevel20(term.ratio, ranks)}% ${term.stat}${modifiers})`;
+  });
+  return `${base}${of}${scaling.join("")}`.trim() || "–";
+}
+
+function mechanicLine(mechanic: Mechanic, ranks: number): string {
+  const details = [
+    mechanic.duration ? `${valueAtLevel20(mechanic.duration, ranks)} s` : undefined,
+    mechanic.amount ? `${valueAtLevel20(mechanic.amount, ranks)}%` : undefined,
+    mechanic.conditional ? "mentioned as a condition" : undefined,
+  ].filter(Boolean);
+  return `${mechanic.type}${details.length ? ` (${details.join(", ")})` : ""}`;
+}
+
+const FIELD_LABELS: Array<[keyof AbilityRecord["fields"], string]> = [
+  ["cooldown", "Cooldown"],
+  ["staticCooldown", "Static cooldown"],
+  ["recharge", "Recharge"],
+  ["cost", "Cost"],
+  ["castTime", "Cast time"],
+  ["targetRange", "Target range"],
+  ["range", "Range"],
+  ["attackRange", "Attack range"],
+  ["effectRadius", "Effect radius"],
+  ["innerRadius", "Inner radius"],
+  ["width", "Width"],
+  ["speed", "Speed"],
+  ["angle", "Angle"],
+  ["collisionRadius", "Collision radius"],
+  ["tetherRadius", "Tether radius"],
+];
+
+function abilitySection(record: AbilityRecord): string[] {
+  const lines = [`## ${KIND_LABELS[record.kind] ?? record.kind}: ${record.name}`, ""];
+  lines.push(`Source: [${record.page.title}](${wikiUrl(record.page.title, record.page.revid)}) (revision ${record.page.revid}). Ranks: ${record.ranks}.`, "");
+  const fieldRows: string[] = [];
+  for (const [key, label] of FIELD_LABELS) {
+    const value = record.fields[key];
+    if (!value || typeof value === "string") continue;
+    const suffix = key === "cost" && record.fields.costType ? ` ${record.fields.costType}` : "";
+    fieldRows.push(`| ${label} | ${cell(value.text)}${suffix} |`);
+  }
+  if (record.fields.cooldownStart) fieldRows.push(`| Cooldown starts | ${cell(record.fields.cooldownStart)} |`);
+  if (fieldRows.length > 0) lines.push("| Field | Value |", "|---|---|", ...fieldRows, "");
+  const f = record.flags;
+  const flag = (label: string, value: string | undefined) => `${label}: ${value ?? "–"}`;
+  lines.push(
+    [
+      `Targeting: ${f.targeting.join(", ") || "–"}`,
+      `Affects: ${f.affects.join(", ") || "–"}`,
+      `Damage type: ${f.damageType.join(", ") || "–"}`,
+      flag("Spell shield blocks it", f.spellShield),
+      flag("Projectile", f.projectile),
+      flag("Parry", f.parry),
+      flag("Disabled by grounded", f.grounded),
+      flag("Usable while knocked down", f.knockdown),
+    ].join(" · "),
+    "",
+  );
+  for (const part of record.parts) {
+    if (part.text) lines.push(part.text.replace(/\n+/g, " "), "");
+    for (const stat of part.leveling) {
+      lines.push(`- **${stat.label}:** ${stat.amount.text} → at max rank, level 20: ${amountAtMax(stat.amount, record.ranks)}`);
+    }
+    const applied = part.mechanics.filter((m) => !m.conditional);
+    if (applied.length > 0) lines.push(`- **Mechanics:** ${applied.map((m) => mechanicLine(m, record.ranks)).join("; ")}`);
+    if (part.leveling.length > 0 || applied.length > 0) lines.push("");
+  }
+  for (const custom of record.custom) lines.push(`- **${custom.label}:** ${custom.text}`, "");
+  if (record.notes.length > 0) {
+    lines.push("Notes:", "");
+    for (const note of record.notes) lines.push(`- ${note.replace(/\n/g, "\n  ")}`);
+    lines.push("");
+  }
+  return lines;
+}
+
+export interface KitGameData {
+  checks: ValueCheck[];
+  links: LevelLink[];
+  game: GameAbility[];
+}
+
+const roundValue = (value: number | undefined) => (value === undefined ? "–" : String(Number(value.toPrecision(6))));
+
+function gameSection(data: KitGameData): string[] {
+  const lines = ["## Game files", ""];
+  if (data.checks.length > 0) {
+    lines.push("Cooldowns and costs of each slot's main ability, wiki vs game files:", "", "| Ability | Field | Wiki | Game files | Same |", "|---|---|---|---|---|");
+    for (const check of data.checks) {
+      lines.push(
+        `| ${check.kind}: ${check.ability} | ${check.field} | ${check.wiki.map(roundValue).join(" / ")} | ` +
+          `${check.game.map(roundValue).join(" / ")} | ${check.matches ? "yes" : "**no**"} |`,
+      );
+    }
+    lines.push("");
+  }
+  const leveled = data.links.filter((link) => link.outcome !== "no match");
+  if (data.links.length > 0) {
+    lines.push(
+      "Values that scale with champion level, at levels 18, 19 and 20. \"extended\": the wiki stops at 18 and the",
+      "game formula supplies 19-20; \"confirmed\"/\"differs\": the wiki defines 19-20 and the game formula agrees or not;",
+      "\"no match\": no game formula was found, so 19-20 stay unknown.",
+      "",
+      "| Ability | Value | Outcome | Level 18 | Level 19 | Level 20 | Game formula |",
+      "|---|---|---|--:|--:|--:|---|",
+    );
+    for (const link of data.links) {
+      lines.push(
+        `| ${link.ability} | ${cell(link.where)} | ${link.outcome} | ${link.at18to20.map(roundValue).join(" | ")} | ${cell(link.rule ?? "–")} |`,
+      );
+    }
+    lines.push("");
+  }
+  const formulas = data.game.flatMap((ability) => ability.levelScaling.map((value) => ({ ability, value })));
+  if (formulas.length > 0) {
+    lines.push(
+      `All ${formulas.length} level-based formulas in the game files (${leveled.length} linked to wiki values above):`,
+      "",
+      "| Spell | Calculation | Rule | Level 1 | Level 18 | Level 20 |",
+      "|---|---|---|--:|--:|--:|",
+    );
+    for (const { value } of formulas) {
+      lines.push(
+        `| ${value.spell} | ${value.calculation} | ${cell(value.rule)} | ${roundValue(value.values[0])} | ${roundValue(value.values[17])} | ${roundValue(value.values[19])} |`,
+      );
+    }
+    lines.push("");
+  }
+  return lines;
+}
+
+export function kitPage(manifest: Manifest, champion: Champion, records: AbilityRecord[], gameData?: KitGameData): string {
+  const lines = [
+    `# ${champion.name}, ${champion.title} (patch ${manifest.patch})`,
+    "",
+    "Generated by `npm run build:data` from the League of Legends Wiki (CC BY-SA 3.0) and the game files.",
+    "Values marked \"at max rank, level 20\" assume every ability is maxed; see PLAN.md for the level-20 rules.",
+    "",
+    "## Base stats at level 20",
+    "",
+    "| Form | HP | HP regen | Resource | AD | Attack speed | Windup (s) | Armor | Magic resist | Range | Move speed |",
+    "|---|--:|--:|--:|--:|--:|--:|--:|--:|--:|--:|",
+  ];
+  for (const form of champion.forms) {
+    const s = statsAtLevel(form.stats, TOP_LANE_MAX_LEVEL);
+    lines.push(
+      `| ${form.name} | ${fixed(s.hp, 1)} | ${fixed(s.hpRegen, 2)} | ${fixed(s.resource, 1)} ${champion.resource} | ` +
+        `${fixed(s.attackDamage, 1)} | ${fixed(s.attackSpeed, 3)} | ${fixed(s.attackWindup, 3)} | ${fixed(s.armor, 1)} | ` +
+        `${fixed(s.magicResist, 1)} | ${s.attackRange} | ${s.moveSpeed} |`,
+    );
+  }
+  lines.push("");
+  const sorted = [...records].sort((a, b) => KIND_ORDER.indexOf(a.kind) - KIND_ORDER.indexOf(b.kind));
+  for (const record of sorted) lines.push(...abilitySection(record));
+  if (gameData) lines.push(...gameSection(gameData));
+  return `${lines.join("\n").replace(/\n{3,}/g, "\n\n").trimEnd()}\n`;
+}
+
+export function abilitiesReport(
+  manifest: Manifest,
+  build: AbilityBuild,
+  coverage: AbilityCoverage,
+  checks: ValueCheck[] = [],
+  links: LevelLink[] = [],
+): string {
+  const percent = (part: number, whole: number) => `${((100 * part) / Math.max(1, whole)).toFixed(1)}%`;
+  const kinds = KIND_ORDER.filter((kind) => coverage.byKind[kind]).map((kind) => `${KIND_LABELS[kind]} ${coverage.byKind[kind]}`);
+  const lines = [
+    `# Ability data (patch ${manifest.patch})`,
+    "",
+    "Generated by `npm run build:data` from the League of Legends Wiki's ability data pages (CC BY-SA 3.0).",
+    "",
+    `- Ability records: ${coverage.records} (${kinds.join(", ")}) for ${coverage.champions} champions.`,
+    `- Leveling values fully understood: ${coverage.levelingParsed} of ${coverage.levelingStats} (${percent(coverage.levelingParsed, coverage.levelingStats)}).`,
+    `- Mechanics read from descriptions: ${coverage.mechanics}. Crowd control applied: ${coverage.controlEffects}, with a duration: ${coverage.controlWithDuration} (${percent(coverage.controlWithDuration, coverage.controlEffects)}).`,
+    `- Templates without a handler: ${[...build.unknownTemplates].map(([name, n]) => `${name} (${n})`).join(", ") || "none"}.`,
+    `- Warnings: ${build.warnings.length === 0 ? "none" : ""}`,
+    ...build.warnings.map((warning) => `  - ${warning}`),
+    "",
+    `## Level 19-20 values (${links.length} level-based values)`,
+    "",
+    "Level-based values are matched to the game's formulas by their level-1 and level-18 values.",
+    "The game writes the \"scale past level 18\" flag only when it is false, so a formula without it keeps scaling.",
+    "",
+    ...(["extended", "confirmed", "differs", "ambiguous", "no match"] as const).map(
+      (outcome) => `- ${outcome}: ${links.filter((link) => link.outcome === outcome).length}`,
+    ),
+    "",
+    "| Champion | Ability | Value | Outcome | Level 18 | Level 19 | Level 20 |",
+    "|---|---|---|---|--:|--:|--:|",
+    ...links
+      .filter((link) => link.outcome === "differs" || link.outcome === "ambiguous")
+      .map(
+        (link) =>
+          `| ${link.champion} | ${cell(link.ability)} | ${cell(link.where)} | ${link.outcome} | ${link.at18to20.map((v) => (v === undefined ? "–" : String(Number(v.toPrecision(6))))).join(" | ")} |`,
+      ),
+    "",
+    `## Cooldowns and costs vs game files (${checks.filter((c) => !c.matches).length} of ${checks.length} differ)`,
+    "",
+    "| Champion | Ability | Field | Wiki | Game files |",
+    "|---|---|---|---|---|",
+    ...checks
+      .filter((check) => !check.matches)
+      .map(
+        (check) =>
+          `| ${check.champion} | ${check.kind}: ${cell(check.ability)} | ${check.field} | ${check.wiki.map((v) => String(Number(v.toPrecision(6)))).join(" / ")} | ${check.game.map((v) => String(Number(v.toPrecision(6)))).join(" / ")} |`,
+      ),
+    "",
+    `## Leveling values not fully understood (${coverage.unparsed.length})`,
+    "",
+    "| Ability | Label | Value | Not understood |",
+    "|---|---|---|---|",
+    ...coverage.unparsed.map((u) => `| ${cell(u.ability)} | ${cell(u.label)} | ${cell(u.text)} | ${cell(u.unparsed)} |`),
+    "",
+    `## Crowd control without a duration (${coverage.controlWithoutDuration.length})`,
+    "",
+    "Often the duration is stated elsewhere (another sentence or a note); these are checked per champion later.",
+    "",
+    "| Ability | Effect | Sentence |",
+    "|---|---|---|",
+    ...coverage.controlWithoutDuration.map((c) => `| ${cell(c.ability)} | ${c.type} | ${cell(c.evidence)} |`),
+  ];
   return `${lines.join("\n")}\n`;
 }

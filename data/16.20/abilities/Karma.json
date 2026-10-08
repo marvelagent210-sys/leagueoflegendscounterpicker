@@ -1,0 +1,1175 @@
+[
+  {
+    "champion": "Karma",
+    "kind": "E",
+    "name": "Defiance",
+    "page": {
+      "title": "Template:Data Karma/Defiance",
+      "revid": 4004072
+    },
+    "ranks": 5,
+    "fields": {
+      "costType": "mana",
+      "castTime": {
+        "text": "none",
+        "values": []
+      },
+      "effectRadius": {
+        "text": "700",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 700
+            },
+            "label": "Shield spread radius to allied champions around primary target"
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Unit"
+      ],
+      "affects": [
+        "Allies"
+      ],
+      "damageType": []
+    },
+    "parts": [
+      {
+        "label": "Mantra - Active",
+        "text": "Mantra - Active: Inspire grants a bonus amount of shielding.\n\nInspire spreads to surrounding allied champions, granting them a shield for 2.5 seconds and 15% bonus movement speed for 2 seconds.",
+        "leveling": [
+          {
+            "label": "Bonus Primary Target Shield",
+            "amount": {
+              "text": "45 / 85 / 125 / 165 (+ 45% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  45,
+                  85,
+                  125,
+                  165
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 45
+                  },
+                  "text": "(+ 45% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Total Primary Target Shield",
+            "amount": {
+              "text": "80 / 130 / 180 / 230 / 280 (+ 45 / 85 / 125 / 165) (+ 105% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  80,
+                  130,
+                  180,
+                  230,
+                  280
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "other:",
+                  "ratio": {
+                    "kind": "rank",
+                    "values": [
+                      45,
+                      85,
+                      125,
+                      165
+                    ]
+                  },
+                  "text": "(+ 45 / 85 / 125 / 165)"
+                },
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 105
+                  },
+                  "text": "(+ 105% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Secondary Target Shield",
+            "amount": {
+              "text": "45 / 85 / 125 / 165 (+ 45% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  45,
+                  85,
+                  125,
+                  165
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 45
+                  },
+                  "text": "(+ 45% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "shield",
+            "category": "defense",
+            "wording": "shield",
+            "duration": {
+              "kind": "constant",
+              "value": 2.5
+            },
+            "evidence": "Inspire spreads to surrounding allied champions, granting them a shield for 2.5 seconds and 15% bonus movement speed for 2 seconds.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "Defiance scales with Mantra rank.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Defiance has a forgiveness radius of 175 units."
+    ]
+  },
+  {
+    "champion": "Karma",
+    "kind": "E",
+    "name": "Inspire",
+    "page": {
+      "title": "Template:Data Karma/Inspire",
+      "revid": 4008449
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "10 / 9.5 / 9 / 8.5 / 8",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                10,
+                9.5,
+                9,
+                8.5,
+                8
+              ]
+            }
+          }
+        ]
+      },
+      "cost": {
+        "text": "60 / 65 / 70 / 75 / 80",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                60,
+                65,
+                70,
+                75,
+                80
+              ]
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "none",
+        "values": []
+      },
+      "targetRange": {
+        "text": "800",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 800
+            }
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Unit"
+      ],
+      "affects": [
+        "Allies"
+      ],
+      "damageType": []
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Karma grants a shield to herself or the target allied champion for 2.5 seconds as well as 40% bonus movement speed for 2 seconds.",
+        "leveling": [
+          {
+            "label": "Shield Strength",
+            "amount": {
+              "text": "80 / 130 / 180 / 230 / 280 (+ 60% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  80,
+                  130,
+                  180,
+                  230,
+                  280
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 60
+                  },
+                  "text": "(+ 60% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "shield",
+            "category": "defense",
+            "wording": "shield",
+            "duration": {
+              "kind": "constant",
+              "value": 2.5
+            },
+            "evidence": "Active: Karma grants a shield to herself or the target allied champion for 2.5 seconds as well as 40% bonus movement speed for 2 seconds.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Inspire has a forgiveness radius of 175 units."
+    ]
+  },
+  {
+    "champion": "Karma",
+    "kind": "I",
+    "name": "Gathering Fire",
+    "page": {
+      "title": "Template:Data Karma/Gathering Fire",
+      "revid": 3985386
+    },
+    "ranks": 1,
+    "fields": {},
+    "flags": {
+      "targeting": [
+        "Passive"
+      ],
+      "affects": [
+        "Self"
+      ],
+      "damageType": []
+    },
+    "parts": [
+      {
+        "label": "Innate",
+        "text": "Innate: Mantra current cooldown is reduced by 4 seconds for each enemy champion hit by Karma's damaging abilities.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Inner Flame / Soulflare reduces Mantra cooldown per champion hit by either damage instance (up to a maximum total reduction of 40 seconds if 5 enemy champions are hit by both instances of damage).",
+      "Focused Resolve / Renewal reduces Mantra cooldown when initially cast and again after the duration for the tether has expired (for a total reduction of 8 seconds)."
+    ]
+  },
+  {
+    "champion": "Karma",
+    "kind": "Q",
+    "name": "Inner Flame",
+    "page": {
+      "title": "Template:Data Karma/Inner Flame",
+      "revid": 3875842
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "9 / 8 / 7 / 6 / 5",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                9,
+                8,
+                7,
+                6,
+                5
+              ]
+            }
+          }
+        ]
+      },
+      "cost": {
+        "text": "40 / 50 / 60 / 70 / 80",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                40,
+                50,
+                60,
+                70,
+                80
+              ]
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "0.25",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0.25
+            }
+          }
+        ]
+      },
+      "targetRange": {
+        "text": "950 / 890",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                950,
+                890
+              ]
+            }
+          }
+        ]
+      },
+      "effectRadius": {
+        "text": "280",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 280
+            },
+            "label": "Collision detonation radius"
+          }
+        ]
+      },
+      "width": {
+        "text": "120",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 120
+            },
+            "label": "Missile width"
+          }
+        ]
+      },
+      "speed": {
+        "text": "1700",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 1700
+            },
+            "label": "Missile speed"
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Direction"
+      ],
+      "affects": [
+        "Enemies"
+      ],
+      "damageType": [
+        "Magic"
+      ],
+      "spellEffects": "area of effect",
+      "spellShield": "true",
+      "projectile": "true"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Karma fires a bolt in the target direction that explodes on the first enemy hit, dealing magic damage to nearby enemies and slowing them by 40% for 1.5 seconds.",
+        "leveling": [
+          {
+            "label": "Magic Damage",
+            "amount": {
+              "text": "60 / 110 / 160 / 210 / 260 (+ 70% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  60,
+                  110,
+                  160,
+                  210,
+                  260
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 70
+                  },
+                  "text": "(+ 70% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "slow",
+            "category": "control",
+            "wording": "slowing",
+            "duration": {
+              "kind": "constant",
+              "value": 1.5
+            },
+            "amount": {
+              "kind": "constant",
+              "value": 40
+            },
+            "evidence": "Active: Karma fires a bolt in the target direction that explodes on the first enemy hit, dealing magic damage to nearby enemies and slowing them by 40% for 1.5 seconds.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Spell shield will block the initial impact from Inner Flame.",
+      "This ability will cast from wherever the caster is at the end of the cast time.",
+      "Inner Flame's effect radius is centered around the location of the missile as it collides."
+    ]
+  },
+  {
+    "champion": "Karma",
+    "kind": "Q",
+    "name": "Soulflare",
+    "page": {
+      "title": "Template:Data Karma/Soulflare",
+      "revid": 3875841
+    },
+    "ranks": 5,
+    "fields": {
+      "effectRadius": {
+        "text": "280",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 280
+            },
+            "label": "Field area of effect radius"
+          }
+        ]
+      },
+      "width": {
+        "text": "160",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 160
+            },
+            "label": "Increased missile width"
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Direction"
+      ],
+      "affects": [
+        "Enemies"
+      ],
+      "damageType": [
+        "Magic"
+      ],
+      "spellEffects": "spellaoe",
+      "spellShield": "special",
+      "projectile": "true"
+    },
+    "parts": [
+      {
+        "label": "Mantra Bonus",
+        "text": "Mantra Bonus: Inner Flame deals increased damage, and fires a larger bolt that also explodes at maximum range.",
+        "leveling": [
+          {
+            "label": "Bonus Magic Damage",
+            "amount": {
+              "text": "40 / 100 / 160 / 220 (+ 30% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  40,
+                  100,
+                  160,
+                  220
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 30
+                  },
+                  "text": "(+ 30% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Total Magic Damage",
+            "amount": {
+              "text": "60 / 110 / 160 / 210 / 260 (+ 40 / 100 / 160 / 220) (+ 100% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  60,
+                  110,
+                  160,
+                  210,
+                  260
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "other:",
+                  "ratio": {
+                    "kind": "rank",
+                    "values": [
+                      40,
+                      100,
+                      160,
+                      220
+                    ]
+                  },
+                  "text": "(+ 40 / 100 / 160 / 220)"
+                },
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 100
+                  },
+                  "text": "(+ 100% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "text": "The explosion creates a field for 1.5 seconds that slows enemies within by 50%, which then ruptures to deal magic damage.",
+        "leveling": [
+          {
+            "label": "Magic Damage",
+            "amount": {
+              "text": "40 / 130 / 220 / 310 (+ 50% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  40,
+                  130,
+                  220,
+                  310
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 50
+                  },
+                  "text": "(+ 50% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Total Bonus Damage",
+            "amount": {
+              "text": "80 / 230 / 380 / 530 (+ 80% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  80,
+                  230,
+                  380,
+                  530
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 80
+                  },
+                  "text": "(+ 80% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Total Damage",
+            "amount": {
+              "text": "60 / 110 / 160 / 210 / 260 (+ 80 / 230 / 380 / 530) (+ 150% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  60,
+                  110,
+                  160,
+                  210,
+                  260
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "other:",
+                  "ratio": {
+                    "kind": "rank",
+                    "values": [
+                      80,
+                      230,
+                      380,
+                      530
+                    ]
+                  },
+                  "text": "(+ 80 / 230 / 380 / 530)"
+                },
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 150
+                  },
+                  "text": "(+ 150% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "slow",
+            "category": "control",
+            "wording": "slows",
+            "amount": {
+              "kind": "constant",
+              "value": 50
+            },
+            "evidence": "The explosion creates a field for 1.5 seconds that slows enemies within by 50%, which then ruptures to deal magic damage.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "Soulflare scales with Mantra rank.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Spell shield will block the initial impact from either ability but will not block Soulflare's field damage.",
+      "Soulflare's detonation radius is centered around the location of the missile as it collides, while the lingering field will always be created at the impacted enemy's center instead.",
+      "Soulflare will cast from wherever Karma is at the end of the cast time."
+    ]
+  },
+  {
+    "champion": "Karma",
+    "kind": "R",
+    "name": "Mantra",
+    "page": {
+      "title": "Template:Data Karma/Mantra",
+      "revid": 4005102
+    },
+    "ranks": 4,
+    "fields": {
+      "cooldown": {
+        "text": "40 / 38 / 36 / 34",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                40,
+                38,
+                36,
+                34
+              ]
+            }
+          }
+        ]
+      },
+      "cooldownStart": "on-cast",
+      "castTime": {
+        "text": "none",
+        "values": []
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Auto"
+      ],
+      "affects": [
+        "Self"
+      ],
+      "damageType": []
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Karma empowers her next basic ability within 8 seconds for an additional effect.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "text": "Karma begins the game with one rank in Mantra. Her empowered abilities scale based on Mantra's rank.\n\nMantra can be used while affected by cast-inhibiting crowd control.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": []
+  },
+  {
+    "champion": "Karma",
+    "kind": "W",
+    "name": "Focused Resolve",
+    "page": {
+      "title": "Template:Data Karma/Focused Resolve",
+      "revid": 3968365
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "12",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 12
+            }
+          }
+        ]
+      },
+      "cost": {
+        "text": "50 / 55 / 60 / 65 / 70",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                50,
+                55,
+                60,
+                65,
+                70
+              ]
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "0.25",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0.25
+            }
+          }
+        ]
+      },
+      "targetRange": {
+        "text": "675",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 675
+            }
+          }
+        ]
+      },
+      "tetherRadius": {
+        "text": "825",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 825
+            }
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Unit"
+      ],
+      "affects": [
+        "Enemies",
+        "Self"
+      ],
+      "damageType": [
+        "Magic"
+      ],
+      "spellEffects": "spell",
+      "spellShield": "special",
+      "projectile": "false"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Karma deals magic damage to the target enemy champion, monster or pet and forms a tether between her and them for 2 seconds, during which they are revealed.",
+        "leveling": [
+          {
+            "label": "Magic Damage",
+            "amount": {
+              "text": "40 / 65 / 90 / 115 / 140 (+ 45% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  40,
+                  65,
+                  90,
+                  115,
+                  140
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 45
+                  },
+                  "text": "(+ 45% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "summon",
+            "category": "other",
+            "wording": "pet",
+            "evidence": "Active: Karma deals magic damage to the target enemy champion, monster or pet and forms a tether between her and them for 2 seconds, during which they are revealed.",
+            "conditional": false
+          },
+          {
+            "type": "tether",
+            "category": "other",
+            "wording": "tether",
+            "duration": {
+              "kind": "constant",
+              "value": 2
+            },
+            "evidence": "Active: Karma deals magic damage to the target enemy champion, monster or pet and forms a tether between her and them for 2 seconds, during which they are revealed.",
+            "conditional": false
+          },
+          {
+            "type": "true sight",
+            "category": "vision",
+            "wording": "revealed",
+            "duration": {
+              "kind": "constant",
+              "value": 2
+            },
+            "evidence": "Active: Karma deals magic damage to the target enemy champion, monster or pet and forms a tether between her and them for 2 seconds, during which they are revealed.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "If the tether is not broken by the end of its duration, the target is dealt the same magic damage again and is rooted for a duration, during which they are revealed.",
+        "leveling": [
+          {
+            "label": "Total Magic Damage",
+            "amount": {
+              "text": "80 / 130 / 180 / 230 / 280 (+ 90% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  80,
+                  130,
+                  180,
+                  230,
+                  280
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 90
+                  },
+                  "text": "(+ 90% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Root Duration",
+            "amount": {
+              "text": "1.6 / 1.7 / 1.8 / 1.9 / 2 seconds",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  1.6,
+                  1.7000000000000002,
+                  1.8,
+                  1.9,
+                  2
+                ]
+              },
+              "unit": "s",
+              "scaling": [],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "root",
+            "category": "control",
+            "wording": "rooted",
+            "duration": {
+              "kind": "rank",
+              "values": [
+                1.6,
+                1.7000000000000002,
+                1.8,
+                1.9,
+                2
+              ]
+            },
+            "evidence": "If the tether is not broken by the end of its duration, the target is dealt the same magic damage again and is rooted for a duration, during which they are revealed.",
+            "conditional": false
+          },
+          {
+            "type": "true sight",
+            "category": "vision",
+            "wording": "revealed",
+            "evidence": "If the tether is not broken by the end of its duration, the target is dealt the same magic damage again and is rooted for a duration, during which they are revealed.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Spell shield will block the tether's application and damage but not the aftereffects of one already applied.",
+      "If Karma is tethered to multiple targets, the visual effects of all tethers will disappear at the end of the first tether's duration, but the other targets will remain tethered.",
+      "If the target becomes untargetable, dies, or is no longer in sight during the cast time, this ability will cancel but does not go on cooldown nor pay its cost.\n  - If they move too far away during the cast time, however, the ability will cancel as normal but still go on cooldown and pay its cost.\n    - Summon Aery will still count as the target being damaged this way."
+    ]
+  },
+  {
+    "champion": "Karma",
+    "kind": "W",
+    "name": "Renewal",
+    "page": {
+      "title": "Template:Data Karma/Renewal",
+      "revid": 4013452
+    },
+    "ranks": 5,
+    "fields": {},
+    "flags": {
+      "targeting": [
+        "Unit"
+      ],
+      "affects": [
+        "Enemies",
+        "Self"
+      ],
+      "damageType": [
+        "Magic"
+      ],
+      "spellEffects": "spell",
+      "spellShield": "special",
+      "projectile": "false"
+    },
+    "parts": [
+      {
+        "label": "Mantra Bonus",
+        "text": "Mantra Bonus: Focused Resolve's root duration is increased.\n\nKarma heals for 17% (+ 1% per 100 AP) of her missing health once on-cast, and again once the tether lasts its full duration or the target dies while tethered.",
+        "leveling": [
+          {
+            "label": "Root Duration Increase",
+            "amount": {
+              "text": "0.5 / 0.75 / 1 / 1.25 seconds",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  0.5,
+                  0.75,
+                  1,
+                  1.25
+                ]
+              },
+              "unit": "s",
+              "scaling": [],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Total Root Duration",
+            "amount": {
+              "text": "1.6 / 1.7 / 1.8 / 1.9 / 2 (+ 0.5 / 0.75 / 1 / 1.25) seconds",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  1.6,
+                  1.7000000000000002,
+                  1.8,
+                  1.9,
+                  2
+                ]
+              },
+              "unit": "s",
+              "scaling": [
+                {
+                  "stat": "other:",
+                  "ratio": {
+                    "kind": "rank",
+                    "values": [
+                      0.5,
+                      0.75,
+                      1,
+                      1.25
+                    ]
+                  },
+                  "text": "(+ 0.5 / 0.75 / 1 / 1.25)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "root",
+            "category": "control",
+            "wording": "root",
+            "duration": {
+              "kind": "rank",
+              "values": [
+                0.5,
+                0.75,
+                1,
+                1.25
+              ]
+            },
+            "evidence": "Mantra Bonus: Focused Resolve's root duration is increased.",
+            "conditional": false
+          },
+          {
+            "type": "heal",
+            "category": "defense",
+            "wording": "heals",
+            "evidence": "Karma heals for 17% (+ 1% per 100 AP) of her missing health once on-cast, and again once the tether lasts its full duration or the target dies while tethered.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "Renewal scales with Mantra rank.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Spell shield will block the tether's application and damage but not the aftereffects of one already applied.",
+      "If Karma is tethered to multiple targets, the visual effects of all tethers will disappear at the end of the first tether's duration, but the other targets will remain tethered.",
+      "On cast, Renewal is treated as 2 abilities for Conqueror and Electrocute, instead of 1.",
+      "If the target becomes untargetable, dies, or is no longer in sight during the cast time, this ability will cancel but does not go on cooldown nor pay its cost.\n  - If they move too far away during the cast time, however, the ability will cancel as normal but still go on cooldown and pay its cost.\n    - Karma is still healed on-cast.\n    - Summon Aery will still count as the target being damaged this way."
+    ]
+  }
+]

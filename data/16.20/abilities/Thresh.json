@@ -1,0 +1,982 @@
+[
+  {
+    "champion": "Thresh",
+    "kind": "E",
+    "name": "Flay",
+    "page": {
+      "title": "Template:Data Thresh/Flay",
+      "revid": 4057474
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "13 / 12.25 / 11.5 / 10.75 / 10",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                13,
+                12.25,
+                11.5,
+                10.75,
+                10
+              ]
+            }
+          }
+        ]
+      },
+      "cost": {
+        "text": "60 / 65 / 70 / 75 / 80",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                60,
+                65,
+                70,
+                75,
+                80
+              ]
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "0.3889",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0.3889
+            },
+            "label": "Effects start immediately"
+          }
+        ]
+      },
+      "range": {
+        "text": "-550 • 525",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 550
+            },
+            "label": "Origin behind"
+          },
+          {
+            "series": {
+              "kind": "constant",
+              "value": 525
+            },
+            "label": "End range in front"
+          }
+        ]
+      },
+      "effectRadius": {
+        "text": "270",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 270
+            },
+            "label": "Radius around Thresh, estimated"
+          }
+        ]
+      },
+      "width": {
+        "text": "220",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 220
+            },
+            "label": "Missile width"
+          }
+        ]
+      },
+      "speed": {
+        "text": "2000",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 2000
+            },
+            "label": "Missile speed"
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Direction"
+      ],
+      "affects": [
+        "Enemies"
+      ],
+      "damageType": [
+        "Magic"
+      ],
+      "spellEffects": "special",
+      "spellShield": "true",
+      "projectile": "false",
+      "parry": "unknown"
+    },
+    "parts": [
+      {
+        "label": "Passive",
+        "text": "Passive: Thresh's basic attacks are empowered to deal bonus magic damage, with the AD ratio increasing over 10 seconds without basic attacking enemies.",
+        "leveling": [
+          {
+            "label": "Minimum Bonus Magic Damage",
+            "amount": {
+              "text": "1.7 per Soul collected (+ 0% AD)",
+              "base": {
+                "kind": "constant",
+                "value": 1.7
+              },
+              "unit": "per Soul collected",
+              "scaling": [
+                {
+                  "stat": "AD",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 0
+                  },
+                  "text": "(+ 0% AD)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Maximum Bonus Magic Damage",
+            "amount": {
+              "text": "1.7 per Soul collected (+ 90 / 120 / 150 / 180 / 210% AD)",
+              "base": {
+                "kind": "constant",
+                "value": 1.7
+              },
+              "unit": "per Soul collected",
+              "scaling": [
+                {
+                  "stat": "AD",
+                  "ratio": {
+                    "kind": "rank",
+                    "values": [
+                      90,
+                      120,
+                      150,
+                      180,
+                      210
+                    ]
+                  },
+                  "text": "(+ 90 / 120 / 150 / 180 / 210% AD)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "label": "Active",
+        "text": "Active: Thresh sweeps his chain across the ground in a broad line and a radius around him, starting behind him and towards the target direction. Enemies hit are dealt magic damage and knocked 200 units in the target direction, and then are slowed for 1 second.",
+        "leveling": [
+          {
+            "label": "Magic Damage",
+            "amount": {
+              "text": "65 / 110 / 155 / 200 / 245 (+ 60% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  65,
+                  110,
+                  155,
+                  200,
+                  245
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 60
+                  },
+                  "text": "(+ 60% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Slow",
+            "amount": {
+              "text": "20 / 25 / 30 / 35 / 40%",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  20,
+                  25,
+                  30,
+                  35,
+                  40
+                ]
+              },
+              "unit": "%",
+              "scaling": [],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "airborne",
+            "category": "control",
+            "wording": "knocked",
+            "duration": {
+              "kind": "constant",
+              "value": 1
+            },
+            "evidence": "Enemies hit are dealt magic damage and knocked 200 units in the target direction, and then are slowed for 1 second.",
+            "conditional": false
+          },
+          {
+            "type": "slow",
+            "category": "control",
+            "wording": "slowed",
+            "duration": {
+              "kind": "constant",
+              "value": 1
+            },
+            "amount": {
+              "kind": "rank",
+              "values": [
+                20,
+                25,
+                30,
+                35,
+                40
+              ]
+            },
+            "evidence": "Enemies hit are dealt magic damage and knocked 200 units in the target direction, and then are slowed for 1 second.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Flay's effects start at the start of the cast time. Thresh can cast other spells once the cast time completes, but remains unable to attack and move and use mobility spells (such as Flash) until the chain completed its way entirely.",
+      "Applies area damage on the ability and deals proc damage on the enhanced basic attack.",
+      "The knockback's airborne debuff is set to last longer than the forced movement, but gets removed as soon as the forced movement from Flay ends or is overridden by another.",
+      "Flay's passive's buff icon changes colors depending on charge level. At 100%, Thresh's scythe will glow green and a sound effect will play.",
+      "Thresh Flay 2.png"
+    ]
+  },
+  {
+    "champion": "Thresh",
+    "kind": "I",
+    "name": "Damnation",
+    "page": {
+      "title": "Template:Data Thresh/Damnation",
+      "revid": 4025498
+    },
+    "ranks": 1,
+    "fields": {
+      "effectRadius": {
+        "text": "1900",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 1900
+            }
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Passive"
+      ],
+      "affects": [
+        "Self"
+      ],
+      "damageType": []
+    },
+    "parts": [
+      {
+        "label": "Innate",
+        "text": "Innate: Thresh's armor does not increase through growth (per level).",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "label": "Innate",
+        "text": "Innate: Enemy champions, large minions and large monsters that die near Thresh drop a Soul for 8 seconds. Epic monsters drop 2 Souls while lesser minions and monsters have a 33.3% chance to drop a Soul.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "text": "Thresh automatically collects Souls near him or a placed Dark Passage.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "label": "Soul",
+        "text": "Soul: For each stack, Thresh gains 1 ability power and 1 bonus armor.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Souls grant a small area of sight.",
+      "Souls are visible to allies and only become visible to enemies if their team has sight of Thresh.",
+      "The probability for souls dropping from small minions and monsters on Summoner's Rift starts at 33% but adjusts dynamically to match the expected quota of souls dropped (lowers if above, rises if below, remains if even). Souls collected are not considered when adjusting the probability.",
+      "Nunu & Willump drop a soul each."
+    ]
+  },
+  {
+    "champion": "Thresh",
+    "kind": "Q",
+    "name": "Death Sentence",
+    "page": {
+      "title": "Template:Data Thresh/Death Sentence",
+      "revid": 4008201
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "19 / 16.5 / 14 / 11.5 / 9",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                19,
+                16.5,
+                14,
+                11.5,
+                9
+              ]
+            }
+          }
+        ]
+      },
+      "cooldownStart": "on-cast",
+      "cost": {
+        "text": "70",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 70
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "0.5 • None",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0.5
+            },
+            "label": "Initial cast"
+          }
+        ]
+      },
+      "range": {
+        "text": "1100 • 1040",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 1100
+            }
+          },
+          {
+            "series": {
+              "kind": "constant",
+              "value": 1040
+            }
+          }
+        ]
+      },
+      "effectRadius": {
+        "text": "Global • 3000",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 3000
+            },
+            "label": "For being able to cast Deathly Leap; estimated"
+          }
+        ]
+      },
+      "width": {
+        "text": "140",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 140
+            }
+          }
+        ]
+      },
+      "speed": {
+        "text": "1900 • 1400",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 1900
+            },
+            "label": "Missile speed"
+          },
+          {
+            "series": {
+              "kind": "constant",
+              "value": 1400
+            },
+            "label": "Dash speed, estimated"
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Direction",
+        "Auto"
+      ],
+      "affects": [
+        "Enemies",
+        "Self"
+      ],
+      "damageType": [
+        "Magic"
+      ],
+      "spellEffects": "spell",
+      "spellShield": "true",
+      "projectile": "true",
+      "grounded": "special",
+      "knockdown": "true"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Thresh throws out his scythe in the target direction, becoming unable to move or attack while it is in flight.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "lockout",
+            "category": "other",
+            "wording": "unable",
+            "evidence": "Active: Thresh throws out his scythe in the target direction, becoming unable to move or attack while it is in flight.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "The scythe catches the first enemy hit to deal magic damage, stun and reveal them for 1.5 seconds, and render them airborne for 0.4 seconds, as well as reduce Death Sentence's current cooldown by 2 seconds. Thresh will also mark the target Shackled for 1.5 seconds, during which he is unable to declare basic attacks, and is slowed by 20% for 1 second.",
+        "leveling": [
+          {
+            "label": "Magic Damage",
+            "amount": {
+              "text": "100 / 150 / 200 / 250 / 300 (+ 90% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  100,
+                  150,
+                  200,
+                  250,
+                  300
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 90
+                  },
+                  "text": "(+ 90% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "stun",
+            "category": "control",
+            "wording": "stun",
+            "duration": {
+              "kind": "constant",
+              "value": 1.5
+            },
+            "evidence": "The scythe catches the first enemy hit to deal magic damage, stun and reveal them for 1.5 seconds, and render them airborne for 0.4 seconds, as well as reduce Death Sentence's current cooldown by 2 seconds.",
+            "conditional": false
+          },
+          {
+            "type": "true sight",
+            "category": "vision",
+            "wording": "reveal",
+            "duration": {
+              "kind": "constant",
+              "value": 1.5
+            },
+            "evidence": "The scythe catches the first enemy hit to deal magic damage, stun and reveal them for 1.5 seconds, and render them airborne for 0.4 seconds, as well as reduce Death Sentence's current cooldown by 2 seconds.",
+            "conditional": false
+          },
+          {
+            "type": "airborne",
+            "category": "control",
+            "wording": "airborne",
+            "duration": {
+              "kind": "constant",
+              "value": 0.4
+            },
+            "evidence": "The scythe catches the first enemy hit to deal magic damage, stun and reveal them for 1.5 seconds, and render them airborne for 0.4 seconds, as well as reduce Death Sentence's current cooldown by 2 seconds.",
+            "conditional": false
+          },
+          {
+            "type": "slow",
+            "category": "control",
+            "wording": "slowed",
+            "duration": {
+              "kind": "constant",
+              "value": 1
+            },
+            "amount": {
+              "kind": "constant",
+              "value": 20
+            },
+            "evidence": "Thresh will also mark the target Shackled for 1.5 seconds, during which he is unable to declare basic attacks, and is slowed by 20% for 1 second.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "While the target is stunned, Thresh tugs his hook towards him twice, once after a 0.1-second delay and again 0.6 seconds after that. With each tug, the target is pulled a short distance towards Thresh. After 0.5 seconds of hitting an enemy, or instantly after hitting a minion or monster, Thresh can recast the ability while the target is Shackled.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "stun",
+            "category": "control",
+            "wording": "stunned",
+            "evidence": "While the target is stunned, Thresh tugs his hook towards him twice, once after a 0.1-second delay and again 0.6 seconds after that.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "label": "Recast - Deathly Leap",
+        "text": "Recast - Deathly Leap: Thresh stops tugging his hook and dashes to the Shackled enemy, becoming able to attack again upon arrival. He can cast Dark Passage and Flay during the dash.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "dash",
+            "category": "movement",
+            "wording": "dashes",
+            "evidence": "Recast - Deathly Leap: Thresh stops tugging his hook and dashes to the Shackled enemy, becoming able to attack again upon arrival.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Thresh will track the target if they change locations.\n  - He will dash to the target's previous location if the target is too far away or moves beyond 2000 units.",
+      "This ability will cast from wherever the caster is at the end of the cast time.",
+      "The pull that occurs with each of Thresh's tugs is a non-airborne displacement that displaces the target toward him. Thresh will only tug if the target remains stunned and he has not casted Deathly Leap.\n  - Thresh will not tug his hook at all if the stun was not applied to the target.\n  - These displacements will not be resisted by displacement immunity or crowd control immunity.\n  - The first tug occurs after the 0.1-second delay, while the second tug occurs after 0.7 seconds of the target being stunned (or 0.6 seconds from the end of the initial delay).\n  - The initial airborne debuff that is applied to the target upon hitting them is removed if the displacement from the first pull is interrupted.\n  - The target will not be pulled with the tugs if they are too close to Thresh.",
+      "Death Sentence cannot be recast while grounded or rooted.",
+      "Death Sentence can be recast even while the target is untargetable.",
+      "Death Sentence will not stun enemies that are displacement immune or immune to crowd control but the target will still be marked and Thresh is still granted the ability to recast for his dash.",
+      "Spell shield will block all of Death Sentence's effects, including the mark as well as prevent the cooldown reduction.",
+      "Death Sentence's stun duration is affected by tenacity but the mark will always persist for 1.5 seconds, unless the target uses a cleansing effect, in which case the mark is removed.",
+      "Death Sentence's stun will persist even if Thresh dies before the duration ends. The tugs will not occur as Thresh is not alive.",
+      "The reveal lingers for 0.05 seconds after it ends.",
+      "Deathly Leap has a maximum cast range of ~3000 units. If Thresh or the target move a greater distance than this away from one another while the target is marked, Deathly Leap can still be cast but will fail to trigger the dash.",
+      "Thresh will turn his facing direction towards the cast direction only after Death Sentence's cast is complete.\n  - If Thresh is facing more than 90° away from the cast direction in either direction, he will turn to face exactly 90° away from the cast direction over the cast time, then turn towards the cast direction when the missile is fired.\n  - If Thresh is facing less than 90° away from the cast direction, he will keep his facing direction until the missile is fired.\n  - [http://web.archive.org/web/0/http://na.leagueoflegends.com/board/showthread.php?p=33837947#post33837947 This prevents the enemy from knowing where exactly Thresh is aiming at before the cast animation is complete.]",
+      "Death Sentence triggers on-cast effects (such as Spellblade and triggering Force Pulse passive) once at the start of the cast, and once at the end of the cast. It may trigger on-cast effects a third time when casting Deathly Leap.\n  - This is because a separate spell is cast to prevent Thresh from facing towards the target direction immediately, which is (incorrectly) flagged to trigger on-cast effects."
+    ]
+  },
+  {
+    "champion": "Thresh",
+    "kind": "R",
+    "name": "The Box",
+    "page": {
+      "title": "Template:Data Thresh/The Box",
+      "revid": 4024674
+    },
+    "ranks": 3,
+    "fields": {
+      "cooldown": {
+        "text": "120 / 100 / 80",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                120,
+                100,
+                80
+              ]
+            }
+          }
+        ]
+      },
+      "cost": {
+        "text": "100",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 100
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "0.45",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0.45
+            }
+          }
+        ]
+      },
+      "width": {
+        "text": "30",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 30
+            }
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Auto"
+      ],
+      "affects": [
+        "Enemies"
+      ],
+      "damageType": [
+        "Magic"
+      ],
+      "spellEffects": "area of effect",
+      "spellShield": "true"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Thresh erects a pentagon of spectral walls around him that each last for 5 seconds. A wall will break upon enemy champion contact, dealing magic damage and slowing them by 99% for 2 seconds. After the first wall breaks, the rest will deal no damage and slow for only 1 second.",
+        "leveling": [
+          {
+            "label": "Magic Damage",
+            "amount": {
+              "text": "250 / 400 / 550 (+ 100% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  250,
+                  400,
+                  550
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 100
+                  },
+                  "text": "(+ 100% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "slow",
+            "category": "control",
+            "wording": "slowing",
+            "duration": {
+              "kind": "constant",
+              "value": 2
+            },
+            "amount": {
+              "kind": "constant",
+              "value": 99
+            },
+            "evidence": "A wall will break upon enemy champion contact, dealing magic damage and slowing them by 99% for 2 seconds.",
+            "conditional": false
+          },
+          {
+            "type": "slow",
+            "category": "control",
+            "wording": "slow",
+            "evidence": "After the first wall breaks, the rest will deal no damage and slow for only 1 second.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "Enemies that break a wall cannot do so again for 1 second.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      }
+    ],
+    "custom": [
+      {
+        "label": "Wall Side length",
+        "text": "470"
+      }
+    ],
+    "notes": [
+      "This ability will cast from wherever the caster is at the start of the cast time.\n  - Additionally, The Box cannot be interrupted by any means, including death or resurrection. The Box will complete its effect so long as Thresh has initiated its cast.",
+      "The Box always faces the same direction Thresh is facing on cast, placing a corner directly in front of him.\n  - The cast indicator displays the opposite of the true behavior.",
+      "If The Box hits multiple champions with different walls on cast, only one of the walls will deal damage and apply the extended slow duration. This wall is chosen by starting at the wall in front of and to the right of Thresh's facing direction on cast, and progressing clockwise.",
+      "The corners of The Box are placed 400 units around Thresh.\n  - Each wall is 470.228 units long.\n  - Each wall passes 323.607 units from the center of The Box at the closest approach (ignoring its width).\n  - As a regular pentagon, The Box has an angle of 72° between each corner.",
+      "Thresh can see if the walls of The Box are broken even if they are not within sight."
+    ]
+  },
+  {
+    "champion": "Thresh",
+    "kind": "W",
+    "name": "Dark Passage",
+    "page": {
+      "title": "Template:Data Thresh/Dark Passage",
+      "revid": 4017821
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "21 / 20 / 19 / 18 / 17",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                21,
+                20,
+                19,
+                18,
+                17
+              ]
+            }
+          }
+        ]
+      },
+      "cost": {
+        "text": "50 / 55 / 60 / 65 / 70",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                50,
+                55,
+                60,
+                65,
+                70
+              ]
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "none",
+        "values": []
+      },
+      "targetRange": {
+        "text": "950",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 950
+            }
+          }
+        ]
+      },
+      "effectRadius": {
+        "text": "350 • 150",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 350
+            },
+            "label": "Shield granting radius"
+          },
+          {
+            "series": {
+              "kind": "constant",
+              "value": 150
+            },
+            "label": "Lantern pickup radius, radius and range behavior pending for test"
+          }
+        ]
+      },
+      "tetherRadius": {
+        "text": "1500",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 1500
+            }
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Location"
+      ],
+      "affects": [
+        "Allies"
+      ],
+      "damageType": [],
+      "projectile": "true"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Thresh throws his lantern to the target location over 0.5 seconds, lasting for 6 seconds while he remains nearby and granting sight of its surroundings. If Thresh moves too far away from the lantern, it returns back to him immediately.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "reveal",
+            "category": "vision",
+            "wording": "sight",
+            "evidence": "Active: Thresh throws his lantern to the target location over 0.5 seconds, lasting for 6 seconds while he remains nearby and granting sight of its surroundings.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "Thresh and the first allied champion to come near the lantern are granted a shield for 4 seconds. An ally can select the lantern while in proximity of it, dashing to Thresh and gaining the shield.",
+        "leveling": [
+          {
+            "label": "Shield Strength",
+            "amount": {
+              "text": "50 / 70 / 90 / 110 / 130 (+ 2 per Soul collected)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  50,
+                  70,
+                  90,
+                  110,
+                  130
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "other:per soul collected",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 2
+                  },
+                  "text": "(+ 2 per Soul collected)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "shield",
+            "category": "defense",
+            "wording": "shield",
+            "duration": {
+              "kind": "constant",
+              "value": 4
+            },
+            "evidence": "Thresh and the first allied champion to come near the lantern are granted a shield for 4 seconds.",
+            "conditional": false
+          },
+          {
+            "type": "dash",
+            "category": "movement",
+            "wording": "dashing",
+            "evidence": "An ally can select the lantern while in proximity of it, dashing to Thresh and gaining the shield.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "An ally cannot select the lantern while immobilized, grounded, or silenced. The lantern will not expire from Thresh moving too far away if he is dashing with Deathly Leap.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "ground",
+            "category": "control",
+            "wording": "grounded",
+            "evidence": "An ally cannot select the lantern while immobilized, grounded, or silenced.",
+            "conditional": false
+          },
+          {
+            "type": "silence",
+            "category": "control",
+            "wording": "silenced",
+            "evidence": "An ally cannot select the lantern while immobilized, grounded, or silenced.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "The dashing ally will track Thresh if he changes locations.\n  - They will dash to Thresh's previous location if he is too far away or moves beyond 2200 units.",
+      "The lantern is considered a unit and can be targeted by an allied Teleport, Leap Strike, Shunpo, and Safeguard.\n  - It is untargetable to enemies.\n  - The lantern blocks pathing of units like minions and champions.",
+      "The lantern's duration and maximum leash range are each displayed as a circle on the ground.",
+      "Thresh will gain Dark Passage's shield from moving out of leash range of the lantern.\n  - When the lantern returns to Thresh, the first ally champion to come in contact with Thresh while he has Dark Passage's shield will also gain a shield as long as no other ally has the shield.",
+      "Dark Passage is special cased to trigger Guardian."
+    ]
+  }
+]

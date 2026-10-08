@@ -1,0 +1,774 @@
+[
+  {
+    "champion": "Kennen",
+    "kind": "E",
+    "name": "Lightning Rush",
+    "page": {
+      "title": "Template:Data Kennen/Lightning Rush",
+      "revid": 4078259
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "10 / 9 / 8 / 7 / 6",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                10,
+                9,
+                8,
+                7,
+                6
+              ]
+            }
+          }
+        ]
+      },
+      "cooldownStart": "post-effect",
+      "cost": {
+        "text": "80",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 80
+            }
+          }
+        ]
+      },
+      "costType": "energy",
+      "castTime": {
+        "text": "none",
+        "values": []
+      },
+      "effectRadius": {
+        "text": "200",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 200
+            }
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Auto"
+      ],
+      "affects": [
+        "Self",
+        "Enemies"
+      ],
+      "damageType": [
+        "Magic"
+      ],
+      "spellEffects": "spellaoe",
+      "spellShield": "true"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Kennen turns into lightning for 2 seconds, becoming unable to declare basic attacks but gaining ghosting and 100% bonus movement speed. He deals magic damage to enemies he passes through, reduced to 65% against non-champions, and restores 40 energy upon damaging at least one enemy.",
+        "leveling": [
+          {
+            "label": "Magic Damage",
+            "amount": {
+              "text": "80 / 120 / 160 / 200 / 240 (+ 80% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  80,
+                  120,
+                  160,
+                  200,
+                  240
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 80
+                  },
+                  "text": "(+ 80% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Non-Champion Damage",
+            "amount": {
+              "text": "52 / 78 / 104 / 130 / 156 (+ 52% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  52,
+                  78,
+                  104,
+                  130,
+                  156
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 52
+                  },
+                  "text": "(+ 52% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "ghosted",
+            "category": "movement",
+            "wording": "ghosting",
+            "evidence": "Active: Kennen turns into lightning for 2 seconds, becoming unable to declare basic attacks but gaining ghosting and 100% bonus movement speed.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "Lightning Rush can be recast after 0.5 seconds, and does so automatically after the duration.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "label": "Recast",
+        "text": "Recast: Kennen ends Lightning Rush to gain bonus attack speed and be allowed to exceed the attack speed cap by the amount gained for 4 seconds. Critical strikes extend the bonus attack speed's duration by 1 second, up to the original duration.",
+        "leveling": [
+          {
+            "label": "Bonus Attack Speed",
+            "amount": {
+              "text": "50 / 60 / 70 / 80 / 90%",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  50,
+                  60,
+                  70,
+                  80,
+                  90
+                ]
+              },
+              "unit": "%",
+              "scaling": [],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "critical strike",
+            "category": "offense",
+            "wording": "Critical strikes",
+            "evidence": "Critical strikes extend the bonus attack speed's duration by 1 second, up to the original duration.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "Lightning Rush's recast can be used while affected by cast-inhibiting crowd control.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Lightning Rush will only damage any particular enemy once per cast.",
+      "For the purpose of aim-assist, Kennen's attack range is reduced by 575 during Lightning Rush, further reduced to -33.75 with Rapid Firecannon."
+    ]
+  },
+  {
+    "champion": "Kennen",
+    "kind": "I",
+    "name": "Mark of the Storm",
+    "page": {
+      "title": "Template:Data Kennen/Mark of the Storm",
+      "revid": 3932481
+    },
+    "ranks": 1,
+    "fields": {},
+    "flags": {
+      "targeting": [
+        "Passive"
+      ],
+      "affects": [
+        "Enemies"
+      ],
+      "damageType": [],
+      "spellShield": "true"
+    },
+    "parts": [
+      {
+        "label": "Innate",
+        "text": "Innate: Kennen's abilities apply a stack of Mark of the Storm to enemies hit for 6 seconds, refreshing on subsequent applications and stacking up to 3 times.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "text": "The third stack against a target consumes them all to stun them for 1.25 seconds and restore 25 energy. The stun duration is reduced to 0.5 seconds if this occurs on the same target again within 6 seconds.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "stun",
+            "category": "control",
+            "wording": "stun",
+            "duration": {
+              "kind": "constant",
+              "value": 1.25
+            },
+            "evidence": "The third stack against a target consumes them all to stun them for 1.25 seconds and restore 25 energy.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "Slicing Maelstrom can apply only up to 3 stacks on a target.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Kennen will still restore energy if the target dies from the third stack of Mark of the Storm.",
+      "After Slicing Maelstrom applies its third stack, the target gains a 6-second stack immunity against Slicing Maelstrom that refreshes on subsequent hits."
+    ]
+  },
+  {
+    "champion": "Kennen",
+    "kind": "Q",
+    "name": "Thundering Shuriken",
+    "page": {
+      "title": "Template:Data Kennen/Thundering Shuriken",
+      "revid": 3936401
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "7 / 6.25 / 5.5 / 4.75 / 4",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                7,
+                6.25,
+                5.5,
+                4.75,
+                4
+              ]
+            }
+          }
+        ]
+      },
+      "cost": {
+        "text": "60 / 55 / 50 / 45 / 40",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                60,
+                55,
+                50,
+                45,
+                40
+              ]
+            }
+          }
+        ]
+      },
+      "costType": "energy",
+      "castTime": {
+        "text": "0.175",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0.175
+            }
+          }
+        ]
+      },
+      "targetRange": {
+        "text": "1050",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 1050
+            }
+          }
+        ]
+      },
+      "width": {
+        "text": "100",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 100
+            }
+          }
+        ]
+      },
+      "speed": {
+        "text": "1700",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 1700
+            }
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Direction"
+      ],
+      "affects": [
+        "Enemies"
+      ],
+      "damageType": [
+        "Magic"
+      ],
+      "spellEffects": "single target",
+      "spellShield": "true",
+      "projectile": "true"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Kennen throws a shuriken in the target direction that deals magic damage to the first enemy hit.",
+        "leveling": [
+          {
+            "label": "Magic Damage",
+            "amount": {
+              "text": "75 / 125 / 175 / 225 / 275 (+ 75% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  75,
+                  125,
+                  175,
+                  225,
+                  275
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 75
+                  },
+                  "text": "(+ 75% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "This ability will cast from wherever the caster is at the start of the cast time."
+    ]
+  },
+  {
+    "champion": "Kennen",
+    "kind": "R",
+    "name": "Slicing Maelstrom",
+    "page": {
+      "title": "Template:Data Kennen/Slicing Maelstrom",
+      "revid": 4051345
+    },
+    "ranks": 3,
+    "fields": {
+      "cooldown": {
+        "text": "120",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 120
+            }
+          }
+        ]
+      },
+      "castTime": {
+        "text": "0.25",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0.25
+            }
+          }
+        ]
+      },
+      "effectRadius": {
+        "text": "550",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 550
+            }
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Auto"
+      ],
+      "affects": [
+        "Enemies"
+      ],
+      "damageType": [
+        "Magic"
+      ],
+      "spellEffects": "aoedot",
+      "spellShield": "true"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Kennen summons a storm around himself for 3 seconds, gaining bonus armor and bonus magic resistance for the duration.",
+        "leveling": [
+          {
+            "label": "Bonus Resistances",
+            "amount": {
+              "text": "25 / 50 / 75",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  25,
+                  50,
+                  75
+                ]
+              },
+              "scaling": [],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "text": "The storm strikes lightning bolts down on nearby enemies every 0.5 seconds, each one dealing magic damage.",
+        "leveling": [
+          {
+            "label": "Magic Damage Per Bolt",
+            "amount": {
+              "text": "40 / 80 / 120 (+ 25% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  40,
+                  80,
+                  120
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 25
+                  },
+                  "text": "(+ 25% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "text": "Slicing Maelstrom gains 10% additional damage for each subsequent strike a target has received, up to a combined total of 150% of the initial strike's damage.",
+        "leveling": [
+          {
+            "label": "Total Single-Target Damage",
+            "amount": {
+              "text": "300 / 600 / 900 (+ 187.5% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  300,
+                  600,
+                  900
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 187.5
+                  },
+                  "text": "(+ 187.5% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "text": "Kennen can move during Slicing Maelstrom's cast time.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": []
+  },
+  {
+    "champion": "Kennen",
+    "kind": "W",
+    "name": "Electrical Surge",
+    "page": {
+      "title": "Template:Data Kennen/Electrical Surge",
+      "revid": 4057481
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "13 / 11.25 / 9.5 / 7.75 / 6",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                13,
+                11.25,
+                9.5,
+                7.75,
+                6
+              ]
+            }
+          }
+        ]
+      },
+      "cost": {
+        "text": "40",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 40
+            }
+          }
+        ]
+      },
+      "costType": "energy",
+      "castTime": {
+        "text": "0.25",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0.25
+            }
+          }
+        ]
+      },
+      "effectRadius": {
+        "text": "775",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 775
+            },
+            "label": "Pending for test; targets acquired at cast start or end"
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Proximity"
+      ],
+      "affects": [
+        "Enemies"
+      ],
+      "damageType": [
+        "Magic"
+      ],
+      "spellEffects": "special",
+      "spellShield": "true",
+      "projectile": "false",
+      "parry": "special",
+      "onHitEffects": "special"
+    },
+    "parts": [
+      {
+        "label": "Passive",
+        "text": "Passive: Kennen's basic attacks on-attack generate a stack of Electrical Surge, stacking up to 4 times. At 4 stacks, his next basic attack on-attack consumes all stacks to both deal bonus magic damage and apply a stack of Mark of the Storm on-hit. This damage can critically strike for 140% damage.\nKennen gains maximum stacks of Electrical Surge upon respawning.",
+        "leveling": [
+          {
+            "label": "Bonus Magic Damage",
+            "amount": {
+              "text": "35 / 45 / 55 / 65 / 75 (+ 80 / 90 / 100 / 110 / 120% bonus AD) (+ 35% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  35,
+                  45,
+                  55,
+                  65,
+                  75
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "bonusAD",
+                  "ratio": {
+                    "kind": "rank",
+                    "values": [
+                      80,
+                      90,
+                      100,
+                      110,
+                      120
+                    ]
+                  },
+                  "text": "(+ 80 / 90 / 100 / 110 / 120% bonus AD)"
+                },
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 35
+                  },
+                  "text": "(+ 35% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "on-attack",
+            "category": "offense",
+            "wording": "on-attack",
+            "evidence": "Passive: Kennen's basic attacks on-attack generate a stack of Electrical Surge, stacking up to 4 times.",
+            "conditional": false
+          },
+          {
+            "type": "on-attack",
+            "category": "offense",
+            "wording": "on-attack",
+            "evidence": "At 4 stacks, his next basic attack on-attack consumes all stacks to both deal bonus magic damage and apply a stack of Mark of the Storm on-hit.",
+            "conditional": false
+          },
+          {
+            "type": "on-hit",
+            "category": "offense",
+            "wording": "on-hit",
+            "evidence": "At 4 stacks, his next basic attack on-attack consumes all stacks to both deal bonus magic damage and apply a stack of Mark of the Storm on-hit.",
+            "conditional": false
+          },
+          {
+            "type": "critical strike",
+            "category": "offense",
+            "wording": "critically strike",
+            "evidence": "This damage can critically strike for 140% damage.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "label": "Active",
+        "text": "Active: Kennen sends out a surge of electricity that deals magic damage to all nearby enemies afflicted by Mark of the Storm or within Slicing Maelstrom.",
+        "leveling": [
+          {
+            "label": "Magic Damage",
+            "amount": {
+              "text": "70 / 95 / 120 / 145 / 170 (+ 80% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  70,
+                  95,
+                  120,
+                  145,
+                  170
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 80
+                  },
+                  "text": "(+ 80% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "text": "An enemy within 775 units with Mark of the Storm or inside Slicing Maelstrom is required to cast this ability. The target does not have to be visible to be targeted by this ability.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "reveal",
+            "category": "vision",
+            "wording": "visible",
+            "evidence": "The target does not have to be visible to be targeted by this ability.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "The empowered basic attack applies bonus spell damage, while the electrical surge deals area damage.",
+      "Electrical Surge's enhanced attack will be consumed and the bonus damage will not be applied if Kennen is blinded.\n  - Electrical Surge's enhanced attack cannot be dodged or blocked.",
+      "Uniquely to Electrical Surge, on-hit effects triggered by the enhanced attack's cast instance (e.g. Runaan's Hurricane Wind's Fury, Dusk and Dawn Spellblade) will apply the bonus damage and Mark of the Storm to targets hit.\n  - This is not the case with any other effects applied on-hit.\n  - This is intentional.",
+      "The empowered attack will trigger but not be consumed nor apply its effects against structures and wards."
+    ]
+  }
+]

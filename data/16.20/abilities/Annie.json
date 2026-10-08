@@ -1,0 +1,739 @@
+[
+  {
+    "champion": "Annie",
+    "kind": "E",
+    "name": "Molten Shield",
+    "page": {
+      "title": "Template:Data Annie/Molten Shield",
+      "revid": 4064223
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "10",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 10
+            }
+          }
+        ]
+      },
+      "cost": {
+        "text": "60 / 65 / 70 / 75 / 80",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                60,
+                65,
+                70,
+                75,
+                80
+              ]
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "none",
+        "values": []
+      },
+      "targetRange": {
+        "text": "800",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 800
+            }
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Unit",
+        "Auto"
+      ],
+      "affects": [
+        "Self",
+        "Enemies"
+      ],
+      "damageType": [
+        "Magic"
+      ],
+      "spellEffects": "aoe"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Annie grants herself or the target allied champion and Tibbers a shield for 3 seconds and 20 – 50 (based on level)% bonus movement speed that decays over 1.5 seconds.",
+        "leveling": [
+          {
+            "label": "Shield Strength",
+            "amount": {
+              "text": "60 / 95 / 130 / 165 / 200 (+ 40% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  60,
+                  95,
+                  130,
+                  165,
+                  200
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 40
+                  },
+                  "text": "(+ 40% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "shield",
+            "category": "defense",
+            "wording": "shield",
+            "duration": {
+              "kind": "constant",
+              "value": 3
+            },
+            "evidence": "Active: Annie grants herself or the target allied champion and Tibbers a shield for 3 seconds and 20 – 50 (based on level)% bonus movement speed that decays over 1.5 seconds.",
+            "conditional": false
+          }
+        ],
+        "values": [
+          {
+            "series": {
+              "kind": "level",
+              "values": [
+                20,
+                21.764705882352942,
+                23.529411764705884,
+                25.294117647058822,
+                27.058823529411764,
+                28.823529411764707,
+                30.588235294117645,
+                32.35294117647059,
+                34.11764705882353,
+                35.88235294117647,
+                37.64705882352941,
+                39.41176470588235,
+                41.17647058823529,
+                42.94117647058823,
+                44.705882352941174,
+                46.470588235294116,
+                48.23529411764706,
+                50,
+                51.76470588235294,
+                53.529411764705884
+              ],
+              "past18": "wiki"
+            },
+            "context": "Active: Annie grants herself or the target allied champion and Tibbers a shield for 3 seconds and 20 – 50 (based on level)% bonus movement speed that decays over 1.5 seconds."
+          }
+        ]
+      },
+      {
+        "text": "While Molten Shield is active, enemies that deal damage to it take magic damage. This may only occur once per enemy per cast for each active Molten Shield.",
+        "leveling": [
+          {
+            "label": "Magic Damage",
+            "amount": {
+              "text": "25 / 35 / 45 / 55 / 65 (+ 40% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  25,
+                  35,
+                  45,
+                  55,
+                  65
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 40
+                  },
+                  "text": "(+ 40% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Molten Shield does not deal damage to turrets when attacked by them.",
+      "Molten Shield has a forgiveness radius of 175 units.",
+      "Attacks that are dodged or miss against the shielded target will not cause the shield to deal damage, while blocked attacks still deal damage to the attacker.",
+      "The reaction damage does not trigger from Noxious Trap and Jack in the Box."
+    ]
+  },
+  {
+    "champion": "Annie",
+    "kind": "I",
+    "name": "Pyromania",
+    "page": {
+      "title": "Template:Data Annie/Pyromania",
+      "revid": 3932255
+    },
+    "ranks": 1,
+    "fields": {},
+    "flags": {
+      "targeting": [
+        "Passive"
+      ],
+      "affects": [
+        "Self",
+        "Enemies"
+      ],
+      "damageType": [],
+      "spellShield": "true"
+    },
+    "parts": [
+      {
+        "label": "Innate - Pyromania",
+        "text": "Innate - Pyromania: Annie generates a stack of Pyromania whenever she hits an enemy with Disintegrate or casts her other abilities, stacking up to 4 times, at which she gains Energized.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "label": "Energized",
+        "text": "Energized: Annie empowers her next cast of Disintegrate, Incinerate, or Summon: Tibbers to consume all Pyromania stacks to stun enemies hit for 1.25 / 1.5 / 1.75 (based on level) seconds.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "stun",
+            "category": "control",
+            "wording": "stun",
+            "duration": {
+              "kind": "variable",
+              "variable": "level",
+              "points": [
+                1,
+                6,
+                11
+              ],
+              "values": [
+                1.25,
+                1.5,
+                1.75
+              ]
+            },
+            "evidence": "Energized: Annie empowers her next cast of Disintegrate, Incinerate, or Summon: Tibbers to consume all Pyromania stacks to stun enemies hit for 1.25 / 1.5 / 1.75 (based on level) seconds.",
+            "conditional": false
+          }
+        ],
+        "values": [
+          {
+            "series": {
+              "kind": "variable",
+              "variable": "level",
+              "points": [
+                1,
+                6,
+                11
+              ],
+              "values": [
+                1.25,
+                1.5,
+                1.75
+              ]
+            },
+            "context": "Energized: Annie empowers her next cast of Disintegrate, Incinerate, or Summon: Tibbers to consume all Pyromania stacks to stun enemies hit for 1.25 / 1.5 / 1.75 (based on level) seconds."
+          }
+        ]
+      },
+      {
+        "text": "Annie gains maximum stacks of Pyromania when the game starts and upon respawning. She will lose Energized and all Pyromania stacks upon death.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Annie does not lose any stacks upon entering or exiting resurrection.",
+      "Stacks are gained even if the ability is blocked by spell shield.",
+      "Pyromania's current stacks are represented by a counter under Annie's health bar, visible to all players. It lights up when the empowered effect is available."
+    ]
+  },
+  {
+    "champion": "Annie",
+    "kind": "Q",
+    "name": "Disintegrate",
+    "page": {
+      "title": "Template:Data Annie/Disintegrate",
+      "revid": 3992633
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "4",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 4
+            }
+          }
+        ]
+      },
+      "cost": {
+        "text": "60 / 65 / 70 / 75 / 80",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                60,
+                65,
+                70,
+                75,
+                80
+              ]
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "0.25",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0.25
+            }
+          }
+        ]
+      },
+      "targetRange": {
+        "text": "625",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 625
+            }
+          }
+        ]
+      },
+      "speed": {
+        "text": "1400",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 1400
+            }
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Unit"
+      ],
+      "affects": [
+        "Enemies"
+      ],
+      "damageType": [
+        "Magic"
+      ],
+      "spellEffects": "spell",
+      "spellShield": "true",
+      "projectile": "true"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Annie hurls a fireball at the target enemy that deals magic damage.",
+        "leveling": [
+          {
+            "label": "Magic Damage",
+            "amount": {
+              "text": "80 / 125 / 170 / 215 / 260 (+ 80% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  80,
+                  125,
+                  170,
+                  215,
+                  260
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 80
+                  },
+                  "text": "(+ 80% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "text": "If this kills the target, Disintegrate's cooldown is reduced by 50% and its mana cost is refunded.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Disintegrate will also grant the cooldown reduction and mana cost refund if the target is dead upon the missile's arrival.",
+      "If the target becomes untargetable, dies, or is too far away or no longer in sight during the cast time, this ability will cancel but does not go on cooldown nor pay its cost (if applicable)."
+    ]
+  },
+  {
+    "champion": "Annie",
+    "kind": "R",
+    "name": "Summon: Tibbers",
+    "page": {
+      "title": "Template:Data Annie/Summon: Tibbers",
+      "revid": 4012758
+    },
+    "ranks": 3,
+    "fields": {
+      "cooldown": {
+        "text": "130 / 115 / 100",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                130,
+                115,
+                100
+              ]
+            }
+          }
+        ]
+      },
+      "cooldownStart": "on-cast",
+      "cost": {
+        "text": "100",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 100
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "0.25 • None",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0.25
+            },
+            "label": "Initial cast"
+          }
+        ]
+      },
+      "targetRange": {
+        "text": "600",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 600
+            },
+            "label": "Cast range"
+          }
+        ]
+      },
+      "effectRadius": {
+        "text": "250 • 350",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 250
+            },
+            "label": "Summon impact radius"
+          },
+          {
+            "series": {
+              "kind": "constant",
+              "value": 350
+            },
+            "label": "Tibbers' aura radius"
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Location"
+      ],
+      "affects": [
+        "Enemies",
+        "Tibbers"
+      ],
+      "damageType": [
+        "magic"
+      ],
+      "spellEffects": "special",
+      "spellShield": "true"
+    },
+    "parts": [
+      {
+        "label": "Passive",
+        "text": "Passive: Annie gains magic penetration.",
+        "leveling": [
+          {
+            "label": "Magic Penetration",
+            "amount": {
+              "text": "10 / 15 / 20%",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  10,
+                  15,
+                  20
+                ]
+              },
+              "unit": "%",
+              "scaling": [],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "label": "Active",
+        "text": "Active: Annie summons Tibbers to the target location in a burst of flame, dealing magic damage to enemies near him. Summon: Tibbers can be recast at any time while Tibbers is alive.",
+        "leveling": [
+          {
+            "label": "Initial Magic Damage",
+            "amount": {
+              "text": "150 / 275 / 400 (+ 75% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  150,
+                  275,
+                  400
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 75
+                  },
+                  "text": "(+ 75% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "text": "Tibbers then remains on the field as a controllable pet for up to 45 seconds.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "summon",
+            "category": "other",
+            "wording": "pet",
+            "evidence": "Tibbers then remains on the field as a controllable pet for up to 45 seconds.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "label": "Recast",
+        "text": "Recast: Annie directs Tibbers to the target location.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "text": "Summon: Tibbers' recast can be used while affected by cast-inhibiting crowd control. See Pets for more details about Tibbers.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Only the initial cast counts as an ability activation for the purposes of on-cast effects such as Spellblade.\n  - Recasting the ability does, however, count as casting an ultimate ability for the purposes of Experimental Hexplate Overdrive and similar effects.\n  - What about Force Pulse?",
+      "The active deals area damage.",
+      "Tibbers will blink back next to Annie if he gets too far away.",
+      "Recasting Summon: Tibbers does not interrupt Recall channel."
+    ]
+  },
+  {
+    "champion": "Annie",
+    "kind": "W",
+    "name": "Incinerate",
+    "page": {
+      "title": "Template:Data Annie/Incinerate",
+      "revid": 3952555
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "7",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 7
+            }
+          }
+        ]
+      },
+      "cost": {
+        "text": "70 / 75 / 80 / 85 / 90",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                70,
+                75,
+                80,
+                85,
+                90
+              ]
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "0.25",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0.25
+            }
+          }
+        ]
+      },
+      "effectRadius": {
+        "text": "600",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 600
+            }
+          }
+        ]
+      },
+      "angle": {
+        "text": "49.52°",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 49.52
+            }
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Direction"
+      ],
+      "affects": [
+        "Enemies"
+      ],
+      "damageType": [
+        "Magic"
+      ],
+      "spellEffects": "spellaoe",
+      "spellShield": "true",
+      "projectile": "false"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Annie releases fire in a cone in the target direction, dealing magic damage to enemies hit.",
+        "leveling": [
+          {
+            "label": "Magic Damage",
+            "amount": {
+              "text": "70 / 110 / 150 / 190 / 230 (+ 80% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  70,
+                  110,
+                  150,
+                  190,
+                  230
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 80
+                  },
+                  "text": "(+ 80% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Incinerate can hit targets behind Annie, provided their radius intersects with the cone hitbox.",
+      "This ability will cast from wherever the caster is at the end of the cast time."
+    ]
+  }
+]

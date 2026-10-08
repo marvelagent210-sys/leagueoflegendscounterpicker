@@ -1,0 +1,1070 @@
+[
+  {
+    "champion": "Smolder",
+    "kind": "E",
+    "name": "Flap, Flap, Flap",
+    "page": {
+      "title": "Template:Data Smolder/Flap, Flap, Flap",
+      "revid": 4025347
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "24 / 22 / 20 / 18 / 16",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                24,
+                22,
+                20,
+                18,
+                16
+              ]
+            }
+          }
+        ]
+      },
+      "cooldownStart": "on-cast",
+      "cost": {
+        "text": "65",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 65
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "none",
+        "values": []
+      },
+      "range": {
+        "text": "700",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 700
+            }
+          }
+        ]
+      },
+      "speed": {
+        "text": "1800",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 1800
+            },
+            "label": "Bolt speed"
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Auto"
+      ],
+      "affects": [
+        "Self",
+        "Enemies"
+      ],
+      "damageType": [
+        "physical"
+      ],
+      "spellEffects": "spell",
+      "spellShield": "special",
+      "parry": "false",
+      "grounded": "true"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Smolder takes flight for 1.25 seconds, becoming ghosted and gaining 75% bonus movement speed, unobstructed vision, and the ability to ignore terrain collision. While in flight, he automatically fires up to 5 (+ 1 per 100 Dragon Practice stacks) bolts at the nearest and most wounded visible enemy, dealing physical damage with each hit and prioritizing enemy champions.",
+        "leveling": [
+          {
+            "label": "Physical Damage per Hit",
+            "amount": {
+              "text": "10 / 15 / 20 / 25 / 30 (+ 30% AD)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  10,
+                  15,
+                  20,
+                  25,
+                  30
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AD",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 30
+                  },
+                  "text": "(+ 30% AD)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Minimum Total Physical Damage",
+            "amount": {
+              "text": "50 / 75 / 100 / 125 / 150 (+ 150% AD)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  50,
+                  75,
+                  100,
+                  125,
+                  150
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AD",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 150
+                  },
+                  "text": "(+ 150% AD)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "ghosted",
+            "category": "movement",
+            "wording": "ghosted",
+            "evidence": "Active: Smolder takes flight for 1.25 seconds, becoming ghosted and gaining 75% bonus movement speed, unobstructed vision, and the ability to ignore terrain collision.",
+            "conditional": false
+          },
+          {
+            "type": "reveal",
+            "category": "vision",
+            "wording": "unobstructed vision",
+            "evidence": "Active: Smolder takes flight for 1.25 seconds, becoming ghosted and gaining 75% bonus movement speed, unobstructed vision, and the ability to ignore terrain collision.",
+            "conditional": false
+          },
+          {
+            "type": "reveal",
+            "category": "vision",
+            "wording": "visible",
+            "evidence": "While in flight, he automatically fires up to 5 (+ 1 per 100 Dragon Practice stacks) bolts at the nearest and most wounded visible enemy, dealing physical damage with each hit and prioritizing enemy champions.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "Flap, Flap, Flap ends immediately if Smolder casts another ability or becomes immobilized.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "The number of additional bolts based on Dragon Practice stacks is rounded down.",
+      "Smolder reveals himself while attacking enemies, even inside terrain.",
+      "Spell shield will block only one bolt.",
+      "Self immobilizations such as Zhonya's Hourglass also count for ending Flap, Flap, Flap.",
+      "Recall is disabled while Smolder is inside terrain.",
+      "Flap, Flap, Flap can interact with player-generated terrain.",
+      "If Smolder is inside terrain when the effect ends, he will be placed correspondingly to the nearest valid space.",
+      "The following table refers for interactions while Smolder is flying:"
+    ]
+  },
+  {
+    "champion": "Smolder",
+    "kind": "I",
+    "name": "Dragon Practice",
+    "page": {
+      "title": "Template:Data Smolder/Dragon Practice",
+      "revid": 4078266
+    },
+    "ranks": 1,
+    "fields": {},
+    "flags": {
+      "targeting": [
+        "Passive"
+      ],
+      "affects": [
+        "Self",
+        "Enemies"
+      ],
+      "damageType": [
+        "Magic"
+      ],
+      "spellEffects": "proc",
+      "spellShield": "true",
+      "parry": "true"
+    },
+    "parts": [
+      {
+        "label": "Innate",
+        "text": "Innate: Smolder generates a stack of Dragon Practice each time he hits an enemy champion with an ability, or whenever Super Scorcher Breath kills a minion or monster. His basic abilities deal bonus magic damage based on stacks.\n* Q: Deals bonus magic damage equal to critical strike damage (based on critical strike chance) of Dragon Practice stacks.\n* W: Explosions deal bonus magic damage equal to 55% of Dragon Practice stacks.\n* E: Attacks each deal bonus magic damage equal to critical strike damage (based on critical strike chance) of Dragon Practice stacks.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Super Scorcher Breath grants a stack if the target dies while the initial missile is in flight.\n  - This happens even if the target dies to Super Scorcher Breath burn, giving him a total of 2 stacks.",
+      "Achooo! can only grant a stack of Dragon Practice with the first hit against each enemy champion.",
+      "Flap, Flap, Flap can only grant one stack of Dragon Practice per cast."
+    ]
+  },
+  {
+    "champion": "Smolder",
+    "kind": "Q",
+    "name": "Super Scorcher Breath",
+    "page": {
+      "title": "Template:Data Smolder/Super Scorcher Breath",
+      "revid": 4030432
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "5.5 / 5 / 4.5 / 4 / 3.5",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                5.5,
+                5,
+                4.5,
+                4,
+                3.5
+              ]
+            }
+          }
+        ]
+      },
+      "cost": {
+        "text": "25",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 25
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "100% of Smolder's windup time (0.260538 at base attack speed)",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0.26053826018808773
+            }
+          }
+        ]
+      },
+      "targetRange": {
+        "text": "550 (+ 100% bonus attack range)",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 550
+            },
+            "label": "Always equal to Smolder's attack range"
+          }
+        ]
+      },
+      "range": {
+        "text": "500",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 500
+            },
+            "label": "Tier 2 missiles"
+          }
+        ]
+      },
+      "effectRadius": {
+        "text": "285 • 150",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 285
+            },
+            "label": "Tier 1 explosion"
+          },
+          {
+            "series": {
+              "kind": "constant",
+              "value": 150
+            },
+            "label": "Tier 2 missile explosions at max range"
+          }
+        ]
+      },
+      "speed": {
+        "text": "1800 • 900",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 1800
+            },
+            "label": "Fireball"
+          },
+          {
+            "series": {
+              "kind": "constant",
+              "value": 900
+            },
+            "label": "Tier 2 missiles"
+          }
+        ]
+      },
+      "angle": {
+        "text": "15°",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 15
+            },
+            "label": "Angle between tier 2 missiles"
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Unit"
+      ],
+      "affects": [
+        "Enemies"
+      ],
+      "damageType": [
+        "Physical True"
+      ],
+      "spellEffects": "special",
+      "spellShield": "true",
+      "projectile": "true",
+      "parry": "special"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Smolder spits a fireball at the target enemy that deals physical damage, increased by critical strike damage (based on critical strike chance); applies on-hit effects; applies life steal at 50% effectiveness; and triggers on-attack effects. If Super Scorcher Breath kills at least one target, Smolder restores 15 mana.",
+        "leveling": [
+          {
+            "label": "Physical Damage",
+            "amount": {
+              "text": "60 / 70 / 80 / 90 / 100 (+ 130% bonus AD)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  60,
+                  70,
+                  80,
+                  90,
+                  100
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "bonusAD",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 130
+                  },
+                  "text": "(+ 130% bonus AD)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "on-hit",
+            "category": "offense",
+            "wording": "on-hit",
+            "evidence": "Active: Smolder spits a fireball at the target enemy that deals physical damage, increased by critical strike damage (based on critical strike chance); applies on-hit effects; applies life steal at 50% effectiveness; and triggers on-attack effects.",
+            "conditional": false
+          },
+          {
+            "type": "life steal",
+            "category": "defense",
+            "wording": "life steal",
+            "evidence": "Active: Smolder spits a fireball at the target enemy that deals physical damage, increased by critical strike damage (based on critical strike chance); applies on-hit effects; applies life steal at 50% effectiveness; and triggers on-attack effects.",
+            "conditional": false
+          },
+          {
+            "type": "on-attack",
+            "category": "offense",
+            "wording": "on-attack",
+            "evidence": "Active: Smolder spits a fireball at the target enemy that deals physical damage, increased by critical strike damage (based on critical strike chance); applies on-hit effects; applies life steal at 50% effectiveness; and triggers on-attack effects.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "Super Scorcher Breath becomes empowered with new effects based on the number of Dragon Practice stacks:",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "label": "Tier 1 - 25 stacks",
+        "text": "Tier 1 - 25 stacks: The fireball explodes upon collision to deal the same physical damage to nearby enemies. The explosion benefits from life steal at 50% effectiveness and applies on-hit effects.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "life steal",
+            "category": "defense",
+            "wording": "life steal",
+            "evidence": "The explosion benefits from life steal at 50% effectiveness and applies on-hit effects.",
+            "conditional": false
+          },
+          {
+            "type": "on-hit",
+            "category": "offense",
+            "wording": "on-hit",
+            "evidence": "The explosion benefits from life steal at 50% effectiveness and applies on-hit effects.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "label": "Tier 2 - 125 stacks",
+        "text": "Tier 2 - 125 stacks: The fireball sends forth 2 (+ 0.8 per 100 Dragon Practice stacks) bolts of fire in an arc upon collision that explode at maximum range, dealing 50% of the same damage to enemies hit. The bolts benefit from life steal at 50% effectiveness and apply on-hit effects.",
+        "leveling": [
+          {
+            "label": "Physical Damage",
+            "amount": {
+              "text": "30 / 35 / 40 / 45 / 50 (+ 65% bonus AD)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  30,
+                  35,
+                  40,
+                  45,
+                  50
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "bonusAD",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 65
+                  },
+                  "text": "(+ 65% bonus AD)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "life steal",
+            "category": "defense",
+            "wording": "life steal",
+            "evidence": "The bolts benefit from life steal at 50% effectiveness and apply on-hit effects.",
+            "conditional": false
+          },
+          {
+            "type": "on-hit",
+            "category": "offense",
+            "wording": "on-hit",
+            "evidence": "The bolts benefit from life steal at 50% effectiveness and apply on-hit effects.",
+            "conditional": false
+          }
+        ],
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 50
+            },
+            "context": "Tier 2 - 125 stacks: The fireball sends forth 2 (+ 0.8 per 100 Dragon Practice stacks) bolts of fire in an arc upon collision that explode at maximum range, dealing 50% of the same damage to enemies hit."
+          }
+        ]
+      },
+      {
+        "label": "Tier 3 - 225 stacks",
+        "text": "Tier 3 - 225 stacks: Enemies hit are set on fire for 3 seconds, causing them to take bonus true damage equal to 2.5% per 100 bonus AD (+ 0.5% per 100 Dragon Practice stacks) of their maximum health over the duration, capped at 300 against monsters. Subsequent applications of the burn stack, though not refreshing the duration of the previous burn. Enemy champions afflicted with the burn are also executed once Smolder deals damage to them that would leave them below 6.5% of their maximum health.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "execute",
+            "category": "offense",
+            "wording": "executed",
+            "evidence": "Enemy champions afflicted with the burn are also executed once Smolder deals damage to them that would leave them below 6.5% of their maximum health.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Any applied Dragon Practice damage is affected by the same damage modifiers as Super Scorcher Breath and does not benefit from the ability's life steal.",
+      "Super Scorcher Breath's damage tags:\n  - The fireball deals spell damage and procs basic damage required effects.\n  - The explosion deals area damage.\n  - The burn deals proc damage.",
+      "Only Smolder's damage counts for triggering the execute.\n  - If the target is below the threshold while afflicted with the burn, they will be executed on the next instance of damage dealt by Smolder, which includes the burn tick.",
+      "If Super Scorcher Breath would damage the target to below the execution threshold, they are executed on the same damage instance.",
+      "The number of additional bolts launched based on Dragon Practice stacks is rounded up.\n  - At 125 Dragon Practice stacks, the fireball will launch 3 bolts.",
+      "At 225 Dragon Practice stacks, the burn's damage based on the target's health ratio will increase by at least 1.125%.",
+      "Super Scorcher Breath can only hit enemies once per cast.",
+      "The minion and monster damage modifier applies only to the physical damage.",
+      "Super Scorcher Breath's initial fireball, explosion and extra bolts can all be blocked and dodged.\n  - The application of the burn is negated in all cases."
+    ]
+  },
+  {
+    "champion": "Smolder",
+    "kind": "R",
+    "name": "MMOOOMMMM!",
+    "page": {
+      "title": "Template:Data Smolder/MMOOOMMMM!",
+      "revid": 4078267
+    },
+    "ranks": 3,
+    "fields": {
+      "cooldown": {
+        "text": "120 / 110 / 100",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                120,
+                110,
+                100
+              ]
+            }
+          }
+        ]
+      },
+      "cost": {
+        "text": "100",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 100
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "0.75",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0.75
+            }
+          }
+        ]
+      },
+      "range": {
+        "text": "4250 • -600",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 4250
+            },
+            "label": "Wave forward range"
+          },
+          {
+            "series": {
+              "kind": "constant",
+              "value": 600
+            },
+            "label": "Wave backwards range"
+          }
+        ]
+      },
+      "effectRadius": {
+        "text": "1000",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 1000
+            },
+            "label": "Wave sight radius"
+          }
+        ]
+      },
+      "width": {
+        "text": "125",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 125
+            },
+            "label": "Wave center sweetspot for the increased damage"
+          }
+        ]
+      },
+      "speed": {
+        "text": "1700",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 1700
+            }
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Direction"
+      ],
+      "affects": [
+        "Enemies",
+        "Self"
+      ],
+      "damageType": [
+        "physical"
+      ],
+      "spellEffects": "spellaoe",
+      "spellShield": "true",
+      "projectile": "true"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Smolder shouts for his mother to attack from above, causing her to exhale a wave of fire starting from behind him and towards the target direction, granting sight of its surroundings as it travels. The wave heals Smolder and deals physical damage to enemies hit, with those in the center taking 50% increased damage and becoming slowed by 40% for 2 seconds.",
+        "leveling": [
+          {
+            "label": "Self Heal",
+            "amount": {
+              "text": "100 / 175 / 250 (+ 75% bonus AD) (+ 75% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  100,
+                  175,
+                  250
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "bonusAD",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 75
+                  },
+                  "text": "(+ 75% bonus AD)"
+                },
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 75
+                  },
+                  "text": "(+ 75% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Physical Damage",
+            "amount": {
+              "text": "150 / 250 / 350 (+ 100% bonus AD) (+ 100% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  150,
+                  250,
+                  350
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "bonusAD",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 100
+                  },
+                  "text": "(+ 100% bonus AD)"
+                },
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 100
+                  },
+                  "text": "(+ 100% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Increased Physical Damage",
+            "amount": {
+              "text": "225 / 375 / 525 (+ 150% bonus AD) (+ 150% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  225,
+                  375,
+                  525
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "bonusAD",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 150
+                  },
+                  "text": "(+ 150% bonus AD)"
+                },
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 150
+                  },
+                  "text": "(+ 150% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "reveal",
+            "category": "vision",
+            "wording": "sight",
+            "evidence": "Active: Smolder shouts for his mother to attack from above, causing her to exhale a wave of fire starting from behind him and towards the target direction, granting sight of its surroundings as it travels.",
+            "conditional": false
+          },
+          {
+            "type": "heal",
+            "category": "defense",
+            "wording": "heals",
+            "duration": {
+              "kind": "constant",
+              "value": 2
+            },
+            "evidence": "The wave heals Smolder and deals physical damage to enemies hit, with those in the center taking 50% increased damage and becoming slowed by 40% for 2 seconds.",
+            "conditional": false
+          },
+          {
+            "type": "slow",
+            "category": "control",
+            "wording": "slowed",
+            "duration": {
+              "kind": "constant",
+              "value": 2
+            },
+            "amount": {
+              "kind": "constant",
+              "value": 40
+            },
+            "evidence": "The wave heals Smolder and deals physical damage to enemies hit, with those in the center taking 50% increased damage and becoming slowed by 40% for 2 seconds.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "MMOOOMMMM! deals 50% damage against minions and monsters.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "This ability will cast from wherever the caster is at the start of the cast time."
+    ]
+  },
+  {
+    "champion": "Smolder",
+    "kind": "W",
+    "name": "Achooo!",
+    "page": {
+      "title": "Template:Data Smolder/Achooo!",
+      "revid": 4025346
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "14 / 13 / 12 / 11 / 10",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                14,
+                13,
+                12,
+                11,
+                10
+              ]
+            }
+          }
+        ]
+      },
+      "cost": {
+        "text": "50 / 55 / 60 / 65 / 70",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                50,
+                55,
+                60,
+                65,
+                70
+              ]
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "0.35",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0.35
+            }
+          }
+        ]
+      },
+      "range": {
+        "text": "1500",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 1500
+            }
+          }
+        ]
+      },
+      "effectRadius": {
+        "text": "385",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 385
+            },
+            "label": "Explosion"
+          }
+        ]
+      },
+      "width": {
+        "text": "115",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 115
+            },
+            "label": "Sneeze"
+          }
+        ]
+      },
+      "speed": {
+        "text": "2000 • 400",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 2000
+            },
+            "label": "Initial speed"
+          },
+          {
+            "series": {
+              "kind": "constant",
+              "value": 400
+            },
+            "label": "End speed"
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Direction"
+      ],
+      "affects": [
+        "Enemies"
+      ],
+      "damageType": [
+        "physical"
+      ],
+      "spellEffects": "spellaoe",
+      "spellShield": "special",
+      "projectile": "true"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Smolder sneezes a fiery glob in the target direction that deals physical damage to enemies hit and slows them by 35% for 1.5 seconds, slowing down in missile speed after travelling 1200 units. Hitting an enemy champion creates an explosion that deals physical damage to nearby enemies, with subsequent explosions against the same target dealing 75% damage of the previous explosion's damage.",
+        "leveling": [
+          {
+            "label": "Glob Physical Damage",
+            "amount": {
+              "text": "60 / 70 / 80 / 90 / 100 (+ 60% bonus AD)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  60,
+                  70,
+                  80,
+                  90,
+                  100
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "bonusAD",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 60
+                  },
+                  "text": "(+ 60% bonus AD)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Explosion Physical Damage",
+            "amount": {
+              "text": "10 / 35 / 60 / 85 / 110 (+ 50% bonus AD) (+ 80% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  10,
+                  35,
+                  60,
+                  85,
+                  110
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "bonusAD",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 50
+                  },
+                  "text": "(+ 50% bonus AD)"
+                },
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 80
+                  },
+                  "text": "(+ 80% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Total Physical Damage On Champion Hit",
+            "amount": {
+              "text": "70 / 105 / 140 / 175 / 210 (+ 110% bonus AD) (+ 80% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  70,
+                  105,
+                  140,
+                  175,
+                  210
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "bonusAD",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 110
+                  },
+                  "text": "(+ 110% bonus AD)"
+                },
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 80
+                  },
+                  "text": "(+ 80% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "slow",
+            "category": "control",
+            "wording": "slows",
+            "duration": {
+              "kind": "constant",
+              "value": 1.5
+            },
+            "amount": {
+              "kind": "constant",
+              "value": 35
+            },
+            "evidence": "Active: Smolder sneezes a fiery glob in the target direction that deals physical damage to enemies hit and slows them by 35% for 1.5 seconds, slowing down in missile speed after travelling 1200 units.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Smolder can't declare basic attacks for a brief moment after the cast time.",
+      "Spell shield can block either the glob or the explosion, but not both."
+    ]
+  }
+]

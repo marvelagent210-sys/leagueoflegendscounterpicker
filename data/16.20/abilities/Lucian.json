@@ -1,0 +1,853 @@
+[
+  {
+    "champion": "Lucian",
+    "kind": "E",
+    "name": "Relentless Pursuit",
+    "page": {
+      "title": "Template:Data Lucian/Relentless Pursuit",
+      "revid": 4008455
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "16 / 15.5 / 15 / 14.5 / 14",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                16,
+                15.5,
+                15,
+                14.5,
+                14
+              ]
+            }
+          }
+        ]
+      },
+      "cost": {
+        "text": "32 / 24 / 16 / 8 / 0",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                32,
+                24,
+                16,
+                8,
+                0
+              ]
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "none",
+        "values": []
+      },
+      "targetRange": {
+        "text": "200 - 425",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 200
+            },
+            "label": "Minimum and maximum dash distance"
+          }
+        ]
+      },
+      "speed": {
+        "text": "1350",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 1350
+            }
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Location"
+      ],
+      "affects": [
+        "Self"
+      ],
+      "damageType": [],
+      "grounded": "true",
+      "knockdown": "true"
+    },
+    "parts": [
+      {
+        "label": "Passive",
+        "text": "Passive: Relentless Pursuit's current cooldown is reduced by 1 second for each Lightslinger shot hit, doubled to 2 seconds against enemy champions.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "label": "Active",
+        "text": "Active: Lucian dashes in the target direction.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "dash",
+            "category": "movement",
+            "wording": "dashes",
+            "evidence": "Active: Lucian dashes in the target direction.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "Relentless Pursuit resets Lucian's basic attack timer. Lucian can cast any of his abilities during the dash. Relentless Pursuit can be cast during W cast time and during R channel.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "attack reset",
+            "category": "offense",
+            "wording": "resets",
+            "evidence": "Relentless Pursuit resets Lucian's basic attack timer.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Additional on-hits during Lightslinger are not considered for the cooldown reduction (i.e Runaan's Hurricane, Guinsoo's Rageblade).",
+      "Unlike some dashes, Lucian's dash speed does not scale with his movement speed.",
+      "Relentless Pursuit's dash can go through terrain, but will not be extended further if the target location is within terrain, unlike other dashes, like Ekko's Phase Dive.",
+      "Casting Relentless Pursuit directly after attacking with Lightslinger will reduce Relentless Pursuit's cooldown when the projectiles hit the target.",
+      "Relentless Pursuit can be cast during Recall cast time.\n  - If Relentless Pursuit is cast just as the cast time ends, Lucian will not perform his Recall animation, instead staying idle. This allows Lucian to use his emotes during his Recall."
+    ]
+  },
+  {
+    "champion": "Lucian",
+    "kind": "I",
+    "name": "Lightslinger",
+    "page": {
+      "title": "Template:Data Lucian/Lightslinger",
+      "revid": 4064854
+    },
+    "ranks": 1,
+    "fields": {},
+    "flags": {
+      "targeting": [
+        "Passive"
+      ],
+      "affects": [
+        "Enemies"
+      ],
+      "damageType": [
+        "Physical"
+      ],
+      "spellEffects": "attack",
+      "parry": "true"
+    },
+    "parts": [
+      {
+        "label": "Innate",
+        "text": "Innate: After casting an ability, Lucian's next basic attack within 3.5 seconds fires an additional shot on-attack after 0.25 seconds, which deals 50 / 55 / 60 (based on level)% AD physical damage, increased to 100% AD against minions. He will shoot the same target, else another target within 50 units beyond his basic attack range automatically.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "on-attack",
+            "category": "offense",
+            "wording": "on-attack",
+            "evidence": "Innate: After casting an ability, Lucian's next basic attack within 3.5 seconds fires an additional shot on-attack after 0.25 seconds, which deals 50 / 55 / 60 (based on level)% AD physical damage, increased to 100% AD against minions.",
+            "conditional": false
+          }
+        ],
+        "values": [
+          {
+            "series": {
+              "kind": "variable",
+              "variable": "level",
+              "points": [
+                1,
+                7,
+                13
+              ],
+              "values": [
+                50,
+                55,
+                60
+              ]
+            },
+            "context": "Innate: After casting an ability, Lucian's next basic attack within 3.5 seconds fires an additional shot on-attack after 0.25 seconds, which deals 50 / 55 / 60 (based on level)% AD physical damage, increased to 100% AD against minions."
+          }
+        ]
+      },
+      {
+        "text": "The second shot applies life steal and on-hit effects, triggers on-attack effects, and is affected by critical strike modifiers.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "life steal",
+            "category": "defense",
+            "wording": "applies",
+            "evidence": "The second shot applies life steal and on-hit effects, triggers on-attack effects, and is affected by critical strike modifiers.",
+            "conditional": false
+          },
+          {
+            "type": "life steal",
+            "category": "defense",
+            "wording": "life steal",
+            "evidence": "The second shot applies life steal and on-hit effects, triggers on-attack effects, and is affected by critical strike modifiers.",
+            "conditional": false
+          },
+          {
+            "type": "on-hit",
+            "category": "offense",
+            "wording": "on-hit",
+            "evidence": "The second shot applies life steal and on-hit effects, triggers on-attack effects, and is affected by critical strike modifiers.",
+            "conditional": false
+          },
+          {
+            "type": "on-attack",
+            "category": "offense",
+            "wording": "on-attack",
+            "evidence": "The second shot applies life steal and on-hit effects, triggers on-attack effects, and is affected by critical strike modifiers.",
+            "conditional": false
+          },
+          {
+            "type": "critical strike",
+            "category": "offense",
+            "wording": "critical strike",
+            "evidence": "The second shot applies life steal and on-hit effects, triggers on-attack effects, and is affected by critical strike modifiers.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "label": "Innate - Vigilance",
+        "text": "Innate - Vigilance: Whenever Lucian is healed or shielded by an ally, or an enemy champion within 1000 units is immobilized, his next two shots within 6 seconds are empowered to deal 5 (+ 15% AD) bonus magic damage on-hit. He can store up to 4 empowered shots at a time.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "heal",
+            "category": "defense",
+            "wording": "healed",
+            "evidence": "Innate - Vigilance: Whenever Lucian is healed or shielded by an ally, or an enemy champion within 1000 units is immobilized, his next two shots within 6 seconds are empowered to deal 5 (+ 15% AD) bonus magic damage on-hit.",
+            "conditional": false
+          },
+          {
+            "type": "shield",
+            "category": "defense",
+            "wording": "shielded",
+            "evidence": "Innate - Vigilance: Whenever Lucian is healed or shielded by an ally, or an enemy champion within 1000 units is immobilized, his next two shots within 6 seconds are empowered to deal 5 (+ 15% AD) bonus magic damage on-hit.",
+            "conditional": false
+          },
+          {
+            "type": "on-hit",
+            "category": "offense",
+            "wording": "on-hit",
+            "evidence": "Innate - Vigilance: Whenever Lucian is healed or shielded by an ally, or an enemy champion within 1000 units is immobilized, his next two shots within 6 seconds are empowered to deal 5 (+ 15% AD) bonus magic damage on-hit.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Lightslinger is triggered and consumed by the first attack, even if no target can be found upon firing the second attack.",
+      "The second attack, if the initial target was killed, will prioritize enemy champions regardless of having sight of them or not and enemy minions with low health.",
+      "Lucian can perform actions freely while firing Lightslinger's second attack.\n  - The second attack has special movement animations depending on the direction Lucian is moving while firing.",
+      "The second attack counts as a separate hit for effects such as Electrocute, Muramana Shock, and Eclipse Ever Rising Moon.",
+      "The second attack separately rolls a critical strike.",
+      "The second attack does not trigger Sundered Sky Lightshield Strike.",
+      "The empowered shots will apply against structures."
+    ]
+  },
+  {
+    "champion": "Lucian",
+    "kind": "Q",
+    "name": "Piercing Light",
+    "page": {
+      "title": "Template:Data Lucian/Piercing Light",
+      "revid": 4064855
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "9 / 8 / 7 / 6 / 5",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                9,
+                8,
+                7,
+                6,
+                5
+              ]
+            }
+          }
+        ]
+      },
+      "cost": {
+        "text": "48 / 56 / 64 / 72 / 80",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                48,
+                56,
+                64,
+                72,
+                80
+              ]
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "0.4 – 0.25 (based on level)",
+        "values": [
+          {
+            "series": {
+              "kind": "level",
+              "values": [
+                0.4,
+                0.3911764705882353,
+                0.3823529411764706,
+                0.3735294117647059,
+                0.3647058823529412,
+                0.3558823529411765,
+                0.34705882352941175,
+                0.3382352941176471,
+                0.32941176470588235,
+                0.3205882352941177,
+                0.31176470588235294,
+                0.30294117647058827,
+                0.29411764705882354,
+                0.2852941176470588,
+                0.27647058823529413,
+                0.2676470588235294,
+                0.2588235294117647,
+                0.25
+              ]
+            }
+          }
+        ]
+      },
+      "targetRange": {
+        "text": "500",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 500
+            }
+          }
+        ]
+      },
+      "range": {
+        "text": "1000",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 1000
+            }
+          }
+        ]
+      },
+      "width": {
+        "text": "120",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 120
+            }
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Unit"
+      ],
+      "affects": [
+        "Enemies"
+      ],
+      "damageType": [
+        "Physical"
+      ],
+      "spellEffects": "aoe",
+      "spellShield": "true",
+      "projectile": "false"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Lucian fires a laser in a line in the direction of the target enemy that deals physical damage to enemies hit.",
+        "leveling": [
+          {
+            "label": "Physical Damage",
+            "amount": {
+              "text": "90 / 130 / 170 / 210 / 250 (+ 100% bonus AD)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  90,
+                  130,
+                  170,
+                  210,
+                  250
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "bonusAD",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 100
+                  },
+                  "text": "(+ 100% bonus AD)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Piercing Light will attempt to lead the target if it is moving but does not adjust further during the cast time (enemies can dodge the laser if they change their position by a sufficient amount during the cast time).",
+      "Lucian can buffer W or R during the cast time. E is locked out.\n  - This is why Lucian can use them early if the cast time prematurely ends.",
+      "Piercing Light's cast time ends prematurely if the initial target dies, allowing Lucian to attack and move freely, or to immediately begin casting either W or R."
+    ]
+  },
+  {
+    "champion": "Lucian",
+    "kind": "R",
+    "name": "The Culling",
+    "page": {
+      "title": "Template:Data Lucian/The Culling",
+      "revid": 4007670
+    },
+    "ranks": 3,
+    "fields": {
+      "cooldown": {
+        "text": "110 / 100 / 90",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                110,
+                100,
+                90
+              ]
+            }
+          }
+        ]
+      },
+      "cooldownStart": "post-effect",
+      "cost": {
+        "text": "100",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 100
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "none",
+        "values": []
+      },
+      "range": {
+        "text": "1200 • 1140 + offset",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 1200
+            },
+            "label": "Individual missile range"
+          },
+          {
+            "series": {
+              "kind": "constant",
+              "value": 1140
+            },
+            "label": "See notes"
+          }
+        ]
+      },
+      "width": {
+        "text": "220 + offset",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 220
+            },
+            "label": "See notes"
+          }
+        ]
+      },
+      "speed": {
+        "text": "2800",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 2800
+            }
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Direction",
+        "Auto"
+      ],
+      "affects": [
+        "Self",
+        "Enemies"
+      ],
+      "damageType": [
+        "Physical"
+      ],
+      "spellEffects": "aoedot",
+      "spellShield": "special",
+      "projectile": "true",
+      "silence": "true"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Lucian channels for up to 3 seconds, rapidly firing up to 22 (+ critical strike damage (based on critical strike chance)) shots in the target direction over the duration. Each shot deals physical damage to the first enemy hit, doubled against minions. The Culling can be recast after 0.75 seconds during the channel, and does so automatically when the channel ends.",
+        "leveling": [
+          {
+            "label": "Physical Damage Per Shot",
+            "amount": {
+              "text": "15 / 30 / 45 (+ 25% AD) (+ 15% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  15,
+                  30,
+                  45
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AD",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 25
+                  },
+                  "text": "(+ 25% AD)"
+                },
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 15
+                  },
+                  "text": "(+ 15% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Minion Damage Per Shot",
+            "amount": {
+              "text": "30 / 60 / 90 (+ 50% AD) (+ 30% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  30,
+                  60,
+                  90
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AD",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 50
+                  },
+                  "text": "(+ 50% AD)"
+                },
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 30
+                  },
+                  "text": "(+ 30% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "channel",
+            "category": "other",
+            "wording": "channels",
+            "duration": {
+              "kind": "constant",
+              "value": 3
+            },
+            "evidence": "Active: Lucian channels for up to 3 seconds, rapidly firing up to 22 (+ critical strike damage (based on critical strike chance)) shots in the target direction over the duration.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "While channeling, Lucian is ghosted and may still move.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "ghosted",
+            "category": "movement",
+            "wording": "ghosted",
+            "evidence": "While channeling, Lucian is ghosted and may still move.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "label": "Recast",
+        "text": "Recast: Lucian ends The Culling.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "The Culling creates the shots at an offset of 35 units to the front plus 35 units towards each side of Lucian (sides alternating, first shot fired from Lucian's right gun), unlike the missiles of most abilities.",
+      "The fire rate increases with the number of shots.",
+      "During The Culling, Lucian's facing direction is in the direction that he is firing.",
+      "Lucian can interact with Dark Passage or allied Devour without interrupting The Culling.",
+      "The damage dealt by each bullet of The Culling is calculated when the bullet reaches a target, just like single missile abilities.",
+      "Spell shield only blocks one instance of damage.",
+      "The following table refers for interactions while Lucian is channeling:"
+    ]
+  },
+  {
+    "champion": "Lucian",
+    "kind": "W",
+    "name": "Ardent Blaze",
+    "page": {
+      "title": "Template:Data Lucian/Ardent Blaze",
+      "revid": 3594941
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "14 / 13 / 12 / 11 / 10",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                14,
+                13,
+                12,
+                11,
+                10
+              ]
+            }
+          }
+        ]
+      },
+      "cost": {
+        "text": "60",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 60
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "0.25",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0.25
+            }
+          }
+        ]
+      },
+      "range": {
+        "text": "900",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 900
+            }
+          }
+        ]
+      },
+      "width": {
+        "text": "110",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 110
+            },
+            "label": "initial missile width"
+          }
+        ]
+      },
+      "speed": {
+        "text": "1600",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 1600
+            }
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Direction"
+      ],
+      "affects": [
+        "Enemies",
+        "Self",
+        "Allies"
+      ],
+      "damageType": [
+        "Magic"
+      ],
+      "spellEffects": "spellaoe",
+      "spellShield": "special",
+      "projectile": "true",
+      "parry": "special"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Lucian fires a missile in the target direction that explodes in a cross pattern upon hitting an enemy or reaching maximum range, dealing magic damage to enemies hit and granting sight of the area for 1 second.",
+        "leveling": [
+          {
+            "label": "Magic Damage",
+            "amount": {
+              "text": "75 / 110 / 145 / 180 / 215 (+ 90% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  75,
+                  110,
+                  145,
+                  180,
+                  215
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 90
+                  },
+                  "text": "(+ 90% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "reveal",
+            "category": "vision",
+            "wording": "sight",
+            "duration": {
+              "kind": "constant",
+              "value": 1
+            },
+            "evidence": "Active: Lucian fires a missile in the target direction that explodes in a cross pattern upon hitting an enemy or reaching maximum range, dealing magic damage to enemies hit and granting sight of the area for 1 second.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "Enemies hit are marked for 6 seconds.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "text": "Lucian gains bonus movement speed for 1 second when he or allied champions damage a marked target. Allied champions triggering this effect grant Lucian Vigilance.",
+        "leveling": [
+          {
+            "label": "Bonus Movement Speed",
+            "amount": {
+              "text": "60 / 65 / 70 / 75 / 80",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  60,
+                  65,
+                  70,
+                  75,
+                  80
+                ]
+              },
+              "scaling": [],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "This ability will cast from wherever the caster is at the end of the cast time.\n  - Like most missiles, it will not collide with enemies whose center is beyond the maximum range (not behind Lucian), but this determines only the center and timing of the explosion.",
+      "Ardent Blaze will cast from wherever Lucian is at the end of the cast time.",
+      "Lucian will not gain Ardent Blaze's bonus movement speed if attacks on marked targets are dodged, blocked, or if missed while the attacker is blinded.",
+      "DoTs will proc Ardent Blaze only once.",
+      "Spell shield will not prevent the mark."
+    ]
+  }
+]

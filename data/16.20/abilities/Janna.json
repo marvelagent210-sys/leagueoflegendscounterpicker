@@ -1,0 +1,985 @@
+[
+  {
+    "champion": "Janna",
+    "kind": "E",
+    "name": "Eye of the Storm",
+    "page": {
+      "title": "Template:Data Janna/Eye of the Storm",
+      "revid": 3933659
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "16 / 15 / 14 / 13 / 12",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                16,
+                15,
+                14,
+                13,
+                12
+              ]
+            }
+          }
+        ]
+      },
+      "cost": {
+        "text": "70 / 75 / 80 / 85 / 90",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                70,
+                75,
+                80,
+                85,
+                90
+              ]
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "none",
+        "values": []
+      },
+      "targetRange": {
+        "text": "800",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 800
+            }
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Unit"
+      ],
+      "affects": [
+        "Allies",
+        "Allied turrets",
+        "Self"
+      ],
+      "damageType": []
+    },
+    "parts": [
+      {
+        "label": "Passive",
+        "text": "Passive: Whenever Janna's abilities slow or knock up at least one enemy champion, 20% of Eye of the Storm's cooldown is refunded. This may occur once per spell cast.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "slow",
+            "category": "control",
+            "wording": "slow",
+            "evidence": "Passive: Whenever Janna's abilities slow or knock up at least one enemy champion, 20% of Eye of the Storm's cooldown is refunded.",
+            "conditional": false
+          },
+          {
+            "type": "airborne",
+            "category": "control",
+            "wording": "knock up",
+            "evidence": "Passive: Whenever Janna's abilities slow or knock up at least one enemy champion, 20% of Eye of the Storm's cooldown is refunded.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "label": "Active",
+        "text": "Active: Janna grants the target allied champion or turret, or herself, a shield for 4 seconds.",
+        "leveling": [
+          {
+            "label": "Shield Strength",
+            "amount": {
+              "text": "80 / 120 / 160 / 200 / 240 (+ 55% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  80,
+                  120,
+                  160,
+                  200,
+                  240
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 55
+                  },
+                  "text": "(+ 55% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "shield",
+            "category": "defense",
+            "wording": "shield",
+            "duration": {
+              "kind": "constant",
+              "value": 4
+            },
+            "evidence": "Active: Janna grants the target allied champion or turret, or herself, a shield for 4 seconds.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "While the shield holds, the target gains bonus attack damage.",
+        "leveling": [
+          {
+            "label": "Bonus Attack Damage",
+            "amount": {
+              "text": "10 / 15 / 20 / 25 / 30 (+ 10% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  10,
+                  15,
+                  20,
+                  25,
+                  30
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 10
+                  },
+                  "text": "(+ 10% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Eye of the Storm has a forgiveness radius of 175 units.",
+      "Janna receives kill credit on enemy champions that are killed by turrets shielded by Eye of the Storm.",
+      "Allied turrets will benefit from the bonus attack damage when targeted by Eye of the Storm."
+    ]
+  },
+  {
+    "champion": "Janna",
+    "kind": "I",
+    "name": "Tailwind",
+    "page": {
+      "title": "Template:Data Janna/Tailwind",
+      "revid": 3985378
+    },
+    "ranks": 1,
+    "fields": {
+      "effectRadius": {
+        "text": "1200",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 1200
+            }
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Passive"
+      ],
+      "affects": [
+        "Self"
+      ],
+      "damageType": [],
+      "spellEffects": "proc"
+    },
+    "parts": [
+      {
+        "label": "Innate",
+        "text": "Innate: Janna grants 6% bonus movement speed to nearby allied champions that are facing in the direction of her location.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "text": "Janna's basic attacks on-hit and Zephyr deal bonus magic damage equal to 30% of her bonus movement speed.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "on-hit",
+            "category": "offense",
+            "wording": "on-hit",
+            "evidence": "Janna's basic attacks on-hit and Zephyr deal bonus magic damage equal to 30% of her bonus movement speed.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "No additional notes."
+    ]
+  },
+  {
+    "champion": "Janna",
+    "kind": "Q",
+    "name": "Howling Gale",
+    "page": {
+      "title": "Template:Data Janna/Howling Gale",
+      "revid": 3800440
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "14",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 14
+            }
+          }
+        ]
+      },
+      "cooldownStart": "on-cast",
+      "cost": {
+        "text": "90 / 95 / 100 / 105 / 110",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                90,
+                95,
+                100,
+                105,
+                110
+              ]
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "none",
+        "values": []
+      },
+      "range": {
+        "text": "1100 / 1320 / 1540 / 1760 (based on seconds charged)",
+        "values": [
+          {
+            "series": {
+              "kind": "variable",
+              "variable": "seconds charged",
+              "points": [
+                0,
+                1,
+                2,
+                3
+              ],
+              "values": [
+                1100,
+                1320,
+                1540,
+                1760
+              ]
+            }
+          }
+        ]
+      },
+      "width": {
+        "text": "240",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 240
+            }
+          }
+        ]
+      },
+      "speed": {
+        "text": "880 / 1056 / 1232 / 1408 (based on seconds charged)",
+        "values": [
+          {
+            "series": {
+              "kind": "variable",
+              "variable": "seconds charged",
+              "points": [
+                0,
+                1,
+                2,
+                3
+              ],
+              "values": [
+                880,
+                1056,
+                1232,
+                1408
+              ]
+            }
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Direction",
+        "Auto"
+      ],
+      "affects": [
+        "Enemies"
+      ],
+      "damageType": [
+        "magic"
+      ],
+      "spellEffects": "area of effect",
+      "spellShield": "true",
+      "projectile": "true"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Janna summons a whirlwind at her current location that charges up over 3 seconds, increasing its range, speed, damage, and knock up duration every second over the duration. Howling Gale's direction is determined by this cast.",
+        "leveling": [
+          {
+            "label": "Minimum Magic Damage",
+            "amount": {
+              "text": "55 / 90 / 125 / 160 / 195 (+ 50% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  55,
+                  90,
+                  125,
+                  160,
+                  195
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 50
+                  },
+                  "text": "(+ 50% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Bonus Damage Per Second",
+            "amount": {
+              "text": "10 / 15 / 20 / 25 / 30 (+ 10% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  10,
+                  15,
+                  20,
+                  25,
+                  30
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 10
+                  },
+                  "text": "(+ 10% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Maximum Magic Damage",
+            "amount": {
+              "text": "85 / 135 / 185 / 235 / 285 (+ 80% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  85,
+                  135,
+                  185,
+                  235,
+                  285
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 80
+                  },
+                  "text": "(+ 80% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "airborne",
+            "category": "control",
+            "wording": "knock up",
+            "evidence": "Active: Janna summons a whirlwind at her current location that charges up over 3 seconds, increasing its range, speed, damage, and knock up duration every second over the duration.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "Howling Gale can be recast at any time within the duration, and does so automatically after the duration.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "label": "Recast",
+        "text": "Recast: Janna launches the whirlwind in the direction she targeted over 1.25 seconds, dealing magic damage to enemies hit and knocking them up for 0.5 / 0.55 / 0.6 / 0.65 / 0.7 / 0.75 / 0.8 / 0.85 / 0.9 / 0.95 / 1 / 1.05 / 1.1 / 1.15 / 1.2 / 1.25 (based on seconds charged) seconds.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "airborne",
+            "category": "control",
+            "wording": "knocking them up",
+            "duration": {
+              "kind": "variable",
+              "variable": "seconds charged",
+              "points": [
+                0,
+                0.1,
+                0.2,
+                0.3,
+                0.4,
+                0.5,
+                0.6,
+                0.7,
+                0.8,
+                0.9,
+                1,
+                1.1,
+                1.2,
+                1.3,
+                1.4,
+                1.5
+              ],
+              "values": [
+                0.5,
+                0.55,
+                0.6,
+                0.65,
+                0.7,
+                0.75,
+                0.8,
+                0.85,
+                0.9,
+                0.95,
+                1,
+                1.05,
+                1.1,
+                1.15,
+                1.2,
+                1.25
+              ]
+            },
+            "evidence": "Recast: Janna launches the whirlwind in the direction she targeted over 1.25 seconds, dealing magic damage to enemies hit and knocking them up for 0.5 / 0.55 / 0.6 / 0.65 / 0.7 / 0.75 / 0.8 / 0.85 / 0.9 / 0.95 / 1 / 1.05 / 1.1 / 1.15 / 1.2 / 1.25 (based on seconds charged) seconds.",
+            "conditional": false
+          }
+        ],
+        "values": [
+          {
+            "series": {
+              "kind": "variable",
+              "variable": "seconds charged",
+              "points": [
+                0,
+                0.1,
+                0.2,
+                0.3,
+                0.4,
+                0.5,
+                0.6,
+                0.7,
+                0.8,
+                0.9,
+                1,
+                1.1,
+                1.2,
+                1.3,
+                1.4,
+                1.5
+              ],
+              "values": [
+                0.5,
+                0.55,
+                0.6,
+                0.65,
+                0.7,
+                0.75,
+                0.8,
+                0.85,
+                0.9,
+                0.95,
+                1,
+                1.05,
+                1.1,
+                1.15,
+                1.2,
+                1.25
+              ]
+            },
+            "context": "Recast: Janna launches the whirlwind in the direction she targeted over 1.25 seconds, dealing magic damage to enemies hit and knocking them up for 0.5 / 0.55 / 0.6 / 0.65 / 0.7 / 0.75 / 0.8 / 0.85 / 0.9 / 0.95 / 1 / 1.05 / 1.1 / 1.15 / 1.2 / 1.25 (based on seconds charged) seconds."
+          }
+        ]
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "The initial cast and the manual recast count as ability activations for the purposes of on-cast effects such as Spellblade and triggering Force Pulse passive.",
+      "The storm does not interact with enemy units that stand on top of it while it is charging."
+    ]
+  },
+  {
+    "champion": "Janna",
+    "kind": "R",
+    "name": "Monsoon",
+    "page": {
+      "title": "Template:Data Janna/Monsoon",
+      "revid": 3959332
+    },
+    "ranks": 3,
+    "fields": {
+      "cooldown": {
+        "text": "130 / 115 / 100",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                130,
+                115,
+                100
+              ]
+            }
+          }
+        ]
+      },
+      "cooldownStart": "on-cast",
+      "cost": {
+        "text": "100",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 100
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "none",
+        "values": []
+      },
+      "effectRadius": {
+        "text": "700",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 700
+            },
+            "label": "Both knockback and healing zone radius"
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Auto"
+      ],
+      "affects": [
+        "Enemies",
+        "Allies"
+      ],
+      "damageType": [],
+      "spellShield": "true",
+      "silence": "true"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Janna unleashes a blast that knocks back all nearby enemies to up to 875 units over 0.5 seconds based on their proximity, though not through terrain.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "airborne",
+            "category": "control",
+            "wording": "knocks back",
+            "duration": {
+              "kind": "constant",
+              "value": 0.5
+            },
+            "evidence": "Active: Janna unleashes a blast that knocks back all nearby enemies to up to 875 units over 0.5 seconds based on their proximity, though not through terrain.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "Janna also channels for up to 3 seconds, healing herself and nearby allies every 0.25 seconds.",
+        "leveling": [
+          {
+            "label": "Heal Per Tick",
+            "amount": {
+              "text": "25 / 37.5 / 50 (+ 12.5% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  25,
+                  37.5,
+                  50
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 12.5
+                  },
+                  "text": "(+ 12.5% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Total Heal",
+            "amount": {
+              "text": "300 / 450 / 600 (+ 150% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  300,
+                  450,
+                  600
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 150
+                  },
+                  "text": "(+ 150% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "channel",
+            "category": "other",
+            "wording": "channels",
+            "duration": {
+              "kind": "constant",
+              "value": 3
+            },
+            "evidence": "Janna also channels for up to 3 seconds, healing herself and nearby allies every 0.25 seconds.",
+            "conditional": false
+          },
+          {
+            "type": "heal",
+            "category": "defense",
+            "wording": "healing",
+            "duration": {
+              "kind": "constant",
+              "value": 3
+            },
+            "evidence": "Janna also channels for up to 3 seconds, healing herself and nearby allies every 0.25 seconds.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "The following table refers for interactions while Janna is channeling:"
+    ]
+  },
+  {
+    "champion": "Janna",
+    "kind": "W",
+    "name": "Zephyr",
+    "page": {
+      "title": "Template:Data Janna/Zephyr",
+      "revid": 3971180
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "8 / 7.5 / 7 / 6.5 / 6",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                8,
+                7.5,
+                7,
+                6.5,
+                6
+              ]
+            }
+          }
+        ]
+      },
+      "cost": {
+        "text": "50 / 55 / 60 / 65 / 70",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                50,
+                55,
+                60,
+                65,
+                70
+              ]
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "0.245",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0.245
+            }
+          }
+        ]
+      },
+      "targetRange": {
+        "text": "550",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 550
+            }
+          }
+        ]
+      },
+      "speed": {
+        "text": "1600",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 1600
+            }
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Unit"
+      ],
+      "affects": [
+        "Self",
+        "Enemies"
+      ],
+      "damageType": [
+        "magic"
+      ],
+      "spellEffects": "spell",
+      "spellShield": "true",
+      "projectile": "true"
+    },
+    "parts": [
+      {
+        "label": "Passive",
+        "text": "Passive: Janna is ghosted and gains bonus movement speed.",
+        "leveling": [
+          {
+            "label": "Bonus Movement Speed",
+            "amount": {
+              "text": "6 / 7 / 8 / 9 / 10% (+ 2% per 100 AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  6,
+                  7,
+                  8,
+                  9,
+                  10
+                ]
+              },
+              "unit": "%",
+              "scaling": [
+                {
+                  "stat": "per100:AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 2
+                  },
+                  "text": "(+ 2% per 100 AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "ghosted",
+            "category": "movement",
+            "wording": "ghosted",
+            "evidence": "Passive: Janna is ghosted and gains bonus movement speed.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "label": "Active",
+        "text": "Active: Janna sends an air elemental at the target enemy that deals magic damage and slows them for 2 seconds, capped at 99%.",
+        "leveling": [
+          {
+            "label": "Magic Damage",
+            "amount": {
+              "text": "55 / 85 / 115 / 145 / 175 (+ 50% AP) (+ 30% bonus movement speed)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  55,
+                  85,
+                  115,
+                  145,
+                  175
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 50
+                  },
+                  "text": "(+ 50% AP)"
+                },
+                {
+                  "stat": "bonusMoveSpeed",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 30
+                  },
+                  "text": "(+ 30% bonus movement speed)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Slow",
+            "amount": {
+              "text": "20 / 24 / 28 / 32 / 36% (+ 6% per 100 AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  20,
+                  24,
+                  28,
+                  32,
+                  36
+                ]
+              },
+              "unit": "%",
+              "scaling": [
+                {
+                  "stat": "per100:AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 6
+                  },
+                  "text": "(+ 6% per 100 AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "slow",
+            "category": "control",
+            "wording": "slows",
+            "duration": {
+              "kind": "constant",
+              "value": 2
+            },
+            "amount": {
+              "kind": "rank",
+              "values": [
+                20,
+                24,
+                28,
+                32,
+                36
+              ]
+            },
+            "evidence": "Active: Janna sends an air elemental at the target enemy that deals magic damage and slows them for 2 seconds, capped at 99%.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "The maximum slow (99%) is reached with 1316.66666667 / 1250 / 1183.33333333 / 1116.66666667 / 1050 ability power.",
+      "If the target becomes untargetable, dies, or is too far away or no longer in sight during the cast time, this ability will cancel but does not go on cooldown nor pay its cost (if applicable)."
+    ]
+  }
+]

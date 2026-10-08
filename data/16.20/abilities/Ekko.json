@@ -1,0 +1,1042 @@
+[
+  {
+    "champion": "Ekko",
+    "kind": "E",
+    "name": "Phase Dive",
+    "page": {
+      "title": "Template:Data Ekko/Phase Dive",
+      "revid": 4025604
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "9 / 8.5 / 8 / 7.5 / 7",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                9,
+                8.5,
+                8,
+                7.5,
+                7
+              ]
+            }
+          }
+        ]
+      },
+      "cooldownStart": "post-effect",
+      "cost": {
+        "text": "40 / 45 / 50 / 55 / 60",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                40,
+                45,
+                50,
+                55,
+                60
+              ]
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "none",
+        "values": []
+      },
+      "targetRange": {
+        "text": "325 • 550",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 325
+            },
+            "label": "Dash distance"
+          },
+          {
+            "series": {
+              "kind": "constant",
+              "value": 550
+            },
+            "label": "Maximum increased dash distance across terrain"
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Direction"
+      ],
+      "affects": [
+        "Self"
+      ],
+      "damageType": [
+        "Magic"
+      ],
+      "spellEffects": "spell",
+      "spellShield": "true",
+      "parry": "true",
+      "grounded": "true",
+      "knockdown": "true"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Ekko dashes in the target direction, then empowers his next basic attack within 3 seconds to have a 0.25-second cast time, gain 300 bonus range, cause him to blink within 125 range of the target, and deal bonus magic damage.",
+        "leveling": [
+          {
+            "label": "Bonus Magic Damage",
+            "amount": {
+              "text": "50 / 75 / 100 / 125 / 150 (+ 40% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  50,
+                  75,
+                  100,
+                  125,
+                  150
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 40
+                  },
+                  "text": "(+ 40% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "dash",
+            "category": "movement",
+            "wording": "dashes",
+            "evidence": "Active: Ekko dashes in the target direction, then empowers his next basic attack within 3 seconds to have a 0.25-second cast time, gain 300 bonus range, cause him to blink within 125 range of the target, and deal bonus magic damage.",
+            "conditional": false
+          },
+          {
+            "type": "blink",
+            "category": "movement",
+            "wording": "blink",
+            "evidence": "Active: Ekko dashes in the target direction, then empowers his next basic attack within 3 seconds to have a 0.25-second cast time, gain 300 bonus range, cause him to blink within 125 range of the target, and deal bonus magic damage.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "Phase Dive resets Ekko's basic attack timer. Ekko can cast any of his abilities during the dash.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "attack reset",
+            "category": "offense",
+            "wording": "resets",
+            "evidence": "Phase Dive resets Ekko's basic attack timer.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "The dash distance can be extended to up-to 550 units when targeting across terrain. It will only extend for the distance needed to cross the wall.",
+      "While grounded or rooted, Ekko loses the bonus attack range from Phase Dive.",
+      "Phase Dive's attack can miss and be blocked and dodged, consuming the basic attack without dealing any damage.",
+      "Phase Dive's attack breaks stealth at the start of its cast time.\n  - This is relevant for external sources of stealth such as Curse of the Black Mist.",
+      "If the target becomes untargetable, dies, or is too far away during the empowered attack's cast time, it is cancelled but not consumed."
+    ]
+  },
+  {
+    "champion": "Ekko",
+    "kind": "I",
+    "name": "Z-Drive Resonance",
+    "page": {
+      "title": "Template:Data Ekko/Z-Drive Resonance",
+      "revid": 4022978
+    },
+    "ranks": 1,
+    "fields": {},
+    "flags": {
+      "targeting": [
+        "Passive"
+      ],
+      "affects": [
+        "Enemies",
+        "Self"
+      ],
+      "damageType": [
+        "Magic"
+      ],
+      "spellEffects": "single target",
+      "spellShield": "true",
+      "parry": "true"
+    },
+    "parts": [
+      {
+        "label": "Innate - Resonance",
+        "text": "Innate - Resonance: Ekko's basic attacks on-hit and damaging abilities apply a stack of Resonance to enemies hit for 4 seconds, refreshing on subsequent hits and stacking up to 3 times. The third stack consumes them all to deal 30 – 140 (based on level) (+ 80% AP) bonus magic damage. Z-Drive Resonance deals 270% damage against monsters.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "on-hit",
+            "category": "offense",
+            "wording": "on-hit",
+            "evidence": "Innate - Resonance: Ekko's basic attacks on-hit and damaging abilities apply a stack of Resonance to enemies hit for 4 seconds, refreshing on subsequent hits and stacking up to 3 times.",
+            "conditional": false
+          }
+        ],
+        "values": [
+          {
+            "series": {
+              "kind": "level",
+              "values": [
+                30,
+                40,
+                50,
+                60,
+                70,
+                80,
+                85,
+                90,
+                95,
+                100,
+                105,
+                110,
+                115,
+                120,
+                125,
+                130,
+                135,
+                140,
+                145,
+                150
+              ],
+              "past18": "wiki"
+            },
+            "context": "The third stack consumes them all to deal 30 – 140 (based on level) (+ 80% AP) bonus magic damage."
+          }
+        ]
+      },
+      {
+        "text": "Resonance cannot affect the same target more than once every few seconds.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "label": "Innate - Stolen Time",
+        "text": "Innate - Stolen Time: Triggering Resonance against a champion grants Ekko 50 / 60 / 70 / 80 (based on level)% bonus movement speed for 2 / 2.5 / 3 (based on level) seconds.",
+        "leveling": [],
+        "mechanics": [],
+        "values": [
+          {
+            "series": {
+              "kind": "variable",
+              "variable": "level",
+              "points": [
+                1,
+                6,
+                11,
+                16
+              ],
+              "values": [
+                50,
+                60,
+                70,
+                80
+              ]
+            },
+            "context": "Innate - Stolen Time: Triggering Resonance against a champion grants Ekko 50 / 60 / 70 / 80 (based on level)% bonus movement speed for 2 / 2.5 / 3 (based on level) seconds."
+          },
+          {
+            "series": {
+              "kind": "variable",
+              "variable": "level",
+              "points": [
+                1,
+                6,
+                11
+              ],
+              "values": [
+                2,
+                2.5,
+                3
+              ]
+            },
+            "context": "Innate - Stolen Time: Triggering Resonance against a champion grants Ekko 50 / 60 / 70 / 80 (based on level)% bonus movement speed for 2 / 2.5 / 3 (based on level) seconds."
+          }
+        ]
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Ekko's basic attacks have different animations based on how many stacks his target has. His attack pattern is as follows:\n  - Downwards → Upwards → Sideways\n    - If the target has already been affected by Resonance, Ekko's basic attack animations will kick or attack the target sideways.",
+      "Resonance stacks will not be applied nor consumed if the basic attack is dodged or blocked or if the attack misses."
+    ]
+  },
+  {
+    "champion": "Ekko",
+    "kind": "Q",
+    "name": "Timewinder",
+    "page": {
+      "title": "Template:Data Ekko/Timewinder",
+      "revid": 4067545
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "9 / 8.5 / 8 / 7.5 / 7",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                9,
+                8.5,
+                8,
+                7.5,
+                7
+              ]
+            }
+          }
+        ]
+      },
+      "cost": {
+        "text": "40 / 50 / 60 / 70 / 80",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                40,
+                50,
+                60,
+                70,
+                80
+              ]
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "0.25",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0.25
+            }
+          }
+        ]
+      },
+      "targetRange": {
+        "text": "1100",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 1100
+            }
+          }
+        ]
+      },
+      "effectRadius": {
+        "text": "160 – 210",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 160
+            },
+            "label": "Temporal Sickness expansion"
+          }
+        ]
+      },
+      "width": {
+        "text": "120 • 200",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 120
+            },
+            "label": "Outward"
+          },
+          {
+            "series": {
+              "kind": "constant",
+              "value": 200
+            },
+            "label": "Returning"
+          }
+        ]
+      },
+      "speed": {
+        "text": "1650 • 200 • 2300",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 1650
+            },
+            "label": "Outward"
+          },
+          {
+            "series": {
+              "kind": "constant",
+              "value": 200
+            },
+            "label": "Temporal Sickness (Estimated)"
+          },
+          {
+            "series": {
+              "kind": "constant",
+              "value": 2300
+            },
+            "label": "Returning"
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Direction"
+      ],
+      "affects": [
+        "Enemies"
+      ],
+      "damageType": [
+        "Magic"
+      ],
+      "spellEffects": "spellaoe",
+      "spellShield": "special",
+      "projectile": "true"
+    },
+    "parts": [
+      {
+        "label": "Active",
+        "text": "Active: Ekko throws a temporal grenade in the target direction that deals magic damage to enemies hit.",
+        "leveling": [
+          {
+            "label": "Initial Magic Damage",
+            "amount": {
+              "text": "80 / 95 / 110 / 125 / 140 (+ 30% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  80,
+                  95,
+                  110,
+                  125,
+                  140
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 30
+                  },
+                  "text": "(+ 30% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "text": "At 700 units or upon hitting an enemy champion, the grenade slows down for 1.75 seconds to gradually expand into a Temporal Sickness field that slows nearby enemies, travelling for another 190 units.",
+        "leveling": [
+          {
+            "label": "Slow",
+            "amount": {
+              "text": "40 / 45 / 50 / 55 / 60%",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  40,
+                  45,
+                  50,
+                  55,
+                  60
+                ]
+              },
+              "unit": "%",
+              "scaling": [],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "slow",
+            "category": "control",
+            "wording": "slows",
+            "amount": {
+              "kind": "rank",
+              "values": [
+                40,
+                45,
+                50,
+                55,
+                60
+              ]
+            },
+            "evidence": "At 700 units or upon hitting an enemy champion, the grenade slows down for 1.75 seconds to gradually expand into a Temporal Sickness field that slows nearby enemies, travelling for another 190 units.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "Afterwards, the grenade contracts and homes back to Ekko at an increased speed, dealing magic damage to enemies hit.",
+        "leveling": [
+          {
+            "label": "Return Magic Damage",
+            "amount": {
+              "text": "40 / 65 / 90 / 115 / 140 (+ 70% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  40,
+                  65,
+                  90,
+                  115,
+                  140
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 70
+                  },
+                  "text": "(+ 70% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Total Magic Damage",
+            "amount": {
+              "text": "120 / 160 / 200 / 240 / 280 (+ 100% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  120,
+                  160,
+                  200,
+                  240,
+                  280
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 100
+                  },
+                  "text": "(+ 100% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "text": "Enemies can be hit only once per pass.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Spell shield will block only a single instance of damage.",
+      "This ability will cast from wherever the caster is at the end of the cast time."
+    ]
+  },
+  {
+    "champion": "Ekko",
+    "kind": "R",
+    "name": "Chronobreak",
+    "page": {
+      "title": "Template:Data Ekko/Chronobreak",
+      "revid": 4012189
+    },
+    "ranks": 3,
+    "fields": {
+      "cooldown": {
+        "text": "110 / 80 / 50",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                110,
+                80,
+                50
+              ]
+            }
+          }
+        ]
+      },
+      "cost": {
+        "text": "100",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 100
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "0.5",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0.5
+            }
+          }
+        ]
+      },
+      "effectRadius": {
+        "text": "375 • Global",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 375
+            },
+            "label": "Damage radius"
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Auto"
+      ],
+      "affects": [
+        "Enemies",
+        "Self"
+      ],
+      "damageType": [
+        "Magic"
+      ],
+      "spellEffects": "spellaoe",
+      "spellShield": "true",
+      "grounded": "true",
+      "knockdown": "false"
+    },
+    "parts": [
+      {
+        "label": "Passive",
+        "text": "Passive: Upon learning Chronobreak or if its current cooldown is lower than 4 seconds, Ekko reveals a time-delayed afterimage of himself that constantly tracks where he was 4 seconds ago.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "label": "Active",
+        "text": "Active: Ekko enters stasis at the start of the cast time, and afterwards heals himself, increased by 0 / 30 / 60 / 90 / 120 / 150 / 180 / 210 / 240 / 270 / 300 (based on health lost)%, and dashes to his afterimage's location at the time of cast over 0.5 seconds. Upon arrival, the stasis ends and he creates an explosion that deals magic damage to nearby enemies.",
+        "leveling": [
+          {
+            "label": "Magic Damage",
+            "amount": {
+              "text": "200 / 350 / 500 (+ 175% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  200,
+                  350,
+                  500
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 175
+                  },
+                  "text": "(+ 175% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Minimum Heal",
+            "amount": {
+              "text": "100 / 150 / 200 (+ 60% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  100,
+                  150,
+                  200
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 60
+                  },
+                  "text": "(+ 60% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          },
+          {
+            "label": "Maximum Heal",
+            "amount": {
+              "text": "400 / 600 / 800 (+ 240% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  400,
+                  600,
+                  800
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 240
+                  },
+                  "text": "(+ 240% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "stasis",
+            "category": "defense",
+            "wording": "stasis",
+            "duration": {
+              "kind": "constant",
+              "value": 0.5
+            },
+            "evidence": "Active: Ekko enters stasis at the start of the cast time, and afterwards heals himself, increased by 0 / 30 / 60 / 90 / 120 / 150 / 180 / 210 / 240 / 270 / 300 (based on health lost)%, and dashes to his afterimage's location at the time of cast over 0.5 seconds.",
+            "conditional": false
+          },
+          {
+            "type": "heal",
+            "category": "defense",
+            "wording": "heals",
+            "duration": {
+              "kind": "constant",
+              "value": 0.5
+            },
+            "evidence": "Active: Ekko enters stasis at the start of the cast time, and afterwards heals himself, increased by 0 / 30 / 60 / 90 / 120 / 150 / 180 / 210 / 240 / 270 / 300 (based on health lost)%, and dashes to his afterimage's location at the time of cast over 0.5 seconds.",
+            "conditional": false
+          },
+          {
+            "type": "dash",
+            "category": "movement",
+            "wording": "dashes",
+            "evidence": "Active: Ekko enters stasis at the start of the cast time, and afterwards heals himself, increased by 0 / 30 / 60 / 90 / 120 / 150 / 180 / 210 / 240 / 270 / 300 (based on health lost)%, and dashes to his afterimage's location at the time of cast over 0.5 seconds.",
+            "conditional": false
+          }
+        ],
+        "values": [
+          {
+            "series": {
+              "kind": "variable",
+              "variable": "health lost",
+              "points": [
+                0,
+                10,
+                20,
+                30,
+                40,
+                50,
+                60,
+                70,
+                80,
+                90,
+                100
+              ],
+              "values": [
+                0,
+                30,
+                60,
+                90,
+                120,
+                150,
+                180,
+                210,
+                240,
+                270,
+                300
+              ]
+            },
+            "context": "Active: Ekko enters stasis at the start of the cast time, and afterwards heals himself, increased by 0 / 30 / 60 / 90 / 120 / 150 / 180 / 210 / 240 / 270 / 300 (based on health lost)%, and dashes to his afterimage's location at the time of cast over 0.5 seconds."
+          }
+        ]
+      },
+      {
+        "text": "Ekko is immune to all displacements during Chronobreak.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "airborne",
+            "category": "control",
+            "wording": "displacements",
+            "evidence": "Ekko is immune to all displacements during Chronobreak.",
+            "conditional": true
+          }
+        ],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "Ekko will attempt to basic attack the closest target after appearing at the cast location, but can do so quicker if he manually attack commands after the dash, except if Phase Dive is primed.",
+      "The afterimage's location will explode even if Ekko's dash is interrupted.",
+      "A link can also be seen between the afterimage and Ekko that traces along his path.\n  - The link follows the same visibility rules as the afterimage.\n  - Upon activation, Ekko travels full distance through the link, and thus will detonate Parallel Convergence that the link passes through.",
+      "Quicksilver Sash Quicksilver incurs a 1-second cooldown upon casting Chronobreak.",
+      "Ekko's dash cannot be interrupted by forced movement displacements since he is immune to them.\n  - This is not to be confused with displacement immunity, which resists airborne displacements plus a number of other cases. Chronobreak provides immunity only to displacements that apply airborne."
+    ]
+  },
+  {
+    "champion": "Ekko",
+    "kind": "W",
+    "name": "Parallel Convergence",
+    "page": {
+      "title": "Template:Data Ekko/Parallel Convergence",
+      "revid": 3956502
+    },
+    "ranks": 5,
+    "fields": {
+      "cooldown": {
+        "text": "22 / 20 / 18 / 16 / 14",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                22,
+                20,
+                18,
+                16,
+                14
+              ]
+            }
+          }
+        ]
+      },
+      "cooldownStart": "on-cast",
+      "cost": {
+        "text": "30 / 35 / 40 / 45 / 50",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                30,
+                35,
+                40,
+                45,
+                50
+              ]
+            }
+          }
+        ]
+      },
+      "costType": "mana",
+      "castTime": {
+        "text": "0.25",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0.25
+            }
+          }
+        ]
+      },
+      "targetRange": {
+        "text": "1600",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 1600
+            }
+          }
+        ]
+      },
+      "effectRadius": {
+        "text": "375",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 375
+            }
+          }
+        ]
+      }
+    },
+    "flags": {
+      "targeting": [
+        "Location"
+      ],
+      "affects": [],
+      "damageType": [
+        "magic"
+      ],
+      "spellEffects": "proc",
+      "spellShield": "true",
+      "projectile": "false",
+      "parry": "true"
+    },
+    "parts": [
+      {
+        "label": "Passive",
+        "text": "Passive: Ekko's basic attacks deal bonus magic damage equal to 3% (+ 3% per 100 AP) of the target's missing health against enemies below 30% of their maximum health. The damage has a minimum threshold of 15 and is capped at 150 against minions and monsters.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      },
+      {
+        "label": "Active",
+        "text": "Active: Ekko creates an afterimage of himself that, after 2 seconds, bats a device to the target location and grants sight of the area for 2.5 seconds. After travelling over 1.25 seconds, the device expands into a chronosphere that lasts for 1.5 seconds and which slows enemies within by 40%.",
+        "leveling": [],
+        "mechanics": [
+          {
+            "type": "reveal",
+            "category": "vision",
+            "wording": "sight",
+            "duration": {
+              "kind": "constant",
+              "value": 2.5
+            },
+            "evidence": "Active: Ekko creates an afterimage of himself that, after 2 seconds, bats a device to the target location and grants sight of the area for 2.5 seconds.",
+            "conditional": false
+          },
+          {
+            "type": "slow",
+            "category": "control",
+            "wording": "slows",
+            "amount": {
+              "kind": "constant",
+              "value": 40
+            },
+            "evidence": "After travelling over 1.25 seconds, the device expands into a chronosphere that lasts for 1.5 seconds and which slows enemies within by 40%.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "If Ekko enters the sphere before it expires, it detonates to grant him a shield for 2 seconds and stun enemies within for 2.25 seconds.",
+        "leveling": [
+          {
+            "label": "Shield Strength",
+            "amount": {
+              "text": "100 / 120 / 140 / 160 / 180 (+ 150% AP)",
+              "base": {
+                "kind": "rank",
+                "values": [
+                  100,
+                  120,
+                  140,
+                  160,
+                  180
+                ]
+              },
+              "scaling": [
+                {
+                  "stat": "AP",
+                  "ratio": {
+                    "kind": "constant",
+                    "value": 150
+                  },
+                  "text": "(+ 150% AP)"
+                }
+              ],
+              "unparsed": ""
+            }
+          }
+        ],
+        "mechanics": [
+          {
+            "type": "shield",
+            "category": "defense",
+            "wording": "shield",
+            "duration": {
+              "kind": "constant",
+              "value": 2
+            },
+            "evidence": "If Ekko enters the sphere before it expires, it detonates to grant him a shield for 2 seconds and stun enemies within for 2.25 seconds.",
+            "conditional": false
+          },
+          {
+            "type": "stun",
+            "category": "control",
+            "wording": "stun",
+            "duration": {
+              "kind": "constant",
+              "value": 2.25
+            },
+            "evidence": "If Ekko enters the sphere before it expires, it detonates to grant him a shield for 2 seconds and stun enemies within for 2.25 seconds.",
+            "conditional": false
+          }
+        ],
+        "values": []
+      },
+      {
+        "text": "Enemies can see the indicator for Parallel Convergence 2 seconds after casting.",
+        "leveling": [],
+        "mechanics": [],
+        "values": []
+      }
+    ],
+    "custom": [],
+    "notes": [
+      "The passive will proc with the attack that triggers the final stack of Resonance if it reduces a target's health below the 30% threshold.",
+      "Ekko can detonate the expansion even while untargetable (i.e. Chronobreak dash), but not if he is resurrecting.",
+      "Parallel Convergence will continue to slow enemies even if its expansion is detonated."
+    ]
+  }
+]
