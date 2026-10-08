@@ -9,6 +9,22 @@ Values marked "at max rank, level 20" assume every ability is maxed; see PLAN.md
 |---|--:|--:|--:|--:|--:|--:|--:|--:|--:|--:|
 | Seraphine | 2438.2 | 18.30 | 1146.6 Mana | 109.0 | 0.915 | 0.204 | 108.6 | 55.6 | 525 | 330 |
 
+## Fight profile (what the interaction ledger uses)
+
+| Form | Attack range | Ranged | Projectile | Missile speed | Attack modifiers |
+|---|--:|---|---|--:|---|
+| Seraphine | 525 | yes | yes | 1800 | Stage Presence |
+
+Cooldowns at max rank. Flags: the wiki's interaction flags (yes, no, partly). * marks an effect that applies only under a condition.
+
+| Slot | Ability | Cooldown | Delivery | Applies to the enemy | Movement | Gives itself |
+|---|---|--:|---|---|---|---|
+| E | Beat Drop | 11 | projectile yes; spell shield yes | slow 99%; root 1.5 s; stun 1.5 s | – | – |
+| I | Stage Presence | – | projectile yes; spell shield no; parry no; attack modifier | – | – | – |
+| Q | High Note | 6 | projectile yes; spell shield yes | – | – | – |
+| R | Encore | 120 | projectile yes; spell shield yes | charm 1.75 s; slow 40% | – | – |
+| W | Surround Sound | 22 | projectile partly | – | – | shield 2.5 s; heal |
+
 ## Innate: Stage Presence
 
 Source: [Template:Data Seraphine/Stage Presence](https://wiki.leagueoflegends.com/en-us/Template:Data_Seraphine/Stage_Presence?oldid=4019648) (revision 4019648). Ranks: 1.

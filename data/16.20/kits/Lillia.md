@@ -9,6 +9,22 @@ Values marked "at max rank, level 20" assume every ability is maxed; see PLAN.md
 |---|--:|--:|--:|--:|--:|--:|--:|--:|--:|--:|
 | Lillia | 2669.8 | 13.32 | 1393.3 Mana | 122.0 | 0.957 | 0.154 | 112.5 | 62.5 | 325 | 330 |
 
+## Fight profile (what the interaction ledger uses)
+
+| Form | Attack range | Ranged | Projectile | Missile speed | Attack modifiers |
+|---|--:|---|---|--:|---|
+| Lillia | 325 | no | no | – | – |
+
+Cooldowns at max rank. Flags: the wiki's interaction flags (yes, no, partly). * marks an effect that applies only under a condition.
+
+| Slot | Ability | Cooldown | Delivery | Applies to the enemy | Movement | Gives itself |
+|---|---|--:|---|---|---|---|
+| E | Swirlseed | 12 | projectile partly; spell shield partly | slow 3 s 40% | – | – |
+| I | Dream-Laden Bough | – | spell shield yes | – | – | heal |
+| Q | Blooming Blows | 4 | spell shield yes | – | – | – |
+| R | Lilting Lullaby | 110 | projectile yes; spell shield partly | sleep 3 s; slow 10%; drowsy 1.5 s | – | – |
+| W | Watch Out! Eep! | 10 | spell shield yes; grounded yes; knockdown yes | – | dash | – |
+
 ## Innate: Dream-Laden Bough
 
 Source: [Template:Data Lillia/Dream-Laden Bough](https://wiki.leagueoflegends.com/en-us/Template:Data_Lillia/Dream-Laden_Bough?oldid=4038402) (revision 4038402). Ranks: 1.

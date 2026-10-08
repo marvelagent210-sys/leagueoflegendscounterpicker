@@ -9,6 +9,22 @@ Values marked "at max rank, level 20" assume every ability is maxed; see PLAN.md
 |---|--:|--:|--:|--:|--:|--:|--:|--:|--:|--:|
 | Shen | 2556.8 | 23.25 | 400.0 Energy | 123.0 | 1.135 | 0.153 | 116.6 | 72.3 | 125 | 340 |
 
+## Fight profile (what the interaction ledger uses)
+
+| Form | Attack range | Ranged | Projectile | Missile speed | Attack modifiers |
+|---|--:|---|---|--:|---|
+| Shen | 125 | no | no | – | – |
+
+Cooldowns at max rank. Flags: the wiki's interaction flags (yes, no, partly). * marks an effect that applies only under a condition.
+
+| Slot | Ability | Cooldown | Delivery | Applies to the enemy | Movement | Gives itself |
+|---|---|--:|---|---|---|---|
+| E | Shadow Dash | 10 | spell shield yes; grounded yes; knockdown yes | taunt 1.5 s | dash | – |
+| I | Ki Barrier | 11 | – | – | – | shield 2.5 s |
+| Q | Twilight Assault | 5 | projectile partly; spell shield yes; parry yes; attack | slow 2 s 45% | – | – |
+| R | Stand United | 160 | grounded yes; disruptable yes | – | blink | shield 5 s |
+| W | Spirit's Refuge | 10 | – | – | – | block attacks 1.75 s |
+
 ## Innate: Ki Barrier
 
 Source: [Template:Data Shen/Ki Barrier](https://wiki.leagueoflegends.com/en-us/Template:Data_Shen/Ki_Barrier?oldid=3985839) (revision 3985839). Ranks: 1.

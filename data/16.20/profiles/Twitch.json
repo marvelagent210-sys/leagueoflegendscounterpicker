@@ -1,0 +1,200 @@
+{
+  "champion": "Twitch",
+  "name": "Twitch",
+  "gameplayRadius": 65,
+  "moveSpeed": 330,
+  "attacks": [
+    {
+      "form": "twitch",
+      "formName": "Twitch",
+      "range": 550,
+      "ranged": true,
+      "projectile": true,
+      "missileSpeed": 2500,
+      "attackSpeed": 1.07958,
+      "attackDamage": 117.995,
+      "windup": 0.187033,
+      "modifiers": [
+        "Deadly Venom"
+      ]
+    }
+  ],
+  "abilities": [
+    {
+      "champion": "Twitch",
+      "kind": "E",
+      "name": "Contaminate",
+      "page": {
+        "title": "Template:Data Twitch/Contaminate",
+        "revid": 3907215
+      },
+      "damageTypes": [
+        "physical"
+      ],
+      "delivery": {
+        "targeting": [
+          "proximity"
+        ],
+        "affectsEnemies": true,
+        "projectile": "no",
+        "spellShield": "yes"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "cooldown": 8,
+      "castTime": 0.25
+    },
+    {
+      "champion": "Twitch",
+      "kind": "I",
+      "name": "Deadly Venom",
+      "page": {
+        "title": "Template:Data Twitch/Deadly Venom",
+        "revid": 4062255
+      },
+      "damageTypes": [
+        "true"
+      ],
+      "delivery": {
+        "targeting": [
+          "passive"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "no",
+        "parry": "yes",
+        "attack": "attack modifier"
+      },
+      "applies": [],
+      "movement": [],
+      "states": []
+    },
+    {
+      "champion": "Twitch",
+      "kind": "Q",
+      "name": "Ambush",
+      "page": {
+        "title": "Template:Data Twitch/Ambush",
+        "revid": 3982645
+      },
+      "damageTypes": [],
+      "delivery": {
+        "targeting": [
+          "auto"
+        ],
+        "affectsEnemies": false
+      },
+      "applies": [],
+      "movement": [],
+      "states": [
+        {
+          "state": "camouflage",
+          "evidence": [
+            {
+              "page": "Stealth",
+              "revid": 4013411,
+              "quote": "(500 unit detection radius)"
+            },
+            {
+              "page": "Template:Data Twitch/Ambush",
+              "revid": 3982645,
+              "quote": "Active: After a 1-second delay, Twitch becomes camouflaged for a duration."
+            }
+          ],
+          "duration": 1,
+          "condition": "(500 unit detection radius)"
+        }
+      ],
+      "cooldown": 16,
+      "castTime": 0,
+      "boostsAttacks": true,
+      "notes": [
+        "Entering stealth cancels Twitch's current basic attack.",
+        "Ambush follows the same rules as stealth but he can still perform actions normally before entering camouflage. Activating Recall during the 1-second delay allows him to channel it while stealthed.",
+        "If Twitch enters stasis during the delay, he will gain the camouflage after the stasis ends.",
+        "Using a basic attack breaks the stealth at the start of the attack windup."
+      ]
+    },
+    {
+      "champion": "Twitch",
+      "kind": "R",
+      "name": "Spray and Pray",
+      "page": {
+        "title": "Template:Data Twitch/Spray and Pray",
+        "revid": 4063223
+      },
+      "damageTypes": [
+        "physical"
+      ],
+      "delivery": {
+        "targeting": [
+          "auto"
+        ],
+        "affectsEnemies": false,
+        "projectile": "yes",
+        "parry": "yes",
+        "attack": "on-hit"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "cooldown": 90,
+      "castTime": 0,
+      "range": 1100,
+      "speed": 5000,
+      "boostsAttacks": true,
+      "notes": [
+        "Twitch targets his line attack at his target's location at the start of his attack windup.\n  - The bolts reach targets at a delay, composed of Twitch's windup time and distance the bolt has to travel at finite speed. Even the primary target can dodge the attack if they are moving quickly enough.",
+        "The bolt projectiles will naturally pass through terrain and enemy structures (the latter will be damaged by bolts even if they are not directly targeted).",
+        "If Twitch is blinded before winding up the attack, the hits will miss against all targets.",
+        "Runaan's Hurricane Wind's Fury interacts with Spray and Pray's bonus attack range but not with the modified missile effect (the secondary bolts will not have pass-through effects).",
+        "(Outdated as of V10.13, now can hit everything with edge range, except for turrets) The center of a unit must be within the maximum travel distance of the bolt missile, and in front of the spawn location (Twitch's center) for the bolt to be able to hit them.\n  - Other than this condition, the bolt missile has to only touch (pass within its half width of 60 units) the edge of the unit's radius.\n  - This is standard behaviour for linear skillshots."
+      ]
+    },
+    {
+      "champion": "Twitch",
+      "kind": "W",
+      "name": "Venom Cask",
+      "page": {
+        "title": "Template:Data Twitch/Venom Cask",
+        "revid": 4012250
+      },
+      "damageTypes": [],
+      "delivery": {
+        "targeting": [
+          "location"
+        ],
+        "affectsEnemies": true,
+        "projectile": "yes",
+        "spellShield": "yes"
+      },
+      "applies": [
+        {
+          "type": "slow",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "slow"
+            },
+            {
+              "page": "Template:Data Twitch/Venom Cask",
+              "revid": 4012250,
+              "quote": "The area then becomes contaminated for 3 seconds, applying a Deadly Venom stack each second to enemies within and slowing them."
+            }
+          ],
+          "amount": 50
+        }
+      ],
+      "movement": [],
+      "states": [],
+      "cooldown": 9,
+      "castTime": 0.25,
+      "range": 950,
+      "speed": 1400,
+      "notes": [
+        "Venom Cask's missile will fail to fire if Twitch is suppressed during the cast time."
+      ]
+    }
+  ]
+}

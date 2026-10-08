@@ -1,0 +1,226 @@
+{
+  "champion": "Tristana",
+  "name": "Tristana",
+  "gameplayRadius": 55,
+  "moveSpeed": 325,
+  "attacks": [
+    {
+      "form": "tristana",
+      "formName": "Draw a Bead (level 18+)",
+      "range": 700,
+      "ranged": true,
+      "projectile": true,
+      "missileSpeed": 2250,
+      "attackSpeed": 0.860713,
+      "attackDamage": 126.861,
+      "windup": 0.171958,
+      "modifiers": []
+    }
+  ],
+  "abilities": [
+    {
+      "champion": "Tristana",
+      "kind": "E",
+      "name": "Explosive Charge",
+      "page": {
+        "title": "Template:Data Tristana/Explosive Charge",
+        "revid": 4008204
+      },
+      "damageTypes": [
+        "physical"
+      ],
+      "delivery": {
+        "targeting": [
+          "unit"
+        ],
+        "affectsEnemies": true,
+        "projectile": "yes",
+        "spellShield": "yes",
+        "parry": "partly",
+        "attack": "on-hit"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "cooldown": 14,
+      "castTime": 100,
+      "range": 700,
+      "speed": 2400,
+      "boostsAttacks": true,
+      "notes": [
+        "Dodge, block and blind all prevent Explosive Charge's stack application via basic attacks.",
+        "Explosive Charge's detonation will deal damage to the primary target even if they have become untargetable.",
+        "Explosive Charge's stacks from basic attacks are applied as an on-hit effect and will therefore interact with Guinsoo's Rageblade Phantom Hit and Runaan's Hurricane bolts.",
+        "If the target becomes untargetable, dies, or is too far away or no longer in sight during the cast time, this ability will cancel but does not go on cooldown nor pay its cost (if applicable)."
+      ]
+    },
+    {
+      "champion": "Tristana",
+      "kind": "I",
+      "name": "Draw a Bead",
+      "page": {
+        "title": "Template:Data Tristana/Draw a Bead",
+        "revid": 3986179
+      },
+      "damageTypes": [],
+      "delivery": {
+        "targeting": [
+          "passive"
+        ],
+        "affectsEnemies": false
+      },
+      "applies": [],
+      "movement": [],
+      "states": []
+    },
+    {
+      "champion": "Tristana",
+      "kind": "Q",
+      "name": "Rapid Fire",
+      "page": {
+        "title": "Template:Data Tristana/Rapid Fire",
+        "revid": 4026462
+      },
+      "damageTypes": [],
+      "delivery": {
+        "targeting": [
+          "auto"
+        ],
+        "affectsEnemies": false
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "cooldown": 16,
+      "castTime": 0,
+      "boostsAttacks": true
+    },
+    {
+      "champion": "Tristana",
+      "kind": "R",
+      "name": "Buster Shot",
+      "page": {
+        "title": "Template:Data Tristana/Buster Shot",
+        "revid": 4008205
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "unit"
+        ],
+        "affectsEnemies": true,
+        "projectile": "yes",
+        "spellShield": "yes"
+      },
+      "applies": [
+        {
+          "type": "airborne",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "airborne: knock back"
+            },
+            {
+              "page": "Template:Data Tristana/Buster Shot",
+              "revid": 4008205,
+              "quote": "They and surrounding enemies are also knocked back and stunned for a duration, during which all targets are revealed."
+            }
+          ],
+          "variant": "knock back",
+          "duration": 0.7
+        },
+        {
+          "type": "stun",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "stun"
+            },
+            {
+              "page": "Template:Data Tristana/Buster Shot",
+              "revid": 4008205,
+              "quote": "They and surrounding enemies are also knocked back and stunned for a duration, during which all targets are revealed."
+            }
+          ],
+          "duration": 0.7
+        }
+      ],
+      "movement": [],
+      "states": [],
+      "cooldown": 100,
+      "castTime": 0.25,
+      "range": 700,
+      "speed": 2000,
+      "notes": [
+        "Displacement immunity will also resist the application of the stun.",
+        "If the target becomes untargetable, dies, or is too far away or no longer in sight during the cast time, this ability will cancel but does not go on cooldown nor pay its cost (if applicable)."
+      ]
+    },
+    {
+      "champion": "Tristana",
+      "kind": "W",
+      "name": "Rocket Jump",
+      "page": {
+        "title": "Template:Data Tristana/Rocket Jump",
+        "revid": 4007758
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "location"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "yes",
+        "grounded": "yes",
+        "knockdown": "yes"
+      },
+      "applies": [
+        {
+          "type": "slow",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "slow"
+            },
+            {
+              "page": "Template:Data Tristana/Rocket Jump",
+              "revid": 4007758,
+              "quote": "Upon landing, she deals magic damage to nearby enemies and slows them by 40% for 2 seconds."
+            }
+          ],
+          "duration": 2,
+          "amount": 40
+        }
+      ],
+      "movement": [
+        {
+          "type": "dash",
+          "evidence": [
+            {
+              "page": "Dash",
+              "revid": 4035700,
+              "quote": "location-targeted"
+            }
+          ],
+          "targeting": "location-targeted",
+          "interruptible": true
+        }
+      ],
+      "states": [],
+      "cooldown": 14,
+      "castTime": 0.25,
+      "range": 900,
+      "speed": 1100,
+      "notes": [
+        "Rocket Jump's dash speed depends on the distance of the jump. Close-ranged jumps are much shorter while long-ranged jumps leave Tristana in the air significantly longer."
+      ]
+    }
+  ]
+}

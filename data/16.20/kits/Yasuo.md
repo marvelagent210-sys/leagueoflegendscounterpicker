@@ -9,6 +9,22 @@ Values marked "at max rank, level 20" assume every ability is maxed; see PLAN.md
 |---|--:|--:|--:|--:|--:|--:|--:|--:|--:|--:|
 | Yasuo | 2753.2 | 24.20 | 100.0 Flow | 109.2 | 1.158 | 0.190 | 122.5 | 72.3 | 175 | 345 |
 
+## Fight profile (what the interaction ledger uses)
+
+| Form | Attack range | Ranged | Projectile | Missile speed | Attack modifiers |
+|---|--:|---|---|--:|---|
+| Yasuo | 175 | no | no | – | – |
+
+Cooldowns at max rank. Flags: the wiki's interaction flags (yes, no, partly). * marks an effect that applies only under a condition.
+
+| Slot | Ability | Cooldown | Delivery | Applies to the enemy | Movement | Gives itself |
+|---|---|--:|---|---|---|---|
+| E | Sweeping Blade | 0.1 | spell shield yes; grounded yes; knockdown yes | – | dash | – |
+| I | Way of the Wanderer | – | – | – | – | shield 1 s |
+| Q | Steel Tempest | 4 | projectile partly; spell shield yes; parry partly; on-hit | airborne (knock up) 0.9 s | – | – |
+| R | Last Breath | 30 | spell shield partly; grounded yes | airborne (knock up); reveal | blink | – |
+| W | Wind Wall | 17 | projectile partly | – | – | projectile block 4 s |
+
 ## Innate: Way of the Wanderer
 
 Source: [Template:Data Yasuo/Way of the Wanderer](https://wiki.leagueoflegends.com/en-us/Template:Data_Yasuo/Way_of_the_Wanderer?oldid=4051866) (revision 4051866). Ranks: 1.

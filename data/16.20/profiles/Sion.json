@@ -1,0 +1,423 @@
+{
+  "champion": "Sion",
+  "name": "Sion",
+  "gameplayRadius": 80,
+  "moveSpeed": 345,
+  "attacks": [
+    {
+      "form": "sion",
+      "formName": "Sion",
+      "range": 175,
+      "ranged": false,
+      "projectile": false,
+      "attackSpeed": 0.852583,
+      "attackDamage": 146.66,
+      "windup": 0.292164,
+      "modifiers": [
+        "Glory in Death"
+      ]
+    }
+  ],
+  "abilities": [
+    {
+      "champion": "Sion",
+      "kind": "E",
+      "name": "Roar of the Slayer",
+      "page": {
+        "title": "Template:Data Sion/Roar of the Slayer",
+        "revid": 4008040
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "direction"
+        ],
+        "affectsEnemies": true,
+        "projectile": "partly",
+        "spellShield": "yes"
+      },
+      "applies": [
+        {
+          "type": "slow",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "slow"
+            },
+            {
+              "page": "Template:Data Sion/Roar of the Slayer",
+              "revid": 4008040,
+              "quote": "Active: Sion bellows a shockwave in the target direction that deals magic damage to the first enemy hit, slows them for 2.5 seconds and inflicts them with 25% armor reduction for 4 seconds."
+            }
+          ],
+          "duration": 2.5,
+          "amount": 60
+        }
+      ],
+      "movement": [],
+      "states": [],
+      "cooldown": 8,
+      "castTime": 0.25,
+      "range": 800,
+      "speed": 1800,
+      "notes": [
+        "Minions or monsters that are flung away are immune to minion damage and take their damage once they are stopped if they would die to Roar of the Slayer's damage, by either colliding with terrain, reaching the end of their trajectory, or having their displacement interrupted.",
+        "Unlike the intial single-target projectile, a thrown minion or monster is not blocked by Wind Wall or similar effects.",
+        "Gaining or losing AP, or upgrading the ability while its projectile is traveling will change its damage for every future hit. This applies to both the intial single-target projectile, as well as the minion-projectile."
+      ]
+    },
+    {
+      "champion": "Sion",
+      "kind": "I",
+      "name": "Death Surge",
+      "page": {
+        "title": "Template:Data Sion/Death Surge",
+        "revid": 3968660
+      },
+      "damageTypes": [],
+      "delivery": {
+        "targeting": [
+          "auto"
+        ],
+        "affectsEnemies": false
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "cooldown": 100
+    },
+    {
+      "champion": "Sion",
+      "kind": "I",
+      "name": "Glory in Death",
+      "page": {
+        "title": "Template:Data Sion/Glory in Death",
+        "revid": 4058210
+      },
+      "damageTypes": [
+        "physical"
+      ],
+      "delivery": {
+        "targeting": [
+          "passive"
+        ],
+        "affectsEnemies": false,
+        "parry": "yes",
+        "attack": "attack modifier"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [
+        {
+          "state": "stasis",
+          "evidence": [
+            {
+              "page": "Untargetability",
+              "revid": 3965000,
+              "quote": "Does not destroy inbound projectiles"
+            },
+            {
+              "page": "Template:Data Sion/Glory in Death",
+              "revid": 4058210,
+              "quote": "Innate: Upon taking fatal damage, Sion enters stasis for 1.5 seconds to reanimate into a frenzy, restoring 100% of his maximum health but losing 2 – 19 (based on level) health every 0.264, increasing by 70% of the base value per subsequent tick."
+            }
+          ],
+          "duration": 1.5,
+          "note": "Does not destroy inbound projectiles",
+          "condition": "Only after taking fatal damage."
+        },
+        {
+          "state": "untargetable",
+          "duration": 1.5,
+          "evidence": [
+            {
+              "page": "Untargetability",
+              "revid": 3965000,
+              "quote": "Does not destroy inbound projectiles"
+            }
+          ],
+          "condition": "Only after taking fatal damage."
+        },
+        {
+          "state": "heal",
+          "evidence": [
+            {
+              "page": "Template:Data Sion/Glory in Death",
+              "revid": 4058210,
+              "quote": "Sion's health regeneration and any healing (except life steal and omnivamp) he receives during this time is 0% effective."
+            },
+            {
+              "page": "Template:Data Sion/Glory in Death",
+              "revid": 4058210,
+              "quote": "* 100% life steal"
+            }
+          ],
+          "condition": "Only after taking fatal damage."
+        }
+      ],
+      "notes": [
+        "The bonus on-hit damage granted by Glory in Death is unaffected by life steal.\n  - However, it can be applied against structures that are not turrets.",
+        "The reduction of damage against structures includes Sion's basic attacks as well as on-hit effects that can be applied to structures, such as Demolish, Titanic Hydra and the magic damage based on AP conversion based on adaptive force.\n  - It even includes true damage from sources such as Elixir of Sorcery and Bastionbreaker.",
+        "Glory in Death's untargetability from the stasis does not destroy in-flight projectiles.\n  - Projectiles created while Sion is in the zombie form will still travel to him even after he dies.",
+        "Upon death, the current cooldowns of Sion's summoner spells are increased to 4 seconds. Afterwards, he is still unable to use them until he respawns.\n  - However, it is possible for another lock-out effect to unlock them when their duration ends (excluding crowd control with the exception of stasis)."
+      ]
+    },
+    {
+      "champion": "Sion",
+      "kind": "Q",
+      "name": "Decimating Smash",
+      "page": {
+        "title": "Template:Data Sion/Decimating Smash",
+        "revid": 4034709
+      },
+      "damageTypes": [
+        "physical"
+      ],
+      "delivery": {
+        "targeting": [
+          "direction",
+          "auto"
+        ],
+        "affectsEnemies": true,
+        "projectile": "no",
+        "spellShield": "yes",
+        "disruptable": "yes"
+      },
+      "applies": [
+        {
+          "type": "airborne",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "airborne: knock up"
+            },
+            {
+              "page": "Template:Data Sion/Decimating Smash",
+              "revid": 4034709,
+              "quote": "Active: Sion prepares a strike in the target direction, charging for up to 2 seconds to increase Decimating Smash's range over an area, knock up duration, stun duration, and damage every 0.25 seconds, which has up to a maximum bonus for the base damage and up to a 200% bonus for the scaling damage."
+            }
+          ],
+          "variant": "knock up"
+        },
+        {
+          "type": "slow",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "slow"
+            },
+            {
+              "page": "Template:Data Sion/Decimating Smash",
+              "revid": 4034709,
+              "quote": "Recast: Sion flails his axe in the direction he targeted at the time of cast, dealing physical damage to enemies hit and slowing them by 50% for 0.25 seconds."
+            }
+          ],
+          "duration": 0.25,
+          "amount": 50
+        },
+        {
+          "type": "stun",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "stun"
+            },
+            {
+              "page": "Template:Data Sion/Decimating Smash",
+              "revid": 4034709,
+              "quote": "Active: Sion prepares a strike in the target direction, charging for up to 2 seconds to increase Decimating Smash's range over an area, knock up duration, stun duration, and damage every 0.25 seconds, which has up to a maximum bonus for the base damage and up to a 200% bonus for the scaling damage."
+            }
+          ]
+        }
+      ],
+      "movement": [],
+      "states": [],
+      "cooldown": 6,
+      "castTime": 0,
+      "range": 500,
+      "channel": [
+        {
+          "type": "charged",
+          "evidence": [
+            {
+              "page": "Channel",
+              "revid": 4002276
+            }
+          ]
+        }
+      ],
+      "notes": [
+        "Displacement immunity will also resist the application of the stun.",
+        "Since the stun duration is longer than the airborne duration, and both start at the same time, Tenacity is still fully effective against Decimating Smash up to a cap.\n  - This virtual cap is 60%-55.5% Tenacity based on channel time beyond 1 second. Every value below this cap will lower the CC duration with no diminished returns.",
+        "The damage of Decimating Smash is calculated when it is released. Gaining AD or upgrading the ability during its channel will update the damage of the coming hit.\n  - Even though the cooldown starts when the ability is released, it will not be changed by gaining or losing AH, or upgrading the ability, during the cast time.",
+        "The indicator is visible to the enemy only if they see Sion himself.\n  - If the channel is released before 1 second, enemies may see a particle at the far end of the hitbox, if it itself isn't outside of their vision.\n  - If the channel is released after 1 second, the only remaining indication is the visual effects and audio that plays on any units the spell strikes (these play on-target), provided the enemy does have vision on those.",
+        "Forced movement without a stun component (or the stun being cleansed previously) will not stop Sion from starting or continuing to channel. Its direction will not change with Sion's travel, however the location will update with him.\n  - The location of the indicator updates at the beginning of the ability, at 1 second and at release.",
+        "The following table refers for interactions while Sion is channeling:"
+      ]
+    },
+    {
+      "champion": "Sion",
+      "kind": "R",
+      "name": "Unstoppable Onslaught",
+      "page": {
+        "title": "Template:Data Sion/Unstoppable Onslaught",
+        "revid": 4004940
+      },
+      "damageTypes": [
+        "physical"
+      ],
+      "delivery": {
+        "targeting": [
+          "direction",
+          "auto"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "yes",
+        "grounded": "yes",
+        "disruptable": "no"
+      },
+      "applies": [
+        {
+          "type": "airborne",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "airborne: knock up"
+            },
+            {
+              "page": "Template:Data Sion/Unstoppable Onslaught",
+              "revid": 4004940,
+              "quote": "Enemies in a smaller radius are also pulled towards Sion over 0.5 seconds and become stunned after a brief delay for 0.25 / 0.75 / 1.25 / 1.75 (based on seconds) seconds."
+            }
+          ],
+          "variant": "knock up, pull",
+          "duration": 0.5
+        },
+        {
+          "type": "slow",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "slow"
+            },
+            {
+              "page": "Template:Data Sion/Unstoppable Onslaught",
+              "revid": 4004940,
+              "quote": "Enemies, including turrets, hit by the slam are dealt the same damage and are slowed for 3 seconds."
+            }
+          ],
+          "duration": 3,
+          "amount": 50
+        },
+        {
+          "type": "stun",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "stun; (self and enemies)"
+            },
+            {
+              "page": "Template:Data Sion/Unstoppable Onslaught",
+              "revid": 4004940,
+              "quote": "Crashing into terrain stuns Sion for 0.5 seconds."
+            }
+          ],
+          "duration": 0.5
+        }
+      ],
+      "movement": [
+        {
+          "type": "lunge",
+          "evidence": [
+            {
+              "page": "Dash",
+              "revid": 4035700
+            }
+          ]
+        }
+      ],
+      "states": [
+        {
+          "state": "cc immune",
+          "evidence": [
+            {
+              "page": "Template:Data Sion/Unstoppable Onslaught",
+              "revid": 4004940,
+              "quote": "Active: Sion becomes immune to crowd control and ghosted and, after a brief delay, charges forward in the direction of the cursor for up to 8 seconds, during which he is able to steer at a slow turn rate while automatically navigating his movement."
+            }
+          ],
+          "duration": 8
+        }
+      ],
+      "cooldown": 60,
+      "castTime": 0,
+      "channel": [
+        {
+          "type": "movement",
+          "evidence": [
+            {
+              "page": "Channel",
+              "revid": 4002276,
+              "quote": "movement"
+            }
+          ]
+        }
+      ],
+      "notes": [
+        "Experimental Hexplate Overdrive, Fiendhunter Bolts Opening Barrage, and Zeke's Convergence Frostfire Tempest will activate after 0.65 seconds from the end of Unstoppable Onslaught's channel if the charge does not collide with an enemy, or immediately after the channel ends if colliding with a wall. If the charge ends in a collision with an enemy, the items are activated after 0.1 seconds of the channel ending.",
+        "Sion loses the crowd control immunity after finishing the leap.",
+        "Sion is not immune to an allied Tempered Fate if it hits Sion during the 0.05-second delay before he starts the channel, he will not resist the effect and will initiate the slam immediately while in stasis.",
+        "Displacement immunity will also resist the application of the stun.",
+        "Sion can occasionally cast Unstoppable Onslaught while rooted. In this case, he will stand in place until the root's debuff duration ends. During this time, the damage, stun duration and movement speed granted by the ability will still ramp up, and enemies that come into contact with him will be affected by the collision normally.\n  - A similar case allows him to cast it during crowd control that would disable it. However, the channel would be interrupted almost immediately, and he will initiate the leap as well.",
+        "Fate's Call deferment of Unstoppable Onslaught will still allow Sion to leap forward at the end of the channel.",
+        "The following table refers for interactions while Sion is channeling:",
+        "If Unstoppable Onslaught's channel is interrupted despite the immunity to crowd control or Decimating Smash is cast within 0.25 seconds after starting the charge, it will also initiate the leap. If the channel ends due to collision or death, there is no leap and the effect occurs immediately."
+      ]
+    },
+    {
+      "champion": "Sion",
+      "kind": "W",
+      "name": "Soul Furnace",
+      "page": {
+        "title": "Template:Data Sion/Soul Furnace",
+        "revid": 4034710
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "auto"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "yes"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [
+        {
+          "state": "shield",
+          "evidence": [
+            {
+              "page": "Template:Data Sion/Soul Furnace",
+              "revid": 4034710,
+              "quote": "Active: Sion grants himself a shield that lasts for up to 6 seconds."
+            }
+          ],
+          "duration": 6
+        }
+      ],
+      "cooldown": 11,
+      "castTime": 0
+    }
+  ]
+}

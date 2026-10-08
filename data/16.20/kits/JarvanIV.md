@@ -9,6 +9,22 @@ Values marked "at max rank, level 20" assume every ability is maxed; see PLAN.md
 |---|--:|--:|--:|--:|--:|--:|--:|--:|--:|--:|
 | Jarvan IV | 2685.2 | 21.77 | 1381.6 Mana | 123.0 | 0.981 | 0.179 | 126.5 | 72.3 | 175 | 340 |
 
+## Fight profile (what the interaction ledger uses)
+
+| Form | Attack range | Ranged | Projectile | Missile speed | Attack modifiers |
+|---|--:|---|---|--:|---|
+| Jarvan IV | 175 | no | no | – | Martial Cadence |
+
+Cooldowns at max rank. Flags: the wiki's interaction flags (yes, no, partly). * marks an effect that applies only under a condition.
+
+| Slot | Ability | Cooldown | Delivery | Applies to the enemy | Movement | Gives itself |
+|---|---|--:|---|---|---|---|
+| E | Demacian Standard | 10 | spell shield yes | – | dash ) | – |
+| I | Martial Cadence | – | spell shield no; parry yes; attack modifier | – | – | – |
+| Q | Dragon Strike | 6 | spell shield yes; grounded no; knockdown yes | airborne (knock up) 0.75 s* | dash (when colliding with a | – |
+| R | Cataclysm | 90 | spell shield partly; grounded yes; knockdown no | airborne (knock aside) 0.15 s | dash (unstoppable) | displacement immune 0.35 s |
+| W | Golden Aegis | 9 | spell shield yes | slow 2 s 35% | – | shield 4 s |
+
 ## Innate: Martial Cadence
 
 Source: [Template:Data Jarvan IV/Martial Cadence](https://wiki.leagueoflegends.com/en-us/Template:Data_Jarvan_IV/Martial_Cadence?oldid=4003791) (revision 4003791). Ranks: 1.

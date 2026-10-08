@@ -1,0 +1,240 @@
+{
+  "champion": "Janna",
+  "name": "Janna",
+  "gameplayRadius": 65,
+  "moveSpeed": 325,
+  "attacks": [
+    {
+      "form": "janna",
+      "formName": "Janna",
+      "range": 550,
+      "ranged": true,
+      "projectile": true,
+      "missileSpeed": 1800,
+      "attackSpeed": 0.993719,
+      "attackDamage": 96.1625,
+      "windup": 0.201264,
+      "modifiers": [
+        "Tailwind"
+      ]
+    }
+  ],
+  "abilities": [
+    {
+      "champion": "Janna",
+      "kind": "E",
+      "name": "Eye of the Storm",
+      "page": {
+        "title": "Template:Data Janna/Eye of the Storm",
+        "revid": 3933659
+      },
+      "damageTypes": [],
+      "delivery": {
+        "targeting": [
+          "unit"
+        ],
+        "affectsEnemies": false
+      },
+      "applies": [],
+      "movement": [],
+      "states": [
+        {
+          "state": "shield",
+          "evidence": [
+            {
+              "page": "Template:Data Janna/Eye of the Storm",
+              "revid": 3933659,
+              "quote": "Active: Janna grants the target allied champion or turret, or herself, a shield for 4 seconds."
+            }
+          ],
+          "duration": 4
+        }
+      ],
+      "cooldown": 12,
+      "castTime": 0,
+      "range": 800,
+      "boostsAttacks": true
+    },
+    {
+      "champion": "Janna",
+      "kind": "I",
+      "name": "Tailwind",
+      "page": {
+        "title": "Template:Data Janna/Tailwind",
+        "revid": 3985378
+      },
+      "damageTypes": [],
+      "delivery": {
+        "targeting": [
+          "passive"
+        ],
+        "affectsEnemies": false,
+        "attack": "attack modifier"
+      },
+      "applies": [],
+      "movement": [],
+      "states": []
+    },
+    {
+      "champion": "Janna",
+      "kind": "Q",
+      "name": "Howling Gale",
+      "page": {
+        "title": "Template:Data Janna/Howling Gale",
+        "revid": 3800440
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "direction",
+          "auto"
+        ],
+        "affectsEnemies": true,
+        "projectile": "yes",
+        "spellShield": "yes"
+      },
+      "applies": [
+        {
+          "type": "airborne",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "airborne: knock up"
+            },
+            {
+              "page": "Template:Data Janna/Howling Gale",
+              "revid": 3800440,
+              "quote": "Active: Janna summons a whirlwind at her current location that charges up over 3 seconds, increasing its range, speed, damage, and knock up duration every second over the duration."
+            }
+          ],
+          "variant": "knock up"
+        }
+      ],
+      "movement": [],
+      "states": [],
+      "cooldown": 14,
+      "castTime": 0,
+      "range": 1100,
+      "speed": 880
+    },
+    {
+      "champion": "Janna",
+      "kind": "R",
+      "name": "Monsoon",
+      "page": {
+        "title": "Template:Data Janna/Monsoon",
+        "revid": 3959332
+      },
+      "damageTypes": [],
+      "delivery": {
+        "targeting": [
+          "auto"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "yes",
+        "disruptable": "yes"
+      },
+      "applies": [
+        {
+          "type": "airborne",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "airborne: knock back"
+            },
+            {
+              "page": "Template:Data Janna/Monsoon",
+              "revid": 3959332,
+              "quote": "Active: Janna unleashes a blast that knocks back all nearby enemies to up to 875 units over 0.5 seconds based on their proximity, though not through terrain."
+            }
+          ],
+          "variant": "knock back",
+          "duration": 0.5
+        }
+      ],
+      "movement": [],
+      "states": [
+        {
+          "state": "heal",
+          "evidence": [
+            {
+              "page": "Template:Data Janna/Monsoon",
+              "revid": 3959332,
+              "quote": "Janna also channels for up to 3 seconds, healing herself and nearby allies every 0.25 seconds."
+            }
+          ],
+          "duration": 3
+        }
+      ],
+      "cooldown": 100,
+      "castTime": 0,
+      "channel": [
+        {
+          "type": "normal",
+          "evidence": [
+            {
+              "page": "Channel",
+              "revid": 4002276,
+              "quote": "normal"
+            }
+          ]
+        }
+      ],
+      "notes": [
+        "The following table refers for interactions while Janna is channeling:"
+      ]
+    },
+    {
+      "champion": "Janna",
+      "kind": "W",
+      "name": "Zephyr",
+      "page": {
+        "title": "Template:Data Janna/Zephyr",
+        "revid": 3971180
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "unit"
+        ],
+        "affectsEnemies": true,
+        "projectile": "yes",
+        "spellShield": "yes"
+      },
+      "applies": [
+        {
+          "type": "slow",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "slow"
+            },
+            {
+              "page": "Template:Data Janna/Zephyr",
+              "revid": 3971180,
+              "quote": "Active: Janna sends an air elemental at the target enemy that deals magic damage and slows them for 2 seconds, capped at 99%."
+            }
+          ],
+          "duration": 2,
+          "amount": 36
+        }
+      ],
+      "movement": [],
+      "states": [],
+      "cooldown": 6,
+      "castTime": 0.245,
+      "range": 550,
+      "speed": 1600,
+      "notes": [
+        "If the target becomes untargetable, dies, or is too far away or no longer in sight during the cast time, this ability will cancel but does not go on cooldown nor pay its cost (if applicable)."
+      ]
+    }
+  ]
+}

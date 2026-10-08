@@ -9,6 +9,22 @@ Values marked "at max rank, level 20" assume every ability is maxed; see PLAN.md
 |---|--:|--:|--:|--:|--:|--:|--:|--:|--:|--:|
 | Shaco | 2576.8 | 19.32 | 1083.6 Mana | 122.0 | 1.103 | 0.201 | 108.7 | 72.3 | 125 | 345 |
 
+## Fight profile (what the interaction ledger uses)
+
+| Form | Attack range | Ranged | Projectile | Missile speed | Attack modifiers |
+|---|--:|---|---|--:|---|
+| Shaco | 125 | no | no | – | Backstab |
+
+Cooldowns at max rank. Flags: the wiki's interaction flags (yes, no, partly). * marks an effect that applies only under a condition.
+
+| Slot | Ability | Cooldown | Delivery | Applies to the enemy | Movement | Gives itself |
+|---|---|--:|---|---|---|---|
+| E | Two-Shiv Poison | 8 | projectile yes; spell shield yes | slow 2 s 30% | – | – |
+| I | Backstab | – | spell shield no; parry yes; attack modifier | – | – | – |
+| Q | Deceive | 11 | parry yes; grounded yes; attack | – | blink | invisible 0.125 s |
+| R | Hallucinate | 80 | spell shield yes; grounded no | fear 1 s; slow; root 0.5 s | blink | untargetable 0.5 s |
+| W | Jack in the Box | 15 | spell shield yes | fear 1.5 s; slow; root 1 s | – | – |
+
 ## Innate: Backstab
 
 Source: [Template:Data Shaco/Backstab](https://wiki.leagueoflegends.com/en-us/Template:Data_Shaco/Backstab?oldid=3985836) (revision 3985836). Ranks: 1.

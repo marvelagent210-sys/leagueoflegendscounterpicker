@@ -9,19 +9,22 @@ Values marked "at max rank, level 20" assume every ability is maxed; see PLAN.md
 |---|--:|--:|--:|--:|--:|--:|--:|--:|--:|--:|
 | Swain | 2541.8 | 12.83 | 970.3 Mana | 111.1 | 0.884 | 0.158 | 115.4 | 64.5 | 525 | 330 |
 
-## Innate: Carrion Renewal
+## Fight profile (what the interaction ledger uses)
 
-Source: [Template:Data Swain/Carrion Renewal](https://wiki.leagueoflegends.com/en-us/Template:Data_Swain/Carrion_Renewal?oldid=3166265) (revision 3166265). Ranks: 1.
+| Form | Attack range | Ranged | Projectile | Missile speed | Attack modifiers |
+|---|--:|---|---|--:|---|
+| Swain | 525 | yes | yes | 1800 | – |
 
-Targeting: Carrion Renewal is a self-targeted buff. · Affects: – · Damage type: – · Spell shield blocks it: – · Projectile: – · Parry: – · Disabled by grounded: – · Usable while knocked down: –
+Cooldowns at max rank. Flags: the wiki's interaction flags (yes, no, partly). * marks an effect that applies only under a condition.
 
-Whenever Swain kills an enemy or structure, he restores 13 – 30 (based on level) mana.
-
-On enemy champion takedowns, he instead restores 9% maximum mana.
-
-Notes:
-
-- Carrion Renewal will trigger if Swain lands the final blow on a structure such as a tower.
+| Slot | Ability | Cooldown | Delivery | Applies to the enemy | Movement | Gives itself |
+|---|---|--:|---|---|---|---|
+| E | Nevermove | 10 | projectile yes; spell shield partly | airborne (knock back, pull) 5 s; root 1.5 s | – | – |
+| I | Ravenous Flock | – | projectile no | – | – | heal |
+| Q | Death's Hand | 3 | projectile no; spell shield yes | – | – | – |
+| R | Demonflare | 8 | projectile yes; spell shield yes | slow 1.5 s 50% | – | – |
+| R | Demonic Ascension | 120 | projectile no; spell shield no | – | – | heal |
+| W | Vision of Empire | 16 | spell shield partly | slow 1.5 s 50% | – | – |
 
 ## Innate: Ravenous Flock
 
@@ -73,37 +76,6 @@ Notes:
 - This ability will cast from wherever the caster is at the end of the cast time.
 - The total damage to a single target will be split evenly among each bolt that hits, meaning that hitting with more bolts will deal less damage per hit (but more overall damage).
 - Spell shield will block all bolts.
-
-## Q: Decrepify
-
-Source: [Template:Data Swain/Decrepify](https://wiki.leagueoflegends.com/en-us/Template:Data_Swain/Decrepify?oldid=2704874) (revision 2704874). Ranks: 5.
-
-| Field | Value |
-|---|---|
-| Cooldown | 14 / 13 / 12 / 11 / 10 |
-| Cost | 60 / 65 / 70 / 75 / 80 mana |
-| Target range | 700 |
-| Effect radius | 325 |
-
-Targeting: Decrepify is a ground-target ability that construct a static, untargetable autonomous unit. · Affects: – · Damage type: magic · Spell shield blocks it: will not block decrepify damage or the slow. · Projectile: – · Parry: – · Disabled by grounded: – · Usable while knocked down: –
-
-Active: Swain commands  Beatrice to fly to the target location, where she remains for 4 seconds. Beatrice will attack enemies within the area, prioritizing the target of Torment, other champions in range and then any target in range.
-
-Beatrice's attacks each second, dealing magic damage and slowing the target hit.
-
-- **Magic Damage Per Second:** 30 / 47.5 / 65 / 82.5 / 100 (+ 30% AP) → at max rank, level 20: 100 (+ 30% AP)
-- **Total Magic Damage:** 120 / 190 / 260 / 330 / 400 (+ 120% AP) → at max rank, level 20: 400 (+ 120% AP)
-- **Slow:** 20 / 25 / 30 / 35 / 40% → at max rank, level 20: 40%
-- **Mechanics:** slow (40%)
-
-Beatrice deals double damage against minions and executes them below 10 health.
-
-- **Increased Damage Per Second:** 60 / 95 / 130 / 165 / 200 (+ 60% AP) → at max rank, level 20: 200 (+ 60% AP)
-- **Total Increased Damage:** 240 / 380 / 520 / 660 / 800 (+ 240% AP) → at max rank, level 20: 800 (+ 240% AP)
-
-Notes:
-
-- Decrepify has no cast time and does not interrupt Swain's previous orders.
 
 ## W: Vision of Empire
 
@@ -175,27 +147,6 @@ Notes:
 - The pull will interrupt channels at the very beginning, but does not keep the target stunned for the rest of the movement.
     - Channels can be started successfully during the pull, provided the previous crowd control does not prevent them still.
 - This ability will cast from wherever the caster is at the start of the cast time.
-
-## E: Torment
-
-Source: [Template:Data Swain/Torment](https://wiki.leagueoflegends.com/en-us/Template:Data_Swain/Torment?oldid=2704873) (revision 2704873). Ranks: 5.
-
-| Field | Value |
-|---|---|
-| Cooldown | 10 |
-| Cost | 65 / 70 / 75 / 80 / 85 mana |
-| Target range | 625 |
-
-Targeting: Torment is a single targeted ability. · Affects: – · Damage type: magic · Spell shield blocks it: will block the application of the ability. they will not remove or mitigate a dot already applied. · Projectile: true · Parry: – · Disabled by grounded: – · Usable while knocked down: –
-
-Active: Swain afflicts the target enemy with a curse that amplifies Swain's damage against them by 20% for 4 seconds, while also dealing magic damage to them for the duration.
-
-- **Enhanced Magic Damage Per Second:** 15 / 24 / 33 / 42 / 51 (+ 30% AP) → at max rank, level 20: 51 (+ 30% AP)
-- **Enhanced Total Magic Damage:** 60 / 96 / 132 / 168 / 204 (+ 120% AP) → at max rank, level 20: 204 (+ 120% AP)
-
-Notes:
-
-- No additional details.
 
 ## R: Demonflare
 
@@ -275,14 +226,6 @@ Cooldowns and costs of each slot's main ability, wiki vs game files:
 | E: Nevermove | cost | 50 / 55 / 60 / 65 / 70 | 50 / 55 / 60 / 65 / 70 | yes |
 | R: Demonic Ascension | cooldown | 120 / 120 / 120 | 120 / 120 / 120 | yes |
 | R: Demonic Ascension | cost | 100 / 100 / 100 | 100 / 100 / 100 | yes |
-
-Values that scale with champion level, at levels 18, 19 and 20. "extended": the wiki stops at 18 and the
-game formula supplies 19-20; "confirmed"/"differs": the wiki defines 19-20 and the game formula agrees or not;
-"no match": no game formula was found, so 19-20 stay unknown.
-
-| Ability | Value | Outcome | Level 18 | Level 19 | Level 20 | Game formula |
-|---|---|---|--:|--:|--:|---|
-| Carrion Renewal | description: Whenever Swain kills an enemy or structure, he restores 13 – 30 (based on level) | no match | 30 | – | – | – |
 
 All 1 level-based formulas in the game files (0 linked to wiki values above):
 

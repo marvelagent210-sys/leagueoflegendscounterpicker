@@ -1,0 +1,275 @@
+{
+  "champion": "Seraphine",
+  "name": "Seraphine",
+  "gameplayRadius": 65,
+  "moveSpeed": 330,
+  "attacks": [
+    {
+      "form": "seraphine",
+      "formName": "Seraphine",
+      "range": 525,
+      "ranged": true,
+      "projectile": true,
+      "missileSpeed": 1800,
+      "attackSpeed": 0.914813,
+      "attackDamage": 108.995,
+      "windup": 0.204413,
+      "modifiers": [
+        "Stage Presence"
+      ]
+    }
+  ],
+  "abilities": [
+    {
+      "champion": "Seraphine",
+      "kind": "E",
+      "name": "Beat Drop",
+      "page": {
+        "title": "Template:Data Seraphine/Beat Drop",
+        "revid": 4060366
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "direction"
+        ],
+        "affectsEnemies": true,
+        "projectile": "yes",
+        "spellShield": "yes"
+      },
+      "applies": [
+        {
+          "type": "slow",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "slow"
+            },
+            {
+              "page": "Template:Data Seraphine/Beat Drop",
+              "revid": 4060366,
+              "quote": "Active: Seraphine fires a heavy soundwave in the target direction that deals magic damage to enemies hit, reduced to 70% against minions, and slows them by 99% for a few seconds."
+            }
+          ],
+          "amount": 99
+        },
+        {
+          "type": "root",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "root"
+            },
+            {
+              "page": "Template:Data Seraphine/Beat Drop",
+              "revid": 4060366,
+              "quote": "Enemies that are already slowed are also rooted for the same duration."
+            }
+          ],
+          "duration": 1.5
+        },
+        {
+          "type": "stun",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "stun"
+            },
+            {
+              "page": "Template:Data Seraphine/Beat Drop",
+              "revid": 4060366,
+              "quote": "Enemies that are immobilized or grounded are also stunned for the same duration."
+            }
+          ],
+          "duration": 1.5
+        }
+      ],
+      "movement": [],
+      "states": [],
+      "cooldown": 11,
+      "castTime": 0.25,
+      "range": 1300,
+      "speed": 1200,
+      "notes": [
+        "The root and the stun cannot apply at the same time.\n  - The root will only apply if the target is slowed and not immobilized or grounded.\n    - The stun will apply as normal; it does not consider if the target is slowed.\n  - The root will be overridden by the stun if the target is hit by Beat Drop again while they were rooted by it.",
+        "A quarter note will appear next to an enemy champion while they are slowed and two quarter notes tied will appear if they are immobilized or grounded.\n  - This indicates if Beat Drop will apply an additional crowd control effect if it strikes the target."
+      ]
+    },
+    {
+      "champion": "Seraphine",
+      "kind": "I",
+      "name": "Stage Presence",
+      "page": {
+        "title": "Template:Data Seraphine/Stage Presence",
+        "revid": 4019648
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "passive"
+        ],
+        "affectsEnemies": true,
+        "projectile": "yes",
+        "spellShield": "no",
+        "parry": "no",
+        "attack": "attack modifier"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "speed": 3000,
+      "notes": [
+        "Harmony grants Notes even if the ally is untargetable."
+      ]
+    },
+    {
+      "champion": "Seraphine",
+      "kind": "Q",
+      "name": "High Note",
+      "page": {
+        "title": "Template:Data Seraphine/High Note",
+        "revid": 4042889
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "location"
+        ],
+        "affectsEnemies": true,
+        "projectile": "yes",
+        "spellShield": "yes"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "cooldown": 6,
+      "castTime": 0.25,
+      "range": 900,
+      "speed": 1300,
+      "notes": [
+        "The impact delay depends solely on the missile speed. It is 0 seconds to 0.75 seconds (after end of cast time) within the standard cast radius, but can be increased further by Seraphine being moved away from the cast location during the cast time."
+      ]
+    },
+    {
+      "champion": "Seraphine",
+      "kind": "R",
+      "name": "Encore",
+      "page": {
+        "title": "Template:Data Seraphine/Encore",
+        "revid": 4008035
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "direction"
+        ],
+        "affectsEnemies": true,
+        "projectile": "yes",
+        "spellShield": "yes"
+      },
+      "applies": [
+        {
+          "type": "charm",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "charm"
+            },
+            {
+              "page": "Template:Data Seraphine/Encore",
+              "revid": 4008035,
+              "quote": "Active: Seraphine projects a captivating force in the target direction that deals magic damage to enemies hit, charms them, during which they are revealed, and slows them by 40% for a duration, increasing by 15% every 0.25 seconds over the duration up to 99%."
+            }
+          ],
+          "duration": 1.75
+        },
+        {
+          "type": "slow",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "slow"
+            },
+            {
+              "page": "Template:Data Seraphine/Encore",
+              "revid": 4008035,
+              "quote": "Active: Seraphine projects a captivating force in the target direction that deals magic damage to enemies hit, charms them, during which they are revealed, and slows them by 40% for a duration, increasing by 15% every 0.25 seconds over the duration up to 99%."
+            }
+          ],
+          "amount": 40
+        }
+      ],
+      "movement": [],
+      "states": [],
+      "cooldown": 120,
+      "castTime": 0.5,
+      "range": 1300,
+      "speed": 1600,
+      "notes": [
+        "Encore will not extend on enemy champions that are untargetable, but will do so for allied champions.",
+        "If Encore's projectile is negated via spell shield, this will also prevent it from resetting its travel distance."
+      ]
+    },
+    {
+      "champion": "Seraphine",
+      "kind": "W",
+      "name": "Surround Sound",
+      "page": {
+        "title": "Template:Data Seraphine/Surround Sound",
+        "revid": 3990364
+      },
+      "damageTypes": [],
+      "delivery": {
+        "targeting": [
+          "auto"
+        ],
+        "affectsEnemies": false,
+        "projectile": "partly"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [
+        {
+          "state": "shield",
+          "evidence": [
+            {
+              "page": "Template:Data Seraphine/Surround Sound",
+              "revid": 3990364,
+              "quote": "Active: Seraphine grants a shield to herself and nearby allied champions for 2.5 seconds."
+            }
+          ],
+          "duration": 2.5
+        },
+        {
+          "state": "heal",
+          "evidence": [
+            {
+              "page": "Template:Data Seraphine/Surround Sound",
+              "revid": 3990364,
+              "quote": "If Seraphine already had a shield at the time of cast, Surround Sound will pulse after the duration, healing herself and nearby allied champions."
+            }
+          ]
+        }
+      ],
+      "cooldown": 22,
+      "castTime": 0.25,
+      "notes": [
+        "Once the pulse delay ends, the heal occurs instantly on Seraphine and all nearby allied champions.\n  - There is a missile that flows through all allied champions which can be blocked by Wind Wall, without affecting the heal however.",
+        "Surround Sound will affect untargetable allies."
+      ]
+    }
+  ]
+}

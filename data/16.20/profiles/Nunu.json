@@ -1,0 +1,327 @@
+{
+  "champion": "Nunu",
+  "name": "Nunu & Willump",
+  "gameplayRadius": 65,
+  "moveSpeed": 345,
+  "attacks": [
+    {
+      "form": "nunu-willump",
+      "formName": "Nunu & Willump",
+      "range": 125,
+      "ranged": false,
+      "projectile": false,
+      "attackSpeed": 0.901539,
+      "attackDamage": 119.995,
+      "windup": 0.214728,
+      "modifiers": []
+    }
+  ],
+  "abilities": [
+    {
+      "champion": "Nunu",
+      "kind": "E",
+      "name": "Snowball Barrage",
+      "page": {
+        "title": "Template:Data Nunu/Snowball Barrage",
+        "revid": 4013466
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "direction"
+        ],
+        "affectsEnemies": true,
+        "projectile": "yes",
+        "spellShield": "yes"
+      },
+      "applies": [
+        {
+          "type": "slow",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "slow"
+            },
+            {
+              "page": "Template:Data Nunu/Snowball Barrage",
+              "revid": 4013466,
+              "quote": "Enemies hit 3 times are slowed for 1 second."
+            }
+          ],
+          "duration": 1,
+          "amount": 50
+        },
+        {
+          "type": "root",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "root"
+            },
+            {
+              "page": "Template:Data Nunu/Snowball Barrage",
+              "revid": 4013466,
+              "quote": "After 3 seconds from the first cast, Snowbound enemies near Willump take magic damage and are rooted for 0.5 – 1.5 (based on level) seconds."
+            }
+          ],
+          "duration": 1.61765
+        }
+      ],
+      "movement": [],
+      "states": [],
+      "cooldown": 10,
+      "range": 700,
+      "speed": 2000
+    },
+    {
+      "champion": "Nunu",
+      "kind": "I",
+      "name": "Call of the Freljord",
+      "page": {
+        "title": "Template:Data Nunu/Call of the Freljord",
+        "revid": 4013400
+      },
+      "damageTypes": [
+        "physical"
+      ],
+      "delivery": {
+        "targeting": [
+          "passive"
+        ],
+        "affectsEnemies": false
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "range": 1000,
+      "boostsAttacks": true
+    },
+    {
+      "champion": "Nunu",
+      "kind": "Q",
+      "name": "Consume",
+      "page": {
+        "title": "Template:Data Nunu/Consume",
+        "revid": 3985877
+      },
+      "damageTypes": [
+        "magic",
+        "true"
+      ],
+      "delivery": {
+        "targeting": [
+          "unit"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "yes"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [
+        {
+          "state": "heal",
+          "evidence": [
+            {
+              "page": "Template:Data Nunu/Consume",
+              "revid": 3985877,
+              "quote": "Active: Willump takes a bite out of the target enemy, dealing damage and healing himself."
+            }
+          ]
+        }
+      ],
+      "cooldown": 9,
+      "castTime": 0.3,
+      "range": 125,
+      "notes": [
+        "Spell shields will block the damage and the heal.",
+        "If the target becomes untargetable, dies, or is too far away or no longer in sight during the cast time, this ability will cancel but does not go on cooldown nor pay its cost (if applicable)."
+      ]
+    },
+    {
+      "champion": "Nunu",
+      "kind": "R",
+      "name": "Absolute Zero",
+      "page": {
+        "title": "Template:Data Nunu/Absolute Zero",
+        "revid": 4010574
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "auto"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "yes",
+        "disruptable": "yes"
+      },
+      "applies": [
+        {
+          "type": "slow",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "slow"
+            },
+            {
+              "page": "Template:Data Nunu/Absolute Zero",
+              "revid": 4010574,
+              "quote": "Active: Nunu and Willump channel a blizzard for up to 3 seconds, granting themselves a shield and slowing nearby enemies by 0 / 50 / 54.5 / 59 / 63.5 / 68 / 72.5 / 77 / 81.5 / 86 / 90.5 / 95 / 95 (based on channel time)%."
+            }
+          ],
+          "amount": 0
+        }
+      ],
+      "movement": [],
+      "states": [
+        {
+          "state": "shield",
+          "evidence": [
+            {
+              "page": "Template:Data Nunu/Absolute Zero",
+              "revid": 4010574,
+              "quote": "Active: Nunu and Willump channel a blizzard for up to 3 seconds, granting themselves a shield and slowing nearby enemies by 0 / 50 / 54.5 / 59 / 63.5 / 68 / 72.5 / 77 / 81.5 / 86 / 90.5 / 95 / 95 (based on channel time)%."
+            }
+          ],
+          "duration": 3
+        }
+      ],
+      "cooldown": 90,
+      "castTime": 0,
+      "channel": [
+        {
+          "type": "normal",
+          "evidence": [
+            {
+              "page": "Channel",
+              "revid": 4002276,
+              "quote": "normal"
+            }
+          ]
+        }
+      ],
+      "notes": [
+        "The following table refers for interactions while Nunu & Willump are channeling:"
+      ]
+    },
+    {
+      "champion": "Nunu",
+      "kind": "W",
+      "name": "Biggest Snowball Ever!",
+      "page": {
+        "title": "Template:Data Nunu/Biggest Snowball Ever!",
+        "revid": 4007735
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "direction"
+        ],
+        "affectsEnemies": true,
+        "projectile": "partly",
+        "spellShield": "yes",
+        "grounded": "yes",
+        "disruptable": "yes"
+      },
+      "applies": [
+        {
+          "type": "airborne",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "airborne: knock up"
+            },
+            {
+              "page": "Template:Data Nunu/Biggest Snowball Ever!",
+              "revid": 4007735,
+              "quote": "The snowball explodes upon hitting an enemy champion, large pet, medium or large monster, or terrain, dealing magic damage to nearby enemies, increased by 0 / 0 / 100 / 200 / 300 / 400 (based on charge time)%, knocking them up for 0.5 / 0.5 / 0.5625 / 0.625 / 0.6875 / 0.75 (based on charge time) seconds and subsequently stunning them for 0 / 0 / 0 / 0 / 0.09375 / 0.1875 / 0.28125 / 0.375 / 0.46875 / 0.5625 / 0.65625 / 0.75 (based on charge time) seconds."
+            }
+          ],
+          "variant": "knock up",
+          "duration": 0.5
+        },
+        {
+          "type": "stun",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "stun"
+            },
+            {
+              "page": "Template:Data Nunu/Biggest Snowball Ever!",
+              "revid": 4007735,
+              "quote": "The snowball explodes upon hitting an enemy champion, large pet, medium or large monster, or terrain, dealing magic damage to nearby enemies, increased by 0 / 0 / 100 / 200 / 300 / 400 (based on charge time)%, knocking them up for 0.5 / 0.5 / 0.5625 / 0.625 / 0.6875 / 0.75 (based on charge time) seconds and subsequently stunning them for 0 / 0 / 0 / 0 / 0.09375 / 0.1875 / 0.28125 / 0.375 / 0.46875 / 0.5625 / 0.65625 / 0.75 (based on charge time) seconds."
+            }
+          ],
+          "duration": 0
+        }
+      ],
+      "movement": [],
+      "states": [
+        {
+          "state": "slow immune",
+          "evidence": [
+            {
+              "page": "Template:Tip data/Slow-immune",
+              "revid": 4060627
+            },
+            {
+              "page": "Template:Data Nunu/Biggest Snowball Ever!",
+              "revid": 4007735,
+              "quote": "Active: Willump cleanses himself from all slows and channels for up to 10 seconds, becoming ghosted and slow-immune and creating a rolling ."
+            },
+            {
+              "page": "Template:Data Nunu/Biggest Snowball Ever!",
+              "revid": 4007735,
+              "quote": "Active: Willump cleanses himself from all slows and channels for up to 10 seconds, becoming ghosted and slow-immune and creating a rolling ."
+            }
+          ],
+          "duration": 10
+        },
+        {
+          "state": "cleanse",
+          "removes": [
+            "slow"
+          ],
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Summary"
+            }
+          ]
+        }
+      ],
+      "cooldown": 14,
+      "castTime": 0,
+      "range": 750,
+      "speed": 425,
+      "channel": [
+        {
+          "type": "movement",
+          "evidence": [
+            {
+              "page": "Channel",
+              "revid": 4002276,
+              "quote": "movement"
+            }
+          ]
+        }
+      ],
+      "notes": [
+        "The movement speed reduction the duo receive from initially casting Biggest Snowball Ever! is not considered a slow, thus it will not be resisted by their slow immunity.",
+        "Projectile-interception effects will destroy the snowball only after it has been released.",
+        "Displacement immunity will not resist the application of the stun.",
+        "The following table refers for interactions while Nunu & Willump are channeling:"
+      ]
+    }
+  ]
+}

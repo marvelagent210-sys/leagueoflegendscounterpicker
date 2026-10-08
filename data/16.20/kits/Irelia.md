@@ -9,6 +9,22 @@ Values marked "at max rank, level 20" assume every ability is maxed; see PLAN.md
 |---|--:|--:|--:|--:|--:|--:|--:|--:|--:|--:|
 | Irelia | 2891.5 | 20.22 | 1333.3 Mana | 133.8 | 0.979 | 0.201 | 128.4 | 70.3 | 200 | 335 |
 
+## Fight profile (what the interaction ledger uses)
+
+| Form | Attack range | Ranged | Projectile | Missile speed | Attack modifiers |
+|---|--:|---|---|--:|---|
+| Irelia | 200 | no | no | – | Ionian Fervor |
+
+Cooldowns at max rank. Flags: the wiki's interaction flags (yes, no, partly). * marks an effect that applies only under a condition.
+
+| Slot | Ability | Cooldown | Delivery | Applies to the enemy | Movement | Gives itself |
+|---|---|--:|---|---|---|---|
+| E | Flawless Duet | 10 | projectile yes; spell shield yes | stun 0.75 s | – | – |
+| I | Ionian Fervor | – | attack modifier | – | – | – |
+| Q | Bladesurge | 6 | spell shield yes; parry yes; grounded yes; knockdown yes; on-hit | – | dash | heal |
+| R | Vanguard's Edge | 85 | projectile yes; spell shield partly | slow 1.5 s 90% | – | – |
+| W | Defiant Dance | 12 | projectile no; spell shield yes; disruptable no | – | – | – |
+
 ## Innate: Ionian Fervor
 
 Source: [Template:Data Irelia/Ionian Fervor](https://wiki.leagueoflegends.com/en-us/Template:Data_Irelia/Ionian_Fervor?oldid=4045313) (revision 4045313). Ranks: 1.
@@ -110,58 +126,6 @@ Notes:
     - This refers to the recast.
 - The following table refers for interactions while Irelia is channeling:
 
-## W: Hiten Style
-
-Source: [Template:Data Irelia/Hiten Style](https://wiki.leagueoflegends.com/en-us/Template:Data_Irelia/Hiten_Style?oldid=2704795) (revision 2704795). Ranks: 5.
-
-| Field | Value |
-|---|---|
-| Cooldown | 15 |
-| Cost | 40 mana |
-
-Targeting: * Hiten Style's passive is an on-hit effect., * Hiten Style's active is a self-targeted buff with an on-hit effect component. · Affects: – · Damage type: true · Spell shield blocks it: – · Projectile: – · Parry: – · Disabled by grounded: – · Usable while knocked down: –
-
-Passive: Irelia's basic attacks heal her.
-
-- **Healing:** 5 / 7 / 9 / 11 / 13 → at max rank, level 20: 13
-
-Active: Irelia's basic attacks deal bonus true damage and double Hiten Style's healing for 6 seconds.
-
-- **Bonus True Damage:** 15 / 30 / 45 / 60 / 75 → at max rank, level 20: 75
-- **Enhanced Healing:** 10 / 14 / 18 / 22 / 26 → at max rank, level 20: 26
-
-Notes:
-
-- Hiten Style does not have a cast time and does not interrupt Irelia's movement.
-- Hiten Style's true damage does not affect structures but the passive healing does.
-- The on-hit healing is not lost while Hiten Style is on cooldown.
-
-## E: Equilibrium Strike
-
-Source: [Template:Data Irelia/Equilibrium Strike](https://wiki.leagueoflegends.com/en-us/Template:Data_Irelia/Equilibrium_Strike?oldid=2704794) (revision 2704794). Ranks: 5.
-
-| Field | Value |
-|---|---|
-| Cooldown | 8 |
-| Cost | 50 / 55 / 60 / 65 / 70 mana |
-| Target range | 325 |
-
-Targeting: Equilibrium Strike is a single-targeted ability. · Affects: – · Damage type: magic · Spell shield blocks it: will block the damage and the slow/stun. · Projectile: – · Parry: – · Disabled by grounded: – · Usable while knocked down: –
-
-Active: Irelia pierces the target enemy, dealing them magic damage and slowing them by 60% for a duration.
-
-- **Magic Damage:** 80 / 120 / 160 / 200 / 240 (+ 50% AP) → at max rank, level 20: 240 (+ 50% AP)
-- **Disable Duration:** 1 / 1.25 / 1.5 / 1.75 / 2 → at max rank, level 20: 2
-- **Mechanics:** slow (60%)
-
-If her percentile health is equal to or less than her target's, she stuns them instead.
-
-- **Mechanics:** stun
-
-Notes:
-
-- No additional details.
-
 ## E: Flawless Duet
 
 Source: [Template:Data Irelia/Flawless Duet](https://wiki.leagueoflegends.com/en-us/Template:Data_Irelia/Flawless_Duet?oldid=4021834) (revision 4021834). Ranks: 5.
@@ -199,33 +163,6 @@ Notes:
 - The outgoing blades will stop flight upon touching projectile blocking effects. The converging blades will instead be destroyed upon contact with such effects.
     - The blades will not stun nor deal damage if they fail to converge (i.e Wind Wall).
 - Both of Flawless Duet's casts will be buffered and cast when their cooldowns end if the player attempts to cast each within 0.3 seconds of their cooldown ending.
-
-## R: Transcendent Blades
-
-Source: [Template:Data Irelia/Transcendent Blades](https://wiki.leagueoflegends.com/en-us/Template:Data_Irelia/Transcendent_Blades?oldid=2704797) (revision 2704797). Ranks: 3.
-
-| Field | Value |
-|---|---|
-| Cooldown | 100 / 80 / 60 |
-| Cost | 100 mana |
-| Target range | 1000 |
-
-Targeting: Transcendent Blades is a linear, pass-through skillshot. · Affects: – · Damage type: physical · Spell shield blocks it: will block one blade's worth of damage. · Projectile: true · Parry: – · Disabled by grounded: – · Usable while knocked down: –
-
-Active: Irelia summons 4 spirit blades and fires one in a line towards the cursor, dealing physical damage to all enemies it passes through.
-
-- **Physical Damage Per Blade:** 80 / 120 / 160 (+ 70% bonus AD) (+ 50% AP) → at max rank, level 20: 160 (+ 70% bonusAD) (+ 50% AP)
-- **Total Physical Damage:** 320 / 480 / 640 (+ 280% bonus AD) (+ 200% AP) → at max rank, level 20: 640 (+ 280% bonusAD) (+ 200% AP)
-
-Transcendent Blades can then be cast 3 more times at no additional cost to fire each of Irelia's remaining blades, incurring a 0.5 seconds delay in between each cast.
-
-Each blade heals Irelia for 25% of the damage it deals to enemy champions, and 10% of the damage it deals to enemy minions and monsters.
-
-Notes:
-
-- Once active Irelia has 10 seconds to use all four charges before Transcendent Blades goes on cooldown, or does so immediately if all four blades have been used before the duration expires.
-    - All activations of Transcendent Blades have no cast time and do not interrupt Irelia's movement.
-      - Each one counts as a trigger for the purposes of Spellblade.
 
 ## R: Vanguard's Edge
 

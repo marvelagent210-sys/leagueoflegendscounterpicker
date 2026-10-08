@@ -9,6 +9,22 @@ Values marked "at max rank, level 20" assume every ability is maxed; see PLAN.md
 |---|--:|--:|--:|--:|--:|--:|--:|--:|--:|--:|
 | Zeri | 2763.2 | 17.02 | 1134.9 Mana | 95.3 | 0.904 | 0.173 | 106.6 | 54.6 | 550 | 330 |
 
+## Fight profile (what the interaction ledger uses)
+
+| Form | Attack range | Ranged | Projectile | Missile speed | Attack modifiers |
+|---|--:|---|---|--:|---|
+| Zeri | 550 | yes | no | – | Living Battery |
+
+Cooldowns at max rank. Flags: the wiki's interaction flags (yes, no, partly). * marks an effect that applies only under a condition.
+
+| Slot | Ability | Cooldown | Delivery | Applies to the enemy | Movement | Gives itself |
+|---|---|--:|---|---|---|---|
+| E | Spark Surge | 18 | parry yes; grounded yes; knockdown yes; on-hit | – | dash | heal |
+| I | Living Battery | – | projectile no; spell shield partly; parry no; attack modifier | – | – | – |
+| Q | Burst Fire | 1 | projectile yes; spell shield no; parry partly; on-hit | – | – | – |
+| R | Lightning Crash | 70 | projectile no; spell shield partly | – | – | – |
+| W | Ultrashock Laser | 8 | projectile partly; spell shield yes | slow 2 s 50% | – | – |
+
 ## Innate: Living Battery
 
 Source: [Template:Data Zeri/Living Battery](https://wiki.leagueoflegends.com/en-us/Template:Data_Zeri/Living_Battery?oldid=4051663) (revision 4051663). Ranks: 1.

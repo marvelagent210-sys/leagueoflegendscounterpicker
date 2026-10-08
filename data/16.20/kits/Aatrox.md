@@ -9,27 +9,21 @@ Values marked "at max rank, level 20" assume every ability is maxed; see PLAN.md
 |---|--:|--:|--:|--:|--:|--:|--:|--:|--:|--:|
 | Aatrox | 2891.8 | 12.83 | 0.0 Blood Well | 158.3 | 0.971 | 0.203 | 132.4 | 72.3 | 175 | 345 |
 
-## Innate: Blood Well
+## Fight profile (what the interaction ledger uses)
 
-Source: [Template:Data Aatrox/Blood Well](https://wiki.leagueoflegends.com/en-us/Template:Data_Aatrox/Blood_Well?oldid=3288754) (revision 3288754). Ranks: 1.
+| Form | Attack range | Ranged | Projectile | Missile speed | Attack modifiers |
+|---|--:|---|---|--:|---|
+| Aatrox | 175 | no | no | – | Deathbringer Stance |
 
-| Field | Value |
-|---|---|
-| Static cooldown | 180 / 160 / 140 / 120 (based on level) |
+Cooldowns at max rank. Flags: the wiki's interaction flags (yes, no, partly). * marks an effect that applies only under a condition.
 
-Targeting: Passive · Affects: Self · Damage type: – · Spell shield blocks it: – · Projectile: – · Parry: – · Disabled by grounded: – · Usable while knocked down: –
-
-Aatrox fills his Blood Well through his abilities, depleting by (20% maximum) per second while out of combat. When the Blood Well is filled, Aatrox becomes Hellbent for 4 seconds as the Blood Well drains. While Hellbent, dealing or taking damage against enemy champions or neutral monsters will completely fill the Blood Well and refresh Hellbent's duration.
-
-Hellbent: Aatrox gains 25% increased base AD and 30% / 40% / 50% / 60% (based on level) bonus attack speed. Upon taking fatal damage Aatrox will revive over 3 seconds, recovering 30% of maximum health over the duration. Upon reviving, Aatrox instantly recovers 100% of Blood Well. Aatrox's revive is then put on a cooldown.
-
-Notes:
-
-- Aatrox's resource bar colors red when Hellbent is active (light red when the revive is off cooldown, dark red when on cooldown)
-- Chronoshift and Guardian Angel passive will take precedence over Blood Well's revive.
-- Blood Well's stasis causes Aatrox to become untargetable, which will reset turret aggro.
-- Tethers from abilities (Soul Shackles) will remain active while Aatrox is reviving.
-- Blood Well's healing component interacts with Spirit Visage passive.
+| Slot | Ability | Cooldown | Delivery | Applies to the enemy | Movement | Gives itself |
+|---|---|--:|---|---|---|---|
+| E | Umbral Dash | 5 | grounded yes; knockdown yes | – | dash | heal |
+| I | Deathbringer Stance | 8.58824 | spell shield no; parry yes; attack modifier | – | – | heal |
+| Q | The Darkin Blade | 6 | spell shield yes | airborne (knock up) 0.25 s | – | – |
+| R | World Ender | 80 | – | – | – | heal |
+| W | Infernal Chains | 12 | projectile yes; spell shield partly | airborne (pull)*; slow 1.5 s 35%; reveal | – | – |
 
 ## Innate: Deathbringer Stance
 
@@ -57,34 +51,6 @@ Notes:
 - The cooldown reduction applies even if an ability's hit is countered by spell shield.
 - If available upon death, Deathbringer Stance begins incurring its cooldown, but becomes available upon respawn.
 - The empowered attack will not trigger against structures and wards.
-
-## Q: Dark Flight
-
-Source: [Template:Data Aatrox/Dark Flight](https://wiki.leagueoflegends.com/en-us/Template:Data_Aatrox/Dark_Flight?oldid=3919797) (revision 3919797). Ranks: 5.
-
-| Field | Value |
-|---|---|
-| Cooldown | 13 / 12.5 / 12 / 11.5 / 11 |
-| Target range | 650 |
-| Effect radius | 225 |
-| Inner radius | 75 |
-
-Targeting: Ground · Affects: Enemies · Damage type: Physical · Spell shield blocks it: true · Projectile: – · Parry: – · Disabled by grounded: true · Usable while knocked down: false
-
-Active: After a brief delay, Aatrox dashes to the target area with displacement immunity, filling 20% of his Blood Well, dealing physical damage to nearby units upon landing, and knocking up all units in the epicenter for 1 second.
-
-- **Physical Damage:** 20 / 50 / 80 / 110 / 140 (+ 110% AD) → at max rank, level 20: 140 (+ 110% AD)
-- **Mechanics:** displacement-immune (1 s); airborne (1 s)
-
-Notes:
-
-- Dark Flight possesses a considerable overhead for a dash ability, able to traverse many walls that are otherwise much wider than the indicator suggests is possible to vault.
-- If Aatrox is sent airborne or forced into Blood Well stasis during the initial flight time, Dark Flight will fail and will not cause him to dash.
-    - Other forms of crowd control applied while the animation is in progress will be suspended until the animation finishes.
-- Dark Flight does not cancel other commands. Aatrox will immediately begin attacking after he lands.
-- With smartcast on, Dark Flight will be cast immediately and at 650-range if the cursor is beyond that.
-- Flash cannot be cast during Dark Flight.
-- Dark Flight has a 0.6 second cast time. 0.3 second wind-up, and 0.3 second wind-down.
 
 ## Q: The Darkin Blade
 
@@ -139,42 +105,6 @@ Notes:
 - Aatrox cannot declare basic attacks shortly after casting The Darkin Blade.
 - This ability will cast from wherever the caster is at the end of the cast time.
 
-## W: Blood Thirst / Blood Price
-
-Source: [Template:Data Aatrox/Blood Thirst / Blood Price](https://wiki.leagueoflegends.com/en-us/Template:Data_Aatrox/Blood_Thirst_/_Blood_Price?oldid=3919801) (revision 3919801). Ranks: 5.
-
-| Field | Value |
-|---|---|
-| Static cooldown | 0.5 |
-
-Targeting: Unit, Self · Affects: Unit, Self · Damage type: Physical · Spell shield blocks it: false · Projectile: – · Parry: – · Disabled by grounded: – · Usable while knocked down: –
-
-Passive: Aatrox applies a bonus on-hit effect on every third hit against non-structures.
-
-Toggle Off – Blood Thirst: Aatrox heals himself on-hit.
-
-- **Heal:** 30 / 45 / 60 / 75 / 90 (+ 6.5% missing health) → at max rank, level 20: 90 (+ 6.5% missingHealth)
-- **Mechanics:** heal
-
-Toggle On – Blood Price: Aatrox deals bonus on-hit physical damage and fills 20% of his Blood Well.
-
-- **Physical Damage:** 50 / 85 / 120 / 155 / 190 (+ 75% bonus AD) → at max rank, level 20: 190 (+ 75% bonusAD)
-
-Notes:
-
-- The attack counter between Blood Thirst and Blood Price is shared, meaning that toggling the ability with one empowered attack prepared will immediately allow use of the empowered attack of the other.
-- Toggling between Blood Thirst and Blood Price does not reset the basic attack timer. It will, however, cancel an empowered basic attack in its windup animation if it is toggled during that time.
-- Toggled abilities do not count as ability activation for the purposes of effects such as Spellblade or Force Pulse.
-- Aatrox's basic attack animation correlates with the amount of stacks for Blood Thirst/Price. The first basic attack animation (after leveling up Blood Thirst/Price or proccing an empowered basic attack) is Aatrox swinging his sword to the left, the second is to the right and the third basic attack animation (which will be affected by Blood Thirst/Price) is Aatrox stabbing the target.
-- Blood Thirst/Price will not proc against turrets or wards.
-- The triggering attack will apply other on-hit effects and can critically strike as normal.
-    - Unlike most other on-hit physical damage, Blood Price's bonus damage does not apply life steal; this is a special case. The triggering attack will still apply life steal.
-    - However, using Death's Dance would then heal Aatrox for 15% of the Blood Price's bonus damage.
-    - Blood Thirst/Price will miss if Aatrox is blinded.
-    - Critical strikes do not interact with the bonus damage of Blood Thirst/Blood Price.
-    - If Blood Thirst/Price is blocked, the effect will still apply, but the base damage will not.
-    - If Blood Thirst/Price is dodged, the effect and base damage will apply as normal.
-
 ## W: Infernal Chains
 
 Source: [Template:Data Aatrox/Infernal Chains](https://wiki.leagueoflegends.com/en-us/Template:Data_Aatrox/Infernal_Chains?oldid=4064835) (revision 4064835). Ranks: 5.
@@ -214,31 +144,6 @@ Notes:
 - This ability will cast from wherever the caster is at the end of the cast time.
 - Infernal Chains maintains its casting angle direction in relation to Aatrox if he moves during the cast time.
 
-## E: Blades of Torment
-
-Source: [Template:Data Aatrox/Blades of Torment](https://wiki.leagueoflegends.com/en-us/Template:Data_Aatrox/Blades_of_Torment?oldid=3919802) (revision 3919802). Ranks: 5.
-
-| Field | Value |
-|---|---|
-| Cooldown | 12 / 11 / 10 / 9 / 8 |
-| Cost | 30 health |
-| Target range | 1000 |
-
-Targeting: Direction · Affects: Enemies · Damage type: Physical · Spell shield blocks it: true · Projectile: true · Parry: – · Disabled by grounded: – · Usable while knocked down: –
-
-Active: Aatrox unleashes two converging energy waves in the target direction, filling 20% of his Blood Well, dealing physical damage to all units hit and slowing for 2 seconds.
-
-- **Physical Damage:** 80 / 120 / 160 / 200 / 240 (+ 70% bonus AD) → at max rank, level 20: 240 (+ 70% bonusAD)
-- **Slow:** 30 / 35 / 40 / 45 / 50% → at max rank, level 20: 50%
-- **Mechanics:** slow (2 s, 50%)
-
-Notes:
-
-- Units may only be damaged by one projectile of Blades of Torment per cast.
-- The ability fires two narrow skillshots, converging at a fixed range. Very small units (such as minions) can potentially avoid the damage and slow altogether if the blades are fired from a close enough range.
-- Flash can be cast during the cast animation of Blades of Torment. If done so, the ability resolves after Flash from the location Aatrox flashes to.
-- Has a width of 150 decreasing as it converges on its max range.
-
 ## E: Umbral Dash
 
 Source: [Template:Data Aatrox/Umbral Dash](https://wiki.leagueoflegends.com/en-us/Template:Data_Aatrox/Umbral_Dash?oldid=4064836) (revision 4064836). Ranks: 5.
@@ -271,29 +176,6 @@ Notes:
 - If Umbral Dash is cast towards a movement command's end point, Umbral Dash will re-issue a movement command to that point when the dash ends.
     - He will be unable to buffer any commands during the dash if it is casted this way.
 - Aatrox's model darkens for 1.5 seconds upon casting Umbral Dash, which is a remnant of an attack damage buff he received before it got removed in V9.9.
-
-## R: Massacre
-
-Source: [Template:Data Aatrox/Massacre](https://wiki.leagueoflegends.com/en-us/Template:Data_Aatrox/Massacre?oldid=3919837) (revision 3919837). Ranks: 3.
-
-| Field | Value |
-|---|---|
-| Cooldown | 100 / 85 / 70 |
-| Effect radius | 550 |
-
-Targeting: None · Affects: Self, Enemies · Damage type: Magic · Spell shield blocks it: true · Projectile: – · Parry: – · Disabled by grounded: – · Usable while knocked down: –
-
-Active: Aatrox draws in the blood of his foes, dealing magic damage to nearby enemy champions and filling 20% of his Blood Well for each enemy champion hit.
-
-- **Magic Damage:** 200 / 300 / 400 (+ 100% AP) → at max rank, level 20: 400 (+ 100% AP)
-
-Additionally, Aatrox gains bonus attack speed and 225 bonus attack range for 12 seconds.
-
-- **Attack Speed:** 40 / 50 / 60% → at max rank, level 20: 60%
-
-Notes:
-
-- Flash can be cast during the cast animation of Massacre. If done so, the ability resolves after Flash in the location Aatrox flashes to.
 
 ## R: World Ender
 

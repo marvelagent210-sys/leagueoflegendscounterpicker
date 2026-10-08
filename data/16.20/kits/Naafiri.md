@@ -9,6 +9,22 @@ Values marked "at max rank, level 20" assume every ability is maxed; see PLAN.md
 |---|--:|--:|--:|--:|--:|--:|--:|--:|--:|--:|
 | Naafiri | 2674.8 | 18.05 | 1481.6 Mana | 94.3 | 0.921 | 0.187 | 110.6 | 72.3 | 125 | 340 |
 
+## Fight profile (what the interaction ledger uses)
+
+| Form | Attack range | Ranged | Projectile | Missile speed | Attack modifiers |
+|---|--:|---|---|--:|---|
+| Naafiri | 125 | no | no | – | – |
+
+Cooldowns at max rank. Flags: the wiki's interaction flags (yes, no, partly). * marks an effect that applies only under a condition.
+
+| Slot | Ability | Cooldown | Delivery | Applies to the enemy | Movement | Gives itself |
+|---|---|--:|---|---|---|---|
+| E | Eviscerate | 7 | spell shield yes; grounded yes; knockdown yes | – | dash; blink | heal |
+| I | We Are More | 10 | – | – | – | – |
+| Q | Darkin Daggers | 7 | projectile yes; spell shield yes | – | – | heal |
+| R | Hounds' Pursuit | 80 | spell shield partly; grounded yes; knockdown yes; disruptable yes | slow 0.25 s 99%; reveal | dash | shield 3 s |
+| W | The Call of the Pack | 18 | – | – | blink | untargetable 5 s |
+
 ## Innate: We Are More
 
 Source: [Template:Data Naafiri/We Are More](https://wiki.leagueoflegends.com/en-us/Template:Data_Naafiri/We_Are_More?oldid=4025780) (revision 4025780). Ranks: 1.

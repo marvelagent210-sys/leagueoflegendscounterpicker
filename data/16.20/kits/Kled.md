@@ -10,6 +10,27 @@ Values marked "at max rank, level 20" assume every ability is maxed; see PLAN.md
 | Kled & Skaarl | 3618.6 | 20.75 | 100.0 Courage | 133.8 | 1.055 | 0.166 | 137.3 | 68.3 | 125 | 345 |
 | Kled | 2061.9 | 20.75 | 100.0 Courage | 133.8 | 1.055 | 0.166 | 137.3 | 68.3 | 250 | 305 |
 
+## Fight profile (what the interaction ledger uses)
+
+| Form | Attack range | Ranged | Projectile | Missile speed | Attack modifiers |
+|---|--:|---|---|--:|---|
+| Kled & Skaarl | 125 | no | no | – | Dismounted Skaarl the Cowardly Lizard |
+| Kled | 250 | no | no | – | Dismounted Skaarl the Cowardly Lizard |
+
+Cooldowns at max rank. Flags: the wiki's interaction flags (yes, no, partly). * marks an effect that applies only under a condition.
+
+| Slot | Ability | Cooldown | Delivery | Applies to the enemy | Movement | Gives itself |
+|---|---|--:|---|---|---|---|
+| E | Dismounted Jousting | – | – | – | – | – |
+| E | Jousting | 9 | spell shield yes; grounded yes; knockdown yes | reveal | dash (second cast); dash (first cast) | – |
+| I | Dismounted Skaarl the Cowardly Lizard | – | parry yes; attack modifier | – | lunge | – |
+| I | Skaarl the Cowardly Lizard | – | – | – | – | untargetable 0.5 s; cleanse (19 CC types); cc immune 0.5 s; heal |
+| Q | Bear Trap on a Rope | 7 | projectile yes; spell shield yes | airborne (pull) 2.5 s; slow 2.5 s 50%; reveal | – | – |
+| Q | Pocket Pistol | 10 | projectile yes; spell shield yes; grounded partly; knockdown yes | – | dash (reverse-targeted) | – |
+| R | Chaaaaaaaarge!!! | 110 | spell shield yes; grounded yes; knockdown partly | airborne (knock back); reveal | dash | cc immune; shield |
+| R | Dismounted Chaaaaaaaarge!!! | – | – | – | – | – |
+| W | Violent Tendencies | 9 | spell shield no; parry yes; on-hit | – | – | – |
+
 ## Innate: Dismounted Skaarl the Cowardly Lizard
 
 Source: [Template:Data Kled/Dismounted Skaarl the Cowardly Lizard](https://wiki.leagueoflegends.com/en-us/Template:Data_Kled/Dismounted_Skaarl_the_Cowardly_Lizard?oldid=4038397) (revision 4038397). Ranks: 1.

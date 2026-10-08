@@ -9,6 +9,22 @@ Values marked "at max rank, level 20" assume every ability is maxed; see PLAN.md
 |---|--:|--:|--:|--:|--:|--:|--:|--:|--:|--:|
 | Zac | 2828.5 | 14.83 | 0.0 Health | 126.9 | 0.937 | 0.247 | 135.3 | 72.3 | 175 | 340 |
 
+## Fight profile (what the interaction ledger uses)
+
+| Form | Attack range | Ranged | Projectile | Missile speed | Attack modifiers |
+|---|--:|---|---|--:|---|
+| Zac | 175 | no | no | – | – |
+
+Cooldowns at max rank. Flags: the wiki's interaction flags (yes, no, partly). * marks an effect that applies only under a condition.
+
+| Slot | Ability | Cooldown | Delivery | Applies to the enemy | Movement | Gives itself |
+|---|---|--:|---|---|---|---|
+| E | Elastic Slingshot | 9 | spell shield yes; grounded yes; knockdown yes; disruptable yes | airborne (knock up) 0.5 s; stun 0.5 s | dash | – |
+| I | Cell Division | 300 | – | – | – | untargetable; resurrection; heal |
+| Q | Stretching Strikes | 8 | projectile yes; spell shield partly; parry yes; attack | airborne (knock up, pull) 0.25 s; knockdown 0.5 s*; slow 0.5 s 40%; root 0.5 s*; stun 0.25 s; knockdown; reveal | – | – |
+| R | Let's Bounce! | 90 | spell shield partly | airborne (knock back) 1 s; slow 1 s 20% | – | – |
+| W | Unstable Matter | 5 | spell shield yes | – | – | – |
+
 ## Innate: Cell Division
 
 Source: [Template:Data Zac/Cell Division](https://wiki.leagueoflegends.com/en-us/Template:Data_Zac/Cell_Division?oldid=4061399) (revision 4061399). Ranks: 1.

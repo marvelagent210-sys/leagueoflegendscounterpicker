@@ -1,0 +1,240 @@
+{
+  "champion": "Illaoi",
+  "name": "Illaoi",
+  "gameplayRadius": 65,
+  "moveSpeed": 350,
+  "attacks": [
+    {
+      "form": "illaoi",
+      "formName": "Illaoi",
+      "range": 125,
+      "ranged": false,
+      "projectile": false,
+      "attackSpeed": 0.932266,
+      "attackDamage": 163.325,
+      "windup": 0.229855,
+      "modifiers": []
+    }
+  ],
+  "abilities": [
+    {
+      "champion": "Illaoi",
+      "kind": "E",
+      "name": "Test of Spirit",
+      "page": {
+        "title": "Template:Data Illaoi/Test of Spirit",
+        "revid": 4078506
+      },
+      "damageTypes": [
+        "physical",
+        "magic",
+        "true"
+      ],
+      "delivery": {
+        "targeting": [
+          "location"
+        ],
+        "affectsEnemies": true,
+        "projectile": "partly",
+        "spellShield": "partly"
+      },
+      "applies": [
+        {
+          "type": "slow",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "slow"
+            },
+            {
+              "page": "Template:Data Illaoi/Test of Spirit",
+              "revid": 4078506,
+              "quote": "When the Spirit is killed or the target leaves tether range, the tether is severed, marking the target as a Vessel for 4 seconds and slowing them by 80% for 1.5 seconds once the tether returns back to them."
+            }
+          ],
+          "duration": 1.5,
+          "amount": 80
+        },
+        {
+          "type": "reveal",
+          "evidence": [
+            {
+              "page": "Template:List of true sight abilities",
+              "revid": 3860444
+            }
+          ]
+        }
+      ],
+      "movement": [],
+      "states": [],
+      "cooldown": 12,
+      "castTime": 0.25,
+      "range": 950,
+      "speed": 1900,
+      "notes": [
+        "The self-reveal has not been fully tested for complete confirmation. Is the ability invisible when passing nearby minions and there is no enemy champion nearby? Is the tip of the ability enough to reveal her? Whether it can collide with a minion or not? Just if she's around the exit of the fog of war, and even if she points towards the inside of the fog of war? [https://youtu.be/Fq2KuW55oVs]",
+        "The tendril can be blocked by projectile-destroying effects (e.g. W) and spell shields.\n  - It will only be destroyed and not replicated against Rebuttal.",
+        "Post V12.8, does grabbing the Spirit of an Oathsworn make the Spirit invisible? [https://www.youtube.com/watch?v=cApbCTz_lIQ]",
+        "The Spirit is immune to stasis (i.e. Tempered Fate).\n  - Illaoi needs 937.5 / 875 / 812.5 / 750 / 687.5 total AD to reach 100% echoed damage. As per above, the damage is still dependent on the Spirit's and Vessel's damage modifiers and may not always be able to deal 100% of the target's current health as total echoed damage.",
+        "Transferred damage will apply on-damage effects, such as damage amplifiers (e.g Last Stand), Black Cleaver, Morellonomicon, Executioner's Calling, Elixir of Sorcery, Sudden Impact, Shadowflame, The Collector, First Strike, Aspect of the Dragon burn damage, and The Darkin Scythe.\n  - Echoed damage always counts as single target for the purpose of Omnivamp.\n  - Echoed damage always counts as proc damage and thus will not doubly apply on-hit or on-spell effects versus the target (e.g. Liandry's Torment). These effects are only applied versus the Spirit.\n  - Some effects like Sudden Impact are consumed by the target first, before the Spirit. Other effects like Hextech Alternator are consumed by the Spirit first, before the target.\n  - Attacking the Vessel and its Spirit simultaneously will only apply one stack of Black Cleaver to the Vessel.\n  - E?",
+        "Riposte can be used to prevent becoming a Vessel if used before the Spirit is killed [https://www.youtube.com/watch?v=2jcsdMpvZRc], or while leaving the tether's range. [https://www.youtube.com/watch?v=yI121hbf3jA]",
+        "Spell shields can also prevent the slow upon becoming a Vessel. Spell shields will not prevent becoming a Vessel or Tentacles from attacking.",
+        "The application of the slowing missile cannot be blocked by projectile- destroying effects (e.g. W).\n  - Effects that destroy homing missiles (i.e certain untargetabilities) will prevent the application of the slowing missile.\n  - The slowing missile will not be fired if the target is already untargetable when the Spirit dies.",
+        "The following table refers for interactions while Illaoi is firing the projectile and while the target's Spirit is being pulled:"
+      ]
+    },
+    {
+      "champion": "Illaoi",
+      "kind": "I",
+      "name": "Prophet of an Elder God",
+      "page": {
+        "title": "Template:Data Illaoi/Prophet of an Elder God",
+        "revid": 4070338
+      },
+      "damageTypes": [
+        "physical"
+      ],
+      "delivery": {
+        "targeting": [
+          "passive"
+        ],
+        "affectsEnemies": true,
+        "projectile": "no",
+        "spellShield": "yes"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [
+        {
+          "state": "heal",
+          "evidence": [
+            {
+              "page": "Template:Data Illaoi/Prophet of an Elder God",
+              "revid": 4070338,
+              "quote": "Each Tentacle also heals Illaoi for 5% of her missing health if it hits at least one enemy champion."
+            }
+          ]
+        }
+      ],
+      "cooldown": 5.70588,
+      "notes": [
+        "Illaoi cannot spawn Tentacles on ally invulnerable structures [https://www.youtube.com/watch?v=D8r_7zpD3tY] , in addition to neither her nor the Vessel being able to spawn them in Nexus Obelisk's attack range.\n  - When the inhibitor is down, Nexus turrets will only have a single hardcoded valid space on each of their external sides to spawn Tentacles on. [https://www.youtube.com/watch?v=xJ4Jwm7jhZ8]"
+      ]
+    },
+    {
+      "champion": "Illaoi",
+      "kind": "Q",
+      "name": "Tentacle Smash",
+      "page": {
+        "title": "Template:Data Illaoi/Tentacle Smash",
+        "revid": 4016298
+      },
+      "damageTypes": [
+        "physical"
+      ],
+      "delivery": {
+        "targeting": [
+          "location"
+        ],
+        "affectsEnemies": true,
+        "projectile": "no",
+        "spellShield": "yes"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "cooldown": 6,
+      "castTime": 0.75,
+      "range": 52.75,
+      "notes": [
+        "The self-reveal has not been fully tested for complete confirmation. Is the ability invisible when hitting minions and there is no enemy champion nearby? Is the tip of the ability enough to reveal her? Whether it can hit a minion or not? Just if she's around the exit of the fog of war, and even if she points towards the inside of the fog of war? [https://youtu.be/JRizCjxyc5g]"
+      ]
+    },
+    {
+      "champion": "Illaoi",
+      "kind": "R",
+      "name": "Leap of Faith",
+      "page": {
+        "title": "Template:Data Illaoi/Leap of Faith",
+        "revid": 4050880
+      },
+      "damageTypes": [
+        "physical"
+      ],
+      "delivery": {
+        "targeting": [
+          "direction"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "partly"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [
+        {
+          "state": "displacement immune",
+          "evidence": [
+            {
+              "page": "Template:Data Illaoi/Leap of Faith",
+              "revid": 4050880,
+              "quote": "Active: Illaoi gains displacement immunity and leaps into the air for the cast time."
+            }
+          ]
+        }
+      ],
+      "cooldown": 70,
+      "castTime": 0.5,
+      "notes": [
+        "Illaoi spawns the Tentacle 700 range away from her, unless there's a natural wall blocking the way making the Tentacle spawn on it, with an angle relative to the direction she's facing.\n  - 1+ champions: one Tentacle at 0 degrees. (towards Illaoi's facing direction)\n  - 2+ champions: one Tentacle at 60 degrees.\n  - 3+ champions: one Tentacle at 300 degrees.\n  - 4+ champions: one Tentacle at 120 degrees.\n  - 5+ champions: one Tentacle at 240 degrees.\n  - 6+ champions: one Tentacle at 180 degrees.\n  - Illaoi's facing direction is decided by the position of the cursor on cast, but can also be changed mid-cast through other effects, such as Flash. [https://www.youtube.com/watch?v=5g08ajBml2U]\n  - If there are no walls nearby, spawning the last Tentacle will form a perfect hexagon.",
+        "Spell shields will block the ability's damage but will not prevent Tentacles from spawning."
+      ]
+    },
+    {
+      "champion": "Illaoi",
+      "kind": "W",
+      "name": "Harsh Lesson",
+      "page": {
+        "title": "Template:Data Illaoi/Harsh Lesson",
+        "revid": 4078463
+      },
+      "damageTypes": [
+        "physical"
+      ],
+      "delivery": {
+        "targeting": [
+          "auto"
+        ],
+        "affectsEnemies": false,
+        "spellShield": "partly",
+        "parry": "partly",
+        "grounded": "partly",
+        "knockdown": "partly",
+        "attack": "attack"
+      },
+      "applies": [],
+      "movement": [
+        {
+          "type": "dash",
+          "evidence": [
+            {
+              "page": "Dash",
+              "revid": 4035700,
+              "quote": "unit-targeted"
+            }
+          ],
+          "targeting": "unit-targeted"
+        }
+      ],
+      "states": [],
+      "cooldown": 4,
+      "castTime": 0,
+      "boostsAttacks": true,
+      "notes": [
+        "Harsh Lesson is made of two different abilities which are decided by Illaoi's range to the target, being either melee or within dash range, causing interactions to act differently.",
+        "The melee attack will still hit if the target becomes untargetable [https://www.youtube.com/watch?v=cUlojKtZGF8], while the dash attack will not. [https://www.youtube.com/watch?v=JOcA7oSdlqM]",
+        "Abilities cannot be buffered during the melee windup but they can be buffered during the dash windup."
+      ]
+    }
+  ]
+}

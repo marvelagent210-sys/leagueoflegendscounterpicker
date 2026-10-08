@@ -9,6 +9,22 @@ Values marked "at max rank, level 20" assume every ability is maxed; see PLAN.md
 |---|--:|--:|--:|--:|--:|--:|--:|--:|--:|--:|
 | Nocturne | 2783.5 | 21.75 | 963.3 Mana | 113.1 | 1.104 | 0.182 | 118.6 | 62.5 | 125 | 345 |
 
+## Fight profile (what the interaction ledger uses)
+
+| Form | Attack range | Ranged | Projectile | Missile speed | Attack modifiers |
+|---|--:|---|---|--:|---|
+| Nocturne | 125 | no | no | – | Umbra Blades |
+
+Cooldowns at max rank. Flags: the wiki's interaction flags (yes, no, partly). * marks an effect that applies only under a condition.
+
+| Slot | Ability | Cooldown | Delivery | Applies to the enemy | Movement | Gives itself |
+|---|---|--:|---|---|---|---|
+| E | Unspeakable Horror | 11 | projectile no; spell shield partly | fear 2.25 s; slow 90%* | – | – |
+| I | Umbra Blades | 12 | spell shield no; parry yes; attack modifier | – | – | heal |
+| Q | Duskbringer | 8 | projectile yes; spell shield yes | – | – | – |
+| R | Paranoia | 100 | spell shield yes; grounded partly; knockdown no | nearsight 6 s | dash (unstoppable) | displacement immune |
+| W | Shroud of Darkness | 12 | – | – | – | spell shield 1.5 s |
+
 ## Innate: Umbra Blades
 
 Source: [Template:Data Nocturne/Umbra Blades](https://wiki.leagueoflegends.com/en-us/Template:Data_Nocturne/Umbra_Blades?oldid=4007794) (revision 4007794). Ranks: 1.

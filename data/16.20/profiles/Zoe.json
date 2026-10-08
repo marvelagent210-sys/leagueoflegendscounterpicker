@@ -1,0 +1,232 @@
+{
+  "champion": "Zoe",
+  "name": "Zoe",
+  "gameplayRadius": 55,
+  "moveSpeed": 340,
+  "attacks": [
+    {
+      "form": "zoe",
+      "formName": "Zoe",
+      "range": 550,
+      "ranged": true,
+      "projectile": true,
+      "missileSpeed": 1600,
+      "attackSpeed": 0.965266,
+      "attackDamage": 122.895,
+      "windup": 0.167268,
+      "modifiers": [
+        "More Sparkles!"
+      ]
+    }
+  ],
+  "abilities": [
+    {
+      "champion": "Zoe",
+      "kind": "E",
+      "name": "Sleepy Trouble Bubble",
+      "page": {
+        "title": "Template:Data Zoe/Sleepy Trouble Bubble",
+        "revid": 4053170
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "direction"
+        ],
+        "affectsEnemies": true,
+        "projectile": "yes",
+        "spellShield": "partly"
+      },
+      "applies": [
+        {
+          "type": "sleep",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "sleep"
+            },
+            {
+              "page": "Template:Data Zoe/Sleepy Trouble Bubble",
+              "revid": 4053170,
+              "quote": "The burst deals magic damage to the target and inflicts them with drowsy for 1.4 seconds, which gradually slows them until they fall asleep for 2.25 seconds."
+            }
+          ],
+          "duration": 2.25
+        },
+        {
+          "type": "slow",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "slow"
+            },
+            {
+              "page": "Template:Data Zoe/Sleepy Trouble Bubble",
+              "revid": 4053170,
+              "quote": "The burst deals magic damage to the target and inflicts them with drowsy for 1.4 seconds, which gradually slows them until they fall asleep for 2.25 seconds."
+            }
+          ],
+          "duration": 2.25,
+          "amount": 30
+        },
+        {
+          "type": "drowsy",
+          "evidence": [
+            {
+              "page": "Template:Data Zoe/Sleepy Trouble Bubble",
+              "revid": 4053170,
+              "quote": "The burst deals magic damage to the target and inflicts them with drowsy for 1.4 seconds, which gradually slows them until they fall asleep for 2.25 seconds."
+            }
+          ],
+          "duration": 1.4
+        }
+      ],
+      "movement": [],
+      "states": [],
+      "cooldown": 14,
+      "castTime": 0.25,
+      "range": 800,
+      "speed": 1850,
+      "notes": [
+        "Spell shield will not prevent falling asleep nor block the wake-up damage.\n  - The bubble's damage and drowsy application will be blocked.",
+        "At the end of the path of the initial missile, before continuing with the short bounce, Sleepy Trouble Bubble checks for targets in a 100 radius to immediately collide with.\n  - This \"lollipop\" is one of only a few that is larger than the ability's missile width.",
+        "Sleepy Trouble Bubble can still be collided with during the short bounce between end of initial missile and the trap being formed.\n  - This seems to use a very small or negative collision radius, rather than normal missile collision.",
+        "This ability will cast from wherever the caster is at the end of the cast time.\n  - The missile's maximum range location, or end position, is determined at the start of the cast and as such will always be fired to the same spot regardless of where Zoe is at the end of the cast time.\n    - An applicable example of this can be seen in an interaction with her Portal Jump. If Sleepy Trouble Bubble is cast right before she blinks back to Portal Jump's original cast position, the range of the missile will be extended for it to fire to the same end position as if she had not blinked back. This interaction occurs in this manner due to the missile's behavior as explained prior and the fact that Zoe blinks back with Portal Jump before the cast time of Sleepy Trouble Bubble finishes, causing the cast time to finish from Portal Jump's original cast position.\n  - This will still count as damage dealt by Zoe in the damage recap."
+      ]
+    },
+    {
+      "champion": "Zoe",
+      "kind": "I",
+      "name": "More Sparkles!",
+      "page": {
+        "title": "Template:Data Zoe/More Sparkles!",
+        "revid": 3986875
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "passive"
+        ],
+        "affectsEnemies": true,
+        "projectile": "no",
+        "spellShield": "no",
+        "parry": "yes",
+        "attack": "attack modifier"
+      },
+      "applies": [],
+      "movement": [],
+      "states": []
+    },
+    {
+      "champion": "Zoe",
+      "kind": "Q",
+      "name": "Paddle Star!",
+      "page": {
+        "title": "Template:Data Zoe/Paddle Star!",
+        "revid": 4024422
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "direction"
+        ],
+        "affectsEnemies": true,
+        "projectile": "yes",
+        "spellShield": "yes"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "cooldown": 6.5,
+      "castTime": 0.25,
+      "range": 800,
+      "speed": 1200,
+      "usableWhileDisabled": {
+        "which": "recast",
+        "evidence": [
+          {
+            "page": "Template:Data Zoe/Paddle Star!",
+            "revid": 4024422,
+            "quote": "recast can be used while affected by cast-inhibiting crowd control"
+          }
+        ]
+      },
+      "notes": [
+        "The recast radius matches the initial cast radius of the ability, but Zoe can move any amount of distance away from the projectile before reactivating.",
+        "Paddle Star!'s effect radius is centered around the location of the missile as it collides."
+      ]
+    },
+    {
+      "champion": "Zoe",
+      "kind": "R",
+      "name": "Portal Jump",
+      "page": {
+        "title": "Template:Data Zoe/Portal Jump",
+        "revid": 4005248
+      },
+      "damageTypes": [],
+      "delivery": {
+        "targeting": [
+          "direction"
+        ],
+        "affectsEnemies": false,
+        "grounded": "yes"
+      },
+      "applies": [],
+      "movement": [
+        {
+          "type": "blink",
+          "evidence": [
+            {
+              "page": "Blink",
+              "revid": 4047228
+            }
+          ]
+        }
+      ],
+      "states": [],
+      "cooldown": 5,
+      "castTime": 0.25,
+      "range": 575,
+      "boostsAttacks": true
+    },
+    {
+      "champion": "Zoe",
+      "kind": "W",
+      "name": "Spell Thief",
+      "page": {
+        "title": "Template:Data Zoe/Spell Thief",
+        "revid": 4013273
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "auto"
+        ],
+        "affectsEnemies": true,
+        "projectile": "yes",
+        "spellShield": "yes"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "cooldown": 0.25,
+      "notes": [
+        "Minions holding a Spell Shard can drop one of the following summoner spells or item actives:\n  - Applicable summoner spells: Barrier, Cleanse, Exhaust, Ghost, Heal, Ignite, and Unleashed Smite.\n    - All other summoner spells are not applicable for minions to drop, which includes Clarity, Hexflash, Mark / Dash, Smite, Teleport / Unleashed Teleport, and Primal Smite.\n  - Applicable item actives: Hextech Rocketbelt, Locket of the Iron Solari, Profane Hydra, Randuin's Omen, Ravenous Hydra, Shurelya's Battlesong, Stridebreaker, Titanic Hydra, and Youmuu's Ghostblade.",
+        "All summoner spells except Dash and Hexflash are applicable to drop as a Spell Shard when an enemy champion uses them.",
+        "The recast duration of a mimicked Mark cast lasts longer than the mark duration.\n  - This allows her to cast Dash while the mark is expired, though the spell will fail to trigger its effects with an attempted cast. Spell Thief's passive effect is still triggered, however.",
+        "Spell Shards may be collected while Zoe can cast Dash from a mimicked Mark cast. The new shard will replace the ability slot once Dash is used or expires."
+      ]
+    }
+  ]
+}

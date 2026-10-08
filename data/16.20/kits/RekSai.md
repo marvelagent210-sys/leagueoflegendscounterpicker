@@ -9,6 +9,25 @@ Values marked "at max rank, level 20" assume every ability is maxed; see PLAN.md
 |---|--:|--:|--:|--:|--:|--:|--:|--:|--:|--:|
 | Rek'Sai | 2546.8 | 12.33 | 100.0 Fury | 121.0 | 0.929 | 0.249 | 123.5 | 72.3 | 175 | 340 |
 
+## Fight profile (what the interaction ledger uses)
+
+| Form | Attack range | Ranged | Projectile | Missile speed | Attack modifiers |
+|---|--:|---|---|--:|---|
+| Rek'Sai | 175 | no | no | – | Fury of the Xer'Sai |
+
+Cooldowns at max rank. Flags: the wiki's interaction flags (yes, no, partly). * marks an effect that applies only under a condition.
+
+| Slot | Ability | Cooldown | Delivery | Applies to the enemy | Movement | Gives itself |
+|---|---|--:|---|---|---|---|
+| E | Furious Bite | 6 | spell shield yes | – | – | – |
+| E | Tunnel | 14 | grounded yes; knockdown yes | – | dash (when clicking an existing tunnel); dash (when creating a tunnel) | – |
+| I | Fury of the Xer'Sai | – | attack modifier | – | – | heal |
+| Q | Prey Seeker | 10 | projectile yes; spell shield yes | – | – | – |
+| Q | Queen's Wrath | 2 | spell shield no; parry partly; attack | – | – | – |
+| R | Void Rush | 80 | spell shield yes; grounded yes; knockdown no | reveal | dash (unstoppable); blink | untargetable 1.5 s; displacement immune 1.5 s |
+| W | Burrow | 4 | – | – | – | – |
+| W | Unburrow | 1 | spell shield yes | airborne (knock up) 1 s | – | – |
+
 ## Innate: Fury of the Xer'Sai
 
 Source: [Template:Data Rek'Sai/Fury of the Xer'Sai](https://wiki.leagueoflegends.com/en-us/Template:Data_Rek'Sai/Fury_of_the_Xer'Sai?oldid=4007776) (revision 4007776). Ranks: 1.

@@ -9,6 +9,22 @@ Values marked "at max rank, level 20" assume every ability is maxed; see PLAN.md
 |---|--:|--:|--:|--:|--:|--:|--:|--:|--:|--:|
 | Vel'Koz | 2595.8 | 16.32 | 882.0 Mana | 116.8 | 0.838 | 0.239 | 114.4 | 55.6 | 525 | 340 |
 
+## Fight profile (what the interaction ledger uses)
+
+| Form | Attack range | Ranged | Projectile | Missile speed | Attack modifiers |
+|---|--:|---|---|--:|---|
+| Vel'Koz | 525 | yes | no | – | Organic Deconstruction |
+
+Cooldowns at max rank. Flags: the wiki's interaction flags (yes, no, partly). * marks an effect that applies only under a condition.
+
+| Slot | Ability | Cooldown | Delivery | Applies to the enemy | Movement | Gives itself |
+|---|---|--:|---|---|---|---|
+| E | Tectonic Disruption | 10 | projectile partly; spell shield yes | airborne (knock back, knock up) 0.75 s; stun 0.75 s | – | – |
+| I | Organic Deconstruction | – | spell shield yes; attack modifier | – | – | – |
+| Q | Plasma Fission | 7 | projectile yes; spell shield yes | slow 2.6 s 70% | – | – |
+| R | Life Form Disintegration Ray | 80 | projectile no; disruptable yes | slow 1 s 20% | – | – |
+| W | Void Rift | 15 | projectile partly; spell shield partly | – | – | – |
+
 ## Innate: Organic Deconstruction
 
 Source: [Template:Data Vel'Koz/Organic Deconstruction](https://wiki.leagueoflegends.com/en-us/Template:Data_Vel'Koz/Organic_Deconstruction?oldid=3986690) (revision 3986690). Ranks: 1.

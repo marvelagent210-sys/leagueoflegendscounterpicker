@@ -9,22 +9,21 @@ Values marked "at max rank, level 20" assume every ability is maxed; see PLAN.md
 |---|--:|--:|--:|--:|--:|--:|--:|--:|--:|--:|
 | Pantheon | 2793.5 | 18.78 | 926.6 Mana | 128.9 | 1.040 | 0.183 | 137.3 | 68.3 | 175 | 345 |
 
-## Innate: Aegis Protection
+## Fight profile (what the interaction ledger uses)
 
-Source: [Template:Data Pantheon/Aegis Protection](https://wiki.leagueoflegends.com/en-us/Template:Data_Pantheon/Aegis_Protection?oldid=2794466) (revision 2794466). Ranks: 1.
+| Form | Attack range | Ranged | Projectile | Missile speed | Attack modifiers |
+|---|--:|---|---|--:|---|
+| Pantheon | 175 | no | no | – | Mortal Will |
 
-Targeting: Passive · Affects: Self · Damage type: – · Spell shield blocks it: – · Projectile: – · Parry: – · Disabled by grounded: – · Usable while knocked down: –
+Cooldowns at max rank. Flags: the wiki's interaction flags (yes, no, partly). * marks an effect that applies only under a condition.
 
-Innate: Pantheon gains a stack of Aegis Protection when he lands a basic attack or casts an ability, up to a maximum of 4. Upon reaching 4 stacks, he consumes all stacks and gains Aegis Protection.
-
-Aegis Protection: Pantheon blocks the next incoming basic attack from an enemy champion, large monster, or the next incoming shot from a turret.
-
-Stacks of Aegis Protection cannot be gained during the blocking, also he cannot gain 2 Aegis Protection at the same time.
-
-Notes:
-
-- Aegis Protection consistently negates all on-hit effects attached to basic attacks, with a few exceptions (Harsh Lesson, Devastating Charge).
-- Aegis Protection will also block abilities that can trigger on-hit effects (Parrrley, Mystic Shot)
+| Slot | Ability | Cooldown | Delivery | Applies to the enemy | Movement | Gives itself |
+|---|---|--:|---|---|---|---|
+| E | Aegis Assault | 18 | projectile no; spell shield partly; disruptable no | – | – | invulnerable 1.5 s |
+| I | Mortal Will | – | attack modifier | – | – | – |
+| Q | Comet Spear | 8 | projectile partly; spell shield yes; disruptable yes | – | – | – |
+| R | Grand Starfall | 150 | projectile no; spell shield yes; grounded yes; disruptable partly | slow 2 s 50% | blink | untargetable 2 s; minimum health; cc immune 2 s |
+| W | Shield Vault | 9 | spell shield yes; parry yes; grounded yes; knockdown yes; attack | stun 1 s* | dash | – |
 
 ## Innate: Mortal Will
 
@@ -89,52 +88,6 @@ Notes:
 - The following table refers for interactions while Pantheon is channeling:
     - Item actives that interrupt and those with cast times as well as Titanic Hydra, Hexflash, and Recall will cause Comet Spear to recast automatically and the active or spell to buffer to cast afterwards.
       - Teleport will cancel the channel entirely.
-
-## Q: Spear Shot
-
-Source: [Template:Data Pantheon/Spear Shot](https://wiki.leagueoflegends.com/en-us/Template:Data_Pantheon/Spear_Shot?oldid=3147919) (revision 3147919). Ranks: 5.
-
-| Field | Value |
-|---|---|
-| Cooldown | 4 |
-| Cost | 45 mana |
-| Target range | 600 |
-
-Targeting: Unit · Affects: Enemies · Damage type: physical · Spell shield blocks it: true · Projectile: true · Parry: – · Disabled by grounded: – · Usable while knocked down: –
-
-Active: Pantheon hurls his spear at the target enemy, dealing them physical damage.
-
-- **Physical Damage:** 75 / 115 / 155 / 195 / 235 (+ 140% bonus AD) → at max rank, level 20: 235 (+ 140% bonusAD)
-
-Certain Death causes Spear Shot to deal (100% + 25%) bonus physical damage.
-
-Notes:
-
-- No additional details.
-
-## W: Aegis of Zeonia
-
-Source: [Template:Data Pantheon/Aegis of Zeonia](https://wiki.leagueoflegends.com/en-us/Template:Data_Pantheon/Aegis_of_Zeonia?oldid=2772723) (revision 2772723). Ranks: 5.
-
-| Field | Value |
-|---|---|
-| Cooldown | 13 / 12 / 11 / 10 / 9 |
-| Cost | 55 mana |
-| Target range | 600 |
-
-Targeting: Unit · Affects: Enemies · Damage type: magic · Spell shield blocks it: true · Projectile: – · Parry: – · Disabled by grounded: – · Usable while knocked down: –
-
-Active: Pantheon dashes to the target enemy, dealing them magic damage, stunning them for 1 second, and gaining Aegis Protection.
-
-- **Magic Damage:** 60 / 85 / 110 / 135 / 160 (+ 100% AP) → at max rank, level 20: 160 (+ 100% AP)
-- **Mechanics:** dash; stun (1 s)
-
-Notes:
-
-- Aegis of Zeonia will be interrupted if Pantheon is disabled mid-dash, but will not prevent Aegis Protection from being activated.
-    - This enables Pantheon to block an attack while mid-dash.
-- Since Aegis of Zeonia's is a targeted ability, targets who move out of its range will still be stunned.
-- Casting Aegis of Zeonia activates Aegis Protection without removing any stacks Pantheon already applied when so.
 
 ## W: Shield Vault
 
@@ -214,67 +167,6 @@ Notes:
     - Pantheon will slam from wherever he was at the start of the recast's' cast time.
 - Spell shield will only block the slam's damage.
 - The following table refers for interactions while Pantheon is channeling:
-
-## E: Heartseeker Strike
-
-Source: [Template:Data Pantheon/Heartseeker Strike](https://wiki.leagueoflegends.com/en-us/Template:Data_Pantheon/Heartseeker_Strike?oldid=2822243) (revision 2822243). Ranks: 5.
-
-| Field | Value |
-|---|---|
-| Cooldown | 10 / 9 / 8 / 7 / 6 |
-| Cost | 45 / 50 / 55 / 60 / 65 mana |
-| Effect radius | 600 |
-| Angle | 80° |
-
-Targeting: Direction · Affects: Enemies · Damage type: physical · Spell shield blocks it: special · Projectile: – · Parry: – · Disabled by grounded: – · Usable while knocked down: –
-
-Passive - Certain Death: Pantheon's basic attacks and Spear Shot critically strike all enemies below 15% maximum health.
-
-- **Mechanics:** critical strike
-
-Active: Pantheon channels for 0.75 seconds, dealing physical damage to all enemies in a cone in front of him at 0.25 seconds intervals. The total damage is reduced to 60% against non-champions.
-
-- **Total Physical Damage:** 100 / 150 / 200 / 250 / 300 (+ 300% bonus AD) → at max rank, level 20: 300 (+ 300% bonusAD)
-- **Physical Damage Per Strike:** 33.3333 / 50 / 66.6667 / 83.3333 / 100 (+ 100% bonus AD) → at max rank, level 20: 100 (+ 100% bonusAD)
-- **Total Damage to Non-Champions:** 60 / 90 / 120 / 150 / 180 (+ 180% bonus AD) → at max rank, level 20: 180 (+ 180% bonusAD)
-- **Damage Per Strike to Non-Champions:** 20 / 30 / 40 / 50 / 60 (+ 60% bonus AD) → at max rank, level 20: 60 (+ 60% bonusAD)
-- **Mechanics:** channel (0.75 s)
-
-Notes:
-
-- Certain Death will only be applied when Pantheon unlocks Heartseeker Strike.
-- Certain Death does not use Pantheon's critical strike animation.
-- Spell shield will block a single tick's worth of damage.
-
-## R: Grand Skyfall
-
-Source: [Template:Data Pantheon/Grand Skyfall](https://wiki.leagueoflegends.com/en-us/Template:Data_Pantheon/Grand_Skyfall?oldid=2793570) (revision 2793570). Ranks: 3.
-
-| Field | Value |
-|---|---|
-| Cooldown | 150 / 135 / 120 |
-| Cost | 100 mana |
-| Target range | 5500 |
-| Effect radius | 700 |
-
-Targeting: Ground · Affects: Enemies · Damage type: magic · Spell shield blocks it: true · Projectile: – · Parry: – · Disabled by grounded: – · Usable while knocked down: –
-
-Active: Pantheon begins channeling and, after 2 seconds, leaps into the air and becomes untargetable. He then blinks to the target location and plummets down, striking after 2 seconds and becoming targetable once more.
-
-- **Mechanics:** channel; untargetable; blink
-
-Enemies within the impact zone take magic damage, increased by up to 100% based on their proximity to the epicenter, and are slowed by 35% for 1 second.
-
-- **Minimum Magic Damage:** 200 / 350 / 500 (+ 50% AP) → at max rank, level 20: 500 (+ 50% AP)
-- **Maximum Magic Damage:** 400 / 700 / 1000 (+ 100% AP) → at max rank, level 20: 1000 (+ 100% AP)
-- **Mechanics:** slow (1 s, 35%)
-
-Grand Skyfall's cooldown is reduced to 30 seconds if the channel is interrupted or canceled.
-
-Notes:
-
-- Pantheon is considered to have moved to Grand Skyfall's target location as soon as he finishes leaping (but he is still targetable for the entire channel despite visually disappearing).
-    - Enemies will still be damaged if Pantheon is disabled before landing.
 
 ## R: Grand Starfall
 

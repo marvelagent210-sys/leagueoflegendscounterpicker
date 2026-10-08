@@ -9,6 +9,22 @@ Values marked "at max rank, level 20" assume every ability is maxed; see PLAN.md
 |---|--:|--:|--:|--:|--:|--:|--:|--:|--:|--:|
 | Rakan | 2556.8 | 14.83 | 1298.3 Mana | 130.8 | 1.010 | 0.170 | 126.4 | 72.3 | 300 | 335 |
 
+## Fight profile (what the interaction ledger uses)
+
+| Form | Attack range | Ranged | Projectile | Missile speed | Attack modifiers |
+|---|--:|---|---|--:|---|
+| Rakan | 300 | no | no | – | Fey Feathers |
+
+Cooldowns at max rank. Flags: the wiki's interaction flags (yes, no, partly). * marks an effect that applies only under a condition.
+
+| Slot | Ability | Cooldown | Delivery | Applies to the enemy | Movement | Gives itself |
+|---|---|--:|---|---|---|---|
+| E | Battle Dance | 12 | grounded yes; knockdown yes | – | dash | shield 3 s |
+| I | Fey Feathers | 12.75 | spell shield no; parry no; attack modifier | – | – | shield |
+| Q | Gleaming Quill | 7 | projectile yes; spell shield partly | – | – | heal |
+| R | The Quickness | 90 | spell shield yes | charm 1.5 s; slow 75% | – | – |
+| W | Grand Entrance | 10 | spell shield yes; grounded yes; knockdown yes | airborne (knock up) 1 s | dash | – |
+
 ## Innate: Fey Feathers
 
 Source: [Template:Data Rakan/Fey Feathers](https://wiki.leagueoflegends.com/en-us/Template:Data_Rakan/Fey_Feathers?oldid=4016025) (revision 4016025). Ranks: 1.

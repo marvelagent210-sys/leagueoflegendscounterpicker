@@ -1,0 +1,226 @@
+{
+  "champion": "Nami",
+  "name": "Nami",
+  "gameplayRadius": 65,
+  "moveSpeed": 335,
+  "attacks": [
+    {
+      "form": "nami",
+      "formName": "Nami",
+      "range": 550,
+      "ranged": true,
+      "projectile": true,
+      "missileSpeed": 1500,
+      "attackSpeed": 0.974537,
+      "attackDamage": 114.962,
+      "windup": 0.184703,
+      "modifiers": []
+    }
+  ],
+  "abilities": [
+    {
+      "champion": "Nami",
+      "kind": "E",
+      "name": "Tidecaller's Blessing",
+      "page": {
+        "title": "Template:Data Nami/Tidecaller's Blessing",
+        "revid": 4042884
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "unit"
+        ],
+        "affectsEnemies": false,
+        "spellShield": "no",
+        "parry": "yes"
+      },
+      "applies": [
+        {
+          "type": "slow",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "slow"
+            },
+            {
+              "page": "Template:Data Nami/Tidecaller's Blessing",
+              "revid": 4042884,
+              "quote": "Active: Nami blesses herself or an allied champion for 6 seconds, empowering their next 3 basic attacks or abilities to each deal bonus magic damage and slow enemies for 1 second."
+            }
+          ],
+          "duration": 1,
+          "amount": 35
+        }
+      ],
+      "movement": [],
+      "states": [],
+      "cooldown": 11,
+      "castTime": 0,
+      "range": 800
+    },
+    {
+      "champion": "Nami",
+      "kind": "I",
+      "name": "Surging Tides",
+      "page": {
+        "title": "Template:Data Nami/Surging Tides",
+        "revid": 3985614
+      },
+      "damageTypes": [],
+      "delivery": {
+        "targeting": [
+          "passive"
+        ],
+        "affectsEnemies": false
+      },
+      "applies": [],
+      "movement": [],
+      "states": []
+    },
+    {
+      "champion": "Nami",
+      "kind": "Q",
+      "name": "Aqua Prison",
+      "page": {
+        "title": "Template:Data Nami/Aqua Prison",
+        "revid": 4007696
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "location"
+        ],
+        "affectsEnemies": true,
+        "projectile": "yes",
+        "spellShield": "yes"
+      },
+      "applies": [
+        {
+          "type": "suspension",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "suspension"
+            }
+          ]
+        }
+      ],
+      "movement": [],
+      "states": [],
+      "cooldown": 8,
+      "castTime": 0.25,
+      "range": 850
+    },
+    {
+      "champion": "Nami",
+      "kind": "R",
+      "name": "Tidal Wave",
+      "page": {
+        "title": "Template:Data Nami/Tidal Wave",
+        "revid": 3712330
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "direction"
+        ],
+        "affectsEnemies": true,
+        "projectile": "yes",
+        "spellShield": "yes"
+      },
+      "applies": [
+        {
+          "type": "airborne",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "airborne: knock up"
+            },
+            {
+              "page": "Template:Data Nami/Tidal Wave",
+              "revid": 3712330,
+              "quote": "Active: Nami surges a tidal wave in the target direction, granting sight around its trajectory as it travels, dealing magic damage to enemies hit, knocking them up for 0.5 seconds, and slowing them by 70% for 2 / 2.2 / 2.4 / 2.6 / 2.8 / 3 / 3.2 / 3.4 / 3.6 / 3.8 / 4 (based on distance traveled) seconds."
+            }
+          ],
+          "variant": "knock up",
+          "duration": 0.5
+        },
+        {
+          "type": "slow",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "slow"
+            },
+            {
+              "page": "Template:Data Nami/Tidal Wave",
+              "revid": 3712330,
+              "quote": "Active: Nami surges a tidal wave in the target direction, granting sight around its trajectory as it travels, dealing magic damage to enemies hit, knocking them up for 0.5 seconds, and slowing them by 70% for 2 / 2.2 / 2.4 / 2.6 / 2.8 / 3 / 3.2 / 3.4 / 3.6 / 3.8 / 4 (based on distance traveled) seconds."
+            }
+          ],
+          "duration": 2,
+          "amount": 70
+        }
+      ],
+      "movement": [],
+      "states": [],
+      "cooldown": 100,
+      "castTime": 0.5,
+      "range": 2750,
+      "speed": 850
+    },
+    {
+      "champion": "Nami",
+      "kind": "W",
+      "name": "Ebb and Flow",
+      "page": {
+        "title": "Template:Data Nami/Ebb and Flow",
+        "revid": 4007697
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "unit"
+        ],
+        "affectsEnemies": true,
+        "projectile": "yes",
+        "spellShield": "yes"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [
+        {
+          "state": "heal",
+          "evidence": [
+            {
+              "page": "Template:Data Nami/Ebb and Flow",
+              "revid": 4007697,
+              "quote": "Ebb and Flow heals allies and deals magic damage to enemies, with each bounce modifying the effectiveness of the next by -20% (+ 15% per 100 AP)."
+            }
+          ]
+        }
+      ],
+      "cooldown": 10,
+      "castTime": 0.25,
+      "range": 725,
+      "speed": 2500,
+      "notes": [
+        "If cast on an enemy with a spell shield they will not take damage but Ebb and Flow will still continue to bounce, and the target who blocked the ability may be targeted again by the final bounce.",
+        "If the target becomes untargetable, dies, or is too far away or no longer in sight during the cast time, this ability will cancel but does not go on cooldown nor pay its cost (if applicable)."
+      ]
+    }
+  ]
+}

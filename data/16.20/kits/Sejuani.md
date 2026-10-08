@@ -9,6 +9,22 @@ Values marked "at max rank, level 20" assume every ability is maxed; see PLAN.md
 |---|--:|--:|--:|--:|--:|--:|--:|--:|--:|--:|
 | Sejuani | 2871.8 | 28.17 | 1186.6 Mana | 144.7 | 1.118 | 0.168 | 141.2 | 72.3 | 150 | 340 |
 
+## Fight profile (what the interaction ledger uses)
+
+| Form | Attack range | Ranged | Projectile | Missile speed | Attack modifiers |
+|---|--:|---|---|--:|---|
+| Sejuani | 150 | no | no | – | Fury of the North |
+
+Cooldowns at max rank. Flags: the wiki's interaction flags (yes, no, partly). * marks an effect that applies only under a condition.
+
+| Slot | Ability | Cooldown | Delivery | Applies to the enemy | Movement | Gives itself |
+|---|---|--:|---|---|---|---|
+| E | Permafrost | 1.5 | projectile yes; spell shield yes; on-hit | airborne (knock back); stun 1 s | – | – |
+| I | Fury of the North | – | attack modifier | – | – | slow immune |
+| Q | Arctic Assault | 12 | spell shield yes; grounded yes; knockdown yes | airborne (knock up) 0.5 s | dash | – |
+| R | Glacial Prison | 90 | projectile yes; spell shield partly | slow 30%; stun 1 s | – | – |
+| W | Winter's Wrath | 5 | projectile no; spell shield partly | slow 0.25 s 75% | – | – |
+
 ## Innate: Fury of the North
 
 Source: [Template:Data Sejuani/Fury of the North](https://wiki.leagueoflegends.com/en-us/Template:Data_Sejuani/Fury_of_the_North?oldid=3985822) (revision 3985822). Ranks: 1.

@@ -9,6 +9,22 @@ Values marked "at max rank, level 20" assume every ability is maxed; see PLAN.md
 |---|--:|--:|--:|--:|--:|--:|--:|--:|--:|--:|
 | Sona | 2339.5 | 16.32 | 1224.9 Mana | 108.0 | 0.935 | 0.184 | 108.6 | 55.6 | 550 | 325 |
 
+## Fight profile (what the interaction ledger uses)
+
+| Form | Attack range | Ranged | Projectile | Missile speed | Attack modifiers |
+|---|--:|---|---|--:|---|
+| Sona | 550 | yes | yes | 1500 | Power Chord |
+
+Cooldowns at max rank. Flags: the wiki's interaction flags (yes, no, partly). * marks an effect that applies only under a condition.
+
+| Slot | Ability | Cooldown | Delivery | Applies to the enemy | Movement | Gives itself |
+|---|---|--:|---|---|---|---|
+| E | Song of Celerity | 14 | – | – | – | – |
+| I | Power Chord | – | spell shield yes; parry yes; attack modifier | slow 2 s 50% | – | – |
+| Q | Hymn of Valor | 8 | projectile yes; spell shield yes; attack | – | – | – |
+| R | Crescendo | 100 | projectile yes; spell shield yes | stun 1.5 s | – | – |
+| W | Aria of Perseverance | 10 | projectile yes | – | – | heal; shield 1.5 s |
+
 ## Innate: Power Chord
 
 Source: [Template:Data Sona/Power Chord](https://wiki.leagueoflegends.com/en-us/Template:Data_Sona/Power_Chord?oldid=4047882) (revision 4047882). Ranks: 1.

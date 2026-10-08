@@ -1,0 +1,245 @@
+{
+  "champion": "MasterYi",
+  "name": "Master Yi",
+  "gameplayRadius": 65,
+  "moveSpeed": 355,
+  "attacks": [
+    {
+      "form": "master-yi",
+      "formName": "Master Yi",
+      "range": 175,
+      "ranged": false,
+      "projectile": false,
+      "attackSpeed": 1.01281,
+      "attackDamage": 114.163,
+      "windup": 0.240666,
+      "modifiers": [
+        "Double Strike"
+      ]
+    }
+  ],
+  "abilities": [
+    {
+      "champion": "MasterYi",
+      "kind": "E",
+      "name": "Wuju Style",
+      "page": {
+        "title": "Template:Data Master Yi/Wuju Style",
+        "revid": 3959670
+      },
+      "damageTypes": [
+        "true"
+      ],
+      "delivery": {
+        "targeting": [
+          "auto"
+        ],
+        "affectsEnemies": false,
+        "parry": "partly",
+        "attack": "on-hit"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "cooldown": 14,
+      "castTime": 0,
+      "notes": [
+        "Wuju Style's bonus true damage cannot be blocked but can be dodged and/or missed if Master Yi is blinded."
+      ]
+    },
+    {
+      "champion": "MasterYi",
+      "kind": "I",
+      "name": "Double Strike",
+      "page": {
+        "title": "Template:Data Master Yi/Double Strike",
+        "revid": 4057839
+      },
+      "damageTypes": [
+        "physical"
+      ],
+      "delivery": {
+        "targeting": [
+          "passive"
+        ],
+        "affectsEnemies": true,
+        "parry": "partly",
+        "attack": "attack modifier"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "notes": [
+        "Since Double Strike resets the counter with the first strike, and the second strike applies on-hit effects, the second strike is able to add a stack for the next Double Strike activation.",
+        "If Double Strike's target becomes untargetable shortly after the triggering attack, it will still occur and deal its effects as usual.",
+        "Basic attacks that are dodged, blocked, or missed while Master Yi is blinded will not generate any stacks of Double Strike nor refresh the duration of active stacks.",
+        "Double Strike's interaction with parry effects at 3 stacks (the damage of the strikes is negated in all cases):\n  - If the triggering basic attack is dodged, Master Yi will not perform the second strike nor consume the stacks.\n  - If the triggering basic attack is blocked, Master Yi will perform the second strike but not consume the stacks.\n  - If the triggering basic attack misses while Master Yi is blinded, he will consume the stacks.\n    - The second strike will fail to hit the target at all if the triggering attack misses. On-attack effects do not occur, despite the attack animation playing."
+      ]
+    },
+    {
+      "champion": "MasterYi",
+      "kind": "Q",
+      "name": "Alpha Strike",
+      "page": {
+        "title": "Template:Data Master Yi/Alpha Strike",
+        "revid": 4064856
+      },
+      "damageTypes": [
+        "physical"
+      ],
+      "delivery": {
+        "targeting": [
+          "unit"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "partly",
+        "parry": "partly",
+        "grounded": "yes",
+        "attack": "on-hit"
+      },
+      "applies": [],
+      "movement": [
+        {
+          "type": "blink",
+          "evidence": [
+            {
+              "page": "Blink",
+              "revid": 4047228
+            }
+          ]
+        }
+      ],
+      "states": [
+        {
+          "state": "untargetable",
+          "evidence": [
+            {
+              "page": "Untargetability",
+              "revid": 3965000
+            },
+            {
+              "page": "Template:Data Master Yi/Alpha Strike",
+              "revid": 4064856,
+              "quote": "Active: Master Yi vanishes and becomes unable to act."
+            }
+          ]
+        }
+      ],
+      "cooldown": 18,
+      "castTime": 0,
+      "range": 600,
+      "notes": [
+        "If the primary target becomes untargetable and there are no other nearby valid targets, Alpha Strike will end prematurely and will not deal the damage occurring after Master Yi's reappearance.",
+        "While basic damage on-hit can stack Conqueror multiple times regardless of cast instance, Alpha Strike is unique in that it is the only multi on-hit effect to stack just once for being a single cast instance and for not being basic damage.",
+        "Spell shield will only block a single instance of damage.",
+        "On-hit damage applied by Alpha Strike will be negated by dodge and block, but not while Master Yi is blinded.\n  - Alpha Strike's own damage will not be negated."
+      ]
+    },
+    {
+      "champion": "MasterYi",
+      "kind": "R",
+      "name": "Highlander",
+      "page": {
+        "title": "Template:Data Master Yi/Highlander",
+        "revid": 4060364
+      },
+      "damageTypes": [],
+      "delivery": {
+        "targeting": [
+          "auto"
+        ],
+        "affectsEnemies": false
+      },
+      "applies": [],
+      "movement": [],
+      "states": [
+        {
+          "state": "slow immune",
+          "evidence": [
+            {
+              "page": "Template:Tip data/Slow-immune",
+              "revid": 4060627
+            },
+            {
+              "page": "Template:Data Master Yi/Highlander",
+              "revid": 4060364,
+              "quote": "For the next 7 seconds, he gains ghosting, bonus attack speed, bonus movement speed, slow immunity, and cripple immunity."
+            },
+            {
+              "page": "Template:Data Master Yi/Highlander",
+              "revid": 4060364,
+              "quote": "For the next 7 seconds, he gains ghosting, bonus attack speed, bonus movement speed, slow immunity, and cripple immunity."
+            }
+          ],
+          "duration": 7
+        },
+        {
+          "state": "cleanse",
+          "removes": [
+            "cripple",
+            "slow"
+          ],
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Summary"
+            }
+          ]
+        }
+      ],
+      "cooldown": 85,
+      "castTime": 0,
+      "boostsAttacks": true
+    },
+    {
+      "champion": "MasterYi",
+      "kind": "W",
+      "name": "Meditate",
+      "page": {
+        "title": "Template:Data Master Yi/Meditate",
+        "revid": 4039653
+      },
+      "damageTypes": [],
+      "delivery": {
+        "targeting": [
+          "auto"
+        ],
+        "affectsEnemies": false,
+        "disruptable": "yes"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [
+        {
+          "state": "heal",
+          "evidence": [
+            {
+              "page": "Template:Data Master Yi/Meditate",
+              "revid": 4039653,
+              "quote": "Active: Master Yi channels for up to 4 seconds, healing himself every 0.5 seconds, increased by 0 / 10 / 20 / 30 / 40 / 50 / 60 / 70 / 80 / 90 / 100 (based on missing health)%."
+            }
+          ],
+          "duration": 4
+        }
+      ],
+      "cooldown": 10,
+      "castTime": 0,
+      "channel": [
+        {
+          "type": "normal",
+          "evidence": [
+            {
+              "page": "Channel",
+              "revid": 4002276,
+              "quote": "normal"
+            }
+          ]
+        }
+      ],
+      "boostsAttacks": true,
+      "notes": [
+        "The first tick of healing may occur at any moment on the first 0.5 seconds of the channel. This means immediately canceling the channel for the attack reset does not guarantee one tick of healing, though it may occur with some chance.",
+        "The following table refers for interactions while Master Yi is channeling:"
+      ]
+    }
+  ]
+}

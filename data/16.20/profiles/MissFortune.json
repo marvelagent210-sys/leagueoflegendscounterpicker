@@ -1,0 +1,194 @@
+{
+  "champion": "MissFortune",
+  "name": "Miss Fortune",
+  "gameplayRadius": 65,
+  "moveSpeed": 325,
+  "attacks": [
+    {
+      "form": "miss-fortune",
+      "formName": "Miss Fortune",
+      "range": 550,
+      "ranged": true,
+      "projectile": true,
+      "missileSpeed": 2000,
+      "attackSpeed": 1.04301,
+      "attackDamage": 102.196,
+      "windup": 0.141904,
+      "modifiers": [
+        "Love Tap"
+      ]
+    }
+  ],
+  "abilities": [
+    {
+      "champion": "MissFortune",
+      "kind": "E",
+      "name": "Make It Rain",
+      "page": {
+        "title": "Template:Data Miss Fortune/Make It Rain",
+        "revid": 4065641
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "location"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "no"
+      },
+      "applies": [
+        {
+          "type": "slow",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "slow"
+            },
+            {
+              "page": "Template:Data Miss Fortune/Make It Rain",
+              "revid": 4065641,
+              "quote": "Active: Miss Fortune casts a storm of bullets at the target location for 2 seconds, granting sight of the area, dealing magic damage every 0.25 seconds to enemies within, and slowing them by 40% (+ 6% per 100 AP)."
+            }
+          ],
+          "amount": 40
+        }
+      ],
+      "movement": [],
+      "states": [],
+      "cooldown": 14,
+      "castTime": 0.25,
+      "range": 1000,
+      "notes": [
+        "Make It Rain's slow cannot be cleansed."
+      ]
+    },
+    {
+      "champion": "MissFortune",
+      "kind": "I",
+      "name": "Love Tap",
+      "page": {
+        "title": "Template:Data Miss Fortune/Love Tap",
+        "revid": 4027989
+      },
+      "damageTypes": [
+        "physical"
+      ],
+      "delivery": {
+        "targeting": [
+          "passive"
+        ],
+        "affectsEnemies": true,
+        "parry": "yes",
+        "attack": "attack modifier"
+      },
+      "applies": [],
+      "movement": [],
+      "states": []
+    },
+    {
+      "champion": "MissFortune",
+      "kind": "Q",
+      "name": "Double Up",
+      "page": {
+        "title": "Template:Data Miss Fortune/Double Up",
+        "revid": 3993572
+      },
+      "damageTypes": [
+        "physical"
+      ],
+      "delivery": {
+        "targeting": [
+          "unit"
+        ],
+        "affectsEnemies": true,
+        "projectile": "yes",
+        "spellShield": "partly",
+        "parry": "yes",
+        "attack": "on-hit"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "cooldown": 3,
+      "range": 550,
+      "speed": 1400,
+      "notes": [
+        "Spell shields can be used by either target. If it is on the primary target, the spell shield will not prevent the shot from bouncing.",
+        "If there is no secondary target, the shot will not bounce and the dud will instead fall to the ground.\n  - The dud lands on the ground 176 units behind the primary target and has a missile speed of 400 on its way there.",
+        "If the target becomes untargetable, dies, or is too far away or no longer in sight during the cast time, this ability will cancel but does not go on cooldown nor pay its cost (if applicable)."
+      ]
+    },
+    {
+      "champion": "MissFortune",
+      "kind": "R",
+      "name": "Bullet Time",
+      "page": {
+        "title": "Template:Data Miss Fortune/Bullet Time",
+        "revid": 4050364
+      },
+      "damageTypes": [
+        "physical"
+      ],
+      "delivery": {
+        "targeting": [
+          "direction"
+        ],
+        "affectsEnemies": true,
+        "projectile": "yes",
+        "spellShield": "no",
+        "disruptable": "yes"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "cooldown": 100,
+      "castTime": 0.001,
+      "speed": 2000,
+      "channel": [
+        {
+          "type": "normal",
+          "evidence": [
+            {
+              "page": "Channel",
+              "revid": 4002276,
+              "quote": "normal"
+            }
+          ]
+        }
+      ],
+      "notes": [
+        "Miss Fortune reveals a 200-radius area around herself for 2.0 seconds to the enemy team if she fires from an unseen location and there is one of their units within the target cone of 1400 units radius and 17° cone (toward either side from her facing direction), and repeatedly as she fires waves while enemies are in a cone of 1500 units radius and 23° cone (toward either side from her facing direction) in front of her.",
+        "Targets cannot be damaged by more than one projectile per wave.",
+        "The bullet streams that each fire 1 projectile per wave are spead by 6° between one another, aiming towards the angles +-3/9/15° from Miss Fortune's facing direction.",
+        "The unusually short cast time of Bullet Time will result in an effective cast time of 0.033, as the server must wait until the next game tick for the channel time to start.\n  - Miss Fortune is allowed to cast Flash during this cast time. As Flash changes the user's facing direction, this will cause Bullet Time to fire in the new facing direction.\n    - Casting Flash before the cast time will not affect the cast direction (Bullet Time will correctly fire towards the targeted location on the ground).",
+        "Bullet Time fires the first wave at 0.066, and the last at 2.904. Times between waves are equally spread between these values.\n  - Miss Fortune may cancel the last ~0.1 seconds of channel time at no loss of effect.",
+        "The following table refers for interactions while Miss Fortune is channeling:"
+      ]
+    },
+    {
+      "champion": "MissFortune",
+      "kind": "W",
+      "name": "Strut",
+      "page": {
+        "title": "Template:Data Miss Fortune/Strut",
+        "revid": 4015416
+      },
+      "damageTypes": [],
+      "delivery": {
+        "targeting": [
+          "auto"
+        ],
+        "affectsEnemies": false
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "cooldown": 12,
+      "castTime": 0,
+      "boostsAttacks": true
+    }
+  ]
+}

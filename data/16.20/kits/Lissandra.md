@@ -9,24 +9,21 @@ Values marked "at max rank, level 20" assume every ability is maxed; see PLAN.md
 |---|--:|--:|--:|--:|--:|--:|--:|--:|--:|--:|
 | Lissandra | 2783.2 | 17.82 | 1065.0 Mana | 108.1 | 0.840 | 0.223 | 104.6 | 55.6 | 550 | 325 |
 
-## Innate: Iceborn
+## Fight profile (what the interaction ledger uses)
 
-Source: [Template:Data Lissandra/Iceborn](https://wiki.leagueoflegends.com/en-us/Template:Data_Lissandra/Iceborn?oldid=3907244) (revision 3907244). Ranks: 1.
+| Form | Attack range | Ranged | Projectile | Missile speed | Attack modifiers |
+|---|--:|---|---|--:|---|
+| Lissandra | 550 | yes | yes | 2200 | – |
 
-| Field | Value |
-|---|---|
-| Static cooldown | 18 / 15 / 12 / 9 (based on level) |
+Cooldowns at max rank. Flags: the wiki's interaction flags (yes, no, partly). * marks an effect that applies only under a condition.
 
-Targeting: Passive · Affects: Self · Damage type: – · Spell shield blocks it: – · Projectile: – · Parry: – · Disabled by grounded: – · Usable while knocked down: –
-
-Innate: Lissandra's next ability periodically costs no mana.
-
-Iceborn's cooldown is reduced by 1 second every time Lissandra applies crowd control to an enemy with her abilities, excluding crowd control spell effects from items.
-
-Notes:
-
-- Ring of Frost and Frozen Tomb can trigger Iceborn's cooldown reduction multiple times (once per enemy hit)
-- When Iceborn is off cooldown Lissandra's headdress glows.
+| Slot | Ability | Cooldown | Delivery | Applies to the enemy | Movement | Gives itself |
+|---|---|--:|---|---|---|---|
+| E | Glacial Path | 12 | projectile yes; spell shield yes; grounded partly | – | blink (recast) | – |
+| I | Iceborn Subjugation | – | spell shield yes | slow 25% | – | – |
+| Q | Ice Shard | 3 | projectile yes; spell shield partly | slow 1.5 s 36% | – | – |
+| R | Frozen Tomb | 80 | spell shield partly | knockdown 1.5 s; slow 0.5 s 75%; stun 1.5 s; knockdown | – | stasis 2.5 s; untargetable 2.5 s; heal 2.5 s |
+| W | Ring of Frost | 8 | spell shield yes | root 1.65 s | – | – |
 
 ## Innate: Iceborn Subjugation
 

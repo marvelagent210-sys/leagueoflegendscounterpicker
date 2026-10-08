@@ -1,0 +1,377 @@
+{
+  "champion": "Rell",
+  "name": "Rell",
+  "gameplayRadius": 65,
+  "moveSpeed": 315,
+  "attacks": [
+    {
+      "form": "rell",
+      "formName": "Rell",
+      "range": 175,
+      "ranged": false,
+      "projectile": false,
+      "attackSpeed": 0.870812,
+      "attackDamage": 113.995,
+      "windup": 0.215316,
+      "modifiers": [
+        "Break the Mold"
+      ]
+    }
+  ],
+  "abilities": [
+    {
+      "champion": "Rell",
+      "kind": "E",
+      "name": "Full Tilt",
+      "page": {
+        "title": "Template:Data Rell/Full Tilt",
+        "revid": 4008009
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "unit",
+          "auto"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "yes",
+        "attack": "attack"
+      },
+      "applies": [
+        {
+          "type": "stun",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "stun"
+            }
+          ]
+        }
+      ],
+      "movement": [],
+      "states": [],
+      "cooldown": 10,
+      "castTime": 0,
+      "range": 1200
+    },
+    {
+      "champion": "Rell",
+      "kind": "I",
+      "name": "Break the Mold",
+      "page": {
+        "title": "Template:Data Rell/Break the Mold",
+        "revid": 4050368
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "passive"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "no",
+        "parry": "yes",
+        "attack": "attack modifier"
+      },
+      "applies": [],
+      "movement": [],
+      "states": []
+    },
+    {
+      "champion": "Rell",
+      "kind": "Q",
+      "name": "Shattering Strike",
+      "page": {
+        "title": "Template:Data Rell/Shattering Strike",
+        "revid": 4008008
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "direction"
+        ],
+        "affectsEnemies": true,
+        "projectile": "no",
+        "spellShield": "yes"
+      },
+      "applies": [
+        {
+          "type": "stun",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "stun"
+            },
+            {
+              "page": "Template:Data Rell/Shattering Strike",
+              "revid": 4008008,
+              "quote": "Active: Rell thrusts her lance in the target direction, lunging forward 100 units and destroying the damage-mitigating shields of all enemies hit (excluding the shields of monsters) before dealing them magic damage and stunning them for 0.65 seconds."
+            }
+          ],
+          "duration": 0.65
+        }
+      ],
+      "movement": [
+        {
+          "type": "lunge",
+          "evidence": [
+            {
+              "page": "Dash",
+              "revid": 4035700
+            }
+          ]
+        }
+      ],
+      "states": [
+        {
+          "state": "shield",
+          "evidence": [
+            {
+              "page": "Template:Data Rell/Shattering Strike",
+              "revid": 4008008,
+              "quote": "Active: Rell thrusts her lance in the target direction, lunging forward 100 units and destroying the damage-mitigating shields of all enemies hit (excluding the shields of monsters) before dealing them magic damage and stunning them for 0.65 seconds."
+            }
+          ],
+          "duration": 0.65
+        }
+      ],
+      "cooldown": 9,
+      "castTime": 0.4,
+      "range": 520
+    },
+    {
+      "champion": "Rell",
+      "kind": "R",
+      "name": "Magnet Storm",
+      "page": {
+        "title": "Template:Data Rell/Magnet Storm",
+        "revid": 4008010
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "auto"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "partly"
+      },
+      "applies": [
+        {
+          "type": "airborne",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "airborne: pull"
+            },
+            {
+              "page": "Template:Data Rell/Magnet Storm",
+              "revid": 4008010,
+              "quote": "Active: Rell erupts with magnetic fury, pulling nearby enemies inward and creating a gravitational field around her for the next 2 seconds that deals magic damage every 0.25 seconds to nearby enemies and drags them towards her."
+            }
+          ],
+          "variant": "pull",
+          "duration": 2
+        },
+        {
+          "type": "kinematics",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "kinematics"
+            }
+          ]
+        }
+      ],
+      "movement": [],
+      "states": [],
+      "cooldown": 80,
+      "castTime": 0.25,
+      "speed": 300,
+      "notes": [
+        "Magnet Storm will not drag units that are:\n  - Dashing.\n  - Being displaced (e.g. by airborne effects)\n  - Attached.\n  - Displacement immune.\n  - Immune to crowd control.",
+        "Spell shield will block the initial pull but not the dragging effect."
+      ]
+    },
+    {
+      "champion": "Rell",
+      "kind": "W",
+      "name": "Ferromancy: Crash Down",
+      "page": {
+        "title": "Template:Data Rell/Ferromancy: Crash Down",
+        "revid": 4007762
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "location"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "yes",
+        "grounded": "yes",
+        "knockdown": "yes"
+      },
+      "applies": [
+        {
+          "type": "airborne",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "airborne: knock up"
+            },
+            {
+              "page": "Template:Data Rell/Ferromancy: Crash Down",
+              "revid": 4007762,
+              "quote": "Upon arrival, she deals magic damage to nearby enemies, stuns them for 0.8 seconds, and knocks them up for 0.4 seconds."
+            }
+          ],
+          "variant": "knock up",
+          "duration": 0.4
+        },
+        {
+          "type": "stun",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "stun"
+            },
+            {
+              "page": "Template:Data Rell/Ferromancy: Crash Down",
+              "revid": 4007762,
+              "quote": "Upon arrival, she deals magic damage to nearby enemies, stuns them for 0.8 seconds, and knocks them up for 0.4 seconds."
+            }
+          ],
+          "duration": 0.8
+        }
+      ],
+      "movement": [
+        {
+          "type": "dash",
+          "evidence": [
+            {
+              "page": "Dash",
+              "revid": 4035700,
+              "quote": "location-targeted"
+            }
+          ],
+          "targeting": "location-targeted",
+          "interruptible": true
+        }
+      ],
+      "states": [
+        {
+          "state": "shield",
+          "evidence": [
+            {
+              "page": "Template:Data Rell/Ferromancy: Crash Down",
+              "revid": 4007762,
+              "quote": "Active: Rell becomes Dismounted and leaps to the target location over the cast time, granting herself a shield that lasts until destroyed or casting Ferromancy: Mount Up."
+            }
+          ]
+        }
+      ],
+      "cooldown": 10,
+      "castTime": 0.625,
+      "range": 100,
+      "notes": [
+        "If Rell dashes before a wall on the map, the slide will cover a shorter distance to the terrain over the same time, moving slower.\n  - Interaction with player-made walls.",
+        "The following table refers for interactions while Rell is dashing/in cast time:"
+      ]
+    },
+    {
+      "champion": "Rell",
+      "kind": "W",
+      "name": "Ferromancy: Mount Up",
+      "page": {
+        "title": "Template:Data Rell/Ferromancy: Mount Up",
+        "revid": 3976244
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "auto"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "yes",
+        "parry": "yes",
+        "grounded": "no",
+        "knockdown": "partly",
+        "attack": "attack"
+      },
+      "applies": [
+        {
+          "type": "airborne",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "airborne: pull"
+            },
+            {
+              "page": "Template:Data Rell/Ferromancy: Mount Up",
+              "revid": 3976244,
+              "quote": "Upon arrival or collision of the charge, her basic attack deals bonus magic damage, stuns the target for 0.6 seconds, and flings them 150 units over herself, though not through terrain, over 0.4 seconds."
+            }
+          ],
+          "variant": "pull",
+          "duration": 0.4
+        },
+        {
+          "type": "stun",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "stun"
+            },
+            {
+              "page": "Template:Data Rell/Ferromancy: Mount Up",
+              "revid": 3976244,
+              "quote": "Upon arrival or collision of the charge, her basic attack deals bonus magic damage, stuns the target for 0.6 seconds, and flings them 150 units over herself, though not through terrain, over 0.4 seconds."
+            }
+          ],
+          "duration": 0.6
+        }
+      ],
+      "movement": [
+        {
+          "type": "dash",
+          "evidence": [
+            {
+              "page": "Dash",
+              "revid": 4035700,
+              "quote": "unit-targeted"
+            }
+          ],
+          "targeting": "unit-targeted"
+        }
+      ],
+      "states": [],
+      "cooldown": 10,
+      "castTime": 0,
+      "boostsAttacks": true,
+      "notes": [
+        "Rell can use the empowered attack even while grounded or rooted.",
+        "The dash can be knocked down but the attack's effects will still be applied.",
+        "Displacement immunity will not resist the application of the stun.",
+        "If the target becomes untargetable, dies, or is too far away or no longer in sight during the empowered attack's cast time, it is cancelled but not consumed."
+      ]
+    }
+  ]
+}

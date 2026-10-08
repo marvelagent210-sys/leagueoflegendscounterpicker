@@ -9,18 +9,21 @@ Values marked "at max rank, level 20" assume every ability is maxed; see PLAN.md
 |---|--:|--:|--:|--:|--:|--:|--:|--:|--:|--:|
 | Singed | 2537.8 | 20.32 | 1214.9 Mana | 129.9 | 0.934 | 0.214 | 116.6 | 72.3 | 125 | 345 |
 
-## Innate: Empowered Bulwark
+## Fight profile (what the interaction ledger uses)
 
-Source: [Template:Data Singed/Empowered Bulwark](https://wiki.leagueoflegends.com/en-us/Template:Data_Singed/Empowered_Bulwark?oldid=2704863) (revision 2704863). Ranks: 1.
+| Form | Attack range | Ranged | Projectile | Missile speed | Attack modifiers |
+|---|--:|---|---|--:|---|
+| Singed | 125 | no | no | – | – |
 
-Targeting: Empowered Bulwark is a self-targeted buff. · Affects: – · Damage type: – · Spell shield blocks it: – · Projectile: – · Parry: – · Disabled by grounded: – · Usable while knocked down: –
+Cooldowns at max rank. Flags: the wiki's interaction flags (yes, no, partly). * marks an effect that applies only under a condition.
 
-Singed gains bonus health equal to 25% of his maximum mana.
-
-Notes:
-
-- Due to his base mana and mana increase per level, Singed effectively receives 72.65 bonus health at level 1 and additional health growth (11.25) up to 256.25 bonus health at level 18.
-- This bonus health is increased by Cinderhulk, increasing the health gained to 28.75% of his maximum mana.
+| Slot | Ability | Cooldown | Delivery | Applies to the enemy | Movement | Gives itself |
+|---|---|--:|---|---|---|---|
+| E | Fling | 8 | spell shield yes | airborne (pull) 2 s; root 2 s* | – | – |
+| I | Noxious Slipstream | – | – | – | – | – |
+| Q | Poison Trail | 1 | – | grievous wounds* | – | – |
+| R | Insanity Potion | 100 | – | grievous wounds | – | – |
+| W | Mega Adhesive | 13 | projectile yes; spell shield no | ground; slow 70% | – | – |
 
 ## Innate: Noxious Slipstream
 

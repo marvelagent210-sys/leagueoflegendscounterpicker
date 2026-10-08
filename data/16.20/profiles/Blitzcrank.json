@@ -1,0 +1,255 @@
+{
+  "champion": "Blitzcrank",
+  "name": "Blitzcrank",
+  "gameplayRadius": 80,
+  "moveSpeed": 325,
+  "attacks": [
+    {
+      "form": "blitzcrank",
+      "formName": "Blitzcrank",
+      "range": 125,
+      "ranged": false,
+      "projectile": false,
+      "attackSpeed": 0.763884,
+      "attackDamage": 130.828,
+      "windup": 0.353457,
+      "modifiers": []
+    }
+  ],
+  "abilities": [
+    {
+      "champion": "Blitzcrank",
+      "kind": "E",
+      "name": "Power Fist",
+      "page": {
+        "title": "Template:Data Blitzcrank/Power Fist",
+        "revid": 4041159
+      },
+      "damageTypes": [
+        "physical"
+      ],
+      "delivery": {
+        "targeting": [
+          "auto"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "yes",
+        "parry": "yes",
+        "attack": "attack"
+      },
+      "applies": [
+        {
+          "type": "airborne",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "airborne: knock up"
+            },
+            {
+              "page": "Template:Data Blitzcrank/Power Fist",
+              "revid": 4041159,
+              "quote": "Active: Blitzcrank empowers their next basic attack within 5 seconds to have an uncancellable windup, deal 100% AD (+ 25% AP) bonus physical damage and knock up the target for 1 second."
+            }
+          ],
+          "variant": "knock up",
+          "duration": 1
+        }
+      ],
+      "movement": [],
+      "states": [],
+      "cooldown": 5,
+      "castTime": 0,
+      "boostsAttacks": true,
+      "notes": [
+        "Spell shield prevents the knockup and the damage, including the damage of the basic attack itself.",
+        "The enhanced attack will still complete and hit the target even if they become untargetable during the attack's windup."
+      ]
+    },
+    {
+      "champion": "Blitzcrank",
+      "kind": "I",
+      "name": "Mana Barrier",
+      "page": {
+        "title": "Template:Data Blitzcrank/Mana Barrier",
+        "revid": 3908089
+      },
+      "damageTypes": [],
+      "delivery": {
+        "targeting": [
+          "passive"
+        ],
+        "affectsEnemies": false
+      },
+      "applies": [],
+      "movement": [],
+      "states": [
+        {
+          "state": "shield",
+          "evidence": [
+            {
+              "page": "Template:Data Blitzcrank/Mana Barrier",
+              "revid": 3908089,
+              "quote": "Innate: Periodically, when damaged to 30% maximum health, Blitzcrank generates a shield equal to 35% of maximum mana, lasting for up to 10 seconds."
+            }
+          ],
+          "duration": 10
+        }
+      ],
+      "cooldown": 90
+    },
+    {
+      "champion": "Blitzcrank",
+      "kind": "Q",
+      "name": "Rocket Grab",
+      "page": {
+        "title": "Template:Data Blitzcrank/Rocket Grab",
+        "revid": 4026708
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "direction"
+        ],
+        "affectsEnemies": true,
+        "projectile": "yes",
+        "spellShield": "yes"
+      },
+      "applies": [
+        {
+          "type": "airborne",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "airborne: pull"
+            },
+            {
+              "page": "Template:Data Blitzcrank/Rocket Grab",
+              "revid": 4026708,
+              "quote": "Active: Blitzcrank fires their right hand in the target direction that catches the first enemy hit, dealing them magic damage, stunning them for 0.65 seconds, and pulling them towards Blitzcrank, during which they are revealed."
+            }
+          ],
+          "variant": "pull",
+          "duration": 0.65
+        },
+        {
+          "type": "stun",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "stun"
+            },
+            {
+              "page": "Template:Data Blitzcrank/Rocket Grab",
+              "revid": 4026708,
+              "quote": "Active: Blitzcrank fires their right hand in the target direction that catches the first enemy hit, dealing them magic damage, stunning them for 0.65 seconds, and pulling them towards Blitzcrank, during which they are revealed."
+            }
+          ],
+          "duration": 0.65
+        }
+      ],
+      "movement": [],
+      "states": [],
+      "cooldown": 16,
+      "castTime": 0.25,
+      "range": 1115,
+      "speed": 1800,
+      "notes": [
+        "Rocket Grab's range is composed of a missile with 1080 range, and a smaller center-range area check at the end (colloquially known as a 'lollipop').\n  - The area check is currently half as long as it is supposed to be, reducing the intended 1150 range of the ability to 1115 range.\n    - Hitting an enemy with this area check only also fails to play the ability's hit SFX. This makes it possible to easily distinguish whether the target was picked up by the missile collision or 'lollipop'.\n  - Targets larger than 95 units in radius can be hit by a different edge-range circle check at the end of the missile.",
+        "Displacement immunity will not resist the application of the stun."
+      ]
+    },
+    {
+      "champion": "Blitzcrank",
+      "kind": "R",
+      "name": "Static Field",
+      "page": {
+        "title": "Template:Data Blitzcrank/Static Field",
+        "revid": 3956748
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "auto"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "yes",
+        "parry": "partly",
+        "attack": "on-hit"
+      },
+      "applies": [
+        {
+          "type": "silence",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "silence"
+            },
+            {
+              "page": "Template:Data Blitzcrank/Static Field",
+              "revid": 3956748,
+              "quote": "Active: Blitzcrank detonates a static field that destroys the damage-mitigating shields of all nearby enemies, excluding the shields of monsters, and then deals them magic damage and silences them for 0.5 seconds."
+            }
+          ],
+          "duration": 0.5
+        }
+      ],
+      "movement": [],
+      "states": [
+        {
+          "state": "shield",
+          "evidence": [
+            {
+              "page": "Template:Data Blitzcrank/Static Field",
+              "revid": 3956748,
+              "quote": "Active: Blitzcrank detonates a static field that destroys the damage-mitigating shields of all nearby enemies, excluding the shields of monsters, and then deals them magic damage and silences them for 0.5 seconds."
+            }
+          ],
+          "duration": 0.5
+        }
+      ],
+      "cooldown": 20,
+      "castTime": 0.25,
+      "notes": [
+        "Blitzcrank's attacks will not apply a mark if the attack is dodged or missed while Blitzcrank is blinded.\n  - A mark will still be applied if the attack is blocked.",
+        "The mark will be consumed even if the target becomes untargetable.",
+        "Even if Static Field is blocked by a spell shield, it will still destroy any existing damage shields on the target."
+      ]
+    },
+    {
+      "champion": "Blitzcrank",
+      "kind": "W",
+      "name": "Overdrive",
+      "page": {
+        "title": "Template:Data Blitzcrank/Overdrive",
+        "revid": 3906572
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "auto"
+        ],
+        "affectsEnemies": false,
+        "parry": "yes"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "cooldown": 15,
+      "castTime": 0,
+      "boostsAttacks": true,
+      "notes": [
+        "The self-slow is affected by slow resist and Tenacity."
+      ]
+    }
+  ]
+}

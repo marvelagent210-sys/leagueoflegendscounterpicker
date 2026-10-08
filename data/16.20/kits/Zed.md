@@ -9,6 +9,22 @@ Values marked "at max rank, level 20" assume every ability is maxed; see PLAN.md
 |---|--:|--:|--:|--:|--:|--:|--:|--:|--:|--:|
 | Zed | 2600.8 | 19.78 | 200.0 Energy | 129.9 | 1.073 | 0.184 | 124.4 | 69.3 | 125 | 345 |
 
+## Fight profile (what the interaction ledger uses)
+
+| Form | Attack range | Ranged | Projectile | Missile speed | Attack modifiers |
+|---|--:|---|---|--:|---|
+| Zed | 125 | no | no | – | Contempt for the Weak |
+
+Cooldowns at max rank. Flags: the wiki's interaction flags (yes, no, partly). * marks an effect that applies only under a condition.
+
+| Slot | Ability | Cooldown | Delivery | Applies to the enemy | Movement | Gives itself |
+|---|---|--:|---|---|---|---|
+| E | Shadow Slash | 3 | spell shield partly | slow 1.5 s 40% | – | – |
+| I | Contempt for the Weak | – | spell shield no; parry partly; attack modifier | – | – | – |
+| Q | Razor Shuriken | 6 | projectile yes; spell shield yes | – | – | – |
+| R | Death Mark | 100 | spell shield partly; grounded yes; knockdown partly | – | dash; blink (recast) | untargetable 0.6 s |
+| W | Living Shadow | 16 | grounded partly | – | blink (recast) | – |
+
 ## Innate: Contempt for the Weak
 
 Source: [Template:Data Zed/Contempt for the Weak](https://wiki.leagueoflegends.com/en-us/Template:Data_Zed/Contempt_for_the_Weak?oldid=4052367) (revision 4052367). Ranks: 1.

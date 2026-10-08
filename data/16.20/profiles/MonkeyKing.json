@@ -1,0 +1,243 @@
+{
+  "champion": "MonkeyKing",
+  "name": "Wukong",
+  "gameplayRadius": 65,
+  "moveSpeed": 340,
+  "attacks": [
+    {
+      "form": "wukong",
+      "formName": "Wukong",
+      "range": 175,
+      "ranged": false,
+      "projectile": false,
+      "attackSpeed": 1.07819,
+      "attackDamage": 134.828,
+      "windup": 0.193226,
+      "modifiers": [
+        "Stone Skin"
+      ]
+    }
+  ],
+  "abilities": [
+    {
+      "champion": "MonkeyKing",
+      "kind": "E",
+      "name": "Nimbus Strike",
+      "page": {
+        "title": "Template:Data Wukong/Nimbus Strike",
+        "revid": 4021858
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "unit"
+        ],
+        "affectsEnemies": true,
+        "projectile": "no",
+        "spellShield": "yes",
+        "grounded": "yes",
+        "knockdown": "yes"
+      },
+      "applies": [],
+      "movement": [
+        {
+          "type": "dash",
+          "evidence": [
+            {
+              "page": "Dash",
+              "revid": 4035700,
+              "quote": "unit-targeted"
+            }
+          ],
+          "targeting": "unit-targeted",
+          "interruptible": true
+        }
+      ],
+      "states": [],
+      "cooldown": 7,
+      "castTime": 0,
+      "range": 650,
+      "boostsAttacks": true,
+      "notes": [
+        "Casting Nimbus Strike interrupts the attack windup of enemies targeting Wukong.",
+        "Nimbus Strike has an offset distance of 75 units from the target dashed to.",
+        "The ability applies a stack of Electrocute even if the target is untargetable."
+      ]
+    },
+    {
+      "champion": "MonkeyKing",
+      "kind": "I",
+      "name": "Stone Skin",
+      "page": {
+        "title": "Template:Data Wukong/Stone Skin",
+        "revid": 3986748
+      },
+      "damageTypes": [],
+      "delivery": {
+        "targeting": [
+          "passive"
+        ],
+        "affectsEnemies": false,
+        "spellShield": "yes",
+        "parry": "yes",
+        "attack": "attack modifier"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [
+        {
+          "state": "heal",
+          "evidence": [
+            {
+              "page": "Template:Data Wukong/Stone Skin",
+              "revid": 3986748,
+              "quote": "Innate: Wukong gains 6 – 10 (based on level) bonus armor and regenerates an additional 0.35% of his maximum health every 5 seconds."
+            }
+          ]
+        }
+      ],
+      "notes": [
+        "Stacks of Strength of Stone are also granted on-hit, but will specifically not be if the target is invulnerable."
+      ]
+    },
+    {
+      "champion": "MonkeyKing",
+      "kind": "Q",
+      "name": "Crushing Blow",
+      "page": {
+        "title": "Template:Data Wukong/Crushing Blow",
+        "revid": 4064066
+      },
+      "damageTypes": [
+        "physical"
+      ],
+      "delivery": {
+        "targeting": [
+          "auto"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "yes",
+        "parry": "yes",
+        "attack": "attack"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "cooldown": 6,
+      "castTime": 0,
+      "boostsAttacks": true
+    },
+    {
+      "champion": "MonkeyKing",
+      "kind": "R",
+      "name": "Cyclone",
+      "page": {
+        "title": "Template:Data Wukong/Cyclone",
+        "revid": 4021867
+      },
+      "damageTypes": [
+        "physical"
+      ],
+      "delivery": {
+        "targeting": [
+          "auto"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "partly"
+      },
+      "applies": [
+        {
+          "type": "airborne",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "airborne: knock up"
+            },
+            {
+              "page": "Template:Data Wukong/Cyclone",
+              "revid": 4021867,
+              "quote": "The staff deals physical damage every 0.25 seconds to enemies hit, and can knock them up once for 0.6 seconds."
+            }
+          ],
+          "variant": "knock up",
+          "duration": 0.6
+        }
+      ],
+      "movement": [],
+      "states": [],
+      "cooldown": 90,
+      "castTime": 0,
+      "boostsAttacks": true,
+      "notes": [
+        "Casting a basic ability will always interrupt Wukong's Cyclone. A clone can be interrupted by casting Crushing Blow, but only if the clone was made during the current Cyclone cast and only for that cast. This means if both Wukong and his clone are spinning, the clone cannot be interrupted.",
+        "Spell shield will block one instance of damage.\n  - Blocking the knock up will still grant immunity to it from either of Cyclone's casts."
+      ]
+    },
+    {
+      "champion": "MonkeyKing",
+      "kind": "W",
+      "name": "Warrior Trickster",
+      "page": {
+        "title": "Template:Data Wukong/Warrior Trickster",
+        "revid": 4016976
+      },
+      "damageTypes": [
+        "physical"
+      ],
+      "delivery": {
+        "targeting": [
+          "location"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "yes",
+        "parry": "yes",
+        "grounded": "yes",
+        "knockdown": "yes"
+      },
+      "applies": [],
+      "movement": [
+        {
+          "type": "dash",
+          "evidence": [
+            {
+              "page": "Dash",
+              "revid": 4035700,
+              "quote": "direction-targeted"
+            }
+          ],
+          "targeting": "direction-targeted",
+          "interruptible": true
+        }
+      ],
+      "states": [
+        {
+          "state": "invisible",
+          "evidence": [
+            {
+              "page": "Stealth",
+              "revid": 4013411
+            },
+            {
+              "page": "Template:Data Wukong/Warrior Trickster",
+              "revid": 4016976,
+              "quote": "Active: Wukong enters invisibility for 1 second and dashes in the target direction, leaving behind a clone of himself at his casting position for 4 seconds."
+            }
+          ],
+          "duration": 1
+        }
+      ],
+      "cooldown": 18,
+      "castTime": 0,
+      "range": 100,
+      "speed": 900,
+      "boostsAttacks": true,
+      "notes": [
+        "The clone is immune to stasis and Blast Cone.",
+        "Using a basic attack breaks the stealth at the end of the attack windup."
+      ]
+    }
+  ]
+}

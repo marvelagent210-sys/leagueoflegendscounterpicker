@@ -9,6 +9,22 @@ Values marked "at max rank, level 20" assume every ability is maxed; see PLAN.md
 |---|--:|--:|--:|--:|--:|--:|--:|--:|--:|--:|
 | Rammus | 2611.5 | 18.82 | 958.9 Mana | 119.1 | 0.972 | 0.236 | 123.5 | 72.3 | 125 | 335 |
 
+## Fight profile (what the interaction ledger uses)
+
+| Form | Attack range | Ranged | Projectile | Missile speed | Attack modifiers |
+|---|--:|---|---|--:|---|
+| Rammus | 125 | no | no | – | – |
+
+Cooldowns at max rank. Flags: the wiki's interaction flags (yes, no, partly). * marks an effect that applies only under a condition.
+
+| Slot | Ability | Cooldown | Delivery | Applies to the enemy | Movement | Gives itself |
+|---|---|--:|---|---|---|---|
+| E | Frenzying Taunt | 12 | spell shield yes | taunt 2 s | – | – |
+| I | Spiked Shell | – | – | – | – | – |
+| Q | Powerball | 6 | spell shield yes; grounded no; disruptable yes | airborne (knock back); slow 1 s 80%; stun 0.4 s | – | – |
+| R | Soaring Slam | 90 | spell shield partly; grounded yes; knockdown no | airborne (knock up) 0.75 s*; slow 1.5 s 50% | dash (unstoppable) | – |
+| W | Defensive Ball Curl | 7 | spell shield no; on-hit | – | – | reflect attacks 7 s |
+
 ## Innate: Spiked Shell
 
 Source: [Template:Data Rammus/Spiked Shell](https://wiki.leagueoflegends.com/en-us/Template:Data_Rammus/Spiked_Shell?oldid=3910990) (revision 3910990). Ranks: 1.
@@ -116,30 +132,6 @@ Notes:
 
 - If the target becomes untargetable, dies, or is too far away or no longer in sight during the cast time, this ability will cancel but does not go on cooldown nor pay its cost (if applicable).
 
-## E: Puncturing Taunt
-
-Source: [Template:Data Rammus/Puncturing Taunt](https://wiki.leagueoflegends.com/en-us/Template:Data_Rammus/Puncturing_Taunt?oldid=3262604) (revision 3262604). Ranks: 5.
-
-| Field | Value |
-|---|---|
-| Cooldown | 12 |
-| Cost | 50 mana |
-| Cast time | 0.25 |
-| Target range | 325 |
-
-Targeting: Unit · Affects: Enemies, Self · Damage type: – · Spell shield blocks it: true · Projectile: – · Parry: – · Disabled by grounded: – · Usable while knocked down: –
-
-Active: Rammus taunts the target enemy champion or monster for a duration and reduces their armor for the same duration.
-
-- **Taunt Duration:** 1.25 / 1.5 / 1.75 / 2 / 2.25 → at max rank, level 20: 2.25
-- **Armor Reduction:** 5 / 10 / 15 / 20 / 25 → at max rank, level 20: 25
-- **Mechanics:** taunt (2.25 s)
-
-Notes:
-
-- Puncturing Taunt, despite being usable on monsters, does not force them to attack Rammus. He does not draw aggro since the ability does not deal damage.
-- If the target becomes untargetable, dies, is too far away, or Rammus loses sight of them during the cast time, Puncturing Taunt cancels but it does not go on cooldown nor expend mana.
-
 ## R: Soaring Slam
 
 Source: [Template:Data Rammus/Soaring Slam](https://wiki.leagueoflegends.com/en-us/Template:Data_Rammus/Soaring_Slam?oldid=4008005) (revision 4008005). Ranks: 3.
@@ -178,36 +170,6 @@ Notes:
 - Rammus is required to have at least 461.5 total movement speed average over the last second to be able to cast Soaring Slam further than its base maximum dash range (>800 units).
 - Soaring Slam will not impact nor generate aftershocks if the dash is interrupted.
 - The following table refers for interactions while Rammus is dashing:
-
-## R: Tremors
-
-Source: [Template:Data Rammus/Tremors](https://wiki.leagueoflegends.com/en-us/Template:Data_Rammus/Tremors?oldid=3238161) (revision 3238161). Ranks: 3.
-
-| Field | Value |
-|---|---|
-| Cooldown | 100 / 80 / 60 |
-| Cost | 100 mana |
-| Cast time | none |
-| Effect radius | 385 |
-
-Targeting: Auto · Affects: Enemies · Damage type: Magic · Spell shield blocks it: true · Projectile: – · Parry: – · Disabled by grounded: – · Usable while knocked down: –
-
-Active: Rammus creates an earthquake around himself for 8 seconds, dealing magic damage each second to nearby enemies, including to and doubled against structures.
-
-- **Magic Damage Per Tick:** 30 / 60 / 90 (+ 20% AP) → at max rank, level 20: 90 (+ 20% AP)
-- **Total Magic Damage:** 240 / 480 / 720 (+ 160% AP) → at max rank, level 20: 720 (+ 160% AP)
-- **Structure Damage Per Tick:** 60 / 120 / 180 (+ 40% AP) → at max rank, level 20: 180 (+ 40% AP)
-- **Structure Total Damage:** 480 / 960 / 1440 (+ 320% AP) → at max rank, level 20: 1440 (+ 320% AP)
-
-The earthquake also slows nearby enemies each second for 1.5 seconds, stacking up to 8 times and refreshing the duration for each subsequent application.
-
-- **Slow Per Tick:** 8 / 10 / 12% → at max rank, level 20: 12%
-- **Maximum Slow:** 64 / 80 / 96% → at max rank, level 20: 96%
-- **Mechanics:** slow (1.5 s, 12%)
-
-Notes:
-
-- Spell shield only prevents one tick of the ability.
 
 ## Game files
 

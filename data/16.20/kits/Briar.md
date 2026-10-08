@@ -9,6 +9,23 @@ Values marked "at max rank, level 20" assume every ability is maxed; see PLAN.md
 |---|--:|--:|--:|--:|--:|--:|--:|--:|--:|--:|
 | Briar | 2493.2 | 0.00 | 0.0 Frenzy | 109.2 | 0.907 | 0.213 | 118.5 | 72.3 | 125 | 340 |
 
+## Fight profile (what the interaction ledger uses)
+
+| Form | Attack range | Ranged | Projectile | Missile speed | Attack modifiers |
+|---|--:|---|---|--:|---|
+| Briar | 125 | no | no | – | Crimson Curse |
+
+Cooldowns at max rank. Flags: the wiki's interaction flags (yes, no, partly). * marks an effect that applies only under a condition.
+
+| Slot | Ability | Cooldown | Delivery | Applies to the enemy | Movement | Gives itself |
+|---|---|--:|---|---|---|---|
+| E | Chilling Scream | 16 | projectile yes; spell shield yes; disruptable no | airborne (knock back)*; slow 0.5 s 80%; stun 1.5 s* | – | heal 1 s |
+| I | Crimson Curse | – | spell shield yes; parry yes; attack modifier | – | – | heal |
+| Q | Head Rush | 9 | spell shield yes; grounded yes; knockdown yes; on-hit | stun 0.85 s* | dash | – |
+| R | Certain Death | 80 | projectile yes; spell shield yes; grounded yes; knockdown no | disrupt; fear 1.5 s; slow 1.5 s 35%; reveal | dash (unstoppable) (second cast) | cleanse (19 CC types); cc immune; displacement immune; heal |
+| W | Blood Frenzy | 10 | parry yes; grounded yes; knockdown yes | – | dash | – |
+| W | Snack Attack | – | spell shield no; parry yes; attack | – | – | heal |
+
 ## Innate: Crimson Curse
 
 Source: [Template:Data Briar/Crimson Curse](https://wiki.leagueoflegends.com/en-us/Template:Data_Briar/Crimson_Curse?oldid=4038287) (revision 4038287). Ranks: 1.

@@ -9,6 +9,22 @@ Values marked "at max rank, level 20" assume every ability is maxed; see PLAN.md
 |---|--:|--:|--:|--:|--:|--:|--:|--:|--:|--:|
 | Kindred | 2640.2 | 17.82 | 988.3 Mana | 128.9 | 1.055 | 0.166 | 121.4 | 54.6 | 500 | 325 |
 
+## Fight profile (what the interaction ledger uses)
+
+| Form | Attack range | Ranged | Projectile | Missile speed | Attack modifiers |
+|---|--:|---|---|--:|---|
+| Kindred | 500 | yes | yes | 2000 | – |
+
+Cooldowns at max rank. Flags: the wiki's interaction flags (yes, no, partly). * marks an effect that applies only under a condition.
+
+| Slot | Ability | Cooldown | Delivery | Applies to the enemy | Movement | Gives itself |
+|---|---|--:|---|---|---|---|
+| E | Mounting Dread | 8 | projectile yes; spell shield yes; parry yes | slow 1.5 s 30% | – | – |
+| I | Mark of the Kindred | – | – | – | – | – |
+| Q | Dance of Arrows | 9 | projectile yes; spell shield yes; grounded yes; knockdown yes | – | dash | – |
+| R | Lamb's Respite | 120 | – | – | – | invulnerable; minimum health; heal |
+| W | Wolf's Frenzy | 14 | projectile no; spell shield yes | – | – | heal |
+
 ## Innate: Mark of the Kindred
 
 Source: [Template:Data Kindred/Mark of the Kindred](https://wiki.leagueoflegends.com/en-us/Template:Data_Kindred/Mark_of_the_Kindred?oldid=4069806) (revision 4069806). Ranks: 1.

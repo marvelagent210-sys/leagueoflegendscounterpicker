@@ -200,6 +200,11 @@
     "dataTemplates": {
       "pages": 2436,
       "missing": []
+    },
+    "glossary": {
+      "pages": 35,
+      "missing": [],
+      "fetchedAt": "2026-10-08T17:26:07.368Z"
     }
   }
 }

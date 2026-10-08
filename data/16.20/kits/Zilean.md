@@ -9,6 +9,22 @@ Values marked "at max rank, level 20" assume every ability is maxed; see PLAN.md
 |---|--:|--:|--:|--:|--:|--:|--:|--:|--:|--:|
 | Zilean | 2461.8 | 15.33 | 1435.3 Mana | 111.0 | 0.920 | 0.196 | 122.3 | 55.6 | 550 | 335 |
 
+## Fight profile (what the interaction ledger uses)
+
+| Form | Attack range | Ranged | Projectile | Missile speed | Attack modifiers |
+|---|--:|---|---|--:|---|
+| Zilean | 550 | yes | yes | 1500 | – |
+
+Cooldowns at max rank. Flags: the wiki's interaction flags (yes, no, partly). * marks an effect that applies only under a condition.
+
+| Slot | Ability | Cooldown | Delivery | Applies to the enemy | Movement | Gives itself |
+|---|---|--:|---|---|---|---|
+| E | Time Warp | 15 | projectile no; spell shield yes | slow* | – | – |
+| I | Time in a Bottle | 120 | disruptable yes | – | – | – |
+| Q | Time Bomb | 8 | projectile yes; spell shield yes | stun 1.5 s | – | – |
+| R | Chronoshift | 60 | – | – | – | untargetable 3 s; invulnerable 3 s; resurrection 3 s; heal |
+| W | Rewind | 6 | – | – | – | – |
+
 ## Innate: Time in a Bottle
 
 Source: [Template:Data Zilean/Time in a Bottle](https://wiki.leagueoflegends.com/en-us/Template:Data_Zilean/Time_in_a_Bottle?oldid=4056302) (revision 4056302). Ranks: 1.

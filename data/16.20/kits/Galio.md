@@ -9,6 +9,22 @@ Values marked "at max rank, level 20" assume every ability is maxed; see PLAN.md
 |---|--:|--:|--:|--:|--:|--:|--:|--:|--:|--:|
 | Galio | 3077.8 | 23.73 | 1196.6 Mana | 127.8 | 0.809 | 0.255 | 116.4 | 72.3 | 150 | 340 |
 
+## Fight profile (what the interaction ledger uses)
+
+| Form | Attack range | Ranged | Projectile | Missile speed | Attack modifiers |
+|---|--:|---|---|--:|---|
+| Galio | 150 | no | no | – | Colossal Smash |
+
+Cooldowns at max rank. Flags: the wiki's interaction flags (yes, no, partly). * marks an effect that applies only under a condition.
+
+| Slot | Ability | Cooldown | Delivery | Applies to the enemy | Movement | Gives itself |
+|---|---|--:|---|---|---|---|
+| E | Justice Punch | 7 | grounded yes; knockdown partly | airborne (knock up) 0.75 s | dash; lunge (backwards windup) | – |
+| I | Colossal Smash | 5 | spell shield no; parry yes; attack modifier | – | – | – |
+| Q | Winds of War | 7 | projectile yes; spell shield partly | – | – | – |
+| R | Hero's Entrance | 140 | spell shield yes; grounded yes; knockdown no | airborne (knock back) 0.75 s | dash (unstoppable) | untargetable 1.25 s; cc immune 0.8 s |
+| W | Shield of Durand | 14 | spell shield yes; disruptable yes | taunt; slow 15% | – | shield |
+
 ## Innate: Colossal Smash
 
 Source: [Template:Data Galio/Colossal Smash](https://wiki.leagueoflegends.com/en-us/Template:Data_Galio/Colossal_Smash?oldid=4038336) (revision 4038336). Ranks: 1.
@@ -40,44 +56,6 @@ Notes:
 - Colossal Smash cannot be triggered against allies.
 - Even if the ability hit is spell shielded Colossal Smash's cooldown will still be reduced.
 
-## Innate: Runic Skin
-
-Source: [Template:Data Galio/Runic Skin](https://wiki.leagueoflegends.com/en-us/Template:Data_Galio/Runic_Skin?oldid=3216591) (revision 3216591). Ranks: 1.
-
-Targeting: Runic Skin is a self-targeted buff. · Affects: – · Damage type: – · Spell shield blocks it: – · Projectile: – · Parry: – · Disabled by grounded: – · Usable while knocked down: –
-
-Innate: Galio gains 50% of his magic resistance as ability power.
-
-Notes:
-
-- Magic resistance reduction (such as Wit's End) will affect Runic Skin in such a way Galio will also have his ability power reduced for the duration.
-- Considering his base magic resistance of 32.1 – 53.35 (based on level), Galio will gain 16.05 – 26.675 (based on level) bonus ability power from Runic Skin.
-- Runic Skin is triggered by Bulwark, as well as any bonus magic resistance effect, granting Galio temporary bonus ability power.
-    - Rabadon's Deathcap will boost Runic Skin's ratio to 67.5% of his magic resistance.
-    - Wooglet's Witchcap will boost Runic Skin's ratio to 62.5% of his magic resistance.
-
-## Q: Resolute Smite
-
-Source: [Template:Data Galio/Resolute Smite](https://wiki.leagueoflegends.com/en-us/Template:Data_Galio/Resolute_Smite?oldid=3309845) (revision 3309845). Ranks: 5.
-
-| Field | Value |
-|---|---|
-| Cooldown | 7 |
-| Cost | 60 / 65 / 70 / 75 / 80 mana |
-| Range | 940 / 235 |
-
-Targeting: Resolute Smite is a ground-targeted area of effect. · Affects: – · Damage type: magic · Spell shield blocks it: will block the ability. · Projectile: true · Parry: – · Disabled by grounded: – · Usable while knocked down: –
-
-Active: Galio fires a concussive blast at the target area, dealing magic damage to enemies hit and slowing them for 2.5 seconds.
-
-- **Magic Damage:** 80 / 135 / 190 / 245 / 300 (+ 60% AP) → at max rank, level 20: 300 (+ 60% AP)
-- **Slow:** 24 / 28 / 32 / 36 / 40% → at max rank, level 20: 40%
-- **Mechanics:** slow (2.5 s, 40%)
-
-Notes:
-
-- No additional details.
-
 ## Q: Winds of War
 
 Source: [Template:Data Galio/Winds of War](https://wiki.leagueoflegends.com/en-us/Template:Data_Galio/Winds_of_War?oldid=4016962) (revision 4016962). Ranks: 5.
@@ -107,29 +85,6 @@ Notes:
 - Wind Wall and Unbreakable can block each windblast individually.
     - The tornado will not form if only one windblast reaches the target location.
 - This ability will cast from wherever the caster is at the end of the cast time.
-
-## W: Bulwark
-
-Source: [Template:Data Galio/Bulwark](https://wiki.leagueoflegends.com/en-us/Template:Data_Galio/Bulwark?oldid=3309684) (revision 3309684). Ranks: 5.
-
-| Field | Value |
-|---|---|
-| Cooldown | 13 |
-| Cost | 60 mana |
-| Range | 800 |
-
-Targeting: Bulwark is a self- and ally-targeted buff with a self-healing component. · Affects: – · Damage type: – · Spell shield blocks it: – · Projectile: – · Parry: – · Disabled by grounded: – · Usable while knocked down: –
-
-Active: Galio grants the target allied champion or himself bonus armor and bonus magic resistance for 4 seconds, and heals himself every time Bulwark's target takes damage, with each heal being 20% weaker than the last for each subsequent instance of damage.
-
-- **Bonus Resistances:** 30 / 45 / 60 / 75 / 90 → at max rank, level 20: 90
-- **Initial Heal:** 25 / 40 / 55 / 70 / 85 (+ 30% AP) → at max rank, level 20: 85 (+ 30% AP)
-- **Maximum Heal:** 100 / 160 / 220 / 280 / 340 (+ 120% AP) → at max rank, level 20: 340 (+ 120% AP)
-
-Notes:
-
-- Bulwark has no cast time and does not interrupt Galio's previous orders.
-- When Galio casts Bulwark on himself Runic Skin will grant him 15 / 22.5 / 30 / 37.5 / 45 ability power.
 
 ## W: Shield of Durand
 
@@ -207,28 +162,6 @@ Notes:
 - Galio's second dash will always dash the distance of the target direction. Having the step backwards cut short has no effect on the total distance gained.
 - The following table refers for interactions during Justice Punch's cast time and dash:
 
-## E: Righteous Gust
-
-Source: [Template:Data Galio/Righteous Gust](https://wiki.leagueoflegends.com/en-us/Template:Data_Galio/Righteous_Gust?oldid=3309687) (revision 3309687). Ranks: 5.
-
-| Field | Value |
-|---|---|
-| Cooldown | 13 / 12 / 11 / 10 / 9 |
-| Cost | 60 / 65 / 70 / 75 / 80 mana |
-| Range | 1180 |
-
-Targeting: Righteous Gust is a linear, pass-through skillshot. · Affects: – · Damage type: magic · Spell shield blocks it: will block the ability. · Projectile: true · Parry: – · Disabled by grounded: – · Usable while knocked down: –
-
-Active: Galio unleashes a gust of wind in the target direction, dealing magic damage to enemies hits, and leaving behind a directional draft for 5 seconds which grants allies bonus movement speed when they pass through it.
-
-- **Magic Damage:** 60 / 105 / 150 / 195 / 240 (+ 50% AP) → at max rank, level 20: 240 (+ 50% AP)
-- **Bonus Movement Speed:** 30 / 35 / 40 / 45 / 50% → at max rank, level 20: 50%
-
-Notes:
-
-- Righteous Gust's bonus movement speed stacks multiplicatively while active.
-    - Allies facing opposite the draft will not receive the bonus movement speed.
-
 ## R: Hero's Entrance
 
 Source: [Template:Data Galio/Hero's Entrance](https://wiki.leagueoflegends.com/en-us/Template:Data_Galio/Hero's_Entrance?oldid=4017997) (revision 4017997). Ranks: 3.
@@ -264,36 +197,6 @@ Notes:
 - When becoming untargetable, Galio destroys enemy projectiles targeting him.
 - The following table refers for interactions while Galio is channeling:
 - Hero's Entrance's channel can only be interrupted by crowd control in the first 1.25 seconds.
-
-## R: Idol of Durand
-
-Source: [Template:Data Galio/Idol of Durand](https://wiki.leagueoflegends.com/en-us/Template:Data_Galio/Idol_of_Durand?oldid=3309685) (revision 3309685). Ranks: 3.
-
-| Field | Value |
-|---|---|
-| Cooldown | 150 / 135 / 120 |
-| Cost | 100 mana |
-| Range | 600 / 575 |
-
-Targeting: Idol of Durand is a point-blank area of effect. · Affects: – · Damage type: magic · Spell shield blocks it: will block the ability. · Projectile: – · Parry: – · Disabled by grounded: – · Usable while knocked down: –
-
-Active: Galio turns into a statue and channels for 2 seconds, halving incoming damage and taunting nearby enemies for the duration, which they cannot mitigate with crowd control reduction. Idol of Durand can't be cancelled by movement commands for the first 0.25 seconds of its duration if it strikes at least one enemy champion.
-
-- **Mechanics:** taunt (2 s)
-
-When the channel ends, Galio bursts out of his statue form and deals magic damage to nearby enemies, increased by 10% for each basic attack he received while channeling, up to a maximum 80% increase.
-
-- **Minimum Magic Damage:** 200 / 300 / 400 (+ 60% AP) → at max rank, level 20: 400 (+ 60% AP)
-- **Bonus Magic Damage Per Hit:** 20 / 30 / 40 (+ 6% AP) → at max rank, level 20: 40 (+ 6% AP)
-- **Maximum Magic Damage:** 360 / 540 / 720 (+ 108% AP) → at max rank, level 20: 720 (+ 108% AP)
-
-While channeling, Galio can cast Bulwark and use instant cast actives, such as Ignite.
-
-Notes:
-
-- The taunt can only be applied once to any given enemy unit.
-    - Preventing it or blocking it will not reapply the taunt.
-- Champions whose enhanced basic attacks apply hard crowd control (Decisive Strike, Bear Stance, Shield of Daybreak) can cancel Idol of Durand while taunted.
 
 ## Game files
 

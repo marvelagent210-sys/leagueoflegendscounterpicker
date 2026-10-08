@@ -9,6 +9,22 @@ Values marked "at max rank, level 20" assume every ability is maxed; see PLAN.md
 |---|--:|--:|--:|--:|--:|--:|--:|--:|--:|--:|
 | Nami | 2290.5 | 16.32 | 1210.6 Mana | 115.0 | 0.975 | 0.185 | 131.3 | 55.6 | 550 | 335 |
 
+## Fight profile (what the interaction ledger uses)
+
+| Form | Attack range | Ranged | Projectile | Missile speed | Attack modifiers |
+|---|--:|---|---|--:|---|
+| Nami | 550 | yes | yes | 1500 | – |
+
+Cooldowns at max rank. Flags: the wiki's interaction flags (yes, no, partly). * marks an effect that applies only under a condition.
+
+| Slot | Ability | Cooldown | Delivery | Applies to the enemy | Movement | Gives itself |
+|---|---|--:|---|---|---|---|
+| E | Tidecaller's Blessing | 11 | spell shield no; parry yes | slow 1 s 35% | – | – |
+| I | Surging Tides | – | – | – | – | – |
+| Q | Aqua Prison | 8 | projectile yes; spell shield yes | suspension | – | – |
+| R | Tidal Wave | 100 | projectile yes; spell shield yes | airborne (knock up) 0.5 s; slow 2 s 70% | – | – |
+| W | Ebb and Flow | 10 | projectile yes; spell shield yes | – | – | heal |
+
 ## Innate: Surging Tides
 
 Source: [Template:Data Nami/Surging Tides](https://wiki.leagueoflegends.com/en-us/Template:Data_Nami/Surging_Tides?oldid=3985614) (revision 3985614). Ranks: 1.

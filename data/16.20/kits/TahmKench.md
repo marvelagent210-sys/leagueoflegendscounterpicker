@@ -9,6 +9,23 @@ Values marked "at max rank, level 20" assume every ability is maxed; see PLAN.md
 |---|--:|--:|--:|--:|--:|--:|--:|--:|--:|--:|
 | Tahm Kench | 2665.5 | 17.32 | 1308.3 Mana | 118.9 | 0.981 | 0.255 | 131.4 | 72.3 | 175 | 335 |
 
+## Fight profile (what the interaction ledger uses)
+
+| Form | Attack range | Ranged | Projectile | Missile speed | Attack modifiers |
+|---|--:|---|---|--:|---|
+| Tahm Kench | 175 | no | no | – | An Acquired Taste |
+
+Cooldowns at max rank. Flags: the wiki's interaction flags (yes, no, partly). * marks an effect that applies only under a condition.
+
+| Slot | Ability | Cooldown | Delivery | Applies to the enemy | Movement | Gives itself |
+|---|---|--:|---|---|---|---|
+| E | Thick Skin | 3 | – | – | – | heal; shield 2.5 s |
+| I | An Acquired Taste | – | parry yes; attack modifier | – | – | – |
+| Q | Tongue Lash | 5 | projectile yes; spell shield yes | slow 2 s 50%; stun 1.5 s | – | heal |
+| R | Devour | 80 | spell shield yes | suppression | – | – |
+| R | Regurgitate | – | spell shield no | airborne (knock back) | – | – |
+| W | Abyssal Dive | 17 | spell shield yes; grounded yes; disruptable yes | airborne (knock up) 1 s; stun 1 s | blink | – |
+
 ## Innate: An Acquired Taste
 
 Source: [Template:Data Tahm Kench/An Acquired Taste](https://wiki.leagueoflegends.com/en-us/Template:Data_Tahm_Kench/An_Acquired_Taste?oldid=4008458) (revision 4008458). Ranks: 1.
@@ -133,38 +150,6 @@ Notes:
     - At level 18 Tahm Kench would need 53.8461538462% heal power to heal for 100% of the damage he takes, reduced to 34.8601398601% with Revitalize, 23.0769230769% with Spirit Visage, and 6.88811188811% with both.
 - Grey health converts all post-mitigation damage, Thick Skin effectively grants Tahm Kench a form of true damage mitigation.
 - Grey health can temporarily exceed 100% of his missing health when Tahm Kench heals through other means with a grey health bar at 100%. In that case he will keep the higher grey health value for a few moments until it updates and removes the amount that he healed.
-
-## R: Abyssal Voyage
-
-Source: [Template:Data Tahm Kench/Abyssal Voyage](https://wiki.leagueoflegends.com/en-us/Template:Data_Tahm_Kench/Abyssal_Voyage?oldid=3547673) (revision 3547673). Ranks: 3.
-
-| Field | Value |
-|---|---|
-| Cooldown | 140 / 130 / 120 |
-| Cost | 100 mana |
-| Cast time | 0.25 |
-| Target range | 2500 / 5500 / 8500 |
-
-Targeting: Location · Affects: Self, Allies · Damage type: – · Spell shield blocks it: – · Projectile: – · Parry: – · Disabled by grounded: true · Usable while knocked down: –
-
-Active: Tahm Kench channels for up to 6 seconds, highlighting the path to his intended destination to allied champions while opening his maw to offer up to one of them the chance to come with him. Abyssal Voyage can be recast after 0.25 seconds during the channel. If an ally has climbed in, they immediately become untargetable and Tahm Kench automatically begins a 1.65-second channel that, when completed, renders Tahm Kench also untargetable and causes him and his ally to blink to the target location, both becoming unable to perform actions for 1 second and afterwards becoming targetable again.
-
-- **Mechanics:** channel (6 s); untargetable; channel (1 s); untargetable (1 s); blink
-
-Recast: Tahm Kench manually begins the channel to blink to the target location. Allies can still join him while they have the chance during this time.
-
-- **Mechanics:** blink
-
-Abyssal Voyage is put on a 10 second cooldown if the second channel is not started or is interrupted.
-
-Allies must be out of combat with enemy champions and cannot be affected by their crowd control effects within the last 5 seconds to come with Tahm Kench. Abyssal Voyage cannot be cast while Devour is active.
-
-Notes:
-
-- The initial cast counts as an ability activation for the purposes of on-cast effects such as Spellblade and triggering Force Pulse passive.
-    - Recasting the ability does not.
-- Abyssal Voyage, upon recast, will alert Tahm Kench's arrival to nearby enemies and allies with a ping.
-- The following table refers for interactions while Tahm Kench is channeling:
 
 ## R: Devour
 

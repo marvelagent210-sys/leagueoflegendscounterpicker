@@ -9,6 +9,23 @@ Values marked "at max rank, level 20" assume every ability is maxed; see PLAN.md
 |---|--:|--:|--:|--:|--:|--:|--:|--:|--:|--:|
 | Kalista | 2801.8 | 18.75 | 1184.9 Mana | 150.4 | 1.308 | 0.336 | 126.3 | 54.6 | 525 | 330 |
 
+## Fight profile (what the interaction ledger uses)
+
+| Form | Attack range | Ranged | Projectile | Missile speed | Attack modifiers |
+|---|--:|---|---|--:|---|
+| Kalista | 525 | yes | yes | 2600 | – |
+
+Cooldowns at max rank. Flags: the wiki's interaction flags (yes, no, partly). * marks an effect that applies only under a condition.
+
+| Slot | Ability | Cooldown | Delivery | Applies to the enemy | Movement | Gives itself |
+|---|---|--:|---|---|---|---|
+| A | Basic Attack | – | projectile yes; parry yes | – | – | – |
+| E | Rend | 8 | spell shield yes; parry partly; on-hit | slow 2 s 42% | – | – |
+| I | Martial Poise | – | grounded yes; knockdown yes | – | dash | – |
+| Q | Pierce | 9 | projectile yes; spell shield yes | – | – | – |
+| R | Fate's Call | 120 | spell shield yes; knockdown no | airborne (knock up) 2 s | dash (unstoppable) (Oathsworn pull-in); dash (unstoppable) (Oathsworn selected dash); lunge (unstoppable) (Oathsworn when landing at max range from the impact) | cleanse (19 CC types) |
+| W | Sentinel | 50 | – | – | – | – |
+
 ## Innate: Martial Poise
 
 Source: [Template:Data Kalista/Martial Poise](https://wiki.leagueoflegends.com/en-us/Template:Data_Kalista/Martial_Poise?oldid=4024157) (revision 4024157). Ranks: 1.

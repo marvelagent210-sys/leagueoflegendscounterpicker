@@ -9,6 +9,22 @@ Values marked "at max rank, level 20" assume every ability is maxed; see PLAN.md
 |---|--:|--:|--:|--:|--:|--:|--:|--:|--:|--:|
 | Soraka | 2335.5 | 12.33 | 1211.6 Mana | 109.0 | 0.888 | 0.211 | 130.3 | 55.6 | 550 | 325 |
 
+## Fight profile (what the interaction ledger uses)
+
+| Form | Attack range | Ranged | Projectile | Missile speed | Attack modifiers |
+|---|--:|---|---|--:|---|
+| Soraka | 550 | yes | yes | 1000 | – |
+
+Cooldowns at max rank. Flags: the wiki's interaction flags (yes, no, partly). * marks an effect that applies only under a condition.
+
+| Slot | Ability | Cooldown | Delivery | Applies to the enemy | Movement | Gives itself |
+|---|---|--:|---|---|---|---|
+| E | Equinox | 16 | spell shield partly | silence 2 s; root 2 s | – | – |
+| I | Salvation | – | – | – | – | – |
+| Q | Starcall | 4 | projectile yes; spell shield yes | slow 1.5 s 30% | – | heal |
+| R | Wish | 120 | – | – | – | heal |
+| W | Astral Infusion | 2 | projectile no | – | – | heal |
+
 ## Innate: Salvation
 
 Source: [Template:Data Soraka/Salvation](https://wiki.leagueoflegends.com/en-us/Template:Data_Soraka/Salvation?oldid=3681502) (revision 3681502). Ranks: 1.

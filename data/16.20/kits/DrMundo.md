@@ -9,17 +9,21 @@ Values marked "at max rank, level 20" assume every ability is maxed; see PLAN.md
 |---|--:|--:|--:|--:|--:|--:|--:|--:|--:|--:|
 | Dr. Mundo | 2665.5 | 16.83 | 0.0 Health | 110.2 | 1.076 | 0.149 | 120.5 | 74.2 | 125 | 345 |
 
-## Innate: Adrenaline Rush
+## Fight profile (what the interaction ledger uses)
 
-Source: [Template:Data Dr. Mundo/Adrenaline Rush](https://wiki.leagueoflegends.com/en-us/Template:Data_Dr._Mundo/Adrenaline_Rush?oldid=3267267) (revision 3267267). Ranks: 1.
+| Form | Attack range | Ranged | Projectile | Missile speed | Attack modifiers |
+|---|--:|---|---|--:|---|
+| Dr. Mundo | 125 | no | no | – | – |
 
-Targeting: Passive · Affects: Self · Damage type: None · Spell shield blocks it: – · Projectile: – · Parry: – · Disabled by grounded: – · Usable while knocked down: –
+Cooldowns at max rank. Flags: the wiki's interaction flags (yes, no, partly). * marks an effect that applies only under a condition.
 
-Innate: Dr. Mundo regenerates 2.5% of his maximum health every 5 seconds.
-
-Notes:
-
-- Adrenaline Rush is not affected by Revitalize as it is considered as health regeneration.
+| Slot | Ability | Cooldown | Delivery | Applies to the enemy | Movement | Gives itself |
+|---|---|--:|---|---|---|---|
+| E | Blunt Force Trauma | 6 | spell shield no; parry yes; attack | – | – | – |
+| I | Goes Where He Pleases | 15 | projectile no | – | – | heal |
+| Q | Infected Bonesaw | 4 | projectile yes; spell shield yes | slow 2 s 40% | – | heal |
+| R | Maximum Dosage | 120 | – | – | – | – |
+| W | Heart Zapper | 15 | spell shield partly | – | – | heal |
 
 ## Innate: Goes Where He Pleases
 
@@ -84,73 +88,6 @@ Notes:
 
 - This ability will cast from wherever the caster is at the start of the cast time.
 - Spell shield blocking the ability's effects on the enemy does not prevent Dr. Mundo from receiving the health cost refund.
-
-## Q: Infected Cleaver
-
-Source: [Template:Data Dr. Mundo/Infected Cleaver](https://wiki.leagueoflegends.com/en-us/Template:Data_Dr._Mundo/Infected_Cleaver?oldid=3906622) (revision 3906622). Ranks: 5.
-
-| Field | Value |
-|---|---|
-| Cooldown | 4 |
-| Cost | 50 / 60 / 70 / 80 / 90 health |
-| Cast time | 0.25 |
-| Target range | 1050 / 990 |
-| Width | 120 |
-| Speed | 2000 |
-
-Targeting: Direction · Affects: Enemies, Self · Damage type: Magic · Spell shield blocks it: true · Projectile: true · Parry: – · Disabled by grounded: – · Usable while knocked down: –
-
-Active: Dr. Mundo hurls a cleaver in the target direction, dealing magic damage to the first enemy it hits and slowing them by 40% for 2 seconds.
-
-- **Magic Damage:** 20 / 22.5 / 25 / 27.5 / 30% of target's current health → at max rank, level 20: 30% of targetCurrentHealth
-- **Mechanics:** slow (2 s, 40%)
-
-Infected Cleaver has a minimum damage threshold, and is capped against minions and monsters.
-
-- **Minimum Damage:** 80 / 130 / 180 / 230 / 280 → at max rank, level 20: 280
-- **Capped Non-Champion Damage:** 100 / 200 / 300 / 400 / 500 → at max rank, level 20: 500
-
-If Infected Cleaver hits an enemy, Dr. Mundo heals for 50% of the health cost, increased to 100% if he hits a champion or kills an enemy.
-
-- **Heal:** 25 / 30 / 35 / 40 / 45 → at max rank, level 20: 45
-- **Maximum Heal:** 50 / 60 / 70 / 80 / 90 → at max rank, level 20: 90
-- **Mechanics:** heal
-
-Notes:
-
-- Infected Cleaver can be cast even if Dr. Mundo doesn't have the sufficient amount of health to pay for the health cost.
-    - As with all abilities with health costs, Infected Cleaver will not reduce Dr. Mundo's health below 1.
-- Infected Cleaver will be thrown from where Dr. Mundo was at the start of the cast time.
-- Spell shield blocking the ability's effects on the enemy does not prevent Dr. Mundo from receiving the health cost refund.
-
-## W: Burning Agony
-
-Source: [Template:Data Dr. Mundo/Burning Agony](https://wiki.leagueoflegends.com/en-us/Template:Data_Dr._Mundo/Burning_Agony?oldid=3906623) (revision 3906623). Ranks: 5.
-
-| Field | Value |
-|---|---|
-| Cooldown | 4 |
-| Cost | 10 / 15 / 20 / 25 / 30 health per second |
-| Cast time | None |
-| Effect radius | 325 |
-
-Targeting: Auto · Affects: Enemies, Self · Damage type: Magic · Spell shield blocks it: false · Projectile: – · Parry: – · Disabled by grounded: – · Usable while knocked down: –
-
-Toggle: Dr. Mundo sets himself on fire, gaining 30% tenacity and dealing magic damage every 0.25 seconds to nearby enemies.
-
-- **Magic Damage Per Tick:** 10 / 13.75 / 17.5 / 21.25 / 25 (+ 5% AP) → at max rank, level 20: 25 (+ 5% AP)
-- **Mechanics:** tenacity
-
-Burning Agony can be toggled off after 0.5 seconds of toggling on.
-
-If Dr. Mundo's health falls below Burning Agony's health cost while toggled on, the ability is toggled off automatically and put on a 1 second cooldown.
-
-Notes:
-
-- Toggle abilities do not count as ability activations for the purposes of on-cast effects such as Spellblade and triggering Force Pulse passive.
-- Burning Agony can be cast even if Dr. Mundo doesn't have the sufficient amount of health to pay for the health cost.
-    - As with all abilities with health costs, Burning Agony will not reduce Dr. Mundo's health below 1.
-- The Tenacity increase stacks additively with the tenacity reduction from Brittle, but multiplicatively with other sources.
 
 ## W: Heart Zapper
 
@@ -232,44 +169,6 @@ Notes:
 - Targets flung away are rendered untargetable in the process.
 - The damage of the enemy's corpse colliding with enemies does not benefit from Blunt Force Trauma's attack critically striking.
 
-## E: Masochism
-
-Source: [Template:Data Dr. Mundo/Masochism](https://wiki.leagueoflegends.com/en-us/Template:Data_Dr._Mundo/Masochism?oldid=3906624) (revision 3906624). Ranks: 5.
-
-| Field | Value |
-|---|---|
-| Cooldown | 6 / 5.5 / 5 / 4.5 / 4 |
-| Cost | 25 / 35 / 45 / 55 / 65 health |
-| Cast time | none |
-
-Targeting: Auto · Affects: Self · Damage type: Physical · Spell shield blocks it: true · Projectile: – · Parry: true · Disabled by grounded: – · Usable while knocked down: –
-
-Passive: Taking magic damage or paying a health cost increases Dr. Mundo's magic resistance by 3% for 2 seconds, stacking up to an amount.
-
-- **Maximum Magic Resistance:** 6 / 15 / 24 / 33 / 39% → at max rank, level 20: 39%
-- **Maximum Stacks:** 2 / 5 / 8 / 11 / 13 → at max rank, level 20: 13
-
-Active: Dr. Mundo gains bonus attack damage for 5 seconds, increased by an amount based on his percentage missing health.
-
-- **Flat Bonus AD:** 30 / 45 / 60 / 75 / 90 → at max rank, level 20: 90
-- **Maximum Missing Health Bonus AD:** 20 / 35 / 50 / 65 / 80 → at max rank, level 20: 80
-- **Maximum Bonus AD:** 50 / 80 / 110 / 140 / 170 → at max rank, level 20: 170
-
-Additionally, Dr. Mundo's next basic attack within the duration will cost health, but gains 25 bonus range and deals bonus physical damage.
-
-- **Bonus Physical Damage:** 4 / 4.5 / 5 / 5.5 / 6% of his maximum health → at max rank, level 20: 6% of maxHealth
-
-Masochism resets Dr. Mundo's basic attack timer.
-
-- **Mechanics:** attack reset
-
-Notes:
-
-- Masochism's attack can be used even if Dr. Mundo doesn't have the sufficient amount of health to pay for the health cost.
-    - As with all abilities with health costs, Masochism's attack will not reduce Dr. Mundo's health below 1.
-- The attack damage bonus is evaluated when the attack hits and thus adjusts to changes in Dr. Mundo's health.
-- Masochism does not apply to structures.
-
 ## R: Maximum Dosage
 
 Source: [Template:Data Dr. Mundo/Maximum Dosage](https://wiki.leagueoflegends.com/en-us/Template:Data_Dr._Mundo/Maximum_Dosage?oldid=4037515) (revision 4037515). Ranks: 3.
@@ -298,32 +197,6 @@ Notes:
 - The health regeneration granted by Maximum Dosage is special cased to be increased by Axiom Arcanist.
 - Maximum Dosage will end prematurely upon entering resurrection.
 - Against 5 champions, Rank 3 Maximum Dosage will heal 85% Maximum health regeneration & 50% Missing Bonus health
-
-## R: Sadism
-
-Source: [Template:Data Dr. Mundo/Sadism](https://wiki.leagueoflegends.com/en-us/Template:Data_Dr._Mundo/Sadism?oldid=3906625) (revision 3906625). Ranks: 3.
-
-| Field | Value |
-|---|---|
-| Cooldown | 110 / 100 / 90 |
-| Cost | 25% of current health |
-| Cast time | none |
-
-Targeting: Auto · Affects: Self · Damage type: – · Spell shield blocks it: – · Projectile: – · Parry: – · Disabled by grounded: – · Usable while knocked down: –
-
-Active: Dr. Mundo regenerates health over 12 seconds and gains bonus movement speed for the duration.
-
-- **Total Regeneration:** 60 / 85 / 110% maximum health → at max rank, level 20: 110% of maxHealth
-- **Regeneration Per Second:** 5 / 7.08333 / 9.16667% maximum health → at max rank, level 20: 9.16667% of maxHealth
-- **Bonus Movement Speed:** 15 / 25 / 35% → at max rank, level 20: 35%
-- **Mechanics:** heal (12 s)
-
-Notes:
-
-- Sadism adjusts dynamically to Dr. Mundo's maximum health.
-- Sadism will continue its effect through resurrection.
-- Sadism is not affected by Revitalize as it is considered health regeneration.
-- Taking into account Grievous Wounds, Sadism will heal for a total of 36 / 51 / 66% of maximum health at a 40% reduction and for a total of 24 / 34 / 44% of maximum health at a 60% reduction.
 
 ## Game files
 

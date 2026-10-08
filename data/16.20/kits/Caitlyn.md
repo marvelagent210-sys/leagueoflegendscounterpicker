@@ -9,6 +9,22 @@ Values marked "at max rank, level 20" assume every ability is maxed; see PLAN.md
 |---|--:|--:|--:|--:|--:|--:|--:|--:|--:|--:|
 | Caitlyn | 2684.2 | 14.32 | 1101.6 Mana | 136.7 | 1.173 | 0.151 | 119.4 | 54.6 | 650 | 325 |
 
+## Fight profile (what the interaction ledger uses)
+
+| Form | Attack range | Ranged | Projectile | Missile speed | Attack modifiers |
+|---|--:|---|---|--:|---|
+| Caitlyn | 650 | yes | yes | 2500 | Headshot |
+
+Cooldowns at max rank. Flags: the wiki's interaction flags (yes, no, partly). * marks an effect that applies only under a condition.
+
+| Slot | Ability | Cooldown | Delivery | Applies to the enemy | Movement | Gives itself |
+|---|---|--:|---|---|---|---|
+| E | 90 Caliber Net | 8 | projectile yes; spell shield yes; grounded yes; knockdown yes | slow 1 s 50% | dash (reverse-targeted) | – |
+| I | Headshot | – | projectile yes; spell shield no; parry yes; attack modifier | – | – | – |
+| Q | Piltover Peacemaker | 6 | projectile yes; spell shield yes | – | – | – |
+| R | Ace in the Hole | 90 | projectile yes; spell shield yes; disruptable yes | reveal | – | – |
+| W | Yordle Snap Trap | 10 | spell shield yes | root 1.5 s; reveal | – | – |
+
 ## Innate: Headshot
 
 Source: [Template:Data Caitlyn/Headshot](https://wiki.leagueoflegends.com/en-us/Template:Data_Caitlyn/Headshot?oldid=3982560) (revision 3982560). Ranks: 1.

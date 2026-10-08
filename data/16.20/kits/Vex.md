@@ -9,6 +9,22 @@ Values marked "at max rank, level 20" assume every ability is maxed; see PLAN.md
 |---|--:|--:|--:|--:|--:|--:|--:|--:|--:|--:|
 | Vex | 2635.2 | 18.30 | 1119.3 Mana | 108.1 | 0.792 | 0.197 | 110.5 | 53.6 | 550 | 335 |
 
+## Fight profile (what the interaction ledger uses)
+
+| Form | Attack range | Ranged | Projectile | Missile speed | Attack modifiers |
+|---|--:|---|---|--:|---|
+| Vex | 550 | yes | yes | 2000 | Doom 'n Gloom |
+
+Cooldowns at max rank. Flags: the wiki's interaction flags (yes, no, partly). * marks an effect that applies only under a condition.
+
+| Slot | Ability | Cooldown | Delivery | Applies to the enemy | Movement | Gives itself |
+|---|---|--:|---|---|---|---|
+| E | Looming Darkness | 12 | projectile yes; spell shield yes | slow 2 s 50% | – | – |
+| I | Doom 'n Gloom | 16 | projectile no; spell shield partly; parry yes; attack modifier | fear 1.5 s; knockdown 1.5 s; slow 1.5 s 60%; knockdown | – | – |
+| Q | Mistral Bolt | 4 | projectile yes; spell shield yes | – | – | – |
+| R | Shadow Surge | 100 | projectile yes; spell shield yes; grounded partly; knockdown no | reveal | dash (unstoppable) (second cast) | displacement immune |
+| W | Personal Space | 12 | spell shield yes | – | – | shield 2.5 s |
+
 ## Innate: Doom 'n Gloom
 
 Source: [Template:Data Vex/Doom 'n Gloom](https://wiki.leagueoflegends.com/en-us/Template:Data_Vex/Doom_'n_Gloom?oldid=3986733) (revision 3986733). Ranks: 1.

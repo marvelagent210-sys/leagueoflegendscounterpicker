@@ -1,0 +1,221 @@
+{
+  "champion": "Tryndamere",
+  "name": "Tryndamere",
+  "gameplayRadius": 65,
+  "moveSpeed": 345,
+  "attacks": [
+    {
+      "form": "tryndamere",
+      "formName": "Tryndamere",
+      "range": 175,
+      "ranged": false,
+      "projectile": false,
+      "attackSpeed": 1.15474,
+      "attackDamage": 154.493,
+      "windup": 0.164539,
+      "modifiers": [
+        "Battle Fury"
+      ]
+    }
+  ],
+  "abilities": [
+    {
+      "champion": "Tryndamere",
+      "kind": "E",
+      "name": "Spinning Slash",
+      "page": {
+        "title": "Template:Data Tryndamere/Spinning Slash",
+        "revid": 4007759
+      },
+      "damageTypes": [
+        "physical"
+      ],
+      "delivery": {
+        "targeting": [
+          "location"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "yes",
+        "grounded": "yes",
+        "knockdown": "yes",
+        "attack": "on-hit"
+      },
+      "applies": [],
+      "movement": [
+        {
+          "type": "dash",
+          "evidence": [
+            {
+              "page": "Dash",
+              "revid": 4035700,
+              "quote": "location-targeted"
+            }
+          ],
+          "targeting": "location-targeted",
+          "interruptible": true
+        }
+      ],
+      "states": [],
+      "cooldown": 8,
+      "castTime": 0,
+      "range": 660,
+      "notes": [
+        "Spinning Slash has no minimum dash range.",
+        "Flash will interrupt the dash but Spinning Slash will deal damage to enemies at the new location instantly.\n  - Enemies already hit by Spinning Slash cannot be damaged more than once.",
+        "To ensure Spinning Slash deals damage when dashing away from an enemy champion, Tryndamere needs to move r-35 units towards the enemy beyond the distance he can basic attack at, where r represents the enemy's radius and 35 is the distance in units beyond Tryndamere's basic attack range that Spinning Slash can reach.",
+        "The cooldown reduction upon critically striking triggers on wards and jungle plants and even if the attack is blocked, but not if it misses due to blind.",
+        ": Cooldown reduction on critical strike interaction with parrying effects (dodge)."
+      ]
+    },
+    {
+      "champion": "Tryndamere",
+      "kind": "I",
+      "name": "Battle Fury",
+      "page": {
+        "title": "Template:Data Tryndamere/Battle Fury",
+        "revid": 4041166
+      },
+      "damageTypes": [],
+      "delivery": {
+        "targeting": [
+          "passive"
+        ],
+        "affectsEnemies": false,
+        "parry": "partly",
+        "attack": "attack modifier"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "boostsAttacks": true,
+      "notes": [
+        "Tryndamere will not generate Fury if the attack is dodged or misses due to blind.",
+        "Fury generation with parrying effects (block)",
+        "Effects that apply on-hit effects twice (e.g. Dusk and Dawn Spellblade and Guinsoo's Rageblade Phantom Hit) will always generate the same amount of Fury as their triggering attack.\n  - If the triggering attack critically strikes, then the additional on-hit will also generate 10 Fury, if it doesn't, then the additional on-hit will generate 5 Fury."
+      ]
+    },
+    {
+      "champion": "Tryndamere",
+      "kind": "Q",
+      "name": "Bloodlust",
+      "page": {
+        "title": "Template:Data Tryndamere/Bloodlust",
+        "revid": 4058457
+      },
+      "damageTypes": [],
+      "delivery": {
+        "targeting": [
+          "auto"
+        ],
+        "affectsEnemies": false
+      },
+      "applies": [],
+      "movement": [],
+      "states": [
+        {
+          "state": "heal",
+          "evidence": [
+            {
+              "page": "Template:Data Tryndamere/Bloodlust",
+              "revid": 4058457,
+              "quote": "Active: Tryndamere consumes all of his Fury to heal himself, increased for every point of Fury consumed."
+            }
+          ]
+        }
+      ],
+      "cooldown": 12,
+      "castTime": 0,
+      "boostsAttacks": true
+    },
+    {
+      "champion": "Tryndamere",
+      "kind": "R",
+      "name": "Undying Rage",
+      "page": {
+        "title": "Template:Data Tryndamere/Undying Rage",
+        "revid": 4018945
+      },
+      "damageTypes": [],
+      "delivery": {
+        "targeting": [
+          "auto"
+        ],
+        "affectsEnemies": false
+      },
+      "applies": [],
+      "movement": [],
+      "states": [
+        {
+          "state": "minimum health",
+          "evidence": [
+            {
+              "page": "Template:Tip data/Minimum health threshold",
+              "revid": 3375621
+            },
+            {
+              "page": "Template:Data Tryndamere/Undying Rage",
+              "revid": 4018945,
+              "quote": "Active: Tryndamere becomes enraged, instantly gaining Fury and a minimum health threshold for 5 seconds."
+            }
+          ],
+          "duration": 5
+        }
+      ],
+      "cooldown": 80,
+      "castTime": 0,
+      "usableWhileDisabled": {
+        "which": "cast",
+        "evidence": [
+          {
+            "page": "Template:Data Tryndamere/Undying Rage",
+            "revid": 4018945,
+            "quote": "can be used while affected by cast-inhibiting crowd control"
+          }
+        ]
+      }
+    },
+    {
+      "champion": "Tryndamere",
+      "kind": "W",
+      "name": "Mocking Shout",
+      "page": {
+        "title": "Template:Data Tryndamere/Mocking Shout",
+        "revid": 4052438
+      },
+      "damageTypes": [],
+      "delivery": {
+        "targeting": [
+          "proximity"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "yes"
+      },
+      "applies": [
+        {
+          "type": "slow",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "slow"
+            },
+            {
+              "page": "Template:Data Tryndamere/Mocking Shout",
+              "revid": 4052438,
+              "quote": "While accursed, they become slowed while facing away from Tryndamere."
+            }
+          ],
+          "amount": 50
+        }
+      ],
+      "movement": [],
+      "states": [],
+      "cooldown": 14,
+      "castTime": 0.3,
+      "boostsAttacks": true,
+      "notes": [
+        "Mocking Shout very briefly reveals Tryndamere if he uses it while in the Fog of War to enemies."
+      ]
+    }
+  ]
+}

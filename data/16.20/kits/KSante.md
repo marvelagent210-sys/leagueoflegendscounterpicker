@@ -9,6 +9,22 @@ Values marked "at max rank, level 20" assume every ability is maxed; see PLAN.md
 |---|--:|--:|--:|--:|--:|--:|--:|--:|--:|--:|
 | K'Sante | 2984.8 | 29.17 | 1499.9 Mana | 132.8 | 0.995 | 0.196 | 138.3 | 71.3 | 150 | 330 |
 
+## Fight profile (what the interaction ledger uses)
+
+| Form | Attack range | Ranged | Projectile | Missile speed | Attack modifiers |
+|---|--:|---|---|--:|---|
+| K'Sante | 150 | no | no | – | Dauntless Instinct |
+
+Cooldowns at max rank. Flags: the wiki's interaction flags (yes, no, partly). * marks an effect that applies only under a condition.
+
+| Slot | Ability | Cooldown | Delivery | Applies to the enemy | Movement | Gives itself |
+|---|---|--:|---|---|---|---|
+| E | Footwork | 8 | grounded yes; knockdown yes | – | dash; dash (ally cast) | shield 2 s |
+| I | Dauntless Instinct | – | spell shield partly; parry partly; attack modifier | – | – | – |
+| Q | Ntofo Strikes | 3.5 | projectile partly; spell shield yes | airborne (pull) 0.65 s; slow 0.5 s 80%; stun 0.8 s | – | – |
+| R | All Out | 80 | spell shield yes; grounded yes | airborne (knock back, knock up); root 0.5 s; stun 0.3 s | blink | displacement immune 0.5 s |
+| W | Path Maker | 10 | spell shield yes; grounded partly; knockdown yes; disruptable no | airborne (knock back) 0.5 s; stun | dash | displacement immune |
+
 ## Innate: Dauntless Instinct
 
 Source: [Template:Data K'Sante/Dauntless Instinct](https://wiki.leagueoflegends.com/en-us/Template:Data_K'Sante/Dauntless_Instinct?oldid=4038388) (revision 4038388). Ranks: 1.

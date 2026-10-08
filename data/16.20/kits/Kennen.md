@@ -9,6 +9,22 @@ Values marked "at max rank, level 20" assume every ability is maxed; see PLAN.md
 |---|--:|--:|--:|--:|--:|--:|--:|--:|--:|--:|
 | Kennen | 2507.2 | 18.28 | 200.0 Energy | 121.7 | 1.086 | 0.184 | 126.3 | 55.6 | 550 | 335 |
 
+## Fight profile (what the interaction ledger uses)
+
+| Form | Attack range | Ranged | Projectile | Missile speed | Attack modifiers |
+|---|--:|---|---|--:|---|
+| Kennen | 550 | yes | yes | 1700 | – |
+
+Cooldowns at max rank. Flags: the wiki's interaction flags (yes, no, partly). * marks an effect that applies only under a condition.
+
+| Slot | Ability | Cooldown | Delivery | Applies to the enemy | Movement | Gives itself |
+|---|---|--:|---|---|---|---|
+| E | Lightning Rush | 6 | spell shield yes | – | – | – |
+| I | Mark of the Storm | – | spell shield yes | stun 1.25 s | – | – |
+| Q | Thundering Shuriken | 4 | projectile yes; spell shield yes | – | – | – |
+| R | Slicing Maelstrom | 120 | spell shield yes | – | – | – |
+| W | Electrical Surge | 6 | projectile no; spell shield yes; parry partly; on-hit | – | – | – |
+
 ## Innate: Mark of the Storm
 
 Source: [Template:Data Kennen/Mark of the Storm](https://wiki.leagueoflegends.com/en-us/Template:Data_Kennen/Mark_of_the_Storm?oldid=3932481) (revision 3932481). Ranks: 1.

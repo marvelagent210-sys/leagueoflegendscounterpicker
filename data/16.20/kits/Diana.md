@@ -9,6 +9,22 @@ Values marked "at max rank, level 20" assume every ability is maxed; see PLAN.md
 |---|--:|--:|--:|--:|--:|--:|--:|--:|--:|--:|
 | Diana | 2783.5 | 23.22 | 866.6 Mana | 116.0 | 0.898 | 0.232 | 115.6 | 72.3 | 150 | 345 |
 
+## Fight profile (what the interaction ledger uses)
+
+| Form | Attack range | Ranged | Projectile | Missile speed | Attack modifiers |
+|---|--:|---|---|--:|---|
+| Diana | 150 | no | no | – | Moonsilver Blade |
+
+Cooldowns at max rank. Flags: the wiki's interaction flags (yes, no, partly). * marks an effect that applies only under a condition.
+
+| Slot | Ability | Cooldown | Delivery | Applies to the enemy | Movement | Gives itself |
+|---|---|--:|---|---|---|---|
+| E | Lunar Rush | 14 | spell shield yes; grounded yes; knockdown yes | – | dash | – |
+| I | Moonsilver Blade | – | spell shield yes; parry yes; attack modifier | – | – | – |
+| Q | Crescent Strike | 6 | projectile yes; spell shield partly | – | – | – |
+| R | Moonfall | 80 | spell shield partly | airborne (pull) 2 s; slow 2 s 60% | – | – |
+| W | Pale Cascade | 9 | projectile yes; spell shield yes | – | – | shield 5 s |
+
 ## Innate: Moonsilver Blade
 
 Source: [Template:Data Diana/Moonsilver Blade](https://wiki.leagueoflegends.com/en-us/Template:Data_Diana/Moonsilver_Blade?oldid=4047026) (revision 4047026). Ranks: 1.

@@ -1,0 +1,274 @@
+{
+  "champion": "Renata",
+  "name": "Renata Glasc",
+  "gameplayRadius": 65,
+  "moveSpeed": 330,
+  "attacks": [
+    {
+      "form": "renata-glasc",
+      "formName": "Renata Glasc",
+      "range": 550,
+      "ranged": true,
+      "projectile": true,
+      "missileSpeed": 1800,
+      "attackSpeed": 0.884332,
+      "attackDamage": 107.995,
+      "windup": 0.21259,
+      "modifiers": [
+        "Leverage"
+      ]
+    }
+  ],
+  "abilities": [
+    {
+      "champion": "Renata",
+      "kind": "E",
+      "name": "Loyalty Program",
+      "page": {
+        "title": "Template:Data Renata Glasc/Loyalty Program",
+        "revid": 4053301
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "location"
+        ],
+        "affectsEnemies": true,
+        "projectile": "yes",
+        "spellShield": "partly"
+      },
+      "applies": [
+        {
+          "type": "slow",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "slow"
+            },
+            {
+              "page": "Template:Data Renata Glasc/Loyalty Program",
+              "revid": 4053301,
+              "quote": "Renata and allies struck are granted a shield for 3 seconds and enemies struck are dealt magic damage and slowed by 30% for 2 seconds."
+            }
+          ],
+          "duration": 2,
+          "amount": 30
+        }
+      ],
+      "movement": [],
+      "states": [
+        {
+          "state": "shield",
+          "evidence": [
+            {
+              "page": "Template:Data Renata Glasc/Loyalty Program",
+              "revid": 4053301,
+              "quote": "Renata and allies struck are granted a shield for 3 seconds and enemies struck are dealt magic damage and slowed by 30% for 2 seconds."
+            }
+          ],
+          "duration": 3
+        }
+      ],
+      "cooldown": 10,
+      "castTime": 0.25,
+      "range": 800,
+      "speed": 1450,
+      "notes": [
+        "Spell shield will block either the rockets while they are in-flight or their explosion."
+      ]
+    },
+    {
+      "champion": "Renata",
+      "kind": "I",
+      "name": "Leverage",
+      "page": {
+        "title": "Template:Data Renata Glasc/Leverage",
+        "revid": 3997432
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "passive"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "partly",
+        "attack": "attack modifier"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "notes": [
+        "Spell shield will not block the mark's application.\n  - : Interaction with mark consumption",
+        "Leverage's mark will be applied even if the attack misses due to blind.",
+        "Interaction between mark application and consumption and parry effects (block, dodge, blind*)."
+      ]
+    },
+    {
+      "champion": "Renata",
+      "kind": "Q",
+      "name": "Handshake",
+      "page": {
+        "title": "Template:Data Renata Glasc/Handshake",
+        "revid": 4053296
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "direction"
+        ],
+        "affectsEnemies": true,
+        "projectile": "yes",
+        "spellShield": "partly"
+      },
+      "applies": [
+        {
+          "type": "airborne",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "airborne: knock back"
+            },
+            {
+              "page": "Template:Data Renata Glasc/Handshake",
+              "revid": 4053296,
+              "quote": "Recast: Renata breaks the tether to knock the target in the target direction, though not through terrain, dealing the same damage to enemies they pass through."
+            }
+          ],
+          "variant": "knock back"
+        },
+        {
+          "type": "root",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "root"
+            },
+            {
+              "page": "Template:Data Renata Glasc/Handshake",
+              "revid": 4053296,
+              "quote": "Active: Renata fires a hook in the target direction that deals magic damage to the first enemy hit and roots them for 1 second, during which they are revealed."
+            }
+          ],
+          "duration": 1
+        },
+        {
+          "type": "stun",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "stun"
+            },
+            {
+              "page": "Template:Data Renata Glasc/Handshake",
+              "revid": 4053296,
+              "quote": "If the thrown target is a champion, all secondary targets hit are stunned for 0.5 seconds."
+            }
+          ],
+          "duration": 0.5,
+          "condition": "If the thrown target is a champion, all secondary targets hit are stunned for 0.5 seconds."
+        },
+        {
+          "type": "reveal",
+          "evidence": [
+            {
+              "page": "Template:List of true sight abilities",
+              "revid": 3860444
+            }
+          ]
+        }
+      ],
+      "movement": [],
+      "states": [],
+      "cooldown": 16,
+      "castTime": 0.25,
+      "range": 900,
+      "speed": 1450,
+      "notes": [
+        "Handshake's interaction between its tether and root:\n  - If the root is not applied, neither is the tether.\n  - The tether's duration lasts the same as the root duration, even if it is modified by tenacity.\n  - If the root is removed, the tether is as well, but not vice versa.",
+        "Spell shield will block the hook but not the recast's effects as the primary target.\n  - As a secondary target, the recast's effects will be blocked."
+      ]
+    },
+    {
+      "champion": "Renata",
+      "kind": "R",
+      "name": "Hostile Takeover",
+      "page": {
+        "title": "Template:Data Renata Glasc/Hostile Takeover",
+        "revid": 4050286
+      },
+      "damageTypes": [],
+      "delivery": {
+        "targeting": [
+          "direction"
+        ],
+        "affectsEnemies": true,
+        "projectile": "yes",
+        "spellShield": "yes"
+      },
+      "applies": [
+        {
+          "type": "berserk",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "berserk"
+            },
+            {
+              "page": "Template:Data Renata Glasc/Hostile Takeover",
+              "revid": 4050286,
+              "quote": "Enemy champions and minions hit become berserk for a duration."
+            }
+          ],
+          "duration": 2.25
+        }
+      ],
+      "movement": [],
+      "states": [],
+      "cooldown": 110,
+      "castTime": 0.75,
+      "range": 2000,
+      "speed": 650,
+      "boostsAttacks": true,
+      "notes": [
+        ":See Types of Crowd Control#Berserk for specific details on Berserk."
+      ]
+    },
+    {
+      "champion": "Renata",
+      "kind": "W",
+      "name": "Bailout",
+      "page": {
+        "title": "Template:Data Renata Glasc/Bailout",
+        "revid": 3908415
+      },
+      "damageTypes": [],
+      "delivery": {
+        "targeting": [
+          "unit"
+        ],
+        "affectsEnemies": true
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "cooldown": 24,
+      "castTime": 0,
+      "range": 800,
+      "boostsAttacks": true,
+      "notes": [
+        "If the target takes fatal damage during Bailout, upon destroying a turret while being targeted by it, they will receive their own Shut-Down gold (specifically ignoring the base bounty) instead of being executed."
+      ]
+    }
+  ]
+}

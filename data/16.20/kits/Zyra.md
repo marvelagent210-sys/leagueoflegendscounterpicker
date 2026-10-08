@@ -9,6 +9,22 @@ Values marked "at max rank, level 20" assume every ability is maxed; see PLAN.md
 |---|--:|--:|--:|--:|--:|--:|--:|--:|--:|--:|
 | Zyra | 2402.8 | 15.33 | 909.6 Mana | 115.9 | 0.940 | 0.155 | 111.6 | 55.6 | 575 | 340 |
 
+## Fight profile (what the interaction ledger uses)
+
+| Form | Attack range | Ranged | Projectile | Missile speed | Attack modifiers |
+|---|--:|---|---|--:|---|
+| Zyra | 575 | yes | yes | 1700 | – |
+
+Cooldowns at max rank. Flags: the wiki's interaction flags (yes, no, partly). * marks an effect that applies only under a condition.
+
+| Slot | Ability | Cooldown | Delivery | Applies to the enemy | Movement | Gives itself |
+|---|---|--:|---|---|---|---|
+| E | Grasping Roots | 11 | projectile yes; spell shield yes | root 2 s | – | – |
+| I | Garden of Thorns | 8.51471 | – | – | – | – |
+| Q | Deadly Spines | 5 | spell shield yes | – | – | – |
+| R | Stranglethorns | 90 | spell shield yes | airborne (knock up) 1 s | – | – |
+| W | Rampant Growth | 10 | spell shield no | reveal | – | – |
+
 ## Innate: Garden of Thorns
 
 Source: [Template:Data Zyra/Garden of Thorns](https://wiki.leagueoflegends.com/en-us/Template:Data_Zyra/Garden_of_Thorns?oldid=3986877) (revision 3986877). Ranks: 1.

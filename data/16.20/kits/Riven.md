@@ -9,6 +9,23 @@ Values marked "at max rank, level 20" assume every ability is maxed; see PLAN.md
 |---|--:|--:|--:|--:|--:|--:|--:|--:|--:|--:|
 | Riven | 2596.5 | 18.33 | 0.0 None | 123.0 | 1.055 | 0.158 | 119.5 | 72.3 | 125 | 340 |
 
+## Fight profile (what the interaction ledger uses)
+
+| Form | Attack range | Ranged | Projectile | Missile speed | Attack modifiers |
+|---|--:|---|---|--:|---|
+| Riven | 125 | no | no | – | Runic Blade |
+
+Cooldowns at max rank. Flags: the wiki's interaction flags (yes, no, partly). * marks an effect that applies only under a condition.
+
+| Slot | Ability | Cooldown | Delivery | Applies to the enemy | Movement | Gives itself |
+|---|---|--:|---|---|---|---|
+| E | Valor | 6 | grounded yes; knockdown yes | – | dash | shield 1.5 s |
+| I | Runic Blade | – | parry yes; attack modifier | – | – | heal |
+| Q | Broken Wings | 13 | spell shield yes; grounded yes; knockdown yes | airborne (knock back) 0.5 s | dash | – |
+| R | Blade of the Exile | 60 | – | – | – | – |
+| R | Wind Slash | – | projectile yes; spell shield yes | – | – | – |
+| W | Ki Burst | 7 | spell shield yes | stun 0.75 s | – | – |
+
 ## Innate: Runic Blade
 
 Source: [Template:Data Riven/Runic Blade](https://wiki.leagueoflegends.com/en-us/Template:Data_Riven/Runic_Blade?oldid=3989876) (revision 3989876). Ranks: 1.

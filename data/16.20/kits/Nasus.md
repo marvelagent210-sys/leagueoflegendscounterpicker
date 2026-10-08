@@ -9,6 +9,22 @@ Values marked "at max rank, level 20" assume every ability is maxed; see PLAN.md
 |---|--:|--:|--:|--:|--:|--:|--:|--:|--:|--:|
 | Nasus | 2695.2 | 26.70 | 1545.2 Mana | 145.7 | 1.075 | 0.187 | 126.4 | 72.3 | 125 | 350 |
 
+## Fight profile (what the interaction ledger uses)
+
+| Form | Attack range | Ranged | Projectile | Missile speed | Attack modifiers |
+|---|--:|---|---|--:|---|
+| Nasus | 125 | no | no | – | – |
+
+Cooldowns at max rank. Flags: the wiki's interaction flags (yes, no, partly). * marks an effect that applies only under a condition.
+
+| Slot | Ability | Cooldown | Delivery | Applies to the enemy | Movement | Gives itself |
+|---|---|--:|---|---|---|---|
+| E | Spirit Fire | 12 | spell shield no | – | – | – |
+| I | Soul Eater | – | – | – | – | heal |
+| Q | Siphoning Strike | 3.5 | spell shield no; parry yes; attack | – | – | – |
+| R | Fury of the Sands | 80 | – | – | – | – |
+| W | Wither | 11 | spell shield yes | cripple 5 s 75%; slow 5 s 35% | – | – |
+
 ## Innate: Soul Eater
 
 Source: [Template:Data Nasus/Soul Eater](https://wiki.leagueoflegends.com/en-us/Template:Data_Nasus/Soul_Eater?oldid=4057470) (revision 4057470). Ranks: 1.

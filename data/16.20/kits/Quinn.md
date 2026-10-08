@@ -9,6 +9,23 @@ Values marked "at max rank, level 20" assume every ability is maxed; see PLAN.md
 |---|--:|--:|--:|--:|--:|--:|--:|--:|--:|--:|
 | Quinn | 2669.2 | 16.32 | 957.3 Mana | 121.9 | 1.075 | 0.163 | 120.4 | 54.6 | 525 | 330 |
 
+## Fight profile (what the interaction ledger uses)
+
+| Form | Attack range | Ranged | Projectile | Missile speed | Attack modifiers |
+|---|--:|---|---|--:|---|
+| Quinn | 525 | yes | yes | 2000 | Harrier |
+
+Cooldowns at max rank. Flags: the wiki's interaction flags (yes, no, partly). * marks an effect that applies only under a condition.
+
+| Slot | Ability | Cooldown | Delivery | Applies to the enemy | Movement | Gives itself |
+|---|---|--:|---|---|---|---|
+| E | Vault | 8 | spell shield yes; grounded yes; knockdown yes | airborne (knock back) 0.5 s; slow 1.5 s 50% | dash | – |
+| I | Harrier | 7 | spell shield no; parry yes; attack modifier | – | – | – |
+| Q | Blinding Assault | 9 | projectile yes; spell shield yes | nearsight 1.75 s | – | – |
+| R | Behind Enemy Lines | 3 | grounded yes; disruptable yes | – | – | – |
+| R | Skystrike | – | spell shield yes | – | – | – |
+| W | Heightened Senses | 30 | spell shield no | – | – | – |
+
 ## Innate: Harrier
 
 Source: [Template:Data Quinn/Harrier](https://wiki.leagueoflegends.com/en-us/Template:Data_Quinn/Harrier?oldid=4024765) (revision 4024765). Ranks: 1.

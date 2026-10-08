@@ -9,6 +9,23 @@ Values marked "at max rank, level 20" assume every ability is maxed; see PLAN.md
 |---|--:|--:|--:|--:|--:|--:|--:|--:|--:|--:|
 | Senna | 2280.2 | 14.32 | 1234.9 Mana | 50.0 | 0.830 | 0.298 | 103.7 | 54.6 | 600 | 330 |
 
+## Fight profile (what the interaction ledger uses)
+
+| Form | Attack range | Ranged | Projectile | Missile speed | Attack modifiers |
+|---|--:|---|---|--:|---|
+| Senna | 600 | yes | no | – | Absolution |
+
+Cooldowns at max rank. Flags: the wiki's interaction flags (yes, no, partly). * marks an effect that applies only under a condition.
+
+| Slot | Ability | Cooldown | Delivery | Applies to the enemy | Movement | Gives itself |
+|---|---|--:|---|---|---|---|
+| A | Basic Attack | – | projectile no; parry yes; on-hit | – | – | – |
+| E | Curse of the Black Mist | 20 | – | – | – | camouflage 8 s |
+| I | Absolution | – | projectile yes; spell shield no; parry partly; attack modifier | – | – | heal |
+| Q | Piercing Darkness | 15 | projectile no; spell shield partly; on-hit | slow 2 s 15% | – | heal |
+| R | Dawning Shadow | 100 | projectile yes; spell shield yes | – | – | shield 3 s |
+| W | Last Embrace | 11 | projectile yes; spell shield yes | root 2.25 s | – | – |
+
 ## Innate: Absolution
 
 Source: [Template:Data Senna/Absolution](https://wiki.leagueoflegends.com/en-us/Template:Data_Senna/Absolution?oldid=4071407) (revision 4071407). Ranks: 1.

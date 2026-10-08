@@ -9,6 +9,22 @@ Values marked "at max rank, level 20" assume every ability is maxed; see PLAN.md
 |---|--:|--:|--:|--:|--:|--:|--:|--:|--:|--:|
 | Bel'Veth | 2644.8 | 17.80 | 0.0 None | 84.5 | 0.670 | 0.220 | 126.3 | 72.3 | 150 | 340 |
 
+## Fight profile (what the interaction ledger uses)
+
+| Form | Attack range | Ranged | Projectile | Missile speed | Attack modifiers |
+|---|--:|---|---|--:|---|
+| Bel'Veth | 150 | no | no | – | – |
+
+Cooldowns at max rank. Flags: the wiki's interaction flags (yes, no, partly). * marks an effect that applies only under a condition.
+
+| Slot | Ability | Cooldown | Delivery | Applies to the enemy | Movement | Gives itself |
+|---|---|--:|---|---|---|---|
+| E | Royal Maelstrom | 12 | spell shield no; parry yes; on-hit | – | – | heal 1.5 s |
+| I | Death in Lavender | – | – | – | – | – |
+| Q | Void Surge | 1 | spell shield yes; parry partly; grounded yes; knockdown yes; on-hit | – | dash | heal |
+| R | Endless Banquet | 1 | spell shield yes; grounded yes; knockdown partly; on-hit | slow 25% | dash | heal |
+| W | Above and Below | 8 | projectile no; spell shield yes | airborne (knock up) 2 s; slow 2 s 30% | – | – |
+
 ## Innate: Death in Lavender
 
 Source: [Template:Data Bel'Veth/Death in Lavender](https://wiki.leagueoflegends.com/en-us/Template:Data_Bel'Veth/Death_in_Lavender?oldid=4050294) (revision 4050294). Ranks: 1.

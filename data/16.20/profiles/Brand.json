@@ -1,0 +1,197 @@
+{
+  "champion": "Brand",
+  "name": "Brand",
+  "gameplayRadius": 65,
+  "moveSpeed": 340,
+  "attacks": [
+    {
+      "form": "brand",
+      "formName": "Brand",
+      "range": 550,
+      "ranged": true,
+      "projectile": true,
+      "missileSpeed": 2000,
+      "attackSpeed": 0.926813,
+      "attackDamage": 115.995,
+      "windup": 0.202306,
+      "modifiers": []
+    }
+  ],
+  "abilities": [
+    {
+      "champion": "Brand",
+      "kind": "E",
+      "name": "Conflagration",
+      "page": {
+        "title": "Template:Data Brand/Conflagration",
+        "revid": 4034693
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "unit"
+        ],
+        "affectsEnemies": true,
+        "projectile": "no",
+        "spellShield": "yes"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "cooldown": 9,
+      "castTime": 0.25,
+      "range": 675,
+      "speed": 900,
+      "notes": [
+        "The flame spreads to enemies near the primary target at the time of cast.\n  - Enemies that move out of range after the fact will still be hit, as the flame is spread as homing missiles to each of its targets.",
+        "If the target becomes untargetable, dies, or is too far away or no longer in sight during the cast time, this ability will cancel but does not go on cooldown nor pay its cost (if applicable)."
+      ]
+    },
+    {
+      "champion": "Brand",
+      "kind": "I",
+      "name": "Blaze",
+      "page": {
+        "title": "Template:Data Brand/Blaze",
+        "revid": 4052621
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "passive"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "yes"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "notes": [
+        "The explosion is not considered a tether effect and will not affect untargetable targets, even if the explosion originated from them."
+      ]
+    },
+    {
+      "champion": "Brand",
+      "kind": "Q",
+      "name": "Sear",
+      "page": {
+        "title": "Template:Data Brand/Sear",
+        "revid": 4007576
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "direction"
+        ],
+        "affectsEnemies": true,
+        "projectile": "yes",
+        "spellShield": "yes"
+      },
+      "applies": [
+        {
+          "type": "stun",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "stun"
+            },
+            {
+              "page": "Template:Data Brand/Sear",
+              "revid": 4007576,
+              "quote": "Ablaze Bonus: The target is stunned for 1.75 seconds."
+            }
+          ],
+          "duration": 1.75
+        }
+      ],
+      "movement": [],
+      "states": [],
+      "cooldown": 6,
+      "castTime": 0.25,
+      "range": 1100,
+      "speed": 1600
+    },
+    {
+      "champion": "Brand",
+      "kind": "R",
+      "name": "Pyroclasm",
+      "page": {
+        "title": "Template:Data Brand/Pyroclasm",
+        "revid": 3955099
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "unit"
+        ],
+        "affectsEnemies": true,
+        "projectile": "yes",
+        "spellShield": "partly"
+      },
+      "applies": [
+        {
+          "type": "slow",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "slow"
+            },
+            {
+              "page": "Template:Data Brand/Pyroclasm",
+              "revid": 3955099,
+              "quote": "Ablaze Bonus: The target is slowed for 0.25 seconds."
+            }
+          ],
+          "duration": 0.25,
+          "amount": 60
+        }
+      ],
+      "movement": [],
+      "states": [],
+      "cooldown": 80,
+      "castTime": 0.25,
+      "range": 750,
+      "speed": 750,
+      "notes": [
+        "If the target the fireball is in flight towards becomes untargetable, the fireball missile will be destroyed but a new missile will be formed at the target's location that is able to bounce for up to the remaining bounces of the previous fireball.\n  - The new missile is only formed if there is a valid target to bounce to at the time of the previous missile being destroyed.\n  - This does not apply if the target is Brand, as the missile would not be destroyed and would bounce from him even if he is untargetable.",
+        "If the initial cast target uses spell shield, Pyroclasm will not bounce. If the bounce is blocked by an enemy's spell shield it will not deal any damage, but it will keep on bouncing.",
+        "If the target becomes untargetable, dies, or is too far away or no longer in sight during the cast time, this ability will cancel but does not go on cooldown nor pay its cost (if applicable)."
+      ]
+    },
+    {
+      "champion": "Brand",
+      "kind": "W",
+      "name": "Pillar of Flame",
+      "page": {
+        "title": "Template:Data Brand/Pillar of Flame",
+        "revid": 3955084
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "location"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "yes"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "cooldown": 8,
+      "castTime": 0.25,
+      "range": 900
+    }
+  ]
+}

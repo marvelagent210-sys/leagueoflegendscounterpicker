@@ -1,0 +1,7806 @@
+{
+  "pages": {
+    "Blink": 4047228,
+    "Channel": 4002276,
+    "Dash": 4035700,
+    "Grievous Wounds": 3969410,
+    "Invulnerability": 3990045,
+    "Projectile": 3999064,
+    "Range": 4058499,
+    "Spell shield": 3981674,
+    "Stealth": 4013411,
+    "Template:List of true sight abilities": 3860444,
+    "Template:Tip data/Blind": 4060641,
+    "Template:Tip data/Block": 4060628,
+    "Template:Tip data/Cast-inhibiting crowd control": 4035713,
+    "Template:Tip data/Cc-immune": 4060529,
+    "Template:Tip data/Cleanse": 4060530,
+    "Template:Tip data/Disarming crowd control": 3893044,
+    "Template:Tip data/Displacement immune": 4060638,
+    "Template:Tip data/Dodge": 4060630,
+    "Template:Tip data/Execute": 4060756,
+    "Template:Tip data/Homing projectile destruction": 4060676,
+    "Template:Tip data/Knockdown": 4060618,
+    "Template:Tip data/Lunge": 4060705,
+    "Template:Tip data/Minimum health threshold": 3375621,
+    "Template:Tip data/Resurrection": 4060644,
+    "Template:Tip data/Slow-immune": 4060627,
+    "Template:Tip data/Spell shield": 4060566,
+    "Template:Tip data/Stasis (buff)": 3598956,
+    "Template:Tip data/Tenacity": 4060537,
+    "Template:Tip data/Uncancellable windup": 4072133,
+    "Template:Tip data/Untargetable": 4060565,
+    "Tenacity": 4021927,
+    "Types of Crowd Control": 4061028,
+    "Types of Crowd Control/Sources": 4061740,
+    "Types of Crowd Control/Summary": 4035704,
+    "Untargetability": 3965000
+  },
+  "entries": [
+    {
+      "list": "projectileBlock",
+      "champion": "Braum",
+      "ability": "Unbreakable",
+      "kind": "E"
+    },
+    {
+      "list": "projectileBlock",
+      "champion": "Mel",
+      "ability": "Rebuttal",
+      "kind": "W"
+    },
+    {
+      "list": "projectileBlock",
+      "champion": "Samira",
+      "ability": "Blade Whirl",
+      "kind": "W"
+    },
+    {
+      "list": "projectileBlock",
+      "champion": "Yasuo",
+      "ability": "Wind Wall",
+      "kind": "W"
+    },
+    {
+      "list": "spellShield",
+      "champion": "Sivir",
+      "ability": "Spell Shield",
+      "kind": "E"
+    },
+    {
+      "list": "spellShield",
+      "champion": "Nocturne",
+      "ability": "Shroud of Darkness",
+      "kind": "W"
+    },
+    {
+      "list": "untargetable",
+      "champion": "Aurora",
+      "ability": "Between Worlds",
+      "kind": "R",
+      "note": "Does not destroy inbound projectiles"
+    },
+    {
+      "list": "untargetable",
+      "champion": "Camille",
+      "ability": "The Hextech Ultimatum",
+      "kind": "R"
+    },
+    {
+      "list": "untargetable",
+      "champion": "DrMundo",
+      "ability": "Blunt Force Trauma",
+      "kind": "E",
+      "note": "Grants untargetability to units that are flung away"
+    },
+    {
+      "list": "untargetable",
+      "champion": "Evelynn",
+      "ability": "Last Caress",
+      "kind": "R"
+    },
+    {
+      "list": "untargetable",
+      "champion": "Fizz",
+      "ability": "Playful",
+      "kind": "E"
+    },
+    {
+      "list": "untargetable",
+      "champion": "Galio",
+      "ability": "Hero's Entrance",
+      "kind": "R"
+    },
+    {
+      "list": "untargetable",
+      "champion": "Gwen",
+      "ability": "Hallowed Mist",
+      "kind": "W",
+      "note": "Does not destroy inbound projectiles for non-champion missiles but does so for champion missiles that attempt to pass through the mist, special cased to be targetable to turrets and monsters as well as enemies inside the mist"
+    },
+    {
+      "list": "untargetable",
+      "champion": "Karthus",
+      "ability": "Death Defied",
+      "kind": "I",
+      "note": "Does not destroy inbound projectiles"
+    },
+    {
+      "list": "untargetable",
+      "champion": "Kayn",
+      "ability": "The Darkin Scythe",
+      "kind": "I",
+      "note": "Does not destroy inbound projectiles"
+    },
+    {
+      "list": "untargetable",
+      "champion": "Kled",
+      "ability": "Skaarl the Cowardly Lizard",
+      "kind": "I"
+    },
+    {
+      "list": "untargetable",
+      "champion": "KogMaw",
+      "ability": "Icathian Surprise",
+      "kind": "I",
+      "note": "Does not destroy inbound projectiles"
+    },
+    {
+      "list": "untargetable",
+      "champion": "Maokai",
+      "ability": "Twisted Advance",
+      "kind": "W"
+    },
+    {
+      "list": "untargetable",
+      "champion": "Naafiri",
+      "ability": "The Call of the Pack",
+      "kind": "W"
+    },
+    {
+      "list": "untargetable",
+      "champion": "Poppy",
+      "ability": "Keeper's Verdict",
+      "kind": "R",
+      "note": "Does not destroy inbound projectiles"
+    },
+    {
+      "list": "untargetable",
+      "champion": "Ryze",
+      "ability": "Realm Warp",
+      "kind": "R"
+    },
+    {
+      "list": "untargetable",
+      "champion": "TahmKench",
+      "ability": "Devour",
+      "kind": "R"
+    },
+    {
+      "list": "untargetable",
+      "champion": "Urgot",
+      "ability": "Fear Beyond Death",
+      "kind": "R",
+      "note": "Does not destroy inbound projectiles"
+    },
+    {
+      "list": "untargetable",
+      "champion": "Viego",
+      "ability": "Sovereign's Domination",
+      "kind": "I",
+      "note": "Does not destroy inbound projectiles from turrets, special cased to be targetable to turrets"
+    },
+    {
+      "list": "untargetable",
+      "champion": "Vladimir",
+      "ability": "Sanguine Pool",
+      "kind": "W"
+    },
+    {
+      "list": "untargetable",
+      "champion": "Xayah",
+      "ability": "Featherstorm",
+      "kind": "R"
+    },
+    {
+      "list": "untargetable",
+      "champion": "Yuumi",
+      "ability": "You and Me!",
+      "kind": "W",
+      "note": "Does not destroy inbound projectiles, special cased to be targetable to turrets"
+    },
+    {
+      "list": "untargetable",
+      "champion": "Zaahen",
+      "ability": "Cultivation of War",
+      "kind": "I",
+      "note": "Does not destroy inbound projectiles"
+    },
+    {
+      "list": "untargetable",
+      "champion": "Zac",
+      "ability": "Cell Division",
+      "kind": "I",
+      "note": "Does not destroy inbound projectiles"
+    },
+    {
+      "list": "untargetable",
+      "champion": "Zed",
+      "ability": "Death Mark",
+      "kind": "R"
+    },
+    {
+      "list": "untargetable",
+      "champion": "Zilean",
+      "ability": "Chronoshift",
+      "kind": "R",
+      "note": "Does not destroy inbound projectiles"
+    },
+    {
+      "list": "vanish",
+      "champion": "Elise",
+      "ability": "Rappel",
+      "kind": "E"
+    },
+    {
+      "list": "vanish",
+      "champion": "Kalista",
+      "ability": "Fate's Call",
+      "kind": "R",
+      "note": "Oathsworn loses the untargetability once they initiate the ability's dash"
+    },
+    {
+      "list": "vanish",
+      "champion": "Kayn",
+      "ability": "Umbral Trespass",
+      "kind": "R"
+    },
+    {
+      "list": "vanish",
+      "champion": "KSante",
+      "ability": "All Out",
+      "kind": "R"
+    },
+    {
+      "list": "vanish",
+      "champion": "MasterYi",
+      "ability": "Alpha Strike",
+      "kind": "Q"
+    },
+    {
+      "list": "vanish",
+      "champion": "Pantheon",
+      "ability": "Grand Starfall",
+      "kind": "R"
+    },
+    {
+      "list": "vanish",
+      "champion": "RekSai",
+      "ability": "Void Rush",
+      "kind": "R"
+    },
+    {
+      "list": "vanish",
+      "champion": "Shaco",
+      "ability": "Hallucinate",
+      "kind": "R"
+    },
+    {
+      "list": "vanish",
+      "champion": "TahmKench",
+      "ability": "Abyssal Dive",
+      "kind": "W",
+      "note": "Does not grant untargetability, only hides his model"
+    },
+    {
+      "list": "stasis",
+      "champion": "Bard",
+      "ability": "Tempered Fate",
+      "kind": "R"
+    },
+    {
+      "list": "stasis",
+      "champion": "Ekko",
+      "ability": "Chronobreak",
+      "kind": "R"
+    },
+    {
+      "list": "stasis",
+      "champion": "Lissandra",
+      "ability": "Frozen Tomb",
+      "kind": "R",
+      "note": "Self-cast only"
+    },
+    {
+      "list": "stasis",
+      "champion": "Sion",
+      "ability": "Glory in Death",
+      "kind": "I",
+      "note": "Does not destroy inbound projectiles"
+    },
+    {
+      "list": "stasis",
+      "champion": "Syndra",
+      "ability": "Force of Will",
+      "kind": "W",
+      "note": "Puts non-champion targets in stasis, does not destroy inbound projectiles for them"
+    },
+    {
+      "list": "invulnerable",
+      "champion": "Kalista",
+      "ability": "Fate's Call",
+      "kind": "R"
+    },
+    {
+      "list": "invulnerable",
+      "champion": "Kayn",
+      "ability": "The Darkin Scythe",
+      "kind": "I"
+    },
+    {
+      "list": "invulnerable",
+      "champion": "Kayle",
+      "ability": "Divine Judgment",
+      "kind": "R"
+    },
+    {
+      "list": "invulnerable",
+      "champion": "Kindred",
+      "ability": "Lamb's Respite",
+      "kind": "R"
+    },
+    {
+      "list": "invulnerable",
+      "champion": "KogMaw",
+      "ability": "Icathian Surprise",
+      "kind": "I"
+    },
+    {
+      "list": "invulnerable",
+      "champion": "Pantheon",
+      "ability": "Aegis Assault",
+      "kind": "E",
+      "note": "Only invulnerable to non-turret damage coming from a specific direction"
+    },
+    {
+      "list": "invulnerable",
+      "champion": "Taric",
+      "ability": "Cosmic Radiance",
+      "kind": "R"
+    },
+    {
+      "list": "invulnerable",
+      "champion": "XinZhao",
+      "ability": "Crescent Guard",
+      "kind": "R",
+      "note": "Only invulnerable to champions a certain distance away"
+    },
+    {
+      "list": "invulnerable",
+      "champion": "Zaahen",
+      "ability": "Cultivation of War",
+      "kind": "I"
+    },
+    {
+      "list": "invulnerable",
+      "champion": "Zilean",
+      "ability": "Chronoshift",
+      "kind": "R"
+    },
+    {
+      "list": "dash",
+      "label": "auto-targeted",
+      "champion": "Akali",
+      "ability": "Shuriken Flip",
+      "kind": "E",
+      "qualifier": "(second cast)"
+    },
+    {
+      "list": "dash",
+      "label": "auto-targeted",
+      "champion": "Amumu",
+      "ability": "Bandage Toss",
+      "kind": "Q",
+      "qualifier": "(when hitting a unit)"
+    },
+    {
+      "list": "dash",
+      "label": "auto-targeted",
+      "champion": "Aurora",
+      "ability": "Between Worlds",
+      "kind": "R",
+      "qualifier": "(when colliding with the border)"
+    },
+    {
+      "list": "dash",
+      "label": "auto-targeted",
+      "champion": "Bard",
+      "ability": "Magical Journey",
+      "kind": "E",
+      "qualifier": "(when clicked)"
+    },
+    {
+      "list": "dash",
+      "label": "auto-targeted",
+      "champion": "Briar",
+      "ability": "Certain Death",
+      "kind": "R",
+      "qualifier": "(second cast)"
+    },
+    {
+      "list": "dash",
+      "label": "auto-targeted",
+      "champion": "Ekko",
+      "ability": "Chronobreak",
+      "kind": "R"
+    },
+    {
+      "list": "dash",
+      "label": "auto-targeted",
+      "champion": "Ivern",
+      "ability": "Rootcaller",
+      "kind": "Q",
+      "qualifier": "(when clicking a rooted target)"
+    },
+    {
+      "list": "dash",
+      "label": "auto-targeted",
+      "champion": "JarvanIV",
+      "ability": "Dragon Strike",
+      "kind": "Q",
+      "qualifier": "(when colliding with a"
+    },
+    {
+      "list": "dash",
+      "label": "auto-targeted",
+      "champion": "JarvanIV",
+      "ability": "Demacian Standard",
+      "kind": "E",
+      "qualifier": ")"
+    },
+    {
+      "list": "dash",
+      "label": "auto-targeted",
+      "champion": "Kalista",
+      "ability": "Fate's Call",
+      "kind": "R",
+      "qualifier": "(Oathsworn pull-in)"
+    },
+    {
+      "list": "dash",
+      "label": "auto-targeted",
+      "champion": "Kled",
+      "ability": "Jousting",
+      "kind": "E",
+      "qualifier": "(second cast)"
+    },
+    {
+      "list": "dash",
+      "label": "auto-targeted",
+      "champion": "Kled",
+      "ability": "Chaaaaaaaarge!!!",
+      "kind": "R"
+    },
+    {
+      "list": "dash",
+      "label": "auto-targeted",
+      "champion": "LeeSin",
+      "ability": "Resonating Strike",
+      "kind": "Q"
+    },
+    {
+      "list": "dash",
+      "label": "auto-targeted",
+      "champion": "Leona",
+      "ability": "Zenith Blade",
+      "kind": "E"
+    },
+    {
+      "list": "dash",
+      "label": "auto-targeted",
+      "champion": "Nautilus",
+      "ability": "Dredge Line",
+      "kind": "Q",
+      "qualifier": "(when hitting a unit)"
+    },
+    {
+      "list": "dash",
+      "label": "auto-targeted",
+      "champion": "RekSai",
+      "ability": "Tunnel",
+      "kind": "E",
+      "qualifier": "(when clicking an existing tunnel)"
+    },
+    {
+      "list": "dash",
+      "label": "auto-targeted",
+      "champion": "Sylas",
+      "ability": "Abduct",
+      "kind": "E",
+      "qualifier": "(when hitting a unit)"
+    },
+    {
+      "list": "dash",
+      "label": "auto-targeted",
+      "champion": "Thresh",
+      "ability": "Death Sentence",
+      "kind": "Q"
+    },
+    {
+      "list": "dash",
+      "label": "auto-targeted",
+      "champion": "Thresh",
+      "ability": "Dark Passage",
+      "kind": "W",
+      "qualifier": "(when clicked)"
+    },
+    {
+      "list": "dash",
+      "label": "auto-targeted",
+      "champion": "Vex",
+      "ability": "Shadow Surge",
+      "kind": "R",
+      "qualifier": "(second cast)"
+    },
+    {
+      "list": "dash",
+      "label": "auto-targeted",
+      "champion": "Warwick",
+      "ability": "Jaws of the Beast",
+      "kind": "Q",
+      "qualifier": "(when held)"
+    },
+    {
+      "list": "dash",
+      "label": "auto-targeted",
+      "champion": "Yone",
+      "ability": "Soul Unbound",
+      "kind": "E",
+      "qualifier": "(second cast)"
+    },
+    {
+      "list": "dash",
+      "label": "auto-targeted",
+      "champion": "Ziggs",
+      "ability": "Satchel Charge",
+      "kind": "W"
+    },
+    {
+      "list": "dash",
+      "label": "direction-targeted",
+      "champion": "Aatrox",
+      "ability": "Umbral Dash",
+      "kind": "E"
+    },
+    {
+      "list": "dash",
+      "label": "direction-targeted",
+      "champion": "Akali",
+      "ability": "Shuriken Flip",
+      "kind": "E",
+      "qualifier": "(reverse-targeted in first cast)"
+    },
+    {
+      "list": "dash",
+      "label": "direction-targeted",
+      "champion": "Akali",
+      "ability": "Perfect Execution",
+      "kind": "R",
+      "qualifier": "(second cast)"
+    },
+    {
+      "list": "dash",
+      "label": "direction-targeted",
+      "champion": "Akshan",
+      "ability": "Heroic Swing",
+      "kind": "E",
+      "qualifier": "(second cast)"
+    },
+    {
+      "list": "dash",
+      "label": "direction-targeted",
+      "champion": "AurelionSol",
+      "ability": "Astral Flight",
+      "kind": "W"
+    },
+    {
+      "list": "dash",
+      "label": "direction-targeted",
+      "champion": "Aurora",
+      "ability": "Across the Veil",
+      "kind": "W"
+    },
+    {
+      "list": "dash",
+      "label": "direction-targeted",
+      "champion": "Aurora",
+      "ability": "The Weirding",
+      "kind": "E",
+      "qualifier": "(reverse-targeted)"
+    },
+    {
+      "list": "dash",
+      "label": "direction-targeted",
+      "champion": "Aurora",
+      "ability": "Between Worlds",
+      "kind": "R",
+      "qualifier": "(initial cast)"
+    },
+    {
+      "list": "dash",
+      "label": "direction-targeted",
+      "champion": "Belveth",
+      "ability": "Void Surge",
+      "kind": "Q"
+    },
+    {
+      "list": "dash",
+      "label": "direction-targeted",
+      "champion": "Camille",
+      "ability": "Wall Dive",
+      "kind": "E"
+    },
+    {
+      "list": "dash",
+      "label": "direction-targeted",
+      "champion": "Caitlyn",
+      "ability": "90 Caliber Net",
+      "kind": "E",
+      "qualifier": "(reverse-targeted)"
+    },
+    {
+      "list": "dash",
+      "label": "direction-targeted",
+      "champion": "Ekko",
+      "ability": "Phase Dive",
+      "kind": "E"
+    },
+    {
+      "list": "dash",
+      "label": "direction-targeted",
+      "champion": "Fiora",
+      "ability": "Lunge",
+      "kind": "Q"
+    },
+    {
+      "list": "dash",
+      "label": "direction-targeted",
+      "champion": "Gragas",
+      "ability": "Body Slam",
+      "kind": "E"
+    },
+    {
+      "list": "dash",
+      "label": "direction-targeted",
+      "champion": "Graves",
+      "ability": "Collateral Damage",
+      "kind": "R",
+      "qualifier": "(reverse-targeted)"
+    },
+    {
+      "list": "dash",
+      "label": "direction-targeted",
+      "champion": "Kalista",
+      "ability": "Martial Poise",
+      "kind": "I"
+    },
+    {
+      "list": "dash",
+      "label": "direction-targeted",
+      "champion": "Kayn",
+      "ability": "Reaping Slash",
+      "kind": "Q"
+    },
+    {
+      "list": "dash",
+      "label": "direction-targeted",
+      "champion": "Kayn",
+      "ability": "Umbral Trespass",
+      "kind": "R"
+    },
+    {
+      "list": "dash",
+      "label": "direction-targeted",
+      "champion": "Kled",
+      "ability": "Pocket Pistol",
+      "kind": "Q",
+      "qualifier": "(reverse-targeted)"
+    },
+    {
+      "list": "dash",
+      "label": "direction-targeted",
+      "champion": "Kled",
+      "ability": "Jousting",
+      "kind": "E",
+      "qualifier": "(first cast)"
+    },
+    {
+      "list": "dash",
+      "label": "direction-targeted",
+      "champion": "KSante",
+      "ability": "Path Maker",
+      "kind": "W"
+    },
+    {
+      "list": "dash",
+      "label": "direction-targeted",
+      "champion": "Lucian",
+      "ability": "Relentless Pursuit",
+      "kind": "E"
+    },
+    {
+      "list": "dash",
+      "label": "direction-targeted",
+      "champion": "Naafiri",
+      "ability": "Eviscerate",
+      "kind": "E"
+    },
+    {
+      "list": "dash",
+      "label": "direction-targeted",
+      "champion": "Ornn",
+      "ability": "Searing Charge",
+      "kind": "E"
+    },
+    {
+      "list": "dash",
+      "label": "direction-targeted",
+      "champion": "Ornn",
+      "ability": "Call of the Forge God",
+      "kind": "R",
+      "qualifier": "(recast)"
+    },
+    {
+      "list": "dash",
+      "label": "direction-targeted",
+      "champion": "Pyke",
+      "ability": "Phantom Undertow",
+      "kind": "E"
+    },
+    {
+      "list": "dash",
+      "label": "direction-targeted",
+      "champion": "RekSai",
+      "ability": "Tunnel",
+      "kind": "E",
+      "qualifier": "(when creating a tunnel)"
+    },
+    {
+      "list": "dash",
+      "label": "direction-targeted",
+      "champion": "Renekton",
+      "ability": "Slice and Dice",
+      "kind": "E"
+    },
+    {
+      "list": "dash",
+      "label": "direction-targeted",
+      "champion": "Riven",
+      "ability": "Broken Wings",
+      "kind": "Q"
+    },
+    {
+      "list": "dash",
+      "label": "direction-targeted",
+      "champion": "Riven",
+      "ability": "Valor",
+      "kind": "E"
+    },
+    {
+      "list": "dash",
+      "label": "direction-targeted",
+      "champion": "Urgot",
+      "ability": "Disdain",
+      "kind": "E"
+    },
+    {
+      "list": "dash",
+      "label": "direction-targeted",
+      "champion": "Vayne",
+      "ability": "Tumble",
+      "kind": "Q"
+    },
+    {
+      "list": "dash",
+      "label": "direction-targeted",
+      "champion": "Vi",
+      "ability": "Vault Breaker",
+      "kind": "Q"
+    },
+    {
+      "list": "dash",
+      "label": "direction-targeted",
+      "champion": "Viego",
+      "ability": "Spectral Maw",
+      "kind": "W"
+    },
+    {
+      "list": "dash",
+      "label": "direction-targeted",
+      "champion": "Warwick",
+      "ability": "Infinite Duress",
+      "kind": "R"
+    },
+    {
+      "list": "dash",
+      "label": "direction-targeted",
+      "champion": "MonkeyKing",
+      "ability": "Warrior Trickster",
+      "kind": "W"
+    },
+    {
+      "list": "dash",
+      "label": "direction-targeted",
+      "champion": "Yone",
+      "ability": "Mortal Steel",
+      "kind": "Q"
+    },
+    {
+      "list": "dash",
+      "label": "direction-targeted",
+      "champion": "Yone",
+      "ability": "Soul Unbound",
+      "kind": "E",
+      "qualifier": "(first cast)"
+    },
+    {
+      "list": "dash",
+      "label": "direction-targeted",
+      "champion": "Yunara",
+      "ability": "Untouchable Shadow",
+      "kind": "E"
+    },
+    {
+      "list": "dash",
+      "label": "direction-targeted",
+      "champion": "Zeri",
+      "ability": "Spark Surge",
+      "kind": "E"
+    },
+    {
+      "list": "dash",
+      "label": "location-targeted",
+      "champion": "Ahri",
+      "ability": "Spirit Rush",
+      "kind": "R"
+    },
+    {
+      "list": "dash",
+      "label": "location-targeted",
+      "champion": "Akshan",
+      "ability": "Heroic Swing",
+      "kind": "E",
+      "qualifier": "(third cast)"
+    },
+    {
+      "list": "dash",
+      "label": "location-targeted",
+      "champion": "Ambessa",
+      "ability": "Drakehound's Step",
+      "kind": "I"
+    },
+    {
+      "list": "dash",
+      "label": "location-targeted",
+      "champion": "Briar",
+      "ability": "Blood Frenzy",
+      "kind": "W"
+    },
+    {
+      "list": "dash",
+      "label": "location-targeted",
+      "champion": "Corki",
+      "ability": "Valkyrie",
+      "kind": "W"
+    },
+    {
+      "list": "dash",
+      "label": "location-targeted",
+      "champion": "Fizz",
+      "ability": "Playful",
+      "kind": "E"
+    },
+    {
+      "list": "dash",
+      "label": "location-targeted",
+      "champion": "Fizz",
+      "ability": "Trickster",
+      "kind": "E"
+    },
+    {
+      "list": "dash",
+      "label": "location-targeted",
+      "champion": "Galio",
+      "ability": "Justice Punch",
+      "kind": "E"
+    },
+    {
+      "list": "dash",
+      "label": "location-targeted",
+      "champion": "Galio",
+      "ability": "Hero's Entrance",
+      "kind": "R"
+    },
+    {
+      "list": "dash",
+      "label": "location-targeted",
+      "champion": "Gnar",
+      "ability": "Hop",
+      "kind": "E",
+      "qualifier": "Mega Gnar"
+    },
+    {
+      "list": "dash",
+      "label": "location-targeted",
+      "champion": "Gnar",
+      "ability": "Crunch",
+      "kind": "E"
+    },
+    {
+      "list": "dash",
+      "label": "location-targeted",
+      "champion": "Gwen",
+      "ability": "Skip 'n Slash",
+      "kind": "E"
+    },
+    {
+      "list": "dash",
+      "label": "location-targeted",
+      "champion": "Graves",
+      "ability": "Quickdraw",
+      "kind": "E"
+    },
+    {
+      "list": "dash",
+      "label": "location-targeted",
+      "champion": "Hecarim",
+      "ability": "Onslaught of Shadows",
+      "kind": "R"
+    },
+    {
+      "list": "dash",
+      "label": "location-targeted",
+      "champion": "Kaisa",
+      "ability": "Killer Instinct",
+      "kind": "R"
+    },
+    {
+      "list": "dash",
+      "label": "location-targeted",
+      "champion": "Kalista",
+      "ability": "Fate's Call",
+      "kind": "R",
+      "qualifier": "(Oathsworn selected dash)"
+    },
+    {
+      "list": "dash",
+      "label": "location-targeted",
+      "champion": "Kindred",
+      "ability": "Dance of Arrows",
+      "kind": "Q"
+    },
+    {
+      "list": "dash",
+      "label": "location-targeted",
+      "champion": "Khazix",
+      "ability": "Leap",
+      "kind": "E"
+    },
+    {
+      "list": "dash",
+      "label": "location-targeted",
+      "champion": "KSante",
+      "ability": "Footwork",
+      "kind": "E"
+    },
+    {
+      "list": "dash",
+      "label": "location-targeted",
+      "champion": "Leblanc",
+      "ability": "Distortion",
+      "kind": "W"
+    },
+    {
+      "list": "dash",
+      "label": "location-targeted",
+      "champion": "Leblanc",
+      "ability": "Mimic",
+      "kind": "R"
+    },
+    {
+      "list": "dash",
+      "label": "location-targeted",
+      "champion": "Lillia",
+      "ability": "Watch Out! Eep!",
+      "kind": "W"
+    },
+    {
+      "list": "dash",
+      "label": "location-targeted",
+      "champion": "Malphite",
+      "ability": "Unstoppable Force",
+      "kind": "R"
+    },
+    {
+      "list": "dash",
+      "label": "location-targeted",
+      "champion": "Nidalee",
+      "ability": "Pounce",
+      "kind": "W"
+    },
+    {
+      "list": "dash",
+      "label": "location-targeted",
+      "champion": "Qiyana",
+      "ability": "Terrashape",
+      "kind": "W"
+    },
+    {
+      "list": "dash",
+      "label": "location-targeted",
+      "champion": "Rammus",
+      "ability": "Soaring Slam",
+      "kind": "R"
+    },
+    {
+      "list": "dash",
+      "label": "location-targeted",
+      "champion": "Sejuani",
+      "ability": "Arctic Assault",
+      "kind": "Q"
+    },
+    {
+      "list": "dash",
+      "label": "location-targeted",
+      "champion": "Shen",
+      "ability": "Shadow Dash",
+      "kind": "E"
+    },
+    {
+      "list": "dash",
+      "label": "location-targeted",
+      "champion": "Shyvana",
+      "ability": "Dragon's Descent",
+      "kind": "R"
+    },
+    {
+      "list": "dash",
+      "label": "location-targeted",
+      "champion": "Sylas",
+      "ability": "Abscond",
+      "kind": "E"
+    },
+    {
+      "list": "dash",
+      "label": "location-targeted",
+      "champion": "Taliyah",
+      "ability": "Weaver's Wall",
+      "kind": "R",
+      "qualifier": "(second cast while channeling)"
+    },
+    {
+      "list": "dash",
+      "label": "location-targeted",
+      "champion": "Tristana",
+      "ability": "Rocket Jump",
+      "kind": "W"
+    },
+    {
+      "list": "dash",
+      "label": "location-targeted",
+      "champion": "Tryndamere",
+      "ability": "Spinning Slash",
+      "kind": "E"
+    },
+    {
+      "list": "dash",
+      "label": "location-targeted",
+      "champion": "Rakan",
+      "ability": "Grand Entrance",
+      "kind": "W"
+    },
+    {
+      "list": "dash",
+      "label": "location-targeted",
+      "champion": "Rell",
+      "ability": "Ferromancy: Crash Down",
+      "kind": "W"
+    },
+    {
+      "list": "dash",
+      "label": "location-targeted",
+      "champion": "Volibear",
+      "ability": "Stormbringer",
+      "kind": "R"
+    },
+    {
+      "list": "dash",
+      "label": "location-targeted",
+      "champion": "Zaahen",
+      "ability": "Aureate Rush",
+      "kind": "E"
+    },
+    {
+      "list": "dash",
+      "label": "location-targeted",
+      "champion": "Zaahen",
+      "ability": "Grim Deliverance",
+      "kind": "R"
+    },
+    {
+      "list": "dash",
+      "label": "location-targeted",
+      "champion": "Zac",
+      "ability": "Elastic Slingshot",
+      "kind": "E"
+    },
+    {
+      "list": "dash",
+      "label": "unit-targeted",
+      "champion": "Akali",
+      "ability": "Perfect Execution",
+      "kind": "R",
+      "qualifier": "(first cast)"
+    },
+    {
+      "list": "dash",
+      "label": "unit-targeted",
+      "champion": "Alistar",
+      "ability": "Headbutt",
+      "kind": "W"
+    },
+    {
+      "list": "dash",
+      "label": "unit-targeted",
+      "champion": "Azir",
+      "ability": "Shifting Sands",
+      "kind": "E",
+      "qualifier": "(only after using"
+    },
+    {
+      "list": "dash",
+      "label": "unit-targeted",
+      "champion": "Azir",
+      "ability": "Arise!",
+      "kind": "W",
+      "qualifier": ")"
+    },
+    {
+      "list": "dash",
+      "label": "unit-targeted",
+      "champion": "Belveth",
+      "ability": "Endless Banquet",
+      "kind": "R"
+    },
+    {
+      "list": "dash",
+      "label": "unit-targeted",
+      "champion": "Braum",
+      "ability": "Stand Behind Me",
+      "kind": "W"
+    },
+    {
+      "list": "dash",
+      "label": "unit-targeted",
+      "champion": "Briar",
+      "ability": "Head Rush",
+      "kind": "Q"
+    },
+    {
+      "list": "dash",
+      "label": "unit-targeted",
+      "champion": "Camille",
+      "ability": "The Hextech Ultimatum",
+      "kind": "R"
+    },
+    {
+      "list": "dash",
+      "label": "unit-targeted",
+      "champion": "Diana",
+      "ability": "Lunar Rush",
+      "kind": "E"
+    },
+    {
+      "list": "dash",
+      "label": "unit-targeted",
+      "champion": "Elise",
+      "ability": "Venomous Bite",
+      "kind": "Q"
+    },
+    {
+      "list": "dash",
+      "label": "unit-targeted",
+      "champion": "Evelynn",
+      "ability": "Empowered Whiplash",
+      "kind": "E"
+    },
+    {
+      "list": "dash",
+      "label": "unit-targeted",
+      "champion": "Fizz",
+      "ability": "Urchin Strike",
+      "kind": "Q"
+    },
+    {
+      "list": "dash",
+      "label": "unit-targeted",
+      "champion": "Hecarim",
+      "ability": "Devastating Charge",
+      "kind": "E"
+    },
+    {
+      "list": "dash",
+      "label": "unit-targeted",
+      "champion": "Illaoi",
+      "ability": "Harsh Lesson",
+      "kind": "W"
+    },
+    {
+      "list": "dash",
+      "label": "unit-targeted",
+      "champion": "Irelia",
+      "ability": "Bladesurge",
+      "kind": "Q"
+    },
+    {
+      "list": "dash",
+      "label": "unit-targeted",
+      "champion": "JarvanIV",
+      "ability": "Cataclysm",
+      "kind": "R"
+    },
+    {
+      "list": "dash",
+      "label": "unit-targeted",
+      "champion": "Jax",
+      "ability": "Leap Strike",
+      "kind": "Q"
+    },
+    {
+      "list": "dash",
+      "label": "unit-targeted",
+      "champion": "Jayce",
+      "ability": "To the Skies!",
+      "kind": "Q"
+    },
+    {
+      "list": "dash",
+      "label": "unit-targeted",
+      "champion": "Kayn",
+      "ability": "Umbral Trespass",
+      "kind": "R",
+      "qualifier": "(first cast)"
+    },
+    {
+      "list": "dash",
+      "label": "unit-targeted",
+      "champion": "KSante",
+      "ability": "Footwork",
+      "kind": "E",
+      "qualifier": "(ally cast)"
+    },
+    {
+      "list": "dash",
+      "label": "unit-targeted",
+      "champion": "LeeSin",
+      "ability": "Safeguard",
+      "kind": "W"
+    },
+    {
+      "list": "dash",
+      "label": "unit-targeted",
+      "champion": "Locke",
+      "ability": "Ashen Pursuit",
+      "kind": "E"
+    },
+    {
+      "list": "dash",
+      "label": "unit-targeted",
+      "champion": "Maokai",
+      "ability": "Twisted Advance",
+      "kind": "W"
+    },
+    {
+      "list": "dash",
+      "label": "unit-targeted",
+      "champion": "Naafiri",
+      "ability": "Hounds' Pursuit",
+      "kind": "R"
+    },
+    {
+      "list": "dash",
+      "label": "unit-targeted",
+      "champion": "Nilah",
+      "ability": "Slipstream",
+      "kind": "E"
+    },
+    {
+      "list": "dash",
+      "label": "unit-targeted",
+      "champion": "Nocturne",
+      "ability": "Paranoia",
+      "kind": "R"
+    },
+    {
+      "list": "dash",
+      "label": "unit-targeted",
+      "champion": "Pantheon",
+      "ability": "Shield Vault",
+      "kind": "W"
+    },
+    {
+      "list": "dash",
+      "label": "unit-targeted",
+      "champion": "Poppy",
+      "ability": "Heroic Charge",
+      "kind": "E"
+    },
+    {
+      "list": "dash",
+      "label": "unit-targeted",
+      "champion": "Qiyana",
+      "ability": "Audacity",
+      "kind": "E"
+    },
+    {
+      "list": "dash",
+      "label": "unit-targeted",
+      "champion": "Quinn",
+      "ability": "Vault",
+      "kind": "E"
+    },
+    {
+      "list": "dash",
+      "label": "unit-targeted",
+      "champion": "Rakan",
+      "ability": "Battle Dance",
+      "kind": "E"
+    },
+    {
+      "list": "dash",
+      "label": "unit-targeted",
+      "champion": "RekSai",
+      "ability": "Void Rush",
+      "kind": "R"
+    },
+    {
+      "list": "dash",
+      "label": "unit-targeted",
+      "champion": "Rell",
+      "ability": "Ferromancy: Mount Up",
+      "kind": "W"
+    },
+    {
+      "list": "dash",
+      "label": "unit-targeted",
+      "champion": "Rengar",
+      "ability": "Unseen Predator",
+      "kind": "I"
+    },
+    {
+      "list": "dash",
+      "label": "unit-targeted",
+      "champion": "Samira",
+      "ability": "Daredevil Impulse",
+      "kind": "I"
+    },
+    {
+      "list": "dash",
+      "label": "unit-targeted",
+      "champion": "Samira",
+      "ability": "Wild Rush",
+      "kind": "E"
+    },
+    {
+      "list": "dash",
+      "label": "unit-targeted",
+      "champion": "Sett",
+      "ability": "The Show Stopper",
+      "kind": "R"
+    },
+    {
+      "list": "dash",
+      "label": "unit-targeted",
+      "champion": "Sylas",
+      "ability": "Kingslayer",
+      "kind": "W"
+    },
+    {
+      "list": "dash",
+      "label": "unit-targeted",
+      "champion": "Talon",
+      "ability": "Noxian Diplomacy",
+      "kind": "Q"
+    },
+    {
+      "list": "dash",
+      "label": "unit-targeted",
+      "champion": "Udyr",
+      "ability": "Blazing Stampede",
+      "kind": "E"
+    },
+    {
+      "list": "dash",
+      "label": "unit-targeted",
+      "champion": "Vi",
+      "ability": "Cease and Desist",
+      "kind": "R"
+    },
+    {
+      "list": "dash",
+      "label": "unit-targeted",
+      "champion": "Volibear",
+      "ability": "Thundering Smash",
+      "kind": "Q"
+    },
+    {
+      "list": "dash",
+      "label": "unit-targeted",
+      "champion": "MonkeyKing",
+      "ability": "Nimbus Strike",
+      "kind": "E"
+    },
+    {
+      "list": "dash",
+      "label": "unit-targeted",
+      "champion": "XinZhao",
+      "ability": "Audacious Charge",
+      "kind": "E"
+    },
+    {
+      "list": "dash",
+      "label": "unit-targeted",
+      "champion": "Yasuo",
+      "ability": "Sweeping Blade",
+      "kind": "E"
+    },
+    {
+      "list": "dash",
+      "label": "unit-targeted",
+      "champion": "Yuumi",
+      "ability": "You and Me!",
+      "kind": "W"
+    },
+    {
+      "list": "dash",
+      "label": "unit-targeted",
+      "champion": "Zed",
+      "ability": "Death Mark",
+      "kind": "R"
+    },
+    {
+      "list": "dash",
+      "label": "terrain-targeted",
+      "champion": "Camille",
+      "ability": "Hookshot",
+      "kind": "E"
+    },
+    {
+      "list": "dash",
+      "label": "terrain-targeted",
+      "champion": "Nautilus",
+      "ability": "Dredge Line",
+      "kind": "Q"
+    },
+    {
+      "list": "dash",
+      "label": "terrain-targeted",
+      "champion": "Talon",
+      "ability": "Assassin's Path",
+      "kind": "E"
+    },
+    {
+      "list": "dashNoTerrain",
+      "champion": "Ambessa",
+      "ability": "Drakehound's Step",
+      "kind": "I"
+    },
+    {
+      "list": "dashNoTerrain",
+      "champion": "Akshan",
+      "ability": "Heroic Swing",
+      "kind": "E",
+      "qualifier": "(second and third cast)"
+    },
+    {
+      "list": "dashNoTerrain",
+      "champion": "Belveth",
+      "ability": "Void Surge",
+      "kind": "Q",
+      "qualifier": "(while not True Form)"
+    },
+    {
+      "list": "dashNoTerrain",
+      "champion": "Galio",
+      "ability": "Justice Punch",
+      "kind": "E"
+    },
+    {
+      "list": "dashNoTerrain",
+      "champion": "Kled",
+      "ability": "Jousting",
+      "kind": "E",
+      "qualifier": "(first cast)"
+    },
+    {
+      "list": "dashNoTerrain",
+      "champion": "KSante",
+      "ability": "Path Maker",
+      "kind": "W"
+    },
+    {
+      "list": "dashNoTerrain",
+      "champion": "KSante",
+      "ability": "Footwork",
+      "kind": "E",
+      "qualifier": "(if not cast on an ally)"
+    },
+    {
+      "list": "dashNoTerrain",
+      "champion": "Lillia",
+      "ability": "Watch Out! Eep!",
+      "kind": "W"
+    },
+    {
+      "list": "dashNoTerrain",
+      "champion": "Ornn",
+      "ability": "Searing Charge",
+      "kind": "E"
+    },
+    {
+      "list": "dashNoTerrain",
+      "champion": "Ornn",
+      "ability": "Call of the Forge God",
+      "kind": "R",
+      "qualifier": "(second cast)"
+    },
+    {
+      "list": "dashNoTerrain",
+      "champion": "Riven",
+      "ability": "Broken Wings",
+      "kind": "Q",
+      "qualifier": "(first two casts)"
+    },
+    {
+      "list": "dashNoTerrain",
+      "champion": "Riven",
+      "ability": "Valor",
+      "kind": "E"
+    },
+    {
+      "list": "dashNoTerrain",
+      "champion": "Samira",
+      "ability": "Daredevil Impulse",
+      "kind": "I"
+    },
+    {
+      "list": "dashNoTerrain",
+      "champion": "Urgot",
+      "ability": "Disdain",
+      "kind": "E"
+    },
+    {
+      "list": "dashNoTerrain",
+      "champion": "Vayne",
+      "ability": "Tumble",
+      "kind": "Q"
+    },
+    {
+      "list": "dashNoTerrain",
+      "champion": "Viego",
+      "ability": "Spectral Maw",
+      "kind": "W"
+    },
+    {
+      "list": "dashCancel",
+      "champion": "Poppy",
+      "ability": "Steadfast Presence",
+      "kind": "W"
+    },
+    {
+      "list": "knockdown",
+      "champion": "Ahri",
+      "ability": "Charm",
+      "kind": "E"
+    },
+    {
+      "list": "knockdown",
+      "champion": "Amumu",
+      "ability": "Curse of the Sad Mummy",
+      "kind": "R"
+    },
+    {
+      "list": "knockdown",
+      "champion": "Hwei",
+      "ability": "Grim Visage",
+      "kind": "Q"
+    },
+    {
+      "list": "knockdown",
+      "champion": "Jinx",
+      "ability": "Flame Chompers!",
+      "kind": "E"
+    },
+    {
+      "list": "knockdown",
+      "champion": "Lissandra",
+      "ability": "Frozen Tomb",
+      "kind": "R"
+    },
+    {
+      "list": "knockdown",
+      "champion": "Malzahar",
+      "ability": "Nether Grasp",
+      "kind": "R"
+    },
+    {
+      "list": "knockdown",
+      "champion": "Veigar",
+      "ability": "Event Horizon",
+      "kind": "E"
+    },
+    {
+      "list": "knockdown",
+      "champion": "Vex",
+      "ability": "Doom 'n Gloom",
+      "kind": "I"
+    },
+    {
+      "list": "knockdown",
+      "champion": "Viktor",
+      "ability": "Gravity Field",
+      "kind": "W"
+    },
+    {
+      "list": "knockdown",
+      "champion": "Warwick",
+      "ability": "Infinite Duress",
+      "kind": "R"
+    },
+    {
+      "list": "knockdown",
+      "champion": "Yone",
+      "ability": "Fate Sealed",
+      "kind": "R"
+    },
+    {
+      "list": "knockdown",
+      "champion": "Zac",
+      "ability": "Stretching Strikes",
+      "kind": "Q"
+    },
+    {
+      "list": "dashInterruptibleByCC",
+      "champion": "Akshan",
+      "ability": "Heroic Swing",
+      "kind": "E"
+    },
+    {
+      "list": "dashInterruptibleByCC",
+      "champion": "Camille",
+      "ability": "Hookshot",
+      "kind": "E"
+    },
+    {
+      "list": "dashInterruptibleByCC",
+      "champion": "Kalista",
+      "ability": "Martial Poise",
+      "kind": "I"
+    },
+    {
+      "list": "dashInterruptibleByCC",
+      "champion": "Rakan",
+      "ability": "Grand Entrance",
+      "kind": "W"
+    },
+    {
+      "list": "dashInterruptibleByCC",
+      "champion": "Rakan",
+      "ability": "Battle Dance",
+      "kind": "E"
+    },
+    {
+      "list": "dashInterruptibleByCC",
+      "champion": "Yasuo",
+      "ability": "Sweeping Blade",
+      "kind": "E"
+    },
+    {
+      "list": "dashInterruptibleByCC",
+      "champion": "Yuumi",
+      "ability": "You and Me!",
+      "kind": "W"
+    },
+    {
+      "list": "lunge",
+      "champion": "Darius",
+      "ability": "Noxian Guillotine",
+      "kind": "R"
+    },
+    {
+      "list": "lunge",
+      "champion": "Galio",
+      "ability": "Justice Punch",
+      "kind": "E",
+      "qualifier": "(backwards windup)"
+    },
+    {
+      "list": "lunge",
+      "champion": "Garen",
+      "ability": "Decisive Strike",
+      "kind": "Q"
+    },
+    {
+      "list": "lunge",
+      "champion": "Kalista",
+      "ability": "Fate's Call",
+      "kind": "R",
+      "qualifier": "(Oathsworn when landing at max range from the impact)"
+    },
+    {
+      "list": "lunge",
+      "champion": "Kled",
+      "ability": "Dismounted Skaarl the Cowardly Lizard",
+      "kind": "I"
+    },
+    {
+      "list": "lunge",
+      "champion": "Neeko",
+      "ability": "Inherent Glamour",
+      "kind": "I",
+      "qualifier": "(when transforming into a trap, ward, jungle plant while near them, or a monster while near its jungle camp)"
+    },
+    {
+      "list": "lunge",
+      "champion": "Ornn",
+      "ability": "Bellows Breath",
+      "kind": "W"
+    },
+    {
+      "list": "lunge",
+      "champion": "Rell",
+      "ability": "Shattering Strike",
+      "kind": "Q"
+    },
+    {
+      "list": "lunge",
+      "champion": "Sion",
+      "ability": "Unstoppable Onslaught",
+      "kind": "R"
+    },
+    {
+      "list": "lunge",
+      "champion": "Warwick",
+      "ability": "Jaws of the Beast",
+      "kind": "Q",
+      "qualifier": "(before holding down the key)"
+    },
+    {
+      "list": "blink",
+      "champion": "Ambessa",
+      "ability": "Public Execution",
+      "kind": "R"
+    },
+    {
+      "list": "blink",
+      "champion": "Ekko",
+      "ability": "Phase Dive",
+      "kind": "E",
+      "note": "Blink from using empowered attack"
+    },
+    {
+      "list": "blink",
+      "champion": "Elise",
+      "ability": "Rappel",
+      "kind": "E"
+    },
+    {
+      "list": "blink",
+      "champion": "Evelynn",
+      "ability": "Last Caress",
+      "kind": "R"
+    },
+    {
+      "list": "blink",
+      "champion": "Ezreal",
+      "ability": "Arcane Shift",
+      "kind": "E"
+    },
+    {
+      "list": "blink",
+      "champion": "Fiddlesticks",
+      "ability": "A Harmless Scarecrow",
+      "kind": "I",
+      "note": "if Fiddlesticks is in proximity of a faelight"
+    },
+    {
+      "list": "blink",
+      "champion": "Fiddlesticks",
+      "ability": "Crowstorm",
+      "kind": "R"
+    },
+    {
+      "list": "blink",
+      "champion": "Kassadin",
+      "ability": "Riftwalk",
+      "kind": "R"
+    },
+    {
+      "list": "blink",
+      "champion": "Katarina",
+      "ability": "Shunpo",
+      "kind": "E"
+    },
+    {
+      "list": "blink",
+      "champion": "KSante",
+      "ability": "All Out",
+      "kind": "R"
+    },
+    {
+      "list": "blink",
+      "champion": "Leblanc",
+      "ability": "Distortion",
+      "kind": "W",
+      "qualifier": "/"
+    },
+    {
+      "list": "blink",
+      "champion": "Leblanc",
+      "ability": "Mimic",
+      "kind": "R",
+      "qualifier": "(recast)"
+    },
+    {
+      "list": "blink",
+      "champion": "Lissandra",
+      "ability": "Glacial Path",
+      "kind": "E",
+      "qualifier": "(recast)"
+    },
+    {
+      "list": "blink",
+      "champion": "Locke",
+      "ability": "Ashen Pursuit",
+      "kind": "E"
+    },
+    {
+      "list": "blink",
+      "champion": "MasterYi",
+      "ability": "Alpha Strike",
+      "kind": "Q"
+    },
+    {
+      "list": "blink",
+      "champion": "Naafiri",
+      "ability": "The Call of the Pack",
+      "kind": "W",
+      "note": "Packmates blink to Naafiri after their vanish ends"
+    },
+    {
+      "list": "blink",
+      "champion": "Naafiri",
+      "ability": "Eviscerate",
+      "kind": "E",
+      "note": "Packmates blink to Naafiri after their vanish ends"
+    },
+    {
+      "list": "blink",
+      "champion": "Neeko",
+      "ability": "Inherent Glamour",
+      "kind": "I",
+      "note": "If Neeko is in proximity of a faelight"
+    },
+    {
+      "list": "blink",
+      "champion": "Pantheon",
+      "ability": "Grand Starfall",
+      "kind": "R"
+    },
+    {
+      "list": "blink",
+      "champion": "Pyke",
+      "ability": "Death from Below",
+      "kind": "R",
+      "note": "When marking a champion"
+    },
+    {
+      "list": "blink",
+      "champion": "RekSai",
+      "ability": "Void Rush",
+      "kind": "R"
+    },
+    {
+      "list": "blink",
+      "champion": "Ryze",
+      "ability": "Realm Warp",
+      "kind": "R"
+    },
+    {
+      "list": "blink",
+      "champion": "Shaco",
+      "ability": "Deceive",
+      "kind": "Q"
+    },
+    {
+      "list": "blink",
+      "champion": "Shaco",
+      "ability": "Hallucinate",
+      "kind": "R"
+    },
+    {
+      "list": "blink",
+      "champion": "Shen",
+      "ability": "Stand United",
+      "kind": "R"
+    },
+    {
+      "list": "blink",
+      "champion": "TahmKench",
+      "ability": "Abyssal Dive",
+      "kind": "W"
+    },
+    {
+      "list": "blink",
+      "champion": "TwistedFate",
+      "ability": "Destiny",
+      "kind": "R"
+    },
+    {
+      "list": "blink",
+      "champion": "Viego",
+      "ability": "Sovereign's Domination",
+      "kind": "I"
+    },
+    {
+      "list": "blink",
+      "champion": "Viego",
+      "ability": "Heartbreaker",
+      "kind": "R"
+    },
+    {
+      "list": "blink",
+      "champion": "Yasuo",
+      "ability": "Last Breath",
+      "kind": "R"
+    },
+    {
+      "list": "blink",
+      "champion": "Yone",
+      "ability": "Fate Sealed",
+      "kind": "R"
+    },
+    {
+      "list": "blink",
+      "champion": "Zed",
+      "ability": "Living Shadow",
+      "kind": "W",
+      "qualifier": "(recast)"
+    },
+    {
+      "list": "blink",
+      "champion": "Zed",
+      "ability": "Death Mark",
+      "kind": "R",
+      "qualifier": "(recast)"
+    },
+    {
+      "list": "blink",
+      "champion": "Zoe",
+      "ability": "Portal Jump",
+      "kind": "R"
+    },
+    {
+      "list": "channel",
+      "label": "normal",
+      "champion": "Akshan",
+      "ability": "Comeuppance",
+      "kind": "R"
+    },
+    {
+      "list": "channel",
+      "label": "normal",
+      "champion": "Caitlyn",
+      "ability": "Ace in the Hole",
+      "kind": "R"
+    },
+    {
+      "list": "channel",
+      "label": "normal",
+      "champion": "Fiddlesticks",
+      "ability": "Bountiful Harvest",
+      "kind": "W"
+    },
+    {
+      "list": "channel",
+      "label": "normal",
+      "champion": "Gragas",
+      "ability": "Drunken Rage",
+      "kind": "W"
+    },
+    {
+      "list": "channel",
+      "label": "normal",
+      "champion": "Ivern",
+      "ability": "Friend of the Forest",
+      "kind": "I"
+    },
+    {
+      "list": "channel",
+      "label": "normal",
+      "champion": "Janna",
+      "ability": "Monsoon",
+      "kind": "R"
+    },
+    {
+      "list": "channel",
+      "label": "normal",
+      "champion": "Jhin",
+      "ability": "Curtain Call",
+      "kind": "R"
+    },
+    {
+      "list": "channel",
+      "label": "normal",
+      "champion": "Karthus",
+      "ability": "Requiem",
+      "kind": "R"
+    },
+    {
+      "list": "channel",
+      "label": "normal",
+      "champion": "Katarina",
+      "ability": "Death Lotus",
+      "kind": "R"
+    },
+    {
+      "list": "channel",
+      "label": "normal",
+      "champion": "Lucian",
+      "ability": "The Culling",
+      "kind": "R"
+    },
+    {
+      "list": "channel",
+      "label": "normal",
+      "champion": "Malzahar",
+      "ability": "Nether Grasp",
+      "kind": "R"
+    },
+    {
+      "list": "channel",
+      "label": "normal",
+      "champion": "MasterYi",
+      "ability": "Meditate",
+      "kind": "W"
+    },
+    {
+      "list": "channel",
+      "label": "normal",
+      "champion": "MissFortune",
+      "ability": "Bullet Time",
+      "kind": "R"
+    },
+    {
+      "list": "channel",
+      "label": "normal",
+      "champion": "Nunu",
+      "ability": "Absolute Zero",
+      "kind": "R"
+    },
+    {
+      "list": "channel",
+      "label": "normal",
+      "champion": "Quinn",
+      "ability": "Behind Enemy Lines",
+      "kind": "R"
+    },
+    {
+      "list": "channel",
+      "label": "normal",
+      "champion": "Rammus",
+      "ability": "Powerball",
+      "kind": "Q"
+    },
+    {
+      "list": "channel",
+      "label": "normal",
+      "champion": "Velkoz",
+      "ability": "Life Form Disintegration Ray",
+      "kind": "R"
+    },
+    {
+      "list": "channel",
+      "label": "normal",
+      "champion": "Warwick",
+      "ability": "Infinite Duress",
+      "kind": "R"
+    },
+    {
+      "list": "channel",
+      "label": "normal",
+      "champion": "Xerath",
+      "ability": "Rite of the Arcane",
+      "kind": "R"
+    },
+    {
+      "list": "channel",
+      "label": "normal",
+      "champion": "Yuumi",
+      "ability": "Prowling Projectile",
+      "kind": "Q"
+    },
+    {
+      "list": "channel",
+      "label": "normal",
+      "champion": "Yuumi",
+      "ability": "Final Chapter",
+      "kind": "R"
+    },
+    {
+      "list": "channel",
+      "label": "movement",
+      "champion": "Fiddlesticks",
+      "ability": "Crowstorm",
+      "kind": "R"
+    },
+    {
+      "list": "channel",
+      "label": "movement",
+      "champion": "Galio",
+      "ability": "Hero's Entrance",
+      "kind": "R"
+    },
+    {
+      "list": "channel",
+      "label": "movement",
+      "champion": "Kayn",
+      "ability": "Umbral Trespass",
+      "kind": "R"
+    },
+    {
+      "list": "channel",
+      "label": "movement",
+      "champion": "Naafiri",
+      "ability": "Hounds' Pursuit",
+      "kind": "R"
+    },
+    {
+      "list": "channel",
+      "label": "movement",
+      "champion": "Nunu",
+      "ability": "Biggest Snowball Ever!",
+      "kind": "W"
+    },
+    {
+      "list": "channel",
+      "label": "movement",
+      "champion": "Pantheon",
+      "ability": "Grand Starfall",
+      "kind": "R"
+    },
+    {
+      "list": "channel",
+      "label": "movement",
+      "champion": "Shen",
+      "ability": "Stand United",
+      "kind": "R"
+    },
+    {
+      "list": "channel",
+      "label": "movement",
+      "champion": "Sion",
+      "ability": "Unstoppable Onslaught",
+      "kind": "R"
+    },
+    {
+      "list": "channel",
+      "label": "movement",
+      "champion": "TahmKench",
+      "ability": "Abyssal Dive",
+      "kind": "W"
+    },
+    {
+      "list": "channel",
+      "label": "movement",
+      "champion": "Taliyah",
+      "ability": "Weaver's Wall",
+      "kind": "R"
+    },
+    {
+      "list": "channel",
+      "label": "movement",
+      "champion": "TwistedFate",
+      "ability": "Destiny",
+      "kind": "R"
+    },
+    {
+      "list": "channel",
+      "label": "movement",
+      "champion": "Ryze",
+      "ability": "Realm Warp",
+      "kind": "R"
+    },
+    {
+      "list": "channel",
+      "label": "movement",
+      "champion": "Vi",
+      "ability": "Vault Breaker",
+      "kind": "Q"
+    },
+    {
+      "list": "channel",
+      "label": "movement",
+      "champion": "Warwick",
+      "ability": "Jaws of the Beast",
+      "kind": "Q"
+    },
+    {
+      "list": "channel",
+      "label": "movement",
+      "champion": "Yuumi",
+      "ability": "You and Me!",
+      "kind": "W"
+    },
+    {
+      "list": "channel",
+      "label": "movement",
+      "champion": "Zac",
+      "ability": "Elastic Slingshot",
+      "kind": "E"
+    },
+    {
+      "list": "channel",
+      "label": "objective",
+      "champion": "Ornn",
+      "ability": "Living Forge",
+      "kind": "I"
+    },
+    {
+      "list": "channel",
+      "label": "objective",
+      "champion": "Zilean",
+      "ability": "Time in a Bottle",
+      "kind": "I"
+    },
+    {
+      "list": "channel",
+      "label": "uninterruptible",
+      "champion": "Briar",
+      "ability": "Chilling Scream",
+      "kind": "E"
+    },
+    {
+      "list": "channel",
+      "label": "uninterruptible",
+      "champion": "Irelia",
+      "ability": "Defiant Dance",
+      "kind": "W"
+    },
+    {
+      "list": "channel",
+      "label": "uninterruptible",
+      "champion": "KSante",
+      "ability": "Path Maker",
+      "kind": "W"
+    },
+    {
+      "list": "channel",
+      "label": "uninterruptible",
+      "champion": "Pantheon",
+      "ability": "Aegis Assault",
+      "kind": "E"
+    },
+    {
+      "list": "channel",
+      "label": "uninterruptible",
+      "champion": "Urgot",
+      "ability": "Fear Beyond Death",
+      "kind": "R"
+    },
+    {
+      "list": "charged",
+      "champion": "AurelionSol",
+      "ability": "Breath of Light",
+      "kind": "Q"
+    },
+    {
+      "list": "charged",
+      "champion": "Briar",
+      "ability": "Chilling Scream",
+      "kind": "E"
+    },
+    {
+      "list": "charged",
+      "champion": "Galio",
+      "ability": "Shield of Durand",
+      "kind": "W"
+    },
+    {
+      "list": "charged",
+      "champion": "Irelia",
+      "ability": "Defiant Dance",
+      "kind": "W"
+    },
+    {
+      "list": "charged",
+      "champion": "KSante",
+      "ability": "Path Maker",
+      "kind": "W"
+    },
+    {
+      "list": "charged",
+      "champion": "Pantheon",
+      "ability": "Comet Spear",
+      "kind": "Q"
+    },
+    {
+      "list": "charged",
+      "champion": "Poppy",
+      "ability": "Keeper's Verdict",
+      "kind": "R"
+    },
+    {
+      "list": "charged",
+      "champion": "Pyke",
+      "ability": "Bone Skewer",
+      "kind": "Q"
+    },
+    {
+      "list": "charged",
+      "champion": "Sion",
+      "ability": "Decimating Smash",
+      "kind": "Q"
+    },
+    {
+      "list": "charged",
+      "champion": "Varus",
+      "ability": "Piercing Arrow",
+      "kind": "Q"
+    },
+    {
+      "list": "charged",
+      "champion": "Vi",
+      "ability": "Vault Breaker",
+      "kind": "Q"
+    },
+    {
+      "list": "charged",
+      "champion": "Viego",
+      "ability": "Spectral Maw",
+      "kind": "W"
+    },
+    {
+      "list": "charged",
+      "champion": "Vladimir",
+      "ability": "Tides of Blood",
+      "kind": "E"
+    },
+    {
+      "list": "charged",
+      "champion": "Warwick",
+      "ability": "Jaws of the Beast",
+      "kind": "Q"
+    },
+    {
+      "list": "charged",
+      "champion": "Xerath",
+      "ability": "Arcanopulse",
+      "kind": "Q"
+    },
+    {
+      "list": "charged",
+      "champion": "Zac",
+      "ability": "Elastic Slingshot",
+      "kind": "E"
+    },
+    {
+      "list": "camouflage",
+      "champion": "Akshan",
+      "ability": "Going Rogue",
+      "kind": "W",
+      "qualifier": "(800 unit detection radius)"
+    },
+    {
+      "list": "camouflage",
+      "champion": "Evelynn",
+      "ability": "Demon Shade",
+      "kind": "I",
+      "qualifier": "(700 unit detection radius)"
+    },
+    {
+      "list": "camouflage",
+      "champion": "Pyke",
+      "ability": "Ghostwater Dive",
+      "kind": "W",
+      "qualifier": "(600 unit detection radius)"
+    },
+    {
+      "list": "camouflage",
+      "champion": "Rengar",
+      "ability": "Thrill of the Hunt",
+      "kind": "R",
+      "qualifier": "(710 unit detection radius)",
+      "note": "does not use the indicator system mentioned above"
+    },
+    {
+      "list": "camouflage",
+      "champion": "Senna",
+      "ability": "Curse of the Black Mist",
+      "kind": "E",
+      "qualifier": "(400 unit detection radius)"
+    },
+    {
+      "list": "camouflage",
+      "champion": "Twitch",
+      "ability": "Ambush",
+      "kind": "Q",
+      "qualifier": "(500 unit detection radius)"
+    },
+    {
+      "list": "camouflage",
+      "champion": "Viego",
+      "ability": "Harrowed Path",
+      "kind": "E",
+      "qualifier": "(450 unit detection radius)"
+    },
+    {
+      "list": "invisibility",
+      "champion": "Akali",
+      "ability": "Twilight Shroud",
+      "kind": "W"
+    },
+    {
+      "list": "invisibility",
+      "champion": "Aurora",
+      "ability": "Across the Veil",
+      "kind": "W"
+    },
+    {
+      "list": "invisibility",
+      "champion": "Kaisa",
+      "ability": "Supercharge",
+      "kind": "E"
+    },
+    {
+      "list": "invisibility",
+      "champion": "Khazix",
+      "ability": "Void Assault",
+      "kind": "R"
+    },
+    {
+      "list": "invisibility",
+      "champion": "Khazix",
+      "ability": "Evolved Adaptive Cloaking",
+      "kind": "R"
+    },
+    {
+      "list": "invisibility",
+      "champion": "Leblanc",
+      "ability": "Mirror Image",
+      "kind": "I"
+    },
+    {
+      "list": "invisibility",
+      "champion": "Neeko",
+      "ability": "Shapesplitter",
+      "kind": "W"
+    },
+    {
+      "list": "invisibility",
+      "champion": "Qiyana",
+      "ability": "Elemental Wrath",
+      "kind": "Q",
+      "qualifier": "(Brush)"
+    },
+    {
+      "list": "invisibility",
+      "champion": "Shaco",
+      "ability": "Deceive",
+      "kind": "Q"
+    },
+    {
+      "list": "invisibility",
+      "champion": "Talon",
+      "ability": "Shadow Assault",
+      "kind": "R"
+    },
+    {
+      "list": "invisibility",
+      "champion": "Teemo",
+      "ability": "Guerrilla Warfare",
+      "kind": "I"
+    },
+    {
+      "list": "invisibility",
+      "champion": "Vayne",
+      "ability": "Final Hour",
+      "kind": "R"
+    },
+    {
+      "list": "invisibility",
+      "champion": "MonkeyKing",
+      "ability": "Warrior Trickster",
+      "kind": "W"
+    },
+    {
+      "list": "stealthTrap",
+      "champion": "Shaco",
+      "ability": "Jack in the Box",
+      "kind": "W"
+    },
+    {
+      "list": "stealthTrap",
+      "champion": "Jhin",
+      "ability": "Captive Audience",
+      "kind": "E"
+    },
+    {
+      "list": "stealthTrap",
+      "champion": "Nidalee",
+      "ability": "Bushwhack",
+      "kind": "W"
+    },
+    {
+      "list": "stealthTrap",
+      "champion": "Teemo",
+      "ability": "Noxious Trap",
+      "kind": "R"
+    },
+    {
+      "list": "trueSight",
+      "champion": "Aatrox",
+      "ability": "Infernal Chains",
+      "kind": "W"
+    },
+    {
+      "list": "trueSight",
+      "champion": "Akali",
+      "ability": "Shuriken Flip",
+      "kind": "E"
+    },
+    {
+      "list": "trueSight",
+      "champion": "Akshan",
+      "ability": "Comeuppance",
+      "kind": "R"
+    },
+    {
+      "list": "trueSight",
+      "champion": "Ambessa",
+      "ability": "Public Execution",
+      "kind": "R"
+    },
+    {
+      "list": "trueSight",
+      "champion": "Briar",
+      "ability": "Certain Death",
+      "kind": "R"
+    },
+    {
+      "list": "trueSight",
+      "champion": "Caitlyn",
+      "ability": "Yordle Snap Trap",
+      "kind": "W"
+    },
+    {
+      "list": "trueSight",
+      "champion": "Caitlyn",
+      "ability": "Ace in the Hole",
+      "kind": "R"
+    },
+    {
+      "list": "trueSight",
+      "champion": "Elise",
+      "ability": "Cocoon",
+      "kind": "E"
+    },
+    {
+      "list": "trueSight",
+      "champion": "Fiddlesticks",
+      "ability": "A Harmless Scarecrow",
+      "kind": "I",
+      "note": "Only reveals traps and wards."
+    },
+    {
+      "list": "trueSight",
+      "champion": "Fiddlesticks",
+      "ability": "Bountiful Harvest",
+      "kind": "W"
+    },
+    {
+      "list": "trueSight",
+      "champion": "Fizz",
+      "ability": "Chum the Waters",
+      "kind": "R"
+    },
+    {
+      "list": "trueSight",
+      "champion": "Garen",
+      "ability": "Demacian Justice",
+      "kind": "R"
+    },
+    {
+      "list": "trueSight",
+      "champion": "Hwei",
+      "ability": "Gaze of the Abyss",
+      "kind": "W"
+    },
+    {
+      "list": "trueSight",
+      "champion": "Hwei",
+      "ability": "Spiraling Despair",
+      "kind": "R"
+    },
+    {
+      "list": "trueSight",
+      "champion": "Illaoi",
+      "ability": "Test of Spirit",
+      "kind": "E"
+    },
+    {
+      "list": "trueSight",
+      "champion": "Kaisa",
+      "ability": "Void Seeker",
+      "kind": "W"
+    },
+    {
+      "list": "trueSight",
+      "champion": "Karma",
+      "ability": "Focused Resolve",
+      "kind": "W"
+    },
+    {
+      "list": "trueSight",
+      "champion": "Karma",
+      "ability": "Renewal",
+      "kind": "W"
+    },
+    {
+      "list": "trueSight",
+      "champion": "Kayn",
+      "ability": "Umbral Trespass",
+      "kind": "R"
+    },
+    {
+      "list": "trueSight",
+      "champion": "Kled",
+      "ability": "Bear Trap on a Rope",
+      "kind": "Q"
+    },
+    {
+      "list": "trueSight",
+      "champion": "Kled",
+      "ability": "Jousting",
+      "kind": "E"
+    },
+    {
+      "list": "trueSight",
+      "champion": "Kled",
+      "ability": "Chaaaaaaaarge!!!",
+      "kind": "R"
+    },
+    {
+      "list": "trueSight",
+      "champion": "Leblanc",
+      "ability": "Ethereal Chains",
+      "kind": "E"
+    },
+    {
+      "list": "trueSight",
+      "champion": "LeeSin",
+      "ability": "Sonic Wave",
+      "kind": "Q"
+    },
+    {
+      "list": "trueSight",
+      "champion": "LeeSin",
+      "ability": "Tempest",
+      "kind": "E"
+    },
+    {
+      "list": "trueSight",
+      "champion": "Lulu",
+      "ability": "Help, Pix!",
+      "kind": "E"
+    },
+    {
+      "list": "trueSight",
+      "champion": "Malzahar",
+      "ability": "Nether Grasp",
+      "kind": "R"
+    },
+    {
+      "list": "trueSight",
+      "champion": "Mordekaiser",
+      "ability": "Realm of Death",
+      "kind": "R"
+    },
+    {
+      "list": "trueSight",
+      "champion": "Morgana",
+      "ability": "Soul Shackles",
+      "kind": "R"
+    },
+    {
+      "list": "trueSight",
+      "champion": "Naafiri",
+      "ability": "Hounds' Pursuit",
+      "kind": "R"
+    },
+    {
+      "list": "trueSight",
+      "champion": "Nidalee",
+      "ability": "Prowl",
+      "kind": "I"
+    },
+    {
+      "list": "trueSight",
+      "champion": "RekSai",
+      "ability": "Void Rush",
+      "kind": "R"
+    },
+    {
+      "list": "trueSight",
+      "champion": "Renata",
+      "ability": "Handshake",
+      "kind": "Q"
+    },
+    {
+      "list": "trueSight",
+      "champion": "Rengar",
+      "ability": "Bola Strike",
+      "kind": "E"
+    },
+    {
+      "list": "trueSight",
+      "champion": "Rengar",
+      "ability": "Thrill of the Hunt",
+      "kind": "R"
+    },
+    {
+      "list": "trueSight",
+      "champion": "Sett",
+      "ability": "The Show Stopper",
+      "kind": "R"
+    },
+    {
+      "list": "trueSight",
+      "champion": "Skarner",
+      "ability": "Ixtal's Impact",
+      "kind": "E"
+    },
+    {
+      "list": "trueSight",
+      "champion": "Skarner",
+      "ability": "Impale",
+      "kind": "R"
+    },
+    {
+      "list": "trueSight",
+      "champion": "Sylas",
+      "ability": "Hijack",
+      "kind": "R"
+    },
+    {
+      "list": "trueSight",
+      "champion": "Thresh",
+      "ability": "Death Sentence",
+      "kind": "Q"
+    },
+    {
+      "list": "trueSight",
+      "champion": "TwistedFate",
+      "ability": "Destiny",
+      "kind": "R"
+    },
+    {
+      "list": "trueSight",
+      "champion": "Urgot",
+      "ability": "Fear Beyond Death",
+      "kind": "R"
+    },
+    {
+      "list": "trueSight",
+      "champion": "Vex",
+      "ability": "Shadow Surge",
+      "kind": "R"
+    },
+    {
+      "list": "trueSight",
+      "champion": "Vi",
+      "ability": "Cease and Desist",
+      "kind": "R"
+    },
+    {
+      "list": "trueSight",
+      "champion": "Warwick",
+      "ability": "Infinite Duress",
+      "kind": "R"
+    },
+    {
+      "list": "trueSight",
+      "champion": "Yasuo",
+      "ability": "Last Breath",
+      "kind": "R"
+    },
+    {
+      "list": "trueSight",
+      "champion": "Zac",
+      "ability": "Stretching Strikes",
+      "kind": "Q"
+    },
+    {
+      "list": "trueSight",
+      "champion": "Zyra",
+      "ability": "Rampant Growth",
+      "kind": "W"
+    },
+    {
+      "list": "grievousWounds",
+      "champion": "Katarina",
+      "ability": "Death Lotus",
+      "kind": "R"
+    },
+    {
+      "list": "grievousWounds",
+      "champion": "Singed",
+      "ability": "Poison Trail",
+      "kind": "Q",
+      "qualifier": "while under the effects of"
+    },
+    {
+      "list": "grievousWounds",
+      "champion": "Singed",
+      "ability": "Insanity Potion",
+      "kind": "R"
+    },
+    {
+      "list": "grievousWounds",
+      "champion": "Varus",
+      "ability": "Hail of Arrows",
+      "kind": "E"
+    },
+    {
+      "list": "tenacity",
+      "champion": "Garen",
+      "ability": "Courage",
+      "kind": "W"
+    },
+    {
+      "list": "tenacity",
+      "champion": "Milio",
+      "ability": "Breath of Life",
+      "kind": "R"
+    },
+    {
+      "list": "tenacityReduction",
+      "champion": "Ornn",
+      "ability": "Bellows Breath",
+      "kind": "W"
+    },
+    {
+      "list": "tenacityReduction",
+      "champion": "Ornn",
+      "ability": "Call of the Forge God",
+      "kind": "R",
+      "qualifier": "apply Brittle, a unique status effect that reduces targets' tenacity by 30%"
+    },
+    {
+      "list": "minimumHealth",
+      "champion": "Kindred",
+      "ability": "Lamb's Respite",
+      "kind": "R"
+    },
+    {
+      "list": "minimumHealth",
+      "champion": "Pantheon",
+      "ability": "Grand Starfall",
+      "kind": "R"
+    },
+    {
+      "list": "minimumHealth",
+      "champion": "Tryndamere",
+      "ability": "Undying Rage",
+      "kind": "R"
+    },
+    {
+      "list": "resurrection",
+      "champion": "Zilean",
+      "ability": "Chronoshift",
+      "kind": "R"
+    },
+    {
+      "list": "resurrection",
+      "champion": "Zaahen",
+      "ability": "Cultivation of War",
+      "kind": "I"
+    },
+    {
+      "list": "resurrection",
+      "champion": "Anivia",
+      "ability": "Rebirth",
+      "kind": "I"
+    },
+    {
+      "list": "resurrection",
+      "champion": "Zac",
+      "ability": "Cell Division",
+      "kind": "I"
+    },
+    {
+      "list": "slowImmune",
+      "champion": "Aphelios",
+      "ability": "Sentry",
+      "kind": "Q"
+    },
+    {
+      "list": "slowImmune",
+      "champion": "Heimerdinger",
+      "ability": "H-28G Evolution Turret",
+      "kind": "Q"
+    },
+    {
+      "list": "slowImmune",
+      "champion": "MasterYi",
+      "ability": "Highlander",
+      "kind": "R"
+    },
+    {
+      "list": "slowImmune",
+      "champion": "Nunu",
+      "ability": "Biggest Snowball Ever!",
+      "kind": "W"
+    },
+    {
+      "list": "slowImmune",
+      "champion": "Sejuani",
+      "ability": "Fury of the North",
+      "kind": "I"
+    },
+    {
+      "list": "slowImmune",
+      "champion": "Skarner",
+      "ability": "Ixtal's Impact",
+      "kind": "E"
+    },
+    {
+      "list": "crowdControl",
+      "label": "airborne: knock aside",
+      "champion": "Draven",
+      "ability": "Stand Aside",
+      "kind": "E"
+    },
+    {
+      "list": "crowdControl",
+      "label": "airborne: knock aside",
+      "champion": "JarvanIV",
+      "ability": "Cataclysm",
+      "kind": "R"
+    },
+    {
+      "list": "crowdControl",
+      "label": "airborne: knock aside",
+      "champion": "Ornn",
+      "ability": "Volcanic Rupture",
+      "kind": "Q"
+    },
+    {
+      "list": "crowdControl",
+      "label": "airborne: knock aside",
+      "champion": "Taliyah",
+      "ability": "Seismic Shove",
+      "kind": "W"
+    },
+    {
+      "list": "crowdControl",
+      "label": "airborne: knock aside",
+      "champion": "Taliyah",
+      "ability": "Weaver's Wall",
+      "kind": "R"
+    },
+    {
+      "list": "crowdControl",
+      "label": "airborne: knock aside",
+      "champion": "Urgot",
+      "ability": "Disdain",
+      "kind": "E",
+      "qualifier": "(to non-champions)"
+    },
+    {
+      "list": "crowdControl",
+      "label": "airborne: knock aside",
+      "champion": "Vi",
+      "ability": "Cease and Desist",
+      "kind": "R"
+    },
+    {
+      "list": "crowdControl",
+      "label": "airborne: knock aside",
+      "champion": "Yorick",
+      "ability": "Dark Procession",
+      "kind": "W"
+    },
+    {
+      "list": "crowdControl",
+      "label": "airborne: knock back",
+      "champion": "Alistar",
+      "ability": "Headbutt",
+      "kind": "W"
+    },
+    {
+      "list": "crowdControl",
+      "label": "airborne: knock back",
+      "champion": "Anivia",
+      "ability": "Crystallize",
+      "kind": "W"
+    },
+    {
+      "list": "crowdControl",
+      "label": "airborne: knock back",
+      "champion": "Azir",
+      "ability": "Emperor's Divide",
+      "kind": "R"
+    },
+    {
+      "list": "crowdControl",
+      "label": "airborne: knock back",
+      "champion": "Briar",
+      "ability": "Chilling Scream",
+      "kind": "E"
+    },
+    {
+      "list": "crowdControl",
+      "label": "airborne: knock back",
+      "champion": "Camille",
+      "ability": "Wall Dive",
+      "kind": "E"
+    },
+    {
+      "list": "crowdControl",
+      "label": "airborne: knock back",
+      "champion": "Camille",
+      "ability": "The Hextech Ultimatum",
+      "kind": "R"
+    },
+    {
+      "list": "crowdControl",
+      "label": "airborne: knock back",
+      "champion": "Fizz",
+      "ability": "Chum the Waters",
+      "kind": "R"
+    },
+    {
+      "list": "crowdControl",
+      "label": "airborne: knock back",
+      "champion": "Galio",
+      "ability": "Hero's Entrance",
+      "kind": "R"
+    },
+    {
+      "list": "crowdControl",
+      "label": "airborne: knock back",
+      "champion": "Gnar",
+      "ability": "GNAR!",
+      "kind": "R"
+    },
+    {
+      "list": "crowdControl",
+      "label": "airborne: knock back",
+      "champion": "Gragas",
+      "ability": "Body Slam",
+      "kind": "E"
+    },
+    {
+      "list": "crowdControl",
+      "label": "airborne: knock back",
+      "champion": "Gragas",
+      "ability": "Explosive Cask",
+      "kind": "R"
+    },
+    {
+      "list": "crowdControl",
+      "label": "airborne: knock back",
+      "champion": "Graves",
+      "ability": "New Destiny",
+      "kind": "I",
+      "qualifier": "(to non-champions)"
+    },
+    {
+      "list": "crowdControl",
+      "label": "airborne: knock back",
+      "champion": "Hecarim",
+      "ability": "Devastating Charge",
+      "kind": "E"
+    },
+    {
+      "list": "crowdControl",
+      "label": "airborne: knock back",
+      "champion": "Janna",
+      "ability": "Monsoon",
+      "kind": "R"
+    },
+    {
+      "list": "crowdControl",
+      "label": "airborne: knock back",
+      "champion": "Jayce",
+      "ability": "Thundering Blow",
+      "kind": "E"
+    },
+    {
+      "list": "crowdControl",
+      "label": "airborne: knock back",
+      "champion": "Kled",
+      "ability": "Chaaaaaaaarge!!!",
+      "kind": "R"
+    },
+    {
+      "list": "crowdControl",
+      "label": "airborne: knock back",
+      "champion": "KSante",
+      "ability": "Path Maker",
+      "kind": "W"
+    },
+    {
+      "list": "crowdControl",
+      "label": "airborne: knock back",
+      "champion": "KSante",
+      "ability": "All Out",
+      "kind": "R"
+    },
+    {
+      "list": "crowdControl",
+      "label": "airborne: knock back",
+      "champion": "LeeSin",
+      "ability": "Dragon's Rage",
+      "kind": "R"
+    },
+    {
+      "list": "crowdControl",
+      "label": "airborne: knock back",
+      "champion": "Maokai",
+      "ability": "Bramble Smash",
+      "kind": "Q"
+    },
+    {
+      "list": "crowdControl",
+      "label": "airborne: knock back",
+      "champion": "Milio",
+      "ability": "Ultra Mega Fire Kick",
+      "kind": "Q"
+    },
+    {
+      "list": "crowdControl",
+      "label": "airborne: knock back",
+      "champion": "Ornn",
+      "ability": "Living Forge",
+      "kind": "I"
+    },
+    {
+      "list": "crowdControl",
+      "label": "airborne: knock back",
+      "champion": "Poppy",
+      "ability": "Heroic Charge",
+      "kind": "E"
+    },
+    {
+      "list": "crowdControl",
+      "label": "airborne: knock back",
+      "champion": "Poppy",
+      "ability": "Keeper's Verdict",
+      "kind": "R"
+    },
+    {
+      "list": "crowdControl",
+      "label": "airborne: knock back",
+      "champion": "Qiyana",
+      "ability": "Supreme Display of Talent",
+      "kind": "R"
+    },
+    {
+      "list": "crowdControl",
+      "label": "airborne: knock back",
+      "champion": "Quinn",
+      "ability": "Vault",
+      "kind": "E"
+    },
+    {
+      "list": "crowdControl",
+      "label": "airborne: knock back",
+      "champion": "Rammus",
+      "ability": "Powerball",
+      "kind": "Q"
+    },
+    {
+      "list": "crowdControl",
+      "label": "airborne: knock back",
+      "champion": "Renata",
+      "ability": "Handshake",
+      "kind": "Q"
+    },
+    {
+      "list": "crowdControl",
+      "label": "airborne: knock back",
+      "champion": "Riven",
+      "ability": "Broken Wings",
+      "kind": "Q"
+    },
+    {
+      "list": "crowdControl",
+      "label": "airborne: knock back",
+      "champion": "Sejuani",
+      "ability": "Winter's Wrath",
+      "kind": "W",
+      "qualifier": "(to non-champions)"
+    },
+    {
+      "list": "crowdControl",
+      "label": "airborne: knock back",
+      "champion": "Sejuani",
+      "ability": "Permafrost",
+      "kind": "E",
+      "note": "Does not apply airborne debuff"
+    },
+    {
+      "list": "crowdControl",
+      "label": "airborne: knock back",
+      "champion": "Sion",
+      "ability": "Roar of the Slayer",
+      "kind": "E",
+      "qualifier": "(to non-champions)"
+    },
+    {
+      "list": "crowdControl",
+      "label": "airborne: knock back",
+      "champion": "Swain",
+      "ability": "Nevermove",
+      "kind": "E"
+    },
+    {
+      "list": "crowdControl",
+      "label": "airborne: knock back",
+      "champion": "Syndra",
+      "ability": "Scatter the Weak",
+      "kind": "E"
+    },
+    {
+      "list": "crowdControl",
+      "label": "airborne: knock back",
+      "champion": "TahmKench",
+      "ability": "Regurgitate",
+      "kind": "R"
+    },
+    {
+      "list": "crowdControl",
+      "label": "airborne: knock back",
+      "champion": "Taliyah",
+      "ability": "Seismic Shove",
+      "kind": "W"
+    },
+    {
+      "list": "crowdControl",
+      "label": "airborne: knock back",
+      "champion": "Thresh",
+      "ability": "Flay",
+      "kind": "E"
+    },
+    {
+      "list": "crowdControl",
+      "label": "airborne: knock back",
+      "champion": "Tristana",
+      "ability": "Buster Shot",
+      "kind": "R"
+    },
+    {
+      "list": "crowdControl",
+      "label": "airborne: knock back",
+      "champion": "Trundle",
+      "ability": "Pillar of Ice",
+      "kind": "E"
+    },
+    {
+      "list": "crowdControl",
+      "label": "airborne: knock back",
+      "champion": "Vayne",
+      "ability": "Condemn",
+      "kind": "E"
+    },
+    {
+      "list": "crowdControl",
+      "label": "airborne: knock back",
+      "champion": "Velkoz",
+      "ability": "Tectonic Disruption",
+      "kind": "E"
+    },
+    {
+      "list": "crowdControl",
+      "label": "airborne: knock back",
+      "champion": "Vi",
+      "ability": "Vault Breaker",
+      "kind": "Q"
+    },
+    {
+      "list": "crowdControl",
+      "label": "airborne: knock back",
+      "champion": "Viego",
+      "ability": "Heartbreaker",
+      "kind": "R"
+    },
+    {
+      "list": "crowdControl",
+      "label": "airborne: knock back",
+      "champion": "XinZhao",
+      "ability": "Crescent Guard",
+      "kind": "R"
+    },
+    {
+      "list": "crowdControl",
+      "label": "airborne: knock back",
+      "champion": "Zac",
+      "ability": "Let's Bounce!",
+      "kind": "R"
+    },
+    {
+      "list": "crowdControl",
+      "label": "airborne: knock back",
+      "champion": "Ziggs",
+      "ability": "Satchel Charge",
+      "kind": "W"
+    },
+    {
+      "list": "crowdControl",
+      "label": "airborne: knock up",
+      "champion": "Aatrox",
+      "ability": "The Darkin Blade",
+      "kind": "Q"
+    },
+    {
+      "list": "crowdControl",
+      "label": "airborne: knock up",
+      "champion": "Alistar",
+      "ability": "Pulverize",
+      "kind": "Q"
+    },
+    {
+      "list": "crowdControl",
+      "label": "airborne: knock up",
+      "champion": "AurelionSol",
+      "ability": "The Skies Descend",
+      "kind": "R"
+    },
+    {
+      "list": "crowdControl",
+      "label": "airborne: knock up",
+      "champion": "Belveth",
+      "ability": "Above and Below",
+      "kind": "W"
+    },
+    {
+      "list": "crowdControl",
+      "label": "airborne: knock up",
+      "champion": "Blitzcrank",
+      "ability": "Power Fist",
+      "kind": "E"
+    },
+    {
+      "list": "crowdControl",
+      "label": "airborne: knock up",
+      "champion": "Braum",
+      "ability": "Glacial Fissure",
+      "kind": "R"
+    },
+    {
+      "list": "crowdControl",
+      "label": "airborne: knock up",
+      "champion": "Chogath",
+      "ability": "Rupture",
+      "kind": "Q"
+    },
+    {
+      "list": "crowdControl",
+      "label": "airborne: knock up",
+      "champion": "Darius",
+      "ability": "Apprehend",
+      "kind": "E"
+    },
+    {
+      "list": "crowdControl",
+      "label": "airborne: knock up",
+      "champion": "Fizz",
+      "ability": "Chum the Waters",
+      "kind": "R"
+    },
+    {
+      "list": "crowdControl",
+      "label": "airborne: knock up",
+      "champion": "Galio",
+      "ability": "Justice Punch",
+      "kind": "E"
+    },
+    {
+      "list": "crowdControl",
+      "label": "airborne: knock up",
+      "champion": "Ivern",
+      "ability": "Daisy!",
+      "kind": "R"
+    },
+    {
+      "list": "crowdControl",
+      "label": "airborne: knock up",
+      "champion": "Janna",
+      "ability": "Howling Gale",
+      "kind": "Q"
+    },
+    {
+      "list": "crowdControl",
+      "label": "airborne: knock up",
+      "champion": "JarvanIV",
+      "ability": "Dragon Strike",
+      "kind": "Q"
+    },
+    {
+      "list": "crowdControl",
+      "label": "airborne: knock up",
+      "champion": "Kalista",
+      "ability": "Fate's Call",
+      "kind": "R"
+    },
+    {
+      "list": "crowdControl",
+      "label": "airborne: knock up",
+      "champion": "KSante",
+      "ability": "All Out",
+      "kind": "R"
+    },
+    {
+      "list": "crowdControl",
+      "label": "airborne: knock up",
+      "champion": "LeeSin",
+      "ability": "Dragon's Rage",
+      "kind": "R"
+    },
+    {
+      "list": "crowdControl",
+      "label": "airborne: knock up",
+      "champion": "Lulu",
+      "ability": "Wild Growth",
+      "kind": "R"
+    },
+    {
+      "list": "crowdControl",
+      "label": "airborne: knock up",
+      "champion": "Malphite",
+      "ability": "Unstoppable Force",
+      "kind": "R"
+    },
+    {
+      "list": "crowdControl",
+      "label": "airborne: knock up",
+      "champion": "Nami",
+      "ability": "Tidal Wave",
+      "kind": "R"
+    },
+    {
+      "list": "crowdControl",
+      "label": "airborne: knock up",
+      "champion": "Nautilus",
+      "ability": "Depth Charge",
+      "kind": "R"
+    },
+    {
+      "list": "crowdControl",
+      "label": "airborne: knock up",
+      "champion": "Neeko",
+      "ability": "Pop Blossom",
+      "kind": "R"
+    },
+    {
+      "list": "crowdControl",
+      "label": "airborne: knock up",
+      "champion": "Nunu",
+      "ability": "Biggest Snowball Ever!",
+      "kind": "W"
+    },
+    {
+      "list": "crowdControl",
+      "label": "airborne: knock up",
+      "champion": "Ornn",
+      "ability": "Searing Charge",
+      "kind": "E"
+    },
+    {
+      "list": "crowdControl",
+      "label": "airborne: knock up",
+      "champion": "Ornn",
+      "ability": "Call of the Forge God",
+      "kind": "R"
+    },
+    {
+      "list": "crowdControl",
+      "label": "airborne: knock up",
+      "champion": "Poppy",
+      "ability": "Steadfast Presence",
+      "kind": "W"
+    },
+    {
+      "list": "crowdControl",
+      "label": "airborne: knock up",
+      "champion": "Poppy",
+      "ability": "Keeper's Verdict",
+      "kind": "R"
+    },
+    {
+      "list": "crowdControl",
+      "label": "airborne: knock up",
+      "champion": "Rakan",
+      "ability": "Grand Entrance",
+      "kind": "W"
+    },
+    {
+      "list": "crowdControl",
+      "label": "airborne: knock up",
+      "champion": "Rammus",
+      "ability": "Soaring Slam",
+      "kind": "R"
+    },
+    {
+      "list": "crowdControl",
+      "label": "airborne: knock up",
+      "champion": "RekSai",
+      "ability": "Unburrow",
+      "kind": "W"
+    },
+    {
+      "list": "crowdControl",
+      "label": "airborne: knock up",
+      "champion": "Rell",
+      "ability": "Ferromancy: Crash Down",
+      "kind": "W"
+    },
+    {
+      "list": "crowdControl",
+      "label": "airborne: knock up",
+      "champion": "Kayn",
+      "ability": "Blade's Reach",
+      "kind": "W"
+    },
+    {
+      "list": "crowdControl",
+      "label": "airborne: knock up",
+      "champion": "Samira",
+      "ability": "Daredevil Impulse",
+      "kind": "I"
+    },
+    {
+      "list": "crowdControl",
+      "label": "airborne: knock up",
+      "champion": "Sejuani",
+      "ability": "Arctic Assault",
+      "kind": "Q"
+    },
+    {
+      "list": "crowdControl",
+      "label": "airborne: knock up",
+      "champion": "Sion",
+      "ability": "Decimating Smash",
+      "kind": "Q"
+    },
+    {
+      "list": "crowdControl",
+      "label": "airborne: knock up",
+      "champion": "Sion",
+      "ability": "Unstoppable Onslaught",
+      "kind": "R"
+    },
+    {
+      "list": "crowdControl",
+      "label": "airborne: knock up",
+      "champion": "Sylas",
+      "ability": "Abduct",
+      "kind": "E"
+    },
+    {
+      "list": "crowdControl",
+      "label": "airborne: knock up",
+      "champion": "TahmKench",
+      "ability": "Abyssal Dive",
+      "kind": "W"
+    },
+    {
+      "list": "crowdControl",
+      "label": "airborne: knock up",
+      "champion": "Velkoz",
+      "ability": "Tectonic Disruption",
+      "kind": "E"
+    },
+    {
+      "list": "crowdControl",
+      "label": "airborne: knock up",
+      "champion": "Vi",
+      "ability": "Cease and Desist",
+      "kind": "R"
+    },
+    {
+      "list": "crowdControl",
+      "label": "airborne: knock up",
+      "champion": "MonkeyKing",
+      "ability": "Cyclone",
+      "kind": "R"
+    },
+    {
+      "list": "crowdControl",
+      "label": "airborne: knock up",
+      "champion": "XinZhao",
+      "ability": "Three Talon Strike",
+      "kind": "Q"
+    },
+    {
+      "list": "crowdControl",
+      "label": "airborne: knock up",
+      "champion": "Yasuo",
+      "ability": "Steel Tempest",
+      "kind": "Q"
+    },
+    {
+      "list": "crowdControl",
+      "label": "airborne: knock up",
+      "champion": "Yasuo",
+      "ability": "Last Breath",
+      "kind": "R"
+    },
+    {
+      "list": "crowdControl",
+      "label": "airborne: knock up",
+      "champion": "Yone",
+      "ability": "Mortal Steel",
+      "kind": "Q"
+    },
+    {
+      "list": "crowdControl",
+      "label": "airborne: knock up",
+      "champion": "Yone",
+      "ability": "Fate Sealed",
+      "kind": "R"
+    },
+    {
+      "list": "crowdControl",
+      "label": "airborne: knock up",
+      "champion": "Zaahen",
+      "ability": "The Darkin Glaive",
+      "kind": "Q"
+    },
+    {
+      "list": "crowdControl",
+      "label": "airborne: knock up",
+      "champion": "Zac",
+      "ability": "Stretching Strikes",
+      "kind": "Q"
+    },
+    {
+      "list": "crowdControl",
+      "label": "airborne: knock up",
+      "champion": "Zac",
+      "ability": "Elastic Slingshot",
+      "kind": "E"
+    },
+    {
+      "list": "crowdControl",
+      "label": "airborne: knock up",
+      "champion": "Zyra",
+      "ability": "Stranglethorns",
+      "kind": "R"
+    },
+    {
+      "list": "crowdControl",
+      "label": "airborne: pull",
+      "champion": "Aatrox",
+      "ability": "Infernal Chains",
+      "kind": "W"
+    },
+    {
+      "list": "crowdControl",
+      "label": "airborne: pull",
+      "champion": "Blitzcrank",
+      "ability": "Rocket Grab",
+      "kind": "Q"
+    },
+    {
+      "list": "crowdControl",
+      "label": "airborne: pull",
+      "champion": "Darius",
+      "ability": "Apprehend",
+      "kind": "E"
+    },
+    {
+      "list": "crowdControl",
+      "label": "airborne: pull",
+      "champion": "Diana",
+      "ability": "Moonfall",
+      "kind": "R"
+    },
+    {
+      "list": "crowdControl",
+      "label": "airborne: pull",
+      "champion": "Hwei",
+      "ability": "Crushing Maw",
+      "kind": "E"
+    },
+    {
+      "list": "crowdControl",
+      "label": "airborne: pull",
+      "champion": "Kled",
+      "ability": "Bear Trap on a Rope",
+      "kind": "Q"
+    },
+    {
+      "list": "crowdControl",
+      "label": "airborne: pull",
+      "champion": "Kled",
+      "ability": "Jousting",
+      "kind": "E",
+      "qualifier": "(to non-champions)"
+    },
+    {
+      "list": "crowdControl",
+      "label": "airborne: pull",
+      "champion": "KSante",
+      "ability": "Ntofo Strikes",
+      "kind": "Q"
+    },
+    {
+      "list": "crowdControl",
+      "label": "airborne: pull",
+      "champion": "Mordekaiser",
+      "ability": "Death's Grasp",
+      "kind": "E"
+    },
+    {
+      "list": "crowdControl",
+      "label": "airborne: pull",
+      "champion": "Nautilus",
+      "ability": "Dredge Line",
+      "kind": "Q"
+    },
+    {
+      "list": "crowdControl",
+      "label": "airborne: pull",
+      "champion": "Nilah",
+      "ability": "Apotheosis",
+      "kind": "R"
+    },
+    {
+      "list": "crowdControl",
+      "label": "airborne: pull",
+      "champion": "Nunu",
+      "ability": "Consume",
+      "kind": "Q",
+      "qualifier": "(to non-champions)"
+    },
+    {
+      "list": "crowdControl",
+      "label": "airborne: pull",
+      "champion": "Orianna",
+      "ability": "Command: Shockwave",
+      "kind": "R"
+    },
+    {
+      "list": "crowdControl",
+      "label": "airborne: pull",
+      "champion": "Pyke",
+      "ability": "Bone Skewer",
+      "kind": "Q"
+    },
+    {
+      "list": "crowdControl",
+      "label": "airborne: pull",
+      "champion": "Rell",
+      "ability": "Ferromancy: Mount Up",
+      "kind": "W"
+    },
+    {
+      "list": "crowdControl",
+      "label": "airborne: pull",
+      "champion": "Rell",
+      "ability": "Magnet Storm",
+      "kind": "R"
+    },
+    {
+      "list": "crowdControl",
+      "label": "airborne: pull",
+      "champion": "Sett",
+      "ability": "Facebreaker",
+      "kind": "E"
+    },
+    {
+      "list": "crowdControl",
+      "label": "airborne: pull",
+      "champion": "Singed",
+      "ability": "Fling",
+      "kind": "E"
+    },
+    {
+      "list": "crowdControl",
+      "label": "airborne: pull",
+      "champion": "Sion",
+      "ability": "Unstoppable Onslaught",
+      "kind": "R"
+    },
+    {
+      "list": "crowdControl",
+      "label": "airborne: pull",
+      "champion": "Swain",
+      "ability": "Nevermove",
+      "kind": "E"
+    },
+    {
+      "list": "crowdControl",
+      "label": "airborne: pull",
+      "champion": "Taliyah",
+      "ability": "Seismic Shove",
+      "kind": "W"
+    },
+    {
+      "list": "crowdControl",
+      "label": "airborne: pull",
+      "champion": "Thresh",
+      "ability": "Death Sentence",
+      "kind": "Q"
+    },
+    {
+      "list": "crowdControl",
+      "label": "airborne: pull",
+      "champion": "Thresh",
+      "ability": "Flay",
+      "kind": "E"
+    },
+    {
+      "list": "crowdControl",
+      "label": "airborne: pull",
+      "champion": "Urgot",
+      "ability": "Disdain",
+      "kind": "E"
+    },
+    {
+      "list": "crowdControl",
+      "label": "airborne: pull",
+      "champion": "Vi",
+      "ability": "Vault Breaker",
+      "kind": "Q",
+      "qualifier": "(to non-champions)"
+    },
+    {
+      "list": "crowdControl",
+      "label": "airborne: pull",
+      "champion": "Yone",
+      "ability": "Fate Sealed",
+      "kind": "R"
+    },
+    {
+      "list": "crowdControl",
+      "label": "airborne: pull",
+      "champion": "Zaahen",
+      "ability": "Dreaded Return",
+      "kind": "W"
+    },
+    {
+      "list": "crowdControl",
+      "label": "airborne: pull",
+      "champion": "Zac",
+      "ability": "Stretching Strikes",
+      "kind": "Q"
+    },
+    {
+      "list": "crowdControl",
+      "label": "blind",
+      "champion": "Teemo",
+      "ability": "Blinding Dart",
+      "kind": "Q"
+    },
+    {
+      "list": "crowdControl",
+      "label": "cripple",
+      "champion": "Fiora",
+      "ability": "Riposte",
+      "kind": "W"
+    },
+    {
+      "list": "crowdControl",
+      "label": "cripple",
+      "champion": "Malphite",
+      "ability": "Ground Slam",
+      "kind": "E"
+    },
+    {
+      "list": "crowdControl",
+      "label": "cripple",
+      "champion": "Nasus",
+      "ability": "Wither",
+      "kind": "W"
+    },
+    {
+      "list": "crowdControl",
+      "label": "attack speed reduction",
+      "champion": "Mordekaiser",
+      "ability": "Realm of Death",
+      "kind": "R"
+    },
+    {
+      "list": "crowdControl",
+      "label": "disarm",
+      "champion": "Lulu",
+      "ability": "Whimsy",
+      "kind": "W"
+    },
+    {
+      "list": "crowdControl",
+      "label": "disarm",
+      "champion": "Quinn",
+      "ability": "Blinding Assault",
+      "kind": "Q",
+      "qualifier": "(to non-champions)"
+    },
+    {
+      "list": "crowdControl",
+      "label": "disarm",
+      "champion": "Ryze",
+      "ability": "Realm Warp",
+      "kind": "R",
+      "qualifier": "(self/allies)"
+    },
+    {
+      "list": "crowdControl",
+      "label": "reloading",
+      "champion": "Graves",
+      "ability": "New Destiny",
+      "kind": "I"
+    },
+    {
+      "list": "crowdControl",
+      "label": "reloading",
+      "champion": "Jhin",
+      "ability": "Whisper",
+      "kind": "I"
+    },
+    {
+      "list": "crowdControl",
+      "label": "disrupt",
+      "champion": "Briar",
+      "ability": "Certain Death",
+      "kind": "R"
+    },
+    {
+      "list": "crowdControl",
+      "label": "disrupt",
+      "champion": "Camille",
+      "ability": "The Hextech Ultimatum",
+      "kind": "R"
+    },
+    {
+      "list": "crowdControl",
+      "label": "disrupt",
+      "champion": "Kassadin",
+      "ability": "Null Sphere",
+      "kind": "Q"
+    },
+    {
+      "list": "crowdControl",
+      "label": "disrupt",
+      "champion": "Viktor",
+      "ability": "Arcane Storm",
+      "kind": "R"
+    },
+    {
+      "list": "crowdControl",
+      "label": "berserk",
+      "champion": "Renata",
+      "ability": "Hostile Takeover",
+      "kind": "R"
+    },
+    {
+      "list": "crowdControl",
+      "label": "charm",
+      "champion": "Ahri",
+      "ability": "Charm",
+      "kind": "E"
+    },
+    {
+      "list": "crowdControl",
+      "label": "charm",
+      "champion": "Evelynn",
+      "ability": "Allure",
+      "kind": "W"
+    },
+    {
+      "list": "crowdControl",
+      "label": "charm",
+      "champion": "Rakan",
+      "ability": "The Quickness",
+      "kind": "R"
+    },
+    {
+      "list": "crowdControl",
+      "label": "charm",
+      "champion": "Seraphine",
+      "ability": "Encore",
+      "kind": "R"
+    },
+    {
+      "list": "crowdControl",
+      "label": "fear",
+      "champion": "Aatrox",
+      "ability": "World Ender",
+      "kind": "R",
+      "qualifier": "(to non-champions)"
+    },
+    {
+      "list": "crowdControl",
+      "label": "fear",
+      "champion": "Briar",
+      "ability": "Certain Death",
+      "kind": "R"
+    },
+    {
+      "list": "crowdControl",
+      "label": "fear",
+      "champion": "Darius",
+      "ability": "Noxian Guillotine",
+      "kind": "R",
+      "qualifier": "(to non-champions)"
+    },
+    {
+      "list": "crowdControl",
+      "label": "fear",
+      "champion": "Fiddlesticks",
+      "ability": "Terrify",
+      "kind": "Q"
+    },
+    {
+      "list": "crowdControl",
+      "label": "fear",
+      "champion": "Hecarim",
+      "ability": "Onslaught of Shadows",
+      "kind": "R"
+    },
+    {
+      "list": "crowdControl",
+      "label": "fear",
+      "champion": "Hwei",
+      "ability": "Grim Visage",
+      "kind": "Q"
+    },
+    {
+      "list": "crowdControl",
+      "label": "fear",
+      "champion": "Nocturne",
+      "ability": "Unspeakable Horror",
+      "kind": "E"
+    },
+    {
+      "list": "crowdControl",
+      "label": "fear",
+      "champion": "Shaco",
+      "ability": "Jack in the Box",
+      "kind": "W"
+    },
+    {
+      "list": "crowdControl",
+      "label": "fear",
+      "champion": "Shaco",
+      "ability": "Hallucinate",
+      "kind": "R"
+    },
+    {
+      "list": "crowdControl",
+      "label": "fear",
+      "champion": "Shyvana",
+      "ability": "Dragon's Descent",
+      "kind": "R"
+    },
+    {
+      "list": "crowdControl",
+      "label": "fear",
+      "champion": "Urgot",
+      "ability": "Fear Beyond Death",
+      "kind": "R"
+    },
+    {
+      "list": "crowdControl",
+      "label": "fear",
+      "champion": "Vex",
+      "ability": "Doom 'n Gloom",
+      "kind": "I"
+    },
+    {
+      "list": "crowdControl",
+      "label": "fear",
+      "champion": "Warwick",
+      "ability": "Primal Howl",
+      "kind": "E"
+    },
+    {
+      "list": "crowdControl",
+      "label": "taunt",
+      "champion": "Galio",
+      "ability": "Shield of Durand",
+      "kind": "W"
+    },
+    {
+      "list": "crowdControl",
+      "label": "taunt",
+      "champion": "Rammus",
+      "ability": "Frenzying Taunt",
+      "kind": "E"
+    },
+    {
+      "list": "crowdControl",
+      "label": "taunt",
+      "champion": "Shen",
+      "ability": "Shadow Dash",
+      "kind": "E"
+    },
+    {
+      "list": "crowdControl",
+      "label": "ground",
+      "champion": "Cassiopeia",
+      "ability": "Miasma",
+      "kind": "W"
+    },
+    {
+      "list": "crowdControl",
+      "label": "ground",
+      "champion": "Poppy",
+      "ability": "Steadfast Presence",
+      "kind": "W"
+    },
+    {
+      "list": "crowdControl",
+      "label": "ground",
+      "champion": "Singed",
+      "ability": "Mega Adhesive",
+      "kind": "W"
+    },
+    {
+      "list": "crowdControl",
+      "label": "ground",
+      "champion": "TahmKench",
+      "ability": "Devour",
+      "kind": "R",
+      "qualifier": "(self)"
+    },
+    {
+      "list": "crowdControl",
+      "label": "kinematics",
+      "champion": "AurelionSol",
+      "ability": "Singularity",
+      "kind": "E"
+    },
+    {
+      "list": "crowdControl",
+      "label": "kinematics",
+      "champion": "Rell",
+      "ability": "Magnet Storm",
+      "kind": "R"
+    },
+    {
+      "list": "crowdControl",
+      "label": "knockdown",
+      "champion": "Ahri",
+      "ability": "Charm",
+      "kind": "E"
+    },
+    {
+      "list": "crowdControl",
+      "label": "knockdown",
+      "champion": "Amumu",
+      "ability": "Curse of the Sad Mummy",
+      "kind": "R"
+    },
+    {
+      "list": "crowdControl",
+      "label": "knockdown",
+      "champion": "Hwei",
+      "ability": "Grim Visage",
+      "kind": "Q"
+    },
+    {
+      "list": "crowdControl",
+      "label": "knockdown",
+      "champion": "Jinx",
+      "ability": "Flame Chompers!",
+      "kind": "E"
+    },
+    {
+      "list": "crowdControl",
+      "label": "knockdown",
+      "champion": "Lissandra",
+      "ability": "Frozen Tomb",
+      "kind": "R"
+    },
+    {
+      "list": "crowdControl",
+      "label": "knockdown",
+      "champion": "Malzahar",
+      "ability": "Nether Grasp",
+      "kind": "R"
+    },
+    {
+      "list": "crowdControl",
+      "label": "knockdown",
+      "champion": "Veigar",
+      "ability": "Event Horizon",
+      "kind": "E"
+    },
+    {
+      "list": "crowdControl",
+      "label": "knockdown",
+      "champion": "Vex",
+      "ability": "Doom 'n Gloom",
+      "kind": "I"
+    },
+    {
+      "list": "crowdControl",
+      "label": "knockdown",
+      "champion": "Viktor",
+      "ability": "Gravity Field",
+      "kind": "W"
+    },
+    {
+      "list": "crowdControl",
+      "label": "knockdown",
+      "champion": "Warwick",
+      "ability": "Infinite Duress",
+      "kind": "R"
+    },
+    {
+      "list": "crowdControl",
+      "label": "knockdown",
+      "champion": "Yone",
+      "ability": "Fate Sealed",
+      "kind": "R"
+    },
+    {
+      "list": "crowdControl",
+      "label": "knockdown",
+      "champion": "Zac",
+      "ability": "Stretching Strikes",
+      "kind": "Q"
+    },
+    {
+      "list": "crowdControl",
+      "label": "nearsight",
+      "champion": "Graves",
+      "ability": "Smoke Screen",
+      "kind": "W"
+    },
+    {
+      "list": "crowdControl",
+      "label": "nearsight",
+      "champion": "Nocturne",
+      "ability": "Paranoia",
+      "kind": "R"
+    },
+    {
+      "list": "crowdControl",
+      "label": "nearsight",
+      "champion": "Quinn",
+      "ability": "Blinding Assault",
+      "kind": "Q"
+    },
+    {
+      "list": "crowdControl",
+      "label": "silence",
+      "champion": "Blitzcrank",
+      "ability": "Static Field",
+      "kind": "R"
+    },
+    {
+      "list": "crowdControl",
+      "label": "silence",
+      "champion": "Chogath",
+      "ability": "Feral Scream",
+      "kind": "W"
+    },
+    {
+      "list": "crowdControl",
+      "label": "silence",
+      "champion": "Fiddlesticks",
+      "ability": "Reap",
+      "kind": "E"
+    },
+    {
+      "list": "crowdControl",
+      "label": "silence",
+      "champion": "Garen",
+      "ability": "Decisive Strike",
+      "kind": "Q"
+    },
+    {
+      "list": "crowdControl",
+      "label": "silence",
+      "champion": "Kalista",
+      "ability": "Fate's Call",
+      "kind": "R",
+      "qualifier": "(to ally)"
+    },
+    {
+      "list": "crowdControl",
+      "label": "silence",
+      "champion": "Malzahar",
+      "ability": "Call of the Void",
+      "kind": "Q"
+    },
+    {
+      "list": "crowdControl",
+      "label": "silence",
+      "champion": "Ryze",
+      "ability": "Realm Warp",
+      "kind": "R",
+      "qualifier": "(self/allies)"
+    },
+    {
+      "list": "crowdControl",
+      "label": "silence",
+      "champion": "Soraka",
+      "ability": "Equinox",
+      "kind": "E"
+    },
+    {
+      "list": "crowdControl",
+      "label": "polymorph",
+      "champion": "Lulu",
+      "ability": "Whimsy",
+      "kind": "W"
+    },
+    {
+      "list": "crowdControl",
+      "label": "sleep",
+      "champion": "Lillia",
+      "ability": "Lilting Lullaby",
+      "kind": "R"
+    },
+    {
+      "list": "crowdControl",
+      "label": "sleep",
+      "champion": "Zoe",
+      "ability": "Sleepy Trouble Bubble",
+      "kind": "E"
+    },
+    {
+      "list": "crowdControl",
+      "label": "slow",
+      "champion": "Aatrox",
+      "ability": "Infernal Chains",
+      "kind": "W"
+    },
+    {
+      "list": "crowdControl",
+      "label": "slow",
+      "champion": "Aatrox",
+      "ability": "World Ender",
+      "kind": "R",
+      "qualifier": "(to non-champions)"
+    },
+    {
+      "list": "crowdControl",
+      "label": "slow",
+      "champion": "Ahri",
+      "ability": "Charm",
+      "kind": "E"
+    },
+    {
+      "list": "crowdControl",
+      "label": "slow",
+      "champion": "Akali",
+      "ability": "Five Point Strike",
+      "kind": "Q"
+    },
+    {
+      "list": "crowdControl",
+      "label": "slow",
+      "champion": "Ambessa",
+      "ability": "Lacerate",
+      "kind": "E"
+    },
+    {
+      "list": "crowdControl",
+      "label": "slow",
+      "champion": "Anivia",
+      "ability": "Flash Frost",
+      "kind": "Q"
+    },
+    {
+      "list": "crowdControl",
+      "label": "slow",
+      "champion": "Anivia",
+      "ability": "Glacial Storm",
+      "kind": "R"
+    },
+    {
+      "list": "crowdControl",
+      "label": "slow",
+      "champion": "Aphelios",
+      "ability": "Gravitum",
+      "kind": "A"
+    },
+    {
+      "list": "crowdControl",
+      "label": "slow",
+      "champion": "Ashe",
+      "ability": "Frost Shot",
+      "kind": "I"
+    },
+    {
+      "list": "crowdControl",
+      "label": "slow",
+      "champion": "AurelionSol",
+      "ability": "The Skies Descend",
+      "kind": "R"
+    },
+    {
+      "list": "crowdControl",
+      "label": "slow",
+      "champion": "Aurora",
+      "ability": "The Weirding",
+      "kind": "E"
+    },
+    {
+      "list": "crowdControl",
+      "label": "slow",
+      "champion": "Aurora",
+      "ability": "Between Worlds",
+      "kind": "R"
+    },
+    {
+      "list": "crowdControl",
+      "label": "slow",
+      "champion": "Azir",
+      "ability": "Conquering Sands",
+      "kind": "Q"
+    },
+    {
+      "list": "crowdControl",
+      "label": "slow",
+      "champion": "Bard",
+      "ability": "Traveler's Call",
+      "kind": "I"
+    },
+    {
+      "list": "crowdControl",
+      "label": "slow",
+      "champion": "Bard",
+      "ability": "Cosmic Binding",
+      "kind": "Q"
+    },
+    {
+      "list": "crowdControl",
+      "label": "slow",
+      "champion": "Belveth",
+      "ability": "Above and Below",
+      "kind": "W"
+    },
+    {
+      "list": "crowdControl",
+      "label": "slow",
+      "champion": "Blitzcrank",
+      "ability": "Overdrive",
+      "kind": "W",
+      "qualifier": "(self)"
+    },
+    {
+      "list": "crowdControl",
+      "label": "slow",
+      "champion": "Brand",
+      "ability": "Pyroclasm",
+      "kind": "R"
+    },
+    {
+      "list": "crowdControl",
+      "label": "slow",
+      "champion": "Braum",
+      "ability": "Winter's Bite",
+      "kind": "Q"
+    },
+    {
+      "list": "crowdControl",
+      "label": "slow",
+      "champion": "Braum",
+      "ability": "Glacial Fissure",
+      "kind": "R"
+    },
+    {
+      "list": "crowdControl",
+      "label": "slow",
+      "champion": "Briar",
+      "ability": "Chilling Scream",
+      "kind": "E"
+    },
+    {
+      "list": "crowdControl",
+      "label": "slow",
+      "champion": "Briar",
+      "ability": "Certain Death",
+      "kind": "R"
+    },
+    {
+      "list": "crowdControl",
+      "label": "slow",
+      "champion": "Caitlyn",
+      "ability": "90 Caliber Net",
+      "kind": "E"
+    },
+    {
+      "list": "crowdControl",
+      "label": "slow",
+      "champion": "Camille",
+      "ability": "Tactical Sweep",
+      "kind": "W"
+    },
+    {
+      "list": "crowdControl",
+      "label": "slow",
+      "champion": "Cassiopeia",
+      "ability": "Miasma",
+      "kind": "W"
+    },
+    {
+      "list": "crowdControl",
+      "label": "slow",
+      "champion": "Cassiopeia",
+      "ability": "Petrifying Gaze",
+      "kind": "R"
+    },
+    {
+      "list": "crowdControl",
+      "label": "slow",
+      "champion": "Chogath",
+      "ability": "Rupture",
+      "kind": "Q"
+    },
+    {
+      "list": "crowdControl",
+      "label": "slow",
+      "champion": "Chogath",
+      "ability": "Vorpal Spikes",
+      "kind": "E"
+    },
+    {
+      "list": "crowdControl",
+      "label": "slow",
+      "champion": "Darius",
+      "ability": "Crippling Strike",
+      "kind": "W"
+    },
+    {
+      "list": "crowdControl",
+      "label": "slow",
+      "champion": "Darius",
+      "ability": "Apprehend",
+      "kind": "E"
+    },
+    {
+      "list": "crowdControl",
+      "label": "slow",
+      "champion": "Darius",
+      "ability": "Noxian Guillotine",
+      "kind": "R",
+      "qualifier": "(to non-champions)"
+    },
+    {
+      "list": "crowdControl",
+      "label": "slow",
+      "champion": "Diana",
+      "ability": "Moonfall",
+      "kind": "R"
+    },
+    {
+      "list": "crowdControl",
+      "label": "slow",
+      "champion": "Draven",
+      "ability": "Stand Aside",
+      "kind": "E"
+    },
+    {
+      "list": "crowdControl",
+      "label": "slow",
+      "champion": "DrMundo",
+      "ability": "Infected Bonesaw",
+      "kind": "Q"
+    },
+    {
+      "list": "crowdControl",
+      "label": "slow",
+      "champion": "Ekko",
+      "ability": "Timewinder",
+      "kind": "Q"
+    },
+    {
+      "list": "crowdControl",
+      "label": "slow",
+      "champion": "Ekko",
+      "ability": "Parallel Convergence",
+      "kind": "W"
+    },
+    {
+      "list": "crowdControl",
+      "label": "slow",
+      "champion": "Evelynn",
+      "ability": "Allure",
+      "kind": "W"
+    },
+    {
+      "list": "crowdControl",
+      "label": "slow",
+      "champion": "Fiddlesticks",
+      "ability": "Terrify",
+      "kind": "Q"
+    },
+    {
+      "list": "crowdControl",
+      "label": "slow",
+      "champion": "Fiddlesticks",
+      "ability": "Reap",
+      "kind": "E"
+    },
+    {
+      "list": "crowdControl",
+      "label": "slow",
+      "champion": "Fiora",
+      "ability": "Riposte",
+      "kind": "W"
+    },
+    {
+      "list": "crowdControl",
+      "label": "slow",
+      "champion": "Fiora",
+      "ability": "Bladework",
+      "kind": "E"
+    },
+    {
+      "list": "crowdControl",
+      "label": "slow",
+      "champion": "Fizz",
+      "ability": "Playful",
+      "kind": "E"
+    },
+    {
+      "list": "crowdControl",
+      "label": "slow",
+      "champion": "Fizz",
+      "ability": "Chum the Waters",
+      "kind": "R"
+    },
+    {
+      "list": "crowdControl",
+      "label": "slow",
+      "champion": "Galio",
+      "ability": "Shield of Durand",
+      "kind": "W",
+      "qualifier": "(self)"
+    },
+    {
+      "list": "crowdControl",
+      "label": "slow",
+      "champion": "Gangplank",
+      "ability": "Powder Keg",
+      "kind": "E"
+    },
+    {
+      "list": "crowdControl",
+      "label": "slow",
+      "champion": "Gangplank",
+      "ability": "Cannon Barrage",
+      "kind": "R"
+    },
+    {
+      "list": "crowdControl",
+      "label": "slow",
+      "champion": "Gnar",
+      "ability": "Boomerang Throw",
+      "kind": "Q"
+    },
+    {
+      "list": "crowdControl",
+      "label": "slow",
+      "champion": "Gnar",
+      "ability": "Boulder Toss",
+      "kind": "Q"
+    },
+    {
+      "list": "crowdControl",
+      "label": "slow",
+      "champion": "Gnar",
+      "ability": "Hop",
+      "kind": "E"
+    },
+    {
+      "list": "crowdControl",
+      "label": "slow",
+      "champion": "Gnar",
+      "ability": "Crunch",
+      "kind": "E"
+    },
+    {
+      "list": "crowdControl",
+      "label": "slow",
+      "champion": "Gnar",
+      "ability": "GNAR!",
+      "kind": "R"
+    },
+    {
+      "list": "crowdControl",
+      "label": "slow",
+      "champion": "Gragas",
+      "ability": "Barrel Roll",
+      "kind": "Q"
+    },
+    {
+      "list": "crowdControl",
+      "label": "slow",
+      "champion": "Graves",
+      "ability": "Smoke Screen",
+      "kind": "W"
+    },
+    {
+      "list": "crowdControl",
+      "label": "slow",
+      "champion": "Gwen",
+      "ability": "Needlework",
+      "kind": "R"
+    },
+    {
+      "list": "crowdControl",
+      "label": "slow",
+      "champion": "Hecarim",
+      "ability": "Onslaught of Shadows",
+      "kind": "R"
+    },
+    {
+      "list": "crowdControl",
+      "label": "slow",
+      "champion": "Heimerdinger",
+      "ability": "CH-2 Electron Storm Grenade",
+      "kind": "E"
+    },
+    {
+      "list": "crowdControl",
+      "label": "slow",
+      "champion": "Heimerdinger",
+      "ability": "CH-3X Lightning Grenade",
+      "kind": "E"
+    },
+    {
+      "list": "crowdControl",
+      "label": "slow",
+      "champion": "Hwei",
+      "ability": "Molten Fissure",
+      "kind": "E"
+    },
+    {
+      "list": "crowdControl",
+      "label": "slow",
+      "champion": "Hwei",
+      "ability": "Grim Visage",
+      "kind": "Q"
+    },
+    {
+      "list": "crowdControl",
+      "label": "slow",
+      "champion": "Hwei",
+      "ability": "Crushing Maw",
+      "kind": "E"
+    },
+    {
+      "list": "crowdControl",
+      "label": "slow",
+      "champion": "Hwei",
+      "ability": "Spiraling Despair",
+      "kind": "R"
+    },
+    {
+      "list": "crowdControl",
+      "label": "slow",
+      "champion": "Illaoi",
+      "ability": "Test of Spirit",
+      "kind": "E"
+    },
+    {
+      "list": "crowdControl",
+      "label": "slow",
+      "champion": "Irelia",
+      "ability": "Vanguard's Edge",
+      "kind": "R"
+    },
+    {
+      "list": "crowdControl",
+      "label": "slow",
+      "champion": "Ivern",
+      "ability": "Triggerseed",
+      "kind": "E"
+    },
+    {
+      "list": "crowdControl",
+      "label": "slow",
+      "champion": "Janna",
+      "ability": "Zephyr",
+      "kind": "W"
+    },
+    {
+      "list": "crowdControl",
+      "label": "slow",
+      "champion": "JarvanIV",
+      "ability": "Golden Aegis",
+      "kind": "W"
+    },
+    {
+      "list": "crowdControl",
+      "label": "slow",
+      "champion": "Jayce",
+      "ability": "To the Skies!",
+      "kind": "Q"
+    },
+    {
+      "list": "crowdControl",
+      "label": "slow",
+      "champion": "Jhin",
+      "ability": "Captive Audience",
+      "kind": "E"
+    },
+    {
+      "list": "crowdControl",
+      "label": "slow",
+      "champion": "Jhin",
+      "ability": "Curtain Call",
+      "kind": "R"
+    },
+    {
+      "list": "crowdControl",
+      "label": "slow",
+      "champion": "Jinx",
+      "ability": "Zap!",
+      "kind": "W"
+    },
+    {
+      "list": "crowdControl",
+      "label": "slow",
+      "champion": "Kalista",
+      "ability": "Rend",
+      "kind": "E"
+    },
+    {
+      "list": "crowdControl",
+      "label": "slow",
+      "champion": "Karma",
+      "ability": "Inner Flame",
+      "kind": "Q"
+    },
+    {
+      "list": "crowdControl",
+      "label": "slow",
+      "champion": "Karma",
+      "ability": "Soulflare",
+      "kind": "Q"
+    },
+    {
+      "list": "crowdControl",
+      "label": "slow",
+      "champion": "Karthus",
+      "ability": "Wall of Pain",
+      "kind": "W"
+    },
+    {
+      "list": "crowdControl",
+      "label": "slow",
+      "champion": "Kassadin",
+      "ability": "Force Pulse",
+      "kind": "E"
+    },
+    {
+      "list": "crowdControl",
+      "label": "slow",
+      "champion": "Kayle",
+      "ability": "Radiant Blast",
+      "kind": "Q"
+    },
+    {
+      "list": "crowdControl",
+      "label": "slow",
+      "champion": "Kayn",
+      "ability": "Blade's Reach",
+      "kind": "W"
+    },
+    {
+      "list": "crowdControl",
+      "label": "slow",
+      "champion": "Khazix",
+      "ability": "Unseen Threat",
+      "kind": "I"
+    },
+    {
+      "list": "crowdControl",
+      "label": "slow",
+      "champion": "Khazix",
+      "ability": "Evolved Spike Racks",
+      "kind": "W"
+    },
+    {
+      "list": "crowdControl",
+      "label": "slow",
+      "champion": "Kindred",
+      "ability": "Wolf's Frenzy",
+      "kind": "W",
+      "qualifier": "(to monsters)"
+    },
+    {
+      "list": "crowdControl",
+      "label": "slow",
+      "champion": "Kindred",
+      "ability": "Mounting Dread",
+      "kind": "E"
+    },
+    {
+      "list": "crowdControl",
+      "label": "slow",
+      "champion": "Kled",
+      "ability": "Bear Trap on a Rope",
+      "kind": "Q"
+    },
+    {
+      "list": "crowdControl",
+      "label": "slow",
+      "champion": "KogMaw",
+      "ability": "Void Ooze",
+      "kind": "E"
+    },
+    {
+      "list": "crowdControl",
+      "label": "slow",
+      "champion": "KSante",
+      "ability": "Ntofo Strikes",
+      "kind": "Q"
+    },
+    {
+      "list": "crowdControl",
+      "label": "slow",
+      "champion": "LeeSin",
+      "ability": "Cripple",
+      "kind": "E"
+    },
+    {
+      "list": "crowdControl",
+      "label": "slow",
+      "champion": "Leona",
+      "ability": "Solar Flare",
+      "kind": "R"
+    },
+    {
+      "list": "crowdControl",
+      "label": "slow",
+      "champion": "Lillia",
+      "ability": "Swirlseed",
+      "kind": "E"
+    },
+    {
+      "list": "crowdControl",
+      "label": "slow",
+      "champion": "Lillia",
+      "ability": "Lilting Lullaby",
+      "kind": "R"
+    },
+    {
+      "list": "crowdControl",
+      "label": "slow",
+      "champion": "Lissandra",
+      "ability": "Iceborn Subjugation",
+      "kind": "I"
+    },
+    {
+      "list": "crowdControl",
+      "label": "slow",
+      "champion": "Lissandra",
+      "ability": "Ice Shard",
+      "kind": "Q"
+    },
+    {
+      "list": "crowdControl",
+      "label": "slow",
+      "champion": "Lissandra",
+      "ability": "Frozen Tomb",
+      "kind": "R"
+    },
+    {
+      "list": "crowdControl",
+      "label": "slow",
+      "champion": "Locke",
+      "ability": "Ritual Nails",
+      "kind": "Q"
+    },
+    {
+      "list": "crowdControl",
+      "label": "slow",
+      "champion": "Locke",
+      "ability": "Purgatory",
+      "kind": "R"
+    },
+    {
+      "list": "crowdControl",
+      "label": "slow",
+      "champion": "Lulu",
+      "ability": "Glitterlance",
+      "kind": "Q"
+    },
+    {
+      "list": "crowdControl",
+      "label": "slow",
+      "champion": "Lulu",
+      "ability": "Wild Growth",
+      "kind": "R"
+    },
+    {
+      "list": "crowdControl",
+      "label": "slow",
+      "champion": "Lux",
+      "ability": "Lucent Singularity",
+      "kind": "E"
+    },
+    {
+      "list": "crowdControl",
+      "label": "slow",
+      "champion": "Malphite",
+      "ability": "Seismic Shard",
+      "kind": "Q"
+    },
+    {
+      "list": "crowdControl",
+      "label": "slow",
+      "champion": "Maokai",
+      "ability": "Bramble Smash",
+      "kind": "Q"
+    },
+    {
+      "list": "crowdControl",
+      "label": "slow",
+      "champion": "Maokai",
+      "ability": "Sapling Toss",
+      "kind": "E"
+    },
+    {
+      "list": "crowdControl",
+      "label": "slow",
+      "champion": "Mel",
+      "ability": "Solar Snare",
+      "kind": "E"
+    },
+    {
+      "list": "crowdControl",
+      "label": "slow",
+      "champion": "Milio",
+      "ability": "Ultra Mega Fire Kick",
+      "kind": "Q"
+    },
+    {
+      "list": "crowdControl",
+      "label": "slow",
+      "champion": "MissFortune",
+      "ability": "Make It Rain",
+      "kind": "E"
+    },
+    {
+      "list": "crowdControl",
+      "label": "slow",
+      "champion": "Mordekaiser",
+      "ability": "Realm of Death",
+      "kind": "R"
+    },
+    {
+      "list": "crowdControl",
+      "label": "slow",
+      "champion": "Morgana",
+      "ability": "Soul Shackles",
+      "kind": "R"
+    },
+    {
+      "list": "crowdControl",
+      "label": "slow",
+      "champion": "Naafiri",
+      "ability": "Hounds' Pursuit",
+      "kind": "R"
+    },
+    {
+      "list": "crowdControl",
+      "label": "slow",
+      "champion": "Nami",
+      "ability": "Tidecaller's Blessing",
+      "kind": "E"
+    },
+    {
+      "list": "crowdControl",
+      "label": "slow",
+      "champion": "Nami",
+      "ability": "Tidal Wave",
+      "kind": "R"
+    },
+    {
+      "list": "crowdControl",
+      "label": "slow",
+      "champion": "Nasus",
+      "ability": "Wither",
+      "kind": "W"
+    },
+    {
+      "list": "crowdControl",
+      "label": "slow",
+      "champion": "Nautilus",
+      "ability": "Riptide",
+      "kind": "E"
+    },
+    {
+      "list": "crowdControl",
+      "label": "slow",
+      "champion": "Nilah",
+      "ability": "Apotheosis",
+      "kind": "R"
+    },
+    {
+      "list": "crowdControl",
+      "label": "slow",
+      "champion": "Nocturne",
+      "ability": "Unspeakable Horror",
+      "kind": "E"
+    },
+    {
+      "list": "crowdControl",
+      "label": "slow",
+      "champion": "Nunu",
+      "ability": "Biggest Snowball Ever!",
+      "kind": "W",
+      "qualifier": "(self)"
+    },
+    {
+      "list": "crowdControl",
+      "label": "slow",
+      "champion": "Nunu",
+      "ability": "Snowball Barrage",
+      "kind": "E"
+    },
+    {
+      "list": "crowdControl",
+      "label": "slow",
+      "champion": "Nunu",
+      "ability": "Absolute Zero",
+      "kind": "R"
+    },
+    {
+      "list": "crowdControl",
+      "label": "slow",
+      "champion": "Olaf",
+      "ability": "Undertow",
+      "kind": "Q"
+    },
+    {
+      "list": "crowdControl",
+      "label": "slow",
+      "champion": "Orianna",
+      "ability": "Command: Dissonance",
+      "kind": "W"
+    },
+    {
+      "list": "crowdControl",
+      "label": "slow",
+      "champion": "Ornn",
+      "ability": "Volcanic Rupture",
+      "kind": "Q"
+    },
+    {
+      "list": "crowdControl",
+      "label": "slow",
+      "champion": "Ornn",
+      "ability": "Call of the Forge God",
+      "kind": "R"
+    },
+    {
+      "list": "crowdControl",
+      "label": "slow",
+      "champion": "Pantheon",
+      "ability": "Comet Spear",
+      "kind": "Q",
+      "qualifier": "(self)"
+    },
+    {
+      "list": "crowdControl",
+      "label": "slow",
+      "champion": "Pantheon",
+      "ability": "Grand Starfall",
+      "kind": "R"
+    },
+    {
+      "list": "crowdControl",
+      "label": "slow",
+      "champion": "Poppy",
+      "ability": "Hammer Shock",
+      "kind": "Q"
+    },
+    {
+      "list": "crowdControl",
+      "label": "slow",
+      "champion": "Poppy",
+      "ability": "Steadfast Presence",
+      "kind": "W"
+    },
+    {
+      "list": "crowdControl",
+      "label": "slow",
+      "champion": "Poppy",
+      "ability": "Keeper's Verdict",
+      "kind": "R",
+      "qualifier": "(self)"
+    },
+    {
+      "list": "crowdControl",
+      "label": "slow",
+      "champion": "Pyke",
+      "ability": "Bone Skewer",
+      "kind": "Q",
+      "qualifier": "(self and target)"
+    },
+    {
+      "list": "crowdControl",
+      "label": "slow",
+      "champion": "Qiyana",
+      "ability": "Elemental Wrath",
+      "kind": "Q"
+    },
+    {
+      "list": "crowdControl",
+      "label": "slow",
+      "champion": "Quinn",
+      "ability": "Vault",
+      "kind": "E"
+    },
+    {
+      "list": "crowdControl",
+      "label": "slow",
+      "champion": "Quinn",
+      "ability": "Behind Enemy Lines",
+      "kind": "R",
+      "qualifier": "(self)"
+    },
+    {
+      "list": "crowdControl",
+      "label": "slow",
+      "champion": "Rakan",
+      "ability": "The Quickness",
+      "kind": "R"
+    },
+    {
+      "list": "crowdControl",
+      "label": "slow",
+      "champion": "Rammus",
+      "ability": "Powerball",
+      "kind": "Q"
+    },
+    {
+      "list": "crowdControl",
+      "label": "slow",
+      "champion": "Rammus",
+      "ability": "Soaring Slam",
+      "kind": "R"
+    },
+    {
+      "list": "crowdControl",
+      "label": "slow",
+      "champion": "Renata",
+      "ability": "Loyalty Program",
+      "kind": "E"
+    },
+    {
+      "list": "crowdControl",
+      "label": "slow",
+      "champion": "Rengar",
+      "ability": "Bola Strike",
+      "kind": "E"
+    },
+    {
+      "list": "crowdControl",
+      "label": "slow",
+      "champion": "Rumble",
+      "ability": "Electro Harpoon",
+      "kind": "E"
+    },
+    {
+      "list": "crowdControl",
+      "label": "slow",
+      "champion": "Rumble",
+      "ability": "The Equalizer",
+      "kind": "R"
+    },
+    {
+      "list": "crowdControl",
+      "label": "slow",
+      "champion": "Ryze",
+      "ability": "Rune Prison",
+      "kind": "W"
+    },
+    {
+      "list": "crowdControl",
+      "label": "slow",
+      "champion": "Sejuani",
+      "ability": "Winter's Wrath",
+      "kind": "W"
+    },
+    {
+      "list": "crowdControl",
+      "label": "slow",
+      "champion": "Sejuani",
+      "ability": "Glacial Prison",
+      "kind": "R"
+    },
+    {
+      "list": "crowdControl",
+      "label": "slow",
+      "champion": "Senna",
+      "ability": "Piercing Darkness",
+      "kind": "Q"
+    },
+    {
+      "list": "crowdControl",
+      "label": "slow",
+      "champion": "Seraphine",
+      "ability": "Beat Drop",
+      "kind": "E"
+    },
+    {
+      "list": "crowdControl",
+      "label": "slow",
+      "champion": "Seraphine",
+      "ability": "Encore",
+      "kind": "R"
+    },
+    {
+      "list": "crowdControl",
+      "label": "slow",
+      "champion": "Sett",
+      "ability": "Facebreaker",
+      "kind": "E"
+    },
+    {
+      "list": "crowdControl",
+      "label": "slow",
+      "champion": "Sett",
+      "ability": "The Show Stopper",
+      "kind": "R"
+    },
+    {
+      "list": "crowdControl",
+      "label": "slow",
+      "champion": "Shaco",
+      "ability": "Two-Shiv Poison",
+      "kind": "E"
+    },
+    {
+      "list": "crowdControl",
+      "label": "slow",
+      "champion": "Shen",
+      "ability": "Twilight Assault",
+      "kind": "Q"
+    },
+    {
+      "list": "crowdControl",
+      "label": "slow",
+      "champion": "Shyvana",
+      "ability": "Molten Burst",
+      "kind": "E"
+    },
+    {
+      "list": "crowdControl",
+      "label": "slow",
+      "champion": "Singed",
+      "ability": "Mega Adhesive",
+      "kind": "W"
+    },
+    {
+      "list": "crowdControl",
+      "label": "slow",
+      "champion": "Sion",
+      "ability": "Decimating Smash",
+      "kind": "Q"
+    },
+    {
+      "list": "crowdControl",
+      "label": "slow",
+      "champion": "Sion",
+      "ability": "Roar of the Slayer",
+      "kind": "E"
+    },
+    {
+      "list": "crowdControl",
+      "label": "slow",
+      "champion": "Sion",
+      "ability": "Unstoppable Onslaught",
+      "kind": "R"
+    },
+    {
+      "list": "crowdControl",
+      "label": "slow",
+      "champion": "Skarner",
+      "ability": "Shattered Earth",
+      "kind": "Q"
+    },
+    {
+      "list": "crowdControl",
+      "label": "slow",
+      "champion": "Skarner",
+      "ability": "Upheaval",
+      "kind": "Q"
+    },
+    {
+      "list": "crowdControl",
+      "label": "slow",
+      "champion": "Skarner",
+      "ability": "Seismic Bastion",
+      "kind": "W"
+    },
+    {
+      "list": "crowdControl",
+      "label": "slow",
+      "champion": "Smolder",
+      "ability": "Achooo!",
+      "kind": "W"
+    },
+    {
+      "list": "crowdControl",
+      "label": "slow",
+      "champion": "Smolder",
+      "ability": "MMOOOMMMM!",
+      "kind": "R"
+    },
+    {
+      "list": "crowdControl",
+      "label": "slow",
+      "champion": "Sona",
+      "ability": "Power Chord",
+      "kind": "I"
+    },
+    {
+      "list": "crowdControl",
+      "label": "slow",
+      "champion": "Soraka",
+      "ability": "Starcall",
+      "kind": "Q"
+    },
+    {
+      "list": "crowdControl",
+      "label": "slow",
+      "champion": "Swain",
+      "ability": "Vision of Empire",
+      "kind": "W"
+    },
+    {
+      "list": "crowdControl",
+      "label": "slow",
+      "champion": "Swain",
+      "ability": "Demonflare",
+      "kind": "R"
+    },
+    {
+      "list": "crowdControl",
+      "label": "slow",
+      "champion": "Sylas",
+      "ability": "Chain Lash",
+      "kind": "Q"
+    },
+    {
+      "list": "crowdControl",
+      "label": "slow",
+      "champion": "Syndra",
+      "ability": "Force of Will",
+      "kind": "W"
+    },
+    {
+      "list": "crowdControl",
+      "label": "slow",
+      "champion": "Syndra",
+      "ability": "Scatter the Weak",
+      "kind": "E"
+    },
+    {
+      "list": "crowdControl",
+      "label": "slow",
+      "champion": "TahmKench",
+      "ability": "Tongue Lash",
+      "kind": "Q"
+    },
+    {
+      "list": "crowdControl",
+      "label": "slow",
+      "champion": "TahmKench",
+      "ability": "Devour",
+      "kind": "R",
+      "qualifier": "(self)"
+    },
+    {
+      "list": "crowdControl",
+      "label": "slow",
+      "champion": "Taliyah",
+      "ability": "Threaded Volley",
+      "kind": "Q"
+    },
+    {
+      "list": "crowdControl",
+      "label": "slow",
+      "champion": "Taliyah",
+      "ability": "Unraveled Earth",
+      "kind": "E"
+    },
+    {
+      "list": "crowdControl",
+      "label": "slow",
+      "champion": "Talon",
+      "ability": "Rake",
+      "kind": "W"
+    },
+    {
+      "list": "crowdControl",
+      "label": "slow",
+      "champion": "Teemo",
+      "ability": "Noxious Trap",
+      "kind": "R"
+    },
+    {
+      "list": "crowdControl",
+      "label": "slow",
+      "champion": "Thresh",
+      "ability": "Death Sentence",
+      "kind": "Q",
+      "qualifier": "(self)"
+    },
+    {
+      "list": "crowdControl",
+      "label": "slow",
+      "champion": "Thresh",
+      "ability": "Flay",
+      "kind": "E"
+    },
+    {
+      "list": "crowdControl",
+      "label": "slow",
+      "champion": "Thresh",
+      "ability": "The Box",
+      "kind": "R"
+    },
+    {
+      "list": "crowdControl",
+      "label": "slow",
+      "champion": "Tristana",
+      "ability": "Rocket Jump",
+      "kind": "W"
+    },
+    {
+      "list": "crowdControl",
+      "label": "slow",
+      "champion": "Trundle",
+      "ability": "Chomp",
+      "kind": "Q"
+    },
+    {
+      "list": "crowdControl",
+      "label": "slow",
+      "champion": "Trundle",
+      "ability": "Pillar of Ice",
+      "kind": "E"
+    },
+    {
+      "list": "crowdControl",
+      "label": "slow",
+      "champion": "Tryndamere",
+      "ability": "Mocking Shout",
+      "kind": "W"
+    },
+    {
+      "list": "crowdControl",
+      "label": "slow",
+      "champion": "TwistedFate",
+      "ability": "Pick a Card",
+      "kind": "W"
+    },
+    {
+      "list": "crowdControl",
+      "label": "slow",
+      "champion": "Twitch",
+      "ability": "Venom Cask",
+      "kind": "W"
+    },
+    {
+      "list": "crowdControl",
+      "label": "slow",
+      "champion": "Udyr",
+      "ability": "Wingborne Storm",
+      "kind": "R"
+    },
+    {
+      "list": "crowdControl",
+      "label": "slow",
+      "champion": "Urgot",
+      "ability": "Corrosive Charge",
+      "kind": "Q"
+    },
+    {
+      "list": "crowdControl",
+      "label": "slow",
+      "champion": "Urgot",
+      "ability": "Fear Beyond Death",
+      "kind": "R",
+      "qualifier": "/"
+    },
+    {
+      "list": "crowdControl",
+      "label": "slow",
+      "champion": "Urgot",
+      "ability": "Fear Beyond Death",
+      "kind": "R"
+    },
+    {
+      "list": "crowdControl",
+      "label": "slow",
+      "champion": "Varus",
+      "ability": "Piercing Arrow",
+      "kind": "Q",
+      "qualifier": "(self)"
+    },
+    {
+      "list": "crowdControl",
+      "label": "slow",
+      "champion": "Varus",
+      "ability": "Hail of Arrows",
+      "kind": "E"
+    },
+    {
+      "list": "crowdControl",
+      "label": "slow",
+      "champion": "Velkoz",
+      "ability": "Plasma Fission",
+      "kind": "Q"
+    },
+    {
+      "list": "crowdControl",
+      "label": "slow",
+      "champion": "Velkoz",
+      "ability": "Life Form Disintegration Ray",
+      "kind": "R"
+    },
+    {
+      "list": "crowdControl",
+      "label": "slow",
+      "champion": "Vex",
+      "ability": "Doom 'n Gloom",
+      "kind": "I"
+    },
+    {
+      "list": "crowdControl",
+      "label": "slow",
+      "champion": "Vex",
+      "ability": "Looming Darkness",
+      "kind": "E"
+    },
+    {
+      "list": "crowdControl",
+      "label": "slow",
+      "champion": "Vi",
+      "ability": "Vault Breaker",
+      "kind": "Q",
+      "qualifier": "(self)"
+    },
+    {
+      "list": "crowdControl",
+      "label": "slow",
+      "champion": "Viego",
+      "ability": "Spectral Maw",
+      "kind": "W",
+      "qualifier": "(self)"
+    },
+    {
+      "list": "crowdControl",
+      "label": "slow",
+      "champion": "Viego",
+      "ability": "Heartbreaker",
+      "kind": "R"
+    },
+    {
+      "list": "crowdControl",
+      "label": "slow",
+      "champion": "Viktor",
+      "ability": "Gravity Field",
+      "kind": "W"
+    },
+    {
+      "list": "crowdControl",
+      "label": "slow",
+      "champion": "Vladimir",
+      "ability": "Sanguine Pool",
+      "kind": "W"
+    },
+    {
+      "list": "crowdControl",
+      "label": "slow",
+      "champion": "Vladimir",
+      "ability": "Tides of Blood",
+      "kind": "E",
+      "qualifier": "(self and enemies)"
+    },
+    {
+      "list": "crowdControl",
+      "label": "slow",
+      "champion": "Volibear",
+      "ability": "Sky Splitter",
+      "kind": "E"
+    },
+    {
+      "list": "crowdControl",
+      "label": "slow",
+      "champion": "Volibear",
+      "ability": "Stormbringer",
+      "kind": "R"
+    },
+    {
+      "list": "crowdControl",
+      "label": "slow",
+      "champion": "Warwick",
+      "ability": "Primal Howl",
+      "kind": "E"
+    },
+    {
+      "list": "crowdControl",
+      "label": "slow",
+      "champion": "Xerath",
+      "ability": "Arcanopulse",
+      "kind": "Q",
+      "qualifier": "(self)"
+    },
+    {
+      "list": "crowdControl",
+      "label": "slow",
+      "champion": "Xerath",
+      "ability": "Eye of Destruction",
+      "kind": "W"
+    },
+    {
+      "list": "crowdControl",
+      "label": "slow",
+      "champion": "XinZhao",
+      "ability": "Wind Becomes Lightning",
+      "kind": "W"
+    },
+    {
+      "list": "crowdControl",
+      "label": "slow",
+      "champion": "XinZhao",
+      "ability": "Audacious Charge",
+      "kind": "E"
+    },
+    {
+      "list": "crowdControl",
+      "label": "slow",
+      "champion": "Yorick",
+      "ability": "Mourning Mist",
+      "kind": "E"
+    },
+    {
+      "list": "crowdControl",
+      "label": "slow",
+      "champion": "Yuumi",
+      "ability": "Prowling Projectile",
+      "kind": "Q"
+    },
+    {
+      "list": "crowdControl",
+      "label": "slow",
+      "champion": "Yuumi",
+      "ability": "Final Chapter",
+      "kind": "R"
+    },
+    {
+      "list": "crowdControl",
+      "label": "slow",
+      "champion": "Yunara",
+      "ability": "Arc of Judgment",
+      "kind": "W"
+    },
+    {
+      "list": "crowdControl",
+      "label": "slow",
+      "champion": "Yunara",
+      "ability": "Arc of Ruin",
+      "kind": "W"
+    },
+    {
+      "list": "crowdControl",
+      "label": "slow",
+      "champion": "Zac",
+      "ability": "Stretching Strikes",
+      "kind": "Q"
+    },
+    {
+      "list": "crowdControl",
+      "label": "slow",
+      "champion": "Zac",
+      "ability": "Let's Bounce!",
+      "kind": "R"
+    },
+    {
+      "list": "crowdControl",
+      "label": "slow",
+      "champion": "Zed",
+      "ability": "Shadow Slash",
+      "kind": "E"
+    },
+    {
+      "list": "crowdControl",
+      "label": "slow",
+      "champion": "Zeri",
+      "ability": "Ultrashock Laser",
+      "kind": "W"
+    },
+    {
+      "list": "crowdControl",
+      "label": "slow",
+      "champion": "Ziggs",
+      "ability": "Hexplosive Minefield",
+      "kind": "E"
+    },
+    {
+      "list": "crowdControl",
+      "label": "slow",
+      "champion": "Zilean",
+      "ability": "Time Warp",
+      "kind": "E"
+    },
+    {
+      "list": "crowdControl",
+      "label": "slow",
+      "champion": "Zoe",
+      "ability": "Sleepy Trouble Bubble",
+      "kind": "E"
+    },
+    {
+      "list": "crowdControl",
+      "label": "movement speed reductions",
+      "champion": "AurelionSol",
+      "ability": "Singularity",
+      "kind": "E",
+      "qualifier": "(to minions and monsters)"
+    },
+    {
+      "list": "crowdControl",
+      "label": "movement speed reductions",
+      "champion": "Galio",
+      "ability": "Shield of Durand",
+      "kind": "W"
+    },
+    {
+      "list": "crowdControl",
+      "label": "movement speed reductions",
+      "champion": "Lulu",
+      "ability": "Whimsy",
+      "kind": "W"
+    },
+    {
+      "list": "crowdControl",
+      "label": "movement speed reductions",
+      "champion": "Ornn",
+      "ability": "Bellows Breath",
+      "kind": "W",
+      "qualifier": "(self)"
+    },
+    {
+      "list": "crowdControl",
+      "label": "movement speed reductions",
+      "champion": "Renata",
+      "ability": "Handshake",
+      "kind": "Q",
+      "qualifier": "(self)"
+    },
+    {
+      "list": "crowdControl",
+      "label": "movement speed reductions",
+      "champion": "Samira",
+      "ability": "Inferno Trigger",
+      "kind": "R",
+      "qualifier": "(self)"
+    },
+    {
+      "list": "crowdControl",
+      "label": "movement speed reductions",
+      "champion": "Shaco",
+      "ability": "Jack in the Box",
+      "kind": "W"
+    },
+    {
+      "list": "crowdControl",
+      "label": "movement speed reductions",
+      "champion": "Shaco",
+      "ability": "Hallucinate",
+      "kind": "R"
+    },
+    {
+      "list": "crowdControl",
+      "label": "movement speed reductions",
+      "champion": "Urgot",
+      "ability": "Purge",
+      "kind": "W",
+      "qualifier": "(self)"
+    },
+    {
+      "list": "crowdControl",
+      "label": "root",
+      "champion": "Aphelios",
+      "ability": "Binding Eclipse",
+      "kind": "Q"
+    },
+    {
+      "list": "crowdControl",
+      "label": "root",
+      "champion": "Caitlyn",
+      "ability": "Yordle Snap Trap",
+      "kind": "W"
+    },
+    {
+      "list": "crowdControl",
+      "label": "root",
+      "champion": "Hwei",
+      "ability": "Gaze of the Abyss",
+      "kind": "W"
+    },
+    {
+      "list": "crowdControl",
+      "label": "root",
+      "champion": "Ivern",
+      "ability": "Rootcaller",
+      "kind": "Q"
+    },
+    {
+      "list": "crowdControl",
+      "label": "root",
+      "champion": "Jayce",
+      "ability": "Thundering Blow",
+      "kind": "E"
+    },
+    {
+      "list": "crowdControl",
+      "label": "root",
+      "champion": "Jhin",
+      "ability": "Deadly Flourish",
+      "kind": "W"
+    },
+    {
+      "list": "crowdControl",
+      "label": "root",
+      "champion": "Jinx",
+      "ability": "Flame Chompers!",
+      "kind": "E"
+    },
+    {
+      "list": "crowdControl",
+      "label": "root",
+      "champion": "Karma",
+      "ability": "Focused Resolve",
+      "kind": "W"
+    },
+    {
+      "list": "crowdControl",
+      "label": "root",
+      "champion": "Karma",
+      "ability": "Renewal",
+      "kind": "W"
+    },
+    {
+      "list": "crowdControl",
+      "label": "root",
+      "champion": "KSante",
+      "ability": "All Out",
+      "kind": "R"
+    },
+    {
+      "list": "crowdControl",
+      "label": "root",
+      "champion": "Leblanc",
+      "ability": "Ethereal Chains",
+      "kind": "E"
+    },
+    {
+      "list": "crowdControl",
+      "label": "root",
+      "champion": "LeeSin",
+      "ability": "Dragon's Rage",
+      "kind": "R"
+    },
+    {
+      "list": "crowdControl",
+      "label": "root",
+      "champion": "Leona",
+      "ability": "Zenith Blade",
+      "kind": "E"
+    },
+    {
+      "list": "crowdControl",
+      "label": "root",
+      "champion": "Lissandra",
+      "ability": "Ring of Frost",
+      "kind": "W"
+    },
+    {
+      "list": "crowdControl",
+      "label": "root",
+      "champion": "Lux",
+      "ability": "Light Binding",
+      "kind": "Q"
+    },
+    {
+      "list": "crowdControl",
+      "label": "root",
+      "champion": "Maokai",
+      "ability": "Twisted Advance",
+      "kind": "W"
+    },
+    {
+      "list": "crowdControl",
+      "label": "root",
+      "champion": "Maokai",
+      "ability": "Nature's Grasp",
+      "kind": "R"
+    },
+    {
+      "list": "crowdControl",
+      "label": "root",
+      "champion": "Mel",
+      "ability": "Solar Snare",
+      "kind": "E"
+    },
+    {
+      "list": "crowdControl",
+      "label": "root",
+      "champion": "Morgana",
+      "ability": "Dark Binding",
+      "kind": "Q"
+    },
+    {
+      "list": "crowdControl",
+      "label": "root",
+      "champion": "Nautilus",
+      "ability": "Staggering Blow",
+      "kind": "I"
+    },
+    {
+      "list": "crowdControl",
+      "label": "root",
+      "champion": "Neeko",
+      "ability": "Tangle-Barbs",
+      "kind": "E"
+    },
+    {
+      "list": "crowdControl",
+      "label": "root",
+      "champion": "Nunu",
+      "ability": "Snowball Barrage",
+      "kind": "E"
+    },
+    {
+      "list": "crowdControl",
+      "label": "root",
+      "champion": "Qiyana",
+      "ability": "Elemental Wrath",
+      "kind": "Q"
+    },
+    {
+      "list": "crowdControl",
+      "label": "root",
+      "champion": "Renata",
+      "ability": "Handshake",
+      "kind": "Q"
+    },
+    {
+      "list": "crowdControl",
+      "label": "root",
+      "champion": "Rengar",
+      "ability": "Bola Strike",
+      "kind": "E"
+    },
+    {
+      "list": "crowdControl",
+      "label": "root",
+      "champion": "Ryze",
+      "ability": "Rune Prison",
+      "kind": "W"
+    },
+    {
+      "list": "crowdControl",
+      "label": "root",
+      "champion": "Ryze",
+      "ability": "Realm Warp",
+      "kind": "R",
+      "qualifier": "(self/allies)"
+    },
+    {
+      "list": "crowdControl",
+      "label": "root",
+      "champion": "Senna",
+      "ability": "Last Embrace",
+      "kind": "W"
+    },
+    {
+      "list": "crowdControl",
+      "label": "root",
+      "champion": "Seraphine",
+      "ability": "Beat Drop",
+      "kind": "E"
+    },
+    {
+      "list": "crowdControl",
+      "label": "root",
+      "champion": "Shaco",
+      "ability": "Jack in the Box",
+      "kind": "W"
+    },
+    {
+      "list": "crowdControl",
+      "label": "root",
+      "champion": "Shaco",
+      "ability": "Hallucinate",
+      "kind": "R"
+    },
+    {
+      "list": "crowdControl",
+      "label": "root",
+      "champion": "Singed",
+      "ability": "Fling",
+      "kind": "E"
+    },
+    {
+      "list": "crowdControl",
+      "label": "root",
+      "champion": "Soraka",
+      "ability": "Equinox",
+      "kind": "E"
+    },
+    {
+      "list": "crowdControl",
+      "label": "root",
+      "champion": "Swain",
+      "ability": "Nevermove",
+      "kind": "E"
+    },
+    {
+      "list": "crowdControl",
+      "label": "root",
+      "champion": "Varus",
+      "ability": "Chain of Corruption",
+      "kind": "R"
+    },
+    {
+      "list": "crowdControl",
+      "label": "root",
+      "champion": "Xayah",
+      "ability": "Bladecaller",
+      "kind": "E"
+    },
+    {
+      "list": "crowdControl",
+      "label": "root",
+      "champion": "Zac",
+      "ability": "Stretching Strikes",
+      "kind": "Q"
+    },
+    {
+      "list": "crowdControl",
+      "label": "root",
+      "champion": "Zyra",
+      "ability": "Grasping Roots",
+      "kind": "E"
+    },
+    {
+      "list": "crowdControl",
+      "label": "stasis",
+      "champion": "Bard",
+      "ability": "Tempered Fate",
+      "kind": "R",
+      "qualifier": "(self, allies, and enemies)"
+    },
+    {
+      "list": "crowdControl",
+      "label": "stasis",
+      "champion": "Ekko",
+      "ability": "Chronobreak",
+      "kind": "R",
+      "qualifier": "(self)"
+    },
+    {
+      "list": "crowdControl",
+      "label": "stasis",
+      "champion": "Lissandra",
+      "ability": "Frozen Tomb",
+      "kind": "R",
+      "qualifier": "(self)"
+    },
+    {
+      "list": "crowdControl",
+      "label": "stasis",
+      "champion": "Sion",
+      "ability": "Glory in Death",
+      "kind": "I",
+      "qualifier": "(self)"
+    },
+    {
+      "list": "crowdControl",
+      "label": "stasis",
+      "champion": "Syndra",
+      "ability": "Force of Will",
+      "kind": "W",
+      "qualifier": "(to non-champions)"
+    },
+    {
+      "list": "crowdControl",
+      "label": "stun",
+      "champion": "Alistar",
+      "ability": "Pulverize",
+      "kind": "Q"
+    },
+    {
+      "list": "crowdControl",
+      "label": "stun",
+      "champion": "Alistar",
+      "ability": "Headbutt",
+      "kind": "W"
+    },
+    {
+      "list": "crowdControl",
+      "label": "stun",
+      "champion": "Alistar",
+      "ability": "Trample",
+      "kind": "E"
+    },
+    {
+      "list": "crowdControl",
+      "label": "stun",
+      "champion": "Ambessa",
+      "ability": "Public Execution",
+      "kind": "R"
+    },
+    {
+      "list": "crowdControl",
+      "label": "stun",
+      "champion": "Amumu",
+      "ability": "Bandage Toss",
+      "kind": "Q"
+    },
+    {
+      "list": "crowdControl",
+      "label": "stun",
+      "champion": "Amumu",
+      "ability": "Curse of the Sad Mummy",
+      "kind": "R"
+    },
+    {
+      "list": "crowdControl",
+      "label": "stun",
+      "champion": "Anivia",
+      "ability": "Flash Frost",
+      "kind": "Q"
+    },
+    {
+      "list": "crowdControl",
+      "label": "stun",
+      "champion": "Annie",
+      "ability": "Pyromania",
+      "kind": "I"
+    },
+    {
+      "list": "crowdControl",
+      "label": "stun",
+      "champion": "Ashe",
+      "ability": "Enchanted Crystal Arrow",
+      "kind": "R"
+    },
+    {
+      "list": "crowdControl",
+      "label": "stun",
+      "champion": "AurelionSol",
+      "ability": "Falling Star",
+      "kind": "R"
+    },
+    {
+      "list": "crowdControl",
+      "label": "stun",
+      "champion": "Bard",
+      "ability": "Cosmic Binding",
+      "kind": "Q"
+    },
+    {
+      "list": "crowdControl",
+      "label": "stun",
+      "champion": "Bard",
+      "ability": "Tempered Fate",
+      "kind": "R"
+    },
+    {
+      "list": "crowdControl",
+      "label": "stun",
+      "champion": "Blitzcrank",
+      "ability": "Rocket Grab",
+      "kind": "Q"
+    },
+    {
+      "list": "crowdControl",
+      "label": "stun",
+      "champion": "Braum",
+      "ability": "Concussive Blows",
+      "kind": "I"
+    },
+    {
+      "list": "crowdControl",
+      "label": "stun",
+      "champion": "Briar",
+      "ability": "Head Rush",
+      "kind": "Q"
+    },
+    {
+      "list": "crowdControl",
+      "label": "stun",
+      "champion": "Briar",
+      "ability": "Chilling Scream",
+      "kind": "E"
+    },
+    {
+      "list": "crowdControl",
+      "label": "stun",
+      "champion": "Brand",
+      "ability": "Sear",
+      "kind": "Q"
+    },
+    {
+      "list": "crowdControl",
+      "label": "stun",
+      "champion": "Camille",
+      "ability": "Wall Dive",
+      "kind": "E"
+    },
+    {
+      "list": "crowdControl",
+      "label": "stun",
+      "champion": "Cassiopeia",
+      "ability": "Petrifying Gaze",
+      "kind": "R"
+    },
+    {
+      "list": "crowdControl",
+      "label": "stun",
+      "champion": "Ekko",
+      "ability": "Parallel Convergence",
+      "kind": "W"
+    },
+    {
+      "list": "crowdControl",
+      "label": "stun",
+      "champion": "Elise",
+      "ability": "Cocoon",
+      "kind": "E"
+    },
+    {
+      "list": "crowdControl",
+      "label": "stun",
+      "champion": "Fiora",
+      "ability": "Riposte",
+      "kind": "W"
+    },
+    {
+      "list": "crowdControl",
+      "label": "stun",
+      "champion": "Gnar",
+      "ability": "Wallop",
+      "kind": "W"
+    },
+    {
+      "list": "crowdControl",
+      "label": "stun",
+      "champion": "Gnar",
+      "ability": "GNAR!",
+      "kind": "R"
+    },
+    {
+      "list": "crowdControl",
+      "label": "stun",
+      "champion": "Gragas",
+      "ability": "Body Slam",
+      "kind": "E"
+    },
+    {
+      "list": "crowdControl",
+      "label": "stun",
+      "champion": "Hecarim",
+      "ability": "Devastating Charge",
+      "kind": "E"
+    },
+    {
+      "list": "crowdControl",
+      "label": "stun",
+      "champion": "Heimerdinger",
+      "ability": "CH-2 Electron Storm Grenade",
+      "kind": "E"
+    },
+    {
+      "list": "crowdControl",
+      "label": "stun",
+      "champion": "Heimerdinger",
+      "ability": "CH-3X Lightning Grenade",
+      "kind": "E"
+    },
+    {
+      "list": "crowdControl",
+      "label": "stun",
+      "champion": "Irelia",
+      "ability": "Flawless Duet",
+      "kind": "E"
+    },
+    {
+      "list": "crowdControl",
+      "label": "stun",
+      "champion": "Ivern",
+      "ability": "Daisy!",
+      "kind": "R"
+    },
+    {
+      "list": "crowdControl",
+      "label": "stun",
+      "champion": "Jax",
+      "ability": "Counter Strike",
+      "kind": "E"
+    },
+    {
+      "list": "crowdControl",
+      "label": "stun",
+      "champion": "Kennen",
+      "ability": "Mark of the Storm",
+      "kind": "I"
+    },
+    {
+      "list": "crowdControl",
+      "label": "stun",
+      "champion": "KSante",
+      "ability": "Ntofo Strikes",
+      "kind": "Q"
+    },
+    {
+      "list": "crowdControl",
+      "label": "stun",
+      "champion": "KSante",
+      "ability": "Path Maker",
+      "kind": "W"
+    },
+    {
+      "list": "crowdControl",
+      "label": "stun",
+      "champion": "KSante",
+      "ability": "All Out",
+      "kind": "R"
+    },
+    {
+      "list": "crowdControl",
+      "label": "stun",
+      "champion": "Leona",
+      "ability": "Shield of Daybreak",
+      "kind": "Q"
+    },
+    {
+      "list": "crowdControl",
+      "label": "stun",
+      "champion": "Leona",
+      "ability": "Solar Flare",
+      "kind": "R"
+    },
+    {
+      "list": "crowdControl",
+      "label": "stun",
+      "champion": "Lissandra",
+      "ability": "Frozen Tomb",
+      "kind": "R"
+    },
+    {
+      "list": "crowdControl",
+      "label": "stun",
+      "champion": "Maokai",
+      "ability": "Bramble Smash",
+      "kind": "Q"
+    },
+    {
+      "list": "crowdControl",
+      "label": "stun",
+      "champion": "Milio",
+      "ability": "Ultra Mega Fire Kick",
+      "kind": "Q"
+    },
+    {
+      "list": "crowdControl",
+      "label": "stun",
+      "champion": "Morgana",
+      "ability": "Soul Shackles",
+      "kind": "R"
+    },
+    {
+      "list": "crowdControl",
+      "label": "stun",
+      "champion": "Nautilus",
+      "ability": "Dredge Line",
+      "kind": "Q"
+    },
+    {
+      "list": "crowdControl",
+      "label": "stun",
+      "champion": "Nautilus",
+      "ability": "Depth Charge",
+      "kind": "R"
+    },
+    {
+      "list": "crowdControl",
+      "label": "stun",
+      "champion": "Neeko",
+      "ability": "Pop Blossom",
+      "kind": "R"
+    },
+    {
+      "list": "crowdControl",
+      "label": "stun",
+      "champion": "Nunu",
+      "ability": "Consume",
+      "kind": "Q",
+      "qualifier": "(to non-champions)"
+    },
+    {
+      "list": "crowdControl",
+      "label": "stun",
+      "champion": "Nunu",
+      "ability": "Biggest Snowball Ever!",
+      "kind": "W"
+    },
+    {
+      "list": "crowdControl",
+      "label": "stun",
+      "champion": "Orianna",
+      "ability": "Command: Shockwave",
+      "kind": "R"
+    },
+    {
+      "list": "crowdControl",
+      "label": "stun",
+      "champion": "Ornn",
+      "ability": "Searing Charge",
+      "kind": "E"
+    },
+    {
+      "list": "crowdControl",
+      "label": "stun",
+      "champion": "Ornn",
+      "ability": "Call of the Forge God",
+      "kind": "R"
+    },
+    {
+      "list": "crowdControl",
+      "label": "stun",
+      "champion": "Pantheon",
+      "ability": "Shield Vault",
+      "kind": "W"
+    },
+    {
+      "list": "crowdControl",
+      "label": "stun",
+      "champion": "Poppy",
+      "ability": "Heroic Charge",
+      "kind": "E"
+    },
+    {
+      "list": "crowdControl",
+      "label": "stun",
+      "champion": "Pyke",
+      "ability": "Phantom Undertow",
+      "kind": "E"
+    },
+    {
+      "list": "crowdControl",
+      "label": "stun",
+      "champion": "Qiyana",
+      "ability": "Supreme Display of Talent",
+      "kind": "R"
+    },
+    {
+      "list": "crowdControl",
+      "label": "stun",
+      "champion": "Rammus",
+      "ability": "Powerball",
+      "kind": "Q"
+    },
+    {
+      "list": "crowdControl",
+      "label": "stun",
+      "champion": "Rell",
+      "ability": "Shattering Strike",
+      "kind": "Q"
+    },
+    {
+      "list": "crowdControl",
+      "label": "stun",
+      "champion": "Rell",
+      "ability": "Ferromancy: Crash Down",
+      "kind": "W"
+    },
+    {
+      "list": "crowdControl",
+      "label": "stun",
+      "champion": "Rell",
+      "ability": "Ferromancy: Mount Up",
+      "kind": "W"
+    },
+    {
+      "list": "crowdControl",
+      "label": "stun",
+      "champion": "Rell",
+      "ability": "Full Tilt",
+      "kind": "E"
+    },
+    {
+      "list": "crowdControl",
+      "label": "stun",
+      "champion": "Renata",
+      "ability": "Handshake",
+      "kind": "Q"
+    },
+    {
+      "list": "crowdControl",
+      "label": "stun",
+      "champion": "Renekton",
+      "ability": "Ruthless Predator",
+      "kind": "W"
+    },
+    {
+      "list": "crowdControl",
+      "label": "stun",
+      "champion": "Riven",
+      "ability": "Ki Burst",
+      "kind": "W"
+    },
+    {
+      "list": "crowdControl",
+      "label": "stun",
+      "champion": "Sejuani",
+      "ability": "Permafrost",
+      "kind": "E"
+    },
+    {
+      "list": "crowdControl",
+      "label": "stun",
+      "champion": "Sejuani",
+      "ability": "Glacial Prison",
+      "kind": "R"
+    },
+    {
+      "list": "crowdControl",
+      "label": "stun",
+      "champion": "Seraphine",
+      "ability": "Beat Drop",
+      "kind": "E"
+    },
+    {
+      "list": "crowdControl",
+      "label": "stun",
+      "champion": "Sett",
+      "ability": "Facebreaker",
+      "kind": "E"
+    },
+    {
+      "list": "crowdControl",
+      "label": "stun",
+      "champion": "Sion",
+      "ability": "Decimating Smash",
+      "kind": "Q"
+    },
+    {
+      "list": "crowdControl",
+      "label": "stun",
+      "champion": "Sion",
+      "ability": "Roar of the Slayer",
+      "kind": "E",
+      "qualifier": "(to non-champions)"
+    },
+    {
+      "list": "crowdControl",
+      "label": "stun",
+      "champion": "Sion",
+      "ability": "Unstoppable Onslaught",
+      "kind": "R",
+      "qualifier": "(self and enemies)"
+    },
+    {
+      "list": "crowdControl",
+      "label": "stun",
+      "champion": "Skarner",
+      "ability": "Ixtal's Impact",
+      "kind": "E"
+    },
+    {
+      "list": "crowdControl",
+      "label": "stun",
+      "champion": "Sona",
+      "ability": "Crescendo",
+      "kind": "R"
+    },
+    {
+      "list": "crowdControl",
+      "label": "stun",
+      "champion": "Sylas",
+      "ability": "Abduct",
+      "kind": "E"
+    },
+    {
+      "list": "crowdControl",
+      "label": "stun",
+      "champion": "Syndra",
+      "ability": "Scatter the Weak",
+      "kind": "E"
+    },
+    {
+      "list": "crowdControl",
+      "label": "stun",
+      "champion": "TahmKench",
+      "ability": "Tongue Lash",
+      "kind": "Q"
+    },
+    {
+      "list": "crowdControl",
+      "label": "stun",
+      "champion": "TahmKench",
+      "ability": "Abyssal Dive",
+      "kind": "W"
+    },
+    {
+      "list": "crowdControl",
+      "label": "stun",
+      "champion": "Taliyah",
+      "ability": "Threaded Volley",
+      "kind": "Q",
+      "qualifier": "(to monsters)"
+    },
+    {
+      "list": "crowdControl",
+      "label": "stun",
+      "champion": "Taliyah",
+      "ability": "Unraveled Earth",
+      "kind": "E"
+    },
+    {
+      "list": "crowdControl",
+      "label": "stun",
+      "champion": "Taric",
+      "ability": "Dazzle",
+      "kind": "E"
+    },
+    {
+      "list": "crowdControl",
+      "label": "stun",
+      "champion": "Tristana",
+      "ability": "Buster Shot",
+      "kind": "R"
+    },
+    {
+      "list": "crowdControl",
+      "label": "stun",
+      "champion": "TwistedFate",
+      "ability": "Pick a Card",
+      "kind": "W"
+    },
+    {
+      "list": "crowdControl",
+      "label": "stun",
+      "champion": "Udyr",
+      "ability": "Blazing Stampede",
+      "kind": "E"
+    },
+    {
+      "list": "crowdControl",
+      "label": "stun",
+      "champion": "Urgot",
+      "ability": "Disdain",
+      "kind": "E"
+    },
+    {
+      "list": "crowdControl",
+      "label": "stun",
+      "champion": "Vayne",
+      "ability": "Condemn",
+      "kind": "E"
+    },
+    {
+      "list": "crowdControl",
+      "label": "stun",
+      "champion": "Veigar",
+      "ability": "Event Horizon",
+      "kind": "E"
+    },
+    {
+      "list": "crowdControl",
+      "label": "stun",
+      "champion": "Velkoz",
+      "ability": "Tectonic Disruption",
+      "kind": "E"
+    },
+    {
+      "list": "crowdControl",
+      "label": "stun",
+      "champion": "Vi",
+      "ability": "Cease and Desist",
+      "kind": "R"
+    },
+    {
+      "list": "crowdControl",
+      "label": "stun",
+      "champion": "Viego",
+      "ability": "Spectral Maw",
+      "kind": "W"
+    },
+    {
+      "list": "crowdControl",
+      "label": "stun",
+      "champion": "Viktor",
+      "ability": "Gravity Field",
+      "kind": "W"
+    },
+    {
+      "list": "crowdControl",
+      "label": "stun",
+      "champion": "Volibear",
+      "ability": "Thundering Smash",
+      "kind": "Q"
+    },
+    {
+      "list": "crowdControl",
+      "label": "stun",
+      "champion": "Xerath",
+      "ability": "Shocking Orb",
+      "kind": "E"
+    },
+    {
+      "list": "crowdControl",
+      "label": "stun",
+      "champion": "XinZhao",
+      "ability": "Crescent Guard",
+      "kind": "R"
+    },
+    {
+      "list": "crowdControl",
+      "label": "stun",
+      "champion": "Yone",
+      "ability": "Fate Sealed",
+      "kind": "R"
+    },
+    {
+      "list": "crowdControl",
+      "label": "stun",
+      "champion": "Zaahen",
+      "ability": "Dreaded Return",
+      "kind": "W"
+    },
+    {
+      "list": "crowdControl",
+      "label": "stun",
+      "champion": "Zac",
+      "ability": "Stretching Strikes",
+      "kind": "Q"
+    },
+    {
+      "list": "crowdControl",
+      "label": "stun",
+      "champion": "Zac",
+      "ability": "Elastic Slingshot",
+      "kind": "E"
+    },
+    {
+      "list": "crowdControl",
+      "label": "stun",
+      "champion": "Zilean",
+      "ability": "Time Bomb",
+      "kind": "Q"
+    },
+    {
+      "list": "crowdControl",
+      "label": "suspension",
+      "champion": "Nami",
+      "ability": "Aqua Prison",
+      "kind": "Q"
+    },
+    {
+      "list": "crowdControl",
+      "label": "suppression",
+      "champion": "Ambessa",
+      "ability": "Public Execution",
+      "kind": "R"
+    },
+    {
+      "list": "crowdControl",
+      "label": "suppression",
+      "champion": "Malzahar",
+      "ability": "Nether Grasp",
+      "kind": "R"
+    },
+    {
+      "list": "crowdControl",
+      "label": "suppression",
+      "champion": "Sett",
+      "ability": "The Show Stopper",
+      "kind": "R"
+    },
+    {
+      "list": "crowdControl",
+      "label": "suppression",
+      "champion": "Skarner",
+      "ability": "Ixtal's Impact",
+      "kind": "E"
+    },
+    {
+      "list": "crowdControl",
+      "label": "suppression",
+      "champion": "Skarner",
+      "ability": "Impale",
+      "kind": "R"
+    },
+    {
+      "list": "crowdControl",
+      "label": "suppression",
+      "champion": "TahmKench",
+      "ability": "Devour",
+      "kind": "R"
+    },
+    {
+      "list": "crowdControl",
+      "label": "suppression",
+      "champion": "Urgot",
+      "ability": "Fear Beyond Death",
+      "kind": "R"
+    },
+    {
+      "list": "crowdControl",
+      "label": "suppression",
+      "champion": "Warwick",
+      "ability": "Infinite Duress",
+      "kind": "R"
+    }
+  ],
+  "crowdControl": [
+    {
+      "types": [
+        "airborne"
+      ],
+      "movement": "disabled",
+      "attacking": "disabled",
+      "abilities": "disabled",
+      "interruptsChannels": "yes",
+      "tenacity": false,
+      "removedBy": [
+        {
+          "champion": "Rengar",
+          "ability": "Battle Roar",
+          "kind": "W"
+        },
+        {
+          "champion": "Briar",
+          "ability": "Certain Death",
+          "kind": "R"
+        },
+        {
+          "champion": "Kalista",
+          "ability": "Fate's Call",
+          "kind": "R"
+        },
+        {
+          "champion": "Olaf",
+          "ability": "Ragnarok",
+          "kind": "R"
+        },
+        {
+          "champion": "Gangplank",
+          "ability": "Remove Scurvy",
+          "kind": "W"
+        },
+        {
+          "champion": "Kled",
+          "ability": "Skaarl the Cowardly Lizard",
+          "kind": "I"
+        },
+        {
+          "champion": "Alistar",
+          "ability": "Unbreakable Will",
+          "kind": "R"
+        }
+      ]
+    },
+    {
+      "types": [
+        "blind"
+      ],
+      "movement": "allowed",
+      "attacking": "parried",
+      "abilities": "allowed",
+      "interruptsChannels": "no",
+      "tenacity": true,
+      "removedBy": [
+        {
+          "champion": "Rengar",
+          "ability": "Battle Roar",
+          "kind": "W"
+        },
+        {
+          "champion": "Milio",
+          "ability": "Breath of Life",
+          "kind": "R"
+        },
+        {
+          "champion": "Briar",
+          "ability": "Certain Death",
+          "kind": "R"
+        },
+        {
+          "champion": "Kalista",
+          "ability": "Fate's Call",
+          "kind": "R"
+        },
+        {
+          "champion": "Olaf",
+          "ability": "Ragnarok",
+          "kind": "R"
+        },
+        {
+          "champion": "Gangplank",
+          "ability": "Remove Scurvy",
+          "kind": "W"
+        },
+        {
+          "champion": "Kled",
+          "ability": "Skaarl the Cowardly Lizard",
+          "kind": "I"
+        },
+        {
+          "champion": "Alistar",
+          "ability": "Unbreakable Will",
+          "kind": "R"
+        }
+      ]
+    },
+    {
+      "types": [
+        "cripple"
+      ],
+      "movement": "allowed",
+      "attacking": "reduced",
+      "abilities": "allowed",
+      "interruptsChannels": "no",
+      "tenacity": true,
+      "removedBy": [
+        {
+          "champion": "MasterYi",
+          "ability": "Highlander",
+          "kind": "R"
+        },
+        {
+          "champion": "Rengar",
+          "ability": "Battle Roar",
+          "kind": "W"
+        },
+        {
+          "champion": "Milio",
+          "ability": "Breath of Life",
+          "kind": "R"
+        },
+        {
+          "champion": "Briar",
+          "ability": "Certain Death",
+          "kind": "R"
+        },
+        {
+          "champion": "Kalista",
+          "ability": "Fate's Call",
+          "kind": "R"
+        },
+        {
+          "champion": "Olaf",
+          "ability": "Ragnarok",
+          "kind": "R"
+        },
+        {
+          "champion": "Gangplank",
+          "ability": "Remove Scurvy",
+          "kind": "W"
+        },
+        {
+          "champion": "Kled",
+          "ability": "Skaarl the Cowardly Lizard",
+          "kind": "I"
+        },
+        {
+          "champion": "Alistar",
+          "ability": "Unbreakable Will",
+          "kind": "R"
+        }
+      ]
+    },
+    {
+      "types": [
+        "disarm"
+      ],
+      "movement": "allowed",
+      "attacking": "disabled",
+      "abilities": "allowed",
+      "interruptsChannels": "no",
+      "tenacity": true,
+      "removedBy": [
+        {
+          "champion": "Rengar",
+          "ability": "Battle Roar",
+          "kind": "W"
+        },
+        {
+          "champion": "Milio",
+          "ability": "Breath of Life",
+          "kind": "R"
+        },
+        {
+          "champion": "Briar",
+          "ability": "Certain Death",
+          "kind": "R"
+        },
+        {
+          "champion": "Kalista",
+          "ability": "Fate's Call",
+          "kind": "R"
+        },
+        {
+          "champion": "Olaf",
+          "ability": "Ragnarok",
+          "kind": "R"
+        },
+        {
+          "champion": "Gangplank",
+          "ability": "Remove Scurvy",
+          "kind": "W"
+        },
+        {
+          "champion": "Kled",
+          "ability": "Skaarl the Cowardly Lizard",
+          "kind": "I"
+        },
+        {
+          "champion": "Alistar",
+          "ability": "Unbreakable Will",
+          "kind": "R"
+        }
+      ]
+    },
+    {
+      "types": [
+        "berserk",
+        "charm",
+        "fear",
+        "taunt"
+      ],
+      "movement": "uncontrollable",
+      "attacking": "disabled / uncontrollable",
+      "abilities": "disabled",
+      "interruptsChannels": "yes",
+      "tenacity": true,
+      "removedBy": [
+        {
+          "champion": "Rengar",
+          "ability": "Battle Roar",
+          "kind": "W"
+        },
+        {
+          "champion": "Milio",
+          "ability": "Breath of Life",
+          "kind": "R"
+        },
+        {
+          "champion": "Briar",
+          "ability": "Certain Death",
+          "kind": "R"
+        },
+        {
+          "champion": "Kalista",
+          "ability": "Fate's Call",
+          "kind": "R"
+        },
+        {
+          "champion": "Olaf",
+          "ability": "Ragnarok",
+          "kind": "R"
+        },
+        {
+          "champion": "Gangplank",
+          "ability": "Remove Scurvy",
+          "kind": "W"
+        },
+        {
+          "champion": "Kled",
+          "ability": "Skaarl the Cowardly Lizard",
+          "kind": "I"
+        },
+        {
+          "champion": "Alistar",
+          "ability": "Unbreakable Will",
+          "kind": "R"
+        },
+        {
+          "champion": "Mordekaiser",
+          "ability": "Realm of Death",
+          "kind": "R"
+        }
+      ]
+    },
+    {
+      "types": [
+        "ground"
+      ],
+      "movement": "partial",
+      "attacking": "allowed",
+      "abilities": "partial",
+      "interruptsChannels": "see notes",
+      "tenacity": true,
+      "removedBy": [
+        {
+          "champion": "Rengar",
+          "ability": "Battle Roar",
+          "kind": "W"
+        },
+        {
+          "champion": "Milio",
+          "ability": "Breath of Life",
+          "kind": "R"
+        },
+        {
+          "champion": "Briar",
+          "ability": "Certain Death",
+          "kind": "R"
+        },
+        {
+          "champion": "Kalista",
+          "ability": "Fate's Call",
+          "kind": "R"
+        },
+        {
+          "champion": "Olaf",
+          "ability": "Ragnarok",
+          "kind": "R"
+        },
+        {
+          "champion": "Gangplank",
+          "ability": "Remove Scurvy",
+          "kind": "W"
+        },
+        {
+          "champion": "Kled",
+          "ability": "Skaarl the Cowardly Lizard",
+          "kind": "I"
+        },
+        {
+          "champion": "Alistar",
+          "ability": "Unbreakable Will",
+          "kind": "R"
+        }
+      ]
+    },
+    {
+      "types": [
+        "kinematics"
+      ],
+      "movement": "partial",
+      "attacking": "allowed",
+      "abilities": "allowed",
+      "interruptsChannels": "no",
+      "tenacity": false,
+      "removedBy": []
+    },
+    {
+      "types": [
+        "nearsight"
+      ],
+      "movement": "allowed",
+      "attacking": "partial",
+      "abilities": "partial",
+      "interruptsChannels": "no",
+      "tenacity": false,
+      "removedBy": [
+        {
+          "champion": "Rengar",
+          "ability": "Battle Roar",
+          "kind": "W"
+        },
+        {
+          "champion": "Milio",
+          "ability": "Breath of Life",
+          "kind": "R"
+        },
+        {
+          "champion": "Briar",
+          "ability": "Certain Death",
+          "kind": "R"
+        },
+        {
+          "champion": "Kalista",
+          "ability": "Fate's Call",
+          "kind": "R"
+        },
+        {
+          "champion": "Olaf",
+          "ability": "Ragnarok",
+          "kind": "R"
+        },
+        {
+          "champion": "Gangplank",
+          "ability": "Remove Scurvy",
+          "kind": "W"
+        },
+        {
+          "champion": "Kled",
+          "ability": "Skaarl the Cowardly Lizard",
+          "kind": "I"
+        },
+        {
+          "champion": "Alistar",
+          "ability": "Unbreakable Will",
+          "kind": "R"
+        }
+      ]
+    },
+    {
+      "types": [
+        "root"
+      ],
+      "movement": "disabled",
+      "attacking": "allowed",
+      "abilities": "partial",
+      "interruptsChannels": "see notes",
+      "tenacity": true,
+      "removedBy": [
+        {
+          "champion": "Rengar",
+          "ability": "Battle Roar",
+          "kind": "W"
+        },
+        {
+          "champion": "Milio",
+          "ability": "Breath of Life",
+          "kind": "R"
+        },
+        {
+          "champion": "Briar",
+          "ability": "Certain Death",
+          "kind": "R"
+        },
+        {
+          "champion": "Kalista",
+          "ability": "Fate's Call",
+          "kind": "R"
+        },
+        {
+          "champion": "Olaf",
+          "ability": "Ragnarok",
+          "kind": "R"
+        },
+        {
+          "champion": "Gangplank",
+          "ability": "Remove Scurvy",
+          "kind": "W"
+        },
+        {
+          "champion": "Kled",
+          "ability": "Skaarl the Cowardly Lizard",
+          "kind": "I"
+        },
+        {
+          "champion": "Alistar",
+          "ability": "Unbreakable Will",
+          "kind": "R"
+        }
+      ]
+    },
+    {
+      "types": [
+        "silence"
+      ],
+      "movement": "allowed",
+      "attacking": "allowed",
+      "abilities": "disabled",
+      "interruptsChannels": "yes",
+      "tenacity": true,
+      "removedBy": [
+        {
+          "champion": "Rengar",
+          "ability": "Battle Roar",
+          "kind": "W"
+        },
+        {
+          "champion": "Milio",
+          "ability": "Breath of Life",
+          "kind": "R"
+        },
+        {
+          "champion": "Briar",
+          "ability": "Certain Death",
+          "kind": "R"
+        },
+        {
+          "champion": "Kalista",
+          "ability": "Fate's Call",
+          "kind": "R"
+        },
+        {
+          "champion": "Olaf",
+          "ability": "Ragnarok",
+          "kind": "R"
+        },
+        {
+          "champion": "Gangplank",
+          "ability": "Remove Scurvy",
+          "kind": "W"
+        },
+        {
+          "champion": "Kled",
+          "ability": "Skaarl the Cowardly Lizard",
+          "kind": "I"
+        },
+        {
+          "champion": "Alistar",
+          "ability": "Unbreakable Will",
+          "kind": "R"
+        }
+      ]
+    },
+    {
+      "types": [
+        "polymorph"
+      ],
+      "movement": "allowed",
+      "attacking": "disabled",
+      "abilities": "disabled",
+      "interruptsChannels": "yes",
+      "tenacity": true,
+      "removedBy": [
+        {
+          "champion": "Rengar",
+          "ability": "Battle Roar",
+          "kind": "W"
+        },
+        {
+          "champion": "Milio",
+          "ability": "Breath of Life",
+          "kind": "R"
+        },
+        {
+          "champion": "Briar",
+          "ability": "Certain Death",
+          "kind": "R"
+        },
+        {
+          "champion": "Kalista",
+          "ability": "Fate's Call",
+          "kind": "R"
+        },
+        {
+          "champion": "Olaf",
+          "ability": "Ragnarok",
+          "kind": "R"
+        },
+        {
+          "champion": "Gangplank",
+          "ability": "Remove Scurvy",
+          "kind": "W"
+        },
+        {
+          "champion": "Kled",
+          "ability": "Skaarl the Cowardly Lizard",
+          "kind": "I"
+        },
+        {
+          "champion": "Alistar",
+          "ability": "Unbreakable Will",
+          "kind": "R"
+        }
+      ]
+    },
+    {
+      "types": [
+        "drowsy"
+      ],
+      "movement": "reduced",
+      "attacking": "allowed",
+      "abilities": "allowed",
+      "interruptsChannels": "no",
+      "tenacity": false,
+      "removedBy": [
+        {
+          "champion": "Rengar",
+          "ability": "Battle Roar",
+          "kind": "W"
+        },
+        {
+          "champion": "Milio",
+          "ability": "Breath of Life",
+          "kind": "R"
+        },
+        {
+          "champion": "Briar",
+          "ability": "Certain Death",
+          "kind": "R"
+        },
+        {
+          "champion": "Kalista",
+          "ability": "Fate's Call",
+          "kind": "R"
+        },
+        {
+          "champion": "Olaf",
+          "ability": "Ragnarok",
+          "kind": "R"
+        },
+        {
+          "champion": "Gangplank",
+          "ability": "Remove Scurvy",
+          "kind": "W"
+        },
+        {
+          "champion": "Kled",
+          "ability": "Skaarl the Cowardly Lizard",
+          "kind": "I"
+        },
+        {
+          "champion": "Alistar",
+          "ability": "Unbreakable Will",
+          "kind": "R"
+        }
+      ]
+    },
+    {
+      "types": [
+        "sleep"
+      ],
+      "movement": "disabled",
+      "attacking": "disabled",
+      "abilities": "disabled",
+      "interruptsChannels": "yes",
+      "tenacity": true,
+      "removedBy": [
+        {
+          "champion": "Rengar",
+          "ability": "Battle Roar",
+          "kind": "W"
+        },
+        {
+          "champion": "Milio",
+          "ability": "Breath of Life",
+          "kind": "R"
+        },
+        {
+          "champion": "Briar",
+          "ability": "Certain Death",
+          "kind": "R"
+        },
+        {
+          "champion": "Kalista",
+          "ability": "Fate's Call",
+          "kind": "R"
+        },
+        {
+          "champion": "Olaf",
+          "ability": "Ragnarok",
+          "kind": "R"
+        },
+        {
+          "champion": "Gangplank",
+          "ability": "Remove Scurvy",
+          "kind": "W"
+        },
+        {
+          "champion": "Kled",
+          "ability": "Skaarl the Cowardly Lizard",
+          "kind": "I"
+        },
+        {
+          "champion": "Alistar",
+          "ability": "Unbreakable Will",
+          "kind": "R"
+        }
+      ]
+    },
+    {
+      "types": [
+        "slow"
+      ],
+      "movement": "reduced",
+      "attacking": "allowed",
+      "abilities": "allowed",
+      "interruptsChannels": "no",
+      "tenacity": true,
+      "removedBy": [
+        {
+          "champion": "Nunu",
+          "ability": "Biggest Snowball Ever!",
+          "kind": "W"
+        },
+        {
+          "champion": "Garen",
+          "ability": "Decisive Strike",
+          "kind": "Q"
+        },
+        {
+          "champion": "MasterYi",
+          "ability": "Highlander",
+          "kind": "R"
+        },
+        {
+          "champion": "Rengar",
+          "ability": "Battle Roar",
+          "kind": "W"
+        },
+        {
+          "champion": "Milio",
+          "ability": "Breath of Life",
+          "kind": "R"
+        },
+        {
+          "champion": "Briar",
+          "ability": "Certain Death",
+          "kind": "R"
+        },
+        {
+          "champion": "Kalista",
+          "ability": "Fate's Call",
+          "kind": "R"
+        },
+        {
+          "champion": "Olaf",
+          "ability": "Ragnarok",
+          "kind": "R"
+        },
+        {
+          "champion": "Gangplank",
+          "ability": "Remove Scurvy",
+          "kind": "W"
+        },
+        {
+          "champion": "Kled",
+          "ability": "Skaarl the Cowardly Lizard",
+          "kind": "I"
+        },
+        {
+          "champion": "Alistar",
+          "ability": "Unbreakable Will",
+          "kind": "R"
+        }
+      ]
+    },
+    {
+      "types": [
+        "stasis"
+      ],
+      "movement": "disabled",
+      "attacking": "disabled",
+      "abilities": "disabled",
+      "interruptsChannels": "yes",
+      "tenacity": false,
+      "removedBy": []
+    },
+    {
+      "types": [
+        "stun",
+        "suspension"
+      ],
+      "movement": "disabled",
+      "attacking": "disabled",
+      "abilities": "disabled",
+      "interruptsChannels": "yes",
+      "tenacity": true,
+      "removedBy": [
+        {
+          "champion": "Rengar",
+          "ability": "Battle Roar",
+          "kind": "W"
+        },
+        {
+          "champion": "Milio",
+          "ability": "Breath of Life",
+          "kind": "R"
+        },
+        {
+          "champion": "Briar",
+          "ability": "Certain Death",
+          "kind": "R"
+        },
+        {
+          "champion": "Kalista",
+          "ability": "Fate's Call",
+          "kind": "R"
+        },
+        {
+          "champion": "Olaf",
+          "ability": "Ragnarok",
+          "kind": "R"
+        },
+        {
+          "champion": "Gangplank",
+          "ability": "Remove Scurvy",
+          "kind": "W"
+        },
+        {
+          "champion": "Kled",
+          "ability": "Skaarl the Cowardly Lizard",
+          "kind": "I"
+        },
+        {
+          "champion": "Alistar",
+          "ability": "Unbreakable Will",
+          "kind": "R"
+        }
+      ]
+    },
+    {
+      "types": [
+        "suppression"
+      ],
+      "movement": "disabled",
+      "attacking": "disabled",
+      "abilities": "disabled",
+      "interruptsChannels": "yes",
+      "tenacity": false,
+      "removedBy": [
+        {
+          "champion": "Rengar",
+          "ability": "Battle Roar",
+          "kind": "W"
+        },
+        {
+          "champion": "Milio",
+          "ability": "Breath of Life",
+          "kind": "R"
+        },
+        {
+          "champion": "Briar",
+          "ability": "Certain Death",
+          "kind": "R"
+        },
+        {
+          "champion": "Kalista",
+          "ability": "Fate's Call",
+          "kind": "R"
+        },
+        {
+          "champion": "Olaf",
+          "ability": "Ragnarok",
+          "kind": "R"
+        },
+        {
+          "champion": "Gangplank",
+          "ability": "Remove Scurvy",
+          "kind": "W"
+        },
+        {
+          "champion": "Kled",
+          "ability": "Skaarl the Cowardly Lizard",
+          "kind": "I"
+        },
+        {
+          "champion": "Alistar",
+          "ability": "Unbreakable Will",
+          "kind": "R"
+        }
+      ]
+    }
+  ],
+  "unresolved": [
+    {
+      "list": "crowdControl",
+      "page": "Types of Crowd Control/Sources",
+      "mention": "Rhaast: W"
+    }
+  ]
+}

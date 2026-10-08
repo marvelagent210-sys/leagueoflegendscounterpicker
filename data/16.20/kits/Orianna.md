@@ -9,6 +9,22 @@ Values marked "at max rank, level 20" assume every ability is maxed; see PLAN.md
 |---|--:|--:|--:|--:|--:|--:|--:|--:|--:|--:|
 | Orianna | 2728.2 | 17.82 | 909.6 Mana | 95.1 | 1.111 | 0.158 | 102.6 | 51.6 | 525 | 325 |
 
+## Fight profile (what the interaction ledger uses)
+
+| Form | Attack range | Ranged | Projectile | Missile speed | Attack modifiers |
+|---|--:|---|---|--:|---|
+| Orianna | 525 | yes | yes | 1500 | Clockwork Windup |
+
+Cooldowns at max rank. Flags: the wiki's interaction flags (yes, no, partly). * marks an effect that applies only under a condition.
+
+| Slot | Ability | Cooldown | Delivery | Applies to the enemy | Movement | Gives itself |
+|---|---|--:|---|---|---|---|
+| E | Command: Protect | 9 | projectile yes; spell shield yes | – | – | shield 2.5 s |
+| I | Clockwork Windup | – | parry yes; attack modifier | – | – | – |
+| Q | Command: Attack | 3 | projectile partly; spell shield yes | – | – | – |
+| R | Command: Shockwave | 80 | spell shield yes | airborne (pull); stun 0.75 s | – | – |
+| W | Command: Dissonance | 7 | spell shield yes | slow 2 s | – | – |
+
 ## Innate: Clockwork Windup
 
 Source: [Template:Data Orianna/Clockwork Windup](https://wiki.leagueoflegends.com/en-us/Template:Data_Orianna/Clockwork_Windup?oldid=4026443) (revision 4026443). Ranks: 1.

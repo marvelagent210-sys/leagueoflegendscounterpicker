@@ -1,0 +1,291 @@
+{
+  "champion": "Pyke",
+  "name": "Pyke",
+  "gameplayRadius": 65,
+  "moveSpeed": 330,
+  "attacks": [
+    {
+      "form": "pyke",
+      "formName": "Pyke",
+      "range": 150,
+      "ranged": false,
+      "projectile": false,
+      "attackSpeed": 0.994914,
+      "attackDamage": 101.33,
+      "windup": 0.201022,
+      "modifiers": []
+    }
+  ],
+  "abilities": [
+    {
+      "champion": "Pyke",
+      "kind": "E",
+      "name": "Phantom Undertow",
+      "page": {
+        "title": "Template:Data Pyke/Phantom Undertow",
+        "revid": 4044071
+      },
+      "damageTypes": [
+        "physical"
+      ],
+      "delivery": {
+        "targeting": [
+          "direction"
+        ],
+        "affectsEnemies": true,
+        "projectile": "yes",
+        "spellShield": "yes",
+        "grounded": "yes",
+        "knockdown": "yes"
+      },
+      "applies": [
+        {
+          "type": "stun",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "stun"
+            },
+            {
+              "page": "Template:Data Pyke/Phantom Undertow",
+              "revid": 4044071,
+              "quote": "After 1 second, the Phantom homes back to Pyke to stun enemies around it and those it passes through along the way for 1.25 (+ 0.1 per 10 Lethality) seconds."
+            }
+          ]
+        }
+      ],
+      "movement": [
+        {
+          "type": "dash",
+          "evidence": [
+            {
+              "page": "Dash",
+              "revid": 4035700,
+              "quote": "direction-targeted"
+            }
+          ],
+          "targeting": "direction-targeted",
+          "interruptible": true
+        }
+      ],
+      "states": [],
+      "cooldown": 11,
+      "castTime": 0,
+      "range": 550,
+      "speed": 3000,
+      "notes": [
+        "The dash distance can be extended to up to 900 units (estimated) when targeting across terrain.",
+        "Like most projectiles, the flying Phantom cannot hit targets whose center is behind the position it originates at or beyond the position it catches up to Pyke at, but the spell can hit targets behind its origin as long as their hitbox radius overlaps with the original unit Phantom's 110-radius check at the end of its lifespan."
+      ]
+    },
+    {
+      "champion": "Pyke",
+      "kind": "I",
+      "name": "Gift of the Drowned Ones",
+      "page": {
+        "title": "Template:Data Pyke/Gift of the Drowned Ones",
+        "revid": 4007005
+      },
+      "damageTypes": [],
+      "delivery": {
+        "targeting": [
+          "passive"
+        ],
+        "affectsEnemies": false
+      },
+      "applies": [],
+      "movement": [],
+      "states": [
+        {
+          "state": "heal",
+          "evidence": [
+            {
+              "page": "Template:Data Pyke/Gift of the Drowned Ones",
+              "revid": 4007005,
+              "quote": "While Pyke is not visible to enemies, he rapidly consumes his grey health to heal for the same amount."
+            }
+          ]
+        }
+      ],
+      "boostsAttacks": true,
+      "notes": [
+        "Untargetable champions count towards Pyke's modified grey health storing."
+      ]
+    },
+    {
+      "champion": "Pyke",
+      "kind": "Q",
+      "name": "Bone Skewer",
+      "page": {
+        "title": "Template:Data Pyke/Bone Skewer",
+        "revid": 4007993
+      },
+      "damageTypes": [
+        "physical"
+      ],
+      "delivery": {
+        "targeting": [
+          "auto",
+          "direction"
+        ],
+        "affectsEnemies": true,
+        "projectile": "partly",
+        "spellShield": "yes",
+        "disruptable": "yes"
+      },
+      "applies": [
+        {
+          "type": "airborne",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "airborne: pull"
+            },
+            {
+              "page": "Template:Data Pyke/Bone Skewer",
+              "revid": 4007993,
+              "quote": "Recast: Pyke hurls his harpoon in the target direction, becoming unable to act while it is in flight and dealing physical damage to the first enemy hit and pulling them, during which they are also revealed, then slowing them by 90% for 1 second."
+            }
+          ],
+          "variant": "pull",
+          "duration": 1
+        },
+        {
+          "type": "slow",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "slow; (self and target)"
+            },
+            {
+              "page": "Template:Data Pyke/Bone Skewer",
+              "revid": 4007993,
+              "quote": "Active: Pyke charges while being slowed by 20% for up to 3 seconds to increase Bone Skewer's range over the first second of the channel."
+            }
+          ],
+          "duration": 3,
+          "amount": 20
+        }
+      ],
+      "movement": [],
+      "states": [],
+      "cooldown": 8,
+      "castTime": 0.25,
+      "range": 400,
+      "channel": [
+        {
+          "type": "charged",
+          "evidence": [
+            {
+              "page": "Channel",
+              "revid": 4002276
+            }
+          ]
+        }
+      ],
+      "notes": [
+        "Only the charged version of Bone Skewer will be intercepted.",
+        "The following table refers for interactions while Pyke is channeling:",
+        "The following table refers for interactions while Pyke is locked out from the harpoon being in flight:\n  - The lockout ends as soon as the missile fizzles from hitting a target or reaching maximum range, or being intercepted."
+      ]
+    },
+    {
+      "champion": "Pyke",
+      "kind": "R",
+      "name": "Death from Below",
+      "page": {
+        "title": "Template:Data Pyke/Death from Below",
+        "revid": 4007995
+      },
+      "damageTypes": [
+        "physical",
+        "true"
+      ],
+      "delivery": {
+        "targeting": [
+          "location"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "yes",
+        "grounded": "yes"
+      },
+      "applies": [],
+      "movement": [
+        {
+          "type": "blink",
+          "evidence": [
+            {
+              "page": "Blink",
+              "revid": 4047228,
+              "quote": "When marking a champion"
+            }
+          ]
+        }
+      ],
+      "states": [],
+      "cooldown": 70,
+      "castTime": 0.5,
+      "range": 750,
+      "execute": [
+        {
+          "page": "Template:Data Pyke/Death from Below",
+          "revid": 4007995,
+          "quote": "Active: Pyke marks the target location with the shape of an X before striking it, executing enemy champions within the area that are below 250 / 290 / 330 / 370 / 400 / 430 / 450 / 470 / 490 / 510 / 530 / 540 / 550 (based on level) (+ 80% bonus AD) (+ 1.5 per 1 Lethality) health."
+        }
+      ],
+      "notes": [
+        "Applies raw damage to executed targets and area damage to targets above the threshold.",
+        "Death from Below's execute against an enemy champion will aggro nearby enemy minions.",
+        "Death from Below cannot execute clones. They are always dealt 50% physical damage.",
+        "If the target is in a zombie state, does not enter the death state, or is killed by the ability while above the execution threshold, Death from Below does not grant Your Cut nor the recast.",
+        "Spell shield does not prevent Pyke from blinking.",
+        "Death from Below cannot be interrupted; Pyke will always appear at the target location if enemy champions are caught inside the X even if he is moved (e.g. by being displaced) during the cast time.\n  - The only exception is if he is being suppressed, in which case he will not blink."
+      ]
+    },
+    {
+      "champion": "Pyke",
+      "kind": "W",
+      "name": "Ghostwater Dive",
+      "page": {
+        "title": "Template:Data Pyke/Ghostwater Dive",
+        "revid": 4050339
+      },
+      "damageTypes": [],
+      "delivery": {
+        "targeting": [
+          "auto"
+        ],
+        "affectsEnemies": false
+      },
+      "applies": [],
+      "movement": [],
+      "states": [
+        {
+          "state": "camouflage",
+          "evidence": [
+            {
+              "page": "Stealth",
+              "revid": 4013411,
+              "quote": "(600 unit detection radius)"
+            },
+            {
+              "page": "Template:Data Pyke/Ghostwater Dive",
+              "revid": 4050339,
+              "quote": "Active: Pyke submerges into water for 5 seconds, entering camouflage and gaining 45% (+ 2% per 1 Lethality) bonus movement speed that decays over the duration."
+            }
+          ],
+          "duration": 5,
+          "condition": "(600 unit detection radius)"
+        }
+      ],
+      "cooldown": 10,
+      "castTime": 0,
+      "notes": [
+        "Using a basic attack breaks the stealth at the end of the attack windup."
+      ]
+    }
+  ]
+}

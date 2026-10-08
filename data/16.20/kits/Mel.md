@@ -9,6 +9,22 @@ Values marked "at max rank, level 20" assume every ability is maxed; see PLAN.md
 |---|--:|--:|--:|--:|--:|--:|--:|--:|--:|--:|
 | Mel | 2576.8 | 16.82 | 1030.6 Mana | 118.9 | 0.932 | 0.167 | 123.3 | 55.6 | 550 | 330 |
 
+## Fight profile (what the interaction ledger uses)
+
+| Form | Attack range | Ranged | Projectile | Missile speed | Attack modifiers |
+|---|--:|---|---|--:|---|
+| Mel | 550 | yes | yes | 1600 | Searing Brilliance |
+
+Cooldowns at max rank. Flags: the wiki's interaction flags (yes, no, partly). * marks an effect that applies only under a condition.
+
+| Slot | Ability | Cooldown | Delivery | Applies to the enemy | Movement | Gives itself |
+|---|---|--:|---|---|---|---|
+| E | Solar Snare | 9 | projectile yes; spell shield partly | slow 30%; root 1.5 s | – | – |
+| I | Searing Brilliance | – | projectile yes; spell shield no; attack modifier | – | – | – |
+| Q | Radiant Volley | 6 | projectile yes; spell shield partly | – | – | – |
+| R | Golden Eclipse | 80 | spell shield yes | – | – | – |
+| W | Rebuttal | 26 | projectile partly; spell shield partly | – | – | projectile block 0.75 s; shield 0.75 s |
+
 ## Innate: Searing Brilliance
 
 Source: [Template:Data Mel/Searing Brilliance](https://wiki.leagueoflegends.com/en-us/Template:Data_Mel/Searing_Brilliance?oldid=4062268) (revision 4062268). Ranks: 1.

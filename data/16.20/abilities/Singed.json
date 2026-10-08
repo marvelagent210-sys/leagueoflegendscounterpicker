@@ -195,37 +195,6 @@
   {
     "champion": "Singed",
     "kind": "I",
-    "name": "Empowered Bulwark",
-    "page": {
-      "title": "Template:Data Singed/Empowered Bulwark",
-      "revid": 2704863
-    },
-    "ranks": 1,
-    "fields": {},
-    "flags": {
-      "targeting": [
-        "Empowered Bulwark is a self-targeted buff."
-      ],
-      "affects": [],
-      "damageType": []
-    },
-    "parts": [
-      {
-        "text": "Singed gains bonus health equal to 25% of his maximum mana.",
-        "leveling": [],
-        "mechanics": [],
-        "values": []
-      }
-    ],
-    "custom": [],
-    "notes": [
-      "Due to his base mana and mana increase per level, Singed effectively receives 72.65 bonus health at level 1 and additional health growth (11.25) up to 256.25 bonus health at level 18.",
-      "This bonus health is increased by Cinderhulk, increasing the health gained to 28.75% of his maximum mana."
-    ]
-  },
-  {
-    "champion": "Singed",
-    "kind": "I",
     "name": "Noxious Slipstream",
     "page": {
       "title": "Template:Data Singed/Noxious Slipstream",

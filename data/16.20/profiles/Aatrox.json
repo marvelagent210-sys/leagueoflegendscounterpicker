@@ -1,0 +1,272 @@
+{
+  "champion": "Aatrox",
+  "name": "Aatrox",
+  "gameplayRadius": 65,
+  "moveSpeed": 345,
+  "attacks": [
+    {
+      "form": "aatrox",
+      "formName": "Aatrox",
+      "range": 175,
+      "ranged": false,
+      "projectile": false,
+      "attackSpeed": 0.971048,
+      "attackDamage": 158.325,
+      "windup": 0.203253,
+      "modifiers": [
+        "Deathbringer Stance"
+      ]
+    }
+  ],
+  "abilities": [
+    {
+      "champion": "Aatrox",
+      "kind": "E",
+      "name": "Umbral Dash",
+      "page": {
+        "title": "Template:Data Aatrox/Umbral Dash",
+        "revid": 4064836
+      },
+      "damageTypes": [],
+      "delivery": {
+        "targeting": [
+          "location"
+        ],
+        "affectsEnemies": false,
+        "grounded": "yes",
+        "knockdown": "yes"
+      },
+      "applies": [],
+      "movement": [
+        {
+          "type": "dash",
+          "evidence": [
+            {
+              "page": "Dash",
+              "revid": 4035700,
+              "quote": "direction-targeted"
+            }
+          ],
+          "targeting": "direction-targeted",
+          "interruptible": true
+        }
+      ],
+      "states": [
+        {
+          "state": "heal",
+          "evidence": [
+            {
+              "page": "Template:Data Aatrox/Umbral Dash",
+              "revid": 4064836,
+              "quote": "Passive: Aatrox heals for 16% (+ 1.3% per 100 bonus health) of non-persistent post-mitigation damage he deals against enemy champions."
+            }
+          ]
+        }
+      ],
+      "cooldown": 5,
+      "castTime": 0,
+      "range": 75,
+      "speed": 800,
+      "boostsAttacks": true,
+      "notes": [
+        "The dash distance can be extended to up-to 500 units when targeting across terrain. It will only extend for the distance needed to cross the wall.\n  - This may upscale his dash speed so that the dash takes the same total time as the standard maximum-range dash.",
+        "If Umbral Dash is cast towards a movement command's end point, Umbral Dash will re-issue a movement command to that point when the dash ends.\n  - He will be unable to buffer any commands during the dash if it is casted this way.",
+        "Aatrox's model darkens for 1.5 seconds upon casting Umbral Dash, which is a remnant of an attack damage buff he received before it got removed in V9.9."
+      ]
+    },
+    {
+      "champion": "Aatrox",
+      "kind": "I",
+      "name": "Deathbringer Stance",
+      "page": {
+        "title": "Template:Data Aatrox/Deathbringer Stance",
+        "revid": 4076803
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "passive"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "no",
+        "parry": "yes",
+        "attack": "attack modifier"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [
+        {
+          "state": "heal",
+          "evidence": [
+            {
+              "page": "Template:Data Aatrox/Deathbringer Stance",
+              "revid": 4076803,
+              "quote": "Deathbringer Stance's damage applies life steal."
+            },
+            {
+              "page": "Template:Data Aatrox/Deathbringer Stance",
+              "revid": 4076803,
+              "quote": "Aatrox heals for the post-mitigation bonus damage dealt, reduced to 25% against minions."
+            }
+          ]
+        }
+      ],
+      "cooldown": 8.58824,
+      "notes": [
+        "The cooldown reduction applies even if an ability's hit is countered by spell shield."
+      ]
+    },
+    {
+      "champion": "Aatrox",
+      "kind": "Q",
+      "name": "The Darkin Blade",
+      "page": {
+        "title": "Template:Data Aatrox/The Darkin Blade",
+        "revid": 4074361
+      },
+      "damageTypes": [
+        "physical"
+      ],
+      "delivery": {
+        "targeting": [
+          "direction"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "yes"
+      },
+      "applies": [
+        {
+          "type": "airborne",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "airborne: knock up"
+            },
+            {
+              "page": "Template:Data Aatrox/The Darkin Blade",
+              "revid": 4074361,
+              "quote": "Enemies hit within a Sweetspot of the area take 75% bonus damage and are also knocked up for 0.25 seconds."
+            }
+          ],
+          "variant": "knock up",
+          "duration": 0.25
+        }
+      ],
+      "movement": [],
+      "states": [],
+      "cooldown": 6,
+      "castTime": 0.6
+    },
+    {
+      "champion": "Aatrox",
+      "kind": "R",
+      "name": "World Ender",
+      "page": {
+        "title": "Template:Data Aatrox/World Ender",
+        "revid": 3959270
+      },
+      "damageTypes": [],
+      "delivery": {
+        "targeting": [
+          "auto"
+        ],
+        "affectsEnemies": true
+      },
+      "applies": [],
+      "movement": [],
+      "states": [
+        {
+          "state": "heal",
+          "evidence": [
+            {
+              "page": "Template:Data Aatrox/World Ender",
+              "revid": 3959270,
+              "quote": "During World Ender, Aatrox gains bonus attack damage, has 5% increased size, is ghosted, and receives increased self-healing from all sources."
+            }
+          ]
+        }
+      ],
+      "cooldown": 80,
+      "castTime": 0.25,
+      "boostsAttacks": true
+    },
+    {
+      "champion": "Aatrox",
+      "kind": "W",
+      "name": "Infernal Chains",
+      "page": {
+        "title": "Template:Data Aatrox/Infernal Chains",
+        "revid": 4064835
+      },
+      "damageTypes": [
+        "physical"
+      ],
+      "delivery": {
+        "targeting": [
+          "direction"
+        ],
+        "affectsEnemies": true,
+        "projectile": "yes",
+        "spellShield": "partly"
+      },
+      "applies": [
+        {
+          "type": "airborne",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "airborne: pull"
+            },
+            {
+              "page": "Template:Data Aatrox/Infernal Chains",
+              "revid": 4064835,
+              "quote": "If the tether is not broken by the end of its duration, the target is dealt the same physical damage again and pulled to the center of the area."
+            }
+          ],
+          "variant": "pull",
+          "condition": "If the tether is not broken by the end of its duration, the target is dealt the same physical damage again and pulled to the center of the area."
+        },
+        {
+          "type": "slow",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "slow"
+            },
+            {
+              "page": "Template:Data Aatrox/Infernal Chains",
+              "revid": 4064835,
+              "quote": "Active: Aatrox sends a chain in the target direction that deals physical damage to the first enemy hit, doubled against minions, and slowing them for 1.5 seconds."
+            }
+          ],
+          "duration": 1.5,
+          "amount": 35
+        },
+        {
+          "type": "reveal",
+          "evidence": [
+            {
+              "page": "Template:List of true sight abilities",
+              "revid": 3860444
+            }
+          ]
+        }
+      ],
+      "movement": [],
+      "states": [],
+      "cooldown": 12,
+      "castTime": 0.25,
+      "range": 825,
+      "speed": 1800,
+      "notes": [
+        "The impact area is oriented relative to Aatrox's position when the projectile hits, not where the projectile originated from.",
+        "Spell shield will block the chain's application and initial damage but not the aftereffects of one already applied."
+      ]
+    }
+  ]
+}

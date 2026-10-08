@@ -1,0 +1,216 @@
+{
+  "champion": "Kaisa",
+  "name": "Kai'Sa",
+  "gameplayRadius": 65,
+  "moveSpeed": 335,
+  "attacks": [
+    {
+      "form": "kai-sa",
+      "formName": "Kai'Sa",
+      "range": 525,
+      "ranged": true,
+      "projectile": true,
+      "missileSpeed": 2000,
+      "attackSpeed": 0.871957,
+      "attackDamage": 110.129,
+      "windup": 0.184737,
+      "modifiers": [
+        "Second Skin"
+      ]
+    }
+  ],
+  "abilities": [
+    {
+      "champion": "Kaisa",
+      "kind": "E",
+      "name": "Supercharge",
+      "page": {
+        "title": "Template:Data Kai'Sa/Supercharge",
+        "revid": 4038391
+      },
+      "damageTypes": [],
+      "delivery": {
+        "targeting": [
+          "auto"
+        ],
+        "affectsEnemies": false
+      },
+      "applies": [],
+      "movement": [],
+      "states": [
+        {
+          "state": "invisible",
+          "evidence": [
+            {
+              "page": "Stealth",
+              "revid": 4013411
+            },
+            {
+              "page": "Template:Data Kai'Sa/Supercharge",
+              "revid": 4038391,
+              "quote": "Evolution: Requires 100 – 69.4 (based on level)% attack speed from items to upgrade – Supercharge grants invisibility at the start of the cast time for 0.5 seconds."
+            }
+          ],
+          "duration": 0.5
+        }
+      ],
+      "cooldown": 10,
+      "castTime": 1.2,
+      "boostsAttacks": true
+    },
+    {
+      "champion": "Kaisa",
+      "kind": "I",
+      "name": "Second Skin",
+      "page": {
+        "title": "Template:Data Kai'Sa/Second Skin",
+        "revid": 4053367
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "passive"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "partly",
+        "parry": "yes",
+        "attack": "attack modifier"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "notes": [
+        "The bonus missing health damage is evaluated after the initial damage from Caustic Wounds is evaluated, and after Void Seeker damage if triggered by it, but before a triggering basic attack's is.\n  - This effectively increases the \"flat\" Caustic Wounds damage preceding the expunge proc and (if applicable) Void Seeker damage and any potential preceding on-hit damage (usually not possible to acquire due to buff slot order) by 15% (+ 6% per 100 AP) divided by (1+the target's MR post penetration/100).",
+        "Spell shield will block the Plasma application from Void Seeker only."
+      ]
+    },
+    {
+      "champion": "Kaisa",
+      "kind": "Q",
+      "name": "Icathian Rain",
+      "page": {
+        "title": "Template:Data Kai'Sa/Icathian Rain",
+        "revid": 4038389
+      },
+      "damageTypes": [
+        "physical"
+      ],
+      "delivery": {
+        "targeting": [
+          "proximity"
+        ],
+        "affectsEnemies": true,
+        "projectile": "yes",
+        "spellShield": "partly"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "cooldown": 6,
+      "castTime": 0,
+      "range": 600,
+      "notes": [
+        "The first missile on a target applies area damage, while the rest on the same target apply persistent area damage.",
+        "Spell shields only block the damage from a single missile.",
+        "Charging Supercharge will not stop the missiles from firing.",
+        "It takes 1 second for all missiles to fire at a single target."
+      ]
+    },
+    {
+      "champion": "Kaisa",
+      "kind": "R",
+      "name": "Killer Instinct",
+      "page": {
+        "title": "Template:Data Kai'Sa/Killer Instinct",
+        "revid": 4034697
+      },
+      "damageTypes": [],
+      "delivery": {
+        "targeting": [
+          "location"
+        ],
+        "affectsEnemies": false,
+        "grounded": "yes",
+        "knockdown": "yes"
+      },
+      "applies": [],
+      "movement": [
+        {
+          "type": "dash",
+          "evidence": [
+            {
+              "page": "Dash",
+              "revid": 4035700,
+              "quote": "location-targeted"
+            }
+          ],
+          "targeting": "location-targeted",
+          "interruptible": true
+        }
+      ],
+      "states": [
+        {
+          "state": "shield",
+          "evidence": [
+            {
+              "page": "Template:Data Kai'Sa/Killer Instinct",
+              "revid": 4034697,
+              "quote": "Active: Kai'Sa grants herself a shield for 2 seconds and dashes to a target location near a visible enemy champion that was affected by Plasma within the last 4 seconds."
+            }
+          ],
+          "duration": 2
+        }
+      ],
+      "cooldown": 70,
+      "castTime": 0,
+      "range": 3000,
+      "speed": 3800,
+      "boostsAttacks": true,
+      "notes": [
+        "Kai'Sa will issue a movement command to the targeted location regardless of whether the target location is valid. The dash is not buffered during this movement command. Kai'Sa will not dash if the targeted location becomes valid by walking in range or a nearby enemy champion becomes affected by Plasma.\n  - If the targeted location is not valid, the range indicator will glow."
+      ]
+    },
+    {
+      "champion": "Kaisa",
+      "kind": "W",
+      "name": "Void Seeker",
+      "page": {
+        "title": "Template:Data Kai'Sa/Void Seeker",
+        "revid": 4034696
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "location"
+        ],
+        "affectsEnemies": true,
+        "projectile": "yes",
+        "spellShield": "yes"
+      },
+      "applies": [
+        {
+          "type": "reveal",
+          "evidence": [
+            {
+              "page": "Template:List of true sight abilities",
+              "revid": 3860444
+            }
+          ]
+        }
+      ],
+      "movement": [],
+      "states": [],
+      "cooldown": 14,
+      "castTime": 0.4,
+      "range": 3000,
+      "speed": 1750,
+      "notes": [
+        "Size of area revealed around target"
+      ]
+    }
+  ]
+}

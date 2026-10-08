@@ -9,6 +9,22 @@ Values marked "at max rank, level 20" assume every ability is maxed; see PLAN.md
 |---|--:|--:|--:|--:|--:|--:|--:|--:|--:|--:|
 | Tristana | 2645.8 | 13.83 | 929.3 Mana | 126.9 | 0.861 | 0.172 | 108.7 | 54.6 | 550 | 325 |
 
+## Fight profile (what the interaction ledger uses)
+
+| Form | Attack range | Ranged | Projectile | Missile speed | Attack modifiers |
+|---|--:|---|---|--:|---|
+| Draw a Bead (level 18+) | 700 | yes | yes | 2250 | – |
+
+Cooldowns at max rank. Flags: the wiki's interaction flags (yes, no, partly). * marks an effect that applies only under a condition.
+
+| Slot | Ability | Cooldown | Delivery | Applies to the enemy | Movement | Gives itself |
+|---|---|--:|---|---|---|---|
+| E | Explosive Charge | 14 | projectile yes; spell shield yes; parry partly; on-hit | – | – | – |
+| I | Draw a Bead | – | – | – | – | – |
+| Q | Rapid Fire | 16 | – | – | – | – |
+| R | Buster Shot | 100 | projectile yes; spell shield yes | airborne (knock back) 0.7 s; stun 0.7 s | – | – |
+| W | Rocket Jump | 14 | spell shield yes; grounded yes; knockdown yes | slow 2 s 40% | dash | – |
+
 ## Innate: Draw a Bead
 
 Source: [Template:Data Tristana/Draw a Bead](https://wiki.leagueoflegends.com/en-us/Template:Data_Tristana/Draw_a_Bead?oldid=3986179) (revision 3986179). Ranks: 1.

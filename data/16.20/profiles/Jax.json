@@ -1,0 +1,198 @@
+{
+  "champion": "Jax",
+  "name": "Jax",
+  "gameplayRadius": 65,
+  "moveSpeed": 350,
+  "attacks": [
+    {
+      "form": "jax",
+      "formName": "Jax",
+      "range": 125,
+      "ranged": false,
+      "projectile": false,
+      "attackSpeed": 1.06457,
+      "attackDamage": 151.576,
+      "windup": 0.195486,
+      "modifiers": []
+    }
+  ],
+  "abilities": [
+    {
+      "champion": "Jax",
+      "kind": "E",
+      "name": "Counter Strike",
+      "page": {
+        "title": "Template:Data Jax/Counter Strike",
+        "revid": 4026415
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "auto"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "yes"
+      },
+      "applies": [
+        {
+          "type": "stun",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "stun"
+            },
+            {
+              "page": "Template:Data Jax/Counter Strike",
+              "revid": 4026415,
+              "quote": "Recast: Jax deals magic damage to nearby enemies, with the total damage increased by 20% for each attack dodged, up to a 100% increase, and stuns them for 1 second."
+            }
+          ],
+          "duration": 1
+        }
+      ],
+      "movement": [],
+      "states": [
+        {
+          "state": "dodge attacks",
+          "evidence": [
+            {
+              "page": "Template:Data Jax/Counter Strike",
+              "revid": 4026415,
+              "quote": "Active: Jax enters Evasion for 2 seconds: a defensive stance that causes him to dodge all incoming non-turret basic attacks and take 25% reduced damage from all area of effect abilities sourced from champions."
+            }
+          ],
+          "duration": 2
+        }
+      ],
+      "cooldown": 9,
+      "castTime": 0,
+      "notes": [
+        "Counter Strike will also dodge abilities that can trigger on-hit effects (Parrrley, Mystic Shot) which will count towards Counter Strike's increased damage. There are exceptions of abilities that Counter Strike will not dodge but will dodge the damage from on-hit effects that they trigger (Alpha Strike, Piercing Darkness)."
+      ]
+    },
+    {
+      "champion": "Jax",
+      "kind": "I",
+      "name": "Relentless Assault",
+      "page": {
+        "title": "Template:Data Jax/Relentless Assault",
+        "revid": 4038387
+      },
+      "damageTypes": [],
+      "delivery": {
+        "targeting": [
+          "passive"
+        ],
+        "affectsEnemies": true
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "boostsAttacks": true
+    },
+    {
+      "champion": "Jax",
+      "kind": "Q",
+      "name": "Leap Strike",
+      "page": {
+        "title": "Template:Data Jax/Leap Strike",
+        "revid": 4026413
+      },
+      "damageTypes": [
+        "physical"
+      ],
+      "delivery": {
+        "targeting": [
+          "unit"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "yes",
+        "grounded": "yes",
+        "knockdown": "yes"
+      },
+      "applies": [],
+      "movement": [
+        {
+          "type": "dash",
+          "evidence": [
+            {
+              "page": "Dash",
+              "revid": 4035700,
+              "quote": "unit-targeted"
+            }
+          ],
+          "targeting": "unit-targeted",
+          "interruptible": true
+        }
+      ],
+      "states": [],
+      "cooldown": 6,
+      "range": 700,
+      "notes": [
+        "If the target is an enemy champion, Jax will be ordered to basic attack them after the dash ends.",
+        "Spell shield will block the damage, including when empowered."
+      ]
+    },
+    {
+      "champion": "Jax",
+      "kind": "R",
+      "name": "Grandmaster-at-Arms",
+      "page": {
+        "title": "Template:Data Jax/Grandmaster-at-Arms",
+        "revid": 3973573
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "auto"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "partly",
+        "parry": "partly",
+        "attack": "on-hit"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "cooldown": 90,
+      "castTime": 0.25,
+      "notes": [
+        "The on-hit deals proc damage. The swing deals area damage.",
+        "The additional magic damage can be dodged and blocked but it cannot miss.",
+        "Spell shield will only block the additional damage from the third attack if it is empowered."
+      ]
+    },
+    {
+      "champion": "Jax",
+      "kind": "W",
+      "name": "Empower",
+      "page": {
+        "title": "Template:Data Jax/Empower",
+        "revid": 3973571
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "auto"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "yes",
+        "parry": "yes",
+        "attack": "attack"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "cooldown": 3,
+      "castTime": 0,
+      "boostsAttacks": true
+    }
+  ]
+}

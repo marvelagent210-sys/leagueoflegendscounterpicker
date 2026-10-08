@@ -9,6 +9,22 @@ Values marked "at max rank, level 20" assume every ability is maxed; see PLAN.md
 |---|--:|--:|--:|--:|--:|--:|--:|--:|--:|--:|
 | Blitzcrank | 2743.5 | 22.25 | 1053.6 Mana | 130.8 | 0.764 | 0.353 | 129.4 | 72.3 | 125 | 325 |
 
+## Fight profile (what the interaction ledger uses)
+
+| Form | Attack range | Ranged | Projectile | Missile speed | Attack modifiers |
+|---|--:|---|---|--:|---|
+| Blitzcrank | 125 | no | no | – | – |
+
+Cooldowns at max rank. Flags: the wiki's interaction flags (yes, no, partly). * marks an effect that applies only under a condition.
+
+| Slot | Ability | Cooldown | Delivery | Applies to the enemy | Movement | Gives itself |
+|---|---|--:|---|---|---|---|
+| E | Power Fist | 5 | spell shield yes; parry yes; attack | airborne (knock up) 1 s | – | – |
+| I | Mana Barrier | 90 | – | – | – | shield 10 s |
+| Q | Rocket Grab | 16 | projectile yes; spell shield yes | airborne (pull) 0.65 s; stun 0.65 s | – | – |
+| R | Static Field | 20 | spell shield yes; parry partly; on-hit | silence 0.5 s | – | shield 0.5 s |
+| W | Overdrive | 15 | parry yes | – | – | – |
+
 ## Innate: Mana Barrier
 
 Source: [Template:Data Blitzcrank/Mana Barrier](https://wiki.leagueoflegends.com/en-us/Template:Data_Blitzcrank/Mana_Barrier?oldid=3908089) (revision 3908089). Ranks: 1.

@@ -1,0 +1,306 @@
+{
+  "champion": "Sejuani",
+  "name": "Sejuani",
+  "gameplayRadius": 80,
+  "moveSpeed": 340,
+  "attacks": [
+    {
+      "form": "sejuani",
+      "formName": "Sejuani",
+      "range": 150,
+      "ranged": false,
+      "projectile": false,
+      "attackSpeed": 1.11817,
+      "attackDamage": 144.66,
+      "windup": 0.167684,
+      "modifiers": [
+        "Fury of the North"
+      ]
+    }
+  ],
+  "abilities": [
+    {
+      "champion": "Sejuani",
+      "kind": "E",
+      "name": "Permafrost",
+      "page": {
+        "title": "Template:Data Sejuani/Permafrost",
+        "revid": 4061739
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "unit"
+        ],
+        "affectsEnemies": true,
+        "projectile": "yes",
+        "spellShield": "yes",
+        "attack": "on-hit"
+      },
+      "applies": [
+        {
+          "type": "airborne",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "airborne: knock back; Does not apply airborne debuff"
+            }
+          ],
+          "variant": "knock back"
+        },
+        {
+          "type": "stun",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "stun"
+            },
+            {
+              "page": "Template:Data Sejuani/Permafrost",
+              "revid": 4061739,
+              "quote": "Active: Sejuani hurls a trap at the visible enemy with 4 stacks of Frost closest to the cursor, which deals magic damage, displaces them slightly, and stuns them for 1 second."
+            }
+          ],
+          "duration": 1
+        }
+      ],
+      "movement": [],
+      "states": [],
+      "cooldown": 1.5,
+      "castTime": 0.25,
+      "range": 600,
+      "boostsAttacks": true,
+      "notes": [
+        "Frost stacks will not be applied if the basic attack is blocked.",
+        ": Permafrost's stack application interaction with parrying effects (dodge, blind).",
+        "If the target becomes untargetable, dies, or is too far away or no longer in sight during the cast time, this ability will cancel but still go on cooldown and pay its cost."
+      ]
+    },
+    {
+      "champion": "Sejuani",
+      "kind": "I",
+      "name": "Fury of the North",
+      "page": {
+        "title": "Template:Data Sejuani/Fury of the North",
+        "revid": 3985822
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "passive"
+        ],
+        "affectsEnemies": true,
+        "attack": "attack modifier"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [
+        {
+          "state": "slow immune",
+          "evidence": [
+            {
+              "page": "Template:Tip data/Slow-immune",
+              "revid": 4060627
+            },
+            {
+              "page": "Template:Data Sejuani/Fury of the North",
+              "revid": 3985822,
+              "quote": "Frost Armor: Sejuani gains slow immunity, cripple immunity, 10 (+ 75% bonus armor) bonus armor, and 10 (+ 75% bonus magic resistance) bonus magic resistance."
+            },
+            {
+              "page": "Template:Data Sejuani/Fury of the North",
+              "revid": 3985822,
+              "quote": "Frost Armor: Sejuani gains slow immunity, cripple immunity, 10 (+ 75% bonus armor) bonus armor, and 10 (+ 75% bonus magic resistance) bonus magic resistance."
+            }
+          ]
+        }
+      ],
+      "notes": [
+        "Icebreaker will not trigger if the basic attack is blocked or misses due to blind.",
+        ": Icebreaker's interactions with dodging effects via basic attack.",
+        ": Spell shield interaction with Icebreaker."
+      ]
+    },
+    {
+      "champion": "Sejuani",
+      "kind": "Q",
+      "name": "Arctic Assault",
+      "page": {
+        "title": "Template:Data Sejuani/Arctic Assault",
+        "revid": 4007753
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "location"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "yes",
+        "grounded": "yes",
+        "knockdown": "yes"
+      },
+      "applies": [
+        {
+          "type": "airborne",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "airborne: knock up"
+            },
+            {
+              "page": "Template:Data Sejuani/Arctic Assault",
+              "revid": 4007753,
+              "quote": "Active: Bristle dashes to the target location until he collides with an enemy champion, dealing magic damage to enemies he passes through and knocking them up for 0.5 seconds."
+            }
+          ],
+          "variant": "knock up",
+          "duration": 0.5
+        }
+      ],
+      "movement": [
+        {
+          "type": "dash",
+          "evidence": [
+            {
+              "page": "Dash",
+              "revid": 4035700,
+              "quote": "location-targeted"
+            }
+          ],
+          "targeting": "location-targeted",
+          "interruptible": true
+        }
+      ],
+      "states": [],
+      "cooldown": 12,
+      "castTime": 0,
+      "range": 650,
+      "speed": 1000,
+      "notes": [
+        "Arctic Assault has no minimum dash range.",
+        "Casting Flash during Arctic Assault will end the dash and affect enemies at the new location.",
+        "If the dash collides with an enemy champion, Sejuani will be ordered to basic attack them."
+      ]
+    },
+    {
+      "champion": "Sejuani",
+      "kind": "R",
+      "name": "Glacial Prison",
+      "page": {
+        "title": "Template:Data Sejuani/Glacial Prison",
+        "revid": 4008031
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "direction"
+        ],
+        "affectsEnemies": true,
+        "projectile": "yes",
+        "spellShield": "partly"
+      },
+      "applies": [
+        {
+          "type": "slow",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "slow"
+            },
+            {
+              "page": "Template:Data Sejuani/Glacial Prison",
+              "revid": 4008031,
+              "quote": "For the same duration, a frost storm is created around the location of the detonation that slows enemies within by 30% and grants sight of the area in a smaller radius."
+            }
+          ],
+          "amount": 30
+        },
+        {
+          "type": "stun",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "stun"
+            },
+            {
+              "page": "Template:Data Sejuani/Glacial Prison",
+              "revid": 4008031,
+              "quote": "Active: Sejuani throws an ice bola in the target direction that stops upon hitting an enemy champion, dealing magic damage and stunning them for 1 second."
+            }
+          ],
+          "duration": 1
+        }
+      ],
+      "movement": [],
+      "states": [],
+      "cooldown": 90,
+      "castTime": 0.25,
+      "range": 1300,
+      "speed": 1600,
+      "notes": [
+        "Spell shields will block only a single instance of damage.",
+        "Both areas of effect will be centered on the first champion struck, not at the location the missile collided with them."
+      ]
+    },
+    {
+      "champion": "Sejuani",
+      "kind": "W",
+      "name": "Winter's Wrath",
+      "page": {
+        "title": "Template:Data Sejuani/Winter's Wrath",
+        "revid": 3971350
+      },
+      "damageTypes": [
+        "physical"
+      ],
+      "delivery": {
+        "targeting": [
+          "direction"
+        ],
+        "affectsEnemies": true,
+        "projectile": "no",
+        "spellShield": "partly"
+      },
+      "applies": [
+        {
+          "type": "slow",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "slow"
+            },
+            {
+              "page": "Template:Data Sejuani/Winter's Wrath",
+              "revid": 3971350,
+              "quote": "After the cast time, Sejuani lashes out with her flail in a line in the same direction, dealing physical damage to enemies hit and slowing them by 75% for 0.25 seconds."
+            }
+          ],
+          "duration": 0.25,
+          "amount": 75
+        }
+      ],
+      "movement": [],
+      "states": [],
+      "cooldown": 5,
+      "castTime": 1,
+      "range": 600,
+      "notes": [
+        "Spell shields will block only a single instance of damage - either the swing or the lash."
+      ]
+    }
+  ]
+}

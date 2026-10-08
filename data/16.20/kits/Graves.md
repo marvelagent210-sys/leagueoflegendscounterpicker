@@ -9,6 +9,22 @@ Values marked "at max rank, level 20" assume every ability is maxed; see PLAN.md
 |---|--:|--:|--:|--:|--:|--:|--:|--:|--:|--:|
 | Graves | 2709.5 | 21.77 | 1111.6 Mana | 144.7 | 0.764 | 0.010 | 123.5 | 54.6 | 425 | 340 |
 
+## Fight profile (what the interaction ledger uses)
+
+| Form | Attack range | Ranged | Projectile | Missile speed | Attack modifiers |
+|---|--:|---|---|--:|---|
+| Graves | 425 | yes | yes | 3800 | New Destiny |
+
+Cooldowns at max rank. Flags: the wiki's interaction flags (yes, no, partly). * marks an effect that applies only under a condition.
+
+| Slot | Ability | Cooldown | Delivery | Applies to the enemy | Movement | Gives itself |
+|---|---|--:|---|---|---|---|
+| E | Quickdraw | 12 | grounded yes; knockdown yes | – | dash | – |
+| I | New Destiny | – | projectile yes; spell shield no; parry partly; attack modifier | – | – | heal |
+| Q | End of the Line | 6 | projectile partly; spell shield partly | – | – | – |
+| R | Collateral Damage | 60 | projectile yes; spell shield partly; grounded partly; knockdown yes | – | dash (reverse-targeted) | – |
+| W | Smoke Screen | 18 | projectile yes; spell shield partly | nearsight; slow 0.5 s 50% | – | – |
+
 ## Innate: New Destiny
 
 Source: [Template:Data Graves/New Destiny](https://wiki.leagueoflegends.com/en-us/Template:Data_Graves/New_Destiny?oldid=4038342) (revision 4038342). Ranks: 1.

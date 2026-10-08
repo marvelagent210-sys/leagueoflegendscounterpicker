@@ -1,0 +1,339 @@
+{
+  "champion": "TahmKench",
+  "name": "Tahm Kench",
+  "gameplayRadius": 80,
+  "moveSpeed": 335,
+  "attacks": [
+    {
+      "form": "tahm-kench",
+      "formName": "Tahm Kench",
+      "range": 175,
+      "ranged": false,
+      "projectile": false,
+      "attackSpeed": 0.981489,
+      "attackDamage": 118.928,
+      "windup": 0.254883,
+      "modifiers": [
+        "An Acquired Taste"
+      ]
+    }
+  ],
+  "abilities": [
+    {
+      "champion": "TahmKench",
+      "kind": "E",
+      "name": "Thick Skin",
+      "page": {
+        "title": "Template:Data Tahm Kench/Thick Skin",
+        "revid": 4021898
+      },
+      "damageTypes": [],
+      "delivery": {
+        "targeting": [
+          "auto"
+        ],
+        "affectsEnemies": false
+      },
+      "applies": [],
+      "movement": [],
+      "states": [
+        {
+          "state": "heal",
+          "evidence": [
+            {
+              "page": "Template:Data Tahm Kench/Thick Skin",
+              "revid": 4021898,
+              "quote": "While Thick Skin is not on cooldown, and after 4 seconds without taking damage, Tahm Kench rapidly consumes his grey health to restore 60 – 100 (based on level)% of the amount, healing for 10% of his maximum health every 0.264."
+            }
+          ]
+        },
+        {
+          "state": "shield",
+          "evidence": [
+            {
+              "page": "Template:Data Tahm Kench/Thick Skin",
+              "revid": 4021898,
+              "quote": "Active: Tahm Kench converts his current grey health into a shield that lasts for 2.5 seconds."
+            }
+          ],
+          "duration": 2.5
+        }
+      ],
+      "cooldown": 3,
+      "castTime": 0.25
+    },
+    {
+      "champion": "TahmKench",
+      "kind": "I",
+      "name": "An Acquired Taste",
+      "page": {
+        "title": "Template:Data Tahm Kench/An Acquired Taste",
+        "revid": 4008458
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "passive"
+        ],
+        "affectsEnemies": false,
+        "parry": "yes",
+        "attack": "attack modifier"
+      },
+      "applies": [],
+      "movement": [],
+      "states": []
+    },
+    {
+      "champion": "TahmKench",
+      "kind": "Q",
+      "name": "Tongue Lash",
+      "page": {
+        "title": "Template:Data Tahm Kench/Tongue Lash",
+        "revid": 4078270
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "direction"
+        ],
+        "affectsEnemies": true,
+        "projectile": "yes",
+        "spellShield": "yes"
+      },
+      "applies": [
+        {
+          "type": "slow",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "slow"
+            },
+            {
+              "page": "Template:Data Tahm Kench/Tongue Lash",
+              "revid": 4078270,
+              "quote": "Active: Tahm Kench lashes his tongue in the target direction that deals magic damage to the first enemy hit and slows them by 50% for 2 seconds."
+            }
+          ],
+          "duration": 2,
+          "amount": 50
+        },
+        {
+          "type": "stun",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "stun"
+            },
+            {
+              "page": "Template:Data Tahm Kench/Tongue Lash",
+              "revid": 4078270,
+              "quote": "An Acquired Taste Bonus: The target is stunned for 1.5 seconds."
+            }
+          ],
+          "duration": 1.5
+        }
+      ],
+      "movement": [],
+      "states": [
+        {
+          "state": "heal",
+          "evidence": [
+            {
+              "page": "Template:Data Tahm Kench/Tongue Lash",
+              "revid": 4078270,
+              "quote": "If this hits an enemy champion, Tahm Kench also heals himself."
+            }
+          ]
+        }
+      ],
+      "cooldown": 5,
+      "castTime": 0.25,
+      "range": 900,
+      "speed": 2800,
+      "notes": [
+        "Tongue Lash's range and speed scale 1:1 alongside any size modifiers to Tahm Kench, but will not be reduced below their base values if his overall size modifier is smaller than 100%.\n  - As the missile range and speed scale simultaneously, Tongue Lash will always take 0.33 to reach its maximum range (no matter the cast range).\n  - Because of this, increasing Tahm Kench's size with items such as Elixir of Iron allows him to hit targets at even the same distance more quickly and giving them less time to dodge."
+      ]
+    },
+    {
+      "champion": "TahmKench",
+      "kind": "R",
+      "name": "Devour",
+      "page": {
+        "title": "Template:Data Tahm Kench/Devour",
+        "revid": 4063964
+      },
+      "damageTypes": [],
+      "delivery": {
+        "targeting": [
+          "unit"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "yes"
+      },
+      "applies": [
+        {
+          "type": "suppression",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "suppression"
+            },
+            {
+              "page": "Template:Data Tahm Kench/Devour",
+              "revid": 4063964,
+              "quote": "An Acquired Taste Bonus: The target is suppressed during Devour's cast time and while attached."
+            }
+          ]
+        }
+      ],
+      "movement": [],
+      "states": [],
+      "cooldown": 80,
+      "castTime": 0.25,
+      "range": 250,
+      "notes": [
+        "Devour's initial pull is a non-airborne displacement that displaces the target toward Tahm Kench over the ability's cast time.\n  - This is also the same displacement that is used for when Devour is cast with Tongue Lash, though with a greater pull distance as well as faster pull speed to account for Devour's short cast time.\n  - The target will blink to Tahm Kench's location at the end of this displacement, including if it is interrupted.",
+        "The untargetability and displacement immunity is granted to the target during Devour's cast time as well.",
+        "Against enemies, Devour's pull from abducting the target depends on the application of the suppression; if the suppression is not applied, neither is the pull. Similarly, if the suppression is removed, the displacement from the pull plus the untargetability and displacement immunity are instantly stopped.\n  - The attachment also depends upon the occurrence of the pull; if the target is not pulled, they are not attached to Tahm Kench and the swallow fails, cancelling the ability entirely.\n  - If the target resists the suppression by being immune to crowd control, displacement immune, or having a spell shield, Tahm Kench will not pull the target towards him.\n  - If the suppression was removed while the target is attached to Tahm Kench (in other words, inside of his belly), the target will detach themselves from him instantly without Tahm Kench performing Regurgitate.",
+        "Devour cannot be used on allies that are channeling or using an ability that preloads UnstoppableForceMarker.",
+        "Devour's self ground can be cleansed by R."
+      ]
+    },
+    {
+      "champion": "TahmKench",
+      "kind": "R",
+      "name": "Regurgitate",
+      "page": {
+        "title": "Template:Data Tahm Kench/Regurgitate",
+        "revid": 4013502
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "direction"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "no"
+      },
+      "applies": [
+        {
+          "type": "airborne",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "airborne: knock back"
+            },
+            {
+              "page": "Template:Data Tahm Kench/Regurgitate",
+              "revid": 4013502,
+              "quote": "Active: Tahm Kench detaches the swallowed champion from himself and spits them out in the target direction."
+            }
+          ],
+          "variant": "knock back"
+        }
+      ],
+      "movement": [],
+      "states": [],
+      "notes": [
+        "The displacement from spitting the target out also uniquely counts as the enemy's dash."
+      ]
+    },
+    {
+      "champion": "TahmKench",
+      "kind": "W",
+      "name": "Abyssal Dive",
+      "page": {
+        "title": "Template:Data Tahm Kench/Abyssal Dive",
+        "revid": 4020963
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "location"
+        ],
+        "affectsEnemies": false,
+        "spellShield": "yes",
+        "grounded": "yes",
+        "disruptable": "yes"
+      },
+      "applies": [
+        {
+          "type": "airborne",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "airborne: knock up"
+            },
+            {
+              "page": "Template:Data Tahm Kench/Abyssal Dive",
+              "revid": 4020963,
+              "quote": "Upon completion of the channel, Tahm Kench blinks to the target location after a 0.15-second delay, dealing magic damage to nearby enemies and knocking them up and stunning them for 1 second."
+            }
+          ],
+          "variant": "knock up",
+          "duration": 1
+        },
+        {
+          "type": "stun",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "stun"
+            },
+            {
+              "page": "Template:Data Tahm Kench/Abyssal Dive",
+              "revid": 4020963,
+              "quote": "Upon completion of the channel, Tahm Kench blinks to the target location after a 0.15-second delay, dealing magic damage to nearby enemies and knocking them up and stunning them for 1 second."
+            }
+          ],
+          "duration": 1
+        }
+      ],
+      "movement": [
+        {
+          "type": "blink",
+          "evidence": [
+            {
+              "page": "Blink",
+              "revid": 4047228
+            }
+          ]
+        }
+      ],
+      "states": [],
+      "cooldown": 17,
+      "castTime": 0,
+      "range": 1200,
+      "channel": [
+        {
+          "type": "movement",
+          "evidence": [
+            {
+              "page": "Channel",
+              "revid": 4002276,
+              "quote": "movement"
+            }
+          ]
+        }
+      ],
+      "notes": [
+        "Tahm Kench is vanished (but does not become untargetable) during the 0.15 seconds delay.",
+        "The following table refers for interactions while Tahm Kench is channeling:"
+      ]
+    }
+  ]
+}

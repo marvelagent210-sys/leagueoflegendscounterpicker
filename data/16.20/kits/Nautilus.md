@@ -9,6 +9,22 @@ Values marked "at max rank, level 20" assume every ability is maxed; see PLAN.md
 |---|--:|--:|--:|--:|--:|--:|--:|--:|--:|--:|
 | Nautilus | 2612.5 | 19.32 | 1324.3 Mana | 122.9 | 0.826 | 0.371 | 136.3 | 72.3 | 175 | 325 |
 
+## Fight profile (what the interaction ledger uses)
+
+| Form | Attack range | Ranged | Projectile | Missile speed | Attack modifiers |
+|---|--:|---|---|--:|---|
+| Nautilus | 175 | no | no | – | Staggering Blow |
+
+Cooldowns at max rank. Flags: the wiki's interaction flags (yes, no, partly). * marks an effect that applies only under a condition.
+
+| Slot | Ability | Cooldown | Delivery | Applies to the enemy | Movement | Gives itself |
+|---|---|--:|---|---|---|---|
+| E | Riptide | 5 | spell shield yes | slow 1.5 s 50% | – | – |
+| I | Staggering Blow | – | spell shield partly; parry yes; attack modifier | root 1.5 s | – | – |
+| Q | Dredge Line | 10 | projectile yes; spell shield partly; grounded yes; knockdown yes | airborne (pull) 0.9 s*; stun 1 s* | dash (when hitting a unit); dash | – |
+| R | Depth Charge | 80 | projectile no; spell shield yes | airborne (knock up) 1 s; stun 1 s | – | – |
+| W | Titan's Wrath | 12 | spell shield partly; parry partly | – | – | shield 6 s |
+
 ## Innate: Staggering Blow
 
 Source: [Template:Data Nautilus/Staggering Blow](https://wiki.leagueoflegends.com/en-us/Template:Data_Nautilus/Staggering_Blow?oldid=4072880) (revision 4072880). Ranks: 1.

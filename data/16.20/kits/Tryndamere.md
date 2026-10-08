@@ -9,6 +9,22 @@ Values marked "at max rank, level 20" assume every ability is maxed; see PLAN.md
 |---|--:|--:|--:|--:|--:|--:|--:|--:|--:|--:|
 | Tryndamere | 2819.8 | 26.20 | 100.0 Fury | 154.5 | 1.155 | 0.165 | 127.4 | 72.3 | 175 | 345 |
 
+## Fight profile (what the interaction ledger uses)
+
+| Form | Attack range | Ranged | Projectile | Missile speed | Attack modifiers |
+|---|--:|---|---|--:|---|
+| Tryndamere | 175 | no | no | – | Battle Fury |
+
+Cooldowns at max rank. Flags: the wiki's interaction flags (yes, no, partly). * marks an effect that applies only under a condition.
+
+| Slot | Ability | Cooldown | Delivery | Applies to the enemy | Movement | Gives itself |
+|---|---|--:|---|---|---|---|
+| E | Spinning Slash | 8 | spell shield yes; grounded yes; knockdown yes; on-hit | – | dash | – |
+| I | Battle Fury | – | parry partly; attack modifier | – | – | – |
+| Q | Bloodlust | 12 | – | – | – | heal |
+| R | Undying Rage | 80 | – | – | – | minimum health 5 s |
+| W | Mocking Shout | 14 | spell shield yes | slow 50% | – | – |
+
 ## Innate: Battle Fury
 
 Source: [Template:Data Tryndamere/Battle Fury](https://wiki.leagueoflegends.com/en-us/Template:Data_Tryndamere/Battle_Fury?oldid=4041166) (revision 4041166). Ranks: 1.

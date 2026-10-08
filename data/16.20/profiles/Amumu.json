@@ -1,0 +1,236 @@
+{
+  "champion": "Amumu",
+  "name": "Amumu",
+  "gameplayRadius": 55,
+  "moveSpeed": 335,
+  "attacks": [
+    {
+      "form": "amumu",
+      "formName": "Amumu",
+      "range": 125,
+      "ranged": false,
+      "projectile": false,
+      "attackSpeed": 1.00951,
+      "attackDamage": 131.727,
+      "windup": 0.231641,
+      "modifiers": [
+        "Cursed Touch"
+      ]
+    }
+  ],
+  "abilities": [
+    {
+      "champion": "Amumu",
+      "kind": "E",
+      "name": "Tantrum",
+      "page": {
+        "title": "Template:Data Amumu/Tantrum",
+        "revid": 3996197
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "auto"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "yes",
+        "attack": "on-hit"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "cooldown": 5,
+      "castTime": 0.25,
+      "notes": [
+        "A basic attack's basic damage and each on-hit effect are all separate damage instances, and may be reduced each if they deal physical damage.",
+        "Tantrum's cooldown reduction will trigger multiple times for effects such as Double Strike and Guinsoo's Rageblade Phantom Hit.\n  - The cooldown will be reduced, even if the incoming attack is blocked.\n  - The cooldown will not be reduced, if the incoming attack misses due to the enemy being blinded."
+      ]
+    },
+    {
+      "champion": "Amumu",
+      "kind": "I",
+      "name": "Cursed Touch",
+      "page": {
+        "title": "Template:Data Amumu/Cursed Touch",
+        "revid": 4046475
+      },
+      "damageTypes": [
+        "true"
+      ],
+      "delivery": {
+        "targeting": [
+          "passive"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "partly",
+        "parry": "yes",
+        "attack": "attack modifier"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "notes": [
+        "If the triggering basic attack from Amumu applies magic damage on-hit, Curse will be applied before the magic damage.",
+        "The application of Curse on Curse of the Sad Mummy is negated if the ability is blocked by a spell shield."
+      ]
+    },
+    {
+      "champion": "Amumu",
+      "kind": "Q",
+      "name": "Bandage Toss",
+      "page": {
+        "title": "Template:Data Amumu/Bandage Toss",
+        "revid": 4007564
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "direction"
+        ],
+        "affectsEnemies": true,
+        "projectile": "yes",
+        "spellShield": "partly",
+        "grounded": "yes",
+        "knockdown": "yes"
+      },
+      "applies": [
+        {
+          "type": "stun",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "stun"
+            },
+            {
+              "page": "Template:Data Amumu/Bandage Toss",
+              "revid": 4007564,
+              "quote": "Active: Amumu throws a bandage in the target direction that deals magic damage to the first enemy hit, stunning them for 1 second and pulling him to them, during which they are revealed."
+            }
+          ],
+          "duration": 1
+        }
+      ],
+      "movement": [
+        {
+          "type": "dash",
+          "evidence": [
+            {
+              "page": "Dash",
+              "revid": 4035700,
+              "quote": "auto-targeted; (when hitting a unit)"
+            }
+          ],
+          "targeting": "auto-targeted",
+          "condition": "(when hitting a unit)",
+          "interruptible": true
+        }
+      ],
+      "states": [],
+      "cooldown": 12,
+      "castTime": 0.25,
+      "range": 1100,
+      "speed": 2000,
+      "notes": [
+        "Amumu will track the target if they change locations.\n  - He will dash to the target's previous location if the target is 2000 or more units away or moves beyond 2000 units.",
+        "Immobilizing effects will not prevent Amumu from commencing the dash.",
+        "Amumu is still able to dash even if Bandage Toss is blocked by spell shield.",
+        "Amumu will be ordered to basic attack the target upon completion of the dash."
+      ]
+    },
+    {
+      "champion": "Amumu",
+      "kind": "R",
+      "name": "Curse of the Sad Mummy",
+      "page": {
+        "title": "Template:Data Amumu/Curse of the Sad Mummy",
+        "revid": 3953818
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "auto"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "yes"
+      },
+      "applies": [
+        {
+          "type": "knockdown",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "knockdown"
+            },
+            {
+              "page": "Template:Data Amumu/Curse of the Sad Mummy",
+              "revid": 3953818,
+              "quote": "Active: Amumu entangles nearby enemies in bandages, dealing magic damage as well as knocking them down and stunning them for 1.5 seconds."
+            }
+          ],
+          "duration": 1.5
+        },
+        {
+          "type": "stun",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "stun"
+            },
+            {
+              "page": "Template:Data Amumu/Curse of the Sad Mummy",
+              "revid": 3953818,
+              "quote": "Active: Amumu entangles nearby enemies in bandages, dealing magic damage as well as knocking them down and stunning them for 1.5 seconds."
+            }
+          ],
+          "duration": 1.5
+        },
+        {
+          "type": "knockdown",
+          "evidence": [
+            {
+              "page": "Dash",
+              "revid": 4035700
+            }
+          ]
+        }
+      ],
+      "movement": [],
+      "states": [],
+      "cooldown": 100,
+      "castTime": 0.25
+    },
+    {
+      "champion": "Amumu",
+      "kind": "W",
+      "name": "Despair",
+      "page": {
+        "title": "Template:Data Amumu/Despair",
+        "revid": 4006735
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "auto"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "no"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "cooldown": 1,
+      "castTime": 0
+    }
+  ]
+}

@@ -9,6 +9,22 @@ Values marked "at max rank, level 20" assume every ability is maxed; see PLAN.md
 |---|--:|--:|--:|--:|--:|--:|--:|--:|--:|--:|
 | Cassiopeia | 2537.2 | 15.33 | 1236.6 Mana | 112.0 | 0.838 | 0.229 | 110.4 | 57.6 | 550 | 335 |
 
+## Fight profile (what the interaction ledger uses)
+
+| Form | Attack range | Ranged | Projectile | Missile speed | Attack modifiers |
+|---|--:|---|---|--:|---|
+| Cassiopeia | 550 | yes | yes | 1500 | – |
+
+Cooldowns at max rank. Flags: the wiki's interaction flags (yes, no, partly). * marks an effect that applies only under a condition.
+
+| Slot | Ability | Cooldown | Delivery | Applies to the enemy | Movement | Gives itself |
+|---|---|--:|---|---|---|---|
+| E | Twin Fang | 0.75 | projectile yes; spell shield yes | – | – | heal |
+| I | Serpentine Grace | – | – | – | – | – |
+| Q | Noxious Blast | 3.5 | spell shield yes | – | – | – |
+| R | Petrifying Gaze | 80 | projectile no; spell shield yes | slow 2 s 40%; stun 2 s | – | – |
+| W | Miasma | 16 | projectile yes; spell shield no | ground; slow 80% | – | – |
+
 ## Innate: Serpentine Grace
 
 Source: [Template:Data Cassiopeia/Serpentine Grace](https://wiki.leagueoflegends.com/en-us/Template:Data_Cassiopeia/Serpentine_Grace?oldid=4060357) (revision 4060357). Ranks: 1.

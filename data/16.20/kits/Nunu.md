@@ -9,6 +9,22 @@ Values marked "at max rank, level 20" assume every ability is maxed; see PLAN.md
 |---|--:|--:|--:|--:|--:|--:|--:|--:|--:|--:|
 | Nunu & Willump | 2379.9 | 20.73 | 1105.9 Mana | 120.0 | 0.902 | 0.215 | 111.6 | 72.3 | 125 | 345 |
 
+## Fight profile (what the interaction ledger uses)
+
+| Form | Attack range | Ranged | Projectile | Missile speed | Attack modifiers |
+|---|--:|---|---|--:|---|
+| Nunu & Willump | 125 | no | no | – | – |
+
+Cooldowns at max rank. Flags: the wiki's interaction flags (yes, no, partly). * marks an effect that applies only under a condition.
+
+| Slot | Ability | Cooldown | Delivery | Applies to the enemy | Movement | Gives itself |
+|---|---|--:|---|---|---|---|
+| E | Snowball Barrage | 10 | projectile yes; spell shield yes | slow 1 s 50%; root 1.61765 s | – | – |
+| I | Call of the Freljord | – | – | – | – | – |
+| Q | Consume | 9 | spell shield yes | – | – | heal |
+| R | Absolute Zero | 90 | spell shield yes; disruptable yes | slow 0% | – | shield 3 s |
+| W | Biggest Snowball Ever! | 14 | projectile partly; spell shield yes; grounded yes; disruptable yes | airborne (knock up) 0.5 s; stun 0 s | – | slow immune 10 s; cleanse (1 CC types) |
+
 ## Innate: Call of the Freljord
 
 Source: [Template:Data Nunu/Call of the Freljord](https://wiki.leagueoflegends.com/en-us/Template:Data_Nunu/Call_of_the_Freljord?oldid=4013400) (revision 4013400). Ranks: 1.
@@ -35,21 +51,6 @@ Notes:
 - The splash damage will critically strike when the basic attack does, but will not deal any bonus damage.
 - Call of the Freljord's maximum remaining duration is 44 seconds.
     - The buff has no cap for its maximum total duration.
-
-## Innate: Visionary
-
-Source: [Template:Data Nunu/Visionary](https://wiki.leagueoflegends.com/en-us/Template:Data_Nunu/Visionary?oldid=2673553) (revision 2673553). Ranks: 1.
-
-Targeting: Passive · Affects: Self · Damage type: – · Spell shield blocks it: – · Projectile: – · Parry: – · Disabled by grounded: – · Usable while knocked down: –
-
-Nunu's basic attack grants 1 stack of Visionary. At 5 Visionary stacks, Nunu's next ability has no mana cost and is improved by 1 rank.
-
-Nunu starts the game with 5 Visionary stacks, also granted upon recalling or upon respawning.
-
-Notes:
-
-- Nunu can use the ability even if he doesn't have the required mana to do so. The mana cost of an ability cast with Visionary is reduced to 0.
-- Ability casted will not activate Eternity and Mana Charge item effect due to no mana expenditure.
 
 ## Q: Consume
 
@@ -146,56 +147,6 @@ Notes:
 - Biggest Snowball Ever! is disabled for the first 15 seconds of the game.
 - Displacement immunity will not resist the application of the stun.
 - The following table refers for interactions while Nunu & Willump are channeling:
-
-## W: Blood Boil
-
-Source: [Template:Data Nunu/Blood Boil](https://wiki.leagueoflegends.com/en-us/Template:Data_Nunu/Blood_Boil?oldid=2705792) (revision 2705792). Ranks: 5.
-
-| Field | Value |
-|---|---|
-| Cooldown | 15 |
-| Cost | 50 mana |
-| Target range | 700 |
-| Effect radius | 700 |
-
-Targeting: Unit · Affects: Self, Allies · Damage type: – · Spell shield blocks it: – · Projectile: – · Parry: – · Disabled by grounded: – · Usable while knocked down: –
-
-Active: The heat of Nunu and target allied unit's blood rises, granting bonus attack speed, bonus movement speed and 20% (+ 5% per 100 AP of Nunu's AP) bonus ability power, up to a cap, for 12 seconds.
-
-- **Bonus Attack Speed:** 20 / 24 / 28 / 32 / 36 / 40% (+ 5% per 100 AP) → at max rank, level 20: 36% (+ 5% per100:AP)
-- **Bonus Movement Speed:** 8 / 9 / 10 / 11 / 12 / 13% → at max rank, level 20: 12%
-- **Maximum Ability Power:** 40 / 60 / 80 / 100 / 120 / 140 → at max rank, level 20: 120
-
-If Nunu targets himself, Blood Boil also affects the nearest allied champion in range.
-
-Notes:
-
-- With Rabadon's Deathcap the flat AP increases by a total of 118.4% (56% + 62.4%). The 56% is still capped to the same amount.
-- The AP gained is calculated on cast and remains static for the full duration.
-- The maximum AP is reached when the target has at least 200 / 300 / 400 / 500 / 600 / 700 ability power.
-- Blood Boil can also be used on non-champion units such as minions and pets.
-
-## E: Ice Blast
-
-Source: [Template:Data Nunu/Ice Blast](https://wiki.leagueoflegends.com/en-us/Template:Data_Nunu/Ice_Blast?oldid=2705819) (revision 2705819). Ranks: 5.
-
-| Field | Value |
-|---|---|
-| Cooldown | 6 / 5.5 / 5 / 4.5 / 4 |
-| Cost | 70 / 75 / 80 / 85 / 90 mana |
-| Target range | 550 |
-
-Targeting: Unit · Affects: Enemies · Damage type: Magic · Spell shield blocks it: true · Projectile: true · Parry: – · Disabled by grounded: – · Usable while knocked down: –
-
-Active: Nunu launches a ball of ice at the targeted enemy, dealing magic damage, crippling by 25%, and slowing for 2 seconds.
-
-- **Magic Damage:** 80 / 120 / 160 / 200 / 240 / 280 (+ 90% AP) → at max rank, level 20: 240 (+ 90% AP)
-- **Slow:** 40 / 45 / 50 / 55 / 60 / 65% → at max rank, level 20: 60%
-- **Mechanics:** cripple (2 s, 25%); slow (2 s, 60%)
-
-Notes:
-
-- No additional details.
 
 ## E: Snowball Barrage
 

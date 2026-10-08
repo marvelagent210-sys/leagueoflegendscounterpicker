@@ -9,6 +9,22 @@ Values marked "at max rank, level 20" assume every ability is maxed; see PLAN.md
 |---|--:|--:|--:|--:|--:|--:|--:|--:|--:|--:|
 | Annie | 2447.8 | 16.32 | 909.6 Mana | 102.1 | 0.777 | 0.252 | 101.7 | 55.6 | 625 | 335 |
 
+## Fight profile (what the interaction ledger uses)
+
+| Form | Attack range | Ranged | Projectile | Missile speed | Attack modifiers |
+|---|--:|---|---|--:|---|
+| Annie | 625 | yes | yes | 1500 | – |
+
+Cooldowns at max rank. Flags: the wiki's interaction flags (yes, no, partly). * marks an effect that applies only under a condition.
+
+| Slot | Ability | Cooldown | Delivery | Applies to the enemy | Movement | Gives itself |
+|---|---|--:|---|---|---|---|
+| E | Molten Shield | 10 | – | – | – | shield 3 s |
+| I | Pyromania | – | spell shield yes | stun 1.75 s | – | – |
+| Q | Disintegrate | 4 | projectile yes; spell shield yes | – | – | – |
+| R | Summon: Tibbers | 100 | spell shield yes | – | – | – |
+| W | Incinerate | 7 | projectile no; spell shield yes | – | – | – |
+
 ## Innate: Pyromania
 
 Source: [Template:Data Annie/Pyromania](https://wiki.leagueoflegends.com/en-us/Template:Data_Annie/Pyromania?oldid=3932255) (revision 3932255). Ranks: 1.

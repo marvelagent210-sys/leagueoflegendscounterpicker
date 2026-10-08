@@ -9,6 +9,22 @@ Values marked "at max rank, level 20" assume every ability is maxed; see PLAN.md
 |---|--:|--:|--:|--:|--:|--:|--:|--:|--:|--:|
 | Warwick | 2566.8 | 18.75 | 968.3 Mana | 114.2 | 0.889 | 0.197 | 119.5 | 72.3 | 125 | 335 |
 
+## Fight profile (what the interaction ledger uses)
+
+| Form | Attack range | Ranged | Projectile | Missile speed | Attack modifiers |
+|---|--:|---|---|--:|---|
+| Warwick | 125 | no | no | – | – |
+
+Cooldowns at max rank. Flags: the wiki's interaction flags (yes, no, partly). * marks an effect that applies only under a condition.
+
+| Slot | Ability | Cooldown | Delivery | Applies to the enemy | Movement | Gives itself |
+|---|---|--:|---|---|---|---|
+| E | Primal Howl | 11 | spell shield yes | fear 1 s; slow 90% | – | – |
+| I | Eternal Hunger | – | spell shield no; parry yes; on-hit | – | – | heal |
+| Q | Jaws of the Beast | 6 | spell shield yes; parry yes; grounded partly; knockdown partly; disruptable yes; on-hit | – | dash (when held); lunge (before holding down the key) | heal; displacement immune |
+| R | Infinite Duress | 70 | spell shield partly; parry yes; grounded yes; knockdown no; disruptable yes; on-hit | knockdown 1.5 s; suppression; knockdown; reveal | dash (unstoppable) | cc immune; heal |
+| W | Blood Hunt | 40 | spell shield no | – | – | heal |
+
 ## Innate: Eternal Hunger
 
 Source: [Template:Data Warwick/Eternal Hunger](https://wiki.leagueoflegends.com/en-us/Template:Data_Warwick/Eternal_Hunger?oldid=4051829) (revision 4051829). Ranks: 1.
@@ -31,43 +47,6 @@ Notes:
     - Tentacles
     - W
 - Other units with modified health behaviour.
-
-## Innate: Eternal Thirst
-
-Source: [Template:Data Warwick/Eternal Thirst](https://wiki.leagueoflegends.com/en-us/Template:Data_Warwick/Eternal_Thirst?oldid=3166271) (revision 3166271). Ranks: 1.
-
-Targeting: Eternal Thirst is a passive ability that grants Warwick an on-hit effect. · Affects: – · Damage type: magic · Spell shield blocks it: – · Projectile: – · Parry: – · Disabled by grounded: – · Usable while knocked down: –
-
-Warwick's basic attacks deal 3 – 16 (based on level) bonus magic damage and heal him for the same amount, stacking up to 3 times per target, for a maximum of 9 – 48 (based on level), and persisting for 4 seconds.
-
-Notes:
-
-- The healing portion is independent from the damage one.
-    - The heal is always the same regardless of damage dealt to the target.
-- Disregarding bonus Attack Damage Eternal Thirst equates to ~5 / 10 / 15% and ~14 / 27 / 41% Life Steal (Levels 1 and 18 respectively)
-
-## Q: Hungering Strike
-
-Source: [Template:Data Warwick/Hungering Strike](https://wiki.leagueoflegends.com/en-us/Template:Data_Warwick/Hungering_Strike?oldid=3309712) (revision 3309712). Ranks: 5.
-
-| Field | Value |
-|---|---|
-| Cooldown | 10 / 9 / 8 / 7 / 6 |
-| Cost | 70 / 80 / 90 / 100 / 110 mana |
-| Range | 400 |
-
-Targeting: Hungering Strike is a single-target ability. · Affects: – · Damage type: magic · Spell shield blocks it: will block the damage. · Projectile: – · Parry: – · Disabled by grounded: – · Usable while knocked down: –
-
-Active: Warwick swipes at the target enemy, dealing magic damage and healing himself for 80% of the damage dealt.
-
-- **Minimum Magic Damage:** 75 / 125 / 175 / 225 / 275 → at max rank, level 20: 275
-- **Magic Damage To Champions:** 8 / 10 / 12 / 14 / 16% of target's maximum health → at max rank, level 20: 16% of targetMaxHealth
-
-Against enemy champions, Hungering Strike's base damage changes to a percentage of its target's maximum health if it's higher than the flat damage.
-
-Notes:
-
-- The equalizing point where Hungering Strike's flat damage is the percentage one is 938 / 1250 / 1458 / 1607 / 1719 (based on level) health.
 
 ## Q: Jaws of the Beast
 
@@ -175,55 +154,6 @@ Notes:
 - Blood Hunt will occur from wherever Warwick was at the start of the cast time.
 - Blood Hunt has an indicator that appears above the target(s) when they are being hunted. Some skins have a unique indicator.
 - Warwick Blood Hunt Mark.png
-
-## W: Hunter's Call
-
-Source: [Template:Data Warwick/Hunter's Call](https://wiki.leagueoflegends.com/en-us/Template:Data_Warwick/Hunter's_Call?oldid=3309713) (revision 3309713). Ranks: 5.
-
-| Field | Value |
-|---|---|
-| Cooldown | 24 / 22 / 20 / 18 / 16 |
-| Cost | 35 mana |
-| Range | 1250 |
-
-Targeting: Hunter's Call is a point blank area of effect ability. · Affects: – · Damage type: – · Spell shield blocks it: – · Projectile: – · Parry: – · Disabled by grounded: – · Usable while knocked down: –
-
-Active: For 6 seconds, Warwick gains bonus attack speed and grants half of that bonus to all nearby allies.
-
-- **Attack Speed:** 40 / 50 / 60 / 70 / 80% → at max rank, level 20: 80%
-- **Ally Attack Speed:** 20 / 25 / 30 / 35 / 40% → at max rank, level 20: 40%
-
-Notes:
-
-- Hunter's Call has no cast time and does not interrupt Warwick's previous orders.
-- Hunter's Call does not apply the bonus attack speed to allied minions.
-
-## E: Blood Scent
-
-Source: [Template:Data Warwick/Blood Scent](https://wiki.leagueoflegends.com/en-us/Template:Data_Warwick/Blood_Scent?oldid=3309711) (revision 3309711). Ranks: 5.
-
-| Field | Value |
-|---|---|
-| Cooldown | 4 |
-| Range | 1500 / 2300 / 3100 / 3900 / 4700 |
-
-Targeting: Blood Scent is a toggleable ability. · Affects: – · Damage type: – · Spell shield blocks it: – · Projectile: – · Parry: – · Disabled by grounded: – · Usable while knocked down: –
-
-Toggle: Warwick gains sight of all nearby enemy champions with less than 50% of their maximum health, also alerting them to his presence.
-
-- **Mechanics:** reveal
-
-While any enemies are revealed this way, Warwick gains bonus movement speed.
-
-- **Movement speed:** 20 / 25 / 30 / 35 / 40% → at max rank, level 20: 40%
-
-Notes:
-
-- Despite being toggleable and not a passive ability (Toxic Shot) Blood Scent has no associated cost.
-- Upon sensing enemies they will become visible to Warwick and his allies.
-    - Even if they are in fog of war or in brush.
-- Stealthed units will not be revealed even if sensed.
-    - Warwick will still gain the bonus movement speed but will not be able to see the stealthed unit.
 
 ## E: Primal Howl
 
@@ -339,8 +269,6 @@ game formula supplies 19-20; "confirmed"/"differs": the wiki defines 19-20 and t
 | Ability | Value | Outcome | Level 18 | Level 19 | Level 20 | Game formula |
 |---|---|---|--:|--:|--:|---|
 | Eternal Hunger | description: Innate: Warwick deals 6 – 55 (based on level) (+ 15% bonus AD) (+ 10% AP) bonus  | confirmed | 55 | 57.8824 | 60.7647 | WarwickP.OnHitDamage: linear 6 → 55 over levels 1-18, continues past 18 |
-| Eternal Thirst | description: Warwick's basic attacks deal 3 – 16 (based on level) bonus magic damage and heal | no match | 16 | – | – | – |
-| Eternal Thirst | description: Warwick's basic attacks deal 3 – 16 (based on level) bonus magic damage and heal | no match | 48 | – | – | – |
 
 All 1 level-based formulas in the game files (1 linked to wiki values above):
 

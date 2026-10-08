@@ -1,0 +1,209 @@
+{
+  "champion": "Xayah",
+  "name": "Xayah",
+  "gameplayRadius": 65,
+  "moveSpeed": 330,
+  "attacks": [
+    {
+      "form": "xayah",
+      "formName": "Xayah",
+      "range": 525,
+      "ranged": true,
+      "projectile": true,
+      "missileSpeed": 2500,
+      "attackSpeed": 1.16264,
+      "attackDamage": 128.828,
+      "windup": 0.152132,
+      "modifiers": [
+        "Clean Cuts"
+      ]
+    }
+  ],
+  "abilities": [
+    {
+      "champion": "Xayah",
+      "kind": "E",
+      "name": "Bladecaller",
+      "page": {
+        "title": "Template:Data Xayah/Bladecaller",
+        "revid": 4002073
+      },
+      "damageTypes": [
+        "physical"
+      ],
+      "delivery": {
+        "targeting": [
+          "auto"
+        ],
+        "affectsEnemies": true,
+        "projectile": "yes",
+        "spellShield": "partly"
+      },
+      "applies": [
+        {
+          "type": "root",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "root"
+            },
+            {
+              "page": "Template:Data Xayah/Bladecaller",
+              "revid": 4002073,
+              "quote": "A target hit by at least three Feathers is rooted for 1.25 seconds."
+            }
+          ],
+          "duration": 1.25
+        }
+      ],
+      "movement": [],
+      "states": [],
+      "cooldown": 8,
+      "castTime": 0,
+      "speed": 4000,
+      "boostsAttacks": true,
+      "notes": [
+        "Spell shield will only block a single instance of damage."
+      ]
+    },
+    {
+      "champion": "Xayah",
+      "kind": "I",
+      "name": "Clean Cuts",
+      "page": {
+        "title": "Template:Data Xayah/Clean Cuts",
+        "revid": 4070748
+      },
+      "damageTypes": [],
+      "delivery": {
+        "targeting": [
+          "passive"
+        ],
+        "affectsEnemies": true,
+        "projectile": "partly",
+        "spellShield": "no",
+        "parry": "partly",
+        "attack": "attack modifier"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "speed": 4000,
+      "notes": [
+        "Feathers will stop upon being intercepted by projectile-blocking effects.\n  - : Missile popping before and after striking the primary target.",
+        "After striking their target, the attack will proceed in a line in the same direction it was already flying.\n  - If the target is more than 1000 units from Xayah when the empowered attack hits them, the attack will not keep flying in a line and drop the Feather at their location immediately.\n  - Unlike similar effects, the homing and line trajectories use the same missile.",
+        "All her Feathers on the ground will be destroyed when Xayah dies, and while she is dead, missiles that are still in flight will not spawn new ones, either."
+      ]
+    },
+    {
+      "champion": "Xayah",
+      "kind": "Q",
+      "name": "Double Daggers",
+      "page": {
+        "title": "Template:Data Xayah/Double Daggers",
+        "revid": 4008615
+      },
+      "damageTypes": [
+        "physical"
+      ],
+      "delivery": {
+        "targeting": [
+          "direction"
+        ],
+        "affectsEnemies": true,
+        "projectile": "partly",
+        "spellShield": "partly"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "cooldown": 8,
+      "castTime": 0.25,
+      "range": 1100,
+      "notes": [
+        "The Feathers will stop upon being intercepted by projectile-blocking effects.",
+        "Spell shield will only block a single instance of damage."
+      ]
+    },
+    {
+      "champion": "Xayah",
+      "kind": "R",
+      "name": "Featherstorm",
+      "page": {
+        "title": "Template:Data Xayah/Featherstorm",
+        "revid": 4008617
+      },
+      "damageTypes": [
+        "physical"
+      ],
+      "delivery": {
+        "targeting": [
+          "direction"
+        ],
+        "affectsEnemies": true,
+        "projectile": "partly",
+        "spellShield": "yes"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [
+        {
+          "state": "untargetable",
+          "evidence": [
+            {
+              "page": "Untargetability",
+              "revid": 3965000
+            },
+            {
+              "page": "Template:Data Xayah/Featherstorm",
+              "revid": 4008617,
+              "quote": "Active: Xayah leaps into the air, becoming ghosted and untargetable for 1.5 seconds."
+            }
+          ],
+          "duration": 1.5
+        }
+      ],
+      "cooldown": 100,
+      "castTime": 0,
+      "notes": [
+        "The individual missiles have 1100 range but start slightly behind Xayah, reducing their total range."
+      ]
+    },
+    {
+      "champion": "Xayah",
+      "kind": "W",
+      "name": "Deadly Plumage",
+      "page": {
+        "title": "Template:Data Xayah/Deadly Plumage",
+        "revid": 4062257
+      },
+      "damageTypes": [
+        "physical"
+      ],
+      "delivery": {
+        "targeting": [
+          "auto"
+        ],
+        "affectsEnemies": false,
+        "projectile": "yes",
+        "attack": "on-hit"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "cooldown": 14,
+      "castTime": 0,
+      "speed": 3000,
+      "boostsAttacks": true,
+      "notes": [
+        "The additional missile is visually a smaller feather than the normal feather missiles that are fired by Xayah's basic attacks and does not technically count as a Feather for Clean Cuts.",
+        "Upon casting, missiles that are already in flight will also be empowered to apply the additional feather, but Xayah will not be granted the bonus movement speed from their hit.",
+        "Since the additional missile's damage is based on a percentage of the triggering attack's damage, it will also benefit from the increased damage of triggering attacks that critically strike.\n  - The additional missile itself however cannot critically strike.",
+        "Runaan's Hurricane Wind's Fury interacts with Deadly Plumage by causing the additional bolts to fire their own additional missile that deals a percentage of the triggering bolt's damage.",
+        "The additional missile is not fired if the triggering basic attack misses while Xayah is blinded.",
+        "Interactions with dodge and block."
+      ]
+    }
+  ]
+}

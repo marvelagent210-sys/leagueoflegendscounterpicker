@@ -1,0 +1,574 @@
+{
+  "champion": "Hwei",
+  "name": "Hwei",
+  "gameplayRadius": 65,
+  "moveSpeed": 330,
+  "attacks": [
+    {
+      "form": "hwei",
+      "formName": "Hwei",
+      "range": 550,
+      "ranged": true,
+      "projectile": true,
+      "missileSpeed": 2800,
+      "attackSpeed": 1.01349,
+      "attackDamage": 118.895,
+      "windup": 0.184798,
+      "modifiers": []
+    }
+  ],
+  "abilities": [
+    {
+      "champion": "Hwei",
+      "kind": "E",
+      "name": "Crushing Maw",
+      "page": {
+        "title": "Template:Data Hwei/Crushing Maw",
+        "revid": 4008532
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "location"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "yes"
+      },
+      "applies": [
+        {
+          "type": "airborne",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "airborne: pull"
+            },
+            {
+              "page": "Template:Data Hwei/Crushing Maw",
+              "revid": 4008532,
+              "quote": "Enemies that are not standing at the center when the jaw snaps are pulled there."
+            }
+          ],
+          "variant": "pull",
+          "condition": "Enemies that are not standing at the center when the jaw snaps are pulled there."
+        },
+        {
+          "type": "slow",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "slow"
+            },
+            {
+              "page": "Template:Data Hwei/Crushing Maw",
+              "revid": 4008532,
+              "quote": "Active - EE: Hwei conjures a jaw at the target location that snaps after 0.6 seconds, dealing magic damage to enemies in the area and slowing them by an amount that decays over 1.25 seconds."
+            }
+          ],
+          "duration": 1.25,
+          "amount": 70
+        }
+      ],
+      "movement": [],
+      "states": [],
+      "castTime": 0.35,
+      "range": 800
+    },
+    {
+      "champion": "Hwei",
+      "kind": "E",
+      "name": "Molten Fissure",
+      "page": {
+        "title": "Template:Data Hwei/Molten Fissure",
+        "revid": 4026407
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "direction"
+        ],
+        "affectsEnemies": true,
+        "projectile": "yes",
+        "spellShield": "partly"
+      },
+      "applies": [
+        {
+          "type": "slow",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "slow"
+            },
+            {
+              "page": "Template:Data Hwei/Molten Fissure",
+              "revid": 4026407,
+              "quote": "A fissure lasts for 2.5 seconds, dealing magic damage every 0.25 seconds to enemies within the area and slowing them by 35%."
+            }
+          ],
+          "amount": 35
+        }
+      ],
+      "movement": [],
+      "states": [],
+      "castTime": 0.35,
+      "range": 1200,
+      "notes": [
+        "Spell shield will block an explosion but not the persistent lava damage."
+      ]
+    },
+    {
+      "champion": "Hwei",
+      "kind": "E",
+      "name": "Stirring Lights",
+      "page": {
+        "title": "Template:Data Hwei/Stirring Lights",
+        "revid": 3927605
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "auto"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "no",
+        "attack": "attack"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "castTime": 0,
+      "notes": [
+        "Spell shield will not block the bonus damage even if it is applied by an ability."
+      ]
+    },
+    {
+      "champion": "Hwei",
+      "kind": "E",
+      "name": "Subject: Torment",
+      "page": {
+        "title": "Template:Data Hwei/Subject: Torment",
+        "revid": 4026410
+      },
+      "damageTypes": [],
+      "delivery": {
+        "targeting": [
+          "auto"
+        ],
+        "affectsEnemies": true
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "cooldown": 10,
+      "castTime": 0
+    },
+    {
+      "champion": "Hwei",
+      "kind": "I",
+      "name": "Signature of the Visionary",
+      "page": {
+        "title": "Template:Data Hwei/Signature of the Visionary",
+        "revid": 4038347
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "passive"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "yes"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "notes": [
+        "Spell shield will block both the mark and its consumption as well as the detonation."
+      ]
+    },
+    {
+      "champion": "Hwei",
+      "kind": "Q",
+      "name": "Devastating Fire",
+      "page": {
+        "title": "Template:Data Hwei/Devastating Fire",
+        "revid": 4026403
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "direction"
+        ],
+        "affectsEnemies": true,
+        "projectile": "yes",
+        "spellShield": "yes"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "castTime": 0.25,
+      "range": 800,
+      "speed": 2000
+    },
+    {
+      "champion": "Hwei",
+      "kind": "Q",
+      "name": "Fleeting Current",
+      "page": {
+        "title": "Template:Data Hwei/Fleeting Current",
+        "revid": 3959274
+      },
+      "damageTypes": [],
+      "delivery": {
+        "targeting": [
+          "direction"
+        ],
+        "affectsEnemies": false,
+        "projectile": "no"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "castTime": 0.25,
+      "range": 1200
+    },
+    {
+      "champion": "Hwei",
+      "kind": "Q",
+      "name": "Grim Visage",
+      "page": {
+        "title": "Template:Data Hwei/Grim Visage",
+        "revid": 4021906
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "direction"
+        ],
+        "affectsEnemies": true,
+        "projectile": "yes",
+        "spellShield": "yes"
+      },
+      "applies": [
+        {
+          "type": "fear",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "fear"
+            },
+            {
+              "page": "Template:Data Hwei/Grim Visage",
+              "revid": 4021906,
+              "quote": "Active - EQ: Hwei launches a terrifying grin in the target direction that deals magic damage to the first enemy hit, knocks them down, and fears them for a duration, as well as slows them by 70 / 78 / 86 / 94 / 99 (based on distance from Hwei)% for the same duration."
+            }
+          ],
+          "duration": 1.5
+        },
+        {
+          "type": "knockdown",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "knockdown"
+            },
+            {
+              "page": "Template:Data Hwei/Grim Visage",
+              "revid": 4021906,
+              "quote": "Active - EQ: Hwei launches a terrifying grin in the target direction that deals magic damage to the first enemy hit, knocks them down, and fears them for a duration, as well as slows them by 70 / 78 / 86 / 94 / 99 (based on distance from Hwei)% for the same duration."
+            }
+          ],
+          "duration": 1.5
+        },
+        {
+          "type": "slow",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "slow"
+            },
+            {
+              "page": "Template:Data Hwei/Grim Visage",
+              "revid": 4021906,
+              "quote": "Active - EQ: Hwei launches a terrifying grin in the target direction that deals magic damage to the first enemy hit, knocks them down, and fears them for a duration, as well as slows them by 70 / 78 / 86 / 94 / 99 (based on distance from Hwei)% for the same duration."
+            }
+          ],
+          "amount": 70,
+          "duration": 1.5
+        },
+        {
+          "type": "knockdown",
+          "evidence": [
+            {
+              "page": "Dash",
+              "revid": 4035700
+            }
+          ]
+        }
+      ],
+      "movement": [],
+      "states": [],
+      "castTime": 0.25,
+      "range": 1100,
+      "speed": 1300
+    },
+    {
+      "champion": "Hwei",
+      "kind": "Q",
+      "name": "Subject: Disaster",
+      "page": {
+        "title": "Template:Data Hwei/Subject: Disaster",
+        "revid": 3970734
+      },
+      "damageTypes": [],
+      "delivery": {
+        "targeting": [
+          "auto"
+        ],
+        "affectsEnemies": true
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "cooldown": 6,
+      "castTime": 0
+    },
+    {
+      "champion": "Hwei",
+      "kind": "R",
+      "name": "Spiraling Despair",
+      "page": {
+        "title": "Template:Data Hwei/Spiraling Despair",
+        "revid": 4008531
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "direction"
+        ],
+        "affectsEnemies": true,
+        "projectile": "yes",
+        "spellShield": "partly"
+      },
+      "applies": [
+        {
+          "type": "slow",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "slow"
+            },
+            {
+              "page": "Template:Data Hwei/Spiraling Despair",
+              "revid": 4008531,
+              "quote": "Despair: For each stack, the target is slowed by 10% for 0.25 seconds, stacking up to 12 times."
+            }
+          ],
+          "duration": 0.25,
+          "amount": 10
+        },
+        {
+          "type": "reveal",
+          "evidence": [
+            {
+              "page": "Template:List of true sight abilities",
+              "revid": 3860444
+            }
+          ]
+        }
+      ],
+      "movement": [],
+      "states": [],
+      "cooldown": 80,
+      "castTime": 0.25,
+      "range": 1340,
+      "speed": 1400,
+      "notes": [
+        "Spell shield can block the aura, explosion, and the application of the first Despair stack."
+      ]
+    },
+    {
+      "champion": "Hwei",
+      "kind": "R",
+      "name": "Wash Brush",
+      "page": {
+        "title": "Template:Data Hwei/Wash Brush",
+        "revid": 3970738
+      },
+      "damageTypes": [],
+      "delivery": {
+        "targeting": [
+          "auto"
+        ],
+        "affectsEnemies": false
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "castTime": 0,
+      "usableWhileDisabled": {
+        "which": "cast",
+        "evidence": [
+          {
+            "page": "Template:Data Hwei/Wash Brush",
+            "revid": 3970738,
+            "quote": "can be used while affected by cast-inhibiting crowd control"
+          }
+        ]
+      }
+    },
+    {
+      "champion": "Hwei",
+      "kind": "W",
+      "name": "Gaze of the Abyss",
+      "page": {
+        "title": "Template:Data Hwei/Gaze of the Abyss",
+        "revid": 4010562
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "location"
+        ],
+        "affectsEnemies": true,
+        "projectile": "yes",
+        "spellShield": "yes"
+      },
+      "applies": [
+        {
+          "type": "root",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "root"
+            },
+            {
+              "page": "Template:Data Hwei/Gaze of the Abyss",
+              "revid": 4010562,
+              "quote": "Once locked on, the eye launches itself at the target after a 0.3-second delay and collides with the first enemy hit to deal magic damage, reveal them for 2.5 seconds, and root them for a duration."
+            }
+          ],
+          "duration": 2.5
+        },
+        {
+          "type": "reveal",
+          "evidence": [
+            {
+              "page": "Template:List of true sight abilities",
+              "revid": 3860444
+            }
+          ]
+        }
+      ],
+      "movement": [],
+      "states": [],
+      "castTime": 0.25,
+      "range": 900,
+      "speed": 1700,
+      "notes": [
+        "The target that the eye locks onto and launches towards is revealed during the missile's flight.",
+        "The lock-on missile's path is indicated by a dashed line.\n  - Its launch range is about as wide as its vision range.\n  - This is not to be confused with the eye's border which is the trigger range."
+      ]
+    },
+    {
+      "champion": "Hwei",
+      "kind": "W",
+      "name": "Pool of Reflection",
+      "page": {
+        "title": "Template:Data Hwei/Pool of Reflection",
+        "revid": 3992645
+      },
+      "damageTypes": [],
+      "delivery": {
+        "targeting": [
+          "location"
+        ],
+        "affectsEnemies": false
+      },
+      "applies": [],
+      "movement": [],
+      "states": [
+        {
+          "state": "shield",
+          "evidence": [
+            {
+              "page": "Template:Data Hwei/Pool of Reflection",
+              "revid": 3992645,
+              "quote": "Active - WW: Hwei summons a pool of water at the target location, creating a protective zone for 3 seconds that grants him and allied champions a shield at the start of the cast time and for 0.5 seconds while within the area."
+            }
+          ],
+          "duration": 0.5
+        }
+      ],
+      "castTime": 0.3,
+      "range": 650
+    },
+    {
+      "champion": "Hwei",
+      "kind": "W",
+      "name": "Severing Bolt",
+      "page": {
+        "title": "Template:Data Hwei/Severing Bolt",
+        "revid": 4026406
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "location"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "yes"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "castTime": 0.5,
+      "range": 1900
+    },
+    {
+      "champion": "Hwei",
+      "kind": "W",
+      "name": "Subject: Serenity",
+      "page": {
+        "title": "Template:Data Hwei/Subject: Serenity",
+        "revid": 3970735
+      },
+      "damageTypes": [],
+      "delivery": {
+        "targeting": [
+          "auto"
+        ],
+        "affectsEnemies": true
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "cooldown": 16,
+      "castTime": 0
+    }
+  ]
+}

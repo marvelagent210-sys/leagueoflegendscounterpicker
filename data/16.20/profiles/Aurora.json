@@ -1,0 +1,334 @@
+{
+  "champion": "Aurora",
+  "name": "Aurora",
+  "gameplayRadius": 65,
+  "moveSpeed": 335,
+  "attacks": [
+    {
+      "form": "aurora",
+      "formName": "Aurora",
+      "range": 550,
+      "ranged": true,
+      "projectile": true,
+      "missileSpeed": 1750,
+      "attackSpeed": 0.930724,
+      "attackDamage": 111.995,
+      "windup": 0.215461,
+      "modifiers": [
+        "Spirit Abjuration"
+      ]
+    }
+  ],
+  "abilities": [
+    {
+      "champion": "Aurora",
+      "kind": "E",
+      "name": "The Weirding",
+      "page": {
+        "title": "Template:Data Aurora/The Weirding",
+        "revid": 4064843
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "direction"
+        ],
+        "affectsEnemies": true,
+        "projectile": "no",
+        "spellShield": "yes",
+        "grounded": "partly",
+        "knockdown": "yes"
+      },
+      "applies": [
+        {
+          "type": "slow",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "slow"
+            },
+            {
+              "page": "Template:Data Aurora/The Weirding",
+              "revid": 4064843,
+              "quote": "The blast deals magic damage to enemies hit and slows them by 80% for 1 second decaying after the first 0.15 seconds."
+            }
+          ],
+          "duration": 1,
+          "amount": 80
+        }
+      ],
+      "movement": [
+        {
+          "type": "dash",
+          "evidence": [
+            {
+              "page": "Dash",
+              "revid": 4035700,
+              "quote": "direction-targeted; (reverse-targeted)"
+            }
+          ],
+          "targeting": "direction-targeted",
+          "condition": "(reverse-targeted)",
+          "interruptible": true
+        }
+      ],
+      "states": [],
+      "cooldown": 11,
+      "castTime": 0.35,
+      "range": 825,
+      "speed": 150,
+      "notes": [
+        "Aurora is locked out of using all abilities, summoner spells, and item actives during the dash.",
+        "While grounded or rooted, The Weirding can be cast but Aurora will not dash.\n  - Similarly, if Aurora is affected by ground or root during the cast time, she will not dash afterwards.\n    - This only applies to ground and root. Immobilizing effects will not prevent the dash afterwards."
+      ]
+    },
+    {
+      "champion": "Aurora",
+      "kind": "I",
+      "name": "Spirit Abjuration",
+      "page": {
+        "title": "Template:Data Aurora/Spirit Abjuration",
+        "revid": 4064315
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "passive"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "no",
+        "parry": "yes",
+        "attack": "attack modifier"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [
+        {
+          "state": "heal",
+          "evidence": [
+            {
+              "page": "Template:Data Aurora/Spirit Abjuration",
+              "revid": 4064315,
+              "quote": "For each active Spirit, Aurora is healed for 3 – 20 (based on level) (+ 2% AP) every second."
+            }
+          ]
+        }
+      ],
+      "notes": [
+        "Runaan's Hurricane bolts are also empowered to apply stacks (while other effects that apply on-hits, like Guinsoo's Rageblade, are not)."
+      ]
+    },
+    {
+      "champion": "Aurora",
+      "kind": "Q",
+      "name": "Twofold Hex",
+      "page": {
+        "title": "Template:Data Aurora/Twofold Hex",
+        "revid": 4021922
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "direction",
+          "auto"
+        ],
+        "affectsEnemies": true,
+        "projectile": "yes",
+        "spellShield": "yes"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "cooldown": 7,
+      "castTime": 0.25,
+      "range": 900,
+      "speed": 1600,
+      "notes": [
+        "Twofold Hex can also be recast for 0.66 seconds after the 0.1-second delay. If the recast is used during this time window, Twofold Hex will be buffered to recast automatically as soon as the bolt missile from the first cast has fizzled from reaching maximum range, even if no targets are marked. This automatic recast can also be buffered during Twofold Hex's cast time.",
+        "Spell shield can block the effects of the active and the recast.",
+        "The marked targets do not need to be visible in order for Aurora to recast Twofold Hex.\n  - They do however need to be targetable; if all marked targets are untargetable, Twofold Hex's recast is disabled.",
+        "Once Aurora has successfully recast Twofold Hex, she will not be able to recast it again for the duration regardless of any number of marked enemies still remaining.\n  - If all enemies marked by Twofold Hex are untargetable when Aurora manually recasts Twofold Hex, the ability will be consumed but evidently without effect. It will however automatically recast again at the end of the marks' duration to expunge any remaining marks."
+      ]
+    },
+    {
+      "champion": "Aurora",
+      "kind": "R",
+      "name": "Between Worlds",
+      "page": {
+        "title": "Template:Data Aurora/Between Worlds",
+        "revid": 4066715
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "direction",
+          "auto"
+        ],
+        "affectsEnemies": true,
+        "projectile": "no",
+        "spellShield": "yes",
+        "grounded": "partly",
+        "knockdown": "no"
+      },
+      "applies": [
+        {
+          "type": "slow",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "slow"
+            },
+            {
+              "page": "Template:Data Aurora/Between Worlds",
+              "revid": 4066715,
+              "quote": "She then gains Realm Hopper for a duration and unleashes a shockwave from 425 units in front of her, expanding over 0.75 seconds to deal magic damage to enemies hit and slow them by 30% for 2 seconds."
+            }
+          ],
+          "duration": 2,
+          "amount": 30
+        }
+      ],
+      "movement": [
+        {
+          "type": "dash",
+          "evidence": [
+            {
+              "page": "Dash",
+              "revid": 4035700,
+              "quote": "auto-targeted; (when colliding with the border)"
+            }
+          ],
+          "targeting": "auto-targeted",
+          "condition": "(when colliding with the border)",
+          "interruptible": false
+        },
+        {
+          "type": "dash",
+          "evidence": [
+            {
+              "page": "Dash",
+              "revid": 4035700,
+              "quote": "direction-targeted; (initial cast)"
+            }
+          ],
+          "targeting": "direction-targeted",
+          "condition": "(initial cast)",
+          "interruptible": false
+        }
+      ],
+      "states": [
+        {
+          "state": "untargetable",
+          "evidence": [
+            {
+              "page": "Untargetability",
+              "revid": 3965000,
+              "quote": "Does not destroy inbound projectiles"
+            },
+            {
+              "page": "Template:Data Aurora/Between Worlds",
+              "revid": 4066715,
+              "quote": "If Aurora collides with the border, she dashes to the diametrically opposite side of the rift over 0.4 seconds, becoming untargetable and unable to act during the travel."
+            }
+          ],
+          "duration": 0.4,
+          "note": "Does not destroy inbound projectiles"
+        },
+        {
+          "state": "displacement immune",
+          "evidence": [
+            {
+              "page": "Template:Data Aurora/Between Worlds",
+              "revid": 4066715,
+              "quote": "Active: Aurora leaps in the target direction with displacement immunity over 0.4 seconds."
+            }
+          ],
+          "duration": 0.4
+        }
+      ],
+      "cooldown": 100,
+      "castTime": 0,
+      "range": 25,
+      "notes": [
+        "Collision with the border is essentially moving within range of it while being targetable, including via normal movement, dash, or displacement.\n  - Aurora and enemies can collide with the border any number of times, as much as the duration permits.\n    - Enemies can be applied the slow by colliding with the border only once after moving within collision radius of it. The slow may be applied again from collision only until after they have left the collision radius; it cannot be continuously applied while enemies remain within collision radius of the border.\n  - Untargetable units cannot collide with the border, including Aurora herself.",
+        "Between Worlds' untargetability from the rift dash does not destroy in-flight projectiles.",
+        "Between Worlds' first cast is disabled while grounded or rooted.",
+        "Aurora can still dash from colliding with the border even if she is immobilized or grounded.",
+        "Spell shield can block both the shockwave and border collision.",
+        "The initial cast's dash completes prematurely if Between Worlds is cast inside terrain while Aurora is right next to the wall.\n  - This causes the shockwave to be released instantly after cast.",
+        "If the location on the opposite side of the rift is within the boundaries of terrain, due to the border being inside terrain, Aurora will only dash to the closest valid spot next to the terrain to avoid exiting the rift's radius.\n  - However, if that location is close to the edge of the terrain on the other side, Aurora will dash through the rift's border and over the wall, which causes her to exit the rift (thus closing the rift).",
+        "Despite supposedly not being a projectile, the damage from Between Worlds gets reflected by Rebuttal, dealing damage and applying a mark of Spirit Abjuration to all of Aurora's allies in range, but only if it has not hit another enemy champion first.\n  - If the damage hits any enemy champion before interacting with Rebuttal, Between Worlds will only hit enemies, including Mel.\n    - Aurora can still pass through the edge of the spell to open a portal and dash to the other side, even if it has been reflected by Rebuttal.",
+        "The following table refers for interactions while Aurora is dashing:\n  - This lockout applies to both the initial dash and the dashes in the formed rift.\n    - Aurora's abilities remain locked out for another 0.5 seconds after the initial dash ends.\n    - The lockout during the rift dash persists for another 0.15 seconds after the dash ends."
+      ]
+    },
+    {
+      "champion": "Aurora",
+      "kind": "W",
+      "name": "Across the Veil",
+      "page": {
+        "title": "Template:Data Aurora/Across the Veil",
+        "revid": 4007570
+      },
+      "damageTypes": [],
+      "delivery": {
+        "targeting": [
+          "direction"
+        ],
+        "affectsEnemies": false,
+        "grounded": "yes",
+        "knockdown": "yes"
+      },
+      "applies": [],
+      "movement": [
+        {
+          "type": "dash",
+          "evidence": [
+            {
+              "page": "Dash",
+              "revid": 4035700,
+              "quote": "direction-targeted"
+            }
+          ],
+          "targeting": "direction-targeted",
+          "interruptible": true
+        }
+      ],
+      "states": [
+        {
+          "state": "invisible",
+          "evidence": [
+            {
+              "page": "Stealth",
+              "revid": 4013411
+            },
+            {
+              "page": "Template:Data Aurora/Across the Veil",
+              "revid": 4007570,
+              "quote": "Upon completing the dash, she becomes invisible for a duration and gains Realm Hopper for 4 seconds."
+            }
+          ],
+          "duration": 4
+        }
+      ],
+      "cooldown": 18,
+      "castTime": 0,
+      "range": 300,
+      "speed": 350,
+      "notes": [
+        "Aurora will not gain the stealth if her dash is interrupted.\n  - She will however gain the stealth despite the dash being interrupted from colliding with Between Worlds border.\n    - Her dash is interrupted in this case from being overridden by the rift dash.",
+        "Aurora is locked out of using all abilities, summoner spells, and item actives during the dash.\n  - She cannot buffer these spells to cast after the lockout. This is in place to prevent her from breaking the stealth from certain spell casts.\n    - This is the case even for spells that do not break stealth when cast.",
+        "Using a basic attack breaks the stealth at the end of the attack windup."
+      ]
+    }
+  ]
+}

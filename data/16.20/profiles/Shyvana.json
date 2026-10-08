@@ -1,0 +1,244 @@
+{
+  "champion": "Shyvana",
+  "name": "Shyvana",
+  "gameplayRadius": 65,
+  "moveSpeed": 350,
+  "attacks": [
+    {
+      "form": "shyvana",
+      "formName": "Shyvana",
+      "range": 150,
+      "ranged": false,
+      "projectile": false,
+      "attackSpeed": 0.888925,
+      "attackDamage": 140.66,
+      "windup": 0.175774,
+      "modifiers": []
+    }
+  ],
+  "abilities": [
+    {
+      "champion": "Shyvana",
+      "kind": "E",
+      "name": "Molten Burst",
+      "page": {
+        "title": "Template:Data Shyvana/Molten Burst",
+        "revid": 4058111
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "direction",
+          "location"
+        ],
+        "affectsEnemies": true,
+        "projectile": "yes",
+        "spellShield": "yes"
+      },
+      "applies": [
+        {
+          "type": "slow",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "slow"
+            }
+          ]
+        }
+      ],
+      "movement": [],
+      "states": [],
+      "cooldown": 8,
+      "castTime": 0.25,
+      "range": 800,
+      "speed": 1500,
+      "notes": [
+        "In Dragon Form, both areas of effect will be centered on the first champion struck, not at the location the missile collided with them."
+      ]
+    },
+    {
+      "champion": "Shyvana",
+      "kind": "I",
+      "name": "Scalemail",
+      "page": {
+        "title": "Template:Data Shyvana/Scalemail",
+        "revid": 4001512
+      },
+      "damageTypes": [],
+      "delivery": {
+        "targeting": [
+          "passive"
+        ],
+        "affectsEnemies": false
+      },
+      "applies": [],
+      "movement": [],
+      "states": []
+    },
+    {
+      "champion": "Shyvana",
+      "kind": "Q",
+      "name": "Emberstrike",
+      "page": {
+        "title": "Template:Data Shyvana/Emberstrike",
+        "revid": 4049991
+      },
+      "damageTypes": [
+        "physical",
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "auto"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "no",
+        "attack": "attack"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "cooldown": 6,
+      "castTime": 0,
+      "boostsAttacks": true,
+      "notes": [
+        "Applies spell damage to the primary target (attack target) and area damage to secondary targets. The passive on-hit damage applies proc damage.",
+        "Spell shield will not block any damage nor be consumed by the strikes.",
+        "Blind will negate the damage to the primary target, but not to any secondary targets.",
+        "Interaction with parrying effects (dodge, block)."
+      ]
+    },
+    {
+      "champion": "Shyvana",
+      "kind": "R",
+      "name": "Dragon's Descent",
+      "page": {
+        "title": "Template:Data Shyvana/Dragon's Descent",
+        "revid": 4049822
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "location"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "yes",
+        "grounded": "yes",
+        "knockdown": "no"
+      },
+      "applies": [
+        {
+          "type": "fear",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "fear"
+            },
+            {
+              "page": "Template:Data Shyvana/Dragon's Descent",
+              "revid": 4049822,
+              "quote": "Active: Shyvana transforms into Dragon Form and flies with displacement immunity to the target location, breathing fire in a cone along the way that deals magic damage to enemies hit and fears them for 0.75 seconds, as well as slows them by 99% for the same duration."
+            }
+          ],
+          "duration": 0.75
+        },
+        {
+          "type": "slow",
+          "evidence": [
+            {
+              "page": "Template:Data Shyvana/Dragon's Descent",
+              "revid": 4049822,
+              "quote": "Active: Shyvana transforms into Dragon Form and flies with displacement immunity to the target location, breathing fire in a cone along the way that deals magic damage to enemies hit and fears them for 0.75 seconds, as well as slows them by 99% for the same duration."
+            }
+          ],
+          "duration": 0.75,
+          "amount": 99
+        }
+      ],
+      "movement": [
+        {
+          "type": "dash",
+          "evidence": [
+            {
+              "page": "Dash",
+              "revid": 4035700,
+              "quote": "location-targeted"
+            }
+          ],
+          "targeting": "location-targeted",
+          "interruptible": false
+        }
+      ],
+      "states": [
+        {
+          "state": "displacement immune",
+          "evidence": [
+            {
+              "page": "Template:Data Shyvana/Dragon's Descent",
+              "revid": 4049822,
+              "quote": "Active: Shyvana transforms into Dragon Form and flies with displacement immunity to the target location, breathing fire in a cone along the way that deals magic damage to enemies hit and fears them for 0.75 seconds, as well as slows them by 99% for the same duration."
+            }
+          ],
+          "duration": 0.75
+        }
+      ],
+      "castTime": 0.25,
+      "range": 400,
+      "notes": [
+        "Dragon's Descent's displacement immunity begins from the start of the cast time."
+      ]
+    },
+    {
+      "champion": "Shyvana",
+      "kind": "W",
+      "name": "Inferno Aegis",
+      "page": {
+        "title": "Template:Data Shyvana/Inferno Aegis",
+        "revid": 4021912
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "auto"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "yes"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [
+        {
+          "state": "shield",
+          "evidence": [
+            {
+              "page": "Template:Data Shyvana/Inferno Aegis",
+              "revid": 4021912,
+              "quote": "Active: Shyvana shields herself for 2.5 seconds, with the shield strength increased by 30% for every nearby enemy champion."
+            }
+          ],
+          "duration": 2.5
+        },
+        {
+          "state": "heal",
+          "evidence": [
+            {
+              "page": "Template:Data Shyvana/Inferno Aegis",
+              "revid": 4021912,
+              "quote": "Dragon Form Bonus: If the explosion hits an enemy champion, Shyvana heals herself for 60 – 100 (based on level) (+ 4 – 8 (based on level)% missing health)."
+            }
+          ]
+        }
+      ],
+      "cooldown": 10,
+      "castTime": 0
+    }
+  ]
+}

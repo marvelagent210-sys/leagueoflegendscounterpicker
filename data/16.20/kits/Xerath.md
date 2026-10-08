@@ -9,6 +9,22 @@ Values marked "at max rank, level 20" assume every ability is maxed; see PLAN.md
 |---|--:|--:|--:|--:|--:|--:|--:|--:|--:|--:|
 | Xerath | 2659.5 | 16.32 | 832.6 Mana | 114.0 | 0.825 | 0.242 | 114.4 | 55.6 | 525 | 340 |
 
+## Fight profile (what the interaction ledger uses)
+
+| Form | Attack range | Ranged | Projectile | Missile speed | Attack modifiers |
+|---|--:|---|---|--:|---|
+| Xerath | 525 | yes | yes | 2000 | Mana Surge |
+
+Cooldowns at max rank. Flags: the wiki's interaction flags (yes, no, partly). * marks an effect that applies only under a condition.
+
+| Slot | Ability | Cooldown | Delivery | Applies to the enemy | Movement | Gives itself |
+|---|---|--:|---|---|---|---|
+| E | Shocking Orb | 11 | projectile yes; spell shield yes | stun 0.75 s | – | – |
+| I | Mana Surge | 16 | attack modifier | – | – | – |
+| Q | Arcanopulse | 5 | projectile no; spell shield yes; disruptable yes | – | – | – |
+| R | Rite of the Arcane | 100 | projectile no; spell shield yes; disruptable yes | – | – | – |
+| W | Eye of Destruction | 10 | spell shield yes | slow 2.5 s 25% | – | – |
+
 ## Innate: Mana Surge
 
 Source: [Template:Data Xerath/Mana Surge](https://wiki.leagueoflegends.com/en-us/Template:Data_Xerath/Mana_Surge?oldid=3986753) (revision 3986753). Ranks: 1.

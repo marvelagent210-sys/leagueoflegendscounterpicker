@@ -9,6 +9,22 @@ Values marked "at max rank, level 20" assume every ability is maxed; see PLAN.md
 |---|--:|--:|--:|--:|--:|--:|--:|--:|--:|--:|
 | Malphite | 2710.2 | 17.82 | 1459.9 Mana | 140.7 | 1.163 | 0.215 | 137.3 | 68.3 | 125 | 335 |
 
+## Fight profile (what the interaction ledger uses)
+
+| Form | Attack range | Ranged | Projectile | Missile speed | Attack modifiers |
+|---|--:|---|---|--:|---|
+| Malphite | 125 | no | no | – | – |
+
+Cooldowns at max rank. Flags: the wiki's interaction flags (yes, no, partly). * marks an effect that applies only under a condition.
+
+| Slot | Ability | Cooldown | Delivery | Applies to the enemy | Movement | Gives itself |
+|---|---|--:|---|---|---|---|
+| E | Ground Slam | 7 | spell shield yes | cripple 3 s 50% | – | – |
+| I | Granite Shield | 6 | – | – | – | shield |
+| Q | Seismic Shard | 8 | projectile yes; spell shield partly | slow 3 s 40% | – | – |
+| R | Unstoppable Force | 100 | spell shield yes; grounded yes; knockdown no | airborne (knock up) 1.5 s | dash (unstoppable) | displacement immune |
+| W | Thunderclap | 8 | spell shield no; parry yes; attack | – | – | – |
+
 ## Innate: Granite Shield
 
 Source: [Template:Data Malphite/Granite Shield](https://wiki.leagueoflegends.com/en-us/Template:Data_Malphite/Granite_Shield?oldid=3973718) (revision 3973718). Ranks: 1.
@@ -62,31 +78,6 @@ Notes:
     - For example, targets that were already slowed by another effect will grant Malphite diminished movement speed, while targets that are slowed by another effect after being impacted by Seismic Shard will not.
     - Slow-resistant and slow-immune targets will reduce or nullify Malphite's gain.
 - If the target becomes untargetable, dies, or is too far away or no longer in sight during the cast time, this ability will cancel but does not go on cooldown nor pay its cost (if applicable).
-
-## W: Brutal Strikes
-
-Source: [Template:Data Malphite/Brutal Strikes](https://wiki.leagueoflegends.com/en-us/Template:Data_Malphite/Brutal_Strikes?oldid=2773828) (revision 2773828). Ranks: 5.
-
-| Field | Value |
-|---|---|
-| Cooldown | 12 |
-| Cost | 25 mana |
-| Effect radius | 225 |
-
-Targeting: Self · Affects: Self · Damage type: physical · Spell shield blocks it: false · Projectile: – · Parry: – · Disabled by grounded: – · Usable while knocked down: –
-
-Passive: Malphite gains bonus armor, tripled while Granite Shield is active.
-
-- **Bonus Armor:** 10 / 15 / 20 / 25 / 30% armor → at max rank, level 20: 30% of armor
-- **Increased Armor:** 30 / 45 / 60 / 75 / 90% armor → at max rank, level 20: 90% of armor
-
-Active: For 6 seconds, Malphite's basic attacks deal bonus physical damage which splashes to enemies around his target.
-
-- **Bonus Physical Damage:** 15 / 30 / 45 / 60 / 75 (+ 10% AP) (+ 15% armor) → at max rank, level 20: 75 (+ 10% AP) (+ 15% armor)
-
-Notes:
-
-- Brutal Strikes has no cast time and does not interrupt Malphite's previous orders.
 
 ## W: Thunderclap
 

@@ -17,10 +17,17 @@ export interface AbilityBuildOptions {
   championId: (wikiName: string) => string | undefined;
   /** Maximum ranks of a champion's Q/W/E/R. */
   maxRanks: (championId: string, slot: AbilitySlot) => number;
+  /**
+   * Whether a page describes a current ability (see current.ts). Pages of removed
+   * abilities are skipped and listed in `legacy`. Defaults to every page.
+   */
+  isCurrent?: (championId: string, abilityName: string) => boolean;
 }
 
 export interface AbilityBuild {
   records: AbilityRecord[];
+  /** Pages of abilities that are no longer in the game, which get no record. */
+  legacy: Array<{ champion: string; title: string; revid: number }>;
   /** Templates rendered without a dedicated handler, across all pages. */
   unknownTemplates: Map<string, number>;
   warnings: string[];
@@ -184,12 +191,18 @@ export function buildAbilityRecords(pages: WikiPage[], options: AbilityBuildOpti
   };
 
   const records: AbilityRecord[] = [];
+  const legacy: AbilityBuild["legacy"] = [];
   for (const page of registry.values()) {
     const ctx = contextFor(page, 0);
     const wikiChampion = cleanText(render(page.fields.get("champion") ?? [], ctx));
     const champion = options.championId(wikiChampion);
     if (!champion) {
       warnings.push(`${page.title}: unknown champion "${wikiChampion}"`);
+      continue;
+    }
+    const name = page.title.slice(page.title.indexOf("/") + 1);
+    if (options.isCurrent && !options.isCurrent(champion, name)) {
+      legacy.push({ champion, title: page.title, revid: page.revid });
       continue;
     }
     const skill = (ctx.skill ?? "").toUpperCase();
@@ -202,7 +215,7 @@ export function buildAbilityRecords(pages: WikiPage[], options: AbilityBuildOpti
     const record: AbilityRecord = {
       champion,
       kind,
-      name: page.title.slice(page.title.indexOf("/") + 1),
+      name,
       page: { title: page.title, revid: page.revid },
       ranks: kind === "Q" || kind === "W" || kind === "E" || kind === "R" ? options.maxRanks(champion, kind) : 1,
       fields: {},
@@ -248,5 +261,6 @@ export function buildAbilityRecords(pages: WikiPage[], options: AbilityBuildOpti
     records.push(record);
   }
   records.sort((a, b) => a.champion.localeCompare(b.champion) || a.kind.localeCompare(b.kind) || a.name.localeCompare(b.name));
-  return { records, unknownTemplates, warnings };
+  legacy.sort((a, b) => a.title.localeCompare(b.title));
+  return { records, legacy, unknownTemplates, warnings };
 }

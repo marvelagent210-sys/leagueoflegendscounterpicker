@@ -9,6 +9,22 @@ Values marked "at max rank, level 20" assume every ability is maxed; see PLAN.md
 |---|--:|--:|--:|--:|--:|--:|--:|--:|--:|--:|
 | Kai'Sa | 2645.8 | 14.82 | 1131.6 Mana | 110.1 | 0.872 | 0.185 | 107.6 | 54.6 | 525 | 335 |
 
+## Fight profile (what the interaction ledger uses)
+
+| Form | Attack range | Ranged | Projectile | Missile speed | Attack modifiers |
+|---|--:|---|---|--:|---|
+| Kai'Sa | 525 | yes | yes | 2000 | Second Skin |
+
+Cooldowns at max rank. Flags: the wiki's interaction flags (yes, no, partly). * marks an effect that applies only under a condition.
+
+| Slot | Ability | Cooldown | Delivery | Applies to the enemy | Movement | Gives itself |
+|---|---|--:|---|---|---|---|
+| E | Supercharge | 10 | – | – | – | invisible 0.5 s |
+| I | Second Skin | – | spell shield partly; parry yes; attack modifier | – | – | – |
+| Q | Icathian Rain | 6 | projectile yes; spell shield partly | – | – | – |
+| R | Killer Instinct | 70 | grounded yes; knockdown yes | – | dash | shield 2 s |
+| W | Void Seeker | 14 | projectile yes; spell shield yes | reveal | – | – |
+
 ## Innate: Second Skin
 
 Source: [Template:Data Kai'Sa/Second Skin](https://wiki.leagueoflegends.com/en-us/Template:Data_Kai'Sa/Second_Skin?oldid=4053367) (revision 4053367). Ranks: 1.

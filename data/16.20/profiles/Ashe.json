@@ -1,0 +1,219 @@
+{
+  "champion": "Ashe",
+  "name": "Ashe",
+  "gameplayRadius": 65,
+  "moveSpeed": 325,
+  "attacks": [
+    {
+      "form": "ashe",
+      "formName": "Ashe",
+      "range": 600,
+      "ranged": true,
+      "projectile": true,
+      "missileSpeed": 2500,
+      "attackSpeed": 1.04619,
+      "attackDamage": 117.995,
+      "windup": 0.209617,
+      "modifiers": [
+        "Frost Shot"
+      ]
+    }
+  ],
+  "abilities": [
+    {
+      "champion": "Ashe",
+      "kind": "E",
+      "name": "Hawkshot",
+      "page": {
+        "title": "Template:Data Ashe/Hawkshot",
+        "revid": 3936951
+      },
+      "damageTypes": [],
+      "delivery": {
+        "targeting": [
+          "location"
+        ],
+        "affectsEnemies": true,
+        "projectile": "partly",
+        "spellShield": "no"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "cooldown": 50,
+      "castTime": 0.25,
+      "speed": 1400,
+      "notes": [
+        "Hawkshot will ping enemy champions it spots if allies didn't already have vision of them, and put a 'revealed' visual effect on them for 2.75 seconds, but does not actually reveal the units in particular, and is removed if the champion leaves the area.",
+        "Ashe marks enemy champions who were previously unseen but were revealed Hawkshot in order to gain assist credit, lasting for the standard credit timer.",
+        "Hawkshot will trigger upon colliding with Blade Whirl or Wind Wall but not Unbreakable.",
+        "Hawkshot will grant 0.33 points of vision score for each champion revealed."
+      ]
+    },
+    {
+      "champion": "Ashe",
+      "kind": "I",
+      "name": "Frost Shot",
+      "page": {
+        "title": "Template:Data Ashe/Frost Shot",
+        "revid": 4062251
+      },
+      "damageTypes": [
+        "physical"
+      ],
+      "delivery": {
+        "targeting": [
+          "passive"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "yes",
+        "parry": "yes",
+        "attack": "attack modifier"
+      },
+      "applies": [
+        {
+          "type": "slow",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "slow"
+            },
+            {
+              "page": "Template:Data Ashe/Frost Shot",
+              "revid": 4062251,
+              "quote": "Innate - Frost Shot: Ashe's basic attacks and ability hits apply Frost to enemies for 2 seconds, which slows them by 20 – 30 (based on level)% for the duration."
+            }
+          ],
+          "duration": 2,
+          "amount": 31.1765
+        }
+      ],
+      "movement": [],
+      "states": [],
+      "boostsAttacks": true
+    },
+    {
+      "champion": "Ashe",
+      "kind": "Q",
+      "name": "Ranger's Focus",
+      "page": {
+        "title": "Template:Data Ashe/Ranger's Focus",
+        "revid": 4053426
+      },
+      "damageTypes": [
+        "physical"
+      ],
+      "delivery": {
+        "targeting": [
+          "auto"
+        ],
+        "affectsEnemies": false,
+        "projectile": "yes",
+        "spellShield": "no",
+        "parry": "yes",
+        "attack": "on-hit"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [
+        {
+          "state": "heal",
+          "evidence": [
+            {
+              "page": "Template:Data Ashe/Ranger's Focus",
+              "revid": 4053426,
+              "quote": "The flurries apply life steal and Frost Shot per arrow, but apply on-hit effects only once."
+            },
+            {
+              "page": "Template:Data Ashe/Ranger's Focus",
+              "revid": 4053426,
+              "quote": "The flurries apply life steal and Frost Shot per arrow, but apply on-hit effects only once."
+            }
+          ]
+        }
+      ],
+      "castTime": 0,
+      "boostsAttacks": true,
+      "notes": [
+        "Ranger's Focus also empowers Runaan's Hurricane Wind's Fury bolts to become a flurry of 5 bolts each as well.\n  - The empowered bolts use Ashe's attack projectile, including her missile speed (2500 compared to their default 2000).\n  - The bolts are evenly distributed among the targets, but a single target cannot be hit by more than 5 bolts.\n  - These flurries also apply on-hit effects only once to each target hit."
+      ]
+    },
+    {
+      "champion": "Ashe",
+      "kind": "R",
+      "name": "Enchanted Crystal Arrow",
+      "page": {
+        "title": "Template:Data Ashe/Enchanted Crystal Arrow",
+        "revid": 4026934
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "direction"
+        ],
+        "affectsEnemies": true,
+        "projectile": "yes",
+        "spellShield": "yes"
+      },
+      "applies": [
+        {
+          "type": "stun",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "stun"
+            },
+            {
+              "page": "Template:Data Ashe/Enchanted Crystal Arrow",
+              "revid": 4026934,
+              "quote": "The arrow shatters upon hitting an enemy champion, dealing them magic damage, stunning them for 1 / 1 / 1 / 1 / 1 / 1.25 / 1.5 / 1.75 / 2 / 2.25 / 2.5 / 2.75 / 3 / 3.25 / 3.5 (based on distance traveled) seconds, and granting sight of the area around them for 1 second."
+            }
+          ],
+          "duration": 1
+        }
+      ],
+      "movement": [],
+      "states": [],
+      "cooldown": 60,
+      "castTime": 0.25,
+      "speed": 2100,
+      "notes": [
+        "Enchanted Crystal Arrow's projectile has an icon on the mini-map while it is in flight. It can be seen by only Ashe and her allies.",
+        "The effect will be centered on the first champion struck, not at the location the missile collided with them."
+      ]
+    },
+    {
+      "champion": "Ashe",
+      "kind": "W",
+      "name": "Volley",
+      "page": {
+        "title": "Template:Data Ashe/Volley",
+        "revid": 4007430
+      },
+      "damageTypes": [
+        "physical"
+      ],
+      "delivery": {
+        "targeting": [
+          "direction"
+        ],
+        "affectsEnemies": true,
+        "projectile": "yes",
+        "spellShield": "yes"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "cooldown": 4,
+      "castTime": 0.25,
+      "speed": 2000,
+      "notes": [
+        "The missiles are spawned in a straight horizontal line 75 units in front of Ashe, with a total width of 75/100/100/123/123 units.\n  - Between each missile spawn location is a distance of 12.5 units, except for the two outermost ones at the last two ranks (which are 11.5 units from the closest other one), and the two centermost missiles at ranks 2 and 4 (which have 20 units between them and 15 units to the next missile, respectively).\n  - This inconsistent behaviour of spawn locations means the angle between each missile can vary off of 4.625° slighty."
+      ]
+    }
+  ]
+}

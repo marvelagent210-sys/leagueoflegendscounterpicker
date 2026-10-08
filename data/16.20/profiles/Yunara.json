@@ -1,0 +1,268 @@
+{
+  "champion": "Yunara",
+  "name": "Yunara",
+  "gameplayRadius": 65,
+  "moveSpeed": 325,
+  "attacks": [
+    {
+      "form": "yunara",
+      "formName": "Yunara",
+      "range": 575,
+      "ranged": true,
+      "projectile": true,
+      "missileSpeed": 2500,
+      "attackSpeed": 0.905645,
+      "attackDamage": 113.995,
+      "windup": 0.179484,
+      "modifiers": []
+    }
+  ],
+  "abilities": [
+    {
+      "champion": "Yunara",
+      "kind": "E",
+      "name": "Kanmei's Steps",
+      "page": {
+        "title": "Template:Data Yunara/Kanmei's Steps",
+        "revid": 3960443
+      },
+      "damageTypes": [],
+      "delivery": {
+        "targeting": [
+          "auto"
+        ],
+        "affectsEnemies": false
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "cooldown": 9,
+      "castTime": 0
+    },
+    {
+      "champion": "Yunara",
+      "kind": "E",
+      "name": "Untouchable Shadow",
+      "page": {
+        "title": "Template:Data Yunara/Untouchable Shadow",
+        "revid": 4010459
+      },
+      "damageTypes": [],
+      "delivery": {
+        "targeting": [
+          "location"
+        ],
+        "affectsEnemies": false,
+        "grounded": "yes",
+        "knockdown": "yes"
+      },
+      "applies": [],
+      "movement": [
+        {
+          "type": "dash",
+          "evidence": [
+            {
+              "page": "Dash",
+              "revid": 4035700,
+              "quote": "direction-targeted"
+            }
+          ],
+          "targeting": "direction-targeted",
+          "interruptible": true
+        }
+      ],
+      "states": [],
+      "cooldown": 9,
+      "castTime": 0,
+      "range": 225,
+      "speed": 1350,
+      "boostsAttacks": true
+    },
+    {
+      "champion": "Yunara",
+      "kind": "I",
+      "name": "Vow of the First Lands",
+      "page": {
+        "title": "Template:Data Yunara/Vow of the First Lands",
+        "revid": 4058999
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "passive"
+        ],
+        "affectsEnemies": true,
+        "parry": "yes"
+      },
+      "applies": [],
+      "movement": [],
+      "states": []
+    },
+    {
+      "champion": "Yunara",
+      "kind": "Q",
+      "name": "Cultivation of Spirit",
+      "page": {
+        "title": "Template:Data Yunara/Cultivation of Spirit",
+        "revid": 4078272
+      },
+      "damageTypes": [
+        "physical",
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "auto"
+        ],
+        "affectsEnemies": true,
+        "projectile": "yes",
+        "spellShield": "no",
+        "attack": "on-hit"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [
+        {
+          "state": "heal",
+          "evidence": [
+            {
+              "page": "Template:Data Yunara/Cultivation of Spirit",
+              "revid": 4078272,
+              "quote": "Each spread attack applies life steal and on-hit effects, with on-hit damage reduced to 30% effectiveness, and will critically strike if the triggering attack does."
+            },
+            {
+              "page": "Template:Data Yunara/Cultivation of Spirit",
+              "revid": 4078272,
+              "quote": "Each spread attack applies life steal and on-hit effects, with on-hit damage reduced to 30% effectiveness, and will critically strike if the triggering attack does."
+            }
+          ]
+        }
+      ],
+      "castTime": 0,
+      "speed": 10000,
+      "boostsAttacks": true,
+      "notes": [
+        "Cultivation of Spirit's damage classifications:\n  - Proc damage for the passive and active on-hit damage.\n  - Basic damage for the spread attack damage.",
+        "The on-hit will critically strike for 0% bonus damage when the triggering attack does, causing it to be reduced by Randuin's Omen but not be amped by I.",
+        "Spread attacks will still deal damage even if Yunara misses her basic attack due to blind.",
+        "Spread attack interaction with parrying effects (dodge, block)",
+        "Each bolt from Runaan's Hurricane Wind's Fury may trigger its own spread attack (despite the spread attacks not being an on-hit effect)."
+      ]
+    },
+    {
+      "champion": "Yunara",
+      "kind": "R",
+      "name": "Transcend One's Self",
+      "page": {
+        "title": "Template:Data Yunara/Transcend One's Self",
+        "revid": 4038856
+      },
+      "damageTypes": [],
+      "delivery": {
+        "targeting": [
+          "auto"
+        ],
+        "affectsEnemies": false
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "cooldown": 80,
+      "castTime": 0
+    },
+    {
+      "champion": "Yunara",
+      "kind": "W",
+      "name": "Arc of Judgment",
+      "page": {
+        "title": "Template:Data Yunara/Arc of Judgment",
+        "revid": 4008650
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "direction"
+        ],
+        "affectsEnemies": true,
+        "projectile": "yes",
+        "spellShield": "partly"
+      },
+      "applies": [
+        {
+          "type": "slow",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "slow"
+            },
+            {
+              "page": "Template:Data Yunara/Arc of Judgment",
+              "revid": 4008650,
+              "quote": "The initial hit against each enemy before the bead's expansion deals magic damage and slows them by 99% decaying over 1.5 seconds."
+            }
+          ],
+          "duration": 1.5,
+          "amount": 99
+        }
+      ],
+      "movement": [],
+      "states": [],
+      "cooldown": 10,
+      "castTime": 0.45,
+      "range": 1150,
+      "speed": 2150,
+      "notes": [
+        "Spell shield can block either the initial hit or one damage tick of the lingering effect.* This ability will cast from wherever the caster is at the end of the cast time."
+      ]
+    },
+    {
+      "champion": "Yunara",
+      "kind": "W",
+      "name": "Arc of Ruin",
+      "page": {
+        "title": "Template:Data Yunara/Arc of Ruin",
+        "revid": 4039441
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "direction"
+        ],
+        "affectsEnemies": true,
+        "projectile": "no",
+        "spellShield": "yes"
+      },
+      "applies": [
+        {
+          "type": "slow",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "slow"
+            },
+            {
+              "page": "Template:Data Yunara/Arc of Ruin",
+              "revid": 4039441,
+              "quote": "Active: Yunara fires a beam of spirit magic in the target direction that deals 160 / 320 / 480 (based on Rank) (+ 120% bonus AD) (+ 75% AP) magic damage to enemies hit and slows them by 99% decaying over 1 second, as well as granting sight of the surrounding area."
+            }
+          ],
+          "duration": 1,
+          "amount": 99
+        }
+      ],
+      "movement": [],
+      "states": [],
+      "cooldown": 10,
+      "castTime": 0.6,
+      "range": 1150
+    }
+  ]
+}

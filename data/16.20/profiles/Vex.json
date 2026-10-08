@@ -1,0 +1,294 @@
+{
+  "champion": "Vex",
+  "name": "Vex",
+  "gameplayRadius": 55,
+  "moveSpeed": 335,
+  "attacks": [
+    {
+      "form": "vex",
+      "formName": "Vex",
+      "range": 550,
+      "ranged": true,
+      "projectile": true,
+      "missileSpeed": 2000,
+      "attackSpeed": 0.791906,
+      "attackDamage": 108.079,
+      "windup": 0.197309,
+      "modifiers": [
+        "Doom 'n Gloom"
+      ]
+    }
+  ],
+  "abilities": [
+    {
+      "champion": "Vex",
+      "kind": "E",
+      "name": "Looming Darkness",
+      "page": {
+        "title": "Template:Data Vex/Looming Darkness",
+        "revid": 4034711
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "location"
+        ],
+        "affectsEnemies": true,
+        "projectile": "yes",
+        "spellShield": "yes"
+      },
+      "applies": [
+        {
+          "type": "slow",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "slow"
+            },
+            {
+              "page": "Template:Data Vex/Looming Darkness",
+              "revid": 4034711,
+              "quote": "Active: Vex tosses her Shadow to explode at the target location, dealing magic damage to enemies hit and slowing them for 2 seconds."
+            }
+          ],
+          "duration": 2,
+          "amount": 50
+        }
+      ],
+      "movement": [],
+      "states": [],
+      "cooldown": 12,
+      "castTime": 0.25,
+      "range": 800,
+      "speed": 1300
+    },
+    {
+      "champion": "Vex",
+      "kind": "I",
+      "name": "Doom 'n Gloom",
+      "page": {
+        "title": "Template:Data Vex/Doom 'n Gloom",
+        "revid": 3986733
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "passive"
+        ],
+        "affectsEnemies": true,
+        "projectile": "no",
+        "spellShield": "partly",
+        "parry": "yes",
+        "attack": "attack modifier"
+      },
+      "applies": [
+        {
+          "type": "fear",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "fear"
+            },
+            {
+              "page": "Template:Data Vex/Doom 'n Gloom",
+              "revid": 3986733,
+              "quote": "Passive - Doom: Periodically, Vex empowers her next basic ability to knock down and fear enemies hit for 0.75 / 1 / 1.25 / 1.5 (based on level) seconds, during which they are slowed by 60 / 63.9 / 67.8 / 71.7 / 75.6 / 79.5 / 83.4 / 87.3 / 91.2 / 95.1 / 99 (based on distance from Vex)%."
+            }
+          ],
+          "duration": 1.5
+        },
+        {
+          "type": "knockdown",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "knockdown"
+            },
+            {
+              "page": "Template:Data Vex/Doom 'n Gloom",
+              "revid": 3986733,
+              "quote": "Passive - Doom: Periodically, Vex empowers her next basic ability to knock down and fear enemies hit for 0.75 / 1 / 1.25 / 1.5 (based on level) seconds, during which they are slowed by 60 / 63.9 / 67.8 / 71.7 / 75.6 / 79.5 / 83.4 / 87.3 / 91.2 / 95.1 / 99 (based on distance from Vex)%."
+            }
+          ],
+          "duration": 1.5
+        },
+        {
+          "type": "slow",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "slow"
+            },
+            {
+              "page": "Template:Data Vex/Doom 'n Gloom",
+              "revid": 3986733,
+              "quote": "Passive - Doom: Periodically, Vex empowers her next basic ability to knock down and fear enemies hit for 0.75 / 1 / 1.25 / 1.5 (based on level) seconds, during which they are slowed by 60 / 63.9 / 67.8 / 71.7 / 75.6 / 79.5 / 83.4 / 87.3 / 91.2 / 95.1 / 99 (based on distance from Vex)%."
+            }
+          ],
+          "duration": 1.5,
+          "amount": 60
+        },
+        {
+          "type": "knockdown",
+          "evidence": [
+            {
+              "page": "Dash",
+              "revid": 4035700
+            }
+          ]
+        }
+      ],
+      "movement": [],
+      "states": [],
+      "cooldown": 16,
+      "notes": [
+        "Gloom will mark Rift Herald and Rift Scuttler when they use their dashes.",
+        "Gloom's mark has a very brief cooldown and refreshes on subsequent dashes or blinks nearby enemies use.",
+        "Gloom will mark enemies even if they are untargetable.",
+        "Non-champions (e.g. Rift Scuttler) are not knocked down by the fear-empowered ability.",
+        "Spell shield will block all of Doom's effects but not Gloom's empowered attack nor mark."
+      ]
+    },
+    {
+      "champion": "Vex",
+      "kind": "Q",
+      "name": "Mistral Bolt",
+      "page": {
+        "title": "Template:Data Vex/Mistral Bolt",
+        "revid": 4053302
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "direction"
+        ],
+        "affectsEnemies": true,
+        "projectile": "yes",
+        "spellShield": "yes"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "cooldown": 4,
+      "castTime": 0.15,
+      "range": 1200,
+      "speed": 600
+    },
+    {
+      "champion": "Vex",
+      "kind": "R",
+      "name": "Shadow Surge",
+      "page": {
+        "title": "Template:Data Vex/Shadow Surge",
+        "revid": 4057925
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "direction",
+          "auto"
+        ],
+        "affectsEnemies": true,
+        "projectile": "yes",
+        "spellShield": "yes",
+        "grounded": "partly",
+        "knockdown": "no"
+      },
+      "applies": [
+        {
+          "type": "reveal",
+          "evidence": [
+            {
+              "page": "Template:List of true sight abilities",
+              "revid": 3860444
+            }
+          ]
+        }
+      ],
+      "movement": [
+        {
+          "type": "dash",
+          "evidence": [
+            {
+              "page": "Dash",
+              "revid": 4035700,
+              "quote": "auto-targeted; (second cast)"
+            }
+          ],
+          "targeting": "auto-targeted",
+          "condition": "(second cast)",
+          "interruptible": false
+        }
+      ],
+      "states": [
+        {
+          "state": "displacement immune",
+          "evidence": [
+            {
+              "page": "Template:Data Vex/Shadow Surge",
+              "revid": 4057925,
+              "quote": "Recast: Vex dashes towards the marked target with displacement immunity."
+            }
+          ]
+        }
+      ],
+      "cooldown": 100,
+      "castTime": 0.25,
+      "range": 3000,
+      "speed": 1600,
+      "notes": [
+        "Vex's dash will track the target if they change locations.\n  - She will not stop tracking the target until she reaches them, as there is no maximum tracking distance.",
+        "Shadow Surge cannot be recast while grounded or rooted, or if the target is untargetable.",
+        "The following table refers for interactions while Vex is dashing:\n  - All movement spells are disabled during the first 0.25 seconds of the dash."
+      ]
+    },
+    {
+      "champion": "Vex",
+      "kind": "W",
+      "name": "Personal Space",
+      "page": {
+        "title": "Template:Data Vex/Personal Space",
+        "revid": 4008547
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "auto"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "yes"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [
+        {
+          "state": "shield",
+          "evidence": [
+            {
+              "page": "Template:Data Vex/Personal Space",
+              "revid": 4008547,
+              "quote": "Active: Vex emits a deafening scream around her before the cast time, dealing magic damage to nearby enemies and granting herself a shield for 2.5 seconds."
+            }
+          ],
+          "duration": 2.5
+        }
+      ],
+      "cooldown": 12,
+      "castTime": 0.25
+    }
+  ]
+}

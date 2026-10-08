@@ -1,0 +1,190 @@
+{
+  "champion": "Zyra",
+  "name": "Zyra",
+  "gameplayRadius": 65,
+  "moveSpeed": 340,
+  "attacks": [
+    {
+      "form": "zyra",
+      "formName": "Zyra",
+      "range": 575,
+      "ranged": true,
+      "projectile": true,
+      "missileSpeed": 1700,
+      "attackSpeed": 0.940332,
+      "attackDamage": 115.928,
+      "windup": 0.155087,
+      "modifiers": []
+    }
+  ],
+  "abilities": [
+    {
+      "champion": "Zyra",
+      "kind": "E",
+      "name": "Grasping Roots",
+      "page": {
+        "title": "Template:Data Zyra/Grasping Roots",
+        "revid": 4013460
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "direction"
+        ],
+        "affectsEnemies": true,
+        "projectile": "yes",
+        "spellShield": "yes"
+      },
+      "applies": [
+        {
+          "type": "root",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "root"
+            },
+            {
+              "page": "Template:Data Zyra/Grasping Roots",
+              "revid": 4013460,
+              "quote": "Active: Zyra shoots a surge of vines in the target direction that deals magic damage to enemies hit and roots them for a duration."
+            }
+          ],
+          "duration": 2
+        }
+      ],
+      "movement": [],
+      "states": [],
+      "cooldown": 11,
+      "castTime": 0.25,
+      "range": 1100,
+      "speed": 1150
+    },
+    {
+      "champion": "Zyra",
+      "kind": "I",
+      "name": "Garden of Thorns",
+      "page": {
+        "title": "Template:Data Zyra/Garden of Thorns",
+        "revid": 3986877
+      },
+      "damageTypes": [],
+      "delivery": {
+        "targeting": [
+          "passive"
+        ],
+        "affectsEnemies": false
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "cooldown": 8.51471
+    },
+    {
+      "champion": "Zyra",
+      "kind": "Q",
+      "name": "Deadly Spines",
+      "page": {
+        "title": "Template:Data Zyra/Deadly Spines",
+        "revid": 4013461
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "location"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "yes"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "cooldown": 5,
+      "castTime": 0.25,
+      "range": 800
+    },
+    {
+      "champion": "Zyra",
+      "kind": "R",
+      "name": "Stranglethorns",
+      "page": {
+        "title": "Template:Data Zyra/Stranglethorns",
+        "revid": 3945317
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "location"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "yes"
+      },
+      "applies": [
+        {
+          "type": "airborne",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "airborne: knock up"
+            },
+            {
+              "page": "Template:Data Zyra/Stranglethorns",
+              "revid": 3945317,
+              "quote": "After 2 seconds, the thicket snaps upward to knock up enemies within for 1 second."
+            }
+          ],
+          "variant": "knock up",
+          "duration": 1
+        }
+      ],
+      "movement": [],
+      "states": [],
+      "cooldown": 90,
+      "castTime": 0.25,
+      "range": 700
+    },
+    {
+      "champion": "Zyra",
+      "kind": "W",
+      "name": "Rampant Growth",
+      "page": {
+        "title": "Template:Data Zyra/Rampant Growth",
+        "revid": 4044057
+      },
+      "damageTypes": [],
+      "delivery": {
+        "targeting": [
+          "location"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "no"
+      },
+      "applies": [
+        {
+          "type": "reveal",
+          "evidence": [
+            {
+              "page": "Template:List of true sight abilities",
+              "revid": 3860444
+            }
+          ]
+        }
+      ],
+      "movement": [],
+      "states": [],
+      "cooldown": 10,
+      "castTime": 0,
+      "range": 850,
+      "notes": [
+        "Seeds are untargetable."
+      ]
+    }
+  ]
+}

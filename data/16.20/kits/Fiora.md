@@ -9,6 +9,22 @@ Values marked "at max rank, level 20" assume every ability is maxed; see PLAN.md
 |---|--:|--:|--:|--:|--:|--:|--:|--:|--:|--:|
 | Fiora | 2684.8 | 19.32 | 1479.9 Mana | 130.9 | 1.124 | 0.123 | 125.4 | 72.3 | 150 | 345 |
 
+## Fight profile (what the interaction ledger uses)
+
+| Form | Attack range | Ranged | Projectile | Missile speed | Attack modifiers |
+|---|--:|---|---|--:|---|
+| Fiora | 150 | no | no | – | – |
+
+Cooldowns at max rank. Flags: the wiki's interaction flags (yes, no, partly). * marks an effect that applies only under a condition.
+
+| Slot | Ability | Cooldown | Delivery | Applies to the enemy | Movement | Gives itself |
+|---|---|--:|---|---|---|---|
+| E | Bladework | 7 | spell shield partly; parry partly; attack | slow 1 s 30% | – | – |
+| I | Duelist's Dance | – | spell shield no; parry partly | – | – | heal 1.85 s |
+| Q | Lunge | 6 | spell shield yes; parry partly; grounded yes; knockdown yes; on-hit | – | dash | – |
+| R | Grand Challenge | 70 | spell shield no | – | – | heal 5 s |
+| W | Riposte | 16 | projectile yes; spell shield yes | cripple 2 s 25%; slow 2 s 25%; stun 2 s* | – | parry 0.75 s |
+
 ## Innate: Duelist's Dance
 
 Source: [Template:Data Fiora/Duelist's Dance](https://wiki.leagueoflegends.com/en-us/Template:Data_Fiora/Duelist's_Dance?oldid=4038335) (revision 4038335). Ranks: 1.

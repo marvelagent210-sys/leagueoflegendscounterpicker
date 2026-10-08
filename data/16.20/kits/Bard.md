@@ -9,6 +9,22 @@ Values marked "at max rank, level 20" assume every ability is maxed; see PLAN.md
 |---|--:|--:|--:|--:|--:|--:|--:|--:|--:|--:|
 | Bard | 2655.5 | 16.32 | 1333.3 Mana | 111.0 | 0.917 | 0.205 | 124.4 | 55.6 | 500 | 335 |
 
+## Fight profile (what the interaction ledger uses)
+
+| Form | Attack range | Ranged | Projectile | Missile speed | Attack modifiers |
+|---|--:|---|---|--:|---|
+| Bard | 500 | yes | yes | 2000 | Traveler's Call |
+
+Cooldowns at max rank. Flags: the wiki's interaction flags (yes, no, partly). * marks an effect that applies only under a condition.
+
+| Slot | Ability | Cooldown | Delivery | Applies to the enemy | Movement | Gives itself |
+|---|---|--:|---|---|---|---|
+| E | Magical Journey | 16 | projectile no; grounded partly; knockdown yes | – | dash (when clicked) | – |
+| I | Traveler's Call | 50 | projectile yes; spell shield partly; parry no; attack modifier | slow 1 s 25% | – | – |
+| Q | Cosmic Binding | 7 | projectile yes; spell shield partly | slow 60%; stun 1.8 s* | – | – |
+| R | Tempered Fate | 80 | projectile no; spell shield yes | stasis; stun 2.5 s | – | stasis 2.5 s; untargetable 2.5 s |
+| W | Caretaker's Shrine | 18 | – | – | – | heal 1.5 s |
+
 ## Innate: Traveler's Call
 
 Source: [Template:Data Bard/Traveler's Call](https://wiki.leagueoflegends.com/en-us/Template:Data_Bard/Traveler's_Call?oldid=4034690) (revision 4034690). Ranks: 1.

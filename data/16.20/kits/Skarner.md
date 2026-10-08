@@ -9,33 +9,22 @@ Values marked "at max rank, level 20" assume every ability is maxed; see PLAN.md
 |---|--:|--:|--:|--:|--:|--:|--:|--:|--:|--:|
 | Skarner | 2793.2 | 22.25 | 1106.6 Mana | 161.3 | 0.871 | 0.215 | 121.5 | 72.3 | 150 | 335 |
 
-## Innate: Crystal Spires
+## Fight profile (what the interaction ledger uses)
 
-Source: [Template:Data Skarner/Crystal Spires](https://wiki.leagueoflegends.com/en-us/Template:Data_Skarner/Crystal_Spires?oldid=3464570) (revision 3464570). Ranks: 1.
+| Form | Attack range | Ranged | Projectile | Missile speed | Attack modifiers |
+|---|--:|---|---|--:|---|
+| Skarner | 150 | no | no | – | Threads of Vibration |
 
-| Field | Value |
-|---|---|
-| Effect radius | 1600 |
+Cooldowns at max rank. Flags: the wiki's interaction flags (yes, no, partly). * marks an effect that applies only under a condition.
 
-Targeting: Passive · Affects: Self · Damage type: – · Spell shield blocks it: – · Projectile: – · Parry: – · Disabled by grounded: – · Usable while knocked down: –
-
-Innate: Skarner's presence spawns 6 Crystal Spires at set points across the battlefield: * One beside Baron Nashor pit * One beside Dragon pit * One near each of the camps for Blue Sentinel and Red Brambleback
-
-After minions have spawned, a Crystal Spire can be captured by champions by standing on it for 2 seconds, Once captured, the Crystal Spire is owned by the team until contested, and the defending team can stand on the spire to prevent the opposing team from capturing it.
-
-Capturing a Crystal Spire grants sight of its radius for 1.5 seconds and locks it out from capture for 15 seconds. Crystal Spires grant 30 split among its captors, or 15 for a single captor.
-
-- **Mechanics:** reveal (1.5 s)
-
-Skarner gains Crystal Charge while within range of a Crystal Spire controlled by his team, for 1.25 seconds after triggering Crystal Venom, and for 1.75 seconds after stinging an enemy champion with Impale.
-
-Crystal Charge: Skarner gains 70 – 120 (based on level) bonus movement speed and 43 – 160 (based on level)% bonus attack speed and restores 1% maximum mana every 0.5 seconds.
-
-Crystal Spires near buff monsters start the game already captured by the side's respective team.
-
-Notes:
-
-- Crystal Charge's duration refreshes if it was gained by an ability.
+| Slot | Ability | Cooldown | Delivery | Applies to the enemy | Movement | Gives itself |
+|---|---|--:|---|---|---|---|
+| E | Ixtal's Impact | 18 | spell shield yes; grounded yes; knockdown no; disruptable yes | stun 1.1 s*; suppression*; reveal | – | slow immune 2.75 s |
+| I | Threads of Vibration | – | spell shield partly; parry partly; attack modifier | – | – | – |
+| Q | Shattered Earth | 3 | spell shield no; parry yes | slow 1 s 40% | – | – |
+| Q | Upheaval | – | projectile yes; spell shield partly | slow | – | – |
+| R | Impale | 90 | projectile no; spell shield yes | suppression 1.5 s; reveal | – | – |
+| W | Seismic Bastion | 6 | projectile no; spell shield yes | slow 1 s 20% | – | shield 2.5 s |
 
 ## Innate: Threads of Vibration
 
@@ -51,35 +40,6 @@ Notes:
 
 - Basic attacks that are dodged by the target or missed while Skarner is blinded do not apply stacks of Quake. Blocked attacks will still apply stacks.
 - Spell shield prevents Quaking's application from Upheaval and Impale only.
-
-## Q: Crystal Slash
-
-Source: [Template:Data Skarner/Crystal Slash](https://wiki.leagueoflegends.com/en-us/Template:Data_Skarner/Crystal_Slash?oldid=3919803) (revision 3919803). Ranks: 5.
-
-| Field | Value |
-|---|---|
-| Cooldown | 3.5 / 3.25 / 3 / 2.75 / 2.5 |
-| Cost | 10 mana |
-| Cast time | none |
-| Effect radius | 350 |
-
-Targeting: Auto · Affects: Enemies, Self · Damage type: Physical Magic · Spell shield blocks it: special · Projectile: – · Parry: – · Disabled by grounded: – · Usable while knocked down: –
-
-Active: Skarner slashes around himself, dealing physical damage to nearby enemies. If at least one enemy is hit, he becomes charged for 5 seconds, empowering subsequent casts of Crystal Slash to deal bonus magic damage.
-
-- **Physical Damage:** 1 / 1.5 / 2 / 2.5 / 3% of target's maximum health (+ 20% AD) → at max rank, level 20: 3% of targetMaxHealth (+ 20% AD)
-- **Bonus Magic Damage:** 1 / 1.5 / 2 / 2.5 / 3% of target's maximum health (+ 20% AD) (+ 30% AP) → at max rank, level 20: 3% of targetMaxHealth (+ 20% AD) (+ 30% AP)
-
-Each instance of damage is capped at 200 against epic monsters.
-
-Basic attacks reduce Crystal Slash's current cooldown by 0.25 seconds, increased to 1 second against champions.
-
-Notes:
-
-- Spell shield will block the damage but will not prevent Skarner from triggering the bonus effect.
-- Basic attacks against structures will not trigger the cooldown reduction.
-- As already noted, each damage instance is capped on its own, meaning that the maximum possible damage against an epic monster with one cast is 400.
-- In order to hit the cap, the target needs to have at least 20000 / 13333.3333333 / 10000 / 8000 / 6666.66666667 health (without considering the ratios).
 
 ## Q: Shattered Earth
 
@@ -174,30 +134,6 @@ Notes:
 - ;Known Issues
 - If Upheaval hits an enemy while a new instance of Shattered Earth is active, Shattered Earth's effects are immediately lost.
 
-## W: Crystalline Exoskeleton
-
-Source: [Template:Data Skarner/Crystalline Exoskeleton](https://wiki.leagueoflegends.com/en-us/Template:Data_Skarner/Crystalline_Exoskeleton?oldid=3580081) (revision 3580081). Ranks: 5.
-
-| Field | Value |
-|---|---|
-| Cooldown | 13 / 12.5 / 12 / 11.5 / 11 |
-| Cost | 60 mana |
-| Cast time | none |
-| Cooldown starts | on-cast |
-
-Targeting: Auto · Affects: Self · Damage type: – · Spell shield blocks it: – · Projectile: – · Parry: – · Disabled by grounded: – · Usable while knocked down: –
-
-Active: Skarner grants himself a shield for up to 6 seconds, and while it holds, he gains bonus movement speed that doubles over the first 3 seconds.
-
-- **Shield Strength:** 9 / 10 / 11 / 12 / 13% maximum health (+ 80% AP) → at max rank, level 20: 13% of maxHealth (+ 80% AP)
-- **Bonus Movement Speed:** 8 / 10 / 12 / 14 / 16% → at max rank, level 20: 16%
-- **Increased Bonus Movement Speed:** 16 / 20 / 24 / 28 / 32% → at max rank, level 20: 32%
-- **Mechanics:** shield (6 s)
-
-Notes:
-
-- No additional notes.
-
 ## W: Seismic Bastion
 
 Source: [Template:Data Skarner/Seismic Bastion](https://wiki.leagueoflegends.com/en-us/Template:Data_Skarner/Seismic_Bastion?oldid=4008046) (revision 4008046). Ranks: 5.
@@ -224,41 +160,6 @@ Notes:
 - The shield is granted at the start of the cast time.
 - The shield ratio is equal to 50.4 – 200 (based on level) (+ 8% of his bonus health).
 - This ability will cast from wherever the caster is at the end of the cast time.
-
-## E: Fracture
-
-Source: [Template:Data Skarner/Fracture](https://wiki.leagueoflegends.com/en-us/Template:Data_Skarner/Fracture?oldid=3919804) (revision 3919804). Ranks: 5.
-
-| Field | Value |
-|---|---|
-| Cooldown | 14 / 13.5 / 13 / 12.5 / 12 |
-| Cost | 55 mana |
-| Cast time | 0.25 |
-| Target range | 1000 |
-| Width | 140 |
-| Speed | 1500 |
-
-Targeting: Direction · Affects: Enemies · Damage type: Physical Magic · Spell shield blocks it: true · Projectile: true · Parry: special · Disabled by grounded: – · Usable while knocked down: –
-
-Passive: Every time Skarner triggers Crystal Venom or stings an enemy with Impale, Fracture's current cooldown is reduced by the corresponding base duration of the disable.
-
-Active: Skarner launches a blast of crystalline energy in the target direction that deals magic damage to enemies hit, slows them for 2.5 seconds, and marks them with Crystal Venom for 5 seconds.
-
-- **Magic Damage:** 40 / 65 / 90 / 115 / 140 (+ 20% AP) → at max rank, level 20: 140 (+ 20% AP)
-- **Slow:** 30 / 35 / 40 / 45 / 50% → at max rank, level 20: 50%
-- **Mechanics:** slow (2.5 s, 50%)
-
-Crystal Venom: Skarner's next basic attack against a marked target is empowered to consume the mark to deal bonus physical damage and stun them for 1.25 seconds.
-
-- **Bonus Physical Damage:** 30 / 50 / 70 / 90 / 110 → at max rank, level 20: 110
-- **Mechanics:** stun (1.25 s)
-
-Notes:
-
-- Fracture is disabled during Impale.
-- This ability will cast from wherever the caster is at the start of the cast time.
-- Fracture's projectile deals area damage, while the Crystal Venom on-hit effect deals proc damage.
-- Crystal Venom triggers even if the attack is blocked (stun applies), but not if it's dodged or he is Blind. The damage of the entire attack is negated in both cases.
 
 ## E: Ixtal's Impact
 
@@ -367,8 +268,6 @@ game formula supplies 19-20; "confirmed"/"differs": the wiki defines 19-20 and t
 
 | Ability | Value | Outcome | Level 18 | Level 19 | Level 20 | Game formula |
 |---|---|---|--:|--:|--:|---|
-| Crystal Spires | description: Crystal Charge: Skarner gains 70 – 120 (based on level) bonus movement speed and | no match | 120 | – | – | – |
-| Crystal Spires | description: Crystal Charge: Skarner gains 70 – 120 (based on level) bonus movement speed and | no match | 160 | – | – | – |
 | Threads of Vibration | description: Enemies afflicted with 3 stacks take magic damage equal to 5 – 9 (based on level | confirmed | 9 | 9.23529 | 9.47059 | SkarnerPassive.PercentHealthDamage: linear 5 → 9 over levels 1-18, continues past 18 |
 | Threads of Vibration | description: Enemies afflicted with 3 stacks take magic damage equal to 5 – 9 (based on level | confirmed | 300 | 311.765 | 323.529 | SkarnerPassive.DamageMonsterCap: linear 100 → 300 over levels 1-18, continues past 18 |
 

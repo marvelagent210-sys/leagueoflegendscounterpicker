@@ -9,6 +9,22 @@ Values marked "at max rank, level 20" assume every ability is maxed; see PLAN.md
 |---|--:|--:|--:|--:|--:|--:|--:|--:|--:|--:|
 | Sivir | 2645.2 | 14.07 | 1224.9 Mana | 109.2 | 0.822 | 0.146 | 108.7 | 54.6 | 500 | 335 |
 
+## Fight profile (what the interaction ledger uses)
+
+| Form | Attack range | Ranged | Projectile | Missile speed | Attack modifiers |
+|---|--:|---|---|--:|---|
+| Sivir | 500 | yes | yes | 1750 | Fleet of Foot |
+
+Cooldowns at max rank. Flags: the wiki's interaction flags (yes, no, partly). * marks an effect that applies only under a condition.
+
+| Slot | Ability | Cooldown | Delivery | Applies to the enemy | Movement | Gives itself |
+|---|---|--:|---|---|---|---|
+| E | Spell Shield | 18 | – | – | – | spell shield 1.5 s; heal |
+| I | Fleet of Foot | – | spell shield no; parry no; attack modifier | – | – | – |
+| Q | Boomerang Blade | 8 | projectile yes; spell shield partly | – | – | – |
+| R | On the Hunt | 80 | – | – | – | – |
+| W | Ricochet | 12 | projectile yes; spell shield no; on-hit | – | – | – |
+
 ## Innate: Fleet of Foot
 
 Source: [Template:Data Sivir/Fleet of Foot](https://wiki.leagueoflegends.com/en-us/Template:Data_Sivir/Fleet_of_Foot?oldid=3985850) (revision 3985850). Ranks: 1.

@@ -9,6 +9,22 @@ Values marked "at max rank, level 20" assume every ability is maxed; see PLAN.md
 |---|--:|--:|--:|--:|--:|--:|--:|--:|--:|--:|
 | Illaoi | 2917.5 | 25.23 | 1333.3 Mana | 163.3 | 0.932 | 0.230 | 133.3 | 72.3 | 125 | 350 |
 
+## Fight profile (what the interaction ledger uses)
+
+| Form | Attack range | Ranged | Projectile | Missile speed | Attack modifiers |
+|---|--:|---|---|--:|---|
+| Illaoi | 125 | no | no | – | – |
+
+Cooldowns at max rank. Flags: the wiki's interaction flags (yes, no, partly). * marks an effect that applies only under a condition.
+
+| Slot | Ability | Cooldown | Delivery | Applies to the enemy | Movement | Gives itself |
+|---|---|--:|---|---|---|---|
+| E | Test of Spirit | 12 | projectile partly; spell shield partly | slow 1.5 s 80%; reveal | – | – |
+| I | Prophet of an Elder God | 5.70588 | projectile no; spell shield yes | – | – | heal |
+| Q | Tentacle Smash | 6 | projectile no; spell shield yes | – | – | – |
+| R | Leap of Faith | 70 | spell shield partly | – | – | displacement immune |
+| W | Harsh Lesson | 4 | spell shield partly; parry partly; grounded partly; knockdown partly; attack | – | dash | – |
+
 ## Innate: Prophet of an Elder God
 
 Source: [Template:Data Illaoi/Prophet of an Elder God](https://wiki.leagueoflegends.com/en-us/Template:Data_Illaoi/Prophet_of_an_Elder_God?oldid=4070338) (revision 4070338). Ranks: 1.

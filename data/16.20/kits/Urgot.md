@@ -9,6 +9,22 @@ Values marked "at max rank, level 20" assume every ability is maxed; see PLAN.md
 |---|--:|--:|--:|--:|--:|--:|--:|--:|--:|--:|
 | Urgot | 2660.8 | 21.27 | 1224.9 Mana | 141.7 | 1.086 | 0.138 | 134.3 | 72.3 | 350 | 330 |
 
+## Fight profile (what the interaction ledger uses)
+
+| Form | Attack range | Ranged | Projectile | Missile speed | Attack modifiers |
+|---|--:|---|---|--:|---|
+| Urgot | 350 | yes | yes | 2500 | Echoing Flames |
+
+Cooldowns at max rank. Flags: the wiki's interaction flags (yes, no, partly). * marks an effect that applies only under a condition.
+
+| Slot | Ability | Cooldown | Delivery | Applies to the enemy | Movement | Gives itself |
+|---|---|--:|---|---|---|---|
+| E | Disdain | 14 | spell shield yes; grounded yes; knockdown yes | airborne (pull) 1 s; stun 1 s | dash | shield 4 s |
+| I | Echoing Flames | – | projectile no; spell shield no; parry partly; attack modifier | – | – | – |
+| Q | Corrosive Charge | 8 | projectile yes; spell shield yes | slow 1.25 s 65% | – | – |
+| R | Fear Beyond Death | 70 | projectile yes; spell shield partly; disruptable no | fear 1.5 s*; slow 4 s 0%*; suppression; reveal | – | – |
+| W | Purge | 0 | projectile yes; spell shield no; parry yes; on-hit | – | – | – |
+
 ## Innate: Echoing Flames
 
 Source: [Template:Data Urgot/Echoing Flames](https://wiki.leagueoflegends.com/en-us/Template:Data_Urgot/Echoing_Flames?oldid=4051193) (revision 4051193). Ranks: 1.
@@ -44,42 +60,6 @@ Notes:
 - Urgot's legs never change in orientation, with his body instead rotating on top of them; the leg that faces northeast will always face northeast. This does not affect Urgot's facing direction for the purposes of abilities such as Petrifying Gaze.
 - Echoing Flames is special cased to grant Spear of Shojin Focused Will stacks, but is not special cased to consume Tear of the Goddess stacks.
     - Otherwise it would be impossible to reach or maintain 4 stacks of the effect.
-
-## Innate: Zaun-Touched Bolt Augmenter
-
-Source: [Template:Data Urgot/Zaun-Touched Bolt Augmenter](https://wiki.leagueoflegends.com/en-us/Template:Data_Urgot/Zaun-Touched_Bolt_Augmenter?oldid=2704896) (revision 2704896). Ranks: 1.
-
-Targeting: Zaun-Touched Bolt Augmenter is an on-action effect. · Affects: – · Damage type: – · Spell shield blocks it: – · Projectile: – · Parry: – · Disabled by grounded: – · Usable while knocked down: –
-
-Urgot's basic attacks and Acid Hunter reduce the damage dealt by his target by 15% for 2.5 seconds.
-
-Notes:
-
-- Zaun-Touched Bolt Augmenter does not affect true damage dealt by his target.
-- Zaun-Touched Bolt Augmenter does not stack. Subsequent auto-attacks or Acid Hunter hits will only refresh the duration of the debuff.
-
-## Q: Acid Hunter
-
-Source: [Template:Data Urgot/Acid Hunter](https://wiki.leagueoflegends.com/en-us/Template:Data_Urgot/Acid_Hunter?oldid=3309707) (revision 3309707). Ranks: 5.
-
-| Field | Value |
-|---|---|
-| Cooldown | 2 |
-| Cost | 40 mana |
-| Target range | 1000 / 1200 |
-| Speed | 1550 |
-
-Targeting: Acid Hunter is a linear, collision skillshot with a unit-targeted component. · Affects: – · Damage type: physical · Spell shield blocks it: will block the ability. · Projectile: true · Parry: – · Disabled by grounded: – · Usable while knocked down: –
-
-Active: Urgot fires a missile in a line, dealing physical damage to the first enemy it hits and refunding 20 mana if it kills its target.
-
-- **Physical Damage:** 10 / 40 / 70 / 100 / 130 (+ 85% AD) → at max rank, level 20: 130 (+ 85% AD)
-
-Acid Hunter can also directly target enemies affected by Noxian Corrosive Charge, passing over all other enemies to hit them directly, and gaining increased range.
-
-Notes:
-
-- The lock-on casting Acid Hunter does not need vision of the target to activate; as long as the cursor is hovering over an enemy debuffed by Noxian Corrosive Charge and they are within the ability's radius around Urgot, the missile lock-on will trigger. This includes both stealthed units and units hidden in the fog of war.
 
 ## Q: Corrosive Charge
 
@@ -159,30 +139,6 @@ Notes:
 - Purge will apply Runaan's Hurricane on every shot at 100% of the listed damage.
     - On-hit damage applied by the bolts are still reduced by Purge.
 
-## W: Terror Capacitor
-
-Source: [Template:Data Urgot/Terror Capacitor](https://wiki.leagueoflegends.com/en-us/Template:Data_Urgot/Terror_Capacitor?oldid=3309710) (revision 3309710). Ranks: 5.
-
-| Field | Value |
-|---|---|
-| Cooldown | 16 / 15 / 14 / 13 / 12 |
-| Cost | 55 / 60 / 65 / 70 / 75 mana |
-
-Targeting: Terror Capacitor is a self-targeted buff with an on-action effect component. · Affects: – · Damage type: – · Spell shield blocks it: – · Projectile: – · Parry: – · Disabled by grounded: – · Usable while knocked down: –
-
-Active: Urgot shields himself for up to 5 seconds, also causing his basic attacks and Acid Hunter to slow his target for 1.5 seconds while the shield holds.
-
-- **Shield Strength:** 60 / 100 / 140 / 180 / 220 (+ 80% AP) (+ 8% maximum mana) → at max rank, level 20: 220 (+ 80% AP) (+ 8% maxMana)
-- **Slow:** 20 / 25 / 30 / 35 / 40% → at max rank, level 20: 40%
-- **Mechanics:** slow (1.5 s, 40%)
-
-Notes:
-
-- Terror Capacitor has no cast time and does not interrupt Urgot's previous orders.
-- Terror Capacitor may be activated while channeling Hyper-Kinetic Position Reverser without cancelling the channel.
-- Terror Capacitor's slow does not stack. Subsequent auto-attacks or Acid Hunter hits will only refresh the duration of the slow.
-- If Terror Capacitor is activated while auto-attack or Acid Hunter projectiles are mid-flight, they will still apply the slow on impact.
-
 ## E: Disdain
 
 Source: [Template:Data Urgot/Disdain](https://wiki.leagueoflegends.com/en-us/Template:Data_Urgot/Disdain?oldid=4008211) (revision 4008211). Ranks: 5.
@@ -223,30 +179,6 @@ Notes:
 - The shield is granted at the start of the cast time while the dash begins after.
 - The fling will occur after 0.25 seconds regardless of how far away the target is.
 - Displacement immunity will not resist the application of the stun.
-
-## E: Noxian Corrosive Charge
-
-Source: [Template:Data Urgot/Noxian Corrosive Charge](https://wiki.leagueoflegends.com/en-us/Template:Data_Urgot/Noxian_Corrosive_Charge?oldid=3309709) (revision 3309709). Ranks: 5.
-
-| Field | Value |
-|---|---|
-| Cooldown | 15 / 14 / 13 / 12 / 11 |
-| Cost | 50 / 55 / 60 / 65 / 70 mana |
-| Target range | 900 |
-| Effect radius | 150 |
-
-Targeting: Noxian Corrosive Charge is a ground-targeted area of effect. · Affects: – · Damage type: physical · Spell shield blocks it: will block the application of the debuff. · Projectile: true · Parry: – · Disabled by grounded: – · Usable while knocked down: –
-
-Active: Urgot launches a corrosive charge to the target location, dealing physical damage to all enemies hit over 5 seconds and reducing their armor for the duration.
-
-- **Physical Damage Per Second:** 15 / 26 / 37 / 48 / 59 (+ 12% bonus AD) → at max rank, level 20: 59 (+ 12% bonusAD)
-- **Total Physical Damage:** 75 / 130 / 185 / 240 / 295 (+ 60% bonus AD) → at max rank, level 20: 295 (+ 60% bonusAD)
-- **Armor Reduction:** 12 / 14 / 16 / 18 / 20% of target's armor → at max rank, level 20: 20% of targetArmor
-
-Notes:
-
-- Noxian Corrosive Charge grants a brief instance of sight around where it is cast.
-- The armor reduction is dynamic - if a debuffed unit's armor changes, the reduction will adjust itself accordingly.
 
 ## R: Fear Beyond Death
 
@@ -341,31 +273,6 @@ Notes:
 - Fear Beyond Death will not put the target inside terrain while reeling them in.
     - This does prevent the execution.
 - The following table refers for interactions while Urgot is channeling:
-
-## R: Hyper-Kinetic Position Reverser
-
-Source: [Template:Data Urgot/Hyper-Kinetic Position Reverser](https://wiki.leagueoflegends.com/en-us/Template:Data_Urgot/Hyper-Kinetic_Position_Reverser?oldid=3309708) (revision 3309708). Ranks: 3.
-
-| Field | Value |
-|---|---|
-| Cooldown | 120 / 100 / 80 |
-| Cost | 100 mana |
-| Target range | 500 / 700 / 850 |
-| Effect radius | 375 |
-
-Targeting: Hyper-Kinetic Position Reverser is a unit-targeted blink with buff and debuff components. · Affects: – · Damage type: – · Spell shield blocks it: will block the initial suppression, but will not prevent the blink and slow should urgot complete the channel anyway. · Projectile: – · Parry: – · Disabled by grounded: – · Usable while knocked down: –
-
-Active: Urgot grants himself damage reduction for 5 seconds and channels for 1 second, suppressing the target enemy champion for the duration. Upon completing the channel, Urgot and his target blink to each other's locations, allowing Urgot to ignore unit collision for 1 second, slowing the target by 40% for 3 seconds and causing nearby enemies to flee for 1.5 seconds excluding his target.
-
-- **damage reduction:** 30 / 40 / 50% → at max rank, level 20: 50%
-- **Mechanics:** suppression (1 s); slow (3 s, 40%); fear (1.5 s)
-
-Notes:
-
-- Crowd control immunity such as Black Shield or Ragnarok will prevent the suppression effect, but if the channel completes the target will still be moved.
-    - Remove Scurvy, Quicksilver Sash and Mercurial Scimitar will remove both the suppression and the impending displacement and slow. Urgot will still receive the full bonus to himself, however.
-- If Urgot is immobilized somehow when the channel completes, neither Urgot nor his target will be moved.
-- Hyper-Kinetic Position Reverser cannot be voluntarily cancelled by Urgot mid-cast.
 
 ## Game files
 

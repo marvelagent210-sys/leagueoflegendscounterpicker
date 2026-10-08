@@ -9,6 +9,22 @@ Values marked "at max rank, level 20" assume every ability is maxed; see PLAN.md
 |---|--:|--:|--:|--:|--:|--:|--:|--:|--:|--:|
 | Twitch | 2557.2 | 15.55 | 1086.6 Mana | 118.0 | 1.080 | 0.187 | 105.7 | 54.6 | 550 | 330 |
 
+## Fight profile (what the interaction ledger uses)
+
+| Form | Attack range | Ranged | Projectile | Missile speed | Attack modifiers |
+|---|--:|---|---|--:|---|
+| Twitch | 550 | yes | yes | 2500 | Deadly Venom |
+
+Cooldowns at max rank. Flags: the wiki's interaction flags (yes, no, partly). * marks an effect that applies only under a condition.
+
+| Slot | Ability | Cooldown | Delivery | Applies to the enemy | Movement | Gives itself |
+|---|---|--:|---|---|---|---|
+| E | Contaminate | 8 | projectile no; spell shield yes | – | – | – |
+| I | Deadly Venom | – | spell shield no; parry yes; attack modifier | – | – | – |
+| Q | Ambush | 16 | – | – | – | camouflage 1 s |
+| R | Spray and Pray | 90 | projectile yes; parry yes; on-hit | – | – | – |
+| W | Venom Cask | 9 | projectile yes; spell shield yes | slow 50% | – | – |
+
 ## Innate: Deadly Venom
 
 Source: [Template:Data Twitch/Deadly Venom](https://wiki.leagueoflegends.com/en-us/Template:Data_Twitch/Deadly_Venom?oldid=4062255) (revision 4062255). Ranks: 1.

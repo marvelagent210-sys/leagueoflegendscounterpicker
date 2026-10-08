@@ -9,6 +9,22 @@ Values marked "at max rank, level 20" assume every ability is maxed; see PLAN.md
 |---|--:|--:|--:|--:|--:|--:|--:|--:|--:|--:|
 | Ziggs | 2690.5 | 18.30 | 942.1 Mana | 116.0 | 0.914 | 0.219 | 113.4 | 55.6 | 550 | 325 |
 
+## Fight profile (what the interaction ledger uses)
+
+| Form | Attack range | Ranged | Projectile | Missile speed | Attack modifiers |
+|---|--:|---|---|--:|---|
+| Ziggs | 550 | yes | yes | 1500 | Short Fuse |
+
+Cooldowns at max rank. Flags: the wiki's interaction flags (yes, no, partly). * marks an effect that applies only under a condition.
+
+| Slot | Ability | Cooldown | Delivery | Applies to the enemy | Movement | Gives itself |
+|---|---|--:|---|---|---|---|
+| E | Hexplosive Minefield | 16 | projectile yes; spell shield partly | slow 1.5 s 50% | – | – |
+| I | Short Fuse | 12 | spell shield no; attack modifier | – | – | – |
+| Q | Bouncing Bomb | 4 | projectile yes; spell shield yes | – | – | – |
+| R | Mega Inferno Bomb | 70 | projectile no; spell shield yes | – | – | – |
+| W | Satchel Charge | 12 | projectile yes; spell shield yes; grounded partly; knockdown yes | airborne (knock back) 0.5 s | dash | – |
+
 ## Innate: Short Fuse
 
 Source: [Template:Data Ziggs/Short Fuse](https://wiki.leagueoflegends.com/en-us/Template:Data_Ziggs/Short_Fuse?oldid=4005222) (revision 4005222). Ranks: 1.

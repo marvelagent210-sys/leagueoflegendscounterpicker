@@ -1,0 +1,218 @@
+{
+  "champion": "Jinx",
+  "name": "Jinx",
+  "gameplayRadius": 65,
+  "moveSpeed": 325,
+  "attacks": [
+    {
+      "form": "jinx",
+      "formName": "Jinx",
+      "range": 525,
+      "ranged": true,
+      "projectile": true,
+      "attackSpeed": 0.747906,
+      "attackDamage": 122.911,
+      "windup": 0.236769,
+      "modifiers": []
+    }
+  ],
+  "abilities": [
+    {
+      "champion": "Jinx",
+      "kind": "E",
+      "name": "Flame Chompers!",
+      "page": {
+        "title": "Template:Data Jinx/Flame Chompers!",
+        "revid": 3993368
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "location"
+        ],
+        "affectsEnemies": true,
+        "projectile": "partly",
+        "spellShield": "partly"
+      },
+      "applies": [
+        {
+          "type": "knockdown",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "knockdown"
+            },
+            {
+              "page": "Template:Data Jinx/Flame Chompers!",
+              "revid": 3993368,
+              "quote": "Each Chomper explodes on contact with an enemy champion, knocking them down and rooting them for 1.5 seconds."
+            }
+          ],
+          "duration": 1.5
+        },
+        {
+          "type": "root",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "root"
+            },
+            {
+              "page": "Template:Data Jinx/Flame Chompers!",
+              "revid": 3993368,
+              "quote": "Each Chomper explodes on contact with an enemy champion, knocking them down and rooting them for 1.5 seconds."
+            }
+          ],
+          "duration": 1.5
+        },
+        {
+          "type": "knockdown",
+          "evidence": [
+            {
+              "page": "Dash",
+              "revid": 4035700
+            }
+          ]
+        }
+      ],
+      "movement": [],
+      "states": [],
+      "cooldown": 10,
+      "castTime": 0,
+      "range": 925,
+      "notes": [
+        "Chompers will halt when encountering Wind Wall and Unbreakable.",
+        "Spell shield does not negate the explosion."
+      ]
+    },
+    {
+      "champion": "Jinx",
+      "kind": "I",
+      "name": "Get Excited!",
+      "page": {
+        "title": "Template:Data Jinx/Get Excited!",
+        "revid": 3973632
+      },
+      "damageTypes": [],
+      "delivery": {
+        "targeting": [
+          "passive"
+        ],
+        "affectsEnemies": false
+      },
+      "applies": [],
+      "movement": [],
+      "states": []
+    },
+    {
+      "champion": "Jinx",
+      "kind": "Q",
+      "name": "Switcheroo!",
+      "page": {
+        "title": "Template:Data Jinx/Switcheroo!",
+        "revid": 4062629
+      },
+      "damageTypes": [
+        "physical"
+      ],
+      "delivery": {
+        "targeting": [
+          "auto"
+        ],
+        "affectsEnemies": false,
+        "spellShield": "no",
+        "parry": "yes"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "cooldown": 0.9,
+      "castTime": 0,
+      "boostsAttacks": true,
+      "notes": [
+        "Fishbones splash damage affects structures (minions will target Jinx) but does not affect targets if Jinx's attacks are blocked, dodged, or missed.",
+        "The splash damage of Fishbones is based on the pre-mitigation damage done to the primary target (which includes critical strikes). It deals proc damage and thus doesn't apply life steal or on-hit effects.\n  - The splash damage of Fishbones will not account for damage modifiers applied to the primary target (e.g. Hexoptics C44 Magnification)."
+      ]
+    },
+    {
+      "champion": "Jinx",
+      "kind": "R",
+      "name": "Super Mega Death Rocket!",
+      "page": {
+        "title": "Template:Data Jinx/Super Mega Death Rocket!",
+        "revid": 4007616
+      },
+      "damageTypes": [
+        "physical"
+      ],
+      "delivery": {
+        "targeting": [
+          "direction"
+        ],
+        "affectsEnemies": true,
+        "projectile": "yes",
+        "spellShield": "partly"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "cooldown": 45,
+      "castTime": 0.6,
+      "speed": 1700,
+      "notes": [
+        "Spell shield will not prevent the explosion.",
+        "Super Mega Death Rocket's projectile has an icon on the mini-map while it is in flight. It can be seen by only Jinx and her allies.",
+        "Unlike similar spells, Super Mega Death Rocket will not increase it's damage when ranked up while the missile is in flight.\n  - This is because the base damage is fixed at a multiple of the damage the rocket initially started with.\n  - The bonus AD ratio will still update when AD is gained or lost between the cast and hit of the missile."
+      ]
+    },
+    {
+      "champion": "Jinx",
+      "kind": "W",
+      "name": "Zap!",
+      "page": {
+        "title": "Template:Data Jinx/Zap!",
+        "revid": 3907092
+      },
+      "damageTypes": [
+        "physical"
+      ],
+      "delivery": {
+        "targeting": [
+          "direction"
+        ],
+        "affectsEnemies": true,
+        "projectile": "yes",
+        "spellShield": "yes"
+      },
+      "applies": [
+        {
+          "type": "slow",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "slow"
+            },
+            {
+              "page": "Template:Data Jinx/Zap!",
+              "revid": 3907092,
+              "quote": "Active: Jinx fires a shock blast in the target direction that deals physical damage to the first enemy it hits and reveals and slows them for 2 seconds."
+            }
+          ],
+          "duration": 2,
+          "amount": 80
+        }
+      ],
+      "movement": [],
+      "states": [],
+      "cooldown": 4,
+      "castTime": 0.6,
+      "range": 1500,
+      "speed": 3300
+    }
+  ]
+}

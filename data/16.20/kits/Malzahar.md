@@ -9,6 +9,22 @@ Values marked "at max rank, level 20" assume every ability is maxed; see PLAN.md
 |---|--:|--:|--:|--:|--:|--:|--:|--:|--:|--:|
 | Malzahar | 2566.2 | 17.80 | 925.6 Mana | 114.0 | 0.809 | 0.235 | 110.4 | 55.6 | 500 | 335 |
 
+## Fight profile (what the interaction ledger uses)
+
+| Form | Attack range | Ranged | Projectile | Missile speed | Attack modifiers |
+|---|--:|---|---|--:|---|
+| Malzahar | 500 | yes | yes | 2000 | – |
+
+Cooldowns at max rank. Flags: the wiki's interaction flags (yes, no, partly). * marks an effect that applies only under a condition.
+
+| Slot | Ability | Cooldown | Delivery | Applies to the enemy | Movement | Gives itself |
+|---|---|--:|---|---|---|---|
+| E | Malefic Visions | 7 | projectile no; spell shield yes | – | – | – |
+| I | Void Shift | 12 | – | – | – | cc immune |
+| Q | Call of the Void | 6 | spell shield yes | silence 2 s | – | – |
+| R | Nether Grasp | 80 | projectile no; spell shield partly; disruptable yes | knockdown; suppression; knockdown; reveal | – | – |
+| W | Void Swarm | 8 | – | – | – | – |
+
 ## Innate: Void Shift
 
 Source: [Template:Data Malzahar/Void Shift](https://wiki.leagueoflegends.com/en-us/Template:Data_Malzahar/Void_Shift?oldid=4035856) (revision 4035856). Ranks: 1.

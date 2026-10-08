@@ -1,0 +1,421 @@
+{
+  "champion": "Zac",
+  "name": "Zac",
+  "gameplayRadius": 80,
+  "moveSpeed": 340,
+  "attacks": [
+    {
+      "form": "zac",
+      "formName": "Zac",
+      "range": 175,
+      "ranged": false,
+      "projectile": false,
+      "attackSpeed": 0.93674,
+      "attackDamage": 126.861,
+      "windup": 0.247139,
+      "modifiers": []
+    }
+  ],
+  "abilities": [
+    {
+      "champion": "Zac",
+      "kind": "E",
+      "name": "Elastic Slingshot",
+      "page": {
+        "title": "Template:Data Zac/Elastic Slingshot",
+        "revid": 4046591
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "direction",
+          "location"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "yes",
+        "grounded": "yes",
+        "knockdown": "yes",
+        "disruptable": "yes"
+      },
+      "applies": [
+        {
+          "type": "airborne",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "airborne: knock up"
+            },
+            {
+              "page": "Template:Data Zac/Elastic Slingshot",
+              "revid": 4046591,
+              "quote": "Upon landing, he deals magic damage to nearby enemies and knocks them up and stuns them for 0.5 seconds, increased to 1 second if Elastic Slingshot was charged for more than 1 second."
+            }
+          ],
+          "variant": "knock up",
+          "duration": 0.5
+        },
+        {
+          "type": "stun",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "stun"
+            },
+            {
+              "page": "Template:Data Zac/Elastic Slingshot",
+              "revid": 4046591,
+              "quote": "Upon landing, he deals magic damage to nearby enemies and knocks them up and stuns them for 0.5 seconds, increased to 1 second if Elastic Slingshot was charged for more than 1 second."
+            }
+          ],
+          "duration": 0.5
+        }
+      ],
+      "movement": [
+        {
+          "type": "dash",
+          "evidence": [
+            {
+              "page": "Dash",
+              "revid": 4035700,
+              "quote": "location-targeted"
+            }
+          ],
+          "targeting": "location-targeted",
+          "interruptible": true
+        }
+      ],
+      "states": [],
+      "cooldown": 9,
+      "castTime": 0,
+      "range": 1800,
+      "speed": 1350,
+      "channel": [
+        {
+          "type": "movement",
+          "evidence": [
+            {
+              "page": "Channel",
+              "revid": 4002276,
+              "quote": "movement"
+            }
+          ]
+        },
+        {
+          "type": "charged",
+          "evidence": [
+            {
+              "page": "Channel",
+              "revid": 4002276
+            }
+          ]
+        }
+      ],
+      "notes": [
+        "Quick casting: Elastic Slingshot's channel begins when the key is pressed and held, launching Zac towards the cursor when released.",
+        "Elastic Slingshot will not knock up if the targeted location was directly on top of Zac (in which case he will not dash at all).\n  - The knock up will occasionally end early if the targeted location was slightly away from Zac.",
+        "Displacement immunity will also resist the application of the stun.",
+        "The following table refers for interactions while Zac is channeling:\n  - Recall is disabled for the first 0.9 seconds and otherwise interrupts the channel if used."
+      ]
+    },
+    {
+      "champion": "Zac",
+      "kind": "I",
+      "name": "Cell Division",
+      "page": {
+        "title": "Template:Data Zac/Cell Division",
+        "revid": 4061399
+      },
+      "damageTypes": [],
+      "delivery": {
+        "targeting": [
+          "passive"
+        ],
+        "affectsEnemies": false
+      },
+      "applies": [],
+      "movement": [],
+      "states": [
+        {
+          "state": "untargetable",
+          "evidence": [
+            {
+              "page": "Untargetability",
+              "revid": 3965000,
+              "quote": "Does not destroy inbound projectiles"
+            },
+            {
+              "page": "Template:Data Zac/Cell Division",
+              "revid": 4061399,
+              "quote": "Innate - Cell Division: Periodically, upon taking fatal damage, Zac enters resurrection for 8 / 7 / 6 / 5 / 4 (based on level) seconds, instantly restoring 50% of his maximum health and becoming untargetable and unable to act for the duration."
+            }
+          ],
+          "note": "Does not destroy inbound projectiles",
+          "condition": "Only after taking fatal damage."
+        },
+        {
+          "state": "resurrection",
+          "evidence": [
+            {
+              "page": "Template:Tip data/Resurrection",
+              "revid": 4060644
+            },
+            {
+              "page": "Template:Data Zac/Cell Division",
+              "revid": 4061399,
+              "quote": "Innate - Cell Division: Periodically, upon taking fatal damage, Zac enters resurrection for 8 / 7 / 6 / 5 / 4 (based on level) seconds, instantly restoring 50% of his maximum health and becoming untargetable and unable to act for the duration."
+            }
+          ],
+          "condition": "Only after taking fatal damage."
+        },
+        {
+          "state": "heal",
+          "evidence": [
+            {
+              "page": "Template:Data Zac/Cell Division",
+              "revid": 4061399,
+              "quote": "Both Zac and enemy champions can interact with a chunk by being within 50 units of it: an enemy will destroy it, while Zac will consume it to heal for 4 – 8 (based on level)% of his maximum health."
+            }
+          ],
+          "condition": "Only after taking fatal damage."
+        }
+      ],
+      "cooldown": 300,
+      "range": 700,
+      "notes": [
+        "Zac's untargetability upon triggering Cell Division does not destroy in-flight projectiles.",
+        "Cell Division's bloblets can be targeted by Teleport and Force of Will.\n  - Other bloblets are not interrupted by the conditions above and will continue to recombine instinctively."
+      ]
+    },
+    {
+      "champion": "Zac",
+      "kind": "Q",
+      "name": "Stretching Strikes",
+      "page": {
+        "title": "Template:Data Zac/Stretching Strikes",
+        "revid": 4008654
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "direction"
+        ],
+        "affectsEnemies": true,
+        "projectile": "yes",
+        "spellShield": "partly",
+        "parry": "yes",
+        "attack": "attack"
+      },
+      "applies": [
+        {
+          "type": "airborne",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "airborne: knock up"
+            },
+            {
+              "page": "Template:Data Zac/Stretching Strikes",
+              "revid": 4008654,
+              "quote": "Upon impact of each other, both targets are knocked up and stunned for 0.25 seconds and all enemies within the impact are dealt the initial magic damage and applied the same slow."
+            }
+          ],
+          "variant": "knock up, pull",
+          "duration": 0.25
+        },
+        {
+          "type": "knockdown",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "knockdown"
+            },
+            {
+              "page": "Template:Data Zac/Stretching Strikes",
+              "revid": 4008654,
+              "quote": "If the two Stretching Strikes affect different targets, both are knocked down and rooted for 0.5 seconds while the secondary target is dealt the initial magic damage and applied the same slow."
+            }
+          ],
+          "duration": 0.5,
+          "condition": "If the two Stretching Strikes affect different targets, both are knocked down and rooted for 0.5 seconds while the secondary target is dealt the initial magic damage and applied the same slow."
+        },
+        {
+          "type": "slow",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "slow"
+            },
+            {
+              "page": "Template:Data Zac/Stretching Strikes",
+              "revid": 4008654,
+              "quote": "Active: Zac stretches his left arm in the target direction that catches the first enemy hit, dealing magic damage, slowing them by 40% for 0.5 seconds, and forming a tether between Zac and the target for 2 seconds, during which they are revealed."
+            }
+          ],
+          "duration": 0.5,
+          "amount": 40
+        },
+        {
+          "type": "root",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "root"
+            },
+            {
+              "page": "Template:Data Zac/Stretching Strikes",
+              "revid": 4008654,
+              "quote": "If the two Stretching Strikes affect different targets, both are knocked down and rooted for 0.5 seconds while the secondary target is dealt the initial magic damage and applied the same slow."
+            }
+          ],
+          "duration": 0.5,
+          "condition": "If the two Stretching Strikes affect different targets, both are knocked down and rooted for 0.5 seconds while the secondary target is dealt the initial magic damage and applied the same slow."
+        },
+        {
+          "type": "stun",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "stun"
+            },
+            {
+              "page": "Template:Data Zac/Stretching Strikes",
+              "revid": 4008654,
+              "quote": "Upon impact of each other, both targets are knocked up and stunned for 0.25 seconds and all enemies within the impact are dealt the initial magic damage and applied the same slow."
+            }
+          ],
+          "duration": 0.25
+        },
+        {
+          "type": "knockdown",
+          "evidence": [
+            {
+              "page": "Dash",
+              "revid": 4035700
+            }
+          ]
+        },
+        {
+          "type": "reveal",
+          "evidence": [
+            {
+              "page": "Template:List of true sight abilities",
+              "revid": 3860444
+            }
+          ]
+        }
+      ],
+      "movement": [],
+      "states": [],
+      "cooldown": 8,
+      "castTime": 0.33,
+      "range": 800,
+      "speed": 2800,
+      "boostsAttacks": true,
+      "notes": [
+        "Spell shield's interactions with Stretching Strikes:\n  - The first Stretching Strike will have its damage, slow, and tether application all blocked.\n  - If as the primary target and affected by the tether already from the first Stretching Strike:\n    - The damage and slow from the empowered attack if targeted again by the second Stretching Strike will be blocked.\n    - The damage, slow, stun, and knock up from the impact of the second Stretching Strike hitting a different target will all be blocked, but not the root and the displacement.\n  - If as the primary target of the second Stretching Strike, the root will be blocked, but the displacement, damage, slow, stun, and knock up afterwards will not.\n  - If as the secondary target of the impact, the damage and slow will be blocked.",
+        "If the tethered target is untargetable during the second Stretching Strike via basic attack, they are completely unaffected by the ability.",
+        "Displacement immunity will also resist the application of the stun.",
+        "If the target becomes untargetable, dies, or is too far away during the empowered attack's cast time, it is cancelled but not consumed."
+      ]
+    },
+    {
+      "champion": "Zac",
+      "kind": "R",
+      "name": "Let's Bounce!",
+      "page": {
+        "title": "Template:Data Zac/Let's Bounce!",
+        "revid": 4013080
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "auto"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "partly"
+      },
+      "applies": [
+        {
+          "type": "airborne",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "airborne: knock back"
+            },
+            {
+              "page": "Template:Data Zac/Let's Bounce!",
+              "revid": 4013080,
+              "quote": "Each bounce deals magic damage to enemies hit, knocks them back over 1 second, and slows them by 20% for the same duration."
+            }
+          ],
+          "variant": "knock back",
+          "duration": 1
+        },
+        {
+          "type": "slow",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "slow"
+            },
+            {
+              "page": "Template:Data Zac/Let's Bounce!",
+              "revid": 4013080,
+              "quote": "Each bounce deals magic damage to enemies hit, knocks them back over 1 second, and slows them by 20% for the same duration."
+            }
+          ],
+          "amount": 20,
+          "duration": 1
+        }
+      ],
+      "movement": [],
+      "states": [],
+      "cooldown": 90,
+      "castTime": 0.3,
+      "notes": [
+        "Spell shield only blocks a single instance of damage.",
+        "Entering stasis will end Let's Bounce! prematurely."
+      ]
+    },
+    {
+      "champion": "Zac",
+      "kind": "W",
+      "name": "Unstable Matter",
+      "page": {
+        "title": "Template:Data Zac/Unstable Matter",
+        "revid": 4022472
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "auto"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "yes"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "cooldown": 5,
+      "castTime": 0,
+      "range": 350
+    }
+  ]
+}

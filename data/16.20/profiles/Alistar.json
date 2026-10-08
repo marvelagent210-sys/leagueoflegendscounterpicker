@@ -1,0 +1,303 @@
+{
+  "champion": "Alistar",
+  "name": "Alistar",
+  "gameplayRadius": 80,
+  "moveSpeed": 335,
+  "attacks": [
+    {
+      "form": "alistar",
+      "formName": "Alistar",
+      "range": 125,
+      "ranged": false,
+      "projectile": false,
+      "attackSpeed": 0.886176,
+      "attackDamage": 135.744,
+      "windup": 0.338533,
+      "modifiers": []
+    }
+  ],
+  "abilities": [
+    {
+      "champion": "Alistar",
+      "kind": "E",
+      "name": "Trample",
+      "page": {
+        "title": "Template:Data Alistar/Trample",
+        "revid": 4075181
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "auto"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "partly",
+        "parry": "partly",
+        "attack": "attack"
+      },
+      "applies": [
+        {
+          "type": "stun",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "stun"
+            },
+            {
+              "page": "Template:Data Alistar/Trample",
+              "revid": 4075181,
+              "quote": "At 5 stacks, Alistar's next basic attack on-hit against a champion within 6 seconds ends Trample's effects to deal 20 – 275 (based on level) bonus magic damage and stun the target for 1 second."
+            }
+          ],
+          "duration": 1
+        }
+      ],
+      "movement": [],
+      "states": [],
+      "cooldown": 10,
+      "castTime": 0,
+      "notes": [
+        "The on-hit effect is single-use and Alistar's buff is removed as soon as it is consumed; it can only be applied once by the triggering attack instance.\n  - For example, Guinsoo's Rageblade Phantom Hit can trigger it if the triggering attack did not, but cannot apply it again if the triggering attack consumed it.",
+        "The on-hit effect can be blocked by spell shield, but the attack cannot.",
+        "The on-hit effect is consumed if the attack is blocked, but not if it is dodged or missed while Alistar is blinded. In all cases, the attack's effects are negated as normal."
+      ]
+    },
+    {
+      "champion": "Alistar",
+      "kind": "I",
+      "name": "Triumphant Roar",
+      "page": {
+        "title": "Template:Data Alistar/Triumphant Roar",
+        "revid": 4007561
+      },
+      "damageTypes": [],
+      "delivery": {
+        "targeting": [
+          "passive"
+        ],
+        "affectsEnemies": false,
+        "projectile": "partly"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [
+        {
+          "state": "heal",
+          "evidence": [
+            {
+              "page": "Template:Data Alistar/Triumphant Roar",
+              "revid": 4007561,
+              "quote": "At 7 stacks, Alistar consumes them all to heal himself for 5% of his maximum health and nearby allied champions for 7% of his maximum health."
+            }
+          ]
+        }
+      ],
+      "cooldown": 3,
+      "notes": [
+        "Alistar does not gain stacks for unsuccessfully trying to apply crowd control, for instance against a crowd control immune target.",
+        "Healing occurs simultaneously for Alistar and his allies.\n  - There is a VFX projectile (700 missile speed) that cannot be destroyed by Wind Wall and is unrelated to the actual heal."
+      ]
+    },
+    {
+      "champion": "Alistar",
+      "kind": "Q",
+      "name": "Pulverize",
+      "page": {
+        "title": "Template:Data Alistar/Pulverize",
+        "revid": 4075173
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "auto"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "yes"
+      },
+      "applies": [
+        {
+          "type": "airborne",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "airborne: knock up"
+            },
+            {
+              "page": "Template:Data Alistar/Pulverize",
+              "revid": 4075173,
+              "quote": "Active: Alistar smashes the ground beneath him, dealing magic damage to nearby enemies and stunning and knocking them up simultaneously for 1 second."
+            }
+          ],
+          "variant": "knock up",
+          "duration": 1
+        },
+        {
+          "type": "stun",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "stun"
+            },
+            {
+              "page": "Template:Data Alistar/Pulverize",
+              "revid": 4075173,
+              "quote": "Active: Alistar smashes the ground beneath him, dealing magic damage to nearby enemies and stunning and knocking them up simultaneously for 1 second."
+            }
+          ],
+          "duration": 1
+        }
+      ],
+      "movement": [],
+      "states": [],
+      "cooldown": 10,
+      "castTime": 0.25,
+      "notes": [
+        "Pulverize can be buffered during Headbutt to cast with reduced cast time when the dash ends.",
+        "Displacement immunity will also resist the application of the stun."
+      ]
+    },
+    {
+      "champion": "Alistar",
+      "kind": "R",
+      "name": "Unbreakable Will",
+      "page": {
+        "title": "Template:Data Alistar/Unbreakable Will",
+        "revid": 4075182
+      },
+      "damageTypes": [],
+      "delivery": {
+        "targeting": [
+          "auto"
+        ],
+        "affectsEnemies": false
+      },
+      "applies": [],
+      "movement": [],
+      "states": [
+        {
+          "state": "cleanse",
+          "removes": [
+            "airborne",
+            "blind",
+            "cripple",
+            "disarm",
+            "berserk",
+            "charm",
+            "fear",
+            "taunt",
+            "ground",
+            "nearsight",
+            "root",
+            "silence",
+            "polymorph",
+            "drowsy",
+            "sleep",
+            "slow",
+            "stun",
+            "suspension",
+            "suppression"
+          ],
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Summary"
+            }
+          ]
+        }
+      ],
+      "cooldown": 80,
+      "castTime": 0.25
+    },
+    {
+      "champion": "Alistar",
+      "kind": "W",
+      "name": "Headbutt",
+      "page": {
+        "title": "Template:Data Alistar/Headbutt",
+        "revid": 4075174
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "unit"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "yes",
+        "grounded": "yes",
+        "knockdown": "yes"
+      },
+      "applies": [
+        {
+          "type": "airborne",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "airborne: knock back"
+            },
+            {
+              "page": "Template:Data Alistar/Headbutt",
+              "revid": 4075174,
+              "quote": "If they are within 400 units upon arrival, he deals them magic damage and knocks them back 700 units over 0.5 seconds while also stunning them for 0.75 seconds."
+            }
+          ],
+          "variant": "knock back",
+          "duration": 0.5,
+          "condition": "If they are within 400 units upon arrival, he deals them magic damage and knocks them back 700 units over 0.5 seconds while also stunning them for 0.75 seconds."
+        },
+        {
+          "type": "stun",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "stun"
+            },
+            {
+              "page": "Template:Data Alistar/Headbutt",
+              "revid": 4075174,
+              "quote": "If they are within 400 units upon arrival, he deals them magic damage and knocks them back 700 units over 0.5 seconds while also stunning them for 0.75 seconds."
+            }
+          ],
+          "duration": 0.75,
+          "condition": "If they are within 400 units upon arrival, he deals them magic damage and knocks them back 700 units over 0.5 seconds while also stunning them for 0.75 seconds."
+        }
+      ],
+      "movement": [
+        {
+          "type": "dash",
+          "evidence": [
+            {
+              "page": "Dash",
+              "revid": 4035700,
+              "quote": "unit-targeted"
+            }
+          ],
+          "targeting": "unit-targeted",
+          "interruptible": true
+        }
+      ],
+      "states": [],
+      "cooldown": 10,
+      "castTime": 0,
+      "range": 650,
+      "speed": 1200,
+      "notes": [
+        "The dash speed depends on the inverse of the distance to the target:\n  - If Alistar's radius overlaps with his target's, he will dash with 1200 speed.\n  - If Alistar is further from his target than the previous condition, he will dash with (1200 × dash distance) / (dash distance - sum of radiuses).\n    - At maximum target range, against an enemy with a 65 gameplay radius (median of all champions), Alistar will dash with 1544 speed (reaching his target within 0.429 seconds).\n    - Both the lower the dash distance and the larger Alistar and/or his target, the faster the dash becomes; this scales hyperbolically (dash speed can theoretically scale up to ∞).",
+        "When Pulverize is buffered during the dash, the knock back distance is reduced to 200 units.",
+        "The CC duration of the ability can be reduced by up to 33.33% Tenacity, due to airborne not being reducible while the stun is.",
+        "The knockback direction is in a straight line from Alistar's original location at start of cast and the enemy when Alistar's dash ends.",
+        "Alistar's attack range is reduced to -375 during Headbutt, to prevent him from being able to attack the target when he completes the dash.",
+        "Displacement immunity will not resist the application of the stun."
+      ]
+    }
+  ]
+}

@@ -9,6 +9,22 @@ Values marked "at max rank, level 20" assume every ability is maxed; see PLAN.md
 |---|--:|--:|--:|--:|--:|--:|--:|--:|--:|--:|
 | Olaf | 2985.1 | 18.30 | 1299.3 Mana | 160.4 | 1.088 | 0.215 | 117.6 | 72.3 | 125 | 350 |
 
+## Fight profile (what the interaction ledger uses)
+
+| Form | Attack range | Ranged | Projectile | Missile speed | Attack modifiers |
+|---|--:|---|---|--:|---|
+| Olaf | 125 | no | no | – | – |
+
+Cooldowns at max rank. Flags: the wiki's interaction flags (yes, no, partly). * marks an effect that applies only under a condition.
+
+| Slot | Ability | Cooldown | Delivery | Applies to the enemy | Movement | Gives itself |
+|---|---|--:|---|---|---|---|
+| E | Reckless Swing | 7 | spell shield yes | – | – | heal |
+| I | Berserker Rage | – | – | – | – | – |
+| Q | Undertow | 9 | projectile partly; spell shield yes | slow 1 s 50% | – | – |
+| R | Ragnarok | 80 | on-hit | – | – | cleanse (19 CC types); cc immune 3 s |
+| W | Tough It Out | 12 | – | – | – | shield 2.5 s |
+
 ## Innate: Berserker Rage
 
 Source: [Template:Data Olaf/Berserker Rage](https://wiki.leagueoflegends.com/en-us/Template:Data_Olaf/Berserker_Rage?oldid=4046494) (revision 4046494). Ranks: 1.
@@ -95,33 +111,6 @@ Notes:
 
 - Tough It Out's bonus attack speed value is updated when it is cast, even if it was already active.
 - At 70% missing health, the health ratio portion of the shield is capped at the equivalent of 12.5% maximum health.
-
-## W: Vicious Strikes
-
-Source: [Template:Data Olaf/Vicious Strikes](https://wiki.leagueoflegends.com/en-us/Template:Data_Olaf/Vicious_Strikes?oldid=3842590) (revision 3842590). Ranks: 5.
-
-| Field | Value |
-|---|---|
-| Cooldown | 16 |
-| Cost | 30 mana |
-| Cast time | none |
-
-Targeting: Auto · Affects: Self · Damage type: – · Spell shield blocks it: – · Projectile: – · Parry: – · Disabled by grounded: – · Usable while knocked down: –
-
-Active: Olaf empowers his axes for 6 seconds, gaining bonus attack speed, bonus life steal, and 0 / 3.3 / 6.6 / 9.9 / 13.2 / 16.5 / 19.8 / 23.1 / 26.4 / 29.7 / 33 (based on missing health)% increased healing from all sources for the duration.
-
-- **Bonus Attack Speed:** 50 / 60 / 70 / 80 / 90% → at max rank, level 20: 90%
-- **Life Steal:** 16 / 18 / 20 / 22 / 24% → at max rank, level 20: 24%
-- **Mechanics:** life steal (6 s); heal (6 s)
-
-Life steal and spell vamp bonuses are calculated on-cast and remain static for the full duration.
-
-- **Mechanics:** life steal; omnivamp
-
-Notes:
-
-- : Interaction with omnivamp
-- If the ability is re-casted the duration refreshes without re-calculating the bonuses.
 
 ## E: Reckless Swing
 

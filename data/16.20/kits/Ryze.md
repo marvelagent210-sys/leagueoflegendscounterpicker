@@ -9,6 +9,22 @@ Values marked "at max rank, level 20" assume every ability is maxed; see PLAN.md
 |---|--:|--:|--:|--:|--:|--:|--:|--:|--:|--:|
 | Ryze | 3058.5 | 23.73 | 1676.6 Mana | 114.0 | 0.917 | 0.218 | 114.4 | 57.6 | 550 | 340 |
 
+## Fight profile (what the interaction ledger uses)
+
+| Form | Attack range | Ranged | Projectile | Missile speed | Attack modifiers |
+|---|--:|---|---|--:|---|
+| Ryze | 550 | yes | yes | 2400 | – |
+
+Cooldowns at max rank. Flags: the wiki's interaction flags (yes, no, partly). * marks an effect that applies only under a condition.
+
+| Slot | Ability | Cooldown | Delivery | Applies to the enemy | Movement | Gives itself |
+|---|---|--:|---|---|---|---|
+| E | Spell Flux | 2.5 | projectile partly; spell shield yes | – | – | – |
+| I | Arcane Mastery | – | – | – | – | – |
+| Q | Overload | 5 | projectile yes; spell shield yes | – | – | – |
+| R | Realm Warp | 140 | grounded yes; disruptable yes | – | blink | untargetable 0.75 s |
+| W | Rune Prison | 9 | spell shield yes | slow 1.5 s 50%; root | – | – |
+
 ## Innate: Arcane Mastery
 
 Source: [Template:Data Ryze/Arcane Mastery](https://wiki.leagueoflegends.com/en-us/Template:Data_Ryze/Arcane_Mastery?oldid=4059875) (revision 4059875). Ranks: 1.

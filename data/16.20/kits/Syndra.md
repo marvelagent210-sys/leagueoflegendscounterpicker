@@ -9,6 +9,22 @@ Values marked "at max rank, level 20" assume every ability is maxed; see PLAN.md
 |---|--:|--:|--:|--:|--:|--:|--:|--:|--:|--:|
 | Syndra | 2549.5 | 18.30 | 1266.6 Mana | 111.0 | 0.904 | 0.207 | 103.7 | 55.6 | 550 | 330 |
 
+## Fight profile (what the interaction ledger uses)
+
+| Form | Attack range | Ranged | Projectile | Missile speed | Attack modifiers |
+|---|--:|---|---|--:|---|
+| Syndra | 550 | yes | yes | 1800 | – |
+
+Cooldowns at max rank. Flags: the wiki's interaction flags (yes, no, partly). * marks an effect that applies only under a condition.
+
+| Slot | Ability | Cooldown | Delivery | Applies to the enemy | Movement | Gives itself |
+|---|---|--:|---|---|---|---|
+| E | Scatter the Weak | 15 | projectile partly; spell shield yes | airborne (knock back); slow 1.25 s 70%; stun 1.25 s | – | – |
+| I | Transcendent | – | – | – | – | – |
+| Q | Dark Sphere | 7 | spell shield yes | – | – | – |
+| R | Unleashed Power | 80 | projectile yes; spell shield partly | – | – | – |
+| W | Force of Will | 9 | projectile no; spell shield yes | slow 1.5 s 25% | – | – |
+
 ## Innate: Transcendent
 
 Source: [Template:Data Syndra/Transcendent](https://wiki.leagueoflegends.com/en-us/Template:Data_Syndra/Transcendent?oldid=4060367) (revision 4060367). Ranks: 1.

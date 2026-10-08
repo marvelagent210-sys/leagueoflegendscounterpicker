@@ -9,6 +9,22 @@ Values marked "at max rank, level 20" assume every ability is maxed; see PLAN.md
 |---|--:|--:|--:|--:|--:|--:|--:|--:|--:|--:|
 | Zaahen | 2881.8 | 23.23 | 1431.6 Mana | 141.7 | 0.932 | 0.168 | 134.3 | 72.3 | 175 | 345 |
 
+## Fight profile (what the interaction ledger uses)
+
+| Form | Attack range | Ranged | Projectile | Missile speed | Attack modifiers |
+|---|--:|---|---|--:|---|
+| Zaahen | 175 | no | no | – | Cultivation of War |
+
+Cooldowns at max rank. Flags: the wiki's interaction flags (yes, no, partly). * marks an effect that applies only under a condition.
+
+| Slot | Ability | Cooldown | Delivery | Applies to the enemy | Movement | Gives itself |
+|---|---|--:|---|---|---|---|
+| E | Aureate Rush | 8 | spell shield yes; grounded yes; knockdown yes | – | dash | – |
+| I | Cultivation of War | – | spell shield no; parry yes; attack modifier | – | – | untargetable 4 s; invulnerable 4 s; resurrection 4 s |
+| Q | The Darkin Glaive | 6 | spell shield partly; parry yes; attack | airborne (knock up) 0.75 s | – | heal |
+| R | Grim Deliverance | 80 | spell shield partly; grounded yes; knockdown partly | – | dash | cc immune; displacement immune; heal |
+| W | Dreaded Return | 12 | projectile yes; spell shield yes | airborne (pull); stun 0.25 s | – | – |
+
 ## Innate: Cultivation of War
 
 Source: [Template:Data Zaahen/Cultivation of War](https://wiki.leagueoflegends.com/en-us/Template:Data_Zaahen/Cultivation_of_War?oldid=4060321) (revision 4060321). Ranks: 1.

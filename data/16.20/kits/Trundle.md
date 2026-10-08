@@ -9,6 +9,22 @@ Values marked "at max rank, level 20" assume every ability is maxed; see PLAN.md
 |---|--:|--:|--:|--:|--:|--:|--:|--:|--:|--:|
 | Trundle | 2813.2 | 20.75 | 1224.9 Mana | 156.5 | 1.052 | 0.198 | 125.5 | 72.3 | 175 | 350 |
 
+## Fight profile (what the interaction ledger uses)
+
+| Form | Attack range | Ranged | Projectile | Missile speed | Attack modifiers |
+|---|--:|---|---|--:|---|
+| Trundle | 175 | no | no | – | – |
+
+Cooldowns at max rank. Flags: the wiki's interaction flags (yes, no, partly). * marks an effect that applies only under a condition.
+
+| Slot | Ability | Cooldown | Delivery | Applies to the enemy | Movement | Gives itself |
+|---|---|--:|---|---|---|---|
+| E | Pillar of Ice | 15 | spell shield no | airborne (knock back); slow 50% | – | – |
+| I | King's Tribute | – | – | – | – | heal |
+| Q | Chomp | 3.5 | spell shield partly; parry partly; attack | slow 0.1 s 75% | – | – |
+| R | Subjugate | 80 | spell shield yes | – | – | heal |
+| W | Frozen Domain | 14 | – | – | – | heal |
+
 ## Innate: King's Tribute
 
 Source: [Template:Data Trundle/King's Tribute](https://wiki.leagueoflegends.com/en-us/Template:Data_Trundle/King's_Tribute?oldid=3986655) (revision 3986655). Ranks: 1.

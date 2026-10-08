@@ -1,0 +1,437 @@
+{
+  "champion": "Kayn",
+  "name": "Kayn",
+  "gameplayRadius": 65,
+  "moveSpeed": 340,
+  "attacks": [
+    {
+      "form": "kayn",
+      "formName": "Kayn",
+      "range": 175,
+      "ranged": false,
+      "projectile": false,
+      "attackSpeed": 1.02421,
+      "attackDamage": 132.894,
+      "windup": 0.182864,
+      "modifiers": []
+    }
+  ],
+  "abilities": [
+    {
+      "champion": "Kayn",
+      "kind": "E",
+      "name": "Shadow Step",
+      "page": {
+        "title": "Template:Data Kayn/Shadow Step",
+        "revid": 3907115
+      },
+      "damageTypes": [],
+      "delivery": {
+        "targeting": [
+          "auto"
+        ],
+        "affectsEnemies": false,
+        "grounded": "yes"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [
+        {
+          "state": "heal",
+          "evidence": [
+            {
+              "page": "Template:Data Kayn/Shadow Step",
+              "revid": 3907115,
+              "quote": "Kayn heals himself upon entering terrain for the first time from casting Shadow Step and he gains unobstructed vision while inside."
+            }
+          ]
+        }
+      ],
+      "cooldown": 13,
+      "castTime": 0,
+      "notes": [
+        "Self immobilizations such as Zhonya's Hourglass also count for interrupting Shadow Step.",
+        "Enemies cannot see Kayn while he is inside of terrain unless they have terrain-piercing vision, such as Heightened Senses, Hawkshot or unobstructed vision.\n  - However, enemies and allies (including Kayn) will be notified when nearby terrain is infested if Kayn is within 1000 units of an enemy champion - with an indicator being placed on the terrain with a direct line between Kayn and the enemy champion. Slightly less than standard sight radius, but more than the camouflage detection radius.",
+        "Sleep will not interrupt Shadow Step."
+      ]
+    },
+    {
+      "champion": "Kayn",
+      "kind": "I",
+      "name": "The Darkin Scythe",
+      "page": {
+        "title": "Template:Data Kayn/The Darkin Scythe",
+        "revid": 4053172
+      },
+      "damageTypes": [],
+      "delivery": {
+        "targeting": [
+          "passive"
+        ],
+        "affectsEnemies": false
+      },
+      "applies": [],
+      "movement": [],
+      "states": [
+        {
+          "state": "untargetable",
+          "evidence": [
+            {
+              "page": "Untargetability",
+              "revid": 3965000,
+              "quote": "Does not destroy inbound projectiles"
+            },
+            {
+              "page": "Template:Data Kayn/The Darkin Scythe",
+              "revid": 4053172,
+              "quote": "While near his team's summoning platform, Kayn can choose a form to enter transformation over 6 seconds, becoming invulnerable, untargetable, and unable to act for the duration."
+            }
+          ],
+          "duration": 6,
+          "note": "Does not destroy inbound projectiles"
+        },
+        {
+          "state": "invulnerable",
+          "evidence": [
+            {
+              "page": "Invulnerability",
+              "revid": 3990045
+            },
+            {
+              "page": "Template:Data Kayn/The Darkin Scythe",
+              "revid": 4053172,
+              "quote": "While near his team's summoning platform, Kayn can choose a form to enter transformation over 6 seconds, becoming invulnerable, untargetable, and unable to act for the duration."
+            }
+          ],
+          "duration": 6
+        },
+        {
+          "state": "heal",
+          "evidence": [
+            {
+              "page": "Template:Data Kayn/The Darkin Scythe",
+              "revid": 4053172,
+              "quote": "Darkin Slayer Bonus: Rhaast heals for 25% (+ 0.5% per 100 bonus health) of the post-mitigation physical damage that he deals to enemy champions with his abilities."
+            }
+          ]
+        }
+      ],
+      "notes": [
+        "Entering transformation will not destroy in-flight projectiles."
+      ]
+    },
+    {
+      "champion": "Kayn",
+      "kind": "I",
+      "name": "The Darkin Scythe",
+      "page": {
+        "title": "Template:Data Rhaast/The Darkin Scythe",
+        "revid": 3249284
+      },
+      "damageTypes": [],
+      "delivery": {
+        "targeting": [
+          "passive"
+        ],
+        "affectsEnemies": false
+      },
+      "applies": [],
+      "movement": [],
+      "states": [
+        {
+          "state": "untargetable",
+          "evidence": [
+            {
+              "page": "Untargetability",
+              "revid": 3965000,
+              "quote": "Does not destroy inbound projectiles"
+            }
+          ],
+          "note": "Does not destroy inbound projectiles"
+        },
+        {
+          "state": "invulnerable",
+          "evidence": [
+            {
+              "page": "Invulnerability",
+              "revid": 3990045
+            }
+          ]
+        },
+        {
+          "state": "heal",
+          "evidence": [
+            {
+              "page": "Template:Data Rhaast/The Darkin Scythe",
+              "revid": 3249284,
+              "quote": "Innate: Rhaast heals for 30 – 40 (based on level)% of the post-mitigation physical damage that he deals to enemy champions with his abilities."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "champion": "Kayn",
+      "kind": "I",
+      "name": "The Darkin Scythe",
+      "page": {
+        "title": "Template:Data Shadow Assassin/The Darkin Scythe",
+        "revid": 3249287
+      },
+      "damageTypes": [],
+      "delivery": {
+        "targeting": [
+          "passive"
+        ],
+        "affectsEnemies": false
+      },
+      "applies": [],
+      "movement": [],
+      "states": [
+        {
+          "state": "untargetable",
+          "evidence": [
+            {
+              "page": "Untargetability",
+              "revid": 3965000,
+              "quote": "Does not destroy inbound projectiles"
+            }
+          ],
+          "note": "Does not destroy inbound projectiles"
+        },
+        {
+          "state": "invulnerable",
+          "evidence": [
+            {
+              "page": "Invulnerability",
+              "revid": 3990045
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "champion": "Kayn",
+      "kind": "Q",
+      "name": "Reaping Slash",
+      "page": {
+        "title": "Template:Data Kayn/Reaping Slash",
+        "revid": 4051323
+      },
+      "damageTypes": [
+        "physical"
+      ],
+      "delivery": {
+        "targeting": [
+          "direction"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "partly",
+        "grounded": "yes",
+        "knockdown": "yes"
+      },
+      "applies": [],
+      "movement": [
+        {
+          "type": "dash",
+          "evidence": [
+            {
+              "page": "Dash",
+              "revid": 4035700,
+              "quote": "direction-targeted"
+            }
+          ],
+          "targeting": "direction-targeted",
+          "interruptible": true
+        }
+      ],
+      "states": [],
+      "cooldown": 5,
+      "castTime": 0,
+      "range": 350,
+      "notes": [
+        "Reaping Slash's dash speed is increased by Kayn's bonus movement speed.",
+        "Spell shields will block only a single instance of damage - either the dash or the slash.",
+        "If the dash is interrupted, Kayn will not swing his scythe.",
+        "Reaping Slash's swing can be performed quicker if the dash stops prematurely upon colliding with terrain."
+      ]
+    },
+    {
+      "champion": "Kayn",
+      "kind": "R",
+      "name": "Umbral Trespass",
+      "page": {
+        "title": "Template:Data Kayn/Umbral Trespass",
+        "revid": 4007627
+      },
+      "damageTypes": [
+        "physical"
+      ],
+      "delivery": {
+        "targeting": [
+          "unit",
+          "direction"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "partly",
+        "grounded": "yes",
+        "knockdown": "no",
+        "disruptable": "yes"
+      },
+      "applies": [
+        {
+          "type": "reveal",
+          "evidence": [
+            {
+              "page": "Template:List of true sight abilities",
+              "revid": 3860444
+            }
+          ]
+        }
+      ],
+      "movement": [
+        {
+          "type": "dash",
+          "evidence": [
+            {
+              "page": "Dash",
+              "revid": 4035700,
+              "quote": "direction-targeted"
+            }
+          ],
+          "targeting": "direction-targeted",
+          "interruptible": false
+        },
+        {
+          "type": "dash",
+          "evidence": [
+            {
+              "page": "Dash",
+              "revid": 4035700,
+              "quote": "unit-targeted; (first cast)"
+            }
+          ],
+          "targeting": "unit-targeted",
+          "condition": "(first cast)",
+          "interruptible": false
+        }
+      ],
+      "states": [
+        {
+          "state": "untargetable",
+          "evidence": [
+            {
+              "page": "Untargetability",
+              "revid": 3965000
+            },
+            {
+              "page": "Template:Data Kayn/Umbral Trespass",
+              "revid": 4007627,
+              "quote": "Active: Kayn vanishes and dashes to a marked enemy champion over 0.25 seconds, attaching himself to them at the end of the dash."
+            }
+          ],
+          "duration": 0.25
+        },
+        {
+          "state": "heal",
+          "evidence": [
+            {
+              "page": "Template:Data Kayn/Umbral Trespass",
+              "revid": 4007627,
+              "quote": "Darkin Slayer Bonus: Umbral Trespass is modified to deal physical damage equal to 15% (+ 10% per 100 bonus AD) of the target's maximum health, and also heals Rhaast for 11.25% (+ 7.5% per 100 bonus AD) of the target's maximum health after the recast's delay."
+            }
+          ]
+        }
+      ],
+      "cooldown": 80,
+      "castTime": 0,
+      "range": 550,
+      "channel": [
+        {
+          "type": "movement",
+          "evidence": [
+            {
+              "page": "Channel",
+              "revid": 4002276,
+              "quote": "movement"
+            }
+          ]
+        }
+      ],
+      "notes": [
+        "The initial cast counts as an ability activation for the purposes of on-cast effects such as Spellblade.\n  - The recast (both manual and automatic) does not.\n  - The ability activation happens when Kayn is attached to his target and the channel starts.\n    - Kassadin cannot reduce Force Pulse cooldown because Kayn is untargetable during the activation.",
+        "Kayn will reappear from being vanished as soon as the recast is cast, while remaining untargetable.",
+        "Upon recast, Kayn will always damage his target from the east, regardless of the direction he chooses to dash in.",
+        "Kayn will arrive to the target after 0.25 seconds regardless of how far they move away from him during the dash.",
+        "If Umbral Trespass is targeted on an enemy with a spell shield or a Fiora with her Riposte active, the ability will fail to cast entirely, being placed on full cooldown without triggering the active's effects (as well as on-cast effects).\n  - Spell shield will not block the damage from the recast.",
+        "If the target dies, enters resurrection, or is sent to the Death Realm while Kayn is attached, the channel will be cancelled and he will instantly detach and reappear on top of the target's location. This does not occur if Kayn is in the process of emerging from the target.\n  - If those same conditions occur before the attachment, Kayn will reappear at the target's location at the end of his dash.\n  - Umbral Trespass' cooldown will sometimes be refunded at the end of the channel if any of these conditions occur during it.\n  - If the target is a clone that expires while Kayn is attached, Umbral Trespass will recast automatically.",
+        "Umbral Trespass' interactions with crowd control:\n  - All forms of cast-inhibiting crowd control will interrupt the channel.\n  - Upon being cast, Kayn is cleansed of drowsiness effects.\n  - During Umbral Trespass, Kayn is immune to fear.\n  - Despite being a movement channel, Umbral Trespass is not interrupted by root.\n  - Root will not disable Umbral Trespass' recast, despite it being a dash.",
+        "As Rhaast, Umbral Trespass will grant the heal automatically if the target dies during the channel.\n  - The heal is not granted if the target dies before the channel starts.",
+        "Kayn will draw turret aggro after the recast's dash, despite the damage being dealt to the enemy while he was untargetable.",
+        "The damage is not blocked if the target is untargetable at the time of the recast.\n  - While dismounting, Kled blocks the damage of Umbral Trespass.",
+        "The following table refers for interactions while Kayn is channeling and dashing out of the victim:\n  - The dash out is not interrupted by cast-inhibiting crowd control."
+      ]
+    },
+    {
+      "champion": "Kayn",
+      "kind": "W",
+      "name": "Blade's Reach",
+      "page": {
+        "title": "Template:Data Kayn/Blade's Reach",
+        "revid": 4007629
+      },
+      "damageTypes": [
+        "physical"
+      ],
+      "delivery": {
+        "targeting": [
+          "direction"
+        ],
+        "affectsEnemies": true,
+        "projectile": "no",
+        "spellShield": "yes"
+      },
+      "applies": [
+        {
+          "type": "airborne",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "airborne: knock up"
+            },
+            {
+              "page": "Template:Data Kayn/Blade's Reach",
+              "revid": 4007629,
+              "quote": "Darkin Slayer Bonus: Blade's Reach knocks up enemies hit for 1 second."
+            }
+          ],
+          "variant": "knock up",
+          "duration": 1
+        },
+        {
+          "type": "slow",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "slow"
+            },
+            {
+              "page": "Template:Data Kayn/Blade's Reach",
+              "revid": 4007629,
+              "quote": "Active: Kayn swings his scythe in the target direction, dealing physical damage to enemies hit and slowing them by 90% decaying over 1.5 seconds."
+            }
+          ],
+          "duration": 1.5,
+          "amount": 90
+        }
+      ],
+      "movement": [],
+      "states": [],
+      "cooldown": 9,
+      "castTime": 0.55,
+      "range": 700
+    }
+  ]
+}

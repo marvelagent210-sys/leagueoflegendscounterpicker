@@ -1,0 +1,226 @@
+{
+  "champion": "Xerath",
+  "name": "Xerath",
+  "gameplayRadius": 65,
+  "moveSpeed": 340,
+  "attacks": [
+    {
+      "form": "xerath",
+      "formName": "Xerath",
+      "range": 525,
+      "ranged": true,
+      "projectile": true,
+      "missileSpeed": 2000,
+      "attackSpeed": 0.825153,
+      "attackDamage": 113.995,
+      "windup": 0.242379,
+      "modifiers": [
+        "Mana Surge"
+      ]
+    }
+  ],
+  "abilities": [
+    {
+      "champion": "Xerath",
+      "kind": "E",
+      "name": "Shocking Orb",
+      "page": {
+        "title": "Template:Data Xerath/Shocking Orb",
+        "revid": 3881560
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "direction"
+        ],
+        "affectsEnemies": true,
+        "projectile": "yes",
+        "spellShield": "yes"
+      },
+      "applies": [
+        {
+          "type": "stun",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "stun"
+            },
+            {
+              "page": "Template:Data Xerath/Shocking Orb",
+              "revid": 3881560,
+              "quote": "Active: Xerath fires an orb of energy in the target direction that deals magic damage to the first enemy hit and stuns them for 0.75 / 0.9 / 1.05 / 1.2 / 1.35 / 1.5 / 1.65 / 1.8 / 1.95 / 2.1 / 2.25 (based on orb travel distance) seconds."
+            }
+          ],
+          "duration": 0.75
+        }
+      ],
+      "movement": [],
+      "states": [],
+      "cooldown": 11,
+      "castTime": 0.25,
+      "range": 1125,
+      "speed": 1400
+    },
+    {
+      "champion": "Xerath",
+      "kind": "I",
+      "name": "Mana Surge",
+      "page": {
+        "title": "Template:Data Xerath/Mana Surge",
+        "revid": 3986753
+      },
+      "damageTypes": [],
+      "delivery": {
+        "targeting": [
+          "passive"
+        ],
+        "affectsEnemies": false,
+        "attack": "attack modifier"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "cooldown": 16,
+      "notes": [
+        "Mana Surge will trigger even if the attack is blocked, but not if it misses due to blind.",
+        ": Mana Surge's interactions with dodging effects."
+      ]
+    },
+    {
+      "champion": "Xerath",
+      "kind": "Q",
+      "name": "Arcanopulse",
+      "page": {
+        "title": "Template:Data Xerath/Arcanopulse",
+        "revid": 4057478
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "auto",
+          "direction"
+        ],
+        "affectsEnemies": true,
+        "projectile": "no",
+        "spellShield": "yes",
+        "disruptable": "yes"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "cooldown": 5,
+      "castTime": 0,
+      "range": 700,
+      "channel": [
+        {
+          "type": "charged",
+          "evidence": [
+            {
+              "page": "Channel",
+              "revid": 4002276
+            }
+          ]
+        }
+      ],
+      "notes": [
+        "The following table refers for interactions while Xerath is channeling:"
+      ]
+    },
+    {
+      "champion": "Xerath",
+      "kind": "R",
+      "name": "Rite of the Arcane",
+      "page": {
+        "title": "Template:Data Xerath/Rite of the Arcane",
+        "revid": 4002918
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "auto",
+          "location"
+        ],
+        "affectsEnemies": true,
+        "projectile": "no",
+        "spellShield": "yes",
+        "disruptable": "yes"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "cooldown": 100,
+      "castTime": 0,
+      "range": 5000,
+      "channel": [
+        {
+          "type": "normal",
+          "evidence": [
+            {
+              "page": "Channel",
+              "revid": 4002276,
+              "quote": "normal"
+            }
+          ]
+        }
+      ],
+      "notes": [
+        "The circle indicating the ability's range expands rapidly from near Xerath up to the maximum range over 1 second during the channel.\n  - The maximum-range indicator is visible to both allies and enemies and is color coded for friendly (blue) or hostile (red).",
+        "Xerath can use Dark Passage while channeling.",
+        "The following table refers for interactions while Xerath is channeling:\n  - Teleport and Recall are disabled for the first 1.25 seconds and otherwise interrupt the channel if they are used."
+      ]
+    },
+    {
+      "champion": "Xerath",
+      "kind": "W",
+      "name": "Eye of Destruction",
+      "page": {
+        "title": "Template:Data Xerath/Eye of Destruction",
+        "revid": 4008622
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "location"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "yes"
+      },
+      "applies": [
+        {
+          "type": "slow",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "slow"
+            },
+            {
+              "page": "Template:Data Xerath/Eye of Destruction",
+              "revid": 4008622,
+              "quote": "Active: Xerath casts down a blast of arcane energy that strikes the target location after 0.528, briefly granting sight of the area and dealing magic damage to enemies hit and slowing them by 25% for 2.5 seconds."
+            }
+          ],
+          "duration": 2.5,
+          "amount": 25
+        }
+      ],
+      "movement": [],
+      "states": [],
+      "cooldown": 10,
+      "castTime": 0.25,
+      "range": 1000,
+      "notes": [
+        "Xerath's location gets revealed to the enemy (400 radius for 4.5 seconds) if Eye of Destruction's cast location is within 100 units of a valid enemy at the start of the cast time due to something related to targeting types."
+      ]
+    }
+  ]
+}

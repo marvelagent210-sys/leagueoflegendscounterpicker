@@ -9,6 +9,22 @@ Values marked "at max rank, level 20" assume every ability is maxed; see PLAN.md
 |---|--:|--:|--:|--:|--:|--:|--:|--:|--:|--:|
 | Twisted Fate | 2727.8 | 17.30 | 1099.9 Mana | 101.2 | 0.945 | 0.212 | 109.5 | 55.6 | 525 | 330 |
 
+## Fight profile (what the interaction ledger uses)
+
+| Form | Attack range | Ranged | Projectile | Missile speed | Attack modifiers |
+|---|--:|---|---|--:|---|
+| Twisted Fate | 525 | yes | yes | 1500 | Stacked Deck |
+
+Cooldowns at max rank. Flags: the wiki's interaction flags (yes, no, partly). * marks an effect that applies only under a condition.
+
+| Slot | Ability | Cooldown | Delivery | Applies to the enemy | Movement | Gives itself |
+|---|---|--:|---|---|---|---|
+| E | Stacked Deck | – | projectile yes; spell shield no; parry partly; attack modifier | – | – | – |
+| I | Loaded Dice | – | – | – | – | – |
+| Q | Wild Cards | 5 | projectile yes; spell shield yes | – | – | – |
+| R | Destiny | 110 | spell shield yes; grounded partly; disruptable yes | reveal | blink | – |
+| W | Pick a Card | 6 | projectile yes; spell shield yes; parry yes; attack | slow 2.5 s 50%; stun 2 s | – | – |
+
 ## Innate: Loaded Dice
 
 Source: [Template:Data Twisted Fate/Loaded Dice](https://wiki.leagueoflegends.com/en-us/Template:Data_Twisted_Fate/Loaded_Dice?oldid=4005221) (revision 4005221). Ranks: 1.

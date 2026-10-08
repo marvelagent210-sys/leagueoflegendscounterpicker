@@ -1,0 +1,247 @@
+{
+  "champion": "Kindred",
+  "name": "Kindred",
+  "gameplayRadius": 65,
+  "moveSpeed": 325,
+  "attacks": [
+    {
+      "form": "kindred",
+      "formName": "Kindred",
+      "range": 500,
+      "ranged": true,
+      "projectile": true,
+      "missileSpeed": 2000,
+      "attackSpeed": 1.05517,
+      "attackDamage": 128.911,
+      "windup": 0.166265,
+      "modifiers": []
+    }
+  ],
+  "abilities": [
+    {
+      "champion": "Kindred",
+      "kind": "E",
+      "name": "Mounting Dread",
+      "page": {
+        "title": "Template:Data Kindred/Mounting Dread",
+        "revid": 4078261
+      },
+      "damageTypes": [
+        "physical"
+      ],
+      "delivery": {
+        "targeting": [
+          "unit"
+        ],
+        "affectsEnemies": true,
+        "projectile": "yes",
+        "spellShield": "yes",
+        "parry": "yes"
+      },
+      "applies": [
+        {
+          "type": "slow",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "slow"
+            },
+            {
+              "page": "Template:Data Kindred/Mounting Dread",
+              "revid": 4078261,
+              "quote": "Active: Lamb fires a shot at the target enemy that slows them by 30% (+ 5% per 100 AP) for 1.5 seconds and marks them for 4 seconds."
+            }
+          ],
+          "duration": 1.5,
+          "amount": 30
+        }
+      ],
+      "movement": [],
+      "states": [],
+      "cooldown": 8,
+      "castTime": 0.25,
+      "range": 500,
+      "boostsAttacks": true,
+      "notes": [
+        "If the target becomes untargetable, dies, or is too far away or no longer in sight during the cast time, this ability will cancel and not pay its cost but still go on cooldown."
+      ]
+    },
+    {
+      "champion": "Kindred",
+      "kind": "I",
+      "name": "Mark of the Kindred",
+      "page": {
+        "title": "Template:Data Kindred/Mark of the Kindred",
+        "revid": 4069806
+      },
+      "damageTypes": [],
+      "delivery": {
+        "targeting": [
+          "passive"
+        ],
+        "affectsEnemies": true
+      },
+      "applies": [],
+      "movement": [],
+      "states": []
+    },
+    {
+      "champion": "Kindred",
+      "kind": "Q",
+      "name": "Dance of Arrows",
+      "page": {
+        "title": "Template:Data Kindred/Dance of Arrows",
+        "revid": 4007746
+      },
+      "damageTypes": [
+        "physical"
+      ],
+      "delivery": {
+        "targeting": [
+          "location"
+        ],
+        "affectsEnemies": true,
+        "projectile": "yes",
+        "spellShield": "yes",
+        "grounded": "yes",
+        "knockdown": "yes"
+      },
+      "applies": [],
+      "movement": [
+        {
+          "type": "dash",
+          "evidence": [
+            {
+              "page": "Dash",
+              "revid": 4035700,
+              "quote": "location-targeted"
+            }
+          ],
+          "targeting": "location-targeted",
+          "interruptible": true
+        }
+      ],
+      "states": [],
+      "cooldown": 9,
+      "castTime": 0,
+      "range": 300,
+      "speed": 500,
+      "boostsAttacks": true,
+      "notes": [
+        "Dance of Arrows has no minimum dash range."
+      ]
+    },
+    {
+      "champion": "Kindred",
+      "kind": "R",
+      "name": "Lamb's Respite",
+      "page": {
+        "title": "Template:Data Kindred/Lamb's Respite",
+        "revid": 4024177
+      },
+      "damageTypes": [],
+      "delivery": {
+        "targeting": [
+          "auto"
+        ],
+        "affectsEnemies": true
+      },
+      "applies": [],
+      "movement": [],
+      "states": [
+        {
+          "state": "invulnerable",
+          "evidence": [
+            {
+              "page": "Invulnerability",
+              "revid": 3990045
+            },
+            {
+              "page": "Template:Data Kindred/Lamb's Respite",
+              "revid": 4024177,
+              "quote": "All units inside the zone gain a minimum health threshold equal to 10% of their maximum health, and will also become invulnerable while remaining in the area when they reach or are at the threshold, during which they also cannot be healed, but can still regenerate health."
+            }
+          ]
+        },
+        {
+          "state": "minimum health",
+          "evidence": [
+            {
+              "page": "Template:Tip data/Minimum health threshold",
+              "revid": 3375621
+            },
+            {
+              "page": "Template:Data Kindred/Lamb's Respite",
+              "revid": 4024177,
+              "quote": "All units inside the zone gain a minimum health threshold equal to 10% of their maximum health, and will also become invulnerable while remaining in the area when they reach or are at the threshold, during which they also cannot be healed, but can still regenerate health."
+            }
+          ]
+        },
+        {
+          "state": "heal",
+          "evidence": [
+            {
+              "page": "Template:Data Kindred/Lamb's Respite",
+              "revid": 4024177,
+              "quote": "All units inside the zone gain a minimum health threshold equal to 10% of their maximum health, and will also become invulnerable while remaining in the area when they reach or are at the threshold, during which they also cannot be healed, but can still regenerate health."
+            },
+            {
+              "page": "Template:Data Kindred/Lamb's Respite",
+              "revid": 4024177,
+              "quote": "All targetable units within the zone are healed when the blessing ends."
+            }
+          ]
+        }
+      ],
+      "cooldown": 120,
+      "castTime": 0.25,
+      "notes": [
+        "Lamb's Respite will affect untargetable units but does not grant them the heal at the end of the blessing.\n  - It will specifically not affect champions that are resurrecting from Guardian Angel.",
+        "Lamb's Respite will have no effect if cast while Kindred is untargetable."
+      ]
+    },
+    {
+      "champion": "Kindred",
+      "kind": "W",
+      "name": "Wolf's Frenzy",
+      "page": {
+        "title": "Template:Data Kindred/Wolf's Frenzy",
+        "revid": 4078260
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "location"
+        ],
+        "affectsEnemies": true,
+        "projectile": "no",
+        "spellShield": "yes"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [
+        {
+          "state": "heal",
+          "evidence": [
+            {
+              "page": "Template:Data Kindred/Wolf's Frenzy",
+              "revid": 4078260,
+              "quote": "At maximum stacks, her next basic attack heals her for 0 / 25 / 50 / 75 / 100 (based on Missing health)% of 47 – 81 (based on level)."
+            }
+          ]
+        }
+      ],
+      "cooldown": 14,
+      "castTime": 0,
+      "range": 500,
+      "speed": 1400,
+      "boostsAttacks": true,
+      "notes": [
+        "Wolf is untargetable and ghosted but he cannot move through terrain other than the initial dash on activation."
+      ]
+    }
+  ]
+}

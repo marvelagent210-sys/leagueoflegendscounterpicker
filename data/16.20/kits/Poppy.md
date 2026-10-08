@@ -9,75 +9,21 @@ Values marked "at max rank, level 20" assume every ability is maxed; see PLAN.md
 |---|--:|--:|--:|--:|--:|--:|--:|--:|--:|--:|
 | Poppy | 2773.2 | 24.73 | 1184.9 Mana | 134.7 | 0.965 | 0.243 | 133.3 | 72.3 | 125 | 345 |
 
-## Innate: Devastating Blow
+## Fight profile (what the interaction ledger uses)
 
-Source: [Template:Data Poppy/Devastating Blow](https://wiki.leagueoflegends.com/en-us/Template:Data_Poppy/Devastating_Blow?oldid=3309735) (revision 3309735). Ranks: 1.
+| Form | Attack range | Ranged | Projectile | Missile speed | Attack modifiers |
+|---|--:|---|---|--:|---|
+| Poppy | 125 | no | no | – | Iron Ambassador |
 
-| Field | Value |
-|---|---|
-| Cooldown | 8 / 7 / 6 / 5 / 4 |
-| Cost | 55 mana |
+Cooldowns at max rank. Flags: the wiki's interaction flags (yes, no, partly). * marks an effect that applies only under a condition.
 
-Targeting: Devastating Blow is an on-hit effect. · Affects: – · Damage type: magic · Spell shield blocks it: will block the ability. · Projectile: – · Parry: – · Disabled by grounded: – · Usable while knocked down: –
-
-Active: Poppy's next basic attack is enhanced to deal magic damage up to a cap.
-
-- **Magic Damage:** 20 / 40 / 60 / 80 / 100 (+ 8% of target's maximum health) (+ 100% AD) (+ 60% AP) → at max rank, level 20: 20 (+ 8% targetMaxHealth) (+ 100% AD) (+ 60% AP)
-- **Maximum Magic Damage:** 75 / 150 / 225 / 300 / 375 (+ 100% AD) (+ 60% AP) → at max rank, level 20: 75 (+ 100% AD) (+ 60% AP)
-
-Devastating Blow resets Poppy's basic attack timer.
-
-Notes:
-
-- Devastating Blow has no cast time and does not interrupt Poppy's previous orders.
-- An enemy target must have a minimum 688 / 1375 / 2063 / 2750 / 3438 maximum health in order to reach Devastating Blow's maximum bonus damage (55 / 110 / 165 / 220 / 275)
-
-## Innate: Diplomatic Immunity
-
-Source: [Template:Data Poppy/Diplomatic Immunity](https://wiki.leagueoflegends.com/en-us/Template:Data_Poppy/Diplomatic_Immunity?oldid=3309689) (revision 3309689). Ranks: 1.
-
-| Field | Value |
-|---|---|
-| Cooldown | 140 / 120 / 100 |
-| Cost | 100 mana |
-| Range | 900 |
-
-Targeting: Diplomatic Immunity is a self-targeted buff. · Affects: – · Damage type: – · Spell shield blocks it: will block the ability. · Projectile: – · Parry: – · Disabled by grounded: – · Usable while knocked down: –
-
-Active: Poppy focuses the target enemy champion for the next few seconds, dealing them increased damage and becoming immune to all effects not originating from her target for the duration.
-
-- **Duration:** 6 / 7 / 8 → at max rank, level 20: 6
-- **Increased Damage:** 20 / 30 / 40% → at max rank, level 20: 20%
-
-Notes:
-
-- Diplomatic Immunity blocks all damage from all sources (including true damage) except the Nexus Obelisk, Diplomatic Immunity's target, and their respective pets.
-- Diplomatic Immunity can target champion clones (Mirror Image, Children of the Grave, Hallucinate, Decoy) to turn Poppy invulnerable to the champion who spawned them (and by extension the entire enemy team)
-- Diplomatic Immunity's damage amplification can be removed with Quicksilver (the invulnerability will remain until either Poppy or her target die)
-
-## Innate: Heroic Charge old
-
-Source: [Template:Data Poppy/Heroic Charge old](https://wiki.leagueoflegends.com/en-us/Template:Data_Poppy/Heroic_Charge_old?oldid=3309690) (revision 3309690). Ranks: 1.
-
-| Field | Value |
-|---|---|
-| Cooldown | 12 / 11 / 10 / 9 / 8 |
-| Cost | 60 / 65 / 70 / 75 / 80 mana |
-| Range | 525 / 300 |
-
-Targeting: Heroic Charge is a unit-targeted dash. · Affects: – · Damage type: magic · Spell shield blocks it: will block both the displacement and the damage, causing poppy to stop short of her target. · Projectile: – · Parry: – · Disabled by grounded: – · Usable while knocked down: –
-
-Active: Poppy dashes to the target enemy, dealing them magic damage and carrying them along with her. If they collide with terrain, she deals them bonus magic damage and stuns them for 1.5 seconds.
-
-- **Initial Magic Damage:** 50 / 75 / 100 / 125 / 150 (+ 40% AP) → at max rank, level 20: 50 (+ 40% AP)
-- **Total Magic Damage:** 125 / 200 / 275 / 350 / 425 (+ 80% AP) → at max rank, level 20: 125 (+ 80% AP)
-- **Mechanics:** airborne; stun (1.5 s)
-
-Notes:
-
-- Heroic Charge applies spell effects twice (once when Poppy hits her target and once she stuns them against a wall)
-- Poppy can use Heroic Charge to go through walls (provided her target is on the opposite side when she casts)
-- Heroic Charge interacts with impassable player-created terrain (Crystallize, Emperor's Divide, Cataclysm, Pillar of Ice)
+| Slot | Ability | Cooldown | Delivery | Applies to the enemy | Movement | Gives itself |
+|---|---|--:|---|---|---|---|
+| E | Heroic Charge | 10 | spell shield yes; grounded yes; knockdown yes | airborne (knock back) 2 s*; stun 2 s* | dash | – |
+| I | Iron Ambassador | 6 | projectile yes; spell shield no; parry yes; attack modifier | – | – | shield 3 s |
+| Q | Hammer Shock | 4 | projectile no; spell shield partly | slow 32% | – | – |
+| R | Keeper's Verdict | 100 | projectile yes; spell shield yes; disruptable yes | airborne (knock back, knock up) 0.5 s | – | – |
+| W | Steadfast Presence | 12 | spell shield yes | airborne (knock up) 0.5 s; ground 2 s*; slow 2 s 25%*; dash cancel 2 s | – | – |
 
 ## Innate: Iron Ambassador
 
@@ -102,42 +48,6 @@ Notes:
 
 - Poppy will not throw the buckler if she begins her attack windup before Iron Ambassador's cooldown has elapsed.
 - Iron Ambassador's buckler attack counts as melee.
-
-## Innate: Paragon of Demacia
-
-Source: [Template:Data Poppy/Paragon of Demacia](https://wiki.leagueoflegends.com/en-us/Template:Data_Poppy/Paragon_of_Demacia?oldid=3309691) (revision 3309691). Ranks: 1.
-
-| Field | Value |
-|---|---|
-| Cooldown | 12 |
-| Cost | 70 / 75 / 80 / 85 / 90 mana |
-
-Targeting: Paragon of Demacia is a self-targeted buff. · Affects: – · Damage type: – · Spell shield blocks it: – · Projectile: – · Parry: – · Disabled by grounded: – · Usable while knocked down: –
-
-Passive: Poppy gains bonus attack damage and bonus armor for 5 seconds every time she deals or takes damage, stacking up to 10 times.
-
-- **Bonuses Per Stack:** 1.5 / 2 / 2.5 / 3 / 3.5 → at max rank, level 20: 1.5
-- **Total Bonuses:** 15 / 20 / 25 / 30 / 35 → at max rank, level 20: 15
-
-Active: Poppy gains maximum Paragon of Demacia stacks and bonus movement speed for 5 seconds.
-
-- **Bonus Movement Speed:** 17 / 19 / 21 / 23 / 25% → at max rank, level 20: 17%
-
-Notes:
-
-- Paragon of Demacia has no cast time and does not interrupt Poppy's previous orders.
-
-## Innate: Valiant Fighter
-
-Source: [Template:Data Poppy/Valiant Fighter](https://wiki.leagueoflegends.com/en-us/Template:Data_Poppy/Valiant_Fighter?oldid=2704846) (revision 2704846). Ranks: 1.
-
-Targeting: Valiant Fighter is a self-targeted buff. · Affects: – · Damage type: – · Spell shield blocks it: – · Projectile: – · Parry: – · Disabled by grounded: – · Usable while knocked down: –
-
-Innate: When Poppy takes non-turret damage higher than 10% current health, she reduces the excess amount by 50%.
-
-Notes:
-
-- Valiant Fighter's damage reduction is calculated after resistances.
 
 ## Q: Hammer Shock
 

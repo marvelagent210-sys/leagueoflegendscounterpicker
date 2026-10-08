@@ -9,6 +9,22 @@ Values marked "at max rank, level 20" assume every ability is maxed; see PLAN.md
 |---|--:|--:|--:|--:|--:|--:|--:|--:|--:|--:|
 | Rumble | 2704.8 | 18.80 | 150.0 Heat | 126.9 | 0.878 | 0.228 | 128.4 | 58.5 | 125 | 345 |
 
+## Fight profile (what the interaction ledger uses)
+
+| Form | Attack range | Ranged | Projectile | Missile speed | Attack modifiers |
+|---|--:|---|---|--:|---|
+| Rumble | 125 | no | no | – | Junkyard Titan |
+
+Cooldowns at max rank. Flags: the wiki's interaction flags (yes, no, partly). * marks an effect that applies only under a condition.
+
+| Slot | Ability | Cooldown | Delivery | Applies to the enemy | Movement | Gives itself |
+|---|---|--:|---|---|---|---|
+| E | Electro Harpoon | 6 | projectile yes; spell shield yes | slow 2 s 35% | – | – |
+| I | Junkyard Titan | – | parry yes; attack modifier | – | – | – |
+| Q | Flamespitter | 6 | projectile no; spell shield no | – | – | – |
+| R | The Equalizer | 80 | projectile no; spell shield no | slow 35% | – | – |
+| W | Scrap Shield | 6 | – | – | – | shield 1.5 s |
+
 ## Innate: Junkyard Titan
 
 Source: [Template:Data Rumble/Junkyard Titan](https://wiki.leagueoflegends.com/en-us/Template:Data_Rumble/Junkyard_Titan?oldid=4064861) (revision 4064861). Ranks: 1.

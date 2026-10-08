@@ -9,6 +9,26 @@ Values marked "at max rank, level 20" assume every ability is maxed; see PLAN.md
 |---|--:|--:|--:|--:|--:|--:|--:|--:|--:|--:|
 | Kha'Zix | 2589.8 | 22.25 | 1113.6 Mana | 121.0 | 1.023 | 0.196 | 114.6 | 72.3 | 125 | 345 |
 
+## Fight profile (what the interaction ledger uses)
+
+| Form | Attack range | Ranged | Projectile | Missile speed | Attack modifiers |
+|---|--:|---|---|--:|---|
+| Kha'Zix | 125 | no | no | – | Unseen Threat |
+
+Cooldowns at max rank. Flags: the wiki's interaction flags (yes, no, partly). * marks an effect that applies only under a condition.
+
+| Slot | Ability | Cooldown | Delivery | Applies to the enemy | Movement | Gives itself |
+|---|---|--:|---|---|---|---|
+| E | Evolved Wings | – | spell shield yes; grounded yes; knockdown yes | – | – | – |
+| E | Leap | 12 | spell shield yes; grounded yes; knockdown yes | – | dash | – |
+| I | Unseen Threat | – | spell shield no; parry yes; attack modifier | slow 2 s 25% | – | – |
+| Q | Evolved Reaper Claws | – | spell shield yes | – | – | – |
+| Q | Taste Their Fear | 4 | spell shield yes | – | – | – |
+| R | Evolved Adaptive Cloaking | – | – | – | – | invisible |
+| R | Void Assault | 70 | – | – | – | invisible 1.25 s |
+| W | Evolved Spike Racks | – | projectile yes; spell shield partly | slow 2.25 s 40% | – | – |
+| W | Void Spike | 9 | projectile yes; spell shield yes | – | – | heal |
+
 ## Innate: Unseen Threat
 
 Source: [Template:Data Kha'Zix/Unseen Threat](https://wiki.leagueoflegends.com/en-us/Template:Data_Kha'Zix/Unseen_Threat?oldid=4064849) (revision 4064849). Ranks: 1.

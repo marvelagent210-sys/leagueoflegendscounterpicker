@@ -9,6 +9,22 @@ Values marked "at max rank, level 20" assume every ability is maxed; see PLAN.md
 |---|--:|--:|--:|--:|--:|--:|--:|--:|--:|--:|
 | Miss Fortune | 2591.5 | 16.53 | 1086.6 Mana | 102.2 | 1.043 | 0.142 | 103.7 | 54.6 | 550 | 325 |
 
+## Fight profile (what the interaction ledger uses)
+
+| Form | Attack range | Ranged | Projectile | Missile speed | Attack modifiers |
+|---|--:|---|---|--:|---|
+| Miss Fortune | 550 | yes | yes | 2000 | Love Tap |
+
+Cooldowns at max rank. Flags: the wiki's interaction flags (yes, no, partly). * marks an effect that applies only under a condition.
+
+| Slot | Ability | Cooldown | Delivery | Applies to the enemy | Movement | Gives itself |
+|---|---|--:|---|---|---|---|
+| E | Make It Rain | 14 | spell shield no | slow 40% | – | – |
+| I | Love Tap | – | parry yes; attack modifier | – | – | – |
+| Q | Double Up | 3 | projectile yes; spell shield partly; parry yes; on-hit | – | – | – |
+| R | Bullet Time | 100 | projectile yes; spell shield no; disruptable yes | – | – | – |
+| W | Strut | 12 | – | – | – | – |
+
 ## Innate: Love Tap
 
 Source: [Template:Data Miss Fortune/Love Tap](https://wiki.leagueoflegends.com/en-us/Template:Data_Miss_Fortune/Love_Tap?oldid=4027989) (revision 4027989). Ranks: 1.

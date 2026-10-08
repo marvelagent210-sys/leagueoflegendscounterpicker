@@ -9,6 +9,22 @@ Values marked "at max rank, level 20" assume every ability is maxed; see PLAN.md
 |---|--:|--:|--:|--:|--:|--:|--:|--:|--:|--:|
 | Leona | 2632.2 | 25.22 | 1088.6 Mana | 119.0 | 0.981 | 0.234 | 137.4 | 72.3 | 125 | 335 |
 
+## Fight profile (what the interaction ledger uses)
+
+| Form | Attack range | Ranged | Projectile | Missile speed | Attack modifiers |
+|---|--:|---|---|--:|---|
+| Leona | 125 | no | no | – | – |
+
+Cooldowns at max rank. Flags: the wiki's interaction flags (yes, no, partly). * marks an effect that applies only under a condition.
+
+| Slot | Ability | Cooldown | Delivery | Applies to the enemy | Movement | Gives itself |
+|---|---|--:|---|---|---|---|
+| E | Zenith Blade | 6 | projectile yes; spell shield yes; grounded yes; knockdown yes | root 0.5 s | dash | – |
+| I | Sunlight | – | spell shield yes | – | – | – |
+| Q | Shield of Daybreak | 5 | spell shield yes; attack | stun 1 s | – | – |
+| R | Solar Flare | 60 | spell shield yes | slow 1.75 s 80%; stun 1.75 s | – | – |
+| W | Eclipse | 10 | spell shield partly | – | – | – |
+
 ## Innate: Sunlight
 
 Source: [Template:Data Leona/Sunlight](https://wiki.leagueoflegends.com/en-us/Template:Data_Leona/Sunlight?oldid=4038401) (revision 4038401). Ranks: 1.

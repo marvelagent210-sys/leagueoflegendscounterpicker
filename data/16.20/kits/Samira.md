@@ -9,6 +9,22 @@ Values marked "at max rank, level 20" assume every ability is maxed; see PLAN.md
 |---|--:|--:|--:|--:|--:|--:|--:|--:|--:|--:|
 | Samira | 2753.8 | 14.07 | 1096.3 Mana | 116.0 | 1.085 | 0.138 | 118.4 | 54.6 | 500 | 335 |
 
+## Fight profile (what the interaction ledger uses)
+
+| Form | Attack range | Ranged | Projectile | Missile speed | Attack modifiers |
+|---|--:|---|---|--:|---|
+| Samira | 500 | yes | yes | 2800 | Daredevil Impulse |
+
+Cooldowns at max rank. Flags: the wiki's interaction flags (yes, no, partly). * marks an effect that applies only under a condition.
+
+| Slot | Ability | Cooldown | Delivery | Applies to the enemy | Movement | Gives itself |
+|---|---|--:|---|---|---|---|
+| E | Wild Rush | 12 | spell shield yes; grounded yes; knockdown yes | – | dash | – |
+| I | Daredevil Impulse | – | projectile partly; spell shield partly; parry yes; grounded partly; knockdown yes; attack modifier | airborne (knock up) 0.5 s* | dash | heal |
+| Q | Flair | 2 | projectile partly; spell shield yes | – | – | heal |
+| R | Inferno Trigger | 5 | projectile yes; spell shield partly; disruptable yes | – | – | heal |
+| W | Blade Whirl | 22 | spell shield yes | – | – | projectile block 0.75 s |
+
 ## Innate: Daredevil Impulse
 
 Source: [Template:Data Samira/Daredevil Impulse](https://wiki.leagueoflegends.com/en-us/Template:Data_Samira/Daredevil_Impulse?oldid=4051977) (revision 4051977). Ranks: 1.
@@ -229,35 +245,6 @@ Notes:
 - Inferno Trigger will not end if there are no enemies that remain in range.
 - The bottom of the player's screen will have a fiery visual effect while Samira is at S rank and Inferno Trigger has at least one rank.
 - Since R cooldown is static, Ultimate Hunter will be swapped with Treasure Hunter for Samira at the start of the game.
-
-## Other: Taunt
-
-Source: [Template:Data Samira/Taunt](https://wiki.leagueoflegends.com/en-us/Template:Data_Samira/Taunt?oldid=4008030) (revision 4008030). Ranks: 1.
-
-| Field | Value |
-|---|---|
-| Range | 950 • 890 |
-| Width | 120 |
-| Speed | 1400 |
-
-Targeting: Auto · Affects: Self, Enemies · Damage type: True · Spell shield blocks it: true · Projectile: true · Parry: – · Disabled by grounded: – · Usable while knocked down: –
-
-Samira's taunt expression prevents her from inputting attack commands and casting non-movement abilities, and she may only interrupt it herself with a movement command. After 3 seconds without interruption, she will toss a coin in the direction she is facing.
-
-- **Mechanics:** lockout
-
-If she has at least 1 gold, the coin deals 1 true damage to the first enemy champion hit, and 1 is removed from Samira to grant it to them. The damage can trigger Daredevil Impulse.
-
-If cast within 1200 units of a visible enemy champion, Samira will turn to face towards the closest one to perform the animation.
-
-Samira's Taunt can target and hit dead enemy champions, granting them 1 but not triggering other effects.
-
-Notes:
-
-- Samira must have at least 1 to weaponize her Taunt animation.
-- Using her Taunt does not count as an ability activation for the purposes of on-cast effects such as Spellblade and triggering Force Pulse passive.
-- Flash and Wild Rush can be cast during her Taunt, but neither interrupt the effect.
-    - If Samira's facing direction is changed before the coin is fired (e.g. by casting Wild Rush), she will still turn toward her initial facing direction to toss the coin. Note: facing direction, not toward the location of the target.
 
 ## Game files
 

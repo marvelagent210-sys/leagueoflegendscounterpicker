@@ -9,6 +9,23 @@ Values marked "at max rank, level 20" assume every ability is maxed; see PLAN.md
 |---|--:|--:|--:|--:|--:|--:|--:|--:|--:|--:|
 | Yorick | 2891.8 | 23.73 | 1479.9 Mana | 160.3 | 0.871 | 0.237 | 124.5 | 72.3 | 175 | 340 |
 
+## Fight profile (what the interaction ledger uses)
+
+| Form | Attack range | Ranged | Projectile | Missile speed | Attack modifiers |
+|---|--:|---|---|--:|---|
+| Yorick | 175 | no | no | – | – |
+
+Cooldowns at max rank. Flags: the wiki's interaction flags (yes, no, partly). * marks an effect that applies only under a condition.
+
+| Slot | Ability | Cooldown | Delivery | Applies to the enemy | Movement | Gives itself |
+|---|---|--:|---|---|---|---|
+| E | Mourning Mist | 8 | projectile yes; spell shield yes | slow 1.5 s 30% | – | – |
+| I | Shepherd of Souls | – | – | – | – | – |
+| Q | Awakening | – | – | – | – | – |
+| Q | Last Rites | 4 | spell shield no; parry yes; attack | – | – | heal |
+| R | Eulogy of the Isles | 100 | – | – | – | – |
+| W | Dark Procession | 12 | spell shield no | airborne (knock aside) 0.25 s | – | – |
+
 ## Innate: Shepherd of Souls
 
 Source: [Template:Data Yorick/Shepherd of Souls](https://wiki.leagueoflegends.com/en-us/Template:Data_Yorick/Shepherd_of_Souls?oldid=4008645) (revision 4008645). Ranks: 1.

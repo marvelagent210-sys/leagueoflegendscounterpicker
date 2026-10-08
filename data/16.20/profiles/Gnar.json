@@ -1,0 +1,451 @@
+{
+  "champion": "Gnar",
+  "name": "Gnar",
+  "gameplayRadius": 55,
+  "moveSpeed": 335,
+  "attacks": [
+    {
+      "form": "gnar",
+      "formName": "Gnar",
+      "range": 511.765,
+      "ranged": false,
+      "projectile": false,
+      "missileSpeed": 1500,
+      "attackSpeed": 1.36244,
+      "attackDamage": 122.928,
+      "windup": 0.107161,
+      "modifiers": [
+        "Rage Gene",
+        "Hyper"
+      ]
+    },
+    {
+      "form": "mega-gnar",
+      "formName": "Mega Gnar",
+      "range": 175,
+      "ranged": false,
+      "projectile": false,
+      "attackSpeed": 0.686453,
+      "attackDamage": 178.091,
+      "windup": 0.212688,
+      "modifiers": [
+        "Rage Gene",
+        "Hyper"
+      ]
+    }
+  ],
+  "abilities": [
+    {
+      "champion": "Gnar",
+      "kind": "E",
+      "name": "Crunch",
+      "page": {
+        "title": "Template:Data Gnar/Crunch",
+        "revid": 4007743
+      },
+      "damageTypes": [
+        "physical"
+      ],
+      "delivery": {
+        "targeting": [
+          "location"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "yes",
+        "grounded": "yes",
+        "knockdown": "yes"
+      },
+      "applies": [
+        {
+          "type": "slow",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "slow"
+            },
+            {
+              "page": "Template:Data Gnar/Crunch",
+              "revid": 4007743,
+              "quote": "Active: Gnar leaps to the target location and deals physical damage to nearby enemies upon impact and slows them by 80% for 0.5 seconds."
+            }
+          ],
+          "duration": 0.5,
+          "amount": 80
+        }
+      ],
+      "movement": [
+        {
+          "type": "dash",
+          "evidence": [
+            {
+              "page": "Dash",
+              "revid": 4035700,
+              "quote": "location-targeted"
+            }
+          ],
+          "targeting": "location-targeted",
+          "interruptible": true
+        }
+      ],
+      "states": [],
+      "cooldown": 12,
+      "castTime": 0,
+      "range": 675
+    },
+    {
+      "champion": "Gnar",
+      "kind": "E",
+      "name": "Hop",
+      "page": {
+        "title": "Template:Data Gnar/Hop",
+        "revid": 4007742
+      },
+      "damageTypes": [
+        "physical"
+      ],
+      "delivery": {
+        "targeting": [
+          "location"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "yes",
+        "grounded": "yes",
+        "knockdown": "yes"
+      },
+      "applies": [
+        {
+          "type": "slow",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "slow"
+            },
+            {
+              "page": "Template:Data Gnar/Hop",
+              "revid": 4007742,
+              "quote": "Landing on an enemy deals them physical damage and slows them by 80% for 0.5 seconds."
+            }
+          ],
+          "duration": 0.5,
+          "amount": 80
+        }
+      ],
+      "movement": [
+        {
+          "type": "dash",
+          "evidence": [
+            {
+              "page": "Dash",
+              "revid": 4035700,
+              "quote": "location-targeted; Mega Gnar"
+            }
+          ],
+          "targeting": "location-targeted",
+          "condition": "Mega Gnar",
+          "interruptible": true
+        }
+      ],
+      "states": [],
+      "cooldown": 12,
+      "castTime": 0,
+      "range": 475,
+      "boostsAttacks": true,
+      "notes": [
+        "Hop has no minimum dash range."
+      ]
+    },
+    {
+      "champion": "Gnar",
+      "kind": "I",
+      "name": "Mega Gnar",
+      "page": {
+        "title": "Template:Data Gnar/Mega Gnar",
+        "revid": 4038339
+      },
+      "damageTypes": [],
+      "delivery": {
+        "targeting": [],
+        "affectsEnemies": true
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "boostsAttacks": true
+    },
+    {
+      "champion": "Gnar",
+      "kind": "I",
+      "name": "Mini Gnar",
+      "page": {
+        "title": "Template:Data Gnar/Mini Gnar",
+        "revid": 4038340
+      },
+      "damageTypes": [],
+      "delivery": {
+        "targeting": [],
+        "affectsEnemies": true
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "boostsAttacks": true
+    },
+    {
+      "champion": "Gnar",
+      "kind": "I",
+      "name": "Rage Gene",
+      "page": {
+        "title": "Template:Data Gnar/Rage Gene",
+        "revid": 4062252
+      },
+      "damageTypes": [],
+      "delivery": {
+        "targeting": [
+          "passive"
+        ],
+        "affectsEnemies": false,
+        "attack": "attack modifier"
+      },
+      "applies": [],
+      "movement": [],
+      "states": []
+    },
+    {
+      "champion": "Gnar",
+      "kind": "Q",
+      "name": "Boomerang Throw",
+      "page": {
+        "title": "Template:Data Gnar/Boomerang Throw",
+        "revid": 4007601
+      },
+      "damageTypes": [
+        "physical"
+      ],
+      "delivery": {
+        "targeting": [
+          "direction"
+        ],
+        "affectsEnemies": true,
+        "projectile": "yes",
+        "spellShield": "yes"
+      },
+      "applies": [
+        {
+          "type": "slow",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "slow"
+            },
+            {
+              "page": "Template:Data Gnar/Boomerang Throw",
+              "revid": 4007601,
+              "quote": "Active: Gnar throws a boomerang in a line in the target direction that deals physical damage to enemies in its path and slows them for 2 seconds."
+            }
+          ],
+          "duration": 2,
+          "amount": 35
+        }
+      ],
+      "movement": [],
+      "states": [],
+      "cooldown": 10,
+      "castTime": 0.25,
+      "range": 1125,
+      "speed": 2500
+    },
+    {
+      "champion": "Gnar",
+      "kind": "Q",
+      "name": "Boulder Toss",
+      "page": {
+        "title": "Template:Data Gnar/Boulder Toss",
+        "revid": 3589588
+      },
+      "damageTypes": [
+        "physical"
+      ],
+      "delivery": {
+        "targeting": [
+          "direction"
+        ],
+        "affectsEnemies": true,
+        "projectile": "yes",
+        "spellShield": "yes"
+      },
+      "applies": [
+        {
+          "type": "slow",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "slow"
+            },
+            {
+              "page": "Template:Data Gnar/Boulder Toss",
+              "revid": 3589588,
+              "quote": "Active: Gnar throws a boulder in the target direction that stops upon hitting an enemy, dealing physical damage to nearby enemies upon impact and slowing them for 2 seconds."
+            }
+          ],
+          "duration": 2,
+          "amount": 50
+        }
+      ],
+      "movement": [],
+      "states": [],
+      "cooldown": 10,
+      "castTime": 0.5,
+      "range": 1150,
+      "speed": 2100,
+      "notes": [
+        "The Boulder will still drop to the ground if colliding with Wind Wall or Unbreakable."
+      ]
+    },
+    {
+      "champion": "Gnar",
+      "kind": "R",
+      "name": "GNAR!",
+      "page": {
+        "title": "Template:Data Gnar/GNAR!",
+        "revid": 3936277
+      },
+      "damageTypes": [
+        "physical"
+      ],
+      "delivery": {
+        "targeting": [
+          "direction"
+        ],
+        "affectsEnemies": true,
+        "projectile": "no",
+        "spellShield": "yes"
+      },
+      "applies": [
+        {
+          "type": "airborne",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "airborne: knock back"
+            },
+            {
+              "page": "Template:Data Gnar/GNAR!",
+              "revid": 3936277,
+              "quote": "Mega Gnar - Active: Gnar thrusts in the target direction, knocking away nearby enemies up to 590 units in that direction, though not through terrain, and afterwards dealing them physical damage, as well as slowing them by 45% after a 0.4-second delay for a duration."
+            }
+          ],
+          "variant": "knock back",
+          "duration": 1.75
+        },
+        {
+          "type": "slow",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "slow"
+            },
+            {
+              "page": "Template:Data Gnar/GNAR!",
+              "revid": 3936277,
+              "quote": "Mega Gnar - Active: Gnar thrusts in the target direction, knocking away nearby enemies up to 590 units in that direction, though not through terrain, and afterwards dealing them physical damage, as well as slowing them by 45% after a 0.4-second delay for a duration."
+            }
+          ],
+          "amount": 45
+        },
+        {
+          "type": "stun",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "stun"
+            },
+            {
+              "page": "Template:Data Gnar/GNAR!",
+              "revid": 3936277,
+              "quote": "Enemies that collide with terrain take 50% increased damage immediately and are stunned instantly instead of slowed after a delay."
+            }
+          ],
+          "duration": 1.75
+        }
+      ],
+      "movement": [],
+      "states": [],
+      "cooldown": 30,
+      "castTime": 0.25
+    },
+    {
+      "champion": "Gnar",
+      "kind": "W",
+      "name": "Hyper",
+      "page": {
+        "title": "Template:Data Gnar/Hyper",
+        "revid": 3932657
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "passive"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "no",
+        "parry": "yes",
+        "attack": "attack modifier"
+      },
+      "applies": [],
+      "movement": [],
+      "states": []
+    },
+    {
+      "champion": "Gnar",
+      "kind": "W",
+      "name": "Wallop",
+      "page": {
+        "title": "Template:Data Gnar/Wallop",
+        "revid": 4022698
+      },
+      "damageTypes": [
+        "physical"
+      ],
+      "delivery": {
+        "targeting": [
+          "direction"
+        ],
+        "affectsEnemies": true,
+        "projectile": "no",
+        "spellShield": "yes"
+      },
+      "applies": [
+        {
+          "type": "stun",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "stun"
+            },
+            {
+              "page": "Template:Data Gnar/Wallop",
+              "revid": 4022698,
+              "quote": "Active: Gnar slams his arm down in the target direction, dealing physical damage to all enemies struck within the area and stunning them for 1.25 seconds."
+            }
+          ],
+          "duration": 1.25
+        }
+      ],
+      "movement": [],
+      "states": [],
+      "cooldown": 7,
+      "castTime": 0.6,
+      "range": 550
+    }
+  ]
+}

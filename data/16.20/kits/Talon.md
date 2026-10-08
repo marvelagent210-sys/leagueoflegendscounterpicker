@@ -9,6 +9,22 @@ Values marked "at max rank, level 20" assume every ability is maxed; see PLAN.md
 |---|--:|--:|--:|--:|--:|--:|--:|--:|--:|--:|
 | Talon | 2801.5 | 23.25 | 1127.6 Mana | 129.0 | 0.981 | 0.126 | 122.4 | 76.3 | 125 | 335 |
 
+## Fight profile (what the interaction ledger uses)
+
+| Form | Attack range | Ranged | Projectile | Missile speed | Attack modifiers |
+|---|--:|---|---|--:|---|
+| Talon | 125 | no | no | – | Blade's End |
+
+Cooldowns at max rank. Flags: the wiki's interaction flags (yes, no, partly). * marks an effect that applies only under a condition.
+
+| Slot | Ability | Cooldown | Delivery | Applies to the enemy | Movement | Gives itself |
+|---|---|--:|---|---|---|---|
+| E | Assassin's Path | 2 | grounded yes; knockdown yes | – | dash | – |
+| I | Blade's End | – | spell shield partly; parry partly; attack modifier | – | – | – |
+| Q | Noxian Diplomacy | 6 | spell shield yes; grounded partly; knockdown yes; attack | – | dash | heal |
+| R | Shadow Assault | 60 | projectile yes; spell shield yes | – | – | invisible 2.5 s |
+| W | Rake | 7 | projectile yes; spell shield yes | slow 1 s 60% | – | – |
+
 ## Innate: Blade's End
 
 Source: [Template:Data Talon/Blade's End](https://wiki.leagueoflegends.com/en-us/Template:Data_Talon/Blade's_End?oldid=4046483) (revision 4046483). Ranks: 1.

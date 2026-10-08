@@ -9,6 +9,23 @@ Values marked "at max rank, level 20" assume every ability is maxed; see PLAN.md
 |---|--:|--:|--:|--:|--:|--:|--:|--:|--:|--:|
 | Garen | 2617.2 | 17.83 | 0.0 None | 157.5 | 1.074 | 0.228 | 120.6 | 62.5 | 175 | 340 |
 
+## Fight profile (what the interaction ledger uses)
+
+| Form | Attack range | Ranged | Projectile | Missile speed | Attack modifiers |
+|---|--:|---|---|--:|---|
+| Garen | 175 | no | no | – | – |
+
+Cooldowns at max rank. Flags: the wiki's interaction flags (yes, no, partly). * marks an effect that applies only under a condition.
+
+| Slot | Ability | Cooldown | Delivery | Applies to the enemy | Movement | Gives itself |
+|---|---|--:|---|---|---|---|
+| A | Basic Attack | – | – | – | – | – |
+| E | Judgment | 6 | spell shield no | – | – | – |
+| I | Perseverance | – | – | – | – | heal |
+| Q | Decisive Strike | 8 | spell shield partly; parry yes; knockdown no; attack | silence 1.5 s | lunge (unstoppable) | cleanse (1 CC types) |
+| R | Demacian Justice | 80 | spell shield yes | reveal | – | – |
+| W | Courage | 12 | – | – | – | tenacity 0.75 s; shield |
+
 ## Innate: Perseverance
 
 Source: [Template:Data Garen/Perseverance](https://wiki.leagueoflegends.com/en-us/Template:Data_Garen/Perseverance?oldid=4038338) (revision 4038338). Ranks: 1.

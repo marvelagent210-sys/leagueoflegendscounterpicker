@@ -1,0 +1,292 @@
+{
+  "champion": "Thresh",
+  "name": "Thresh",
+  "gameplayRadius": 65,
+  "moveSpeed": 330,
+  "attacks": [
+    {
+      "form": "thresh",
+      "formName": "Thresh",
+      "range": 450,
+      "ranged": true,
+      "projectile": false,
+      "attackSpeed": 1.05517,
+      "attackDamage": 99.263,
+      "windup": 0.344264,
+      "modifiers": []
+    }
+  ],
+  "abilities": [
+    {
+      "champion": "Thresh",
+      "kind": "E",
+      "name": "Flay",
+      "page": {
+        "title": "Template:Data Thresh/Flay",
+        "revid": 4057474
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "direction"
+        ],
+        "affectsEnemies": true,
+        "projectile": "no",
+        "spellShield": "yes"
+      },
+      "applies": [
+        {
+          "type": "airborne",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "airborne: knock back"
+            },
+            {
+              "page": "Template:Data Thresh/Flay",
+              "revid": 4057474,
+              "quote": "Enemies hit are dealt magic damage and knocked 200 units in the target direction, and then are slowed for 1 second."
+            }
+          ],
+          "variant": "knock back, pull",
+          "duration": 1
+        },
+        {
+          "type": "slow",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "slow"
+            },
+            {
+              "page": "Template:Data Thresh/Flay",
+              "revid": 4057474,
+              "quote": "Enemies hit are dealt magic damage and knocked 200 units in the target direction, and then are slowed for 1 second."
+            }
+          ],
+          "duration": 1,
+          "amount": 40
+        }
+      ],
+      "movement": [],
+      "states": [],
+      "cooldown": 10,
+      "castTime": 0.3889,
+      "range": 550,
+      "speed": 2000
+    },
+    {
+      "champion": "Thresh",
+      "kind": "I",
+      "name": "Damnation",
+      "page": {
+        "title": "Template:Data Thresh/Damnation",
+        "revid": 4025498
+      },
+      "damageTypes": [],
+      "delivery": {
+        "targeting": [
+          "passive"
+        ],
+        "affectsEnemies": false
+      },
+      "applies": [],
+      "movement": [],
+      "states": []
+    },
+    {
+      "champion": "Thresh",
+      "kind": "Q",
+      "name": "Death Sentence",
+      "page": {
+        "title": "Template:Data Thresh/Death Sentence",
+        "revid": 4008201
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "direction",
+          "auto"
+        ],
+        "affectsEnemies": true,
+        "projectile": "yes",
+        "spellShield": "yes",
+        "grounded": "partly",
+        "knockdown": "yes"
+      },
+      "applies": [
+        {
+          "type": "airborne",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "airborne: pull"
+            },
+            {
+              "page": "Template:Data Thresh/Death Sentence",
+              "revid": 4008201,
+              "quote": "The scythe catches the first enemy hit to deal magic damage, stun and reveal them for 1.5 seconds, and render them airborne for 0.4 seconds, as well as reduce Death Sentence's current cooldown by 2 seconds."
+            }
+          ],
+          "variant": "pull",
+          "duration": 0.4
+        },
+        {
+          "type": "stun",
+          "evidence": [
+            {
+              "page": "Template:Data Thresh/Death Sentence",
+              "revid": 4008201,
+              "quote": "The scythe catches the first enemy hit to deal magic damage, stun and reveal them for 1.5 seconds, and render them airborne for 0.4 seconds, as well as reduce Death Sentence's current cooldown by 2 seconds."
+            }
+          ],
+          "duration": 1.5
+        },
+        {
+          "type": "reveal",
+          "evidence": [
+            {
+              "page": "Template:List of true sight abilities",
+              "revid": 3860444
+            }
+          ]
+        }
+      ],
+      "movement": [
+        {
+          "type": "dash",
+          "evidence": [
+            {
+              "page": "Dash",
+              "revid": 4035700,
+              "quote": "auto-targeted"
+            }
+          ],
+          "targeting": "auto-targeted",
+          "interruptible": true
+        }
+      ],
+      "states": [],
+      "cooldown": 9,
+      "castTime": 0.5,
+      "range": 1100,
+      "speed": 1900,
+      "notes": [
+        "Thresh will track the target if they change locations.\n  - He will dash to the target's previous location if the target is too far away or moves beyond 2000 units.",
+        "The pull that occurs with each of Thresh's tugs is a non-airborne displacement that displaces the target toward him. Thresh will only tug if the target remains stunned and he has not casted Deathly Leap.\n  - Thresh will not tug his hook at all if the stun was not applied to the target.\n  - These displacements will not be resisted by displacement immunity or crowd control immunity.\n  - The first tug occurs after the 0.1-second delay, while the second tug occurs after 0.7 seconds of the target being stunned (or 0.6 seconds from the end of the initial delay).\n  - The initial airborne debuff that is applied to the target upon hitting them is removed if the displacement from the first pull is interrupted.\n  - The target will not be pulled with the tugs if they are too close to Thresh.",
+        "Death Sentence cannot be recast while grounded or rooted.",
+        "Death Sentence can be recast even while the target is untargetable.",
+        "Death Sentence will not stun enemies that are displacement immune or immune to crowd control but the target will still be marked and Thresh is still granted the ability to recast for his dash.",
+        "Spell shield will block all of Death Sentence's effects, including the mark as well as prevent the cooldown reduction.",
+        "Death Sentence's stun duration is affected by tenacity but the mark will always persist for 1.5 seconds, unless the target uses a cleansing effect, in which case the mark is removed.",
+        "The reveal lingers for 0.05 seconds after it ends.",
+        "Deathly Leap has a maximum cast range of ~3000 units. If Thresh or the target move a greater distance than this away from one another while the target is marked, Deathly Leap can still be cast but will fail to trigger the dash.",
+        "Thresh will turn his facing direction towards the cast direction only after Death Sentence's cast is complete.\n  - If Thresh is facing more than 90° away from the cast direction in either direction, he will turn to face exactly 90° away from the cast direction over the cast time, then turn towards the cast direction when the missile is fired.\n  - If Thresh is facing less than 90° away from the cast direction, he will keep his facing direction until the missile is fired.\n  - [http://web.archive.org/web/0/http://na.leagueoflegends.com/board/showthread.php?p=33837947#post33837947 This prevents the enemy from knowing where exactly Thresh is aiming at before the cast animation is complete.]"
+      ]
+    },
+    {
+      "champion": "Thresh",
+      "kind": "R",
+      "name": "The Box",
+      "page": {
+        "title": "Template:Data Thresh/The Box",
+        "revid": 4024674
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "auto"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "yes"
+      },
+      "applies": [
+        {
+          "type": "slow",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "slow"
+            },
+            {
+              "page": "Template:Data Thresh/The Box",
+              "revid": 4024674,
+              "quote": "A wall will break upon enemy champion contact, dealing magic damage and slowing them by 99% for 2 seconds."
+            }
+          ],
+          "duration": 2,
+          "amount": 99
+        }
+      ],
+      "movement": [],
+      "states": [],
+      "cooldown": 80,
+      "castTime": 0.45,
+      "notes": [
+        "This ability will cast from wherever the caster is at the start of the cast time.\n  - Additionally, The Box cannot be interrupted by any means, including death or resurrection. The Box will complete its effect so long as Thresh has initiated its cast."
+      ]
+    },
+    {
+      "champion": "Thresh",
+      "kind": "W",
+      "name": "Dark Passage",
+      "page": {
+        "title": "Template:Data Thresh/Dark Passage",
+        "revid": 4017821
+      },
+      "damageTypes": [],
+      "delivery": {
+        "targeting": [
+          "location"
+        ],
+        "affectsEnemies": false,
+        "projectile": "yes"
+      },
+      "applies": [],
+      "movement": [
+        {
+          "type": "dash",
+          "evidence": [
+            {
+              "page": "Dash",
+              "revid": 4035700,
+              "quote": "auto-targeted; (when clicked)"
+            }
+          ],
+          "targeting": "auto-targeted",
+          "condition": "(when clicked)"
+        }
+      ],
+      "states": [
+        {
+          "state": "shield",
+          "evidence": [
+            {
+              "page": "Template:Data Thresh/Dark Passage",
+              "revid": 4017821,
+              "quote": "Thresh and the first allied champion to come near the lantern are granted a shield for 4 seconds."
+            }
+          ],
+          "duration": 4
+        }
+      ],
+      "cooldown": 17,
+      "castTime": 0,
+      "range": 950,
+      "notes": [
+        "The dashing ally will track Thresh if he changes locations.\n  - They will dash to Thresh's previous location if he is too far away or moves beyond 2200 units.",
+        "The lantern is considered a unit and can be targeted by an allied Teleport, Leap Strike, Shunpo, and Safeguard.\n  - It is untargetable to enemies.\n  - The lantern blocks pathing of units like minions and champions."
+      ]
+    }
+  ]
+}

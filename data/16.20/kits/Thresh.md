@@ -9,6 +9,22 @@ Values marked "at max rank, level 20" assume every ability is maxed; see PLAN.md
 |---|--:|--:|--:|--:|--:|--:|--:|--:|--:|--:|
 | Thresh | 2979.8 | 17.82 | 1139.3 Mana | 99.3 | 1.055 | 0.344 | 33.0 | 60.5 | 450 | 330 |
 
+## Fight profile (what the interaction ledger uses)
+
+| Form | Attack range | Ranged | Projectile | Missile speed | Attack modifiers |
+|---|--:|---|---|--:|---|
+| Thresh | 450 | yes | no | – | – |
+
+Cooldowns at max rank. Flags: the wiki's interaction flags (yes, no, partly). * marks an effect that applies only under a condition.
+
+| Slot | Ability | Cooldown | Delivery | Applies to the enemy | Movement | Gives itself |
+|---|---|--:|---|---|---|---|
+| E | Flay | 10 | projectile no; spell shield yes | airborne (knock back, pull) 1 s; slow 1 s 40% | – | – |
+| I | Damnation | – | – | – | – | – |
+| Q | Death Sentence | 9 | projectile yes; spell shield yes; grounded partly; knockdown yes | airborne (pull) 0.4 s; stun 1.5 s; reveal | dash | – |
+| R | The Box | 80 | spell shield yes | slow 2 s 99% | – | – |
+| W | Dark Passage | 17 | projectile yes | – | dash (when clicked) | shield 4 s |
+
 ## Innate: Damnation
 
 Source: [Template:Data Thresh/Damnation](https://wiki.leagueoflegends.com/en-us/Template:Data_Thresh/Damnation?oldid=4025498) (revision 4025498). Ranks: 1.

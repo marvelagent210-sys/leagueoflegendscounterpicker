@@ -9,6 +9,32 @@ Values marked "at max rank, level 20" assume every ability is maxed; see PLAN.md
 |---|--:|--:|--:|--:|--:|--:|--:|--:|--:|--:|
 | Aphelios | 2605.8 | 14.07 | 1173.9 Mana | 100.2 | 0.937 | 0.164 | 108.6 | 54.6 | 550 | 325 |
 
+## Fight profile (what the interaction ledger uses)
+
+| Form | Attack range | Ranged | Projectile | Missile speed | Attack modifiers |
+|---|--:|---|---|--:|---|
+| Aphelios | 550 | yes | yes | – | – |
+
+Cooldowns at max rank. Flags: the wiki's interaction flags (yes, no, partly). * marks an effect that applies only under a condition.
+
+| Slot | Ability | Cooldown | Delivery | Applies to the enemy | Movement | Gives itself |
+|---|---|--:|---|---|---|---|
+| A | Calibrum | – | projectile partly; parry yes; attack | – | – | – |
+| A | Crescendum | – | projectile no; parry yes | – | – | – |
+| A | Gravitum | – | projectile yes; spell shield no; parry yes | slow 2.5 s 30% | – | – |
+| A | Infernum | – | projectile yes; spell shield no; parry partly | – | – | – |
+| A | Severum | – | projectile no; parry yes | – | – | heal; shield 30 s |
+| E | Weapon Queue System | – | – | – | – | – |
+| I | The Hitman and the Seer | – | – | – | – | – |
+| Q | Binding Eclipse | 10 | spell shield yes | root 1 s; slow 1 s | – | – |
+| Q | Duskwave | 5 | projectile yes; spell shield yes; parry partly; on-hit | – | – | – |
+| Q | Moonshot | 8 | projectile yes; spell shield yes | – | – | – |
+| Q | Onslaught | 8 | projectile partly; parry yes; on-hit | – | – | – |
+| Q | Sentry | 6 | projectile partly; parry partly | – | – | slow immune |
+| Q | Weapons of the Faithful | – | – | – | – | – |
+| R | Moonlight Vigil | 100 | projectile partly; spell shield partly; parry partly; on-hit | slow 1.35 s; root 1.35 s | – | heal |
+| W | Phase | 0.8 | – | – | – | – |
+
 ## Innate: The Hitman and the Seer
 
 Source: [Template:Data Aphelios/The Hitman and the Seer](https://wiki.leagueoflegends.com/en-us/Template:Data_Aphelios/The_Hitman_and_the_Seer?oldid=4022691) (revision 4022691). Ranks: 1.

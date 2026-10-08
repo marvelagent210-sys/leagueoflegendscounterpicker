@@ -9,6 +9,22 @@ Values marked "at max rank, level 20" assume every ability is maxed; see PLAN.md
 |---|--:|--:|--:|--:|--:|--:|--:|--:|--:|--:|
 | Kayle | 2479.2 | 14.83 | 1313.3 Mana | 99.2 | 0.822 | 0.236 | 108.6 | 47.6 | 175 | 335 |
 
+## Fight profile (what the interaction ledger uses)
+
+| Form | Attack range | Ranged | Projectile | Missile speed | Attack modifiers |
+|---|--:|---|---|--:|---|
+| Transcendent (level 16+) | 625 | yes | yes | 5000 | Divine Ascent |
+
+Cooldowns at max rank. Flags: the wiki's interaction flags (yes, no, partly). * marks an effect that applies only under a condition.
+
+| Slot | Ability | Cooldown | Delivery | Applies to the enemy | Movement | Gives itself |
+|---|---|--:|---|---|---|---|
+| E | Starfire Spellblade | 6 | projectile yes; spell shield yes; parry partly; attack | – | – | – |
+| I | Divine Ascent | – | projectile partly; parry no; attack modifier | – | – | – |
+| Q | Radiant Blast | 8 | projectile yes; spell shield yes | slow 2 s 45% | – | – |
+| R | Divine Judgment | 80 | spell shield yes | – | – | invulnerable 2.5 s |
+| W | Celestial Blessing | 15 | – | – | – | – |
+
 ## Innate: Divine Ascent
 
 Source: [Template:Data Kayle/Divine Ascent](https://wiki.leagueoflegends.com/en-us/Template:Data_Kayle/Divine_Ascent?oldid=4051190) (revision 4051190). Ranks: 1.
@@ -69,18 +85,6 @@ Notes:
 - Each ascension has an unique animation and a voice line. (See: Kayle's quotes)
 - The ascensions' animation will override the current one, but it does not cancel Kayle's current action, nor her previous orders.
 
-## Innate: Holy Fervor
-
-Source: [Template:Data Kayle/Holy Fervor](https://wiki.leagueoflegends.com/en-us/Template:Data_Kayle/Holy_Fervor?oldid=2648722) (revision 2648722). Ranks: 1.
-
-Targeting: Passive · Affects: Self · Damage type: – · Spell shield blocks it: false · Projectile: – · Parry: – · Disabled by grounded: – · Usable while knocked down: –
-
-Innate: Kayle's basic attacks and Reckoning reduce enemy champions' armor and magic resistance by 3% for 5 seconds, stacking up to 5 times, up to a maximum of 15%.
-
-Notes:
-
-- Holy Fervor stacks additively with itself (for a maximum 15%) but multiplicatively with other percentage reductions.
-
 ## Q: Radiant Blast
 
 Source: [Template:Data Kayle/Radiant Blast](https://wiki.leagueoflegends.com/en-us/Template:Data_Kayle/Radiant_Blast?oldid=4005105) (revision 4005105). Ranks: 5.
@@ -127,29 +131,6 @@ Notes:
 - The resistance reduction can be tracked on the HUD as a debuff called Sundered.
 - Note that the PsyOps skin still uses the old shred VFX, which also only shows for 3 seconds (effect duration is not affected). This is possibly an oversight as all existing, and at the time released Dragon Slayer, skins were updated properly in V11.18.
 
-## Q: Reckoning
-
-Source: [Template:Data Kayle/Reckoning](https://wiki.leagueoflegends.com/en-us/Template:Data_Kayle/Reckoning?oldid=2705847) (revision 2705847). Ranks: 5.
-
-| Field | Value |
-|---|---|
-| Cooldown | 8 |
-| Cost | 70 / 75 / 80 / 85 / 90 mana |
-| Target range | 650 |
-| Speed | 1500 |
-
-Targeting: Unit · Affects: Enemies · Damage type: Magic · Spell shield blocks it: true · Projectile: true · Parry: – · Disabled by grounded: – · Usable while knocked down: –
-
-Active: Kayle blasts the target enemy, dealing them magic damage and slowing them for 3 seconds.
-
-- **Magic Damage:** 60 / 110 / 160 / 210 / 260 (+ 100% bonus AD) (+ 60% AP) → at max rank, level 20: 260 (+ 100% bonusAD) (+ 60% AP)
-- **Slow:** 35 / 40 / 45 / 50 / 55% → at max rank, level 20: 55%
-- **Mechanics:** slow (3 s, 55%)
-
-Notes:
-
-- No additional details.
-
 ## W: Celestial Blessing
 
 Source: [Template:Data Kayle/Celestial Blessing](https://wiki.leagueoflegends.com/en-us/Template:Data_Kayle/Celestial_Blessing?oldid=3997873) (revision 3997873). Ranks: 5.
@@ -179,59 +160,6 @@ Notes:
 - Celestial Blessing's cast time does not interrupt movement and the effects are applied at the start.
 - Interactions & Other
 - If cast with auto-targeting, Celestial Blessing may target allies who are untargetable, or allied clones that cannot be targeted by allies (such as Warrior Trickster).
-
-## W: Divine Blessing
-
-Source: [Template:Data Kayle/Divine Blessing](https://wiki.leagueoflegends.com/en-us/Template:Data_Kayle/Divine_Blessing?oldid=2705805) (revision 2705805). Ranks: 5.
-
-| Field | Value |
-|---|---|
-| Cooldown | 15 |
-| Cost | 60 / 70 / 80 / 90 / 100 mana |
-| Target range | 900 |
-
-Targeting: Unit · Affects: Self, Allies · Damage type: – · Spell shield blocks it: – · Projectile: – · Parry: – · Disabled by grounded: – · Usable while knocked down: –
-
-Active: Kayle blesses the target allied champion or herself, healing them and granting them bonus movement speed for 3 seconds.
-
-- **Heal:** 60 / 105 / 150 / 195 / 240 (+ 45% AP) → at max rank, level 20: 240 (+ 45% AP)
-- **Bonus Movement Speed:** 18 / 21 / 24 / 27 / 30% (+ 7% per 100 AP) → at max rank, level 20: 30% (+ 7% per100:AP)
-
-Notes:
-
-- Divine Blessing has no cast time and does not interrupt Kayle's previous orders.
-
-## E: Righteous Fury
-
-Source: [Template:Data Kayle/Righteous Fury](https://wiki.leagueoflegends.com/en-us/Template:Data_Kayle/Righteous_Fury?oldid=2775726) (revision 2775726). Ranks: 5.
-
-| Field | Value |
-|---|---|
-| Cooldown | 18 / 17 / 16 / 15 / 14 |
-| Cost | 45 mana |
-| Effect radius | 150 |
-
-Targeting: None · Affects: Self · Damage type: Magic · Spell shield blocks it: false · Projectile: false · Parry: special · Disabled by grounded: – · Usable while knocked down: –
-
-Passive: Kayle's basic attacks deal bonus magic damage. This passive is disabled while the ability is active.
-
-- **Bonus Magic Damage:** 10 / 15 / 20 / 25 / 30 (+ 15% AP) → at max rank, level 20: 30 (+ 15% AP)
-
-Active: For the next 10 seconds, Kayle becomes a ranged champion with 525 attack range and her basic attacks deal area of effect magic damage to all enemies centered on her attack target, increased versus secondary targets.
-
-- **Target Damage:** 20 / 30 / 40 / 50 / 60 (+ 30% AP) → at max rank, level 20: 60 (+ 30% AP)
-- **Secondary Damage:** 20 / 30 / 40 / 50 / 60 (+ 20 / 25 / 30 / 35 / 40% AD) (+ 30% AP) → at max rank, level 20: 60 (+ 40% AD) (+ 30% AP)
-
-Notes:
-
-- If Kayle has 44.4% / 41.2% / 37.5% / 33.3% / 28.6% or more cooldown reduction, she can keep Righteous Fury continuously active until she runs out of mana.
-- The area of effect damage on her active-empowered attacks will apply ability effects. The passive damage, however, does not.
-- The triggering attacks will apply on-hit and can critically strike as normal.
-    - Critical strikes do not interact with Righteous Fury's bonus damage.
-- While Righteous Fury is active Tiamat Cleave will not trigger but Runaan's Hurricane Wind's Fury will.
-    - The secondary bolts from Runaan's Hurricane are still classified as projectiles for Wind Wall and Unbreakable.
-- Righteous Fury's activated bonus damage cannot be dodged or blocked. It will, however, be prevented from triggering if Kayle is blinded.
-    - In all cases the splash damage will still be applied.
 
 ## E: Starfire Spellblade
 
@@ -333,27 +261,6 @@ Notes:
     - Selling the item during the cast causes the range to be set to 250.
 - Range values are outdated because of patch V11.18 changes to Kayle.
 - The invulnerability can be tracked on the HUD via a buff called Intervention.
-
-## R: Intervention
-
-Source: [Template:Data Kayle/Intervention](https://wiki.leagueoflegends.com/en-us/Template:Data_Kayle/Intervention?oldid=2705796) (revision 2705796). Ranks: 3.
-
-| Field | Value |
-|---|---|
-| Cooldown | 100 / 90 / 80 |
-| Target range | 900 |
-
-Targeting: Unit, Self · Affects: Allies, Self · Damage type: – · Spell shield blocks it: – · Projectile: – · Parry: – · Disabled by grounded: – · Usable while knocked down: –
-
-Active: Kayle bathes the target allied champion or herself in holy light, rendering them invulnerable for a few seconds.
-
-- **Duration:** 2 / 2.5 / 3 → at max rank, level 20: 3
-- **Mechanics:** invulnerable
-
-Notes:
-
-- Intervention has no cast time and does not interrupt Kayle's previous orders.
-- The Nexus Obelisk ignores Intervention's invulnerability.
 
 ## Game files
 

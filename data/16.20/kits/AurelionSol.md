@@ -9,29 +9,22 @@ Values marked "at max rank, level 20" assume every ability is maxed; see PLAN.md
 |---|--:|--:|--:|--:|--:|--:|--:|--:|--:|--:|
 | Aurelion Sol | 2369.9 | 16.32 | 1316.6 Mana | 120.9 | 0.809 | 0.189 | 100.7 | 55.6 | 550 | 340 |
 
-## Innate: Center of the Universe
+## Fight profile (what the interaction ledger uses)
 
-Source: [Template:Data Aurelion Sol/Center of the Universe](https://wiki.leagueoflegends.com/en-us/Template:Data_Aurelion_Sol/Center_of_the_Universe?oldid=3906555) (revision 3906555). Ranks: 1.
+| Form | Attack range | Ranged | Projectile | Missile speed | Attack modifiers |
+|---|--:|---|---|--:|---|
+| Aurelion Sol | 550 | yes | yes | 4000 | – |
 
-| Field | Value |
-|---|---|
-| Cooldown | 1 |
-| Effect radius | 325 |
+Cooldowns at max rank. Flags: the wiki's interaction flags (yes, no, partly). * marks an effect that applies only under a condition.
 
-Targeting: Passive · Affects: Self, Enemies · Damage type: Magic · Spell shield blocks it: true · Projectile: false · Parry: – · Disabled by grounded: – · Usable while knocked down: –
-
-Innate: Aurelion Sol is constantly orbited by three Stars, each doing a full circumference in 5.25 seconds, and beyond them exists an Outer Limit affecting his damaging abilities.
-
-Each Star deals 12 – 120 (based on level) (+ 5 – 25 (based on level) (+ 25% AP) magic damage to enemies that come into contact with them as well as executes enemy minions that have less than 25 health, including if they are brought to or below that threshold.
-
-- **Outer Limit:** 650
-
-Notes:
-
-- The Stars orbit counterclockwise around Aurelion Sol.
-- Aurelion Sol's Stars have independent vision hitboxes, meaning that they may remain visible even while he is within a brush, and must be in the brush themselves in order to be hidden.
-- An individual Star must complete at least one third of its orbit before it can damage the same target again.
-- In the event that an enemy orbits around Aurelion Sol at the same rate as his Stars without leaving their hitbox, they will take damage once every third of the way around.
+| Slot | Ability | Cooldown | Delivery | Applies to the enemy | Movement | Gives itself |
+|---|---|--:|---|---|---|---|
+| E | Singularity | 12 | spell shield partly | kinematics | – | – |
+| I | Cosmic Creator | – | – | – | – | – |
+| Q | Breath of Light | 3 | projectile no; spell shield partly; disruptable yes | – | – | – |
+| R | Falling Star | 100 | projectile no; spell shield yes | stun 1 s | – | – |
+| R | The Skies Descend | – | projectile no; spell shield yes | airborne (knock up) 1 s; slow 1 s 50% | – | – |
+| W | Astral Flight | 14 | grounded yes; knockdown yes | – | dash | – |
 
 ## Innate: Cosmic Creator
 
@@ -98,38 +91,6 @@ Notes:
 - Spell shield will only block the burst damage.
 - The following table refers to interactions while Aurelion Sol is channeling:
 
-## Q: Starsurge
-
-Source: [Template:Data Aurelion Sol/Starsurge](https://wiki.leagueoflegends.com/en-us/Template:Data_Aurelion_Sol/Starsurge?oldid=3906556) (revision 3906556). Ranks: 5.
-
-| Field | Value |
-|---|---|
-| Cooldown | 12 / 11 / 10 / 9 / 8 |
-| Cost | 60 / 70 / 80 / 90 / 100 mana |
-| Cast time | none |
-| Effect radius | 75 - ∞ |
-| Speed | 850 / 800 / 750 / 700 / 650 / 600 (based on duration) |
-
-Targeting: Direction, Auto · Affects: Enemies · Damage type: Magic · Spell shield blocks it: true · Projectile: true · Parry: – · Disabled by grounded: – · Usable while knocked down: –
-
-Active: Aurelion Sol fires a star in the target direction that expands as long as it remains within the Outer Limit, granting him 20% bonus movement speed while active. If he moves faster than the star, the speed of the star will increase to stay within the Outer Limit.
-
-Starsurge can be recast after 0.25 seconds while the star is active, and does so automatically when the star travels beyond the Outer Limit.
-
-Recast: Aurelion Sol detonates the star, dealing magic damage to nearby enemies and stunning them for a duration, which is increased by 0 / 25 / 50 / 75 / 100 / 125 / 150 / 175 / 200 / 225 / 250 / 275 / 300 (based on time traveled)%.
-
-- **Magic Damage:** 70 / 110 / 150 / 190 / 230 (+ 65% AP) → at max rank, level 20: 230 (+ 65% AP)
-- **Minimum Stun Duration:** 0.55 / 0.6 / 0.65 / 0.7 / 0.75 → at max rank, level 20: 0.75
-- **Maximum Stun Duration:** 2.2 / 2.4 / 2.6 / 2.8 / 3 → at max rank, level 20: 3
-- **Mechanics:** stun (0.75 s)
-
-Notes:
-
-- The initial cast count as an ability activation for the purposes of on-cast effects such as Spellblade and triggering Force Pulse passive.
-    - Detonating the ability manually does not.
-- So long as Aurelion Sol manages to keep Starsurge within the Outer Limit, it will continue to expand until detonated or out of range.
-- Starsurge's size grows by 36.67 units per second.
-
 ## W: Astral Flight
 
 Source: [Template:Data Aurelion Sol/Astral Flight](https://wiki.leagueoflegends.com/en-us/Template:Data_Aurelion_Sol/Astral_Flight?oldid=4057545) (revision 4057545). Ranks: 5.
@@ -165,73 +126,6 @@ Notes:
 - If a takedown is scored while Astral Flight is active, the cooldown will be reduced after it ends.
 - Astral Flight cannot be used in the first 15 seconds of the game.
 - The following table refers for interactions while Aurelion Sol is dashing:
-
-## W: Celestial Expansion
-
-Source: [Template:Data Aurelion Sol/Celestial Expansion](https://wiki.leagueoflegends.com/en-us/Template:Data_Aurelion_Sol/Celestial_Expansion?oldid=3906557) (revision 3906557). Ranks: 5.
-
-| Field | Value |
-|---|---|
-| Cooldown | 8 / 6.5 / 5 / 3.5 / 2 |
-| Cost | 70 / 80 / 90 / 100 / 110 mana |
-| Cast time | none |
-
-Targeting: Auto · Affects: Enemies · Damage type: Magic · Spell shield blocks it: true · Projectile: false · Parry: – · Disabled by grounded: – · Usable while knocked down: –
-
-Passive: Center of the Universe base damage is increased.
-
-- **Bonus Damage:** 5 / 10 / 15 / 20 / 25 → at max rank, level 20: 25
-
-Active: Aurelion Sol expands his Stars to the Outer Limit for 3 seconds, rotating them at a high but decaying speed, and increasing their total damage by 40%.
-
-- **Total Damage:** 16.8 – 168 (based on level) (+ 7 / 14 / 21 / 28 / 35) (+ 35% AP) → at max rank, level 20: 168 (level 18; levels 19–20 not on the wiki) (+ 35% other:) (+ 35% AP)
-
-Celestial Expansion can be recast after 1 second within the duration, and does so automatically after the duration or casting Comet of Legend.
-
-Recast: Aurelion Sol commands the stars to retract, granting him 40% bonus movement speed that decays over 1.5 seconds.
-
-Celestial Expansion's recast can be used while affected by cast-inhibiting crowd control.
-
-Notes:
-
-- The initial cast counts as an ability activation for the purposes of on-cast effects such as Spellblade and triggering Force Pulse passive.
-    - Deactivating the ability manually does not.
-
-## E: Comet of Legend
-
-Source: [Template:Data Aurelion Sol/Comet of Legend](https://wiki.leagueoflegends.com/en-us/Template:Data_Aurelion_Sol/Comet_of_Legend?oldid=3906558) (revision 3906558). Ranks: 5.
-
-| Field | Value |
-|---|---|
-| Cooldown | 80 / 75 / 70 / 65 / 60 |
-| Cost | 60 mana |
-| Cast time | none |
-| Range | 5500 / 6000 / 6500 / 7000 / 7500 |
-| Speed | 600 / 650 / 700 / 750 / 800 |
-
-Targeting: Direction, Auto · Affects: Self · Damage type: – · Spell shield blocks it: – · Projectile: – · Parry: – · Disabled by grounded: true · Usable while knocked down: true
-
-Active: Aurelion Sol pulls in his Stars and takes flight, dashing in the target direction. While in flight, he has unobstructed vision and sets his movement speed to a static amount.
-
-- **Static Movement Speed:** 600 / 650 / 700 / 750 / 800 → at max rank, level 20: 800
-- **Mechanics:** dash; reveal
-
-Aurelion Sol will be knocked down by any immobilizing crowd control during the dash.
-
-Comet of Legend can be recast after 1.5 seconds during flight, and automatically does so at maximum range or upon taking damage from enemy champions or turrets.
-
-Recast: Aurelion Sol ends Comet of Legend early.
-
-Taking champion or turret damage while Comet of Legend is not active places it on a 4-second static cooldown. Aurelion Sol will be revealed while he is inside terrain and is in the line of sight of nearby enemies.
-
-- **Mechanics:** reveal
-
-Starsurge can be used during the dash.
-
-Notes:
-
-- The spot at which the flight will reach maximum range is highlighted to Aurelion Sol.
-- The following table refers to interactions during Comet of Legend:
 
 ## E: Singularity
 
@@ -323,40 +217,6 @@ Notes:
 - The shockwave's radius is fixed.
     - The shockwave is not blocked.
 
-## R: Voice of Light
-
-Source: [Template:Data Aurelion Sol/Voice of Light](https://wiki.leagueoflegends.com/en-us/Template:Data_Aurelion_Sol/Voice_of_Light?oldid=3906559) (revision 3906559). Ranks: 3.
-
-| Field | Value |
-|---|---|
-| Cooldown | 110 / 90 / 70 |
-| Cost | 100 mana |
-| Cast time | 0.35 |
-| Target range | 1500 |
-| Width | 240 |
-| Speed | 4500 |
-
-Targeting: Direction · Affects: Enemies · Damage type: Magic · Spell shield blocks it: true · Projectile: false · Parry: – · Disabled by grounded: – · Usable while knocked down: –
-
-Active: Aurelion Sol exhales a wave of star fire in the target direction, granting sight of the area for 2 seconds from the start of the cast time, dealing magic damage to enemies within its path, slowing them for 2 seconds and, if they are within the Outer Limit, stunning them for 0.125 seconds and knocking them back to it, though not through terrain.
-
-- **Magic Damage:** 150 / 250 / 350 (+ 70% AP) → at max rank, level 20: 350 (+ 70% AP)
-- **Slow:** 40 / 50 / 60% → at max rank, level 20: 60%
-- **Mechanics:** reveal (2 s); slow (2 s, 60%); stun (0.125 s); airborne
-
-Aurelion Sol channels over 0.3 seconds until the star fire reaches maximum range. Voice of Light cannot be interrupted by any crowd control.
-
-- **Mechanics:** channel (0.3 s)
-
-Celestial Expansion can be cast during Voice of Light.
-
-Notes:
-
-- This ability will cast from wherever the caster is at the end of the cast time.
-    - The displacement will begin as soon as the target is hit.
-- Aurelion Sol will reveal himself during the channel if there is an enemy champion near the area.
-- Displacement immunity will also resist the application of the stun.
-
 ## Game files
 
 Cooldowns and costs of each slot's main ability, wiki vs game files:
@@ -379,9 +239,7 @@ game formula supplies 19-20; "confirmed"/"differs": the wiki defines 19-20 and t
 | Ability | Value | Outcome | Level 18 | Level 19 | Level 20 | Game formula |
 |---|---|---|--:|--:|--:|---|
 | Singularity | targetRange | confirmed | 920 | 930 | 940 | AurelionSolQ.LevelBasedRangeScaling: breakpoints at levels none (level 1: 750) |
-| Center of the Universe | description: Each Star deals 12 – 120 (based on level) (+ 5 – 25 (based on level) (+ 25% AP)  | no match | 120 | – | – | – |
 | Breath of Light | range | extended | 920 | 930 | 940 | AurelionSolQ.LevelBasedRangeScaling: breakpoints at levels none (level 1: 750) |
-| Celestial Expansion | Total Damage | no match | 168 | – | – | – |
 
 All 5 level-based formulas in the game files (2 linked to wiki values above):
 

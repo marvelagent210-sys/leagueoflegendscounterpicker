@@ -1,0 +1,209 @@
+{
+  "champion": "Teemo",
+  "name": "Teemo",
+  "gameplayRadius": 55,
+  "moveSpeed": 330,
+  "attacks": [
+    {
+      "form": "teemo",
+      "formName": "Teemo",
+      "range": 500,
+      "ranged": true,
+      "projectile": true,
+      "missileSpeed": 1500,
+      "attackSpeed": 1.14863,
+      "attackDamage": 112.995,
+      "windup": 0.174121,
+      "modifiers": [
+        "Toxic Shot"
+      ]
+    }
+  ],
+  "abilities": [
+    {
+      "champion": "Teemo",
+      "kind": "E",
+      "name": "Toxic Shot",
+      "page": {
+        "title": "Template:Data Teemo/Toxic Shot",
+        "revid": 4062253
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "passive"
+        ],
+        "affectsEnemies": false,
+        "spellShield": "no",
+        "parry": "yes",
+        "attack": "attack modifier"
+      },
+      "applies": [],
+      "movement": [],
+      "states": []
+    },
+    {
+      "champion": "Teemo",
+      "kind": "I",
+      "name": "Guerrilla Warfare",
+      "page": {
+        "title": "Template:Data Teemo/Guerrilla Warfare",
+        "revid": 4010103
+      },
+      "damageTypes": [],
+      "delivery": {
+        "targeting": [
+          "passive"
+        ],
+        "affectsEnemies": false
+      },
+      "applies": [],
+      "movement": [],
+      "states": [
+        {
+          "state": "invisible",
+          "evidence": [
+            {
+              "page": "Stealth",
+              "revid": 4013411
+            },
+            {
+              "page": "Template:Data Teemo/Guerrilla Warfare",
+              "revid": 4010103,
+              "quote": "Innate: Teemo gains invisibility after 1.5 seconds without moving, taking non-over time damage, performing actions that break stealth, channeling, or being in stasis."
+            }
+          ]
+        }
+      ],
+      "boostsAttacks": true,
+      "notes": [
+        "All forced action effects will break Guerilla Warfare's stealth while Teemo is standing outside of brush. While he is inside brush, all of them will also break the stealth if he is forced to move outside brush.\n  - Berserk and taunt can additionally break the stealth if Teemo is forced to use a basic attack, which is an action that breaks stealth by default.",
+        "Guerilla Warfare's stealth is special-cased to be interrupted whenever Teemo moves from his location by any means (Move order, dash, or blink), thus, performing actions that do not normally break stealth which also involve movement will cause the stealth to break. If Teemo is in a brush, however, the stealth is not broken by the above effects so long as his destination location is still inside brush.",
+        "Using a basic attack breaks the stealth at the end of the attack windup."
+      ]
+    },
+    {
+      "champion": "Teemo",
+      "kind": "Q",
+      "name": "Blinding Dart",
+      "page": {
+        "title": "Template:Data Teemo/Blinding Dart",
+        "revid": 3948425
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "unit"
+        ],
+        "affectsEnemies": true,
+        "projectile": "yes",
+        "spellShield": "yes"
+      },
+      "applies": [
+        {
+          "type": "blind",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "blind"
+            },
+            {
+              "page": "Template:Data Teemo/Blinding Dart",
+              "revid": 3948425,
+              "quote": "Active: Teemo shoots a dart at the target enemy that deals magic damage and blinds them for a duration."
+            }
+          ],
+          "duration": 3
+        }
+      ],
+      "movement": [],
+      "states": [],
+      "cooldown": 7,
+      "castTime": 0.25,
+      "range": 680,
+      "speed": 2500,
+      "notes": [
+        "Blinding Dart will not make abilities that can trigger on-hit effects (Parrrley, Mystic Shot) miss.",
+        "When blinded, enemies have a green tint on their screen.",
+        "Because Blinding Dart uses center range, it has 45 to 70 more range than his basic attacks, which use edge range, against other champions.\n  - This bonus becomes lower if Teemo or his target have size bonuses.",
+        "If the target becomes untargetable, dies, or is too far away or no longer in sight during the cast time, this ability will cancel but does not go on cooldown nor pay its cost (if applicable)."
+      ]
+    },
+    {
+      "champion": "Teemo",
+      "kind": "R",
+      "name": "Noxious Trap",
+      "page": {
+        "title": "Template:Data Teemo/Noxious Trap",
+        "revid": 4015245
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "location"
+        ],
+        "affectsEnemies": true,
+        "projectile": "yes",
+        "spellShield": "partly"
+      },
+      "applies": [
+        {
+          "type": "slow",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "slow"
+            },
+            {
+              "page": "Template:Data Teemo/Noxious Trap",
+              "revid": 4015245,
+              "quote": "The mushroom will explode upon enemy contact, inflicting poison to nearby enemies and slowing them for 4 seconds, as well as revealing them."
+            }
+          ],
+          "duration": 4,
+          "amount": 50
+        }
+      ],
+      "movement": [],
+      "states": [],
+      "cooldown": 25,
+      "castTime": 0.25,
+      "range": 900,
+      "notes": [
+        "Spell shield will prevent the damage over time and slow for all units but will not prevent the detonation itself."
+      ]
+    },
+    {
+      "champion": "Teemo",
+      "kind": "W",
+      "name": "Move Quick",
+      "page": {
+        "title": "Template:Data Teemo/Move Quick",
+        "revid": 4010102
+      },
+      "damageTypes": [],
+      "delivery": {
+        "targeting": [
+          "auto"
+        ],
+        "affectsEnemies": false
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "cooldown": 14,
+      "castTime": 0,
+      "notes": [
+        "Move Quick's passive will be disabled even if the damage is blocked with a spell shield."
+      ]
+    }
+  ]
+}

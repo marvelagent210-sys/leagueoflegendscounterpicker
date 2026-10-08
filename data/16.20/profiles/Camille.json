@@ -1,0 +1,376 @@
+{
+  "champion": "Camille",
+  "name": "Camille",
+  "gameplayRadius": 65,
+  "moveSpeed": 340,
+  "attacks": [
+    {
+      "form": "camille",
+      "formName": "Camille",
+      "range": 125,
+      "ranged": false,
+      "projectile": false,
+      "attackSpeed": 0.960606,
+      "attackDamage": 142.727,
+      "windup": 0.201226,
+      "modifiers": [
+        "Adaptive Defenses"
+      ]
+    }
+  ],
+  "abilities": [
+    {
+      "champion": "Camille",
+      "kind": "E",
+      "name": "Hookshot",
+      "page": {
+        "title": "Template:Data Camille/Hookshot",
+        "revid": 3922084
+      },
+      "damageTypes": [],
+      "delivery": {
+        "targeting": [
+          "direction"
+        ],
+        "affectsEnemies": false,
+        "projectile": "yes",
+        "grounded": "partly",
+        "knockdown": "yes"
+      },
+      "applies": [],
+      "movement": [
+        {
+          "type": "dash",
+          "evidence": [
+            {
+              "page": "Dash",
+              "revid": 4035700,
+              "quote": "terrain-targeted"
+            }
+          ],
+          "targeting": "terrain-targeted",
+          "interruptible": true,
+          "interruptedByCC": true
+        }
+      ],
+      "states": [],
+      "cooldown": 12,
+      "castTime": 0,
+      "range": 800,
+      "speed": 1400,
+      "notes": [
+        "Hookshot can be cast while rooted but not while grounded.",
+        "Sleep does not count for knocking the dash down."
+      ]
+    },
+    {
+      "champion": "Camille",
+      "kind": "E",
+      "name": "Wall Dive",
+      "page": {
+        "title": "Template:Data Camille/Wall Dive",
+        "revid": 4007586
+      },
+      "damageTypes": [
+        "physical"
+      ],
+      "delivery": {
+        "targeting": [
+          "direction"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "yes",
+        "grounded": "partly",
+        "knockdown": "yes"
+      },
+      "applies": [
+        {
+          "type": "airborne",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "airborne: knock back"
+            },
+            {
+              "page": "Template:Data Camille/Wall Dive",
+              "revid": 4007586,
+              "quote": "Camille stops prematurely upon colliding with an enemy champion, knocking back all nearby enemy champions, though not through terrain, as well as stunning them for 0.75 seconds."
+            }
+          ],
+          "variant": "knock back",
+          "duration": 0.75
+        },
+        {
+          "type": "stun",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "stun"
+            },
+            {
+              "page": "Template:Data Camille/Wall Dive",
+              "revid": 4007586,
+              "quote": "Camille stops prematurely upon colliding with an enemy champion, knocking back all nearby enemy champions, though not through terrain, as well as stunning them for 0.75 seconds."
+            }
+          ],
+          "duration": 0.75
+        }
+      ],
+      "movement": [
+        {
+          "type": "dash",
+          "evidence": [
+            {
+              "page": "Dash",
+              "revid": 4035700,
+              "quote": "direction-targeted"
+            }
+          ],
+          "targeting": "direction-targeted",
+          "interruptible": true
+        }
+      ],
+      "states": [],
+      "castTime": 0,
+      "range": 400,
+      "speed": 1050,
+      "boostsAttacks": true,
+      "notes": [
+        "Casting Flash during Wall Dive's dash will interrupt it but Camille will affect enemies around the new location.",
+        "Wall Dive is disabled while grounded or rooted.\n  - Wall Dive will not automatically cast from movement or attack commands in both cases. While grounded, however, Camille is able to move while bound. She may still dash away from her current location once the grounding finishes.",
+        "Camille will only gain a range indicator towards each valid champion within the extended dash range (800), but will still gain the extended dash range without the indicator against enemies within the 1400 range.\n  - She does not have to see any enemy champions to gain the range indicator or extended range.",
+        "Displacement immunity will not resist the application of the stun.",
+        "If Tactical Sweep is cast during Wall Dive's dash on its opposite direction, the target wil be knockback further and to a different direction.",
+        "The following table refers for interactions while Camille is bound to terrain:\n  - When Camille is interrupted, she will automatically cast Wall Dive. The only exception is if she was interrupted by casting Flash or Recall, in which case Wall Dive cancels."
+      ]
+    },
+    {
+      "champion": "Camille",
+      "kind": "I",
+      "name": "Adaptive Defenses",
+      "page": {
+        "title": "Template:Data Camille/Adaptive Defenses",
+        "revid": 4051341
+      },
+      "damageTypes": [],
+      "delivery": {
+        "targeting": [
+          "passive"
+        ],
+        "affectsEnemies": false,
+        "parry": "yes",
+        "attack": "attack modifier"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [
+        {
+          "state": "shield",
+          "evidence": [
+            {
+              "page": "Template:Data Camille/Adaptive Defenses",
+              "revid": 4051341,
+              "quote": "Innate: Periodically, Camille's next basic attack on-hit against an enemy champion grants her a shield equal to 10 / 15 / 20 / 25 (based on level)% of her maximum health, lasting for 2 seconds and absorbing damage from either exclusively physical damage or magic damage, based on which type the target has previously dealt most of against champions as well as on Camille's current armor and magic resistance."
+            }
+          ],
+          "duration": 2
+        }
+      ],
+      "cooldown": 8,
+      "notes": [
+        "Adaptive Defenses will not trigger or go on cooldown if the attack is dodged, blocked, or if Camille is blinded."
+      ]
+    },
+    {
+      "champion": "Camille",
+      "kind": "Q",
+      "name": "Precision Protocol",
+      "page": {
+        "title": "Template:Data Camille/Precision Protocol",
+        "revid": 3972807
+      },
+      "damageTypes": [
+        "physical",
+        "true"
+      ],
+      "delivery": {
+        "targeting": [
+          "auto"
+        ],
+        "affectsEnemies": false,
+        "spellShield": "no",
+        "parry": "yes",
+        "attack": "attack"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "cooldown": 5,
+      "castTime": 0,
+      "boostsAttacks": true,
+      "notes": [
+        "The empowered recast's true damage:\n  - Has a special case to factor Spellblade into the true damage conversion of part of her attack's damage.\n  - Other on-hit effects do not interact with the true damage conversion.\n  - Randomly dependent on buff order, if (e.g. Plated Steelcaps Plating, W) applies first before the conversion, then the resulting damage will be reduced, otherwise if the conversion happens first, then the damage will not be successfully reduced (both effects are pre-mitigation on-take-damage events).\n  - Is dealt just prior to the physical damage portion of the attack.",
+        "The enhanced attack will still complete and hit the target even if they become untargetable during the attack's windup."
+      ]
+    },
+    {
+      "champion": "Camille",
+      "kind": "R",
+      "name": "The Hextech Ultimatum",
+      "page": {
+        "title": "Template:Data Camille/The Hextech Ultimatum",
+        "revid": 4037519
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "unit"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "yes",
+        "grounded": "yes",
+        "knockdown": "no"
+      },
+      "applies": [
+        {
+          "type": "airborne",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "airborne: knock back"
+            },
+            {
+              "page": "Template:Data Camille/The Hextech Ultimatum",
+              "revid": 4037519,
+              "quote": "Upon landing on the target, she becomes targetable again and creates a hexagonal zone around her current location for a duration, knocking away all other nearby enemies on impact to the edge of the zone, though not through terrain."
+            }
+          ],
+          "variant": "knock back",
+          "duration": 4
+        },
+        {
+          "type": "disrupt",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "disrupt"
+            }
+          ],
+          "duration": 4
+        }
+      ],
+      "movement": [
+        {
+          "type": "dash",
+          "evidence": [
+            {
+              "page": "Dash",
+              "revid": 4035700,
+              "quote": "unit-targeted"
+            }
+          ],
+          "targeting": "unit-targeted",
+          "interruptible": false
+        }
+      ],
+      "states": [
+        {
+          "state": "untargetable",
+          "evidence": [
+            {
+              "page": "Untargetability",
+              "revid": 3965000
+            },
+            {
+              "page": "Template:Data Camille/The Hextech Ultimatum",
+              "revid": 4037519,
+              "quote": "Active: Camille becomes untargetable and leaps with displacement immunity towards the target enemy champion over 0.5 seconds, revealing them for the duration and disrupting their ongoing channels."
+            }
+          ],
+          "duration": 0.5
+        },
+        {
+          "state": "displacement immune",
+          "evidence": [
+            {
+              "page": "Template:Data Camille/The Hextech Ultimatum",
+              "revid": 4037519,
+              "quote": "Active: Camille becomes untargetable and leaps with displacement immunity towards the target enemy champion over 0.5 seconds, revealing them for the duration and disrupting their ongoing channels."
+            }
+          ],
+          "duration": 0.5
+        }
+      ],
+      "cooldown": 90,
+      "castTime": 0,
+      "range": 475,
+      "notes": [
+        "If the target becomes untargetable, dies, or moves 2000 or more units away during the dash, it will be interrupted, causing the The Hextech Ultimatum to be cancelled.\n  - The zone fails to create in this case.",
+        "The boundaries are not considered terrain (Unstoppable Onslaught exception), and enemies that try to move out of the area will be displaced back inside.\n  - Dashes, blinks, displacements, and other forms of movement will cap their effect range to the boundary. Targets will stop at the boundary even after it expired.\n  - Chronobreak will still deal damage at the hologram's location.\n  - An active Cease and Desist on a target outside the perimeter will cause Vi to continue her charge until The Hextech Ultimatum ends. She can knockback and damage secondary targets multiple times.\n  - If the target attaches to a unit, they will only be displaced back inside once they detach. The Hextech Ultimatum does not end nor break the bind to the victim.\n    - Umbral Trespass allows him to cast it even if his target is outside the area, dashing through the borders and attaching despite being unable to escape.\n    - You and Me! allows her to bypass the borders if the unit she attaches to leaves the area.\n    - Rocket Jump does not allow her to escape, but she applies the magic damage and slow.\n    - The Show Stopper does not allow him to pass through the borders and the dash will end prematurely when he encounters them.\n      - If the target of The Show Stopper is also the target of The Hextech Ultimatum, they can go through the borders while attached to him.",
+        "If Camille enters resurrection during the initial cast, the dash is stopped and the zone is formed immediately.\n  - The Hextech Ultimatum ends if the target enters resurrection, but not if Camille does.",
+        "The disrupt is 'wrapped' into a status effect that causes the affected champion to display the \"Silenced\" UI on their health bar for 0.25 seconds, without actually applying the disabling effects of the silence crowd control type (functions as an indicator of the target becoming disrupted). This however ensures that the disrupt is also prevented by effects that would negate silences (such as crowd control immunity).",
+        "The following table refers for interactions while Camille is dashing."
+      ]
+    },
+    {
+      "champion": "Camille",
+      "kind": "W",
+      "name": "Tactical Sweep",
+      "page": {
+        "title": "Template:Data Camille/Tactical Sweep",
+        "revid": 4065255
+      },
+      "damageTypes": [
+        "physical"
+      ],
+      "delivery": {
+        "targeting": [
+          "direction"
+        ],
+        "affectsEnemies": true,
+        "projectile": "no",
+        "spellShield": "yes"
+      },
+      "applies": [
+        {
+          "type": "slow",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "slow"
+            },
+            {
+              "page": "Template:Data Camille/Tactical Sweep",
+              "revid": 4065255,
+              "quote": "Enemies hit by the outer half of the cone take bonus physical damage, capped at 300 against monsters, and are slowed by 80% decaying over 2 seconds."
+            }
+          ],
+          "duration": 2,
+          "amount": 80
+        }
+      ],
+      "movement": [],
+      "states": [
+        {
+          "state": "heal",
+          "evidence": [
+            {
+              "page": "Template:Data Camille/Tactical Sweep",
+              "revid": 4065255,
+              "quote": "Camille is healed for 100% of this bonus damage post-mitigation against enemy champions in the outer half."
+            }
+          ]
+        }
+      ],
+      "cooldown": 10,
+      "castTime": 0
+    }
+  ]
+}

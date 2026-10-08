@@ -9,6 +9,22 @@ Values marked "at max rank, level 20" assume every ability is maxed; see PLAN.md
 |---|--:|--:|--:|--:|--:|--:|--:|--:|--:|--:|
 | Vladimir | 2763.2 | 18.80 | 2.0 Crimson Rush | 114.0 | 0.917 | 0.215 | 112.5 | 55.6 | 450 | 330 |
 
+## Fight profile (what the interaction ledger uses)
+
+| Form | Attack range | Ranged | Projectile | Missile speed | Attack modifiers |
+|---|--:|---|---|--:|---|
+| Vladimir | 450 | yes | yes | 1600 | – |
+
+Cooldowns at max rank. Flags: the wiki's interaction flags (yes, no, partly). * marks an effect that applies only under a condition.
+
+| Slot | Ability | Cooldown | Delivery | Applies to the enemy | Movement | Gives itself |
+|---|---|--:|---|---|---|---|
+| E | Tides of Blood | 5 | projectile yes; spell shield yes; disruptable yes | slow 20% | – | – |
+| I | Crimson Pact | – | – | – | – | – |
+| Q | Transfusion | 4.6 | projectile no; spell shield yes | – | – | heal |
+| R | Hemoplague | 120 | projectile no; spell shield partly | – | – | heal |
+| W | Sanguine Pool | 16 | – | slow 40% | – | untargetable 2 s; heal |
+
 ## Innate: Crimson Pact
 
 Source: [Template:Data Vladimir/Crimson Pact](https://wiki.leagueoflegends.com/en-us/Template:Data_Vladimir/Crimson_Pact?oldid=4073468) (revision 4073468). Ranks: 1.

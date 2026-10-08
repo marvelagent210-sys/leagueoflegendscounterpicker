@@ -9,6 +9,23 @@ Values marked "at max rank, level 20" assume every ability is maxed; see PLAN.md
 |---|--:|--:|--:|--:|--:|--:|--:|--:|--:|--:|
 | Ambessa | 2793.2 | 23.25 | 200.0 Energy | 122.0 | 0.932 | 0.168 | 131.4 | 72.3 | 125 | 335 |
 
+## Fight profile (what the interaction ledger uses)
+
+| Form | Attack range | Ranged | Projectile | Missile speed | Attack modifiers |
+|---|--:|---|---|--:|---|
+| Ambessa | 125 | no | no | – | Drakehound's Step |
+
+Cooldowns at max rank. Flags: the wiki's interaction flags (yes, no, partly). * marks an effect that applies only under a condition.
+
+| Slot | Ability | Cooldown | Delivery | Applies to the enemy | Movement | Gives itself |
+|---|---|--:|---|---|---|---|
+| E | Lacerate | 9 | spell shield yes | slow 1 s 99% | – | – |
+| I | Drakehound's Step | – | spell shield no; parry yes; grounded yes; knockdown yes; attack modifier | – | dash | heal |
+| Q | Cunning Sweep | 10 | projectile no; spell shield yes | – | – | – |
+| Q | Sundering Slam | – | projectile no; spell shield yes | – | – | – |
+| R | Public Execution | 100 | spell shield yes; grounded yes | stun 0.4 s; suppression 0.75 s*; reveal | blink | heal; displacement immune |
+| W | Repudiation | 14 | spell shield yes | – | – | shield 1.5 s |
+
 ## Innate: Drakehound's Step
 
 Source: [Template:Data Ambessa/Drakehound's Step](https://wiki.leagueoflegends.com/en-us/Template:Data_Ambessa/Drakehound's_Step?oldid=4078254) (revision 4078254). Ranks: 1.

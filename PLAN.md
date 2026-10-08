@@ -1,6 +1,6 @@
 # Kit-Based Counter Picker: Plan
 
-Status: M1 and M2 done; M3 next (see §13). Data sources checked on 2026-10-08 against patch 26.20 (Data Dragon 16.20.1).
+Status: M1, M2 and M3 done; M4 next (see §13). Data sources checked on 2026-10-08 against patch 26.20 (Data Dragon 16.20.1).
 
 ## 1. What we're building
 
@@ -36,6 +36,7 @@ The simulator decides the score. The ledger explains it and flags hard counters.
 | Source | What we use | Notes |
 |---|---|---|
 | LoL Wiki `Module:ChampionData/data` | Base stats and growth; attack windup parameters (`as_ratio`, `windup_modifier`, `attack_delay_offset`); pathing and selection radius; client positions | Current. Each entry records its last-changed patch (up to V26.20). |
+| LoL Wiki glossary pages ("Dash", "Untargetability", "Spell shield", "Projectile", "Channel", "Types of Crowd Control/Sources" and /Summary, ...) | Which abilities dash, blink or lunge; which grant untargetability, invulnerability, stasis, spell shields or projectile blocking; every source of each crowd control type; channels and charge-ups; the crowd control rules table (what each type disables, tenacity, interrupts, which abilities cleanse it) | Maintained by the wiki's editors, so new or reworked abilities are picked up with the pages. 35 pages, pinned by revision. |
 | LoL Wiki ability data, `Template:Data <Champion>/<Ability>` | Values per rank and ratios; cooldown, cost, range, width, missile speed, cast time; flags `targeting`, `projectile`, `spellshield`, `parry`, `grounded`, `knockdown`; **notes** with edge-case interactions | 2,251 pages covering every form and variant (Mini and Mega Gnar, Hwei's 10 spells, Aphelios's weapons, Udyr's awakened stances, and so on). Fetched through the MediaWiki API at 50 pages per request and pinned by revision ID. |
 | CommunityDragon game files (16.20) | Authoritative numbers and formulas: base stats, spell calculations (including the level-scaling formulas that decide behavior past level 18), cast times, windup cancel rules, missile data, collision radius | Cross-checks the wiki. A value they state for a champion's base form replaces the wiki's, and each replacement is logged in `reports/game-files.md`. |
 | Data Dragon 16.20.1 | Champion roster, ability ranks, icons | Not used for stats: 16.20 reports 0 attack damage per level for every champion. Tooltip text isn't used because it's partly unfilled placeholders. |
@@ -123,7 +124,7 @@ A default behavior is generated from the ability data: close the gap when out of
 
 ## 5. Interaction ledger
 
-For every ordered pair (your ability, enemy ability), including basic attacks and passives, the ledger runs these checks:
+For every ordered pair (your ability, enemy ability), including basic attacks and passives, the ledger runs these checks. What each ability does (dashes, untargetability, the crowd control it applies, ...) comes from the wiki's glossary lists, joined with the ability's own interaction flags and description (§13, M3).
 
 | Check | Examples and edge cases |
 |---|---|
@@ -243,7 +244,7 @@ The whole project is TypeScript: Node scripts for the pipeline, Vitest for tests
 pipeline/   fetch, parse, normalize, crosscheck
 data/       generated kit data per patch (committed)
 engine/     game rules, interaction ledger, duel simulator, scoring
-kits/       per-champion behaviors and overrides
+kits/       per-champion behaviors and overrides (each override quotes the wiki text it rests on)
 tests/      math, interaction and golden-matchup tests
 web/        the app
 ```
@@ -291,3 +292,28 @@ web/        the app
 - 39 of 1,188 ability cooldowns and costs differ between the wiki and the game files, for example Mordekaiser's R and Camille's W cooldowns. They are listed in `reports/abilities.md` but not applied, because an ability's root spell in the game files isn't always the one whose values apply. They are resolved per champion in M5.
 - Limitation: mechanics are read from the wiki's keywords. For example, Poppy's W lists "dash" because enemies dash into it. M3 gives each ability's mechanics their exact roles (applies, triggers on, blocks).
 
+### M3: interaction ledger and ledger-only ranking (done)
+
+- **Removed abilities.** The wiki keeps the data pages of abilities that were reworked away, and M2 had read 110 of them as current (for example Kayle's old ultimate and Dr. Mundo's pre-2021 kit). A page now counts as current only when a slot redirect (`Template:Data Corki/W`) or the champion's skill list in Module:ChampionData points to it, which leaves 947 records; the rest are listed in `reports/abilities.md`.
+- **Glossary.** What each ability does comes from the wiki's own classification pages: every dash (by targeting), blink and lunge; untargetability, vanish, stasis, invulnerability, spell shields and projectile blockers; channels and charge-ups; stealth and true sight; Grievous Wounds and tenacity; and every source of each crowd control type. That's 1,005 entries from 35 pages, all but one resolved to a current ability. The crowd control rules table (what each type disables, whether tenacity shortens it, whether it interrupts channels, which abilities cleanse it) is parsed as well.
+- **Fight profiles** (`profiles/<champion>.json`), one per ability:
+  - delivery: the wiki's flags (projectile, spell shield, parry, grounded, knockdown, disruptable) and whether it's an empowered attack, an on-hit spell or a change to every basic attack;
+  - the crowd control it applies to the enemy, with duration and conditions ("If Riposte negates ... Fiora stuns the target"), leaving out effects the lists give only against non-champions (Darius's R fears minions, not champions);
+  - movement, and whether knockdowns can interrupt it (Malphite's R can't be stopped);
+  - the states it gives its caster. A state counts only when the sentence gives it to the caster: Kalista's R protects her Oathsworn and Tahm Kench's R the unit he devours, so neither counts for them.
+  - basic attacks at level 20 per form, including Jayce's cannon, Kayle's 625 range from level 16 and Tristana's 700.
+- **Curated data** lives in `kits/`: 2 profile overrides (Riposte's parry and Rammus's W returning damage to attackers, both written as prose on the wiki) and 5 attack forms. Each quotes the wiki text it rests on, and the build fails if that text disappears.
+- **Ledger** (`engine/ledger/`): 18 checks covering every row of §5. Each entry has the side it favors, the two abilities, a one-line summary, timing (reaction windows from cast time and missile travel, uptime from duration and cooldown), the wiki's conditions and notes, an impact from 0 to 1, and its sources with revision IDs.
+  - Some exceptions come straight from the wiki: Teemo's blind doesn't affect on-hit spells such as Parrrley; Riposte stuns back only after negating an immobilizing effect; Poppy's W can only ground a target whose dash it stopped; states from dying or transforming (Kayn's form change, Kog'Maw's zombie state) aren't dodges.
+  - The weights are in one file (`engine/ledger/weights.ts`). Impact = how much the countered ability matters to its kit × how much of its use the counter covers × how completely it counters it. One counter used against several abilities counts with diminishing returns.
+- **Ledger-only ranking** (marked partial): `counters/<champion>.md` and `rankings.json` rank every champion against every enemy. "Hard counter" badges go to interactions that shut down part of a kit every time it's used (projectiles, basic attacks, dashes, range). The build computes all 29,756 ledgers in about 7 seconds.
+- **Commands.** `npm run matchup -- Fiora Darius` prints a full ledger; `npm run counters -- Tryndamere` prints a ranking.
+- **What the ranking gets right and where it's limited:**
+  - Against Tryndamere, Teemo ranks first (blind and range) and Jax 13th (Counter Strike dodges his attacks).
+  - It counts interactions; it doesn't play the fight. Poppy vs Yasuo shows both hard counters (Poppy's W stops Sweeping Blade; Wind Wall blocks Keeper's Verdict) and nets them slightly in Yasuo's favor. Whether stopping Yasuo's dashes wins the fight is the simulator's call (M4-M5).
+  - Without damage numbers or the stat budget, ranged champions with a dodge rank high against most melee champions.
+- **Tests:** 306 pass. Besides the earlier suites:
+  - glossary parsing;
+  - profile facts;
+  - the §8 interaction tests: Wind Wall blocks the Steel Tempest whirlwind but not Darius's E; Poppy's W doesn't stop Malphite's R; Teemo's blind doesn't make Parrrley miss; Riposte stuns back only against immobilizing effects;
+  - ranking sanity checks.

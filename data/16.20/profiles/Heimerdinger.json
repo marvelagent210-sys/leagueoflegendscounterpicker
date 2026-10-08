@@ -1,0 +1,313 @@
+{
+  "champion": "Heimerdinger",
+  "name": "Heimerdinger",
+  "gameplayRadius": 55,
+  "moveSpeed": 340,
+  "attacks": [
+    {
+      "form": "heimerdinger",
+      "formName": "Heimerdinger",
+      "range": 550,
+      "ranged": true,
+      "projectile": true,
+      "missileSpeed": 1500,
+      "attackSpeed": 0.825153,
+      "attackDamage": 109.096,
+      "windup": 0.242379,
+      "modifiers": []
+    }
+  ],
+  "abilities": [
+    {
+      "champion": "Heimerdinger",
+      "kind": "E",
+      "name": "CH-2 Electron Storm Grenade",
+      "page": {
+        "title": "Template:Data Heimerdinger/CH-2 Electron Storm Grenade",
+        "revid": 4022980
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "location"
+        ],
+        "affectsEnemies": true,
+        "projectile": "yes",
+        "spellShield": "yes"
+      },
+      "applies": [
+        {
+          "type": "slow",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "slow"
+            },
+            {
+              "page": "Template:Data Heimerdinger/CH-2 Electron Storm Grenade",
+              "revid": 4022980,
+              "quote": "Active: Heimerdinger hurls a grenade at the target location that detonates upon impact, dealing magic damage to nearby enemies and slowing them by 35% for 2 seconds."
+            }
+          ],
+          "duration": 2,
+          "amount": 35
+        },
+        {
+          "type": "stun",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "stun"
+            },
+            {
+              "page": "Template:Data Heimerdinger/CH-2 Electron Storm Grenade",
+              "revid": 4022980,
+              "quote": "Enemies hit at the center of the grenade's impact are also stunned for 1.5 seconds."
+            }
+          ],
+          "duration": 1.5
+        }
+      ],
+      "movement": [],
+      "states": [],
+      "cooldown": 11,
+      "castTime": 0.25,
+      "range": 925,
+      "speed": 1200
+    },
+    {
+      "champion": "Heimerdinger",
+      "kind": "E",
+      "name": "CH-3X Lightning Grenade",
+      "page": {
+        "title": "Template:Data Heimerdinger/CH-3X Lightning Grenade",
+        "revid": 3965591
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "location"
+        ],
+        "affectsEnemies": true,
+        "projectile": "yes",
+        "spellShield": "yes"
+      },
+      "applies": [
+        {
+          "type": "slow",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "slow"
+            },
+            {
+              "page": "Template:Data Heimerdinger/CH-3X Lightning Grenade",
+              "revid": 3965591,
+              "quote": "The grenade explodes upon landing each time to deal magic damage to nearby enemies and slow them by 35% for 2 seconds."
+            }
+          ],
+          "duration": 2,
+          "amount": 35
+        },
+        {
+          "type": "stun",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "stun"
+            },
+            {
+              "page": "Template:Data Heimerdinger/CH-3X Lightning Grenade",
+              "revid": 3965591,
+              "quote": "Enemies hit at the center of the grenade's impact are additionally stunned for 1.5 seconds."
+            }
+          ],
+          "duration": 1.5
+        }
+      ],
+      "movement": [],
+      "states": [],
+      "cooldown": 11,
+      "castTime": 0.25,
+      "range": 925,
+      "speed": 1200
+    },
+    {
+      "champion": "Heimerdinger",
+      "kind": "I",
+      "name": "Hextech Affinity",
+      "page": {
+        "title": "Template:Data Heimerdinger/Hextech Affinity",
+        "revid": 3428651
+      },
+      "damageTypes": [],
+      "delivery": {
+        "targeting": [
+          "passive"
+        ],
+        "affectsEnemies": false
+      },
+      "applies": [],
+      "movement": [],
+      "states": []
+    },
+    {
+      "champion": "Heimerdinger",
+      "kind": "Q",
+      "name": "H-28G Evolution Turret",
+      "page": {
+        "title": "Template:Data Heimerdinger/H-28G Evolution Turret",
+        "revid": 4036534
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "location"
+        ],
+        "affectsEnemies": true,
+        "projectile": "yes",
+        "spellShield": "no",
+        "parry": "yes"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [
+        {
+          "state": "slow immune",
+          "evidence": [
+            {
+              "page": "Template:Tip data/Slow-immune",
+              "revid": 4060627
+            }
+          ]
+        }
+      ],
+      "cooldown": 20,
+      "castTime": 0.25,
+      "range": 350
+    },
+    {
+      "champion": "Heimerdinger",
+      "kind": "Q",
+      "name": "H-28Q Apex Turret",
+      "page": {
+        "title": "Template:Data Heimerdinger/H-28Q Apex Turret",
+        "revid": 4025020
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "location"
+        ],
+        "affectsEnemies": true,
+        "projectile": "yes",
+        "spellShield": "no",
+        "parry": "yes"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "cooldown": 1,
+      "castTime": 0.25,
+      "range": 450
+    },
+    {
+      "champion": "Heimerdinger",
+      "kind": "R",
+      "name": "UPGRADE!!!",
+      "page": {
+        "title": "Template:Data Heimerdinger/UPGRADE!!!",
+        "revid": 4006857
+      },
+      "damageTypes": [],
+      "delivery": {
+        "targeting": [
+          "auto"
+        ],
+        "affectsEnemies": false
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "cooldown": 70,
+      "castTime": 0,
+      "usableWhileDisabled": {
+        "which": "cast",
+        "evidence": [
+          {
+            "page": "Template:Data Heimerdinger/UPGRADE!!!",
+            "revid": 4006857,
+            "quote": "can be used while affected by cast-inhibiting crowd control"
+          }
+        ]
+      }
+    },
+    {
+      "champion": "Heimerdinger",
+      "kind": "W",
+      "name": "Hextech Micro-Rockets",
+      "page": {
+        "title": "Template:Data Heimerdinger/Hextech Micro-Rockets",
+        "revid": 3989864
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "location"
+        ],
+        "affectsEnemies": true,
+        "projectile": "yes",
+        "spellShield": "yes"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "cooldown": 7,
+      "castTime": 0.25,
+      "range": 1150
+    },
+    {
+      "champion": "Heimerdinger",
+      "kind": "W",
+      "name": "Hextech Rocket Swarm",
+      "page": {
+        "title": "Template:Data Heimerdinger/Hextech Rocket Swarm",
+        "revid": 3965590
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "location"
+        ],
+        "affectsEnemies": true,
+        "projectile": "yes",
+        "spellShield": "yes"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "cooldown": 7,
+      "castTime": 0.25,
+      "range": 1150,
+      "notes": [
+        "Heimerdinger can move once Hextech Rocket Swarm has been cast, even if the projectiles are still spawning or haven't even started to move yet."
+      ]
+    }
+  ]
+}

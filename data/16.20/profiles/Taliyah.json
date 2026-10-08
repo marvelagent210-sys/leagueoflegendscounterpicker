@@ -1,0 +1,284 @@
+{
+  "champion": "Taliyah",
+  "name": "Taliyah",
+  "gameplayRadius": 65,
+  "moveSpeed": 330,
+  "attacks": [
+    {
+      "form": "taliyah",
+      "formName": "Taliyah",
+      "range": 525,
+      "ranged": true,
+      "projectile": true,
+      "missileSpeed": 2100,
+      "attackSpeed": 0.825153,
+      "attackDamage": 122.895,
+      "windup": 0.195671,
+      "modifiers": []
+    }
+  ],
+  "abilities": [
+    {
+      "champion": "Taliyah",
+      "kind": "E",
+      "name": "Unraveled Earth",
+      "page": {
+        "title": "Template:Data Taliyah/Unraveled Earth",
+        "revid": 3985881
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "direction"
+        ],
+        "affectsEnemies": true,
+        "projectile": "no",
+        "spellShield": "yes"
+      },
+      "applies": [
+        {
+          "type": "slow",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "slow"
+            },
+            {
+              "page": "Template:Data Taliyah/Unraveled Earth",
+              "revid": 3985881,
+              "quote": "The stones then remain for 4 seconds and slow enemies within the area by 20%."
+            }
+          ],
+          "amount": 20
+        },
+        {
+          "type": "stun",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "stun"
+            },
+            {
+              "page": "Template:Data Taliyah/Unraveled Earth",
+              "revid": 3985881,
+              "quote": "Enemies that dash or are knocked over a stone will detonate it, taking magic damage and becoming stunned for 0.75 seconds, increased to 2 seconds if they are a monster."
+            }
+          ],
+          "duration": 0.75
+        },
+        {
+          "type": "airborne",
+          "evidence": [
+            {
+              "page": "Template:Data Taliyah/Unraveled Earth",
+              "revid": 3985881,
+              "quote": "Enemies that dash or are knocked over a stone will detonate it, taking magic damage and becoming stunned for 0.75 seconds, increased to 2 seconds if they are a monster."
+            }
+          ],
+          "duration": 0.75
+        }
+      ],
+      "movement": [],
+      "states": [],
+      "cooldown": 14,
+      "castTime": 0.25,
+      "notes": [
+        "Unraveled Earth will not detonate if the target dashes over the stones while being untargetable."
+      ]
+    },
+    {
+      "champion": "Taliyah",
+      "kind": "I",
+      "name": "Rock Surfing",
+      "page": {
+        "title": "Template:Data Taliyah/Rock Surfing",
+        "revid": 3986175
+      },
+      "damageTypes": [],
+      "delivery": {
+        "targeting": [
+          "passive"
+        ],
+        "affectsEnemies": false
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "cooldown": 2
+    },
+    {
+      "champion": "Taliyah",
+      "kind": "Q",
+      "name": "Threaded Volley",
+      "page": {
+        "title": "Template:Data Taliyah/Threaded Volley",
+        "revid": 4013247
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "direction"
+        ],
+        "affectsEnemies": true,
+        "projectile": "yes",
+        "spellShield": "partly"
+      },
+      "applies": [
+        {
+          "type": "slow",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "slow"
+            },
+            {
+              "page": "Template:Data Taliyah/Threaded Volley",
+              "revid": 4013247,
+              "quote": "Empowered Active: Taliyah hurls a Boulder that explodes upon the first enemy hit, dealing 180% damage to them and normal damage to nearby enemies, slowing all targets hit for 1.5 seconds, and revealing them for 0.5 seconds."
+            }
+          ],
+          "duration": 1.5,
+          "amount": 40
+        }
+      ],
+      "movement": [],
+      "states": [],
+      "cooldown": 3,
+      "castTime": 0.25,
+      "range": 1000,
+      "speed": 3600,
+      "notes": [
+        "Threaded Volley will continue casting while in stasis.",
+        "Spell shield only prevents one instance of damage."
+      ]
+    },
+    {
+      "champion": "Taliyah",
+      "kind": "R",
+      "name": "Weaver's Wall",
+      "page": {
+        "title": "Template:Data Taliyah/Weaver's Wall",
+        "revid": 4008075
+      },
+      "damageTypes": [],
+      "delivery": {
+        "targeting": [
+          "direction",
+          "auto"
+        ],
+        "affectsEnemies": true,
+        "projectile": "yes",
+        "spellShield": "no",
+        "grounded": "partly",
+        "knockdown": "yes",
+        "disruptable": "yes"
+      },
+      "applies": [
+        {
+          "type": "airborne",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "airborne: knock aside"
+            },
+            {
+              "page": "Template:Data Taliyah/Weaver's Wall",
+              "revid": 4008075,
+              "quote": "Active: Taliyah summons a torrent of spiraling rocks that cascades in the target direction, knocking aside champions hit and erecting a wall of terrain in its wake."
+            }
+          ],
+          "variant": "knock aside"
+        }
+      ],
+      "movement": [
+        {
+          "type": "dash",
+          "evidence": [
+            {
+              "page": "Dash",
+              "revid": 4035700,
+              "quote": "location-targeted; (second cast while channeling)"
+            }
+          ],
+          "targeting": "location-targeted",
+          "condition": "(second cast while channeling)",
+          "interruptible": true
+        }
+      ],
+      "states": [],
+      "cooldown": 120,
+      "castTime": 0,
+      "range": 6500,
+      "speed": 1500,
+      "channel": [
+        {
+          "type": "movement",
+          "evidence": [
+            {
+              "page": "Channel",
+              "revid": 4002276,
+              "quote": "movement"
+            }
+          ]
+        }
+      ],
+      "notes": [
+        "If a champion is standing next to a portion of the generated terrain and that portion expires by any means, enemies' spell shield will be consumed.",
+        "Taliyah almost always jumps off of the wall to her left from when it reaches maximum range. If she is forced to jump off of the wall, she will do so towards the source that dealt damage or applied the crowd control to her.",
+        "Weaver's Wall, while channeling, can be recast while grounded but not while rooted.\n  - The channel cannot be started while affected by either crowd control effects.",
+        "Wind Wall and Blade Whirl will prevent Weaver's Wall from summoning any further but does not destroy any initial terrain it spawned. If Taliyah is surfing during the collision, she immediately becomes stunned for 0.25 seconds, interrupting the surf.",
+        "The following table refers for interactions while Taliyah is channeling:\n  - The channel is not interrupted by ground despite being a movement channel.\n  - This lockout persists for another 0.65 seconds during the surf after the channel is completed.",
+        "The following table refers for interactions while Taliyah is surfing after 1 second from the channel's completion.\n  - Interrupting the surf by casting a non-auto targeted ability, spell, or item active causes her to jump off the wall to the location of where the spell was targeted. She will dash to maximum range if the spell was cast outside of it."
+      ]
+    },
+    {
+      "champion": "Taliyah",
+      "kind": "W",
+      "name": "Seismic Shove",
+      "page": {
+        "title": "Template:Data Taliyah/Seismic Shove",
+        "revid": 4028078
+      },
+      "damageTypes": [],
+      "delivery": {
+        "targeting": [
+          "vector"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "yes"
+      },
+      "applies": [
+        {
+          "type": "airborne",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "airborne: knock aside"
+            },
+            {
+              "page": "Template:Data Taliyah/Seismic Shove",
+              "revid": 4028078,
+              "quote": "After 0.792 seconds, a ledge erupts from the area that knocks enemies hit 400 units in the target direction over 1 second."
+            }
+          ],
+          "variant": "knock aside, knock back, pull",
+          "duration": 1
+        }
+      ],
+      "movement": [],
+      "states": [],
+      "cooldown": 8,
+      "castTime": 0.25,
+      "range": 900
+    }
+  ]
+}

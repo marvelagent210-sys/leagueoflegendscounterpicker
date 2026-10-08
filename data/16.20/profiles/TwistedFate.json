@@ -1,0 +1,239 @@
+{
+  "champion": "TwistedFate",
+  "name": "Twisted Fate",
+  "gameplayRadius": 65,
+  "moveSpeed": 330,
+  "attacks": [
+    {
+      "form": "twisted-fate",
+      "formName": "Twisted Fate",
+      "range": 525,
+      "ranged": true,
+      "projectile": true,
+      "missileSpeed": 1500,
+      "attackSpeed": 0.945048,
+      "attackDamage": 101.163,
+      "windup": 0.211629,
+      "modifiers": [
+        "Stacked Deck"
+      ]
+    }
+  ],
+  "abilities": [
+    {
+      "champion": "TwistedFate",
+      "kind": "E",
+      "name": "Stacked Deck",
+      "page": {
+        "title": "Template:Data Twisted Fate/Stacked Deck",
+        "revid": 3963571
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "passive"
+        ],
+        "affectsEnemies": true,
+        "projectile": "yes",
+        "spellShield": "no",
+        "parry": "partly",
+        "attack": "attack modifier"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "boostsAttacks": true,
+      "notes": [
+        "Stacked Deck can be dodged and/or missed if Twisted Fate is blinded (the on-hit effect is not consumed in either case) but cannot be blocked (the enhanced attack is consumed and the bonus damage is still applied)."
+      ]
+    },
+    {
+      "champion": "TwistedFate",
+      "kind": "I",
+      "name": "Loaded Dice",
+      "page": {
+        "title": "Template:Data Twisted Fate/Loaded Dice",
+        "revid": 4005221
+      },
+      "damageTypes": [],
+      "delivery": {
+        "targeting": [
+          "passive"
+        ],
+        "affectsEnemies": false
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "boostsAttacks": true
+    },
+    {
+      "champion": "TwistedFate",
+      "kind": "Q",
+      "name": "Wild Cards",
+      "page": {
+        "title": "Template:Data Twisted Fate/Wild Cards",
+        "revid": 3950864
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "direction"
+        ],
+        "affectsEnemies": true,
+        "projectile": "yes",
+        "spellShield": "yes"
+      },
+      "applies": [],
+      "movement": [],
+      "states": [],
+      "cooldown": 5,
+      "castTime": 0.25,
+      "range": 1450,
+      "speed": 1000
+    },
+    {
+      "champion": "TwistedFate",
+      "kind": "R",
+      "name": "Destiny",
+      "page": {
+        "title": "Template:Data Twisted Fate/Destiny",
+        "revid": 4017975
+      },
+      "damageTypes": [],
+      "delivery": {
+        "targeting": [
+          "auto",
+          "location"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "yes",
+        "grounded": "partly",
+        "disruptable": "yes"
+      },
+      "applies": [
+        {
+          "type": "reveal",
+          "evidence": [
+            {
+              "page": "Template:List of true sight abilities",
+              "revid": 3860444
+            }
+          ]
+        }
+      ],
+      "movement": [
+        {
+          "type": "blink",
+          "evidence": [
+            {
+              "page": "Blink",
+              "revid": 4047228
+            }
+          ]
+        }
+      ],
+      "states": [],
+      "cooldown": 110,
+      "castTime": 0,
+      "range": 5500,
+      "channel": [
+        {
+          "type": "movement",
+          "evidence": [
+            {
+              "page": "Channel",
+              "revid": 4002276,
+              "quote": "movement"
+            }
+          ]
+        }
+      ],
+      "notes": [
+        "Twisted Fate cannot recast Destiny while grounded or rooted.",
+        "The nearsight from Paranoia will overpower the reveal from Destiny regardless of which one was cast first (enemy champions can still be revealed by Destiny after Paranoia ends if durations permit).",
+        "The following table refers for interactions while Twisted Fate is channeling:\n  - Item actives with cast times as well as Titanic Hydra are disabled during the channel.\n    - Trying to cast a disabled item active will buffer it to cast at the completion of the channel."
+      ]
+    },
+    {
+      "champion": "TwistedFate",
+      "kind": "W",
+      "name": "Pick a Card",
+      "page": {
+        "title": "Template:Data Twisted Fate/Pick a Card",
+        "revid": 4004668
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "auto"
+        ],
+        "affectsEnemies": true,
+        "projectile": "yes",
+        "spellShield": "yes",
+        "parry": "yes",
+        "attack": "attack"
+      },
+      "applies": [
+        {
+          "type": "slow",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "slow"
+            },
+            {
+              "page": "Template:Data Twisted Fate/Pick a Card",
+              "revid": 4004668,
+              "quote": "All targets hit are slowed for 2.5 seconds."
+            }
+          ],
+          "duration": 2.5,
+          "amount": 50
+        },
+        {
+          "type": "stun",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "stun"
+            },
+            {
+              "page": "Template:Data Twisted Fate/Pick a Card",
+              "revid": 4004668,
+              "quote": "Gold Card Bonus: Deals magic damage, increased by 0 / 2.5 / 5 / 7.5 / 10 / 12.5 / 15 / 17.5 / 20 / 22.5 / 25 (based on critical strike chance)%, and stuns the target for a duration."
+            }
+          ],
+          "duration": 2
+        }
+      ],
+      "movement": [],
+      "states": [],
+      "cooldown": 6,
+      "castTime": 0,
+      "speed": 1500,
+      "usableWhileDisabled": {
+        "which": "recast",
+        "evidence": [
+          {
+            "page": "Template:Data Twisted Fate/Pick a Card",
+            "revid": 4004668,
+            "quote": "recast can be used while affected by cast-inhibiting crowd control"
+          }
+        ]
+      },
+      "boostsAttacks": true,
+      "notes": [
+        "If the target becomes untargetable, dies, or is too far away during the empowered attack's cast time, it is cancelled but not consumed."
+      ]
+    }
+  ]
+}

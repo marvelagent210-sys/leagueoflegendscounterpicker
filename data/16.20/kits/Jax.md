@@ -9,6 +9,22 @@ Values marked "at max rank, level 20" assume every ability is maxed; see PLAN.md
 |---|--:|--:|--:|--:|--:|--:|--:|--:|--:|--:|
 | Jax | 2675.5 | 19.32 | 1361.6 Mana | 151.6 | 1.065 | 0.195 | 118.6 | 72.3 | 125 | 350 |
 
+## Fight profile (what the interaction ledger uses)
+
+| Form | Attack range | Ranged | Projectile | Missile speed | Attack modifiers |
+|---|--:|---|---|--:|---|
+| Jax | 125 | no | no | – | – |
+
+Cooldowns at max rank. Flags: the wiki's interaction flags (yes, no, partly). * marks an effect that applies only under a condition.
+
+| Slot | Ability | Cooldown | Delivery | Applies to the enemy | Movement | Gives itself |
+|---|---|--:|---|---|---|---|
+| E | Counter Strike | 9 | spell shield yes | stun 1 s | – | dodge attacks 2 s |
+| I | Relentless Assault | – | – | – | – | – |
+| Q | Leap Strike | 6 | spell shield yes; grounded yes; knockdown yes | – | dash | – |
+| R | Grandmaster-at-Arms | 90 | spell shield partly; parry partly; on-hit | – | – | – |
+| W | Empower | 3 | spell shield yes; parry yes; attack | – | – | – |
+
 ## Innate: Relentless Assault
 
 Source: [Template:Data Jax/Relentless Assault](https://wiki.leagueoflegends.com/en-us/Template:Data_Jax/Relentless_Assault?oldid=4038387) (revision 4038387). Ranks: 1.
@@ -157,36 +173,6 @@ Notes:
 - The empowered attack is applied in a separate damage instance from Jax's basic attacks.
     - This causes effects like Bone Plating to be applied twice.
 - * This ability will cast from wherever the caster is at the end of the cast time.
-
-## R: Grandmaster's Might
-
-Source: [Template:Data Jax/Grandmaster's Might](https://wiki.leagueoflegends.com/en-us/Template:Data_Jax/Grandmaster's_Might?oldid=3444495) (revision 3444495). Ranks: 3.
-
-| Field | Value |
-|---|---|
-| Cooldown | 80 |
-| Cost | 100 mana |
-| Cast time | none |
-
-Targeting: Auto · Affects: Enemies, Self · Damage type: Magic · Spell shield blocks it: special · Projectile: – · Parry: special · Disabled by grounded: – · Usable while knocked down: –
-
-Passive: Jax's basic attacks generate a stack of Grandmaster's Might on-hit for 2.5 seconds, refreshing on subsequent hits and stacking up to 2 times. At 2 stacks, his next basic attack is empowered to consume them all to deal bonus magic damage.
-
-- **Bonus Magic Damage:** 100 / 140 / 180 (+ 70% AP) → at max rank, level 20: 180 (+ 70% AP)
-- **Mechanics:** on-hit
-
-Active: Jax gains bonus armor and bonus magic resistance for 8 seconds.
-
-- **Bonus Armor:** 30 / 50 / 70 (+ 50% bonus AD) → at max rank, level 20: 70 (+ 50% bonusAD)
-- **Bonus Magic Resistance:** 30 / 50 / 70 (+ 20% AP) → at max rank, level 20: 70 (+ 20% AP)
-
-Notes:
-
-- The bonus magic damage can be dodged and blocked but it cannot miss.
-- Grandmaster's Might's bonus resistances are calculated both on-cast and will update dynamically every 0.25 seconds over the duration.
-- Spell shield will only block the bonus damage from the third attack if it is empowered.
-- The empowered attack will trigger but not be consumed nor apply its effects against structures and wards.
-    - Stacks will still be generated when attacking them.
 
 ## Game files
 

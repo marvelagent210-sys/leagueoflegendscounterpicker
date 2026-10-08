@@ -9,6 +9,22 @@ Values marked "at max rank, level 20" assume every ability is maxed; see PLAN.md
 |---|--:|--:|--:|--:|--:|--:|--:|--:|--:|--:|
 | Kog'Maw | 2581.8 | 14.57 | 1111.6 Mana | 122.0 | 1.012 | 0.164 | 111.5 | 54.6 | 500 | 330 |
 
+## Fight profile (what the interaction ledger uses)
+
+| Form | Attack range | Ranged | Projectile | Missile speed | Attack modifiers |
+|---|--:|---|---|--:|---|
+| Kog'Maw | 500 | yes | yes | 1800 | – |
+
+Cooldowns at max rank. Flags: the wiki's interaction flags (yes, no, partly). * marks an effect that applies only under a condition.
+
+| Slot | Ability | Cooldown | Delivery | Applies to the enemy | Movement | Gives itself |
+|---|---|--:|---|---|---|---|
+| E | Void Ooze | 12 | projectile yes; spell shield yes | slow 60% | – | – |
+| I | Icathian Surprise | – | spell shield yes | – | – | untargetable; invulnerable; cc immune |
+| Q | Caustic Spittle | 7 | projectile yes; spell shield yes | – | – | – |
+| R | Living Artillery | 1 | spell shield yes | – | – | – |
+| W | Bio-Arcane Barrage | 17 | spell shield no; parry yes; on-hit | – | – | – |
+
 ## Innate: Icathian Surprise
 
 Source: [Template:Data Kog'Maw/Icathian Surprise](https://wiki.leagueoflegends.com/en-us/Template:Data_Kog'Maw/Icathian_Surprise?oldid=4038400) (revision 4038400). Ranks: 1.

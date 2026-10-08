@@ -1,0 +1,328 @@
+{
+  "champion": "Shaco",
+  "name": "Shaco",
+  "gameplayRadius": 65,
+  "moveSpeed": 345,
+  "attacks": [
+    {
+      "form": "shaco",
+      "formName": "Shaco",
+      "range": 125,
+      "ranged": false,
+      "projectile": false,
+      "attackSpeed": 1.10343,
+      "attackDamage": 121.995,
+      "windup": 0.200742,
+      "modifiers": [
+        "Backstab"
+      ]
+    }
+  ],
+  "abilities": [
+    {
+      "champion": "Shaco",
+      "kind": "E",
+      "name": "Two-Shiv Poison",
+      "page": {
+        "title": "Template:Data Shaco/Two-Shiv Poison",
+        "revid": 3985833
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "unit"
+        ],
+        "affectsEnemies": true,
+        "projectile": "yes",
+        "spellShield": "yes"
+      },
+      "applies": [
+        {
+          "type": "slow",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "slow"
+            },
+            {
+              "page": "Template:Data Shaco/Two-Shiv Poison",
+              "revid": 3985833,
+              "quote": "Passive: Shaco's basic attacks slow enemies for 2 seconds while Two-Shiv Poison is not on cooldown."
+            }
+          ],
+          "duration": 2,
+          "amount": 30
+        }
+      ],
+      "movement": [],
+      "states": [],
+      "cooldown": 8,
+      "castTime": 0.25,
+      "range": 625,
+      "speed": 1500,
+      "notes": [
+        "If the target becomes untargetable, dies, or is too far away or no longer in sight during the cast time, this ability will cancel but does not go on cooldown nor pay its cost (if applicable)."
+      ]
+    },
+    {
+      "champion": "Shaco",
+      "kind": "I",
+      "name": "Backstab",
+      "page": {
+        "title": "Template:Data Shaco/Backstab",
+        "revid": 3985836
+      },
+      "damageTypes": [
+        "physical"
+      ],
+      "delivery": {
+        "targeting": [
+          "passive"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "no",
+        "parry": "yes",
+        "attack": "attack modifier"
+      },
+      "applies": [],
+      "movement": [],
+      "states": []
+    },
+    {
+      "champion": "Shaco",
+      "kind": "Q",
+      "name": "Deceive",
+      "page": {
+        "title": "Template:Data Shaco/Deceive",
+        "revid": 4023266
+      },
+      "damageTypes": [
+        "physical"
+      ],
+      "delivery": {
+        "targeting": [
+          "location"
+        ],
+        "affectsEnemies": false,
+        "parry": "yes",
+        "grounded": "yes",
+        "attack": "attack"
+      },
+      "applies": [],
+      "movement": [
+        {
+          "type": "blink",
+          "evidence": [
+            {
+              "page": "Blink",
+              "revid": 4047228
+            }
+          ]
+        }
+      ],
+      "states": [
+        {
+          "state": "invisible",
+          "evidence": [
+            {
+              "page": "Stealth",
+              "revid": 4013411
+            },
+            {
+              "page": "Template:Data Shaco/Deceive",
+              "revid": 4023266,
+              "quote": "Active: Shaco becomes invisible for a duration, and after a 0.125-second delay, he blinks to the target location."
+            }
+          ],
+          "duration": 0.125
+        }
+      ],
+      "cooldown": 11,
+      "castTime": 0,
+      "range": 400,
+      "notes": [
+        "Using a basic attack breaks the stealth at the end of the attack windup."
+      ]
+    },
+    {
+      "champion": "Shaco",
+      "kind": "R",
+      "name": "Hallucinate",
+      "page": {
+        "title": "Template:Data Shaco/Hallucinate",
+        "revid": 4013796
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "direction",
+          "location"
+        ],
+        "affectsEnemies": false,
+        "spellShield": "yes",
+        "grounded": "no"
+      },
+      "applies": [
+        {
+          "type": "fear",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "fear"
+            },
+            {
+              "page": "Template:Data Shaco/Hallucinate",
+              "revid": 4013796,
+              "quote": "The clone will explode upon dying or expiring to deal magic damage to nearby enemies and deploy three mini-boxes that activate instantly, fearing nearby enemies for 1 second, increased to 2.2 seconds against non-champions, and rooting them for 0.5 seconds, increased to 0.6 seconds against monsters and 1 second against minions."
+            }
+          ],
+          "duration": 1
+        },
+        {
+          "type": "slow",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "movement speed reductions"
+            }
+          ]
+        },
+        {
+          "type": "root",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "root"
+            },
+            {
+              "page": "Template:Data Shaco/Hallucinate",
+              "revid": 4013796,
+              "quote": "The clone will explode upon dying or expiring to deal magic damage to nearby enemies and deploy three mini-boxes that activate instantly, fearing nearby enemies for 1 second, increased to 2.2 seconds against non-champions, and rooting them for 0.5 seconds, increased to 0.6 seconds against monsters and 1 second against minions."
+            }
+          ],
+          "duration": 0.5
+        }
+      ],
+      "movement": [
+        {
+          "type": "blink",
+          "evidence": [
+            {
+              "page": "Blink",
+              "revid": 4047228
+            }
+          ]
+        }
+      ],
+      "states": [
+        {
+          "state": "untargetable",
+          "evidence": [
+            {
+              "page": "Untargetability",
+              "revid": 3965000
+            },
+            {
+              "page": "Template:Data Shaco/Hallucinate",
+              "revid": 4013796,
+              "quote": "Active: Shaco vanishes for 0.5 seconds and blinks in the target direction while creating a clone of himself that is summoned in the opposite direction, remaining within control range of him as a controllable clone for up to 18 seconds."
+            }
+          ],
+          "duration": 0.5
+        }
+      ],
+      "cooldown": 80,
+      "castTime": 0.25,
+      "usableWhileDisabled": {
+        "which": "cast",
+        "evidence": [
+          {
+            "page": "Template:Data Shaco/Hallucinate",
+            "revid": 4013796,
+            "quote": "can be used while affected by cast-inhibiting crowd control"
+          }
+        ]
+      }
+    },
+    {
+      "champion": "Shaco",
+      "kind": "W",
+      "name": "Jack in the Box",
+      "page": {
+        "title": "Template:Data Shaco/Jack in the Box",
+        "revid": 4061736
+      },
+      "damageTypes": [
+        "magic"
+      ],
+      "delivery": {
+        "targeting": [
+          "location"
+        ],
+        "affectsEnemies": true,
+        "spellShield": "yes"
+      },
+      "applies": [
+        {
+          "type": "fear",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "fear"
+            },
+            {
+              "page": "Template:Data Shaco/Jack in the Box",
+              "revid": 4061736,
+              "quote": "The box will spring out upon enemy contact, fearing nearby enemies for a duration, modified to 2.2 seconds against non-champions, and rooting them for a duration, modified to a 1 second root against non-champions."
+            }
+          ],
+          "duration": 1.5
+        },
+        {
+          "type": "slow",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "movement speed reductions"
+            }
+          ]
+        },
+        {
+          "type": "root",
+          "evidence": [
+            {
+              "page": "Types of Crowd Control/Sources",
+              "revid": 4061740,
+              "quote": "root"
+            },
+            {
+              "page": "Template:Data Shaco/Jack in the Box",
+              "revid": 4061736,
+              "quote": "The box will spring out upon enemy contact, fearing nearby enemies for a duration, modified to 2.2 seconds against non-champions, and rooting them for a duration, modified to a 1 second root against non-champions."
+            }
+          ],
+          "duration": 1
+        }
+      ],
+      "movement": [],
+      "states": [],
+      "cooldown": 15,
+      "castTime": 0.25,
+      "range": 500,
+      "notes": [
+        "The static movement speed modifier overrides the target's base movement speed value to the modified amount, and their bonus movement speed value to 0.\n  - The modifier is not applied if the target is slow-immune.",
+        "The box is untargetable and invulnerable so long as it is in stealth. Effects that reveal stealthed traps will render the box targetable and vulnerable while it can be seen."
+      ]
+    }
+  ]
+}

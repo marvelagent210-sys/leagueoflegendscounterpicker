@@ -9,6 +9,22 @@ Values marked "at max rank, level 20" assume every ability is maxed; see PLAN.md
 |---|--:|--:|--:|--:|--:|--:|--:|--:|--:|--:|
 | Locke | 2763.5 | 26.70 | 1656.6 Mana | 117.0 | 1.094 | 0.143 | 114.6 | 72.3 | 125 | 340 |
 
+## Fight profile (what the interaction ledger uses)
+
+| Form | Attack range | Ranged | Projectile | Missile speed | Attack modifiers |
+|---|--:|---|---|--:|---|
+| Locke | 125 | no | no | – | Silver Stake |
+
+Cooldowns at max rank. Flags: the wiki's interaction flags (yes, no, partly). * marks an effect that applies only under a condition.
+
+| Slot | Ability | Cooldown | Delivery | Applies to the enemy | Movement | Gives itself |
+|---|---|--:|---|---|---|---|
+| E | Ashen Pursuit | 10 | projectile no; spell shield partly; parry partly; grounded yes; knockdown yes; attack | – | dash; blink | – |
+| I | Silver Stake | – | parry yes; attack modifier | – | – | – |
+| Q | Ritual Nails | 6 | projectile yes; spell shield partly; parry partly | slow 1 s 25% | – | – |
+| R | Purgatory | 80 | projectile partly; spell shield partly | slow 2 s 99% | – | – |
+| W | Soul Ignition | 14 | – | – | – | heal |
+
 ## Innate: Silver Stake
 
 Source: [Template:Data Locke/Silver Stake](https://wiki.leagueoflegends.com/en-us/Template:Data_Locke/Silver_Stake?oldid=4038404) (revision 4038404). Ranks: 1.
