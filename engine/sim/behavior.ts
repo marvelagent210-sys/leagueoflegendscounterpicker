@@ -17,11 +17,12 @@
  * (state.ts).
  */
 import { type CCType, IMMOBILIZING } from "../rules/crowdControl";
+import { effectiveResist, resistMultiplier } from "../rules/damage";
 import { averageCritFactor } from "../rules/defense";
 import { toTicks } from "../rules/time";
 import { attackRange, attackTiming, canCast, canStartAttack, empowerStatus, heldInPlace, inAttackRange, inReach } from "./actions";
-import { edgeDistance } from "./combat";
-import { canMove, ccTypes, derive, evaluate } from "./derived";
+import { edgeDistance, isUntargetable } from "./combat";
+import { canAttack, canMove, ccTypes, derive, evaluate } from "./derived";
 import { hitChance } from "./hitModel";
 import type { AbilitySpec, Effect, Formula, StateType } from "./spec";
 import { type Mode, type Side, type Unit, type World, other } from "./state";
@@ -54,6 +55,10 @@ export interface Threat {
   cc: boolean;
   /** Damage before mitigation. */
   damage: number;
+  /** For areas: where they land, as positions on the line (the unit can walk out). */
+  area?: { from: number; to: number };
+  /** An attack expected from the enemy's attack rhythm rather than seen starting. */
+  predicted?: boolean;
 }
 
 export interface View {
@@ -101,6 +106,8 @@ export interface Traits {
   sustain: boolean;
   /** Stat buffs, empowered attacks and attack resets. */
   buff: boolean;
+  /** Bonus movement speed: a way to close the gap. */
+  haste: boolean;
   resetsAttack: boolean;
   execute?: Formula;
   cleanse: boolean;
@@ -125,7 +132,7 @@ export function traitsOf(ability: AbilitySpec): Traits {
   const cached = traitCache.get(ability);
   if (cached) return cached;
   const onEnemy = enemyEffects(ability);
-  const onSelf = flatten(ability.onSelf ?? []);
+  const onSelf = flatten([...(ability.onSelf ?? []), ...(ability.onCastStart ?? [])]);
   const d = ability.delivery;
   const moves = d.kind === "dash" || d.kind === "blink";
   const defenses = new Map<StateType, number>();
@@ -146,6 +153,7 @@ export function traitsOf(ability: AbilitySpec): Traits {
     sustain: onSelf.some((e) => e.type === "shield" || e.type === "heal" || (e.type === "state" && e.state === "damageReduction")),
     buff: onSelf.some((e) => e.type === "stat" || e.type === "empower" || e.type === "resetAttack" || (e.type === "state" && e.state === "tenacity")),
     resetsAttack: onSelf.some((e) => e.type === "resetAttack" || (e.type === "empower" && e.resetAttack === true)),
+    haste: onSelf.some((e) => e.type === "stat" && (e.stat === "moveSpeedPercent" || e.stat === "moveSpeedFlat")),
     ...(execute ? { execute: execute.threshold } : {}),
     cleanse: onSelf.some((e) => e.type === "cleanse"),
   };
@@ -232,18 +240,30 @@ export function threatsTo(world: World, side: Side): Threat[] {
           ? travelTicks(enemy, self, d.speed)
           : d.kind === "target"
             ? travelTicks(enemy, self, d.missileSpeed)
-            : d.kind === "circle"
+            : d.kind === "circle" || d.kind === "area"
               ? toTicks(d.delay)
               : d.kind === "dash"
                 ? Math.ceil(d.distance / (d.speed / 30))
                 : 0;
-      threats.push(abilityThreat(ability, action.endTick - now + travel, enemy, self, ability.onHit ?? []));
+      const threat = abilityThreat(ability, action.endTick - now + travel, enemy, self, ability.onHit ?? []);
+      if (d.kind === "area") {
+        // Where the area will land, as far as can be told now.
+        const dir = enemy.x <= self.x ? 1 : -1;
+        threat.area = { from: Math.min(enemy.x + dir * d.near, enemy.x + dir * d.far), to: Math.max(enemy.x + dir * d.near, enemy.x + dir * d.far) };
+      }
+      threats.push(threat);
     } else if (action.kind === "channel" && ability?.channel) {
       if (ability.channel.onTick && action.nextTick < action.endTick) threats.push(abilityThreat(ability, action.nextTick - now, enemy, self, ability.channel.onTick));
       if (ability.channel.onComplete) threats.push(abilityThreat(ability, action.endTick - now, enemy, self, ability.channel.onComplete));
     } else if (action.kind === "dash" && ability && ability.delivery.kind === "dash" && ability.delivery.hitRadius !== undefined) {
       threats.push(abilityThreat(ability, action.endTick - now, enemy, self, ability.onHit ?? []));
     }
+  }
+  // An enemy attacking on its rhythm: its next attack can be seen coming, even when windups are quicker than reactions.
+  if (!threats.some((t) => t.source === "attack") && enemy.alive && !enemy.action && canAttack(enemy) && inAttackRange(enemy, self)) {
+    const windup = attackTiming(enemy).windup;
+    const eta = Math.max(0, enemy.attackReadyTick - world.tick) + windup + travelTicks(enemy, self, enemy.spec.attack.missileSpeed);
+    threats.push({ ...attackThreat(enemy, self, eta, []), predicted: true });
   }
   for (const m of world.missiles) {
     if (m.owner !== enemy.side || m.seenTick > seenBy || !m.connects) continue;
@@ -257,7 +277,16 @@ export function threatsTo(world: World, side: Side): Threat[] {
   for (const z of world.zones) {
     if (z.owner !== enemy.side || z.kind !== "delayedArea" || z.seenTick > seenBy || !z.connects) continue;
     const ability = enemy.spec.abilities.find((a) => a.key === z.ability);
-    if (ability) threats.push(abilityThreat(ability, z.endTick - world.tick, enemy, self, z.onHit ?? [], z.id, z.scale ?? 1));
+    if (!ability) continue;
+    const threat = abilityThreat(ability, z.endTick - world.tick, enemy, self, z.onHit ?? [], z.id, z.scale ?? 1);
+    if (ability.delivery.kind === "area") {
+      // Where it will land: areas that follow their caster are centered on it now.
+      const dir = enemy.x <= self.x ? 1 : -1;
+      const near = z.follow ? enemy.x + dir * z.follow.near : z.x - z.radius;
+      const far = z.follow ? enemy.x + dir * z.follow.far : z.x + z.radius;
+      threat.area = { from: Math.min(near, far), to: Math.max(near, far) };
+    }
+    threats.push(threat);
   }
   return threats;
 }
@@ -268,6 +297,28 @@ export function perceive(world: World, side: Side): View {
   return { world, self, enemy, mode: world.modes[side], distance: edgeDistance(self, enemy), threats: threatsTo(world, side) };
 }
 
+/** Damage after the target's resistances and the caster's penetration, for deciding whether a hit kills. */
+export function expectedDamage(effects: Effect[], caster: Unit, target: Unit): number {
+  const c = derive(caster);
+  const t = derive(target);
+  const multiplier = {
+    physical: resistMultiplier(effectiveResist(t.armor, t.armorReduction, { flat: c.lethality })),
+    magic: resistMultiplier(effectiveResist(t.mr, t.mrReduction, { flat: c.magicPen })),
+    true: 1,
+  };
+  const reduction = t.damageReduction.reduce((product, r) => product * (1 - r), 1);
+  let total = 0;
+  for (const e of effects) {
+    if (e.type === "damage") total += evaluate(e.amount, caster, target) * multiplier[e.damageType] * reduction;
+    else if (e.type === "dot") total += evaluate(e.total, caster, target) * multiplier[e.damageType] * reduction;
+  }
+  return total;
+}
+
+function shieldsOf(unit: Unit): number {
+  return unit.statuses.filter((s) => s.kind === "shield").reduce((sum, s) => sum + s.value, 0);
+}
+
 // ---------------------------------------------------------------------------------------
 // Reactions
 
@@ -276,6 +327,8 @@ function big(view: View, threat: Threat): boolean {
 }
 
 function answers(view: View, state: StateType, t: Threat): boolean {
+  // Only dodges and blocks are spent on attacks that are expected but not yet seen.
+  if (t.predicted && state !== "dodgeAttacks" && state !== "blockAttacks") return false;
   switch (state) {
     case "spellShield":
       return t.ability !== undefined && t.spellShieldable && big(view, t);
@@ -299,6 +352,9 @@ function answers(view: View, state: StateType, t: Threat): boolean {
   }
 }
 
+/** Share of maximum health below which death-prevention abilities are used without a visible threat. */
+const LOW_HEALTH = 0.15;
+
 /** Ticks the worst crowd control on the unit still lasts, counting only types that stop it from acting. */
 function disabledFor(unit: Unit, tick: number): number {
   let longest = 0;
@@ -308,12 +364,41 @@ function disabledFor(unit: Unit, tick: number): number {
   return longest;
 }
 
+/**
+ * Walks out of an area that is about to land, when it can make it: away past its far edge,
+ * or in past its near edge when there is room between the area and its caster.
+ */
+function sidestep(view: View): Command | undefined {
+  const { self, enemy } = view;
+  if (!canMove(self) || (self.action && self.action.kind !== "windup")) return undefined;
+  const speed = derive(self).moveSpeed / 30;
+  for (const t of view.threats) {
+    // Any area worth avoiding: it hurts or disables, and a few steps get out of it.
+    if (!t.area || (t.damage <= 0 && !t.cc)) continue;
+    const r = self.spec.base.radius;
+    if (self.x + r < t.area.from || self.x - r > t.area.to) continue;
+    const away = self.x >= enemy.x ? 1 : -1;
+    // Distance to get the hitbox clear on each side.
+    const outFar = away > 0 ? t.area.to + r - self.x : self.x - (t.area.from - r);
+    const outNear = away > 0 ? self.x - (t.area.from - r) : t.area.to + r - self.x;
+    const nearRoom = Math.abs((away > 0 ? t.area.from : t.area.to) - enemy.x) > enemy.spec.base.pathingRadius + self.spec.base.pathingRadius;
+    if (outFar <= speed * (t.eta - 1)) return { kind: "move", direction: -1 };
+    if (nearRoom && outNear <= speed * (t.eta - 1)) return { kind: "move", direction: 1 };
+  }
+  return undefined;
+}
+
 /** Uses a defensive tool, a cleanse or a dash when something it answers is about to land. */
 export function react(view: View): Command | undefined {
+  const step = sidestep(view);
+  if (step) return step;
   const { world, self } = view;
+  const low = self.hp < LOW_HEALTH * derive(self).maxHp && inCombat(view);
   for (const ability of self.spec.abilities) {
     if (!canCast(world, self, ability)) continue;
     const traits = traitsOf(ability);
+    // A minimum health threshold also goes up when health runs low under steady damage.
+    if (low && traits.defenses.has("minimumHealth")) return { kind: "cast", ability: ability.key };
     const activation = toTicks(ability.castTime);
     // It must be up before the threat lands and still up when it does.
     const inWindow = (t: Threat, duration: number) => t.eta > activation && t.eta < activation + duration;
@@ -361,6 +446,9 @@ function worthThrowing(view: View, ability: AbilitySpec): boolean {
   return chance >= 0.35;
 }
 
+/** Edge-to-edge distance within which a movement speed boost is spent to close the gap. */
+const HASTE_REACH = 900;
+
 interface OffenseOptions {
   /** Ultimates are kept out of short trades. */
   ultimates: boolean;
@@ -381,15 +469,20 @@ function offense(view: View, options: OffenseOptions): Command | undefined {
   });
   for (const ability of usable) {
     const threshold = traitsOf(ability).execute;
-    if (threshold && inReach(ability, self, enemy) && enemy.hp <= evaluate(threshold, self, enemy) + damageOf(ability.onHit ?? [], self, enemy) * 0.5) {
-      return { kind: "cast", ability: ability.key };
-    }
+    const finisher = ability.roles?.includes("finisher");
+    if (!threshold && !finisher) continue;
+    if (!inReach(ability, self, enemy)) continue;
+    const kills = threshold
+      ? enemy.hp <= evaluate(threshold, self, enemy) + damageOf(ability.onHit ?? [], self, enemy) * 0.5
+      : expectedDamage(enemyEffects(ability), self, enemy) >= enemy.hp + shieldsOf(enemy);
+    if (kills) return { kind: "cast", ability: ability.key };
   }
   const rank = (a: AbilitySpec) => {
     const t = traitsOf(a);
     return t.immobilizes ? 0 : t.cc ? 1 : t.damage ? 2 : t.engage ? 3 : 4;
   };
   for (const ability of [...usable].sort((a, b) => rank(a) - rank(b))) {
+    if (ability.roles?.includes("finisher")) continue;
     const traits = traitsOf(ability);
     const d = ability.delivery;
     if (traits.engage) {
@@ -412,6 +505,7 @@ function offense(view: View, options: OffenseOptions): Command | undefined {
       if (inCombat(view) && self.hp < derive(self).maxHp * 0.9) return { kind: "cast", ability: ability.key };
       continue;
     }
+    if (traits.haste && options.engage && !inAttackRange(self, enemy) && view.distance <= HASTE_REACH) return { kind: "cast", ability: ability.key };
     if (traits.buff) {
       if (!inAttackRange(self, enemy) || empowerStatus(self)?.key === ability.key) continue;
       // Attack resets go between attacks; other buffs before the next one.
@@ -439,6 +533,8 @@ function outrunsWindup(view: View): boolean {
 function spacing(view: View, kite: boolean): Command {
   const { world, self, enemy } = view;
   const range = attackRange(self);
+  // An enemy only targetable from up close (Hallowed Mist): go in.
+  if (isUntargetable(enemy, self) && !isUntargetable(enemy)) return { kind: "move", direction: 1 };
   // Chasing: get close enough that the next windup completes before the enemy walks out of range.
   if (view.distance > range || (!kite && outrunsWindup(view))) return { kind: "move", direction: 1 };
   const outranges = range > attackRange(enemy) + 50;

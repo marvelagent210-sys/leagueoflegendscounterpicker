@@ -2,16 +2,16 @@
  * Runs the duel simulator on two champions at level 20 and prints each scenario's result,
  * the stat budget each side bought, and optionally a fight's timeline.
  *
- * Until milestone 5 compiles the champions' abilities, fighters have their level-20 base
- * stats and basic attacks only.
+ * Champions with a kit (kits/champions/) fight with their abilities; others with their
+ * level-20 base stats and basic attacks only.
  *
  * Usage: npm run duel -- <your champion> <enemy> [--gold 15000] [--log <scenario>] [--sweep] [--dataset 16.20]
  */
 import { BUDGET_STATS, DEFAULT_BUDGET, type StatPrices, allocateBoth } from "../../engine/budget";
-import { baseFighter } from "../../engine/sim/fromChampion";
 import { SCENARIOS, type ScenarioId, runScenarios } from "../../engine/sim/scenarios";
 import type { FightOutcome } from "../../engine/sim/simulate";
 import type { FighterSpec } from "../../engine/sim/spec";
+import { loadFighter } from "../kitData";
 import { findChampion, loadSimData } from "../simData";
 
 function option(args: string[], flag: string): string | undefined {
@@ -60,8 +60,11 @@ async function main(): Promise<void> {
   const logScenario = option(args, "--log") as ScenarioId | undefined;
   if (logScenario && !SCENARIOS.includes(logScenario)) throw new Error(`--log takes one of: ${SCENARIOS.join(", ")}`);
 
-  console.log(`${you.name} vs ${enemy.name}, level 20, patch ${data.patch}: base stats and basic attacks only (abilities come in milestone 5)`);
-  const [a, b, bought] = equip(baseFighter(you), baseFighter(enemy), gold, data.prices);
+  const mine = await loadFighter(data.dataset, you);
+  const theirs = await loadFighter(data.dataset, enemy);
+  const describe = (name: string, kit: unknown) => (kit ? `${name} (kit)` : `${name} (base stats and basic attacks only: no kit yet)`);
+  console.log(`${describe(you.name, mine.kit)} vs ${describe(enemy.name, theirs.kit)}, level 20, patch ${data.patch}`);
+  const [a, b, bought] = equip(mine.spec, theirs.spec, gold, data.prices);
   console.log(`Stat budget ${gold} gold: ${you.name} buys ${bought[0]}; ${enemy.name} buys ${bought[1]}\n`);
 
   const result = runScenarios(a, b, { settings: { log: Boolean(logScenario) } });
@@ -83,7 +86,7 @@ async function main(): Promise<void> {
   if (args.includes("--sweep")) {
     console.log("\nCounter score by stat budget:");
     for (const amount of [0, 5000, 10000, 15000, 20000]) {
-      const [x, y, spent] = equip(baseFighter(you), baseFighter(enemy), amount, data.prices);
+      const [x, y, spent] = equip(mine.spec, theirs.spec, amount, data.prices);
       const swept = runScenarios(x, y);
       console.log(`  ${String(amount).padStart(6)} gold: ${signed(swept.score)}   (${you.name}: ${spent[0]}; ${enemy.name}: ${spent[1]})`);
     }

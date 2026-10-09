@@ -26,6 +26,9 @@ export interface Derived {
   abilityHaste: number;
   lethality: number;
   magicPen: number;
+  /** Percentage penetration, as fractions (several multiply). */
+  armorPen: number[];
+  magicPenPercent: number[];
   moveSpeed: number;
   tenacity: number;
   /** Damage dealt modifiers (fractions, additive). */
@@ -75,21 +78,26 @@ function computeDerived(unit: Unit): Derived {
   const cripple = Math.max(0, ...list(st, "cc", "cripple"));
   const rawAttackSpeed = base.attackSpeed.base + base.attackSpeed.ratio * bonusAttackSpeed;
   const slowImmune = hasState(unit, "slowImmune");
+  // "Increases total armor by 16%": a share of the total, gained as bonus armor.
+  const armorBonus = (bonus.armor ?? 0) + sum(st, "armor");
+  const mrBonus = (bonus.mr ?? 0) + sum(st, "MR");
   return {
-    maxHp: base.hp + (bonus.hp ?? 0),
+    maxHp: base.hp + (bonus.hp ?? 0) + sum(st, "health"),
     baseAd: base.ad,
     bonusAd,
     ad: base.ad + bonusAd,
     ap: (bonus.ap ?? 0) + sum(st, "AP"),
-    armor: { base: base.armor, bonus: (bonus.armor ?? 0) + sum(st, "armor") },
-    mr: { base: base.mr, bonus: (bonus.mr ?? 0) + sum(st, "MR") },
+    armor: { base: base.armor, bonus: armorBonus + (base.armor + armorBonus) * sum(st, "armorPercent") },
+    mr: { base: base.mr, bonus: mrBonus + (base.mr + mrBonus) * sum(st, "mrPercent") },
     bonusAttackSpeed,
     attackSpeed: capAttackSpeed(rawAttackSpeed * (1 - cripple)),
-    critChance: Math.min(1, bonus.critChance ?? 0),
+    critChance: Math.min(1, (bonus.critChance ?? 0) + sum(st, "critChance")),
     critDamage: CRIT_DAMAGE * base.critDamageModifier,
     abilityHaste: (bonus.abilityHaste ?? 0) + sum(st, "abilityHaste"),
     lethality: (bonus.lethality ?? 0) + sum(st, "lethality"),
     magicPen: bonus.magicPen ?? 0,
+    armorPen: list(st, "stat", "armorPen"),
+    magicPenPercent: list(st, "stat", "magicPenPercent"),
     moveSpeed: movementSpeed(base.moveSpeed, {
       flat: sum(st, "moveSpeedFlat"),
       additive: list(st, "stat", "moveSpeedPercent"),
@@ -138,6 +146,18 @@ function statValue(ref: StatRef, unit: Unit, d: Derived, target?: Unit, t?: Deri
       return d.critChance;
     case "moveSpeed":
       return d.moveSpeed;
+    case "bonusMoveSpeed":
+      return Math.max(0, d.moveSpeed - unit.spec.base.moveSpeed);
+    case "lethality":
+      return d.lethality;
+    case "targetMoveSpeed":
+      return t?.moveSpeed ?? 0;
+    case "targetAD":
+      return t?.ad ?? 0;
+    case "targetBonusAD":
+      return t?.bonusAd ?? 0;
+    case "targetAP":
+      return t?.ap ?? 0;
     case "targetMaxHP":
       return t?.maxHp ?? 0;
     case "targetCurrentHP":
@@ -148,18 +168,25 @@ function statValue(ref: StatRef, unit: Unit, d: Derived, target?: Unit, t?: Deri
       return target && t ? t.maxHp - target.spec.base.hp : 0;
     case "targetArmor":
       return t ? t.armor.base + t.armor.bonus : 0;
+    case "targetBonusArmor":
+      return t?.armor.bonus ?? 0;
     case "targetMR":
       return t ? t.mr.base + t.mr.bonus : 0;
+    case "targetBonusMR":
+      return t?.mr.bonus ?? 0;
   }
 }
 
-/** base + sum(ratio x stat) with the caster's (and target's) current stats. */
+/** A formula with the caster's (and target's) current stats. */
 export function evaluate(formula: Formula, caster: Unit, target?: Unit): number {
   const d = derive(caster);
   const t = target ? derive(target) : undefined;
   let value = formula.base;
   for (const [ref, ratio] of Object.entries(formula.ratios ?? {})) {
     value += (ratio ?? 0) * statValue(ref as StatRef, caster, d, target, t);
+  }
+  for (const term of formula.products ?? []) {
+    value += term.stats.reduce((product, ref) => product * statValue(ref, caster, d, target, t), term.ratio);
   }
   return value;
 }

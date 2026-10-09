@@ -10,7 +10,7 @@ import type { Effect, FighterSpec } from "./spec";
 export type Side = 0 | 1;
 
 export interface Status {
-  kind: "cc" | "state" | "stat" | "dot" | "shield" | "grievousWounds" | "empower";
+  kind: "cc" | "state" | "stat" | "dot" | "shield" | "grievousWounds" | "empower" | "mark";
   /** The crowd control type, state, stat or source ability, depending on the kind. */
   key: string;
   source: Side;
@@ -23,12 +23,18 @@ export interface Status {
   priority?: boolean;
   dot?: { damageType: DamageType; perHit: number; intervalTicks: number; nextTick: number };
   empower?: { attacks: number; onHit: Effect[]; bonusRange: number; uncancellable: boolean };
+  /** What a triggered state does (antiDash). */
+  effects?: Effect[];
+  /** Where an anchored state is (untargetableFar). */
+  x?: number;
+  /** Identifies a kit hook's buff, so setting it again replaces it. */
+  memoKey?: string;
 }
 
 export type Action =
   | { kind: "windup"; startTick: number; launchTick: number; uncancellable: boolean; blinded: boolean; onHit: Effect[]; bonusRange: number }
   | { kind: "cast"; ability: string; startTick: number; endTick: number }
-  | { kind: "channel"; ability: string; startTick: number; endTick: number; nextTick: number }
+  | { kind: "channel"; ability: string; startTick: number; endTick: number; nextTick: number; intervalTicks: number }
   | { kind: "dash"; ability: string; startTick: number; endTick: number; perTick: number; stopAtContact: boolean; unstoppable: boolean };
 
 export interface Unit {
@@ -50,6 +56,8 @@ export interface Unit {
   moved: -1 | 0 | 1;
   /** Forced movement from a knock back or pull, in units per tick (positive is away from the enemy). */
   forced?: { endTick: number; perTick: number };
+  /** Recastable abilities in progress, by root ability key: the last stage cast and when the window closes. */
+  chains: Record<string, { stage: number; castTick: number; until: number }>;
   /** Free-form state for behaviors and kit hooks. */
   memory: Record<string, number | string | boolean>;
   alive: boolean;
@@ -83,7 +91,8 @@ export interface Missile {
 export interface Zone {
   id: number;
   owner: Side;
-  kind: "projectileWall" | "delayedArea";
+  /** A trap goes off when the enemy's hitbox touches it. */
+  kind: "projectileWall" | "delayedArea" | "trap";
   /** Tick the enemy could first see it coming (the start of the cast). */
   seenTick: number;
   x: number;
@@ -94,6 +103,10 @@ export interface Zone {
   onHit?: Effect[];
   connects?: boolean;
   scale?: number;
+  /** Other effects where the enemy's center is, as absolute positions (sweet spots). */
+  bands?: Array<{ from: number; to: number; onHit: Effect[] }>;
+  /** For areas that move with the caster: offsets from its center when they land. */
+  follow?: { near: number; far: number; bands?: Array<{ from: number; to: number; onHit: Effect[] }> };
 }
 
 /** Effects waiting for their tick (see the "delayed" effect). */
@@ -130,8 +143,25 @@ export interface SimSettings {
   disengageDistance: number;
   /** Seconds a short trade may last before the trading unit backs off anyway. */
   tradeSeconds: number;
+  /** Lane surroundings (PLAN.md section 6). */
+  environment: Environment;
   log: boolean;
 }
+
+export interface Environment {
+  /** Walls nearby: knock backs into terrain stun, wall dashes work (Camille's Hookshot). */
+  walls: boolean;
+  /** How far a knock back must push a unit to reach the wall behind it. */
+  wallDistance: number;
+  /** A minion wave: dash targets (Sweeping Blade). */
+  minions: boolean;
+  /** Brush nearby. */
+  brush: boolean;
+  /** Traps and turrets placed in advance (Noxious Trap). */
+  laneSetup: boolean;
+}
+
+export const DEFAULT_ENVIRONMENT: Environment = { walls: true, wallDistance: 300, minions: true, brush: true, laneSetup: true };
 
 export const DEFAULT_SETTINGS: SimSettings = {
   reactionTime: 0.25,
@@ -142,6 +172,7 @@ export const DEFAULT_SETTINGS: SimSettings = {
   escapeDistance: 1400,
   disengageDistance: 700,
   tradeSeconds: 4,
+  environment: DEFAULT_ENVIRONMENT,
   log: false,
 };
 
@@ -186,6 +217,7 @@ export function newUnit(spec: FighterSpec, side: Side, x: number, maxHp: number,
     attackReadyTick: 0,
     move: 0,
     moved: 0,
+    chains: {},
     memory: {},
     alive: true,
     totals: { damageDealt: 0, damageTaken: 0, healing: 0, absorbed: 0 },
@@ -205,6 +237,7 @@ function cloneUnit(unit: Unit): Unit {
     ...unit,
     statuses: unit.statuses.map(cloneStatus),
     cooldownReady: { ...unit.cooldownReady },
+    chains: Object.fromEntries(Object.entries(unit.chains).map(([k, v]) => [k, { ...v }])),
     ...(unit.action ? { action: { ...unit.action } } : {}),
     ...(unit.forced ? { forced: { ...unit.forced } } : {}),
     memory: { ...unit.memory },
