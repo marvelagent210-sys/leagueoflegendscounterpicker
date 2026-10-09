@@ -26,6 +26,12 @@ const malphite: KitModule = {
     const granite = (ctx: HookContext) => ctx.apply({ type: "shield", amount: { base: shieldShare * maxHp(ctx.self) }, duration: 1e9 }, true);
 
     return {
+      budget: {
+        // Thunderclap's passive: more armor for each point, as long as Granite Shield holds.
+        statMultipliers: { armor: 1 + armorShare },
+        // Granite Shield, once a fight.
+        healing: (self) => (shieldShare * maxHp(self)) / 10,
+      },
       hooks: {
         onStart(ctx) {
           granite(ctx);

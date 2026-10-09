@@ -45,6 +45,15 @@ const tryndamere: KitModule = {
 
     return {
       resourceStart: 0,
+      // Battle Fury at about three quarters full, and Bloodlust's AD at about half health, through a fight.
+      budget: {
+        damage: (self) => {
+          const d = derive(self);
+          const crit = Math.min(1 - d.critChance, 75 * critPerFury);
+          const bloodlust = Math.min(adCap, adPerMissing * 50);
+          return { physical: d.attackSpeed * (d.ad * crit * (d.critDamage - 1) + bloodlust) };
+        },
+      },
       hooks: {
         onTick(ctx) {
           const self = ctx.self;

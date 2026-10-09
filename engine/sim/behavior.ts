@@ -150,9 +150,11 @@ export function traitsOf(ability: AbilitySpec): Traits {
     if (e.type === "projectileWall") projectileWall = Math.max(projectileWall, toTicks(e.duration));
   }
   const execute = onEnemy.find((e): e is Extract<Effect, { type: "execute" }> => e.type === "execute");
+  // Kits whose hooks do the damage or crowd control say so with roles.
+  const roles = new Set(ability.roles ?? []);
   const traits: Traits = {
-    damage: onEnemy.some((e) => e.type === "damage" || e.type === "dot"),
-    cc: onEnemy.some((e) => e.type === "cc" || e.type === "displace"),
+    damage: roles.has("damage") || onEnemy.some((e) => e.type === "damage" || e.type === "dot"),
+    cc: roles.has("cc") || onEnemy.some((e) => e.type === "cc" || e.type === "displace"),
     immobilizes: onEnemy.some(immobilizing),
     engage: moves && d.direction !== "away",
     escape: moves && d.direction === "away",

@@ -57,6 +57,12 @@ export interface ScenarioOptions {
   weights?: Partial<Record<ScenarioId, number>>;
 }
 
+/** All-ins start at most this far apart, edge to edge: about a screen. */
+export const MAX_ENGAGE_RANGE = 1300;
+
+/** Areas that take longer than this to land can't open a fight: the enemy just walks off. */
+const OPENER_MAX_DELAY = 1;
+
 /** Edge-to-edge distance an ability reaches the enemy from, if it can open a fight. */
 function openingReach(ability: AbilitySpec, self: FighterSpec, enemy: FighterSpec): number | undefined {
   const traits = traitsOf(ability);
@@ -70,7 +76,7 @@ function openingReach(ability: AbilitySpec, self: FighterSpec, enemy: FighterSpe
     case "line":
       return d.range - self.base.radius;
     case "circle":
-      return d.range + d.radius - self.base.radius;
+      return d.delay > OPENER_MAX_DELAY ? undefined : d.range + d.radius - self.base.radius;
     case "aura":
       return d.radius - radii;
     default:
@@ -85,7 +91,7 @@ export function engageRange(self: FighterSpec, enemy: FighterSpec): number {
     const reach = openingReach(ability, self, enemy);
     if (reach !== undefined && reach > best) best = reach;
   }
-  return Math.max(0, best);
+  return Math.max(0, Math.min(best, MAX_ENGAGE_RANGE));
 }
 
 /** Kills count fully; fights nobody wins count by the health each side has left. */

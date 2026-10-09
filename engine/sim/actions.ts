@@ -200,6 +200,9 @@ export function abilityReach(ability: AbilitySpec, unit: Unit, enemy: Unit): num
       return d.range + enemy.spec.base.radius;
     case "circle":
       return d.range + d.radius + enemy.spec.base.radius;
+    case "area":
+      // Out to its far edge from the caster's center: the hitbox, or the center for centered areas.
+      return d.far + (d.centered ? 0 : enemy.spec.base.radius);
     case "dash":
     case "blink":
       if (d.direction === "away" || d.hitRadius === undefined) return undefined;
@@ -257,6 +260,8 @@ export function startCast(world: World, unit: Unit, ability: AbilitySpec, aim?: 
   if (ability.cooldownAtCastStart) startCooldown(world, unit, ability);
   log(world, unit.side, `casts ${ability.name}`);
   for (const effect of ability.onCastStart ?? []) applyEffect(world, unit, unit, effect, { ability, scale: 1 });
+  const onCastStart = unit.spec.hooks?.onCastStart;
+  if (onCastStart) onCastStart(hookContext(world, unit, ability));
   const castTicks = toTicks(ability.castTime);
   if (castTicks === 0) return completeCast(world, unit, ability, world.tick, aim);
   unit.action = { kind: "cast", ability: ability.key, startTick: world.tick, endTick: world.tick + castTicks, ...(aim ? { aim } : {}) };

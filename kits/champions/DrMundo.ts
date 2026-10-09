@@ -2,7 +2,7 @@
 import type { KitModule } from "../../engine/kits/compile";
 import { canCast } from "../../engine/sim/actions";
 import { type Behavior, defaultBehavior } from "../../engine/sim/behavior";
-import { hasState } from "../../engine/sim/derived";
+import { derive, hasState } from "../../engine/sim/derived";
 import type { Effect, HookContext } from "../../engine/sim/spec";
 import { FOREVER, flat, maxHp, missingShare, ticks } from "./util";
 
@@ -70,6 +70,22 @@ const mundo: KitModule = {
 
     return {
       behavior,
+      budget: {
+        damage: (self) => {
+          const d = derive(self);
+          const bonusHealth = d.maxHp - self.spec.base.hp;
+          // Blunt Force Trauma's AD from maximum health on every attack, and its empowered attack.
+          const traumaAD = (e.formula("Bonus Attack Damage").ratios?.maxHP ?? 0) * d.maxHp;
+          const minimum = e.formula("Minimum Bonus Physical Damage");
+          const trauma = (minimum.base + (minimum.ratios?.bonusHP ?? 0) * bonusHealth) * (1 + traumaMax / 2);
+          // Heart Zapper's pulses and detonation, once per cooldown.
+          const pulses = (zapSeconds / zapEvery) * w.formula("Magic Damage per Tick").base;
+          const detonation = w.formula("Magic Damage").base + (w.formula("Magic Damage").ratios?.bonusHP ?? 0) * bonusHealth;
+          return { physical: traumaAD * d.attackSpeed + trauma / e.cooldown(), magic: (pulses + detonation) / w.cooldown() };
+        },
+        // The innate regeneration, and Maximum Dosage's through an all-in.
+        healing: (self) => (regenShare * maxHp(self)) / 5 + (regenTotal * maxHp(self)) / dosageSeconds,
+      },
       hooks: {
         onStart(ctx) {
           ctx.apply({ type: "state", state: "ccNegate", duration: FOREVER, charges: 1 }, true);
@@ -161,8 +177,8 @@ const mundo: KitModule = {
           costType: "health",
           castTime: 0,
           chainCooldown: "last",
+          // Cast by the behavior above, near the enemy.
           delivery: { kind: "self" },
-          roles: ["damage"],
         },
         {
           key: "W2",

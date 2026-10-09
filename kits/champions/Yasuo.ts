@@ -36,7 +36,7 @@ const yasuo: KitModule = {
     kit.assume(`With a minion wave, Sweeping Blade through minions gives a dash toward or away from the enemy every ${minionDash} seconds.`);
     kit.assume("Yasuo starts every fight with full Flow; Steel Tempest's cast time is taken at 0 bonus attack speed.");
     kit.assume("Last Breath's armor penetration on critical strikes isn't modeled.");
-    kit.assume("The budget's crit chance counts double for Yasuo, but the budget doesn't know it.");
+    kit.assume("Crit chance bought counts double for Yasuo (the stat budget values it that way).");
 
     const thrustHit: Effect[] = [
       { type: "damage", damageType: "physical", amount: flat(q.formula("Physical Damage").base) },
@@ -53,6 +53,8 @@ const yasuo: KitModule = {
     });
 
     return {
+      // Intent doubles the crit chance bought.
+      budget: { statMultipliers: { crit: 2 } },
       hooks: {
         onStart(ctx) {
           const doubled = 2 * (ctx.self.spec.bonus?.critChance ?? 0);

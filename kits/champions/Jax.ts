@@ -3,8 +3,9 @@ import type { KitModule } from "../../engine/kits/compile";
 import { canCast } from "../../engine/sim/actions";
 import { type Behavior, defaultBehavior } from "../../engine/sim/behavior";
 import { edgeDistance } from "../../engine/sim/combat";
+import { derive, evaluate } from "../../engine/sim/derived";
 import type { Effect } from "../../engine/sim/spec";
-import { bump, counter, scaled } from "./util";
+import { attackDamage, bump, counter, extraAttacks, scaled } from "./util";
 
 const jax: KitModule = {
   champion: "Jax",
@@ -42,6 +43,14 @@ const jax: KitModule = {
     };
 
     return {
+      // Relentless Assault's attack speed at full stacks, and Grandmaster-at-Arms' bonus every third attack.
+      budget: {
+        damage: (self, target) => {
+          const attacks = derive(self).attackSpeed + extraAttacks(self, maxStacks * perStack);
+          const proc = procDamage.type === "damage" ? evaluate(procDamage.amount, self, target) : 0;
+          return { physical: attackDamage(self) * extraAttacks(self, maxStacks * perStack), magic: (proc * attacks) / procAt };
+        },
+      },
       hooks: {
         onAttack(ctx) {
           const stacks = bump(ctx, "assault", maxStacks, stackSeconds);

@@ -48,6 +48,8 @@ const camille: KitModule = {
     };
 
     return {
+      // Adaptive Defenses' shield, about once per cooldown.
+      budget: { healing: (self) => (shieldShare * maxHp(self)) / shieldEvery },
       hooks: {
         onAttackHit(ctx) {
           if (ctx.tick >= Number(ctx.memory.shieldReady ?? 0)) {

@@ -47,6 +47,13 @@ const poppy: KitModule = {
     };
 
     return {
+      budget: {
+        // Stubborn to a Fault: more armor and magic resistance for each point.
+        statMultipliers: { armor: 1 + stubborn, mr: 1 + stubborn },
+        // The buckler: its damage and its shield, once per cooldown.
+        damage: () => ({ magic: bucklerDamage / bucklerCooldown }),
+        healing: (self) => (bucklerShield * maxHp(self)) / bucklerCooldown,
+      },
       hooks: {
         onTick(ctx) {
           const low = ctx.self.hp < doubledBelow * maxHp(ctx.self);

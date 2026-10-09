@@ -377,6 +377,8 @@ export interface KitHooks {
   onAttack?(ctx: HookContext): void;
   onAttackHit?(ctx: HookContext): void;
   onAbilityHit?(ctx: HookContext & { ability: AbilitySpec }): void;
+  /** One of this unit's casts starts (before its cast time). */
+  onCastStart?(ctx: HookContext & { ability: AbilitySpec }): void;
   /** One of this unit's casts completes. */
   onCast?(ctx: HookContext & { ability: AbilitySpec }): void;
   /** Damage about to reach this unit, after mitigation and before shields. */
@@ -412,6 +414,29 @@ export interface HookContext {
   log(text: string): void;
 }
 
+/** Damage by type. */
+export interface DamageByType {
+  physical: number;
+  magic: number;
+  true: number;
+}
+
+/**
+ * What a kit tells the stat budget (engine/budget.ts) that its effects don't show: damage and
+ * healing its hooks add, whether its basic attacks happen at all, and stats it gets more of
+ * per point bought.
+ */
+export interface BudgetHints {
+  /** False when its basic attacks don't happen (Purge fires in their place). */
+  attacks?: boolean;
+  /** Damage per second from hooks, before the target's resistances. */
+  damage?: (self: Unit, target: Unit) => Partial<DamageByType>;
+  /** Healing and shielding per second from hooks. */
+  healing?: (self: Unit, target: Unit) => number;
+  /** Bought stats the kit's hooks multiply in fights (Living Forge's 30% more bonus armor), for the budget to value them so. */
+  statMultipliers?: Partial<Record<"ad" | "ap" | "as" | "crit" | "ah" | "lethality" | "mpenflat" | "hp" | "armor" | "mr", number>>;
+}
+
 export interface FighterSpec {
   id: string;
   name: string;
@@ -426,6 +451,7 @@ export interface FighterSpec {
   resourceStart?: number;
   /** Gold the kit adds to its stat budget (Master Craftsman's Masterwork upgrade). */
   extraGold?: number;
+  budget?: BudgetHints;
   /** How it plays; the default behavior when unset. */
   behavior?: Behavior;
 }

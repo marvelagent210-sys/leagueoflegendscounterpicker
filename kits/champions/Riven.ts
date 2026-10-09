@@ -3,7 +3,7 @@ import type { KitModule } from "../../engine/kits/compile";
 import { canCast, canStartAttack } from "../../engine/sim/actions";
 import { type Behavior, defaultBehavior, expectedDamage } from "../../engine/sim/behavior";
 import type { AbilitySpec, Effect } from "../../engine/sim/spec";
-import { bump, counter, flat, missingShare, scaled } from "./util";
+import { attackDamage, bump, counter, flat, missingShare, scaled } from "./util";
 
 const riven: KitModule = {
   champion: "Riven",
@@ -75,7 +75,10 @@ const riven: KitModule = {
       return defaultBehavior(view);
     };
 
+    // A Runic Blade charge for each ability: three Broken Wings, Ki Burst and Valor per their cooldowns.
+    const charges = 3 / q.cooldown() + 1 / w.cooldown() + 1 / e.cooldown();
     return {
+      budget: { damage: (self) => ({ physical: charges * runicShare * attackDamage(self) }) },
       hooks: {
         onCast(ctx) {
           bump(ctx, "runic", maxCharges, chargeSeconds);

@@ -4,7 +4,8 @@ import { abilityReady, canCast } from "../../engine/sim/actions";
 import { type Behavior, type Command, defaultBehavior } from "../../engine/sim/behavior";
 import { derive } from "../../engine/sim/derived";
 import type { AbilitySpec, Effect, Formula, HookContext } from "../../engine/sim/spec";
-import { flat, maxHp, ticks } from "./util";
+import type { Unit } from "../../engine/sim/state";
+import { areaAt, attackDamage, flat, maxHp, ticks } from "./util";
 
 const SWEET = "The Darkin Blade (sweet spot)";
 
@@ -150,8 +151,19 @@ const aatrox: KitModule = {
     const stanceHit: Effect[] = [{ type: "damage", damageType: "magic", amount: { base: 0, ratios: { targetMaxHP: stanceShare } }, lifesteal: 1, label: innate.name }];
     const bonusAD: Formula = r.formula("Bonus Attack Damage");
 
+    // Deathbringer Stance comes back 2 s sooner for each hit: attacks, and about one ability hit every two seconds.
+    const stanceEvery = (self: Unit) => stanceCooldown / (1 + stanceCut * (derive(self).attackSpeed + 0.5));
     return {
       behavior,
+      budget: {
+        damage: (self, target) => ({ magic: (stanceShare * derive(target).maxHp) / stanceEvery(self) }),
+        healing: (self, target) => {
+          const stance = (stanceShare * derive(target).maxHp) / stanceEvery(self);
+          const share = healShare + (healPer100 * (maxHp(self) - self.spec.base.hp)) / 100;
+          // World Ender doubles healing through an all-in.
+          return (1 + r.fraction("Increased Healing")) * (stance + share * (attackDamage(self) * derive(self).attackSpeed + stance));
+        },
+      },
       hooks: {
         onTick(ctx) {
           // Deathbringer Stance comes back on its cooldown.
@@ -190,20 +202,7 @@ const aatrox: KitModule = {
           cutStance(ctx, key.startsWith("Q") && ctx.memory.sweetTick === ctx.tick ? stanceSweetCut : stanceCut);
           if (key === "W") {
             // The tether: still within reach of where the chain hit when it runs out, the target is hit again and pulled back.
-            ctx.world.zones.push({
-              id: ctx.world.nextId++,
-              owner: ctx.self.side,
-              kind: "delayedArea",
-              seenTick: ctx.tick,
-              x: ctx.enemy.x,
-              radius: tetherRadius,
-              startTick: ctx.tick,
-              endTick: ctx.tick + ticks(tetherSeconds),
-              ability: "Wtether",
-              onHit: [chainDamage, { type: "displace", direction: "toward", distance: 0, duration: pullSeconds }],
-              connects: true,
-              scale: 1,
-            });
+            areaAt(ctx, "Wtether", ctx.enemy.x, tetherRadius, tetherSeconds, [chainDamage, { type: "displace", direction: "toward", distance: 0, duration: pullSeconds }]);
           }
         },
         onCast(ctx) {

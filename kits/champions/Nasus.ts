@@ -1,5 +1,6 @@
 /** Nasus: every number is read from the wiki's ability data at level 20 (see engine/kits/context.ts). */
 import type { KitModule } from "../../engine/kits/compile";
+import { evaluate } from "../../engine/sim/derived";
 import type { Effect } from "../../engine/sim/spec";
 import { innateStat } from "./util";
 
@@ -42,6 +43,8 @@ const nasus: KitModule = {
     kit.assume("Fury of the Sands' damage cap of 240 per second isn't applied.");
 
     return {
+      // Fury of the Sands' burn through an all-in.
+      budget: { damage: (self, target) => ({ magic: evaluate(r.formula("Magic Damage Per Tick"), self, target) / furyTick }) },
       start: [innateStat("lifeSteal", innate.levelValue("Nasus gains") / 100)],
       hooks: {
         onTick(ctx) {

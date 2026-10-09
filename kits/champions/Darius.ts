@@ -2,6 +2,7 @@
 import type { KitModule } from "../../engine/kits/compile";
 import { canCast } from "../../engine/sim/actions";
 import { type Behavior, defaultBehavior, expectedDamage } from "../../engine/sim/behavior";
+import { derive, evaluate } from "../../engine/sim/derived";
 import type { Effect, Formula, HookContext } from "../../engine/sim/spec";
 
 const HANDLE = "Decimate (handle)";
@@ -60,6 +61,12 @@ const darius: KitModule = {
     };
 
     return {
+      // A full Hemorrhage bleeding through the fight, and Noxian Might for about half of it.
+      budget: {
+        damage: (self) => ({
+          physical: (maxStacks * evaluate(perStack, self)) / bleedSeconds + 0.5 * mightAD * derive(self).attackSpeed,
+        }),
+      },
       start: [{ type: "stat", stat: "armorPen", amount: { base: e.fraction("Armor Penetration") }, duration: Number.POSITIVE_INFINITY }],
       hooks: {
         onDamageDealt(ctx) {

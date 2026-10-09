@@ -1,7 +1,7 @@
 /** Fiora: every number is read from the wiki's ability data at level 20 (see engine/kits/context.ts). */
 import type { KitModule } from "../../engine/kits/compile";
-import { derive } from "../../engine/sim/derived";
-import type { Effect, HookContext } from "../../engine/sim/spec";
+import { derive, evaluate } from "../../engine/sim/derived";
+import type { Effect, Formula, HookContext } from "../../engine/sim/spec";
 import { flat, ticks } from "./util";
 
 const fiora: KitModule = {
@@ -26,17 +26,15 @@ const fiora: KitModule = {
     kit.assume(`Fiora needs ${reposition} seconds to step around her target to a Vital's side; Lunge reaches it at once.`);
     kit.assume("A Vital's movement speed is kept for its full duration rather than decaying.");
     kit.assume("Bladework's guaranteed critical strike adds its critical damage minus the attack's average critical damage.");
-    const vital: Effect = {
-      type: "damage",
-      damageType: "true",
-      amount: { base: 0, ratios: { targetMaxHP: vitalShare }, products: [{ ratio: vitalPer100 / 100, stats: ["bonusAD", "targetMaxHP"] }] },
-      label: "Vital",
-    };
+    const vitalDamage: Formula = { base: 0, ratios: { targetMaxHP: vitalShare }, products: [{ ratio: vitalPer100 / 100, stats: ["bonusAD", "targetMaxHP"] }] };
+    const vital: Effect = { type: "damage", damageType: "true", amount: vitalDamage, label: "Vital" };
     const challengeVitals = 4;
     const challengeDelay = r.quoted("highlighting all four of their Vitals after a 0.5-second delay", 0);
     const victoryPerSecond = r.formula("Heal per Second");
     const victorySeconds = r.quoted("a Victory Zone is created on their death location for 5 seconds", 0);
 
+    // In an all-in: a passive Vital about every 3 seconds, and Grand Challenge's four.
+    const vitalsPerSecond = 1 / 3 + challengeVitals / 10;
     const proc = (ctx: HookContext) => {
       ctx.apply(vital);
       ctx.apply({ type: "heal", amount: flat(vitalHeal) }, true);
@@ -67,6 +65,11 @@ const fiora: KitModule = {
     };
 
     return {
+      budget: {
+        damage: (self, target) => ({ true: vitalsPerSecond * evaluate(vitalDamage, self, target) }),
+        // Each Vital heals; the Victory Zone heals for its 5 seconds about half the time.
+        healing: (self) => vitalsPerSecond * vitalHeal + (0.5 * victorySeconds * evaluate(victoryPerSecond, self)) / 10,
+      },
       hooks: {
         onDamageDealt(ctx) {
           if (ctx.persistent || ctx.amount <= 0 || ctx.ability === "Vital") return;

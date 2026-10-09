@@ -1,4 +1,5 @@
 /** Small helpers shared by champion kits. */
+import { averageCritFactor } from "../../engine/rules/defense";
 import { derive } from "../../engine/sim/derived";
 import type { Effect, Formula, HookContext } from "../../engine/sim/spec";
 import type { Unit } from "../../engine/sim/state";
@@ -56,4 +57,37 @@ export function counter(ctx: HookContext, key: string): number {
 /** Whether the unit has a status from its own ability `key`. */
 export function hasOwn(unit: Unit, kind: string, key: string): boolean {
   return unit.statuses.some((s) => s.kind === kind && s.key === key && s.source === unit.side);
+}
+
+/**
+ * An area of one of the unit's abilities that lands at `x` after `seconds` (an aftershock,
+ * a tether): it hits the enemy then if its hitbox is within `radius`, through the ability's
+ * usual checks and hooks. The enemy sees it from now on.
+ */
+export function areaAt(ctx: HookContext, ability: string, x: number, radius: number, seconds: number, onHit: Effect[]): void {
+  ctx.world.zones.push({
+    id: ctx.world.nextId++,
+    owner: ctx.self.side,
+    kind: "delayedArea",
+    seenTick: ctx.tick,
+    x,
+    radius,
+    startTick: ctx.tick,
+    endTick: ctx.tick + ticks(seconds),
+    ability,
+    onHit,
+    connects: true,
+    scale: 1,
+  });
+}
+
+/** Average damage of one basic attack before resistances, crits averaged (for budget hints). */
+export function attackDamage(unit: Unit): number {
+  const d = derive(unit);
+  return d.ad * averageCritFactor(d.critChance, d.critDamage);
+}
+
+/** Attacks per second gained from `bonus` more bonus attack speed (for budget hints). */
+export function extraAttacks(unit: Unit, bonus: number): number {
+  return unit.spec.base.attackSpeed.ratio * bonus;
 }

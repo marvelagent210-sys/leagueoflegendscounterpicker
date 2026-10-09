@@ -1,7 +1,8 @@
 /** Irelia: every number is read from the wiki's ability data at level 20 (see engine/kits/context.ts). */
 import type { KitModule } from "../../engine/kits/compile";
+import { derive, evaluate } from "../../engine/sim/derived";
 import type { Effect, HookContext } from "../../engine/sim/spec";
-import { bump, counter, scaled, ticks } from "./util";
+import { attackDamage, bump, counter, extraAttacks, scaled, ticks } from "./util";
 
 const irelia: KitModule = {
   champion: "Irelia",
@@ -45,6 +46,13 @@ const irelia: KitModule = {
     };
 
     return {
+      // At full stacks through a fight: Ionian Fervor's attack speed and bonus damage.
+      budget: {
+        damage: (self, target) => ({
+          physical: attackDamage(self) * extraAttacks(self, maxStacks * perStack),
+          magic: evaluate(fervorHit.type === "damage" ? fervorHit.amount : { base: 0 }, self, target) * (derive(self).attackSpeed + extraAttacks(self, maxStacks * perStack)),
+        }),
+      },
       hooks: {
         onAttackHit(ctx) {
           // Attacks refresh the stacks; at maximum stacks they deal Ionian Fervor's bonus damage.

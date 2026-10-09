@@ -31,7 +31,7 @@ const yone: KitModule = {
     const cleaveShieldBonusAD = w.quoted("(+ 65% bonus AD) for 1.5 seconds", 0) / 100;
     kit.assume("Mortal Steel and Spirit Cleave's cast times are taken at 0 bonus attack speed.");
     kit.assume("Fate Sealed pulls Yone next to its target; Soul Unbound's return takes him straight back to his body.");
-    kit.assume("The budget's crit chance counts double for Yone, but the budget doesn't know it.");
+    kit.assume("Crit chance bought counts double for Yone (the stat budget values it that way).");
 
     const steel: Effect[] = [
       { type: "damage", damageType: "physical", amount: flat(q.formula("Physical Damage").base) },
@@ -48,6 +48,8 @@ const yone: KitModule = {
     });
 
     return {
+      // Intent doubles the crit chance bought.
+      budget: { statMultipliers: { crit: 2 } },
       hooks: {
         onStart(ctx) {
           const doubled = 2 * (ctx.self.spec.bonus?.critChance ?? 0);

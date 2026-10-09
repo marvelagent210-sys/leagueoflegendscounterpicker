@@ -1,5 +1,6 @@
 /** Renekton: every number is read from the wiki's ability data at level 20 (see engine/kits/context.ts). */
 import type { KitModule } from "../../engine/kits/compile";
+import { evaluate } from "../../engine/sim/derived";
 import type { AbilitySpec, Effect, HookContext } from "../../engine/sim/spec";
 import type { Unit, World } from "../../engine/sim/state";
 import { flat, maxHp, ticks } from "./util";
@@ -101,6 +102,8 @@ const renekton: KitModule = {
 
     return {
       resourceStart: 0,
+      // Dominus burning through an all-in.
+      budget: { damage: (self, target) => ({ magic: evaluate(r.formula("Magic Damage Per Tick"), self, target) / dominusTick }) },
       hooks: {
         onAttackHit(ctx) {
           gain(ctx, furyPerHit);

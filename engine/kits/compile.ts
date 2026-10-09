@@ -6,7 +6,7 @@
 import type { AbilityRecord } from "../abilities";
 import type { Behavior } from "../sim/behavior";
 import { baseFighter } from "../sim/fromChampion";
-import type { AbilitySpec, AttackSpec, BaseStats, Effect, FighterSpec, KitHooks } from "../sim/spec";
+import type { AbilitySpec, AttackSpec, BaseStats, BudgetHints, Effect, FighterSpec, KitHooks } from "../sim/spec";
 import type { Champion } from "../types";
 import { KitContext, type KitEvidence } from "./context";
 
@@ -23,6 +23,8 @@ export interface KitDefinition {
   resourceStart?: number;
   /** Gold the kit adds to its stat budget (Master Craftsman's Masterwork upgrade). */
   extraGold?: number;
+  /** What the stat budget should know about the kit's hooks. */
+  budget?: BudgetHints;
   behavior?: Behavior;
 }
 
@@ -69,6 +71,7 @@ export function compileKit(champion: Champion, records: AbilityRecord[], module:
     ...(definition.start ? { start: definition.start } : {}),
     ...(definition.resourceStart !== undefined ? { resourceStart: definition.resourceStart } : {}),
     ...(definition.extraGold ? { extraGold: definition.extraGold } : {}),
+    ...(definition.budget ? { budget: definition.budget } : {}),
     ...(definition.behavior ? { behavior: definition.behavior } : {}),
   };
   return { champion: champion.id, spec, evidence: kit.evidence, assumptions: kit.assumptions, options };

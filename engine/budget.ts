@@ -22,7 +22,7 @@ import { effectiveResist, resistMultiplier } from "./rules/damage";
 import { averageCritFactor } from "./rules/defense";
 import { cooldownAfterHaste } from "./rules/timing";
 import { derive, evaluate } from "./sim/derived";
-import type { AbilitySpec, BonusStats, Effect, FighterSpec } from "./sim/spec";
+import { type AbilitySpec, type BonusStats, type DamageByType, type Effect, type FighterSpec, cooldownKeyOf } from "./sim/spec";
 import { type Unit, newUnit } from "./sim/state";
 
 /** Stats the budget can buy, by their gold value keys. */
@@ -51,10 +51,33 @@ export interface Allocation {
   spent: Record<BudgetStat, number>;
 }
 
-type DamageMix = { physical: number; magic: number; true: number };
+type DamageMix = DamageByType;
 
 function withBonus(spec: FighterSpec, bonus: BonusStats): FighterSpec {
   return { ...spec, bonus };
+}
+
+/** Bought stats as the fight will see them: kits that multiply some (Living Forge) say so. */
+function valued(spec: FighterSpec, bonus: BonusStats): FighterSpec {
+  const m = spec.budget?.statMultipliers;
+  if (!m) return withBonus(spec, bonus);
+  const times = (value: number | undefined, factor: number | undefined) => (value === undefined ? undefined : value * (factor ?? 1));
+  const scaled: BonusStats = { ...bonus };
+  const set = (key: keyof BonusStats, factor: number | undefined) => {
+    const v = times(bonus[key], factor);
+    if (v !== undefined) scaled[key] = v;
+  };
+  set("ad", m.ad);
+  set("ap", m.ap);
+  set("attackSpeed", m.as);
+  set("critChance", m.crit);
+  set("abilityHaste", m.ah);
+  set("lethality", m.lethality);
+  set("magicPen", m.mpenflat);
+  set("hp", m.hp);
+  set("armor", m.armor);
+  set("mr", m.mr);
+  return withBonus(spec, scaled);
 }
 
 function addStat(bonus: BonusStats, stat: BudgetStat, points: number): BonusStats {
@@ -121,17 +144,43 @@ function abilityDamage(ability: AbilitySpec, caster: Unit, target: Unit): Damage
   return mix;
 }
 
-/** Damage per second by type before the target's resistances: attacks with on-hit effects, and abilities once per cooldown. */
+/**
+ * Damage per second by type before the target's resistances: attacks with on-hit effects,
+ * abilities once per cooldown, and what the kit says its hooks add.
+ */
 function rawDamage(self: Unit, target: Unit): DamageMix {
   const d = derive(self);
-  const raw: DamageMix = { physical: d.ad * averageCritFactor(d.critChance, d.critDamage) * d.attackSpeed, magic: 0, true: 0 };
-  for (const e of flatten(self.spec.attack.onHit ?? [])) {
+  const hints = self.spec.budget;
+  const attacks = hints?.attacks !== false;
+  const raw: DamageMix = { physical: attacks ? d.ad * averageCritFactor(d.critChance, d.critDamage) * d.attackSpeed : 0, magic: 0, true: 0 };
+  for (const e of attacks ? flatten(self.spec.attack.onHit ?? []) : []) {
     if (e.type === "damage") raw[e.damageType] += evaluate(e.amount, self, target) * d.attackSpeed;
   }
+  const extra = hints?.damage?.(self, target);
+  raw.physical += extra?.physical ?? 0;
+  raw.magic += extra?.magic ?? 0;
+  raw.true += extra?.true ?? 0;
+  // One use per cooldown: recasts add to their first stage's use, and versions of a spell that
+  // share a cooldown count once, as the strongest of them.
+  const uses = new Map<string, { cooldown: number; mix: DamageMix; total: number }>();
   for (const ability of self.spec.abilities) {
+    if (ability.chain) continue;
+    const mix = abilityDamage(ability, self, target);
+    for (const stage of self.spec.abilities) {
+      if (stage.chain?.root !== ability.key) continue;
+      const more = abilityDamage(stage, self, target);
+      mix.physical += more.physical;
+      mix.magic += more.magic;
+      mix.true += more.true;
+    }
     const cooldown = cooldownAfterHaste(ability.cooldown, d.abilityHaste) + ability.castTime;
     if (cooldown <= 0) continue;
-    const mix = abilityDamage(ability, self, target);
+    const key = cooldownKeyOf(ability);
+    const total = mix.physical + mix.magic + mix.true;
+    const known = uses.get(key);
+    if (!known || total > known.total) uses.set(key, { cooldown, mix, total });
+  }
+  for (const { cooldown, mix } of uses.values()) {
     raw.physical += mix.physical / cooldown;
     raw.magic += mix.magic / cooldown;
     raw.true += mix.true / cooldown;
@@ -178,7 +227,8 @@ function health(self: Unit, enemy: Unit): number {
   const shares = total > 0 ? { physical: raw.physical / total, magic: raw.magic / total, true: raw.true / total } : { physical: 0.5, magic: 0.5, true: 0 };
   const m = multipliers(enemy, self);
   const taken = shares.physical * m.physical + shares.magic * m.magic + shares.true;
-  return (derive(self).maxHp + sustain(self)) / taken;
+  const healing = (self.spec.budget?.healing?.(self, enemy) ?? 0) * SUSTAIN_WINDOW;
+  return (derive(self).maxHp + sustain(self) + healing) / taken;
 }
 
 /**
@@ -199,18 +249,19 @@ function value(self: Unit, enemy: Unit): number {
 
 /** Spends `gold` on the stats that help `spec` most against `enemy`. */
 export function allocate(spec: FighterSpec, enemy: FighterSpec, gold: number, prices: StatPrices, step = BUDGET_STEP): Allocation {
-  const foe = unitOf(enemy, 1);
-  const score = (bonus: BonusStats) => value(unitOf(withBonus(spec, bonus), 0), foe);
+  const foe = unitOf(valued(enemy, enemy.bonus ?? {}), 1);
+  const score = (bonus: BonusStats) => value(unitOf(valued(spec, bonus), 0), foe);
   let bonus: BonusStats = {};
   const spent = Object.fromEntries(BUDGET_STATS.map((s) => [s, 0])) as Record<BudgetStat, number>;
   let current = score(bonus);
   // Stats the kit gets nothing from (ability power without AP ratios, ...) are never worth a step.
-  const useful = BUDGET_STATS.filter((stat) => score(addStat(bonus, stat, 1000 / prices[stat])) > current + 1e-12);
+  const per = (stat: BudgetStat) => 1 / prices[stat];
+  const useful = BUDGET_STATS.filter((stat) => score(addStat(bonus, stat, 1000 * per(stat))) > current + 1e-12);
   for (let left = gold; left >= step; left -= step) {
     let best: { stat: BudgetStat; bonus: BonusStats; value: number } | undefined;
     for (const stat of useful) {
       if (stat === "crit" && (bonus.critChance ?? 0) >= 1) continue;
-      const next = addStat(bonus, stat, step / prices[stat]);
+      const next = addStat(bonus, stat, step * per(stat));
       const v = score(next);
       if (!best || v > best.value + 1e-12) best = { stat, bonus: next, value: v };
     }

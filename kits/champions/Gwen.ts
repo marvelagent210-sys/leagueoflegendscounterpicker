@@ -2,7 +2,7 @@
 import type { KitModule } from "../../engine/kits/compile";
 import { canCast, inAttackRange } from "../../engine/sim/actions";
 import { type Behavior, defaultBehavior } from "../../engine/sim/behavior";
-import { derive } from "../../engine/sim/derived";
+import { derive, evaluate } from "../../engine/sim/derived";
 import type { AbilitySpec, Effect, Formula } from "../../engine/sim/spec";
 import { bump, counter, flat, scaled } from "./util";
 
@@ -99,9 +99,24 @@ const gwen: KitModule = {
       flags: { projectile: true },
     });
 
+    // Snip Snip! at full stacks once per cooldown: the snips besides the final one, each with A Thousand Cuts.
+    const snipsPerSecond = (1 + maxStacks) / (q.cooldown() + q.castTime());
+    const cutsAmount = cuts.type === "damage" ? cuts.amount : flat(0);
     return {
       behavior,
       attack: { onHit: [cuts] },
+      budget: {
+        damage: (self, target) => {
+          const snip = evaluate(q.formula("Damage per Snip"), self, target);
+          const cut = evaluate(cutsAmount, self, target);
+          return { magic: snipsPerSecond * (snip * (1 - trueShare) + cut), true: snipsPerSecond * snip * trueShare };
+        },
+        // A Thousand Cuts heals on every attack and snip, up to its cap each time.
+        healing: (self, target) => {
+          const cap = healCap + healCapAP * derive(self).ap;
+          return Math.min(cap, healShare * evaluate(cutsAmount, self, target)) * (derive(self).attackSpeed + snipsPerSecond);
+        },
+      },
       hooks: {
         onAttackHit(ctx) {
           bump(ctx, "snippy", maxStacks, stackSeconds);

@@ -1,6 +1,7 @@
 /** Olaf: every number is read from the wiki's ability data at level 20 (see engine/kits/context.ts). */
 import type { KitModule } from "../../engine/kits/compile";
-import { innateStat, missingShare } from "./util";
+import { derive } from "../../engine/sim/derived";
+import { attackDamage, extraAttacks, innateStat, missingShare } from "./util";
 
 const olaf: KitModule = {
   champion: "Olaf",
@@ -27,7 +28,13 @@ const olaf: KitModule = {
     kit.assume("In melee range Olaf picks his axe back up about a second after it lands, so Undertow is ready again 4 seconds after a cast.");
     kit.assume("Reckless Swing's cast time is taken at 0 bonus attack speed (0.25 seconds).");
 
+    // Berserker Rage at about half its strength through a fight.
+    const rage = 0.5;
     return {
+      budget: {
+        damage: (self) => ({ physical: attackDamage(self) * extraAttacks(self, rage * maxAttackSpeed) }),
+        healing: (self) => rage * maxLifeSteal * attackDamage(self) * (derive(self).attackSpeed + extraAttacks(self, rage * maxAttackSpeed)),
+      },
       start: [innateStat("armor", r.number("Bonus Resistances")), innateStat("MR", r.number("Bonus Resistances"))],
       hooks: {
         onTick(ctx) {
