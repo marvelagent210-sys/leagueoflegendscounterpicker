@@ -4,7 +4,7 @@ import { abilityReach, canCast } from "../../engine/sim/actions";
 import { type Behavior, defaultBehavior } from "../../engine/sim/behavior";
 import { directionTo } from "../../engine/sim/combat";
 import { type Effect, cooldownKeyOf } from "../../engine/sim/spec";
-import { maxHp, ticks } from "./util";
+import { areaAt, maxHp, ticks } from "./util";
 
 const poppy: KitModule = {
   champion: "Poppy",
@@ -81,23 +81,11 @@ const poppy: KitModule = {
         },
         onAbilityHit(ctx) {
           if (ctx.ability.key === "Q") {
-            // The field ruptures a second later where it was, hitting whoever is still in it.
+            // The field ruptures a second later where it was, hitting whoever is still in it
+            // (as its own ability, so the rupture doesn't set off another).
             const dir = directionTo(ctx.self, ctx.enemy);
             const length = q.field("range", "Forward range");
-            ctx.world.zones.push({
-              id: ctx.world.nextId++,
-              owner: ctx.self.side,
-              kind: "delayedArea",
-              seenTick: ctx.tick,
-              x: ctx.self.x + (dir * length) / 2,
-              radius: length / 2,
-              startTick: ctx.tick,
-              endTick: ctx.tick + ticks(hammerField),
-              ability: "Q",
-              onHit: [hit],
-              connects: true,
-              scale: 1,
-            });
+            areaAt(ctx, "Qrupture", ctx.self.x + (dir * length) / 2, length / 2, hammerField, [hit]);
           }
           if (ctx.ability.key === "E") {
             // Poppy carries the enemy along: she moves with it.
@@ -116,6 +104,17 @@ const poppy: KitModule = {
           castTime: q.castTime(),
           delivery: { kind: "area", near: 0, far: q.field("range", "Forward range"), delay: 0, anchor: "caster" },
           onHit: [hit, { type: "cc", cc: "slow", strength: q.baseOf("Slow") / 100, duration: hammerField }],
+        },
+        {
+          // Hammer Shock's rupture, set off only by Hammer Shock itself.
+          key: "Qrupture",
+          name: `${q.name} (rupture)`,
+          slot: "other",
+          cooldown: 0,
+          castTime: 0,
+          usable: () => false,
+          delivery: { kind: "self" },
+          onHit: [hit],
         },
         {
           key: "W",

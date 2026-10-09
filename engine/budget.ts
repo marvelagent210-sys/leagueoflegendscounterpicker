@@ -26,10 +26,10 @@ import { type AbilitySpec, type BonusStats, type DamageByType, type Effect, type
 import { type Unit, newUnit } from "./sim/state";
 
 /** Stats the budget can buy, by their gold value keys. */
-export const BUDGET_STATS = ["ad", "ap", "as", "crit", "ah", "lethality", "mpenflat", "hp", "armor", "mr"] as const;
+export const BUDGET_STATS = ["ad", "ap", "as", "crit", "ah", "lethality", "armpen", "mpenflat", "mpen", "hp", "armor", "mr"] as const;
 export type BudgetStat = (typeof BUDGET_STATS)[number];
 
-/** Gold per point of each stat (per 1% for attack speed and critical strike chance). */
+/** Gold per point of each stat (per 1% for attack speed, critical strike chance and percentage penetration). */
 export type StatPrices = Record<BudgetStat, number>;
 
 /**
@@ -73,7 +73,9 @@ function valued(spec: FighterSpec, bonus: BonusStats): FighterSpec {
   set("critChance", m.crit);
   set("abilityHaste", m.ah);
   set("lethality", m.lethality);
+  set("armorPenPoints", m.armpen);
   set("magicPen", m.mpenflat);
+  set("magicPenPoints", m.mpen);
   set("hp", m.hp);
   set("armor", m.armor);
   set("mr", m.mr);
@@ -103,6 +105,12 @@ function addStat(bonus: BonusStats, stat: BudgetStat, points: number): BonusStat
       break;
     case "mpenflat":
       next.magicPen = (next.magicPen ?? 0) + points;
+      break;
+    case "armpen":
+      next.armorPenPoints = (next.armorPenPoints ?? 0) + points;
+      break;
+    case "mpen":
+      next.magicPenPoints = (next.magicPenPoints ?? 0) + points;
       break;
     case "hp":
       next.hp = (next.hp ?? 0) + points;
@@ -193,8 +201,8 @@ function multipliers(attacker: Unit, target: Unit): { physical: number; magic: n
   const a = derive(attacker);
   const t = derive(target);
   return {
-    physical: resistMultiplier(effectiveResist(t.armor, {}, { flat: a.lethality })),
-    magic: resistMultiplier(effectiveResist(t.mr, {}, { flat: a.magicPen })),
+    physical: resistMultiplier(effectiveResist(t.armor, {}, { flat: a.lethality, percent: a.armorPen })),
+    magic: resistMultiplier(effectiveResist(t.mr, {}, { flat: a.magicPen, percent: a.magicPenPercent })),
   };
 }
 

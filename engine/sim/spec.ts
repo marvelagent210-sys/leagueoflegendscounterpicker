@@ -363,6 +363,13 @@ export interface BonusStats {
   abilityHaste?: number;
   lethality?: number;
   magicPen?: number;
+  /**
+   * Percentage armor and magic penetration bought, in points. Each point counts as its own
+   * source of 1%, and sources stack multiplicatively (wiki: "Armor penetration"): 50 points
+   * remove 1 - 0.99^50 = 39.5% of the target's armor.
+   */
+  armorPenPoints?: number;
+  magicPenPoints?: number;
 }
 
 /**
@@ -434,7 +441,7 @@ export interface BudgetHints {
   /** Healing and shielding per second from hooks. */
   healing?: (self: Unit, target: Unit) => number;
   /** Bought stats the kit's hooks multiply in fights (Living Forge's 30% more bonus armor), for the budget to value them so. */
-  statMultipliers?: Partial<Record<"ad" | "ap" | "as" | "crit" | "ah" | "lethality" | "mpenflat" | "hp" | "armor" | "mr", number>>;
+  statMultipliers?: Partial<Record<"ad" | "ap" | "as" | "crit" | "ah" | "lethality" | "armpen" | "mpenflat" | "mpen" | "hp" | "armor" | "mr", number>>;
 }
 
 export interface FighterSpec {

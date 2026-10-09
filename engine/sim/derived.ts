@@ -74,6 +74,11 @@ export function derive(unit: Unit): Derived {
   return value;
 }
 
+/** Bought percentage penetration: each point a separate 1% source, stacking multiplicatively. */
+export function boughtPenetration(points: number): number {
+  return 1 - 0.99 ** points;
+}
+
 function computeDerived(unit: Unit): Derived {
   const { base, bonus = {} } = unit.spec;
   const st = unit.statuses;
@@ -100,8 +105,8 @@ function computeDerived(unit: Unit): Derived {
     abilityHaste: (bonus.abilityHaste ?? 0) + sum(st, "abilityHaste"),
     lethality: (bonus.lethality ?? 0) + sum(st, "lethality"),
     magicPen: bonus.magicPen ?? 0,
-    armorPen: list(st, "stat", "armorPen"),
-    magicPenPercent: list(st, "stat", "magicPenPercent"),
+    armorPen: [...list(st, "stat", "armorPen"), ...(bonus.armorPenPoints ? [boughtPenetration(bonus.armorPenPoints)] : [])],
+    magicPenPercent: [...list(st, "stat", "magicPenPercent"), ...(bonus.magicPenPoints ? [boughtPenetration(bonus.magicPenPoints)] : [])],
     moveSpeed: movementSpeed(base.moveSpeed, {
       flat: sum(st, "moveSpeedFlat"),
       additive: list(st, "stat", "moveSpeedPercent"),

@@ -5,14 +5,14 @@ import { canAttack, derive } from "../../engine/sim/derived";
 import { canCast } from "../../engine/sim/actions";
 import type { Behavior } from "../../engine/sim/behavior";
 import { applyEffect, heal } from "../../engine/sim/combat";
-import { MAX_ENGAGE_RANGE, engageRange } from "../../engine/sim/scenarios";
+import { MAX_ENGAGE_RANGE, engageRange, runScenarios } from "../../engine/sim/scenarios";
 import { createWorld, step } from "../../engine/sim/simulate";
 import type { AbilitySpec, Effect } from "../../engine/sim/spec";
 import { ability, fighter } from "./kits";
 import { duel, idle, lasting, standStill, ticksOf } from "./helpers";
 
 const trueDamage = (amount: number): Effect => ({ type: "damage", damageType: "true", amount: { base: amount } });
-const PRICES = { ad: 35, ap: 20, as: 25, crit: 40, ah: 50, lethality: 30, mpenflat: 46.666667, hp: 2.666667, armor: 20, mr: 20 };
+const PRICES = { ad: 35, ap: 20, as: 25, crit: 40, ah: 50, lethality: 30, armpen: 41.666667, mpenflat: 46.666667, mpen: 46.15, hp: 2.666667, armor: 20, mr: 20 };
 
 /** Casts each command once, in order, as soon as it is accepted; then stands still (or attacks). */
 function script(commands: Array<{ ability: string; aim?: { direction: -1 | 1; distance?: number }; at?: number }>, then: "stand" | "attack" = "stand"): Behavior {
@@ -177,6 +177,14 @@ describe("stat budget hints", () => {
     expect(Object.values(mine.spent).reduce((a, b) => a + b, 0)).toBe(6000);
     const [plain] = allocateBoth(fighter(), fighter(), 5000, PRICES);
     expect(mine.spent.armor).toBeGreaterThan(plain.spent.armor);
+  });
+});
+
+describe("fair fights", () => {
+  it("score a matchup the same from either side, though instant crowd control lands as it is decided", () => {
+    const stunner = fighter({ abilities: [ability({ key: "Q", cooldown: 8, delivery: { kind: "aura", radius: 300 }, onHit: [{ type: "cc", cc: "stun", duration: 1 }, trueDamage(100)] })] });
+    const brute = fighter({ base: { ad: 130 } });
+    expect(runScenarios(stunner, brute).score).toBeCloseTo(-runScenarios(brute, stunner).score, 9);
   });
 });
 

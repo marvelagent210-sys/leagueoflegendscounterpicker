@@ -121,7 +121,7 @@ export function createWorld(setup: FightSetup): World {
 }
 
 function order(world: World): [Side, Side] {
-  return world.tick % 2 === 0 ? [0, 1] : [1, 0];
+  return (world.tick + world.settings.firstMover) % 2 === 0 ? [0, 1] : [1, 0];
 }
 
 // ---------------------------------------------------------------------------------------
@@ -383,8 +383,28 @@ export function fight(setup: FightSetup): FightOutcome {
   return runWorld(createWorld(setup), setup.behaviors);
 }
 
+/**
+ * The fight played twice, each side deciding first on the opening tick once, as one outcome
+ * (each half weighted equally): neither side gets the first word.
+ */
+export function fairFight(setup: FightSetup): FightOutcome {
+  const leaves: World[] = [];
+  for (const firstMover of [0, 1] as const) {
+    for (const world of runLeaves(createWorld({ ...setup, settings: { ...setup.settings, firstMover } }), setup.behaviors)) {
+      world.weight /= 2;
+      leaves.push(world);
+    }
+  }
+  return summarize(leaves);
+}
+
 /** Runs a prepared world (and every branch it splits into) to the end. */
 export function runWorld(start: World, behaviorPair?: FightSetup["behaviors"]): FightOutcome {
+  return summarize(runLeaves(start, behaviorPair));
+}
+
+/** Every branch of a fight, run to its end. */
+function runLeaves(start: World, behaviorPair?: FightSetup["behaviors"]): World[] {
   const [a, b] = start.units;
   const behaviors: [Behavior, Behavior] = [behaviorPair?.[0] ?? a.spec.behavior ?? defaultBehavior, behaviorPair?.[1] ?? b.spec.behavior ?? defaultBehavior];
   const stack = [start];
@@ -397,7 +417,7 @@ export function runWorld(start: World, behaviorPair?: FightSetup["behaviors"]): 
     }
     leaves.push(world);
   }
-  return summarize(leaves);
+  return leaves;
 }
 
 function hpShare(unit: Unit): number {

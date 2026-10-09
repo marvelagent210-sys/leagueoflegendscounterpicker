@@ -16,7 +16,7 @@
  * (spacing between equals) drop out and the rest are renormalized.
  */
 import { type Behavior, traitsOf } from "./behavior";
-import { type FightOutcome, fight } from "./simulate";
+import { type FightOutcome, fairFight } from "./simulate";
 import type { AbilitySpec, FighterSpec } from "./spec";
 import type { Mode, SimSettings } from "./state";
 
@@ -119,7 +119,7 @@ export function runScenarios(you: FighterSpec, enemy: FighterSpec, options: Scen
   const fighters: [FighterSpec, FighterSpec] = [you, enemy];
   const behaviors = options.behaviors;
   const run = (distance: number, modes: [Mode, Mode], settings: Partial<SimSettings> = {}): FightOutcome =>
-    fight({ fighters, distance, modes, ...(behaviors ? { behaviors } : {}), settings: { ...options.settings, ...settings } });
+    fairFight({ fighters, distance, modes, ...(behaviors ? { behaviors } : {}), settings: { ...options.settings, ...settings } });
   const results: ScenarioResult[] = [];
 
   const youEngage = run(engageRange(you, enemy), ["fight", "fight"]);

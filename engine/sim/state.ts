@@ -176,6 +176,11 @@ export interface SimSettings {
   tradeSeconds: number;
   /** Lane surroundings (PLAN.md section 6). */
   environment: Environment;
+  /**
+   * The side that decides first on even ticks (the other on odd ones). Instant casts take
+   * effect as they are decided, so the first word matters; scenarios run both ways.
+   */
+  firstMover: Side;
   log: boolean;
 }
 
@@ -204,6 +209,7 @@ export const DEFAULT_SETTINGS: SimSettings = {
   disengageDistance: 700,
   tradeSeconds: 4,
   environment: DEFAULT_ENVIRONMENT,
+  firstMover: 0,
   log: false,
 };
 

@@ -1,6 +1,7 @@
 import { readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
 import { allocate, allocateBoth, BUDGET_STATS, damagePerSecond, type StatPrices } from "../engine/budget";
+import { boughtPenetration } from "../engine/sim/derived";
 import { ability, fighter } from "./sim/kits";
 
 const rules = JSON.parse(readFileSync(new URL("../data/16.20/rules.json", import.meta.url), "utf8")) as { statPrices: StatPrices };
@@ -12,7 +13,14 @@ const blast = ability({ key: "Q", cooldown: 2, delivery: { kind: "target", range
 
 describe("stat prices", () => {
   it("come from the wiki's gold values", () => {
-    expect(prices).toEqual({ ad: 35, ap: 20, as: 25, crit: 40, ah: 50, lethality: 30, mpenflat: 46.666667, hp: 2.666667, armor: 20, mr: 20 });
+    expect(prices).toEqual({ ad: 35, ap: 20, as: 25, crit: 40, ah: 50, lethality: 30, armpen: 41.666667, mpenflat: 46.666667, mpen: 46.15, hp: 2.666667, armor: 20, mr: 20 });
+  });
+
+  it("count each point of percentage penetration as its own source, stacking multiplicatively", () => {
+    expect(boughtPenetration(1)).toBeCloseTo(0.01, 12);
+    expect(boughtPenetration(50)).toBeCloseTo(1 - 0.99 ** 50, 12);
+    // Never all of the target's resistance, however much is bought.
+    expect(boughtPenetration(1000)).toBeLessThan(1);
   });
 });
 
