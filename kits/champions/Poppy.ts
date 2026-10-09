@@ -3,7 +3,7 @@ import type { KitModule } from "../../engine/kits/compile";
 import { abilityReach, canCast } from "../../engine/sim/actions";
 import { type Behavior, defaultBehavior } from "../../engine/sim/behavior";
 import { directionTo } from "../../engine/sim/combat";
-import type { Effect } from "../../engine/sim/spec";
+import { type Effect, cooldownKeyOf } from "../../engine/sim/spec";
 import { maxHp, ticks } from "./util";
 
 const poppy: KitModule = {
@@ -39,7 +39,7 @@ const poppy: KitModule = {
       // Hold the anti-dash aura for an enemy that could dash onto Poppy.
       const aura = view.self.spec.abilities.find((a) => a.key === "W");
       if (aura && canCast(view.world, view.self, aura)) {
-        const dash = view.enemy.spec.abilities.find((a) => (a.delivery.kind === "dash" && a.delivery.direction !== "away") && (view.enemy.cooldownReady[a.key] ?? 0) <= view.world.tick);
+        const dash = view.enemy.spec.abilities.find((a) => (a.delivery.kind === "dash" && a.delivery.direction !== "away") && (view.enemy.cooldownReady[cooldownKeyOf(a)] ?? 0) <= view.world.tick);
         const reach = dash ? abilityReach(dash, view.enemy, view.self) ?? (dash.delivery.kind === "dash" ? dash.delivery.distance + 200 : 0) : 0;
         if (dash && Math.abs(view.self.x - view.enemy.x) <= reach + 100) return { kind: "cast", ability: "W" };
       }

@@ -177,7 +177,7 @@ function completeActions(world: World, splits: PendingSplit[]): void {
       const ability = unit.spec.abilities.find((a) => a.key === action.ability);
       if (unit.action === action) unit.action = undefined;
       if (!ability) continue;
-      const split = completeCast(world, unit, ability, action.startTick);
+      const split = completeCast(world, unit, ability, action.startTick, action.aim);
       if (split) splits.push(split);
     }
   }
@@ -222,7 +222,7 @@ function execute(world: World, unit: Unit, command: Command): { acted: boolean; 
         if (zone) zone.connects = false;
         log(world, unit.side, `dodges with ${ability.name}`);
       }
-      const split = startCast(world, unit, ability);
+      const split = startCast(world, unit, ability, command.aim);
       return split ? { acted: true, split } : { acted: true };
     }
   }

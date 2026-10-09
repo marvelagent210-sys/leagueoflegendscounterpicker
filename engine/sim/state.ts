@@ -22,7 +22,7 @@ export interface Status {
   shieldType?: ShieldType;
   priority?: boolean;
   dot?: { damageType: DamageType; perHit: number; intervalTicks: number; nextTick: number };
-  empower?: { attacks: number; onHit: Effect[]; bonusRange: number; uncancellable: boolean; split?: AttackSplit };
+  empower?: { attacks: number; onHit: Effect[]; bonusRange: number; uncancellable: boolean; split?: AttackSplit; windup?: number };
   /** What a triggered state does (antiDash), and the ability it comes from. */
   effects?: Effect[];
   ability?: string;
@@ -43,9 +43,28 @@ export type Action =
       bonusRange: number;
       split?: AttackSplit;
     }
-  | { kind: "cast"; ability: string; startTick: number; endTick: number }
+  | { kind: "cast"; ability: string; startTick: number; endTick: number; aim?: Aim }
   | { kind: "channel"; ability: string; startTick: number; endTick: number; nextTick: number; intervalTicks: number }
-  | { kind: "dash"; ability: string; startTick: number; endTick: number; perTick: number; stopAtContact: boolean; unstoppable: boolean };
+  | {
+      kind: "dash";
+      ability: string;
+      startTick: number;
+      endTick: number;
+      perTick: number;
+      stopAtContact: boolean;
+      unstoppable: boolean;
+      /** A cast this dash was made during (an overlay dash): it carries on when the dash ends. */
+      resume?: Action;
+      /** Passes through the enemy, hitting it once on the way (`hit` once it has). */
+      through?: boolean;
+      hit?: boolean;
+    };
+
+/** Where a location-targeted dash goes: toward the enemy (1) or away (-1), and how far. */
+export interface Aim {
+  direction: -1 | 1;
+  distance?: number;
+}
 
 export interface Unit {
   side: Side;
@@ -117,6 +136,8 @@ export interface Zone {
   bands?: Array<{ from: number; to: number; onHit: Effect[] }>;
   /** For areas that move with the caster: offsets from its center when they land. */
   follow?: { near: number; far: number; bands?: Array<{ from: number; to: number; onHit: Effect[] }> };
+  /** Hits by where the enemy's center is rather than its hitbox. */
+  centered?: boolean;
 }
 
 /** Effects waiting for their tick (see the "delayed" effect). */
@@ -248,7 +269,7 @@ function cloneUnit(unit: Unit): Unit {
     statuses: unit.statuses.map(cloneStatus),
     cooldownReady: { ...unit.cooldownReady },
     chains: Object.fromEntries(Object.entries(unit.chains).map(([k, v]) => [k, { ...v }])),
-    ...(unit.action ? { action: { ...unit.action } } : {}),
+    ...(unit.action ? { action: unit.action.kind === "dash" && unit.action.resume ? { ...unit.action, resume: { ...unit.action.resume } } : { ...unit.action } } : {}),
     ...(unit.forced ? { forced: { ...unit.forced } } : {}),
     memory: { ...unit.memory },
     totals: { ...unit.totals },

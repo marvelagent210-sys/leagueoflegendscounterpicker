@@ -21,6 +21,8 @@ export interface KitDefinition {
   start?: Effect[];
   /** Resource at the start of a fight (Fury starts empty); default full. */
   resourceStart?: number;
+  /** Gold the kit adds to its stat budget (Master Craftsman's Masterwork upgrade). */
+  extraGold?: number;
   behavior?: Behavior;
 }
 
@@ -66,6 +68,7 @@ export function compileKit(champion: Champion, records: AbilityRecord[], module:
     ...(definition.hooks ? { hooks: definition.hooks } : {}),
     ...(definition.start ? { start: definition.start } : {}),
     ...(definition.resourceStart !== undefined ? { resourceStart: definition.resourceStart } : {}),
+    ...(definition.extraGold ? { extraGold: definition.extraGold } : {}),
     ...(definition.behavior ? { behavior: definition.behavior } : {}),
   };
   return { champion: champion.id, spec, evidence: kit.evidence, assumptions: kit.assumptions, options };

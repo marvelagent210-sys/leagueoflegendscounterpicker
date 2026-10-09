@@ -40,6 +40,8 @@ export interface Derived {
   armorReduction: { flat: number; percent: number[] };
   mrReduction: { flat: number; percent: number[] };
   lifeSteal: number;
+  /** Extra healing and regeneration received, as a fraction. */
+  healingIncrease: number;
 }
 
 function sum(statuses: Status[], key: string): number {
@@ -104,6 +106,7 @@ function computeDerived(unit: Unit): Derived {
       flat: sum(st, "moveSpeedFlat"),
       additive: list(st, "stat", "moveSpeedPercent"),
       slows: slowImmune ? [] : [...list(st, "cc", "slow"), ...list(st, "cc", "drowsy")],
+      slowResist: Math.min(1, sum(st, "slowResist")),
     }),
     tenacity: combineTenacity([list(st, "state", "tenacity")]),
     damageDealt: list(st, "stat", "damageDealt"),
@@ -113,6 +116,7 @@ function computeDerived(unit: Unit): Derived {
     armorReduction: { flat: sum(st, "armorReduction"), percent: list(st, "stat", "armorReductionPercent") },
     mrReduction: { flat: sum(st, "mrReduction"), percent: list(st, "stat", "mrReductionPercent") },
     lifeSteal: sum(st, "lifeSteal"),
+    healingIncrease: sum(st, "healingIncrease"),
   };
 }
 
@@ -209,7 +213,7 @@ export function canAttack(unit: Unit): boolean {
     const rule = CC_RULES[type].attacking;
     if (rule === "disabled" || rule === "uncontrollable") return false;
   }
-  return !unit.forced;
+  return !unit.forced && !hasState(unit, "noAttacks");
 }
 
 /** Whether crowd control allows casting; `movement` abilities are also stopped by root and ground. */

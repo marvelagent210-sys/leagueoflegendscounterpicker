@@ -80,7 +80,6 @@ const yasuo: KitModule = {
             const bonusAS = Math.min(tempestFloorAt, derive(ctx.self).bonusAttackSpeed);
             const cooldown = tempestMax - ((tempestMax - tempestMin) * bonusAS) / tempestFloorAt;
             ctx.self.cooldownReady.Q = ctx.tick + ticks(cooldown);
-            ctx.self.cooldownReady.Q3 = ctx.tick + ticks(cooldown);
             if (key === "Q3") ctx.memory.storm = 0;
           }
           if (key === "R") ctx.memory.flow = 100;
@@ -107,6 +106,7 @@ const yasuo: KitModule = {
           flags: { appliesOnHit: true, projectile: false },
         }),
         tempest("Q3", {
+          cooldownKey: "Q",
           usable: (unit, world) => storm(unit, world) >= 2,
           delivery: { kind: "line", range: q.field("range", "Whirlwind missile range"), width: q.field("width", "Whirlwind missile width"), speed: q.field("speed") },
           onHit: [...thrustHit, { type: "displace", direction: "away", distance: 0, duration: knockUp }],

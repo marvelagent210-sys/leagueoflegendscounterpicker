@@ -8,10 +8,10 @@ import type { CCType } from "../rules/crowdControl";
 import { abilityHit, applyEffect, attackHit, contactGap, directionTo, edgeDistance, hookContext, isUntargetable, log } from "./combat";
 import { canAttack, canCastUnderCC, derive, evaluate } from "./derived";
 import { hitChance } from "./hitModel";
-import type { AbilitySpec, AttackSplit, Effect } from "./spec";
-import { type Missile, type Status, type Unit, type World, other } from "./state";
+import { type AbilitySpec, type AttackSplit, type Effect, cooldownKeyOf } from "./spec";
+import { type Aim, type Missile, type Status, type Unit, type World, other } from "./state";
 
-const EPSILON = 1e-6;
+export const EPSILON = 1e-6;
 
 export function empowerStatus(unit: Unit): Status | undefined {
   return unit.statuses.find((s) => s.kind === "empower" && (s.empower?.attacks ?? 0) > 0);
@@ -67,6 +67,7 @@ export function startAttack(world: World, unit: Unit): void {
   let uncancellable = false;
   let bonusRange = 0;
   let split: AttackSplit | undefined;
+  let windup: number | undefined;
   // Every active empowerment applies to the attack and spends one of its charges.
   for (const empower of unit.statuses) {
     if (empower.kind !== "empower" || !empower.empower || empower.empower.attacks <= 0) continue;
@@ -74,6 +75,7 @@ export function startAttack(world: World, unit: Unit): void {
     uncancellable ||= empower.empower.uncancellable;
     bonusRange = Math.max(bonusRange, empower.empower.bonusRange);
     split = empower.empower.split ?? split;
+    if (empower.empower.windup !== undefined) windup = Math.min(windup ?? Number.POSITIVE_INFINITY, empower.empower.windup);
     empower.empower.attacks -= 1;
   }
   if (unit.statuses.some((s) => s.kind === "empower" && (s.empower?.attacks ?? 0) <= 0)) {
@@ -83,7 +85,7 @@ export function startAttack(world: World, unit: Unit): void {
   unit.action = {
     kind: "windup",
     startTick: world.tick,
-    launchTick: world.tick + timing.windup,
+    launchTick: world.tick + (windup !== undefined ? Math.max(1, toTicks(windup)) : timing.windup),
     uncancellable,
     // A blind counts if it is on the attacker when the attack is declared (wiki: "Types of Crowd Control").
     blinded: unit.statuses.some((s) => s.kind === "cc" && s.key === "blind"),
@@ -172,7 +174,7 @@ function affordable(unit: Unit, ability: AbilitySpec): boolean {
 }
 
 export function abilityReady(world: World, unit: Unit, ability: AbilitySpec): boolean {
-  if ((unit.cooldownReady[ability.key] ?? 0) > world.tick || !affordable(unit, ability) || !chainOpen(world, unit, ability)) return false;
+  if ((unit.cooldownReady[cooldownKeyOf(ability)] ?? 0) > world.tick || !affordable(unit, ability) || !chainOpen(world, unit, ability)) return false;
   // A first stage can't start over while its recasts are open.
   const open = unit.chains[ability.key];
   if (!ability.chain && open && world.tick <= open.until) return false;
@@ -222,7 +224,7 @@ export function canCast(world: World, unit: Unit, ability: AbilitySpec): boolean
   const enemy = world.units[other(unit.side)];
   if (!unit.alive || !abilityReady(world, unit, ability)) return false;
   // Casting cancels a windup, but nothing else can be interrupted (except a channel by its own recast).
-  if (unit.action && unit.action.kind !== "windup" && !endsOwnChannel(unit, ability)) return false;
+  if (unit.action && unit.action.kind !== "windup" && !endsOwnChannel(unit, ability) && !overlays(unit, ability)) return false;
   if (ability.usable && !ability.usable(unit, world)) return false;
   if (!ability.flags?.usableWhileDisabled && !canCastUnderCC(unit, isMovement(ability) || ability.flags?.grounded === true)) return false;
   if (ability.delivery.kind === "target" && (isUntargetable(enemy, unit) || !enemy.alive)) return false;
@@ -233,8 +235,19 @@ export function canCast(world: World, unit: Unit, ability: AbilitySpec): boolean
   return true;
 }
 
+/**
+ * Whether an overlay ability can go on top of what the unit is doing: anything during a
+ * cast; only abilities that aren't dashes during a dash.
+ */
+function overlays(unit: Unit, ability: AbilitySpec): boolean {
+  if (!ability.overlay) return false;
+  const action = unit.action;
+  if (action?.kind === "cast") return action.ability !== ability.key;
+  return action?.kind === "dash" && ability.delivery.kind !== "dash";
+}
+
 /** Starts a cast; instant casts complete at once and may return a skillshot to split on. */
-export function startCast(world: World, unit: Unit, ability: AbilitySpec): PendingSplit | undefined {
+export function startCast(world: World, unit: Unit, ability: AbilitySpec, aim?: Aim): PendingSplit | undefined {
   if (endsOwnChannel(unit, ability)) unit.action = undefined;
   if (unit.action?.kind === "windup") {
     // An interrupted windup resets the attack timer (wiki: "Attack speed", attack timer).
@@ -245,15 +258,15 @@ export function startCast(world: World, unit: Unit, ability: AbilitySpec): Pendi
   log(world, unit.side, `casts ${ability.name}`);
   for (const effect of ability.onCastStart ?? []) applyEffect(world, unit, unit, effect, { ability, scale: 1 });
   const castTicks = toTicks(ability.castTime);
-  if (castTicks === 0) return completeCast(world, unit, ability, world.tick);
-  unit.action = { kind: "cast", ability: ability.key, startTick: world.tick, endTick: world.tick + castTicks };
+  if (castTicks === 0) return completeCast(world, unit, ability, world.tick, aim);
+  unit.action = { kind: "cast", ability: ability.key, startTick: world.tick, endTick: world.tick + castTicks, ...(aim ? { aim } : {}) };
   if (!ability.moveWhileCasting) unit.move = 0;
   return undefined;
 }
 
 function startCooldown(world: World, unit: Unit, ability: AbilitySpec): void {
   const haste = derive(unit).abilityHaste;
-  unit.cooldownReady[ability.key] = world.tick + toTicks(cooldownAfterHaste(ability.cooldown, haste));
+  unit.cooldownReady[cooldownKeyOf(ability)] = world.tick + toTicks(cooldownAfterHaste(ability.cooldown, haste));
 }
 
 /** Whether a skillshot is decisive: it disables, or deals a large share of the target's health. */
@@ -346,9 +359,11 @@ export function expireChains(world: World, unit: Unit): void {
   }
 }
 
-export function completeCast(world: World, unit: Unit, ability: AbilitySpec, castStartTick: number): PendingSplit | undefined {
+export function completeCast(world: World, unit: Unit, ability: AbilitySpec, castStartTick: number, aim?: Aim): PendingSplit | undefined {
   const enemy = world.units[other(unit.side)];
-  if (unit.action?.kind === "cast") unit.action = undefined;
+  // An overlay cast leaves what the unit was doing running; its dash holds it until it ends.
+  const held = ability.overlay && unit.action && unit.action.kind !== "windup" && !(unit.action.kind === "cast" && unit.action.ability === ability.key) ? unit.action : undefined;
+  if (unit.action?.kind === "cast" && unit.action.ability === ability.key) unit.action = undefined;
   const cost = costOf(unit, ability);
   if (ability.costType === "health") unit.hp -= cost;
   else unit.resource -= cost;
@@ -418,17 +433,23 @@ export function completeCast(world: World, unit: Unit, ability: AbilitySpec, cas
       break;
     }
     case "dash": {
-      const dir = delivery.direction === "away" ? -directionTo(unit, enemy) : directionTo(unit, enemy);
-      const ticks = Math.max(1, Math.ceil(delivery.distance / (delivery.speed / 30) - EPSILON));
-      const perTick = (dir * delivery.distance) / ticks;
+      // Aimed dashes go either way, as far as asked within their range.
+      const aimed = aim !== undefined && delivery.minDistance !== undefined;
+      const away = aimed ? aim.direction < 0 : delivery.direction === "away";
+      const dir = away ? -directionTo(unit, enemy) : directionTo(unit, enemy);
+      const distance = aimed ? Math.min(delivery.distance, Math.max(delivery.minDistance ?? 0, aim.distance ?? delivery.distance)) : delivery.distance;
+      const ticks = Math.max(1, Math.ceil(distance / (delivery.speed / 30) - EPSILON));
+      const perTick = (dir * distance) / ticks;
       unit.action = {
         kind: "dash",
         ability: ability.key,
         startTick: world.tick,
         endTick: world.tick + ticks,
         perTick,
-        stopAtContact: delivery.direction !== "away",
+        stopAtContact: !away && !delivery.through,
         unstoppable: ability.flags?.knockdown === false,
+        ...(held ? { resume: held } : {}),
+        ...(delivery.through ? { through: true } : {}),
       };
       break;
     }
@@ -450,6 +471,7 @@ export function completeCast(world: World, unit: Unit, ability: AbilitySpec, cas
         scale: 1,
         ...(delivery.bands ? { bands: delivery.bands.map((b) => ({ from: unit.x + dir * b.from, to: unit.x + dir * b.to, onHit: b.onHit })) } : {}),
         ...(delivery.anchor === "caster" ? { follow: { near: delivery.near, far: delivery.far, ...(delivery.bands ? { bands: delivery.bands } : {}) } } : {}),
+        ...(delivery.centered ? { centered: true } : {}),
       };
       world.zones.push(zone);
       // An area that lands at once resolves with the zones this tick.
@@ -549,16 +571,27 @@ export function progressDash(world: World, unit: Unit): void {
   if (action?.kind !== "dash" || world.tick <= action.startTick) return;
   const enemy = world.units[other(unit.side)];
   const ability = unit.spec.abilities.find((a) => a.key === action.ability);
+  const from = unit.x;
   unit.x += action.perTick;
   if (stoppedByAntiDash(world, unit, enemy, action.unstoppable)) return;
+  if (ability && action.through && !action.hit && ability.delivery.kind === "dash" && ability.delivery.hitRadius !== undefined) {
+    // Passing the enemy: hit once its hitbox comes within reach (edge to edge) of the dash's path.
+    const reach = ability.delivery.hitRadius + unit.spec.base.radius + enemy.spec.base.radius;
+    const crossed = (from - enemy.x) * (unit.x - enemy.x) <= 0;
+    const nearest = crossed ? 0 : Math.min(Math.abs(from - enemy.x), Math.abs(unit.x - enemy.x));
+    if (nearest <= reach + EPSILON) {
+      action.hit = true;
+      abilityHit(world, unit, enemy, ability, ability.onHit ?? []);
+    }
+  }
   const arrived = world.tick >= action.endTick || (action.stopAtContact && contactGap(unit, enemy) <= EPSILON);
   if (action.stopAtContact && contactGap(unit, enemy) < 0) {
     unit.x = enemy.x - directionTo(unit, enemy) * (unit.spec.base.pathingRadius + enemy.spec.base.pathingRadius);
   }
   if (!arrived) return;
-  unit.action = undefined;
+  unit.action = action.resume;
   const delivery = ability?.delivery;
-  if (ability && delivery?.kind === "dash" && delivery.hitRadius !== undefined && edgeDistance(unit, enemy) <= delivery.hitRadius + EPSILON) {
+  if (ability && delivery?.kind === "dash" && !delivery.through && delivery.hitRadius !== undefined && edgeDistance(unit, enemy) <= delivery.hitRadius + EPSILON) {
     abilityHit(world, unit, enemy, ability, ability.onHit ?? []);
   }
 }
@@ -572,7 +605,7 @@ function stoppedByAntiDash(world: World, unit: Unit, enemy: Unit, unstoppable: b
   const aura = enemy.statuses.find((s) => s.kind === "state" && s.key === "antiDash");
   if (!aura || unstoppable || Math.abs(unit.x - enemy.x) - unit.spec.base.radius > aura.value + EPSILON) return false;
   if (unit.statuses.some((s) => s.kind === "state" && ["ccImmune", "displacementImmune", "untargetable", "stasis"].includes(s.key))) return false;
-  unit.action = undefined;
+  unit.action = unit.action?.kind === "dash" ? unit.action.resume : undefined;
   enemy.statuses = enemy.statuses.filter((s) => s !== aura);
   log(world, enemy.side, "stops the dash");
   const ability = enemy.spec.abilities.find((a) => a.key === aura.ability);
@@ -668,7 +701,7 @@ export function advanceZones(world: World): void {
         radius = (zone.follow.far - zone.follow.near) / 2;
         bands = zone.follow.bands?.map((b) => ({ from: owner.x + dir * b.from, to: owner.x + dir * b.to, onHit: b.onHit }));
       }
-      const inside = Math.abs(target.x - x) <= radius + target.spec.base.radius + EPSILON;
+      const inside = Math.abs(target.x - x) <= radius + (zone.centered ? 0 : target.spec.base.radius) + EPSILON;
       const band = bands?.find((b) => target.x >= Math.min(b.from, b.to) - EPSILON && target.x <= Math.max(b.from, b.to) + EPSILON);
       if (ability && zone.connects && inside) abilityHit(world, owner, target, ability, band?.onHit ?? zone.onHit ?? [], zone.scale ?? 1);
       continue;

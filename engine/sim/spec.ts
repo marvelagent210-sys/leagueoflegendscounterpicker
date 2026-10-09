@@ -82,7 +82,9 @@ export type StateType =
   /** Negates the next immobilizing crowd control (Goes Where He Pleases). */
   | "ccNegate"
   /** Untargetable to enemies farther than `value` units from the status's position (Hallowed Mist). */
-  | "untargetableFar";
+  | "untargetableFar"
+  /** Can't declare basic attacks, without being crowd control (Purge fires in their place). */
+  | "noAttacks";
 
 /** Stats a timed buff or debuff changes. Fractions for percentages. */
 export type BuffStat =
@@ -110,7 +112,11 @@ export type BuffStat =
   /** Percentage armor or magic penetration (Apprehend's passive). */
   | "armorPen"
   | "magicPenPercent"
-  | "attackRange";
+  | "attackRange"
+  /** Reduces the strength of slows by a fraction (Purge's 40%). */
+  | "slowResist"
+  /** Increases healing and health regeneration received by a fraction (World Ender). */
+  | "healingIncrease";
 
 /** How a basic attack's damage divides between damage types, as shares of the attack. */
 export interface AttackSplit {
@@ -123,9 +129,10 @@ export type Effect =
   /**
    * `canCrit`: averaged over the attacker's crit chance; `critMultiplier` replaces its crit
    * damage (Judgment crits for 130%). `lifesteal`: the caster heals this share of the damage.
-   * `label` names the hit in logs and kit hooks (Decimate's handle).
+   * `label` names the hit in logs and kit hooks (Decimate's handle). `minimum`: it deals at
+   * least this much before mitigation (Infected Bonesaw's minimum damage).
    */
-  | { type: "damage"; damageType: DamageType; amount: Formula; canCrit?: boolean; critMultiplier?: number; lifesteal?: number; label?: string }
+  | { type: "damage"; damageType: DamageType; amount: Formula; canCrit?: boolean; critMultiplier?: number; lifesteal?: number; label?: string; minimum?: Formula }
   | { type: "cc"; cc: CCType; duration: number; strength?: number }
   /**
    * Knock up (distance 0), knock back ("away") or pull ("toward"): airborne plus forced
@@ -150,7 +157,8 @@ export type Effect =
   /**
    * The next `attacks` basic attacks within `window` seconds gain these effects. `split`
    * deals the attack's own damage as these shares of physical and magic damage (Yone's
-   * Azakana Sword).
+   * Azakana Sword). `windup`: the empowered attack's windup in seconds, when it has its own
+   * (Thundering Smash's pounce).
    */
   | {
       type: "empower";
@@ -161,6 +169,7 @@ export type Effect =
       resetAttack?: boolean;
       uncancellable?: boolean;
       split?: AttackSplit;
+      windup?: number;
     }
   /** Kills the target if its health is at or below the threshold after the hit. */
   | { type: "execute"; threshold: Formula }
@@ -189,15 +198,20 @@ export type Delivery =
   | { kind: "line"; range: number; width: number; speed?: number }
   /** Ground-targeted area that lands after `delay` seconds. */
   | { kind: "circle"; range: number; radius: number; delay: number }
-  /** A dash; `hitRadius` hits the enemy on arrival. "target" dashes stop at the enemy. */
-  | { kind: "dash"; direction: "toward" | "away" | "target"; distance: number; speed: number; hitRadius?: number }
+  /**
+   * A dash; `hitRadius` hits the enemy on arrival. "target" dashes stop at the enemy. Dashes
+   * to a location can be aimed (a cast's `aim`) anywhere from `minDistance` to `distance`.
+   * `through` dashes don't stop at the enemy: they hit it on the way past (Shadow Dash).
+   */
+  | { kind: "dash"; direction: "toward" | "away" | "target"; distance: number; speed: number; hitRadius?: number; minDistance?: number; through?: boolean }
   | { kind: "blink"; direction: "toward" | "away"; distance: number; hitRadius?: number }
   /**
    * A stretch of the line from `near` to `far` units in front of the caster's center that
    * lands `delay` seconds after the cast: it hits the enemy if its hitbox overlaps it.
    * "caster" areas move with the caster until they land (Decimate); "ground" areas stay where
    * they were cast. `bands` give other effects where the enemy's center is (a sweet spot, a
-   * weaker handle); outside every band, `onHit` applies.
+   * weaker handle); outside every band, `onHit` applies. `centered` areas hit by where the
+   * enemy's center is, like their bands (The Darkin Blade's third strike).
    */
   | {
       kind: "area";
@@ -206,6 +220,7 @@ export type Delivery =
       delay: number;
       anchor: "caster" | "ground";
       bands?: Array<{ from: number; to: number; onHit: Effect[] }>;
+      centered?: boolean;
     };
 
 export interface ChannelSpec {
@@ -283,6 +298,18 @@ export interface AbilitySpec {
   chain?: { root: string; index: number; window: number; delay?: number; auto?: boolean };
   /** For the first stage of recastable abilities: whether the cooldown starts at the first cast or after the last. */
   chainCooldown?: "first" | "last";
+  /** Shares the cooldown of the ability with this key (an empowered version of the same spell). */
+  cooldownKey?: string;
+  /**
+   * Castable during the caster's other casts and dashes without cancelling them (Umbral
+   * Dash during The Darkin Blade). A dash cast this way holds the other cast until it ends.
+   */
+  overlay?: boolean;
+}
+
+/** The cooldown an ability uses. */
+export function cooldownKeyOf(ability: AbilitySpec): string {
+  return ability.cooldownKey ?? ability.key;
 }
 
 export interface AttackSpec {
@@ -354,10 +381,19 @@ export interface KitHooks {
   onCast?(ctx: HookContext & { ability: AbilitySpec }): void;
   /** Damage about to reach this unit, after mitigation and before shields. */
   beforeDamageTaken?(ctx: HookContext & { amount: number }): void;
-  onDamageTaken?(ctx: HookContext & { amount: number }): void;
-  onDamageDealt?(ctx: HookContext & { amount: number; attack: boolean; ability?: string; persistent: boolean }): void;
+  /** `amount`: health lost; `mitigated`: the damage after resistances, shields included; `raw`: before resistances. */
+  onDamageTaken?(ctx: HookContext & DamageReport): void;
+  onDamageDealt?(ctx: HookContext & DamageReport & { attack: boolean; ability?: string; persistent: boolean }): void;
   /** One of the enemy's basic attacks was dodged, parried or blocked by this unit. */
   onAttackAvoided?(ctx: HookContext): void;
+}
+
+/** One hit of damage, as damage hooks see it. */
+export interface DamageReport {
+  amount: number;
+  mitigated: number;
+  raw: number;
+  damageType: DamageType;
 }
 
 /** What hooks can see and do. Implemented by the simulator (engine/sim/combat.ts). */
@@ -388,6 +424,8 @@ export interface FighterSpec {
   start?: Effect[];
   /** Resource at the start (Fury starts empty); default full. */
   resourceStart?: number;
+  /** Gold the kit adds to its stat budget (Master Craftsman's Masterwork upgrade). */
+  extraGold?: number;
   /** How it plays; the default behavior when unset. */
   behavior?: Behavior;
 }

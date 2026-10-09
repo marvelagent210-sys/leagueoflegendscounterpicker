@@ -20,17 +20,17 @@ import { type CCType, IMMOBILIZING } from "../rules/crowdControl";
 import { effectiveResist, resistMultiplier } from "../rules/damage";
 import { averageCritFactor } from "../rules/defense";
 import { toTicks } from "../rules/time";
-import { attackRange, attackTiming, canCast, canStartAttack, empowerStatus, heldInPlace, inAttackRange, inReach } from "./actions";
+import { EPSILON, attackRange, attackTiming, canCast, canStartAttack, empowerStatus, heldInPlace, inAttackRange, inReach } from "./actions";
 import { edgeDistance, isUntargetable } from "./combat";
 import { canAttack, canMove, ccTypes, derive, evaluate } from "./derived";
 import { hitChance } from "./hitModel";
 import type { AbilitySpec, Effect, Formula, StateType } from "./spec";
-import { type Mode, type Side, type Unit, type World, other } from "./state";
+import { type Aim, type Mode, type Side, type Unit, type World, other } from "./state";
 
 export type Command =
   | { kind: "attack" }
-  /** `dodge`: the missile or area (by id) a dash or blink is cast to get out of. */
-  | { kind: "cast"; ability: string; dodge?: number }
+  /** `dodge`: the missile or area (by id) a dash or blink is cast to get out of. `aim`: where a location-targeted dash goes. */
+  | { kind: "cast"; ability: string; dodge?: number; aim?: Aim }
   /** Walk toward the enemy (1), away from it (-1), or stop (0). */
   | { kind: "move"; direction: -1 | 0 | 1 };
 
@@ -55,8 +55,11 @@ export interface Threat {
   cc: boolean;
   /** Damage before mitigation. */
   damage: number;
-  /** For areas: where they land, as positions on the line (the unit can walk out). */
-  area?: { from: number; to: number };
+  /**
+   * For areas: where they land, as positions on the line (the unit can walk out), and the
+   * bands within that hit differently (a sweet spot, a handle), by where the center is.
+   */
+  area?: { from: number; to: number; bands?: Array<{ from: number; to: number; damage: number; cc: boolean }> };
   /** An attack expected from the enemy's attack rhythm rather than seen starting. */
   predicted?: boolean;
   /** A dash the enemy is starting or making. */
@@ -228,13 +231,40 @@ function travelTicks(from: Unit, to: Unit, speed: number | undefined): number {
 }
 
 /** Threats the unit has had time to notice. */
+/** Where an area lands on the line: `near` to `far` units in front of `x`, toward `toward`, with its bands. */
+function areaOnLine(
+  x: number,
+  toward: number,
+  near: number,
+  far: number,
+  bands: Array<{ from: number; to: number; onHit: Effect[] }> | undefined,
+  caster: Unit,
+  target: Unit,
+  centered = false,
+): NonNullable<Threat["area"]> {
+  const dir = x <= toward ? 1 : -1;
+  const span = (a: number, b: number) => ({ from: Math.min(x + dir * a, x + dir * b), to: Math.max(x + dir * a, x + dir * b) });
+  // An area that goes by the center is, for the hitbox, smaller by its radius on each side.
+  const inset = centered ? target.spec.base.radius : 0;
+  const whole = span(near, far);
+  return {
+    from: whole.from + inset,
+    to: whole.to - inset,
+    ...(bands
+      ? { bands: bands.map((b) => ({ ...span(b.from, b.to), damage: damageOf(b.onHit, caster, target), cc: b.onHit.some((e) => e.type === "cc" || e.type === "displace") })) }
+      : {}),
+  };
+}
+
 export function threatsTo(world: World, side: Side): Threat[] {
   const self = world.units[side];
   const enemy = world.units[other(side)];
   const seenBy = world.tick - toTicks(world.settings.reactionTime);
   const threats: Threat[] = [];
-  const action = enemy.action;
-  if (action && action.startTick <= seenBy) {
+  // A cast held under an overlay dash still lands when the dash ends.
+  const held = enemy.action?.kind === "dash" ? enemy.action.resume : undefined;
+  for (const action of [enemy.action, held]) {
+    if (!action || action.startTick > seenBy) continue;
     const ability = "ability" in action ? enemy.spec.abilities.find((a) => a.key === action.ability) : undefined;
     const now = world.tick;
     if (action.kind === "windup") {
@@ -251,13 +281,10 @@ export function threatsTo(world: World, side: Side): Threat[] {
               : d.kind === "dash"
                 ? Math.ceil(d.distance / (d.speed / 30))
                 : 0;
-      const threat = abilityThreat(ability, action.endTick - now + travel, enemy, self, ability.onHit ?? []);
+      const threat = abilityThreat(ability, Math.max(action.endTick - now, 0) + travel, enemy, self, ability.onHit ?? []);
       if (d.kind === "dash" && d.direction !== "away") threat.dash = true;
-      if (d.kind === "area") {
-        // Where the area will land, as far as can be told now.
-        const dir = enemy.x <= self.x ? 1 : -1;
-        threat.area = { from: Math.min(enemy.x + dir * d.near, enemy.x + dir * d.far), to: Math.max(enemy.x + dir * d.near, enemy.x + dir * d.far) };
-      }
+      // Where the area will land, as far as can be told now.
+      if (d.kind === "area") threat.area = areaOnLine(enemy.x, self.x, d.near, d.far, d.bands, enemy, self, d.centered);
       threats.push(threat);
     } else if (action.kind === "channel" && ability?.channel) {
       if (ability.channel.onTick && action.nextTick < action.endTick) threats.push(abilityThreat(ability, action.nextTick - now, enemy, self, ability.channel.onTick));
@@ -287,11 +314,13 @@ export function threatsTo(world: World, side: Side): Threat[] {
     if (!ability) continue;
     const threat = abilityThreat(ability, z.endTick - world.tick, enemy, self, z.onHit ?? [], z.id, z.scale ?? 1);
     if (ability.delivery.kind === "area") {
-      // Where it will land: areas that follow their caster are centered on it now.
-      const dir = enemy.x <= self.x ? 1 : -1;
-      const near = z.follow ? enemy.x + dir * z.follow.near : z.x - z.radius;
-      const far = z.follow ? enemy.x + dir * z.follow.far : z.x + z.radius;
-      threat.area = { from: Math.min(near, far), to: Math.max(near, far) };
+      // Where it will land: areas that follow their caster are where it is now.
+      if (z.follow) threat.area = areaOnLine(enemy.x, self.x, z.follow.near, z.follow.far, z.follow.bands, enemy, self, z.centered);
+      else {
+        const bands = z.bands?.map((b) => ({ from: Math.min(b.from, b.to), to: Math.max(b.from, b.to), damage: damageOf(b.onHit, enemy, self), cc: b.onHit.some((e) => e.type === "cc" || e.type === "displace") }));
+        const inset = z.centered ? self.spec.base.radius : 0;
+        threat.area = { from: z.x - z.radius + inset, to: z.x + z.radius - inset, ...(bands ? { bands } : {}) };
+      }
     }
     threats.push(threat);
   }
@@ -377,22 +406,48 @@ function disabledFor(unit: Unit, tick: number): number {
  * Walks out of an area that is about to land, when it can make it: away past its far edge,
  * or in past its near edge when there is room between the area and its caster.
  */
+/** How much an area's hit is worth avoiding: crowd control first, then damage. */
+function harm(damage: number, cc: boolean): number {
+  return (cc ? 1e6 : 0) + damage;
+}
+
+/**
+ * Walks out of an area about to land, or failing that out of its worst part into a milder
+ * one (out of a sweet spot, into a handle): the reachable spot where its hit is mildest.
+ */
 function sidestep(view: View): Command | undefined {
   const { self, enemy } = view;
   if (!canMove(self) || (self.action && self.action.kind !== "windup")) return undefined;
   const speed = derive(self).moveSpeed / 30;
+  const r = self.spec.base.radius;
+  const away = self.x >= enemy.x ? 1 : -1;
+  // The closest the unit can stand to the enemy: champions don't walk through each other.
+  const closest = enemy.x + away * (enemy.spec.base.pathingRadius + self.spec.base.pathingRadius);
   for (const t of view.threats) {
-    // Any area worth avoiding: it hurts or disables, and a few steps get out of it.
-    if (!t.area || (t.damage <= 0 && !t.cc)) continue;
-    const r = self.spec.base.radius;
-    if (self.x + r < t.area.from || self.x - r > t.area.to) continue;
-    const away = self.x >= enemy.x ? 1 : -1;
-    // Distance to get the hitbox clear on each side.
-    const outFar = away > 0 ? t.area.to + r - self.x : self.x - (t.area.from - r);
-    const outNear = away > 0 ? self.x - (t.area.from - r) : t.area.to + r - self.x;
-    const nearRoom = Math.abs((away > 0 ? t.area.from : t.area.to) - enemy.x) > enemy.spec.base.pathingRadius + self.spec.base.pathingRadius;
-    if (outFar <= speed * (t.eta - 1)) return { kind: "move", direction: -1 };
-    if (nearRoom && outNear <= speed * (t.eta - 1)) return { kind: "move", direction: 1 };
+    // Any area worth avoiding: it hurts or disables.
+    const area = t.area;
+    if (!area || (t.damage <= 0 && !t.cc)) continue;
+    const harmAt = (x: number) => {
+      // The area hits the hitbox; its bands go by where the center is.
+      if (x + r < area.from || x - r > area.to) return 0;
+      const band = area.bands?.find((b) => x >= b.from - EPSILON && x <= b.to + EPSILON);
+      return band ? harm(band.damage, band.cc) : harm(t.damage, t.cc);
+    };
+    const here = harmAt(self.x);
+    if (here <= 0) continue;
+    const reach = speed * (t.eta - 1);
+    const spots = [area.from - r - 1, area.to + r + 1, ...(area.bands ?? []).flatMap((b) => [b.from - 1, b.to + 1])];
+    let best: number | undefined;
+    let bestHarm = here;
+    for (const x of spots) {
+      if (Math.abs(x - self.x) > reach || (x - closest) * away < 0) continue;
+      const h = harmAt(x);
+      if (h < bestHarm - EPSILON || (best !== undefined && Math.abs(h - bestHarm) <= EPSILON && Math.abs(x - self.x) < Math.abs(best - self.x))) {
+        best = x;
+        bestHarm = h;
+      }
+    }
+    if (best !== undefined) return { kind: "move", direction: (best - self.x) * away > 0 ? -1 : 1 };
   }
   return undefined;
 }

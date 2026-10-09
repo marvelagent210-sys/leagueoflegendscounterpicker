@@ -229,8 +229,11 @@ export function allocateBoth(a: FighterSpec, b: FighterSpec, gold: number, price
     const none = (): Allocation => ({ gold: 0, bonus: {}, spent: Object.fromEntries(BUDGET_STATS.map((s) => [s, 0])) as Record<BudgetStat, number> });
     return [none(), none()];
   }
-  const first: [Allocation, Allocation] = [allocate(a, b, gold, prices), allocate(b, a, gold, prices)];
-  return [allocate(a, withBonus(b, first[1].bonus), gold, prices), allocate(b, withBonus(a, first[0].bonus), gold, prices)];
+  // Kits can add gold of their own (Ornn's Masterwork upgrade).
+  const goldA = gold + (a.extraGold ?? 0);
+  const goldB = gold + (b.extraGold ?? 0);
+  const first: [Allocation, Allocation] = [allocate(a, b, goldA, prices), allocate(b, a, goldB, prices)];
+  return [allocate(a, withBonus(b, first[1].bonus), goldA, prices), allocate(b, withBonus(a, first[0].bonus), goldB, prices)];
 }
 
 /** Applies the budget to both fighters. */

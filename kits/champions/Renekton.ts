@@ -38,6 +38,7 @@ const renekton: KitModule = {
         ...spec,
         ...empowered,
         key: `${spec.key}fury`,
+        cooldownKey: spec.key,
         cost: furyCost,
         usable: (unit, world) => angry(unit) && (spec.usable?.(unit, world) ?? true),
       },

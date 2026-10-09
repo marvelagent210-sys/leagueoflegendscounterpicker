@@ -134,13 +134,12 @@ export function dealDamage(world: World, source: Unit, target: Unit, raw: number
   log(world, source.side, `${ctx.attack ? "attack" : (ctx.ability ?? "effect")} deals ${Math.round(mitigated)} ${type} damage${mitigated > left ? ` (${Math.round(mitigated - left)} absorbed)` : ""}`);
   if (ctx.attack && s.lifeSteal > 0) heal(world, source, removed * s.lifeSteal);
   if (ctx.lifesteal) heal(world, source, removed * ctx.lifesteal);
+  const report = { amount: removed, mitigated, raw, damageType: type };
   const taken = target.spec.hooks?.onDamageTaken;
-  if (taken && mitigated > 0) runHook(() => taken({ ...hookContext(world, target), amount: removed }));
+  if (taken && mitigated > 0) runHook(() => taken({ ...hookContext(world, target), ...report }));
   const dealt = source.spec.hooks?.onDamageDealt;
   if (dealt && mitigated > 0) {
-    runHook(() =>
-      dealt({ ...hookContext(world, source), amount: removed, attack: ctx.attack === true, persistent: ctx.persistent === true, ...(ctx.ability ? { ability: ctx.ability } : {}) }),
-    );
+    runHook(() => dealt({ ...hookContext(world, source), ...report, attack: ctx.attack === true, persistent: ctx.persistent === true, ...(ctx.ability ? { ability: ctx.ability } : {}) }));
   }
   return removed;
 }
@@ -152,7 +151,8 @@ export function dealDamage(world: World, source: Unit, target: Unit, raw: number
 export function heal(world: World, unit: Unit, amount: number, regeneration = false): void {
   if (!unit.alive || unit.hp <= 0 || amount <= 0) return;
   const grievous = unit.statuses.some((s) => s.kind === "grievousWounds");
-  const healed = Math.min(derive(unit).maxHp - unit.hp, healingReceived(amount, grievous));
+  const d = derive(unit);
+  const healed = Math.min(d.maxHp - unit.hp, healingReceived(amount * (1 + d.healingIncrease), grievous));
   if (healed <= 0) return;
   unit.hp += healed;
   if (regeneration) return;
@@ -185,7 +185,8 @@ function interrupt(world: World, unit: Unit, type: CCType): void {
       log(world, unit.side, `${ability?.name ?? "channel"} interrupted by ${type}`);
     }
   } else if (action.kind === "dash" && type === "airborne" && !action.unstoppable) {
-    unit.action = undefined;
+    // A cast the dash was made during carries on: cast times can't be interrupted.
+    unit.action = action.resume;
     log(world, unit.side, "dash knocked down");
   }
 }
@@ -268,7 +269,8 @@ export function applyEffect(world: World, caster: Unit, target: Unit, effect: Ef
     case "damage": {
       const d = derive(caster);
       const crit = effect.canCrit ? averageCritFactor(d.critChance, effect.critMultiplier ?? d.critDamage) : 1;
-      dealDamage(world, caster, target, evaluate(effect.amount, caster, target) * crit * ctx.scale, effect.damageType, {
+      const amount = Math.max(evaluate(effect.amount, caster, target), effect.minimum ? evaluate(effect.minimum, caster, target) : 0);
+      dealDamage(world, caster, target, amount * crit * ctx.scale, effect.damageType, {
         ...(ctx.attack ? { attack: true } : {}),
         ...(effect.label || ctx.ability ? { ability: effect.label ?? ctx.ability?.name } : {}),
         ...(effect.lifesteal ? { lifesteal: effect.lifesteal } : {}),
@@ -370,6 +372,7 @@ export function applyEffect(world: World, caster: Unit, target: Unit, effect: Ef
           bonusRange: effect.bonusRange ?? 0,
           uncancellable: effect.uncancellable ?? false,
           ...(effect.split ? { split: effect.split } : {}),
+          ...(effect.windup !== undefined ? { windup: effect.windup } : {}),
         },
       });
       if (effect.resetAttack) target.attackReadyTick = tick;

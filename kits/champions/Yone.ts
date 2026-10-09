@@ -64,9 +64,7 @@ const yone: KitModule = {
           const key = ctx.ability.key;
           const bonusAS = derive(ctx.self).bonusAttackSpeed;
           if (key === "Q" || key === "Q3") {
-            const ready = ctx.tick + ticks(steelCooldown(bonusAS));
-            ctx.self.cooldownReady.Q = ready;
-            ctx.self.cooldownReady.Q3 = ready;
+            ctx.self.cooldownReady.Q = ctx.tick + ticks(steelCooldown(bonusAS));
             if (key === "Q3") ctx.memory.storm = 0;
           }
           if (key === "W") ctx.self.cooldownReady.W = ctx.tick + ticks(cleaveCooldown(bonusAS));
@@ -110,6 +108,7 @@ const yone: KitModule = {
           flags: { appliesOnHit: true, projectile: false },
         }),
         mortal("Q3", {
+          cooldownKey: "Q",
           usable: (unit, world) => storm(unit, world) >= 2,
           // Yone dashes forward with the whirlwind, knocking up enemies in his path.
           delivery: { kind: "dash", direction: "toward", distance: q.field("range", "Third cast dash distance"), speed: q.field("speed"), hitRadius: q.field("collisionRadius") },
