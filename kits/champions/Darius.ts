@@ -39,7 +39,9 @@ const darius: KitModule = {
       }
     };
 
-    const guillotine: Effect = { type: "damage", damageType: "true", amount: r.formula("True Damage") };
+    const guillotineDamage = r.formula("True Damage");
+    const guillotineRange = r.field("targetRange");
+    const guillotine: Effect = { type: "damage", damageType: "true", amount: guillotineDamage };
     // Noxian Guillotine deals 20% more per Hemorrhage stack: kill checks use the stacks.
     const handle = q.field("innerRadius");
     const blade = q.field("effectRadius", "Outer radius");
@@ -52,7 +54,7 @@ const darius: KitModule = {
         return { kind: "move", direction: 0 };
       }
       const ultimate = view.self.spec.abilities.find((a) => a.key === "R");
-      if (ultimate && canCast(view.world, view.self, ultimate) && Math.abs(view.self.x - view.enemy.x) <= r.field("targetRange")) {
+      if (ultimate && canCast(view.world, view.self, ultimate) && Math.abs(view.self.x - view.enemy.x) <= guillotineRange) {
         const stacks = view.world.tick < Number(view.self.memory.bleedUntil ?? -1) ? Number(view.self.memory.bleedStacks ?? 0) : 0;
         const damage = expectedDamage([guillotine], view.self, view.enemy) * (1 + perStackBonus * stacks);
         if (damage >= view.enemy.hp) return { kind: "cast", ability: "R" };
@@ -78,7 +80,7 @@ const darius: KitModule = {
           if (ctx.ability.key === "R") {
             // The bonus for stacks, then Hemorrhage from the hit.
             const stacks = stacksOn(ctx);
-            if (stacks > 0) ctx.apply({ ...guillotine, amount: scaled(r.formula("True Damage"), perStackBonus * stacks) });
+            if (stacks > 0) ctx.apply({ ...guillotine, amount: scaled(guillotineDamage, perStackBonus * stacks) });
           }
         },
         onTick(ctx) {
@@ -157,7 +159,7 @@ const darius: KitModule = {
           slot: "R",
           cooldown: r.cooldown(),
           castTime: r.castTime(),
-          delivery: { kind: "target", range: r.field("targetRange") },
+          delivery: { kind: "target", range: guillotineRange },
           onHit: [guillotine],
           roles: ["finisher"],
           flags: { grounded: true },

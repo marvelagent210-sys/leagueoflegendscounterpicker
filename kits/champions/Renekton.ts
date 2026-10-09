@@ -22,6 +22,7 @@ const renekton: KitModule = {
     const dominusFury = r.quoted("and 20 Fury, as well as increasing", 0);
     const dominusFuryPerSecond = r.quoted("generates 5 Fury per second", 0);
     const dominusTick = r.quoted("he deals magic damage every 0.5 seconds", 0);
+    const auraDamage = r.formula("Magic Damage Per Tick");
     const dominusRadius = r.field("effectRadius");
     kit.assume("Renekton starts fights with no Fury.");
     kit.assume("Ruthless Predator's extra strikes count as bonus damage on one attack; their extra on-hit effects aren't applied.");
@@ -103,7 +104,7 @@ const renekton: KitModule = {
     return {
       resourceStart: 0,
       // Dominus burning through an all-in.
-      budget: { damage: (self, target) => ({ magic: evaluate(r.formula("Magic Damage Per Tick"), self, target) / dominusTick }) },
+      budget: { damage: (self, target) => ({ magic: evaluate(auraDamage, self, target) / dominusTick }) },
       hooks: {
         onAttackHit(ctx) {
           gain(ctx, furyPerHit);
@@ -124,7 +125,7 @@ const renekton: KitModule = {
           if (ctx.tick >= until) return;
           if ((until - ctx.tick) % 30 === 0) gain(ctx, dominusFuryPerSecond);
           if ((until - ctx.tick) % ticks(dominusTick) === 0 && Math.abs(ctx.self.x - ctx.enemy.x) - ctx.enemy.spec.base.radius <= dominusRadius) {
-            ctx.apply({ type: "damage", damageType: "magic", amount: r.formula("Magic Damage Per Tick"), label: "Dominus" });
+            ctx.apply({ type: "damage", damageType: "magic", amount: auraDamage, label: "Dominus" });
           }
         },
       },

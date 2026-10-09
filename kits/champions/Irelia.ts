@@ -1,5 +1,7 @@
 /** Irelia: every number is read from the wiki's ability data at level 20 (see engine/kits/context.ts). */
 import type { KitModule } from "../../engine/kits/compile";
+import { canCast, canStartAttack, inReach } from "../../engine/sim/actions";
+import { type Behavior, defaultBehavior } from "../../engine/sim/behavior";
 import { derive, evaluate } from "../../engine/sim/derived";
 import type { Effect, HookContext } from "../../engine/sim/spec";
 import { attackDamage, bump, counter, extraAttacks, scaled, ticks } from "./util";
@@ -36,9 +38,27 @@ const irelia: KitModule = {
     const cageSeconds = r.quoted("around the enemy champion hit for 2.5 seconds", 0);
     const cageSlow = r.quoted("are slowed by 90% for 1.5 seconds", 0) / 100;
     const cageSlowSeconds = r.quoted("are slowed by 90% for 1.5 seconds", 1);
+    const bladesDamage = r.formula("Magic Damage");
     kit.assume("Flawless Duet's blades are placed on both sides of the enemy, so the closing line is dodged like a skillshot 140 units wide.");
     kit.assume("Vanguard's Edge's blade perimeter hits the enemy once if it walks 250 units from where it was struck.");
     kit.assume("Defiant Dance charges fully and is released at the end.");
+    kit.assume("Irelia holds Bladesurge while Flawless Duet or Vanguard's Edge is about to mark her target, so that it resets.");
+
+    // Bladesurge resets on an Unsteady target: mark it first when a mark is on its way or ready.
+    const behavior: Behavior = (view) => {
+      const command = defaultBehavior(view);
+      if (command?.kind !== "cast" || command.ability !== "Q") return command;
+      const { world, self, enemy } = view;
+      const unsteady = enemy.statuses.some((s) => s.kind === "mark" && s.key === "unsteady");
+      if (unsteady) return command;
+      const inFlight =
+        world.zones.some((z) => z.owner === self.side && z.ability === "E" && z.connects !== false) ||
+        world.missiles.some((m) => m.owner === self.side && m.source === "R" && m.connects);
+      const marker = ["E", "R"].map((key) => self.spec.abilities.find((a) => a.key === key)).find((a) => a && canCast(world, self, a) && inReach(a, self, enemy));
+      if (marker) return { kind: "cast", ability: marker.key };
+      if (!inFlight) return command;
+      return canStartAttack(world, self) ? { kind: "attack" } : { kind: "move", direction: 0 };
+    };
 
     const fervor = (ctx: HookContext) => {
       const stacks = bump(ctx, "fervor", maxStacks, fervorSeconds);
@@ -46,6 +66,7 @@ const irelia: KitModule = {
     };
 
     return {
+      behavior,
       // At full stacks through a fight: Ionian Fervor's attack speed and bonus damage.
       budget: {
         damage: (self, target) => ({
@@ -89,7 +110,7 @@ const irelia: KitModule = {
           if (ctx.tick >= Number(ctx.memory.cageUntil ?? -1)) return;
           if (Math.abs(ctx.enemy.x - Number(ctx.memory.cageX)) < 250) return;
           ctx.memory.cageUntil = -1;
-          ctx.apply({ type: "damage", damageType: "magic", amount: r.formula("Magic Damage"), label: "Vanguard's Edge (blades)" });
+          ctx.apply({ type: "damage", damageType: "magic", amount: bladesDamage, label: "Vanguard's Edge (blades)" });
           ctx.apply({ type: "cc", cc: "slow", strength: cageSlow, duration: cageSlowSeconds });
         },
       },

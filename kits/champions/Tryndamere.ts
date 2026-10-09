@@ -24,6 +24,11 @@ const tryndamere: KitModule = {
     const adCap = q.number("Maximum Bonus Attack Damage");
     const minHeal = q.formula("Minimum Heal");
     const healPerFury = q.formula("Heal Per 1 Fury");
+    const maxHeal = q.formula("Maximum Heal");
+    const shoutCut = w.number("Attack Damage Reduction");
+    const shoutSeconds = w.quoted("of nearby enemy champions for 4 seconds", 0);
+    const curseSlow = w.fraction("Slow");
+    const curseSeconds = w.quoted("curse to all nearby enemy champions for 3.25 seconds", 0);
     const furyPerSlashHit = e.quoted("increased to 5 Fury against champions", 0);
     const slashRefund = e.quoted("doubled to 1.5 seconds against champions", 0);
     const rageSeconds = r.quoted("a minimum health threshold for 5 seconds", 0);
@@ -77,7 +82,7 @@ const tryndamere: KitModule = {
         onCast(ctx) {
           if (ctx.ability.key === "Q") {
             const fury = ctx.self.resource;
-            const heal = Math.min(evaluate(q.formula("Maximum Heal"), ctx.self), evaluate(minHeal, ctx.self) + fury * evaluate(healPerFury, ctx.self));
+            const heal = Math.min(evaluate(maxHeal, ctx.self), evaluate(minHeal, ctx.self) + fury * evaluate(healPerFury, ctx.self));
             ctx.self.resource = 0;
             ctx.apply({ type: "heal", amount: flat(heal) }, true);
           }
@@ -87,9 +92,9 @@ const tryndamere: KitModule = {
           if (ctx.ability.key === "E") ctx.apply({ type: "resource", amount: flat(furyPerSlashHit) }, true);
           if (ctx.ability.key === "W") {
             // The shout lowers the enemy's bonus attack damage; the curse slows it while it runs away.
-            const cut = Math.min(w.number("Attack Damage Reduction"), derive(ctx.enemy).bonusAd);
-            ctx.apply({ type: "stat", stat: "AD", amount: flat(-cut), duration: w.quoted("of nearby enemy champions for 4 seconds", 0) });
-            if (ctx.enemy.moved === -1) ctx.apply({ type: "cc", cc: "slow", strength: w.fraction("Slow"), duration: w.quoted("curse to all nearby enemy champions for 3.25 seconds", 0) });
+            const cut = Math.min(shoutCut, derive(ctx.enemy).bonusAd);
+            ctx.apply({ type: "stat", stat: "AD", amount: flat(-cut), duration: shoutSeconds });
+            if (ctx.enemy.moved === -1) ctx.apply({ type: "cc", cc: "slow", strength: curseSlow, duration: curseSeconds });
           }
         },
       },

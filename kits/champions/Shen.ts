@@ -61,12 +61,15 @@ const shen: KitModule = {
     const touched = (ctx: HookContext) => {
       ctx.memory.kiReady = Number(ctx.memory.kiReady ?? 0) - ticks(kiCut);
     };
+    const assaultDamage = q.formula("Bonus Magic Damage");
+    const assaultStrong = q.formula("Increased Bonus Damage");
+    const assaultEvery = q.cooldown();
     const empowered = (strong: boolean): Effect => ({
       type: "empower",
       attacks: assaultAttacks,
       window: assaultWindow,
       bonusRange: assaultRange,
-      onHit: [{ type: "damage", damageType: "magic", amount: q.formula(strong ? "Increased Bonus Damage" : "Bonus Magic Damage"), label: q.name }],
+      onHit: [{ type: "damage", damageType: "magic", amount: strong ? assaultStrong : assaultDamage, label: q.name }],
     });
 
     const behavior: Behavior = (view) => {
@@ -94,7 +97,7 @@ const shen: KitModule = {
       budget: {
         // Twilight Assault's three attacks per cooldown, half of them through the blade's pass.
         damage: (self, target) => ({
-          magic: (assaultAttacks * (evaluate(q.formula("Bonus Magic Damage"), self, target) + evaluate(q.formula("Increased Bonus Damage"), self, target))) / 2 / q.cooldown(),
+          magic: (assaultAttacks * (evaluate(assaultDamage, self, target) + evaluate(assaultStrong, self, target))) / 2 / assaultEvery,
         }),
         // Ki Barrier, its cooldown cut by hitting the enemy.
         healing: (self) => (kiShield + kiBonusHP * (maxHp(self) - self.spec.base.hp)) / Math.max(3, kiCooldown - kiCut),

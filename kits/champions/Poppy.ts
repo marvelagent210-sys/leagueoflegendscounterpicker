@@ -27,6 +27,7 @@ const poppy: KitModule = {
     const doubledBelow = w.quoted("doubled to 32% while she is below 40% maximum health", 1) / 100;
     const auraSeconds = w.quoted("creates an aura around herself for 2 seconds", 0);
     const hammerField = q.quoted("The impact creates a field for 1 second", 0);
+    const hammerLength = q.field("range", "Forward range");
     const carry = e.quoted("carries them along with her for up to 400 units", 0);
     kit.assume("Poppy picks her buckler back up whenever she is next to her enemy a second after throwing it.");
     kit.assume("Poppy raises Steadfast Presence as soon as the enemy could dash onto her, rather than reacting to the dash.");
@@ -84,8 +85,7 @@ const poppy: KitModule = {
             // The field ruptures a second later where it was, hitting whoever is still in it
             // (as its own ability, so the rupture doesn't set off another).
             const dir = directionTo(ctx.self, ctx.enemy);
-            const length = q.field("range", "Forward range");
-            areaAt(ctx, "Qrupture", ctx.self.x + (dir * length) / 2, length / 2, hammerField, [hit]);
+            areaAt(ctx, "Qrupture", ctx.self.x + (dir * hammerLength) / 2, hammerLength / 2, hammerField, [hit]);
           }
           if (ctx.ability.key === "E") {
             // Poppy carries the enemy along: she moves with it.
@@ -102,7 +102,7 @@ const poppy: KitModule = {
           cooldown: q.cooldown(),
           cost: q.cost(),
           castTime: q.castTime(),
-          delivery: { kind: "area", near: 0, far: q.field("range", "Forward range"), delay: 0, anchor: "caster" },
+          delivery: { kind: "area", near: 0, far: hammerLength, delay: 0, anchor: "caster" },
           onHit: [hit, { type: "cc", cc: "slow", strength: q.baseOf("Slow") / 100, duration: hammerField }],
         },
         {

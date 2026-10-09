@@ -101,6 +101,8 @@ const sett: KitModule = {
 
     // Two punches every 1 + 1/8 attack timers: the Right Punch nearly doubles the attack rate.
     const punchRate = 2 / (1 + 1 / rightSpeed);
+    const haymakerCast = w.castTime();
+    const haymakerEvery = w.cooldown();
     // Haymaker thrown with most of a full Grit bar.
     const gritThrown = 0.8 * gritCap;
     return {
@@ -110,9 +112,9 @@ const sett: KitModule = {
           const d = derive(self);
           const right = rightBonus.base + (rightBonus.ratios?.bonusAD ?? 0) * d.bonusAd;
           const blow = blowBase + gritThrown * d.maxHp * (blowShare + (blowPer100 * d.bonusAd) / 100);
-          return { physical: d.attackSpeed * ((punchRate - 1) * attackDamage(self) + (punchRate / 2) * right), true: blow / w.cooldown() };
+          return { physical: d.attackSpeed * ((punchRate - 1) * attackDamage(self) + (punchRate / 2) * right), true: blow / haymakerEvery };
         },
-        healing: (self) => (gritThrown * maxHp(self)) / w.cooldown(),
+        healing: (self) => (gritThrown * maxHp(self)) / haymakerEvery,
       },
       hooks: {
         onAttack(ctx) {
@@ -151,8 +153,8 @@ const sett: KitModule = {
           const enemy = ctx.enemy;
           const settings = ctx.world.settings;
           ctx.memory.centerChance = hitChance(
-            { timeToLand: w.castTime(), reach: centerWidth / 2 },
-            { radius: enemy.spec.base.radius, moveSpeed: derive(enemy).moveSpeed, heldInPlace: heldInPlace(enemy, ctx.tick + ticks(w.castTime())), hasEscape: false },
+            { timeToLand: haymakerCast, reach: centerWidth / 2 },
+            { radius: enemy.spec.base.radius, moveSpeed: derive(enemy).moveSpeed, heldInPlace: heldInPlace(enemy, ctx.tick + ticks(haymakerCast)), hasEscape: false },
             settings.reactionTime,
             settings.hitSpread,
           );

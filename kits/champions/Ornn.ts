@@ -66,6 +66,8 @@ const ornn: KitModule = {
       ctx.apply({ type: "damage", damageType: "magic", amount: { base: 0, ratios: { targetMaxHP: brittleShare } }, label: "Brittle" });
     };
 
+    const chargeCast = e.castTime();
+    const bellowsEvery = w.cooldown();
     // Terrain Searing Charge can hit beyond the enemy: the pillar, and a wall behind it.
     const terrain = (unit: Unit, enemy: Unit, world: World): number | undefined => {
       const dir = directionTo(unit, enemy);
@@ -74,7 +76,7 @@ const ornn: KitModule = {
       const pillarFrom = Number(unit.memory.pillarFrom ?? Number.POSITIVE_INFINITY);
       const pillarUntil = Number(unit.memory.pillarUntil ?? -1);
       // The pillar has to be up when the charge gets there.
-      if (world.tick + ticks(e.castTime()) >= pillarFrom && world.tick < pillarUntil) points.push(Number(unit.memory.pillarX));
+      if (world.tick + ticks(chargeCast) >= pillarFrom && world.tick < pillarUntil) points.push(Number(unit.memory.pillarX));
       if (world.settings.environment.walls) points.push(enemy.x + dir * world.settings.environment.wallDistance);
       const reachable = points.filter(ahead).sort((a, b) => Math.abs(a - unit.x) - Math.abs(b - unit.x));
       return reachable[0];
@@ -93,7 +95,7 @@ const ornn: KitModule = {
         // Living Forge: each point of bonus armor, magic resistance and health bought is worth 30% more.
         statMultipliers: { armor: 1 + forged, mr: 1 + forged, hp: 1 + forged },
         // Brittle bursting about every ten seconds (Bellows Breath's cooldown).
-        damage: (_self, target) => ({ magic: (brittleShare * derive(target).maxHp) / w.cooldown() }),
+        damage: (_self, target) => ({ magic: (brittleShare * derive(target).maxHp) / bellowsEvery }),
       },
       hooks: {
         onStart(ctx) {

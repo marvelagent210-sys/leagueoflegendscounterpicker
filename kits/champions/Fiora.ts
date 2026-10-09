@@ -32,6 +32,12 @@ const fiora: KitModule = {
     const challengeDelay = r.quoted("highlighting all four of their Vitals after a 0.5-second delay", 0);
     const victoryPerSecond = r.formula("Heal per Second");
     const victorySeconds = r.quoted("a Victory Zone is created on their death location for 5 seconds", 0);
+    const challengeSeconds = r.quoted("challenges the target enemy champion for 8 seconds", 0);
+    const bladeworkSlow = e.quoted("The first attack slows the target by 30% for 1 second", 0) / 100;
+    const bladeworkSlowSeconds = e.quoted("The first attack slows the target by 30% for 1 second", 1);
+    const bladeworkCrit = e.number("Critical damage") / 100;
+    const bladeworkSeconds = e.quoted("next two basic attacks on-attack within 4 seconds", 0);
+    const stabRefund = q.quoted("Stabbing a target reduces Lunge's cooldown by 50%", 0) / 100;
 
     // In an all-in: a passive Vital about every 3 seconds, and Grand Challenge's four.
     const vitalsPerSecond = 1 / 3 + challengeVitals / 10;
@@ -85,29 +91,29 @@ const fiora: KitModule = {
         onAttackHit(ctx) {
           const which = Number(ctx.memory.bladeworkHit ?? 0);
           ctx.memory.bladeworkHit = 0;
-          if (which === 2) ctx.apply({ type: "cc", cc: "slow", strength: e.quoted("The first attack slows the target by 30% for 1 second", 0) / 100, duration: e.quoted("The first attack slows the target by 30% for 1 second", 1) });
+          if (which === 2) ctx.apply({ type: "cc", cc: "slow", strength: bladeworkSlow, duration: bladeworkSlowSeconds });
           if (which === 1) {
             // The second attack critically strikes for Bladework's critical damage.
             const d = derive(ctx.self);
             const average = 1 + d.critChance * (d.critDamage - 1);
-            const extra = Math.max(0, e.number("Critical damage") / 100 - average);
+            const extra = Math.max(0, bladeworkCrit - average);
             ctx.apply({ type: "damage", damageType: "physical", amount: { base: 0, ratios: { AD: extra } }, label: "Bladework (critical strike)" });
           }
         },
         onCast(ctx) {
           if (ctx.ability.key === "E") {
             ctx.memory.bladework = 2;
-            ctx.memory.bladeworkUntil = ctx.tick + ticks(e.quoted("next two basic attacks on-attack within 4 seconds", 0));
+            ctx.memory.bladeworkUntil = ctx.tick + ticks(bladeworkSeconds);
           }
           if (ctx.ability.key === "R") {
             ctx.memory.challengeVitals = challengeVitals;
             ctx.memory.challengeReady = ctx.tick + ticks(challengeDelay);
-            ctx.memory.challengeUntil = ctx.tick + ticks(r.quoted("challenges the target enemy champion for 8 seconds", 0));
+            ctx.memory.challengeUntil = ctx.tick + ticks(challengeSeconds);
           }
         },
         onAbilityHit(ctx) {
           // A stab refunds half of Lunge's cooldown.
-          if (ctx.ability.key === "Q") ctx.apply({ type: "refund", ability: "Q", fraction: q.quoted("Stabbing a target reduces Lunge's cooldown by 50%", 0) / 100 });
+          if (ctx.ability.key === "Q") ctx.apply({ type: "refund", ability: "Q", fraction: stabRefund });
         },
       },
       abilities: [
@@ -149,8 +155,8 @@ const fiora: KitModule = {
           castTime: e.castTime(),
           delivery: { kind: "self" },
           onSelf: [
-            { type: "empower", attacks: 2, window: e.quoted("next two basic attacks on-attack within 4 seconds", 0), bonusRange: e.quoted("to gain 25 bonus range", 0), onHit: [] },
-            { type: "stat", stat: "attackSpeed", amount: flat(e.fraction("Bonus Attack Speed")), duration: e.quoted("next two basic attacks on-attack within 4 seconds", 0) },
+            { type: "empower", attacks: 2, window: bladeworkSeconds, bonusRange: e.quoted("to gain 25 bonus range", 0), onHit: [] },
+            { type: "stat", stat: "attackSpeed", amount: flat(e.fraction("Bonus Attack Speed")), duration: bladeworkSeconds },
             { type: "resetAttack" },
           ],
         },
@@ -162,7 +168,7 @@ const fiora: KitModule = {
           cost: r.cost(),
           castTime: r.castTime(),
           delivery: { kind: "target", range: r.field("targetRange") },
-          onHit: [{ type: "mark", key: "grandChallenge", duration: r.quoted("challenges the target enemy champion for 8 seconds", 0) }],
+          onHit: [{ type: "mark", key: "grandChallenge", duration: challengeSeconds }],
           roles: ["buff"],
           flags: { spellShield: false },
         },

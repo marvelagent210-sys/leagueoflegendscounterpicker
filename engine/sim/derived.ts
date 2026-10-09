@@ -192,14 +192,23 @@ function statValue(ref: StatRef, unit: Unit, d: Derived, target?: Unit, t?: Deri
 
 /** A formula with the caster's (and target's) current stats. */
 export function evaluate(formula: Formula, caster: Unit, target?: Unit): number {
+  const { ratios, products } = formula;
+  if (!ratios && !products) return formula.base;
   const d = derive(caster);
   const t = target ? derive(target) : undefined;
   let value = formula.base;
-  for (const [ref, ratio] of Object.entries(formula.ratios ?? {})) {
-    value += (ratio ?? 0) * statValue(ref as StatRef, caster, d, target, t);
+  if (ratios) {
+    for (const ref in ratios) {
+      const ratio = ratios[ref as StatRef];
+      if (ratio) value += ratio * statValue(ref as StatRef, caster, d, target, t);
+    }
   }
-  for (const term of formula.products ?? []) {
-    value += term.stats.reduce((product, ref) => product * statValue(ref, caster, d, target, t), term.ratio);
+  if (products) {
+    for (const term of products) {
+      let product = term.ratio;
+      for (const ref of term.stats) product *= statValue(ref, caster, d, target, t);
+      value += product;
+    }
   }
   return value;
 }

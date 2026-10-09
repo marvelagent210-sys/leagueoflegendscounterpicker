@@ -28,6 +28,7 @@ const camille: KitModule = {
     const outer = w.field("effectRadius", "Outer radius");
     const zoneSeconds = r.number("Zone Duration");
     const zoneRadius = r.field("effectRadius");
+    const zoneDamage = r.shareOf("Bonus Magic Damage");
     const hookTime = 0.5;
     kit.assume("Precision Protocol's recast waits the 1.5 seconds that make it deal true damage (100% of the attack at level 16 and up).");
     kit.assume(`With walls nearby, Hookshot reaches a wall and Wall Dive lands ${hookTime} seconds after the cast.`);
@@ -58,7 +59,7 @@ const camille: KitModule = {
             const type = enemyDamage.magic > enemyDamage.physical ? "magic" : "physical";
             ctx.apply({ type: "shield", amount: { base: shieldShare * maxHp(ctx.self) }, duration: shieldSeconds, shieldType: type }, true);
           }
-          if (zoneOf(ctx)) ctx.apply({ type: "damage", damageType: "magic", amount: { base: 0, ratios: { targetCurrentHP: r.shareOf("Bonus Magic Damage") } }, label: "The Hextech Ultimatum" });
+          if (zoneOf(ctx)) ctx.apply({ type: "damage", damageType: "magic", amount: { base: 0, ratios: { targetCurrentHP: zoneDamage } }, label: "The Hextech Ultimatum" });
         },
         onAbilityHit(ctx) {
           if (ctx.ability.key === "R") {

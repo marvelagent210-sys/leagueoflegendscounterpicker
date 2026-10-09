@@ -33,6 +33,7 @@ const gwen: KitModule = {
     const stackSeconds = q.quoted("generate a stack of Snippy on-hit for 6 seconds", 0);
     const maxStacks = q.quoted("stacking up to 4 times", 0);
     const trueShare = q.quoted("The center of each snip converts 50% of the damage to true damage", 0) / 100;
+    const snipDamage = q.formula("Damage per Snip");
     const [qNear = -50, qFar = 465] = q.fieldNumbers("effectRadius").map((n, i) => (i === 0 ? -Math.abs(n) : n));
     const snip = (amount: Formula): Effect[] => [
       { type: "damage", damageType: "magic", amount: scaled(amount, 1 - trueShare), label: q.name },
@@ -40,6 +41,7 @@ const gwen: KitModule = {
       cuts,
     ];
     // Skip 'n Slash: a short dash, then empowered attacks; the first refunds part of the cooldown.
+    const slashRefund = e.fraction("Cooldown Refund");
     const slashSeconds = e.quoted("empowers her basic attacks within the next 4 seconds", 0);
     const slashRange = e.quoted("75 bonus attack range", 0);
     const slashOnHit: Formula = { base: e.quoted("deal 15 (+ 20% AP) bonus magic damage on-hit", 0), ratios: { AP: e.quoted("deal 15 (+ 20% AP) bonus magic damage on-hit", 1) / 100 } };
@@ -107,7 +109,7 @@ const gwen: KitModule = {
       attack: { onHit: [cuts] },
       budget: {
         damage: (self, target) => {
-          const snip = evaluate(q.formula("Damage per Snip"), self, target);
+          const snip = evaluate(snipDamage, self, target);
           const cut = evaluate(cutsAmount, self, target);
           return { magic: snipsPerSecond * (snip * (1 - trueShare) + cut), true: snipsPerSecond * snip * trueShare };
         },
@@ -123,7 +125,7 @@ const gwen: KitModule = {
           // The first empowered attack after Skip 'n Slash refunds part of its cooldown.
           if (ctx.memory.slashRefund) {
             ctx.memory.slashRefund = false;
-            ctx.apply({ type: "refund", ability: "E", fraction: e.fraction("Cooldown Refund") }, true);
+            ctx.apply({ type: "refund", ability: "E", fraction: slashRefund }, true);
           }
         },
         onCast(ctx) {
@@ -137,7 +139,7 @@ const gwen: KitModule = {
           if (ctx.ability.key !== "Q") return;
           // The first snip and one per stack, besides the final snip (the ability's own hit).
           const snips = 1 + Number(ctx.memory.snipsQueued ?? 0);
-          for (let i = 0; i < snips; i++) for (const effect of snip(q.formula("Damage per Snip"))) ctx.apply(effect);
+          for (let i = 0; i < snips; i++) for (const effect of snip(snipDamage)) ctx.apply(effect);
         },
         onDamageDealt(ctx) {
           if (ctx.ability !== CUTS) return;

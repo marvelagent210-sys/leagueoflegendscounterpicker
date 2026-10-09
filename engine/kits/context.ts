@@ -101,6 +101,7 @@ export class AbilityData {
   }
 
   private note(text: string): void {
+    this.kit.checkOpen(`${this.name}: ${text}`);
     this.kit.evidence.push({ ability: this.name, page: this.record.page.title, revid: this.record.page.revid, text });
   }
 
@@ -327,6 +328,20 @@ export class KitContext {
   readonly evidence: KitEvidence[] = [];
   readonly assumptions: string[] = [];
   private readonly byName = new Map<string, AbilityData>();
+  private sealed = false;
+
+  /**
+   * Ends reading: kits read the wiki while they are built, never during a fight (a read in a
+   * hook would parse the data again on every tick).
+   */
+  seal(): void {
+    this.sealed = true;
+  }
+
+  /** Throws if the kit is reading the wiki after it was built. */
+  checkOpen(what: string): void {
+    if (this.sealed) throw new Error(`${this.champion.id} kit reads ${what} from the wiki during a fight; read it while building the kit`);
+  }
 
   constructor(
     readonly champion: Champion,

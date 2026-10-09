@@ -52,6 +52,7 @@ const aatrox: KitModule = {
     const decay = r.quoted("decays by 10% of the current bonus every 0.25 seconds", 0) / 100;
     const decayEvery = r.quoted("decays by 10% of the current bonus every 0.25 seconds", 1);
     const haste = r.fraction("Bonus Movement Speed");
+    const healingIncrease = r.fraction("Increased Healing");
     kit.assume("Umbral Dash is aimed late in each Darkin Blade strike to put its sweet spot on the enemy, when it is up.");
 
     // Where each strike reaches, in front of Aatrox's center, and its sweet spot.
@@ -161,7 +162,7 @@ const aatrox: KitModule = {
           const stance = (stanceShare * derive(target).maxHp) / stanceEvery(self);
           const share = healShare + (healPer100 * (maxHp(self) - self.spec.base.hp)) / 100;
           // World Ender doubles healing through an all-in.
-          return (1 + r.fraction("Increased Healing")) * (stance + share * (attackDamage(self) * derive(self).attackSpeed + stance));
+          return (1 + healingIncrease) * (stance + share * (attackDamage(self) * derive(self).attackSpeed + stance));
         },
       },
       hooks: {
@@ -259,7 +260,7 @@ const aatrox: KitModule = {
           delivery: { kind: "self" },
           onSelf: [
             { type: "stat", stat: "AD", amount: bonusAD, duration: unleashed },
-            { type: "stat", stat: "healingIncrease", amount: flat(r.fraction("Increased Healing")), duration: unleashed },
+            { type: "stat", stat: "healingIncrease", amount: flat(healingIncrease), duration: unleashed },
           ],
           roles: ["buff"],
         },

@@ -57,7 +57,9 @@ const mordekaiser: KitModule = {
     const graspDelay = e.quoted("After 0.5 seconds, it deals magic damage to enemies within and pulls them over 250 units", 0);
     const pull = e.quoted("After 0.5 seconds, it deals magic damage to enemies within and pulls them over 250 units", 1);
     const graspReach = e.field("targetRange", "Maximum range");
+    const shieldEvery = w.cooldown();
     // Realm of Death.
+    const realmRange = r.field("targetRange");
     const realmSeconds = r.quoted("banishing them with him to the Death Realm for 7 seconds", 0);
     const steal = r.quoted("healing himself for 10% of their maximum health and reducing their current ability power", 0) / 100;
     const realmRadius = r.field("effectRadius");
@@ -78,7 +80,7 @@ const mordekaiser: KitModule = {
       const busy = self.action && self.action.kind !== "windup";
       const ultimate = self.spec.abilities.find((a) => a.key === "R");
       // Realm of Death opens an all-in: in fights, as soon as the enemy is in range.
-      if (!busy && ultimate && (view.mode === "fight" || view.mode === "hold") && Math.abs(self.x - enemy.x) <= r.field("targetRange") && canCast(world, self, ultimate)) {
+      if (!busy && ultimate && (view.mode === "fight" || view.mode === "hold") && Math.abs(self.x - enemy.x) <= realmRange && canCast(world, self, ultimate)) {
         return { kind: "cast", ability: "R" };
       }
       // Indestructible once the stored shield is worth it, or when health runs low.
@@ -95,7 +97,7 @@ const mordekaiser: KitModule = {
       budget: {
         // Darkness Rise burning through the fight, and Indestructible's stored shield once per cooldown.
         damage: (self, target) => ({ magic: evaluate(aura, self, target) }),
-        healing: (self) => (0.2 * maxHp(self)) / w.cooldown(),
+        healing: (self) => (0.2 * maxHp(self)) / shieldEvery,
       },
       attack: { onHit: [{ type: "damage", damageType: "magic", amount: { base: 0, ratios: { AP: onHitAP } }, label: innate.name }] },
       start: [innateStat("magicPenPercent", e.fraction("Magic Penetration"))],
@@ -229,7 +231,7 @@ const mordekaiser: KitModule = {
           slot: "R",
           cooldown: r.cooldown(),
           castTime: r.castTime(),
-          delivery: { kind: "target", range: r.field("targetRange") },
+          delivery: { kind: "target", range: realmRange },
           onHit: [{ type: "mark", key: "realm", duration: realmSeconds }],
           roles: ["engage"],
         },

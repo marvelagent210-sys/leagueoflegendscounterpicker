@@ -33,6 +33,14 @@ const mundo: KitModule = {
     if (traumaSeries.kind !== "variable") throw new Error("Dr. Mundo kit: Blunt Force Trauma's missing-health bonus changed shape");
     const traumaMax = Math.max(...traumaSeries.values.map(Number)) / 100;
     const traumaFull = Math.max(...traumaSeries.points.map(Number)) / 100;
+    const traumaShare = e.formula("Bonus Attack Damage").ratios?.maxHP ?? 0;
+    const traumaMinimum = e.formula("Minimum Bonus Physical Damage");
+    const traumaWindow = e.quoted("empowers his next basic attack within 4 seconds", 0);
+    const traumaRange = e.quoted("gain 50 bonus range", 0);
+    const traumaEvery = e.cooldown();
+    const zapPulse = w.formula("Magic Damage per Tick");
+    const zapDetonation = w.formula("Magic Damage");
+    const zapEveryCast = w.cooldown();
     // Maximum Dosage at rank 3, against one enemy champion.
     const dosageSeconds = r.quoted("to become enhanced for 10 seconds", 0);
     const perEnemy = r.quoted("are both increased by 5% for each enemy champion within 1200 units", 0) / 100;
@@ -57,12 +65,12 @@ const mundo: KitModule = {
     const trauma = (ctx: HookContext): Effect => {
       // The bonus grows with missing health, up to its maximum at 70% missing.
       const increase = traumaMax * Math.min(1, missingShare(ctx.self) / traumaFull);
-      const minimum = e.formula("Minimum Bonus Physical Damage");
+      const minimum = traumaMinimum;
       return {
         type: "empower",
         attacks: 1,
-        window: e.quoted("empowers his next basic attack within 4 seconds", 0),
-        bonusRange: e.quoted("gain 50 bonus range", 0),
+        window: traumaWindow,
+        bonusRange: traumaRange,
         uncancellable: true,
         onHit: [{ type: "damage", damageType: "physical", amount: { base: minimum.base * (1 + increase), ratios: { bonusHP: (minimum.ratios?.bonusHP ?? 0) * (1 + increase) } }, label: e.name }],
       };
@@ -75,13 +83,12 @@ const mundo: KitModule = {
           const d = derive(self);
           const bonusHealth = d.maxHp - self.spec.base.hp;
           // Blunt Force Trauma's AD from maximum health on every attack, and its empowered attack.
-          const traumaAD = (e.formula("Bonus Attack Damage").ratios?.maxHP ?? 0) * d.maxHp;
-          const minimum = e.formula("Minimum Bonus Physical Damage");
-          const trauma = (minimum.base + (minimum.ratios?.bonusHP ?? 0) * bonusHealth) * (1 + traumaMax / 2);
+          const traumaAD = traumaShare * d.maxHp;
+          const trauma = (traumaMinimum.base + (traumaMinimum.ratios?.bonusHP ?? 0) * bonusHealth) * (1 + traumaMax / 2);
           // Heart Zapper's pulses and detonation, once per cooldown.
-          const pulses = (zapSeconds / zapEvery) * w.formula("Magic Damage per Tick").base;
-          const detonation = w.formula("Magic Damage").base + (w.formula("Magic Damage").ratios?.bonusHP ?? 0) * bonusHealth;
-          return { physical: traumaAD * d.attackSpeed + trauma / e.cooldown(), magic: (pulses + detonation) / w.cooldown() };
+          const pulses = (zapSeconds / zapEvery) * zapPulse.base;
+          const detonation = zapDetonation.base + (zapDetonation.ratios?.bonusHP ?? 0) * bonusHealth;
+          return { physical: traumaAD * d.attackSpeed + trauma / traumaEvery, magic: (pulses + detonation) / zapEveryCast };
         },
         // The innate regeneration, and Maximum Dosage's through an all-in.
         healing: (self) => (regenShare * maxHp(self)) / 5 + (regenTotal * maxHp(self)) / dosageSeconds,
@@ -94,8 +101,7 @@ const mundo: KitModule = {
         onTick(ctx) {
           const self = ctx.self;
           // Blunt Force Trauma's passive: bonus AD from maximum health, kept up to date.
-          const ad = e.formula("Bonus Attack Damage").ratios?.maxHP ?? 0;
-          const wanted = Math.round(ad * maxHp(self) * 10) / 10;
+          const wanted = Math.round(traumaShare * maxHp(self) * 10) / 10;
           if (wanted !== Number(ctx.memory.traumaAD ?? -1)) {
             ctx.memory.traumaAD = wanted;
             ctx.buff("traumaAD", "AD", wanted, 1e9);
@@ -117,7 +123,7 @@ const mundo: KitModule = {
           // Heart Zapper's pulses.
           if (zapping(ctx) && (ctx.tick - Number(ctx.memory.zapStart)) % ticks(zapEvery) === 0 && ctx.tick > Number(ctx.memory.zapStart)) {
             if (Math.abs(self.x - ctx.enemy.x) - ctx.enemy.spec.base.radius <= zapRadius) {
-              ctx.apply({ type: "damage", damageType: "magic", amount: w.formula("Magic Damage per Tick"), label: w.name });
+              ctx.apply({ type: "damage", damageType: "magic", amount: zapPulse, label: w.name });
             }
           }
         },
@@ -189,7 +195,7 @@ const mundo: KitModule = {
           chain: { root: "W", index: 2, window: zapSeconds, delay: recastAfter, auto: true },
           usable: () => false,
           delivery: { kind: "aura", radius: zapRadius },
-          onHit: [{ type: "damage", damageType: "magic", amount: w.formula("Magic Damage") }],
+          onHit: [{ type: "damage", damageType: "magic", amount: zapDetonation }],
         },
         {
           key: "E",

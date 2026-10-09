@@ -29,10 +29,17 @@ const volibear: KitModule = {
     const smashSeconds = q.quoted("gaining bonus movement speed for 4 seconds", 0);
     const smashWindup = q.quoted("Attack Windup Time: 0.4 (- 0.1 per 100% bonus attack speed)", 0);
     const smashWindupCut = q.quoted("Attack Windup Time: 0.4 (- 0.1 per 100% bonus attack speed)", 1);
+    const smashRange = q.quoted("gain 25 bonus range", 0);
+    const smashDamage = q.formula("Bonus Physical Damage");
+    const smashStun = q.quoted("stunning them for 1 second", 0);
+    const smashEvery = q.cooldown();
     // Frenzied Maul: the second bite on a Wounded target hits harder and heals.
     const woundSeconds = w.quoted("mark the target Wounded for 8 seconds", 0);
     const biteBonus = w.quoted("dealing 50% (+ 25% per 100 bonus AD) increased damage", 0) / 100;
     const bitePer100 = w.quoted("dealing 50% (+ 25% per 100 bonus AD) increased damage", 1) / 100;
+    const maulDamage = w.formula("Physical Damage");
+    const biteHeal = w.formula("Heal");
+    const maulEvery = w.cooldown();
     // Sky Splitter: the bolt lands 2 seconds later; Volibear within it gets a shield.
     const boltDelay = e.quoted("to strike at the target location after a 2-second delay", 0);
     const [boltRadius = 325, shieldRadius = 425] = e.fieldValues("effectRadius");
@@ -57,12 +64,12 @@ const volibear: KitModule = {
           const speed = maxStacks * (speedPerStack + (speedPer100AP * d.ap) / 100);
           const attacks = d.attackSpeed + extraAttacks(self, speed);
           // The pounce once per cooldown; the bite (half more damage) every other Frenzied Maul.
-          const pounce = evaluate(q.formula("Bonus Physical Damage"), self, target) / q.cooldown();
-          const bite = (biteBonus * evaluate(w.formula("Physical Damage"), self, target)) / (2 * w.cooldown());
+          const pounce = evaluate(smashDamage, self, target) / smashEvery;
+          const bite = (biteBonus * evaluate(maulDamage, self, target)) / (2 * maulEvery);
           return { physical: attackDamage(self) * extraAttacks(self, speed) + pounce + bite, magic: evaluate(claws, self, target) * attacks };
         },
         // The bite's heal at about half health.
-        healing: (self) => (w.formula("Heal").base + (w.formula("Heal").ratios?.missingHP ?? 0) * 0.5 * derive(self).maxHp) / (2 * w.cooldown()),
+        healing: (self) => (biteHeal.base + (biteHeal.ratios?.missingHP ?? 0) * 0.5 * derive(self).maxHp) / (2 * maulEvery),
       },
       hooks: {
         onAttack(ctx) {
@@ -79,8 +86,8 @@ const volibear: KitModule = {
           if (key === "W" && ctx.memory.bite) {
             // The bite: more damage and a heal.
             const more = biteBonus + (bitePer100 * derive(ctx.self).bonusAd) / 100;
-            ctx.apply({ type: "damage", damageType: "physical", amount: scaled(w.formula("Physical Damage"), more), label: `${w.name} (bite)` });
-            ctx.apply({ type: "heal", amount: w.formula("Heal") }, true);
+            ctx.apply({ type: "damage", damageType: "physical", amount: scaled(maulDamage, more), label: `${w.name} (bite)` });
+            ctx.apply({ type: "heal", amount: biteHeal }, true);
           }
           if (key === "E" && Math.abs(ctx.self.x - ctx.enemy.x) <= shieldRadius) ctx.apply({ type: "shield", amount: boltShield, duration: shieldSeconds }, true);
           // Frenzied Maul applies on-hit effects, so it can carry Lightning Claws.
@@ -97,13 +104,13 @@ const volibear: KitModule = {
                 type: "empower",
                 attacks: 1,
                 window: smashSeconds,
-                bonusRange: q.quoted("gain 25 bonus range", 0),
+                bonusRange: smashRange,
                 uncancellable: true,
                 resetAttack: true,
                 windup,
                 onHit: [
-                  { type: "damage", damageType: "physical", amount: q.formula("Bonus Physical Damage") },
-                  { type: "cc", cc: "stun", duration: q.quoted("stunning them for 1 second", 0) },
+                  { type: "damage", damageType: "physical", amount: smashDamage },
+                  { type: "cc", cc: "stun", duration: smashStun },
                 ],
               },
               true,

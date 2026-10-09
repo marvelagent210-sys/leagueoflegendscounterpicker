@@ -56,6 +56,7 @@ export function compileKit(champion: Champion, records: AbilityRecord[], module:
   const options = Object.fromEntries(Object.entries(module.options ?? {}).map(([key, option]) => [key, overrides[key] ?? option.default]));
   for (const [key, option] of Object.entries(module.options ?? {})) kit.assume(`${option.label}: ${options[key]}.`);
   const definition = module.build(kit, options);
+  kit.seal();
   const base = baseFighter(champion);
   const keys = new Set<string>();
   for (const ability of definition.abilities) {

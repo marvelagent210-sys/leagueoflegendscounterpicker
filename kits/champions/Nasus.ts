@@ -37,6 +37,7 @@ const nasus: KitModule = {
     const fireSeconds = e.quoted("The fire then remains for 5 seconds", 0);
     const furySeconds = r.quoted("Nasus empowers himself for 15 seconds", 0);
     const furyTick = r.quoted("he deals magic damage every 0.5 seconds", 0);
+    const auraDamage = r.formula("Magic Damage Per Tick");
     const furyRadius = r.field("effectRadius") + (kit.champion.forms[0]?.stats.gameplayRadius ?? 80);
     r.quote("Siphoning Strike cooldown is halved");
     kit.assume("Spirit Fire's enemy stays in the fire for its full 5 seconds.");
@@ -44,13 +45,13 @@ const nasus: KitModule = {
 
     return {
       // Fury of the Sands' burn through an all-in.
-      budget: { damage: (self, target) => ({ magic: evaluate(r.formula("Magic Damage Per Tick"), self, target) / furyTick }) },
+      budget: { damage: (self, target) => ({ magic: evaluate(auraDamage, self, target) / furyTick }) },
       start: [innateStat("lifeSteal", innate.levelValue("Nasus gains") / 100)],
       hooks: {
         onTick(ctx) {
           const until = Number(ctx.memory.furyUntil ?? -1);
           if (ctx.tick >= until || (until - ctx.tick) % Math.round(furyTick * 30) !== 0) return;
-          if (Math.abs(ctx.self.x - ctx.enemy.x) - ctx.enemy.spec.base.radius <= furyRadius) ctx.apply({ type: "damage", damageType: "magic", amount: r.formula("Magic Damage Per Tick"), label: "Fury of the Sands (aura)" });
+          if (Math.abs(ctx.self.x - ctx.enemy.x) - ctx.enemy.spec.base.radius <= furyRadius) ctx.apply({ type: "damage", damageType: "magic", amount: auraDamage, label: "Fury of the Sands (aura)" });
         },
         onCast(ctx) {
           if (ctx.ability.key === "R") ctx.memory.furyUntil = ctx.tick + Math.ceil(furySeconds * 30);

@@ -29,6 +29,7 @@ const yone: KitModule = {
     const bodyDistance = e.field("range");
     const cleaveShield = w.levelValue("Yone grants himself a shield for 40 – 90 (based on level)");
     const cleaveShieldBonusAD = w.quoted("(+ 65% bonus AD) for 1.5 seconds", 0) / 100;
+    const cleaveShieldSeconds = w.quoted("(+ 65% bonus AD) for 1.5 seconds", 1);
     kit.assume("Mortal Steel and Spirit Cleave's cast times are taken at 0 bonus attack speed.");
     kit.assume("Fate Sealed pulls Yone next to its target; Soul Unbound's return takes him straight back to his body.");
     kit.assume("Crit chance bought counts double for Yone (the stat budget values it that way).");
@@ -94,7 +95,7 @@ const yone: KitModule = {
           }
           if (key === "W") {
             // The shield doubles for hitting a champion.
-            ctx.apply({ type: "shield", amount: { base: cleaveShield * 2, ratios: { bonusAD: cleaveShieldBonusAD * 2 } }, duration: w.quoted("(+ 65% bonus AD) for 1.5 seconds", 1) }, true);
+            ctx.apply({ type: "shield", amount: { base: cleaveShield * 2, ratios: { bonusAD: cleaveShieldBonusAD * 2 } }, duration: cleaveShieldSeconds }, true);
           }
           if (key === "R" && contactGap(ctx.self, ctx.enemy) > 0) {
             // Yone blinks past the target: in one dimension, up to it.

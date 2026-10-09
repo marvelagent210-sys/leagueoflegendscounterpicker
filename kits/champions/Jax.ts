@@ -29,6 +29,7 @@ const jax: KitModule = {
     const perDodge = e.quoted("increased by 20% for each attack dodged", 0) / 100;
     const maxDodges = e.quoted("up to a 100% increase", 0) / 100 / perDodge;
     const evasion = e.quoted("Jax enters Evasion for 2 seconds", 0);
+    const strikeRadius = e.field("effectRadius");
     kit.assume("Leap Strike's dash speed isn't on the wiki; it is taken as 2,000 units per second.");
     kit.assume("Evasion's 25% reduction of area damage isn't modeled.");
     kit.assume("Empower is used on basic attacks, not on Leap Strike.");
@@ -36,7 +37,7 @@ const jax: KitModule = {
     const behavior: Behavior = (view) => {
       // Hold Counter Strike's recast for its automatic end, unless the enemy is walking out of it.
       const recast = view.self.spec.abilities.find((a) => a.key === "E2");
-      if (recast && canCast(view.world, view.self, recast) && view.enemy.moved === -1 && edgeDistance(view.self, view.enemy) > e.field("effectRadius") - 150) {
+      if (recast && canCast(view.world, view.self, recast) && view.enemy.moved === -1 && edgeDistance(view.self, view.enemy) > strikeRadius - 150) {
         return { kind: "cast", ability: "E2" };
       }
       return defaultBehavior(view);
@@ -134,7 +135,7 @@ const jax: KitModule = {
           cooldown: 0,
           castTime: 0,
           chain: { root: "E", index: 2, window: evasion, delay: e.quoted("Counter Strike can be recast after 1 second", 0), auto: true },
-          delivery: { kind: "aura", radius: e.field("effectRadius") },
+          delivery: { kind: "aura", radius: strikeRadius },
           onHit: [
             { type: "damage", damageType: "magic", amount: minimum },
             { type: "cc", cc: "stun", duration: e.quoted("stuns them for 1 second", 0) },
