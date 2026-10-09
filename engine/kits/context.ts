@@ -154,6 +154,14 @@ export class AbilityData {
     return this.at20(values[0]?.series, name);
   }
 
+  /** Every number written in a field's text, for fields the parser keeps only part of ("50 - 400"). */
+  fieldNumbers(name: NumberField): number[] {
+    const field = this.record.fields[name];
+    if (!field || typeof field !== "object") this.fail(`no ${name} field`);
+    this.note(`${name}: ${field.text}`);
+    return numbersIn(field.text);
+  }
+
   /** Every value of a field at level 20, in order (a cost with a separate ratio, for example). */
   fieldValues(name: NumberField): number[] {
     const field = this.record.fields[name];

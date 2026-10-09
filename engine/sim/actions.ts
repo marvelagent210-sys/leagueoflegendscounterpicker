@@ -66,12 +66,14 @@ export function startAttack(world: World, unit: Unit): void {
   const bonusOnHit: Effect[] = [];
   let uncancellable = false;
   let bonusRange = 0;
+  let split: { physical: number; magic: number } | undefined;
   // Every active empowerment applies to the attack and spends one of its charges.
   for (const empower of unit.statuses) {
     if (empower.kind !== "empower" || !empower.empower || empower.empower.attacks <= 0) continue;
     bonusOnHit.push(...empower.empower.onHit);
     uncancellable ||= empower.empower.uncancellable;
     bonusRange = Math.max(bonusRange, empower.empower.bonusRange);
+    split = empower.empower.split ?? split;
     empower.empower.attacks -= 1;
   }
   if (unit.statuses.some((s) => s.kind === "empower" && (s.empower?.attacks ?? 0) <= 0)) {
@@ -87,6 +89,7 @@ export function startAttack(world: World, unit: Unit): void {
     blinded: unit.statuses.some((s) => s.kind === "cc" && s.key === "blind"),
     onHit: bonusOnHit,
     bonusRange,
+    ...(split ? { split } : {}),
   };
   unit.attackReadyTick = world.tick + timing.total;
   unit.move = 0;
@@ -102,7 +105,7 @@ export function launchAttack(world: World, unit: Unit, action = unit.action): vo
   if (!enemy.alive || isUntargetable(enemy, unit)) return;
   const { attack } = unit.spec;
   if (!attack.missileSpeed) {
-    attackHit(world, unit, enemy, action.blinded, action.onHit);
+    attackHit(world, unit, enemy, action.blinded, action.onHit, action.split);
     return;
   }
   world.missiles.push({
@@ -119,7 +122,7 @@ export function launchAttack(world: World, unit: Unit, action = unit.action): vo
     connects: true,
     scale: 1,
     onHit: [],
-    attack: { blinded: action.blinded, bonusOnHit: action.onHit },
+    attack: { blinded: action.blinded, bonusOnHit: action.onHit, ...(action.split ? { split: action.split } : {}) },
   });
 }
 
@@ -210,11 +213,17 @@ export function inReach(ability: AbilitySpec, unit: Unit, enemy: Unit): boolean 
   return reach === undefined || Math.abs(unit.x - enemy.x) <= reach + EPSILON;
 }
 
+/** A recast that ends its own first stage's channel (Defiant Dance's release). */
+function endsOwnChannel(unit: Unit, ability: AbilitySpec): boolean {
+  return unit.action?.kind === "channel" && ability.chain !== undefined && unit.action.ability === ability.chain.root;
+}
+
 export function canCast(world: World, unit: Unit, ability: AbilitySpec): boolean {
   const enemy = world.units[other(unit.side)];
   if (!unit.alive || !abilityReady(world, unit, ability)) return false;
-  // Casting cancels a windup, but nothing else can be interrupted.
-  if (unit.action && unit.action.kind !== "windup") return false;
+  // Casting cancels a windup, but nothing else can be interrupted (except a channel by its own recast).
+  if (unit.action && unit.action.kind !== "windup" && !endsOwnChannel(unit, ability)) return false;
+  if (ability.usable && !ability.usable(unit, world)) return false;
   if (!ability.flags?.usableWhileDisabled && !canCastUnderCC(unit, isMovement(ability) || ability.flags?.grounded === true)) return false;
   if (ability.delivery.kind === "target" && (isUntargetable(enemy, unit) || !enemy.alive)) return false;
   if (ability.delivery.kind === "target" && Math.abs(unit.x - enemy.x) > ability.delivery.range + EPSILON) return false;
@@ -226,6 +235,7 @@ export function canCast(world: World, unit: Unit, ability: AbilitySpec): boolean
 
 /** Starts a cast; instant casts complete at once and may return a skillshot to split on. */
 export function startCast(world: World, unit: Unit, ability: AbilitySpec): PendingSplit | undefined {
+  if (endsOwnChannel(unit, ability)) unit.action = undefined;
   if (unit.action?.kind === "windup") {
     // An interrupted windup resets the attack timer (wiki: "Attack speed", attack timer).
     unit.action = undefined;
@@ -565,7 +575,8 @@ function stoppedByAntiDash(world: World, unit: Unit, enemy: Unit, unstoppable: b
   unit.action = undefined;
   enemy.statuses = enemy.statuses.filter((s) => s !== aura);
   log(world, enemy.side, "stops the dash");
-  for (const effect of aura.effects ?? []) applyEffect(world, enemy, unit, effect, { scale: 1 });
+  const ability = enemy.spec.abilities.find((a) => a.key === aura.ability);
+  for (const effect of aura.effects ?? []) applyEffect(world, enemy, unit, effect, { scale: 1, ...(ability ? { ability } : {}) });
   return true;
 }
 
@@ -621,7 +632,7 @@ export function advanceMissiles(world: World): void {
     // Whether the target's hitbox touches the stretch the missile covered this tick.
     const reached = target.x >= Math.min(from, m.x) - target.spec.base.radius - EPSILON && target.x <= Math.max(from, m.x) + target.spec.base.radius + EPSILON;
     if (reached) {
-      if (m.attack) attackHit(world, owner, target, m.attack.blinded, m.attack.bonusOnHit);
+      if (m.attack) attackHit(world, owner, target, m.attack.blinded, m.attack.bonusOnHit, m.attack.split);
       else if (m.connects) {
         const ability = owner.spec.abilities.find((a) => a.key === m.source);
         if (ability) abilityHit(world, owner, target, ability, m.onHit, m.scale);

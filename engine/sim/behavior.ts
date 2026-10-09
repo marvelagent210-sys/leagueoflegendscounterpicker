@@ -59,6 +59,8 @@ export interface Threat {
   area?: { from: number; to: number };
   /** An attack expected from the enemy's attack rhythm rather than seen starting. */
   predicted?: boolean;
+  /** A dash the enemy is starting or making. */
+  dash?: boolean;
 }
 
 export interface View {
@@ -88,6 +90,7 @@ const DEFENSIVE_STATES: ReadonlySet<StateType> = new Set<StateType>([
   "projectileBlock",
   "ccImmune",
   "minimumHealth",
+  "antiDash",
 ]);
 
 export interface Traits {
@@ -100,6 +103,8 @@ export interface Traits {
   escape: boolean;
   /** Defensive states it gives the caster, with their duration in ticks. */
   defenses: Map<StateType, number>;
+  /** The defensive states come up as the cast starts, not when it ends (Riposte). */
+  defensesAtStart: boolean;
   /** Duration in ticks of a projectile wall it puts up (0 if none). */
   projectileWall: number;
   /** Shields, heals and damage reduction for the caster. */
@@ -149,6 +154,7 @@ export function traitsOf(ability: AbilitySpec): Traits {
     engage: moves && d.direction !== "away",
     escape: moves && d.direction === "away",
     defenses,
+    defensesAtStart: (ability.onCastStart ?? []).some((e) => e.type === "state" && DEFENSIVE_STATES.has(e.state)),
     projectileWall,
     sustain: onSelf.some((e) => e.type === "shield" || e.type === "heal" || (e.type === "state" && e.state === "damageReduction")),
     buff: onSelf.some((e) => e.type === "stat" || e.type === "empower" || e.type === "resetAttack" || (e.type === "state" && e.state === "tenacity")),
@@ -246,6 +252,7 @@ export function threatsTo(world: World, side: Side): Threat[] {
                 ? Math.ceil(d.distance / (d.speed / 30))
                 : 0;
       const threat = abilityThreat(ability, action.endTick - now + travel, enemy, self, ability.onHit ?? []);
+      if (d.kind === "dash" && d.direction !== "away") threat.dash = true;
       if (d.kind === "area") {
         // Where the area will land, as far as can be told now.
         const dir = enemy.x <= self.x ? 1 : -1;
@@ -255,8 +262,8 @@ export function threatsTo(world: World, side: Side): Threat[] {
     } else if (action.kind === "channel" && ability?.channel) {
       if (ability.channel.onTick && action.nextTick < action.endTick) threats.push(abilityThreat(ability, action.nextTick - now, enemy, self, ability.channel.onTick));
       if (ability.channel.onComplete) threats.push(abilityThreat(ability, action.endTick - now, enemy, self, ability.channel.onComplete));
-    } else if (action.kind === "dash" && ability && ability.delivery.kind === "dash" && ability.delivery.hitRadius !== undefined) {
-      threats.push(abilityThreat(ability, action.endTick - now, enemy, self, ability.onHit ?? []));
+    } else if (action.kind === "dash" && ability && ability.delivery.kind === "dash" && ability.delivery.direction !== "away") {
+      threats.push({ ...abilityThreat(ability, action.endTick - now, enemy, self, ability.onHit ?? []), dash: true });
     }
   }
   // An enemy attacking on its rhythm: its next attack can be seen coming, even when windups are quicker than reactions.
@@ -347,6 +354,8 @@ function answers(view: View, state: StateType, t: Threat): boolean {
       return t.immobilizes;
     case "minimumHealth":
       return t.damage >= view.self.hp;
+    case "antiDash":
+      return t.dash === true;
     default:
       return false;
   }
@@ -399,7 +408,7 @@ export function react(view: View): Command | undefined {
     const traits = traitsOf(ability);
     // A minimum health threshold also goes up when health runs low under steady damage.
     if (low && traits.defenses.has("minimumHealth")) return { kind: "cast", ability: ability.key };
-    const activation = toTicks(ability.castTime);
+    const activation = traits.defensesAtStart ? 0 : toTicks(ability.castTime);
     // It must be up before the threat lands and still up when it does.
     const inWindow = (t: Threat, duration: number) => t.eta > activation && t.eta < activation + duration;
     if (traits.cleanse && disabledFor(self, world.tick) >= 15) return { kind: "cast", ability: ability.key };
@@ -506,7 +515,7 @@ function offense(view: View, options: OffenseOptions): Command | undefined {
       continue;
     }
     if (traits.haste && options.engage && !inAttackRange(self, enemy) && view.distance <= HASTE_REACH) return { kind: "cast", ability: ability.key };
-    if (traits.buff) {
+    if (traits.buff || ability.roles?.includes("buff")) {
       if (!inAttackRange(self, enemy) || empowerStatus(self)?.key === ability.key) continue;
       // Attack resets go between attacks; other buffs before the next one.
       if (traits.resetsAttack ? self.attackReadyTick > world.tick + 1 : self.attackReadyTick <= world.tick + 1) return { kind: "cast", ability: ability.key };

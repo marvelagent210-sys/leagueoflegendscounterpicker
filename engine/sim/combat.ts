@@ -101,7 +101,8 @@ export function dealDamage(world: World, source: Unit, target: Unit, raw: number
       : type === "magic"
         ? effectiveResist(t.mr, t.mrReduction, { flat: s.magicPen, percent: s.magicPenPercent })
         : 0;
-  const mitigated = mitigate(raw, type, resist, { dealt: s.damageDealt, received: t.damageReduction });
+  const typed = type === "physical" ? t.physicalReduction : type === "magic" ? t.magicReduction : [];
+  const mitigated = mitigate(raw, type, resist, { dealt: s.damageDealt, received: [...t.damageReduction, ...typed] });
   const before = target.spec.hooks?.beforeDamageTaken;
   if (before && mitigated > 0) runHook(() => before({ ...hookContext(world, target), amount: mitigated }));
   const shields = target.statuses.filter((st) => st.kind === "shield");
@@ -228,7 +229,8 @@ function displace(world: World, source: Unit, target: Unit, effect: Extract<Effe
   if (distance > 0) target.forced = { endTick: world.tick + ticks, perTick: ((direction === "away" ? 1 : -1) * distance) / ticks };
   if (intoWall && effect.wallStun !== undefined) {
     const impact = Math.max(1, Math.round((ticks * env.wallDistance) / effect.distance));
-    world.scheduled.push({ tick: world.tick + impact, owner: source.side, target: target.side, effects: [{ type: "cc", cc: "stun", duration: effect.wallStun }], scale: 1 });
+    const effects: Effect[] = [...(effect.wallEffects ?? []), { type: "cc", cc: "stun", duration: effect.wallStun }];
+    world.scheduled.push({ tick: world.tick + impact, owner: source.side, target: target.side, effects, scale: 1 });
     log(world, source.side, "knocks the target into a wall");
   }
 }
@@ -304,6 +306,7 @@ export function applyEffect(world: World, caster: Unit, target: Unit, effect: Ef
         value: effect.value ?? 0,
         ...(effect.charges ? { charges: effect.charges } : {}),
         ...(effect.effects ? { effects: effect.effects } : {}),
+        ...(ctx.ability ? { ability: ctx.ability.key } : {}),
         x: target.x,
       });
       if (effect.state === "untargetable" || effect.state === "stasis") dropTargeting(world, target);
@@ -361,7 +364,13 @@ export function applyEffect(world: World, caster: Unit, target: Unit, effect: Ef
         startTick: tick,
         endTick: tick + toTicks(effect.window),
         value: 0,
-        empower: { attacks: effect.attacks, onHit: effect.onHit, bonusRange: effect.bonusRange ?? 0, uncancellable: effect.uncancellable ?? false },
+        empower: {
+          attacks: effect.attacks,
+          onHit: effect.onHit,
+          bonusRange: effect.bonusRange ?? 0,
+          uncancellable: effect.uncancellable ?? false,
+          ...(effect.split ? { split: effect.split } : {}),
+        },
       });
       if (effect.resetAttack) target.attackReadyTick = tick;
       return;
@@ -477,8 +486,8 @@ function applyOnHit(world: World, attacker: Unit, target: Unit, bonus: Effect[],
   }
 }
 
-/** A basic attack reaching its target. */
-export function attackHit(world: World, attacker: Unit, target: Unit, blinded: boolean, bonusOnHit: Effect[]): void {
+/** A basic attack reaching its target; `split` deals its damage as shares of physical and magic damage. */
+export function attackHit(world: World, attacker: Unit, target: Unit, blinded: boolean, bonusOnHit: Effect[], split?: { physical: number; magic: number }): void {
   if (!target.alive || isUntargetable(target, attacker)) return;
   if (blinded) {
     log(world, attacker.side, "attack misses (blinded)");
@@ -502,7 +511,11 @@ export function attackHit(world: World, attacker: Unit, target: Unit, blinded: b
   }
   else {
     const d = derive(attacker);
-    dealDamage(world, attacker, target, d.ad * averageCritFactor(d.critChance, d.critDamage), "physical", { attack: true });
+    const damage = d.ad * averageCritFactor(d.critChance, d.critDamage);
+    if (split) {
+      if (split.physical > 0) dealDamage(world, attacker, target, damage * split.physical, "physical", { attack: true });
+      if (split.magic > 0) dealDamage(world, attacker, target, damage * split.magic, "magic", { attack: true });
+    } else dealDamage(world, attacker, target, damage, "physical", { attack: true });
   }
   applyOnHit(world, attacker, target, bonusOnHit, blocked);
   // Damage returned to attackers (Defensive Ball Curl): the state's value is the damage per attack.

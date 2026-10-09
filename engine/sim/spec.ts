@@ -72,6 +72,9 @@ export type StateType =
   | "slowImmune"
   | "minimumHealth"
   | "damageReduction"
+  /** Damage reduction against one damage type only (Defiant Dance). */
+  | "physicalReduction"
+  | "magicReduction"
   | "tenacity"
   | "ghosted"
   /** Stops enemy dashes that come within `value` units and applies the status's effects to the dasher (Steadfast Presence). */
@@ -121,9 +124,9 @@ export type Effect =
    * Knock up (distance 0), knock back ("away") or pull ("toward"): airborne plus forced
    * movement. `to`: pull only until the target's center is this far from the caster's
    * (Apprehend's rebound). `wallStun`: stun duration if a knock back hits a wall (with walls
-   * nearby).
+   * nearby), and `wallEffects` anything else that happens then (Heroic Charge's second hit).
    */
-  | { type: "displace"; direction: "away" | "toward"; distance: number; duration: number; to?: number; wallStun?: number }
+  | { type: "displace"; direction: "away" | "toward"; distance: number; duration: number; to?: number; wallStun?: number; wallEffects?: Effect[] }
   | { type: "shield"; amount: Formula; duration: number; shieldType?: ShieldType; priority?: boolean }
   | { type: "heal"; amount: Formula }
   /**
@@ -137,8 +140,21 @@ export type Effect =
   | { type: "grievousWounds"; duration: number }
   /** Removes the listed crowd control types from the caster, or every type when none are listed. */
   | { type: "cleanse"; types?: CCType[] }
-  /** The next `attacks` basic attacks within `window` seconds gain these effects. */
-  | { type: "empower"; attacks: number; window: number; onHit: Effect[]; bonusRange?: number; resetAttack?: boolean; uncancellable?: boolean }
+  /**
+   * The next `attacks` basic attacks within `window` seconds gain these effects. `split`
+   * deals the attack's own damage as these shares of physical and magic damage (Yone's
+   * Azakana Sword).
+   */
+  | {
+      type: "empower";
+      attacks: number;
+      window: number;
+      onHit: Effect[];
+      bonusRange?: number;
+      resetAttack?: boolean;
+      uncancellable?: boolean;
+      split?: { physical: number; magic: number };
+    }
   /** Kills the target if its health is at or below the threshold after the hit. */
   | { type: "execute"; threshold: Formula }
   | { type: "resetAttack" }
@@ -250,6 +266,8 @@ export interface AbilitySpec {
   roles?: AbilityRole[];
   /** Conditions for casting it (Last Breath needs an airborne target). */
   requires?: { enemyCC?: CCType[]; minResource?: number };
+  /** A kit's own condition for casting it (Steel Tempest's whirlwind needs two stacks). */
+  usable?: (unit: Unit, world: World) => boolean;
   /**
    * A recast: castable within `window` seconds of the previous stage of `root` (stage
    * `index - 1`), at least `delay` seconds after it; `auto` casts it when the window closes

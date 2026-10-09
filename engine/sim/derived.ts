@@ -35,6 +35,8 @@ export interface Derived {
   damageDealt: number[];
   /** Damage received reductions (fractions, multiplicative). */
   damageReduction: number[];
+  physicalReduction: number[];
+  magicReduction: number[];
   armorReduction: { flat: number; percent: number[] };
   mrReduction: { flat: number; percent: number[] };
   lifeSteal: number;
@@ -106,6 +108,8 @@ function computeDerived(unit: Unit): Derived {
     tenacity: combineTenacity([list(st, "state", "tenacity")]),
     damageDealt: list(st, "stat", "damageDealt"),
     damageReduction: list(st, "state", "damageReduction"),
+    physicalReduction: list(st, "state", "physicalReduction"),
+    magicReduction: list(st, "state", "magicReduction"),
     armorReduction: { flat: sum(st, "armorReduction"), percent: list(st, "stat", "armorReductionPercent") },
     mrReduction: { flat: sum(st, "mrReduction"), percent: list(st, "stat", "mrReductionPercent") },
     lifeSteal: sum(st, "lifeSteal"),

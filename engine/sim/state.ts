@@ -22,9 +22,10 @@ export interface Status {
   shieldType?: ShieldType;
   priority?: boolean;
   dot?: { damageType: DamageType; perHit: number; intervalTicks: number; nextTick: number };
-  empower?: { attacks: number; onHit: Effect[]; bonusRange: number; uncancellable: boolean };
-  /** What a triggered state does (antiDash). */
+  empower?: { attacks: number; onHit: Effect[]; bonusRange: number; uncancellable: boolean; split?: { physical: number; magic: number } };
+  /** What a triggered state does (antiDash), and the ability it comes from. */
   effects?: Effect[];
+  ability?: string;
   /** Where an anchored state is (untargetableFar). */
   x?: number;
   /** Identifies a kit hook's buff, so setting it again replaces it. */
@@ -32,7 +33,16 @@ export interface Status {
 }
 
 export type Action =
-  | { kind: "windup"; startTick: number; launchTick: number; uncancellable: boolean; blinded: boolean; onHit: Effect[]; bonusRange: number }
+  | {
+      kind: "windup";
+      startTick: number;
+      launchTick: number;
+      uncancellable: boolean;
+      blinded: boolean;
+      onHit: Effect[];
+      bonusRange: number;
+      split?: { physical: number; magic: number };
+    }
   | { kind: "cast"; ability: string; startTick: number; endTick: number }
   | { kind: "channel"; ability: string; startTick: number; endTick: number; nextTick: number; intervalTicks: number }
   | { kind: "dash"; ability: string; startTick: number; endTick: number; perTick: number; stopAtContact: boolean; unstoppable: boolean };
@@ -85,7 +95,7 @@ export interface Missile {
   scale: number;
   onHit: Effect[];
   /** For basic attacks: the attack's state when it launched. */
-  attack?: { blinded: boolean; bonusOnHit: Effect[] };
+  attack?: { blinded: boolean; bonusOnHit: Effect[]; split?: { physical: number; magic: number } };
 }
 
 export interface Zone {
