@@ -123,7 +123,7 @@ describe("areas", () => {
   it("sets off traps when the enemy walks onto them", () => {
     const world = createWorld({ fighters: [fighter(), fighter()], distance: 600, modes: ["idle", "fight"] });
     world.zones.push({ id: 99, owner: 0, kind: "trap", seenTick: 0, x: 300, radius: 160, startTick: 0, endTick: 1e9, onHit: [trueDamage(200)] });
-    for (let i = 0; i < 40; i++) step(world, [idle, (view) => ({ kind: "move", direction: 1 })]);
+    for (let i = 0; i < 40; i++) step(world, [idle, () => ({ kind: "move", direction: 1 })]);
     expect(world.units[1].hp).toBe(1800);
     expect(world.zones).toHaveLength(0);
   });

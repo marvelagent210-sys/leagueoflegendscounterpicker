@@ -8,7 +8,7 @@ import type { CCType } from "../rules/crowdControl";
 import { abilityHit, applyEffect, attackHit, contactGap, directionTo, edgeDistance, hookContext, isUntargetable, log } from "./combat";
 import { canAttack, canCastUnderCC, derive, evaluate } from "./derived";
 import { hitChance } from "./hitModel";
-import type { AbilitySpec, Effect } from "./spec";
+import type { AbilitySpec, AttackSplit, Effect } from "./spec";
 import { type Missile, type Status, type Unit, type World, other } from "./state";
 
 const EPSILON = 1e-6;
@@ -66,7 +66,7 @@ export function startAttack(world: World, unit: Unit): void {
   const bonusOnHit: Effect[] = [];
   let uncancellable = false;
   let bonusRange = 0;
-  let split: { physical: number; magic: number } | undefined;
+  let split: AttackSplit | undefined;
   // Every active empowerment applies to the attack and spends one of its charges.
   for (const empower of unit.statuses) {
     if (empower.kind !== "empower" || !empower.empower || empower.empower.attacks <= 0) continue;

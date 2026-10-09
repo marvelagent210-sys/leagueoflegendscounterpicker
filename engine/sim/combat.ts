@@ -16,7 +16,7 @@ import { type DamageType, effectiveResist, mitigate } from "../rules/damage";
 import { type Shield, absorbWithShields, averageCritFactor, healingReceived } from "../rules/defense";
 import { toTicks } from "../rules/time";
 import { derive, evaluate, hasState } from "./derived";
-import type { AbilitySpec, BuffStat, Effect, HookContext } from "./spec";
+import type { AbilitySpec, AttackSplit, BuffStat, Effect, HookContext } from "./spec";
 import { type Side, type Status, type Unit, type World, other } from "./state";
 
 export function log(world: World, side: Side, text: string): void {
@@ -486,8 +486,8 @@ function applyOnHit(world: World, attacker: Unit, target: Unit, bonus: Effect[],
   }
 }
 
-/** A basic attack reaching its target; `split` deals its damage as shares of physical and magic damage. */
-export function attackHit(world: World, attacker: Unit, target: Unit, blinded: boolean, bonusOnHit: Effect[], split?: { physical: number; magic: number }): void {
+/** A basic attack reaching its target; `split` deals its damage as shares of physical, magic and true damage. */
+export function attackHit(world: World, attacker: Unit, target: Unit, blinded: boolean, bonusOnHit: Effect[], split?: AttackSplit): void {
   if (!target.alive || isUntargetable(target, attacker)) return;
   if (blinded) {
     log(world, attacker.side, "attack misses (blinded)");
@@ -515,6 +515,7 @@ export function attackHit(world: World, attacker: Unit, target: Unit, blinded: b
     if (split) {
       if (split.physical > 0) dealDamage(world, attacker, target, damage * split.physical, "physical", { attack: true });
       if (split.magic > 0) dealDamage(world, attacker, target, damage * split.magic, "magic", { attack: true });
+      if ((split.true ?? 0) > 0) dealDamage(world, attacker, target, damage * (split.true ?? 0), "true", { attack: true });
     } else dealDamage(world, attacker, target, damage, "physical", { attack: true });
   }
   applyOnHit(world, attacker, target, bonusOnHit, blocked);

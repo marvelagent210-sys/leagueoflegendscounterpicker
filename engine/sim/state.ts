@@ -5,7 +5,7 @@
  */
 import type { DamageType } from "../rules/damage";
 import type { ShieldType } from "../rules/defense";
-import type { Effect, FighterSpec } from "./spec";
+import type { AttackSplit, Effect, FighterSpec } from "./spec";
 
 export type Side = 0 | 1;
 
@@ -22,7 +22,7 @@ export interface Status {
   shieldType?: ShieldType;
   priority?: boolean;
   dot?: { damageType: DamageType; perHit: number; intervalTicks: number; nextTick: number };
-  empower?: { attacks: number; onHit: Effect[]; bonusRange: number; uncancellable: boolean; split?: { physical: number; magic: number } };
+  empower?: { attacks: number; onHit: Effect[]; bonusRange: number; uncancellable: boolean; split?: AttackSplit };
   /** What a triggered state does (antiDash), and the ability it comes from. */
   effects?: Effect[];
   ability?: string;
@@ -41,7 +41,7 @@ export type Action =
       blinded: boolean;
       onHit: Effect[];
       bonusRange: number;
-      split?: { physical: number; magic: number };
+      split?: AttackSplit;
     }
   | { kind: "cast"; ability: string; startTick: number; endTick: number }
   | { kind: "channel"; ability: string; startTick: number; endTick: number; nextTick: number; intervalTicks: number }
@@ -95,7 +95,7 @@ export interface Missile {
   scale: number;
   onHit: Effect[];
   /** For basic attacks: the attack's state when it launched. */
-  attack?: { blinded: boolean; bonusOnHit: Effect[]; split?: { physical: number; magic: number } };
+  attack?: { blinded: boolean; bonusOnHit: Effect[]; split?: AttackSplit };
 }
 
 export interface Zone {

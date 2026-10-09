@@ -112,6 +112,13 @@ export type BuffStat =
   | "magicPenPercent"
   | "attackRange";
 
+/** How a basic attack's damage divides between damage types, as shares of the attack. */
+export interface AttackSplit {
+  physical: number;
+  magic: number;
+  true?: number;
+}
+
 export type Effect =
   /**
    * `canCrit`: averaged over the attacker's crit chance; `critMultiplier` replaces its crit
@@ -153,7 +160,7 @@ export type Effect =
       bonusRange?: number;
       resetAttack?: boolean;
       uncancellable?: boolean;
-      split?: { physical: number; magic: number };
+      split?: AttackSplit;
     }
   /** Kills the target if its health is at or below the threshold after the hit. */
   | { type: "execute"; threshold: Formula }
