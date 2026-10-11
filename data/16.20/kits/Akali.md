@@ -247,7 +247,7 @@ What the duel simulator fights with (`kits/champions/Akali.ts`): every number is
 
 | Key | Ability | Cooldown (s) | Cast time (s) | Cost | Delivery | On the enemy | On itself |
 |---|---|--:|--:|---|---|---|---|
-| Q | Five Point Strike | 1.5 | 0.198 | 70 | area 0 to 500 units ahead, lands after 0 s; bands 380–500: slow 50% for 0.5 s | 145 + 65% AD + 60% AP magic damage | – |
+| Q | Five Point Strike | 1.5 | 0.198 | 70 | area 0 to 500 units ahead, lands after 0 s; bands 380–500: 145 + 65% AD + 60% AP magic damage; slow 50% for 0.5 s | 145 + 65% AD + 60% AP magic damage | – |
 | W | Twilight Shroud | 16 (starts when its effect on the caster ends) | 0.25 | – | self | – | as the cast starts: moveSpeedPercent 0.25 for 2 s; maxResource 100 for 7 s; lingering for 7 s |
 | E | Shuriken Flip | 10 | 0.25 | 30 | skillshot 1225 long, 120 wide, at 1800/s | 105 + 30% AD + 33% AP magic damage | – |
 | E2 | Shuriken Flip (recast) | 0 | 0.1 | – | dash target 2225 units at 1500/s, hits within 0; recast of E within 3 s | 245 + 70% AD + 77% AP magic damage | – |
@@ -280,6 +280,7 @@ Effects marked by a mark or a role are completed by the kit's hooks (see the kit
 | Five Point Strike | the effective cast time rounds up to 0.264 / 0.231 / 0.231 / 0.198 (based on level) | [4074596](https://wiki.leagueoflegends.com/en-us/Template:Data_Akali/Five_Point_Strike?oldid=4074596) |
 | Five Point Strike | Targets beyond a certain range are also slowed by 50% for 0.5 seconds | [4074596](https://wiki.leagueoflegends.com/en-us/Template:Data_Akali/Five_Point_Strike?oldid=4074596) |
 | Five Point Strike | cooldown: 1.5 | [4074596](https://wiki.leagueoflegends.com/en-us/Template:Data_Akali/Five_Point_Strike?oldid=4074596) |
+| Five Point Strike | Magic Damage: 45 / 70 / 95 / 120 / 145 (+ 65% AD) (+ 60% AP) | [4074596](https://wiki.leagueoflegends.com/en-us/Template:Data_Akali/Five_Point_Strike?oldid=4074596) |
 | Twilight Shroud | Shroud Duration: 5 / 5.5 / 6 / 6.5 / 7 seconds | [4007406](https://wiki.leagueoflegends.com/en-us/Template:Data_Akali/Twilight_Shroud?oldid=4007406) |
 | Twilight Shroud | targetRange: 250 | [4007406](https://wiki.leagueoflegends.com/en-us/Template:Data_Akali/Twilight_Shroud?oldid=4007406) |
 | Twilight Shroud | effectRadius: 350 • 1175 | [4007406](https://wiki.leagueoflegends.com/en-us/Template:Data_Akali/Twilight_Shroud?oldid=4007406) |
@@ -305,7 +306,6 @@ Effects marked by a mark or a role are completed by the kit's hooks (see the kit
 | Perfect Execution | Minimum Magic Damage: 70 / 140 / 210 (+ 30% AP) | [4074605](https://wiki.leagueoflegends.com/en-us/Template:Data_Akali/Perfect_Execution?oldid=4074605) |
 | Perfect Execution | Recast: Akali dashes 800 units in the target direction, dealing magic damage to enemies she passes through, increased by 0 / 20 / 40 / 60 / 80 / 100 / 120 / 140 / 160 / 180 / 200 (based on target's missing health)%. | [4074605](https://wiki.leagueoflegends.com/en-us/Template:Data_Akali/Perfect_Execution?oldid=4074605) |
 | Five Point Strike | cost: 110 / 100 / 90 / 80 / 70 | [4074596](https://wiki.leagueoflegends.com/en-us/Template:Data_Akali/Five_Point_Strike?oldid=4074596) |
-| Five Point Strike | Magic Damage: 45 / 70 / 95 / 120 / 145 (+ 65% AD) (+ 60% AP) | [4074596](https://wiki.leagueoflegends.com/en-us/Template:Data_Akali/Five_Point_Strike?oldid=4074596) |
 | Twilight Shroud | cooldown: 20 / 19 / 18 / 17 / 16 | [4007406](https://wiki.leagueoflegends.com/en-us/Template:Data_Akali/Twilight_Shroud?oldid=4007406) |
 | Twilight Shroud | castTime: 0.25 | [4007406](https://wiki.leagueoflegends.com/en-us/Template:Data_Akali/Twilight_Shroud?oldid=4007406) |
 | Shuriken Flip | cooldown: 16 / 14.5 / 13 / 11.5 / 10 | [4074602](https://wiki.leagueoflegends.com/en-us/Template:Data_Akali/Shuriken_Flip?oldid=4074602) |

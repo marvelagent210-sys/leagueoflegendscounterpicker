@@ -18,7 +18,7 @@ import { toTicks } from "../rules/time";
 import { derive, evaluate, hasState } from "./derived";
 import { abilityOf, setForm } from "./forms";
 import { terrainGap } from "./terrain";
-import type { AbilitySpec, AttackSplit, BuffStat, Effect, HookContext } from "./spec";
+import { type AbilitySpec, type AttackSplit, type BuffStat, type Effect, type HookContext, cooldownKeyOf } from "./spec";
 import { type Side, type Status, type Unit, type World, other } from "./state";
 
 export function log(world: World, side: Side, text: string): void {
@@ -119,7 +119,7 @@ export function dealDamage(world: World, source: Unit, target: Unit, raw: number
   const t = derive(target);
   const resist =
     type === "physical"
-      ? effectiveResist(t.armor, t.armorReduction, { flat: s.lethality, percent: s.armorPen })
+      ? effectiveResist(t.armor, t.armorReduction, { flat: s.lethality, percent: s.armorPen, bonusPercent: s.bonusArmorPen })
       : type === "magic"
         ? effectiveResist(t.mr, t.mrReduction, { flat: s.magicPen, percent: s.magicPenPercent })
         : 0;
@@ -187,7 +187,9 @@ export function heal(world: World, unit: Unit, amount: number, regeneration = fa
   if (!lifesteal && hasState(unit, "noHealing")) return;
   const grievous = unit.statuses.some((s) => s.kind === "grievousWounds");
   const d = derive(unit);
-  const healed = Math.min(d.maxHp - unit.hp, healingReceived(amount * (1 + d.healingIncrease), grievous));
+  const cap = stateStatus(unit, "healthCap");
+  const most = cap ? Math.min(d.maxHp, cap.value * d.maxHp) : d.maxHp;
+  const healed = Math.min(most - unit.hp, healingReceived(amount * (1 + d.healingIncrease), grievous));
   if (healed <= 0) return;
   unit.hp += healed;
   if (regeneration) return;
@@ -218,6 +220,17 @@ function interrupt(world: World, unit: Unit, type: CCType): void {
     if (stops && ability?.channel?.interruptible !== false) {
       unit.action = undefined;
       log(world, unit.side, `${ability?.name ?? "channel"} interrupted by ${type}`);
+    }
+  } else if (action.kind === "cast") {
+    // A charge (Decimating Smash) breaks like a channel: its cost is spent and a short cooldown follows.
+    const ability = abilityOf(unit, action.ability);
+    if (ability?.interruptible && rule.interruptsChannels === "yes") {
+      unit.action = undefined;
+      const cost = typeof ability.cost === "object" ? evaluate(ability.cost, unit) : (ability.cost ?? 0);
+      if (ability.costType === "health") unit.hp -= cost;
+      else unit.resource -= cost;
+      unit.cooldownReady[cooldownKeyOf(ability)] = world.tick + toTicks(ability.interruptible.cooldown);
+      log(world, unit.side, `${ability.name} interrupted by ${type}`);
     }
   } else if (action.kind === "dash" && type === "airborne" && !action.unstoppable) {
     // A cast the dash was made during carries on: cast times can't be interrupted.
@@ -362,6 +375,7 @@ export function applyEffect(world: World, caster: Unit, target: Unit, effect: Ef
         x: target.x,
       });
       if (effect.state === "untargetable" || effect.state === "stasis") dropTargeting(world, target);
+      if (effect.state === "healthCap") target.hp = Math.min(target.hp, (effect.value ?? 1) * derive(target).maxHp);
       if (effect.state === "invisible") dropTargeting(world, target, false);
       return;
     case "stat": {

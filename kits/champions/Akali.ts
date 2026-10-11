@@ -3,7 +3,7 @@ import type { KitModule } from "../../engine/kits/compile";
 import { attackRange, canCast } from "../../engine/sim/actions";
 import { type Behavior, defaultBehavior, react } from "../../engine/sim/behavior";
 import { evaluate } from "../../engine/sim/derived";
-import type { AbilitySpec, Formula, HookContext } from "../../engine/sim/spec";
+import type { AbilitySpec, Effect, Formula, HookContext } from "../../engine/sim/spec";
 import type { Unit } from "../../engine/sim/state";
 import { flat, missingShare, ticks } from "./util";
 
@@ -40,6 +40,7 @@ const akali: KitModule = {
     const strikeSlow = q.quoted("Targets beyond a certain range are also slowed by 50% for 0.5 seconds", 0) / 100;
     const strikeSlowFor = q.quoted("Targets beyond a certain range are also slowed by 50% for 0.5 seconds", 1);
     const strikeCooldown = q.cooldown();
+    const strikeHit: Effect = { type: "damage", damageType: "magic", amount: q.formula("Magic Damage") };
     kit.assume(`Five Point Strike takes its effective ${strikeCast} s cast time at level 20 and lands at its end; enemies beyond ${coneLength - slowOffset} units are slowed.`);
 
     // Twilight Shroud: energy, a burst of speed, and a smoke ring that hides her until she attacks or casts.
@@ -150,9 +151,10 @@ const akali: KitModule = {
           far: coneLength,
           delay: 0,
           anchor: "caster",
-          bands: [{ from: coneLength - slowOffset, to: coneLength, onHit: [{ type: "cc", cc: "slow", strength: strikeSlow, duration: strikeSlowFor }] }],
+          // The tip: damage and the slow (a band's effects replace the area's).
+          bands: [{ from: coneLength - slowOffset, to: coneLength, onHit: [strikeHit, { type: "cc", cc: "slow", strength: strikeSlow, duration: strikeSlowFor }] }],
         },
-        onHit: [{ type: "damage", damageType: "magic", amount: q.formula("Magic Damage") }],
+        onHit: [strikeHit],
         flags: { spellShield: q.flag("spellShield") ?? true },
       },
       {

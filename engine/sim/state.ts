@@ -47,6 +47,8 @@ export type Action =
       split?: AttackSplit;
       /** An attack on a pet (by id) rather than on the enemy champion. */
       pet?: number;
+      /** The abilities whose empowerments this attack spent: their post-effect cooldowns wait for it to land. */
+      empowered?: string[];
     }
   | { kind: "cast"; ability: string; startTick: number; endTick: number; aim?: Aim }
   | { kind: "channel"; ability: string; startTick: number; endTick: number; nextTick: number; intervalTicks: number }
@@ -63,6 +65,11 @@ export type Action =
       /** Passes through the enemy, hitting it once on the way (`hit` once it has). */
       through?: boolean;
       hit?: boolean;
+      /** A charge's speed: `from` (units a second) plus `amount` every `everyTicks`, up to `max`. */
+      ramp?: { from: number; amount: number; everyTicks: number; max: number };
+      /** A charge the enemy may sidestep: whether it lands, or the share of its hit that counts. */
+      connects?: boolean;
+      scale?: number;
     };
 
 /** Where a location-targeted dash or field goes: toward the enemy (1) or away (-1), and how far. */
@@ -166,7 +173,7 @@ export interface Zone {
   onHit?: Effect[];
   connects?: boolean;
   scale?: number;
-  /** Other effects where the enemy's center is, as absolute positions (sweet spots). */
+  /** Effects in place of `onHit` where the enemy's center is, as absolute positions (sweet spots). */
   bands?: Array<{ from: number; to: number; onHit: Effect[] }>;
   /** For areas that move with the caster: offsets from its center when they land. */
   follow?: { near: number; far: number; bands?: Array<{ from: number; to: number; onHit: Effect[] }> };

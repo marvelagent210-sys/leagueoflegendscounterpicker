@@ -93,7 +93,9 @@ export type StateType =
    */
   | "invisible"
   /** An ability still at work in a way its kit's hooks model (Twilight Shroud's smoke): no rule of its own, but it holds a post-effect cooldown. */
-  | "lingering";
+  | "lingering"
+  /** Health can't go above `value` (a share of maximum health); gaining it lowers health to it (All Out's 65%). */
+  | "healthCap";
 
 /** Stats a timed buff or debuff changes. Fractions for percentages. */
 export type BuffStat =
@@ -127,7 +129,9 @@ export type BuffStat =
   /** Increases healing and health regeneration received by a fraction (World Ender). */
   | "healingIncrease"
   /** More maximum resource (Twilight Shroud's 100 energy). */
-  | "maxResource";
+  | "maxResource"
+  /** Percentage penetration of bonus armor only (All Out's 50%). */
+  | "bonusArmorPen";
 
 /** How a basic attack's damage divides between damage types, as shares of the attack. */
 export interface AttackSplit {
@@ -228,7 +232,22 @@ export type Delivery =
    * to a location can be aimed (a cast's `aim`) anywhere from `minDistance` to `distance`.
    * `through` dashes don't stop at the enemy: they hit it on the way past (Shadow Dash).
    */
-  | { kind: "dash"; direction: "toward" | "away" | "target"; distance: number; speed: number; hitRadius?: number; minDistance?: number; through?: boolean }
+  /**
+   * `ramp`: a charge (Unstoppable Onslaught) that starts at the caster's movement speed and
+   * gains `amount` every `every` seconds, up to `speed`. `sidestep`: the enemy can step aside
+   * from it, so its hit is a skillshot of this half-width that lands when the dash reaches it.
+   */
+  | {
+      kind: "dash";
+      direction: "toward" | "away" | "target";
+      distance: number;
+      speed: number;
+      hitRadius?: number;
+      minDistance?: number;
+      through?: boolean;
+      ramp?: { amount: number; every: number };
+      sidestep?: number;
+    }
   | { kind: "blink"; direction: "toward" | "away"; distance: number; hitRadius?: number }
   /**
    * A stretch of the line from `near` to `far` units in front of the caster's center that
@@ -244,6 +263,7 @@ export type Delivery =
       far: number;
       delay: number;
       anchor: "caster" | "ground";
+      /** Sweet spots: where the enemy's center is between `from` and `to`, these effects apply in place of `onHit`. */
       bands?: Array<{ from: number; to: number; onHit: Effect[] }>;
       centered?: boolean;
     }
@@ -395,6 +415,10 @@ export interface AbilitySpec {
   chainCooldown?: "first" | "last";
   /** Shares the cooldown of the ability with this key (an empowered version of the same spell). */
   cooldownKey?: string;
+  /** The cast time now, when the caster's stats change it (Ntofo Strikes by bonus resistances); `castTime` stays the reference. */
+  castTimeFor?: (unit: Unit) => number;
+  /** The cooldown now, when the caster's stats or state change it; `cooldown` stays the reference. */
+  cooldownFor?: (unit: Unit) => number;
   /**
    * Holds up to `max` charges (wiki: "Recharge"): each cast spends one and one restocks every
    * `recharge` seconds; `cooldown` is then the wait between casts. Fights start with all of them.
@@ -405,6 +429,11 @@ export interface AbilitySpec {
    * Dash during The Darkin Blade). A dash cast this way holds the other cast until it ends.
    */
   overlay?: boolean;
+  /**
+   * Its cast time is a charge that crowd control interrupts as it would a channel (Decimating
+   * Smash): the cost is spent and the ability goes on `cooldown` seconds of cooldown.
+   */
+  interruptible?: { cooldown: number };
 }
 
 /** The cooldown an ability uses. */

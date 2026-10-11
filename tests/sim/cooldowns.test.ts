@@ -47,17 +47,22 @@ describe("post-effect cooldowns (wiki: Cooldown starts: post-effect)", () => {
     });
     const world = createWorld({ fighters: [fighter({ abilities: [bite] }), fighter()], distance: 100, modes: ["fight", "idle"] });
     const self = world.units[0];
-    // Cast, then attack: the cooldown starts when the attack spends the empowerment.
+    // Cast, then attack: the windup spends the empowerment, and the cooldown starts as the attack lands.
     step(world, [castWhenReady("Q"), standStill]);
     let spent = -1;
-    for (let i = 0; i < 120 && spent < 0; i++) {
+    let landed = -1;
+    for (let i = 0; i < 120 && landed < 0; i++) {
+      const tick = world.tick;
       step(world, [() => ({ kind: "attack" }), standStill]);
-      if (!self.statuses.some((s) => s.kind === "empower")) spent = world.tick;
+      if (spent < 0 && !self.statuses.some((s) => s.kind === "empower")) {
+        spent = tick;
+        expect(self.action?.kind).toBe("windup");
+      }
+      if (spent >= 0 && self.action === undefined) landed = tick;
+      else if (spent >= 0) expect(self.cooldownReady.Q).toBe(Number.POSITIVE_INFINITY);
     }
-    expect(spent).toBeGreaterThan(0);
-    // Seen the next tick.
-    step(world, [standStill, standStill]);
-    expect(self.cooldownReady.Q).toBe(spent + 150);
+    expect(landed).toBeGreaterThan(spent);
+    expect(self.cooldownReady.Q).toBe(landed + 150);
   });
 
   it("wait for the channel", () => {

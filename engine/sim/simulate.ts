@@ -373,6 +373,10 @@ export function step(world: World, behaviors: [Behavior, Behavior]): PendingSpli
 function splitTarget(world: World, split: PendingSplit): { connects?: boolean; scale?: number } | undefined {
   if (split.missile !== undefined) return world.missiles.find((m) => m.id === split.missile);
   if (split.zone !== undefined) return world.zones.find((z) => z.id === split.zone);
+  if (split.dash !== undefined) {
+    const action = world.units[split.dash].action;
+    return action?.kind === "dash" ? action : undefined;
+  }
   return undefined;
 }
 

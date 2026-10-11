@@ -1,5 +1,51 @@
 # Counters to Ambessa (patch 26.20)
 
+## Simulated duels (full confidence)
+
+The duel simulator played each of the 37 other champions with a simulator kit against Ambessa: both at level 20 with 15,000 gold of plain stats, each side's spent against the other's, through six scenarios (PLAN.md §6). Scores run from −1 (Ambessa wins every time) to +1 (the champion does). Run `npm run duel -- <champion> Ambessa --log brawl` to watch a fight.
+
+| # | Champion | Score | You engage | Enemy engages | Brawl | Short trade | Spacing | Escape |
+|--:|---|--:|--:|--:|--:|--:|--:|--:|
+| 1 | Teemo | +0.89 | +1.00 | +1.00 | +1.00 | +0.57 | +1.00 | +0.00 |
+| 2 | Kayle | +0.88 | +1.00 | +1.00 | +1.00 | +0.56 | +1.00 | +0.00 |
+| 3 | Aurora | +0.85 | +1.00 | +1.00 | +1.00 | +0.34 | +1.00 | +0.00 |
+| 4 | Malphite | +0.81 | +1.00 | +1.00 | +1.00 | +0.17 | – | +0.00 |
+| 5 | K'Sante | +0.80 | +1.00 | +1.00 | +1.00 | +0.12 | – | +0.00 |
+| 6 | Kennen | +0.79 | +1.00 | +1.00 | +1.00 | −0.05 | +1.00 | +0.00 |
+| 7 | Zaahen | +0.79 | +1.00 | +1.00 | +1.00 | +0.06 | – | +0.00 |
+| 8 | Jax | +0.78 | +1.00 | +1.00 | +1.00 | −0.12 | +1.00 | +0.00 |
+| 9 | Sett | +0.77 | +1.00 | +1.00 | +1.00 | −0.02 | – | +0.00 |
+| 10 | Trundle | +0.77 | +1.00 | +1.00 | +1.00 | −0.19 | +1.00 | +0.00 |
+| 11 | Nasus | +0.77 | +1.00 | +1.00 | +1.00 | −0.21 | +1.00 | +0.00 |
+| 12 | Yasuo | +0.76 | +0.92 | +1.00 | +1.00 | +0.04 | – | +0.00 |
+| 13 | Aatrox | +0.76 | +1.00 | +1.00 | +1.00 | −0.10 | – | +0.00 |
+| 14 | Darius | +0.76 | +1.00 | +1.00 | +1.00 | −0.11 | – | +0.00 |
+| 15 | Cho'Gath | +0.76 | +1.00 | +1.00 | +1.00 | −0.12 | – | +0.00 |
+| 16 | Tryndamere | +0.76 | +1.00 | +1.00 | +1.00 | −0.12 | – | +0.00 |
+| 17 | Garen | +0.76 | +1.00 | +1.00 | +1.00 | −0.13 | – | +0.00 |
+| 18 | Dr. Mundo | +0.75 | +1.00 | +1.00 | +1.00 | −0.14 | – | +0.00 |
+| 19 | Yone | +0.75 | +1.00 | +1.00 | +1.00 | −0.14 | – | +0.00 |
+| 20 | Fiora | +0.75 | +1.00 | +1.00 | +1.00 | −0.15 | – | +0.00 |
+| 21 | Renekton | +0.75 | +1.00 | +1.00 | +1.00 | −0.15 | – | +0.00 |
+| 22 | Camille | +0.75 | +1.00 | +1.00 | +1.00 | −0.18 | – | +0.00 |
+| 23 | Mordekaiser | +0.75 | +1.00 | +0.96 | +0.96 | −0.07 | – | +0.00 |
+| 24 | Pantheon | +0.74 | +1.00 | +1.00 | +1.00 | −0.24 | – | +0.00 |
+| 25 | Volibear | +0.73 | +1.00 | +1.00 | +1.00 | −0.26 | – | +0.00 |
+| 26 | Olaf | +0.73 | +1.00 | +1.00 | +1.00 | −0.48 | +1.00 | +0.00 |
+| 27 | Singed | +0.73 | +1.00 | +1.00 | +1.00 | −0.31 | – | +0.00 |
+| 28 | Gwen | +0.72 | +0.88 | +1.00 | +1.00 | −0.14 | – | +0.00 |
+| 29 | Urgot | +0.63 | +1.00 | +1.00 | +1.00 | +0.21 | −1.00 | +0.00 |
+| 30 | Quinn | +0.61 | +1.00 | +1.00 | +1.00 | +0.06 | −1.00 | +0.00 |
+| 31 | Irelia | +0.44 | −0.23 | +1.00 | +1.00 | +0.00 | – | +0.00 |
+| 32 | Poppy | +0.35 | +1.00 | +1.00 | −1.00 | +0.08 | – | +0.00 |
+| 33 | Riven | +0.22 | −1.00 | +1.00 | +1.00 | +0.00 | – | +0.00 |
+| 34 | Shen | +0.22 | −1.00 | +1.00 | +1.00 | −0.02 | – | +0.00 |
+| 35 | Rumble | +0.19 | −1.00 | +1.00 | +1.00 | −0.20 | – | +0.00 |
+| 36 | Akali | −0.48 | +0.05 | −1.00 | −1.00 | +0.03 | – | +0.00 |
+| 37 | Ornn | −0.78 | −1.00 | −1.00 | −1.00 | −0.02 | – | +0.00 |
+
+## Interaction ledger (partial confidence)
+
 Every champion ranked by what its kit does against Ambessa's, from the interaction ledger: projectile blocks, spell shields,
 parries, dash stops, crowd control and its defenses, range and more (PLAN.md §5). This ranking is **partial**: it weighs the
 interactions but doesn't play the fight out. The duel simulator replaces it as each champion's behavior is verified.
@@ -8,64 +54,64 @@ interactions but doesn't play the fight out. The duel simulator replaces it as e
 A hard counter shuts down part of a kit every time it is used (projectile block, attack dodge, attack block, blind, disarm, attack speed slow, attack reflect, dash stop, grounding, range) with an impact of 0.4 or more (0.5 for range).
 Run `npm run matchup -- <champion> Ambessa` for the full ledger of a matchup, with sources.
 
-## Top 10
+### Top 10
 
-### 1. Singed (net +1.45)
+#### 1. Singed (net +1.45)
 
 - **0.49** grounding: Mega Adhesive grounds Ambessa, who then can't cast Public Execution. Grounded while in the area; 13 s cooldown. (Singed W Mega Adhesive → Ambessa R Public Execution)
 - **0.40** anti-heal: Insanity Potion's Grievous Wounds cuts Ambessa's healing from Public Execution by 40%. (Singed R Insanity Potion → Ambessa R Public Execution)
 - **0.32** grounding: Mega Adhesive grounds Ambessa, who then can't cast Drakehound's Step. Grounded while in the area; 13 s cooldown. (Singed W Mega Adhesive → Ambessa I Drakehound's Step)
 
-### 2. Sivir (net +1.31)
+#### 2. Sivir (net +1.31)
 
 - **1.00** spell shield: Spell Shield's spell shield blocks Ambessa's Public Execution. Spell shield for 1.5 s, long enough to use ahead of Public Execution. A spell shield blocks only the first enemy ability that reaches it. (Sivir E Spell Shield → Ambessa R Public Execution)
 - **0.31** range: Sivir's basic attacks reach 375 units farther than Ambessa's (500 vs 125 attack range). Ambessa closes the gap with Drakehound's Step, Public Execution. (Sivir basic attacks → Ambessa basic attacks)
 
-### 3. Xayah (net +1.26)
+#### 3. Xayah (net +1.26)
 
 - **1.00** untargetable: Featherstorm makes Xayah untargetable, dodging Ambessa's Public Execution. Untargetable for 1.5 s, long enough to use ahead of Public Execution. (Xayah R Featherstorm → Ambessa R Public Execution)
 - **0.26** range: Xayah's basic attacks reach 400 units farther than Ambessa's (525 vs 125 attack range). Ambessa closes the gap with Drakehound's Step, Public Execution. (Xayah basic attacks → Ambessa basic attacks)
 
-### 4. Bard (net +1.24)
+#### 4. Bard (net +1.24)
 
 - **1.00** untargetable: Tempered Fate makes Bard untargetable, dodging Ambessa's Public Execution. Untargetable for 2.5 s, long enough to use ahead of Public Execution. (Bard R Tempered Fate → Ambessa R Public Execution)
 - **0.24** range: Bard's basic attacks reach 375 units farther than Ambessa's (500 vs 125 attack range). Ambessa closes the gap with Drakehound's Step, Public Execution. (Bard basic attacks → Ambessa basic attacks)
 
-### 5. Elise (net +1.22)
+#### 5. Elise (net +1.22)
 
 - **1.00** untargetable: Rappel makes Elise untargetable, dodging Ambessa's Public Execution. Untargetable for 0.6 s; Public Execution takes 0.7 s to land, enough to react. (Elise E Rappel → Ambessa R Public Execution)
 - **0.22** range: Elise's basic attacks reach 425 units farther than Ambessa's (550 vs 125 attack range). Ambessa closes the gap with Drakehound's Step, Public Execution. (Elise basic attacks → Ambessa basic attacks)
 
-### 6. Lissandra (net +1.22)
+#### 6. Lissandra (net +1.22)
 
 - **1.00** untargetable: Frozen Tomb makes Lissandra untargetable, dodging Ambessa's Public Execution. Untargetable for 2.5 s, long enough to use ahead of Public Execution. (Lissandra R Frozen Tomb → Ambessa R Public Execution)
 - **0.15** dash stop: Frozen Tomb's knockdown can stop Ambessa's Drakehound's Step mid-dash. Must land during the dash. Fails if the dashing unit is crowd control immune, displacement immune, untargetable or spell shielded. (Lissandra R Frozen Tomb → Ambessa I Drakehound's Step)
 - **0.15** range: Lissandra's basic attacks reach 425 units farther than Ambessa's (550 vs 125 attack range). Ambessa closes the gap with Drakehound's Step, Public Execution. (Lissandra basic attacks → Ambessa basic attacks)
 
-### 7. Morgana (net +1.17)
+#### 7. Morgana (net +1.17)
 
 - **1.00** cc immunity: Black Shield makes Morgana immune to Ambessa's Public Execution (stun, suppression). Immune for 5 s, long enough to use ahead of Public Execution. (Morgana E Black Shield → Ambessa R Public Execution)
 - **0.13** range: Morgana's basic attacks reach 325 units farther than Ambessa's (450 vs 125 attack range). Ambessa closes the gap with Drakehound's Step, Public Execution. (Morgana basic attacks → Ambessa basic attacks)
 - **0.08** cc immunity: Black Shield makes Morgana immune to Ambessa's Lacerate (slow). Immune for 5 s, long enough to use ahead of Lacerate. (Morgana E Black Shield → Ambessa E Lacerate)
 
-### 8. Fiora (net +1.13)
+#### 8. Fiora (net +1.13)
 
 - **1.10** parry: Riposte parries Ambessa's Public Execution and stuns back. Parry for 0.75 s; Public Execution takes 0.7 s to land, enough to react. Negating Public Execution's immobilizing effect turns Riposte's slow into a stun (2 s). (Fiora W Riposte → Ambessa R Public Execution)
 - **0.06** attack speed slow: Riposte cuts Ambessa's attack speed by 25% for 2 s. 2 s on a 16 s cooldown. (Fiora W Riposte → Ambessa basic attacks)
 
-### 9. Milio (net +1.10)
+#### 9. Milio (net +1.10)
 
 - **0.69** cleanse: Breath of Life cleanses Ambessa's Public Execution (stun, suppression) after it lands. 130 s cooldown; usable while crowd controlled. (Milio R Breath of Life → Ambessa R Public Execution)
 - **0.27** tenacity: Breath of Life's 65% tenacity shortens Ambessa's Public Execution (stun). Breath of Life lasts 3 s on a 130 s cooldown. (Milio R Breath of Life → Ambessa R Public Execution)
 - **0.26** range: Milio's basic attacks reach 400 units farther than Ambessa's (525 vs 125 attack range). Ambessa closes the gap with Drakehound's Step, Public Execution. (Milio basic attacks → Ambessa basic attacks)
 
-### 10. Vladimir (net +1.07)
+#### 10. Vladimir (net +1.07)
 
 - **1.00** untargetable: Sanguine Pool makes Vladimir untargetable, dodging Ambessa's Public Execution. Untargetable for 2 s, long enough to use ahead of Public Execution. (Vladimir W Sanguine Pool → Ambessa R Public Execution)
 - **0.12** range: Vladimir's basic attacks reach 325 units farther than Ambessa's (450 vs 125 attack range). Ambessa closes the gap with Drakehound's Step, Public Execution. (Vladimir basic attacks → Ambessa basic attacks)
 - Watch out: Public Execution's stun interrupts Vladimir's Tides of Blood (charge-up).
 
-## Full ranking
+### Full ranking
 
 | # | Champion | Net | For | Against | Hard counters |
 |--:|---|--:|--:|--:|---|

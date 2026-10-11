@@ -11,7 +11,7 @@ import { abilityOf, allAbilities } from "./forms";
 import { terrainLimit } from "./terrain";
 import { hitChance } from "./hitModel";
 import { type AbilitySpec, type AttackSplit, type Effect, cooldownKeyOf } from "./spec";
-import { type Action, type Aim, type Missile, type Pet, type Status, type Unit, type World, type Zone, other } from "./state";
+import { type Action, type Aim, type Missile, type Pet, type Side, type Status, type Unit, type World, type Zone, other } from "./state";
 import { canAttackPet, damagePet, petDistance } from "./pets";
 import { averageCritFactor } from "../rules/defense";
 
@@ -77,9 +77,11 @@ export function startAttack(world: World, unit: Unit, pet?: Pet): void {
   let bonusRange = 0;
   let split: AttackSplit | undefined;
   let windup: number | undefined;
+  const empowered: string[] = [];
   // Every active empowerment applies to the attack and spends one of its charges.
   for (const empower of unit.statuses) {
     if (empower.kind !== "empower" || !empower.empower || empower.empower.attacks <= 0) continue;
+    empowered.push(empower.key);
     bonusOnHit.push(...empower.empower.onHit);
     uncancellable ||= empower.empower.uncancellable;
     bonusRange = Math.max(bonusRange, empower.empower.bonusRange);
@@ -102,6 +104,7 @@ export function startAttack(world: World, unit: Unit, pet?: Pet): void {
     bonusRange,
     ...(split ? { split } : {}),
     ...(pet ? { pet: pet.id } : {}),
+    ...(empowered.length > 0 ? { empowered } : {}),
   };
   unit.attackReadyTick = world.tick + timing.total;
   unit.move = 0;
@@ -113,6 +116,8 @@ export function startAttack(world: World, unit: Unit, pet?: Pet): void {
 export function launchAttack(world: World, unit: Unit, action = unit.action): void {
   if (action?.kind !== "windup") return;
   if (unit.action === action) unit.action = undefined;
+  // Post-effect cooldowns that waited for this empowered attack start as it lands.
+  if (action.empowered) releaseCooldowns(world, unit);
   const onLaunch = unit.spec.hooks?.onAttackLaunch;
   if (onLaunch) onLaunch(hookContext(world, unit));
   if (action.pet !== undefined) {
@@ -347,7 +352,7 @@ export function startCast(world: World, unit: Unit, ability: AbilitySpec, aim?: 
   for (const effect of ability.onCastStart ?? []) applyEffect(world, unit, unit, effect, { ability, scale: 1 });
   const onCastStart = unit.spec.hooks?.onCastStart;
   if (onCastStart) onCastStart(hookContext(world, unit, ability));
-  const castTicks = toTicks(ability.castTime);
+  const castTicks = toTicks(ability.castTimeFor?.(unit) ?? ability.castTime);
   if (castTicks === 0) return completeCast(world, unit, ability, world.tick, aim);
   unit.action = { kind: "cast", ability: ability.key, startTick: world.tick, endTick: world.tick + castTicks, ...(aim ? { aim } : {}) };
   if (!ability.moveWhileCasting) unit.move = 0;
@@ -393,7 +398,7 @@ function startCooldown(world: World, unit: Unit, ability: AbilitySpec): void {
     return;
   }
   const haste = derive(unit).abilityHaste;
-  unit.cooldownReady[key] = world.tick + toTicks(cooldownAfterHaste(ability.cooldown, haste));
+  unit.cooldownReady[key] = world.tick + toTicks(cooldownAfterHaste(ability.cooldownFor?.(unit) ?? ability.cooldown, haste));
 }
 
 /** Post-effect cooldowns start once their cast's effect is over (wiki: "Cooldown starts"). */
@@ -403,14 +408,18 @@ export function releaseCooldowns(world: World, unit: Unit): void {
     if (ability && effectLasts(world, unit, ability)) continue;
     delete unit.cooldownHeld[key];
     const haste = derive(unit).abilityHaste;
-    unit.cooldownReady[key] = world.tick + (ability ? toTicks(cooldownAfterHaste(ability.cooldown, haste)) : 0);
+    unit.cooldownReady[key] = world.tick + (ability ? toTicks(cooldownAfterHaste(ability.cooldownFor?.(unit) ?? ability.cooldown, haste)) : 0);
   }
 }
 
 function effectLasts(world: World, unit: Unit, ability: AbilitySpec): boolean {
   switch (ability.cooldownAfter) {
-    case "empower":
-      return unit.statuses.some((s) => s.kind === "empower" && s.key === ability.key && (s.empower?.attacks ?? 0) > 0);
+    case "empower": {
+      // Until the empowered attack lands, a recast's included (The Darkin Glaive's recast).
+      const mine = (key: string) => key === ability.key || abilityOf(unit, key)?.chain?.root === ability.key;
+      if (unit.action?.kind === "windup" && unit.action.empowered?.some(mine)) return true;
+      return unit.statuses.some((s) => s.kind === "empower" && mine(s.key) && (s.empower?.attacks ?? 0) > 0);
+    }
     case "channel":
       return unit.action?.kind === "channel" && unit.action.ability === ability.key && unit.action.endTick > world.tick;
     case "dash":
@@ -481,10 +490,22 @@ function resolveSkillshot(
 }
 
 export interface PendingSplit {
-  /** The missile or zone (by id) whose landing the fight splits on. */
+  /** The missile or zone (by id), or the side whose charge (`dash`), that the fight splits on. */
   missile?: number;
   zone?: number;
+  dash?: Side;
   chance: number;
+}
+
+/** Ticks a charge takes to cover a distance: it moves from the tick after it starts, a step faster every `everyTicks`. */
+function rampTicks(distance: number, ramp: { from: number; amount: number; everyTicks: number; max: number }): number {
+  let covered = 0;
+  let ticks = 0;
+  while (covered < distance - EPSILON && ticks < 30 * 60) {
+    ticks += 1;
+    covered += Math.min(ramp.max, ramp.from + ramp.amount * Math.floor(ticks / ramp.everyTicks)) / 30;
+  }
+  return Math.max(1, ticks);
 }
 
 /** The cast time ends: pay the cost, start the cooldown, and deliver the ability. */
@@ -497,6 +518,8 @@ function advanceChain(world: World, unit: Unit, ability: AbilitySpec): void {
   const next = stages.find((a) => a.chain?.index === index + 1);
   if (next?.chain) {
     unit.chains[root] = { stage: index, castTick: world.tick, until: world.tick + toTicks(next.chain.window) };
+    // An automatic follow-up with no window is part of the same cast (The Weirding's recoil).
+    if (next.chain.auto && toTicks(next.chain.window) === 0 && toTicks(next.chain.delay ?? 0) === 0) pendingFollowUps.push([unit, next]);
   } else {
     delete unit.chains[root];
     const first = abilityOf(unit, root);
@@ -520,7 +543,21 @@ export function expireChains(world: World, unit: Unit): void {
   }
 }
 
+/** Follow-ups to complete right after the cast that opened them (see advanceChain). */
+const pendingFollowUps: Array<[Unit, AbilitySpec]> = [];
+
 export function completeCast(world: World, unit: Unit, ability: AbilitySpec, castStartTick: number, aim?: Aim): PendingSplit | undefined {
+  let split = completeOneCast(world, unit, ability, castStartTick, aim);
+  for (let follow = pendingFollowUps.shift(); follow; follow = pendingFollowUps.shift()) {
+    const [owner, next] = follow;
+    if (!owner.alive) continue;
+    log(world, owner.side, `${next.name} fires`);
+    split ??= completeOneCast(world, owner, next, world.tick);
+  }
+  return split;
+}
+
+function completeOneCast(world: World, unit: Unit, ability: AbilitySpec, castStartTick: number, aim?: Aim): PendingSplit | undefined {
   const enemy = world.units[other(unit.side)];
   // An overlay cast leaves what the unit was doing running; its dash holds it until it ends.
   const held = ability.overlay && unit.action && unit.action.kind !== "windup" && !(unit.action.kind === "cast" && unit.action.ability === ability.key) ? unit.action : undefined;
@@ -602,9 +639,11 @@ export function completeCast(world: World, unit: Unit, ability: AbilitySpec, cas
       const away = aimed ? aim.direction < 0 : delivery.direction === "away";
       const dir = away ? -directionTo(unit, enemy) : directionTo(unit, enemy);
       const distance = aimed ? Math.min(delivery.distance, Math.max(delivery.minDistance ?? 0, aim.distance ?? delivery.distance)) : delivery.distance;
-      const ticks = Math.max(1, Math.ceil(distance / (delivery.speed / 30) - EPSILON));
-      const perTick = (dir * distance) / ticks;
-      unit.action = {
+      // A charge starts at the caster's movement speed and speeds up (Unstoppable Onslaught).
+      const ramp = delivery.ramp ? { from: Math.min(delivery.speed, derive(unit).moveSpeed), amount: delivery.ramp.amount, everyTicks: Math.max(1, toTicks(delivery.ramp.every)), max: delivery.speed } : undefined;
+      const ticks = ramp ? rampTicks(distance, ramp) : Math.max(1, Math.ceil(distance / (delivery.speed / 30) - EPSILON));
+      const perTick = ramp ? (dir * ramp.from) / 30 : (dir * distance) / ticks;
+      const dash: Extract<Action, { kind: "dash" }> = {
         kind: "dash",
         ability: ability.key,
         startTick: world.tick,
@@ -614,7 +653,18 @@ export function completeCast(world: World, unit: Unit, ability: AbilitySpec, cas
         unstoppable: ability.flags?.knockdown === false,
         ...(held ? { resume: held } : {}),
         ...(delivery.through ? { through: true } : {}),
+        ...(ramp ? { ramp } : {}),
       };
+      if (delivery.sidestep !== undefined && !away) {
+        // The enemy sees it coming and can step aside until it arrives.
+        const gap = Math.max(0, contactGap(unit, enemy));
+        const travel = (ramp ? rampTicks(gap, ramp) : Math.ceil(gap / (delivery.speed / 30) - EPSILON)) / 30;
+        const decision = resolveSkillshot(world, unit, enemy, ability, castStartTick, travel, delivery.sidestep);
+        dash.connects = decision.connects;
+        dash.scale = decision.scale;
+        if (decision.split !== undefined) split = { dash: unit.side, chance: decision.split };
+      }
+      unit.action = dash;
       break;
     }
     case "area": {
@@ -767,6 +817,10 @@ export function progressDash(world: World, unit: Unit): void {
   const from = unit.x;
   // Dashes to a location stop at terrain; dashes to a unit go over it.
   const toUnit = ability?.delivery.kind === "dash" && ability.delivery.direction === "target";
+  if (action.ramp) {
+    const ramp = action.ramp;
+    action.perTick = (Math.sign(action.perTick) * Math.min(ramp.max, ramp.from + ramp.amount * Math.floor((world.tick - action.startTick) / ramp.everyTicks))) / 30;
+  }
   const step = toUnit ? action.perTick : terrainLimit(world, unit, action.perTick);
   unit.x += step;
   if (stoppedByAntiDash(world, unit, enemy, action.unstoppable)) return;
@@ -777,7 +831,8 @@ export function progressDash(world: World, unit: Unit): void {
     const nearest = crossed ? 0 : Math.min(Math.abs(from - enemy.x), Math.abs(unit.x - enemy.x));
     if (nearest <= reach + EPSILON) {
       action.hit = true;
-      abilityHit(world, unit, enemy, ability, ability.onHit ?? []);
+      if (action.connects === false) log(world, unit.side, `${ability.name} misses`);
+      else abilityHit(world, unit, enemy, ability, ability.onHit ?? [], action.scale ?? 1);
     }
   }
   const arrived = world.tick >= action.endTick || (action.stopAtContact && contactGap(unit, enemy) <= EPSILON) || step !== action.perTick;
@@ -788,7 +843,9 @@ export function progressDash(world: World, unit: Unit): void {
   unit.action = action.resume;
   const delivery = ability?.delivery;
   if (ability && delivery?.kind === "dash" && !delivery.through && delivery.hitRadius !== undefined && edgeDistance(unit, enemy) <= delivery.hitRadius + EPSILON) {
-    abilityHit(world, unit, enemy, ability, ability.onHit ?? []);
+    // A charge the enemy stepped aside from ends beside it without hitting.
+    if (action.connects === false) log(world, unit.side, `${ability.name} misses`);
+    else abilityHit(world, unit, enemy, ability, ability.onHit ?? [], action.scale ?? 1);
   }
 }
 

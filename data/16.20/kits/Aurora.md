@@ -245,3 +245,77 @@ All 4 level-based formulas in the game files (1 linked to wiki values above):
 | AuroraPassive | HealCalc | linear 3 → 20 over levels 1-18, continues past 18 | 3 | 20 | 22 |
 | AuroraPassive | {394d1781} | breakpoints at levels none (level 1: 10) | 10 | 180 | 200 |
 | AuroraPassive | CooldownDuration | linear 5 → 5 over levels 1-18, continues past 18 | 5 | 5 | 5 |
+
+## Duel simulator kit (level 20, every ability at max rank)
+
+What the duel simulator fights with (`kits/champions/Aurora.ts`): every number is read from the wiki's ability data above at level 20; what the wiki doesn't say is listed under assumptions. Ratios are fractions of the stat (60% AD is 0.6 × AD).
+
+- Basic attack: range 550, missile at 1750/s.
+
+| Key | Ability | Cooldown (s) | Cast time (s) | Cost | Delivery | On the enemy | On itself |
+|---|---|--:|--:|---|---|---|---|
+| Q | Twofold Hex | 7 | 0.25 | 60 | skillshot 900 long, 180 wide, at 1600/s | 145 + 40% AP magic damage | – |
+| Q2 | Twofold Hex (recast) | 0 | 0 | – | targeted, 100000 range; recast of Q within 3.5 s, after 0.1 s, automatic | marks it "hex" for 0.1 s | – |
+| W | Across the Veil | 18 | 0 | 80 | dash away 300 units at 350/s | – | after 0.857 s: invisible for 1.6 s; ghosted for 4 s; moveSpeedPercent 0.4 for 4 s |
+| E | The Weirding | 11 | 0.35 | 80 | area 0 to 825 units ahead, lands after 0 s | 240 + 70% AP magic damage; slow 80% for 0.15 s; slow 40% for 1 s | – |
+| E2 | The Weirding (recoil) | 0 | 0 | – | dash away 250 units at 820/s; recast of E within 0 s, automatic | – | – |
+| R | Between Worlds | 100 (starts when its effect on the caster ends) | 0 | 100 | area -275 to 1125 units ahead, lands after 0.775 s | 375 + 70% AP magic damage; slow 30% for 2 s | as the cast starts: displacementImmune for 0.4 s; ghosted for 5 s; moveSpeedPercent 0.4 for 5 s; lingering for 4.4 s |
+
+Effects marked by a mark or a role are completed by the kit's hooks (see the kit's source).
+
+### Assumptions
+
+- The Weirding's slow is full for 0.15 s, then decays and counts at half; its recoil goes at 150 + 200% of Aurora's base movement speed.
+- Between Worlds' shockwave reaches 700 units around a point 425 units ahead of Aurora, landing halfway through its 0.75 s expansion; her own dash across the rift on touching its border is left out (on a line it would carry her past the enemy).
+
+### Wiki values read (47)
+
+| Ability | Value | Revision |
+|---|---|---|
+| Spirit Abjuration | apply a stack of Spirit Abjuration to enemies for 4 seconds | [4064315](https://wiki.leagueoflegends.com/en-us/Template:Data_Aurora/Spirit_Abjuration?oldid=4064315) |
+| Spirit Abjuration | refreshing on subsequent applications and stacking up to 3 times | [4064315](https://wiki.leagueoflegends.com/en-us/Template:Data_Aurora/Spirit_Abjuration?oldid=4064315) |
+| Spirit Abjuration | equal to 1% (+ 2.7% per 100 AP) of the target's maximum health | [4064315](https://wiki.leagueoflegends.com/en-us/Template:Data_Aurora/Spirit_Abjuration?oldid=4064315) |
+| Spirit Abjuration | For each active Spirit, Aurora is healed for 3 – 20 (based on level) (+ 2% AP) every second. | [4064315](https://wiki.leagueoflegends.com/en-us/Template:Data_Aurora/Spirit_Abjuration?oldid=4064315) |
+| Spirit Abjuration | (+ 2% AP) every second | [4064315](https://wiki.leagueoflegends.com/en-us/Template:Data_Aurora/Spirit_Abjuration?oldid=4064315) |
+| Spirit Abjuration | Aurora may have up to 4 Spirits at a time | [4064315](https://wiki.leagueoflegends.com/en-us/Template:Data_Aurora/Spirit_Abjuration?oldid=4064315) |
+| Spirit Abjuration | freeing a Spirit from the target that follows her for the same duration | [4064315](https://wiki.leagueoflegends.com/en-us/Template:Data_Aurora/Spirit_Abjuration?oldid=4064315) |
+| Twofold Hex | marks them with a curse for 3.5 seconds | [4021922](https://wiki.leagueoflegends.com/en-us/Template:Data_Aurora/Twofold_Hex?oldid=4021922) |
+| Twofold Hex | Twofold Hex can be recast after 0.1 seconds while at least one target is marked | [4021922](https://wiki.leagueoflegends.com/en-us/Template:Data_Aurora/Twofold_Hex?oldid=4021922) |
+| Twofold Hex | Minimum Magic Damage: 45 / 70 / 95 / 120 / 145 (+ 40% AP) | [4021922](https://wiki.leagueoflegends.com/en-us/Template:Data_Aurora/Twofold_Hex?oldid=4021922) |
+| Twofold Hex | Recast: Aurora expunges the curse from all marked targets, drawing the spiritual energy back to her as bolts that each deal magic damage to all enemies they pass through, reduced to 40% against minions and 50% against monsters and increased by 0 / 5 / 10 / 15 / 20 / 25 / 30 / 35 / 40 / 45 / 50 (based on target's missing health)%. | [4021922](https://wiki.leagueoflegends.com/en-us/Template:Data_Aurora/Twofold_Hex?oldid=4021922) |
+| Twofold Hex | speed: 1600 • 2000 | [4021922](https://wiki.leagueoflegends.com/en-us/Template:Data_Aurora/Twofold_Hex?oldid=4021922) |
+| Across the Veil | range: 300 • 450 | [4007570](https://wiki.leagueoflegends.com/en-us/Template:Data_Aurora/Across_the_Veil?oldid=4007570) |
+| Across the Veil | speed: 350 | [4007570](https://wiki.leagueoflegends.com/en-us/Template:Data_Aurora/Across_the_Veil?oldid=4007570) |
+| Across the Veil | Invisibility Duration: 1 / 1.15 / 1.3 / 1.45 / 1.6 seconds | [4007570](https://wiki.leagueoflegends.com/en-us/Template:Data_Aurora/Across_the_Veil?oldid=4007570) |
+| Across the Veil | Bonus Movement Speed: 20 / 25 / 30 / 35 / 40% | [4007570](https://wiki.leagueoflegends.com/en-us/Template:Data_Aurora/Across_the_Veil?oldid=4007570) |
+| Across the Veil | gains Realm Hopper for 4 seconds | [4007570](https://wiki.leagueoflegends.com/en-us/Template:Data_Aurora/Across_the_Veil?oldid=4007570) |
+| Across the Veil | Using a basic attack breaks the stealth at the end of the attack windup | [4007570](https://wiki.leagueoflegends.com/en-us/Template:Data_Aurora/Across_the_Veil?oldid=4007570) |
+| The Weirding | slows them by 80% for 1 second decaying after the first 0.15 seconds | [4064843](https://wiki.leagueoflegends.com/en-us/Template:Data_Aurora/The_Weirding?oldid=4064843) |
+| The Weirding | recoils 250 units in the opposite direction | [4064843](https://wiki.leagueoflegends.com/en-us/Template:Data_Aurora/The_Weirding?oldid=4064843) |
+| The Weirding | speed: 150 + 200% movement speed | [4064843](https://wiki.leagueoflegends.com/en-us/Template:Data_Aurora/The_Weirding?oldid=4064843) |
+| Between Worlds | Aurora leaps in the target direction with displacement immunity over 0.4 seconds | [4066715](https://wiki.leagueoflegends.com/en-us/Template:Data_Aurora/Between_Worlds?oldid=4066715) |
+| Between Worlds | unleashes a shockwave from 425 units in front of her | [4066715](https://wiki.leagueoflegends.com/en-us/Template:Data_Aurora/Between_Worlds?oldid=4066715) |
+| Between Worlds | expanding over 0.75 seconds | [4066715](https://wiki.leagueoflegends.com/en-us/Template:Data_Aurora/Between_Worlds?oldid=4066715) |
+| Between Worlds | effectRadius: 700 | [4066715](https://wiki.leagueoflegends.com/en-us/Template:Data_Aurora/Between_Worlds?oldid=4066715) |
+| Between Worlds | slow them by 30% for 2 seconds | [4066715](https://wiki.leagueoflegends.com/en-us/Template:Data_Aurora/Between_Worlds?oldid=4066715) |
+| Between Worlds | Rift Duration: 2.25 / 2.75 / 3.25 seconds | [4066715](https://wiki.leagueoflegends.com/en-us/Template:Data_Aurora/Between_Worlds?oldid=4066715) |
+| Between Worlds | If an enemy collides with the border, they are slowed by 50% for a duration | [4066715](https://wiki.leagueoflegends.com/en-us/Template:Data_Aurora/Between_Worlds?oldid=4066715) |
+| Between Worlds | Slow Duration: 1.5 / 1.75 / 2 seconds | [4066715](https://wiki.leagueoflegends.com/en-us/Template:Data_Aurora/Between_Worlds?oldid=4066715) |
+| Between Worlds | Realm Hopper Duration: 4 / 4.5 / 5 seconds | [4066715](https://wiki.leagueoflegends.com/en-us/Template:Data_Aurora/Between_Worlds?oldid=4066715) |
+| Between Worlds | The rift closes immediately if Aurora dies, enters resurrection, leaves the area, or is not within the area upon creation | [4066715](https://wiki.leagueoflegends.com/en-us/Template:Data_Aurora/Between_Worlds?oldid=4066715) |
+| Twofold Hex | cooldown: 9 / 8.5 / 8 / 7.5 / 7 | [4021922](https://wiki.leagueoflegends.com/en-us/Template:Data_Aurora/Twofold_Hex?oldid=4021922) |
+| Twofold Hex | cost: 60 | [4021922](https://wiki.leagueoflegends.com/en-us/Template:Data_Aurora/Twofold_Hex?oldid=4021922) |
+| Twofold Hex | castTime: 0.25 • None | [4021922](https://wiki.leagueoflegends.com/en-us/Template:Data_Aurora/Twofold_Hex?oldid=4021922) |
+| Twofold Hex | range: 900 | [4021922](https://wiki.leagueoflegends.com/en-us/Template:Data_Aurora/Twofold_Hex?oldid=4021922) |
+| Twofold Hex | width: 180 • 180 | [4021922](https://wiki.leagueoflegends.com/en-us/Template:Data_Aurora/Twofold_Hex?oldid=4021922) |
+| Twofold Hex | Magic Damage: 45 / 70 / 95 / 120 / 145 (+ 40% AP) | [4021922](https://wiki.leagueoflegends.com/en-us/Template:Data_Aurora/Twofold_Hex?oldid=4021922) |
+| Across the Veil | cooldown: 22 / 21 / 20 / 19 / 18 | [4007570](https://wiki.leagueoflegends.com/en-us/Template:Data_Aurora/Across_the_Veil?oldid=4007570) |
+| Across the Veil | cost: 80 | [4007570](https://wiki.leagueoflegends.com/en-us/Template:Data_Aurora/Across_the_Veil?oldid=4007570) |
+| The Weirding | cooldown: 15 / 14 / 13 / 12 / 11 | [4064843](https://wiki.leagueoflegends.com/en-us/Template:Data_Aurora/The_Weirding?oldid=4064843) |
+| The Weirding | cost: 80 | [4064843](https://wiki.leagueoflegends.com/en-us/Template:Data_Aurora/The_Weirding?oldid=4064843) |
+| The Weirding | castTime: 0.35 | [4064843](https://wiki.leagueoflegends.com/en-us/Template:Data_Aurora/The_Weirding?oldid=4064843) |
+| The Weirding | range: 825 | [4064843](https://wiki.leagueoflegends.com/en-us/Template:Data_Aurora/The_Weirding?oldid=4064843) |
+| The Weirding | Magic Damage: 80 / 120 / 160 / 200 / 240 (+ 70% AP) | [4064843](https://wiki.leagueoflegends.com/en-us/Template:Data_Aurora/The_Weirding?oldid=4064843) |
+| Between Worlds | cooldown: 140 / 120 / 100 | [4066715](https://wiki.leagueoflegends.com/en-us/Template:Data_Aurora/Between_Worlds?oldid=4066715) |
+| Between Worlds | cost: 100 | [4066715](https://wiki.leagueoflegends.com/en-us/Template:Data_Aurora/Between_Worlds?oldid=4066715) |
+| Between Worlds | Magic Damage: 175 / 275 / 375 (+ 70% AP) | [4066715](https://wiki.leagueoflegends.com/en-us/Template:Data_Aurora/Between_Worlds?oldid=4066715) |

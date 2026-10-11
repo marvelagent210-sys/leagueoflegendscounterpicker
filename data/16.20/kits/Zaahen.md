@@ -249,3 +249,87 @@ All 1 level-based formulas in the game files (0 linked to wiki values above):
 | Spell | Calculation | Rule | Level 1 | Level 18 | Level 20 |
 |---|---|---|--:|--:|--:|
 | ZaahenPassive | ReviveCooldownCalc | breakpoints at levels 6, 11, 16 (level 1: 300) | 300 | 120 | 120 |
+
+## Duel simulator kit (level 20, every ability at max rank)
+
+What the duel simulator fights with (`kits/champions/Zaahen.ts`): every number is read from the wiki's ability data above at level 20; what the wiki doesn't say is listed under assumptions. Ratios are fractions of the stat (60% AD is 0.6 × AD).
+
+- Basic attack: range 175, melee.
+
+| Key | Ability | Cooldown (s) | Cast time (s) | Cost | Delivery | On the enemy | On itself |
+|---|---|--:|--:|---|---|---|---|
+| Q | The Darkin Glaive | 6 (starts after the empowered attacks) | 0 | 25 | self | – | next 1 attack within 4 s: 37.5 + 50% AD + 20% bonus AD physical damage (The Darkin Glaive); 37.5 + 50% AD + 20% bonus AD physical damage (The Darkin Glaive); 10000% of crit chance per 100 AD physical damage (The Darkin Glaive (critical strikes)) (+25 range, resets the attack timer, uncancellable) |
+| Q2 | The Darkin Glaive (recast) | 0 | 0 | – | self; recast of Q within 9.5 s, after 1.5 s | – | next 1 attack within 4 s: 150 + 40% bonus AD physical damage (The Darkin Glaive (recast)); knock up over 0.75 s (+25 range, resets the attack timer, uncancellable) |
+| W | Dreaded Return | 12 | 0.5 | 50 | skillshot 850 long, 140 wide, at 2900/s | 120 + 50% bonus AD physical damage | – |
+| E | Aureate Rush | 8 | 0 | 40 | dash toward 0–350 units at 900/s, hits within 375 | marks it "flourish" for 0.1 s | – |
+| R | Grim Deliverance | 80 | 0.5 | 100 | circle of 550 radius (to the target's center) up to 600 away, lands after 0.6 s | 550 + 200% bonus AD physical damage | as the cast starts: ccImmune for 0.5 s; damageReduction 0.5 for 1.225 s; displacementImmune for 1.225 s |
+
+Effects marked by a mark or a role are completed by the kit's hooks (see the kit's source).
+
+### Assumptions
+
+- Determination's bonus is a share of Zaahen's attack damage without that bonus; the revive comes once a fight (its cooldown is 120 s at level 20).
+- The Darkin Glaive's two strikes stand in for the attack's own damage; their critical strike bonus counts at its expected value.
+- Aureate Rush lands 287.5 units from the enemy's center, so its outer edge (200 to 375 units) hits it.
+- Grim Deliverance's fuzzy extra lockout after the slam (up to 0.25 s) counts at its average, 0.125 s.
+- Getting away, Zaahen dashes Aureate Rush's full distance away from the enemy.
+
+### Wiki values read (55)
+
+| Ability | Value | Revision |
+|---|---|---|
+| Cultivation of War | lasting for 5 seconds, refreshing on subsequent triggers, and stacking up to 12 times | [4060321](https://wiki.leagueoflegends.com/en-us/Template:Data_Zaahen/Cultivation_of_War?oldid=4060321) |
+| Cultivation of War | the stacks expire by 1 / 2 / 3 / 4 / 5 (based on Seconds) every 0.5 seconds | [4060321](https://wiki.leagueoflegends.com/en-us/Template:Data_Zaahen/Cultivation_of_War?oldid=4060321) |
+| Cultivation of War | After the duration, the stacks expire by 1 / 2 / 3 / 4 / 5 (based on Seconds) every 0.5 seconds. | [4060321](https://wiki.leagueoflegends.com/en-us/Template:Data_Zaahen/Cultivation_of_War?oldid=4060321) |
+| Cultivation of War | Determination: For each stack, Zaahen gains bonus attack damage equal to 1.5 – 2.8 (based on level)% AD. | [4060321](https://wiki.leagueoflegends.com/en-us/Template:Data_Zaahen/Cultivation_of_War?oldid=4060321) |
+| Cultivation of War | At maximum stacks, Zaahen becomes filled with Determination, causing him to double the bonus to 36 – 67.2 (based on level)% AD. | [4060321](https://wiki.leagueoflegends.com/en-us/Template:Data_Zaahen/Cultivation_of_War?oldid=4060321) |
+| Cultivation of War | he refreshes its duration and enters resurrection for 4 seconds | [4060321](https://wiki.leagueoflegends.com/en-us/Template:Data_Zaahen/Cultivation_of_War?oldid=4060321) |
+| Cultivation of War | Additionally, he restores 30 / 45 / 60 / 75 (based on level)% of his maximum health over the duration. | [4060321](https://wiki.leagueoflegends.com/en-us/Template:Data_Zaahen/Cultivation_of_War?oldid=4060321) |
+| Cultivation of War | The bonus attack damage granted by Determination stacks will update dynamically with Zaahen's total attack damage | [4060321](https://wiki.leagueoflegends.com/en-us/Template:Data_Zaahen/Cultivation_of_War?oldid=4060321) |
+| Cultivation of War | Q initial cast empowered attack can generate a stack for each strike | [4060321](https://wiki.leagueoflegends.com/en-us/Template:Data_Zaahen/Cultivation_of_War?oldid=4060321) |
+| Cultivation of War | Both passes of W can generate a stack | [4060321](https://wiki.leagueoflegends.com/en-us/Template:Data_Zaahen/Cultivation_of_War?oldid=4060321) |
+| Cultivation of War | his current health will always be overridden by the percentage of health he is supposed to have restored | [4060321](https://wiki.leagueoflegends.com/en-us/Template:Data_Zaahen/Cultivation_of_War?oldid=4060321) |
+| The Darkin Glaive | Zaahen empowers his next basic attack within 4 seconds to have an uncancellable windup and gain 25 bonus range | [4060370](https://wiki.leagueoflegends.com/en-us/Template:Data_Zaahen/The_Darkin_Glaive?oldid=4060370) |
+| The Darkin Glaive | Physical Damage per Hit: 7.5 / 15 / 22.5 / 30 / 37.5 (+ 50% AD) (+ 10 / 12.5 / 15 / 17.5 / 20% bonus AD) | [4060370](https://wiki.leagueoflegends.com/en-us/Template:Data_Zaahen/The_Darkin_Glaive?oldid=4060370) |
+| The Darkin Glaive | can critically strike for 50% AD bonus physical damage | [4060370](https://wiki.leagueoflegends.com/en-us/Template:Data_Zaahen/The_Darkin_Glaive?oldid=4060370) |
+| The Darkin Glaive | Champion Healing: 5 / 6 / 7 / 8 / 9% of his maximum health | [4060370](https://wiki.leagueoflegends.com/en-us/Template:Data_Zaahen/The_Darkin_Glaive?oldid=4060370) |
+| The Darkin Glaive | After 1.5 seconds of using the empowered attack, The Darkin Glaive can be recast within the next 4 seconds | [4060370](https://wiki.leagueoflegends.com/en-us/Template:Data_Zaahen/The_Darkin_Glaive?oldid=4060370) |
+| The Darkin Glaive | deal bonus physical damage and knock up the target for 0.75 seconds | [4060370](https://wiki.leagueoflegends.com/en-us/Template:Data_Zaahen/The_Darkin_Glaive?oldid=4060370) |
+| The Darkin Glaive | Rolls critical strike once for both strikes | [4060370](https://wiki.leagueoflegends.com/en-us/Template:Data_Zaahen/The_Darkin_Glaive?oldid=4060370) |
+| The Darkin Glaive | Since the healing is granted on-attack, parrying effects will not prevent Zaahen from gaining the heal | [4060370](https://wiki.leagueoflegends.com/en-us/Template:Data_Zaahen/The_Darkin_Glaive?oldid=4060370) |
+| The Darkin Glaive | Upon being put in resurrection and if The Darkin Glaive is active, it is placed on cooldown immediately | [4060370](https://wiki.leagueoflegends.com/en-us/Template:Data_Zaahen/The_Darkin_Glaive?oldid=4060370) |
+| Dreaded Return | targetRange: 850 | [4050171](https://wiki.leagueoflegends.com/en-us/Template:Data_Zaahen/Dreaded_Return?oldid=4050171) |
+| Dreaded Return | speed: 2900 • 900 | [4050171](https://wiki.leagueoflegends.com/en-us/Template:Data_Zaahen/Dreaded_Return?oldid=4050171) |
+| Dreaded Return | stunned for 0.25 seconds, and pulled 225 units toward Zaahen | [4050171](https://wiki.leagueoflegends.com/en-us/Template:Data_Zaahen/Dreaded_Return?oldid=4050171) |
+| Dreaded Return | Subsequent Physical Damage: 30 / 50 / 70 / 90 / 110 (+ 30% bonus AD) | [4050171](https://wiki.leagueoflegends.com/en-us/Template:Data_Zaahen/Dreaded_Return?oldid=4050171) |
+| Dreaded Return | cooldown: 14 / 13.5 / 13 / 12.5 / 12 | [4050171](https://wiki.leagueoflegends.com/en-us/Template:Data_Zaahen/Dreaded_Return?oldid=4050171) |
+| Aureate Rush | targetRange: 350 | [4022487](https://wiki.leagueoflegends.com/en-us/Template:Data_Zaahen/Aureate_Rush?oldid=4022487) |
+| Aureate Rush | effectRadius: 375 | [4022487](https://wiki.leagueoflegends.com/en-us/Template:Data_Zaahen/Aureate_Rush?oldid=4022487) |
+| Aureate Rush | innerRadius: 200 | [4022487](https://wiki.leagueoflegends.com/en-us/Template:Data_Zaahen/Aureate_Rush?oldid=4022487) |
+| Aureate Rush | speed: 900 | [4022487](https://wiki.leagueoflegends.com/en-us/Template:Data_Zaahen/Aureate_Rush?oldid=4022487) |
+| Aureate Rush | cooldown: 10 / 9.5 / 9 / 8.5 / 8 | [4022487](https://wiki.leagueoflegends.com/en-us/Template:Data_Zaahen/Aureate_Rush?oldid=4022487) |
+| Aureate Rush | Increased Physical Damage: 60 / 90 / 120 / 150 / 180 (+ 75% bonus AD) | [4022487](https://wiki.leagueoflegends.com/en-us/Template:Data_Zaahen/Aureate_Rush?oldid=4022487) |
+| Aureate Rush | Bonus Magic Damage: 4 / 4.5 / 5 / 5.5 / 6% of the target's maximum health | [4022487](https://wiki.leagueoflegends.com/en-us/Template:Data_Zaahen/Aureate_Rush?oldid=4022487) |
+| Aureate Rush | Physical Damage: 40 / 60 / 80 / 100 / 120 (+ 50% bonus AD) | [4022487](https://wiki.leagueoflegends.com/en-us/Template:Data_Zaahen/Aureate_Rush?oldid=4022487) |
+| Aureate Rush | Aureate Rush has no minimum dash range | [4022487](https://wiki.leagueoflegends.com/en-us/Template:Data_Zaahen/Aureate_Rush?oldid=4022487) |
+| Grim Deliverance | Armor Penetration: 10 / 20 / 30% | [4007768](https://wiki.leagueoflegends.com/en-us/Template:Data_Zaahen/Grim_Deliverance?oldid=4007768) |
+| Grim Deliverance | He then slams his glaive down after a 0.6-second delay | [4007768](https://wiki.leagueoflegends.com/en-us/Template:Data_Zaahen/Grim_Deliverance?oldid=4007768) |
+| Grim Deliverance | for up-to an additional 0.25 seconds afterwards | [4007768](https://wiki.leagueoflegends.com/en-us/Template:Data_Zaahen/Grim_Deliverance?oldid=4007768) |
+| Grim Deliverance | Zaahen is unable to act and gains 50% damage reduction from the start of the cast time | [4007768](https://wiki.leagueoflegends.com/en-us/Template:Data_Zaahen/Grim_Deliverance?oldid=4007768) |
+| Grim Deliverance | targetRange: 10 - 600 | [4007768](https://wiki.leagueoflegends.com/en-us/Template:Data_Zaahen/Grim_Deliverance?oldid=4007768) |
+| Grim Deliverance | speed: 2800 | [4007768](https://wiki.leagueoflegends.com/en-us/Template:Data_Zaahen/Grim_Deliverance?oldid=4007768) |
+| Grim Deliverance | Healing per Champion hit: 82.5 / 132 / 181.5 (+ 66% bonus AD) | [4007768](https://wiki.leagueoflegends.com/en-us/Template:Data_Zaahen/Grim_Deliverance?oldid=4007768) |
+| Grim Deliverance | cooldown: 110 / 95 / 80 | [4007768](https://wiki.leagueoflegends.com/en-us/Template:Data_Zaahen/Grim_Deliverance?oldid=4007768) |
+| Grim Deliverance | castTime: 0.5 | [4007768](https://wiki.leagueoflegends.com/en-us/Template:Data_Zaahen/Grim_Deliverance?oldid=4007768) |
+| Grim Deliverance | The lockout, damage reduction, and displacement immunity may last for up to an additional 0.25 seconds after the slam due to fuzziness | [4007768](https://wiki.leagueoflegends.com/en-us/Template:Data_Zaahen/Grim_Deliverance?oldid=4007768) |
+| The Darkin Glaive | cooldown: 10 / 9 / 8 / 7 / 6 | [4060370](https://wiki.leagueoflegends.com/en-us/Template:Data_Zaahen/The_Darkin_Glaive?oldid=4060370) |
+| The Darkin Glaive | cost: 25 | [4060370](https://wiki.leagueoflegends.com/en-us/Template:Data_Zaahen/The_Darkin_Glaive?oldid=4060370) |
+| The Darkin Glaive | Bonus Physical Damage: 30 / 60 / 90 / 120 / 150 (+ 20 / 25 / 30 / 35 / 40% bonus AD) | [4060370](https://wiki.leagueoflegends.com/en-us/Template:Data_Zaahen/The_Darkin_Glaive?oldid=4060370) |
+| Dreaded Return | cost: 50 | [4050171](https://wiki.leagueoflegends.com/en-us/Template:Data_Zaahen/Dreaded_Return?oldid=4050171) |
+| Dreaded Return | castTime: 0.5 | [4050171](https://wiki.leagueoflegends.com/en-us/Template:Data_Zaahen/Dreaded_Return?oldid=4050171) |
+| Dreaded Return | width: 140 | [4050171](https://wiki.leagueoflegends.com/en-us/Template:Data_Zaahen/Dreaded_Return?oldid=4050171) |
+| Dreaded Return | Initial Physical Damage: 40 / 60 / 80 / 100 / 120 (+ 50% bonus AD) | [4050171](https://wiki.leagueoflegends.com/en-us/Template:Data_Zaahen/Dreaded_Return?oldid=4050171) |
+| Aureate Rush | cost: 40 | [4022487](https://wiki.leagueoflegends.com/en-us/Template:Data_Zaahen/Aureate_Rush?oldid=4022487) |
+| Grim Deliverance | cost: 100 | [4007768](https://wiki.leagueoflegends.com/en-us/Template:Data_Zaahen/Grim_Deliverance?oldid=4007768) |
+| Grim Deliverance | effectRadius: 550 | [4007768](https://wiki.leagueoflegends.com/en-us/Template:Data_Zaahen/Grim_Deliverance?oldid=4007768) |
+| Grim Deliverance | Physical Damage: 250 / 400 / 550 (+ 200% bonus AD) | [4007768](https://wiki.leagueoflegends.com/en-us/Template:Data_Zaahen/Grim_Deliverance?oldid=4007768) |

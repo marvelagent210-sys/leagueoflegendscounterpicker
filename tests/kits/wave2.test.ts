@@ -1,6 +1,10 @@
 import { describe, expect, it } from "vitest";
+import { type Behavior, defaultBehavior } from "../../engine/sim/behavior";
+import { derive } from "../../engine/sim/derived";
 import { allAbilities } from "../../engine/sim/forms";
+import { createWorld, step } from "../../engine/sim/simulate";
 import type { AbilitySpec } from "../../engine/sim/spec";
+import { fighter } from "../sim/kits";
 import { kit } from "./helpers";
 
 /** Wave-2 kits read the wiki at level 20: spot checks against the numbers on the wiki pages. */
@@ -21,6 +25,30 @@ describe("wave-2 kits read the wiki at level 20", () => {
     expect(ability("Akali", "W")).toMatchObject({ cooldown: 16, cooldownAfter: "state" });
   });
 
+  it("Ambessa", () => {
+    expect(kit("Ambessa").spec.start).toMatchObject([{ type: "stat", stat: "armorPen", amount: { base: 0.3 } }]);
+    // The 0.225 s lockout of her basic abilities is their cast time.
+    expect(ability("Ambessa", "Q")).toMatchObject({ castTime: 0.225, cooldown: 10, chainCooldown: "first" });
+    expect(ability("Ambessa", "Q2").chain).toEqual({ root: "Q", index: 2, window: 4 });
+    expect(ability("Ambessa", "E").onHit?.[0]).toEqual({ type: "damage", damageType: "physical", amount: { base: 120, ratios: { bonusAD: 0.5 } } });
+    expect(ability("Ambessa", "R")).toMatchObject({ castTime: 0.7, onHit: [{ type: "cc", cc: "suppression", duration: 0.75 }, { type: "delayed", delay: 0.75 }] });
+  });
+
+  it("Aurora", () => {
+    expect(kit("Aurora").spec.attack).toMatchObject({ range: 550, ranged: true });
+    expect(ability("Aurora", "Q")).toMatchObject({ castTime: 0.25, chainCooldown: "first", delivery: { kind: "line", range: 900, width: 180, speed: 1600 } });
+    // Recastable after 0.1 s, and recast on its own when the 3.5 s mark ends.
+    expect(ability("Aurora", "Q2").chain).toEqual({ root: "Q", index: 2, window: 3.5, delay: 0.1, auto: true });
+    // The hop is 300 units at 350 units a second; invisibility starts as it ends.
+    expect(ability("Aurora", "W").delivery).toEqual({ kind: "dash", direction: "away", distance: 300, speed: 350 });
+    const veil = ability("Aurora", "W").onSelf?.[0];
+    expect(veil).toMatchObject({ type: "delayed", delay: 300 / 350 });
+    expect(veil?.type === "delayed" && veil.effects[0]).toEqual({ type: "state", state: "invisible", duration: 1.6 });
+    // The recoil: 150 + 200% of her 335 movement speed.
+    expect(ability("Aurora", "E2").delivery).toEqual({ kind: "dash", direction: "away", distance: 250, speed: 820 });
+    expect(ability("Aurora", "R")).toMatchObject({ cooldown: 100, cooldownAfter: "state" });
+  });
+
   it("Cho'Gath", () => {
     // 8 Feast stacks by default: 160 health and 7.7 range each (range capped at 75), 16 more Feast damage each.
     const compiled = kit("Chogath");
@@ -39,6 +67,14 @@ describe("wave-2 kits read the wiki at level 20", () => {
     expect(ability("Kayle", "Q").castTime).toBe(0.264);
     expect(ability("Kayle", "W").onCastStart?.[0]).toEqual({ type: "heal", amount: { base: 155, ratios: { AP: 0.25 } } });
     expect(ability("Kayle", "R").onCastStart).toEqual([{ type: "state", state: "invulnerable", duration: 2.5 }]);
+  });
+
+  it("K'Sante", () => {
+    expect(ability("KSante", "Q").onHit?.[0]).toEqual({ type: "damage", damageType: "physical", amount: { base: 190, ratios: { bonusArmor: 0.4, bonusMR: 0.4 } } });
+    expect(ability("KSante", "Q3").delivery).toMatchObject({ kind: "area", far: 930 });
+    expect(ability("KSante", "W")).toMatchObject({ castTime: 0.9, cooldownAfter: "dash", delivery: { kind: "dash", distance: 450, speed: 1500 } });
+    expect(ability("KSante", "E").onCastStart).toEqual([{ type: "shield", amount: { base: 240, ratios: { bonusHP: 0.135 } }, duration: 2 }]);
+    expect(ability("KSante", "R")).toMatchObject({ cooldown: 80, castTime: 0.4, cooldownAfter: "state", delivery: { kind: "target", range: 300 } });
   });
 
   it("Kennen", () => {
@@ -88,5 +124,44 @@ describe("wave-2 kits read the wiki at level 20", () => {
     const r = ability("Trundle", "R");
     expect(r.onHit?.[0]).toEqual({ type: "damage", damageType: "magic", amount: { base: 0, ratios: { targetMaxHP: 0.15 }, products: [{ ratio: 0.0001, stats: ["AP", "targetMaxHP"] }] } });
     expect(r.onHit?.[1]).toMatchObject({ type: "dot", duration: 4, interval: 1, total: { ratios: { targetMaxHP: 0.15 } } });
+  });
+
+  it("Zaahen", () => {
+    expect(kit("Zaahen").spec.start).toMatchObject([{ type: "stat", stat: "armorPen", amount: { base: 0.3 } }]);
+    // Post-effect: the cooldown waits for the recast's empowered attack.
+    expect(ability("Zaahen", "Q")).toMatchObject({ cooldown: 6, chainCooldown: "last", cooldownAfter: "empower" });
+    expect(ability("Zaahen", "Q").onSelf?.[0]).toMatchObject({ type: "empower", window: 4, bonusRange: 25, split: { physical: 0, magic: 0 } });
+    expect(ability("Zaahen", "Q2").chain).toEqual({ root: "Q", index: 2, window: 9.5, delay: 1.5 });
+    expect(ability("Zaahen", "W")).toMatchObject({ castTime: 0.5, delivery: { kind: "line", range: 850, width: 140, speed: 2900 } });
+    expect(ability("Zaahen", "E").delivery).toEqual({ kind: "dash", direction: "toward", distance: 350, minDistance: 0, speed: 900, hitRadius: 375 });
+    // The shockwave's 550 radius is a center range; the lockout holds 0.125 s (half the fuzzy 0.25 s) past the slam.
+    expect(ability("Zaahen", "R").delivery).toEqual({ kind: "circle", range: 600, radius: 550, delay: 0.6, centered: true });
+    expect(ability("Zaahen", "R").onCastStart?.[1]).toEqual({ type: "state", state: "damageReduction", value: 0.5, duration: 1.225 });
+  });
+
+  it("Zaahen fights: the recast 1.5 s after the glaive's attack, the cooldown after the recast's, and a revive at 12 stacks", () => {
+    const compiled = kit("Zaahen");
+    const killer = fighter({ id: "killer", base: { hp: 60000, armor: 100, mr: 100, ad: 700 } });
+    const world = createWorld({ fighters: [compiled.spec, killer], distance: 300, modes: ["fight", "fight"], settings: { log: true, maxSeconds: 60 } });
+    const behaviors: [Behavior, Behavior] = [compiled.spec.behavior ?? defaultBehavior, defaultBehavior];
+    const zaahen = world.units[0];
+    let revived = -1;
+    let restored = 0;
+    while (!world.result) {
+      step(world, behaviors);
+      if (revived < 0 && world.log.some((e) => e.side === 0 && e.text === "enters resurrection")) revived = world.tick;
+      if (revived >= 0 && world.tick === revived + 119) restored = zaahen.hp / derive(zaahen).maxHp;
+    }
+    const ticksOf = (text: string) => world.log.filter((e) => e.side === 0 && e.text.startsWith(text)).map((e) => e.tick);
+    const strike = ticksOf("The Darkin Glaive deals")[0] ?? -1;
+    const recast = ticksOf("casts The Darkin Glaive (recast)")[0] ?? -1;
+    const recastHit = ticksOf("The Darkin Glaive (recast) deals")[0] ?? -1;
+    expect(recast - strike).toBe(45);
+    const nextCast = world.log.find((e) => e.side === 0 && e.text === "casts The Darkin Glaive" && e.tick > recast);
+    expect(nextCast?.tick ?? Number.POSITIVE_INFINITY).toBeGreaterThanOrEqual(recastHit + 180);
+    // Once: invulnerable and untargetable for 4 s, back to 75% of maximum health.
+    expect(ticksOf("enters resurrection")).toHaveLength(1);
+    expect(restored).toBeCloseTo(0.75, 1);
+    expect(world.log.some((e) => e.side === 1 && e.text.startsWith("attack deals") && e.tick > revived && e.tick < revived + 120)).toBe(false);
   });
 });
