@@ -2,7 +2,7 @@
 
 ## Simulated duels (full confidence)
 
-The duel simulator played each of the 37 other champions with a simulator kit against Gwen: both at level 20 with 15,000 gold of plain stats, each side's spent against the other's, through six scenarios (PLAN.md §6). Scores run from −1 (Gwen wins every time) to +1 (the champion does). Run `npm run duel -- <champion> Gwen --log brawl` to watch a fight.
+The duel simulator played each of the 38 other champions with a simulator kit against Gwen: both at level 20 with 15,000 gold of plain stats, each side's spent against the other's, through six scenarios (PLAN.md §6). Scores run from −1 (Gwen wins every time) to +1 (the champion does). Run `npm run duel -- <champion> Gwen --log brawl` to watch a fight.
 
 | # | Champion | Score | You engage | Enemy engages | Brawl | Short trade | Spacing | Escape |
 |--:|---|--:|--:|--:|--:|--:|--:|--:|
@@ -28,21 +28,22 @@ The duel simulator played each of the 37 other champions with a simulator kit ag
 | 20 | Kennen | −0.16 | −1.00 | −1.00 | +0.97 | +0.29 | +1.00 | +0.00 |
 | 21 | Pantheon | −0.33 | −1.00 | −1.00 | +1.00 | +0.01 | – | +0.00 |
 | 22 | Aurora | −0.35 | −0.68 | −0.68 | −0.77 | +0.33 | +1.00 | +0.00 |
-| 23 | Ambessa | −0.72 | −1.00 | −0.88 | −1.00 | +0.14 | – | +0.00 |
-| 24 | Ornn | −0.74 | −1.00 | −1.00 | −1.00 | +0.21 | – | +0.00 |
-| 25 | Volibear | −0.76 | −1.00 | −1.00 | −1.00 | +0.08 | – | +0.00 |
-| 26 | Irelia | −0.77 | −1.00 | −1.00 | −1.00 | +0.05 | – | +0.00 |
-| 27 | Malphite | −0.77 | −1.00 | −1.00 | −1.00 | +0.02 | – | +0.00 |
-| 28 | Rumble | −0.78 | −1.00 | −1.00 | −1.00 | +0.01 | – | +0.00 |
-| 29 | Shen | −0.78 | −1.00 | −1.00 | −1.00 | −0.01 | – | +0.00 |
-| 30 | Renekton | −0.78 | −1.00 | −1.00 | −1.00 | −0.03 | – | +0.00 |
-| 31 | Cho'Gath | −0.78 | −1.00 | −1.00 | −1.00 | −0.04 | – | +0.00 |
-| 32 | Sett | −0.79 | −1.00 | −1.00 | −1.00 | −0.06 | – | +0.00 |
-| 33 | Urgot | −0.80 | −1.00 | −1.00 | −1.00 | +0.02 | −1.00 | +0.00 |
-| 34 | Akali | −0.80 | −1.00 | −1.00 | −1.00 | −0.11 | – | +0.00 |
-| 35 | Dr. Mundo | −0.80 | −1.00 | −1.00 | −1.00 | −0.13 | – | +0.00 |
-| 36 | Nasus | −0.80 | −1.00 | −1.00 | −1.00 | −0.14 | – | +0.00 |
-| 37 | Mordekaiser | −0.81 | −1.00 | −1.00 | −1.00 | −0.18 | – | +0.00 |
+| 23 | Sion | −0.38 | −0.30 | −0.30 | −1.00 | +0.05 | – | +0.00 |
+| 24 | Ambessa | −0.72 | −1.00 | −0.88 | −1.00 | +0.14 | – | +0.00 |
+| 25 | Ornn | −0.74 | −1.00 | −1.00 | −1.00 | +0.21 | – | +0.00 |
+| 26 | Volibear | −0.76 | −1.00 | −1.00 | −1.00 | +0.08 | – | +0.00 |
+| 27 | Irelia | −0.77 | −1.00 | −1.00 | −1.00 | +0.05 | – | +0.00 |
+| 28 | Malphite | −0.77 | −1.00 | −1.00 | −1.00 | +0.02 | – | +0.00 |
+| 29 | Rumble | −0.78 | −1.00 | −1.00 | −1.00 | +0.01 | – | +0.00 |
+| 30 | Shen | −0.78 | −1.00 | −1.00 | −1.00 | −0.01 | – | +0.00 |
+| 31 | Renekton | −0.78 | −1.00 | −1.00 | −1.00 | −0.03 | – | +0.00 |
+| 32 | Cho'Gath | −0.78 | −1.00 | −1.00 | −1.00 | −0.04 | – | +0.00 |
+| 33 | Sett | −0.79 | −1.00 | −1.00 | −1.00 | −0.06 | – | +0.00 |
+| 34 | Urgot | −0.80 | −1.00 | −1.00 | −1.00 | +0.02 | −1.00 | +0.00 |
+| 35 | Akali | −0.80 | −1.00 | −1.00 | −1.00 | −0.11 | – | +0.00 |
+| 36 | Dr. Mundo | −0.80 | −1.00 | −1.00 | −1.00 | −0.13 | – | +0.00 |
+| 37 | Nasus | −0.80 | −1.00 | −1.00 | −1.00 | −0.14 | – | +0.00 |
+| 38 | Mordekaiser | −0.81 | −1.00 | −1.00 | −1.00 | −0.18 | – | +0.00 |
 
 ## Interaction ledger (partial confidence)
 

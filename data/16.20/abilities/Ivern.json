@@ -353,6 +353,12 @@
             },
             "context": "The grove matures over 40 – 1 (based on level) seconds."
           }
+        ],
+        "tips": [
+          {
+            "text": "full gold and full experience",
+            "tip": "Not full when freeing Krug camp, see notes"
+          }
         ]
       },
       {
@@ -615,7 +621,13 @@
             "conditional": false
           }
         ],
-        "values": []
+        "values": [],
+        "tips": [
+          {
+            "text": "attack order",
+            "tip": "Default: MB2 / right-click"
+          }
+        ]
       },
       {
         "label": "Recast",
@@ -972,7 +984,13 @@
             "conditional": true
           }
         ],
-        "values": []
+        "values": [],
+        "tips": [
+          {
+            "text": "1000",
+            "tip": "Estimated"
+          }
+        ]
       },
       {
         "text": "Ivern periodically stocks a Brushmaker charge, up to a maximum of 3.",

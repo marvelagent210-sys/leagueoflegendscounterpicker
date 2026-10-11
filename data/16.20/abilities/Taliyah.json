@@ -312,6 +312,12 @@
             },
             "context": "Innate: While near terrain, Taliyah gains 10 / 15 / 25 / 40 (based on level)% bonus movement speed, which builds up over 1 second while in range for at least 0.4 seconds, and decays at the same rate once out of range for at least 3 seconds."
           }
+        ],
+        "tips": [
+          {
+            "text": "at the same rate",
+            "tip": "See notes"
+          }
         ]
       },
       {
@@ -954,13 +960,25 @@
             "conditional": false
           }
         ],
-        "values": []
+        "values": [],
+        "tips": [
+          {
+            "text": "to the target location",
+            "tip": "Will cast at maximum range (clamped) if ordered location is beyond this jump off command's range"
+          }
+        ]
       },
       {
         "text": "Weaver's Wall is placed on a 3-second static cooldown upon taking champion or turret damage.",
         "leveling": [],
         "mechanics": [],
-        "values": []
+        "values": [],
+        "tips": [
+          {
+            "text": "static cooldown",
+            "tip": "Unaffected by ability haste"
+          }
+        ]
       }
     ],
     "custom": [],
@@ -1084,7 +1102,13 @@
             "conditional": false
           }
         ],
-        "values": []
+        "values": [],
+        "tips": [
+          {
+            "text": "0.792 seconds",
+            "tip": "Under normal tick interval circumstances, both cast time and 0.5s delay are rounding up"
+          }
+        ]
       }
     ],
     "custom": [],

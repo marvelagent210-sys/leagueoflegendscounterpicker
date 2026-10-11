@@ -2,7 +2,7 @@
 
 ## Simulated duels (full confidence)
 
-The duel simulator played each of the 37 other champions with a simulator kit against Olaf: both at level 20 with 15,000 gold of plain stats, each side's spent against the other's, through six scenarios (PLAN.md §6). Scores run from −1 (Olaf wins every time) to +1 (the champion does). Run `npm run duel -- <champion> Olaf --log brawl` to watch a fight.
+The duel simulator played each of the 38 other champions with a simulator kit against Olaf: both at level 20 with 15,000 gold of plain stats, each side's spent against the other's, through six scenarios (PLAN.md §6). Scores run from −1 (Olaf wins every time) to +1 (the champion does). Run `npm run duel -- <champion> Olaf --log brawl` to watch a fight.
 
 | # | Champion | Score | You engage | Enemy engages | Brawl | Short trade | Spacing | Escape |
 |--:|---|--:|--:|--:|--:|--:|--:|--:|
@@ -32,17 +32,18 @@ The duel simulator played each of the 37 other champions with a simulator kit ag
 | 24 | Akali | −0.77 | −1.00 | −1.00 | −1.00 | +0.07 | – | +0.00 |
 | 25 | Shen | −0.77 | −1.00 | −1.00 | −1.00 | +0.07 | – | +0.00 |
 | 26 | Yone | −0.77 | −1.00 | −1.00 | −1.00 | +0.06 | – | +0.00 |
-| 27 | Singed | −0.77 | −0.96 | −0.96 | −0.99 | −0.12 | – | +0.00 |
-| 28 | Malphite | −0.77 | −1.00 | −1.00 | −1.00 | +0.17 | −1.00 | +0.00 |
-| 29 | Renekton | −0.78 | −1.00 | −1.00 | −1.00 | +0.01 | – | +0.00 |
-| 30 | Ornn | −0.78 | −1.00 | −1.00 | −1.00 | +0.16 | −1.00 | +0.00 |
-| 31 | Camille | −0.78 | −1.00 | −1.00 | −1.00 | −0.01 | – | +0.00 |
-| 32 | Riven | −0.78 | −1.00 | −1.00 | −1.00 | −0.01 | – | +0.00 |
-| 33 | Sett | −0.79 | −1.00 | −1.00 | −1.00 | −0.05 | – | +0.00 |
-| 34 | Poppy | −0.79 | −1.00 | −1.00 | −1.00 | −0.06 | – | +0.00 |
-| 35 | Pantheon | −0.80 | −1.00 | −1.00 | −1.00 | −0.11 | – | +0.00 |
-| 36 | Urgot | −0.81 | −1.00 | −1.00 | −1.00 | −0.08 | −1.00 | +0.00 |
-| 37 | K'Sante | −0.85 | −1.00 | −1.00 | −1.00 | +0.02 | −1.00 | −1.00 |
+| 27 | Sion | −0.77 | −1.00 | −1.00 | −1.00 | +0.03 | – | +0.00 |
+| 28 | Singed | −0.77 | −0.96 | −0.96 | −0.99 | −0.12 | – | +0.00 |
+| 29 | Malphite | −0.77 | −1.00 | −1.00 | −1.00 | +0.17 | −1.00 | +0.00 |
+| 30 | Renekton | −0.78 | −1.00 | −1.00 | −1.00 | +0.01 | – | +0.00 |
+| 31 | Ornn | −0.78 | −1.00 | −1.00 | −1.00 | +0.16 | −1.00 | +0.00 |
+| 32 | Camille | −0.78 | −1.00 | −1.00 | −1.00 | −0.01 | – | +0.00 |
+| 33 | Riven | −0.78 | −1.00 | −1.00 | −1.00 | −0.01 | – | +0.00 |
+| 34 | Sett | −0.79 | −1.00 | −1.00 | −1.00 | −0.05 | – | +0.00 |
+| 35 | Poppy | −0.79 | −1.00 | −1.00 | −1.00 | −0.06 | – | +0.00 |
+| 36 | Pantheon | −0.80 | −1.00 | −1.00 | −1.00 | −0.11 | – | +0.00 |
+| 37 | Urgot | −0.81 | −1.00 | −1.00 | −1.00 | −0.08 | −1.00 | +0.00 |
+| 38 | K'Sante | −0.85 | −1.00 | −1.00 | −1.00 | +0.02 | −1.00 | −1.00 |
 
 ## Interaction ledger (partial confidence)
 

@@ -2,7 +2,7 @@
 
 ## Simulated duels (full confidence)
 
-The duel simulator played each of the 37 other champions with a simulator kit against Rumble: both at level 20 with 15,000 gold of plain stats, each side's spent against the other's, through six scenarios (PLAN.md §6). Scores run from −1 (Rumble wins every time) to +1 (the champion does). Run `npm run duel -- <champion> Rumble --log brawl` to watch a fight.
+The duel simulator played each of the 38 other champions with a simulator kit against Rumble: both at level 20 with 15,000 gold of plain stats, each side's spent against the other's, through six scenarios (PLAN.md §6). Scores run from −1 (Rumble wins every time) to +1 (the champion does). Run `npm run duel -- <champion> Rumble --log brawl` to watch a fight.
 
 | # | Champion | Score | You engage | Enemy engages | Brawl | Short trade | Spacing | Escape |
 |--:|---|--:|--:|--:|--:|--:|--:|--:|
@@ -26,23 +26,24 @@ The duel simulator played each of the 37 other champions with a simulator kit ag
 | 18 | Yasuo | +0.69 | +0.90 | +0.90 | +0.80 | +0.08 | – | +0.00 |
 | 19 | Kennen | +0.66 | +1.00 | +1.00 | +1.00 | +0.04 | −0.50 | +0.00 |
 | 20 | Irelia | +0.52 | +0.03 | +1.00 | +1.00 | +0.06 | – | +0.00 |
-| 21 | Aatrox | +0.35 | +1.00 | +1.00 | −0.99 | +0.08 | – | +0.00 |
-| 22 | Malphite | +0.35 | +1.00 | +1.00 | −1.00 | +0.08 | – | +0.00 |
-| 23 | Kayle | +0.26 | +0.65 | +0.68 | −0.95 | +0.15 | +1.00 | +0.00 |
-| 24 | Dr. Mundo | +0.17 | +0.21 | +0.25 | +0.26 | −0.07 | – | +0.00 |
-| 25 | Olaf | +0.12 | +0.63 | +0.61 | −1.00 | −0.01 | – | +0.00 |
-| 26 | Ambessa | −0.19 | −1.00 | +1.00 | −1.00 | +0.20 | – | +0.00 |
-| 27 | Ornn | −0.24 | −0.07 | −0.07 | −1.00 | +0.13 | – | +0.00 |
-| 28 | Nasus | −0.30 | −1.00 | −0.89 | +1.00 | +0.03 | – | +0.00 |
-| 29 | Tryndamere | −0.35 | −1.00 | −1.00 | +1.00 | −0.09 | – | +0.00 |
-| 30 | Aurora | −0.54 | −0.94 | −0.94 | −0.19 | +0.11 | −0.46 | +0.00 |
-| 31 | Quinn | −0.68 | −0.98 | −0.59 | −0.97 | −0.02 | −0.87 | +0.00 |
-| 32 | Singed | −0.76 | −0.97 | −0.97 | −1.00 | −0.01 | – | +0.00 |
-| 33 | Pantheon | −0.77 | −1.00 | −1.00 | −0.96 | +0.01 | – | +0.00 |
-| 34 | Shen | −0.77 | −1.00 | −1.00 | −1.00 | +0.07 | – | +0.00 |
-| 35 | Akali | −0.78 | −1.00 | −1.00 | −1.00 | −0.00 | – | +0.00 |
-| 36 | Sett | −0.78 | −1.00 | −1.00 | −1.00 | −0.02 | – | +0.00 |
-| 37 | Urgot | −0.79 | −1.00 | −1.00 | −1.00 | +0.08 | −1.00 | +0.00 |
+| 21 | Sion | +0.40 | +0.53 | +0.53 | +0.50 | −0.01 | – | +0.00 |
+| 22 | Aatrox | +0.35 | +1.00 | +1.00 | −0.99 | +0.08 | – | +0.00 |
+| 23 | Malphite | +0.35 | +1.00 | +1.00 | −1.00 | +0.08 | – | +0.00 |
+| 24 | Kayle | +0.26 | +0.65 | +0.68 | −0.95 | +0.15 | +1.00 | +0.00 |
+| 25 | Dr. Mundo | +0.17 | +0.21 | +0.25 | +0.26 | −0.07 | – | +0.00 |
+| 26 | Olaf | +0.12 | +0.63 | +0.61 | −1.00 | −0.01 | – | +0.00 |
+| 27 | Ambessa | −0.19 | −1.00 | +1.00 | −1.00 | +0.20 | – | +0.00 |
+| 28 | Ornn | −0.24 | −0.07 | −0.07 | −1.00 | +0.13 | – | +0.00 |
+| 29 | Nasus | −0.30 | −1.00 | −0.89 | +1.00 | +0.03 | – | +0.00 |
+| 30 | Tryndamere | −0.35 | −1.00 | −1.00 | +1.00 | −0.09 | – | +0.00 |
+| 31 | Aurora | −0.54 | −0.94 | −0.94 | −0.19 | +0.11 | −0.46 | +0.00 |
+| 32 | Quinn | −0.68 | −0.98 | −0.59 | −0.97 | −0.02 | −0.87 | +0.00 |
+| 33 | Singed | −0.76 | −0.97 | −0.97 | −1.00 | −0.01 | – | +0.00 |
+| 34 | Pantheon | −0.77 | −1.00 | −1.00 | −0.96 | +0.01 | – | +0.00 |
+| 35 | Shen | −0.77 | −1.00 | −1.00 | −1.00 | +0.07 | – | +0.00 |
+| 36 | Akali | −0.78 | −1.00 | −1.00 | −1.00 | −0.00 | – | +0.00 |
+| 37 | Sett | −0.78 | −1.00 | −1.00 | −1.00 | −0.02 | – | +0.00 |
+| 38 | Urgot | −0.79 | −1.00 | −1.00 | −1.00 | +0.08 | −1.00 | +0.00 |
 
 ## Interaction ledger (partial confidence)
 

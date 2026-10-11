@@ -124,7 +124,13 @@
             "conditional": false
           }
         ],
-        "values": []
+        "values": [],
+        "tips": [
+          {
+            "text": "arming after 0.5 seconds",
+            "tip": "travel time of the mines spreading out plus a brief delay"
+          }
+        ]
       },
       {
         "text": "Each mine within the area explodes upon contact with terrain or an enemy, dealing magic damage and slowing them for 1.5 seconds, as well as granting sight of the area around the explosion for 2 seconds. An enemy takes 40% damage from subsequent mines.",

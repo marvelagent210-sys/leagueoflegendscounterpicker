@@ -728,6 +728,12 @@
             },
             "context": "The arrow shatters upon hitting an enemy champion, dealing them magic damage, stunning them for 1 / 1 / 1 / 1 / 1 / 1.25 / 1.5 / 1.75 / 2 / 2.25 / 2.5 / 2.75 / 3 / 3.25 / 3.5 (based on distance traveled) seconds, and granting sight of the area around them for 1 second."
           }
+        ],
+        "tips": [
+          {
+            "text": "area",
+            "tip": "Cannot grant sight through terrain and can only grant sight into brush when the missile flies through that brush"
+          }
         ]
       },
       {

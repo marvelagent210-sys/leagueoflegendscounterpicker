@@ -156,7 +156,13 @@
             "conditional": false
           }
         ],
-        "values": []
+        "values": [],
+        "tips": [
+          {
+            "text": "displaces",
+            "tip": "Does not apply airborne nor is a knockdown. Applies a move block (forced movement) which can interrupt dashes and other displacements."
+          }
+        ]
       },
       {
         "text": "Permafrost resets Sejuani's basic attack timer.",

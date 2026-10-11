@@ -849,7 +849,17 @@
             "conditional": false
           }
         ],
-        "values": []
+        "values": [],
+        "tips": [
+          {
+            "text": "opposite side",
+            "tip": "Relative to Yasuo's cast location"
+          },
+          {
+            "text": "nearest to the cursor",
+            "tip": "searches in a 1100 radius"
+          }
+        ]
       },
       {
         "text": "Upon arrival, he knocks up all nearby airborne enemy champions for 1 second, revealing them, becoming unable to act himself, and slashing them with his sword over the duration to deal physical damage thereafter. Surrounding enemy champions that become airborne during this time will also be affected by Last Breath through the remaining duration.",
@@ -1105,7 +1115,13 @@
         "text": "The wall travels in the targeted direction over the first 0.6 seconds, then drifts forward another 50 units over the remaining duration.",
         "leveling": [],
         "mechanics": [],
-        "values": []
+        "values": [],
+        "tips": [
+          {
+            "text": "0.6 seconds",
+            "tip": "Estimated"
+          }
+        ]
       }
     ],
     "custom": [],

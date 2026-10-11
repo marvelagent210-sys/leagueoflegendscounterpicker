@@ -217,7 +217,17 @@
             "conditional": false
           }
         ],
-        "values": []
+        "values": [],
+        "tips": [
+          {
+            "text": "25% bonus attack speed",
+            "tip": "Only bonus attack speed from item stats and growth (per level)"
+          },
+          {
+            "text": "periodically",
+            "tip": "Spin rate is 3 ÷ number of spins"
+          }
+        ]
       },
       {
         "text": "Enemy champions hit 6 times by Judgment are inflicted with 25% armor reduction for 6 seconds, with the duration refreshing upon the 7th hit and every 6th hit thereafter.",
@@ -411,7 +421,13 @@
         "text": "Perseverance is lost for 8 seconds if Garen takes damage from champions, epic monsters, or turrets, or if he is hit by an enemy ability or affected by an enemy summoner spell, refreshing on subsequent damage and hits taken from them.",
         "leveling": [],
         "mechanics": [],
-        "values": []
+        "values": [],
+        "tips": [
+          {
+            "text": "8 seconds",
+            "tip": "Not a cooldown, unaffected by ability haste"
+          }
+        ]
       }
     ],
     "custom": [],

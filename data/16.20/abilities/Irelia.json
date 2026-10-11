@@ -545,7 +545,13 @@
         "text": "Bladesurge's current cooldown is reduced to 0.2 seconds upon collision of targets marked as Unsteady, and is reset if the target dies to or during Bladesurge's dash.",
         "leveling": [],
         "mechanics": [],
-        "values": []
+        "values": [],
+        "tips": [
+          {
+            "text": "reset",
+            "tip": "The check's cadence is 0.0625 seconds, or a bit less than 2 game ticks"
+          }
+        ]
       },
       {
         "text": "Flawless Duet can be cast during the dash.",

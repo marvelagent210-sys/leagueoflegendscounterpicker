@@ -128,7 +128,13 @@
             "conditional": false
           }
         ],
-        "values": []
+        "values": [],
+        "tips": [
+          {
+            "text": "area",
+            "tip": "Can see across terrain from the center, but not into brush"
+          }
+        ]
       },
       {
         "text": "Once landed, the Sapling grants sight of its surroundings and remains stationary for 30 seconds or until it reacts to the first nearby visible enemy, chasing them for up to 2.5 seconds. The Sapling explodes upon colliding with an enemy or when it expires, dealing magic damage to nearby enemies, capped at 300 against non-champions, and slowing them by 45% for 2 seconds.",
@@ -505,6 +511,12 @@
               "past18": "wiki"
             },
             "context": "Innate: Periodically, Maokai empowers his next basic attack to have an uncancellable windup and heal him for 4 – 12.8 (based on level)% maximum health after a 0.25-second delay."
+          }
+        ],
+        "tips": [
+          {
+            "text": "0.25",
+            "tip": "Reduced by attack speed."
           }
         ]
       },

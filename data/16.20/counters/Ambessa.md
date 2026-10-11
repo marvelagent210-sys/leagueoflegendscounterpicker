@@ -2,7 +2,7 @@
 
 ## Simulated duels (full confidence)
 
-The duel simulator played each of the 37 other champions with a simulator kit against Ambessa: both at level 20 with 15,000 gold of plain stats, each side's spent against the other's, through six scenarios (PLAN.md §6). Scores run from −1 (Ambessa wins every time) to +1 (the champion does). Run `npm run duel -- <champion> Ambessa --log brawl` to watch a fight.
+The duel simulator played each of the 38 other champions with a simulator kit against Ambessa: both at level 20 with 15,000 gold of plain stats, each side's spent against the other's, through six scenarios (PLAN.md §6). Scores run from −1 (Ambessa wins every time) to +1 (the champion does). Run `npm run duel -- <champion> Ambessa --log brawl` to watch a fight.
 
 | # | Champion | Score | You engage | Enemy engages | Brawl | Short trade | Spacing | Escape |
 |--:|---|--:|--:|--:|--:|--:|--:|--:|
@@ -41,8 +41,9 @@ The duel simulator played each of the 37 other champions with a simulator kit ag
 | 33 | Riven | +0.22 | −1.00 | +1.00 | +1.00 | +0.00 | – | +0.00 |
 | 34 | Shen | +0.22 | −1.00 | +1.00 | +1.00 | −0.02 | – | +0.00 |
 | 35 | Rumble | +0.19 | −1.00 | +1.00 | +1.00 | −0.20 | – | +0.00 |
-| 36 | Akali | −0.48 | +0.05 | −1.00 | −1.00 | +0.03 | – | +0.00 |
-| 37 | Ornn | −0.78 | −1.00 | −1.00 | −1.00 | −0.02 | – | +0.00 |
+| 36 | Sion | −0.02 | +0.00 | +0.00 | +0.00 | −0.10 | – | +0.00 |
+| 37 | Akali | −0.48 | +0.05 | −1.00 | −1.00 | +0.03 | – | +0.00 |
+| 38 | Ornn | −0.78 | −1.00 | −1.00 | −1.00 | −0.02 | – | +0.00 |
 
 ## Interaction ledger (partial confidence)
 

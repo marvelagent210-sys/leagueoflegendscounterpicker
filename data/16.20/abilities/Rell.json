@@ -176,6 +176,12 @@
             },
             "context": "Additionally, Rell's next basic attack or Shattering Strike within 5 seconds creates an explosion around the target that deals bonus magic damage, capped at 150 – 300 (based on level) against monsters and structures."
           }
+        ],
+        "tips": [
+          {
+            "text": "the target",
+            "tip": "See Notes"
+          }
         ]
       },
       {
@@ -684,7 +690,13 @@
             "conditional": false
           }
         ],
-        "values": []
+        "values": [],
+        "tips": [
+          {
+            "text": "inward",
+            "tip": "to a ring 225 units around Rell, but minimum 100 pull distance"
+          }
+        ]
       }
     ],
     "custom": [],
@@ -921,7 +933,13 @@
             "conditional": false
           }
         ],
-        "values": []
+        "values": [],
+        "tips": [
+          {
+            "text": "0.5 seconds",
+            "tip": "Estimated"
+          }
+        ]
       },
       {
         "text": "While Rell is Dismounted, she can cast Ferromancy: Mount Up. Upon completing a Recall channel or respawning, Rell will automatically revert to Mounted form without casting the ability and reset Ferromancy: Mount Up cooldown.",

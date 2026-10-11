@@ -224,7 +224,13 @@
             "conditional": false
           }
         ],
-        "values": []
+        "values": [],
+        "tips": [
+          {
+            "text": "over 0.561 seconds",
+            "tip": "See notes"
+          }
+        ]
       },
       {
         "text": "The first hit against monsters deals bonus magic damage.",

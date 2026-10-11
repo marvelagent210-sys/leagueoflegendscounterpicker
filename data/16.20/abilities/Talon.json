@@ -374,7 +374,13 @@
             "conditional": false
           }
         ],
-        "values": []
+        "values": [],
+        "tips": [
+          {
+            "text": "dashes to the target",
+            "tip": "to within 150 units, if Talon is not closer already"
+          }
+        ]
       },
       {
         "text": "If Noxian Diplomacy kills the target, Talon heals for 9 / 11.7059 / 14.4118 / 17.1176 / 19.8235 / 22.5294 / 25.2353 / 27.9412 / 30.6471 / 33.3529 / 36.0588 / 38.7647 / 41.4706 / 44.1765 / 46.8824 / 49.5882 / 52.2941 / 55 / 57.7059 / 60.4118 (based on level) and the ability's cooldown is reduced by 50%.",

@@ -951,7 +951,21 @@
             "conditional": false
           }
         ],
-        "values": []
+        "values": [],
+        "tips": [
+          {
+            "text": "1.5 seconds",
+            "tip": "From the start of the cast time, estimated"
+          },
+          {
+            "text": "0.9 seconds",
+            "tip": "Estimated, from end of cast time"
+          },
+          {
+            "text": "near the target",
+            "tip": "Relative to her casting position"
+          }
+        ]
       },
       {
         "text": "If cast while in Burrowed form, Rek'Sai will automatically Unburrow at the end of Void Rush's cast time, placing Burrow on a 1-second cooldown without triggering Unburrow's effects. If Burrow is already on cooldown, its remaining cooldown is set to 1 second.",

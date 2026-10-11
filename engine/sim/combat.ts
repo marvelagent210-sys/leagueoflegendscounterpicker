@@ -93,6 +93,8 @@ export interface DamageContext {
   persistent?: boolean;
   /** The source heals this share of the health it removes. */
   lifesteal?: number;
+  /** Life steal doesn't heal from it (Glory in Death's on-hit). */
+  noLifeSteal?: boolean;
 }
 
 /** How deep kit hooks are nested: a hook's damage can trigger hooks, but not without end. */
@@ -155,7 +157,7 @@ export function dealDamage(world: World, source: Unit, target: Unit, raw: number
   source.totals.damageDealt += removed;
   log(world, source.side, `${ctx.ability ?? (ctx.attack ? "attack" : "effect")} deals ${Math.round(mitigated)} ${type} damage${mitigated > left ? ` (${Math.round(mitigated - left)} absorbed)` : ""}`);
   if (target.hp <= 0) lethal(world, target);
-  if (ctx.attack && s.lifeSteal > 0) heal(world, source, removed * s.lifeSteal, false, true);
+  if (ctx.attack && !ctx.noLifeSteal && s.lifeSteal > 0) heal(world, source, removed * s.lifeSteal, false, true);
   if (ctx.lifesteal) heal(world, source, removed * ctx.lifesteal, false, true);
   const report = { amount: removed, mitigated, raw, damageType: type };
   const taken = target.spec.hooks?.onDamageTaken;
@@ -229,7 +231,7 @@ function interrupt(world: World, unit: Unit, type: CCType): void {
       const cost = typeof ability.cost === "object" ? evaluate(ability.cost, unit) : (ability.cost ?? 0);
       if (ability.costType === "health") unit.hp -= cost;
       else unit.resource -= cost;
-      unit.cooldownReady[cooldownKeyOf(ability)] = world.tick + toTicks(ability.interruptible.cooldown);
+      if (ability.interruptible.cooldown !== undefined) unit.cooldownReady[cooldownKeyOf(ability)] = world.tick + toTicks(ability.interruptible.cooldown);
       log(world, unit.side, `${ability.name} interrupted by ${type}`);
     }
   } else if (action.kind === "dash" && type === "airborne" && !action.unstoppable) {
@@ -337,6 +339,7 @@ export function applyEffect(world: World, caster: Unit, target: Unit, effect: Ef
         ...(ctx.attack ? { attack: true } : {}),
         ...(effect.label || ctx.ability ? { ability: effect.label ?? ctx.ability?.name } : {}),
         ...(effect.lifesteal ? { lifesteal: effect.lifesteal } : {}),
+        ...(effect.noLifeSteal ? { noLifeSteal: true } : {}),
       });
       return;
     }

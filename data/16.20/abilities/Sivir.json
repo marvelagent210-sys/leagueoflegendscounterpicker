@@ -831,7 +831,13 @@
             "conditional": false
           }
         ],
-        "values": []
+        "values": [],
+        "tips": [
+          {
+            "text": "not already active",
+            "tip": "See notes"
+          }
+        ]
       }
     ],
     "custom": [],

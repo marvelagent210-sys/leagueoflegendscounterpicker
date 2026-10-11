@@ -2,7 +2,7 @@
 
 ## Simulated duels (full confidence)
 
-The duel simulator played each of the 37 other champions with a simulator kit against Singed: both at level 20 with 15,000 gold of plain stats, each side's spent against the other's, through six scenarios (PLAN.md §6). Scores run from −1 (Singed wins every time) to +1 (the champion does). Run `npm run duel -- <champion> Singed --log brawl` to watch a fight.
+The duel simulator played each of the 38 other champions with a simulator kit against Singed: both at level 20 with 15,000 gold of plain stats, each side's spent against the other's, through six scenarios (PLAN.md §6). Scores run from −1 (Singed wins every time) to +1 (the champion does). Run `npm run duel -- <champion> Singed --log brawl` to watch a fight.
 
 | # | Champion | Score | You engage | Enemy engages | Brawl | Short trade | Spacing | Escape |
 |--:|---|--:|--:|--:|--:|--:|--:|--:|
@@ -30,19 +30,20 @@ The duel simulator played each of the 37 other champions with a simulator kit ag
 | 22 | Gwen | +0.03 | −0.07 | −0.13 | +0.33 | +0.11 | – | +0.00 |
 | 23 | Malphite | +0.03 | +0.02 | +0.01 | +0.01 | +0.13 | – | +0.00 |
 | 24 | Mordekaiser | +0.03 | +0.03 | +0.03 | +0.01 | +0.05 | – | +0.00 |
-| 25 | Ornn | +0.01 | −0.01 | +0.00 | −0.08 | +0.15 | – | +0.00 |
-| 26 | Shen | +0.00 | −0.01 | −0.02 | −0.03 | +0.09 | – | +0.00 |
-| 27 | Yasuo | +0.00 | −0.01 | −0.03 | −0.01 | +0.08 | – | +0.00 |
-| 28 | Cho'Gath | −0.01 | −0.03 | −0.03 | −0.10 | +0.21 | – | +0.00 |
-| 29 | Sett | −0.01 | −0.05 | +0.03 | −0.05 | +0.06 | – | +0.00 |
-| 30 | Jax | −0.05 | −0.05 | −0.05 | −0.09 | +0.01 | – | +0.00 |
-| 31 | Volibear | −0.05 | −0.04 | −0.14 | −0.04 | +0.03 | – | +0.00 |
-| 32 | Akali | −0.07 | −0.11 | −0.11 | −0.07 | +0.05 | – | +0.00 |
-| 33 | Pantheon | −0.11 | −0.17 | −0.16 | −0.09 | +0.03 | – | +0.00 |
-| 34 | Riven | −0.20 | +0.02 | +0.02 | −1.00 | +0.09 | – | +0.00 |
-| 35 | Tryndamere | −0.22 | −0.29 | −0.29 | −0.28 | −0.01 | – | +0.00 |
-| 36 | Irelia | −0.71 | −1.00 | −0.91 | −0.82 | +0.03 | – | +0.00 |
-| 37 | Ambessa | −0.73 | −1.00 | −1.00 | −1.00 | +0.31 | – | +0.00 |
+| 25 | Sion | +0.02 | +0.02 | +0.01 | +0.01 | +0.05 | – | +0.00 |
+| 26 | Ornn | +0.01 | −0.01 | +0.00 | −0.08 | +0.15 | – | +0.00 |
+| 27 | Shen | +0.00 | −0.01 | −0.02 | −0.03 | +0.09 | – | +0.00 |
+| 28 | Yasuo | +0.00 | −0.01 | −0.03 | −0.01 | +0.08 | – | +0.00 |
+| 29 | Cho'Gath | −0.01 | −0.03 | −0.03 | −0.10 | +0.21 | – | +0.00 |
+| 30 | Sett | −0.01 | −0.05 | +0.03 | −0.05 | +0.06 | – | +0.00 |
+| 31 | Jax | −0.05 | −0.05 | −0.05 | −0.09 | +0.01 | – | +0.00 |
+| 32 | Volibear | −0.05 | −0.04 | −0.14 | −0.04 | +0.03 | – | +0.00 |
+| 33 | Akali | −0.07 | −0.11 | −0.11 | −0.07 | +0.05 | – | +0.00 |
+| 34 | Pantheon | −0.11 | −0.17 | −0.16 | −0.09 | +0.03 | – | +0.00 |
+| 35 | Riven | −0.20 | +0.02 | +0.02 | −1.00 | +0.09 | – | +0.00 |
+| 36 | Tryndamere | −0.22 | −0.29 | −0.29 | −0.28 | −0.01 | – | +0.00 |
+| 37 | Irelia | −0.71 | −1.00 | −0.91 | −0.82 | +0.03 | – | +0.00 |
+| 38 | Ambessa | −0.73 | −1.00 | −1.00 | −1.00 | +0.31 | – | +0.00 |
 
 ## Interaction ledger (partial confidence)
 

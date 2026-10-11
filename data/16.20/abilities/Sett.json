@@ -732,7 +732,13 @@
             "conditional": false
           }
         ],
-        "values": []
+        "values": [],
+        "tips": [
+          {
+            "text": "the epicenter",
+            "tip": "125 unit radius around the target's landing location, but not the true center of the area of effect"
+          }
+        ]
       },
       {
         "text": "The leap will end and create the impact prematurely upon encountering terrain that cannot be dashed through, whether by distance or invalid space.",
@@ -866,7 +872,13 @@
         "text": "Passive: Sett stores 100% of post-mitigation damage taken as Grit on his resource bar, up to a cap of 50% of his maximum health. Each instance of stored Grit decays in value by 30% every second after 4 seconds.",
         "leveling": [],
         "mechanics": [],
-        "values": []
+        "values": [],
+        "tips": [
+          {
+            "text": "post-mitigation damage",
+            "tip": "Damage calculated after resistances and modifiers."
+          }
+        ]
       },
       {
         "label": "Active",

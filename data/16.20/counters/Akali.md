@@ -2,7 +2,7 @@
 
 ## Simulated duels (full confidence)
 
-The duel simulator played each of the 37 other champions with a simulator kit against Akali: both at level 20 with 15,000 gold of plain stats, each side's spent against the other's, through six scenarios (PLAN.md §6). Scores run from −1 (Akali wins every time) to +1 (the champion does). Run `npm run duel -- <champion> Akali --log brawl` to watch a fight.
+The duel simulator played each of the 38 other champions with a simulator kit against Akali: both at level 20 with 15,000 gold of plain stats, each side's spent against the other's, through six scenarios (PLAN.md §6). Scores run from −1 (Akali wins every time) to +1 (the champion does). Run `npm run duel -- <champion> Akali --log brawl` to watch a fight.
 
 | # | Champion | Score | You engage | Enemy engages | Brawl | Short trade | Spacing | Escape |
 |--:|---|--:|--:|--:|--:|--:|--:|--:|
@@ -36,13 +36,14 @@ The duel simulator played each of the 37 other champions with a simulator kit ag
 | 28 | Darius | +0.77 | +1.00 | +1.00 | +1.00 | −0.04 | – | +0.00 |
 | 29 | Olaf | +0.77 | +1.00 | +1.00 | +1.00 | −0.07 | – | +0.00 |
 | 30 | Volibear | +0.77 | +1.00 | +1.00 | +1.00 | −0.07 | – | +0.00 |
-| 31 | Irelia | +0.56 | +0.61 | +0.55 | +1.00 | +0.07 | – | +0.00 |
-| 32 | Ambessa | +0.48 | +1.00 | −0.05 | +1.00 | −0.03 | – | +0.00 |
-| 33 | Aurora | +0.24 | −0.06 | −0.06 | +0.61 | +0.31 | +1.00 | +0.00 |
-| 34 | Shen | +0.19 | +0.04 | +0.04 | +0.71 | +0.06 | – | +0.00 |
-| 35 | Ornn | +0.12 | +0.11 | +0.11 | +0.12 | +0.16 | – | +0.00 |
-| 36 | Singed | +0.07 | +0.11 | +0.11 | +0.07 | −0.05 | – | +0.00 |
-| 37 | Pantheon | −0.24 | −0.37 | −0.34 | −0.34 | +0.19 | – | +0.00 |
+| 31 | Sion | +0.69 | +0.83 | +0.83 | +1.00 | +0.01 | – | +0.00 |
+| 32 | Irelia | +0.56 | +0.61 | +0.55 | +1.00 | +0.07 | – | +0.00 |
+| 33 | Ambessa | +0.48 | +1.00 | −0.05 | +1.00 | −0.03 | – | +0.00 |
+| 34 | Aurora | +0.24 | −0.06 | −0.06 | +0.61 | +0.31 | +1.00 | +0.00 |
+| 35 | Shen | +0.19 | +0.04 | +0.04 | +0.71 | +0.06 | – | +0.00 |
+| 36 | Ornn | +0.12 | +0.11 | +0.11 | +0.12 | +0.16 | – | +0.00 |
+| 37 | Singed | +0.07 | +0.11 | +0.11 | +0.07 | −0.05 | – | +0.00 |
+| 38 | Pantheon | −0.24 | −0.37 | −0.34 | −0.34 | +0.19 | – | +0.00 |
 
 ## Interaction ledger (partial confidence)
 

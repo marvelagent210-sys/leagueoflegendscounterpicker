@@ -20,7 +20,7 @@ import { type CCType, IMMOBILIZING } from "../rules/crowdControl";
 import { effectiveResist, resistMultiplier } from "../rules/damage";
 import { averageCritFactor } from "../rules/defense";
 import { toTicks } from "../rules/time";
-import { EPSILON, attackRange, attackTiming, canCast, canStartAttack, canStartAttackOnPet, empowerStatus, heldInPlace, heldUntil, inAttackRange, inReach } from "./actions";
+import { EPSILON, attackRange, attackTiming, canCast, canStartAttack, canStartAttackOnPet, empowerStatus, heldInPlace, heldUntil, inAttackRange, inReach, targetRange } from "./actions";
 import { canTarget, edgeDistance, isUntargetable } from "./combat";
 import { canAttack, canMove, ccTypes, derive, evaluate } from "./derived";
 import { abilityOf } from "./forms";
@@ -276,6 +276,8 @@ export function threatsTo(world: World, side: Side): Threat[] {
       threats.push(attackThreat(enemy, self, action.launchTick - now + travelTicks(enemy, self, enemy.spec.attack.missileSpeed), action.onHit));
     } else if (action.kind === "cast" && ability) {
       const d = ability.delivery;
+      // Where it lands can't be seen yet (Abyssal Dive's indicator).
+      if (d.kind === "circle" && d.hidden !== undefined && action.startTick + toTicks(d.hidden) > seenBy) continue;
       const travel =
         d.kind === "line"
           ? travelTicks(enemy, self, d.speed)
@@ -553,7 +555,7 @@ function offense(view: View, options: OffenseOptions): Command | undefined {
       d.kind === "target" &&
       eligible(ability) &&
       canCast(world, self, ability, true) &&
-      Math.abs(self.x - enemy.x) <= d.range + FINISH_STEP * derive(self).moveSpeed;
+      Math.abs(self.x - enemy.x) <= targetRange(d, self, enemy) + FINISH_STEP * derive(self).moveSpeed;
     if (!ready && !step) continue;
     const kills = threshold
       ? enemy.hp <= evaluate(threshold, self, enemy) + damageOf(ability.onHit ?? [], self, enemy) * 0.5

@@ -346,7 +346,13 @@
         "text": "Upon hitting the target, the axe then ricochets off of them to land after roughly 1.4 seconds, with the location being determined by Draven's current movement. If Draven catches the axe, he gains Spinning Axe's empowered attack again.",
         "leveling": [],
         "mechanics": [],
-        "values": []
+        "values": [],
+        "tips": [
+          {
+            "text": "current movement",
+            "tip": "See notes"
+          }
+        ]
       },
       {
         "text": "Draven can hold up to two Spinning Axes at once.",

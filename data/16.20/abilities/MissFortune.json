@@ -873,7 +873,13 @@
         "text": "Marking a new target with Love Tap reduces Strut's current cooldown by 2 seconds.",
         "leveling": [],
         "mechanics": [],
-        "values": []
+        "values": [],
+        "tips": [
+          {
+            "text": "2 seconds",
+            "tip": "Affected by ability haste"
+          }
+        ]
       }
     ],
     "custom": [],

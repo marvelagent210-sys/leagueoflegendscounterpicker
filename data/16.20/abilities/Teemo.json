@@ -775,7 +775,13 @@
             "conditional": false
           }
         ],
-        "values": []
+        "values": [],
+        "tips": [
+          {
+            "text": "happen repeatedly",
+            "tip": "In-flight mushrooms can chain into further bounces if they keep landing on subsequent placed mushrooms"
+          }
+        ]
       },
       {
         "text": "Teemo periodically stocks a Noxious Trap charge, up to a maximum amount.",

@@ -245,7 +245,13 @@
             "conditional": false
           }
         ],
-        "values": []
+        "values": [],
+        "tips": [
+          {
+            "text": "100 units behind him",
+            "tip": "This destination is a fixed location and is unaffected by size modifiers on Urgot or the target moving away before the displacement started"
+          }
+        ]
       },
       {
         "text": "Purge can be cast during the dash.",
@@ -831,7 +837,13 @@
         "text": "Fear Beyond Death can be recast if the leashed target is below 25% of their maximum health, and does so automatically if the chem-drill would kill the target, the ability is cast again while the target was above the threshold and is then brought within it, or the target is within the threshold at the end of the duration.",
         "leveling": [],
         "mechanics": [],
-        "values": []
+        "values": [],
+        "tips": [
+          {
+            "text": "would kill the target",
+            "tip": "Damage instance does not reduce their health below 1 in this case"
+          }
+        ]
       },
       {
         "label": "Recast - Mercy",
@@ -878,7 +890,17 @@
             "conditional": true
           }
         ],
-        "values": []
+        "values": [],
+        "tips": [
+          {
+            "text": "other sources",
+            "tip": "Negates application of damage from any source that is not the execution"
+          },
+          {
+            "text": "1000",
+            "tip": "Estimated"
+          }
+        ]
       },
       {
         "text": "Upon completing the channel, the target is executed. If the execution is successful, he fears nearby enemies for 1.5 seconds, during which they are slowed by 75%.",

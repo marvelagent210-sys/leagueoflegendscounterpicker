@@ -107,6 +107,62 @@ describe("wave-2 kits read the wiki at level 20", () => {
     expect(ability("Rumble", "Whot").onSelf?.[0]).toEqual({ type: "shield", amount: { base: 217.5, ratios: { AP: 0.45, maxHP: 0.06 } }, duration: 1.5 });
   });
 
+  it("Sion", () => {
+    // Tapped, or charged 1 s or 2 s: damage grows every 0.25 s; a charge breaks into a 2 s cooldown.
+    expect(ability("Sion", "Q")).toMatchObject({ castTime: 0, cooldownKey: "Q", interruptible: { cooldown: 2 }, delivery: { far: 500, centered: true } });
+    expect(ability("Sion", "Qcharged")).toMatchObject({ castTime: 1, delivery: { far: 850, centered: true } });
+    expect(ability("Sion", "Qcharged").onHit?.[0]).toEqual({ type: "damage", damageType: "physical", amount: { base: 220, ratios: { AD: 1.6 } } });
+    expect(ability("Sion", "Qfull").onHit).toEqual([
+      { type: "damage", damageType: "physical", amount: { base: 350, ratios: { AD: 2.4 } } },
+      { type: "displace", direction: "away", distance: 0, duration: 1 },
+    ]);
+    expect(ability("Sion", "W2").chain).toEqual({ root: "W", index: 2, window: 6, delay: 3, auto: true });
+    expect(ability("Sion", "E").onHit?.[2]).toEqual({ type: "stat", stat: "armorReductionPercent", amount: { base: 0.25 }, duration: 4 });
+    // The charge: 40 more speed every 0.1 s up to 950; sidestepped, the recast's 400-radius slam lands 0.55 - 300/950 s later.
+    expect(ability("Sion", "R")).toMatchObject({ castTime: 0.05, cooldown: 60, cooldownAfter: "dash" });
+    expect(ability("Sion", "R").delivery).toMatchObject({ kind: "dash", speed: 950, hitRadius: 150, ramp: { amount: 40, every: 0.1 } });
+    const r = ability("Sion", "R").delivery;
+    expect(r.kind === "dash" && r.sidestep?.reach).toBe(400);
+    expect(r.kind === "dash" && r.sidestep?.later).toBeCloseTo(0.55 - 300 / 950, 9);
+    const frenzy = kit("Sion").spec.forms?.["Glory in Death"];
+    expect(frenzy?.base.attackSpeed).toEqual({ base: 1.75, ratio: 0, bonus: 0 });
+    expect(frenzy?.attack.onHit).toEqual([{ type: "damage", damageType: "physical", amount: { base: 0, ratios: { targetMaxHP: 0.1 } }, label: "Glory in Death", noLifeSteal: true }]);
+    expect(kit("Sion").spec.start).toEqual([{ type: "stat", stat: "health", amount: { base: 1000 }, duration: Number.POSITIVE_INFINITY }]);
+  });
+
+  it("Sion fights: Glory in Death's stasis, then a frenzy whose health drains faster and faster", () => {
+    const compiled = kit("Sion");
+    // One hit kills Sion; then it only stands there, too tough for the frenzy to hurt.
+    const wall = fighter({ id: "wall", base: { hp: 1e6, armor: 1e5, mr: 1e5, ad: 20000 } });
+    const world = createWorld({ fighters: [compiled.spec, wall], distance: 0, modes: ["fight", "fight"], settings: { log: true, maxSeconds: 60 } });
+    const sion = world.units[0];
+    let died = -1;
+    let rose = -1;
+    let risenHp = 0;
+    const wallBehavior: Behavior = (view) => (died >= 0 ? { kind: "move", direction: 0 } : defaultBehavior(view));
+    while (!world.result) {
+      step(world, [compiled.spec.behavior ?? defaultBehavior, wallBehavior]);
+      if (died < 0 && sion.fallen) died = world.tick - 1;
+      if (rose < 0 && sion.spec.form === "Glory in Death") {
+        rose = world.tick - 1;
+        risenHp = sion.hp;
+        expect(risenHp).toBeCloseTo(derive(sion).maxHp, 6);
+      }
+    }
+    expect(died).toBeGreaterThanOrEqual(0);
+    expect(rose - died).toBe(45);
+    // 21 health every 0.264 s at level 20, 70% of that more each time.
+    let lost = 0;
+    let drains = 0;
+    while (lost < risenHp - 1) {
+      drains += 1;
+      lost += 21 * (1 + 0.7 * (drains - 1));
+    }
+    const expected = rose + Math.round(drains * 0.264 * 30);
+    expect(world.result?.tick).toBe(expected);
+    expect(world.result?.winner).toBe(1);
+  });
+
   it("Singed", () => {
     expect(ability("Singed", "W").delivery).toEqual({ kind: "field", range: 1000, radius: 265, duration: 3, interval: 0.25, delay: 0.375 });
     expect(ability("Singed", "W").onHit?.[0]).toMatchObject({ type: "cc", cc: "slow", strength: 0.7, sticky: true });

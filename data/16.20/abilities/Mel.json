@@ -184,7 +184,13 @@
             "conditional": false
           }
         ],
-        "values": []
+        "values": [],
+        "tips": [
+          {
+            "text": "surroundings",
+            "tip": "Can see through brush and terrain."
+          }
+        ]
       },
       {
         "text": "The orb emanates a field of solar radiation that additionally expands after a 0.5-second delay. Enemies within the field are dealt magic damage and slowed by 30% every 0.125 seconds, lingering for 0.25 seconds after exiting.",
@@ -388,7 +394,13 @@
         "text": "Innate: Mel's basic attacks and abilities apply a stack of Overwhelm for each instance of damage they deal to enemies for 5 seconds, refreshing on subsequent damage instances and stacking infinitely.",
         "leveling": [],
         "mechanics": [],
-        "values": []
+        "values": [],
+        "tips": [
+          {
+            "text": "subsequent damage instances",
+            "tip": "From her attacks/abilities"
+          }
+        ]
       },
       {
         "label": "Overwhelm",
@@ -441,6 +453,12 @@
               ]
             },
             "context": "For each stack, store an additional 2 / 3 / 4 / 5 (based on Golden Eclipse's rank) (+ 0.75% AP) magic damage on the target."
+          }
+        ],
+        "tips": [
+          {
+            "text": "post-mitigation damage",
+            "tip": "Damage calculated after modifiers"
           }
         ]
       },
@@ -752,7 +770,13 @@
           }
         ],
         "mechanics": [],
-        "values": []
+        "values": [],
+        "tips": [
+          {
+            "text": "0.5 seconds",
+            "tip": "Time between first and last explosion"
+          }
+        ]
       },
       {
         "text": "The bolts momentarily grant sight during their travel, while the explosions grant sight over their target area. Both can see through brush and terrain.",
@@ -1114,7 +1138,17 @@
             "conditional": false
           }
         ],
-        "values": []
+        "values": [],
+        "tips": [
+          {
+            "text": "original sources",
+            "tip": "See notes"
+          },
+          {
+            "text": "toward herself",
+            "tip": "See notes"
+          }
+        ]
       },
       {
         "text": "Replicated projectiles have the same features that the original ones do, but they retain a ratio of the damage that the original ones would deal. Additionally, all of their damage is converted to magic damage, with physical damage instances being reduced to 70% before conversion.",
@@ -1179,7 +1213,13 @@
           }
         ],
         "mechanics": [],
-        "values": []
+        "values": [],
+        "tips": [
+          {
+            "text": "same features",
+            "tip": "See notes"
+          }
+        ]
       }
     ],
     "custom": [],

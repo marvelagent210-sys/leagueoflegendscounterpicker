@@ -403,7 +403,13 @@
             "conditional": false
           }
         ],
-        "values": []
+        "values": [],
+        "tips": [
+          {
+            "text": "0.528−0.759",
+            "tip": "See notes"
+          }
+        ]
       }
     ],
     "custom": [],

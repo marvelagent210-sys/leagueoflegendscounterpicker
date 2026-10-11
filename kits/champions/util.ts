@@ -1,6 +1,7 @@
 /** Small helpers shared by champion kits. */
 import { averageCritFactor } from "../../engine/rules/defense";
 import { derive } from "../../engine/sim/derived";
+import type { Series } from "../../engine/abilities";
 import type { Effect, Formula, HookContext } from "../../engine/sim/spec";
 import type { Unit } from "../../engine/sim/state";
 
@@ -14,6 +15,29 @@ export function scaled(formula: Formula, factor: number): Formula {
     ...(formula.ratios ? { ratios: Object.fromEntries(Object.entries(formula.ratios).map(([k, v]) => [k, (v ?? 0) * factor])) } : {}),
     ...(formula.products ? { products: formula.products.map((p) => ({ ...p, ratio: p.ratio * factor })) } : {}),
   };
+}
+
+/** The formula `share` of the way from `from` to `to` (damage that grows with a charge). */
+export function between(from: Formula, to: Formula, share: number): Formula {
+  const keys = new Set([...Object.keys(from.ratios ?? {}), ...Object.keys(to.ratios ?? {})]) as Set<keyof NonNullable<Formula["ratios"]>>;
+  const ratios = Object.fromEntries([...keys].map((key) => [key, (from.ratios?.[key] ?? 0) + ((to.ratios?.[key] ?? 0) - (from.ratios?.[key] ?? 0)) * share]));
+  if (from.products || to.products) throw new Error("between: formulas with products are not supported");
+  return { base: from.base + (to.base - from.base) * share, ...(keys.size > 0 ? { ratios } : {}) };
+}
+
+/** A value of a series that depends on something else (seconds charged), read at `x`: the last point reached, or interpolated. */
+export function seriesAt(series: Series, x: number, interpolate: boolean): number {
+  if (series.kind === "constant") return series.value;
+  if (series.kind !== "variable") throw new Error(`seriesAt: a ${series.kind} series`);
+  const points = series.points.map(Number);
+  const values = series.values.map(Number);
+  let i = 0;
+  while (i + 1 < points.length && (points[i + 1] ?? Number.POSITIVE_INFINITY) <= x) i += 1;
+  const at = values[i] ?? 0;
+  const next = values[i + 1];
+  const [p0, p1] = [points[i] ?? 0, points[i + 1]];
+  if (!interpolate || next === undefined || p1 === undefined || x <= p0) return x < p0 ? (values[0] ?? 0) : at;
+  return at + ((next - at) * (x - p0)) / (p1 - p0);
 }
 
 export function flat(base: number): Formula {

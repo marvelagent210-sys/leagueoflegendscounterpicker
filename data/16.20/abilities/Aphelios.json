@@ -121,7 +121,13 @@
         "text": "Basic attacks with Crescendum hurl the blade at the target, which lingers for 0.2 seconds before homing back to Aphelios. He is unable to declare basic attacks until he retrieves Crescendum, but the attack timer is reset once caught.",
         "leveling": [],
         "mechanics": [],
-        "values": []
+        "values": [],
+        "tips": [
+          {
+            "text": "once caught",
+            "tip": "This does not persist when swapping weapons."
+          }
+        ]
       },
       {
         "text": "Whenever Aphelios casts an ability that would require him to throw Crescendum, he instead fires a spectral Chakram at the target that similarly returns to him. Aphelios accumulates the Chakrams he catches, up to 20, which last for 5 seconds or until Crescendum is depleted of Moonlight. Chakram duration is refreshed when Aphelios catches a new one or attacks a champion with Crescendum.",
@@ -537,6 +543,12 @@
               ]
             },
             "context": "Severum's attacks heal Aphelios for 2 – 8 (based on level)% of the post-mitigation damage dealt, increased to 5 – 20 (based on level)% for attacks from abilities."
+          }
+        ],
+        "tips": [
+          {
+            "text": "post-mitigation damage",
+            "tip": "Damage calculated after modifiers"
           }
         ]
       },

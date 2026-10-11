@@ -953,6 +953,16 @@
             },
             "context": "After 0.8 seconds into the channel, Pantheon hurls his spear to the target location over 0.2 seconds that deals 40 / 70 / 100 / 130 / 160 / 190 (based on Comet Spear's rank) (+ 115% bonus AD) (+ 50% AP) physical damage to enemies near the impact and slows them by 50% for 2 seconds."
           }
+        ],
+        "tips": [
+          {
+            "text": "0.8",
+            "tip": "Estimated"
+          },
+          {
+            "text": "0.2",
+            "tip": "Estimated"
+          }
         ]
       },
       {
@@ -1025,7 +1035,21 @@
             "conditional": true
           }
         ],
-        "values": []
+        "values": [],
+        "tips": [
+          {
+            "text": "1.25",
+            "tip": "Estimated"
+          },
+          {
+            "text": "0.55",
+            "tip": "Estimated"
+          },
+          {
+            "text": "0.7",
+            "tip": "Estimated"
+          }
+        ]
       },
       {
         "text": "Grand Starfall is placed on a 30-second cooldown if the first channel is canceled.",

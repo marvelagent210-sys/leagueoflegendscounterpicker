@@ -238,7 +238,13 @@
             "conditional": false
           }
         ],
-        "values": []
+        "values": [],
+        "tips": [
+          {
+            "text": "attack's damage",
+            "tip": "see notes"
+          }
+        ]
       },
       {
         "text": "The triggering attack on the keg can critically strike, causing the explosion to deal the attack's critical damage.",

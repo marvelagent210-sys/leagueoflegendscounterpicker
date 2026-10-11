@@ -322,7 +322,13 @@
             "conditional": false
           }
         ],
-        "values": []
+        "values": [],
+        "tips": [
+          {
+            "text": "where he lands",
+            "tip": "Only after bouncing. This is not intended. See details section."
+          }
+        ]
       },
       {
         "text": "Gnar will not bounce if he is immobilized during the first leap.",

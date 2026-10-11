@@ -244,6 +244,11 @@ export function abilityReady(world: World, unit: Unit, ability: AbilitySpec): bo
   return true;
 }
 
+/** Center-to-center reach of a unit-targeted spell: its range, plus both radii for edge ranges. */
+export function targetRange(d: Extract<AbilitySpec["delivery"], { kind: "target" }>, unit: Unit, enemy: Unit): number {
+  return d.range + (d.edge ? unit.spec.base.radius + enemy.spec.base.radius : 0);
+}
+
 /**
  * Center-to-center distance from which an ability reaches the enemy (wiki: "Range"): unit-
  * targeted spells and auras use centered range, skillshots reach the target's edge, ground
@@ -255,7 +260,7 @@ export function abilityReach(ability: AbilitySpec, unit: Unit, enemy: Unit): num
   const radii = unit.spec.base.radius + enemy.spec.base.radius;
   switch (d.kind) {
     case "target":
-      return d.range;
+      return targetRange(d, unit, enemy);
     case "aura":
       return d.radius;
     case "line":
@@ -321,7 +326,7 @@ export function canCast(world: World, unit: Unit, ability: AbilitySpec, anyRange
   if (ability.usable && !ability.usable(unit, world)) return false;
   if (!ability.flags?.usableWhileDisabled && !canCastUnderCC(unit, isMovement(ability) || ability.flags?.grounded === true)) return false;
   if (ability.delivery.kind === "target" && (!canTarget(enemy, unit) || !enemy.alive)) return false;
-  if (!anyRange && ability.delivery.kind === "target" && Math.abs(unit.x - enemy.x) > ability.delivery.range + EPSILON) return false;
+  if (!anyRange && ability.delivery.kind === "target" && Math.abs(unit.x - enemy.x) > targetRange(ability.delivery, unit, enemy) + EPSILON) return false;
   if (ability.delivery.kind === "dash" && ability.delivery.direction === "target" && !canTarget(enemy, unit)) return false;
   const needs = ability.requires?.enemyCC;
   if (needs && !enemy.statuses.some((s) => s.kind === "cc" && needs.includes(s.key as CCType))) return false;
@@ -498,7 +503,7 @@ export interface PendingSplit {
 }
 
 /** Ticks a charge takes to cover a distance: it moves from the tick after it starts, a step faster every `everyTicks`. */
-function rampTicks(distance: number, ramp: { from: number; amount: number; everyTicks: number; max: number }): number {
+export function rampTicks(distance: number, ramp: { from: number; amount: number; everyTicks: number; max: number }): number {
   let covered = 0;
   let ticks = 0;
   while (covered < distance - EPSILON && ticks < 30 * 60) {
@@ -612,13 +617,15 @@ function completeOneCast(world: World, unit: Unit, ability: AbilitySpec, castSta
       const reach = delivery.radius - offset;
       // A centered circle must cover the target's center: the target needs to move only its center out.
       const edge = delivery.centered ? 0 : enemy.spec.base.radius;
+      // The enemy can react only once it can see where it lands.
+      const seen = castStartTick + toTicks(delivery.hidden ?? 0);
       const decision =
-        reach + edge > EPSILON ? resolveSkillshot(world, unit, enemy, ability, castStartTick, delivery.delay, reach - enemy.spec.base.radius + edge) : { connects: false, scale: 1 };
+        reach + edge > EPSILON ? resolveSkillshot(world, unit, enemy, ability, seen, delivery.delay, reach - enemy.spec.base.radius + edge) : { connects: false, scale: 1 };
       const zone = {
         id: world.nextId++,
         owner: unit.side,
         kind: "delayedArea" as const,
-        seenTick: castStartTick,
+        seenTick: seen,
         x,
         radius: delivery.radius,
         startTick: world.tick,
@@ -659,7 +666,7 @@ function completeOneCast(world: World, unit: Unit, ability: AbilitySpec, castSta
         // The enemy sees it coming and can step aside until it arrives.
         const gap = Math.max(0, contactGap(unit, enemy));
         const travel = (ramp ? rampTicks(gap, ramp) : Math.ceil(gap / (delivery.speed / 30) - EPSILON)) / 30;
-        const decision = resolveSkillshot(world, unit, enemy, ability, castStartTick, travel, delivery.sidestep);
+        const decision = resolveSkillshot(world, unit, enemy, ability, castStartTick, travel + (delivery.sidestep.later ?? 0), delivery.sidestep.reach);
         dash.connects = decision.connects;
         dash.scale = decision.scale;
         if (decision.split !== undefined) split = { dash: unit.side, chance: decision.split };

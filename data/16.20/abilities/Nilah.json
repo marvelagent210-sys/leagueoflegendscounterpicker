@@ -454,6 +454,12 @@
             },
             "context": "Her basic attacks and Formless Blade heal her for 0 / 2 / 4 / 6 / 8 / 10 / 12 / 14 / 16 / 18 / 20 (based on critical strike chance)% of the post-mitigation damage dealt to champions, converting each heal instance beyond maximum health into a shield that lasts 6 seconds."
           }
+        ],
+        "tips": [
+          {
+            "text": "post-mitigation damage",
+            "tip": "Damage calculated after modifiers"
+          }
         ]
       },
       {
@@ -862,6 +868,12 @@
             },
             "context": "Nilah heals herself and nearby allied champions for 20 / 23 / 26 / 29 / 32 / 35 / 38 / 41 / 44 / 47 / 50 (based on critical strike chance)% of the post-mitigation damage dealt to champions, reduced to 10% against non-champions, converting each heal instance beyond maximum health into a shield that last 6 seconds."
           }
+        ],
+        "tips": [
+          {
+            "text": "post-mitigation damage",
+            "tip": "Damage calculated after modifiers"
+          }
         ]
       },
       {
@@ -1007,7 +1019,13 @@
         "text": "Allied champions she touches will also be enveloped for 1.5 seconds, gaining the same effects.",
         "leveling": [],
         "mechanics": [],
-        "values": []
+        "values": [],
+        "tips": [
+          {
+            "text": "she touches",
+            "tip": "Being within collision range of them"
+          }
+        ]
       }
     ],
     "custom": [],

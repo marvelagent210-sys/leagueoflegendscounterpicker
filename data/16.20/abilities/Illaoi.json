@@ -164,7 +164,13 @@
             "conditional": false
           }
         ],
-        "values": []
+        "values": [],
+        "tips": [
+          {
+            "text": "7 seconds",
+            "tip": "Timer starts when the target is hit"
+          }
+        ]
       },
       {
         "text": "The Spirit spawns with the target's current health, armor and magic resist, and echoes a portion of the pre-mitigation damage received to the tethered champion, with the last hits before it dies potentially echoing reduced damage.",
@@ -199,7 +205,17 @@
           }
         ],
         "mechanics": [],
-        "values": []
+        "values": [],
+        "tips": [
+          {
+            "text": "pre-mitigation damage",
+            "tip": "Damage calculated before modifiers"
+          },
+          {
+            "text": "potentially",
+            "tip": "See notes"
+          }
+        ]
       },
       {
         "text": "When the Spirit is killed or the target leaves tether range, the tether is severed, marking the target as a Vessel for 4 seconds and slowing them by 80% for 1.5 seconds once the tether returns back to them. Each Tentacle autonomously attacks the closest Vessel or Spirit, prioritizing the latter, once every 4.5 / 4 / 3.5 (based on level) seconds.",
@@ -266,7 +282,13 @@
             "conditional": false
           }
         ],
-        "values": []
+        "values": [],
+        "tips": [
+          {
+            "text": "nearby",
+            "tip": "See notes"
+          }
+        ]
       }
     ],
     "custom": [],
@@ -611,7 +633,13 @@
             "conditional": false
           }
         ],
-        "values": []
+        "values": [],
+        "tips": [
+          {
+            "text": "nearby",
+            "tip": "see details"
+          }
+        ]
       }
     ],
     "custom": [],

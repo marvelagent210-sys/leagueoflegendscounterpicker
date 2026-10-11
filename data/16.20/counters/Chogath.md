@@ -2,7 +2,7 @@
 
 ## Simulated duels (full confidence)
 
-The duel simulator played each of the 37 other champions with a simulator kit against Cho'Gath: both at level 20 with 15,000 gold of plain stats, each side's spent against the other's, through six scenarios (PLAN.md §6). Scores run from −1 (Cho'Gath wins every time) to +1 (the champion does). Run `npm run duel -- <champion> Chogath --log brawl` to watch a fight.
+The duel simulator played each of the 38 other champions with a simulator kit against Cho'Gath: both at level 20 with 15,000 gold of plain stats, each side's spent against the other's, through six scenarios (PLAN.md §6). Scores run from −1 (Cho'Gath wins every time) to +1 (the champion does). Run `npm run duel -- <champion> Chogath --log brawl` to watch a fight.
 
 | # | Champion | Score | You engage | Enemy engages | Brawl | Short trade | Spacing | Escape |
 |--:|---|--:|--:|--:|--:|--:|--:|--:|
@@ -28,21 +28,22 @@ The duel simulator played each of the 37 other champions with a simulator kit ag
 | 20 | Ornn | −0.12 | −0.04 | −0.04 | −0.51 | +0.10 | – | +0.00 |
 | 21 | Yone | −0.31 | −0.50 | −0.33 | −0.35 | +0.00 | – | +0.00 |
 | 22 | Shen | −0.34 | −0.59 | −0.59 | −0.13 | +0.06 | – | +0.00 |
-| 23 | Ambessa | −0.76 | −1.00 | −1.00 | −1.00 | +0.12 | – | +0.00 |
-| 24 | Garen | −0.76 | −1.00 | −1.00 | −1.00 | +0.08 | – | +0.00 |
-| 25 | Malphite | −0.77 | −1.00 | −1.00 | −1.00 | +0.04 | – | +0.00 |
-| 26 | Camille | −0.78 | −1.00 | −1.00 | −1.00 | +0.00 | – | +0.00 |
-| 27 | Yasuo | −0.78 | −1.00 | −1.00 | −1.00 | −0.01 | – | +0.00 |
-| 28 | Akali | −0.78 | −1.00 | −1.00 | −1.00 | −0.03 | – | +0.00 |
-| 29 | Urgot | −0.78 | −1.00 | −1.00 | −1.00 | +0.11 | −1.00 | +0.00 |
-| 30 | Sett | −0.79 | −1.00 | −1.00 | −1.00 | −0.05 | – | +0.00 |
-| 31 | Irelia | −0.79 | −1.00 | −1.00 | −1.00 | −0.05 | – | +0.00 |
-| 32 | Rumble | −0.79 | −1.00 | −1.00 | −1.00 | −0.06 | – | +0.00 |
-| 33 | Renekton | −0.79 | −1.00 | −1.00 | −1.00 | −0.07 | – | +0.00 |
-| 34 | Pantheon | −0.80 | −1.00 | −1.00 | −1.00 | −0.11 | – | +0.00 |
-| 35 | Riven | −0.80 | −1.00 | −1.00 | −1.00 | −0.12 | – | +0.00 |
-| 36 | Tryndamere | −0.82 | −1.00 | −1.00 | −1.00 | −0.24 | – | +0.00 |
-| 37 | Olaf | −0.82 | −1.00 | −1.00 | −1.00 | −0.24 | – | +0.00 |
+| 23 | Sion | −0.59 | −0.34 | −1.00 | −0.97 | −0.04 | – | +0.00 |
+| 24 | Ambessa | −0.76 | −1.00 | −1.00 | −1.00 | +0.12 | – | +0.00 |
+| 25 | Garen | −0.76 | −1.00 | −1.00 | −1.00 | +0.08 | – | +0.00 |
+| 26 | Malphite | −0.77 | −1.00 | −1.00 | −1.00 | +0.04 | – | +0.00 |
+| 27 | Camille | −0.78 | −1.00 | −1.00 | −1.00 | +0.00 | – | +0.00 |
+| 28 | Yasuo | −0.78 | −1.00 | −1.00 | −1.00 | −0.01 | – | +0.00 |
+| 29 | Akali | −0.78 | −1.00 | −1.00 | −1.00 | −0.03 | – | +0.00 |
+| 30 | Urgot | −0.78 | −1.00 | −1.00 | −1.00 | +0.11 | −1.00 | +0.00 |
+| 31 | Sett | −0.79 | −1.00 | −1.00 | −1.00 | −0.05 | – | +0.00 |
+| 32 | Irelia | −0.79 | −1.00 | −1.00 | −1.00 | −0.05 | – | +0.00 |
+| 33 | Rumble | −0.79 | −1.00 | −1.00 | −1.00 | −0.06 | – | +0.00 |
+| 34 | Renekton | −0.79 | −1.00 | −1.00 | −1.00 | −0.07 | – | +0.00 |
+| 35 | Pantheon | −0.80 | −1.00 | −1.00 | −1.00 | −0.11 | – | +0.00 |
+| 36 | Riven | −0.80 | −1.00 | −1.00 | −1.00 | −0.12 | – | +0.00 |
+| 37 | Tryndamere | −0.82 | −1.00 | −1.00 | −1.00 | −0.24 | – | +0.00 |
+| 38 | Olaf | −0.82 | −1.00 | −1.00 | −1.00 | −0.24 | – | +0.00 |
 
 ## Interaction ledger (partial confidence)
 

@@ -760,7 +760,13 @@
             "conditional": false
           }
         ],
-        "values": []
+        "values": [],
+        "tips": [
+          {
+            "text": "1.05 seconds",
+            "tip": "Estimated"
+          }
+        ]
       },
       {
         "text": "Enemies she dashes through are dealt the same damage, knocked aside by 350 units over 0.25 seconds, and stunned for 0.75 seconds.",

@@ -270,13 +270,29 @@
             "conditional": false
           }
         ],
-        "values": []
+        "values": [],
+        "tips": [
+          {
+            "text": "1.95 seconds",
+            "tip": "Estimated"
+          },
+          {
+            "text": "900 units",
+            "tip": "Pending for test"
+          }
+        ]
       },
       {
         "text": "Rappel can be recast instantly on a target enemy within the duration, or without a target after a delay for the duration, and does the latter automatically after the duration.",
         "leveling": [],
         "mechanics": [],
-        "values": []
+        "values": [],
+        "tips": [
+          {
+            "text": "a delay",
+            "tip": "See notes"
+          }
+        ]
       },
       {
         "label": "Recast",

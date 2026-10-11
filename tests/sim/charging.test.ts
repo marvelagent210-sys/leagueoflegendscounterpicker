@@ -45,7 +45,7 @@ describe("charge-up casts (Decimating Smash)", () => {
 });
 
 describe("charging dashes (Unstoppable Onslaught)", () => {
-  const charge = (sidestep?: number): AbilitySpec =>
+  const charge = (sidestep?: { reach: number; later?: number }): AbilitySpec =>
     ability({
       key: "R",
       cooldown: 100,
@@ -73,15 +73,18 @@ describe("charging dashes (Unstoppable Onslaught)", () => {
 
   it("can be stepped aside from when they come from far, not from close", () => {
     const options = { modes: ["fight", "idle"] as const, behaviors: [castWhenReady("R"), standStill] as [Behavior, Behavior], settings: { maxSeconds: 6 } };
-    const far = duel(fighter({ abilities: [charge(150)] }), fighter(), { ...options, modes: [...options.modes], distance: 2000 });
+    const far = duel(fighter({ abilities: [charge({ reach: 150 })] }), fighter(), { ...options, modes: [...options.modes], distance: 2000 });
     expect(far.damage[0]).toBe(0);
     expect(far.timeline.some((e) => e.side === 0 && e.text === "R misses")).toBe(true);
-    const near = duel(fighter({ abilities: [charge(150)] }), fighter(), { ...options, modes: [...options.modes], distance: 100 });
+    const near = duel(fighter({ abilities: [charge({ reach: 150 })] }), fighter(), { ...options, modes: [...options.modes], distance: 100 });
     expect(near.damage[0]).toBe(500);
     // In between, the fight splits on it.
-    const between = duel(fighter({ abilities: [charge(150)] }), fighter(), { ...options, modes: [...options.modes], distance: 300 });
+    const between = duel(fighter({ abilities: [charge({ reach: 150 })] }), fighter(), { ...options, modes: [...options.modes], distance: 300 });
     expect(between.branches).toBe(2);
     expect(between.damage[0]).toBeGreaterThan(0);
     expect(between.damage[0]).toBeLessThan(500);
+    // A follow-up that lands later leaves the enemy longer to get away.
+    const later = duel(fighter({ abilities: [charge({ reach: 150, later: 0.2 })] }), fighter(), { ...options, modes: [...options.modes], distance: 300 });
+    expect(later.damage[0]).toBeLessThan(between.damage[0]);
   });
 });

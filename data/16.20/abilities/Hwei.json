@@ -151,7 +151,13 @@
             "conditional": true
           }
         ],
-        "values": []
+        "values": [],
+        "tips": [
+          {
+            "text": "0.6 seconds",
+            "tip": "From start of cast time"
+          }
+        ]
       },
       {
         "text": "Crushing Maw's slow stacks multiplicatively with the slows applied by Molten Fissure, Grim Visage, and Spiraling Despair.",
@@ -287,7 +293,17 @@
           }
         ],
         "mechanics": [],
-        "values": []
+        "values": [],
+        "tips": [
+          {
+            "text": "0.6 seconds",
+            "tip": "From start of cast time"
+          },
+          {
+            "text": "0.2 seconds",
+            "tip": "Estimated"
+          }
+        ]
       },
       {
         "text": "Each explosion also leaves a lava fissure in its wake. A fissure lasts for 2.5 seconds, dealing magic damage every 0.25 seconds to enemies within the area and slowing them by 35%. Enemies may be damaged by multiple fissures at once.",
@@ -1776,7 +1792,13 @@
             "conditional": false
           }
         ],
-        "values": []
+        "values": [],
+        "tips": [
+          {
+            "text": "area",
+            "tip": "Can see into brush and terrain"
+          }
+        ]
       }
     ],
     "custom": [],
@@ -2128,7 +2150,13 @@
           }
         ],
         "mechanics": [],
-        "values": []
+        "values": [],
+        "tips": [
+          {
+            "text": "1 second",
+            "tip": "From start of cast time"
+          }
+        ]
       },
       {
         "text": "If Severing Bolt hits only one enemy or immobilized enemies, it deals increased damage based on the target's missing health. This bonus damage is capped at 300 against monsters.",
@@ -2187,7 +2215,13 @@
           }
         ],
         "mechanics": [],
-        "values": []
+        "values": [],
+        "tips": [
+          {
+            "text": "target's missing health",
+            "tip": "See notes"
+          }
+        ]
       },
       {
         "text": "Severing Bolt deals 50% damage to minions and non-epic monsters.",

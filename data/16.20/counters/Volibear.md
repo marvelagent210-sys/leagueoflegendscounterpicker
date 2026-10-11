@@ -2,7 +2,7 @@
 
 ## Simulated duels (full confidence)
 
-The duel simulator played each of the 37 other champions with a simulator kit against Volibear: both at level 20 with 15,000 gold of plain stats, each side's spent against the other's, through six scenarios (PLAN.md §6). Scores run from −1 (Volibear wins every time) to +1 (the champion does). Run `npm run duel -- <champion> Volibear --log brawl` to watch a fight.
+The duel simulator played each of the 38 other champions with a simulator kit against Volibear: both at level 20 with 15,000 gold of plain stats, each side's spent against the other's, through six scenarios (PLAN.md §6). Scores run from −1 (Volibear wins every time) to +1 (the champion does). Run `npm run duel -- <champion> Volibear --log brawl` to watch a fight.
 
 | # | Champion | Score | You engage | Enemy engages | Brawl | Short trade | Spacing | Escape |
 |--:|---|--:|--:|--:|--:|--:|--:|--:|
@@ -21,28 +21,29 @@ The duel simulator played each of the 37 other champions with a simulator kit ag
 | 13 | Singed | +0.05 | +0.14 | +0.04 | +0.04 | −0.03 | – | +0.00 |
 | 14 | Kayle | −0.14 | +0.37 | −0.75 | −0.75 | +0.59 | +0.20 | +0.00 |
 | 15 | Sett | −0.23 | +0.90 | −1.00 | −1.00 | +0.11 | – | +0.00 |
-| 16 | Olaf | −0.44 | +0.04 | −0.84 | −0.96 | −0.04 | – | +0.00 |
-| 17 | Aurora | −0.45 | −0.61 | −1.00 | −1.00 | +0.33 | +1.00 | +0.00 |
-| 18 | Kennen | −0.48 | −0.83 | −0.82 | −0.81 | +0.25 | +0.54 | +0.00 |
-| 19 | Quinn | −0.58 | −1.00 | −1.00 | −1.00 | +0.16 | +1.00 | +0.00 |
-| 20 | Nasus | −0.62 | −0.70 | −0.94 | −0.70 | −0.08 | – | +0.00 |
-| 21 | Irelia | −0.71 | −1.00 | −0.88 | −0.88 | +0.06 | – | +0.00 |
-| 22 | Poppy | −0.71 | −0.89 | −1.00 | −1.00 | +0.21 | – | +0.00 |
-| 23 | Cho'Gath | −0.72 | −0.93 | −0.99 | −0.93 | +0.14 | – | +0.00 |
-| 24 | Ambessa | −0.73 | −1.00 | −1.00 | −1.00 | +0.26 | – | +0.00 |
-| 25 | Camille | −0.74 | −1.00 | −1.00 | −1.00 | +0.20 | – | +0.00 |
-| 26 | Riven | −0.75 | −1.00 | −1.00 | −1.00 | +0.19 | – | +0.00 |
-| 27 | Malphite | −0.75 | −1.00 | −1.00 | −1.00 | +0.14 | – | +0.00 |
-| 28 | Yasuo | −0.76 | −1.00 | −1.00 | −1.00 | +0.13 | – | +0.00 |
-| 29 | Shen | −0.76 | −1.00 | −1.00 | −1.00 | +0.11 | – | +0.00 |
-| 30 | Ornn | −0.76 | −0.98 | −1.00 | −1.00 | +0.08 | – | +0.00 |
-| 31 | Pantheon | −0.77 | −1.00 | −1.00 | −1.00 | +0.07 | – | +0.00 |
-| 32 | Akali | −0.77 | −1.00 | −1.00 | −1.00 | +0.07 | – | +0.00 |
-| 33 | Mordekaiser | −0.77 | −0.97 | −1.00 | −1.00 | −0.01 | – | +0.00 |
-| 34 | Renekton | −0.77 | −1.00 | −1.00 | −1.00 | +0.02 | – | +0.00 |
-| 35 | Urgot | −0.77 | −1.00 | −1.00 | −1.00 | +0.17 | −1.00 | +0.00 |
-| 36 | Rumble | −0.78 | −1.00 | −1.00 | −1.00 | +0.01 | – | +0.00 |
-| 37 | Garen | −0.79 | −1.00 | −1.00 | −1.00 | −0.06 | – | +0.00 |
+| 16 | Sion | −0.28 | −1.00 | +0.00 | +0.00 | −0.03 | – | +0.00 |
+| 17 | Olaf | −0.44 | +0.04 | −0.84 | −0.96 | −0.04 | – | +0.00 |
+| 18 | Aurora | −0.45 | −0.61 | −1.00 | −1.00 | +0.33 | +1.00 | +0.00 |
+| 19 | Kennen | −0.48 | −0.83 | −0.82 | −0.81 | +0.25 | +0.54 | +0.00 |
+| 20 | Quinn | −0.58 | −1.00 | −1.00 | −1.00 | +0.16 | +1.00 | +0.00 |
+| 21 | Nasus | −0.62 | −0.70 | −0.94 | −0.70 | −0.08 | – | +0.00 |
+| 22 | Irelia | −0.71 | −1.00 | −0.88 | −0.88 | +0.06 | – | +0.00 |
+| 23 | Poppy | −0.71 | −0.89 | −1.00 | −1.00 | +0.21 | – | +0.00 |
+| 24 | Cho'Gath | −0.72 | −0.93 | −0.99 | −0.93 | +0.14 | – | +0.00 |
+| 25 | Ambessa | −0.73 | −1.00 | −1.00 | −1.00 | +0.26 | – | +0.00 |
+| 26 | Camille | −0.74 | −1.00 | −1.00 | −1.00 | +0.20 | – | +0.00 |
+| 27 | Riven | −0.75 | −1.00 | −1.00 | −1.00 | +0.19 | – | +0.00 |
+| 28 | Malphite | −0.75 | −1.00 | −1.00 | −1.00 | +0.14 | – | +0.00 |
+| 29 | Yasuo | −0.76 | −1.00 | −1.00 | −1.00 | +0.13 | – | +0.00 |
+| 30 | Shen | −0.76 | −1.00 | −1.00 | −1.00 | +0.11 | – | +0.00 |
+| 31 | Ornn | −0.76 | −0.98 | −1.00 | −1.00 | +0.08 | – | +0.00 |
+| 32 | Pantheon | −0.77 | −1.00 | −1.00 | −1.00 | +0.07 | – | +0.00 |
+| 33 | Akali | −0.77 | −1.00 | −1.00 | −1.00 | +0.07 | – | +0.00 |
+| 34 | Mordekaiser | −0.77 | −0.97 | −1.00 | −1.00 | −0.01 | – | +0.00 |
+| 35 | Renekton | −0.77 | −1.00 | −1.00 | −1.00 | +0.02 | – | +0.00 |
+| 36 | Urgot | −0.77 | −1.00 | −1.00 | −1.00 | +0.17 | −1.00 | +0.00 |
+| 37 | Rumble | −0.78 | −1.00 | −1.00 | −1.00 | +0.01 | – | +0.00 |
+| 38 | Garen | −0.79 | −1.00 | −1.00 | −1.00 | −0.06 | – | +0.00 |
 
 ## Interaction ledger (partial confidence)
 

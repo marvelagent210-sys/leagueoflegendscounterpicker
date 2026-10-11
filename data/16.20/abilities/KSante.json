@@ -904,7 +904,17 @@
             "conditional": false
           }
         ],
-        "values": []
+        "values": [],
+        "tips": [
+          {
+            "text": "0.5 seconds",
+            "tip": "Duration unaffected by tenacity"
+          },
+          {
+            "text": "175 units",
+            "tip": "Beyond the target's hitbox's edge"
+          }
+        ]
       },
       {
         "text": "If there is valid map-generated terrain 350 units in the cast direction from the target's location at the time of cast, the target is instead pulled to a location that is directly 450 units away from the edge of the other side of the terrain and K'Sante blinks 100 units behind that location, dealing them the physical damage near their emergence from the terrain. At the end of the displacement, they remain airborne for 0.264, after which they are stunned for 0.5 seconds. K'Sante strikes them after 0.132 into the airborne duration to deal physical damage.",
@@ -994,7 +1004,13 @@
             "conditional": false
           }
         ],
-        "values": []
+        "values": [],
+        "tips": [
+          {
+            "text": "valid map-generated terrain",
+            "tip": "Terrain that has an opposite side (non-border) and is not player-generated."
+          }
+        ]
       },
       {
         "text": "After K'Sante blinks, he enters All Out for 15 seconds.",
@@ -1033,7 +1049,29 @@
           }
         ],
         "mechanics": [],
-        "values": []
+        "values": [],
+        "tips": [
+          {
+            "text": "modified",
+            "tip": "By increases or decreases to maximum health"
+          },
+          {
+            "text": "exceeded",
+            "tip": "By healing and health regeneration"
+          },
+          {
+            "text": "bonus-armor penetration",
+            "tip": "Affects bonus armor only"
+          },
+          {
+            "text": "amount of mana",
+            "tip": "Preserves the exact amount of mana, not his mana percentage at the time"
+          },
+          {
+            "text": "prior to entering All Out",
+            "tip": "After paying All Out's mana cost"
+          }
+        ]
       },
       {
         "text": "K'Sante retains his maximum health and bonus resistances during All Out. Health lost from gaining the health threshold is not restored after the effect ends. If the target is pulled over terrain, K'Sante will vanish during their displacement and reappear near the end of it.",

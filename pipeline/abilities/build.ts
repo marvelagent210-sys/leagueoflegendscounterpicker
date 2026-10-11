@@ -146,6 +146,7 @@ function partsOf(page: AbilityPage, ctx: EvalContext): AbilityPart[] {
       leveling: stats,
       mechanics,
       values: marked ? descriptionValues(marked) : [],
+      ...(marked && marked.tips.length > 0 ? { tips: marked.tips } : {}),
     });
   }
   fillAcrossParts(parts);

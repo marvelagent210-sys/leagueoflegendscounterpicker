@@ -137,6 +137,28 @@ describe("surviving lethal damage", () => {
     expect(outcome.seconds).toBeCloseTo(5, 9);
   });
 
+  it("counts a fallen unit's death: if it then kills the enemy, both have died", () => {
+    // Both hit for 1500 a second: at 1 s one dies as the other falls (Glory in Death), which counts as both dying.
+    const fallen = (key: string) =>
+      fighter({
+        abilities: [ability({ key, cooldown: 1, delivery: { kind: "aura", radius: 500 }, onHit: [trueDamage(1500)] })],
+        hooks: {
+          onLethal(ctx) {
+            if (ctx.self.fallen) return false;
+            ctx.self.fallen = true;
+            ctx.self.hp = 2000;
+            return true;
+          },
+        },
+      });
+    const both = duel(hits, fallen("Q"), { behaviors: [castWhenReady("Q"), castWhenReady("Q")], settings: { maxSeconds: 5 } });
+    expect(both.draw).toBe(1);
+    expect(both.hp).toEqual([0, 0]);
+    // Killed for good before it kills: the enemy wins.
+    const loses = duel(hits, fallen("Q"), { behaviors: [castWhenReady("Q"), idle], settings: { maxSeconds: 5 } });
+    expect(loses.win[0]).toBe(1);
+  });
+
   it("refuses a save without health", () => {
     const broken = fighter({ hooks: { onLethal: () => true } });
     expect(() => duel(hits, broken, { behaviors: [castWhenReady("Q"), idle], settings: { maxSeconds: 2 } })).toThrow(/without giving it health/);

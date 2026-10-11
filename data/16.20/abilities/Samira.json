@@ -578,7 +578,13 @@
             "conditional": false
           }
         ],
-        "values": []
+        "values": [],
+        "tips": [
+          {
+            "text": "6 bolts over 0.5 seconds",
+            "tip": "First bolt at the time of cast then once every 0.1 seconds thereafter."
+          }
+        ]
       },
       {
         "text": "The empowered attack resets Samira's basic attack timer, is affected by critical strike modifiers, applies on-hit effects only once, and cannot occur on the same target more than once every few seconds.",
@@ -1076,7 +1082,13 @@
             "conditional": false
           }
         ],
-        "values": []
+        "values": [],
+        "tips": [
+          {
+            "text": "0.2-second intervals",
+            "tip": "on average; total of 5 intervals of 0.231 and 5 of 0.198 seconds"
+          }
+        ]
       },
       {
         "text": "A nearby visible enemy is required to cast this ability, and targets do not have to be visible to be shot at. Style stacks are consumed at the end of the effect.",

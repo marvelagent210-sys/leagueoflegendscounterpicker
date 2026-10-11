@@ -1182,7 +1182,17 @@
             "conditional": false
           }
         ],
-        "values": []
+        "values": [],
+        "tips": [
+          {
+            "text": "surroundings",
+            "tip": "Can grant sight of area into brush and through terrain"
+          },
+          {
+            "text": "travels",
+            "tip": "creates vision bubbles every 0.25 seconds"
+          }
+        ]
       },
       {
         "text": "If a target is hit, Briar cleanses herself from all crowd control and becomes immune to them over a cast time, afterwards dashing to them with displacement immunity. Upon arrival, she creates an explosion around the marked target that deals magic damage to them and nearby enemies and fears all non-marked targets for 1.5 seconds, during which they are slowed by 35%. She then enters a state of Hematomania.",
@@ -1325,7 +1335,13 @@
         "text": "While in the empowered frenzy, Briar prioritizes attacking the marked target over all other units and regardless of range. If that target becomes invalid, she will shift back to her normal targeting priority until the marked target can be attacked again. Hematomania lasts until the mark is dispelled by any means, including Briar's or the target's death.",
         "leveling": [],
         "mechanics": [],
-        "values": []
+        "values": [],
+        "tips": [
+          {
+            "text": "normal targeting priority",
+            "tip": "nearest non-marked champion, then large monster or minion, and then any other unit"
+          }
+        ]
       },
       {
         "text": "Casting Chilling Scream removes the target's mark and ends Hematomania early. Head Rush cast does not shift her targeting priority during Hematomania.",
@@ -1575,7 +1591,13 @@
             "conditional": false
           }
         ],
-        "values": []
+        "values": [],
+        "tips": [
+          {
+            "text": "forced",
+            "tip": "See notes"
+          }
+        ]
       },
       {
         "text": "Briar prioritizes attacking champions, then large monsters or minions, and then any other unit. If she casts Head Rush on a minion or monster, she will shift her target priority to large monsters, minions or champions, then any other unit.",
@@ -1716,7 +1738,13 @@
             "conditional": false
           }
         ],
-        "values": []
+        "values": [],
+        "tips": [
+          {
+            "text": "post-mitigation damage",
+            "tip": "Damage calculated after modifiers"
+          }
+        ]
       },
       {
         "text": "Snack Attack deals 110% damage against minions and monsters, with the damage based on the target's health ratio being capped at 400.",

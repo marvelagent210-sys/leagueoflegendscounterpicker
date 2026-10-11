@@ -167,7 +167,13 @@
             "conditional": false
           }
         ],
-        "values": []
+        "values": [],
+        "tips": [
+          {
+            "text": "150",
+            "tip": "Estimated"
+          }
+        ]
       },
       {
         "text": "Darius is unable to move or cast Decimate or Noxian Guillotine for 0.4 seconds after Apprehend's cast time.",

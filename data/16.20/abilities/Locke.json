@@ -199,7 +199,13 @@
             "conditional": false
           }
         ],
-        "values": []
+        "values": [],
+        "tips": [
+          {
+            "text": "attack command",
+            "tip": "Technically not a basic attack, see notes. This dash ability is performed as soon as his declared attack target is within attack range (normally 400 units)."
+          }
+        ]
       },
       {
         "text": "Scoring a takedown against an enemy champion resets the cooldown.",
@@ -219,7 +225,13 @@
             "conditional": true
           }
         ],
-        "values": []
+        "values": [],
+        "tips": [
+          {
+            "text": "cannot perform",
+            "tip": "See notes"
+          }
+        ]
       }
     ],
     "custom": [],
@@ -562,7 +574,13 @@
             "conditional": false
           }
         ],
-        "values": []
+        "values": [],
+        "tips": [
+          {
+            "text": "static cooldown",
+            "tip": "Unaffected by ability haste"
+          }
+        ]
       },
       {
         "label": "Recast",
@@ -964,7 +982,13 @@
         "text": "Once all marks expire, and if at least one champion was executed, the totem seals the souls of all executed champions and drops to the ground both over 2.25 seconds. It then lingers for a duration equal to Purgatory's remaining cooldown, but for no less than 10 seconds. Locke can move near the totem to collect it, and for each soul sealed it will both reduce Purgatory's current cooldown by 20% of its total cooldown and grant him a permanent Sealed Champion stack.",
         "leveling": [],
         "mechanics": [],
-        "values": []
+        "values": [],
+        "tips": [
+          {
+            "text": "remaining cooldown",
+            "tip": "Remaining CD at the time that the totem initialized the sealing process."
+          }
+        ]
       }
     ],
     "custom": [],
@@ -1183,6 +1207,12 @@
               "past18": "wiki"
             },
             "context": "The missing health portion of this additional grey health stored reaches its maximum when his current health is at or below 150 – 450 (based on level) (+ 60% AP)."
+          }
+        ],
+        "tips": [
+          {
+            "text": "post-mitigation damage",
+            "tip": "Damage calculated after modifiers"
           }
         ]
       },

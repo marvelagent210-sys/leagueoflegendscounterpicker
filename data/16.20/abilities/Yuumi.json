@@ -1213,7 +1213,13 @@
             "conditional": false
           }
         ],
-        "values": []
+        "values": [],
+        "tips": [
+          {
+            "text": "certain circumstances",
+            "tip": "See notes"
+          }
+        ]
       },
       {
         "text": "Yuumi will be knocked down by any immobilizing or polymorphing crowd control during the dash to the ally.",

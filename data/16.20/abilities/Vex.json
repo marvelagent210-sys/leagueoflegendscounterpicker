@@ -879,7 +879,13 @@
             "conditional": false
           }
         ],
-        "values": []
+        "values": [],
+        "tips": [
+          {
+            "text": "trajectory",
+            "tip": "Does not see into brush or across terrain"
+          }
+        ]
       },
       {
         "text": "Shadow stops upon hitting an enemy champion to mark them for 4 seconds, during which they are revealed. Shadow Surge can be recast while the target is marked.",

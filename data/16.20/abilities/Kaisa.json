@@ -328,7 +328,13 @@
         "text": "Innate - Living Weapon: Kai'Sa can evolve each of her basic abilities by gaining a set amount of permanent stats from items and stat growth, granting them additional effects. Evolving an ability causes her to enter a 2-second cast time. The upgrade is lost if the stat requirement is no longer met.",
         "leveling": [],
         "mechanics": [],
-        "values": []
+        "values": [],
+        "tips": [
+          {
+            "text": "stat growth",
+            "tip": "Includes all stats gained when leveling (including base AD gained), but does not include stats at level 1."
+          }
+        ]
       },
       {
         "label": "Innate - Plasma",
@@ -923,7 +929,13 @@
             "conditional": false
           }
         ],
-        "values": []
+        "values": [],
+        "tips": [
+          {
+            "text": "affected",
+            "tip": "Stack application or consumption"
+          }
+        ]
       },
       {
         "text": "An enemy champion within range and affected by Plasma is required to cast this ability. Killer Instinct resets Kai'Sa's basic attack timer. Kai'Sa can cast any of her abilities during the dash.",

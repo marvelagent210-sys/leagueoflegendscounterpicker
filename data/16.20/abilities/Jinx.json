@@ -196,7 +196,13 @@
         "text": "Additionally, she is allowed to exceed the attack speed cap and gains a stack of Get Excited! for the same duration, stacking up to 5 times. Only takedowns against enemy champions can grant stacks beyond the first.",
         "leveling": [],
         "mechanics": [],
-        "values": []
+        "values": [],
+        "tips": [
+          {
+            "text": "attack speed cap",
+            "tip": "normally 3.003 attacks per second"
+          }
+        ]
       },
       {
         "label": "Get Excited!",
@@ -567,7 +573,21 @@
             "conditional": false
           }
         ],
-        "values": []
+        "values": [],
+        "tips": [
+          {
+            "text": "surroundings",
+            "tip": "Cannot grant sight into brush nor through terrain"
+          },
+          {
+            "text": "nearby",
+            "tip": "centered on the initial target"
+          },
+          {
+            "text": "area",
+            "tip": "Can grant sight into brush and through terrain"
+          }
+        ]
       },
       {
         "text": "Super Mega Death Rocket! deals 10 / 16 / 22 / 28 / 34 / 40 / 46 / 52 / 58 / 64 / 70 / 76 / 82 / 88 / 94 / 100 (based on distance traveled)% damage. This does not affect the bonus damage based on the target's missing health.",

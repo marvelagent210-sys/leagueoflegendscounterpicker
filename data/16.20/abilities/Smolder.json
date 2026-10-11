@@ -166,7 +166,13 @@
             "conditional": false
           }
         ],
-        "values": []
+        "values": [],
+        "tips": [
+          {
+            "text": "most wounded",
+            "tip": "Lowest health percent"
+          }
+        ]
       },
       {
         "text": "Flap, Flap, Flap ends immediately if Smolder casts another ability or becomes immobilized.",
@@ -799,7 +805,13 @@
             "conditional": false
           }
         ],
-        "values": []
+        "values": [],
+        "tips": [
+          {
+            "text": "surroundings",
+            "tip": "Cannot grant sight through terrain and can only grant sight into brush when the center part goes through that brush"
+          }
+        ]
       },
       {
         "text": "MMOOOMMMM! deals 50% damage against minions and monsters.",
@@ -1058,7 +1070,13 @@
             "conditional": false
           }
         ],
-        "values": []
+        "values": [],
+        "tips": [
+          {
+            "text": "1200",
+            "tip": "estimated"
+          }
+        ]
       }
     ],
     "custom": [],

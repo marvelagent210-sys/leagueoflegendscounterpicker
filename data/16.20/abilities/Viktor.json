@@ -755,7 +755,13 @@
             "conditional": false
           }
         ],
-        "values": []
+        "values": [],
+        "tips": [
+          {
+            "text": "surrounding area",
+            "tip": "If radius is below 700 units"
+          }
+        ]
       },
       {
         "text": "Arcane Storm can be recast at any time while the singularity is active.",

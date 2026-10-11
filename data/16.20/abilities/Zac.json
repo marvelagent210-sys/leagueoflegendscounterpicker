@@ -146,7 +146,13 @@
         "text": "Elastic Slingshot can be recast within the duration. If Zac cancels the channel himself, or the charge completes without reactivation, 50% of Elastic Slingshot's health cost and cooldown are refunded.",
         "leveling": [],
         "mechanics": [],
-        "values": []
+        "values": [],
+        "tips": [
+          {
+            "text": "cancels",
+            "tip": "See notes"
+          }
+        ]
       },
       {
         "label": "Recast",
@@ -456,6 +462,12 @@
             },
             "context": "Innate - Cell Division: Periodically, upon taking fatal damage, Zac enters resurrection for 8 / 7 / 6 / 5 / 4 (based on level) seconds, instantly restoring 50% of his maximum health and becoming untargetable and unable to act for the duration."
           }
+        ],
+        "tips": [
+          {
+            "text": "remaining duration",
+            "tip": "Regardless of distance"
+          }
         ]
       },
       {
@@ -470,7 +482,13 @@
             "conditional": false
           }
         ],
-        "values": []
+        "values": [],
+        "tips": [
+          {
+            "text": "10 – 50%",
+            "tip": "Based on his bloblets' total remaining health. Reaches the maximum amount at full health on all bloblets"
+          }
+        ]
       },
       {
         "text": "See Pets for stats and details for bloblets.",
@@ -795,7 +813,25 @@
             "conditional": false
           }
         ],
-        "values": []
+        "values": [],
+        "tips": [
+          {
+            "text": "0.5",
+            "tip": "Estimated"
+          },
+          {
+            "text": "secondary target",
+            "tip": "Target hit by the empowered attack (or second Stretching Strike in this context)"
+          },
+          {
+            "text": "0.4-second delay",
+            "tip": "After the attack's cast time"
+          },
+          {
+            "text": "displaces",
+            "tip": "Only move block, does not stun the target's actions (disables attacking and movement only)"
+          }
+        ]
       },
       {
         "text": "If the two targets are within 700 units of each other, they are instead slammed together through the displacement. Upon impact of each other, both targets are knocked up and stunned for 0.25 seconds and all enemies within the impact are dealt the initial magic damage and applied the same slow.",

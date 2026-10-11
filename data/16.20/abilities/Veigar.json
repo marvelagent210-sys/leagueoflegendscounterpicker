@@ -743,7 +743,13 @@
             "conditional": false
           }
         ],
-        "values": []
+        "values": [],
+        "tips": [
+          {
+            "text": "delay",
+            "tip": "from the start of the cast time"
+          }
+        ]
       },
       {
         "text": "Dark Matter's cooldown is reduced based on stacks of Phenomenal Evil.",

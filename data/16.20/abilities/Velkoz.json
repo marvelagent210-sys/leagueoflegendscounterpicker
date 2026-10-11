@@ -514,7 +514,13 @@
         "text": "Recast: Vel'Koz splits the bolt in two over 0.25 seconds, each part firing perpendicularly in opposite directions and applying the same effects to enemies hit.",
         "leveling": [],
         "mechanics": [],
-        "values": []
+        "values": [],
+        "tips": [
+          {
+            "text": "over 0.25 seconds",
+            "tip": "Estimated"
+          }
+        ]
       },
       {
         "text": "Whenever Plasma Fission kills an enemy, Vel'Koz restores mana.",
@@ -1005,7 +1011,13 @@
             "conditional": false
           }
         ],
-        "values": []
+        "values": [],
+        "tips": [
+          {
+            "text": "0.75 seconds",
+            "tip": "Estimated"
+          }
+        ]
       },
       {
         "text": "Vel'Koz periodically stocks a Void Rift charge, up to a maximum of 2.",

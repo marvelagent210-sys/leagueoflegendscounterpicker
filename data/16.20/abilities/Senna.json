@@ -419,7 +419,13 @@
             "conditional": false
           }
         ],
-        "values": []
+        "values": [],
+        "tips": [
+          {
+            "text": "1% critical strike chance",
+            "tip": "Counts critical strike chance from items and Mist stacks"
+          }
+        ]
       },
       {
         "label": "Innate - Relic Cannon",
@@ -762,7 +768,17 @@
             "conditional": false
           }
         ],
-        "values": []
+        "values": [],
+        "tips": [
+          {
+            "text": "considered",
+            "tip": "Piercing Darkness doesn't actually apply basic damage"
+          },
+          {
+            "text": "one champion hit",
+            "tip": "see notes"
+          }
+        ]
       },
       {
         "text": "Piercing Darkness' current cooldown is reduced by 1 second on-attack.",
@@ -1011,7 +1027,13 @@
             "conditional": false
           }
         ],
-        "values": []
+        "values": [],
+        "tips": [
+          {
+            "text": "the area",
+            "tip": "Can see through brush and terrain."
+          }
+        ]
       }
     ],
     "custom": [],

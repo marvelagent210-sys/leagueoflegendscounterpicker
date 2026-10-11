@@ -986,7 +986,17 @@
             "conditional": false
           }
         ],
-        "values": []
+        "values": [],
+        "tips": [
+          {
+            "text": "up-to 3400 units",
+            "tip": "Scales up to this value over the first 1 second of the channel"
+          },
+          {
+            "text": "in front",
+            "tip": "Same as uncharged radius"
+          }
+        ]
       },
       {
         "text": "If the charge is interrupted or completes without reactivation, Keeper's Verdict is cancelled and the ability is put on a 30-second cooldown.",

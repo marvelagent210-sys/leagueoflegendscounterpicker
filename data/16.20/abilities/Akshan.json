@@ -165,7 +165,17 @@
             "conditional": false
           }
         ],
-        "values": []
+        "values": [],
+        "tips": [
+          {
+            "text": "preparation",
+            "tip": "See notes"
+          },
+          {
+            "text": "moved",
+            "tip": "See notes"
+          }
+        ]
       },
       {
         "label": "Second Cast",
@@ -236,7 +246,13 @@
             "conditional": true
           }
         ],
-        "values": []
+        "values": [],
+        "tips": [
+          {
+            "text": "facing direction",
+            "tip": "See notes"
+          }
+        ]
       },
       {
         "label": "Third Cast",
@@ -399,6 +415,12 @@
               "past18": "wiki"
             },
             "context": "If the second shot is cancelled instead, he gains 20 – 75 (based on level) × (1 + 100% bonus attack speed) bonus movement speed decaying over 1 second."
+          }
+        ],
+        "tips": [
+          {
+            "text": "attack order",
+            "tip": "Default right-click/MB2"
           }
         ]
       },
@@ -1280,7 +1302,13 @@
             "conditional": false
           }
         ],
-        "values": []
+        "values": [],
+        "tips": [
+          {
+            "text": "5000",
+            "tip": "Pending for test"
+          }
+        ]
       },
       {
         "text": "Going Rogue can be recast after 1 second, and does so automatically after its duration. Attacking or casting abilities ends Going Rogue immediately.",

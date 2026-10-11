@@ -740,7 +740,13 @@
             "conditional": false
           }
         ],
-        "values": []
+        "values": [],
+        "tips": [
+          {
+            "text": "most wounded",
+            "tip": "Based on greatest % missing health"
+          }
+        ]
       },
       {
         "label": "Melody Bonus",

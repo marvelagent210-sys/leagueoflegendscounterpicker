@@ -696,7 +696,13 @@
             "conditional": false
           }
         ],
-        "values": []
+        "values": [],
+        "tips": [
+          {
+            "text": "Nearby monsters",
+            "tip": "100 range estimated"
+          }
+        ]
       }
     ],
     "custom": [],

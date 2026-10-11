@@ -700,7 +700,21 @@
             "conditional": false
           }
         ],
-        "values": []
+        "values": [],
+        "tips": [
+          {
+            "text": "0.8 seconds",
+            "tip": "Estimated"
+          },
+          {
+            "text": "0.2 seconds",
+            "tip": "Estimated"
+          },
+          {
+            "text": "0.5 seconds",
+            "tip": "Estimated"
+          }
+        ]
       }
     ],
     "custom": [],

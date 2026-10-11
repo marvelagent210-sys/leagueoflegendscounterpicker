@@ -2,7 +2,7 @@
 
 ## Simulated duels (full confidence)
 
-The duel simulator played each of the 37 other champions with a simulator kit against Riven: both at level 20 with 15,000 gold of plain stats, each side's spent against the other's, through six scenarios (PLAN.md §6). Scores run from −1 (Riven wins every time) to +1 (the champion does). Run `npm run duel -- <champion> Riven --log brawl` to watch a fight.
+The duel simulator played each of the 38 other champions with a simulator kit against Riven: both at level 20 with 15,000 gold of plain stats, each side's spent against the other's, through six scenarios (PLAN.md §6). Scores run from −1 (Riven wins every time) to +1 (the champion does). Run `npm run duel -- <champion> Riven --log brawl` to watch a fight.
 
 | # | Champion | Score | You engage | Enemy engages | Brawl | Short trade | Spacing | Escape |
 |--:|---|--:|--:|--:|--:|--:|--:|--:|
@@ -35,14 +35,15 @@ The duel simulator played each of the 37 other champions with a simulator kit ag
 | 27 | Mordekaiser | +0.50 | +0.54 | +0.65 | +0.88 | −0.14 | – | +0.00 |
 | 28 | Aurora | +0.47 | +1.00 | +1.00 | −1.00 | +0.46 | +1.00 | +0.00 |
 | 29 | Kennen | +0.45 | +1.00 | +1.00 | +0.00 | −0.08 | −0.39 | +0.00 |
-| 30 | Yone | +0.35 | +1.00 | +1.00 | −1.00 | −0.10 | – | +0.52 |
-| 31 | Singed | +0.20 | −0.02 | −0.02 | +1.00 | −0.09 | – | +0.00 |
-| 32 | Ambessa | −0.22 | −1.00 | +1.00 | −1.00 | −0.00 | – | +0.00 |
-| 33 | Yasuo | −0.27 | −1.00 | +0.00 | +0.00 | +0.03 | – | +0.00 |
-| 34 | Gwen | −0.58 | −1.00 | −1.00 | +0.00 | −0.14 | – | +0.00 |
-| 35 | Shen | −0.77 | −1.00 | −1.00 | −1.00 | +0.03 | – | +0.00 |
-| 36 | Rumble | −0.79 | −1.00 | −1.00 | −1.00 | −0.09 | – | +0.00 |
-| 37 | Akali | −0.80 | −1.00 | −1.00 | −1.00 | −0.11 | – | +0.00 |
+| 30 | Sion | +0.41 | +0.30 | +0.43 | +1.00 | −0.12 | – | +0.00 |
+| 31 | Yone | +0.35 | +1.00 | +1.00 | −1.00 | −0.10 | – | +0.52 |
+| 32 | Singed | +0.20 | −0.02 | −0.02 | +1.00 | −0.09 | – | +0.00 |
+| 33 | Ambessa | −0.22 | −1.00 | +1.00 | −1.00 | −0.00 | – | +0.00 |
+| 34 | Yasuo | −0.27 | −1.00 | +0.00 | +0.00 | +0.03 | – | +0.00 |
+| 35 | Gwen | −0.58 | −1.00 | −1.00 | +0.00 | −0.14 | – | +0.00 |
+| 36 | Shen | −0.77 | −1.00 | −1.00 | −1.00 | +0.03 | – | +0.00 |
+| 37 | Rumble | −0.79 | −1.00 | −1.00 | −1.00 | −0.09 | – | +0.00 |
+| 38 | Akali | −0.80 | −1.00 | −1.00 | −1.00 | −0.11 | – | +0.00 |
 
 ## Interaction ledger (partial confidence)
 

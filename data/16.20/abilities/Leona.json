@@ -731,7 +731,13 @@
           }
         ],
         "mechanics": [],
-        "values": []
+        "values": [],
+        "tips": [
+          {
+            "text": "pre-mitigation",
+            "tip": "Damage calculated before modifiers"
+          }
+        ]
       },
       {
         "text": "Her shield detonates after the duration, dealing magic damage to nearby enemies. If this hits an enemy, Leona's guard is extended for an additional 3 seconds.",

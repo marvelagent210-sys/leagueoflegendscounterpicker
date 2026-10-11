@@ -122,7 +122,7 @@ export function deliveryText(delivery: Delivery): string {
     case "aura":
       return `around itself, ${num(delivery.radius)} units`;
     case "target":
-      return `targeted, ${num(delivery.range)} range${delivery.missileSpeed ? `, missile at ${num(delivery.missileSpeed)}/s` : ""}`;
+      return `targeted, ${num(delivery.range)} ${delivery.edge ? "edge " : ""}range${delivery.missileSpeed ? `, missile at ${num(delivery.missileSpeed)}/s` : ""}`;
     case "line":
       return `skillshot ${num(delivery.range)} long, ${num(delivery.width)} wide, ${delivery.speed ? `at ${num(delivery.speed)}/s` : "instant"}`;
     case "circle":

@@ -432,7 +432,13 @@
             "conditional": false
           }
         ],
-        "values": []
+        "values": [],
+        "tips": [
+          {
+            "text": "a priority",
+            "tip": "See notes"
+          }
+        ]
       },
       {
         "text": "The stab deals physical damage and applies on-hit effects.",
@@ -925,7 +931,13 @@
             "conditional": false
           }
         ],
-        "values": []
+        "values": [],
+        "tips": [
+          {
+            "text": "hostile",
+            "tip": "Belonging to an enemy source"
+          }
+        ]
       }
     ],
     "custom": [],

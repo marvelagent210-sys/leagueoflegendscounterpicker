@@ -646,7 +646,13 @@
             "conditional": false
           }
         ],
-        "values": []
+        "values": [],
+        "tips": [
+          {
+            "text": "arrives after 0.3 seconds",
+            "tip": "fixed travel time missile"
+          }
+        ]
       },
       {
         "text": "The next instance of non-persistent damage that a sleeping target takes from champions, large monsters or turrets consumes the debuff to deal additional magic damage.",

@@ -177,7 +177,13 @@
             "conditional": false
           }
         ],
-        "values": []
+        "values": [],
+        "tips": [
+          {
+            "text": "shortly after",
+            "tip": "See notes"
+          }
+        ]
       }
     ],
     "custom": [],
@@ -673,7 +679,13 @@
             "conditional": false
           }
         ],
-        "values": []
+        "values": [],
+        "tips": [
+          {
+            "text": "total movement speed",
+            "tip": "Increases base movement as well as bonus movement speed"
+          }
+        ]
       },
       {
         "text": "Taking damage from non-minions while Behind Enemy Lines is active or while Quinn is channeling the ability causes her to lose the bonus total movement speed for 3 seconds. Becoming immobilized, grounded, or silenced ends Behind Enemy Lines immediately and puts it on cooldown without performing Skystrike.",
@@ -711,7 +723,13 @@
         "text": "Once Behind Enemy Lines has been learned, respawning or entering any summoning platform will spawn Valor instantly.",
         "leveling": [],
         "mechanics": [],
-        "values": []
+        "values": [],
+        "tips": [
+          {
+            "text": "any",
+            "tip": "see notes"
+          }
+        ]
       },
       {
         "label": "Recast",

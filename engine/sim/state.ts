@@ -115,6 +115,11 @@ export interface Unit {
   /** Free-form state for behaviors and kit hooks. */
   memory: Record<string, number | string | boolean>;
   alive: boolean;
+  /**
+   * Died, but fights on for a while (Glory in Death): the death counts, and if the enemy dies
+   * before it is over, both have died.
+   */
+  fallen?: boolean;
   totals: { damageDealt: number; damageTaken: number; healing: number; absorbed: number };
 }
 

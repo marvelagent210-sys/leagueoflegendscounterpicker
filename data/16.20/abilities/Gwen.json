@@ -276,6 +276,12 @@
             },
             "context": "* Deals an additional 8 – 30 (based on level) bonus magic damage against minions that are below 40% health."
           }
+        ],
+        "tips": [
+          {
+            "text": "post-mitigation damage",
+            "tip": "Damage calculated after resistances and most modifiers."
+          }
         ]
       }
     ],
@@ -552,7 +558,13 @@
           }
         ],
         "mechanics": [],
-        "values": []
+        "values": [],
+        "tips": [
+          {
+            "text": "cone",
+            "tip": "see notes"
+          }
+        ]
       },
       {
         "text": "If Gwen has any Snippy stacks, she consumes them to snip an additional time for each.",
@@ -981,7 +993,13 @@
             "conditional": false
           }
         ],
-        "values": []
+        "values": [],
+        "tips": [
+          {
+            "text": "static cooldown",
+            "tip": "Unaffected by ability haste"
+          }
+        ]
       },
       {
         "label": "Recast",

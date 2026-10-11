@@ -961,6 +961,12 @@
             },
             "context": "Vladimir heals himself for 30% of the pre-mitigation damage dealt, reduced to 18% against minions."
           }
+        ],
+        "tips": [
+          {
+            "text": "pre-mitigation damage",
+            "tip": "Damage calculated before modifiers"
+          }
         ]
       },
       {

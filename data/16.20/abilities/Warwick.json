@@ -228,6 +228,12 @@
             },
             "context": "Innate: Warwick deals 6 – 55 (based on level) (+ 15% bonus AD) (+ 10% AP) bonus magic damage on-hit."
           }
+        ],
+        "tips": [
+          {
+            "text": "post-mitigation damage",
+            "tip": "Damage calculated after resistances and modifiers."
+          }
         ]
       }
     ],
@@ -457,7 +463,13 @@
             "conditional": false
           }
         ],
-        "values": []
+        "values": [],
+        "tips": [
+          {
+            "text": "post-mitigation damage",
+            "tip": "Damage calculated after resistances and most modifiers."
+          }
+        ]
       },
       {
         "text": "While Jaws of the Beast is active, Warwick is displacement immune and clamps his jaw on the target, following all of their movement. The ability can be held for additional effects.",
@@ -748,7 +760,13 @@
             "conditional": false
           }
         ],
-        "values": []
+        "values": [],
+        "tips": [
+          {
+            "text": "post-mitigation damage",
+            "tip": "Damage calculated after resistances and modifiers."
+          }
+        ]
       },
       {
         "text": "Infinite Duress both applies on-hit effects and triggers on-attack effects 3 times over its duration.",

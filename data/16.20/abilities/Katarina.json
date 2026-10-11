@@ -461,7 +461,13 @@
         "text": "The Dagger lands 1.023 after striking the first target, about 350 units opposite from their position when it struck them.",
         "leveling": [],
         "mechanics": [],
-        "values": []
+        "values": [],
+        "tips": [
+          {
+            "text": "about 350 units",
+            "tip": "slightly random location"
+          }
+        ]
       }
     ],
     "custom": [],

@@ -1,5 +1,52 @@
 # Counters to Sion (patch 26.20)
 
+## Simulated duels (full confidence)
+
+The duel simulator played each of the 38 other champions with a simulator kit against Sion: both at level 20 with 15,000 gold of plain stats, each side's spent against the other's, through six scenarios (PLAN.md §6). Scores run from −1 (Sion wins every time) to +1 (the champion does). Run `npm run duel -- <champion> Sion --log brawl` to watch a fight.
+
+| # | Champion | Score | You engage | Enemy engages | Brawl | Short trade | Spacing | Escape |
+|--:|---|--:|--:|--:|--:|--:|--:|--:|
+| 1 | Kayle | +0.86 | +1.00 | +1.00 | +1.00 | +0.41 | +1.00 | +0.00 |
+| 2 | Fiora | +0.82 | +1.00 | +1.00 | +1.00 | +0.27 | – | +0.00 |
+| 3 | Poppy | +0.81 | +1.00 | +1.00 | +1.00 | +0.22 | – | +0.00 |
+| 4 | K'Sante | +0.79 | +1.00 | +1.00 | +1.00 | −0.04 | +1.00 | +0.00 |
+| 5 | Zaahen | +0.78 | +1.00 | +1.00 | +1.00 | +0.01 | – | +0.00 |
+| 6 | Olaf | +0.77 | +1.00 | +1.00 | +1.00 | −0.03 | – | +0.00 |
+| 7 | Trundle | +0.77 | +1.00 | +1.00 | +1.00 | −0.08 | – | +0.00 |
+| 8 | Mordekaiser | +0.76 | +0.97 | +0.98 | +1.00 | −0.00 | – | +0.00 |
+| 9 | Aatrox | +0.76 | +1.00 | +1.00 | +1.00 | −0.13 | – | +0.00 |
+| 10 | Jax | +0.67 | +1.00 | +1.00 | +0.50 | +0.00 | – | +0.00 |
+| 11 | Cho'Gath | +0.59 | +1.00 | +0.34 | +0.97 | +0.04 | – | +0.00 |
+| 12 | Gwen | +0.38 | +0.30 | +0.30 | +1.00 | −0.05 | – | +0.00 |
+| 13 | Teemo | +0.33 | +0.62 | +0.42 | +0.06 | +0.05 | +0.47 | +0.00 |
+| 14 | Dr. Mundo | +0.32 | +0.44 | +0.45 | +0.38 | −0.08 | – | +0.00 |
+| 15 | Volibear | +0.28 | +0.00 | +1.00 | +0.00 | +0.03 | – | +0.00 |
+| 16 | Darius | +0.28 | +0.00 | +1.00 | +0.00 | +0.00 | – | +0.00 |
+| 17 | Nasus | +0.15 | +0.19 | +0.19 | +0.24 | −0.04 | – | +0.00 |
+| 18 | Renekton | +0.10 | +0.13 | +0.15 | +0.07 | +0.03 | – | +0.00 |
+| 19 | Tryndamere | +0.10 | +0.00 | +0.00 | +0.50 | −0.07 | – | +0.00 |
+| 20 | Malphite | +0.08 | +0.10 | +0.10 | +0.03 | +0.10 | – | +0.00 |
+| 21 | Sett | +0.06 | +0.00 | +0.17 | +0.00 | +0.05 | – | +0.00 |
+| 22 | Shen | +0.02 | +0.02 | +0.02 | +0.00 | +0.09 | – | +0.00 |
+| 23 | Ambessa | +0.02 | +0.00 | +0.00 | +0.00 | +0.10 | – | +0.00 |
+| 24 | Yasuo | +0.01 | +0.00 | +0.00 | +0.00 | +0.08 | – | +0.00 |
+| 25 | Yone | +0.01 | +0.00 | +0.00 | +0.00 | +0.04 | – | +0.00 |
+| 26 | Camille | +0.01 | +0.00 | +0.00 | +0.00 | +0.04 | – | +0.00 |
+| 27 | Ornn | −0.01 | −0.02 | −0.02 | −0.06 | +0.11 | – | +0.00 |
+| 28 | Garen | −0.02 | +0.00 | +0.00 | +0.00 | −0.10 | – | +0.00 |
+| 29 | Singed | −0.02 | −0.01 | −0.02 | −0.01 | −0.05 | – | +0.00 |
+| 30 | Urgot | −0.10 | −0.02 | −0.02 | +0.05 | −0.02 | −1.00 | +0.00 |
+| 31 | Aurora | −0.15 | +0.10 | +0.10 | −0.71 | +0.11 | −0.81 | +0.00 |
+| 32 | Irelia | −0.18 | −0.26 | −0.26 | −0.24 | +0.11 | – | +0.00 |
+| 33 | Quinn | −0.31 | −0.07 | −0.07 | −1.00 | +0.20 | −1.00 | +0.00 |
+| 34 | Kennen | −0.31 | −0.04 | −0.05 | −0.97 | +0.01 | −0.92 | +0.00 |
+| 35 | Rumble | −0.40 | −0.53 | −0.53 | −0.50 | +0.01 | – | +0.00 |
+| 36 | Riven | −0.41 | −0.43 | −0.30 | −1.00 | +0.12 | – | +0.00 |
+| 37 | Akali | −0.69 | −0.83 | −0.83 | −1.00 | −0.01 | – | +0.00 |
+| 38 | Pantheon | −0.76 | −1.00 | −0.97 | −1.00 | +0.08 | – | +0.00 |
+
+## Interaction ledger (partial confidence)
+
 Every champion ranked by what its kit does against Sion's, from the interaction ledger: projectile blocks, spell shields,
 parries, dash stops, crowd control and its defenses, range and more (PLAN.md §5). This ranking is **partial**: it weighs the
 interactions but doesn't play the fight out. The duel simulator replaces it as each champion's behavior is verified.
@@ -8,78 +55,78 @@ interactions but doesn't play the fight out. The duel simulator replaces it as e
 A hard counter shuts down part of a kit every time it is used (projectile block, attack dodge, attack block, blind, disarm, attack speed slow, attack reflect, dash stop, grounding, range) with an impact of 0.4 or more (0.5 for range).
 Run `npm run matchup -- <champion> Sion` for the full ledger of a matchup, with sources.
 
-## Top 10
+### Top 10
 
-### 1. Sivir (net +1.82)
+#### 1. Sivir (net +1.82)
 
 - **0.81** range: Sivir's basic attacks reach 325 units farther than Sion's (500 vs 175 attack range). Sion has no dash or blink to close the gap. (Sivir basic attacks → Sion basic attacks)
 - **0.80** spell shield: Spell Shield's spell shield blocks Sion's Unstoppable Onslaught. Spell shield for 1.5 s, long enough to use ahead of Unstoppable Onslaught. A spell shield blocks only the first enemy ability that reaches it. (Sivir E Spell Shield → Sion R Unstoppable Onslaught)
 - **0.42** spell shield: Spell Shield's spell shield blocks Sion's Decimating Smash. Spell shield for 1.5 s, long enough to use ahead of Decimating Smash. A spell shield blocks only the first enemy ability that reaches it. (Sivir E Spell Shield → Sion Q Decimating Smash)
 
-### 2. Vladimir (net +1.13)
+#### 2. Vladimir (net +1.13)
 
 - **0.80** untargetable: Sanguine Pool makes Vladimir untargetable, dodging Sion's Unstoppable Onslaught. Untargetable for 2 s, long enough to use ahead of Unstoppable Onslaught. (Vladimir W Sanguine Pool → Sion R Unstoppable Onslaught)
 - **0.44** untargetable: Sanguine Pool makes Vladimir untargetable, dodging Sion's Decimating Smash. Untargetable for 2 s, long enough to use ahead of Decimating Smash. (Vladimir W Sanguine Pool → Sion Q Decimating Smash)
 - **0.30** range: Vladimir's basic attacks reach 275 units farther than Sion's (450 vs 175 attack range). Sion has no dash or blink to close the gap. (Vladimir basic attacks → Sion basic attacks)
 - Watch out: Decimating Smash's airborne interrupts Vladimir's Tides of Blood (charge-up).
 
-### 3. Xayah (net +1.10)
+#### 3. Xayah (net +1.10)
 
 - **0.67** range: Xayah's basic attacks reach 350 units farther than Sion's (525 vs 175 attack range). Sion has no dash or blink to close the gap. (Xayah basic attacks → Sion basic attacks)
 - **0.61** untargetable: Featherstorm makes Xayah untargetable, dodging Sion's Unstoppable Onslaught. Untargetable for 1.5 s, long enough to use ahead of Unstoppable Onslaught. (Xayah R Featherstorm → Sion R Unstoppable Onslaught)
 - **0.31** untargetable: Featherstorm makes Xayah untargetable, dodging Sion's Decimating Smash. Untargetable for 1.5 s, long enough to use ahead of Decimating Smash. (Xayah R Featherstorm → Sion Q Decimating Smash)
 - Watch out: Unstoppable Onslaught makes Sion immune to Xayah's Bladecaller (root).
 
-### 4. Kayle (net +1.09)
+#### 4. Kayle (net +1.09)
 
 - **0.72** range: Kayle's basic attacks reach 450 units farther than Sion's (625 vs 175 attack range). Sion has no dash or blink to close the gap. (Kayle basic attacks → Sion basic attacks)
 - **0.34** invulnerable: Divine Judgment makes Kayle invulnerable to Sion's Unstoppable Onslaught (its crowd control still applies). Invulnerable for 2.5 s, long enough to use ahead of Unstoppable Onslaught. (Kayle R Divine Judgment → Sion R Unstoppable Onslaught)
 - **0.16** invulnerable: Divine Judgment makes Kayle invulnerable to Sion's Decimating Smash (its crowd control still applies). Invulnerable for 2.5 s, long enough to use ahead of Decimating Smash. (Kayle R Divine Judgment → Sion Q Decimating Smash)
 - Watch out: Unstoppable Onslaught makes Sion immune to Kayle's Radiant Blast (slow).
 
-### 5. Milio (net +1.08)
+#### 5. Milio (net +1.08)
 
 - **0.67** range: Milio's basic attacks reach 350 units farther than Sion's (525 vs 175 attack range). Sion has no dash or blink to close the gap. (Milio basic attacks → Sion basic attacks)
 - **0.43** cleanse: Breath of Life cleanses Sion's Unstoppable Onslaught (slow, stun) after it lands. 130 s cooldown; usable while crowd controlled. Doesn't remove airborne. (Milio R Breath of Life → Sion R Unstoppable Onslaught)
 - **0.24** cleanse: Breath of Life cleanses Sion's Decimating Smash (slow, stun) after it lands. 130 s cooldown; usable while crowd controlled. Doesn't remove airborne. (Milio R Breath of Life → Sion Q Decimating Smash)
 - Watch out: Unstoppable Onslaught makes Sion immune to Milio's Ultra Mega Fire Kick (airborne, slow, stun).
 
-### 6. Elise (net +0.99)
+#### 6. Elise (net +0.99)
 
 - **0.61** range: Elise's basic attacks reach 375 units farther than Sion's (550 vs 175 attack range). Sion has no dash or blink to close the gap. (Elise basic attacks → Sion basic attacks)
 - **0.48** untargetable: Rappel makes Elise untargetable, dodging Sion's Unstoppable Onslaught. Untargetable for 0.6 s; Unstoppable Onslaught lands within 0 s, faster than a 0.25 s reaction, so it needs prediction. (Elise E Rappel → Sion R Unstoppable Onslaught)
 - **0.25** untargetable: Rappel makes Elise untargetable, dodging Sion's Decimating Smash. Untargetable for 0.6 s; Decimating Smash lands within 0 s, faster than a 0.25 s reaction, so it needs prediction. (Elise E Rappel → Sion Q Decimating Smash)
 - Watch out: Unstoppable Onslaught makes Sion immune to Elise's Cocoon (stun).
 
-### 7. Kindred (net +0.98)
+#### 7. Kindred (net +0.98)
 
 - **0.81** range: Kindred's basic attacks reach 325 units farther than Sion's (500 vs 175 attack range). Sion has no dash or blink to close the gap. (Kindred basic attacks → Sion basic attacks)
 - **0.17** invulnerable: Lamb's Respite makes Kindred invulnerable to Sion's Unstoppable Onslaught (its crowd control still applies). Invulnerable for ?; Unstoppable Onslaught lands within 0 s, faster than a 0.25 s reaction, so it needs prediction. (Kindred R Lamb's Respite → Sion R Unstoppable Onslaught)
 - **0.09** invulnerable: Lamb's Respite makes Kindred invulnerable to Sion's Decimating Smash (its crowd control still applies). Invulnerable for ?; Decimating Smash lands within 0 s, faster than a 0.25 s reaction, so it needs prediction. (Kindred R Lamb's Respite → Sion Q Decimating Smash)
 - Watch out: Unstoppable Onslaught makes Sion immune to Kindred's Mounting Dread (slow).
 
-### 8. Nocturne (net +0.81)
+#### 8. Nocturne (net +0.81)
 
 - **0.80** spell shield: Shroud of Darkness's spell shield blocks Sion's Unstoppable Onslaught. Spell shield for 1.5 s, long enough to use ahead of Unstoppable Onslaught. A spell shield blocks only the first enemy ability that reaches it. (Nocturne W Shroud of Darkness → Sion R Unstoppable Onslaught)
 - **0.49** spell shield: Shroud of Darkness's spell shield blocks Sion's Decimating Smash. Spell shield for 1.5 s, long enough to use ahead of Decimating Smash. A spell shield blocks only the first enemy ability that reaches it. (Nocturne W Shroud of Darkness → Sion Q Decimating Smash)
 - **0.13** interrupt: Unspeakable Horror's fear interrupts Sion's Decimating Smash (charge-up). Unspeakable Horror must land during the charge-up. Sion can release Decimating Smash early instead of charging it fully. (Nocturne E Unspeakable Horror → Sion Q Decimating Smash)
 - Watch out: Unstoppable Onslaught makes Sion immune to Nocturne's Unspeakable Horror (fear, slow).
 
-### 9. Aurora (net +0.80)
+#### 9. Aurora (net +0.80)
 
 - **0.54** range: Aurora's basic attacks reach 375 units farther than Sion's (550 vs 175 attack range). Sion has no dash or blink to close the gap. (Aurora basic attacks → Sion basic attacks)
 - **0.36** untargetable: Between Worlds makes Aurora untargetable, dodging Sion's Unstoppable Onslaught. Untargetable for 0.4 s; Unstoppable Onslaught lands within 0 s, faster than a 0.25 s reaction, so it needs prediction. Does not destroy inbound projectiles. (Aurora R Between Worlds → Sion R Unstoppable Onslaught)
 - **0.18** untargetable: Between Worlds makes Aurora untargetable, dodging Sion's Decimating Smash. Untargetable for 0.4 s; Decimating Smash lands within 0 s, faster than a 0.25 s reaction, so it needs prediction. Does not destroy inbound projectiles. (Aurora R Between Worlds → Sion Q Decimating Smash)
 - Watch out: Unstoppable Onslaught makes Sion immune to Aurora's Between Worlds (slow).
 
-### 10. Olaf (net +0.79)
+#### 10. Olaf (net +0.79)
 
 - **0.68** cc immunity: Ragnarok makes Olaf immune to Sion's Unstoppable Onslaught (airborne, slow, stun). Immune for 3 s, long enough to use ahead of Unstoppable Onslaught. (Olaf R Ragnarok → Sion R Unstoppable Onslaught)
 - **0.31** cc immunity: Ragnarok makes Olaf immune to Sion's Decimating Smash (airborne, slow, stun). Immune for 3 s, long enough to use ahead of Decimating Smash. (Olaf R Ragnarok → Sion Q Decimating Smash)
 - **0.05** cc immunity: Ragnarok makes Olaf immune to Sion's Roar of the Slayer (slow). Immune for 3 s, long enough to use ahead of Roar of the Slayer. (Olaf R Ragnarok → Sion E Roar of the Slayer)
 - Watch out: Unstoppable Onslaught makes Sion immune to Olaf's Undertow (slow).
 
-## Full ranking
+### Full ranking
 
 | # | Champion | Net | For | Against | Hard counters |
 |--:|---|--:|--:|--:|---|

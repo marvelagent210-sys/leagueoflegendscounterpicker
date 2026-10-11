@@ -405,7 +405,13 @@
         "text": "Malphite also gains bonus movement speed equal to the raw amount of movement speed the target lost from the slow for the duration.",
         "leveling": [],
         "mechanics": [],
-        "values": []
+        "values": [],
+        "tips": [
+          {
+            "text": "raw",
+            "tip": "before movement speed soft caps"
+          }
+        ]
       }
     ],
     "custom": [],

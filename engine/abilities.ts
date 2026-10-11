@@ -84,6 +84,8 @@ export interface AbilityPart {
    * sentence around it, e.g. 30 – 230 (based on level) in "Darius gains … bonus AD".
    */
   values: Array<{ series: Series; context: string }>;
+  /** Tooltips in the description: the words shown and the tooltip's text ("ground": "400 radius"). */
+  tips?: Array<{ text: string; tip: string }>;
 }
 
 export interface NumericValue {

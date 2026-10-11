@@ -668,19 +668,41 @@
             "conditional": false
           }
         ],
-        "values": []
+        "values": [],
+        "tips": [
+          {
+            "text": "banishing",
+            "tip": "See notes"
+          }
+        ]
       },
       {
         "text": "Units between realms see each other as spirits, considering each other dead and negating any interactions between each other. Only Mordekaiser and the target will enter the realm; other champions cannot follow them. Everything that occurs inside the Death Realm is hidden to units outside of it, and vice versa. Most pets still inside the realm are killed at its end.",
         "leveling": [],
         "mechanics": [],
-        "values": []
+        "values": [],
+        "tips": [
+          {
+            "text": "interactions",
+            "tip": "See notes"
+          },
+          {
+            "text": "Most",
+            "tip": "See notes for exceptions"
+          }
+        ]
       },
       {
         "text": "When the Realm of Death ends, all affected champions are returned to the normal realm. The Realm of Death ends prematurely if either affected champion dies or is forced out of the realm.",
         "leveling": [],
         "mechanics": [],
-        "values": []
+        "values": [],
+        "tips": [
+          {
+            "text": "forced out of the realm",
+            "tip": "See Map-Specific Differences"
+          }
+        ]
       }
     ],
     "custom": [],
@@ -789,6 +811,16 @@
               ]
             },
             "context": "The Potential Shield decays by 8 – 25 (based on level) every second after not dealing or taking damage for 1 second."
+          }
+        ],
+        "tips": [
+          {
+            "text": "post-mitigation",
+            "tip": "Damage calculated after modifiers"
+          },
+          {
+            "text": "pre-mitigation",
+            "tip": "Damage calculated before modifiers"
           }
         ]
       },

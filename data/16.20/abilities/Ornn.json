@@ -301,7 +301,17 @@
             "conditional": false
           }
         ],
-        "values": []
+        "values": [],
+        "tips": [
+          {
+            "text": "most",
+            "tip": "See notes"
+          },
+          {
+            "text": "upgradeable stats",
+            "tip": "See notes"
+          }
+        ]
       },
       {
         "label": "Innate - Temper",
@@ -393,6 +403,12 @@
               ]
             },
             "context": "Ornn's and allies' immobilizing effects or silences against Brittle enemies will consume the debuff to deal bonus magic damage equal to 9 – 17 (based on level)% of the target's maximum health, capped at 200 / 260 / 320 / 380 / 440 / 500 (based on Bellows Breath's rank) against monsters, and cause the crowd control to last 30% longer (if applicable)."
+          }
+        ],
+        "tips": [
+          {
+            "text": "0.4 seconds",
+            "tip": "Estimated"
           }
         ]
       },
@@ -818,7 +834,13 @@
         "text": "Call of the Forge God can be recast after 1.25 seconds while the elemental is active.",
         "leveling": [],
         "mechanics": [],
-        "values": []
+        "values": [],
+        "tips": [
+          {
+            "text": "1.25",
+            "tip": "Includes the cast time"
+          }
+        ]
       },
       {
         "label": "Recast",

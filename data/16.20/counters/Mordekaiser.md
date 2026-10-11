@@ -2,7 +2,7 @@
 
 ## Simulated duels (full confidence)
 
-The duel simulator played each of the 37 other champions with a simulator kit against Mordekaiser: both at level 20 with 15,000 gold of plain stats, each side's spent against the other's, through six scenarios (PLAN.md §6). Scores run from −1 (Mordekaiser wins every time) to +1 (the champion does). Run `npm run duel -- <champion> Mordekaiser --log brawl` to watch a fight.
+The duel simulator played each of the 38 other champions with a simulator kit against Mordekaiser: both at level 20 with 15,000 gold of plain stats, each side's spent against the other's, through six scenarios (PLAN.md §6). Scores run from −1 (Mordekaiser wins every time) to +1 (the champion does). Run `npm run duel -- <champion> Mordekaiser --log brawl` to watch a fight.
 
 | # | Champion | Score | You engage | Enemy engages | Brawl | Short trade | Spacing | Escape |
 |--:|---|--:|--:|--:|--:|--:|--:|--:|
@@ -36,13 +36,14 @@ The duel simulator played each of the 37 other champions with a simulator kit ag
 | 28 | Ambessa | −0.75 | −0.96 | −1.00 | −0.96 | +0.07 | – | +0.00 |
 | 29 | Malphite | −0.75 | −1.00 | −1.00 | −1.00 | +0.16 | – | +0.00 |
 | 30 | Pantheon | −0.76 | −1.00 | −1.00 | −1.00 | +0.09 | – | +0.00 |
-| 31 | Yasuo | −0.77 | −1.00 | −1.00 | −1.00 | +0.04 | – | +0.00 |
-| 32 | Sett | −0.77 | −1.00 | −1.00 | −1.00 | +0.02 | – | +0.00 |
-| 33 | Cho'Gath | −0.78 | −1.00 | −1.00 | −1.00 | +0.01 | – | +0.00 |
-| 34 | Renekton | −0.78 | −1.00 | −1.00 | −1.00 | +0.01 | – | +0.00 |
-| 35 | Akali | −0.78 | −1.00 | −1.00 | −1.00 | +0.00 | – | +0.00 |
-| 36 | Rumble | −0.78 | −1.00 | −1.00 | −1.00 | −0.03 | – | +0.00 |
-| 37 | Urgot | −0.81 | −1.00 | −1.00 | −1.00 | −0.06 | −1.00 | +0.00 |
+| 31 | Sion | −0.76 | −0.98 | −0.97 | −1.00 | +0.00 | – | +0.00 |
+| 32 | Yasuo | −0.77 | −1.00 | −1.00 | −1.00 | +0.04 | – | +0.00 |
+| 33 | Sett | −0.77 | −1.00 | −1.00 | −1.00 | +0.02 | – | +0.00 |
+| 34 | Cho'Gath | −0.78 | −1.00 | −1.00 | −1.00 | +0.01 | – | +0.00 |
+| 35 | Renekton | −0.78 | −1.00 | −1.00 | −1.00 | +0.01 | – | +0.00 |
+| 36 | Akali | −0.78 | −1.00 | −1.00 | −1.00 | +0.00 | – | +0.00 |
+| 37 | Rumble | −0.78 | −1.00 | −1.00 | −1.00 | −0.03 | – | +0.00 |
+| 38 | Urgot | −0.81 | −1.00 | −1.00 | −1.00 | −0.06 | −1.00 | +0.00 |
 
 ## Interaction ledger (partial confidence)
 

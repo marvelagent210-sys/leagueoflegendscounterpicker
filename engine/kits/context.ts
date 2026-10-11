@@ -233,6 +233,22 @@ export class AbilityData {
     return this.amountFormula(amount, label);
   }
 
+  /**
+   * A leveling value's base and the ratios of the listed stats only, for values that also show
+   * terms of another ability that the kit adds as their own hit (Tongue Lash's "+ [An Acquired Taste …]").
+   */
+  formulaPart(label: string, stats: StatRef[]): Formula {
+    const amount = this.leveling(label);
+    const formula: Formula = { base: amount.base ? this.at20(amount.base, label) : 0 };
+    for (const term of amount.scaling) {
+      const ref = STAT_REFS[term.stat];
+      if (!ref || !stats.includes(ref) || term.modifiers?.length) continue;
+      formula.ratios = { ...formula.ratios, [ref]: (formula.ratios?.[ref] ?? 0) + this.at20(term.ratio, `${label} ${term.text}`) / 100 };
+    }
+    for (const stat of stats) if (formula.ratios?.[stat] === undefined) this.fail(`"${label}" has no ${stat} ratio`);
+    return formula;
+  }
+
   private amountFormula(amount: Amount, label: string): Formula {
     if (amount.unparsed) this.fail(`"${label}" has text the parser didn't understand: "${amount.unparsed}"`);
     const formula: Formula = { base: 0 };
@@ -305,6 +321,24 @@ export class AbilityData {
     const quote = this.quote(words);
     const value = numbersIn(quote)[index];
     if (value === undefined) this.fail(`no number ${index + 1} in "${quote}"`);
+    return value;
+  }
+
+  /** The tooltip on these words in the description: tip("ground") is "400 radius" (numbers the wiki keeps in tooltips). */
+  tip(shown: string): string {
+    const wanted = normalize(shown);
+    const tips = this.record.parts.flatMap((p) => p.tips ?? []);
+    const found = tips.find((t) => normalize(t.text) === wanted) ?? tips.find((t) => normalize(t.text).includes(wanted));
+    if (!found) this.fail(`no tooltip on "${wanted}"`);
+    this.note(`"${wanted}" (tooltip: ${found.tip})`);
+    return found.tip;
+  }
+
+  /** The `index`-th number (0-based) in the tooltip on these words: tipped("ground") is 400. */
+  tipped(shown: string, index = 0): number {
+    const tip = this.tip(shown);
+    const value = numbersIn(tip)[index];
+    if (value === undefined) this.fail(`no number ${index + 1} in the tooltip "${tip}"`);
     return value;
   }
 

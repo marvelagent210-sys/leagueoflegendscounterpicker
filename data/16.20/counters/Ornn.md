@@ -2,7 +2,7 @@
 
 ## Simulated duels (full confidence)
 
-The duel simulator played each of the 37 other champions with a simulator kit against Ornn: both at level 20 with 15,000 gold of plain stats, each side's spent against the other's, through six scenarios (PLAN.md §6). Scores run from −1 (Ornn wins every time) to +1 (the champion does). Run `npm run duel -- <champion> Ornn --log brawl` to watch a fight.
+The duel simulator played each of the 38 other champions with a simulator kit against Ornn: both at level 20 with 15,000 gold of plain stats, each side's spent against the other's, through six scenarios (PLAN.md §6). Scores run from −1 (Ornn wins every time) to +1 (the champion does). Run `npm run duel -- <champion> Ornn --log brawl` to watch a fight.
 
 | # | Champion | Score | You engage | Enemy engages | Brawl | Short trade | Spacing | Escape |
 |--:|---|--:|--:|--:|--:|--:|--:|--:|
@@ -36,13 +36,14 @@ The duel simulator played each of the 37 other champions with a simulator kit ag
 | 28 | Malphite | +0.12 | +0.16 | +0.16 | +0.13 | +0.01 | – | +0.00 |
 | 29 | Cho'Gath | +0.12 | +0.04 | +0.04 | +0.51 | −0.10 | – | +0.00 |
 | 30 | Renekton | +0.05 | +0.09 | +0.09 | +0.10 | −0.12 | – | +0.00 |
-| 31 | Kennen | −0.00 | +0.01 | +0.02 | −0.01 | −0.12 | +0.14 | +0.00 |
-| 32 | Urgot | −0.00 | +0.01 | +0.01 | +0.01 | −0.03 | −0.03 | +0.00 |
-| 33 | Singed | −0.01 | −0.00 | +0.01 | +0.08 | −0.15 | – | +0.00 |
-| 34 | Sett | −0.07 | −0.07 | −0.09 | −0.08 | −0.04 | – | +0.00 |
-| 35 | Shen | −0.08 | −0.10 | −0.13 | −0.05 | −0.00 | – | +0.00 |
-| 36 | Akali | −0.12 | −0.11 | −0.11 | −0.12 | −0.16 | – | +0.00 |
-| 37 | Riven | −0.81 | −1.00 | −1.00 | −1.00 | −0.21 | – | +0.00 |
+| 31 | Sion | +0.01 | +0.02 | +0.02 | +0.06 | −0.11 | – | +0.00 |
+| 32 | Kennen | −0.00 | +0.01 | +0.02 | −0.01 | −0.12 | +0.14 | +0.00 |
+| 33 | Urgot | −0.00 | +0.01 | +0.01 | +0.01 | −0.03 | −0.03 | +0.00 |
+| 34 | Singed | −0.01 | −0.00 | +0.01 | +0.08 | −0.15 | – | +0.00 |
+| 35 | Sett | −0.07 | −0.07 | −0.09 | −0.08 | −0.04 | – | +0.00 |
+| 36 | Shen | −0.08 | −0.10 | −0.13 | −0.05 | −0.00 | – | +0.00 |
+| 37 | Akali | −0.12 | −0.11 | −0.11 | −0.12 | −0.16 | – | +0.00 |
+| 38 | Riven | −0.81 | −1.00 | −1.00 | −1.00 | −0.21 | – | +0.00 |
 
 ## Interaction ledger (partial confidence)
 

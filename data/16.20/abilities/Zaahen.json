@@ -393,6 +393,12 @@
             },
             "context": "Additionally, he restores 30 / 45 / 60 / 75 (based on level)% of his maximum health over the duration."
           }
+        ],
+        "tips": [
+          {
+            "text": "restores",
+            "tip": "Not considered healing"
+          }
         ]
       }
     ],
@@ -975,7 +981,13 @@
             "conditional": false
           }
         ],
-        "values": []
+        "values": [],
+        "tips": [
+          {
+            "text": "up-to an additional 0.25 seconds",
+            "tip": "See notes"
+          }
+        ]
       }
     ],
     "custom": [],

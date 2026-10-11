@@ -904,7 +904,13 @@
             "conditional": false
           }
         ],
-        "values": []
+        "values": [],
+        "tips": [
+          {
+            "text": "0.2-second cast time",
+            "tip": "(Estimated)"
+          }
+        ]
       },
       {
         "text": "Ruthless Predator's first strike can critically strike for 100% AD bonus physical damage.",

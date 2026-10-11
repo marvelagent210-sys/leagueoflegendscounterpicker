@@ -1043,6 +1043,12 @@
             },
             "context": "Recast: After 0.2 seconds into the cast time, Jhin fires a round in the target direction that grants sight around its trajectory for 0.5 seconds and deals physical damage to enemies hit, increased by 0 / 30 / 60 / 90 / 120 / 150 / 180 / 210 / 240 / 270 / 300 (based on target's missing health)%."
           }
+        ],
+        "tips": [
+          {
+            "text": "static cooldown",
+            "tip": "Unaffected by ability haste"
+          }
         ]
       },
       {

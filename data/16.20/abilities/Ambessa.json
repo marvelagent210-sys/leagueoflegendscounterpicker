@@ -255,7 +255,21 @@
             "conditional": true
           }
         ],
-        "values": []
+        "values": [],
+        "tips": [
+          {
+            "text": "attack or movement command",
+            "tip": "Default MB2/right click"
+          },
+          {
+            "text": "towards",
+            "tip": "If inputted outside of the maximum dash range, she will dash the maximum distance towards the target/location"
+          },
+          {
+            "text": "cannot dash",
+            "tip": "See notes"
+          }
+        ]
       },
       {
         "label": "Innate",
@@ -1009,7 +1023,13 @@
             "conditional": false
           }
         ],
-        "values": []
+        "values": [],
+        "tips": [
+          {
+            "text": "post-mitigation damage",
+            "tip": "Damage calculated after modifiers"
+          }
+        ]
       },
       {
         "label": "Active",
@@ -1090,7 +1110,13 @@
             "conditional": false
           }
         ],
-        "values": []
+        "values": [],
+        "tips": [
+          {
+            "text": "successfully",
+            "tip": "See notes"
+          }
+        ]
       },
       {
         "text": "Ambessa is displacement immune and unable to act during the cast time and while the target is suppressed. Drakehound's Step dash may be buffered during the cast time or lockout, as well as initiated within 0.275 seconds of the lockout ending.",

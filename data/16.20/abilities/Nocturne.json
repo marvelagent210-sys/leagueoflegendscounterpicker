@@ -701,7 +701,13 @@
             "conditional": false
           }
         ],
-        "values": []
+        "values": [],
+        "tips": [
+          {
+            "text": "300 units",
+            "tip": "Total sight radius of enemy champions after reduction is 1050 units."
+          }
+        ]
       },
       {
         "label": "Recast",

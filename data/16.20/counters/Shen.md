@@ -2,7 +2,7 @@
 
 ## Simulated duels (full confidence)
 
-The duel simulator played each of the 37 other champions with a simulator kit against Shen: both at level 20 with 15,000 gold of plain stats, each side's spent against the other's, through six scenarios (PLAN.md §6). Scores run from −1 (Shen wins every time) to +1 (the champion does). Run `npm run duel -- <champion> Shen --log brawl` to watch a fight.
+The duel simulator played each of the 38 other champions with a simulator kit against Shen: both at level 20 with 15,000 gold of plain stats, each side's spent against the other's, through six scenarios (PLAN.md §6). Scores run from −1 (Shen wins every time) to +1 (the champion does). Run `npm run duel -- <champion> Shen --log brawl` to watch a fight.
 
 | # | Champion | Score | You engage | Enemy engages | Brawl | Short trade | Spacing | Escape |
 |--:|---|--:|--:|--:|--:|--:|--:|--:|
@@ -38,11 +38,12 @@ The duel simulator played each of the 37 other champions with a simulator kit ag
 | 30 | Malphite | +0.00 | +0.07 | −0.01 | −0.10 | +0.03 | – | +0.00 |
 | 31 | Singed | −0.00 | +0.02 | +0.01 | +0.03 | −0.09 | – | +0.00 |
 | 32 | Urgot | −0.01 | −0.00 | −0.02 | −0.09 | +0.04 | +0.11 | +0.00 |
-| 33 | Renekton | −0.06 | −0.09 | −0.09 | +0.02 | −0.07 | – | +0.00 |
-| 34 | Sett | −0.07 | −0.12 | −0.10 | −0.04 | −0.00 | – | +0.00 |
-| 35 | Akali | −0.19 | −0.04 | −0.04 | −0.71 | −0.06 | – | +0.00 |
-| 36 | Ambessa | −0.22 | −1.00 | +1.00 | −1.00 | +0.02 | – | +0.00 |
-| 37 | Pantheon | −0.77 | −1.00 | −1.00 | −1.00 | +0.02 | – | +0.00 |
+| 33 | Sion | −0.02 | −0.02 | −0.02 | −0.00 | −0.09 | – | +0.00 |
+| 34 | Renekton | −0.06 | −0.09 | −0.09 | +0.02 | −0.07 | – | +0.00 |
+| 35 | Sett | −0.07 | −0.12 | −0.10 | −0.04 | −0.00 | – | +0.00 |
+| 36 | Akali | −0.19 | −0.04 | −0.04 | −0.71 | −0.06 | – | +0.00 |
+| 37 | Ambessa | −0.22 | −1.00 | +1.00 | −1.00 | +0.02 | – | +0.00 |
+| 38 | Pantheon | −0.77 | −1.00 | −1.00 | −1.00 | +0.02 | – | +0.00 |
 
 ## Interaction ledger (partial confidence)
 

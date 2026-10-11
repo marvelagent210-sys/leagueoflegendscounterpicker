@@ -582,7 +582,13 @@
             "conditional": false
           }
         ],
-        "values": []
+        "values": [],
+        "tips": [
+          {
+            "text": "All units",
+            "tip": "Ally, enemy, and neutral"
+          }
+        ]
       },
       {
         "text": "All targetable units within the zone are healed when the blessing ends.",
@@ -789,6 +795,12 @@
               "past18": "wiki"
             },
             "context": "At maximum stacks, her next basic attack heals her for 0 / 25 / 50 / 75 / 100 (based on Missing health)% of 47 – 81 (based on level)."
+          }
+        ],
+        "tips": [
+          {
+            "text": "27 units",
+            "tip": "Estimated"
           }
         ]
       },

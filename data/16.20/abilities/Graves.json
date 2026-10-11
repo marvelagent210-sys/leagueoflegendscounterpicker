@@ -316,7 +316,21 @@
             "conditional": false
           }
         ],
-        "values": []
+        "values": [],
+        "tips": [
+          {
+            "text": "a few seconds",
+            "tip": "See notes"
+          },
+          {
+            "text": "for a while",
+            "tip": "See notes"
+          },
+          {
+            "text": "reduced",
+            "tip": "See notes"
+          }
+        ]
       },
       {
         "label": "Innate - 12-Gauge",
@@ -1127,7 +1141,13 @@
             "conditional": false
           }
         ],
-        "values": []
+        "values": [],
+        "tips": [
+          {
+            "text": "250 units",
+            "tip": "Estimated"
+          }
+        ]
       }
     ],
     "custom": [],

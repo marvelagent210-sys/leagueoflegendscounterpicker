@@ -418,6 +418,12 @@
             },
             "context": "He also gains bonus armor and bonus magic resistance equal to 4 (+ 1% of bonus health), increased by 30% for each nearby visible enemy champion, up to a maximum of 10 (+ 2.5% bonus health) resistances."
           }
+        ],
+        "tips": [
+          {
+            "text": "after attacking",
+            "tip": "see notes"
+          }
         ]
       },
       {
@@ -612,7 +618,13 @@
             "conditional": false
           }
         ],
-        "values": []
+        "values": [],
+        "tips": [
+          {
+            "text": "not through terrain",
+            "tip": "see notes"
+          }
+        ]
       },
       {
         "text": "While Kled is Dismounted, his base health and movement speed are reduced; however, he gains bonus movement speed while moving toward enemy champions. Additionally, he gains bonus attack range, and his attacks deal 85 / 90 / 95 / 100 (based on level)% damage to champions. Bear Trap on a Rope is replaced with Pocket Pistol, while Jousting and Chaaaaaaaarge!!! become unusable.",
@@ -1016,7 +1028,13 @@
             "conditional": false
           }
         ],
-        "values": []
+        "values": [],
+        "tips": [
+          {
+            "text": "150",
+            "tip": "Estimated"
+          }
+        ]
       },
       {
         "text": "Bear Trap on a Rope can be cast while Jousting.",
@@ -1414,7 +1432,13 @@
             "conditional": true
           }
         ],
-        "values": []
+        "values": [],
+        "tips": [
+          {
+            "text": "1250",
+            "tip": "estimated"
+          }
+        ]
       },
       {
         "text": "While charging, the duo gain an initial shield, plus an additional amount for every 0.25 seconds of traveling, up to a cap at 2 seconds. The shield lasts for 2 seconds upon finishing the charge. Additionally, the duo trails a directional draft in their wake, lasting 9 seconds. Allied units other than lane minions following the draft gain Mr. Kled's Wild Ride. After 0.5 seconds of charging, the duo gain bonus movement speed every 0.25 seconds, up to 950 total movement speed over 3 seconds.",
@@ -1504,14 +1528,30 @@
             "conditional": false
           }
         ],
-        "values": []
+        "values": [],
+        "tips": [
+          {
+            "text": "bonus movement speed every 0.25 seconds",
+            "tip": "see notes"
+          },
+          {
+            "text": "950 total movement speed",
+            "tip": "after movement speed soft caps"
+          }
+        ]
       },
       {
         "label": "Mr. Kled's Wild Ride",
         "text": "Mr. Kled's Wild Ride: While in champion combat, gain 40% bonus movement speed. After not being in champion combat for 3 seconds, if Kled is charging, gain bonus movement speed up to Kled's current movement speed; otherwise gain up to 650 total movement speed.",
         "leveling": [],
         "mechanics": [],
-        "values": []
+        "values": [],
+        "tips": [
+          {
+            "text": "650 total movement speed",
+            "tip": "after movement speed soft caps"
+          }
+        ]
       },
       {
         "text": "Kled & Skaarl will dash toward the first visible enemy champion in range of the charge, revealing the target during the dash and colliding with the first visible enemy champion in their path to deal magic damage, increased by 0 / 8 / 16 / 24 / 32 / 40 / 48 / 56 / 64 / 72 / 80 / 88 / 96 / 104 / 112 / 120 / 128 / 136 / 144 / 152 / 160 / 168 / 176 / 184 / 192 / 200 (based on charge time)%, knock them back 150 units, though not through terrain, and end the charge.",
@@ -1664,6 +1704,16 @@
               ]
             },
             "context": "Kled & Skaarl will dash toward the first visible enemy champion in range of the charge, revealing the target during the dash and colliding with the first visible enemy champion in their path to deal magic damage, increased by 0 / 8 / 16 / 24 / 32 / 40 / 48 / 56 / 64 / 72 / 80 / 88 / 96 / 104 / 112 / 120 / 128 / 136 / 144 / 152 / 160 / 168 / 176 / 184 / 192 / 200 (based on charge time)%, knock them back 150 units, though not through terrain, and end the charge."
+          }
+        ],
+        "tips": [
+          {
+            "text": "in range of the charge",
+            "tip": "see notes"
+          },
+          {
+            "text": "not through terrain",
+            "tip": "see notes"
           }
         ]
       }

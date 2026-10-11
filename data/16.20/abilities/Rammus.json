@@ -443,7 +443,13 @@
             "conditional": false
           }
         ],
-        "values": []
+        "values": [],
+        "tips": [
+          {
+            "text": "0.4",
+            "tip": "Estimated"
+          }
+        ]
       },
       {
         "label": "Recast",

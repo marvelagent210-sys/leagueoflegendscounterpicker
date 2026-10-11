@@ -329,7 +329,8 @@ function checkEnd(world: World): void {
   const end = (winner: Side | "draw" | "none", reason: NonNullable<World["result"]>["reason"]) => {
     world.result = { winner, reason, tick: world.tick };
   };
-  if (deadA && deadB) return end("draw", "death");
+  // A unit that has fallen (Glory in Death) has died already.
+  if ((deadA || a.fallen) && (deadB || b.fallen) && (deadA || deadB)) return end("draw", "death");
   if (deadA) return end(1, "death");
   if (deadB) return end(0, "death");
   const distance = edgeDistance(a, b);
@@ -465,7 +466,7 @@ function runLeaves(start: World, behaviorPair?: FightSetup["behaviors"]): World[
 }
 
 function hpShare(unit: Unit): number {
-  return unit.alive ? Math.max(0, unit.hp) / derive(unit).maxHp : 0;
+  return unit.alive && !unit.fallen ? Math.max(0, unit.hp) / derive(unit).maxHp : 0;
 }
 
 export function summarize(worlds: World[]): FightOutcome {

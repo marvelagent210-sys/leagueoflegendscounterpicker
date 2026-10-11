@@ -614,7 +614,13 @@
             "conditional": false
           }
         ],
-        "values": []
+        "values": [],
+        "tips": [
+          {
+            "text": "rolled",
+            "tip": "See notes"
+          }
+        ]
       }
     ],
     "custom": [],
@@ -740,7 +746,21 @@
             "conditional": false
           }
         ],
-        "values": []
+        "values": [],
+        "tips": [
+          {
+            "text": "target direction",
+            "tip": "150 units"
+          },
+          {
+            "text": "opposite direction",
+            "tip": "150 units"
+          },
+          {
+            "text": "control range",
+            "tip": "1125 units"
+          }
+        ]
       },
       {
         "label": "Recast",
@@ -810,7 +830,17 @@
             "conditional": false
           }
         ],
-        "values": []
+        "values": [],
+        "tips": [
+          {
+            "text": "0.6 seconds",
+            "tip": "Estimated"
+          },
+          {
+            "text": "1 second",
+            "tip": "Estimated"
+          }
+        ]
       },
       {
         "text": "The boxes possess Jack in the Box effects, except they have a doubled, but shared health, and deal modified magic damage with each attack, increased when attacking a single unit. They are also invulnerable for 0.5 seconds after deployment.",
@@ -879,7 +909,13 @@
             "conditional": false
           }
         ],
-        "values": []
+        "values": [],
+        "tips": [
+          {
+            "text": "0.5",
+            "tip": "estimated"
+          }
+        ]
       },
       {
         "text": "See Pets for more details about Shaco's clone.",

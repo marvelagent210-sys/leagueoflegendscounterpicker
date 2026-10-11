@@ -184,7 +184,13 @@
             "conditional": false
           }
         ],
-        "values": []
+        "values": [],
+        "tips": [
+          {
+            "text": "0.5-second delay",
+            "tip": "From start of cast time"
+          }
+        ]
       },
       {
         "text": "Enemies in the black hole are dragged inward until they reach the center, and minions and monsters also have their movement speed reduced to a static 0. Enemies within the center are executed below 5% (+ 2.6% per 100 Stardust) of their maximum health, excluding epic monsters.",

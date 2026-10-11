@@ -327,6 +327,12 @@
             },
             "context": "The third stack consumes them all to deal 15 / 30 / 45 / 60 (based on level)% AD (+ 5 / 10 / 15 / 20 (based on level)% AP) bonus physical damage and heal Xin Zhao for 2 / 3.5 / 5 (based on level)% of his maximum health (+ 40 / 50 / 70 (based on level)% AP)."
           }
+        ],
+        "tips": [
+          {
+            "text": "consumes them",
+            "tip": "See notes for consumption details"
+          }
         ]
       },
       {
@@ -1075,6 +1081,12 @@
             },
             "context": "Wind Becomes Lightning deals 50 – 100 (based on level)% damage to minions."
           }
+        ],
+        "tips": [
+          {
+            "text": "4 slashes",
+            "tip": "First slash happens on-cast instantly, while the remaining 3 are applied every 0.05 seconds thereafter"
+          }
         ]
       },
       {
@@ -1110,7 +1122,13 @@
             "conditional": false
           }
         ],
-        "values": []
+        "values": [],
+        "tips": [
+          {
+            "text": "nearby",
+            "tip": "see details"
+          }
+        ]
       }
     ],
     "custom": [],

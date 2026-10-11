@@ -2,7 +2,7 @@
 
 ## Simulated duels (full confidence)
 
-The duel simulator played each of the 37 other champions with a simulator kit against Yasuo: both at level 20 with 15,000 gold of plain stats, each side's spent against the other's, through six scenarios (PLAN.md §6). Scores run from −1 (Yasuo wins every time) to +1 (the champion does). Run `npm run duel -- <champion> Yasuo --log brawl` to watch a fight.
+The duel simulator played each of the 38 other champions with a simulator kit against Yasuo: both at level 20 with 15,000 gold of plain stats, each side's spent against the other's, through six scenarios (PLAN.md §6). Scores run from −1 (Yasuo wins every time) to +1 (the champion does). Run `npm run duel -- <champion> Yasuo --log brawl` to watch a fight.
 
 | # | Champion | Score | You engage | Enemy engages | Brawl | Short trade | Spacing | Escape |
 |--:|---|--:|--:|--:|--:|--:|--:|--:|
@@ -35,14 +35,15 @@ The duel simulator played each of the 37 other champions with a simulator kit ag
 | 27 | Riven | +0.27 | +0.00 | +1.00 | +0.00 | −0.03 | – | +0.00 |
 | 28 | Sett | +0.21 | +1.00 | −1.00 | +1.00 | −0.07 | – | +0.00 |
 | 29 | Singed | −0.00 | +0.03 | +0.01 | +0.01 | −0.08 | – | +0.00 |
-| 30 | Ornn | −0.21 | −0.02 | −0.02 | −1.00 | +0.14 | – | +0.00 |
-| 31 | Shen | −0.33 | −1.00 | −1.00 | +1.00 | −0.00 | – | +0.00 |
-| 32 | Rumble | −0.69 | −0.90 | −0.90 | −0.80 | −0.08 | – | +0.00 |
-| 33 | Ambessa | −0.76 | −1.00 | −0.92 | −1.00 | −0.04 | – | +0.00 |
-| 34 | Yone | −0.77 | −1.00 | −1.00 | −1.00 | +0.03 | – | +0.00 |
-| 35 | Irelia | −0.79 | −1.00 | −1.00 | −1.00 | −0.06 | – | +0.00 |
-| 36 | Gwen | −0.81 | −1.00 | −1.00 | −1.00 | −0.17 | – | +0.00 |
-| 37 | Akali | −0.83 | −1.00 | −1.00 | −1.00 | −0.28 | – | +0.00 |
+| 30 | Sion | −0.01 | +0.00 | +0.00 | +0.00 | −0.08 | – | +0.00 |
+| 31 | Ornn | −0.21 | −0.02 | −0.02 | −1.00 | +0.14 | – | +0.00 |
+| 32 | Shen | −0.33 | −1.00 | −1.00 | +1.00 | −0.00 | – | +0.00 |
+| 33 | Rumble | −0.69 | −0.90 | −0.90 | −0.80 | −0.08 | – | +0.00 |
+| 34 | Ambessa | −0.76 | −1.00 | −0.92 | −1.00 | −0.04 | – | +0.00 |
+| 35 | Yone | −0.77 | −1.00 | −1.00 | −1.00 | +0.03 | – | +0.00 |
+| 36 | Irelia | −0.79 | −1.00 | −1.00 | −1.00 | −0.06 | – | +0.00 |
+| 37 | Gwen | −0.81 | −1.00 | −1.00 | −1.00 | −0.17 | – | +0.00 |
+| 38 | Akali | −0.83 | −1.00 | −1.00 | −1.00 | −0.28 | – | +0.00 |
 
 ## Interaction ledger (partial confidence)
 

@@ -206,7 +206,13 @@
             "conditional": false
           }
         ],
-        "values": []
+        "values": [],
+        "tips": [
+          {
+            "text": "1-second cooldown",
+            "tip": "Affected by ability haste"
+          }
+        ]
       },
       {
         "label": "Recast",
@@ -1338,7 +1344,17 @@
             "conditional": false
           }
         ],
-        "values": []
+        "values": [],
+        "tips": [
+          {
+            "text": "14 movement speed",
+            "tip": "Estimated"
+          },
+          {
+            "text": "up to a cap",
+            "tip": "See notes."
+          }
+        ]
       },
       {
         "text": "The snowball increases in size and power linearly over the duration. Its size changes from small to medium after 2.5 seconds, then to large after 5 seconds into the charge. Biggest Snowball Ever! can be recast after 0.5 seconds during the channel, and does so automatically after the channel or if interrupted.",
@@ -1575,6 +1591,12 @@
               ]
             },
             "context": "The snowball explodes upon hitting an enemy champion, large pet, medium or large monster, or terrain, dealing magic damage to nearby enemies, increased by 0 / 0 / 100 / 200 / 300 / 400 (based on charge time)%, knocking them up for 0.5 / 0.5 / 0.5625 / 0.625 / 0.6875 / 0.75 (based on charge time) seconds and subsequently stunning them for 0 / 0 / 0 / 0 / 0.09375 / 0.1875 / 0.28125 / 0.375 / 0.46875 / 0.5625 / 0.65625 / 0.75 (based on charge time) seconds."
+          }
+        ],
+        "tips": [
+          {
+            "text": "0.132",
+            "tip": "estimated; 0.1 seconds, but rounded up to the next game tick"
           }
         ]
       },

@@ -125,7 +125,13 @@
             "conditional": false
           }
         ],
-        "values": []
+        "values": [],
+        "tips": [
+          {
+            "text": "pounce on the target",
+            "tip": "to 75 units closer than attack range, if Udyr is not closer already (pending for test)"
+          }
+        ]
       },
       {
         "text": "Additionally, Udyr becomes ghosted and gains bonus movement speed for 4 seconds, which decays to 30% effectiveness over 1.5 seconds.",
@@ -288,7 +294,13 @@
         "text": "Innate - Awakened Spirit: Udyr has no ultimate ability and instead has 4 basic abilities that each incur a 1.5-second global cooldown when cast. Each ability grants a Stance that empowers his basic attacks, and switching Stances will replace the empowered attacks of the previous Stance.",
         "leveling": [],
         "mechanics": [],
-        "values": []
+        "values": [],
+        "tips": [
+          {
+            "text": "1.5-second global cooldown",
+            "tip": "Affected by ability haste"
+          }
+        ]
       },
       {
         "text": "Periodically, after Udyr enters a Stance, he can cast it again at no cost after 0.25 seconds and within the following 5 seconds to Awaken it, empowering the Stance with an additional effect and placing the effect on cooldown.\nIf Udyr does not consume the Awaken cast within the duration and has not switched Stances, his current Stance's respective ability incurs a 0.25-second cooldown. Awakened Spirit is placed on full cooldown at the start of the game.",
@@ -1164,7 +1176,13 @@
             "conditional": false
           }
         ],
-        "values": []
+        "values": [],
+        "tips": [
+          {
+            "text": "surroundings",
+            "tip": "Does not permeate through terrain or brush"
+          }
+        ]
       }
     ],
     "custom": [

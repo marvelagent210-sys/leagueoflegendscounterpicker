@@ -101,7 +101,13 @@
             "conditional": false
           }
         ],
-        "values": []
+        "values": [],
+        "tips": [
+          {
+            "text": "post-mitigation damage",
+            "tip": "Damage calculated after modifiers"
+          }
+        ]
       },
       {
         "label": "Active",
@@ -286,6 +292,12 @@
             },
             "context": "Aatrox heals for the post-mitigation bonus damage dealt, reduced to 25% against minions."
           }
+        ],
+        "tips": [
+          {
+            "text": "post-mitigation bonus damage",
+            "tip": "Damage calculated after modifiers"
+          }
         ]
       },
       {
@@ -378,7 +390,13 @@
         "text": "Aatrox can activate The Darkin Blade three times before the ability goes on cooldown, with a 1-second static cooldown between casts. If Aatrox does not recast the ability within 4 seconds of the previous cast, it goes on cooldown.",
         "leveling": [],
         "mechanics": [],
-        "values": []
+        "values": [],
+        "tips": [
+          {
+            "text": "static cooldown",
+            "tip": "Unaffected by ability haste"
+          }
+        ]
       },
       {
         "label": "Active",

@@ -116,7 +116,13 @@
           }
         ],
         "mechanics": [],
-        "values": []
+        "values": [],
+        "tips": [
+          {
+            "text": "pre-mitigation",
+            "tip": "Damage calculated before modifiers"
+          }
+        ]
       },
       {
         "label": "Active",
@@ -211,7 +217,13 @@
         "text": "Cursed targets receive 10% bonus true damage from all incoming pre-mitigation magic damage.",
         "leveling": [],
         "mechanics": [],
-        "values": []
+        "values": [],
+        "tips": [
+          {
+            "text": "pre-mitigation",
+            "tip": "Damage calculated before modifiers"
+          }
+        ]
       }
     ],
     "custom": [],

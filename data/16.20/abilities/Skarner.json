@@ -125,7 +125,13 @@
             "conditional": false
           }
         ],
-        "values": []
+        "values": [],
+        "tips": [
+          {
+            "text": "static amount",
+            "tip": "Cannot be modified by any means"
+          }
+        ]
       },
       {
         "text": "If Skarner's attached target collides with terrain, the charge ends, detaching them from him, dealing physical damage, stunning them for 1.1 seconds, and reducing Ixtal's Impact's cooldown by 35%.",
@@ -929,7 +935,17 @@
         "text": "If Impale is cast during Shattered Earth, Skarner automatically casts Upheaval in the direction of Impale's cast. Skarner is unable to basic attack, cast Shattered Earth or Ixtal's Impact, or use Flash during Impale. While the targets are impaled, they are attached to Skarner 300 units in front of him. Targets are placed 200 units in the same direction at the end of the effect.",
         "leveling": [],
         "mechanics": [],
-        "values": []
+        "values": [],
+        "tips": [
+          {
+            "text": "automatically casts",
+            "tip": "Without incurring Upheaval's cast time"
+          },
+          {
+            "text": "in front of him",
+            "tip": "In the direction he cast Impale"
+          }
+        ]
       }
     ],
     "custom": [],
@@ -1106,7 +1122,13 @@
             "conditional": false
           }
         ],
-        "values": []
+        "values": [],
+        "tips": [
+          {
+            "text": "quickly",
+            "tip": "~0.25 seconds"
+          }
+        ]
       },
       {
         "text": "Skarner can move during Seismic Bastion's cast time.",

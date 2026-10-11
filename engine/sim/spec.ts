@@ -147,7 +147,8 @@ export type Effect =
    * `label` names the hit in logs and kit hooks (Decimate's handle). `minimum`: it deals at
    * least this much before mitigation (Infected Bonesaw's minimum damage).
    */
-  | { type: "damage"; damageType: DamageType; amount: Formula; canCrit?: boolean; critMultiplier?: number; lifesteal?: number; label?: string; minimum?: Formula }
+  /** `noLifeSteal`: life steal doesn't heal from it, though it comes with a basic attack (Glory in Death's on-hit). */
+  | { type: "damage"; damageType: DamageType; amount: Formula; canCrit?: boolean; critMultiplier?: number; lifesteal?: number; label?: string; minimum?: Formula; noLifeSteal?: boolean }
   /** `strength`: a slow's fraction, or for nearsight the sight radius left (Blinding Assault's 350). */
   /** `sticky`: non-dispellable, so most cleanses leave it (Mega Adhesive's slow and ground). */
   | { type: "cc"; cc: CCType; duration: number; strength?: number; sticky?: boolean }
@@ -219,14 +220,16 @@ export type Delivery =
   /** Hits the enemy if it is within `radius` of the caster's edge. */
   | { kind: "aura"; radius: number }
   /** Unit-targeted; a homing missile when `missileSpeed` is set. */
-  | { kind: "target"; range: number; missileSpeed?: number }
+  /** `edge`: the range reaches from the caster's edge to the target's (the wiki's "edge range", Devour) rather than center to center. */
+  | { kind: "target"; range: number; missileSpeed?: number; edge?: boolean }
   /** A skillshot: a missile (or instant line when `speed` is unset) that the target can sidestep. */
   | { kind: "line"; range: number; width: number; speed?: number }
   /**
    * Ground-targeted area that lands after `delay` seconds. `centered`: its radius reaches the
    * target's center rather than its edge (the wiki's "center range", Rupture).
    */
-  | { kind: "circle"; range: number; radius: number; delay: number; centered?: boolean }
+  /** `hidden`: seconds into the cast before the enemy can see where it will land (Abyssal Dive's indicator). */
+  | { kind: "circle"; range: number; radius: number; delay: number; centered?: boolean; hidden?: number }
   /**
    * A dash; `hitRadius` hits the enemy on arrival. "target" dashes stop at the enemy. Dashes
    * to a location can be aimed (a cast's `aim`) anywhere from `minDistance` to `distance`.
@@ -235,7 +238,8 @@ export type Delivery =
   /**
    * `ramp`: a charge (Unstoppable Onslaught) that starts at the caster's movement speed and
    * gains `amount` every `every` seconds, up to `speed`. `sidestep`: the enemy can step aside
-   * from it, so its hit is a skillshot of this half-width that lands when the dash reaches it.
+   * from it, so its hit is a skillshot of half-width `reach` that lands when the dash reaches
+   * the enemy, `later` seconds after that when a follow-up still catches it (a recast's slam).
    */
   | {
       kind: "dash";
@@ -246,7 +250,7 @@ export type Delivery =
       minDistance?: number;
       through?: boolean;
       ramp?: { amount: number; every: number };
-      sidestep?: number;
+      sidestep?: { reach: number; later?: number };
     }
   | { kind: "blink"; direction: "toward" | "away"; distance: number; hitRadius?: number }
   /**
@@ -430,10 +434,11 @@ export interface AbilitySpec {
    */
   overlay?: boolean;
   /**
-   * Its cast time is a charge that crowd control interrupts as it would a channel (Decimating
-   * Smash): the cost is spent and the ability goes on `cooldown` seconds of cooldown.
+   * Its cast time is a charge or channel that crowd control interrupts as it would a channel
+   * (Decimating Smash, Abyssal Dive): the cost is spent and, when `cooldown` is given, the
+   * ability goes on that many seconds of cooldown (otherwise the one it started keeps running).
    */
-  interruptible?: { cooldown: number };
+  interruptible?: { cooldown?: number };
 }
 
 /** The cooldown an ability uses. */

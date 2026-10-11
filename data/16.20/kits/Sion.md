@@ -340,3 +340,101 @@ game formula supplies 19-20; "confirmed"/"differs": the wiki defines 19-20 and t
 | Ability | Value | Outcome | Level 18 | Level 19 | Level 20 | Game formula |
 |---|---|---|--:|--:|--:|---|
 | Glory in Death | description: Innate: Upon taking fatal damage, Sion enters stasis for 1.5 seconds to reanimat | no match | 19 | 20 | 21 | – |
+
+## Duel simulator kit (level 20, every ability at max rank)
+
+What the duel simulator fights with (`kits/champions/Sion.ts`): every number is read from the wiki's ability data above at level 20; what the wiki doesn't say is listed under assumptions. Ratios are fractions of the stat (60% AD is 0.6 × AD).
+
+- Basic attack: range 175, melee.
+- Options: soulFurnaceHealth = 1000.
+
+| Key | Ability | Cooldown (s) | Cast time (s) | Cost | Delivery | On the enemy | On itself |
+|---|---|--:|--:|---|---|---|---|
+| Q | Decimating Smash | 6 | 0 | 45 | area 0 to 500 units ahead (by the enemy's center), lands after 0 s | 90 + 80% AD physical damage; slow 50% for 0.25 s | – |
+| Qcharged | Decimating Smash (charged 1 s) | 6 | 1 | 45 | area 0 to 850 units ahead (by the enemy's center), lands after 0 s | 220 + 160% AD physical damage; knock up over 0.5 s | – |
+| Qfull | Decimating Smash (charged 2 s) | 6 | 2 | 45 | area 0 to 850 units ahead (by the enemy's center), lands after 0 s | 350 + 240% AD physical damage; knock up over 1 s | – |
+| W | Soul Furnace | 11 (starts when its effect on the caster ends) | 0 | 95 | self | – | shield of 120 + 40% AP + 16% maximum health for 6 s; lingering for 6 s |
+| W2 | Soul Furnace (burst) | 0 | 0 | – | around itself, 525 units; recast of W within 6 s, after 3 s, automatic | 140 + 40% AP + 14% target's maximum health magic damage (Soul Furnace (burst)) | – |
+| E | Roar of the Slayer | 8 | 0.25 | 55 | skillshot 800 long, 160 wide, at 1800/s | 205 + 55% AP magic damage; slow 60% for 2.5 s; armorReductionPercent 0.25 for 4 s | – |
+| R | Unstoppable Onslaught | 60 (starts after the dash) | 0.05 | 100 | dash toward 0–7132.167 units at 950/s, hits within 150 | pull over 0.5 s; slow 50% for 3 s | as the cast starts: ccImmune for 8.6 s; ghosted for 8.6 s |
+
+Effects marked by a mark or a role are completed by the kit's hooks (see the kit's source).
+
+### Assumptions
+
+- Soul Furnace bonus health by level 20 (4 per kill, 15 per large kill or champion takedown): 1000.
+- Glory in Death counts as Sion's death: if he then kills the enemy, both have died. The frenzy fights on to the end, its health draining from 0.264 s after it rises.
+- Death Surge's 67% movement speed decays evenly to nothing over 2.376 s.
+- Decimating Smash is tapped, charged 1 s or charged the full 2 s: the longest the enemy can't walk out of (its center past 850 units, after reacting), the full charge only on an enemy held or slowed; never while getting away.
+- Unstoppable Onslaught can be sidestepped; Sion then recasts it, and its slam (400 radius) still lands unless the enemy got that far aside, 0.23 s after the charge would have hit. Pull and stun reach 350 units, so the collision gets them. In fights he charges only when it lands at least half the time; getting away, he charges away.
+
+### Wiki values read (66)
+
+| Ability | Value | Revision |
+|---|---|---|
+| Glory in Death | Upon taking fatal damage, Sion enters stasis for 1.5 seconds to reanimate into a frenzy | [4058210](https://wiki.leagueoflegends.com/en-us/Template:Data_Sion/Glory_in_Death?oldid=4058210) |
+| Glory in Death | restoring 100% of his maximum health | [4058210](https://wiki.leagueoflegends.com/en-us/Template:Data_Sion/Glory_in_Death?oldid=4058210) |
+| Glory in Death | Innate: Upon taking fatal damage, Sion enters stasis for 1.5 seconds to reanimate into a frenzy, restoring 100% of his maximum health but losing 2 – 19 (based on level) health every 0.264, increasing by 70% of the base value per subsequent tick. | [4058210](https://wiki.leagueoflegends.com/en-us/Template:Data_Sion/Glory_in_Death?oldid=4058210) |
+| Glory in Death | health every 0.264, increasing by 70% of the base value per subsequent tick | [4058210](https://wiki.leagueoflegends.com/en-us/Template:Data_Sion/Glory_in_Death?oldid=4058210) |
+| Glory in Death | 1.75 attack speed minimum and maximum | [4058210](https://wiki.leagueoflegends.com/en-us/Template:Data_Sion/Glory_in_Death?oldid=4058210) |
+| Glory in Death | 100% life steal | [4058210](https://wiki.leagueoflegends.com/en-us/Template:Data_Sion/Glory_in_Death?oldid=4058210) |
+| Glory in Death | Basic attacks deal bonus physical damage on-hit equal to 10% of the target's maximum health | [4058210](https://wiki.leagueoflegends.com/en-us/Template:Data_Sion/Glory_in_Death?oldid=4058210) |
+| Glory in Death | Ghosting | [4058210](https://wiki.leagueoflegends.com/en-us/Template:Data_Sion/Glory_in_Death?oldid=4058210) |
+| Glory in Death | One cast of Death Surge, which replaces all of his abilities | [4058210](https://wiki.leagueoflegends.com/en-us/Template:Data_Sion/Glory_in_Death?oldid=4058210) |
+| Glory in Death | The bonus on-hit damage granted by Glory in Death is unaffected by life steal | [4058210](https://wiki.leagueoflegends.com/en-us/Template:Data_Sion/Glory_in_Death?oldid=4058210) |
+| Glory in Death | The fixed attack speed is achieved by lowering and increasing the maximum and minimum attack speed to 1.75, respectively | [4058210](https://wiki.leagueoflegends.com/en-us/Template:Data_Sion/Glory_in_Death?oldid=4058210) |
+| Death Surge | Sion gains 67% bonus movement speed that decays over 2.376 seconds | [3968660](https://wiki.leagueoflegends.com/en-us/Template:Data_Sion/Death_Surge?oldid=3968660) |
+| Death Surge | cooldown: 100 | [3968660](https://wiki.leagueoflegends.com/en-us/Template:Data_Sion/Death_Surge?oldid=3968660) |
+| Decimating Smash | range: 500 / 500 / 675 / 762.5 / 850 (based on channel time) | [4034709](https://wiki.leagueoflegends.com/en-us/Template:Data_Sion/Decimating_Smash?oldid=4034709) |
+| Decimating Smash | charging for up to 2 seconds to increase Decimating Smash's range over an area, knock up duration, stun duration, and damage every 0.25 seconds | [4034709](https://wiki.leagueoflegends.com/en-us/Template:Data_Sion/Decimating_Smash?oldid=4034709) |
+| Decimating Smash | If Decimating Smash was charged for at least 1 second | [4034709](https://wiki.leagueoflegends.com/en-us/Template:Data_Sion/Decimating_Smash?oldid=4034709) |
+| Decimating Smash | If Decimating Smash was charged for at least 1 second, Sion instead slams his axe down, dealing physical damage to enemies hit, knocking them up for 0.5 / 0.625 / 0.75 / 0.875 / 1 (based on channel time) seconds, and stunning them for 1.25 / 1.5 / 1.75 / 2 / 2.25 (based on channel time) seconds. | [4034709](https://wiki.leagueoflegends.com/en-us/Template:Data_Sion/Decimating_Smash?oldid=4034709) |
+| Decimating Smash | slowing them by 50% for 0.25 seconds | [4034709](https://wiki.leagueoflegends.com/en-us/Template:Data_Sion/Decimating_Smash?oldid=4034709) |
+| Decimating Smash | If the charge is interrupted, Decimating Smash is placed on a 2-second cooldown | [4034709](https://wiki.leagueoflegends.com/en-us/Template:Data_Sion/Decimating_Smash?oldid=4034709) |
+| Decimating Smash | Sion himself remains locked out of all actions for 0.25 seconds when releasing Decimating Smash | [4034709](https://wiki.leagueoflegends.com/en-us/Template:Data_Sion/Decimating_Smash?oldid=4034709) |
+| Decimating Smash | Displacement immunity will also resist the application of the stun | [4034709](https://wiki.leagueoflegends.com/en-us/Template:Data_Sion/Decimating_Smash?oldid=4034709) |
+| Decimating Smash | Minimum Physical Damage: 30 / 45 / 60 / 75 / 90 (+ 40 / 50 / 60 / 70 / 80% AD) | [4034709](https://wiki.leagueoflegends.com/en-us/Template:Data_Sion/Decimating_Smash?oldid=4034709) |
+| Decimating Smash | Maximum Physical Damage: 90 / 155 / 220 / 285 / 350 (+ 120 / 150 / 180 / 210 / 240% AD) | [4034709](https://wiki.leagueoflegends.com/en-us/Template:Data_Sion/Decimating_Smash?oldid=4034709) |
+| Decimating Smash | cooldown: 10 / 9 / 8 / 7 / 6 | [4034709](https://wiki.leagueoflegends.com/en-us/Template:Data_Sion/Decimating_Smash?oldid=4034709) |
+| Decimating Smash | cost: 45 | [4034709](https://wiki.leagueoflegends.com/en-us/Template:Data_Sion/Decimating_Smash?oldid=4034709) |
+| Soul Furnace | Sion grants himself a shield that lasts for up to 6 seconds | [4034710](https://wiki.leagueoflegends.com/en-us/Template:Data_Sion/Soul_Furnace?oldid=4034710) |
+| Soul Furnace | Soul Furnace can be recast after 3 seconds while the shield holds | [4034710](https://wiki.leagueoflegends.com/en-us/Template:Data_Sion/Soul_Furnace?oldid=4034710) |
+| Soul Furnace | does so automatically at the end of the duration | [4034710](https://wiki.leagueoflegends.com/en-us/Template:Data_Sion/Soul_Furnace?oldid=4034710) |
+| Soul Furnace | The cooldown of Soul Furnace begins once the shield is removed | [4034710](https://wiki.leagueoflegends.com/en-us/Template:Data_Sion/Soul_Furnace?oldid=4034710) |
+| Soul Furnace | Soul Furnace also automatically detonates if Sion is killed without the shield being destroyed | [4034710](https://wiki.leagueoflegends.com/en-us/Template:Data_Sion/Soul_Furnace?oldid=4034710) |
+| Soul Furnace | Both of Soul Furnace's casts can be activated during Sion's other abilities | [4034710](https://wiki.leagueoflegends.com/en-us/Template:Data_Sion/Soul_Furnace?oldid=4034710) |
+| Soul Furnace | Sion gains 4 bonus health whenever he kills an enemy, increased to 15 for large enemies and takedowns against enemy champions | [4034710](https://wiki.leagueoflegends.com/en-us/Template:Data_Sion/Soul_Furnace?oldid=4034710) |
+| Soul Furnace | effectRadius: 525 | [4034710](https://wiki.leagueoflegends.com/en-us/Template:Data_Sion/Soul_Furnace?oldid=4034710) |
+| Soul Furnace | Magic Damage: 40 / 65 / 90 / 115 / 140 (+ 40% AP) (+ 14% of target's maximum health) | [4034710](https://wiki.leagueoflegends.com/en-us/Template:Data_Sion/Soul_Furnace?oldid=4034710) |
+| Roar of the Slayer | inflicts them with 25% armor reduction for 4 seconds | [4008040](https://wiki.leagueoflegends.com/en-us/Template:Data_Sion/Roar_of_the_Slayer?oldid=4008040) |
+| Roar of the Slayer | slows them for 2.5 seconds | [4008040](https://wiki.leagueoflegends.com/en-us/Template:Data_Sion/Roar_of_the_Slayer?oldid=4008040) |
+| Unstoppable Onslaught | charges forward in the direction of the cursor for up to 8 seconds | [4004940](https://wiki.leagueoflegends.com/en-us/Template:Data_Sion/Unstoppable_Onslaught?oldid=4004940) |
+| Unstoppable Onslaught | The charge ramps up Sion's movement speed at the time of cast by 40 movement speed every 0.1 seconds, up to 950 total movement speed | [4004940](https://wiki.leagueoflegends.com/en-us/Template:Data_Sion/Unstoppable_Onslaught?oldid=4004940) |
+| Unstoppable Onslaught | Sion leaps forward 300 units, landing after 0.55 seconds | [4004940](https://wiki.leagueoflegends.com/en-us/Template:Data_Sion/Unstoppable_Onslaught?oldid=4004940) |
+| Unstoppable Onslaught | "brief delay" (tooltip: 0.05 (Estimated)) | [4004940](https://wiki.leagueoflegends.com/en-us/Template:Data_Sion/Unstoppable_Onslaught?oldid=4004940) |
+| Unstoppable Onslaught | "ground" (tooltip: 400 radius) | [4004940](https://wiki.leagueoflegends.com/en-us/Template:Data_Sion/Unstoppable_Onslaught?oldid=4004940) |
+| Unstoppable Onslaught | "colliding" (tooltip: 150 units in front of Sion for the charge and point blank for the leap) | [4004940](https://wiki.leagueoflegends.com/en-us/Template:Data_Sion/Unstoppable_Onslaught?oldid=4004940) |
+| Unstoppable Onslaught | "smaller radius" (tooltip: 350 range, estimated) | [4004940](https://wiki.leagueoflegends.com/en-us/Template:Data_Sion/Unstoppable_Onslaught?oldid=4004940) |
+| Unstoppable Onslaught | Minimum Physical Damage: 150 / 300 / 450 (+ 60% bonus AD) | [4004940](https://wiki.leagueoflegends.com/en-us/Template:Data_Sion/Unstoppable_Onslaught?oldid=4004940) |
+| Unstoppable Onslaught | Maximum Physical Damage: 400 / 800 / 1200 (+ 120% bonus AD) | [4004940](https://wiki.leagueoflegends.com/en-us/Template:Data_Sion/Unstoppable_Onslaught?oldid=4004940) |
+| Unstoppable Onslaught | The base damage increases by 0 / 55.5556 / 111.111 / 166.667 (based on channel time)% and the scaling increases by 0 / 33.3333 / 66.6667 / 100 (based on channel time)%. | [4004940](https://wiki.leagueoflegends.com/en-us/Template:Data_Sion/Unstoppable_Onslaught?oldid=4004940) |
+| Unstoppable Onslaught | Enemies in a smaller radius are also pulled towards Sion over 0.5 seconds and become stunned after a brief delay for 0.25 / 0.75 / 1.25 / 1.75 (based on seconds) seconds. | [4004940](https://wiki.leagueoflegends.com/en-us/Template:Data_Sion/Unstoppable_Onslaught?oldid=4004940) |
+| Unstoppable Onslaught | pulled towards Sion over 0.5 seconds | [4004940](https://wiki.leagueoflegends.com/en-us/Template:Data_Sion/Unstoppable_Onslaught?oldid=4004940) |
+| Unstoppable Onslaught | are slowed for 3 seconds | [4004940](https://wiki.leagueoflegends.com/en-us/Template:Data_Sion/Unstoppable_Onslaught?oldid=4004940) |
+| Unstoppable Onslaught | Removing the airborne before 0.5 seconds will not prevent the stun from being applied | [4004940](https://wiki.leagueoflegends.com/en-us/Template:Data_Sion/Unstoppable_Onslaught?oldid=4004940) |
+| Unstoppable Onslaught | Displacement immunity will also resist the application of the stun | [4004940](https://wiki.leagueoflegends.com/en-us/Template:Data_Sion/Unstoppable_Onslaught?oldid=4004940) |
+| Unstoppable Onslaught | An enemy can only be affected by Unstoppable Onslaught once every 1 second | [4004940](https://wiki.leagueoflegends.com/en-us/Template:Data_Sion/Unstoppable_Onslaught?oldid=4004940) |
+| Unstoppable Onslaught | cooldown: 140 / 100 / 60 | [4004940](https://wiki.leagueoflegends.com/en-us/Template:Data_Sion/Unstoppable_Onslaught?oldid=4004940) |
+| Soul Furnace | cooldown: 15 / 14 / 13 / 12 / 11 | [4034710](https://wiki.leagueoflegends.com/en-us/Template:Data_Sion/Soul_Furnace?oldid=4034710) |
+| Soul Furnace | cost: 75 / 80 / 85 / 90 / 95 | [4034710](https://wiki.leagueoflegends.com/en-us/Template:Data_Sion/Soul_Furnace?oldid=4034710) |
+| Soul Furnace | Shield Strength: 60 / 75 / 90 / 105 / 120 (+ 40% AP) (+ 8 / 10 / 12 / 14 / 16% maximum health) | [4034710](https://wiki.leagueoflegends.com/en-us/Template:Data_Sion/Soul_Furnace?oldid=4034710) |
+| Roar of the Slayer | cooldown: 12 / 11 / 10 / 9 / 8 | [4008040](https://wiki.leagueoflegends.com/en-us/Template:Data_Sion/Roar_of_the_Slayer?oldid=4008040) |
+| Roar of the Slayer | cost: 35 / 40 / 45 / 50 / 55 | [4008040](https://wiki.leagueoflegends.com/en-us/Template:Data_Sion/Roar_of_the_Slayer?oldid=4008040) |
+| Roar of the Slayer | castTime: 0.25 | [4008040](https://wiki.leagueoflegends.com/en-us/Template:Data_Sion/Roar_of_the_Slayer?oldid=4008040) |
+| Roar of the Slayer | range (Roar missile range): 800 • 1350 | [4008040](https://wiki.leagueoflegends.com/en-us/Template:Data_Sion/Roar_of_the_Slayer?oldid=4008040) |
+| Roar of the Slayer | width: 160 | [4008040](https://wiki.leagueoflegends.com/en-us/Template:Data_Sion/Roar_of_the_Slayer?oldid=4008040) |
+| Roar of the Slayer | speed: 1800 | [4008040](https://wiki.leagueoflegends.com/en-us/Template:Data_Sion/Roar_of_the_Slayer?oldid=4008040) |
+| Roar of the Slayer | Magic Damage: 65 / 100 / 135 / 170 / 205 (+ 55% AP) | [4008040](https://wiki.leagueoflegends.com/en-us/Template:Data_Sion/Roar_of_the_Slayer?oldid=4008040) |
+| Roar of the Slayer | Slow: 40 / 45 / 50 / 55 / 60% | [4008040](https://wiki.leagueoflegends.com/en-us/Template:Data_Sion/Roar_of_the_Slayer?oldid=4008040) |
+| Unstoppable Onslaught | cost: 100 | [4004940](https://wiki.leagueoflegends.com/en-us/Template:Data_Sion/Unstoppable_Onslaught?oldid=4004940) |
+| Unstoppable Onslaught | Slow: 40 / 45 / 50% | [4004940](https://wiki.leagueoflegends.com/en-us/Template:Data_Sion/Unstoppable_Onslaught?oldid=4004940) |

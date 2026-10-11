@@ -465,7 +465,13 @@
             "conditional": false
           }
         ],
-        "values": []
+        "values": [],
+        "tips": [
+          {
+            "text": "2.25 seconds",
+            "tip": "Estimated"
+          }
+        ]
       },
       {
         "label": "Active",
@@ -557,7 +563,13 @@
             "conditional": false
           }
         ],
-        "values": []
+        "values": [],
+        "tips": [
+          {
+            "text": "0.35 seconds",
+            "tip": "Fixed travel time from the start of the cast time"
+          }
+        ]
       },
       {
         "text": "Targets feared by Fiddlesticks by any means cannot be affected by it again for a duration equal to Terrify's cooldown. Against these targets, Terrify's damage and minimum threshold are doubled.",
@@ -1280,13 +1292,25 @@
             },
             "context": "Fiddlesticks heals itself for a portion of the pre-mitigation damage dealt, modified to 45% against monsters and 15% against minions."
           }
+        ],
+        "tips": [
+          {
+            "text": "pre-mitigation damage",
+            "tip": "Damage dealt before modifiers"
+          }
         ]
       },
       {
         "text": "Bountiful Harvest ends if all targets have died or broken their tethers. If the channel was not interrupted, 60% of the current cooldown is refunded.",
         "leveling": [],
         "mechanics": [],
-        "values": []
+        "values": [],
+        "tips": [
+          {
+            "text": "interrupted",
+            "tip": "e.g. by Fiddlesticks or crowd control effects"
+          }
+        ]
       },
       {
         "text": "A nearby enemy is required to cast this ability. The target does not have to be visible to be tethered by this ability.",

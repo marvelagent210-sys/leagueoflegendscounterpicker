@@ -81,7 +81,7 @@ function openingReach(ability: AbilitySpec, self: FighterSpec, enemy: FighterSpe
   if (!traits.cc && !traits.damage) return undefined;
   switch (d.kind) {
     case "target":
-      return d.range - radii;
+      return d.edge ? d.range : d.range - radii;
     case "line":
       return d.range - self.base.radius;
     case "circle":

@@ -261,7 +261,13 @@
             "conditional": false
           }
         ],
-        "values": []
+        "values": [],
+        "tips": [
+          {
+            "text": "5 seconds",
+            "tip": "approximate"
+          }
+        ]
       }
     ],
     "custom": [],

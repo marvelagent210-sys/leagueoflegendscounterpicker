@@ -177,6 +177,12 @@
             },
             "context": "Spirit Form: Yone becomes ghosted and gains 10 / 12 / 14 / 16 / 18 / 20 / 22 / 24 / 26 / 28 / 30 (based on seconds since the start of the initial dash)% bonus movement speed."
           }
+        ],
+        "tips": [
+          {
+            "text": "post-mitigation",
+            "tip": "Damage calculated after modifiers"
+          }
         ]
       },
       {
@@ -738,7 +744,17 @@
             "conditional": false
           }
         ],
-        "values": []
+        "values": [],
+        "tips": [
+          {
+            "text": "200 units",
+            "tip": "Can place him beyond maximum range"
+          },
+          {
+            "text": "maximum range",
+            "tip": "Uses center range"
+          }
+        ]
       },
       {
         "text": "After 0.3 seconds, a gust rushes along the same area that deals equal parts physical and magic damage to marked enemies within and pulls them towards the location Yone blinked to, then knocks them up for 0.75 seconds.",
@@ -843,7 +859,13 @@
             "conditional": false
           }
         ],
-        "values": []
+        "values": [],
+        "tips": [
+          {
+            "text": "0.3 seconds",
+            "tip": "From the end of the cast time"
+          }
+        ]
       },
       {
         "text": "The stun ends prematurely upon the pull.",

@@ -484,7 +484,13 @@
             "conditional": false
           }
         ],
-        "values": []
+        "values": [],
+        "tips": [
+          {
+            "text": "up to",
+            "tip": "If the recast is gained by a followed-up basic attack, the window to use the recast is increased (minimum window of 2.5s)"
+          }
+        ]
       },
       {
         "label": "First Cast",
@@ -1040,7 +1046,13 @@
             "conditional": false
           }
         ],
-        "values": []
+        "values": [],
+        "tips": [
+          {
+            "text": "43.75%",
+            "tip": "1.75x modifier"
+          }
+        ]
       },
       {
         "text": "After 1 second, Inferno Aegis can be recast while the shield holds and does so automatically after it expires or is broken.",

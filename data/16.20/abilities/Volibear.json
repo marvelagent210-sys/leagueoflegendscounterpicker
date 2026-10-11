@@ -539,7 +539,13 @@
             "conditional": false
           }
         ],
-        "values": []
+        "values": [],
+        "tips": [
+          {
+            "text": "pounce on the target",
+            "tip": "to 25 to 150 units closer than attack range, if Volibear is not closer already"
+          }
+        ]
       },
       {
         "text": "If Volibear becomes immobilized or polymorphed by an enemy during Thundering Smash, the effect ends prematurely and the cooldown is reset.",
@@ -823,7 +829,13 @@
             "conditional": false
           }
         ],
-        "values": []
+        "values": [],
+        "tips": [
+          {
+            "text": "impacts",
+            "tip": "centered on Volibear's location when the dash ends in any way"
+          }
+        ]
       },
       {
         "text": "Volibear also disables enemy turrets in an area for a duration, rendering them unable to attack, as well as dealing them the same damage.",

@@ -2,7 +2,7 @@
 
 ## Simulated duels (full confidence)
 
-The duel simulator played each of the 37 other champions with a simulator kit against Sett: both at level 20 with 15,000 gold of plain stats, each side's spent against the other's, through six scenarios (PLAN.md §6). Scores run from −1 (Sett wins every time) to +1 (the champion does). Run `npm run duel -- <champion> Sett --log brawl` to watch a fight.
+The duel simulator played each of the 38 other champions with a simulator kit against Sett: both at level 20 with 15,000 gold of plain stats, each side's spent against the other's, through six scenarios (PLAN.md §6). Scores run from −1 (Sett wins every time) to +1 (the champion does). Run `npm run duel -- <champion> Sett --log brawl` to watch a fight.
 
 | # | Champion | Score | You engage | Enemy engages | Brawl | Short trade | Spacing | Escape |
 |--:|---|--:|--:|--:|--:|--:|--:|--:|
@@ -38,11 +38,12 @@ The duel simulator played each of the 37 other champions with a simulator kit ag
 | 30 | Ornn | +0.07 | +0.09 | +0.07 | +0.08 | +0.04 | – | +0.00 |
 | 31 | Irelia | +0.03 | −1.00 | +0.60 | +0.60 | +0.04 | – | +0.00 |
 | 32 | Singed | +0.01 | −0.03 | +0.05 | +0.05 | −0.06 | – | +0.00 |
-| 33 | Yasuo | −0.21 | +1.00 | −1.00 | −1.00 | +0.07 | – | +0.00 |
-| 34 | Kennen | −0.61 | −1.00 | −1.00 | −1.00 | −0.07 | +0.99 | +0.00 |
-| 35 | Riven | −0.77 | −1.00 | −1.00 | −1.00 | +0.04 | – | +0.00 |
-| 36 | Akali | −0.77 | −1.00 | −1.00 | −1.00 | +0.04 | – | +0.00 |
-| 37 | Ambessa | −0.77 | −1.00 | −1.00 | −1.00 | +0.02 | – | +0.00 |
+| 33 | Sion | −0.06 | −0.17 | +0.00 | +0.00 | −0.05 | – | +0.00 |
+| 34 | Yasuo | −0.21 | +1.00 | −1.00 | −1.00 | +0.07 | – | +0.00 |
+| 35 | Kennen | −0.61 | −1.00 | −1.00 | −1.00 | −0.07 | +0.99 | +0.00 |
+| 36 | Riven | −0.77 | −1.00 | −1.00 | −1.00 | +0.04 | – | +0.00 |
+| 37 | Akali | −0.77 | −1.00 | −1.00 | −1.00 | +0.04 | – | +0.00 |
+| 38 | Ambessa | −0.77 | −1.00 | −1.00 | −1.00 | +0.02 | – | +0.00 |
 
 ## Interaction ledger (partial confidence)
 

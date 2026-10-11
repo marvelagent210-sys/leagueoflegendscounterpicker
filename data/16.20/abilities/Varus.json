@@ -764,7 +764,13 @@
             "conditional": false
           }
         ],
-        "values": []
+        "values": [],
+        "tips": [
+          {
+            "text": "1.75 seconds",
+            "tip": "Estimated, see notes for specific stack application timings"
+          }
+        ]
       },
       {
         "text": "Upon impact, the tendril roots into the ground from where the target was hit, seeking out nearby enemy champions that are in the immediate area. If a target does not leave the area within 2 seconds, they subsequently become infected as well, taking the same damage and effects. A new tendril is then spread out from the infected target that is closest to a nearby uninfected enemy champion. The infection can spread repeatedly until there are no new targets.",

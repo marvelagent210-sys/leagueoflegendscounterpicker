@@ -24,6 +24,8 @@ export interface Marked {
   keywords: KeywordSpan[];
   /** Tooltip texts of {{tt}} templates, which often label a value ("Outer radius"). */
   labels: string[];
+  /** Each {{tt}} with the words it shows and its tooltip ("ground": "400 radius"). */
+  tips: Array<{ text: string; tip: string }>;
 }
 
 export const PLACEHOLDER = /⟦(\d+)⟧/g;
@@ -75,7 +77,7 @@ const DISPLAY_ARG_TEMPLATES = new Set([
 ]);
 
 class MarkedRenderer {
-  readonly result: Marked = { text: "", series: [], keywords: [], labels: [] };
+  readonly result: Marked = { text: "", series: [], keywords: [], labels: [], tips: [] };
 
   constructor(private readonly ctx: EvalContext) {}
 
@@ -128,10 +130,11 @@ class MarkedRenderer {
       return;
     }
     if (DISPLAY_ARG_TEMPLATES.has(name)) {
-      if ((name === "tt" || name === "texttip") && args[1]) {
-        this.result.labels.push(cleanInline(render(args[1], this.ctx)).trim());
-      }
+      const tip = (name === "tt" || name === "texttip") && args[1] ? cleanInline(render(args[1], this.ctx)).trim() : undefined;
+      if (tip !== undefined) this.result.labels.push(tip);
+      const start = this.result.text.length;
       this.walk(args[0] ?? []);
+      if (tip) this.result.tips.push({ text: displayText({ text: this.result.text.slice(start), series: this.result.series }), tip });
       return;
     }
     if (name === "ft" || name === "fliptext") {

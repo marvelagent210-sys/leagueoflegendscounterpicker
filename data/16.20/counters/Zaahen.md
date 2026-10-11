@@ -2,7 +2,7 @@
 
 ## Simulated duels (full confidence)
 
-The duel simulator played each of the 37 other champions with a simulator kit against Zaahen: both at level 20 with 15,000 gold of plain stats, each side's spent against the other's, through six scenarios (PLAN.md §6). Scores run from −1 (Zaahen wins every time) to +1 (the champion does). Run `npm run duel -- <champion> Zaahen --log brawl` to watch a fight.
+The duel simulator played each of the 38 other champions with a simulator kit against Zaahen: both at level 20 with 15,000 gold of plain stats, each side's spent against the other's, through six scenarios (PLAN.md §6). Scores run from −1 (Zaahen wins every time) to +1 (the champion does). Run `npm run duel -- <champion> Zaahen --log brawl` to watch a fight.
 
 | # | Champion | Score | You engage | Enemy engages | Brawl | Short trade | Spacing | Escape |
 |--:|---|--:|--:|--:|--:|--:|--:|--:|
@@ -30,19 +30,20 @@ The duel simulator played each of the 37 other champions with a simulator kit ag
 | 22 | Shen | −0.78 | −1.00 | −1.00 | −1.00 | +0.01 | – | +0.00 |
 | 23 | Sett | −0.78 | −1.00 | −1.00 | −1.00 | +0.00 | – | +0.00 |
 | 24 | Yone | −0.78 | −1.00 | −1.00 | −1.00 | −0.00 | – | +0.00 |
-| 25 | Renekton | −0.78 | −1.00 | −1.00 | −1.00 | −0.02 | – | +0.00 |
-| 26 | Mordekaiser | −0.78 | −1.00 | −1.00 | −1.00 | −0.03 | – | +0.00 |
-| 27 | Rumble | −0.78 | −1.00 | −1.00 | −1.00 | −0.03 | – | +0.00 |
-| 28 | Volibear | −0.78 | −1.00 | −1.00 | −1.00 | −0.03 | – | +0.00 |
-| 29 | Ambessa | −0.79 | −1.00 | −1.00 | −1.00 | −0.06 | – | +0.00 |
-| 30 | Nasus | −0.79 | −1.00 | −1.00 | −1.00 | −0.08 | – | +0.00 |
-| 31 | Akali | −0.79 | −1.00 | −1.00 | −1.00 | −0.08 | – | +0.00 |
-| 32 | Tryndamere | −0.80 | −1.00 | −1.00 | −1.00 | −0.14 | – | +0.00 |
-| 33 | Dr. Mundo | −0.80 | −1.00 | −1.00 | −1.00 | −0.14 | – | +0.00 |
-| 34 | Camille | −0.80 | −1.00 | −1.00 | −1.00 | −0.14 | – | +0.00 |
-| 35 | Gwen | −0.80 | −1.00 | −1.00 | −1.00 | −0.16 | – | +0.00 |
-| 36 | Aatrox | −0.81 | −1.00 | −1.00 | −1.00 | −0.18 | – | +0.00 |
-| 37 | Urgot | −0.81 | −1.00 | −1.00 | −1.00 | −0.08 | −1.00 | +0.00 |
+| 25 | Sion | −0.78 | −1.00 | −1.00 | −1.00 | −0.01 | – | +0.00 |
+| 26 | Renekton | −0.78 | −1.00 | −1.00 | −1.00 | −0.02 | – | +0.00 |
+| 27 | Mordekaiser | −0.78 | −1.00 | −1.00 | −1.00 | −0.03 | – | +0.00 |
+| 28 | Rumble | −0.78 | −1.00 | −1.00 | −1.00 | −0.03 | – | +0.00 |
+| 29 | Volibear | −0.78 | −1.00 | −1.00 | −1.00 | −0.03 | – | +0.00 |
+| 30 | Ambessa | −0.79 | −1.00 | −1.00 | −1.00 | −0.06 | – | +0.00 |
+| 31 | Nasus | −0.79 | −1.00 | −1.00 | −1.00 | −0.08 | – | +0.00 |
+| 32 | Akali | −0.79 | −1.00 | −1.00 | −1.00 | −0.08 | – | +0.00 |
+| 33 | Tryndamere | −0.80 | −1.00 | −1.00 | −1.00 | −0.14 | – | +0.00 |
+| 34 | Dr. Mundo | −0.80 | −1.00 | −1.00 | −1.00 | −0.14 | – | +0.00 |
+| 35 | Camille | −0.80 | −1.00 | −1.00 | −1.00 | −0.14 | – | +0.00 |
+| 36 | Gwen | −0.80 | −1.00 | −1.00 | −1.00 | −0.16 | – | +0.00 |
+| 37 | Aatrox | −0.81 | −1.00 | −1.00 | −1.00 | −0.18 | – | +0.00 |
+| 38 | Urgot | −0.81 | −1.00 | −1.00 | −1.00 | −0.08 | −1.00 | +0.00 |
 
 ## Interaction ledger (partial confidence)
 

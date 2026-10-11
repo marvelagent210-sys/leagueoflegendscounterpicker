@@ -29,6 +29,7 @@ import Riven from "./Riven";
 import Rumble from "./Rumble";
 import Sett from "./Sett";
 import Shen from "./Shen";
+import Sion from "./Sion";
 import Singed from "./Singed";
 import Teemo from "./Teemo";
 import Trundle from "./Trundle";
@@ -40,5 +41,5 @@ import Yone from "./Yone";
 import Zaahen from "./Zaahen";
 
 export const KITS: Readonly<Record<string, KitModule>> = Object.fromEntries(
-  [Aatrox, Akali, Ambessa, Aurora, Camille, Chogath, Darius, DrMundo, Fiora, Garen, Gwen, Irelia, Jax, Kayle, KSante, Kennen, Malphite, Mordekaiser, Nasus, Olaf, Ornn, Pantheon, Poppy, Quinn, Renekton, Riven, Rumble, Sett, Shen, Singed, Teemo, Trundle, Tryndamere, Urgot, Volibear, Yasuo, Yone, Zaahen].map((kit) => [kit.champion, kit]),
+  [Aatrox, Akali, Ambessa, Aurora, Camille, Chogath, Darius, DrMundo, Fiora, Garen, Gwen, Irelia, Jax, Kayle, KSante, Kennen, Malphite, Mordekaiser, Nasus, Olaf, Ornn, Pantheon, Poppy, Quinn, Renekton, Riven, Rumble, Sett, Shen, Singed, Sion, Teemo, Trundle, Tryndamere, Urgot, Volibear, Yasuo, Yone, Zaahen].map((kit) => [kit.champion, kit]),
 );
