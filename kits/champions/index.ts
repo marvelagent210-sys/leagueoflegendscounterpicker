@@ -10,12 +10,14 @@ import Darius from "./Darius";
 import DrMundo from "./DrMundo";
 import Fiora from "./Fiora";
 import Garen from "./Garen";
+import Gnar from "./Gnar";
 import Gwen from "./Gwen";
 import Irelia from "./Irelia";
 import Jax from "./Jax";
 import Kayle from "./Kayle";
 import KSante from "./KSante";
 import Kennen from "./Kennen";
+import Kled from "./Kled";
 import Malphite from "./Malphite";
 import Mordekaiser from "./Mordekaiser";
 import Nasus from "./Nasus";
@@ -30,7 +32,9 @@ import Rumble from "./Rumble";
 import Sett from "./Sett";
 import Shen from "./Shen";
 import Sion from "./Sion";
+import Skarner from "./Skarner";
 import Singed from "./Singed";
+import TahmKench from "./TahmKench";
 import Teemo from "./Teemo";
 import Trundle from "./Trundle";
 import Tryndamere from "./Tryndamere";
@@ -41,5 +45,5 @@ import Yone from "./Yone";
 import Zaahen from "./Zaahen";
 
 export const KITS: Readonly<Record<string, KitModule>> = Object.fromEntries(
-  [Aatrox, Akali, Ambessa, Aurora, Camille, Chogath, Darius, DrMundo, Fiora, Garen, Gwen, Irelia, Jax, Kayle, KSante, Kennen, Malphite, Mordekaiser, Nasus, Olaf, Ornn, Pantheon, Poppy, Quinn, Renekton, Riven, Rumble, Sett, Shen, Singed, Sion, Teemo, Trundle, Tryndamere, Urgot, Volibear, Yasuo, Yone, Zaahen].map((kit) => [kit.champion, kit]),
+  [Aatrox, Akali, Ambessa, Aurora, Camille, Chogath, Darius, DrMundo, Fiora, Garen, Gnar, Gwen, Irelia, Jax, Kayle, KSante, Kennen, Kled, Malphite, Mordekaiser, Nasus, Olaf, Ornn, Pantheon, Poppy, Quinn, Renekton, Riven, Rumble, Sett, Shen, Singed, Sion, Skarner, TahmKench, Teemo, Trundle, Tryndamere, Urgot, Volibear, Yasuo, Yone, Zaahen].map((kit) => [kit.champion, kit]),
 );

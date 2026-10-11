@@ -14,7 +14,7 @@ Values marked "at max rank, level 20" assume every ability is maxed; see PLAN.md
 
 | Form | Attack range | Ranged | Projectile | Missile speed | Attack modifiers |
 |---|--:|---|---|--:|---|
-| Gnar | 511.765 | no | no | 1500 | Rage Gene; Hyper |
+| Gnar | 511.765 | yes | yes | 1500 | Rage Gene; Hyper |
 | Mega Gnar | 175 | no | no | – | Rage Gene; Hyper |
 
 Cooldowns at max rank. Flags: the wiki's interaction flags (yes, no, partly). * marks an effect that applies only under a condition.
@@ -319,3 +319,94 @@ All 6 level-based formulas in the game files (4 linked to wiki values above):
 | GnarPassive | TotalMegaGnarArmor | along the stat growth curve 3.5 → 54.5 over levels 1-18, continues past 18 | 3.5 | 54.5 | 62.495 |
 | GnarPassive | TotalMegaGnarMR | along the stat growth curve 3.5 → 63 over levels 1-18, continues past 18 | 3.5 | 63 | 72.3275 |
 | GnarPassive | TotalMegaGnarAD | along the stat growth curve 6 → 48.5 over levels 1-18, continues past 18 | 6 | 48.5 | 55.1625 |
+
+## Duel simulator kit (level 20, every ability at max rank)
+
+What the duel simulator fights with (`kits/champions/Gnar.ts`): every number is read from the wiki's ability data above at level 20; what the wiki doesn't say is listed under assumptions. Ratios are fractions of the stat (60% AD is 0.6 × AD).
+
+- Basic attack: range 511.765, missile at 1500/s.
+- Options: rage = 50.
+
+| Key | Ability | Cooldown (s) | Cast time (s) | Cost | Delivery | On the enemy | On itself |
+|---|---|--:|--:|---|---|---|---|
+| Q | Boomerang Throw | 10 | 0.25 | – | skillshot 1125 long, 110 wide, at 1950/s | 165 + 125% AD physical damage; slow 35% for 2 s | – |
+| E | Hop | 12 | 0 | – | dash away 0–475 units in 0.6 s | – | attackSpeed 0.6 for 6 s |
+
+Effects marked by a mark or a role are completed by the kit's hooks (see the kit's source).
+
+### Assumptions
+
+- Rage at the start of a fight (it builds on minions in lane): 50.
+- At full Rage Gnar becomes Mega Gnar at once, rather than within the 4 s the wiki allows.
+- Boomerang Throw flies at the average of its speeds (1950 out, 1330 back) and only its outgoing pass hits; Gnar always catches it on its way back, from the enemy or, missed, from its full range.
+- The boulder drops against the enemy's near side; Mega Gnar steps onto it when it lies within 300 units of him and he isn't fleeing.
+- Hyper's 80% movement speed decays evenly over 3 s.
+- Hop and Crunch land 0.6 s after they leave the ground, however far they go (the game files' TravelTime; the wiki gives no speed). Hop is kept for getting away: its bounce off the enemy is left out.
+- GNAR!'s knockback flies for the 0.4 s before its slow (the wiki gives no flight time).
+
+### Wiki values read (62)
+
+| Ability | Value | Revision |
+|---|---|---|
+| Mini Gnar | Bonus Range: 225 – 325 (based on level) | [4038340](https://wiki.leagueoflegends.com/en-us/Template:Data_Gnar/Mini_Gnar?oldid=4038340) |
+| Mini Gnar | Bonus Movespeed: 0 – 20 (based on level) | [4038340](https://wiki.leagueoflegends.com/en-us/Template:Data_Gnar/Mini_Gnar?oldid=4038340) |
+| Mini Gnar | as well as 5.5% bonus attack speed | [4038340](https://wiki.leagueoflegends.com/en-us/Template:Data_Gnar/Mini_Gnar?oldid=4038340) |
+| Mega Gnar | Gnar restores health equal to the amount gained when transforming into Mega Gnar, but will only retain his current percentage health when returning to Mini form | [4038339](https://wiki.leagueoflegends.com/en-us/Template:Data_Gnar/Mega_Gnar?oldid=4038339) |
+| Rage Gene | Innate - Rage Gene: Mini Gnar generates 4 / 7 / 11 (based on level) Rage over 2 seconds upon dealing or receiving damage, up to 100. | [4062252](https://wiki.leagueoflegends.com/en-us/Template:Data_Gnar/Rage_Gene?oldid=4062252) |
+| Rage Gene | Rage over 2 seconds upon dealing or receiving damage, up to 100 | [4062252](https://wiki.leagueoflegends.com/en-us/Template:Data_Gnar/Rage_Gene?oldid=4062252) |
+| Rage Gene | with 4 ticks every 0.5 seconds | [4062252](https://wiki.leagueoflegends.com/en-us/Template:Data_Gnar/Rage_Gene?oldid=4062252) |
+| Rage Gene | Against champions, Boomerang Throw instantly generates 1 / 1.75 / 2.75 (based on level) Rage, and basic attacks on-hit instantly generate 2 / 3.5 / 5.5 (based on level). | [4062252](https://wiki.leagueoflegends.com/en-us/Template:Data_Gnar/Rage_Gene?oldid=4062252) |
+| Rage Gene | Gnar's Mega form lasts for 15 seconds | [4062252](https://wiki.leagueoflegends.com/en-us/Template:Data_Gnar/Rage_Gene?oldid=4062252) |
+| Rage Gene | becoming too tired to generate Rage for 15 seconds | [4062252](https://wiki.leagueoflegends.com/en-us/Template:Data_Gnar/Rage_Gene?oldid=4062252) |
+| Rage Gene | Rage cannot be generated while in this form | [4062252](https://wiki.leagueoflegends.com/en-us/Template:Data_Gnar/Rage_Gene?oldid=4062252) |
+| Rage Gene | It also does not stack but instead refreshes with subsequent applications | [4062252](https://wiki.leagueoflegends.com/en-us/Template:Data_Gnar/Rage_Gene?oldid=4062252) |
+| Rage Gene | Both of Gnar's forms share their ability cooldowns | [4062252](https://wiki.leagueoflegends.com/en-us/Template:Data_Gnar/Rage_Gene?oldid=4062252) |
+| Rage Gene | Casting any of them during this time also causes Gnar to transform into Mega Gnar instantly, else he will transform automatically after the 4 seconds have elapsed | [4062252](https://wiki.leagueoflegends.com/en-us/Template:Data_Gnar/Rage_Gene?oldid=4062252) |
+| Boomerang Throw | range: 1125 • 3000 | [4007601](https://wiki.leagueoflegends.com/en-us/Template:Data_Gnar/Boomerang_Throw?oldid=4007601) |
+| Boomerang Throw | width: 110 • 150 | [4007601](https://wiki.leagueoflegends.com/en-us/Template:Data_Gnar/Boomerang_Throw?oldid=4007601) |
+| Boomerang Throw | speed: 2500 - 1400 • 60 - 2600 | [4007601](https://wiki.leagueoflegends.com/en-us/Template:Data_Gnar/Boomerang_Throw?oldid=4007601) |
+| Boomerang Throw | Catching the boomerang while it is returning back refunds 40% of the ability's total cooldown | [4007601](https://wiki.leagueoflegends.com/en-us/Template:Data_Gnar/Boomerang_Throw?oldid=4007601) |
+| Boomerang Throw | cooldown: 16 / 14.5 / 13 / 11.5 / 10 | [4007601](https://wiki.leagueoflegends.com/en-us/Template:Data_Gnar/Boomerang_Throw?oldid=4007601) |
+| Boulder Toss | After 0.3 seconds, Gnar can pick up the boulder by moving within 90 units of it, refunding 70% of the ability's total cooldown | [3589588](https://wiki.leagueoflegends.com/en-us/Template:Data_Gnar/Boulder_Toss?oldid=3589588) |
+| Boulder Toss | The boulder then remains on the ground for 6 seconds | [3589588](https://wiki.leagueoflegends.com/en-us/Template:Data_Gnar/Boulder_Toss?oldid=3589588) |
+| Boulder Toss | width: 180 | [3589588](https://wiki.leagueoflegends.com/en-us/Template:Data_Gnar/Boulder_Toss?oldid=3589588) |
+| Hyper | apply a stack of Hyper to enemies for 3.5 seconds, refreshing on subsequent applications and stacking up to 3 times | [3932657](https://wiki.leagueoflegends.com/en-us/Template:Data_Gnar/Hyper?oldid=3932657) |
+| Hyper | Bonus Magic Damage: 0 / 10 / 20 / 30 / 40 (+ 6 / 8 / 10 / 12 / 14% of target's maximum health) (+ 100% AP) | [3932657](https://wiki.leagueoflegends.com/en-us/Template:Data_Gnar/Hyper?oldid=3932657) |
+| GNAR! | Hyper Bonus Movement Speed: 40 / 60 / 80% | [3936277](https://wiki.leagueoflegends.com/en-us/Template:Data_Gnar/GNAR!?oldid=3936277) |
+| Hyper | bonus movement speed that decays over 3 seconds | [3932657](https://wiki.leagueoflegends.com/en-us/Template:Data_Gnar/Hyper?oldid=3932657) |
+| Hyper | Gnar gains Hyper's bonus movement speed when he leaves Mega form | [3932657](https://wiki.leagueoflegends.com/en-us/Template:Data_Gnar/Hyper?oldid=3932657) |
+| Wallop | Gnar is locked out of moving and casting movement abilities for 0.25 seconds after the cast time | [4022698](https://wiki.leagueoflegends.com/en-us/Template:Data_Gnar/Wallop?oldid=4022698) |
+| Hop | targetRange: 475 | [4007742](https://wiki.leagueoflegends.com/en-us/Template:Data_Gnar/Hop?oldid=4007742) |
+| Crunch | targetRange: 675 | [4007743](https://wiki.leagueoflegends.com/en-us/Template:Data_Gnar/Crunch?oldid=4007743) |
+| GNAR! | knocking away nearby enemies up to 590 units in that direction | [3936277](https://wiki.leagueoflegends.com/en-us/Template:Data_Gnar/GNAR!?oldid=3936277) |
+| GNAR! | slowing them by 45% after a 0.4-second delay for a duration | [3936277](https://wiki.leagueoflegends.com/en-us/Template:Data_Gnar/GNAR!?oldid=3936277) |
+| GNAR! | Disable Duration: 1.25 / 1.5 / 1.75 | [3936277](https://wiki.leagueoflegends.com/en-us/Template:Data_Gnar/GNAR!?oldid=3936277) |
+| GNAR! | Physical Damage: 200 / 300 / 400 (+ 50% bonus AD) (+ 100% AP) | [3936277](https://wiki.leagueoflegends.com/en-us/Template:Data_Gnar/GNAR!?oldid=3936277) |
+| GNAR! | Gnar is locked out of moving and casting movement abilities for 0.175 seconds after the cast time | [3936277](https://wiki.leagueoflegends.com/en-us/Template:Data_Gnar/GNAR!?oldid=3936277) |
+| Boomerang Throw | castTime: 0.25 | [4007601](https://wiki.leagueoflegends.com/en-us/Template:Data_Gnar/Boomerang_Throw?oldid=4007601) |
+| Boomerang Throw | Physical Damage: 5 / 45 / 85 / 125 / 165 (+ 125% AD) | [4007601](https://wiki.leagueoflegends.com/en-us/Template:Data_Gnar/Boomerang_Throw?oldid=4007601) |
+| Boomerang Throw | Slow: 15 / 20 / 25 / 30 / 35% | [4007601](https://wiki.leagueoflegends.com/en-us/Template:Data_Gnar/Boomerang_Throw?oldid=4007601) |
+| Boomerang Throw | slows them for 2 seconds | [4007601](https://wiki.leagueoflegends.com/en-us/Template:Data_Gnar/Boomerang_Throw?oldid=4007601) |
+| Hop | cooldown: 22 / 19.5 / 17 / 14.5 / 12 | [4007742](https://wiki.leagueoflegends.com/en-us/Template:Data_Gnar/Hop?oldid=4007742) |
+| Hop | Bonus Attack Speed: 40 / 45 / 50 / 55 / 60% | [4007742](https://wiki.leagueoflegends.com/en-us/Template:Data_Gnar/Hop?oldid=4007742) |
+| Hop | then gains bonus attack speed for 6 seconds | [4007742](https://wiki.leagueoflegends.com/en-us/Template:Data_Gnar/Hop?oldid=4007742) |
+| Boulder Toss | cooldown: 16 / 14.5 / 13 / 11.5 / 10 | [3589588](https://wiki.leagueoflegends.com/en-us/Template:Data_Gnar/Boulder_Toss?oldid=3589588) |
+| Boulder Toss | castTime: 0.5 | [3589588](https://wiki.leagueoflegends.com/en-us/Template:Data_Gnar/Boulder_Toss?oldid=3589588) |
+| Boulder Toss | range: 1150 | [3589588](https://wiki.leagueoflegends.com/en-us/Template:Data_Gnar/Boulder_Toss?oldid=3589588) |
+| Boulder Toss | speed: 2100 | [3589588](https://wiki.leagueoflegends.com/en-us/Template:Data_Gnar/Boulder_Toss?oldid=3589588) |
+| Boulder Toss | Physical Damage: 45 / 90 / 135 / 180 / 225 (+ 140% AD) | [3589588](https://wiki.leagueoflegends.com/en-us/Template:Data_Gnar/Boulder_Toss?oldid=3589588) |
+| Boulder Toss | Slow: 30 / 35 / 40 / 45 / 50% | [3589588](https://wiki.leagueoflegends.com/en-us/Template:Data_Gnar/Boulder_Toss?oldid=3589588) |
+| Boulder Toss | slowing them for 2 seconds | [3589588](https://wiki.leagueoflegends.com/en-us/Template:Data_Gnar/Boulder_Toss?oldid=3589588) |
+| Wallop | cooldown: 7 | [4022698](https://wiki.leagueoflegends.com/en-us/Template:Data_Gnar/Wallop?oldid=4022698) |
+| Wallop | castTime: 0.6 | [4022698](https://wiki.leagueoflegends.com/en-us/Template:Data_Gnar/Wallop?oldid=4022698) |
+| Wallop | range: 550 | [4022698](https://wiki.leagueoflegends.com/en-us/Template:Data_Gnar/Wallop?oldid=4022698) |
+| Wallop | Physical Damage: 45 / 75 / 105 / 135 / 165 (+ 100% AD) | [4022698](https://wiki.leagueoflegends.com/en-us/Template:Data_Gnar/Wallop?oldid=4022698) |
+| Wallop | stunning them for 1.25 seconds | [4022698](https://wiki.leagueoflegends.com/en-us/Template:Data_Gnar/Wallop?oldid=4022698) |
+| Crunch | cooldown: 22 / 19.5 / 17 / 14.5 / 12 | [4007743](https://wiki.leagueoflegends.com/en-us/Template:Data_Gnar/Crunch?oldid=4007743) |
+| Crunch | innerRadius: 200 | [4007743](https://wiki.leagueoflegends.com/en-us/Template:Data_Gnar/Crunch?oldid=4007743) |
+| Crunch | Physical Damage: 80 / 115 / 150 / 185 / 220 (+ 6% of his maximum health) | [4007743](https://wiki.leagueoflegends.com/en-us/Template:Data_Gnar/Crunch?oldid=4007743) |
+| Crunch | slows them by 80% for 0.5 seconds | [4007743](https://wiki.leagueoflegends.com/en-us/Template:Data_Gnar/Crunch?oldid=4007743) |
+| GNAR! | cooldown: 90 / 60 / 30 | [3936277](https://wiki.leagueoflegends.com/en-us/Template:Data_Gnar/GNAR!?oldid=3936277) |
+| GNAR! | castTime: 0.25 | [3936277](https://wiki.leagueoflegends.com/en-us/Template:Data_Gnar/GNAR!?oldid=3936277) |
+| GNAR! | effectRadius: 475 | [3936277](https://wiki.leagueoflegends.com/en-us/Template:Data_Gnar/GNAR!?oldid=3936277) |
+| GNAR! | Increased Damage: 300 / 450 / 600 (+ 75% bonus AD) (+ 150% AP) | [3936277](https://wiki.leagueoflegends.com/en-us/Template:Data_Gnar/GNAR!?oldid=3936277) |

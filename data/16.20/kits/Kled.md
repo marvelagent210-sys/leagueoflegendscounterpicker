@@ -430,3 +430,113 @@ All 4 level-based formulas in the game files (2 linked to wiki values above):
 | KledPassive | SkaarlHealth | along the stat growth curve 400 → 1400 over levels 1-18, continues past 18 | 400 | 1400 | 1556.76 |
 | KledPassive | SkaarlRemountHealth | breakpoints at levels 6, 11, 16 (level 1: 0.4) | 0.4 | 0.7 | 0.7 |
 | KledPassive | DismountedAttackPenalty | breakpoints at levels 6, 11, 16 (level 1: 0.15) | 0.15 | 3.72529e-9 | 3.72529e-9 |
+
+## Duel simulator kit (level 20, every ability at max rank)
+
+What the duel simulator fights with (`kits/champions/Kled.ts`): every number is read from the wiki's ability data above at level 20; what the wiki doesn't say is listed under assumptions. Ratios are fractions of the stat (60% AD is 0.6 × AD).
+
+- Basic attack: range 125, melee.
+
+| Key | Ability | Cooldown (s) | Cast time (s) | Cost | Delivery | On the enemy | On itself |
+|---|---|--:|--:|---|---|---|---|
+| Q | Bear Trap on a Rope | 7 | 0.25 | – | skillshot 800 long, 90 wide, at 1600/s | 130 + 60% bonus AD physical damage; marks it "trap" for 1.75 s | – |
+| E | Jousting | 9 (starts after the dash) | 0 | – | dash toward 0–900 units at 945/s, hits within 0, through the enemy | 135 + 55% bonus AD physical damage; marks it "joust" for 3 s | – |
+| E2 | Jousting (recast) | 0 | 0 | – | dash toward 0–1165 units at 945/s, hits within 0, through the enemy; recast of E within 3 s | 135 + 55% bonus AD physical damage | – |
+| R | Chaaaaaaaarge!!! | 110 | 0 | – | dash toward 4500 units at 950/s, at 1000/s within 500 of the enemy, hits within 0 | knock back 150 units over 0.25 s | ccImmune for 60 s |
+
+Effects marked by a mark or a role are completed by the kit's hooks (see the kit's source).
+
+### Assumptions
+
+- Kled lunges 200 units away from the enemy over the 0.5 s he can't act (toward his Nexus, which the duel's line puts behind him).
+- Dismounted, Kled has his 165 movement speed unless he walks away from the enemy without having attacked in the last 1.5 s; his resistances count the enemy within 1400 units, his speed within 1200.
+- Kled is dismounted with no Courage, as he would be after mounting up again.
+- Bear Trap on a Rope's pull takes 0.25 s (the wiki gives no speed); the tether's radius is measured between centers, and the enemy doesn't walk away to break it.
+- Pocket Pistol's pellets hit the enemy where it stands when they fly: all five near it, the middle three farther out.
+- Jousting dashes at 600 plus Kled & Skaarl's base movement speed (945).
+- Chaaaaaaaarge!!! speeds up from Kled & Skaarl's base movement speed by a twelfth of the way to 950 every 0.25 s, and its damage grows with the charge as the wiki's series says (full after 4 s; the game files say 3).
+
+### Wiki values read (80)
+
+| Ability | Value | Revision |
+|---|---|---|
+| Dismounted Skaarl the Cowardly Lizard | Kled has 410 – 1838 (based on level) base health, which is not improved by sources of bonus health, his movement speed is reduced by 40 , and he gains 125 total attack range. | [4038397](https://wiki.leagueoflegends.com/en-us/Template:Data_Kled/Dismounted_Skaarl_the_Cowardly_Lizard?oldid=4038397) |
+| Skaarl the Cowardly Lizard | While Mounted, all damage dealt to the duo is suffered by Skaarl, who has 400 – 1400 (based on level) base health; additional sources of health are applied to Skaarl maximum health. | [4058479](https://wiki.leagueoflegends.com/en-us/Template:Data_Kled/Skaarl_the_Cowardly_Lizard?oldid=4058479) |
+| Skaarl the Cowardly Lizard | additional sources of health are applied to Skaarl maximum health | [4058479](https://wiki.leagueoflegends.com/en-us/Template:Data_Kled/Skaarl_the_Cowardly_Lizard?oldid=4058479) |
+| Skaarl the Cowardly Lizard | with all damage in excess of Skaarl health being ignored | [4058479](https://wiki.leagueoflegends.com/en-us/Template:Data_Kled/Skaarl_the_Cowardly_Lizard?oldid=4058479) |
+| Skaarl the Cowardly Lizard | While Mounted, healing and health regeneration will first replenish Skaarl health and will only apply to Kled's health while Skaarl is at full health | [4058479](https://wiki.leagueoflegends.com/en-us/Template:Data_Kled/Skaarl_the_Cowardly_Lizard?oldid=4058479) |
+| Dismounted Skaarl the Cowardly Lizard | Effects based on percentage health consider Kled and Skaarl combined maximum health, meaning that a Dismounted Kled is never considered to be at full health | [4038397](https://wiki.leagueoflegends.com/en-us/Template:Data_Kled/Dismounted_Skaarl_the_Cowardly_Lizard?oldid=4038397) |
+| Dismounted Skaarl the Cowardly Lizard | The current status of Kled's own health is preserved between subsequent dismounts | [4038397](https://wiki.leagueoflegends.com/en-us/Template:Data_Kled/Dismounted_Skaarl_the_Cowardly_Lizard?oldid=4038397) |
+| Skaarl the Cowardly Lizard | untargetable, and immune to crowd control for 0.5 seconds | [4058479](https://wiki.leagueoflegends.com/en-us/Template:Data_Kled/Skaarl_the_Cowardly_Lizard?oldid=4058479) |
+| Skaarl the Cowardly Lizard | lunge range: 200 | [4058479](https://wiki.leagueoflegends.com/en-us/Template:Data_Kled/Skaarl_the_Cowardly_Lizard?oldid=4058479) |
+| Skaarl the Cowardly Lizard | Dismounting resets the cooldown and charges of Pocket Pistol | [4058479](https://wiki.leagueoflegends.com/en-us/Template:Data_Kled/Skaarl_the_Cowardly_Lizard?oldid=4058479) |
+| Dismounted Skaarl the Cowardly Lizard | Kled is only vulnerable to death while Dismounted | [4038397](https://wiki.leagueoflegends.com/en-us/Template:Data_Kled/Dismounted_Skaarl_the_Cowardly_Lizard?oldid=4038397) |
+| Dismounted Skaarl the Cowardly Lizard | Kled gains 70 – 155 (based on level) bonus movement speed while facing and after attacking nearby visible enemy champions, but his basic attacks against them are reduced to 85 / 90 / 95 / 100 (based on level)% AD physical damage. | [4038397](https://wiki.leagueoflegends.com/en-us/Template:Data_Kled/Dismounted_Skaarl_the_Cowardly_Lizard?oldid=4038397) |
+| Dismounted Skaarl the Cowardly Lizard | After completing a basic attack against a champion, the bonus movement speed buff is granted for 1.5 seconds regardless of his facing direction | [4038397](https://wiki.leagueoflegends.com/en-us/Template:Data_Kled/Dismounted_Skaarl_the_Cowardly_Lizard?oldid=4038397) |
+| Dismounted Skaarl the Cowardly Lizard | effectRadius: 1200 / 1400 | [4038397](https://wiki.leagueoflegends.com/en-us/Template:Data_Kled/Dismounted_Skaarl_the_Cowardly_Lizard?oldid=4038397) |
+| Dismounted Skaarl the Cowardly Lizard | equal to 4 (+ 1% of bonus health), increased by 30% for each nearby visible enemy champion, up to a maximum of 10 (+ 2.5% bonus health) | [4038397](https://wiki.leagueoflegends.com/en-us/Template:Data_Kled/Dismounted_Skaarl_the_Cowardly_Lizard?oldid=4038397) |
+| Dismounted Skaarl the Cowardly Lizard | Upon reaching 100 Courage | [4038397](https://wiki.leagueoflegends.com/en-us/Template:Data_Kled/Dismounted_Skaarl_the_Cowardly_Lizard?oldid=4038397) |
+| Dismounted Skaarl the Cowardly Lizard | Kled gains 15 Courage after completing a basic attack against a champion | [4038397](https://wiki.leagueoflegends.com/en-us/Template:Data_Kled/Dismounted_Skaarl_the_Cowardly_Lizard?oldid=4038397) |
+| Dismounted Skaarl the Cowardly Lizard | Upon reaching 100 Courage, Skaarl instantly restores 40 / 50 / 60 / 70 (based on level)% of her maximum health and reunites with Kled over 0.25 seconds, after which he consumes all Courage to become Mounted and the duo become unable to declare basic attacks or cast their abilities for 0.25 seconds. | [4038397](https://wiki.leagueoflegends.com/en-us/Template:Data_Kled/Dismounted_Skaarl_the_Cowardly_Lizard?oldid=4038397) |
+| Dismounted Skaarl the Cowardly Lizard | reunites with Kled over 0.25 seconds | [4038397](https://wiki.leagueoflegends.com/en-us/Template:Data_Kled/Dismounted_Skaarl_the_Cowardly_Lizard?oldid=4038397) |
+| Dismounted Skaarl the Cowardly Lizard | become unable to declare basic attacks or cast their abilities for 0.25 seconds | [4038397](https://wiki.leagueoflegends.com/en-us/Template:Data_Kled/Dismounted_Skaarl_the_Cowardly_Lizard?oldid=4038397) |
+| Dismounted Skaarl the Cowardly Lizard | which prevents Kled from gaining Courage for 30 seconds | [4038397](https://wiki.leagueoflegends.com/en-us/Template:Data_Kled/Dismounted_Skaarl_the_Cowardly_Lizard?oldid=4038397) |
+| Dismounted Skaarl the Cowardly Lizard | Mounting up resets the cooldowns of Bear Trap on a Rope and Jousting | [4038397](https://wiki.leagueoflegends.com/en-us/Template:Data_Kled/Dismounted_Skaarl_the_Cowardly_Lizard?oldid=4038397) |
+| Bear Trap on a Rope | range: 800 • 60 | [4072610](https://wiki.leagueoflegends.com/en-us/Template:Data_Kled/Bear_Trap_on_a_Rope?oldid=4072610) |
+| Bear Trap on a Rope | forming a tether between Kled and the target for 1.75 seconds | [4072610](https://wiki.leagueoflegends.com/en-us/Template:Data_Kled/Bear_Trap_on_a_Rope?oldid=4072610) |
+| Bear Trap on a Rope | tetherRadius: 800 / 775 / 750 / 725 / 700 / 675 / 650 / 625 (based on time active) | [4072610](https://wiki.leagueoflegends.com/en-us/Template:Data_Kled/Bear_Trap_on_a_Rope?oldid=4072610) |
+| Bear Trap on a Rope | The tether cannot be broken within the first 0.25 seconds of its application | [4072610](https://wiki.leagueoflegends.com/en-us/Template:Data_Kled/Bear_Trap_on_a_Rope?oldid=4072610) |
+| Bear Trap on a Rope | Kled pulls the target 150 units toward him | [4072610](https://wiki.leagueoflegends.com/en-us/Template:Data_Kled/Bear_Trap_on_a_Rope?oldid=4072610) |
+| Bear Trap on a Rope | Physical Damage: 60 / 110 / 160 / 210 / 260 (+ 120% bonus AD) | [4072610](https://wiki.leagueoflegends.com/en-us/Template:Data_Kled/Bear_Trap_on_a_Rope?oldid=4072610) |
+| Bear Trap on a Rope | Slow: 30 / 35 / 40 / 45 / 50% | [4072610](https://wiki.leagueoflegends.com/en-us/Template:Data_Kled/Bear_Trap_on_a_Rope?oldid=4072610) |
+| Bear Trap on a Rope | slows them for 2.5 seconds | [4072610](https://wiki.leagueoflegends.com/en-us/Template:Data_Kled/Bear_Trap_on_a_Rope?oldid=4072610) |
+| Bear Trap on a Rope | Bear Trap on a Rope will not pull the target if they are in stasis | [4072610](https://wiki.leagueoflegends.com/en-us/Template:Data_Kled/Bear_Trap_on_a_Rope?oldid=4072610) |
+| Pocket Pistol | range: 700 • 55 | [4070350](https://wiki.leagueoflegends.com/en-us/Template:Data_Kled/Pocket_Pistol?oldid=4070350) |
+| Pocket Pistol | width: 80 | [4070350](https://wiki.leagueoflegends.com/en-us/Template:Data_Kled/Pocket_Pistol?oldid=4070350) |
+| Pocket Pistol | speed: 3000 • 1025 | [4070350](https://wiki.leagueoflegends.com/en-us/Template:Data_Kled/Pocket_Pistol?oldid=4070350) |
+| Pocket Pistol | recoiling 300 units in the opposite direction | [4070350](https://wiki.leagueoflegends.com/en-us/Template:Data_Kled/Pocket_Pistol?oldid=4070350) |
+| Pocket Pistol | up to a maximum of 2 | [4070350](https://wiki.leagueoflegends.com/en-us/Template:Data_Kled/Pocket_Pistol?oldid=4070350) |
+| Pocket Pistol | by 5 and 2.5 respectively, for up to a total restore of 25 against champions | [4070350](https://wiki.leagueoflegends.com/en-us/Template:Data_Kled/Pocket_Pistol?oldid=4070350) |
+| Pocket Pistol | Reduced Damage: 7 / 10 / 13 / 16 / 19 (+ 13% bonus AD) | [4070350](https://wiki.leagueoflegends.com/en-us/Template:Data_Kled/Pocket_Pistol?oldid=4070350) |
+| Pocket Pistol | angle: 20° | [4070350](https://wiki.leagueoflegends.com/en-us/Template:Data_Kled/Pocket_Pistol?oldid=4070350) |
+| Pocket Pistol | Pocket Pistol can be cast while grounded or rooted but Kled will not dash backwards | [4070350](https://wiki.leagueoflegends.com/en-us/Template:Data_Kled/Pocket_Pistol?oldid=4070350) |
+| Violent Tendencies | cooldown: 13 / 12 / 11 / 10 / 9 | [4072987](https://wiki.leagueoflegends.com/en-us/Template:Data_Kled/Violent_Tendencies?oldid=4072987) |
+| Violent Tendencies | Kled gains 150% bonus attack speed for 4 seconds, or until he has completed 4 attacks | [4072987](https://wiki.leagueoflegends.com/en-us/Template:Data_Kled/Violent_Tendencies?oldid=4072987) |
+| Violent Tendencies | Additional Physical Damage: 20 / 30 / 40 / 50 / 60 (+ 4.5 / 5 / 5.5 / 6 / 6.5% (+ 2% per 100 bonus AD) (+ 0.4% per 100 bonus health) of target's maximum health) | [4072987](https://wiki.leagueoflegends.com/en-us/Template:Data_Kled/Violent_Tendencies?oldid=4072987) |
+| Violent Tendencies | reduced by 0.5 seconds on-hit, increased to 1.5 against champions | [4072987](https://wiki.leagueoflegends.com/en-us/Template:Data_Kled/Violent_Tendencies?oldid=4072987) |
+| Violent Tendencies | which starts expiring upon his next basic attack | [4072987](https://wiki.leagueoflegends.com/en-us/Template:Data_Kled/Violent_Tendencies?oldid=4072987) |
+| Violent Tendencies | The fourth attack is empowered to deal additional physical damage | [4072987](https://wiki.leagueoflegends.com/en-us/Template:Data_Kled/Violent_Tendencies?oldid=4072987) |
+| Jousting | targetRange: 550 • 765 | [4070349](https://wiki.leagueoflegends.com/en-us/Template:Data_Kled/Jousting?oldid=4070349) |
+| Jousting | speed: 600 + 100% movement speed | [4070349](https://wiki.leagueoflegends.com/en-us/Template:Data_Kled/Jousting?oldid=4070349) |
+| Jousting | Skaarl dashes a fixed 350 units through them, marking them for 3 seconds | [4070349](https://wiki.leagueoflegends.com/en-us/Template:Data_Kled/Jousting?oldid=4070349) |
+| Jousting | the duo gain 50% bonus movement speed for 1 second | [4070349](https://wiki.leagueoflegends.com/en-us/Template:Data_Kled/Jousting?oldid=4070349) |
+| Jousting | Jousting can be recast after 0.5 seconds of the first dash ending | [4070349](https://wiki.leagueoflegends.com/en-us/Template:Data_Kled/Jousting?oldid=4070349) |
+| Jousting | then Dash another 200 units | [4070349](https://wiki.leagueoflegends.com/en-us/Template:Data_Kled/Jousting?oldid=4070349) |
+| Jousting | Physical Damage: 35 / 60 / 85 / 110 / 135 (+ 55% bonus AD) | [4070349](https://wiki.leagueoflegends.com/en-us/Template:Data_Kled/Jousting?oldid=4070349) |
+| Chaaaaaaaarge!!! | targetRange: 500 - (3500 / 4000 / 4500) | [4070347](https://wiki.leagueoflegends.com/en-us/Template:Data_Kled/Chaaaaaaaarge!!!?oldid=4070347) |
+| Chaaaaaaaarge!!! | speed: 1000 • 600 | [4070347](https://wiki.leagueoflegends.com/en-us/Template:Data_Kled/Chaaaaaaaarge!!!?oldid=4070347) |
+| Chaaaaaaaarge!!! | search range: 500 | [4070347](https://wiki.leagueoflegends.com/en-us/Template:Data_Kled/Chaaaaaaaarge!!!?oldid=4070347) |
+| Chaaaaaaaarge!!! | up to 950 total movement speed over 3 seconds | [4070347](https://wiki.leagueoflegends.com/en-us/Template:Data_Kled/Chaaaaaaaarge!!!?oldid=4070347) |
+| Chaaaaaaaarge!!! | During the charge the duo gain (950−(starting movement speed)) ÷ 12 × (time ÷ 0.25) bonus movement speed | [4070347](https://wiki.leagueoflegends.com/en-us/Template:Data_Kled/Chaaaaaaaarge!!!?oldid=4070347) |
+| Chaaaaaaaarge!!! | knock them back 150 units | [4070347](https://wiki.leagueoflegends.com/en-us/Template:Data_Kled/Chaaaaaaaarge!!!?oldid=4070347) |
+| Chaaaaaaaarge!!! | Minimum Magic Damage: 4 / 6 / 8% (+ 3% per 100 bonus AD) of target's maximum health | [4070347](https://wiki.leagueoflegends.com/en-us/Template:Data_Kled/Chaaaaaaaarge!!!?oldid=4070347) |
+| Chaaaaaaaarge!!! | Kled & Skaarl will dash toward the first visible enemy champion in range of the charge, revealing the target during the dash and colliding with the first visible enemy champion in their path to deal magic damage, increased by 0 / 8 / 16 / 24 / 32 / 40 / 48 / 56 / 64 / 72 / 80 / 88 / 96 / 104 / 112 / 120 / 128 / 136 / 144 / 152 / 160 / 168 / 176 / 184 / 192 / 200 (based on charge time)%, knock them back 150 units, though not through terrain, and end the charge. | [4070347](https://wiki.leagueoflegends.com/en-us/Template:Data_Kled/Chaaaaaaaarge!!!?oldid=4070347) |
+| Chaaaaaaaarge!!! | Initial Shield: 40 / 60 / 80 (+ 60% bonus AD) | [4070347](https://wiki.leagueoflegends.com/en-us/Template:Data_Kled/Chaaaaaaaarge!!!?oldid=4070347) |
+| Chaaaaaaaarge!!! | Shield Per Instance: 20 / 30 / 40 (+ 30% bonus AD) | [4070347](https://wiki.leagueoflegends.com/en-us/Template:Data_Kled/Chaaaaaaaarge!!!?oldid=4070347) |
+| Chaaaaaaaarge!!! | plus an additional amount for every 0.25 seconds of traveling, up to a cap at 2 seconds | [4070347](https://wiki.leagueoflegends.com/en-us/Template:Data_Kled/Chaaaaaaaarge!!!?oldid=4070347) |
+| Chaaaaaaaarge!!! | The shield lasts for 2 seconds upon finishing the charge | [4070347](https://wiki.leagueoflegends.com/en-us/Template:Data_Kled/Chaaaaaaaarge!!!?oldid=4070347) |
+| Chaaaaaaaarge!!! | The damage dealt is based on time spent traveling before the beginning of the dash | [4070347](https://wiki.leagueoflegends.com/en-us/Template:Data_Kled/Chaaaaaaaarge!!!?oldid=4070347) |
+| Chaaaaaaaarge!!! | The charge is interrupted instantly if Kled dismounts during it | [4070347](https://wiki.leagueoflegends.com/en-us/Template:Data_Kled/Chaaaaaaaarge!!!?oldid=4070347) |
+| Bear Trap on a Rope | cooldown: 11 / 10 / 9 / 8 / 7 | [4072610](https://wiki.leagueoflegends.com/en-us/Template:Data_Kled/Bear_Trap_on_a_Rope?oldid=4072610) |
+| Bear Trap on a Rope | castTime: 0.25 | [4072610](https://wiki.leagueoflegends.com/en-us/Template:Data_Kled/Bear_Trap_on_a_Rope?oldid=4072610) |
+| Bear Trap on a Rope | width: 90 | [4072610](https://wiki.leagueoflegends.com/en-us/Template:Data_Kled/Bear_Trap_on_a_Rope?oldid=4072610) |
+| Bear Trap on a Rope | speed: 1600 | [4072610](https://wiki.leagueoflegends.com/en-us/Template:Data_Kled/Bear_Trap_on_a_Rope?oldid=4072610) |
+| Bear Trap on a Rope | Physical Damage: 30 / 55 / 80 / 105 / 130 (+ 60% bonus AD) | [4072610](https://wiki.leagueoflegends.com/en-us/Template:Data_Kled/Bear_Trap_on_a_Rope?oldid=4072610) |
+| Jousting | cooldown: 13 / 12 / 11 / 10 / 9 | [4070349](https://wiki.leagueoflegends.com/en-us/Template:Data_Kled/Jousting?oldid=4070349) |
+| Jousting | castTime: none | [4070349](https://wiki.leagueoflegends.com/en-us/Template:Data_Kled/Jousting?oldid=4070349) |
+| Chaaaaaaaarge!!! | cooldown: 140 / 125 / 110 | [4070347](https://wiki.leagueoflegends.com/en-us/Template:Data_Kled/Chaaaaaaaarge!!!?oldid=4070347) |
+| Chaaaaaaaarge!!! | castTime: none | [4070347](https://wiki.leagueoflegends.com/en-us/Template:Data_Kled/Chaaaaaaaarge!!!?oldid=4070347) |
+| Pocket Pistol | cooldown: 3 | [4070350](https://wiki.leagueoflegends.com/en-us/Template:Data_Kled/Pocket_Pistol?oldid=4070350) |
+| Pocket Pistol | castTime: 0.25 | [4070350](https://wiki.leagueoflegends.com/en-us/Template:Data_Kled/Pocket_Pistol?oldid=4070350) |
+| Pocket Pistol | recharge: 18 / 16 / 14 / 12 / 10 | [4070350](https://wiki.leagueoflegends.com/en-us/Template:Data_Kled/Pocket_Pistol?oldid=4070350) |
+| Pocket Pistol | Physical Damage: 35 / 50 / 65 / 80 / 95 (+ 65% bonus AD) | [4070350](https://wiki.leagueoflegends.com/en-us/Template:Data_Kled/Pocket_Pistol?oldid=4070350) |

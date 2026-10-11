@@ -203,8 +203,12 @@ export type Effect =
   | { type: "delayed"; delay: number; effects: Effect[] }
   /** Changes the target's resource (Fury gained or lost). */
   | { type: "resource"; amount: Formula }
-  /** Shortens the remaining cooldown of one of the caster's abilities, by seconds or by a share of it. */
-  | { type: "refund"; ability: string; seconds?: number; fraction?: number }
+  /**
+   * Shortens a cooldown of the caster's (by its cooldown key): by seconds, or by a share of what
+   * remains, or (`total`) of the whole cooldown. A cooldown still held for its post-effect is
+   * shortened when it starts.
+   */
+  | { type: "refund"; ability: string; seconds?: number; fraction?: number; total?: boolean }
   /** A marker on the target for kit hooks to read (Flawless Duet's mark, Frenzied Maul's mark). */
   | { type: "mark"; key: string; duration: number; value?: number }
   /** Effects on the caster when this hit lands (Decimate's heal). */
@@ -236,10 +240,16 @@ export type Delivery =
    * `through` dashes don't stop at the enemy: they hit it on the way past (Shadow Dash).
    */
   /**
-   * `ramp`: a charge (Unstoppable Onslaught) that starts at the caster's movement speed and
-   * gains `amount` every `every` seconds, up to `speed`. `sidestep`: the enemy can step aside
+   * `ramp`: a charge (Unstoppable Onslaught) that starts at the caster's movement speed, or at
+   * `from` (Ixtal's Impact's 150), and gains `amount` every `every` seconds, up to `speed`. A dash
+   * with `interruptible` set stops under crowd control that breaks channels or roots (Ixtal's
+   * Impact). `sidestep`: the enemy can step aside
    * from it, so its hit is a skillshot of half-width `reach` that lands when the dash reaches
    * the enemy, `later` seconds after that when a follow-up still catches it (a recast's slam).
+   * `time`: a leap that lands `time` seconds after it starts however far it goes (the game files'
+   * TravelTime: Hop, Crunch); `speed` is then its speed over the full `distance`. `lockOn`: a
+   * charge that, once the enemy is within `within` units (center to edge), dashes the rest of the
+   * way at `speed` (Chaaaaaaaarge!!!'s search range).
    */
   | {
       kind: "dash";
@@ -249,8 +259,10 @@ export type Delivery =
       hitRadius?: number;
       minDistance?: number;
       through?: boolean;
-      ramp?: { amount: number; every: number };
+      ramp?: { amount: number; every: number; from?: number };
       sidestep?: { reach: number; later?: number };
+      time?: number;
+      lockOn?: { within: number; speed: number };
     }
   | { kind: "blink"; direction: "toward" | "away"; distance: number; hitRadius?: number }
   /**

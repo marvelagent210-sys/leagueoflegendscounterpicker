@@ -277,3 +277,81 @@ All 2 level-based formulas in the game files (2 linked to wiki values above):
 |---|---|---|--:|--:|--:|
 | SkarnerPassive | PercentHealthDamage | linear 5 → 9 over levels 1-18, continues past 18 | 5 | 9 | 9.47059 |
 | SkarnerPassive | DamageMonsterCap | linear 100 → 300 over levels 1-18, continues past 18 | 100 | 300 | 323.529 |
+
+## Duel simulator kit (level 20, every ability at max rank)
+
+What the duel simulator fights with (`kits/champions/Skarner.ts`): every number is read from the wiki's ability data above at level 20; what the wiki doesn't say is listed under assumptions. Ratios are fractions of the stat (60% AD is 0.6 × AD).
+
+- Basic attack: range 150, melee.
+
+| Key | Ability | Cooldown (s) | Cast time (s) | Cost | Delivery | On the enemy | On itself |
+|---|---|--:|--:|---|---|---|---|
+| Q | Shattered Earth | 3 (starts after the empowered attacks) | 0.35 | 30 | self | – | next 3 attacks within 5 s: 50 + 90% bonus AD + 3% bonus health physical damage (Shattered Earth) (+25 range, resets the attack timer, uncancellable) |
+| Q2 | Upheaval | 0 | 0.25 | – | skillshot 1050 long, 180 wide, at 1600/s; recast of Q within 15 s, after 0.5 s | 50 + 90% bonus AD + 3% bonus health + 11% target's maximum health physical damage (Upheaval); slow 40% for 1 s | – |
+| W | Seismic Bastion | 6 | 0.3 | 80 | area -600 to 600 units ahead, lands after 0.25 s | 130 + 80% AP magic damage; slow 20% for 1 s | as the cast starts: shield of 8% maximum health for 2.5 s |
+| E | Ixtal's Impact | 18 (starts after the dash) | 0 | 70 | dash toward 0–1695 units at 950/s, hits within 0 | suppression for 0.5 s | as the cast starts: slowImmune for 2.75 s; ghosted for 2.75 s |
+| R | Impale | 90 | 0.75 | 100 | area -50 to 625 units ahead, lands after 0 s | 350 + 100% AP magic damage; suppression for 1.5 s; carried 300 units from the caster for 1.5 s | – |
+
+Effects marked by a mark or a role are completed by the kit's hooks (see the kit's source).
+
+### Assumptions
+
+- Quaking's 9.47% of maximum health over 4 s comes in ticks every 0.5 s for as long as the enemy has 3 stacks, each hit adding one stack.
+- Shattered Earth's attack speed lasts while it has attacks left; Upheaval is thrown only at an enemy out of attack range, as the three attacks deal more.
+- Seismic Bastion's shockwave reaches the enemy 0.25 s after the cast, at its 600-unit forward reach.
+- Ixtal's Impact steers after the enemy, so it reaches it unless outrun, dashed or blinked away from; it carries the enemy away from Skarner, into the lane's wall when there is one.
+- Impale leaves the enemy where it was carried (the wiki's 200-unit placement at the end is left out).
+
+### Wiki values read (49)
+
+| Ability | Value | Revision |
+|---|---|---|
+| Threads of Vibration | apply a stack of Quaking to enemies hit for 4 seconds, refreshing on subsequent applications and stacking up to 3 times | [4050105](https://wiki.leagueoflegends.com/en-us/Template:Data_Skarner/Threads_of_Vibration?oldid=4050105) |
+| Threads of Vibration | Enemies afflicted with 3 stacks take magic damage equal to 5 – 9 (based on level)% of their maximum health over the duration, capped at 100 – 300 (based on level) against monsters. | [4050105](https://wiki.leagueoflegends.com/en-us/Template:Data_Skarner/Threads_of_Vibration?oldid=4050105) |
+| Threads of Vibration | Blocked attacks will still apply stacks | [4050105](https://wiki.leagueoflegends.com/en-us/Template:Data_Skarner/Threads_of_Vibration?oldid=4050105) |
+| Threads of Vibration | Spell shield prevents Quaking's application from Upheaval and Impale only | [4050105](https://wiki.leagueoflegends.com/en-us/Template:Data_Skarner/Threads_of_Vibration?oldid=4050105) |
+| Shattered Earth | empowering up to three of his next basic attacks within 5 seconds of each other | [4051324](https://wiki.leagueoflegends.com/en-us/Template:Data_Skarner/Shattered_Earth?oldid=4051324) |
+| Shattered Earth | These attacks gain 25 bonus range | [4051324](https://wiki.leagueoflegends.com/en-us/Template:Data_Skarner/Shattered_Earth?oldid=4051324) |
+| Shattered Earth | Bonus Attack Speed: 20 / 25 / 30 / 35 / 40% | [4051324](https://wiki.leagueoflegends.com/en-us/Template:Data_Skarner/Shattered_Earth?oldid=4051324) |
+| Shattered Earth | Bonus Physical Damage per Hit: 10 / 20 / 30 / 40 / 50 (+ 90% bonus AD) (+ 3% of his bonus health) | [4051324](https://wiki.leagueoflegends.com/en-us/Template:Data_Skarner/Shattered_Earth?oldid=4051324) |
+| Shattered Earth | dealing an additional 11% of each target's maximum health physical damage | [4051324](https://wiki.leagueoflegends.com/en-us/Template:Data_Skarner/Shattered_Earth?oldid=4051324) |
+| Shattered Earth | slowing afflicted enemies by 40% for 1 second | [4051324](https://wiki.leagueoflegends.com/en-us/Template:Data_Skarner/Shattered_Earth?oldid=4051324) |
+| Shattered Earth | After 0.5 seconds of the cast, Skarner gains the ability to use Upheaval during Shattered Earth | [4051324](https://wiki.leagueoflegends.com/en-us/Template:Data_Skarner/Shattered_Earth?oldid=4051324) |
+| Shattered Earth | The empowered attacks have an uncancellable windup against champions, minions, and turrets only | [4051324](https://wiki.leagueoflegends.com/en-us/Template:Data_Skarner/Shattered_Earth?oldid=4051324) |
+| Shattered Earth | cooldown: 8 / 6.75 / 5.5 / 4.25 / 3 | [4051324](https://wiki.leagueoflegends.com/en-us/Template:Data_Skarner/Shattered_Earth?oldid=4051324) |
+| Upheaval | range: 1050 | [4080170](https://wiki.leagueoflegends.com/en-us/Template:Data_Skarner/Upheaval?oldid=4080170) |
+| Seismic Bastion | shielding himself equal to 8% of his maximum health for 2.5 seconds | [4008046](https://wiki.leagueoflegends.com/en-us/Template:Data_Skarner/Seismic_Bastion?oldid=4008046) |
+| Seismic Bastion | "quickly" (tooltip: ~0.25 seconds) | [4008046](https://wiki.leagueoflegends.com/en-us/Template:Data_Skarner/Seismic_Bastion?oldid=4008046) |
+| Seismic Bastion | effectRadius: 600 • 700 | [4008046](https://wiki.leagueoflegends.com/en-us/Template:Data_Skarner/Seismic_Bastion?oldid=4008046) |
+| Seismic Bastion | The shield is granted at the start of the cast time | [4008046](https://wiki.leagueoflegends.com/en-us/Template:Data_Skarner/Seismic_Bastion?oldid=4008046) |
+| Ixtal's Impact | Skarner begins the charge at a static amount of 150 movement speed that increases by 100 every 0.264, up to 950 total movement speed by the end of the duration | [4000401](https://wiki.leagueoflegends.com/en-us/Template:Data_Skarner/Ixtal's_Impact?oldid=4000401) |
+| Ixtal's Impact | Skarner charges forward in the direction of the cursor for up to 2.75 seconds | [4000401](https://wiki.leagueoflegends.com/en-us/Template:Data_Skarner/Ixtal's_Impact?oldid=4000401) |
+| Ixtal's Impact | gaining 300 bonus movement speed, with a minimum total of 650 and a maximum total of 1150 | [4000401](https://wiki.leagueoflegends.com/en-us/Template:Data_Skarner/Ixtal's_Impact?oldid=4000401) |
+| Ixtal's Impact | If a target has been grabbed before the first 1.75 seconds of the charge, the remaining duration is set to 1 second, and set to 0.5 seconds otherwise | [4000401](https://wiki.leagueoflegends.com/en-us/Template:Data_Skarner/Ixtal's_Impact?oldid=4000401) |
+| Ixtal's Impact | While the target is grabbed, they are attached to Skarner 200 units in front of him | [4000401](https://wiki.leagueoflegends.com/en-us/Template:Data_Skarner/Ixtal's_Impact?oldid=4000401) |
+| Ixtal's Impact | dealing physical damage, stunning them for 1.1 seconds, and reducing Ixtal's Impact's cooldown by 35% | [4000401](https://wiki.leagueoflegends.com/en-us/Template:Data_Skarner/Ixtal's_Impact?oldid=4000401) |
+| Ixtal's Impact | Physical Damage: 30 / 60 / 90 / 120 / 150 (+ 120% bonus AD) (+ 6% of his maximum health) | [4000401](https://wiki.leagueoflegends.com/en-us/Template:Data_Skarner/Ixtal's_Impact?oldid=4000401) |
+| Ixtal's Impact | cooldown: 22 / 21 / 20 / 19 / 18 | [4000401](https://wiki.leagueoflegends.com/en-us/Template:Data_Skarner/Ixtal's_Impact?oldid=4000401) |
+| Ixtal's Impact | Ixtal's Impact ends immediately if Skarner becomes immobilized or grounded, or is affected by any form of cast-inhibiting crowd control, during the charge | [4000401](https://wiki.leagueoflegends.com/en-us/Template:Data_Skarner/Ixtal's_Impact?oldid=4000401) |
+| Impale | range: -50 – 625 | [4059028](https://wiki.leagueoflegends.com/en-us/Template:Data_Skarner/Impale?oldid=4059028) |
+| Impale | suppress them for 1.5 seconds | [4059028](https://wiki.leagueoflegends.com/en-us/Template:Data_Skarner/Impale?oldid=4059028) |
+| Impale | While the targets are impaled, they are attached to Skarner 300 units in front of him | [4059028](https://wiki.leagueoflegends.com/en-us/Template:Data_Skarner/Impale?oldid=4059028) |
+| Impale | Skarner gains 40% bonus movement speed for the same duration | [4059028](https://wiki.leagueoflegends.com/en-us/Template:Data_Skarner/Impale?oldid=4059028) |
+| Impale | If Impale is cast during Shattered Earth, Skarner automatically casts Upheaval in the direction of Impale's cast | [4059028](https://wiki.leagueoflegends.com/en-us/Template:Data_Skarner/Impale?oldid=4059028) |
+| Impale | Skarner is unable to basic attack, cast Shattered Earth or Ixtal's Impact, or use Flash during Impale | [4059028](https://wiki.leagueoflegends.com/en-us/Template:Data_Skarner/Impale?oldid=4059028) |
+| Upheaval | Physical Damage: 10 / 20 / 30 / 40 / 50 (+ 90% bonus AD) (+ 3% of his bonus health) (+ 11% of target's maximum health) | [4080170](https://wiki.leagueoflegends.com/en-us/Template:Data_Skarner/Upheaval?oldid=4080170) |
+| Shattered Earth | cost: 30 | [4051324](https://wiki.leagueoflegends.com/en-us/Template:Data_Skarner/Shattered_Earth?oldid=4051324) |
+| Shattered Earth | castTime: 0.35 | [4051324](https://wiki.leagueoflegends.com/en-us/Template:Data_Skarner/Shattered_Earth?oldid=4051324) |
+| Upheaval | castTime: 0.25 • none | [4080170](https://wiki.leagueoflegends.com/en-us/Template:Data_Skarner/Upheaval?oldid=4080170) |
+| Upheaval | width: 180 | [4080170](https://wiki.leagueoflegends.com/en-us/Template:Data_Skarner/Upheaval?oldid=4080170) |
+| Upheaval | speed: 1600 | [4080170](https://wiki.leagueoflegends.com/en-us/Template:Data_Skarner/Upheaval?oldid=4080170) |
+| Seismic Bastion | cooldown: 10 / 9 / 8 / 7 / 6 | [4008046](https://wiki.leagueoflegends.com/en-us/Template:Data_Skarner/Seismic_Bastion?oldid=4008046) |
+| Seismic Bastion | cost: 60 / 65 / 70 / 75 / 80 | [4008046](https://wiki.leagueoflegends.com/en-us/Template:Data_Skarner/Seismic_Bastion?oldid=4008046) |
+| Seismic Bastion | castTime: 0.3 | [4008046](https://wiki.leagueoflegends.com/en-us/Template:Data_Skarner/Seismic_Bastion?oldid=4008046) |
+| Seismic Bastion | Magic Damage: 50 / 70 / 90 / 110 / 130 (+ 80% AP) | [4008046](https://wiki.leagueoflegends.com/en-us/Template:Data_Skarner/Seismic_Bastion?oldid=4008046) |
+| Seismic Bastion | slow them by 20% for 1 second | [4008046](https://wiki.leagueoflegends.com/en-us/Template:Data_Skarner/Seismic_Bastion?oldid=4008046) |
+| Ixtal's Impact | cost: 50 / 55 / 60 / 65 / 70 | [4000401](https://wiki.leagueoflegends.com/en-us/Template:Data_Skarner/Ixtal's_Impact?oldid=4000401) |
+| Impale | cooldown: 120 / 105 / 90 | [4059028](https://wiki.leagueoflegends.com/en-us/Template:Data_Skarner/Impale?oldid=4059028) |
+| Impale | cost: 100 | [4059028](https://wiki.leagueoflegends.com/en-us/Template:Data_Skarner/Impale?oldid=4059028) |
+| Impale | castTime: 0.75 | [4059028](https://wiki.leagueoflegends.com/en-us/Template:Data_Skarner/Impale?oldid=4059028) |
+| Impale | Magic Damage: 150 / 250 / 350 (+ 100% AP) | [4059028](https://wiki.leagueoflegends.com/en-us/Template:Data_Skarner/Impale?oldid=4059028) |

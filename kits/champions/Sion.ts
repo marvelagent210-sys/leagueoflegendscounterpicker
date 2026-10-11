@@ -122,6 +122,7 @@ const sion: KitModule = {
     const baseSpeed = kit.champion.forms[0]?.stats.moveSpeed ?? 345;
     let chargeReach = 0;
     for (let k = 1; k <= ticks(chargeSeconds); k++) chargeReach += Math.min(topSpeed, baseSpeed + rampAmount * Math.floor(k / ticks(rampEvery))) / 30;
+    chargeReach = Math.round(chargeReach);
     kit.assume(
       `Unstoppable Onslaught can be sidestepped; Sion then recasts it, and its slam (${slamRadius} radius) still lands unless the enemy got that far aside, ${Math.round(slamLater * 100) / 100} s after the charge would have hit. Pull and stun reach ${pullRadius} units, so the collision gets them. In fights he charges only when it lands at least half the time; getting away, he charges away.`,
     );

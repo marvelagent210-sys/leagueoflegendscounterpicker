@@ -356,7 +356,7 @@ What the duel simulator fights with (`kits/champions/Sion.ts`): every number is 
 | W | Soul Furnace | 11 (starts when its effect on the caster ends) | 0 | 95 | self | – | shield of 120 + 40% AP + 16% maximum health for 6 s; lingering for 6 s |
 | W2 | Soul Furnace (burst) | 0 | 0 | – | around itself, 525 units; recast of W within 6 s, after 3 s, automatic | 140 + 40% AP + 14% target's maximum health magic damage (Soul Furnace (burst)) | – |
 | E | Roar of the Slayer | 8 | 0.25 | 55 | skillshot 800 long, 160 wide, at 1800/s | 205 + 55% AP magic damage; slow 60% for 2.5 s; armorReductionPercent 0.25 for 4 s | – |
-| R | Unstoppable Onslaught | 60 (starts after the dash) | 0.05 | 100 | dash toward 0–7132.167 units at 950/s, hits within 150 | pull over 0.5 s; slow 50% for 3 s | as the cast starts: ccImmune for 8.6 s; ghosted for 8.6 s |
+| R | Unstoppable Onslaught | 60 (starts after the dash) | 0.05 | 100 | dash toward 0–7132 units at 950/s, hits within 150 | pull over 0.5 s; slow 50% for 3 s | as the cast starts: ccImmune for 8.6 s; ghosted for 8.6 s |
 
 Effects marked by a mark or a role are completed by the kit's hooks (see the kit's source).
 

@@ -88,3 +88,36 @@ describe("charging dashes (Unstoppable Onslaught)", () => {
     expect(later.damage[0]).toBeLessThan(between.damage[0]);
   });
 });
+
+describe("leaps with a travel time (Hop, Crunch)", () => {
+  const leap = (direction: "toward" | "away"): AbilitySpec =>
+    ability({
+      key: "E",
+      cooldown: 12,
+      castTime: 0,
+      delivery: { kind: "dash", direction, distance: 675, speed: 1125, time: 0.6, ...(direction === "toward" ? { hitRadius: 200 } : {}) },
+      ...(direction === "toward" ? { onHit: [trueDamage(100)] } : { onSelf: [] }),
+    });
+  const flight = (direction: "toward" | "away", distance: number) => {
+    const world = createWorld({ fighters: [fighter({ abilities: [leap(direction)] }), fighter()], distance, modes: ["fight", "idle"], settings: { log: true } });
+    const from = world.units[0].x;
+    step(world, [castWhenReady("E"), standStill]);
+    const start = world.tick;
+    while (world.units[0].action?.kind === "dash") step(world, [standStill, standStill]);
+    return { ticks: world.tick - start, moved: Math.abs(world.units[0].x - from), gap: Math.abs(world.units[1].x - world.units[0].x), world };
+  };
+
+  it("land after their time however far they go: beside the enemy, or their full distance away", () => {
+    // 0.6 s is 18 ticks from 200 or 600 units away (edge to edge); they end with the pathing radii touching.
+    const near = flight("toward", 200);
+    const far = flight("toward", 600);
+    expect(near.ticks).toBe(far.ticks);
+    expect(near.ticks).toBe(18);
+    expect(near.gap).toBeCloseTo(70, 9);
+    expect(far.gap).toBeCloseTo(70, 9);
+    expect(ticksOf(near.world.log, 0, "E deals 100 true damage")).toHaveLength(1);
+    const away = flight("away", 300);
+    expect(away.ticks).toBe(18);
+    expect(away.moved).toBeCloseTo(675, 9);
+  });
+});

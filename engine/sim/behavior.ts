@@ -286,7 +286,9 @@ export function threatsTo(world: World, side: Side): Threat[] {
             : d.kind === "circle" || d.kind === "area"
               ? toTicks(d.delay)
               : d.kind === "dash"
-                ? Math.ceil(d.distance / (d.speed / 30))
+                ? d.time !== undefined
+                  ? toTicks(d.time)
+                  : Math.ceil(d.distance / (d.speed / 30))
                 : 0;
       const threat = abilityThreat(ability, Math.max(action.endTick - now, 0) + travel, enemy, self, ability.onHit ?? [], undefined, 1, true);
       if (d.kind === "dash" && d.direction !== "away") threat.dash = true;
@@ -530,13 +532,27 @@ interface OffenseOptions {
   engage: boolean;
 }
 
+/**
+ * Whether an ability would land while the enemy can't be hit (untargetable, in stasis or
+ * invulnerable: swallowed by Devour, in Glory in Death's stasis), so it is better kept.
+ */
+function wasted(view: View, ability: AbilitySpec): boolean {
+  const { world, self, enemy } = view;
+  const d = ability.delivery;
+  if (d.kind === "self" || ((d.kind === "dash" || d.kind === "blink") && d.hitRadius === undefined)) return false;
+  const travel =
+    d.kind === "line" ? travelTicks(self, enemy, d.speed) : d.kind === "target" ? travelTicks(self, enemy, d.missileSpeed) : d.kind === "circle" || d.kind === "area" ? toTicks(d.delay) : 0;
+  const lands = world.tick + toTicks(ability.castTime) + travel;
+  return enemy.statuses.some((s) => s.endTick > lands && (s.key === "stasis" || (s.kind === "state" && (s.key === "untargetable" || s.key === "invulnerable"))));
+}
+
 /** Offensive casts and attacks, best first: executes, crowd control, damage, gap closers, buffs. */
 function offense(view: View, options: OffenseOptions): Command | undefined {
   const { world, self, enemy } = view;
   if (!enemy.alive) return undefined;
   const eligible = (a: AbilitySpec) => {
     const traits = traitsOf(a);
-    if (reactive(a, traits) || (!options.ultimates && a.slot === "R")) return false;
+    if (reactive(a, traits) || (!options.ultimates && a.slot === "R") || wasted(view, a)) return false;
     // Pure escapes are saved for getting away.
     return !(traits.escape && !traits.damage && !traits.cc);
   };

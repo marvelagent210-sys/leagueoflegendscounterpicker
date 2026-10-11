@@ -70,6 +70,9 @@ export type Action =
       /** A charge the enemy may sidestep: whether it lands, or the share of its hit that counts. */
       connects?: boolean;
       scale?: number;
+      /** A charge that dashes at `speed` once within `within` units of the enemy, and the tick it did (`lockedTick`). */
+      lockOn?: { within: number; speed: number };
+      lockedTick?: number;
     };
 
 /** Where a location-targeted dash or field goes: toward the enemy (1) or away (-1), and how far. */
@@ -90,6 +93,8 @@ export interface Unit {
   cooldownReady: Record<string, number>;
   /** Post-effect cooldowns waiting for their cast's effect to end: cooldown key to ability key. */
   cooldownHeld: Record<string, string>;
+  /** Refunds that came while a cooldown was held (post-effect): they shorten it when it starts. */
+  pendingRefunds: Record<string, { seconds: number; fraction: number }>;
   /** Abilities with charges, by cooldown key: how many are stocked and when the next one comes (absent: full). */
   charges: Record<string, { count: number; nextTick: number }>;
   /** First tick a new attack windup may start. */
@@ -328,6 +333,7 @@ export function newUnit(spec: FighterSpec, side: Side, x: number, maxHp: number,
     statuses: [],
     cooldownReady: {},
     cooldownHeld: {},
+    pendingRefunds: {},
     charges: {},
     attackReadyTick: 0,
     move: 0,
@@ -353,6 +359,7 @@ function cloneUnit(unit: Unit): Unit {
     statuses: unit.statuses.map(cloneStatus),
     cooldownReady: { ...unit.cooldownReady },
     cooldownHeld: { ...unit.cooldownHeld },
+    pendingRefunds: Object.fromEntries(Object.entries(unit.pendingRefunds).map(([k, v]) => [k, { ...v }])),
     charges: Object.fromEntries(Object.entries(unit.charges).map(([k, v]) => [k, { ...v }])),
     chains: Object.fromEntries(Object.entries(unit.chains).map(([k, v]) => [k, { ...v }])),
     ...(unit.action ? { action: unit.action.kind === "dash" && unit.action.resume ? { ...unit.action, resume: { ...unit.action.resume } } : { ...unit.action } } : {}),

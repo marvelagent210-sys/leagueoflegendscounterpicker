@@ -413,7 +413,12 @@ export function releaseCooldowns(world: World, unit: Unit): void {
     if (ability && effectLasts(world, unit, ability)) continue;
     delete unit.cooldownHeld[key];
     const haste = derive(unit).abilityHaste;
-    unit.cooldownReady[key] = world.tick + (ability ? toTicks(cooldownAfterHaste(ability.cooldownFor?.(unit) ?? ability.cooldown, haste)) : 0);
+    const full = ability ? toTicks(cooldownAfterHaste(ability.cooldownFor?.(unit) ?? ability.cooldown, haste)) : 0;
+    // Refunds that came while it was held.
+    const pending = unit.pendingRefunds[key];
+    delete unit.pendingRefunds[key];
+    const cut = pending ? toTicks(pending.seconds) + Math.round(full * pending.fraction) : 0;
+    unit.cooldownReady[key] = world.tick + Math.max(0, full - cut);
   }
 }
 
@@ -647,9 +652,14 @@ function completeOneCast(world: World, unit: Unit, ability: AbilitySpec, castSta
       const dir = away ? -directionTo(unit, enemy) : directionTo(unit, enemy);
       const distance = aimed ? Math.min(delivery.distance, Math.max(delivery.minDistance ?? 0, aim.distance ?? delivery.distance)) : delivery.distance;
       // A charge starts at the caster's movement speed and speeds up (Unstoppable Onslaught).
-      const ramp = delivery.ramp ? { from: Math.min(delivery.speed, derive(unit).moveSpeed), amount: delivery.ramp.amount, everyTicks: Math.max(1, toTicks(delivery.ramp.every)), max: delivery.speed } : undefined;
-      const ticks = ramp ? rampTicks(distance, ramp) : Math.max(1, Math.ceil(distance / (delivery.speed / 30) - EPSILON));
-      const perTick = ramp ? (dir * ramp.from) / 30 : (dir * distance) / ticks;
+      const ramp = delivery.ramp
+        ? { from: Math.min(delivery.speed, delivery.ramp.from ?? derive(unit).moveSpeed), amount: delivery.ramp.amount, everyTicks: Math.max(1, toTicks(delivery.ramp.every)), max: delivery.speed }
+        : undefined;
+      // A leap lands after its time however far it goes: at the enemy's side, or its full distance away.
+      const leap = delivery.time !== undefined && !ramp;
+      const span = leap && !away && !delivery.through ? Math.min(distance, Math.max(0, contactGap(unit, enemy))) : distance;
+      const ticks = ramp ? rampTicks(distance, ramp) : leap ? Math.max(1, toTicks(delivery.time ?? 0)) : Math.max(1, Math.ceil(distance / (delivery.speed / 30) - EPSILON));
+      const perTick = ramp ? (dir * ramp.from) / 30 : (dir * span) / ticks;
       const dash: Extract<Action, { kind: "dash" }> = {
         kind: "dash",
         ability: ability.key,
@@ -661,11 +671,12 @@ function completeOneCast(world: World, unit: Unit, ability: AbilitySpec, castSta
         ...(held ? { resume: held } : {}),
         ...(delivery.through ? { through: true } : {}),
         ...(ramp ? { ramp } : {}),
+        ...(delivery.lockOn && !away ? { lockOn: delivery.lockOn } : {}),
       };
       if (delivery.sidestep !== undefined && !away) {
         // The enemy sees it coming and can step aside until it arrives.
         const gap = Math.max(0, contactGap(unit, enemy));
-        const travel = (ramp ? rampTicks(gap, ramp) : Math.ceil(gap / (delivery.speed / 30) - EPSILON)) / 30;
+        const travel = (ramp ? rampTicks(gap, ramp) : leap ? ticks : Math.ceil(gap / (delivery.speed / 30) - EPSILON)) / 30;
         const decision = resolveSkillshot(world, unit, enemy, ability, castStartTick, travel + (delivery.sidestep.later ?? 0), delivery.sidestep.reach);
         dash.connects = decision.connects;
         dash.scale = decision.scale;
@@ -824,6 +835,12 @@ export function progressDash(world: World, unit: Unit): void {
   const from = unit.x;
   // Dashes to a location stop at terrain; dashes to a unit go over it.
   const toUnit = ability?.delivery.kind === "dash" && ability.delivery.direction === "target";
+  if (action.lockOn && action.lockedTick === undefined && Math.abs(unit.x - enemy.x) - enemy.spec.base.radius <= action.lockOn.within + EPSILON) {
+    // In sight of the enemy: the charge becomes a dash at its own speed.
+    action.lockedTick = world.tick;
+    delete action.ramp;
+    action.perTick = (Math.sign(action.perTick) * action.lockOn.speed) / 30;
+  }
   if (action.ramp) {
     const ramp = action.ramp;
     action.perTick = (Math.sign(action.perTick) * Math.min(ramp.max, ramp.from + ramp.amount * Math.floor((world.tick - action.startTick) / ramp.everyTicks))) / 30;

@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { damagePerSecond } from "../../engine/budget";
 import { canCast } from "../../engine/sim/actions";
+import { applyEffect } from "../../engine/sim/combat";
 import { createWorld, step } from "../../engine/sim/simulate";
 import type { AbilitySpec, Effect } from "../../engine/sim/spec";
 import type { World } from "../../engine/sim/state";
@@ -63,6 +64,36 @@ describe("post-effect cooldowns (wiki: Cooldown starts: post-effect)", () => {
     }
     expect(landed).toBeGreaterThan(spent);
     expect(self.cooldownReady.Q).toBe(landed + 150);
+  });
+
+  it("take refunds that come while they are held off when they start", () => {
+    // Halved as it is cast (Fury of the Sands' Siphoning Strike): 5 s held, then 2.5 s.
+    const bite: AbilitySpec = ability({
+      key: "Q",
+      cooldown: 5,
+      cooldownAfter: "empower",
+      delivery: { kind: "self" },
+      onSelf: [{ type: "empower", attacks: 1, window: 7, onHit: [trueDamage(10)] }, { type: "refund", ability: "Q", fraction: 0.5 }],
+    });
+    const world = createWorld({ fighters: [fighter({ abilities: [bite] }), fighter()], distance: 1000, modes: ["idle", "idle"] });
+    step(world, [castWhenReady("Q"), standStill]);
+    expect(world.units[0].cooldownReady.Q).toBe(Number.POSITIVE_INFINITY);
+    // The empowerment runs out after 7 s; the halved cooldown follows.
+    expect(readyTick(world, "Q")).toBe(210 + 75);
+  });
+
+  it("refund a share of what remains, or of the whole cooldown", () => {
+    const self = fighter({ abilities: [ability({ key: "Q", cooldown: 10, delivery: { kind: "self" } })] });
+    const at = (total: boolean) => {
+      const world = createWorld({ fighters: [self, fighter()], distance: 1000, modes: ["idle", "idle"] });
+      step(world, [castWhenReady("Q"), standStill]);
+      // 4 s later, 6 s remain: 40% of them is 2.4 s, 40% of the whole cooldown 4 s.
+      for (let i = 0; i < 119; i++) step(world, [standStill, standStill]);
+      applyEffect(world, world.units[0], world.units[0], { type: "refund", ability: "Q", fraction: 0.4, total }, { scale: 1 });
+      return world.units[0].cooldownReady.Q;
+    };
+    expect(at(false)).toBe(300 - 72);
+    expect(at(true)).toBe(300 - 120);
   });
 
   it("wait for the channel", () => {

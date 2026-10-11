@@ -2,7 +2,7 @@
 
 ## Simulated duels (full confidence)
 
-The duel simulator played each of the 38 other champions with a simulator kit against Urgot: both at level 20 with 15,000 gold of plain stats, each side's spent against the other's, through six scenarios (PLAN.md §6). Scores run from −1 (Urgot wins every time) to +1 (the champion does). Run `npm run duel -- <champion> Urgot --log brawl` to watch a fight.
+The duel simulator played each of the 42 other champions with a simulator kit against Urgot: both at level 20 with 15,000 gold of plain stats, each side's spent against the other's, through six scenarios (PLAN.md §6). Scores run from −1 (Urgot wins every time) to +1 (the champion does). Run `npm run duel -- <champion> Urgot --log brawl` to watch a fight.
 
 | # | Champion | Score | You engage | Enemy engages | Brawl | Short trade | Spacing | Escape |
 |--:|---|--:|--:|--:|--:|--:|--:|--:|
@@ -29,21 +29,25 @@ The duel simulator played each of the 38 other champions with a simulator kit ag
 | 21 | Tryndamere | +0.77 | +1.00 | +1.00 | +1.00 | −0.18 | +1.00 | +0.00 |
 | 22 | Camille | +0.77 | +1.00 | +1.00 | +1.00 | −0.22 | +1.00 | +0.00 |
 | 23 | Renekton | +0.55 | +1.00 | +0.09 | +1.00 | −0.13 | +1.00 | +0.00 |
-| 24 | Dr. Mundo | +0.40 | +0.45 | +0.46 | +0.38 | −0.04 | +1.00 | +0.00 |
-| 25 | Aurora | +0.28 | +0.35 | +0.35 | +0.24 | +0.12 | +0.41 | +0.00 |
-| 26 | Nasus | +0.13 | +0.04 | +0.10 | +0.06 | −0.13 | +1.00 | +0.00 |
-| 27 | Sion | +0.10 | +0.02 | +0.02 | −0.05 | +0.02 | +1.00 | +0.00 |
-| 28 | Shen | +0.01 | +0.02 | +0.00 | +0.09 | −0.04 | −0.11 | +0.00 |
-| 29 | Ornn | +0.00 | −0.01 | −0.01 | −0.01 | +0.03 | +0.03 | +0.00 |
-| 30 | Sett | −0.08 | −0.06 | −0.09 | −0.06 | −0.19 | +0.04 | +0.00 |
-| 31 | Yasuo | −0.55 | −0.91 | −0.91 | −0.91 | −0.09 | +1.00 | +0.00 |
-| 32 | Pantheon | −0.61 | −1.00 | −1.00 | −1.00 | −0.07 | +1.00 | +0.00 |
-| 33 | Irelia | −0.63 | −1.00 | −1.00 | −1.00 | −0.17 | +1.00 | +0.00 |
-| 34 | Ambessa | −0.63 | −1.00 | −1.00 | −1.00 | −0.21 | +1.00 | +0.00 |
-| 35 | Kennen | −0.67 | −1.00 | −1.00 | −0.90 | −0.12 | +0.25 | +0.00 |
-| 36 | Akali | −0.83 | −1.00 | −1.00 | −1.00 | −0.19 | −1.00 | +0.00 |
-| 37 | Singed | −0.83 | −1.00 | −1.00 | −1.00 | −0.19 | −1.00 | +0.00 |
-| 38 | Riven | −0.83 | −1.00 | −1.00 | −1.00 | −0.20 | −1.00 | +0.00 |
+| 24 | Gnar | +0.45 | +1.00 | +0.26 | +0.16 | +0.03 | +1.00 | +0.00 |
+| 25 | Dr. Mundo | +0.40 | +0.45 | +0.46 | +0.38 | −0.04 | +1.00 | +0.00 |
+| 26 | Kled | +0.39 | +1.00 | +1.00 | −0.92 | −0.16 | +1.00 | +0.00 |
+| 27 | Nasus | +0.36 | +0.16 | +0.17 | +1.00 | −0.13 | +1.00 | +0.00 |
+| 28 | Aurora | +0.28 | +0.35 | +0.35 | +0.24 | +0.12 | +0.41 | +0.00 |
+| 29 | Sion | +0.10 | +0.02 | +0.02 | −0.05 | +0.02 | +1.00 | +0.00 |
+| 30 | Tahm Kench | +0.05 | +0.08 | +0.08 | +0.08 | −0.12 | +0.09 | +0.00 |
+| 31 | Shen | +0.01 | +0.02 | +0.00 | +0.09 | −0.04 | −0.11 | +0.00 |
+| 32 | Ornn | +0.00 | −0.01 | −0.01 | −0.01 | +0.03 | +0.03 | +0.00 |
+| 33 | Skarner | −0.00 | −0.05 | −0.05 | +0.06 | −0.07 | +0.16 | +0.00 |
+| 34 | Sett | −0.08 | −0.06 | −0.09 | −0.06 | −0.19 | +0.04 | +0.00 |
+| 35 | Yasuo | −0.55 | −0.91 | −0.91 | −0.91 | −0.09 | +1.00 | +0.00 |
+| 36 | Pantheon | −0.61 | −1.00 | −1.00 | −1.00 | −0.07 | +1.00 | +0.00 |
+| 37 | Irelia | −0.63 | −1.00 | −1.00 | −1.00 | −0.17 | +1.00 | +0.00 |
+| 38 | Ambessa | −0.63 | −1.00 | −1.00 | −1.00 | −0.21 | +1.00 | +0.00 |
+| 39 | Kennen | −0.67 | −1.00 | −1.00 | −0.90 | −0.12 | +0.25 | +0.00 |
+| 40 | Akali | −0.83 | −1.00 | −1.00 | −1.00 | −0.19 | −1.00 | +0.00 |
+| 41 | Singed | −0.83 | −1.00 | −1.00 | −1.00 | −0.19 | −1.00 | +0.00 |
+| 42 | Riven | −0.83 | −1.00 | −1.00 | −1.00 | −0.20 | −1.00 | +0.00 |
 
 ## Interaction ledger (partial confidence)
 

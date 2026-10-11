@@ -50,6 +50,21 @@ describe("default behavior", () => {
     expect(ticksOf(outcome.timeline, 0, "attack deals")).toEqual([58, 110, 163]);
   });
 
+  it("keeps abilities that would land while the enemy can't be hit", () => {
+    // A 0.5 s slam on an enemy untargetable for the first 2 s: started so it lands as that ends.
+    const bolt = ability({ key: "Q", cooldown: 10, castTime: 0.5, delivery: { kind: "area", near: 0, far: 600, delay: 0, anchor: "caster" }, onHit: [{ type: "damage", damageType: "magic", amount: { base: 100 } }] });
+    const outcome = duel(fighter({ abilities: [bolt] }), fighter(), {
+      distance: 300,
+      behaviors: [undefined, idle],
+      settings: { maxSeconds: 3 },
+      setup: (world) => {
+        world.units[1].statuses.push({ kind: "state", key: "untargetable", source: 1, startTick: 0, endTick: 60, value: 0 });
+      },
+    });
+    expect(ticksOf(outcome.timeline, 0, "casts Q")).toEqual([45]);
+    expect(ticksOf(outcome.timeline, 0, "Q deals")).toEqual([60]);
+  });
+
   it("lets a ranged fighter kite a melee fighter between attacks", () => {
     const outcome = duel(fighter({ attack: RANGED, base: { moveSpeed: 450 } }), fighter({ base: { moveSpeed: 300 } }), { distance: 550, settings: { maxSeconds: 70 } });
     expect(outcome.win[0]).toBe(1);

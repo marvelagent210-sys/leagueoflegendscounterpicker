@@ -15,6 +15,7 @@ import { CC_RULES, type CCType, DISPLACEMENTS, IMMOBILIZING, ccDuration } from "
 import { type DamageType, effectiveResist, mitigate } from "../rules/damage";
 import { type Shield, absorbWithShields, averageCritFactor, healingReceived } from "../rules/defense";
 import { toTicks } from "../rules/time";
+import { cooldownAfterHaste } from "../rules/timing";
 import { derive, evaluate, hasState } from "./derived";
 import { abilityOf, setForm } from "./forms";
 import { terrainGap } from "./terrain";
@@ -234,6 +235,10 @@ function interrupt(world: World, unit: Unit, type: CCType): void {
       if (ability.interruptible.cooldown !== undefined) unit.cooldownReady[cooldownKeyOf(ability)] = world.tick + toTicks(ability.interruptible.cooldown);
       log(world, unit.side, `${ability.name} interrupted by ${type}`);
     }
+  } else if (action.kind === "dash" && abilityOf(unit, action.ability)?.interruptible && rule.interruptsChannels !== "no") {
+    // A charge that crowd control stops (Ixtal's Impact).
+    unit.action = action.resume;
+    log(world, unit.side, `${abilityOf(unit, action.ability)?.name ?? "dash"} interrupted by ${type}`);
   } else if (action.kind === "dash" && type === "airborne" && !action.unstoppable) {
     // A cast the dash was made during carries on: cast times can't be interrupted.
     unit.action = action.resume;
@@ -474,8 +479,16 @@ export function applyEffect(world: World, caster: Unit, target: Unit, effect: Ef
       return;
     case "refund": {
       const ready = caster.cooldownReady[effect.ability] ?? 0;
+      if (ready === Number.POSITIVE_INFINITY) {
+        // Held until its effect is over: the cut comes off when it starts (releaseCooldowns).
+        const pending = caster.pendingRefunds[effect.ability] ?? { seconds: 0, fraction: 0 };
+        caster.pendingRefunds[effect.ability] = { seconds: pending.seconds + (effect.seconds ?? 0), fraction: pending.fraction + (effect.fraction ?? 0) };
+        return;
+      }
       const left = Math.max(0, ready - tick);
-      const cut = (effect.seconds !== undefined ? toTicks(effect.seconds) : 0) + Math.round(left * (effect.fraction ?? 0));
+      const spec = abilityOf(caster, effect.ability);
+      const whole = effect.total && spec ? toTicks(cooldownAfterHaste(spec.cooldownFor?.(caster) ?? spec.cooldown, derive(caster).abilityHaste)) : left;
+      const cut = (effect.seconds !== undefined ? toTicks(effect.seconds) : 0) + Math.round(whole * (effect.fraction ?? 0));
       if (left > 0) caster.cooldownReady[effect.ability] = tick + Math.max(0, left - cut);
       return;
     }
@@ -637,6 +650,8 @@ export function hookContext(world: World, unit: Unit, ability?: AbilitySpec): Ho
         existing.endTick = world.tick + toTicks(seconds);
         return;
       }
+      // Nothing to clear: the statuses (and the stats derived from them) stay as they are.
+      if (!existing && amount === 0) return;
       unit.statuses = unit.statuses.filter((s) => s !== existing);
       if (amount !== 0) addStatus(unit, { kind: "stat", key: stat, source: unit.side, startTick: world.tick, endTick: world.tick + toTicks(seconds), value: amount, memoKey: id });
     },
