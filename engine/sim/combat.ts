@@ -210,7 +210,7 @@ export function applyCC(world: World, source: Unit, target: Unit, type: CCType, 
   const ticks = toTicks(ccDuration(duration, type, derive(target).tenacity));
   if (ticks <= 0) return false;
   addStatus(target, { kind: "cc", key: type, source: source.side, startTick: world.tick, endTick: world.tick + ticks, value: strength });
-  log(world, source.side, `${type}${strength ? ` ${Math.round(strength * 100)}%` : ""} for ${(ticks / 30).toFixed(2)} s`);
+  log(world, source.side, `inflicts ${type}${strength ? ` ${Math.round(strength * 100)}%` : ""} for ${(ticks / 30).toFixed(2)} s`);
   interrupt(world, target, type);
   return true;
 }
