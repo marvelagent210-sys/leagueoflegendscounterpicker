@@ -1,5 +1,6 @@
 /** Markdown reports committed next to each dataset, for people to review. */
-import type { AbilityRecord, Amount, Mechanic, Series } from "../engine/abilities";
+import type { AbilityRecord } from "../engine/abilities";
+import { FIELD_LABELS, KIND_LABELS, KIND_ORDER, amountAtMax, mechanicLine, wikiUrl } from "../engine/abilityText";
 import type { KitProfile } from "../engine/profiles";
 import { TOP_LANE_MAX_LEVEL, statsAtLevel } from "../engine/stats";
 import type { Champion } from "../engine/types";
@@ -7,8 +8,6 @@ import type { AbilityBuild } from "./abilities/build";
 import type { AbilityCoverage } from "./abilities/coverage";
 import type { LevelLink, ValueCheck } from "./abilities/crossCheck";
 import type { GameAbility } from "./abilities/gameSpells";
-import { formatSeries } from "./abilities/marked";
-import { WIKI_BASE } from "./config";
 import type { Reconciled } from "./gameFiles";
 import { fightProfileSection } from "./ledgerPages";
 import type { Manifest } from "./manifest";
@@ -92,70 +91,9 @@ export function gameFilesReport(manifest: Manifest, reconciled: Reconciled): str
 
 // ----- Abilities -----
 
-const KIND_LABELS: Record<string, string> = { I: "Innate", Q: "Q", W: "W", E: "E", R: "R", A: "Basic attack", other: "Other" };
-const KIND_ORDER = ["I", "Q", "W", "E", "R", "A", "other"];
-
-export function wikiUrl(title: string, revid: number): string {
-  return `${WIKI_BASE}${encodeURI(title.replace(/ /g, "_"))}?oldid=${revid}`;
-}
-
 function cell(text: string): string {
   return text.replace(/\|/g, "\\|").replace(/\n/g, "<br>");
 }
-
-/** The value at max rank and level 20, with a note when the wiki stops at level 18. */
-export function valueAtLevel20(series: Series | undefined, ranks: number): string {
-  if (!series) return "–";
-  switch (series.kind) {
-    case "constant":
-      return formatSeries(series);
-    case "rank":
-      return formatSeries({ kind: "constant", value: series.values[Math.min(ranks, series.values.length) - 1] ?? 0 });
-    case "level":
-      return series.values.length >= 20
-        ? formatSeries({ kind: "constant", value: series.values[19] ?? 0 })
-        : `${formatSeries({ kind: "constant", value: series.values.at(-1) ?? 0 })} (level ${series.values.length}; levels 19–20 not on the wiki)`;
-    case "variable":
-      return `depends on ${series.variable}`;
-  }
-}
-
-function amountAtMax(amount: Amount, ranks: number): string {
-  const base = amount.base ? `${valueAtLevel20(amount.base, ranks)}${amount.unit === "%" ? "%" : amount.unit ? ` ${amount.unit}` : ""}` : "";
-  const of = amount.baseStat ? ` of ${amount.baseStat}` : "";
-  const scaling = amount.scaling.map((term) => {
-    const modifiers = term.modifiers?.length ? ` [${term.modifiers.map((m) => `${valueAtLevel20(m.ratio, ranks)}% ${m.stat}`).join(", ")}]` : "";
-    return ` (+ ${valueAtLevel20(term.ratio, ranks)}% ${term.stat}${modifiers})`;
-  });
-  return `${base}${of}${scaling.join("")}`.trim() || "–";
-}
-
-function mechanicLine(mechanic: Mechanic, ranks: number): string {
-  const details = [
-    mechanic.duration ? `${valueAtLevel20(mechanic.duration, ranks)} s` : undefined,
-    mechanic.amount ? `${valueAtLevel20(mechanic.amount, ranks)}%` : undefined,
-    mechanic.conditional ? "mentioned as a condition" : undefined,
-  ].filter(Boolean);
-  return `${mechanic.type}${details.length ? ` (${details.join(", ")})` : ""}`;
-}
-
-const FIELD_LABELS: Array<[keyof AbilityRecord["fields"], string]> = [
-  ["cooldown", "Cooldown"],
-  ["staticCooldown", "Static cooldown"],
-  ["recharge", "Recharge"],
-  ["cost", "Cost"],
-  ["castTime", "Cast time"],
-  ["targetRange", "Target range"],
-  ["range", "Range"],
-  ["attackRange", "Attack range"],
-  ["effectRadius", "Effect radius"],
-  ["innerRadius", "Inner radius"],
-  ["width", "Width"],
-  ["speed", "Speed"],
-  ["angle", "Angle"],
-  ["collisionRadius", "Collision radius"],
-  ["tetherRadius", "Tether radius"],
-];
 
 function abilitySection(record: AbilityRecord): string[] {
   const lines = [`## ${KIND_LABELS[record.kind] ?? record.kind}: ${record.name}`, ""];

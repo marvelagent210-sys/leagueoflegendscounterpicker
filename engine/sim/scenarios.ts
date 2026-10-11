@@ -23,6 +23,15 @@ import type { Mode, SimSettings } from "./state";
 export const SCENARIOS = ["youEngage", "enemyEngages", "brawl", "shortTrade", "spacing", "escape"] as const;
 export type ScenarioId = (typeof SCENARIOS)[number];
 
+export const SCENARIO_LABELS: Record<ScenarioId, string> = {
+  youEngage: "You engage",
+  enemyEngages: "Enemy engages",
+  brawl: "Brawl",
+  shortTrade: "Short trade",
+  spacing: "Spacing",
+  escape: "Escape",
+};
+
 export const SCENARIO_WEIGHTS: Record<ScenarioId, number> = {
   youEngage: 0.25,
   enemyEngages: 0.25,

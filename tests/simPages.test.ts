@@ -4,7 +4,8 @@ import { BUDGET_STATS, type BudgetStat } from "../engine/budget";
 import { SCENARIOS } from "../engine/sim/scenarios";
 import { KITS } from "../kits/champions/index";
 import type { PairResult } from "../pipeline/sim/pool";
-import { deliveryText, effectText, formulaText, simulatedCounterSection, simulatedJson, simulatedMatrix } from "../pipeline/simPages";
+import { deliveryText, effectText, formulaText } from "../engine/sim/describe";
+import { simulatedCounterSection, simulatedJson, simulatedMatrix } from "../pipeline/simPages";
 
 const none = Object.fromEntries(BUDGET_STATS.map((s) => [s, 0])) as Record<BudgetStat, number>;
 

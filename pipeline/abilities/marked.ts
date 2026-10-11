@@ -4,6 +4,7 @@
  * numbers, and {{tip}}/{{sti}} keywords are recorded with their position in the text.
  */
 import type { Series } from "../../engine/abilities";
+import { formatSeries } from "../../engine/abilityText";
 import { type EvalContext, progressionOf, render, templateName } from "../wikitext/evaluate";
 import type { TemplateNode, WikiNode } from "../wikitext/parse";
 import type { LevelProgression, RankProgression } from "../wikitext/progression";
@@ -165,25 +166,4 @@ export function displayText(marked: Pick<Marked, "text" | "series">): string {
     .map((line) => line.trim())
     .join("\n")
     .trim();
-}
-
-function formatNumber(value: number): string {
-  return String(Number(value.toPrecision(6)));
-}
-
-export function formatSeries(series: Series | undefined): string {
-  if (!series) return "?";
-  switch (series.kind) {
-    case "constant":
-      return formatNumber(series.value);
-    case "rank":
-      return series.values.map(formatNumber).join(" / ");
-    case "level": {
-      const first = series.values[0] ?? 0;
-      const at18 = series.values[Math.min(17, series.values.length - 1)] ?? first;
-      return `${formatNumber(first)} – ${formatNumber(at18)} (based on level)`;
-    }
-    case "variable":
-      return `${series.values.map((v) => (typeof v === "number" ? formatNumber(v) : v)).join(" / ")} (based on ${series.variable})`;
-  }
 }
