@@ -131,7 +131,7 @@ export function dealDamage(world: World, source: Unit, target: Unit, raw: number
   const removed = Math.max(0, hpBefore) - Math.max(0, target.hp);
   target.totals.damageTaken += removed;
   source.totals.damageDealt += removed;
-  log(world, source.side, `${ctx.attack ? "attack" : (ctx.ability ?? "effect")} deals ${Math.round(mitigated)} ${type} damage${mitigated > left ? ` (${Math.round(mitigated - left)} absorbed)` : ""}`);
+  log(world, source.side, `${ctx.ability ?? (ctx.attack ? "attack" : "effect")} deals ${Math.round(mitigated)} ${type} damage${mitigated > left ? ` (${Math.round(mitigated - left)} absorbed)` : ""}`);
   if (ctx.attack && s.lifeSteal > 0) heal(world, source, removed * s.lifeSteal);
   if (ctx.lifesteal) heal(world, source, removed * ctx.lifesteal);
   const report = { amount: removed, mitigated, raw, damageType: type };

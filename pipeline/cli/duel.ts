@@ -42,7 +42,7 @@ function equip(you: FighterSpec, enemy: FighterSpec, gold: number, prices: StatP
   const [a, b] = allocateBoth(you, enemy, gold, prices);
   const describe = (spent: Record<string, number>) =>
     BUDGET_STATS.filter((stat) => (spent[stat] ?? 0) > 0)
-      .map((stat) => `${stat} ${spent[stat]}`)
+      .map((stat) => `${stat} ${Math.round(spent[stat] ?? 0)}`)
       .join(", ") || "nothing";
   return [{ ...you, bonus: a.bonus }, { ...enemy, bonus: b.bonus }, [describe(a.spent), describe(b.spent)]];
 }

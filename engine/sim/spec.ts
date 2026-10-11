@@ -291,6 +291,11 @@ export interface AbilitySpec {
   /** A kit's own condition for casting it (Steel Tempest's whirlwind needs two stacks). */
   usable?: (unit: Unit, world: World) => boolean;
   /**
+   * Raw damage its hit deals beyond its `onHit` effects, for abilities whose hooks deal the
+   * damage (Haymaker's grows with the Grit spent): what the enemy sees coming.
+   */
+  estimate?: (caster: Unit, target: Unit) => number;
+  /**
    * A recast: castable within `window` seconds of the previous stage of `root` (stage
    * `index - 1`), at least `delay` seconds after it; `auto` casts it when the window closes
    * (Counter Strike).

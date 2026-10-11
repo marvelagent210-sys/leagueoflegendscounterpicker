@@ -190,7 +190,8 @@ function damageOf(effects: Effect[], caster: Unit, target: Unit, scale = 1): num
   return total * scale;
 }
 
-function abilityThreat(ability: AbilitySpec, eta: number, caster: Unit, target: Unit, effects: Effect[], id?: number, scale = 1): Threat {
+/** A threat from an ability: `main` for its hit, which carries what the kit's hooks add (`estimate`). */
+function abilityThreat(ability: AbilitySpec, eta: number, caster: Unit, target: Unit, effects: Effect[], id?: number, scale = 1, main = false): Threat {
   const d = ability.delivery;
   return {
     source: ability.key,
@@ -204,7 +205,7 @@ function abilityThreat(ability: AbilitySpec, eta: number, caster: Unit, target: 
     spellShieldable: ability.flags?.spellShield !== false,
     immobilizes: effects.some(immobilizing),
     cc: effects.some((e) => e.type === "cc" || e.type === "displace"),
-    damage: damageOf(effects, caster, target, scale),
+    damage: damageOf(effects, caster, target, scale) + (main && ability.estimate ? ability.estimate(caster, target) * scale : 0),
   };
 }
 
@@ -283,7 +284,7 @@ export function threatsTo(world: World, side: Side): Threat[] {
               : d.kind === "dash"
                 ? Math.ceil(d.distance / (d.speed / 30))
                 : 0;
-      const threat = abilityThreat(ability, Math.max(action.endTick - now, 0) + travel, enemy, self, ability.onHit ?? []);
+      const threat = abilityThreat(ability, Math.max(action.endTick - now, 0) + travel, enemy, self, ability.onHit ?? [], undefined, 1, true);
       if (d.kind === "dash" && d.direction !== "away") threat.dash = true;
       // Where the area will land, as far as can be told now.
       if (d.kind === "area") threat.area = areaOnLine(enemy.x, self.x, d.near, d.far, d.bands, enemy, self, d.centered);
@@ -292,7 +293,7 @@ export function threatsTo(world: World, side: Side): Threat[] {
       if (ability.channel.onTick && action.nextTick < action.endTick) threats.push(abilityThreat(ability, action.nextTick - now, enemy, self, ability.channel.onTick));
       if (ability.channel.onComplete) threats.push(abilityThreat(ability, action.endTick - now, enemy, self, ability.channel.onComplete));
     } else if (action.kind === "dash" && ability && ability.delivery.kind === "dash" && ability.delivery.direction !== "away") {
-      threats.push({ ...abilityThreat(ability, action.endTick - now, enemy, self, ability.onHit ?? []), dash: true });
+      threats.push({ ...abilityThreat(ability, action.endTick - now, enemy, self, ability.onHit ?? [], undefined, 1, true), dash: true });
     }
   }
   // An enemy attacking on its rhythm: its next attack can be seen coming, even when windups are quicker than reactions.
@@ -307,14 +308,14 @@ export function threatsTo(world: World, side: Side): Threat[] {
     if (m.attack) threats.push({ ...attackThreat(enemy, self, eta, m.attack.bonusOnHit, m.id), projectile: m.projectile });
     else {
       const ability = enemy.spec.abilities.find((a) => a.key === m.source);
-      if (ability) threats.push({ ...abilityThreat(ability, eta, enemy, self, m.onHit, m.id, m.scale), projectile: m.projectile });
+      if (ability) threats.push({ ...abilityThreat(ability, eta, enemy, self, m.onHit, m.id, m.scale, true), projectile: m.projectile });
     }
   }
   for (const z of world.zones) {
     if (z.owner !== enemy.side || z.kind !== "delayedArea" || z.seenTick > seenBy || !z.connects) continue;
     const ability = enemy.spec.abilities.find((a) => a.key === z.ability);
     if (!ability) continue;
-    const threat = abilityThreat(ability, z.endTick - world.tick, enemy, self, z.onHit ?? [], z.id, z.scale ?? 1);
+    const threat = abilityThreat(ability, z.endTick - world.tick, enemy, self, z.onHit ?? [], z.id, z.scale ?? 1, true);
     if (ability.delivery.kind === "area") {
       // Where it will land: areas that follow their caster are where it is now.
       if (z.follow) threat.area = areaOnLine(enemy.x, self.x, z.follow.near, z.follow.far, z.follow.bands, enemy, self, z.centered);

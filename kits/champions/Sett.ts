@@ -6,7 +6,7 @@ import { derive } from "../../engine/sim/derived";
 import { hitChance } from "../../engine/sim/hitModel";
 import type { Effect, Formula, HookContext } from "../../engine/sim/spec";
 import type { Unit } from "../../engine/sim/state";
-import { attackDamage, flat, maxHp, missingShare, ticks } from "./util";
+import { flat, maxHp, missingShare, ticks } from "./util";
 
 const RIGHT = "Right Punch";
 
@@ -22,10 +22,9 @@ const sett: KitModule = {
     const e = kit.ability("Facebreaker");
     const r = kit.ability("The Show Stopper");
 
-    // Pit Grit: punches alternate; the Right Punch comes at once and hits harder.
+    // Pit Grit: punches alternate; the Right Punch hits harder, with a much shorter windup.
     const rightBonus: Formula = { base: innate.levelValue("Sett's Right Punch is empowered to gain 50 bonus range"), ratios: { bonusAD: innate.quoted("(+ 55% bonus AD) bonus physical damage", 0) / 100 } };
     const rightRange = innate.quoted("Sett's Right Punch is empowered to gain 50 bonus range", 0);
-    const rightSpeed = innate.quoted("attack at 8 times the Left Punch's attack speed", 0);
     const rightWindupShare = innate.quoted("its windup is sped up and fixed at 12.5% of a Left Punch's windup time", 0) / 100;
     const leftReset = innate.quoted("will reset back to it after 2 seconds of not performing a Right Punch", 0);
     const regenSeries = innate.seriesIn("Sett regenerates an additional");
@@ -57,6 +56,7 @@ const sett: KitModule = {
       }
       return { base: r.at20(amount.base, "The Show Stopper damage"), ratios };
     })();
+    kit.assume("The Right Punch's \"8 times the attack speed\" is its windup only, as the wiki's note says (\"does not grant bonus attack speed\"): the time between attacks doesn't change.");
     kit.assume(`Facebreaker ${options.facebreakerStun ? "always has an enemy minion on its other side, so it stuns" : "never stuns (no enemy on its other side)"}; its 0.25 s lockout is left out.`);
     kit.assume(`The Show Stopper suppresses its target until the slam, ${slamAfter} s after the cast; where the leap carries the two isn't modeled.`);
     kit.assume("Haymaker's true-damage center lands as often as a skillshot of its width would; the rest of the blast is physical.");
@@ -99,8 +99,8 @@ const sett: KitModule = {
       onHit: [{ type: "damage", damageType: "physical", amount: rightBonus, label: RIGHT }],
     });
 
-    // Two punches every 1 + 1/8 attack timers: the Right Punch nearly doubles the attack rate.
-    const punchRate = 2 / (1 + 1 / rightSpeed);
+    // Haymaker's blow: its base damage plus a share of the Grit spent at the start of the cast.
+    const blow = (self: Unit) => blowBase + Number(self.memory.expended ?? 0) * (blowShare + (blowPer100 * derive(self).bonusAd) / 100);
     const haymakerCast = w.castTime();
     const haymakerEvery = w.cooldown();
     // Haymaker thrown with most of a full Grit bar.
@@ -112,20 +112,20 @@ const sett: KitModule = {
           const d = derive(self);
           const right = rightBonus.base + (rightBonus.ratios?.bonusAD ?? 0) * d.bonusAd;
           const blow = blowBase + gritThrown * d.maxHp * (blowShare + (blowPer100 * d.bonusAd) / 100);
-          return { physical: d.attackSpeed * ((punchRate - 1) * attackDamage(self) + (punchRate / 2) * right), true: blow / haymakerEvery };
+          // Every other attack is a Right Punch.
+          return { physical: (d.attackSpeed * right) / 2, true: blow / haymakerEvery };
         },
         healing: (self) => (gritThrown * maxHp(self)) / haymakerEvery,
       },
       hooks: {
         onAttack(ctx) {
-          // A Left Punch readies the Right; the Right Punch's attack timer is an eighth of the Left's.
+          // A Left Punch readies the Right.
           const punch = Number(ctx.memory.punch ?? 0);
           if (punch === 0) {
             ctx.memory.punch = 1;
             ctx.apply(right(ctx), true);
           } else {
             ctx.memory.punch = 0;
-            ctx.self.attackReadyTick = ctx.tick + Math.max(1, Math.round(attackTiming(ctx.self).total / rightSpeed));
           }
           ctx.memory.lastPunch = ctx.tick;
         },
@@ -168,8 +168,7 @@ const sett: KitModule = {
         },
         onAbilityHit(ctx) {
           if (ctx.ability.key !== "W") return;
-          const grit = Number(ctx.memory.expended ?? 0);
-          const total = blowBase + grit * (blowShare + (blowPer100 * derive(ctx.self).bonusAd) / 100);
+          const total = blow(ctx.self);
           const center = Number(ctx.memory.centerChance ?? 0);
           ctx.apply({ type: "damage", damageType: "true", amount: flat(total * center), label: `${w.name} (center)` });
           ctx.apply({ type: "damage", damageType: "physical", amount: flat(total * (1 - center)), label: w.name });
@@ -204,6 +203,7 @@ const sett: KitModule = {
           delivery: { kind: "area", near: -blowNear, far: blowFar, delay: 0, anchor: "caster" },
           // The blow's damage depends on the Grit spent: see onAbilityHit. Thrown by the behavior above.
           onHit: [{ type: "mark", key: "haymaker", duration: 0.1 }],
+          estimate: (caster) => blow(caster),
         },
         {
           key: "E",

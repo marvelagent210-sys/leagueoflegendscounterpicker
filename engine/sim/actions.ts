@@ -138,7 +138,7 @@ export function cancelOutOfRange(world: World, unit: Unit): void {
   const action = unit.action;
   if (action?.kind !== "windup" || action.uncancellable) return;
   const enemy = world.units[other(unit.side)];
-  if (edgeDistance(unit, enemy) <= unit.spec.attack.range + action.bonusRange + EPSILON) return;
+  if (edgeDistance(unit, enemy) <= unit.spec.attack.range + action.bonusRange + rangeBuffs(unit) + EPSILON) return;
   unit.action = undefined;
   unit.attackReadyTick = world.tick;
   log(world, unit.side, "attack cancelled: target out of range");
