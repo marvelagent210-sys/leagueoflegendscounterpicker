@@ -8,31 +8,31 @@ Each champion's average score against the others (−1 to +1).
 
 | # | Champion | Average |
 |--:|---|--:|
-| 1 | Nasus | +0.66 |
-| 2 | Tryndamere | +0.54 |
-| 3 | Teemo | +0.49 |
-| 4 | Poppy | +0.48 |
-| 5 | Garen | +0.29 |
-| 6 | Dr. Mundo | +0.25 |
-| 7 | Fiora | +0.23 |
-| 8 | Olaf | +0.20 |
-| 9 | Jax | +0.12 |
-| 10 | Urgot | +0.12 |
-| 11 | Riven | +0.10 |
-| 12 | Aatrox | +0.09 |
-| 13 | Yasuo | +0.03 |
-| 14 | Darius | −0.07 |
-| 15 | Malphite | −0.08 |
-| 16 | Volibear | −0.15 |
-| 17 | Gwen | −0.18 |
-| 18 | Yone | −0.20 |
-| 19 | Renekton | −0.22 |
-| 20 | Camille | −0.31 |
-| 21 | Mordekaiser | −0.33 |
-| 22 | Sett | −0.39 |
-| 23 | Irelia | −0.43 |
-| 24 | Shen | −0.62 |
-| 25 | Ornn | −0.63 |
+| 1 | Darius | +0.64 |
+| 2 | Fiora | +0.61 |
+| 3 | Nasus | +0.46 |
+| 4 | Jax | +0.39 |
+| 5 | Aatrox | +0.38 |
+| 6 | Teemo | +0.37 |
+| 7 | Dr. Mundo | +0.34 |
+| 8 | Poppy | +0.30 |
+| 9 | Tryndamere | +0.19 |
+| 10 | Olaf | +0.10 |
+| 11 | Garen | +0.10 |
+| 12 | Volibear | +0.08 |
+| 13 | Malphite | +0.01 |
+| 14 | Mordekaiser | −0.03 |
+| 15 | Gwen | −0.11 |
+| 16 | Renekton | −0.17 |
+| 17 | Yone | −0.18 |
+| 18 | Camille | −0.30 |
+| 19 | Ornn | −0.40 |
+| 20 | Sett | −0.40 |
+| 21 | Shen | −0.43 |
+| 22 | Irelia | −0.44 |
+| 23 | Urgot | −0.46 |
+| 24 | Yasuo | −0.47 |
+| 25 | Riven | −0.58 |
 
 ## Golden matchups
 
@@ -40,52 +40,52 @@ Kit-driven expectations (tests/golden/matchups.ts), drafted for review. Margins:
 
 | Expected | Margin | Score | Status | Why |
 |---|---|--:|---|---|
-| Poppy beats Riven | clear | +0.93 | holds | Steadfast Presence stops Broken Wings and Valor, which carry Riven's damage. |
-| Poppy beats Irelia | clear | +0.90 | holds | Steadfast Presence stops Bladesurge. |
-| Poppy beats Yasuo | slight | +0.41 | holds | Steadfast Presence stops Sweeping Blade. |
-| Poppy beats Yone | slight | +0.90 | holds | Steadfast Presence stops Mortal Steel's third-cast dash. |
-| Poppy beats Camille | slight | +0.94 | holds | Steadfast Presence stops Wall Dive. |
-| Poppy beats Fiora | slight | +0.89 | holds | Steadfast Presence stops Lunge. |
-| Teemo beats Tryndamere | clear | +0.84 | holds | Blinding Dart stops the crits Tryndamere's damage and Fury come from, and Teemo out-ranges him. |
+| Poppy beats Riven | clear | +0.83 | holds | Steadfast Presence stops Broken Wings and Valor, which carry Riven's damage. |
+| Poppy beats Irelia | clear | +0.80 | holds | Steadfast Presence stops Bladesurge. |
+| Poppy beats Yasuo | slight | +0.80 | holds | Steadfast Presence stops Sweeping Blade. |
+| Poppy beats Yone | slight | +0.80 | holds | Steadfast Presence stops Mortal Steel's third-cast dash. |
+| Poppy beats Camille | slight | +0.83 | holds | Steadfast Presence stops Wall Dive. |
+| Poppy beats Fiora | slight | −0.74 | disputed | Steadfast Presence stops Lunge. *Disputed:* Fiora wins every all-in (-0.74). Poppy's damage is all physical, and with penetration capped the budget answers it with 5,600 gold of armor (406 in all), while Poppy spends hers on damage rather than health: her opening crowd control wears off with Fiora barely scratched. |
+| Teemo beats Tryndamere | clear | +0.83 | holds | Blinding Dart stops the crits Tryndamere's damage and Fury come from, and Teemo out-ranges him. |
 | Teemo beats Darius | slight | +0.88 | holds | Blinding Dart stops the attacks that stack Hemorrhage, and Teemo kites him. |
-| Teemo beats Garen | slight | −0.03 | disputed | Blinding Dart makes Decisive Strike miss, and Garen's only way in is its haste. *Disputed:* Close to even (-0.03): Teemo wins when he starts the fight, the trades and the spacing game; Garen wins when he starts it from melee range, and the brawl. In melee range Judgment (2,562 damage in the brawl) and Demacian Justice decide it, and the blind stops neither. |
+| Teemo beats Garen | slight | +0.02 | holds | Blinding Dart makes Decisive Strike miss, and Garen's only way in is its haste. |
 | Teemo beats Olaf | slight | +0.93 | holds | Blinding Dart stops Olaf's attacks, and Teemo kites him. |
 | Teemo beats Volibear | slight | +0.91 | holds | Teemo kites him, and a blinded Thundering Smash attack misses, stun included. |
-| Jax beats Tryndamere | slight | −0.75 | disputed | Counter Strike dodges Tryndamere's attacks for two seconds, then stuns him. *Disputed:* Tryndamere wins every all-in (-0.75). Jax opens with Counter Strike and dodges Tryndamere's early attacks, but at level 20 Undying Rage gives Tryndamere five seconds at 82% crit (200% critical damage) with Counter Strike on cooldown. |
+| Jax beats Tryndamere | slight | +0.79 | holds | Counter Strike dodges Tryndamere's attacks for two seconds, then stuns him. |
 | Jax beats Camille | slight | +0.77 | holds | Counter Strike dodges Precision Protocol's empowered attacks. |
-| Fiora beats Malphite | slight | +0.24 | holds | Riposte parries Unstoppable Force, and Vitals' true damage ignores Malphite's armor. |
+| Fiora beats Malphite | slight | +0.74 | holds | Riposte parries Unstoppable Force, and Vitals' true damage ignores Malphite's armor. |
 | Fiora beats Volibear | slight | +0.85 | holds | Riposte parries Thundering Smash's stun. |
-| Fiora beats Darius | slight | +0.86 | holds | Riposte parries Apprehend's pull or Noxian Guillotine. |
-| Fiora beats Sett | slight | +0.82 | holds | Riposte parries Haymaker. |
-| Fiora beats Garen | slight | +0.70 | holds | Riposte parries Decisive Strike's silence or Demacian Justice. |
-| Fiora beats Mordekaiser | slight | +0.89 | holds | Riposte parries Death's Grasp's pull, and Vitals' true damage ignores Mordekaiser's armor. |
+| Fiora beats Darius | slight | +0.62 | holds | Riposte parries Apprehend's pull or Noxian Guillotine. |
+| Fiora beats Sett | slight | +0.83 | holds | Riposte parries Haymaker. |
+| Fiora beats Garen | slight | +0.80 | holds | Riposte parries Decisive Strike's silence or Demacian Justice. |
+| Fiora beats Mordekaiser | slight | +0.88 | holds | Riposte parries Death's Grasp's pull, and Vitals' true damage ignores Mordekaiser's armor. |
 | Fiora beats Aatrox | slight | −0.25 | disputed | Riposte parries a Darkin Blade knock-up. *Disputed:* Aatrox wins both all-ins (-0.25 overall; Fiora wins the brawl). Each hit takes 2 s off Deathbringer Stance's cooldown, so the budget buys Aatrox 312% bonus attack speed: a Deathbringer Stance hit about every 1.2 s, healing double through World Ender. |
-| Fiora beats Ornn | clear | +0.84 | holds | Vitals deal true damage from maximum health, and Riposte parries Ornn's knock-ups. |
-| Fiora beats Dr. Mundo | slight | +0.80 | holds | Vitals deal true damage from maximum health. |
+| Fiora beats Ornn | clear | +0.80 | holds | Vitals deal true damage from maximum health, and Riposte parries Ornn's knock-ups. |
+| Fiora beats Dr. Mundo | slight | +0.78 | holds | Vitals deal true damage from maximum health. |
 | Fiora beats Shen | slight | +0.76 | holds | Vitals deal true damage from maximum health, and Riposte parries Shadow Dash's taunt. |
 | Gwen beats Dr. Mundo | clear | +0.80 | holds | A Thousand Cuts deals magic damage from maximum health. |
 | Gwen beats Ornn | clear | +0.74 | holds | A Thousand Cuts deals magic damage from maximum health. |
 | Gwen beats Shen | slight | +0.78 | holds | A Thousand Cuts deals magic damage from maximum health. |
-| Gwen beats Malphite | slight | −0.21 | disputed | Gwen's damage is magic, so Malphite's armor doesn't help him. *Disputed:* Malphite wins (-0.21): the all-in he starts with Unstoppable Force, and the brawl. The budget answers Gwen's magic damage with 134 magic resistance, and Gwen buys 456 ability power and no attack speed, so Snip Snip! rarely reaches its four stacks. |
-| Mordekaiser beats Malphite | slight | +0.58 | holds | Mordekaiser's damage is magic, so Malphite's armor doesn't help him. |
-| Mordekaiser beats Ornn | slight | +0.76 | holds | Magic damage and Realm of Death's stolen stats against a tank. |
+| Gwen beats Malphite | slight | +0.77 | holds | Gwen's damage is magic, so Malphite's armor doesn't help him. |
+| Mordekaiser beats Malphite | slight | +0.75 | holds | Mordekaiser's damage is magic, so Malphite's armor doesn't help him. |
+| Mordekaiser beats Ornn | slight | +0.25 | holds | Magic damage and Realm of Death's stolen stats against a tank. |
 | Camille beats Ornn | slight | +0.75 | holds | Precision Protocol's second hit is true damage. |
-| Camille beats Shen | slight | +0.32 | holds | Precision Protocol's second hit is true damage. |
-| Urgot beats Ornn | slight | +0.81 | holds | Echoing Flames' shotgun legs deal damage from maximum health, and Fear Beyond Death executes. |
-| Olaf beats Malphite | slight | +0.78 | holds | Ragnarok ignores Unstoppable Force, and Reckless Swing's true damage ignores his armor. |
+| Camille beats Shen | slight | +0.54 | holds | Precision Protocol's second hit is true damage. |
+| Urgot beats Ornn | slight | −0.00 | disputed | Echoing Flames' shotgun legs deal damage from maximum health, and Fear Beyond Death executes. *Disputed:* Even (0.00): every all-in runs the full 30 s with both near half health. Urgot's damage is all physical, and Ornn buys 8,500 gold of armor that Living Forge makes worth 30% more (562 armor in all) against Urgot's capped 34% penetration. |
+| Olaf beats Malphite | slight | +0.77 | holds | Ragnarok ignores Unstoppable Force, and Reckless Swing's true damage ignores his armor. |
 | Olaf beats Ornn | slight | +0.78 | holds | Ragnarok ignores Ornn's knock-ups and stuns. |
-| Olaf beats Poppy | slight | +0.76 | holds | Ragnarok ignores Heroic Charge's stun and Keeper's Verdict. |
-| Malphite beats Tryndamere | clear | −0.75 | disputed | Ground Slam cuts Tryndamere's attack speed, and Malphite's armor blunts his crits. *Disputed:* Tryndamere wins every all-in (-0.75). Against Malphite the budget buys him 110 lethality and 73% armor penetration, which takes all of Malphite's armor away: at gold value, penetration is cheaper than the armor it cancels. |
-| Malphite beats Yasuo | slight | +0.79 | holds | Armor against crits, and Unstoppable Force goes through Wind Wall. |
+| Olaf beats Poppy | slight | +0.79 | holds | Ragnarok ignores Heroic Charge's stun and Keeper's Verdict. |
+| Malphite beats Tryndamere | clear | +0.81 | holds | Ground Slam cuts Tryndamere's attack speed, and Malphite's armor blunts his crits. |
+| Malphite beats Yasuo | slight | +0.78 | holds | Armor against crits, and Unstoppable Force goes through Wind Wall. |
 | Malphite beats Yone | slight | +0.80 | holds | Armor against crits, and Ground Slam cuts Yone's attack speed. |
-| Malphite beats Riven | slight | +0.78 | holds | All of Riven's damage is physical, into Malphite's armor and Ground Slam. |
-| Malphite beats Irelia | slight | +0.70 | holds | Ground Slam cuts Irelia's attack speed, and her damage is mostly physical. |
-| Garen beats Yasuo | slight | +0.81 | holds | Decisive Strike silences Yasuo, so he can't Sweeping Blade away or stack Steel Tempest. |
-| Garen beats Yone | slight | +0.82 | holds | Decisive Strike silences Yone in the middle of his combo. |
-| Garen beats Irelia | slight | +0.85 | holds | Decisive Strike silences Irelia (no Bladesurge resets), and Garen's regeneration outlasts her trades. |
+| Malphite beats Riven | slight | +0.80 | holds | All of Riven's damage is physical, into Malphite's armor and Ground Slam. |
+| Malphite beats Irelia | slight | +0.80 | holds | Ground Slam cuts Irelia's attack speed, and her damage is mostly physical. |
+| Garen beats Yasuo | slight | +0.58 | holds | Decisive Strike silences Yasuo, so he can't Sweeping Blade away or stack Steel Tempest. |
+| Garen beats Yone | slight | +0.28 | holds | Decisive Strike silences Yone in the middle of his combo. |
+| Garen beats Irelia | slight | +0.80 | holds | Decisive Strike silences Irelia (no Bladesurge resets), and Garen's regeneration outlasts her trades. |
 | Nasus beats Renekton | slight | +0.78 | holds | By level 20 Siphoning Strike has its stacks, and Wither cripples Renekton's attacks. |
 
-39 of 44 expectations hold.
+41 of 44 expectations hold.
 
 ## What the stat budget buys
 
@@ -93,28 +93,28 @@ Average gold each champion spends on each stat across its matchups.
 
 | Champion | ad | ap | as | crit | ah | lethality | armpen | mpenflat | mpen | hp | armor | mr |
 |---|--:|--:|--:|--:|--:|--:|--:|--:|--:|--:|--:|--:|
-| Aatrox | 2110 | 0 | 7737 | 3151 | 0 | 0 | 170 | 0 | 0 | 360 | 1143 | 330 |
-| Camille | 2801 | 0 | 2334 | 2067 | 35 | 2318 | 3016 | 0 | 0 | 1117 | 1092 | 222 |
-| Darius | 304 | 0 | 4563 | 483 | 0 | 4128 | 2708 | 0 | 0 | 1221 | 1347 | 245 |
-| Dr. Mundo | 0 | 0 | 1485 | 0 | 326 | 736 | 470 | 49 | 215 | 9419 | 1655 | 645 |
-| Fiora | 9599 | 0 | 1059 | 1100 | 0 | 240 | 60 | 0 | 0 | 346 | 1921 | 676 |
-| Garen | 1468 | 0 | 2536 | 2824 | 0 | 2804 | 3332 | 0 | 0 | 918 | 937 | 181 |
-| Gwen | 0 | 8619 | 2 | 0 | 1892 | 0 | 0 | 0 | 2825 | 0 | 1460 | 201 |
-| Irelia | 3222 | 0 | 2368 | 2481 | 0 | 1078 | 2294 | 0 | 0 | 1700 | 1414 | 442 |
-| Jax | 1366 | 395 | 1271 | 2204 | 0 | 1467 | 1714 | 325 | 34 | 3622 | 1913 | 689 |
-| Malphite | 0 | 920 | 0 | 0 | 2637 | 3567 | 2596 | 0 | 0 | 758 | 3925 | 596 |
-| Mordekaiser | 587 | 1809 | 1123 | 671 | 0 | 544 | 1 | 2290 | 2226 | 3457 | 1780 | 513 |
-| Nasus | 169 | 74 | 459 | 596 | 0 | 2360 | 1307 | 181 | 313 | 6001 | 2450 | 1089 |
-| Olaf | 3840 | 0 | 3812 | 3993 | 0 | 0 | 2376 | 0 | 0 | 0 | 806 | 173 |
-| Ornn | 729 | 0 | 1236 | 935 | 1077 | 692 | 757 | 196 | 13 | 6252 | 2724 | 1390 |
-| Poppy | 1839 | 0 | 2002 | 1870 | 0 | 4119 | 2378 | 0 | 0 | 1077 | 1349 | 365 |
-| Renekton | 1568 | 0 | 399 | 353 | 0 | 2311 | 1541 | 254 | 34 | 5324 | 2275 | 942 |
-| Riven | 3521 | 0 | 1106 | 2338 | 0 | 3761 | 2972 | 0 | 0 | 75 | 1077 | 151 |
-| Sett | 4529 | 0 | 844 | 9 | 0 | 691 | 1155 | 0 | 0 | 5774 | 1363 | 635 |
-| Shen | 1176 | 219 | 1127 | 1437 | 0 | 118 | 605 | 153 | 192 | 7304 | 1856 | 813 |
-| Teemo | 2320 | 747 | 4690 | 2093 | 0 | 140 | 825 | 71 | 21 | 2160 | 1412 | 520 |
-| Tryndamere | 1549 | 0 | 3649 | 1227 | 0 | 4070 | 2833 | 0 | 0 | 401 | 1092 | 179 |
-| Urgot | 1988 | 0 | 0 | 0 | 0 | 4156 | 2766 | 0 | 0 | 3909 | 1639 | 542 |
-| Volibear | 1113 | 3762 | 3717 | 685 | 0 | 672 | 278 | 32 | 60 | 2863 | 1346 | 474 |
-| Yasuo | 3228 | 0 | 2089 | 2000 | 0 | 3257 | 2938 | 0 | 0 | 249 | 1068 | 171 |
-| Yone | 3239 | 0 | 2010 | 2000 | 0 | 3033 | 3143 | 0 | 0 | 339 | 1060 | 176 |
+| Aatrox | 1771 | 0 | 7760 | 2801 | 0 | 0 | 155 | 0 | 0 | 153 | 2098 | 262 |
+| Camille | 3557 | 0 | 2869 | 2605 | 83 | 122 | 1721 | 0 | 0 | 1758 | 1978 | 307 |
+| Darius | 1149 | 0 | 5404 | 1508 | 0 | 512 | 1750 | 0 | 0 | 2047 | 2115 | 515 |
+| Dr. Mundo | 0 | 0 | 1109 | 0 | 348 | 40 | 168 | 0 | 240 | 8978 | 3318 | 798 |
+| Fiora | 9732 | 0 | 216 | 245 | 0 | 0 | 0 | 0 | 0 | 171 | 3998 | 637 |
+| Garen | 2393 | 0 | 3477 | 3718 | 0 | 43 | 1750 | 0 | 0 | 1789 | 1541 | 290 |
+| Gwen | 0 | 8499 | 6 | 0 | 1912 | 0 | 0 | 0 | 2012 | 0 | 2314 | 257 |
+| Irelia | 3455 | 0 | 2579 | 2578 | 0 | 112 | 1569 | 0 | 0 | 1813 | 2473 | 422 |
+| Jax | 1386 | 308 | 1510 | 2261 | 0 | 213 | 1280 | 50 | 75 | 3780 | 3426 | 711 |
+| Malphite | 0 | 496 | 0 | 0 | 3564 | 18 | 1750 | 0 | 0 | 1287 | 6777 | 1109 |
+| Mordekaiser | 565 | 1857 | 1187 | 627 | 0 | 122 | 78 | 176 | 1657 | 4283 | 3671 | 777 |
+| Nasus | 75 | 83 | 193 | 316 | 6 | 562 | 1000 | 44 | 373 | 6330 | 4831 | 1188 |
+| Olaf | 3913 | 0 | 3842 | 3990 | 26 | 0 | 1583 | 0 | 0 | 0 | 1494 | 152 |
+| Ornn | 266 | 0 | 500 | 358 | 1315 | 22 | 215 | 18 | 82 | 6483 | 5221 | 1520 |
+| Poppy | 2512 | 0 | 2765 | 2618 | 0 | 175 | 1750 | 0 | 0 | 1990 | 2543 | 646 |
+| Renekton | 1707 | 0 | 233 | 185 | 0 | 518 | 1388 | 43 | 177 | 5377 | 4253 | 1120 |
+| Riven | 4729 | 0 | 2314 | 3528 | 0 | 103 | 1750 | 0 | 0 | 541 | 1797 | 238 |
+| Sett | 4544 | 0 | 650 | 33 | 0 | 14 | 760 | 0 | 0 | 5746 | 2582 | 671 |
+| Shen | 554 | 230 | 513 | 776 | 0 | 18 | 143 | 16 | 224 | 7685 | 3905 | 937 |
+| Teemo | 2008 | 773 | 4645 | 1770 | 0 | 22 | 453 | 11 | 5 | 2170 | 2676 | 469 |
+| Tryndamere | 2684 | 0 | 4687 | 2269 | 0 | 249 | 1750 | 0 | 0 | 1238 | 1786 | 338 |
+| Urgot | 2878 | 0 | 0 | 0 | 0 | 1019 | 1750 | 0 | 0 | 4960 | 3302 | 1092 |
+| Volibear | 1168 | 3425 | 3643 | 732 | 0 | 86 | 298 | 5 | 40 | 2734 | 2439 | 429 |
+| Yasuo | 4396 | 0 | 3193 | 2000 | 0 | 151 | 1750 | 0 | 0 | 1316 | 1876 | 318 |
+| Yone | 4385 | 0 | 3154 | 2000 | 0 | 115 | 1750 | 0 | 0 | 1437 | 1841 | 319 |

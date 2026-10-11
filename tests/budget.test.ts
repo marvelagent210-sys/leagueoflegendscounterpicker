@@ -1,6 +1,6 @@
 import { readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
-import { allocate, allocateBoth, BUDGET_STATS, damagePerSecond, type StatPrices } from "../engine/budget";
+import { allocate, allocateBoth, BUDGET_STATS, damagePerSecond, PENETRATION_CAPS, type StatPrices } from "../engine/budget";
 import { boughtPenetration } from "../engine/sim/derived";
 import { ability, fighter } from "./sim/kits";
 
@@ -65,6 +65,25 @@ describe("stat budget", () => {
     expect(lethal.physical).toBeCloseTo((100 * 0.625 * 100) / 150, 9);
     const onHit = damagePerSecond(fighter({ attack: { onHit: [{ type: "damage", damageType: "magic", amount: { base: 40 } }] } }), fighter());
     expect(onHit.magic).toBeCloseTo(12.5, 9);
+  });
+
+  it("caps penetration near what items give", () => {
+    // Without the caps these fighters keep buying penetration; with them they stop at the caps
+    // and spend the rest elsewhere.
+    const target = (resist: number) => fighter({ base: { armor: resist, mr: resist, hp: 3000 } });
+    const physical = allocate(fighter(), target(150), 20000, prices);
+    expect(total(physical.spent)).toBe(20000);
+    expect(physical.bonus.lethality ?? 0).toBeLessThanOrEqual(PENETRATION_CAPS.lethality);
+    expect(physical.bonus.lethality ?? 0).toBeGreaterThan(PENETRATION_CAPS.lethality - 2);
+    expect(boughtPenetration(physical.bonus.armorPenPoints ?? 0)).toBeLessThanOrEqual(PENETRATION_CAPS.armorPen);
+    expect(boughtPenetration(physical.bonus.armorPenPoints ?? 0)).toBeGreaterThan(PENETRATION_CAPS.armorPen - 0.02);
+    const mage = fighter({ base: { ad: 20 }, abilities: [blast] });
+    const flat = allocate(mage, target(60), 20000, prices);
+    expect(flat.bonus.magicPen ?? 0).toBeLessThanOrEqual(PENETRATION_CAPS.magicPen);
+    expect(flat.bonus.magicPen ?? 0).toBeGreaterThan(PENETRATION_CAPS.magicPen - 2);
+    const percent = allocate(mage, target(300), 20000, prices);
+    expect(boughtPenetration(percent.bonus.magicPenPoints ?? 0)).toBeLessThanOrEqual(PENETRATION_CAPS.magicPenPercent);
+    expect(boughtPenetration(percent.bonus.magicPenPoints ?? 0)).toBeGreaterThan(PENETRATION_CAPS.magicPenPercent - 0.02);
   });
 
   it("buys only the listed stats", () => {

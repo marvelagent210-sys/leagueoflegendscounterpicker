@@ -16,12 +16,13 @@
  * the champion already has.
  *
  * Each side's damage mix and resistances depend on what the other buys, so the sides answer
- * each other's builds over several rounds (see allocateBoth).
+ * each other's builds over several rounds (see allocateBoth). Penetration is capped near what
+ * items give (PENETRATION_CAPS).
  */
 import { effectiveResist, resistMultiplier } from "./rules/damage";
 import { averageCritFactor } from "./rules/defense";
 import { cooldownAfterHaste } from "./rules/timing";
-import { derive, evaluate } from "./sim/derived";
+import { boughtPenetration, derive, evaluate } from "./sim/derived";
 import { type AbilitySpec, type BonusStats, type DamageByType, type Effect, type FighterSpec, type Formula, cooldownKeyOf } from "./sim/spec";
 import { type Unit, newUnit } from "./sim/state";
 
@@ -40,6 +41,27 @@ export const DEFAULT_BUDGET = 15000;
 
 /** Gold spent per step of the allocation. */
 export const BUDGET_STEP = 50;
+
+/**
+ * The most penetration the budget buys (PLAN.md section 10). At gold value, penetration costs
+ * less than the armor it cancels: uncapped, both sides bought up to 138 lethality, more than
+ * any item build reaches, and armor stopped mattering. The caps are about what a full build
+ * gets from items: Lord Dominik's Regards' 35% armor penetration (the most items give, wiki:
+ * "Armor penetration"), Void Staff's 40% magic penetration, Spellslinger's Shoes' 20 flat
+ * magic penetration (wiki: "Magic penetration"), and two to three lethality items.
+ */
+export const PENETRATION_CAPS = { lethality: 40, armorPen: 0.35, magicPen: 20, magicPenPercent: 0.4 } as const;
+
+function overCaps(bonus: BonusStats): boolean {
+  const c = PENETRATION_CAPS;
+  const over = (value: number, cap: number) => value > cap + 1e-9;
+  return (
+    over(bonus.lethality ?? 0, c.lethality) ||
+    over(boughtPenetration(bonus.armorPenPoints ?? 0), c.armorPen) ||
+    over(bonus.magicPen ?? 0, c.magicPen) ||
+    over(boughtPenetration(bonus.magicPenPoints ?? 0), c.magicPenPercent)
+  );
+}
 
 /** Seconds of fighting over which ability shields and heals count toward effective health. */
 export const SUSTAIN_WINDOW = 10;
@@ -329,6 +351,7 @@ export function allocate(spec: FighterSpec, enemy: FighterSpec, gold: number, pr
     for (const stat of useful) {
       if (stat === "crit" && (bonus.critChance ?? 0) >= 1) continue;
       const next = addStat(bonus, stat, step * per(stat));
+      if (overCaps(next)) continue;
       const v = score(next);
       if (!best || v > best.value + 1e-12) best = { stat, bonus: next, value: v };
     }

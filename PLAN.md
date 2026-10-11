@@ -1,6 +1,6 @@
 # Kit-Based Counter Picker: Plan
 
-Status: M1 to M4 done; M5 built and waiting for your review of the golden matchups and two budget questions (see §13). Data sources checked on 2026-10-08 against patch 26.20 (Data Dragon 16.20.1).
+Status: M1 to M4 done; M5 built and waiting for your review of the golden matchups (see §13). Data sources checked on 2026-10-08 against patch 26.20 (Data Dragon 16.20.1).
 
 ## 1. What we're building
 
@@ -233,6 +233,7 @@ With zero items, ability ratios (AP, bonus AD, bonus HP) would add nothing at le
 - The gold is allocated according to each champion's own ratios.
 - Defensive stats are split against the opponent's damage type.
 - Stats are priced at their base gold values from the wiki.
+- Penetration is capped near what a full build's items give: 40 lethality, 35% armor penetration, 20 flat and 40% magic penetration. Uncapped, penetration at gold value cost less than the armor it cancels, both sides bought up to 138 lethality (more than any item build reaches), and armor stopped mattering (decided in M5).
 
 A slider runs from 0 gold (pure kit) up to a full build. The default is 15,000 gold, about what a top laner has when the role quest takes it to level 20 (set in M4; see §13).
 
@@ -416,6 +417,7 @@ web/        the app
   Mordekaiser's R and Volibear's Q cooldowns agree at max rank.
 - **Stat budget changes:**
   - Percentage armor and magic penetration can be bought at their wiki gold values (41.67 and 46.15 per point). Each point is a separate 1% source, and sources multiply, so it never reaches 100%.
+  - Penetration is capped near what items give (§10): 40 lethality; 35% armor penetration, the most items give (Lord Dominik's Regards); 40% magic penetration (Void Staff); 20 flat magic penetration (Spellslinger's Shoes). Uncapped, AD champions spent 5,000 to 7,000 of their 15,000 gold on penetration, up to 138 lethality, and armor stopped mattering. With the caps they buy 1,500 to 6,800 gold of armor.
   - Both sides answer each other over 8 rounds: each round, each side answers the average of what the other has built so far, and the result is the average of the answers. The old two-pass allocation left armor that didn't see the penetration coming.
   - Kits tell the budget what their hooks do: damage, healing, whether they attack at all (Urgot), stats worth more to them (Living Forge; Yasuo's and Yone's doubled crit), and extra gold (Ornn's Masterwork).
 - **Results.** `npm run build:data` now runs all 300 wave-1 matchups on every core, in about a minute:
@@ -428,15 +430,13 @@ web/        the app
   - Attacks made from bonus attack range (Riven, Gwen, Nasus, Renekton and Volibear buffs) were cancelled as out of range on every tick.
   - Irelia never used Defiant Dance, and Ornn hardly ever used his ultimate.
   - Fury of the Sands ignored its cap of 240 damage per second.
-- **Golden matchups** (`tests/golden/matchups.ts`): 44 drafted, each with the kit interaction it rests on, for you to confirm, change or extend toward the 60 of §8. 39 hold. 5 are marked disputed and skipped by the tests until you decide:
-  - Teemo vs Garen: close to even (−0.03). Teemo wins when he starts the fight; Garen wins from melee range with Judgment and Demacian Justice, which the blind doesn't stop.
-  - Jax vs Tryndamere: Tryndamere wins (−0.75). Jax opens with Counter Strike; at level 20, Undying Rage then gives Tryndamere five seconds at 82% crit with Counter Strike on cooldown.
+- **Golden matchups** (`tests/golden/matchups.ts`): 44 drafted, each with the kit interaction it rests on, for you to confirm, change or extend toward the 60 of §8. 41 hold. 3 are marked disputed and skipped by the tests until you decide:
+  - Poppy vs Fiora: Fiora wins (−0.74). Poppy's damage is all physical; Fiora answers it with 5,600 gold of armor, and Poppy spends her gold on damage rather than health.
   - Fiora vs Aatrox: Aatrox wins (−0.25). Each of his hits shortens Deathbringer Stance's cooldown, so the budget buys him 312% attack speed.
-  - Gwen vs Malphite: Malphite wins (−0.21). He buys magic resistance against her, and she buys ability power and no attack speed.
-  - Malphite vs Tryndamere: Tryndamere wins (−0.75). His penetration takes all of Malphite's armor away.
-- **Findings to decide on:**
-  - *Penetration dominates the plain-stat budget.* At gold value, AD champions spend 5,000 to 7,000 of their 15,000 gold on lethality and armor penetration, up to 138 lethality, more than any real build can reach. Armor stops mattering. In an experiment, capping penetration near what items give (40 lethality, 35% armor penetration, 20 flat and 40% magic penetration) made 41 of the 44 expectations hold instead of 39: both Tryndamere disputes, Teemo vs Garen and Gwen vs Malphite turn around, while Poppy vs Fiora and Urgot vs Ornn stop holding. Option: add such caps to the budget (not done; your call).
-  - *Scores are nearly all-or-nothing.* 222 of 300 matchups score beyond ±0.6, because a duel has one winner and the all-ins carry 70% of the weight. The score says who wins more than by how much.
-  - *Plain stats bend some builds* away from anything an item build would give: Fiora spends 9,600 gold on AD (her Vitals grow with bonus AD), Gwen 8,600 on AP with no attack speed, Aatrox 7,700 on attack speed.
-  - *Tanks rank last* (Ornn, Shen): at equal gold they lose 1v1s to damage dealers.
-- **Tests.** 538 pass and 5 are skipped (the disputed golden matchups). New: every wave-1 kit compiles and fights with several of its abilities, with spot checks of values read from the wiki; the engine additions on synthetic kits; fair-fight symmetry; the budget's penetration; the simulator pages and `simulated.json`.
+  - Urgot vs Ornn: even (0.00). Every all-in runs the full 30 seconds: Ornn's armor, worth 30% more through Living Forge, holds against Urgot's all-physical damage.
+  Before the penetration caps, Jax vs Tryndamere, Malphite vs Tryndamere, Teemo vs Garen and Gwen vs Malphite failed instead, and Poppy vs Fiora and Urgot vs Ornn held. Teemo vs Garen holds by a hair (+0.02).
+- **Findings:**
+  - *Scores are nearly all-or-nothing.* 225 of 300 matchups score beyond ±0.6, because a duel has one winner and the all-ins carry 70% of the weight. The score says who wins more than by how much, and one change can move a champion far (fixing Sett's Right Punch took him from first place to near the bottom).
+  - *Plain stats bend some builds* away from anything an item build would give: Fiora spends 9,700 gold on AD (her Vitals grow with bonus AD), Gwen 8,500 on AP with no attack speed, Aatrox 7,800 on attack speed.
+  - *Standings* (average score): Darius and Fiora lead (+0.64, +0.61); Riven, Yasuo and Urgot trail (−0.58, −0.47, −0.46), and the tanks Ornn and Shen are near the bottom.
+- **Tests.** 541 pass and 3 are skipped (the disputed golden matchups). New: every wave-1 kit compiles and fights with several of its abilities, with spot checks of values read from the wiki; the engine additions on synthetic kits; fair-fight symmetry; the budget's penetration; the simulator pages and `simulated.json`.

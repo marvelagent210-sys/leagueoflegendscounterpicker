@@ -38,7 +38,7 @@ npm run duel -- Garen Darius --log brawl     # plus the timeline of one fight
 npm run duel -- Garen Darius --sweep         # plus the score at budgets from 0 to 20,000 gold
 ```
 
-The simulator plays a duel out at 30 ticks per second, in one dimension. Both champions spend the same gold on plain stats. Each prints a score from -1 to +1 for these scenarios:
+The simulator plays a duel out at 30 ticks per second, in one dimension. Both champions spend the same gold on plain stats, with penetration capped near what items give. Each prints a score from -1 to +1 for these scenarios:
 
 - you engage;
 - the enemy engages;

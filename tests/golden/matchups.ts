@@ -31,35 +31,28 @@ export const DASH_DENIAL: GoldenMatchup[] = [
   { winner: "Poppy", loser: "Yasuo", margin: "slight", why: "Steadfast Presence stops Sweeping Blade." },
   { winner: "Poppy", loser: "Yone", margin: "slight", why: "Steadfast Presence stops Mortal Steel's third-cast dash." },
   { winner: "Poppy", loser: "Camille", margin: "slight", why: "Steadfast Presence stops Wall Dive." },
-  { winner: "Poppy", loser: "Fiora", margin: "slight", why: "Steadfast Presence stops Lunge." },
+  {
+    winner: "Poppy",
+    loser: "Fiora",
+    margin: "slight",
+    why: "Steadfast Presence stops Lunge.",
+    disputed:
+      "Fiora wins every all-in (-0.74). Poppy's damage is all physical, and with penetration capped the budget answers it with 5,600 gold of armor (406 in all), while Poppy spends hers on damage rather than health: her opening crowd control wears off with Fiora barely scratched.",
+  },
 ];
 
 /** Range and blinds against champions whose damage is basic attacks. */
 export const RANGE_AND_BLINDS: GoldenMatchup[] = [
   { winner: "Teemo", loser: "Tryndamere", margin: "clear", why: "Blinding Dart stops the crits Tryndamere's damage and Fury come from, and Teemo out-ranges him." },
   { winner: "Teemo", loser: "Darius", margin: "slight", why: "Blinding Dart stops the attacks that stack Hemorrhage, and Teemo kites him." },
-  {
-    winner: "Teemo",
-    loser: "Garen",
-    margin: "slight",
-    why: "Blinding Dart makes Decisive Strike miss, and Garen's only way in is its haste.",
-    disputed:
-      "Close to even (-0.03): Teemo wins when he starts the fight, the trades and the spacing game; Garen wins when he starts it from melee range, and the brawl. In melee range Judgment (2,562 damage in the brawl) and Demacian Justice decide it, and the blind stops neither.",
-  },
+  { winner: "Teemo", loser: "Garen", margin: "slight", why: "Blinding Dart makes Decisive Strike miss, and Garen's only way in is its haste." },
   { winner: "Teemo", loser: "Olaf", margin: "slight", why: "Blinding Dart stops Olaf's attacks, and Teemo kites him." },
   { winner: "Teemo", loser: "Volibear", margin: "slight", why: "Teemo kites him, and a blinded Thundering Smash attack misses, stun included." },
 ];
 
 /** Dodged or parried attacks and crowd control. */
 export const DODGES_AND_PARRIES: GoldenMatchup[] = [
-  {
-    winner: "Jax",
-    loser: "Tryndamere",
-    margin: "slight",
-    why: "Counter Strike dodges Tryndamere's attacks for two seconds, then stuns him.",
-    disputed:
-      "Tryndamere wins every all-in (-0.75). Jax opens with Counter Strike and dodges Tryndamere's early attacks, but at level 20 Undying Rage gives Tryndamere five seconds at 82% crit (200% critical damage) with Counter Strike on cooldown.",
-  },
+  { winner: "Jax", loser: "Tryndamere", margin: "slight", why: "Counter Strike dodges Tryndamere's attacks for two seconds, then stuns him." },
   { winner: "Jax", loser: "Camille", margin: "slight", why: "Counter Strike dodges Precision Protocol's empowered attacks." },
   { winner: "Fiora", loser: "Malphite", margin: "slight", why: "Riposte parries Unstoppable Force, and Vitals' true damage ignores Malphite's armor." },
   { winner: "Fiora", loser: "Volibear", margin: "slight", why: "Riposte parries Thundering Smash's stun." },
@@ -85,19 +78,19 @@ export const TANK_BUSTERS: GoldenMatchup[] = [
   { winner: "Gwen", loser: "DrMundo", margin: "clear", why: "A Thousand Cuts deals magic damage from maximum health." },
   { winner: "Gwen", loser: "Ornn", margin: "clear", why: "A Thousand Cuts deals magic damage from maximum health." },
   { winner: "Gwen", loser: "Shen", margin: "slight", why: "A Thousand Cuts deals magic damage from maximum health." },
-  {
-    winner: "Gwen",
-    loser: "Malphite",
-    margin: "slight",
-    why: "Gwen's damage is magic, so Malphite's armor doesn't help him.",
-    disputed:
-      "Malphite wins (-0.21): the all-in he starts with Unstoppable Force, and the brawl. The budget answers Gwen's magic damage with 134 magic resistance, and Gwen buys 456 ability power and no attack speed, so Snip Snip! rarely reaches its four stacks.",
-  },
+  { winner: "Gwen", loser: "Malphite", margin: "slight", why: "Gwen's damage is magic, so Malphite's armor doesn't help him." },
   { winner: "Mordekaiser", loser: "Malphite", margin: "slight", why: "Mordekaiser's damage is magic, so Malphite's armor doesn't help him." },
   { winner: "Mordekaiser", loser: "Ornn", margin: "slight", why: "Magic damage and Realm of Death's stolen stats against a tank." },
   { winner: "Camille", loser: "Ornn", margin: "slight", why: "Precision Protocol's second hit is true damage." },
   { winner: "Camille", loser: "Shen", margin: "slight", why: "Precision Protocol's second hit is true damage." },
-  { winner: "Urgot", loser: "Ornn", margin: "slight", why: "Echoing Flames' shotgun legs deal damage from maximum health, and Fear Beyond Death executes." },
+  {
+    winner: "Urgot",
+    loser: "Ornn",
+    margin: "slight",
+    why: "Echoing Flames' shotgun legs deal damage from maximum health, and Fear Beyond Death executes.",
+    disputed:
+      "Even (0.00): every all-in runs the full 30 s with both near half health. Urgot's damage is all physical, and Ornn buys 8,500 gold of armor that Living Forge makes worth 30% more (562 armor in all) against Urgot's capped 34% penetration.",
+  },
 ];
 
 /** Crowd control immunity and armor. */
@@ -105,14 +98,7 @@ export const IMMUNITY_AND_ARMOR: GoldenMatchup[] = [
   { winner: "Olaf", loser: "Malphite", margin: "slight", why: "Ragnarok ignores Unstoppable Force, and Reckless Swing's true damage ignores his armor." },
   { winner: "Olaf", loser: "Ornn", margin: "slight", why: "Ragnarok ignores Ornn's knock-ups and stuns." },
   { winner: "Olaf", loser: "Poppy", margin: "slight", why: "Ragnarok ignores Heroic Charge's stun and Keeper's Verdict." },
-  {
-    winner: "Malphite",
-    loser: "Tryndamere",
-    margin: "clear",
-    why: "Ground Slam cuts Tryndamere's attack speed, and Malphite's armor blunts his crits.",
-    disputed:
-      "Tryndamere wins every all-in (-0.75). Against Malphite the budget buys him 110 lethality and 73% armor penetration, which takes all of Malphite's armor away: at gold value, penetration is cheaper than the armor it cancels.",
-  },
+  { winner: "Malphite", loser: "Tryndamere", margin: "clear", why: "Ground Slam cuts Tryndamere's attack speed, and Malphite's armor blunts his crits." },
   { winner: "Malphite", loser: "Yasuo", margin: "slight", why: "Armor against crits, and Unstoppable Force goes through Wind Wall." },
   { winner: "Malphite", loser: "Yone", margin: "slight", why: "Armor against crits, and Ground Slam cuts Yone's attack speed." },
   { winner: "Malphite", loser: "Riven", margin: "slight", why: "All of Riven's damage is physical, into Malphite's armor and Ground Slam." },
