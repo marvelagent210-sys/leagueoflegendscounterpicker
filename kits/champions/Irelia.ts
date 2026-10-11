@@ -4,7 +4,11 @@ import { canCast, canStartAttack, inReach } from "../../engine/sim/actions";
 import { type Behavior, defaultBehavior } from "../../engine/sim/behavior";
 import { derive, evaluate } from "../../engine/sim/derived";
 import type { Effect, HookContext } from "../../engine/sim/spec";
+import type { Unit } from "../../engine/sim/state";
 import { attackDamage, bump, counter, extraAttacks, scaled, ticks } from "./util";
+
+/** Share of maximum health, coming or lost in a second, that makes Irelia raise Defiant Dance. */
+const HEAVY = 0.15;
 
 const irelia: KitModule = {
   champion: "Irelia",
@@ -41,14 +45,34 @@ const irelia: KitModule = {
     const bladesDamage = r.formula("Magic Damage");
     kit.assume("Flawless Duet's blades are placed on both sides of the enemy, so the closing line is dodged like a skillshot 140 units wide.");
     kit.assume("Vanguard's Edge's blade perimeter hits the enemy once if it walks 250 units from where it was struck.");
-    kit.assume("Defiant Dance charges fully and is released at the end.");
+    kit.assume(`Defiant Dance is released once fully charged (${fullCharge} s), when the enemy is in reach; otherwise at the end of the charge.`);
+    kit.assume(`Irelia raises Defiant Dance in a fight when hits worth ${HEAVY * 100}% of her maximum health are coming, or after losing that much in a second.`);
     kit.assume("Irelia holds Bladesurge while Flawless Duet or Vanguard's Edge is about to mark her target, so that it resets.");
+
+    // Health lost over the last second, from the log the damage hook keeps.
+    const recentLoss = (unit: Unit, now: number): number =>
+      String(unit.memory.hurt ?? "")
+        .split(";")
+        .filter(Boolean)
+        .map((entry) => entry.split(":").map(Number))
+        .reduce((sum, [tick = 0, amount = 0]) => (now - tick < 30 ? sum + amount : sum), 0);
 
     // Bladesurge resets on an Unsteady target: mark it first when a mark is on its way or ready.
     const behavior: Behavior = (view) => {
+      const { world, self } = view;
+      // Released once fully charged, with the enemy in reach.
+      const release = self.spec.abilities.find((a) => a.key === "W2");
+      if (release && self.action?.kind === "channel" && canCast(world, self, release) && inReach(release, self, view.enemy)) return { kind: "cast", ability: "W2" };
+      // Defiant Dance blunts a burst, or a run of heavy damage.
+      const dance = self.spec.abilities.find((a) => a.key === "W");
+      if (dance && (view.mode === "fight" || view.mode === "hold" || view.mode === "trade") && canCast(world, self, dance)) {
+        const heavy = HEAVY * derive(self).maxHp;
+        const coming = view.threats.filter((t) => t.eta <= ticks(charge)).reduce((sum, t) => sum + t.damage, 0);
+        if (coming >= heavy || recentLoss(self, world.tick) >= heavy) return { kind: "cast", ability: "W" };
+      }
       const command = defaultBehavior(view);
       if (command?.kind !== "cast" || command.ability !== "Q") return command;
-      const { world, self, enemy } = view;
+      const enemy = view.enemy;
       const unsteady = enemy.statuses.some((s) => s.kind === "mark" && s.key === "unsteady");
       if (unsteady) return command;
       const inFlight =
@@ -106,6 +130,13 @@ const irelia: KitModule = {
         onCast(ctx) {
           if (ctx.ability.key === "W") ctx.memory.danceStart = ctx.tick;
         },
+        onDamageTaken(ctx) {
+          const log = String(ctx.memory.hurt ?? "")
+            .split(";")
+            .filter((entry) => entry && ctx.tick - Number(entry.split(":")[0]) < 30);
+          log.push(`${ctx.tick}:${ctx.amount.toFixed(1)}`);
+          ctx.memory.hurt = log.join(";");
+        },
         onTick(ctx) {
           if (ctx.tick >= Number(ctx.memory.cageUntil ?? -1)) return;
           if (Math.abs(ctx.enemy.x - Number(ctx.memory.cageX)) < 250) return;
@@ -151,7 +182,7 @@ const irelia: KitModule = {
           slot: "W",
           cooldown: 0,
           castTime: w.castTime("Recast"),
-          chain: { root: "W", index: 2, window: charge, auto: true },
+          chain: { root: "W", index: 2, window: charge, delay: fullCharge, auto: true },
           delivery: { kind: "area", near: 0, far: w.field("range", "Recast swipe total range"), delay: 0, anchor: "caster" },
           onHit: [{ type: "damage", damageType: "physical", amount: minDance }],
           flags: { usableWhileDisabled: true },

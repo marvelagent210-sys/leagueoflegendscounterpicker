@@ -20,7 +20,7 @@ import { type CCType, IMMOBILIZING } from "../rules/crowdControl";
 import { effectiveResist, resistMultiplier } from "../rules/damage";
 import { averageCritFactor } from "../rules/defense";
 import { toTicks } from "../rules/time";
-import { EPSILON, attackRange, attackTiming, canCast, canStartAttack, empowerStatus, heldInPlace, inAttackRange, inReach } from "./actions";
+import { EPSILON, attackRange, attackTiming, canCast, canStartAttack, empowerStatus, heldInPlace, heldUntil, inAttackRange, inReach } from "./actions";
 import { edgeDistance, isUntargetable } from "./combat";
 import { canAttack, canMove, ccTypes, derive, evaluate } from "./derived";
 import { hitChance } from "./hitModel";
@@ -505,7 +505,7 @@ function worthThrowing(view: View, ability: AbilitySpec): boolean {
   const timeToLand = ability.castTime + travel;
   const chance = hitChance(
     { timeToLand, reach: d.kind === "line" ? d.width / 2 : d.radius },
-    { radius: enemy.spec.base.radius, moveSpeed: derive(enemy).moveSpeed, heldInPlace: heldInPlace(enemy, world.tick + toTicks(timeToLand)), hasEscape: false },
+    { radius: enemy.spec.base.radius, moveSpeed: derive(enemy).moveSpeed, heldInPlace: heldInPlace(enemy, world.tick + toTicks(timeToLand)), heldFor: Math.max(0, heldUntil(enemy) - world.tick) / 30, hasEscape: false },
     world.settings.reactionTime,
     world.settings.hitSpread,
   );

@@ -1,10 +1,10 @@
 /**
  * Whether a skillshot lands. The fight is one-dimensional, so dodging happens sideways: the
  * target sees the cast begin, reacts, and has until the skillshot arrives to move its
- * hitbox out of the way. It can't if crowd control or its own cast or channel holds it in
- * place, and a ready dash or blink gets it out at once.
+ * hitbox out of the way. It can't while crowd control or its own cast or channel holds it
+ * in place, and a ready dash or blink gets it out at once.
  *
- *   time available = (cast time + travel or delay) - reaction time
+ *   time available = (cast time + travel or delay) - (reaction time, or the time it is held if longer)
  *   time needed    = (half width or radius + target radius) / movement speed
  *
  * The chance to land falls off smoothly around the point where the two are equal: players
@@ -23,13 +23,15 @@ export interface Dodger {
   moveSpeed: number;
   /** True when crowd control, a cast or a channel keeps the target in place until it lands. */
   heldInPlace: boolean;
+  /** Seconds from the start of the cast that crowd control, a cast or a channel keeps it in place. */
+  heldFor?: number;
   /** A dash or blink the target can use to leave the area at once. */
   hasEscape: boolean;
 }
 
 export function hitChance(shot: SkillshotGeometry, target: Dodger, reaction: number, spread: number): number {
   if (target.heldInPlace) return 1;
-  const available = shot.timeToLand - reaction;
+  const available = shot.timeToLand - Math.max(reaction, target.heldFor ?? 0);
   if (available <= 0) return 1;
   if (target.hasEscape) return 0;
   if (target.moveSpeed <= 0) return 1;

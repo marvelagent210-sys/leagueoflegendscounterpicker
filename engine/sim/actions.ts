@@ -283,15 +283,20 @@ function decisive(world: World, caster: Unit, target: Unit, effects: Effect[]): 
   return damage >= world.settings.decisiveDamage * derive(target).maxHp;
 }
 
+const HOLDING_CC = new Set(["stun", "root", "airborne", "suppression", "sleep", "stasis", "suspension", "charm", "taunt"]);
+
+/** The last tick at which crowd control or the target's own cast, channel or dash holds it in place. */
+export function heldUntil(target: Unit): number {
+  let until = -1;
+  const action = target.action;
+  if (action?.kind === "cast" || action?.kind === "channel" || action?.kind === "dash") until = action.endTick;
+  for (const s of target.statuses) if (s.kind === "cc" && HOLDING_CC.has(s.key)) until = Math.max(until, s.endTick);
+  return until;
+}
+
 /** Whether something holds the target in place until `untilTick`. */
 export function heldInPlace(target: Unit, untilTick: number): boolean {
-  const action = target.action;
-  if (action?.kind === "cast" || action?.kind === "channel" || action?.kind === "dash") {
-    if (action.endTick >= untilTick) return true;
-  }
-  return target.statuses.some(
-    (s) => s.kind === "cc" && ["stun", "root", "airborne", "suppression", "sleep", "stasis", "suspension", "charm", "taunt"].includes(s.key) && s.endTick >= untilTick,
-  );
+  return heldUntil(target) >= untilTick;
 }
 
 /**
@@ -310,9 +315,10 @@ function resolveSkillshot(
 ): { connects: boolean; scale: number; split?: number } {
   const timeToLand = (world.tick - castStartTick) / 30 + travelSeconds;
   const landTick = world.tick + toTicks(travelSeconds);
+  const held = heldUntil(target);
   const chance = hitChance(
     { timeToLand, reach },
-    { radius: target.spec.base.radius, moveSpeed: derive(target).moveSpeed, heldInPlace: heldInPlace(target, landTick), hasEscape: false },
+    { radius: target.spec.base.radius, moveSpeed: derive(target).moveSpeed, heldInPlace: held >= landTick, heldFor: Math.max(0, held - castStartTick) / 30, hasEscape: false },
     world.settings.reactionTime,
     world.settings.hitSpread,
   );

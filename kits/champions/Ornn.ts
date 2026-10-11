@@ -1,10 +1,12 @@
 /** Ornn: every number is read from the wiki's ability data at level 20 (see engine/kits/context.ts). */
 import type { KitModule } from "../../engine/kits/compile";
-import { directionTo } from "../../engine/sim/combat";
 import { type CCType, IMMOBILIZING } from "../../engine/rules/crowdControl";
+import { canCast } from "../../engine/sim/actions";
+import { type Behavior, defaultBehavior } from "../../engine/sim/behavior";
+import { directionTo } from "../../engine/sim/combat";
+import { derive } from "../../engine/sim/derived";
 import type { Effect, HookContext } from "../../engine/sim/spec";
 import type { Unit, World } from "../../engine/sim/state";
-import { derive } from "../../engine/sim/derived";
 import { FOREVER, areaAt, ticks } from "./util";
 
 const BRITTLE = "brittle";
@@ -46,6 +48,8 @@ const ornn: KitModule = {
     kit.assume("Searing Charge's shockwave goes off where it meets a wall behind the enemy (with walls nearby) or Volcanic Rupture's pillar; the 0.5-second lockout after it is left out.");
     kit.assume("Volcanic Rupture's pillar doesn't block movement on the line; it only stops Searing Charge.");
     kit.assume(`Call of the Forge God's elemental reaches the enemy ${elementalDelay} s after the cast, and Ornn always headbutts it back ${headbutt} s after the cast; his recast dash is left out.`);
+    const callReach = 600;
+    kit.assume(`Ornn calls the elemental in a fight once the enemy is within ${callReach} units: the headbutt lands even when the first pass is dodged.`);
 
     const gout: Effect = { type: "damage", damageType: "magic", amount: w.formula("Magic Damage Per Tick"), minimum: w.formula("Minimum/Minion Damage Per Tick") };
     const brittle: Effect[] = [
@@ -89,7 +93,15 @@ const ornn: KitModule = {
       return wall !== undefined && Math.abs(wall - enemy.x) <= shockRadius;
     };
 
+    // The headbutt is what makes the call worth it, so Ornn doesn't wait for the first pass to be likely to land.
+    const behavior: Behavior = (view) => {
+      const call = view.self.spec.abilities.find((a) => a.key === "R");
+      if (call && (view.mode === "fight" || view.mode === "hold") && view.distance <= callReach && canCast(view.world, view.self, call)) return { kind: "cast", ability: "R" };
+      return defaultBehavior(view);
+    };
+
     return {
+      behavior,
       extraGold: masterwork,
       budget: {
         // Living Forge: each point of bonus armor, magic resistance and health bought is worth 30% more.
