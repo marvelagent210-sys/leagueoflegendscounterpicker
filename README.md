@@ -2,13 +2,14 @@
 
 A kit-based 1v1 counter picker for top lane: pick the enemy champion, get every champion ranked by how well its kit beats theirs at level 20, with the reasoning behind each result. No win rates or statistics.
 
-Status: milestones 1 to 4 of 8 are done, and milestone 5 is built and waiting for review:
+Status: milestones 1 to 4 of 8 are done, milestone 5 is built and waiting for review, and milestone 6 is built:
 
 - the data pipeline and level-20 stats;
 - every champion's abilities;
 - the interaction ledger, with a first counter ranking;
 - the duel simulator's core, which applies the game's rules and is tested on synthetic kits;
-- wave 1: 25 top laners whose kits the simulator plays out, and golden matchups to check it against.
+- wave 1: 25 top laners whose kits the simulator plays out, and golden matchups to check it against;
+- the web app: picker, matchup, kit and settings pages, published to GitHub Pages.
 
 Between two of the 25, the ranking comes from simulated duels (*full* confidence). Everywhere else it is still *partial*: the ledger weighs how the kits' abilities interact without playing the fight out. See [PLAN.md](PLAN.md) for the plan and progress.
 
@@ -20,6 +21,25 @@ Requires Node.js 22.19 or later.
 npm ci
 npm test
 ```
+
+## Web app
+
+```sh
+npm run dev          # the app at http://localhost:5173, reading the newest dataset
+npm run build:web    # a static build in web/dist/
+npm run preview      # serve that build
+```
+
+The app has four pages:
+
+- the picker (`#/vs/<champion>`): every champion ranked against the enemy you choose;
+- a matchup (`#/matchup/<you>/<enemy>`): the scenarios, each fight's timeline, both champions' numbers, the assumptions and every interaction;
+- a kit (`#/kit/<champion>`): everything the engine knows about one champion, with links to the wiki revisions it read;
+- the settings (`#/settings`).
+
+Results at the default settings are precomputed by `npm run build:data`. If you change a setting, the duels against the chosen enemy run again in your browser, in Web Workers; changing only the scenario weights reweighs the precomputed results. Settings stay in the browser.
+
+`.github/workflows/pages.yml` runs the type checks, tests and build on every pull request. On each push to main it also publishes the app to GitHub Pages. Pages must be turned on once, with "GitHub Actions" as the source (Settings → Pages).
 
 ## Matchups and counters
 
