@@ -2,7 +2,7 @@
 
 ## Simulated duels (full confidence)
 
-The duel simulator played each of the 30 other champions with a simulator kit against Dr. Mundo: both at level 20 with 15,000 gold of plain stats, each side's spent against the other's, through six scenarios (PLAN.md §6). Scores run from −1 (Dr. Mundo wins every time) to +1 (the champion does). Run `npm run duel -- <champion> DrMundo --log brawl` to watch a fight.
+The duel simulator played each of the 33 other champions with a simulator kit against Dr. Mundo: both at level 20 with 15,000 gold of plain stats, each side's spent against the other's, through six scenarios (PLAN.md §6). Scores run from −1 (Dr. Mundo wins every time) to +1 (the champion does). Run `npm run duel -- <champion> DrMundo --log brawl` to watch a fight.
 
 | # | Champion | Score | You engage | Enemy engages | Brawl | Short trade | Spacing | Escape |
 |--:|---|--:|--:|--:|--:|--:|--:|--:|
@@ -16,26 +16,29 @@ The duel simulator played each of the 30 other champions with a simulator kit ag
 | 8 | Malphite | −0.24 | −0.35 | −0.36 | −0.35 | +0.21 | – | +0.00 |
 | 9 | Shen | −0.24 | −0.38 | −0.32 | −0.29 | +0.13 | – | +0.00 |
 | 10 | Ornn | −0.27 | −0.39 | −0.37 | −0.38 | +0.12 | – | +0.00 |
-| 11 | Urgot | −0.40 | −0.48 | −0.46 | −0.38 | +0.04 | −1.00 | +0.00 |
-| 12 | Cho'Gath | −0.61 | −0.72 | −0.68 | −1.00 | −0.01 | – | +0.00 |
-| 13 | Volibear | −0.63 | −0.88 | −0.65 | −0.88 | −0.04 | – | +0.00 |
-| 14 | Teemo | −0.73 | −0.92 | −0.99 | −1.00 | +0.18 | −0.80 | +0.00 |
-| 15 | Yone | −0.75 | −1.00 | −1.00 | −1.00 | +0.15 | – | +0.00 |
-| 16 | Riven | −0.75 | −1.00 | −1.00 | −1.00 | +0.14 | – | +0.00 |
-| 17 | Yasuo | −0.76 | −1.00 | −1.00 | −1.00 | +0.13 | – | +0.00 |
-| 18 | Renekton | −0.76 | −1.00 | −1.00 | −1.00 | +0.11 | – | +0.00 |
-| 19 | Irelia | −0.76 | −1.00 | −1.00 | −1.00 | +0.11 | – | +0.00 |
-| 20 | Kayle | −0.76 | −1.00 | −1.00 | −1.00 | +0.25 | −1.00 | +0.00 |
-| 21 | Camille | −0.77 | −1.00 | −1.00 | −1.00 | +0.06 | – | +0.00 |
-| 22 | Sett | −0.77 | −1.00 | −1.00 | −1.00 | +0.04 | – | +0.00 |
-| 23 | Pantheon | −0.77 | −1.00 | −1.00 | −1.00 | +0.04 | – | +0.00 |
-| 24 | Trundle | −0.77 | −0.99 | −1.00 | −1.00 | +0.02 | – | +0.00 |
-| 25 | Olaf | −0.78 | −1.00 | −1.00 | −1.00 | −0.00 | – | +0.00 |
-| 26 | Garen | −0.78 | −1.00 | −1.00 | −1.00 | −0.01 | – | +0.00 |
-| 27 | Jax | −0.78 | −1.00 | −1.00 | −1.00 | −0.04 | – | +0.00 |
-| 28 | Quinn | −0.79 | −1.00 | −1.00 | −1.00 | +0.04 | −1.00 | +0.00 |
-| 29 | Tryndamere | −0.80 | −1.00 | −1.00 | −1.00 | −0.11 | – | +0.00 |
-| 30 | Kennen | −0.80 | −1.00 | −1.00 | −1.00 | −0.00 | −1.00 | +0.00 |
+| 11 | Singed | −0.29 | −0.35 | −0.34 | −0.40 | −0.03 | – | +0.00 |
+| 12 | Rumble | −0.33 | −0.28 | −0.20 | −0.93 | +0.07 | – | +0.00 |
+| 13 | Urgot | −0.40 | −0.48 | −0.46 | −0.38 | +0.04 | −1.00 | +0.00 |
+| 14 | Cho'Gath | −0.61 | −0.72 | −0.68 | −1.00 | −0.01 | – | +0.00 |
+| 15 | Volibear | −0.63 | −0.88 | −0.65 | −0.88 | −0.04 | – | +0.00 |
+| 16 | Teemo | −0.73 | −0.92 | −0.99 | −1.00 | +0.18 | −0.80 | +0.00 |
+| 17 | Yone | −0.75 | −1.00 | −1.00 | −1.00 | +0.15 | – | +0.00 |
+| 18 | Riven | −0.75 | −1.00 | −1.00 | −1.00 | +0.14 | – | +0.00 |
+| 19 | Yasuo | −0.76 | −1.00 | −1.00 | −1.00 | +0.13 | – | +0.00 |
+| 20 | Renekton | −0.76 | −1.00 | −1.00 | −1.00 | +0.11 | – | +0.00 |
+| 21 | Irelia | −0.76 | −1.00 | −1.00 | −1.00 | +0.11 | – | +0.00 |
+| 22 | Kayle | −0.76 | −1.00 | −1.00 | −1.00 | +0.25 | −1.00 | +0.00 |
+| 23 | Camille | −0.77 | −1.00 | −1.00 | −1.00 | +0.06 | – | +0.00 |
+| 24 | Sett | −0.77 | −1.00 | −1.00 | −1.00 | +0.04 | – | +0.00 |
+| 25 | Pantheon | −0.77 | −1.00 | −1.00 | −1.00 | +0.04 | – | +0.00 |
+| 26 | Trundle | −0.77 | −0.99 | −1.00 | −1.00 | +0.02 | – | +0.00 |
+| 27 | Akali | −0.78 | −1.00 | −1.00 | −1.00 | +0.01 | – | +0.00 |
+| 28 | Olaf | −0.78 | −1.00 | −1.00 | −1.00 | −0.00 | – | +0.00 |
+| 29 | Garen | −0.78 | −1.00 | −1.00 | −1.00 | −0.01 | – | +0.00 |
+| 30 | Jax | −0.78 | −1.00 | −1.00 | −1.00 | −0.04 | – | +0.00 |
+| 31 | Quinn | −0.79 | −1.00 | −1.00 | −1.00 | +0.04 | −1.00 | +0.00 |
+| 32 | Tryndamere | −0.80 | −1.00 | −1.00 | −1.00 | −0.11 | – | +0.00 |
+| 33 | Kennen | −0.80 | −1.00 | −1.00 | −1.00 | −0.00 | −1.00 | +0.00 |
 
 ## Interaction ledger (partial confidence)
 

@@ -233,7 +233,7 @@ Violent Tendencies: Kled gains 150% bonus attack speed for 4 seconds, or until h
 
 Against structures, the fourth attack deals modified additional physical damage.
 
-- **Structure Additional Damage:** 62 – 91.75 (based on level) (+ 0 / 15 / 30 / 45 / 60) → at max rank, level 20: 96.4138 (+ 60% other:)
+- **Structure Additional Damage:** 62 – 91.75 (based on level) (+ 0 / 15 / 30 / 45 / 60) → at max rank, level 20: 96.4137 (+ 60% other:)
 
 Notes:
 
@@ -420,7 +420,7 @@ game formula supplies 19-20; "confirmed"/"differs": the wiki defines 19-20 and t
 | Dismounted Skaarl the Cowardly Lizard | description: Kled has 410 – 1838 (based on level) base health, which is not improved by sourc | no match | 1838 | 1948.46 | 2061.86 | – |
 | Dismounted Skaarl the Cowardly Lizard | description: Kled gains 70 – 155 (based on level) bonus movement speed while facing and after | confirmed | 155 | 160 | 165 | KledPassive.DismountedMS: breakpoints at levels none (level 1: 70) |
 | Skaarl the Cowardly Lizard | description: While Mounted, all damage dealt to the duo is suffered by Skaarl, who has 400 –  | confirmed | 1400 | 1477.35 | 1556.76 | KledPassive.SkaarlHealth: along the stat growth curve 400 → 1400 over levels 1-18, continues past 18 |
-| Violent Tendencies | Structure Additional Damage | no match | 91.75 | 94.0513 | 96.4138 | – |
+| Violent Tendencies | Structure Additional Damage | no match | 91.75 | 94.0512 | 96.4137 | – |
 
 All 4 level-based formulas in the game files (2 linked to wiki values above):
 

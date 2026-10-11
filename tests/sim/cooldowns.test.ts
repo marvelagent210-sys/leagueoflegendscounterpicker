@@ -113,3 +113,29 @@ describe("post-effect cooldowns (wiki: Cooldown starts: post-effect)", () => {
     expect(damagePerSecond(fighter({ abilities: [spin("channel")], attack: { range: 0 } }), fighter()).true).toBeCloseTo(30 / 9, 9);
   });
 });
+
+describe("charges", () => {
+  const harpoon = (): AbilitySpec =>
+    ability({ key: "E", cooldown: 0.5, charges: { max: 2, recharge: 6 }, delivery: { kind: "aura", radius: 500 }, onHit: [trueDamage(10)] });
+
+  it("start full, are spent one a cast with the cooldown between casts, and restock one at a time", () => {
+    const world = createWorld({ fighters: [fighter({ abilities: [harpoon()] }), fighter()], distance: 100, modes: ["idle", "idle"] });
+    const self = world.units[0];
+    const spec = self.spec.abilities[0];
+    if (!spec) throw new Error("no ability");
+    step(world, [castWhenReady("E"), standStill]);
+    // The second charge waits out the 0.5 s between casts.
+    expect(canCast(world, self, spec)).toBe(false);
+    expect(readyTick(world, "E")).toBe(15);
+    step(world, [castWhenReady("E"), standStill]);
+    // Both spent: the first restocks 6 s after the first cast, the second 6 s after that.
+    expect(readyTick(world, "E")).toBe(180);
+    step(world, [castWhenReady("E"), standStill]);
+    expect(readyTick(world, "E")).toBe(360);
+  });
+
+  it("pace the stat budget by their recharge", () => {
+    // 10 damage per charge, one charge every 6 s.
+    expect(damagePerSecond(fighter({ abilities: [harpoon()], attack: { range: 0 } }), fighter()).true).toBeCloseTo(10 / 6, 9);
+  });
+});

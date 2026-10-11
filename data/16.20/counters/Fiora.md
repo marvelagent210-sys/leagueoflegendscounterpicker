@@ -2,7 +2,7 @@
 
 ## Simulated duels (full confidence)
 
-The duel simulator played each of the 30 other champions with a simulator kit against Fiora: both at level 20 with 15,000 gold of plain stats, each side's spent against the other's, through six scenarios (PLAN.md §6). Scores run from −1 (Fiora wins every time) to +1 (the champion does). Run `npm run duel -- <champion> Fiora --log brawl` to watch a fight.
+The duel simulator played each of the 33 other champions with a simulator kit against Fiora: both at level 20 with 15,000 gold of plain stats, each side's spent against the other's, through six scenarios (PLAN.md §6). Scores run from −1 (Fiora wins every time) to +1 (the champion does). Run `npm run duel -- <champion> Fiora --log brawl` to watch a fight.
 
 | # | Champion | Score | You engage | Enemy engages | Brawl | Short trade | Spacing | Escape |
 |--:|---|--:|--:|--:|--:|--:|--:|--:|
@@ -24,18 +24,21 @@ The duel simulator played each of the 30 other champions with a simulator kit ag
 | 16 | Yasuo | −0.80 | −1.00 | −1.00 | −1.00 | −0.11 | – | +0.00 |
 | 17 | Garen | −0.80 | −1.00 | −1.00 | −1.00 | +0.20 | – | −1.00 |
 | 18 | Kennen | −0.80 | −1.00 | −1.00 | −1.00 | −0.01 | −1.00 | +0.00 |
-| 19 | Irelia | −0.81 | −1.00 | −1.00 | −1.00 | +0.14 | – | −1.00 |
-| 20 | Nasus | −0.82 | −1.00 | −1.00 | −1.00 | −0.24 | – | +0.00 |
-| 21 | Renekton | −0.82 | −1.00 | −1.00 | −1.00 | +0.06 | – | −1.00 |
-| 22 | Sett | −0.83 | −1.00 | −1.00 | −1.00 | +0.04 | – | −1.00 |
-| 23 | Yone | −0.85 | −1.00 | −1.00 | −1.00 | −0.24 | – | −0.53 |
-| 24 | Volibear | −0.85 | −1.00 | −1.00 | −1.00 | −0.09 | – | −1.00 |
-| 25 | Olaf | −0.85 | −1.00 | −1.00 | −1.00 | −0.12 | – | −1.00 |
-| 26 | Urgot | −0.85 | −1.00 | −1.00 | −1.00 | −0.02 | −1.00 | −1.00 |
-| 27 | Cho'Gath | −0.86 | −1.00 | −1.00 | −1.00 | −0.17 | – | −1.00 |
-| 28 | Mordekaiser | −0.88 | −1.00 | −1.00 | −1.00 | −0.27 | – | −1.00 |
-| 29 | Camille | −0.89 | −1.00 | −1.00 | −1.00 | −0.36 | – | −1.00 |
-| 30 | Gwen | −0.91 | −1.00 | −1.00 | −1.00 | −0.45 | – | −1.00 |
+| 19 | Singed | −0.80 | −1.00 | −1.00 | −1.00 | −0.14 | – | +0.00 |
+| 20 | Irelia | −0.81 | −1.00 | −1.00 | −1.00 | +0.14 | – | −1.00 |
+| 21 | Nasus | −0.82 | −1.00 | −1.00 | −1.00 | −0.24 | – | +0.00 |
+| 22 | Renekton | −0.82 | −1.00 | −1.00 | −1.00 | +0.06 | – | −1.00 |
+| 23 | Sett | −0.83 | −1.00 | −1.00 | −1.00 | +0.04 | – | −1.00 |
+| 24 | Yone | −0.85 | −1.00 | −1.00 | −1.00 | −0.24 | – | −0.53 |
+| 25 | Volibear | −0.85 | −1.00 | −1.00 | −1.00 | −0.09 | – | −1.00 |
+| 26 | Olaf | −0.85 | −1.00 | −1.00 | −1.00 | −0.12 | – | −1.00 |
+| 27 | Urgot | −0.85 | −1.00 | −1.00 | −1.00 | −0.02 | −1.00 | −1.00 |
+| 28 | Cho'Gath | −0.86 | −1.00 | −1.00 | −1.00 | −0.17 | – | −1.00 |
+| 29 | Rumble | −0.87 | −1.00 | −1.00 | −1.00 | −0.19 | – | −1.00 |
+| 30 | Mordekaiser | −0.88 | −1.00 | −1.00 | −1.00 | −0.27 | – | −1.00 |
+| 31 | Camille | −0.89 | −1.00 | −1.00 | −1.00 | −0.36 | – | −1.00 |
+| 32 | Akali | −0.90 | −1.00 | −1.00 | −1.00 | −0.41 | – | −1.00 |
+| 33 | Gwen | −0.91 | −1.00 | −1.00 | −1.00 | −0.45 | – | −1.00 |
 
 ## Interaction ledger (partial confidence)
 

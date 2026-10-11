@@ -240,7 +240,7 @@ game formula supplies 19-20; "confirmed"/"differs": the wiki defines 19-20 and t
 | Ability | Value | Outcome | Level 18 | Level 19 | Level 20 | Game formula |
 |---|---|---|--:|--:|--:|---|
 | Friend of the Forest | description: Placing a grove costs 94.5 – 0.13878 (based on level) health and 90 – 0.3675 (ba | no match | 0.13878 | -21.4023 | -45.3008 | – |
-| Friend of the Forest | description: Placing a grove costs 94.5 – 0.13878 (based on level) health and 90 – 0.3675 (ba | no match | 0.3675 | -17.8124 | -37.8952 | – |
+| Friend of the Forest | description: Placing a grove costs 94.5 – 0.13878 (based on level) health and 90 – 0.3675 (ba | no match | 0.3675 | -17.8123 | -37.8952 | – |
 
 All 5 level-based formulas in the game files (0 linked to wiki values above):
 

@@ -2,7 +2,7 @@
 
 ## Simulated duels (full confidence)
 
-The duel simulator played each of the 30 other champions with a simulator kit against Poppy: both at level 20 with 15,000 gold of plain stats, each side's spent against the other's, through six scenarios (PLAN.md §6). Scores run from −1 (Poppy wins every time) to +1 (the champion does). Run `npm run duel -- <champion> Poppy --log brawl` to watch a fight.
+The duel simulator played each of the 33 other champions with a simulator kit against Poppy: both at level 20 with 15,000 gold of plain stats, each side's spent against the other's, through six scenarios (PLAN.md §6). Scores run from −1 (Poppy wins every time) to +1 (the champion does). Run `npm run duel -- <champion> Poppy --log brawl` to watch a fight.
 
 | # | Champion | Score | You engage | Enemy engages | Brawl | Short trade | Spacing | Escape |
 |--:|---|--:|--:|--:|--:|--:|--:|--:|
@@ -26,16 +26,19 @@ The duel simulator played each of the 30 other champions with a simulator kit ag
 | 18 | Garen | −0.80 | −1.00 | −1.00 | −1.00 | −0.14 | – | +0.00 |
 | 19 | Aatrox | −0.80 | −1.00 | −1.00 | −1.00 | −0.14 | – | +0.00 |
 | 20 | Mordekaiser | −0.80 | −1.00 | −1.00 | −1.00 | −0.16 | – | +0.00 |
-| 21 | Renekton | −0.81 | −1.00 | −1.00 | −1.00 | −0.18 | – | +0.00 |
-| 22 | Quinn | −0.81 | −1.00 | −1.00 | −1.00 | −0.05 | −1.00 | +0.00 |
-| 23 | Jax | −0.81 | −1.00 | −1.00 | −1.00 | −0.22 | – | +0.00 |
-| 24 | Urgot | −0.82 | −1.00 | −1.00 | −1.00 | −0.11 | −1.00 | +0.00 |
-| 25 | Pantheon | −0.82 | −1.00 | −1.00 | −1.00 | −0.25 | – | +0.00 |
-| 26 | Riven | −0.83 | −1.00 | −1.00 | −1.00 | −0.28 | – | +0.00 |
-| 27 | Tryndamere | −0.83 | −1.00 | −1.00 | −1.00 | −0.29 | – | +0.00 |
-| 28 | Camille | −0.83 | −1.00 | −1.00 | −1.00 | −0.30 | – | +0.00 |
-| 29 | Gwen | −0.83 | −1.00 | −1.00 | −1.00 | −0.31 | – | +0.00 |
-| 30 | Kennen | −0.84 | −1.00 | −1.00 | −1.00 | −0.29 | −1.00 | +0.00 |
+| 21 | Rumble | −0.81 | −1.00 | −1.00 | −1.00 | −0.18 | – | +0.00 |
+| 22 | Renekton | −0.81 | −1.00 | −1.00 | −1.00 | −0.18 | – | +0.00 |
+| 23 | Quinn | −0.81 | −1.00 | −1.00 | −1.00 | −0.05 | −1.00 | +0.00 |
+| 24 | Singed | −0.81 | −1.00 | −1.00 | −1.00 | −0.20 | – | +0.00 |
+| 25 | Jax | −0.81 | −1.00 | −1.00 | −1.00 | −0.22 | – | +0.00 |
+| 26 | Urgot | −0.82 | −1.00 | −1.00 | −1.00 | −0.11 | −1.00 | +0.00 |
+| 27 | Pantheon | −0.82 | −1.00 | −1.00 | −1.00 | −0.25 | – | +0.00 |
+| 28 | Akali | −0.82 | −1.00 | −1.00 | −1.00 | −0.26 | – | +0.00 |
+| 29 | Riven | −0.83 | −1.00 | −1.00 | −1.00 | −0.28 | – | +0.00 |
+| 30 | Tryndamere | −0.83 | −1.00 | −1.00 | −1.00 | −0.29 | – | +0.00 |
+| 31 | Camille | −0.83 | −1.00 | −1.00 | −1.00 | −0.30 | – | +0.00 |
+| 32 | Gwen | −0.83 | −1.00 | −1.00 | −1.00 | −0.31 | – | +0.00 |
+| 33 | Kennen | −0.84 | −1.00 | −1.00 | −1.00 | −0.29 | −1.00 | +0.00 |
 
 ## Interaction ledger (partial confidence)
 

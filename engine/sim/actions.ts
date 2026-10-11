@@ -113,6 +113,8 @@ export function startAttack(world: World, unit: Unit, pet?: Pet): void {
 export function launchAttack(world: World, unit: Unit, action = unit.action): void {
   if (action?.kind !== "windup") return;
   if (unit.action === action) unit.action = undefined;
+  const onLaunch = unit.spec.hooks?.onAttackLaunch;
+  if (onLaunch) onLaunch(hookContext(world, unit));
   if (action.pet !== undefined) {
     launchAttackOnPet(world, unit, action);
     return;
@@ -229,6 +231,7 @@ function affordable(unit: Unit, ability: AbilitySpec): boolean {
 
 export function abilityReady(world: World, unit: Unit, ability: AbilitySpec): boolean {
   if ((unit.cooldownReady[cooldownKeyOf(ability)] ?? 0) > world.tick || !affordable(unit, ability) || !chainOpen(world, unit, ability)) return false;
+  if (ability.charges && chargesLeft(world, unit, ability) < 1) return false;
   // A first stage can't start over while its recasts are open.
   const open = unit.chains[ability.key];
   if (!ability.chain && open && world.tick <= open.until) return false;
@@ -351,7 +354,37 @@ export function startCast(world: World, unit: Unit, ability: AbilitySpec, aim?: 
   return undefined;
 }
 
+/** Charges an ability has stocked (all of them until the first is spent), counting one due this tick. */
+export function chargesLeft(world: World, unit: Unit, ability: AbilitySpec): number {
+  const stock = unit.charges[cooldownKeyOf(ability)];
+  if (!stock) return ability.charges?.max ?? 0;
+  return stock.count + (world.tick >= stock.nextTick ? 1 : 0);
+}
+
+function spendCharge(world: World, unit: Unit, ability: AbilitySpec): void {
+  const charges = ability.charges;
+  if (!charges) return;
+  const key = cooldownKeyOf(ability);
+  const stock = unit.charges[key] ?? { count: charges.max, nextTick: Number.POSITIVE_INFINITY };
+  // The recharge starts when the first charge of a full stock is spent.
+  if (stock.count >= charges.max) stock.nextTick = world.tick + toTicks(cooldownAfterHaste(charges.recharge, derive(unit).abilityHaste));
+  stock.count = Math.max(0, stock.count - 1);
+  unit.charges[key] = stock;
+}
+
+/** Charges restock one at a time, each after the recharge time. */
+export function restockCharges(world: World, unit: Unit): void {
+  for (const [key, stock] of Object.entries(unit.charges)) {
+    if (world.tick < stock.nextTick) continue;
+    const ability = allAbilities(unit.spec).find((a) => a.charges && cooldownKeyOf(a) === key);
+    if (!ability?.charges) continue;
+    stock.count += 1;
+    stock.nextTick = stock.count >= ability.charges.max ? Number.POSITIVE_INFINITY : world.tick + toTicks(cooldownAfterHaste(ability.charges.recharge, derive(unit).abilityHaste));
+  }
+}
+
 function startCooldown(world: World, unit: Unit, ability: AbilitySpec): void {
+  spendCharge(world, unit, ability);
   const key = cooldownKeyOf(ability);
   if (ability.cooldownAfter) {
     // Held until the cast's effect is over (releaseCooldowns).

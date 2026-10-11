@@ -2,7 +2,7 @@
 
 ## Simulated duels (full confidence)
 
-The duel simulator played each of the 30 other champions with a simulator kit against Yone: both at level 20 with 15,000 gold of plain stats, each side's spent against the other's, through six scenarios (PLAN.md §6). Scores run from −1 (Yone wins every time) to +1 (the champion does). Run `npm run duel -- <champion> Yone --log brawl` to watch a fight.
+The duel simulator played each of the 33 other champions with a simulator kit against Yone: both at level 20 with 15,000 gold of plain stats, each side's spent against the other's, through six scenarios (PLAN.md §6). Scores run from −1 (Yone wins every time) to +1 (the champion does). Run `npm run duel -- <champion> Yone --log brawl` to watch a fight.
 
 | # | Champion | Score | You engage | Enemy engages | Brawl | Short trade | Spacing | Escape |
 |--:|---|--:|--:|--:|--:|--:|--:|--:|
@@ -12,18 +12,18 @@ The duel simulator played each of the 30 other champions with a simulator kit ag
 | 4 | Poppy | +0.80 | +1.00 | +1.00 | +1.00 | +0.12 | – | +0.00 |
 | 5 | Malphite | +0.80 | +1.00 | +1.00 | +1.00 | +0.12 | – | +0.00 |
 | 6 | Jax | +0.78 | +1.00 | +1.00 | +1.00 | −0.01 | – | +0.00 |
-| 7 | Yasuo | +0.77 | +1.00 | +1.00 | +1.00 | −0.03 | – | +0.00 |
-| 8 | Nasus | +0.77 | +1.00 | +1.00 | +1.00 | −0.06 | – | +0.00 |
-| 9 | Olaf | +0.77 | +1.00 | +1.00 | +1.00 | −0.06 | – | +0.00 |
-| 10 | Tryndamere | +0.76 | +1.00 | +1.00 | +1.00 | −0.10 | – | +0.00 |
-| 11 | Darius | +0.76 | +1.00 | +1.00 | +1.00 | −0.11 | – | +0.00 |
-| 12 | Dr. Mundo | +0.75 | +1.00 | +1.00 | +1.00 | −0.15 | – | +0.00 |
-| 13 | Aatrox | +0.74 | +1.00 | +1.00 | +1.00 | −0.04 | – | −0.49 |
-| 14 | Garen | +0.73 | +1.00 | +0.77 | +1.00 | +0.08 | – | +0.00 |
-| 15 | Teemo | +0.64 | +0.08 | +1.00 | +1.00 | +0.49 | +1.00 | +0.00 |
-| 16 | Quinn | +0.40 | +1.00 | +1.00 | −1.00 | +0.01 | +1.00 | +0.00 |
-| 17 | Cho'Gath | +0.31 | +0.33 | +0.50 | +0.35 | −0.00 | – | +0.00 |
-| 18 | Kennen | +0.23 | −0.95 | +0.69 | +1.00 | −0.06 | +1.00 | +0.00 |
+| 7 | Kennen | +0.78 | +1.00 | +0.94 | +1.00 | −0.06 | +1.00 | +0.00 |
+| 8 | Yasuo | +0.77 | +1.00 | +1.00 | +1.00 | −0.03 | – | +0.00 |
+| 9 | Nasus | +0.77 | +1.00 | +1.00 | +1.00 | −0.06 | – | +0.00 |
+| 10 | Olaf | +0.77 | +1.00 | +1.00 | +1.00 | −0.06 | – | +0.00 |
+| 11 | Tryndamere | +0.76 | +1.00 | +1.00 | +1.00 | −0.10 | – | +0.00 |
+| 12 | Darius | +0.76 | +1.00 | +1.00 | +1.00 | −0.11 | – | +0.00 |
+| 13 | Dr. Mundo | +0.75 | +1.00 | +1.00 | +1.00 | −0.15 | – | +0.00 |
+| 14 | Aatrox | +0.74 | +1.00 | +1.00 | +1.00 | −0.04 | – | −0.49 |
+| 15 | Garen | +0.73 | +1.00 | +0.77 | +1.00 | +0.08 | – | +0.00 |
+| 16 | Teemo | +0.64 | +0.08 | +1.00 | +1.00 | +0.49 | +1.00 | +0.00 |
+| 17 | Quinn | +0.40 | +1.00 | +1.00 | −1.00 | +0.01 | +1.00 | +0.00 |
+| 18 | Cho'Gath | +0.31 | +0.33 | +0.50 | +0.35 | −0.00 | – | +0.00 |
 | 19 | Renekton | +0.22 | +1.00 | −1.00 | +1.00 | +0.00 | – | +0.00 |
 | 20 | Irelia | −0.29 | −0.11 | −0.11 | −1.00 | −0.01 | – | +0.00 |
 | 21 | Pantheon | −0.33 | −1.00 | −1.00 | +1.00 | +0.01 | – | +0.00 |
@@ -35,7 +35,10 @@ The duel simulator played each of the 30 other champions with a simulator kit ag
 | 27 | Sett | −0.76 | −1.00 | −1.00 | −1.00 | +0.08 | – | +0.00 |
 | 28 | Ornn | −0.77 | −1.00 | −1.00 | −1.00 | +0.03 | – | +0.00 |
 | 29 | Shen | −0.78 | −1.00 | −1.00 | −1.00 | +0.01 | – | +0.00 |
-| 30 | Urgot | −0.78 | −1.00 | −1.00 | −1.00 | +0.11 | −1.00 | +0.00 |
+| 30 | Rumble | −0.78 | −1.00 | −1.00 | −1.00 | −0.03 | – | +0.00 |
+| 31 | Urgot | −0.78 | −1.00 | −1.00 | −1.00 | +0.11 | −1.00 | +0.00 |
+| 32 | Singed | −0.79 | −1.00 | −1.00 | −1.00 | −0.09 | – | +0.00 |
+| 33 | Akali | −0.79 | −1.00 | −1.00 | −1.00 | −0.10 | – | +0.00 |
 
 ## Interaction ledger (partial confidence)
 

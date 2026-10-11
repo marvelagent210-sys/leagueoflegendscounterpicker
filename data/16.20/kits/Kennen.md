@@ -188,7 +188,7 @@ What the duel simulator fights with (`kits/champions/Kennen.ts`): every number i
 | Q | Thundering Shuriken | 4 | 0.175 | 40 | skillshot 1050 long, 100 wide, at 1700/s | 275 + 75% AP magic damage | – |
 | W | Electrical Surge | 6 | 0.25 | 40 | around itself, 775 units | 170 + 80% AP magic damage | – |
 | E | Lightning Rush | 6 | 0 | 80 | dash toward 670 units at 670/s, hits within 200, through the enemy | 240 + 80% AP magic damage | ghosted for 2 s; noAttacks for 2 s |
-| E2 | Lightning Rush (recast) | 0 | 0 | – | self; recast of E within 1.5 s, after 0.5 s, automatic | – | attackSpeed 0.9 for 4 s |
+| E2 | Lightning Rush (recast) | 0 | 0 | – | self; recast of E within 2 s, after 0.5 s, automatic | – | attackSpeed 0.9 for 4 s |
 | E3 | Lightning Rush (away) | 6 | 0 | 80 | dash away 1340 units at 670/s | – | ghosted for 2 s; noAttacks for 2 s |
 | R | Slicing Maelstrom | 120 | 0.25 | – | field of 550 radius around itself, for 3 s, pulsing every 0.5 s | marks it "maelstrom" for 0.1 s | armor 75 for 3 s; MR 75 for 3 s |
 

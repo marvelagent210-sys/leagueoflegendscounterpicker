@@ -2,7 +2,7 @@
 
 ## Simulated duels (full confidence)
 
-The duel simulator played each of the 30 other champions with a simulator kit against Pantheon: both at level 20 with 15,000 gold of plain stats, each side's spent against the other's, through six scenarios (PLAN.md §6). Scores run from −1 (Pantheon wins every time) to +1 (the champion does). Run `npm run duel -- <champion> Pantheon --log brawl` to watch a fight.
+The duel simulator played each of the 33 other champions with a simulator kit against Pantheon: both at level 20 with 15,000 gold of plain stats, each side's spent against the other's, through six scenarios (PLAN.md §6). Scores run from −1 (Pantheon wins every time) to +1 (the champion does). Run `npm run duel -- <champion> Pantheon --log brawl` to watch a fight.
 
 | # | Champion | Score | You engage | Enemy engages | Brawl | Short trade | Spacing | Escape |
 |--:|---|--:|--:|--:|--:|--:|--:|--:|
@@ -13,7 +13,7 @@ The duel simulator played each of the 30 other champions with a simulator kit ag
 | 5 | Malphite | +0.81 | +1.00 | +1.00 | +1.00 | +0.17 | – | +0.00 |
 | 6 | Cho'Gath | +0.80 | +1.00 | +1.00 | +1.00 | +0.11 | – | +0.00 |
 | 7 | Olaf | +0.80 | +1.00 | +1.00 | +1.00 | +0.11 | – | +0.00 |
-| 8 | Kennen | +0.79 | +1.00 | +0.98 | +1.00 | −0.04 | +1.00 | +0.00 |
+| 8 | Kennen | +0.79 | +1.00 | +1.00 | +1.00 | −0.04 | +1.00 | +0.00 |
 | 9 | Darius | +0.79 | +1.00 | +1.00 | +1.00 | +0.06 | – | +0.00 |
 | 10 | Fiora | +0.79 | +1.00 | +1.00 | +1.00 | +0.06 | – | +0.00 |
 | 11 | Renekton | +0.78 | +1.00 | +1.00 | +1.00 | +0.00 | – | +0.00 |
@@ -21,21 +21,24 @@ The duel simulator played each of the 30 other champions with a simulator kit ag
 | 13 | Dr. Mundo | +0.77 | +1.00 | +1.00 | +1.00 | −0.04 | – | +0.00 |
 | 14 | Nasus | +0.77 | +1.00 | +1.00 | +1.00 | −0.06 | – | +0.00 |
 | 15 | Jax | +0.77 | +1.00 | +1.00 | +1.00 | −0.07 | – | +0.00 |
-| 16 | Volibear | +0.77 | +1.00 | +1.00 | +1.00 | −0.07 | – | +0.00 |
-| 17 | Aatrox | +0.76 | +1.00 | +1.00 | +1.00 | −0.08 | – | +0.00 |
-| 18 | Mordekaiser | +0.76 | +1.00 | +1.00 | +1.00 | −0.09 | – | +0.00 |
-| 19 | Tryndamere | +0.76 | +1.00 | +1.00 | +1.00 | −0.10 | – | +0.00 |
-| 20 | Camille | +0.75 | +1.00 | +1.00 | +1.00 | −0.19 | – | +0.00 |
-| 21 | Quinn | +0.65 | +1.00 | +1.00 | +1.00 | +0.34 | −1.00 | +0.00 |
-| 22 | Urgot | +0.61 | +1.00 | +1.00 | +1.00 | +0.07 | −1.00 | +0.00 |
-| 23 | Gwen | +0.33 | +1.00 | +1.00 | −1.00 | −0.01 | – | +0.00 |
-| 24 | Yone | +0.33 | +1.00 | +1.00 | −1.00 | −0.01 | – | +0.00 |
-| 25 | Irelia | −0.39 | +0.32 | −1.00 | −1.00 | +0.11 | – | +0.00 |
-| 26 | Garen | −0.74 | −1.00 | −1.00 | −1.00 | +0.20 | – | +0.00 |
-| 27 | Riven | −0.75 | −1.00 | −1.00 | −1.00 | +0.14 | – | +0.00 |
-| 28 | Ornn | −0.76 | −1.00 | −1.00 | −1.00 | +0.12 | – | +0.00 |
-| 29 | Yasuo | −0.77 | −1.00 | −1.00 | −1.00 | +0.07 | – | +0.00 |
-| 30 | Sett | −0.78 | −1.00 | −1.00 | −1.00 | +0.01 | – | +0.00 |
+| 16 | Rumble | +0.77 | +1.00 | +1.00 | +0.96 | −0.01 | – | +0.00 |
+| 17 | Volibear | +0.77 | +1.00 | +1.00 | +1.00 | −0.07 | – | +0.00 |
+| 18 | Aatrox | +0.76 | +1.00 | +1.00 | +1.00 | −0.08 | – | +0.00 |
+| 19 | Mordekaiser | +0.76 | +1.00 | +1.00 | +1.00 | −0.09 | – | +0.00 |
+| 20 | Tryndamere | +0.76 | +1.00 | +1.00 | +1.00 | −0.10 | – | +0.00 |
+| 21 | Camille | +0.75 | +1.00 | +1.00 | +1.00 | −0.19 | – | +0.00 |
+| 22 | Quinn | +0.65 | +1.00 | +1.00 | +1.00 | +0.34 | −1.00 | +0.00 |
+| 23 | Urgot | +0.61 | +1.00 | +1.00 | +1.00 | +0.07 | −1.00 | +0.00 |
+| 24 | Gwen | +0.33 | +1.00 | +1.00 | −1.00 | −0.01 | – | +0.00 |
+| 25 | Yone | +0.33 | +1.00 | +1.00 | −1.00 | −0.01 | – | +0.00 |
+| 26 | Akali | +0.24 | +0.34 | +0.37 | +0.34 | −0.19 | – | +0.00 |
+| 27 | Singed | +0.11 | +0.16 | +0.17 | +0.09 | −0.03 | – | +0.00 |
+| 28 | Irelia | −0.39 | +0.32 | −1.00 | −1.00 | +0.11 | – | +0.00 |
+| 29 | Garen | −0.74 | −1.00 | −1.00 | −1.00 | +0.20 | – | +0.00 |
+| 30 | Riven | −0.75 | −1.00 | −1.00 | −1.00 | +0.14 | – | +0.00 |
+| 31 | Ornn | −0.76 | −1.00 | −1.00 | −1.00 | +0.12 | – | +0.00 |
+| 32 | Yasuo | −0.77 | −1.00 | −1.00 | −1.00 | +0.07 | – | +0.00 |
+| 33 | Sett | −0.78 | −1.00 | −1.00 | −1.00 | +0.01 | – | +0.00 |
 
 ## Interaction ledger (partial confidence)
 

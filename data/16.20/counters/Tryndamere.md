@@ -2,7 +2,7 @@
 
 ## Simulated duels (full confidence)
 
-The duel simulator played each of the 30 other champions with a simulator kit against Tryndamere: both at level 20 with 15,000 gold of plain stats, each side's spent against the other's, through six scenarios (PLAN.md §6). Scores run from −1 (Tryndamere wins every time) to +1 (the champion does). Run `npm run duel -- <champion> Tryndamere --log brawl` to watch a fight.
+The duel simulator played each of the 33 other champions with a simulator kit against Tryndamere: both at level 20 with 15,000 gold of plain stats, each side's spent against the other's, through six scenarios (PLAN.md §6). Scores run from −1 (Tryndamere wins every time) to +1 (the champion does). Run `npm run duel -- <champion> Tryndamere --log brawl` to watch a fight.
 
 | # | Champion | Score | You engage | Enemy engages | Brawl | Short trade | Spacing | Escape |
 |--:|---|--:|--:|--:|--:|--:|--:|--:|
@@ -16,26 +16,29 @@ The duel simulator played each of the 30 other champions with a simulator kit ag
 | 8 | Nasus | +0.78 | +1.00 | +1.00 | +1.00 | +0.01 | – | +0.00 |
 | 9 | Darius | +0.78 | +1.00 | +1.00 | +1.00 | −0.00 | – | +0.00 |
 | 10 | Mordekaiser | +0.39 | +0.46 | +0.44 | +0.58 | +0.08 | – | +0.00 |
-| 11 | Quinn | +0.24 | +1.00 | +1.00 | −1.00 | +0.25 | −1.00 | +0.00 |
-| 12 | Kennen | −0.61 | −1.00 | −1.00 | −1.00 | +0.07 | +0.78 | +0.00 |
-| 13 | Ornn | −0.73 | −1.00 | −1.00 | −1.00 | +0.27 | – | +0.00 |
-| 14 | Riven | −0.75 | −1.00 | −1.00 | −1.00 | +0.19 | – | +0.00 |
-| 15 | Aatrox | −0.75 | −1.00 | −1.00 | −1.00 | +0.17 | – | +0.00 |
-| 16 | Shen | −0.75 | −1.00 | −1.00 | −1.00 | +0.14 | – | +0.00 |
-| 17 | Fiora | −0.76 | −1.00 | −1.00 | −1.00 | +0.12 | – | +0.00 |
-| 18 | Garen | −0.76 | −1.00 | −1.00 | −1.00 | +0.11 | – | +0.00 |
-| 19 | Yasuo | −0.76 | −1.00 | −1.00 | −1.00 | +0.11 | – | +0.00 |
-| 20 | Yone | −0.76 | −1.00 | −1.00 | −1.00 | +0.10 | – | +0.00 |
-| 21 | Pantheon | −0.76 | −1.00 | −1.00 | −1.00 | +0.10 | – | +0.00 |
-| 22 | Irelia | −0.76 | −1.00 | −1.00 | −1.00 | +0.09 | – | +0.00 |
-| 23 | Camille | −0.77 | −1.00 | −1.00 | −1.00 | +0.07 | – | +0.00 |
-| 24 | Gwen | −0.77 | −1.00 | −1.00 | −1.00 | +0.05 | – | +0.00 |
-| 25 | Kayle | −0.77 | −1.00 | −1.00 | −1.00 | +0.20 | −1.00 | +0.00 |
-| 26 | Sett | −0.77 | −1.00 | −1.00 | −1.00 | +0.04 | – | +0.00 |
-| 27 | Olaf | −0.77 | −1.00 | −1.00 | −1.00 | +0.04 | – | +0.00 |
-| 28 | Urgot | −0.77 | −1.00 | −1.00 | −1.00 | +0.18 | −1.00 | +0.00 |
-| 29 | Trundle | −0.78 | −1.00 | −1.00 | −1.00 | −0.00 | – | +0.00 |
-| 30 | Volibear | −0.78 | −1.00 | −1.00 | −1.00 | −0.00 | – | +0.00 |
+| 11 | Rumble | +0.35 | +1.00 | +1.00 | −1.00 | +0.09 | – | +0.00 |
+| 12 | Quinn | +0.24 | +1.00 | +1.00 | −1.00 | +0.25 | −1.00 | +0.00 |
+| 13 | Singed | +0.22 | +0.29 | +0.29 | +0.28 | +0.01 | – | +0.00 |
+| 14 | Kennen | −0.61 | −1.00 | −1.00 | −1.00 | +0.07 | +0.78 | +0.00 |
+| 15 | Ornn | −0.73 | −1.00 | −1.00 | −1.00 | +0.27 | – | +0.00 |
+| 16 | Riven | −0.75 | −1.00 | −1.00 | −1.00 | +0.19 | – | +0.00 |
+| 17 | Aatrox | −0.75 | −1.00 | −1.00 | −1.00 | +0.17 | – | +0.00 |
+| 18 | Shen | −0.75 | −1.00 | −1.00 | −1.00 | +0.14 | – | +0.00 |
+| 19 | Fiora | −0.76 | −1.00 | −1.00 | −1.00 | +0.12 | – | +0.00 |
+| 20 | Garen | −0.76 | −1.00 | −1.00 | −1.00 | +0.11 | – | +0.00 |
+| 21 | Yasuo | −0.76 | −1.00 | −1.00 | −1.00 | +0.11 | – | +0.00 |
+| 22 | Yone | −0.76 | −1.00 | −1.00 | −1.00 | +0.10 | – | +0.00 |
+| 23 | Pantheon | −0.76 | −1.00 | −1.00 | −1.00 | +0.10 | – | +0.00 |
+| 24 | Irelia | −0.76 | −1.00 | −1.00 | −1.00 | +0.09 | – | +0.00 |
+| 25 | Camille | −0.77 | −1.00 | −1.00 | −1.00 | +0.07 | – | +0.00 |
+| 26 | Gwen | −0.77 | −1.00 | −1.00 | −1.00 | +0.05 | – | +0.00 |
+| 27 | Kayle | −0.77 | −1.00 | −1.00 | −1.00 | +0.20 | −1.00 | +0.00 |
+| 28 | Sett | −0.77 | −1.00 | −1.00 | −1.00 | +0.04 | – | +0.00 |
+| 29 | Olaf | −0.77 | −1.00 | −1.00 | −1.00 | +0.04 | – | +0.00 |
+| 30 | Urgot | −0.77 | −1.00 | −1.00 | −1.00 | +0.18 | −1.00 | +0.00 |
+| 31 | Trundle | −0.78 | −1.00 | −1.00 | −1.00 | −0.00 | – | +0.00 |
+| 32 | Volibear | −0.78 | −1.00 | −1.00 | −1.00 | −0.00 | – | +0.00 |
+| 33 | Akali | −0.79 | −1.00 | −1.00 | −1.00 | −0.08 | – | +0.00 |
 
 ## Interaction ledger (partial confidence)
 

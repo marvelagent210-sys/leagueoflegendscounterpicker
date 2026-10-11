@@ -215,6 +215,11 @@ function heldOf(ability: AbilitySpec): Held {
   }
 }
 
+/** The cooldown that paces an ability's uses: a charge's recharge, or its cooldown. */
+function cycleCooldown(ability: AbilitySpec): number {
+  return ability.charges ? Math.max(ability.cooldown, ability.charges.recharge) : ability.cooldown;
+}
+
 /** Seconds from one use to the next: the cooldown after haste, the cast, and any post-effect wait. */
 function cycleOf(use: { cooldown: number; castTime: number; held: Held }, d: { abilityHaste: number; attackSpeed: number }): number {
   const cooldown = cooldownAfterHaste(use.cooldown, d.abilityHaste);
@@ -262,7 +267,7 @@ function usesOf(abilities: AbilitySpec[]): Use[][] {
   for (const ability of abilities) {
     if (ability.chain) continue;
     const stages = abilities.filter((stage) => stage.chain?.root === ability.key);
-    const use: Use = { cooldown: ability.cooldown, castTime: ability.castTime, held: heldOf(ability), terms: [...damageTerms(ability), ...stages.flatMap(damageTerms)] };
+    const use: Use = { cooldown: cycleCooldown(ability), castTime: ability.castTime, held: heldOf(ability), terms: [...damageTerms(ability), ...stages.flatMap(damageTerms)] };
     const key = cooldownKeyOf(ability);
     byCooldown.set(key, [...(byCooldown.get(key) ?? []), use]);
   }
@@ -352,7 +357,7 @@ function sustain(self: Unit): number {
     sources = abilities.flatMap((ability) =>
       flatten(ability.onSelf ?? [])
         .filter((e): e is Extract<Effect, { type: "shield" | "heal" }> => e.type === "shield" || e.type === "heal")
-        .map((e) => ({ amount: e.amount, cooldown: ability.cooldown, castTime: ability.castTime, held: heldOf(ability) })),
+        .map((e) => ({ amount: e.amount, cooldown: cycleCooldown(ability), castTime: ability.castTime, held: heldOf(ability) })),
     );
     sustainCache.set(abilities, sources);
   }

@@ -2,7 +2,7 @@
 
 ## Simulated duels (full confidence)
 
-The duel simulator played each of the 30 other champions with a simulator kit against Teemo: both at level 20 with 15,000 gold of plain stats, each side's spent against the other's, through six scenarios (PLAN.md §6). Scores run from −1 (Teemo wins every time) to +1 (the champion does). Run `npm run duel -- <champion> Teemo --log brawl` to watch a fight.
+The duel simulator played each of the 33 other champions with a simulator kit against Teemo: both at level 20 with 15,000 gold of plain stats, each side's spent against the other's, through six scenarios (PLAN.md §6). Scores run from −1 (Teemo wins every time) to +1 (the champion does). Run `npm run duel -- <champion> Teemo --log brawl` to watch a fight.
 
 | # | Champion | Score | You engage | Enemy engages | Brawl | Short trade | Spacing | Escape |
 |--:|---|--:|--:|--:|--:|--:|--:|--:|
@@ -24,18 +24,21 @@ The duel simulator played each of the 30 other champions with a simulator kit ag
 | 16 | Renekton | −0.80 | −1.00 | −1.00 | −1.00 | −0.03 | −1.00 | +0.00 |
 | 17 | Pantheon | −0.81 | −1.00 | −1.00 | −1.00 | −0.09 | −1.00 | +0.00 |
 | 18 | Urgot | −0.82 | −1.00 | −1.00 | −1.00 | −0.10 | −1.00 | +0.00 |
-| 19 | Yasuo | −0.83 | −1.00 | −1.00 | −1.00 | −0.21 | −1.00 | +0.00 |
-| 20 | Tryndamere | −0.83 | −1.00 | −1.00 | −1.00 | −0.23 | −1.00 | +0.00 |
-| 21 | Camille | −0.83 | −1.00 | −1.00 | −1.00 | −0.23 | −1.00 | +0.00 |
-| 22 | Sett | −0.85 | −1.00 | −1.00 | −1.00 | −0.31 | −1.00 | +0.00 |
-| 23 | Gwen | −0.86 | −1.00 | −1.00 | −1.00 | −0.37 | −1.00 | +0.00 |
-| 24 | Aatrox | −0.88 | −1.00 | −1.00 | −1.00 | −0.50 | −1.00 | +0.00 |
-| 25 | Darius | −0.88 | −1.00 | −1.00 | −1.00 | −0.53 | −1.00 | +0.00 |
-| 26 | Cho'Gath | −0.89 | −1.00 | −1.00 | −1.00 | −0.62 | −1.00 | +0.00 |
-| 27 | Volibear | −0.91 | −1.00 | −1.00 | −1.00 | −0.72 | −1.00 | +0.00 |
-| 28 | Garen | −0.92 | −1.00 | −1.00 | −1.00 | −0.83 | −1.00 | +0.00 |
-| 29 | Olaf | −0.93 | −1.00 | −1.00 | −1.00 | −0.85 | −1.00 | +0.00 |
-| 30 | Riven | −0.95 | −1.00 | −1.00 | −1.00 | −1.00 | −1.00 | +0.00 |
+| 19 | Rumble | −0.83 | −1.00 | −1.00 | −1.00 | −0.20 | −1.00 | +0.00 |
+| 20 | Yasuo | −0.83 | −1.00 | −1.00 | −1.00 | −0.21 | −1.00 | +0.00 |
+| 21 | Tryndamere | −0.83 | −1.00 | −1.00 | −1.00 | −0.23 | −1.00 | +0.00 |
+| 22 | Camille | −0.83 | −1.00 | −1.00 | −1.00 | −0.23 | −1.00 | +0.00 |
+| 23 | Sett | −0.85 | −1.00 | −1.00 | −1.00 | −0.31 | −1.00 | +0.00 |
+| 24 | Gwen | −0.86 | −1.00 | −1.00 | −1.00 | −0.37 | −1.00 | +0.00 |
+| 25 | Akali | −0.88 | −1.00 | −1.00 | −1.00 | −0.50 | −1.00 | +0.00 |
+| 26 | Aatrox | −0.88 | −1.00 | −1.00 | −1.00 | −0.50 | −1.00 | +0.00 |
+| 27 | Darius | −0.88 | −1.00 | −1.00 | −1.00 | −0.53 | −1.00 | +0.00 |
+| 28 | Cho'Gath | −0.89 | −1.00 | −1.00 | −1.00 | −0.62 | −1.00 | +0.00 |
+| 29 | Volibear | −0.91 | −1.00 | −1.00 | −1.00 | −0.72 | −1.00 | +0.00 |
+| 30 | Garen | −0.92 | −1.00 | −1.00 | −1.00 | −0.83 | −1.00 | +0.00 |
+| 31 | Olaf | −0.93 | −1.00 | −1.00 | −1.00 | −0.85 | −1.00 | +0.00 |
+| 32 | Riven | −0.95 | −1.00 | −1.00 | −1.00 | −1.00 | −1.00 | +0.00 |
+| 33 | Singed | −0.95 | −1.00 | −1.00 | −1.00 | −1.00 | −1.00 | +0.00 |
 
 ## Interaction ledger (partial confidence)
 

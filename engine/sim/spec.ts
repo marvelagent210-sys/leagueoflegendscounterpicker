@@ -91,7 +91,9 @@ export type StateType =
    * Can't be seen (Twilight Shroud): enemies can't start attacks or unit-targeted spells on it
    * or aim at it, but areas still hit it and missiles already on their way still land.
    */
-  | "invisible";
+  | "invisible"
+  /** An ability still at work in a way its kit's hooks model (Twilight Shroud's smoke): no rule of its own, but it holds a post-effect cooldown. */
+  | "lingering";
 
 /** Stats a timed buff or debuff changes. Fractions for percentages. */
 export type BuffStat =
@@ -123,7 +125,9 @@ export type BuffStat =
   /** Reduces the strength of slows by a fraction (Purge's 40%). */
   | "slowResist"
   /** Increases healing and health regeneration received by a fraction (World Ender). */
-  | "healingIncrease";
+  | "healingIncrease"
+  /** More maximum resource (Twilight Shroud's 100 energy). */
+  | "maxResource";
 
 /** How a basic attack's damage divides between damage types, as shares of the attack. */
 export interface AttackSplit {
@@ -163,7 +167,7 @@ export type Effect =
    */
   | { type: "state"; state: StateType; duration: number; value?: number; charges?: number; effects?: Effect[] }
   | { type: "stat"; stat: BuffStat; amount: Formula; duration: number }
-  | { type: "dot"; damageType: DamageType; total: Formula; duration: number; interval: number }
+  | { type: "dot"; damageType: DamageType; total: Formula; duration: number; interval: number; label?: string }
   | { type: "grievousWounds"; duration: number }
   /** Removes the listed crowd control types from the caster, or every type when none are listed. */
   /** `sticky`: also removes non-dispellable crowd control, as cleanses that grant immunity do (Ragnarok). */
@@ -392,6 +396,11 @@ export interface AbilitySpec {
   /** Shares the cooldown of the ability with this key (an empowered version of the same spell). */
   cooldownKey?: string;
   /**
+   * Holds up to `max` charges (wiki: "Recharge"): each cast spends one and one restocks every
+   * `recharge` seconds; `cooldown` is then the wait between casts. Fights start with all of them.
+   */
+  charges?: { max: number; recharge: number };
+  /**
    * Castable during the caster's other casts and dashes without cancelling them (Umbral
    * Dash during The Darkin Blade). A dash cast this way holds the other cast until it ends.
    */
@@ -473,6 +482,8 @@ export interface KitHooks {
   onTick?(ctx: HookContext): void;
   /** A basic attack is declared (its windup starts). */
   onAttack?(ctx: HookContext): void;
+  /** A basic attack's windup ends: it strikes, or its missile is fired. */
+  onAttackLaunch?(ctx: HookContext): void;
   onAttackHit?(ctx: HookContext): void;
   /** `scale`: the share of the hit that counts, below 1 for skillshots resolved by expected value. */
   onAbilityHit?(ctx: HookContext & { ability: AbilitySpec; scale: number }): void;

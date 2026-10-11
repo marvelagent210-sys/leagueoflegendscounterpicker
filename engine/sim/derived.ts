@@ -42,6 +42,7 @@ export interface Derived {
   lifeSteal: number;
   /** Extra healing and regeneration received, as a fraction. */
   healingIncrease: number;
+  maxResource: number;
 }
 
 function sum(statuses: Status[], key: string): number {
@@ -122,6 +123,7 @@ function computeDerived(unit: Unit): Derived {
     mrReduction: { flat: sum(st, "mrReduction"), percent: list(st, "stat", "mrReductionPercent") },
     lifeSteal: sum(st, "lifeSteal"),
     healingIncrease: sum(st, "healingIncrease"),
+    maxResource: base.resource + sum(st, "maxResource"),
   };
 }
 

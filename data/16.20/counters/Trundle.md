@@ -2,7 +2,7 @@
 
 ## Simulated duels (full confidence)
 
-The duel simulator played each of the 30 other champions with a simulator kit against Trundle: both at level 20 with 15,000 gold of plain stats, each side's spent against the other's, through six scenarios (PLAN.md §6). Scores run from −1 (Trundle wins every time) to +1 (the champion does). Run `npm run duel -- <champion> Trundle --log brawl` to watch a fight.
+The duel simulator played each of the 33 other champions with a simulator kit against Trundle: both at level 20 with 15,000 gold of plain stats, each side's spent against the other's, through six scenarios (PLAN.md §6). Scores run from −1 (Trundle wins every time) to +1 (the champion does). Run `npm run duel -- <champion> Trundle --log brawl` to watch a fight.
 
 | # | Champion | Score | You engage | Enemy engages | Brawl | Short trade | Spacing | Escape |
 |--:|---|--:|--:|--:|--:|--:|--:|--:|
@@ -23,19 +23,22 @@ The duel simulator played each of the 30 other champions with a simulator kit ag
 | 15 | Sett | −0.77 | −1.00 | −1.00 | −1.00 | +0.05 | – | +0.00 |
 | 16 | Malphite | −0.77 | −1.00 | −1.00 | −1.00 | +0.18 | −1.00 | +0.00 |
 | 17 | Ornn | −0.77 | −1.00 | −1.00 | −1.00 | +0.17 | −1.00 | +0.00 |
-| 18 | Darius | −0.79 | −1.00 | −1.00 | −1.00 | −0.05 | – | +0.00 |
-| 19 | Riven | −0.79 | −1.00 | −1.00 | −1.00 | +0.26 | – | −1.00 |
-| 20 | Mordekaiser | −0.80 | −1.00 | −1.00 | −1.00 | +0.03 | −1.00 | +0.00 |
-| 21 | Aatrox | −0.81 | −1.00 | −1.00 | −1.00 | +0.13 | – | −1.00 |
-| 22 | Pantheon | −0.81 | −1.00 | −1.00 | −1.00 | +0.12 | – | −1.00 |
-| 23 | Quinn | −0.81 | −1.00 | −1.00 | −1.00 | +0.24 | −1.00 | −1.00 |
-| 24 | Camille | −0.82 | −1.00 | −1.00 | −1.00 | +0.10 | – | −1.00 |
-| 25 | Irelia | −0.82 | −1.00 | −1.00 | −1.00 | +0.22 | −1.00 | −1.00 |
-| 26 | Urgot | −0.82 | −1.00 | −1.00 | −1.00 | +0.22 | −1.00 | −1.00 |
-| 27 | Yone | −0.82 | −1.00 | −1.00 | −1.00 | +0.08 | – | −1.00 |
-| 28 | Olaf | −0.82 | −1.00 | −1.00 | −1.00 | +0.05 | – | −1.00 |
-| 29 | Garen | −0.84 | −1.00 | −1.00 | −1.00 | −0.03 | – | −1.00 |
-| 30 | Volibear | −0.85 | −1.00 | −1.00 | −1.00 | −0.10 | – | −1.00 |
+| 18 | Singed | −0.78 | −1.00 | −1.00 | −1.00 | −0.03 | – | +0.00 |
+| 19 | Darius | −0.79 | −1.00 | −1.00 | −1.00 | −0.05 | – | +0.00 |
+| 20 | Riven | −0.79 | −1.00 | −1.00 | −1.00 | +0.26 | – | −1.00 |
+| 21 | Mordekaiser | −0.80 | −1.00 | −1.00 | −1.00 | +0.03 | −1.00 | +0.00 |
+| 22 | Aatrox | −0.81 | −1.00 | −1.00 | −1.00 | +0.13 | – | −1.00 |
+| 23 | Pantheon | −0.81 | −1.00 | −1.00 | −1.00 | +0.12 | – | −1.00 |
+| 24 | Quinn | −0.81 | −1.00 | −1.00 | −1.00 | +0.24 | −1.00 | −1.00 |
+| 25 | Camille | −0.82 | −1.00 | −1.00 | −1.00 | +0.10 | – | −1.00 |
+| 26 | Irelia | −0.82 | −1.00 | −1.00 | −1.00 | +0.22 | −1.00 | −1.00 |
+| 27 | Urgot | −0.82 | −1.00 | −1.00 | −1.00 | +0.22 | −1.00 | −1.00 |
+| 28 | Akali | −0.82 | −1.00 | −1.00 | −1.00 | +0.08 | – | −1.00 |
+| 29 | Yone | −0.82 | −1.00 | −1.00 | −1.00 | +0.08 | – | −1.00 |
+| 30 | Olaf | −0.82 | −1.00 | −1.00 | −1.00 | +0.05 | – | −1.00 |
+| 31 | Rumble | −0.82 | −1.00 | −1.00 | −1.00 | +0.05 | – | −1.00 |
+| 32 | Garen | −0.84 | −1.00 | −1.00 | −1.00 | −0.03 | – | −1.00 |
+| 33 | Volibear | −0.85 | −1.00 | −1.00 | −1.00 | −0.10 | – | −1.00 |
 
 ## Interaction ledger (partial confidence)
 

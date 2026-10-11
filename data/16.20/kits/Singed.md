@@ -175,3 +175,69 @@ Cooldowns and costs of each slot's main ability, wiki vs game files:
 | E: Fling | cost | 60 / 70 / 80 / 90 / 100 | 60 / 70 / 80 / 90 / 100 | yes |
 | R: Insanity Potion | cooldown | 100 / 100 / 100 | 100 / 100 / 100 | yes |
 | R: Insanity Potion | cost | 100 / 100 / 100 | 100 / 100 / 100 | yes |
+
+## Duel simulator kit (level 20, every ability at max rank)
+
+What the duel simulator fights with (`kits/champions/Singed.ts`): every number is read from the wiki's ability data above at level 20; what the wiki doesn't say is listed under assumptions. Ratios are fractions of the stat (60% AD is 0.6 × AD).
+
+- Basic attack: range 125, melee.
+
+| Key | Ability | Cooldown (s) | Cast time (s) | Cost | Delivery | On the enemy | On itself |
+|---|---|--:|--:|---|---|---|---|
+| Q | Poison Trail | 1 | 0 | – | self | – | – |
+| W | Mega Adhesive | 13 | 0.25 | 100 | field of 265 radius up to 1000 away, after 0.375 s, for 3 s, pulsing every 0.25 s | slow 70% for 0.3 s; ground for 0.3 s | – |
+| E | Fling | 8 | 0.25 | 100 | targeted, 125 range | 90 + 8% target's maximum health + 55% AP magic damage; pull 550 units over 0.693 s | – |
+| R | Insanity Potion | 100 | 0 | 100 | self | – | AP 85 for 25 s; armor 85 for 25 s; MR 85 for 25 s; moveSpeedFlat 85 for 25 s |
+
+Effects marked by a mark or a role are completed by the kit's hooks (see the kit's source).
+
+### Assumptions
+
+- Poison Trail is on from the start of every fight.
+- Mega Adhesive's slow and ground are renewed every 0.25 s while the enemy is inside.
+- Singed throws Mega Adhesive where Fling will land the enemy, then flings it in; otherwise he saves Mega Adhesive while Fling is ready.
+- Against a melee enemy no faster than him, Singed runs ahead 75 units out of its attack range, so it walks through the poison, and attacks only while it can't hit back; he comes back to 15 units out of its reach while it can't move.
+
+### Wiki values read (39)
+
+| Ability | Value | Revision |
+|---|---|---|
+| Noxious Slipstream | effectRadius: 225 | [3985843](https://wiki.leagueoflegends.com/en-us/Template:Data_Singed/Noxious_Slipstream?oldid=3985843) |
+| Noxious Slipstream | he gains a stack of Noxious Slipstream for 2 seconds | [3985843](https://wiki.leagueoflegends.com/en-us/Template:Data_Singed/Noxious_Slipstream?oldid=3985843) |
+| Noxious Slipstream | For each stack, Singed gains 25% bonus movement speed | [3985843](https://wiki.leagueoflegends.com/en-us/Template:Data_Singed/Noxious_Slipstream?oldid=3985843) |
+| Noxious Slipstream | targetCooldown: 8 | [3985843](https://wiki.leagueoflegends.com/en-us/Template:Data_Singed/Noxious_Slipstream?oldid=3985843) |
+| Poison Trail | Singed continually creates a toxic cloud in his wake that lingers for 3.25 seconds | [4006737](https://wiki.leagueoflegends.com/en-us/Template:Data_Singed/Poison_Trail?oldid=4006737) |
+| Poison Trail | effectRadius: 180 | [4006737](https://wiki.leagueoflegends.com/en-us/Template:Data_Singed/Poison_Trail?oldid=4006737) |
+| Poison Trail | The target takes magic damage every 0.25 seconds over 2 seconds | [4006737](https://wiki.leagueoflegends.com/en-us/Template:Data_Singed/Poison_Trail?oldid=4006737) |
+| Poison Trail | Magic Damage per Tick: 5 / 7.5 / 10 / 12.5 / 15 (+ 10.625% AP) | [4006737](https://wiki.leagueoflegends.com/en-us/Template:Data_Singed/Poison_Trail?oldid=4006737) |
+| Poison Trail | Magic Damage per Second: 20 / 30 / 40 / 50 / 60 (+ 42.5% AP) | [4006737](https://wiki.leagueoflegends.com/en-us/Template:Data_Singed/Poison_Trail?oldid=4006737) |
+| Poison Trail | cost: 13 | [4006737](https://wiki.leagueoflegends.com/en-us/Template:Data_Singed/Poison_Trail?oldid=4006737) |
+| Poison Trail | If Singed has moved fewer than 90 units since spawning the last poison cloud, it will spawn 35 units in front of him | [4006737](https://wiki.leagueoflegends.com/en-us/Template:Data_Singed/Poison_Trail?oldid=4006737) |
+| Poison Trail | They also only spawn every 1 second in this case | [4006737](https://wiki.leagueoflegends.com/en-us/Template:Data_Singed/Poison_Trail?oldid=4006737) |
+| Poison Trail | When Poison Trail's debuff is applied instead of refreshed, the target is dealt one additional instance of the debuff at the same time as the application | [4006737](https://wiki.leagueoflegends.com/en-us/Template:Data_Singed/Poison_Trail?oldid=4006737) |
+| Mega Adhesive | lands at the target location after 0.375 seconds | [4001677](https://wiki.leagueoflegends.com/en-us/Template:Data_Singed/Mega_Adhesive?oldid=4001677) |
+| Mega Adhesive | creating a field for 3 seconds | [4001677](https://wiki.leagueoflegends.com/en-us/Template:Data_Singed/Mega_Adhesive?oldid=4001677) |
+| Mega Adhesive | Mega Adhesive's slow and ground debuffs are each marked as non-dispellable | [4001677](https://wiki.leagueoflegends.com/en-us/Template:Data_Singed/Mega_Adhesive?oldid=4001677) |
+| Mega Adhesive | Slow: 50 / 55 / 60 / 65 / 70% | [4001677](https://wiki.leagueoflegends.com/en-us/Template:Data_Singed/Mega_Adhesive?oldid=4001677) |
+| Fling | Singed flings the target enemy 550 units over himself over 0.693 | [4026605](https://wiki.leagueoflegends.com/en-us/Template:Data_Singed/Fling?oldid=4026605) |
+| Fling | Root Duration: 1 / 1.25 / 1.5 / 1.75 / 2 seconds | [4026605](https://wiki.leagueoflegends.com/en-us/Template:Data_Singed/Fling?oldid=4026605) |
+| Fling | targetRange: 125 | [4026605](https://wiki.leagueoflegends.com/en-us/Template:Data_Singed/Fling?oldid=4026605) |
+| Fling | Slow-immune enemies will not be rooted when flung into Mega Adhesive | [4026605](https://wiki.leagueoflegends.com/en-us/Template:Data_Singed/Fling?oldid=4026605) |
+| Insanity Potion | Singed empowers himself for 25 seconds | [4005000](https://wiki.leagueoflegends.com/en-us/Template:Data_Singed/Insanity_Potion?oldid=4005000) |
+| Insanity Potion | Bonus Stats: 25 / 55 / 85 | [4005000](https://wiki.leagueoflegends.com/en-us/Template:Data_Singed/Insanity_Potion?oldid=4005000) |
+| Insanity Potion | HP/Mana Regenerated per 0.5 Seconds: 2.5 / 5.5 / 8.5 | [4005000](https://wiki.leagueoflegends.com/en-us/Template:Data_Singed/Insanity_Potion?oldid=4005000) |
+| Insanity Potion | HP/Mana Regenerated per 0.5 Seconds | [4005000](https://wiki.leagueoflegends.com/en-us/Template:Data_Singed/Insanity_Potion?oldid=4005000) |
+| Insanity Potion | Poison Trail additionally applies Grievous Wounds for 1 second | [4005000](https://wiki.leagueoflegends.com/en-us/Template:Data_Singed/Insanity_Potion?oldid=4005000) |
+| Insanity Potion | which refreshes every 0.25 seconds while the poison persists | [4005000](https://wiki.leagueoflegends.com/en-us/Template:Data_Singed/Insanity_Potion?oldid=4005000) |
+| Poison Trail | staticCooldown: 1 | [4006737](https://wiki.leagueoflegends.com/en-us/Template:Data_Singed/Poison_Trail?oldid=4006737) |
+| Mega Adhesive | cooldown: 17 / 16 / 15 / 14 / 13 | [4001677](https://wiki.leagueoflegends.com/en-us/Template:Data_Singed/Mega_Adhesive?oldid=4001677) |
+| Mega Adhesive | cost: 60 / 70 / 80 / 90 / 100 | [4001677](https://wiki.leagueoflegends.com/en-us/Template:Data_Singed/Mega_Adhesive?oldid=4001677) |
+| Mega Adhesive | castTime: 0.25 | [4001677](https://wiki.leagueoflegends.com/en-us/Template:Data_Singed/Mega_Adhesive?oldid=4001677) |
+| Mega Adhesive | targetRange: 1000 | [4001677](https://wiki.leagueoflegends.com/en-us/Template:Data_Singed/Mega_Adhesive?oldid=4001677) |
+| Mega Adhesive | effectRadius: 265 | [4001677](https://wiki.leagueoflegends.com/en-us/Template:Data_Singed/Mega_Adhesive?oldid=4001677) |
+| Fling | cooldown: 10 / 9.5 / 9 / 8.5 / 8 | [4026605](https://wiki.leagueoflegends.com/en-us/Template:Data_Singed/Fling?oldid=4026605) |
+| Fling | cost: 60 / 70 / 80 / 90 / 100 | [4026605](https://wiki.leagueoflegends.com/en-us/Template:Data_Singed/Fling?oldid=4026605) |
+| Fling | castTime: 0.25 | [4026605](https://wiki.leagueoflegends.com/en-us/Template:Data_Singed/Fling?oldid=4026605) |
+| Fling | Magic Damage: 50 / 60 / 70 / 80 / 90 (+ 6 / 6.5 / 7 / 7.5 / 8% of target's maximum health) (+ 55% AP) | [4026605](https://wiki.leagueoflegends.com/en-us/Template:Data_Singed/Fling?oldid=4026605) |
+| Insanity Potion | cooldown: 100 | [4005000](https://wiki.leagueoflegends.com/en-us/Template:Data_Singed/Insanity_Potion?oldid=4005000) |
+| Insanity Potion | cost: 100 | [4005000](https://wiki.leagueoflegends.com/en-us/Template:Data_Singed/Insanity_Potion?oldid=4005000) |

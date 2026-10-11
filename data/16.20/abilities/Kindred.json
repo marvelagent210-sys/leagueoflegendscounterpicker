@@ -905,7 +905,7 @@
                   "stat": "targetCurrentHealth",
                   "ratio": {
                     "kind": "constant",
-                    "value": 2.4749999999999996
+                    "value": 2.475
                   },
                   "text": "(+ 2.475% (+ 1.65% per mark) of target's current health)",
                   "modifiers": [

@@ -21,7 +21,8 @@ export interface Status {
   charges?: number;
   shieldType?: ShieldType;
   priority?: boolean;
-  dot?: { damageType: DamageType; perHit: number; intervalTicks: number; nextTick: number };
+  /** `label`: what its ticks are logged as (the ability's name). */
+  dot?: { damageType: DamageType; perHit: number; intervalTicks: number; nextTick: number; label?: string };
   empower?: { attacks: number; onHit: Effect[]; bonusRange: number; uncancellable: boolean; split?: AttackSplit; windup?: number };
   /** What a triggered state does (antiDash), and the ability it comes from. */
   effects?: Effect[];
@@ -82,6 +83,8 @@ export interface Unit {
   cooldownReady: Record<string, number>;
   /** Post-effect cooldowns waiting for their cast's effect to end: cooldown key to ability key. */
   cooldownHeld: Record<string, string>;
+  /** Abilities with charges, by cooldown key: how many are stocked and when the next one comes (absent: full). */
+  charges: Record<string, { count: number; nextTick: number }>;
   /** First tick a new attack windup may start. */
   attackReadyTick: number;
   action?: Action;
@@ -313,6 +316,7 @@ export function newUnit(spec: FighterSpec, side: Side, x: number, maxHp: number,
     statuses: [],
     cooldownReady: {},
     cooldownHeld: {},
+    charges: {},
     attackReadyTick: 0,
     move: 0,
     moved: 0,
@@ -337,6 +341,7 @@ function cloneUnit(unit: Unit): Unit {
     statuses: unit.statuses.map(cloneStatus),
     cooldownReady: { ...unit.cooldownReady },
     cooldownHeld: { ...unit.cooldownHeld },
+    charges: Object.fromEntries(Object.entries(unit.charges).map(([k, v]) => [k, { ...v }])),
     chains: Object.fromEntries(Object.entries(unit.chains).map(([k, v]) => [k, { ...v }])),
     ...(unit.action ? { action: unit.action.kind === "dash" && unit.action.resume ? { ...unit.action, resume: { ...unit.action.resume } } : { ...unit.action } } : {}),
     ...(unit.forced ? { forced: { ...unit.forced } } : {}),

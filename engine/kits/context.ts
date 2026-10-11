@@ -195,10 +195,12 @@ export class AbilityData {
     return this.record.fields.cost ? this.field("cost") : 0;
   }
 
-  private leveling(label: string): Amount {
+  /** The `occurrence`-th (0-based) leveling value with this label: recasts often repeat one ("Magic Damage"). */
+  private leveling(label: string, occurrence = 0): Amount {
     const wanted = label.toLowerCase();
+    let seen = 0;
     for (const part of this.record.parts) {
-      for (const stat of part.leveling) if (stat.label.toLowerCase() === wanted) {
+      for (const stat of part.leveling) if (stat.label.toLowerCase() === wanted && seen++ === occurrence) {
         this.note(`${stat.label}: ${stat.amount.text}`);
         return stat.amount;
       }
@@ -225,9 +227,9 @@ export class AbilityData {
     return this.number(label) / 100;
   }
 
-  /** A leveling value with its ratios, at level 20. */
-  formula(label: string): Formula {
-    const amount = this.leveling(label);
+  /** A leveling value with its ratios, at level 20; `occurrence` picks among values sharing the label. */
+  formula(label: string, occurrence = 0): Formula {
+    const amount = this.leveling(label, occurrence);
     return this.amountFormula(amount, label);
   }
 

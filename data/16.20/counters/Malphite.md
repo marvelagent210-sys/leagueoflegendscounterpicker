@@ -2,7 +2,7 @@
 
 ## Simulated duels (full confidence)
 
-The duel simulator played each of the 30 other champions with a simulator kit against Malphite: both at level 20 with 15,000 gold of plain stats, each side's spent against the other's, through six scenarios (PLAN.md §6). Scores run from −1 (Malphite wins every time) to +1 (the champion does). Run `npm run duel -- <champion> Malphite --log brawl` to watch a fight.
+The duel simulator played each of the 33 other champions with a simulator kit against Malphite: both at level 20 with 15,000 gold of plain stats, each side's spent against the other's, through six scenarios (PLAN.md §6). Scores run from −1 (Malphite wins every time) to +1 (the champion does). Run `npm run duel -- <champion> Malphite --log brawl` to watch a fight.
 
 | # | Champion | Score | You engage | Enemy engages | Brawl | Short trade | Spacing | Escape |
 |--:|---|--:|--:|--:|--:|--:|--:|--:|
@@ -20,22 +20,25 @@ The duel simulator played each of the 30 other champions with a simulator kit ag
 | 12 | Nasus | +0.05 | +0.11 | +0.08 | +0.07 | −0.11 | +0.10 | +0.00 |
 | 13 | Poppy | +0.01 | −0.01 | +0.03 | +0.02 | −0.02 | – | +0.00 |
 | 14 | Shen | −0.00 | +0.01 | −0.07 | +0.10 | −0.03 | – | +0.00 |
-| 15 | Renekton | −0.08 | −0.08 | −0.08 | −0.08 | −0.11 | – | +0.00 |
-| 16 | Ornn | −0.12 | −0.16 | −0.16 | −0.13 | −0.01 | – | +0.00 |
-| 17 | Sett | −0.23 | −0.26 | −0.29 | −0.26 | −0.09 | – | +0.00 |
-| 18 | Kayle | −0.73 | −1.00 | −1.00 | −1.00 | +0.45 | −1.00 | +0.00 |
-| 19 | Teemo | −0.74 | −1.00 | −1.00 | −1.00 | +0.40 | −1.00 | +0.00 |
-| 20 | Yasuo | −0.78 | −1.00 | −1.00 | −1.00 | −0.02 | – | +0.00 |
-| 21 | Irelia | −0.80 | −1.00 | −1.00 | −1.00 | −0.11 | – | +0.00 |
-| 22 | Yone | −0.80 | −1.00 | −1.00 | −1.00 | −0.12 | – | +0.00 |
-| 23 | Quinn | −0.80 | −1.00 | −1.00 | −1.00 | +0.01 | −1.00 | +0.00 |
-| 24 | Riven | −0.80 | −1.00 | −1.00 | −1.00 | −0.14 | – | +0.00 |
-| 25 | Camille | −0.80 | −1.00 | −1.00 | −1.00 | −0.15 | – | +0.00 |
-| 26 | Pantheon | −0.81 | −1.00 | −1.00 | −1.00 | −0.17 | – | +0.00 |
-| 27 | Tryndamere | −0.81 | −1.00 | −1.00 | −1.00 | −0.17 | – | +0.00 |
-| 28 | Garen | −0.81 | −1.00 | −1.00 | −1.00 | −0.19 | – | +0.00 |
-| 29 | Urgot | −0.81 | −1.00 | −1.00 | −1.00 | −0.06 | −1.00 | +0.00 |
-| 30 | Kennen | −0.82 | −1.00 | −1.00 | −1.00 | −0.14 | −0.99 | +0.00 |
+| 15 | Singed | −0.03 | −0.01 | −0.02 | −0.01 | −0.13 | – | +0.00 |
+| 16 | Renekton | −0.08 | −0.08 | −0.08 | −0.08 | −0.11 | – | +0.00 |
+| 17 | Ornn | −0.12 | −0.16 | −0.16 | −0.13 | −0.01 | – | +0.00 |
+| 18 | Sett | −0.23 | −0.26 | −0.29 | −0.26 | −0.09 | – | +0.00 |
+| 19 | Rumble | −0.35 | −1.00 | −1.00 | +1.00 | −0.08 | – | +0.00 |
+| 20 | Kayle | −0.73 | −1.00 | −1.00 | −1.00 | +0.45 | −1.00 | +0.00 |
+| 21 | Teemo | −0.74 | −1.00 | −1.00 | −1.00 | +0.40 | −1.00 | +0.00 |
+| 22 | Yasuo | −0.78 | −1.00 | −1.00 | −1.00 | −0.02 | – | +0.00 |
+| 23 | Akali | −0.80 | −1.00 | −1.00 | −1.00 | −0.11 | – | +0.00 |
+| 24 | Irelia | −0.80 | −1.00 | −1.00 | −1.00 | −0.11 | – | +0.00 |
+| 25 | Yone | −0.80 | −1.00 | −1.00 | −1.00 | −0.12 | – | +0.00 |
+| 26 | Quinn | −0.80 | −1.00 | −1.00 | −1.00 | +0.01 | −1.00 | +0.00 |
+| 27 | Riven | −0.80 | −1.00 | −1.00 | −1.00 | −0.14 | – | +0.00 |
+| 28 | Camille | −0.80 | −1.00 | −1.00 | −1.00 | −0.15 | – | +0.00 |
+| 29 | Pantheon | −0.81 | −1.00 | −1.00 | −1.00 | −0.17 | – | +0.00 |
+| 30 | Tryndamere | −0.81 | −1.00 | −1.00 | −1.00 | −0.17 | – | +0.00 |
+| 31 | Garen | −0.81 | −1.00 | −1.00 | −1.00 | −0.19 | – | +0.00 |
+| 32 | Urgot | −0.81 | −1.00 | −1.00 | −1.00 | −0.06 | −1.00 | +0.00 |
+| 33 | Kennen | −0.82 | −1.00 | −1.00 | −1.00 | −0.14 | −0.99 | +0.00 |
 
 ## Interaction ledger (partial confidence)
 

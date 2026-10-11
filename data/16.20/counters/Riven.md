@@ -2,7 +2,7 @@
 
 ## Simulated duels (full confidence)
 
-The duel simulator played each of the 30 other champions with a simulator kit against Riven: both at level 20 with 15,000 gold of plain stats, each side's spent against the other's, through six scenarios (PLAN.md §6). Scores run from −1 (Riven wins every time) to +1 (the champion does). Run `npm run duel -- <champion> Riven --log brawl` to watch a fight.
+The duel simulator played each of the 33 other champions with a simulator kit against Riven: both at level 20 with 15,000 gold of plain stats, each side's spent against the other's, through six scenarios (PLAN.md §6). Scores run from −1 (Riven wins every time) to +1 (the champion does). Run `npm run duel -- <champion> Riven --log brawl` to watch a fight.
 
 | # | Champion | Score | You engage | Enemy engages | Brawl | Short trade | Spacing | Escape |
 |--:|---|--:|--:|--:|--:|--:|--:|--:|
@@ -31,11 +31,14 @@ The duel simulator played each of the 30 other champions with a simulator kit ag
 | 23 | Camille | +0.54 | +1.00 | +1.00 | +0.00 | −0.07 | – | +0.00 |
 | 24 | Kayle | +0.52 | +1.00 | +1.00 | −1.00 | +0.79 | +1.00 | +0.00 |
 | 25 | Mordekaiser | +0.50 | +0.54 | +0.65 | +0.88 | −0.14 | – | +0.00 |
-| 26 | Yone | +0.35 | +1.00 | +1.00 | −1.00 | −0.10 | – | +0.52 |
-| 27 | Kennen | −0.03 | +0.04 | +0.04 | +0.00 | −0.08 | −0.39 | +0.00 |
-| 28 | Yasuo | −0.27 | −1.00 | +0.00 | +0.00 | +0.03 | – | +0.00 |
-| 29 | Gwen | −0.58 | −1.00 | −1.00 | +0.00 | −0.14 | – | +0.00 |
-| 30 | Shen | −0.77 | −1.00 | −1.00 | −1.00 | +0.03 | – | +0.00 |
+| 26 | Kennen | +0.45 | +1.00 | +1.00 | +0.00 | −0.08 | −0.39 | +0.00 |
+| 27 | Yone | +0.35 | +1.00 | +1.00 | −1.00 | −0.10 | – | +0.52 |
+| 28 | Singed | +0.20 | −0.02 | −0.02 | +1.00 | −0.09 | – | +0.00 |
+| 29 | Yasuo | −0.27 | −1.00 | +0.00 | +0.00 | +0.03 | – | +0.00 |
+| 30 | Gwen | −0.58 | −1.00 | −1.00 | +0.00 | −0.14 | – | +0.00 |
+| 31 | Shen | −0.77 | −1.00 | −1.00 | −1.00 | +0.03 | – | +0.00 |
+| 32 | Rumble | −0.79 | −1.00 | −1.00 | −1.00 | −0.09 | – | +0.00 |
+| 33 | Akali | −0.80 | −1.00 | −1.00 | −1.00 | −0.15 | – | +0.00 |
 
 ## Interaction ledger (partial confidence)
 

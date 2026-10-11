@@ -1,6 +1,7 @@
 /** The champions the simulator plays, by Data Dragon id (behavior waves, PLAN.md section 9). */
 import type { KitModule } from "../../engine/kits/compile";
 import Aatrox from "./Aatrox";
+import Akali from "./Akali";
 import Camille from "./Camille";
 import Chogath from "./Chogath";
 import Darius from "./Darius";
@@ -22,8 +23,10 @@ import Poppy from "./Poppy";
 import Quinn from "./Quinn";
 import Renekton from "./Renekton";
 import Riven from "./Riven";
+import Rumble from "./Rumble";
 import Sett from "./Sett";
 import Shen from "./Shen";
+import Singed from "./Singed";
 import Teemo from "./Teemo";
 import Trundle from "./Trundle";
 import Tryndamere from "./Tryndamere";
@@ -33,5 +36,5 @@ import Yasuo from "./Yasuo";
 import Yone from "./Yone";
 
 export const KITS: Readonly<Record<string, KitModule>> = Object.fromEntries(
-  [Aatrox, Camille, Chogath, Darius, DrMundo, Fiora, Garen, Gwen, Irelia, Jax, Kayle, Kennen, Malphite, Mordekaiser, Nasus, Olaf, Ornn, Pantheon, Poppy, Quinn, Renekton, Riven, Sett, Shen, Teemo, Trundle, Tryndamere, Urgot, Volibear, Yasuo, Yone].map((kit) => [kit.champion, kit]),
+  [Aatrox, Akali, Camille, Chogath, Darius, DrMundo, Fiora, Garen, Gwen, Irelia, Jax, Kayle, Kennen, Malphite, Mordekaiser, Nasus, Olaf, Ornn, Pantheon, Poppy, Quinn, Renekton, Riven, Rumble, Sett, Shen, Singed, Teemo, Trundle, Tryndamere, Urgot, Volibear, Yasuo, Yone].map((kit) => [kit.champion, kit]),
 );

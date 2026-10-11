@@ -2,7 +2,7 @@
 
 ## Simulated duels (full confidence)
 
-The duel simulator played each of the 30 other champions with a simulator kit against Aatrox: both at level 20 with 15,000 gold of plain stats, each side's spent against the other's, through six scenarios (PLAN.md §6). Scores run from −1 (Aatrox wins every time) to +1 (the champion does). Run `npm run duel -- <champion> Aatrox --log brawl` to watch a fight.
+The duel simulator played each of the 33 other champions with a simulator kit against Aatrox: both at level 20 with 15,000 gold of plain stats, each side's spent against the other's, through six scenarios (PLAN.md §6). Scores run from −1 (Aatrox wins every time) to +1 (the champion does). Run `npm run duel -- <champion> Aatrox --log brawl` to watch a fight.
 
 | # | Champion | Score | You engage | Enemy engages | Brawl | Short trade | Spacing | Escape |
 |--:|---|--:|--:|--:|--:|--:|--:|--:|
@@ -17,25 +17,28 @@ The duel simulator played each of the 30 other champions with a simulator kit ag
 | 9 | Olaf | −0.22 | −0.54 | −1.00 | +1.00 | −0.06 | – | +0.00 |
 | 10 | Fiora | −0.25 | −1.00 | −1.00 | +1.00 | +0.17 | – | +1.00 |
 | 11 | Kennen | −0.29 | −0.94 | −0.59 | +0.00 | +0.02 | +0.96 | +0.00 |
-| 12 | Camille | −0.67 | −1.00 | −1.00 | −1.00 | +0.34 | – | +1.00 |
-| 13 | Riven | −0.73 | −1.00 | −1.00 | −1.00 | +0.26 | – | +0.00 |
-| 14 | Yone | −0.74 | −1.00 | −1.00 | −1.00 | +0.04 | – | +0.49 |
-| 15 | Irelia | −0.75 | −1.00 | −1.00 | −1.00 | +0.17 | – | +0.00 |
-| 16 | Malphite | −0.75 | −1.00 | −1.00 | −1.00 | +0.16 | – | +0.00 |
-| 17 | Gwen | −0.76 | −1.00 | −1.00 | −1.00 | +0.12 | – | +0.00 |
-| 18 | Yasuo | −0.76 | −1.00 | −1.00 | −1.00 | +0.09 | – | +0.00 |
-| 19 | Ornn | −0.76 | −1.00 | −1.00 | −1.00 | +0.09 | – | +0.00 |
-| 20 | Pantheon | −0.76 | −1.00 | −1.00 | −1.00 | +0.08 | – | +0.00 |
-| 21 | Renekton | −0.77 | −1.00 | −1.00 | −1.00 | +0.06 | – | +0.00 |
-| 22 | Sett | −0.77 | −1.00 | −1.00 | −1.00 | +0.05 | – | +0.00 |
-| 23 | Garen | −0.77 | −1.00 | −1.00 | −1.00 | +0.04 | – | +0.00 |
-| 24 | Shen | −0.77 | −1.00 | −1.00 | −1.00 | +0.02 | – | +0.00 |
-| 25 | Urgot | −0.78 | −1.00 | −1.00 | −1.00 | +0.14 | −1.00 | +0.00 |
-| 26 | Nasus | −0.79 | −1.00 | −1.00 | −1.00 | −0.10 | – | +0.00 |
-| 27 | Mordekaiser | −0.79 | −1.00 | −1.00 | −1.00 | −0.10 | – | +0.00 |
-| 28 | Cho'Gath | −0.80 | −1.00 | −1.00 | −1.00 | −0.10 | – | +0.00 |
-| 29 | Volibear | −0.80 | −1.00 | −1.00 | −1.00 | −0.12 | – | +0.00 |
-| 30 | Dr. Mundo | −0.80 | −1.00 | −1.00 | −1.00 | −0.13 | – | +0.00 |
+| 12 | Rumble | −0.35 | −1.00 | −1.00 | +0.99 | −0.08 | – | +0.00 |
+| 13 | Singed | −0.35 | −0.26 | −0.23 | −0.90 | −0.09 | – | +0.00 |
+| 14 | Camille | −0.67 | −1.00 | −1.00 | −1.00 | +0.34 | – | +1.00 |
+| 15 | Riven | −0.73 | −1.00 | −1.00 | −1.00 | +0.26 | – | +0.00 |
+| 16 | Yone | −0.74 | −1.00 | −1.00 | −1.00 | +0.04 | – | +0.49 |
+| 17 | Irelia | −0.75 | −1.00 | −1.00 | −1.00 | +0.17 | – | +0.00 |
+| 18 | Malphite | −0.75 | −1.00 | −1.00 | −1.00 | +0.16 | – | +0.00 |
+| 19 | Gwen | −0.76 | −1.00 | −1.00 | −1.00 | +0.12 | – | +0.00 |
+| 20 | Yasuo | −0.76 | −1.00 | −1.00 | −1.00 | +0.09 | – | +0.00 |
+| 21 | Ornn | −0.76 | −1.00 | −1.00 | −1.00 | +0.09 | – | +0.00 |
+| 22 | Pantheon | −0.76 | −1.00 | −1.00 | −1.00 | +0.08 | – | +0.00 |
+| 23 | Renekton | −0.77 | −1.00 | −1.00 | −1.00 | +0.06 | – | +0.00 |
+| 24 | Sett | −0.77 | −1.00 | −1.00 | −1.00 | +0.05 | – | +0.00 |
+| 25 | Garen | −0.77 | −1.00 | −1.00 | −1.00 | +0.04 | – | +0.00 |
+| 26 | Shen | −0.77 | −1.00 | −1.00 | −1.00 | +0.02 | – | +0.00 |
+| 27 | Urgot | −0.78 | −1.00 | −1.00 | −1.00 | +0.14 | −1.00 | +0.00 |
+| 28 | Nasus | −0.79 | −1.00 | −1.00 | −1.00 | −0.10 | – | +0.00 |
+| 29 | Mordekaiser | −0.79 | −1.00 | −1.00 | −1.00 | −0.10 | – | +0.00 |
+| 30 | Cho'Gath | −0.80 | −1.00 | −1.00 | −1.00 | −0.10 | – | +0.00 |
+| 31 | Volibear | −0.80 | −1.00 | −1.00 | −1.00 | −0.12 | – | +0.00 |
+| 32 | Dr. Mundo | −0.80 | −1.00 | −1.00 | −1.00 | −0.13 | – | +0.00 |
+| 33 | Akali | −0.81 | −1.00 | −1.00 | −1.00 | −0.18 | – | +0.00 |
 
 ## Interaction ledger (partial confidence)
 

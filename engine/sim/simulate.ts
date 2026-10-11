@@ -36,6 +36,7 @@ import {
   progressChannel,
   progressDash,
   releaseCooldowns,
+  restockCharges,
   startAttack,
   startCast,
 } from "./actions";
@@ -156,11 +157,12 @@ function upkeep(world: World, unit: Unit): void {
     const dot = status.dot;
     if (status.kind !== "dot" || !dot || world.tick < dot.nextTick || world.tick > status.endTick) continue;
     dot.nextTick += dot.intervalTicks;
-    dealDamage(world, world.units[status.source], unit, dot.perHit, dot.damageType, { ability: status.key, persistent: true });
+    dealDamage(world, world.units[status.source], unit, dot.perHit, dot.damageType, { ability: dot.label ?? status.key, persistent: true });
   }
   const { base } = unit.spec;
   heal(world, unit, base.hpRegen / 5 / 30, true);
-  unit.resource = Math.min(base.resource, unit.resource + base.resourceRegen / 5 / 30);
+  // Regeneration fills up to the maximum, which also caps what is left when a bonus to it ends.
+  unit.resource = Math.min(derive(unit).maxResource, unit.resource + base.resourceRegen / 5 / 30);
 }
 
 function expire(world: World, unit: Unit): void {
@@ -172,6 +174,7 @@ function expire(world: World, unit: Unit): void {
   if (unit.forced && unit.forced.endTick <= world.tick) delete unit.forced;
   expireChains(world, unit);
   releaseCooldowns(world, unit);
+  restockCharges(world, unit);
 }
 
 /** Windups and casts due this tick: all are collected before any is applied. */

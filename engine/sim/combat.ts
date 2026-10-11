@@ -392,7 +392,13 @@ export function applyEffect(world: World, caster: Unit, target: Unit, effect: Ef
         startTick: tick,
         endTick: first + intervalTicks * (hits - 1),
         value: 0,
-        dot: { damageType: effect.damageType, perHit: (evaluate(effect.total, caster, target) * ctx.scale) / hits, intervalTicks, nextTick: first },
+        dot: {
+          damageType: effect.damageType,
+          perHit: (evaluate(effect.total, caster, target) * ctx.scale) / hits,
+          intervalTicks,
+          nextTick: first,
+          ...(effect.label || ctx.ability ? { label: effect.label ?? ctx.ability?.name } : {}),
+        },
       });
       return;
     }
@@ -447,7 +453,7 @@ export function applyEffect(world: World, caster: Unit, target: Unit, effect: Ef
       return;
     }
     case "resource":
-      target.resource = Math.max(0, Math.min(target.spec.base.resource, target.resource + evaluate(effect.amount, caster, target)));
+      target.resource = Math.max(0, Math.min(derive(target).maxResource, target.resource + evaluate(effect.amount, caster, target)));
       return;
     case "refund": {
       const ready = caster.cooldownReady[effect.ability] ?? 0;

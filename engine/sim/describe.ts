@@ -187,7 +187,9 @@ export function describeAbility(ability: AbilitySpec): AbilityDescription {
   return {
     key: ability.key,
     name: ability.name,
-    cooldown: `${num(ability.cooldown)}${ability.cooldownAfter ? ` (${COOLDOWN_AFTER[ability.cooldownAfter]})` : ""}`,
+    cooldown: ability.charges
+      ? `${ability.charges.max} charges, one every ${num(ability.charges.recharge)} s (${num(ability.cooldown)} s between casts)`
+      : `${num(ability.cooldown)}${ability.cooldownAfter ? ` (${COOLDOWN_AFTER[ability.cooldownAfter]})` : ""}`,
     castTime: num(ability.castTime),
     cost: ability.cost === undefined ? "–" : `${typeof ability.cost === "number" ? num(ability.cost) : formulaText(ability.cost)}${paidWith}`,
     delivery: [deliveryText(ability.delivery), ...timing].join("; "),

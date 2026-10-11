@@ -2,7 +2,7 @@
 
 ## Simulated duels (full confidence)
 
-The duel simulator played each of the 30 other champions with a simulator kit against Ornn: both at level 20 with 15,000 gold of plain stats, each side's spent against the other's, through six scenarios (PLAN.md §6). Scores run from −1 (Ornn wins every time) to +1 (the champion does). Run `npm run duel -- <champion> Ornn --log brawl` to watch a fight.
+The duel simulator played each of the 33 other champions with a simulator kit against Ornn: both at level 20 with 15,000 gold of plain stats, each side's spent against the other's, through six scenarios (PLAN.md §6). Scores run from −1 (Ornn wins every time) to +1 (the champion does). Run `npm run duel -- <champion> Ornn --log brawl` to watch a fight.
 
 | # | Champion | Score | You engage | Enemy engages | Brawl | Short trade | Spacing | Escape |
 |--:|---|--:|--:|--:|--:|--:|--:|--:|
@@ -25,17 +25,20 @@ The duel simulator played each of the 30 other champions with a simulator kit ag
 | 17 | Dr. Mundo | +0.27 | +0.37 | +0.39 | +0.38 | −0.12 | – | +0.00 |
 | 18 | Poppy | +0.25 | +0.30 | +0.31 | +0.31 | +0.10 | – | +0.00 |
 | 19 | Mordekaiser | +0.25 | +0.34 | +0.33 | +0.36 | −0.10 | – | +0.00 |
-| 20 | Yasuo | +0.21 | +0.02 | +0.02 | +1.00 | −0.14 | – | +0.00 |
-| 21 | Cho'Gath | +0.17 | +0.06 | +0.04 | +0.70 | −0.10 | – | +0.00 |
-| 22 | Teemo | +0.13 | +0.15 | +0.12 | +0.10 | +0.15 | +0.24 | +0.00 |
-| 23 | Nasus | +0.13 | +0.19 | +0.18 | +0.20 | −0.13 | +0.19 | +0.00 |
-| 24 | Malphite | +0.12 | +0.16 | +0.16 | +0.13 | +0.01 | – | +0.00 |
-| 25 | Renekton | +0.05 | +0.09 | +0.09 | +0.10 | −0.12 | – | +0.00 |
-| 26 | Kennen | −0.00 | +0.01 | +0.02 | −0.01 | −0.12 | +0.14 | +0.00 |
-| 27 | Urgot | −0.00 | +0.01 | +0.01 | +0.01 | −0.03 | −0.03 | +0.00 |
-| 28 | Sett | −0.06 | −0.07 | −0.09 | −0.05 | −0.04 | – | +0.00 |
-| 29 | Shen | −0.08 | −0.10 | −0.13 | −0.05 | −0.00 | – | +0.00 |
-| 30 | Riven | −0.81 | −1.00 | −1.00 | −1.00 | −0.21 | – | +0.00 |
+| 20 | Rumble | +0.24 | +0.07 | +0.07 | +1.00 | −0.13 | – | +0.00 |
+| 21 | Yasuo | +0.21 | +0.02 | +0.02 | +1.00 | −0.14 | – | +0.00 |
+| 22 | Cho'Gath | +0.17 | +0.06 | +0.04 | +0.70 | −0.10 | – | +0.00 |
+| 23 | Teemo | +0.13 | +0.15 | +0.12 | +0.10 | +0.15 | +0.24 | +0.00 |
+| 24 | Nasus | +0.13 | +0.19 | +0.18 | +0.20 | −0.13 | +0.19 | +0.00 |
+| 25 | Malphite | +0.12 | +0.16 | +0.16 | +0.13 | +0.01 | – | +0.00 |
+| 26 | Renekton | +0.05 | +0.09 | +0.09 | +0.10 | −0.12 | – | +0.00 |
+| 27 | Kennen | −0.00 | +0.01 | +0.02 | −0.01 | −0.12 | +0.14 | +0.00 |
+| 28 | Urgot | −0.00 | +0.01 | +0.01 | +0.01 | −0.03 | −0.03 | +0.00 |
+| 29 | Singed | −0.01 | −0.00 | +0.01 | +0.08 | −0.15 | – | +0.00 |
+| 30 | Sett | −0.06 | −0.07 | −0.09 | −0.05 | −0.04 | – | +0.00 |
+| 31 | Shen | −0.08 | −0.10 | −0.13 | −0.05 | −0.00 | – | +0.00 |
+| 32 | Akali | −0.12 | −0.11 | −0.11 | −0.12 | −0.16 | – | +0.00 |
+| 33 | Riven | −0.81 | −1.00 | −1.00 | −1.00 | −0.21 | – | +0.00 |
 
 ## Interaction ledger (partial confidence)
 

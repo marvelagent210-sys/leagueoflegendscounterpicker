@@ -102,7 +102,7 @@ const kennen: KitModule = {
       cooldown: 0,
       castTime: 0,
       delivery: { kind: "self" },
-      chain: { root: "E", index: 2, window: rushSeconds - rushRecastAfter, delay: rushRecastAfter, auto: true },
+      chain: { root: "E", index: 2, window: rushSeconds, delay: rushRecastAfter, auto: true },
       onSelf: [{ type: "stat", stat: "attackSpeed", amount: flat(rushAttackSpeed), duration: rushAttackFor }],
       flags: { usableWhileDisabled: true },
       roles: ["buff"],

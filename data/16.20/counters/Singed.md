@@ -1,5 +1,47 @@
 # Counters to Singed (patch 26.20)
 
+## Simulated duels (full confidence)
+
+The duel simulator played each of the 33 other champions with a simulator kit against Singed: both at level 20 with 15,000 gold of plain stats, each side's spent against the other's, through six scenarios (PLAN.md §6). Scores run from −1 (Singed wins every time) to +1 (the champion does). Run `npm run duel -- <champion> Singed --log brawl` to watch a fight.
+
+| # | Champion | Score | You engage | Enemy engages | Brawl | Short trade | Spacing | Escape |
+|--:|---|--:|--:|--:|--:|--:|--:|--:|
+| 1 | Teemo | +0.95 | +1.00 | +1.00 | +1.00 | +1.00 | +1.00 | +0.00 |
+| 2 | Kayle | +0.92 | +1.00 | +1.00 | +1.00 | +0.78 | +1.00 | +0.00 |
+| 3 | Quinn | +0.85 | +1.00 | +1.00 | +1.00 | +0.31 | +1.00 | +0.00 |
+| 4 | Urgot | +0.83 | +1.00 | +1.00 | +1.00 | +0.19 | +1.00 | +0.00 |
+| 5 | Poppy | +0.81 | +1.00 | +1.00 | +1.00 | +0.20 | – | +0.00 |
+| 6 | Fiora | +0.80 | +1.00 | +1.00 | +1.00 | +0.14 | – | +0.00 |
+| 7 | Yone | +0.79 | +1.00 | +1.00 | +1.00 | +0.09 | – | +0.00 |
+| 8 | Camille | +0.79 | +1.00 | +1.00 | +1.00 | +0.08 | – | +0.00 |
+| 9 | Trundle | +0.78 | +1.00 | +1.00 | +1.00 | +0.03 | – | +0.00 |
+| 10 | Olaf | +0.77 | +0.96 | +0.96 | +0.99 | +0.12 | – | +0.00 |
+| 11 | Rumble | +0.76 | +0.97 | +0.97 | +1.00 | +0.01 | – | +0.00 |
+| 12 | Kennen | +0.73 | +0.78 | +0.99 | +0.92 | +0.03 | +1.00 | +0.00 |
+| 13 | Darius | +0.51 | +1.00 | +0.03 | +1.00 | +0.02 | – | +0.00 |
+| 14 | Aatrox | +0.35 | +0.23 | +0.26 | +0.90 | +0.09 | – | +0.00 |
+| 15 | Dr. Mundo | +0.29 | +0.34 | +0.35 | +0.40 | +0.03 | – | +0.00 |
+| 16 | Nasus | +0.20 | +0.26 | +0.26 | +0.22 | +0.03 | – | +0.00 |
+| 17 | Garen | +0.12 | −0.21 | −0.20 | +1.00 | +0.07 | – | +0.00 |
+| 18 | Renekton | +0.10 | +0.12 | +0.14 | +0.12 | +0.01 | – | +0.00 |
+| 19 | Gwen | +0.03 | −0.07 | −0.13 | +0.33 | +0.11 | – | +0.00 |
+| 20 | Malphite | +0.03 | +0.02 | +0.01 | +0.01 | +0.13 | – | +0.00 |
+| 21 | Mordekaiser | +0.03 | +0.03 | +0.03 | +0.01 | +0.05 | – | +0.00 |
+| 22 | Ornn | +0.01 | −0.01 | +0.00 | −0.08 | +0.15 | – | +0.00 |
+| 23 | Shen | +0.00 | −0.01 | −0.02 | −0.03 | +0.09 | – | +0.00 |
+| 24 | Yasuo | +0.00 | −0.01 | −0.03 | −0.01 | +0.08 | – | +0.00 |
+| 25 | Cho'Gath | −0.01 | −0.03 | −0.03 | −0.10 | +0.21 | – | +0.00 |
+| 26 | Sett | −0.01 | −0.05 | +0.03 | −0.05 | +0.06 | – | +0.00 |
+| 27 | Jax | −0.05 | −0.05 | −0.05 | −0.09 | +0.01 | – | +0.00 |
+| 28 | Volibear | −0.05 | −0.04 | −0.14 | −0.02 | +0.03 | – | +0.00 |
+| 29 | Akali | −0.07 | −0.11 | −0.11 | −0.07 | +0.04 | – | +0.00 |
+| 30 | Pantheon | −0.11 | −0.17 | −0.16 | −0.09 | +0.03 | – | +0.00 |
+| 31 | Riven | −0.20 | +0.02 | +0.02 | −1.00 | +0.09 | – | +0.00 |
+| 32 | Tryndamere | −0.22 | −0.29 | −0.29 | −0.28 | −0.01 | – | +0.00 |
+| 33 | Irelia | −0.71 | −1.00 | −0.91 | −0.82 | +0.03 | – | +0.00 |
+
+## Interaction ledger (partial confidence)
+
 Every champion ranked by what its kit does against Singed's, from the interaction ledger: projectile blocks, spell shields,
 parries, dash stops, crowd control and its defenses, range and more (PLAN.md §5). This ranking is **partial**: it weighs the
 interactions but doesn't play the fight out. The duel simulator replaces it as each champion's behavior is verified.
@@ -8,63 +50,63 @@ interactions but doesn't play the fight out. The duel simulator replaces it as e
 A hard counter shuts down part of a kit every time it is used (projectile block, attack dodge, attack block, blind, disarm, attack speed slow, attack reflect, dash stop, grounding, range) with an impact of 0.4 or more (0.5 for range).
 Run `npm run matchup -- <champion> Singed` for the full ledger of a matchup, with sources.
 
-## Top 10
+### Top 10
 
-### 1. Xayah (net +1.19)
+#### 1. Xayah (net +1.19)
 
 - **0.77** range: Xayah's basic attacks reach 400 units farther than Singed's (525 vs 125 attack range). Singed has no dash or blink to close the gap. (Xayah basic attacks → Singed basic attacks)
 - **0.31** untargetable: Featherstorm makes Xayah untargetable, dodging Singed's Fling. Untargetable for 1.5 s, long enough to use ahead of Fling. (Xayah R Featherstorm → Singed E Fling)
 - **0.22** untargetable: Featherstorm makes Xayah untargetable, dodging Singed's Mega Adhesive. Untargetable for 1.5 s, long enough to use ahead of Mega Adhesive. (Xayah R Featherstorm → Singed W Mega Adhesive)
 
-### 2. Sivir (net +1.14)
+#### 2. Sivir (net +1.14)
 
 - **0.94** range: Sivir's basic attacks reach 375 units farther than Singed's (500 vs 125 attack range). Singed has no dash or blink to close the gap. (Sivir basic attacks → Singed basic attacks)
 - **0.47** spell shield: Spell Shield's spell shield blocks Singed's Fling. Spell shield for 1.5 s, long enough to use ahead of Fling. A spell shield blocks only the first enemy ability that reaches it. (Sivir E Spell Shield → Singed E Fling)
 - Watch out: Insanity Potion's Grievous Wounds cuts Sivir's healing from Spell Shield by 40%.
 
-### 3. Teemo (net +1.03)
+#### 3. Teemo (net +1.03)
 
 - **0.68** range: Teemo's basic attacks reach 375 units farther than Singed's (500 vs 125 attack range). Singed has no dash or blink to close the gap. (Teemo basic attacks → Singed basic attacks)
 - **0.35** blind: Blinding Dart's blind makes Singed's basic attacks miss for 3 s. Blind for 3 s on a 7 s cooldown. (Teemo Q Blinding Dart → Singed basic attacks)
 
-### 4. Lulu (net +0.97)
+#### 4. Lulu (net +0.97)
 
 - **0.72** range: Lulu's basic attacks reach 425 units farther than Singed's (550 vs 125 attack range). Singed has no dash or blink to close the gap. (Lulu basic attacks → Singed basic attacks)
 - **0.25** disarm: Whimsy disarms Singed for 2 s: no basic attacks. Disarm for 2 s on a 18 s cooldown. (Lulu W Whimsy → Singed basic attacks)
 
-### 5. Kayle (net +0.88)
+#### 5. Kayle (net +0.88)
 
 - **0.72** range: Kayle's basic attacks reach 500 units farther than Singed's (625 vs 125 attack range). Singed has no dash or blink to close the gap. (Kayle basic attacks → Singed basic attacks)
 - **0.16** invulnerable: Divine Judgment makes Kayle invulnerable to Singed's Fling (its crowd control still applies). Invulnerable for 2.5 s, long enough to use ahead of Fling. (Kayle R Divine Judgment → Singed E Fling)
 
-### 6. Twitch (net +0.86)
+#### 6. Twitch (net +0.86)
 
 - **0.86** range: Twitch's basic attacks reach 425 units farther than Singed's (550 vs 125 attack range). Singed has no dash or blink to close the gap. (Twitch basic attacks → Singed basic attacks)
 
-### 7. Mel (net +0.85)
+#### 7. Mel (net +0.85)
 
 - **0.53** range: Mel's basic attacks reach 425 units farther than Singed's (550 vs 125 attack range). Singed has no dash or blink to close the gap. (Mel basic attacks → Singed basic attacks)
 - **0.32** projectile block: Rebuttal blocks Singed's Mega Adhesive, a projectile. Rebuttal for 0.75 s; Mega Adhesive takes 0.25 s to land, enough to react. (Mel W Rebuttal → Singed W Mega Adhesive)
 
-### 8. Morgana (net +0.82)
+#### 8. Morgana (net +0.82)
 
 - **0.49** cc immunity: Black Shield makes Morgana immune to Singed's Fling (airborne, root). Immune for 5 s, long enough to use ahead of Fling. (Morgana E Black Shield → Singed E Fling)
 - **0.39** range: Morgana's basic attacks reach 325 units farther than Singed's (450 vs 125 attack range). Singed has no dash or blink to close the gap. (Morgana basic attacks → Singed basic attacks)
 - **0.24** cc immunity: Black Shield makes Morgana immune to Singed's Mega Adhesive (ground, slow). Immune for 5 s, long enough to use ahead of Mega Adhesive. (Morgana E Black Shield → Singed W Mega Adhesive)
 - Watch out: Insanity Potion's Grievous Wounds cuts Morgana's healing from Soul Siphon by 40%.
 
-### 9. Milio (net +0.81)
+#### 9. Milio (net +0.81)
 
 - **0.77** range: Milio's basic attacks reach 400 units farther than Singed's (525 vs 125 attack range). Singed has no dash or blink to close the gap. (Milio basic attacks → Singed basic attacks)
 - **0.24** cleanse: Breath of Life cleanses Singed's Fling (root) after it lands. 130 s cooldown; usable while crowd controlled. Doesn't remove airborne. (Milio R Breath of Life → Singed E Fling)
 - **0.19** tenacity: Breath of Life's 65% tenacity shortens Singed's Fling (root). Breath of Life lasts 3 s on a 130 s cooldown. (Milio R Breath of Life → Singed E Fling)
 - Watch out: Insanity Potion's Grievous Wounds cuts Milio's healing from Breath of Life by 40%.
 
-### 10. Renata Glasc (net +0.77)
+#### 10. Renata Glasc (net +0.77)
 
 - **0.77** range: Renata Glasc's basic attacks reach 425 units farther than Singed's (550 vs 125 attack range). Singed has no dash or blink to close the gap. (Renata Glasc basic attacks → Singed basic attacks)
 
-## Full ranking
+### Full ranking
 
 | # | Champion | Net | For | Against | Hard counters |
 |--:|---|--:|--:|--:|---|

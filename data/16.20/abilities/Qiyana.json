@@ -665,7 +665,7 @@
                   "stat": "bonusAD",
                   "ratio": {
                     "kind": "constant",
-                    "value": 121.50000000000001
+                    "value": 121.5
                   },
                   "text": "(+ 121.5% bonus AD)"
                 }

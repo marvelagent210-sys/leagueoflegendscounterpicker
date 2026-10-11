@@ -303,7 +303,7 @@ game formula supplies 19-20; "confirmed"/"differs": the wiki defines 19-20 and t
 | Mega Gnar | description: Innate: Gnar gains the following increases to his base statistics: 100 – 831 (ba | confirmed | 48.5 | 51.7875 | 55.1625 | GnarPassive.TotalMegaGnarAD: along the stat growth curve 6 → 48.5 over levels 1-18, continues past 18 |
 | Mega Gnar | description: Innate: Gnar gains the following increases to his base statistics: 100 – 831 (ba | confirmed | 54.5 | 58.445 | 62.495 | GnarPassive.TotalMegaGnarArmor: along the stat growth curve 3.5 → 54.5 over levels 1-18, continues past 18 |
 | Mega Gnar | description: Innate: Gnar gains the following increases to his base statistics: 100 – 831 (ba | confirmed | 63 | 67.6025 | 72.3275 | GnarPassive.TotalMegaGnarMR: along the stat growth curve 3.5 → 63 over levels 1-18, continues past 18 |
-| Mega Gnar | description: However, he loses 0 – 93.5 (based on level)% bonus attack speed. | no match | 93.5 | 100.733 | 108.158 | – |
+| Mega Gnar | description: However, he loses 0 – 93.5 (based on level)% bonus attack speed. | no match | 93.5 | 100.733 | 108.157 | – |
 | Mini Gnar | Bonus Movespeed | confirmed | 20 | 22 | 24 | GnarPassive.TotalMS: breakpoints at levels 16 (level 1: 0) |
 | Mini Gnar | Total Movespeed | no match | 355 | 357 | 359 | – |
 | Mini Gnar | Bonus Range | no match | 325 | 330.882 | 336.765 | – |

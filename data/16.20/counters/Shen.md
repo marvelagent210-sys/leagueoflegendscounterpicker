@@ -2,7 +2,7 @@
 
 ## Simulated duels (full confidence)
 
-The duel simulator played each of the 30 other champions with a simulator kit against Shen: both at level 20 with 15,000 gold of plain stats, each side's spent against the other's, through six scenarios (PLAN.md §6). Scores run from −1 (Shen wins every time) to +1 (the champion does). Run `npm run duel -- <champion> Shen --log brawl` to watch a fight.
+The duel simulator played each of the 33 other champions with a simulator kit against Shen: both at level 20 with 15,000 gold of plain stats, each side's spent against the other's, through six scenarios (PLAN.md §6). Scores run from −1 (Shen wins every time) to +1 (the champion does). Run `npm run duel -- <champion> Shen --log brawl` to watch a fight.
 
 | # | Champion | Score | You engage | Enemy engages | Brawl | Short trade | Spacing | Escape |
 |--:|---|--:|--:|--:|--:|--:|--:|--:|
@@ -15,27 +15,30 @@ The duel simulator played each of the 30 other champions with a simulator kit ag
 | 7 | Riven | +0.77 | +1.00 | +1.00 | +1.00 | −0.03 | – | +0.00 |
 | 8 | Irelia | +0.77 | +1.00 | +1.00 | +1.00 | −0.04 | – | +0.00 |
 | 9 | Olaf | +0.77 | +1.00 | +1.00 | +1.00 | −0.07 | – | +0.00 |
-| 10 | Jax | +0.77 | +1.00 | +1.00 | +1.00 | −0.08 | – | +0.00 |
-| 11 | Trundle | +0.76 | +1.00 | +1.00 | +1.00 | −0.10 | – | +0.00 |
-| 12 | Volibear | +0.76 | +1.00 | +1.00 | +1.00 | −0.11 | – | +0.00 |
-| 13 | Fiora | +0.76 | +1.00 | +1.00 | +1.00 | −0.13 | – | +0.00 |
-| 14 | Tryndamere | +0.75 | +1.00 | +1.00 | +1.00 | −0.14 | – | +0.00 |
-| 15 | Teemo | +0.73 | +1.00 | +1.00 | +0.63 | +0.04 | +1.00 | +0.00 |
-| 16 | Camille | +0.54 | +1.00 | +1.00 | +0.00 | −0.08 | – | +0.00 |
-| 17 | Garen | +0.50 | +1.00 | +0.00 | +1.00 | +0.02 | – | +0.00 |
-| 18 | Kennen | +0.39 | +0.97 | +0.61 | −0.03 | −0.11 | +0.18 | +0.00 |
+| 10 | Rumble | +0.77 | +1.00 | +1.00 | +1.00 | −0.07 | – | +0.00 |
+| 11 | Jax | +0.77 | +1.00 | +1.00 | +1.00 | −0.08 | – | +0.00 |
+| 12 | Trundle | +0.76 | +1.00 | +1.00 | +1.00 | −0.10 | – | +0.00 |
+| 13 | Volibear | +0.76 | +1.00 | +1.00 | +1.00 | −0.11 | – | +0.00 |
+| 14 | Fiora | +0.76 | +1.00 | +1.00 | +1.00 | −0.13 | – | +0.00 |
+| 15 | Tryndamere | +0.75 | +1.00 | +1.00 | +1.00 | −0.14 | – | +0.00 |
+| 16 | Teemo | +0.73 | +1.00 | +1.00 | +0.63 | +0.04 | +1.00 | +0.00 |
+| 17 | Camille | +0.54 | +1.00 | +1.00 | +0.00 | −0.08 | – | +0.00 |
+| 18 | Garen | +0.50 | +1.00 | +0.00 | +1.00 | +0.02 | – | +0.00 |
 | 19 | Cho'Gath | +0.33 | +0.58 | +0.58 | +0.10 | −0.06 | – | +0.00 |
 | 20 | Yasuo | +0.33 | +1.00 | +1.00 | −1.00 | +0.00 | – | +0.00 |
 | 21 | Dr. Mundo | +0.24 | +0.32 | +0.38 | +0.29 | −0.13 | – | +0.00 |
 | 22 | Mordekaiser | +0.22 | +0.32 | +0.29 | +0.24 | −0.05 | – | +0.00 |
-| 23 | Poppy | +0.16 | +0.25 | +0.19 | +0.11 | +0.07 | – | +0.00 |
-| 24 | Ornn | +0.08 | +0.13 | +0.10 | +0.05 | +0.00 | – | +0.00 |
-| 25 | Nasus | +0.01 | −0.01 | +0.05 | +0.03 | −0.05 | – | +0.00 |
-| 26 | Malphite | +0.00 | +0.07 | −0.01 | −0.10 | +0.03 | – | +0.00 |
-| 27 | Urgot | −0.01 | −0.00 | −0.02 | −0.09 | +0.04 | +0.11 | +0.00 |
-| 28 | Renekton | −0.05 | −0.06 | −0.07 | +0.01 | −0.07 | – | +0.00 |
-| 29 | Sett | −0.07 | −0.12 | −0.10 | −0.04 | −0.00 | – | +0.00 |
-| 30 | Pantheon | −0.77 | −1.00 | −1.00 | −1.00 | +0.02 | – | +0.00 |
+| 23 | Kennen | +0.17 | +0.11 | +0.61 | −0.03 | −0.13 | +0.18 | +0.00 |
+| 24 | Poppy | +0.16 | +0.25 | +0.19 | +0.11 | +0.07 | – | +0.00 |
+| 25 | Ornn | +0.08 | +0.13 | +0.10 | +0.05 | +0.00 | – | +0.00 |
+| 26 | Nasus | +0.01 | −0.01 | +0.05 | +0.03 | −0.05 | – | +0.00 |
+| 27 | Malphite | +0.00 | +0.07 | −0.01 | −0.10 | +0.03 | – | +0.00 |
+| 28 | Singed | −0.00 | +0.02 | +0.01 | +0.03 | −0.09 | – | +0.00 |
+| 29 | Urgot | −0.01 | −0.00 | −0.02 | −0.09 | +0.04 | +0.11 | +0.00 |
+| 30 | Renekton | −0.05 | −0.06 | −0.07 | +0.01 | −0.07 | – | +0.00 |
+| 31 | Sett | −0.07 | −0.12 | −0.10 | −0.04 | −0.00 | – | +0.00 |
+| 32 | Akali | −0.19 | −0.04 | −0.04 | −0.71 | −0.06 | – | +0.00 |
+| 33 | Pantheon | −0.77 | −1.00 | −1.00 | −1.00 | +0.02 | – | +0.00 |
 
 ## Interaction ledger (partial confidence)
 
