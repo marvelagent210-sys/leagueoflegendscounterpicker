@@ -25,7 +25,7 @@ npm test
 
 ```sh
 npm run matchup -- Fiora Darius     # every interaction between two kits, with timing, conditions and sources
-npm run counters -- Tryndamere      # every champion ranked against an enemy (partial), with the top reasons
+npm run counters -- Tryndamere      # champions ranked against an enemy: by simulated duels (wave 1), then by the ledger (partial)
 ```
 
 Names are matched loosely (`"dr mundo"`, `wukong`). For example, the ledger finds that Riposte parries Darius's Apprehend and stuns him back, and that Teemo's blind makes Tryndamere's basic attacks miss.

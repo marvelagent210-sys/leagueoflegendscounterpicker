@@ -1,11 +1,21 @@
 /**
- * Prints every champion ranked by the interaction ledger against one enemy (partial: the
- * duel simulator replaces it later), with the strongest reasons for the top picks.
+ * Prints the champions ranked against one enemy: by simulated duels when the enemy has a
+ * simulator kit (full confidence, from simulated.json), then every champion by the
+ * interaction ledger (partial), with the strongest reasons for the top picks.
  *
  * Usage: npm run counters -- <enemy> [--top 20] [--dataset 16.20]
  */
+import { existsSync } from "node:fs";
+import { readFile } from "node:fs/promises";
+import path from "node:path";
 import { rankCounters } from "../../engine/ledger/index";
+import { datasetDir } from "../config";
 import { findKit, loadLedgerData } from "../ledgerData";
+
+interface SimulatedFile {
+  gold: number;
+  matchups: Record<string, Record<string, Array<number | null>>>;
+}
 
 async function main(): Promise<void> {
   const args = process.argv.slice(2);
@@ -17,7 +27,18 @@ async function main(): Promise<void> {
   const enemy = findKit(data.kits, name);
   const ranking = rankCounters(enemy, data.kits, data.ctx);
   const display = (id: string) => data.kits.find((kit) => kit.champion === id)?.name ?? id;
-  console.log(`Counters to ${enemy.name} (patch ${data.patch}, ledger only: ${ranking.confidence})\n`);
+  const simulatedPath = path.join(datasetDir(data.dataset), "simulated.json");
+  const simulated = existsSync(simulatedPath) ? (JSON.parse(await readFile(simulatedPath, "utf8")) as SimulatedFile) : undefined;
+  if (simulated?.matchups[enemy.champion]) {
+    const rows = Object.entries(simulated.matchups)
+      .filter(([you]) => you !== enemy.champion)
+      .map(([you, enemies]) => ({ you, score: enemies[enemy.champion]?.[0] ?? 0 }))
+      .sort((a, b) => b.score - a.score || a.you.localeCompare(b.you));
+    console.log(`Counters to ${enemy.name} by simulated duels (patch ${data.patch}, ${simulated.gold} gold of plain stats, full confidence)\n`);
+    rows.forEach((row, index) => console.log(`${String(index + 1).padStart(3)}. ${display(row.you).padEnd(14)} ${row.score >= 0 ? "+" : ""}${row.score.toFixed(2)}`));
+    console.log("");
+  }
+  console.log(`Counters to ${enemy.name} by the interaction ledger (patch ${data.patch}, ${ranking.confidence})\n`);
   ranking.ranking.slice(0, top).forEach((row, index) => {
     const badge = row.hardCounters.length > 0 ? `  [hard counter: ${row.hardCounters.map((e) => e.check).join(", ")}]` : "";
     console.log(`${String(index + 1).padStart(3)}. ${display(row.champion).padEnd(14)} net ${row.net >= 0 ? "+" : ""}${row.net.toFixed(2)}${badge}`);
