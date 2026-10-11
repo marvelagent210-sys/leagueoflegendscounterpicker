@@ -1,0 +1,154 @@
+[
+  {
+    "champion": "MonkeyKing",
+    "name": "Decoy",
+    "page": {
+      "title": "Wukong",
+      "revid": 4021883
+    },
+    "fields": {
+      "range": {
+        "text": "275",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 275
+            }
+          }
+        ]
+      },
+      "gold": {
+        "text": "25",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 25
+            }
+          }
+        ]
+      },
+      "exp": {
+        "text": "44",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 44
+            }
+          }
+        ]
+      },
+      "damage": {
+        "text": "100% of Wukong's attack damage",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 100
+            }
+          }
+        ]
+      },
+      "attackspeed": {
+        "text": "100% of Wukong's attack speed",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 100
+            }
+          }
+        ]
+      },
+      "hp": {
+        "text": "100% of Wukong's current health",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 100
+            }
+          }
+        ]
+      },
+      "movespeed": {
+        "text": "100% of Wukong's movement speed",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 100
+            }
+          }
+        ]
+      },
+      "armor": {
+        "text": "100% of Wukong's armor",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 100
+            }
+          }
+        ]
+      },
+      "magicresist": {
+        "text": "100% of Wukong's magic resistance",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 100
+            }
+          }
+        ]
+      },
+      "radius": {
+        "text": "65",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 65
+            }
+          }
+        ]
+      },
+      "pathingradius": {
+        "text": "35",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 35
+            }
+          }
+        ]
+      }
+    },
+    "text": {
+      "range": "275",
+      "gold": "25",
+      "exp": "44",
+      "damage": "100% of Wukong's attack damage",
+      "damagetype": "Physical",
+      "attackspeed": "100% of Wukong's attack speed",
+      "hp": "100% of Wukong's current health",
+      "movespeed": "100% of Wukong's movement speed",
+      "armor": "100% of Wukong's armor",
+      "magicresist": "100% of Wukong's magic resistance",
+      "radius": "65",
+      "pathingradius": "35",
+      "control": "Automatically basic attacks the nearest unit. Prioritizes attacking targets being basic attacked by Wukong. Can be commanded to attack another unit in range with Alt + Right Click. It is static.",
+      "targeting": "Champion",
+      "spelleffects": "Clone's basic attacks deal basic damage.",
+      "onhit": "Clone attacks can be mitigated by block, dodge, and blind, as well as stopped by Disarm.",
+      "protection": "Clone's attacks deal pp: rows don't match (0 values, 1 top entries).\nClone is instantly killed by damage received from turrets.",
+      "abilities": "The clone can use Crushing Blow and Cyclone when Wukong does and benefits from Nimbus Strike bonus attack speed. The clone's Cyclone won't knock up enemies if they were already knocked up by Wukong.",
+      "ccresist": "Stasis, Blast Cone"
+    }
+  }
+]

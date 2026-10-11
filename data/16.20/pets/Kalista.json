@@ -1,0 +1,92 @@
+[
+  {
+    "champion": "Kalista",
+    "name": "Sentinel",
+    "page": {
+      "title": "Kalista",
+      "revid": 4002537
+    },
+    "fields": {
+      "gold": {
+        "text": "10",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 10
+            }
+          }
+        ]
+      },
+      "exp": {
+        "text": "0",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0
+            }
+          }
+        ]
+      },
+      "hp": {
+        "text": "2",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 2
+            }
+          }
+        ]
+      },
+      "movespeed": {
+        "text": "280",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 280
+            }
+          }
+        ]
+      },
+      "radius": {
+        "text": "65",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 65
+            }
+          }
+        ]
+      },
+      "pathingradius": {
+        "text": "10",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 10
+            }
+          }
+        ]
+      }
+    },
+    "text": {
+      "gold": "10",
+      "exp": "0",
+      "sight": "450",
+      "hp": "2",
+      "damagemodifier": "* 1 from champion basic attacks\n* Not a valid target to minions, turrets and abilities",
+      "movespeed": "280",
+      "radius": "65",
+      "pathingradius": "10",
+      "control": "Autonomous",
+      "targeting": "Minion",
+      "ccresist": "Immune to crowd control",
+      "abilities": ";Patrol\nThe Sentinel patrols the area for 3 laps before disappearing, moving to the target location, returning to the earliest point near its cast location that it can see, and pathing around obstacles.\n\n;Seek\nIn addition to its normal sight radius, the Sentinel grants sight in a cone in front of it.\n\n;Chase\nUpon detecting an enemy champion, the Sentinel chases them for 4 seconds, alerting Kalista to their presence with a scream, revealing their target for the duration, and disappearing after the chase ends.\n\n;Rush\nThe Sentinel initially gains 200 bonus movement speed, rapidly decaying down to its base movement speed, and is slowed by 50% while at 1 health."
+    }
+  }
+]

@@ -1,0 +1,68 @@
+[
+  {
+    "champion": "Jhin",
+    "name": "Lotus Trap",
+    "page": {
+      "title": "Jhin",
+      "revid": 4022310
+    },
+    "fields": {
+      "gold": {
+        "text": "10",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 10
+            }
+          }
+        ]
+      },
+      "exp": {
+        "text": "0",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0
+            }
+          }
+        ]
+      },
+      "hp": {
+        "text": "3",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 3
+            }
+          }
+        ]
+      },
+      "range": {
+        "text": "260",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 260
+            }
+          }
+        ]
+      }
+    },
+    "text": {
+      "gold": "10",
+      "exp": "0",
+      "hp": "3",
+      "damagemodifier": "* 1 from ranged and melee champion basic attacks",
+      "range": "260",
+      "control": "Autonomous (static)",
+      "targeting": "Ward",
+      "spelleffects": "A Lotus Trap's explosion applies spell effects as area damage.",
+      "protection": "Lotus Traps deal 65% damage to minions, as well as to champions recently damaged by another Lotus Trap.",
+      "abilities": ";Stealth Trap\nThe Lotus Trap stealths and becomes untargetable after 1 second, remaining vulnerable to trap-revealing effects at all times.\n\n;Bloom\nIf an enemy walks over the Lotus Trap, it begins to bloom, revealing all enemies on top of it for 4 seconds and winding down over 2 seconds, during which it slows all enemies within by 35%, before exploding, dealing 20 / 80 / 140 / 200 / 260 (+ 120% AD) (+ 100% AP) magic damage to all enemies hit."
+    }
+  }
+]

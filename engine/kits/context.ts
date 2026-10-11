@@ -11,7 +11,7 @@
  * can't leave a kit silently out of date. Everything read is recorded as evidence, and every
  * simplification a kit makes is recorded as an assumption, for its kit page.
  */
-import type { AbilityKind, AbilityRecord, Amount, ScalingTerm, Series } from "../abilities";
+import type { AbilityKind, AbilityRecord, Amount, PetRecord, ScalingTerm, Series } from "../abilities";
 import type { Formula, StatRef } from "../sim/spec";
 import { TOP_LANE_MAX_LEVEL } from "../stats";
 import type { Champion } from "../types";
@@ -324,6 +324,93 @@ export class AbilityData {
   }
 }
 
+/**
+ * A pet of the champion (a turret, a Mist Walker, a Tentacle), read from the pet infobox on
+ * its wiki page at level 20. Values by ability rank are read at the ability's maximum rank.
+ */
+export class PetData {
+  readonly name: string;
+
+  constructor(
+    readonly record: PetRecord,
+    private readonly kit: KitContext,
+  ) {
+    this.name = record.name;
+  }
+
+  private fail(message: string): never {
+    throw new KitDataError(this.record.champion, this.name, message);
+  }
+
+  private note(text: string): void {
+    this.kit.checkOpen(`${this.name}: ${text}`);
+    this.kit.evidence.push({ ability: this.name, page: this.record.page.title, revid: this.record.page.revid, text });
+  }
+
+  private at20(series: Series | undefined, what: string): number {
+    if (!series) this.fail(`${what} has no value`);
+    switch (series.kind) {
+      case "constant":
+        return series.value;
+      case "rank": {
+        const value = series.values.at(-1);
+        if (value === undefined) this.fail(`${what} has no rank values`);
+        return value;
+      }
+      case "level": {
+        const value = series.values[TOP_LANE_MAX_LEVEL - 1];
+        if (value !== undefined) return value;
+        const last = series.values.at(-1);
+        if (last === undefined) this.fail(`${what} has no level values`);
+        this.kit.assume(`${this.name}: ${what} has no value past level ${series.values.length}; its level-${series.values.length} value is used at 20.`);
+        return last;
+      }
+      case "variable": {
+        if (/^level$/i.test(series.variable.trim())) {
+          let value: number | undefined;
+          series.points.forEach((point, i) => {
+            const v = series.values[i];
+            if (typeof point === "number" && point <= TOP_LANE_MAX_LEVEL && typeof v === "number") value = v;
+          });
+          if (value !== undefined) return value;
+        }
+        this.fail(`${what} depends on ${series.variable}`);
+      }
+    }
+  }
+
+  /** The `index`-th value of a numeric infobox field (hp, damage, armor, attackspeed, ...) at level 20. */
+  stat(field: string, index = 0): number {
+    const found = this.record.fields[field];
+    if (!found) this.fail(`no ${field} field (has: ${Object.keys(this.record.fields).join(", ")})`);
+    const value = found.values[index];
+    if (!value) this.fail(`${field} has no value ${index + 1} in "${found.text}"`);
+    this.note(`${field}: ${found.text}`);
+    return this.at20(value.series, field);
+  }
+
+  /** Every text field, whitespace normalized. */
+  get text(): string {
+    return normalize(Object.values(this.record.text).join(" \n "));
+  }
+
+  /** Asserts the words are in the pet's infobox, verbatim; records them as evidence. */
+  quote(words: string): string {
+    const wanted = normalize(words);
+    if (!this.text.includes(wanted)) this.fail(`the wiki no longer says "${wanted}"`);
+    this.note(wanted);
+    return wanted;
+  }
+
+  /** The `index`-th number (0-based) in a quoted phrase. */
+  quoted(words: string, index = 0): number {
+    const quote = this.quote(words);
+    const value = numbersIn(quote)[index];
+    if (value === undefined) this.fail(`no number ${index + 1} in "${quote}"`);
+    return value;
+  }
+}
+
 export class KitContext {
   readonly evidence: KitEvidence[] = [];
   readonly assumptions: string[] = [];
@@ -346,7 +433,15 @@ export class KitContext {
   constructor(
     readonly champion: Champion,
     readonly records: AbilityRecord[],
+    readonly pets: PetRecord[] = [],
   ) {}
+
+  /** A pet of the champion by its infobox name ("H-28G Evolution Turret"). */
+  pet(name: string): PetData {
+    const record = this.pets.find((p) => p.name === name);
+    if (!record) throw new KitDataError(this.champion.id, name, `no such pet (has: ${this.pets.map((p) => p.name).join(", ") || "none"})`);
+    return new PetData(record, this);
+  }
 
   /** An ability by its name ("Decisive Strike") or slot ("Q", "W", "E", "R", "I" for the innate). */
   ability(nameOrSlot: string): AbilityData {

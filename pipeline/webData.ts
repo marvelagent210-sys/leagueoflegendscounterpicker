@@ -8,6 +8,7 @@
  *   data/<dataset>/profiles.json     every champion's fight profile, in one file, for the ledger
  *   data/<dataset>/simulated.json    the duel results at the default settings
  *   data/<dataset>/abilities/<id>.json  each champion's ability records, for kit pages and kits
+ *   data/<dataset>/pets.json         every champion's pets (turrets, Mist Walkers, ...), by champion
  *
  * Usage: npm run web:data [-- --dataset 16.20]
  */
@@ -30,6 +31,11 @@ async function main(): Promise<void> {
   await mkdir(out, { recursive: true });
   for (const file of ["champions.json", "rules.json", "glossary.json", "simulated.json"]) await cp(path.join(source, file), path.join(out, file));
   await cp(path.join(source, "abilities"), path.join(out, "abilities"), { recursive: true });
+  const petFiles = (await readdir(path.join(source, "pets"))).filter((file) => file.endsWith(".json")).sort();
+  const pets = Object.fromEntries(
+    await Promise.all(petFiles.map(async (file) => [file.replace(/\.json$/, ""), JSON.parse(await readFile(path.join(source, "pets", file), "utf8")) as unknown] as const)),
+  );
+  await writeText(path.join(out, "pets.json"), JSON.stringify(pets));
   const profileFiles = (await readdir(path.join(source, "profiles"))).filter((file) => file.endsWith(".json")).sort();
   const profiles = await Promise.all(profileFiles.map(async (file) => JSON.parse(await readFile(path.join(source, "profiles", file), "utf8")) as unknown));
   await writeText(path.join(out, "profiles.json"), JSON.stringify(profiles));

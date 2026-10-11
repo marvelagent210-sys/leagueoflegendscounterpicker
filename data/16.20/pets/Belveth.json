@@ -1,0 +1,192 @@
+[
+  {
+    "champion": "Belveth",
+    "name": "Void Remora",
+    "page": {
+      "title": "Bel'Veth",
+      "revid": 4063501
+    },
+    "fields": {
+      "gold": {
+        "text": "3",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 3
+            }
+          }
+        ]
+      },
+      "exp": {
+        "text": "0",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0
+            }
+          }
+        ]
+      },
+      "cs": {
+        "text": "0",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0
+            }
+          }
+        ]
+      },
+      "hp": {
+        "text": "20 / 45 / 70% of minion's maximum health",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                20,
+                45,
+                70
+              ]
+            }
+          }
+        ]
+      },
+      "damage": {
+        "text": "110% of minion's AD",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 110
+            }
+          }
+        ]
+      },
+      "range": {
+        "text": "110 / 550",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                110,
+                550
+              ]
+            },
+            "label": "Ranged"
+          }
+        ]
+      },
+      "armor": {
+        "text": "0",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0
+            },
+            "label": "Based on game time for melees"
+          }
+        ]
+      },
+      "magicresist": {
+        "text": "0",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0
+            }
+          }
+        ]
+      },
+      "attackspeed": {
+        "text": "1.25 / 0.52",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                1.25,
+                0.52
+              ]
+            },
+            "label": "Ranged, they lose 58.3% attack speed by default"
+          }
+        ]
+      },
+      "movespeed": {
+        "text": "505",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 505
+            }
+          }
+        ]
+      },
+      "radius": {
+        "text": "10",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 10
+            }
+          }
+        ]
+      },
+      "pathingradius": {
+        "text": "20",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 20
+            }
+          }
+        ]
+      }
+    },
+    "text": {
+      "gold": "3",
+      "exp": "0",
+      "cs": "0",
+      "hp": "20 / 45 / 70% of minion's maximum health",
+      "damage": "110% of minion's AD",
+      "damagetype": "Physical",
+      "range": "110 / 550",
+      "armor": "0",
+      "magicresist": "0",
+      "attackspeed": "1.25 / 0.52",
+      "movespeed": "505",
+      "targeting": "Lane Minion, but does not count towards the minion kill tracking score.",
+      "radius": "10",
+      "pathingradius": "20",
+      "control": "Autonomous",
+      "spelleffects": "Void Remora's basic attacks apply spell effects as basic damage.",
+      "onhit": "Void Remora's attacks are mitigated by dodge, block, and blind. The damage source is its own (i.e does not apply Bel'Veth's Black Cleaver).",
+      "protection": "N/A",
+      "abilities": ";Reborn\nVoid Remora are summoned by all lane minions that are killed while Bel'Veth is within 1000 units of them including allied ones. They emerge from the Void after 0.75 seconds of the minion dying. Each type of minion killed spawns a certain number of Void Remora:\n* Melee minions - 1 Melee\n* Caster minions - 1 Ranged\n* Siege minions - 1 Melee and 1 Ranged\n* Super minions - 2 Melee and 2 Ranged\n\n;Replicate\nVoid Remora are spawned with the stats that a minion would have at the time of the match.\n\n;Serve\nVoid Remora automatically move down the lane in which they were spawned in and attack any enemy within their path. Bel'Veth receives the credit for any unit the Void Remora kill.\n\n=== General ===\n* Void Remora are special cased to have most of the same behaviors and interactions as regular lane minions.\n** They can be empowered by the Hand of Baron.\n*** Bonus attack range and attack damage is not granted, but the haste and size is.\n** Nearby allied Super minions will grant them the effects of Super Mech Power Field.\n** They have equal targeting priority to turrets as minions.\n** They do not have turret damage modifiers (Gusto and Phreakish Gusto) nor are treated as minions to Spoils of War.\n* Void Remora have 400 base movement speed and 150 bonus movement speed from both scaling and push bonuses. This equates to 550 total movement speed that is soft capped to 505."
+    }
+  },
+  {
+    "champion": "Belveth",
+    "name": "Void Coral",
+    "page": {
+      "title": "Bel'Veth",
+      "revid": 4063501
+    },
+    "fields": {},
+    "text": {
+      "control": "N/A",
+      "targeting": "N/A",
+      "abilities": ";Consumable\nVoid Corals are spawned from the corpses of epic monsters and champions that Bel'Veth has taken down. She may consume the Void Coral by casting Endless Banquet on it to embrace her True Form. They cannot be targeted by any unit but Bel'Veth.\n\n;From the Void\nVoid Corals spawned from the corpses of Baron Nashor, Rift Herald, and Voidgrubs empower Bel'Veth's True Form with an extended duration and the ability to summon Void Remora from the deaths of lane minions."
+    }
+  }
+]

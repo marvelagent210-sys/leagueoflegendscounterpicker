@@ -151,6 +151,24 @@ function flatten(effects: Effect[]): Effect[] {
   return effects.flatMap((e) => (e.type === "delayed" ? flatten(e.effects) : e.type === "empower" ? [e, ...flatten(e.onHit)] : [e]));
 }
 
+const abilityCache = new WeakMap<NonNullable<FighterSpec["forms"]>, AbilitySpec[]>();
+
+/**
+ * The abilities the budget values: every form's (Mega Gnar's as well as Mini Gnar's), with
+ * versions that share a cooldown counted as alternatives. Cached per set of forms (which every
+ * copy of the spec shares), so the per-list caches below keep working.
+ */
+function abilitiesOf(spec: FighterSpec): AbilitySpec[] {
+  const forms = spec.forms;
+  if (!forms) return spec.abilities;
+  let list = abilityCache.get(forms);
+  if (!list) {
+    list = Object.values(forms).flatMap((form) => form.abilities);
+    abilityCache.set(forms, list);
+  }
+  return list;
+}
+
 function unitOf(spec: FighterSpec, side: 0 | 1): Unit {
   return newUnit(spec, side, 0, spec.base.hp + (spec.bonus?.hp ?? 0), spec.base.resource);
 }
@@ -176,8 +194,11 @@ function damageTerms(ability: AbilitySpec): DamageTerm[] {
   const cached = termCache.get(ability);
   if (cached) return cached;
   const pulses = ability.channel?.interval ? Math.max(1, Math.round(ability.channel.duration / ability.channel.interval)) : 0;
+  // A field's effects land on every pulse while the enemy stays inside.
+  const d = ability.delivery;
+  const hits = d.kind === "field" ? Math.max(1, Math.round(d.duration / d.interval)) : 1;
   const groups: Array<[Effect[], number]> = [
-    [ability.onHit ?? [], 1],
+    [ability.onHit ?? [], hits],
     [ability.channel?.onTick ?? [], pulses],
     [ability.channel?.onComplete ?? [], 1],
   ];
@@ -243,7 +264,7 @@ function rawDamage(self: Unit, target: Unit): DamageMix {
   raw.magic += extra?.magic ?? 0;
   raw.true += extra?.true ?? 0;
   // Of versions sharing a cooldown, the strongest.
-  for (const alternatives of usesOf(self.spec.abilities)) {
+  for (const alternatives of usesOf(abilitiesOf(self.spec))) {
     let best: DamageMix | undefined;
     let bestTotal = -1;
     let bestCooldown = 0;
@@ -290,7 +311,7 @@ const sustainCache = new WeakMap<AbilitySpec[], Array<{ amount: Formula; cooldow
 
 /** Shields and heals abilities give their caster over the reference fight. */
 function sustain(self: Unit): number {
-  const abilities = self.spec.abilities;
+  const abilities = abilitiesOf(self.spec);
   let sources = sustainCache.get(abilities);
   if (!sources) {
     sources = abilities.flatMap((ability) =>

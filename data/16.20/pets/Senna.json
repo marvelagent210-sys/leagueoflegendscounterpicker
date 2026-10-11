@@ -1,0 +1,61 @@
+[
+  {
+    "champion": "Senna",
+    "name": "Mist Wraith",
+    "page": {
+      "title": "Senna",
+      "revid": 4025085
+    },
+    "fields": {
+      "gold": {
+        "text": "8",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 8
+            }
+          }
+        ]
+      },
+      "exp": {
+        "text": "0",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0
+            }
+          }
+        ]
+      },
+      "hp": {
+        "text": "1",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 1
+            },
+            "label": "Modified"
+          }
+        ]
+      },
+      "movespeed": {
+        "text": "Static",
+        "values": []
+      }
+    },
+    "text": {
+      "gold": "8",
+      "exp": "0",
+      "hp": "1",
+      "damagemodifier": "* 1 from Senna's basic attacks, Piercing Darkness, and Dawning Shadow",
+      "movespeed": "Static",
+      "control": "Autonomous",
+      "targeting": "Minion",
+      "protection": "Only Senna herself can target and interact with the Mist Wraith.",
+      "abilities": ";Wraith\nThe Mist Wraith is considered an enemy unit, but targetable to Senna only with her basic attacks and abilities.\n\n;Wandering\nThe Mist Wraith, after being spawned, disappears after 8 seconds."
+    }
+  }
+]

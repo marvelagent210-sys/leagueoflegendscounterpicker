@@ -81,6 +81,29 @@ export function areaAt(ctx: HookContext, ability: string, x: number, radius: num
   });
 }
 
+/**
+ * A field of one of the unit's abilities at `x` (a cloud of poison left behind): every
+ * `interval` seconds for `seconds` it applies `onHit` to the enemy inside, through the
+ * ability's usual checks and hooks, and `onOwner` to the unit inside.
+ */
+export function fieldAt(ctx: HookContext, ability: string, x: number, radius: number, seconds: number, interval: number, onHit: Effect[], onOwner?: Effect[]): void {
+  ctx.world.zones.push({
+    id: ctx.world.nextId++,
+    owner: ctx.self.side,
+    kind: "field",
+    seenTick: ctx.tick,
+    x,
+    radius,
+    startTick: ctx.tick,
+    endTick: ctx.tick + ticks(seconds),
+    ability,
+    onHit,
+    interval: Math.max(1, ticks(interval)),
+    nextTick: ctx.tick,
+    ...(onOwner ? { onOwner } : {}),
+  });
+}
+
 /** Average damage of one basic attack before resistances, crits averaged (for budget hints). */
 export function attackDamage(unit: Unit): number {
   const d = derive(unit);

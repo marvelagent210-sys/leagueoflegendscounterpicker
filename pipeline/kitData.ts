@@ -1,7 +1,7 @@
 /** Compiles the simulator kits of a committed dataset's champions (CLI, tests, build). */
 import { readFile } from "node:fs/promises";
 import path from "node:path";
-import type { AbilityRecord } from "../engine/abilities";
+import type { AbilityRecord, PetRecord } from "../engine/abilities";
 import { type CompiledKit, compileKit } from "../engine/kits/compile";
 import { baseFighter } from "../engine/sim/fromChampion";
 import type { FighterSpec } from "../engine/sim/spec";
@@ -13,11 +13,21 @@ export async function loadRecords(dataset: string, championId: string): Promise<
   return JSON.parse(await readFile(path.join(datasetDir(dataset), "abilities", `${championId}.json`), "utf8")) as AbilityRecord[];
 }
 
+/** The champion's pets (turrets, Mist Walkers, ...); none for most champions. */
+export async function loadPets(dataset: string, championId: string): Promise<PetRecord[]> {
+  try {
+    return JSON.parse(await readFile(path.join(datasetDir(dataset), "pets", `${championId}.json`), "utf8")) as PetRecord[];
+  } catch (error) {
+    if ((error as NodeJS.ErrnoException).code === "ENOENT") return [];
+    throw error;
+  }
+}
+
 /** The champion's compiled kit, or undefined when it has none yet. */
 export async function loadKit(dataset: string, champion: Champion, options: Record<string, number> = {}): Promise<CompiledKit | undefined> {
   const module = KITS[champion.id];
   if (!module) return undefined;
-  return compileKit(champion, await loadRecords(dataset, champion.id), module, options);
+  return compileKit(champion, await loadRecords(dataset, champion.id), module, options, await loadPets(dataset, champion.id));
 }
 
 /** A fighter with its kit when it has one, else base stats and basic attacks only. */

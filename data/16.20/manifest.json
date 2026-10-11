@@ -205,6 +205,12 @@
       "pages": 58,
       "missing": [],
       "fetchedAt": "2026-10-08T21:41:52.014Z"
+    },
+    "petPages": {
+      "pages": 27,
+      "checked": 175,
+      "missing": [],
+      "fetchedAt": "2026-10-11T11:27:22.790Z"
     }
   }
 }

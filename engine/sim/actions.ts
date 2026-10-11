@@ -5,11 +5,15 @@
 import { toTicks } from "../rules/time";
 import { cooldownAfterHaste } from "../rules/timing";
 import type { CCType } from "../rules/crowdControl";
-import { abilityHit, applyEffect, attackHit, contactGap, directionTo, edgeDistance, hookContext, isUntargetable, log } from "./combat";
+import { abilityHit, applyEffect, attackHit, canTarget, contactGap, directionTo, edgeDistance, hookContext, isHidden, isUntargetable, log } from "./combat";
 import { canAttack, canCastUnderCC, derive, evaluate } from "./derived";
+import { abilityOf, allAbilities } from "./forms";
+import { terrainLimit } from "./terrain";
 import { hitChance } from "./hitModel";
 import { type AbilitySpec, type AttackSplit, type Effect, cooldownKeyOf } from "./spec";
-import { type Aim, type Missile, type Status, type Unit, type World, other } from "./state";
+import { type Action, type Aim, type Missile, type Pet, type Status, type Unit, type World, type Zone, other } from "./state";
+import { canAttackPet, damagePet, petDistance } from "./pets";
+import { averageCritFactor } from "../rules/defense";
 
 export const EPSILON = 1e-6;
 
@@ -57,12 +61,17 @@ export function canStartAttack(world: World, unit: Unit): boolean {
     !isBusy(unit) &&
     unit.attackReadyTick <= world.tick &&
     canAttack(unit) &&
-    !isUntargetable(enemy, unit) &&
+    canTarget(enemy, unit) &&
     inAttackRange(unit, enemy)
   );
 }
 
-export function startAttack(world: World, unit: Unit): void {
+/** Whether the unit can start a basic attack on one of the pets (an enemy's, or a keg of its own to set off). */
+export function canStartAttackOnPet(world: World, unit: Unit, pet: Pet): boolean {
+  return unit.alive && !isBusy(unit) && unit.attackReadyTick <= world.tick && canAttack(unit) && world.pets.includes(pet) && canAttackPet(unit, pet, attackRange(unit));
+}
+
+export function startAttack(world: World, unit: Unit, pet?: Pet): void {
   const bonusOnHit: Effect[] = [];
   let uncancellable = false;
   let bonusRange = 0;
@@ -92,6 +101,7 @@ export function startAttack(world: World, unit: Unit): void {
     onHit: bonusOnHit,
     bonusRange,
     ...(split ? { split } : {}),
+    ...(pet ? { pet: pet.id } : {}),
   };
   unit.attackReadyTick = world.tick + timing.total;
   unit.move = 0;
@@ -103,6 +113,10 @@ export function startAttack(world: World, unit: Unit): void {
 export function launchAttack(world: World, unit: Unit, action = unit.action): void {
   if (action?.kind !== "windup") return;
   if (unit.action === action) unit.action = undefined;
+  if (action.pet !== undefined) {
+    launchAttackOnPet(world, unit, action);
+    return;
+  }
   const enemy = world.units[other(unit.side)];
   if (!enemy.alive || isUntargetable(enemy, unit)) return;
   const { attack } = unit.spec;
@@ -128,6 +142,39 @@ export function launchAttack(world: World, unit: Unit, action = unit.action): vo
   });
 }
 
+/** A basic attack on a pet: melee attacks hit at once, ranged attacks fire a missile at it. */
+function launchAttackOnPet(world: World, unit: Unit, action: Extract<Action, { kind: "windup" }>): void {
+  const pet = world.pets.find((p) => p.id === action.pet);
+  if (!pet || action.blinded) return;
+  const { attack } = unit.spec;
+  if (!attack.missileSpeed) {
+    damagePet(world, unit, pet, attackDamageOf(unit), "physical", true);
+    return;
+  }
+  world.missiles.push({
+    id: world.nextId++,
+    owner: unit.side,
+    source: "attack",
+    seenTick: action.startTick,
+    x: unit.x,
+    perTick: attack.missileSpeed / 30,
+    homing: true,
+    direction: pet.x >= unit.x ? 1 : -1,
+    travelLeft: Number.POSITIVE_INFINITY,
+    projectile: attack.projectile,
+    connects: true,
+    scale: 1,
+    onHit: [],
+    pet: pet.id,
+  });
+}
+
+/** A basic attack's damage before resistances, crits averaged. */
+function attackDamageOf(unit: Unit): number {
+  const d = derive(unit);
+  return d.ad * averageCritFactor(d.critChance, d.critDamage);
+}
+
 /**
  * A target that leaves attack range during the windup cancels the attack, which resets the
  * attack timer; uncancellable windups complete anyway (wiki: "Basic attack", uncancellable
@@ -137,6 +184,13 @@ export function launchAttack(world: World, unit: Unit, action = unit.action): vo
 export function cancelOutOfRange(world: World, unit: Unit): void {
   const action = unit.action;
   if (action?.kind !== "windup" || action.uncancellable) return;
+  if (action.pet !== undefined) {
+    const pet = world.pets.find((p) => p.id === action.pet);
+    if (pet && petDistance(unit, pet) <= attackRange(unit) + EPSILON) return;
+    unit.action = undefined;
+    unit.attackReadyTick = world.tick;
+    return;
+  }
   const enemy = world.units[other(unit.side)];
   if (edgeDistance(unit, enemy) <= unit.spec.attack.range + action.bonusRange + rangeBuffs(unit) + EPSILON) return;
   unit.action = undefined;
@@ -200,6 +254,8 @@ export function abilityReach(ability: AbilitySpec, unit: Unit, enemy: Unit): num
       return d.range + enemy.spec.base.radius;
     case "circle":
       return d.range + d.radius + enemy.spec.base.radius;
+    case "field":
+      return (d.attached ? (d.offset ?? 0) : d.range) + d.radius + enemy.spec.base.radius;
     case "area":
       // Out to its far edge from the caster's center: the hitbox, or the center for centered areas.
       return d.far + (d.centered ? 0 : enemy.spec.base.radius);
@@ -212,10 +268,35 @@ export function abilityReach(ability: AbilitySpec, unit: Unit, enemy: Unit): num
   }
 }
 
-/** Whether the enemy is within an ability's reach (always true for abilities without one). */
+/**
+ * Whether the enemy is within an ability's reach (always true for abilities without one). An
+ * invisible enemy is out of reach of everything that must be aimed at it; effects around the
+ * caster still reach it.
+ */
 export function inReach(ability: AbilitySpec, unit: Unit, enemy: Unit): boolean {
+  if (isHidden(enemy) && aimed(ability)) return false;
   const reach = abilityReach(ability, unit, enemy);
   return reach === undefined || Math.abs(unit.x - enemy.x) <= reach + EPSILON;
+}
+
+/** Abilities aimed at the enemy or its location, which an invisible enemy escapes. */
+function aimed(ability: AbilitySpec): boolean {
+  const d = ability.delivery;
+  switch (d.kind) {
+    case "self":
+    case "aura":
+      return false;
+    case "field":
+      return !d.attached;
+    case "area":
+      // Areas around the caster (Decimate) hit whatever is there; areas thrown ahead are aimed.
+      return !(d.anchor === "caster" && d.near < 0);
+    case "dash":
+    case "blink":
+      return d.direction !== "away" && d.hitRadius !== undefined;
+    default:
+      return true;
+  }
 }
 
 /** A recast that ends its own first stage's channel (Defiant Dance's release). */
@@ -230,9 +311,9 @@ export function canCast(world: World, unit: Unit, ability: AbilitySpec): boolean
   if (unit.action && unit.action.kind !== "windup" && !endsOwnChannel(unit, ability) && !overlays(unit, ability)) return false;
   if (ability.usable && !ability.usable(unit, world)) return false;
   if (!ability.flags?.usableWhileDisabled && !canCastUnderCC(unit, isMovement(ability) || ability.flags?.grounded === true)) return false;
-  if (ability.delivery.kind === "target" && (isUntargetable(enemy, unit) || !enemy.alive)) return false;
+  if (ability.delivery.kind === "target" && (!canTarget(enemy, unit) || !enemy.alive)) return false;
   if (ability.delivery.kind === "target" && Math.abs(unit.x - enemy.x) > ability.delivery.range + EPSILON) return false;
-  if (ability.delivery.kind === "dash" && ability.delivery.direction === "target" && isUntargetable(enemy, unit)) return false;
+  if (ability.delivery.kind === "dash" && ability.delivery.direction === "target" && !canTarget(enemy, unit)) return false;
   const needs = ability.requires?.enemyCC;
   if (needs && !enemy.statuses.some((s) => s.kind === "cc" && needs.includes(s.key as CCType))) return false;
   return true;
@@ -341,7 +422,7 @@ export interface PendingSplit {
 /** Keeps track of recastable abilities: opens the next stage, and starts the cooldown when they end. */
 function advanceChain(world: World, unit: Unit, ability: AbilitySpec): void {
   const root = ability.chain?.root ?? ability.key;
-  const stages = unit.spec.abilities.filter((a) => a.chain?.root === root);
+  const stages = allAbilities(unit.spec).filter((a) => a.chain?.root === root);
   if (stages.length === 0) return;
   const index = ability.chain?.index ?? 1;
   const next = stages.find((a) => a.chain?.index === index + 1);
@@ -349,7 +430,7 @@ function advanceChain(world: World, unit: Unit, ability: AbilitySpec): void {
     unit.chains[root] = { stage: index, castTick: world.tick, until: world.tick + toTicks(next.chain.window) };
   } else {
     delete unit.chains[root];
-    const first = unit.spec.abilities.find((a) => a.key === root);
+    const first = abilityOf(unit, root);
     if (first?.chainCooldown === "last") startCooldown(world, unit, first);
   }
 }
@@ -358,14 +439,14 @@ function advanceChain(world: World, unit: Unit, ability: AbilitySpec): void {
 export function expireChains(world: World, unit: Unit): void {
   for (const [root, state] of Object.entries(unit.chains)) {
     if (world.tick <= state.until) continue;
-    const next = unit.spec.abilities.find((a) => a.chain?.root === root && a.chain.index === state.stage + 1);
+    const next = allAbilities(unit.spec).find((a) => a.chain?.root === root && a.chain.index === state.stage + 1);
     if (next?.chain?.auto && unit.alive) {
       log(world, unit.side, `${next.name} fires`);
       completeCast(world, unit, next, world.tick);
       continue;
     }
     delete unit.chains[root];
-    const first = unit.spec.abilities.find((a) => a.key === root);
+    const first = abilityOf(unit, root);
     if (first?.chainCooldown === "last") startCooldown(world, unit, first);
   }
 }
@@ -489,6 +570,30 @@ export function completeCast(world: World, unit: Unit, ability: AbilitySpec, cas
       if (ticks === 0) advanceZones(world);
       break;
     }
+    case "field": {
+      const dir = directionTo(unit, enemy);
+      const x = delivery.attached ? unit.x + dir * (delivery.offset ?? 0) : enemy.x - dir * Math.max(0, centerDistance - delivery.range);
+      const start = world.tick + toTicks(delivery.delay ?? 0);
+      world.zones.push({
+        id: world.nextId++,
+        owner: unit.side,
+        kind: "field",
+        seenTick: castStartTick,
+        x,
+        radius: delivery.radius,
+        startTick: start,
+        endTick: start + toTicks(delivery.duration),
+        ability: ability.key,
+        onHit,
+        interval: Math.max(1, toTicks(delivery.interval)),
+        nextTick: start,
+        ...(delivery.attached ? { attached: { offset: delivery.offset ?? 0 } } : {}),
+        ...(delivery.onOwner ? { onOwner: delivery.onOwner } : {}),
+      });
+      // A field that lands at once pulses with the zones this tick.
+      if (start === world.tick) advanceZones(world);
+      break;
+    }
     case "blink": {
       const dir = delivery.direction === "away" ? -directionTo(unit, enemy) : directionTo(unit, enemy);
       let x = unit.x + dir * delivery.distance;
@@ -581,9 +686,12 @@ export function progressDash(world: World, unit: Unit): void {
   // A dash moves from the tick after it starts until its end tick.
   if (action?.kind !== "dash" || world.tick <= action.startTick) return;
   const enemy = world.units[other(unit.side)];
-  const ability = unit.spec.abilities.find((a) => a.key === action.ability);
+  const ability = abilityOf(unit, action.ability);
   const from = unit.x;
-  unit.x += action.perTick;
+  // Dashes to a location stop at terrain; dashes to a unit go over it.
+  const toUnit = ability?.delivery.kind === "dash" && ability.delivery.direction === "target";
+  const step = toUnit ? action.perTick : terrainLimit(world, unit, action.perTick);
+  unit.x += step;
   if (stoppedByAntiDash(world, unit, enemy, action.unstoppable)) return;
   if (ability && action.through && !action.hit && ability.delivery.kind === "dash" && ability.delivery.hitRadius !== undefined) {
     // Passing the enemy: hit once its hitbox comes within reach (edge to edge) of the dash's path.
@@ -595,7 +703,7 @@ export function progressDash(world: World, unit: Unit): void {
       abilityHit(world, unit, enemy, ability, ability.onHit ?? []);
     }
   }
-  const arrived = world.tick >= action.endTick || (action.stopAtContact && contactGap(unit, enemy) <= EPSILON);
+  const arrived = world.tick >= action.endTick || (action.stopAtContact && contactGap(unit, enemy) <= EPSILON) || step !== action.perTick;
   if (action.stopAtContact && contactGap(unit, enemy) < 0) {
     unit.x = enemy.x - directionTo(unit, enemy) * (unit.spec.base.pathingRadius + enemy.spec.base.pathingRadius);
   }
@@ -619,7 +727,7 @@ function stoppedByAntiDash(world: World, unit: Unit, enemy: Unit, unstoppable: b
   unit.action = unit.action?.kind === "dash" ? unit.action.resume : undefined;
   enemy.statuses = enemy.statuses.filter((s) => s !== aura);
   log(world, enemy.side, "stops the dash");
-  const ability = enemy.spec.abilities.find((a) => a.key === aura.ability);
+  const ability = abilityOf(enemy, aura.ability);
   for (const effect of aura.effects ?? []) applyEffect(world, enemy, unit, effect, { scale: 1, ...(ability ? { ability } : {}) });
   return true;
 }
@@ -628,7 +736,7 @@ function stoppedByAntiDash(world: World, unit: Unit, enemy: Unit, unstoppable: b
 export function progressChannel(world: World, unit: Unit): void {
   const action = unit.action;
   if (action?.kind !== "channel") return;
-  const ability = unit.spec.abilities.find((a) => a.key === action.ability);
+  const ability = abilityOf(unit, action.ability);
   const channel = ability?.channel;
   if (!ability || !channel) {
     unit.action = undefined;
@@ -659,6 +767,20 @@ function blocked(world: World, m: Missile, from: number, to: number): boolean {
   return aura !== undefined && Math.abs(target.x - to) <= target.spec.base.radius + aura.value;
 }
 
+/** A field's pulse: its effects on the enemy inside, and on its owner inside. */
+function pulseField(world: World, zone: Zone, owner: Unit, target: Unit): void {
+  if (zone.attached) zone.x = owner.x + directionTo(owner, target) * zone.attached.offset;
+  if (zone.nextTick === undefined || world.tick < zone.nextTick) return;
+  zone.nextTick += zone.interval ?? 1;
+  const ability = abilityOf(owner, zone.ability);
+  if (ability && zone.onHit?.length && target.alive && Math.abs(target.x - zone.x) <= zone.radius + target.spec.base.radius + EPSILON) {
+    abilityHit(world, owner, target, ability, zone.onHit, zone.scale ?? 1);
+  }
+  if (zone.onOwner?.length && Math.abs(owner.x - zone.x) <= zone.radius + EPSILON) {
+    for (const effect of zone.onOwner) applyEffect(world, owner, owner, effect, { scale: 1, ...(ability ? { ability } : {}) });
+  }
+}
+
 /** Moves every missile one tick, then resolves hits, misses and blocks. */
 export function advanceMissiles(world: World): void {
   const keep: Missile[] = [];
@@ -666,6 +788,15 @@ export function advanceMissiles(world: World): void {
     const owner = world.units[m.owner];
     const target = world.units[other(m.owner)];
     const from = m.x;
+    if (m.pet !== undefined) {
+      // A basic attack flying at a pet: it lands when it reaches it, or fizzles if it is gone.
+      const pet = world.pets.find((p) => p.id === m.pet);
+      if (!pet) continue;
+      m.x += Math.sign(pet.x - m.x) * Math.min(m.perTick, Math.abs(pet.x - m.x));
+      if (Math.abs(pet.x - m.x) <= pet.spec.radius + EPSILON) damagePet(world, owner, pet, attackDamageOf(owner), "physical", true);
+      else keep.push(m);
+      continue;
+    }
     const step = m.homing ? Math.sign(target.x - m.x) * Math.min(m.perTick, Math.abs(target.x - m.x)) : m.direction * m.perTick;
     m.x += step;
     m.travelLeft -= Math.abs(step);
@@ -678,7 +809,7 @@ export function advanceMissiles(world: World): void {
     if (reached) {
       if (m.attack) attackHit(world, owner, target, m.attack.blinded, m.attack.bonusOnHit, m.attack.split);
       else if (m.connects) {
-        const ability = owner.spec.abilities.find((a) => a.key === m.source);
+        const ability = abilityOf(owner, m.source);
         if (ability) abilityHit(world, owner, target, ability, m.onHit, m.scale);
       }
       if (m.homing || m.connects) continue;
@@ -688,12 +819,18 @@ export function advanceMissiles(world: World): void {
   world.missiles = keep;
 }
 
-/** Ground areas land, traps go off on contact, and projectile walls expire. */
+/** Ground areas land, traps go off on contact, fields pulse, and projectile walls expire. */
 export function advanceZones(world: World): void {
   const keep = [];
   for (const zone of world.zones) {
     const owner = world.units[zone.owner];
     const target = world.units[other(zone.owner)];
+    if (zone.kind === "field") {
+      if (world.tick >= zone.endTick || !owner.alive) continue;
+      pulseField(world, zone, owner, target);
+      keep.push(zone);
+      continue;
+    }
     if (zone.kind === "trap") {
       if (world.tick >= zone.startTick && Math.abs(target.x - zone.x) <= zone.radius + target.spec.base.radius + EPSILON && target.alive) {
         log(world, target.side, "steps on a trap");
@@ -701,7 +838,7 @@ export function advanceZones(world: World): void {
         continue;
       }
     } else if (zone.kind === "delayedArea" && world.tick >= zone.endTick) {
-      const ability = owner.spec.abilities.find((a) => a.key === zone.ability);
+      const ability = abilityOf(owner, zone.ability);
       let x = zone.x;
       let radius = zone.radius;
       let bands = zone.bands;

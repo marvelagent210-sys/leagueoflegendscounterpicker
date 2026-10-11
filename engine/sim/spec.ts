@@ -7,7 +7,7 @@ import type { CCType } from "../rules/crowdControl";
 import type { DamageType } from "../rules/damage";
 import type { ShieldType } from "../rules/defense";
 import type { Behavior } from "./behavior";
-import type { Unit, World } from "./state";
+import type { Pet, Unit, World } from "./state";
 
 /** Stats a formula can read: the caster's, or the target's with a "target" prefix. */
 export type StatRef =
@@ -84,7 +84,14 @@ export type StateType =
   /** Untargetable to enemies farther than `value` units from the status's position (Hallowed Mist). */
   | "untargetableFar"
   /** Can't declare basic attacks, without being crowd control (Purge fires in their place). */
-  | "noAttacks";
+  | "noAttacks"
+  /** Healing and regeneration have no effect, except life steal and omnivamp (Glory in Death). */
+  | "noHealing"
+  /**
+   * Can't be seen (Twilight Shroud): enemies can't start attacks or unit-targeted spells on it
+   * or aim at it, but areas still hit it and missiles already on their way still land.
+   */
+  | "invisible";
 
 /** Stats a timed buff or debuff changes. Fractions for percentages. */
 export type BuffStat =
@@ -185,7 +192,9 @@ export type Effect =
   /** A marker on the target for kit hooks to read (Flawless Duet's mark, Frenzied Maul's mark). */
   | { type: "mark"; key: string; duration: number; value?: number }
   /** Effects on the caster when this hit lands (Decimate's heal). */
-  | { type: "caster"; effects: Effect[] };
+  | { type: "caster"; effects: Effect[] }
+  /** The target is carried by the caster for `duration` seconds, `offset` units from its center (Devour, Ixtal's Impact). */
+  | { type: "attach"; offset: number; duration: number };
 
 export type Delivery =
   /** Effects on the caster only (onSelf). */
@@ -221,7 +230,14 @@ export type Delivery =
       anchor: "caster" | "ground";
       bands?: Array<{ from: number; to: number; onHit: Effect[] }>;
       centered?: boolean;
-    };
+    }
+  /**
+   * A lingering field: on the enemy as far as `range` allows, or around the caster when
+   * `attached` (its center `offset` units toward the enemy, moving with the caster). It lands
+   * after `delay`, lasts `duration` seconds, and every `interval` seconds applies the ability's
+   * `onHit` to the enemy if its hitbox is inside and `onOwner` to the caster if its center is.
+   */
+  | { kind: "field"; range: number; radius: number; duration: number; interval: number; delay?: number; attached?: boolean; offset?: number; onOwner?: Effect[] };
 
 export interface ChannelSpec {
   duration: number;
@@ -255,6 +271,48 @@ export interface AbilityFlags {
   knockdown?: boolean;
   /** Castable while stunned, silenced and the like (Undying Rage, cleanses). */
   usableWhileDisabled?: boolean;
+}
+
+/**
+ * A pet at level 20 (engine/sim/pets.ts): a unit a champion summons or places, built by its
+ * kit from the wiki's pet infobox (H-28G Evolution Turret, Mist Walker, Tentacle, Powder Keg).
+ */
+export interface PetSpec {
+  /** The kit's name for the kind of pet ("turret", "walker", "keg", ...). */
+  kind: string;
+  name: string;
+  hp: number;
+  armor: number;
+  mr: number;
+  /** Takes 1 damage from each champion basic attack and nothing else (Tentacles, Powder Kegs). */
+  hitPoints?: boolean;
+  /** Damage taken from melee champions' basic attacks, as a multiplier (turrets 1.4, Mist Walkers 2). */
+  meleeAttackTaken?: number;
+  radius: number;
+  /** 0 for pets that stay where they are placed; others walk toward the enemy champion. */
+  moveSpeed: number;
+  /** Seconds it lasts until killed or replaced; Infinity for no limit. */
+  duration: number;
+  /** Can't be attacked (Tentacles during Leap of Faith). */
+  untargetable?: boolean;
+  /**
+   * Whether the enemy should attack it before anything else when it can (a Powder Keg about to
+   * blow up on it). Otherwise the enemy attacks pets only when it can't attack their owner.
+   */
+  urgent?: (pet: Pet, enemy: Unit, world: World) => boolean;
+  /** Its own attacks on the enemy champion, when it has any. */
+  attack?: PetAttack;
+}
+
+export interface PetAttack {
+  /** Reach of its attacks, from its center to the enemy's edge. */
+  range: number;
+  /** Seconds between attacks. */
+  interval: number;
+  /** Each attack's effects on the enemy, as its owner's: damage formulas read the owner's stats. */
+  effects: Effect[];
+  /** Strikes like a basic attack: dodges, parries, blocks and blinds stop it. Otherwise spell shields and parries do. */
+  attackLike: boolean;
 }
 
 /** "finisher": used only when its damage kills (Demacian Justice). */
@@ -395,11 +453,18 @@ export interface KitHooks {
   onCast?(ctx: HookContext & { ability: AbilitySpec }): void;
   /** Damage about to reach this unit, after mitigation and before shields. */
   beforeDamageTaken?(ctx: HookContext & { amount: number }): void;
+  /**
+   * Damage or an execute brought this unit to 0 health. Returning true keeps it alive: the
+   * hook has set its health and state (Glory in Death's reanimation, Skaarl fleeing).
+   */
+  onLethal?(ctx: HookContext): boolean;
   /** `amount`: health lost; `mitigated`: the damage after resistances, shields included; `raw`: before resistances. */
   onDamageTaken?(ctx: HookContext & DamageReport): void;
   onDamageDealt?(ctx: HookContext & DamageReport & { attack: boolean; ability?: string; persistent: boolean }): void;
   /** One of the enemy's basic attacks was dodged, parried or blocked by this unit. */
   onAttackAvoided?(ctx: HookContext): void;
+  /** One of this unit's pets was destroyed (by the enemy, or by its own owner when `byOwner`). */
+  onPetDeath?(ctx: HookContext & { pet: Pet; byOwner: boolean }): void;
 }
 
 /** One hit of damage, as damage hooks see it. */
@@ -423,8 +488,17 @@ export interface HookContext {
   buff(key: string, stat: BuffStat, amount: number, seconds: number): void;
   /** Restores health like regeneration (reduced by Grievous Wounds, not counted as healing). */
   regenerate(amount: number): void;
+  /** Switches this unit to another of its forms (engine/sim/forms.ts). */
+  transform(form: string, hp?: FormHealth): void;
   log(text: string): void;
 }
+
+/**
+ * Health after a change of form: the same share of maximum health ("share", Mini Gnar), the
+ * same missing health so that the gain in maximum health heals ("gain", Mega Gnar), or a
+ * number of hit points (Kled's own health when Skaarl flees).
+ */
+export type FormHealth = "share" | "gain" | number;
 
 /** Damage by type. */
 export interface DamageByType {
@@ -466,4 +540,12 @@ export interface FighterSpec {
   budget?: BudgetHints;
   /** How it plays; the default behavior when unset. */
   behavior?: Behavior;
+  /** Which of the champion's forms this is (Mega Gnar, Cannon Stance), for kits with several. */
+  form?: string;
+  /**
+   * Every form of the champion by name, this one included: a unit switches by taking another
+   * form's spec (engine/sim/forms.ts). Ability keys are unique across forms; versions of a
+   * spell that share a cooldown say so with `cooldownKey`.
+   */
+  forms?: Readonly<Record<string, FighterSpec>>;
 }

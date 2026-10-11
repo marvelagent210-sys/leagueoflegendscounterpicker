@@ -5,7 +5,7 @@
  */
 import type { DamageType } from "../rules/damage";
 import type { ShieldType } from "../rules/defense";
-import type { AttackSplit, Effect, FighterSpec } from "./spec";
+import type { AttackSplit, Effect, FighterSpec, PetSpec } from "./spec";
 
 export type Side = 0 | 1;
 
@@ -42,6 +42,8 @@ export type Action =
       onHit: Effect[];
       bonusRange: number;
       split?: AttackSplit;
+      /** An attack on a pet (by id) rather than on the enemy champion. */
+      pet?: number;
     }
   | { kind: "cast"; ability: string; startTick: number; endTick: number; aim?: Aim }
   | { kind: "channel"; ability: string; startTick: number; endTick: number; nextTick: number; intervalTicks: number }
@@ -85,6 +87,11 @@ export interface Unit {
   moved: -1 | 0 | 1;
   /** Forced movement from a knock back or pull, in units per tick (positive is away from the enemy). */
   forced?: { endTick: number; perTick: number };
+  /**
+   * Carried by the enemy until `endTick` (Ixtal's Impact, Devour): held `offset` units from its
+   * center, on the side (`dir`, +1 or -1 along the line) it was on when grabbed.
+   */
+  attached?: { offset: number; dir: 1 | -1; endTick: number };
   /** Recastable abilities in progress, by root ability key: the last stage cast and when the window closes. */
   chains: Record<string, { stage: number; castTick: number; until: number }>;
   /** Free-form state for behaviors and kit hooks. */
@@ -115,13 +122,29 @@ export interface Missile {
   onHit: Effect[];
   /** For basic attacks: the attack's state when it launched. */
   attack?: { blinded: boolean; bonusOnHit: Effect[]; split?: AttackSplit };
+  /** A basic attack flying at a pet (by id). */
+  pet?: number;
+}
+
+/** A pet on the line (engine/sim/pets.ts). */
+export interface Pet {
+  id: number;
+  owner: Side;
+  spec: PetSpec;
+  x: number;
+  hp: number;
+  endTick: number;
+  /** The first tick it may attack again. */
+  nextAttackTick: number;
+  /** Free-form state for its owner's kit hooks (a turret's beam charge, ...). */
+  memory: Record<string, number | string | boolean>;
 }
 
 export interface Zone {
   id: number;
   owner: Side;
-  /** A trap goes off when the enemy's hitbox touches it. */
-  kind: "projectileWall" | "delayedArea" | "trap";
+  /** A trap goes off when the enemy's hitbox touches it; a field pulses while it lasts. */
+  kind: "projectileWall" | "delayedArea" | "trap" | "field";
   /** Tick the enemy could first see it coming (the start of the cast). */
   seenTick: number;
   x: number;
@@ -138,6 +161,28 @@ export interface Zone {
   follow?: { near: number; far: number; bands?: Array<{ from: number; to: number; onHit: Effect[] }> };
   /** Hits by where the enemy's center is rather than its hitbox. */
   centered?: boolean;
+  /** Fields: ticks between pulses and the tick of the next one. */
+  interval?: number;
+  nextTick?: number;
+  /** Fields that move with their owner, centered `offset` units toward the enemy. */
+  attached?: { offset: number };
+  /** Fields: effects on the owner while its center is inside. */
+  onOwner?: Effect[];
+}
+
+/**
+ * Terrain an ability raised on the line (Pillar of Ice, Dark Procession's ring): units can't
+ * walk, dash or be pushed into it, and a knock back that meets it stops there.
+ */
+export interface Terrain {
+  id: number;
+  owner: Side;
+  /** The stretch of the line it fills. */
+  from: number;
+  to: number;
+  endTick: number;
+  /** Impassable to the owner's enemy only (Dark Procession). */
+  enemyOnly?: boolean;
 }
 
 /** Effects waiting for their tick (see the "delayed" effect). */
@@ -229,6 +274,8 @@ export interface World {
   units: [Unit, Unit];
   missiles: Missile[];
   zones: Zone[];
+  terrain: Terrain[];
+  pets: Pet[];
   scheduled: Scheduled[];
   nextId: number;
   /** Probability of this branch. */
@@ -277,6 +324,7 @@ function cloneUnit(unit: Unit): Unit {
     chains: Object.fromEntries(Object.entries(unit.chains).map(([k, v]) => [k, { ...v }])),
     ...(unit.action ? { action: unit.action.kind === "dash" && unit.action.resume ? { ...unit.action, resume: { ...unit.action.resume } } : { ...unit.action } } : {}),
     ...(unit.forced ? { forced: { ...unit.forced } } : {}),
+    ...(unit.attached ? { attached: { ...unit.attached } } : {}),
     memory: { ...unit.memory },
     totals: { ...unit.totals },
   };
@@ -288,6 +336,8 @@ export function cloneWorld(world: World): World {
     units: [cloneUnit(world.units[0]), cloneUnit(world.units[1])],
     missiles: world.missiles.map((m) => ({ ...m, ...(m.attack ? { attack: { ...m.attack } } : {}) })),
     zones: world.zones.map((z) => ({ ...z })),
+    terrain: world.terrain.map((t) => ({ ...t })),
+    pets: world.pets.map((p) => ({ ...p, memory: { ...p.memory } })),
     scheduled: world.scheduled.map((e) => ({ ...e })),
     modes: [...world.modes],
     log: world.settings.log ? [...world.log] : world.log,

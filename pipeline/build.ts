@@ -15,7 +15,9 @@
  *
  * Usage: npm run build:data [-- --dataset 16.20]
  */
+import { rm } from "node:fs/promises";
 import path from "node:path";
+import type { PetRecord } from "../engine/abilities";
 import type { ChampionDataset } from "../engine/types";
 import { RAW_DIR, datasetDir, rawDir } from "./config";
 import { latestDataset } from "./datasets";
@@ -29,6 +31,7 @@ import { checkValues, type LevelLink, linkLevelSeries, type ValueCheck } from ".
 import { readGameAbilities } from "./abilities/gameSpells";
 import { reconcileWithGameFiles } from "./gameFiles";
 import { buildGlossary } from "./glossary/build";
+import { parsePets } from "./pets";
 import { buildProfiles } from "./profiles/build";
 import { GOLD_VALUE_PAGE, parseGoldValues } from "./rules";
 import { normalizeOracle } from "./oracle";
@@ -118,6 +121,21 @@ async function main(): Promise<void> {
     await writeJson(path.join(out, "abilities", `${champion.id}.json`), records);
     gameData.set(champion.id, { checks: championChecks, links: championLinks, game });
   }
+  // Pets: the units champions summon or place, from the pet infoboxes on their wiki pages.
+  const petPages = await readJson<WikiPage[]>(path.join(raw, "wiki", "pet-pages.json")).catch(() => {
+    throw new Error("Missing the champion pages with pets; run npm run fetch -- --only pets");
+  });
+  const petLookup = championLookup(championDataSource);
+  const pets = new Map<string, PetRecord[]>();
+  for (const page of petPages) {
+    const id = championId(page.title);
+    if (!id || !byId.has(id)) throw new Error(`Pet page "${page.title}" doesn't name a champion`);
+    const found = parsePets(page, id, petLookup);
+    if (found.length > 0) pets.set(id, found);
+  }
+  await rm(path.join(out, "pets"), { recursive: true, force: true });
+  for (const [id, found] of [...pets].sort(([a], [b]) => a.localeCompare(b))) await writeJson(path.join(out, "pets", `${id}.json`), found);
+  log(`Pets: ${[...pets.values()].reduce((sum, found) => sum + found.length, 0)} from ${pets.size} champion pages`);
   const glossaryPages = await readJson<WikiPage[]>(path.join(raw, "wiki", "glossary.json"));
   const glossary = buildGlossary(glossaryPages, pages, abilities.records);
   await writeJson(path.join(out, "glossary.json"), glossary);
@@ -142,7 +160,7 @@ async function main(): Promise<void> {
   for (const [id, module] of Object.entries(KITS).sort(([a], [b]) => a.localeCompare(b))) {
     const champion = byId.get(id);
     if (!champion) throw new Error(`Simulator kit for unknown champion ${id}`);
-    compiled.set(id, compileKit(champion, abilities.records.filter((record) => record.champion === id), module));
+    compiled.set(id, compileKit(champion, abilities.records.filter((record) => record.champion === id), module, {}, pets.get(id) ?? []));
   }
   const simulated = [...compiled.keys()];
   const pairs: Array<[string, string]> = simulated.flatMap((you, i) => simulated.slice(i + 1).map((enemy): [string, string] => [you, enemy]));

@@ -27,6 +27,7 @@ import {
   advanceZones,
   canCast,
   canStartAttack,
+  canStartAttackOnPet,
   cancelOutOfRange,
   completeCast,
   expireChains,
@@ -40,6 +41,9 @@ import {
 import { type Behavior, type Command, defaultBehavior, perceive } from "./behavior";
 import { applyEffect, contactGap, dealDamage, directionTo, edgeDistance, heal, hookContext, log } from "./combat";
 import { canMove, ccTypes, derive } from "./derived";
+import { abilityOf } from "./forms";
+import { advancePets } from "./pets";
+import { expireTerrain, terrainLimit } from "./terrain";
 import type { FighterSpec } from "./spec";
 import { DEFAULT_SETTINGS, type LogEntry, type Mode, type Side, type SimSettings, type Unit, type World, cloneWorld, newUnit, other } from "./state";
 
@@ -101,6 +105,8 @@ export function createWorld(setup: FightSetup): World {
     units,
     missiles: [],
     zones: [],
+    terrain: [],
+    pets: [],
     scheduled: [],
     nextId: 1,
     weight: 1,
@@ -136,7 +142,7 @@ function runScheduled(world: World): void {
     const owner = world.units[entry.owner];
     const target = world.units[entry.target];
     if (!target.alive) continue;
-    const ability = owner.spec.abilities.find((a) => a.key === entry.ability);
+    const ability = abilityOf(owner, entry.ability);
     for (const effect of entry.effects) applyEffect(world, owner, target, effect, { scale: entry.scale, ...(ability ? { ability } : {}) });
   }
 }
@@ -174,7 +180,7 @@ function completeActions(world: World, splits: PendingSplit[]): void {
   for (const { unit, action } of due) {
     if (action?.kind === "windup") launchAttack(world, unit, action);
     else if (action?.kind === "cast") {
-      const ability = unit.spec.abilities.find((a) => a.key === action.ability);
+      const ability = abilityOf(unit, action.ability);
       if (unit.action === action) unit.action = undefined;
       if (!ability) continue;
       const split = completeCast(world, unit, ability, action.startTick, action.aim);
@@ -207,10 +213,17 @@ function execute(world: World, unit: Unit, command: Command): { acted: boolean; 
       }
       unit.move = command.direction;
       return { acted: true };
-    case "attack":
+    case "attack": {
+      if (command.pet !== undefined) {
+        const pet = world.pets.find((p) => p.id === command.pet);
+        if (!pet || !canStartAttackOnPet(world, unit, pet)) return { acted: false };
+        startAttack(world, unit, pet);
+        return { acted: true };
+      }
       if (!canStartAttack(world, unit)) return { acted: false };
       startAttack(world, unit);
       return { acted: true };
+    }
     case "cast": {
       const ability = unit.spec.abilities.find((a) => a.key === command.ability);
       if (!ability || !canCast(world, unit, ability)) return { acted: false };
@@ -245,13 +258,22 @@ function walksDuringAction(unit: Unit): boolean {
   const action = unit.action;
   if (!action) return true;
   if (action.kind === "windup" || action.kind === "dash") return false;
-  const ability = unit.spec.abilities.find((a) => a.key === action.ability);
+  const ability = abilityOf(unit, action.ability);
   return action.kind === "cast" ? ability?.moveWhileCasting === true : ability?.channel?.mobile === true;
 }
 
 function walk(world: World, unit: Unit): void {
   if (!unit.alive) return;
   const enemy = world.units[other(unit.side)];
+  if (unit.attached) {
+    // Carried by the enemy: held at its side.
+    if (world.tick < unit.attached.endTick && enemy.alive) {
+      unit.x = enemy.x + unit.attached.dir * unit.attached.offset;
+      unit.moved = 0;
+      return;
+    }
+    delete unit.attached;
+  }
   const toward = directionTo(unit, enemy);
   let dx = 0;
   if (unit.forced) {
@@ -270,6 +292,10 @@ function walk(world: World, unit: Unit): void {
   }
   // Champions collide: moving toward the enemy stops where their pathing radii touch.
   if (dx * toward > 0) dx = toward * Math.min(Math.abs(dx), Math.max(0, contactGap(unit, enemy)));
+  // Terrain stops walking and knock backs alike.
+  const limited = terrainLimit(world, unit, dx);
+  if (limited !== dx && unit.forced) delete unit.forced;
+  dx = limited;
   unit.x += dx;
   unit.moved = dx === 0 ? 0 : dx * toward > 0 ? 1 : -1;
 }
@@ -312,8 +338,10 @@ export function step(world: World, behaviors: [Behavior, Behavior]): PendingSpli
   runScheduled(world);
   for (const side of sides) upkeep(world, world.units[side]);
   for (const side of sides) expire(world, world.units[side]);
+  expireTerrain(world);
   advanceMissiles(world);
   advanceZones(world);
+  advancePets(world);
   completeActions(world, splits);
   for (const side of sides) {
     progressDash(world, world.units[side]);

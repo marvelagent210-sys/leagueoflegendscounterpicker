@@ -1,0 +1,47 @@
+[
+  {
+    "champion": "Teemo",
+    "name": "Mushroom Trap",
+    "page": {
+      "title": "Teemo",
+      "revid": 3994789
+    },
+    "fields": {
+      "hp": {
+        "text": "6",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 6
+            }
+          }
+        ]
+      },
+      "range": {
+        "text": "75 / 450",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                75,
+                450
+              ]
+            },
+            "label": "Blast radius"
+          }
+        ]
+      }
+    },
+    "text": {
+      "hp": "6",
+      "damagemodifier": "* 2 from ranged and 3 from melee champion basic attacks",
+      "range": "75 / 450",
+      "control": "Autonomous (static)",
+      "targeting": "Ward",
+      "spelleffects": "A mushroom's poison applies spell effects as persistent area damage.",
+      "abilities": ";Stealth Trap\nThe mushroom trap stealths and becomes untargetable after 1 second, remaining vulnerable to trap-revealing effects at all times.\n\n;Ricochet\nIf the mushroom trap lands on another mushroom after being placed, it bounces forward 300 / 400 / 500 units.\n\n;Poisonous Blast\nIf an enemy walks over the mushroom trap, it creates a blast to slow all nearby enemies by 30 / 40 / 50% for 4 seconds and inflicting them with poison for the same duration. Poisoned enemies take 200 / 325 / 450 (+ 50% AP) total magic damage over the duration and are revealed."
+    }
+  }
+]

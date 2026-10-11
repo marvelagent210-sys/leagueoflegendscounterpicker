@@ -1,0 +1,262 @@
+[
+  {
+    "champion": "Malzahar",
+    "name": "Voidling",
+    "page": {
+      "title": "Malzahar",
+      "revid": 4058496
+    },
+    "fields": {
+      "gold": {
+        "text": "2",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 2
+            }
+          }
+        ]
+      },
+      "exp": {
+        "text": "0",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0
+            }
+          }
+        ]
+      },
+      "hp": {
+        "text": "65 – 201 (based on level)",
+        "values": [
+          {
+            "series": {
+              "kind": "level",
+              "values": [
+                65,
+                70.76,
+                76.8,
+                83.12,
+                89.72,
+                96.6,
+                103.75999999999999,
+                111.2,
+                118.92,
+                126.92000000000002,
+                135.2,
+                143.76,
+                152.60000000000002,
+                161.72,
+                171.12,
+                180.8,
+                190.76,
+                201
+              ]
+            }
+          }
+        ]
+      },
+      "armor": {
+        "text": "16 – 50 (based on level)",
+        "values": [
+          {
+            "series": {
+              "kind": "level",
+              "values": [
+                16,
+                17.44,
+                18.95,
+                20.53,
+                22.18,
+                23.9,
+                25.689999999999998,
+                27.55,
+                29.48,
+                31.480000000000004,
+                33.55,
+                35.69,
+                37.900000000000006,
+                40.18,
+                42.53,
+                44.95,
+                47.44,
+                50
+              ]
+            }
+          }
+        ]
+      },
+      "magicresist": {
+        "text": "8 – 25 (based on level)",
+        "values": [
+          {
+            "series": {
+              "kind": "level",
+              "values": [
+                8,
+                8.72,
+                9.475,
+                10.265,
+                11.09,
+                11.95,
+                12.844999999999999,
+                13.775,
+                14.74,
+                15.740000000000002,
+                16.775,
+                17.845,
+                18.950000000000003,
+                20.09,
+                21.265,
+                22.475,
+                23.72,
+                25
+              ]
+            }
+          }
+        ]
+      },
+      "attackspeed": {
+        "text": "0.665 – 0.8911 (based on level)",
+        "values": [
+          {
+            "series": {
+              "kind": "level",
+              "values": [
+                0.665,
+                0.6745760000000001,
+                0.6846175000000001,
+                0.6951244999999999,
+                0.7060970000000001,
+                0.717535,
+                0.7294385,
+                0.7418075,
+                0.754642,
+                0.7679420000000001,
+                0.7817075,
+                0.7959385000000001,
+                0.8106350000000001,
+                0.825797,
+                0.8414245000000001,
+                0.8575175000000002,
+                0.8740760000000001,
+                0.8911000000000001
+              ]
+            }
+          }
+        ]
+      },
+      "damage": {
+        "text": "5 – 64.5 (based on level) (+ 12 / 14 / 16 / 18 / 20) (+ 40% bonus AD) (+ 20% AP)",
+        "values": [
+          {
+            "series": {
+              "kind": "level",
+              "values": [
+                5,
+                7.52,
+                10.162500000000001,
+                12.9275,
+                15.815,
+                18.825000000000003,
+                21.9575,
+                25.212500000000002,
+                28.59,
+                32.09,
+                35.712500000000006,
+                39.4575,
+                43.325,
+                47.315000000000005,
+                51.4275,
+                55.6625,
+                60.02,
+                64.5
+              ]
+            },
+            "label": "Based on ability rank"
+          },
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                12,
+                14,
+                16,
+                18,
+                20
+              ]
+            },
+            "label": "Based on ability rank"
+          }
+        ]
+      },
+      "range": {
+        "text": "100",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 100
+            }
+          }
+        ]
+      },
+      "radius": {
+        "text": "10",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 10
+            }
+          }
+        ]
+      },
+      "pathingradius": {
+        "text": "20",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 20
+            }
+          }
+        ]
+      },
+      "movespeed": {
+        "text": "400",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 400
+            }
+          }
+        ]
+      }
+    },
+    "text": {
+      "gold": "2",
+      "exp": "0",
+      "hp": "65 – 201 (based on level)",
+      "damagemodifier": "*Turret and champion basic attacks will kill Voidlings regardless of their health.",
+      "armor": "16 – 50 (based on level)",
+      "magicresist": "8 – 25 (based on level)",
+      "attackspeed": "0.665 – 0.8911 (based on level)",
+      "damage": "5 – 64.5 (based on level) (+ 12 / 14 / 16 / 18 / 20) (+ 40% bonus AD) (+ 20% AP)",
+      "damagetype": "magic",
+      "range": "100",
+      "radius": "10",
+      "pathingradius": "20",
+      "movespeed": "400",
+      "control": "Prioritize attacking Nether Grasp target and enemies (champions have a higher priority than minions) infected by Malefic Visions, or the nearest target.",
+      "targeting": "Minion, does not count towards the minion kill tracking score",
+      "spelleffects": "Voidlings' basic attacks deal pet damage, additionally tagged as proc damage and basic damage, applying spell effects.",
+      "onhit": "Voidlings' attacks can be mitigated by block, dodge, and blind, as well as stopped by Disarm.",
+      "abilities": ";Void Essence\nThe Voidling deals 50% reduced damage to epic monsters and 200% increased damage to enemy minions infected by Malefic Visions.\n\n=== Notes ===\n* Live Voidlings will gain all level-up bonuses when Malzahar levels up.\n* The attacks of all Voidlings are considered to belong to the same cast instance."
+    }
+  }
+]

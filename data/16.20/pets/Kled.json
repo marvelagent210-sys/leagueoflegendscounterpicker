@@ -1,0 +1,57 @@
+[
+  {
+    "champion": "Kled",
+    "name": "Skaarl",
+    "page": {
+      "title": "Kled",
+      "revid": 4069972
+    },
+    "fields": {
+      "movespeed": {
+        "text": "335 / 1000",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                335,
+                1000
+              ]
+            },
+            "label": "with bonus movement speed, estimated"
+          }
+        ]
+      },
+      "radius": {
+        "text": "80",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 80
+            }
+          }
+        ]
+      },
+      "pathingradius": {
+        "text": "50",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 50
+            }
+          }
+        ]
+      }
+    },
+    "text": {
+      "control": "Autonomous",
+      "targeting": "Untargetable",
+      "movespeed": "335 / 1000",
+      "radius": "80",
+      "pathingradius": "50",
+      "notes": "* Upon dismount, Skaarl will spawn at Kled's location and path towards the nearest brush outside of a minimum radius.\n* Upon entering brush, Skaarl becomes invisible to both teams. Enemy Sweeper Drones grant obscured vision of Skaarl.\n* The time it takes Kled to remount is not dependent on his proximity to Skaarl; Kled will remount even if Skaarl does not reach him in time.\n* Once spawned, Skaarl gains bonus movement speed. If Skaarl's path is blocked, she additionally becomes ghosted.\n** Skaarl sometimes does not gain bonus movement speed.\n* Skaarl will appear on the map as a minion despite being untargetable and invulnerable."
+    }
+  }
+]

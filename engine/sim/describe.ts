@@ -105,6 +105,8 @@ export function effectText(effect: Effect): string {
       return `cuts ${effect.ability}'s cooldown by ${effect.seconds !== undefined ? `${num(effect.seconds)} s` : pct(effect.fraction ?? 0)}`;
     case "mark":
       return `marks it "${effect.key}" for ${num(effect.duration)} s`;
+    case "attach":
+      return `carried ${num(effect.offset)} units from the caster for ${num(effect.duration)} s`;
     case "caster":
       return `to itself: ${effect.effects.map(effectText).join("; ")}`;
   }
@@ -126,6 +128,11 @@ export function deliveryText(delivery: Delivery): string {
       return `dash ${delivery.direction} ${delivery.minDistance !== undefined ? `${num(delivery.minDistance)}–` : ""}${num(delivery.distance)} units at ${num(delivery.speed)}/s${delivery.hitRadius !== undefined ? `, hits within ${num(delivery.hitRadius)}` : ""}${delivery.through ? ", through the enemy" : ""}`;
     case "blink":
       return `blink ${delivery.direction} ${num(delivery.distance)} units`;
+    case "field": {
+      const where = delivery.attached ? `around itself${delivery.offset ? `, ${num(delivery.offset)} units ahead` : ""}` : `up to ${num(delivery.range)} away`;
+      const timing = `${delivery.delay ? `after ${num(delivery.delay)} s, ` : ""}for ${num(delivery.duration)} s, pulsing every ${num(delivery.interval)} s`;
+      return `field of ${num(delivery.radius)} radius ${where}, ${timing}${delivery.onOwner?.length ? `; on itself inside: ${effectsText(delivery.onOwner)}` : ""}`;
+    }
     case "area": {
       const bands = (delivery.bands ?? []).map((b) => `${num(b.from)}–${num(b.to)}: ${b.onHit.map(effectText).join("; ")}`);
       return `area ${num(delivery.near)} to ${num(delivery.far)} units ahead${delivery.centered ? " (by the enemy's center)" : ""}, lands after ${num(delivery.delay)} s${bands.length ? `; bands ${bands.join(" / ")}` : ""}`;

@@ -1,0 +1,204 @@
+[
+  {
+    "champion": "Elise",
+    "name": "Spiderling",
+    "page": {
+      "title": "Elise",
+      "revid": 4061128
+    },
+    "fields": {
+      "gold": {
+        "text": "5",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 5
+            }
+          }
+        ]
+      },
+      "exp": {
+        "text": "0",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0
+            }
+          }
+        ]
+      },
+      "hp": {
+        "text": "85 – 390 (based on level)",
+        "values": [
+          {
+            "series": {
+              "kind": "level",
+              "values": [
+                85,
+                95,
+                105,
+                115,
+                125,
+                135,
+                145,
+                160,
+                175,
+                190,
+                210,
+                230,
+                250,
+                275,
+                300,
+                325,
+                355,
+                390
+              ]
+            }
+          }
+        ]
+      },
+      "damage": {
+        "text": "10 / 20 / 30 / 40 (+ 15% AP)",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                10,
+                20,
+                30,
+                40
+              ]
+            }
+          }
+        ]
+      },
+      "range": {
+        "text": "100",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 100
+            },
+            "label": "Estimated"
+          }
+        ]
+      },
+      "armor": {
+        "text": "30 / 50 / 70 / 90",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                30,
+                50,
+                70,
+                90
+              ]
+            }
+          }
+        ]
+      },
+      "magicresist": {
+        "text": "50 / 70 / 90 / 110",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                50,
+                70,
+                90,
+                110
+              ]
+            }
+          }
+        ]
+      },
+      "attackspeed": {
+        "text": "0.665 (+ 0 / 5 / 10 / 15 / 20 / 25 (based on Skittering Frenzy's rank)%)",
+        "values": [
+          {
+            "series": {
+              "kind": "variable",
+              "variable": "Skittering Frenzy's rank",
+              "points": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5
+              ],
+              "values": [
+                0,
+                5,
+                10,
+                15,
+                20,
+                25
+              ]
+            }
+          }
+        ]
+      },
+      "movespeed": {
+        "text": "350",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 350
+            }
+          }
+        ]
+      },
+      "radius": {
+        "text": "1",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 1
+            }
+          }
+        ]
+      },
+      "pathingradius": {
+        "text": "1",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 1
+            }
+          }
+        ]
+      }
+    },
+    "text": {
+      "gold": "5",
+      "exp": "0",
+      "hp": "85 – 390 (based on level)",
+      "damagemodifier": "75% damage from area damage",
+      "damage": "10 / 20 / 30 / 40 (+ 15% AP)",
+      "damagetype": "magic",
+      "range": "100",
+      "armor": "30 / 50 / 70 / 90",
+      "magicresist": "50 / 70 / 90 / 110",
+      "attackspeed": "0.665 (+ 0% – 25% (based on Skittering Frenzy's rank))",
+      "movespeed": "350",
+      "radius": "1",
+      "pathingradius": "1",
+      "control": "Prioritize Elise's most recently attacked target.",
+      "targeting": "Minion, does not count towards the minion kill tracking score",
+      "spelleffects": "Spiderlings' basic attacks apply spell effects as area damage.",
+      "onhit": "Spiderlings' attacks can be mitigated by block, dodge, and blind, as well as stopped by Disarm.",
+      "abilities": ";Vile Cluster\nThe Spiderling benefits from Skittering Frenzy active, and will vanish with Elise when she activates Rappel.\n\n;Nest\nThe Spiderling regenerates health over time, and is instantly restored to full health if Elise switches to Human Form with maximum Spiderlings.\n\n;Pounce\nThe Spiderling dashes to enemies targeted by Venomous Bite."
+    }
+  }
+]

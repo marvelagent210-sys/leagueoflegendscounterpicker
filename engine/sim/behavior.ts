@@ -20,15 +20,17 @@ import { type CCType, IMMOBILIZING } from "../rules/crowdControl";
 import { effectiveResist, resistMultiplier } from "../rules/damage";
 import { averageCritFactor } from "../rules/defense";
 import { toTicks } from "../rules/time";
-import { EPSILON, attackRange, attackTiming, canCast, canStartAttack, empowerStatus, heldInPlace, heldUntil, inAttackRange, inReach } from "./actions";
-import { edgeDistance, isUntargetable } from "./combat";
+import { EPSILON, attackRange, attackTiming, canCast, canStartAttack, canStartAttackOnPet, empowerStatus, heldInPlace, heldUntil, inAttackRange, inReach } from "./actions";
+import { canTarget, edgeDistance, isUntargetable } from "./combat";
 import { canAttack, canMove, ccTypes, derive, evaluate } from "./derived";
+import { abilityOf } from "./forms";
 import { hitChance } from "./hitModel";
 import type { AbilitySpec, Effect, Formula, StateType } from "./spec";
-import { type Aim, type Mode, type Side, type Unit, type World, other } from "./state";
+import { type Aim, type Mode, type Pet, type Side, type Unit, type World, other } from "./state";
 
 export type Command =
-  | { kind: "attack" }
+  /** A basic attack on the enemy champion, or on a pet (by id). */
+  | { kind: "attack"; pet?: number }
   /** `dodge`: the missile or area (by id) a dash or blink is cast to get out of. `aim`: where a location-targeted dash goes. */
   | { kind: "cast"; ability: string; dodge?: number; aim?: Aim }
   /** Walk toward the enemy (1), away from it (-1), or stop (0). */
@@ -268,7 +270,7 @@ export function threatsTo(world: World, side: Side): Threat[] {
   const held = enemy.action?.kind === "dash" ? enemy.action.resume : undefined;
   for (const action of [enemy.action, held]) {
     if (!action || action.startTick > seenBy) continue;
-    const ability = "ability" in action ? enemy.spec.abilities.find((a) => a.key === action.ability) : undefined;
+    const ability = "ability" in action ? abilityOf(enemy, action.ability) : undefined;
     const now = world.tick;
     if (action.kind === "windup") {
       threats.push(attackThreat(enemy, self, action.launchTick - now + travelTicks(enemy, self, enemy.spec.attack.missileSpeed), action.onHit));
@@ -307,13 +309,13 @@ export function threatsTo(world: World, side: Side): Threat[] {
     const eta = Math.ceil(Math.max(0, Math.abs(self.x - m.x) - self.spec.base.radius) / m.perTick);
     if (m.attack) threats.push({ ...attackThreat(enemy, self, eta, m.attack.bonusOnHit, m.id), projectile: m.projectile });
     else {
-      const ability = enemy.spec.abilities.find((a) => a.key === m.source);
+      const ability = abilityOf(enemy, m.source);
       if (ability) threats.push({ ...abilityThreat(ability, eta, enemy, self, m.onHit, m.id, m.scale, true), projectile: m.projectile });
     }
   }
   for (const z of world.zones) {
     if (z.owner !== enemy.side || z.kind !== "delayedArea" || z.seenTick > seenBy || !z.connects) continue;
-    const ability = enemy.spec.abilities.find((a) => a.key === z.ability);
+    const ability = abilityOf(enemy, z.ability);
     if (!ability) continue;
     const threat = abilityThreat(ability, z.endTick - world.tick, enemy, self, z.onHit ?? [], z.id, z.scale ?? 1, true);
     if (ability.delivery.kind === "area") {
@@ -579,8 +581,29 @@ function offense(view: View, options: OffenseOptions): Command | undefined {
       if (traits.resetsAttack ? self.attackReadyTick > world.tick + 1 : self.attackReadyTick <= world.tick + 1) return { kind: "cast", ability: ability.key };
     }
   }
+  const urgent = petTarget(view, true);
+  if (urgent) return { kind: "attack", pet: urgent.id };
   if (canStartAttack(world, self) && !outrunsWindup(view)) return { kind: "attack" };
+  if (!inAttackRange(self, enemy) || !canTarget(enemy, self)) {
+    const pet = petTarget(view, false);
+    if (pet) return { kind: "attack", pet: pet.id };
+  }
   return undefined;
+}
+
+/**
+ * An enemy pet worth a basic attack now: one its kit marks urgent (`urgent`), or else the
+ * closest pet in reach (for when the enemy champion can't be attacked).
+ */
+function petTarget(view: View, urgentOnly: boolean): Pet | undefined {
+  const { world, self } = view;
+  let best: Pet | undefined;
+  for (const pet of world.pets) {
+    if (pet.owner === self.side || !canStartAttackOnPet(world, self, pet)) continue;
+    if (urgentOnly && !pet.spec.urgent?.(pet, self, world)) continue;
+    if (!best || Math.abs(pet.x - self.x) < Math.abs(best.x - self.x)) best = pet;
+  }
+  return best;
 }
 
 /** Edge-to-edge units the enemy will open up during this unit's windup if it keeps walking away. */
@@ -647,7 +670,7 @@ export const defaultBehavior: Behavior = (view) => {
   const action = self.action;
   if (action && action.kind !== "windup") {
     // Busy: only walking, during casts and channels that allow it.
-    const ability = "ability" in action ? self.spec.abilities.find((a) => a.key === action.ability) : undefined;
+    const ability = "ability" in action ? abilityOf(self, action.ability) : undefined;
     const walks = (action.kind === "cast" && ability?.moveWhileCasting) || (action.kind === "channel" && ability?.channel?.mobile);
     if (!walks) return undefined;
     return { kind: "move", direction: mode === "flee" || self.memory.tradeDone ? -1 : 1 };

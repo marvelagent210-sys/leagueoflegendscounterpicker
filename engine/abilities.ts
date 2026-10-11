@@ -156,3 +156,19 @@ export interface AbilityRecord {
   /** The wiki's notes, one entry per top-level bullet (sub-bullets included). */
   notes: string[];
 }
+
+/**
+ * A unit a champion summons or places (H-28G Evolution Turret, Mist Walker, Tentacle, Powder
+ * Keg), read from the {{Infobox/Pet}} on the champion's wiki page.
+ */
+export interface PetRecord {
+  /** Data Dragon id of the champion. */
+  champion: string;
+  name: string;
+  /** Wiki page and revision the record was read from. */
+  page: { title: string; revid: number };
+  /** Numeric fields by infobox name: hp, damage, range, armor, magicresist, attackspeed, movespeed, radius, ... */
+  fields: Record<string, NumericField>;
+  /** The other fields as displayed text: control, onhit, protection, damagemodifier, abilities, notes, ... */
+  text: Record<string, string>;
+}

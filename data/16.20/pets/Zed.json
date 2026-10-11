@@ -1,0 +1,17 @@
+[
+  {
+    "champion": "Zed",
+    "name": "Shadow",
+    "page": {
+      "title": "Zed",
+      "revid": 4026038
+    },
+    "fields": {},
+    "text": {
+      "sight": "700",
+      "control": "Mimics Razor Shuriken and Shadow Slash whenever Zed casts them, regardless of the range between each other.",
+      "targeting": "Minion (untargetable)",
+      "abilities": ";Mimic\nThe Shadow casts Razor Shuriken and Shadow Slash whenever Zed does.\n* It fires Razor Shuriken towards the same targeted location.\n* If it hits a mimicked ability on the same target as Zed or another Shadow does, a portion of Zed's energy is restored.\n* Mimicked Shadow Slashes slow enemies hit briefly. Multiple slashes do not deal additional damage, but the slow's strength is increased.\n* Mimicked abilities:\n** Store damage dealt on Death Mark.\n** Do not count as ability activations for the purposes of on-cast effects such as Force Pulse passive.\n** Are considered separate casts when they hit the same target (e.g. for the purposes of Electrocute, Conqueror, Eclipse, etc).\n\n;Shadow Swap\nThe Shadow can swap its position with Zed whenever he recasts either Living Shadow or Death Mark, depending on which ability it was summoned from. Zed may only swap places with a Shadow once.\n\n;Shadow Limitation\nThe Shadow disappears as soon as another Shadow is summoned by the same ability it spawned from.\n* Only 1 Shadow each from Living Shadow and Death Mark may be active at a time.\n\n=== General ===\n* Zed always has an arrow next to him pointing in the direction of his Shadows. It has three different colors, each one symbolizes important information about the specific Shadow. They are only visible to Zed.\n\nMultiple_Shadows_with_Arrows.png"
+    }
+  }
+]

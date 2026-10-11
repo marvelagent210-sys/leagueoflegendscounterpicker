@@ -3,7 +3,7 @@
  * settings' kit options, the stat budget, the six scenarios. Pure (no DOM), so it runs in the
  * app's workers and in tests.
  */
-import type { AbilityRecord } from "../../../engine/abilities";
+import type { AbilityRecord, PetRecord } from "../../../engine/abilities";
 import type { BudgetStat, StatPrices } from "../../../engine/budget";
 import { type CompiledKit, compileKit } from "../../../engine/kits/compile";
 import { derive } from "../../../engine/sim/derived";
@@ -69,6 +69,8 @@ export interface MatchupRun {
 export interface SimSource {
   champion(id: string): Champion;
   records(id: string): Promise<AbilityRecord[]>;
+  /** The champion's pets; none for most. */
+  pets(id: string): PetRecord[];
   prices: StatPrices;
 }
 
@@ -82,7 +84,7 @@ export async function kitFor(source: SimSource, id: string, settings: AppSetting
   if (known) return known;
   const module = KITS[id];
   if (!module) throw new Error(`${id} has no simulator kit`);
-  const kit = compileKit(source.champion(id), await source.records(id), module, options);
+  const kit = compileKit(source.champion(id), await source.records(id), module, options, source.pets(id));
   compiled.set(key, kit);
   return kit;
 }

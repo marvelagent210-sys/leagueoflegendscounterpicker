@@ -1,5 +1,5 @@
 /** A simulation worker: loads the dataset once, then runs the matchups it is sent. */
-import type { AbilityRecord } from "../../../engine/abilities";
+import type { AbilityRecord, PetRecord } from "../../../engine/abilities";
 import type { StatPrices } from "../../../engine/budget";
 import type { ChampionDataset } from "../../../engine/types";
 import type { WorkerRequest, WorkerResponse } from "./protocol";
@@ -20,7 +20,11 @@ let source: Promise<SimSource> | undefined;
 
 function load(dataUrl: string): Promise<SimSource> {
   source ??= (async () => {
-    const [dataset, rules] = await Promise.all([fetchJson<ChampionDataset>(`${dataUrl}champions.json`), fetchJson<{ statPrices: StatPrices }>(`${dataUrl}rules.json`)]);
+    const [dataset, rules, pets] = await Promise.all([
+      fetchJson<ChampionDataset>(`${dataUrl}champions.json`),
+      fetchJson<{ statPrices: StatPrices }>(`${dataUrl}rules.json`),
+      fetchJson<Record<string, PetRecord[]>>(`${dataUrl}pets.json`),
+    ]);
     const byId = new Map(dataset.champions.map((champion) => [champion.id, champion]));
     const records = new Map<string, Promise<AbilityRecord[]>>();
     return {
@@ -38,6 +42,7 @@ function load(dataUrl: string): Promise<SimSource> {
         return found;
       },
       prices: rules.statPrices,
+      pets: (id: string) => pets[id] ?? [],
     };
   })();
   return source;

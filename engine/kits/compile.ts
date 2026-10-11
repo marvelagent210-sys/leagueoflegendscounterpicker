@@ -3,15 +3,30 @@
  * ability data through a KitContext and describes each ability in the simulator's terms;
  * compiling it adds the champion's level-20 base stats and basic attack.
  */
-import type { AbilityRecord } from "../abilities";
+import type { AbilityRecord, PetRecord } from "../abilities";
 import type { Behavior } from "../sim/behavior";
 import { baseFighter } from "../sim/fromChampion";
 import type { AbilitySpec, AttackSpec, BaseStats, BudgetHints, Effect, FighterSpec, KitHooks } from "../sim/spec";
 import type { Champion } from "../types";
 import { KitContext, type KitEvidence } from "./context";
 
+/** Another form of the champion (Mega Gnar, Cannon Stance): what differs from the main one. */
+export interface FormDefinition {
+  /** The champion form (champions.json) whose level-20 base stats and attack it starts from; default the first. */
+  championForm?: string;
+  /** Changes to that form's base stats and basic attack. */
+  base?: Partial<BaseStats>;
+  attack?: Partial<AttackSpec>;
+  abilities: AbilitySpec[];
+  behavior?: Behavior;
+}
+
 export interface KitDefinition {
   abilities: AbilitySpec[];
+  /** Name of the form the main definition describes; default the champion form's name. */
+  form?: string;
+  /** The champion's other forms, by name; the kit's hooks switch between them. */
+  forms?: Record<string, FormDefinition>;
   /** Changes to the basic attack: on-hit effects of innates, attack range. */
   attack?: Partial<AttackSpec>;
   /** Changes to base stats from innates. */
@@ -51,15 +66,16 @@ export interface CompiledKit {
   options: Record<string, number>;
 }
 
-export function compileKit(champion: Champion, records: AbilityRecord[], module: KitModule, overrides: Record<string, number> = {}): CompiledKit {
-  const kit = new KitContext(champion, records);
+export function compileKit(champion: Champion, records: AbilityRecord[], module: KitModule, overrides: Record<string, number> = {}, pets: PetRecord[] = []): CompiledKit {
+  const kit = new KitContext(champion, records, pets);
   const options = Object.fromEntries(Object.entries(module.options ?? {}).map(([key, option]) => [key, overrides[key] ?? option.default]));
   for (const [key, option] of Object.entries(module.options ?? {})) kit.assume(`${option.label}: ${options[key]}.`);
   const definition = module.build(kit, options);
   kit.seal();
   const base = baseFighter(champion);
   const keys = new Set<string>();
-  for (const ability of definition.abilities) {
+  const forms = Object.entries(definition.forms ?? {});
+  for (const ability of [...definition.abilities, ...forms.flatMap(([, form]) => form.abilities)]) {
     if (keys.has(ability.key)) throw new Error(`${champion.id} kit: two abilities with key "${ability.key}"`);
     keys.add(ability.key);
   }
@@ -75,5 +91,26 @@ export function compileKit(champion: Champion, records: AbilityRecord[], module:
     ...(definition.budget ? { budget: definition.budget } : {}),
     ...(definition.behavior ? { behavior: definition.behavior } : {}),
   };
+  if (forms.length > 0) {
+    const mainName = definition.form ?? base.name;
+    const all: Record<string, FighterSpec> = { [mainName]: spec };
+    spec.form = mainName;
+    for (const [name, form] of forms) {
+      const championForm = form.championForm === undefined ? champion.forms[0] : champion.forms.find((f) => f.name === form.championForm);
+      if (!championForm) throw new Error(`${champion.id} kit: no champion form "${form.championForm}" (has: ${champion.forms.map((f) => f.name).join(", ")})`);
+      const own = baseFighter(champion, championForm);
+      const behavior = form.behavior ?? definition.behavior;
+      all[name] = {
+        ...spec,
+        name,
+        base: { ...own.base, ...form.base },
+        attack: { ...own.attack, ...form.attack },
+        abilities: form.abilities,
+        ...(behavior ? { behavior } : {}),
+        form: name,
+      };
+    }
+    for (const form of Object.values(all)) form.forms = all;
+  }
   return { champion: champion.id, spec, evidence: kit.evidence, assumptions: kit.assumptions, options };
 }

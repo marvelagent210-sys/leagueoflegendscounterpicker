@@ -16,6 +16,8 @@ import { type DamageType, effectiveResist, mitigate } from "../rules/damage";
 import { type Shield, absorbWithShields, averageCritFactor, healingReceived } from "../rules/defense";
 import { toTicks } from "../rules/time";
 import { derive, evaluate, hasState } from "./derived";
+import { abilityOf, setForm } from "./forms";
+import { terrainGap } from "./terrain";
 import type { AbilitySpec, AttackSplit, BuffStat, Effect, HookContext } from "./spec";
 import { type Side, type Status, type Unit, type World, other } from "./state";
 
@@ -44,6 +46,16 @@ export function isUntargetable(unit: Unit, by?: Unit): boolean {
   if (hasState(unit, "untargetable") || inStasis(unit)) return true;
   if (!by) return false;
   return unit.statuses.some((s) => s.kind === "state" && s.key === "untargetableFar" && Math.abs(by.x - (s.x ?? unit.x)) > s.value);
+}
+
+/** Invisible: can't be targeted or aimed at, though areas and missiles in flight still hit it. */
+export function isHidden(unit: Unit): boolean {
+  return hasState(unit, "invisible");
+}
+
+/** Whether `by` can start an attack or a unit-targeted spell on the unit. */
+export function canTarget(unit: Unit, by: Unit): boolean {
+  return !isUntargetable(unit, by) && !isHidden(unit);
 }
 
 /** Units per tick a unit at `from` moves to get closer to `to`. */
@@ -132,8 +144,9 @@ export function dealDamage(world: World, source: Unit, target: Unit, raw: number
   target.totals.damageTaken += removed;
   source.totals.damageDealt += removed;
   log(world, source.side, `${ctx.ability ?? (ctx.attack ? "attack" : "effect")} deals ${Math.round(mitigated)} ${type} damage${mitigated > left ? ` (${Math.round(mitigated - left)} absorbed)` : ""}`);
-  if (ctx.attack && s.lifeSteal > 0) heal(world, source, removed * s.lifeSteal);
-  if (ctx.lifesteal) heal(world, source, removed * ctx.lifesteal);
+  if (target.hp <= 0) lethal(world, target);
+  if (ctx.attack && s.lifeSteal > 0) heal(world, source, removed * s.lifeSteal, false, true);
+  if (ctx.lifesteal) heal(world, source, removed * ctx.lifesteal, false, true);
   const report = { amount: removed, mitigated, raw, damageType: type };
   const taken = target.spec.hooks?.onDamageTaken;
   if (taken && mitigated > 0) runHook(() => taken({ ...hookContext(world, target), ...report }));
@@ -145,11 +158,23 @@ export function dealDamage(world: World, source: Unit, target: Unit, raw: number
 }
 
 /**
- * Heals a unit; Grievous Wounds cuts healing and health regeneration alike. A unit brought to
- * 0 health this tick is dying and can't be healed back.
+ * A unit brought to 0 health: its kit may keep it alive (onLethal), as Glory in Death and
+ * Skaarl do. The hook runs whatever the hook nesting depth, since it only ever saves a unit.
  */
-export function heal(world: World, unit: Unit, amount: number, regeneration = false): void {
+function lethal(world: World, unit: Unit): void {
+  const hook = unit.spec.hooks?.onLethal;
+  if (!hook || !unit.alive) return;
+  if (hook(hookContext(world, unit)) && unit.hp <= 0) throw new Error(`${unit.spec.name} kit: onLethal kept the unit alive without giving it health`);
+}
+
+/**
+ * Heals a unit; Grievous Wounds cuts healing and health regeneration alike. A unit brought to
+ * 0 health this tick is dying and can't be healed back. Units under "noHealing" (Glory in
+ * Death) are healed only by life steal and omnivamp (`lifesteal`).
+ */
+export function heal(world: World, unit: Unit, amount: number, regeneration = false, lifesteal = false): void {
   if (!unit.alive || unit.hp <= 0 || amount <= 0) return;
+  if (!lifesteal && hasState(unit, "noHealing")) return;
   const grievous = unit.statuses.some((s) => s.kind === "grievousWounds");
   const d = derive(unit);
   const healed = Math.min(d.maxHp - unit.hp, healingReceived(amount * (1 + d.healingIncrease), grievous));
@@ -177,7 +202,7 @@ function interrupt(world: World, unit: Unit, type: CCType): void {
       log(world, unit.side, `attack windup interrupted by ${type}`);
     }
   } else if (action.kind === "channel") {
-    const ability = unit.spec.abilities.find((a) => a.key === action.ability);
+    const ability = abilityOf(unit, action.ability);
     const moves = ability?.delivery.kind === "dash" || ability?.delivery.kind === "blink";
     const stops = rule.interruptsChannels === "yes" || (rule.interruptsChannels === "movement" && moves);
     if (stops && ability?.channel?.interruptible !== false) {
@@ -224,12 +249,15 @@ function displace(world: World, source: Unit, target: Unit, effect: Extract<Effe
   if (!applyCC(world, source, target, "airborne", duration)) return;
   const ticks = Math.max(1, toTicks(duration));
   const env = world.settings.environment;
-  const intoWall = effect.wallStun !== undefined && direction === "away" && env.walls && effect.distance >= env.wallDistance;
-  let distance = intoWall ? env.wallDistance : effect.distance;
+  // The wall behind the target: the lane's, with walls nearby, or terrain an ability raised.
+  const away = target.x === source.x ? (target.side === 0 ? -1 : 1) : target.x > source.x ? 1 : -1;
+  const wallAt = Math.min(env.walls ? env.wallDistance : Number.POSITIVE_INFINITY, terrainGap(world, target, away));
+  const intoWall = effect.wallStun !== undefined && direction === "away" && effect.distance >= wallAt;
+  let distance = intoWall ? wallAt : effect.distance;
   if (effect.to !== undefined) distance = Math.max(0, Math.min(distance, Math.abs(target.x - source.x) - effect.to));
   if (distance > 0) target.forced = { endTick: world.tick + ticks, perTick: ((direction === "away" ? 1 : -1) * distance) / ticks };
   if (intoWall && effect.wallStun !== undefined) {
-    const impact = Math.max(1, Math.round((ticks * env.wallDistance) / effect.distance));
+    const impact = Math.max(1, Math.round((ticks * wallAt) / effect.distance));
     const effects: Effect[] = [...(effect.wallEffects ?? []), { type: "cc", cc: "stun", duration: effect.wallStun }];
     world.scheduled.push({ tick: world.tick + impact, owner: source.side, target: target.side, effects, scale: 1 });
     log(world, source.side, "knocks the target into a wall");
@@ -246,10 +274,13 @@ export interface HitContext {
   scale: number;
 }
 
-/** Becoming untargetable drops every attack and targeted spell aimed at the unit. */
-function dropTargeting(world: World, unit: Unit): void {
+/**
+ * Becoming untargetable drops every attack and targeted spell aimed at the unit; becoming
+ * invisible drops those still being wound up or cast, but not missiles already on their way.
+ */
+function dropTargeting(world: World, unit: Unit, missiles = true): void {
   const enemy = world.units[other(unit.side)];
-  world.missiles = world.missiles.filter((m) => !(m.owner === enemy.side && m.homing));
+  if (missiles) world.missiles = world.missiles.filter((m) => !(m.owner === enemy.side && m.homing));
   const action = enemy.action;
   if (action?.kind === "windup") {
     // The attack is lost and the attack timer resets, as with any cancelled windup.
@@ -257,7 +288,7 @@ function dropTargeting(world: World, unit: Unit): void {
     enemy.attackReadyTick = world.tick;
   }
   if (action?.kind === "cast") {
-    const ability = enemy.spec.abilities.find((a) => a.key === action.ability);
+    const ability = abilityOf(enemy, action.ability);
     // A targeted spell whose target vanishes during its cast time is cancelled without a cooldown.
     if (ability?.delivery.kind === "target") enemy.action = undefined;
   }
@@ -312,6 +343,7 @@ export function applyEffect(world: World, caster: Unit, target: Unit, effect: Ef
         x: target.x,
       });
       if (effect.state === "untargetable" || effect.state === "stasis") dropTargeting(world, target);
+      if (effect.state === "invisible") dropTargeting(world, target, false);
       return;
     case "stat": {
       const value = evaluate(effect.amount, caster, target);
@@ -391,6 +423,7 @@ export function applyEffect(world: World, caster: Unit, target: Unit, effect: Ef
       caster.totals.damageDealt += removed;
       target.hp = Math.min(target.hp, floor);
       log(world, caster.side, floor === 0 ? "executes" : "execute stopped by a minimum health threshold");
+      if (target.hp <= 0) lethal(world, target);
       return;
     }
     case "resource":
@@ -419,6 +452,9 @@ export function applyEffect(world: World, caster: Unit, target: Unit, effect: Ef
         ...(ctx.ability ? { ability: ctx.ability.key } : {}),
         scale: ctx.scale,
       });
+      return;
+    case "attach":
+      target.attached = { offset: effect.offset, dir: target.x === caster.x ? (target.side === 0 ? -1 : 1) : target.x > caster.x ? 1 : -1, endTick: tick + toTicks(effect.duration) };
       return;
     case "projectileWall": {
       const enemy = world.units[other(caster.side)];
@@ -555,6 +591,9 @@ export function hookContext(world: World, unit: Unit, ability?: AbilitySpec): Ho
     },
     regenerate(amount: number) {
       heal(world, unit, amount, true);
+    },
+    transform(form, hp) {
+      setForm(world, unit, form, hp);
     },
     log(text: string) {
       log(world, unit.side, text);

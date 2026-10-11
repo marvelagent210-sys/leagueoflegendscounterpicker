@@ -86,6 +86,9 @@ function openingReach(ability: AbilitySpec, self: FighterSpec, enemy: FighterSpe
       return d.range - self.base.radius;
     case "circle":
       return d.delay > OPENER_MAX_DELAY ? undefined : d.range + d.radius - self.base.radius;
+    case "field":
+      if (d.attached) return (d.offset ?? 0) + d.radius - radii;
+      return (d.delay ?? 0) > OPENER_MAX_DELAY ? undefined : d.range + d.radius - self.base.radius;
     case "aura":
       return d.radius - radii;
     default:
