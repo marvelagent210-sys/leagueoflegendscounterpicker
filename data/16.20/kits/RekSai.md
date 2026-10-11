@@ -139,6 +139,7 @@ Source: [Template:Data Rek'Sai/Unburrow](https://wiki.leagueoflegends.com/en-us/
 | Field | Value |
 |---|---|
 | Static cooldown | 1 |
+| Per-target cooldown | 10 / 9 / 8 / 7 / 6 |
 | Cast time | none |
 | Effect radius | 220 • 250 • 75 |
 | Cooldown starts | special |

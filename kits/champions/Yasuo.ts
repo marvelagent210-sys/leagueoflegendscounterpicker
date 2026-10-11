@@ -28,11 +28,10 @@ const yasuo: KitModule = {
     const stormSeconds = q.quoted("Yasuo generates a stack of Gathering Storm for 6 seconds", 0);
     const knockUp = q.quoted("additionally knocks up enemies hit for 0.9 seconds", 0);
     const thrustCast = 0.35;
-    // Sweeping Blade on the same target only "once every few seconds".
-    const sameTarget = 6;
+    // Sweeping Blade on the same target: its per-target cooldown, from the start of the dash.
+    const sameTarget = e.field("targetCooldown");
     const minionDash = 1.5;
     const ride = e.formula("Bonus Damage per Stack");
-    kit.assume(`Sweeping Blade can be used on the same enemy once every ${sameTarget} seconds (the wiki only says "every few seconds").`);
     kit.assume(`With a minion wave, Sweeping Blade through minions gives a dash toward or away from the enemy every ${minionDash} seconds.`);
     kit.assume("Yasuo starts every fight with full Flow; Steel Tempest's cast time is taken at 0 bonus attack speed.");
     kit.assume("Last Breath's armor penetration on critical strikes isn't modeled.");

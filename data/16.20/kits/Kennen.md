@@ -176,3 +176,73 @@ Cooldowns and costs of each slot's main ability, wiki vs game files:
 | E: Lightning Rush | cooldown | 10 / 9 / 8 / 7 / 6 | 10 / 9 / 8 / 7 / 6 | yes |
 | E: Lightning Rush | cost | 80 / 80 / 80 / 80 / 80 | 80 / 80 / 80 / 80 / 80 | yes |
 | R: Slicing Maelstrom | cooldown | 120 / 120 / 120 | 120 / 120 / 120 | yes |
+
+## Duel simulator kit (level 20, every ability at max rank)
+
+What the duel simulator fights with (`kits/champions/Kennen.ts`): every number is read from the wiki's ability data above at level 20; what the wiki doesn't say is listed under assumptions. Ratios are fractions of the stat (60% AD is 0.6 × AD).
+
+- Basic attack: range 550, missile at 1700/s.
+
+| Key | Ability | Cooldown (s) | Cast time (s) | Cost | Delivery | On the enemy | On itself |
+|---|---|--:|--:|---|---|---|---|
+| Q | Thundering Shuriken | 4 | 0.175 | 40 | skillshot 1050 long, 100 wide, at 1700/s | 275 + 75% AP magic damage | – |
+| W | Electrical Surge | 6 | 0.25 | 40 | around itself, 775 units | 170 + 80% AP magic damage | – |
+| E | Lightning Rush | 6 | 0 | 80 | dash toward 670 units at 670/s, hits within 200, through the enemy | 240 + 80% AP magic damage | ghosted for 2 s; noAttacks for 2 s |
+| E2 | Lightning Rush (recast) | 0 | 0 | – | self; recast of E within 1.5 s, after 0.5 s, automatic | – | attackSpeed 0.9 for 4 s |
+| E3 | Lightning Rush (away) | 6 | 0 | 80 | dash away 1340 units at 670/s | – | ghosted for 2 s; noAttacks for 2 s |
+| R | Slicing Maelstrom | 120 | 0.25 | – | field of 550 radius around itself, for 3 s, pulsing every 0.5 s | marks it "maelstrom" for 0.1 s | armor 75 for 3 s; MR 75 for 3 s |
+
+Effects marked by a mark or a role are completed by the kit's hooks (see the kit's source).
+
+### Assumptions
+
+- Kennen starts every fight with a full Electrical Surge, as he does after respawning.
+- Lightning Rush runs 670 units through the enemy (1 s at twice his base speed), then its recast gives the attack speed; fleeing, it runs the full 2 s away.
+- Lightning Rush's recast lets attack speed exceed the cap; the simulator's cap still applies (it rarely binds at level 20).
+
+### Wiki values read (42)
+
+| Ability | Value | Revision |
+|---|---|---|
+| Mark of the Storm | apply a stack of Mark of the Storm to enemies hit for 6 seconds | [3932481](https://wiki.leagueoflegends.com/en-us/Template:Data_Kennen/Mark_of_the_Storm?oldid=3932481) |
+| Mark of the Storm | stacking up to 3 times | [3932481](https://wiki.leagueoflegends.com/en-us/Template:Data_Kennen/Mark_of_the_Storm?oldid=3932481) |
+| Mark of the Storm | consumes them all to stun them for 1.25 seconds and restore 25 energy | [3932481](https://wiki.leagueoflegends.com/en-us/Template:Data_Kennen/Mark_of_the_Storm?oldid=3932481) |
+| Mark of the Storm | The stun duration is reduced to 0.5 seconds if this occurs on the same target again within 6 seconds | [3932481](https://wiki.leagueoflegends.com/en-us/Template:Data_Kennen/Mark_of_the_Storm?oldid=3932481) |
+| Mark of the Storm | the target gains a 6-second stack immunity against Slicing Maelstrom | [3932481](https://wiki.leagueoflegends.com/en-us/Template:Data_Kennen/Mark_of_the_Storm?oldid=3932481) |
+| Electrical Surge | stacking up to 4 times | [4057481](https://wiki.leagueoflegends.com/en-us/Template:Data_Kennen/Electrical_Surge?oldid=4057481) |
+| Electrical Surge | Bonus Magic Damage: 35 / 45 / 55 / 65 / 75 (+ 80 / 90 / 100 / 110 / 120% bonus AD) (+ 35% AP) | [4057481](https://wiki.leagueoflegends.com/en-us/Template:Data_Kennen/Electrical_Surge?oldid=4057481) |
+| Electrical Surge | This damage can critically strike for 140% damage | [4057481](https://wiki.leagueoflegends.com/en-us/Template:Data_Kennen/Electrical_Surge?oldid=4057481) |
+| Electrical Surge | Kennen gains maximum stacks of Electrical Surge upon respawning | [4057481](https://wiki.leagueoflegends.com/en-us/Template:Data_Kennen/Electrical_Surge?oldid=4057481) |
+| Electrical Surge | effectRadius: 775 | [4057481](https://wiki.leagueoflegends.com/en-us/Template:Data_Kennen/Electrical_Surge?oldid=4057481) |
+| Lightning Rush | Kennen turns into lightning for 2 seconds | [4078259](https://wiki.leagueoflegends.com/en-us/Template:Data_Kennen/Lightning_Rush?oldid=4078259) |
+| Lightning Rush | gaining ghosting and 100% bonus movement speed | [4078259](https://wiki.leagueoflegends.com/en-us/Template:Data_Kennen/Lightning_Rush?oldid=4078259) |
+| Lightning Rush | restores 40 energy upon damaging at least one enemy | [4078259](https://wiki.leagueoflegends.com/en-us/Template:Data_Kennen/Lightning_Rush?oldid=4078259) |
+| Lightning Rush | Lightning Rush can be recast after 0.5 seconds | [4078259](https://wiki.leagueoflegends.com/en-us/Template:Data_Kennen/Lightning_Rush?oldid=4078259) |
+| Lightning Rush | Bonus Attack Speed: 50 / 60 / 70 / 80 / 90% | [4078259](https://wiki.leagueoflegends.com/en-us/Template:Data_Kennen/Lightning_Rush?oldid=4078259) |
+| Lightning Rush | exceed the attack speed cap by the amount gained for 4 seconds | [4078259](https://wiki.leagueoflegends.com/en-us/Template:Data_Kennen/Lightning_Rush?oldid=4078259) |
+| Lightning Rush | effectRadius: 200 | [4078259](https://wiki.leagueoflegends.com/en-us/Template:Data_Kennen/Lightning_Rush?oldid=4078259) |
+| Slicing Maelstrom | Kennen summons a storm around himself for 3 seconds | [4051345](https://wiki.leagueoflegends.com/en-us/Template:Data_Kennen/Slicing_Maelstrom?oldid=4051345) |
+| Slicing Maelstrom | strikes lightning bolts down on nearby enemies every 0.5 seconds | [4051345](https://wiki.leagueoflegends.com/en-us/Template:Data_Kennen/Slicing_Maelstrom?oldid=4051345) |
+| Slicing Maelstrom | Magic Damage Per Bolt: 40 / 80 / 120 (+ 25% AP) | [4051345](https://wiki.leagueoflegends.com/en-us/Template:Data_Kennen/Slicing_Maelstrom?oldid=4051345) |
+| Slicing Maelstrom | gains 10% additional damage for each subsequent strike a target has received | [4051345](https://wiki.leagueoflegends.com/en-us/Template:Data_Kennen/Slicing_Maelstrom?oldid=4051345) |
+| Slicing Maelstrom | up to a combined total of 150% of the initial strike's damage | [4051345](https://wiki.leagueoflegends.com/en-us/Template:Data_Kennen/Slicing_Maelstrom?oldid=4051345) |
+| Slicing Maelstrom | Bonus Resistances: 25 / 50 / 75 | [4051345](https://wiki.leagueoflegends.com/en-us/Template:Data_Kennen/Slicing_Maelstrom?oldid=4051345) |
+| Slicing Maelstrom | castTime: 0.25 | [4051345](https://wiki.leagueoflegends.com/en-us/Template:Data_Kennen/Slicing_Maelstrom?oldid=4051345) |
+| Slicing Maelstrom | Kennen can move during Slicing Maelstrom's cast time | [4051345](https://wiki.leagueoflegends.com/en-us/Template:Data_Kennen/Slicing_Maelstrom?oldid=4051345) |
+| Lightning Rush | Magic Damage: 80 / 120 / 160 / 200 / 240 (+ 80% AP) | [4078259](https://wiki.leagueoflegends.com/en-us/Template:Data_Kennen/Lightning_Rush?oldid=4078259) |
+| Thundering Shuriken | cooldown: 7 / 6.25 / 5.5 / 4.75 / 4 | [3936401](https://wiki.leagueoflegends.com/en-us/Template:Data_Kennen/Thundering_Shuriken?oldid=3936401) |
+| Thundering Shuriken | cost: 60 / 55 / 50 / 45 / 40 | [3936401](https://wiki.leagueoflegends.com/en-us/Template:Data_Kennen/Thundering_Shuriken?oldid=3936401) |
+| Thundering Shuriken | castTime: 0.175 | [3936401](https://wiki.leagueoflegends.com/en-us/Template:Data_Kennen/Thundering_Shuriken?oldid=3936401) |
+| Thundering Shuriken | targetRange: 1050 | [3936401](https://wiki.leagueoflegends.com/en-us/Template:Data_Kennen/Thundering_Shuriken?oldid=3936401) |
+| Thundering Shuriken | width: 100 | [3936401](https://wiki.leagueoflegends.com/en-us/Template:Data_Kennen/Thundering_Shuriken?oldid=3936401) |
+| Thundering Shuriken | speed: 1700 | [3936401](https://wiki.leagueoflegends.com/en-us/Template:Data_Kennen/Thundering_Shuriken?oldid=3936401) |
+| Thundering Shuriken | Magic Damage: 75 / 125 / 175 / 225 / 275 (+ 75% AP) | [3936401](https://wiki.leagueoflegends.com/en-us/Template:Data_Kennen/Thundering_Shuriken?oldid=3936401) |
+| Electrical Surge | cooldown: 13 / 11.25 / 9.5 / 7.75 / 6 | [4057481](https://wiki.leagueoflegends.com/en-us/Template:Data_Kennen/Electrical_Surge?oldid=4057481) |
+| Electrical Surge | cost: 40 | [4057481](https://wiki.leagueoflegends.com/en-us/Template:Data_Kennen/Electrical_Surge?oldid=4057481) |
+| Electrical Surge | castTime: 0.25 | [4057481](https://wiki.leagueoflegends.com/en-us/Template:Data_Kennen/Electrical_Surge?oldid=4057481) |
+| Electrical Surge | Magic Damage: 70 / 95 / 120 / 145 / 170 (+ 80% AP) | [4057481](https://wiki.leagueoflegends.com/en-us/Template:Data_Kennen/Electrical_Surge?oldid=4057481) |
+| Lightning Rush | cooldown: 10 / 9 / 8 / 7 / 6 | [4078259](https://wiki.leagueoflegends.com/en-us/Template:Data_Kennen/Lightning_Rush?oldid=4078259) |
+| Lightning Rush | cost: 80 | [4078259](https://wiki.leagueoflegends.com/en-us/Template:Data_Kennen/Lightning_Rush?oldid=4078259) |
+| Slicing Maelstrom | cooldown: 120 | [4051345](https://wiki.leagueoflegends.com/en-us/Template:Data_Kennen/Slicing_Maelstrom?oldid=4051345) |
+| Slicing Maelstrom | effectRadius: 550 | [4051345](https://wiki.leagueoflegends.com/en-us/Template:Data_Kennen/Slicing_Maelstrom?oldid=4051345) |
+| Slicing Maelstrom | Total Single-Target Damage: 300 / 600 / 900 (+ 187.5% AP) | [4051345](https://wiki.leagueoflegends.com/en-us/Template:Data_Kennen/Slicing_Maelstrom?oldid=4051345) |

@@ -277,7 +277,19 @@
       "revid": 4060367
     },
     "ranks": 1,
-    "fields": {},
+    "fields": {
+      "targetCooldown": {
+        "text": "8",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 8
+            }
+          }
+        ]
+      }
+    },
     "flags": {
       "targeting": [
         "Passive"

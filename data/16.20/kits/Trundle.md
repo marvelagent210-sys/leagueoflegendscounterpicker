@@ -201,3 +201,67 @@ All 1 level-based formulas in the game files (1 linked to wiki values above):
 | Spell | Calculation | Rule | Level 1 | Level 18 | Level 20 |
 |---|---|---|--:|--:|--:|
 | TrundleDiseaseOverseer | RegenPercent | linear 0.018 → 0.055 over levels 1-18, continues past 18 | 0.018 | 0.055 | 0.0593529 |
+
+## Duel simulator kit (level 20, every ability at max rank)
+
+What the duel simulator fights with (`kits/champions/Trundle.ts`): every number is read from the wiki's ability data above at level 20; what the wiki doesn't say is listed under assumptions. Ratios are fractions of the stat (60% AD is 0.6 × AD).
+
+- Basic attack: range 175, melee.
+
+| Key | Ability | Cooldown (s) | Cast time (s) | Cost | Delivery | On the enemy | On itself |
+|---|---|--:|--:|---|---|---|---|
+| Q | Chomp | 3.5 (starts after the empowered attacks) | 0 | 20 | self | – | next 1 attack within 7 s: 90 + 55% AD physical damage (Chomp); slow 75% for 0.1 s; AD -20 for 5 s; to itself: AD 40 for 5 s (+25 range, resets the attack timer, uncancellable) |
+| W | Frozen Domain | 14 | 0 | 40 | field of 775 radius up to 750 away, for 8 s, pulsing every 0.25 s; on itself inside: attackSpeed 1.1 for 0.3 s; moveSpeedPercent 0.52 for 0.3 s; healingIncrease 0.25 for 0.3 s | – | – |
+| E | Pillar of Ice | 15 | 0.25 | 75 | self | – | – |
+| R | Subjugate | 80 | 0.25 | 100 | targeted, 650 range | 15% target's maximum health + 1% of target's maximum health per 100 AP magic damage; 15% target's maximum health + 1% of target's maximum health per 100 AP magic damage over 4 s | – |
+
+Effects marked by a mark or a role are completed by the kit's hooks (see the kit's source).
+
+### Assumptions
+
+- Frozen Domain is laid where the enemy stands.
+- Trundle raises the pillar touching the enemy, its center 150 units past the enemy's: behind it to cut off its retreat (it is knocked 75 units toward him), or, when he is getting away, between them. The knock back takes 0.25 s (the wiki gives no duration); units walk around the pillar.
+- Subjugate's size changes (a few units of attack range) are left out.
+
+### Wiki values read (38)
+
+| Ability | Value | Revision |
+|---|---|---|
+| Chomp | empowers his next basic attack within 7 seconds | [3949665](https://wiki.leagueoflegends.com/en-us/Template:Data_Trundle/Chomp?oldid=3949665) |
+| Chomp | gain 25 bonus range | [3949665](https://wiki.leagueoflegends.com/en-us/Template:Data_Trundle/Chomp?oldid=3949665) |
+| Chomp | slow the target by 75% for 0.1 seconds | [3949665](https://wiki.leagueoflegends.com/en-us/Template:Data_Trundle/Chomp?oldid=3949665) |
+| Chomp | Trundle gains bonus attack damage for 5 seconds | [3949665](https://wiki.leagueoflegends.com/en-us/Template:Data_Trundle/Chomp?oldid=3949665) |
+| Chomp | Bonus Attack Damage: 20 / 25 / 30 / 35 / 40 | [3949665](https://wiki.leagueoflegends.com/en-us/Template:Data_Trundle/Chomp?oldid=3949665) |
+| Chomp | Attack Damage Reduction: 10 / 12.5 / 15 / 17.5 / 20 | [3949665](https://wiki.leagueoflegends.com/en-us/Template:Data_Trundle/Chomp?oldid=3949665) |
+| Frozen Domain | Trundle coats the target location in ice for 8 seconds | [4057475](https://wiki.leagueoflegends.com/en-us/Template:Data_Trundle/Frozen_Domain?oldid=4057475) |
+| Frozen Domain | and 25% increased healing from all sources | [4057475](https://wiki.leagueoflegends.com/en-us/Template:Data_Trundle/Frozen_Domain?oldid=4057475) |
+| Frozen Domain | effectRadius: 775 | [4057475](https://wiki.leagueoflegends.com/en-us/Template:Data_Trundle/Frozen_Domain?oldid=4057475) |
+| Frozen Domain | Bonus Attack Speed: 30 / 50 / 70 / 90 / 110% | [4057475](https://wiki.leagueoflegends.com/en-us/Template:Data_Trundle/Frozen_Domain?oldid=4057475) |
+| Frozen Domain | Bonus Movement Speed: 20 / 28 / 36 / 44 / 52% | [4057475](https://wiki.leagueoflegends.com/en-us/Template:Data_Trundle/Frozen_Domain?oldid=4057475) |
+| Pillar of Ice | Trundle erects a pillar of ice at the target location for 6 seconds | [4008207](https://wiki.leagueoflegends.com/en-us/Template:Data_Trundle/Pillar_of_Ice?oldid=4008207) |
+| Pillar of Ice | Pillar radius: 150 | [4008207](https://wiki.leagueoflegends.com/en-us/Template:Data_Trundle/Pillar_of_Ice?oldid=4008207) |
+| Pillar of Ice | effectRadius (Slow zone radius): 360 • 225 | [4008207](https://wiki.leagueoflegends.com/en-us/Template:Data_Trundle/Pillar_of_Ice?oldid=4008207) |
+| Pillar of Ice | effectRadius (Knockback radius and destination): 360 • 225 | [4008207](https://wiki.leagueoflegends.com/en-us/Template:Data_Trundle/Pillar_of_Ice?oldid=4008207) |
+| Pillar of Ice | Slow: 34 / 38 / 42 / 46 / 50% | [4008207](https://wiki.leagueoflegends.com/en-us/Template:Data_Trundle/Pillar_of_Ice?oldid=4008207) |
+| Pillar of Ice | targetRange: 1000 | [4008207](https://wiki.leagueoflegends.com/en-us/Template:Data_Trundle/Pillar_of_Ice?oldid=4008207) |
+| Subjugate | the other half is applied every second over the next 4 seconds | [4015247](https://wiki.leagueoflegends.com/en-us/Template:Data_Trundle/Subjugate?oldid=4015247) |
+| Subjugate | The target's resistances will be further reduced by 5% per drain tick, up to 20% by the end of the drain (totaling to 40% reduction from the initial 20% reduction on-cast) | [4015247](https://wiki.leagueoflegends.com/en-us/Template:Data_Trundle/Subjugate?oldid=4015247) |
+| Subjugate | The target's resistances will be further reduced by 5% per drain tick | [4015247](https://wiki.leagueoflegends.com/en-us/Template:Data_Trundle/Subjugate?oldid=4015247) |
+| Subjugate | The resistances reduction on the target will linger for 4 seconds after the drain has ended | [4015247](https://wiki.leagueoflegends.com/en-us/Template:Data_Trundle/Subjugate?oldid=4015247) |
+| Subjugate | Initial Healing: 10 / 12.5 / 15% (+ 1% per 100 AP) of the target's maximum health | [4015247](https://wiki.leagueoflegends.com/en-us/Template:Data_Trundle/Subjugate?oldid=4015247) |
+| Subjugate | Healing Per Second: 2.5 / 3.125 / 3.75% (+ 0.25% per 100 AP) of the target's maximum health | [4015247](https://wiki.leagueoflegends.com/en-us/Template:Data_Trundle/Subjugate?oldid=4015247) |
+| Subjugate | Magic Damage Per Second: 2.5 / 3.125 / 3.75% (+ 0.25% per 100 AP) of the target's maximum health | [4015247](https://wiki.leagueoflegends.com/en-us/Template:Data_Trundle/Subjugate?oldid=4015247) |
+| Chomp | cooldown: 3.5 | [3949665](https://wiki.leagueoflegends.com/en-us/Template:Data_Trundle/Chomp?oldid=3949665) |
+| Chomp | cost: 20 | [3949665](https://wiki.leagueoflegends.com/en-us/Template:Data_Trundle/Chomp?oldid=3949665) |
+| Chomp | Bonus Physical Damage: 10 / 30 / 50 / 70 / 90 (+ 15 / 25 / 35 / 45 / 55% AD) | [3949665](https://wiki.leagueoflegends.com/en-us/Template:Data_Trundle/Chomp?oldid=3949665) |
+| Frozen Domain | cooldown: 18 / 17 / 16 / 15 / 14 | [4057475](https://wiki.leagueoflegends.com/en-us/Template:Data_Trundle/Frozen_Domain?oldid=4057475) |
+| Frozen Domain | cost: 40 | [4057475](https://wiki.leagueoflegends.com/en-us/Template:Data_Trundle/Frozen_Domain?oldid=4057475) |
+| Frozen Domain | targetRange: 750 | [4057475](https://wiki.leagueoflegends.com/en-us/Template:Data_Trundle/Frozen_Domain?oldid=4057475) |
+| Pillar of Ice | cooldown: 21 / 19.5 / 18 / 16.5 / 15 | [4008207](https://wiki.leagueoflegends.com/en-us/Template:Data_Trundle/Pillar_of_Ice?oldid=4008207) |
+| Pillar of Ice | cost: 75 | [4008207](https://wiki.leagueoflegends.com/en-us/Template:Data_Trundle/Pillar_of_Ice?oldid=4008207) |
+| Pillar of Ice | castTime: 0.25 | [4008207](https://wiki.leagueoflegends.com/en-us/Template:Data_Trundle/Pillar_of_Ice?oldid=4008207) |
+| Subjugate | cooldown: 120 / 100 / 80 | [4015247](https://wiki.leagueoflegends.com/en-us/Template:Data_Trundle/Subjugate?oldid=4015247) |
+| Subjugate | cost: 100 | [4015247](https://wiki.leagueoflegends.com/en-us/Template:Data_Trundle/Subjugate?oldid=4015247) |
+| Subjugate | castTime: 0.25 | [4015247](https://wiki.leagueoflegends.com/en-us/Template:Data_Trundle/Subjugate?oldid=4015247) |
+| Subjugate | targetRange: 650 | [4015247](https://wiki.leagueoflegends.com/en-us/Template:Data_Trundle/Subjugate?oldid=4015247) |
+| Subjugate | Initial Magic Damage: 10 / 12.5 / 15% (+ 1% per 100 AP) of the target's maximum health | [4015247](https://wiki.leagueoflegends.com/en-us/Template:Data_Trundle/Subjugate?oldid=4015247) |

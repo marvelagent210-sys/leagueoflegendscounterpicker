@@ -134,6 +134,8 @@ export interface AbilityRecord {
     cooldown?: NumericField;
     cooldownStart?: string;
     staticCooldown?: NumericField;
+    /** How long the same target can't be affected again (wiki: "ontargetcdstatic"). */
+    targetCooldown?: NumericField;
     recharge?: NumericField;
     cost?: NumericField;
     costType?: string;

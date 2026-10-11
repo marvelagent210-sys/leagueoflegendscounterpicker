@@ -31,6 +31,7 @@ Source: [Template:Data Singed/Noxious Slipstream](https://wiki.leagueoflegends.c
 
 | Field | Value |
 |---|---|
+| Per-target cooldown | 8 |
 | Effect radius | 225 |
 
 Targeting: Passive · Affects: Self · Damage type: – · Spell shield blocks it: – · Projectile: – · Parry: – · Disabled by grounded: – · Usable while knocked down: –

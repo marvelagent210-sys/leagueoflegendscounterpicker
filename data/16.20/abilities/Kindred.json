@@ -199,7 +199,20 @@
       "revid": 4069806
     },
     "ranks": 1,
-    "fields": {},
+    "fields": {
+      "targetCooldown": {
+        "text": "240",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 240
+            },
+            "label": "Lamb's mark"
+          }
+        ]
+      }
+    },
     "flags": {
       "targeting": [
         "Passive"

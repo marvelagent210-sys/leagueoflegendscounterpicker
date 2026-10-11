@@ -250,9 +250,9 @@ What the duel simulator fights with (`kits/champions/Garen.ts`): every number is
 
 | Key | Ability | Cooldown (s) | Cast time (s) | Cost | Delivery | On the enemy | On itself |
 |---|---|--:|--:|---|---|---|---|
-| Q | Decisive Strike | 8 | 0 | – | self | – | cleanses slow; moveSpeedPercent 0.35 for 3.6 s; next 1 attack within 4.5 s: 150 + 50% AD physical damage; silence for 1.5 s (resets the attack timer, uncancellable) |
+| Q | Decisive Strike | 8 (starts after the empowered attacks) | 0 | – | self | – | cleanses slow; moveSpeedPercent 0.35 for 3.6 s; next 1 attack within 4.5 s: 150 + 50% AD physical damage; silence for 1.5 s (resets the attack timer, uncancellable) |
 | W | Courage | 12 | 0 | – | self | – | damageReduction 0.41 for 4 s; shield of 145 + 18% bonus health for 0.75 s; tenacity 0.6 for 0.75 s |
-| E | Judgment | 6 | 0 | – | self; channel 3 s, 7 + 400% bonus attack speed pulses | each pulse: 20 + 65% AD physical damage, can crit | – |
+| E | Judgment | 6 (starts after the channel) | 0 | – | self; channel 3 s, 7 + 400% bonus attack speed pulses | each pulse: 20 + 65% AD physical damage, can crit | – |
 | R | Demacian Justice | 80 | 0.435 | – | targeted, 400 range | 275 + 35% target's missing health true damage | – |
 
 Effects marked by a mark or a role are completed by the kit's hooks (see the kit's source).

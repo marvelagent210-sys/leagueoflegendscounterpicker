@@ -31,7 +31,7 @@ import { type Aim, type Mode, type Pet, type Side, type Unit, type World, other 
 export type Command =
   /** A basic attack on the enemy champion, or on a pet (by id). */
   | { kind: "attack"; pet?: number }
-  /** `dodge`: the missile or area (by id) a dash or blink is cast to get out of. `aim`: where a location-targeted dash goes. */
+  /** `dodge`: the missile or area (by id) a dash or blink is cast to get out of. `aim`: where a location-targeted dash or field goes. */
   | { kind: "cast"; ability: string; dodge?: number; aim?: Aim }
   /** Walk toward the enemy (1), away from it (-1), or stop (0). */
   | { kind: "move"; direction: -1 | 0 | 1 };
@@ -515,6 +515,9 @@ function worthThrowing(view: View, ability: AbilitySpec): boolean {
   return chance >= 0.35;
 }
 
+/** How far past a targeted finisher's range the champion steps in to use it, in seconds of walking. */
+const FINISH_STEP = 1;
+
 /** Edge-to-edge distance within which a movement speed boost is spent to close the gap. */
 const HASTE_REACH = 900;
 
@@ -529,23 +532,37 @@ interface OffenseOptions {
 function offense(view: View, options: OffenseOptions): Command | undefined {
   const { world, self, enemy } = view;
   if (!enemy.alive) return undefined;
-  const usable = self.spec.abilities.filter((a) => {
+  const eligible = (a: AbilitySpec) => {
     const traits = traitsOf(a);
     if (reactive(a, traits) || (!options.ultimates && a.slot === "R")) return false;
     // Pure escapes are saved for getting away.
-    if (traits.escape && !traits.damage && !traits.cc) return false;
-    return canCast(world, self, a);
-  });
-  for (const ability of usable) {
+    return !(traits.escape && !traits.damage && !traits.cc);
+  };
+  const usable = self.spec.abilities.filter((a) => eligible(a) && canCast(world, self, a));
+  // A targeted finisher that would kill just out of range (a champion spacing at a longer attack range) is worth a step in.
+  let closeIn = false;
+  for (const ability of self.spec.abilities) {
     const threshold = traitsOf(ability).execute;
     const finisher = ability.roles?.includes("finisher");
     if (!threshold && !finisher) continue;
-    if (!inReach(ability, self, enemy)) continue;
+    const ready = usable.includes(ability) && inReach(ability, self, enemy);
+    const d = ability.delivery;
+    const step =
+      !ready &&
+      options.engage &&
+      d.kind === "target" &&
+      eligible(ability) &&
+      canCast(world, self, ability, true) &&
+      Math.abs(self.x - enemy.x) <= d.range + FINISH_STEP * derive(self).moveSpeed;
+    if (!ready && !step) continue;
     const kills = threshold
       ? enemy.hp <= evaluate(threshold, self, enemy) + damageOf(ability.onHit ?? [], self, enemy) * 0.5
       : expectedDamage(enemyEffects(ability), self, enemy) >= enemy.hp + shieldsOf(enemy);
-    if (kills) return { kind: "cast", ability: ability.key };
+    if (!kills) continue;
+    if (ready) return { kind: "cast", ability: ability.key };
+    closeIn = true;
   }
+  if (closeIn && canMove(self) && !self.action) return { kind: "move", direction: 1 };
   const rank = (a: AbilitySpec) => {
     const t = traitsOf(a);
     return t.immobilizes ? 0 : t.cc ? 1 : t.damage ? 2 : t.engage ? 3 : 4;

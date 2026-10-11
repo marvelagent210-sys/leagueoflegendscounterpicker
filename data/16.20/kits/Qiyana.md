@@ -30,6 +30,10 @@ Cooldowns at max rank. Flags: the wiki's interaction flags (yes, no, partly). * 
 
 Source: [Template:Data Qiyana/Royal Privilege](https://wiki.leagueoflegends.com/en-us/Template:Data_Qiyana/Royal_Privilege?oldid=3985639) (revision 3985639). Ranks: 1.
 
+| Field | Value |
+|---|---|
+| Per-target cooldown | 25 |
+
 Targeting: Passive · Affects: Enemies · Damage type: physical · Spell shield blocks it: – · Projectile: – · Parry: unknown · Disabled by grounded: – · Usable while knocked down: –
 
 Innate: Qiyana's basic attacks on-hit and basic abilities deal 15 – 83 (based on level) (+ 25% bonus AD) (+ 30% AP) additional physical damage. This effect cannot occur on the same target more than once every few seconds.

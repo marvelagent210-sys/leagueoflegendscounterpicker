@@ -67,6 +67,7 @@ export function effectText(effect: Effect): string {
       return `${formulaText(effect.amount)} ${effect.damageType} damage${effect.label ? ` (${effect.label})` : ""}${extras.length ? `, ${extras.join(", ")}` : ""}`;
     }
     case "cc":
+      if (effect.cc === "nearsight") return `nearsight to ${num(effect.strength ?? 0)} units for ${num(effect.duration)} s`;
       return `${effect.cc}${effect.strength ? ` ${pct(effect.strength)}` : ""} for ${num(effect.duration)} s`;
     case "displace": {
       const kind = effect.direction === "toward" ? "pull" : effect.distance === 0 ? "knock up" : "knock back";
@@ -105,6 +106,8 @@ export function effectText(effect: Effect): string {
       return `cuts ${effect.ability}'s cooldown by ${effect.seconds !== undefined ? `${num(effect.seconds)} s` : pct(effect.fraction ?? 0)}`;
     case "mark":
       return `marks it "${effect.key}" for ${num(effect.duration)} s`;
+    case "reposition":
+      return `reappears ${num(effect.distance)} units ${effect.direction === "away" ? "away" : "closer"}`;
     case "attach":
       return `carried ${num(effect.offset)} units from the caster for ${num(effect.duration)} s`;
     case "caster":
@@ -123,7 +126,7 @@ export function deliveryText(delivery: Delivery): string {
     case "line":
       return `skillshot ${num(delivery.range)} long, ${num(delivery.width)} wide, ${delivery.speed ? `at ${num(delivery.speed)}/s` : "instant"}`;
     case "circle":
-      return `circle of ${num(delivery.radius)} radius up to ${num(delivery.range)} away, lands after ${num(delivery.delay)} s`;
+      return `circle of ${num(delivery.radius)} radius${delivery.centered ? " (to the target's center)" : ""} up to ${num(delivery.range)} away, lands after ${num(delivery.delay)} s`;
     case "dash":
       return `dash ${delivery.direction} ${delivery.minDistance !== undefined ? `${num(delivery.minDistance)}–` : ""}${num(delivery.distance)} units at ${num(delivery.speed)}/s${delivery.hitRadius !== undefined ? `, hits within ${num(delivery.hitRadius)}` : ""}${delivery.through ? ", through the enemy" : ""}`;
     case "blink":
@@ -144,6 +147,15 @@ export function deliveryText(delivery: Delivery): string {
 export function effectsText(effects: Effect[] | undefined): string {
   return effects && effects.length > 0 ? effects.map(effectText).join("; ") : "–";
 }
+
+/** When a post-effect cooldown starts. */
+const COOLDOWN_AFTER: Record<NonNullable<AbilitySpec["cooldownAfter"]>, string> = {
+  empower: "starts after the empowered attacks",
+  channel: "starts after the channel",
+  dash: "starts after the dash",
+  field: "starts when the area fades",
+  state: "starts when its effect on the caster ends",
+};
 
 /** One simulator ability, described column by column. */
 export interface AbilityDescription {
@@ -166,12 +178,16 @@ export function describeAbility(ability: AbilitySpec): AbilityDescription {
   const onHit = [effectsText(ability.onHit)];
   if (channel?.onTick) onHit.push(`each pulse: ${effectsText(channel.onTick)}`);
   if (channel?.onComplete) onHit.push(`at the end: ${effectsText(channel.onComplete)}`);
-  const onSelf = [ability.onCastStart?.length ? `as the cast starts: ${effectsText(ability.onCastStart)}` : "", ability.onSelf?.length ? effectsText(ability.onSelf) : ""].filter(Boolean);
+  const onSelf = [
+    ability.onCastStart?.length ? `as the cast starts: ${effectsText(ability.onCastStart)}` : "",
+    ability.onSelf?.length ? effectsText(ability.onSelf) : "",
+    channel?.onCompleteSelf?.length ? `when the channel completes: ${effectsText(channel.onCompleteSelf)}` : "",
+  ].filter(Boolean);
   const paidWith = ability.costType === "health" ? " health" : "";
   return {
     key: ability.key,
     name: ability.name,
-    cooldown: num(ability.cooldown),
+    cooldown: `${num(ability.cooldown)}${ability.cooldownAfter ? ` (${COOLDOWN_AFTER[ability.cooldownAfter]})` : ""}`,
     castTime: num(ability.castTime),
     cost: ability.cost === undefined ? "–" : `${typeof ability.cost === "number" ? num(ability.cost) : formulaText(ability.cost)}${paidWith}`,
     delivery: [deliveryText(ability.delivery), ...timing].join("; "),

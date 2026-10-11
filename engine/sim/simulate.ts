@@ -35,6 +35,7 @@ import {
   launchAttack,
   progressChannel,
   progressDash,
+  releaseCooldowns,
   startAttack,
   startCast,
 } from "./actions";
@@ -43,7 +44,7 @@ import { applyEffect, contactGap, dealDamage, directionTo, edgeDistance, heal, h
 import { canMove, ccTypes, derive } from "./derived";
 import { abilityOf } from "./forms";
 import { advancePets } from "./pets";
-import { expireTerrain, terrainLimit } from "./terrain";
+import { aroundFactor, expireTerrain, terrainLimit } from "./terrain";
 import type { FighterSpec } from "./spec";
 import { DEFAULT_SETTINGS, type LogEntry, type Mode, type Side, type SimSettings, type Unit, type World, cloneWorld, newUnit, other } from "./state";
 
@@ -170,6 +171,7 @@ function expire(world: World, unit: Unit): void {
   }
   if (unit.forced && unit.forced.endTick <= world.tick) delete unit.forced;
   expireChains(world, unit);
+  releaseCooldowns(world, unit);
 }
 
 /** Windups and casts due this tick: all are collected before any is applied. */
@@ -277,7 +279,7 @@ function walk(world: World, unit: Unit): void {
   const toward = directionTo(unit, enemy);
   let dx = 0;
   if (unit.forced) {
-    dx = -toward * unit.forced.perTick;
+    dx = unit.forced.over ? unit.forced.perTick : -toward * unit.forced.perTick;
   } else {
     const types = ccTypes(unit);
     const held = [...types].some((t) => CC_RULES[t].movement === "disabled");
@@ -290,12 +292,19 @@ function walk(world: World, unit: Unit): void {
     }
     dx = direction * toward * (derive(unit).moveSpeed / 30);
   }
+  if (unit.forced?.over) {
+    // Thrown over the enemy: no collision, no terrain.
+    unit.x += dx;
+    unit.moved = 0;
+    return;
+  }
   // Champions collide: moving toward the enemy stops where their pathing radii touch.
   if (dx * toward > 0) dx = toward * Math.min(Math.abs(dx), Math.max(0, contactGap(unit, enemy)));
-  // Terrain stops walking and knock backs alike.
-  const limited = terrainLimit(world, unit, dx);
+  // Terrain stops knock backs, and walking into walls; walking around a round obstacle is slower along the line.
+  const walking = !unit.forced;
+  const limited = terrainLimit(world, unit, dx, walking);
   if (limited !== dx && unit.forced) delete unit.forced;
-  dx = limited;
+  dx = walking ? limited * aroundFactor(world, unit, limited) : limited;
   unit.x += dx;
   unit.moved = dx === 0 ? 0 : dx * toward > 0 ? 1 : -1;
 }

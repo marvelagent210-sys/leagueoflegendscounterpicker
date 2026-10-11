@@ -28,6 +28,24 @@
         ]
       },
       "cooldownStart": "post-effect",
+      "targetCooldown": {
+        "text": "10 / 9 / 8 / 7 / 6",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                10,
+                9,
+                8,
+                7,
+                6
+              ]
+            },
+            "label": "Starts upon starting the dash"
+          }
+        ]
+      },
       "castTime": {
         "text": "none",
         "values": []

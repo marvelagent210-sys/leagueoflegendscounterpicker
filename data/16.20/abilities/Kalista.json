@@ -922,6 +922,17 @@
           }
         ]
       },
+      "targetCooldown": {
+        "text": "10",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 10
+            }
+          }
+        ]
+      },
       "recharge": {
         "text": "90 / 80 / 70 / 60 / 50",
         "values": [

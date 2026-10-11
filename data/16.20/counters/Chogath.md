@@ -1,5 +1,44 @@
 # Counters to Cho'Gath (patch 26.20)
 
+## Simulated duels (full confidence)
+
+The duel simulator played each of the 30 other champions with a simulator kit against Cho'Gath: both at level 20 with 15,000 gold of plain stats, each side's spent against the other's, through six scenarios (PLAN.md §6). Scores run from −1 (Cho'Gath wins every time) to +1 (the champion does). Run `npm run duel -- <champion> Chogath --log brawl` to watch a fight.
+
+| # | Champion | Score | You engage | Enemy engages | Brawl | Short trade | Spacing | Escape |
+|--:|---|--:|--:|--:|--:|--:|--:|--:|
+| 1 | Kayle | +0.91 | +1.00 | +1.00 | +1.00 | +0.71 | +1.00 | +0.00 |
+| 2 | Teemo | +0.89 | +1.00 | +1.00 | +1.00 | +0.62 | +1.00 | +0.00 |
+| 3 | Fiora | +0.86 | +1.00 | +1.00 | +1.00 | +0.17 | – | +1.00 |
+| 4 | Quinn | +0.83 | +1.00 | +1.00 | +1.00 | +0.20 | +1.00 | +0.00 |
+| 5 | Poppy | +0.80 | +1.00 | +1.00 | +1.00 | +0.14 | – | +0.00 |
+| 6 | Aatrox | +0.80 | +1.00 | +1.00 | +1.00 | +0.10 | – | +0.00 |
+| 7 | Gwen | +0.78 | +1.00 | +1.00 | +1.00 | +0.04 | – | +0.00 |
+| 8 | Mordekaiser | +0.78 | +1.00 | +1.00 | +1.00 | −0.01 | – | +0.00 |
+| 9 | Darius | +0.75 | +1.00 | +1.00 | +1.00 | −0.19 | – | +0.00 |
+| 10 | Trundle | +0.74 | +1.00 | +1.00 | +1.00 | −0.25 | – | +0.00 |
+| 11 | Volibear | +0.73 | +0.99 | +0.97 | +0.93 | −0.14 | – | +0.00 |
+| 12 | Dr. Mundo | +0.61 | +0.68 | +0.72 | +1.00 | +0.01 | – | +0.00 |
+| 13 | Kennen | +0.47 | +0.31 | +0.31 | +1.00 | +0.10 | +0.93 | +0.00 |
+| 14 | Jax | +0.08 | −1.00 | +0.50 | +1.00 | −0.04 | – | +0.00 |
+| 15 | Nasus | +0.03 | +0.07 | +0.07 | +0.06 | −0.10 | – | +0.00 |
+| 16 | Ornn | −0.17 | −0.04 | −0.06 | −0.70 | +0.10 | – | +0.00 |
+| 17 | Yone | −0.31 | −0.50 | −0.33 | −0.35 | +0.00 | – | +0.00 |
+| 18 | Shen | −0.33 | −0.58 | −0.58 | −0.10 | +0.06 | – | +0.00 |
+| 19 | Garen | −0.76 | −1.00 | −1.00 | −1.00 | +0.08 | – | +0.00 |
+| 20 | Malphite | −0.77 | −1.00 | −1.00 | −1.00 | +0.04 | – | +0.00 |
+| 21 | Camille | −0.78 | −1.00 | −1.00 | −1.00 | +0.00 | – | +0.00 |
+| 22 | Yasuo | −0.78 | −1.00 | −1.00 | −1.00 | −0.01 | – | +0.00 |
+| 23 | Urgot | −0.78 | −1.00 | −1.00 | −1.00 | +0.11 | −1.00 | +0.00 |
+| 24 | Sett | −0.79 | −1.00 | −1.00 | −1.00 | −0.05 | – | +0.00 |
+| 25 | Irelia | −0.79 | −1.00 | −1.00 | −1.00 | −0.05 | – | +0.00 |
+| 26 | Renekton | −0.79 | −1.00 | −1.00 | −1.00 | −0.07 | – | +0.00 |
+| 27 | Pantheon | −0.80 | −1.00 | −1.00 | −1.00 | −0.11 | – | +0.00 |
+| 28 | Riven | −0.80 | −1.00 | −1.00 | −1.00 | −0.12 | – | +0.00 |
+| 29 | Tryndamere | −0.82 | −1.00 | −1.00 | −1.00 | −0.24 | – | +0.00 |
+| 30 | Olaf | −0.82 | −1.00 | −1.00 | −1.00 | −0.24 | – | +0.00 |
+
+## Interaction ledger (partial confidence)
+
 Every champion ranked by what its kit does against Cho'Gath's, from the interaction ledger: projectile blocks, spell shields,
 parries, dash stops, crowd control and its defenses, range and more (PLAN.md §5). This ranking is **partial**: it weighs the
 interactions but doesn't play the fight out. The duel simulator replaces it as each champion's behavior is verified.
@@ -8,71 +47,71 @@ interactions but doesn't play the fight out. The duel simulator replaces it as e
 A hard counter shuts down part of a kit every time it is used (projectile block, attack dodge, attack block, blind, disarm, attack speed slow, attack reflect, dash stop, grounding, range) with an impact of 0.4 or more (0.5 for range).
 Run `npm run matchup -- <champion> Chogath` for the full ledger of a matchup, with sources.
 
-## Top 10
+### Top 10
 
-### 1. Sivir (net +1.78)
+#### 1. Sivir (net +1.78)
 
 - **0.94** range: Sivir's basic attacks reach 375 units farther than Cho'Gath's (500 vs 125 attack range). Cho'Gath has no dash or blink to close the gap. (Sivir basic attacks → Cho'Gath basic attacks)
 - **0.55** spell shield: Spell Shield's spell shield blocks Cho'Gath's Feast. Spell shield for 1.5 s, long enough to use ahead of Feast. A spell shield blocks only the first enemy ability that reaches it. (Sivir E Spell Shield → Cho'Gath R Feast)
 - **0.42** spell shield: Spell Shield's spell shield blocks Cho'Gath's Rupture. Spell shield for 1.5 s, long enough to use ahead of Rupture. A spell shield blocks only the first enemy ability that reaches it. (Sivir E Spell Shield → Cho'Gath Q Rupture)
 
-### 2. Elise (net +1.49)
+#### 2. Elise (net +1.49)
 
 - **0.65** range: Elise's basic attacks reach 425 units farther than Cho'Gath's (550 vs 125 attack range). Cho'Gath has no dash or blink to close the gap. (Elise basic attacks → Cho'Gath basic attacks)
 - **0.55** untargetable: Rappel makes Elise untargetable, dodging Cho'Gath's Feast. Untargetable for 0.6 s; Feast takes 0.25 s to land, enough to react. (Elise E Rappel → Cho'Gath R Feast)
 - **0.42** untargetable: Rappel makes Elise untargetable, dodging Cho'Gath's Rupture. Untargetable for 0.6 s; Rupture takes 0.5 s to land, enough to react. (Elise E Rappel → Cho'Gath Q Rupture)
 
-### 3. Kindred (net +1.43)
+#### 3. Kindred (net +1.43)
 
 - **0.94** range: Kindred's basic attacks reach 375 units farther than Cho'Gath's (500 vs 125 attack range). Cho'Gath has no dash or blink to close the gap. (Kindred basic attacks → Cho'Gath basic attacks)
 - **0.39** invulnerable: Lamb's Respite makes Kindred invulnerable to Cho'Gath's Feast. Invulnerable for ?; Feast takes 0.25 s to land, enough to react. (Kindred R Lamb's Respite → Cho'Gath R Feast)
 - **0.15** invulnerable: Lamb's Respite makes Kindred invulnerable to Cho'Gath's Rupture (its crowd control still applies). Invulnerable for ?; Rupture takes 0.5 s to land, enough to react. (Kindred R Lamb's Respite → Cho'Gath Q Rupture)
 
-### 4. Bard (net +1.40)
+#### 4. Bard (net +1.40)
 
 - **0.72** range: Bard's basic attacks reach 375 units farther than Cho'Gath's (500 vs 125 attack range). Cho'Gath has no dash or blink to close the gap. (Bard basic attacks → Cho'Gath basic attacks)
 - **0.47** untargetable: Tempered Fate makes Bard untargetable, dodging Cho'Gath's Feast. Untargetable for 2.5 s, long enough to use ahead of Feast. (Bard R Tempered Fate → Cho'Gath R Feast)
 - **0.31** untargetable: Tempered Fate makes Bard untargetable, dodging Cho'Gath's Rupture. Untargetable for 2.5 s, long enough to use ahead of Rupture. (Bard R Tempered Fate → Cho'Gath Q Rupture)
 
-### 5. Xayah (net +1.40)
+#### 5. Xayah (net +1.40)
 
 - **0.77** range: Xayah's basic attacks reach 400 units farther than Cho'Gath's (525 vs 125 attack range). Cho'Gath has no dash or blink to close the gap. (Xayah basic attacks → Cho'Gath basic attacks)
 - **0.42** untargetable: Featherstorm makes Xayah untargetable, dodging Cho'Gath's Feast. Untargetable for 1.5 s, long enough to use ahead of Feast. (Xayah R Featherstorm → Cho'Gath R Feast)
 - **0.31** untargetable: Featherstorm makes Xayah untargetable, dodging Cho'Gath's Rupture. Untargetable for 1.5 s, long enough to use ahead of Rupture. (Xayah R Featherstorm → Cho'Gath Q Rupture)
 
-### 6. Yuumi (net +1.30)
+#### 6. Yuumi (net +1.30)
 
 - **0.70** untargetable: You and Me! makes Yuumi untargetable, dodging Cho'Gath's Rupture. Untargetable for ?; Rupture takes 0.5 s to land, enough to react. Does not destroy inbound projectiles, special cased to be targetable to turrets. (Yuumi W You and Me! → Cho'Gath Q Rupture)
 - **0.64** range: Yuumi's basic attacks reach 300 units farther than Cho'Gath's (425 vs 125 attack range). Cho'Gath has no dash or blink to close the gap. (Yuumi basic attacks → Cho'Gath basic attacks)
 - **0.55** untargetable: You and Me! makes Yuumi untargetable, dodging Cho'Gath's Feast. Untargetable for ?; Feast takes 0.25 s to land, enough to react. Does not destroy inbound projectiles, special cased to be targetable to turrets. (Yuumi W You and Me! → Cho'Gath R Feast)
 - Watch out: Rupture's airborne interrupts Yuumi's Final Chapter (normal channel).
 
-### 7. Kayle (net +1.30)
+#### 7. Kayle (net +1.30)
 
 - **0.72** range: Kayle's basic attacks reach 500 units farther than Cho'Gath's (625 vs 125 attack range). Cho'Gath has no dash or blink to close the gap. (Kayle basic attacks → Cho'Gath basic attacks)
 - **0.47** invulnerable: Divine Judgment makes Kayle invulnerable to Cho'Gath's Feast. Invulnerable for 2.5 s, long enough to use ahead of Feast. (Kayle R Divine Judgment → Cho'Gath R Feast)
 - **0.16** invulnerable: Divine Judgment makes Kayle invulnerable to Cho'Gath's Rupture (its crowd control still applies). Invulnerable for 2.5 s, long enough to use ahead of Rupture. (Kayle R Divine Judgment → Cho'Gath Q Rupture)
 
-### 8. Aurora (net +1.21)
+#### 8. Aurora (net +1.21)
 
 - **0.58** range: Aurora's basic attacks reach 425 units farther than Cho'Gath's (550 vs 125 attack range). Cho'Gath has no dash or blink to close the gap. (Aurora basic attacks → Cho'Gath basic attacks)
 - **0.42** untargetable: Between Worlds makes Aurora untargetable, dodging Cho'Gath's Feast. Untargetable for 0.4 s; Feast takes 0.25 s to land, enough to react. Does not destroy inbound projectiles. (Aurora R Between Worlds → Cho'Gath R Feast)
 - **0.31** untargetable: Between Worlds makes Aurora untargetable, dodging Cho'Gath's Rupture. Untargetable for 0.4 s; Rupture takes 0.5 s to land, enough to react. Does not destroy inbound projectiles. (Aurora R Between Worlds → Cho'Gath Q Rupture)
 
-### 9. Lissandra (net +1.12)
+#### 9. Lissandra (net +1.12)
 
 - **0.47** untargetable: Frozen Tomb makes Lissandra untargetable, dodging Cho'Gath's Feast. Untargetable for 2.5 s, long enough to use ahead of Feast. (Lissandra R Frozen Tomb → Cho'Gath R Feast)
 - **0.44** range: Lissandra's basic attacks reach 425 units farther than Cho'Gath's (550 vs 125 attack range). Cho'Gath has no dash or blink to close the gap. (Lissandra basic attacks → Cho'Gath basic attacks)
 - **0.31** untargetable: Frozen Tomb makes Lissandra untargetable, dodging Cho'Gath's Rupture. Untargetable for 2.5 s, long enough to use ahead of Rupture. (Lissandra R Frozen Tomb → Cho'Gath Q Rupture)
 
-### 10. Vladimir (net +1.11)
+#### 10. Vladimir (net +1.11)
 
 - **0.55** untargetable: Sanguine Pool makes Vladimir untargetable, dodging Cho'Gath's Feast. Untargetable for 2 s, long enough to use ahead of Feast. (Vladimir W Sanguine Pool → Cho'Gath R Feast)
 - **0.44** untargetable: Sanguine Pool makes Vladimir untargetable, dodging Cho'Gath's Rupture. Untargetable for 2 s, long enough to use ahead of Rupture. (Vladimir W Sanguine Pool → Cho'Gath Q Rupture)
 - **0.36** range: Vladimir's basic attacks reach 325 units farther than Cho'Gath's (450 vs 125 attack range). Cho'Gath has no dash or blink to close the gap. (Vladimir basic attacks → Cho'Gath basic attacks)
 - Watch out: Rupture's airborne interrupts Vladimir's Tides of Blood (charge-up).
 
-## Full ranking
+### Full ranking
 
 | # | Champion | Net | For | Against | Hard counters |
 |--:|---|--:|--:|--:|---|

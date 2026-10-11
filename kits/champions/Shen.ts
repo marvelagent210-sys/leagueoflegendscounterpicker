@@ -158,6 +158,7 @@ const shen: KitModule = {
           cooldown: w.cooldown(),
           cost: w.cost(),
           castTime: 0,
+          cooldownAfter: "state",
           // Only where the blade is: Shen in its area, the zone goes up at once.
           usable: (unit) => Math.abs(bladeX(unit) - unit.x) <= refugeRadius,
           delivery: { kind: "self" },
@@ -171,6 +172,7 @@ const shen: KitModule = {
           cooldown: e.cooldown(),
           cost: e.cost(),
           castTime: 0,
+          cooldownAfter: "dash",
           // 800 units a second plus his movement speed.
           delivery: { kind: "dash", direction: "toward", distance: dashMax, minDistance: dashMin, speed: e.field("speed") + (kit.champion.forms[0]?.stats.moveSpeed ?? 340), hitRadius: 0, through: true },
           onHit: [

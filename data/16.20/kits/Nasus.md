@@ -190,7 +190,7 @@ What the duel simulator fights with (`kits/champions/Nasus.ts`): every number is
 
 | Key | Ability | Cooldown (s) | Cast time (s) | Cost | Delivery | On the enemy | On itself |
 |---|---|--:|--:|---|---|---|---|
-| Q | Siphoning Strike | 3.5 | 0 | 20 | self | – | next 1 attack within 10 s: 410 physical damage, can crit (+50 range, resets the attack timer, uncancellable) |
+| Q | Siphoning Strike | 3.5 (starts after the empowered attacks) | 0 | 20 | self | – | next 1 attack within 10 s: 410 physical damage, can crit (+50 range, resets the attack timer, uncancellable) |
 | W | Wither | 11 | 0.25 | 80 | targeted, 700 range | slow 35% for 5 s; cripple 26.25% for 5 s; after 1 s: slow 50% for 4 s; cripple 37.5% for 4 s; after 2 s: slow 65% for 3 s; cripple 48.75% for 3 s; after 3 s: slow 80% for 2 s; cripple 60% for 2 s; after 4 s: slow 95% for 1 s; cripple 71.25% for 1 s | – |
 | E | Spirit Fire | 12 | 0.25 | 100 | circle of 400 radius up to 650 away, lands after 0.264 s | 170 + 60% AP magic damage; 340 + 120% AP magic damage over 5 s; armorReductionPercent 0.5 for 5 s | – |
 | R | Fury of the Sands | 80 | 0.2 | 100 | self | – | health 600 for 15 s; armor 70 for 15 s; MR 70 for 15 s; attackRange 50 for 15 s |

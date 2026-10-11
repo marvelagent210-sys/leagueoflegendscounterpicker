@@ -208,8 +208,8 @@ What the duel simulator fights with (`kits/champions/Renekton.ts`): every number
 |---|---|--:|--:|---|---|---|---|
 | Q | Cull the Meek | 7 | 0 | – | around itself, 400 units | 180 + 100% bonus AD physical damage; to itself: heal 44 + 17% bonus AD | – |
 | Qfury | Cull the Meek (Fury) | 7 | 0 | 50 | around itself, 400 units | 270 + 140% bonus AD physical damage; to itself: heal 132 + 51% bonus AD | – |
-| W | Ruthless Predator | 8 | 0 | – | self | – | next 1 attack within 7 s: 130 + 50% AD physical damage (Ruthless Predator); stun for 0.75 s (+50 range, resets the attack timer) |
-| Wfury | Ruthless Predator (Fury) | 8 | 0 | 50 | self | – | next 1 attack within 7 s: 195 + 125% AD physical damage (Ruthless Predator); stun for 1.5 s (+50 range, resets the attack timer) |
+| W | Ruthless Predator | 8 (starts after the empowered attacks) | 0 | – | self | – | next 1 attack within 7 s: 130 + 50% AD physical damage (Ruthless Predator); stun for 0.75 s (+50 range, resets the attack timer) |
+| Wfury | Ruthless Predator (Fury) | 8 (starts after the empowered attacks) | 0 | 50 | self | – | next 1 attack within 7 s: 195 + 125% AD physical damage (Ruthless Predator); stun for 1.5 s (+50 range, resets the attack timer) |
 | E | Slice and Dice | 10 | 0 | – | dash toward 450 units at 1105/s, hits within 75 | 160 + 90% bonus AD physical damage | – |
 | E2 | Slice and Dice (Dice) | 0 | 0 | – | dash toward 450 units at 1105/s, hits within 75; recast of E within 4 s | 160 + 90% bonus AD physical damage | – |
 | E2fury | Slice and Dice (Dice, Fury) | 0 | 0 | 50 | dash toward 450 units at 1105/s, hits within 75; recast of E within 4 s | 160 + 90% bonus AD physical damage; 250 + 135% bonus AD physical damage; armorReductionPercent 0.35 for 4 s | – |

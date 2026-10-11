@@ -189,7 +189,31 @@
       "revid": 4003791
     },
     "ranks": 1,
-    "fields": {},
+    "fields": {
+      "targetCooldown": {
+        "text": "6 / 5 / 4 / 3 (based on level)",
+        "values": [
+          {
+            "series": {
+              "kind": "variable",
+              "variable": "level",
+              "points": [
+                1,
+                6,
+                11,
+                16
+              ],
+              "values": [
+                6,
+                5,
+                4,
+                3
+              ]
+            }
+          }
+        ]
+      }
+    },
     "flags": {
       "targeting": [
         "Passive"

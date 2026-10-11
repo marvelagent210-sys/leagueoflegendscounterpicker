@@ -30,6 +30,8 @@ export interface Status {
   x?: number;
   /** Identifies a kit hook's buff, so setting it again replaces it. */
   memoKey?: string;
+  /** Crowd control most cleanses can't remove (non-dispellable). */
+  sticky?: boolean;
 }
 
 export type Action =
@@ -62,7 +64,7 @@ export type Action =
       hit?: boolean;
     };
 
-/** Where a location-targeted dash goes: toward the enemy (1) or away (-1), and how far. */
+/** Where a location-targeted dash or field goes: toward the enemy (1) or away (-1), and how far. */
 export interface Aim {
   direction: -1 | 1;
   distance?: number;
@@ -78,6 +80,8 @@ export interface Unit {
   statuses: Status[];
   /** Tick each ability is next ready, by ability key. */
   cooldownReady: Record<string, number>;
+  /** Post-effect cooldowns waiting for their cast's effect to end: cooldown key to ability key. */
+  cooldownHeld: Record<string, string>;
   /** First tick a new attack windup may start. */
   attackReadyTick: number;
   action?: Action;
@@ -85,8 +89,12 @@ export interface Unit {
   move: -1 | 0 | 1;
   /** Which way the unit actually walked last tick, relative to the enemy: what the enemy sees. */
   moved: -1 | 0 | 1;
-  /** Forced movement from a knock back or pull, in units per tick (positive is away from the enemy). */
-  forced?: { endTick: number; perTick: number };
+  /**
+   * Forced movement from a knock back or pull, in units per tick (positive is away from the
+   * enemy). A throw over the enemy (`over`, Fling) moves along the line instead (positive is
+   * toward larger x), passing through it.
+   */
+  forced?: { endTick: number; perTick: number; over?: boolean };
   /**
    * Carried by the enemy until `endTick` (Ixtal's Impact, Devour): held `offset` units from its
    * center, on the side (`dir`, +1 or -1 along the line) it was on when grabbed.
@@ -172,7 +180,7 @@ export interface Zone {
 
 /**
  * Terrain an ability raised on the line (Pillar of Ice, Dark Procession's ring): units can't
- * walk, dash or be pushed into it, and a knock back that meets it stops there.
+ * dash or be pushed into it, and a knock back that meets it stops there.
  */
 export interface Terrain {
   id: number;
@@ -183,6 +191,12 @@ export interface Terrain {
   endTick: number;
   /** Impassable to the owner's enemy only (Dark Procession). */
   enemyOnly?: boolean;
+  /**
+   * A round obstacle in open ground (Pillar of Ice): walking units go around it, which along
+   * the line is crossing it at 2/pi of their speed (half its circumference for its diameter).
+   * Without it the terrain is a wall across the line, as a ring around a unit is.
+   */
+  round?: boolean;
 }
 
 /** Effects waiting for their tick (see the "delayed" effect). */
@@ -298,6 +312,7 @@ export function newUnit(spec: FighterSpec, side: Side, x: number, maxHp: number,
     resource,
     statuses: [],
     cooldownReady: {},
+    cooldownHeld: {},
     attackReadyTick: 0,
     move: 0,
     moved: 0,
@@ -321,6 +336,7 @@ function cloneUnit(unit: Unit): Unit {
     ...unit,
     statuses: unit.statuses.map(cloneStatus),
     cooldownReady: { ...unit.cooldownReady },
+    cooldownHeld: { ...unit.cooldownHeld },
     chains: Object.fromEntries(Object.entries(unit.chains).map(([k, v]) => [k, { ...v }])),
     ...(unit.action ? { action: unit.action.kind === "dash" && unit.action.resume ? { ...unit.action, resume: { ...unit.action.resume } } : { ...unit.action } } : {}),
     ...(unit.forced ? { forced: { ...unit.forced } } : {}),

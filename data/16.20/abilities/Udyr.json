@@ -22,6 +22,24 @@
         ]
       },
       "cooldownStart": "on-cast",
+      "targetCooldown": {
+        "text": "6 / 5.6 / 5.2 / 4.8 / 4.4 / 4",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                6,
+                5.6,
+                5.2,
+                4.8,
+                4.4,
+                4
+              ]
+            }
+          }
+        ]
+      },
       "cost": {
         "text": "40 – 23 (based on level)",
         "values": [

@@ -254,3 +254,83 @@ All 4 level-based formulas in the game files (3 linked to wiki values above):
 | PantheonQ | EmpoweredDamageCalc | linear 20 → 240 over levels 1-18, continues past 18 | 20 | 240 | 265.882 |
 | PantheonE | HealCalc | breakpoints at levels 9, 15 (level 1: 40) | 40 | 215 | 255 |
 | PantheonE | ResistsCalc | linear 5 → 30 over levels 1-18, continues past 18 | 5 | 30 | 32.9412 |
+
+## Duel simulator kit (level 20, every ability at max rank)
+
+What the duel simulator fights with (`kits/champions/Pantheon.ts`): every number is read from the wiki's ability data above at level 20; what the wiki doesn't say is listed under assumptions. Ratios are fractions of the stat (60% AD is 0.6 × AD).
+
+- Basic attack: range 175, melee.
+
+| Key | Ability | Cooldown (s) | Cast time (s) | Cost | Delivery | On the enemy | On itself |
+|---|---|--:|--:|---|---|---|---|
+| Q | Comet Spear | 8 | 0.2 | 25 | area -40 to 560 units ahead, lands after 0 s | marks it "spear" for 0.1 s | cuts Q's cooldown by 60% |
+| Q2 | Comet Spear (hurled) | 8 | 0.55 | 25 | skillshot 1200 long, 110 wide, at 2700/s | marks it "spear" for 0.1 s | – |
+| W | Shield Vault | 9 | 0 | 55 | dash target 600 units at 2000/s, hits within 0 | 8% target's maximum health + 1.5% of target's maximum health per 100 AP + 0.4% of target's maximum health per 100 bonus health physical damage; stun for 1 s | – |
+| E | Aegis Assault | 18 (starts after the channel) | 0 | 80 | self; channel 1.5 s, pulses every 0.125 s | each pulse: 9.091% AD physical damage; at the end: 255 + 150% bonus AD physical damage | as the cast starts: invulnerable for 1.75 s |
+| R | Grand Starfall | 150 | 0.1 | 100 | self; channel 2 s | – | when the channel completes: untargetable for 2.25 s; ccImmune for 2.25 s; after 2.25 s: reappears 5500 units away |
+
+Effects marked by a mark or a role are completed by the kit's hooks (see the kit's source).
+
+### Assumptions
+
+- Pantheon starts every fight with full Mortal Will stacks, as after a recall.
+- An ability cast that consumes Mortal Will doesn't also give the next stack.
+- Comet Spear's hurl is held for the shortest time (0.35 s) before release.
+- Shield Vault's leap is quick (2,000 units a second); the wiki gives no speed.
+- Aegis Assault's 11 strikes (one every 4 ticks) share its 100% AD total; the slam follows the full channel.
+- Aegis Assault's invulnerability covers every hit: in one dimension the enemy stays in front of Pantheon.
+- Grand Starfall is used only to get away: after its interruptible 2-second channel Pantheon vanishes and lands far away.
+
+### Wiki values read (49)
+
+| Ability | Value | Revision |
+|---|---|---|
+| Mortal Will | stacking up to 5 times | [3963570](https://wiki.leagueoflegends.com/en-us/Template:Data_Pantheon/Mortal_Will?oldid=3963570) |
+| Mortal Will | Pantheon gains maximum stacks of Mortal Will upon starting the game | [3963570](https://wiki.leagueoflegends.com/en-us/Template:Data_Pantheon/Mortal_Will?oldid=3963570) |
+| Comet Spear | Thrust Physical Damage: 70 / 100 / 130 / 160 / 190 (+ 115% bonus AD) | [4016044](https://wiki.leagueoflegends.com/en-us/Template:Data_Pantheon/Comet_Spear?oldid=4016044) |
+| Comet Spear | Increased Thrust Damage: 155 / 230 / 305 / 380 / 455 (+ 230% bonus AD) | [4016044](https://wiki.leagueoflegends.com/en-us/Template:Data_Pantheon/Comet_Spear?oldid=4016044) |
+| Comet Spear | Hurl Physical Damage: 70 / 100 / 130 / 160 / 190 (+ 115% bonus AD) (+ 50% AP) | [4016044](https://wiki.leagueoflegends.com/en-us/Template:Data_Pantheon/Comet_Spear?oldid=4016044) |
+| Comet Spear | Increased Hurl Damage: 155 / 230 / 305 / 380 / 455 (+ 230% bonus AD) (+ 100% AP) | [4016044](https://wiki.leagueoflegends.com/en-us/Template:Data_Pantheon/Comet_Spear?oldid=4016044) |
+| Comet Spear | increased against enemies below 20% of their maximum health | [4016044](https://wiki.leagueoflegends.com/en-us/Template:Data_Pantheon/Comet_Spear?oldid=4016044) |
+| Comet Spear | refunding 60% of Comet Spear's cooldown | [4016044](https://wiki.leagueoflegends.com/en-us/Template:Data_Pantheon/Comet_Spear?oldid=4016044) |
+| Comet Spear | Releasing the ability within 0.35 seconds causes Pantheon to instead thrust | [4016044](https://wiki.leagueoflegends.com/en-us/Template:Data_Pantheon/Comet_Spear?oldid=4016044) |
+| Comet Spear | castTime (Release): 0.2 | [4016044](https://wiki.leagueoflegends.com/en-us/Template:Data_Pantheon/Comet_Spear?oldid=4016044) |
+| Comet Spear | Mortal Will: Comet Spear deals 20 – 240 (based on level) (+ 115% bonus AD) bonus physical damage, affected by the previous damage reductions. | [4016044](https://wiki.leagueoflegends.com/en-us/Template:Data_Pantheon/Comet_Spear?oldid=4016044) |
+| Comet Spear | (+ 115% bonus AD) bonus physical damage | [4016044](https://wiki.leagueoflegends.com/en-us/Template:Data_Pantheon/Comet_Spear?oldid=4016044) |
+| Comet Spear | range: -40 - 560 • 1200 | [4016044](https://wiki.leagueoflegends.com/en-us/Template:Data_Pantheon/Comet_Spear?oldid=4016044) |
+| Shield Vault | Physical Damage: 6 / 6.5 / 7 / 7.5 / 8% of target's maximum health (+ 1.5% per 100 AP) (+ 0.4% per 100 Pantheon's bonus health) | [4026707](https://wiki.leagueoflegends.com/en-us/Template:Data_Pantheon/Shield_Vault?oldid=4026707) |
+| Shield Vault | (+ 1.5% per 100 AP) | [4026707](https://wiki.leagueoflegends.com/en-us/Template:Data_Pantheon/Shield_Vault?oldid=4026707) |
+| Shield Vault | (+ 0.4% per 100 Pantheon's bonus health) | [4026707](https://wiki.leagueoflegends.com/en-us/Template:Data_Pantheon/Shield_Vault?oldid=4026707) |
+| Shield Vault | stuns them for 1 second | [4026707](https://wiki.leagueoflegends.com/en-us/Template:Data_Pantheon/Shield_Vault?oldid=4026707) |
+| Shield Vault | Mortal Will: Pantheon empowers his next basic attack within 4 seconds to have a 0.375-second cast time and strike the target 3 times over a brief period, dealing 40 – 55 (based on level)% AD physical damage per hit, up to 120 – 165 (based on level)% AD. | [4026707](https://wiki.leagueoflegends.com/en-us/Template:Data_Pantheon/Shield_Vault?oldid=4026707) |
+| Shield Vault | strike the target 3 times | [4026707](https://wiki.leagueoflegends.com/en-us/Template:Data_Pantheon/Shield_Vault?oldid=4026707) |
+| Shield Vault | to have a 0.375-second cast time | [4026707](https://wiki.leagueoflegends.com/en-us/Template:Data_Pantheon/Shield_Vault?oldid=4026707) |
+| Shield Vault | Pantheon empowers his next basic attack within 4 seconds | [4026707](https://wiki.leagueoflegends.com/en-us/Template:Data_Pantheon/Shield_Vault?oldid=4026707) |
+| Aegis Assault | channels for 1.5 seconds | [4049965](https://wiki.leagueoflegends.com/en-us/Template:Data_Pantheon/Aegis_Assault?oldid=4049965) |
+| Aegis Assault | every 0.125 seconds | [4049965](https://wiki.leagueoflegends.com/en-us/Template:Data_Pantheon/Aegis_Assault?oldid=4049965) |
+| Aegis Assault | up to 100% AD total physical damage | [4049965](https://wiki.leagueoflegends.com/en-us/Template:Data_Pantheon/Aegis_Assault?oldid=4049965) |
+| Aegis Assault | castTime (Recast): None • 0.25 | [4049965](https://wiki.leagueoflegends.com/en-us/Template:Data_Pantheon/Aegis_Assault?oldid=4049965) |
+| Aegis Assault | effectRadius: 525 | [4049965](https://wiki.leagueoflegends.com/en-us/Template:Data_Pantheon/Aegis_Assault?oldid=4049965) |
+| Aegis Assault | Mortal Will: After recasting, Pantheon gains 5 – 30 (based on level) (+ 2.5% bonus health) bonus armor and bonus magic resistance for 4 seconds as well as 60% bonus movement speed for 1.5 seconds. | [4049965](https://wiki.leagueoflegends.com/en-us/Template:Data_Pantheon/Aegis_Assault?oldid=4049965) |
+| Aegis Assault | (+ 2.5% bonus health) bonus armor and bonus magic resistance | [4049965](https://wiki.leagueoflegends.com/en-us/Template:Data_Pantheon/Aegis_Assault?oldid=4049965) |
+| Aegis Assault | bonus armor and bonus magic resistance for 4 seconds | [4049965](https://wiki.leagueoflegends.com/en-us/Template:Data_Pantheon/Aegis_Assault?oldid=4049965) |
+| Aegis Assault | as well as 60% bonus movement speed for 1.5 seconds | [4049965](https://wiki.leagueoflegends.com/en-us/Template:Data_Pantheon/Aegis_Assault?oldid=4049965) |
+| Grand Starfall | Armor Penetration: 10 / 20 / 30% | [4046502](https://wiki.leagueoflegends.com/en-us/Template:Data_Pantheon/Grand_Starfall?oldid=4046502) |
+| Grand Starfall | Pantheon channels for 2 seconds before leaping into the sky | [4046502](https://wiki.leagueoflegends.com/en-us/Template:Data_Pantheon/Grand_Starfall?oldid=4046502) |
+| Grand Starfall | He continues channeling for 2.25 seconds | [4046502](https://wiki.leagueoflegends.com/en-us/Template:Data_Pantheon/Grand_Starfall?oldid=4046502) |
+| Grand Starfall | targetRange (Blink range): 5500 • 1350 + 450 | [4046502](https://wiki.leagueoflegends.com/en-us/Template:Data_Pantheon/Grand_Starfall?oldid=4046502) |
+| Comet Spear | cooldown: 11 / 10.25 / 9.5 / 8.75 / 8 | [4016044](https://wiki.leagueoflegends.com/en-us/Template:Data_Pantheon/Comet_Spear?oldid=4016044) |
+| Shield Vault | cooldown: 13 / 12 / 11 / 10 / 9 | [4026707](https://wiki.leagueoflegends.com/en-us/Template:Data_Pantheon/Shield_Vault?oldid=4026707) |
+| Comet Spear | cost: 25 | [4016044](https://wiki.leagueoflegends.com/en-us/Template:Data_Pantheon/Comet_Spear?oldid=4016044) |
+| Comet Spear | range (Spear missile range): -40 - 560 • 1200 | [4016044](https://wiki.leagueoflegends.com/en-us/Template:Data_Pantheon/Comet_Spear?oldid=4016044) |
+| Comet Spear | width (Spear missile width): 120 • 110 | [4016044](https://wiki.leagueoflegends.com/en-us/Template:Data_Pantheon/Comet_Spear?oldid=4016044) |
+| Comet Spear | speed: 2700 | [4016044](https://wiki.leagueoflegends.com/en-us/Template:Data_Pantheon/Comet_Spear?oldid=4016044) |
+| Shield Vault | cost: 55 | [4026707](https://wiki.leagueoflegends.com/en-us/Template:Data_Pantheon/Shield_Vault?oldid=4026707) |
+| Shield Vault | castTime: none | [4026707](https://wiki.leagueoflegends.com/en-us/Template:Data_Pantheon/Shield_Vault?oldid=4026707) |
+| Shield Vault | targetRange: 600 | [4026707](https://wiki.leagueoflegends.com/en-us/Template:Data_Pantheon/Shield_Vault?oldid=4026707) |
+| Aegis Assault | cooldown: 22 / 21 / 20 / 19 / 18 | [4049965](https://wiki.leagueoflegends.com/en-us/Template:Data_Pantheon/Aegis_Assault?oldid=4049965) |
+| Aegis Assault | cost: 80 | [4049965](https://wiki.leagueoflegends.com/en-us/Template:Data_Pantheon/Aegis_Assault?oldid=4049965) |
+| Aegis Assault | Physical Damage: 55 / 105 / 155 / 205 / 255 (+ 150% bonus AD) | [4049965](https://wiki.leagueoflegends.com/en-us/Template:Data_Pantheon/Aegis_Assault?oldid=4049965) |
+| Grand Starfall | cooldown: 180 / 165 / 150 | [4046502](https://wiki.leagueoflegends.com/en-us/Template:Data_Pantheon/Grand_Starfall?oldid=4046502) |
+| Grand Starfall | cost: 100 | [4046502](https://wiki.leagueoflegends.com/en-us/Template:Data_Pantheon/Grand_Starfall?oldid=4046502) |
+| Grand Starfall | castTime: 0.1 | [4046502](https://wiki.leagueoflegends.com/en-us/Template:Data_Pantheon/Grand_Starfall?oldid=4046502) |

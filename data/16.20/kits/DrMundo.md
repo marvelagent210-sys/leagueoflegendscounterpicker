@@ -237,7 +237,7 @@ What the duel simulator fights with (`kits/champions/DrMundo.ts`): every number 
 | Q | Infected Bonesaw | 4 | 0.25 | 90 health | skillshot 1050 long, 120 wide, at 2000/s | 30% target's current health magic damage, at least 280; slow 40% for 2 s; to itself: heal 90 | – |
 | W | Heart Zapper | 15 | 0 | 8% current health health | self | – | – |
 | W2 | Heart Zapper (detonation) | 0 | 0 | – | around itself, 325 units; recast of W within 3 s, after 0.5 s, automatic | 80 + 7% bonus health magic damage | – |
-| E | Blunt Force Trauma | 6 | 0 | 70 health | self | – | resets the attack timer |
+| E | Blunt Force Trauma | 6 (starts after the empowered attacks) | 0 | 70 health | self | – | resets the attack timer |
 | R | Maximum Dosage | 120 | 0 | – | self | – | moveSpeedPercent 0.35 for 10 s |
 
 Effects marked by a mark or a role are completed by the kit's hooks (see the kit's source).

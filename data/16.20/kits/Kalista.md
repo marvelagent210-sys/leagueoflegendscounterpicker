@@ -117,6 +117,7 @@ Source: [Template:Data Kalista/Sentinel](https://wiki.leagueoflegends.com/en-us/
 | Field | Value |
 |---|---|
 | Cooldown | 30 |
+| Per-target cooldown | 10 |
 | Recharge | 90 / 80 / 70 / 60 / 50 |
 | Cast time | 0.5 |
 | Target range | 1400 - 5000 |

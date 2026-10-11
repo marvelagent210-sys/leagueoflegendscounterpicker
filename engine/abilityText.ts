@@ -74,6 +74,7 @@ export function mechanicLine(mechanic: Mechanic, ranks: number): string {
 export const FIELD_LABELS: Array<[keyof AbilityRecord["fields"], string]> = [
   ["cooldown", "Cooldown"],
   ["staticCooldown", "Static cooldown"],
+  ["targetCooldown", "Per-target cooldown"],
   ["recharge", "Recharge"],
   ["cost", "Cost"],
   ["castTime", "Cast time"],

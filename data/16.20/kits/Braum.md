@@ -29,6 +29,10 @@ Cooldowns at max rank. Flags: the wiki's interaction flags (yes, no, partly). * 
 
 Source: [Template:Data Braum/Concussive Blows](https://wiki.leagueoflegends.com/en-us/Template:Data_Braum/Concussive_Blows?oldid=4038222) (revision 4038222). Ranks: 1.
 
+| Field | Value |
+|---|---|
+| Per-target cooldown | 8 / 6 / 4 (based on level) |
+
 Targeting: Passive · Affects: Enemies · Damage type: Magic · Spell shield blocks it: true · Projectile: – · Parry: special · Disabled by grounded: – · Usable while knocked down: –
 
 Innate: Braum's basic attacks and Winter's Bite each apply a stack of Concussive Blows to their target for 4 seconds, refreshing on subsequent applications and stacking up to 4 times. Once the first stack has been applied, any allied champion's basic attack applies an additional stack to the target on-hit.

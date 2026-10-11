@@ -206,7 +206,7 @@ What the duel simulator fights with (`kits/champions/Jax.ts`): every number is r
 | Key | Ability | Cooldown (s) | Cast time (s) | Cost | Delivery | On the enemy | On itself |
 |---|---|--:|--:|---|---|---|---|
 | Q | Leap Strike | 6 | 0 | 50 | dash target 700 units at 2000/s, hits within 75 | 225 + 100% bonus AD physical damage | – |
-| W | Empower | 3 | 0 | 30 | self | – | next 1 attack within 10 s: 190 + 60% AP magic damage (+50 range, resets the attack timer, uncancellable) |
+| W | Empower | 3 (starts after the empowered attacks) | 0 | 30 | self | – | next 1 attack within 10 s: 190 + 60% AP magic damage (+50 range, resets the attack timer, uncancellable) |
 | E | Counter Strike | 9 | 0 | 90 | self | – | dodgeAttacks for 2 s |
 | E2 | Counter Strike (recast) | 0 | 0 | – | around itself, 375 units; recast of E within 2 s, after 1 s, automatic | 160 + 70% AP + 4% target's maximum health magic damage; stun for 1 s | – |
 | R | Grandmaster-at-Arms | 90 | 0.25 | 100 | around itself, 375 units | 250 + 100% AP magic damage; to itself: armor 75 + 40% bonus AD for 8 s; MR 45 + 24% bonus AD for 8 s | – |

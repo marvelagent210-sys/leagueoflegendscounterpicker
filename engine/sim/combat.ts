@@ -53,9 +53,19 @@ export function isHidden(unit: Unit): boolean {
   return hasState(unit, "invisible");
 }
 
+/**
+ * Whether `by` can see the unit: nearsight shrinks its sight to the radius the crowd control
+ * carries as its strength (Blinding Assault's 350), measured from its center to the unit's.
+ */
+export function canSee(unit: Unit, by: Unit): boolean {
+  if (isHidden(unit)) return false;
+  for (const s of by.statuses) if (s.kind === "cc" && s.key === "nearsight" && Math.abs(unit.x - by.x) > s.value) return false;
+  return true;
+}
+
 /** Whether `by` can start an attack or a unit-targeted spell on the unit. */
 export function canTarget(unit: Unit, by: Unit): boolean {
-  return !isUntargetable(unit, by) && !isHidden(unit);
+  return !isUntargetable(unit, by) && canSee(unit, by);
 }
 
 /** Units per tick a unit at `from` moves to get closer to `to`. */
@@ -217,7 +227,7 @@ function interrupt(world: World, unit: Unit, type: CCType): void {
 }
 
 /** Applies crowd control unless an immunity stops it; returns whether it took hold. */
-export function applyCC(world: World, source: Unit, target: Unit, type: CCType, duration: number, strength = 0): boolean {
+export function applyCC(world: World, source: Unit, target: Unit, type: CCType, duration: number, strength = 0, sticky = false): boolean {
   if (!target.alive || inStasis(target)) return false;
   if (hasState(target, "ccImmune")) {
     log(world, target.side, `is immune to ${type}`);
@@ -234,8 +244,11 @@ export function applyCC(world: World, source: Unit, target: Unit, type: CCType, 
   }
   const ticks = toTicks(ccDuration(duration, type, derive(target).tenacity));
   if (ticks <= 0) return false;
-  addStatus(target, { kind: "cc", key: type, source: source.side, startTick: world.tick, endTick: world.tick + ticks, value: strength });
-  log(world, source.side, `inflicts ${type}${strength ? ` ${Math.round(strength * 100)}%` : ""} for ${(ticks / 30).toFixed(2)} s`);
+  // Topping up crowd control that is still on (a field's slow, pulse after pulse) isn't logged again.
+  const ongoing = target.statuses.some((s) => s.kind === "cc" && s.key === type && s.source === source.side && s.value === strength && s.endTick > world.tick);
+  addStatus(target, { kind: "cc", key: type, source: source.side, startTick: world.tick, endTick: world.tick + ticks, value: strength, ...(sticky ? { sticky } : {}) });
+  const shown = type === "nearsight" ? ` to ${Math.round(strength)} units` : strength ? ` ${Math.round(strength * 100)}%` : "";
+  if (!ongoing) log(world, source.side, `inflicts ${type}${shown} for ${(ticks / 30).toFixed(2)} s`);
   interrupt(world, target, type);
   return true;
 }
@@ -248,6 +261,12 @@ function displace(world: World, source: Unit, target: Unit, effect: Extract<Effe
   const { direction, duration } = effect;
   if (!applyCC(world, source, target, "airborne", duration)) return;
   const ticks = Math.max(1, toTicks(duration));
+  if (effect.over) {
+    // Over the caster to the far side: along the line, through the caster and any terrain.
+    const toward = target.x === source.x ? (target.side === 0 ? 1 : -1) : source.x > target.x ? 1 : -1;
+    if (effect.distance > 0) target.forced = { endTick: world.tick + ticks, perTick: (toward * effect.distance) / ticks, over: true };
+    return;
+  }
   const env = world.settings.environment;
   // The wall behind the target: the lane's, with walls nearby, or terrain an ability raised.
   const away = target.x === source.x ? (target.side === 0 ? -1 : 1) : target.x > source.x ? 1 : -1;
@@ -309,7 +328,7 @@ export function applyEffect(world: World, caster: Unit, target: Unit, effect: Ef
       return;
     }
     case "cc":
-      applyCC(world, caster, target, effect.cc, effect.duration, effect.strength ?? 0);
+      applyCC(world, caster, target, effect.cc, effect.duration, effect.strength ?? 0, effect.sticky);
       return;
     case "displace":
       displace(world, caster, target, effect);
@@ -381,9 +400,10 @@ export function applyEffect(world: World, caster: Unit, target: Unit, effect: Ef
       addStatus(target, { kind: "grievousWounds", key: "grievousWounds", source: caster.side, startTick: tick, endTick: tick + toTicks(effect.duration), value: 0.4 });
       return;
     case "cleanse": {
-      const removable = (type: string) => (effect.types ? effect.types.includes(type as CCType) : type !== "stasis" && type !== "kinematics");
+      const removable = (s: Status) =>
+        (effect.types ? effect.types.includes(s.key as CCType) : s.key !== "stasis" && s.key !== "kinematics") && (!s.sticky || effect.sticky === true);
       const before = target.statuses.length;
-      target.statuses = target.statuses.filter((s) => s.kind !== "cc" || !removable(s.key));
+      target.statuses = target.statuses.filter((s) => s.kind !== "cc" || !removable(s));
       if (target.statuses.length < before) {
         if (!target.statuses.some((s) => s.kind === "cc" && s.key === "airborne")) delete target.forced;
         log(world, target.side, "cleanses crowd control");
@@ -453,6 +473,14 @@ export function applyEffect(world: World, caster: Unit, target: Unit, effect: Ef
         scale: ctx.scale,
       });
       return;
+    case "reposition": {
+      const enemy = world.units[other(target.side)];
+      const away = target.x === enemy.x ? (target.side === 0 ? -1 : 1) : target.x > enemy.x ? 1 : -1;
+      const gap = Math.abs(target.x - enemy.x) - target.spec.base.pathingRadius - enemy.spec.base.pathingRadius;
+      target.x += effect.direction === "away" ? away * effect.distance : -away * Math.min(effect.distance, Math.max(0, gap));
+      log(world, target.side, `reappears ${effect.direction === "away" ? `${Math.round(effect.distance)} units away` : "beside the enemy"}`);
+      return;
+    }
     case "attach":
       target.attached = { offset: effect.offset, dir: target.x === caster.x ? (target.side === 0 ? -1 : 1) : target.x > caster.x ? 1 : -1, endTick: tick + toTicks(effect.duration) };
       return;
@@ -515,7 +543,7 @@ export function abilityHit(world: World, caster: Unit, target: Unit, ability: Ab
   }
   if (ability.flags?.appliesOnHit) applyOnHit(world, caster, target, [], blocked);
   const onAbilityHit = caster.spec.hooks?.onAbilityHit;
-  if (onAbilityHit) runHook(() => onAbilityHit(hookContext(world, caster, ability)));
+  if (onAbilityHit) runHook(() => onAbilityHit({ ...hookContext(world, caster, ability), scale }));
 }
 
 function applyOnHit(world: World, attacker: Unit, target: Unit, bonus: Effect[], blocked: boolean): void {

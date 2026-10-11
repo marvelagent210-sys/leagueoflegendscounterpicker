@@ -242,6 +242,7 @@ export function buildAbilityRecords(pages: WikiPage[], options: AbilityBuildOpti
     set("cooldown", numeric("cooldown"));
     set("cooldownStart", flagValue(field("cdstart"), ctx));
     set("staticCooldown", numeric("static"));
+    set("targetCooldown", numeric("ontargetcdstatic") ?? numeric("ontargetcd"));
     set("recharge", numeric("recharge"));
     set("cost", numeric("cost"));
     set("costType", flagValue(field("costtype"), ctx));

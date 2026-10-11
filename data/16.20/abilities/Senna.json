@@ -303,6 +303,27 @@
     },
     "ranks": 1,
     "fields": {
+      "targetCooldown": {
+        "text": "6 / 5 / 4 (based on level)",
+        "values": [
+          {
+            "series": {
+              "kind": "variable",
+              "variable": "level",
+              "points": [
+                1,
+                6,
+                11
+              ],
+              "values": [
+                6,
+                5,
+                4
+              ]
+            }
+          }
+        ]
+      },
       "effectRadius": {
         "text": "2000",
         "values": [

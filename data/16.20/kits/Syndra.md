@@ -29,6 +29,10 @@ Cooldowns at max rank. Flags: the wiki's interaction flags (yes, no, partly). * 
 
 Source: [Template:Data Syndra/Transcendent](https://wiki.leagueoflegends.com/en-us/Template:Data_Syndra/Transcendent?oldid=4060367) (revision 4060367). Ranks: 1.
 
+| Field | Value |
+|---|---|
+| Per-target cooldown | 8 |
+
 Targeting: Passive · Affects: Self · Damage type: – · Spell shield blocks it: – · Projectile: – · Parry: – · Disabled by grounded: – · Usable while knocked down: –
 
 Innate: Syndra collects Splinters of Wrath that enhance each of her abilities based on the number of them collected, stacking up to 120 times. She gains Splinters of Wrath from the following: * Dealing two instances of ability damage to an enemy champion within 4 seconds grants 1 / 2 / 3 (based on level) Splinters. This cannot occur on the same target more than once every few seconds. * Ranking up an ability with any skill points beyond level 1 grants 5 Splinters, up to 85. * Killing a large minion grants 1 Splinter.

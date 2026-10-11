@@ -143,6 +143,7 @@ Source: [Template:Data Udyr/Blazing Stampede](https://wiki.leagueoflegends.com/e
 | Field | Value |
 |---|---|
 | Cooldown | 6 |
+| Per-target cooldown | 6 / 5.6 / 5.2 / 4.8 / 4.4 / 4 |
 | Cost | 40 – 23 (based on level) mana |
 | Cast time | none |
 | Cooldown starts | on-cast |

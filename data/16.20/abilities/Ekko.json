@@ -169,7 +169,20 @@
       "revid": 4022978
     },
     "ranks": 1,
-    "fields": {},
+    "fields": {
+      "targetCooldown": {
+        "text": "4",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 4
+            },
+            "label": "Begins after the stacks are consumed"
+          }
+        ]
+      }
+    },
     "flags": {
       "targeting": [
         "Passive"

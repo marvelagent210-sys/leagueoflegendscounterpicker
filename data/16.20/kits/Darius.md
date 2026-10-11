@@ -229,7 +229,7 @@ What the duel simulator fights with (`kits/champions/Darius.ts`): every number i
 | Key | Ability | Cooldown (s) | Cast time (s) | Cost | Delivery | On the enemy | On itself |
 |---|---|--:|--:|---|---|---|---|
 | Q | Decimate | 5 | 0.75 | – | area 0 to 460 units ahead, lands after 0 s; bands 0–240: 59.5 + 49% AD physical damage (Decimate (handle)) | 170 + 140% AD physical damage; to itself: heal 17% missing health | – |
-| W | Crippling Strike | 5 | 0 | – | self | – | next 1 attack within 4 s: 60% AD physical damage, can crit; slow 90% for 1 s (+25 range, resets the attack timer, uncancellable) |
+| W | Crippling Strike | 5 (starts after the empowered attacks) | 0 | – | self | – | next 1 attack within 4 s: 60% AD physical damage, can crit; slow 90% for 1 s (+25 range, resets the attack timer, uncancellable) |
 | E | Apprehend | 16 | 0.25 | – | area 0 to 535 units ahead, lands after 0 s | pull 535 units over 0.5 s; slow 40% for 1 s | – |
 | R | Noxian Guillotine | 80 | 0.367 | – | targeted, 475 range | 375 + 75% bonus AD true damage | – |
 

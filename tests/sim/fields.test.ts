@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { damagePerSecond } from "../../engine/budget";
+import { applyEffect } from "../../engine/sim/combat";
 import { derive } from "../../engine/sim/derived";
 import { createWorld, step } from "../../engine/sim/simulate";
 import type { AbilitySpec, Effect } from "../../engine/sim/spec";
@@ -53,5 +54,29 @@ describe("fields", () => {
   it("can open a fight from their reach", () => {
     const outcome = duel(fighter({ abilities: [ground] }), fighter(), { distance: 1100, behaviors: [undefined, idle], settings: { maxSeconds: 1 } });
     expect(outcome.damage[0]).toBeGreaterThan(0);
+  });
+});
+
+describe("aimed fields and non-dispellable crowd control", () => {
+  it("land where the cast aims them along the line", () => {
+    const goo = ability({ key: "W", cooldown: 100, delivery: { kind: "field", range: 1000, radius: 100, duration: 2, interval: 0.25 }, onHit: [trueDamage(10)] });
+    const world = createWorld({ fighters: [fighter({ abilities: [goo] }), fighter()], distance: 300, modes: ["idle", "idle"] });
+    const self = world.units[0];
+    step(world, [() => ({ kind: "cast", ability: "W", aim: { direction: -1, distance: 400 } }), standStill]);
+    const zone = world.zones.find((z) => z.ability === "W");
+    // 400 units behind the caster, away from the enemy.
+    expect(zone?.x).toBeCloseTo(self.x - 400, 6);
+  });
+
+  it("leave non-dispellable crowd control to cleanses that grant immunity", () => {
+    const glue = ability({ key: "W", cooldown: 100, delivery: { kind: "aura", radius: 500 }, onHit: [{ type: "cc", cc: "slow", strength: 0.5, duration: 3, sticky: true }] });
+    const world = createWorld({ fighters: [fighter({ abilities: [glue] }), fighter()], distance: 100, modes: ["idle", "idle"] });
+    const [self, enemy] = world.units;
+    step(world, [castWhenReady("W"), standStill]);
+    applyEffect(world, enemy, enemy, { type: "cleanse", types: ["slow"] }, { scale: 1 });
+    expect(enemy.statuses.some((s) => s.kind === "cc" && s.key === "slow")).toBe(true);
+    applyEffect(world, enemy, enemy, { type: "cleanse", sticky: true }, { scale: 1 });
+    expect(enemy.statuses.some((s) => s.kind === "cc" && s.key === "slow")).toBe(false);
+    expect(self.alive).toBe(true);
   });
 });

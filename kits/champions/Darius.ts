@@ -122,6 +122,7 @@ const darius: KitModule = {
           slot: "W",
           cooldown: w.cooldown(),
           castTime: w.castTime(),
+          cooldownAfter: "empower",
           delivery: { kind: "self" },
           onSelf: [
             {

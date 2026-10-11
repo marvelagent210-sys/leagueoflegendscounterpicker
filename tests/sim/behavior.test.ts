@@ -1,5 +1,7 @@
 import { describe, expect, it } from "vitest";
-import { traitsOf } from "../../engine/sim/behavior";
+import { defaultBehavior, traitsOf } from "../../engine/sim/behavior";
+import { edgeDistance } from "../../engine/sim/combat";
+import { createWorld, step } from "../../engine/sim/simulate";
 import { ability, fighter, RANGED } from "./kits";
 import { duel, idle, ticksOf } from "./helpers";
 
@@ -52,5 +54,26 @@ describe("default behavior", () => {
     const outcome = duel(fighter({ attack: RANGED, base: { moveSpeed: 450 } }), fighter({ base: { moveSpeed: 300 } }), { distance: 550, settings: { maxSeconds: 70 } });
     expect(outcome.win[0]).toBe(1);
     expect(outcome.damage[1]).toBe(0);
+  });
+});
+
+describe("finishers", () => {
+  const feast = (extra: Partial<Parameters<typeof ability>[0]> = {}) =>
+    ability({ key: "R", slot: "R", cooldown: 100, delivery: { kind: "target", range: 150 }, onHit: [{ type: "damage", damageType: "true", amount: { base: 1000 } }], roles: ["finisher"], ...extra });
+
+  it("step in to reach a target that one would kill just out of range", () => {
+    // A long-ranged attacker spacing at 300, its finisher reaching only 150.
+    const self = fighter({ abilities: [feast()], attack: { range: 300 } });
+    const enemy = fighter({ base: { hp: 900 } });
+    const outcome = duel(self, enemy, { distance: 300, behaviors: [undefined, idle], settings: { maxSeconds: 3 } });
+    expect(ticksOf(outcome.timeline, 0, "casts R").length).toBe(1);
+  });
+
+  it("don't step in for a finisher they can't cast yet", () => {
+    const gated = fighter({ abilities: [feast({ usable: () => false })], attack: { range: 300 } });
+    const world = createWorld({ fighters: [gated, fighter({ base: { hp: 900 } })], distance: 300, modes: ["fight", "idle"] });
+    for (let i = 0; i < 30; i++) step(world, [defaultBehavior, idle]);
+    // Still spacing at its attack range.
+    expect(edgeDistance(world.units[0], world.units[1])).toBeGreaterThan(250);
   });
 });

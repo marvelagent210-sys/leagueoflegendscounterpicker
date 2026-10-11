@@ -60,6 +60,7 @@ const STAT_REFS: Record<string, StatRef> = {
 export type NumberField =
   | "cooldown"
   | "staticCooldown"
+  | "targetCooldown"
   | "recharge"
   | "cost"
   | "castTime"

@@ -5,7 +5,7 @@
 import { toTicks } from "../rules/time";
 import { cooldownAfterHaste } from "../rules/timing";
 import type { CCType } from "../rules/crowdControl";
-import { abilityHit, applyEffect, attackHit, canTarget, contactGap, directionTo, edgeDistance, hookContext, isHidden, isUntargetable, log } from "./combat";
+import { abilityHit, applyEffect, attackHit, canSee, canTarget, contactGap, directionTo, edgeDistance, hookContext, isUntargetable, log } from "./combat";
 import { canAttack, canCastUnderCC, derive, evaluate } from "./derived";
 import { abilityOf, allAbilities } from "./forms";
 import { terrainLimit } from "./terrain";
@@ -253,7 +253,7 @@ export function abilityReach(ability: AbilitySpec, unit: Unit, enemy: Unit): num
     case "line":
       return d.range + enemy.spec.base.radius;
     case "circle":
-      return d.range + d.radius + enemy.spec.base.radius;
+      return d.range + d.radius + (d.centered ? 0 : enemy.spec.base.radius);
     case "field":
       return (d.attached ? (d.offset ?? 0) : d.range) + d.radius + enemy.spec.base.radius;
     case "area":
@@ -274,7 +274,7 @@ export function abilityReach(ability: AbilitySpec, unit: Unit, enemy: Unit): num
  * caster still reach it.
  */
 export function inReach(ability: AbilitySpec, unit: Unit, enemy: Unit): boolean {
-  if (isHidden(enemy) && aimed(ability)) return false;
+  if (!canSee(enemy, unit) && aimed(ability)) return false;
   const reach = abilityReach(ability, unit, enemy);
   return reach === undefined || Math.abs(unit.x - enemy.x) <= reach + EPSILON;
 }
@@ -304,7 +304,8 @@ function endsOwnChannel(unit: Unit, ability: AbilitySpec): boolean {
   return unit.action?.kind === "channel" && ability.chain !== undefined && unit.action.ability === ability.chain.root;
 }
 
-export function canCast(world: World, unit: Unit, ability: AbilitySpec): boolean {
+/** Whether the unit can cast the ability now; `anyRange` leaves out a unit-targeted spell's range. */
+export function canCast(world: World, unit: Unit, ability: AbilitySpec, anyRange = false): boolean {
   const enemy = world.units[other(unit.side)];
   if (!unit.alive || !abilityReady(world, unit, ability)) return false;
   // Casting cancels a windup, but nothing else can be interrupted (except a channel by its own recast).
@@ -312,7 +313,7 @@ export function canCast(world: World, unit: Unit, ability: AbilitySpec): boolean
   if (ability.usable && !ability.usable(unit, world)) return false;
   if (!ability.flags?.usableWhileDisabled && !canCastUnderCC(unit, isMovement(ability) || ability.flags?.grounded === true)) return false;
   if (ability.delivery.kind === "target" && (!canTarget(enemy, unit) || !enemy.alive)) return false;
-  if (ability.delivery.kind === "target" && Math.abs(unit.x - enemy.x) > ability.delivery.range + EPSILON) return false;
+  if (!anyRange && ability.delivery.kind === "target" && Math.abs(unit.x - enemy.x) > ability.delivery.range + EPSILON) return false;
   if (ability.delivery.kind === "dash" && ability.delivery.direction === "target" && !canTarget(enemy, unit)) return false;
   const needs = ability.requires?.enemyCC;
   if (needs && !enemy.statuses.some((s) => s.kind === "cc" && needs.includes(s.key as CCType))) return false;
@@ -351,8 +352,43 @@ export function startCast(world: World, unit: Unit, ability: AbilitySpec, aim?: 
 }
 
 function startCooldown(world: World, unit: Unit, ability: AbilitySpec): void {
+  const key = cooldownKeyOf(ability);
+  if (ability.cooldownAfter) {
+    // Held until the cast's effect is over (releaseCooldowns).
+    unit.cooldownReady[key] = Number.POSITIVE_INFINITY;
+    unit.cooldownHeld[key] = ability.key;
+    return;
+  }
   const haste = derive(unit).abilityHaste;
-  unit.cooldownReady[cooldownKeyOf(ability)] = world.tick + toTicks(cooldownAfterHaste(ability.cooldown, haste));
+  unit.cooldownReady[key] = world.tick + toTicks(cooldownAfterHaste(ability.cooldown, haste));
+}
+
+/** Post-effect cooldowns start once their cast's effect is over (wiki: "Cooldown starts"). */
+export function releaseCooldowns(world: World, unit: Unit): void {
+  for (const [key, abilityKey] of Object.entries(unit.cooldownHeld)) {
+    const ability = abilityOf(unit, abilityKey);
+    if (ability && effectLasts(world, unit, ability)) continue;
+    delete unit.cooldownHeld[key];
+    const haste = derive(unit).abilityHaste;
+    unit.cooldownReady[key] = world.tick + (ability ? toTicks(cooldownAfterHaste(ability.cooldown, haste)) : 0);
+  }
+}
+
+function effectLasts(world: World, unit: Unit, ability: AbilitySpec): boolean {
+  switch (ability.cooldownAfter) {
+    case "empower":
+      return unit.statuses.some((s) => s.kind === "empower" && s.key === ability.key && (s.empower?.attacks ?? 0) > 0);
+    case "channel":
+      return unit.action?.kind === "channel" && unit.action.ability === ability.key && unit.action.endTick > world.tick;
+    case "dash":
+      return unit.action?.kind === "dash" && unit.action.ability === ability.key && unit.action.endTick > world.tick;
+    case "field":
+      return world.zones.some((z) => z.owner === unit.side && z.kind === "field" && z.ability === ability.key && z.endTick > world.tick);
+    case "state":
+      return unit.statuses.some((s) => s.kind === "state" && s.ability === ability.key);
+    default:
+      return false;
+  }
 }
 
 /** Whether a skillshot is decisive: it disables, or deals a large share of the target's health. */
@@ -405,7 +441,7 @@ function resolveSkillshot(
   );
   if (chance >= 0.98) return { connects: true, scale: 1 };
   if (chance <= 0.02) return { connects: false, scale: 1 };
-  if (decisive(world, caster, target, ability.onHit ?? []) && world.splits < Math.log2(world.settings.maxBranches)) {
+  if ((ability.decisive || decisive(world, caster, target, ability.onHit ?? [])) && world.splits < Math.log2(world.settings.maxBranches)) {
     return { connects: true, scale: 1, split: chance };
   }
   return { connects: true, scale: chance };
@@ -504,8 +540,10 @@ export function completeCast(world: World, unit: Unit, ability: AbilitySpec, cas
       const offset = Math.max(0, centerDistance - delivery.range);
       const x = enemy.x - directionTo(unit, enemy) * offset;
       const reach = delivery.radius - offset;
+      // A centered circle must cover the target's center: the target needs to move only its center out.
+      const edge = delivery.centered ? 0 : enemy.spec.base.radius;
       const decision =
-        reach + enemy.spec.base.radius > EPSILON ? resolveSkillshot(world, unit, enemy, ability, castStartTick, delivery.delay, reach) : { connects: false, scale: 1 };
+        reach + edge > EPSILON ? resolveSkillshot(world, unit, enemy, ability, castStartTick, delivery.delay, reach - enemy.spec.base.radius + edge) : { connects: false, scale: 1 };
       const zone = {
         id: world.nextId++,
         owner: unit.side,
@@ -519,6 +557,7 @@ export function completeCast(world: World, unit: Unit, ability: AbilitySpec, cas
         onHit,
         connects: decision.connects,
         scale: decision.scale,
+        ...(delivery.centered ? { centered: true } : {}),
       };
       world.zones.push(zone);
       if (decision.split !== undefined) split = { zone: zone.id, chance: decision.split };
@@ -572,7 +611,12 @@ export function completeCast(world: World, unit: Unit, ability: AbilitySpec, cas
     }
     case "field": {
       const dir = directionTo(unit, enemy);
-      const x = delivery.attached ? unit.x + dir * (delivery.offset ?? 0) : enemy.x - dir * Math.max(0, centerDistance - delivery.range);
+      // On the enemy as far as the range allows, or aimed along the line (`aim`: Mega Adhesive behind the caster).
+      const x = delivery.attached
+        ? unit.x + dir * (delivery.offset ?? 0)
+        : aim?.distance !== undefined
+          ? unit.x + aim.direction * dir * Math.min(delivery.range, aim.distance)
+          : enemy.x - dir * Math.max(0, centerDistance - delivery.range);
       const start = world.tick + toTicks(delivery.delay ?? 0);
       world.zones.push({
         id: world.nextId++,
@@ -751,6 +795,7 @@ export function progressChannel(world: World, unit: Unit): void {
   if (world.tick >= action.endTick) {
     unit.action = undefined;
     if (inRange && channel.onComplete) abilityHit(world, unit, enemy, ability, channel.onComplete);
+    for (const effect of channel.onCompleteSelf ?? []) applyEffect(world, unit, unit, effect, { ability, scale: 1 });
   }
 }
 

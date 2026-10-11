@@ -68,6 +68,7 @@ Source: [Template:Data Fiddlesticks/Terrify](https://wiki.leagueoflegends.com/en
 | Field | Value |
 |---|---|
 | Cooldown | 15 / 14.5 / 14 / 13.5 / 13 |
+| Per-target cooldown | 15 / 14.5 / 14 / 13.5 / 13 |
 | Cost | 65 mana |
 | Cast time | 0.35 |
 | Target range | 575 |

@@ -58,6 +58,7 @@ const garen: KitModule = {
           slot: "Q",
           cooldown: q.cooldown(),
           castTime: q.castTime(),
+          cooldownAfter: "empower",
           delivery: { kind: "self" },
           onSelf: [
             { type: "cleanse", types: ["slow"] },
@@ -95,6 +96,7 @@ const garen: KitModule = {
           slot: "E",
           cooldown: e.cooldown(),
           castTime: e.castTime(),
+          cooldownAfter: "channel",
           delivery: { kind: "self" },
           channel: {
             duration: e.quoted("times over 3 seconds", 0),

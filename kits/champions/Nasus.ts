@@ -67,6 +67,7 @@ const nasus: KitModule = {
           cooldown: q.cooldown(),
           cost: q.cost(),
           castTime: q.castTime(),
+          cooldownAfter: "empower",
           delivery: { kind: "self" },
           onSelf: [
             {

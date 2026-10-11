@@ -140,14 +140,20 @@ export type Effect =
    * least this much before mitigation (Infected Bonesaw's minimum damage).
    */
   | { type: "damage"; damageType: DamageType; amount: Formula; canCrit?: boolean; critMultiplier?: number; lifesteal?: number; label?: string; minimum?: Formula }
-  | { type: "cc"; cc: CCType; duration: number; strength?: number }
+  /** `strength`: a slow's fraction, or for nearsight the sight radius left (Blinding Assault's 350). */
+  /** `sticky`: non-dispellable, so most cleanses leave it (Mega Adhesive's slow and ground). */
+  | { type: "cc"; cc: CCType; duration: number; strength?: number; sticky?: boolean }
   /**
    * Knock up (distance 0), knock back ("away") or pull ("toward"): airborne plus forced
    * movement. `to`: pull only until the target's center is this far from the caster's
    * (Apprehend's rebound). `wallStun`: stun duration if a knock back hits a wall (with walls
    * nearby), and `wallEffects` anything else that happens then (Heroic Charge's second hit).
    */
-  | { type: "displace"; direction: "away" | "toward"; distance: number; duration: number; to?: number; wallStun?: number; wallEffects?: Effect[] }
+  /**
+   * Knock ups (distance 0), knock backs and pulls. `over`: thrown over the caster, landing
+   * `distance` units from where it was (Fling), over terrain too.
+   */
+  | { type: "displace"; direction: "away" | "toward"; distance: number; duration: number; to?: number; wallStun?: number; wallEffects?: Effect[]; over?: boolean }
   | { type: "shield"; amount: Formula; duration: number; shieldType?: ShieldType; priority?: boolean }
   | { type: "heal"; amount: Formula }
   /**
@@ -160,7 +166,8 @@ export type Effect =
   | { type: "dot"; damageType: DamageType; total: Formula; duration: number; interval: number }
   | { type: "grievousWounds"; duration: number }
   /** Removes the listed crowd control types from the caster, or every type when none are listed. */
-  | { type: "cleanse"; types?: CCType[] }
+  /** `sticky`: also removes non-dispellable crowd control, as cleanses that grant immunity do (Ragnarok). */
+  | { type: "cleanse"; types?: CCType[]; sticky?: boolean }
   /**
    * The next `attacks` basic attacks within `window` seconds gain these effects. `split`
    * deals the attack's own damage as these shares of physical and magic damage (Yone's
@@ -194,7 +201,9 @@ export type Effect =
   /** Effects on the caster when this hit lands (Decimate's heal). */
   | { type: "caster"; effects: Effect[] }
   /** The target is carried by the caster for `duration` seconds, `offset` units from its center (Devour, Ixtal's Impact). */
-  | { type: "attach"; offset: number; duration: number };
+  | { type: "attach"; offset: number; duration: number }
+  /** The target reappears `distance` units away from its enemy, or toward it (Grand Starfall's landing). */
+  | { type: "reposition"; direction: "away" | "toward"; distance: number };
 
 export type Delivery =
   /** Effects on the caster only (onSelf). */
@@ -205,8 +214,11 @@ export type Delivery =
   | { kind: "target"; range: number; missileSpeed?: number }
   /** A skillshot: a missile (or instant line when `speed` is unset) that the target can sidestep. */
   | { kind: "line"; range: number; width: number; speed?: number }
-  /** Ground-targeted area that lands after `delay` seconds. */
-  | { kind: "circle"; range: number; radius: number; delay: number }
+  /**
+   * Ground-targeted area that lands after `delay` seconds. `centered`: its radius reaches the
+   * target's center rather than its edge (the wiki's "center range", Rupture).
+   */
+  | { kind: "circle"; range: number; radius: number; delay: number; centered?: boolean }
   /**
    * A dash; `hitRadius` hits the enemy on arrival. "target" dashes stop at the enemy. Dashes
    * to a location can be aimed (a cast's `aim`) anywhere from `minDistance` to `distance`.
@@ -248,6 +260,8 @@ export interface ChannelSpec {
   onTick?: Effect[];
   /** Effects when the channel completes. */
   onComplete?: Effect[];
+  /** Effects on the caster when the channel completes uninterrupted (Grand Starfall's leap). */
+  onCompleteSelf?: Effect[];
   /** Center-to-edge reach of the pulses and the completion effects. */
   range?: number;
   /** The caster can walk while it lasts (spins such as Judgment). */
@@ -315,6 +329,9 @@ export interface PetAttack {
   attackLike: boolean;
 }
 
+/** What a post-effect cooldown waits for (AbilitySpec.cooldownAfter). */
+export type CooldownAfter = "empower" | "channel" | "dash" | "field" | "state";
+
 /** "finisher": used only when its damage kills (Demacian Justice). */
 export type AbilityRole = "damage" | "cc" | "engage" | "escape" | "defense" | "buff" | "finisher";
 
@@ -333,6 +350,12 @@ export interface AbilitySpec {
   moveWhileCasting?: boolean;
   /** Most cooldowns start when the cast time ends (wiki: "Cast time"). */
   cooldownAtCastStart?: boolean;
+  /**
+   * Wiki "Cooldown starts: post-effect": the cooldown waits until the cast's effect is over: its
+   * empowered attacks are spent or run out, its channel or dash ends, its field fades, or the
+   * states it put on the caster end.
+   */
+  cooldownAfter?: CooldownAfter;
   delivery: Delivery;
   /** Effects on the enemy when the ability lands. */
   onHit?: Effect[];
@@ -348,6 +371,11 @@ export interface AbilitySpec {
   requires?: { enemyCC?: CCType[]; minResource?: number };
   /** A kit's own condition for casting it (Steel Tempest's whirlwind needs two stacks). */
   usable?: (unit: Unit, world: World) => boolean;
+  /**
+   * Its hit matters beyond its effects (it builds toward a stun, Mark of the Storm): as a
+   * skillshot, the fight splits on whether it lands instead of counting it by expected value.
+   */
+  decisive?: boolean;
   /**
    * Raw damage its hit deals beyond its `onHit` effects, for abilities whose hooks deal the
    * damage (Haymaker's grows with the Grit spent): what the enemy sees coming.
@@ -446,7 +474,8 @@ export interface KitHooks {
   /** A basic attack is declared (its windup starts). */
   onAttack?(ctx: HookContext): void;
   onAttackHit?(ctx: HookContext): void;
-  onAbilityHit?(ctx: HookContext & { ability: AbilitySpec }): void;
+  /** `scale`: the share of the hit that counts, below 1 for skillshots resolved by expected value. */
+  onAbilityHit?(ctx: HookContext & { ability: AbilitySpec; scale: number }): void;
   /** One of this unit's casts starts (before its cast time). */
   onCastStart?(ctx: HookContext & { ability: AbilitySpec }): void;
   /** One of this unit's casts completes. */
