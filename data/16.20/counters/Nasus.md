@@ -1,5 +1,38 @@
 # Counters to Nasus (patch 26.20)
 
+## Simulated duels (full confidence)
+
+The duel simulator played each of the 24 other champions with a simulator kit against Nasus: both at level 20 with 15,000 gold of plain stats, each side's spent against the other's, through six scenarios (PLAN.md §6). Scores run from −1 (Nasus wins every time) to +1 (the champion does). Run `npm run duel -- <champion> Nasus --log brawl` to watch a fight.
+
+| # | Champion | Score | You engage | Enemy engages | Brawl | Short trade | Spacing | Escape |
+|--:|---|--:|--:|--:|--:|--:|--:|--:|
+| 1 | Dr. Mundo | +0.23 | +0.28 | +0.28 | +0.32 | −0.00 | – | +0.00 |
+| 2 | Shen | −0.11 | −0.11 | −0.20 | −0.15 | +0.05 | – | +0.00 |
+| 3 | Ornn | −0.26 | −0.34 | −0.35 | −0.34 | +0.12 | −0.35 | +0.00 |
+| 4 | Fiora | −0.30 | −1.00 | −1.00 | +1.00 | +0.20 | – | +0.00 |
+| 5 | Volibear | −0.49 | −1.00 | −0.01 | −1.00 | +0.08 | – | +0.00 |
+| 6 | Poppy | −0.72 | −1.00 | −1.00 | −1.00 | +0.38 | – | +0.00 |
+| 7 | Gwen | −0.75 | −1.00 | −1.00 | −1.00 | +0.16 | – | +0.00 |
+| 8 | Aatrox | −0.76 | −1.00 | −1.00 | −1.00 | +0.11 | – | +0.00 |
+| 9 | Camille | −0.76 | −1.00 | −1.00 | −1.00 | +0.10 | – | +0.00 |
+| 10 | Sett | −0.77 | −1.00 | −1.00 | −1.00 | +0.04 | – | +0.00 |
+| 11 | Renekton | −0.78 | −1.00 | −1.00 | −1.00 | +0.02 | – | +0.00 |
+| 12 | Tryndamere | −0.78 | −1.00 | −1.00 | −1.00 | +0.01 | – | +0.00 |
+| 13 | Jax | −0.78 | −1.00 | −1.00 | −1.00 | −0.01 | – | +0.00 |
+| 14 | Yasuo | −0.78 | −1.00 | −1.00 | −1.00 | −0.03 | – | +0.00 |
+| 15 | Riven | −0.78 | −1.00 | −1.00 | −1.00 | +0.30 | – | −1.00 |
+| 16 | Teemo | −0.79 | −1.00 | −1.00 | −1.00 | +0.09 | −1.00 | +0.00 |
+| 17 | Malphite | −0.79 | −1.00 | −1.00 | −1.00 | +0.06 | −1.00 | +0.00 |
+| 18 | Olaf | −0.79 | −1.00 | −1.00 | −1.00 | −0.09 | – | +0.00 |
+| 19 | Mordekaiser | −0.79 | −1.00 | −1.00 | −1.00 | +0.05 | −1.00 | +0.00 |
+| 20 | Darius | −0.80 | −1.00 | −1.00 | −1.00 | −0.11 | – | +0.00 |
+| 21 | Yone | −0.80 | −1.00 | −1.00 | −1.00 | +0.20 | – | −1.00 |
+| 22 | Urgot | −0.80 | −1.00 | −1.00 | −1.00 | +0.32 | −1.00 | −1.00 |
+| 23 | Irelia | −0.80 | −1.00 | −1.00 | −1.00 | −0.03 | −1.00 | +0.00 |
+| 24 | Garen | −0.82 | −1.00 | −1.00 | −1.00 | +0.08 | – | −1.00 |
+
+## Interaction ledger (partial confidence)
+
 Every champion ranked by what its kit does against Nasus's, from the interaction ledger: projectile blocks, spell shields,
 parries, dash stops, crowd control and its defenses, range and more (PLAN.md §5). This ranking is **partial**: it weighs the
 interactions but doesn't play the fight out. The duel simulator replaces it as each champion's behavior is verified.
@@ -8,68 +41,68 @@ interactions but doesn't play the fight out. The duel simulator replaces it as e
 A hard counter shuts down part of a kit every time it is used (projectile block, attack dodge, attack block, blind, disarm, attack speed slow, attack reflect, dash stop, grounding, range) with an impact of 0.4 or more (0.5 for range).
 Run `npm run matchup -- <champion> Nasus` for the full ledger of a matchup, with sources.
 
-## Top 10
+### Top 10
 
-### 1. Sivir (net +0.79)
+#### 1. Sivir (net +0.79)
 
 - **0.94** range: Sivir's basic attacks reach 375 units farther than Nasus's (500 vs 125 attack range). Nasus has no dash or blink to close the gap. (Sivir basic attacks → Nasus basic attacks)
 - **0.35** spell shield: Spell Shield's spell shield blocks Nasus's Wither. Spell shield for 1.5 s, long enough to use ahead of Wither. A spell shield blocks only the first enemy ability that reaches it. (Sivir E Spell Shield → Nasus W Wither)
 - Watch out: Wither cuts Sivir's attack speed by 75% for 5 s.
 
-### 2. Teemo (net +0.75)
+#### 2. Teemo (net +0.75)
 
 - **0.68** range: Teemo's basic attacks reach 375 units farther than Nasus's (500 vs 125 attack range). Nasus has no dash or blink to close the gap. (Teemo basic attacks → Nasus basic attacks)
 - **0.43** blind: Blinding Dart's blind makes Nasus's basic attacks miss for 3 s. Blind for 3 s on a 7 s cooldown. (Teemo Q Blinding Dart → Nasus basic attacks)
 - Watch out: Wither cuts Teemo's attack speed by 75% for 5 s.
 
-### 3. Elise (net +0.67)
+#### 3. Elise (net +0.67)
 
 - **0.65** range: Elise's basic attacks reach 425 units farther than Nasus's (550 vs 125 attack range). Nasus has no dash or blink to close the gap. (Elise basic attacks → Nasus basic attacks)
 - **0.35** untargetable: Rappel makes Elise untargetable, dodging Nasus's Wither. Untargetable for 0.6 s; Wither takes 0.25 s to land, enough to react. (Elise E Rappel → Nasus W Wither)
 - Watch out: Wither cuts Elise's attack speed by 75% for 5 s.
 
-### 4. Yuumi (net +0.66)
+#### 4. Yuumi (net +0.66)
 
 - **0.64** range: Yuumi's basic attacks reach 300 units farther than Nasus's (425 vs 125 attack range). Nasus has no dash or blink to close the gap. (Yuumi basic attacks → Nasus basic attacks)
 - **0.45** untargetable: You and Me! makes Yuumi untargetable, dodging Nasus's Wither. Untargetable for ?; Wither takes 0.25 s to land, enough to react. Does not destroy inbound projectiles, special cased to be targetable to turrets. (Yuumi W You and Me! → Nasus W Wither)
 - Watch out: Wither cuts Yuumi's attack speed by 75% for 5 s.
 
-### 5. Lulu (net +0.66)
+#### 5. Lulu (net +0.66)
 
 - **0.72** range: Lulu's basic attacks reach 425 units farther than Nasus's (550 vs 125 attack range). Nasus has no dash or blink to close the gap. (Lulu basic attacks → Nasus basic attacks)
 - **0.30** disarm: Whimsy disarms Nasus for 2 s: no basic attacks. Disarm for 2 s on a 18 s cooldown. (Lulu W Whimsy → Nasus basic attacks)
 - Watch out: Wither cuts Lulu's attack speed by 75% for 5 s.
 
-### 6. Xayah (net +0.59)
+#### 6. Xayah (net +0.59)
 
 - **0.77** range: Xayah's basic attacks reach 400 units farther than Nasus's (525 vs 125 attack range). Nasus has no dash or blink to close the gap. (Xayah basic attacks → Nasus basic attacks)
 - **0.21** untargetable: Featherstorm makes Xayah untargetable, dodging Nasus's Wither. Untargetable for 1.5 s, long enough to use ahead of Wither. (Xayah R Featherstorm → Nasus W Wither)
 - Watch out: Wither cuts Xayah's attack speed by 75% for 5 s.
 
-### 7. Bard (net +0.55)
+#### 7. Bard (net +0.55)
 
 - **0.72** range: Bard's basic attacks reach 375 units farther than Nasus's (500 vs 125 attack range). Nasus has no dash or blink to close the gap. (Bard basic attacks → Nasus basic attacks)
 - **0.22** untargetable: Tempered Fate makes Bard untargetable, dodging Nasus's Wither. Untargetable for 2.5 s, long enough to use ahead of Wither. (Bard R Tempered Fate → Nasus W Wither)
 - Watch out: Wither cuts Bard's attack speed by 75% for 5 s.
 
-### 8. Vladimir (net +0.51)
+#### 8. Vladimir (net +0.51)
 
 - **0.37** untargetable: Sanguine Pool makes Vladimir untargetable, dodging Nasus's Wither. Untargetable for 2 s, long enough to use ahead of Wither. (Vladimir W Sanguine Pool → Nasus W Wither)
 - **0.36** range: Vladimir's basic attacks reach 325 units farther than Nasus's (450 vs 125 attack range). Nasus has no dash or blink to close the gap. (Vladimir basic attacks → Nasus basic attacks)
 - Watch out: Wither cuts Vladimir's attack speed by 75% for 5 s.
 
-### 9. Aurora (net +0.50)
+#### 9. Aurora (net +0.50)
 
 - **0.58** range: Aurora's basic attacks reach 425 units farther than Nasus's (550 vs 125 attack range). Nasus has no dash or blink to close the gap. (Aurora basic attacks → Nasus basic attacks)
 - **0.21** untargetable: Between Worlds makes Aurora untargetable, dodging Nasus's Wither. Untargetable for 0.4 s; Wither takes 0.25 s to land, enough to react. Does not destroy inbound projectiles. (Aurora R Between Worlds → Nasus W Wither)
 - Watch out: Wither cuts Aurora's attack speed by 75% for 5 s.
 
-### 10. Kindred (net +0.44)
+#### 10. Kindred (net +0.44)
 
 - **0.94** range: Kindred's basic attacks reach 375 units farther than Nasus's (500 vs 125 attack range). Nasus has no dash or blink to close the gap. (Kindred basic attacks → Nasus basic attacks)
 - Watch out: Wither cuts Kindred's attack speed by 75% for 5 s.
 
-## Full ranking
+### Full ranking
 
 | # | Champion | Net | For | Against | Hard counters |
 |--:|---|--:|--:|--:|---|

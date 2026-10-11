@@ -1,5 +1,38 @@
 # Counters to Poppy (patch 26.20)
 
+## Simulated duels (full confidence)
+
+The duel simulator played each of the 24 other champions with a simulator kit against Poppy: both at level 20 with 15,000 gold of plain stats, each side's spent against the other's, through six scenarios (PLAN.md §6). Scores run from −1 (Poppy wins every time) to +1 (the champion does). Run `npm run duel -- <champion> Poppy --log brawl` to watch a fight.
+
+| # | Champion | Score | You engage | Enemy engages | Brawl | Short trade | Spacing | Escape |
+|--:|---|--:|--:|--:|--:|--:|--:|--:|
+| 1 | Olaf | +0.76 | +1.00 | +1.00 | +1.00 | −0.12 | – | +0.00 |
+| 2 | Nasus | +0.72 | +1.00 | +1.00 | +1.00 | −0.38 | – | +0.00 |
+| 3 | Garen | +0.70 | +1.00 | +1.00 | +1.00 | −0.12 | – | −1.00 |
+| 4 | Tryndamere | +0.67 | +1.00 | +1.00 | +1.00 | −0.68 | – | +0.00 |
+| 5 | Volibear | +0.61 | +0.89 | +0.89 | +0.89 | −0.48 | – | +0.00 |
+| 6 | Teemo | +0.08 | −1.00 | +1.00 | +0.00 | −0.12 | +1.00 | +0.00 |
+| 7 | Yasuo | −0.41 | −1.00 | −1.00 | +1.00 | −0.49 | – | +0.00 |
+| 8 | Malphite | −0.56 | +0.00 | −1.00 | −1.00 | −0.37 | – | +0.00 |
+| 9 | Sett | −0.80 | −1.00 | −1.00 | −1.00 | −0.14 | – | +0.00 |
+| 10 | Dr. Mundo | −0.83 | −1.00 | −1.00 | −1.00 | −0.30 | – | +0.00 |
+| 11 | Darius | −0.84 | −1.00 | −1.00 | −1.00 | −0.35 | – | +0.00 |
+| 12 | Shen | −0.84 | −1.00 | −1.00 | −1.00 | −0.35 | – | +0.00 |
+| 13 | Ornn | −0.84 | −1.00 | −1.00 | −1.00 | −0.37 | – | +0.00 |
+| 14 | Renekton | −0.86 | −1.00 | −1.00 | −1.00 | −0.50 | – | +0.00 |
+| 15 | Jax | −0.86 | −1.00 | −1.00 | −1.00 | −0.52 | – | +0.00 |
+| 16 | Mordekaiser | −0.89 | −1.00 | −1.00 | −1.00 | −0.49 | – | −0.50 |
+| 17 | Fiora | −0.89 | −1.00 | −1.00 | −1.00 | −0.82 | – | +0.50 |
+| 18 | Aatrox | −0.89 | −1.00 | −1.00 | −1.00 | −0.36 | – | −1.00 |
+| 19 | Irelia | −0.90 | −1.00 | −1.00 | −1.00 | −0.38 | – | −1.00 |
+| 20 | Yone | −0.90 | −1.00 | −1.00 | −1.00 | −0.47 | – | −0.78 |
+| 21 | Gwen | −0.90 | −1.00 | −1.00 | −1.00 | −0.74 | – | +0.00 |
+| 22 | Urgot | −0.92 | −1.00 | −1.00 | −1.00 | −0.44 | −1.00 | −1.00 |
+| 23 | Riven | −0.93 | −1.00 | −1.00 | −1.00 | −0.60 | – | −1.00 |
+| 24 | Camille | −0.94 | −1.00 | −1.00 | −1.00 | −0.63 | – | −1.00 |
+
+## Interaction ledger (partial confidence)
+
 Every champion ranked by what its kit does against Poppy's, from the interaction ledger: projectile blocks, spell shields,
 parries, dash stops, crowd control and its defenses, range and more (PLAN.md §5). This ranking is **partial**: it weighs the
 interactions but doesn't play the fight out. The duel simulator replaces it as each champion's behavior is verified.
@@ -8,72 +41,72 @@ interactions but doesn't play the fight out. The duel simulator replaces it as e
 A hard counter shuts down part of a kit every time it is used (projectile block, attack dodge, attack block, blind, disarm, attack speed slow, attack reflect, dash stop, grounding, range) with an impact of 0.4 or more (0.5 for range).
 Run `npm run matchup -- <champion> Poppy` for the full ledger of a matchup, with sources.
 
-## Top 10
+### Top 10
 
-### 1. Sivir (net +1.57)
+#### 1. Sivir (net +1.57)
 
 - **0.80** spell shield: Spell Shield's spell shield blocks Poppy's Keeper's Verdict. Spell shield for 1.5 s, long enough to use ahead of Keeper's Verdict. A spell shield blocks only the first enemy ability that reaches it. (Sivir E Spell Shield → Poppy R Keeper's Verdict)
 - **0.59** spell shield: Spell Shield's spell shield blocks Poppy's Heroic Charge. Spell shield for 1.5 s, long enough to use ahead of Heroic Charge. A spell shield blocks only the first enemy ability that reaches it. (Sivir E Spell Shield → Poppy E Heroic Charge)
 - **0.47** range: Sivir's basic attacks reach 375 units farther than Poppy's (500 vs 125 attack range). Poppy closes the gap with Heroic Charge. (Sivir basic attacks → Poppy basic attacks)
 
-### 2. Nocturne (net +1.56)
+#### 2. Nocturne (net +1.56)
 
 - **0.80** spell shield: Shroud of Darkness's spell shield blocks Poppy's Keeper's Verdict. Spell shield for 1.5 s, long enough to use ahead of Keeper's Verdict. A spell shield blocks only the first enemy ability that reaches it. (Nocturne W Shroud of Darkness → Poppy R Keeper's Verdict)
 - **0.72** spell shield: Shroud of Darkness's spell shield blocks Poppy's Heroic Charge. Spell shield for 1.5 s, long enough to use ahead of Heroic Charge. A spell shield blocks only the first enemy ability that reaches it. (Nocturne W Shroud of Darkness → Poppy E Heroic Charge)
 - **0.20** interrupt: Unspeakable Horror's fear interrupts Poppy's Keeper's Verdict (charge-up). Unspeakable Horror must land during the charge-up. Poppy can release Keeper's Verdict early instead of charging it fully. (Nocturne E Unspeakable Horror → Poppy R Keeper's Verdict)
 
-### 3. Maokai (net +1.40)
+#### 3. Maokai (net +1.40)
 
 - **0.80** untargetable: Twisted Advance makes Maokai untargetable, dodging Poppy's Heroic Charge. Untargetable for 1.4 s; Heroic Charge takes 0.26 s to land, enough to react. (Maokai W Twisted Advance → Poppy E Heroic Charge)
 - **0.80** untargetable: Twisted Advance makes Maokai untargetable, dodging Poppy's Keeper's Verdict. Untargetable for 1.4 s; Keeper's Verdict takes 0.45 s to land, enough to react. (Maokai W Twisted Advance → Poppy R Keeper's Verdict)
 - **0.20** interrupt: Bramble Smash's airborne interrupts Poppy's Keeper's Verdict (charge-up). Bramble Smash must land during the charge-up. Poppy can release Keeper's Verdict early instead of charging it fully. (Maokai Q Bramble Smash → Poppy R Keeper's Verdict)
 
-### 4. Xayah (net +1.37)
+#### 4. Xayah (net +1.37)
 
 - **0.80** untargetable: Featherstorm makes Xayah untargetable, dodging Poppy's Keeper's Verdict. Untargetable for 1.5 s, long enough to use ahead of Keeper's Verdict. (Xayah R Featherstorm → Poppy R Keeper's Verdict)
 - **0.38** range: Xayah's basic attacks reach 400 units farther than Poppy's (525 vs 125 attack range). Poppy closes the gap with Heroic Charge. (Xayah basic attacks → Poppy basic attacks)
 - **0.37** untargetable: Featherstorm makes Xayah untargetable, dodging Poppy's Heroic Charge. Untargetable for 1.5 s, long enough to use ahead of Heroic Charge. (Xayah R Featherstorm → Poppy E Heroic Charge)
 
-### 5. Morgana (net +1.32)
+#### 5. Morgana (net +1.32)
 
 - **0.80** cc immunity: Black Shield makes Morgana immune to Poppy's Keeper's Verdict (airborne). Immune for 5 s, long enough to use ahead of Keeper's Verdict. (Morgana E Black Shield → Poppy R Keeper's Verdict)
 - **0.62** cc immunity: Black Shield makes Morgana immune to Poppy's Heroic Charge (airborne, stun). Immune for 5 s, long enough to use ahead of Heroic Charge. (Morgana E Black Shield → Poppy E Heroic Charge)
 - **0.19** range: Morgana's basic attacks reach 325 units farther than Poppy's (450 vs 125 attack range). Poppy closes the gap with Heroic Charge. (Morgana basic attacks → Poppy basic attacks)
 
-### 6. Warwick (net +1.28)
+#### 6. Warwick (net +1.28)
 
 - **0.80** cc immunity: Infinite Duress makes Warwick immune to Poppy's Keeper's Verdict (airborne). Immune for ?; Keeper's Verdict takes 0.45 s to land, enough to react. (Warwick R Infinite Duress → Poppy R Keeper's Verdict)
 - **0.39** cc immunity: Infinite Duress makes Warwick immune to Poppy's Heroic Charge (airborne, stun). Immune for ?; Heroic Charge takes 0.26 s to land, enough to react. (Warwick R Infinite Duress → Poppy E Heroic Charge)
 - **0.20** interrupt: Primal Howl's fear interrupts Poppy's Keeper's Verdict (charge-up). Primal Howl must land during the charge-up. Poppy can release Keeper's Verdict early instead of charging it fully. (Warwick E Primal Howl → Poppy R Keeper's Verdict)
 - Watch out: Keeper's Verdict's airborne interrupts Warwick's Jaws of the Beast (movement channel).
 
-### 7. Lissandra (net +1.28)
+#### 7. Lissandra (net +1.28)
 
 - **0.80** untargetable: Frozen Tomb makes Lissandra untargetable, dodging Poppy's Keeper's Verdict. Untargetable for 2.5 s, long enough to use ahead of Keeper's Verdict. (Lissandra R Frozen Tomb → Poppy R Keeper's Verdict)
 - **0.38** untargetable: Frozen Tomb makes Lissandra untargetable, dodging Poppy's Heroic Charge. Untargetable for 2.5 s, long enough to use ahead of Heroic Charge. (Lissandra R Frozen Tomb → Poppy E Heroic Charge)
 - **0.22** range: Lissandra's basic attacks reach 425 units farther than Poppy's (550 vs 125 attack range). Poppy closes the gap with Heroic Charge. (Lissandra basic attacks → Poppy basic attacks)
 
-### 8. Udyr (net +1.26)
+#### 8. Udyr (net +1.26)
 
 - **0.80** cc immunity: Blazing Stampede makes Udyr immune to Poppy's Heroic Charge (airborne, stun). Immune for 1.5 s, long enough to use ahead of Heroic Charge. (Udyr E Blazing Stampede → Poppy E Heroic Charge)
 - **0.80** cc immunity: Blazing Stampede makes Udyr immune to Poppy's Keeper's Verdict (airborne). Immune for 1.5 s, long enough to use ahead of Keeper's Verdict. (Udyr E Blazing Stampede → Poppy R Keeper's Verdict)
 - **0.20** interrupt: Blazing Stampede's stun interrupts Poppy's Keeper's Verdict (charge-up). Blazing Stampede must land during the charge-up. Poppy can release Keeper's Verdict early instead of charging it fully. (Udyr E Blazing Stampede → Poppy R Keeper's Verdict)
 
-### 9. Vladimir (net +1.24)
+#### 9. Vladimir (net +1.24)
 
 - **0.80** untargetable: Sanguine Pool makes Vladimir untargetable, dodging Poppy's Keeper's Verdict. Untargetable for 2 s, long enough to use ahead of Keeper's Verdict. (Vladimir W Sanguine Pool → Poppy R Keeper's Verdict)
 - **0.62** untargetable: Sanguine Pool makes Vladimir untargetable, dodging Poppy's Heroic Charge. Untargetable for 2 s, long enough to use ahead of Heroic Charge. (Vladimir W Sanguine Pool → Poppy E Heroic Charge)
 - **0.18** range: Vladimir's basic attacks reach 325 units farther than Poppy's (450 vs 125 attack range). Poppy closes the gap with Heroic Charge. (Vladimir basic attacks → Poppy basic attacks)
 - Watch out: Keeper's Verdict's airborne interrupts Vladimir's Tides of Blood (charge-up).
 
-### 10. Elise (net +1.21)
+#### 10. Elise (net +1.21)
 
 - **0.80** untargetable: Rappel makes Elise untargetable, dodging Poppy's Keeper's Verdict. Untargetable for 0.6 s; Keeper's Verdict takes 0.45 s to land, enough to react. (Elise E Rappel → Poppy R Keeper's Verdict)
 - **0.59** untargetable: Rappel makes Elise untargetable, dodging Poppy's Heroic Charge. Untargetable for 0.6 s; Heroic Charge takes 0.26 s to land, enough to react. (Elise E Rappel → Poppy E Heroic Charge)
 - **0.32** range: Elise's basic attacks reach 425 units farther than Poppy's (550 vs 125 attack range). Poppy closes the gap with Heroic Charge. (Elise basic attacks → Poppy basic attacks)
 - Watch out: Steadfast Presence stops Elise's Venomous Bite dash.
 
-## Full ranking
+### Full ranking
 
 | # | Champion | Net | For | Against | Hard counters |
 |--:|---|--:|--:|--:|---|

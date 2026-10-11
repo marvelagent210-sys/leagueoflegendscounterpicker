@@ -1,5 +1,38 @@
 # Counters to Shen (patch 26.20)
 
+## Simulated duels (full confidence)
+
+The duel simulator played each of the 24 other champions with a simulator kit against Shen: both at level 20 with 15,000 gold of plain stats, each side's spent against the other's, through six scenarios (PLAN.md §6). Scores run from −1 (Shen wins every time) to +1 (the champion does). Run `npm run duel -- <champion> Shen --log brawl` to watch a fight.
+
+| # | Champion | Score | You engage | Enemy engages | Brawl | Short trade | Spacing | Escape |
+|--:|---|--:|--:|--:|--:|--:|--:|--:|
+| 1 | Garen | +0.88 | +1.00 | +1.00 | +1.00 | +0.30 | – | +1.00 |
+| 2 | Urgot | +0.85 | +1.00 | +1.00 | +1.00 | +0.32 | +1.00 | +0.00 |
+| 3 | Poppy | +0.84 | +1.00 | +1.00 | +1.00 | +0.35 | – | +0.00 |
+| 4 | Yone | +0.83 | +1.00 | +1.00 | +1.00 | +0.15 | – | +0.52 |
+| 5 | Teemo | +0.81 | +1.00 | +1.00 | +1.00 | +0.04 | +1.00 | +0.00 |
+| 6 | Yasuo | +0.80 | +1.00 | +1.00 | +1.00 | +0.11 | – | +0.13 |
+| 7 | Riven | +0.80 | +1.00 | +1.00 | +1.00 | +0.11 | – | +0.00 |
+| 8 | Gwen | +0.78 | +1.00 | +1.00 | +1.00 | +0.03 | – | +0.00 |
+| 9 | Darius | +0.78 | +1.00 | +1.00 | +1.00 | +0.01 | – | +0.00 |
+| 10 | Aatrox | +0.77 | +1.00 | +1.00 | +1.00 | −0.02 | – | +0.00 |
+| 11 | Irelia | +0.77 | +1.00 | +1.00 | +1.00 | −0.03 | – | +0.00 |
+| 12 | Mordekaiser | +0.77 | +1.00 | +1.00 | +1.00 | −0.04 | – | +0.00 |
+| 13 | Olaf | +0.77 | +1.00 | +1.00 | +1.00 | −0.06 | – | +0.00 |
+| 14 | Tryndamere | +0.77 | +1.00 | +1.00 | +1.00 | −0.07 | – | +0.00 |
+| 15 | Jax | +0.77 | +1.00 | +1.00 | +1.00 | −0.07 | – | +0.00 |
+| 16 | Volibear | +0.76 | +1.00 | +1.00 | +0.99 | −0.11 | – | +0.00 |
+| 17 | Fiora | +0.76 | +1.00 | +1.00 | +1.00 | −0.13 | – | +0.00 |
+| 18 | Malphite | +0.50 | +1.00 | +0.00 | +1.00 | +0.02 | – | +0.00 |
+| 19 | Camille | +0.32 | +0.00 | +1.00 | +0.00 | +0.26 | – | +0.00 |
+| 20 | Sett | +0.30 | +0.57 | +0.10 | +0.51 | +0.02 | – | +0.00 |
+| 21 | Dr. Mundo | +0.26 | +0.39 | +0.43 | +0.27 | −0.13 | – | +0.00 |
+| 22 | Nasus | +0.11 | +0.20 | +0.11 | +0.15 | −0.05 | – | +0.00 |
+| 23 | Ornn | +0.04 | +0.02 | +0.11 | +0.03 | −0.00 | – | +0.00 |
+| 24 | Renekton | −0.08 | −0.09 | −0.11 | −0.05 | −0.08 | – | +0.00 |
+
+## Interaction ledger (partial confidence)
+
 Every champion ranked by what its kit does against Shen's, from the interaction ledger: projectile blocks, spell shields,
 parries, dash stops, crowd control and its defenses, range and more (PLAN.md §5). This ranking is **partial**: it weighs the
 interactions but doesn't play the fight out. The duel simulator replaces it as each champion's behavior is verified.
@@ -8,77 +41,77 @@ interactions but doesn't play the fight out. The duel simulator replaces it as e
 A hard counter shuts down part of a kit every time it is used (projectile block, attack dodge, attack block, blind, disarm, attack speed slow, attack reflect, dash stop, grounding, range) with an impact of 0.4 or more (0.5 for range).
 Run `npm run matchup -- <champion> Shen` for the full ledger of a matchup, with sources.
 
-## Top 10
+### Top 10
 
-### 1. Maokai (net +1.18)
+#### 1. Maokai (net +1.18)
 
 - **1.00** untargetable: Twisted Advance makes Maokai untargetable, dodging Shen's Shadow Dash. Untargetable for 1.4 s; Shadow Dash takes 0.38 s to land, enough to react. (Maokai W Twisted Advance → Shen E Shadow Dash)
 - **0.45** interrupt: Bramble Smash's airborne interrupts Shen's Stand United (movement channel). Bramble Smash must land during the channel. (Maokai Q Bramble Smash → Shen R Stand United)
 - Watch out: Spirit's Refuge blocks Maokai's basic attacks (with Sap Magic).
 
-### 2. Cassiopeia (net +1.08)
+#### 2. Cassiopeia (net +1.08)
 
 - **0.48** grounding: Miasma grounds Shen, who then can't cast Shadow Dash. Grounded while in the area; 16 s cooldown. (Cassiopeia W Miasma → Shen E Shadow Dash)
 - **0.45** interrupt: Petrifying Gaze's stun interrupts Shen's Stand United (movement channel). Petrifying Gaze must land during the channel. (Cassiopeia R Petrifying Gaze → Shen R Stand United)
 - **0.43** grounding: Miasma grounds Shen, who then can't cast Stand United. Grounded while in the area; 16 s cooldown. (Cassiopeia W Miasma → Shen R Stand United)
 - Watch out: Spirit's Refuge blocks Cassiopeia's basic attacks.
 
-### 3. Nocturne (net +0.96)
+#### 3. Nocturne (net +0.96)
 
 - **0.90** spell shield: Shroud of Darkness's spell shield blocks Shen's Shadow Dash. Spell shield for 1.5 s, long enough to use ahead of Shadow Dash. A spell shield blocks only the first enemy ability that reaches it. (Nocturne W Shroud of Darkness → Shen E Shadow Dash)
 - **0.45** interrupt: Unspeakable Horror's fear interrupts Shen's Stand United (movement channel). Unspeakable Horror must land during the channel. (Nocturne E Unspeakable Horror → Shen R Stand United)
 - Watch out: Spirit's Refuge blocks Nocturne's basic attacks (with Umbra Blades).
 
-### 4. Elise (net +0.95)
+#### 4. Elise (net +0.95)
 
 - **0.73** untargetable: Rappel makes Elise untargetable, dodging Shen's Shadow Dash. Untargetable for 0.6 s; Shadow Dash takes 0.38 s to land, enough to react. (Elise E Rappel → Shen E Shadow Dash)
 - **0.45** interrupt: Cocoon's stun interrupts Shen's Stand United (movement channel). Cocoon must land during the channel. (Elise E Cocoon → Shen R Stand United)
 - **0.22** range: Elise's basic attacks reach 425 units farther than Shen's (550 vs 125 attack range). Shen closes the gap with Shadow Dash, Stand United. (Elise basic attacks → Shen basic attacks)
 - Watch out: Spirit's Refuge blocks Elise's basic attacks (with Spider Queen).
 
-### 5. Singed (net +0.89)
+#### 5. Singed (net +0.89)
 
 - **0.49** grounding: Mega Adhesive grounds Shen, who then can't cast Shadow Dash. Grounded while in the area; 13 s cooldown. (Singed W Mega Adhesive → Shen E Shadow Dash)
 - **0.45** interrupt: Fling's airborne interrupts Shen's Stand United (movement channel). Fling must land during the channel. (Singed E Fling → Shen R Stand United)
 - **0.44** grounding: Mega Adhesive grounds Shen, who then can't cast Stand United. Grounded while in the area; 13 s cooldown. (Singed W Mega Adhesive → Shen R Stand United)
 - Watch out: Spirit's Refuge blocks Singed's basic attacks.
 
-### 6. Milio (net +0.83)
+#### 6. Milio (net +0.83)
 
 - **0.45** interrupt: Ultra Mega Fire Kick's airborne interrupts Shen's Stand United (movement channel). Ultra Mega Fire Kick must land during the channel. (Milio Q Ultra Mega Fire Kick → Shen R Stand United)
 - **0.36** cleanse: Breath of Life cleanses Shen's Shadow Dash (taunt) after it lands. 130 s cooldown; usable while crowd controlled. (Milio R Breath of Life → Shen E Shadow Dash)
 - **0.27** tenacity: Breath of Life's 65% tenacity shortens Shen's Shadow Dash (taunt). Breath of Life lasts 3 s on a 130 s cooldown. (Milio R Breath of Life → Shen E Shadow Dash)
 - Watch out: Spirit's Refuge blocks Milio's basic attacks (with Fired Up!).
 
-### 7. Malzahar (net +0.74)
+#### 7. Malzahar (net +0.74)
 
 - **0.50** cc immunity: Void Shift makes Malzahar immune to Shen's Shadow Dash (taunt). Void Shift is up on its own and ends on the first damage or crowd control it takes. (Malzahar I Void Shift → Shen E Shadow Dash)
 - **0.45** interrupt: Call of the Void's silence interrupts Shen's Stand United (movement channel). Call of the Void must land during the channel. (Malzahar Q Call of the Void → Shen R Stand United)
 - **0.24** dash stop: Nether Grasp's knockdown can stop Shen's Shadow Dash mid-dash. Must land during the dash. Fails if the dashing unit is crowd control immune, displacement immune, untargetable or spell shielded. (Malzahar R Nether Grasp → Shen E Shadow Dash)
 - Watch out: Shadow Dash's taunt interrupts Malzahar's Nether Grasp (normal channel).
 
-### 8. Morgana (net +0.71)
+#### 8. Morgana (net +0.71)
 
 - **0.78** cc immunity: Black Shield makes Morgana immune to Shen's Shadow Dash (taunt). Immune for 5 s, long enough to use ahead of Shadow Dash. (Morgana E Black Shield → Shen E Shadow Dash)
 - **0.13** range: Morgana's basic attacks reach 325 units farther than Shen's (450 vs 125 attack range). Shen closes the gap with Shadow Dash, Stand United. (Morgana basic attacks → Shen basic attacks)
 - **0.07** cc immunity: Black Shield makes Morgana immune to Shen's Twilight Assault (slow). Immune for 5 s, long enough to use ahead of Twilight Assault. (Morgana E Black Shield → Shen Q Twilight Assault)
 - Watch out: Spirit's Refuge blocks Morgana's basic attacks.
 
-### 9. Lulu (net +0.69)
+#### 9. Lulu (net +0.69)
 
 - **0.45** interrupt: Wild Growth's airborne interrupts Shen's Stand United (movement channel). Wild Growth must land during the channel. (Lulu R Wild Growth → Shen R Stand United)
 - **0.36** disarm: Whimsy disarms Shen for 2 s: no basic attacks. Disarm for 2 s on a 18 s cooldown. (Lulu W Whimsy → Shen basic attacks)
 - **0.24** range: Lulu's basic attacks reach 425 units farther than Shen's (550 vs 125 attack range). Shen closes the gap with Shadow Dash, Stand United. (Lulu basic attacks → Shen basic attacks)
 - Watch out: Spirit's Refuge blocks Lulu's basic attacks (with Pix, Faerie Companion).
 
-### 10. Lissandra (net +0.69)
+#### 10. Lissandra (net +0.69)
 
 - **0.48** untargetable: Frozen Tomb makes Lissandra untargetable, dodging Shen's Shadow Dash. Untargetable for 2.5 s, long enough to use ahead of Shadow Dash. (Lissandra R Frozen Tomb → Shen E Shadow Dash)
 - **0.45** interrupt: Frozen Tomb's stun interrupts Shen's Stand United (movement channel). Frozen Tomb must land during the channel. (Lissandra R Frozen Tomb → Shen R Stand United)
 - **0.24** dash stop: Frozen Tomb's knockdown can stop Shen's Shadow Dash mid-dash. Must land during the dash. Fails if the dashing unit is crowd control immune, displacement immune, untargetable or spell shielded. (Lissandra R Frozen Tomb → Shen E Shadow Dash)
 - Watch out: Spirit's Refuge blocks Lissandra's basic attacks.
 
-## Full ranking
+### Full ranking
 
 | # | Champion | Net | For | Against | Hard counters |
 |--:|---|--:|--:|--:|---|

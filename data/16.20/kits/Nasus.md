@@ -180,3 +180,68 @@ All 1 level-based formulas in the game files (0 linked to wiki values above):
 | Spell | Calculation | Rule | Level 1 | Level 18 | Level 20 |
 |---|---|---|--:|--:|--:|
 | NasusPassive | LifestealTooltip | breakpoints at levels 7, 13 (level 1: 10) | 10 | 20 | 20 |
+
+## Duel simulator kit (level 20, every ability at max rank)
+
+What the duel simulator fights with (`kits/champions/Nasus.ts`): every number is read from the wiki's ability data above at level 20; what the wiki doesn't say is listed under assumptions. Ratios are fractions of the stat (60% AD is 0.6 × AD).
+
+- Basic attack: range 125, melee.
+- Options: siphoningStacks = 300.
+
+| Key | Ability | Cooldown (s) | Cast time (s) | Cost | Delivery | On the enemy | On itself |
+|---|---|--:|--:|---|---|---|---|
+| Q | Siphoning Strike | 3.5 | 0 | 20 | self | – | next 1 attack within 10 s: 410 physical damage, can crit (+50 range, resets the attack timer, uncancellable) |
+| W | Wither | 11 | 0.25 | 80 | targeted, 700 range | slow 35% for 5 s; cripple 26.25% for 5 s; after 1 s: slow 50% for 4 s; cripple 37.5% for 4 s; after 2 s: slow 65% for 3 s; cripple 48.75% for 3 s; after 3 s: slow 80% for 2 s; cripple 60% for 2 s; after 4 s: slow 95% for 1 s; cripple 71.25% for 1 s | – |
+| E | Spirit Fire | 12 | 0.25 | 100 | circle of 400 radius up to 650 away, lands after 0.264 s | 170 + 60% AP magic damage; 340 + 120% AP magic damage over 5 s; armorReductionPercent 0.5 for 5 s | – |
+| R | Fury of the Sands | 80 | 0.2 | 100 | self | – | health 600 for 15 s; armor 70 for 15 s; MR 70 for 15 s; attackRange 50 for 15 s |
+
+Effects marked by a mark or a role are completed by the kit's hooks (see the kit's source).
+
+### Assumptions
+
+- Siphoning Strike stacks by level 20: 300.
+- Spirit Fire's enemy stays in the fire for its full 5 seconds.
+
+### Wiki values read (39)
+
+| Ability | Value | Revision |
+|---|---|---|
+| Siphoning Strike | Bonus Physical Damage: 30 / 50 / 70 / 90 / 110 (+ 100% of Siphoning Strike stacks) | [4064857](https://wiki.leagueoflegends.com/en-us/Template:Data_Nasus/Siphoning_Strike?oldid=4064857) |
+| Siphoning Strike | (+ 100% of Siphoning Strike stacks) | [4064857](https://wiki.leagueoflegends.com/en-us/Template:Data_Nasus/Siphoning_Strike?oldid=4064857) |
+| Wither | ages the target enemy champion for 5 seconds | [4064193](https://wiki.leagueoflegends.com/en-us/Template:Data_Nasus/Wither?oldid=4064193) |
+| Wither | slowing them by 35% | [4064193](https://wiki.leagueoflegends.com/en-us/Template:Data_Nasus/Wither?oldid=4064193) |
+| Wither | Additional Slow Per Second: 3 / 6 / 9 / 12 / 15% | [4064193](https://wiki.leagueoflegends.com/en-us/Template:Data_Nasus/Wither?oldid=4064193) |
+| Wither | Maximum Slow: 47 / 59 / 71 / 83 / 95% | [4064193](https://wiki.leagueoflegends.com/en-us/Template:Data_Nasus/Wither?oldid=4064193) |
+| Wither | crippling them by 75% of that amount | [4064193](https://wiki.leagueoflegends.com/en-us/Template:Data_Nasus/Wither?oldid=4064193) |
+| Spirit Fire | The fire then remains for 5 seconds | [4035787](https://wiki.leagueoflegends.com/en-us/Template:Data_Nasus/Spirit_Fire?oldid=4035787) |
+| Fury of the Sands | Nasus empowers himself for 15 seconds | [4007699](https://wiki.leagueoflegends.com/en-us/Template:Data_Nasus/Fury_of_the_Sands?oldid=4007699) |
+| Fury of the Sands | he deals magic damage every 0.5 seconds | [4007699](https://wiki.leagueoflegends.com/en-us/Template:Data_Nasus/Fury_of_the_Sands?oldid=4007699) |
+| Fury of the Sands | Magic Damage Per Tick: 1.5 / 2 / 2.5% (+ 0.5% per 100 AP) of target's maximum health | [4007699](https://wiki.leagueoflegends.com/en-us/Template:Data_Nasus/Fury_of_the_Sands?oldid=4007699) |
+| Fury of the Sands | capped at 240 per second | [4007699](https://wiki.leagueoflegends.com/en-us/Template:Data_Nasus/Fury_of_the_Sands?oldid=4007699) |
+| Fury of the Sands | effectRadius: 400 + 0.8 per 1% bonus size | [4007699](https://wiki.leagueoflegends.com/en-us/Template:Data_Nasus/Fury_of_the_Sands?oldid=4007699) |
+| Fury of the Sands | Siphoning Strike cooldown is halved | [4007699](https://wiki.leagueoflegends.com/en-us/Template:Data_Nasus/Fury_of_the_Sands?oldid=4007699) |
+| Soul Eater | Innate: Nasus gains 10 / 15 / 20 (based on level)% life steal. | [4057470](https://wiki.leagueoflegends.com/en-us/Template:Data_Nasus/Soul_Eater?oldid=4057470) |
+| Siphoning Strike | cooldown: 7.5 / 6.5 / 5.5 / 4.5 / 3.5 | [4064857](https://wiki.leagueoflegends.com/en-us/Template:Data_Nasus/Siphoning_Strike?oldid=4064857) |
+| Siphoning Strike | cost: 20 | [4064857](https://wiki.leagueoflegends.com/en-us/Template:Data_Nasus/Siphoning_Strike?oldid=4064857) |
+| Siphoning Strike | castTime: none | [4064857](https://wiki.leagueoflegends.com/en-us/Template:Data_Nasus/Siphoning_Strike?oldid=4064857) |
+| Siphoning Strike | next basic attack within 10 seconds | [4064857](https://wiki.leagueoflegends.com/en-us/Template:Data_Nasus/Siphoning_Strike?oldid=4064857) |
+| Siphoning Strike | gain 50 bonus range | [4064857](https://wiki.leagueoflegends.com/en-us/Template:Data_Nasus/Siphoning_Strike?oldid=4064857) |
+| Wither | cooldown: 15 / 14 / 13 / 12 / 11 | [4064193](https://wiki.leagueoflegends.com/en-us/Template:Data_Nasus/Wither?oldid=4064193) |
+| Wither | cost: 80 | [4064193](https://wiki.leagueoflegends.com/en-us/Template:Data_Nasus/Wither?oldid=4064193) |
+| Wither | castTime: 0.25 | [4064193](https://wiki.leagueoflegends.com/en-us/Template:Data_Nasus/Wither?oldid=4064193) |
+| Wither | targetRange: 700 | [4064193](https://wiki.leagueoflegends.com/en-us/Template:Data_Nasus/Wither?oldid=4064193) |
+| Spirit Fire | cooldown: 12 | [4035787](https://wiki.leagueoflegends.com/en-us/Template:Data_Nasus/Spirit_Fire?oldid=4035787) |
+| Spirit Fire | cost: 60 / 70 / 80 / 90 / 100 | [4035787](https://wiki.leagueoflegends.com/en-us/Template:Data_Nasus/Spirit_Fire?oldid=4035787) |
+| Spirit Fire | castTime: 0.25 | [4035787](https://wiki.leagueoflegends.com/en-us/Template:Data_Nasus/Spirit_Fire?oldid=4035787) |
+| Spirit Fire | targetRange: 650 | [4035787](https://wiki.leagueoflegends.com/en-us/Template:Data_Nasus/Spirit_Fire?oldid=4035787) |
+| Spirit Fire | effectRadius (Area of effect radius): 400 • 200 | [4035787](https://wiki.leagueoflegends.com/en-us/Template:Data_Nasus/Spirit_Fire?oldid=4035787) |
+| Spirit Fire | after a 0.264 delay | [4035787](https://wiki.leagueoflegends.com/en-us/Template:Data_Nasus/Spirit_Fire?oldid=4035787) |
+| Spirit Fire | Magic Damage: 50 / 80 / 110 / 140 / 170 (+ 60% AP) | [4035787](https://wiki.leagueoflegends.com/en-us/Template:Data_Nasus/Spirit_Fire?oldid=4035787) |
+| Spirit Fire | Total Magic Damage: 100 / 160 / 220 / 280 / 340 (+ 120% AP) | [4035787](https://wiki.leagueoflegends.com/en-us/Template:Data_Nasus/Spirit_Fire?oldid=4035787) |
+| Spirit Fire | Armor Reduction: 30 / 35 / 40 / 45 / 50% of target's armor | [4035787](https://wiki.leagueoflegends.com/en-us/Template:Data_Nasus/Spirit_Fire?oldid=4035787) |
+| Fury of the Sands | cooldown: 120 / 100 / 80 | [4007699](https://wiki.leagueoflegends.com/en-us/Template:Data_Nasus/Fury_of_the_Sands?oldid=4007699) |
+| Fury of the Sands | cost: 100 | [4007699](https://wiki.leagueoflegends.com/en-us/Template:Data_Nasus/Fury_of_the_Sands?oldid=4007699) |
+| Fury of the Sands | castTime: 0.2 | [4007699](https://wiki.leagueoflegends.com/en-us/Template:Data_Nasus/Fury_of_the_Sands?oldid=4007699) |
+| Fury of the Sands | Bonus Health: 300 / 450 / 600 | [4007699](https://wiki.leagueoflegends.com/en-us/Template:Data_Nasus/Fury_of_the_Sands?oldid=4007699) |
+| Fury of the Sands | Bonus Resistances: 40 / 55 / 70 | [4007699](https://wiki.leagueoflegends.com/en-us/Template:Data_Nasus/Fury_of_the_Sands?oldid=4007699) |
+| Fury of the Sands | and 50 bonus attack range for the duration | [4007699](https://wiki.leagueoflegends.com/en-us/Template:Data_Nasus/Fury_of_the_Sands?oldid=4007699) |

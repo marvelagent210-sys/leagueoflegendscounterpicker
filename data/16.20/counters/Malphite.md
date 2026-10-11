@@ -1,5 +1,38 @@
 # Counters to Malphite (patch 26.20)
 
+## Simulated duels (full confidence)
+
+The duel simulator played each of the 24 other champions with a simulator kit against Malphite: both at level 20 with 15,000 gold of plain stats, each side's spent against the other's, through six scenarios (PLAN.md §6). Scores run from −1 (Malphite wins every time) to +1 (the champion does). Run `npm run duel -- <champion> Malphite --log brawl` to watch a fight.
+
+| # | Champion | Score | You engage | Enemy engages | Brawl | Short trade | Spacing | Escape |
+|--:|---|--:|--:|--:|--:|--:|--:|--:|
+| 1 | Urgot | +0.91 | +1.00 | +1.00 | +1.00 | +0.40 | +1.00 | +1.00 |
+| 2 | Teemo | +0.91 | +1.00 | +1.00 | +1.00 | +0.73 | +1.00 | +0.00 |
+| 3 | Nasus | +0.79 | +1.00 | +1.00 | +1.00 | −0.06 | +1.00 | +0.00 |
+| 4 | Olaf | +0.78 | +1.00 | +1.00 | +1.00 | −0.12 | +1.00 | +0.00 |
+| 5 | Volibear | +0.76 | +1.00 | +1.00 | +1.00 | −0.09 | – | +0.00 |
+| 6 | Renekton | +0.75 | +1.00 | +1.00 | +1.00 | −0.14 | – | +0.00 |
+| 7 | Tryndamere | +0.75 | +1.00 | +1.00 | +1.00 | −0.15 | – | +0.00 |
+| 8 | Dr. Mundo | +0.74 | +1.00 | +1.00 | +1.00 | −0.20 | – | +0.00 |
+| 9 | Mordekaiser | +0.58 | +0.72 | +0.84 | +0.86 | −0.24 | – | +0.00 |
+| 10 | Poppy | +0.56 | +1.00 | +0.00 | +1.00 | +0.37 | – | +0.00 |
+| 11 | Aatrox | +0.31 | +1.00 | +1.00 | −1.00 | −0.12 | – | +0.00 |
+| 12 | Fiora | +0.24 | +0.00 | +1.00 | +0.00 | −0.24 | – | +0.00 |
+| 13 | Garen | +0.21 | +1.00 | −1.00 | +1.00 | −0.09 | – | +0.00 |
+| 14 | Jax | +0.03 | +0.00 | +0.00 | +0.00 | −0.10 | +0.50 | +0.00 |
+| 15 | Gwen | −0.21 | +1.00 | −1.00 | −1.00 | +0.07 | – | +0.00 |
+| 16 | Darius | −0.26 | −1.00 | +1.00 | −1.00 | −0.24 | – | +0.00 |
+| 17 | Shen | −0.50 | +0.00 | −1.00 | −1.00 | −0.02 | – | +0.00 |
+| 18 | Irelia | −0.70 | −0.67 | −1.00 | −1.00 | −0.07 | – | +0.00 |
+| 19 | Ornn | −0.77 | −1.00 | −1.00 | −1.00 | +0.05 | – | +0.00 |
+| 20 | Riven | −0.78 | −1.00 | −1.00 | −1.00 | +0.00 | – | +0.00 |
+| 21 | Yasuo | −0.79 | −1.00 | −1.00 | −1.00 | −0.07 | – | +0.00 |
+| 22 | Sett | −0.79 | −1.00 | −1.00 | −1.00 | −0.08 | – | +0.00 |
+| 23 | Yone | −0.80 | −1.00 | −1.00 | −1.00 | −0.13 | – | +0.00 |
+| 24 | Camille | −0.80 | −1.00 | −1.00 | −1.00 | −0.14 | – | +0.00 |
+
+## Interaction ledger (partial confidence)
+
 Every champion ranked by what its kit does against Malphite's, from the interaction ledger: projectile blocks, spell shields,
 parries, dash stops, crowd control and its defenses, range and more (PLAN.md §5). This ranking is **partial**: it weighs the
 interactions but doesn't play the fight out. The duel simulator replaces it as each champion's behavior is verified.
@@ -8,79 +41,79 @@ interactions but doesn't play the fight out. The duel simulator replaces it as e
 A hard counter shuts down part of a kit every time it is used (projectile block, attack dodge, attack block, blind, disarm, attack speed slow, attack reflect, dash stop, grounding, range) with an impact of 0.4 or more (0.5 for range).
 Run `npm run matchup -- <champion> Malphite` for the full ledger of a matchup, with sources.
 
-## Top 10
+### Top 10
 
-### 1. Elise (net +1.26)
+#### 1. Elise (net +1.26)
 
 - **1.00** untargetable: Rappel makes Elise untargetable, dodging Malphite's Unstoppable Force. Untargetable for 0.6 s; Unstoppable Force takes 0.67 s to land, enough to react. (Elise E Rappel → Malphite R Unstoppable Force)
 - **0.32** range: Elise's basic attacks reach 425 units farther than Malphite's (550 vs 125 attack range). Malphite closes the gap with Unstoppable Force. (Elise basic attacks → Malphite basic attacks)
 - **0.30** untargetable: Rappel makes Elise untargetable, dodging Malphite's Seismic Shard. Untargetable for 0.6 s; Seismic Shard takes 0.77 s to land, enough to react. (Elise E Rappel → Malphite Q Seismic Shard)
 - Watch out: Ground Slam cuts Elise's attack speed by 50% for 3 s.
 
-### 2. Aurora (net +1.25)
+#### 2. Aurora (net +1.25)
 
 - **1.00** untargetable: Between Worlds makes Aurora untargetable, dodging Malphite's Unstoppable Force. Untargetable for 0.4 s; Unstoppable Force takes 0.67 s to land, enough to react. Does not destroy inbound projectiles. (Aurora R Between Worlds → Malphite R Unstoppable Force)
 - **0.29** range: Aurora's basic attacks reach 425 units farther than Malphite's (550 vs 125 attack range). Malphite closes the gap with Unstoppable Force. (Aurora basic attacks → Malphite basic attacks)
 - **0.20** cc immunity: Between Worlds is displacement immune, ignoring Malphite's Unstoppable Force (airborne) during it. Only during Between Worlds (0.4 s). (Aurora R Between Worlds → Malphite R Unstoppable Force)
 - Watch out: Ground Slam cuts Aurora's attack speed by 50% for 3 s.
 
-### 3. Xayah (net +1.23)
+#### 3. Xayah (net +1.23)
 
 - **1.00** untargetable: Featherstorm makes Xayah untargetable, dodging Malphite's Unstoppable Force. Untargetable for 1.5 s, long enough to use ahead of Unstoppable Force. (Xayah R Featherstorm → Malphite R Unstoppable Force)
 - **0.38** range: Xayah's basic attacks reach 400 units farther than Malphite's (525 vs 125 attack range). Malphite closes the gap with Unstoppable Force. (Xayah basic attacks → Malphite basic attacks)
 - **0.20** untargetable: Featherstorm makes Xayah untargetable, dodging Malphite's Seismic Shard. Untargetable for 1.5 s, long enough to use ahead of Seismic Shard. (Xayah R Featherstorm → Malphite Q Seismic Shard)
 - Watch out: Ground Slam cuts Xayah's attack speed by 50% for 3 s.
 
-### 4. Sivir (net +1.22)
+#### 4. Sivir (net +1.22)
 
 - **1.00** spell shield: Spell Shield's spell shield blocks Malphite's Unstoppable Force. Spell shield for 1.5 s, long enough to use ahead of Unstoppable Force. A spell shield blocks only the first enemy ability that reaches it. (Sivir E Spell Shield → Malphite R Unstoppable Force)
 - **0.47** range: Sivir's basic attacks reach 375 units farther than Malphite's (500 vs 125 attack range). Malphite closes the gap with Unstoppable Force. (Sivir basic attacks → Malphite basic attacks)
 - **0.15** spell shield: Spell Shield's spell shield blocks part of Malphite's Seismic Shard. Spell shield for 1.5 s, long enough to use ahead of Seismic Shard. A spell shield blocks only the first enemy ability that reaches it. (Sivir E Spell Shield → Malphite Q Seismic Shard)
 - Watch out: Ground Slam cuts Sivir's attack speed by 50% for 3 s.
 
-### 5. Vladimir (net +1.15)
+#### 5. Vladimir (net +1.15)
 
 - **1.00** untargetable: Sanguine Pool makes Vladimir untargetable, dodging Malphite's Unstoppable Force. Untargetable for 2 s, long enough to use ahead of Unstoppable Force. (Vladimir W Sanguine Pool → Malphite R Unstoppable Force)
 - **0.32** untargetable: Sanguine Pool makes Vladimir untargetable, dodging Malphite's Seismic Shard. Untargetable for 2 s, long enough to use ahead of Seismic Shard. (Vladimir W Sanguine Pool → Malphite Q Seismic Shard)
 - **0.18** range: Vladimir's basic attacks reach 325 units farther than Malphite's (450 vs 125 attack range). Malphite closes the gap with Unstoppable Force. (Vladimir basic attacks → Malphite basic attacks)
 - Watch out: Ground Slam cuts Vladimir's attack speed by 50% for 3 s.
 
-### 6. Bard (net +1.14)
+#### 6. Bard (net +1.14)
 
 - **1.00** untargetable: Tempered Fate makes Bard untargetable, dodging Malphite's Unstoppable Force. Untargetable for 2.5 s, long enough to use ahead of Unstoppable Force. (Bard R Tempered Fate → Malphite R Unstoppable Force)
 - **0.36** range: Bard's basic attacks reach 375 units farther than Malphite's (500 vs 125 attack range). Malphite closes the gap with Unstoppable Force. (Bard basic attacks → Malphite basic attacks)
 - **0.21** untargetable: Tempered Fate makes Bard untargetable, dodging Malphite's Seismic Shard. Untargetable for 2.5 s, long enough to use ahead of Seismic Shard. (Bard R Tempered Fate → Malphite Q Seismic Shard)
 - Watch out: Ground Slam cuts Bard's attack speed by 50% for 3 s.
 
-### 7. Lissandra (net +1.14)
+#### 7. Lissandra (net +1.14)
 
 - **1.00** untargetable: Frozen Tomb makes Lissandra untargetable, dodging Malphite's Unstoppable Force. Untargetable for 2.5 s, long enough to use ahead of Unstoppable Force. (Lissandra R Frozen Tomb → Malphite R Unstoppable Force)
 - **0.22** range: Lissandra's basic attacks reach 425 units farther than Malphite's (550 vs 125 attack range). Malphite closes the gap with Unstoppable Force. (Lissandra basic attacks → Malphite basic attacks)
 - **0.21** untargetable: Frozen Tomb makes Lissandra untargetable, dodging Malphite's Seismic Shard. Untargetable for 2.5 s, long enough to use ahead of Seismic Shard. (Lissandra R Frozen Tomb → Malphite Q Seismic Shard)
 - Watch out: Ground Slam cuts Lissandra's attack speed by 50% for 3 s.
 
-### 8. Morgana (net +1.09)
+#### 8. Morgana (net +1.09)
 
 - **1.00** cc immunity: Black Shield makes Morgana immune to Malphite's Unstoppable Force (airborne). Immune for 5 s, long enough to use ahead of Unstoppable Force. (Morgana E Black Shield → Malphite R Unstoppable Force)
 - **0.19** range: Morgana's basic attacks reach 325 units farther than Malphite's (450 vs 125 attack range). Malphite closes the gap with Unstoppable Force. (Morgana basic attacks → Malphite basic attacks)
 - **0.08** cc immunity: Black Shield makes Morgana immune to Malphite's Seismic Shard (slow). Immune for 5 s, long enough to use ahead of Seismic Shard. (Morgana E Black Shield → Malphite Q Seismic Shard)
 - Watch out: Ground Slam cuts Morgana's attack speed by 50% for 3 s.
 
-### 9. Fiora (net +1.07)
+#### 9. Fiora (net +1.07)
 
 - **1.10** parry: Riposte parries Malphite's Unstoppable Force and stuns back. Parry for 0.75 s; Unstoppable Force takes 0.67 s to land, enough to react. Negating Unstoppable Force's immobilizing effect turns Riposte's slow into a stun (2 s). (Fiora W Riposte → Malphite R Unstoppable Force)
 - **0.32** parry: Riposte parries Malphite's Seismic Shard. Parry for 0.75 s; Seismic Shard takes 0.77 s to land, enough to react. (Fiora W Riposte → Malphite Q Seismic Shard)
 - **0.07** attack speed slow: Riposte cuts Malphite's attack speed by 25% for 2 s. 2 s on a 16 s cooldown. (Fiora W Riposte → Malphite basic attacks)
 - Watch out: Ground Slam cuts Fiora's attack speed by 50% for 3 s.
 
-### 10. Nocturne (net +1.04)
+#### 10. Nocturne (net +1.04)
 
 - **1.00** spell shield: Shroud of Darkness's spell shield blocks Malphite's Unstoppable Force. Spell shield for 1.5 s, long enough to use ahead of Unstoppable Force. A spell shield blocks only the first enemy ability that reaches it. (Nocturne W Shroud of Darkness → Malphite R Unstoppable Force)
 - **0.20** cc immunity: Paranoia is displacement immune, ignoring Malphite's Unstoppable Force (airborne) during it. Only during Paranoia. (Nocturne R Paranoia → Malphite R Unstoppable Force)
 - **0.18** spell shield: Shroud of Darkness's spell shield blocks part of Malphite's Seismic Shard. Spell shield for 1.5 s, long enough to use ahead of Seismic Shard. A spell shield blocks only the first enemy ability that reaches it. (Nocturne W Shroud of Darkness → Malphite Q Seismic Shard)
 - Watch out: Ground Slam cuts Nocturne's attack speed by 50% for 3 s.
 
-## Full ranking
+### Full ranking
 
 | # | Champion | Net | For | Against | Hard counters |
 |--:|---|--:|--:|--:|---|

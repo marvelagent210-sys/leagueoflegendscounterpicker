@@ -111,7 +111,7 @@ export const IMMUNITY_AND_ARMOR: GoldenMatchup[] = [
     margin: "clear",
     why: "Ground Slam cuts Tryndamere's attack speed, and Malphite's armor blunts his crits.",
     disputed:
-      "Tryndamere wins every all-in (-0.75). The budget buys him 138 lethality and 49% armor penetration, which takes all of Malphite's armor away: no plain-stat build keeps armor against flat penetration at gold value.",
+      "Tryndamere wins every all-in (-0.75). Against Malphite the budget buys him 110 lethality and 73% armor penetration, which takes all of Malphite's armor away: at gold value, penetration is cheaper than the armor it cancels.",
   },
   { winner: "Malphite", loser: "Yasuo", margin: "slight", why: "Armor against crits, and Unstoppable Force goes through Wind Wall." },
   { winner: "Malphite", loser: "Yone", margin: "slight", why: "Armor against crits, and Ground Slam cuts Yone's attack speed." },

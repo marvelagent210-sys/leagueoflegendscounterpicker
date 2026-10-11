@@ -201,3 +201,62 @@ All 1 level-based formulas in the game files (0 linked to wiki values above):
 | Spell | Calculation | Rule | Level 1 | Level 18 | Level 20 |
 |---|---|---|--:|--:|--:|
 | MalphiteShield | PassiveCooldown | breakpoints at levels 7, 13 (level 1: 8) | 8 | 6 | 6 |
+
+## Duel simulator kit (level 20, every ability at max rank)
+
+What the duel simulator fights with (`kits/champions/Malphite.ts`): every number is read from the wiki's ability data above at level 20; what the wiki doesn't say is listed under assumptions. Ratios are fractions of the stat (60% AD is 0.6 × AD).
+
+- Basic attack: range 125, melee.
+
+| Key | Ability | Cooldown (s) | Cast time (s) | Cost | Delivery | On the enemy | On itself |
+|---|---|--:|--:|---|---|---|---|
+| Q | Seismic Shard | 8 | 0.25 | 90 | targeted, 625 range, missile at 1200/s | 270 + 60% AP magic damage; to itself: moveSpeedFlat 40% target's movement speed for 3 s; slow 40% for 3 s | – |
+| W | Thunderclap | 8 | 0 | 50 | self | – | next 1 attack within 6 s: 70 + 20% AP + 15% armor physical damage (+50 range, resets the attack timer, uncancellable); next 99 attacks within 5 s: 55 + 30% AP + 15% armor physical damage (Thunderclap (cone)) |
+| E | Ground Slam | 7 | 0.242 | 70 | around itself, 400 units | 200 + 60% AP + 40% armor magic damage; cripple 50% for 3 s | – |
+| R | Unstoppable Force | 100 | 0 | 100 | dash toward 1000 units at 1835/s, hits within 325 | 400 + 90% AP magic damage; knock up over 1.5 s | displacementImmune for 1 s |
+
+Effects marked by a mark or a role are completed by the kit's hooks (see the kit's source).
+
+### Assumptions
+
+- Unstoppable Force's dash speed (1500 + 100% movement speed) uses Malphite's base movement speed.
+
+### Wiki values read (35)
+
+| Ability | Value | Revision |
+|---|---|---|
+| Granite Shield | a shield equal to 10% of his maximum health | [3973718](https://wiki.leagueoflegends.com/en-us/Template:Data_Malphite/Granite_Shield?oldid=3973718) |
+| Granite Shield | staticCooldown: 8 / 7 / 6 (based on level) | [3973718](https://wiki.leagueoflegends.com/en-us/Template:Data_Malphite/Granite_Shield?oldid=3973718) |
+| Thunderclap | Bonus Armor: 10 / 15 / 20 / 25 / 30% armor | [4013417](https://wiki.leagueoflegends.com/en-us/Template:Data_Malphite/Thunderclap?oldid=4013417) |
+| Thunderclap | Increased Bonus Armor: 30 / 45 / 60 / 75 / 90% armor | [4013417](https://wiki.leagueoflegends.com/en-us/Template:Data_Malphite/Thunderclap?oldid=4013417) |
+| Seismic Shard | Slow: 20 / 25 / 30 / 35 / 40% | [4003493](https://wiki.leagueoflegends.com/en-us/Template:Data_Malphite/Seismic_Shard?oldid=4003493) |
+| Seismic Shard | slows them for 3 seconds upon impact | [4003493](https://wiki.leagueoflegends.com/en-us/Template:Data_Malphite/Seismic_Shard?oldid=4003493) |
+| Thunderclap | on-hit for the next 5 seconds | [4013417](https://wiki.leagueoflegends.com/en-us/Template:Data_Malphite/Thunderclap?oldid=4013417) |
+| Unstoppable Force | knocks them up for 1.5 seconds | [4074437](https://wiki.leagueoflegends.com/en-us/Template:Data_Malphite/Unstoppable_Force?oldid=4074437) |
+| Seismic Shard | cooldown: 8 | [4003493](https://wiki.leagueoflegends.com/en-us/Template:Data_Malphite/Seismic_Shard?oldid=4003493) |
+| Seismic Shard | cost: 70 / 75 / 80 / 85 / 90 | [4003493](https://wiki.leagueoflegends.com/en-us/Template:Data_Malphite/Seismic_Shard?oldid=4003493) |
+| Seismic Shard | castTime: 0.25 | [4003493](https://wiki.leagueoflegends.com/en-us/Template:Data_Malphite/Seismic_Shard?oldid=4003493) |
+| Seismic Shard | targetRange: 625 | [4003493](https://wiki.leagueoflegends.com/en-us/Template:Data_Malphite/Seismic_Shard?oldid=4003493) |
+| Seismic Shard | speed: 1200 | [4003493](https://wiki.leagueoflegends.com/en-us/Template:Data_Malphite/Seismic_Shard?oldid=4003493) |
+| Seismic Shard | Magic Damage: 70 / 120 / 170 / 220 / 270 (+ 60% AP) | [4003493](https://wiki.leagueoflegends.com/en-us/Template:Data_Malphite/Seismic_Shard?oldid=4003493) |
+| Thunderclap | cooldown: 10 / 9.5 / 9 / 8.5 / 8 | [4013417](https://wiki.leagueoflegends.com/en-us/Template:Data_Malphite/Thunderclap?oldid=4013417) |
+| Thunderclap | cost: 30 / 35 / 40 / 45 / 50 | [4013417](https://wiki.leagueoflegends.com/en-us/Template:Data_Malphite/Thunderclap?oldid=4013417) |
+| Thunderclap | castTime: none | [4013417](https://wiki.leagueoflegends.com/en-us/Template:Data_Malphite/Thunderclap?oldid=4013417) |
+| Thunderclap | next basic attack within 6 seconds | [4013417](https://wiki.leagueoflegends.com/en-us/Template:Data_Malphite/Thunderclap?oldid=4013417) |
+| Thunderclap | gain 50 bonus range | [4013417](https://wiki.leagueoflegends.com/en-us/Template:Data_Malphite/Thunderclap?oldid=4013417) |
+| Thunderclap | Additional Physical Damage: 30 / 40 / 50 / 60 / 70 (+ 20% AP) (+ 15% armor) | [4013417](https://wiki.leagueoflegends.com/en-us/Template:Data_Malphite/Thunderclap?oldid=4013417) |
+| Thunderclap | Physical Damage: 15 / 25 / 35 / 45 / 55 (+ 30% AP) (+ 15% armor) | [4013417](https://wiki.leagueoflegends.com/en-us/Template:Data_Malphite/Thunderclap?oldid=4013417) |
+| Ground Slam | cooldown: 7 | [3985874](https://wiki.leagueoflegends.com/en-us/Template:Data_Malphite/Ground_Slam?oldid=3985874) |
+| Ground Slam | cost: 50 / 55 / 60 / 65 / 70 | [3985874](https://wiki.leagueoflegends.com/en-us/Template:Data_Malphite/Ground_Slam?oldid=3985874) |
+| Ground Slam | castTime: 0.2419 | [3985874](https://wiki.leagueoflegends.com/en-us/Template:Data_Malphite/Ground_Slam?oldid=3985874) |
+| Ground Slam | effectRadius: 400 | [3985874](https://wiki.leagueoflegends.com/en-us/Template:Data_Malphite/Ground_Slam?oldid=3985874) |
+| Ground Slam | Magic Damage: 60 / 95 / 130 / 165 / 200 (+ 60% AP) (+ 40% armor) | [3985874](https://wiki.leagueoflegends.com/en-us/Template:Data_Malphite/Ground_Slam?oldid=3985874) |
+| Ground Slam | Cripple Strength: 30 / 35 / 40 / 45 / 50% | [3985874](https://wiki.leagueoflegends.com/en-us/Template:Data_Malphite/Ground_Slam?oldid=3985874) |
+| Ground Slam | crippling them for 3 seconds | [3985874](https://wiki.leagueoflegends.com/en-us/Template:Data_Malphite/Ground_Slam?oldid=3985874) |
+| Unstoppable Force | cooldown: 130 / 115 / 100 | [4074437](https://wiki.leagueoflegends.com/en-us/Template:Data_Malphite/Unstoppable_Force?oldid=4074437) |
+| Unstoppable Force | cost: 100 | [4074437](https://wiki.leagueoflegends.com/en-us/Template:Data_Malphite/Unstoppable_Force?oldid=4074437) |
+| Unstoppable Force | castTime: none | [4074437](https://wiki.leagueoflegends.com/en-us/Template:Data_Malphite/Unstoppable_Force?oldid=4074437) |
+| Unstoppable Force | targetRange (Maximum dash distance): 1000 | [4074437](https://wiki.leagueoflegends.com/en-us/Template:Data_Malphite/Unstoppable_Force?oldid=4074437) |
+| Unstoppable Force | speed: 1500 + 100% movement speed | [4074437](https://wiki.leagueoflegends.com/en-us/Template:Data_Malphite/Unstoppable_Force?oldid=4074437) |
+| Unstoppable Force | effectRadius: 325 | [4074437](https://wiki.leagueoflegends.com/en-us/Template:Data_Malphite/Unstoppable_Force?oldid=4074437) |
+| Unstoppable Force | Magic Damage: 200 / 300 / 400 (+ 90% AP) | [4074437](https://wiki.leagueoflegends.com/en-us/Template:Data_Malphite/Unstoppable_Force?oldid=4074437) |

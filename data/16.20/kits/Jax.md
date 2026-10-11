@@ -196,3 +196,64 @@ All 3 level-based formulas in the game files (0 linked to wiki values above):
 | JaxPassive | AttackSpeedPerStack | breakpoints at levels 4, 7, 10, 13, 16, 19 (level 1: 0.05) | 0.05 | 0.125 | 0.14 |
 | JaxPassive | BelvethVsJaxQuestRewardAttackSpeedPerStack | breakpoints at levels 14 (level 1: 0.0028) | 0.0028 | 0.013 | 0.0142 |
 | JaxE | MonsterDamageCap | linear 9000 → 9000 over levels 1-18, continues past 18 | 9000 | 9000 | 9000 |
+
+## Duel simulator kit (level 20, every ability at max rank)
+
+What the duel simulator fights with (`kits/champions/Jax.ts`): every number is read from the wiki's ability data above at level 20; what the wiki doesn't say is listed under assumptions. Ratios are fractions of the stat (60% AD is 0.6 × AD).
+
+- Basic attack: range 125, melee.
+
+| Key | Ability | Cooldown (s) | Cast time (s) | Cost | Delivery | On the enemy | On itself |
+|---|---|--:|--:|---|---|---|---|
+| Q | Leap Strike | 6 | 0 | 50 | dash target 700 units at 2000/s, hits within 75 | 225 + 100% bonus AD physical damage | – |
+| W | Empower | 3 | 0 | 30 | self | – | next 1 attack within 10 s: 190 + 60% AP magic damage (+50 range, resets the attack timer, uncancellable) |
+| E | Counter Strike | 9 | 0 | 90 | self | – | dodgeAttacks for 2 s |
+| E2 | Counter Strike (recast) | 0 | 0 | – | around itself, 375 units; recast of E within 2 s, after 1 s, automatic | 160 + 70% AP + 4% target's maximum health magic damage; stun for 1 s | – |
+| R | Grandmaster-at-Arms | 90 | 0.25 | 100 | around itself, 375 units | 250 + 100% AP magic damage; to itself: armor 75 + 40% bonus AD for 8 s; MR 45 + 24% bonus AD for 8 s | – |
+
+Effects marked by a mark or a role are completed by the kit's hooks (see the kit's source).
+
+### Assumptions
+
+- Leap Strike's dash speed isn't on the wiki; it is taken as 2,000 units per second.
+- Evasion's 25% reduction of area damage isn't modeled.
+- Empower is used on basic attacks, not on Leap Strike.
+
+### Wiki values read (34)
+
+| Ability | Value | Revision |
+|---|---|---|
+| Relentless Assault | Relentless Assault: For each stack, Jax gains 5 / 6.5 / 8 / 9.5 / 11 / 12.5 / 14 (based on level)% bonus attack speed, up to a maximum of 40 / 52 / 64 / 76 / 88 / 100 / 112 (based on level)%. | [4038387](https://wiki.leagueoflegends.com/en-us/Template:Data_Jax/Relentless_Assault?oldid=4038387) |
+| Relentless Assault | stacking up to 8 times | [4038387](https://wiki.leagueoflegends.com/en-us/Template:Data_Jax/Relentless_Assault?oldid=4038387) |
+| Relentless Assault | on-attack for 2.5 seconds | [4038387](https://wiki.leagueoflegends.com/en-us/Template:Data_Jax/Relentless_Assault?oldid=4038387) |
+| Grandmaster-at-Arms | Additional Magic Damage: 75 / 130 / 185 (+ 60% AP) | [3973573](https://wiki.leagueoflegends.com/en-us/Template:Data_Jax/Grandmaster-at-Arms?oldid=3973573) |
+| Grandmaster-at-Arms | stacking up to 2 times | [3973573](https://wiki.leagueoflegends.com/en-us/Template:Data_Jax/Grandmaster-at-Arms?oldid=3973573) |
+| Grandmaster-at-Arms | as well as 10% increased size for 8 seconds | [3973573](https://wiki.leagueoflegends.com/en-us/Template:Data_Jax/Grandmaster-at-Arms?oldid=3973573) |
+| Counter Strike | Minimum Magic Damage: 40 / 70 / 100 / 130 / 160 (+ 70% AP) (+ 4% of target's maximum health) | [4026415](https://wiki.leagueoflegends.com/en-us/Template:Data_Jax/Counter_Strike?oldid=4026415) |
+| Counter Strike | increased by 20% for each attack dodged | [4026415](https://wiki.leagueoflegends.com/en-us/Template:Data_Jax/Counter_Strike?oldid=4026415) |
+| Counter Strike | up to a 100% increase | [4026415](https://wiki.leagueoflegends.com/en-us/Template:Data_Jax/Counter_Strike?oldid=4026415) |
+| Counter Strike | Jax enters Evasion for 2 seconds | [4026415](https://wiki.leagueoflegends.com/en-us/Template:Data_Jax/Counter_Strike?oldid=4026415) |
+| Counter Strike | effectRadius: 375 | [4026415](https://wiki.leagueoflegends.com/en-us/Template:Data_Jax/Counter_Strike?oldid=4026415) |
+| Leap Strike | cooldown: 8 / 7.5 / 7 / 6.5 / 6 | [4026413](https://wiki.leagueoflegends.com/en-us/Template:Data_Jax/Leap_Strike?oldid=4026413) |
+| Leap Strike | cost: 50 | [4026413](https://wiki.leagueoflegends.com/en-us/Template:Data_Jax/Leap_Strike?oldid=4026413) |
+| Leap Strike | castTime: none | [4026413](https://wiki.leagueoflegends.com/en-us/Template:Data_Jax/Leap_Strike?oldid=4026413) |
+| Leap Strike | targetRange: 700 | [4026413](https://wiki.leagueoflegends.com/en-us/Template:Data_Jax/Leap_Strike?oldid=4026413) |
+| Leap Strike | Physical Damage: 65 / 105 / 145 / 185 / 225 (+ 100% bonus AD) | [4026413](https://wiki.leagueoflegends.com/en-us/Template:Data_Jax/Leap_Strike?oldid=4026413) |
+| Empower | cooldown: 7 / 6 / 5 / 4 / 3 | [3973571](https://wiki.leagueoflegends.com/en-us/Template:Data_Jax/Empower?oldid=3973571) |
+| Empower | cost: 30 | [3973571](https://wiki.leagueoflegends.com/en-us/Template:Data_Jax/Empower?oldid=3973571) |
+| Empower | castTime: none | [3973571](https://wiki.leagueoflegends.com/en-us/Template:Data_Jax/Empower?oldid=3973571) |
+| Empower | against an enemy within 10 seconds | [3973571](https://wiki.leagueoflegends.com/en-us/Template:Data_Jax/Empower?oldid=3973571) |
+| Empower | it will gain 50 bonus range | [3973571](https://wiki.leagueoflegends.com/en-us/Template:Data_Jax/Empower?oldid=3973571) |
+| Empower | Additional Magic Damage: 50 / 85 / 120 / 155 / 190 (+ 60% AP) | [3973571](https://wiki.leagueoflegends.com/en-us/Template:Data_Jax/Empower?oldid=3973571) |
+| Counter Strike | cooldown: 17 / 15 / 13 / 11 / 9 | [4026415](https://wiki.leagueoflegends.com/en-us/Template:Data_Jax/Counter_Strike?oldid=4026415) |
+| Counter Strike | cost: 50 / 60 / 70 / 80 / 90 | [4026415](https://wiki.leagueoflegends.com/en-us/Template:Data_Jax/Counter_Strike?oldid=4026415) |
+| Counter Strike | castTime: none | [4026415](https://wiki.leagueoflegends.com/en-us/Template:Data_Jax/Counter_Strike?oldid=4026415) |
+| Counter Strike | Counter Strike can be recast after 1 second | [4026415](https://wiki.leagueoflegends.com/en-us/Template:Data_Jax/Counter_Strike?oldid=4026415) |
+| Counter Strike | stuns them for 1 second | [4026415](https://wiki.leagueoflegends.com/en-us/Template:Data_Jax/Counter_Strike?oldid=4026415) |
+| Grandmaster-at-Arms | cooldown: 110 / 100 / 90 | [3973573](https://wiki.leagueoflegends.com/en-us/Template:Data_Jax/Grandmaster-at-Arms?oldid=3973573) |
+| Grandmaster-at-Arms | cost: 100 | [3973573](https://wiki.leagueoflegends.com/en-us/Template:Data_Jax/Grandmaster-at-Arms?oldid=3973573) |
+| Grandmaster-at-Arms | castTime: 0.25 | [3973573](https://wiki.leagueoflegends.com/en-us/Template:Data_Jax/Grandmaster-at-Arms?oldid=3973573) |
+| Grandmaster-at-Arms | effectRadius: 375 | [3973573](https://wiki.leagueoflegends.com/en-us/Template:Data_Jax/Grandmaster-at-Arms?oldid=3973573) |
+| Grandmaster-at-Arms | Magic Damage: 100 / 175 / 250 (+ 100% AP) | [3973573](https://wiki.leagueoflegends.com/en-us/Template:Data_Jax/Grandmaster-at-Arms?oldid=3973573) |
+| Grandmaster-at-Arms | Bonus Armor: 45 / 60 / 75 (+ 40% bonus AD) | [3973573](https://wiki.leagueoflegends.com/en-us/Template:Data_Jax/Grandmaster-at-Arms?oldid=3973573) |
+| Grandmaster-at-Arms | Bonus Magic Resistance: 27 / 36 / 45 (+ 24% bonus AD) | [3973573](https://wiki.leagueoflegends.com/en-us/Template:Data_Jax/Grandmaster-at-Arms?oldid=3973573) |

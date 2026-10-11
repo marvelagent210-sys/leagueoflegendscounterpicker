@@ -237,3 +237,75 @@ All 3 level-based formulas in the game files (3 linked to wiki values above):
 | IreliaPassive | SingleStackAS | linear 10 → 25 over levels 1-18, continues past 18 | 10 | 25 | 26.7647 |
 | IreliaW | FinalPhysicalDR | linear 40 → 70 over levels 1-18, continues past 18 | 40 | 70 | 73.5294 |
 | IreliaQ | MinionDamage | breakpoints at levels none (level 1: 50) | 50 | 237 | 259 |
+
+## Duel simulator kit (level 20, every ability at max rank)
+
+What the duel simulator fights with (`kits/champions/Irelia.ts`): every number is read from the wiki's ability data above at level 20; what the wiki doesn't say is listed under assumptions. Ratios are fractions of the stat (60% AD is 0.6 × AD).
+
+- Basic attack: range 200, melee.
+
+| Key | Ability | Cooldown (s) | Cast time (s) | Cost | Delivery | On the enemy | On itself |
+|---|---|--:|--:|---|---|---|---|
+| Q | Bladesurge | 6 | 0 | 15 | dash target 600 units at 1735/s, hits within 50 | 85 + 80% AD physical damage; to itself: heal 13% AD | – |
+| W | Defiant Dance | 12 | 0 | 90 | self; channel 1.5 s | – | as the cast starts: physicalReduction 0.735 for 2 s; magicReduction 0.35 for 2 s |
+| W2 | Defiant Dance (release) | 0 | 0.25 | – | area 0 to 895 units ahead, lands after 0 s; recast of W within 1.5 s, after 0.75 s, automatic | 50 + 40% AD + 50% AP physical damage | – |
+| E | Flawless Duet | 10 | 0.15 | 50 | circle of 70 radius up to 775 away, lands after 0.514 s | 230 + 100% AP magic damage; stun for 0.75 s | – |
+| R | Vanguard's Edge | 85 | 0.4 | 100 | skillshot 1000 long, 320 wide, at 2000/s | 275 + 100% AP magic damage | – |
+
+Effects marked by a mark or a role are completed by the kit's hooks (see the kit's source).
+
+### Assumptions
+
+- Defiant Dance: "she reduces incoming physical damage by 40 – 70 (based on level)%" has no value past level 18; its level-18 value is used at 20.
+- Flawless Duet's blades are placed on both sides of the enemy, so the closing line is dodged like a skillshot 140 units wide.
+- Vanguard's Edge's blade perimeter hits the enemy once if it walks 250 units from where it was struck.
+- Defiant Dance is released once fully charged (0.75 s), when the enemy is in reach; otherwise at the end of the charge.
+- Irelia raises Defiant Dance in a fight when hits worth 15% of her maximum health are coming, or after losing that much in a second.
+- Irelia holds Bladesurge while Flawless Duet or Vanguard's Edge is about to mark her target, so that it resets.
+
+### Wiki values read (42)
+
+| Ability | Value | Revision |
+|---|---|---|
+| Ionian Fervor | Ionian Fervor: For each stack, Irelia gains 10 – 25 (based on level)% bonus attack speed, up to a maximum of 40 – 100 (based on level)%. | [4045313](https://wiki.leagueoflegends.com/en-us/Template:Data_Irelia/Ionian_Fervor?oldid=4045313) |
+| Ionian Fervor | stacking up to 4 times | [4045313](https://wiki.leagueoflegends.com/en-us/Template:Data_Irelia/Ionian_Fervor?oldid=4045313) |
+| Ionian Fervor | lasting for 6 seconds | [4045313](https://wiki.leagueoflegends.com/en-us/Template:Data_Irelia/Ionian_Fervor?oldid=4045313) |
+| Ionian Fervor | At maximum stacks, Irelia's basic attacks are empowered to deal 10 – 61 (based on level) (+ 20% bonus AD) bonus magic damage on-hit, reduced to 50% against structures. | [4045313](https://wiki.leagueoflegends.com/en-us/Template:Data_Irelia/Ionian_Fervor?oldid=4045313) |
+| Ionian Fervor | (+ 20% bonus AD) bonus magic damage on-hit | [4045313](https://wiki.leagueoflegends.com/en-us/Template:Data_Irelia/Ionian_Fervor?oldid=4045313) |
+| Ionian Fervor | are marked as Unsteady for 5 seconds | [4045313](https://wiki.leagueoflegends.com/en-us/Template:Data_Irelia/Ionian_Fervor?oldid=4045313) |
+| Bladesurge | Bladesurge's current cooldown is reduced to 0.2 seconds | [4057466](https://wiki.leagueoflegends.com/en-us/Template:Data_Irelia/Bladesurge?oldid=4057466) |
+| Defiant Dance | Active: Irelia assumes a defensive stance with her blades to charge for up to 1.5 seconds, during which she reduces incoming physical damage by 40 – 70 (based on level)% (+ 8% per 100 AP) and incoming magic damage by 20 – 35 (based on level)% (+ 4% per 100 AP). | [4057467](https://wiki.leagueoflegends.com/en-us/Template:Data_Irelia/Defiant_Dance?oldid=4057467) |
+| Defiant Dance | to charge for up to 1.5 seconds | [4057467](https://wiki.leagueoflegends.com/en-us/Template:Data_Irelia/Defiant_Dance?oldid=4057467) |
+| Defiant Dance | She also retains the damage reduction for 0.5 seconds | [4057467](https://wiki.leagueoflegends.com/en-us/Template:Data_Irelia/Defiant_Dance?oldid=4057467) |
+| Defiant Dance | Defiant Dance's damage increases over the first 0.75 seconds of the channel | [4057467](https://wiki.leagueoflegends.com/en-us/Template:Data_Irelia/Defiant_Dance?oldid=4057467) |
+| Defiant Dance | Minimum Physical Damage: 10 / 20 / 30 / 40 / 50 (+ 40% AD) (+ 50% AP) | [4057467](https://wiki.leagueoflegends.com/en-us/Template:Data_Irelia/Defiant_Dance?oldid=4057467) |
+| Defiant Dance | Maximum Physical Damage: 30 / 60 / 90 / 120 / 150 (+ 120% AD) (+ 150% AP) | [4057467](https://wiki.leagueoflegends.com/en-us/Template:Data_Irelia/Defiant_Dance?oldid=4057467) |
+| Vanguard's Edge | around the enemy champion hit for 2.5 seconds | [4057346](https://wiki.leagueoflegends.com/en-us/Template:Data_Irelia/Vanguard's_Edge?oldid=4057346) |
+| Vanguard's Edge | are slowed by 90% for 1.5 seconds | [4057346](https://wiki.leagueoflegends.com/en-us/Template:Data_Irelia/Vanguard's_Edge?oldid=4057346) |
+| Vanguard's Edge | Magic Damage: 125 / 200 / 275 (+ 100% AP) | [4057346](https://wiki.leagueoflegends.com/en-us/Template:Data_Irelia/Vanguard's_Edge?oldid=4057346) |
+| Bladesurge | cooldown: 10 / 9 / 8 / 7 / 6 | [4057466](https://wiki.leagueoflegends.com/en-us/Template:Data_Irelia/Bladesurge?oldid=4057466) |
+| Bladesurge | cost: 15 | [4057466](https://wiki.leagueoflegends.com/en-us/Template:Data_Irelia/Bladesurge?oldid=4057466) |
+| Bladesurge | castTime: none | [4057466](https://wiki.leagueoflegends.com/en-us/Template:Data_Irelia/Bladesurge?oldid=4057466) |
+| Bladesurge | targetRange: 600 | [4057466](https://wiki.leagueoflegends.com/en-us/Template:Data_Irelia/Bladesurge?oldid=4057466) |
+| Bladesurge | speed: 1400 + 100% movement speed | [4057466](https://wiki.leagueoflegends.com/en-us/Template:Data_Irelia/Bladesurge?oldid=4057466) |
+| Bladesurge | Physical Damage: 5 / 25 / 45 / 65 / 85 (+ 80% AD) | [4057466](https://wiki.leagueoflegends.com/en-us/Template:Data_Irelia/Bladesurge?oldid=4057466) |
+| Bladesurge | Heal: 9 / 10 / 11 / 12 / 13% AD | [4057466](https://wiki.leagueoflegends.com/en-us/Template:Data_Irelia/Bladesurge?oldid=4057466) |
+| Defiant Dance | cooldown: 20 / 18 / 16 / 14 / 12 | [4057467](https://wiki.leagueoflegends.com/en-us/Template:Data_Irelia/Defiant_Dance?oldid=4057467) |
+| Defiant Dance | cost: 70 / 75 / 80 / 85 / 90 | [4057467](https://wiki.leagueoflegends.com/en-us/Template:Data_Irelia/Defiant_Dance?oldid=4057467) |
+| Defiant Dance | castTime (Recast): None • 0.25 | [4057467](https://wiki.leagueoflegends.com/en-us/Template:Data_Irelia/Defiant_Dance?oldid=4057467) |
+| Defiant Dance | range (Recast swipe total range): 775 • 895 | [4057467](https://wiki.leagueoflegends.com/en-us/Template:Data_Irelia/Defiant_Dance?oldid=4057467) |
+| Flawless Duet | cooldown: 16 / 14.5 / 13 / 11.5 / 10 | [4021834](https://wiki.leagueoflegends.com/en-us/Template:Data_Irelia/Flawless_Duet?oldid=4021834) |
+| Flawless Duet | cost: 50 | [4021834](https://wiki.leagueoflegends.com/en-us/Template:Data_Irelia/Flawless_Duet?oldid=4021834) |
+| Flawless Duet | Flawless Duet can be recast after 0.15 seconds | [4021834](https://wiki.leagueoflegends.com/en-us/Template:Data_Irelia/Flawless_Duet?oldid=4021834) |
+| Flawless Duet | targetRange: 775 | [4021834](https://wiki.leagueoflegends.com/en-us/Template:Data_Irelia/Flawless_Duet?oldid=4021834) |
+| Flawless Duet | width: 140 | [4021834](https://wiki.leagueoflegends.com/en-us/Template:Data_Irelia/Flawless_Duet?oldid=4021834) |
+| Flawless Duet | Each of the blades' travel times are 0.264 | [4021834](https://wiki.leagueoflegends.com/en-us/Template:Data_Irelia/Flawless_Duet?oldid=4021834) |
+| Flawless Duet | converge over 0.25 seconds | [4021834](https://wiki.leagueoflegends.com/en-us/Template:Data_Irelia/Flawless_Duet?oldid=4021834) |
+| Flawless Duet | Magic Damage: 70 / 110 / 150 / 190 / 230 (+ 100% AP) | [4021834](https://wiki.leagueoflegends.com/en-us/Template:Data_Irelia/Flawless_Duet?oldid=4021834) |
+| Flawless Duet | stunning them for 0.75 seconds | [4021834](https://wiki.leagueoflegends.com/en-us/Template:Data_Irelia/Flawless_Duet?oldid=4021834) |
+| Vanguard's Edge | cooldown: 125 / 105 / 85 | [4057346](https://wiki.leagueoflegends.com/en-us/Template:Data_Irelia/Vanguard's_Edge?oldid=4057346) |
+| Vanguard's Edge | cost: 100 | [4057346](https://wiki.leagueoflegends.com/en-us/Template:Data_Irelia/Vanguard's_Edge?oldid=4057346) |
+| Vanguard's Edge | castTime: 0.4 | [4057346](https://wiki.leagueoflegends.com/en-us/Template:Data_Irelia/Vanguard's_Edge?oldid=4057346) |
+| Vanguard's Edge | targetRange: 1000 | [4057346](https://wiki.leagueoflegends.com/en-us/Template:Data_Irelia/Vanguard's_Edge?oldid=4057346) |
+| Vanguard's Edge | width: 320 | [4057346](https://wiki.leagueoflegends.com/en-us/Template:Data_Irelia/Vanguard's_Edge?oldid=4057346) |
+| Vanguard's Edge | speed: 2000 | [4057346](https://wiki.leagueoflegends.com/en-us/Template:Data_Irelia/Vanguard's_Edge?oldid=4057346) |

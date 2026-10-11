@@ -1,5 +1,38 @@
 # Counters to Urgot (patch 26.20)
 
+## Simulated duels (full confidence)
+
+The duel simulator played each of the 24 other champions with a simulator kit against Urgot: both at level 20 with 15,000 gold of plain stats, each side's spent against the other's, through six scenarios (PLAN.md §6). Scores run from −1 (Urgot wins every time) to +1 (the champion does). Run `npm run duel -- <champion> Urgot --log brawl` to watch a fight.
+
+| # | Champion | Score | You engage | Enemy engages | Brawl | Short trade | Spacing | Escape |
+|--:|---|--:|--:|--:|--:|--:|--:|--:|
+| 1 | Poppy | +0.92 | +1.00 | +1.00 | +1.00 | +0.44 | +1.00 | +1.00 |
+| 2 | Nasus | +0.80 | +1.00 | +1.00 | +1.00 | −0.32 | +1.00 | +1.00 |
+| 3 | Sett | +0.79 | +1.00 | +1.00 | +1.00 | −0.09 | +1.00 | +0.00 |
+| 4 | Dr. Mundo | +0.78 | +1.00 | +1.00 | +1.00 | −0.11 | +1.00 | +0.00 |
+| 5 | Olaf | +0.63 | +1.00 | +1.00 | +1.00 | +0.10 | −0.90 | +0.00 |
+| 6 | Fiora | +0.46 | +0.55 | +1.00 | +1.00 | −0.15 | −1.00 | +0.00 |
+| 7 | Yasuo | +0.44 | +1.00 | +1.00 | −1.00 | −0.07 | +1.00 | +1.00 |
+| 8 | Teemo | +0.43 | +1.00 | +1.00 | −1.00 | +0.20 | +1.00 | +0.00 |
+| 9 | Tryndamere | +0.20 | +1.00 | +1.00 | −1.00 | −0.31 | −1.00 | +1.00 |
+| 10 | Renekton | +0.16 | +1.00 | +0.02 | −1.00 | −0.31 | +1.00 | +1.00 |
+| 11 | Aatrox | +0.08 | +1.00 | +1.00 | −1.00 | −0.55 | −0.92 | −0.95 |
+| 12 | Garen | −0.11 | −1.00 | +1.00 | −1.00 | −0.07 | +1.00 | +0.04 |
+| 13 | Camille | −0.17 | −1.00 | +1.00 | −1.00 | −0.49 | +1.00 | +0.00 |
+| 14 | Yone | −0.34 | −1.00 | +1.00 | −1.00 | −0.30 | −1.00 | +0.00 |
+| 15 | Mordekaiser | −0.38 | −1.00 | +1.00 | −1.00 | −0.22 | −1.00 | −1.00 |
+| 16 | Irelia | −0.69 | −1.00 | −1.00 | −1.00 | −0.27 | +1.00 | −0.97 |
+| 17 | Ornn | −0.81 | −1.00 | −1.00 | −1.00 | −0.06 | −1.00 | +0.00 |
+| 18 | Gwen | −0.84 | −1.00 | −1.00 | −1.00 | −0.24 | −1.00 | +0.00 |
+| 19 | Riven | −0.84 | −1.00 | −1.00 | −1.00 | −0.28 | −1.00 | +0.04 |
+| 20 | Shen | −0.85 | −1.00 | −1.00 | −1.00 | −0.32 | −1.00 | +0.00 |
+| 21 | Jax | −0.86 | −1.00 | −1.00 | −1.00 | −0.41 | −1.00 | +0.00 |
+| 22 | Volibear | −0.88 | −1.00 | −1.00 | −1.00 | −0.51 | −1.00 | +0.00 |
+| 23 | Darius | −0.89 | −1.00 | −1.00 | −1.00 | −0.29 | −0.93 | −1.00 |
+| 24 | Malphite | −0.91 | −1.00 | −1.00 | −1.00 | −0.40 | −1.00 | −1.00 |
+
+## Interaction ledger (partial confidence)
+
 Every champion ranked by what its kit does against Urgot's, from the interaction ledger: projectile blocks, spell shields,
 parries, dash stops, crowd control and its defenses, range and more (PLAN.md §5). This ranking is **partial**: it weighs the
 interactions but doesn't play the fight out. The duel simulator replaces it as each champion's behavior is verified.
@@ -8,72 +41,72 @@ interactions but doesn't play the fight out. The duel simulator replaces it as e
 A hard counter shuts down part of a kit every time it is used (projectile block, attack dodge, attack block, blind, disarm, attack speed slow, attack reflect, dash stop, grounding, range) with an impact of 0.4 or more (0.5 for range).
 Run `npm run matchup -- <champion> Urgot` for the full ledger of a matchup, with sources.
 
-## Top 10
+### Top 10
 
-### 1. Elise (net +1.33)
+#### 1. Elise (net +1.33)
 
 - **0.80** untargetable: Rappel makes Elise untargetable, dodging Urgot's Fear Beyond Death. Untargetable for 0.6 s; Fear Beyond Death takes 1.28 s to land, enough to react. (Elise E Rappel → Urgot R Fear Beyond Death)
 - **0.74** untargetable: Rappel makes Elise untargetable, dodging Urgot's Disdain. Untargetable for 0.6 s; Disdain takes 0.85 s to land, enough to react. (Elise E Rappel → Urgot E Disdain)
 - **0.16** range: Elise's basic attacks reach 200 units farther than Urgot's (550 vs 350 attack range). Urgot closes the gap with Disdain. (Elise basic attacks → Urgot basic attacks)
 
-### 2. Morgana (net +1.28)
+#### 2. Morgana (net +1.28)
 
 - **0.80** cc immunity: Black Shield makes Morgana immune to Urgot's Fear Beyond Death (fear, slow, suppression). Immune for 5 s, long enough to use ahead of Fear Beyond Death. (Morgana E Black Shield → Urgot R Fear Beyond Death)
 - **0.79** cc immunity: Black Shield makes Morgana immune to Urgot's Disdain (airborne, stun). Immune for 5 s, long enough to use ahead of Disdain. (Morgana E Black Shield → Urgot E Disdain)
 - **0.08** cc immunity: Black Shield makes Morgana immune to Urgot's Corrosive Charge (slow). Immune for 5 s, long enough to use ahead of Corrosive Charge. (Morgana E Black Shield → Urgot Q Corrosive Charge)
 
-### 3. Fiora (net +1.23)
+#### 3. Fiora (net +1.23)
 
 - **0.90** parry: Riposte parries Urgot's Fear Beyond Death and stuns back. Parry for 0.75 s; Fear Beyond Death takes 1.28 s to land, enough to react. Negating Fear Beyond Death's immobilizing effect turns Riposte's slow into a stun (2 s). (Fiora W Riposte → Urgot R Fear Beyond Death)
 - **0.89** parry: Riposte parries Urgot's Disdain and stuns back. Parry for 0.75 s; Disdain takes 0.85 s to land, enough to react. Negating Disdain's immobilizing effect turns Riposte's slow into a stun (2 s). (Fiora W Riposte → Urgot E Disdain)
 - **0.06** attack speed slow: Riposte cuts Urgot's attack speed by 25% for 2 s. 2 s on a 16 s cooldown. (Fiora W Riposte → Urgot basic attacks)
 - Watch out: Urgot's basic attacks reach 200 units farther than Fiora's (350 vs 150 attack range).
 
-### 4. Vladimir (net +1.18)
+#### 4. Vladimir (net +1.18)
 
 - **0.80** untargetable: Sanguine Pool makes Vladimir untargetable, dodging Urgot's Fear Beyond Death. Untargetable for 2 s, long enough to use ahead of Fear Beyond Death. (Vladimir W Sanguine Pool → Urgot R Fear Beyond Death)
 - **0.79** untargetable: Sanguine Pool makes Vladimir untargetable, dodging Urgot's Disdain. Untargetable for 2 s, long enough to use ahead of Disdain. (Vladimir W Sanguine Pool → Urgot E Disdain)
 - **0.05** range: Vladimir's basic attacks reach 100 units farther than Urgot's (450 vs 350 attack range). Urgot closes the gap with Disdain. (Vladimir basic attacks → Urgot basic attacks)
 - Watch out: Disdain's airborne interrupts Vladimir's Tides of Blood (charge-up).
 
-### 5. Udyr (net +1.13)
+#### 5. Udyr (net +1.13)
 
 - **0.85** cc immunity: Blazing Stampede makes Udyr immune to Urgot's Disdain (airborne, stun). Immune for 1.5 s, long enough to use ahead of Disdain. (Udyr E Blazing Stampede → Urgot E Disdain)
 - **0.80** cc immunity: Blazing Stampede makes Udyr immune to Urgot's Fear Beyond Death (fear, slow, suppression). Immune for 1.5 s, long enough to use ahead of Fear Beyond Death. (Udyr E Blazing Stampede → Urgot R Fear Beyond Death)
 - **0.11** cc immunity: Blazing Stampede makes Udyr immune to Urgot's Corrosive Charge (slow). Immune for 1.5 s, long enough to use ahead of Corrosive Charge. (Udyr E Blazing Stampede → Urgot Q Corrosive Charge)
 - Watch out: Urgot's basic attacks reach 225 units farther than Udyr's (350 vs 125 attack range).
 
-### 6. Mel (net +1.13)
+#### 6. Mel (net +1.13)
 
 - **0.80** projectile block: Rebuttal blocks Urgot's Fear Beyond Death, a projectile. Rebuttal for 0.75 s; Fear Beyond Death takes 1.28 s to land, enough to react. (Mel W Rebuttal → Urgot R Fear Beyond Death)
 - **0.26** projectile block: Rebuttal blocks Urgot's Corrosive Charge, a projectile. Rebuttal for 0.75 s; Corrosive Charge takes 0.25 s to land, enough to react. (Mel W Rebuttal → Urgot Q Corrosive Charge)
 - **0.22** projectile block: Rebuttal blocks Urgot's basic attacks, which are projectiles. Rebuttal lasts 0.75 s on a 26 s cooldown. (Mel W Rebuttal → Urgot basic attacks)
 
-### 7. Samira (net +1.13)
+#### 7. Samira (net +1.13)
 
 - **0.80** projectile block: Blade Whirl blocks Urgot's Fear Beyond Death, a projectile. Blade Whirl for 0.75 s; Fear Beyond Death takes 1.28 s to land, enough to react. (Samira W Blade Whirl → Urgot R Fear Beyond Death)
 - **0.28** projectile block: Blade Whirl blocks Urgot's Corrosive Charge, a projectile. Blade Whirl for 0.75 s; Corrosive Charge takes 0.25 s to land, enough to react. (Samira W Blade Whirl → Urgot Q Corrosive Charge)
 - **0.22** projectile block: Blade Whirl blocks Urgot's basic attacks, which are projectiles. Blade Whirl lasts 0.75 s on a 22 s cooldown. (Samira W Blade Whirl → Urgot basic attacks)
 
-### 8. Sivir (net +1.13)
+#### 8. Sivir (net +1.13)
 
 - **0.74** spell shield: Spell Shield's spell shield blocks Urgot's Disdain. Spell shield for 1.5 s, long enough to use ahead of Disdain. A spell shield blocks only the first enemy ability that reaches it. (Sivir E Spell Shield → Urgot E Disdain)
 - **0.40** spell shield: Spell Shield's spell shield blocks part of Urgot's Fear Beyond Death. Spell shield for 1.5 s, long enough to use ahead of Fear Beyond Death. A spell shield blocks only the first enemy ability that reaches it. Spell shield will not block the recast's chains. (Sivir E Spell Shield → Urgot R Fear Beyond Death)
 - **0.19** range: Sivir's basic attacks reach 150 units farther than Urgot's (500 vs 350 attack range). Urgot closes the gap with Disdain. (Sivir basic attacks → Urgot basic attacks)
 
-### 9. Lissandra (net +1.12)
+#### 9. Lissandra (net +1.12)
 
 - **0.74** untargetable: Frozen Tomb makes Lissandra untargetable, dodging Urgot's Fear Beyond Death. Untargetable for 2.5 s, long enough to use ahead of Fear Beyond Death. (Lissandra R Frozen Tomb → Urgot R Fear Beyond Death)
 - **0.43** untargetable: Frozen Tomb makes Lissandra untargetable, dodging Urgot's Disdain. Untargetable for 2.5 s, long enough to use ahead of Disdain. (Lissandra R Frozen Tomb → Urgot E Disdain)
 - **0.21** dash stop: Frozen Tomb's knockdown can stop Urgot's Disdain mid-dash. Must land during the dash. Fails if the dashing unit is crowd control immune, displacement immune, untargetable or spell shielded. (Lissandra R Frozen Tomb → Urgot E Disdain)
 
-### 10. Maokai (net +1.10)
+#### 10. Maokai (net +1.10)
 
 - **0.85** untargetable: Twisted Advance makes Maokai untargetable, dodging Urgot's Disdain. Untargetable for 1.4 s; Disdain takes 0.85 s to land, enough to react. (Maokai W Twisted Advance → Urgot E Disdain)
 - **0.80** untargetable: Twisted Advance makes Maokai untargetable, dodging Urgot's Fear Beyond Death. Untargetable for 1.4 s; Fear Beyond Death takes 1.28 s to land, enough to react. (Maokai W Twisted Advance → Urgot R Fear Beyond Death)
 - Watch out: Urgot's basic attacks reach 225 units farther than Maokai's (350 vs 125 attack range).
 
-## Full ranking
+### Full ranking
 
 | # | Champion | Net | For | Against | Hard counters |
 |--:|---|--:|--:|--:|---|

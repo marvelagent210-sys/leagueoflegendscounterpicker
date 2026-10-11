@@ -1,5 +1,38 @@
 # Counters to Jax (patch 26.20)
 
+## Simulated duels (full confidence)
+
+The duel simulator played each of the 24 other champions with a simulator kit against Jax: both at level 20 with 15,000 gold of plain stats, each side's spent against the other's, through six scenarios (PLAN.md §6). Scores run from −1 (Jax wins every time) to +1 (the champion does). Run `npm run duel -- <champion> Jax --log brawl` to watch a fight.
+
+| # | Champion | Score | You engage | Enemy engages | Brawl | Short trade | Spacing | Escape |
+|--:|---|--:|--:|--:|--:|--:|--:|--:|
+| 1 | Poppy | +0.86 | +1.00 | +1.00 | +1.00 | +0.52 | – | +0.00 |
+| 2 | Urgot | +0.86 | +1.00 | +1.00 | +1.00 | +0.41 | +1.00 | +0.00 |
+| 3 | Dr. Mundo | +0.79 | +1.00 | +1.00 | +1.00 | +0.05 | – | +0.00 |
+| 4 | Olaf | +0.78 | +1.00 | +1.00 | +1.00 | +0.02 | – | +0.00 |
+| 5 | Nasus | +0.78 | +1.00 | +1.00 | +1.00 | +0.01 | – | +0.00 |
+| 6 | Tryndamere | +0.75 | +1.00 | +1.00 | +1.00 | −0.16 | – | +0.00 |
+| 7 | Aatrox | +0.55 | +1.00 | +1.00 | +0.00 | −0.02 | – | +0.00 |
+| 8 | Garen | +0.29 | +0.00 | +0.00 | +1.00 | +0.39 | – | +0.00 |
+| 9 | Gwen | +0.27 | +1.00 | +1.00 | −1.00 | −0.38 | – | +0.00 |
+| 10 | Teemo | +0.25 | +0.00 | +1.00 | +0.00 | +0.02 | +0.00 | +0.00 |
+| 11 | Malphite | −0.03 | +0.00 | +0.00 | +0.00 | +0.10 | −0.50 | +0.00 |
+| 12 | Yasuo | −0.22 | +0.00 | +0.00 | −1.00 | +0.03 | – | +0.00 |
+| 13 | Volibear | −0.53 | −1.00 | −0.04 | −1.00 | −0.14 | – | +0.00 |
+| 14 | Irelia | −0.66 | −1.00 | −1.00 | −1.00 | −0.01 | +0.42 | +0.00 |
+| 15 | Riven | −0.74 | −1.00 | −1.00 | −1.00 | +0.20 | – | +0.00 |
+| 16 | Yone | −0.76 | −1.00 | −1.00 | −1.00 | +0.03 | – | +0.23 |
+| 17 | Darius | −0.76 | −1.00 | −1.00 | −1.00 | +0.09 | – | +0.00 |
+| 18 | Camille | −0.77 | −1.00 | −1.00 | −1.00 | +0.08 | – | +0.00 |
+| 19 | Shen | −0.77 | −1.00 | −1.00 | −1.00 | +0.07 | – | +0.00 |
+| 20 | Sett | −0.77 | −1.00 | −1.00 | −1.00 | +0.06 | – | +0.00 |
+| 21 | Renekton | −0.77 | −1.00 | −1.00 | −1.00 | +0.02 | – | +0.00 |
+| 22 | Ornn | −0.79 | −1.00 | −1.00 | −1.00 | +0.09 | −1.00 | +0.00 |
+| 23 | Mordekaiser | −0.79 | −1.00 | −1.00 | −1.00 | +0.03 | −1.00 | +0.00 |
+| 24 | Fiora | −0.82 | −1.00 | −1.00 | −1.00 | −0.23 | – | +0.00 |
+
+## Interaction ledger (partial confidence)
+
 Every champion ranked by what its kit does against Jax's, from the interaction ledger: projectile blocks, spell shields,
 parries, dash stops, crowd control and its defenses, range and more (PLAN.md §5). This ranking is **partial**: it weighs the
 interactions but doesn't play the fight out. The duel simulator replaces it as each champion's behavior is verified.
@@ -8,79 +41,79 @@ interactions but doesn't play the fight out. The duel simulator replaces it as e
 A hard counter shuts down part of a kit every time it is used (projectile block, attack dodge, attack block, blind, disarm, attack speed slow, attack reflect, dash stop, grounding, range) with an impact of 0.4 or more (0.5 for range).
 Run `npm run matchup -- <champion> Jax` for the full ledger of a matchup, with sources.
 
-## Top 10
+### Top 10
 
-### 1. Vladimir (net +0.85)
+#### 1. Vladimir (net +0.85)
 
 - **0.55** untargetable: Sanguine Pool makes Vladimir untargetable, dodging Jax's Grandmaster-at-Arms. Untargetable for 2 s, long enough to use ahead of Grandmaster-at-Arms. (Vladimir W Sanguine Pool → Jax R Grandmaster-at-Arms)
 - **0.52** untargetable: Sanguine Pool makes Vladimir untargetable, dodging Jax's Counter Strike. Untargetable for 2 s, long enough to use ahead of Counter Strike. (Vladimir W Sanguine Pool → Jax E Counter Strike)
 - **0.50** untargetable: Sanguine Pool makes Vladimir untargetable, dodging Jax's Leap Strike. Untargetable for 2 s, long enough to use ahead of Leap Strike. (Vladimir W Sanguine Pool → Jax Q Leap Strike)
 - Watch out: Counter Strike dodges Vladimir's basic attacks.
 
-### 2. Yuumi (net +0.83)
+#### 2. Yuumi (net +0.83)
 
 - **0.80** untargetable: You and Me! makes Yuumi untargetable, dodging Jax's Leap Strike. Untargetable for ?, timed to Leap Strike. Does not destroy inbound projectiles, special cased to be targetable to turrets. (Yuumi W You and Me! → Jax Q Leap Strike)
 - **0.55** untargetable: You and Me! makes Yuumi untargetable, dodging Jax's Grandmaster-at-Arms. Untargetable for ?; Grandmaster-at-Arms takes 0.25 s to land, enough to react. Does not destroy inbound projectiles, special cased to be targetable to turrets. (Yuumi W You and Me! → Jax R Grandmaster-at-Arms)
 - **0.42** untargetable: You and Me! makes Yuumi untargetable, dodging Jax's Counter Strike. Untargetable for ?; Counter Strike lands within 0 s, faster than a 0.25 s reaction, so it needs prediction. Does not destroy inbound projectiles, special cased to be targetable to turrets. (Yuumi W You and Me! → Jax E Counter Strike)
 - Watch out: Counter Strike dodges Yuumi's basic attacks (with Feline Friendship).
 
-### 3. Lissandra (net +0.83)
+#### 3. Lissandra (net +0.83)
 
 - **0.55** untargetable: Frozen Tomb makes Lissandra untargetable, dodging Jax's Grandmaster-at-Arms. Untargetable for 2.5 s, long enough to use ahead of Grandmaster-at-Arms. (Lissandra R Frozen Tomb → Jax R Grandmaster-at-Arms)
 - **0.36** untargetable: Frozen Tomb makes Lissandra untargetable, dodging Jax's Leap Strike. Untargetable for 2.5 s, long enough to use ahead of Leap Strike. (Lissandra R Frozen Tomb → Jax Q Leap Strike)
 - **0.33** untargetable: Frozen Tomb makes Lissandra untargetable, dodging Jax's Counter Strike. Untargetable for 2.5 s, long enough to use ahead of Counter Strike. (Lissandra R Frozen Tomb → Jax E Counter Strike)
 - Watch out: Counter Strike dodges Lissandra's basic attacks.
 
-### 4. Bard (net +0.76)
+#### 4. Bard (net +0.76)
 
 - **0.55** untargetable: Tempered Fate makes Bard untargetable, dodging Jax's Grandmaster-at-Arms. Untargetable for 2.5 s, long enough to use ahead of Grandmaster-at-Arms. (Bard R Tempered Fate → Jax R Grandmaster-at-Arms)
 - **0.36** range: Bard's basic attacks reach 375 units farther than Jax's (500 vs 125 attack range). Jax closes the gap with Leap Strike. (Bard basic attacks → Jax basic attacks)
 - **0.36** untargetable: Tempered Fate makes Bard untargetable, dodging Jax's Leap Strike. Untargetable for 2.5 s, long enough to use ahead of Leap Strike. (Bard R Tempered Fate → Jax Q Leap Strike)
 - Watch out: Counter Strike dodges Bard's basic attacks (with Traveler's Call).
 
-### 5. Xayah (net +0.75)
+#### 5. Xayah (net +0.75)
 
 - **0.52** untargetable: Featherstorm makes Xayah untargetable, dodging Jax's Grandmaster-at-Arms. Untargetable for 1.5 s, long enough to use ahead of Grandmaster-at-Arms. (Xayah R Featherstorm → Jax R Grandmaster-at-Arms)
 - **0.38** range: Xayah's basic attacks reach 400 units farther than Jax's (525 vs 125 attack range). Jax closes the gap with Leap Strike. (Xayah basic attacks → Jax basic attacks)
 - **0.35** untargetable: Featherstorm makes Xayah untargetable, dodging Jax's Leap Strike. Untargetable for 1.5 s, long enough to use ahead of Leap Strike. (Xayah R Featherstorm → Jax Q Leap Strike)
 - Watch out: Counter Strike dodges Xayah's basic attacks (with Clean Cuts).
 
-### 6. Sivir (net +0.74)
+#### 6. Sivir (net +0.74)
 
 - **0.49** spell shield: Spell Shield's spell shield blocks Jax's Counter Strike. Spell shield for 1.5 s, long enough to use ahead of Counter Strike. A spell shield blocks only the first enemy ability that reaches it. (Sivir E Spell Shield → Jax E Counter Strike)
 - **0.48** spell shield: Spell Shield's spell shield blocks Jax's Leap Strike. Spell shield for 1.5 s, long enough to use ahead of Leap Strike. A spell shield blocks only the first enemy ability that reaches it. (Sivir E Spell Shield → Jax Q Leap Strike)
 - **0.47** range: Sivir's basic attacks reach 375 units farther than Jax's (500 vs 125 attack range). Jax closes the gap with Leap Strike. (Sivir basic attacks → Jax basic attacks)
 - Watch out: Counter Strike dodges Sivir's basic attacks (with Fleet of Foot).
 
-### 7. Aurora (net +0.72)
+#### 7. Aurora (net +0.72)
 
 - **0.52** untargetable: Between Worlds makes Aurora untargetable, dodging Jax's Grandmaster-at-Arms. Untargetable for 0.4 s; Grandmaster-at-Arms takes 0.25 s to land, enough to react. Does not destroy inbound projectiles. (Aurora R Between Worlds → Jax R Grandmaster-at-Arms)
 - **0.35** untargetable: Between Worlds makes Aurora untargetable, dodging Jax's Leap Strike. Untargetable for 0.4 s, timed to Leap Strike. Does not destroy inbound projectiles. (Aurora R Between Worlds → Jax Q Leap Strike)
 - **0.29** range: Aurora's basic attacks reach 425 units farther than Jax's (550 vs 125 attack range). Jax closes the gap with Leap Strike. (Aurora basic attacks → Jax basic attacks)
 - Watch out: Counter Strike dodges Aurora's basic attacks (with Spirit Abjuration).
 
-### 8. Elise (net +0.71)
+#### 8. Elise (net +0.71)
 
 - **0.55** untargetable: Rappel makes Elise untargetable, dodging Jax's Grandmaster-at-Arms. Untargetable for 0.6 s; Grandmaster-at-Arms takes 0.25 s to land, enough to react. (Elise E Rappel → Jax R Grandmaster-at-Arms)
 - **0.48** untargetable: Rappel makes Elise untargetable, dodging Jax's Leap Strike. Untargetable for 0.6 s, timed to Leap Strike. (Elise E Rappel → Jax Q Leap Strike)
 - **0.32** range: Elise's basic attacks reach 425 units farther than Jax's (550 vs 125 attack range). Jax closes the gap with Leap Strike. (Elise basic attacks → Jax basic attacks)
 - Watch out: Counter Strike dodges Elise's basic attacks (with Spider Queen).
 
-### 9. Maokai (net +0.70)
+#### 9. Maokai (net +0.70)
 
 - **0.61** untargetable: Twisted Advance makes Maokai untargetable, dodging Jax's Leap Strike. Untargetable for 1.4 s, timed to Leap Strike. (Maokai W Twisted Advance → Jax Q Leap Strike)
 - **0.55** untargetable: Twisted Advance makes Maokai untargetable, dodging Jax's Grandmaster-at-Arms. Untargetable for 1.4 s; Grandmaster-at-Arms takes 0.25 s to land, enough to react. (Maokai W Twisted Advance → Jax R Grandmaster-at-Arms)
 - **0.39** untargetable: Twisted Advance makes Maokai untargetable, dodging Jax's Counter Strike. Untargetable for 1.4 s; Counter Strike lands within 0 s, faster than a 0.25 s reaction, so it needs prediction. (Maokai W Twisted Advance → Jax E Counter Strike)
 - Watch out: Counter Strike dodges Maokai's basic attacks (with Sap Magic).
 
-### 10. Kayle (net +0.66)
+#### 10. Kayle (net +0.66)
 
 - **0.55** invulnerable: Divine Judgment makes Kayle invulnerable to Jax's Grandmaster-at-Arms. Invulnerable for 2.5 s, long enough to use ahead of Grandmaster-at-Arms. (Kayle R Divine Judgment → Jax R Grandmaster-at-Arms)
 - **0.36** invulnerable: Divine Judgment makes Kayle invulnerable to Jax's Leap Strike. Invulnerable for 2.5 s, long enough to use ahead of Leap Strike. (Kayle R Divine Judgment → Jax Q Leap Strike)
 - **0.36** range: Kayle's basic attacks reach 500 units farther than Jax's (625 vs 125 attack range). Jax closes the gap with Leap Strike. (Kayle basic attacks → Jax basic attacks)
 - Watch out: Counter Strike dodges Kayle's basic attacks (with Divine Ascent).
 
-## Full ranking
+### Full ranking
 
 | # | Champion | Net | For | Against | Hard counters |
 |--:|---|--:|--:|--:|---|

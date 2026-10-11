@@ -209,3 +209,64 @@ All 1 level-based formulas in the game files (1 linked to wiki values above):
 | Spell | Calculation | Rule | Level 1 | Level 18 | Level 20 |
 |---|---|---|--:|--:|--:|
 | RivenPassive | TotalDamage | linear 0.3 → 0.45 over levels 1-18, continues past 18 | 0.3 | 0.45 | 0.467647 |
+
+## Duel simulator kit (level 20, every ability at max rank)
+
+What the duel simulator fights with (`kits/champions/Riven.ts`): every number is read from the wiki's ability data above at level 20; what the wiki doesn't say is listed under assumptions. Ratios are fractions of the stat (60% AD is 0.6 × AD).
+
+- Basic attack: range 125, melee.
+
+| Key | Ability | Cooldown (s) | Cast time (s) | Cost | Delivery | On the enemy | On itself |
+|---|---|--:|--:|---|---|---|---|
+| Q | Broken Wings | 13 | 0 | – | dash toward 225 units at 1000/s, hits within 150 | 165 + 80% bonus AD physical damage | resets the attack timer |
+| Q2 | Broken Wings (second cast) | 0 | 0 | – | dash toward 225 units at 1000/s, hits within 150; recast of Q within 4 s, after 0.313 s | 165 + 80% bonus AD physical damage | resets the attack timer |
+| Q3 | Broken Wings (third cast) | 0 | 0 | – | dash toward 225 units at 1000/s, hits within 250; recast of Q within 4 s, after 0.313 s | 165 + 80% bonus AD physical damage; knock back 75 units over 0.5 s | resets the attack timer |
+| W | Ki Burst | 7 | 0 | – | around itself, 300 units | 185 + 100% bonus AD physical damage; stun for 0.75 s | – |
+| E | Valor | 6 | 0 | – | dash toward 250 units at 1200/s | – | shield of 170 + 110% bonus AD for 1.5 s |
+| R | Blade of the Exile | 60 | 0.25 | – | self | – | AD 20% AD for 15 s; attackRange 75 for 15 s |
+| R2 | Wind Slash | 0 | 0.25 | – | skillshot 1100 long, 600 wide, at 1600/s; recast of R within 15 s, after 0.5 s | 200 + 55% bonus AD physical damage | – |
+
+Effects marked by a mark or a role are completed by the kit's hooks (see the kit's source).
+
+### Assumptions
+
+- Broken Wings' dashes move 225 units toward the enemy and strike it if it is within the slash's radius on arrival.
+- Valor dashes toward the enemy to engage, or away from it to escape.
+- Wind Slash's three missiles are one line skillshot as wide as the cone.
+
+### Wiki values read (32)
+
+| Ability | Value | Revision |
+|---|---|---|
+| Runic Blade | Riven's basic attacks are empowered to each consume a stack to deal bonus physical damage equal to 30 – 45 (based on level)% AD, reduced to 50% against structures. | [3989876](https://wiki.leagueoflegends.com/en-us/Template:Data_Riven/Runic_Blade?oldid=3989876) |
+| Runic Blade | stacking up to 3 times | [3989876](https://wiki.leagueoflegends.com/en-us/Template:Data_Riven/Runic_Blade?oldid=3989876) |
+| Runic Blade | generate a stack of Charge for 6 seconds | [3989876](https://wiki.leagueoflegends.com/en-us/Template:Data_Riven/Runic_Blade?oldid=3989876) |
+| Broken Wings | Riven dashes 225 units in the direction she is currently facing | [4025373](https://wiki.leagueoflegends.com/en-us/Template:Data_Riven/Broken_Wings?oldid=4025373) |
+| Broken Wings | within 4 seconds of the previous cast | [4025373](https://wiki.leagueoflegends.com/en-us/Template:Data_Riven/Broken_Wings?oldid=4025373) |
+| Broken Wings | with a 0.3125-second static cooldown between casts | [4025373](https://wiki.leagueoflegends.com/en-us/Template:Data_Riven/Broken_Wings?oldid=4025373) |
+| Broken Wings | knocking back enemies hit 75 units over 0.5 seconds | [4025373](https://wiki.leagueoflegends.com/en-us/Template:Data_Riven/Broken_Wings?oldid=4025373) |
+| Blade of the Exile | Riven empowers her blade for 15 seconds | [4046587](https://wiki.leagueoflegends.com/en-us/Template:Data_Riven/Blade_of_the_Exile?oldid=4046587) |
+| Blade of the Exile | 75 bonus attack range | [4046587](https://wiki.leagueoflegends.com/en-us/Template:Data_Riven/Blade_of_the_Exile?oldid=4046587) |
+| Blade of the Exile | After 0.5 seconds, she can cast Wind Slash within the duration | [4046587](https://wiki.leagueoflegends.com/en-us/Template:Data_Riven/Blade_of_the_Exile?oldid=4046587) |
+| Wind Slash | Minimum Physical Damage: 100 / 150 / 200 (+ 55% bonus AD) | [4046588](https://wiki.leagueoflegends.com/en-us/Template:Data_Riven/Wind_Slash?oldid=4046588) |
+| Broken Wings | cooldown: 13 | [4025373](https://wiki.leagueoflegends.com/en-us/Template:Data_Riven/Broken_Wings?oldid=4025373) |
+| Ki Burst | cooldown: 11 / 10 / 9 / 8 / 7 | [4024218](https://wiki.leagueoflegends.com/en-us/Template:Data_Riven/Ki_Burst?oldid=4024218) |
+| Valor | cooldown: 10 / 9 / 8 / 7 / 6 | [3959341](https://wiki.leagueoflegends.com/en-us/Template:Data_Riven/Valor?oldid=3959341) |
+| Broken Wings | effectRadius (First/second cast standard radius): 150 • 250 • 200 • 300 | [4025373](https://wiki.leagueoflegends.com/en-us/Template:Data_Riven/Broken_Wings?oldid=4025373) |
+| Broken Wings | Physical Damage: 45 / 75 / 105 / 135 / 165 (+ 60 / 65 / 70 / 75 / 80% bonus AD) | [4025373](https://wiki.leagueoflegends.com/en-us/Template:Data_Riven/Broken_Wings?oldid=4025373) |
+| Broken Wings | effectRadius (Third cast standard radius): 150 • 250 • 200 • 300 | [4025373](https://wiki.leagueoflegends.com/en-us/Template:Data_Riven/Broken_Wings?oldid=4025373) |
+| Ki Burst | Ki Burst's effects are applied before the cast time | [4024218](https://wiki.leagueoflegends.com/en-us/Template:Data_Riven/Ki_Burst?oldid=4024218) |
+| Ki Burst | effectRadius (Standard radius): 300 • 360 | [4024218](https://wiki.leagueoflegends.com/en-us/Template:Data_Riven/Ki_Burst?oldid=4024218) |
+| Ki Burst | Physical Damage: 65 / 95 / 125 / 155 / 185 (+ 100% bonus AD) | [4024218](https://wiki.leagueoflegends.com/en-us/Template:Data_Riven/Ki_Burst?oldid=4024218) |
+| Ki Burst | stunning them for 0.75 seconds | [4024218](https://wiki.leagueoflegends.com/en-us/Template:Data_Riven/Ki_Burst?oldid=4024218) |
+| Valor | castTime: none | [3959341](https://wiki.leagueoflegends.com/en-us/Template:Data_Riven/Valor?oldid=3959341) |
+| Valor | range: 250 | [3959341](https://wiki.leagueoflegends.com/en-us/Template:Data_Riven/Valor?oldid=3959341) |
+| Valor | Shield Strength: 70 / 95 / 120 / 145 / 170 (+ 110% bonus AD) | [3959341](https://wiki.leagueoflegends.com/en-us/Template:Data_Riven/Valor?oldid=3959341) |
+| Valor | granting herself a shield for 1.5 seconds | [3959341](https://wiki.leagueoflegends.com/en-us/Template:Data_Riven/Valor?oldid=3959341) |
+| Blade of the Exile | cooldown: 120 / 90 / 60 | [4046587](https://wiki.leagueoflegends.com/en-us/Template:Data_Riven/Blade_of_the_Exile?oldid=4046587) |
+| Blade of the Exile | castTime: 0.25 | [4046587](https://wiki.leagueoflegends.com/en-us/Template:Data_Riven/Blade_of_the_Exile?oldid=4046587) |
+| Blade of the Exile | gaining 20% AD bonus attack damage | [4046587](https://wiki.leagueoflegends.com/en-us/Template:Data_Riven/Blade_of_the_Exile?oldid=4046587) |
+| Wind Slash | castTime: 0.25 | [4046588](https://wiki.leagueoflegends.com/en-us/Template:Data_Riven/Wind_Slash?oldid=4046588) |
+| Wind Slash | targetRange: 1100 | [4046588](https://wiki.leagueoflegends.com/en-us/Template:Data_Riven/Wind_Slash?oldid=4046588) |
+| Wind Slash | width: 200 | [4046588](https://wiki.leagueoflegends.com/en-us/Template:Data_Riven/Wind_Slash?oldid=4046588) |
+| Wind Slash | speed: 1600 | [4046588](https://wiki.leagueoflegends.com/en-us/Template:Data_Riven/Wind_Slash?oldid=4046588) |

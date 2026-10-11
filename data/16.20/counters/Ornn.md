@@ -1,5 +1,38 @@
 # Counters to Ornn (patch 26.20)
 
+## Simulated duels (full confidence)
+
+The duel simulator played each of the 24 other champions with a simulator kit against Ornn: both at level 20 with 15,000 gold of plain stats, each side's spent against the other's, through six scenarios (PLAN.md §6). Scores run from −1 (Ornn wins every time) to +1 (the champion does). Run `npm run duel -- <champion> Ornn --log brawl` to watch a fight.
+
+| # | Champion | Score | You engage | Enemy engages | Brawl | Short trade | Spacing | Escape |
+|--:|---|--:|--:|--:|--:|--:|--:|--:|
+| 1 | Fiora | +0.84 | +1.00 | +1.00 | +1.00 | +0.07 | – | +1.00 |
+| 2 | Poppy | +0.84 | +1.00 | +1.00 | +1.00 | +0.37 | – | +0.00 |
+| 3 | Urgot | +0.81 | +1.00 | +1.00 | +1.00 | +0.06 | +1.00 | +0.00 |
+| 4 | Jax | +0.79 | +1.00 | +1.00 | +1.00 | −0.09 | +1.00 | +0.00 |
+| 5 | Olaf | +0.78 | +1.00 | +1.00 | +1.00 | −0.15 | +1.00 | +0.00 |
+| 6 | Yone | +0.78 | +1.00 | +1.00 | +1.00 | −0.01 | – | +0.00 |
+| 7 | Renekton | +0.77 | +1.00 | +1.00 | +1.00 | −0.05 | – | +0.00 |
+| 8 | Malphite | +0.77 | +1.00 | +1.00 | +1.00 | −0.05 | – | +0.00 |
+| 9 | Aatrox | +0.76 | +1.00 | +1.00 | +1.00 | −0.09 | – | +0.00 |
+| 10 | Garen | +0.76 | +1.00 | +1.00 | +1.00 | −0.09 | – | +0.00 |
+| 11 | Volibear | +0.76 | +1.00 | +0.98 | +1.00 | −0.08 | – | +0.00 |
+| 12 | Irelia | +0.76 | +1.00 | +1.00 | +1.00 | −0.11 | – | +0.00 |
+| 13 | Mordekaiser | +0.76 | +1.00 | +1.00 | +1.00 | −0.13 | – | +0.00 |
+| 14 | Camille | +0.75 | +1.00 | +1.00 | +1.00 | −0.14 | – | +0.00 |
+| 15 | Darius | +0.75 | +1.00 | +1.00 | +1.00 | −0.15 | – | +0.00 |
+| 16 | Yasuo | +0.75 | +1.00 | +1.00 | +1.00 | −0.16 | – | +0.00 |
+| 17 | Gwen | +0.74 | +1.00 | +1.00 | +1.00 | −0.23 | – | +0.00 |
+| 18 | Tryndamere | +0.73 | +1.00 | +1.00 | +1.00 | −0.30 | – | +0.00 |
+| 19 | Teemo | +0.63 | +1.00 | +0.28 | +0.94 | +0.15 | +1.00 | +0.00 |
+| 20 | Dr. Mundo | +0.31 | +0.42 | +0.43 | +0.44 | −0.13 | – | +0.00 |
+| 21 | Nasus | +0.26 | +0.35 | +0.34 | +0.34 | −0.12 | +0.35 | +0.00 |
+| 22 | Riven | +0.11 | −0.15 | −0.17 | +1.00 | −0.14 | – | +0.00 |
+| 23 | Sett | −0.00 | +0.01 | −0.00 | +0.02 | −0.04 | – | +0.00 |
+| 24 | Shen | −0.04 | −0.11 | −0.02 | −0.03 | +0.00 | – | +0.00 |
+
+## Interaction ledger (partial confidence)
+
 Every champion ranked by what its kit does against Ornn's, from the interaction ledger: projectile blocks, spell shields,
 parries, dash stops, crowd control and its defenses, range and more (PLAN.md §5). This ranking is **partial**: it weighs the
 interactions but doesn't play the fight out. The duel simulator replaces it as each champion's behavior is verified.
@@ -8,73 +41,73 @@ interactions but doesn't play the fight out. The duel simulator replaces it as e
 A hard counter shuts down part of a kit every time it is used (projectile block, attack dodge, attack block, blind, disarm, attack speed slow, attack reflect, dash stop, grounding, range) with an impact of 0.4 or more (0.5 for range).
 Run `npm run matchup -- <champion> Ornn` for the full ledger of a matchup, with sources.
 
-## Top 10
+### Top 10
 
-### 1. Fiora (net +1.64)
+#### 1. Fiora (net +1.64)
 
 - **1.10** parry: Riposte parries Ornn's Call of the Forge God and stuns back. Parry for 0.75 s; Call of the Forge God takes 0.69 s to land, enough to react. Negating Call of the Forge God's immobilizing effect turns Riposte's slow into a stun (2 s). (Fiora W Riposte → Ornn R Call of the Forge God)
 - **0.78** parry: Riposte parries Ornn's Searing Charge and stuns back. Parry for 0.75 s; Searing Charge takes 0.85 s to land, enough to react. Negating Searing Charge's immobilizing effect turns Riposte's slow into a stun (2 s). (Fiora W Riposte → Ornn E Searing Charge)
 - **0.56** parry: Riposte parries Ornn's Volcanic Rupture and stuns back. Parry for 0.75 s; Volcanic Rupture takes 0.67 s to land, enough to react. Negating Volcanic Rupture's immobilizing effect turns Riposte's slow into a stun (2 s). (Fiora W Riposte → Ornn Q Volcanic Rupture)
 
-### 2. Elise (net +1.63)
+#### 2. Elise (net +1.63)
 
 - **1.00** untargetable: Rappel makes Elise untargetable, dodging Ornn's Call of the Forge God. Untargetable for 0.6 s; Call of the Forge God takes 0.69 s to land, enough to react. (Elise E Rappel → Ornn R Call of the Forge God)
 - **0.64** untargetable: Rappel makes Elise untargetable, dodging Ornn's Searing Charge. Untargetable for 0.6 s; Searing Charge takes 0.85 s to land, enough to react. (Elise E Rappel → Ornn E Searing Charge)
 - **0.44** untargetable: Rappel makes Elise untargetable, dodging Ornn's Volcanic Rupture. Untargetable for 0.6 s; Volcanic Rupture takes 0.67 s to land, enough to react. (Elise E Rappel → Ornn Q Volcanic Rupture)
 
-### 3. Udyr (net +1.58)
+#### 3. Udyr (net +1.58)
 
 - **1.00** cc immunity: Blazing Stampede makes Udyr immune to Ornn's Call of the Forge God (airborne, slow, stun). Immune for 1.5 s, long enough to use ahead of Call of the Forge God. (Udyr E Blazing Stampede → Ornn R Call of the Forge God)
 - **0.80** cc immunity: Blazing Stampede makes Udyr immune to Ornn's Searing Charge (airborne, stun). Immune for 1.5 s, long enough to use ahead of Searing Charge. (Udyr E Blazing Stampede → Ornn E Searing Charge)
 - **0.70** cc immunity: Blazing Stampede makes Udyr immune to Ornn's Volcanic Rupture (airborne, slow). Immune for 1.5 s, long enough to use ahead of Volcanic Rupture. (Udyr E Blazing Stampede → Ornn Q Volcanic Rupture)
 
-### 4. Morgana (net +1.57)
+#### 4. Morgana (net +1.57)
 
 - **1.00** cc immunity: Black Shield makes Morgana immune to Ornn's Call of the Forge God (airborne, slow, stun). Immune for 5 s, long enough to use ahead of Call of the Forge God. (Morgana E Black Shield → Ornn R Call of the Forge God)
 - **0.68** cc immunity: Black Shield makes Morgana immune to Ornn's Searing Charge (airborne, stun). Immune for 5 s, long enough to use ahead of Searing Charge. (Morgana E Black Shield → Ornn E Searing Charge)
 - **0.46** cc immunity: Black Shield makes Morgana immune to Ornn's Volcanic Rupture (airborne, slow). Immune for 5 s, long enough to use ahead of Volcanic Rupture. (Morgana E Black Shield → Ornn Q Volcanic Rupture)
 
-### 5. Lissandra (net +1.49)
+#### 5. Lissandra (net +1.49)
 
 - **1.00** untargetable: Frozen Tomb makes Lissandra untargetable, dodging Ornn's Call of the Forge God. Untargetable for 2.5 s, long enough to use ahead of Call of the Forge God. (Lissandra R Frozen Tomb → Ornn R Call of the Forge God)
 - **0.50** dash stop: Frozen Tomb's knockdown can stop Ornn's Call of the Forge God mid-dash. Must land during the dash. Fails if the dashing unit is crowd control immune, displacement immune, untargetable or spell shielded. (Lissandra R Frozen Tomb → Ornn R Call of the Forge God)
 - **0.39** untargetable: Frozen Tomb makes Lissandra untargetable, dodging Ornn's Searing Charge. Untargetable for 2.5 s, long enough to use ahead of Searing Charge. (Lissandra R Frozen Tomb → Ornn E Searing Charge)
 - Watch out: Bellows Breath is displacement immune, ignoring Lissandra's Frozen Tomb (knockdown) during it.
 
-### 6. Xayah (net +1.49)
+#### 6. Xayah (net +1.49)
 
 - **1.00** untargetable: Featherstorm makes Xayah untargetable, dodging Ornn's Call of the Forge God. Untargetable for 1.5 s, long enough to use ahead of Call of the Forge God. (Xayah R Featherstorm → Ornn R Call of the Forge God)
 - **0.38** untargetable: Featherstorm makes Xayah untargetable, dodging Ornn's Searing Charge. Untargetable for 1.5 s, long enough to use ahead of Searing Charge. (Xayah R Featherstorm → Ornn E Searing Charge)
 - **0.31** untargetable: Featherstorm makes Xayah untargetable, dodging Ornn's Volcanic Rupture. Untargetable for 1.5 s, long enough to use ahead of Volcanic Rupture. (Xayah R Featherstorm → Ornn Q Volcanic Rupture)
 
-### 7. Master Yi (net +1.48)
+#### 7. Master Yi (net +1.48)
 
 - **1.00** untargetable: Alpha Strike makes Master Yi untargetable, dodging Ornn's Call of the Forge God. Untargetable for ?; Call of the Forge God takes 0.69 s to land, enough to react. (Master Yi Q Alpha Strike → Ornn R Call of the Forge God)
 - **0.64** untargetable: Alpha Strike makes Master Yi untargetable, dodging Ornn's Searing Charge. Untargetable for ?; Searing Charge takes 0.85 s to land, enough to react. (Master Yi Q Alpha Strike → Ornn E Searing Charge)
 - **0.44** untargetable: Alpha Strike makes Master Yi untargetable, dodging Ornn's Volcanic Rupture. Untargetable for ?; Volcanic Rupture takes 0.67 s to land, enough to react. (Master Yi Q Alpha Strike → Ornn Q Volcanic Rupture)
 - Watch out: Volcanic Rupture's airborne interrupts Master Yi's Meditate (normal channel).
 
-### 8. Vladimir (net +1.47)
+#### 8. Vladimir (net +1.47)
 
 - **1.00** untargetable: Sanguine Pool makes Vladimir untargetable, dodging Ornn's Call of the Forge God. Untargetable for 2 s, long enough to use ahead of Call of the Forge God. (Vladimir W Sanguine Pool → Ornn R Call of the Forge God)
 - **0.68** untargetable: Sanguine Pool makes Vladimir untargetable, dodging Ornn's Searing Charge. Untargetable for 2 s, long enough to use ahead of Searing Charge. (Vladimir W Sanguine Pool → Ornn E Searing Charge)
 - **0.46** untargetable: Sanguine Pool makes Vladimir untargetable, dodging Ornn's Volcanic Rupture. Untargetable for 2 s, long enough to use ahead of Volcanic Rupture. (Vladimir W Sanguine Pool → Ornn Q Volcanic Rupture)
 - Watch out: Volcanic Rupture's airborne interrupts Vladimir's Tides of Blood (charge-up).
 
-### 9. Maokai (net +1.47)
+#### 9. Maokai (net +1.47)
 
 - **1.00** untargetable: Twisted Advance makes Maokai untargetable, dodging Ornn's Call of the Forge God. Untargetable for 1.4 s; Call of the Forge God takes 0.69 s to land, enough to react. (Maokai W Twisted Advance → Ornn R Call of the Forge God)
 - **0.80** untargetable: Twisted Advance makes Maokai untargetable, dodging Ornn's Searing Charge. Untargetable for 1.4 s; Searing Charge takes 0.85 s to land, enough to react. (Maokai W Twisted Advance → Ornn E Searing Charge)
 - **0.57** untargetable: Twisted Advance makes Maokai untargetable, dodging Ornn's Volcanic Rupture. Untargetable for 1.4 s; Volcanic Rupture takes 0.67 s to land, enough to react. (Maokai W Twisted Advance → Ornn Q Volcanic Rupture)
 - Watch out: Bellows Breath is displacement immune, ignoring Maokai's Bramble Smash (airborne) during it.
 
-### 10. Aurora (net +1.47)
+#### 10. Aurora (net +1.47)
 
 - **1.00** untargetable: Between Worlds makes Aurora untargetable, dodging Ornn's Call of the Forge God. Untargetable for 0.4 s; Call of the Forge God takes 0.69 s to land, enough to react. Does not destroy inbound projectiles. (Aurora R Between Worlds → Ornn R Call of the Forge God)
 - **0.38** untargetable: Between Worlds makes Aurora untargetable, dodging Ornn's Searing Charge. Untargetable for 0.4 s; Searing Charge takes 0.85 s to land, enough to react. Does not destroy inbound projectiles. (Aurora R Between Worlds → Ornn E Searing Charge)
 - **0.31** untargetable: Between Worlds makes Aurora untargetable, dodging Ornn's Volcanic Rupture. Untargetable for 0.4 s; Volcanic Rupture takes 0.67 s to land, enough to react. Does not destroy inbound projectiles. (Aurora R Between Worlds → Ornn Q Volcanic Rupture)
 
-## Full ranking
+### Full ranking
 
 | # | Champion | Net | For | Against | Hard counters |
 |--:|---|--:|--:|--:|---|

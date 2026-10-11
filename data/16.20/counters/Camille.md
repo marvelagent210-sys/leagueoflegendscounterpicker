@@ -1,5 +1,38 @@
 # Counters to Camille (patch 26.20)
 
+## Simulated duels (full confidence)
+
+The duel simulator played each of the 24 other champions with a simulator kit against Camille: both at level 20 with 15,000 gold of plain stats, each side's spent against the other's, through six scenarios (PLAN.md §6). Scores run from −1 (Camille wins every time) to +1 (the champion does). Run `npm run duel -- <champion> Camille --log brawl` to watch a fight.
+
+| # | Champion | Score | You engage | Enemy engages | Brawl | Short trade | Spacing | Escape |
+|--:|---|--:|--:|--:|--:|--:|--:|--:|
+| 1 | Poppy | +0.94 | +1.00 | +1.00 | +1.00 | +0.63 | – | +1.00 |
+| 2 | Fiora | +0.90 | +1.00 | +1.00 | +1.00 | +0.42 | – | +1.00 |
+| 3 | Garen | +0.86 | +1.00 | +1.00 | +1.00 | +0.49 | – | +0.00 |
+| 4 | Malphite | +0.80 | +1.00 | +1.00 | +1.00 | +0.14 | – | +0.00 |
+| 5 | Olaf | +0.77 | +1.00 | +1.00 | +1.00 | −0.02 | – | +0.00 |
+| 6 | Renekton | +0.77 | +1.00 | +1.00 | +1.00 | −0.05 | – | +0.00 |
+| 7 | Jax | +0.77 | +1.00 | +1.00 | +1.00 | −0.08 | – | +0.00 |
+| 8 | Nasus | +0.76 | +1.00 | +1.00 | +1.00 | −0.10 | – | +0.00 |
+| 9 | Tryndamere | +0.75 | +1.00 | +1.00 | +1.00 | −0.19 | – | +0.00 |
+| 10 | Volibear | +0.73 | +1.00 | +1.00 | +1.00 | −0.28 | – | +0.00 |
+| 11 | Dr. Mundo | +0.73 | +1.00 | +1.00 | +1.00 | −0.29 | – | +0.00 |
+| 12 | Aatrox | +0.61 | +0.91 | +1.00 | +1.00 | −0.51 | – | −1.00 |
+| 13 | Yone | +0.38 | +1.00 | +1.00 | −1.00 | −0.02 | – | +1.00 |
+| 14 | Teemo | +0.37 | +1.00 | +1.00 | −1.00 | +0.12 | +1.00 | −1.00 |
+| 15 | Urgot | +0.17 | −1.00 | +1.00 | +1.00 | +0.49 | −1.00 | +0.00 |
+| 16 | Mordekaiser | +0.13 | +0.70 | +0.70 | −1.00 | −0.19 | – | +0.00 |
+| 17 | Irelia | +0.05 | +1.00 | +0.03 | −0.95 | −0.16 | – | +0.00 |
+| 18 | Riven | +0.00 | −1.00 | +0.00 | +1.00 | +0.34 | – | +0.00 |
+| 19 | Sett | −0.23 | −1.00 | +1.00 | −1.00 | −0.06 | – | +0.00 |
+| 20 | Gwen | −0.31 | −1.00 | −1.00 | +1.00 | +0.12 | – | +0.00 |
+| 21 | Shen | −0.32 | −1.00 | +0.00 | +0.00 | −0.26 | – | +0.00 |
+| 22 | Yasuo | −0.51 | −1.00 | +0.00 | −1.00 | −0.09 | – | +0.00 |
+| 23 | Ornn | −0.75 | −1.00 | −1.00 | −1.00 | +0.14 | – | +0.00 |
+| 24 | Darius | −0.87 | −1.00 | −1.00 | −1.00 | −0.19 | – | −1.00 |
+
+## Interaction ledger (partial confidence)
+
 Every champion ranked by what its kit does against Camille's, from the interaction ledger: projectile blocks, spell shields,
 parries, dash stops, crowd control and its defenses, range and more (PLAN.md §5). This ranking is **partial**: it weighs the
 interactions but doesn't play the fight out. The duel simulator replaces it as each champion's behavior is verified.
@@ -8,77 +41,77 @@ interactions but doesn't play the fight out. The duel simulator replaces it as e
 A hard counter shuts down part of a kit every time it is used (projectile block, attack dodge, attack block, blind, disarm, attack speed slow, attack reflect, dash stop, grounding, range) with an impact of 0.4 or more (0.5 for range).
 Run `npm run matchup -- <champion> Camille` for the full ledger of a matchup, with sources.
 
-## Top 10
+### Top 10
 
-### 1. Sivir (net +1.60)
+#### 1. Sivir (net +1.60)
 
 - **1.00** spell shield: Spell Shield's spell shield blocks Camille's The Hextech Ultimatum. Spell shield for 1.5 s, long enough to use ahead of The Hextech Ultimatum. A spell shield blocks only the first enemy ability that reaches it. (Sivir E Spell Shield → Camille R The Hextech Ultimatum)
 - **0.73** spell shield: Spell Shield's spell shield blocks Camille's Wall Dive. Spell shield for 1.5 s, long enough to use ahead of Wall Dive. A spell shield blocks only the first enemy ability that reaches it. (Sivir E Spell Shield → Camille E Wall Dive)
 - **0.23** range: Sivir's basic attacks reach 375 units farther than Camille's (500 vs 125 attack range). Camille closes the gap with Hookshot, Wall Dive, The Hextech Ultimatum. (Sivir basic attacks → Camille basic attacks)
 
-### 2. Udyr (net +1.19)
+#### 2. Udyr (net +1.19)
 
 - **1.00** cc immunity: Blazing Stampede makes Udyr immune to Camille's Wall Dive (airborne, stun). Immune for 1.5 s, long enough to use ahead of Wall Dive. (Udyr E Blazing Stampede → Camille E Wall Dive)
 - **1.00** cc immunity: Blazing Stampede makes Udyr immune to Camille's The Hextech Ultimatum (airborne, disrupt). Immune for 1.5 s, long enough to use ahead of The Hextech Ultimatum. (Udyr E Blazing Stampede → Camille R The Hextech Ultimatum)
 - **0.11** cc immunity: Blazing Stampede makes Udyr immune to Camille's Tactical Sweep (slow). Immune for 1.5 s, long enough to use ahead of Tactical Sweep. (Udyr E Blazing Stampede → Camille W Tactical Sweep)
 - Watch out: The Hextech Ultimatum makes Camille untargetable, dodging Udyr's Blazing Stampede.
 
-### 3. Olaf (net +1.05)
+#### 3. Olaf (net +1.05)
 
 - **1.00** cc immunity: Ragnarok makes Olaf immune to Camille's The Hextech Ultimatum (airborne, disrupt). Immune for 3 s, long enough to use ahead of The Hextech Ultimatum. (Olaf R Ragnarok → Camille R The Hextech Ultimatum)
 - **0.48** cc immunity: Ragnarok makes Olaf immune to Camille's Wall Dive (airborne, stun). Immune for 3 s, long enough to use ahead of Wall Dive. (Olaf R Ragnarok → Camille E Wall Dive)
 - **0.05** cc immunity: Ragnarok makes Olaf immune to Camille's Tactical Sweep (slow). Immune for 3 s, long enough to use ahead of Tactical Sweep. (Olaf R Ragnarok → Camille W Tactical Sweep)
 - Watch out: The Hextech Ultimatum makes Camille untargetable, dodging Olaf's Reckless Swing.
 
-### 4. Fiora (net +1.02)
+#### 4. Fiora (net +1.02)
 
 - **0.88** parry: Riposte parries Camille's Wall Dive and stuns back. Parry for 0.75 s; Wall Dive takes 0.38 s to land, enough to react. Negating Wall Dive's immobilizing effect turns Riposte's slow into a stun (2 s). (Fiora W Riposte → Camille E Wall Dive)
 - **0.70** parry: Riposte parries Camille's The Hextech Ultimatum and stuns back. Parry for 0.75 s; The Hextech Ultimatum lands within 0 s, faster than a 0.25 s reaction, so it needs prediction. Negating The Hextech Ultimatum's immobilizing effect turns Riposte's slow into a stun (2 s). (Fiora W Riposte → Camille R The Hextech Ultimatum)
 - **0.09** attack speed slow: Riposte cuts Camille's attack speed by 25% for 2 s. 2 s on a 16 s cooldown. (Fiora W Riposte → Camille basic attacks)
 - Watch out: The Hextech Ultimatum makes Camille untargetable, dodging Fiora's Riposte.
 
-### 5. Vladimir (net +0.97)
+#### 5. Vladimir (net +0.97)
 
 - **1.00** untargetable: Sanguine Pool makes Vladimir untargetable, dodging Camille's The Hextech Ultimatum. Untargetable for 2 s, long enough to use ahead of The Hextech Ultimatum. (Vladimir W Sanguine Pool → Camille R The Hextech Ultimatum)
 - **0.78** untargetable: Sanguine Pool makes Vladimir untargetable, dodging Camille's Wall Dive. Untargetable for 2 s, long enough to use ahead of Wall Dive. (Vladimir W Sanguine Pool → Camille E Wall Dive)
 - **0.09** range: Vladimir's basic attacks reach 325 units farther than Camille's (450 vs 125 attack range). Camille closes the gap with Hookshot, Wall Dive, The Hextech Ultimatum. (Vladimir basic attacks → Camille basic attacks)
 - Watch out: The Hextech Ultimatum makes Camille untargetable, dodging Vladimir's Hemoplague.
 
-### 6. Xayah (net +0.93)
+#### 6. Xayah (net +0.93)
 
 - **0.94** untargetable: Featherstorm makes Xayah untargetable, dodging Camille's The Hextech Ultimatum. Untargetable for 1.5 s, long enough to use ahead of The Hextech Ultimatum. (Xayah R Featherstorm → Camille R The Hextech Ultimatum)
 - **0.46** untargetable: Featherstorm makes Xayah untargetable, dodging Camille's Wall Dive. Untargetable for 1.5 s, long enough to use ahead of Wall Dive. (Xayah R Featherstorm → Camille E Wall Dive)
 - **0.19** range: Xayah's basic attacks reach 400 units farther than Camille's (525 vs 125 attack range). Camille closes the gap with Hookshot, Wall Dive, The Hextech Ultimatum. (Xayah basic attacks → Camille basic attacks)
 - Watch out: The Hextech Ultimatum makes Camille untargetable, dodging Xayah's Featherstorm.
 
-### 7. Kayle (net +0.80)
+#### 7. Kayle (net +0.80)
 
 - **0.50** invulnerable: Divine Judgment makes Kayle invulnerable to Camille's The Hextech Ultimatum (its crowd control still applies). Invulnerable for 2.5 s, long enough to use ahead of The Hextech Ultimatum. (Kayle R Divine Judgment → Camille R The Hextech Ultimatum)
 - **0.24** invulnerable: Divine Judgment makes Kayle invulnerable to Camille's Wall Dive (its crowd control still applies). Invulnerable for 2.5 s, long enough to use ahead of Wall Dive. (Kayle R Divine Judgment → Camille E Wall Dive)
 - **0.18** range: Kayle's basic attacks reach 500 units farther than Camille's (625 vs 125 attack range). Camille closes the gap with Hookshot, Wall Dive, The Hextech Ultimatum. (Kayle basic attacks → Camille basic attacks)
 
-### 8. Morgana (net +0.79)
+#### 8. Morgana (net +0.79)
 
 - **1.00** cc immunity: Black Shield makes Morgana immune to Camille's The Hextech Ultimatum (airborne, disrupt). Immune for 5 s, long enough to use ahead of The Hextech Ultimatum. (Morgana E Black Shield → Camille R The Hextech Ultimatum)
 - **0.78** cc immunity: Black Shield makes Morgana immune to Camille's Wall Dive (airborne, stun). Immune for 5 s, long enough to use ahead of Wall Dive. (Morgana E Black Shield → Camille E Wall Dive)
 - **0.10** range: Morgana's basic attacks reach 325 units farther than Camille's (450 vs 125 attack range). Camille closes the gap with Hookshot, Wall Dive, The Hextech Ultimatum. (Morgana basic attacks → Camille basic attacks)
 - Watch out: The Hextech Ultimatum makes Camille untargetable, dodging Morgana's Soul Shackles.
 
-### 9. Rengar (net +0.73)
+#### 9. Rengar (net +0.73)
 
 - **0.80** cleanse: Battle Roar cleanses Camille's Wall Dive (airborne, stun) after it lands. 10 s cooldown; usable while crowd controlled. (Rengar W Battle Roar → Camille E Wall Dive)
 - **0.80** cleanse: Battle Roar cleanses Camille's The Hextech Ultimatum (airborne) after it lands. 10 s cooldown; usable while crowd controlled. Doesn't remove disrupt. (Rengar W Battle Roar → Camille R The Hextech Ultimatum)
 - **0.09** cleanse: Battle Roar cleanses Camille's Tactical Sweep (slow) after it lands. 10 s cooldown; usable while crowd controlled. (Rengar W Battle Roar → Camille W Tactical Sweep)
 - Watch out: The Hextech Ultimatum makes Camille untargetable, dodging Rengar's Bola Strike.
 
-### 10. Elise (net +0.68)
+#### 10. Elise (net +0.68)
 
 - **0.73** untargetable: Rappel makes Elise untargetable, dodging Camille's Wall Dive. Untargetable for 0.6 s; Wall Dive takes 0.38 s to land, enough to react. (Elise E Rappel → Camille E Wall Dive)
 - **0.60** untargetable: Rappel makes Elise untargetable, dodging Camille's The Hextech Ultimatum. Untargetable for 0.6 s; The Hextech Ultimatum lands within 0 s, faster than a 0.25 s reaction, so it needs prediction. (Elise E Rappel → Camille R The Hextech Ultimatum)
 - **0.16** range: Elise's basic attacks reach 425 units farther than Camille's (550 vs 125 attack range). Camille closes the gap with Hookshot, Wall Dive, The Hextech Ultimatum. (Elise basic attacks → Camille basic attacks)
 - Watch out: The Hextech Ultimatum makes Camille untargetable, dodging Elise's Cocoon.
 
-## Full ranking
+### Full ranking
 
 | # | Champion | Net | For | Against | Hard counters |
 |--:|---|--:|--:|--:|---|

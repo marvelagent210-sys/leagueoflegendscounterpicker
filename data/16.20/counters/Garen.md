@@ -1,5 +1,38 @@
 # Counters to Garen (patch 26.20)
 
+## Simulated duels (full confidence)
+
+The duel simulator played each of the 24 other champions with a simulator kit against Garen: both at level 20 with 15,000 gold of plain stats, each side's spent against the other's, through six scenarios (PLAN.md §6). Scores run from −1 (Garen wins every time) to +1 (the champion does). Run `npm run duel -- <champion> Garen --log brawl` to watch a fight.
+
+| # | Champion | Score | You engage | Enemy engages | Brawl | Short trade | Spacing | Escape |
+|--:|---|--:|--:|--:|--:|--:|--:|--:|
+| 1 | Nasus | +0.82 | +1.00 | +1.00 | +1.00 | −0.08 | – | +1.00 |
+| 2 | Tryndamere | +0.78 | +1.00 | +1.00 | +1.00 | −0.30 | – | +1.00 |
+| 3 | Dr. Mundo | +0.77 | +1.00 | +1.00 | +1.00 | −0.06 | – | +0.00 |
+| 4 | Riven | +0.75 | +1.00 | +1.00 | +1.00 | −0.17 | – | +0.00 |
+| 5 | Fiora | +0.70 | +1.00 | +1.00 | +1.00 | −0.49 | – | +0.00 |
+| 6 | Olaf | +0.52 | +0.32 | +1.00 | +1.00 | −0.40 | – | −0.05 |
+| 7 | Urgot | +0.11 | −1.00 | +1.00 | +1.00 | +0.07 | −1.00 | −0.04 |
+| 8 | Teemo | −0.03 | +1.00 | −1.00 | −1.00 | +0.79 | +1.00 | −1.00 |
+| 9 | Darius | −0.04 | +1.00 | +0.00 | −1.00 | −0.25 | – | −1.00 |
+| 10 | Malphite | −0.21 | +1.00 | −1.00 | −1.00 | +0.09 | – | +0.00 |
+| 11 | Jax | −0.29 | +0.00 | +0.00 | −1.00 | −0.39 | – | +0.00 |
+| 12 | Poppy | −0.70 | −1.00 | −1.00 | −1.00 | +0.12 | – | +1.00 |
+| 13 | Ornn | −0.76 | −1.00 | −1.00 | −1.00 | +0.09 | – | +0.00 |
+| 14 | Gwen | −0.81 | −1.00 | −1.00 | −1.00 | −0.17 | – | +0.00 |
+| 15 | Yasuo | −0.81 | −1.00 | −1.00 | −1.00 | −0.27 | – | +0.26 |
+| 16 | Volibear | −0.82 | −1.00 | −1.00 | −1.00 | −0.16 | – | −0.23 |
+| 17 | Sett | −0.82 | −1.00 | −1.00 | −1.00 | +0.07 | – | −1.00 |
+| 18 | Yone | −0.82 | −0.77 | −1.00 | −1.00 | −0.51 | – | −0.48 |
+| 19 | Irelia | −0.85 | −1.00 | −1.00 | −1.00 | −0.12 | – | −1.00 |
+| 20 | Camille | −0.86 | −1.00 | −1.00 | −1.00 | −0.49 | – | +0.00 |
+| 21 | Mordekaiser | −0.87 | −1.00 | −1.00 | −1.00 | −0.24 | – | −1.00 |
+| 22 | Shen | −0.88 | −1.00 | −1.00 | −1.00 | −0.30 | – | −1.00 |
+| 23 | Aatrox | −0.89 | −1.00 | −1.00 | −1.00 | −0.33 | – | −1.00 |
+| 24 | Renekton | −0.89 | −1.00 | −1.00 | −1.00 | −0.33 | – | −1.00 |
+
+## Interaction ledger (partial confidence)
+
 Every champion ranked by what its kit does against Garen's, from the interaction ledger: projectile blocks, spell shields,
 parries, dash stops, crowd control and its defenses, range and more (PLAN.md §5). This ranking is **partial**: it weighs the
 interactions but doesn't play the fight out. The duel simulator replaces it as each champion's behavior is verified.
@@ -8,77 +41,77 @@ interactions but doesn't play the fight out. The duel simulator replaces it as e
 A hard counter shuts down part of a kit every time it is used (projectile block, attack dodge, attack block, blind, disarm, attack speed slow, attack reflect, dash stop, grounding, range) with an impact of 0.4 or more (0.5 for range).
 Run `npm run matchup -- <champion> Garen` for the full ledger of a matchup, with sources.
 
-## Top 10
+### Top 10
 
-### 1. Sivir (net +1.44)
+#### 1. Sivir (net +1.44)
 
 - **0.81** range: Sivir's basic attacks reach 325 units farther than Garen's (500 vs 175 attack range). Garen has no dash or blink to close the gap. (Sivir basic attacks → Garen basic attacks)
 - **0.55** spell shield: Spell Shield's spell shield blocks Garen's Demacian Justice. Spell shield for 1.5 s, long enough to use ahead of Demacian Justice. A spell shield blocks only the first enemy ability that reaches it. (Sivir E Spell Shield → Garen R Demacian Justice)
 - **0.15** spell shield: Spell Shield's spell shield blocks part of Garen's Decisive Strike. Spell shield for 1.5 s, long enough to use ahead of Decisive Strike. A spell shield blocks only the first enemy ability that reaches it. Spell shield will only negate the silence. (Sivir E Spell Shield → Garen Q Decisive Strike)
 
-### 2. Elise (net +1.14)
+#### 2. Elise (net +1.14)
 
 - **0.61** range: Elise's basic attacks reach 375 units farther than Garen's (550 vs 175 attack range). Garen has no dash or blink to close the gap. (Elise basic attacks → Garen basic attacks)
 - **0.55** untargetable: Rappel makes Elise untargetable, dodging Garen's Demacian Justice. Untargetable for 0.6 s; Demacian Justice takes 0.43 s to land, enough to react. (Elise E Rappel → Garen R Demacian Justice)
 - **0.22** untargetable: Rappel makes Elise untargetable, dodging Garen's Basic Attack. Untargetable for 0.6 s, timed to Basic Attack. (Elise E Rappel → Garen basic attacks)
 - Watch out: Courage's 60% tenacity shortens Elise's Cocoon (stun).
 
-### 3. Xayah (net +1.11)
+#### 3. Xayah (net +1.11)
 
 - **0.67** range: Xayah's basic attacks reach 350 units farther than Garen's (525 vs 175 attack range). Garen has no dash or blink to close the gap. (Xayah basic attacks → Garen basic attacks)
 - **0.48** untargetable: Featherstorm makes Xayah untargetable, dodging Garen's Demacian Justice. Untargetable for 1.5 s, long enough to use ahead of Demacian Justice. (Xayah R Featherstorm → Garen R Demacian Justice)
 - **0.20** untargetable: Featherstorm makes Xayah untargetable, dodging Garen's Decisive Strike. Untargetable for 1.5 s, long enough to use ahead of Decisive Strike. (Xayah R Featherstorm → Garen Q Decisive Strike)
 - Watch out: Courage's 60% tenacity shortens Xayah's Bladecaller (root).
 
-### 4. Teemo (net +1.03)
+#### 4. Teemo (net +1.03)
 
 - **0.59** range: Teemo's basic attacks reach 325 units farther than Garen's (500 vs 175 attack range). Garen has no dash or blink to close the gap. (Teemo basic attacks → Garen basic attacks)
 - **0.57** blind: Blinding Dart's blind makes Garen's basic attacks miss for 3 s. Blind for 3 s on a 7 s cooldown. (Teemo Q Blinding Dart → Garen basic attacks)
 - **0.30** blind: Blinding Dart's blind makes Garen's Decisive Strike, an empowered attack, miss. Blind for 3 s. (Teemo Q Blinding Dart → Garen Q Decisive Strike)
 - Watch out: Decisive Strike cleanses Teemo's Noxious Trap (slow) after it lands.
 
-### 5. Kindred (net +1.00)
+#### 5. Kindred (net +1.00)
 
 - **0.81** range: Kindred's basic attacks reach 325 units farther than Garen's (500 vs 175 attack range). Garen has no dash or blink to close the gap. (Kindred basic attacks → Garen basic attacks)
 - **0.22** invulnerable: Lamb's Respite makes Kindred invulnerable to Garen's Demacian Justice (its crowd control still applies). Invulnerable for ?; Demacian Justice takes 0.43 s to land, enough to react. (Kindred R Lamb's Respite → Garen R Demacian Justice)
 - **0.14** invulnerable: Lamb's Respite makes Kindred invulnerable to Garen's Basic Attack. Invulnerable for ?, timed to Basic Attack. (Kindred R Lamb's Respite → Garen basic attacks)
 - Watch out: Decisive Strike cleanses Kindred's Mounting Dread (slow) after it lands.
 
-### 6. Kayle (net +0.98)
+#### 6. Kayle (net +0.98)
 
 - **0.72** range: Kayle's basic attacks reach 450 units farther than Garen's (625 vs 175 attack range). Garen has no dash or blink to close the gap. (Kayle basic attacks → Garen basic attacks)
 - **0.28** invulnerable: Divine Judgment makes Kayle invulnerable to Garen's Demacian Justice (its crowd control still applies). Invulnerable for 2.5 s, long enough to use ahead of Demacian Justice. (Kayle R Divine Judgment → Garen R Demacian Justice)
 - **0.14** invulnerable: Divine Judgment makes Kayle invulnerable to Garen's Basic Attack. Invulnerable for 2.5 s, long enough to use ahead of Basic Attack. (Kayle R Divine Judgment → Garen basic attacks)
 - Watch out: Decisive Strike cleanses Kayle's Radiant Blast (slow) after it lands.
 
-### 7. Bard (net +0.92)
+#### 7. Bard (net +0.92)
 
 - **0.62** range: Bard's basic attacks reach 325 units farther than Garen's (500 vs 175 attack range). Garen has no dash or blink to close the gap. (Bard basic attacks → Garen basic attacks)
 - **0.55** untargetable: Tempered Fate makes Bard untargetable, dodging Garen's Demacian Justice. Untargetable for 2.5 s, long enough to use ahead of Demacian Justice. (Bard R Tempered Fate → Garen R Demacian Justice)
 - **0.21** untargetable: Tempered Fate makes Bard untargetable, dodging Garen's Decisive Strike. Untargetable for 2.5 s, long enough to use ahead of Decisive Strike. (Bard R Tempered Fate → Garen Q Decisive Strike)
 - Watch out: Courage's 60% tenacity shortens Bard's Tempered Fate (stun).
 
-### 8. Vladimir (net +0.87)
+#### 8. Vladimir (net +0.87)
 
 - **0.55** untargetable: Sanguine Pool makes Vladimir untargetable, dodging Garen's Demacian Justice. Untargetable for 2 s, long enough to use ahead of Demacian Justice. (Vladimir W Sanguine Pool → Garen R Demacian Justice)
 - **0.32** untargetable: Sanguine Pool makes Vladimir untargetable, dodging Garen's Decisive Strike. Untargetable for 2 s, long enough to use ahead of Decisive Strike. (Vladimir W Sanguine Pool → Garen Q Decisive Strike)
 - **0.30** range: Vladimir's basic attacks reach 275 units farther than Garen's (450 vs 175 attack range). Garen has no dash or blink to close the gap. (Vladimir basic attacks → Garen basic attacks)
 - Watch out: Decisive Strike cleanses Vladimir's Sanguine Pool (slow) after it lands.
 
-### 9. Yuumi (net +0.82)
+#### 9. Yuumi (net +0.82)
 
 - **0.55** untargetable: You and Me! makes Yuumi untargetable, dodging Garen's Demacian Justice. Untargetable for ?; Demacian Justice takes 0.43 s to land, enough to react. Does not destroy inbound projectiles, special cased to be targetable to turrets. (Yuumi W You and Me! → Garen R Demacian Justice)
 - **0.54** range: Yuumi's basic attacks reach 250 units farther than Garen's (425 vs 175 attack range). Garen has no dash or blink to close the gap. (Yuumi basic attacks → Garen basic attacks)
 - **0.30** untargetable: You and Me! makes Yuumi untargetable, dodging Garen's Basic Attack. Untargetable for ?, timed to Basic Attack. Does not destroy inbound projectiles, special cased to be targetable to turrets. (Yuumi W You and Me! → Garen basic attacks)
 - Watch out: Decisive Strike's silence interrupts Yuumi's Final Chapter (normal channel).
 
-### 10. Lulu (net +0.75)
+#### 10. Lulu (net +0.75)
 
 - **0.68** range: Lulu's basic attacks reach 375 units farther than Garen's (550 vs 175 attack range). Garen has no dash or blink to close the gap. (Lulu basic attacks → Garen basic attacks)
 - **0.40** disarm: Whimsy disarms Garen for 2 s: no basic attacks. Disarm for 2 s on a 18 s cooldown. (Lulu W Whimsy → Garen basic attacks)
 - Watch out: Decisive Strike cleanses Lulu's Wild Growth (slow) after it lands.
 
-## Full ranking
+### Full ranking
 
 | # | Champion | Net | For | Against | Hard counters |
 |--:|---|--:|--:|--:|---|

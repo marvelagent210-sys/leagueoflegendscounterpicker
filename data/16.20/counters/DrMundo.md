@@ -1,5 +1,38 @@
 # Counters to Dr. Mundo (patch 26.20)
 
+## Simulated duels (full confidence)
+
+The duel simulator played each of the 24 other champions with a simulator kit against Dr. Mundo: both at level 20 with 15,000 gold of plain stats, each side's spent against the other's, through six scenarios (PLAN.md §6). Scores run from −1 (Dr. Mundo wins every time) to +1 (the champion does). Run `npm run duel -- <champion> DrMundo --log brawl` to watch a fight.
+
+| # | Champion | Score | You engage | Enemy engages | Brawl | Short trade | Spacing | Escape |
+|--:|---|--:|--:|--:|--:|--:|--:|--:|
+| 1 | Poppy | +0.83 | +1.00 | +1.00 | +1.00 | +0.30 | – | +0.00 |
+| 2 | Gwen | +0.80 | +1.00 | +1.00 | +1.00 | +0.14 | – | +0.00 |
+| 3 | Fiora | +0.80 | +1.00 | +1.00 | +1.00 | +0.13 | – | +0.00 |
+| 4 | Aatrox | +0.80 | +1.00 | +1.00 | +1.00 | +0.13 | – | +0.00 |
+| 5 | Tryndamere | +0.76 | +1.00 | +1.00 | +1.00 | −0.13 | – | +0.00 |
+| 6 | Mordekaiser | +0.33 | +0.12 | +1.00 | +0.04 | +0.03 | – | +0.00 |
+| 7 | Darius | +0.23 | +1.00 | −1.00 | +1.00 | +0.04 | – | +0.00 |
+| 8 | Olaf | −0.22 | −0.42 | +0.45 | −1.00 | −0.00 | – | +0.00 |
+| 9 | Nasus | −0.23 | −0.28 | −0.28 | −0.32 | +0.00 | – | +0.00 |
+| 10 | Shen | −0.26 | −0.43 | −0.39 | −0.27 | +0.13 | – | +0.00 |
+| 11 | Ornn | −0.31 | −0.43 | −0.42 | −0.44 | +0.13 | – | +0.00 |
+| 12 | Volibear | −0.47 | −0.88 | −0.08 | −0.89 | −0.04 | – | +0.00 |
+| 13 | Teemo | −0.65 | −0.62 | −0.96 | −1.00 | +0.17 | −0.82 | +0.00 |
+| 14 | Camille | −0.73 | −1.00 | −1.00 | −1.00 | +0.29 | – | +0.00 |
+| 15 | Riven | −0.74 | −1.00 | −1.00 | −1.00 | +0.24 | – | +0.00 |
+| 16 | Yone | −0.74 | −1.00 | −1.00 | −1.00 | +0.23 | – | +0.00 |
+| 17 | Malphite | −0.74 | −1.00 | −1.00 | −1.00 | +0.20 | – | +0.00 |
+| 18 | Yasuo | −0.75 | −1.00 | −1.00 | −1.00 | +0.19 | – | +0.00 |
+| 19 | Irelia | −0.76 | −1.00 | −1.00 | −1.00 | +0.12 | – | +0.00 |
+| 20 | Renekton | −0.76 | −1.00 | −1.00 | −1.00 | +0.12 | – | +0.00 |
+| 21 | Garen | −0.77 | −1.00 | −1.00 | −1.00 | +0.06 | – | +0.00 |
+| 22 | Sett | −0.77 | −1.00 | −1.00 | −1.00 | +0.06 | – | +0.00 |
+| 23 | Urgot | −0.78 | −1.00 | −1.00 | −1.00 | +0.11 | −1.00 | +0.00 |
+| 24 | Jax | −0.79 | −1.00 | −1.00 | −1.00 | −0.05 | – | +0.00 |
+
+## Interaction ledger (partial confidence)
+
 Every champion ranked by what its kit does against Dr. Mundo's, from the interaction ledger: projectile blocks, spell shields,
 parries, dash stops, crowd control and its defenses, range and more (PLAN.md §5). This ranking is **partial**: it weighs the
 interactions but doesn't play the fight out. The duel simulator replaces it as each champion's behavior is verified.
@@ -8,55 +41,55 @@ interactions but doesn't play the fight out. The duel simulator replaces it as e
 A hard counter shuts down part of a kit every time it is used (projectile block, attack dodge, attack block, blind, disarm, attack speed slow, attack reflect, dash stop, grounding, range) with an impact of 0.4 or more (0.5 for range).
 Run `npm run matchup -- <champion> DrMundo` for the full ledger of a matchup, with sources.
 
-## Top 10
+### Top 10
 
-### 1. Teemo (net +1.26)
+#### 1. Teemo (net +1.26)
 
 - **0.68** range: Teemo's basic attacks reach 375 units farther than Dr. Mundo's (500 vs 125 attack range). Dr. Mundo has no dash or blink to close the gap. (Teemo basic attacks → Dr. Mundo basic attacks)
 - **0.43** blind: Blinding Dart's blind makes Dr. Mundo's basic attacks miss for 3 s. Blind for 3 s on a 7 s cooldown. (Teemo Q Blinding Dart → Dr. Mundo basic attacks)
 - **0.30** blind: Blinding Dart's blind makes Dr. Mundo's Blunt Force Trauma, an empowered attack, miss. Blind for 3 s. (Teemo Q Blinding Dart → Dr. Mundo E Blunt Force Trauma)
 
-### 2. Lulu (net +1.02)
+#### 2. Lulu (net +1.02)
 
 - **0.72** range: Lulu's basic attacks reach 425 units farther than Dr. Mundo's (550 vs 125 attack range). Dr. Mundo has no dash or blink to close the gap. (Lulu basic attacks → Dr. Mundo basic attacks)
 - **0.30** disarm: Whimsy disarms Dr. Mundo for 2 s: no basic attacks. Disarm for 2 s on a 18 s cooldown. (Lulu W Whimsy → Dr. Mundo basic attacks)
 
-### 3. Kindred (net +0.94)
+#### 3. Kindred (net +0.94)
 
 - **0.94** range: Kindred's basic attacks reach 375 units farther than Dr. Mundo's (500 vs 125 attack range). Dr. Mundo has no dash or blink to close the gap. (Kindred basic attacks → Dr. Mundo basic attacks)
 
-### 4. Sivir (net +0.94)
+#### 4. Sivir (net +0.94)
 
 - **0.94** range: Sivir's basic attacks reach 375 units farther than Dr. Mundo's (500 vs 125 attack range). Dr. Mundo has no dash or blink to close the gap. (Sivir basic attacks → Dr. Mundo basic attacks)
 
-### 5. Samira (net +0.89)
+#### 5. Samira (net +0.89)
 
 - **0.61** range: Samira's basic attacks reach 375 units farther than Dr. Mundo's (500 vs 125 attack range). Dr. Mundo has no dash or blink to close the gap. (Samira basic attacks → Dr. Mundo basic attacks)
 - **0.28** projectile block: Blade Whirl blocks Dr. Mundo's Infected Bonesaw, a projectile. Blade Whirl for 0.75 s; Infected Bonesaw takes 0.78 s to land, enough to react. (Samira W Blade Whirl → Dr. Mundo Q Infected Bonesaw)
 
-### 6. Zeri (net +0.88)
+#### 6. Zeri (net +0.88)
 
 - **0.88** range: Zeri's basic attacks reach 425 units farther than Dr. Mundo's (550 vs 125 attack range). Dr. Mundo has no dash or blink to close the gap. (Zeri basic attacks → Dr. Mundo basic attacks)
 
-### 7. Varus (net +0.87)
+#### 7. Varus (net +0.87)
 
 - **0.53** range: Varus's basic attacks reach 450 units farther than Dr. Mundo's (575 vs 125 attack range). Dr. Mundo has no dash or blink to close the gap. (Varus basic attacks → Dr. Mundo basic attacks)
 - **0.22** anti-heal: Hail of Arrows's Grievous Wounds cuts Dr. Mundo's healing from Infected Bonesaw by 40%. (Varus E Hail of Arrows → Dr. Mundo Q Infected Bonesaw)
 - **0.18** anti-heal: Hail of Arrows's Grievous Wounds cuts Dr. Mundo's healing from Heart Zapper by 40%. (Varus E Hail of Arrows → Dr. Mundo W Heart Zapper)
 
-### 8. Twisted Fate (net +0.86)
+#### 8. Twisted Fate (net +0.86)
 
 - **0.86** range: Twisted Fate's basic attacks reach 400 units farther than Dr. Mundo's (525 vs 125 attack range). Dr. Mundo has no dash or blink to close the gap. (Twisted Fate basic attacks → Dr. Mundo basic attacks)
 
-### 9. Twitch (net +0.86)
+#### 9. Twitch (net +0.86)
 
 - **0.86** range: Twitch's basic attacks reach 425 units farther than Dr. Mundo's (550 vs 125 attack range). Dr. Mundo has no dash or blink to close the gap. (Twitch basic attacks → Dr. Mundo basic attacks)
 
-### 10. Vayne (net +0.86)
+#### 10. Vayne (net +0.86)
 
 - **0.86** range: Vayne's basic attacks reach 425 units farther than Dr. Mundo's (550 vs 125 attack range). Dr. Mundo has no dash or blink to close the gap. (Vayne basic attacks → Dr. Mundo basic attacks)
 
-## Full ranking
+### Full ranking
 
 | # | Champion | Net | For | Against | Hard counters |
 |--:|---|--:|--:|--:|---|

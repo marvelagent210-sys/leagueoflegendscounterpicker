@@ -200,3 +200,53 @@ All 1 level-based formulas in the game files (0 linked to wiki values above):
 | Spell | Calculation | Rule | Level 1 | Level 18 | Level 20 |
 |---|---|---|--:|--:|--:|
 | TeemoPassive | BonusAttackSpeed | breakpoints at levels 5, 10, 15 (level 1: 0.2) | 0.2 | 0.8 | 0.8 |
+
+## Duel simulator kit (level 20, every ability at max rank)
+
+What the duel simulator fights with (`kits/champions/Teemo.ts`): every number is read from the wiki's ability data above at level 20; what the wiki doesn't say is listed under assumptions. Ratios are fractions of the stat (60% AD is 0.6 × AD).
+
+- Basic attack: range 500, missile at 1500/s, on hit: 65 + 5% bonus AD + 30% AP magic damage; 120 + 10% bonus AD + 40% AP magic damage over 4 s.
+
+| Key | Ability | Cooldown (s) | Cast time (s) | Cost | Delivery | On the enemy | On itself |
+|---|---|--:|--:|---|---|---|---|
+| Q | Blinding Dart | 7 | 0.25 | 90 | targeted, 680 range, missile at 2500/s | 260 + 70% AP magic damage; blind for 3 s | – |
+| W | Move Quick | 14 | 0 | 40 | self | – | moveSpeedPercent 0.56 for 3 s |
+| R | Noxious Trap | 25 | 0.25 | 35 | self | – | – |
+
+Effects marked by a mark or a role are completed by the kit's hooks (see the kit's source).
+
+### Assumptions
+
+- With the lane set up, one mushroom lies halfway between Teemo and his enemy when the fight starts.
+- Teemo drops mushrooms at his feet while his enemy chases him; Guerrilla Warfare's stealth isn't modeled.
+
+### Wiki values read (26)
+
+| Ability | Value | Revision |
+|---|---|---|
+| Move Quick | after 5 seconds without taking non-over time damage | [4010102](https://wiki.leagueoflegends.com/en-us/Template:Data_Teemo/Move_Quick?oldid=4010102) |
+| Move Quick | Bonus Movement Speed: 12 / 16 / 20 / 24 / 28% | [4010102](https://wiki.leagueoflegends.com/en-us/Template:Data_Teemo/Move_Quick?oldid=4010102) |
+| Move Quick | for 3 seconds, preventing it from being removed | [4010102](https://wiki.leagueoflegends.com/en-us/Template:Data_Teemo/Move_Quick?oldid=4010102) |
+| Toxic Shot | every second over 4 seconds | [4062253](https://wiki.leagueoflegends.com/en-us/Template:Data_Teemo/Toxic_Shot?oldid=4062253) |
+| Noxious Trap | Total Magic Damage: 200 / 325 / 450 (+ 50% AP) | [4015245](https://wiki.leagueoflegends.com/en-us/Template:Data_Teemo/Noxious_Trap?oldid=4015245) |
+| Noxious Trap | every second over 4 seconds | [4015245](https://wiki.leagueoflegends.com/en-us/Template:Data_Teemo/Noxious_Trap?oldid=4015245) |
+| Noxious Trap | Slow: 30 / 40 / 50% | [4015245](https://wiki.leagueoflegends.com/en-us/Template:Data_Teemo/Noxious_Trap?oldid=4015245) |
+| Noxious Trap | slowing them for 4 seconds | [4015245](https://wiki.leagueoflegends.com/en-us/Template:Data_Teemo/Noxious_Trap?oldid=4015245) |
+| Noxious Trap | collisionRadius (Triggering radius): 160 • 150 | [4015245](https://wiki.leagueoflegends.com/en-us/Template:Data_Teemo/Noxious_Trap?oldid=4015245) |
+| Noxious Trap | after arming over 1 second | [4015245](https://wiki.leagueoflegends.com/en-us/Template:Data_Teemo/Noxious_Trap?oldid=4015245) |
+| Toxic Shot | Magic Damage On-Hit: 9 / 23 / 37 / 51 / 65 (+ 5% bonus AD) (+ 30% AP) | [4062253](https://wiki.leagueoflegends.com/en-us/Template:Data_Teemo/Toxic_Shot?oldid=4062253) |
+| Toxic Shot | Total Poison Damage: 24 / 48 / 72 / 96 / 120 (+ 10% bonus AD) (+ 40% AP) | [4062253](https://wiki.leagueoflegends.com/en-us/Template:Data_Teemo/Toxic_Shot?oldid=4062253) |
+| Blinding Dart | cooldown: 7 | [3948425](https://wiki.leagueoflegends.com/en-us/Template:Data_Teemo/Blinding_Dart?oldid=3948425) |
+| Blinding Dart | cost: 70 / 75 / 80 / 85 / 90 | [3948425](https://wiki.leagueoflegends.com/en-us/Template:Data_Teemo/Blinding_Dart?oldid=3948425) |
+| Blinding Dart | castTime: 0.25 | [3948425](https://wiki.leagueoflegends.com/en-us/Template:Data_Teemo/Blinding_Dart?oldid=3948425) |
+| Blinding Dart | targetRange: 680 | [3948425](https://wiki.leagueoflegends.com/en-us/Template:Data_Teemo/Blinding_Dart?oldid=3948425) |
+| Blinding Dart | speed: 2500 | [3948425](https://wiki.leagueoflegends.com/en-us/Template:Data_Teemo/Blinding_Dart?oldid=3948425) |
+| Blinding Dart | Magic Damage: 80 / 125 / 170 / 215 / 260 (+ 70% AP) | [3948425](https://wiki.leagueoflegends.com/en-us/Template:Data_Teemo/Blinding_Dart?oldid=3948425) |
+| Blinding Dart | Blind Duration: 2 / 2.25 / 2.5 / 2.75 / 3 seconds | [3948425](https://wiki.leagueoflegends.com/en-us/Template:Data_Teemo/Blinding_Dart?oldid=3948425) |
+| Move Quick | cooldown: 14 | [4010102](https://wiki.leagueoflegends.com/en-us/Template:Data_Teemo/Move_Quick?oldid=4010102) |
+| Move Quick | cost: 40 | [4010102](https://wiki.leagueoflegends.com/en-us/Template:Data_Teemo/Move_Quick?oldid=4010102) |
+| Move Quick | castTime: none | [4010102](https://wiki.leagueoflegends.com/en-us/Template:Data_Teemo/Move_Quick?oldid=4010102) |
+| Move Quick | Enhanced Bonus Movement Speed: 24 / 32 / 40 / 48 / 56% | [4010102](https://wiki.leagueoflegends.com/en-us/Template:Data_Teemo/Move_Quick?oldid=4010102) |
+| Noxious Trap | recharge: 35 / 30 / 25 | [4015245](https://wiki.leagueoflegends.com/en-us/Template:Data_Teemo/Noxious_Trap?oldid=4015245) |
+| Noxious Trap | cost: 75 / 55 / 35 | [4015245](https://wiki.leagueoflegends.com/en-us/Template:Data_Teemo/Noxious_Trap?oldid=4015245) |
+| Noxious Trap | castTime: 0.25 | [4015245](https://wiki.leagueoflegends.com/en-us/Template:Data_Teemo/Noxious_Trap?oldid=4015245) |

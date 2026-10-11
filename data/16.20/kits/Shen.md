@@ -220,3 +220,55 @@ All 5 level-based formulas in the game files (2 linked to wiki values above):
 | ShenPassive | {58a09e24} | linear 47 → 120 over levels 1-18, continues past 18 | 47 | 120 | 128.588 |
 | ShenPassive | ShieldCooldownReduction | breakpoints at levels 19 (level 1: 4) | 4 | 7.995 | 8.245 |
 | ShenPassive | {87290189} | linear 47 → 101 over levels 1-18, continues past 18 | 47 | 101 | 107.353 |
+
+## Duel simulator kit (level 20, every ability at max rank)
+
+What the duel simulator fights with (`kits/champions/Shen.ts`): every number is read from the wiki's ability data above at level 20; what the wiki doesn't say is listed under assumptions. Ratios are fractions of the stat (60% AD is 0.6 × AD).
+
+- Basic attack: range 125, melee.
+
+| Key | Ability | Cooldown (s) | Cast time (s) | Cost | Delivery | On the enemy | On itself |
+|---|---|--:|--:|---|---|---|---|
+| Q | Twilight Assault | 5 | 0 | 100 | self | – | – |
+| W | Spirit's Refuge | 10 | 0 | 40 | self | – | blockAttacks for 1.75 s |
+| E | Shadow Dash | 10 | 0 | 150 | dash toward 300–600 units at 1140/s, hits within 0, through the enemy | 160 + 11% bonus health physical damage; taunt for 1.5 s | – |
+
+Effects marked by a mark or a role are completed by the kit's hooks (see the kit's source).
+
+### Assumptions
+
+- Stand United shields an ally, so it does nothing in a duel.
+- The Spirit Blade starts the fight where Shen stands and stays where it was last recalled to.
+- Twilight Assault's slow applies whichever way the enemy walks.
+- Shadow Dash is aimed to end 150 units past the enemy.
+
+### Wiki values read (26)
+
+| Ability | Value | Revision |
+|---|---|---|
+| Ki Barrier | Innate: After completing an ability's effects, Shen grants himself a shield for 47 – 120 (based on level) (+ 13% bonus health) for 2.5 seconds. | [3985839](https://wiki.leagueoflegends.com/en-us/Template:Data_Shen/Ki_Barrier?oldid=3985839) |
+| Ki Barrier | (+ 13% bonus health) for 2.5 seconds | [3985839](https://wiki.leagueoflegends.com/en-us/Template:Data_Shen/Ki_Barrier?oldid=3985839) |
+| Ki Barrier | staticCooldown: 11 | [3985839](https://wiki.leagueoflegends.com/en-us/Template:Data_Shen/Ki_Barrier?oldid=3985839) |
+| Ki Barrier | If Shen affects at least one other champion with an ability, Ki Barrier's cooldown is reduced by 4 – 8 (based on level) seconds. | [3985839](https://wiki.leagueoflegends.com/en-us/Template:Data_Shen/Ki_Barrier?oldid=3985839) |
+| Twilight Assault | Shen empowers his next 3 basic attacks within 8 seconds | [4008038](https://wiki.leagueoflegends.com/en-us/Template:Data_Shen/Twilight_Assault?oldid=4008038) |
+| Twilight Assault | to gain 75 bonus range | [4008038](https://wiki.leagueoflegends.com/en-us/Template:Data_Shen/Twilight_Assault?oldid=4008038) |
+| Twilight Assault | grant Shen 50% bonus attack speed | [4008038](https://wiki.leagueoflegends.com/en-us/Template:Data_Shen/Twilight_Assault?oldid=4008038) |
+| Twilight Assault | Slow: 25 / 30 / 35 / 40 / 45% | [4008038](https://wiki.leagueoflegends.com/en-us/Template:Data_Shen/Twilight_Assault?oldid=4008038) |
+| Twilight Assault | are slowed for the next 2 seconds while moving away from Shen | [4008038](https://wiki.leagueoflegends.com/en-us/Template:Data_Shen/Twilight_Assault?oldid=4008038) |
+| Twilight Assault | width: 160 | [4008038](https://wiki.leagueoflegends.com/en-us/Template:Data_Shen/Twilight_Assault?oldid=4008038) |
+| Spirit's Refuge | effectRadius: 350 | [3977238](https://wiki.leagueoflegends.com/en-us/Template:Data_Shen/Spirit's_Refuge?oldid=3977238) |
+| Spirit's Refuge | generates a protective zone for 1.75 seconds | [3977238](https://wiki.leagueoflegends.com/en-us/Template:Data_Shen/Spirit's_Refuge?oldid=3977238) |
+| Shadow Dash | targetRange: 300 - 600 | [4007754](https://wiki.leagueoflegends.com/en-us/Template:Data_Shen/Shadow_Dash?oldid=4007754) |
+| Shadow Dash | Passive: Dealing damage with Twilight Assault or Shadow Dash restores 30 / 40 / 50 (based on level) energy. | [4007754](https://wiki.leagueoflegends.com/en-us/Template:Data_Shen/Shadow_Dash?oldid=4007754) |
+| Stand United | granting the target allied champion a shield | [4004939](https://wiki.leagueoflegends.com/en-us/Template:Data_Shen/Stand_United?oldid=4004939) |
+| Twilight Assault | Bonus Magic Damage: 10 / 16 / 22 / 28 / 34 / 40 (based on level) (+ 2 / 2.5 / 3 / 3.5 / 4% (+ 1.5% per 100 AP) of target's maximum health) | [4008038](https://wiki.leagueoflegends.com/en-us/Template:Data_Shen/Twilight_Assault?oldid=4008038) |
+| Twilight Assault | Increased Bonus Damage: 10 / 16 / 22 / 28 / 34 / 40 (based on level) (+ 5 / 5.5 / 6 / 6.5 / 7% (+ 2% per 100 AP) of target's maximum health) | [4008038](https://wiki.leagueoflegends.com/en-us/Template:Data_Shen/Twilight_Assault?oldid=4008038) |
+| Twilight Assault | cooldown: 8 / 7.25 / 6.5 / 5.75 / 5 | [4008038](https://wiki.leagueoflegends.com/en-us/Template:Data_Shen/Twilight_Assault?oldid=4008038) |
+| Twilight Assault | cost: 140 / 130 / 120 / 110 / 100 | [4008038](https://wiki.leagueoflegends.com/en-us/Template:Data_Shen/Twilight_Assault?oldid=4008038) |
+| Spirit's Refuge | cooldown: 16 / 14.5 / 13 / 11.5 / 10 | [3977238](https://wiki.leagueoflegends.com/en-us/Template:Data_Shen/Spirit's_Refuge?oldid=3977238) |
+| Spirit's Refuge | cost: 40 | [3977238](https://wiki.leagueoflegends.com/en-us/Template:Data_Shen/Spirit's_Refuge?oldid=3977238) |
+| Shadow Dash | cooldown: 18 / 16 / 14 / 12 / 10 | [4007754](https://wiki.leagueoflegends.com/en-us/Template:Data_Shen/Shadow_Dash?oldid=4007754) |
+| Shadow Dash | cost: 150 | [4007754](https://wiki.leagueoflegends.com/en-us/Template:Data_Shen/Shadow_Dash?oldid=4007754) |
+| Shadow Dash | speed: 800 + 100% movement speed | [4007754](https://wiki.leagueoflegends.com/en-us/Template:Data_Shen/Shadow_Dash?oldid=4007754) |
+| Shadow Dash | Physical Damage: 60 / 85 / 110 / 135 / 160 (+ 11% bonus health) | [4007754](https://wiki.leagueoflegends.com/en-us/Template:Data_Shen/Shadow_Dash?oldid=4007754) |
+| Shadow Dash | taunting them for 1.5 seconds | [4007754](https://wiki.leagueoflegends.com/en-us/Template:Data_Shen/Shadow_Dash?oldid=4007754) |

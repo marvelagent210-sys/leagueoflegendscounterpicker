@@ -236,3 +236,71 @@ All 2 level-based formulas in the game files (2 linked to wiki values above):
 |---|---|---|--:|--:|--:|
 | GwenP | HealCap | linear 12 → 40 over levels 1-18, continues past 18 | 12 | 40 | 43.2941 |
 | GwenP | ExecuteDamage | linear 8 → 30 over levels 1-18, continues past 18 | 8 | 30 | 32.5882 |
+
+## Duel simulator kit (level 20, every ability at max rank)
+
+What the duel simulator fights with (`kits/champions/Gwen.ts`): every number is read from the wiki's ability data above at level 20; what the wiki doesn't say is listed under assumptions. Ratios are fractions of the stat (60% AD is 0.6 × AD).
+
+- Basic attack: range 150, melee, on hit: 1% target's maximum health + 0.6% of target's maximum health per 100 AP magic damage (A Thousand Cuts).
+
+| Key | Ability | Cooldown (s) | Cast time (s) | Cost | Delivery | On the enemy | On itself |
+|---|---|--:|--:|---|---|---|---|
+| Q | Snip Snip! | 3.5 | 0.5 | 40 | area -50 to 465 units ahead, lands after 0 s | 80 + 17.5% AP magic damage (Snip Snip!); 80 + 17.5% AP true damage (Snip Snip!); 1% target's maximum health + 0.6% of target's maximum health per 100 AP magic damage (A Thousand Cuts) | – |
+| W | Hallowed Mist | 18 | 0 | 60 | self | – | untargetableFar 480 for 4 s; armor 30 + 7% AP for 4 s; MR 30 + 7% AP for 4 s |
+| E | Skip 'n Slash | 11 | 0 | 35 | dash toward 0–350 units at 800/s | – | resets the attack timer; next 99 attacks within 4 s: 15 + 20% AP magic damage (Skip 'n Slash); attackSpeed 0.8 for 4 s; attackRange 75 for 4 s |
+| R | Needlework | 80 | 0.25 | 100 | skillshot 1250 long, 240 wide, at 1800/s | 70 + 10% AP magic damage (Needlework); 1% target's maximum health + 0.6% of target's maximum health per 100 AP magic damage (A Thousand Cuts); slow 60% for 1.5 s | – |
+| R2 | Needlework (3 needles) | 0 | 0.5 | 0 | skillshot 1250 long, 240 wide, at 1800/s; recast of R within 8 s, after 1 s | 70 + 10% AP magic damage (Needlework); 1% target's maximum health + 0.6% of target's maximum health per 100 AP magic damage (A Thousand Cuts); 70 + 10% AP magic damage (Needlework); 1% target's maximum health + 0.6% of target's maximum health per 100 AP magic damage (A Thousand Cuts); 70 + 10% AP magic damage (Needlework); 1% target's maximum health + 0.6% of target's maximum health per 100 AP magic damage (A Thousand Cuts); slow 60% for 1.5 s | – |
+| R3 | Needlework (5 needles) | 0 | 0.5 | 0 | skillshot 1250 long, 240 wide, at 1800/s; recast of R within 8 s, after 1 s | 70 + 10% AP magic damage (Needlework); 1% target's maximum health + 0.6% of target's maximum health per 100 AP magic damage (A Thousand Cuts); 70 + 10% AP magic damage (Needlework); 1% target's maximum health + 0.6% of target's maximum health per 100 AP magic damage (A Thousand Cuts); 70 + 10% AP magic damage (Needlework); 1% target's maximum health + 0.6% of target's maximum health per 100 AP magic damage (A Thousand Cuts); 70 + 10% AP magic damage (Needlework); 1% target's maximum health + 0.6% of target's maximum health per 100 AP magic damage (A Thousand Cuts); 70 + 10% AP magic damage (Needlework); 1% target's maximum health + 0.6% of target's maximum health per 100 AP magic damage (A Thousand Cuts); slow 60% for 1.5 s | – |
+
+Effects marked by a mark or a role are completed by the kit's hooks (see the kit's source).
+
+### Assumptions
+
+- Skip 'n Slash dashes at 800 units per second (from the game files; the wiki gives no speed).
+- Snip Snip!'s snips all land at the end of its cast, through the enemy's center.
+- Gwen holds Snip Snip! until she has 4 Snippy stacks, unless they are about to run out or the snips would kill.
+- Every needle of a Needlework cast hits an enemy the cast hits.
+- Hallowed Mist stays where it was raised; Gwen fights inside it.
+
+### Wiki values read (38)
+
+| Ability | Value | Revision |
+|---|---|---|
+| A Thousand Cuts | bonus magic damage equal to 1% (+ 0.6% per 100 AP) of the target's maximum health | [4051343](https://wiki.leagueoflegends.com/en-us/Template:Data_Gwen/A_Thousand_Cuts?oldid=4051343) |
+| A Thousand Cuts | Heals Gwen for 67% of post-mitigation damage dealt against champions | [4051343](https://wiki.leagueoflegends.com/en-us/Template:Data_Gwen/A_Thousand_Cuts?oldid=4051343) |
+| A Thousand Cuts | * Heals Gwen for 67% of post-mitigation damage dealt against champions, capped at 12 – 40 (based on level) (+ 7% AP) per instance. | [4051343](https://wiki.leagueoflegends.com/en-us/Template:Data_Gwen/A_Thousand_Cuts?oldid=4051343) |
+| A Thousand Cuts | (+ 7% AP) per instance | [4051343](https://wiki.leagueoflegends.com/en-us/Template:Data_Gwen/A_Thousand_Cuts?oldid=4051343) |
+| Snip Snip! | generate a stack of Snippy on-hit for 6 seconds | [4026398](https://wiki.leagueoflegends.com/en-us/Template:Data_Gwen/Snip_Snip!?oldid=4026398) |
+| Snip Snip! | stacking up to 4 times | [4026398](https://wiki.leagueoflegends.com/en-us/Template:Data_Gwen/Snip_Snip!?oldid=4026398) |
+| Snip Snip! | The center of each snip converts 50% of the damage to true damage | [4026398](https://wiki.leagueoflegends.com/en-us/Template:Data_Gwen/Snip_Snip!?oldid=4026398) |
+| Snip Snip! | Damage per Snip: 10 / 14 / 18 / 22 / 26 (+ 5% AP) | [4026398](https://wiki.leagueoflegends.com/en-us/Template:Data_Gwen/Snip_Snip!?oldid=4026398) |
+| Snip Snip! | effectRadius: -50 – 465 | [4026398](https://wiki.leagueoflegends.com/en-us/Template:Data_Gwen/Snip_Snip!?oldid=4026398) |
+| Skip 'n Slash | Cooldown Refund: 25 / 35 / 45 / 55 / 65% | [4026400](https://wiki.leagueoflegends.com/en-us/Template:Data_Gwen/Skip_'n_Slash?oldid=4026400) |
+| Skip 'n Slash | empowers her basic attacks within the next 4 seconds | [4026400](https://wiki.leagueoflegends.com/en-us/Template:Data_Gwen/Skip_'n_Slash?oldid=4026400) |
+| Skip 'n Slash | 75 bonus attack range | [4026400](https://wiki.leagueoflegends.com/en-us/Template:Data_Gwen/Skip_'n_Slash?oldid=4026400) |
+| Skip 'n Slash | deal 15 (+ 20% AP) bonus magic damage on-hit | [4026400](https://wiki.leagueoflegends.com/en-us/Template:Data_Gwen/Skip_'n_Slash?oldid=4026400) |
+| Hallowed Mist | lasting for 4 seconds | [3973613](https://wiki.leagueoflegends.com/en-us/Template:Data_Gwen/Hallowed_Mist?oldid=3973613) |
+| Needlework | Needlework can be recast twice more within 8 seconds of the activation | [4007603](https://wiki.leagueoflegends.com/en-us/Template:Data_Gwen/Needlework?oldid=4007603) |
+| Needlework | with a 1-second static cooldown between casts | [4007603](https://wiki.leagueoflegends.com/en-us/Template:Data_Gwen/Needlework?oldid=4007603) |
+| Needlework | range: -100 + 1350 | [4007603](https://wiki.leagueoflegends.com/en-us/Template:Data_Gwen/Needlework?oldid=4007603) |
+| Needlework | Magic Damage per Needle: 30 / 50 / 70 (+ 10% AP) | [4007603](https://wiki.leagueoflegends.com/en-us/Template:Data_Gwen/Needlework?oldid=4007603) |
+| Snip Snip! | cooldown: 6.5 / 5.75 / 5 / 4.25 / 3.5 | [4026398](https://wiki.leagueoflegends.com/en-us/Template:Data_Gwen/Snip_Snip!?oldid=4026398) |
+| Snip Snip! | castTime: 0.5 | [4026398](https://wiki.leagueoflegends.com/en-us/Template:Data_Gwen/Snip_Snip!?oldid=4026398) |
+| Snip Snip! | cost: 40 | [4026398](https://wiki.leagueoflegends.com/en-us/Template:Data_Gwen/Snip_Snip!?oldid=4026398) |
+| Snip Snip! | Final Snip Damage: 60 / 85 / 110 / 135 / 160 (+ 35% AP) | [4026398](https://wiki.leagueoflegends.com/en-us/Template:Data_Gwen/Snip_Snip!?oldid=4026398) |
+| Hallowed Mist | cooldown: 22 / 21 / 20 / 19 / 18 | [3973613](https://wiki.leagueoflegends.com/en-us/Template:Data_Gwen/Hallowed_Mist?oldid=3973613) |
+| Hallowed Mist | cost: 60 | [3973613](https://wiki.leagueoflegends.com/en-us/Template:Data_Gwen/Hallowed_Mist?oldid=3973613) |
+| Hallowed Mist | effectRadius: 480 | [3973613](https://wiki.leagueoflegends.com/en-us/Template:Data_Gwen/Hallowed_Mist?oldid=3973613) |
+| Hallowed Mist | Bonus Resistances: 22 / 24 / 26 / 28 / 30 (+ 7% AP) | [3973613](https://wiki.leagueoflegends.com/en-us/Template:Data_Gwen/Hallowed_Mist?oldid=3973613) |
+| Skip 'n Slash | cooldown: 13 / 12.5 / 12 / 11.5 / 11 | [4026400](https://wiki.leagueoflegends.com/en-us/Template:Data_Gwen/Skip_'n_Slash?oldid=4026400) |
+| Skip 'n Slash | cost: 35 | [4026400](https://wiki.leagueoflegends.com/en-us/Template:Data_Gwen/Skip_'n_Slash?oldid=4026400) |
+| Skip 'n Slash | targetRange (Dash range): 350 • 450 | [4026400](https://wiki.leagueoflegends.com/en-us/Template:Data_Gwen/Skip_'n_Slash?oldid=4026400) |
+| Skip 'n Slash | Bonus Attack Speed: 30 / 42.5 / 55 / 67.5 / 80% | [4026400](https://wiki.leagueoflegends.com/en-us/Template:Data_Gwen/Skip_'n_Slash?oldid=4026400) |
+| Needlework | cooldown: 120 / 100 / 80 | [4007603](https://wiki.leagueoflegends.com/en-us/Template:Data_Gwen/Needlework?oldid=4007603) |
+| Needlework | cost: 100 | [4007603](https://wiki.leagueoflegends.com/en-us/Template:Data_Gwen/Needlework?oldid=4007603) |
+| Needlework | castTime (First cast): 0.25 • 0.5 | [4007603](https://wiki.leagueoflegends.com/en-us/Template:Data_Gwen/Needlework?oldid=4007603) |
+| Needlework | width: 240 - 30 | [4007603](https://wiki.leagueoflegends.com/en-us/Template:Data_Gwen/Needlework?oldid=4007603) |
+| Needlework | speed: 1800 | [4007603](https://wiki.leagueoflegends.com/en-us/Template:Data_Gwen/Needlework?oldid=4007603) |
+| Needlework | Slow: 30 / 45 / 60% | [4007603](https://wiki.leagueoflegends.com/en-us/Template:Data_Gwen/Needlework?oldid=4007603) |
+| Needlework | slows them for 1.5 seconds | [4007603](https://wiki.leagueoflegends.com/en-us/Template:Data_Gwen/Needlework?oldid=4007603) |
+| Needlework | castTime (Second and third casts): 0.25 • 0.5 | [4007603](https://wiki.leagueoflegends.com/en-us/Template:Data_Gwen/Needlework?oldid=4007603) |

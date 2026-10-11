@@ -313,3 +313,63 @@ All 4 level-based formulas in the game files (2 linked to wiki values above):
 | MordekaiserPassive | PercentHealthForAura | linear 1 → 5 over levels 1-18, continues past 18 | 1 | 5 | 5.47059 |
 | MordekaiserPassive | MaxAuraMonsterDamage | linear 40 → 200 over levels 1-18, continues past 18 | 40 | 200 | 218.824 |
 | MordekaiserPassive | PassiveMovementSpeed | breakpoints at levels 6, 11, 19, 24, 30 (level 1: 0.03) | 0.03 | 0.09 | 0.12 |
+
+## Duel simulator kit (level 20, every ability at max rank)
+
+What the duel simulator fights with (`kits/champions/Mordekaiser.ts`): every number is read from the wiki's ability data above at level 20; what the wiki doesn't say is listed under assumptions. Ratios are fractions of the stat (60% AD is 0.6 × AD).
+
+- Basic attack: range 175, melee, on hit: 40% AP magic damage (Darkness Rise).
+
+| Key | Ability | Cooldown (s) | Cast time (s) | Cost | Delivery | On the enemy | On itself |
+|---|---|--:|--:|---|---|---|---|
+| Q | Obliterate | 4 | 0.5 | – | skillshot 625 long, 120 wide, instant | 445.5 + 180% bonus AD + 105% AP magic damage | – |
+| W | Indestructible | 8 | 0 | – | self | – | – |
+| W2 | Indestructible (recast) | 0 | 0 | – | self; recast of W within 2 s, after 0.5 s, automatic | – | – |
+| E | Death's Grasp | 8 | 0.25 | – | circle of 100 radius up to 900 away, lands after 0.5 s | 140 + 45% AP magic damage; pull 250 units over 0.25 s | – |
+| R | Realm of Death | 100 | 0.5 | – | targeted, 650 range | marks it "realm" for 7 s | – |
+
+Effects marked by a mark or a role are completed by the kit's hooks (see the kit's source).
+
+### Assumptions
+
+- Obliterate always hits an isolated enemy (no minions in its line).
+- Death's Grasp's claw, 200 units wide, is a ground area the enemy can step out of; its pull takes 0.25 seconds.
+- Indestructible's shield doesn't decay; Mordekaiser recasts it 2 seconds later to heal for what is left.
+- Realm of Death is centered between the two champions; neither can leave it for its duration.
+- Realm of Death's slow during its cast time is left out.
+
+### Wiki values read (31)
+
+| Ability | Value | Revision |
+|---|---|---|
+| Darkness Rise | Mordekaiser's basic attacks are empowered to deal 40% AP bonus magic damage on-hit | [4070051](https://wiki.leagueoflegends.com/en-us/Template:Data_Mordekaiser/Darkness_Rise?oldid=4070051) |
+| Darkness Rise | lasting for 4 seconds, refreshing on subsequent triggers, and stacking up to 3 times | [4070051](https://wiki.leagueoflegends.com/en-us/Template:Data_Mordekaiser/Darkness_Rise?oldid=4070051) |
+| Darkness Rise | effectRadius: 375 | [4070051](https://wiki.leagueoflegends.com/en-us/Template:Data_Mordekaiser/Darkness_Rise?oldid=4070051) |
+| Darkness Rise | Darkness Rise: Mordekaiser gains 3 / 6 / 9 / 12 / 15 / 18 (based on level)% bonus movement speed and deals 5 (+ 30% AP) (+ 1 – 5 (based on level)% of target's maximum health) magic damage every second to nearby enemies. | [4070051](https://wiki.leagueoflegends.com/en-us/Template:Data_Mordekaiser/Darkness_Rise?oldid=4070051) |
+| Darkness Rise | deals 5 (+ 30% AP) | [4070051](https://wiki.leagueoflegends.com/en-us/Template:Data_Mordekaiser/Darkness_Rise?oldid=4070051) |
+| Obliterate | Isolated Damage Increase: 30 / 35 / 40 / 45 / 50% | [4078264](https://wiki.leagueoflegends.com/en-us/Template:Data_Mordekaiser/Obliterate?oldid=4078264) |
+| Indestructible | Mordekaiser stores 45% of the post-mitigation damage he deals | [4016354](https://wiki.leagueoflegends.com/en-us/Template:Data_Mordekaiser/Indestructible?oldid=4016354) |
+| Indestructible | and 7.5% of the pre-mitigation damage he takes | [4016354](https://wiki.leagueoflegends.com/en-us/Template:Data_Mordekaiser/Indestructible?oldid=4016354) |
+| Indestructible | up to 30% of his maximum health | [4016354](https://wiki.leagueoflegends.com/en-us/Template:Data_Mordekaiser/Indestructible?oldid=4016354) |
+| Indestructible | will not decay below a minimum of 5% of his maximum health | [4016354](https://wiki.leagueoflegends.com/en-us/Template:Data_Mordekaiser/Indestructible?oldid=4016354) |
+| Indestructible | to grant himself a shield for the same amount for 4 seconds | [4016354](https://wiki.leagueoflegends.com/en-us/Template:Data_Mordekaiser/Indestructible?oldid=4016354) |
+| Indestructible | Indestructible can be recast after 0.5 seconds | [4016354](https://wiki.leagueoflegends.com/en-us/Template:Data_Mordekaiser/Indestructible?oldid=4016354) |
+| Indestructible | Shield to Healing: 35 / 37.5 / 40 / 42.5 / 45% | [4016354](https://wiki.leagueoflegends.com/en-us/Template:Data_Mordekaiser/Indestructible?oldid=4016354) |
+| Death's Grasp | After 0.5 seconds, it deals magic damage to enemies within and pulls them over 250 units | [4070332](https://wiki.leagueoflegends.com/en-us/Template:Data_Mordekaiser/Death's_Grasp?oldid=4070332) |
+| Death's Grasp | targetRange (Maximum range): 700 • 900 | [4070332](https://wiki.leagueoflegends.com/en-us/Template:Data_Mordekaiser/Death's_Grasp?oldid=4070332) |
+| Indestructible | cooldown: 12 / 11 / 10 / 9 / 8 | [4016354](https://wiki.leagueoflegends.com/en-us/Template:Data_Mordekaiser/Indestructible?oldid=4016354) |
+| Realm of Death | targetRange: 650 | [4078263](https://wiki.leagueoflegends.com/en-us/Template:Data_Mordekaiser/Realm_of_Death?oldid=4078263) |
+| Realm of Death | banishing them with him to the Death Realm for 7 seconds | [4078263](https://wiki.leagueoflegends.com/en-us/Template:Data_Mordekaiser/Realm_of_Death?oldid=4078263) |
+| Realm of Death | healing himself for 10% of their maximum health and reducing their current ability power | [4078263](https://wiki.leagueoflegends.com/en-us/Template:Data_Mordekaiser/Realm_of_Death?oldid=4078263) |
+| Realm of Death | effectRadius: 1200 | [4078263](https://wiki.leagueoflegends.com/en-us/Template:Data_Mordekaiser/Realm_of_Death?oldid=4078263) |
+| Death's Grasp | width: 200 | [4070332](https://wiki.leagueoflegends.com/en-us/Template:Data_Mordekaiser/Death's_Grasp?oldid=4070332) |
+| Death's Grasp | Magic Penetration: 5 / 7.5 / 10 / 12.5 / 15% | [4070332](https://wiki.leagueoflegends.com/en-us/Template:Data_Mordekaiser/Death's_Grasp?oldid=4070332) |
+| Obliterate | cooldown: 8 / 7 / 6 / 5 / 4 | [4078264](https://wiki.leagueoflegends.com/en-us/Template:Data_Mordekaiser/Obliterate?oldid=4078264) |
+| Obliterate | castTime: 0.5 | [4078264](https://wiki.leagueoflegends.com/en-us/Template:Data_Mordekaiser/Obliterate?oldid=4078264) |
+| Obliterate | range: 22.5 - 625 | [4078264](https://wiki.leagueoflegends.com/en-us/Template:Data_Mordekaiser/Obliterate?oldid=4078264) |
+| Obliterate | width: 90 - 150 | [4078264](https://wiki.leagueoflegends.com/en-us/Template:Data_Mordekaiser/Obliterate?oldid=4078264) |
+| Death's Grasp | cooldown: 16 / 14 / 12 / 10 / 8 | [4070332](https://wiki.leagueoflegends.com/en-us/Template:Data_Mordekaiser/Death's_Grasp?oldid=4070332) |
+| Death's Grasp | castTime: 0.25 | [4070332](https://wiki.leagueoflegends.com/en-us/Template:Data_Mordekaiser/Death's_Grasp?oldid=4070332) |
+| Death's Grasp | Magic Damage: 60 / 80 / 100 / 120 / 140 (+ 45% AP) | [4070332](https://wiki.leagueoflegends.com/en-us/Template:Data_Mordekaiser/Death's_Grasp?oldid=4070332) |
+| Realm of Death | cooldown: 120 / 110 / 100 | [4078263](https://wiki.leagueoflegends.com/en-us/Template:Data_Mordekaiser/Realm_of_Death?oldid=4078263) |
+| Realm of Death | castTime: 0.5 | [4078263](https://wiki.leagueoflegends.com/en-us/Template:Data_Mordekaiser/Realm_of_Death?oldid=4078263) |

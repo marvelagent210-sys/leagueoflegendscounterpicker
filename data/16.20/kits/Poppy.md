@@ -223,3 +223,74 @@ All 3 level-based formulas in the game files (2 linked to wiki values above):
 | PoppyPassive | ActualCooldown | breakpoints at levels 7, 13, 19 (level 1: 16) | 16 | 8 | 6 |
 | PoppyPassive | TotalDamage | linear 20 → 180 over levels 1-18, continues past 18 | 20 | 180 | 198.824 |
 | PoppyPassive | ShieldValue | linear 0.11 → 0.2 over levels 1-18, continues past 18 | 0.11 | 0.2 | 0.210588 |
+
+## Duel simulator kit (level 20, every ability at max rank)
+
+What the duel simulator fights with (`kits/champions/Poppy.ts`): every number is read from the wiki's ability data above at level 20; what the wiki doesn't say is listed under assumptions. Ratios are fractions of the stat (60% AD is 0.6 × AD).
+
+- Basic attack: range 125, melee.
+
+| Key | Ability | Cooldown (s) | Cast time (s) | Cost | Delivery | On the enemy | On itself |
+|---|---|--:|--:|---|---|---|---|
+| Q | Hammer Shock | 4 | 0.333 | 55 | area 0 to 460 units ahead, lands after 0 s | 130 + 75% bonus AD + 9% target's maximum health physical damage; slow 32% for 1 s | – |
+| Qrupture | Hammer Shock (rupture) | 0 | 0 | – | self | 130 + 75% bonus AD + 9% target's maximum health physical damage | – |
+| W | Steadfast Presence | 12 | 0 | 50 | self | – | moveSpeedPercent 0.4 for 2 s; antiDash 400 for 2 s |
+| E | Heroic Charge | 10 | 0 | 70 | dash target 475 units at 1800/s, hits within 75 | 120 + 60% bonus AD physical damage; knock back 400 units over 0.222 s, stun 2 s into a wall | – |
+| R | Keeper's Verdict | 100 | 0.25 | 100 | area 0 to 500 units ahead, lands after 0 s | 200 + 45% bonus AD physical damage; knock up over 1 s | – |
+| Rcharged | Keeper's Verdict (charged) | 100 | 0.75 | 100 | area 0 to 850 units ahead, lands after 0 s | 400 + 90% bonus AD physical damage; knock back 3400 units over 1.5 s | – |
+
+Effects marked by a mark or a role are completed by the kit's hooks (see the kit's source).
+
+### Assumptions
+
+- Poppy picks her buckler back up whenever she is next to her enemy a second after throwing it.
+- Poppy raises Steadfast Presence as soon as the enemy could dash onto her, rather than reacting to the dash.
+- In fights Keeper's Verdict is released at once (knock up); when running away it is charged to knock the enemy away.
+- Hammer Shock's slow leaves out its bonus from Poppy's bonus health.
+
+### Wiki values read (42)
+
+| Ability | Value | Revision |
+|---|---|---|
+| Iron Ambassador | staticCooldown: 16 / 12 / 8 / 6 (based on level) | [3994225](https://wiki.leagueoflegends.com/en-us/Template:Data_Poppy/Iron_Ambassador?oldid=3994225) |
+| Iron Ambassador | gaining 350 bonus range | [3994225](https://wiki.leagueoflegends.com/en-us/Template:Data_Poppy/Iron_Ambassador?oldid=3994225) |
+| Iron Ambassador | Innate: Periodically, Poppy's next basic attack on-attack is empowered to throw her buckler, gaining 350 bonus range and dealing 20 – 180 (based on level) bonus magic damage. | [3994225](https://wiki.leagueoflegends.com/en-us/Template:Data_Poppy/Iron_Ambassador?oldid=3994225) |
+| Iron Ambassador | Poppy can move over the buckler to retrieve it, gaining a shield for 11 – 20 (based on level)% of her maximum health for 3 seconds. | [3994225](https://wiki.leagueoflegends.com/en-us/Template:Data_Poppy/Iron_Ambassador?oldid=3994225) |
+| Iron Ambassador | of her maximum health for 3 seconds | [3994225](https://wiki.leagueoflegends.com/en-us/Template:Data_Poppy/Iron_Ambassador?oldid=3994225) |
+| Iron Ambassador | falls to a location near the target over 1 second | [3994225](https://wiki.leagueoflegends.com/en-us/Template:Data_Poppy/Iron_Ambassador?oldid=3994225) |
+| Steadfast Presence | Poppy increases her total armor and total magic resistance by 16% | [4051176](https://wiki.leagueoflegends.com/en-us/Template:Data_Poppy/Steadfast_Presence?oldid=4051176) |
+| Steadfast Presence | doubled to 32% while she is below 40% maximum health | [4051176](https://wiki.leagueoflegends.com/en-us/Template:Data_Poppy/Steadfast_Presence?oldid=4051176) |
+| Steadfast Presence | creates an aura around herself for 2 seconds | [4051176](https://wiki.leagueoflegends.com/en-us/Template:Data_Poppy/Steadfast_Presence?oldid=4051176) |
+| Hammer Shock | The impact creates a field for 1 second | [4064860](https://wiki.leagueoflegends.com/en-us/Template:Data_Poppy/Hammer_Shock?oldid=4064860) |
+| Hammer Shock | range (Forward range): 460 • -120 | [4064860](https://wiki.leagueoflegends.com/en-us/Template:Data_Poppy/Hammer_Shock?oldid=4064860) |
+| Heroic Charge | carries them along with her for up to 400 units | [3946254](https://wiki.leagueoflegends.com/en-us/Template:Data_Poppy/Heroic_Charge?oldid=3946254) |
+| Hammer Shock | Physical Damage: 30 / 55 / 80 / 105 / 130 (+ 75% bonus AD) (+ 7 / 7.5 / 8 / 8.5 / 9% of target's maximum health) | [4064860](https://wiki.leagueoflegends.com/en-us/Template:Data_Poppy/Hammer_Shock?oldid=4064860) |
+| Hammer Shock | cooldown: 8 / 7 / 6 / 5 / 4 | [4064860](https://wiki.leagueoflegends.com/en-us/Template:Data_Poppy/Hammer_Shock?oldid=4064860) |
+| Hammer Shock | cost: 35 / 40 / 45 / 50 / 55 | [4064860](https://wiki.leagueoflegends.com/en-us/Template:Data_Poppy/Hammer_Shock?oldid=4064860) |
+| Hammer Shock | castTime: 0.3325 | [4064860](https://wiki.leagueoflegends.com/en-us/Template:Data_Poppy/Hammer_Shock?oldid=4064860) |
+| Hammer Shock | Slow: 20 / 23 / 26 / 29 / 32% (+ 0.8% per 100 Poppy's bonus health) | [4064860](https://wiki.leagueoflegends.com/en-us/Template:Data_Poppy/Hammer_Shock?oldid=4064860) |
+| Steadfast Presence | cooldown: 20 / 18 / 16 / 14 / 12 | [4051176](https://wiki.leagueoflegends.com/en-us/Template:Data_Poppy/Steadfast_Presence?oldid=4051176) |
+| Steadfast Presence | cost: 50 | [4051176](https://wiki.leagueoflegends.com/en-us/Template:Data_Poppy/Steadfast_Presence?oldid=4051176) |
+| Steadfast Presence | castTime: none | [4051176](https://wiki.leagueoflegends.com/en-us/Template:Data_Poppy/Steadfast_Presence?oldid=4051176) |
+| Steadfast Presence | Poppy gains 40% bonus movement speed | [4051176](https://wiki.leagueoflegends.com/en-us/Template:Data_Poppy/Steadfast_Presence?oldid=4051176) |
+| Steadfast Presence | effectRadius: 400 | [4051176](https://wiki.leagueoflegends.com/en-us/Template:Data_Poppy/Steadfast_Presence?oldid=4051176) |
+| Steadfast Presence | Magic Damage: 70 / 110 / 150 / 190 / 230 (+ 70% AP) | [4051176](https://wiki.leagueoflegends.com/en-us/Template:Data_Poppy/Steadfast_Presence?oldid=4051176) |
+| Steadfast Presence | knocked up for 0.5 seconds | [4051176](https://wiki.leagueoflegends.com/en-us/Template:Data_Poppy/Steadfast_Presence?oldid=4051176) |
+| Steadfast Presence | grounded and slowed by 25% for 2 seconds | [4051176](https://wiki.leagueoflegends.com/en-us/Template:Data_Poppy/Steadfast_Presence?oldid=4051176) |
+| Heroic Charge | cooldown: 14 / 13 / 12 / 11 / 10 | [3946254](https://wiki.leagueoflegends.com/en-us/Template:Data_Poppy/Heroic_Charge?oldid=3946254) |
+| Heroic Charge | cost: 70 | [3946254](https://wiki.leagueoflegends.com/en-us/Template:Data_Poppy/Heroic_Charge?oldid=3946254) |
+| Heroic Charge | castTime: none | [3946254](https://wiki.leagueoflegends.com/en-us/Template:Data_Poppy/Heroic_Charge?oldid=3946254) |
+| Heroic Charge | targetRange: 475 | [3946254](https://wiki.leagueoflegends.com/en-us/Template:Data_Poppy/Heroic_Charge?oldid=3946254) |
+| Heroic Charge | speed: 1800 | [3946254](https://wiki.leagueoflegends.com/en-us/Template:Data_Poppy/Heroic_Charge?oldid=3946254) |
+| Heroic Charge | Physical Damage: 40 / 60 / 80 / 100 / 120 (+ 60% bonus AD) | [3946254](https://wiki.leagueoflegends.com/en-us/Template:Data_Poppy/Heroic_Charge?oldid=3946254) |
+| Heroic Charge | Stun Duration: 1.6 / 1.7 / 1.8 / 1.9 / 2 seconds | [3946254](https://wiki.leagueoflegends.com/en-us/Template:Data_Poppy/Heroic_Charge?oldid=3946254) |
+| Keeper's Verdict | cooldown: 140 / 120 / 100 | [4007992](https://wiki.leagueoflegends.com/en-us/Template:Data_Poppy/Keeper's_Verdict?oldid=4007992) |
+| Keeper's Verdict | cost: 100 | [4007992](https://wiki.leagueoflegends.com/en-us/Template:Data_Poppy/Keeper's_Verdict?oldid=4007992) |
+| Keeper's Verdict | castTime (Uncharged release): 0.25 • 0.35 | [4007992](https://wiki.leagueoflegends.com/en-us/Template:Data_Poppy/Keeper's_Verdict?oldid=4007992) |
+| Keeper's Verdict | range (Uncharged range): 500 • 850 / 1025 / 1200 (based on channel time) | [4007992](https://wiki.leagueoflegends.com/en-us/Template:Data_Poppy/Keeper's_Verdict?oldid=4007992) |
+| Keeper's Verdict | Physical Damage: 100 / 150 / 200 (+ 45% bonus AD) | [4007992](https://wiki.leagueoflegends.com/en-us/Template:Data_Poppy/Keeper's_Verdict?oldid=4007992) |
+| Keeper's Verdict | knocking them up for 1 second | [4007992](https://wiki.leagueoflegends.com/en-us/Template:Data_Poppy/Keeper's_Verdict?oldid=4007992) |
+| Keeper's Verdict | If Keeper's Verdict was charged for at least 0.5 seconds | [4007992](https://wiki.leagueoflegends.com/en-us/Template:Data_Poppy/Keeper's_Verdict?oldid=4007992) |
+| Keeper's Verdict | castTime (Charged release): 0.25 • 0.35 | [4007992](https://wiki.leagueoflegends.com/en-us/Template:Data_Poppy/Keeper's_Verdict?oldid=4007992) |
+| Keeper's Verdict | Increased Damage: 200 / 300 / 400 (+ 90% bonus AD) | [4007992](https://wiki.leagueoflegends.com/en-us/Template:Data_Poppy/Keeper's_Verdict?oldid=4007992) |
+| Keeper's Verdict | knocked back up-to 3400 units toward the enemy team's fountain | [4007992](https://wiki.leagueoflegends.com/en-us/Template:Data_Poppy/Keeper's_Verdict?oldid=4007992) |

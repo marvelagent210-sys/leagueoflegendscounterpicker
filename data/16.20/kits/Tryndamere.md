@@ -200,3 +200,60 @@ All 1 level-based formulas in the game files (0 linked to wiki values above):
 | Spell | Calculation | Rule | Level 1 | Level 18 | Level 20 |
 |---|---|---|--:|--:|--:|
 | TryndamerePassive | {dc63b617} | breakpoints at levels none (level 1: 0.05) | 0.05 | 0.05 | 0.05 |
+
+## Duel simulator kit (level 20, every ability at max rank)
+
+What the duel simulator fights with (`kits/champions/Tryndamere.ts`): every number is read from the wiki's ability data above at level 20; what the wiki doesn't say is listed under assumptions. Ratios are fractions of the stat (60% AD is 0.6 × AD).
+
+- Basic attack: range 175, melee.
+
+| Key | Ability | Cooldown (s) | Cast time (s) | Cost | Delivery | On the enemy | On itself |
+|---|---|--:|--:|---|---|---|---|
+| Q | Bloodlust | 12 | 0 | – | self | – | – |
+| W | Mocking Shout | 14 | 0.3 | – | around itself, 850 units | marks it "mockingShout" for 4 s | – |
+| E | Spinning Slash | 8 | 0 | – | dash toward 660 units at 1300/s, hits within 225 | 240 + 100% bonus AD + 80% AP physical damage | – |
+| R | Undying Rage | 80 | 0 | – | self | – | minimumHealth 70 for 5 s; 100 resource |
+
+Effects marked by a mark or a role are completed by the kit's hooks (see the kit's source).
+
+### Assumptions
+
+- Spinning Slash's dash speed isn't on the wiki; it is taken as 1,300 units per second.
+- Critical strikes count by their average: Fury and Spinning Slash's cooldown refund grow with crit chance on every hit.
+
+### Wiki values read (32)
+
+| Ability | Value | Revision |
+|---|---|---|
+| Battle Fury | Tryndamere generates 5 Fury on his basic attacks on-hit | [4041166](https://wiki.leagueoflegends.com/en-us/Template:Data_Tryndamere/Battle_Fury?oldid=4041166) |
+| Battle Fury | and 10 Fury on critical strikes | [4041166](https://wiki.leagueoflegends.com/en-us/Template:Data_Tryndamere/Battle_Fury?oldid=4041166) |
+| Battle Fury | After 8 seconds without dealing or taking damage | [4041166](https://wiki.leagueoflegends.com/en-us/Template:Data_Tryndamere/Battle_Fury?oldid=4041166) |
+| Battle Fury | Tryndamere loses 5 Fury per second | [4041166](https://wiki.leagueoflegends.com/en-us/Template:Data_Tryndamere/Battle_Fury?oldid=4041166) |
+| Battle Fury | Tryndamere gains 0 / 2.5 / 5 | [4041166](https://wiki.leagueoflegends.com/en-us/Template:Data_Tryndamere/Battle_Fury?oldid=4041166) |
+| Bloodlust | Bonus Attack Damage per 1% missing health: 0.22 / 0.3875 / 0.555 / 0.7225 / 0.89 | [4058457](https://wiki.leagueoflegends.com/en-us/Template:Data_Tryndamere/Bloodlust?oldid=4058457) |
+| Bloodlust | Maximum Bonus Attack Damage: 20 / 35 / 50 / 65 / 80 | [4058457](https://wiki.leagueoflegends.com/en-us/Template:Data_Tryndamere/Bloodlust?oldid=4058457) |
+| Bloodlust | Minimum Heal: 30 / 40 / 50 / 60 / 70 (+ 30% AP) | [4058457](https://wiki.leagueoflegends.com/en-us/Template:Data_Tryndamere/Bloodlust?oldid=4058457) |
+| Bloodlust | Heal Per 1 Fury: 0.5 / 0.95 / 1.4 / 1.85 / 2.3 (+ 1.2% AP) | [4058457](https://wiki.leagueoflegends.com/en-us/Template:Data_Tryndamere/Bloodlust?oldid=4058457) |
+| Bloodlust | Maximum Heal: 80 / 135 / 190 / 245 / 300 (+ 150% AP) | [4058457](https://wiki.leagueoflegends.com/en-us/Template:Data_Tryndamere/Bloodlust?oldid=4058457) |
+| Mocking Shout | Attack Damage Reduction: 20 / 35 / 50 / 65 / 80 | [4052438](https://wiki.leagueoflegends.com/en-us/Template:Data_Tryndamere/Mocking_Shout?oldid=4052438) |
+| Mocking Shout | of nearby enemy champions for 4 seconds | [4052438](https://wiki.leagueoflegends.com/en-us/Template:Data_Tryndamere/Mocking_Shout?oldid=4052438) |
+| Mocking Shout | Slow: 30 / 35 / 40 / 45 / 50% | [4052438](https://wiki.leagueoflegends.com/en-us/Template:Data_Tryndamere/Mocking_Shout?oldid=4052438) |
+| Mocking Shout | curse to all nearby enemy champions for 3.25 seconds | [4052438](https://wiki.leagueoflegends.com/en-us/Template:Data_Tryndamere/Mocking_Shout?oldid=4052438) |
+| Spinning Slash | increased to 5 Fury against champions | [4007759](https://wiki.leagueoflegends.com/en-us/Template:Data_Tryndamere/Spinning_Slash?oldid=4007759) |
+| Spinning Slash | doubled to 1.5 seconds against champions | [4007759](https://wiki.leagueoflegends.com/en-us/Template:Data_Tryndamere/Spinning_Slash?oldid=4007759) |
+| Undying Rage | a minimum health threshold for 5 seconds | [4018945](https://wiki.leagueoflegends.com/en-us/Template:Data_Tryndamere/Undying_Rage?oldid=4018945) |
+| Bloodlust | cooldown: 12 | [4058457](https://wiki.leagueoflegends.com/en-us/Template:Data_Tryndamere/Bloodlust?oldid=4058457) |
+| Bloodlust | castTime: none | [4058457](https://wiki.leagueoflegends.com/en-us/Template:Data_Tryndamere/Bloodlust?oldid=4058457) |
+| Mocking Shout | cooldown: 14 | [4052438](https://wiki.leagueoflegends.com/en-us/Template:Data_Tryndamere/Mocking_Shout?oldid=4052438) |
+| Mocking Shout | castTime: 0.3 | [4052438](https://wiki.leagueoflegends.com/en-us/Template:Data_Tryndamere/Mocking_Shout?oldid=4052438) |
+| Mocking Shout | effectRadius: 850 | [4052438](https://wiki.leagueoflegends.com/en-us/Template:Data_Tryndamere/Mocking_Shout?oldid=4052438) |
+| Spinning Slash | cooldown: 12 / 11 / 10 / 9 / 8 | [4007759](https://wiki.leagueoflegends.com/en-us/Template:Data_Tryndamere/Spinning_Slash?oldid=4007759) |
+| Spinning Slash | castTime: none | [4007759](https://wiki.leagueoflegends.com/en-us/Template:Data_Tryndamere/Spinning_Slash?oldid=4007759) |
+| Spinning Slash | targetRange (Maximum dash distance): 660 | [4007759](https://wiki.leagueoflegends.com/en-us/Template:Data_Tryndamere/Spinning_Slash?oldid=4007759) |
+| Spinning Slash | effectRadius: 225 | [4007759](https://wiki.leagueoflegends.com/en-us/Template:Data_Tryndamere/Spinning_Slash?oldid=4007759) |
+| Spinning Slash | Physical Damage: 80 / 120 / 160 / 200 / 240 (+ 100% bonus AD) (+ 80% AP) | [4007759](https://wiki.leagueoflegends.com/en-us/Template:Data_Tryndamere/Spinning_Slash?oldid=4007759) |
+| Undying Rage | cooldown: 120 / 100 / 80 | [4018945](https://wiki.leagueoflegends.com/en-us/Template:Data_Tryndamere/Undying_Rage?oldid=4018945) |
+| Undying Rage | castTime: none | [4018945](https://wiki.leagueoflegends.com/en-us/Template:Data_Tryndamere/Undying_Rage?oldid=4018945) |
+| Undying Rage | Minimum Health Threshold: 30 / 50 / 70 | [4018945](https://wiki.leagueoflegends.com/en-us/Template:Data_Tryndamere/Undying_Rage?oldid=4018945) |
+| Undying Rage | Fury Gained: 50 / 75 / 100 | [4018945](https://wiki.leagueoflegends.com/en-us/Template:Data_Tryndamere/Undying_Rage?oldid=4018945) |
+| Undying Rage | Undying Rage can be used while affected by cast-inhibiting crowd control | [4018945](https://wiki.leagueoflegends.com/en-us/Template:Data_Tryndamere/Undying_Rage?oldid=4018945) |

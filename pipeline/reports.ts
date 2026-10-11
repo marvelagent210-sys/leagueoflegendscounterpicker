@@ -95,7 +95,7 @@ export function gameFilesReport(manifest: Manifest, reconciled: Reconciled): str
 const KIND_LABELS: Record<string, string> = { I: "Innate", Q: "Q", W: "W", E: "E", R: "R", A: "Basic attack", other: "Other" };
 const KIND_ORDER = ["I", "Q", "W", "E", "R", "A", "other"];
 
-function wikiUrl(title: string, revid: number): string {
+export function wikiUrl(title: string, revid: number): string {
   return `${WIKI_BASE}${encodeURI(title.replace(/ /g, "_"))}?oldid=${revid}`;
 }
 

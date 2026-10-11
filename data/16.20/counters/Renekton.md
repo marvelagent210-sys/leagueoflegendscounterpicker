@@ -1,5 +1,38 @@
 # Counters to Renekton (patch 26.20)
 
+## Simulated duels (full confidence)
+
+The duel simulator played each of the 24 other champions with a simulator kit against Renekton: both at level 20 with 15,000 gold of plain stats, each side's spent against the other's, through six scenarios (PLAN.md §6). Scores run from −1 (Renekton wins every time) to +1 (the champion does). Run `npm run duel -- <champion> Renekton --log brawl` to watch a fight.
+
+| # | Champion | Score | You engage | Enemy engages | Brawl | Short trade | Spacing | Escape |
+|--:|---|--:|--:|--:|--:|--:|--:|--:|
+| 1 | Garen | +0.89 | +1.00 | +1.00 | +1.00 | +0.33 | – | +1.00 |
+| 2 | Poppy | +0.86 | +1.00 | +1.00 | +1.00 | +0.50 | – | +0.00 |
+| 3 | Teemo | +0.80 | +1.00 | +1.00 | +1.00 | +0.03 | +1.00 | +0.00 |
+| 4 | Yasuo | +0.80 | +1.00 | +1.00 | +1.00 | +0.12 | – | +0.00 |
+| 5 | Gwen | +0.79 | +1.00 | +1.00 | +1.00 | +0.05 | – | +0.00 |
+| 6 | Olaf | +0.78 | +1.00 | +1.00 | +1.00 | +0.01 | – | +0.00 |
+| 7 | Nasus | +0.78 | +1.00 | +1.00 | +1.00 | −0.02 | – | +0.00 |
+| 8 | Jax | +0.77 | +1.00 | +1.00 | +1.00 | −0.02 | – | +0.00 |
+| 9 | Volibear | +0.77 | +1.00 | +1.00 | +1.00 | −0.03 | – | +0.00 |
+| 10 | Aatrox | +0.77 | +1.00 | +1.00 | +1.00 | −0.04 | – | +0.00 |
+| 11 | Darius | +0.77 | +1.00 | +1.00 | +1.00 | −0.08 | – | +0.00 |
+| 12 | Tryndamere | +0.76 | +1.00 | +1.00 | +1.00 | −0.11 | – | +0.00 |
+| 13 | Dr. Mundo | +0.76 | +1.00 | +1.00 | +1.00 | −0.12 | – | +0.00 |
+| 14 | Sett | +0.56 | +1.00 | +1.00 | −0.00 | +0.01 | – | +0.00 |
+| 15 | Shen | +0.08 | +0.11 | +0.09 | +0.05 | +0.08 | – | +0.00 |
+| 16 | Urgot | −0.16 | −0.02 | −1.00 | +1.00 | +0.31 | −1.00 | −1.00 |
+| 17 | Mordekaiser | −0.23 | +1.00 | −1.00 | −1.00 | −0.07 | – | +0.00 |
+| 18 | Malphite | −0.75 | −1.00 | −1.00 | −1.00 | +0.14 | – | +0.00 |
+| 19 | Riven | −0.76 | −1.00 | −1.00 | −1.00 | +0.13 | – | +0.00 |
+| 20 | Fiora | −0.76 | −1.00 | −1.00 | −1.00 | −0.23 | – | +1.00 |
+| 21 | Camille | −0.77 | −1.00 | −1.00 | −1.00 | +0.05 | – | +0.00 |
+| 22 | Ornn | −0.77 | −1.00 | −1.00 | −1.00 | +0.05 | – | +0.00 |
+| 23 | Yone | −0.77 | −1.00 | −1.00 | −1.00 | +0.04 | – | +0.00 |
+| 24 | Irelia | −0.79 | −1.00 | −1.00 | −1.00 | −0.05 | – | +0.00 |
+
+## Interaction ledger (partial confidence)
+
 Every champion ranked by what its kit does against Renekton's, from the interaction ledger: projectile blocks, spell shields,
 parries, dash stops, crowd control and its defenses, range and more (PLAN.md §5). This ranking is **partial**: it weighs the
 interactions but doesn't play the fight out. The duel simulator replaces it as each champion's behavior is verified.
@@ -8,69 +41,69 @@ interactions but doesn't play the fight out. The duel simulator replaces it as e
 A hard counter shuts down part of a kit every time it is used (projectile block, attack dodge, attack block, blind, disarm, attack speed slow, attack reflect, dash stop, grounding, range) with an impact of 0.4 or more (0.5 for range).
 Run `npm run matchup -- <champion> Renekton` for the full ledger of a matchup, with sources.
 
-## Top 10
+### Top 10
 
-### 1. Bard (net +1.07)
+#### 1. Bard (net +1.07)
 
 - **0.55** untargetable: Tempered Fate makes Bard untargetable, dodging Renekton's Dominus. Untargetable for 2.5 s, long enough to use ahead of Dominus. (Bard R Tempered Fate → Renekton R Dominus)
 - **0.36** range: Bard's basic attacks reach 375 units farther than Renekton's (500 vs 125 attack range). Renekton closes the gap with Slice and Dice. (Bard basic attacks → Renekton basic attacks)
 - **0.32** untargetable: Tempered Fate makes Bard untargetable, dodging Renekton's Ruthless Predator. Untargetable for 2.5 s, long enough to use ahead of Ruthless Predator. (Bard R Tempered Fate → Renekton W Ruthless Predator)
 
-### 2. Teemo (net +1.02)
+#### 2. Teemo (net +1.02)
 
 - **0.46** blind: Blinding Dart's blind makes Renekton's Ruthless Predator, an empowered attack, miss. Blind for 3 s. (Teemo Q Blinding Dart → Renekton W Ruthless Predator)
 - **0.43** blind: Blinding Dart's blind makes Renekton's basic attacks miss for 3 s. Blind for 3 s on a 7 s cooldown. (Teemo Q Blinding Dart → Renekton basic attacks)
 - **0.34** range: Teemo's basic attacks reach 375 units farther than Renekton's (500 vs 125 attack range). Renekton closes the gap with Slice and Dice. (Teemo basic attacks → Renekton basic attacks)
 
-### 3. Xayah (net +1.02)
+#### 3. Xayah (net +1.02)
 
 - **0.48** untargetable: Featherstorm makes Xayah untargetable, dodging Renekton's Dominus. Untargetable for 1.5 s, long enough to use ahead of Dominus. (Xayah R Featherstorm → Renekton R Dominus)
 - **0.38** range: Xayah's basic attacks reach 400 units farther than Renekton's (525 vs 125 attack range). Renekton closes the gap with Slice and Dice. (Xayah basic attacks → Renekton basic attacks)
 - **0.31** untargetable: Featherstorm makes Xayah untargetable, dodging Renekton's Ruthless Predator. Untargetable for 1.5 s, long enough to use ahead of Ruthless Predator. (Xayah R Featherstorm → Renekton W Ruthless Predator)
 
-### 4. Elise (net +1.01)
+#### 4. Elise (net +1.01)
 
 - **0.55** untargetable: Rappel makes Elise untargetable, dodging Renekton's Dominus. Untargetable for 0.6 s; Dominus takes 0.25 s to land, enough to react. (Elise E Rappel → Renekton R Dominus)
 - **0.32** range: Elise's basic attacks reach 425 units farther than Renekton's (550 vs 125 attack range). Renekton closes the gap with Slice and Dice. (Elise basic attacks → Renekton basic attacks)
 - **0.28** untargetable: Rappel makes Elise untargetable, dodging Renekton's Ruthless Predator. Untargetable for 0.6 s; Ruthless Predator lands within 0 s, faster than a 0.25 s reaction, so it needs prediction. (Elise E Rappel → Renekton W Ruthless Predator)
 
-### 5. Kayle (net +0.99)
+#### 5. Kayle (net +0.99)
 
 - **0.55** invulnerable: Divine Judgment makes Kayle invulnerable to Renekton's Dominus. Invulnerable for 2.5 s, long enough to use ahead of Dominus. (Kayle R Divine Judgment → Renekton R Dominus)
 - **0.36** range: Kayle's basic attacks reach 500 units farther than Renekton's (625 vs 125 attack range). Renekton closes the gap with Slice and Dice. (Kayle basic attacks → Renekton basic attacks)
 - **0.16** invulnerable: Divine Judgment makes Kayle invulnerable to Renekton's Ruthless Predator (its crowd control still applies). Invulnerable for 2.5 s, long enough to use ahead of Ruthless Predator. (Kayle R Divine Judgment → Renekton W Ruthless Predator)
 
-### 6. Lissandra (net +0.98)
+#### 6. Lissandra (net +0.98)
 
 - **0.55** untargetable: Frozen Tomb makes Lissandra untargetable, dodging Renekton's Dominus. Untargetable for 2.5 s, long enough to use ahead of Dominus. (Lissandra R Frozen Tomb → Renekton R Dominus)
 - **0.32** untargetable: Frozen Tomb makes Lissandra untargetable, dodging Renekton's Ruthless Predator. Untargetable for 2.5 s, long enough to use ahead of Ruthless Predator. (Lissandra R Frozen Tomb → Renekton W Ruthless Predator)
 - **0.22** range: Lissandra's basic attacks reach 425 units farther than Renekton's (550 vs 125 attack range). Renekton closes the gap with Slice and Dice. (Lissandra basic attacks → Renekton basic attacks)
 
-### 7. Kindred (net +0.96)
+#### 7. Kindred (net +0.96)
 
 - **0.47** range: Kindred's basic attacks reach 375 units farther than Renekton's (500 vs 125 attack range). Renekton closes the gap with Slice and Dice. (Kindred basic attacks → Renekton basic attacks)
 - **0.44** invulnerable: Lamb's Respite makes Kindred invulnerable to Renekton's Dominus. Invulnerable for ?; Dominus takes 0.25 s to land, enough to react. (Kindred R Lamb's Respite → Renekton R Dominus)
 - **0.09** invulnerable: Lamb's Respite makes Kindred invulnerable to Renekton's Ruthless Predator (its crowd control still applies). Invulnerable for ?; Ruthless Predator lands within 0 s, faster than a 0.25 s reaction, so it needs prediction. (Kindred R Lamb's Respite → Renekton W Ruthless Predator)
 
-### 8. Sivir (net +0.94)
+#### 8. Sivir (net +0.94)
 
 - **0.47** range: Sivir's basic attacks reach 375 units farther than Renekton's (500 vs 125 attack range). Renekton closes the gap with Slice and Dice. (Sivir basic attacks → Renekton basic attacks)
 - **0.47** spell shield: Spell Shield's spell shield blocks Renekton's Ruthless Predator. Spell shield for 1.5 s, long enough to use ahead of Ruthless Predator. A spell shield blocks only the first enemy ability that reaches it. (Sivir E Spell Shield → Renekton W Ruthless Predator)
 
-### 9. Vladimir (net +0.89)
+#### 9. Vladimir (net +0.89)
 
 - **0.55** untargetable: Sanguine Pool makes Vladimir untargetable, dodging Renekton's Dominus. Untargetable for 2 s, long enough to use ahead of Dominus. (Vladimir W Sanguine Pool → Renekton R Dominus)
 - **0.49** untargetable: Sanguine Pool makes Vladimir untargetable, dodging Renekton's Ruthless Predator. Untargetable for 2 s, long enough to use ahead of Ruthless Predator. (Vladimir W Sanguine Pool → Renekton W Ruthless Predator)
 - **0.18** range: Vladimir's basic attacks reach 325 units farther than Renekton's (450 vs 125 attack range). Renekton closes the gap with Slice and Dice. (Vladimir basic attacks → Renekton basic attacks)
 - Watch out: Ruthless Predator's stun interrupts Vladimir's Tides of Blood (charge-up).
 
-### 10. Aurora (net +0.87)
+#### 10. Aurora (net +0.87)
 
 - **0.48** untargetable: Between Worlds makes Aurora untargetable, dodging Renekton's Dominus. Untargetable for 0.4 s; Dominus takes 0.25 s to land, enough to react. Does not destroy inbound projectiles. (Aurora R Between Worlds → Renekton R Dominus)
 - **0.29** range: Aurora's basic attacks reach 425 units farther than Renekton's (550 vs 125 attack range). Renekton closes the gap with Slice and Dice. (Aurora basic attacks → Renekton basic attacks)
 - **0.19** untargetable: Between Worlds makes Aurora untargetable, dodging Renekton's Ruthless Predator. Untargetable for 0.4 s; Ruthless Predator lands within 0 s, faster than a 0.25 s reaction, so it needs prediction. Does not destroy inbound projectiles. (Aurora R Between Worlds → Renekton W Ruthless Predator)
 
-## Full ranking
+### Full ranking
 
 | # | Champion | Net | For | Against | Hard counters |
 |--:|---|--:|--:|--:|---|

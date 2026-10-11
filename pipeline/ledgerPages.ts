@@ -76,12 +76,17 @@ export function matchupText(ledger: Ledger, names: Map<string, string>): string 
 
 const DETAILED = 10;
 
-export function counterPage(ranking: CounterRanking, names: Map<string, string>, patch: string): string {
+/** `simulated`: the duel simulator's section, shown first when the enemy has a simulator kit. */
+export function counterPage(ranking: CounterRanking, names: Map<string, string>, patch: string, simulated: string[] = []): string {
   const enemy = names.get(ranking.enemy) ?? ranking.enemy;
   const name = (id: string) => names.get(id) ?? id;
+  // Under the simulator's section the ledger's headings go one level down.
+  const h = simulated.length > 0 ? "###" : "##";
   const lines = [
     `# Counters to ${enemy} (patch ${patch})`,
     "",
+    ...simulated,
+    ...(simulated.length > 0 ? ["## Interaction ledger (partial confidence)", ""] : []),
     `Every champion ranked by what its kit does against ${enemy}'s, from the interaction ledger: projectile blocks, spell shields,`,
     "parries, dash stops, crowd control and its defenses, range and more (PLAN.md §5). This ranking is **partial**: it weighs the",
     "interactions but doesn't play the fight out. The duel simulator replaces it as each champion's behavior is verified.",
@@ -90,18 +95,18 @@ export function counterPage(ranking: CounterRanking, names: Map<string, string>,
     HARD_COUNTER_TEXT,
     `Run \`npm run matchup -- <champion> ${ranking.enemy}\` for the full ledger of a matchup, with sources.`,
     "",
-    `## Top ${DETAILED}`,
+    `${h} Top ${DETAILED}`,
     "",
   ];
   ranking.ranking.slice(0, DETAILED).forEach((row, index) => {
-    lines.push(`### ${index + 1}. ${name(row.champion)} (net ${signed(row.net)})`, "");
+    lines.push(`${h}# ${index + 1}. ${name(row.champion)} (net ${signed(row.net)})`, "");
     if (row.reasons.length === 0) lines.push(`- No interaction in ${name(row.champion)}'s favor.`);
     for (const reason of row.reasons) lines.push(entryLine(reason, names, true));
     for (const risk of row.risks.slice(0, 1)) lines.push(`- Watch out: ${risk.summary}`);
     lines.push("");
   });
   lines.push(
-    "## Full ranking",
+    `${h} Full ranking`,
     "",
     "| # | Champion | Net | For | Against | Hard counters |",
     "|--:|---|--:|--:|--:|---|",
