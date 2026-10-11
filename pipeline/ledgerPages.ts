@@ -1,4 +1,5 @@
 /** Markdown for the ledger: counter pages, the fight-profile section of kit pages, and the ledger report. */
+import { describeProfileAbility } from "../engine/profileText";
 import type { Glossary } from "../engine/glossary";
 import type { CounterRanking, Ledger, LedgerEntry } from "../engine/ledger/index";
 import { HARD_COUNTER } from "../engine/ledger/index";
@@ -123,22 +124,8 @@ function list(items: string[]): string {
 }
 
 function abilityRow(ability: AbilityProfile): string {
-  const d = ability.delivery;
-  const flags = [
-    d.projectile && `projectile ${d.projectile}`,
-    d.spellShield && `spell shield ${d.spellShield}`,
-    d.parry && `parry ${d.parry}`,
-    d.grounded && `grounded ${d.grounded}`,
-    d.knockdown && `knockdown ${d.knockdown}`,
-    d.disruptable && `disruptable ${d.disruptable}`,
-    d.attack,
-  ].filter((f): f is string => Boolean(f));
-  const applies = ability.applies.map(
-    (a) => `${a.type}${a.variant ? ` (${a.variant})` : ""}${a.duration !== undefined ? ` ${a.duration} s` : ""}${a.amount !== undefined ? ` ${a.amount}%` : ""}${a.condition ? "*" : ""}`,
-  );
-  const movement = ability.movement.map((m) => `${m.type}${m.interruptible === false ? " (unstoppable)" : ""}${m.condition ? ` ${m.condition}` : ""}`);
-  const states = ability.states.map((s) => `${s.state}${s.duration !== undefined ? ` ${s.duration} s` : ""}${s.removes ? ` (${s.removes.length} CC types)` : ""}`);
-  return `| ${ability.kind} | ${cell(ability.name)} | ${ability.cooldown ?? "–"} | ${cell(list(flags))} | ${cell(list(applies))} | ${cell(list(movement))} | ${cell(list(states))} |`;
+  const d = describeProfileAbility(ability);
+  return `| ${ability.kind} | ${cell(ability.name)} | ${ability.cooldown ?? "–"} | ${cell(list(d.delivery))} | ${cell(list(d.applies))} | ${cell(list(d.movement))} | ${cell(list(d.states))} |`;
 }
 
 /** The kit page section that shows what the ledger knows about each ability. */

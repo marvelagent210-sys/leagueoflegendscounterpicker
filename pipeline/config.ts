@@ -10,7 +10,9 @@ export const USER_AGENT =
 
 export const DDRAGON = "https://ddragon.leagueoflegends.com";
 export const CDRAGON = "https://raw.communitydragon.org/latest";
-export const WIKI_BASE = "https://wiki.leagueoflegends.com/en-us/";
+import { WIKI_BASE } from "../engine/abilityText";
+
+export { WIKI_BASE };
 export const WIKI_API = `${WIKI_BASE}api.php`;
 export const WIKI_LICENSE = "CC BY-SA 3.0";
 

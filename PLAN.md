@@ -1,6 +1,6 @@
 # Kit-Based Counter Picker: Plan
 
-Status: M1 to M4 done; M5 built and waiting for your review of the golden matchups (see §13). Data sources checked on 2026-10-08 against patch 26.20 (Data Dragon 16.20.1).
+Status: M1 to M4 done; M5 built and waiting for your review of the golden matchups; M6 built, and live once GitHub Pages is turned on (see §13). Data sources checked on 2026-10-08 against patch 26.20 (Data Dragon 16.20.1).
 
 ## 1. What we're building
 
@@ -440,3 +440,49 @@ web/        the app
   - *Plain stats bend some builds* away from anything an item build would give: Fiora spends 9,700 gold on AD (her Vitals grow with bonus AD), Gwen 8,500 on AP with no attack speed, Aatrox 7,800 on attack speed.
   - *Standings* (average score): Darius and Fiora lead (+0.64, +0.61); Riven, Yasuo and Urgot trail (−0.58, −0.47, −0.46), and the tanks Ornn and Shen are near the bottom.
 - **Tests.** 541 pass and 3 are skipped (the disputed golden matchups). New: every wave-1 kit compiles and fights with several of its abilities, with spot checks of values read from the wiki; the engine additions on synthetic kits; fair-fight symmetry; the budget's penetration; the simulator pages and `simulated.json`.
+
+### M6: web app on GitHub Pages (built; live once Pages is turned on)
+
+- **The app** (`web/`, Vite + React) has four pages. The URL's hash addresses each one, so a static host serves them all from one file:
+  - *Picker* (`#/vs/<champion>`):
+    - Pick any champion as the enemy.
+    - Simulated duels rank the other 24 wave-1 champions (full confidence); open a row for its six scenarios.
+    - The interaction ledger ranks all 173 (partial), with hard-counter tags and the strongest reasons.
+  - *Matchup* (`#/matchup/<you>/<enemy>`):
+    - the verdict and each scenario's outcomes;
+    - the timeline of each fight's likeliest branch;
+    - both champions' level-20 numbers and what the budget bought;
+    - the assumptions and every ledger interaction.
+  - *Kit* (`#/kit/<champion>`):
+    - base stats at level 20;
+    - the simulator's kit, with its assumptions and every wiki value it read, linked to its revision;
+    - the ledger's fight profile and the wiki's ability data.
+  - *Settings*: gold, reaction time, lane surroundings, scenario weights, and the kit assumptions (Garen's Courage stacks, Nasus's Siphoning Strike stacks, Sett's Facebreaker stun). Udyr's Triple Tonic and rank split wait for his kit (M7).
+- **Data.**
+  - `npm run web:data` copies what the app reads from the newest dataset into `web/public/data/` (not committed). Every web build runs it.
+  - Default results come precomputed from `simulated.json`.
+  - The ledger runs in the browser from the profiles and the glossary.
+- **Settings** stay in the visitor's browser.
+  - Changing only the weights reweighs the precomputed scenario scores.
+  - Changing anything else reruns the duels against the chosen enemy, in up to four Web Workers (about 5 s for 24 duels). A banner says the results use the visitor's settings.
+- **Shared ability text.** The text that describes abilities, effects and profiles moved from the pipeline's Markdown pages into `engine/`:
+  - `engine/sim/describe.ts`;
+  - `engine/abilityText.ts`;
+  - `engine/profileText.ts`.
+
+  The kit pages in `data/` and the app now say the same thing.
+- **Timelines** now say who inflicts crowd control: "Darius: inflicts airborne for 0.50 s". The old line read as if Darius were airborne.
+- **Deploy.** `.github/workflows/pages.yml`:
+  - type-checks, tests and builds every pull request;
+  - on each push to main, also publishes `web/dist` to GitHub Pages.
+
+  Pages must be turned on once: Settings → Pages → Source: GitHub Actions.
+- **Browser check** (Playwright, against the production build):
+  - the picker loads in under a second;
+  - a matchup simulates in about 0.8 s and matches `simulated.json`;
+  - no page scrolls sideways at phone width (390 px), in light or dark mode;
+  - no console errors.
+- **Tests.** 557 pass and 3 are skipped. New tests cover:
+  - the routes;
+  - the settings: cleaning stored values, which changes rerun the fights, and blending;
+  - four matchups run the way the browser runs them, which must match `simulated.json` to its three decimals, so the app's code and the precomputed data can't drift apart.
