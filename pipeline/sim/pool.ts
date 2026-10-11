@@ -31,13 +31,18 @@ export async function simulatePairs(dataset: string, gold: number, pairs: Array<
       (share) =>
         new Promise<PairResult[]>((resolve, reject) => {
           const worker = new Worker(new URL("./worker.mjs", import.meta.url), { workerData: { dataset, gold, pairs: share } satisfies PoolTask });
+          let done = false;
           worker.once("message", (results: PairResult[]) => {
+            done = true;
             resolve(results);
             void worker.terminate();
           });
-          worker.once("error", reject);
+          worker.once("error", (error) => {
+            done = true;
+            reject(error);
+          });
           worker.once("exit", (code) => {
-            if (code !== 0 && code !== 1) reject(new Error(`Simulation worker stopped with exit code ${code}`));
+            if (!done) reject(new Error(`Simulation worker stopped (exit code ${code}) before sending its results`));
           });
         }),
     ),
