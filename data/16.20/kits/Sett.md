@@ -228,3 +228,63 @@ All 5 level-based formulas in the game files (2 linked to wiki values above):
 | SettPassive | {7733e08c} | breakpoints at levels 6, 11, 16, 19 (level 1: 3) | 3 | 40 | 42 |
 | SettPassive | {a156fbdc} | breakpoints at levels 6, 11, 16 (level 1: 1.2) | 1.2 | 1.5 | 1.5 |
 | SettE | MonsterBonus | linear 125 → 250 over levels 1-18, continues past 18 | 125 | 250 | 264.706 |
+
+## Duel simulator kit (level 20, every ability at max rank)
+
+What the duel simulator fights with (`kits/champions/Sett.ts`): every number is read from the wiki's ability data above at level 20; what the wiki doesn't say is listed under assumptions. Ratios are fractions of the stat (60% AD is 0.6 × AD).
+
+- Basic attack: range 125, melee.
+- Options: facebreakerStun = 1.
+
+| Key | Ability | Cooldown (s) | Cast time (s) | Cost | Delivery | On the enemy | On itself |
+|---|---|--:|--:|---|---|---|---|
+| Q | Knuckle Down | 5 | 0 | – | self | – | next 2 attacks within 5 s: 50 + 1% target's maximum health + 3% of target's maximum health per 100 AD physical damage (+50 range, resets the attack timer); moveSpeedPercent 0.3 for 1.5 s |
+| W | Haymaker | 12 | 0.75 | – | area 25 to 720 units ahead, lands after 0 s | marks it "haymaker" for 0.1 s | – |
+| E | Facebreaker | 10 | 0.25 | – | area -450 to 450 units ahead, lands after 0 s | 130 + 60% AD physical damage; pull 450 units over 0.25 s; slow 70% for 0.5 s; after 0.25 s: stun for 1 s | – |
+| R | The Show Stopper | 80 | 0 | – | targeted, 400 range; channel 1.23 s | suppression for 1.23 s; at the end: 400 + 120% bonus AD + 60% target's bonus health physical damage; slow 99% for 1 s | as the cast starts: displacementImmune for 1.33 s |
+
+Effects marked by a mark or a role are completed by the kit's hooks (see the kit's source).
+
+### Assumptions
+
+- Facebreaker has an enemy minion on its other side, so it stuns (1 = yes, 0 = no): 1.
+- The Right Punch's "8 times the attack speed" is its windup only, as the wiki's note says ("does not grant bonus attack speed"): the time between attacks doesn't change.
+- Facebreaker always has an enemy minion on its other side, so it stuns; its 0.25 s lockout is left out.
+- The Show Stopper suppresses its target until the slam, 1.23 s after the cast; where the leap carries the two isn't modeled.
+- Haymaker's true-damage center lands as often as a skillshot of its width would; the rest of the blast is physical.
+- Grit decays per instance by 30% a second after 4 seconds; Haymaker's shield doesn't decay.
+
+### Wiki values read (30)
+
+| Ability | Value | Revision |
+|---|---|---|
+| Pit Grit | Sett's Right Punch is empowered to gain 50 bonus range (unless Knuckle Down is active), attack at 8 times the Left Punch's attack speed, and deal 5 – 90 (based on level) (+ 55% bonus AD) bonus physical damage. | [4018819](https://wiki.leagueoflegends.com/en-us/Template:Data_Sett/Pit_Grit?oldid=4018819) |
+| Pit Grit | (+ 55% bonus AD) bonus physical damage | [4018819](https://wiki.leagueoflegends.com/en-us/Template:Data_Sett/Pit_Grit?oldid=4018819) |
+| Pit Grit | Sett's Right Punch is empowered to gain 50 bonus range | [4018819](https://wiki.leagueoflegends.com/en-us/Template:Data_Sett/Pit_Grit?oldid=4018819) |
+| Pit Grit | its windup is sped up and fixed at 12.5% of a Left Punch's windup time | [4018819](https://wiki.leagueoflegends.com/en-us/Template:Data_Sett/Pit_Grit?oldid=4018819) |
+| Pit Grit | will reset back to it after 2 seconds of not performing a Right Punch | [4018819](https://wiki.leagueoflegends.com/en-us/Template:Data_Sett/Pit_Grit?oldid=4018819) |
+| Pit Grit | Innate - Heart of the Half-Beast: Sett regenerates an additional 0.075 / 0.25 / 0.5 / 1 / 1.025 / 1.05 (based on level) health every 0.5 seconds per 5% of his missing health. | [4018819](https://wiki.leagueoflegends.com/en-us/Template:Data_Sett/Pit_Grit?oldid=4018819) |
+| Haymaker | up to a cap of 50% of his maximum health | [4008036](https://wiki.leagueoflegends.com/en-us/Template:Data_Sett/Haymaker?oldid=4008036) |
+| Haymaker | decays in value by 30% every second after 4 seconds | [4008036](https://wiki.leagueoflegends.com/en-us/Template:Data_Sett/Haymaker?oldid=4008036) |
+| Haymaker | equal to the expended Grit for 3 seconds | [4008036](https://wiki.leagueoflegends.com/en-us/Template:Data_Sett/Haymaker?oldid=4008036) |
+| Haymaker | Damage: 80 / 100 / 120 / 140 / 160 (+ 25% (+ 25% per 100 bonus AD) of expended Grit) | [4008036](https://wiki.leagueoflegends.com/en-us/Template:Data_Sett/Haymaker?oldid=4008036) |
+| Haymaker | (+ 25% (+ 25% per 100 bonus AD) of expended Grit) | [4008036](https://wiki.leagueoflegends.com/en-us/Template:Data_Sett/Haymaker?oldid=4008036) |
+| Haymaker | width: 300 • 620 • 70 | [4008036](https://wiki.leagueoflegends.com/en-us/Template:Data_Sett/Haymaker?oldid=4008036) |
+| Haymaker | range: -25 – 720 | [4008036](https://wiki.leagueoflegends.com/en-us/Template:Data_Sett/Haymaker?oldid=4008036) |
+| Facebreaker | range: 450 | [4013095](https://wiki.leagueoflegends.com/en-us/Template:Data_Sett/Facebreaker?oldid=4013095) |
+| Haymaker | castTime: 0.75 | [4008036](https://wiki.leagueoflegends.com/en-us/Template:Data_Sett/Haymaker?oldid=4008036) |
+| Haymaker | cooldown: 18 / 16.5 / 15 / 13.5 / 12 | [4008036](https://wiki.leagueoflegends.com/en-us/Template:Data_Sett/Haymaker?oldid=4008036) |
+| Knuckle Down | cooldown: 9 / 8 / 7 / 6 / 5 | [4024545](https://wiki.leagueoflegends.com/en-us/Template:Data_Sett/Knuckle_Down?oldid=4024545) |
+| Knuckle Down | empowers his next two basic attacks within 5 seconds | [4024545](https://wiki.leagueoflegends.com/en-us/Template:Data_Sett/Knuckle_Down?oldid=4024545) |
+| Knuckle Down | to gain 50 bonus range | [4024545](https://wiki.leagueoflegends.com/en-us/Template:Data_Sett/Knuckle_Down?oldid=4024545) |
+| Knuckle Down | Bonus Physical Damage: 10 / 20 / 30 / 40 / 50 (+ 1% (+ 1 / 1.5 / 2 / 2.5 / 3% per 100 AD) of target's maximum health) | [4024545](https://wiki.leagueoflegends.com/en-us/Template:Data_Sett/Knuckle_Down?oldid=4024545) |
+| Knuckle Down | gains 30% bonus movement speed | [4024545](https://wiki.leagueoflegends.com/en-us/Template:Data_Sett/Knuckle_Down?oldid=4024545) |
+| Knuckle Down | For 1.5 seconds | [4024545](https://wiki.leagueoflegends.com/en-us/Template:Data_Sett/Knuckle_Down?oldid=4024545) |
+| Facebreaker | cooldown: 16 / 14.5 / 13 / 11.5 / 10 | [4013095](https://wiki.leagueoflegends.com/en-us/Template:Data_Sett/Facebreaker?oldid=4013095) |
+| Facebreaker | castTime: 0.25 | [4013095](https://wiki.leagueoflegends.com/en-us/Template:Data_Sett/Facebreaker?oldid=4013095) |
+| Facebreaker | Physical Damage: 50 / 70 / 90 / 110 / 130 (+ 60% AD) | [4013095](https://wiki.leagueoflegends.com/en-us/Template:Data_Sett/Facebreaker?oldid=4013095) |
+| Facebreaker | slowing them by 70% for 0.5 seconds | [4013095](https://wiki.leagueoflegends.com/en-us/Template:Data_Sett/Facebreaker?oldid=4013095) |
+| Facebreaker | all enemies are stunned for 1 second upon landing | [4013095](https://wiki.leagueoflegends.com/en-us/Template:Data_Sett/Facebreaker?oldid=4013095) |
+| The Show Stopper | cooldown: 120 / 100 / 80 | [3936244](https://wiki.leagueoflegends.com/en-us/Template:Data_Sett/The_Show_Stopper?oldid=3936244) |
+| The Show Stopper | targetRange: 400 | [3936244](https://wiki.leagueoflegends.com/en-us/Template:Data_Sett/The_Show_Stopper?oldid=3936244) |
+| The Show Stopper | All targets hit are slowed by 99% for 1 second | [3936244](https://wiki.leagueoflegends.com/en-us/Template:Data_Sett/The_Show_Stopper?oldid=3936244) |

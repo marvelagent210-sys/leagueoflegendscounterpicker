@@ -1,5 +1,38 @@
 # Counters to Aatrox (patch 26.20)
 
+## Simulated duels (full confidence)
+
+The duel simulator played each of the 24 other champions with a simulator kit against Aatrox: both at level 20 with 15,000 gold of plain stats, each side's spent against the other's, through six scenarios (PLAN.md §6). Scores run from −1 (Aatrox wins every time) to +1 (the champion does). Run `npm run duel -- <champion> Aatrox --log brawl` to watch a fight.
+
+| # | Champion | Score | You engage | Enemy engages | Brawl | Short trade | Spacing | Escape |
+|--:|---|--:|--:|--:|--:|--:|--:|--:|
+| 1 | Teemo | +0.88 | +1.00 | +1.00 | +1.00 | +0.50 | +1.00 | +0.00 |
+| 2 | Poppy | +0.80 | +1.00 | +1.00 | +1.00 | +0.14 | – | +0.00 |
+| 3 | Darius | +0.76 | +1.00 | +1.00 | +1.00 | −0.08 | – | +0.00 |
+| 4 | Tryndamere | +0.75 | +1.00 | +1.00 | +1.00 | −0.17 | – | +0.00 |
+| 5 | Nasus | +0.18 | +1.00 | +0.50 | −1.00 | −0.10 | – | +0.00 |
+| 6 | Jax | +0.06 | +0.00 | +1.00 | −1.00 | +0.04 | – | +0.00 |
+| 7 | Olaf | −0.22 | −0.54 | −1.00 | +1.00 | −0.06 | – | +0.00 |
+| 8 | Fiora | −0.25 | −1.00 | −1.00 | +1.00 | +0.17 | – | +1.00 |
+| 9 | Camille | −0.65 | −1.00 | −1.00 | −1.00 | +0.45 | – | +1.00 |
+| 10 | Riven | −0.73 | −1.00 | −1.00 | −1.00 | +0.26 | – | +0.00 |
+| 11 | Yone | −0.74 | −1.00 | −1.00 | −1.00 | +0.04 | – | +0.49 |
+| 12 | Irelia | −0.75 | −1.00 | −1.00 | −1.00 | +0.17 | – | +0.00 |
+| 13 | Malphite | −0.75 | −1.00 | −1.00 | −1.00 | +0.16 | – | +0.00 |
+| 14 | Gwen | −0.76 | −1.00 | −1.00 | −1.00 | +0.12 | – | +0.00 |
+| 15 | Yasuo | −0.76 | −1.00 | −1.00 | −1.00 | +0.09 | – | +0.00 |
+| 16 | Ornn | −0.76 | −1.00 | −1.00 | −1.00 | +0.09 | – | +0.00 |
+| 17 | Renekton | −0.77 | −1.00 | −1.00 | −1.00 | +0.07 | – | +0.00 |
+| 18 | Garen | −0.77 | −1.00 | −1.00 | −1.00 | +0.04 | – | +0.00 |
+| 19 | Shen | −0.77 | −1.00 | −1.00 | −1.00 | +0.02 | – | +0.00 |
+| 20 | Sett | −0.78 | −1.00 | −1.00 | −1.00 | +0.01 | – | +0.00 |
+| 21 | Urgot | −0.78 | −1.00 | −1.00 | −1.00 | +0.14 | −1.00 | +0.00 |
+| 22 | Mordekaiser | −0.79 | −1.00 | −1.00 | −1.00 | −0.10 | – | +0.00 |
+| 23 | Volibear | −0.80 | −1.00 | −1.00 | −1.00 | −0.12 | – | +0.00 |
+| 24 | Dr. Mundo | −0.80 | −1.00 | −1.00 | −1.00 | −0.13 | – | +0.00 |
+
+## Interaction ledger (partial confidence)
+
 Every champion ranked by what its kit does against Aatrox's, from the interaction ledger: projectile blocks, spell shields,
 parries, dash stops, crowd control and its defenses, range and more (PLAN.md §5). This ranking is **partial**: it weighs the
 interactions but doesn't play the fight out. The duel simulator replaces it as each champion's behavior is verified.
@@ -8,68 +41,68 @@ interactions but doesn't play the fight out. The duel simulator replaces it as e
 A hard counter shuts down part of a kit every time it is used (projectile block, attack dodge, attack block, blind, disarm, attack speed slow, attack reflect, dash stop, grounding, range) with an impact of 0.4 or more (0.5 for range).
 Run `npm run matchup -- <champion> Aatrox` for the full ledger of a matchup, with sources.
 
-## Top 10
+### Top 10
 
-### 1. Singed (net +1.08)
+#### 1. Singed (net +1.08)
 
 - **0.39** grounding: Mega Adhesive grounds Aatrox, who then can't cast Umbral Dash. Grounded while in the area; 13 s cooldown. (Singed W Mega Adhesive → Aatrox E Umbral Dash)
 - **0.32** anti-heal: Insanity Potion's Grievous Wounds cuts Aatrox's healing from Umbral Dash by 40%. (Singed R Insanity Potion → Aatrox E Umbral Dash)
 - **0.22** anti-heal: Insanity Potion's Grievous Wounds cuts Aatrox's healing from World Ender by 40%. (Singed R Insanity Potion → Aatrox R World Ender)
 
-### 2. Udyr (net +0.93)
+#### 2. Udyr (net +0.93)
 
 - **0.70** cc immunity: Blazing Stampede makes Udyr immune to Aatrox's The Darkin Blade (airborne). Immune for 1.5 s, long enough to use ahead of The Darkin Blade. (Udyr E Blazing Stampede → Aatrox Q The Darkin Blade)
 - **0.45** cc immunity: Blazing Stampede makes Udyr immune to Aatrox's Infernal Chains (airborne, slow). Immune for 1.5 s, long enough to use ahead of Infernal Chains. (Udyr E Blazing Stampede → Aatrox W Infernal Chains)
 
-### 3. Sivir (net +0.92)
+#### 3. Sivir (net +0.92)
 
 - **0.42** spell shield: Spell Shield's spell shield blocks Aatrox's The Darkin Blade. Spell shield for 1.5 s, long enough to use ahead of The Darkin Blade. A spell shield blocks only the first enemy ability that reaches it. (Sivir E Spell Shield → Aatrox Q The Darkin Blade)
 - **0.41** range: Sivir's basic attacks reach 325 units farther than Aatrox's (500 vs 175 attack range). Aatrox closes the gap with Umbral Dash. (Sivir basic attacks → Aatrox basic attacks)
 - **0.18** spell shield: Spell Shield's spell shield blocks part of Aatrox's Infernal Chains. Spell shield for 1.5 s, long enough to use ahead of Infernal Chains. A spell shield blocks only the first enemy ability that reaches it. Spell shield will block the chain's application and initial damage but not the aftereffects of one already applied. (Sivir E Spell Shield → Aatrox W Infernal Chains)
 
-### 4. Elise (net +0.90)
+#### 4. Elise (net +0.90)
 
 - **0.42** untargetable: Rappel makes Elise untargetable, dodging Aatrox's The Darkin Blade. Untargetable for 0.6 s; The Darkin Blade takes 0.6 s to land, enough to react. (Elise E Rappel → Aatrox Q The Darkin Blade)
 - **0.36** untargetable: Rappel makes Elise untargetable, dodging Aatrox's Infernal Chains. Untargetable for 0.6 s; Infernal Chains takes 0.71 s to land, enough to react. (Elise E Rappel → Aatrox W Infernal Chains)
 - **0.30** range: Elise's basic attacks reach 375 units farther than Aatrox's (550 vs 175 attack range). Aatrox closes the gap with Umbral Dash. (Elise basic attacks → Aatrox basic attacks)
 
-### 5. Fiora (net +0.80)
+#### 5. Fiora (net +0.80)
 
 - **0.54** parry: Riposte parries Aatrox's The Darkin Blade and stuns back. Parry for 0.75 s; The Darkin Blade takes 0.6 s to land, enough to react. Negating The Darkin Blade's immobilizing effect turns Riposte's slow into a stun (2 s). (Fiora W Riposte → Aatrox Q The Darkin Blade)
 - **0.48** parry: Riposte parries Aatrox's Infernal Chains and stuns back. Parry for 0.75 s; Infernal Chains takes 0.71 s to land, enough to react. Negating Infernal Chains's immobilizing effect turns Riposte's slow into a stun (2 s). (Fiora W Riposte → Aatrox W Infernal Chains)
 - **0.09** attack speed slow: Riposte cuts Aatrox's attack speed by 25% for 2 s. 2 s on a 16 s cooldown. (Fiora W Riposte → Aatrox basic attacks)
 
-### 6. Morgana (net +0.79)
+#### 6. Morgana (net +0.79)
 
 - **0.44** cc immunity: Black Shield makes Morgana immune to Aatrox's The Darkin Blade (airborne). Immune for 5 s, long enough to use ahead of The Darkin Blade. (Morgana E Black Shield → Aatrox Q The Darkin Blade)
 - **0.38** cc immunity: Black Shield makes Morgana immune to Aatrox's Infernal Chains (airborne, slow). Immune for 5 s, long enough to use ahead of Infernal Chains. (Morgana E Black Shield → Aatrox W Infernal Chains)
 - **0.16** range: Morgana's basic attacks reach 275 units farther than Aatrox's (450 vs 175 attack range). Aatrox closes the gap with Umbral Dash. (Morgana basic attacks → Aatrox basic attacks)
 
-### 7. Nocturne (net +0.77)
+#### 7. Nocturne (net +0.77)
 
 - **0.49** spell shield: Shroud of Darkness's spell shield blocks Aatrox's The Darkin Blade. Spell shield for 1.5 s, long enough to use ahead of The Darkin Blade. A spell shield blocks only the first enemy ability that reaches it. (Nocturne W Shroud of Darkness → Aatrox Q The Darkin Blade)
 - **0.23** spell shield: Shroud of Darkness's spell shield blocks part of Aatrox's Infernal Chains. Spell shield for 1.5 s, long enough to use ahead of Infernal Chains. A spell shield blocks only the first enemy ability that reaches it. Spell shield will block the chain's application and initial damage but not the aftereffects of one already applied. (Nocturne W Shroud of Darkness → Aatrox W Infernal Chains)
 - **0.14** cc immunity: Paranoia is displacement immune, ignoring Aatrox's The Darkin Blade (airborne) during it. Only during Paranoia. (Nocturne R Paranoia → Aatrox Q The Darkin Blade)
 
-### 8. Yuumi (net +0.76)
+#### 8. Yuumi (net +0.76)
 
 - **0.70** untargetable: You and Me! makes Yuumi untargetable, dodging Aatrox's The Darkin Blade. Untargetable for ?; The Darkin Blade takes 0.6 s to land, enough to react. Does not destroy inbound projectiles, special cased to be targetable to turrets. (Yuumi W You and Me! → Aatrox Q The Darkin Blade)
 - **0.45** untargetable: You and Me! makes Yuumi untargetable, dodging Aatrox's Infernal Chains. Untargetable for ?; Infernal Chains takes 0.71 s to land, enough to react. Does not destroy inbound projectiles, special cased to be targetable to turrets. (Yuumi W You and Me! → Aatrox W Infernal Chains)
 - **0.27** range: Yuumi's basic attacks reach 250 units farther than Aatrox's (425 vs 175 attack range). Aatrox closes the gap with Umbral Dash. (Yuumi basic attacks → Aatrox basic attacks)
 - Watch out: The Darkin Blade's airborne interrupts Yuumi's Final Chapter (normal channel).
 
-### 9. Maokai (net +0.76)
+#### 9. Maokai (net +0.76)
 
 - **0.53** untargetable: Twisted Advance makes Maokai untargetable, dodging Aatrox's The Darkin Blade. Untargetable for 1.4 s; The Darkin Blade takes 0.6 s to land, enough to react. (Maokai W Twisted Advance → Aatrox Q The Darkin Blade)
 - **0.45** untargetable: Twisted Advance makes Maokai untargetable, dodging Aatrox's Infernal Chains. Untargetable for 1.4 s; Infernal Chains takes 0.71 s to land, enough to react. (Maokai W Twisted Advance → Aatrox W Infernal Chains)
 
-### 10. Xayah (net +0.76)
+#### 10. Xayah (net +0.76)
 
 - **0.34** range: Xayah's basic attacks reach 350 units farther than Aatrox's (525 vs 175 attack range). Aatrox closes the gap with Umbral Dash. (Xayah basic attacks → Aatrox basic attacks)
 - **0.31** untargetable: Featherstorm makes Xayah untargetable, dodging Aatrox's The Darkin Blade. Untargetable for 1.5 s, long enough to use ahead of The Darkin Blade. (Xayah R Featherstorm → Aatrox Q The Darkin Blade)
 - **0.21** untargetable: Featherstorm makes Xayah untargetable, dodging Aatrox's Infernal Chains. Untargetable for 1.5 s, long enough to use ahead of Infernal Chains. (Xayah R Featherstorm → Aatrox W Infernal Chains)
 
-## Full ranking
+### Full ranking
 
 | # | Champion | Net | For | Against | Hard counters |
 |--:|---|--:|--:|--:|---|

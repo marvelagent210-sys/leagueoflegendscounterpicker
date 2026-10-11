@@ -288,3 +288,63 @@ All 4 level-based formulas in the game files (2 linked to wiki values above):
 | YoneW | WShield | linear 40 → 90 over levels 1-18, continues past 18 | 40 | 90 | 95.8824 |
 | YoneW | MinimumDamageMinions | breakpoints at levels 9, 14 (level 1: 30) | 30 | 330 | 410 |
 | YoneW | MonsterDamageCap | table of values per level (30 levels) | 150 | 320 | 340 |
+
+## Duel simulator kit (level 20, every ability at max rank)
+
+What the duel simulator fights with (`kits/champions/Yone.ts`): every number is read from the wiki's ability data above at level 20; what the wiki doesn't say is listed under assumptions. Ratios are fractions of the stat (60% AD is 0.6 × AD).
+
+- Basic attack: range 175, melee.
+
+| Key | Ability | Cooldown (s) | Cast time (s) | Cost | Delivery | On the enemy | On itself |
+|---|---|--:|--:|---|---|---|---|
+| Q | Mortal Steel | 4 | 0.35 | – | skillshot 450 long, 80 wide, instant | 125 physical damage; 110% AD physical damage, can crit | – |
+| Q3 | Mortal Steel (third cast) | 4 | 0.35 | – | dash toward 450 units at 1500/s, hits within 100 | 125 physical damage; 110% AD physical damage, can crit; knock up over 0.75 s | – |
+| W | Spirit Cleave | 14 | 0.5 | – | area 0 to 600 units ahead, lands after 0 s | 25 + 6% target's maximum health physical damage; 25 + 6% target's maximum health magic damage | – |
+| E | Soul Unbound | 10 | 0 | – | dash toward 300 units at 1200/s | – | moveSpeedPercent 0.2 for 5 s |
+| E2 | Soul Unbound (return) | 0 | 0.225 | – | self; recast of E within 5 s, after 0.5 s, automatic | – | displacementImmune for 0.3 s |
+| R | Fate Sealed | 80 | 0.75 | – | skillshot 1000 long, 225 wide, instant | stun for 1 s; after 0.3 s: 300 + 40% bonus AD physical damage; 300 + 40% bonus AD magic damage; knock up over 0.75 s | – |
+
+Effects marked by a mark or a role are completed by the kit's hooks (see the kit's source).
+
+### Assumptions
+
+- Mortal Steel and Spirit Cleave's cast times are taken at 0 bonus attack speed.
+- Fate Sealed pulls Yone next to its target; Soul Unbound's return takes him straight back to his body.
+- Crit chance bought counts double for Yone (the stat budget values it that way).
+
+### Wiki values read (32)
+
+| Ability | Value | Revision |
+|---|---|---|
+| Way of the Hunter | Yone's total critical strike chance is doubled from all other sources | [4058456](https://wiki.leagueoflegends.com/en-us/Template:Data_Yone/Way_of_the_Hunter?oldid=4058456) |
+| Way of the Hunter | every 1% critical strike chance in excess of 100% is converted into 0.5 bonus attack damage | [4058456](https://wiki.leagueoflegends.com/en-us/Template:Data_Yone/Way_of_the_Hunter?oldid=4058456) |
+| Way of the Hunter | basic attacks with Azakana Sword deal 50% AD physical damage and 50% AD magic damage | [4058456](https://wiki.leagueoflegends.com/en-us/Template:Data_Yone/Way_of_the_Hunter?oldid=4058456) |
+| Mortal Steel | Yone generates a stack of Gathering Storm for 6 seconds | [4072825](https://wiki.leagueoflegends.com/en-us/Template:Data_Yone/Mortal_Steel?oldid=4072825) |
+| Mortal Steel | knocking up enemies hit in their path for 0.75 seconds | [4072825](https://wiki.leagueoflegends.com/en-us/Template:Data_Yone/Mortal_Steel?oldid=4072825) |
+| Soul Unbound | entering Spirit Form for 5 seconds | [4050165](https://wiki.leagueoflegends.com/en-us/Template:Data_Yone/Soul_Unbound?oldid=4050165) |
+| Soul Unbound | Damage Stored: 25 / 27.5 / 30 / 32.5 / 35% of damage dealt | [4050165](https://wiki.leagueoflegends.com/en-us/Template:Data_Yone/Soul_Unbound?oldid=4050165) |
+| Soul Unbound | range: 300 | [4050165](https://wiki.leagueoflegends.com/en-us/Template:Data_Yone/Soul_Unbound?oldid=4050165) |
+| Spirit Cleave | If this hits an enemy, Yone grants himself a shield for 40 – 90 (based on level) (+ 65% bonus AD) for 1.5 seconds, increased by 100% if it hits a champion and by 50% for each subsequent champion hit. | [4066502](https://wiki.leagueoflegends.com/en-us/Template:Data_Yone/Spirit_Cleave?oldid=4066502) |
+| Spirit Cleave | (+ 65% bonus AD) for 1.5 seconds | [4066502](https://wiki.leagueoflegends.com/en-us/Template:Data_Yone/Spirit_Cleave?oldid=4066502) |
+| Mortal Steel | Physical Damage: 25 / 50 / 75 / 100 / 125 (+ 110% AD) | [4072825](https://wiki.leagueoflegends.com/en-us/Template:Data_Yone/Mortal_Steel?oldid=4072825) |
+| Mortal Steel | range (Thrust range): 450 • 450 • 1050 | [4072825](https://wiki.leagueoflegends.com/en-us/Template:Data_Yone/Mortal_Steel?oldid=4072825) |
+| Mortal Steel | width (Thrust width): 80 • 160 | [4072825](https://wiki.leagueoflegends.com/en-us/Template:Data_Yone/Mortal_Steel?oldid=4072825) |
+| Mortal Steel | range (Third cast dash distance): 450 • 450 • 1050 | [4072825](https://wiki.leagueoflegends.com/en-us/Template:Data_Yone/Mortal_Steel?oldid=4072825) |
+| Mortal Steel | speed: 1500 | [4072825](https://wiki.leagueoflegends.com/en-us/Template:Data_Yone/Mortal_Steel?oldid=4072825) |
+| Mortal Steel | collisionRadius: 100 | [4072825](https://wiki.leagueoflegends.com/en-us/Template:Data_Yone/Mortal_Steel?oldid=4072825) |
+| Spirit Cleave | effectRadius: 600 | [4066502](https://wiki.leagueoflegends.com/en-us/Template:Data_Yone/Spirit_Cleave?oldid=4066502) |
+| Spirit Cleave | Physical Damage: 5 / 10 / 15 / 20 / 25 (+ 4 / 4.5 / 5 / 5.5 / 6% of target's maximum health) | [4066502](https://wiki.leagueoflegends.com/en-us/Template:Data_Yone/Spirit_Cleave?oldid=4066502) |
+| Spirit Cleave | Magic Damage: 5 / 10 / 15 / 20 / 25 (+ 4 / 4.5 / 5 / 5.5 / 6% of target's maximum health) | [4066502](https://wiki.leagueoflegends.com/en-us/Template:Data_Yone/Spirit_Cleave?oldid=4066502) |
+| Soul Unbound | cooldown: 22 / 19 / 16 / 13 / 10 | [4050165](https://wiki.leagueoflegends.com/en-us/Template:Data_Yone/Soul_Unbound?oldid=4050165) |
+| Soul Unbound | speed: 1200 | [4050165](https://wiki.leagueoflegends.com/en-us/Template:Data_Yone/Soul_Unbound?oldid=4050165) |
+| Soul Unbound | castTime (Recast): None • 0.225 | [4050165](https://wiki.leagueoflegends.com/en-us/Template:Data_Yone/Soul_Unbound?oldid=4050165) |
+| Soul Unbound | Soul Unbound can be recast after 0.5 seconds | [4050165](https://wiki.leagueoflegends.com/en-us/Template:Data_Yone/Soul_Unbound?oldid=4050165) |
+| Fate Sealed | cooldown: 120 / 100 / 80 | [4009198](https://wiki.leagueoflegends.com/en-us/Template:Data_Yone/Fate_Sealed?oldid=4009198) |
+| Fate Sealed | castTime: 0.75 | [4009198](https://wiki.leagueoflegends.com/en-us/Template:Data_Yone/Fate_Sealed?oldid=4009198) |
+| Fate Sealed | range: 1000 | [4009198](https://wiki.leagueoflegends.com/en-us/Template:Data_Yone/Fate_Sealed?oldid=4009198) |
+| Fate Sealed | width: 225 | [4009198](https://wiki.leagueoflegends.com/en-us/Template:Data_Yone/Fate_Sealed?oldid=4009198) |
+| Fate Sealed | knocking them down and stunning them for 1 second | [4009198](https://wiki.leagueoflegends.com/en-us/Template:Data_Yone/Fate_Sealed?oldid=4009198) |
+| Fate Sealed | After 0.3 seconds, a gust rushes along the same area | [4009198](https://wiki.leagueoflegends.com/en-us/Template:Data_Yone/Fate_Sealed?oldid=4009198) |
+| Fate Sealed | Physical Damage: 100 / 200 / 300 (+ 40% bonus AD) | [4009198](https://wiki.leagueoflegends.com/en-us/Template:Data_Yone/Fate_Sealed?oldid=4009198) |
+| Fate Sealed | Magic Damage: 100 / 200 / 300 (+ 40% bonus AD) | [4009198](https://wiki.leagueoflegends.com/en-us/Template:Data_Yone/Fate_Sealed?oldid=4009198) |
+| Fate Sealed | then knocks them up for 0.75 seconds | [4009198](https://wiki.leagueoflegends.com/en-us/Template:Data_Yone/Fate_Sealed?oldid=4009198) |

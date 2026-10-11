@@ -1,5 +1,38 @@
 # Counters to Fiora (patch 26.20)
 
+## Simulated duels (full confidence)
+
+The duel simulator played each of the 24 other champions with a simulator kit against Fiora: both at level 20 with 15,000 gold of plain stats, each side's spent against the other's, through six scenarios (PLAN.md §6). Scores run from −1 (Fiora wins every time) to +1 (the champion does). Run `npm run duel -- <champion> Fiora --log brawl` to watch a fight.
+
+| # | Champion | Score | You engage | Enemy engages | Brawl | Short trade | Spacing | Escape |
+|--:|---|--:|--:|--:|--:|--:|--:|--:|
+| 1 | Jax | +0.80 | +1.00 | +1.00 | +1.00 | +0.11 | – | +0.00 |
+| 2 | Tryndamere | +0.76 | +1.00 | +1.00 | +1.00 | −0.12 | – | +0.00 |
+| 3 | Aatrox | +0.25 | +1.00 | +1.00 | −1.00 | −0.17 | – | −1.00 |
+| 4 | Nasus | −0.26 | +1.00 | −1.00 | −1.00 | −0.24 | – | +0.00 |
+| 5 | Darius | −0.62 | −0.57 | −0.57 | −1.00 | −0.13 | – | −1.00 |
+| 6 | Teemo | −0.73 | −1.00 | −1.00 | −1.00 | +0.47 | −1.00 | +0.00 |
+| 7 | Malphite | −0.74 | −1.00 | −1.00 | −1.00 | +0.24 | – | +0.00 |
+| 8 | Poppy | −0.74 | −1.00 | −1.00 | −1.00 | +0.38 | – | −0.49 |
+| 9 | Shen | −0.76 | −1.00 | −1.00 | −1.00 | +0.13 | – | +0.00 |
+| 10 | Riven | −0.78 | −1.00 | −1.00 | −1.00 | +0.17 | – | −0.50 |
+| 11 | Dr. Mundo | −0.78 | −1.00 | −1.00 | −1.00 | −0.03 | – | +0.00 |
+| 12 | Ornn | −0.80 | −1.00 | −1.00 | −1.00 | −0.08 | – | −0.08 |
+| 13 | Yasuo | −0.80 | −1.00 | −1.00 | −1.00 | −0.11 | – | +0.00 |
+| 14 | Garen | −0.80 | −1.00 | −1.00 | −1.00 | +0.20 | – | −1.00 |
+| 15 | Irelia | −0.81 | −1.00 | −1.00 | −1.00 | +0.14 | – | −1.00 |
+| 16 | Renekton | −0.82 | −1.00 | −1.00 | −1.00 | +0.07 | – | −1.00 |
+| 17 | Sett | −0.83 | −1.00 | −1.00 | −1.00 | +0.02 | – | −1.00 |
+| 18 | Yone | −0.85 | −1.00 | −1.00 | −1.00 | −0.24 | – | −0.53 |
+| 19 | Volibear | −0.85 | −1.00 | −1.00 | −1.00 | −0.09 | – | −1.00 |
+| 20 | Olaf | −0.85 | −1.00 | −1.00 | −1.00 | −0.12 | – | −1.00 |
+| 21 | Urgot | −0.85 | −1.00 | −1.00 | −1.00 | −0.02 | −1.00 | −1.00 |
+| 22 | Mordekaiser | −0.88 | −1.00 | −1.00 | −1.00 | −0.27 | – | −1.00 |
+| 23 | Camille | −0.89 | −1.00 | −1.00 | −1.00 | −0.35 | – | −1.00 |
+| 24 | Gwen | −0.91 | −1.00 | −1.00 | −1.00 | −0.45 | – | −1.00 |
+
+## Interaction ledger (partial confidence)
+
 Every champion ranked by what its kit does against Fiora's, from the interaction ledger: projectile blocks, spell shields,
 parries, dash stops, crowd control and its defenses, range and more (PLAN.md §5). This ranking is **partial**: it weighs the
 interactions but doesn't play the fight out. The duel simulator replaces it as each champion's behavior is verified.
@@ -8,66 +41,66 @@ interactions but doesn't play the fight out. The duel simulator replaces it as e
 A hard counter shuts down part of a kit every time it is used (projectile block, attack dodge, attack block, blind, disarm, attack speed slow, attack reflect, dash stop, grounding, range) with an impact of 0.4 or more (0.5 for range).
 Run `npm run matchup -- <champion> Fiora` for the full ledger of a matchup, with sources.
 
-## Top 10
+### Top 10
 
-### 1. Sivir (net +0.74)
+#### 1. Sivir (net +0.74)
 
 - **0.44** range: Sivir's basic attacks reach 350 units farther than Fiora's (500 vs 150 attack range). Fiora closes the gap with Lunge. (Sivir basic attacks → Fiora basic attacks)
 - **0.42** spell shield: Spell Shield's spell shield blocks Fiora's Riposte. Spell shield for 1.5 s, long enough to use ahead of Riposte. A spell shield blocks only the first enemy ability that reaches it. (Sivir E Spell Shield → Fiora W Riposte)
 - Watch out: Riposte cuts Sivir's attack speed by 25% for 2 s.
 
-### 2. Kayle (net +0.39)
+#### 2. Kayle (net +0.39)
 
 - **0.36** range: Kayle's basic attacks reach 475 units farther than Fiora's (625 vs 150 attack range). Fiora closes the gap with Lunge. (Kayle basic attacks → Fiora basic attacks)
 - **0.12** invulnerable: Divine Judgment makes Kayle invulnerable to Fiora's Riposte (its crowd control still applies). Invulnerable for 2.5 s, long enough to use ahead of Riposte. (Kayle R Divine Judgment → Fiora W Riposte)
 - Watch out: Riposte cuts Kayle's attack speed by 25% for 2 s.
 
-### 3. Twitch (net +0.33)
+#### 3. Twitch (net +0.33)
 
 - **0.43** range: Twitch's basic attacks reach 400 units farther than Fiora's (550 vs 150 attack range). Fiora closes the gap with Lunge. (Twitch basic attacks → Fiora basic attacks)
 - Watch out: Riposte cuts Twitch's attack speed by 25% for 2 s.
 
-### 4. Kai'Sa (net +0.27)
+#### 4. Kai'Sa (net +0.27)
 
 - **0.36** range: Kai'Sa's basic attacks reach 375 units farther than Fiora's (525 vs 150 attack range). Fiora closes the gap with Lunge. (Kai'Sa basic attacks → Fiora basic attacks)
 - Watch out: Riposte cuts Kai'Sa's attack speed by 25% for 2 s.
 
-### 5. Yunara (net +0.27)
+#### 5. Yunara (net +0.27)
 
 - **0.36** range: Yunara's basic attacks reach 425 units farther than Fiora's (575 vs 150 attack range). Fiora closes the gap with Lunge. (Yunara basic attacks → Fiora basic attacks)
 - Watch out: Riposte cuts Yunara's attack speed by 25% for 2 s.
 
-### 6. Kindred (net +0.17)
+#### 6. Kindred (net +0.17)
 
 - **0.44** range: Kindred's basic attacks reach 350 units farther than Fiora's (500 vs 150 attack range). Fiora closes the gap with Lunge. (Kindred basic attacks → Fiora basic attacks)
 - **0.11** invulnerable: Lamb's Respite makes Kindred invulnerable to Fiora's Riposte (its crowd control still applies). Invulnerable for ?; Riposte takes 0.28 s to land, enough to react. (Kindred R Lamb's Respite → Fiora W Riposte)
 - Watch out: Riposte parries Kindred's Mounting Dread.
 
-### 7. Yuumi (net +0.15)
+#### 7. Yuumi (net +0.15)
 
 - **0.45** untargetable: You and Me! makes Yuumi untargetable, dodging Fiora's Riposte. Untargetable for ?; Riposte takes 0.28 s to land, enough to react. Does not destroy inbound projectiles, special cased to be targetable to turrets. (Yuumi W You and Me! → Fiora W Riposte)
 - **0.30** range: Yuumi's basic attacks reach 275 units farther than Fiora's (425 vs 150 attack range). Fiora closes the gap with Lunge. (Yuumi basic attacks → Fiora basic attacks)
 - Watch out: Riposte parries Yuumi's Final Chapter.
 
-### 8. Vladimir (net +0.14)
+#### 8. Vladimir (net +0.14)
 
 - **0.45** untargetable: Sanguine Pool makes Vladimir untargetable, dodging Fiora's Riposte. Untargetable for 2 s, long enough to use ahead of Riposte. (Vladimir W Sanguine Pool → Fiora W Riposte)
 - **0.16** range: Vladimir's basic attacks reach 300 units farther than Fiora's (450 vs 150 attack range). Fiora closes the gap with Lunge. (Vladimir basic attacks → Fiora basic attacks)
 - Watch out: Riposte parries Vladimir's Hemoplague.
 
-### 9. Aurora (net +0.06)
+#### 9. Aurora (net +0.06)
 
 - **0.29** range: Aurora's basic attacks reach 400 units farther than Fiora's (550 vs 150 attack range). Fiora closes the gap with Lunge. (Aurora basic attacks → Fiora basic attacks)
 - **0.22** untargetable: Between Worlds makes Aurora untargetable, dodging Fiora's Riposte. Untargetable for 0.4 s; Riposte takes 0.28 s to land, enough to react. Does not destroy inbound projectiles. (Aurora R Between Worlds → Fiora W Riposte)
 - Watch out: Riposte parries Aurora's Between Worlds.
 
-### 10. Teemo (net +0.03)
+#### 10. Teemo (net +0.03)
 
 - **0.43** blind: Blinding Dart's blind makes Fiora's basic attacks miss for 3 s. Blind for 3 s on a 7 s cooldown. (Teemo Q Blinding Dart → Fiora basic attacks)
 - **0.32** range: Teemo's basic attacks reach 350 units farther than Fiora's (500 vs 150 attack range). Fiora closes the gap with Lunge. (Teemo basic attacks → Fiora basic attacks)
 - Watch out: Riposte parries Teemo's Noxious Trap.
 
-## Full ranking
+### Full ranking
 
 | # | Champion | Net | For | Against | Hard counters |
 |--:|---|--:|--:|--:|---|

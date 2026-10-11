@@ -19,6 +19,14 @@ describe("hit model", () => {
     expect([...chances].sort((a, b) => b - a)).toEqual(chances);
     expect(hitChance({ timeToLand: 1, reach: 70 }, { ...target, hasEscape: true }, 0.25, 0.06)).toBe(0);
   });
+
+  it("leaves a target held for part of the wait only the time after it is free", () => {
+    // Held for the first second of a 1.5 s delay: 0.5 s to step out, not 1.25 s.
+    const needed = 135 / 350;
+    expect(hitChance({ timeToLand: 1 + needed, reach: 70 }, { ...target, heldFor: 1 }, 0.25, 0.06)).toBeCloseTo(0.5, 9);
+    // Held for less than the reaction time: no difference.
+    expect(hitChance({ timeToLand: 1, reach: 70 }, { ...target, heldFor: 0.1 }, 0.25, 0.06)).toBe(hitChance({ timeToLand: 1, reach: 70 }, target, 0.25, 0.06));
+  });
 });
 
 // A 0.25 s cast, then a 1600 units per second missile 140 wide, at a target 600 units away (edge

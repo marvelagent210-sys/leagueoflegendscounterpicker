@@ -1,5 +1,38 @@
 # Counters to Tryndamere (patch 26.20)
 
+## Simulated duels (full confidence)
+
+The duel simulator played each of the 24 other champions with a simulator kit against Tryndamere: both at level 20 with 15,000 gold of plain stats, each side's spent against the other's, through six scenarios (PLAN.md §6). Scores run from −1 (Tryndamere wins every time) to +1 (the champion does). Run `npm run duel -- <champion> Tryndamere --log brawl` to watch a fight.
+
+| # | Champion | Score | You engage | Enemy engages | Brawl | Short trade | Spacing | Escape |
+|--:|---|--:|--:|--:|--:|--:|--:|--:|
+| 1 | Teemo | +0.83 | +1.00 | +1.00 | +1.00 | +0.23 | +1.00 | +0.00 |
+| 2 | Poppy | +0.83 | +1.00 | +1.00 | +1.00 | +0.29 | – | +0.00 |
+| 3 | Malphite | +0.81 | +1.00 | +1.00 | +1.00 | +0.17 | – | +0.00 |
+| 4 | Dr. Mundo | +0.80 | +1.00 | +1.00 | +1.00 | +0.11 | – | +0.00 |
+| 5 | Renekton | +0.79 | +1.00 | +1.00 | +1.00 | +0.08 | – | +0.00 |
+| 6 | Jax | +0.79 | +1.00 | +1.00 | +1.00 | +0.07 | – | +0.00 |
+| 7 | Nasus | +0.78 | +1.00 | +1.00 | +1.00 | +0.01 | – | +0.00 |
+| 8 | Darius | +0.78 | +1.00 | +1.00 | +1.00 | −0.00 | – | +0.00 |
+| 9 | Mordekaiser | +0.39 | +0.46 | +0.44 | +0.58 | +0.08 | – | +0.00 |
+| 10 | Ornn | −0.73 | −1.00 | −1.00 | −1.00 | +0.27 | – | +0.00 |
+| 11 | Riven | −0.75 | −1.00 | −1.00 | −1.00 | +0.19 | – | +0.00 |
+| 12 | Aatrox | −0.75 | −1.00 | −1.00 | −1.00 | +0.17 | – | +0.00 |
+| 13 | Shen | −0.75 | −1.00 | −1.00 | −1.00 | +0.14 | – | +0.00 |
+| 14 | Fiora | −0.76 | −1.00 | −1.00 | −1.00 | +0.12 | – | +0.00 |
+| 15 | Garen | −0.76 | −1.00 | −1.00 | −1.00 | +0.12 | – | +0.00 |
+| 16 | Yasuo | −0.76 | −1.00 | −1.00 | −1.00 | +0.11 | – | +0.00 |
+| 17 | Yone | −0.76 | −1.00 | −1.00 | −1.00 | +0.10 | – | +0.00 |
+| 18 | Irelia | −0.76 | −1.00 | −1.00 | −1.00 | +0.09 | – | +0.00 |
+| 19 | Camille | −0.77 | −1.00 | −1.00 | −1.00 | +0.07 | – | +0.00 |
+| 20 | Gwen | −0.77 | −1.00 | −1.00 | −1.00 | +0.05 | – | +0.00 |
+| 21 | Sett | −0.77 | −1.00 | −1.00 | −1.00 | +0.04 | – | +0.00 |
+| 22 | Olaf | −0.77 | −1.00 | −1.00 | −1.00 | +0.04 | – | +0.00 |
+| 23 | Urgot | −0.77 | −1.00 | −1.00 | −1.00 | +0.18 | −1.00 | +0.00 |
+| 24 | Volibear | −0.78 | −1.00 | −1.00 | −1.00 | −0.00 | – | +0.00 |
+
+## Interaction ledger (partial confidence)
+
 Every champion ranked by what its kit does against Tryndamere's, from the interaction ledger: projectile blocks, spell shields,
 parries, dash stops, crowd control and its defenses, range and more (PLAN.md §5). This ranking is **partial**: it weighs the
 interactions but doesn't play the fight out. The duel simulator replaces it as each champion's behavior is verified.
@@ -8,60 +41,60 @@ interactions but doesn't play the fight out. The duel simulator replaces it as e
 A hard counter shuts down part of a kit every time it is used (projectile block, attack dodge, attack block, blind, disarm, attack speed slow, attack reflect, dash stop, grounding, range) with an impact of 0.4 or more (0.5 for range).
 Run `npm run matchup -- <champion> Tryndamere` for the full ledger of a matchup, with sources.
 
-## Top 10
+### Top 10
 
-### 1. Teemo (net +0.86)
+#### 1. Teemo (net +0.86)
 
 - **0.57** blind: Blinding Dart's blind makes Tryndamere's basic attacks miss for 3 s. Blind for 3 s on a 7 s cooldown. (Teemo Q Blinding Dart → Tryndamere basic attacks)
 - **0.29** range: Teemo's basic attacks reach 325 units farther than Tryndamere's (500 vs 175 attack range). Tryndamere closes the gap with Spinning Slash. (Teemo basic attacks → Tryndamere basic attacks)
 
-### 2. Lulu (net +0.74)
+#### 2. Lulu (net +0.74)
 
 - **0.40** disarm: Whimsy disarms Tryndamere for 2 s: no basic attacks. Disarm for 2 s on a 18 s cooldown. (Lulu W Whimsy → Tryndamere basic attacks)
 - **0.34** range: Lulu's basic attacks reach 375 units farther than Tryndamere's (550 vs 175 attack range). Tryndamere closes the gap with Spinning Slash. (Lulu basic attacks → Tryndamere basic attacks)
 
-### 3. Singed (net +0.66)
+#### 3. Singed (net +0.66)
 
 - **0.39** grounding: Mega Adhesive grounds Tryndamere, who then can't cast Spinning Slash. Grounded while in the area; 13 s cooldown. (Singed W Mega Adhesive → Tryndamere E Spinning Slash)
 - **0.18** anti-heal: Insanity Potion's Grievous Wounds cuts Tryndamere's healing from Bloodlust by 40%. (Singed R Insanity Potion → Tryndamere Q Bloodlust)
 - **0.09** anti-heal: Poison Trail's Grievous Wounds cuts Tryndamere's healing from Bloodlust by 40%. while under the effects of. (Singed Q Poison Trail → Tryndamere Q Bloodlust)
 
-### 4. Jinx (net +0.60)
+#### 4. Jinx (net +0.60)
 
 - **0.35** dash stop: Flame Chompers!'s knockdown can stop Tryndamere's Spinning Slash mid-dash. Must land during the dash. Fails if the dashing unit is crowd control immune, displacement immune, untargetable or spell shielded. (Jinx E Flame Chompers! → Tryndamere E Spinning Slash)
 - **0.25** range: Jinx's basic attacks reach 350 units farther than Tryndamere's (525 vs 175 attack range). Tryndamere closes the gap with Spinning Slash. (Jinx basic attacks → Tryndamere basic attacks)
 
-### 5. Cassiopeia (net +0.59)
+#### 5. Cassiopeia (net +0.59)
 
 - **0.38** grounding: Miasma grounds Tryndamere, who then can't cast Spinning Slash. Grounded while in the area; 16 s cooldown. (Cassiopeia W Miasma → Tryndamere E Spinning Slash)
 - **0.21** range: Cassiopeia's basic attacks reach 375 units farther than Tryndamere's (550 vs 175 attack range). Tryndamere closes the gap with Spinning Slash. (Cassiopeia basic attacks → Tryndamere basic attacks)
 
-### 6. Viktor (net +0.59)
+#### 6. Viktor (net +0.59)
 
 - **0.31** dash stop: Gravity Field's knockdown can stop Tryndamere's Spinning Slash mid-dash. Must land during the dash. Fails if the dashing unit is crowd control immune, displacement immune, untargetable or spell shielded. (Viktor W Gravity Field → Tryndamere E Spinning Slash)
 - **0.28** range: Viktor's basic attacks reach 350 units farther than Tryndamere's (525 vs 175 attack range). Tryndamere closes the gap with Spinning Slash. (Viktor basic attacks → Tryndamere basic attacks)
 
-### 7. Hwei (net +0.56)
+#### 7. Hwei (net +0.56)
 
 - **0.35** dash stop: Grim Visage's knockdown can stop Tryndamere's Spinning Slash mid-dash. Must land during the dash. Fails if the dashing unit is crowd control immune, displacement immune, untargetable or spell shielded. (Hwei Q Grim Visage → Tryndamere E Spinning Slash)
 - **0.21** range: Hwei's basic attacks reach 375 units farther than Tryndamere's (550 vs 175 attack range). Tryndamere closes the gap with Spinning Slash. (Hwei basic attacks → Tryndamere basic attacks)
 
-### 8. Ahri (net +0.53)
+#### 8. Ahri (net +0.53)
 
 - **0.32** dash stop: Charm's knockdown can stop Tryndamere's Spinning Slash mid-dash. Must land during the dash. Fails if the dashing unit is crowd control immune, displacement immune, untargetable or spell shielded. (Ahri E Charm → Tryndamere E Spinning Slash)
 - **0.21** range: Ahri's basic attacks reach 375 units farther than Tryndamere's (550 vs 175 attack range). Tryndamere closes the gap with Spinning Slash. (Ahri basic attacks → Tryndamere basic attacks)
 
-### 9. Vex (net +0.53)
+#### 9. Vex (net +0.53)
 
 - **0.28** dash stop: Doom 'n Gloom's knockdown can stop Tryndamere's Spinning Slash mid-dash. Must land during the dash. Fails if the dashing unit is crowd control immune, displacement immune, untargetable or spell shielded. (Vex I Doom 'n Gloom → Tryndamere E Spinning Slash)
 - **0.25** range: Vex's basic attacks reach 375 units farther than Tryndamere's (550 vs 175 attack range). Tryndamere closes the gap with Spinning Slash. (Vex basic attacks → Tryndamere basic attacks)
 
-### 10. Veigar (net +0.52)
+#### 10. Veigar (net +0.52)
 
 - **0.30** dash stop: Event Horizon's knockdown can stop Tryndamere's Spinning Slash mid-dash. Must land during the dash. Fails if the dashing unit is crowd control immune, displacement immune, untargetable or spell shielded. (Veigar E Event Horizon → Tryndamere E Spinning Slash)
 - **0.22** range: Veigar's basic attacks reach 375 units farther than Tryndamere's (550 vs 175 attack range). Tryndamere closes the gap with Spinning Slash. (Veigar basic attacks → Tryndamere basic attacks)
 
-## Full ranking
+### Full ranking
 
 | # | Champion | Net | For | Against | Hard counters |
 |--:|---|--:|--:|--:|---|

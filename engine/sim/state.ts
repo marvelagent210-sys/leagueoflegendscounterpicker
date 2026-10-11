@@ -5,12 +5,12 @@
  */
 import type { DamageType } from "../rules/damage";
 import type { ShieldType } from "../rules/defense";
-import type { Effect, FighterSpec } from "./spec";
+import type { AttackSplit, Effect, FighterSpec } from "./spec";
 
 export type Side = 0 | 1;
 
 export interface Status {
-  kind: "cc" | "state" | "stat" | "dot" | "shield" | "grievousWounds" | "empower";
+  kind: "cc" | "state" | "stat" | "dot" | "shield" | "grievousWounds" | "empower" | "mark";
   /** The crowd control type, state, stat or source ability, depending on the kind. */
   key: string;
   source: Side;
@@ -22,14 +22,49 @@ export interface Status {
   shieldType?: ShieldType;
   priority?: boolean;
   dot?: { damageType: DamageType; perHit: number; intervalTicks: number; nextTick: number };
-  empower?: { attacks: number; onHit: Effect[]; bonusRange: number; uncancellable: boolean };
+  empower?: { attacks: number; onHit: Effect[]; bonusRange: number; uncancellable: boolean; split?: AttackSplit; windup?: number };
+  /** What a triggered state does (antiDash), and the ability it comes from. */
+  effects?: Effect[];
+  ability?: string;
+  /** Where an anchored state is (untargetableFar). */
+  x?: number;
+  /** Identifies a kit hook's buff, so setting it again replaces it. */
+  memoKey?: string;
 }
 
 export type Action =
-  | { kind: "windup"; startTick: number; launchTick: number; uncancellable: boolean; blinded: boolean; onHit: Effect[]; bonusRange: number }
-  | { kind: "cast"; ability: string; startTick: number; endTick: number }
-  | { kind: "channel"; ability: string; startTick: number; endTick: number; nextTick: number }
-  | { kind: "dash"; ability: string; startTick: number; endTick: number; perTick: number; stopAtContact: boolean; unstoppable: boolean };
+  | {
+      kind: "windup";
+      startTick: number;
+      launchTick: number;
+      uncancellable: boolean;
+      blinded: boolean;
+      onHit: Effect[];
+      bonusRange: number;
+      split?: AttackSplit;
+    }
+  | { kind: "cast"; ability: string; startTick: number; endTick: number; aim?: Aim }
+  | { kind: "channel"; ability: string; startTick: number; endTick: number; nextTick: number; intervalTicks: number }
+  | {
+      kind: "dash";
+      ability: string;
+      startTick: number;
+      endTick: number;
+      perTick: number;
+      stopAtContact: boolean;
+      unstoppable: boolean;
+      /** A cast this dash was made during (an overlay dash): it carries on when the dash ends. */
+      resume?: Action;
+      /** Passes through the enemy, hitting it once on the way (`hit` once it has). */
+      through?: boolean;
+      hit?: boolean;
+    };
+
+/** Where a location-targeted dash goes: toward the enemy (1) or away (-1), and how far. */
+export interface Aim {
+  direction: -1 | 1;
+  distance?: number;
+}
 
 export interface Unit {
   side: Side;
@@ -50,6 +85,8 @@ export interface Unit {
   moved: -1 | 0 | 1;
   /** Forced movement from a knock back or pull, in units per tick (positive is away from the enemy). */
   forced?: { endTick: number; perTick: number };
+  /** Recastable abilities in progress, by root ability key: the last stage cast and when the window closes. */
+  chains: Record<string, { stage: number; castTick: number; until: number }>;
   /** Free-form state for behaviors and kit hooks. */
   memory: Record<string, number | string | boolean>;
   alive: boolean;
@@ -77,13 +114,14 @@ export interface Missile {
   scale: number;
   onHit: Effect[];
   /** For basic attacks: the attack's state when it launched. */
-  attack?: { blinded: boolean; bonusOnHit: Effect[] };
+  attack?: { blinded: boolean; bonusOnHit: Effect[]; split?: AttackSplit };
 }
 
 export interface Zone {
   id: number;
   owner: Side;
-  kind: "projectileWall" | "delayedArea";
+  /** A trap goes off when the enemy's hitbox touches it. */
+  kind: "projectileWall" | "delayedArea" | "trap";
   /** Tick the enemy could first see it coming (the start of the cast). */
   seenTick: number;
   x: number;
@@ -94,6 +132,12 @@ export interface Zone {
   onHit?: Effect[];
   connects?: boolean;
   scale?: number;
+  /** Other effects where the enemy's center is, as absolute positions (sweet spots). */
+  bands?: Array<{ from: number; to: number; onHit: Effect[] }>;
+  /** For areas that move with the caster: offsets from its center when they land. */
+  follow?: { near: number; far: number; bands?: Array<{ from: number; to: number; onHit: Effect[] }> };
+  /** Hits by where the enemy's center is rather than its hitbox. */
+  centered?: boolean;
 }
 
 /** Effects waiting for their tick (see the "delayed" effect). */
@@ -130,8 +174,30 @@ export interface SimSettings {
   disengageDistance: number;
   /** Seconds a short trade may last before the trading unit backs off anyway. */
   tradeSeconds: number;
+  /** Lane surroundings (PLAN.md section 6). */
+  environment: Environment;
+  /**
+   * The side that decides first on even ticks (the other on odd ones). Instant casts take
+   * effect as they are decided, so the first word matters; scenarios run both ways.
+   */
+  firstMover: Side;
   log: boolean;
 }
+
+export interface Environment {
+  /** Walls nearby: knock backs into terrain stun, wall dashes work (Camille's Hookshot). */
+  walls: boolean;
+  /** How far a knock back must push a unit to reach the wall behind it. */
+  wallDistance: number;
+  /** A minion wave: dash targets (Sweeping Blade). */
+  minions: boolean;
+  /** Brush nearby. */
+  brush: boolean;
+  /** Traps and turrets placed in advance (Noxious Trap). */
+  laneSetup: boolean;
+}
+
+export const DEFAULT_ENVIRONMENT: Environment = { walls: true, wallDistance: 300, minions: true, brush: true, laneSetup: true };
 
 export const DEFAULT_SETTINGS: SimSettings = {
   reactionTime: 0.25,
@@ -142,6 +208,8 @@ export const DEFAULT_SETTINGS: SimSettings = {
   escapeDistance: 1400,
   disengageDistance: 700,
   tradeSeconds: 4,
+  environment: DEFAULT_ENVIRONMENT,
+  firstMover: 0,
   log: false,
 };
 
@@ -186,6 +254,7 @@ export function newUnit(spec: FighterSpec, side: Side, x: number, maxHp: number,
     attackReadyTick: 0,
     move: 0,
     moved: 0,
+    chains: {},
     memory: {},
     alive: true,
     totals: { damageDealt: 0, damageTaken: 0, healing: 0, absorbed: 0 },
@@ -205,7 +274,8 @@ function cloneUnit(unit: Unit): Unit {
     ...unit,
     statuses: unit.statuses.map(cloneStatus),
     cooldownReady: { ...unit.cooldownReady },
-    ...(unit.action ? { action: { ...unit.action } } : {}),
+    chains: Object.fromEntries(Object.entries(unit.chains).map(([k, v]) => [k, { ...v }])),
+    ...(unit.action ? { action: unit.action.kind === "dash" && unit.action.resume ? { ...unit.action, resume: { ...unit.action.resume } } : { ...unit.action } } : {}),
     ...(unit.forced ? { forced: { ...unit.forced } } : {}),
     memory: { ...unit.memory },
     totals: { ...unit.totals },

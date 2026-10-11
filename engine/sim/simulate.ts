@@ -29,6 +29,7 @@ import {
   canStartAttack,
   cancelOutOfRange,
   completeCast,
+  expireChains,
   inAttackRange,
   launchAttack,
   progressChannel,
@@ -93,9 +94,9 @@ export function createWorld(setup: FightSetup): World {
     const side = i as Side;
     const x = side === 0 ? 0 : a.base.radius + b.base.radius + setup.distance;
     const maxHp = spec.base.hp + (spec.bonus?.hp ?? 0);
-    return newUnit(spec, side, x, maxHp * (setup.hp?.[i] ?? 1), spec.base.resource);
+    return newUnit(spec, side, x, maxHp, spec.resourceStart ?? spec.base.resource);
   }) as [Unit, Unit];
-  return {
+  const world: World = {
     tick: 0,
     units,
     missiles: [],
@@ -105,13 +106,22 @@ export function createWorld(setup: FightSetup): World {
     weight: 1,
     splits: 0,
     modes: [...setup.modes],
-    settings,
+    settings: { ...settings, environment: { ...DEFAULT_SETTINGS.environment, ...setup.settings?.environment } },
     log: [],
   };
+  // Innate effects and kit setup (traps placed in advance, ...) before the first tick.
+  for (const unit of units) {
+    for (const effect of unit.spec.start ?? []) applyEffect(world, unit, unit, effect, { scale: 1 });
+  }
+  for (const unit of units) unit.spec.hooks?.onStart?.(hookContext(world, unit));
+  units.forEach((unit, i) => {
+    unit.hp = derive(unit).maxHp * (setup.hp?.[i] ?? 1);
+  });
+  return world;
 }
 
 function order(world: World): [Side, Side] {
-  return world.tick % 2 === 0 ? [0, 1] : [1, 0];
+  return (world.tick + world.settings.firstMover) % 2 === 0 ? [0, 1] : [1, 0];
 }
 
 // ---------------------------------------------------------------------------------------
@@ -147,8 +157,13 @@ function upkeep(world: World, unit: Unit): void {
 }
 
 function expire(world: World, unit: Unit): void {
-  if (unit.statuses.some((s) => s.endTick <= world.tick)) unit.statuses = unit.statuses.filter((s) => s.endTick > world.tick);
+  if (unit.statuses.some((s) => s.endTick <= world.tick)) {
+    unit.statuses = unit.statuses.filter((s) => s.endTick > world.tick);
+    // Losing bonus maximum health doesn't take current health with it, but caps it.
+    unit.hp = Math.min(unit.hp, derive(unit).maxHp);
+  }
   if (unit.forced && unit.forced.endTick <= world.tick) delete unit.forced;
+  expireChains(world, unit);
 }
 
 /** Windups and casts due this tick: all are collected before any is applied. */
@@ -162,7 +177,7 @@ function completeActions(world: World, splits: PendingSplit[]): void {
       const ability = unit.spec.abilities.find((a) => a.key === action.ability);
       if (unit.action === action) unit.action = undefined;
       if (!ability) continue;
-      const split = completeCast(world, unit, ability, action.startTick);
+      const split = completeCast(world, unit, ability, action.startTick, action.aim);
       if (split) splits.push(split);
     }
   }
@@ -207,7 +222,7 @@ function execute(world: World, unit: Unit, command: Command): { acted: boolean; 
         if (zone) zone.connects = false;
         log(world, unit.side, `dodges with ${ability.name}`);
       }
-      const split = startCast(world, unit, ability);
+      const split = startCast(world, unit, ability, command.aim);
       return split ? { acted: true, split } : { acted: true };
     }
   }
@@ -368,9 +383,30 @@ export function fight(setup: FightSetup): FightOutcome {
   return runWorld(createWorld(setup), setup.behaviors);
 }
 
+/**
+ * The fight played twice, each side deciding first on the opening tick once, as one outcome
+ * (each half weighted equally): neither side gets the first word.
+ */
+export function fairFight(setup: FightSetup): FightOutcome {
+  const leaves: World[] = [];
+  for (const firstMover of [0, 1] as const) {
+    for (const world of runLeaves(createWorld({ ...setup, settings: { ...setup.settings, firstMover } }), setup.behaviors)) {
+      world.weight /= 2;
+      leaves.push(world);
+    }
+  }
+  return summarize(leaves);
+}
+
 /** Runs a prepared world (and every branch it splits into) to the end. */
 export function runWorld(start: World, behaviorPair?: FightSetup["behaviors"]): FightOutcome {
-  const behaviors: [Behavior, Behavior] = [behaviorPair?.[0] ?? defaultBehavior, behaviorPair?.[1] ?? defaultBehavior];
+  return summarize(runLeaves(start, behaviorPair));
+}
+
+/** Every branch of a fight, run to its end. */
+function runLeaves(start: World, behaviorPair?: FightSetup["behaviors"]): World[] {
+  const [a, b] = start.units;
+  const behaviors: [Behavior, Behavior] = [behaviorPair?.[0] ?? a.spec.behavior ?? defaultBehavior, behaviorPair?.[1] ?? b.spec.behavior ?? defaultBehavior];
   const stack = [start];
   const leaves: World[] = [];
   while (stack.length > 0) {
@@ -381,7 +417,7 @@ export function runWorld(start: World, behaviorPair?: FightSetup["behaviors"]): 
     }
     leaves.push(world);
   }
-  return summarize(leaves);
+  return leaves;
 }
 
 function hpShare(unit: Unit): number {

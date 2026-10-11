@@ -210,3 +210,60 @@ All 2 level-based formulas in the game files (2 linked to wiki values above):
 |---|---|---|--:|--:|--:|
 | OlafBerzerkerRage | MaxAttackSpeed | along the stat growth curve 0.5 → 1 over levels 1-18, continues past 18 | 0.5 | 1 | 1.07838 |
 | OlafBerzerkerRage | MaxLifeSteal | along the stat growth curve 0.08 → 0.25 over levels 1-18, continues past 18 | 0.08 | 0.25 | 0.27665 |
+
+## Duel simulator kit (level 20, every ability at max rank)
+
+What the duel simulator fights with (`kits/champions/Olaf.ts`): every number is read from the wiki's ability data above at level 20; what the wiki doesn't say is listed under assumptions. Ratios are fractions of the stat (60% AD is 0.6 × AD).
+
+- Basic attack: range 125, melee.
+
+| Key | Ability | Cooldown (s) | Cast time (s) | Cost | Delivery | On the enemy | On itself |
+|---|---|--:|--:|---|---|---|---|
+| Q | Undertow | 9 | 0.25 | 70 | skillshot 1000 long, 180 wide, at 1600/s | 270 + 100% bonus AD physical damage; slow 50% for 1.5 s; armorReductionPercent 0.2 for 4 s | – |
+| W | Tough It Out | 12 | 0 | 50 | self | – | attackSpeed 0.8 for 5 s; shield of 130 + 17.5% missing health for 2.5 s; resets the attack timer |
+| E | Reckless Swing | 7 | 0.25 | 100 + 20% AD health | targeted, 325 range | 250 + 50% AD true damage | – |
+| R | Ragnarok | 80 | 0 | 100 | self | – | cleanses crowd control; ccImmune for 3 s; AD 30 + 25% AD for 3 s; moveSpeedPercent 0.7 for 1 s |
+
+Effects marked by a mark or a role are completed by the kit's hooks (see the kit's source).
+
+### Assumptions
+
+- Undertow slows for 1.5 seconds (the wiki scales it from 1 to 3 seconds with the distance thrown).
+- In melee range Olaf picks his axe back up about a second after it lands, so Undertow is ready again 4 seconds after a cast.
+- Reckless Swing's cast time is taken at 0 bonus attack speed (0.25 seconds).
+
+### Wiki values read (31)
+
+| Ability | Value | Revision |
+|---|---|---|
+| Berserker Rage | Innate: Olaf gains 0 / 5 / 10 / 15 / 20 / 25 / 30 / 35 / 40 / 45 / 50 / 55 / 60 / 65 / 70 / 75 / 80 / 85 / 90 / 95 / 100 (based on missing health)% of 50 – 100 (based on level)% bonus attack speed and 8 – 25 (based on level)% life steal. | [4046494](https://wiki.leagueoflegends.com/en-us/Template:Data_Olaf/Berserker_Rage?oldid=4046494) |
+| Reckless Swing | Basic attacks reduce Reckless Swing's cooldown by 1 second | [4060268](https://wiki.leagueoflegends.com/en-us/Template:Data_Olaf/Reckless_Swing?oldid=4060268) |
+| Ragnarok | Olaf becomes enraged for 3 seconds | [3939795](https://wiki.leagueoflegends.com/en-us/Template:Data_Olaf/Ragnarok?oldid=3939795) |
+| Ragnarok | increased by and up to 2.5 seconds | [3939795](https://wiki.leagueoflegends.com/en-us/Template:Data_Olaf/Ragnarok?oldid=3939795) |
+| Ragnarok | Bonus Resistances: 10 / 15 / 20 | [3939795](https://wiki.leagueoflegends.com/en-us/Template:Data_Olaf/Ragnarok?oldid=3939795) |
+| Undertow | cooldown: 9 | [4068141](https://wiki.leagueoflegends.com/en-us/Template:Data_Olaf/Undertow?oldid=4068141) |
+| Undertow | cost: 50 / 55 / 60 / 65 / 70 | [4068141](https://wiki.leagueoflegends.com/en-us/Template:Data_Olaf/Undertow?oldid=4068141) |
+| Undertow | castTime: 0.25 | [4068141](https://wiki.leagueoflegends.com/en-us/Template:Data_Olaf/Undertow?oldid=4068141) |
+| Undertow | targetRange (Maximum missile range): 425 • 1000 | [4068141](https://wiki.leagueoflegends.com/en-us/Template:Data_Olaf/Undertow?oldid=4068141) |
+| Undertow | width: 180 | [4068141](https://wiki.leagueoflegends.com/en-us/Template:Data_Olaf/Undertow?oldid=4068141) |
+| Undertow | speed: 1600 | [4068141](https://wiki.leagueoflegends.com/en-us/Template:Data_Olaf/Undertow?oldid=4068141) |
+| Undertow | Physical Damage: 70 / 120 / 170 / 220 / 270 (+ 100% bonus AD) | [4068141](https://wiki.leagueoflegends.com/en-us/Template:Data_Olaf/Undertow?oldid=4068141) |
+| Undertow | Slow: 30 / 35 / 40 / 45 / 50% | [4068141](https://wiki.leagueoflegends.com/en-us/Template:Data_Olaf/Undertow?oldid=4068141) |
+| Undertow | inflicted with 20% armor reduction for 4 seconds | [4068141](https://wiki.leagueoflegends.com/en-us/Template:Data_Olaf/Undertow?oldid=4068141) |
+| Tough It Out | cooldown: 16 / 15 / 14 / 13 / 12 | [4033201](https://wiki.leagueoflegends.com/en-us/Template:Data_Olaf/Tough_It_Out?oldid=4033201) |
+| Tough It Out | cost: 50 | [4033201](https://wiki.leagueoflegends.com/en-us/Template:Data_Olaf/Tough_It_Out?oldid=4033201) |
+| Tough It Out | castTime: none | [4033201](https://wiki.leagueoflegends.com/en-us/Template:Data_Olaf/Tough_It_Out?oldid=4033201) |
+| Tough It Out | Bonus Attack Speed: 40 / 50 / 60 / 70 / 80% | [4033201](https://wiki.leagueoflegends.com/en-us/Template:Data_Olaf/Tough_It_Out?oldid=4033201) |
+| Tough It Out | bonus attack speed for 5 seconds | [4033201](https://wiki.leagueoflegends.com/en-us/Template:Data_Olaf/Tough_It_Out?oldid=4033201) |
+| Tough It Out | Shield Strength: 10 / 40 / 70 / 100 / 130 (+ 17.5% missing health) | [4033201](https://wiki.leagueoflegends.com/en-us/Template:Data_Olaf/Tough_It_Out?oldid=4033201) |
+| Tough It Out | a shield for 2.5 seconds | [4033201](https://wiki.leagueoflegends.com/en-us/Template:Data_Olaf/Tough_It_Out?oldid=4033201) |
+| Reckless Swing | cooldown: 11 / 10 / 9 / 8 / 7 | [4060268](https://wiki.leagueoflegends.com/en-us/Template:Data_Olaf/Reckless_Swing?oldid=4060268) |
+| Reckless Swing | cost: 28 / 46 / 64 / 82 / 100 (+ 20% AD) | [4060268](https://wiki.leagueoflegends.com/en-us/Template:Data_Olaf/Reckless_Swing?oldid=4060268) |
+| Reckless Swing | targetRange: 325 | [4060268](https://wiki.leagueoflegends.com/en-us/Template:Data_Olaf/Reckless_Swing?oldid=4060268) |
+| Reckless Swing | True Damage: 70 / 115 / 160 / 205 / 250 (+ 50% AD) | [4060268](https://wiki.leagueoflegends.com/en-us/Template:Data_Olaf/Reckless_Swing?oldid=4060268) |
+| Ragnarok | cooldown: 100 / 90 / 80 | [3939795](https://wiki.leagueoflegends.com/en-us/Template:Data_Olaf/Ragnarok?oldid=3939795) |
+| Ragnarok | cost: 100 | [3939795](https://wiki.leagueoflegends.com/en-us/Template:Data_Olaf/Ragnarok?oldid=3939795) |
+| Ragnarok | castTime: none | [3939795](https://wiki.leagueoflegends.com/en-us/Template:Data_Olaf/Ragnarok?oldid=3939795) |
+| Ragnarok | Bonus Attack Damage: 10 / 20 / 30 (+ 25% AD) | [3939795](https://wiki.leagueoflegends.com/en-us/Template:Data_Olaf/Ragnarok?oldid=3939795) |
+| Ragnarok | Bonus Movement Speed: 20 / 45 / 70% | [3939795](https://wiki.leagueoflegends.com/en-us/Template:Data_Olaf/Ragnarok?oldid=3939795) |
+| Ragnarok | For the first second of Ragnarok | [3939795](https://wiki.leagueoflegends.com/en-us/Template:Data_Olaf/Ragnarok?oldid=3939795) |

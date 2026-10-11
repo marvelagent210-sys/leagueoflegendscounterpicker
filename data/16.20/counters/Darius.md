@@ -1,5 +1,38 @@
 # Counters to Darius (patch 26.20)
 
+## Simulated duels (full confidence)
+
+The duel simulator played each of the 24 other champions with a simulator kit against Darius: both at level 20 with 15,000 gold of plain stats, each side's spent against the other's, through six scenarios (PLAN.md §6). Scores run from −1 (Darius wins every time) to +1 (the champion does). Run `npm run duel -- <champion> Darius --log brawl` to watch a fight.
+
+| # | Champion | Score | You engage | Enemy engages | Brawl | Short trade | Spacing | Escape |
+|--:|---|--:|--:|--:|--:|--:|--:|--:|
+| 1 | Teemo | +0.88 | +1.00 | +1.00 | +1.00 | +0.53 | +1.00 | +0.00 |
+| 2 | Fiora | +0.62 | +0.57 | +0.57 | +1.00 | +0.13 | – | +1.00 |
+| 3 | Ornn | −0.75 | −1.00 | −1.00 | −1.00 | +0.19 | – | +0.00 |
+| 4 | Malphite | −0.75 | −1.00 | −1.00 | −1.00 | +0.18 | – | +0.00 |
+| 5 | Riven | −0.75 | −1.00 | −1.00 | −1.00 | +0.17 | – | +0.00 |
+| 6 | Poppy | −0.76 | −1.00 | −1.00 | −1.00 | +0.12 | – | +0.00 |
+| 7 | Irelia | −0.76 | −1.00 | −1.00 | −1.00 | +0.11 | – | +0.00 |
+| 8 | Yone | −0.76 | −1.00 | −1.00 | −1.00 | +0.11 | – | +0.00 |
+| 9 | Aatrox | −0.76 | −1.00 | −1.00 | −1.00 | +0.08 | – | +0.00 |
+| 10 | Yasuo | −0.76 | −1.00 | −1.00 | −1.00 | +0.08 | – | +0.00 |
+| 11 | Camille | −0.77 | −1.00 | −1.00 | −1.00 | +0.06 | – | +0.00 |
+| 12 | Nasus | −0.77 | −1.00 | −1.00 | −1.00 | +0.06 | – | +0.00 |
+| 13 | Sett | −0.77 | −1.00 | −1.00 | −1.00 | +0.05 | – | +0.00 |
+| 14 | Volibear | −0.77 | −1.00 | −1.00 | −1.00 | +0.05 | – | +0.00 |
+| 15 | Mordekaiser | −0.77 | −1.00 | −1.00 | −1.00 | +0.05 | – | +0.00 |
+| 16 | Garen | −0.77 | −1.00 | −1.00 | −1.00 | +0.04 | – | +0.00 |
+| 17 | Renekton | −0.77 | −1.00 | −1.00 | −1.00 | +0.03 | – | +0.00 |
+| 18 | Shen | −0.77 | −1.00 | −1.00 | −1.00 | +0.02 | – | +0.00 |
+| 19 | Urgot | −0.78 | −1.00 | −1.00 | −1.00 | +0.15 | −1.00 | +0.00 |
+| 20 | Tryndamere | −0.78 | −1.00 | −1.00 | −1.00 | +0.00 | – | +0.00 |
+| 21 | Olaf | −0.78 | −1.00 | −1.00 | −1.00 | −0.02 | – | +0.00 |
+| 22 | Dr. Mundo | −0.78 | −1.00 | −1.00 | −1.00 | −0.04 | – | +0.00 |
+| 23 | Jax | −0.78 | −1.00 | −1.00 | −1.00 | −0.04 | – | +0.00 |
+| 24 | Gwen | −0.79 | −1.00 | −1.00 | −1.00 | −0.06 | – | +0.00 |
+
+## Interaction ledger (partial confidence)
+
 Every champion ranked by what its kit does against Darius's, from the interaction ledger: projectile blocks, spell shields,
 parries, dash stops, crowd control and its defenses, range and more (PLAN.md §5). This ranking is **partial**: it weighs the
 interactions but doesn't play the fight out. The duel simulator replaces it as each champion's behavior is verified.
@@ -8,68 +41,68 @@ interactions but doesn't play the fight out. The duel simulator replaces it as e
 A hard counter shuts down part of a kit every time it is used (projectile block, attack dodge, attack block, blind, disarm, attack speed slow, attack reflect, dash stop, grounding, range) with an impact of 0.4 or more (0.5 for range).
 Run `npm run matchup -- <champion> Darius` for the full ledger of a matchup, with sources.
 
-## Top 10
+### Top 10
 
-### 1. Sivir (net +1.74)
+#### 1. Sivir (net +1.74)
 
 - **0.81** range: Sivir's basic attacks reach 325 units farther than Darius's (500 vs 175 attack range). Darius has no dash or blink to close the gap. (Sivir basic attacks → Darius basic attacks)
 - **0.65** spell shield: Spell Shield's spell shield blocks Darius's Apprehend. Spell shield for 1.5 s, long enough to use ahead of Apprehend. A spell shield blocks only the first enemy ability that reaches it. (Sivir E Spell Shield → Darius E Apprehend)
 - **0.55** spell shield: Spell Shield's spell shield blocks Darius's Noxian Guillotine. Spell shield for 1.5 s, long enough to use ahead of Noxian Guillotine. A spell shield blocks only the first enemy ability that reaches it. (Sivir E Spell Shield → Darius R Noxian Guillotine)
 
-### 2. Elise (net +1.54)
+#### 2. Elise (net +1.54)
 
 - **0.65** untargetable: Rappel makes Elise untargetable, dodging Darius's Apprehend. Untargetable for 0.6 s; Apprehend takes 0.25 s to land, enough to react. (Elise E Rappel → Darius E Apprehend)
 - **0.61** range: Elise's basic attacks reach 375 units farther than Darius's (550 vs 175 attack range). Darius has no dash or blink to close the gap. (Elise basic attacks → Darius basic attacks)
 - **0.55** untargetable: Rappel makes Elise untargetable, dodging Darius's Noxian Guillotine. Untargetable for 0.6 s; Noxian Guillotine takes 0.37 s to land, enough to react. (Elise E Rappel → Darius R Noxian Guillotine)
 
-### 3. Bard (net +1.35)
+#### 3. Bard (net +1.35)
 
 - **0.62** range: Bard's basic attacks reach 325 units farther than Darius's (500 vs 175 attack range). Darius has no dash or blink to close the gap. (Bard basic attacks → Darius basic attacks)
 - **0.55** untargetable: Tempered Fate makes Bard untargetable, dodging Darius's Noxian Guillotine. Untargetable for 2.5 s, long enough to use ahead of Noxian Guillotine. (Bard R Tempered Fate → Darius R Noxian Guillotine)
 - **0.36** untargetable: Tempered Fate makes Bard untargetable, dodging Darius's Apprehend. Untargetable for 2.5 s, long enough to use ahead of Apprehend. (Bard R Tempered Fate → Darius E Apprehend)
 
-### 4. Xayah (net +1.33)
+#### 4. Xayah (net +1.33)
 
 - **0.67** range: Xayah's basic attacks reach 350 units farther than Darius's (525 vs 175 attack range). Darius has no dash or blink to close the gap. (Xayah basic attacks → Darius basic attacks)
 - **0.48** untargetable: Featherstorm makes Xayah untargetable, dodging Darius's Noxian Guillotine. Untargetable for 1.5 s, long enough to use ahead of Noxian Guillotine. (Xayah R Featherstorm → Darius R Noxian Guillotine)
 - **0.35** untargetable: Featherstorm makes Xayah untargetable, dodging Darius's Apprehend. Untargetable for 1.5 s, long enough to use ahead of Apprehend. (Xayah R Featherstorm → Darius E Apprehend)
 
-### 5. Kayle (net +1.27)
+#### 5. Kayle (net +1.27)
 
 - **0.72** range: Kayle's basic attacks reach 450 units farther than Darius's (625 vs 175 attack range). Darius has no dash or blink to close the gap. (Kayle basic attacks → Darius basic attacks)
 - **0.55** invulnerable: Divine Judgment makes Kayle invulnerable to Darius's Noxian Guillotine. Invulnerable for 2.5 s, long enough to use ahead of Noxian Guillotine. (Kayle R Divine Judgment → Darius R Noxian Guillotine)
 
-### 6. Kindred (net +1.25)
+#### 6. Kindred (net +1.25)
 
 - **0.81** range: Kindred's basic attacks reach 325 units farther than Darius's (500 vs 175 attack range). Darius has no dash or blink to close the gap. (Kindred basic attacks → Darius basic attacks)
 - **0.44** invulnerable: Lamb's Respite makes Kindred invulnerable to Darius's Noxian Guillotine. Invulnerable for ?; Noxian Guillotine takes 0.37 s to land, enough to react. (Kindred R Lamb's Respite → Darius R Noxian Guillotine)
 
-### 7. Aurora (net +1.21)
+#### 7. Aurora (net +1.21)
 
 - **0.54** range: Aurora's basic attacks reach 375 units farther than Darius's (550 vs 175 attack range). Darius has no dash or blink to close the gap. (Aurora basic attacks → Darius basic attacks)
 - **0.48** untargetable: Between Worlds makes Aurora untargetable, dodging Darius's Noxian Guillotine. Untargetable for 0.4 s; Noxian Guillotine takes 0.37 s to land, enough to react. Does not destroy inbound projectiles. (Aurora R Between Worlds → Darius R Noxian Guillotine)
 - **0.35** untargetable: Between Worlds makes Aurora untargetable, dodging Darius's Apprehend. Untargetable for 0.4 s; Apprehend takes 0.25 s to land, enough to react. Does not destroy inbound projectiles. (Aurora R Between Worlds → Darius E Apprehend)
 
-### 8. Teemo (net +1.21)
+#### 8. Teemo (net +1.21)
 
 - **0.59** range: Teemo's basic attacks reach 325 units farther than Darius's (500 vs 175 attack range). Darius has no dash or blink to close the gap. (Teemo basic attacks → Darius basic attacks)
 - **0.47** blind: Blinding Dart's blind makes Darius's basic attacks miss for 3 s. Blind for 3 s on a 7 s cooldown. (Teemo Q Blinding Dart → Darius basic attacks)
 - **0.30** blind: Blinding Dart's blind makes Darius's Crippling Strike, an empowered attack, miss. Blind for 3 s. (Teemo Q Blinding Dart → Darius W Crippling Strike)
 
-### 9. Vladimir (net +1.20)
+#### 9. Vladimir (net +1.20)
 
 - **0.70** untargetable: Sanguine Pool makes Vladimir untargetable, dodging Darius's Apprehend. Untargetable for 2 s, long enough to use ahead of Apprehend. (Vladimir W Sanguine Pool → Darius E Apprehend)
 - **0.55** untargetable: Sanguine Pool makes Vladimir untargetable, dodging Darius's Noxian Guillotine. Untargetable for 2 s, long enough to use ahead of Noxian Guillotine. (Vladimir W Sanguine Pool → Darius R Noxian Guillotine)
 - **0.30** range: Vladimir's basic attacks reach 275 units farther than Darius's (450 vs 175 attack range). Darius has no dash or blink to close the gap. (Vladimir basic attacks → Darius basic attacks)
 - Watch out: Apprehend's airborne interrupts Vladimir's Tides of Blood (charge-up).
 
-### 10. Lissandra (net +1.14)
+#### 10. Lissandra (net +1.14)
 
 - **0.55** untargetable: Frozen Tomb makes Lissandra untargetable, dodging Darius's Noxian Guillotine. Untargetable for 2.5 s, long enough to use ahead of Noxian Guillotine. (Lissandra R Frozen Tomb → Darius R Noxian Guillotine)
 - **0.41** range: Lissandra's basic attacks reach 375 units farther than Darius's (550 vs 175 attack range). Darius has no dash or blink to close the gap. (Lissandra basic attacks → Darius basic attacks)
 - **0.36** untargetable: Frozen Tomb makes Lissandra untargetable, dodging Darius's Apprehend. Untargetable for 2.5 s, long enough to use ahead of Apprehend. (Lissandra R Frozen Tomb → Darius E Apprehend)
 
-## Full ranking
+### Full ranking
 
 | # | Champion | Net | For | Against | Hard counters |
 |--:|---|--:|--:|--:|---|

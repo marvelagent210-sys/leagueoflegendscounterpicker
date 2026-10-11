@@ -15,21 +15,22 @@
  * logarithms make each step weigh offense and defense by how much it adds relative to what
  * the champion already has.
  *
- * Each side's damage mix and resistances depend on what the other buys, so the allocation
- * runs twice: first against the enemy's bare stats, then against its first allocation.
+ * Each side's damage mix and resistances depend on what the other buys, so the sides answer
+ * each other's builds over several rounds (see allocateBoth). Penetration is capped near what
+ * items give (PENETRATION_CAPS).
  */
 import { effectiveResist, resistMultiplier } from "./rules/damage";
 import { averageCritFactor } from "./rules/defense";
 import { cooldownAfterHaste } from "./rules/timing";
-import { derive, evaluate } from "./sim/derived";
-import type { AbilitySpec, BonusStats, Effect, FighterSpec } from "./sim/spec";
+import { boughtPenetration, derive, evaluate } from "./sim/derived";
+import { type AbilitySpec, type BonusStats, type DamageByType, type Effect, type FighterSpec, type Formula, cooldownKeyOf } from "./sim/spec";
 import { type Unit, newUnit } from "./sim/state";
 
 /** Stats the budget can buy, by their gold value keys. */
-export const BUDGET_STATS = ["ad", "ap", "as", "crit", "ah", "lethality", "mpenflat", "hp", "armor", "mr"] as const;
+export const BUDGET_STATS = ["ad", "ap", "as", "crit", "ah", "lethality", "armpen", "mpenflat", "mpen", "hp", "armor", "mr"] as const;
 export type BudgetStat = (typeof BUDGET_STATS)[number];
 
-/** Gold per point of each stat (per 1% for attack speed and critical strike chance). */
+/** Gold per point of each stat (per 1% for attack speed, critical strike chance and percentage penetration). */
 export type StatPrices = Record<BudgetStat, number>;
 
 /**
@@ -41,6 +42,27 @@ export const DEFAULT_BUDGET = 15000;
 /** Gold spent per step of the allocation. */
 export const BUDGET_STEP = 50;
 
+/**
+ * The most penetration the budget buys (PLAN.md section 10). At gold value, penetration costs
+ * less than the armor it cancels: uncapped, both sides bought up to 138 lethality, more than
+ * any item build reaches, and armor stopped mattering. The caps are about what a full build
+ * gets from items: Lord Dominik's Regards' 35% armor penetration (the most items give, wiki:
+ * "Armor penetration"), Void Staff's 40% magic penetration, Spellslinger's Shoes' 20 flat
+ * magic penetration (wiki: "Magic penetration"), and two to three lethality items.
+ */
+export const PENETRATION_CAPS = { lethality: 40, armorPen: 0.35, magicPen: 20, magicPenPercent: 0.4 } as const;
+
+function overCaps(bonus: BonusStats): boolean {
+  const c = PENETRATION_CAPS;
+  const over = (value: number, cap: number) => value > cap + 1e-9;
+  return (
+    over(bonus.lethality ?? 0, c.lethality) ||
+    over(boughtPenetration(bonus.armorPenPoints ?? 0), c.armorPen) ||
+    over(bonus.magicPen ?? 0, c.magicPen) ||
+    over(boughtPenetration(bonus.magicPenPoints ?? 0), c.magicPenPercent)
+  );
+}
+
 /** Seconds of fighting over which ability shields and heals count toward effective health. */
 export const SUSTAIN_WINDOW = 10;
 
@@ -51,10 +73,35 @@ export interface Allocation {
   spent: Record<BudgetStat, number>;
 }
 
-type DamageMix = { physical: number; magic: number; true: number };
+type DamageMix = DamageByType;
 
 function withBonus(spec: FighterSpec, bonus: BonusStats): FighterSpec {
   return { ...spec, bonus };
+}
+
+/** Bought stats as the fight will see them: kits that multiply some (Living Forge) say so. */
+function valued(spec: FighterSpec, bonus: BonusStats): FighterSpec {
+  const m = spec.budget?.statMultipliers;
+  if (!m) return withBonus(spec, bonus);
+  const times = (value: number | undefined, factor: number | undefined) => (value === undefined ? undefined : value * (factor ?? 1));
+  const scaled: BonusStats = { ...bonus };
+  const set = (key: keyof BonusStats, factor: number | undefined) => {
+    const v = times(bonus[key], factor);
+    if (v !== undefined) scaled[key] = v;
+  };
+  set("ad", m.ad);
+  set("ap", m.ap);
+  set("attackSpeed", m.as);
+  set("critChance", m.crit);
+  set("abilityHaste", m.ah);
+  set("lethality", m.lethality);
+  set("armorPenPoints", m.armpen);
+  set("magicPen", m.mpenflat);
+  set("magicPenPoints", m.mpen);
+  set("hp", m.hp);
+  set("armor", m.armor);
+  set("mr", m.mr);
+  return withBonus(spec, scaled);
 }
 
 function addStat(bonus: BonusStats, stat: BudgetStat, points: number): BonusStats {
@@ -81,6 +128,12 @@ function addStat(bonus: BonusStats, stat: BudgetStat, points: number): BonusStat
     case "mpenflat":
       next.magicPen = (next.magicPen ?? 0) + points;
       break;
+    case "armpen":
+      next.armorPenPoints = (next.armorPenPoints ?? 0) + points;
+      break;
+    case "mpen":
+      next.magicPenPoints = (next.magicPenPoints ?? 0) + points;
+      break;
     case "hp":
       next.hp = (next.hp ?? 0) + points;
       break;
@@ -102,9 +155,26 @@ function unitOf(spec: FighterSpec, side: 0 | 1): Unit {
   return newUnit(spec, side, 0, spec.base.hp + (spec.bonus?.hp ?? 0), spec.base.resource);
 }
 
-/** Raw damage per use of an ability, by type, plus what it adds to empowered attacks. */
-function abilityDamage(ability: AbilitySpec, caster: Unit, target: Unit): DamageMix {
-  const mix: DamageMix = { physical: 0, magic: 0, true: 0 };
+/** One damage term of an ability's use: a formula dealt `times` times. */
+interface DamageTerm {
+  damageType: keyof DamageMix;
+  amount: Formula;
+  times: number;
+}
+
+/** One use per cooldown: an ability with its recasts. */
+interface Use {
+  cooldown: number;
+  castTime: number;
+  terms: DamageTerm[];
+}
+
+const termCache = new WeakMap<AbilitySpec, DamageTerm[]>();
+
+/** An ability's damage per use: its hits, channel pulses and empowered attacks (worked out once). */
+function damageTerms(ability: AbilitySpec): DamageTerm[] {
+  const cached = termCache.get(ability);
+  if (cached) return cached;
   const pulses = ability.channel?.interval ? Math.max(1, Math.round(ability.channel.duration / ability.channel.interval)) : 0;
   const groups: Array<[Effect[], number]> = [
     [ability.onHit ?? [], 1],
@@ -112,29 +182,87 @@ function abilityDamage(ability: AbilitySpec, caster: Unit, target: Unit): Damage
     [ability.channel?.onComplete ?? [], 1],
   ];
   for (const e of ability.onSelf ?? []) if (e.type === "empower") groups.push([e.onHit, e.attacks]);
+  const terms: DamageTerm[] = [];
   for (const [effects, times] of groups) {
     for (const e of flatten(effects)) {
-      if (e.type === "damage") mix[e.damageType] += times * evaluate(e.amount, caster, target);
-      else if (e.type === "dot") mix[e.damageType] += times * evaluate(e.total, caster, target);
+      if (e.type === "damage") terms.push({ damageType: e.damageType, amount: e.amount, times });
+      else if (e.type === "dot") terms.push({ damageType: e.damageType, amount: e.total, times });
     }
   }
-  return mix;
+  termCache.set(ability, terms);
+  return terms;
 }
 
-/** Damage per second by type before the target's resistances: attacks with on-hit effects, and abilities once per cooldown. */
+const useCache = new WeakMap<AbilitySpec[], Use[][]>();
+
+/**
+ * A kit's uses, grouped by the cooldown they spend: recasts add to their first stage's use,
+ * and versions of a spell that share a cooldown are alternatives (worked out once).
+ */
+function usesOf(abilities: AbilitySpec[]): Use[][] {
+  const cached = useCache.get(abilities);
+  if (cached) return cached;
+  const byCooldown = new Map<string, Use[]>();
+  for (const ability of abilities) {
+    if (ability.chain) continue;
+    const stages = abilities.filter((stage) => stage.chain?.root === ability.key);
+    const use: Use = { cooldown: ability.cooldown, castTime: ability.castTime, terms: [...damageTerms(ability), ...stages.flatMap(damageTerms)] };
+    const key = cooldownKeyOf(ability);
+    byCooldown.set(key, [...(byCooldown.get(key) ?? []), use]);
+  }
+  const uses = [...byCooldown.values()];
+  useCache.set(abilities, uses);
+  return uses;
+}
+
+const onHitCache = new WeakMap<Effect[], DamageTerm[]>();
+
+function onHitTerms(effects: Effect[]): DamageTerm[] {
+  const cached = onHitCache.get(effects);
+  if (cached) return cached;
+  const terms: DamageTerm[] = [];
+  for (const e of flatten(effects)) if (e.type === "damage") terms.push({ damageType: e.damageType, amount: e.amount, times: 1 });
+  onHitCache.set(effects, terms);
+  return terms;
+}
+
+/**
+ * Damage per second by type before the target's resistances: attacks with on-hit effects,
+ * abilities once per cooldown, and what the kit says its hooks add.
+ */
 function rawDamage(self: Unit, target: Unit): DamageMix {
   const d = derive(self);
-  const raw: DamageMix = { physical: d.ad * averageCritFactor(d.critChance, d.critDamage) * d.attackSpeed, magic: 0, true: 0 };
-  for (const e of flatten(self.spec.attack.onHit ?? [])) {
-    if (e.type === "damage") raw[e.damageType] += evaluate(e.amount, self, target) * d.attackSpeed;
+  const hints = self.spec.budget;
+  const attacks = hints?.attacks !== false;
+  const raw: DamageMix = { physical: attacks ? d.ad * averageCritFactor(d.critChance, d.critDamage) * d.attackSpeed : 0, magic: 0, true: 0 };
+  if (attacks && self.spec.attack.onHit) {
+    for (const term of onHitTerms(self.spec.attack.onHit)) raw[term.damageType] += evaluate(term.amount, self, target) * d.attackSpeed;
   }
-  for (const ability of self.spec.abilities) {
-    const cooldown = cooldownAfterHaste(ability.cooldown, d.abilityHaste) + ability.castTime;
-    if (cooldown <= 0) continue;
-    const mix = abilityDamage(ability, self, target);
-    raw.physical += mix.physical / cooldown;
-    raw.magic += mix.magic / cooldown;
-    raw.true += mix.true / cooldown;
+  const extra = hints?.damage?.(self, target);
+  raw.physical += extra?.physical ?? 0;
+  raw.magic += extra?.magic ?? 0;
+  raw.true += extra?.true ?? 0;
+  // Of versions sharing a cooldown, the strongest.
+  for (const alternatives of usesOf(self.spec.abilities)) {
+    let best: DamageMix | undefined;
+    let bestTotal = -1;
+    let bestCooldown = 0;
+    for (const use of alternatives) {
+      const cooldown = cooldownAfterHaste(use.cooldown, d.abilityHaste) + use.castTime;
+      if (cooldown <= 0) continue;
+      const mix: DamageMix = { physical: 0, magic: 0, true: 0 };
+      for (const term of use.terms) mix[term.damageType] += term.times * evaluate(term.amount, self, target);
+      const total = mix.physical + mix.magic + mix.true;
+      if (total > bestTotal) {
+        best = mix;
+        bestTotal = total;
+        bestCooldown = cooldown;
+      }
+    }
+    if (!best) continue;
+    raw.physical += best.physical / bestCooldown;
+    raw.magic += best.magic / bestCooldown;
+    raw.true += best.true / bestCooldown;
   }
   return raw;
 }
@@ -144,8 +272,8 @@ function multipliers(attacker: Unit, target: Unit): { physical: number; magic: n
   const a = derive(attacker);
   const t = derive(target);
   return {
-    physical: resistMultiplier(effectiveResist(t.armor, {}, { flat: a.lethality })),
-    magic: resistMultiplier(effectiveResist(t.mr, {}, { flat: a.magicPen })),
+    physical: resistMultiplier(effectiveResist(t.armor, {}, { flat: a.lethality, percent: a.armorPen })),
+    magic: resistMultiplier(effectiveResist(t.mr, {}, { flat: a.magicPen, percent: a.magicPenPercent })),
   };
 }
 
@@ -158,16 +286,26 @@ export function damagePerSecond(spec: FighterSpec, enemy: FighterSpec): DamageMi
   return { physical: raw.physical * m.physical, magic: raw.magic * m.magic, true: raw.true };
 }
 
+const sustainCache = new WeakMap<AbilitySpec[], Array<{ amount: Formula; cooldown: number; castTime: number }>>();
+
+/** Shields and heals abilities give their caster over the reference fight. */
 function sustain(self: Unit): number {
+  const abilities = self.spec.abilities;
+  let sources = sustainCache.get(abilities);
+  if (!sources) {
+    sources = abilities.flatMap((ability) =>
+      flatten(ability.onSelf ?? [])
+        .filter((e): e is Extract<Effect, { type: "shield" | "heal" }> => e.type === "shield" || e.type === "heal")
+        .map((e) => ({ amount: e.amount, cooldown: ability.cooldown, castTime: ability.castTime })),
+    );
+    sustainCache.set(abilities, sources);
+  }
   const d = derive(self);
   let total = 0;
-  for (const ability of self.spec.abilities) {
-    const cooldown = cooldownAfterHaste(ability.cooldown, d.abilityHaste) + ability.castTime;
-    for (const e of flatten(ability.onSelf ?? [])) {
-      if (e.type !== "shield" && e.type !== "heal") continue;
-      const uses = cooldown > 0 ? Math.max(1, Math.floor(SUSTAIN_WINDOW / cooldown)) : 1;
-      total += uses * evaluate(e.amount, self);
-    }
+  for (const source of sources) {
+    const cooldown = cooldownAfterHaste(source.cooldown, d.abilityHaste) + source.castTime;
+    const uses = cooldown > 0 ? Math.max(1, Math.floor(SUSTAIN_WINDOW / cooldown)) : 1;
+    total += uses * evaluate(source.amount, self);
   }
   return total;
 }
@@ -178,7 +316,8 @@ function health(self: Unit, enemy: Unit): number {
   const shares = total > 0 ? { physical: raw.physical / total, magic: raw.magic / total, true: raw.true / total } : { physical: 0.5, magic: 0.5, true: 0 };
   const m = multipliers(enemy, self);
   const taken = shares.physical * m.physical + shares.magic * m.magic + shares.true;
-  return (derive(self).maxHp + sustain(self)) / taken;
+  const healing = (self.spec.budget?.healing?.(self, enemy) ?? 0) * SUSTAIN_WINDOW;
+  return (derive(self).maxHp + sustain(self) + healing) / taken;
 }
 
 /**
@@ -199,18 +338,20 @@ function value(self: Unit, enemy: Unit): number {
 
 /** Spends `gold` on the stats that help `spec` most against `enemy`. */
 export function allocate(spec: FighterSpec, enemy: FighterSpec, gold: number, prices: StatPrices, step = BUDGET_STEP): Allocation {
-  const foe = unitOf(enemy, 1);
-  const score = (bonus: BonusStats) => value(unitOf(withBonus(spec, bonus), 0), foe);
+  const foe = unitOf(valued(enemy, enemy.bonus ?? {}), 1);
+  const score = (bonus: BonusStats) => value(unitOf(valued(spec, bonus), 0), foe);
   let bonus: BonusStats = {};
   const spent = Object.fromEntries(BUDGET_STATS.map((s) => [s, 0])) as Record<BudgetStat, number>;
   let current = score(bonus);
   // Stats the kit gets nothing from (ability power without AP ratios, ...) are never worth a step.
-  const useful = BUDGET_STATS.filter((stat) => score(addStat(bonus, stat, 1000 / prices[stat])) > current + 1e-12);
+  const per = (stat: BudgetStat) => 1 / prices[stat];
+  const useful = BUDGET_STATS.filter((stat) => score(addStat(bonus, stat, 1000 * per(stat))) > current + 1e-12);
   for (let left = gold; left >= step; left -= step) {
     let best: { stat: BudgetStat; bonus: BonusStats; value: number } | undefined;
     for (const stat of useful) {
       if (stat === "crit" && (bonus.critChance ?? 0) >= 1) continue;
-      const next = addStat(bonus, stat, step / prices[stat]);
+      const next = addStat(bonus, stat, step * per(stat));
+      if (overCaps(next)) continue;
       const v = score(next);
       if (!best || v > best.value + 1e-12) best = { stat, bonus: next, value: v };
     }
@@ -223,14 +364,45 @@ export function allocate(spec: FighterSpec, enemy: FighterSpec, gold: number, pr
   return { gold, bonus, spent };
 }
 
-/** Both sides' allocations: first against bare stats, then against each other's first pass. */
-export function allocateBoth(a: FighterSpec, b: FighterSpec, gold: number, prices: StatPrices): [Allocation, Allocation] {
+/** Rounds in which both sides answer each other's builds (see allocateBoth). */
+export const BUDGET_ROUNDS = 8;
+
+/** The average of several allocations of the same gold: a build that mixes them. */
+function average(list: Allocation[]): Allocation {
+  const bonus: Record<string, number> = {};
+  const spent = Object.fromEntries(BUDGET_STATS.map((s) => [s, 0])) as Record<BudgetStat, number>;
+  for (const allocation of list) {
+    for (const [key, value] of Object.entries(allocation.bonus)) bonus[key] = (bonus[key] ?? 0) + (value ?? 0) / list.length;
+    for (const stat of BUDGET_STATS) spent[stat] += allocation.spent[stat] / list.length;
+  }
+  return { gold: list[0]?.gold ?? 0, bonus: bonus as BonusStats, spent };
+}
+
+/**
+ * Both sides' builds, each answering the other's. Answering only the other's first build
+ * leaves one side unanswered (armor met by penetration that the armor never saw coming), so
+ * in every round both sides answer the average of what the other has built so far
+ * (fictitious play), which settles toward builds that answer each other; the result is the
+ * average of the answers.
+ */
+export function allocateBoth(a: FighterSpec, b: FighterSpec, gold: number, prices: StatPrices, rounds = BUDGET_ROUNDS): [Allocation, Allocation] {
   if (gold <= 0) {
     const none = (): Allocation => ({ gold: 0, bonus: {}, spent: Object.fromEntries(BUDGET_STATS.map((s) => [s, 0])) as Record<BudgetStat, number> });
     return [none(), none()];
   }
-  const first: [Allocation, Allocation] = [allocate(a, b, gold, prices), allocate(b, a, gold, prices)];
-  return [allocate(a, withBonus(b, first[1].bonus), gold, prices), allocate(b, withBonus(a, first[0].bonus), gold, prices)];
+  // Kits can add gold of their own (Ornn's Masterwork upgrade).
+  const goldA = gold + (a.extraGold ?? 0);
+  const goldB = gold + (b.extraGold ?? 0);
+  // Round 0 answers bare stats; every later round answers the average of the other's answers.
+  const builtA: Allocation[] = [allocate(a, b, goldA, prices)];
+  const builtB: Allocation[] = [allocate(b, a, goldB, prices)];
+  for (let round = 1; round < rounds; round++) {
+    const seenA = average(builtA.length > 1 ? builtA.slice(1) : builtA);
+    const seenB = average(builtB.length > 1 ? builtB.slice(1) : builtB);
+    builtA.push(allocate(a, withBonus(b, seenB.bonus), goldA, prices));
+    builtB.push(allocate(b, withBonus(a, seenA.bonus), goldB, prices));
+  }
+  return [average(builtA.length > 1 ? builtA.slice(1) : builtA), average(builtB.length > 1 ? builtB.slice(1) : builtB)];
 }
 
 /** Applies the budget to both fighters. */

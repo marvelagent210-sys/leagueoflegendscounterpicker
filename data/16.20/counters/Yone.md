@@ -1,5 +1,38 @@
 # Counters to Yone (patch 26.20)
 
+## Simulated duels (full confidence)
+
+The duel simulator played each of the 24 other champions with a simulator kit against Yone: both at level 20 with 15,000 gold of plain stats, each side's spent against the other's, through six scenarios (PLAN.md §6). Scores run from −1 (Yone wins every time) to +1 (the champion does). Run `npm run duel -- <champion> Yone --log brawl` to watch a fight.
+
+| # | Champion | Score | You engage | Enemy engages | Brawl | Short trade | Spacing | Escape |
+|--:|---|--:|--:|--:|--:|--:|--:|--:|
+| 1 | Fiora | +0.85 | +1.00 | +1.00 | +1.00 | +0.24 | – | +0.53 |
+| 2 | Poppy | +0.80 | +1.00 | +1.00 | +1.00 | +0.12 | – | +0.00 |
+| 3 | Malphite | +0.80 | +1.00 | +1.00 | +1.00 | +0.12 | – | +0.00 |
+| 4 | Jax | +0.78 | +1.00 | +1.00 | +1.00 | −0.01 | – | +0.00 |
+| 5 | Yasuo | +0.77 | +1.00 | +1.00 | +1.00 | −0.03 | – | +0.00 |
+| 6 | Nasus | +0.77 | +1.00 | +1.00 | +1.00 | −0.06 | – | +0.00 |
+| 7 | Olaf | +0.77 | +1.00 | +1.00 | +1.00 | −0.06 | – | +0.00 |
+| 8 | Tryndamere | +0.76 | +1.00 | +1.00 | +1.00 | −0.10 | – | +0.00 |
+| 9 | Darius | +0.76 | +1.00 | +1.00 | +1.00 | −0.11 | – | +0.00 |
+| 10 | Dr. Mundo | +0.75 | +1.00 | +1.00 | +1.00 | −0.14 | – | +0.00 |
+| 11 | Aatrox | +0.74 | +1.00 | +1.00 | +1.00 | −0.04 | – | −0.49 |
+| 12 | Teemo | +0.64 | +0.08 | +1.00 | +1.00 | +0.49 | +1.00 | +0.00 |
+| 13 | Garen | +0.28 | +1.00 | +0.77 | −1.00 | +0.08 | – | +0.00 |
+| 14 | Renekton | +0.22 | +1.00 | −1.00 | +1.00 | +0.00 | – | +0.00 |
+| 15 | Irelia | −0.29 | −0.11 | −0.11 | −1.00 | −0.01 | – | +0.00 |
+| 16 | Volibear | −0.29 | −1.00 | +0.77 | −1.00 | −0.04 | – | +0.00 |
+| 17 | Camille | −0.34 | −1.00 | −1.00 | +1.00 | −0.03 | – | +0.00 |
+| 18 | Riven | −0.35 | −1.00 | −1.00 | +1.00 | +0.10 | – | −0.52 |
+| 19 | Mordekaiser | −0.42 | −0.47 | −0.45 | −0.73 | −0.02 | – | +0.00 |
+| 20 | Gwen | −0.62 | −1.00 | −1.00 | −0.08 | −0.25 | – | +0.00 |
+| 21 | Sett | −0.76 | −1.00 | −1.00 | −1.00 | +0.09 | – | +0.00 |
+| 22 | Ornn | −0.77 | −1.00 | −1.00 | −1.00 | +0.03 | – | +0.00 |
+| 23 | Shen | −0.78 | −1.00 | −1.00 | −1.00 | +0.01 | – | +0.00 |
+| 24 | Urgot | −0.78 | −1.00 | −1.00 | −1.00 | +0.11 | −1.00 | +0.00 |
+
+## Interaction ledger (partial confidence)
+
 Every champion ranked by what its kit does against Yone's, from the interaction ledger: projectile blocks, spell shields,
 parries, dash stops, crowd control and its defenses, range and more (PLAN.md §5). This ranking is **partial**: it weighs the
 interactions but doesn't play the fight out. The duel simulator replaces it as each champion's behavior is verified.
@@ -8,70 +41,70 @@ interactions but doesn't play the fight out. The duel simulator replaces it as e
 A hard counter shuts down part of a kit every time it is used (projectile block, attack dodge, attack block, blind, disarm, attack speed slow, attack reflect, dash stop, grounding, range) with an impact of 0.4 or more (0.5 for range).
 Run `npm run matchup -- <champion> Yone` for the full ledger of a matchup, with sources.
 
-## Top 10
+### Top 10
 
-### 1. Udyr (net +1.40)
+#### 1. Udyr (net +1.40)
 
 - **1.00** cc immunity: Blazing Stampede makes Udyr immune to Yone's Fate Sealed (airborne, knockdown, stun). Immune for 1.5 s, long enough to use ahead of Fate Sealed. (Udyr E Blazing Stampede → Yone R Fate Sealed)
 - **0.80** cc immunity: Blazing Stampede makes Udyr immune to Yone's Mortal Steel (airborne). Immune for 1.5 s, long enough to use ahead of Mortal Steel. (Udyr E Blazing Stampede → Yone Q Mortal Steel)
 
-### 2. Morgana (net +1.36)
+#### 2. Morgana (net +1.36)
 
 - **1.00** cc immunity: Black Shield makes Morgana immune to Yone's Fate Sealed (airborne, knockdown, stun). Immune for 5 s, long enough to use ahead of Fate Sealed. (Morgana E Black Shield → Yone R Fate Sealed)
 - **0.55** cc immunity: Black Shield makes Morgana immune to Yone's Mortal Steel (airborne). Immune for 5 s, long enough to use ahead of Mortal Steel. (Morgana E Black Shield → Yone Q Mortal Steel)
 - **0.08** range: Morgana's basic attacks reach 275 units farther than Yone's (450 vs 175 attack range). Yone closes the gap with Soul Unbound, Mortal Steel, Fate Sealed. (Morgana basic attacks → Yone basic attacks)
 
-### 3. Lissandra (net +1.32)
+#### 3. Lissandra (net +1.32)
 
 - **1.00** untargetable: Frozen Tomb makes Lissandra untargetable, dodging Yone's Fate Sealed. Untargetable for 2.5 s, long enough to use ahead of Fate Sealed. (Lissandra R Frozen Tomb → Yone R Fate Sealed)
 - **0.43** untargetable: Frozen Tomb makes Lissandra untargetable, dodging Yone's Mortal Steel. Untargetable for 2.5 s, long enough to use ahead of Mortal Steel. (Lissandra R Frozen Tomb → Yone Q Mortal Steel)
 - **0.22** dash stop: Frozen Tomb's knockdown can stop Yone's Mortal Steel mid-dash. Must land during the dash. Fails if the dashing unit is crowd control immune, displacement immune, untargetable or spell shielded. (Lissandra R Frozen Tomb → Yone Q Mortal Steel)
 - Watch out: Soul Unbound is displacement immune, ignoring Lissandra's Frozen Tomb (knockdown) during it.
 
-### 4. Elise (net +1.29)
+#### 4. Elise (net +1.29)
 
 - **1.00** untargetable: Rappel makes Elise untargetable, dodging Yone's Fate Sealed. Untargetable for 0.6 s; Fate Sealed takes 0.75 s to land, enough to react. (Elise E Rappel → Yone R Fate Sealed)
 - **0.53** untargetable: Rappel makes Elise untargetable, dodging Yone's Mortal Steel. Untargetable for 0.6 s; Mortal Steel takes 0.65 s to land, enough to react. (Elise E Rappel → Yone Q Mortal Steel)
 - **0.15** range: Elise's basic attacks reach 375 units farther than Yone's (550 vs 175 attack range). Yone closes the gap with Soul Unbound, Mortal Steel, Fate Sealed. (Elise basic attacks → Yone basic attacks)
 - Watch out: Fate Sealed's knockdown can stop Elise's Venomous Bite mid-dash.
 
-### 5. Fiora (net +1.26)
+#### 5. Fiora (net +1.26)
 
 - **1.10** parry: Riposte parries Yone's Fate Sealed and stuns back. Parry for 0.75 s; Fate Sealed takes 0.75 s to land, enough to react. Negating Fate Sealed's immobilizing effect turns Riposte's slow into a stun (2 s). (Fiora W Riposte → Yone R Fate Sealed)
 - **0.65** parry: Riposte parries Yone's Mortal Steel and stuns back. Parry for 0.75 s; Mortal Steel takes 0.65 s to land, enough to react. Negating Mortal Steel's immobilizing effect turns Riposte's slow into a stun (2 s). (Fiora W Riposte → Yone Q Mortal Steel)
 - **0.06** attack speed slow: Riposte cuts Yone's attack speed by 25% for 2 s. 2 s on a 16 s cooldown. (Fiora W Riposte → Yone basic attacks)
 - Watch out: Fate Sealed's knockdown can stop Fiora's Lunge mid-dash.
 
-### 6. Xayah (net +1.26)
+#### 6. Xayah (net +1.26)
 
 - **0.88** untargetable: Featherstorm makes Xayah untargetable, dodging Yone's Fate Sealed. Untargetable for 1.5 s, long enough to use ahead of Fate Sealed. (Xayah R Featherstorm → Yone R Fate Sealed)
 - **0.42** untargetable: Featherstorm makes Xayah untargetable, dodging Yone's Mortal Steel. Untargetable for 1.5 s, long enough to use ahead of Mortal Steel. (Xayah R Featherstorm → Yone Q Mortal Steel)
 - **0.17** range: Xayah's basic attacks reach 350 units farther than Yone's (525 vs 175 attack range). Yone closes the gap with Soul Unbound, Mortal Steel, Fate Sealed. (Xayah basic attacks → Yone basic attacks)
 
-### 7. Vladimir (net +1.25)
+#### 7. Vladimir (net +1.25)
 
 - **1.00** untargetable: Sanguine Pool makes Vladimir untargetable, dodging Yone's Fate Sealed. Untargetable for 2 s, long enough to use ahead of Fate Sealed. (Vladimir W Sanguine Pool → Yone R Fate Sealed)
 - **0.55** untargetable: Sanguine Pool makes Vladimir untargetable, dodging Yone's Mortal Steel. Untargetable for 2 s, long enough to use ahead of Mortal Steel. (Vladimir W Sanguine Pool → Yone Q Mortal Steel)
 - **0.08** range: Vladimir's basic attacks reach 275 units farther than Yone's (450 vs 175 attack range). Yone closes the gap with Soul Unbound, Mortal Steel, Fate Sealed. (Vladimir basic attacks → Yone basic attacks)
 - Watch out: Mortal Steel's airborne interrupts Vladimir's Tides of Blood (charge-up).
 
-### 8. Maokai (net +1.25)
+#### 8. Maokai (net +1.25)
 
 - **1.00** untargetable: Twisted Advance makes Maokai untargetable, dodging Yone's Fate Sealed. Untargetable for 1.4 s; Fate Sealed takes 0.75 s to land, enough to react. (Maokai W Twisted Advance → Yone R Fate Sealed)
 - **0.64** untargetable: Twisted Advance makes Maokai untargetable, dodging Yone's Mortal Steel. Untargetable for 1.4 s; Mortal Steel takes 0.65 s to land, enough to react. (Maokai W Twisted Advance → Yone Q Mortal Steel)
 - Watch out: Soul Unbound is displacement immune, ignoring Maokai's Bramble Smash (airborne) during it.
 
-### 9. Olaf (net +1.22)
+#### 9. Olaf (net +1.22)
 
 - **1.00** cc immunity: Ragnarok makes Olaf immune to Yone's Fate Sealed (airborne, knockdown, stun). Immune for 3 s, long enough to use ahead of Fate Sealed. (Olaf R Ragnarok → Yone R Fate Sealed)
 - **0.43** cc immunity: Ragnarok makes Olaf immune to Yone's Mortal Steel (airborne). Immune for 3 s, long enough to use ahead of Mortal Steel. (Olaf R Ragnarok → Yone Q Mortal Steel)
 
-### 10. Shaco (net +1.22)
+#### 10. Shaco (net +1.22)
 
 - **1.00** untargetable: Hallucinate makes Shaco untargetable, dodging Yone's Fate Sealed. Untargetable for 0.5 s; Fate Sealed takes 0.75 s to land, enough to react. (Shaco R Hallucinate → Yone R Fate Sealed)
 - **0.43** untargetable: Hallucinate makes Shaco untargetable, dodging Yone's Mortal Steel. Untargetable for 0.5 s; Mortal Steel takes 0.65 s to land, enough to react. (Shaco R Hallucinate → Yone Q Mortal Steel)
 
-## Full ranking
+### Full ranking
 
 | # | Champion | Net | For | Against | Hard counters |
 |--:|---|--:|--:|--:|---|

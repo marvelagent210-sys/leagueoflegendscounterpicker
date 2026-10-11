@@ -39,6 +39,17 @@ describe("basic attacks", () => {
     expect(ticksOf(outcome.timeline, 0, "attack deals")[0]).toBe(24);
   });
 
+  it("attacks from bonus attack range without cancelling the windup", () => {
+    // 75 bonus range (Blade of the Exile): 200 units edge to edge is in range, so the attack lands on tick 15.
+    const outcome = duel(fighter(), fighter(), {
+      distance: 200,
+      behaviors: [undefined, idle],
+      setup: (world) => world.units[0].statuses.push(lasting("stat", "attackRange", 75)),
+    });
+    expect(ticksOf(outcome.timeline, 0, "attack cancelled")).toEqual([]);
+    expect(ticksOf(outcome.timeline, 0, "attack deals")[0]).toBe(15);
+  });
+
   it("walks into attack range first", () => {
     // 300 - 125 = 175 units to close at 350 + 350 units per second: 7.5 ticks, so the
     // first windup starts on tick 8.

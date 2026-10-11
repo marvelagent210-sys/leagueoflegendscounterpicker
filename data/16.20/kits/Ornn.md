@@ -270,3 +270,79 @@ All 2 level-based formulas in the game files (1 linked to wiki values above):
 |---|---|---|--:|--:|--:|
 | OrnnW | BrittlePercentMaxHPCalc | linear 0.09 → 0.17 over levels 1-18, continues past 18 | 0.09 | 0.17 | 0.179412 |
 | OrnnP | {7325018d} | linear 90 → 10 over levels 1-18, stops at 18 | 90 | 10 | 10 |
+
+## Duel simulator kit (level 20, every ability at max rank)
+
+What the duel simulator fights with (`kits/champions/Ornn.ts`): every number is read from the wiki's ability data above at level 20; what the wiki doesn't say is listed under assumptions. Ratios are fractions of the stat (60% AD is 0.6 × AD).
+
+- Basic attack: range 175, melee.
+- Stat budget: 1000 gold more than the enemy's.
+
+| Key | Ability | Cooldown (s) | Cast time (s) | Cost | Delivery | On the enemy | On itself |
+|---|---|--:|--:|---|---|---|---|
+| Q | Volcanic Rupture | 7 | 0.25 | 45 | skillshot 750 long, 130 wide, at 1800/s | 120 + 110% AD physical damage; slow 40% for 2 s | – |
+| W | Bellows Breath | 10 | 0 | 65 | self; channel 0.75 s, pulses every 0.15 s | each pulse: 3.2% target's maximum health magic damage, at least 56; at the end: 3.2% target's maximum health magic damage, at least 56 | as the cast starts: displacementImmune for 0.75 s |
+| E | Searing Charge | 12 | 0.35 | 55 | dash toward 650 units at 1600/s, hits within 0, through the enemy | 260 + 40% bonus armor + 40% bonus magic resistance physical damage | – |
+| Eshock | Searing Charge (shockwave) | 0 | 0 | – | self | knock up over 1.25 s | – |
+| R | Call of the Forge God | 100 | 0.5 | 100 | circle of 170 radius up to 3000 away, lands after 2.2 s | 225 + 20% AP magic damage; slow 60% for 2 s | – |
+| R2 | Call of the Forge God (headbutt) | 0 | 0 | – | skillshot 2550 long, 340 wide, at 1250/s; recast of R within 2.4 s, after 1.25 s, automatic | 225 + 20% AP magic damage; knock up over 1 s; stun for 1 s | – |
+
+Effects marked by a mark or a role are completed by the kit's hooks (see the kit's source).
+
+### Assumptions
+
+- By level 20 Ornn has made all 5 Masterwork upgrades (+30% bonus armor, magic resistance and health) and his own item's adds 1000 gold of stats.
+- Ornn's attacks on Brittle enemies knock them back 100 units ("a short distance").
+- Searing Charge's shockwave goes off where it meets a wall behind the enemy (with walls nearby) or Volcanic Rupture's pillar; the 0.5-second lockout after it is left out.
+- Volcanic Rupture's pillar doesn't block movement on the line; it only stops Searing Charge.
+- Call of the Forge God's elemental reaches the enemy 2.2 s after the cast, and Ornn always headbutts it back 2.4 s after the cast; his recast dash is left out.
+- Ornn calls the elemental in a fight once the enemy is within 600 units: the headbutt lands even when the first pass is dodged.
+
+### Wiki values read (44)
+
+| Ability | Value | Revision |
+|---|---|---|
+| Living Forge | for a total increase of 30% to each stat after the maximum of 5 upgrades | [4063954](https://wiki.leagueoflegends.com/en-us/Template:Data_Ornn/Living_Forge?oldid=4063954) |
+| Living Forge | increasing the gold value of all upgradeable stats on the item by exactly 1000 | [4063954](https://wiki.leagueoflegends.com/en-us/Template:Data_Ornn/Living_Forge?oldid=4063954) |
+| Living Forge | Ornn's and allies' immobilizing effects or silences against Brittle enemies will consume the debuff to deal bonus magic damage equal to 9 – 17 (based on level)% of the target's maximum health, capped at 200 / 260 / 320 / 380 / 440 / 500 (based on Bellows Breath's rank) against monsters, and cause the crowd control to last 30% longer (if applicable). | [4063954](https://wiki.leagueoflegends.com/en-us/Template:Data_Ornn/Living_Forge?oldid=4063954) |
+| Living Forge | cause the crowd control to last 30% longer | [4063954](https://wiki.leagueoflegends.com/en-us/Template:Data_Ornn/Living_Forge?oldid=4063954) |
+| Living Forge | knock them back a short distance over 0.4 seconds | [4063954](https://wiki.leagueoflegends.com/en-us/Template:Data_Ornn/Living_Forge?oldid=4063954) |
+| Volcanic Rupture | 200 units behind the first enemy champion struck | [3998234](https://wiki.leagueoflegends.com/en-us/Template:Data_Ornn/Volcanic_Rupture?oldid=3998234) |
+| Volcanic Rupture | After a 1.125-second delay, a magma pillar then erupts | [3998234](https://wiki.leagueoflegends.com/en-us/Template:Data_Ornn/Volcanic_Rupture?oldid=3998234) |
+| Volcanic Rupture | linger as impassible terrain for 4 seconds | [3998234](https://wiki.leagueoflegends.com/en-us/Template:Data_Ornn/Volcanic_Rupture?oldid=3998234) |
+| Bellows Breath | marches forward in the target direction over 0.75 seconds | [4011962](https://wiki.leagueoflegends.com/en-us/Template:Data_Ornn/Bellows_Breath?oldid=4011962) |
+| Bellows Breath | dealing magic damage every 0.15 seconds | [4011962](https://wiki.leagueoflegends.com/en-us/Template:Data_Ornn/Bellows_Breath?oldid=4011962) |
+| Bellows Breath | will apply Brittle for 3 seconds | [4011962](https://wiki.leagueoflegends.com/en-us/Template:Data_Ornn/Bellows_Breath?oldid=4011962) |
+| Searing Charge | targetRange (Dash distance): 800 • 650 | [4007982](https://wiki.leagueoflegends.com/en-us/Template:Data_Ornn/Searing_Charge?oldid=4007982) |
+| Searing Charge | effectRadius (Shockwave radius): 360 • 150 | [4007982](https://wiki.leagueoflegends.com/en-us/Template:Data_Ornn/Searing_Charge?oldid=4007982) |
+| Searing Charge | knocks up and stuns nearby enemies for 1.25 seconds | [4007982](https://wiki.leagueoflegends.com/en-us/Template:Data_Ornn/Searing_Charge?oldid=4007982) |
+| Bellows Breath | Magic Damage Per Tick: 2.4 / 2.6 / 2.8 / 3 / 3.2% of target's maximum health | [4011962](https://wiki.leagueoflegends.com/en-us/Template:Data_Ornn/Bellows_Breath?oldid=4011962) |
+| Bellows Breath | Minimum/Minion Damage Per Tick: 16 / 26 / 36 / 46 / 56 | [4011962](https://wiki.leagueoflegends.com/en-us/Template:Data_Ornn/Bellows_Breath?oldid=4011962) |
+| Searing Charge | castTime: 0.35 | [4007982](https://wiki.leagueoflegends.com/en-us/Template:Data_Ornn/Searing_Charge?oldid=4007982) |
+| Bellows Breath | cooldown: 12 / 11.5 / 11 / 10.5 / 10 | [4011962](https://wiki.leagueoflegends.com/en-us/Template:Data_Ornn/Bellows_Breath?oldid=4011962) |
+| Volcanic Rupture | cooldown: 9 / 8.5 / 8 / 7.5 / 7 | [3998234](https://wiki.leagueoflegends.com/en-us/Template:Data_Ornn/Volcanic_Rupture?oldid=3998234) |
+| Volcanic Rupture | cost: 45 | [3998234](https://wiki.leagueoflegends.com/en-us/Template:Data_Ornn/Volcanic_Rupture?oldid=3998234) |
+| Volcanic Rupture | castTime: 0.25 | [3998234](https://wiki.leagueoflegends.com/en-us/Template:Data_Ornn/Volcanic_Rupture?oldid=3998234) |
+| Volcanic Rupture | targetRange: 750 | [3998234](https://wiki.leagueoflegends.com/en-us/Template:Data_Ornn/Volcanic_Rupture?oldid=3998234) |
+| Volcanic Rupture | width: 130 | [3998234](https://wiki.leagueoflegends.com/en-us/Template:Data_Ornn/Volcanic_Rupture?oldid=3998234) |
+| Volcanic Rupture | speed: 1800 | [3998234](https://wiki.leagueoflegends.com/en-us/Template:Data_Ornn/Volcanic_Rupture?oldid=3998234) |
+| Volcanic Rupture | Physical Damage: 20 / 45 / 70 / 95 / 120 (+ 110% AD) | [3998234](https://wiki.leagueoflegends.com/en-us/Template:Data_Ornn/Volcanic_Rupture?oldid=3998234) |
+| Volcanic Rupture | slows them by 40% for 2 seconds | [3998234](https://wiki.leagueoflegends.com/en-us/Template:Data_Ornn/Volcanic_Rupture?oldid=3998234) |
+| Bellows Breath | cost: 45 / 50 / 55 / 60 / 65 | [4011962](https://wiki.leagueoflegends.com/en-us/Template:Data_Ornn/Bellows_Breath?oldid=4011962) |
+| Bellows Breath | targetRange (Flame standard length): 500 • 560 | [4011962](https://wiki.leagueoflegends.com/en-us/Template:Data_Ornn/Bellows_Breath?oldid=4011962) |
+| Searing Charge | cooldown: 14 / 13.5 / 13 / 12.5 / 12 | [4007982](https://wiki.leagueoflegends.com/en-us/Template:Data_Ornn/Searing_Charge?oldid=4007982) |
+| Searing Charge | cost: 35 / 40 / 45 / 50 / 55 | [4007982](https://wiki.leagueoflegends.com/en-us/Template:Data_Ornn/Searing_Charge?oldid=4007982) |
+| Searing Charge | speed: 1600 | [4007982](https://wiki.leagueoflegends.com/en-us/Template:Data_Ornn/Searing_Charge?oldid=4007982) |
+| Searing Charge | Physical Damage: 80 / 125 / 170 / 215 / 260 (+ 40% bonus armor) (+ 40% bonus magic resistance) | [4007982](https://wiki.leagueoflegends.com/en-us/Template:Data_Ornn/Searing_Charge?oldid=4007982) |
+| Call of the Forge God | cooldown: 140 / 120 / 100 | [4007985](https://wiki.leagueoflegends.com/en-us/Template:Data_Ornn/Call_of_the_Forge_God?oldid=4007985) |
+| Call of the Forge God | cost: 100 | [4007985](https://wiki.leagueoflegends.com/en-us/Template:Data_Ornn/Call_of_the_Forge_God?oldid=4007985) |
+| Call of the Forge God | castTime: 0.5 | [4007985](https://wiki.leagueoflegends.com/en-us/Template:Data_Ornn/Call_of_the_Forge_God?oldid=4007985) |
+| Call of the Forge God | effectRadius (first pass): 3000 • 2550 | [4007985](https://wiki.leagueoflegends.com/en-us/Template:Data_Ornn/Call_of_the_Forge_God?oldid=4007985) |
+| Call of the Forge God | width: 340 | [4007985](https://wiki.leagueoflegends.com/en-us/Template:Data_Ornn/Call_of_the_Forge_God?oldid=4007985) |
+| Call of the Forge God | Magic Damage: 125 / 175 / 225 (+ 20% AP) | [4007985](https://wiki.leagueoflegends.com/en-us/Template:Data_Ornn/Call_of_the_Forge_God?oldid=4007985) |
+| Call of the Forge God | Slow: 40 / 50 / 60% | [4007985](https://wiki.leagueoflegends.com/en-us/Template:Data_Ornn/Call_of_the_Forge_God?oldid=4007985) |
+| Call of the Forge God | slows them for 2 seconds | [4007985](https://wiki.leagueoflegends.com/en-us/Template:Data_Ornn/Call_of_the_Forge_God?oldid=4007985) |
+| Call of the Forge God | Call of the Forge God can be recast after 1.25 seconds | [4007985](https://wiki.leagueoflegends.com/en-us/Template:Data_Ornn/Call_of_the_Forge_God?oldid=4007985) |
+| Call of the Forge God | effectRadius (second pass): 3000 • 2550 | [4007985](https://wiki.leagueoflegends.com/en-us/Template:Data_Ornn/Call_of_the_Forge_God?oldid=4007985) |
+| Call of the Forge God | speed: 1600 • 450 • 1250 | [4007985](https://wiki.leagueoflegends.com/en-us/Template:Data_Ornn/Call_of_the_Forge_God?oldid=4007985) |
+| Call of the Forge God | knocks them up and stuns them for 1 second | [4007985](https://wiki.leagueoflegends.com/en-us/Template:Data_Ornn/Call_of_the_Forge_God?oldid=4007985) |

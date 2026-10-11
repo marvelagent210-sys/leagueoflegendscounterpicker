@@ -1,5 +1,38 @@
 # Counters to Sett (patch 26.20)
 
+## Simulated duels (full confidence)
+
+The duel simulator played each of the 24 other champions with a simulator kit against Sett: both at level 20 with 15,000 gold of plain stats, each side's spent against the other's, through six scenarios (PLAN.md §6). Scores run from −1 (Sett wins every time) to +1 (the champion does). Run `npm run duel -- <champion> Sett --log brawl` to watch a fight.
+
+| # | Champion | Score | You engage | Enemy engages | Brawl | Short trade | Spacing | Escape |
+|--:|---|--:|--:|--:|--:|--:|--:|--:|
+| 1 | Fiora | +0.83 | +1.00 | +1.00 | +1.00 | −0.02 | – | +1.00 |
+| 2 | Poppy | +0.79 | +1.00 | +1.00 | +1.00 | +0.07 | – | +0.00 |
+| 3 | Gwen | +0.78 | +1.00 | +1.00 | +1.00 | +0.04 | – | +0.00 |
+| 4 | Olaf | +0.78 | +1.00 | +1.00 | +1.00 | +0.04 | – | +0.00 |
+| 5 | Aatrox | +0.78 | +1.00 | +1.00 | +1.00 | −0.01 | – | +0.00 |
+| 6 | Garen | +0.77 | +1.00 | +1.00 | +1.00 | −0.04 | – | +0.00 |
+| 7 | Tryndamere | +0.77 | +1.00 | +1.00 | +1.00 | −0.04 | – | +0.00 |
+| 8 | Darius | +0.77 | +1.00 | +1.00 | +1.00 | −0.05 | – | +0.00 |
+| 9 | Dr. Mundo | +0.77 | +1.00 | +1.00 | +1.00 | −0.05 | – | +0.00 |
+| 10 | Jax | +0.77 | +1.00 | +1.00 | +1.00 | −0.06 | – | +0.00 |
+| 11 | Yone | +0.76 | +1.00 | +1.00 | +1.00 | −0.09 | – | +0.00 |
+| 12 | Volibear | +0.76 | +1.00 | +1.00 | +1.00 | −0.10 | – | +0.00 |
+| 13 | Nasus | +0.54 | +0.15 | +1.00 | +1.00 | −0.03 | – | +0.00 |
+| 14 | Mordekaiser | +0.40 | +0.36 | +0.61 | +0.61 | −0.02 | – | +0.00 |
+| 15 | Camille | +0.23 | −1.00 | +1.00 | +1.00 | +0.02 | – | +0.00 |
+| 16 | Renekton | +0.22 | −1.00 | +1.00 | +1.00 | +0.01 | – | +0.00 |
+| 17 | Malphite | +0.20 | +0.26 | +0.24 | +0.23 | +0.09 | – | +0.00 |
+| 18 | Shen | −0.00 | −0.01 | −0.03 | +0.04 | −0.00 | – | +0.00 |
+| 19 | Ornn | −0.01 | −0.00 | −0.02 | −0.04 | +0.03 | – | +0.00 |
+| 20 | Urgot | −0.04 | +0.04 | +0.05 | +0.05 | +0.17 | −1.00 | +0.00 |
+| 21 | Teemo | −0.06 | +1.00 | −1.00 | −1.00 | +0.28 | +1.00 | +0.00 |
+| 22 | Irelia | −0.11 | −1.00 | +0.32 | +0.32 | +0.04 | – | +0.00 |
+| 23 | Yasuo | −0.25 | +0.88 | −1.00 | −1.00 | +0.04 | – | +0.00 |
+| 24 | Riven | −0.77 | −1.00 | −1.00 | −1.00 | +0.03 | – | +0.00 |
+
+## Interaction ledger (partial confidence)
+
 Every champion ranked by what its kit does against Sett's, from the interaction ledger: projectile blocks, spell shields,
 parries, dash stops, crowd control and its defenses, range and more (PLAN.md §5). This ranking is **partial**: it weighs the
 interactions but doesn't play the fight out. The duel simulator replaces it as each champion's behavior is verified.
@@ -8,70 +41,70 @@ interactions but doesn't play the fight out. The duel simulator replaces it as e
 A hard counter shuts down part of a kit every time it is used (projectile block, attack dodge, attack block, blind, disarm, attack speed slow, attack reflect, dash stop, grounding, range) with an impact of 0.4 or more (0.5 for range).
 Run `npm run matchup -- <champion> Sett` for the full ledger of a matchup, with sources.
 
-## Top 10
+### Top 10
 
-### 1. Sivir (net +1.73)
+#### 1. Sivir (net +1.73)
 
 - **1.00** spell shield: Spell Shield's spell shield blocks Sett's The Show Stopper. Spell shield for 1.5 s, long enough to use ahead of The Show Stopper. A spell shield blocks only the first enemy ability that reaches it. (Sivir E Spell Shield → Sett R The Show Stopper)
 - **0.51** spell shield: Spell Shield's spell shield blocks Sett's Facebreaker. Spell shield for 1.5 s, long enough to use ahead of Facebreaker. A spell shield blocks only the first enemy ability that reaches it. (Sivir E Spell Shield → Sett E Facebreaker)
 - **0.47** range: Sivir's basic attacks reach 375 units farther than Sett's (500 vs 125 attack range). Sett closes the gap with The Show Stopper. (Sivir basic attacks → Sett basic attacks)
 
-### 2. Morgana (net +1.46)
+#### 2. Morgana (net +1.46)
 
 - **1.00** cc immunity: Black Shield makes Morgana immune to Sett's The Show Stopper (slow, suppression). Immune for 5 s, long enough to use ahead of The Show Stopper. (Morgana E Black Shield → Sett R The Show Stopper)
 - **0.54** cc immunity: Black Shield makes Morgana immune to Sett's Facebreaker (airborne, slow, stun). Immune for 5 s, long enough to use ahead of Facebreaker. (Morgana E Black Shield → Sett E Facebreaker)
 - **0.19** range: Morgana's basic attacks reach 325 units farther than Sett's (450 vs 125 attack range). Sett closes the gap with The Show Stopper. (Morgana basic attacks → Sett basic attacks)
 
-### 3. Bard (net +1.45)
+#### 3. Bard (net +1.45)
 
 - **1.00** untargetable: Tempered Fate makes Bard untargetable, dodging Sett's The Show Stopper. Untargetable for 2.5 s, long enough to use ahead of The Show Stopper. (Bard R Tempered Fate → Sett R The Show Stopper)
 - **0.36** range: Bard's basic attacks reach 375 units farther than Sett's (500 vs 125 attack range). Sett closes the gap with The Show Stopper. (Bard basic attacks → Sett basic attacks)
 - **0.33** untargetable: Tempered Fate makes Bard untargetable, dodging Sett's Facebreaker. Untargetable for 2.5 s, long enough to use ahead of Facebreaker. (Bard R Tempered Fate → Sett E Facebreaker)
 - Watch out: The Show Stopper is displacement immune, ignoring Bard's Tempered Fate (stasis) during it.
 
-### 4. Xayah (net +1.42)
+#### 4. Xayah (net +1.42)
 
 - **0.88** untargetable: Featherstorm makes Xayah untargetable, dodging Sett's The Show Stopper. Untargetable for 1.5 s, long enough to use ahead of The Show Stopper. (Xayah R Featherstorm → Sett R The Show Stopper)
 - **0.38** range: Xayah's basic attacks reach 400 units farther than Sett's (525 vs 125 attack range). Sett closes the gap with The Show Stopper. (Xayah basic attacks → Sett basic attacks)
 - **0.32** untargetable: Featherstorm makes Xayah untargetable, dodging Sett's Facebreaker. Untargetable for 1.5 s, long enough to use ahead of Facebreaker. (Xayah R Featherstorm → Sett E Facebreaker)
 
-### 5. Nocturne (net +1.39)
+#### 5. Nocturne (net +1.39)
 
 - **1.00** spell shield: Shroud of Darkness's spell shield blocks Sett's The Show Stopper. Spell shield for 1.5 s, long enough to use ahead of The Show Stopper. A spell shield blocks only the first enemy ability that reaches it. (Nocturne W Shroud of Darkness → Sett R The Show Stopper)
 - **0.63** spell shield: Shroud of Darkness's spell shield blocks Sett's Facebreaker. Spell shield for 1.5 s, long enough to use ahead of Facebreaker. A spell shield blocks only the first enemy ability that reaches it. (Nocturne W Shroud of Darkness → Sett E Facebreaker)
 - **0.07** cc immunity: Paranoia is displacement immune, ignoring Sett's Facebreaker (airborne) during it. Only during Paranoia. (Nocturne R Paranoia → Sett E Facebreaker)
 
-### 6. Vladimir (net +1.37)
+#### 6. Vladimir (net +1.37)
 
 - **1.00** untargetable: Sanguine Pool makes Vladimir untargetable, dodging Sett's The Show Stopper. Untargetable for 2 s, long enough to use ahead of The Show Stopper. (Vladimir W Sanguine Pool → Sett R The Show Stopper)
 - **0.54** untargetable: Sanguine Pool makes Vladimir untargetable, dodging Sett's Facebreaker. Untargetable for 2 s, long enough to use ahead of Facebreaker. (Vladimir W Sanguine Pool → Sett E Facebreaker)
 - **0.18** range: Vladimir's basic attacks reach 325 units farther than Sett's (450 vs 125 attack range). Sett closes the gap with The Show Stopper. (Vladimir basic attacks → Sett basic attacks)
 - Watch out: Facebreaker's airborne interrupts Vladimir's Tides of Blood (charge-up).
 
-### 7. Udyr (net +1.35)
+#### 7. Udyr (net +1.35)
 
 - **1.00** cc immunity: Blazing Stampede makes Udyr immune to Sett's The Show Stopper (slow, suppression). Immune for 1.5 s, long enough to use ahead of The Show Stopper. (Udyr E Blazing Stampede → Sett R The Show Stopper)
 - **0.70** cc immunity: Blazing Stampede makes Udyr immune to Sett's Facebreaker (airborne, slow, stun). Immune for 1.5 s, long enough to use ahead of Facebreaker. (Udyr E Blazing Stampede → Sett E Facebreaker)
 
-### 8. Lissandra (net +1.34)
+#### 8. Lissandra (net +1.34)
 
 - **1.00** untargetable: Frozen Tomb makes Lissandra untargetable, dodging Sett's The Show Stopper. Untargetable for 2.5 s, long enough to use ahead of The Show Stopper. (Lissandra R Frozen Tomb → Sett R The Show Stopper)
 - **0.33** untargetable: Frozen Tomb makes Lissandra untargetable, dodging Sett's Facebreaker. Untargetable for 2.5 s, long enough to use ahead of Facebreaker. (Lissandra R Frozen Tomb → Sett E Facebreaker)
 - **0.22** range: Lissandra's basic attacks reach 425 units farther than Sett's (550 vs 125 attack range). Sett closes the gap with The Show Stopper. (Lissandra basic attacks → Sett basic attacks)
 - Watch out: The Show Stopper is displacement immune, ignoring Lissandra's Frozen Tomb (knockdown) during it.
 
-### 9. Elise (net +1.18)
+#### 9. Elise (net +1.18)
 
 - **0.60** untargetable: Rappel makes Elise untargetable, dodging Sett's The Show Stopper. Untargetable for 0.6 s; The Show Stopper lands within 0 s, faster than a 0.25 s reaction, so it needs prediction. (Elise E Rappel → Sett R The Show Stopper)
 - **0.51** untargetable: Rappel makes Elise untargetable, dodging Sett's Facebreaker. Untargetable for 0.6 s; Facebreaker takes 0.25 s to land, enough to react. (Elise E Rappel → Sett E Facebreaker)
 - **0.32** range: Elise's basic attacks reach 425 units farther than Sett's (550 vs 125 attack range). Sett closes the gap with The Show Stopper. (Elise basic attacks → Sett basic attacks)
 
-### 10. Olaf (net +1.17)
+#### 10. Olaf (net +1.17)
 
 - **1.00** cc immunity: Ragnarok makes Olaf immune to Sett's The Show Stopper (slow, suppression). Immune for 3 s, long enough to use ahead of The Show Stopper. (Olaf R Ragnarok → Sett R The Show Stopper)
 - **0.33** cc immunity: Ragnarok makes Olaf immune to Sett's Facebreaker (airborne, slow, stun). Immune for 3 s, long enough to use ahead of Facebreaker. (Olaf R Ragnarok → Sett E Facebreaker)
 
-## Full ranking
+### Full ranking
 
 | # | Champion | Net | For | Against | Hard counters |
 |--:|---|--:|--:|--:|---|

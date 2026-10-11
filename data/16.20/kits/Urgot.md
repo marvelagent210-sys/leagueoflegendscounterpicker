@@ -305,3 +305,71 @@ All 4 level-based formulas in the game files (1 linked to wiki values above):
 | UrgotPassive | ADDamage | breakpoints at levels 6, 9, 11, 13, 15 (level 1: 0.4) | 0.4 | 1 | 1 |
 | UrgotPassive | PercentHPRatio | breakpoints at levels 6, 9, 11, 13 (level 1: 0.02) | 0.02 | 0.06 | 0.06 |
 | UrgotPassive | MonsterCap | linear 100 → 360 over levels 1-18, continues past 18 | 100 | 360 | 390.588 |
+
+## Duel simulator kit (level 20, every ability at max rank)
+
+What the duel simulator fights with (`kits/champions/Urgot.ts`): every number is read from the wiki's ability data above at level 20; what the wiki doesn't say is listed under assumptions. Ratios are fractions of the stat (60% AD is 0.6 × AD).
+
+- Basic attack: range 350, missile at 2500/s.
+
+| Key | Ability | Cooldown (s) | Cast time (s) | Cost | Delivery | On the enemy | On itself |
+|---|---|--:|--:|---|---|---|---|
+| Q | Corrosive Charge | 8 | 0.25 | 70 | circle of 210 radius up to 800 away, lands after 0.6 s | 205 + 70% AD physical damage; slow 65% for 1.25 s | – |
+| E | Disdain | 14 | 0.45 | 100 | dash toward 450 units at 1405/s, hits within 50 | 210 + 100% bonus AD physical damage; stun for 1.5 s | as the cast starts: shield of 135 + 135% bonus AD + 13.5% bonus health for 4 s |
+| R | Fear Beyond Death | 70 | 0.5 | 100 | skillshot 2500 long, 160 wide, at 3200/s | 350 + 50% bonus AD physical damage | – |
+| R2 | Fear Beyond Death (Mercy) | 0 | 0 | – | targeted, 5000 range; recast of R within 4 s; channel 1.5 s | suppression for 1.5 s; at the end: executes at 9007199254740991 health or less | – |
+
+Effects marked by a mark or a role are completed by the kit's hooks (see the kit's source).
+
+### Assumptions
+
+- Purge is on for the whole fight (it replaces Urgot's basic attacks); its bolts hit at once rather than as missiles.
+- Urgot keeps 2 legs facing the enemy, so a shotgun can fire every 1.25 s (each leg every 2.5 s at level 20).
+- Disdain's fling over Urgot is left out.
+- Fear Beyond Death's slow is set when the drill hits, from the target's missing health then.
+
+### Wiki values read (41)
+
+| Ability | Value | Revision |
+|---|---|---|
+| Echoing Flames | Urgot's next basic attack on-hit within the arc of a shotgun will cause it to fire in a cone, dealing 40 / 52 / 64 / 76 / 88 / 100 (based on level)% AD (+ 2 / 3 / 4 / 5 / 6 (based on level)% of target's maximum health) physical damage to enemies hit, capped at 100 – 360 (based on level) against monsters. | [4051193](https://wiki.leagueoflegends.com/en-us/Template:Data_Urgot/Echoing_Flames?oldid=4051193) |
+| Echoing Flames | Per-Leg Cooldown: 30 / 20 / 10 / 5 / 2.5 (based on level) | [4051193](https://wiki.leagueoflegends.com/en-us/Template:Data_Urgot/Echoing_Flames?oldid=4051193) |
+| Purge | at maximum rank, Purge lasts indefinitely and becomes a toggled ability | [4058781](https://wiki.leagueoflegends.com/en-us/Template:Data_Urgot/Purge?oldid=4058781) |
+| Purge | firing at the nearest enemy at a fixed 3.0 attack speed | [4058781](https://wiki.leagueoflegends.com/en-us/Template:Data_Urgot/Purge?oldid=4058781) |
+| Purge | effectRadius: 490 | [4058781](https://wiki.leagueoflegends.com/en-us/Template:Data_Urgot/Purge?oldid=4058781) |
+| Purge | Modified Physical Damage: 12 (+ 20 / 23.5 / 27 / 30.5 / 34% AD) | [4058781](https://wiki.leagueoflegends.com/en-us/Template:Data_Urgot/Purge?oldid=4058781) |
+| Purge | gains 40% slow resist | [4058781](https://wiki.leagueoflegends.com/en-us/Template:Data_Urgot/Purge?oldid=4058781) |
+| Purge | his movement speed is reduced by 125 | [4058781](https://wiki.leagueoflegends.com/en-us/Template:Data_Urgot/Purge?oldid=4058781) |
+| Disdain | Disdain prevents Purge from firing for 1.25 seconds | [4008211](https://wiki.leagueoflegends.com/en-us/Template:Data_Urgot/Disdain?oldid=4008211) |
+| Corrosive Charge | Corrosive Charge prevents Purge from firing for 0.05 seconds after the cast time | [3952903](https://wiki.leagueoflegends.com/en-us/Template:Data_Urgot/Corrosive_Charge?oldid=3952903) |
+| Fear Beyond Death | Fear Beyond Death prevents Purge from firing for 0.8 seconds | [4015146](https://wiki.leagueoflegends.com/en-us/Template:Data_Urgot/Fear_Beyond_Death?oldid=4015146) |
+| Fear Beyond Death | The recast prevents Purge from firing for 1.5 seconds | [4015146](https://wiki.leagueoflegends.com/en-us/Template:Data_Urgot/Fear_Beyond_Death?oldid=4015146) |
+| Corrosive Charge | it explodes after 0.3 seconds | [3952903](https://wiki.leagueoflegends.com/en-us/Template:Data_Urgot/Corrosive_Charge?oldid=3952903) |
+| Fear Beyond Death | leashing the target for 4 seconds | [4015146](https://wiki.leagueoflegends.com/en-us/Template:Data_Urgot/Fear_Beyond_Death?oldid=4015146) |
+| Fear Beyond Death | if the leashed target is below 25% of their maximum health | [4015146](https://wiki.leagueoflegends.com/en-us/Template:Data_Urgot/Fear_Beyond_Death?oldid=4015146) |
+| Fear Beyond Death | channels for 1.5 seconds once they latch on | [4015146](https://wiki.leagueoflegends.com/en-us/Template:Data_Urgot/Fear_Beyond_Death?oldid=4015146) |
+| Fear Beyond Death | Active: Urgot fires a chem-drill in the target direction that impales the first enemy champion hit, dealing physical damage and leashing the target for 4 seconds, during which they are revealed and slowed by 0 / 7.5 / 15 / 22.5 / 30 / 37.5 / 45 / 52.5 / 60 / 67.5 / 75 (based on target's missing health)%. | [4015146](https://wiki.leagueoflegends.com/en-us/Template:Data_Urgot/Fear_Beyond_Death?oldid=4015146) |
+| Corrosive Charge | cooldown: 10 / 9.5 / 9 / 8.5 / 8 | [3952903](https://wiki.leagueoflegends.com/en-us/Template:Data_Urgot/Corrosive_Charge?oldid=3952903) |
+| Corrosive Charge | cost: 70 | [3952903](https://wiki.leagueoflegends.com/en-us/Template:Data_Urgot/Corrosive_Charge?oldid=3952903) |
+| Corrosive Charge | castTime: 0.25 | [3952903](https://wiki.leagueoflegends.com/en-us/Template:Data_Urgot/Corrosive_Charge?oldid=3952903) |
+| Corrosive Charge | targetRange: 800 | [3952903](https://wiki.leagueoflegends.com/en-us/Template:Data_Urgot/Corrosive_Charge?oldid=3952903) |
+| Corrosive Charge | effectRadius: 210 | [3952903](https://wiki.leagueoflegends.com/en-us/Template:Data_Urgot/Corrosive_Charge?oldid=3952903) |
+| Corrosive Charge | Physical Damage: 25 / 70 / 115 / 160 / 205 (+ 70% AD) | [3952903](https://wiki.leagueoflegends.com/en-us/Template:Data_Urgot/Corrosive_Charge?oldid=3952903) |
+| Corrosive Charge | Slow: 45 / 50 / 55 / 60 / 65% | [3952903](https://wiki.leagueoflegends.com/en-us/Template:Data_Urgot/Corrosive_Charge?oldid=3952903) |
+| Corrosive Charge | slow them for 1.25 seconds | [3952903](https://wiki.leagueoflegends.com/en-us/Template:Data_Urgot/Corrosive_Charge?oldid=3952903) |
+| Disdain | cooldown: 16 / 15.5 / 15 / 14.5 / 14 | [4008211](https://wiki.leagueoflegends.com/en-us/Template:Data_Urgot/Disdain?oldid=4008211) |
+| Disdain | cost: 60 / 70 / 80 / 90 / 100 | [4008211](https://wiki.leagueoflegends.com/en-us/Template:Data_Urgot/Disdain?oldid=4008211) |
+| Disdain | castTime: 0.45 | [4008211](https://wiki.leagueoflegends.com/en-us/Template:Data_Urgot/Disdain?oldid=4008211) |
+| Disdain | Shield Strength: 55 / 75 / 95 / 115 / 135 (+ 135% bonus AD) (+ 13.5% bonus health) | [4008211](https://wiki.leagueoflegends.com/en-us/Template:Data_Urgot/Disdain?oldid=4008211) |
+| Disdain | Urgot grants himself a shield for 4 seconds | [4008211](https://wiki.leagueoflegends.com/en-us/Template:Data_Urgot/Disdain?oldid=4008211) |
+| Disdain | targetRange (Minimum range): 475 • 450 | [4008211](https://wiki.leagueoflegends.com/en-us/Template:Data_Urgot/Disdain?oldid=4008211) |
+| Disdain | speed: 1200 + 100% movement speed | [4008211](https://wiki.leagueoflegends.com/en-us/Template:Data_Urgot/Disdain?oldid=4008211) |
+| Disdain | Physical Damage: 90 / 120 / 150 / 180 / 210 (+ 100% bonus AD) | [4008211](https://wiki.leagueoflegends.com/en-us/Template:Data_Urgot/Disdain?oldid=4008211) |
+| Disdain | stunning them for 1.5 seconds | [4008211](https://wiki.leagueoflegends.com/en-us/Template:Data_Urgot/Disdain?oldid=4008211) |
+| Fear Beyond Death | cooldown: 100 / 85 / 70 | [4015146](https://wiki.leagueoflegends.com/en-us/Template:Data_Urgot/Fear_Beyond_Death?oldid=4015146) |
+| Fear Beyond Death | cost: 100 | [4015146](https://wiki.leagueoflegends.com/en-us/Template:Data_Urgot/Fear_Beyond_Death?oldid=4015146) |
+| Fear Beyond Death | castTime: 0.5 | [4015146](https://wiki.leagueoflegends.com/en-us/Template:Data_Urgot/Fear_Beyond_Death?oldid=4015146) |
+| Fear Beyond Death | targetRange: 2500 | [4015146](https://wiki.leagueoflegends.com/en-us/Template:Data_Urgot/Fear_Beyond_Death?oldid=4015146) |
+| Fear Beyond Death | width: 160 | [4015146](https://wiki.leagueoflegends.com/en-us/Template:Data_Urgot/Fear_Beyond_Death?oldid=4015146) |
+| Fear Beyond Death | speed: 3200 | [4015146](https://wiki.leagueoflegends.com/en-us/Template:Data_Urgot/Fear_Beyond_Death?oldid=4015146) |
+| Fear Beyond Death | Physical Damage: 100 / 225 / 350 (+ 50% bonus AD) | [4015146](https://wiki.leagueoflegends.com/en-us/Template:Data_Urgot/Fear_Beyond_Death?oldid=4015146) |

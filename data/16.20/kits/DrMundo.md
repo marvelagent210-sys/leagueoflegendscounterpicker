@@ -225,3 +225,65 @@ All 3 level-based formulas in the game files (2 linked to wiki values above):
 | DrMundoP | PassiveCooldown | breakpoints at levels 3, 6, 9, 12, 15, 21 (level 1: 60) | 60 | 15 | 15 |
 | DrMundoP | MaxHealthRegen | breakpoints at levels 7, 13, 16 (level 1: 0.004) | 0.004 | 0.023 | 0.027 |
 | DrMundoW | GrayHealthStorageInitial | linear 0.8 → 0.95 over levels 1-18, continues past 18 | 0.8 | 0.95 | 0.967647 |
+
+## Duel simulator kit (level 20, every ability at max rank)
+
+What the duel simulator fights with (`kits/champions/DrMundo.ts`): every number is read from the wiki's ability data above at level 20; what the wiki doesn't say is listed under assumptions. Ratios are fractions of the stat (60% AD is 0.6 × AD).
+
+- Basic attack: range 125, melee.
+
+| Key | Ability | Cooldown (s) | Cast time (s) | Cost | Delivery | On the enemy | On itself |
+|---|---|--:|--:|---|---|---|---|
+| Q | Infected Bonesaw | 4 | 0.25 | 90 health | skillshot 1050 long, 120 wide, at 2000/s | 30% target's current health magic damage, at least 280; slow 40% for 2 s; to itself: heal 90 | – |
+| W | Heart Zapper | 15 | 0 | 8% current health health | self | – | – |
+| W2 | Heart Zapper (detonation) | 0 | 0 | – | around itself, 325 units; recast of W within 3 s, after 0.5 s, automatic | 80 + 7% bonus health magic damage | – |
+| E | Blunt Force Trauma | 6 | 0 | 70 health | self | – | resets the attack timer |
+| R | Maximum Dosage | 120 | 0 | – | self | – | moveSpeedPercent 0.35 for 10 s |
+
+Effects marked by a mark or a role are completed by the kit's hooks (see the kit's source).
+
+### Assumptions
+
+- Goes Where He Pleases' canister lands past the enemy, who destroys it: Dr. Mundo doesn't pick it up.
+- Heart Zapper pulses every 0.25 s for its 3 s (the wiki's total damage implies a few more pulses) and detonates when it runs out.
+- Maximum Dosage is used once Dr. Mundo is below half health, with one enemy champion nearby.
+
+### Wiki values read (35)
+
+| Ability | Value | Revision |
+|---|---|---|
+| Goes Where He Pleases | Mundo regenerates an additional 0.4 – 2.3 (based on level)% of his maximum health every 5 seconds. | [4038331](https://wiki.leagueoflegends.com/en-us/Template:Data_Dr._Mundo/Goes_Where_He_Pleases?oldid=4038331) |
+| Goes Where He Pleases | staticCooldown: 60 / 51 / 42 / 33 / 24 / 15 (based on level) | [4038331](https://wiki.leagueoflegends.com/en-us/Template:Data_Dr._Mundo/Goes_Where_He_Pleases?oldid=4038331) |
+| Goes Where He Pleases | Dr. Mundo pays a health cost equal to 4% of his current health | [4038331](https://wiki.leagueoflegends.com/en-us/Template:Data_Dr._Mundo/Goes_Where_He_Pleases?oldid=4038331) |
+| Heart Zapper | charges up a defibrillator for up to 3 seconds | [4038332](https://wiki.leagueoflegends.com/en-us/Template:Data_Dr._Mundo/Heart_Zapper?oldid=4038332) |
+| Heart Zapper | dealing magic damage every 0.25 seconds | [4038332](https://wiki.leagueoflegends.com/en-us/Template:Data_Dr._Mundo/Heart_Zapper?oldid=4038332) |
+| Heart Zapper | effectRadius: 325 | [4038332](https://wiki.leagueoflegends.com/en-us/Template:Data_Dr._Mundo/Heart_Zapper?oldid=4038332) |
+| Heart Zapper | Mundo charges up a defibrillator for up to 3 seconds, dealing magic damage every 0.25 seconds to nearby enemies and storing 80 – 95 (based on level)% of post-mitigation damage he takes as grey health on his health bar, reduced to 25% after the first 0.75 seconds. | [4038332](https://wiki.leagueoflegends.com/en-us/Template:Data_Dr._Mundo/Heart_Zapper?oldid=4038332) |
+| Heart Zapper | reduced to 25% after the first 0.75 seconds | [4038332](https://wiki.leagueoflegends.com/en-us/Template:Data_Dr._Mundo/Heart_Zapper?oldid=4038332) |
+| Heart Zapper | Heart Zapper can be recast after 0.5 seconds within the duration | [4038332](https://wiki.leagueoflegends.com/en-us/Template:Data_Dr._Mundo/Heart_Zapper?oldid=4038332) |
+| Heart Zapper | cost: 8% | [4038332](https://wiki.leagueoflegends.com/en-us/Template:Data_Dr._Mundo/Heart_Zapper?oldid=4038332) |
+| Blunt Force Trauma | Mundo empowers his next basic attack within 4 seconds to have an uncancellable windup, gain 50 bonus range, and deal bonus physical damage, increased by 0 / 4 / 8 / 12 / 16 / 20 / 24 / 28 / 32 / 36 / 40 (based on Dr. Mundo's missing health)%. | [4059881](https://wiki.leagueoflegends.com/en-us/Template:Data_Dr._Mundo/Blunt_Force_Trauma?oldid=4059881) |
+| Blunt Force Trauma | Bonus Attack Damage: 2 / 2.3 / 2.6 / 2.9 / 3.2% maximum health | [4059881](https://wiki.leagueoflegends.com/en-us/Template:Data_Dr._Mundo/Blunt_Force_Trauma?oldid=4059881) |
+| Blunt Force Trauma | Minimum Bonus Physical Damage: 5 / 15 / 25 / 35 / 45 (+ 5% bonus health) | [4059881](https://wiki.leagueoflegends.com/en-us/Template:Data_Dr._Mundo/Blunt_Force_Trauma?oldid=4059881) |
+| Blunt Force Trauma | empowers his next basic attack within 4 seconds | [4059881](https://wiki.leagueoflegends.com/en-us/Template:Data_Dr._Mundo/Blunt_Force_Trauma?oldid=4059881) |
+| Blunt Force Trauma | gain 50 bonus range | [4059881](https://wiki.leagueoflegends.com/en-us/Template:Data_Dr._Mundo/Blunt_Force_Trauma?oldid=4059881) |
+| Blunt Force Trauma | cooldown: 9 / 8.25 / 7.5 / 6.75 / 6 | [4059881](https://wiki.leagueoflegends.com/en-us/Template:Data_Dr._Mundo/Blunt_Force_Trauma?oldid=4059881) |
+| Heart Zapper | Magic Damage per Tick: 5 / 8.75 / 12.5 / 16.25 / 20 | [4038332](https://wiki.leagueoflegends.com/en-us/Template:Data_Dr._Mundo/Heart_Zapper?oldid=4038332) |
+| Heart Zapper | Magic Damage: 20 / 35 / 50 / 65 / 80 (+ 7% bonus health) | [4038332](https://wiki.leagueoflegends.com/en-us/Template:Data_Dr._Mundo/Heart_Zapper?oldid=4038332) |
+| Heart Zapper | cooldown: 17 / 16.5 / 16 / 15.5 / 15 | [4038332](https://wiki.leagueoflegends.com/en-us/Template:Data_Dr._Mundo/Heart_Zapper?oldid=4038332) |
+| Maximum Dosage | to become enhanced for 10 seconds | [4037515](https://wiki.leagueoflegends.com/en-us/Template:Data_Dr._Mundo/Maximum_Dosage?oldid=4037515) |
+| Maximum Dosage | are both increased by 5% for each enemy champion within 1200 units | [4037515](https://wiki.leagueoflegends.com/en-us/Template:Data_Dr._Mundo/Maximum_Dosage?oldid=4037515) |
+| Maximum Dosage | Increased Base Health: 15 / 20 / 25% missing health | [4037515](https://wiki.leagueoflegends.com/en-us/Template:Data_Dr._Mundo/Maximum_Dosage?oldid=4037515) |
+| Maximum Dosage | Total Health Regenerated: 20 / 40 / 60% maximum health | [4037515](https://wiki.leagueoflegends.com/en-us/Template:Data_Dr._Mundo/Maximum_Dosage?oldid=4037515) |
+| Infected Bonesaw | cooldown: 4 | [4008441](https://wiki.leagueoflegends.com/en-us/Template:Data_Dr._Mundo/Infected_Bonesaw?oldid=4008441) |
+| Infected Bonesaw | cost: 50 / 60 / 70 / 80 / 90 | [4008441](https://wiki.leagueoflegends.com/en-us/Template:Data_Dr._Mundo/Infected_Bonesaw?oldid=4008441) |
+| Infected Bonesaw | castTime: 0.25 | [4008441](https://wiki.leagueoflegends.com/en-us/Template:Data_Dr._Mundo/Infected_Bonesaw?oldid=4008441) |
+| Infected Bonesaw | targetRange: 1050 • 990 | [4008441](https://wiki.leagueoflegends.com/en-us/Template:Data_Dr._Mundo/Infected_Bonesaw?oldid=4008441) |
+| Infected Bonesaw | width: 120 | [4008441](https://wiki.leagueoflegends.com/en-us/Template:Data_Dr._Mundo/Infected_Bonesaw?oldid=4008441) |
+| Infected Bonesaw | speed: 2000 | [4008441](https://wiki.leagueoflegends.com/en-us/Template:Data_Dr._Mundo/Infected_Bonesaw?oldid=4008441) |
+| Infected Bonesaw | Magic Damage: 20 / 22.5 / 25 / 27.5 / 30% of target's current health | [4008441](https://wiki.leagueoflegends.com/en-us/Template:Data_Dr._Mundo/Infected_Bonesaw?oldid=4008441) |
+| Infected Bonesaw | Minimum Damage: 80 / 130 / 180 / 230 / 280 | [4008441](https://wiki.leagueoflegends.com/en-us/Template:Data_Dr._Mundo/Infected_Bonesaw?oldid=4008441) |
+| Infected Bonesaw | slows them by 40% for 2 seconds | [4008441](https://wiki.leagueoflegends.com/en-us/Template:Data_Dr._Mundo/Infected_Bonesaw?oldid=4008441) |
+| Blunt Force Trauma | cost: 10 / 25 / 40 / 55 / 70 | [4059881](https://wiki.leagueoflegends.com/en-us/Template:Data_Dr._Mundo/Blunt_Force_Trauma?oldid=4059881) |
+| Maximum Dosage | cooldown: 120 | [4037515](https://wiki.leagueoflegends.com/en-us/Template:Data_Dr._Mundo/Maximum_Dosage?oldid=4037515) |
+| Maximum Dosage | Bonus Movement Speed: 15 / 25 / 35% | [4037515](https://wiki.leagueoflegends.com/en-us/Template:Data_Dr._Mundo/Maximum_Dosage?oldid=4037515) |

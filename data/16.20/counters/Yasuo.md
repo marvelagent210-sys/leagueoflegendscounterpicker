@@ -1,5 +1,38 @@
 # Counters to Yasuo (patch 26.20)
 
+## Simulated duels (full confidence)
+
+The duel simulator played each of the 24 other champions with a simulator kit against Yasuo: both at level 20 with 15,000 gold of plain stats, each side's spent against the other's, through six scenarios (PLAN.md §6). Scores run from −1 (Yasuo wins every time) to +1 (the champion does). Run `npm run duel -- <champion> Yasuo --log brawl` to watch a fight.
+
+| # | Champion | Score | You engage | Enemy engages | Brawl | Short trade | Spacing | Escape |
+|--:|---|--:|--:|--:|--:|--:|--:|--:|
+| 1 | Teemo | +0.83 | +1.00 | +1.00 | +1.00 | +0.21 | +1.00 | +0.00 |
+| 2 | Poppy | +0.80 | +1.00 | +1.00 | +1.00 | +0.13 | – | +0.00 |
+| 3 | Fiora | +0.80 | +1.00 | +1.00 | +1.00 | +0.11 | – | +0.00 |
+| 4 | Camille | +0.79 | +1.00 | +1.00 | +1.00 | +0.05 | – | +0.00 |
+| 5 | Nasus | +0.78 | +1.00 | +1.00 | +1.00 | +0.02 | – | +0.00 |
+| 6 | Malphite | +0.78 | +1.00 | +1.00 | +1.00 | +0.02 | – | +0.00 |
+| 7 | Jax | +0.78 | +1.00 | +1.00 | +1.00 | −0.01 | – | +0.00 |
+| 8 | Mordekaiser | +0.77 | +1.00 | +1.00 | +1.00 | −0.04 | – | +0.00 |
+| 9 | Renekton | +0.77 | +1.00 | +1.00 | +1.00 | −0.05 | – | +0.00 |
+| 10 | Darius | +0.76 | +1.00 | +1.00 | +1.00 | −0.08 | – | +0.00 |
+| 11 | Aatrox | +0.76 | +1.00 | +1.00 | +1.00 | −0.09 | – | +0.00 |
+| 12 | Tryndamere | +0.76 | +1.00 | +1.00 | +1.00 | −0.11 | – | +0.00 |
+| 13 | Dr. Mundo | +0.76 | +1.00 | +1.00 | +1.00 | −0.13 | – | +0.00 |
+| 14 | Volibear | +0.76 | +1.00 | +1.00 | +1.00 | −0.13 | – | +0.00 |
+| 15 | Olaf | +0.75 | +1.00 | +1.00 | +1.00 | −0.17 | – | +0.00 |
+| 16 | Garen | +0.58 | +1.00 | +1.00 | +0.02 | +0.10 | – | +0.00 |
+| 17 | Shen | +0.56 | +1.00 | +1.00 | +0.00 | +0.03 | – | +0.00 |
+| 18 | Urgot | +0.55 | +0.91 | +0.91 | +0.91 | +0.09 | −1.00 | +0.00 |
+| 19 | Riven | +0.27 | +0.00 | +1.00 | +0.00 | −0.03 | – | +0.00 |
+| 20 | Sett | +0.25 | +1.00 | −0.88 | +1.00 | −0.04 | – | +0.00 |
+| 21 | Ornn | −0.21 | −0.02 | −0.02 | −1.00 | +0.14 | – | +0.00 |
+| 22 | Yone | −0.77 | −1.00 | −1.00 | −1.00 | +0.03 | – | +0.00 |
+| 23 | Irelia | −0.79 | −1.00 | −1.00 | −1.00 | −0.06 | – | +0.00 |
+| 24 | Gwen | −0.81 | −1.00 | −1.00 | −1.00 | −0.17 | – | +0.00 |
+
+## Interaction ledger (partial confidence)
+
 Every champion ranked by what its kit does against Yasuo's, from the interaction ledger: projectile blocks, spell shields,
 parries, dash stops, crowd control and its defenses, range and more (PLAN.md §5). This ranking is **partial**: it weighs the
 interactions but doesn't play the fight out. The duel simulator replaces it as each champion's behavior is verified.
@@ -8,22 +41,22 @@ interactions but doesn't play the fight out. The duel simulator replaces it as e
 A hard counter shuts down part of a kit every time it is used (projectile block, attack dodge, attack block, blind, disarm, attack speed slow, attack reflect, dash stop, grounding, range) with an impact of 0.4 or more (0.5 for range).
 Run `npm run matchup -- <champion> Yasuo` for the full ledger of a matchup, with sources.
 
-## Top 10
+### Top 10
 
-### 1. Udyr (net +1.04)
+#### 1. Udyr (net +1.04)
 
 - **1.00** cc immunity: Blazing Stampede makes Udyr immune to Yasuo's Last Breath (airborne). Immune for 1.5 s, long enough to use ahead of Last Breath. (Udyr E Blazing Stampede → Yasuo R Last Breath)
 - **0.64** cc immunity: Blazing Stampede makes Udyr immune to Yasuo's Steel Tempest (airborne). Immune for 1.5 s, long enough to use ahead of Steel Tempest. (Udyr E Blazing Stampede → Yasuo Q Steel Tempest)
 - Watch out: Wind Wall blocks Udyr's Wilding Claw, a projectile.
 
-### 2. Vladimir (net +0.92)
+#### 2. Vladimir (net +0.92)
 
 - **1.00** untargetable: Sanguine Pool makes Vladimir untargetable, dodging Yasuo's Last Breath. Untargetable for 2 s, long enough to use ahead of Last Breath. (Vladimir W Sanguine Pool → Yasuo R Last Breath)
 - **0.44** untargetable: Sanguine Pool makes Vladimir untargetable, dodging Yasuo's Steel Tempest. Untargetable for 2 s, long enough to use ahead of Steel Tempest. (Vladimir W Sanguine Pool → Yasuo Q Steel Tempest)
 - **0.36** untargetable: Sanguine Pool makes Vladimir untargetable, dodging Yasuo's Sweeping Blade. Untargetable for 2 s, long enough to use ahead of Sweeping Blade. (Vladimir W Sanguine Pool → Yasuo E Sweeping Blade)
 - Watch out: Wind Wall blocks Vladimir's Tides of Blood, a projectile.
 
-### 3. Nocturne (net +0.80)
+#### 3. Nocturne (net +0.80)
 
 - **0.50** spell shield: Shroud of Darkness's spell shield blocks part of Yasuo's Last Breath. Spell shield for 1.5 s, long enough to use ahead of Last Breath. A spell shield blocks only the first enemy ability that reaches it. Last Breath requires the target to be affected by airborne from an enemy source, and simultaneously that the target is not considered cc-immune, displacement immune, or untargetable during it.
   - Last Breath cannot be cast if there are no nearby enemy champions that meet the conditions.
@@ -38,51 +71,51 @@ Run `npm run matchup -- <champion> Yasuo` for the full ledger of a matchup, with
 - **0.36** spell shield: Shroud of Darkness's spell shield blocks Yasuo's Sweeping Blade. Spell shield for 1.5 s, long enough to use ahead of Sweeping Blade. A spell shield blocks only the first enemy ability that reaches it. (Nocturne W Shroud of Darkness → Yasuo E Sweeping Blade)
 - Watch out: Wind Wall blocks Nocturne's Duskbringer, a projectile.
 
-### 4. Gangplank (net +0.74)
+#### 4. Gangplank (net +0.74)
 
 - **0.80** cleanse: Remove Scurvy cleanses Yasuo's Last Breath (airborne) after it lands. 14 s cooldown; usable while crowd controlled. (Gangplank W Remove Scurvy → Yasuo R Last Breath)
 - **0.37** cleanse: Remove Scurvy cleanses Yasuo's Steel Tempest (airborne) after it lands. 14 s cooldown; usable while crowd controlled. (Gangplank W Remove Scurvy → Yasuo Q Steel Tempest)
 - Watch out: Wind Wall blocks Gangplank's Parrrley, a projectile.
 
-### 5. Morgana (net +0.67)
+#### 5. Morgana (net +0.67)
 
 - **1.00** cc immunity: Black Shield makes Morgana immune to Yasuo's Last Breath (airborne). Immune for 5 s, long enough to use ahead of Last Breath. (Morgana E Black Shield → Yasuo R Last Breath)
 - **0.44** cc immunity: Black Shield makes Morgana immune to Yasuo's Steel Tempest (airborne). Immune for 5 s, long enough to use ahead of Steel Tempest. (Morgana E Black Shield → Yasuo Q Steel Tempest)
 - **0.11** range: Morgana's basic attacks reach 275 units farther than Yasuo's (450 vs 175 attack range). Yasuo closes the gap with Sweeping Blade, Last Breath. (Morgana basic attacks → Yasuo basic attacks)
 - Watch out: Wind Wall blocks Morgana's Dark Binding, a projectile.
 
-### 6. Master Yi (net +0.67)
+#### 6. Master Yi (net +0.67)
 
 - **0.60** untargetable: Alpha Strike makes Master Yi untargetable, dodging Yasuo's Last Breath. Untargetable for ?; Last Breath lands within 0 s, faster than a 0.25 s reaction, so it needs prediction. (Master Yi Q Alpha Strike → Yasuo R Last Breath)
 - **0.43** untargetable: Alpha Strike makes Master Yi untargetable, dodging Yasuo's Steel Tempest. Untargetable for ?; Steel Tempest takes 0.38 s to land, enough to react. (Master Yi Q Alpha Strike → Yasuo Q Steel Tempest)
 - **0.36** untargetable: Alpha Strike makes Master Yi untargetable, dodging Yasuo's Sweeping Blade. Untargetable for ?; Sweeping Blade takes 0.63 s to land, enough to react. (Master Yi Q Alpha Strike → Yasuo E Sweeping Blade)
 - Watch out: Steel Tempest's airborne interrupts Master Yi's Meditate (normal channel).
 
-### 7. Camille (net +0.66)
+#### 7. Camille (net +0.66)
 
 - **0.36** untargetable: The Hextech Ultimatum makes Camille untargetable, dodging Yasuo's Sweeping Blade. Untargetable for 0.5 s; Sweeping Blade takes 0.63 s to land, enough to react. (Camille R The Hextech Ultimatum → Yasuo E Sweeping Blade)
 - **0.36** untargetable: The Hextech Ultimatum makes Camille untargetable, dodging Yasuo's Last Breath. Untargetable for 0.5 s; Last Breath lands within 0 s, faster than a 0.25 s reaction, so it needs prediction. (Camille R The Hextech Ultimatum → Yasuo R Last Breath)
 - **0.34** untargetable: The Hextech Ultimatum makes Camille untargetable, dodging Yasuo's Steel Tempest. Untargetable for 0.5 s; Steel Tempest takes 0.38 s to land, enough to react. (Camille R The Hextech Ultimatum → Yasuo Q Steel Tempest)
 
-### 8. Fiora (net +0.64)
+#### 8. Fiora (net +0.64)
 
 - **0.70** parry: Riposte parries Yasuo's Last Breath and stuns back. Parry for 0.75 s; Last Breath lands within 0 s, faster than a 0.25 s reaction, so it needs prediction. Negating Last Breath's immobilizing effect turns Riposte's slow into a stun (2 s). (Fiora W Riposte → Yasuo R Last Breath)
 - **0.54** parry: Riposte parries Yasuo's Steel Tempest and stuns back. Parry for 0.75 s; Steel Tempest takes 0.38 s to land, enough to react. Negating Steel Tempest's immobilizing effect turns Riposte's slow into a stun (2 s). (Fiora W Riposte → Yasuo Q Steel Tempest)
 - **0.36** parry: Riposte parries Yasuo's Sweeping Blade. Parry for 0.75 s; Sweeping Blade takes 0.63 s to land, enough to react. (Fiora W Riposte → Yasuo E Sweeping Blade)
 - Watch out: Wind Wall blocks Fiora's Riposte, a projectile.
 
-### 9. Olaf (net +0.64)
+#### 9. Olaf (net +0.64)
 
 - **0.63** cc immunity: Ragnarok makes Olaf immune to Yasuo's Last Breath (airborne). Immune for 3 s, long enough to use ahead of Last Breath. (Olaf R Ragnarok → Yasuo R Last Breath)
 - **0.34** cc immunity: Ragnarok makes Olaf immune to Yasuo's Steel Tempest (airborne). Immune for 3 s, long enough to use ahead of Steel Tempest. (Olaf R Ragnarok → Yasuo Q Steel Tempest)
 - Watch out: Wind Wall blocks part of Olaf's Undertow, a projectile.
 
-### 10. Alistar (net +0.64)
+#### 10. Alistar (net +0.64)
 
 - **0.50** cleanse: Unbreakable Will cleanses Yasuo's Last Breath (airborne) after it lands. 80 s cooldown; usable while crowd controlled. (Alistar R Unbreakable Will → Yasuo R Last Breath)
 - **0.28** cleanse: Unbreakable Will cleanses Yasuo's Steel Tempest (airborne) after it lands. 80 s cooldown; usable while crowd controlled. (Alistar R Unbreakable Will → Yasuo Q Steel Tempest)
 
-## Full ranking
+### Full ranking
 
 | # | Champion | Net | For | Against | Hard counters |
 |--:|---|--:|--:|--:|---|

@@ -1,5 +1,38 @@
 # Counters to Teemo (patch 26.20)
 
+## Simulated duels (full confidence)
+
+The duel simulator played each of the 24 other champions with a simulator kit against Teemo: both at level 20 with 15,000 gold of plain stats, each side's spent against the other's, through six scenarios (PLAN.md §6). Scores run from −1 (Teemo wins every time) to +1 (the champion does). Run `npm run duel -- <champion> Teemo --log brawl` to watch a fight.
+
+| # | Champion | Score | You engage | Enemy engages | Brawl | Short trade | Spacing | Escape |
+|--:|---|--:|--:|--:|--:|--:|--:|--:|
+| 1 | Jax | +0.80 | +1.00 | +1.00 | +1.00 | −0.02 | +1.00 | +0.00 |
+| 2 | Nasus | +0.79 | +1.00 | +1.00 | +1.00 | −0.09 | +1.00 | +0.00 |
+| 3 | Malphite | +0.74 | +1.00 | +1.00 | +1.00 | −0.40 | +1.00 | +0.00 |
+| 4 | Fiora | +0.73 | +1.00 | +1.00 | +1.00 | −0.47 | +1.00 | +0.00 |
+| 5 | Dr. Mundo | +0.72 | +0.94 | +0.92 | +1.00 | −0.17 | +0.81 | +0.00 |
+| 6 | Sett | +0.06 | +1.00 | −1.00 | +1.00 | −0.28 | −1.00 | +0.00 |
+| 7 | Garen | −0.02 | +1.00 | −1.00 | +1.00 | −0.79 | −1.00 | +0.00 |
+| 8 | Ornn | −0.13 | −0.12 | −0.15 | −0.10 | −0.15 | −0.24 | +0.00 |
+| 9 | Poppy | −0.30 | −1.00 | +1.00 | −1.00 | −0.01 | −1.00 | +0.00 |
+| 10 | Yone | −0.64 | −1.00 | −0.08 | −1.00 | −0.49 | −1.00 | +0.00 |
+| 11 | Mordekaiser | −0.65 | −0.81 | −0.74 | −0.67 | −0.28 | −0.83 | +0.00 |
+| 12 | Shen | −0.73 | −1.00 | −1.00 | −0.62 | −0.04 | −1.00 | +0.00 |
+| 13 | Irelia | −0.80 | −1.00 | −1.00 | −1.00 | −0.00 | −1.00 | +0.00 |
+| 14 | Renekton | −0.80 | −1.00 | −1.00 | −1.00 | −0.03 | −1.00 | +0.00 |
+| 15 | Urgot | −0.82 | −1.00 | −1.00 | −1.00 | −0.10 | −1.00 | +0.00 |
+| 16 | Yasuo | −0.83 | −1.00 | −1.00 | −1.00 | −0.21 | −1.00 | +0.00 |
+| 17 | Camille | −0.83 | −1.00 | −1.00 | −1.00 | −0.22 | −1.00 | +0.00 |
+| 18 | Tryndamere | −0.83 | −1.00 | −1.00 | −1.00 | −0.23 | −1.00 | +0.00 |
+| 19 | Gwen | −0.86 | −1.00 | −1.00 | −1.00 | −0.37 | −1.00 | +0.00 |
+| 20 | Aatrox | −0.88 | −1.00 | −1.00 | −1.00 | −0.50 | −1.00 | +0.00 |
+| 21 | Darius | −0.88 | −1.00 | −1.00 | −1.00 | −0.53 | −1.00 | +0.00 |
+| 22 | Volibear | −0.91 | −1.00 | −1.00 | −1.00 | −0.72 | −1.00 | +0.00 |
+| 23 | Olaf | −0.93 | −1.00 | −1.00 | −1.00 | −0.85 | −1.00 | +0.00 |
+| 24 | Riven | −0.95 | −1.00 | −1.00 | −1.00 | −1.00 | −1.00 | +0.00 |
+
+## Interaction ledger (partial confidence)
+
 Every champion ranked by what its kit does against Teemo's, from the interaction ledger: projectile blocks, spell shields,
 parries, dash stops, crowd control and its defenses, range and more (PLAN.md §5). This ranking is **partial**: it weighs the
 interactions but doesn't play the fight out. The duel simulator replaces it as each champion's behavior is verified.
@@ -8,74 +41,74 @@ interactions but doesn't play the fight out. The duel simulator replaces it as e
 A hard counter shuts down part of a kit every time it is used (projectile block, attack dodge, attack block, blind, disarm, attack speed slow, attack reflect, dash stop, grounding, range) with an impact of 0.4 or more (0.5 for range).
 Run `npm run matchup -- <champion> Teemo` for the full ledger of a matchup, with sources.
 
-## Top 10
+### Top 10
 
-### 1. Vladimir (net +0.41)
+#### 1. Vladimir (net +0.41)
 
 - **0.55** untargetable: Sanguine Pool makes Vladimir untargetable, dodging Teemo's Noxious Trap. Untargetable for 2 s, long enough to use ahead of Noxious Trap. (Vladimir W Sanguine Pool → Teemo R Noxious Trap)
 - **0.30** untargetable: Sanguine Pool makes Vladimir untargetable, dodging Teemo's Blinding Dart. Untargetable for 2 s, long enough to use ahead of Blinding Dart. (Vladimir W Sanguine Pool → Teemo Q Blinding Dart)
 - Watch out: Blinding Dart's blind makes Vladimir's basic attacks miss for 3 s.
 
-### 2. Mel (net +0.40)
+#### 2. Mel (net +0.40)
 
 - **0.54** projectile block: Rebuttal blocks Teemo's Noxious Trap, a projectile. Rebuttal for 0.75 s; Noxious Trap takes 0.25 s to land, enough to react. (Mel W Rebuttal → Teemo R Noxious Trap)
 - **0.30** projectile block: Rebuttal blocks Teemo's basic attacks, which are projectiles. Rebuttal lasts 0.75 s on a 26 s cooldown. (Mel W Rebuttal → Teemo basic attacks)
 - **0.25** projectile block: Rebuttal blocks Teemo's Blinding Dart, a projectile. Rebuttal for 0.75 s; Blinding Dart takes 0.52 s to land, enough to react. (Mel W Rebuttal → Teemo Q Blinding Dart)
 - Watch out: Blinding Dart's blind makes Mel's basic attacks miss for 3 s.
 
-### 3. Elise (net +0.34)
+#### 3. Elise (net +0.34)
 
 - **0.55** untargetable: Rappel makes Elise untargetable, dodging Teemo's Noxious Trap. Untargetable for 0.6 s; Noxious Trap takes 0.25 s to land, enough to react. (Elise E Rappel → Teemo R Noxious Trap)
 - **0.28** untargetable: Rappel makes Elise untargetable, dodging Teemo's Blinding Dart. Untargetable for 0.6 s; Blinding Dart takes 0.52 s to land, enough to react. (Elise E Rappel → Teemo Q Blinding Dart)
 - **0.08** reveal: Cocoon reveals Teemo through Guerrilla Warfare's stealth. (Elise E Cocoon → Teemo I Guerrilla Warfare)
 - Watch out: Blinding Dart's blind makes Elise's basic attacks miss for 3 s.
 
-### 4. Samira (net +0.34)
+#### 4. Samira (net +0.34)
 
 - **0.55** projectile block: Blade Whirl blocks Teemo's Noxious Trap, a projectile. Blade Whirl for 0.75 s; Noxious Trap takes 0.25 s to land, enough to react. (Samira W Blade Whirl → Teemo R Noxious Trap)
 - **0.30** projectile block: Blade Whirl blocks Teemo's basic attacks, which are projectiles. Blade Whirl lasts 0.75 s on a 22 s cooldown. (Samira W Blade Whirl → Teemo basic attacks)
 - **0.27** projectile block: Blade Whirl blocks Teemo's Blinding Dart, a projectile. Blade Whirl for 0.75 s; Blinding Dart takes 0.52 s to land, enough to react. (Samira W Blade Whirl → Teemo Q Blinding Dart)
 - Watch out: Blinding Dart's blind makes Samira's basic attacks miss for 3 s.
 
-### 5. Yasuo (net +0.33)
+#### 5. Yasuo (net +0.33)
 
 - **0.55** projectile block: Wind Wall blocks Teemo's Noxious Trap, a projectile. Wind Wall for 4 s, long enough to use ahead of Noxious Trap. (Yasuo W Wind Wall → Teemo R Noxious Trap)
 - **0.39** projectile block: Wind Wall blocks Teemo's basic attacks, which are projectiles. Wind Wall lasts 4 s on a 17 s cooldown. (Yasuo W Wind Wall → Teemo basic attacks)
 - **0.29** projectile block: Wind Wall blocks Teemo's Blinding Dart, a projectile. Wind Wall for 4 s, long enough to use ahead of Blinding Dart. (Yasuo W Wind Wall → Teemo Q Blinding Dart)
 - Watch out: Blinding Dart's blind makes Yasuo's basic attacks miss for 3 s.
 
-### 6. Braum (net +0.14)
+#### 6. Braum (net +0.14)
 
 - **0.55** projectile block: Unbreakable blocks Teemo's Noxious Trap, a projectile. Unbreakable for 4 s, long enough to use ahead of Noxious Trap. (Braum E Unbreakable → Teemo R Noxious Trap)
 - **0.50** projectile block: Unbreakable blocks Teemo's basic attacks, which are projectiles. Unbreakable lasts 4 s on a 8 s cooldown. (Braum E Unbreakable → Teemo basic attacks)
 - **0.42** projectile block: Unbreakable blocks Teemo's Blinding Dart, a projectile. Unbreakable for 4 s, long enough to use ahead of Blinding Dart. (Braum E Unbreakable → Teemo Q Blinding Dart)
 - Watch out: Blinding Dart's blind makes Braum's basic attacks miss for 3 s.
 
-### 7. Yuumi (net +0.14)
+#### 7. Yuumi (net +0.14)
 
 - **0.55** untargetable: You and Me! makes Yuumi untargetable, dodging Teemo's Noxious Trap. Untargetable for ?; Noxious Trap takes 0.25 s to land, enough to react. Does not destroy inbound projectiles, special cased to be targetable to turrets. (Yuumi W You and Me! → Teemo R Noxious Trap)
 - **0.45** untargetable: You and Me! makes Yuumi untargetable, dodging Teemo's Blinding Dart. Untargetable for ?; Blinding Dart takes 0.52 s to land, enough to react. Does not destroy inbound projectiles, special cased to be targetable to turrets. (Yuumi W You and Me! → Teemo Q Blinding Dart)
 - Watch out: Blinding Dart's blind makes Yuumi's basic attacks miss for 3 s.
 
-### 8. Lissandra (net +0.13)
+#### 8. Lissandra (net +0.13)
 
 - **0.32** untargetable: Frozen Tomb makes Lissandra untargetable, dodging Teemo's Noxious Trap. Untargetable for 2.5 s, long enough to use ahead of Noxious Trap. (Lissandra R Frozen Tomb → Teemo R Noxious Trap)
 - **0.20** untargetable: Frozen Tomb makes Lissandra untargetable, dodging Teemo's Blinding Dart. Untargetable for 2.5 s, long enough to use ahead of Blinding Dart. (Lissandra R Frozen Tomb → Teemo Q Blinding Dart)
 - Watch out: Blinding Dart's blind makes Lissandra's basic attacks miss for 3 s.
 
-### 9. Maokai (net +0.05)
+#### 9. Maokai (net +0.05)
 
 - **0.55** untargetable: Twisted Advance makes Maokai untargetable, dodging Teemo's Noxious Trap. Untargetable for 1.4 s; Noxious Trap takes 0.25 s to land, enough to react. (Maokai W Twisted Advance → Teemo R Noxious Trap)
 - **0.37** untargetable: Twisted Advance makes Maokai untargetable, dodging Teemo's Blinding Dart. Untargetable for 1.4 s; Blinding Dart takes 0.52 s to land, enough to react. (Maokai W Twisted Advance → Teemo Q Blinding Dart)
 - Watch out: Blinding Dart's blind makes Maokai's basic attacks miss for 3 s.
 
-### 10. Aurora (net +0.02)
+#### 10. Aurora (net +0.02)
 
 - **0.30** untargetable: Between Worlds makes Aurora untargetable, dodging Teemo's Noxious Trap. Untargetable for 0.4 s; Noxious Trap takes 0.25 s to land, enough to react. Does not destroy inbound projectiles. (Aurora R Between Worlds → Teemo R Noxious Trap)
 - **0.20** untargetable: Between Worlds makes Aurora untargetable, dodging Teemo's Blinding Dart. Untargetable for 0.4 s; Blinding Dart takes 0.52 s to land, enough to react. Does not destroy inbound projectiles. (Aurora R Between Worlds → Teemo Q Blinding Dart)
 - Watch out: Blinding Dart's blind makes Aurora's basic attacks miss for 3 s.
 
-## Full ranking
+### Full ranking
 
 | # | Champion | Net | For | Against | Hard counters |
 |--:|---|--:|--:|--:|---|

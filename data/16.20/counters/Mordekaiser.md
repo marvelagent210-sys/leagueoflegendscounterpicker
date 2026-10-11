@@ -1,5 +1,38 @@
 # Counters to Mordekaiser (patch 26.20)
 
+## Simulated duels (full confidence)
+
+The duel simulator played each of the 24 other champions with a simulator kit against Mordekaiser: both at level 20 with 15,000 gold of plain stats, each side's spent against the other's, through six scenarios (PLAN.md §6). Scores run from −1 (Mordekaiser wins every time) to +1 (the champion does). Run `npm run duel -- <champion> Mordekaiser --log brawl` to watch a fight.
+
+| # | Champion | Score | You engage | Enemy engages | Brawl | Short trade | Spacing | Escape |
+|--:|---|--:|--:|--:|--:|--:|--:|--:|
+| 1 | Fiora | +0.88 | +1.00 | +1.00 | +1.00 | +0.27 | – | +1.00 |
+| 2 | Gwen | +0.81 | +1.00 | +1.00 | +1.00 | +0.18 | – | +0.00 |
+| 3 | Poppy | +0.80 | +1.00 | +1.00 | +1.00 | +0.16 | – | +0.00 |
+| 4 | Aatrox | +0.79 | +1.00 | +1.00 | +1.00 | +0.10 | – | +0.00 |
+| 5 | Volibear | +0.77 | +1.00 | +0.98 | +1.00 | +0.01 | – | +0.00 |
+| 6 | Darius | +0.77 | +1.00 | +1.00 | +1.00 | −0.05 | – | +0.00 |
+| 7 | Nasus | +0.72 | +1.00 | +1.00 | +0.75 | −0.03 | +0.75 | +0.00 |
+| 8 | Teemo | +0.65 | +0.74 | +0.81 | +0.67 | +0.28 | +0.83 | +0.00 |
+| 9 | Olaf | +0.43 | +1.00 | −0.44 | +1.00 | −0.05 | +1.00 | +0.00 |
+| 10 | Yone | +0.42 | +0.45 | +0.47 | +0.73 | +0.02 | – | +0.00 |
+| 11 | Jax | +0.18 | +0.77 | −0.13 | +0.44 | −0.02 | −0.59 | +0.00 |
+| 12 | Dr. Mundo | +0.11 | +0.16 | +0.16 | +0.14 | −0.04 | – | +0.00 |
+| 13 | Ornn | −0.25 | −0.33 | −0.34 | −0.36 | +0.10 | – | +0.00 |
+| 14 | Shen | −0.26 | −0.32 | −0.46 | −0.23 | +0.05 | – | +0.00 |
+| 15 | Camille | −0.31 | −1.00 | −1.00 | +1.00 | +0.12 | – | +0.00 |
+| 16 | Tryndamere | −0.39 | −0.44 | −0.46 | −0.58 | −0.08 | – | +0.00 |
+| 17 | Sett | −0.40 | −0.61 | −0.36 | −0.61 | +0.02 | – | +0.00 |
+| 18 | Riven | −0.50 | −0.65 | −0.54 | −0.88 | +0.14 | – | +0.00 |
+| 19 | Garen | −0.65 | −0.94 | −0.70 | −0.94 | +0.07 | – | +0.00 |
+| 20 | Irelia | −0.68 | −0.99 | −0.99 | −0.67 | +0.12 | – | +0.00 |
+| 21 | Malphite | −0.75 | −1.00 | −1.00 | −1.00 | +0.16 | – | +0.00 |
+| 22 | Yasuo | −0.77 | −1.00 | −1.00 | −1.00 | +0.04 | – | +0.00 |
+| 23 | Renekton | −0.78 | −1.00 | −1.00 | −1.00 | +0.01 | – | +0.00 |
+| 24 | Urgot | −0.81 | −1.00 | −1.00 | −1.00 | −0.06 | −1.00 | +0.00 |
+
+## Interaction ledger (partial confidence)
+
 Every champion ranked by what its kit does against Mordekaiser's, from the interaction ledger: projectile blocks, spell shields,
 parries, dash stops, crowd control and its defenses, range and more (PLAN.md §5). This ranking is **partial**: it weighs the
 interactions but doesn't play the fight out. The duel simulator replaces it as each champion's behavior is verified.
@@ -8,16 +41,16 @@ interactions but doesn't play the fight out. The duel simulator replaces it as e
 A hard counter shuts down part of a kit every time it is used (projectile block, attack dodge, attack block, blind, disarm, attack speed slow, attack reflect, dash stop, grounding, range) with an impact of 0.4 or more (0.5 for range).
 Run `npm run matchup -- <champion> Mordekaiser` for the full ledger of a matchup, with sources.
 
-## Top 10
+### Top 10
 
-### 1. Elise (net +1.32)
+#### 1. Elise (net +1.32)
 
 - **0.61** range: Elise's basic attacks reach 375 units farther than Mordekaiser's (550 vs 175 attack range). Mordekaiser has no dash or blink to close the gap. (Elise basic attacks → Mordekaiser basic attacks)
 - **0.55** untargetable: Rappel makes Elise untargetable, dodging Mordekaiser's Realm of Death. Untargetable for 0.6 s; Realm of Death takes 0.5 s to land, enough to react. (Elise E Rappel → Mordekaiser R Realm of Death)
 - **0.47** untargetable: Rappel makes Elise untargetable, dodging Mordekaiser's Death's Grasp. Untargetable for 0.6 s; Death's Grasp takes 0.48 s to land, enough to react. (Elise E Rappel → Mordekaiser E Death's Grasp)
 - Watch out: Realm of Death cuts Elise's attack speed by 30%.
 
-### 2. Sivir (net +1.30)
+#### 2. Sivir (net +1.30)
 
 - **0.81** range: Sivir's basic attacks reach 325 units farther than Mordekaiser's (500 vs 175 attack range). Mordekaiser has no dash or blink to close the gap. (Sivir basic attacks → Mordekaiser basic attacks)
 - **0.47** spell shield: Spell Shield's spell shield blocks Mordekaiser's Death's Grasp. Spell shield for 1.5 s, long enough to use ahead of Death's Grasp. A spell shield blocks only the first enemy ability that reaches it. (Sivir E Spell Shield → Mordekaiser E Death's Grasp)
@@ -27,61 +60,61 @@ Run `npm run matchup -- <champion> Mordekaiser` for the full ledger of a matchup
   - The target is a clone or Sion when his Glory in Death is active. Spell shield will not block the initial slow. (Sivir E Spell Shield → Mordekaiser R Realm of Death)
 - Watch out: Realm of Death cuts Sivir's attack speed by 30%.
 
-### 3. Xayah (net +1.29)
+#### 3. Xayah (net +1.29)
 
 - **0.67** range: Xayah's basic attacks reach 350 units farther than Mordekaiser's (525 vs 175 attack range). Mordekaiser has no dash or blink to close the gap. (Xayah basic attacks → Mordekaiser basic attacks)
 - **0.55** untargetable: Featherstorm makes Xayah untargetable, dodging Mordekaiser's Realm of Death. Untargetable for 1.5 s, long enough to use ahead of Realm of Death. (Xayah R Featherstorm → Mordekaiser R Realm of Death)
 - **0.31** untargetable: Featherstorm makes Xayah untargetable, dodging Mordekaiser's Death's Grasp. Untargetable for 1.5 s, long enough to use ahead of Death's Grasp. (Xayah R Featherstorm → Mordekaiser E Death's Grasp)
 - Watch out: Realm of Death cuts Xayah's attack speed by 30%.
 
-### 4. Bard (net +1.24)
+#### 4. Bard (net +1.24)
 
 - **0.62** range: Bard's basic attacks reach 325 units farther than Mordekaiser's (500 vs 175 attack range). Mordekaiser has no dash or blink to close the gap. (Bard basic attacks → Mordekaiser basic attacks)
 - **0.55** untargetable: Tempered Fate makes Bard untargetable, dodging Mordekaiser's Realm of Death. Untargetable for 2.5 s, long enough to use ahead of Realm of Death. (Bard R Tempered Fate → Mordekaiser R Realm of Death)
 - **0.32** untargetable: Tempered Fate makes Bard untargetable, dodging Mordekaiser's Death's Grasp. Untargetable for 2.5 s, long enough to use ahead of Death's Grasp. (Bard R Tempered Fate → Mordekaiser E Death's Grasp)
 - Watch out: Realm of Death cuts Bard's attack speed by 30%.
 
-### 5. Aurora (net +1.09)
+#### 5. Aurora (net +1.09)
 
 - **0.55** untargetable: Between Worlds makes Aurora untargetable, dodging Mordekaiser's Realm of Death. Untargetable for 0.4 s; Realm of Death takes 0.5 s to land, enough to react. Does not destroy inbound projectiles. (Aurora R Between Worlds → Mordekaiser R Realm of Death)
 - **0.54** range: Aurora's basic attacks reach 375 units farther than Mordekaiser's (550 vs 175 attack range). Mordekaiser has no dash or blink to close the gap. (Aurora basic attacks → Mordekaiser basic attacks)
 - **0.31** untargetable: Between Worlds makes Aurora untargetable, dodging Mordekaiser's Death's Grasp. Untargetable for 0.4 s; Death's Grasp takes 0.48 s to land, enough to react. Does not destroy inbound projectiles. (Aurora R Between Worlds → Mordekaiser E Death's Grasp)
 - Watch out: Realm of Death reveals Aurora through Across the Veil's stealth.
 
-### 6. Lissandra (net +1.07)
+#### 6. Lissandra (net +1.07)
 
 - **0.55** untargetable: Frozen Tomb makes Lissandra untargetable, dodging Mordekaiser's Realm of Death. Untargetable for 2.5 s, long enough to use ahead of Realm of Death. (Lissandra R Frozen Tomb → Mordekaiser R Realm of Death)
 - **0.41** range: Lissandra's basic attacks reach 375 units farther than Mordekaiser's (550 vs 175 attack range). Mordekaiser has no dash or blink to close the gap. (Lissandra basic attacks → Mordekaiser basic attacks)
 - **0.32** untargetable: Frozen Tomb makes Lissandra untargetable, dodging Mordekaiser's Death's Grasp. Untargetable for 2.5 s, long enough to use ahead of Death's Grasp. (Lissandra R Frozen Tomb → Mordekaiser E Death's Grasp)
 - Watch out: Realm of Death cuts Lissandra's attack speed by 30%.
 
-### 7. Yuumi (net +1.00)
+#### 7. Yuumi (net +1.00)
 
 - **0.70** untargetable: You and Me! makes Yuumi untargetable, dodging Mordekaiser's Death's Grasp. Untargetable for ?; Death's Grasp takes 0.48 s to land, enough to react. Does not destroy inbound projectiles, special cased to be targetable to turrets. (Yuumi W You and Me! → Mordekaiser E Death's Grasp)
 - **0.55** untargetable: You and Me! makes Yuumi untargetable, dodging Mordekaiser's Realm of Death. Untargetable for ?; Realm of Death takes 0.5 s to land, enough to react. Does not destroy inbound projectiles, special cased to be targetable to turrets. (Yuumi W You and Me! → Mordekaiser R Realm of Death)
 - **0.54** range: Yuumi's basic attacks reach 250 units farther than Mordekaiser's (425 vs 175 attack range). Mordekaiser has no dash or blink to close the gap. (Yuumi basic attacks → Mordekaiser basic attacks)
 - Watch out: Death's Grasp's airborne interrupts Yuumi's Final Chapter (normal channel).
 
-### 8. Vladimir (net +0.96)
+#### 8. Vladimir (net +0.96)
 
 - **0.55** untargetable: Sanguine Pool makes Vladimir untargetable, dodging Mordekaiser's Realm of Death. Untargetable for 2 s, long enough to use ahead of Realm of Death. (Vladimir W Sanguine Pool → Mordekaiser R Realm of Death)
 - **0.49** untargetable: Sanguine Pool makes Vladimir untargetable, dodging Mordekaiser's Death's Grasp. Untargetable for 2 s, long enough to use ahead of Death's Grasp. (Vladimir W Sanguine Pool → Mordekaiser E Death's Grasp)
 - **0.30** range: Vladimir's basic attacks reach 275 units farther than Mordekaiser's (450 vs 175 attack range). Mordekaiser has no dash or blink to close the gap. (Vladimir basic attacks → Mordekaiser basic attacks)
 - Watch out: Death's Grasp's airborne interrupts Vladimir's Tides of Blood (charge-up).
 
-### 9. Teemo (net +0.89)
+#### 9. Teemo (net +0.89)
 
 - **0.59** range: Teemo's basic attacks reach 325 units farther than Mordekaiser's (500 vs 175 attack range). Mordekaiser has no dash or blink to close the gap. (Teemo basic attacks → Mordekaiser basic attacks)
 - **0.43** blind: Blinding Dart's blind makes Mordekaiser's basic attacks miss for 3 s. Blind for 3 s on a 7 s cooldown. (Teemo Q Blinding Dart → Mordekaiser basic attacks)
 - Watch out: Realm of Death cuts Teemo's attack speed by 30%.
 
-### 10. Lulu (net +0.89)
+#### 10. Lulu (net +0.89)
 
 - **0.68** range: Lulu's basic attacks reach 375 units farther than Mordekaiser's (550 vs 175 attack range). Mordekaiser has no dash or blink to close the gap. (Lulu basic attacks → Mordekaiser basic attacks)
 - **0.30** disarm: Whimsy disarms Mordekaiser for 2 s: no basic attacks. Disarm for 2 s on a 18 s cooldown. (Lulu W Whimsy → Mordekaiser basic attacks)
 - Watch out: Realm of Death cuts Lulu's attack speed by 30%.
 
-## Full ranking
+### Full ranking
 
 | # | Champion | Net | For | Against | Hard counters |
 |--:|---|--:|--:|--:|---|

@@ -240,3 +240,60 @@ All 1 level-based formulas in the game files (1 linked to wiki values above):
 | Spell | Calculation | Rule | Level 1 | Level 18 | Level 20 |
 |---|---|---|--:|--:|--:|
 | GarenPassive | RegenCalc | breakpoints at levels 7, 14 (level 1: 1.5) | 1.5 | 10.1 | 10.9 |
+
+## Duel simulator kit (level 20, every ability at max rank)
+
+What the duel simulator fights with (`kits/champions/Garen.ts`): every number is read from the wiki's ability data above at level 20; what the wiki doesn't say is listed under assumptions. Ratios are fractions of the stat (60% AD is 0.6 × AD).
+
+- Basic attack: range 175, melee.
+- Options: courageStacks = 150.
+
+| Key | Ability | Cooldown (s) | Cast time (s) | Cost | Delivery | On the enemy | On itself |
+|---|---|--:|--:|---|---|---|---|
+| Q | Decisive Strike | 8 | 0 | – | self | – | cleanses slow; moveSpeedPercent 0.35 for 3.6 s; next 1 attack within 4.5 s: 150 + 50% AD physical damage; silence for 1.5 s (resets the attack timer, uncancellable) |
+| W | Courage | 12 | 0 | – | self | – | damageReduction 0.41 for 4 s; shield of 145 + 18% bonus health for 0.75 s; tenacity 0.6 for 0.75 s |
+| E | Judgment | 6 | 0 | – | self; channel 3 s, 7 + 400% bonus attack speed pulses | each pulse: 20 + 65% AD physical damage, can crit | – |
+| R | Demacian Justice | 80 | 0.435 | – | targeted, 400 range | 275 + 35% target's missing health true damage | – |
+
+Effects marked by a mark or a role are completed by the kit's hooks (see the kit's source).
+
+### Assumptions
+
+- Courage stacks collected by level 20 (0.2 armor and magic resistance each, up to 150): 150.
+- Decisive Strike's lunge toward its target isn't modeled (the wiki gives no distance).
+- Judgment always hits Garen's only enemy, the nearest one, for 25% more damage.
+
+### Wiki values read (30)
+
+| Ability | Value | Revision |
+|---|---|---|
+| Perseverance | Innate: Garen regenerates an additional 1.5 – 10.1 (based on level)% of his maximum health every 5 seconds. | [4038338](https://wiki.leagueoflegends.com/en-us/Template:Data_Garen/Perseverance?oldid=4038338) |
+| Perseverance | Perseverance is lost for 8 seconds | [4038338](https://wiki.leagueoflegends.com/en-us/Template:Data_Garen/Perseverance?oldid=4038338) |
+| Courage | Garen gains 0.2 bonus armor and 0.2 bonus magic resistance | [4064595](https://wiki.leagueoflegends.com/en-us/Template:Data_Garen/Courage?oldid=4064595) |
+| Judgment | Enemy champions hit 6 times by Judgment | [4009435](https://wiki.leagueoflegends.com/en-us/Template:Data_Garen/Judgment?oldid=4009435) |
+| Judgment | are inflicted with 25% armor reduction for 6 seconds | [4009435](https://wiki.leagueoflegends.com/en-us/Template:Data_Garen/Judgment?oldid=4009435) |
+| Decisive Strike | cooldown: 8 | [4004895](https://wiki.leagueoflegends.com/en-us/Template:Data_Garen/Decisive_Strike?oldid=4004895) |
+| Decisive Strike | castTime: none | [4004895](https://wiki.leagueoflegends.com/en-us/Template:Data_Garen/Decisive_Strike?oldid=4004895) |
+| Decisive Strike | gains 35% bonus movement speed | [4004895](https://wiki.leagueoflegends.com/en-us/Template:Data_Garen/Decisive_Strike?oldid=4004895) |
+| Decisive Strike | Movement Speed Duration: 1.4 / 1.95 / 2.5 / 3.05 / 3.6 | [4004895](https://wiki.leagueoflegends.com/en-us/Template:Data_Garen/Decisive_Strike?oldid=4004895) |
+| Decisive Strike | empowers his next basic attack within 4.5 seconds | [4004895](https://wiki.leagueoflegends.com/en-us/Template:Data_Garen/Decisive_Strike?oldid=4004895) |
+| Decisive Strike | Bonus Physical Damage: 30 / 60 / 90 / 120 / 150 (+ 50% AD) | [4004895](https://wiki.leagueoflegends.com/en-us/Template:Data_Garen/Decisive_Strike?oldid=4004895) |
+| Decisive Strike | silence them for 1.5 seconds | [4004895](https://wiki.leagueoflegends.com/en-us/Template:Data_Garen/Decisive_Strike?oldid=4004895) |
+| Courage | cooldown: 22 / 19.5 / 17 / 14.5 / 12 | [4064595](https://wiki.leagueoflegends.com/en-us/Template:Data_Garen/Courage?oldid=4064595) |
+| Courage | castTime: none | [4064595](https://wiki.leagueoflegends.com/en-us/Template:Data_Garen/Courage?oldid=4064595) |
+| Courage | Damage Reduction: 25 / 29 / 33 / 37 / 41% | [4064595](https://wiki.leagueoflegends.com/en-us/Template:Data_Garen/Courage?oldid=4064595) |
+| Courage | reduces incoming damage for 4 seconds | [4064595](https://wiki.leagueoflegends.com/en-us/Template:Data_Garen/Courage?oldid=4064595) |
+| Courage | Shield Strength: 65 / 85 / 105 / 125 / 145 (+ 18% bonus health) | [4064595](https://wiki.leagueoflegends.com/en-us/Template:Data_Garen/Courage?oldid=4064595) |
+| Courage | For the first 0.75 seconds | [4064595](https://wiki.leagueoflegends.com/en-us/Template:Data_Garen/Courage?oldid=4064595) |
+| Courage | a shield and 60% tenacity | [4064595](https://wiki.leagueoflegends.com/en-us/Template:Data_Garen/Courage?oldid=4064595) |
+| Judgment | cooldown: 9 / 8.25 / 7.5 / 6.75 / 6 | [4009435](https://wiki.leagueoflegends.com/en-us/Template:Data_Garen/Judgment?oldid=4009435) |
+| Judgment | castTime: none | [4009435](https://wiki.leagueoflegends.com/en-us/Template:Data_Garen/Judgment?oldid=4009435) |
+| Judgment | times over 3 seconds | [4009435](https://wiki.leagueoflegends.com/en-us/Template:Data_Garen/Judgment?oldid=4009435) |
+| Judgment | effectRadius: 325 | [4009435](https://wiki.leagueoflegends.com/en-us/Template:Data_Garen/Judgment?oldid=4009435) |
+| Judgment | spins his sword around himself 7 (+ 1 per 25% bonus attack speed) times | [4009435](https://wiki.leagueoflegends.com/en-us/Template:Data_Garen/Judgment?oldid=4009435) |
+| Judgment | Increased Damage Per Spin: 5 / 8.75 / 12.5 / 16.25 / 20 (+ 50 / 53.75 / 57.5 / 61.25 / 65% AD) | [4009435](https://wiki.leagueoflegends.com/en-us/Template:Data_Garen/Judgment?oldid=4009435) |
+| Judgment | Judgment can critically strike for 130% damage | [4009435](https://wiki.leagueoflegends.com/en-us/Template:Data_Garen/Judgment?oldid=4009435) |
+| Demacian Justice | cooldown: 120 / 100 / 80 | [4042864](https://wiki.leagueoflegends.com/en-us/Template:Data_Garen/Demacian_Justice?oldid=4042864) |
+| Demacian Justice | castTime: 0.435 | [4042864](https://wiki.leagueoflegends.com/en-us/Template:Data_Garen/Demacian_Justice?oldid=4042864) |
+| Demacian Justice | targetRange: 400 | [4042864](https://wiki.leagueoflegends.com/en-us/Template:Data_Garen/Demacian_Justice?oldid=4042864) |
+| Demacian Justice | True Damage: 125 / 200 / 275 (+ 25 / 30 / 35% of target's missing health) | [4042864](https://wiki.leagueoflegends.com/en-us/Template:Data_Garen/Demacian_Justice?oldid=4042864) |

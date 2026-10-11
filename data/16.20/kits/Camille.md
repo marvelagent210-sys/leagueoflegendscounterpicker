@@ -277,3 +277,68 @@ All 3 level-based formulas in the game files (0 linked to wiki values above):
 | CamillePassive | PassiveCooldown | breakpoints at levels 7, 13 (level 1: 14) | 14 | 8 | 8 |
 | CamillePassive | ShieldAmount | breakpoints at levels 7, 13, 19 (level 1: 0.1) | 0.1 | 0.2 | 0.25 |
 | CamilleQ | DamageConversionPercentage | breakpoints at levels 17 (level 1: 0.4) | 0.4 | 1.08 | 1.16 |
+
+## Duel simulator kit (level 20, every ability at max rank)
+
+What the duel simulator fights with (`kits/champions/Camille.ts`): every number is read from the wiki's ability data above at level 20; what the wiki doesn't say is listed under assumptions. Ratios are fractions of the stat (60% AD is 0.6 × AD).
+
+- Basic attack: range 125, melee.
+
+| Key | Ability | Cooldown (s) | Cast time (s) | Cost | Delivery | On the enemy | On itself |
+|---|---|--:|--:|---|---|---|---|
+| Q | Precision Protocol | 5 | 0 | 25 | self | – | next 1 attack within 4 s: 40% AD physical damage (+50 range, resets the attack timer, uncancellable); moveSpeedPercent 0.45 for 1 s |
+| Q2 | Precision Protocol (recast) | 0 | 0 | – | self; recast of Q within 5 s, after 1.5 s | – | next 1 attack within 4 s: 80% AD true damage (+50 range, resets the attack timer, uncancellable) |
+| W | Tactical Sweep | 10 | 1.1 | 70 | area 0 to 650 units ahead, lands after 0 s; bands 0–325: 160 + 60% bonus AD physical damage | 160 + 60% bonus AD physical damage; 9% target's maximum health + 2.5% of target's maximum health per 100 bonus AD physical damage (Tactical Sweep (outer cone)), heals 100% of it; slow 50% for 2 s | – |
+| E | Hookshot and Wall Dive | 12 | 0.5 | 70 | dash toward 800 units at 1390/s, hits within 130 | 180 + 75% bonus AD physical damage; stun for 0.75 s | attackSpeed 0.6 for 5 s |
+| R | The Hextech Ultimatum | 90 | 0 | 100 | dash target 475 units at 950/s, hits within 100 | marks it "ultimatum" for 4 s | as the cast starts: untargetable for 0.5 s; displacementImmune for 0.5 s |
+
+Effects marked by a mark or a role are completed by the kit's hooks (see the kit's source).
+
+### Assumptions
+
+- Precision Protocol's recast waits the 1.5 seconds that make it deal true damage (100% of the attack at level 16 and up).
+- With walls nearby, Hookshot reaches a wall and Wall Dive lands 0.5 seconds after the cast.
+- Tactical Sweep's outer-cone slow, which decays over 2 seconds, is taken as 50% for 2 seconds.
+- Adaptive Defenses shields against the damage type the enemy deals most of.
+
+### Wiki values read (37)
+
+| Ability | Value | Revision |
+|---|---|---|
+| Adaptive Defenses | staticCooldown: 14 / 11 / 8 (based on level) | [4051341](https://wiki.leagueoflegends.com/en-us/Template:Data_Camille/Adaptive_Defenses?oldid=4051341) |
+| Adaptive Defenses | Innate: Periodically, Camille's next basic attack on-hit against an enemy champion grants her a shield equal to 10 / 15 / 20 / 25 (based on level)% of her maximum health, lasting for 2 seconds and absorbing damage from either exclusively physical damage or magic damage, based on which type the target has previously dealt most of against champions as well as on Camille's current armor and magic resistance. | [4051341](https://wiki.leagueoflegends.com/en-us/Template:Data_Camille/Adaptive_Defenses?oldid=4051341) |
+| Adaptive Defenses | lasting for 2 seconds | [4051341](https://wiki.leagueoflegends.com/en-us/Template:Data_Camille/Adaptive_Defenses?oldid=4051341) |
+| Precision Protocol | empowers her next basic attack within 4 seconds | [3972807](https://wiki.leagueoflegends.com/en-us/Template:Data_Camille/Precision_Protocol?oldid=3972807) |
+| Precision Protocol | gain 50 bonus range | [3972807](https://wiki.leagueoflegends.com/en-us/Template:Data_Camille/Precision_Protocol?oldid=3972807) |
+| Precision Protocol | If Precision Protocol is recast after 1.5 seconds of the first attack | [3972807](https://wiki.leagueoflegends.com/en-us/Template:Data_Camille/Precision_Protocol?oldid=3972807) |
+| Precision Protocol | can then be recast within the next 3.5 seconds | [3972807](https://wiki.leagueoflegends.com/en-us/Template:Data_Camille/Precision_Protocol?oldid=3972807) |
+| Tactical Sweep | sweeps her leg in a cone in the target direction over 1.1 seconds | [4065255](https://wiki.leagueoflegends.com/en-us/Template:Data_Camille/Tactical_Sweep?oldid=4065255) |
+| Tactical Sweep | effectRadius (Inner radius): 325 • 650 | [4065255](https://wiki.leagueoflegends.com/en-us/Template:Data_Camille/Tactical_Sweep?oldid=4065255) |
+| Tactical Sweep | effectRadius (Outer radius): 325 • 650 | [4065255](https://wiki.leagueoflegends.com/en-us/Template:Data_Camille/Tactical_Sweep?oldid=4065255) |
+| The Hextech Ultimatum | Zone Duration: 2.5 / 3.25 / 4 seconds | [4037519](https://wiki.leagueoflegends.com/en-us/Template:Data_Camille/The_Hextech_Ultimatum?oldid=4037519) |
+| The Hextech Ultimatum | effectRadius: 425 | [4037519](https://wiki.leagueoflegends.com/en-us/Template:Data_Camille/The_Hextech_Ultimatum?oldid=4037519) |
+| The Hextech Ultimatum | Bonus Magic Damage: 4 / 6 / 8% of target's current health | [4037519](https://wiki.leagueoflegends.com/en-us/Template:Data_Camille/The_Hextech_Ultimatum?oldid=4037519) |
+| Precision Protocol | cooldown: 9 / 8 / 7 / 6 / 5 | [3972807](https://wiki.leagueoflegends.com/en-us/Template:Data_Camille/Precision_Protocol?oldid=3972807) |
+| Precision Protocol | cost: 25 | [3972807](https://wiki.leagueoflegends.com/en-us/Template:Data_Camille/Precision_Protocol?oldid=3972807) |
+| Precision Protocol | Bonus Physical Damage: 20 / 25 / 30 / 35 / 40% AD | [3972807](https://wiki.leagueoflegends.com/en-us/Template:Data_Camille/Precision_Protocol?oldid=3972807) |
+| Precision Protocol | Bonus Movement Speed: 25 / 30 / 35 / 40 / 45% | [3972807](https://wiki.leagueoflegends.com/en-us/Template:Data_Camille/Precision_Protocol?oldid=3972807) |
+| Precision Protocol | grant her bonus movement speed for 1 second | [3972807](https://wiki.leagueoflegends.com/en-us/Template:Data_Camille/Precision_Protocol?oldid=3972807) |
+| Precision Protocol | Increased Mixed Damage: 40 / 50 / 60 / 70 / 80% AD | [3972807](https://wiki.leagueoflegends.com/en-us/Template:Data_Camille/Precision_Protocol?oldid=3972807) |
+| Tactical Sweep | cooldown: 12 / 11.5 / 11 / 10.5 / 10 | [4065255](https://wiki.leagueoflegends.com/en-us/Template:Data_Camille/Tactical_Sweep?oldid=4065255) |
+| Tactical Sweep | cost: 50 / 55 / 60 / 65 / 70 | [4065255](https://wiki.leagueoflegends.com/en-us/Template:Data_Camille/Tactical_Sweep?oldid=4065255) |
+| Tactical Sweep | Physical Damage: 60 / 85 / 110 / 135 / 160 (+ 60% bonus AD) | [4065255](https://wiki.leagueoflegends.com/en-us/Template:Data_Camille/Tactical_Sweep?oldid=4065255) |
+| Tactical Sweep | Outer Cone Bonus Damage: 7 / 7.5 / 8 / 8.5 / 9% (+ 2.5% per 100 bonus AD) of target's maximum health | [4065255](https://wiki.leagueoflegends.com/en-us/Template:Data_Camille/Tactical_Sweep?oldid=4065255) |
+| Tactical Sweep | slowed by 80% decaying over 2 seconds | [4065255](https://wiki.leagueoflegends.com/en-us/Template:Data_Camille/Tactical_Sweep?oldid=4065255) |
+| Hookshot | cooldown: 16 / 15 / 14 / 13 / 12 | [3922084](https://wiki.leagueoflegends.com/en-us/Template:Data_Camille/Hookshot?oldid=3922084) |
+| Hookshot | cost: 70 | [3922084](https://wiki.leagueoflegends.com/en-us/Template:Data_Camille/Hookshot?oldid=3922084) |
+| Wall Dive | targetRange (Increased dash range towards champions): 400 • 800 | [4007586](https://wiki.leagueoflegends.com/en-us/Template:Data_Camille/Wall_Dive?oldid=4007586) |
+| Wall Dive | speed: 1050 + 100% movement speed | [4007586](https://wiki.leagueoflegends.com/en-us/Template:Data_Camille/Wall_Dive?oldid=4007586) |
+| Wall Dive | effectRadius: 130 | [4007586](https://wiki.leagueoflegends.com/en-us/Template:Data_Camille/Wall_Dive?oldid=4007586) |
+| Wall Dive | Bonus Attack Speed: 40 / 45 / 50 / 55 / 60% | [4007586](https://wiki.leagueoflegends.com/en-us/Template:Data_Camille/Wall_Dive?oldid=4007586) |
+| Wall Dive | gains bonus attack speed for 5 seconds | [4007586](https://wiki.leagueoflegends.com/en-us/Template:Data_Camille/Wall_Dive?oldid=4007586) |
+| Wall Dive | Physical Damage: 60 / 90 / 120 / 150 / 180 (+ 75% bonus AD) | [4007586](https://wiki.leagueoflegends.com/en-us/Template:Data_Camille/Wall_Dive?oldid=4007586) |
+| Wall Dive | as well as stunning them for 0.75 seconds | [4007586](https://wiki.leagueoflegends.com/en-us/Template:Data_Camille/Wall_Dive?oldid=4007586) |
+| The Hextech Ultimatum | cooldown: 140 / 115 / 90 | [4037519](https://wiki.leagueoflegends.com/en-us/Template:Data_Camille/The_Hextech_Ultimatum?oldid=4037519) |
+| The Hextech Ultimatum | cost: 100 | [4037519](https://wiki.leagueoflegends.com/en-us/Template:Data_Camille/The_Hextech_Ultimatum?oldid=4037519) |
+| The Hextech Ultimatum | leaps with displacement immunity towards the target enemy champion over 0.5 seconds | [4037519](https://wiki.leagueoflegends.com/en-us/Template:Data_Camille/The_Hextech_Ultimatum?oldid=4037519) |
+| The Hextech Ultimatum | targetRange: 475 | [4037519](https://wiki.leagueoflegends.com/en-us/Template:Data_Camille/The_Hextech_Ultimatum?oldid=4037519) |

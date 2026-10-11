@@ -1,5 +1,38 @@
 # Counters to Gwen (patch 26.20)
 
+## Simulated duels (full confidence)
+
+The duel simulator played each of the 24 other champions with a simulator kit against Gwen: both at level 20 with 15,000 gold of plain stats, each side's spent against the other's, through six scenarios (PLAN.md §6). Scores run from −1 (Gwen wins every time) to +1 (the champion does). Run `npm run duel -- <champion> Gwen --log brawl` to watch a fight.
+
+| # | Champion | Score | You engage | Enemy engages | Brawl | Short trade | Spacing | Escape |
+|--:|---|--:|--:|--:|--:|--:|--:|--:|
+| 1 | Fiora | +0.91 | +1.00 | +1.00 | +1.00 | +0.45 | – | +1.00 |
+| 2 | Teemo | +0.86 | +1.00 | +1.00 | +1.00 | +0.37 | +1.00 | +0.00 |
+| 3 | Jax | +0.85 | +1.00 | +1.00 | +1.00 | +0.42 | – | +0.00 |
+| 4 | Poppy | +0.83 | +1.00 | +1.00 | +1.00 | +0.31 | – | +0.00 |
+| 5 | Yasuo | +0.81 | +1.00 | +1.00 | +1.00 | +0.17 | – | +0.00 |
+| 6 | Darius | +0.79 | +1.00 | +1.00 | +1.00 | +0.06 | – | +0.00 |
+| 7 | Garen | +0.78 | +1.00 | +1.00 | +1.00 | +0.00 | – | +0.00 |
+| 8 | Tryndamere | +0.77 | +1.00 | +1.00 | +1.00 | −0.05 | – | +0.00 |
+| 9 | Aatrox | +0.76 | +1.00 | +1.00 | +1.00 | −0.12 | – | +0.00 |
+| 10 | Camille | +0.76 | +1.00 | +1.00 | +1.00 | −0.13 | – | +0.00 |
+| 11 | Nasus | +0.75 | +1.00 | +1.00 | +1.00 | −0.14 | – | +0.00 |
+| 12 | Yone | +0.62 | +1.00 | +1.00 | +0.08 | +0.25 | – | +0.00 |
+| 13 | Riven | +0.58 | +1.00 | +1.00 | +0.00 | +0.14 | – | +0.00 |
+| 14 | Olaf | +0.37 | +0.35 | +0.25 | +1.00 | −0.11 | – | +0.00 |
+| 15 | Ornn | −0.74 | −1.00 | −1.00 | −1.00 | +0.21 | – | +0.00 |
+| 16 | Volibear | −0.76 | −1.00 | −1.00 | −1.00 | +0.08 | – | +0.00 |
+| 17 | Irelia | −0.77 | −1.00 | −1.00 | −1.00 | +0.05 | – | +0.00 |
+| 18 | Malphite | −0.77 | −1.00 | −1.00 | −1.00 | +0.02 | – | +0.00 |
+| 19 | Shen | −0.78 | −1.00 | −1.00 | −1.00 | −0.01 | – | +0.00 |
+| 20 | Renekton | −0.78 | −1.00 | −1.00 | −1.00 | −0.03 | – | +0.00 |
+| 21 | Sett | −0.78 | −1.00 | −1.00 | −1.00 | −0.04 | – | +0.00 |
+| 22 | Urgot | −0.80 | −1.00 | −1.00 | −1.00 | +0.02 | −1.00 | +0.00 |
+| 23 | Dr. Mundo | −0.80 | −1.00 | −1.00 | −1.00 | −0.13 | – | +0.00 |
+| 24 | Mordekaiser | −0.81 | −1.00 | −1.00 | −1.00 | −0.18 | – | +0.00 |
+
+## Interaction ledger (partial confidence)
+
 Every champion ranked by what its kit does against Gwen's, from the interaction ledger: projectile blocks, spell shields,
 parries, dash stops, crowd control and its defenses, range and more (PLAN.md §5). This ranking is **partial**: it weighs the
 interactions but doesn't play the fight out. The duel simulator replaces it as each champion's behavior is verified.
@@ -8,61 +41,61 @@ interactions but doesn't play the fight out. The duel simulator replaces it as e
 A hard counter shuts down part of a kit every time it is used (projectile block, attack dodge, attack block, blind, disarm, attack speed slow, attack reflect, dash stop, grounding, range) with an impact of 0.4 or more (0.5 for range).
 Run `npm run matchup -- <champion> Gwen` for the full ledger of a matchup, with sources.
 
-## Top 10
+### Top 10
 
-### 1. Sivir (net +0.72)
+#### 1. Sivir (net +0.72)
 
 - **0.44** range: Sivir's basic attacks reach 350 units farther than Gwen's (500 vs 150 attack range). Gwen closes the gap with Skip 'n Slash. (Sivir basic attacks → Gwen basic attacks)
 - **0.28** spell shield: Spell Shield's spell shield blocks part of Gwen's Needlework. Spell shield for 1.5 s, long enough to use ahead of Needlework. A spell shield blocks only the first enemy ability that reaches it. Spell shield blocks only one needle. (Sivir E Spell Shield → Gwen R Needlework)
 
-### 2. Kayle (net +0.64)
+#### 2. Kayle (net +0.64)
 
 - **0.36** range: Kayle's basic attacks reach 475 units farther than Gwen's (625 vs 150 attack range). Gwen closes the gap with Skip 'n Slash. (Kayle basic attacks → Gwen basic attacks)
 - **0.28** invulnerable: Divine Judgment makes Kayle invulnerable to Gwen's Needlework (its crowd control still applies). Invulnerable for 2.5 s, long enough to use ahead of Needlework. (Kayle R Divine Judgment → Gwen R Needlework)
 
-### 3. Twitch (net +0.43)
+#### 3. Twitch (net +0.43)
 
 - **0.43** range: Twitch's basic attacks reach 400 units farther than Gwen's (550 vs 150 attack range). Gwen closes the gap with Skip 'n Slash. (Twitch basic attacks → Gwen basic attacks)
 
-### 4. Xayah (net +0.37)
+#### 4. Xayah (net +0.37)
 
 - **0.48** untargetable: Featherstorm makes Xayah untargetable, dodging Gwen's Needlework. Untargetable for 1.5 s, long enough to use ahead of Needlework. (Xayah R Featherstorm → Gwen R Needlework)
 - **0.36** range: Xayah's basic attacks reach 375 units farther than Gwen's (525 vs 150 attack range). Gwen closes the gap with Skip 'n Slash. (Xayah basic attacks → Gwen basic attacks)
 - Watch out: Hallowed Mist makes Gwen untargetable, dodging Xayah's Featherstorm.
 
-### 5. Kindred (net +0.36)
+#### 5. Kindred (net +0.36)
 
 - **0.44** range: Kindred's basic attacks reach 350 units farther than Gwen's (500 vs 150 attack range). Gwen closes the gap with Skip 'n Slash. (Kindred basic attacks → Gwen basic attacks)
 - **0.22** invulnerable: Lamb's Respite makes Kindred invulnerable to Gwen's Needlework (its crowd control still applies). Invulnerable for ?; Needlework takes 0.31 s to land, enough to react. (Kindred R Lamb's Respite → Gwen R Needlework)
 - Watch out: Hallowed Mist makes Gwen untargetable, dodging Kindred's Mounting Dread.
 
-### 6. Kai'Sa (net +0.36)
+#### 6. Kai'Sa (net +0.36)
 
 - **0.36** range: Kai'Sa's basic attacks reach 375 units farther than Gwen's (525 vs 150 attack range). Gwen closes the gap with Skip 'n Slash. (Kai'Sa basic attacks → Gwen basic attacks)
 
-### 7. Yunara (net +0.36)
+#### 7. Yunara (net +0.36)
 
 - **0.36** range: Yunara's basic attacks reach 425 units farther than Gwen's (575 vs 150 attack range). Gwen closes the gap with Skip 'n Slash. (Yunara basic attacks → Gwen basic attacks)
 
-### 8. Aurora (net +0.35)
+#### 8. Aurora (net +0.35)
 
 - **0.48** untargetable: Between Worlds makes Aurora untargetable, dodging Gwen's Needlework. Untargetable for 0.4 s; Needlework takes 0.31 s to land, enough to react. Does not destroy inbound projectiles. (Aurora R Between Worlds → Gwen R Needlework)
 - **0.29** range: Aurora's basic attacks reach 400 units farther than Gwen's (550 vs 150 attack range). Gwen closes the gap with Skip 'n Slash. (Aurora basic attacks → Gwen basic attacks)
 - Watch out: Hallowed Mist makes Gwen untargetable, dodging Aurora's Between Worlds.
 
-### 9. Yuumi (net +0.30)
+#### 9. Yuumi (net +0.30)
 
 - **0.55** untargetable: You and Me! makes Yuumi untargetable, dodging Gwen's Needlework. Untargetable for ?; Needlework takes 0.31 s to land, enough to react. Does not destroy inbound projectiles, special cased to be targetable to turrets. (Yuumi W You and Me! → Gwen R Needlework)
 - **0.30** range: Yuumi's basic attacks reach 275 units farther than Gwen's (425 vs 150 attack range). Gwen closes the gap with Skip 'n Slash. (Yuumi basic attacks → Gwen basic attacks)
 - Watch out: Hallowed Mist makes Gwen untargetable, dodging Yuumi's Final Chapter.
 
-### 10. Samira (net +0.26)
+#### 10. Samira (net +0.26)
 
 - **0.55** projectile block: Blade Whirl blocks Gwen's Needlework, a projectile. Blade Whirl for 0.75 s; Needlework takes 0.31 s to land, enough to react. (Samira W Blade Whirl → Gwen R Needlework)
 - **0.28** range: Samira's basic attacks reach 350 units farther than Gwen's (500 vs 150 attack range). Gwen closes the gap with Skip 'n Slash. (Samira basic attacks → Gwen basic attacks)
 - Watch out: Hallowed Mist makes Gwen untargetable, dodging Samira's Wild Rush.
 
-## Full ranking
+### Full ranking
 
 | # | Champion | Net | For | Against | Hard counters |
 |--:|---|--:|--:|--:|---|

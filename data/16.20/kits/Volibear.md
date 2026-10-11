@@ -246,3 +246,69 @@ All 1 level-based formulas in the game files (1 linked to wiki values above):
 | Spell | Calculation | Rule | Level 1 | Level 18 | Level 20 |
 |---|---|---|--:|--:|--:|
 | VolibearP | ChainLightningDamage | breakpoints at levels 4, 7, 14 (level 1: 11) | 11 | 60 | 68 |
+
+## Duel simulator kit (level 20, every ability at max rank)
+
+What the duel simulator fights with (`kits/champions/Volibear.ts`): every number is read from the wiki's ability data above at level 20; what the wiki doesn't say is listed under assumptions. Ratios are fractions of the stat (60% AD is 0.6 × AD).
+
+- Basic attack: range 150, melee.
+
+| Key | Ability | Cooldown (s) | Cast time (s) | Cost | Delivery | On the enemy | On itself |
+|---|---|--:|--:|---|---|---|---|
+| Q | Thundering Smash | 10 | 0 | 50 | self | – | moveSpeedPercent 0.52 for 4 s; resets the attack timer |
+| W | Frenzied Maul | 5 | 0.25 | 40 | targeted, 325 range | 105 + 110% AD + 6% bonus health physical damage; marks it "wounded" for 8 s | – |
+| E | Sky Splitter | 16 | 0 | 50 | circle of 325 radius up to 1200 away, lands after 2 s | 200 + 70% AP + 15% target's maximum health magic damage; slow 40% for 2 s | – |
+| R | Stormbringer | 110 | 1 | 100 | circle of 300 radius up to 0 away, lands after 0 s | 700 + 250% bonus AD + 125% AP physical damage; slow 25% for 1 s | as the cast starts: displacementImmune for 1 s; health 525 for 12 s; attackRange 50 for 12 s |
+
+Effects marked by a mark or a role are completed by the kit's hooks (see the kit's source).
+
+### Assumptions
+
+- Thundering Smash's movement speed is the doubled amount, for running at an enemy.
+- Volibear aims Sky Splitter at the enemy; he gets its shield when he is within 425 units of the enemy as it lands.
+- Stormbringer's slow decaying over 1 second is taken as 25% for 1 second.
+- Stormbringer lands next to the enemy, up to 700 units away; the enemy can walk out of the impact during the leap.
+
+### Wiki values read (39)
+
+| Ability | Value | Revision |
+|---|---|---|
+| The Relentless Storm | he generates a stack of The Relentless Storm for 6 seconds | [4064866](https://wiki.leagueoflegends.com/en-us/Template:Data_Volibear/The_Relentless_Storm?oldid=4064866) |
+| The Relentless Storm | stacking up to 5 times | [4064866](https://wiki.leagueoflegends.com/en-us/Template:Data_Volibear/The_Relentless_Storm?oldid=4064866) |
+| The Relentless Storm | For each stack, Volibear gains 5% (+ 4% per 100 AP) bonus attack speed | [4064866](https://wiki.leagueoflegends.com/en-us/Template:Data_Volibear/The_Relentless_Storm?oldid=4064866) |
+| The Relentless Storm | Lightning Claws: Volibear's claws ignite with lightning, empowering his basic attacks on-hit to deal 11 – 60 (based on level) (+ 20% bonus AD) (+ 45% AP) bonus magic damage to the target and the nearest visible enemy within 450 units of the target, chaining up to 4 subsequent targets. | [4064866](https://wiki.leagueoflegends.com/en-us/Template:Data_Volibear/The_Relentless_Storm?oldid=4064866) |
+| The Relentless Storm | (+ 20% bonus AD) (+ 45% AP) bonus magic damage | [4064866](https://wiki.leagueoflegends.com/en-us/Template:Data_Volibear/The_Relentless_Storm?oldid=4064866) |
+| Thundering Smash | gaining bonus movement speed for 4 seconds | [4046590](https://wiki.leagueoflegends.com/en-us/Template:Data_Volibear/Thundering_Smash?oldid=4046590) |
+| Thundering Smash | Attack Windup Time: 0.4 (- 0.1 per 100% bonus attack speed) | [4046590](https://wiki.leagueoflegends.com/en-us/Template:Data_Volibear/Thundering_Smash?oldid=4046590) |
+| Thundering Smash | gain 25 bonus range | [4046590](https://wiki.leagueoflegends.com/en-us/Template:Data_Volibear/Thundering_Smash?oldid=4046590) |
+| Thundering Smash | Bonus Physical Damage: 10 / 20 / 30 / 40 / 50 (+ 160% bonus AD) | [4046590](https://wiki.leagueoflegends.com/en-us/Template:Data_Volibear/Thundering_Smash?oldid=4046590) |
+| Thundering Smash | stunning them for 1 second | [4046590](https://wiki.leagueoflegends.com/en-us/Template:Data_Volibear/Thundering_Smash?oldid=4046590) |
+| Thundering Smash | cooldown: 12 / 11.5 / 11 / 10.5 / 10 | [4046590](https://wiki.leagueoflegends.com/en-us/Template:Data_Volibear/Thundering_Smash?oldid=4046590) |
+| Frenzied Maul | mark the target Wounded for 8 seconds | [4008612](https://wiki.leagueoflegends.com/en-us/Template:Data_Volibear/Frenzied_Maul?oldid=4008612) |
+| Frenzied Maul | dealing 50% (+ 25% per 100 bonus AD) increased damage | [4008612](https://wiki.leagueoflegends.com/en-us/Template:Data_Volibear/Frenzied_Maul?oldid=4008612) |
+| Frenzied Maul | Physical Damage: 5 / 30 / 55 / 80 / 105 (+ 110% AD) (+ 6% of his bonus health) | [4008612](https://wiki.leagueoflegends.com/en-us/Template:Data_Volibear/Frenzied_Maul?oldid=4008612) |
+| Frenzied Maul | Heal: 20 / 35 / 50 / 65 / 80 (+ 8 / 11 / 14 / 17 / 20% of his missing health) | [4008612](https://wiki.leagueoflegends.com/en-us/Template:Data_Volibear/Frenzied_Maul?oldid=4008612) |
+| Frenzied Maul | cooldown: 5 | [4008612](https://wiki.leagueoflegends.com/en-us/Template:Data_Volibear/Frenzied_Maul?oldid=4008612) |
+| Sky Splitter | to strike at the target location after a 2-second delay | [4008614](https://wiki.leagueoflegends.com/en-us/Template:Data_Volibear/Sky_Splitter?oldid=4008614) |
+| Sky Splitter | effectRadius: 325 • 425 | [4008614](https://wiki.leagueoflegends.com/en-us/Template:Data_Volibear/Sky_Splitter?oldid=4008614) |
+| Sky Splitter | he gains a shield equal to 14% of his maximum health (+ 75% AP) for 3 seconds | [4008614](https://wiki.leagueoflegends.com/en-us/Template:Data_Volibear/Sky_Splitter?oldid=4008614) |
+| Stormbringer | Volibear gains Stormbringer for 12 seconds | [4007765](https://wiki.leagueoflegends.com/en-us/Template:Data_Volibear/Stormbringer?oldid=4007765) |
+| Stormbringer | leaps to the target location with displacement immunity over 1 second | [4007765](https://wiki.leagueoflegends.com/en-us/Template:Data_Volibear/Stormbringer?oldid=4007765) |
+| Stormbringer | effectRadius: 300 • 500 • 700 | [4007765](https://wiki.leagueoflegends.com/en-us/Template:Data_Volibear/Stormbringer?oldid=4007765) |
+| Stormbringer | targetRange: 700 | [4007765](https://wiki.leagueoflegends.com/en-us/Template:Data_Volibear/Stormbringer?oldid=4007765) |
+| Thundering Smash | cost: 50 | [4046590](https://wiki.leagueoflegends.com/en-us/Template:Data_Volibear/Thundering_Smash?oldid=4046590) |
+| Thundering Smash | Increased Bonus Movement Speed: 24 / 31 / 38 / 45 / 52% | [4046590](https://wiki.leagueoflegends.com/en-us/Template:Data_Volibear/Thundering_Smash?oldid=4046590) |
+| Frenzied Maul | cost: 20 / 25 / 30 / 35 / 40 | [4008612](https://wiki.leagueoflegends.com/en-us/Template:Data_Volibear/Frenzied_Maul?oldid=4008612) |
+| Frenzied Maul | castTime: 0.25 | [4008612](https://wiki.leagueoflegends.com/en-us/Template:Data_Volibear/Frenzied_Maul?oldid=4008612) |
+| Frenzied Maul | targetRange (Cast range): 325 • 350 | [4008612](https://wiki.leagueoflegends.com/en-us/Template:Data_Volibear/Frenzied_Maul?oldid=4008612) |
+| Sky Splitter | cooldown: 16 | [4008614](https://wiki.leagueoflegends.com/en-us/Template:Data_Volibear/Sky_Splitter?oldid=4008614) |
+| Sky Splitter | cost: 50 | [4008614](https://wiki.leagueoflegends.com/en-us/Template:Data_Volibear/Sky_Splitter?oldid=4008614) |
+| Sky Splitter | targetRange: 1200 | [4008614](https://wiki.leagueoflegends.com/en-us/Template:Data_Volibear/Sky_Splitter?oldid=4008614) |
+| Sky Splitter | Magic Damage: 80 / 110 / 140 / 170 / 200 (+ 70% AP) (+ 11 / 12 / 13 / 14 / 15% of target's maximum health) | [4008614](https://wiki.leagueoflegends.com/en-us/Template:Data_Volibear/Sky_Splitter?oldid=4008614) |
+| Sky Splitter | slows them by 40% for 2 seconds | [4008614](https://wiki.leagueoflegends.com/en-us/Template:Data_Volibear/Sky_Splitter?oldid=4008614) |
+| Stormbringer | cooldown: 160 / 135 / 110 | [4007765](https://wiki.leagueoflegends.com/en-us/Template:Data_Volibear/Stormbringer?oldid=4007765) |
+| Stormbringer | cost: 100 | [4007765](https://wiki.leagueoflegends.com/en-us/Template:Data_Volibear/Stormbringer?oldid=4007765) |
+| Stormbringer | Bonus Health: 175 / 350 / 525 | [4007765](https://wiki.leagueoflegends.com/en-us/Template:Data_Volibear/Stormbringer?oldid=4007765) |
+| Stormbringer | 50 bonus attack range | [4007765](https://wiki.leagueoflegends.com/en-us/Template:Data_Volibear/Stormbringer?oldid=4007765) |
+| Stormbringer | Physical Damage: 300 / 500 / 700 (+ 250% bonus AD) (+ 125% AP) | [4007765](https://wiki.leagueoflegends.com/en-us/Template:Data_Volibear/Stormbringer?oldid=4007765) |
+| Stormbringer | slowing nearby enemies by 50% decaying over 1 second | [4007765](https://wiki.leagueoflegends.com/en-us/Template:Data_Volibear/Stormbringer?oldid=4007765) |

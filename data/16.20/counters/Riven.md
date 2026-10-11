@@ -1,5 +1,38 @@
 # Counters to Riven (patch 26.20)
 
+## Simulated duels (full confidence)
+
+The duel simulator played each of the 24 other champions with a simulator kit against Riven: both at level 20 with 15,000 gold of plain stats, each side's spent against the other's, through six scenarios (PLAN.md §6). Scores run from −1 (Riven wins every time) to +1 (the champion does). Run `npm run duel -- <champion> Riven --log brawl` to watch a fight.
+
+| # | Champion | Score | You engage | Enemy engages | Brawl | Short trade | Spacing | Escape |
+|--:|---|--:|--:|--:|--:|--:|--:|--:|
+| 1 | Teemo | +0.95 | +1.00 | +1.00 | +1.00 | +1.00 | +1.00 | +0.00 |
+| 2 | Urgot | +0.83 | +1.00 | +1.00 | +1.00 | +0.20 | +1.00 | +0.00 |
+| 3 | Poppy | +0.83 | +1.00 | +1.00 | +1.00 | +0.28 | – | +0.00 |
+| 4 | Ornn | +0.81 | +1.00 | +1.00 | +1.00 | +0.21 | – | +0.00 |
+| 5 | Garen | +0.81 | +1.00 | +1.00 | +1.00 | +0.18 | – | +0.00 |
+| 6 | Malphite | +0.80 | +1.00 | +1.00 | +1.00 | +0.14 | – | +0.00 |
+| 7 | Olaf | +0.78 | +1.00 | +1.00 | +1.00 | +0.01 | – | +0.00 |
+| 8 | Fiora | +0.78 | +1.00 | +1.00 | +1.00 | −0.17 | – | +0.50 |
+| 9 | Irelia | +0.78 | +1.00 | +1.00 | +1.00 | −0.01 | – | +0.00 |
+| 10 | Sett | +0.77 | +1.00 | +1.00 | +1.00 | −0.03 | – | +0.00 |
+| 11 | Renekton | +0.77 | +1.00 | +1.00 | +1.00 | −0.04 | – | +0.00 |
+| 12 | Jax | +0.77 | +1.00 | +1.00 | +1.00 | −0.05 | – | +0.00 |
+| 13 | Nasus | +0.76 | +1.00 | +1.00 | +1.00 | −0.10 | – | +0.00 |
+| 14 | Dr. Mundo | +0.75 | +1.00 | +1.00 | +1.00 | −0.14 | – | +0.00 |
+| 15 | Darius | +0.75 | +1.00 | +1.00 | +1.00 | −0.17 | – | +0.00 |
+| 16 | Tryndamere | +0.75 | +1.00 | +1.00 | +1.00 | −0.19 | – | +0.00 |
+| 17 | Volibear | +0.75 | +1.00 | +1.00 | +1.00 | −0.19 | – | +0.00 |
+| 18 | Aatrox | +0.73 | +1.00 | +1.00 | +1.00 | −0.26 | – | +0.00 |
+| 19 | Camille | +0.55 | +1.00 | +1.00 | +0.00 | −0.06 | – | +0.00 |
+| 20 | Mordekaiser | +0.50 | +0.54 | +0.65 | +0.88 | −0.14 | – | +0.00 |
+| 21 | Yone | +0.35 | +1.00 | +1.00 | −1.00 | −0.10 | – | +0.52 |
+| 22 | Yasuo | −0.27 | −1.00 | +0.00 | +0.00 | +0.03 | – | +0.00 |
+| 23 | Gwen | −0.58 | −1.00 | −1.00 | +0.00 | −0.14 | – | +0.00 |
+| 24 | Shen | −0.77 | −1.00 | −1.00 | −1.00 | +0.03 | – | +0.00 |
+
+## Interaction ledger (partial confidence)
+
 Every champion ranked by what its kit does against Riven's, from the interaction ledger: projectile blocks, spell shields,
 parries, dash stops, crowd control and its defenses, range and more (PLAN.md §5). This ranking is **partial**: it weighs the
 interactions but doesn't play the fight out. The duel simulator replaces it as each champion's behavior is verified.
@@ -8,68 +41,68 @@ interactions but doesn't play the fight out. The duel simulator replaces it as e
 A hard counter shuts down part of a kit every time it is used (projectile block, attack dodge, attack block, blind, disarm, attack speed slow, attack reflect, dash stop, grounding, range) with an impact of 0.4 or more (0.5 for range).
 Run `npm run matchup -- <champion> Riven` for the full ledger of a matchup, with sources.
 
-## Top 10
+### Top 10
 
-### 1. Nocturne (net +1.59)
+#### 1. Nocturne (net +1.59)
 
 - **1.00** spell shield: Shroud of Darkness's spell shield blocks Riven's Broken Wings. Spell shield for 1.5 s, long enough to use ahead of Broken Wings. A spell shield blocks only the first enemy ability that reaches it. (Nocturne W Shroud of Darkness → Riven Q Broken Wings)
 - **0.52** spell shield: Shroud of Darkness's spell shield blocks Riven's Ki Burst. Spell shield for 1.5 s, long enough to use ahead of Ki Burst. A spell shield blocks only the first enemy ability that reaches it. (Nocturne W Shroud of Darkness → Riven W Ki Burst)
 - **0.50** spell shield: Shroud of Darkness's spell shield blocks Riven's Wind Slash. Spell shield for 1.5 s, long enough to use ahead of Wind Slash. A spell shield blocks only the first enemy ability that reaches it. (Nocturne W Shroud of Darkness → Riven R Wind Slash)
 
-### 2. Sivir (net +1.46)
+#### 2. Sivir (net +1.46)
 
 - **0.83** spell shield: Spell Shield's spell shield blocks Riven's Broken Wings. Spell shield for 1.5 s, long enough to use ahead of Broken Wings. A spell shield blocks only the first enemy ability that reaches it. (Sivir E Spell Shield → Riven Q Broken Wings)
 - **0.44** spell shield: Spell Shield's spell shield blocks Riven's Ki Burst. Spell shield for 1.5 s, long enough to use ahead of Ki Burst. A spell shield blocks only the first enemy ability that reaches it. (Sivir E Spell Shield → Riven W Ki Burst)
 - **0.40** spell shield: Spell Shield's spell shield blocks Riven's Wind Slash. Spell shield for 1.5 s, long enough to use ahead of Wind Slash. A spell shield blocks only the first enemy ability that reaches it. (Sivir E Spell Shield → Riven R Wind Slash)
 
-### 3. Udyr (net +1.35)
+#### 3. Udyr (net +1.35)
 
 - **1.00** cc immunity: Blazing Stampede makes Udyr immune to Riven's Broken Wings (airborne). Immune for 1.5 s, long enough to use ahead of Broken Wings. (Udyr E Blazing Stampede → Riven Q Broken Wings)
 - **0.70** cc immunity: Blazing Stampede makes Udyr immune to Riven's Ki Burst (stun). Immune for 1.5 s, long enough to use ahead of Ki Burst. (Udyr E Blazing Stampede → Riven W Ki Burst)
 
-### 4. Vladimir (net +1.28)
+#### 4. Vladimir (net +1.28)
 
 - **0.89** untargetable: Sanguine Pool makes Vladimir untargetable, dodging Riven's Broken Wings. Untargetable for 2 s, long enough to use ahead of Broken Wings. (Vladimir W Sanguine Pool → Riven Q Broken Wings)
 - **0.46** untargetable: Sanguine Pool makes Vladimir untargetable, dodging Riven's Ki Burst. Untargetable for 2 s, long enough to use ahead of Ki Burst. (Vladimir W Sanguine Pool → Riven W Ki Burst)
 - **0.43** untargetable: Sanguine Pool makes Vladimir untargetable, dodging Riven's Wind Slash. Untargetable for 2 s, long enough to use ahead of Wind Slash. (Vladimir W Sanguine Pool → Riven R Wind Slash)
 - Watch out: Broken Wings's airborne interrupts Vladimir's Tides of Blood (charge-up).
 
-### 5. Morgana (net +1.25)
+#### 5. Morgana (net +1.25)
 
 - **0.89** cc immunity: Black Shield makes Morgana immune to Riven's Broken Wings (airborne). Immune for 5 s, long enough to use ahead of Broken Wings. (Morgana E Black Shield → Riven Q Broken Wings)
 - **0.46** cc immunity: Black Shield makes Morgana immune to Riven's Ki Burst (stun). Immune for 5 s, long enough to use ahead of Ki Burst. (Morgana E Black Shield → Riven W Ki Burst)
 - **0.13** range: Morgana's basic attacks reach 325 units farther than Riven's (450 vs 125 attack range). Riven closes the gap with Valor, Broken Wings. (Morgana basic attacks → Riven basic attacks)
 
-### 6. Elise (net +1.04)
+#### 6. Elise (net +1.04)
 
 - **0.50** untargetable: Rappel makes Elise untargetable, dodging Riven's Broken Wings. Untargetable for 0.6 s; Broken Wings lands within 0 s, faster than a 0.25 s reaction, so it needs prediction. (Elise E Rappel → Riven Q Broken Wings)
 - **0.44** untargetable: Rappel makes Elise untargetable, dodging Riven's Ki Burst. Untargetable for 0.6 s; Ki Burst takes 0.25 s to land, enough to react. (Elise E Rappel → Riven W Ki Burst)
 - **0.40** untargetable: Rappel makes Elise untargetable, dodging Riven's Wind Slash. Untargetable for 0.6 s; Wind Slash takes 0.94 s to land, enough to react. (Elise E Rappel → Riven R Wind Slash)
 
-### 7. Fiora (net +1.03)
+#### 7. Fiora (net +1.03)
 
 - **0.63** parry: Riposte parries Riven's Broken Wings and stuns back. Parry for 0.75 s; Broken Wings lands within 0 s, faster than a 0.25 s reaction, so it needs prediction. Negating Broken Wings's immobilizing effect turns Riposte's slow into a stun (2 s). (Fiora W Riposte → Riven Q Broken Wings)
 - **0.56** parry: Riposte parries Riven's Ki Burst and stuns back. Parry for 0.75 s; Ki Burst takes 0.25 s to land, enough to react. Negating Ki Burst's immobilizing effect turns Riposte's slow into a stun (2 s). (Fiora W Riposte → Riven W Ki Burst)
 - **0.43** parry: Riposte parries Riven's Wind Slash. Parry for 0.75 s; Wind Slash takes 0.94 s to land, enough to react. (Fiora W Riposte → Riven R Wind Slash)
 
-### 8. Rengar (net +1.03)
+#### 8. Rengar (net +1.03)
 
 - **0.80** cleanse: Battle Roar cleanses Riven's Broken Wings (airborne) after it lands. 10 s cooldown; usable while crowd controlled. (Rengar W Battle Roar → Riven Q Broken Wings)
 - **0.46** cleanse: Battle Roar cleanses Riven's Ki Burst (stun) after it lands. 10 s cooldown; usable while crowd controlled. (Rengar W Battle Roar → Riven W Ki Burst)
 
-### 9. Maokai (net +1.02)
+#### 9. Maokai (net +1.02)
 
 - **0.60** untargetable: Twisted Advance makes Maokai untargetable, dodging Riven's Broken Wings. Untargetable for 1.4 s; Broken Wings lands within 0 s, faster than a 0.25 s reaction, so it needs prediction. (Maokai W Twisted Advance → Riven Q Broken Wings)
 - **0.57** untargetable: Twisted Advance makes Maokai untargetable, dodging Riven's Ki Burst. Untargetable for 1.4 s; Ki Burst takes 0.25 s to land, enough to react. (Maokai W Twisted Advance → Riven W Ki Burst)
 - **0.55** untargetable: Twisted Advance makes Maokai untargetable, dodging Riven's Wind Slash. Untargetable for 1.4 s; Wind Slash takes 0.94 s to land, enough to react. (Maokai W Twisted Advance → Riven R Wind Slash)
 
-### 10. Bard (net +0.97)
+#### 10. Bard (net +0.97)
 
 - **0.50** untargetable: Tempered Fate makes Bard untargetable, dodging Riven's Broken Wings. Untargetable for 2.5 s, long enough to use ahead of Broken Wings. (Bard R Tempered Fate → Riven Q Broken Wings)
 - **0.32** untargetable: Tempered Fate makes Bard untargetable, dodging Riven's Ki Burst. Untargetable for 2.5 s, long enough to use ahead of Ki Burst. (Bard R Tempered Fate → Riven W Ki Burst)
 - **0.26** untargetable: Tempered Fate makes Bard untargetable, dodging Riven's Wind Slash. Untargetable for 2.5 s, long enough to use ahead of Wind Slash. (Bard R Tempered Fate → Riven R Wind Slash)
 
-## Full ranking
+### Full ranking
 
 | # | Champion | Net | For | Against | Hard counters |
 |--:|---|--:|--:|--:|---|

@@ -1,5 +1,38 @@
 # Counters to Irelia (patch 26.20)
 
+## Simulated duels (full confidence)
+
+The duel simulator played each of the 24 other champions with a simulator kit against Irelia: both at level 20 with 15,000 gold of plain stats, each side's spent against the other's, through six scenarios (PLAN.md §6). Scores run from −1 (Irelia wins every time) to +1 (the champion does). Run `npm run duel -- <champion> Irelia --log brawl` to watch a fight.
+
+| # | Champion | Score | You engage | Enemy engages | Brawl | Short trade | Spacing | Escape |
+|--:|---|--:|--:|--:|--:|--:|--:|--:|
+| 1 | Fiora | +0.81 | +1.00 | +1.00 | +1.00 | −0.14 | – | +1.00 |
+| 2 | Jax | +0.80 | +1.00 | +1.00 | +1.00 | +0.02 | +1.00 | +0.00 |
+| 3 | Nasus | +0.80 | +1.00 | +1.00 | +1.00 | +0.01 | +1.00 | +0.00 |
+| 4 | Teemo | +0.80 | +1.00 | +1.00 | +1.00 | +0.00 | +1.00 | +0.00 |
+| 5 | Garen | +0.80 | +1.00 | +1.00 | +1.00 | +0.13 | – | +0.00 |
+| 6 | Poppy | +0.80 | +1.00 | +1.00 | +1.00 | +0.12 | – | +0.00 |
+| 7 | Malphite | +0.80 | +1.00 | +1.00 | +1.00 | +0.11 | – | +0.00 |
+| 8 | Yasuo | +0.79 | +1.00 | +1.00 | +1.00 | +0.06 | – | +0.00 |
+| 9 | Renekton | +0.78 | +1.00 | +1.00 | +1.00 | +0.04 | – | +0.00 |
+| 10 | Gwen | +0.77 | +1.00 | +1.00 | +1.00 | −0.05 | – | +0.00 |
+| 11 | Tryndamere | +0.76 | +1.00 | +1.00 | +1.00 | −0.09 | – | +0.00 |
+| 12 | Dr. Mundo | +0.76 | +1.00 | +1.00 | +1.00 | −0.11 | – | +0.00 |
+| 13 | Darius | +0.76 | +1.00 | +1.00 | +1.00 | −0.11 | – | +0.00 |
+| 14 | Aatrox | +0.75 | +1.00 | +1.00 | +1.00 | −0.17 | – | +0.00 |
+| 15 | Volibear | +0.71 | +0.88 | +1.00 | +0.88 | −0.06 | – | +0.00 |
+| 16 | Mordekaiser | +0.68 | +0.99 | +0.99 | +0.67 | −0.12 | – | +0.00 |
+| 17 | Urgot | +0.63 | +1.00 | +1.00 | +1.00 | +0.17 | −1.00 | +0.00 |
+| 18 | Yone | +0.29 | +0.11 | +0.11 | +1.00 | +0.01 | – | +0.00 |
+| 19 | Sett | +0.11 | −0.32 | +1.00 | −0.32 | −0.04 | – | +0.00 |
+| 20 | Camille | −0.05 | −0.03 | −1.00 | +0.95 | +0.15 | – | +0.00 |
+| 21 | Olaf | −0.44 | −1.00 | −1.00 | +0.32 | −0.07 | +0.04 | +0.00 |
+| 22 | Ornn | −0.76 | −1.00 | −1.00 | −1.00 | +0.12 | – | +0.00 |
+| 23 | Shen | −0.77 | −1.00 | −1.00 | −1.00 | +0.04 | – | +0.00 |
+| 24 | Riven | −0.78 | −1.00 | −1.00 | −1.00 | +0.01 | – | +0.00 |
+
+## Interaction ledger (partial confidence)
+
 Every champion ranked by what its kit does against Irelia's, from the interaction ledger: projectile blocks, spell shields,
 parries, dash stops, crowd control and its defenses, range and more (PLAN.md §5). This ranking is **partial**: it weighs the
 interactions but doesn't play the fight out. The duel simulator replaces it as each champion's behavior is verified.
@@ -8,72 +41,72 @@ interactions but doesn't play the fight out. The duel simulator replaces it as e
 A hard counter shuts down part of a kit every time it is used (projectile block, attack dodge, attack block, blind, disarm, attack speed slow, attack reflect, dash stop, grounding, range) with an impact of 0.4 or more (0.5 for range).
 Run `npm run matchup -- <champion> Irelia` for the full ledger of a matchup, with sources.
 
-## Top 10
+### Top 10
 
-### 1. Elise (net +1.21)
+#### 1. Elise (net +1.21)
 
 - **0.55** untargetable: Rappel makes Elise untargetable, dodging Irelia's Vanguard's Edge. Untargetable for 0.6 s; Vanguard's Edge takes 0.9 s to land, enough to react. (Elise E Rappel → Irelia R Vanguard's Edge)
 - **0.51** untargetable: Rappel makes Elise untargetable, dodging Irelia's Flawless Duet. Untargetable for 0.6 s; Flawless Duet takes 0.39 s to land, enough to react. (Elise E Rappel → Irelia E Flawless Duet)
 - **0.48** untargetable: Rappel makes Elise untargetable, dodging Irelia's Bladesurge. Untargetable for 0.6 s; Bladesurge takes 0.43 s to land, enough to react. (Elise E Rappel → Irelia Q Bladesurge)
 
-### 2. Sivir (net +1.20)
+#### 2. Sivir (net +1.20)
 
 - **0.51** spell shield: Spell Shield's spell shield blocks Irelia's Flawless Duet. Spell shield for 1.5 s, long enough to use ahead of Flawless Duet. A spell shield blocks only the first enemy ability that reaches it. (Sivir E Spell Shield → Irelia E Flawless Duet)
 - **0.48** spell shield: Spell Shield's spell shield blocks Irelia's Bladesurge. Spell shield for 1.5 s, long enough to use ahead of Bladesurge. A spell shield blocks only the first enemy ability that reaches it. (Sivir E Spell Shield → Irelia Q Bladesurge)
 - **0.38** range: Sivir's basic attacks reach 300 units farther than Irelia's (500 vs 200 attack range). Irelia closes the gap with Bladesurge. (Sivir basic attacks → Irelia basic attacks)
 
-### 3. Yuumi (net +1.12)
+#### 3. Yuumi (net +1.12)
 
 - **0.80** untargetable: You and Me! makes Yuumi untargetable, dodging Irelia's Bladesurge. Untargetable for ?; Bladesurge takes 0.43 s to land, enough to react. Does not destroy inbound projectiles, special cased to be targetable to turrets. (Yuumi W You and Me! → Irelia Q Bladesurge)
 - **0.70** untargetable: You and Me! makes Yuumi untargetable, dodging Irelia's Flawless Duet. Untargetable for ?; Flawless Duet takes 0.39 s to land, enough to react. Does not destroy inbound projectiles, special cased to be targetable to turrets. (Yuumi W You and Me! → Irelia E Flawless Duet)
 - **0.55** untargetable: You and Me! makes Yuumi untargetable, dodging Irelia's Vanguard's Edge. Untargetable for ?; Vanguard's Edge takes 0.9 s to land, enough to react. Does not destroy inbound projectiles, special cased to be targetable to turrets. (Yuumi W You and Me! → Irelia R Vanguard's Edge)
 - Watch out: Flawless Duet's stun interrupts Yuumi's Final Chapter (normal channel).
 
-### 4. Bard (net +1.10)
+#### 4. Bard (net +1.10)
 
 - **0.55** untargetable: Tempered Fate makes Bard untargetable, dodging Irelia's Vanguard's Edge. Untargetable for 2.5 s, long enough to use ahead of Vanguard's Edge. (Bard R Tempered Fate → Irelia R Vanguard's Edge)
 - **0.36** untargetable: Tempered Fate makes Bard untargetable, dodging Irelia's Bladesurge. Untargetable for 2.5 s, long enough to use ahead of Bladesurge. (Bard R Tempered Fate → Irelia Q Bladesurge)
 - **0.33** untargetable: Tempered Fate makes Bard untargetable, dodging Irelia's Flawless Duet. Untargetable for 2.5 s, long enough to use ahead of Flawless Duet. (Bard R Tempered Fate → Irelia E Flawless Duet)
 
-### 5. Maokai (net +1.09)
+#### 5. Maokai (net +1.09)
 
 - **0.70** untargetable: Twisted Advance makes Maokai untargetable, dodging Irelia's Flawless Duet. Untargetable for 1.4 s; Flawless Duet takes 0.39 s to land, enough to react. (Maokai W Twisted Advance → Irelia E Flawless Duet)
 - **0.61** untargetable: Twisted Advance makes Maokai untargetable, dodging Irelia's Bladesurge. Untargetable for 1.4 s; Bladesurge takes 0.43 s to land, enough to react. (Maokai W Twisted Advance → Irelia Q Bladesurge)
 - **0.55** untargetable: Twisted Advance makes Maokai untargetable, dodging Irelia's Vanguard's Edge. Untargetable for 1.4 s; Vanguard's Edge takes 0.9 s to land, enough to react. (Maokai W Twisted Advance → Irelia R Vanguard's Edge)
 - Watch out: Irelia's basic attacks reach 75 units farther than Maokai's (200 vs 125 attack range).
 
-### 6. Xayah (net +1.07)
+#### 6. Xayah (net +1.07)
 
 - **0.50** untargetable: Featherstorm makes Xayah untargetable, dodging Irelia's Vanguard's Edge. Untargetable for 1.5 s, long enough to use ahead of Vanguard's Edge. (Xayah R Featherstorm → Irelia R Vanguard's Edge)
 - **0.35** untargetable: Featherstorm makes Xayah untargetable, dodging Irelia's Bladesurge. Untargetable for 1.5 s, long enough to use ahead of Bladesurge. (Xayah R Featherstorm → Irelia Q Bladesurge)
 - **0.32** untargetable: Featherstorm makes Xayah untargetable, dodging Irelia's Flawless Duet. Untargetable for 1.5 s, long enough to use ahead of Flawless Duet. (Xayah R Featherstorm → Irelia E Flawless Duet)
 
-### 7. Fiora (net +1.05)
+#### 7. Fiora (net +1.05)
 
 - **0.64** parry: Riposte parries Irelia's Flawless Duet and stuns back. Parry for 0.75 s; Flawless Duet takes 0.39 s to land, enough to react. Negating Flawless Duet's immobilizing effect turns Riposte's slow into a stun (2 s). (Fiora W Riposte → Irelia E Flawless Duet)
 - **0.55** parry: Riposte parries Irelia's Vanguard's Edge. Parry for 0.75 s; Vanguard's Edge takes 0.9 s to land, enough to react. (Fiora W Riposte → Irelia R Vanguard's Edge)
 - **0.50** parry: Riposte parries Irelia's Bladesurge. Parry for 0.75 s; Bladesurge takes 0.43 s to land, enough to react. (Fiora W Riposte → Irelia Q Bladesurge)
 
-### 8. Lissandra (net +1.02)
+#### 8. Lissandra (net +1.02)
 
 - **0.55** untargetable: Frozen Tomb makes Lissandra untargetable, dodging Irelia's Vanguard's Edge. Untargetable for 2.5 s, long enough to use ahead of Vanguard's Edge. (Lissandra R Frozen Tomb → Irelia R Vanguard's Edge)
 - **0.36** untargetable: Frozen Tomb makes Lissandra untargetable, dodging Irelia's Bladesurge. Untargetable for 2.5 s, long enough to use ahead of Bladesurge. (Lissandra R Frozen Tomb → Irelia Q Bladesurge)
 - **0.33** untargetable: Frozen Tomb makes Lissandra untargetable, dodging Irelia's Flawless Duet. Untargetable for 2.5 s, long enough to use ahead of Flawless Duet. (Lissandra R Frozen Tomb → Irelia E Flawless Duet)
 
-### 9. Samira (net +1.02)
+#### 9. Samira (net +1.02)
 
 - **0.55** projectile block: Blade Whirl blocks Irelia's Vanguard's Edge, a projectile. Blade Whirl for 0.75 s; Vanguard's Edge takes 0.9 s to land, enough to react. (Samira W Blade Whirl → Irelia R Vanguard's Edge)
 - **0.47** projectile block: Blade Whirl blocks Irelia's Flawless Duet, a projectile. Blade Whirl for 0.75 s; Flawless Duet takes 0.39 s to land, enough to react. (Samira W Blade Whirl → Irelia E Flawless Duet)
 - **0.24** range: Samira's basic attacks reach 300 units farther than Irelia's (500 vs 200 attack range). Irelia closes the gap with Bladesurge. (Samira basic attacks → Irelia basic attacks)
 
-### 10. Vladimir (net +1.01)
+#### 10. Vladimir (net +1.01)
 
 - **0.55** untargetable: Sanguine Pool makes Vladimir untargetable, dodging Irelia's Vanguard's Edge. Untargetable for 2 s, long enough to use ahead of Vanguard's Edge. (Vladimir W Sanguine Pool → Irelia R Vanguard's Edge)
 - **0.54** untargetable: Sanguine Pool makes Vladimir untargetable, dodging Irelia's Flawless Duet. Untargetable for 2 s, long enough to use ahead of Flawless Duet. (Vladimir W Sanguine Pool → Irelia E Flawless Duet)
 - **0.50** untargetable: Sanguine Pool makes Vladimir untargetable, dodging Irelia's Bladesurge. Untargetable for 2 s, long enough to use ahead of Bladesurge. (Vladimir W Sanguine Pool → Irelia Q Bladesurge)
 - Watch out: Flawless Duet's stun interrupts Vladimir's Tides of Blood (charge-up).
 
-## Full ranking
+### Full ranking
 
 | # | Champion | Net | For | Against | Hard counters |
 |--:|---|--:|--:|--:|---|

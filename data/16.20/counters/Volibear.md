@@ -1,5 +1,38 @@
 # Counters to Volibear (patch 26.20)
 
+## Simulated duels (full confidence)
+
+The duel simulator played each of the 24 other champions with a simulator kit against Volibear: both at level 20 with 15,000 gold of plain stats, each side's spent against the other's, through six scenarios (PLAN.md §6). Scores run from −1 (Volibear wins every time) to +1 (the champion does). Run `npm run duel -- <champion> Volibear --log brawl` to watch a fight.
+
+| # | Champion | Score | You engage | Enemy engages | Brawl | Short trade | Spacing | Escape |
+|--:|---|--:|--:|--:|--:|--:|--:|--:|
+| 1 | Teemo | +0.91 | +1.00 | +1.00 | +1.00 | +0.72 | +1.00 | +0.00 |
+| 2 | Fiora | +0.85 | +1.00 | +1.00 | +1.00 | +0.09 | – | +1.00 |
+| 3 | Jax | +0.81 | +1.00 | +1.00 | +1.00 | +0.18 | – | +0.00 |
+| 4 | Aatrox | +0.80 | +1.00 | +1.00 | +1.00 | +0.12 | – | +0.00 |
+| 5 | Tryndamere | +0.78 | +1.00 | +1.00 | +1.00 | +0.00 | – | +0.00 |
+| 6 | Darius | +0.77 | +1.00 | +1.00 | +1.00 | −0.05 | – | +0.00 |
+| 7 | Garen | +0.77 | +1.00 | +1.00 | +1.00 | −0.06 | – | +0.00 |
+| 8 | Gwen | +0.76 | +1.00 | +1.00 | +1.00 | −0.08 | – | +0.00 |
+| 9 | Dr. Mundo | +0.47 | +0.08 | +0.88 | +0.89 | +0.04 | – | +0.00 |
+| 10 | Yone | +0.29 | −0.77 | +1.00 | +1.00 | +0.04 | – | +0.00 |
+| 11 | Nasus | +0.10 | −0.09 | +0.48 | −0.00 | −0.08 | – | +0.00 |
+| 12 | Olaf | −0.44 | +0.04 | −0.84 | −0.96 | −0.04 | – | +0.00 |
+| 13 | Ornn | −0.61 | −0.46 | −1.00 | −1.00 | +0.08 | – | +0.00 |
+| 14 | Irelia | −0.71 | −1.00 | −0.88 | −0.88 | +0.06 | – | +0.00 |
+| 15 | Poppy | −0.71 | −0.89 | −1.00 | −1.00 | +0.21 | – | +0.00 |
+| 16 | Camille | −0.74 | −1.00 | −1.00 | −1.00 | +0.21 | – | +0.00 |
+| 17 | Riven | −0.75 | −1.00 | −1.00 | −1.00 | +0.19 | – | +0.00 |
+| 18 | Shen | −0.75 | −1.00 | −1.00 | −0.97 | +0.11 | – | +0.00 |
+| 19 | Malphite | −0.75 | −1.00 | −1.00 | −1.00 | +0.14 | – | +0.00 |
+| 20 | Yasuo | −0.76 | −1.00 | −1.00 | −1.00 | +0.13 | – | +0.00 |
+| 21 | Sett | −0.76 | −1.00 | −1.00 | −1.00 | +0.10 | – | +0.00 |
+| 22 | Mordekaiser | −0.77 | −0.98 | −1.00 | −1.00 | −0.01 | – | +0.00 |
+| 23 | Renekton | −0.77 | −1.00 | −1.00 | −1.00 | +0.02 | – | +0.00 |
+| 24 | Urgot | −0.77 | −1.00 | −1.00 | −1.00 | +0.17 | −1.00 | +0.00 |
+
+## Interaction ledger (partial confidence)
+
 Every champion ranked by what its kit does against Volibear's, from the interaction ledger: projectile blocks, spell shields,
 parries, dash stops, crowd control and its defenses, range and more (PLAN.md §5). This ranking is **partial**: it weighs the
 interactions but doesn't play the fight out. The duel simulator replaces it as each champion's behavior is verified.
@@ -8,73 +41,73 @@ interactions but doesn't play the fight out. The duel simulator replaces it as e
 A hard counter shuts down part of a kit every time it is used (projectile block, attack dodge, attack block, blind, disarm, attack speed slow, attack reflect, dash stop, grounding, range) with an impact of 0.4 or more (0.5 for range).
 Run `npm run matchup -- <champion> Volibear` for the full ledger of a matchup, with sources.
 
-## Top 10
+### Top 10
 
-### 1. Sivir (net +1.62)
+#### 1. Sivir (net +1.62)
 
 - **0.90** spell shield: Spell Shield's spell shield blocks Volibear's Stormbringer. Spell shield for 1.5 s, long enough to use ahead of Stormbringer. A spell shield blocks only the first enemy ability that reaches it. (Sivir E Spell Shield → Volibear R Stormbringer)
 - **0.73** spell shield: Spell Shield's spell shield blocks Volibear's Thundering Smash. Spell shield for 1.5 s, long enough to use ahead of Thundering Smash. A spell shield blocks only the first enemy ability that reaches it. (Sivir E Spell Shield → Volibear Q Thundering Smash)
 - **0.29** range: Sivir's basic attacks reach 350 units farther than Volibear's (500 vs 150 attack range). Volibear closes the gap with Thundering Smash, Stormbringer. (Sivir basic attacks → Volibear basic attacks)
 
-### 2. Nocturne (net +1.42)
+#### 2. Nocturne (net +1.42)
 
 - **0.90** spell shield: Shroud of Darkness's spell shield blocks Volibear's Thundering Smash. Spell shield for 1.5 s, long enough to use ahead of Thundering Smash. A spell shield blocks only the first enemy ability that reaches it. (Nocturne W Shroud of Darkness → Volibear Q Thundering Smash)
 - **0.90** spell shield: Shroud of Darkness's spell shield blocks Volibear's Stormbringer. Spell shield for 1.5 s, long enough to use ahead of Stormbringer. A spell shield blocks only the first enemy ability that reaches it. (Nocturne W Shroud of Darkness → Volibear R Stormbringer)
 - **0.29** spell shield: Shroud of Darkness's spell shield blocks Volibear's Frenzied Maul. Spell shield for 1.5 s, long enough to use ahead of Frenzied Maul. A spell shield blocks only the first enemy ability that reaches it. (Nocturne W Shroud of Darkness → Volibear W Frenzied Maul)
 
-### 3. Xayah (net +1.42)
+#### 3. Xayah (net +1.42)
 
 - **0.90** untargetable: Featherstorm makes Xayah untargetable, dodging Volibear's Stormbringer. Untargetable for 1.5 s, long enough to use ahead of Stormbringer. (Xayah R Featherstorm → Volibear R Stormbringer)
 - **0.46** untargetable: Featherstorm makes Xayah untargetable, dodging Volibear's Thundering Smash. Untargetable for 1.5 s, long enough to use ahead of Thundering Smash. (Xayah R Featherstorm → Volibear Q Thundering Smash)
 - **0.24** range: Xayah's basic attacks reach 375 units farther than Volibear's (525 vs 150 attack range). Volibear closes the gap with Thundering Smash, Stormbringer. (Xayah basic attacks → Volibear basic attacks)
 
-### 4. Elise (net +1.41)
+#### 4. Elise (net +1.41)
 
 - **0.90** untargetable: Rappel makes Elise untargetable, dodging Volibear's Stormbringer. Untargetable for 0.6 s; Stormbringer takes 0.93 s to land, enough to react. (Elise E Rappel → Volibear R Stormbringer)
 - **0.44** untargetable: Rappel makes Elise untargetable, dodging Volibear's Thundering Smash. Untargetable for 0.6 s; Thundering Smash lands within 0 s, faster than a 0.25 s reaction, so it needs prediction. (Elise E Rappel → Volibear Q Thundering Smash)
 - **0.26** untargetable: Rappel makes Elise untargetable, dodging Volibear's Frenzied Maul. Untargetable for 0.6 s; Frenzied Maul takes 0.25 s to land, enough to react. (Elise E Rappel → Volibear W Frenzied Maul)
 
-### 5. Vladimir (net +1.39)
+#### 5. Vladimir (net +1.39)
 
 - **0.90** untargetable: Sanguine Pool makes Vladimir untargetable, dodging Volibear's Stormbringer. Untargetable for 2 s, long enough to use ahead of Stormbringer. (Vladimir W Sanguine Pool → Volibear R Stormbringer)
 - **0.78** untargetable: Sanguine Pool makes Vladimir untargetable, dodging Volibear's Thundering Smash. Untargetable for 2 s, long enough to use ahead of Thundering Smash. (Vladimir W Sanguine Pool → Volibear Q Thundering Smash)
 - **0.26** untargetable: Sanguine Pool makes Vladimir untargetable, dodging Volibear's Frenzied Maul. Untargetable for 2 s, long enough to use ahead of Frenzied Maul. (Vladimir W Sanguine Pool → Volibear W Frenzied Maul)
 - Watch out: Thundering Smash's stun interrupts Vladimir's Tides of Blood (charge-up).
 
-### 6. Bard (net +1.33)
+#### 6. Bard (net +1.33)
 
 - **0.90** untargetable: Tempered Fate makes Bard untargetable, dodging Volibear's Stormbringer. Untargetable for 2.5 s, long enough to use ahead of Stormbringer. (Bard R Tempered Fate → Volibear R Stormbringer)
 - **0.48** untargetable: Tempered Fate makes Bard untargetable, dodging Volibear's Thundering Smash. Untargetable for 2.5 s, long enough to use ahead of Thundering Smash. (Bard R Tempered Fate → Volibear Q Thundering Smash)
 - **0.22** range: Bard's basic attacks reach 350 units farther than Volibear's (500 vs 150 attack range). Volibear closes the gap with Thundering Smash, Stormbringer. (Bard basic attacks → Volibear basic attacks)
 - Watch out: Stormbringer is displacement immune, ignoring Bard's Tempered Fate (stasis) during it.
 
-### 7. Lissandra (net +1.31)
+#### 7. Lissandra (net +1.31)
 
 - **0.90** untargetable: Frozen Tomb makes Lissandra untargetable, dodging Volibear's Stormbringer. Untargetable for 2.5 s, long enough to use ahead of Stormbringer. (Lissandra R Frozen Tomb → Volibear R Stormbringer)
 - **0.48** untargetable: Frozen Tomb makes Lissandra untargetable, dodging Volibear's Thundering Smash. Untargetable for 2.5 s, long enough to use ahead of Thundering Smash. (Lissandra R Frozen Tomb → Volibear Q Thundering Smash)
 - **0.20** untargetable: Frozen Tomb makes Lissandra untargetable, dodging Volibear's Frenzied Maul. Untargetable for 2.5 s, long enough to use ahead of Frenzied Maul. (Lissandra R Frozen Tomb → Volibear W Frenzied Maul)
 - Watch out: Stormbringer is displacement immune, ignoring Lissandra's Frozen Tomb (knockdown) during it.
 
-### 8. Aurora (net +1.28)
+#### 8. Aurora (net +1.28)
 
 - **0.90** untargetable: Between Worlds makes Aurora untargetable, dodging Volibear's Stormbringer. Untargetable for 0.4 s; Stormbringer takes 0.93 s to land, enough to react. Does not destroy inbound projectiles. (Aurora R Between Worlds → Volibear R Stormbringer)
 - **0.28** untargetable: Between Worlds makes Aurora untargetable, dodging Volibear's Thundering Smash. Untargetable for 0.4 s; Thundering Smash lands within 0 s, faster than a 0.25 s reaction, so it needs prediction. Does not destroy inbound projectiles. (Aurora R Between Worlds → Volibear Q Thundering Smash)
 - **0.19** range: Aurora's basic attacks reach 400 units farther than Volibear's (550 vs 150 attack range). Volibear closes the gap with Thundering Smash, Stormbringer. (Aurora basic attacks → Volibear basic attacks)
 
-### 9. Fiora (net +1.26)
+#### 9. Fiora (net +1.26)
 
 - **0.90** parry: Riposte parries Volibear's Stormbringer. Parry for 0.75 s; Stormbringer takes 0.93 s to land, enough to react. (Fiora W Riposte → Volibear R Stormbringer)
 - **0.56** parry: Riposte parries Volibear's Thundering Smash and stuns back. Parry for 0.75 s; Thundering Smash lands within 0 s, faster than a 0.25 s reaction, so it needs prediction. Negating Thundering Smash's immobilizing effect turns Riposte's slow into a stun (2 s). (Fiora W Riposte → Volibear Q Thundering Smash)
 - **0.26** parry: Riposte parries Volibear's Frenzied Maul. Parry for 0.75 s; Frenzied Maul takes 0.25 s to land, enough to react. (Fiora W Riposte → Volibear W Frenzied Maul)
 
-### 10. Jax (net +1.22)
+#### 10. Jax (net +1.22)
 
 - **1.00** attack dodge: Counter Strike dodges Volibear's Thundering Smash, an empowered attack. Counter Strike lasts 2 s on a 9 s cooldown. (Jax E Counter Strike → Volibear Q Thundering Smash)
 - **0.35** attack dodge: Counter Strike dodges Volibear's basic attacks (with The Relentless Storm). Counter Strike lasts 2 s on a 9 s cooldown. (Jax E Counter Strike → Volibear basic attacks)
 - **0.17** attack dodge: Counter Strike dodges Volibear's Frenzied Maul, which applies on-hit effects. Counter Strike lasts 2 s on a 9 s cooldown. Frenzied Maul's bite heals even if it is blocked by spell shield. Frenzied Maul's strike can be dodged and blocked, but it cannot miss if Volibear is blinded. The Wound mark does not apply if dodged, but will otherwise do so regardless.
   - The bite can be blocked but Volibear still heals. It does not heal nor deal damage if the bite is dodged. The bite cannot miss if Volibear is blinded. (Jax E Counter Strike → Volibear W Frenzied Maul)
 
-## Full ranking
+### Full ranking
 
 | # | Champion | Net | For | Against | Hard counters |
 |--:|---|--:|--:|--:|---|

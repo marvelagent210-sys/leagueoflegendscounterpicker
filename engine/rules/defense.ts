@@ -20,6 +20,7 @@ export interface Shield {
 }
 
 export const GRIEVOUS_WOUNDS = 0.4;
+/** Critical strikes deal 200% damage (wiki "Critical strike": back to 200% from 175% in V26.01). */
 export const CRIT_DAMAGE = 2;
 
 function absorbs(shield: Shield, type: "physical" | "magic" | "true"): boolean {
