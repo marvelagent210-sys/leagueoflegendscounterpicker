@@ -165,6 +165,7 @@ const gwen: KitModule = {
           cooldown: w.cooldown(),
           cost: w.cost(),
           castTime: 0,
+          cooldownAfter: "state",
           delivery: { kind: "self" },
           onSelf: [
             { type: "state", state: "untargetableFar", value: w.field("effectRadius"), duration: mistSeconds },

@@ -1,5 +1,59 @@
 # Counters to Tahm Kench (patch 26.20)
 
+## Simulated duels (full confidence)
+
+The duel simulator played each of the 45 other champions with a simulator kit against Tahm Kench: both at level 20 with 15,000 gold of plain stats, each side's spent against the other's, through six scenarios (PLAN.md §6). Scores run from −1 (Tahm Kench wins every time) to +1 (the champion does). Run `npm run duel -- <champion> TahmKench --log brawl` to watch a fight.
+
+| # | Champion | Score | You engage | Enemy engages | Brawl | Short trade | Spacing | Escape |
+|--:|---|--:|--:|--:|--:|--:|--:|--:|
+| 1 | Fiora | +0.83 | +1.00 | +1.00 | +1.00 | +0.29 | – | +0.00 |
+| 2 | Olaf | +0.81 | +1.00 | +1.00 | +1.00 | +0.09 | +1.00 | +0.00 |
+| 3 | K'Sante | +0.81 | +1.00 | +1.00 | +1.00 | +0.19 | – | +0.00 |
+| 4 | Aatrox | +0.80 | +1.00 | +1.00 | +1.00 | +0.11 | – | +0.00 |
+| 5 | Zaahen | +0.78 | +1.00 | +1.00 | +1.00 | +0.02 | – | +0.00 |
+| 6 | Gwen | +0.76 | +1.00 | +1.00 | +1.00 | −0.09 | – | +0.00 |
+| 7 | Darius | +0.75 | +1.00 | +1.00 | +1.00 | −0.15 | – | +0.00 |
+| 8 | Cho'Gath | +0.60 | +0.88 | +0.89 | +0.44 | +0.06 | – | +0.00 |
+| 9 | Illaoi | +0.58 | +0.08 | +1.00 | +1.00 | +0.07 | +1.00 | +0.00 |
+| 10 | Yone | +0.55 | +1.00 | +1.00 | +0.00 | −0.01 | – | +0.00 |
+| 11 | Udyr | +0.32 | +0.05 | +0.04 | +0.96 | +0.08 | +0.96 | +0.00 |
+| 12 | Dr. Mundo | +0.22 | +0.31 | +0.30 | +0.25 | −0.03 | – | +0.00 |
+| 13 | Jax | +0.21 | +0.00 | +0.01 | +0.49 | +0.08 | +1.00 | +0.00 |
+| 14 | Gnar | +0.21 | +0.22 | +0.21 | +0.19 | +0.10 | +0.53 | +0.00 |
+| 15 | Aurora | +0.15 | +0.18 | +0.18 | +0.18 | +0.08 | +0.15 | +0.00 |
+| 16 | Poppy | +0.12 | +0.11 | +0.14 | +0.10 | +0.17 | – | +0.00 |
+| 17 | Mordekaiser | +0.12 | +0.17 | +0.17 | +0.16 | −0.07 | – | +0.00 |
+| 18 | Volibear | +0.11 | +0.12 | +0.14 | +0.12 | +0.05 | – | +0.00 |
+| 19 | Nasus | +0.10 | +0.11 | +0.11 | +0.19 | −0.09 | +0.20 | +0.00 |
+| 20 | Shen | +0.04 | +0.04 | +0.04 | +0.08 | +0.04 | – | +0.00 |
+| 21 | Ornn | +0.02 | +0.06 | +0.06 | −0.06 | +0.03 | – | +0.00 |
+| 22 | Kled | +0.02 | −0.01 | −0.01 | +0.02 | +0.13 | – | +0.00 |
+| 23 | Jayce | +0.02 | +0.04 | +0.02 | −0.03 | +0.04 | – | +0.00 |
+| 24 | Teemo | +0.02 | −0.03 | +0.07 | −0.04 | +0.12 | −0.04 | +0.00 |
+| 25 | Singed | +0.01 | +0.01 | +0.01 | +0.05 | −0.05 | – | +0.00 |
+| 26 | Camille | +0.01 | +1.00 | −1.00 | +0.00 | +0.03 | – | +0.00 |
+| 27 | Quinn | −0.01 | −0.04 | −0.06 | −0.06 | +0.11 | +0.07 | +0.00 |
+| 28 | Rumble | −0.03 | −0.07 | −0.07 | +0.00 | +0.06 | – | +0.00 |
+| 29 | Renekton | −0.03 | −0.03 | −0.01 | −0.03 | −0.05 | – | +0.00 |
+| 30 | Skarner | −0.05 | −0.08 | −0.08 | +0.03 | −0.05 | – | +0.00 |
+| 31 | Urgot | −0.05 | −0.08 | −0.08 | −0.08 | +0.12 | −0.09 | +0.00 |
+| 32 | Malphite | −0.07 | −0.13 | −0.13 | −0.12 | +0.14 | – | +0.00 |
+| 33 | Sett | −0.09 | −0.07 | −0.11 | −0.07 | −0.11 | – | +0.00 |
+| 34 | Sion | −0.10 | −0.12 | −0.12 | −0.13 | +0.01 | – | +0.00 |
+| 35 | Kennen | −0.21 | −0.40 | −0.40 | −0.11 | +0.01 | +0.06 | +0.00 |
+| 36 | Akali | −0.39 | −0.27 | −0.27 | −1.00 | −0.13 | – | +0.00 |
+| 37 | Garen | −0.48 | −1.00 | +0.05 | −1.00 | +0.02 | – | +0.00 |
+| 38 | Kayle | −0.49 | −0.52 | −0.52 | −0.83 | +0.07 | −0.73 | +0.00 |
+| 39 | Riven | −0.55 | −1.00 | −1.00 | +0.00 | +0.04 | – | +0.00 |
+| 40 | Irelia | −0.76 | −1.00 | −1.00 | −1.00 | +0.09 | – | +0.00 |
+| 41 | Yasuo | −0.77 | −1.00 | −1.00 | −1.00 | +0.07 | – | +0.00 |
+| 42 | Pantheon | −0.79 | −1.00 | −1.00 | −1.00 | −0.07 | – | +0.00 |
+| 43 | Ambessa | −0.79 | −1.00 | −1.00 | −1.00 | −0.07 | – | +0.00 |
+| 44 | Tryndamere | −0.81 | −1.00 | −1.00 | −1.00 | −0.18 | – | +0.00 |
+| 45 | Trundle | −0.82 | −1.00 | −1.00 | −1.00 | −0.19 | −0.89 | +0.00 |
+
+## Interaction ledger (partial confidence)
+
 Every champion ranked by what its kit does against Tahm Kench's, from the interaction ledger: projectile blocks, spell shields,
 parries, dash stops, crowd control and its defenses, range and more (PLAN.md §5). This ranking is **partial**: it weighs the
 interactions but doesn't play the fight out. The duel simulator replaces it as each champion's behavior is verified.
@@ -8,69 +62,69 @@ interactions but doesn't play the fight out. The duel simulator replaces it as e
 A hard counter shuts down part of a kit every time it is used (projectile block, attack dodge, attack block, blind, disarm, attack speed slow, attack reflect, dash stop, grounding, range) with an impact of 0.4 or more (0.5 for range).
 Run `npm run matchup -- <champion> TahmKench` for the full ledger of a matchup, with sources.
 
-## Top 10
+### Top 10
 
-### 1. Elise (net +2.00)
+#### 1. Elise (net +2.00)
 
 - **0.80** untargetable: Rappel makes Elise untargetable, dodging Tahm Kench's Devour. Untargetable for 0.6 s; Devour takes 0.25 s to land, enough to react. (Elise E Rappel → Tahm Kench R Devour)
 - **0.59** untargetable: Rappel makes Elise untargetable, dodging Tahm Kench's Regurgitate. Untargetable for 0.6 s, timed to Regurgitate. (Elise E Rappel → Tahm Kench R Regurgitate)
 - **0.50** interrupt: Cocoon's stun interrupts Tahm Kench's Abyssal Dive (movement channel). Cocoon must land during the channel. (Elise E Cocoon → Tahm Kench W Abyssal Dive)
 
-### 2. Maokai (net +1.82)
+#### 2. Maokai (net +1.82)
 
 - **0.80** untargetable: Twisted Advance makes Maokai untargetable, dodging Tahm Kench's Devour. Untargetable for 1.4 s; Devour takes 0.25 s to land, enough to react. (Maokai W Twisted Advance → Tahm Kench R Devour)
 - **0.80** untargetable: Twisted Advance makes Maokai untargetable, dodging Tahm Kench's Regurgitate. Untargetable for 1.4 s, timed to Regurgitate. (Maokai W Twisted Advance → Tahm Kench R Regurgitate)
 - **0.50** interrupt: Bramble Smash's airborne interrupts Tahm Kench's Abyssal Dive (movement channel). Bramble Smash must land during the channel. (Maokai Q Bramble Smash → Tahm Kench W Abyssal Dive)
 
-### 3. Nocturne (net +1.69)
+#### 3. Nocturne (net +1.69)
 
 - **0.80** spell shield: Shroud of Darkness's spell shield blocks Tahm Kench's Devour. Spell shield for 1.5 s, long enough to use ahead of Devour. A spell shield blocks only the first enemy ability that reaches it. (Nocturne W Shroud of Darkness → Tahm Kench R Devour)
 - **0.50** interrupt: Unspeakable Horror's fear interrupts Tahm Kench's Abyssal Dive (movement channel). Unspeakable Horror must land during the channel. (Nocturne E Unspeakable Horror → Tahm Kench W Abyssal Dive)
 - **0.45** spell shield: Shroud of Darkness's spell shield blocks Tahm Kench's Tongue Lash. Spell shield for 1.5 s, long enough to use ahead of Tongue Lash. A spell shield blocks only the first enemy ability that reaches it. (Nocturne W Shroud of Darkness → Tahm Kench Q Tongue Lash)
 
-### 4. Rek'Sai (net +1.59)
+#### 4. Rek'Sai (net +1.59)
 
 - **0.80** untargetable: Void Rush makes Rek'Sai untargetable, dodging Tahm Kench's Devour. Untargetable for 1.5 s, long enough to use ahead of Devour. (Rek'Sai R Void Rush → Tahm Kench R Devour)
 - **0.50** interrupt: Unburrow's airborne interrupts Tahm Kench's Abyssal Dive (movement channel). Unburrow must land during the channel. (Rek'Sai W Unburrow → Tahm Kench W Abyssal Dive)
 - **0.38** untargetable: Void Rush makes Rek'Sai untargetable, dodging Tahm Kench's Regurgitate. Untargetable for 1.5 s, long enough to use ahead of Regurgitate. (Rek'Sai R Void Rush → Tahm Kench R Regurgitate)
 
-### 5. Singed (net +1.58)
+#### 5. Singed (net +1.58)
 
 - **0.50** interrupt: Fling's airborne interrupts Tahm Kench's Abyssal Dive (movement channel). Fling must land during the channel. (Singed E Fling → Tahm Kench W Abyssal Dive)
 - **0.49** grounding: Mega Adhesive grounds Tahm Kench, who then can't cast Abyssal Dive. Grounded while in the area; 13 s cooldown. (Singed W Mega Adhesive → Tahm Kench W Abyssal Dive)
 - **0.28** anti-heal: Insanity Potion's Grievous Wounds cuts Tahm Kench's healing from Tongue Lash by 40%. (Singed R Insanity Potion → Tahm Kench Q Tongue Lash)
 
-### 6. Evelynn (net +1.57)
+#### 6. Evelynn (net +1.57)
 
 - **0.80** untargetable: Last Caress makes Evelynn untargetable, dodging Tahm Kench's Devour. Untargetable for ?; Devour takes 0.25 s to land, enough to react. (Evelynn R Last Caress → Tahm Kench R Devour)
 - **0.50** interrupt: Allure's charm interrupts Tahm Kench's Abyssal Dive (movement channel). Allure must land during the channel. (Evelynn W Allure → Tahm Kench W Abyssal Dive)
 - **0.38** untargetable: Last Caress makes Evelynn untargetable, dodging Tahm Kench's Regurgitate. Untargetable for ?, timed to Regurgitate. (Evelynn R Last Caress → Tahm Kench R Regurgitate)
 
-### 7. Shaco (net +1.57)
+#### 7. Shaco (net +1.57)
 
 - **0.80** untargetable: Hallucinate makes Shaco untargetable, dodging Tahm Kench's Devour. Untargetable for 0.5 s; Devour takes 0.25 s to land, enough to react. (Shaco R Hallucinate → Tahm Kench R Devour)
 - **0.50** interrupt: Jack in the Box's fear interrupts Tahm Kench's Abyssal Dive (movement channel). Jack in the Box must land during the channel. (Shaco W Jack in the Box → Tahm Kench W Abyssal Dive)
 - **0.38** untargetable: Hallucinate makes Shaco untargetable, dodging Tahm Kench's Regurgitate. Untargetable for 0.5 s, timed to Regurgitate. (Shaco R Hallucinate → Tahm Kench R Regurgitate)
 
-### 8. Zaahen (net +1.57)
+#### 8. Zaahen (net +1.57)
 
 - **0.80** cc immunity: Grim Deliverance makes Zaahen immune to Tahm Kench's Devour (suppression). Immune for ?; Devour takes 0.25 s to land, enough to react. (Zaahen R Grim Deliverance → Tahm Kench R Devour)
 - **0.50** interrupt: The Darkin Glaive's airborne interrupts Tahm Kench's Abyssal Dive (movement channel). The Darkin Glaive must land during the channel. (Zaahen Q The Darkin Glaive → Tahm Kench W Abyssal Dive)
 - **0.38** cc immunity: Grim Deliverance makes Zaahen immune to Tahm Kench's Regurgitate (airborne). Immune for ?, timed to Regurgitate. (Zaahen R Grim Deliverance → Tahm Kench R Regurgitate)
 
-### 9. Camille (net +1.53)
+#### 9. Camille (net +1.53)
 
 - **0.75** untargetable: The Hextech Ultimatum makes Camille untargetable, dodging Tahm Kench's Devour. Untargetable for 0.5 s; Devour takes 0.25 s to land, enough to react. (Camille R The Hextech Ultimatum → Tahm Kench R Devour)
 - **0.50** interrupt: Wall Dive's airborne interrupts Tahm Kench's Abyssal Dive (movement channel). Wall Dive must land during the channel. (Camille E Wall Dive → Tahm Kench W Abyssal Dive)
 - **0.37** untargetable: The Hextech Ultimatum makes Camille untargetable, dodging Tahm Kench's Regurgitate. Untargetable for 0.5 s, timed to Regurgitate. (Camille R The Hextech Ultimatum → Tahm Kench R Regurgitate)
 
-### 10. Kled (net +1.51)
+#### 10. Kled (net +1.51)
 
 - **0.67** cc immunity: Chaaaaaaaarge!!! makes Kled immune to Tahm Kench's Devour (suppression). Immune for ?; Devour takes 0.25 s to land, enough to react. (Kled R Chaaaaaaaarge!!! → Tahm Kench R Devour)
 - **0.50** interrupt: Bear Trap on a Rope's airborne interrupts Tahm Kench's Abyssal Dive (movement channel). Bear Trap on a Rope must land during the channel. (Kled Q Bear Trap on a Rope → Tahm Kench W Abyssal Dive)
 - **0.36** cc immunity: Chaaaaaaaarge!!! makes Kled immune to Tahm Kench's Regurgitate (airborne). Immune for ?, timed to Regurgitate. (Kled R Chaaaaaaaarge!!! → Tahm Kench R Regurgitate)
 
-## Full ranking
+### Full ranking
 
 | # | Champion | Net | For | Against | Hard counters |
 |--:|---|--:|--:|--:|---|

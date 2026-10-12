@@ -1,5 +1,59 @@
 # Counters to Pantheon (patch 26.20)
 
+## Simulated duels (full confidence)
+
+The duel simulator played each of the 45 other champions with a simulator kit against Pantheon: both at level 20 with 15,000 gold of plain stats, each side's spent against the other's, through six scenarios (PLAN.md §6). Scores run from −1 (Pantheon wins every time) to +1 (the champion does). Run `npm run duel -- <champion> Pantheon --log brawl` to watch a fight.
+
+| # | Champion | Score | You engage | Enemy engages | Brawl | Short trade | Spacing | Escape |
+|--:|---|--:|--:|--:|--:|--:|--:|--:|
+| 1 | Kayle | +0.89 | +1.00 | +1.00 | +1.00 | +0.59 | +1.00 | +0.00 |
+| 2 | Poppy | +0.82 | +1.00 | +1.00 | +1.00 | +0.25 | – | +0.00 |
+| 3 | Trundle | +0.81 | +1.00 | +1.00 | +1.00 | −0.12 | – | +1.00 |
+| 4 | Teemo | +0.81 | +1.00 | +1.00 | +1.00 | +0.09 | +1.00 | +0.00 |
+| 5 | Aurora | +0.81 | +1.00 | +1.00 | +1.00 | +0.05 | +1.00 | +0.00 |
+| 6 | Malphite | +0.81 | +1.00 | +1.00 | +1.00 | +0.17 | – | +0.00 |
+| 7 | K'Sante | +0.80 | +1.00 | +1.00 | +1.00 | −0.02 | +1.00 | +0.00 |
+| 8 | Cho'Gath | +0.80 | +1.00 | +1.00 | +1.00 | +0.11 | – | +0.00 |
+| 9 | Olaf | +0.80 | +1.00 | +1.00 | +1.00 | +0.11 | – | +0.00 |
+| 10 | Kennen | +0.79 | +1.00 | +1.00 | +1.00 | −0.04 | +1.00 | +0.00 |
+| 11 | Tahm Kench | +0.79 | +1.00 | +1.00 | +1.00 | +0.07 | – | +0.00 |
+| 12 | Illaoi | +0.79 | +1.00 | +1.00 | +1.00 | +0.07 | – | +0.00 |
+| 13 | Darius | +0.79 | +1.00 | +1.00 | +1.00 | +0.06 | – | +0.00 |
+| 14 | Fiora | +0.79 | +1.00 | +1.00 | +1.00 | +0.06 | – | +0.00 |
+| 15 | Renekton | +0.78 | +1.00 | +1.00 | +1.00 | +0.00 | – | +0.00 |
+| 16 | Yone | +0.78 | +1.00 | +1.00 | +1.00 | −0.01 | – | +0.00 |
+| 17 | Shen | +0.77 | +1.00 | +1.00 | +1.00 | −0.02 | – | +0.00 |
+| 18 | Dr. Mundo | +0.77 | +1.00 | +1.00 | +1.00 | −0.04 | – | +0.00 |
+| 19 | Kled | +0.77 | +1.00 | +1.00 | +1.00 | −0.05 | – | +0.00 |
+| 20 | Udyr | +0.77 | +1.00 | +1.00 | +1.00 | −0.06 | – | +0.00 |
+| 21 | Nasus | +0.77 | +1.00 | +1.00 | +1.00 | −0.06 | – | +0.00 |
+| 22 | Jax | +0.77 | +1.00 | +1.00 | +1.00 | −0.07 | – | +0.00 |
+| 23 | Rumble | +0.77 | +1.00 | +1.00 | +0.96 | −0.01 | – | +0.00 |
+| 24 | Volibear | +0.77 | +1.00 | +1.00 | +1.00 | −0.07 | – | +0.00 |
+| 25 | Aatrox | +0.77 | +1.00 | +1.00 | +1.00 | −0.08 | – | +0.00 |
+| 26 | Zaahen | +0.76 | +1.00 | +1.00 | +1.00 | −0.09 | – | +0.00 |
+| 27 | Mordekaiser | +0.76 | +1.00 | +1.00 | +1.00 | −0.09 | – | +0.00 |
+| 28 | Tryndamere | +0.76 | +1.00 | +1.00 | +1.00 | −0.10 | – | +0.00 |
+| 29 | Sion | +0.76 | +0.97 | +1.00 | +1.00 | −0.08 | – | +0.00 |
+| 30 | Gnar | +0.72 | +0.97 | +1.00 | +0.93 | +0.07 | +0.32 | +0.00 |
+| 31 | Quinn | +0.65 | +1.00 | +1.00 | +1.00 | +0.34 | −1.00 | +0.00 |
+| 32 | Urgot | +0.61 | +1.00 | +1.00 | +1.00 | +0.07 | −1.00 | +0.00 |
+| 33 | Jayce | +0.56 | +1.00 | +1.00 | +0.00 | −0.00 | – | +0.00 |
+| 34 | Camille | +0.47 | +0.00 | +1.00 | +1.00 | −0.19 | – | +0.00 |
+| 35 | Gwen | +0.33 | +1.00 | +1.00 | −1.00 | −0.01 | – | +0.00 |
+| 36 | Akali | +0.24 | +0.34 | +0.37 | +0.34 | −0.19 | – | +0.00 |
+| 37 | Yasuo | +0.23 | +0.00 | +0.00 | +1.00 | +0.07 | – | +0.00 |
+| 38 | Singed | +0.11 | +0.16 | +0.17 | +0.09 | −0.03 | – | +0.00 |
+| 39 | Irelia | −0.24 | +0.32 | −1.00 | −0.32 | +0.11 | – | +0.00 |
+| 40 | Ambessa | −0.74 | −1.00 | −1.00 | −1.00 | +0.24 | – | +0.00 |
+| 41 | Garen | −0.74 | −1.00 | −1.00 | −1.00 | +0.20 | – | +0.00 |
+| 42 | Riven | −0.75 | −1.00 | −1.00 | −1.00 | +0.14 | – | +0.00 |
+| 43 | Ornn | −0.76 | −1.00 | −1.00 | −1.00 | +0.12 | – | +0.00 |
+| 44 | Sett | −0.78 | −1.00 | −1.00 | −1.00 | +0.01 | – | +0.00 |
+| 45 | Skarner | −0.78 | −1.00 | −1.00 | −1.00 | −0.00 | – | +0.00 |
+
+## Interaction ledger (partial confidence)
+
 Every champion ranked by what its kit does against Pantheon's, from the interaction ledger: projectile blocks, spell shields,
 parries, dash stops, crowd control and its defenses, range and more (PLAN.md §5). This ranking is **partial**: it weighs the
 interactions but doesn't play the fight out. The duel simulator replaces it as each champion's behavior is verified.
@@ -8,77 +62,77 @@ interactions but doesn't play the fight out. The duel simulator replaces it as e
 A hard counter shuts down part of a kit every time it is used (projectile block, attack dodge, attack block, blind, disarm, attack speed slow, attack reflect, dash stop, grounding, range) with an impact of 0.4 or more (0.5 for range).
 Run `npm run matchup -- <champion> Pantheon` for the full ledger of a matchup, with sources.
 
-## Top 10
+### Top 10
 
-### 1. Sivir (net +1.45)
+#### 1. Sivir (net +1.45)
 
 - **0.90** spell shield: Spell Shield's spell shield blocks Pantheon's Grand Starfall. Spell shield for 1.5 s, long enough to use ahead of Grand Starfall. A spell shield blocks only the first enemy ability that reaches it. (Sivir E Spell Shield → Pantheon R Grand Starfall)
 - **0.56** spell shield: Spell Shield's spell shield blocks Pantheon's Shield Vault. Spell shield for 1.5 s, long enough to use ahead of Shield Vault. A spell shield blocks only the first enemy ability that reaches it. (Sivir E Spell Shield → Pantheon W Shield Vault)
 - **0.27** range: Sivir's basic attacks reach 325 units farther than Pantheon's (500 vs 175 attack range). Pantheon closes the gap with Grand Starfall, Shield Vault. (Sivir basic attacks → Pantheon basic attacks)
 
-### 2. Bard (net +1.17)
+#### 2. Bard (net +1.17)
 
 - **0.90** untargetable: Tempered Fate makes Bard untargetable, dodging Pantheon's Grand Starfall. Untargetable for 2.5 s, long enough to use ahead of Grand Starfall. (Bard R Tempered Fate → Pantheon R Grand Starfall)
 - **0.37** untargetable: Tempered Fate makes Bard untargetable, dodging Pantheon's Shield Vault. Untargetable for 2.5 s, long enough to use ahead of Shield Vault. (Bard R Tempered Fate → Pantheon W Shield Vault)
 - **0.21** range: Bard's basic attacks reach 325 units farther than Pantheon's (500 vs 175 attack range). Pantheon closes the gap with Grand Starfall, Shield Vault. (Bard basic attacks → Pantheon basic attacks)
 - Watch out: Aegis Assault makes Pantheon invulnerable to Bard's Cosmic Binding (its crowd control still applies).
 
-### 3. Kayle (net +0.79)
+#### 3. Kayle (net +0.79)
 
 - **0.45** invulnerable: Divine Judgment makes Kayle invulnerable to Pantheon's Grand Starfall (its crowd control still applies). Invulnerable for 2.5 s, long enough to use ahead of Grand Starfall. (Kayle R Divine Judgment → Pantheon R Grand Starfall)
 - **0.24** range: Kayle's basic attacks reach 450 units farther than Pantheon's (625 vs 175 attack range). Pantheon closes the gap with Grand Starfall, Shield Vault. (Kayle basic attacks → Pantheon basic attacks)
 - **0.19** invulnerable: Divine Judgment makes Kayle invulnerable to Pantheon's Shield Vault (its crowd control still applies). Invulnerable for 2.5 s, long enough to use ahead of Shield Vault. (Kayle R Divine Judgment → Pantheon W Shield Vault)
 
-### 4. Udyr (net +0.77)
+#### 4. Udyr (net +0.77)
 
 - **0.80** cc immunity: Blazing Stampede makes Udyr immune to Pantheon's Shield Vault (stun). Immune for 1.5 s, long enough to use ahead of Shield Vault. (Udyr E Blazing Stampede → Pantheon W Shield Vault)
 - **0.23** cc immunity: Blazing Stampede makes Udyr immune to Pantheon's Grand Starfall (slow). Immune for 1.5 s, long enough to use ahead of Grand Starfall. (Udyr E Blazing Stampede → Pantheon R Grand Starfall)
 - **0.11** interrupt: Blazing Stampede's stun interrupts Pantheon's Comet Spear (charge-up). Blazing Stampede must land during the charge-up. Pantheon can release Comet Spear early instead of charging it fully. (Udyr E Blazing Stampede → Pantheon Q Comet Spear)
 - Watch out: Aegis Assault makes Pantheon invulnerable to Udyr's Wingborne Storm (its crowd control still applies).
 
-### 5. Lissandra (net +0.76)
+#### 5. Lissandra (net +0.76)
 
 - **0.90** untargetable: Frozen Tomb makes Lissandra untargetable, dodging Pantheon's Grand Starfall. Untargetable for 2.5 s, long enough to use ahead of Grand Starfall. (Lissandra R Frozen Tomb → Pantheon R Grand Starfall)
 - **0.37** untargetable: Frozen Tomb makes Lissandra untargetable, dodging Pantheon's Shield Vault. Untargetable for 2.5 s, long enough to use ahead of Shield Vault. (Lissandra R Frozen Tomb → Pantheon W Shield Vault)
 - **0.19** dash stop: Frozen Tomb's knockdown can stop Pantheon's Shield Vault mid-dash. Must land during the dash. Fails if the dashing unit is crowd control immune, displacement immune, untargetable or spell shielded. (Lissandra R Frozen Tomb → Pantheon W Shield Vault)
 - Watch out: Aegis Assault makes Pantheon invulnerable to Lissandra's Frozen Tomb (its crowd control still applies).
 
-### 6. Nocturne (net +0.74)
+#### 6. Nocturne (net +0.74)
 
 - **0.90** spell shield: Shroud of Darkness's spell shield blocks Pantheon's Grand Starfall. Spell shield for 1.5 s, long enough to use ahead of Grand Starfall. A spell shield blocks only the first enemy ability that reaches it. (Nocturne W Shroud of Darkness → Pantheon R Grand Starfall)
 - **0.68** spell shield: Shroud of Darkness's spell shield blocks Pantheon's Shield Vault. Spell shield for 1.5 s, long enough to use ahead of Shield Vault. A spell shield blocks only the first enemy ability that reaches it. (Nocturne W Shroud of Darkness → Pantheon W Shield Vault)
 - **0.09** interrupt: Unspeakable Horror's fear interrupts Pantheon's Comet Spear (charge-up). Unspeakable Horror must land during the charge-up. Pantheon can release Comet Spear early instead of charging it fully. (Nocturne E Unspeakable Horror → Pantheon Q Comet Spear)
 - Watch out: Aegis Assault makes Pantheon invulnerable to Nocturne's Paranoia (its crowd control still applies).
 
-### 7. Yuumi (net +0.68)
+#### 7. Yuumi (net +0.68)
 
 - **0.54** untargetable: You and Me! makes Yuumi untargetable, dodging Pantheon's Grand Starfall. Untargetable for ?; Grand Starfall lands within 0.1 s, faster than a 0.25 s reaction, so it needs prediction. Does not destroy inbound projectiles, special cased to be targetable to turrets. (Yuumi W You and Me! → Pantheon R Grand Starfall)
 - **0.48** untargetable: You and Me! makes Yuumi untargetable, dodging Pantheon's Shield Vault. Untargetable for ?; Shield Vault lands within 0 s, faster than a 0.25 s reaction, so it needs prediction. Does not destroy inbound projectiles, special cased to be targetable to turrets. (Yuumi W You and Me! → Pantheon W Shield Vault)
 - **0.18** range: Yuumi's basic attacks reach 250 units farther than Pantheon's (425 vs 175 attack range). Pantheon closes the gap with Grand Starfall, Shield Vault. (Yuumi basic attacks → Pantheon basic attacks)
 - Watch out: Aegis Assault makes Pantheon invulnerable to Yuumi's Final Chapter (its crowd control still applies).
 
-### 8. Shen (net +0.65)
+#### 8. Shen (net +0.65)
 
 - **0.75** attack block: Spirit's Refuge blocks Pantheon's Shield Vault, an empowered attack. Spirit's Refuge lasts 1.75 s on a 10 s cooldown. The 3 strikes that occur after Empowered Shield Vault each apply a stack of Mortal Will, even if the attacks are dodged, blocked, or missed while Pantheon is blinded. (Shen W Spirit's Refuge → Pantheon W Shield Vault)
 - **0.33** attack block: Spirit's Refuge blocks Pantheon's basic attacks (with Mortal Will). Spirit's Refuge lasts 1.75 s on a 10 s cooldown. (Shen W Spirit's Refuge → Pantheon basic attacks)
 - **0.10** interrupt: Shadow Dash's taunt interrupts Pantheon's Comet Spear (charge-up). Shadow Dash must land during the charge-up. Pantheon can release Comet Spear early instead of charging it fully. (Shen E Shadow Dash → Pantheon Q Comet Spear)
 - Watch out: Aegis Assault makes Pantheon invulnerable to Shen's Shadow Dash (its crowd control still applies).
 
-### 9. Xayah (net +0.63)
+#### 9. Xayah (net +0.63)
 
 - **0.90** untargetable: Featherstorm makes Xayah untargetable, dodging Pantheon's Grand Starfall. Untargetable for 1.5 s, long enough to use ahead of Grand Starfall. (Xayah R Featherstorm → Pantheon R Grand Starfall)
 - **0.36** untargetable: Featherstorm makes Xayah untargetable, dodging Pantheon's Shield Vault. Untargetable for 1.5 s, long enough to use ahead of Shield Vault. (Xayah R Featherstorm → Pantheon W Shield Vault)
 - **0.22** range: Xayah's basic attacks reach 350 units farther than Pantheon's (525 vs 175 attack range). Pantheon closes the gap with Grand Starfall, Shield Vault. (Xayah basic attacks → Pantheon basic attacks)
 - Watch out: Aegis Assault makes Pantheon invulnerable to Xayah's Featherstorm.
 
-### 10. Vladimir (net +0.62)
+#### 10. Vladimir (net +0.62)
 
 - **0.90** untargetable: Sanguine Pool makes Vladimir untargetable, dodging Pantheon's Grand Starfall. Untargetable for 2 s, long enough to use ahead of Grand Starfall. (Vladimir W Sanguine Pool → Pantheon R Grand Starfall)
 - **0.59** untargetable: Sanguine Pool makes Vladimir untargetable, dodging Pantheon's Shield Vault. Untargetable for 2 s, long enough to use ahead of Shield Vault. (Vladimir W Sanguine Pool → Pantheon W Shield Vault)
 - **0.10** range: Vladimir's basic attacks reach 275 units farther than Pantheon's (450 vs 175 attack range). Pantheon closes the gap with Grand Starfall, Shield Vault. (Vladimir basic attacks → Pantheon basic attacks)
 - Watch out: Aegis Assault makes Pantheon invulnerable to Vladimir's Hemoplague.
 
-## Full ranking
+### Full ranking
 
 | # | Champion | Net | For | Against | Hard counters |
 |--:|---|--:|--:|--:|---|

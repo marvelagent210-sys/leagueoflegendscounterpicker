@@ -1,0 +1,310 @@
+[
+  {
+    "champion": "Zyra",
+    "name": "Thorn Spitter",
+    "page": {
+      "title": "Zyra",
+      "revid": 4002566
+    },
+    "fields": {
+      "gold": {
+        "text": "3",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 3
+            }
+          }
+        ]
+      },
+      "exp": {
+        "text": "0",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0
+            }
+          }
+        ]
+      },
+      "hp": {
+        "text": "8 / 12",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                8,
+                12
+              ]
+            },
+            "label": "Max from Stranglethorns"
+          }
+        ]
+      },
+      "damage": {
+        "text": "15 – 75 (based on level) (+ 20% AP)",
+        "values": [
+          {
+            "series": {
+              "kind": "level",
+              "values": [
+                15,
+                18.5294117647059,
+                22.0588235294118,
+                25.5882352941176,
+                29.1176470588235,
+                32.6470588235294,
+                36.1764705882353,
+                39.7058823529412,
+                43.2352941176471,
+                46.7647058823529,
+                50.2941176470588,
+                53.8235294117647,
+                57.3529411764706,
+                60.8823529411765,
+                64.4117647058823,
+                67.9411764705882,
+                71.4705882352941,
+                75,
+                78.5294117647059,
+                82.0588235294118
+              ],
+              "past18": "wiki"
+            }
+          }
+        ]
+      },
+      "range": {
+        "text": "575",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 575
+            }
+          }
+        ]
+      },
+      "radius": {
+        "text": "20",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 20
+            }
+          }
+        ]
+      },
+      "pathingradius": {
+        "text": "8.5",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 8.5
+            }
+          }
+        ]
+      },
+      "attackspeed": {
+        "text": "0.8",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0.8
+            }
+          }
+        ]
+      },
+      "movespeed": {
+        "text": "0",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0
+            }
+          }
+        ]
+      }
+    },
+    "text": {
+      "gold": "3",
+      "exp": "0",
+      "hp": "8 / 12",
+      "damagemodifier": "* 0 from champion proc damage abilities\n* 1 from minions and monsters\n* 1 from champion damage-over-time abilities\n* 2 from large minion and monster basic attacks\n* 3 from champion area-of-effect abilities\n* 4 from ranged champion basic attacks and epic monsters\n* 8 from melee champion basic attacks\n* 8 from champion single target abilities\n* 8 from Smite\n* 12 from turrets",
+      "damage": "15 – 75 (based on level) (+ 20% AP)",
+      "damagetype": "magic",
+      "range": "575",
+      "radius": "20",
+      "pathingradius": "8.5",
+      "attackspeed": "0.8",
+      "movespeed": "0",
+      "control": "Zyra's basic attacks apply a refreshing, high-priority mark for 3 seconds against enemy champions, while Thorn Spitters apply a non-refreshing, lesser-priority one for the same duration. Thorn Spitters are static.\n# Taunt sources (even if out of range)\n# Most recently applied high-priority marks\n# Nearest lesser-priority marks to Thorn Spitter\n# Non-champions Zyra has most recently attacked\n# Closest unit in range",
+      "targeting": "Minion, does not count towards the minion kill tracking score",
+      "onhit": "Thorn Spitters' attacks are mitigated by block and dodge as well as stopped by Blind and Disarm.",
+      "spelleffects": "Thorn Spitters' basic attacks apply spell effects as area damage.\n* A Thorn Spitter deals 50% damage if it is not the first plant to attack its target.",
+      "ccresist": "* Airborne\n* Cripple\n* Silence",
+      "abilities": ";Enrage\nThorn Spitters becomes enraged if they are hit by Stranglethorns, resetting their duration, restoring 50% of their current health, increasing their maximum health by 50% and attacking in a flurry for 50% bonus damage.\n\n;Monster Hunter\nThorn Spitters deal 50 – 100 (based on level) bonus damage against non-epic monsters."
+    }
+  },
+  {
+    "champion": "Zyra",
+    "name": "Vine Lasher",
+    "page": {
+      "title": "Zyra",
+      "revid": 4002566
+    },
+    "fields": {
+      "gold": {
+        "text": "3",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 3
+            }
+          }
+        ]
+      },
+      "exp": {
+        "text": "0",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0
+            }
+          }
+        ]
+      },
+      "hp": {
+        "text": "8 / 12",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                8,
+                12
+              ]
+            },
+            "label": "Max from Stranglethorns"
+          }
+        ]
+      },
+      "damage": {
+        "text": "15 – 75 (based on level) (+ 20% AP)",
+        "values": [
+          {
+            "series": {
+              "kind": "level",
+              "values": [
+                15,
+                18.5294117647059,
+                22.0588235294118,
+                25.5882352941176,
+                29.1176470588235,
+                32.6470588235294,
+                36.1764705882353,
+                39.7058823529412,
+                43.2352941176471,
+                46.7647058823529,
+                50.2941176470588,
+                53.8235294117647,
+                57.3529411764706,
+                60.8823529411765,
+                64.4117647058823,
+                67.9411764705882,
+                71.4705882352941,
+                75,
+                78.5294117647059,
+                82.0588235294118
+              ],
+              "past18": "wiki"
+            }
+          }
+        ]
+      },
+      "range": {
+        "text": "400",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 400
+            }
+          }
+        ]
+      },
+      "radius": {
+        "text": "20",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 20
+            }
+          }
+        ]
+      },
+      "pathingradius": {
+        "text": "8.5",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 8.5
+            }
+          }
+        ]
+      },
+      "attackspeed": {
+        "text": "0.8",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0.8
+            }
+          }
+        ]
+      },
+      "movespeed": {
+        "text": "0",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0
+            }
+          }
+        ]
+      }
+    },
+    "text": {
+      "gold": "3",
+      "exp": "0",
+      "hp": "8 / 12",
+      "damagemodifier": "* 0 from champion proc damage abilities\n* 1 from minions and monsters\n* 1 from champion damage-over-time abilities\n* 2 from large minion and monster basic attacks\n* 3 from champion area-of-effect abilities\n* 4 from epic monsters\n* 5 from ranged champion basic attacks\n* 8 from melee champion basic attacks\n* 8 from champion single target abilities\n* 8 from Smite\n* 12 from turrets",
+      "damage": "15 – 75 (based on level) (+ 20% AP)",
+      "damagetype": "magic",
+      "range": "400",
+      "radius": "20",
+      "pathingradius": "8.5",
+      "attackspeed": "0.8",
+      "movespeed": "0",
+      "control": "Zyra's basic attacks apply a refreshing, high-priority mark for 3 seconds against enemy champions, while Vine Lashers apply a non-refreshing, lesser-priority one for the same duration. Vine Lashers are static.\n# Taunt sources (even if out of range)\n# Most recently applied high-priority marks\n# Nearest lesser-priority marks to Vine Lasher\n# Non-champions Zyra has most recently attacked\n# Closest unit in range",
+      "targeting": "Minion, does not count towards the minion kill tracking score",
+      "onhit": "Vine Lashers' attacks are mitigated by block and dodge as well as stopped by Blind and Disarm.",
+      "spelleffects": "Vine Lashers' basic attacks apply spell effects as area damage.\n* A Vine Lasher deals 50% damage if it is not the first plant to attack its target.",
+      "ccresist": "* Airborne\n* Cripple\n* Silence",
+      "abilities": ";Ensnare\nVine Lashers' attacks slow their target by 30% for 2 seconds. Slows from multiple Vine Lashers stack up to 2 times, stacking additively up to 60%.\n\n;Enrage\nVine Lashers become enraged if they are hit by Stranglethorns, resetting their duration, restoring 50% of their current health, increasing their maximum health by 50% and attacking in a flurry for 50% bonus damage.\n\n;Monster Hunter\nVine Lashers deal 50 – 100 (based on level) bonus damage against non-epic monsters."
+    }
+  }
+]

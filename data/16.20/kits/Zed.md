@@ -29,6 +29,10 @@ Cooldowns at max rank. Flags: the wiki's interaction flags (yes, no, partly). * 
 
 Source: [Template:Data Zed/Contempt for the Weak](https://wiki.leagueoflegends.com/en-us/Template:Data_Zed/Contempt_for_the_Weak?oldid=4052367) (revision 4052367). Ranks: 1.
 
+| Field | Value |
+|---|---|
+| Per-target cooldown | 10 |
+
 Targeting: Passive · Affects: Enemies · Damage type: magic · Spell shield blocks it: false · Projectile: – · Parry: special · Disabled by grounded: – · Usable while knocked down: –
 
 Innate: Zed's basic attacks on-hit against targets below 50% maximum health are empowered to deal 5 / 7.5 / 10 (based on level)% of the target's maximum health as bonus magic damage.

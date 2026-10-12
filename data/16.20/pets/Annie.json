@@ -1,0 +1,262 @@
+[
+  {
+    "champion": "Annie",
+    "name": "Tibbers",
+    "page": {
+      "title": "Annie",
+      "revid": 4033194
+    },
+    "fields": {
+      "gold": {
+        "text": "50",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 50
+            }
+          }
+        ]
+      },
+      "exp": {
+        "text": "0",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0
+            }
+          }
+        ]
+      },
+      "hp": {
+        "text": "1150 / 1200 / 1250 / 1300 / 1350 / 1600 / 1850 / 2100 / 2350 / 2600 / 2900 / 3200 / 3500 / 3800 / 4100 (based on level) (+ 50% AP)",
+        "values": [
+          {
+            "series": {
+              "kind": "variable",
+              "variable": "level",
+              "points": [
+                6,
+                7,
+                8,
+                9,
+                10,
+                11,
+                12,
+                13,
+                14,
+                15,
+                16,
+                17,
+                18,
+                19,
+                20
+              ],
+              "values": [
+                1150,
+                1200,
+                1250,
+                1300,
+                1350,
+                1600,
+                1850,
+                2100,
+                2350,
+                2600,
+                2900,
+                3200,
+                3500,
+                3800,
+                4100
+              ]
+            }
+          }
+        ]
+      },
+      "damage": {
+        "text": "30 / 45 / 60 (+ 10% AP)",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                30,
+                45,
+                60
+              ]
+            }
+          }
+        ]
+      },
+      "range": {
+        "text": "150",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 150
+            }
+          }
+        ]
+      },
+      "attackspeed": {
+        "text": "0.625",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0.625
+            }
+          }
+        ]
+      },
+      "armor": {
+        "text": "30 / 35 / 40 / 45 / 50 / 55 / 60 / 65 / 70 / 75 / 80 / 85 / 90 / 95 / 100 (based on level)",
+        "values": [
+          {
+            "series": {
+              "kind": "variable",
+              "variable": "level",
+              "points": [
+                6,
+                7,
+                8,
+                9,
+                10,
+                11,
+                12,
+                13,
+                14,
+                15,
+                16,
+                17,
+                18,
+                19,
+                20
+              ],
+              "values": [
+                30,
+                35,
+                40,
+                45,
+                50,
+                55,
+                60,
+                65,
+                70,
+                75,
+                80,
+                85,
+                90,
+                95,
+                100
+              ]
+            }
+          }
+        ]
+      },
+      "magicresist": {
+        "text": "30 / 35 / 40 / 45 / 50 / 55 / 60 / 65 / 70 / 75 / 80 / 85 / 90 / 95 / 100 (based on level)",
+        "values": [
+          {
+            "series": {
+              "kind": "variable",
+              "variable": "level",
+              "points": [
+                6,
+                7,
+                8,
+                9,
+                10,
+                11,
+                12,
+                13,
+                14,
+                15,
+                16,
+                17,
+                18,
+                19,
+                20
+              ],
+              "values": [
+                30,
+                35,
+                40,
+                45,
+                50,
+                55,
+                60,
+                65,
+                70,
+                75,
+                80,
+                85,
+                90,
+                95,
+                100
+              ]
+            }
+          }
+        ]
+      },
+      "movespeed": {
+        "text": "350 / 375 / 400",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                350,
+                375,
+                400
+              ]
+            }
+          }
+        ]
+      },
+      "radius": {
+        "text": "80",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 80
+            }
+          }
+        ]
+      },
+      "pathingradius": {
+        "text": "35",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 35
+            }
+          }
+        ]
+      }
+    },
+    "text": {
+      "gold": "50",
+      "exp": "0",
+      "hp": "1150 – 4100 (based on level) (+ 50% AP)",
+      "damage": "30 / 45 / 60 (+ 10% AP)",
+      "damagetype": "Magic",
+      "range": "150",
+      "attackspeed": "0.625",
+      "armor": "30 – 100 (based on level)",
+      "magicresist": "30 – 100 (based on level)",
+      "movespeed": "350 / 375 / 400",
+      "control": "R or Alt + Right-Click",
+      "targeting": "Minion",
+      "radius": "80",
+      "pathingradius": "35",
+      "onhit": "Tibbers' attacks are mitigated by block, dodge, and blind, as well as stopped by Disarm.\nTibbers is considered to be the source of on-hit effects (eg. Thornmail), but the damage done by Tibbers is accredited to Annie.",
+      "spelleffects": "Tibbers' basic attacks deal spell damage. His flaming aura applies spell effects as persistent area damage.",
+      "abilities": ";Flame Aura\nTibbers deals 2 / 3 / 4 (+ 1% AP) magic damage to all enemies within a 350 unit radius every 0.25 seconds.\n\n;Recovery\nWhile out of combat for at least 5 seconds Tibbers heals himself for 6% maximum health per second and gains 250 bonus movement speed when moving towards Annie's location from further than 600 units away, decreased to 100 bonus movement speed from further than 150 units.\n\n;Enrage\nTibbers enrages for 3 seconds on summon and when Pyromania stuns an enemy champion. During this time, Tibbers becomes ghosted and gains 100% bonus movement speed, which decays over the duration. His base attack speed is also increased to 1.736 for his next 5 attacks while enraged, but decreasing with each attack until returning at his normal attack speed.\n* There can be two formulas that can display Tibbers' attack speed with approximated values: 1.736 / 1.5362732 / 1.3070344 / 1.0430756 / 0.7391888 (based on level).\n\n;Revenge\nIf Annie dies while Tibbers is active, he instantly heals himself for 50% of his missing health, becomes Enraged for 10 seconds, disables his Recovery ability, and will target Annie's killer. His health will rapidly decay over time while Annie is dead, with the decay stopping if Annie respawns. If Annie's killer is too far away or is dead, he will target the nearest and most wounded visible enemy champion instead, then the nearest other visible enemy unit in range. If her killer is an invalid target (such as due to being untargetable), Tibbers will stop in place and wait for them to become targetable again before chasing after them. If there are no nearby valid targets, Tibbers will move to the location of Annie's death and remain there until a target is in aggro range."
+    }
+  }
+]

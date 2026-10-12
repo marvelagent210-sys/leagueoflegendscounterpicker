@@ -10,10 +10,18 @@ import type { FighterSpec } from "./spec";
 /** Pathing radius of most champions, for forms whose data lacks one. */
 const DEFAULT_PATHING_RADIUS = 35;
 
+/**
+ * Whether a form of the champion attacks at range: a ranged champion's forms with a melee
+ * range don't (Mega Gnar, Jayce's Hammer Stance), whatever the champion's range type says.
+ */
+export function rangedAttack(champion: Champion, range: number): boolean {
+  return champion.rangeType === "Ranged" && range > 250;
+}
+
 export function baseFighter(champion: Champion, form: ChampionForm | undefined = champion.forms[0], level = TOP_LANE_MAX_LEVEL): FighterSpec {
   if (!form) throw new Error(`${champion.name} has no forms`);
   const s = form.stats;
-  const ranged = champion.rangeType === "Ranged";
+  const ranged = rangedAttack(champion, s.attackRange);
   return {
     id: form.id,
     name: form.name,

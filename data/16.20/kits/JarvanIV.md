@@ -29,6 +29,10 @@ Cooldowns at max rank. Flags: the wiki's interaction flags (yes, no, partly). * 
 
 Source: [Template:Data Jarvan IV/Martial Cadence](https://wiki.leagueoflegends.com/en-us/Template:Data_Jarvan_IV/Martial_Cadence?oldid=4003791) (revision 4003791). Ranks: 1.
 
+| Field | Value |
+|---|---|
+| Per-target cooldown | 6 / 5 / 4 / 3 (based on level) |
+
 Targeting: Passive · Affects: Enemies · Damage type: Physical · Spell shield blocks it: false · Projectile: – · Parry: true · Disabled by grounded: – · Usable while knocked down: –
 
 Innate: Jarvan IV's basic attacks are empowered to deal bonus physical damage equal to 8% of the target's current health, with a minimum threshold of 20 and capped at 400 against non-champion targets.

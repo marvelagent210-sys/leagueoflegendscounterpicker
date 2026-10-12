@@ -151,6 +151,24 @@ function flatten(effects: Effect[]): Effect[] {
   return effects.flatMap((e) => (e.type === "delayed" ? flatten(e.effects) : e.type === "empower" ? [e, ...flatten(e.onHit)] : [e]));
 }
 
+const abilityCache = new WeakMap<NonNullable<FighterSpec["forms"]>, AbilitySpec[]>();
+
+/**
+ * The abilities the budget values: every form's (Mega Gnar's as well as Mini Gnar's), with
+ * versions that share a cooldown counted as alternatives. Cached per set of forms (which every
+ * copy of the spec shares), so the per-list caches below keep working.
+ */
+function abilitiesOf(spec: FighterSpec): AbilitySpec[] {
+  const forms = spec.forms;
+  if (!forms) return spec.abilities;
+  let list = abilityCache.get(forms);
+  if (!list) {
+    list = Object.values(forms).flatMap((form) => form.abilities);
+    abilityCache.set(forms, list);
+  }
+  return list;
+}
+
 function unitOf(spec: FighterSpec, side: 0 | 1): Unit {
   return newUnit(spec, side, 0, spec.base.hp + (spec.bonus?.hp ?? 0), spec.base.resource);
 }
@@ -166,7 +184,47 @@ interface DamageTerm {
 interface Use {
   cooldown: number;
   castTime: number;
+  held: Held;
   terms: DamageTerm[];
+}
+
+/** How long a post-effect cooldown waits after the cast: seconds, plus empowered attacks to spend. */
+interface Held {
+  seconds: number;
+  attacks: number;
+}
+
+/** What a post-effect cooldown waits for, in the reference fight (AbilitySpec.cooldownAfter). */
+function heldOf(ability: AbilitySpec): Held {
+  const d = ability.delivery;
+  switch (ability.cooldownAfter) {
+    case "empower":
+      return { seconds: 0, attacks: (ability.onSelf ?? []).reduce((n, e) => n + (e.type === "empower" ? e.attacks : 0), 0) };
+    case "channel":
+      return { seconds: ability.channel?.duration ?? 0, attacks: 0 };
+    case "dash":
+      return { seconds: d.kind === "dash" && d.speed > 0 ? d.distance / d.speed : 0, attacks: 0 };
+    case "field":
+      return { seconds: d.kind === "field" ? (d.delay ?? 0) + d.duration : 0, attacks: 0 };
+    case "state": {
+      const states = [...(ability.onCastStart ?? []), ...(ability.onSelf ?? [])].filter((e) => e.type === "state");
+      return { seconds: Math.max(0, ...states.map((e) => (e.type === "state" ? e.duration : 0))), attacks: 0 };
+    }
+    default:
+      return { seconds: 0, attacks: 0 };
+  }
+}
+
+/** The cooldown that paces an ability's uses: a charge's recharge, or its cooldown. */
+function cycleCooldown(ability: AbilitySpec): number {
+  return ability.charges ? Math.max(ability.cooldown, ability.charges.recharge) : ability.cooldown;
+}
+
+/** Seconds from one use to the next: the cooldown after haste, the cast, and any post-effect wait. */
+function cycleOf(use: { cooldown: number; castTime: number; held: Held }, d: { abilityHaste: number; attackSpeed: number }): number {
+  const cooldown = cooldownAfterHaste(use.cooldown, d.abilityHaste);
+  if (cooldown <= 0) return 0;
+  return cooldown + use.castTime + use.held.seconds + (d.attackSpeed > 0 ? use.held.attacks / d.attackSpeed : 0);
 }
 
 const termCache = new WeakMap<AbilitySpec, DamageTerm[]>();
@@ -176,8 +234,11 @@ function damageTerms(ability: AbilitySpec): DamageTerm[] {
   const cached = termCache.get(ability);
   if (cached) return cached;
   const pulses = ability.channel?.interval ? Math.max(1, Math.round(ability.channel.duration / ability.channel.interval)) : 0;
+  // A field's effects land on every pulse while the enemy stays inside.
+  const d = ability.delivery;
+  const hits = d.kind === "field" ? Math.max(1, Math.round(d.duration / d.interval)) : 1;
   const groups: Array<[Effect[], number]> = [
-    [ability.onHit ?? [], 1],
+    [ability.onHit ?? [], hits],
     [ability.channel?.onTick ?? [], pulses],
     [ability.channel?.onComplete ?? [], 1],
   ];
@@ -206,7 +267,7 @@ function usesOf(abilities: AbilitySpec[]): Use[][] {
   for (const ability of abilities) {
     if (ability.chain) continue;
     const stages = abilities.filter((stage) => stage.chain?.root === ability.key);
-    const use: Use = { cooldown: ability.cooldown, castTime: ability.castTime, terms: [...damageTerms(ability), ...stages.flatMap(damageTerms)] };
+    const use: Use = { cooldown: cycleCooldown(ability), castTime: ability.castTime, held: heldOf(ability), terms: [...damageTerms(ability), ...stages.flatMap(damageTerms)] };
     const key = cooldownKeyOf(ability);
     byCooldown.set(key, [...(byCooldown.get(key) ?? []), use]);
   }
@@ -243,12 +304,12 @@ function rawDamage(self: Unit, target: Unit): DamageMix {
   raw.magic += extra?.magic ?? 0;
   raw.true += extra?.true ?? 0;
   // Of versions sharing a cooldown, the strongest.
-  for (const alternatives of usesOf(self.spec.abilities)) {
+  for (const alternatives of usesOf(abilitiesOf(self.spec))) {
     let best: DamageMix | undefined;
     let bestTotal = -1;
     let bestCooldown = 0;
     for (const use of alternatives) {
-      const cooldown = cooldownAfterHaste(use.cooldown, d.abilityHaste) + use.castTime;
+      const cooldown = cycleOf(use, d);
       if (cooldown <= 0) continue;
       const mix: DamageMix = { physical: 0, magic: 0, true: 0 };
       for (const term of use.terms) mix[term.damageType] += term.times * evaluate(term.amount, self, target);
@@ -286,24 +347,24 @@ export function damagePerSecond(spec: FighterSpec, enemy: FighterSpec): DamageMi
   return { physical: raw.physical * m.physical, magic: raw.magic * m.magic, true: raw.true };
 }
 
-const sustainCache = new WeakMap<AbilitySpec[], Array<{ amount: Formula; cooldown: number; castTime: number }>>();
+const sustainCache = new WeakMap<AbilitySpec[], Array<{ amount: Formula; cooldown: number; castTime: number; held: Held }>>();
 
 /** Shields and heals abilities give their caster over the reference fight. */
 function sustain(self: Unit): number {
-  const abilities = self.spec.abilities;
+  const abilities = abilitiesOf(self.spec);
   let sources = sustainCache.get(abilities);
   if (!sources) {
     sources = abilities.flatMap((ability) =>
       flatten(ability.onSelf ?? [])
         .filter((e): e is Extract<Effect, { type: "shield" | "heal" }> => e.type === "shield" || e.type === "heal")
-        .map((e) => ({ amount: e.amount, cooldown: ability.cooldown, castTime: ability.castTime })),
+        .map((e) => ({ amount: e.amount, cooldown: cycleCooldown(ability), castTime: ability.castTime, held: heldOf(ability) })),
     );
     sustainCache.set(abilities, sources);
   }
   const d = derive(self);
   let total = 0;
   for (const source of sources) {
-    const cooldown = cooldownAfterHaste(source.cooldown, d.abilityHaste) + source.castTime;
+    const cooldown = cycleOf(source, d);
     const uses = cooldown > 0 ? Math.max(1, Math.floor(SUSTAIN_WINDOW / cooldown)) : 1;
     total += uses * evaluate(source.amount, self);
   }

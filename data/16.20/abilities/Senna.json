@@ -98,23 +98,23 @@
               "kind": "level",
               "values": [
                 31.25,
-                30.698529411764703,
-                30.14705882352941,
-                29.595588235294112,
-                29.04411764705882,
-                28.49264705882353,
-                27.941176470588232,
-                27.38970588235294,
-                26.838235294117645,
-                26.286764705882355,
-                25.735294117647058,
-                25.183823529411764,
-                24.632352941176467,
-                24.080882352941174,
-                23.52941176470588,
-                22.977941176470583,
-                22.42647058823529,
-                21.874999999999996
+                30.6985294117647,
+                30.1470588235294,
+                29.5955882352941,
+                29.0441176470588,
+                28.4926470588235,
+                27.9411764705882,
+                27.3897058823529,
+                26.8382352941176,
+                26.2867647058824,
+                25.7352941176471,
+                25.1838235294118,
+                24.6323529411765,
+                24.0808823529412,
+                23.5294117647059,
+                22.9779411764706,
+                22.4264705882353,
+                21.875
               ]
             },
             "context": "Additionally, Senna's base attack windup is reduced to 31.25 – 21.875 (based on level)%, but is only reduced by 60% of the expected value given attack speed bonuses."
@@ -303,6 +303,27 @@
     },
     "ranks": 1,
     "fields": {
+      "targetCooldown": {
+        "text": "6 / 5 / 4 (based on level)",
+        "values": [
+          {
+            "series": {
+              "kind": "variable",
+              "variable": "level",
+              "points": [
+                1,
+                6,
+                11
+              ],
+              "values": [
+                6,
+                5,
+                4
+              ]
+            }
+          }
+        ]
+      },
       "effectRadius": {
         "text": "2000",
         "values": [
@@ -398,7 +419,13 @@
             "conditional": false
           }
         ],
-        "values": []
+        "values": [],
+        "tips": [
+          {
+            "text": "1% critical strike chance",
+            "tip": "Counts critical strike chance from items and Mist stacks"
+          }
+        ]
       },
       {
         "label": "Innate - Relic Cannon",
@@ -741,7 +768,17 @@
             "conditional": false
           }
         ],
-        "values": []
+        "values": [],
+        "tips": [
+          {
+            "text": "considered",
+            "tip": "Piercing Darkness doesn't actually apply basic damage"
+          },
+          {
+            "text": "one champion hit",
+            "tip": "see notes"
+          }
+        ]
       },
       {
         "text": "Piercing Darkness' current cooldown is reduced by 1 second on-attack.",
@@ -990,7 +1027,13 @@
             "conditional": false
           }
         ],
-        "values": []
+        "values": [],
+        "tips": [
+          {
+            "text": "the area",
+            "tip": "Can see through brush and terrain."
+          }
+        ]
       }
     ],
     "custom": [],

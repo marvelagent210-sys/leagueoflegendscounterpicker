@@ -2,7 +2,7 @@ import { describe, expect, it } from "vitest";
 import type { Effect, Formula } from "../../engine/sim/spec";
 import { createWorld, runWorld } from "../../engine/sim/simulate";
 import { KITS } from "../../kits/champions/index";
-import { fighter } from "../sim/kits";
+import { RANGED, fighter } from "../sim/kits";
 import { kit } from "./helpers";
 
 /** Every formula in an effect list, nested ones included. */
@@ -24,8 +24,17 @@ function finite(formula: Formula): boolean {
   return numbers.every((n) => typeof n === "number" && Number.isFinite(n));
 }
 
-/** A sturdy enemy that hits back, so defensive abilities have something to answer. */
+/** Sturdy enemies that hit back, so defensive abilities have something to answer, one of them out-ranging most kits. */
 const dummy = fighter({ id: "dummy", base: { hp: 30000, armor: 100, mr: 100, ad: 300 } });
+const archer = fighter({ id: "archer", base: { hp: 30000, armor: 100, mr: 100, ad: 300 }, attack: { ...RANGED, range: 650 } });
+/** One that goes down, so finishers come up. */
+const fragile = fighter({ id: "fragile", base: { hp: 4000, armor: 100, mr: 100, ad: 300 } });
+const fights = [
+  { enemy: dummy, mode: "fight", seconds: 30 },
+  { enemy: archer, mode: "fight", seconds: 30 },
+  { enemy: fragile, mode: "fight", seconds: 30 },
+  { enemy: dummy, mode: "flee", seconds: 10 },
+] as const;
 
 describe.each(Object.keys(KITS).sort())("%s kit", (id) => {
   const compiled = kit(id);
@@ -42,10 +51,13 @@ describe.each(Object.keys(KITS).sort())("%s kit", (id) => {
   });
 
   it("fights: deals damage and uses several of its abilities", () => {
-    const world = createWorld({ fighters: [compiled.spec, dummy], distance: 300, modes: ["fight", "fight"], settings: { log: true, maxSeconds: 30 } });
-    const outcome = runWorld(world);
-    expect(outcome.damage[0]).toBeGreaterThan(0);
-    const cast = new Set(outcome.timeline.filter((e) => e.side === 0 && (e.text.startsWith("casts ") || e.text.endsWith(" fires"))).map((e) => e.text));
+    const cast = new Set<string>();
+    for (const fight of fights) {
+      const world = createWorld({ fighters: [compiled.spec, fight.enemy], distance: 300, modes: [fight.mode, "fight"], settings: { log: true, maxSeconds: fight.seconds } });
+      const outcome = runWorld(world);
+      if (fight.mode === "fight") expect(outcome.damage[0], fight.enemy.id).toBeGreaterThan(0);
+      for (const e of outcome.timeline) if (e.side === 0 && (e.text.startsWith("casts ") || e.text.endsWith(" fires"))) cast.add(e.text.replace(/^casts /, "").replace(/ fires$/, ""));
+    }
     expect(cast.size, [...cast].join(", ")).toBeGreaterThanOrEqual(3);
   });
 });

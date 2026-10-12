@@ -255,7 +255,7 @@ What the duel simulator fights with (`kits/champions/Volibear.ts`): every number
 
 | Key | Ability | Cooldown (s) | Cast time (s) | Cost | Delivery | On the enemy | On itself |
 |---|---|--:|--:|---|---|---|---|
-| Q | Thundering Smash | 10 | 0 | 50 | self | – | moveSpeedPercent 0.52 for 4 s; resets the attack timer |
+| Q | Thundering Smash | 10 (starts after the empowered attacks) | 0 | 50 | self | – | moveSpeedPercent 0.52 for 4 s; resets the attack timer |
 | W | Frenzied Maul | 5 | 0.25 | 40 | targeted, 325 range | 105 + 110% AD + 6% bonus health physical damage; marks it "wounded" for 8 s | – |
 | E | Sky Splitter | 16 | 0 | 50 | circle of 325 radius up to 1200 away, lands after 2 s | 200 + 70% AP + 15% target's maximum health magic damage; slow 40% for 2 s | – |
 | R | Stormbringer | 110 | 1 | 100 | circle of 300 radius up to 0 away, lands after 0 s | 700 + 250% bonus AD + 125% AP physical damage; slow 25% for 1 s | as the cast starts: displacementImmune for 1 s; health 525 for 12 s; attackRange 50 for 12 s |

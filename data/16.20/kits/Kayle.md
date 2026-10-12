@@ -281,3 +281,64 @@ All 1 level-based formulas in the game files (0 linked to wiki values above):
 | Spell | Calculation | Rule | Level 1 | Level 18 | Level 20 |
 |---|---|---|--:|--:|--:|
 | KaylePassive | PassiveWaveDamage | breakpoints at levels 12 (level 1: 20) | 20 | 41 | 47 |
+
+## Duel simulator kit (level 20, every ability at max rank)
+
+What the duel simulator fights with (`kits/champions/Kayle.ts`): every number is read from the wiki's ability data above at level 20; what the wiki doesn't say is listed under assumptions. Ratios are fractions of the stat (60% AD is 0.6 × AD).
+
+- Basic attack: range 625, missile at 5000/s, on hit: 35 + 10% bonus AD + 20% AP magic damage (Starfire Spellblade (passive)); 47 + 10% bonus AD + 25% AP magic damage (Fire wave), can crit.
+
+| Key | Ability | Cooldown (s) | Cast time (s) | Cost | Delivery | On the enemy | On itself |
+|---|---|--:|--:|---|---|---|---|
+| Q | Radiant Blast | 8 | 0.264 | 100 | skillshot 900 long, 150 wide, at 1600/s | 180 + 60% bonus AD + 50% AP magic damage; slow 45% for 2 s; armorReductionPercent 0.15 for 4 s; mrReductionPercent 0.15 for 4 s | – |
+| W | Celestial Blessing | 15 | 0.25 | 90 | self | – | as the cast starts: heal 155 + 25% AP; moveSpeedPercent 0.4 + 0.08% AP for 2 s |
+| E | Starfire Spellblade | 6 (starts after the empowered attacks) | 0 | – | self | – | next 1 attack within 6 s: 10% target's missing health + 1.5% of target's missing health per 100 AP magic damage (Starfire Spellblade) (resets the attack timer, uncancellable) |
+| R | Divine Judgment | 80 | 0.5 | 0 | field of 775 radius around itself, after 2 s, for 0.033 s, pulsing every 1 s | 400 + 100% bonus AD + 70% AP magic damage | as the cast starts: invulnerable for 2.5 s |
+
+Effects marked by a mark or a role are completed by the kit's hooks (see the kit's source).
+
+### Assumptions
+
+- Kayle's fire wave always hits her attack's target, as on-hit damage; Zeal's 6% per stack is at its 30% maximum for good.
+- Radiant Blast's sword launches 0.264 s after the cast starts: her windup at level 20 with Zeal, or the portal's 0.264 s if longer.
+
+### Wiki values read (36)
+
+| Ability | Value | Revision |
+|---|---|---|
+| Divine Ascent | Kayle gains an additional 100 bonus attack range for a total of 625 | [4051190](https://wiki.leagueoflegends.com/en-us/Template:Data_Kayle/Divine_Ascent?oldid=4051190) |
+| Divine Ascent | permanently gains the full effects of Zealous | [4051190](https://wiki.leagueoflegends.com/en-us/Template:Data_Kayle/Divine_Ascent?oldid=4051190) |
+| Divine Ascent | she gains 6% bonus attack speed, up to a maximum of 30% | [4051190](https://wiki.leagueoflegends.com/en-us/Template:Data_Kayle/Divine_Ascent?oldid=4051190) |
+| Divine Ascent | gaining 10% bonus movement speed | [4051190](https://wiki.leagueoflegends.com/en-us/Template:Data_Kayle/Divine_Ascent?oldid=4051190) |
+| Divine Ascent | While Kayle is Exalted, her basic attacks on-attack also launch a wave of fire forward that deals 20 / 23 / 26 / 29 / 32 / 35 / 38 / 41 / 44 / 47 / 50 / 53 / 56 / 59 / 62 / 65 / 68 / 71 / 74 / 77 / 80 / 83 / 86 / 89 / 92 / 95 / 98 / 101 / 104 / 107 / 110 / 113 / 116 / 119 / 122 / 125 / 128 / 131 / 134 / 137 / 140 (based on level) (+ 10% bonus AD) (+ 25% AP) magic damage to all enemies it passes through. | [4051190](https://wiki.leagueoflegends.com/en-us/Template:Data_Kayle/Divine_Ascent?oldid=4051190) |
+| Divine Ascent | (+ 10% bonus AD) (+ 25% AP) magic damage to all enemies it passes through | [4051190](https://wiki.leagueoflegends.com/en-us/Template:Data_Kayle/Divine_Ascent?oldid=4051190) |
+| Divine Ascent | The wave is affected by critical strike modifiers | [4051190](https://wiki.leagueoflegends.com/en-us/Template:Data_Kayle/Divine_Ascent?oldid=4051190) |
+| Starfire Spellblade | Passive Damage: 15 / 20 / 25 / 30 / 35 (+ 10% bonus AD) (+ 20% AP) | [3982990](https://wiki.leagueoflegends.com/en-us/Template:Data_Kayle/Starfire_Spellblade?oldid=3982990) |
+| Starfire Spellblade | Bonus Magic Damage: 8 / 8.5 / 9 / 9.5 / 10% (+ 1.5% per 100 AP) of target's missing health | [3982990](https://wiki.leagueoflegends.com/en-us/Template:Data_Kayle/Starfire_Spellblade?oldid=3982990) |
+| Starfire Spellblade | (+ 1.5% per 100 AP) of target's missing health | [3982990](https://wiki.leagueoflegends.com/en-us/Template:Data_Kayle/Starfire_Spellblade?oldid=3982990) |
+| Starfire Spellblade | empowering her next basic attack within 6 seconds | [3982990](https://wiki.leagueoflegends.com/en-us/Template:Data_Kayle/Starfire_Spellblade?oldid=3982990) |
+| Radiant Blast | dividing Kayle's windup percent value (0.193555) with her current total attack speed | [4005105](https://wiki.leagueoflegends.com/en-us/Template:Data_Kayle/Radiant_Blast?oldid=4005105) |
+| Radiant Blast | which is always 0.264 seconds, starting from the beginning of the cast time | [4005105](https://wiki.leagueoflegends.com/en-us/Template:Data_Kayle/Radiant_Blast?oldid=4005105) |
+| Radiant Blast | inflicted with 15% reduced armor and magic resistance for 4 seconds | [4005105](https://wiki.leagueoflegends.com/en-us/Template:Data_Kayle/Radiant_Blast?oldid=4005105) |
+| Celestial Blessing | Heal: 55 / 80 / 105 / 130 / 155 (+ 25% AP) | [3997873](https://wiki.leagueoflegends.com/en-us/Template:Data_Kayle/Celestial_Blessing?oldid=3997873) |
+| Celestial Blessing | Bonus Movement Speed: 24 / 28 / 32 / 36 / 40% (+ 8% per 100 AP) | [3997873](https://wiki.leagueoflegends.com/en-us/Template:Data_Kayle/Celestial_Blessing?oldid=3997873) |
+| Celestial Blessing | (+ 8% per 100 AP) | [3997873](https://wiki.leagueoflegends.com/en-us/Template:Data_Kayle/Celestial_Blessing?oldid=3997873) |
+| Celestial Blessing | gain bonus movement speed for 2 seconds from the start of the cast time | [3997873](https://wiki.leagueoflegends.com/en-us/Template:Data_Kayle/Celestial_Blessing?oldid=3997873) |
+| Divine Judgment | invulnerability for 2.5 seconds from the start of the cast time | [3962015](https://wiki.leagueoflegends.com/en-us/Template:Data_Kayle/Divine_Judgment?oldid=3962015) |
+| Divine Judgment | effectRadius: 675 / 675 / 775 | [3962015](https://wiki.leagueoflegends.com/en-us/Template:Data_Kayle/Divine_Judgment?oldid=3962015) |
+| Radiant Blast | cooldown: 12 / 11 / 10 / 9 / 8 | [4005105](https://wiki.leagueoflegends.com/en-us/Template:Data_Kayle/Radiant_Blast?oldid=4005105) |
+| Radiant Blast | cost: 60 / 70 / 80 / 90 / 100 | [4005105](https://wiki.leagueoflegends.com/en-us/Template:Data_Kayle/Radiant_Blast?oldid=4005105) |
+| Radiant Blast | range: 900 | [4005105](https://wiki.leagueoflegends.com/en-us/Template:Data_Kayle/Radiant_Blast?oldid=4005105) |
+| Radiant Blast | width: 150 | [4005105](https://wiki.leagueoflegends.com/en-us/Template:Data_Kayle/Radiant_Blast?oldid=4005105) |
+| Radiant Blast | speed: 1600 | [4005105](https://wiki.leagueoflegends.com/en-us/Template:Data_Kayle/Radiant_Blast?oldid=4005105) |
+| Radiant Blast | Magic Damage: 60 / 90 / 120 / 150 / 180 (+ 60% bonus AD) (+ 50% AP) | [4005105](https://wiki.leagueoflegends.com/en-us/Template:Data_Kayle/Radiant_Blast?oldid=4005105) |
+| Radiant Blast | Slow: 25 / 30 / 35 / 40 / 45% | [4005105](https://wiki.leagueoflegends.com/en-us/Template:Data_Kayle/Radiant_Blast?oldid=4005105) |
+| Radiant Blast | slowed for 2 seconds | [4005105](https://wiki.leagueoflegends.com/en-us/Template:Data_Kayle/Radiant_Blast?oldid=4005105) |
+| Celestial Blessing | cooldown: 15 | [3997873](https://wiki.leagueoflegends.com/en-us/Template:Data_Kayle/Celestial_Blessing?oldid=3997873) |
+| Celestial Blessing | cost: 70 / 75 / 80 / 85 / 90 | [3997873](https://wiki.leagueoflegends.com/en-us/Template:Data_Kayle/Celestial_Blessing?oldid=3997873) |
+| Celestial Blessing | castTime: 0.25 | [3997873](https://wiki.leagueoflegends.com/en-us/Template:Data_Kayle/Celestial_Blessing?oldid=3997873) |
+| Starfire Spellblade | cooldown: 8 / 7.5 / 7 / 6.5 / 6 | [3982990](https://wiki.leagueoflegends.com/en-us/Template:Data_Kayle/Starfire_Spellblade?oldid=3982990) |
+| Divine Judgment | cooldown: 160 / 120 / 80 | [3962015](https://wiki.leagueoflegends.com/en-us/Template:Data_Kayle/Divine_Judgment?oldid=3962015) |
+| Divine Judgment | cost: 100 / 50 / 0 | [3962015](https://wiki.leagueoflegends.com/en-us/Template:Data_Kayle/Divine_Judgment?oldid=3962015) |
+| Divine Judgment | castTime: 0.5 | [3962015](https://wiki.leagueoflegends.com/en-us/Template:Data_Kayle/Divine_Judgment?oldid=3962015) |
+| Divine Judgment | Magic Damage: 200 / 300 / 400 (+ 100% bonus AD) (+ 70% AP) | [3962015](https://wiki.leagueoflegends.com/en-us/Template:Data_Kayle/Divine_Judgment?oldid=3962015) |

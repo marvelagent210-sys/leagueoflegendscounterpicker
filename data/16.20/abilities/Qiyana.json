@@ -154,7 +154,19 @@
       "revid": 3985639
     },
     "ranks": 1,
-    "fields": {},
+    "fields": {
+      "targetCooldown": {
+        "text": "25",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 25
+            }
+          }
+        ]
+      }
+    },
     "flags": {
       "targeting": [
         "Passive"
@@ -653,7 +665,7 @@
                   "stat": "bonusAD",
                   "ratio": {
                     "kind": "constant",
-                    "value": 121.50000000000001
+                    "value": 121.5
                   },
                   "text": "(+ 121.5% bonus AD)"
                 }
@@ -808,7 +820,13 @@
             "conditional": false
           }
         ],
-        "values": []
+        "values": [],
+        "tips": [
+          {
+            "text": "375 units",
+            "tip": "estimated"
+          }
+        ]
       },
       {
         "text": "The windblast creates a cascading shockwave across any River or Brush it passes through, as well as around the borders of Terrain it reaches, dealing physical damage to enemies hit, stunning them for 0.5 / 1 (based on proximity) seconds, and briefly granting sight of the area along its path. The damage based on the target's health ratio is capped against monsters.",

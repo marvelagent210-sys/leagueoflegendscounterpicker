@@ -206,3 +206,69 @@ All 2 level-based formulas in the game files (2 linked to wiki values above):
 |---|---|---|--:|--:|--:|
 | Carnivore | ChogathCarnivoreHeal | breakpoints at levels none (level 1: 18) | 18 | 52 | 56 |
 | Carnivore | ChogathCarnivoreMana | breakpoints at levels none (level 1: 4.72) | 4.72 | 9.48 | 10.04 |
+
+## Duel simulator kit (level 20, every ability at max rank)
+
+What the duel simulator fights with (`kits/champions/Chogath.ts`): every number is read from the wiki's ability data above at level 20; what the wiki doesn't say is listed under assumptions. Ratios are fractions of the stat (60% AD is 0.6 × AD).
+
+- Basic attack: range 186.6, melee.
+- Options: feastStacks = 8.
+
+| Key | Ability | Cooldown (s) | Cast time (s) | Cost | Delivery | On the enemy | On itself |
+|---|---|--:|--:|---|---|---|---|
+| Q | Rupture | 6 | 0.5 | 50 | circle of 125 radius (to the target's center) up to 950 away, lands after 0.627 s | 300 + 100% AP magic damage; knock up over 1 s; after 1 s: slow 60% for 1.5 s | – |
+| W | Feral Scream | 9 | 0.5 | 90 | area 0 to 650 units ahead, lands after 0 s | 280 + 70% AP magic damage; silence for 2 s | – |
+| E | Vorpal Spikes | 4 (starts after the empowered attacks) | 0 | 30 | self | – | next 3 attacks within 6 s: 110 + 30% AP + 7.9% target's maximum health magic damage (Vorpal Spikes); slow 25% for 1.5 s (+50 range, resets the attack timer) |
+| R | Feast | 60 | 0.25 | 100 | targeted, 195 range | 778 + 50% AP + 10% bonus health true damage | – |
+
+Effects marked by a mark or a role are completed by the kit's hooks (see the kit's source).
+
+### Assumptions
+
+- Feast stacks by level 20 (6 from minions and monsters, the rest from champions): 8.
+- 8 Feast stacks: 1280 bonus health, 61.6 bonus attack range, 80% bigger (the hitbox doesn't grow).
+- Vorpal Spikes' slow, which decays over 1.5 s, is taken as half its strength for the whole time; the spikes are 440 wide at 80% bonus size and always hit the attack's target.
+
+### Wiki values read (39)
+
+| Ability | Value | Revision |
+|---|---|---|
+| Feast | Bonus Health Per Stack: 80 / 120 / 160 | [3932267](https://wiki.leagueoflegends.com/en-us/Template:Data_Cho'Gath/Feast?oldid=3932267) |
+| Feast | Bonus Attack Range Per Stack: 4.7 / 6.2 / 7.7 | [3932267](https://wiki.leagueoflegends.com/en-us/Template:Data_Cho'Gath/Feast?oldid=3932267) |
+| Feast | capping at 75 bonus attack range and 100% increased size | [3932267](https://wiki.leagueoflegends.com/en-us/Template:Data_Cho'Gath/Feast?oldid=3932267) |
+| Feast | Bonus Size Per Stack: 6 / 8 / 10% | [3932267](https://wiki.leagueoflegends.com/en-us/Template:Data_Cho'Gath/Feast?oldid=3932267) |
+| Feast | Each stack of Feast increases the cast range of the ability by 2.5 | [3932267](https://wiki.leagueoflegends.com/en-us/Template:Data_Cho'Gath/Feast?oldid=3932267) |
+| Feast | for a maximum increase of 25 at 10 stacks | [3932267](https://wiki.leagueoflegends.com/en-us/Template:Data_Cho'Gath/Feast?oldid=3932267) |
+| Feast | Each stack of Feast increases the damage by 8 / 12 / 16 | [3932267](https://wiki.leagueoflegends.com/en-us/Template:Data_Cho'Gath/Feast?oldid=3932267) |
+| Rupture | ruptures the target location after a 0.627 delay | [4053169](https://wiki.leagueoflegends.com/en-us/Template:Data_Cho'Gath/Rupture?oldid=4053169) |
+| Rupture | knocking them up for 1 second | [4053169](https://wiki.leagueoflegends.com/en-us/Template:Data_Cho'Gath/Rupture?oldid=4053169) |
+| Rupture | afterwards slowing them by 60% for 1.5 seconds | [4053169](https://wiki.leagueoflegends.com/en-us/Template:Data_Cho'Gath/Rupture?oldid=4053169) |
+| Vorpal Spikes | empowers its next 3 basic attacks within 6 seconds | [4057853](https://wiki.leagueoflegends.com/en-us/Template:Data_Cho'Gath/Vorpal_Spikes?oldid=4057853) |
+| Vorpal Spikes | to gain 50 bonus range | [4057853](https://wiki.leagueoflegends.com/en-us/Template:Data_Cho'Gath/Vorpal_Spikes?oldid=4057853) |
+| Vorpal Spikes | (+ 2.5 / 2.85 / 3.2 / 3.55 / 3.9% (+ 0.5% per Feast stack) of target's maximum health) | [4057853](https://wiki.leagueoflegends.com/en-us/Template:Data_Cho'Gath/Vorpal_Spikes?oldid=4057853) |
+| Vorpal Spikes | (+ 0.5% per Feast stack) | [4057853](https://wiki.leagueoflegends.com/en-us/Template:Data_Cho'Gath/Vorpal_Spikes?oldid=4057853) |
+| Vorpal Spikes | Magic Damage: 30 / 50 / 70 / 90 / 110 (+ 30% AP) (+ 2.5 / 2.85 / 3.2 / 3.55 / 3.9% (+ 0.5% per Feast stack) of target's maximum health) | [4057853](https://wiki.leagueoflegends.com/en-us/Template:Data_Cho'Gath/Vorpal_Spikes?oldid=4057853) |
+| Vorpal Spikes | 110 (+ 30% AP) | [4057853](https://wiki.leagueoflegends.com/en-us/Template:Data_Cho'Gath/Vorpal_Spikes?oldid=4057853) |
+| Vorpal Spikes | Slow: 30 / 35 / 40 / 45 / 50% | [4057853](https://wiki.leagueoflegends.com/en-us/Template:Data_Cho'Gath/Vorpal_Spikes?oldid=4057853) |
+| Vorpal Spikes | slowed by an amount that decays over 1.5 seconds | [4057853](https://wiki.leagueoflegends.com/en-us/Template:Data_Cho'Gath/Vorpal_Spikes?oldid=4057853) |
+| Vorpal Spikes | width: 340 / 370 / 380 / 410 / 440 / 470 / 500 (based on bonus size) | [4057853](https://wiki.leagueoflegends.com/en-us/Template:Data_Cho'Gath/Vorpal_Spikes?oldid=4057853) |
+| Feast | Champion True Damage: 300 / 475 / 650 (+ 50% AP) (+ 10% bonus health) | [3932267](https://wiki.leagueoflegends.com/en-us/Template:Data_Cho'Gath/Feast?oldid=3932267) |
+| Rupture | cooldown: 6 | [4053169](https://wiki.leagueoflegends.com/en-us/Template:Data_Cho'Gath/Rupture?oldid=4053169) |
+| Rupture | cost: 50 | [4053169](https://wiki.leagueoflegends.com/en-us/Template:Data_Cho'Gath/Rupture?oldid=4053169) |
+| Rupture | castTime: 0.5 | [4053169](https://wiki.leagueoflegends.com/en-us/Template:Data_Cho'Gath/Rupture?oldid=4053169) |
+| Rupture | targetRange: 950 | [4053169](https://wiki.leagueoflegends.com/en-us/Template:Data_Cho'Gath/Rupture?oldid=4053169) |
+| Rupture | effectRadius: 125 | [4053169](https://wiki.leagueoflegends.com/en-us/Template:Data_Cho'Gath/Rupture?oldid=4053169) |
+| Rupture | Magic damage: 80 / 135 / 190 / 245 / 300 (+ 100% AP) | [4053169](https://wiki.leagueoflegends.com/en-us/Template:Data_Cho'Gath/Rupture?oldid=4053169) |
+| Feral Scream | cooldown: 11 / 10.5 / 10 / 9.5 / 9 | [4052916](https://wiki.leagueoflegends.com/en-us/Template:Data_Cho'Gath/Feral_Scream?oldid=4052916) |
+| Feral Scream | cost: 70 / 75 / 80 / 85 / 90 | [4052916](https://wiki.leagueoflegends.com/en-us/Template:Data_Cho'Gath/Feral_Scream?oldid=4052916) |
+| Feral Scream | castTime: 0.5 | [4052916](https://wiki.leagueoflegends.com/en-us/Template:Data_Cho'Gath/Feral_Scream?oldid=4052916) |
+| Feral Scream | targetRange: 650 | [4052916](https://wiki.leagueoflegends.com/en-us/Template:Data_Cho'Gath/Feral_Scream?oldid=4052916) |
+| Feral Scream | Magic damage: 80 / 130 / 180 / 230 / 280 (+ 70% AP) | [4052916](https://wiki.leagueoflegends.com/en-us/Template:Data_Cho'Gath/Feral_Scream?oldid=4052916) |
+| Feral Scream | Silence Duration: 1.6 / 1.7 / 1.8 / 1.9 / 2 seconds | [4052916](https://wiki.leagueoflegends.com/en-us/Template:Data_Cho'Gath/Feral_Scream?oldid=4052916) |
+| Vorpal Spikes | cooldown: 8 / 7 / 6 / 5 / 4 | [4057853](https://wiki.leagueoflegends.com/en-us/Template:Data_Cho'Gath/Vorpal_Spikes?oldid=4057853) |
+| Vorpal Spikes | cost: 30 | [4057853](https://wiki.leagueoflegends.com/en-us/Template:Data_Cho'Gath/Vorpal_Spikes?oldid=4057853) |
+| Vorpal Spikes | castTime: none | [4057853](https://wiki.leagueoflegends.com/en-us/Template:Data_Cho'Gath/Vorpal_Spikes?oldid=4057853) |
+| Feast | cooldown: 80 / 70 / 60 | [3932267](https://wiki.leagueoflegends.com/en-us/Template:Data_Cho'Gath/Feast?oldid=3932267) |
+| Feast | cost: 100 | [3932267](https://wiki.leagueoflegends.com/en-us/Template:Data_Cho'Gath/Feast?oldid=3932267) |
+| Feast | castTime: 0.25 | [3932267](https://wiki.leagueoflegends.com/en-us/Template:Data_Cho'Gath/Feast?oldid=3932267) |
+| Feast | targetRange: 175 | [3932267](https://wiki.leagueoflegends.com/en-us/Template:Data_Cho'Gath/Feast?oldid=3932267) |

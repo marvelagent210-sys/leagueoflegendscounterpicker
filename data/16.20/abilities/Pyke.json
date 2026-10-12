@@ -238,7 +238,13 @@
             "conditional": false
           }
         ],
-        "values": []
+        "values": [],
+        "tips": [
+          {
+            "text": "post-mitigation damage",
+            "tip": "Damage calculated after modifiers"
+          }
+        ]
       },
       {
         "text": "While Pyke is not visible to enemies, he rapidly consumes his grey health to heal for the same amount.",
@@ -351,11 +357,11 @@
               "values": [
                 400,
                 400,
-                516.6666666666666,
-                633.3333333333334,
+                516.666666666667,
+                633.333333333333,
                 750,
-                866.6666666666667,
-                983.3333333333334,
+                866.666666666667,
+                983.333333333333,
                 1100
               ]
             }

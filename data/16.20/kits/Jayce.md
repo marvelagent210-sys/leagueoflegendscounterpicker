@@ -291,3 +291,88 @@ All 3 level-based formulas in the game files (0 linked to wiki values above):
 | JayceStanceHtG | RangedFormShred | breakpoints at levels 6, 11, 16 (level 1: 0.2) | 0.2 | 0.35 | 0.35 |
 | JayceStanceHtG | Damage | breakpoints at levels 6, 11, 16 (level 1: 25) | 25 | 130 | 130 |
 | JayceStanceHtG | Resists | breakpoints at levels 6, 11, 16 (level 1: 5) | 5 | 26 | 26 |
+
+## Duel simulator kit (level 20, every ability at max rank)
+
+What the duel simulator fights with (`kits/champions/Jayce.ts`): every number is read from the wiki's ability data above at level 20; what the wiki doesn't say is listed under assumptions. Ratios are fractions of the stat (60% AD is 0.6 × AD).
+
+- Basic attack: range 125, melee.
+
+| Key | Ability | Cooldown (s) | Cast time (s) | Cost | Delivery | On the enemy | On itself |
+|---|---|--:|--:|---|---|---|---|
+| QH | To the Skies! | 6 | 0 | 40 | dash target 600 units in 0.5 s, hits within 300 | 310 + 135% bonus AD physical damage; slow 60% for 2 s | – |
+| WH | Lightning Field | 10 | 0 | 40 | field of 350 radius around itself, for 4 s, pulsing every 1 s | 110 + 25% AP magic damage | – |
+| EH | Thundering Blow | 10 | 0.25 | 55 | targeted, 240 range | 22% target's maximum health + 100% bonus AD magic damage; knock back 600 units over 0.35 s | – |
+| R | Transform Mercury Cannon | 6 | 0 | – | self | – | – |
+
+Effects marked by a mark or a role are completed by the kit's hooks (see the kit's source).
+
+### Assumptions
+
+- Cannon Stance's attacks fly at 2000 (the game files; the wiki gives no speed) and wind up like the Hammer's.
+- Acceleration Gate goes up just in front of Jayce: the next Shock Blast within its 4 s passes through it, and Jayce walks through it for its 60% speed, decaying evenly over 3 s.
+- Thundering Blow's knock back takes 0.35 s (the game files' KnockbackDuration).
+- Jayce starts in Hammer Stance with Transform ready; he switches when his stance has nothing left to cast and the other has, or when the enemy is out of his reach in Hammer Stance or in reach of To the Skies! in Cannon Stance.
+
+### Wiki values read (58)
+
+| Ability | Value | Revision |
+|---|---|---|
+| Hextech Capacitor | he gains ghosting and 30 bonus movement speed for 0.75 seconds | [4042868](https://wiki.leagueoflegends.com/en-us/Template:Data_Jayce/Hextech_Capacitor?oldid=4042868) |
+| Transform Mercury Cannon | becoming ranged with 500 attack range | [3989867](https://wiki.leagueoflegends.com/en-us/Template:Data_Jayce/Transform_Mercury_Cannon?oldid=3989867) |
+| Transform Mercury Cannon | Active: Jayce transforms into Cannon Stance, receiving access to its abilities, becoming ranged with 500 attack range, and empowering his next basic attack to reduce the target's armor and magic resistance by 20 / 25 / 30 / 35 (based on level)% for 5 seconds. | [3989867](https://wiki.leagueoflegends.com/en-us/Template:Data_Jayce/Transform_Mercury_Cannon?oldid=3989867) |
+| Transform Mercury Cannon | for 5 seconds | [3989867](https://wiki.leagueoflegends.com/en-us/Template:Data_Jayce/Transform_Mercury_Cannon?oldid=3989867) |
+| Transform Mercury Cannon | Both Transform on-hit effects have no set duration and will only be consumed when Jayce either lands a basic attack or switches stances | [3989867](https://wiki.leagueoflegends.com/en-us/Template:Data_Jayce/Transform_Mercury_Cannon?oldid=3989867) |
+| Transform Mercury Hammer | becoming melee with 125 attack range | [4065559](https://wiki.leagueoflegends.com/en-us/Template:Data_Jayce/Transform_Mercury_Hammer?oldid=4065559) |
+| Transform Mercury Hammer | Active: Jayce transforms into Hammer Stance, receiving access to its abilities, becoming melee with 125 attack range, gaining 5 / 12 / 19 / 26 (based on level) (+ 7.5% bonus AD) bonus armor and bonus magic resistance, and empowering his next basic attack to deal 25 / 60 / 95 / 130 (based on level) (+ 30% bonus AD) bonus magic damage. | [4065559](https://wiki.leagueoflegends.com/en-us/Template:Data_Jayce/Transform_Mercury_Hammer?oldid=4065559) |
+| Transform Mercury Hammer | (+ 7.5% bonus AD) bonus armor and bonus magic resistance | [4065559](https://wiki.leagueoflegends.com/en-us/Template:Data_Jayce/Transform_Mercury_Hammer?oldid=4065559) |
+| Transform Mercury Hammer | (+ 30% bonus AD) bonus magic damage | [4065559](https://wiki.leagueoflegends.com/en-us/Template:Data_Jayce/Transform_Mercury_Hammer?oldid=4065559) |
+| Transform Mercury Cannon | cooldown: 6 | [3989867](https://wiki.leagueoflegends.com/en-us/Template:Data_Jayce/Transform_Mercury_Cannon?oldid=3989867) |
+| To the Skies! | targetRange: 600 | [4073054](https://wiki.leagueoflegends.com/en-us/Template:Data_Jayce/To_the_Skies!?oldid=4073054) |
+| To the Skies! | leaps to the target enemy's location over 0.5 seconds | [4073054](https://wiki.leagueoflegends.com/en-us/Template:Data_Jayce/To_the_Skies!?oldid=4073054) |
+| To the Skies! | To The Skies! will always direct Jayce linearly to his target's location | [4073054](https://wiki.leagueoflegends.com/en-us/Template:Data_Jayce/To_the_Skies!?oldid=4073054) |
+| Shock Blast | range: 1050 • 1600 | [4058059](https://wiki.leagueoflegends.com/en-us/Template:Data_Jayce/Shock_Blast?oldid=4058059) |
+| Shock Blast | speed: 1450 • 2350 | [4058059](https://wiki.leagueoflegends.com/en-us/Template:Data_Jayce/Shock_Blast?oldid=4058059) |
+| Acceleration Gate | lasting for 4 seconds | [4005101](https://wiki.leagueoflegends.com/en-us/Template:Data_Jayce/Acceleration_Gate?oldid=4005101) |
+| Acceleration Gate | Bonus Movement Speed: 35 / 40 / 45 / 50 / 55 / 60% | [4005101](https://wiki.leagueoflegends.com/en-us/Template:Data_Jayce/Acceleration_Gate?oldid=4005101) |
+| Acceleration Gate | bonus movement speed that decays over 3 seconds | [4005101](https://wiki.leagueoflegends.com/en-us/Template:Data_Jayce/Acceleration_Gate?oldid=4005101) |
+| Hyper Charge | Jayce empowers his next 3 basic attacks within 4 seconds to deal modified physical damage and gain 360% bonus attack speed | [3965005](https://wiki.leagueoflegends.com/en-us/Template:Data_Jayce/Hyper_Charge?oldid=3965005) |
+| Hyper Charge | Physical Damage: 70 / 78 / 86 / 94 / 102 / 110% AD | [3965005](https://wiki.leagueoflegends.com/en-us/Template:Data_Jayce/Hyper_Charge?oldid=3965005) |
+| Hyper Charge | Hyper Charge's total damage is affected by critical strike modifiers | [3965005](https://wiki.leagueoflegends.com/en-us/Template:Data_Jayce/Hyper_Charge?oldid=3965005) |
+| Hyper Charge | Hyper Charge resets Jayce's basic attack timer | [3965005](https://wiki.leagueoflegends.com/en-us/Template:Data_Jayce/Hyper_Charge?oldid=3965005) |
+| Lightning Field | Mana Restored: 15 / 17 / 19 / 21 / 23 / 25 | [3948933](https://wiki.leagueoflegends.com/en-us/Template:Data_Jayce/Lightning_Field?oldid=3948933) |
+| Lightning Field | surrounds himself with an electric field for 4 seconds that deals magic damage every second | [3948933](https://wiki.leagueoflegends.com/en-us/Template:Data_Jayce/Lightning_Field?oldid=3948933) |
+| Thundering Blow | knock them back 600 units | [3965179](https://wiki.leagueoflegends.com/en-us/Template:Data_Jayce/Thundering_Blow?oldid=3965179) |
+| Thundering Blow | Jayce is unable to cast To the Skies! or Shock Blast for 0.4 seconds after Thundering Blow's cast time | [3965179](https://wiki.leagueoflegends.com/en-us/Template:Data_Jayce/Thundering_Blow?oldid=3965179) |
+| Thundering Blow | Jayce roots the target enemy over the cast time | [3965179](https://wiki.leagueoflegends.com/en-us/Template:Data_Jayce/Thundering_Blow?oldid=3965179) |
+| To the Skies! | cooldown: 16 / 14 / 12 / 10 / 8 / 6 | [4073054](https://wiki.leagueoflegends.com/en-us/Template:Data_Jayce/To_the_Skies!?oldid=4073054) |
+| To the Skies! | cost: 40 | [4073054](https://wiki.leagueoflegends.com/en-us/Template:Data_Jayce/To_the_Skies!?oldid=4073054) |
+| To the Skies! | castTime: none | [4073054](https://wiki.leagueoflegends.com/en-us/Template:Data_Jayce/To_the_Skies!?oldid=4073054) |
+| To the Skies! | effectRadius: 300 | [4073054](https://wiki.leagueoflegends.com/en-us/Template:Data_Jayce/To_the_Skies!?oldid=4073054) |
+| To the Skies! | Physical Damage: 60 / 110 / 160 / 210 / 260 / 310 (+ 135% bonus AD) | [4073054](https://wiki.leagueoflegends.com/en-us/Template:Data_Jayce/To_the_Skies!?oldid=4073054) |
+| To the Skies! | Slow: 35 / 40 / 45 / 50 / 55 / 60% | [4073054](https://wiki.leagueoflegends.com/en-us/Template:Data_Jayce/To_the_Skies!?oldid=4073054) |
+| To the Skies! | slow them for 2 seconds | [4073054](https://wiki.leagueoflegends.com/en-us/Template:Data_Jayce/To_the_Skies!?oldid=4073054) |
+| Lightning Field | cooldown: 10 | [3948933](https://wiki.leagueoflegends.com/en-us/Template:Data_Jayce/Lightning_Field?oldid=3948933) |
+| Lightning Field | cost: 40 | [3948933](https://wiki.leagueoflegends.com/en-us/Template:Data_Jayce/Lightning_Field?oldid=3948933) |
+| Lightning Field | castTime: none | [3948933](https://wiki.leagueoflegends.com/en-us/Template:Data_Jayce/Lightning_Field?oldid=3948933) |
+| Lightning Field | effectRadius: 350 | [3948933](https://wiki.leagueoflegends.com/en-us/Template:Data_Jayce/Lightning_Field?oldid=3948933) |
+| Lightning Field | Magic Damage Per Tick: 35 / 50 / 65 / 80 / 95 / 110 (+ 25% AP) | [3948933](https://wiki.leagueoflegends.com/en-us/Template:Data_Jayce/Lightning_Field?oldid=3948933) |
+| Thundering Blow | cooldown: 20 / 18 / 16 / 14 / 12 / 10 | [3965179](https://wiki.leagueoflegends.com/en-us/Template:Data_Jayce/Thundering_Blow?oldid=3965179) |
+| Thundering Blow | cost: 55 | [3965179](https://wiki.leagueoflegends.com/en-us/Template:Data_Jayce/Thundering_Blow?oldid=3965179) |
+| Thundering Blow | castTime: 0.25 | [3965179](https://wiki.leagueoflegends.com/en-us/Template:Data_Jayce/Thundering_Blow?oldid=3965179) |
+| Thundering Blow | targetRange: 240 | [3965179](https://wiki.leagueoflegends.com/en-us/Template:Data_Jayce/Thundering_Blow?oldid=3965179) |
+| Thundering Blow | Magic Damage: 8 / 10.8 / 13.6 / 16.4 / 19.2 / 22% of target's maximum health (+ 100% bonus AD) | [3965179](https://wiki.leagueoflegends.com/en-us/Template:Data_Jayce/Thundering_Blow?oldid=3965179) |
+| Transform Mercury Cannon | castTime: none | [3989867](https://wiki.leagueoflegends.com/en-us/Template:Data_Jayce/Transform_Mercury_Cannon?oldid=3989867) |
+| Shock Blast | cooldown: 8 | [4058059](https://wiki.leagueoflegends.com/en-us/Template:Data_Jayce/Shock_Blast?oldid=4058059) |
+| Shock Blast | cost: 55 / 60 / 65 / 70 / 75 / 80 | [4058059](https://wiki.leagueoflegends.com/en-us/Template:Data_Jayce/Shock_Blast?oldid=4058059) |
+| Shock Blast | castTime: 0.2143 | [4058059](https://wiki.leagueoflegends.com/en-us/Template:Data_Jayce/Shock_Blast?oldid=4058059) |
+| Shock Blast | width: 140 | [4058059](https://wiki.leagueoflegends.com/en-us/Template:Data_Jayce/Shock_Blast?oldid=4058059) |
+| Shock Blast | Physical Damage: 80 / 121 / 162 / 203 / 244 / 285 (+ 130% bonus AD) | [4058059](https://wiki.leagueoflegends.com/en-us/Template:Data_Jayce/Shock_Blast?oldid=4058059) |
+| Shock Blast | Increased Damage: 112 / 169.4 / 226.8 / 284.2 / 341.6 / 399 (+ 182% bonus AD) | [4058059](https://wiki.leagueoflegends.com/en-us/Template:Data_Jayce/Shock_Blast?oldid=4058059) |
+| Hyper Charge | cooldown: 13 / 11.4 / 9.8 / 8.2 / 6.6 / 5 | [3965005](https://wiki.leagueoflegends.com/en-us/Template:Data_Jayce/Hyper_Charge?oldid=3965005) |
+| Hyper Charge | cost: 40 | [3965005](https://wiki.leagueoflegends.com/en-us/Template:Data_Jayce/Hyper_Charge?oldid=3965005) |
+| Hyper Charge | castTime: none | [3965005](https://wiki.leagueoflegends.com/en-us/Template:Data_Jayce/Hyper_Charge?oldid=3965005) |
+| Acceleration Gate | cooldown: 16 | [4005101](https://wiki.leagueoflegends.com/en-us/Template:Data_Jayce/Acceleration_Gate?oldid=4005101) |
+| Acceleration Gate | cost: 50 | [4005101](https://wiki.leagueoflegends.com/en-us/Template:Data_Jayce/Acceleration_Gate?oldid=4005101) |
+| Acceleration Gate | castTime: none | [4005101](https://wiki.leagueoflegends.com/en-us/Template:Data_Jayce/Acceleration_Gate?oldid=4005101) |
+| Transform Mercury Hammer | castTime: none | [4065559](https://wiki.leagueoflegends.com/en-us/Template:Data_Jayce/Transform_Mercury_Hammer?oldid=4065559) |

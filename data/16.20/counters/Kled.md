@@ -1,5 +1,59 @@
 # Counters to Kled (patch 26.20)
 
+## Simulated duels (full confidence)
+
+The duel simulator played each of the 45 other champions with a simulator kit against Kled: both at level 20 with 15,000 gold of plain stats, each side's spent against the other's, through six scenarios (PLAN.md §6). Scores run from −1 (Kled wins every time) to +1 (the champion does). Run `npm run duel -- <champion> Kled --log brawl` to watch a fight.
+
+| # | Champion | Score | You engage | Enemy engages | Brawl | Short trade | Spacing | Escape |
+|--:|---|--:|--:|--:|--:|--:|--:|--:|
+| 1 | K'Sante | +0.87 | +1.00 | +1.00 | +1.00 | +0.14 | +1.00 | +1.00 |
+| 2 | Kayle | +0.84 | +1.00 | +1.00 | +1.00 | +0.29 | +1.00 | +0.00 |
+| 3 | Teemo | +0.82 | +1.00 | +1.00 | +1.00 | +0.16 | +1.00 | +0.00 |
+| 4 | Poppy | +0.82 | +1.00 | +1.00 | +1.00 | +0.26 | – | +0.00 |
+| 5 | Gnar | +0.80 | +1.00 | +1.00 | +1.00 | −0.02 | +1.00 | +0.00 |
+| 6 | Udyr | +0.79 | +1.00 | +1.00 | +1.00 | +0.10 | – | +0.00 |
+| 7 | Darius | +0.77 | +1.00 | +1.00 | +1.00 | −0.06 | – | +0.00 |
+| 8 | Gwen | +0.75 | +0.94 | +0.94 | +1.00 | +0.04 | – | +0.00 |
+| 9 | Nasus | +0.66 | +1.00 | +0.55 | +1.00 | +0.03 | – | +0.00 |
+| 10 | Fiora | +0.58 | +1.00 | +0.00 | +1.00 | +0.17 | – | +1.00 |
+| 11 | Zaahen | +0.52 | +1.00 | +0.03 | +1.00 | +0.04 | – | +0.00 |
+| 12 | Quinn | +0.38 | +0.57 | +0.42 | +0.74 | +0.07 | −0.26 | +0.00 |
+| 13 | Dr. Mundo | +0.38 | +0.61 | +0.70 | +0.23 | −0.21 | – | +0.00 |
+| 14 | Kennen | +0.27 | +0.93 | −1.00 | +0.99 | +0.15 | +0.71 | +0.00 |
+| 15 | Mordekaiser | +0.25 | +0.87 | +0.03 | −0.03 | +0.02 | – | +0.00 |
+| 16 | Trundle | +0.20 | +1.00 | −1.00 | +1.00 | −0.14 | – | +0.00 |
+| 17 | Illaoi | +0.14 | −1.00 | +0.85 | +0.90 | −0.11 | – | +0.00 |
+| 18 | Tahm Kench | −0.02 | +0.01 | +0.01 | −0.02 | −0.13 | – | +0.00 |
+| 19 | Ornn | −0.19 | −0.28 | −0.28 | −0.23 | +0.08 | – | +0.00 |
+| 20 | Malphite | −0.30 | −1.00 | −1.00 | +1.00 | +0.19 | – | +0.00 |
+| 21 | Yone | −0.32 | −1.00 | −1.00 | +1.00 | +0.08 | – | +0.00 |
+| 22 | Urgot | −0.39 | −1.00 | −1.00 | +0.92 | +0.16 | −1.00 | +0.00 |
+| 23 | Jax | −0.50 | +0.00 | −1.00 | −1.00 | +0.01 | – | +0.00 |
+| 24 | Sion | −0.53 | −0.54 | −0.54 | −1.00 | −0.05 | – | +0.00 |
+| 25 | Aatrox | −0.56 | −1.00 | −1.00 | +0.00 | −0.01 | – | +0.00 |
+| 26 | Ambessa | −0.75 | −1.00 | −1.00 | −1.00 | +0.15 | – | +0.00 |
+| 27 | Irelia | −0.75 | −1.00 | −1.00 | −1.00 | +0.15 | – | +0.00 |
+| 28 | Riven | −0.75 | −1.00 | −1.00 | −1.00 | +0.15 | – | +0.00 |
+| 29 | Garen | −0.76 | −1.00 | −1.00 | −1.00 | +0.13 | – | +0.00 |
+| 30 | Shen | −0.76 | −1.00 | −1.00 | −1.00 | +0.11 | – | +0.00 |
+| 31 | Renekton | −0.76 | −1.00 | −1.00 | −1.00 | +0.09 | – | +0.00 |
+| 32 | Yasuo | −0.76 | −1.00 | −1.00 | −1.00 | +0.09 | – | +0.00 |
+| 33 | Singed | −0.77 | −1.00 | −1.00 | −1.00 | +0.06 | – | +0.00 |
+| 34 | Pantheon | −0.77 | −1.00 | −1.00 | −1.00 | +0.05 | – | +0.00 |
+| 35 | Akali | −0.77 | −1.00 | −1.00 | −1.00 | +0.04 | – | +0.00 |
+| 36 | Sett | −0.77 | −1.00 | −1.00 | −1.00 | +0.04 | – | +0.00 |
+| 37 | Olaf | −0.77 | −1.00 | −1.00 | −1.00 | +0.03 | – | +0.00 |
+| 38 | Volibear | −0.77 | −1.00 | −1.00 | −1.00 | +0.03 | – | +0.00 |
+| 39 | Cho'Gath | −0.77 | −1.00 | −1.00 | −1.00 | +0.02 | – | +0.00 |
+| 40 | Rumble | −0.78 | −1.00 | −1.00 | −1.00 | +0.02 | – | +0.00 |
+| 41 | Jayce | −0.78 | −1.00 | −1.00 | −1.00 | +0.01 | – | +0.00 |
+| 42 | Tryndamere | −0.79 | −1.00 | −1.00 | −1.00 | −0.07 | – | +0.00 |
+| 43 | Skarner | −0.80 | −1.00 | −1.00 | −1.00 | −0.14 | – | +0.00 |
+| 44 | Aurora | −0.81 | −1.00 | −1.00 | −1.00 | −0.07 | −1.00 | +0.00 |
+| 45 | Camille | −0.81 | −1.00 | −1.00 | −1.00 | −0.20 | – | +0.00 |
+
+## Interaction ledger (partial confidence)
+
 Every champion ranked by what its kit does against Kled's, from the interaction ledger: projectile blocks, spell shields,
 parries, dash stops, crowd control and its defenses, range and more (PLAN.md §5). This ranking is **partial**: it weighs the
 interactions but doesn't play the fight out. The duel simulator replaces it as each champion's behavior is verified.
@@ -8,76 +62,76 @@ interactions but doesn't play the fight out. The duel simulator replaces it as e
 A hard counter shuts down part of a kit every time it is used (projectile block, attack dodge, attack block, blind, disarm, attack speed slow, attack reflect, dash stop, grounding, range) with an impact of 0.4 or more (0.5 for range).
 Run `npm run matchup -- <champion> Kled` for the full ledger of a matchup, with sources.
 
-## Top 10
+### Top 10
 
-### 1. Sivir (net +1.38)
+#### 1. Sivir (net +1.38)
 
 - **1.00** spell shield: Spell Shield's spell shield blocks Kled's Chaaaaaaaarge!!!. Spell shield for 1.5 s, long enough to use ahead of Chaaaaaaaarge!!!. A spell shield blocks only the first enemy ability that reaches it. (Sivir E Spell Shield → Kled R Chaaaaaaaarge!!!)
 - **0.44** spell shield: Spell Shield's spell shield blocks Kled's Bear Trap on a Rope. Spell shield for 1.5 s, long enough to use ahead of Bear Trap on a Rope. A spell shield blocks only the first enemy ability that reaches it. (Sivir E Spell Shield → Kled Q Bear Trap on a Rope)
 - **0.16** range: Sivir's basic attacks reach 250 units farther than Kled's (500 vs 250 attack range). Kled closes the gap with Jousting, Pocket Pistol, Chaaaaaaaarge!!!. (Sivir basic attacks → Kled basic attacks)
 
-### 2. Vladimir (net +1.14)
+#### 2. Vladimir (net +1.14)
 
 - **1.00** untargetable: Sanguine Pool makes Vladimir untargetable, dodging Kled's Chaaaaaaaarge!!!. Untargetable for 2 s, long enough to use ahead of Chaaaaaaaarge!!!. (Vladimir W Sanguine Pool → Kled R Chaaaaaaaarge!!!)
 - **0.46** untargetable: Sanguine Pool makes Vladimir untargetable, dodging Kled's Bear Trap on a Rope. Untargetable for 2 s, long enough to use ahead of Bear Trap on a Rope. (Vladimir W Sanguine Pool → Kled Q Bear Trap on a Rope)
 - **0.05** range: Vladimir's basic attacks reach 200 units farther than Kled's (450 vs 250 attack range). Kled closes the gap with Jousting, Pocket Pistol, Chaaaaaaaarge!!!. (Vladimir basic attacks → Kled basic attacks)
 - Watch out: Bear Trap on a Rope's airborne interrupts Vladimir's Tides of Blood (charge-up).
 
-### 3. Xayah (net +1.10)
+#### 3. Xayah (net +1.10)
 
 - **1.00** untargetable: Featherstorm makes Xayah untargetable, dodging Kled's Chaaaaaaaarge!!!. Untargetable for 1.5 s, long enough to use ahead of Chaaaaaaaarge!!!. (Xayah R Featherstorm → Kled R Chaaaaaaaarge!!!)
 - **0.31** untargetable: Featherstorm makes Xayah untargetable, dodging Kled's Bear Trap on a Rope. Untargetable for 1.5 s, long enough to use ahead of Bear Trap on a Rope. (Xayah R Featherstorm → Kled Q Bear Trap on a Rope)
 - **0.13** range: Xayah's basic attacks reach 275 units farther than Kled's (525 vs 250 attack range). Kled closes the gap with Jousting, Pocket Pistol, Chaaaaaaaarge!!!. (Xayah basic attacks → Kled basic attacks)
 - Watch out: Chaaaaaaaarge!!! makes Kled immune to Xayah's Bladecaller (root).
 
-### 4. Fiora (net +1.09)
+#### 4. Fiora (net +1.09)
 
 - **1.10** parry: Riposte parries Kled's Chaaaaaaaarge!!! and stuns back. Parry for 0.75 s; Chaaaaaaaarge!!! takes 4.5 s to land, enough to react. Negating Chaaaaaaaarge!!!'s immobilizing effect turns Riposte's slow into a stun (2 s). (Fiora W Riposte → Kled R Chaaaaaaaarge!!!)
 - **0.56** parry: Riposte parries Kled's Bear Trap on a Rope and stuns back. Parry for 0.75 s; Bear Trap on a Rope takes 0.75 s to land, enough to react. Negating Bear Trap on a Rope's immobilizing effect turns Riposte's slow into a stun (2 s). (Fiora W Riposte → Kled Q Bear Trap on a Rope)
 - **0.10** attack speed slow: Riposte cuts Kled's attack speed by 25% for 2 s. 2 s on a 16 s cooldown. (Fiora W Riposte → Kled basic attacks)
 - Watch out: Chaaaaaaaarge!!! makes Kled immune to Fiora's Riposte (cripple, slow, stun).
 
-### 5. Nocturne (net +1.06)
+#### 5. Nocturne (net +1.06)
 
 - **1.00** spell shield: Shroud of Darkness's spell shield blocks Kled's Chaaaaaaaarge!!!. Spell shield for 1.5 s, long enough to use ahead of Chaaaaaaaarge!!!. A spell shield blocks only the first enemy ability that reaches it. (Nocturne W Shroud of Darkness → Kled R Chaaaaaaaarge!!!)
 - **0.52** spell shield: Shroud of Darkness's spell shield blocks Kled's Bear Trap on a Rope. Spell shield for 1.5 s, long enough to use ahead of Bear Trap on a Rope. A spell shield blocks only the first enemy ability that reaches it. (Nocturne W Shroud of Darkness → Kled Q Bear Trap on a Rope)
 - **0.20** cc immunity: Paranoia is displacement immune, ignoring Kled's Chaaaaaaaarge!!! (airborne) during it. Only during Paranoia. (Nocturne R Paranoia → Kled R Chaaaaaaaarge!!!)
 - Watch out: Chaaaaaaaarge!!! makes Kled immune to Nocturne's Paranoia (nearsight).
 
-### 6. Zed (net +1.04)
+#### 6. Zed (net +1.04)
 
 - **1.00** untargetable: Death Mark makes Zed untargetable, dodging Kled's Chaaaaaaaarge!!!. Untargetable for 0.6 s; Chaaaaaaaarge!!! takes 4.5 s to land, enough to react. (Zed R Death Mark → Kled R Chaaaaaaaarge!!!)
 - **0.31** untargetable: Death Mark makes Zed untargetable, dodging Kled's Bear Trap on a Rope. Untargetable for 0.6 s; Bear Trap on a Rope takes 0.75 s to land, enough to react. (Zed R Death Mark → Kled Q Bear Trap on a Rope)
 - Watch out: Kled's basic attacks reach 125 units farther than Zed's (250 vs 125 attack range).
 
-### 7. Aurora (net +1.03)
+#### 7. Aurora (net +1.03)
 
 - **1.00** untargetable: Between Worlds makes Aurora untargetable, dodging Kled's Chaaaaaaaarge!!!. Untargetable for 0.4 s; Chaaaaaaaarge!!! takes 4.5 s to land, enough to react. Does not destroy inbound projectiles. (Aurora R Between Worlds → Kled R Chaaaaaaaarge!!!)
 - **0.31** untargetable: Between Worlds makes Aurora untargetable, dodging Kled's Bear Trap on a Rope. Untargetable for 0.4 s; Bear Trap on a Rope takes 0.75 s to land, enough to react. Does not destroy inbound projectiles. (Aurora R Between Worlds → Kled Q Bear Trap on a Rope)
 - **0.20** cc immunity: Between Worlds is displacement immune, ignoring Kled's Chaaaaaaaarge!!! (airborne) during it. Only during Between Worlds (0.4 s). (Aurora R Between Worlds → Kled R Chaaaaaaaarge!!!)
 - Watch out: Jousting reveals Aurora through Across the Veil's stealth.
 
-### 8. Elise (net +1.02)
+#### 8. Elise (net +1.02)
 
 - **1.00** untargetable: Rappel makes Elise untargetable, dodging Kled's Chaaaaaaaarge!!!. Untargetable for 0.6 s; Chaaaaaaaarge!!! takes 4.5 s to land, enough to react. (Elise E Rappel → Kled R Chaaaaaaaarge!!!)
 - **0.44** untargetable: Rappel makes Elise untargetable, dodging Kled's Bear Trap on a Rope. Untargetable for 0.6 s; Bear Trap on a Rope takes 0.75 s to land, enough to react. (Elise E Rappel → Kled Q Bear Trap on a Rope)
 - **0.12** range: Elise's basic attacks reach 300 units farther than Kled's (550 vs 250 attack range). Kled closes the gap with Jousting, Pocket Pistol, Chaaaaaaaarge!!!. (Elise basic attacks → Kled basic attacks)
 - Watch out: Chaaaaaaaarge!!! makes Kled immune to Elise's Cocoon (stun).
 
-### 9. Master Yi (net +1.02)
+#### 9. Master Yi (net +1.02)
 
 - **1.00** untargetable: Alpha Strike makes Master Yi untargetable, dodging Kled's Chaaaaaaaarge!!!. Untargetable for ?; Chaaaaaaaarge!!! takes 4.5 s to land, enough to react. (Master Yi Q Alpha Strike → Kled R Chaaaaaaaarge!!!)
 - **0.44** untargetable: Alpha Strike makes Master Yi untargetable, dodging Kled's Bear Trap on a Rope. Untargetable for ?; Bear Trap on a Rope takes 0.75 s to land, enough to react. (Master Yi Q Alpha Strike → Kled Q Bear Trap on a Rope)
 - **0.08** cc immunity: Highlander makes Master Yi immune to Kled's Bear Trap on a Rope slow. Highlander lasts 7 s on a 85 s cooldown. (Master Yi R Highlander → Kled Q Bear Trap on a Rope)
 - Watch out: Bear Trap on a Rope's airborne interrupts Master Yi's Meditate (normal channel).
 
-### 10. Gwen (net +1.00)
+#### 10. Gwen (net +1.00)
 
 - **1.00** untargetable: Hallowed Mist makes Gwen untargetable, dodging Kled's Chaaaaaaaarge!!!. Untargetable for ?; Chaaaaaaaarge!!! takes 4.5 s to land, enough to react. Does not destroy inbound projectiles for non-champion missiles but does so for champion missiles that attempt to pass through the mist, special cased to be targetable to turrets and monsters as well as enemies inside the mist. (Gwen W Hallowed Mist → Kled R Chaaaaaaaarge!!!)
 - **0.44** untargetable: Hallowed Mist makes Gwen untargetable, dodging Kled's Bear Trap on a Rope. Untargetable for ?; Bear Trap on a Rope takes 0.75 s to land, enough to react. Does not destroy inbound projectiles for non-champion missiles but does so for champion missiles that attempt to pass through the mist, special cased to be targetable to turrets and monsters as well as enemies inside the mist. (Gwen W Hallowed Mist → Kled Q Bear Trap on a Rope)
 - Watch out: Chaaaaaaaarge!!! makes Kled immune to Gwen's Needlework (slow).
 
-## Full ranking
+### Full ranking
 
 | # | Champion | Net | For | Against | Hard counters |
 |--:|---|--:|--:|--:|---|

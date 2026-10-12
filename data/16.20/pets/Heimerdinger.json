@@ -1,0 +1,530 @@
+[
+  {
+    "champion": "Heimerdinger",
+    "name": "H-28G Evolution Turret",
+    "page": {
+      "title": "Heimerdinger",
+      "revid": 4025016
+    },
+    "fields": {
+      "gold": {
+        "text": "5",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 5
+            }
+          }
+        ]
+      },
+      "exp": {
+        "text": "0",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0
+            }
+          }
+        ]
+      },
+      "hp": {
+        "text": "130 – 640 (based on level) (+ 5 – 45 (based on level)% AP)",
+        "values": [
+          {
+            "series": {
+              "kind": "level",
+              "values": [
+                130,
+                160,
+                190,
+                220,
+                250,
+                280,
+                310,
+                340,
+                370,
+                400,
+                430,
+                460,
+                490,
+                520,
+                550,
+                580,
+                610,
+                640,
+                670,
+                700
+              ],
+              "past18": "wiki"
+            }
+          },
+          {
+            "series": {
+              "kind": "level",
+              "values": [
+                5,
+                5.5,
+                6,
+                6.5,
+                7,
+                7.5,
+                8,
+                8.5,
+                9,
+                13,
+                17,
+                21,
+                25,
+                29,
+                33,
+                37,
+                41,
+                45,
+                49,
+                53
+              ],
+              "past18": "wiki"
+            }
+          }
+        ]
+      },
+      "damage": {
+        "text": "7 / 11 / 15 / 19 / 23 (+ 35% AP)",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                7,
+                11,
+                15,
+                19,
+                23
+              ]
+            }
+          }
+        ]
+      },
+      "range": {
+        "text": "550 / 600",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                550,
+                600
+              ]
+            },
+            "label": "Against minions, if nothing else is in range"
+          }
+        ]
+      },
+      "radius": {
+        "text": "35",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 35
+            }
+          }
+        ]
+      },
+      "pathingradius": {
+        "text": "1",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 1
+            }
+          }
+        ]
+      },
+      "armor": {
+        "text": "10 / 15 / 20 / 25 / 30 / 35 / 40 / 50 / 60 / 70 / 80 / 90 / 100 / 110 (based on level)",
+        "values": [
+          {
+            "series": {
+              "kind": "variable",
+              "variable": "level",
+              "points": [
+                1,
+                6,
+                8,
+                10,
+                11,
+                12,
+                13,
+                14,
+                15,
+                16,
+                17,
+                18,
+                19,
+                20
+              ],
+              "values": [
+                10,
+                15,
+                20,
+                25,
+                30,
+                35,
+                40,
+                50,
+                60,
+                70,
+                80,
+                90,
+                100,
+                110
+              ]
+            }
+          }
+        ]
+      },
+      "magicresist": {
+        "text": "25 / 26 / 31 / 36 / 41 / 46 / 51 / 56 / 66 / 76 / 86 (based on level)",
+        "values": [
+          {
+            "series": {
+              "kind": "variable",
+              "variable": "level",
+              "points": [
+                1,
+                8,
+                12,
+                13,
+                14,
+                15,
+                16,
+                17,
+                18,
+                19,
+                20
+              ],
+              "values": [
+                25,
+                26,
+                31,
+                36,
+                41,
+                46,
+                51,
+                56,
+                66,
+                76,
+                86
+              ]
+            }
+          }
+        ]
+      },
+      "attackspeed": {
+        "text": "1.75",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 1.75
+            }
+          }
+        ]
+      },
+      "movespeed": {
+        "text": "0",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0
+            }
+          }
+        ]
+      }
+    },
+    "text": {
+      "gold": "5",
+      "exp": "0",
+      "hp": "130 – 640 (based on level) (+ 5% – 45% (based on level) AP)",
+      "damagemodifier": "40% increased damage from melee champion basic attacks and turrets",
+      "damage": "7 / 11 / 15 / 19 / 23 (+ 35% AP)",
+      "damagetype": "Magic",
+      "range": "550 / 600",
+      "radius": "35",
+      "pathingradius": "1",
+      "armor": "10 – 110 (based on level)",
+      "magicresist": "25 – 86 (based on level)",
+      "attackspeed": "1.75",
+      "movespeed": "0",
+      "control": "Heimerdinger's basic attacks and abilities apply a refreshing, high-priority mark for 3 seconds that the H-28G Evolution Turret will attack. Enemy champions who attack Heimerdinger will be targeted secondarily, and the H-28G Evolution Turret will otherwise attack the closest target to itself. H-28G Evolution Turrets are static.",
+      "targeting": "Minion, does not count towards the minion kill tracking score",
+      "spelleffects": "Basic attacks and beam deal pet damage, additionally tagged as proc damage, with the beam damage also being tagged as area damage, both applying spell effects.",
+      "onhit": "Attacks can be mitigated by block, dodge, and blind, as well as stopped by Disarm.",
+      "ccresist": "Slow",
+      "abilities": ";Beam Attack\nThe H-28G Evolution Turret spawns with 0% charge, displayed below its health bar and generates 1.1% charge per second. At 100% charge, if there are targets within 900 units range, H-28G Evolution Turret fires a beam in their direction after a short wind-up, prioritizing enemy champions, and dealing 40 / 60 / 80 / 100 / 120 (+ 55% AP) magic damage to all enemies it passes through.\n\n;Deactivation\nThe H-28G Evolution Turret initiates an 8-second timer while Heimerdinger is out of range. If the timer completes, it deactivates, loses all current charge, and has its sight range reduced from 650 to 227.5 units. H-28G Evolution Turret instantly reactivates once Heimerdinger moves back into range.\n\n;Drain Immunity\nDamage dealt to the H-28G Evolution Turret does not benefit from life steal nor spell vamp.\n\n;Dynamic Stats\nThe H-28G Evolution Turret updates its stats every second to reflect changes in gameplay."
+    }
+  },
+  {
+    "champion": "Heimerdinger",
+    "name": "H-28Q Apex Turret",
+    "page": {
+      "title": "Heimerdinger",
+      "revid": 4025016
+    },
+    "fields": {
+      "gold": {
+        "text": "25",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 25
+            }
+          }
+        ]
+      },
+      "exp": {
+        "text": "0",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0
+            }
+          }
+        ]
+      },
+      "hp": {
+        "text": "725 / 750 / 775 / 800 / 825 / 875 / 925 / 975 / 1025 / 1075 / 1225 / 1375 / 1525 / 1675 / 1825 (based on level) (+ 50% AP)",
+        "values": [
+          {
+            "series": {
+              "kind": "variable",
+              "variable": "level",
+              "points": [
+                1,
+                7,
+                8,
+                9,
+                10,
+                11,
+                12,
+                13,
+                14,
+                15,
+                16,
+                17,
+                18,
+                19,
+                20
+              ],
+              "values": [
+                725,
+                750,
+                775,
+                800,
+                825,
+                875,
+                925,
+                975,
+                1025,
+                1075,
+                1225,
+                1375,
+                1525,
+                1675,
+                1825
+              ]
+            }
+          }
+        ]
+      },
+      "damage": {
+        "text": "80 / 100 / 120 (+ 35% AP)",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                80,
+                100,
+                120
+              ]
+            }
+          }
+        ]
+      },
+      "range": {
+        "text": "650",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 650
+            }
+          }
+        ]
+      },
+      "radius": {
+        "text": "35",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 35
+            }
+          }
+        ]
+      },
+      "pathingradius": {
+        "text": "1",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 1
+            }
+          }
+        ]
+      },
+      "armor": {
+        "text": "30 / 35 / 40 / 45 / 50 / 55 / 60 / 65 / 70 / 75 / 80 / 85 / 90 / 95 / 100 (based on level)",
+        "values": [
+          {
+            "series": {
+              "kind": "variable",
+              "variable": "level",
+              "points": [
+                6,
+                7,
+                8,
+                9,
+                10,
+                11,
+                12,
+                13,
+                14,
+                15,
+                16,
+                17,
+                18,
+                19,
+                20
+              ],
+              "values": [
+                30,
+                35,
+                40,
+                45,
+                50,
+                55,
+                60,
+                65,
+                70,
+                75,
+                80,
+                85,
+                90,
+                95,
+                100
+              ]
+            }
+          }
+        ]
+      },
+      "magicresist": {
+        "text": "30 / 35 / 40 / 45 / 50 / 55 / 60 / 65 / 70 / 75 / 80 / 85 / 90 / 95 / 100 (based on level)",
+        "values": [
+          {
+            "series": {
+              "kind": "variable",
+              "variable": "level",
+              "points": [
+                6,
+                7,
+                8,
+                9,
+                10,
+                11,
+                12,
+                13,
+                14,
+                15,
+                16,
+                17,
+                18,
+                19,
+                20
+              ],
+              "values": [
+                30,
+                35,
+                40,
+                45,
+                50,
+                55,
+                60,
+                65,
+                70,
+                75,
+                80,
+                85,
+                90,
+                95,
+                100
+              ]
+            }
+          }
+        ]
+      },
+      "attackspeed": {
+        "text": "1.05",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 1.05
+            }
+          }
+        ]
+      },
+      "movespeed": {
+        "text": "0",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0
+            }
+          }
+        ]
+      }
+    },
+    "text": {
+      "gold": "25",
+      "exp": "0",
+      "hp": "725 – 1825 (based on level) (+ 50% AP)",
+      "damagemodifier": "40% increased damage from melee champion basic attacks and turrets",
+      "ccresist": "Immune to crowd control (except stasis)",
+      "damage": "80 / 100 / 120 (+ 35% AP)",
+      "damagetype": "Magic",
+      "range": "650",
+      "radius": "35",
+      "pathingradius": "1",
+      "armor": "30 – 100 (based on level)",
+      "magicresist": "30 – 100 (based on level)",
+      "attackspeed": "1.05",
+      "movespeed": "0",
+      "control": "H-28Q Apex Turrets prioritize attacking enemy champions whenever possible. They are static.",
+      "targeting": "Minion",
+      "spelleffects": "Basic attacks and beam both deal pet damage, additionally tagged as proc damage and area damage, both applying spell effects.",
+      "onhit": "Attacks cannot be mitigated by block or dodge.",
+      "abilities": ";Apex Shots\nH-28Q Apex Turret's basic attacks deal damage to nearby enemies around its target and slows affected targets by 25% for 1 second.\n\n;Apex Beam\nH-28Q Apex Turret spawns with 0% charge, displayed below its health bar, generates 12.5% charge per second, and an additional 20% per basic attack. At 100% charge, if there are targets in range, H-28Q Apex Turret fires a beam in their direction after a short wind-up, prioritizing enemy champions, and dealing 100 / 140 / 180 (+ 70% AP) magic damage to all enemies it passes through.\n\n;Drain Immunity\nDamage dealt to the H-28Q Apex Turret does not benefit from life steal nor spell vamp.\n\n;Dynamic Stats\nThe H-28Q Apex Turret updates its stats every second to reflect changes in gameplay."
+    }
+  }
+]

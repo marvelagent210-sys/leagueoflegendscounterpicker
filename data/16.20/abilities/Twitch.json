@@ -591,7 +591,13 @@
           }
         ],
         "mechanics": [],
-        "values": []
+        "values": [],
+        "tips": [
+          {
+            "text": "every enemy unit",
+            "tip": "non-champions and champions, wards and plants, turrets and structures"
+          }
+        ]
       },
       {
         "text": "The bolts deal 100 / 90 / 80 / 70 / 60 (based on enemies hit)% of the triggering attack's damage, apply on-hit effects, and can critically strike for 200% damage.",

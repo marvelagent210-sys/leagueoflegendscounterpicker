@@ -29,6 +29,10 @@ Cooldowns at max rank. Flags: the wiki's interaction flags (yes, no, partly). * 
 
 Source: [Template:Data Kindred/Mark of the Kindred](https://wiki.leagueoflegends.com/en-us/Template:Data_Kindred/Mark_of_the_Kindred?oldid=4069806) (revision 4069806). Ranks: 1.
 
+| Field | Value |
+|---|---|
+| Per-target cooldown | 240 |
+
 Targeting: Passive · Affects: Self, Enemies · Damage type: – · Spell shield blocks it: – · Projectile: – · Parry: – · Disabled by grounded: – · Usable while knocked down: –
 
 Innate: Both Lamb and Wolf mark targets to hunt. Scoring a takedown against a hunted target collects a stack of Mark of the Kindred. Mark of the Kindred: Lamb gains 75 / 100 / 125 / 150 / 175 / 200 / 225 / 250 (based on marks) bonus range on her basic attacks and Mounting Dread.

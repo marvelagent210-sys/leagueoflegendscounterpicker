@@ -22,6 +22,7 @@ import {
   type SelfStateType,
   triOf,
 } from "../../engine/profiles";
+import { rangedAttack } from "../../engine/sim/fromChampion";
 import { statsAtLevel } from "../../engine/stats";
 import type { Champion } from "../../engine/types";
 import { ATTACK_FORMS } from "../../kits/attacks";
@@ -556,7 +557,7 @@ function kitProfile(champion: Champion, abilities: AbilityProfile[], records: Ab
     const stats = statsAtLevel(form.stats, LEVEL);
     const range = form.stats.attackRange;
     // Alternate forms can be melee (Mega Gnar); Jayce's base form is his melee Hammer Stance.
-    const ranged = champion.rangeType === "Ranged" && range > 250;
+    const ranged = rangedAttack(champion, range);
     const missile = form.stats.missileSpeed;
     return {
       form: form.id,
@@ -594,7 +595,12 @@ function kitProfile(champion: Champion, abilities: AbilityProfile[], records: Ab
   for (const record of records.filter((r) => r.kind === "I")) {
     const total = record.parts.flatMap((p) => p.leveling).find((row) => /^total (?:attack )?range$/i.test(row.label));
     const value = round(valueAt20(total?.amount.base));
-    if (value !== undefined && attacks[0]) attacks[0].range = value;
+    const first = attacks[0];
+    if (value !== undefined && first) {
+      // At that range it is a ranged attack, whatever the form's own range says.
+      const ranged = rangedAttack(champion, value);
+      attacks[0] = { ...first, range: value, ranged, projectile: ranged && first.missileSpeed !== 0 };
+    }
   }
   return {
     champion: champion.id,

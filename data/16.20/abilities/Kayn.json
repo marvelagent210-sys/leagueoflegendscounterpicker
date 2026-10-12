@@ -198,7 +198,13 @@
         "text": "Innate: Kayn has a secondary experience bar that tracks progress toward his Darkin Slayer and Shadow Assassin forms. He gathers orbs from champion takedowns and each instance of damage (excluding damage over time) dealt against champions. Once he has earned enough orbs, he unlocks a form based on whether he earned more from melee or ranged champions (for Darkin Slayer and Shadow Assassin, respectively), with the other form unlocked later.",
         "leveling": [],
         "mechanics": [],
-        "values": []
+        "values": [],
+        "tips": [
+          {
+            "text": "experience bar",
+            "tip": "Additional info in the notes below"
+          }
+        ]
       },
       {
         "text": "While near his team's summoning platform, Kayn can choose a form to enter transformation over 6 seconds, becoming invulnerable, untargetable, and unable to act for the duration. At the end of the transformation he is restored to full health and mana. The transformation will grant a passive bonus and permanently empower some of Kayn's abilities based on the form chosen. He gains a one-time Homeguard once the transformation is complete.\n\nKayn cannot activate the transformation while he is affected by cast-inhibiting crowd control or a lockout that disables abilities.",
@@ -233,7 +239,13 @@
             "conditional": true
           }
         ],
-        "values": []
+        "values": [],
+        "tips": [
+          {
+            "text": "can choose a form",
+            "tip": "By clicking on the portrait in the HUD"
+          }
+        ]
       },
       {
         "text": "Shadow Assassin Bonus: Upon entering combat with enemy champions, Kayn becomes empowered for 3 seconds to deal 20 – 40 (based on level)% of post-mitigation physical and magic damage dealt against enemy champions as bonus magic damage. This effect cannot trigger again until Kayn has been out of combat with champions for over 8 seconds, with the timer being reset if he recasts Umbral Trespass.",
@@ -245,29 +257,35 @@
               "kind": "level",
               "values": [
                 20,
-                21.176470588235293,
-                22.352941176470587,
-                23.529411764705884,
-                24.705882352941178,
-                25.88235294117647,
-                27.058823529411764,
-                28.235294117647058,
-                29.411764705882355,
-                30.588235294117645,
-                31.764705882352942,
-                32.94117647058823,
-                34.11764705882353,
-                35.294117647058826,
-                36.470588235294116,
-                37.64705882352941,
-                38.82352941176471,
+                21.1764705882353,
+                22.3529411764706,
+                23.5294117647059,
+                24.7058823529412,
+                25.8823529411765,
+                27.0588235294118,
+                28.2352941176471,
+                29.4117647058824,
+                30.5882352941176,
+                31.7647058823529,
+                32.9411764705882,
+                34.1176470588235,
+                35.2941176470588,
+                36.4705882352941,
+                37.6470588235294,
+                38.8235294117647,
                 40,
-                41.17647058823529,
-                42.35294117647059
+                41.1764705882353,
+                42.3529411764706
               ],
               "past18": "wiki"
             },
             "context": "Shadow Assassin Bonus: Upon entering combat with enemy champions, Kayn becomes empowered for 3 seconds to deal 20 – 40 (based on level)% of post-mitigation physical and magic damage dealt against enemy champions as bonus magic damage."
+          }
+        ],
+        "tips": [
+          {
+            "text": "post-mitigation",
+            "tip": "Damage calculated after modifiers"
           }
         ]
       },
@@ -283,7 +301,13 @@
             "conditional": false
           }
         ],
-        "values": []
+        "values": [],
+        "tips": [
+          {
+            "text": "post-mitigation",
+            "tip": "Damage calculated after modifiers"
+          }
+        ]
       }
     ],
     "custom": [],
@@ -345,26 +369,32 @@
               "kind": "level",
               "values": [
                 30,
-                30.58823529411765,
-                31.176470588235293,
-                31.764705882352942,
-                32.35294117647059,
-                32.94117647058823,
-                33.529411764705884,
-                34.11764705882353,
-                34.705882352941174,
-                35.294117647058826,
-                35.88235294117647,
-                36.470588235294116,
-                37.05882352941177,
-                37.64705882352941,
-                38.23529411764706,
-                38.82352941176471,
-                39.411764705882355,
+                30.5882352941176,
+                31.1764705882353,
+                31.7647058823529,
+                32.3529411764706,
+                32.9411764705882,
+                33.5294117647059,
+                34.1176470588235,
+                34.7058823529412,
+                35.2941176470588,
+                35.8823529411765,
+                36.4705882352941,
+                37.0588235294118,
+                37.6470588235294,
+                38.2352941176471,
+                38.8235294117647,
+                39.4117647058824,
                 40
               ]
             },
             "context": "Innate: Rhaast heals for 30 – 40 (based on level)% of the post-mitigation physical damage that he deals to enemy champions with his abilities."
+          }
+        ],
+        "tips": [
+          {
+            "text": "post-mitigation",
+            "tip": "Damage calculated after modifiers"
           }
         ]
       }
@@ -403,26 +433,32 @@
               "kind": "level",
               "values": [
                 12,
-                13.882352941176471,
-                15.764705882352942,
-                17.647058823529413,
-                19.529411764705884,
-                21.411764705882355,
-                23.294117647058826,
-                25.176470588235293,
-                27.058823529411764,
-                28.941176470588236,
-                30.823529411764707,
-                32.705882352941174,
-                34.58823529411765,
-                36.470588235294116,
-                38.35294117647059,
-                40.23529411764706,
-                42.11764705882353,
+                13.8823529411765,
+                15.7647058823529,
+                17.6470588235294,
+                19.5294117647059,
+                21.4117647058824,
+                23.2941176470588,
+                25.1764705882353,
+                27.0588235294118,
+                28.9411764705882,
+                30.8235294117647,
+                32.7058823529412,
+                34.5882352941177,
+                36.4705882352941,
+                38.3529411764706,
+                40.2352941176471,
+                42.1176470588235,
                 44
               ]
             },
             "context": "Innate: If Kayn has been out of combat with enemy champions for over 8 seconds, or he casts Umbral Trespass, he deals 12 – 44 (based on level)% of post-mitigation damage dealt against enemy champions as bonus magic damage, lasting for 3 seconds upon entering combat and also applying on the first instance of damage dealt."
+          }
+        ],
+        "tips": [
+          {
+            "text": "post-mitigation damage",
+            "tip": "Damage calculated after modifiers"
           }
         ]
       }
@@ -919,7 +955,13 @@
             "conditional": false
           }
         ],
-        "values": []
+        "values": [],
+        "tips": [
+          {
+            "text": "0.5 seconds to 0.75 seconds",
+            "tip": "See notes"
+          }
+        ]
       },
       {
         "text": "Shadow Assassin Bonus: Umbral Trespass gains 200 bonus cast range and emerge range. Additionally, emerging will reset The Darkin Scythe's cooldown.",

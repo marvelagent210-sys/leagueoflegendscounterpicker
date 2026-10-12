@@ -29,6 +29,10 @@ Cooldowns at max rank. Flags: the wiki's interaction flags (yes, no, partly). * 
 
 Source: [Template:Data Nautilus/Staggering Blow](https://wiki.leagueoflegends.com/en-us/Template:Data_Nautilus/Staggering_Blow?oldid=4072880) (revision 4072880). Ranks: 1.
 
+| Field | Value |
+|---|---|
+| Per-target cooldown | 6 |
+
 Targeting: Passive · Affects: Enemies · Damage type: Physical · Spell shield blocks it: special · Projectile: – · Parry: true · Disabled by grounded: – · Usable while knocked down: –
 
 Innate: Nautilus' basic attacks are empowered to deal 14 – 116 (based on level) bonus physical damage and root the target for 0.75 / 1 / 1.25 / 1.5 (based on level) seconds.

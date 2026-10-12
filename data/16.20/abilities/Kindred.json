@@ -199,7 +199,20 @@
       "revid": 4069806
     },
     "ranks": 1,
-    "fields": {},
+    "fields": {
+      "targetCooldown": {
+        "text": "240",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 240
+            },
+            "label": "Lamb's mark"
+          }
+        ]
+      }
+    },
     "flags": {
       "targeting": [
         "Passive"
@@ -569,7 +582,13 @@
             "conditional": false
           }
         ],
-        "values": []
+        "values": [],
+        "tips": [
+          {
+            "text": "All units",
+            "tip": "Ally, enemy, and neutral"
+          }
+        ]
       },
       {
         "text": "All targetable units within the zone are healed when the blessing ends.",
@@ -777,6 +796,12 @@
             },
             "context": "At maximum stacks, her next basic attack heals her for 0 / 25 / 50 / 75 / 100 (based on Missing health)% of 47 – 81 (based on level)."
           }
+        ],
+        "tips": [
+          {
+            "text": "27 units",
+            "tip": "Estimated"
+          }
         ]
       },
       {
@@ -892,7 +917,7 @@
                   "stat": "targetCurrentHealth",
                   "ratio": {
                     "kind": "constant",
-                    "value": 2.4749999999999996
+                    "value": 2.475
                   },
                   "text": "(+ 2.475% (+ 1.65% per mark) of target's current health)",
                   "modifiers": [

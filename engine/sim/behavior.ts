@@ -20,16 +20,18 @@ import { type CCType, IMMOBILIZING } from "../rules/crowdControl";
 import { effectiveResist, resistMultiplier } from "../rules/damage";
 import { averageCritFactor } from "../rules/defense";
 import { toTicks } from "../rules/time";
-import { EPSILON, attackRange, attackTiming, canCast, canStartAttack, empowerStatus, heldInPlace, heldUntil, inAttackRange, inReach } from "./actions";
-import { edgeDistance, isUntargetable } from "./combat";
+import { EPSILON, attackRange, attackTiming, canCast, canStartAttack, canStartAttackOnPet, empowerStatus, heldInPlace, heldUntil, inAttackRange, inReach, targetRange } from "./actions";
+import { canTarget, edgeDistance, isUntargetable } from "./combat";
 import { canAttack, canMove, ccTypes, derive, evaluate } from "./derived";
+import { abilityOf } from "./forms";
 import { hitChance } from "./hitModel";
 import type { AbilitySpec, Effect, Formula, StateType } from "./spec";
-import { type Aim, type Mode, type Side, type Unit, type World, other } from "./state";
+import { type Aim, type Mode, type Pet, type Side, type Unit, type World, other } from "./state";
 
 export type Command =
-  | { kind: "attack" }
-  /** `dodge`: the missile or area (by id) a dash or blink is cast to get out of. `aim`: where a location-targeted dash goes. */
+  /** A basic attack on the enemy champion, or on a pet (by id). */
+  | { kind: "attack"; pet?: number }
+  /** `dodge`: the missile or area (by id) a dash or blink is cast to get out of. `aim`: where a location-targeted dash or field goes. */
   | { kind: "cast"; ability: string; dodge?: number; aim?: Aim }
   /** Walk toward the enemy (1), away from it (-1), or stop (0). */
   | { kind: "move"; direction: -1 | 0 | 1 };
@@ -268,12 +270,14 @@ export function threatsTo(world: World, side: Side): Threat[] {
   const held = enemy.action?.kind === "dash" ? enemy.action.resume : undefined;
   for (const action of [enemy.action, held]) {
     if (!action || action.startTick > seenBy) continue;
-    const ability = "ability" in action ? enemy.spec.abilities.find((a) => a.key === action.ability) : undefined;
+    const ability = "ability" in action ? abilityOf(enemy, action.ability) : undefined;
     const now = world.tick;
     if (action.kind === "windup") {
       threats.push(attackThreat(enemy, self, action.launchTick - now + travelTicks(enemy, self, enemy.spec.attack.missileSpeed), action.onHit));
     } else if (action.kind === "cast" && ability) {
       const d = ability.delivery;
+      // Where it lands can't be seen yet (Abyssal Dive's indicator).
+      if (d.kind === "circle" && d.hidden !== undefined && action.startTick + toTicks(d.hidden) > seenBy) continue;
       const travel =
         d.kind === "line"
           ? travelTicks(enemy, self, d.speed)
@@ -282,7 +286,9 @@ export function threatsTo(world: World, side: Side): Threat[] {
             : d.kind === "circle" || d.kind === "area"
               ? toTicks(d.delay)
               : d.kind === "dash"
-                ? Math.ceil(d.distance / (d.speed / 30))
+                ? d.time !== undefined
+                  ? toTicks(d.time)
+                  : Math.ceil(d.distance / (d.speed / 30))
                 : 0;
       const threat = abilityThreat(ability, Math.max(action.endTick - now, 0) + travel, enemy, self, ability.onHit ?? [], undefined, 1, true);
       if (d.kind === "dash" && d.direction !== "away") threat.dash = true;
@@ -307,13 +313,13 @@ export function threatsTo(world: World, side: Side): Threat[] {
     const eta = Math.ceil(Math.max(0, Math.abs(self.x - m.x) - self.spec.base.radius) / m.perTick);
     if (m.attack) threats.push({ ...attackThreat(enemy, self, eta, m.attack.bonusOnHit, m.id), projectile: m.projectile });
     else {
-      const ability = enemy.spec.abilities.find((a) => a.key === m.source);
+      const ability = abilityOf(enemy, m.source);
       if (ability) threats.push({ ...abilityThreat(ability, eta, enemy, self, m.onHit, m.id, m.scale, true), projectile: m.projectile });
     }
   }
   for (const z of world.zones) {
     if (z.owner !== enemy.side || z.kind !== "delayedArea" || z.seenTick > seenBy || !z.connects) continue;
-    const ability = enemy.spec.abilities.find((a) => a.key === z.ability);
+    const ability = abilityOf(enemy, z.ability);
     if (!ability) continue;
     const threat = abilityThreat(ability, z.endTick - world.tick, enemy, self, z.onHit ?? [], z.id, z.scale ?? 1, true);
     if (ability.delivery.kind === "area") {
@@ -513,6 +519,9 @@ function worthThrowing(view: View, ability: AbilitySpec): boolean {
   return chance >= 0.35;
 }
 
+/** How far past a targeted finisher's range the champion steps in to use it, in seconds of walking. */
+const FINISH_STEP = 1;
+
 /** Edge-to-edge distance within which a movement speed boost is spent to close the gap. */
 const HASTE_REACH = 900;
 
@@ -523,27 +532,55 @@ interface OffenseOptions {
   engage: boolean;
 }
 
+/**
+ * Whether an ability would land while the enemy can't be hit (untargetable, in stasis or
+ * invulnerable: swallowed by Devour, in Glory in Death's stasis), so it is better kept.
+ */
+function wasted(view: View, ability: AbilitySpec): boolean {
+  const { world, self, enemy } = view;
+  const d = ability.delivery;
+  if (d.kind === "self" || ((d.kind === "dash" || d.kind === "blink") && d.hitRadius === undefined)) return false;
+  const travel =
+    d.kind === "line" ? travelTicks(self, enemy, d.speed) : d.kind === "target" ? travelTicks(self, enemy, d.missileSpeed) : d.kind === "circle" || d.kind === "area" ? toTicks(d.delay) : 0;
+  const lands = world.tick + toTicks(ability.castTime) + travel;
+  return enemy.statuses.some((s) => s.endTick > lands && (s.key === "stasis" || (s.kind === "state" && (s.key === "untargetable" || s.key === "invulnerable"))));
+}
+
 /** Offensive casts and attacks, best first: executes, crowd control, damage, gap closers, buffs. */
 function offense(view: View, options: OffenseOptions): Command | undefined {
   const { world, self, enemy } = view;
   if (!enemy.alive) return undefined;
-  const usable = self.spec.abilities.filter((a) => {
+  const eligible = (a: AbilitySpec) => {
     const traits = traitsOf(a);
-    if (reactive(a, traits) || (!options.ultimates && a.slot === "R")) return false;
+    if (reactive(a, traits) || (!options.ultimates && a.slot === "R") || wasted(view, a)) return false;
     // Pure escapes are saved for getting away.
-    if (traits.escape && !traits.damage && !traits.cc) return false;
-    return canCast(world, self, a);
-  });
-  for (const ability of usable) {
+    return !(traits.escape && !traits.damage && !traits.cc);
+  };
+  const usable = self.spec.abilities.filter((a) => eligible(a) && canCast(world, self, a));
+  // A targeted finisher that would kill just out of range (a champion spacing at a longer attack range) is worth a step in.
+  let closeIn = false;
+  for (const ability of self.spec.abilities) {
     const threshold = traitsOf(ability).execute;
     const finisher = ability.roles?.includes("finisher");
     if (!threshold && !finisher) continue;
-    if (!inReach(ability, self, enemy)) continue;
+    const ready = usable.includes(ability) && inReach(ability, self, enemy);
+    const d = ability.delivery;
+    const step =
+      !ready &&
+      options.engage &&
+      d.kind === "target" &&
+      eligible(ability) &&
+      canCast(world, self, ability, true) &&
+      Math.abs(self.x - enemy.x) <= targetRange(d, self, enemy) + FINISH_STEP * derive(self).moveSpeed;
+    if (!ready && !step) continue;
     const kills = threshold
       ? enemy.hp <= evaluate(threshold, self, enemy) + damageOf(ability.onHit ?? [], self, enemy) * 0.5
       : expectedDamage(enemyEffects(ability), self, enemy) >= enemy.hp + shieldsOf(enemy);
-    if (kills) return { kind: "cast", ability: ability.key };
+    if (!kills) continue;
+    if (ready) return { kind: "cast", ability: ability.key };
+    closeIn = true;
   }
+  if (closeIn && canMove(self) && !self.action) return { kind: "move", direction: 1 };
   const rank = (a: AbilitySpec) => {
     const t = traitsOf(a);
     return t.immobilizes ? 0 : t.cc ? 1 : t.damage ? 2 : t.engage ? 3 : 4;
@@ -579,8 +616,29 @@ function offense(view: View, options: OffenseOptions): Command | undefined {
       if (traits.resetsAttack ? self.attackReadyTick > world.tick + 1 : self.attackReadyTick <= world.tick + 1) return { kind: "cast", ability: ability.key };
     }
   }
+  const urgent = petTarget(view, true);
+  if (urgent) return { kind: "attack", pet: urgent.id };
   if (canStartAttack(world, self) && !outrunsWindup(view)) return { kind: "attack" };
+  if (!inAttackRange(self, enemy) || !canTarget(enemy, self)) {
+    const pet = petTarget(view, false);
+    if (pet) return { kind: "attack", pet: pet.id };
+  }
   return undefined;
+}
+
+/**
+ * An enemy pet worth a basic attack now: one its kit marks urgent (`urgent`), or else the
+ * closest pet in reach (for when the enemy champion can't be attacked).
+ */
+function petTarget(view: View, urgentOnly: boolean): Pet | undefined {
+  const { world, self } = view;
+  let best: Pet | undefined;
+  for (const pet of world.pets) {
+    if (pet.owner === self.side || !canStartAttackOnPet(world, self, pet)) continue;
+    if (urgentOnly && !pet.spec.urgent?.(pet, self, world)) continue;
+    if (!best || Math.abs(pet.x - self.x) < Math.abs(best.x - self.x)) best = pet;
+  }
+  return best;
 }
 
 /** Edge-to-edge units the enemy will open up during this unit's windup if it keeps walking away. */
@@ -647,7 +705,7 @@ export const defaultBehavior: Behavior = (view) => {
   const action = self.action;
   if (action && action.kind !== "windup") {
     // Busy: only walking, during casts and channels that allow it.
-    const ability = "ability" in action ? self.spec.abilities.find((a) => a.key === action.ability) : undefined;
+    const ability = "ability" in action ? abilityOf(self, action.ability) : undefined;
     const walks = (action.kind === "cast" && ability?.moveWhileCasting) || (action.kind === "channel" && ability?.channel?.mobile);
     if (!walks) return undefined;
     return { kind: "move", direction: mode === "flee" || self.memory.tradeDone ? -1 : 1 };

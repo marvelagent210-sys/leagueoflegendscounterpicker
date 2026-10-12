@@ -31,6 +31,7 @@ Source: [Template:Data Nunu/Call of the Freljord](https://wiki.leagueoflegends.c
 
 | Field | Value |
 |---|---|
+| Per-target cooldown | 10 |
 | Target range | 1000 • 700 |
 
 Targeting: Passive · Affects: Self, Allies · Damage type: Physical · Spell shield blocks it: – · Projectile: – · Parry: – · Disabled by grounded: – · Usable while knocked down: –

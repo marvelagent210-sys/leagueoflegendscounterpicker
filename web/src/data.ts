@@ -1,5 +1,5 @@
 /** The dataset the app reads, fetched once from data/ next to the page (pipeline/webData.ts writes it). */
-import type { AbilityRecord } from "../../engine/abilities";
+import type { AbilityRecord, PetRecord, RuneRecord } from "../../engine/abilities";
 import type { StatPrices } from "../../engine/budget";
 import type { Glossary } from "../../engine/glossary";
 import { type LedgerContext, ledgerContext } from "../../engine/ledger/index";
@@ -12,6 +12,8 @@ export interface SimulatedFile {
   values: string[];
   /** you -> enemy -> [score, ...scenario scores] */
   matchups: Record<string, Record<string, Array<number | null>>>;
+  /** champion -> enemy -> the kit options it played (Udyr's best rank split in each matchup) */
+  variants?: Record<string, Record<string, Record<string, number>>>;
 }
 
 export interface AppData {
@@ -25,6 +27,10 @@ export interface AppData {
   ledger: LedgerContext;
   simulated: SimulatedFile;
   prices: StatPrices;
+  /** Each champion's pets (turrets, Mist Walkers, ...), for the kits that use them. */
+  pets: Map<string, PetRecord[]>;
+  /** The runes the simulator models (Triple Tonic). */
+  runes: RuneRecord[];
   /** Champions with a simulator kit, by name. */
   kitIds: string[];
 }
@@ -50,12 +56,14 @@ export function loadAppData(): Promise<AppData> {
   app ??= (async () => {
     const index = await fetchJson<{ dataset: string; patch: string }>("data/index.json");
     const dir = `data/${index.dataset}/`;
-    const [dataset, profiles, glossary, simulated, rules] = await Promise.all([
+    const [dataset, profiles, glossary, simulated, rules, pets, runes] = await Promise.all([
       fetchJson<ChampionDataset>(`${dir}champions.json`),
       fetchJson<KitProfile[]>(`${dir}profiles.json`),
       fetchJson<Glossary>(`${dir}glossary.json`),
       fetchJson<SimulatedFile>(`${dir}simulated.json`),
       fetchJson<{ statPrices: StatPrices }>(`${dir}rules.json`),
+      fetchJson<Record<string, PetRecord[]>>(`${dir}pets.json`),
+      fetchJson<RuneRecord[]>(`${dir}runes.json`),
     ]);
     const champions = [...dataset.champions].sort((a, b) => a.name.localeCompare(b.name));
     const byId = new Map(champions.map((champion) => [champion.id, champion]));
@@ -69,6 +77,8 @@ export function loadAppData(): Promise<AppData> {
       ledger: ledgerContext(glossary),
       simulated,
       prices: rules.statPrices,
+      pets: new Map(Object.entries(pets)),
+      runes,
       kitIds: Object.keys(KITS)
         .filter((id) => byId.has(id))
         .sort((a, b) => (byId.get(a)?.name ?? a).localeCompare(byId.get(b)?.name ?? b)),

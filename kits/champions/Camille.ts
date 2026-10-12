@@ -22,6 +22,7 @@ const camille: KitModule = {
     const qRange = q.quoted("gain 50 bonus range", 0);
     const recastAfter = q.quoted("If Precision Protocol is recast after 1.5 seconds of the first attack", 0);
     const recastWindow = q.quoted("can then be recast within the next 3.5 seconds", 0);
+    const recastOpens = q.quoted("After 0.25 seconds of using the empowered attack", 0);
     const trueShare = 1;
     const sweepSeconds = w.quoted("sweeps her leg in a cone in the target direction over 1.1 seconds", 0);
     const inner = w.field("effectRadius", "Inner radius");
@@ -52,7 +53,16 @@ const camille: KitModule = {
       // Adaptive Defenses' shield, about once per cooldown.
       budget: { healing: (self) => (shieldShare * maxHp(self)) / shieldEvery },
       hooks: {
+        onCast(ctx) {
+          if (ctx.ability.key === "Q") ctx.memory.precisionArmed = true;
+        },
         onAttackHit(ctx) {
+          // The recast's timing counts from the first empowered attack (the cooldown starts then too).
+          if (ctx.memory.precisionArmed) {
+            ctx.memory.precisionArmed = false;
+            const chain = ctx.self.chains.Q;
+            if (chain) ctx.self.chains.Q = { ...chain, castTick: ctx.tick, until: ctx.tick + ticks(recastOpens + recastWindow) };
+          }
           if (ctx.tick >= Number(ctx.memory.shieldReady ?? 0)) {
             ctx.memory.shieldReady = ctx.tick + ticks(shieldEvery);
             const enemyDamage = damagePerSecond(ctx.enemy.spec, ctx.self.spec);
@@ -83,7 +93,8 @@ const camille: KitModule = {
           cooldown: q.cooldown(),
           cost: q.cost(),
           castTime: 0,
-          chainCooldown: "last",
+          // "Cooldown starts on first attack."
+          cooldownAfter: "empower",
           delivery: { kind: "self" },
           onSelf: [
             {
@@ -104,7 +115,9 @@ const camille: KitModule = {
           slot: "Q",
           cooldown: 0,
           castTime: 0,
-          chain: { root: "Q", index: 2, window: recastAfter + recastWindow, delay: recastAfter },
+          chain: { root: "Q", index: 2, window: recastOpens + recastWindow + qWindow, delay: recastAfter },
+          // Only once the first empowered attack is used.
+          usable: (unit) => !unit.memory.precisionArmed,
           delivery: { kind: "self" },
           onSelf: [
             {

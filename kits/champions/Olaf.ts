@@ -109,7 +109,8 @@ const olaf: KitModule = {
           castTime: r.castTime(),
           delivery: { kind: "self" },
           onSelf: [
-            { type: "cleanse" },
+            // A cleanse that grants immunity removes even non-dispellable crowd control.
+            { type: "cleanse", sticky: true },
             { type: "state", state: "ccImmune", duration: ragnarokSeconds },
             { type: "stat", stat: "AD", amount: r.formula("Bonus Attack Damage"), duration: ragnarokSeconds },
             // "For the first second of Ragnarok".

@@ -259,6 +259,12 @@
             },
             "context": "Each slash deals physical damage, increased by 0 / 10 / 20 / 30 / 40 / 50 / 60 / 70 / 80 / 90 / 100 (based on target's missing health)%, and applies on-hit, on-attack, and spell effects, with on-hit and on-attack damage reduced to 12 / 13.2 / 14.4 / 15.6 / 16.8 / 18 / 19.2 / 20.4 / 21.6 / 22.8 / 24 (based on target's missing health)% effectiveness."
           }
+        ],
+        "tips": [
+          {
+            "text": "40% bonus attack speed",
+            "tip": "Benefits from all sources of bonus attack speed"
+          }
         ]
       },
       {
@@ -413,7 +419,13 @@
         "text": "Innate: Bel'Veth is allowed to exceed the attack speed cap. Her attack speed does not increase through growth (per level).",
         "leveling": [],
         "mechanics": [],
-        "values": []
+        "values": [],
+        "tips": [
+          {
+            "text": "attack speed cap",
+            "tip": "normally 3.003 attacks per second"
+          }
+        ]
       },
       {
         "label": "Innate",
@@ -489,16 +501,16 @@
               ],
               "values": [
                 0.1,
-                0.15000000000000002,
+                0.15,
                 0.2,
                 0.25,
-                0.30000000000000004,
+                0.3,
                 0.4,
                 0.5,
-                0.6000000000000001,
-                0.7000000000000001,
+                0.6,
+                0.7,
                 0.8,
-                0.9500000000000001,
+                0.95,
                 1.1,
                 1.25,
                 1.4,
@@ -509,26 +521,26 @@
                 2.15,
                 2.3,
                 2.45,
-                2.5999999999999996,
+                2.6,
                 2.75,
-                2.9000000000000004,
+                2.9,
                 3.05,
                 3.2,
-                3.3499999999999996,
+                3.35,
                 3.5,
-                3.6500000000000004,
+                3.65,
                 3.8,
                 3.95,
                 4.1,
                 4.25,
-                4.3999999999999995,
+                4.4,
                 4.55,
                 4.7,
                 4.85,
                 5,
-                5.1499999999999995,
+                5.15,
                 5.3,
-                5.449999999999999
+                5.45
               ]
             },
             "context": "Lavender: For each stack, Bel'Veth gains 0.1 / 0.15 / 0.2 / 0.25 / 0.3 / 0.4 / 0.5 / 0.6 / 0.7 / 0.8 / 0.95 / 1.1 / 1.25 / 1.4 / 1.55 / 1.7 / 1.85 / 2 / 2.15 / 2.3 / 2.45 / 2.6 / 2.75 / 2.9 / 3.05 / 3.2 / 3.35 / 3.5 / 3.65 / 3.8 / 3.95 / 4.1 / 4.25 / 4.4 / 4.55 / 4.7 / 4.85 / 5 / 5.15 / 5.3 / 5.45 (based on level)% bonus attack speed."
@@ -702,7 +714,17 @@
         "text": "Void Surge can be cast only within a cardinal direction that is off cooldown, and incurs a cooldown between casts. Each cardinal direction has a unique cooldown that is reduced equivalent to 0.2 ability haste per 1% bonus attack speed. These cooldowns reset upon respawning.",
         "leveling": [],
         "mechanics": [],
-        "values": []
+        "values": [],
+        "tips": [
+          {
+            "text": "Each cardinal direction",
+            "tip": "Total of 4 directions"
+          },
+          {
+            "text": "1% bonus attack speed",
+            "tip": "Benefits from all sources of bonus attack speed except the temporary bonus from Death in Lavender"
+          }
+        ]
       },
       {
         "text": "Void Surge resets Bel'Veth's basic attack timer.",
@@ -1132,7 +1154,13 @@
             "conditional": false
           }
         ],
-        "values": []
+        "values": [],
+        "tips": [
+          {
+            "text": "refreshes",
+            "tip": "See notes"
+          }
+        ]
       },
       {
         "text": "A nearby Void Coral is required to cast this ability. The passive bonus true damage is affected by the on-hit modifier of Royal Maelstrom. See Pets for details about Void Remora and Void Corals.",

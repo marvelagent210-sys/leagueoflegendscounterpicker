@@ -238,3 +238,81 @@ All 12 level-based formulas in the game files (1 linked to wiki values above):
 | AkaliQSpellPassive | EnergyRestore | breakpoints at levels 8, 13 (level 1: 10) | 10 | 20 | 20 |
 | AkaliQSpellPassive | Damage | breakpoints at levels 9, 14 (level 1: 39) | 39 | 180 | 210 |
 | AkaliQSpellPassive | PassiveSpeedBonus | breakpoints at levels 6, 11, 16 (level 1: 0.4) | 0.4 | 0.7 | 0.7 |
+
+## Duel simulator kit (level 20, every ability at max rank)
+
+What the duel simulator fights with (`kits/champions/Akali.ts`): every number is read from the wiki's ability data above at level 20; what the wiki doesn't say is listed under assumptions. Ratios are fractions of the stat (60% AD is 0.6 × AD).
+
+- Basic attack: range 125, melee.
+
+| Key | Ability | Cooldown (s) | Cast time (s) | Cost | Delivery | On the enemy | On itself |
+|---|---|--:|--:|---|---|---|---|
+| Q | Five Point Strike | 1.5 | 0.198 | 70 | area 0 to 500 units ahead, lands after 0 s; bands 380–500: 145 + 65% AD + 60% AP magic damage; slow 50% for 0.5 s | 145 + 65% AD + 60% AP magic damage | – |
+| W | Twilight Shroud | 16 (starts when its effect on the caster ends) | 0.25 | – | self | – | as the cast starts: moveSpeedPercent 0.25 for 2 s; maxResource 100 for 7 s; lingering for 7 s |
+| E | Shuriken Flip | 10 | 0.25 | 30 | skillshot 1225 long, 120 wide, at 1800/s | 105 + 30% AD + 33% AP magic damage | – |
+| E2 | Shuriken Flip (recast) | 0 | 0.1 | – | dash target 2225 units at 1500/s, hits within 0; recast of E within 3 s | 245 + 70% AD + 77% AP magic damage | – |
+| R | Perfect Execution | 60 | 0.25 | – | dash toward 750 units at 1500/s, hits within 110, through the enemy | 330 + 50% bonus AD + 30% AP magic damage | – |
+| R2 | Perfect Execution (recast) | 0 | 0 | – | dash toward 800 units at 3000/s, hits within 110, through the enemy; recast of R within 10 s, after 2.5 s | marks it "execution" for 0.1 s | – |
+
+Effects marked by a mark or a role are completed by the kit's hooks (see the kit's source).
+
+### Assumptions
+
+- Assassin's Mark's ring is left 380 units from its center (its 500-unit radius less its 120-unit offset); refreshing the ring re-centers it on the enemy.
+- Five Point Strike takes its effective 0.198 s cast time at level 20 and lands at its end; enemies beyond 380 units are slowed.
+- Twilight Shroud is thrown 250 units behind Akali; its smoke is a band 350 units thick whose outer edge grows from 350 to 1175 units over 5 s (the wiki's estimates), and she hides while her center is in it. Its speed, decaying over 2 s, counts at half.
+- Shuriken Flip's flip back is a 400-unit jump 0.15 s into the cast; the shuriken still reaches 825 units past where she started.
+- Akali throws Twilight Shroud once she is within 150 units of the enemy's attack range.
+
+### Wiki values read (48)
+
+| Ability | Value | Revision |
+|---|---|---|
+| Assassin's Mark | she creates a ring around them for 4 seconds | [4074464](https://wiki.leagueoflegends.com/en-us/Template:Data_Akali/Assassin's_Mark?oldid=4074464) |
+| Assassin's Mark | effectRadius: 500 | [4074464](https://wiki.leagueoflegends.com/en-us/Template:Data_Akali/Assassin's_Mark?oldid=4074464) |
+| Assassin's Mark | Ring Offset: -120 | [4074464](https://wiki.leagueoflegends.com/en-us/Template:Data_Akali/Assassin's_Mark?oldid=4074464) |
+| Assassin's Mark | For 2 seconds, she gains 30 / 40 / 50 / 60 (based on level)% bonus movement speed while moving away from the center of the ring. | [4074464](https://wiki.leagueoflegends.com/en-us/Template:Data_Akali/Assassin's_Mark?oldid=4074464) |
+| Assassin's Mark | For 2 seconds, she gains | [4074464](https://wiki.leagueoflegends.com/en-us/Template:Data_Akali/Assassin's_Mark?oldid=4074464) |
+| Assassin's Mark | becomes empowered with Swinging Kama for 4 seconds | [4074464](https://wiki.leagueoflegends.com/en-us/Template:Data_Akali/Assassin's_Mark?oldid=4074464) |
+| Assassin's Mark | Swinging Kama: Akali's next basic attack is empowered to have an uncancellable windup, gain doubled range and deal 35 – 182 (based on level) (+ 60% bonus AD) (+ 55% AP) bonus magic damage. | [4074464](https://wiki.leagueoflegends.com/en-us/Template:Data_Akali/Assassin's_Mark?oldid=4074464) |
+| Assassin's Mark | (+ 60% bonus AD) (+ 55% AP) bonus magic damage | [4074464](https://wiki.leagueoflegends.com/en-us/Template:Data_Akali/Assassin's_Mark?oldid=4074464) |
+| Five Point Strike | targetRange: 500 • 120 | [4074596](https://wiki.leagueoflegends.com/en-us/Template:Data_Akali/Five_Point_Strike?oldid=4074596) |
+| Five Point Strike | the effective cast time rounds up to 0.264 / 0.231 / 0.231 / 0.198 (based on level) | [4074596](https://wiki.leagueoflegends.com/en-us/Template:Data_Akali/Five_Point_Strike?oldid=4074596) |
+| Five Point Strike | Targets beyond a certain range are also slowed by 50% for 0.5 seconds | [4074596](https://wiki.leagueoflegends.com/en-us/Template:Data_Akali/Five_Point_Strike?oldid=4074596) |
+| Five Point Strike | cooldown: 1.5 | [4074596](https://wiki.leagueoflegends.com/en-us/Template:Data_Akali/Five_Point_Strike?oldid=4074596) |
+| Five Point Strike | Magic Damage: 45 / 70 / 95 / 120 / 145 (+ 65% AD) (+ 60% AP) | [4074596](https://wiki.leagueoflegends.com/en-us/Template:Data_Akali/Five_Point_Strike?oldid=4074596) |
+| Twilight Shroud | Shroud Duration: 5 / 5.5 / 6 / 6.5 / 7 seconds | [4007406](https://wiki.leagueoflegends.com/en-us/Template:Data_Akali/Twilight_Shroud?oldid=4007406) |
+| Twilight Shroud | targetRange: 250 | [4007406](https://wiki.leagueoflegends.com/en-us/Template:Data_Akali/Twilight_Shroud?oldid=4007406) |
+| Twilight Shroud | effectRadius: 350 • 1175 | [4007406](https://wiki.leagueoflegends.com/en-us/Template:Data_Akali/Twilight_Shroud?oldid=4007406) |
+| Twilight Shroud | creating a circular shroud that expands over the next 5 seconds into a ring | [4007406](https://wiki.leagueoflegends.com/en-us/Template:Data_Akali/Twilight_Shroud?oldid=4007406) |
+| Twilight Shroud | Akali restores 100 energy over 0.4 seconds | [4007406](https://wiki.leagueoflegends.com/en-us/Template:Data_Akali/Twilight_Shroud?oldid=4007406) |
+| Twilight Shroud | Bonus Movement Speed: 30 / 35 / 40 / 45 / 50% | [4007406](https://wiki.leagueoflegends.com/en-us/Template:Data_Akali/Twilight_Shroud?oldid=4007406) |
+| Twilight Shroud | gains bonus movement speed that decays over 2 seconds | [4007406](https://wiki.leagueoflegends.com/en-us/Template:Data_Akali/Twilight_Shroud?oldid=4007406) |
+| Twilight Shroud | While the shroud is active, Akali's maximum energy is increased by 100 | [4007406](https://wiki.leagueoflegends.com/en-us/Template:Data_Akali/Twilight_Shroud?oldid=4007406) |
+| Twilight Shroud | Declaring a basic attack or casting an ability will break the invisibility and prevent Akali from entering it again for 1 / 0.9 / 0.825 / 0.725 / 0.625 (based on level) seconds, refreshing on subsequent attacks and casts. | [4007406](https://wiki.leagueoflegends.com/en-us/Template:Data_Akali/Twilight_Shroud?oldid=4007406) |
+| Twilight Shroud | Using a basic attack breaks the stealth at the start of the attack windup | [4007406](https://wiki.leagueoflegends.com/en-us/Template:Data_Akali/Twilight_Shroud?oldid=4007406) |
+| Shuriken Flip | Akali flips backward after 0.15 seconds into the cast time | [4074602](https://wiki.leagueoflegends.com/en-us/Template:Data_Akali/Shuriken_Flip?oldid=4074602) |
+| Shuriken Flip | Akali will dash backwards up-to 400 units in a straight line | [4074602](https://wiki.leagueoflegends.com/en-us/Template:Data_Akali/Shuriken_Flip?oldid=4074602) |
+| Shuriken Flip | targetRange: 825 | [4074602](https://wiki.leagueoflegends.com/en-us/Template:Data_Akali/Shuriken_Flip?oldid=4074602) |
+| Shuriken Flip | speed: 1800 • 1500 | [4074602](https://wiki.leagueoflegends.com/en-us/Template:Data_Akali/Shuriken_Flip?oldid=4074602) |
+| Shuriken Flip | castTime: 0.25 • 0.1 | [4074602](https://wiki.leagueoflegends.com/en-us/Template:Data_Akali/Shuriken_Flip?oldid=4074602) |
+| Shuriken Flip | The shuriken marks and reveals the enemy or the last Twilight Shroud smoke section hit for 3 seconds | [4074602](https://wiki.leagueoflegends.com/en-us/Template:Data_Akali/Shuriken_Flip?oldid=4074602) |
+| Perfect Execution | speed: 1500 • 3000 | [4074605](https://wiki.leagueoflegends.com/en-us/Template:Data_Akali/Perfect_Execution?oldid=4074605) |
+| Perfect Execution | Akali dashes 750 units in the direction of the target enemy champion | [4074605](https://wiki.leagueoflegends.com/en-us/Template:Data_Akali/Perfect_Execution?oldid=4074605) |
+| Perfect Execution | Recast: Akali dashes 800 units in the target direction | [4074605](https://wiki.leagueoflegends.com/en-us/Template:Data_Akali/Perfect_Execution?oldid=4074605) |
+| Perfect Execution | Perfect Execution can be recast after a 2.5-second static cooldown within 10 seconds of the first activation | [4074605](https://wiki.leagueoflegends.com/en-us/Template:Data_Akali/Perfect_Execution?oldid=4074605) |
+| Perfect Execution | collisionRadius: 110 | [4074605](https://wiki.leagueoflegends.com/en-us/Template:Data_Akali/Perfect_Execution?oldid=4074605) |
+| Perfect Execution | targetRange: 675 | [4074605](https://wiki.leagueoflegends.com/en-us/Template:Data_Akali/Perfect_Execution?oldid=4074605) |
+| Perfect Execution | Minimum Magic Damage: 70 / 140 / 210 (+ 30% AP) | [4074605](https://wiki.leagueoflegends.com/en-us/Template:Data_Akali/Perfect_Execution?oldid=4074605) |
+| Perfect Execution | Recast: Akali dashes 800 units in the target direction, dealing magic damage to enemies she passes through, increased by 0 / 20 / 40 / 60 / 80 / 100 / 120 / 140 / 160 / 180 / 200 (based on target's missing health)%. | [4074605](https://wiki.leagueoflegends.com/en-us/Template:Data_Akali/Perfect_Execution?oldid=4074605) |
+| Five Point Strike | cost: 110 / 100 / 90 / 80 / 70 | [4074596](https://wiki.leagueoflegends.com/en-us/Template:Data_Akali/Five_Point_Strike?oldid=4074596) |
+| Twilight Shroud | cooldown: 20 / 19 / 18 / 17 / 16 | [4007406](https://wiki.leagueoflegends.com/en-us/Template:Data_Akali/Twilight_Shroud?oldid=4007406) |
+| Twilight Shroud | castTime: 0.25 | [4007406](https://wiki.leagueoflegends.com/en-us/Template:Data_Akali/Twilight_Shroud?oldid=4007406) |
+| Shuriken Flip | cooldown: 16 / 14.5 / 13 / 11.5 / 10 | [4074602](https://wiki.leagueoflegends.com/en-us/Template:Data_Akali/Shuriken_Flip?oldid=4074602) |
+| Shuriken Flip | cost: 30 | [4074602](https://wiki.leagueoflegends.com/en-us/Template:Data_Akali/Shuriken_Flip?oldid=4074602) |
+| Shuriken Flip | width: 120 | [4074602](https://wiki.leagueoflegends.com/en-us/Template:Data_Akali/Shuriken_Flip?oldid=4074602) |
+| Shuriken Flip | Magic Damage: 21 / 42 / 63 / 84 / 105 (+ 30% AD) (+ 33% AP) | [4074602](https://wiki.leagueoflegends.com/en-us/Template:Data_Akali/Shuriken_Flip?oldid=4074602) |
+| Shuriken Flip | Magic Damage: 49 / 98 / 147 / 196 / 245 (+ 70% AD) (+ 77% AP) | [4074602](https://wiki.leagueoflegends.com/en-us/Template:Data_Akali/Shuriken_Flip?oldid=4074602) |
+| Perfect Execution | cooldown: 120 / 90 / 60 | [4074605](https://wiki.leagueoflegends.com/en-us/Template:Data_Akali/Perfect_Execution?oldid=4074605) |
+| Perfect Execution | castTime: 0.25 • None | [4074605](https://wiki.leagueoflegends.com/en-us/Template:Data_Akali/Perfect_Execution?oldid=4074605) |
+| Perfect Execution | Magic Damage: 110 / 220 / 330 (+ 50% bonus AD) (+ 30% AP) | [4074605](https://wiki.leagueoflegends.com/en-us/Template:Data_Akali/Perfect_Execution?oldid=4074605) |

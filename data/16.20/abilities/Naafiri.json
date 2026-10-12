@@ -1057,7 +1057,13 @@
             "conditional": false
           }
         ],
-        "values": []
+        "values": [],
+        "tips": [
+          {
+            "text": "surrounding area",
+            "tip": "Can see through terrain"
+          }
+        ]
       },
       {
         "label": "Recast",
@@ -1102,7 +1108,13 @@
             "conditional": false
           }
         ],
-        "values": []
+        "values": [],
+        "tips": [
+          {
+            "text": "first cast's effects",
+            "tip": "Excluding the takedown effects, which can trigger only once"
+          }
+        ]
       }
     ],
     "custom": [],
@@ -1216,7 +1228,13 @@
             "conditional": false
           }
         ],
-        "values": []
+        "values": [],
+        "tips": [
+          {
+            "text": "5 seconds",
+            "tip": "Hunt begins from the start of the cast time"
+          }
+        ]
       },
       {
         "text": "After 1.25 seconds into the hunt, Naafiri summons 2 additional Packmates that last for the remaining duration and can exceed We Are More summon cap.",

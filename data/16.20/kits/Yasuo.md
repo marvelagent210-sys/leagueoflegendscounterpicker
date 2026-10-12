@@ -145,6 +145,7 @@ Source: [Template:Data Yasuo/Sweeping Blade](https://wiki.leagueoflegends.com/en
 | Field | Value |
 |---|---|
 | Cooldown | 0.5 / 0.4 / 0.3 / 0.2 / 0.1 |
+| Per-target cooldown | 10 / 9 / 8 / 7 / 6 |
 | Cast time | none |
 | Target range | 475 |
 | Range | 475 • 625 |
@@ -285,13 +286,12 @@ Effects marked by a mark or a role are completed by the kit's hooks (see the kit
 
 ### Assumptions
 
-- Sweeping Blade can be used on the same enemy once every 6 seconds (the wiki only says "every few seconds").
 - With a minion wave, Sweeping Blade through minions gives a dash toward or away from the enemy every 1.5 seconds.
 - Yasuo starts every fight with full Flow; Steel Tempest's cast time is taken at 0 bonus attack speed.
 - Last Breath's armor penetration on critical strikes isn't modeled.
 - Crit chance bought counts double for Yasuo (the stat budget values it that way).
 
-### Wiki values read (27)
+### Wiki values read (28)
 
 | Ability | Value | Revision |
 |---|---|---|
@@ -302,6 +302,7 @@ Effects marked by a mark or a role are completed by the kit's hooks (see the kit
 | Way of the Wanderer | that lasts for 1 second | [4051866](https://wiki.leagueoflegends.com/en-us/Template:Data_Yasuo/Way_of_the_Wanderer?oldid=4051866) |
 | Steel Tempest | Yasuo generates a stack of Gathering Storm for 6 seconds | [4072892](https://wiki.leagueoflegends.com/en-us/Template:Data_Yasuo/Steel_Tempest?oldid=4072892) |
 | Steel Tempest | additionally knocks up enemies hit for 0.9 seconds | [4072892](https://wiki.leagueoflegends.com/en-us/Template:Data_Yasuo/Steel_Tempest?oldid=4072892) |
+| Sweeping Blade | targetCooldown: 10 / 9 / 8 / 7 / 6 | [4008638](https://wiki.leagueoflegends.com/en-us/Template:Data_Yasuo/Sweeping_Blade?oldid=4008638) |
 | Sweeping Blade | Bonus Damage per Stack: 17.5 / 21.25 / 25 / 28.75 / 32.5 (+ 5% bonus AD) (+ 15% AP) | [4008638](https://wiki.leagueoflegends.com/en-us/Template:Data_Yasuo/Sweeping_Blade?oldid=4008638) |
 | Steel Tempest | Physical Damage: 20 / 45 / 70 / 95 / 120 (+ 105% AD) | [4072892](https://wiki.leagueoflegends.com/en-us/Template:Data_Yasuo/Steel_Tempest?oldid=4072892) |
 | Steel Tempest | range (Thrust range): 450 • 1150 | [4072892](https://wiki.leagueoflegends.com/en-us/Template:Data_Yasuo/Steel_Tempest?oldid=4072892) |

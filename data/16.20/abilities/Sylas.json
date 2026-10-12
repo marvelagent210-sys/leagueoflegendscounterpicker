@@ -284,7 +284,13 @@
             "conditional": false
           }
         ],
-        "values": []
+        "values": [],
+        "tips": [
+          {
+            "text": "0.2-second delay",
+            "tip": "Starts on-cast, not after completing the dash"
+          }
+        ]
       },
       {
         "text": "Kingslayer can be cast during the dash.",
@@ -795,7 +801,13 @@
             "conditional": false
           }
         ],
-        "values": []
+        "values": [],
+        "tips": [
+          {
+            "text": "0.825 seconds",
+            "tip": "Estimated, from start of cast time"
+          }
+        ]
       },
       {
         "label": "Recast",

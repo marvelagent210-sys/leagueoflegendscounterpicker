@@ -31,7 +31,7 @@ const darius: KitModule = {
       ctx.memory.bleedStacks = stacks;
       ctx.memory.bleedUntil = ctx.tick + Math.ceil(bleedSeconds * 30);
       const total: Formula = { base: perStack.base * stacks, ratios: { bonusAD: (perStack.ratios?.bonusAD ?? 0) * stacks } };
-      ctx.apply({ type: "dot", damageType: "physical", total, duration: bleedSeconds, interval: bleedInterval });
+      ctx.apply({ type: "dot", damageType: "physical", total, duration: bleedSeconds, interval: bleedInterval, label: innate.name });
       if (stacks >= maxStacks && !ctx.memory.might) {
         ctx.memory.might = true;
         ctx.buff("noxianMight", "AD", mightAD, mightSeconds);
@@ -122,6 +122,7 @@ const darius: KitModule = {
           slot: "W",
           cooldown: w.cooldown(),
           castTime: w.castTime(),
+          cooldownAfter: "empower",
           delivery: { kind: "self" },
           onSelf: [
             {

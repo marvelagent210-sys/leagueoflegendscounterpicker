@@ -192,22 +192,22 @@
               "kind": "level",
               "values": [
                 33,
-                34.94117647058823,
-                36.88235294117647,
+                34.9411764705882,
+                36.8823529411765,
                 38.8235294117647,
-                40.76470588235294,
-                42.705882352941174,
-                44.64705882352941,
-                46.588235294117645,
-                48.529411764705884,
-                50.470588235294116,
-                52.41176470588235,
-                54.35294117647059,
-                56.294117647058826,
-                58.23529411764706,
-                60.17647058823529,
-                62.11764705882353,
-                64.05882352941177,
+                40.7647058823529,
+                42.7058823529412,
+                44.6470588235294,
+                46.5882352941176,
+                48.5294117647059,
+                50.4705882352941,
+                52.4117647058823,
+                54.3529411764706,
+                56.2941176470588,
+                58.2352941176471,
+                60.1764705882353,
+                62.1176470588235,
+                64.0588235294118,
                 66,
                 67.9412,
                 69.8824
@@ -401,7 +401,13 @@
             "conditional": false
           }
         ],
-        "values": []
+        "values": [],
+        "tips": [
+          {
+            "text": "after 0.726",
+            "tip": "after the cast time ends"
+          }
+        ]
       },
       {
         "text": "Allied champions are granted Surging Tides in a slightly larger area.",
@@ -653,6 +659,12 @@
               ]
             },
             "context": "Active: Nami surges a tidal wave in the target direction, granting sight around its trajectory as it travels, dealing magic damage to enemies hit, knocking them up for 0.5 seconds, and slowing them by 70% for 2 / 2.2 / 2.4 / 2.6 / 2.8 / 3 / 3.2 / 3.4 / 3.6 / 3.8 / 4 (based on distance traveled) seconds."
+          }
+        ],
+        "tips": [
+          {
+            "text": "0.5",
+            "tip": "Estimated"
           }
         ]
       }

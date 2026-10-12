@@ -29,6 +29,10 @@ Cooldowns at max rank. Flags: the wiki's interaction flags (yes, no, partly). * 
 
 Source: [Template:Data Ekko/Z-Drive Resonance](https://wiki.leagueoflegends.com/en-us/Template:Data_Ekko/Z-Drive_Resonance?oldid=4022978) (revision 4022978). Ranks: 1.
 
+| Field | Value |
+|---|---|
+| Per-target cooldown | 4 |
+
 Targeting: Passive · Affects: Enemies, Self · Damage type: Magic · Spell shield blocks it: true · Projectile: – · Parry: true · Disabled by grounded: – · Usable while knocked down: –
 
 Innate - Resonance: Ekko's basic attacks on-hit and damaging abilities apply a stack of Resonance to enemies hit for 4 seconds, refreshing on subsequent hits and stacking up to 3 times. The third stack consumes them all to deal 30 – 140 (based on level) (+ 80% AP) bonus magic damage. Z-Drive Resonance deals 270% damage against monsters.

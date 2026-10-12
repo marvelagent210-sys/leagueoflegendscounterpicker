@@ -1,0 +1,254 @@
+[
+  {
+    "champion": "Naafiri",
+    "name": "Packmate",
+    "page": {
+      "title": "Naafiri",
+      "revid": 4025794
+    },
+    "fields": {
+      "gold": {
+        "text": "3",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 3
+            }
+          }
+        ]
+      },
+      "exp": {
+        "text": "0",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0
+            }
+          }
+        ]
+      },
+      "cs": {
+        "text": "0",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0
+            }
+          }
+        ]
+      },
+      "hp": {
+        "text": "80 – 301 (based on level)",
+        "values": [
+          {
+            "series": {
+              "kind": "level",
+              "values": [
+                80,
+                89.36,
+                99.175,
+                109.445,
+                120.17,
+                131.35,
+                142.985,
+                155.075,
+                167.62,
+                180.62,
+                194.075,
+                207.985,
+                222.35,
+                237.17,
+                252.445,
+                268.175,
+                284.36,
+                301,
+                318.095,
+                335.645
+              ],
+              "past18": "wiki"
+            }
+          }
+        ]
+      },
+      "damage": {
+        "text": "10 – 20 (based on level) (+ 4% bonus AD)",
+        "values": [
+          {
+            "series": {
+              "kind": "level",
+              "values": [
+                10,
+                10.5882352941176,
+                11.1764705882353,
+                11.7647058823529,
+                12.3529411764706,
+                12.9411764705882,
+                13.5294117647059,
+                14.1176470588235,
+                14.7058823529412,
+                15.2941176470588,
+                15.8823529411765,
+                16.4705882352941,
+                17.0588235294118,
+                17.6470588235294,
+                18.2352941176471,
+                18.8235294117647,
+                19.4117647058824,
+                20,
+                20.5882352941176,
+                21.1764705882353
+              ],
+              "past18": "wiki"
+            }
+          }
+        ]
+      },
+      "range": {
+        "text": "125",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 125
+            }
+          }
+        ]
+      },
+      "armor": {
+        "text": "0 – 30.6 (based on level)",
+        "values": [
+          {
+            "series": {
+              "kind": "level",
+              "values": [
+                0,
+                1.296,
+                2.655,
+                4.077,
+                5.562,
+                7.11,
+                8.721,
+                10.395,
+                12.132,
+                13.932,
+                15.795,
+                17.721,
+                19.71,
+                21.762,
+                23.877,
+                26.055,
+                28.296,
+                30.6,
+                32.967,
+                35.397
+              ],
+              "past18": "wiki"
+            }
+          }
+        ]
+      },
+      "magicresist": {
+        "text": "0 – 30.6 (based on level)",
+        "values": [
+          {
+            "series": {
+              "kind": "level",
+              "values": [
+                0,
+                1.296,
+                2.655,
+                4.077,
+                5.562,
+                7.11,
+                8.721,
+                10.395,
+                12.132,
+                13.932,
+                15.795,
+                17.721,
+                19.71,
+                21.762,
+                23.877,
+                26.055,
+                28.296,
+                30.6,
+                32.967,
+                35.397
+              ],
+              "past18": "wiki"
+            }
+          }
+        ]
+      },
+      "attackspeed": {
+        "text": "100% of Naafiri's attack speed",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 100
+            }
+          }
+        ]
+      },
+      "radius": {
+        "text": "25",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 25
+            }
+          }
+        ]
+      },
+      "pathingradius": {
+        "text": "25",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 25
+            }
+          }
+        ]
+      },
+      "movespeed": {
+        "text": "100% of Naafiri's movement speed",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 100
+            },
+            "label": "See notes"
+          }
+        ]
+      }
+    },
+    "text": {
+      "gold": "3",
+      "exp": "0",
+      "cs": "0",
+      "hp": "80 – 301 (based on level)",
+      "damage": "10 – 20 (based on level) (+ 4% bonus AD)",
+      "damagetype": "Physical",
+      "range": "125",
+      "armor": "0 – 30.6 (based on level)",
+      "magicresist": "0 – 30.6 (based on level)",
+      "attackspeed": "100% of Naafiri's attack speed",
+      "radius": "25",
+      "pathingradius": "25",
+      "movespeed": "100% of Naafiri's movement speed",
+      "control": "Naafiri's basic attacks on-hit and ability hits against enemies command Packmates to attack the target for 2 seconds. Subsequent hits against the same target will refresh the duration. Hitting a different target will switch their focus to them from the current target.\n* Darkin Daggers will command them to attack the first visible target hit by the missile that is not a minion.\n** The damage over time effect does not count for triggering this attack command, and thus will not refresh it.\n* Eviscerate will command them to attack the nearest visible target hit by the flurry, prioritizing champions.\n* Hounds' Pursuit will command them to attack the target upon collision of them, if they are visible.",
+      "targeting": "Minion, does not count towards the minion kill tracking score",
+      "onhit": "Packmates' attacks are mitigated by dodge, block, and blind. They also deal 155% damage to monsters and 50% damage to structures.",
+      "spelleffects": "Packmates' attacks apply spell effects as area damage.",
+      "protection": "Packmates take 200% damage from melee champion basic attacks, 76% – 55% (based on level) damage from area damage, and 50% damage from non-epic monsters and minions. Turret attacks will instantly kill Packmates.",
+      "abilities": ";Prey Drive\nAfter Naafiri casts an ability, Packmates deal 30% increased damage on their next basic attack within 3 seconds. They can store up to 3 empowered attacks at a time.\n\n;Pouncing Assault\nPackmates will dash to visible targets hit by Naafiri's basic attacks and abilities within 1300 units. They will also charge alongside Naafiri when she uses Hounds' Pursuit, becoming untargetable in the process.\n\n;Recalling of the Pack\nWhen Naafiri casts The Call of the Pack or Eviscerate, Packmates vanish immediately. They will then reappear near her shortly afterwards.\n\n;Replenish\nPackmates are healed to full health when they reappear from being vanished by Eviscerate.\n\n;Agility\nPackmates gain bonus movement speed during The Call of the Pack.\n\n;Minion Hunter\nPackmates will occasionally score the killing blow on nearby enemy minions that are below 25 – 55 (based on Naafiri's level) health.\n* This has an internal cooldown of 10 seconds.\n* There is a minimum range of 300 units and a maximum range of 800 units around each Packmate for this effect to occur.\n* Packmates will not perform this action while Naafiri is in brush.\n** Enemy vision of the brush may impact whether this behavior is enabled."
+    }
+  }
+]

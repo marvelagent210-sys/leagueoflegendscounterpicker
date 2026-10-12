@@ -354,6 +354,12 @@
             },
             "context": "Additionally, a grave is passively raised for every 8th / 7th / 6th / 5th / 4th / 3rd / 2nd (based on level) enemy that dies otherwise near him."
           }
+        ],
+        "tips": [
+          {
+            "text": "their location",
+            "tip": "Grave is spawned on top of the killed enemy and within close proximity of the damaged champion or monster"
+          }
         ]
       },
       {
@@ -761,7 +767,13 @@
           }
         ],
         "mechanics": [],
-        "values": []
+        "values": [],
+        "tips": [
+          {
+            "text": "over 1.5 seconds",
+            "tip": "From the start of the cast time; summons become alive 1 second after cast."
+          }
+        ]
       },
       {
         "label": "Recast",
@@ -895,7 +907,13 @@
             "conditional": false
           }
         ],
-        "values": []
+        "values": [],
+        "tips": [
+          {
+            "text": "210-units",
+            "tip": "Estimated"
+          }
+        ]
       },
       {
         "text": "Dark Procession can only be targeted by enemy champion basic attacks and turrets. The wall takes 1 damage per attack from champions and is destroyed instantly from turret attacks.",

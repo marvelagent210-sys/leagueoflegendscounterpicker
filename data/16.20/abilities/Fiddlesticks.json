@@ -348,6 +348,23 @@
           }
         ]
       },
+      "targetCooldown": {
+        "text": "15 / 14.5 / 14 / 13.5 / 13",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                15,
+                14.5,
+                14,
+                13.5,
+                13
+              ]
+            }
+          }
+        ]
+      },
       "cost": {
         "text": "65",
         "values": [
@@ -448,7 +465,13 @@
             "conditional": false
           }
         ],
-        "values": []
+        "values": [],
+        "tips": [
+          {
+            "text": "2.25 seconds",
+            "tip": "Estimated"
+          }
+        ]
       },
       {
         "label": "Active",
@@ -540,7 +563,13 @@
             "conditional": false
           }
         ],
-        "values": []
+        "values": [],
+        "tips": [
+          {
+            "text": "0.35 seconds",
+            "tip": "Fixed travel time from the start of the cast time"
+          }
+        ]
       },
       {
         "text": "Targets feared by Fiddlesticks by any means cannot be affected by it again for a duration equal to Terrify's cooldown. Against these targets, Terrify's damage and minimum threshold are doubled.",
@@ -1164,10 +1193,10 @@
                 "kind": "rank",
                 "values": [
                   72.9,
-                  109.35000000000001,
+                  109.35,
                   145.8,
                   182.25,
-                  218.70000000000002
+                  218.7
                 ]
               },
               "scaling": [
@@ -1175,7 +1204,7 @@
                   "stat": "AP",
                   "ratio": {
                     "kind": "constant",
-                    "value": 54.675000000000004
+                    "value": 54.675
                   },
                   "text": "(+ 54.675% AP)"
                 },
@@ -1184,11 +1213,11 @@
                   "ratio": {
                     "kind": "rank",
                     "values": [
-                      7.290000000000002,
-                      8.808750000000002,
-                      10.327500000000002,
+                      7.29,
+                      8.80875,
+                      10.3275,
                       11.846250000000001,
-                      13.365000000000002
+                      13.365
                     ]
                   },
                   "text": "(+ 7.29 / 8.80875 / 10.3275 / 11.8463 / 13.365% of target's missing health)"
@@ -1225,7 +1254,7 @@
                   "ratio": {
                     "kind": "rank",
                     "values": [
-                      0.8999999999999999,
+                      0.9,
                       1.0875,
                       1.275,
                       1.4625,
@@ -1263,13 +1292,25 @@
             },
             "context": "Fiddlesticks heals itself for a portion of the pre-mitigation damage dealt, modified to 45% against monsters and 15% against minions."
           }
+        ],
+        "tips": [
+          {
+            "text": "pre-mitigation damage",
+            "tip": "Damage dealt before modifiers"
+          }
         ]
       },
       {
         "text": "Bountiful Harvest ends if all targets have died or broken their tethers. If the channel was not interrupted, 60% of the current cooldown is refunded.",
         "leveling": [],
         "mechanics": [],
-        "values": []
+        "values": [],
+        "tips": [
+          {
+            "text": "interrupted",
+            "tip": "e.g. by Fiddlesticks or crowd control effects"
+          }
+        ]
       },
       {
         "text": "A nearby enemy is required to cast this ability. The target does not have to be visible to be tethered by this ability.",

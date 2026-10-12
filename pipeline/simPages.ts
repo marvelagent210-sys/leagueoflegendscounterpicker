@@ -76,6 +76,8 @@ export interface SimulatedMatrix {
   scores: Map<string, Map<string, Array<number | null>>>;
   /** you -> enemy -> gold you spent on each stat */
   spent: Map<string, Map<string, Record<BudgetStat, number>>>;
+  /** champion -> enemy -> the kit options it played, for champions whose kits have variants (Udyr's rank split) */
+  variants: Map<string, Map<string, Record<string, number>>>;
 }
 
 /**
@@ -85,6 +87,7 @@ export interface SimulatedMatrix {
 export function simulatedMatrix(champions: string[], gold: number, pairs: Array<[string, string]>, results: PairResult[]): SimulatedMatrix {
   const scores = new Map(champions.map((id) => [id, new Map<string, Array<number | null>>()]));
   const spent = new Map(champions.map((id) => [id, new Map<string, Record<BudgetStat, number>>()]));
+  const variants = new Map<string, Map<string, Record<string, number>>>();
   const negate = (v: number | null) => (v === null ? null : v === 0 ? 0 : -v);
   results.forEach((result, i) => {
     const pair = pairs[i];
@@ -95,8 +98,13 @@ export function simulatedMatrix(champions: string[], gold: number, pairs: Array<
     scores.get(enemy)?.set(you, [negate(result.score), negate(engaged ?? null), negate(engage ?? null), ...rest.map(negate)]);
     spent.get(you)?.set(enemy, result.spent[0]);
     spent.get(enemy)?.set(you, result.spent[1]);
+    if (result.variant) {
+      const [who, against] = result.variant.side === 0 ? [you, enemy] : [enemy, you];
+      if (!variants.has(who)) variants.set(who, new Map());
+      variants.get(who)?.set(against, result.variant.options);
+    }
   });
-  return { champions, gold, scores, spent };
+  return { champions, gold, scores, spent, variants };
 }
 
 /** simulated.json: one line per champion keeps the file small and its per-patch diffs readable. */
@@ -106,7 +114,12 @@ export function simulatedJson(dataset: string, patch: string, matrix: SimulatedM
     const row = Object.fromEntries([...(matrix.scores.get(you) ?? [])].sort(([a], [b]) => a.localeCompare(b)).map(([enemy, values]) => [enemy, values.map(round)]));
     return `    ${JSON.stringify(you)}: ${JSON.stringify(row)}`;
   });
-  return `{\n  "dataset": ${JSON.stringify(dataset)},\n  "patch": ${JSON.stringify(patch)},\n  "confidence": "full",\n  "gold": ${matrix.gold},\n  "values": ${JSON.stringify(["score", ...SCENARIOS])},\n  "matchups": {\n${lines.join(",\n")}\n  }\n}\n`;
+  // The kit options a champion played in each matchup, when its kit had a choice (Udyr's rank split).
+  const variants = [...matrix.variants]
+    .sort(([a], [b]) => a.localeCompare(b))
+    .map(([who, byEnemy]) => `    ${JSON.stringify(who)}: ${JSON.stringify(Object.fromEntries([...byEnemy].sort(([a], [b]) => a.localeCompare(b))))}`);
+  const variantsJson = variants.length > 0 ? `,\n  "variants": {\n${variants.join(",\n")}\n  }` : "";
+  return `{\n  "dataset": ${JSON.stringify(dataset)},\n  "patch": ${JSON.stringify(patch)},\n  "confidence": "full",\n  "gold": ${matrix.gold},\n  "values": ${JSON.stringify(["score", ...SCENARIOS])},\n  "matchups": {\n${lines.join(",\n")}\n  }${variantsJson}\n}\n`;
 }
 
 function scoreCells(values: Array<number | null>): string {

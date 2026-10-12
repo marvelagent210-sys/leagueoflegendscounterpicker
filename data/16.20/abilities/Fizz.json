@@ -346,7 +346,13 @@
             "conditional": false
           }
         ],
-        "values": []
+        "values": [],
+        "tips": [
+          {
+            "text": "pre-mitigation",
+            "tip": "Damage calculated before modifiers"
+          }
+        ]
       }
     ],
     "custom": [],
@@ -911,7 +917,7 @@
                   "stat": "AP",
                   "ratio": {
                     "kind": "constant",
-                    "value": 4.166666666666667
+                    "value": 4.16666666666667
                   },
                   "text": "(+ 4.16667% AP)"
                 }

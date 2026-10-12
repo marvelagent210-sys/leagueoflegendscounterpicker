@@ -723,7 +723,13 @@
             "conditional": false
           }
         ],
-        "values": []
+        "values": [],
+        "tips": [
+          {
+            "text": "700 units",
+            "tip": "Reduced to 200 units if Pulverize was buffered during the dash"
+          }
+        ]
       }
     ],
     "custom": [],

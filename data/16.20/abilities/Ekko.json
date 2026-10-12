@@ -134,7 +134,13 @@
             "conditional": false
           }
         ],
-        "values": []
+        "values": [],
+        "tips": [
+          {
+            "text": "125",
+            "tip": "Estimated"
+          }
+        ]
       },
       {
         "text": "Phase Dive resets Ekko's basic attack timer. Ekko can cast any of his abilities during the dash.",
@@ -169,7 +175,20 @@
       "revid": 4022978
     },
     "ranks": 1,
-    "fields": {},
+    "fields": {
+      "targetCooldown": {
+        "text": "4",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 4
+            },
+            "label": "Begins after the stacks are consumed"
+          }
+        ]
+      }
+    },
     "flags": {
       "targeting": [
         "Passive"

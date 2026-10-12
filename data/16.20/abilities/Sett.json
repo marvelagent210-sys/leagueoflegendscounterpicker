@@ -143,22 +143,22 @@
               "kind": "level",
               "values": [
                 125,
-                132.35294117647058,
-                139.7058823529412,
-                147.05882352941177,
-                154.41176470588235,
-                161.76470588235293,
-                169.11764705882354,
-                176.47058823529412,
-                183.8235294117647,
-                191.1764705882353,
-                198.52941176470588,
-                205.88235294117646,
-                213.23529411764707,
-                220.58823529411765,
-                227.94117647058823,
-                235.29411764705884,
-                242.6470588235294,
+                132.352941176471,
+                139.705882352941,
+                147.058823529412,
+                154.411764705882,
+                161.764705882353,
+                169.117647058824,
+                176.470588235294,
+                183.823529411765,
+                191.176470588235,
+                198.529411764706,
+                205.882352941176,
+                213.235294117647,
+                220.588235294118,
+                227.941176470588,
+                235.294117647059,
+                242.647058823529,
                 250,
                 257.353,
                 264.706
@@ -732,7 +732,13 @@
             "conditional": false
           }
         ],
-        "values": []
+        "values": [],
+        "tips": [
+          {
+            "text": "the epicenter",
+            "tip": "125 unit radius around the target's landing location, but not the true center of the area of effect"
+          }
+        ]
       },
       {
         "text": "The leap will end and create the impact prematurely upon encountering terrain that cannot be dashed through, whether by distance or invalid space.",
@@ -866,7 +872,13 @@
         "text": "Passive: Sett stores 100% of post-mitigation damage taken as Grit on his resource bar, up to a cap of 50% of his maximum health. Each instance of stored Grit decays in value by 30% every second after 4 seconds.",
         "leveling": [],
         "mechanics": [],
-        "values": []
+        "values": [],
+        "tips": [
+          {
+            "text": "post-mitigation damage",
+            "tip": "Damage calculated after resistances and modifiers."
+          }
+        ]
       },
       {
         "label": "Active",

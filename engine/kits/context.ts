@@ -11,7 +11,7 @@
  * can't leave a kit silently out of date. Everything read is recorded as evidence, and every
  * simplification a kit makes is recorded as an assumption, for its kit page.
  */
-import type { AbilityKind, AbilityRecord, Amount, ScalingTerm, Series } from "../abilities";
+import type { AbilityKind, AbilityRecord, Amount, PetRecord, RuneRecord, ScalingTerm, Series } from "../abilities";
 import type { Formula, StatRef } from "../sim/spec";
 import { TOP_LANE_MAX_LEVEL } from "../stats";
 import type { Champion } from "../types";
@@ -60,6 +60,7 @@ const STAT_REFS: Record<string, StatRef> = {
 export type NumberField =
   | "cooldown"
   | "staticCooldown"
+  | "targetCooldown"
   | "recharge"
   | "cost"
   | "castTime"
@@ -84,16 +85,23 @@ export function numbersIn(text: string): number[] {
 export class AbilityData {
   readonly name: string;
   readonly kind: AbilityKind;
-  /** Rank at level 20: every ability is maxed by level 18. */
+  /** Rank at level 20: every ability is maxed by level 18 (Udyr's ranks are a choice, see atRank). */
   readonly rank: number;
 
   constructor(
     readonly record: AbilityRecord,
     private readonly kit: KitContext,
+    rank = record.ranks,
   ) {
     this.name = record.name;
     this.kind = record.kind;
-    this.rank = record.ranks;
+    if (!Number.isInteger(rank) || rank < 1 || rank > record.ranks) throw new KitDataError(record.champion, record.name, `no rank ${rank} (it has ${record.ranks})`);
+    this.rank = rank;
+  }
+
+  /** The same ability read at another rank (Udyr's rank split leaves some ranks empty). */
+  atRank(rank: number): AbilityData {
+    return new AbilityData(this.record, this.kit, rank);
   }
 
   private fail(message: string): never {
@@ -194,10 +202,12 @@ export class AbilityData {
     return this.record.fields.cost ? this.field("cost") : 0;
   }
 
-  private leveling(label: string): Amount {
+  /** The `occurrence`-th (0-based) leveling value with this label: recasts often repeat one ("Magic Damage"). */
+  private leveling(label: string, occurrence = 0): Amount {
     const wanted = label.toLowerCase();
+    let seen = 0;
     for (const part of this.record.parts) {
-      for (const stat of part.leveling) if (stat.label.toLowerCase() === wanted) {
+      for (const stat of part.leveling) if (stat.label.toLowerCase() === wanted && seen++ === occurrence) {
         this.note(`${stat.label}: ${stat.amount.text}`);
         return stat.amount;
       }
@@ -224,10 +234,26 @@ export class AbilityData {
     return this.number(label) / 100;
   }
 
-  /** A leveling value with its ratios, at level 20. */
-  formula(label: string): Formula {
-    const amount = this.leveling(label);
+  /** A leveling value with its ratios, at level 20; `occurrence` picks among values sharing the label. */
+  formula(label: string, occurrence = 0): Formula {
+    const amount = this.leveling(label, occurrence);
     return this.amountFormula(amount, label);
+  }
+
+  /**
+   * A leveling value's base and the ratios of the listed stats only, for values that also show
+   * terms of another ability that the kit adds as their own hit (Tongue Lash's "+ [An Acquired Taste …]").
+   */
+  formulaPart(label: string, stats: StatRef[]): Formula {
+    const amount = this.leveling(label);
+    const formula: Formula = { base: amount.base ? this.at20(amount.base, label) : 0 };
+    for (const term of amount.scaling) {
+      const ref = STAT_REFS[term.stat];
+      if (!ref || !stats.includes(ref) || term.modifiers?.length) continue;
+      formula.ratios = { ...formula.ratios, [ref]: (formula.ratios?.[ref] ?? 0) + this.at20(term.ratio, `${label} ${term.text}`) / 100 };
+    }
+    for (const stat of stats) if (formula.ratios?.[stat] === undefined) this.fail(`"${label}" has no ${stat} ratio`);
+    return formula;
   }
 
   private amountFormula(amount: Amount, label: string): Formula {
@@ -305,6 +331,24 @@ export class AbilityData {
     return value;
   }
 
+  /** The tooltip on these words in the description: tip("ground") is "400 radius" (numbers the wiki keeps in tooltips). */
+  tip(shown: string): string {
+    const wanted = normalize(shown);
+    const tips = this.record.parts.flatMap((p) => p.tips ?? []);
+    const found = tips.find((t) => normalize(t.text) === wanted) ?? tips.find((t) => normalize(t.text).includes(wanted));
+    if (!found) this.fail(`no tooltip on "${wanted}"`);
+    this.note(`"${wanted}" (tooltip: ${found.tip})`);
+    return found.tip;
+  }
+
+  /** The `index`-th number (0-based) in the tooltip on these words: tipped("ground") is 400. */
+  tipped(shown: string, index = 0): number {
+    const tip = this.tip(shown);
+    const value = numbersIn(tip)[index];
+    if (value === undefined) this.fail(`no number ${index + 1} in the tooltip "${tip}"`);
+    return value;
+  }
+
   /** A number written into the description that depends on level ("13 – 30 (based on level)"), at level 20. */
   levelValue(context: string, index = 0): number {
     const wanted = normalize(context);
@@ -321,6 +365,136 @@ export class AbilityData {
     if (value === "true") return true;
     if (value === "false") return false;
     return undefined;
+  }
+}
+
+/**
+ * A pet of the champion (a turret, a Mist Walker, a Tentacle), read from the pet infobox on
+ * its wiki page at level 20. Values by ability rank are read at the ability's maximum rank.
+ */
+export class PetData {
+  readonly name: string;
+
+  constructor(
+    readonly record: PetRecord,
+    private readonly kit: KitContext,
+  ) {
+    this.name = record.name;
+  }
+
+  private fail(message: string): never {
+    throw new KitDataError(this.record.champion, this.name, message);
+  }
+
+  private note(text: string): void {
+    this.kit.checkOpen(`${this.name}: ${text}`);
+    this.kit.evidence.push({ ability: this.name, page: this.record.page.title, revid: this.record.page.revid, text });
+  }
+
+  private at20(series: Series | undefined, what: string): number {
+    if (!series) this.fail(`${what} has no value`);
+    switch (series.kind) {
+      case "constant":
+        return series.value;
+      case "rank": {
+        const value = series.values.at(-1);
+        if (value === undefined) this.fail(`${what} has no rank values`);
+        return value;
+      }
+      case "level": {
+        const value = series.values[TOP_LANE_MAX_LEVEL - 1];
+        if (value !== undefined) return value;
+        const last = series.values.at(-1);
+        if (last === undefined) this.fail(`${what} has no level values`);
+        this.kit.assume(`${this.name}: ${what} has no value past level ${series.values.length}; its level-${series.values.length} value is used at 20.`);
+        return last;
+      }
+      case "variable": {
+        if (/^level$/i.test(series.variable.trim())) {
+          let value: number | undefined;
+          series.points.forEach((point, i) => {
+            const v = series.values[i];
+            if (typeof point === "number" && point <= TOP_LANE_MAX_LEVEL && typeof v === "number") value = v;
+          });
+          if (value !== undefined) return value;
+        }
+        this.fail(`${what} depends on ${series.variable}`);
+      }
+    }
+  }
+
+  /** The `index`-th value of a numeric infobox field (hp, damage, armor, attackspeed, ...) at level 20. */
+  stat(field: string, index = 0): number {
+    const found = this.record.fields[field];
+    if (!found) this.fail(`no ${field} field (has: ${Object.keys(this.record.fields).join(", ")})`);
+    const value = found.values[index];
+    if (!value) this.fail(`${field} has no value ${index + 1} in "${found.text}"`);
+    this.note(`${field}: ${found.text}`);
+    return this.at20(value.series, field);
+  }
+
+  /** Every text field, whitespace normalized. */
+  get text(): string {
+    return normalize(Object.values(this.record.text).join(" \n "));
+  }
+
+  /** Asserts the words are in the pet's infobox, verbatim; records them as evidence. */
+  quote(words: string): string {
+    const wanted = normalize(words);
+    if (!this.text.includes(wanted)) this.fail(`the wiki no longer says "${wanted}"`);
+    this.note(wanted);
+    return wanted;
+  }
+
+  /** The `index`-th number (0-based) in a quoted phrase. */
+  quoted(words: string, index = 0): number {
+    const quote = this.quote(words);
+    const value = numbersIn(quote)[index];
+    if (value === undefined) this.fail(`no number ${index + 1} in "${quote}"`);
+    return value;
+  }
+}
+
+/**
+ * A rune's data (Triple Tonic): its description, what consuming each item it grants does, and
+ * its article's patch history, which can be newer than the item data.
+ */
+export class RuneData {
+  readonly name: string;
+
+  constructor(
+    readonly record: RuneRecord,
+    private readonly kit: KitContext,
+  ) {
+    this.name = record.name;
+  }
+
+  /** Each source's text, whitespace normalized, with the page it comes from. */
+  private get sources(): Array<{ page: { title: string; revid: number }; text: string }> {
+    const { record } = this;
+    return [
+      { page: record.page, text: normalize(record.text.join(" \n ")) },
+      ...record.items.map((item) => ({ page: item.page, text: normalize(`${item.name}: ${item.consume}`) })),
+      ...(record.article ? [{ page: record.article, text: normalize(record.history.map((h) => `${h.patch}: ${h.text}`).join(" \n ")) }] : []),
+    ];
+  }
+
+  /** Asserts the words are in the rune's description, an item's effect or the patch history, verbatim; records them as evidence. */
+  quote(words: string): string {
+    const wanted = normalize(words);
+    const source = this.sources.find((s) => s.text.includes(wanted));
+    if (!source) throw new KitDataError(this.kit.champion.id, this.name, `the wiki no longer says "${wanted}"`);
+    this.kit.checkOpen(`${this.name}: ${wanted}`);
+    this.kit.evidence.push({ ability: this.name, page: source.page.title, revid: source.page.revid, text: wanted });
+    return wanted;
+  }
+
+  /** The `index`-th number (0-based) in a quoted phrase. */
+  quoted(words: string, index = 0): number {
+    const quote = this.quote(words);
+    const value = numbersIn(quote)[index];
+    if (value === undefined) throw new KitDataError(this.kit.champion.id, this.name, `no number ${index + 1} in "${quote}"`);
+    return value;
   }
 }
 
@@ -346,7 +520,23 @@ export class KitContext {
   constructor(
     readonly champion: Champion,
     readonly records: AbilityRecord[],
+    readonly pets: PetRecord[] = [],
+    readonly runes: RuneRecord[] = [],
   ) {}
+
+  /** A rune the simulator models, by name ("Triple Tonic"). */
+  rune(name: string): RuneData {
+    const record = this.runes.find((r) => r.name === name);
+    if (!record) throw new KitDataError(this.champion.id, name, `no such rune (has: ${this.runes.map((r) => r.name).join(", ") || "none"})`);
+    return new RuneData(record, this);
+  }
+
+  /** A pet of the champion by its infobox name ("H-28G Evolution Turret"). */
+  pet(name: string): PetData {
+    const record = this.pets.find((p) => p.name === name);
+    if (!record) throw new KitDataError(this.champion.id, name, `no such pet (has: ${this.pets.map((p) => p.name).join(", ") || "none"})`);
+    return new PetData(record, this);
+  }
 
   /** An ability by its name ("Decisive Strike") or slot ("Q", "W", "E", "R", "I" for the innate). */
   ability(nameOrSlot: string): AbilityData {

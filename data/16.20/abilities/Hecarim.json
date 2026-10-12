@@ -100,17 +100,17 @@
               ],
               "values": [
                 25,
-                28.333333333333332,
-                31.666666666666668,
+                28.3333333333333,
+                31.6666666666667,
                 35,
-                38.333333333333336,
-                41.66666666666667,
+                38.3333333333333,
+                41.6666666666667,
                 45,
-                48.33333333333333,
-                51.66666666666667,
+                48.3333333333333,
+                51.6666666666667,
                 55,
-                58.333333333333336,
-                61.666666666666664,
+                58.3333333333333,
+                61.6666666666667,
                 65
               ]
             },
@@ -762,7 +762,13 @@
             "conditional": false
           }
         ],
-        "values": []
+        "values": [],
+        "tips": [
+          {
+            "text": "in an arrow formation",
+            "tip": "see notes"
+          }
+        ]
       },
       {
         "text": "Upon arrival, he fears nearby enemies for 0.75 / 0.825 / 0.9 / 0.975 / 1.05 / 1.125 / 1.2 / 1.275 / 1.35 / 1.425 / 1.5 (based on distance traveled) seconds and slows them by 0 / 0 / 16.5 / 33 / 49.5 / 66 / 82.5 / 99 (based on distance from Hecarim)%.",
@@ -1103,6 +1109,12 @@
               "value": 12.5
             },
             "context": "While active, Hecarim gains bonus armor and bonus magic resistance and is healed for 25% of the post-mitigation damage dealt to enemies within the area from all sources, halved to 12.5% for damage dealt by allies."
+          }
+        ],
+        "tips": [
+          {
+            "text": "post-mitigation damage",
+            "tip": "Damage calculated after modifiers"
           }
         ]
       }

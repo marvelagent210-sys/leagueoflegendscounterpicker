@@ -1,5 +1,59 @@
 # Counters to Trundle (patch 26.20)
 
+## Simulated duels (full confidence)
+
+The duel simulator played each of the 45 other champions with a simulator kit against Trundle: both at level 20 with 15,000 gold of plain stats, each side's spent against the other's, through six scenarios (PLAN.md §6). Scores run from −1 (Trundle wins every time) to +1 (the champion does). Run `npm run duel -- <champion> Trundle --log brawl` to watch a fight.
+
+| # | Champion | Score | You engage | Enemy engages | Brawl | Short trade | Spacing | Escape |
+|--:|---|--:|--:|--:|--:|--:|--:|--:|
+| 1 | Tahm Kench | +0.82 | +1.00 | +1.00 | +1.00 | +0.19 | +0.89 | +0.00 |
+| 2 | Nasus | +0.78 | +1.00 | +1.00 | +1.00 | +0.00 | – | +0.00 |
+| 3 | Tryndamere | +0.78 | +1.00 | +1.00 | +1.00 | +0.00 | – | +0.00 |
+| 4 | Dr. Mundo | +0.78 | +1.00 | +1.00 | +1.00 | −0.02 | – | +0.00 |
+| 5 | Zaahen | −0.06 | +0.55 | −0.46 | −0.23 | +0.11 | – | −1.00 |
+| 6 | Kled | −0.20 | +1.00 | −1.00 | −1.00 | +0.14 | – | +0.00 |
+| 7 | Jax | −0.50 | −1.00 | +0.00 | −1.00 | −0.01 | – | +0.00 |
+| 8 | Kennen | −0.61 | −1.00 | −1.00 | −1.00 | +0.37 | +0.32 | +0.00 |
+| 9 | Teemo | −0.69 | −1.00 | −1.00 | −1.00 | +0.74 | −1.00 | +0.00 |
+| 10 | Aurora | −0.73 | −1.00 | −1.00 | −1.00 | +0.47 | −1.00 | +0.00 |
+| 11 | Poppy | −0.73 | −1.00 | −1.00 | −1.00 | +0.27 | – | +0.00 |
+| 12 | Cho'Gath | −0.74 | −1.00 | −1.00 | −1.00 | +0.25 | – | +0.00 |
+| 13 | Kayle | −0.75 | −1.00 | −1.00 | −1.00 | +0.67 | −1.00 | −1.00 |
+| 14 | K'Sante | −0.75 | −1.00 | −1.00 | −1.00 | +0.32 | −1.00 | +0.00 |
+| 15 | Fiora | −0.76 | −1.00 | −1.00 | −1.00 | +0.11 | – | +0.00 |
+| 16 | Yasuo | −0.76 | −1.00 | −1.00 | −1.00 | +0.10 | – | +0.00 |
+| 17 | Jayce | −0.76 | −1.00 | −1.00 | −1.00 | +0.26 | −1.00 | +0.00 |
+| 18 | Shen | −0.76 | −1.00 | −1.00 | −1.00 | +0.10 | – | +0.00 |
+| 19 | Gwen | −0.76 | −1.00 | −1.00 | −1.00 | +0.08 | – | +0.00 |
+| 20 | Renekton | −0.76 | −1.00 | −1.00 | −1.00 | +0.08 | – | +0.00 |
+| 21 | Sion | −0.77 | −1.00 | −1.00 | −1.00 | +0.08 | – | +0.00 |
+| 22 | Udyr | −0.77 | −1.00 | −1.00 | −1.00 | +0.05 | – | +0.00 |
+| 23 | Illaoi | −0.77 | −1.00 | −1.00 | −1.00 | +0.04 | – | +0.00 |
+| 24 | Ambessa | −0.77 | −1.00 | −1.00 | −1.00 | +0.19 | −1.00 | +0.00 |
+| 25 | Malphite | −0.77 | −1.00 | −1.00 | −1.00 | +0.18 | −1.00 | +0.00 |
+| 26 | Ornn | −0.77 | −1.00 | −1.00 | −1.00 | +0.17 | −1.00 | +0.00 |
+| 27 | Singed | −0.78 | −1.00 | −1.00 | −1.00 | −0.03 | – | +0.00 |
+| 28 | Riven | −0.79 | −1.00 | −1.00 | −1.00 | +0.26 | – | −1.00 |
+| 29 | Skarner | −0.79 | −1.00 | −1.00 | −1.00 | +0.04 | −1.00 | +0.00 |
+| 30 | Mordekaiser | −0.80 | −1.00 | −1.00 | −1.00 | +0.03 | −1.00 | +0.00 |
+| 31 | Gnar | −0.80 | −1.00 | −1.00 | −1.00 | +0.30 | −1.00 | −1.00 |
+| 32 | Aatrox | −0.81 | −1.00 | −1.00 | −1.00 | +0.13 | – | −1.00 |
+| 33 | Pantheon | −0.81 | −1.00 | −1.00 | −1.00 | +0.12 | – | −1.00 |
+| 34 | Quinn | −0.81 | −1.00 | −1.00 | −1.00 | +0.24 | −1.00 | −1.00 |
+| 35 | Akali | −0.82 | −1.00 | −1.00 | −1.00 | +0.11 | – | −1.00 |
+| 36 | Camille | −0.82 | −1.00 | −1.00 | −1.00 | +0.10 | – | −1.00 |
+| 37 | Irelia | −0.82 | −1.00 | −1.00 | −1.00 | +0.22 | −1.00 | −1.00 |
+| 38 | Urgot | −0.82 | −1.00 | −1.00 | −1.00 | +0.22 | −1.00 | −1.00 |
+| 39 | Yone | −0.82 | −1.00 | −1.00 | −1.00 | +0.08 | – | −1.00 |
+| 40 | Olaf | −0.82 | −1.00 | −1.00 | −1.00 | +0.05 | – | −1.00 |
+| 41 | Rumble | −0.82 | −1.00 | −1.00 | −1.00 | +0.05 | – | −1.00 |
+| 42 | Sett | −0.83 | −1.00 | −1.00 | −1.00 | +0.05 | – | −1.00 |
+| 43 | Garen | −0.84 | −1.00 | −1.00 | −1.00 | −0.03 | – | −1.00 |
+| 44 | Darius | −0.84 | −1.00 | −1.00 | −1.00 | −0.05 | – | −1.00 |
+| 45 | Volibear | −0.85 | −1.00 | −1.00 | −1.00 | −0.10 | – | −1.00 |
+
+## Interaction ledger (partial confidence)
+
 Every champion ranked by what its kit does against Trundle's, from the interaction ledger: projectile blocks, spell shields,
 parries, dash stops, crowd control and its defenses, range and more (PLAN.md §5). This ranking is **partial**: it weighs the
 interactions but doesn't play the fight out. The duel simulator replaces it as each champion's behavior is verified.
@@ -8,67 +62,67 @@ interactions but doesn't play the fight out. The duel simulator replaces it as e
 A hard counter shuts down part of a kit every time it is used (projectile block, attack dodge, attack block, blind, disarm, attack speed slow, attack reflect, dash stop, grounding, range) with an impact of 0.4 or more (0.5 for range).
 Run `npm run matchup -- <champion> Trundle` for the full ledger of a matchup, with sources.
 
-## Top 10
+### Top 10
 
-### 1. Elise (net +1.52)
+#### 1. Elise (net +1.52)
 
 - **0.63** untargetable: Rappel makes Elise untargetable, dodging Trundle's Pillar of Ice. Untargetable for 0.6 s; Pillar of Ice takes 0.25 s to land, enough to react. (Elise E Rappel → Trundle E Pillar of Ice)
 - **0.61** range: Elise's basic attacks reach 375 units farther than Trundle's (550 vs 175 attack range). Trundle has no dash or blink to close the gap. (Elise basic attacks → Trundle basic attacks)
 - **0.55** untargetable: Rappel makes Elise untargetable, dodging Trundle's Subjugate. Untargetable for 0.6 s; Subjugate takes 0.25 s to land, enough to react. (Elise E Rappel → Trundle R Subjugate)
 
-### 2. Sivir (net +1.36)
+#### 2. Sivir (net +1.36)
 
 - **0.81** range: Sivir's basic attacks reach 325 units farther than Trundle's (500 vs 175 attack range). Trundle has no dash or blink to close the gap. (Sivir basic attacks → Trundle basic attacks)
 - **0.55** spell shield: Spell Shield's spell shield blocks Trundle's Subjugate. Spell shield for 1.5 s, long enough to use ahead of Subjugate. A spell shield blocks only the first enemy ability that reaches it. (Sivir E Spell Shield → Trundle R Subjugate)
 
-### 3. Bard (net +1.35)
+#### 3. Bard (net +1.35)
 
 - **0.62** range: Bard's basic attacks reach 325 units farther than Trundle's (500 vs 175 attack range). Trundle has no dash or blink to close the gap. (Bard basic attacks → Trundle basic attacks)
 - **0.55** untargetable: Tempered Fate makes Bard untargetable, dodging Trundle's Subjugate. Untargetable for 2.5 s, long enough to use ahead of Subjugate. (Bard R Tempered Fate → Trundle R Subjugate)
 - **0.36** untargetable: Tempered Fate makes Bard untargetable, dodging Trundle's Pillar of Ice. Untargetable for 2.5 s, long enough to use ahead of Pillar of Ice. (Bard R Tempered Fate → Trundle E Pillar of Ice)
 
-### 4. Xayah (net +1.32)
+#### 4. Xayah (net +1.32)
 
 - **0.67** range: Xayah's basic attacks reach 350 units farther than Trundle's (525 vs 175 attack range). Trundle has no dash or blink to close the gap. (Xayah basic attacks → Trundle basic attacks)
 - **0.48** untargetable: Featherstorm makes Xayah untargetable, dodging Trundle's Subjugate. Untargetable for 1.5 s, long enough to use ahead of Subjugate. (Xayah R Featherstorm → Trundle R Subjugate)
 - **0.34** untargetable: Featherstorm makes Xayah untargetable, dodging Trundle's Pillar of Ice. Untargetable for 1.5 s, long enough to use ahead of Pillar of Ice. (Xayah R Featherstorm → Trundle E Pillar of Ice)
 
-### 5. Kayle (net +1.27)
+#### 5. Kayle (net +1.27)
 
 - **0.72** range: Kayle's basic attacks reach 450 units farther than Trundle's (625 vs 175 attack range). Trundle has no dash or blink to close the gap. (Kayle basic attacks → Trundle basic attacks)
 - **0.55** invulnerable: Divine Judgment makes Kayle invulnerable to Trundle's Subjugate. Invulnerable for 2.5 s, long enough to use ahead of Subjugate. (Kayle R Divine Judgment → Trundle R Subjugate)
 
-### 6. Kindred (net +1.25)
+#### 6. Kindred (net +1.25)
 
 - **0.81** range: Kindred's basic attacks reach 325 units farther than Trundle's (500 vs 175 attack range). Trundle has no dash or blink to close the gap. (Kindred basic attacks → Trundle basic attacks)
 - **0.44** invulnerable: Lamb's Respite makes Kindred invulnerable to Trundle's Subjugate. Invulnerable for ?; Subjugate takes 0.25 s to land, enough to react. (Kindred R Lamb's Respite → Trundle R Subjugate)
 
-### 7. Teemo (net +1.22)
+#### 7. Teemo (net +1.22)
 
 - **0.59** range: Teemo's basic attacks reach 325 units farther than Trundle's (500 vs 175 attack range). Trundle has no dash or blink to close the gap. (Teemo basic attacks → Trundle basic attacks)
 - **0.54** blind: Blinding Dart's blind makes Trundle's basic attacks miss for 3 s. Blind for 3 s on a 7 s cooldown. (Teemo Q Blinding Dart → Trundle basic attacks)
 - **0.18** blind: Blinding Dart's blind makes Trundle's Chomp, an empowered attack, miss. Blind for 3 s. (Teemo Q Blinding Dart → Trundle Q Chomp)
 
-### 8. Aurora (net +1.21)
+#### 8. Aurora (net +1.21)
 
 - **0.54** range: Aurora's basic attacks reach 375 units farther than Trundle's (550 vs 175 attack range). Trundle has no dash or blink to close the gap. (Aurora basic attacks → Trundle basic attacks)
 - **0.48** untargetable: Between Worlds makes Aurora untargetable, dodging Trundle's Subjugate. Untargetable for 0.4 s; Subjugate takes 0.25 s to land, enough to react. Does not destroy inbound projectiles. (Aurora R Between Worlds → Trundle R Subjugate)
 - **0.34** untargetable: Between Worlds makes Aurora untargetable, dodging Trundle's Pillar of Ice. Untargetable for 0.4 s; Pillar of Ice takes 0.25 s to land, enough to react. Does not destroy inbound projectiles. (Aurora R Between Worlds → Trundle E Pillar of Ice)
 
-### 9. Vladimir (net +1.18)
+#### 9. Vladimir (net +1.18)
 
 - **0.67** untargetable: Sanguine Pool makes Vladimir untargetable, dodging Trundle's Pillar of Ice. Untargetable for 2 s, long enough to use ahead of Pillar of Ice. (Vladimir W Sanguine Pool → Trundle E Pillar of Ice)
 - **0.55** untargetable: Sanguine Pool makes Vladimir untargetable, dodging Trundle's Subjugate. Untargetable for 2 s, long enough to use ahead of Subjugate. (Vladimir W Sanguine Pool → Trundle R Subjugate)
 - **0.30** range: Vladimir's basic attacks reach 275 units farther than Trundle's (450 vs 175 attack range). Trundle has no dash or blink to close the gap. (Vladimir basic attacks → Trundle basic attacks)
 - Watch out: Pillar of Ice's airborne interrupts Vladimir's Tides of Blood (charge-up).
 
-### 10. Lissandra (net +1.14)
+#### 10. Lissandra (net +1.14)
 
 - **0.55** untargetable: Frozen Tomb makes Lissandra untargetable, dodging Trundle's Subjugate. Untargetable for 2.5 s, long enough to use ahead of Subjugate. (Lissandra R Frozen Tomb → Trundle R Subjugate)
 - **0.41** range: Lissandra's basic attacks reach 375 units farther than Trundle's (550 vs 175 attack range). Trundle has no dash or blink to close the gap. (Lissandra basic attacks → Trundle basic attacks)
 - **0.36** untargetable: Frozen Tomb makes Lissandra untargetable, dodging Trundle's Pillar of Ice. Untargetable for 2.5 s, long enough to use ahead of Pillar of Ice. (Lissandra R Frozen Tomb → Trundle E Pillar of Ice)
 
-## Full ranking
+### Full ranking
 
 | # | Champion | Net | For | Against | Hard counters |
 |--:|---|--:|--:|--:|---|

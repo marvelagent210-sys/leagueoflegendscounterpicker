@@ -238,7 +238,7 @@ What the duel simulator fights with (`kits/champions/Sett.ts`): every number is 
 
 | Key | Ability | Cooldown (s) | Cast time (s) | Cost | Delivery | On the enemy | On itself |
 |---|---|--:|--:|---|---|---|---|
-| Q | Knuckle Down | 5 | 0 | – | self | – | next 2 attacks within 5 s: 50 + 1% target's maximum health + 3% of target's maximum health per 100 AD physical damage (+50 range, resets the attack timer); moveSpeedPercent 0.3 for 1.5 s |
+| Q | Knuckle Down | 5 (starts after the empowered attacks) | 0 | – | self | – | next 2 attacks within 5 s: 50 + 1% target's maximum health + 3% of target's maximum health per 100 AD physical damage (+50 range, resets the attack timer); moveSpeedPercent 0.3 for 1.5 s |
 | W | Haymaker | 12 | 0.75 | – | area 25 to 720 units ahead, lands after 0 s | marks it "haymaker" for 0.1 s | – |
 | E | Facebreaker | 10 | 0.25 | – | area -450 to 450 units ahead, lands after 0 s | 130 + 60% AD physical damage; pull 450 units over 0.25 s; slow 70% for 0.5 s; after 0.25 s: stun for 1 s | – |
 | R | The Show Stopper | 80 | 0 | – | targeted, 400 range; channel 1.23 s | suppression for 1.23 s; at the end: 400 + 120% bonus AD + 60% target's bonus health physical damage; slow 99% for 1 s | as the cast starts: displacementImmune for 1.33 s |

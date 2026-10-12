@@ -1,5 +1,59 @@
 # Counters to Udyr (patch 26.20)
 
+## Simulated duels (full confidence)
+
+The duel simulator played each of the 45 other champions with a simulator kit against Udyr: both at level 20 with 15,000 gold of plain stats, each side's spent against the other's, through six scenarios (PLAN.md §6). Scores run from −1 (Udyr wins every time) to +1 (the champion does). Run `npm run duel -- <champion> Udyr --log brawl` to watch a fight.
+
+| # | Champion | Score | You engage | Enemy engages | Brawl | Short trade | Spacing | Escape |
+|--:|---|--:|--:|--:|--:|--:|--:|--:|
+| 1 | Teemo | +0.87 | +1.00 | +1.00 | +1.00 | +0.44 | +1.00 | +0.00 |
+| 2 | K'Sante | +0.81 | +1.00 | +1.00 | +1.00 | +0.06 | +1.00 | +0.00 |
+| 3 | Tryndamere | +0.78 | +1.00 | +1.00 | +1.00 | +0.02 | – | +0.00 |
+| 4 | Aatrox | +0.78 | +1.00 | +1.00 | +1.00 | +0.02 | – | −0.05 |
+| 5 | Jax | +0.78 | +1.00 | +1.00 | +1.00 | −0.01 | – | +0.00 |
+| 6 | Olaf | +0.78 | +1.00 | +1.00 | +1.00 | −0.01 | – | +0.00 |
+| 7 | Zaahen | +0.77 | +1.00 | +1.00 | +1.00 | −0.03 | – | +0.00 |
+| 8 | Trundle | +0.77 | +1.00 | +1.00 | +1.00 | −0.05 | – | +0.00 |
+| 9 | Nasus | +0.77 | +1.00 | +1.00 | +1.00 | −0.05 | – | +0.00 |
+| 10 | Darius | +0.76 | +1.00 | +1.00 | +1.00 | −0.10 | – | +0.00 |
+| 11 | Gwen | +0.75 | +0.94 | +1.00 | +1.00 | −0.05 | – | +0.00 |
+| 12 | Fiora | +0.75 | +1.00 | +1.00 | +1.00 | +0.02 | – | −0.63 |
+| 13 | Illaoi | +0.52 | +0.55 | +0.64 | +0.91 | −0.08 | – | +0.00 |
+| 14 | Poppy | +0.24 | −0.03 | −0.01 | +1.00 | +0.17 | – | +0.00 |
+| 15 | Volibear | −0.07 | −0.10 | −0.08 | −0.10 | +0.00 | – | +0.00 |
+| 16 | Gnar | −0.22 | −0.22 | −1.00 | −0.13 | +0.11 | +0.90 | +0.00 |
+| 17 | Yone | −0.27 | +0.92 | −1.00 | −1.00 | −0.13 | – | +0.00 |
+| 18 | Tahm Kench | −0.32 | −0.04 | −0.05 | −0.96 | −0.08 | −0.96 | +0.00 |
+| 19 | Mordekaiser | −0.55 | −1.00 | +0.07 | −1.00 | −0.09 | −1.00 | +0.00 |
+| 20 | Renekton | −0.55 | −1.00 | −1.00 | +0.00 | +0.02 | – | +0.00 |
+| 21 | Dr. Mundo | −0.61 | −0.36 | −1.00 | −1.00 | −0.07 | – | +0.00 |
+| 22 | Kayle | −0.71 | −1.00 | −1.00 | −1.00 | +0.58 | −1.00 | +0.00 |
+| 23 | Riven | −0.75 | −1.00 | −1.00 | −1.00 | +0.18 | – | +0.00 |
+| 24 | Cho'Gath | −0.76 | −1.00 | −1.00 | −1.00 | +0.10 | – | +0.00 |
+| 25 | Irelia | −0.76 | −1.00 | −0.98 | −0.95 | +0.05 | −0.86 | +0.00 |
+| 26 | Akali | −0.76 | −1.00 | −1.00 | −1.00 | +0.08 | – | +0.00 |
+| 27 | Sett | −0.77 | −1.00 | −1.00 | −1.00 | +0.07 | – | +0.00 |
+| 28 | Ambessa | −0.77 | −1.00 | −1.00 | −1.00 | +0.22 | −1.00 | +0.00 |
+| 29 | Pantheon | −0.77 | −1.00 | −1.00 | −1.00 | +0.06 | – | +0.00 |
+| 30 | Aurora | −0.77 | −1.00 | −1.00 | −1.00 | +0.19 | −1.00 | +0.00 |
+| 31 | Sion | −0.77 | −1.00 | −1.00 | −1.00 | +0.04 | – | +0.00 |
+| 32 | Camille | −0.78 | −1.00 | −1.00 | −1.00 | +0.01 | – | +0.00 |
+| 33 | Rumble | −0.78 | −1.00 | −1.00 | −1.00 | −0.00 | – | +0.00 |
+| 34 | Malphite | −0.78 | −1.00 | −1.00 | −1.00 | +0.13 | −1.00 | +0.00 |
+| 35 | Kennen | −0.78 | −1.00 | −1.00 | −1.00 | +0.12 | −1.00 | +0.00 |
+| 36 | Shen | −0.78 | −1.00 | −1.00 | −1.00 | −0.03 | – | +0.00 |
+| 37 | Garen | −0.79 | −1.00 | −1.00 | −1.00 | −0.05 | – | +0.00 |
+| 38 | Yasuo | −0.79 | −1.00 | −1.00 | −1.00 | −0.06 | – | +0.00 |
+| 39 | Jayce | −0.79 | −1.00 | −1.00 | −1.00 | +0.08 | −1.00 | +0.00 |
+| 40 | Urgot | −0.79 | −1.00 | −1.00 | −1.00 | +0.05 | −1.00 | +0.00 |
+| 41 | Kled | −0.79 | −1.00 | −1.00 | −1.00 | −0.10 | – | +0.00 |
+| 42 | Ornn | −0.79 | −1.00 | −1.00 | −1.00 | +0.04 | −1.00 | +0.00 |
+| 43 | Quinn | −0.80 | −1.00 | −1.00 | −1.00 | +0.02 | −1.00 | +0.00 |
+| 44 | Singed | −0.80 | −1.00 | −1.00 | −1.00 | −0.14 | – | +0.00 |
+| 45 | Skarner | −0.81 | −1.00 | −1.00 | −1.00 | −0.05 | −1.00 | +0.00 |
+
+## Interaction ledger (partial confidence)
+
 Every champion ranked by what its kit does against Udyr's, from the interaction ledger: projectile blocks, spell shields,
 parries, dash stops, crowd control and its defenses, range and more (PLAN.md §5). This ranking is **partial**: it weighs the
 interactions but doesn't play the fight out. The duel simulator replaces it as each champion's behavior is verified.
@@ -8,69 +62,69 @@ interactions but doesn't play the fight out. The duel simulator replaces it as e
 A hard counter shuts down part of a kit every time it is used (projectile block, attack dodge, attack block, blind, disarm, attack speed slow, attack reflect, dash stop, grounding, range) with an impact of 0.4 or more (0.5 for range).
 Run `npm run matchup -- <champion> Udyr` for the full ledger of a matchup, with sources.
 
-## Top 10
+### Top 10
 
-### 1. Sivir (net +1.07)
+#### 1. Sivir (net +1.07)
 
 - **0.60** spell shield: Spell Shield's spell shield blocks Udyr's Blazing Stampede. Spell shield for 1.5 s, long enough to use ahead of Blazing Stampede. A spell shield blocks only the first enemy ability that reaches it. (Sivir E Spell Shield → Udyr E Blazing Stampede)
 - **0.47** range: Sivir's basic attacks reach 375 units farther than Udyr's (500 vs 125 attack range). Udyr closes the gap with Blazing Stampede. (Sivir basic attacks → Udyr basic attacks)
 
-### 2. Vladimir (net +0.79)
+#### 2. Vladimir (net +0.79)
 
 - **0.63** untargetable: Sanguine Pool makes Vladimir untargetable, dodging Udyr's Blazing Stampede. Untargetable for 2 s, long enough to use ahead of Blazing Stampede. (Vladimir W Sanguine Pool → Udyr E Blazing Stampede)
 - **0.34** untargetable: Sanguine Pool makes Vladimir untargetable, dodging Udyr's Wingborne Storm. Untargetable for 2 s, long enough to use ahead of Wingborne Storm. (Vladimir W Sanguine Pool → Udyr R Wingborne Storm)
 - **0.18** range: Vladimir's basic attacks reach 325 units farther than Udyr's (450 vs 125 attack range). Udyr closes the gap with Blazing Stampede. (Vladimir basic attacks → Udyr basic attacks)
 - Watch out: Blazing Stampede makes Udyr immune to Vladimir's Sanguine Pool (slow).
 
-### 3. Yuumi (net +0.64)
+#### 3. Yuumi (net +0.64)
 
 - **0.60** untargetable: You and Me! makes Yuumi untargetable, dodging Udyr's Blazing Stampede. Untargetable for ?; Blazing Stampede lands within 0 s, faster than a 0.25 s reaction, so it needs prediction. Does not destroy inbound projectiles, special cased to be targetable to turrets. (Yuumi W You and Me! → Udyr E Blazing Stampede)
 - **0.33** untargetable: You and Me! makes Yuumi untargetable, dodging Udyr's Wingborne Storm. Untargetable for ?; Wingborne Storm lands within 0 s, faster than a 0.25 s reaction, so it needs prediction. Does not destroy inbound projectiles, special cased to be targetable to turrets. (Yuumi W You and Me! → Udyr R Wingborne Storm)
 - **0.32** range: Yuumi's basic attacks reach 300 units farther than Udyr's (425 vs 125 attack range). Udyr closes the gap with Blazing Stampede. (Yuumi basic attacks → Udyr basic attacks)
 - Watch out: Blazing Stampede's stun interrupts Yuumi's Final Chapter (normal channel).
 
-### 4. Teemo (net +0.54)
+#### 4. Teemo (net +0.54)
 
 - **0.54** blind: Blinding Dart's blind makes Udyr's basic attacks miss for 3 s. Blind for 3 s on a 7 s cooldown. (Teemo Q Blinding Dart → Udyr basic attacks)
 - **0.34** range: Teemo's basic attacks reach 375 units farther than Udyr's (500 vs 125 attack range). Udyr closes the gap with Blazing Stampede. (Teemo basic attacks → Udyr basic attacks)
 - Watch out: Blazing Stampede makes Udyr immune to Teemo's Blinding Dart (blind).
 
-### 5. Kindred (net +0.43)
+#### 5. Kindred (net +0.43)
 
 - **0.47** range: Kindred's basic attacks reach 375 units farther than Udyr's (500 vs 125 attack range). Udyr closes the gap with Blazing Stampede. (Kindred basic attacks → Udyr basic attacks)
 - **0.07** invulnerable: Lamb's Respite makes Kindred invulnerable to Udyr's Wingborne Storm (its crowd control still applies). Invulnerable for ?; Wingborne Storm lands within 0 s, faster than a 0.25 s reaction, so it needs prediction. (Kindred R Lamb's Respite → Udyr R Wingborne Storm)
 - Watch out: Blazing Stampede makes Udyr immune to Kindred's Mounting Dread (slow).
 
-### 6. Kai'Sa (net +0.38)
+#### 6. Kai'Sa (net +0.38)
 
 - **0.38** range: Kai'Sa's basic attacks reach 400 units farther than Udyr's (525 vs 125 attack range). Udyr closes the gap with Blazing Stampede. (Kai'Sa basic attacks → Udyr basic attacks)
 
-### 7. Gangplank (net +0.37)
+#### 7. Gangplank (net +0.37)
 
 - **0.53** cleanse: Remove Scurvy cleanses Udyr's Blazing Stampede (stun) after it lands. 14 s cooldown; usable while crowd controlled. (Gangplank W Remove Scurvy → Udyr E Blazing Stampede)
 - **0.07** cleanse: Remove Scurvy cleanses Udyr's Wingborne Storm (slow) after it lands. 14 s cooldown; usable while crowd controlled. (Gangplank W Remove Scurvy → Udyr R Wingborne Storm)
 - Watch out: Blazing Stampede makes Udyr immune to Gangplank's Cannon Barrage (slow).
 
-### 8. Kayle (net +0.37)
+#### 8. Kayle (net +0.37)
 
 - **0.36** range: Kayle's basic attacks reach 500 units farther than Udyr's (625 vs 125 attack range). Udyr closes the gap with Blazing Stampede. (Kayle basic attacks → Udyr basic attacks)
 - **0.12** invulnerable: Divine Judgment makes Kayle invulnerable to Udyr's Wingborne Storm (its crowd control still applies). Invulnerable for 2.5 s, long enough to use ahead of Wingborne Storm. (Kayle R Divine Judgment → Udyr R Wingborne Storm)
 - Watch out: Blazing Stampede makes Udyr immune to Kayle's Radiant Blast (slow).
 
-### 9. Olaf (net +0.37)
+#### 9. Olaf (net +0.37)
 
 - **0.45** cc immunity: Ragnarok makes Olaf immune to Udyr's Blazing Stampede (stun). Immune for 3 s, long enough to use ahead of Blazing Stampede. (Olaf R Ragnarok → Udyr E Blazing Stampede)
 - **0.06** cc immunity: Ragnarok makes Olaf immune to Udyr's Wingborne Storm (slow). Immune for 3 s, long enough to use ahead of Wingborne Storm. (Olaf R Ragnarok → Udyr R Wingborne Storm)
 - Watch out: Blazing Stampede makes Udyr immune to Olaf's Undertow (slow).
 
-### 10. Aurora (net +0.36)
+#### 10. Aurora (net +0.36)
 
 - **0.29** range: Aurora's basic attacks reach 425 units farther than Udyr's (550 vs 125 attack range). Udyr closes the gap with Blazing Stampede. (Aurora basic attacks → Udyr basic attacks)
 - **0.26** untargetable: Between Worlds makes Aurora untargetable, dodging Udyr's Blazing Stampede. Untargetable for 0.4 s; Blazing Stampede lands within 0 s, faster than a 0.25 s reaction, so it needs prediction. Does not destroy inbound projectiles. (Aurora R Between Worlds → Udyr E Blazing Stampede)
 - **0.14** untargetable: Between Worlds makes Aurora untargetable, dodging Udyr's Wingborne Storm. Untargetable for 0.4 s; Wingborne Storm lands within 0 s, faster than a 0.25 s reaction, so it needs prediction. Does not destroy inbound projectiles. (Aurora R Between Worlds → Udyr R Wingborne Storm)
 - Watch out: Blazing Stampede makes Udyr immune to Aurora's Between Worlds (slow).
 
-## Full ranking
+### Full ranking
 
 | # | Champion | Net | For | Against | Hard counters |
 |--:|---|--:|--:|--:|---|

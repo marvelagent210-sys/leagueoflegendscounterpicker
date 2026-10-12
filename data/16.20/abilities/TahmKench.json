@@ -108,7 +108,13 @@
             "conditional": false
           }
         ],
-        "values": []
+        "values": [],
+        "tips": [
+          {
+            "text": "post-mitigation damage",
+            "tip": "Damage calculated after modifiers"
+          }
+        ]
       },
       {
         "text": "While Thick Skin is not on cooldown, and after 4 seconds without taking damage, Tahm Kench rapidly consumes his grey health to restore 60 – 100 (based on level)% of the amount, healing for 10% of his maximum health every 0.264.",
@@ -128,22 +134,22 @@
               "kind": "level",
               "values": [
                 60,
-                62.35294117647059,
-                64.70588235294117,
-                67.05882352941177,
-                69.41176470588235,
-                71.76470588235294,
-                74.11764705882354,
-                76.47058823529412,
-                78.82352941176471,
-                81.17647058823529,
-                83.52941176470588,
-                85.88235294117646,
-                88.23529411764706,
-                90.58823529411765,
-                92.94117647058823,
-                95.29411764705883,
-                97.64705882352942,
+                62.3529411764706,
+                64.7058823529412,
+                67.0588235294118,
+                69.4117647058823,
+                71.7647058823529,
+                74.1176470588235,
+                76.4705882352941,
+                78.8235294117647,
+                81.1764705882353,
+                83.5294117647059,
+                85.8823529411765,
+                88.2352941176471,
+                90.5882352941177,
+                92.9411764705882,
+                95.2941176470588,
+                97.6470588235294,
                 100,
                 102.353,
                 104.706
@@ -618,7 +624,13 @@
             "conditional": false
           }
         ],
-        "values": []
+        "values": [],
+        "tips": [
+          {
+            "text": "pulling them",
+            "tip": "See notes"
+          }
+        ]
       },
       {
         "text": "If the target is an ally, they become unable to act and are granted a shield, which decays in strength by 50 every 0.25 seconds after they are Regurgitated. Tahm Kench will also gain 60% bonus movement speed for 3 seconds and is unable to cast movement spells besides Abyssal Dive while an ally is inside of his belly.",
@@ -671,7 +683,13 @@
         "text": "After 1 second, Tahm Kench can cast Regurgitate while a target is inside of his belly, and automatically does so after the duration. The swallowed ally can also input a movement command to force Tahm Kench to cast Regurgitate in a target direction of their choice, unless they are immobilized.",
         "leveling": [],
         "mechanics": [],
-        "values": []
+        "values": [],
+        "tips": [
+          {
+            "text": "input a movement command",
+            "tip": "RMB"
+          }
+        ]
       },
       {
         "label": "An Acquired Taste Bonus",

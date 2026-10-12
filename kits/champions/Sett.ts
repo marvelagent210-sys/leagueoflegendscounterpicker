@@ -181,6 +181,7 @@ const sett: KitModule = {
           slot: "Q",
           cooldown: q.cooldown(),
           castTime: 0,
+          cooldownAfter: "empower",
           delivery: { kind: "self" },
           onSelf: [
             {

@@ -1,0 +1,129 @@
+[
+  {
+    "champion": "Leblanc",
+    "name": "Mirror Image",
+    "page": {
+      "title": "LeBlanc",
+      "revid": 4053330
+    },
+    "fields": {
+      "hp": {
+        "text": "100% of LeBlanc's current health",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 100
+            }
+          }
+        ]
+      },
+      "damage": {
+        "text": "0",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0
+            }
+          }
+        ]
+      },
+      "range": {
+        "text": "525",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 525
+            },
+            "label": "Attack range"
+          }
+        ]
+      },
+      "armor": {
+        "text": "100% of LeBlanc's armor",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 100
+            }
+          }
+        ]
+      },
+      "magicresist": {
+        "text": "100% of LeBlanc's magic resistance",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 100
+            }
+          }
+        ]
+      },
+      "attackspeed": {
+        "text": "100% of LeBlanc's attack speed",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 100
+            }
+          }
+        ]
+      },
+      "movespeed": {
+        "text": "100% of LeBlanc's movement speed",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 100
+            }
+          }
+        ]
+      },
+      "radius": {
+        "text": "100% of LeBlanc's gameplay radius",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 100
+            }
+          }
+        ]
+      },
+      "pathingradius": {
+        "text": "100% of LeBlanc's pathing radius",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 100
+            }
+          }
+        ]
+      }
+    },
+    "text": {
+      "hp": "100% of LeBlanc's current health",
+      "damage": "0",
+      "damagetype": "Physical",
+      "range": "525",
+      "armor": "100% of LeBlanc's armor",
+      "magicresist": "100% of LeBlanc's magic resistance",
+      "attackspeed": "100% of LeBlanc's attack speed",
+      "movespeed": "100% of LeBlanc's movement speed",
+      "radius": "100% of LeBlanc's gameplay radius",
+      "pathingradius": "100% of LeBlanc's pathing radius",
+      "control": "R or Alt + Right Click",
+      "targeting": "Champion",
+      "spelleffects": "Basic attacks do not apply spell effects.",
+      "leash": "1125",
+      "abilities": "* When summoned, Mirror Image will automatically run away from the damage source that brought LeBlanc below 40% maximum health. If triggered without damage, Mirror Image will run in the direction LeBlanc is facing.\n** Mirror Image is visually different to LeBlanc and her allies but visually identical to her enemies (Mirror Image displays her real stats if clicked on).\n* Mirror Image's basic attacks do not apply on-hit effects (they do not apply life steal and critical strikes will not damage their target)."
+    }
+  }
+]

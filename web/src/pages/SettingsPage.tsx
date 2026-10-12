@@ -140,7 +140,9 @@ export function SettingsPage({ data }: { data: AppData }) {
             </div>
           );
         })}
-        <p className="note">Udyr's Triple Tonic and rank split come with his simulator kit (milestone 7).</p>
+        <p className="note">
+          Udyr's ranks: leave all four at 0 to play the best split in each matchup (the precomputed one), or set all four to pin one. Triple Tonic's Elixir of Skill gives him 21 skill points; without it he has 20.
+        </p>
       </section>
     </>
   );

@@ -1,0 +1,80 @@
+[
+  {
+    "champion": "Maokai",
+    "name": "Sapling",
+    "page": {
+      "title": "Maokai",
+      "revid": 4067454
+    },
+    "fields": {
+      "damage": {
+        "text": "50 / 75 / 100 / 125 / 150 (+ 5% bonus health) (+ 25% AP)",
+        "values": [
+          {
+            "series": {
+              "kind": "rank",
+              "values": [
+                50,
+                75,
+                100,
+                125,
+                150
+              ]
+            }
+          }
+        ]
+      },
+      "movespeed": {
+        "text": "400 / 405 / 410 / 415 / 420 / 425 / 430 / 435 / 440 / 445 / 450 / 455 / 460 (based on level)",
+        "values": [
+          {
+            "series": {
+              "kind": "variable",
+              "variable": "level",
+              "points": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7,
+                8,
+                9,
+                10,
+                11,
+                12,
+                13
+              ],
+              "values": [
+                400,
+                405,
+                410,
+                415,
+                420,
+                425,
+                430,
+                435,
+                440,
+                445,
+                450,
+                455,
+                460
+              ]
+            }
+          }
+        ]
+      }
+    },
+    "text": {
+      "damage": "50 / 75 / 100 / 125 / 150 (+ 5% bonus health) (+ 25% AP)",
+      "damagetype": "magic",
+      "movespeed": "400 – 460 (based on level)",
+      "control": "Autonomous",
+      "targeting": "Minion (untargetable)",
+      "spelleffects": "A Sapling's explosion applies spell effects as area damage.",
+      "notes": "* Saplings will appear on the map as minions despite being untargetable and invulnerable.",
+      "abilities": ";Brush Empowerment\nSaplings thrown into brushes become empowered and will deal double damage to non-minions struck by them over 1.5 seconds."
+    }
+  }
+]

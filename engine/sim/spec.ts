@@ -7,7 +7,7 @@ import type { CCType } from "../rules/crowdControl";
 import type { DamageType } from "../rules/damage";
 import type { ShieldType } from "../rules/defense";
 import type { Behavior } from "./behavior";
-import type { Unit, World } from "./state";
+import type { Pet, Unit, World } from "./state";
 
 /** Stats a formula can read: the caster's, or the target's with a "target" prefix. */
 export type StatRef =
@@ -84,7 +84,18 @@ export type StateType =
   /** Untargetable to enemies farther than `value` units from the status's position (Hallowed Mist). */
   | "untargetableFar"
   /** Can't declare basic attacks, without being crowd control (Purge fires in their place). */
-  | "noAttacks";
+  | "noAttacks"
+  /** Healing and regeneration have no effect, except life steal and omnivamp (Glory in Death). */
+  | "noHealing"
+  /**
+   * Can't be seen (Twilight Shroud): enemies can't start attacks or unit-targeted spells on it
+   * or aim at it, but areas still hit it and missiles already on their way still land.
+   */
+  | "invisible"
+  /** An ability still at work in a way its kit's hooks model (Twilight Shroud's smoke): no rule of its own, but it holds a post-effect cooldown. */
+  | "lingering"
+  /** Health can't go above `value` (a share of maximum health); gaining it lowers health to it (All Out's 65%). */
+  | "healthCap";
 
 /** Stats a timed buff or debuff changes. Fractions for percentages. */
 export type BuffStat =
@@ -116,7 +127,11 @@ export type BuffStat =
   /** Reduces the strength of slows by a fraction (Purge's 40%). */
   | "slowResist"
   /** Increases healing and health regeneration received by a fraction (World Ender). */
-  | "healingIncrease";
+  | "healingIncrease"
+  /** More maximum resource (Twilight Shroud's 100 energy). */
+  | "maxResource"
+  /** Percentage penetration of bonus armor only (All Out's 50%). */
+  | "bonusArmorPen";
 
 /** How a basic attack's damage divides between damage types, as shares of the attack. */
 export interface AttackSplit {
@@ -132,15 +147,22 @@ export type Effect =
    * `label` names the hit in logs and kit hooks (Decimate's handle). `minimum`: it deals at
    * least this much before mitigation (Infected Bonesaw's minimum damage).
    */
-  | { type: "damage"; damageType: DamageType; amount: Formula; canCrit?: boolean; critMultiplier?: number; lifesteal?: number; label?: string; minimum?: Formula }
-  | { type: "cc"; cc: CCType; duration: number; strength?: number }
+  /** `noLifeSteal`: life steal doesn't heal from it, though it comes with a basic attack (Glory in Death's on-hit). */
+  | { type: "damage"; damageType: DamageType; amount: Formula; canCrit?: boolean; critMultiplier?: number; lifesteal?: number; label?: string; minimum?: Formula; noLifeSteal?: boolean }
+  /** `strength`: a slow's fraction, or for nearsight the sight radius left (Blinding Assault's 350). */
+  /** `sticky`: non-dispellable, so most cleanses leave it (Mega Adhesive's slow and ground). */
+  | { type: "cc"; cc: CCType; duration: number; strength?: number; sticky?: boolean }
   /**
    * Knock up (distance 0), knock back ("away") or pull ("toward"): airborne plus forced
    * movement. `to`: pull only until the target's center is this far from the caster's
    * (Apprehend's rebound). `wallStun`: stun duration if a knock back hits a wall (with walls
    * nearby), and `wallEffects` anything else that happens then (Heroic Charge's second hit).
    */
-  | { type: "displace"; direction: "away" | "toward"; distance: number; duration: number; to?: number; wallStun?: number; wallEffects?: Effect[] }
+  /**
+   * Knock ups (distance 0), knock backs and pulls. `over`: thrown over the caster, landing
+   * `distance` units from where it was (Fling), over terrain too.
+   */
+  | { type: "displace"; direction: "away" | "toward"; distance: number; duration: number; to?: number; wallStun?: number; wallEffects?: Effect[]; over?: boolean }
   | { type: "shield"; amount: Formula; duration: number; shieldType?: ShieldType; priority?: boolean }
   | { type: "heal"; amount: Formula }
   /**
@@ -150,10 +172,11 @@ export type Effect =
    */
   | { type: "state"; state: StateType; duration: number; value?: number; charges?: number; effects?: Effect[] }
   | { type: "stat"; stat: BuffStat; amount: Formula; duration: number }
-  | { type: "dot"; damageType: DamageType; total: Formula; duration: number; interval: number }
+  | { type: "dot"; damageType: DamageType; total: Formula; duration: number; interval: number; label?: string }
   | { type: "grievousWounds"; duration: number }
   /** Removes the listed crowd control types from the caster, or every type when none are listed. */
-  | { type: "cleanse"; types?: CCType[] }
+  /** `sticky`: also removes non-dispellable crowd control, as cleanses that grant immunity do (Ragnarok). */
+  | { type: "cleanse"; types?: CCType[]; sticky?: boolean }
   /**
    * The next `attacks` basic attacks within `window` seconds gain these effects. `split`
    * deals the attack's own damage as these shares of physical and magic damage (Yone's
@@ -180,12 +203,20 @@ export type Effect =
   | { type: "delayed"; delay: number; effects: Effect[] }
   /** Changes the target's resource (Fury gained or lost). */
   | { type: "resource"; amount: Formula }
-  /** Shortens the remaining cooldown of one of the caster's abilities, by seconds or by a share of it. */
-  | { type: "refund"; ability: string; seconds?: number; fraction?: number }
+  /**
+   * Shortens a cooldown of the caster's (by its cooldown key): by seconds, or by a share of what
+   * remains, or (`total`) of the whole cooldown. A cooldown still held for its post-effect is
+   * shortened when it starts.
+   */
+  | { type: "refund"; ability: string; seconds?: number; fraction?: number; total?: boolean }
   /** A marker on the target for kit hooks to read (Flawless Duet's mark, Frenzied Maul's mark). */
   | { type: "mark"; key: string; duration: number; value?: number }
   /** Effects on the caster when this hit lands (Decimate's heal). */
-  | { type: "caster"; effects: Effect[] };
+  | { type: "caster"; effects: Effect[] }
+  /** The target is carried by the caster for `duration` seconds, `offset` units from its center (Devour, Ixtal's Impact). */
+  | { type: "attach"; offset: number; duration: number }
+  /** The target reappears `distance` units away from its enemy, or toward it (Grand Starfall's landing). */
+  | { type: "reposition"; direction: "away" | "toward"; distance: number };
 
 export type Delivery =
   /** Effects on the caster only (onSelf). */
@@ -193,17 +224,46 @@ export type Delivery =
   /** Hits the enemy if it is within `radius` of the caster's edge. */
   | { kind: "aura"; radius: number }
   /** Unit-targeted; a homing missile when `missileSpeed` is set. */
-  | { kind: "target"; range: number; missileSpeed?: number }
+  /** `edge`: the range reaches from the caster's edge to the target's (the wiki's "edge range", Devour) rather than center to center. */
+  | { kind: "target"; range: number; missileSpeed?: number; edge?: boolean }
   /** A skillshot: a missile (or instant line when `speed` is unset) that the target can sidestep. */
   | { kind: "line"; range: number; width: number; speed?: number }
-  /** Ground-targeted area that lands after `delay` seconds. */
-  | { kind: "circle"; range: number; radius: number; delay: number }
+  /**
+   * Ground-targeted area that lands after `delay` seconds. `centered`: its radius reaches the
+   * target's center rather than its edge (the wiki's "center range", Rupture).
+   */
+  /** `hidden`: seconds into the cast before the enemy can see where it will land (Abyssal Dive's indicator). */
+  | { kind: "circle"; range: number; radius: number; delay: number; centered?: boolean; hidden?: number }
   /**
    * A dash; `hitRadius` hits the enemy on arrival. "target" dashes stop at the enemy. Dashes
    * to a location can be aimed (a cast's `aim`) anywhere from `minDistance` to `distance`.
    * `through` dashes don't stop at the enemy: they hit it on the way past (Shadow Dash).
    */
-  | { kind: "dash"; direction: "toward" | "away" | "target"; distance: number; speed: number; hitRadius?: number; minDistance?: number; through?: boolean }
+  /**
+   * `ramp`: a charge (Unstoppable Onslaught) that starts at the caster's movement speed, or at
+   * `from` (Ixtal's Impact's 150), and gains `amount` every `every` seconds, up to `speed`. A dash
+   * with `interruptible` set stops under crowd control that breaks channels or roots (Ixtal's
+   * Impact). `sidestep`: the enemy can step aside
+   * from it, so its hit is a skillshot of half-width `reach` that lands when the dash reaches
+   * the enemy, `later` seconds after that when a follow-up still catches it (a recast's slam).
+   * `time`: a leap that lands `time` seconds after it starts however far it goes (the game files'
+   * TravelTime: Hop, Crunch); `speed` is then its speed over the full `distance`. `lockOn`: a
+   * charge that, once the enemy is within `within` units (center to edge), dashes the rest of the
+   * way at `speed` (Chaaaaaaaarge!!!'s search range).
+   */
+  | {
+      kind: "dash";
+      direction: "toward" | "away" | "target";
+      distance: number;
+      speed: number;
+      hitRadius?: number;
+      minDistance?: number;
+      through?: boolean;
+      ramp?: { amount: number; every: number; from?: number };
+      sidestep?: { reach: number; later?: number };
+      time?: number;
+      lockOn?: { within: number; speed: number };
+    }
   | { kind: "blink"; direction: "toward" | "away"; distance: number; hitRadius?: number }
   /**
    * A stretch of the line from `near` to `far` units in front of the caster's center that
@@ -219,9 +279,18 @@ export type Delivery =
       far: number;
       delay: number;
       anchor: "caster" | "ground";
+      /** Sweet spots: where the enemy's center is between `from` and `to`, these effects apply in place of `onHit`. */
       bands?: Array<{ from: number; to: number; onHit: Effect[] }>;
       centered?: boolean;
-    };
+    }
+  /**
+   * A lingering field: on the enemy as far as `range` allows, or around the caster when
+   * `attached` (its center `offset` units toward the enemy, moving with the caster). It lands
+   * after `delay`, lasts `duration` seconds, and every `interval` seconds applies the ability's
+   * `onHit` to the enemy if its hitbox is inside and `onOwner` to the caster if its center is.
+   * `chase`: a field that moves toward the enemy at this speed (Wingborne Storm's awakened storm).
+   */
+  | { kind: "field"; range: number; radius: number; duration: number; interval: number; delay?: number; attached?: boolean; offset?: number; onOwner?: Effect[]; chase?: number };
 
 export interface ChannelSpec {
   duration: number;
@@ -232,6 +301,8 @@ export interface ChannelSpec {
   onTick?: Effect[];
   /** Effects when the channel completes. */
   onComplete?: Effect[];
+  /** Effects on the caster when the channel completes uninterrupted (Grand Starfall's leap). */
+  onCompleteSelf?: Effect[];
   /** Center-to-edge reach of the pulses and the completion effects. */
   range?: number;
   /** The caster can walk while it lasts (spins such as Judgment). */
@@ -257,6 +328,58 @@ export interface AbilityFlags {
   usableWhileDisabled?: boolean;
 }
 
+/**
+ * A pet at level 20 (engine/sim/pets.ts): a unit a champion summons or places, built by its
+ * kit from the wiki's pet infobox (H-28G Evolution Turret, Mist Walker, Tentacle, Powder Keg).
+ */
+export interface PetSpec {
+  /** The kit's name for the kind of pet ("turret", "walker", "keg", ...). */
+  kind: string;
+  name: string;
+  hp: number;
+  armor: number;
+  mr: number;
+  /** Takes 1 damage from each champion basic attack and nothing else (Tentacles, Powder Kegs). */
+  hitPoints?: boolean;
+  /** Damage taken from melee champions' basic attacks, as a multiplier (turrets 1.4, Mist Walkers 2). */
+  meleeAttackTaken?: number;
+  radius: number;
+  /** 0 for pets that stay where they are placed; others walk toward the enemy champion. */
+  moveSpeed: number;
+  /** How far from its owner it goes: it chases no farther, and walks back from farther (Mist Walkers' 1600). */
+  leash?: number;
+  /** Seconds it lasts until killed or replaced; Infinity for no limit. */
+  duration: number;
+  /** Can't be attacked (Tentacles during Leap of Faith). */
+  untargetable?: boolean;
+  /**
+   * Whether the enemy should attack it before anything else when it can (a Powder Keg about to
+   * blow up on it). Otherwise the enemy attacks pets only when it can't attack their owner.
+   */
+  urgent?: (pet: Pet, enemy: Unit, world: World) => boolean;
+  /** Its own attacks on the enemy champion, when it has any. */
+  attack?: PetAttack;
+  /**
+   * Damage it took: `raw` before its resistances, `dealt` after, `before` its health before
+   * the hit (now lower). Test of Spirit's Spirit echoes a share to its champion.
+   */
+  onDamaged?: (hit: { world: World; pet: Pet; attacker: Unit; raw: number; dealt: number; before: number; damageType: DamageType; attack: boolean }) => void;
+}
+
+export interface PetAttack {
+  /** Reach of its attacks, from its center to the enemy's edge. */
+  range: number;
+  /** Seconds between attacks. */
+  interval: number;
+  /** Each attack's effects on the enemy, as its owner's: damage formulas read the owner's stats. */
+  effects: Effect[];
+  /** Strikes like a basic attack: dodges, parries, blocks and blinds stop it. Otherwise spell shields and parries do. */
+  attackLike: boolean;
+}
+
+/** What a post-effect cooldown waits for (AbilitySpec.cooldownAfter). */
+export type CooldownAfter = "empower" | "channel" | "dash" | "field" | "state";
+
 /** "finisher": used only when its damage kills (Demacian Justice). */
 export type AbilityRole = "damage" | "cc" | "engage" | "escape" | "defense" | "buff" | "finisher";
 
@@ -275,6 +398,12 @@ export interface AbilitySpec {
   moveWhileCasting?: boolean;
   /** Most cooldowns start when the cast time ends (wiki: "Cast time"). */
   cooldownAtCastStart?: boolean;
+  /**
+   * Wiki "Cooldown starts: post-effect": the cooldown waits until the cast's effect is over: its
+   * empowered attacks are spent or run out, its channel or dash ends, its field fades, or the
+   * states it put on the caster end.
+   */
+  cooldownAfter?: CooldownAfter;
   delivery: Delivery;
   /** Effects on the enemy when the ability lands. */
   onHit?: Effect[];
@@ -291,6 +420,11 @@ export interface AbilitySpec {
   /** A kit's own condition for casting it (Steel Tempest's whirlwind needs two stacks). */
   usable?: (unit: Unit, world: World) => boolean;
   /**
+   * Its hit matters beyond its effects (it builds toward a stun, Mark of the Storm): as a
+   * skillshot, the fight splits on whether it lands instead of counting it by expected value.
+   */
+  decisive?: boolean;
+  /**
    * Raw damage its hit deals beyond its `onHit` effects, for abilities whose hooks deal the
    * damage (Haymaker's grows with the Grit spent): what the enemy sees coming.
    */
@@ -305,11 +439,32 @@ export interface AbilitySpec {
   chainCooldown?: "first" | "last";
   /** Shares the cooldown of the ability with this key (an empowered version of the same spell). */
   cooldownKey?: string;
+  /** The cast time now, when the caster's stats change it (Ntofo Strikes by bonus resistances); `castTime` stays the reference. */
+  castTimeFor?: (unit: Unit) => number;
+  /** The cooldown now, when the caster's stats or state change it; `cooldown` stays the reference. */
+  cooldownFor?: (unit: Unit) => number;
+  /**
+   * Holds up to `max` charges (wiki: "Recharge"): each cast spends one and one restocks every
+   * `recharge` seconds; `cooldown` is then the wait between casts. Fights start with all of them.
+   */
+  charges?: { max: number; recharge: number };
   /**
    * Castable during the caster's other casts and dashes without cancelling them (Umbral
    * Dash during The Darkin Blade). A dash cast this way holds the other cast until it ends.
    */
   overlay?: boolean;
+  /**
+   * Its cast time is a charge or channel that crowd control interrupts as it would a channel
+   * (Decimating Smash, Abyssal Dive): the cost is spent and, when `cooldown` is given, the
+   * ability goes on that many seconds of cooldown (otherwise the one it started keeps running).
+   */
+  interruptible?: { cooldown?: number };
+  /**
+   * Repeated hits deal less (Tentacle slams): every hit of an ability of the same `group` the
+   * target took in the last `window` seconds cuts this hit's damage by `per`, down to `floor`
+   * of it. Hits counted by expected value count by their share.
+   */
+  falloff?: { group: string; window: number; per: number; floor: number };
 }
 
 /** The cooldown an ability uses. */
@@ -387,19 +542,29 @@ export interface KitHooks {
   onTick?(ctx: HookContext): void;
   /** A basic attack is declared (its windup starts). */
   onAttack?(ctx: HookContext): void;
+  /** A basic attack's windup ends: it strikes, or its missile is fired. */
+  onAttackLaunch?(ctx: HookContext): void;
   onAttackHit?(ctx: HookContext): void;
-  onAbilityHit?(ctx: HookContext & { ability: AbilitySpec }): void;
+  /** `scale`: the share of the hit that counts, below 1 for skillshots resolved by expected value. */
+  onAbilityHit?(ctx: HookContext & { ability: AbilitySpec; scale: number }): void;
   /** One of this unit's casts starts (before its cast time). */
   onCastStart?(ctx: HookContext & { ability: AbilitySpec }): void;
   /** One of this unit's casts completes. */
   onCast?(ctx: HookContext & { ability: AbilitySpec }): void;
   /** Damage about to reach this unit, after mitigation and before shields. */
   beforeDamageTaken?(ctx: HookContext & { amount: number }): void;
+  /**
+   * Damage or an execute brought this unit to 0 health. Returning true keeps it alive: the
+   * hook has set its health and state (Glory in Death's reanimation, Skaarl fleeing).
+   */
+  onLethal?(ctx: HookContext): boolean;
   /** `amount`: health lost; `mitigated`: the damage after resistances, shields included; `raw`: before resistances. */
   onDamageTaken?(ctx: HookContext & DamageReport): void;
   onDamageDealt?(ctx: HookContext & DamageReport & { attack: boolean; ability?: string; persistent: boolean }): void;
   /** One of the enemy's basic attacks was dodged, parried or blocked by this unit. */
   onAttackAvoided?(ctx: HookContext): void;
+  /** One of this unit's pets was destroyed (by the enemy, or by its own owner when `byOwner`). */
+  onPetDeath?(ctx: HookContext & { pet: Pet; byOwner: boolean }): void;
 }
 
 /** One hit of damage, as damage hooks see it. */
@@ -423,8 +588,17 @@ export interface HookContext {
   buff(key: string, stat: BuffStat, amount: number, seconds: number): void;
   /** Restores health like regeneration (reduced by Grievous Wounds, not counted as healing). */
   regenerate(amount: number): void;
+  /** Switches this unit to another of its forms (engine/sim/forms.ts). */
+  transform(form: string, hp?: FormHealth): void;
   log(text: string): void;
 }
+
+/**
+ * Health after a change of form: the same share of maximum health ("share", Mini Gnar), the
+ * same missing health so that the gain in maximum health heals ("gain", Mega Gnar), or a
+ * number of hit points (Kled's own health when Skaarl flees).
+ */
+export type FormHealth = "share" | "gain" | number;
 
 /** Damage by type. */
 export interface DamageByType {
@@ -466,4 +640,12 @@ export interface FighterSpec {
   budget?: BudgetHints;
   /** How it plays; the default behavior when unset. */
   behavior?: Behavior;
+  /** Which of the champion's forms this is (Mega Gnar, Cannon Stance), for kits with several. */
+  form?: string;
+  /**
+   * Every form of the champion by name, this one included: a unit switches by taking another
+   * form's spec (engine/sim/forms.ts). Ability keys are unique across forms; versions of a
+   * spell that share a cooldown say so with `cooldownKey`.
+   */
+  forms?: Readonly<Record<string, FighterSpec>>;
 }

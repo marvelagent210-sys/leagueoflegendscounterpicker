@@ -176,7 +176,13 @@
             "conditional": false
           }
         ],
-        "values": []
+        "values": [],
+        "tips": [
+          {
+            "text": "multiple slashes",
+            "tip": "See notes"
+          }
+        ]
       },
       {
         "text": "Living Shadow's current cooldown is reduced by 3 seconds for each enemy champion hit by Zed's slash.",
@@ -201,7 +207,19 @@
       "revid": 4052367
     },
     "ranks": 1,
-    "fields": {},
+    "fields": {
+      "targetCooldown": {
+        "text": "10",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 10
+            }
+          }
+        ]
+      }
+    },
     "flags": {
       "targeting": [
         "Passive"
@@ -578,7 +596,13 @@
           }
         ],
         "mechanics": [],
-        "values": []
+        "values": [],
+        "tips": [
+          {
+            "text": "pre-mitigation",
+            "tip": "Damage calculated before modifiers"
+          }
+        ]
       },
       {
         "label": "Recast - Shadow Swap",

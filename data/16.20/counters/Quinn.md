@@ -1,5 +1,59 @@
 # Counters to Quinn (patch 26.20)
 
+## Simulated duels (full confidence)
+
+The duel simulator played each of the 45 other champions with a simulator kit against Quinn: both at level 20 with 15,000 gold of plain stats, each side's spent against the other's, through six scenarios (PLAN.md §6). Scores run from −1 (Quinn wins every time) to +1 (the champion does). Run `npm run duel -- <champion> Quinn --log brawl` to watch a fight.
+
+| # | Champion | Score | You engage | Enemy engages | Brawl | Short trade | Spacing | Escape |
+|--:|---|--:|--:|--:|--:|--:|--:|--:|
+| 1 | K'Sante | +0.86 | +1.00 | +1.00 | +1.00 | +0.05 | +1.00 | +1.00 |
+| 2 | Kayle | +0.83 | +1.00 | +1.00 | +1.00 | +0.22 | +1.00 | +0.00 |
+| 3 | Trundle | +0.81 | +1.00 | +1.00 | +1.00 | −0.24 | +1.00 | +1.00 |
+| 4 | Poppy | +0.81 | +1.00 | +1.00 | +1.00 | +0.05 | +1.00 | +0.00 |
+| 5 | Camille | +0.80 | +1.00 | +1.00 | +1.00 | −0.32 | +1.00 | +1.00 |
+| 6 | Malphite | +0.80 | +1.00 | +1.00 | +1.00 | −0.01 | +1.00 | +0.00 |
+| 7 | Nasus | +0.80 | +1.00 | +1.00 | +1.00 | −0.01 | +1.00 | +0.00 |
+| 8 | Udyr | +0.80 | +1.00 | +1.00 | +1.00 | −0.02 | +1.00 | +0.00 |
+| 9 | Dr. Mundo | +0.79 | +1.00 | +1.00 | +1.00 | −0.04 | +1.00 | +0.00 |
+| 10 | Teemo | +0.79 | +1.00 | +1.00 | +1.00 | +0.06 | – | +0.00 |
+| 11 | Renekton | +0.78 | +1.00 | +1.00 | +1.00 | −0.12 | +1.00 | +0.00 |
+| 12 | Kennen | +0.76 | +0.98 | +0.98 | +1.00 | −0.04 | – | +0.00 |
+| 13 | Rumble | +0.68 | +0.59 | +0.98 | +0.97 | +0.02 | +0.87 | +0.00 |
+| 14 | Volibear | +0.58 | +1.00 | +1.00 | +1.00 | −0.16 | −1.00 | +0.00 |
+| 15 | Jayce | +0.44 | +0.53 | +0.46 | +1.00 | −0.01 | −0.03 | +0.00 |
+| 16 | Aurora | +0.36 | +1.00 | +1.00 | −0.92 | +0.07 | – | +0.00 |
+| 17 | Sion | +0.31 | +0.07 | +0.07 | +1.00 | −0.20 | +1.00 | +0.00 |
+| 18 | Irelia | +0.17 | −0.29 | −0.28 | +1.00 | +0.07 | +1.00 | +0.00 |
+| 19 | Mordekaiser | +0.15 | +0.75 | +0.58 | −0.34 | −0.06 | −1.00 | +0.00 |
+| 20 | Illaoi | +0.02 | +0.95 | +0.01 | −0.98 | +0.06 | −0.35 | +0.00 |
+| 21 | Tahm Kench | +0.01 | +0.06 | +0.04 | +0.06 | −0.11 | −0.07 | +0.00 |
+| 22 | Fiora | −0.09 | +0.00 | +0.00 | −1.00 | −0.25 | +1.00 | +1.00 |
+| 23 | Tryndamere | −0.24 | −1.00 | −1.00 | +1.00 | −0.25 | +1.00 | +0.00 |
+| 24 | Sett | −0.33 | −1.00 | −1.00 | +1.00 | +0.07 | −0.45 | +0.00 |
+| 25 | Ornn | −0.34 | −0.18 | −0.22 | −0.69 | −0.01 | −1.00 | +0.00 |
+| 26 | Kled | −0.38 | −0.42 | −0.57 | −0.74 | −0.07 | +0.26 | +0.00 |
+| 27 | Yone | −0.40 | −1.00 | −1.00 | +1.00 | −0.01 | −1.00 | +0.00 |
+| 28 | Aatrox | −0.45 | −0.44 | −0.44 | −1.00 | −0.34 | +0.27 | +0.00 |
+| 29 | Gwen | −0.51 | −1.00 | −1.00 | +0.71 | −0.37 | −1.00 | +0.00 |
+| 30 | Ambessa | −0.61 | −1.00 | −1.00 | −1.00 | −0.06 | +1.00 | +0.00 |
+| 31 | Jax | −0.61 | −1.00 | −1.00 | −1.00 | −0.09 | +1.00 | +0.00 |
+| 32 | Pantheon | −0.65 | −1.00 | −1.00 | −1.00 | −0.34 | +1.00 | +0.00 |
+| 33 | Gnar | −0.67 | −0.75 | −0.75 | −1.00 | +0.04 | −1.00 | +0.00 |
+| 34 | Darius | −0.70 | −0.48 | −1.00 | −1.00 | −0.23 | −1.00 | +0.00 |
+| 35 | Garen | −0.75 | −1.00 | −1.00 | −1.00 | +0.02 | −1.00 | +1.00 |
+| 36 | Urgot | −0.78 | −1.00 | −1.00 | −1.00 | +0.16 | −1.00 | +0.00 |
+| 37 | Akali | −0.79 | −1.00 | −1.00 | −1.00 | +0.02 | −1.00 | +0.00 |
+| 38 | Yasuo | −0.80 | −1.00 | −1.00 | −0.85 | −0.21 | −1.00 | +0.00 |
+| 39 | Riven | −0.81 | −1.00 | −1.00 | −1.00 | −0.06 | −1.00 | +0.00 |
+| 40 | Shen | −0.81 | −1.00 | −1.00 | −1.00 | −0.06 | −1.00 | +0.00 |
+| 41 | Skarner | −0.82 | −1.00 | −1.00 | −1.00 | −0.15 | −1.00 | +0.00 |
+| 42 | Olaf | −0.82 | −1.00 | −1.00 | −1.00 | −0.15 | −1.00 | +0.00 |
+| 43 | Zaahen | −0.83 | −1.00 | −1.00 | −0.86 | −0.37 | −1.00 | +0.00 |
+| 44 | Cho'Gath | −0.83 | −1.00 | −1.00 | −1.00 | −0.20 | −1.00 | +0.00 |
+| 45 | Singed | −0.85 | −1.00 | −1.00 | −1.00 | −0.31 | −1.00 | +0.00 |
+
+## Interaction ledger (partial confidence)
+
 Every champion ranked by what its kit does against Quinn's, from the interaction ledger: projectile blocks, spell shields,
 parries, dash stops, crowd control and its defenses, range and more (PLAN.md §5). This ranking is **partial**: it weighs the
 interactions but doesn't play the fight out. The duel simulator replaces it as each champion's behavior is verified.
@@ -8,73 +62,73 @@ interactions but doesn't play the fight out. The duel simulator replaces it as e
 A hard counter shuts down part of a kit every time it is used (projectile block, attack dodge, attack block, blind, disarm, attack speed slow, attack reflect, dash stop, grounding, range) with an impact of 0.4 or more (0.5 for range).
 Run `npm run matchup -- <champion> Quinn` for the full ledger of a matchup, with sources.
 
-## Top 10
+### Top 10
 
-### 1. Nocturne (net +0.82)
+#### 1. Nocturne (net +0.82)
 
 - **0.68** spell shield: Shroud of Darkness's spell shield blocks Quinn's Vault. Spell shield for 1.5 s, long enough to use ahead of Vault. A spell shield blocks only the first enemy ability that reaches it. (Nocturne W Shroud of Darkness → Quinn E Vault)
 - **0.50** spell shield: Shroud of Darkness's spell shield blocks Quinn's Skystrike. Spell shield for 1.5 s, long enough to use ahead of Skystrike. A spell shield blocks only the first enemy ability that reaches it. (Nocturne W Shroud of Darkness → Quinn R Skystrike)
 - **0.18** interrupt: Unspeakable Horror's fear interrupts Quinn's Behind Enemy Lines (normal channel). Unspeakable Horror must land during the channel. (Nocturne E Unspeakable Horror → Quinn R Behind Enemy Lines)
 - Watch out: Quinn's basic attacks reach 400 units farther than Nocturne's (525 vs 125 attack range).
 
-### 2. Sivir (net +0.77)
+#### 2. Sivir (net +0.77)
 
 - **0.57** spell shield: Spell Shield's spell shield blocks Quinn's Vault. Spell shield for 1.5 s, long enough to use ahead of Vault. A spell shield blocks only the first enemy ability that reaches it. (Sivir E Spell Shield → Quinn E Vault)
 - **0.40** spell shield: Spell Shield's spell shield blocks Quinn's Skystrike. Spell shield for 1.5 s, long enough to use ahead of Skystrike. A spell shield blocks only the first enemy ability that reaches it. (Sivir E Spell Shield → Quinn R Skystrike)
 
-### 3. Rek'Sai (net +0.65)
+#### 3. Rek'Sai (net +0.65)
 
 - **0.39** untargetable: Void Rush makes Rek'Sai untargetable, dodging Quinn's Vault. Untargetable for 1.5 s, long enough to use ahead of Vault. (Rek'Sai R Void Rush → Quinn E Vault)
 - **0.33** interrupt: Unburrow's airborne interrupts Quinn's Behind Enemy Lines (normal channel). Unburrow must land during the channel. (Rek'Sai W Unburrow → Quinn R Behind Enemy Lines)
 - **0.26** untargetable: Void Rush makes Rek'Sai untargetable, dodging Quinn's Skystrike. Untargetable for 1.5 s, long enough to use ahead of Skystrike. (Rek'Sai R Void Rush → Quinn R Skystrike)
 - Watch out: Quinn's basic attacks reach 350 units farther than Rek'Sai's (525 vs 175 attack range).
 
-### 4. Elise (net +0.65)
+#### 4. Elise (net +0.65)
 
 - **0.34** untargetable: Rappel makes Elise untargetable, dodging Quinn's Vault. Untargetable for 0.6 s; Vault lands within 0.24 s, faster than a 0.25 s reaction, so it needs prediction. (Elise E Rappel → Quinn E Vault)
 - **0.24** untargetable: Rappel makes Elise untargetable, dodging Quinn's Skystrike. Untargetable for 0.6 s; Skystrike lands within 0 s, faster than a 0.25 s reaction, so it needs prediction. (Elise E Rappel → Quinn R Skystrike)
 - **0.19** interrupt: Cocoon's stun interrupts Quinn's Behind Enemy Lines (normal channel). Cocoon must land during the channel. (Elise E Cocoon → Quinn R Behind Enemy Lines)
 
-### 5. Yasuo (net +0.63)
+#### 5. Yasuo (net +0.63)
 
 - **0.41** projectile block: Wind Wall blocks Quinn's basic attacks, which are projectiles. Wind Wall lasts 4 s on a 17 s cooldown. (Yasuo W Wind Wall → Quinn basic attacks)
 - **0.32** projectile block: Wind Wall blocks Quinn's Blinding Assault, a projectile. Wind Wall for 4 s, long enough to use ahead of Blinding Assault. (Yasuo W Wind Wall → Quinn Q Blinding Assault)
 - **0.28** interrupt: Steel Tempest's airborne interrupts Quinn's Behind Enemy Lines (normal channel). Steel Tempest must land during the channel. (Yasuo Q Steel Tempest → Quinn R Behind Enemy Lines)
 - Watch out: Quinn's basic attacks reach 350 units farther than Yasuo's (525 vs 175 attack range).
 
-### 6. Udyr (net +0.61)
+#### 6. Udyr (net +0.61)
 
 - **0.85** cc immunity: Blazing Stampede makes Udyr immune to Quinn's Vault (airborne, slow). Immune for 1.5 s, long enough to use ahead of Vault. (Udyr E Blazing Stampede → Quinn E Vault)
 - **0.23** interrupt: Blazing Stampede's stun interrupts Quinn's Behind Enemy Lines (normal channel). Blazing Stampede must land during the channel. (Udyr E Blazing Stampede → Quinn R Behind Enemy Lines)
 - **0.11** cc immunity: Blazing Stampede makes Udyr immune to Quinn's Blinding Assault (nearsight). Immune for 1.5 s, long enough to use ahead of Blinding Assault. (Udyr E Blazing Stampede → Quinn Q Blinding Assault)
 - Watch out: Quinn's basic attacks reach 400 units farther than Udyr's (525 vs 125 attack range).
 
-### 7. Vladimir (net +0.59)
+#### 7. Vladimir (net +0.59)
 
 - **0.60** untargetable: Sanguine Pool makes Vladimir untargetable, dodging Quinn's Vault. Untargetable for 2 s, long enough to use ahead of Vault. (Vladimir W Sanguine Pool → Quinn E Vault)
 - **0.43** untargetable: Sanguine Pool makes Vladimir untargetable, dodging Quinn's Skystrike. Untargetable for 2 s, long enough to use ahead of Skystrike. (Vladimir W Sanguine Pool → Quinn R Skystrike)
 - Watch out: Quinn's basic attacks reach 75 units farther than Vladimir's (525 vs 450 attack range).
 
-### 8. Lissandra (net +0.59)
+#### 8. Lissandra (net +0.59)
 
 - **0.39** untargetable: Frozen Tomb makes Lissandra untargetable, dodging Quinn's Vault. Untargetable for 2.5 s, long enough to use ahead of Vault. (Lissandra R Frozen Tomb → Quinn E Vault)
 - **0.26** untargetable: Frozen Tomb makes Lissandra untargetable, dodging Quinn's Skystrike. Untargetable for 2.5 s, long enough to use ahead of Skystrike. (Lissandra R Frozen Tomb → Quinn R Skystrike)
 - **0.20** dash stop: Frozen Tomb's knockdown can stop Quinn's Vault mid-dash. Must land during the dash. Fails if the dashing unit is crowd control immune, displacement immune, untargetable or spell shielded. (Lissandra R Frozen Tomb → Quinn E Vault)
 
-### 9. Braum (net +0.58)
+#### 9. Braum (net +0.58)
 
 - **0.54** projectile block: Unbreakable blocks Quinn's basic attacks, which are projectiles. Unbreakable lasts 4 s on a 8 s cooldown. (Braum E Unbreakable → Quinn basic attacks)
 - **0.45** projectile block: Unbreakable blocks Quinn's Blinding Assault, a projectile. Unbreakable for 4 s, long enough to use ahead of Blinding Assault. (Braum E Unbreakable → Quinn Q Blinding Assault)
 - **0.19** interrupt: Concussive Blows's stun interrupts Quinn's Behind Enemy Lines (normal channel). Concussive Blows must land during the channel. (Braum I Concussive Blows → Quinn R Behind Enemy Lines)
 - Watch out: Quinn's basic attacks reach 400 units farther than Braum's (525 vs 125 attack range).
 
-### 10. Bard (net +0.56)
+#### 10. Bard (net +0.56)
 
 - **0.39** untargetable: Tempered Fate makes Bard untargetable, dodging Quinn's Vault. Untargetable for 2.5 s, long enough to use ahead of Vault. (Bard R Tempered Fate → Quinn E Vault)
 - **0.26** untargetable: Tempered Fate makes Bard untargetable, dodging Quinn's Skystrike. Untargetable for 2.5 s, long enough to use ahead of Skystrike. (Bard R Tempered Fate → Quinn R Skystrike)
 - **0.14** interrupt: Tempered Fate's stasis interrupts Quinn's Behind Enemy Lines (normal channel). Tempered Fate must land during the channel. (Bard R Tempered Fate → Quinn R Behind Enemy Lines)
 
-## Full ranking
+### Full ranking
 
 | # | Champion | Net | For | Against | Hard counters |
 |--:|---|--:|--:|--:|---|

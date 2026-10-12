@@ -1,5 +1,59 @@
 # Counters to Rumble (patch 26.20)
 
+## Simulated duels (full confidence)
+
+The duel simulator played each of the 45 other champions with a simulator kit against Rumble: both at level 20 with 15,000 gold of plain stats, each side's spent against the other's, through six scenarios (PLAN.md §6). Scores run from −1 (Rumble wins every time) to +1 (the champion does). Run `npm run duel -- <champion> Rumble --log brawl` to watch a fight.
+
+| # | Champion | Score | You engage | Enemy engages | Brawl | Short trade | Spacing | Escape |
+|--:|---|--:|--:|--:|--:|--:|--:|--:|
+| 1 | K'Sante | +0.87 | +1.00 | +1.00 | +1.00 | +0.16 | +1.00 | +1.00 |
+| 2 | Fiora | +0.87 | +1.00 | +1.00 | +1.00 | +0.19 | – | +1.00 |
+| 3 | Teemo | +0.83 | +1.00 | +1.00 | +1.00 | +0.20 | +1.00 | +0.00 |
+| 4 | Trundle | +0.82 | +1.00 | +1.00 | +1.00 | −0.05 | – | +1.00 |
+| 5 | Poppy | +0.81 | +1.00 | +1.00 | +1.00 | +0.18 | – | +0.00 |
+| 6 | Garen | +0.80 | +1.00 | +1.00 | +1.00 | +0.13 | – | +0.00 |
+| 7 | Riven | +0.79 | +1.00 | +1.00 | +1.00 | +0.09 | – | +0.00 |
+| 8 | Renekton | +0.79 | +1.00 | +1.00 | +1.00 | +0.06 | – | +0.00 |
+| 9 | Cho'Gath | +0.79 | +1.00 | +1.00 | +1.00 | +0.06 | – | +0.00 |
+| 10 | Yone | +0.78 | +1.00 | +1.00 | +1.00 | +0.03 | – | +0.00 |
+| 11 | Zaahen | +0.78 | +1.00 | +1.00 | +1.00 | +0.03 | – | +0.00 |
+| 12 | Nasus | +0.78 | +1.00 | +1.00 | +1.00 | +0.03 | – | +0.00 |
+| 13 | Jax | +0.78 | +1.00 | +1.00 | +1.00 | +0.02 | – | +0.00 |
+| 14 | Mordekaiser | +0.78 | +1.00 | +1.00 | +1.00 | +0.03 | – | +0.00 |
+| 15 | Camille | +0.78 | +1.00 | +1.00 | +1.00 | +0.01 | – | +0.00 |
+| 16 | Udyr | +0.78 | +1.00 | +1.00 | +1.00 | +0.00 | – | +0.00 |
+| 17 | Volibear | +0.78 | +1.00 | +1.00 | +1.00 | −0.01 | – | +0.00 |
+| 18 | Gwen | +0.78 | +1.00 | +1.00 | +1.00 | −0.01 | – | +0.00 |
+| 19 | Kled | +0.78 | +1.00 | +1.00 | +1.00 | −0.02 | – | +0.00 |
+| 20 | Illaoi | +0.77 | +0.98 | +0.94 | +1.00 | +0.08 | – | +0.00 |
+| 21 | Darius | +0.77 | +1.00 | +1.00 | +1.00 | −0.04 | – | +0.00 |
+| 22 | Yasuo | +0.69 | +0.90 | +0.90 | +0.80 | +0.08 | – | +0.00 |
+| 23 | Kennen | +0.65 | +1.00 | +1.00 | +1.00 | +0.04 | −0.56 | +0.00 |
+| 24 | Irelia | +0.52 | +0.03 | +1.00 | +1.00 | +0.06 | – | +0.00 |
+| 25 | Gnar | +0.43 | +1.00 | +1.00 | −1.00 | +0.19 | +1.00 | +0.00 |
+| 26 | Jayce | +0.42 | −0.32 | +0.94 | +1.00 | +0.17 | – | +0.00 |
+| 27 | Sion | +0.40 | +0.53 | +0.53 | +0.50 | −0.01 | – | +0.00 |
+| 28 | Aatrox | +0.35 | +1.00 | +1.00 | −0.99 | +0.08 | – | +0.00 |
+| 29 | Malphite | +0.35 | +1.00 | +1.00 | −1.00 | +0.08 | – | +0.00 |
+| 30 | Kayle | +0.26 | +0.65 | +0.68 | −0.95 | +0.15 | +1.00 | +0.00 |
+| 31 | Dr. Mundo | +0.17 | +0.21 | +0.25 | +0.26 | −0.07 | – | +0.00 |
+| 32 | Olaf | +0.12 | +0.63 | +0.61 | −1.00 | −0.01 | – | +0.00 |
+| 33 | Tahm Kench | +0.03 | +0.07 | +0.07 | −0.00 | −0.06 | – | +0.00 |
+| 34 | Ambessa | −0.19 | −1.00 | +1.00 | −1.00 | +0.20 | – | +0.00 |
+| 35 | Ornn | −0.24 | −0.07 | −0.07 | −1.00 | +0.13 | – | +0.00 |
+| 36 | Tryndamere | −0.35 | −1.00 | −1.00 | +1.00 | −0.09 | – | +0.00 |
+| 37 | Aurora | −0.54 | −0.94 | −0.94 | −0.19 | +0.11 | −0.46 | +0.00 |
+| 38 | Quinn | −0.68 | −0.98 | −0.59 | −0.97 | −0.02 | −0.87 | +0.00 |
+| 39 | Skarner | −0.76 | −1.00 | −1.00 | −1.00 | +0.10 | – | +0.00 |
+| 40 | Singed | −0.76 | −0.97 | −0.97 | −1.00 | −0.01 | – | +0.00 |
+| 41 | Pantheon | −0.77 | −1.00 | −1.00 | −0.96 | +0.01 | – | +0.00 |
+| 42 | Shen | −0.77 | −1.00 | −1.00 | −1.00 | +0.07 | – | +0.00 |
+| 43 | Akali | −0.78 | −1.00 | −1.00 | −1.00 | −0.00 | – | +0.00 |
+| 44 | Sett | −0.78 | −1.00 | −1.00 | −1.00 | −0.02 | – | +0.00 |
+| 45 | Urgot | −0.79 | −1.00 | −1.00 | −1.00 | +0.08 | −1.00 | +0.00 |
+
+## Interaction ledger (partial confidence)
+
 Every champion ranked by what its kit does against Rumble's, from the interaction ledger: projectile blocks, spell shields,
 parries, dash stops, crowd control and its defenses, range and more (PLAN.md §5). This ranking is **partial**: it weighs the
 interactions but doesn't play the fight out. The duel simulator replaces it as each champion's behavior is verified.
@@ -8,59 +62,59 @@ interactions but doesn't play the fight out. The duel simulator replaces it as e
 A hard counter shuts down part of a kit every time it is used (projectile block, attack dodge, attack block, blind, disarm, attack speed slow, attack reflect, dash stop, grounding, range) with an impact of 0.4 or more (0.5 for range).
 Run `npm run matchup -- <champion> Rumble` for the full ledger of a matchup, with sources.
 
-## Top 10
+### Top 10
 
-### 1. Bard (net +1.27)
+#### 1. Bard (net +1.27)
 
 - **0.72** range: Bard's basic attacks reach 375 units farther than Rumble's (500 vs 125 attack range). Rumble has no dash or blink to close the gap. (Bard basic attacks → Rumble basic attacks)
 - **0.55** untargetable: Tempered Fate makes Bard untargetable, dodging Rumble's The Equalizer. Untargetable for 2.5 s, long enough to use ahead of The Equalizer. (Bard R Tempered Fate → Rumble R The Equalizer)
 
-### 2. Xayah (net +1.25)
+#### 2. Xayah (net +1.25)
 
 - **0.77** range: Xayah's basic attacks reach 400 units farther than Rumble's (525 vs 125 attack range). Rumble has no dash or blink to close the gap. (Xayah basic attacks → Rumble basic attacks)
 - **0.48** untargetable: Featherstorm makes Xayah untargetable, dodging Rumble's The Equalizer. Untargetable for 1.5 s, long enough to use ahead of The Equalizer. (Xayah R Featherstorm → Rumble R The Equalizer)
 
-### 3. Elise (net +1.20)
+#### 3. Elise (net +1.20)
 
 - **0.65** range: Elise's basic attacks reach 425 units farther than Rumble's (550 vs 125 attack range). Rumble has no dash or blink to close the gap. (Elise basic attacks → Rumble basic attacks)
 - **0.55** untargetable: Rappel makes Elise untargetable, dodging Rumble's The Equalizer. Untargetable for 0.6 s; The Equalizer takes 1.65 s to land, enough to react. (Elise E Rappel → Rumble R The Equalizer)
 
-### 4. Yuumi (net +1.19)
+#### 4. Yuumi (net +1.19)
 
 - **0.64** range: Yuumi's basic attacks reach 300 units farther than Rumble's (425 vs 125 attack range). Rumble has no dash or blink to close the gap. (Yuumi basic attacks → Rumble basic attacks)
 - **0.55** untargetable: You and Me! makes Yuumi untargetable, dodging Rumble's The Equalizer. Untargetable for ?; The Equalizer takes 1.65 s to land, enough to react. Does not destroy inbound projectiles, special cased to be targetable to turrets. (Yuumi W You and Me! → Rumble R The Equalizer)
 
-### 5. Kindred (net +1.16)
+#### 5. Kindred (net +1.16)
 
 - **0.94** range: Kindred's basic attacks reach 375 units farther than Rumble's (500 vs 125 attack range). Rumble has no dash or blink to close the gap. (Kindred basic attacks → Rumble basic attacks)
 - **0.22** invulnerable: Lamb's Respite makes Kindred invulnerable to Rumble's The Equalizer (its crowd control still applies). Invulnerable for ?; The Equalizer takes 1.65 s to land, enough to react. (Kindred R Lamb's Respite → Rumble R The Equalizer)
 
-### 6. Aurora (net +1.06)
+#### 6. Aurora (net +1.06)
 
 - **0.58** range: Aurora's basic attacks reach 425 units farther than Rumble's (550 vs 125 attack range). Rumble has no dash or blink to close the gap. (Aurora basic attacks → Rumble basic attacks)
 - **0.48** untargetable: Between Worlds makes Aurora untargetable, dodging Rumble's The Equalizer. Untargetable for 0.4 s; The Equalizer takes 1.65 s to land, enough to react. Does not destroy inbound projectiles. (Aurora R Between Worlds → Rumble R The Equalizer)
 
-### 7. Teemo (net +1.06)
+#### 7. Teemo (net +1.06)
 
 - **0.68** range: Teemo's basic attacks reach 375 units farther than Rumble's (500 vs 125 attack range). Rumble has no dash or blink to close the gap. (Teemo basic attacks → Rumble basic attacks)
 - **0.38** blind: Blinding Dart's blind makes Rumble's basic attacks miss for 3 s. Blind for 3 s on a 7 s cooldown. (Teemo Q Blinding Dart → Rumble basic attacks)
 
-### 8. Kayle (net +1.00)
+#### 8. Kayle (net +1.00)
 
 - **0.72** range: Kayle's basic attacks reach 500 units farther than Rumble's (625 vs 125 attack range). Rumble has no dash or blink to close the gap. (Kayle basic attacks → Rumble basic attacks)
 - **0.28** invulnerable: Divine Judgment makes Kayle invulnerable to Rumble's The Equalizer (its crowd control still applies). Invulnerable for 2.5 s, long enough to use ahead of The Equalizer. (Kayle R Divine Judgment → Rumble R The Equalizer)
 
-### 9. Lissandra (net +0.99)
+#### 9. Lissandra (net +0.99)
 
 - **0.55** untargetable: Frozen Tomb makes Lissandra untargetable, dodging Rumble's The Equalizer. Untargetable for 2.5 s, long enough to use ahead of The Equalizer. (Lissandra R Frozen Tomb → Rumble R The Equalizer)
 - **0.44** range: Lissandra's basic attacks reach 425 units farther than Rumble's (550 vs 125 attack range). Rumble has no dash or blink to close the gap. (Lissandra basic attacks → Rumble basic attacks)
 
-### 10. Lulu (net +0.99)
+#### 10. Lulu (net +0.99)
 
 - **0.72** range: Lulu's basic attacks reach 425 units farther than Rumble's (550 vs 125 attack range). Rumble has no dash or blink to close the gap. (Lulu basic attacks → Rumble basic attacks)
 - **0.27** disarm: Whimsy disarms Rumble for 2 s: no basic attacks. Disarm for 2 s on a 18 s cooldown. (Lulu W Whimsy → Rumble basic attacks)
 
-## Full ranking
+### Full ranking
 
 | # | Champion | Net | For | Against | Hard counters |
 |--:|---|--:|--:|--:|---|

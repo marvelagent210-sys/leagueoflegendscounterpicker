@@ -220,25 +220,25 @@
               "kind": "level",
               "values": [
                 10,
-                12.352941176470589,
-                14.705882352941178,
-                17.058823529411764,
-                19.411764705882355,
-                21.764705882352942,
-                24.11764705882353,
-                26.470588235294116,
-                28.823529411764707,
-                31.176470588235293,
-                33.529411764705884,
-                35.88235294117647,
-                38.23529411764706,
-                40.58823529411765,
-                42.94117647058823,
-                45.294117647058826,
-                47.64705882352941,
+                12.3529411764706,
+                14.7058823529412,
+                17.0588235294118,
+                19.4117647058824,
+                21.7647058823529,
+                24.1176470588235,
+                26.4705882352941,
+                28.8235294117647,
+                31.1764705882353,
+                33.5294117647059,
+                35.8823529411765,
+                38.2352941176471,
+                40.5882352941177,
+                42.9411764705882,
+                45.2941176470588,
+                47.6470588235294,
                 50,
-                52.35294117647059,
-                54.705882352941174
+                52.3529411764706,
+                54.7058823529412
               ],
               "past18": "wiki"
             },
@@ -501,7 +501,13 @@
             "conditional": false
           }
         ],
-        "values": []
+        "values": [],
+        "tips": [
+          {
+            "text": "same",
+            "tip": "parallel to original cast direction"
+          }
+        ]
       },
       {
         "text": "If the primary target is a non-champion, the ball knocks back further and creates a larger explosion. Ultra Mega Fire Kick refunds 50% of its mana cost if it hits at least one champion with the fireball or explosion.",
@@ -883,7 +889,13 @@
         "text": "Recast: Milio commands the fuemigo to follow the target allied champion to within 150-units, placing the recast on a 0.5-second static cooldown.",
         "leveling": [],
         "mechanics": [],
-        "values": []
+        "values": [],
+        "tips": [
+          {
+            "text": "static",
+            "tip": "Unaffected by ability haste"
+          }
+        ]
       },
       {
         "text": "Milio counts as an allied champion for this ability. Cozy Campfire may grant Fired Up! upon being summoned and at most once every 3 seconds thereafter.",

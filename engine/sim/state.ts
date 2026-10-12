@@ -5,7 +5,7 @@
  */
 import type { DamageType } from "../rules/damage";
 import type { ShieldType } from "../rules/defense";
-import type { AttackSplit, Effect, FighterSpec } from "./spec";
+import type { AttackSplit, Effect, FighterSpec, PetSpec } from "./spec";
 
 export type Side = 0 | 1;
 
@@ -21,7 +21,8 @@ export interface Status {
   charges?: number;
   shieldType?: ShieldType;
   priority?: boolean;
-  dot?: { damageType: DamageType; perHit: number; intervalTicks: number; nextTick: number };
+  /** `label`: what its ticks are logged as (the ability's name). */
+  dot?: { damageType: DamageType; perHit: number; intervalTicks: number; nextTick: number; label?: string };
   empower?: { attacks: number; onHit: Effect[]; bonusRange: number; uncancellable: boolean; split?: AttackSplit; windup?: number };
   /** What a triggered state does (antiDash), and the ability it comes from. */
   effects?: Effect[];
@@ -30,6 +31,8 @@ export interface Status {
   x?: number;
   /** Identifies a kit hook's buff, so setting it again replaces it. */
   memoKey?: string;
+  /** Crowd control most cleanses can't remove (non-dispellable). */
+  sticky?: boolean;
 }
 
 export type Action =
@@ -42,6 +45,10 @@ export type Action =
       onHit: Effect[];
       bonusRange: number;
       split?: AttackSplit;
+      /** An attack on a pet (by id) rather than on the enemy champion. */
+      pet?: number;
+      /** The abilities whose empowerments this attack spent: their post-effect cooldowns wait for it to land. */
+      empowered?: string[];
     }
   | { kind: "cast"; ability: string; startTick: number; endTick: number; aim?: Aim }
   | { kind: "channel"; ability: string; startTick: number; endTick: number; nextTick: number; intervalTicks: number }
@@ -58,9 +65,17 @@ export type Action =
       /** Passes through the enemy, hitting it once on the way (`hit` once it has). */
       through?: boolean;
       hit?: boolean;
+      /** A charge's speed: `from` (units a second) plus `amount` every `everyTicks`, up to `max`. */
+      ramp?: { from: number; amount: number; everyTicks: number; max: number };
+      /** A charge the enemy may sidestep: whether it lands, or the share of its hit that counts. */
+      connects?: boolean;
+      scale?: number;
+      /** A charge that dashes at `speed` once within `within` units of the enemy, and the tick it did (`lockedTick`). */
+      lockOn?: { within: number; speed: number };
+      lockedTick?: number;
     };
 
-/** Where a location-targeted dash goes: toward the enemy (1) or away (-1), and how far. */
+/** Where a location-targeted dash or field goes: toward the enemy (1) or away (-1), and how far. */
 export interface Aim {
   direction: -1 | 1;
   distance?: number;
@@ -76,6 +91,12 @@ export interface Unit {
   statuses: Status[];
   /** Tick each ability is next ready, by ability key. */
   cooldownReady: Record<string, number>;
+  /** Post-effect cooldowns waiting for their cast's effect to end: cooldown key to ability key. */
+  cooldownHeld: Record<string, string>;
+  /** Refunds that came while a cooldown was held (post-effect): they shorten it when it starts. */
+  pendingRefunds: Record<string, { seconds: number; fraction: number }>;
+  /** Abilities with charges, by cooldown key: how many are stocked and when the next one comes (absent: full). */
+  charges: Record<string, { count: number; nextTick: number }>;
   /** First tick a new attack windup may start. */
   attackReadyTick: number;
   action?: Action;
@@ -83,13 +104,27 @@ export interface Unit {
   move: -1 | 0 | 1;
   /** Which way the unit actually walked last tick, relative to the enemy: what the enemy sees. */
   moved: -1 | 0 | 1;
-  /** Forced movement from a knock back or pull, in units per tick (positive is away from the enemy). */
-  forced?: { endTick: number; perTick: number };
+  /**
+   * Forced movement from a knock back or pull, in units per tick (positive is away from the
+   * enemy). A throw over the enemy (`over`, Fling) moves along the line instead (positive is
+   * toward larger x), passing through it.
+   */
+  forced?: { endTick: number; perTick: number; over?: boolean };
+  /**
+   * Carried by the enemy until `endTick` (Ixtal's Impact, Devour): held `offset` units from its
+   * center, on the side (`dir`, +1 or -1 along the line) it was on when grabbed.
+   */
+  attached?: { offset: number; dir: 1 | -1; endTick: number };
   /** Recastable abilities in progress, by root ability key: the last stage cast and when the window closes. */
   chains: Record<string, { stage: number; castTick: number; until: number }>;
   /** Free-form state for behaviors and kit hooks. */
   memory: Record<string, number | string | boolean>;
   alive: boolean;
+  /**
+   * Died, but fights on for a while (Glory in Death): the death counts, and if the enemy dies
+   * before it is over, both have died.
+   */
+  fallen?: boolean;
   totals: { damageDealt: number; damageTaken: number; healing: number; absorbed: number };
 }
 
@@ -115,13 +150,29 @@ export interface Missile {
   onHit: Effect[];
   /** For basic attacks: the attack's state when it launched. */
   attack?: { blinded: boolean; bonusOnHit: Effect[]; split?: AttackSplit };
+  /** A basic attack flying at a pet (by id). */
+  pet?: number;
+}
+
+/** A pet on the line (engine/sim/pets.ts). */
+export interface Pet {
+  id: number;
+  owner: Side;
+  spec: PetSpec;
+  x: number;
+  hp: number;
+  endTick: number;
+  /** The first tick it may attack again. */
+  nextAttackTick: number;
+  /** Free-form state for its owner's kit hooks (a turret's beam charge, ...). */
+  memory: Record<string, number | string | boolean>;
 }
 
 export interface Zone {
   id: number;
   owner: Side;
-  /** A trap goes off when the enemy's hitbox touches it. */
-  kind: "projectileWall" | "delayedArea" | "trap";
+  /** A trap goes off when the enemy's hitbox touches it; a field pulses while it lasts. */
+  kind: "projectileWall" | "delayedArea" | "trap" | "field";
   /** Tick the enemy could first see it coming (the start of the cast). */
   seenTick: number;
   x: number;
@@ -132,12 +183,42 @@ export interface Zone {
   onHit?: Effect[];
   connects?: boolean;
   scale?: number;
-  /** Other effects where the enemy's center is, as absolute positions (sweet spots). */
+  /** Effects in place of `onHit` where the enemy's center is, as absolute positions (sweet spots). */
   bands?: Array<{ from: number; to: number; onHit: Effect[] }>;
   /** For areas that move with the caster: offsets from its center when they land. */
   follow?: { near: number; far: number; bands?: Array<{ from: number; to: number; onHit: Effect[] }> };
   /** Hits by where the enemy's center is rather than its hitbox. */
   centered?: boolean;
+  /** Fields: ticks between pulses and the tick of the next one. */
+  interval?: number;
+  nextTick?: number;
+  /** Fields that move with their owner, centered `offset` units toward the enemy. */
+  attached?: { offset: number };
+  /** Fields that move toward the enemy, this many units a tick. */
+  chase?: number;
+  /** Fields: effects on the owner while its center is inside. */
+  onOwner?: Effect[];
+}
+
+/**
+ * Terrain an ability raised on the line (Pillar of Ice, Dark Procession's ring): units can't
+ * dash or be pushed into it, and a knock back that meets it stops there.
+ */
+export interface Terrain {
+  id: number;
+  owner: Side;
+  /** The stretch of the line it fills. */
+  from: number;
+  to: number;
+  endTick: number;
+  /** Impassable to the owner's enemy only (Dark Procession). */
+  enemyOnly?: boolean;
+  /**
+   * A round obstacle in open ground (Pillar of Ice): walking units go around it, which along
+   * the line is crossing it at 2/pi of their speed (half its circumference for its diameter).
+   * Without it the terrain is a wall across the line, as a ring around a unit is.
+   */
+  round?: boolean;
 }
 
 /** Effects waiting for their tick (see the "delayed" effect). */
@@ -229,6 +310,8 @@ export interface World {
   units: [Unit, Unit];
   missiles: Missile[];
   zones: Zone[];
+  terrain: Terrain[];
+  pets: Pet[];
   scheduled: Scheduled[];
   nextId: number;
   /** Probability of this branch. */
@@ -251,6 +334,9 @@ export function newUnit(spec: FighterSpec, side: Side, x: number, maxHp: number,
     resource,
     statuses: [],
     cooldownReady: {},
+    cooldownHeld: {},
+    pendingRefunds: {},
+    charges: {},
     attackReadyTick: 0,
     move: 0,
     moved: 0,
@@ -274,9 +360,13 @@ function cloneUnit(unit: Unit): Unit {
     ...unit,
     statuses: unit.statuses.map(cloneStatus),
     cooldownReady: { ...unit.cooldownReady },
+    cooldownHeld: { ...unit.cooldownHeld },
+    pendingRefunds: Object.fromEntries(Object.entries(unit.pendingRefunds).map(([k, v]) => [k, { ...v }])),
+    charges: Object.fromEntries(Object.entries(unit.charges).map(([k, v]) => [k, { ...v }])),
     chains: Object.fromEntries(Object.entries(unit.chains).map(([k, v]) => [k, { ...v }])),
     ...(unit.action ? { action: unit.action.kind === "dash" && unit.action.resume ? { ...unit.action, resume: { ...unit.action.resume } } : { ...unit.action } } : {}),
     ...(unit.forced ? { forced: { ...unit.forced } } : {}),
+    ...(unit.attached ? { attached: { ...unit.attached } } : {}),
     memory: { ...unit.memory },
     totals: { ...unit.totals },
   };
@@ -288,6 +378,8 @@ export function cloneWorld(world: World): World {
     units: [cloneUnit(world.units[0]), cloneUnit(world.units[1])],
     missiles: world.missiles.map((m) => ({ ...m, ...(m.attack ? { attack: { ...m.attack } } : {}) })),
     zones: world.zones.map((z) => ({ ...z })),
+    terrain: world.terrain.map((t) => ({ ...t })),
+    pets: world.pets.map((p) => ({ ...p, memory: { ...p.memory } })),
     scheduled: world.scheduled.map((e) => ({ ...e })),
     modes: [...world.modes],
     log: world.settings.log ? [...world.log] : world.log,

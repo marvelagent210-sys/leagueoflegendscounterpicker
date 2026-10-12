@@ -1,6 +1,6 @@
 /** Everything the engine knows about one champion, with links to the wiki revisions it read. */
 import { useMemo } from "react";
-import type { AbilityRecord } from "../../../engine/abilities";
+import type { AbilityRecord, PetRecord, RuneRecord } from "../../../engine/abilities";
 import { FIELD_LABELS, KIND_LABELS, KIND_ORDER, amountAtMax, mechanicLine, wikiUrl } from "../../../engine/abilityText";
 import { type CompiledKit, compileKit } from "../../../engine/kits/compile";
 import { describeProfileAbility } from "../../../engine/profileText";
@@ -37,7 +37,7 @@ export function KitPage({ data, championId }: { data: AppData; championId: strin
       {!records.value && !records.error ? <Loading>Loading {champion.name}'s abilities…</Loading> : null}
       {records.value ? (
         <>
-          {KITS[champion.id] ? <SimulatorKit champion={champion} records={records.value} /> : null}
+          {KITS[champion.id] ? <SimulatorKit champion={champion} records={records.value} pets={data.pets.get(champion.id) ?? []} runes={data.runes} /> : null}
           <FightProfile data={data} champion={champion} />
           <WikiAbilities records={records.value} />
         </>
@@ -93,18 +93,18 @@ function BaseStats({ champion }: { champion: Champion }) {
   );
 }
 
-function SimulatorKit({ champion, records }: { champion: Champion; records: AbilityRecord[] }) {
+function SimulatorKit({ champion, records, pets, runes }: { champion: Champion; records: AbilityRecord[]; pets: PetRecord[]; runes: RuneRecord[] }) {
   const { settings } = useSettings();
   const options = kitOptionsFor(settings, champion.id);
   const kit = useMemo<CompiledKit | Error>(() => {
     const module = KITS[champion.id];
     if (!module) return new Error(`${champion.name} has no simulator kit.`);
     try {
-      return compileKit(champion, records, module, options);
+      return compileKit(champion, records, module, options, pets, runes);
     } catch (error) {
       return error instanceof Error ? error : new Error(String(error));
     }
-  }, [champion, records, options]);
+  }, [champion, records, options, pets, runes]);
   if (kit instanceof Error) return <ErrorBox error={kit} />;
   const evidence = [...new Map(kit.evidence.map((e) => [`${e.ability}\u0000${e.text}`, e])).values()];
   return (

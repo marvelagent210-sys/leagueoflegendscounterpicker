@@ -1,5 +1,59 @@
 # Counters to Kennen (patch 26.20)
 
+## Simulated duels (full confidence)
+
+The duel simulator played each of the 45 other champions with a simulator kit against Kennen: both at level 20 with 15,000 gold of plain stats, each side's spent against the other's, through six scenarios (PLAN.md §6). Scores run from −1 (Kennen wins every time) to +1 (the champion does). Run `npm run duel -- <champion> Kennen --log brawl` to watch a fight.
+
+| # | Champion | Score | You engage | Enemy engages | Brawl | Short trade | Spacing | Escape |
+|--:|---|--:|--:|--:|--:|--:|--:|--:|
+| 1 | Poppy | +0.84 | +1.00 | +1.00 | +1.00 | +0.29 | +1.00 | +0.00 |
+| 2 | K'Sante | +0.82 | +1.00 | +1.00 | +1.00 | +0.14 | +1.00 | +0.00 |
+| 3 | Malphite | +0.82 | +1.00 | +1.00 | +1.00 | +0.14 | +0.99 | +0.00 |
+| 4 | Renekton | +0.81 | +1.00 | +1.00 | +1.00 | +0.07 | +1.00 | +0.00 |
+| 5 | Fiora | +0.80 | +1.00 | +1.00 | +1.00 | +0.01 | +1.00 | +0.00 |
+| 6 | Dr. Mundo | +0.80 | +1.00 | +1.00 | +1.00 | +0.00 | +1.00 | +0.00 |
+| 7 | Teemo | +0.80 | +1.00 | +1.00 | +1.00 | +0.12 | – | +0.00 |
+| 8 | Kayle | +0.79 | +1.00 | +1.00 | +1.00 | +0.07 | – | +0.00 |
+| 9 | Nasus | +0.79 | +1.00 | +1.00 | +1.00 | −0.07 | +0.98 | +0.00 |
+| 10 | Udyr | +0.78 | +1.00 | +1.00 | +1.00 | −0.12 | +1.00 | +0.00 |
+| 11 | Jax | +0.75 | +0.83 | +1.00 | +0.91 | +0.04 | +1.00 | +0.00 |
+| 12 | Skarner | +0.69 | +1.00 | +1.00 | +1.00 | +0.07 | −0.18 | +0.00 |
+| 13 | Urgot | +0.67 | +1.00 | +1.00 | +0.90 | +0.12 | −0.25 | +0.00 |
+| 14 | Jayce | +0.64 | +1.00 | +1.00 | +1.00 | −0.01 | −0.61 | +0.00 |
+| 15 | Gnar | +0.62 | +1.00 | +1.00 | +1.00 | +0.03 | −0.83 | +0.00 |
+| 16 | Trundle | +0.61 | +1.00 | +1.00 | +1.00 | −0.37 | −0.32 | +0.00 |
+| 17 | Sett | +0.61 | +1.00 | +1.00 | +1.00 | +0.07 | −0.99 | +0.00 |
+| 18 | Tryndamere | +0.61 | +1.00 | +1.00 | +1.00 | −0.07 | −0.78 | +0.00 |
+| 19 | Olaf | +0.60 | +1.00 | +1.00 | +1.00 | −0.01 | −1.00 | +0.00 |
+| 20 | Camille | +0.58 | +1.00 | +1.00 | +1.00 | −0.11 | −1.00 | +0.00 |
+| 21 | Darius | +0.57 | +1.00 | +1.00 | +1.00 | −0.19 | −0.99 | +0.00 |
+| 22 | Volibear | +0.48 | +0.82 | +0.83 | +0.81 | −0.25 | −0.54 | +0.00 |
+| 23 | Zaahen | +0.46 | +1.00 | +1.00 | −0.69 | −0.01 | +1.00 | +0.00 |
+| 24 | Sion | +0.31 | +0.05 | +0.04 | +0.97 | −0.01 | +0.92 | +0.00 |
+| 25 | Mordekaiser | +0.29 | +0.81 | +0.29 | +0.55 | +0.01 | −0.97 | +0.00 |
+| 26 | Aatrox | +0.28 | +0.59 | +0.94 | −0.02 | −0.02 | −0.96 | +0.00 |
+| 27 | Tahm Kench | +0.21 | +0.40 | +0.40 | +0.11 | −0.01 | −0.06 | +0.00 |
+| 28 | Gwen | +0.16 | +1.00 | +1.00 | −0.97 | −0.29 | −1.00 | +0.00 |
+| 29 | Ornn | +0.00 | −0.02 | −0.01 | +0.01 | +0.12 | −0.14 | +0.00 |
+| 30 | Illaoi | −0.17 | −0.60 | −0.57 | +0.82 | +0.02 | −0.44 | +0.00 |
+| 31 | Shen | −0.17 | −0.61 | −0.11 | +0.03 | +0.13 | −0.18 | +0.00 |
+| 32 | Kled | −0.27 | +1.00 | −0.93 | −0.99 | −0.15 | −0.71 | +0.00 |
+| 33 | Irelia | −0.37 | −1.00 | −1.00 | +1.00 | +0.04 | −0.75 | +0.00 |
+| 34 | Riven | −0.45 | −1.00 | −1.00 | +0.00 | +0.08 | +0.39 | +0.00 |
+| 35 | Cho'Gath | −0.50 | −0.38 | −0.38 | −1.00 | −0.10 | −0.93 | +0.00 |
+| 36 | Rumble | −0.65 | −1.00 | −1.00 | −1.00 | −0.04 | +0.56 | +0.00 |
+| 37 | Singed | −0.73 | −0.99 | −0.78 | −0.92 | −0.03 | −1.00 | +0.00 |
+| 38 | Yasuo | −0.74 | −1.00 | −1.00 | −1.00 | +0.08 | −0.50 | +0.00 |
+| 39 | Garen | −0.74 | −1.00 | −1.00 | −1.00 | +0.07 | −0.54 | +0.00 |
+| 40 | Quinn | −0.76 | −0.98 | −0.98 | −1.00 | +0.04 | – | +0.00 |
+| 41 | Aurora | −0.77 | −1.00 | −1.00 | −1.00 | +0.06 | – | +0.00 |
+| 42 | Yone | −0.78 | −0.94 | −1.00 | −1.00 | +0.06 | −1.00 | +0.00 |
+| 43 | Ambessa | −0.79 | −1.00 | −1.00 | −1.00 | +0.05 | −1.00 | +0.00 |
+| 44 | Pantheon | −0.79 | −1.00 | −1.00 | −1.00 | +0.04 | −1.00 | +0.00 |
+| 45 | Akali | −0.80 | −1.00 | −1.00 | −1.00 | −0.04 | −0.96 | +0.00 |
+
+## Interaction ledger (partial confidence)
+
 Every champion ranked by what its kit does against Kennen's, from the interaction ledger: projectile blocks, spell shields,
 parries, dash stops, crowd control and its defenses, range and more (PLAN.md §5). This ranking is **partial**: it weighs the
 interactions but doesn't play the fight out. The duel simulator replaces it as each champion's behavior is verified.
@@ -8,61 +62,61 @@ interactions but doesn't play the fight out. The duel simulator replaces it as e
 A hard counter shuts down part of a kit every time it is used (projectile block, attack dodge, attack block, blind, disarm, attack speed slow, attack reflect, dash stop, grounding, range) with an impact of 0.4 or more (0.5 for range).
 Run `npm run matchup -- <champion> Kennen` for the full ledger of a matchup, with sources.
 
-## Top 10
+### Top 10
 
-### 1. Elise (net +0.75)
+#### 1. Elise (net +0.75)
 
 - **0.55** untargetable: Rappel makes Elise untargetable, dodging Kennen's Slicing Maelstrom. Untargetable for 0.6 s; Slicing Maelstrom takes 0.25 s to land, enough to react. (Elise E Rappel → Kennen R Slicing Maelstrom)
 - **0.40** untargetable: Rappel makes Elise untargetable, dodging Kennen's Mark of the Storm. Untargetable for 0.6 s, timed to Mark of the Storm. (Elise E Rappel → Kennen I Mark of the Storm)
 
-### 2. Sivir (net +0.75)
+#### 2. Sivir (net +0.75)
 
 - **0.55** spell shield: Spell Shield's spell shield blocks Kennen's Slicing Maelstrom. Spell shield for 1.5 s, long enough to use ahead of Slicing Maelstrom. A spell shield blocks only the first enemy ability that reaches it. (Sivir E Spell Shield → Kennen R Slicing Maelstrom)
 - **0.40** spell shield: Spell Shield's spell shield blocks Kennen's Mark of the Storm. Spell shield for 1.5 s, long enough to use ahead of Mark of the Storm. A spell shield blocks only the first enemy ability that reaches it. (Sivir E Spell Shield → Kennen I Mark of the Storm)
 
-### 3. Kayle (net +0.69)
+#### 3. Kayle (net +0.69)
 
 - **0.55** invulnerable: Divine Judgment makes Kayle invulnerable to Kennen's Slicing Maelstrom. Invulnerable for 2.5 s, long enough to use ahead of Slicing Maelstrom. (Kayle R Divine Judgment → Kennen R Slicing Maelstrom)
 - **0.14** range: Kayle's basic attacks reach 75 units farther than Kennen's (625 vs 550 attack range). Kennen has no dash or blink to close the gap. (Kayle basic attacks → Kennen basic attacks)
 
-### 4. Aurora (net +0.68)
+#### 4. Aurora (net +0.68)
 
 - **0.55** untargetable: Between Worlds makes Aurora untargetable, dodging Kennen's Slicing Maelstrom. Untargetable for 0.4 s; Slicing Maelstrom takes 0.25 s to land, enough to react. Does not destroy inbound projectiles. (Aurora R Between Worlds → Kennen R Slicing Maelstrom)
 - **0.25** untargetable: Between Worlds makes Aurora untargetable, dodging Kennen's Mark of the Storm. Untargetable for 0.4 s, timed to Mark of the Storm. Does not destroy inbound projectiles. (Aurora R Between Worlds → Kennen I Mark of the Storm)
 
-### 5. Bard (net +0.68)
+#### 5. Bard (net +0.68)
 
 - **0.55** untargetable: Tempered Fate makes Bard untargetable, dodging Kennen's Slicing Maelstrom. Untargetable for 2.5 s, long enough to use ahead of Slicing Maelstrom. (Bard R Tempered Fate → Kennen R Slicing Maelstrom)
 - **0.26** untargetable: Tempered Fate makes Bard untargetable, dodging Kennen's Mark of the Storm. Untargetable for 2.5 s, long enough to use ahead of Mark of the Storm. (Bard R Tempered Fate → Kennen I Mark of the Storm)
 
-### 6. Lissandra (net +0.68)
+#### 6. Lissandra (net +0.68)
 
 - **0.55** untargetable: Frozen Tomb makes Lissandra untargetable, dodging Kennen's Slicing Maelstrom. Untargetable for 2.5 s, long enough to use ahead of Slicing Maelstrom. (Lissandra R Frozen Tomb → Kennen R Slicing Maelstrom)
 - **0.26** untargetable: Frozen Tomb makes Lissandra untargetable, dodging Kennen's Mark of the Storm. Untargetable for 2.5 s, long enough to use ahead of Mark of the Storm. (Lissandra R Frozen Tomb → Kennen I Mark of the Storm)
 
-### 7. Xayah (net +0.68)
+#### 7. Xayah (net +0.68)
 
 - **0.55** untargetable: Featherstorm makes Xayah untargetable, dodging Kennen's Slicing Maelstrom. Untargetable for 1.5 s, long enough to use ahead of Slicing Maelstrom. (Xayah R Featherstorm → Kennen R Slicing Maelstrom)
 - **0.25** untargetable: Featherstorm makes Xayah untargetable, dodging Kennen's Mark of the Storm. Untargetable for 1.5 s, long enough to use ahead of Mark of the Storm. (Xayah R Featherstorm → Kennen I Mark of the Storm)
 
-### 8. Vladimir (net +0.55)
+#### 8. Vladimir (net +0.55)
 
 - **0.55** untargetable: Sanguine Pool makes Vladimir untargetable, dodging Kennen's Slicing Maelstrom. Untargetable for 2 s, long enough to use ahead of Slicing Maelstrom. (Vladimir W Sanguine Pool → Kennen R Slicing Maelstrom)
 - **0.43** untargetable: Sanguine Pool makes Vladimir untargetable, dodging Kennen's Mark of the Storm. Untargetable for 2 s, long enough to use ahead of Mark of the Storm. (Vladimir W Sanguine Pool → Kennen I Mark of the Storm)
 - Watch out: Kennen's basic attacks reach 100 units farther than Vladimir's (550 vs 450 attack range).
 
-### 9. Kindred (net +0.55)
+#### 9. Kindred (net +0.55)
 
 - **0.55** invulnerable: Lamb's Respite makes Kindred invulnerable to Kennen's Slicing Maelstrom. Invulnerable for ?; Slicing Maelstrom takes 0.25 s to land, enough to react. (Kindred R Lamb's Respite → Kennen R Slicing Maelstrom)
 
-### 10. Fiora (net +0.54)
+#### 10. Fiora (net +0.54)
 
 - **0.55** parry: Riposte parries Kennen's Slicing Maelstrom. Parry for 0.75 s; Slicing Maelstrom takes 0.25 s to land, enough to react. (Fiora W Riposte → Kennen R Slicing Maelstrom)
 - **0.53** parry: Riposte parries Kennen's Mark of the Storm and stuns back. Parry for 0.75 s, timed to Mark of the Storm. Negating Mark of the Storm's immobilizing effect turns Riposte's slow into a stun (2 s). (Fiora W Riposte → Kennen I Mark of the Storm)
 - **0.07** attack speed slow: Riposte cuts Kennen's attack speed by 25% for 2 s. 2 s on a 16 s cooldown. (Fiora W Riposte → Kennen basic attacks)
 - Watch out: Kennen's basic attacks reach 400 units farther than Fiora's (550 vs 150 attack range).
 
-## Full ranking
+### Full ranking
 
 | # | Champion | Net | For | Against | Hard counters |
 |--:|---|--:|--:|--:|---|

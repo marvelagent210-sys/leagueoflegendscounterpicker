@@ -1,4 +1,6 @@
 import { describe, expect, it } from "vitest";
+import { heldUntil, skillshotChance } from "../../engine/sim/actions";
+import { createWorld, step } from "../../engine/sim/simulate";
 import { hitChance } from "../../engine/sim/hitModel";
 import { ability, fighter } from "./kits";
 import { castWhenReady, duel, idle, standStill, ticksOf } from "./helpers";
@@ -83,3 +85,19 @@ describe("branching on skillshots", () => {
     expect(outcome.timeline.some((e) => e.side === 0 && e.text.startsWith("stun"))).toBe(false);
   });
 });
+
+describe("held in place", () => {
+  it("by its own channel, unless it can walk through it (Judgment)", () => {
+    const channel = (mobile: boolean) => ability({ key: "E", cooldown: 100, delivery: { kind: "self" }, channel: { duration: 3, interruptible: false, mobile } });
+    for (const mobile of [false, true]) {
+      const w = createWorld({ fighters: [fighter(), fighter({ abilities: [channel(mobile)] })], distance: 500, modes: ["idle", "idle"] });
+      const spinner = w.units[1];
+      step(w, [idle, castWhenReady("E")]);
+      expect(spinner.action?.kind).toBe("channel");
+      // A skillshot landing in 1 s: certain on a unit held in place, a fair chance to step aside otherwise.
+      expect(heldUntil(spinner)).toBe(mobile ? -1 : spinner.action?.kind === "channel" ? spinner.action.endTick : 0);
+      expect(skillshotChance(w, spinner, w.tick, 1, 70) < 1).toBe(mobile);
+    }
+  });
+});
+

@@ -239,3 +239,63 @@ All 1 level-based formulas in the game files (1 linked to wiki values above):
 | Spell | Calculation | Rule | Level 1 | Level 18 | Level 20 |
 |---|---|---|--:|--:|--:|
 | QuinnPassive | BonusDamage | linear 15 → 120 over levels 1-18, continues past 18 | 15 | 120 | 132.353 |
+
+## Duel simulator kit (level 20, every ability at max rank)
+
+What the duel simulator fights with (`kits/champions/Quinn.ts`): every number is read from the wiki's ability data above at level 20; what the wiki doesn't say is listed under assumptions. Ratios are fractions of the stat (60% AD is 0.6 × AD).
+
+- Basic attack: range 525, missile at 2000/s.
+
+| Key | Ability | Cooldown (s) | Cast time (s) | Cost | Delivery | On the enemy | On itself |
+|---|---|--:|--:|---|---|---|---|
+| Q | Blinding Assault | 9 | 0.25 | 70 | skillshot 1050 long, 120 wide, at 1550/s | 205 + 100% bonus AD + 50% AP physical damage; nearsight to 350 units for 1.75 s | – |
+| E | Vault | 8 | 0 | 50 | dash target 600 units at 2500/s, hits within 0 | 140 + 20% bonus AD physical damage; knock back 50 units over 0.5 s; slow 25% for 1.5 s | – |
+| E2 | Vault (bounce) | 0 | 0 | – | dash away 525 units at 850/s; recast of E within 0.307 s, automatic | – | resets the attack timer |
+| R | Behind Enemy Lines | 3 (starts when its effect on the caster ends) | 0.25 | 0 | self; channel 2 s | – | when the channel completes: ghosted for 30 s; moveSpeedPercent 1.3 for 30 s |
+
+Effects marked by a mark or a role are completed by the kit's hooks (see the kit's source).
+
+### Assumptions
+
+- Valor marks the enemy on his own once Harrier's cooldown (by critical strike chance) has passed and no mark has stood for 1 second.
+- Vault's "very short" knock back is 50 units; its slow, decaying over 1.5 s, is taken as half its strength for the whole time.
+- Behind Enemy Lines is used only to get away, once the enemy is out of reach.
+
+### Wiki values read (34)
+
+| Ability | Value | Revision |
+|---|---|---|
+| Harrier | mark enemies hit with Harrier for 4 seconds | [4024765](https://wiki.leagueoflegends.com/en-us/Template:Data_Quinn/Harrier?oldid=4024765) |
+| Harrier | Quinn's basic attacks on-hit against Harrier targets are empowered to consume the mark to deal 15 – 120 (based on level) (+ 40% bonus AD) bonus physical damage. | [4024765](https://wiki.leagueoflegends.com/en-us/Template:Data_Quinn/Harrier?oldid=4024765) |
+| Harrier | (+ 40% bonus AD) bonus physical damage | [4024765](https://wiki.leagueoflegends.com/en-us/Template:Data_Quinn/Harrier?oldid=4024765) |
+| Harrier | if no Harrier targets exist for 1 second | [4024765](https://wiki.leagueoflegends.com/en-us/Template:Data_Quinn/Harrier?oldid=4024765) |
+| Harrier | staticCooldown: 7 / 6.33067 / 5.72535 / 5.1779 / 4.6828 / 4.23504 / 3.8301 / 3.46387 / 3.13266 / 2.83312 / 2.56223 (based on critical strike chance) | [4024765](https://wiki.leagueoflegends.com/en-us/Template:Data_Quinn/Harrier?oldid=4024765) |
+| Heightened Senses | Bonus Attack Speed: 28 / 41 / 54 / 67 / 80% | [4024767](https://wiki.leagueoflegends.com/en-us/Template:Data_Quinn/Heightened_Senses?oldid=4024767) |
+| Heightened Senses | Bonus Movement Speed: 20 / 25 / 30 / 35 / 40% | [4024767](https://wiki.leagueoflegends.com/en-us/Template:Data_Quinn/Heightened_Senses?oldid=4024767) |
+| Heightened Senses | she gains bonus attack speed and bonus movement speed for 2 seconds | [4024767](https://wiki.leagueoflegends.com/en-us/Template:Data_Quinn/Heightened_Senses?oldid=4024767) |
+| Blinding Assault | The primary target is nearsighted for 1.75 seconds if they are a champion, reducing their sight radius to 350 units | [4056272](https://wiki.leagueoflegends.com/en-us/Template:Data_Quinn/Blinding_Assault?oldid=4056272) |
+| Vault | speed: 2500 • 850 | [4024768](https://wiki.leagueoflegends.com/en-us/Template:Data_Quinn/Vault?oldid=4024768) |
+| Vault | targetRange: 600 | [4024768](https://wiki.leagueoflegends.com/en-us/Template:Data_Quinn/Vault?oldid=4024768) |
+| Vault | She then leaps back 525 units away from them | [4024768](https://wiki.leagueoflegends.com/en-us/Template:Data_Quinn/Vault?oldid=4024768) |
+| Vault | knocking them back a very short distance over 0.5 seconds | [4024768](https://wiki.leagueoflegends.com/en-us/Template:Data_Quinn/Vault?oldid=4024768) |
+| Vault | slowing them by 50% decaying over 1.5 seconds | [4024768](https://wiki.leagueoflegends.com/en-us/Template:Data_Quinn/Vault?oldid=4024768) |
+| Behind Enemy Lines | Quinn channels for 2 seconds, signaling Valor to pair up | [4021953](https://wiki.leagueoflegends.com/en-us/Template:Data_Quinn/Behind_Enemy_Lines?oldid=4021953) |
+| Behind Enemy Lines | Total Movement Speed Increase: 70 / 100 / 130% | [4021953](https://wiki.leagueoflegends.com/en-us/Template:Data_Quinn/Behind_Enemy_Lines?oldid=4021953) |
+| Behind Enemy Lines | causes her to lose the bonus total movement speed for 3 seconds | [4021953](https://wiki.leagueoflegends.com/en-us/Template:Data_Quinn/Behind_Enemy_Lines?oldid=4021953) |
+| Skystrike | Declaring a basic attack or casting Blinding Assault or Vault during Behind Enemy Lines automatically activates Skystrike | [4024769](https://wiki.leagueoflegends.com/en-us/Template:Data_Quinn/Skystrike?oldid=4024769) |
+| Behind Enemy Lines | Becoming immobilized, grounded, or silenced ends Behind Enemy Lines immediately and puts it on cooldown without performing Skystrike | [4021953](https://wiki.leagueoflegends.com/en-us/Template:Data_Quinn/Behind_Enemy_Lines?oldid=4021953) |
+| Skystrike | effectRadius: 700 | [4024769](https://wiki.leagueoflegends.com/en-us/Template:Data_Quinn/Skystrike?oldid=4024769) |
+| Skystrike | Physical Damage: 60 / 90 / 120 (+ 35% bonus AD) | [4024769](https://wiki.leagueoflegends.com/en-us/Template:Data_Quinn/Skystrike?oldid=4024769) |
+| Blinding Assault | cooldown: 11 / 10.5 / 10 / 9.5 / 9 | [4056272](https://wiki.leagueoflegends.com/en-us/Template:Data_Quinn/Blinding_Assault?oldid=4056272) |
+| Blinding Assault | cost: 50 / 55 / 60 / 65 / 70 | [4056272](https://wiki.leagueoflegends.com/en-us/Template:Data_Quinn/Blinding_Assault?oldid=4056272) |
+| Blinding Assault | castTime: 0.25 | [4056272](https://wiki.leagueoflegends.com/en-us/Template:Data_Quinn/Blinding_Assault?oldid=4056272) |
+| Blinding Assault | targetRange: 1050 | [4056272](https://wiki.leagueoflegends.com/en-us/Template:Data_Quinn/Blinding_Assault?oldid=4056272) |
+| Blinding Assault | width: 120 | [4056272](https://wiki.leagueoflegends.com/en-us/Template:Data_Quinn/Blinding_Assault?oldid=4056272) |
+| Blinding Assault | speed: 1550 | [4056272](https://wiki.leagueoflegends.com/en-us/Template:Data_Quinn/Blinding_Assault?oldid=4056272) |
+| Blinding Assault | Physical Damage: 65 / 100 / 135 / 170 / 205 (+ 80 / 85 / 90 / 95 / 100% bonus AD) (+ 50% AP) | [4056272](https://wiki.leagueoflegends.com/en-us/Template:Data_Quinn/Blinding_Assault?oldid=4056272) |
+| Vault | cooldown: 12 / 11 / 10 / 9 / 8 | [4024768](https://wiki.leagueoflegends.com/en-us/Template:Data_Quinn/Vault?oldid=4024768) |
+| Vault | cost: 50 | [4024768](https://wiki.leagueoflegends.com/en-us/Template:Data_Quinn/Vault?oldid=4024768) |
+| Vault | Physical damage: 40 / 65 / 90 / 115 / 140 (+ 20% bonus AD) | [4024768](https://wiki.leagueoflegends.com/en-us/Template:Data_Quinn/Vault?oldid=4024768) |
+| Behind Enemy Lines | cooldown: 3 | [4021953](https://wiki.leagueoflegends.com/en-us/Template:Data_Quinn/Behind_Enemy_Lines?oldid=4021953) |
+| Behind Enemy Lines | cost: 50 / 25 / 0 | [4021953](https://wiki.leagueoflegends.com/en-us/Template:Data_Quinn/Behind_Enemy_Lines?oldid=4021953) |
+| Behind Enemy Lines | castTime: 0.25 | [4021953](https://wiki.leagueoflegends.com/en-us/Template:Data_Quinn/Behind_Enemy_Lines?oldid=4021953) |

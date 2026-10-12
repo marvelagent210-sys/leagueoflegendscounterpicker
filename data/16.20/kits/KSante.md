@@ -268,3 +268,74 @@ All 3 level-based formulas in the game files (0 linked to wiki values above):
 | KSanteP | {281dd874} | breakpoints at levels 6, 11, 16 (level 1: 0.1) | 0.1 | 0.19 | 0.19 |
 | KSanteW_AllOut | {98da435c} | breakpoints at levels none (level 1: 40) | 40 | 244 | 268 |
 | KSanteW_AllOut | MaxMonsterDamage | breakpoints at levels none (level 1: 50) | 50 | 475 | 525 |
+
+## Duel simulator kit (level 20, every ability at max rank)
+
+What the duel simulator fights with (`kits/champions/KSante.ts`): every number is read from the wiki's ability data above at level 20; what the wiki doesn't say is listed under assumptions. Ratios are fractions of the stat (60% AD is 0.6 × AD).
+
+- Basic attack: range 150, melee.
+
+| Key | Ability | Cooldown (s) | Cast time (s) | Cost | Delivery | On the enemy | On itself |
+|---|---|--:|--:|---|---|---|---|
+| Q | Ntofo Strikes | 3.5 | 0.4 | 20 | area 0 to 465 units ahead, lands after 0 s | 190 + 40% bonus armor + 40% bonus magic resistance physical damage; slow 80% for 0.5 s | resets the attack timer |
+| Q3 | Ntofo Strikes (empowered) | 3.5 | 0.4 | 20 | area 0 to 930 units ahead, lands after 0 s | 190 + 40% bonus armor + 40% bonus magic resistance physical damage; slow 80% for 0.5 s; pull 930 units over 0.65 s; after 0.65 s: stun for 0.8 s | resets the attack timer |
+| W | Path Maker | 10 (starts after the dash) | 0.9 | 65 | dash toward 450 units at 1500/s, hits within 50 | 165 + 8% target's maximum health + 2% of target's maximum health per 100 bonus armor + 2% of target's maximum health per 100 bonus magic resistance physical damage; knock back 150 units over 0.115 s; after 0.115 s: stun for 1.75 s | as the cast starts: displacementImmune for 0.9 s; damageReduction 0.25 for 0.9 s |
+| WallOut | Path Maker (All Out) | 10 (starts after the dash) | 0.9 | 65 | dash toward 450 units at 1800/s, hits within 50 | 165 + 8% target's maximum health + 2% of target's maximum health per 100 bonus armor + 2% of target's maximum health per 100 bonus magic resistance physical damage; 132 + 6.4% target's maximum health + 1.6% of target's maximum health per 100 bonus armor + 1.6% of target's maximum health per 100 bonus magic resistance true damage (Path Maker (true damage)) | as the cast starts: displacementImmune for 0.9 s; damageReduction 0.7 for 0.9 s |
+| E | Footwork | 8 | 0 | 65 | dash toward 250 units at 830/s | – | as the cast starts: shield of 240 + 13.5% bonus health for 2 s |
+| EallOut | Footwork (All Out) | 8 | 0 | 65 | dash toward 250 units at 1580/s | – | as the cast starts: shield of 240 + 13.5% bonus health for 2 s |
+| R | All Out | 80 (starts when its effect on the caster ends) | 0.4 | 100 | targeted, 300 range | after 0.15 s: 150 physical damage; stun for 0.3 s | as the cast starts: displacementImmune for 0.4 s; lingering for 15 s |
+
+Effects marked by a mark or a role are completed by the kit's hooks (see the kit's source).
+
+### Assumptions
+
+- Ntofo Strikes' empowered shockwave is taken to land at once along its whole length (the wiki gives no missile speed); it pulls the enemy to K'Sante's side, then stuns.
+- Path Maker is charged fully (0.9 s) and carries the enemy 150 units along before the stun.
+- All Out pulls the enemy without terrain behind it; its mana changes don't matter, as its abilities are free.
+
+### Wiki values read (42)
+
+| Ability | Value | Revision |
+|---|---|---|
+| Dauntless Instinct | K'Sante's abilities mark enemies hit for 4 seconds | [4038388](https://wiki.leagueoflegends.com/en-us/Template:Data_K'Sante/Dauntless_Instinct?oldid=4038388) |
+| Dauntless Instinct | dealing 12 (+ 1 – 2 (based on level)% of target's maximum health) bonus physical damage | [4038388](https://wiki.leagueoflegends.com/en-us/Template:Data_K'Sante/Dauntless_Instinct?oldid=4038388) |
+| Dauntless Instinct | His basic attacks against marked enemies are empowered to consume the mark, dealing 12 (+ 1 – 2 (based on level)% of target's maximum health) bonus physical damage. | [4038388](https://wiki.leagueoflegends.com/en-us/Template:Data_K'Sante/Dauntless_Instinct?oldid=4038388) |
+| Dauntless Instinct | bonus physical damage equal to 1% (+ 1% per 100 bonus armor) (+ 1% per 100 bonus magic resistance) of the target's maximum health | [4038388](https://wiki.leagueoflegends.com/en-us/Template:Data_K'Sante/Dauntless_Instinct?oldid=4038388) |
+| Ntofo Strikes | range: 465 • 930 | [4007617](https://wiki.leagueoflegends.com/en-us/Template:Data_K'Sante/Ntofo_Strikes?oldid=4007617) |
+| Ntofo Strikes | slows them by 80% for 0.5 seconds | [4007617](https://wiki.leagueoflegends.com/en-us/Template:Data_K'Sante/Ntofo_Strikes?oldid=4007617) |
+| Ntofo Strikes | K'Sante generates a stack for 6 seconds, stacking up to 2 times | [4007617](https://wiki.leagueoflegends.com/en-us/Template:Data_K'Sante/Ntofo_Strikes?oldid=4007617) |
+| Ntofo Strikes | pulls them towards him over 0.65 seconds and stuns them for 0.8 seconds | [4007617](https://wiki.leagueoflegends.com/en-us/Template:Data_K'Sante/Ntofo_Strikes?oldid=4007617) |
+| Ntofo Strikes | Physical Damage: 70 / 100 / 130 / 160 / 190 (+ 40% bonus armor) (+ 40% bonus magic resistance) | [4007617](https://wiki.leagueoflegends.com/en-us/Template:Data_K'Sante/Ntofo_Strikes?oldid=4007617) |
+| Path Maker | Path Maker's range, stun duration, and All Out bonus true damage modifier increase over the first 0.9 seconds of the channel | [4078257](https://wiki.leagueoflegends.com/en-us/Template:Data_K'Sante/Path_Maker?oldid=4078257) |
+| Path Maker | he gains displacement immunity and 25% damage reduction | [4078257](https://wiki.leagueoflegends.com/en-us/Template:Data_K'Sante/Path_Maker?oldid=4078257) |
+| Path Maker | speed: 1300 • 1500 • 1800 | [4078257](https://wiki.leagueoflegends.com/en-us/Template:Data_K'Sante/Path_Maker?oldid=4078257) |
+| Path Maker | range: 450 | [4078257](https://wiki.leagueoflegends.com/en-us/Template:Data_K'Sante/Path_Maker?oldid=4078257) |
+| Path Maker | Recast: K'Sante dashes in the direction he targeted at the time of cast, though not through terrain, dealing physical damage to enemies he passes through, carrying them alongside him, and stunning them for 0.5 / 0.625 / 0.75 / 0.875 / 1 / 1.125 / 1.25 / 1.375 / 1.5 / 1.625 / 1.75 (based on Channel duration) seconds. | [4078257](https://wiki.leagueoflegends.com/en-us/Template:Data_K'Sante/Path_Maker?oldid=4078257) |
+| Path Maker | its damage reduction is increased to 70% | [4078257](https://wiki.leagueoflegends.com/en-us/Template:Data_K'Sante/Path_Maker?oldid=4078257) |
+| Footwork | speed: (500 • 1250 • 1100 • 1400) + 100% movement speed | [4034698](https://wiki.leagueoflegends.com/en-us/Template:Data_K'Sante/Footwork?oldid=4034698) |
+| Footwork | Shield Strength: 70 / 112.5 / 155 / 197.5 / 240 (+ 13.5% bonus health) | [4034698](https://wiki.leagueoflegends.com/en-us/Template:Data_K'Sante/Footwork?oldid=4034698) |
+| Footwork | grants himself a shield for 2 seconds | [4034698](https://wiki.leagueoflegends.com/en-us/Template:Data_K'Sante/Footwork?oldid=4034698) |
+| Footwork | cooldown: 10 / 9.5 / 9 / 8.5 / 8 | [4034698](https://wiki.leagueoflegends.com/en-us/Template:Data_K'Sante/Footwork?oldid=4034698) |
+| Footwork | range: 250 • 550 | [4034698](https://wiki.leagueoflegends.com/en-us/Template:Data_K'Sante/Footwork?oldid=4034698) |
+| Footwork | Footwork's dash speed is increased, and its cooldown is reduced by 50% | [4034698](https://wiki.leagueoflegends.com/en-us/Template:Data_K'Sante/Footwork?oldid=4034698) |
+| All Out | K'Sante roots the target enemy champion for 0.5 seconds | [4051537](https://wiki.leagueoflegends.com/en-us/Template:Data_K'Sante/All_Out?oldid=4051537) |
+| All Out | pulling the target to a location that is 300 units in the cast direction from their location at the time of cast | [4051537](https://wiki.leagueoflegends.com/en-us/Template:Data_K'Sante/All_Out?oldid=4051537) |
+| All Out | blinking 175 units behind that location | [4051537](https://wiki.leagueoflegends.com/en-us/Template:Data_K'Sante/All_Out?oldid=4051537) |
+| All Out | speed: 2000 | [4051537](https://wiki.leagueoflegends.com/en-us/Template:Data_K'Sante/All_Out?oldid=4051537) |
+| All Out | is stunned for 0.3 seconds once it ends | [4051537](https://wiki.leagueoflegends.com/en-us/Template:Data_K'Sante/All_Out?oldid=4051537) |
+| All Out | After K'Sante blinks, he enters All Out for 15 seconds | [4051537](https://wiki.leagueoflegends.com/en-us/Template:Data_K'Sante/All_Out?oldid=4051537) |
+| All Out | K'Sante gains a health threshold equal to 65% maximum health | [4051537](https://wiki.leagueoflegends.com/en-us/Template:Data_K'Sante/All_Out?oldid=4051537) |
+| All Out | his base armor and base magic resistance are reduced by 85% bonus armor and 85% bonus magic resistance | [4051537](https://wiki.leagueoflegends.com/en-us/Template:Data_K'Sante/All_Out?oldid=4051537) |
+| All Out | Bonus Attack Speed: 40 / 60 / 80% | [4051537](https://wiki.leagueoflegends.com/en-us/Template:Data_K'Sante/All_Out?oldid=4051537) |
+| All Out | 50% bonus-armor penetration, and 20% omnivamp | [4051537](https://wiki.leagueoflegends.com/en-us/Template:Data_K'Sante/All_Out?oldid=4051537) |
+| All Out | targetRange: 300 | [4051537](https://wiki.leagueoflegends.com/en-us/Template:Data_K'Sante/All_Out?oldid=4051537) |
+| Ntofo Strikes | cost: 20 | [4007617](https://wiki.leagueoflegends.com/en-us/Template:Data_K'Sante/Ntofo_Strikes?oldid=4007617) |
+| Path Maker | cooldown: 14 / 13 / 12 / 11 / 10 | [4078257](https://wiki.leagueoflegends.com/en-us/Template:Data_K'Sante/Path_Maker?oldid=4078257) |
+| Path Maker | cost: 45 / 50 / 55 / 60 / 65 | [4078257](https://wiki.leagueoflegends.com/en-us/Template:Data_K'Sante/Path_Maker?oldid=4078257) |
+| Path Maker | Physical Damage: 45 / 75 / 105 / 135 / 165 (+ 8% (+ 2% per 100 bonus armor) (+ 2% per 100 bonus magic resistance) of target's maximum health) | [4078257](https://wiki.leagueoflegends.com/en-us/Template:Data_K'Sante/Path_Maker?oldid=4078257) |
+| Path Maker | Maximum Bonus True Damage: 36 / 60 / 84 / 108 / 132 (+ 6.4% (+ 1.6% per 100 bonus armor) (+ 1.6% per 100 bonus magic resistance) of target's maximum health) | [4078257](https://wiki.leagueoflegends.com/en-us/Template:Data_K'Sante/Path_Maker?oldid=4078257) |
+| Footwork | cost: 45 / 50 / 55 / 60 / 65 | [4034698](https://wiki.leagueoflegends.com/en-us/Template:Data_K'Sante/Footwork?oldid=4034698) |
+| All Out | cooldown: 120 / 100 / 80 | [4051537](https://wiki.leagueoflegends.com/en-us/Template:Data_K'Sante/All_Out?oldid=4051537) |
+| All Out | cost: 100 | [4051537](https://wiki.leagueoflegends.com/en-us/Template:Data_K'Sante/All_Out?oldid=4051537) |
+| All Out | castTime: 0.4 | [4051537](https://wiki.leagueoflegends.com/en-us/Template:Data_K'Sante/All_Out?oldid=4051537) |
+| All Out | Physical Damage: 80 / 115 / 150 | [4051537](https://wiki.leagueoflegends.com/en-us/Template:Data_K'Sante/All_Out?oldid=4051537) |

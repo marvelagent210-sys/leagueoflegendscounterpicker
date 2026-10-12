@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
 import type { Behavior } from "../../engine/sim/behavior";
+import { abilityHit } from "../../engine/sim/combat";
 import { derive } from "../../engine/sim/derived";
 import { createWorld, step } from "../../engine/sim/simulate";
 import type { AbilitySpec, Effect } from "../../engine/sim/spec";
@@ -247,3 +248,25 @@ const onlyReact: Behavior = (view) => {
   }
   return undefined;
 };
+
+describe("falloff", () => {
+  const slam = ability({ key: "Q", cooldown: 0, delivery: { kind: "self" }, onHit: [{ type: "damage", damageType: "true", amount: { base: 100 } }], falloff: { group: "slam", window: 0.66, per: 0.5, floor: 0.25 } });
+
+  it("cuts a hit by its share for each hit of the group the target took in the window, down to the floor", () => {
+    const w = createWorld({ fighters: [fighter({ abilities: [slam] }), fighter()], distance: 100, modes: ["idle", "idle"] });
+    const [caster, target] = w.units;
+    const hit = (scale = 1) => {
+      const before = target.hp;
+      abilityHit(w, caster, target, slam, slam.onHit ?? [], scale);
+      return before - target.hp;
+    };
+    // Three at once: full, half and a quarter; never less than a quarter.
+    expect([hit(), hit(), hit(), hit()]).toEqual([100, 50, 25, 25]);
+    // 0.66 s is 20 ticks: by then the earlier hits no longer count.
+    for (let i = 0; i < 20; i++) step(w, [idle, idle]);
+    // A hit counted at half its value (a skillshot by expected value) takes a quarter off the next.
+    expect(hit(0.5)).toBe(50);
+    expect(hit()).toBe(75);
+  });
+});
+

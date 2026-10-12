@@ -312,7 +312,13 @@
             "conditional": false
           }
         ],
-        "values": []
+        "values": [],
+        "tips": [
+          {
+            "text": "post-mitigation damage",
+            "tip": "Damage calculated after modifiers"
+          }
+        ]
       },
       {
         "text": "Sleepy Trouble Bubble refunds a percentage of its cooldown if the bubble hits an enemy champion.",
@@ -849,7 +855,17 @@
             "conditional": false
           }
         ],
-        "values": []
+        "values": [],
+        "tips": [
+          {
+            "text": "0.15-second delay",
+            "tip": "From the end of the cast time, blink occurs after 0.4 seconds from the start of cast"
+          },
+          {
+            "text": "0.95 seconds to 1.25 seconds",
+            "tip": "See notes"
+          }
+        ]
       },
       {
         "text": "Portal Jump resets Zoe's basic attack timer. Zoe briefly becomes unable to act after casting Portal Jump as well as after blinking back.",
@@ -870,7 +886,13 @@
             "conditional": false
           }
         ],
-        "values": []
+        "values": [],
+        "tips": [
+          {
+            "text": "briefly",
+            "tip": "See notes"
+          }
+        ]
       }
     ],
     "custom": [],
@@ -1086,7 +1108,17 @@
             "conditional": false
           }
         ],
-        "values": []
+        "values": [],
+        "tips": [
+          {
+            "text": "specific",
+            "tip": "See notes for applicable spells/item actives"
+          },
+          {
+            "text": "random Spell Shard",
+            "tip": "See notes for applicable spells/actives"
+          }
+        ]
       },
       {
         "text": "Zoe can collect a Spell Shard by moving directly onto it, holding it for up to 60 seconds. Collecting a new Spell Shard replaces the current one.",

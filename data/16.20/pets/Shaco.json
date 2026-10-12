@@ -1,0 +1,326 @@
+[
+  {
+    "champion": "Shaco",
+    "name": "Jack in the Box / Mini-Box",
+    "page": {
+      "title": "Shaco",
+      "revid": 4011256
+    },
+    "fields": {
+      "gold": {
+        "text": "10",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 10
+            }
+          }
+        ]
+      },
+      "exp": {
+        "text": "0",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0
+            }
+          }
+        ]
+      },
+      "hp": {
+        "text": "150 – 550 (based on level) / 360 / 380 / 400 / 420 / 460 / 500 / 550 / 600 / 700 / 800 / 900 / 1000 / 1100 (based on level)",
+        "values": [
+          {
+            "series": {
+              "kind": "level",
+              "values": [
+                150,
+                150,
+                150,
+                160,
+                170,
+                180,
+                190,
+                200,
+                210,
+                230,
+                250,
+                275,
+                300,
+                350,
+                400,
+                450,
+                500,
+                550
+              ]
+            }
+          },
+          {
+            "series": {
+              "kind": "variable",
+              "variable": "level",
+              "points": [
+                6,
+                7,
+                8,
+                9,
+                10,
+                11,
+                12,
+                13,
+                14,
+                15,
+                16,
+                17,
+                18
+              ],
+              "values": [
+                360,
+                380,
+                400,
+                420,
+                460,
+                500,
+                550,
+                600,
+                700,
+                800,
+                900,
+                1000,
+                1100
+              ]
+            }
+          }
+        ]
+      },
+      "range": {
+        "text": "300",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 300
+            }
+          }
+        ]
+      },
+      "radius": {
+        "text": "50",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 50
+            }
+          }
+        ]
+      },
+      "pathingradius": {
+        "text": "1",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 1
+            }
+          }
+        ]
+      },
+      "attackspeed": {
+        "text": "2",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 2
+            }
+          }
+        ]
+      },
+      "armor": {
+        "text": "50",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 50
+            }
+          }
+        ]
+      },
+      "magicresist": {
+        "text": "100",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 100
+            }
+          }
+        ]
+      },
+      "movespeed": {
+        "text": "0",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 0
+            }
+          }
+        ]
+      }
+    },
+    "text": {
+      "gold": "10",
+      "exp": "0",
+      "sight": "700",
+      "hp": "150 – 550 (based on level) / 360 – 1100 (based on level)",
+      "damagemodifier": "* 33% maximum health minimum damage from champion basic attacks\n* 100% maximum health from turrets",
+      "damagetype": "magic",
+      "range": "300",
+      "radius": "50",
+      "pathingradius": "1",
+      "attackspeed": "2",
+      "armor": "50",
+      "magicresist": "100",
+      "movespeed": "0",
+      "control": "Autonomous (static)",
+      "ccresist": "* Knock up\n* Cripple",
+      "targeting": "Minion, does not count towards the minion kill tracking score",
+      "spelleffects": "Boxes' basic attacks apply spell effects as area damage.",
+      "onhit": "Boxes' attacks can be mitigated by block and dodge, but not blind. They will not trigger nor attack if Shaco does not have vision of them, though not vice versa.",
+      "abilities": ";Pop Goes the Weasel\nUpon activation, the box springs into action, causing all enemies in range to flee from it, as well as attacking nearby enemies before expiring or upon being destroyed. Targets are also briefly rooted.\n\n;Obscurity\nThe box is untargetable and invulnerable while hidden from view.\n\n=== General ===\n* The box will stun itself if it is affected by disarm or cast-inhibiting crowd control."
+    }
+  },
+  {
+    "champion": "Shaco",
+    "name": "Hallucination",
+    "page": {
+      "title": "Shaco",
+      "revid": 4011256
+    },
+    "fields": {
+      "hp": {
+        "text": "100% of Shaco's current health",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 100
+            }
+          }
+        ]
+      },
+      "radius": {
+        "text": "100% of Shaco's gameplay radius",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 100
+            }
+          }
+        ]
+      },
+      "pathingradius": {
+        "text": "100% of Shaco's pathing radius",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 100
+            }
+          }
+        ]
+      },
+      "damage": {
+        "text": "100% of Shaco's attack damage",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 100
+            }
+          }
+        ]
+      },
+      "range": {
+        "text": "125",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 125
+            }
+          }
+        ]
+      },
+      "attackspeed": {
+        "text": "100% of Shaco's attack speed",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 100
+            }
+          }
+        ]
+      },
+      "armor": {
+        "text": "100% of Shaco's armor",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 100
+            }
+          }
+        ]
+      },
+      "magicresist": {
+        "text": "100% of Shaco's magic resistance",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 100
+            }
+          }
+        ]
+      },
+      "movespeed": {
+        "text": "100% of Shaco's movement speed",
+        "values": [
+          {
+            "series": {
+              "kind": "constant",
+              "value": 100
+            }
+          }
+        ]
+      }
+    },
+    "text": {
+      "hp": "100% of Shaco's current health",
+      "radius": "100% of Shaco's gameplay radius",
+      "pathingradius": "100% of Shaco's pathing radius",
+      "damagemodifier": "* 50% increased damage from all sources\n** This modifier affects true damage.",
+      "damage": "100% of Shaco's attack damage",
+      "damagetype": "physical",
+      "range": "125",
+      "attackspeed": "100% of Shaco's attack speed",
+      "armor": "100% of Shaco's armor",
+      "magicresist": "100% of Shaco's magic resistance",
+      "movespeed": "100% of Shaco's movement speed",
+      "control": "R or Alt + Right Click",
+      "targeting": "Champion",
+      "onhit": "Hallucination's attacks apply on-hit effects (do not apply on-attack effects). Hallucination's attacks are mitigated by block and dodge, as well as stopped by disarm and negated if Shaco is blinded.",
+      "spelleffects": "Hallucination's basic attacks deal basic damage. Its explosion applies spell effects as area damage.",
+      "protection": "Hallucination's attacks deal 60% damage to units (halved to 30% against structures).\nSpell shields will block Hallucination's explosion damage.",
+      "abilities": ";Clone\n* For enemies, Hallucination is supposed to be visually identical to Shaco. For himself and allies, the clone remains visually distinct.\n\n;Mimic\nHallucination can mimic the casting of Deceive, Jack in the Box and Two-Shiv Poison:\n* When the clone blinks by any means, such as if it exits Shaco's leash range, it will play Deceive entering stealth \"cloud\" VFX (without actually gaining its effects, of course).\n* If the clone is within 300 units of Shaco when he casts Jack in the Box, it will play the ability's cast animation of placing the box.\n* If the clone is within 575 units of Shaco's target for Two-Shiv Poison when the ability is cast, it will play the ability's cast animation of throwing the dagger in addition to firing a fake missile at the target. This missile has no effect on the target when it arrives.\n\n;Seeing Double\nHallucination benefits from Shaco's items but not from his runes. It propagates its own auras, but the effects will not stack between Shaco and Hallucination. Shaco's buffs will be visually copied on the clone's status bar. Lastly, if Shaco's model is affected by a visual buff or debuff when Hallucination is created, then the clone will also also copy that visual aspect.\n\n;Surprise!\nHallucination explodes upon expiring or dying, dealing magic damage to all enemies around it and dropping three mini-boxes around itself which activate instantly, causing nearby enemies to flee from them, as well as attacking nearby enemies before expiring or upon being destroyed. Targets are also briefly rooted."
+    }
+  }
+]

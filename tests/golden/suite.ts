@@ -3,26 +3,27 @@ import { readFileSync } from "node:fs";
 import path from "node:path";
 import { describe, expect, it } from "vitest";
 import { DEFAULT_BUDGET, type StatPrices } from "../../engine/budget";
-import { simulateMatchup } from "../../engine/sim/matchup";
-import type { FighterSpec } from "../../engine/sim/spec";
+import { type KitVariant, bestMatchup } from "../../engine/sim/matchup";
 import { kit } from "../kits/helpers";
 import { type GoldenMatchup, MARGINS } from "./matchups";
 
 const rules = JSON.parse(readFileSync(path.join(import.meta.dirname, "..", "..", "data", "16.20", "rules.json"), "utf8")) as { statPrices: StatPrices };
 
-const specs = new Map<string, FighterSpec>();
-function spec(id: string): FighterSpec {
-  let found = specs.get(id);
+const fighters = new Map<string, KitVariant[]>();
+/** The champion's kit, or each of its variants when it has a choice to make (Udyr's rank splits). */
+function variants(id: string): KitVariant[] {
+  let found = fighters.get(id);
   if (!found) {
-    found = kit(id).spec;
-    specs.set(id, found);
+    const compiled = kit(id);
+    found = compiled.variants.length === 0 ? [{ spec: compiled.spec }] : compiled.variants.map((options) => ({ spec: kit(id, options).spec, options }));
+    fighters.set(id, found);
   }
   return found;
 }
 
-/** The winner's counter score against the loser. */
+/** The winner's counter score against the loser, each side playing its best variant. */
 export function goldenScore(matchup: GoldenMatchup): number {
-  return simulateMatchup(spec(matchup.winner), spec(matchup.loser), DEFAULT_BUDGET, rules.statPrices).score;
+  return bestMatchup(variants(matchup.winner), variants(matchup.loser), DEFAULT_BUDGET, rules.statPrices).score;
 }
 
 export function goldenSuite(name: string, matchups: GoldenMatchup[]): void {

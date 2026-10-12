@@ -134,6 +134,7 @@ const volibear: KitModule = {
           cooldown: q.cooldown(),
           cost: q.cost(),
           castTime: 0,
+          cooldownAfter: "empower",
           delivery: { kind: "self" },
           // A burst of speed to close in, then the pounce (its empowered attack is set up in onCast).
           onSelf: [{ type: "stat", stat: "moveSpeedPercent", amount: flat(q.fraction("Increased Bonus Movement Speed")), duration: smashSeconds }, { type: "resetAttack" }],

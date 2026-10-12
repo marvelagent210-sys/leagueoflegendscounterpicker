@@ -327,6 +327,12 @@
             },
             "context": "The third stack consumes them all to deal 15 / 30 / 45 / 60 (based on level)% AD (+ 5 / 10 / 15 / 20 (based on level)% AP) bonus physical damage and heal Xin Zhao for 2 / 3.5 / 5 (based on level)% of his maximum health (+ 40 / 50 / 70 (based on level)% AP)."
           }
+        ],
+        "tips": [
+          {
+            "text": "consumes them",
+            "tip": "See notes for consumption details"
+          }
         ]
       },
       {
@@ -1037,14 +1043,14 @@
               ],
               "values": [
                 0,
-                3.3299999999999996,
-                6.659999999999999,
-                9.989999999999998,
-                13.319999999999999,
+                3.33,
+                6.66,
+                9.99,
+                13.32,
                 16.65,
-                19.979999999999997,
-                23.309999999999995,
-                26.639999999999997,
+                19.98,
+                23.31,
+                26.64,
                 29.97,
                 33.3
               ]
@@ -1056,24 +1062,30 @@
               "kind": "level",
               "values": [
                 50,
-                53.333333333333336,
-                56.666666666666664,
+                53.3333333333333,
+                56.6666666666667,
                 60,
-                63.333333333333336,
-                66.66666666666667,
+                63.3333333333333,
+                66.6666666666667,
                 70,
-                73.33333333333333,
-                76.66666666666667,
+                73.3333333333333,
+                76.6666666666667,
                 80,
-                83.33333333333334,
-                86.66666666666666,
+                83.3333333333333,
+                86.6666666666667,
                 90,
-                93.33333333333334,
-                96.66666666666666,
+                93.3333333333333,
+                96.6666666666667,
                 100
               ]
             },
             "context": "Wind Becomes Lightning deals 50 – 100 (based on level)% damage to minions."
+          }
+        ],
+        "tips": [
+          {
+            "text": "4 slashes",
+            "tip": "First slash happens on-cast instantly, while the remaining 3 are applied every 0.05 seconds thereafter"
           }
         ]
       },
@@ -1110,7 +1122,13 @@
             "conditional": false
           }
         ],
-        "values": []
+        "values": [],
+        "tips": [
+          {
+            "text": "nearby",
+            "tip": "see details"
+          }
+        ]
       }
     ],
     "custom": [],

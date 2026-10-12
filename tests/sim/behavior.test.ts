@@ -1,5 +1,7 @@
 import { describe, expect, it } from "vitest";
-import { traitsOf } from "../../engine/sim/behavior";
+import { defaultBehavior, traitsOf } from "../../engine/sim/behavior";
+import { edgeDistance } from "../../engine/sim/combat";
+import { createWorld, step } from "../../engine/sim/simulate";
 import { ability, fighter, RANGED } from "./kits";
 import { duel, idle, ticksOf } from "./helpers";
 
@@ -48,9 +50,45 @@ describe("default behavior", () => {
     expect(ticksOf(outcome.timeline, 0, "attack deals")).toEqual([58, 110, 163]);
   });
 
+  it("keeps abilities that would land while the enemy can't be hit", () => {
+    // A 0.5 s slam on an enemy untargetable for the first 2 s: started so it lands as that ends.
+    const bolt = ability({ key: "Q", cooldown: 10, castTime: 0.5, delivery: { kind: "area", near: 0, far: 600, delay: 0, anchor: "caster" }, onHit: [{ type: "damage", damageType: "magic", amount: { base: 100 } }] });
+    const outcome = duel(fighter({ abilities: [bolt] }), fighter(), {
+      distance: 300,
+      behaviors: [undefined, idle],
+      settings: { maxSeconds: 3 },
+      setup: (world) => {
+        world.units[1].statuses.push({ kind: "state", key: "untargetable", source: 1, startTick: 0, endTick: 60, value: 0 });
+      },
+    });
+    expect(ticksOf(outcome.timeline, 0, "casts Q")).toEqual([45]);
+    expect(ticksOf(outcome.timeline, 0, "Q deals")).toEqual([60]);
+  });
+
   it("lets a ranged fighter kite a melee fighter between attacks", () => {
     const outcome = duel(fighter({ attack: RANGED, base: { moveSpeed: 450 } }), fighter({ base: { moveSpeed: 300 } }), { distance: 550, settings: { maxSeconds: 70 } });
     expect(outcome.win[0]).toBe(1);
     expect(outcome.damage[1]).toBe(0);
+  });
+});
+
+describe("finishers", () => {
+  const feast = (extra: Partial<Parameters<typeof ability>[0]> = {}) =>
+    ability({ key: "R", slot: "R", cooldown: 100, delivery: { kind: "target", range: 150 }, onHit: [{ type: "damage", damageType: "true", amount: { base: 1000 } }], roles: ["finisher"], ...extra });
+
+  it("step in to reach a target that one would kill just out of range", () => {
+    // A long-ranged attacker spacing at 300, its finisher reaching only 150.
+    const self = fighter({ abilities: [feast()], attack: { range: 300 } });
+    const enemy = fighter({ base: { hp: 900 } });
+    const outcome = duel(self, enemy, { distance: 300, behaviors: [undefined, idle], settings: { maxSeconds: 3 } });
+    expect(ticksOf(outcome.timeline, 0, "casts R").length).toBe(1);
+  });
+
+  it("don't step in for a finisher they can't cast yet", () => {
+    const gated = fighter({ abilities: [feast({ usable: () => false })], attack: { range: 300 } });
+    const world = createWorld({ fighters: [gated, fighter({ base: { hp: 900 } })], distance: 300, modes: ["fight", "idle"] });
+    for (let i = 0; i < 30; i++) step(world, [defaultBehavior, idle]);
+    // Still spacing at its attack range.
+    expect(edgeDistance(world.units[0], world.units[1])).toBeGreaterThan(250);
   });
 });

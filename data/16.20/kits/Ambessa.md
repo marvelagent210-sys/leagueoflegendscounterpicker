@@ -271,3 +271,73 @@ All 6 level-based formulas in the game files (4 linked to wiki values above):
 | AmbessaPassive | {d87d470b} | linear 0 → 0 over levels 1-18, continues past 18 | 0 | 0 | 0 |
 | AmbessaQ | Calc_Damage_Monster_Percent_Cap | linear 100 → 300 over levels 1-18, continues past 18 | 100 | 300 | 323.529 |
 | AmbessaW | Calc_Shield | linear 50 → 320 over levels 1-18, continues past 18 | 50 | 320 | 351.765 |
+
+## Duel simulator kit (level 20, every ability at max rank)
+
+What the duel simulator fights with (`kits/champions/Ambessa.ts`): every number is read from the wiki's ability data above at level 20; what the wiki doesn't say is listed under assumptions. Ratios are fractions of the stat (60% AD is 0.6 × AD).
+
+- Basic attack: range 125, melee.
+
+| Key | Ability | Cooldown (s) | Cast time (s) | Cost | Delivery | On the enemy | On itself |
+|---|---|--:|--:|---|---|---|---|
+| Q | Cunning Sweep | 10 | 0.225 | 70 | area -135 to 400 units ahead, lands after 0 s; bands 210–465: 120 + 60% bonus AD + 6% target's maximum health + 3% of target's maximum health per 100 bonus AD physical damage (Cunning Sweep (outer edge)) | 60 + 30% bonus AD + 3% target's maximum health + 1.5% of target's maximum health per 100 bonus AD physical damage | – |
+| Q2 | Sundering Slam | 0 | 0.225 | 70 | area 0 to 650 units ahead, lands after 0 s; recast of Q within 4 s | 150 + 90% bonus AD + 6% target's maximum health + 4% of target's maximum health per 100 bonus AD physical damage | – |
+| W | Repudiation | 14 | 0.225 | 70 | around itself, 325 units | – | as the cast starts: shield of 351.765 + 150% bonus AD for 1.5 s |
+| E | Lacerate | 9 | 0.225 | 70 | around itself, 325 units | 120 + 50% bonus AD physical damage; slow 49.5% for 1 s | – |
+| R | Public Execution | 100 | 0.7 | – | area 0 to 1250 units ahead, lands after 0 s | suppression for 0.75 s; after 0.75 s: 350 + 80% bonus AD physical damage; stun for 0.4 s | as the cast starts: displacementImmune for 1.45 s |
+
+Effects marked by a mark or a role are completed by the kit's hooks (see the kit's source).
+
+### Assumptions
+
+- After each ability Drakehound's Step jumps (up to 350 units, at the end of the lockout) to Medarda Maxim's attack range from the enemy, which also puts it on Cunning Sweep's outer edge; getting away, it jumps away.
+- Medarda Maxim's 50% bonus attack speed lasts while she has a stack to spend.
+- Cunning Sweep's outer edge (275 to 400 units) doubles the damage when it covers the enemy's hitbox, 65 units for most champions.
+- Lacerate's decaying slow counts at half for its 1 s.
+- Public Execution's healing counts without life steal, which the stat budget doesn't buy.
+- Getting away, Ambessa casts whatever basic ability is ready for its Drakehound's Step away from the enemy.
+
+### Wiki values read (40)
+
+| Ability | Value | Revision |
+|---|---|---|
+| Drakehound's Step | targetRange: 175 - 350 | [4078254](https://wiki.leagueoflegends.com/en-us/Template:Data_Ambessa/Drakehound's_Step?oldid=4078254) |
+| Drakehound's Step | inputting an attack or movement command causes her to dash to or towards the target or location, respectively, after the lockout ends | [4078254](https://wiki.leagueoflegends.com/en-us/Template:Data_Ambessa/Drakehound's_Step?oldid=4078254) |
+| Drakehound's Step | she generates a stack of Medarda Maxim after the ability's respective lockout for 4 seconds | [4078254](https://wiki.leagueoflegends.com/en-us/Template:Data_Ambessa/Drakehound's_Step?oldid=4078254) |
+| Drakehound's Step | refreshing with subsequent casts and stacking up to 3 times | [4078254](https://wiki.leagueoflegends.com/en-us/Template:Data_Ambessa/Drakehound's_Step?oldid=4078254) |
+| Drakehound's Step | gain 75 bonus range and 50% bonus attack speed | [4078254](https://wiki.leagueoflegends.com/en-us/Template:Data_Ambessa/Drakehound's_Step?oldid=4078254) |
+| Drakehound's Step | Medarda Maxim: Ambessa's next basic attack on-attack is empowered to have an uncancellable windup, gain 75 bonus range and 50% bonus attack speed, deal 5 – 25 (based on level) (+ 20% bonus AD) bonus physical damage, which applies life steal, and restore 40 / 55 / 70 (based on level) energy. | [4078254](https://wiki.leagueoflegends.com/en-us/Template:Data_Ambessa/Drakehound's_Step?oldid=4078254) |
+| Drakehound's Step | (+ 20% bonus AD) bonus physical damage, which applies life steal | [4078254](https://wiki.leagueoflegends.com/en-us/Template:Data_Ambessa/Drakehound's_Step?oldid=4078254) |
+| Cunning Sweep | Ambessa enters a 0.225-second lockout | [4077875](https://wiki.leagueoflegends.com/en-us/Template:Data_Ambessa/Cunning_Sweep?oldid=4077875) |
+| Cunning Sweep | effectRadius: 275 • 135 • 400 | [4077875](https://wiki.leagueoflegends.com/en-us/Template:Data_Ambessa/Cunning_Sweep?oldid=4077875) |
+| Cunning Sweep | If this hits at least one enemy, Ambessa can cast Sundering Slam within the next 4 seconds | [4077875](https://wiki.leagueoflegends.com/en-us/Template:Data_Ambessa/Cunning_Sweep?oldid=4077875) |
+| Sundering Slam | Increased Physical Damage: 50 / 75 / 100 / 125 / 150 (+ 90% bonus AD) (+ 4 / 4.5 / 5 / 5.5 / 6% (+ 4% per 100 bonus AD) of the target's maximum health) | [4077904](https://wiki.leagueoflegends.com/en-us/Template:Data_Ambessa/Sundering_Slam?oldid=4077904) |
+| Repudiation | Ambessa braces herself for up to 0.5 seconds, during which in the first 0.225 seconds she is unable to act | [4077907](https://wiki.leagueoflegends.com/en-us/Template:Data_Ambessa/Repudiation?oldid=4077907) |
+| Repudiation | Additionally, Ambessa shields herself at the time of cast for 50 – 320 (based on level) (+ 150% bonus AD) for 1.5 seconds. | [4077907](https://wiki.leagueoflegends.com/en-us/Template:Data_Ambessa/Repudiation?oldid=4077907) |
+| Repudiation | (+ 150% bonus AD) for 1.5 seconds | [4077907](https://wiki.leagueoflegends.com/en-us/Template:Data_Ambessa/Repudiation?oldid=4077907) |
+| Repudiation | Physical Damage: 50 / 75 / 100 / 125 / 150 (+ 50% bonus AD) | [4077907](https://wiki.leagueoflegends.com/en-us/Template:Data_Ambessa/Repudiation?oldid=4077907) |
+| Repudiation | Increased Physical Damage: 75 / 112.5 / 150 / 187.5 / 225 (+ 75% bonus AD) | [4077907](https://wiki.leagueoflegends.com/en-us/Template:Data_Ambessa/Repudiation?oldid=4077907) |
+| Repudiation | effectRadius: 325 | [4077907](https://wiki.leagueoflegends.com/en-us/Template:Data_Ambessa/Repudiation?oldid=4077907) |
+| Lacerate | slow them by 99% decaying over 1 second | [4077910](https://wiki.leagueoflegends.com/en-us/Template:Data_Ambessa/Lacerate?oldid=4077910) |
+| Lacerate | she will spin a second time at the end of the dash to apply the same effects at no additional cost | [4077910](https://wiki.leagueoflegends.com/en-us/Template:Data_Ambessa/Lacerate?oldid=4077910) |
+| Lacerate | effectRadius: 325 | [4077910](https://wiki.leagueoflegends.com/en-us/Template:Data_Ambessa/Lacerate?oldid=4077910) |
+| Lacerate | Physical Damage: 40 / 60 / 80 / 100 / 120 (+ 50% bonus AD) | [4077910](https://wiki.leagueoflegends.com/en-us/Template:Data_Ambessa/Lacerate?oldid=4077910) |
+| Public Execution | Armor Penetration: 10 / 20 / 30% | [4077930](https://wiki.leagueoflegends.com/en-us/Template:Data_Ambessa/Public_Execution?oldid=4077930) |
+| Public Execution | Healing Percentage: 15 / 17.5 / 20% (+ 50% life steal) | [4077930](https://wiki.leagueoflegends.com/en-us/Template:Data_Ambessa/Public_Execution?oldid=4077930) |
+| Public Execution | Ambessa attaches them to herself and suppresses them for 0.75 seconds | [4077930](https://wiki.leagueoflegends.com/en-us/Template:Data_Ambessa/Public_Execution?oldid=4077930) |
+| Public Execution | afterwards dealing physical damage and stunning them for 0.4 seconds | [4077930](https://wiki.leagueoflegends.com/en-us/Template:Data_Ambessa/Public_Execution?oldid=4077930) |
+| Public Execution | Physical Damage: 150 / 250 / 350 (+ 80% bonus AD) | [4077930](https://wiki.leagueoflegends.com/en-us/Template:Data_Ambessa/Public_Execution?oldid=4077930) |
+| Public Execution | Ambessa is displacement immune and unable to act during the cast time and while the target is suppressed | [4077930](https://wiki.leagueoflegends.com/en-us/Template:Data_Ambessa/Public_Execution?oldid=4077930) |
+| Cunning Sweep | cooldown: 14 / 13 / 12 / 11 / 10 | [4077875](https://wiki.leagueoflegends.com/en-us/Template:Data_Ambessa/Cunning_Sweep?oldid=4077875) |
+| Cunning Sweep | cost: 70 | [4077875](https://wiki.leagueoflegends.com/en-us/Template:Data_Ambessa/Cunning_Sweep?oldid=4077875) |
+| Cunning Sweep | Increased Physical Damage: 40 / 60 / 80 / 100 / 120 (+ 60% bonus AD) (+ 4 / 4.5 / 5 / 5.5 / 6% (+ 3% per 100 bonus AD) of target's maximum health) | [4077875](https://wiki.leagueoflegends.com/en-us/Template:Data_Ambessa/Cunning_Sweep?oldid=4077875) |
+| Cunning Sweep | Physical Damage: 20 / 30 / 40 / 50 / 60 (+ 30% bonus AD) (+ 2 / 2.25 / 2.5 / 2.75 / 3% (+ 1.5% per 100 bonus AD) of target's maximum health) | [4077875](https://wiki.leagueoflegends.com/en-us/Template:Data_Ambessa/Cunning_Sweep?oldid=4077875) |
+| Sundering Slam | cost: 70 | [4077904](https://wiki.leagueoflegends.com/en-us/Template:Data_Ambessa/Sundering_Slam?oldid=4077904) |
+| Sundering Slam | range: 650 | [4077904](https://wiki.leagueoflegends.com/en-us/Template:Data_Ambessa/Sundering_Slam?oldid=4077904) |
+| Repudiation | cooldown: 18 / 17 / 16 / 15 / 14 | [4077907](https://wiki.leagueoflegends.com/en-us/Template:Data_Ambessa/Repudiation?oldid=4077907) |
+| Repudiation | cost: 70 | [4077907](https://wiki.leagueoflegends.com/en-us/Template:Data_Ambessa/Repudiation?oldid=4077907) |
+| Lacerate | cooldown: 13 / 12 / 11 / 10 / 9 | [4077910](https://wiki.leagueoflegends.com/en-us/Template:Data_Ambessa/Lacerate?oldid=4077910) |
+| Lacerate | cost: 70 | [4077910](https://wiki.leagueoflegends.com/en-us/Template:Data_Ambessa/Lacerate?oldid=4077910) |
+| Public Execution | cooldown: 130 / 115 / 100 | [4077930](https://wiki.leagueoflegends.com/en-us/Template:Data_Ambessa/Public_Execution?oldid=4077930) |
+| Public Execution | castTime: 0.7 | [4077930](https://wiki.leagueoflegends.com/en-us/Template:Data_Ambessa/Public_Execution?oldid=4077930) |
+| Public Execution | range: 1250 | [4077930](https://wiki.leagueoflegends.com/en-us/Template:Data_Ambessa/Public_Execution?oldid=4077930) |

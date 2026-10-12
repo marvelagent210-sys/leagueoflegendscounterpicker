@@ -823,7 +823,17 @@
             "conditional": false
           }
         ],
-        "values": []
+        "values": [],
+        "tips": [
+          {
+            "text": "up to 800 units",
+            "tip": "see notes"
+          },
+          {
+            "text": "over 0.8 seconds",
+            "tip": "Estimated"
+          }
+        ]
       },
       {
         "text": "Enemies that collide with the displaced enemy while it is airborne take the same damage plus bonus physical damage and are knocked up for 1 second.",

@@ -184,7 +184,13 @@
             "conditional": false
           }
         ],
-        "values": []
+        "values": [],
+        "tips": [
+          {
+            "text": "surroundings",
+            "tip": "Can see through brush and terrain."
+          }
+        ]
       },
       {
         "text": "The orb emanates a field of solar radiation that additionally expands after a 0.5-second delay. Enemies within the field are dealt magic damage and slowed by 30% every 0.125 seconds, lingering for 0.25 seconds after exiting.",
@@ -388,7 +394,13 @@
         "text": "Innate: Mel's basic attacks and abilities apply a stack of Overwhelm for each instance of damage they deal to enemies for 5 seconds, refreshing on subsequent damage instances and stacking infinitely.",
         "leveling": [],
         "mechanics": [],
-        "values": []
+        "values": [],
+        "tips": [
+          {
+            "text": "subsequent damage instances",
+            "tip": "From her attacks/abilities"
+          }
+        ]
       },
       {
         "label": "Overwhelm",
@@ -442,6 +454,12 @@
             },
             "context": "For each stack, store an additional 2 / 3 / 4 / 5 (based on Golden Eclipse's rank) (+ 0.75% AP) magic damage on the target."
           }
+        ],
+        "tips": [
+          {
+            "text": "post-mitigation damage",
+            "tip": "Damage calculated after modifiers"
+          }
         ]
       },
       {
@@ -455,25 +473,25 @@
               "kind": "level",
               "values": [
                 8,
-                9.294117647058824,
-                10.588235294117647,
-                11.882352941176471,
-                13.176470588235293,
-                14.470588235294118,
-                15.764705882352942,
-                17.058823529411764,
-                18.352941176470587,
-                19.647058823529413,
-                20.941176470588236,
-                22.235294117647058,
-                23.529411764705884,
-                24.823529411764707,
-                26.11764705882353,
-                27.41176470588235,
-                28.705882352941178,
+                9.29411764705882,
+                10.5882352941176,
+                11.8823529411765,
+                13.1764705882353,
+                14.4705882352941,
+                15.7647058823529,
+                17.0588235294118,
+                18.3529411764706,
+                19.6470588235294,
+                20.9411764705882,
+                22.2352941176471,
+                23.5294117647059,
+                24.8235294117647,
+                26.1176470588235,
+                27.4117647058824,
+                28.7058823529412,
                 30,
-                31.294117647058822,
-                32.58823529411765
+                31.2941176470588,
+                32.5882352941177
               ],
               "past18": "wiki"
             },
@@ -485,24 +503,24 @@
               "values": [
                 72,
                 83.6470588235294,
-                95.29411764705883,
-                106.94117647058823,
-                118.58823529411765,
-                130.23529411764707,
-                141.88235294117646,
-                153.52941176470588,
-                165.1764705882353,
-                176.8235294117647,
-                188.47058823529412,
-                200.11764705882354,
-                211.76470588235293,
-                223.41176470588235,
-                235.05882352941177,
-                246.7058823529412,
-                258.3529411764706,
+                95.2941176470588,
+                106.941176470588,
+                118.588235294118,
+                130.235294117647,
+                141.882352941176,
+                153.529411764706,
+                165.176470588235,
+                176.823529411765,
+                188.470588235294,
+                200.117647058824,
+                211.764705882353,
+                223.411764705882,
+                235.058823529412,
+                246.705882352941,
+                258.352941176471,
                 270,
-                281.6470588235294,
-                293.2941176470588
+                281.647058823529,
+                293.294117647059
               ],
               "past18": "wiki"
             },
@@ -752,7 +770,13 @@
           }
         ],
         "mechanics": [],
-        "values": []
+        "values": [],
+        "tips": [
+          {
+            "text": "0.5 seconds",
+            "tip": "Time between first and last explosion"
+          }
+        ]
       },
       {
         "text": "The bolts momentarily grant sight during their travel, while the explosions grant sight over their target area. Both can see through brush and terrain.",
@@ -1114,7 +1138,17 @@
             "conditional": false
           }
         ],
-        "values": []
+        "values": [],
+        "tips": [
+          {
+            "text": "original sources",
+            "tip": "See notes"
+          },
+          {
+            "text": "toward herself",
+            "tip": "See notes"
+          }
+        ]
       },
       {
         "text": "Replicated projectiles have the same features that the original ones do, but they retain a ratio of the damage that the original ones would deal. Additionally, all of their damage is converted to magic damage, with physical damage instances being reduced to 70% before conversion.",
@@ -1179,7 +1213,13 @@
           }
         ],
         "mechanics": [],
-        "values": []
+        "values": [],
+        "tips": [
+          {
+            "text": "same features",
+            "tip": "See notes"
+          }
+        ]
       }
     ],
     "custom": [],

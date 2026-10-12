@@ -125,7 +125,13 @@
             "conditional": false
           }
         ],
-        "values": []
+        "values": [],
+        "tips": [
+          {
+            "text": "static amount",
+            "tip": "Cannot be modified by any means"
+          }
+        ]
       },
       {
         "text": "If Skarner's attached target collides with terrain, the charge ends, detaching them from him, dealing physical damage, stunning them for 1.1 seconds, and reducing Ixtal's Impact's cooldown by 35%.",
@@ -261,25 +267,25 @@
               "kind": "level",
               "values": [
                 5,
-                5.235294117647059,
-                5.470588235294118,
-                5.705882352941177,
-                5.9411764705882355,
-                6.176470588235294,
-                6.411764705882353,
-                6.647058823529411,
-                6.882352941176471,
-                7.117647058823529,
-                7.352941176470589,
-                7.588235294117647,
-                7.823529411764706,
-                8.058823529411764,
-                8.294117647058822,
-                8.529411764705882,
-                8.764705882352942,
+                5.23529411764706,
+                5.47058823529412,
+                5.70588235294118,
+                5.94117647058824,
+                6.17647058823529,
+                6.41176470588235,
+                6.64705882352941,
+                6.88235294117647,
+                7.11764705882353,
+                7.35294117647059,
+                7.58823529411765,
+                7.82352941176471,
+                8.05882352941176,
+                8.29411764705882,
+                8.52941176470588,
+                8.76470588235294,
                 9,
-                9.235294117647058,
-                9.470588235294118
+                9.23529411764706,
+                9.47058823529412
               ],
               "past18": "wiki"
             },
@@ -290,25 +296,25 @@
               "kind": "level",
               "values": [
                 100,
-                111.76470588235294,
-                123.52941176470588,
-                135.29411764705884,
-                147.05882352941177,
-                158.8235294117647,
-                170.58823529411765,
-                182.3529411764706,
-                194.11764705882354,
-                205.88235294117646,
-                217.64705882352942,
-                229.41176470588238,
-                241.1764705882353,
-                252.94117647058823,
-                264.7058823529412,
-                276.47058823529414,
-                288.2352941176471,
+                111.764705882353,
+                123.529411764706,
+                135.294117647059,
+                147.058823529412,
+                158.823529411765,
+                170.588235294118,
+                182.352941176471,
+                194.117647058824,
+                205.882352941176,
+                217.647058823529,
+                229.411764705882,
+                241.176470588235,
+                252.941176470588,
+                264.705882352941,
+                276.470588235294,
+                288.235294117647,
                 300,
-                311.7647058823529,
-                323.5294117647059
+                311.764705882353,
+                323.529411764706
               ],
               "past18": "wiki"
             },
@@ -929,7 +935,17 @@
         "text": "If Impale is cast during Shattered Earth, Skarner automatically casts Upheaval in the direction of Impale's cast. Skarner is unable to basic attack, cast Shattered Earth or Ixtal's Impact, or use Flash during Impale. While the targets are impaled, they are attached to Skarner 300 units in front of him. Targets are placed 200 units in the same direction at the end of the effect.",
         "leveling": [],
         "mechanics": [],
-        "values": []
+        "values": [],
+        "tips": [
+          {
+            "text": "automatically casts",
+            "tip": "Without incurring Upheaval's cast time"
+          },
+          {
+            "text": "in front of him",
+            "tip": "In the direction he cast Impale"
+          }
+        ]
       }
     ],
     "custom": [],
@@ -1106,7 +1122,13 @@
             "conditional": false
           }
         ],
-        "values": []
+        "values": [],
+        "tips": [
+          {
+            "text": "quickly",
+            "tip": "~0.25 seconds"
+          }
+        ]
       },
       {
         "text": "Skarner can move during Seismic Bastion's cast time.",

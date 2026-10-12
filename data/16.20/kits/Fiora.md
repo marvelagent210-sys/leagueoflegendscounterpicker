@@ -287,7 +287,7 @@ What the duel simulator fights with (`kits/champions/Fiora.ts`): every number is
 |---|---|--:|--:|---|---|---|---|
 | Q | Lunge | 6 | 0 | 20 | dash toward 400 units at 1100/s, hits within 50 | 110 + 110% bonus AD physical damage | – |
 | W | Riposte | 16 | 0.5 | 50 | skillshot 900 long, 140 wide, at 3200/s | 270 + 100% AP magic damage; slow 25% for 2 s; cripple 25% for 2 s | as the cast starts: parry 2 for 0.75 s |
-| E | Bladework | 7 | 0 | 40 | self | – | next 2 attacks within 4 s (+25 range); attackSpeed 0.9 for 4 s; resets the attack timer |
+| E | Bladework | 7 (starts after the empowered attacks) | 0 | 40 | self | – | next 2 attacks within 4 s (+25 range); attackSpeed 0.9 for 4 s; resets the attack timer |
 | R | Grand Challenge | 70 | 0 | 100 | targeted, 500 range | marks it "grandChallenge" for 8 s | – |
 
 Effects marked by a mark or a role are completed by the kit's hooks (see the kit's source).

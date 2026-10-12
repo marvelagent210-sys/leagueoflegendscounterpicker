@@ -516,7 +516,13 @@
             "conditional": false
           }
         ],
-        "values": []
+        "values": [],
+        "tips": [
+          {
+            "text": "300 units",
+            "tip": "Estimated"
+          }
+        ]
       }
     ],
     "custom": [],

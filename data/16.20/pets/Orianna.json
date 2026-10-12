@@ -1,0 +1,18 @@
+[
+  {
+    "champion": "Orianna",
+    "name": "The Ball",
+    "page": {
+      "title": "Orianna",
+      "revid": 3892665
+    },
+    "fields": {},
+    "text": {
+      "sight": "700 / 225",
+      "control": "Can be commanded by Orianna to perform certain actions when she casts Command: Attack, Command: Dissonance, Command: Protect, or Command: Shockwave.",
+      "targeting": "Untargetable",
+      "spelleffects": "The Ball, when hitting enemies, applies spell effects as area damage.",
+      "abilities": ";Escort\nThe Ball is attached to Orianna at all times, but can be commanded to attach to other units through Command: Protect.\n\n;Clockwork Affinity\nThe Ball, while not attached to a unit, can be picked up by Orianna when she moves near it. If Orianna moves too far away from The Ball, it snaps back and attaches to her instantly.\n\n;Collision Immunity\nThe Ball ignores all terrain collision.\n\n=== General ===\n* An arrow will appear near Orianna whenever The Ball is not attached to her, pointing towards its location.\n** The arrow will change colors depending on how far away The Ball and Orianna are from each other.\n*** If they are relatively near each other, the arrow is blue.\n*** If they are close to being outside of range of each other, the arrow is yellow (lime in colorblind mode).\n**** If it is very close, the arrow is red."
+    }
+  }
+]

@@ -628,7 +628,21 @@
           }
         ],
         "mechanics": [],
-        "values": []
+        "values": [],
+        "tips": [
+          {
+            "text": "175",
+            "tip": "See notes"
+          },
+          {
+            "text": "325",
+            "tip": "See notes"
+          },
+          {
+            "text": "575",
+            "tip": "See notes"
+          }
+        ]
       },
       {
         "text": "Enemies impacted by the charge are dealt magic damage and knocked away over 1 second to a line 650 units in front of Azir.",

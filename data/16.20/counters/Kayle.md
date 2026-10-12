@@ -1,5 +1,59 @@
 # Counters to Kayle (patch 26.20)
 
+## Simulated duels (full confidence)
+
+The duel simulator played each of the 45 other champions with a simulator kit against Kayle: both at level 20 with 15,000 gold of plain stats, each side's spent against the other's, through six scenarios (PLAN.md §6). Scores run from −1 (Kayle wins every time) to +1 (the champion does). Run `npm run duel -- <champion> Kayle --log brawl` to watch a fight.
+
+| # | Champion | Score | You engage | Enemy engages | Brawl | Short trade | Spacing | Escape |
+|--:|---|--:|--:|--:|--:|--:|--:|--:|
+| 1 | Jax | +0.81 | +1.00 | +1.00 | +1.00 | +0.07 | +1.00 | +0.00 |
+| 2 | K'Sante | +0.78 | +1.00 | +1.00 | +1.00 | −0.50 | +1.00 | +1.00 |
+| 3 | Poppy | +0.77 | +1.00 | +1.00 | +1.00 | −0.19 | +1.00 | +0.00 |
+| 4 | Tryndamere | +0.77 | +1.00 | +1.00 | +1.00 | −0.20 | +1.00 | +0.00 |
+| 5 | Camille | +0.77 | +1.00 | +1.00 | +1.00 | −0.20 | +1.00 | +0.00 |
+| 6 | Dr. Mundo | +0.76 | +1.00 | +1.00 | +1.00 | −0.25 | +1.00 | +0.00 |
+| 7 | Trundle | +0.75 | +1.00 | +1.00 | +1.00 | −0.67 | +1.00 | +1.00 |
+| 8 | Renekton | +0.73 | +1.00 | +1.00 | +1.00 | −0.44 | +1.00 | +0.00 |
+| 9 | Malphite | +0.73 | +1.00 | +1.00 | +1.00 | −0.44 | +1.00 | +0.00 |
+| 10 | Nasus | +0.72 | +1.00 | +1.00 | +1.00 | −0.50 | +1.00 | +0.00 |
+| 11 | Udyr | +0.71 | +1.00 | +1.00 | +1.00 | −0.58 | +1.00 | +0.00 |
+| 12 | Tahm Kench | +0.49 | +0.52 | +0.52 | +0.83 | −0.07 | +0.73 | +0.00 |
+| 13 | Zaahen | +0.18 | −0.23 | +0.00 | +1.00 | −0.43 | +1.00 | +0.00 |
+| 14 | Fiora | −0.23 | −0.47 | −0.47 | +1.00 | −0.96 | −1.00 | +1.00 |
+| 15 | Rumble | −0.26 | −0.68 | −0.65 | +0.95 | −0.15 | −1.00 | +0.00 |
+| 16 | Riven | −0.52 | −1.00 | −1.00 | +1.00 | −0.79 | −1.00 | +0.00 |
+| 17 | Mordekaiser | −0.67 | −0.68 | −0.61 | −0.89 | −0.66 | −0.76 | +0.00 |
+| 18 | Irelia | −0.68 | −1.00 | −1.00 | −1.00 | −0.09 | +0.38 | +0.00 |
+| 19 | Sion | −0.76 | −1.00 | −1.00 | −0.52 | −0.39 | −1.00 | +0.00 |
+| 20 | Kennen | −0.79 | −1.00 | −1.00 | −1.00 | −0.07 | – | +0.00 |
+| 21 | Skarner | −0.80 | −1.00 | −1.00 | −1.00 | +0.00 | −1.00 | +0.00 |
+| 22 | Aurora | −0.80 | −1.00 | −1.00 | −1.00 | −0.14 | – | +0.00 |
+| 23 | Sett | −0.82 | −0.84 | −1.00 | −0.92 | −0.50 | −1.00 | +0.00 |
+| 24 | Jayce | −0.82 | −1.00 | −1.00 | −1.00 | −0.13 | −1.00 | +0.00 |
+| 25 | Quinn | −0.83 | −1.00 | −1.00 | −1.00 | −0.22 | −1.00 | +0.00 |
+| 26 | Teemo | −0.83 | −1.00 | −1.00 | −1.00 | −0.22 | −1.00 | +0.00 |
+| 27 | Yasuo | −0.83 | −0.76 | −1.00 | −1.00 | −0.63 | −1.00 | +0.00 |
+| 28 | Gnar | −0.84 | −1.00 | −1.00 | −1.00 | −0.27 | −1.00 | +0.00 |
+| 29 | Kled | −0.84 | −1.00 | −1.00 | −1.00 | −0.29 | −1.00 | +0.00 |
+| 30 | Shen | −0.85 | −1.00 | −1.00 | −1.00 | −0.30 | −1.00 | +0.00 |
+| 31 | Illaoi | −0.87 | −1.00 | −1.00 | −1.00 | −0.44 | −1.00 | +0.00 |
+| 32 | Ornn | −0.87 | −1.00 | −1.00 | −1.00 | −0.45 | −1.00 | +0.00 |
+| 33 | Olaf | −0.87 | −1.00 | −1.00 | −1.00 | −0.47 | −1.00 | +0.00 |
+| 34 | Garen | −0.88 | −1.00 | −1.00 | −1.00 | −0.50 | −1.00 | +0.00 |
+| 35 | Urgot | −0.88 | −1.00 | −1.00 | −1.00 | −0.50 | −1.00 | +0.00 |
+| 36 | Akali | −0.88 | −1.00 | −1.00 | −1.00 | −0.55 | −1.00 | +0.00 |
+| 37 | Ambessa | −0.88 | −1.00 | −1.00 | −1.00 | −0.56 | −1.00 | +0.00 |
+| 38 | Aatrox | −0.89 | −1.00 | −1.00 | −1.00 | −0.70 | −0.81 | +0.00 |
+| 39 | Pantheon | −0.89 | −1.00 | −1.00 | −1.00 | −0.59 | −1.00 | +0.00 |
+| 40 | Darius | −0.89 | −1.00 | −1.00 | −1.00 | −0.59 | −1.00 | +0.00 |
+| 41 | Volibear | −0.89 | −1.00 | −1.00 | −1.00 | −0.59 | −1.00 | +0.00 |
+| 42 | Singed | −0.90 | −1.00 | −1.00 | −0.91 | −0.78 | −1.00 | +0.00 |
+| 43 | Cho'Gath | −0.91 | −1.00 | −1.00 | −1.00 | −0.71 | −1.00 | +0.00 |
+| 44 | Gwen | −0.92 | −0.99 | −1.00 | −1.00 | −0.84 | −1.00 | +0.00 |
+| 45 | Yone | −0.94 | −1.00 | −1.00 | −1.00 | −0.91 | −1.00 | +0.00 |
+
+## Interaction ledger (partial confidence)
+
 Every champion ranked by what its kit does against Kayle's, from the interaction ledger: projectile blocks, spell shields,
 parries, dash stops, crowd control and its defenses, range and more (PLAN.md §5). This ranking is **partial**: it weighs the
 interactions but doesn't play the fight out. The duel simulator replaces it as each champion's behavior is verified.
@@ -8,38 +62,38 @@ interactions but doesn't play the fight out. The duel simulator replaces it as e
 A hard counter shuts down part of a kit every time it is used (projectile block, attack dodge, attack block, blind, disarm, attack speed slow, attack reflect, dash stop, grounding, range) with an impact of 0.4 or more (0.5 for range).
 Run `npm run matchup -- <champion> Kayle` for the full ledger of a matchup, with sources.
 
-## Top 10
+### Top 10
 
-### 1. Teemo (net +0.11)
+#### 1. Teemo (net +0.11)
 
 - **0.47** blind: Blinding Dart's blind makes Kayle's basic attacks miss for 3 s. Blind for 3 s on a 7 s cooldown. (Teemo Q Blinding Dart → Kayle basic attacks)
 - **0.15** blind: Blinding Dart's blind makes Kayle's Starfire Spellblade, an empowered attack, miss. Blind for 3 s. (Teemo Q Blinding Dart → Kayle E Starfire Spellblade)
 - Watch out: Kayle's basic attacks reach 125 units farther than Teemo's (625 vs 500 attack range).
 
-### 2. Lulu (net +0.10)
+#### 2. Lulu (net +0.10)
 
 - **0.34** disarm: Whimsy disarms Kayle for 2 s: no basic attacks. Disarm for 2 s on a 18 s cooldown. (Lulu W Whimsy → Kayle basic attacks)
 - Watch out: Kayle's basic attacks reach 75 units farther than Lulu's (625 vs 550 attack range).
 
-### 3. Braum (net +0.06)
+#### 3. Braum (net +0.06)
 
 - **0.50** projectile block: Unbreakable blocks Kayle's basic attacks, which are projectiles. Unbreakable lasts 4 s on a 8 s cooldown. (Braum E Unbreakable → Kayle basic attacks)
 - **0.45** projectile block: Unbreakable blocks Kayle's Radiant Blast, a projectile. Unbreakable for 4 s, long enough to use ahead of Radiant Blast. (Braum E Unbreakable → Kayle Q Radiant Blast)
 - **0.38** projectile block: Unbreakable blocks Kayle's Starfire Spellblade, a projectile. Unbreakable for 4 s, long enough to use ahead of Starfire Spellblade. (Braum E Unbreakable → Kayle E Starfire Spellblade)
 - Watch out: Divine Judgment makes Kayle invulnerable to Braum's Glacial Fissure (its crowd control still applies).
 
-### 4. Samira (net 0.00)
+#### 4. Samira (net 0.00)
 
 - **0.30** projectile block: Blade Whirl blocks Kayle's basic attacks, which are projectiles. Blade Whirl lasts 0.75 s on a 22 s cooldown. (Samira W Blade Whirl → Kayle basic attacks)
 - **0.28** projectile block: Blade Whirl blocks Kayle's Radiant Blast, a projectile. Blade Whirl for 0.75 s; Radiant Blast takes 0.56 s to land, enough to react. (Samira W Blade Whirl → Kayle Q Radiant Blast)
 - **0.15** projectile block: Blade Whirl blocks Kayle's Starfire Spellblade, a projectile. Blade Whirl for 0.75 s; Starfire Spellblade lands within 0 s, faster than a 0.25 s reaction, so it needs prediction. (Samira W Blade Whirl → Kayle E Starfire Spellblade)
 - Watch out: Divine Judgment makes Kayle invulnerable to Samira's Wild Rush.
 
-### 5. Yunara (net 0.00)
+#### 5. Yunara (net 0.00)
 
 - No interaction in Yunara's favor.
 
-### 6. Shen (net -0.03)
+#### 6. Shen (net -0.03)
 
 - **0.36** attack block: Spirit's Refuge blocks Kayle's basic attacks (with Divine Ascent). Spirit's Refuge lasts 1.75 s on a 10 s cooldown. (Shen W Spirit's Refuge → Kayle basic attacks)
 - **0.17** attack block: Spirit's Refuge blocks Kayle's Starfire Spellblade, an empowered attack. Spirit's Refuge lasts 1.75 s on a 10 s cooldown. Parry interactions:
@@ -48,27 +102,27 @@ Run `npm run matchup -- <champion> Kayle` for the full ledger of a matchup, with
   - Dodge: Dodging will always negate all damage. : All parry interactions are marked for retesting because of patch V11.1 changes. (Shen W Spirit's Refuge → Kayle E Starfire Spellblade)
 - Watch out: Divine Judgment makes Kayle invulnerable to Shen's Shadow Dash (its crowd control still applies).
 
-### 7. Kai'Sa (net -0.09)
+#### 7. Kai'Sa (net -0.09)
 
 - No interaction in Kai'Sa's favor.
 - Watch out: Kayle's basic attacks reach 100 units farther than Kai'Sa's (625 vs 525 attack range).
 
-### 8. Kled (net -0.12)
+#### 8. Kled (net -0.12)
 
 - **0.05** cc immunity: Chaaaaaaaarge!!! makes Kled immune to Kayle's Radiant Blast (slow). Immune for ?; Radiant Blast takes 0.56 s to land, enough to react. (Kled R Chaaaaaaaarge!!! → Kayle Q Radiant Blast)
 - Watch out: Kayle's basic attacks reach 375 units farther than Kled's (625 vs 250 attack range).
 
-### 9. Twitch (net -0.14)
+#### 9. Twitch (net -0.14)
 
 - No interaction in Twitch's favor.
 - Watch out: Kayle's basic attacks reach 75 units farther than Twitch's (625 vs 550 attack range).
 
-### 10. Kalista (net -0.16)
+#### 10. Kalista (net -0.16)
 
 - **0.04** cleanse: Fate's Call cleanses Kayle's Radiant Blast (slow) after it lands. 120 s cooldown; usable while crowd controlled. (Kalista R Fate's Call → Kayle Q Radiant Blast)
 - Watch out: Divine Judgment makes Kayle invulnerable to Kalista's Basic Attack.
 
-## Full ranking
+### Full ranking
 
 | # | Champion | Net | For | Against | Hard counters |
 |--:|---|--:|--:|--:|---|

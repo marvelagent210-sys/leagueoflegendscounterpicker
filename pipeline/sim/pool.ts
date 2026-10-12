@@ -20,6 +20,8 @@ export interface PairResult {
   scenarios: Array<number | null>;
   /** Gold each side spent on each stat: you, then the enemy. */
   spent: [Record<BudgetStat, number>, Record<BudgetStat, number>];
+  /** The kit variant a side played when it had several (Udyr's rank split): whose, and its options. */
+  variant?: { side: 0 | 1; options: Record<string, number> };
 }
 
 export async function simulatePairs(dataset: string, gold: number, pairs: Array<[string, string]>, threads = availableParallelism()): Promise<PairResult[]> {

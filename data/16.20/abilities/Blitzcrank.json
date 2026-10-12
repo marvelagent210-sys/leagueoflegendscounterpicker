@@ -384,7 +384,13 @@
             "conditional": false
           }
         ],
-        "values": []
+        "values": [],
+        "tips": [
+          {
+            "text": "0.25",
+            "tip": "Estimated"
+          }
+        ]
       }
     ],
     "custom": [],

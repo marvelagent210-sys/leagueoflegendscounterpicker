@@ -329,7 +329,13 @@
             "conditional": false
           }
         ],
-        "values": []
+        "values": [],
+        "tips": [
+          {
+            "text": "a fixed distance",
+            "tip": "300 range per bounce, 600 in total"
+          }
+        ]
       },
       {
         "text": "Enemy champions can only be damaged once per cast, but can be slowed and stunned multiple times if circumstances permit.",

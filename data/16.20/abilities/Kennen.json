@@ -179,7 +179,13 @@
             "conditional": false
           }
         ],
-        "values": []
+        "values": [],
+        "tips": [
+          {
+            "text": "attack speed cap",
+            "tip": "normally 3.003 attacks per second"
+          }
+        ]
       },
       {
         "text": "Lightning Rush's recast can be used while affected by cast-inhibiting crowd control.",

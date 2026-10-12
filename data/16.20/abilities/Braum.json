@@ -167,7 +167,29 @@
       "revid": 4038222
     },
     "ranks": 1,
-    "fields": {},
+    "fields": {
+      "targetCooldown": {
+        "text": "8 / 6 / 4 (based on level)",
+        "values": [
+          {
+            "series": {
+              "kind": "variable",
+              "variable": "level",
+              "points": [
+                1,
+                6,
+                11
+              ],
+              "values": [
+                8,
+                6,
+                4
+              ]
+            }
+          }
+        ]
+      }
+    },
     "flags": {
       "targeting": [
         "Passive"
@@ -863,7 +885,17 @@
             "conditional": false
           }
         ],
-        "values": []
+        "values": [],
+        "tips": [
+          {
+            "text": "between",
+            "tip": "150 units from his ally towards the closest enemy"
+          },
+          {
+            "text": "within 1500 units",
+            "tip": "from the ally's location"
+          }
+        ]
       },
       {
         "text": "Stand Behind Me can be self cast to instantly grant Braum the bonus resistances.",

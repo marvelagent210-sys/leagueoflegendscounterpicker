@@ -578,7 +578,13 @@
             "conditional": false
           }
         ],
-        "values": []
+        "values": [],
+        "tips": [
+          {
+            "text": "0.4 seconds",
+            "tip": "Estimated"
+          }
+        ]
       },
       {
         "text": "While the target is stunned, Thresh tugs his hook towards him twice, once after a 0.1-second delay and again 0.6 seconds after that. With each tug, the target is pulled a short distance towards Thresh. After 0.5 seconds of hitting an enemy, or instantly after hitting a minion or monster, Thresh can recast the ability while the target is Shackled.",
@@ -592,7 +598,17 @@
             "conditional": false
           }
         ],
-        "values": []
+        "values": [],
+        "tips": [
+          {
+            "text": "0.1-second delay",
+            "tip": "Estimated"
+          },
+          {
+            "text": "0.6 seconds",
+            "tip": "Estimated, starting from the end of the initial delay"
+          }
+        ]
       },
       {
         "label": "Recast - Deathly Leap",

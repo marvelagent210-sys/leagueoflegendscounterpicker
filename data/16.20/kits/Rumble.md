@@ -228,3 +228,87 @@ All 4 level-based formulas in the game files (4 linked to wiki values above):
 | RumbleHeatSystem | TotalBaseDamage | linear 5 → 40 over levels 1-18, continues past 18 | 5 | 40 | 44.1176 |
 | RumbleHeatSystem | OverheatAS | along the stat growth curve 0.3 → 1 over levels 1-18, continues past 18 | 0.3 | 1 | 1.10974 |
 | RumbleHeatSystem | MonsterCapScaling | along the stat growth curve 90 → 175 over levels 1-18, continues past 18 | 90 | 175 | 188.325 |
+
+## Duel simulator kit (level 20, every ability at max rank)
+
+What the duel simulator fights with (`kits/champions/Rumble.ts`): every number is read from the wiki's ability data above at level 20; what the wiki doesn't say is listed under assumptions. Ratios are fractions of the stat (60% AD is 0.6 × AD).
+
+- Basic attack: range 125, melee.
+
+| Key | Ability | Cooldown (s) | Cast time (s) | Cost | Delivery | On the enemy | On itself |
+|---|---|--:|--:|---|---|---|---|
+| Q | Flamespitter | 6 | 0 | – | field of 325 radius around itself, 275 units ahead, for 3 s, pulsing every 0.25 s | 25 + 17.5% AP + 1.333% target's maximum health magic damage over 0.5 s | – |
+| Qhot | Flamespitter (Danger Zone) | 6 | 0 | – | field of 325 radius around itself, 275 units ahead, for 3 s, pulsing every 0.25 s | 37.5 + 26.25% AP + 2% target's maximum health magic damage over 0.5 s | – |
+| W | Scrap Shield | 6 | 0 | – | self | – | shield of 145 + 30% AP + 4% maximum health for 1.5 s; moveSpeedPercent 0.3 for 1 s |
+| Whot | Scrap Shield (Danger Zone) | 6 | 0 | – | self | – | shield of 217.5 + 45% AP + 6% maximum health for 1.5 s; moveSpeedPercent 0.45 for 1 s |
+| E | Electro Harpoon | 2 charges, one every 6 s (0.5 s between casts) | 0.25 | – | skillshot 950 long, 120 wide, at 2000/s | 155 + 50% AP magic damage | – |
+| Ehot | Electro Harpoon (Danger Zone) | 2 charges, one every 6 s (0.5 s between casts) | 0.25 | – | skillshot 950 long, 120 wide, at 2000/s | 232.5 + 75% AP magic damage | – |
+| R | The Equalizer | 80 | 0 | – | field of 205 radius up to 1700 away, after 0.997 s, for 4 s, pulsing every 0.25 s | 280 + 35% AP magic damage over 1 s; slow 35% for 1 s | – |
+
+Effects marked by a mark or a role are completed by the kit's hooks (see the kit's source).
+
+### Assumptions
+
+- Each ability is empowered by the Danger Zone if Rumble is in it when he casts, before its Heat is added; in an all-in he casts on cooldown and lets his mech overheat.
+- Flamespitter's cone (50 units behind Rumble to 600 in front) always faces the enemy.
+- Scrap Shield's speed lasts its intended 1 s (a bug can stretch it 0.264 s).
+- The Equalizer is laid across the enemy's path: a field 205 units each way of where it stood, landing 1.00 s after the cast and burning for up to 4 s (the 5-second cap on Burning), not along the line it fights on.
+- While Flamespitter burns, Rumble keeps 50 units outside the enemy's attack range and inside his cone; overheated or out-ranged, he fights up close.
+
+### Wiki values read (53)
+
+| Ability | Value | Revision |
+|---|---|---|
+| Junkyard Titan | which decays by 10 Heat per second after not using any basic ability within 4 seconds or The Equalizer within 2 seconds | [4064861](https://wiki.leagueoflegends.com/en-us/Template:Data_Rumble/Junkyard_Titan?oldid=4064861) |
+| Junkyard Titan | Rumble's mech enters the Danger Zone when at or above 50 Heat | [4064861](https://wiki.leagueoflegends.com/en-us/Template:Data_Rumble/Junkyard_Titan?oldid=4064861) |
+| Junkyard Titan | becomes Overheated while at 150 Heat | [4064861](https://wiki.leagueoflegends.com/en-us/Template:Data_Rumble/Junkyard_Titan?oldid=4064861) |
+| Junkyard Titan | disabling his abilities as his Heat decays back down to 0 over 4 seconds | [4064861](https://wiki.leagueoflegends.com/en-us/Template:Data_Rumble/Junkyard_Titan?oldid=4064861) |
+| Junkyard Titan | During this time, he gains 30 – 100 (based on level)% bonus attack speed and empowers his basic attacks to deal 5 – 40 (based on level) (+ 25% AP) (+ 4% of the target's maximum health) bonus magic damage on-hit. | [4064861](https://wiki.leagueoflegends.com/en-us/Template:Data_Rumble/Junkyard_Titan?oldid=4064861) |
+| Junkyard Titan | (+ 25% AP) (+ 4% of the target's maximum health) bonus magic damage on-hit | [4064861](https://wiki.leagueoflegends.com/en-us/Template:Data_Rumble/Junkyard_Titan?oldid=4064861) |
+| Flamespitter | Rumble generates 20 Heat to activate his flamethrower | [4034705](https://wiki.leagueoflegends.com/en-us/Template:Data_Rumble/Flamespitter?oldid=4034705) |
+| Scrap Shield | Rumble generates 20 Heat to grant himself a shield | [3923327](https://wiki.leagueoflegends.com/en-us/Template:Data_Rumble/Scrap_Shield?oldid=3923327) |
+| Electro Harpoon | Rumble generates 20 Heat to shoot a harpoon | [4008020](https://wiki.leagueoflegends.com/en-us/Template:Data_Rumble/Electro_Harpoon?oldid=4008020) |
+| Flamespitter | to activate his flamethrower for 3 seconds | [4034705](https://wiki.leagueoflegends.com/en-us/Template:Data_Rumble/Flamespitter?oldid=4034705) |
+| Flamespitter | spewing forth flames in a frontal cone every 0.25 seconds | [4034705](https://wiki.leagueoflegends.com/en-us/Template:Data_Rumble/Flamespitter?oldid=4034705) |
+| Flamespitter | Enemies hit by the flame are scorched for 0.6 seconds | [4034705](https://wiki.leagueoflegends.com/en-us/Template:Data_Rumble/Flamespitter?oldid=4034705) |
+| Flamespitter | range: 600 • -50 | [4034705](https://wiki.leagueoflegends.com/en-us/Template:Data_Rumble/Flamespitter?oldid=4034705) |
+| Flamespitter | Magic Damage per Tick: 4.16667 / 6.25 / 8.33333 / 10.4167 / 12.5 (+ 8.75% AP) (+ 0.5 / 0.541667 / 0.583333 / 0.625 / 0.666667% of target's maximum health) | [4034705](https://wiki.leagueoflegends.com/en-us/Template:Data_Rumble/Flamespitter?oldid=4034705) |
+| Flamespitter | Enhanced Damage per Tick: 6.25 / 9.375 / 12.5 / 15.625 / 18.75 (+ 13.125% AP) (+ 0.75 / 0.8125 / 0.875 / 0.9375 / 1% of target's maximum health) | [4034705](https://wiki.leagueoflegends.com/en-us/Template:Data_Rumble/Flamespitter?oldid=4034705) |
+| Flamespitter | When Flamespitter's debuff is applied instead of refreshed, the target is dealt one additional instance of the debuff at the same time as the application | [4034705](https://wiki.leagueoflegends.com/en-us/Template:Data_Rumble/Flamespitter?oldid=4034705) |
+| Scrap Shield | grant himself a shield for 1.5 seconds | [3923327](https://wiki.leagueoflegends.com/en-us/Template:Data_Rumble/Scrap_Shield?oldid=3923327) |
+| Scrap Shield | The movement speed buff is supposed to last for 1 second | [3923327](https://wiki.leagueoflegends.com/en-us/Template:Data_Rumble/Scrap_Shield?oldid=3923327) |
+| Electro Harpoon | Magic Resistance Reduction: 10 / 12 / 14 / 16 / 18% | [4008020](https://wiki.leagueoflegends.com/en-us/Template:Data_Rumble/Electro_Harpoon?oldid=4008020) |
+| Electro Harpoon | Enhanced Magic Resistance Reduction: 15 / 18 / 21 / 24 / 27% | [4008020](https://wiki.leagueoflegends.com/en-us/Template:Data_Rumble/Electro_Harpoon?oldid=4008020) |
+| Electro Harpoon | Slow: 15 / 20 / 25 / 30 / 35% | [4008020](https://wiki.leagueoflegends.com/en-us/Template:Data_Rumble/Electro_Harpoon?oldid=4008020) |
+| Electro Harpoon | Enhanced Slow: 22.5 / 30 / 37.5 / 45 / 52.5% | [4008020](https://wiki.leagueoflegends.com/en-us/Template:Data_Rumble/Electro_Harpoon?oldid=4008020) |
+| Electro Harpoon | inflicting them with magic resistance reduction for 4 seconds and slowing them for 2 seconds | [4008020](https://wiki.leagueoflegends.com/en-us/Template:Data_Rumble/Electro_Harpoon?oldid=4008020) |
+| Electro Harpoon | stacking up to 2 times | [4008020](https://wiki.leagueoflegends.com/en-us/Template:Data_Rumble/Electro_Harpoon?oldid=4008020) |
+| Electro Harpoon | Rumble periodically stocks an Electro Harpoon charge, up to a maximum of 2 | [4008020](https://wiki.leagueoflegends.com/en-us/Template:Data_Rumble/Electro_Harpoon?oldid=4008020) |
+| Electro Harpoon | he may still use another charge within 3 seconds of the initial cast | [4008020](https://wiki.leagueoflegends.com/en-us/Template:Data_Rumble/Electro_Harpoon?oldid=4008020) |
+| Electro Harpoon | the effectiveness of both debuffs on the target are increased to their enhanced values for all stacks of each debuff | [4008020](https://wiki.leagueoflegends.com/en-us/Template:Data_Rumble/Electro_Harpoon?oldid=4008020) |
+| The Equalizer | taking magic damage every 0.25 seconds and being slowed by 35% | [4008021](https://wiki.leagueoflegends.com/en-us/Template:Data_Rumble/The_Equalizer?oldid=4008021) |
+| The Equalizer | marked Burning for 1 second | [4008021](https://wiki.leagueoflegends.com/en-us/Template:Data_Rumble/The_Equalizer?oldid=4008021) |
+| The Equalizer | Enemies may be Burning for up to 5 seconds | [4008021](https://wiki.leagueoflegends.com/en-us/Template:Data_Rumble/The_Equalizer?oldid=4008021) |
+| The Equalizer | each having a circular area of effect with a radius of 205 units | [4008021](https://wiki.leagueoflegends.com/en-us/Template:Data_Rumble/The_Equalizer?oldid=4008021) |
+| The Equalizer | castTime: None • 0.5833 | [4008021](https://wiki.leagueoflegends.com/en-us/Template:Data_Rumble/The_Equalizer?oldid=4008021) |
+| The Equalizer | which is equivalent to a period of 0.132 from the cast point | [4008021](https://wiki.leagueoflegends.com/en-us/Template:Data_Rumble/The_Equalizer?oldid=4008021) |
+| The Equalizer | Each rocket drops at an offset of 180 units from the previous in the vector of cast | [4008021](https://wiki.leagueoflegends.com/en-us/Template:Data_Rumble/The_Equalizer?oldid=4008021) |
+| The Equalizer | speed: 1600 | [4008021](https://wiki.leagueoflegends.com/en-us/Template:Data_Rumble/The_Equalizer?oldid=4008021) |
+| The Equalizer | consists of a row of six rockets | [4008021](https://wiki.leagueoflegends.com/en-us/Template:Data_Rumble/The_Equalizer?oldid=4008021) |
+| Flamespitter | cooldown: 10 / 9 / 8 / 7 / 6 | [4034705](https://wiki.leagueoflegends.com/en-us/Template:Data_Rumble/Flamespitter?oldid=4034705) |
+| Scrap Shield | cooldown: 6 | [3923327](https://wiki.leagueoflegends.com/en-us/Template:Data_Rumble/Scrap_Shield?oldid=3923327) |
+| Electro Harpoon | recharge: 6 | [4008020](https://wiki.leagueoflegends.com/en-us/Template:Data_Rumble/Electro_Harpoon?oldid=4008020) |
+| Scrap Shield | Shield Strength: 25 / 55 / 85 / 115 / 145 (+ 30% AP) (+ 4% of maximum health) | [3923327](https://wiki.leagueoflegends.com/en-us/Template:Data_Rumble/Scrap_Shield?oldid=3923327) |
+| Scrap Shield | Bonus Movement Speed: 10 / 15 / 20 / 25 / 30% | [3923327](https://wiki.leagueoflegends.com/en-us/Template:Data_Rumble/Scrap_Shield?oldid=3923327) |
+| Scrap Shield | Enhanced Shield Strength: 37.5 / 82.5 / 127.5 / 172.5 / 217.5 (+ 45% AP) (+ 6% of maximum health) | [3923327](https://wiki.leagueoflegends.com/en-us/Template:Data_Rumble/Scrap_Shield?oldid=3923327) |
+| Scrap Shield | Enhanced Bonus Movement Speed: 15 / 22.5 / 30 / 37.5 / 45% | [3923327](https://wiki.leagueoflegends.com/en-us/Template:Data_Rumble/Scrap_Shield?oldid=3923327) |
+| Electro Harpoon | cooldown: 0.5 | [4008020](https://wiki.leagueoflegends.com/en-us/Template:Data_Rumble/Electro_Harpoon?oldid=4008020) |
+| Electro Harpoon | castTime: 0.25 | [4008020](https://wiki.leagueoflegends.com/en-us/Template:Data_Rumble/Electro_Harpoon?oldid=4008020) |
+| Electro Harpoon | range: 950 • 890 | [4008020](https://wiki.leagueoflegends.com/en-us/Template:Data_Rumble/Electro_Harpoon?oldid=4008020) |
+| Electro Harpoon | width: 120 | [4008020](https://wiki.leagueoflegends.com/en-us/Template:Data_Rumble/Electro_Harpoon?oldid=4008020) |
+| Electro Harpoon | speed: 2000 | [4008020](https://wiki.leagueoflegends.com/en-us/Template:Data_Rumble/Electro_Harpoon?oldid=4008020) |
+| Electro Harpoon | Magic Damage: 55 / 80 / 105 / 130 / 155 (+ 50% AP) | [4008020](https://wiki.leagueoflegends.com/en-us/Template:Data_Rumble/Electro_Harpoon?oldid=4008020) |
+| Electro Harpoon | Enhanced Damage: 82.5 / 120 / 157.5 / 195 / 232.5 (+ 75% AP) | [4008020](https://wiki.leagueoflegends.com/en-us/Template:Data_Rumble/Electro_Harpoon?oldid=4008020) |
+| The Equalizer | cooldown: 130 / 105 / 80 | [4008021](https://wiki.leagueoflegends.com/en-us/Template:Data_Rumble/The_Equalizer?oldid=4008021) |
+| The Equalizer | targetRange: 1700 | [4008021](https://wiki.leagueoflegends.com/en-us/Template:Data_Rumble/The_Equalizer?oldid=4008021) |
+| The Equalizer | Magic Damage per Tick: 30 / 50 / 70 (+ 8.75% AP) | [4008021](https://wiki.leagueoflegends.com/en-us/Template:Data_Rumble/The_Equalizer?oldid=4008021) |

@@ -139,7 +139,17 @@
             "conditional": false
           }
         ],
-        "values": []
+        "values": [],
+        "tips": [
+          {
+            "text": "area",
+            "tip": "centered at the location"
+          },
+          {
+            "text": "2.5 seconds",
+            "tip": "Estimated"
+          }
+        ]
       },
       {
         "text": "The fire then remains for 5 seconds, dealing magic damage each second to enemies within and inflicting them with armor reduction, lingering for 1 second.",

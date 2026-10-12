@@ -3,17 +3,18 @@
  * settings' kit options, the stat budget, the six scenarios. Pure (no DOM), so it runs in the
  * app's workers and in tests.
  */
-import type { AbilityRecord } from "../../../engine/abilities";
+import type { AbilityRecord, PetRecord, RuneRecord } from "../../../engine/abilities";
 import type { BudgetStat, StatPrices } from "../../../engine/budget";
 import { type CompiledKit, compileKit } from "../../../engine/kits/compile";
 import { derive } from "../../../engine/sim/derived";
-import { simulateMatchup } from "../../../engine/sim/matchup";
+import { type KitVariant, bestMatchup } from "../../../engine/sim/matchup";
 import type { ScenarioId } from "../../../engine/sim/scenarios";
 import type { FighterSpec } from "../../../engine/sim/spec";
 import { type LogEntry, newUnit } from "../../../engine/sim/state";
 import type { Champion } from "../../../engine/types";
 import { KITS } from "../../../kits/champions/index";
 import { type AppSettings, kitOptionsFor, scenarioOptions } from "../settings";
+import type { MatchupVariant } from "./protocol";
 
 /** A champion's numbers in a fight: level-20 base stats plus what the stat budget bought. */
 export interface StatLine {
@@ -63,28 +64,56 @@ export interface MatchupRun {
   spent: [Record<BudgetStat, number>, Record<BudgetStat, number>];
   stats: [StatLine, StatLine];
   assumptions: [string[], string[]];
+  /** The kit options a side played when its kit had a choice (Udyr's rank split). */
+  variant?: MatchupVariant;
 }
 
 /** What a run needs from the dataset. */
 export interface SimSource {
   champion(id: string): Champion;
   records(id: string): Promise<AbilityRecord[]>;
+  /** The champion's pets; none for most. */
+  pets(id: string): PetRecord[];
+  /** The runes the simulator models (Triple Tonic). */
+  runes: RuneRecord[];
   prices: StatPrices;
 }
 
 const compiled = new Map<string, CompiledKit>();
 
-/** The champion's kit with the settings' options (compiled once per options). */
-export async function kitFor(source: SimSource, id: string, settings: AppSettings): Promise<CompiledKit> {
-  const options = kitOptionsFor(settings, id);
+/** The champion's kit with these options (compiled once per options). */
+async function kitWith(source: SimSource, id: string, options: Record<string, number>): Promise<CompiledKit> {
   const key = `${id}|${JSON.stringify(options)}`;
   const known = compiled.get(key);
   if (known) return known;
   const module = KITS[id];
   if (!module) throw new Error(`${id} has no simulator kit`);
-  const kit = compileKit(source.champion(id), await source.records(id), module, options);
+  const kit = compileKit(source.champion(id), await source.records(id), module, options, source.pets(id), source.runes);
   compiled.set(key, kit);
   return kit;
+}
+
+/** The champion's kit with the settings' options. */
+export function kitFor(source: SimSource, id: string, settings: AppSettings): Promise<CompiledKit> {
+  return kitWith(source, id, kitOptionsFor(settings, id));
+}
+
+const sameOptions = (a: Record<string, number>, b: Record<string, number>) => Object.keys({ ...a, ...b }).every((key) => a[key] === b[key]);
+
+/**
+ * The kits a side may play: its variants when its kit has a choice (Udyr's rank splits), or
+ * just the one hinted at when it is still one of them; else the kit itself.
+ */
+async function sideKits(source: SimSource, id: string, settings: AppSettings, hint?: Record<string, number>): Promise<Array<{ kit: CompiledKit; variant: KitVariant }>> {
+  const kit = await kitFor(source, id, settings);
+  if (kit.variants.length === 0) return [{ kit, variant: { spec: kit.spec } }];
+  const hinted = hint && kit.variants.find((options) => sameOptions(options, { ...kit.options, ...hint }));
+  return Promise.all(
+    (hinted ? [hinted] : kit.variants).map(async (options) => {
+      const variantKit = await kitWith(source, id, options);
+      return { kit: variantKit, variant: { spec: variantKit.spec, options } };
+    }),
+  );
 }
 
 function statLine(spec: FighterSpec): StatLine {
@@ -108,10 +137,23 @@ function statLine(spec: FighterSpec): StatLine {
   };
 }
 
-export async function runMatchup(source: SimSource, you: string, enemy: string, settings: AppSettings, log: boolean): Promise<MatchupRun> {
-  const [a, b] = [await kitFor(source, you, settings), await kitFor(source, enemy, settings)];
+export async function runMatchup(source: SimSource, you: string, enemy: string, settings: AppSettings, log: boolean, hint?: MatchupVariant): Promise<MatchupRun> {
+  const mine = await sideKits(source, you, settings, hint?.side === 0 ? hint.options : undefined);
+  const theirs = await sideKits(source, enemy, settings, hint?.side === 1 ? hint.options : undefined);
   const options = scenarioOptions(settings);
-  const result = simulateMatchup(a.spec, b.spec, settings.gold, source.prices, { ...options, settings: { ...options.settings, log } });
+  const result = bestMatchup(
+    mine.map((m) => m.variant),
+    theirs.map((t) => t.variant),
+    settings.gold,
+    source.prices,
+    { ...options, settings: { ...options.settings, log } },
+  );
+  // The kits that played: the chosen variant's, when a side had several.
+  const played = (side: 0 | 1, kits: Array<{ kit: CompiledKit; variant: KitVariant }>) =>
+    (result.variant?.side === side ? kits.find((k) => k.variant.options && sameOptions(k.variant.options, result.variant?.options ?? {})) : kits[0])?.kit ?? kits[0]?.kit;
+  const a = played(0, mine);
+  const b = played(1, theirs);
+  if (!a || !b) throw new Error(`No kit for ${a ? enemy : you}`);
   return {
     you,
     enemy,
@@ -135,5 +177,6 @@ export async function runMatchup(source: SimSource, you: string, enemy: string, 
     spent: [result.builds[0].spent, result.builds[1].spent],
     stats: [statLine({ ...a.spec, bonus: result.builds[0].bonus }), statLine({ ...b.spec, bonus: result.builds[1].bonus })],
     assumptions: [a.assumptions, b.assumptions],
+    ...(result.variant ? { variant: result.variant } : {}),
   };
 }

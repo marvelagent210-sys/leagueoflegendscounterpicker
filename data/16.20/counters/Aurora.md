@@ -1,5 +1,59 @@
 # Counters to Aurora (patch 26.20)
 
+## Simulated duels (full confidence)
+
+The duel simulator played each of the 45 other champions with a simulator kit against Aurora: both at level 20 with 15,000 gold of plain stats, each side's spent against the other's, through six scenarios (PLAN.md §6). Scores run from −1 (Aurora wins every time) to +1 (the champion does). Run `npm run duel -- <champion> Aurora --log brawl` to watch a fight.
+
+| # | Champion | Score | You engage | Enemy engages | Brawl | Short trade | Spacing | Escape |
+|--:|---|--:|--:|--:|--:|--:|--:|--:|
+| 1 | Poppy | +0.81 | +1.00 | +1.00 | +1.00 | +0.07 | +1.00 | +0.00 |
+| 2 | Kled | +0.81 | +1.00 | +1.00 | +1.00 | +0.07 | +1.00 | +0.00 |
+| 3 | K'Sante | +0.80 | +1.00 | +1.00 | +1.00 | −0.32 | +1.00 | +1.00 |
+| 4 | Kayle | +0.80 | +1.00 | +1.00 | +1.00 | +0.14 | – | +0.00 |
+| 5 | Camille | +0.79 | +1.00 | +1.00 | +1.00 | −0.05 | +1.00 | +0.00 |
+| 6 | Jax | +0.79 | +1.00 | +1.00 | +1.00 | −0.08 | +1.00 | +0.00 |
+| 7 | Teemo | +0.78 | +1.00 | +1.00 | +1.00 | +0.04 | – | +0.00 |
+| 8 | Udyr | +0.77 | +1.00 | +1.00 | +1.00 | −0.19 | +1.00 | +0.00 |
+| 9 | Tryndamere | +0.77 | +1.00 | +1.00 | +1.00 | −0.20 | +1.00 | +0.00 |
+| 10 | Nasus | +0.77 | +1.00 | +1.00 | +1.00 | −0.21 | +1.00 | +0.00 |
+| 11 | Kennen | +0.77 | +1.00 | +1.00 | +1.00 | −0.06 | – | +0.00 |
+| 12 | Fiora | +0.76 | +1.00 | +1.00 | +1.00 | −0.30 | +1.00 | +0.00 |
+| 13 | Garen | +0.75 | +1.00 | +1.00 | +1.00 | −0.28 | +0.93 | +0.00 |
+| 14 | Trundle | +0.73 | +1.00 | +1.00 | +1.00 | −0.47 | +1.00 | +0.00 |
+| 15 | Renekton | +0.66 | +1.00 | +1.00 | +1.00 | −0.22 | −0.10 | +0.00 |
+| 16 | Jayce | +0.60 | +1.00 | +1.00 | +1.00 | −0.02 | −1.00 | +0.00 |
+| 17 | Rumble | +0.54 | +0.94 | +0.94 | +0.19 | −0.11 | +0.46 | +0.00 |
+| 18 | Volibear | +0.45 | +1.00 | +0.61 | +1.00 | −0.33 | −1.00 | +0.00 |
+| 19 | Gwen | +0.35 | +0.68 | +0.68 | +0.77 | −0.33 | −1.00 | +0.00 |
+| 20 | Malphite | +0.17 | +0.00 | +0.00 | +1.00 | −0.17 | −0.05 | +0.00 |
+| 21 | Sion | +0.15 | −0.10 | −0.10 | +0.71 | −0.11 | +0.81 | +0.00 |
+| 22 | Mordekaiser | +0.13 | +0.04 | +0.13 | +0.67 | −0.28 | −0.04 | +0.00 |
+| 23 | Dr. Mundo | +0.10 | +0.12 | +0.17 | +0.20 | −0.10 | +0.08 | +0.00 |
+| 24 | Zaahen | +0.09 | +0.44 | +0.32 | −0.27 | −0.18 | −0.19 | +0.00 |
+| 25 | Aatrox | +0.05 | +1.00 | +0.44 | −1.00 | −0.10 | −1.00 | +0.00 |
+| 26 | Darius | +0.04 | +1.00 | −1.00 | +1.00 | −0.40 | −1.00 | +0.00 |
+| 27 | Tahm Kench | −0.15 | −0.18 | −0.18 | −0.18 | −0.08 | −0.15 | +0.00 |
+| 28 | Skarner | −0.16 | −0.20 | −0.20 | −0.18 | +0.01 | −0.23 | +0.00 |
+| 29 | Akali | −0.24 | +0.06 | +0.06 | −0.61 | −0.31 | −1.00 | +0.00 |
+| 30 | Urgot | −0.28 | −0.35 | −0.35 | −0.24 | −0.12 | −0.41 | +0.00 |
+| 31 | Shen | −0.30 | −0.42 | −0.42 | −0.27 | +0.01 | −0.43 | +0.00 |
+| 32 | Irelia | −0.33 | −1.00 | −1.00 | +1.00 | −0.02 | −0.23 | +0.00 |
+| 33 | Ornn | −0.35 | −0.44 | −0.44 | −0.33 | −0.12 | −0.44 | +0.00 |
+| 34 | Quinn | −0.36 | −1.00 | −1.00 | +0.92 | −0.07 | – | +0.00 |
+| 35 | Illaoi | −0.43 | −1.00 | −1.00 | +0.94 | −0.16 | −0.95 | +0.00 |
+| 36 | Riven | −0.47 | −1.00 | −1.00 | +1.00 | −0.46 | −1.00 | +0.00 |
+| 37 | Singed | −0.47 | −1.00 | −1.00 | +1.00 | −0.46 | −1.00 | +0.00 |
+| 38 | Yone | −0.62 | +0.00 | −1.00 | −1.00 | −0.44 | −1.00 | +0.00 |
+| 39 | Yasuo | −0.65 | −1.00 | −1.00 | −0.22 | −0.04 | −1.00 | +0.00 |
+| 40 | Olaf | −0.80 | −0.87 | −0.92 | −1.00 | −0.35 | −1.00 | +0.00 |
+| 41 | Gnar | −0.80 | −1.00 | −1.00 | −1.00 | −0.02 | −1.00 | +0.00 |
+| 42 | Sett | −0.80 | −0.98 | −0.98 | −0.98 | −0.23 | −0.85 | +0.00 |
+| 43 | Pantheon | −0.81 | −1.00 | −1.00 | −1.00 | −0.05 | −1.00 | +0.00 |
+| 44 | Cho'Gath | −0.81 | −1.00 | −1.00 | −1.00 | −0.09 | −1.00 | +0.00 |
+| 45 | Ambessa | −0.85 | −1.00 | −1.00 | −1.00 | −0.34 | −1.00 | +0.00 |
+
+## Interaction ledger (partial confidence)
+
 Every champion ranked by what its kit does against Aurora's, from the interaction ledger: projectile blocks, spell shields,
 parries, dash stops, crowd control and its defenses, range and more (PLAN.md §5). This ranking is **partial**: it weighs the
 interactions but doesn't play the fight out. The duel simulator replaces it as each champion's behavior is verified.
@@ -8,62 +62,62 @@ interactions but doesn't play the fight out. The duel simulator replaces it as e
 A hard counter shuts down part of a kit every time it is used (projectile block, attack dodge, attack block, blind, disarm, attack speed slow, attack reflect, dash stop, grounding, range) with an impact of 0.4 or more (0.5 for range).
 Run `npm run matchup -- <champion> Aurora` for the full ledger of a matchup, with sources.
 
-## Top 10
+### Top 10
 
-### 1. Sivir (net +0.70)
+#### 1. Sivir (net +0.70)
 
 - **0.70** spell shield: Spell Shield's spell shield blocks Aurora's Between Worlds. Spell shield for 1.5 s, long enough to use ahead of Between Worlds. A spell shield blocks only the first enemy ability that reaches it. (Sivir E Spell Shield → Aurora R Between Worlds)
 
-### 2. Kayle (net +0.38)
+#### 2. Kayle (net +0.38)
 
 - **0.35** invulnerable: Divine Judgment makes Kayle invulnerable to Aurora's Between Worlds (its crowd control still applies). Invulnerable for 2.5 s, long enough to use ahead of Between Worlds. (Kayle R Divine Judgment → Aurora R Between Worlds)
 - **0.03** range: Kayle's basic attacks reach 75 units farther than Aurora's (625 vs 550 attack range). Aurora closes the gap with The Weirding, Between Worlds, Across the Veil. (Kayle basic attacks → Aurora basic attacks)
 
-### 3. Xayah (net +0.27)
+#### 3. Xayah (net +0.27)
 
 - **0.70** untargetable: Featherstorm makes Xayah untargetable, dodging Aurora's Between Worlds. Untargetable for 1.5 s, long enough to use ahead of Between Worlds. (Xayah R Featherstorm → Aurora R Between Worlds)
 - Watch out: Between Worlds makes Aurora untargetable, dodging Xayah's Featherstorm.
 
-### 4. Kai'Sa (net +0.15)
+#### 4. Kai'Sa (net +0.15)
 
 - **0.15** reveal: Void Seeker reveals Aurora through Across the Veil's stealth. (Kai'Sa W Void Seeker → Aurora W Across the Veil)
 
-### 5. Vladimir (net +0.13)
+#### 5. Vladimir (net +0.13)
 
 - **0.70** untargetable: Sanguine Pool makes Vladimir untargetable, dodging Aurora's Between Worlds. Untargetable for 2 s, long enough to use ahead of Between Worlds. (Vladimir W Sanguine Pool → Aurora R Between Worlds)
 - Watch out: Between Worlds makes Aurora untargetable, dodging Vladimir's Hemoplague.
 
-### 6. Master Yi (net +0.12)
+#### 6. Master Yi (net +0.12)
 
 - **0.42** untargetable: Alpha Strike makes Master Yi untargetable, dodging Aurora's Between Worlds. Untargetable for ?; Between Worlds lands within 0 s, faster than a 0.25 s reaction, so it needs prediction. (Master Yi Q Alpha Strike → Aurora R Between Worlds)
 - **0.14** cleanse: Highlander cleanses Aurora's Between Worlds (slow) after it lands. 85 s cooldown; usable while crowd controlled. (Master Yi R Highlander → Aurora R Between Worlds)
 - **0.08** cc immunity: Highlander makes Master Yi immune to Aurora's Between Worlds slow. Highlander lasts 7 s on a 85 s cooldown. (Master Yi R Highlander → Aurora R Between Worlds)
 - Watch out: Aurora's basic attacks reach 375 units farther than Master Yi's (550 vs 175 attack range).
 
-### 7. Elise (net +0.07)
+#### 7. Elise (net +0.07)
 
 - **0.42** untargetable: Rappel makes Elise untargetable, dodging Aurora's Between Worlds. Untargetable for 0.6 s; Between Worlds lands within 0 s, faster than a 0.25 s reaction, so it needs prediction. (Elise E Rappel → Aurora R Between Worlds)
 - **0.15** reveal: Cocoon reveals Aurora through Across the Veil's stealth. (Elise E Cocoon → Aurora W Across the Veil)
 - Watch out: Between Worlds makes Aurora untargetable, dodging Elise's Cocoon.
 
-### 8. Samira (net +0.02)
+#### 8. Samira (net +0.02)
 
 - **0.27** projectile block: Blade Whirl blocks Aurora's Twofold Hex, a projectile. Blade Whirl for 0.75 s; Twofold Hex takes 0.81 s to land, enough to react. (Samira W Blade Whirl → Aurora Q Twofold Hex)
 - **0.24** projectile block: Blade Whirl blocks Aurora's basic attacks, which are projectiles. Blade Whirl lasts 0.75 s on a 22 s cooldown. (Samira W Blade Whirl → Aurora basic attacks)
 - Watch out: Between Worlds makes Aurora untargetable, dodging Samira's Wild Rush.
 
-### 9. Lissandra (net +0.01)
+#### 9. Lissandra (net +0.01)
 
 - **0.70** untargetable: Frozen Tomb makes Lissandra untargetable, dodging Aurora's Between Worlds. Untargetable for 2.5 s, long enough to use ahead of Between Worlds. (Lissandra R Frozen Tomb → Aurora R Between Worlds)
 - **0.16** dash stop: Frozen Tomb's knockdown can stop Aurora's Across the Veil mid-dash. Must land during the dash. Fails if the dashing unit is crowd control immune, displacement immune, untargetable or spell shielded. (Lissandra R Frozen Tomb → Aurora W Across the Veil)
 - **0.14** dash stop: Frozen Tomb's knockdown can stop Aurora's The Weirding mid-dash. Must land during the dash. Fails if the dashing unit is crowd control immune, displacement immune, untargetable or spell shielded. (Lissandra R Frozen Tomb → Aurora E The Weirding)
 - Watch out: Between Worlds makes Aurora untargetable, dodging Lissandra's Frozen Tomb.
 
-### 10. Twitch (net 0.00)
+#### 10. Twitch (net 0.00)
 
 - No interaction in Twitch's favor.
 
-## Full ranking
+### Full ranking
 
 | # | Champion | Net | For | Against | Hard counters |
 |--:|---|--:|--:|--:|---|

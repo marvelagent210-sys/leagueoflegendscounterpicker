@@ -836,7 +836,13 @@
             "conditional": false
           }
         ],
-        "values": []
+        "values": [],
+        "tips": [
+          {
+            "text": "425 units",
+            "tip": "Estimated"
+          }
+        ]
       },
       {
         "text": "The shockwave leaves behind a circular rift to the Spirit Realm for a duration, forming borders that interact with Aurora and enemies. If Aurora collides with the border, she dashes to the diametrically opposite side of the rift over 0.4 seconds, becoming untargetable and unable to act during the travel. If an enemy collides with the border, they are slowed by 50% for a duration.",
@@ -918,7 +924,17 @@
             "conditional": false
           }
         ],
-        "values": []
+        "values": [],
+        "tips": [
+          {
+            "text": "collides",
+            "tip": "See notes"
+          },
+          {
+            "text": "collides",
+            "tip": "See notes"
+          }
+        ]
       },
       {
         "text": "Between Worlds can be recast after 1 second of unleashing the shockwave while the rift is active.",
@@ -1094,7 +1110,13 @@
             "conditional": false
           }
         ],
-        "values": []
+        "values": [],
+        "tips": [
+          {
+            "text": "completing",
+            "tip": "See notes"
+          }
+        ]
       },
       {
         "label": "Realm Hopper",

@@ -1057,7 +1057,13 @@
             "conditional": false
           }
         ],
-        "values": []
+        "values": [],
+        "tips": [
+          {
+            "text": "post-mitigation",
+            "tip": "After modifiers such as resistances"
+          }
+        ]
       },
       {
         "text": "Non-epic monsters take 50% damage from Tactical Sweep.",

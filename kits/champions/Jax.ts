@@ -104,6 +104,7 @@ const jax: KitModule = {
           cooldown: w.cooldown(),
           cost: w.cost(),
           castTime: w.castTime(),
+          cooldownAfter: "empower",
           delivery: { kind: "self" },
           onSelf: [
             {

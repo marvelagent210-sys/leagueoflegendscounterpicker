@@ -1,5 +1,59 @@
 # Counters to Illaoi (patch 26.20)
 
+## Simulated duels (full confidence)
+
+The duel simulator played each of the 45 other champions with a simulator kit against Illaoi: both at level 20 with 15,000 gold of plain stats, each side's spent against the other's, through six scenarios (PLAN.md §6). Scores run from −1 (Illaoi wins every time) to +1 (the champion does). Run `npm run duel -- <champion> Illaoi --log brawl` to watch a fight.
+
+| # | Champion | Score | You engage | Enemy engages | Brawl | Short trade | Spacing | Escape |
+|--:|---|--:|--:|--:|--:|--:|--:|--:|
+| 1 | Kayle | +0.87 | +1.00 | +1.00 | +1.00 | +0.44 | +1.00 | +0.00 |
+| 2 | Teemo | +0.86 | +1.00 | +1.00 | +1.00 | +0.40 | +1.00 | +0.00 |
+| 3 | K'Sante | +0.86 | +1.00 | +1.00 | +1.00 | +0.05 | +1.00 | +1.00 |
+| 4 | Cho'Gath | +0.78 | +1.00 | +1.00 | +1.00 | +0.04 | – | +0.00 |
+| 5 | Dr. Mundo | +0.78 | +1.00 | +1.00 | +1.00 | −0.01 | – | +0.00 |
+| 6 | Nasus | +0.77 | +1.00 | +1.00 | +1.00 | −0.04 | – | +0.00 |
+| 7 | Trundle | +0.77 | +1.00 | +1.00 | +1.00 | −0.04 | – | +0.00 |
+| 8 | Poppy | +0.66 | +1.00 | +0.51 | +1.00 | +0.08 | – | +0.00 |
+| 9 | Darius | +0.61 | +1.00 | +1.00 | +0.26 | −0.02 | – | +0.00 |
+| 10 | Aurora | +0.43 | +1.00 | +1.00 | −0.94 | +0.16 | +0.95 | +0.00 |
+| 11 | Gnar | +0.43 | +1.00 | +1.00 | −1.00 | +0.18 | +1.00 | +0.00 |
+| 12 | Zaahen | +0.34 | +1.00 | +1.00 | −1.00 | +0.04 | – | +0.00 |
+| 13 | Volibear | +0.29 | +1.00 | −0.70 | +1.00 | −0.07 | – | +0.00 |
+| 14 | Malphite | +0.25 | +0.88 | +0.13 | −0.69 | +0.25 | +1.00 | +0.00 |
+| 15 | Kennen | +0.17 | +0.57 | +0.60 | −0.82 | −0.02 | +0.44 | +0.00 |
+| 16 | Quinn | −0.02 | −0.01 | −0.95 | +0.98 | −0.06 | +0.35 | +0.00 |
+| 17 | Jayce | −0.02 | +0.26 | +0.26 | −0.31 | +0.10 | −1.00 | +0.00 |
+| 18 | Kled | −0.14 | −0.85 | +1.00 | −0.90 | +0.11 | – | +0.00 |
+| 19 | Mordekaiser | −0.29 | −0.32 | +0.38 | −1.00 | −0.04 | −0.96 | +0.00 |
+| 20 | Fiora | −0.36 | −0.37 | −0.36 | −1.00 | +0.07 | – | +1.00 |
+| 21 | Gwen | −0.42 | −1.00 | −1.00 | +0.72 | −0.18 | – | +0.00 |
+| 22 | Irelia | −0.45 | −1.00 | −0.33 | −0.77 | +0.02 | +0.30 | +0.00 |
+| 23 | Jax | −0.49 | −0.50 | −0.50 | −1.00 | +0.05 | – | +0.00 |
+| 24 | Singed | −0.51 | −0.38 | −0.69 | −0.90 | −0.08 | – | +0.00 |
+| 25 | Sion | −0.51 | +0.00 | −1.00 | −1.00 | −0.08 | – | +0.00 |
+| 26 | Udyr | −0.52 | −0.64 | −0.55 | −0.91 | +0.08 | – | +0.00 |
+| 27 | Ornn | −0.53 | −0.95 | −0.96 | −0.23 | +0.12 | −0.22 | +0.00 |
+| 28 | Olaf | −0.53 | −0.53 | −0.53 | −1.00 | −0.08 | – | +0.00 |
+| 29 | Aatrox | −0.57 | −0.96 | −0.16 | −1.00 | −0.25 | – | +0.00 |
+| 30 | Tahm Kench | −0.58 | −1.00 | −0.08 | −1.00 | −0.07 | −1.00 | +0.00 |
+| 31 | Camille | −0.66 | −1.00 | −0.59 | −1.00 | +0.04 | – | +0.00 |
+| 32 | Garen | −0.77 | −1.00 | −1.00 | −1.00 | +0.05 | – | +0.00 |
+| 33 | Rumble | −0.77 | −0.94 | −0.98 | −1.00 | −0.08 | – | +0.00 |
+| 34 | Sett | −0.78 | −1.00 | −1.00 | −1.00 | +0.01 | – | +0.00 |
+| 35 | Shen | −0.78 | −1.00 | −1.00 | −1.00 | +0.01 | – | +0.00 |
+| 36 | Renekton | −0.79 | −1.00 | −1.00 | −1.00 | −0.04 | – | +0.00 |
+| 37 | Yone | −0.79 | −1.00 | −1.00 | −1.00 | −0.05 | – | +0.00 |
+| 38 | Skarner | −0.79 | −1.00 | −1.00 | −1.00 | +0.07 | −1.00 | +0.00 |
+| 39 | Pantheon | −0.79 | −1.00 | −1.00 | −1.00 | −0.07 | – | +0.00 |
+| 40 | Riven | −0.79 | −1.00 | −1.00 | −0.97 | −0.12 | – | +0.00 |
+| 41 | Tryndamere | −0.79 | −1.00 | −1.00 | −1.00 | −0.09 | – | +0.00 |
+| 42 | Akali | −0.79 | −1.00 | −1.00 | −1.00 | −0.10 | – | +0.00 |
+| 43 | Yasuo | −0.80 | −1.00 | −1.00 | −1.00 | −0.11 | – | +0.00 |
+| 44 | Ambessa | −0.80 | −1.00 | −1.00 | −1.00 | +0.02 | −1.00 | +0.00 |
+| 45 | Urgot | −0.80 | −1.00 | −1.00 | −1.00 | −0.03 | −1.00 | +0.00 |
+
+## Interaction ledger (partial confidence)
+
 Every champion ranked by what its kit does against Illaoi's, from the interaction ledger: projectile blocks, spell shields,
 parries, dash stops, crowd control and its defenses, range and more (PLAN.md §5). This ranking is **partial**: it weighs the
 interactions but doesn't play the fight out. The duel simulator replaces it as each champion's behavior is verified.
@@ -8,63 +62,63 @@ interactions but doesn't play the fight out. The duel simulator replaces it as e
 A hard counter shuts down part of a kit every time it is used (projectile block, attack dodge, attack block, blind, disarm, attack speed slow, attack reflect, dash stop, grounding, range) with an impact of 0.4 or more (0.5 for range).
 Run `npm run matchup -- <champion> Illaoi` for the full ledger of a matchup, with sources.
 
-## Top 10
+### Top 10
 
-### 1. Kindred (net +0.88)
+#### 1. Kindred (net +0.88)
 
 - **0.47** range: Kindred's basic attacks reach 375 units farther than Illaoi's (500 vs 125 attack range). Illaoi closes the gap with Harsh Lesson. (Kindred basic attacks → Illaoi basic attacks)
 - **0.41** invulnerable: Lamb's Respite makes Kindred invulnerable to Illaoi's Leap of Faith. Invulnerable for ?; Leap of Faith takes 0.5 s to land, enough to react. (Kindred R Lamb's Respite → Illaoi R Leap of Faith)
 
-### 2. Elise (net +0.87)
+#### 2. Elise (net +0.87)
 
 - **0.55** untargetable: Rappel makes Elise untargetable, dodging Illaoi's Leap of Faith. Untargetable for 0.6 s; Leap of Faith takes 0.5 s to land, enough to react. (Elise E Rappel → Illaoi R Leap of Faith)
 - **0.32** range: Elise's basic attacks reach 425 units farther than Illaoi's (550 vs 125 attack range). Illaoi closes the gap with Harsh Lesson. (Elise basic attacks → Illaoi basic attacks)
 
-### 3. Kayle (net +0.87)
+#### 3. Kayle (net +0.87)
 
 - **0.51** invulnerable: Divine Judgment makes Kayle invulnerable to Illaoi's Leap of Faith. Invulnerable for 2.5 s, long enough to use ahead of Leap of Faith. (Kayle R Divine Judgment → Illaoi R Leap of Faith)
 - **0.36** range: Kayle's basic attacks reach 500 units farther than Illaoi's (625 vs 125 attack range). Illaoi closes the gap with Harsh Lesson. (Kayle basic attacks → Illaoi basic attacks)
 
-### 4. Yuumi (net +0.87)
+#### 4. Yuumi (net +0.87)
 
 - **0.55** untargetable: You and Me! makes Yuumi untargetable, dodging Illaoi's Leap of Faith. Untargetable for ?; Leap of Faith takes 0.5 s to land, enough to react. Does not destroy inbound projectiles, special cased to be targetable to turrets. (Yuumi W You and Me! → Illaoi R Leap of Faith)
 - **0.32** range: Yuumi's basic attacks reach 300 units farther than Illaoi's (425 vs 125 attack range). Illaoi closes the gap with Harsh Lesson. (Yuumi basic attacks → Illaoi basic attacks)
 
-### 5. Xayah (net +0.83)
+#### 5. Xayah (net +0.83)
 
 - **0.45** untargetable: Featherstorm makes Xayah untargetable, dodging Illaoi's Leap of Faith. Untargetable for 1.5 s, long enough to use ahead of Leap of Faith. (Xayah R Featherstorm → Illaoi R Leap of Faith)
 - **0.38** range: Xayah's basic attacks reach 400 units farther than Illaoi's (525 vs 125 attack range). Illaoi closes the gap with Harsh Lesson. (Xayah basic attacks → Illaoi basic attacks)
 
-### 6. Bard (net +0.79)
+#### 6. Bard (net +0.79)
 
 - **0.51** untargetable: Tempered Fate makes Bard untargetable, dodging Illaoi's Leap of Faith. Untargetable for 2.5 s, long enough to use ahead of Leap of Faith. (Bard R Tempered Fate → Illaoi R Leap of Faith)
 - **0.36** range: Bard's basic attacks reach 375 units farther than Illaoi's (500 vs 125 attack range). Illaoi closes the gap with Harsh Lesson. (Bard basic attacks → Illaoi basic attacks)
 - Watch out: Leap of Faith is displacement immune, ignoring Bard's Tempered Fate (stasis) during it.
 
-### 7. Sivir (net +0.75)
+#### 7. Sivir (net +0.75)
 
 - **0.47** range: Sivir's basic attacks reach 375 units farther than Illaoi's (500 vs 125 attack range). Illaoi closes the gap with Harsh Lesson. (Sivir basic attacks → Illaoi basic attacks)
 - **0.28** spell shield: Spell Shield's spell shield blocks part of Illaoi's Leap of Faith. Spell shield for 1.5 s, long enough to use ahead of Leap of Faith. A spell shield blocks only the first enemy ability that reaches it. Spell shields will block the ability's damage but will not prevent Tentacles from spawning. (Sivir E Spell Shield → Illaoi R Leap of Faith)
 
-### 8. Lissandra (net +0.73)
+#### 8. Lissandra (net +0.73)
 
 - **0.51** untargetable: Frozen Tomb makes Lissandra untargetable, dodging Illaoi's Leap of Faith. Untargetable for 2.5 s, long enough to use ahead of Leap of Faith. (Lissandra R Frozen Tomb → Illaoi R Leap of Faith)
 - **0.22** range: Lissandra's basic attacks reach 425 units farther than Illaoi's (550 vs 125 attack range). Illaoi closes the gap with Harsh Lesson. (Lissandra basic attacks → Illaoi basic attacks)
 - **0.10** dash stop: Frozen Tomb's knockdown can stop Illaoi's Harsh Lesson mid-dash. Must land during the dash. Fails if the dashing unit is crowd control immune, displacement immune, untargetable or spell shielded. The wiki marks this dash's knockdown interaction as special. (Lissandra R Frozen Tomb → Illaoi W Harsh Lesson)
 - Watch out: Leap of Faith is displacement immune, ignoring Lissandra's Frozen Tomb (knockdown) during it.
 
-### 9. Vladimir (net +0.73)
+#### 9. Vladimir (net +0.73)
 
 - **0.55** untargetable: Sanguine Pool makes Vladimir untargetable, dodging Illaoi's Leap of Faith. Untargetable for 2 s, long enough to use ahead of Leap of Faith. (Vladimir W Sanguine Pool → Illaoi R Leap of Faith)
 - **0.18** range: Vladimir's basic attacks reach 325 units farther than Illaoi's (450 vs 125 attack range). Illaoi closes the gap with Harsh Lesson. (Vladimir basic attacks → Illaoi basic attacks)
 
-### 10. Teemo (net +0.64)
+#### 10. Teemo (net +0.64)
 
 - **0.38** blind: Blinding Dart's blind makes Illaoi's basic attacks miss for 3 s. Blind for 3 s on a 7 s cooldown. (Teemo Q Blinding Dart → Illaoi basic attacks)
 - **0.34** range: Teemo's basic attacks reach 375 units farther than Illaoi's (500 vs 125 attack range). Illaoi closes the gap with Harsh Lesson. (Teemo basic attacks → Illaoi basic attacks)
 - Watch out: Test of Spirit reveals Teemo through Guerrilla Warfare's stealth.
 
-## Full ranking
+### Full ranking
 
 | # | Champion | Net | For | Against | Hard counters |
 |--:|---|--:|--:|--:|---|

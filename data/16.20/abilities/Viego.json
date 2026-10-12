@@ -352,7 +352,7 @@
           {
             "series": {
               "kind": "constant",
-              "value": 0.3499361702127659
+              "value": 0.349936170212766
             }
           }
         ]
@@ -499,7 +499,17 @@
             "conditional": false
           }
         ],
-        "values": []
+        "values": [],
+        "tips": [
+          {
+            "text": "20% AD (+ 15% AP)",
+            "tip": "Scales on current AD and AP"
+          },
+          {
+            "text": "post-mitigation damage",
+            "tip": "Damage calculated after modifiers"
+          }
+        ]
       },
       {
         "text": "The second strike applies on-hit effects and can critically strike for 200% damage.",
@@ -738,7 +748,17 @@
             "conditional": false
           }
         ],
-        "values": []
+        "values": [],
+        "tips": [
+          {
+            "text": "most wounded",
+            "tip": "Lowest health percent"
+          },
+          {
+            "text": "nearby",
+            "tip": "Alternatively the closest one if all targets have the same percent health"
+          }
+        ]
       },
       {
         "text": "All targets hit are dealt 120% AD physical damage, increased by critical strike damage (based on critical strike chance).",

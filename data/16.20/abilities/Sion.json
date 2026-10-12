@@ -280,7 +280,13 @@
         "text": "Active: Sion gains 67% bonus movement speed that decays over 2.376 seconds.\n\n\nOnce at least one ability has been learned, Death Surge can be cast using any ability key, even for the abilities that haven't been learned yet.",
         "leveling": [],
         "mechanics": [],
-        "values": []
+        "values": [],
+        "tips": [
+          {
+            "text": "67%",
+            "tip": "See notes, this value is currently bugged"
+          }
+        ]
       }
     ],
     "custom": [],
@@ -401,6 +407,12 @@
               "past18": "wiki"
             },
             "context": "Innate: Upon taking fatal damage, Sion enters stasis for 1.5 seconds to reanimate into a frenzy, restoring 100% of his maximum health but losing 2 – 19 (based on level) health every 0.264, increasing by 70% of the base value per subsequent tick."
+          }
+        ],
+        "tips": [
+          {
+            "text": "0% effective",
+            "tip": "See notes"
           }
         ]
       },
@@ -572,10 +584,10 @@
                 "kind": "rank",
                 "values": [
                   200,
-                  244.4444444444444,
-                  266.66666666666663,
+                  244.444444444444,
+                  266.666666666667,
                   280,
-                  288.88888888888886
+                  288.888888888889
                 ]
               },
               "unit": "%",
@@ -1063,13 +1075,29 @@
             "conditional": false
           }
         ],
-        "values": []
+        "values": [],
+        "tips": [
+          {
+            "text": "brief delay",
+            "tip": "0.05 (Estimated)"
+          },
+          {
+            "text": "0.4",
+            "tip": "Estimated"
+          }
+        ]
       },
       {
         "text": "The charge ramps up Sion's movement speed at the time of cast by 40 movement speed every 0.1 seconds, up to 950 total movement speed.",
         "leveling": [],
         "mechanics": [],
-        "values": []
+        "values": [],
+        "tips": [
+          {
+            "text": "movement speed",
+            "tip": "Post movement speed caps"
+          }
+        ]
       },
       {
         "text": "At the end of the charge's duration, Sion leaps forward 300 units, landing after 0.55 seconds and slamming the ground beneath him. Sion will stop upon colliding with an enemy champion or terrain during the charge, ending Unstoppable Onslaught with a slam. Crashing into terrain stuns Sion for 0.5 seconds.",
@@ -1094,7 +1122,25 @@
             "conditional": false
           }
         ],
-        "values": []
+        "values": [],
+        "tips": [
+          {
+            "text": "300",
+            "tip": "Can end up being slightly shorter, but not related to to Sion's speed"
+          },
+          {
+            "text": "ground",
+            "tip": "400 radius"
+          },
+          {
+            "text": "colliding",
+            "tip": "150 units in front of Sion for the charge and point blank for the leap"
+          },
+          {
+            "text": "terrain",
+            "tip": "Includes structures, read notes for details on player-generated terrain"
+          }
+        ]
       },
       {
         "text": "Enemies hit by Sion's charge are dealt physical damage. The base damage increases by 0 / 55.5556 / 111.111 / 166.667 (based on channel time)% and the scaling increases by 0 / 33.3333 / 66.6667 / 100 (based on channel time)%.",
@@ -1164,9 +1210,9 @@
               ],
               "values": [
                 0,
-                55.55555555555555,
-                111.1111111111111,
-                166.66666666666666
+                55.5555555555557,
+                111.111111111111,
+                166.666666666667
               ]
             },
             "context": "The base damage increases by 0 / 55.5556 / 111.111 / 166.667 (based on channel time)% and the scaling increases by 0 / 33.3333 / 66.6667 / 100 (based on channel time)%."
@@ -1183,8 +1229,8 @@
               ],
               "values": [
                 0,
-                33.333333333333336,
-                66.66666666666667,
+                33.3333333333333,
+                66.6666666666667,
                 100
               ]
             },
@@ -1287,6 +1333,12 @@
               ]
             },
             "context": "Enemies in a smaller radius are also pulled towards Sion over 0.5 seconds and become stunned after a brief delay for 0.25 / 0.75 / 1.25 / 1.75 (based on seconds) seconds."
+          }
+        ],
+        "tips": [
+          {
+            "text": "smaller radius",
+            "tip": "350 range, estimated"
           }
         ]
       },
@@ -1415,7 +1467,13 @@
         "text": "Passive: Sion gains 4 bonus health whenever he kills an enemy, increased to 15 for large enemies and takedowns against enemy champions.",
         "leveling": [],
         "mechanics": [],
-        "values": []
+        "values": [],
+        "tips": [
+          {
+            "text": "enemy",
+            "tip": "see notes for details"
+          }
+        ]
       },
       {
         "label": "Active",

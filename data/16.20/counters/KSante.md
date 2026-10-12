@@ -1,5 +1,59 @@
 # Counters to K'Sante (patch 26.20)
 
+## Simulated duels (full confidence)
+
+The duel simulator played each of the 45 other champions with a simulator kit against K'Sante: both at level 20 with 15,000 gold of plain stats, each side's spent against the other's, through six scenarios (PLAN.md §6). Scores run from −1 (K'Sante wins every time) to +1 (the champion does). Run `npm run duel -- <champion> KSante --log brawl` to watch a fight.
+
+| # | Champion | Score | You engage | Enemy engages | Brawl | Short trade | Spacing | Escape |
+|--:|---|--:|--:|--:|--:|--:|--:|--:|
+| 1 | Fiora | +0.86 | +1.00 | +1.00 | +1.00 | +0.37 | +1.00 | +0.00 |
+| 2 | Olaf | +0.85 | +1.00 | +1.00 | +1.00 | −0.02 | +1.00 | +1.00 |
+| 3 | Trundle | +0.75 | +1.00 | +1.00 | +1.00 | −0.32 | +1.00 | +0.00 |
+| 4 | Tryndamere | +0.56 | +1.00 | +1.00 | +1.00 | −0.28 | −1.00 | +0.00 |
+| 5 | Garen | +0.21 | +1.00 | −1.00 | +1.00 | −0.10 | – | +0.00 |
+| 6 | Jax | −0.12 | +0.00 | +0.00 | +0.00 | −0.17 | −1.00 | +0.00 |
+| 7 | Camille | −0.42 | −1.00 | −1.00 | +1.00 | −0.16 | – | −1.00 |
+| 8 | Gwen | −0.75 | −1.00 | −1.00 | −1.00 | −0.18 | – | +1.00 |
+| 9 | Malphite | −0.77 | −1.00 | −1.00 | −1.00 | +0.07 | – | +0.00 |
+| 10 | Jayce | −0.77 | −1.00 | −1.00 | −1.00 | +0.04 | – | +0.00 |
+| 11 | Kayle | −0.78 | −1.00 | −1.00 | −1.00 | +0.50 | −1.00 | −1.00 |
+| 12 | Ornn | −0.78 | −1.00 | −1.00 | −1.00 | −0.01 | – | +0.00 |
+| 13 | Poppy | −0.78 | −1.00 | −1.00 | −1.00 | +0.12 | −1.00 | +0.00 |
+| 14 | Irelia | −0.78 | −1.00 | −1.00 | −1.00 | −0.02 | – | +0.00 |
+| 15 | Shen | −0.78 | −1.00 | −1.00 | −1.00 | −0.03 | – | +0.00 |
+| 16 | Skarner | −0.79 | −1.00 | −1.00 | −1.00 | −0.07 | – | +0.00 |
+| 17 | Sion | −0.79 | −1.00 | −1.00 | −1.00 | +0.04 | −1.00 | +0.00 |
+| 18 | Gnar | −0.80 | −1.00 | −1.00 | −1.00 | +0.02 | −1.00 | +0.00 |
+| 19 | Pantheon | −0.80 | −1.00 | −1.00 | −1.00 | +0.02 | −1.00 | +0.00 |
+| 20 | Ambessa | −0.80 | −1.00 | −1.00 | −1.00 | −0.12 | – | +0.00 |
+| 21 | Mordekaiser | −0.80 | −1.00 | −1.00 | −1.00 | −0.12 | – | +0.00 |
+| 22 | Urgot | −0.80 | −1.00 | −1.00 | −1.00 | −0.00 | −1.00 | +0.00 |
+| 23 | Aurora | −0.80 | −1.00 | −1.00 | −1.00 | +0.32 | −1.00 | −1.00 |
+| 24 | Udyr | −0.81 | −1.00 | −1.00 | −1.00 | −0.06 | −1.00 | +0.00 |
+| 25 | Tahm Kench | −0.81 | −1.00 | −1.00 | −1.00 | −0.19 | – | +0.00 |
+| 26 | Yasuo | −0.81 | −1.00 | −1.00 | −1.00 | −0.06 | −1.00 | +0.00 |
+| 27 | Sett | −0.81 | −1.00 | −1.00 | −1.00 | −0.20 | – | +0.00 |
+| 28 | Singed | −0.82 | −1.00 | −1.00 | −1.00 | −0.12 | −1.00 | +0.00 |
+| 29 | Renekton | −0.82 | −1.00 | −1.00 | −1.00 | −0.13 | −1.00 | +0.00 |
+| 30 | Kennen | −0.82 | −1.00 | −1.00 | −1.00 | −0.14 | −1.00 | +0.00 |
+| 31 | Dr. Mundo | −0.82 | −1.00 | −1.00 | −1.00 | −0.14 | −1.00 | +0.00 |
+| 32 | Cho'Gath | −0.82 | −1.00 | −1.00 | −1.00 | −0.15 | −1.00 | +0.00 |
+| 33 | Nasus | −0.83 | −1.00 | −1.00 | −1.00 | −0.17 | −1.00 | +0.00 |
+| 34 | Akali | −0.83 | −1.00 | −1.00 | −1.00 | −0.18 | −1.00 | +0.00 |
+| 35 | Teemo | −0.84 | −1.00 | −1.00 | −1.00 | +0.04 | −1.00 | −1.00 |
+| 36 | Riven | −0.84 | −1.00 | −1.00 | −1.00 | −0.23 | – | −0.50 |
+| 37 | Zaahen | −0.85 | −1.00 | −1.00 | −1.00 | −0.01 | −1.00 | −1.00 |
+| 38 | Illaoi | −0.86 | −1.00 | −1.00 | −1.00 | −0.05 | −1.00 | −1.00 |
+| 39 | Quinn | −0.86 | −1.00 | −1.00 | −1.00 | −0.05 | −1.00 | −1.00 |
+| 40 | Darius | −0.86 | −1.00 | −1.00 | −1.00 | −0.15 | – | −1.00 |
+| 41 | Volibear | −0.86 | −1.00 | −1.00 | −1.00 | −0.16 | – | −1.00 |
+| 42 | Aatrox | −0.87 | −1.00 | −1.00 | −1.00 | −0.13 | −1.00 | −1.00 |
+| 43 | Kled | −0.87 | −1.00 | −1.00 | −1.00 | −0.14 | −1.00 | −1.00 |
+| 44 | Rumble | −0.87 | −1.00 | −1.00 | −1.00 | −0.16 | −1.00 | −1.00 |
+| 45 | Yone | −0.88 | −1.00 | −1.00 | −1.00 | −0.21 | −1.00 | −1.00 |
+
+## Interaction ledger (partial confidence)
+
 Every champion ranked by what its kit does against K'Sante's, from the interaction ledger: projectile blocks, spell shields,
 parries, dash stops, crowd control and its defenses, range and more (PLAN.md §5). This ranking is **partial**: it weighs the
 interactions but doesn't play the fight out. The duel simulator replaces it as each champion's behavior is verified.
@@ -8,72 +62,72 @@ interactions but doesn't play the fight out. The duel simulator replaces it as e
 A hard counter shuts down part of a kit every time it is used (projectile block, attack dodge, attack block, blind, disarm, attack speed slow, attack reflect, dash stop, grounding, range) with an impact of 0.4 or more (0.5 for range).
 Run `npm run matchup -- <champion> KSante` for the full ledger of a matchup, with sources.
 
-## Top 10
+### Top 10
 
-### 1. Nocturne (net +1.74)
+#### 1. Nocturne (net +1.74)
 
 - **1.00** spell shield: Shroud of Darkness's spell shield blocks K'Sante's All Out. Spell shield for 1.5 s, long enough to use ahead of All Out. A spell shield blocks only the first enemy ability that reaches it. (Nocturne W Shroud of Darkness → K'Sante R All Out)
 - **0.90** spell shield: Shroud of Darkness's spell shield blocks K'Sante's Path Maker. Spell shield for 1.5 s, long enough to use ahead of Path Maker. A spell shield blocks only the first enemy ability that reaches it. (Nocturne W Shroud of Darkness → K'Sante W Path Maker)
 - **0.46** spell shield: Shroud of Darkness's spell shield blocks K'Sante's Ntofo Strikes. Spell shield for 1.5 s, long enough to use ahead of Ntofo Strikes. A spell shield blocks only the first enemy ability that reaches it. (Nocturne W Shroud of Darkness → K'Sante Q Ntofo Strikes)
 
-### 2. Fiora (net +1.69)
+#### 2. Fiora (net +1.69)
 
 - **1.10** parry: Riposte parries K'Sante's All Out and stuns back. Parry for 0.75 s; All Out takes 0.55 s to land, enough to react. Negating All Out's immobilizing effect turns Riposte's slow into a stun (2 s). (Fiora W Riposte → K'Sante R All Out)
 - **0.88** parry: Riposte parries K'Sante's Path Maker and stuns back. Parry for 0.75 s; Path Maker takes 0.35 s to land, enough to react. Negating Path Maker's immobilizing effect turns Riposte's slow into a stun (2 s). (Fiora W Riposte → K'Sante W Path Maker)
 - **0.53** parry: Riposte parries K'Sante's Ntofo Strikes and stuns back. Parry for 0.75 s; Ntofo Strikes takes 0.45 s to land, enough to react. Negating Ntofo Strikes's immobilizing effect turns Riposte's slow into a stun (2 s). (Fiora W Riposte → K'Sante Q Ntofo Strikes)
 
-### 3. Sivir (net +1.69)
+#### 3. Sivir (net +1.69)
 
 - **1.00** spell shield: Spell Shield's spell shield blocks K'Sante's All Out. Spell shield for 1.5 s, long enough to use ahead of All Out. A spell shield blocks only the first enemy ability that reaches it. (Sivir E Spell Shield → K'Sante R All Out)
 - **0.73** spell shield: Spell Shield's spell shield blocks K'Sante's Path Maker. Spell shield for 1.5 s, long enough to use ahead of Path Maker. A spell shield blocks only the first enemy ability that reaches it. (Sivir E Spell Shield → K'Sante W Path Maker)
 - **0.41** spell shield: Spell Shield's spell shield blocks K'Sante's Ntofo Strikes. Spell shield for 1.5 s, long enough to use ahead of Ntofo Strikes. A spell shield blocks only the first enemy ability that reaches it. (Sivir E Spell Shield → K'Sante Q Ntofo Strikes)
 
-### 4. Udyr (net +1.65)
+#### 4. Udyr (net +1.65)
 
 - **1.00** cc immunity: Blazing Stampede makes Udyr immune to K'Sante's All Out (airborne, root, stun). Immune for 1.5 s, long enough to use ahead of All Out. (Udyr E Blazing Stampede → K'Sante R All Out)
 - **1.00** cc immunity: Blazing Stampede makes Udyr immune to K'Sante's Path Maker (airborne, stun). Immune for 1.5 s, long enough to use ahead of Path Maker. (Udyr E Blazing Stampede → K'Sante W Path Maker)
 - **0.60** cc immunity: Blazing Stampede makes Udyr immune to K'Sante's Ntofo Strikes (airborne, slow, stun). Immune for 1.5 s, long enough to use ahead of Ntofo Strikes. (Udyr E Blazing Stampede → K'Sante Q Ntofo Strikes)
 
-### 5. Elise (net +1.63)
+#### 5. Elise (net +1.63)
 
 - **1.00** untargetable: Rappel makes Elise untargetable, dodging K'Sante's All Out. Untargetable for 0.6 s; All Out takes 0.55 s to land, enough to react. (Elise E Rappel → K'Sante R All Out)
 - **0.73** untargetable: Rappel makes Elise untargetable, dodging K'Sante's Path Maker. Untargetable for 0.6 s; Path Maker takes 0.35 s to land, enough to react. (Elise E Rappel → K'Sante W Path Maker)
 - **0.41** untargetable: Rappel makes Elise untargetable, dodging K'Sante's Ntofo Strikes. Untargetable for 0.6 s; Ntofo Strikes takes 0.45 s to land, enough to react. (Elise E Rappel → K'Sante Q Ntofo Strikes)
 
-### 6. Morgana (net +1.59)
+#### 6. Morgana (net +1.59)
 
 - **1.00** cc immunity: Black Shield makes Morgana immune to K'Sante's All Out (airborne, root, stun). Immune for 5 s, long enough to use ahead of All Out. (Morgana E Black Shield → K'Sante R All Out)
 - **0.78** cc immunity: Black Shield makes Morgana immune to K'Sante's Path Maker (airborne, stun). Immune for 5 s, long enough to use ahead of Path Maker. (Morgana E Black Shield → K'Sante W Path Maker)
 - **0.43** cc immunity: Black Shield makes Morgana immune to K'Sante's Ntofo Strikes (airborne, slow, stun). Immune for 5 s, long enough to use ahead of Ntofo Strikes. (Morgana E Black Shield → K'Sante Q Ntofo Strikes)
 
-### 7. Maokai (net +1.48)
+#### 7. Maokai (net +1.48)
 
 - **1.00** untargetable: Twisted Advance makes Maokai untargetable, dodging K'Sante's All Out. Untargetable for 1.4 s; All Out takes 0.55 s to land, enough to react. (Maokai W Twisted Advance → K'Sante R All Out)
 - **1.00** untargetable: Twisted Advance makes Maokai untargetable, dodging K'Sante's Path Maker. Untargetable for 1.4 s; Path Maker takes 0.35 s to land, enough to react. (Maokai W Twisted Advance → K'Sante W Path Maker)
 - **0.49** untargetable: Twisted Advance makes Maokai untargetable, dodging K'Sante's Ntofo Strikes. Untargetable for 1.4 s; Ntofo Strikes takes 0.45 s to land, enough to react. (Maokai W Twisted Advance → K'Sante Q Ntofo Strikes)
 - Watch out: All Out is displacement immune, ignoring Maokai's Bramble Smash (airborne) during it.
 
-### 8. Vladimir (net +1.47)
+#### 8. Vladimir (net +1.47)
 
 - **1.00** untargetable: Sanguine Pool makes Vladimir untargetable, dodging K'Sante's All Out. Untargetable for 2 s, long enough to use ahead of All Out. (Vladimir W Sanguine Pool → K'Sante R All Out)
 - **0.78** untargetable: Sanguine Pool makes Vladimir untargetable, dodging K'Sante's Path Maker. Untargetable for 2 s, long enough to use ahead of Path Maker. (Vladimir W Sanguine Pool → K'Sante W Path Maker)
 - **0.43** untargetable: Sanguine Pool makes Vladimir untargetable, dodging K'Sante's Ntofo Strikes. Untargetable for 2 s, long enough to use ahead of Ntofo Strikes. (Vladimir W Sanguine Pool → K'Sante Q Ntofo Strikes)
 - Watch out: Ntofo Strikes's airborne interrupts Vladimir's Tides of Blood (charge-up).
 
-### 9. Gwen (net +1.47)
+#### 9. Gwen (net +1.47)
 
 - **1.00** untargetable: Hallowed Mist makes Gwen untargetable, dodging K'Sante's All Out. Untargetable for ?; All Out takes 0.55 s to land, enough to react. Does not destroy inbound projectiles for non-champion missiles but does so for champion missiles that attempt to pass through the mist, special cased to be targetable to turrets and monsters as well as enemies inside the mist. (Gwen W Hallowed Mist → K'Sante R All Out)
 - **0.73** untargetable: Hallowed Mist makes Gwen untargetable, dodging K'Sante's Path Maker. Untargetable for ?; Path Maker takes 0.35 s to land, enough to react. Does not destroy inbound projectiles for non-champion missiles but does so for champion missiles that attempt to pass through the mist, special cased to be targetable to turrets and monsters as well as enemies inside the mist. (Gwen W Hallowed Mist → K'Sante W Path Maker)
 - **0.41** untargetable: Hallowed Mist makes Gwen untargetable, dodging K'Sante's Ntofo Strikes. Untargetable for ?; Ntofo Strikes takes 0.45 s to land, enough to react. Does not destroy inbound projectiles for non-champion missiles but does so for champion missiles that attempt to pass through the mist, special cased to be targetable to turrets and monsters as well as enemies inside the mist. (Gwen W Hallowed Mist → K'Sante Q Ntofo Strikes)
 
-### 10. Yuumi (net +1.42)
+#### 10. Yuumi (net +1.42)
 
 - **1.00** untargetable: You and Me! makes Yuumi untargetable, dodging K'Sante's All Out. Untargetable for ?; All Out takes 0.55 s to land, enough to react. Does not destroy inbound projectiles, special cased to be targetable to turrets. (Yuumi W You and Me! → K'Sante R All Out)
 - **1.00** untargetable: You and Me! makes Yuumi untargetable, dodging K'Sante's Path Maker. Untargetable for ?; Path Maker takes 0.35 s to land, enough to react. Does not destroy inbound projectiles, special cased to be targetable to turrets. (Yuumi W You and Me! → K'Sante W Path Maker)
 - **0.80** untargetable: You and Me! makes Yuumi untargetable, dodging K'Sante's Ntofo Strikes. Untargetable for ?; Ntofo Strikes takes 0.45 s to land, enough to react. Does not destroy inbound projectiles, special cased to be targetable to turrets. (Yuumi W You and Me! → K'Sante Q Ntofo Strikes)
 - Watch out: Ntofo Strikes's airborne interrupts Yuumi's Final Chapter (normal channel).
 
-## Full ranking
+### Full ranking
 
 | # | Champion | Net | For | Against | Hard counters |
 |--:|---|--:|--:|--:|---|

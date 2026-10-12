@@ -286,8 +286,8 @@ What the duel simulator fights with (`kits/champions/Camille.ts`): every number 
 
 | Key | Ability | Cooldown (s) | Cast time (s) | Cost | Delivery | On the enemy | On itself |
 |---|---|--:|--:|---|---|---|---|
-| Q | Precision Protocol | 5 | 0 | 25 | self | – | next 1 attack within 4 s: 40% AD physical damage (+50 range, resets the attack timer, uncancellable); moveSpeedPercent 0.45 for 1 s |
-| Q2 | Precision Protocol (recast) | 0 | 0 | – | self; recast of Q within 5 s, after 1.5 s | – | next 1 attack within 4 s: 80% AD true damage (+50 range, resets the attack timer, uncancellable) |
+| Q | Precision Protocol | 5 (starts after the empowered attacks) | 0 | 25 | self | – | next 1 attack within 4 s: 40% AD physical damage (+50 range, resets the attack timer, uncancellable); moveSpeedPercent 0.45 for 1 s |
+| Q2 | Precision Protocol (recast) | 0 | 0 | – | self; recast of Q within 7.75 s, after 1.5 s | – | next 1 attack within 4 s: 80% AD true damage (+50 range, resets the attack timer, uncancellable) |
 | W | Tactical Sweep | 10 | 1.1 | 70 | area 0 to 650 units ahead, lands after 0 s; bands 0–325: 160 + 60% bonus AD physical damage | 160 + 60% bonus AD physical damage; 9% target's maximum health + 2.5% of target's maximum health per 100 bonus AD physical damage (Tactical Sweep (outer cone)), heals 100% of it; slow 50% for 2 s | – |
 | E | Hookshot and Wall Dive | 12 | 0.5 | 70 | dash toward 800 units at 1390/s, hits within 130 | 180 + 75% bonus AD physical damage; stun for 0.75 s | attackSpeed 0.6 for 5 s |
 | R | The Hextech Ultimatum | 90 | 0 | 100 | dash target 475 units at 950/s, hits within 100 | marks it "ultimatum" for 4 s | as the cast starts: untargetable for 0.5 s; displacementImmune for 0.5 s |
@@ -301,7 +301,7 @@ Effects marked by a mark or a role are completed by the kit's hooks (see the kit
 - Tactical Sweep's outer-cone slow, which decays over 2 seconds, is taken as 50% for 2 seconds.
 - Adaptive Defenses shields against the damage type the enemy deals most of.
 
-### Wiki values read (37)
+### Wiki values read (38)
 
 | Ability | Value | Revision |
 |---|---|---|
@@ -312,6 +312,7 @@ Effects marked by a mark or a role are completed by the kit's hooks (see the kit
 | Precision Protocol | gain 50 bonus range | [3972807](https://wiki.leagueoflegends.com/en-us/Template:Data_Camille/Precision_Protocol?oldid=3972807) |
 | Precision Protocol | If Precision Protocol is recast after 1.5 seconds of the first attack | [3972807](https://wiki.leagueoflegends.com/en-us/Template:Data_Camille/Precision_Protocol?oldid=3972807) |
 | Precision Protocol | can then be recast within the next 3.5 seconds | [3972807](https://wiki.leagueoflegends.com/en-us/Template:Data_Camille/Precision_Protocol?oldid=3972807) |
+| Precision Protocol | After 0.25 seconds of using the empowered attack | [3972807](https://wiki.leagueoflegends.com/en-us/Template:Data_Camille/Precision_Protocol?oldid=3972807) |
 | Tactical Sweep | sweeps her leg in a cone in the target direction over 1.1 seconds | [4065255](https://wiki.leagueoflegends.com/en-us/Template:Data_Camille/Tactical_Sweep?oldid=4065255) |
 | Tactical Sweep | effectRadius (Inner radius): 325 • 650 | [4065255](https://wiki.leagueoflegends.com/en-us/Template:Data_Camille/Tactical_Sweep?oldid=4065255) |
 | Tactical Sweep | effectRadius (Outer radius): 325 • 650 | [4065255](https://wiki.leagueoflegends.com/en-us/Template:Data_Camille/Tactical_Sweep?oldid=4065255) |

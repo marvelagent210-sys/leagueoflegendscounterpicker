@@ -1,7 +1,8 @@
 /**
  * Port of the wiki's Module:Ability progression, which expands the {{ap}} (values per
  * ability rank), {{pp}} and {{pplevel}} (values per level or per another variable)
- * templates. Values are kept exact; the wiki rounds them for display only.
+ * templates. Values are kept exact (to 15 significant digits, which drops floating-point noise
+ * such as 244.99999999999997); the wiki rounds them for display only.
  *
  * Item syntax (items are "/"-separated args for ap, ";"-separated for pp):
  *   12            a value (any {{#expr:}} expression)
@@ -15,6 +16,11 @@ import { evaluateExpr, tryExpr } from "./expr";
 
 export type ProgressionValue = number | string;
 
+/** A computed value without floating-point noise. */
+function clean(value: number): number {
+  return Number.isFinite(value) ? Number(value.toPrecision(15)) : value;
+}
+
 /** Wiki levels shown by default; {{pp}} linear fills stop here. */
 const DEFAULT_SIZE = 18;
 
@@ -25,7 +31,7 @@ function isExpr(source: string): boolean {
 
 function expr(source: string): number {
   if (source.includes("..")) throw new Error("not calculable");
-  return evaluateExpr(source);
+  return clean(evaluateExpr(source));
 }
 
 /** Replaces each standalone x (not next to a digit or dot) with 1, as the module's validity check does. */
@@ -219,7 +225,7 @@ function expandRow(items: readonly string[]): { values: ProgressionValue[]; plan
             values.push(a);
             count--;
           }
-          for (let x = 1; x <= count; x++) values.push(a + ((b - a) * x) / count);
+          for (let x = 1; x <= count; x++) values.push(clean(a + ((b - a) * x) / count));
           lastValue = b;
         }
       } else {
@@ -249,7 +255,7 @@ function expandRow(items: readonly string[]): { values: ProgressionValue[]; plan
           } else {
             plan.useformula ??= formula;
             for (let x = 1; x <= count; x++) {
-              lastValue = expr(withX(formula, x));
+              lastValue = clean(expr(withX(formula, x)));
               values.push(lastValue);
             }
           }
@@ -288,10 +294,10 @@ function applyFill(row: ProgressionValue[], plan: FillPlan, times: number, exten
       result.push(start);
       count--;
     }
-    for (let x = 1; x <= count + extended; x++) result.push(start + ((finish - start) * x) / count);
+    for (let x = 1; x <= count + extended; x++) result.push(clean(start + ((finish - start) * x) / count));
   } else if (plan.formula) {
     const formula = plan.formula.formula.replaceAll("times", String(times));
-    for (let x = 1; x <= times + extended; x++) result.push(expr(withX(formula, x)));
+    for (let x = 1; x <= times + extended; x++) result.push(clean(expr(withX(formula, x))));
   }
   return [...result, ...tail];
 }

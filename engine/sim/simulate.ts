@@ -27,6 +27,7 @@ import {
   advanceZones,
   canCast,
   canStartAttack,
+  canStartAttackOnPet,
   cancelOutOfRange,
   completeCast,
   expireChains,
@@ -34,12 +35,17 @@ import {
   launchAttack,
   progressChannel,
   progressDash,
+  releaseCooldowns,
+  restockCharges,
   startAttack,
   startCast,
 } from "./actions";
 import { type Behavior, type Command, defaultBehavior, perceive } from "./behavior";
 import { applyEffect, contactGap, dealDamage, directionTo, edgeDistance, heal, hookContext, log } from "./combat";
 import { canMove, ccTypes, derive } from "./derived";
+import { abilityOf } from "./forms";
+import { advancePets } from "./pets";
+import { aroundFactor, expireTerrain, terrainLimit } from "./terrain";
 import type { FighterSpec } from "./spec";
 import { DEFAULT_SETTINGS, type LogEntry, type Mode, type Side, type SimSettings, type Unit, type World, cloneWorld, newUnit, other } from "./state";
 
@@ -101,6 +107,8 @@ export function createWorld(setup: FightSetup): World {
     units,
     missiles: [],
     zones: [],
+    terrain: [],
+    pets: [],
     scheduled: [],
     nextId: 1,
     weight: 1,
@@ -136,7 +144,7 @@ function runScheduled(world: World): void {
     const owner = world.units[entry.owner];
     const target = world.units[entry.target];
     if (!target.alive) continue;
-    const ability = owner.spec.abilities.find((a) => a.key === entry.ability);
+    const ability = abilityOf(owner, entry.ability);
     for (const effect of entry.effects) applyEffect(world, owner, target, effect, { scale: entry.scale, ...(ability ? { ability } : {}) });
   }
 }
@@ -149,11 +157,12 @@ function upkeep(world: World, unit: Unit): void {
     const dot = status.dot;
     if (status.kind !== "dot" || !dot || world.tick < dot.nextTick || world.tick > status.endTick) continue;
     dot.nextTick += dot.intervalTicks;
-    dealDamage(world, world.units[status.source], unit, dot.perHit, dot.damageType, { ability: status.key, persistent: true });
+    dealDamage(world, world.units[status.source], unit, dot.perHit, dot.damageType, { ability: dot.label ?? status.key, persistent: true });
   }
   const { base } = unit.spec;
   heal(world, unit, base.hpRegen / 5 / 30, true);
-  unit.resource = Math.min(base.resource, unit.resource + base.resourceRegen / 5 / 30);
+  // Regeneration fills up to the maximum, which also caps what is left when a bonus to it ends.
+  unit.resource = Math.min(derive(unit).maxResource, unit.resource + base.resourceRegen / 5 / 30);
 }
 
 function expire(world: World, unit: Unit): void {
@@ -164,6 +173,8 @@ function expire(world: World, unit: Unit): void {
   }
   if (unit.forced && unit.forced.endTick <= world.tick) delete unit.forced;
   expireChains(world, unit);
+  releaseCooldowns(world, unit);
+  restockCharges(world, unit);
 }
 
 /** Windups and casts due this tick: all are collected before any is applied. */
@@ -174,7 +185,7 @@ function completeActions(world: World, splits: PendingSplit[]): void {
   for (const { unit, action } of due) {
     if (action?.kind === "windup") launchAttack(world, unit, action);
     else if (action?.kind === "cast") {
-      const ability = unit.spec.abilities.find((a) => a.key === action.ability);
+      const ability = abilityOf(unit, action.ability);
       if (unit.action === action) unit.action = undefined;
       if (!ability) continue;
       const split = completeCast(world, unit, ability, action.startTick, action.aim);
@@ -207,10 +218,17 @@ function execute(world: World, unit: Unit, command: Command): { acted: boolean; 
       }
       unit.move = command.direction;
       return { acted: true };
-    case "attack":
+    case "attack": {
+      if (command.pet !== undefined) {
+        const pet = world.pets.find((p) => p.id === command.pet);
+        if (!pet || !canStartAttackOnPet(world, unit, pet)) return { acted: false };
+        startAttack(world, unit, pet);
+        return { acted: true };
+      }
       if (!canStartAttack(world, unit)) return { acted: false };
       startAttack(world, unit);
       return { acted: true };
+    }
     case "cast": {
       const ability = unit.spec.abilities.find((a) => a.key === command.ability);
       if (!ability || !canCast(world, unit, ability)) return { acted: false };
@@ -245,17 +263,26 @@ function walksDuringAction(unit: Unit): boolean {
   const action = unit.action;
   if (!action) return true;
   if (action.kind === "windup" || action.kind === "dash") return false;
-  const ability = unit.spec.abilities.find((a) => a.key === action.ability);
+  const ability = abilityOf(unit, action.ability);
   return action.kind === "cast" ? ability?.moveWhileCasting === true : ability?.channel?.mobile === true;
 }
 
 function walk(world: World, unit: Unit): void {
   if (!unit.alive) return;
   const enemy = world.units[other(unit.side)];
+  if (unit.attached) {
+    // Carried by the enemy: held at its side.
+    if (world.tick < unit.attached.endTick && enemy.alive) {
+      unit.x = enemy.x + unit.attached.dir * unit.attached.offset;
+      unit.moved = 0;
+      return;
+    }
+    delete unit.attached;
+  }
   const toward = directionTo(unit, enemy);
   let dx = 0;
   if (unit.forced) {
-    dx = -toward * unit.forced.perTick;
+    dx = unit.forced.over ? unit.forced.perTick : -toward * unit.forced.perTick;
   } else {
     const types = ccTypes(unit);
     const held = [...types].some((t) => CC_RULES[t].movement === "disabled");
@@ -268,8 +295,19 @@ function walk(world: World, unit: Unit): void {
     }
     dx = direction * toward * (derive(unit).moveSpeed / 30);
   }
+  if (unit.forced?.over) {
+    // Thrown over the enemy: no collision, no terrain.
+    unit.x += dx;
+    unit.moved = 0;
+    return;
+  }
   // Champions collide: moving toward the enemy stops where their pathing radii touch.
   if (dx * toward > 0) dx = toward * Math.min(Math.abs(dx), Math.max(0, contactGap(unit, enemy)));
+  // Terrain stops knock backs, and walking into walls; walking around a round obstacle is slower along the line.
+  const walking = !unit.forced;
+  const limited = terrainLimit(world, unit, dx, walking);
+  if (limited !== dx && unit.forced) delete unit.forced;
+  dx = walking ? limited * aroundFactor(world, unit, limited) : limited;
   unit.x += dx;
   unit.moved = dx === 0 ? 0 : dx * toward > 0 ? 1 : -1;
 }
@@ -291,7 +329,8 @@ function checkEnd(world: World): void {
   const end = (winner: Side | "draw" | "none", reason: NonNullable<World["result"]>["reason"]) => {
     world.result = { winner, reason, tick: world.tick };
   };
-  if (deadA && deadB) return end("draw", "death");
+  // A unit that has fallen (Glory in Death) has died already.
+  if ((deadA || a.fallen) && (deadB || b.fallen) && (deadA || deadB)) return end("draw", "death");
   if (deadA) return end(1, "death");
   if (deadB) return end(0, "death");
   const distance = edgeDistance(a, b);
@@ -312,8 +351,10 @@ export function step(world: World, behaviors: [Behavior, Behavior]): PendingSpli
   runScheduled(world);
   for (const side of sides) upkeep(world, world.units[side]);
   for (const side of sides) expire(world, world.units[side]);
+  expireTerrain(world);
   advanceMissiles(world);
   advanceZones(world);
+  advancePets(world);
   completeActions(world, splits);
   for (const side of sides) {
     progressDash(world, world.units[side]);
@@ -333,6 +374,10 @@ export function step(world: World, behaviors: [Behavior, Behavior]): PendingSpli
 function splitTarget(world: World, split: PendingSplit): { connects?: boolean; scale?: number } | undefined {
   if (split.missile !== undefined) return world.missiles.find((m) => m.id === split.missile);
   if (split.zone !== undefined) return world.zones.find((z) => z.id === split.zone);
+  if (split.dash !== undefined) {
+    const action = world.units[split.dash].action;
+    return action?.kind === "dash" ? action : undefined;
+  }
   return undefined;
 }
 
@@ -421,7 +466,7 @@ function runLeaves(start: World, behaviorPair?: FightSetup["behaviors"]): World[
 }
 
 function hpShare(unit: Unit): number {
-  return unit.alive ? Math.max(0, unit.hp) / derive(unit).maxHp : 0;
+  return unit.alive && !unit.fallen ? Math.max(0, unit.hp) / derive(unit).maxHp : 0;
 }
 
 export function summarize(worlds: World[]): FightOutcome {

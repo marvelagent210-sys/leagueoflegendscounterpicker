@@ -975,7 +975,21 @@
             "conditional": false
           }
         ],
-        "values": []
+        "values": [],
+        "tips": [
+          {
+            "text": "casting animations",
+            "tip": "See notes"
+          },
+          {
+            "text": "visual effects",
+            "tip": "See notes, only visible from the enemy's perspective"
+          },
+          {
+            "text": "set duration",
+            "tip": "See notes"
+          }
+        ]
       },
       {
         "label": "Recast",

@@ -1,5 +1,59 @@
 # Counters to Skarner (patch 26.20)
 
+## Simulated duels (full confidence)
+
+The duel simulator played each of the 45 other champions with a simulator kit against Skarner: both at level 20 with 15,000 gold of plain stats, each side's spent against the other's, through six scenarios (PLAN.md §6). Scores run from −1 (Skarner wins every time) to +1 (the champion does). Run `npm run duel -- <champion> Skarner --log brawl` to watch a fight.
+
+| # | Champion | Score | You engage | Enemy engages | Brawl | Short trade | Spacing | Escape |
+|--:|---|--:|--:|--:|--:|--:|--:|--:|
+| 1 | Quinn | +0.82 | +1.00 | +1.00 | +1.00 | +0.15 | +1.00 | +0.00 |
+| 2 | Olaf | +0.81 | +1.00 | +1.00 | +1.00 | +0.09 | +1.00 | +0.00 |
+| 3 | Poppy | +0.81 | +1.00 | +1.00 | +1.00 | +0.18 | – | +0.00 |
+| 4 | Udyr | +0.81 | +1.00 | +1.00 | +1.00 | +0.05 | +1.00 | +0.00 |
+| 5 | Kled | +0.80 | +1.00 | +1.00 | +1.00 | +0.14 | – | +0.00 |
+| 6 | Kayle | +0.80 | +1.00 | +1.00 | +1.00 | −0.00 | +1.00 | +0.00 |
+| 7 | Riven | +0.80 | +1.00 | +1.00 | +1.00 | +0.13 | – | +0.00 |
+| 8 | Trundle | +0.79 | +1.00 | +1.00 | +1.00 | −0.04 | +1.00 | +0.00 |
+| 9 | K'Sante | +0.79 | +1.00 | +1.00 | +1.00 | +0.07 | – | +0.00 |
+| 10 | Teemo | +0.79 | +1.00 | +1.00 | +1.00 | −0.07 | +1.00 | +0.00 |
+| 11 | Illaoi | +0.79 | +1.00 | +1.00 | +1.00 | −0.07 | +1.00 | +0.00 |
+| 12 | Cho'Gath | +0.79 | +1.00 | +1.00 | +1.00 | +0.05 | – | +0.00 |
+| 13 | Gnar | +0.79 | +1.00 | +0.99 | +1.00 | −0.07 | +1.00 | +0.00 |
+| 14 | Jax | +0.78 | +1.00 | +1.00 | +1.00 | −0.10 | +1.00 | +0.00 |
+| 15 | Garen | +0.78 | +1.00 | +1.00 | +1.00 | +0.02 | – | +0.00 |
+| 16 | Ambessa | +0.78 | +1.00 | +1.00 | +1.00 | +0.01 | – | +0.00 |
+| 17 | Aatrox | +0.78 | +1.00 | +1.00 | +1.00 | +0.01 | – | +0.00 |
+| 18 | Pantheon | +0.78 | +1.00 | +1.00 | +1.00 | +0.00 | – | +0.00 |
+| 19 | Yone | +0.78 | +1.00 | +1.00 | +1.00 | +0.00 | – | +0.00 |
+| 20 | Volibear | +0.78 | +1.00 | +1.00 | +1.00 | +0.00 | – | +0.00 |
+| 21 | Camille | +0.78 | +1.00 | +1.00 | +1.00 | −0.00 | – | +0.00 |
+| 22 | Zaahen | +0.78 | +1.00 | +1.00 | +1.00 | −0.00 | – | +0.00 |
+| 23 | Yasuo | +0.77 | +1.00 | +1.00 | +1.00 | −0.04 | – | +0.00 |
+| 24 | Darius | +0.77 | +1.00 | +1.00 | +1.00 | −0.07 | – | +0.00 |
+| 25 | Gwen | +0.76 | +1.00 | +1.00 | +1.00 | −0.08 | – | +0.00 |
+| 26 | Rumble | +0.76 | +1.00 | +1.00 | +1.00 | −0.10 | – | +0.00 |
+| 27 | Fiora | +0.76 | +1.00 | +1.00 | +1.00 | −0.13 | – | +0.00 |
+| 28 | Tryndamere | +0.75 | +1.00 | +1.00 | +1.00 | −0.16 | – | +0.00 |
+| 29 | Mordekaiser | +0.72 | +1.00 | +0.79 | +1.00 | −0.01 | – | +0.00 |
+| 30 | Dr. Mundo | +0.47 | +0.44 | +0.44 | +1.00 | +0.02 | – | +0.00 |
+| 31 | Jayce | +0.20 | −0.01 | −0.02 | +1.00 | −0.06 | – | +0.00 |
+| 32 | Irelia | +0.18 | +1.00 | −0.43 | +0.14 | −0.07 | – | +0.00 |
+| 33 | Aurora | +0.16 | +0.20 | +0.20 | +0.18 | −0.01 | +0.23 | +0.00 |
+| 34 | Nasus | +0.10 | +0.11 | +0.12 | +0.13 | −0.04 | +0.19 | +0.00 |
+| 35 | Malphite | +0.10 | +0.12 | +0.12 | +0.06 | +0.09 | – | +0.00 |
+| 36 | Shen | +0.07 | +0.05 | +0.11 | +0.03 | +0.09 | – | +0.00 |
+| 37 | Tahm Kench | +0.05 | +0.08 | +0.08 | −0.03 | +0.05 | – | +0.00 |
+| 38 | Sett | +0.02 | +0.01 | +0.03 | +0.01 | +0.07 | – | +0.00 |
+| 39 | Urgot | +0.00 | +0.05 | +0.05 | −0.06 | +0.07 | −0.16 | +0.00 |
+| 40 | Renekton | +0.00 | +0.02 | −0.01 | +0.03 | −0.07 | – | +0.00 |
+| 41 | Sion | −0.00 | +0.02 | +0.02 | −0.14 | +0.09 | – | +0.00 |
+| 42 | Singed | −0.02 | −0.02 | −0.02 | +0.01 | −0.07 | – | +0.00 |
+| 43 | Ornn | −0.05 | −0.07 | −0.07 | −0.08 | +0.01 | – | +0.00 |
+| 44 | Kennen | −0.69 | −1.00 | −1.00 | −1.00 | −0.07 | +0.18 | +0.00 |
+| 45 | Akali | −0.79 | −1.00 | −1.00 | −1.00 | −0.08 | – | +0.00 |
+
+## Interaction ledger (partial confidence)
+
 Every champion ranked by what its kit does against Skarner's, from the interaction ledger: projectile blocks, spell shields,
 parries, dash stops, crowd control and its defenses, range and more (PLAN.md §5). This ranking is **partial**: it weighs the
 interactions but doesn't play the fight out. The duel simulator replaces it as each champion's behavior is verified.
@@ -8,76 +62,76 @@ interactions but doesn't play the fight out. The duel simulator replaces it as e
 A hard counter shuts down part of a kit every time it is used (projectile block, attack dodge, attack block, blind, disarm, attack speed slow, attack reflect, dash stop, grounding, range) with an impact of 0.4 or more (0.5 for range).
 Run `npm run matchup -- <champion> Skarner` for the full ledger of a matchup, with sources.
 
-## Top 10
+### Top 10
 
-### 1. Sivir (net +1.91)
+#### 1. Sivir (net +1.91)
 
 - **0.88** range: Sivir's basic attacks reach 350 units farther than Skarner's (500 vs 150 attack range). Skarner has no dash or blink to close the gap. (Sivir basic attacks → Skarner basic attacks)
 - **0.80** spell shield: Spell Shield's spell shield blocks Skarner's Impale. Spell shield for 1.5 s, long enough to use ahead of Impale. A spell shield blocks only the first enemy ability that reaches it. (Sivir E Spell Shield → Skarner R Impale)
 - **0.45** spell shield: Spell Shield's spell shield blocks Skarner's Ixtal's Impact. Spell shield for 1.5 s, long enough to use ahead of Ixtal's Impact. A spell shield blocks only the first enemy ability that reaches it. (Sivir E Spell Shield → Skarner E Ixtal's Impact)
 
-### 2. Elise (net +1.59)
+#### 2. Elise (net +1.59)
 
 - **0.80** untargetable: Rappel makes Elise untargetable, dodging Skarner's Impale. Untargetable for 0.6 s; Impale takes 0.75 s to land, enough to react. (Elise E Rappel → Skarner R Impale)
 - **0.65** range: Elise's basic attacks reach 400 units farther than Skarner's (550 vs 150 attack range). Skarner has no dash or blink to close the gap. (Elise basic attacks → Skarner basic attacks)
 - **0.27** untargetable: Rappel makes Elise untargetable, dodging Skarner's Ixtal's Impact. Untargetable for 0.6 s; Ixtal's Impact lands within 0 s, faster than a 0.25 s reaction, so it needs prediction. (Elise E Rappel → Skarner E Ixtal's Impact)
 
-### 3. Xayah (net +1.59)
+#### 3. Xayah (net +1.59)
 
 - **0.75** untargetable: Featherstorm makes Xayah untargetable, dodging Skarner's Impale. Untargetable for 1.5 s, long enough to use ahead of Impale. (Xayah R Featherstorm → Skarner R Impale)
 - **0.72** range: Xayah's basic attacks reach 375 units farther than Skarner's (525 vs 150 attack range). Skarner has no dash or blink to close the gap. (Xayah basic attacks → Skarner basic attacks)
 - **0.23** untargetable: Featherstorm makes Xayah untargetable, dodging Skarner's Ixtal's Impact. Untargetable for 1.5 s, long enough to use ahead of Ixtal's Impact. (Xayah R Featherstorm → Skarner E Ixtal's Impact)
 
-### 4. Bard (net +1.51)
+#### 4. Bard (net +1.51)
 
 - **0.80** untargetable: Tempered Fate makes Bard untargetable, dodging Skarner's Impale. Untargetable for 2.5 s, long enough to use ahead of Impale. (Bard R Tempered Fate → Skarner R Impale)
 - **0.67** range: Bard's basic attacks reach 350 units farther than Skarner's (500 vs 150 attack range). Skarner has no dash or blink to close the gap. (Bard basic attacks → Skarner basic attacks)
 - **0.24** untargetable: Tempered Fate makes Bard untargetable, dodging Skarner's Ixtal's Impact. Untargetable for 2.5 s, long enough to use ahead of Ixtal's Impact. (Bard R Tempered Fate → Skarner E Ixtal's Impact)
 - Watch out: Ixtal's Impact makes Skarner immune to Bard's Cosmic Binding slow.
 
-### 5. Morgana (net +1.35)
+#### 5. Morgana (net +1.35)
 
 - **0.80** cc immunity: Black Shield makes Morgana immune to Skarner's Impale (suppression). Immune for 5 s, long enough to use ahead of Impale. (Morgana E Black Shield → Skarner R Impale)
 - **0.45** cc immunity: Black Shield makes Morgana immune to Skarner's Ixtal's Impact (stun, suppression). Immune for 5 s, long enough to use ahead of Ixtal's Impact. (Morgana E Black Shield → Skarner E Ixtal's Impact)
 - **0.36** range: Morgana's basic attacks reach 300 units farther than Skarner's (450 vs 150 attack range). Skarner has no dash or blink to close the gap. (Morgana basic attacks → Skarner basic attacks)
 - Watch out: Ixtal's Impact makes Skarner immune to Morgana's Soul Shackles slow.
 
-### 6. Milio (net +1.28)
+#### 6. Milio (net +1.28)
 
 - **0.72** range: Milio's basic attacks reach 375 units farther than Skarner's (525 vs 150 attack range). Skarner has no dash or blink to close the gap. (Milio basic attacks → Skarner basic attacks)
 - **0.52** cleanse: Breath of Life cleanses Skarner's Impale (suppression) after it lands. 130 s cooldown; usable while crowd controlled. (Milio R Breath of Life → Skarner R Impale)
 - **0.17** cleanse: Breath of Life cleanses Skarner's Ixtal's Impact (stun, suppression) after it lands. 130 s cooldown; usable while crowd controlled. (Milio R Breath of Life → Skarner E Ixtal's Impact)
 - Watch out: Ixtal's Impact makes Skarner immune to Milio's Ultra Mega Fire Kick slow.
 
-### 7. Vladimir (net +1.22)
+#### 7. Vladimir (net +1.22)
 
 - **0.80** untargetable: Sanguine Pool makes Vladimir untargetable, dodging Skarner's Impale. Untargetable for 2 s, long enough to use ahead of Impale. (Vladimir W Sanguine Pool → Skarner R Impale)
 - **0.45** untargetable: Sanguine Pool makes Vladimir untargetable, dodging Skarner's Ixtal's Impact. Untargetable for 2 s, long enough to use ahead of Ixtal's Impact. (Vladimir W Sanguine Pool → Skarner E Ixtal's Impact)
 - **0.33** range: Vladimir's basic attacks reach 300 units farther than Skarner's (450 vs 150 attack range). Skarner has no dash or blink to close the gap. (Vladimir basic attacks → Skarner basic attacks)
 - Watch out: Ixtal's Impact makes Skarner immune to Vladimir's Tides of Blood slow.
 
-### 8. Lissandra (net +1.21)
+#### 8. Lissandra (net +1.21)
 
 - **0.80** untargetable: Frozen Tomb makes Lissandra untargetable, dodging Skarner's Impale. Untargetable for 2.5 s, long enough to use ahead of Impale. (Lissandra R Frozen Tomb → Skarner R Impale)
 - **0.44** range: Lissandra's basic attacks reach 400 units farther than Skarner's (550 vs 150 attack range). Skarner has no dash or blink to close the gap. (Lissandra basic attacks → Skarner basic attacks)
 - **0.24** untargetable: Frozen Tomb makes Lissandra untargetable, dodging Skarner's Ixtal's Impact. Untargetable for 2.5 s, long enough to use ahead of Ixtal's Impact. (Lissandra R Frozen Tomb → Skarner E Ixtal's Impact)
 - Watch out: Ixtal's Impact makes Skarner immune to Lissandra's Frozen Tomb slow.
 
-### 9. Kalista (net +1.20)
+#### 9. Kalista (net +1.20)
 
 - **0.61** range: Kalista's basic attacks reach 375 units farther than Skarner's (525 vs 150 attack range). Skarner has no dash or blink to close the gap. (Kalista basic attacks → Skarner basic attacks)
 - **0.54** cleanse: Fate's Call cleanses Skarner's Impale (suppression) after it lands. 120 s cooldown; usable while crowd controlled. (Kalista R Fate's Call → Skarner R Impale)
 - **0.18** cleanse: Fate's Call cleanses Skarner's Ixtal's Impact (stun, suppression) after it lands. 120 s cooldown; usable while crowd controlled. (Kalista R Fate's Call → Skarner E Ixtal's Impact)
 - Watch out: Ixtal's Impact makes Skarner immune to Kalista's Rend slow.
 
-### 10. Aurora (net +1.19)
+#### 10. Aurora (net +1.19)
 
 - **0.75** untargetable: Between Worlds makes Aurora untargetable, dodging Skarner's Impale. Untargetable for 0.4 s; Impale takes 0.75 s to land, enough to react. Does not destroy inbound projectiles. (Aurora R Between Worlds → Skarner R Impale)
 - **0.58** range: Aurora's basic attacks reach 400 units farther than Skarner's (550 vs 150 attack range). Skarner has no dash or blink to close the gap. (Aurora basic attacks → Skarner basic attacks)
 - **0.14** untargetable: Between Worlds makes Aurora untargetable, dodging Skarner's Ixtal's Impact. Untargetable for 0.4 s; Ixtal's Impact lands within 0 s, faster than a 0.25 s reaction, so it needs prediction. Does not destroy inbound projectiles. (Aurora R Between Worlds → Skarner E Ixtal's Impact)
 - Watch out: Ixtal's Impact reveals Aurora through Across the Veil's stealth.
 
-## Full ranking
+### Full ranking
 
 | # | Champion | Net | For | Against | Hard counters |
 |--:|---|--:|--:|--:|---|

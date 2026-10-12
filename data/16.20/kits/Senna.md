@@ -32,6 +32,7 @@ Source: [Template:Data Senna/Absolution](https://wiki.leagueoflegends.com/en-us/
 
 | Field | Value |
 |---|---|
+| Per-target cooldown | 6 / 5 / 4 (based on level) |
 | Effect radius | 2000 |
 
 Targeting: Passive · Affects: Self, Enemies · Damage type: – · Spell shield blocks it: false · Projectile: true · Parry: special · Disabled by grounded: – · Usable while knocked down: –

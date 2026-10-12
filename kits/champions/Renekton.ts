@@ -73,6 +73,7 @@ const renekton: KitModule = {
       slot: "W",
       cooldown: w.cooldown(),
       castTime: w.castTime(),
+      cooldownAfter: "empower",
       delivery: { kind: "self" },
       onSelf: [predator([extra(w.formula("Total Physical Damage"))], w.quoted("stunning them for 0.75 seconds", 0))],
     };

@@ -230,8 +230,8 @@ What the duel simulator fights with (`kits/champions/Shen.ts`): every number is 
 | Key | Ability | Cooldown (s) | Cast time (s) | Cost | Delivery | On the enemy | On itself |
 |---|---|--:|--:|---|---|---|---|
 | Q | Twilight Assault | 5 | 0 | 100 | self | – | – |
-| W | Spirit's Refuge | 10 | 0 | 40 | self | – | blockAttacks for 1.75 s |
-| E | Shadow Dash | 10 | 0 | 150 | dash toward 300–600 units at 1140/s, hits within 0, through the enemy | 160 + 11% bonus health physical damage; taunt for 1.5 s | – |
+| W | Spirit's Refuge | 10 (starts when its effect on the caster ends) | 0 | 40 | self | – | blockAttacks for 1.75 s |
+| E | Shadow Dash | 10 (starts after the dash) | 0 | 150 | dash toward 300–600 units at 1140/s, hits within 0, through the enemy | 160 + 11% bonus health physical damage; taunt for 1.5 s | – |
 
 Effects marked by a mark or a role are completed by the kit's hooks (see the kit's source).
 

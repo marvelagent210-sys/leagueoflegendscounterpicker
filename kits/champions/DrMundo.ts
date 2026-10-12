@@ -37,6 +37,7 @@ const mundo: KitModule = {
     const traumaMinimum = e.formula("Minimum Bonus Physical Damage");
     const traumaWindow = e.quoted("empowers his next basic attack within 4 seconds", 0);
     const traumaRange = e.quoted("gain 50 bonus range", 0);
+    // Both cooldowns start after the effect: the empowered attack, and the detonation.
     const traumaEvery = e.cooldown();
     const zapPulse = w.formula("Magic Damage per Tick");
     const zapDetonation = w.formula("Magic Damage");
@@ -85,10 +86,10 @@ const mundo: KitModule = {
           // Blunt Force Trauma's AD from maximum health on every attack, and its empowered attack.
           const traumaAD = traumaShare * d.maxHp;
           const trauma = (traumaMinimum.base + (traumaMinimum.ratios?.bonusHP ?? 0) * bonusHealth) * (1 + traumaMax / 2);
-          // Heart Zapper's pulses and detonation, once per cooldown.
+          // Heart Zapper's pulses and detonation, once per cooldown and duration.
           const pulses = (zapSeconds / zapEvery) * zapPulse.base;
           const detonation = zapDetonation.base + (zapDetonation.ratios?.bonusHP ?? 0) * bonusHealth;
-          return { physical: traumaAD * d.attackSpeed + trauma / traumaEvery, magic: (pulses + detonation) / zapEveryCast };
+          return { physical: traumaAD * d.attackSpeed + trauma / (traumaEvery + 1 / d.attackSpeed), magic: (pulses + detonation) / (zapEveryCast + zapSeconds) };
         },
         // The innate regeneration, and Maximum Dosage's through an all-in.
         healing: (self) => (regenShare * maxHp(self)) / 5 + (regenTotal * maxHp(self)) / dosageSeconds,
@@ -205,6 +206,7 @@ const mundo: KitModule = {
           cost: e.cost(),
           costType: "health",
           castTime: 0,
+          cooldownAfter: "empower",
           delivery: { kind: "self" },
           onSelf: [{ type: "resetAttack" }],
           roles: ["damage"],

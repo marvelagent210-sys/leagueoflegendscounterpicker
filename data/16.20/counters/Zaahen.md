@@ -1,5 +1,59 @@
 # Counters to Zaahen (patch 26.20)
 
+## Simulated duels (full confidence)
+
+The duel simulator played each of the 45 other champions with a simulator kit against Zaahen: both at level 20 with 15,000 gold of plain stats, each side's spent against the other's, through six scenarios (PLAN.md §6). Scores run from −1 (Zaahen wins every time) to +1 (the champion does). Run `npm run duel -- <champion> Zaahen --log brawl` to watch a fight.
+
+| # | Champion | Score | You engage | Enemy engages | Brawl | Short trade | Spacing | Escape |
+|--:|---|--:|--:|--:|--:|--:|--:|--:|
+| 1 | Teemo | +0.86 | +1.00 | +1.00 | +1.00 | +0.42 | +1.00 | +0.00 |
+| 2 | K'Sante | +0.85 | +1.00 | +1.00 | +1.00 | +0.01 | +1.00 | +1.00 |
+| 3 | Quinn | +0.83 | +1.00 | +1.00 | +0.86 | +0.37 | +1.00 | +0.00 |
+| 4 | Olaf | +0.76 | +1.00 | +1.00 | +1.00 | −0.08 | – | +0.00 |
+| 5 | Jax | +0.09 | +0.00 | +1.00 | −0.86 | +0.03 | – | +0.00 |
+| 6 | Trundle | +0.06 | +0.46 | −0.55 | +0.23 | −0.11 | – | +1.00 |
+| 7 | Aurora | −0.09 | −0.32 | −0.44 | +0.27 | +0.18 | +0.19 | +0.00 |
+| 8 | Fiora | −0.09 | +0.10 | −0.05 | −0.77 | +0.10 | – | +0.83 |
+| 9 | Kayle | −0.18 | −0.00 | +0.23 | −1.00 | +0.43 | −1.00 | +0.00 |
+| 10 | Singed | −0.18 | −0.35 | −0.34 | +0.12 | −0.12 | – | +0.00 |
+| 11 | Illaoi | −0.34 | −1.00 | −1.00 | +1.00 | −0.04 | – | +0.00 |
+| 12 | Darius | −0.44 | −0.56 | −0.53 | −0.54 | −0.10 | – | +0.00 |
+| 13 | Kennen | −0.46 | −1.00 | −1.00 | +0.69 | +0.01 | −1.00 | +0.00 |
+| 14 | Kled | −0.52 | −0.03 | −1.00 | −1.00 | −0.04 | – | +0.00 |
+| 15 | Riven | −0.69 | −1.00 | −1.00 | −0.76 | +0.21 | – | +0.00 |
+| 16 | Poppy | −0.73 | −1.00 | −1.00 | −1.00 | +0.26 | – | +0.00 |
+| 17 | Cho'Gath | −0.75 | −1.00 | −1.00 | −1.00 | +0.19 | – | +0.00 |
+| 18 | Garen | −0.76 | −1.00 | −1.00 | −1.00 | +0.13 | – | +0.00 |
+| 19 | Yasuo | −0.76 | −1.00 | −1.00 | −1.00 | +0.11 | – | +0.00 |
+| 20 | Malphite | −0.76 | −1.00 | −1.00 | −1.00 | +0.11 | – | +0.00 |
+| 21 | Pantheon | −0.76 | −1.00 | −1.00 | −1.00 | +0.09 | – | +0.00 |
+| 22 | Jayce | −0.77 | −1.00 | −1.00 | −1.00 | +0.07 | – | +0.00 |
+| 23 | Ornn | −0.77 | −1.00 | −1.00 | −1.00 | +0.06 | – | +0.00 |
+| 24 | Irelia | −0.77 | −1.00 | −1.00 | −1.00 | +0.04 | – | +0.00 |
+| 25 | Udyr | −0.77 | −1.00 | −1.00 | −1.00 | +0.03 | – | +0.00 |
+| 26 | Gnar | −0.77 | −1.00 | −1.00 | −1.00 | +0.17 | −1.00 | +0.00 |
+| 27 | Shen | −0.78 | −1.00 | −1.00 | −1.00 | +0.01 | – | +0.00 |
+| 28 | Skarner | −0.78 | −1.00 | −1.00 | −1.00 | +0.00 | – | +0.00 |
+| 29 | Sett | −0.78 | −1.00 | −1.00 | −1.00 | +0.00 | – | +0.00 |
+| 30 | Yone | −0.78 | −1.00 | −1.00 | −1.00 | −0.00 | – | +0.00 |
+| 31 | Sion | −0.78 | −1.00 | −1.00 | −1.00 | −0.01 | – | +0.00 |
+| 32 | Tahm Kench | −0.78 | −1.00 | −1.00 | −1.00 | −0.02 | – | +0.00 |
+| 33 | Renekton | −0.78 | −1.00 | −1.00 | −1.00 | −0.02 | – | +0.00 |
+| 34 | Mordekaiser | −0.78 | −1.00 | −1.00 | −1.00 | −0.03 | – | +0.00 |
+| 35 | Rumble | −0.78 | −1.00 | −1.00 | −1.00 | −0.03 | – | +0.00 |
+| 36 | Volibear | −0.78 | −1.00 | −1.00 | −1.00 | −0.03 | – | +0.00 |
+| 37 | Ambessa | −0.79 | −1.00 | −1.00 | −1.00 | −0.06 | – | +0.00 |
+| 38 | Nasus | −0.79 | −1.00 | −1.00 | −1.00 | −0.08 | – | +0.00 |
+| 39 | Akali | −0.79 | −1.00 | −1.00 | −1.00 | −0.08 | – | +0.00 |
+| 40 | Camille | −0.80 | −1.00 | −1.00 | −1.00 | −0.13 | – | +0.00 |
+| 41 | Tryndamere | −0.80 | −1.00 | −1.00 | −1.00 | −0.14 | – | +0.00 |
+| 42 | Dr. Mundo | −0.80 | −1.00 | −1.00 | −1.00 | −0.14 | – | +0.00 |
+| 43 | Gwen | −0.80 | −1.00 | −1.00 | −1.00 | −0.16 | – | +0.00 |
+| 44 | Aatrox | −0.81 | −1.00 | −1.00 | −1.00 | −0.18 | – | +0.00 |
+| 45 | Urgot | −0.81 | −1.00 | −1.00 | −1.00 | −0.08 | −1.00 | +0.00 |
+
+## Interaction ledger (partial confidence)
+
 Every champion ranked by what its kit does against Zaahen's, from the interaction ledger: projectile blocks, spell shields,
 parries, dash stops, crowd control and its defenses, range and more (PLAN.md §5). This ranking is **partial**: it weighs the
 interactions but doesn't play the fight out. The duel simulator replaces it as each champion's behavior is verified.
@@ -8,78 +62,78 @@ interactions but doesn't play the fight out. The duel simulator replaces it as e
 A hard counter shuts down part of a kit every time it is used (projectile block, attack dodge, attack block, blind, disarm, attack speed slow, attack reflect, dash stop, grounding, range) with an impact of 0.4 or more (0.5 for range).
 Run `npm run matchup -- <champion> Zaahen` for the full ledger of a matchup, with sources.
 
-## Top 10
+### Top 10
 
-### 1. Vladimir (net +1.25)
+#### 1. Vladimir (net +1.25)
 
 - **0.90** untargetable: Sanguine Pool makes Vladimir untargetable, dodging Zaahen's Grim Deliverance. Untargetable for 2 s, long enough to use ahead of Grim Deliverance. (Vladimir W Sanguine Pool → Zaahen R Grim Deliverance)
 - **0.60** untargetable: Sanguine Pool makes Vladimir untargetable, dodging Zaahen's Dreaded Return. Untargetable for 2 s, long enough to use ahead of Dreaded Return. (Vladimir W Sanguine Pool → Zaahen W Dreaded Return)
 - **0.44** untargetable: Sanguine Pool makes Vladimir untargetable, dodging Zaahen's The Darkin Glaive. Untargetable for 2 s, long enough to use ahead of The Darkin Glaive. (Vladimir W Sanguine Pool → Zaahen Q The Darkin Glaive)
 - Watch out: The Darkin Glaive's airborne interrupts Vladimir's Tides of Blood (charge-up).
 
-### 2. Kayle (net +1.21)
+#### 2. Kayle (net +1.21)
 
 - **0.90** invulnerable: Divine Judgment makes Kayle invulnerable to Zaahen's Grim Deliverance. Invulnerable for 2.5 s, long enough to use ahead of Grim Deliverance. (Kayle R Divine Judgment → Zaahen R Grim Deliverance)
 - **0.24** range: Kayle's basic attacks reach 450 units farther than Zaahen's (625 vs 175 attack range). Zaahen closes the gap with Aureate Rush, Grim Deliverance. (Kayle basic attacks → Zaahen basic attacks)
 - **0.17** invulnerable: Divine Judgment makes Kayle invulnerable to Zaahen's Dreaded Return (its crowd control still applies). Invulnerable for 2.5 s, long enough to use ahead of Dreaded Return. (Kayle R Divine Judgment → Zaahen W Dreaded Return)
 - Watch out: Grim Deliverance makes Zaahen immune to Kayle's Radiant Blast (slow).
 
-### 3. Fiora (net +1.12)
+#### 3. Fiora (net +1.12)
 
 - **0.90** parry: Riposte parries Zaahen's Grim Deliverance. Parry for 0.75 s; Grim Deliverance takes 0.5 s to land, enough to react. (Fiora W Riposte → Zaahen R Grim Deliverance)
 - **0.70** parry: Riposte parries Zaahen's Dreaded Return and stuns back. Parry for 0.75 s; Dreaded Return takes 0.79 s to land, enough to react. Negating Dreaded Return's immobilizing effect turns Riposte's slow into a stun (2 s). (Fiora W Riposte → Zaahen W Dreaded Return)
 - **0.36** parry: Riposte parries Zaahen's The Darkin Glaive and stuns back. Parry for 0.75 s; The Darkin Glaive lands within 0 s, faster than a 0.25 s reaction, so it needs prediction. Negating The Darkin Glaive's immobilizing effect turns Riposte's slow into a stun (2 s). (Fiora W Riposte → Zaahen Q The Darkin Glaive)
 - Watch out: Grim Deliverance makes Zaahen immune to Fiora's Riposte (cripple, slow, stun).
 
-### 4. Elise (net +1.11)
+#### 4. Elise (net +1.11)
 
 - **0.90** untargetable: Rappel makes Elise untargetable, dodging Zaahen's Grim Deliverance. Untargetable for 0.6 s; Grim Deliverance takes 0.5 s to land, enough to react. (Elise E Rappel → Zaahen R Grim Deliverance)
 - **0.56** untargetable: Rappel makes Elise untargetable, dodging Zaahen's Dreaded Return. Untargetable for 0.6 s; Dreaded Return takes 0.79 s to land, enough to react. (Elise E Rappel → Zaahen W Dreaded Return)
 - **0.25** untargetable: Rappel makes Elise untargetable, dodging Zaahen's The Darkin Glaive. Untargetable for 0.6 s; The Darkin Glaive lands within 0 s, faster than a 0.25 s reaction, so it needs prediction. (Elise E Rappel → Zaahen Q The Darkin Glaive)
 - Watch out: Grim Deliverance makes Zaahen immune to Elise's Cocoon (stun).
 
-### 5. Sivir (net +1.11)
+#### 5. Sivir (net +1.11)
 
 - **0.56** spell shield: Spell Shield's spell shield blocks Zaahen's Dreaded Return. Spell shield for 1.5 s, long enough to use ahead of Dreaded Return. A spell shield blocks only the first enemy ability that reaches it. (Sivir E Spell Shield → Zaahen W Dreaded Return)
 - **0.45** spell shield: Spell Shield's spell shield blocks part of Zaahen's Grim Deliverance. Spell shield for 1.5 s, long enough to use ahead of Grim Deliverance. A spell shield blocks only the first enemy ability that reaches it. Spell shield will block the damage but not the heal. (Sivir E Spell Shield → Zaahen R Grim Deliverance)
 - **0.27** range: Sivir's basic attacks reach 325 units farther than Zaahen's (500 vs 175 attack range). Zaahen closes the gap with Aureate Rush, Grim Deliverance. (Sivir basic attacks → Zaahen basic attacks)
 
-### 6. Gwen (net +1.10)
+#### 6. Gwen (net +1.10)
 
 - **0.90** untargetable: Hallowed Mist makes Gwen untargetable, dodging Zaahen's Grim Deliverance. Untargetable for ?; Grim Deliverance takes 0.5 s to land, enough to react. Does not destroy inbound projectiles for non-champion missiles but does so for champion missiles that attempt to pass through the mist, special cased to be targetable to turrets and monsters as well as enemies inside the mist. (Gwen W Hallowed Mist → Zaahen R Grim Deliverance)
 - **0.56** untargetable: Hallowed Mist makes Gwen untargetable, dodging Zaahen's Dreaded Return. Untargetable for ?; Dreaded Return takes 0.79 s to land, enough to react. Does not destroy inbound projectiles for non-champion missiles but does so for champion missiles that attempt to pass through the mist, special cased to be targetable to turrets and monsters as well as enemies inside the mist. (Gwen W Hallowed Mist → Zaahen W Dreaded Return)
 - **0.25** untargetable: Hallowed Mist makes Gwen untargetable, dodging Zaahen's The Darkin Glaive. Untargetable for ?; The Darkin Glaive lands within 0 s, faster than a 0.25 s reaction, so it needs prediction. Does not destroy inbound projectiles for non-champion missiles but does so for champion missiles that attempt to pass through the mist, special cased to be targetable to turrets and monsters as well as enemies inside the mist. (Gwen W Hallowed Mist → Zaahen Q The Darkin Glaive)
 - Watch out: Grim Deliverance makes Zaahen immune to Gwen's Needlework (slow).
 
-### 7. Xayah (net +1.06)
+#### 7. Xayah (net +1.06)
 
 - **0.79** untargetable: Featherstorm makes Xayah untargetable, dodging Zaahen's Grim Deliverance. Untargetable for 1.5 s, long enough to use ahead of Grim Deliverance. (Xayah R Featherstorm → Zaahen R Grim Deliverance)
 - **0.33** untargetable: Featherstorm makes Xayah untargetable, dodging Zaahen's Dreaded Return. Untargetable for 1.5 s, long enough to use ahead of Dreaded Return. (Xayah R Featherstorm → Zaahen W Dreaded Return)
 - **0.31** untargetable: Featherstorm makes Xayah untargetable, dodging Zaahen's The Darkin Glaive. Untargetable for 1.5 s, long enough to use ahead of The Darkin Glaive. (Xayah R Featherstorm → Zaahen Q The Darkin Glaive)
 - Watch out: Grim Deliverance makes Zaahen immune to Xayah's Bladecaller (root).
 
-### 8. Aurora (net +1.05)
+#### 8. Aurora (net +1.05)
 
 - **0.79** untargetable: Between Worlds makes Aurora untargetable, dodging Zaahen's Grim Deliverance. Untargetable for 0.4 s; Grim Deliverance takes 0.5 s to land, enough to react. Does not destroy inbound projectiles. (Aurora R Between Worlds → Zaahen R Grim Deliverance)
 - **0.33** untargetable: Between Worlds makes Aurora untargetable, dodging Zaahen's Dreaded Return. Untargetable for 0.4 s; Dreaded Return takes 0.79 s to land, enough to react. Does not destroy inbound projectiles. (Aurora R Between Worlds → Zaahen W Dreaded Return)
 - **0.18** range: Aurora's basic attacks reach 375 units farther than Zaahen's (550 vs 175 attack range). Zaahen closes the gap with Aureate Rush, Grim Deliverance. (Aurora basic attacks → Zaahen basic attacks)
 - Watch out: Grim Deliverance makes Zaahen immune to Aurora's Between Worlds (slow).
 
-### 9. Kindred (net +1.04)
+#### 9. Kindred (net +1.04)
 
 - **0.72** invulnerable: Lamb's Respite makes Kindred invulnerable to Zaahen's Grim Deliverance. Invulnerable for ?; Grim Deliverance takes 0.5 s to land, enough to react. (Kindred R Lamb's Respite → Zaahen R Grim Deliverance)
 - **0.27** range: Kindred's basic attacks reach 325 units farther than Zaahen's (500 vs 175 attack range). Zaahen closes the gap with Aureate Rush, Grim Deliverance. (Kindred basic attacks → Zaahen basic attacks)
 - **0.16** invulnerable: Lamb's Respite makes Kindred invulnerable to Zaahen's Dreaded Return (its crowd control still applies). Invulnerable for ?; Dreaded Return takes 0.79 s to land, enough to react. (Kindred R Lamb's Respite → Zaahen W Dreaded Return)
 - Watch out: Grim Deliverance makes Zaahen immune to Kindred's Mounting Dread (slow).
 
-### 10. Master Yi (net +1.01)
+#### 10. Master Yi (net +1.01)
 
 - **0.90** untargetable: Alpha Strike makes Master Yi untargetable, dodging Zaahen's Grim Deliverance. Untargetable for ?; Grim Deliverance takes 0.5 s to land, enough to react. (Master Yi Q Alpha Strike → Zaahen R Grim Deliverance)
 - **0.56** untargetable: Alpha Strike makes Master Yi untargetable, dodging Zaahen's Dreaded Return. Untargetable for ?; Dreaded Return takes 0.79 s to land, enough to react. (Master Yi Q Alpha Strike → Zaahen W Dreaded Return)
 - **0.25** untargetable: Alpha Strike makes Master Yi untargetable, dodging Zaahen's The Darkin Glaive. Untargetable for ?; The Darkin Glaive lands within 0 s, faster than a 0.25 s reaction, so it needs prediction. (Master Yi Q Alpha Strike → Zaahen Q The Darkin Glaive)
 - Watch out: The Darkin Glaive's airborne interrupts Master Yi's Meditate (normal channel).
 
-## Full ranking
+### Full ranking
 
 | # | Champion | Net | For | Against | Hard counters |
 |--:|---|--:|--:|--:|---|

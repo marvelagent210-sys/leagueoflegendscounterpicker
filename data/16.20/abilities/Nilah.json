@@ -454,6 +454,12 @@
             },
             "context": "Her basic attacks and Formless Blade heal her for 0 / 2 / 4 / 6 / 8 / 10 / 12 / 14 / 16 / 18 / 20 (based on critical strike chance)% of the post-mitigation damage dealt to champions, converting each heal instance beyond maximum health into a shield that lasts 6 seconds."
           }
+        ],
+        "tips": [
+          {
+            "text": "post-mitigation damage",
+            "tip": "Damage calculated after modifiers"
+          }
         ]
       },
       {
@@ -495,10 +501,10 @@
                 "kind": "rank",
                 "values": [
                   0,
-                  19.099999999999998,
-                  38.199999999999996,
-                  57.3,
-                  76.39999999999999
+                  19.1,
+                  38.2,
+                  57.300000000000004,
+                  76.4
                 ]
               },
               "scaling": [
@@ -557,22 +563,22 @@
               "kind": "level",
               "values": [
                 10,
-                12.941176470588236,
-                15.882352941176471,
-                18.823529411764707,
-                21.764705882352942,
-                24.705882352941174,
-                27.647058823529413,
-                30.58823529411765,
-                33.529411764705884,
-                36.470588235294116,
-                39.41176470588235,
-                42.35294117647059,
-                45.294117647058826,
-                48.23529411764706,
+                12.9411764705882,
+                15.8823529411765,
+                18.8235294117647,
+                21.7647058823529,
+                24.7058823529412,
+                27.6470588235294,
+                30.5882352941176,
+                33.5294117647059,
+                36.4705882352941,
+                39.4117647058823,
+                42.3529411764706,
+                45.2941176470588,
+                48.2352941176471,
                 51.1764705882353,
-                54.11764705882353,
-                57.05882352941177,
+                54.1176470588235,
+                57.0588235294118,
                 60,
                 62.9412,
                 65.8824
@@ -862,6 +868,12 @@
             },
             "context": "Nilah heals herself and nearby allied champions for 20 / 23 / 26 / 29 / 32 / 35 / 38 / 41 / 44 / 47 / 50 (based on critical strike chance)% of the post-mitigation damage dealt to champions, reduced to 10% against non-champions, converting each heal instance beyond maximum health into a shield that last 6 seconds."
           }
+        ],
+        "tips": [
+          {
+            "text": "post-mitigation damage",
+            "tip": "Damage calculated after modifiers"
+          }
         ]
       },
       {
@@ -1007,7 +1019,13 @@
         "text": "Allied champions she touches will also be enveloped for 1.5 seconds, gaining the same effects.",
         "leveling": [],
         "mechanics": [],
-        "values": []
+        "values": [],
+        "tips": [
+          {
+            "text": "she touches",
+            "tip": "Being within collision range of them"
+          }
+        ]
       }
     ],
     "custom": [],

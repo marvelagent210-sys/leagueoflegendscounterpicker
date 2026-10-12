@@ -267,3 +267,101 @@ All 5 level-based formulas in the game files (2 linked to wiki values above):
 | IllaoiQ | TentacleDamageTotal | linear 9 → 180 over levels 1-18, continues past 18 | 9 | 180 | 200.118 |
 | IllaoiQ | DamageIncreaseTooltip | linear 9 → 162 over levels 1-18, continues past 18 | 9 | 162 | 180 |
 | IllaoiPassive | SpawnCD | linear 18 → 7 over levels 1-18, continues past 18 | 18 | 7 | 5.70588 |
+
+## Duel simulator kit (level 20, every ability at max rank)
+
+What the duel simulator fights with (`kits/champions/Illaoi.ts`): every number is read from the wiki's ability data above at level 20; what the wiki doesn't say is listed under assumptions. Ratios are fractions of the stat (60% AD is 0.6 × AD).
+
+- Basic attack: range 125, melee.
+
+| Key | Ability | Cooldown (s) | Cast time (s) | Cost | Delivery | On the enemy | On itself |
+|---|---|--:|--:|---|---|---|---|
+| E | Test of Spirit | 12 | 0.25 | 55 | skillshot 950 long, 100 wide, at 1900/s | marks it "testOfSpirit" for 7 s | – |
+| Q | Tentacle Smash | 6 | 0.75 | 60 | skillshot 802.75 long, 200 wide, instant | 260.153 + 143% AD + 52% AP physical damage (Tentacle); to itself: heal 5% missing health; 50% less damage for each hit it took from these in the last 0.66 s, down to 25% | – |
+| W | Harsh Lesson | 4 (starts after the empowered attacks) | 0 | 30 | self | – | next 1 attack within 6 s: 5% target's maximum health + 3.5% of target's maximum health per 100 AD physical damage (Harsh Lesson), at least 60 (+225 range, resets the attack timer, uncancellable) |
+| R | Leap of Faith | 70 | 0.5 | 100 | around itself, 500 units | 350 + 50% bonus AD physical damage (Leap of Faith) | as the cast starts: displacementImmune for 0.5 s |
+| SLAM | Tentacle slam | 0 | 0 | – | area 0 to 927.75 units ahead, lands after 0.75 s | 260.153 + 143% AD + 52% AP physical damage (Tentacle); to itself: heal 5% missing health; 50% less damage for each hit it took from these in the last 0.66 s, down to 25% | – |
+| VESSEL | Vessel | 0 | 0 | – | self | slow 80% for 1.5 s | – |
+
+Effects marked by a mark or a role are completed by the kit's hooks (see the kit's source).
+
+### Assumptions
+
+- A Tentacle is 65 units in radius: the wiki gives none, and the game files give it no gameplay radius, which leaves the game's default (the wiki's 65 for Gangplank's Powder Keg, which has none in the game files either).
+- Tentacles rise where Illaoi stands: the terrain at the lane's side is next to her.
+- With the lane set up, one awake Tentacle stands beside Illaoi when the fight starts, and the innate's timer is ready.
+- A commanded slam lands 0.75 s after it starts, as Tentacle Smash's does (the wiki gives no time for the others), and a Tentacle's queued slams follow one another without a pause outside Leap of Faith.
+- The enemy can step out of a slam sideways, as from any skillshot. On the line, a slam always hits a Spirit standing in its stretch, and one aimed at the Spirit can catch the champion beyond it; a slam that hits a Spirit heals Illaoi as if it hit a champion (the wiki counts Spirits as clones).
+- Harsh Lesson's leap takes Illaoi to the target as the attack starts (the game files' leap, at her movement speed plus 600, covers its 225 units in under 0.25 s).
+- Tentacles slam a Spirit or a Vessel within 950 units on their own every 3.5 s (the wiki at level 13 and up; the game files say 3 s, plus a delay of up to 0.5 s), the first as soon as they can.
+- The Spirit stands 100 units in front of Illaoi with its champion's size; Illaoi attacks it only when she can't attack the champion. The tether breaks when the champion gets 1500 units from it (edge to edge); a Vessel is slowed as the Spirit dies or the tether breaks.
+- Test of Spirit splits the fight on whether it lands; when the fight can't split further, a hit more likely than not pulls the Spirit.
+- Leap of Faith's Tentacle rises awake at once, 700 units from Illaoi toward the enemy.
+- The enemy attacks a Tentacle before Illaoi when it can reach one awake and the Tentacle could slam it.
+- Illaoi casts Harsh Lesson to leap at an enemy just out of her reach, and between attacks otherwise.
+
+### Wiki values read (61)
+
+| Ability | Value | Revision |
+|---|---|---|
+| Tentacle | hp: 2 | [4065518](https://wiki.leagueoflegends.com/en-us/Illaoi?oldid=4065518) |
+| Tentacle | 1 from champion basic attacks | [4065518](https://wiki.leagueoflegends.com/en-us/Illaoi?oldid=4065518) |
+| Tentacle | range: 927.75 x 200 | [4065518](https://wiki.leagueoflegends.com/en-us/Illaoi?oldid=4065518) |
+| Tentacle | 927.75 x 200 | [4065518](https://wiki.leagueoflegends.com/en-us/Illaoi?oldid=4065518) |
+| Prophet of an Elder God | staticCooldown: 18 – 7 (based on level) | [4070338](https://wiki.leagueoflegends.com/en-us/Template:Data_Illaoi/Prophet_of_an_Elder_God?oldid=4070338) |
+| Prophet of an Elder God | effectRadius (cannot spawn): 1000 | [4070338](https://wiki.leagueoflegends.com/en-us/Template:Data_Illaoi/Prophet_of_an_Elder_God?oldid=4070338) |
+| Prophet of an Elder God | Tentacles fully spawn after a 2 second delay and are untargetable in the meantime | [4070338](https://wiki.leagueoflegends.com/en-us/Template:Data_Illaoi/Prophet_of_an_Elder_God?oldid=4070338) |
+| Prophet of an Elder God | Periodically, Illaoi spawns a Tentacle on the nearest terrain, if no other Tentacle is around it | [4070338](https://wiki.leagueoflegends.com/en-us/Template:Data_Illaoi/Prophet_of_an_Elder_God?oldid=4070338) |
+| Prophet of an Elder God | Tentacles are commanded to attack by Illaoi's abilities, dealing 9 – 180 (based on level) (+ 110% AD) (+ 40% AP) physical damage to all enemies struck, increased by 0 / 10 / 15 / 20 / 25 / 30 (based on Tentacle Smash's rank)%. | [4070338](https://wiki.leagueoflegends.com/en-us/Template:Data_Illaoi/Prophet_of_an_Elder_God?oldid=4070338) |
+| Prophet of an Elder God | (+ 110% AD) (+ 40% AP) physical damage to all enemies struck | [4070338](https://wiki.leagueoflegends.com/en-us/Template:Data_Illaoi/Prophet_of_an_Elder_God?oldid=4070338) |
+| Prophet of an Elder God | increased by 0 / 10 / 15 / 20 / 25 / 30 (based on Tentacle Smash's rank)% | [4070338](https://wiki.leagueoflegends.com/en-us/Template:Data_Illaoi/Prophet_of_an_Elder_God?oldid=4070338) |
+| Tentacle Smash | Damage Increase: 10 / 15 / 20 / 25 / 30% | [4016298](https://wiki.leagueoflegends.com/en-us/Template:Data_Illaoi/Tentacle_Smash?oldid=4016298) |
+| Prophet of an Elder God | Each enemy individually reduces the slam damage by 50% for every slam they were hit by in the last 0.66 seconds, capped at 75% less damage | [4070338](https://wiki.leagueoflegends.com/en-us/Template:Data_Illaoi/Prophet_of_an_Elder_God?oldid=4070338) |
+| Prophet of an Elder God | heals Illaoi for 5% of her missing health if it hits at least one enemy champion | [4070338](https://wiki.leagueoflegends.com/en-us/Template:Data_Illaoi/Prophet_of_an_Elder_God?oldid=4070338) |
+| Tentacle Smash | castTime: 0.75 | [4016298](https://wiki.leagueoflegends.com/en-us/Template:Data_Illaoi/Tentacle_Smash?oldid=4016298) |
+| Tentacle | The Tentacle is commanded to attack each time a target in 950 range gets hit by Harsh Lesson | [4065518](https://wiki.leagueoflegends.com/en-us/Illaoi?oldid=4065518) |
+| Tentacle | it will instead queue the attack if it becomes active in the next 0.5 seconds | [4065518](https://wiki.leagueoflegends.com/en-us/Illaoi?oldid=4065518) |
+| Tentacle | Its attacks get queued up if it receives more than one attack command | [4065518](https://wiki.leagueoflegends.com/en-us/Illaoi?oldid=4065518) |
+| Tentacle Smash | range: -52.75 • 802.75 | [4016298](https://wiki.leagueoflegends.com/en-us/Template:Data_Illaoi/Tentacle_Smash?oldid=4016298) |
+| Tentacle Smash | width: 200 | [4016298](https://wiki.leagueoflegends.com/en-us/Template:Data_Illaoi/Tentacle_Smash?oldid=4016298) |
+| Tentacle Smash | Illaoi slams down a Tentacle in the target direction | [4016298](https://wiki.leagueoflegends.com/en-us/Template:Data_Illaoi/Tentacle_Smash?oldid=4016298) |
+| Harsh Lesson | empowers her next basic attack within 6 seconds | [4078463](https://wiki.leagueoflegends.com/en-us/Template:Data_Illaoi/Harsh_Lesson?oldid=4078463) |
+| Harsh Lesson | gain 225 bonus range | [4078463](https://wiki.leagueoflegends.com/en-us/Template:Data_Illaoi/Harsh_Lesson?oldid=4078463) |
+| Harsh Lesson | cause her to leap to the target's location if they are beyond her normal basic attack range | [4078463](https://wiki.leagueoflegends.com/en-us/Template:Data_Illaoi/Harsh_Lesson?oldid=4078463) |
+| Harsh Lesson | Harsh Lesson can be activated during Illaoi's other abilities | [4078463](https://wiki.leagueoflegends.com/en-us/Template:Data_Illaoi/Harsh_Lesson?oldid=4078463) |
+| Harsh Lesson | Additional Physical Damage: 3 / 3.5 / 4 / 4.5 / 5% (+ 3.5% per 100 AD) of target's maximum health | [4078463](https://wiki.leagueoflegends.com/en-us/Template:Data_Illaoi/Harsh_Lesson?oldid=4078463) |
+| Harsh Lesson | Minimum Physical Damage: 20 / 30 / 40 / 50 / 60 | [4078463](https://wiki.leagueoflegends.com/en-us/Template:Data_Illaoi/Harsh_Lesson?oldid=4078463) |
+| Test of Spirit | range: 950 • 100 | [4078506](https://wiki.leagueoflegends.com/en-us/Template:Data_Illaoi/Test_of_Spirit?oldid=4078506) |
+| Test of Spirit | speed: 1900 | [4078506](https://wiki.leagueoflegends.com/en-us/Template:Data_Illaoi/Test_of_Spirit?oldid=4078506) |
+| Test of Spirit | range (Spirit is pulled to): 950 • 100 | [4078506](https://wiki.leagueoflegends.com/en-us/Template:Data_Illaoi/Test_of_Spirit?oldid=4078506) |
+| Test of Spirit | pulling their Spirit out in front of Illaoi over 0.75 seconds | [4078506](https://wiki.leagueoflegends.com/en-us/Template:Data_Illaoi/Test_of_Spirit?oldid=4078506) |
+| Test of Spirit | The target is tethered to the Spirit for 7 seconds | [4078506](https://wiki.leagueoflegends.com/en-us/Template:Data_Illaoi/Test_of_Spirit?oldid=4078506) |
+| Test of Spirit | "7 seconds" (tooltip: Timer starts when the target is hit) | [4078506](https://wiki.leagueoflegends.com/en-us/Template:Data_Illaoi/Test_of_Spirit?oldid=4078506) |
+| Test of Spirit | tetherRadius (Actual tether): 1500 • 1700 | [4078506](https://wiki.leagueoflegends.com/en-us/Template:Data_Illaoi/Test_of_Spirit?oldid=4078506) |
+| Test of Spirit | The Spirit spawns with the target's current health, armor and magic resist, and echoes a portion of the pre-mitigation damage received to the tethered champion | [4078506](https://wiki.leagueoflegends.com/en-us/Template:Data_Illaoi/Test_of_Spirit?oldid=4078506) |
+| Test of Spirit | Damage Transmission: 25 / 30 / 35 / 40 / 45% (+ 8% per 100 AD) | [4078506](https://wiki.leagueoflegends.com/en-us/Template:Data_Illaoi/Test_of_Spirit?oldid=4078506) |
+| Test of Spirit | (+ 8% per 100 AD) | [4078506](https://wiki.leagueoflegends.com/en-us/Template:Data_Illaoi/Test_of_Spirit?oldid=4078506) |
+| Test of Spirit | marking the target as a Vessel for 4 seconds and slowing them by 80% for 1.5 seconds once the tether returns back to them | [4078506](https://wiki.leagueoflegends.com/en-us/Template:Data_Illaoi/Test_of_Spirit?oldid=4078506) |
+| Test of Spirit | Each Tentacle autonomously attacks the closest Vessel or Spirit, prioritizing the latter, once every 4.5 / 4 / 3.5 (based on level) seconds. | [4078506](https://wiki.leagueoflegends.com/en-us/Template:Data_Illaoi/Test_of_Spirit?oldid=4078506) |
+| Test of Spirit | Tentacles can spawn 300 units closer to each other than when spawned by Illaoi | [4078506](https://wiki.leagueoflegends.com/en-us/Template:Data_Illaoi/Test_of_Spirit?oldid=4078506) |
+| Test of Spirit | Illaoi is unable to act while firing the projectile and while the target's Spirit is being pulled | [4078506](https://wiki.leagueoflegends.com/en-us/Template:Data_Illaoi/Test_of_Spirit?oldid=4078506) |
+| Test of Spirit | Test of Spirit cannot be cast again until the Spirit dies | [4078506](https://wiki.leagueoflegends.com/en-us/Template:Data_Illaoi/Test_of_Spirit?oldid=4078506) |
+| Leap of Faith | effectRadius: 500 | [4050880](https://wiki.leagueoflegends.com/en-us/Template:Data_Illaoi/Leap_of_Faith?oldid=4050880) |
+| Leap of Faith | castTime: 0.5 | [4050880](https://wiki.leagueoflegends.com/en-us/Template:Data_Illaoi/Leap_of_Faith?oldid=4050880) |
+| Leap of Faith | For each enemy champion hit, a Tentacle is summoned for 8 seconds | [4050880](https://wiki.leagueoflegends.com/en-us/Template:Data_Illaoi/Leap_of_Faith?oldid=4050880) |
+| Leap of Faith | Illaoi spawns the Tentacle 700 range away from her | [4050880](https://wiki.leagueoflegends.com/en-us/Template:Data_Illaoi/Leap_of_Faith?oldid=4050880) |
+| Leap of Faith | will take 0.5 seconds to make an attack; however they will then incur a lockout of 0.5 seconds before being able to start a new attack | [4050880](https://wiki.leagueoflegends.com/en-us/Template:Data_Illaoi/Leap_of_Faith?oldid=4050880) |
+| Leap of Faith | For the duration, Harsh Lesson cooldown is halved, all Tentacles awakened by Illaoi are untargetable | [4050880](https://wiki.leagueoflegends.com/en-us/Template:Data_Illaoi/Leap_of_Faith?oldid=4050880) |
+| Leap of Faith | This does not affect the Tentacle attack from Tentacle Smash | [4050880](https://wiki.leagueoflegends.com/en-us/Template:Data_Illaoi/Leap_of_Faith?oldid=4050880) |
+| Test of Spirit | cooldown: 16 / 15 / 14 / 13 / 12 | [4078506](https://wiki.leagueoflegends.com/en-us/Template:Data_Illaoi/Test_of_Spirit?oldid=4078506) |
+| Test of Spirit | cost: 35 / 40 / 45 / 50 / 55 | [4078506](https://wiki.leagueoflegends.com/en-us/Template:Data_Illaoi/Test_of_Spirit?oldid=4078506) |
+| Test of Spirit | castTime: 0.25 | [4078506](https://wiki.leagueoflegends.com/en-us/Template:Data_Illaoi/Test_of_Spirit?oldid=4078506) |
+| Test of Spirit | width: 100 | [4078506](https://wiki.leagueoflegends.com/en-us/Template:Data_Illaoi/Test_of_Spirit?oldid=4078506) |
+| Tentacle Smash | cooldown: 10 / 9 / 8 / 7 / 6 | [4016298](https://wiki.leagueoflegends.com/en-us/Template:Data_Illaoi/Tentacle_Smash?oldid=4016298) |
+| Tentacle Smash | cost: 40 / 45 / 50 / 55 / 60 | [4016298](https://wiki.leagueoflegends.com/en-us/Template:Data_Illaoi/Tentacle_Smash?oldid=4016298) |
+| Harsh Lesson | cooldown: 4 | [4078463](https://wiki.leagueoflegends.com/en-us/Template:Data_Illaoi/Harsh_Lesson?oldid=4078463) |
+| Harsh Lesson | cost: 30 | [4078463](https://wiki.leagueoflegends.com/en-us/Template:Data_Illaoi/Harsh_Lesson?oldid=4078463) |
+| Harsh Lesson | castTime: none | [4078463](https://wiki.leagueoflegends.com/en-us/Template:Data_Illaoi/Harsh_Lesson?oldid=4078463) |
+| Leap of Faith | cooldown: 120 / 95 / 70 | [4050880](https://wiki.leagueoflegends.com/en-us/Template:Data_Illaoi/Leap_of_Faith?oldid=4050880) |
+| Leap of Faith | cost: 100 | [4050880](https://wiki.leagueoflegends.com/en-us/Template:Data_Illaoi/Leap_of_Faith?oldid=4050880) |
+| Leap of Faith | Physical Damage: 150 / 250 / 350 (+ 50% bonus AD) | [4050880](https://wiki.leagueoflegends.com/en-us/Template:Data_Illaoi/Leap_of_Faith?oldid=4050880) |

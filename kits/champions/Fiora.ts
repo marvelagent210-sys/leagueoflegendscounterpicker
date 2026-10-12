@@ -153,6 +153,7 @@ const fiora: KitModule = {
           cooldown: e.cooldown(),
           cost: e.cost(),
           castTime: e.castTime(),
+          cooldownAfter: "empower",
           delivery: { kind: "self" },
           onSelf: [
             { type: "empower", attacks: 2, window: bladeworkSeconds, bonusRange: e.quoted("to gain 25 bonus range", 0), onHit: [] },

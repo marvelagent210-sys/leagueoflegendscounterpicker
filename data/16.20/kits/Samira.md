@@ -31,6 +31,7 @@ Source: [Template:Data Samira/Daredevil Impulse](https://wiki.leagueoflegends.co
 
 | Field | Value |
 |---|---|
+| Per-target cooldown | 10 |
 | Target range | 650 / 725 / 800 / 875 / 950 (based on level) |
 | Speed | 2050 • 2800 |
 

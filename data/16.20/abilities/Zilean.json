@@ -181,6 +181,12 @@
             },
             "context": "Innate: Zilean generates 2 / 3.5 / 5 / 6 / 12 (based on level) experience (does not count towards his own level up) every 5 seconds."
           }
+        ],
+        "tips": [
+          {
+            "text": "maximum level",
+            "tip": "On Summoner's Rift, level 20 for the champion in the top lane role and 18 for Zilean and all other allies."
+          }
         ]
       },
       {
@@ -206,7 +212,13 @@
             "conditional": false
           }
         ],
-        "values": []
+        "values": [],
+        "tips": [
+          {
+            "text": "select them",
+            "tip": "Default MB2/right-click"
+          }
+        ]
       },
       {
         "text": "A successful channel will grant an equal amount of experience to the ally for them to level up as well as to Zilean, with a combined minimum of 15% of the stored experience.",
@@ -372,7 +384,13 @@
             "conditional": false
           }
         ],
-        "values": []
+        "values": [],
+        "tips": [
+          {
+            "text": "surroundings",
+            "tip": "Cannot grant sight through terrain and can only grant sight into brush when the missile flies through that brush"
+          }
+        ]
       },
       {
         "text": "After 3 seconds, or when the attached unit dies, the bomb explodes to deal magic damage to nearby enemies.",
@@ -406,7 +424,13 @@
           }
         ],
         "mechanics": [],
-        "values": []
+        "values": [],
+        "tips": [
+          {
+            "text": "After 3 seconds",
+            "tip": "From when the bomb lands"
+          }
+        ]
       },
       {
         "text": "The bomb detonates immediately if another bomb attaches itself to the same unit, stunning nearby enemies for a duration.",

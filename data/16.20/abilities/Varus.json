@@ -325,11 +325,11 @@
               ],
               "values": [
                 895,
-                1011.6666666666666,
-                1128.3333333333333,
+                1011.66666666667,
+                1128.33333333333,
                 1245,
-                1361.6666666666667,
-                1478.3333333333335,
+                1361.66666666667,
+                1478.33333333333,
                 1595
               ]
             }
@@ -429,10 +429,10 @@
               "base": {
                 "kind": "rank",
                 "values": [
-                  53.333333333333336,
-                  100,
-                  146.66666666666666,
-                  193.33333333333334,
+                  53.3333333333333,
+                  99.99999999999997,
+                  146.66666666666663,
+                  193.33333333333331,
                   240
                 ]
               },
@@ -495,7 +495,7 @@
                   "stat": "bonusAD",
                   "ratio": {
                     "kind": "constant",
-                    "value": 26.400000000000002
+                    "value": 26.4
                   },
                   "text": "(+ 26.4% bonus AD)"
                 }
@@ -510,9 +510,9 @@
               "base": {
                 "kind": "rank",
                 "values": [
-                  26.400000000000002,
+                  26.4,
                   49.5,
-                  72.60000000000001,
+                  72.6,
                   95.70000000000002,
                   118.80000000000001
                 ]
@@ -764,7 +764,13 @@
             "conditional": false
           }
         ],
-        "values": []
+        "values": [],
+        "tips": [
+          {
+            "text": "1.75 seconds",
+            "tip": "Estimated, see notes for specific stack application timings"
+          }
+        ]
       },
       {
         "text": "Upon impact, the tendril roots into the ground from where the target was hit, seeking out nearby enemy champions that are in the immediate area. If a target does not leave the area within 2 seconds, they subsequently become infected as well, taking the same damage and effects. A new tendril is then spread out from the infected target that is closest to a nearby uninfected enemy champion. The infection can spread repeatedly until there are no new targets.",
@@ -946,7 +952,7 @@
                   "stat": "per100:AP",
                   "ratio": {
                     "kind": "constant",
-                    "value": 3.9000000000000004
+                    "value": 3.9
                   },
                   "text": "(+ 3.9% per 100 AP)"
                 }
@@ -975,7 +981,7 @@
                   "stat": "per100:AP",
                   "ratio": {
                     "kind": "constant",
-                    "value": 1.9500000000000002
+                    "value": 1.95
                   },
                   "text": "(+ 1.95% per 100 AP)"
                 }
@@ -1004,7 +1010,7 @@
                   "stat": "per100:AP",
                   "ratio": {
                     "kind": "constant",
-                    "value": 5.8500000000000005
+                    "value": 5.85
                   },
                   "text": "(+ 5.85% per 100 AP)"
                 }

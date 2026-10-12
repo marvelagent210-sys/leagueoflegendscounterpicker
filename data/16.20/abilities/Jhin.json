@@ -689,7 +689,7 @@
               "base": {
                 "kind": "rank",
                 "values": [
-                  15.399999999999999,
+                  15.4,
                   24.15,
                   32.9,
                   41.65,
@@ -702,7 +702,7 @@
                   "ratio": {
                     "kind": "rank",
                     "values": [
-                      15.399999999999999,
+                      15.4,
                       18.025,
                       20.65,
                       23.275,
@@ -730,7 +730,7 @@
               "base": {
                 "kind": "rank",
                 "values": [
-                  90.19999999999999,
+                  90.2,
                   141.45,
                   192.7,
                   243.95,
@@ -743,9 +743,9 @@
                   "ratio": {
                     "kind": "rank",
                     "values": [
-                      90.19999999999999,
-                      105.57499999999999,
-                      120.94999999999999,
+                      90.2,
+                      105.575,
+                      120.95,
                       136.325,
                       151.7
                     ]
@@ -756,7 +756,7 @@
                   "stat": "AP",
                   "ratio": {
                     "kind": "constant",
-                    "value": 122.99999999999999
+                    "value": 123
                   },
                   "text": "(+ 123% AP)"
                 }
@@ -1042,6 +1042,12 @@
               ]
             },
             "context": "Recast: After 0.2 seconds into the cast time, Jhin fires a round in the target direction that grants sight around its trajectory for 0.5 seconds and deals physical damage to enemies hit, increased by 0 / 30 / 60 / 90 / 120 / 150 / 180 / 210 / 240 / 270 / 300 (based on target's missing health)%."
+          }
+        ],
+        "tips": [
+          {
+            "text": "static cooldown",
+            "tip": "Unaffected by ability haste"
           }
         ]
       },
