@@ -2,7 +2,7 @@
 
 ## Simulated duels (full confidence)
 
-The duel simulator played each of the 47 other champions with a simulator kit against Yasuo: both at level 20 with 15,000 gold of plain stats, each side's spent against the other's, through six scenarios (PLAN.md §6). Scores run from −1 (Yasuo wins every time) to +1 (the champion does). Run `npm run duel -- <champion> Yasuo --log brawl` to watch a fight.
+The duel simulator played each of the 48 other champions with a simulator kit against Yasuo: both at level 20 with 15,000 gold of plain stats, each side's spent against the other's, through six scenarios (PLAN.md §6). Scores run from −1 (Yasuo wins every time) to +1 (the champion does). Run `npm run duel -- <champion> Yasuo --log brawl` to watch a fight.
 
 | # | Champion | Score | You engage | Enemy engages | Brawl | Short trade | Spacing | Escape |
 |--:|---|--:|--:|--:|--:|--:|--:|--:|
@@ -39,20 +39,21 @@ The duel simulator played each of the 47 other champions with a simulator kit ag
 | 31 | Urgot | +0.55 | +0.91 | +0.91 | +0.91 | +0.09 | −1.00 | +0.00 |
 | 32 | Jayce | +0.45 | +1.00 | −0.23 | +1.00 | +0.07 | – | +0.00 |
 | 33 | Gnar | +0.41 | +1.00 | +0.94 | −1.00 | +0.16 | +1.00 | +0.00 |
-| 34 | Riven | +0.27 | +0.00 | +1.00 | +0.00 | −0.03 | – | +0.00 |
-| 35 | Sett | +0.21 | +1.00 | −1.00 | +1.00 | −0.07 | – | +0.00 |
-| 36 | Singed | −0.00 | +0.03 | +0.01 | +0.01 | −0.08 | – | +0.00 |
-| 37 | Sion | −0.01 | +0.00 | +0.00 | +0.00 | −0.08 | – | +0.00 |
-| 38 | Ornn | −0.21 | −0.02 | −0.02 | −1.00 | +0.14 | – | +0.00 |
-| 39 | Pantheon | −0.23 | +0.00 | +0.00 | −1.00 | −0.07 | – | +0.00 |
-| 40 | Shen | −0.33 | −1.00 | −1.00 | +1.00 | −0.00 | – | +0.00 |
-| 41 | Rumble | −0.69 | −0.90 | −0.90 | −0.80 | −0.08 | – | +0.00 |
-| 42 | Ambessa | −0.76 | −1.00 | −0.92 | −1.00 | −0.04 | – | +0.00 |
-| 43 | Skarner | −0.77 | −1.00 | −1.00 | −1.00 | +0.04 | – | +0.00 |
-| 44 | Yone | −0.77 | −1.00 | −1.00 | −1.00 | +0.03 | – | +0.00 |
-| 45 | Irelia | −0.79 | −1.00 | −1.00 | −1.00 | −0.06 | – | +0.00 |
-| 46 | Gwen | −0.81 | −1.00 | −1.00 | −1.00 | −0.17 | – | +0.00 |
-| 47 | Akali | −0.83 | −1.00 | −1.00 | −1.00 | −0.28 | – | +0.00 |
+| 34 | Gangplank | +0.32 | +1.00 | +1.00 | −1.00 | −0.06 | – | +0.00 |
+| 35 | Riven | +0.27 | +0.00 | +1.00 | +0.00 | −0.03 | – | +0.00 |
+| 36 | Sett | +0.21 | +1.00 | −1.00 | +1.00 | −0.07 | – | +0.00 |
+| 37 | Singed | −0.00 | +0.03 | +0.01 | +0.01 | −0.08 | – | +0.00 |
+| 38 | Sion | −0.01 | +0.00 | +0.00 | +0.00 | −0.08 | – | +0.00 |
+| 39 | Ornn | −0.21 | −0.02 | −0.02 | −1.00 | +0.14 | – | +0.00 |
+| 40 | Pantheon | −0.23 | +0.00 | +0.00 | −1.00 | −0.07 | – | +0.00 |
+| 41 | Shen | −0.33 | −1.00 | −1.00 | +1.00 | −0.00 | – | +0.00 |
+| 42 | Rumble | −0.69 | −0.90 | −0.90 | −0.80 | −0.08 | – | +0.00 |
+| 43 | Ambessa | −0.76 | −1.00 | −0.92 | −1.00 | −0.04 | – | +0.00 |
+| 44 | Skarner | −0.77 | −1.00 | −1.00 | −1.00 | +0.04 | – | +0.00 |
+| 45 | Yone | −0.77 | −1.00 | −1.00 | −1.00 | +0.03 | – | +0.00 |
+| 46 | Irelia | −0.79 | −1.00 | −1.00 | −1.00 | −0.06 | – | +0.00 |
+| 47 | Gwen | −0.81 | −1.00 | −1.00 | −1.00 | −0.17 | – | +0.00 |
+| 48 | Akali | −0.83 | −1.00 | −1.00 | −1.00 | −0.28 | – | +0.00 |
 
 ## Interaction ledger (partial confidence)
 

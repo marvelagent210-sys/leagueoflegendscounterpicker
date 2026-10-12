@@ -2,7 +2,7 @@
 
 ## Simulated duels (full confidence)
 
-The duel simulator played each of the 47 other champions with a simulator kit against Dr. Mundo: both at level 20 with 15,000 gold of plain stats, each side's spent against the other's, through six scenarios (PLAN.md §6). Scores run from −1 (Dr. Mundo wins every time) to +1 (the champion does). Run `npm run duel -- <champion> DrMundo --log brawl` to watch a fight.
+The duel simulator played each of the 48 other champions with a simulator kit against Dr. Mundo: both at level 20 with 15,000 gold of plain stats, each side's spent against the other's, through six scenarios (PLAN.md §6). Scores run from −1 (Dr. Mundo wins every time) to +1 (the champion does). Run `npm run duel -- <champion> DrMundo --log brawl` to watch a fight.
 
 | # | Champion | Score | You engage | Enemy engages | Brawl | Short trade | Spacing | Escape |
 |--:|---|--:|--:|--:|--:|--:|--:|--:|
@@ -45,14 +45,15 @@ The duel simulator played each of the 47 other champions with a simulator kit ag
 | 37 | Camille | −0.77 | −1.00 | −1.00 | −1.00 | +0.06 | – | +0.00 |
 | 38 | Sett | −0.77 | −1.00 | −1.00 | −1.00 | +0.04 | – | +0.00 |
 | 39 | Pantheon | −0.77 | −1.00 | −1.00 | −1.00 | +0.04 | – | +0.00 |
-| 40 | Trundle | −0.78 | −1.00 | −1.00 | −1.00 | +0.02 | – | +0.00 |
-| 41 | Illaoi | −0.78 | −1.00 | −1.00 | −1.00 | +0.01 | – | +0.00 |
-| 42 | Akali | −0.78 | −1.00 | −1.00 | −1.00 | +0.01 | – | +0.00 |
-| 43 | Garen | −0.78 | −1.00 | −1.00 | −1.00 | −0.00 | – | +0.00 |
-| 44 | Jax | −0.78 | −1.00 | −1.00 | −1.00 | −0.04 | – | +0.00 |
-| 45 | Quinn | −0.79 | −1.00 | −1.00 | −1.00 | +0.04 | −1.00 | +0.00 |
-| 46 | Tryndamere | −0.80 | −1.00 | −1.00 | −1.00 | −0.11 | – | +0.00 |
-| 47 | Kennen | −0.80 | −1.00 | −1.00 | −1.00 | −0.00 | −1.00 | +0.00 |
+| 40 | Gangplank | −0.77 | −1.00 | −1.00 | −1.00 | +0.02 | – | +0.00 |
+| 41 | Trundle | −0.78 | −1.00 | −1.00 | −1.00 | +0.02 | – | +0.00 |
+| 42 | Illaoi | −0.78 | −1.00 | −1.00 | −1.00 | +0.01 | – | +0.00 |
+| 43 | Akali | −0.78 | −1.00 | −1.00 | −1.00 | +0.01 | – | +0.00 |
+| 44 | Garen | −0.78 | −1.00 | −1.00 | −1.00 | −0.00 | – | +0.00 |
+| 45 | Jax | −0.78 | −1.00 | −1.00 | −1.00 | −0.04 | – | +0.00 |
+| 46 | Quinn | −0.79 | −1.00 | −1.00 | −1.00 | +0.04 | −1.00 | +0.00 |
+| 47 | Tryndamere | −0.80 | −1.00 | −1.00 | −1.00 | −0.11 | – | +0.00 |
+| 48 | Kennen | −0.80 | −1.00 | −1.00 | −1.00 | −0.00 | −1.00 | +0.00 |
 
 ## Interaction ledger (partial confidence)
 

@@ -2,7 +2,7 @@
 
 ## Simulated duels (full confidence)
 
-The duel simulator played each of the 47 other champions with a simulator kit against Aurora: both at level 20 with 15,000 gold of plain stats, each side's spent against the other's, through six scenarios (PLAN.md §6). Scores run from −1 (Aurora wins every time) to +1 (the champion does). Run `npm run duel -- <champion> Aurora --log brawl` to watch a fight.
+The duel simulator played each of the 48 other champions with a simulator kit against Aurora: both at level 20 with 15,000 gold of plain stats, each side's spent against the other's, through six scenarios (PLAN.md §6). Scores run from −1 (Aurora wins every time) to +1 (the champion does). Run `npm run duel -- <champion> Aurora --log brawl` to watch a fight.
 
 | # | Champion | Score | You engage | Enemy engages | Brawl | Short trade | Spacing | Escape |
 |--:|---|--:|--:|--:|--:|--:|--:|--:|
@@ -52,7 +52,8 @@ The duel simulator played each of the 47 other champions with a simulator kit ag
 | 44 | Sett | −0.80 | −0.98 | −0.98 | −0.98 | −0.23 | −0.85 | +0.00 |
 | 45 | Pantheon | −0.81 | −1.00 | −1.00 | −1.00 | −0.05 | −1.00 | +0.00 |
 | 46 | Cho'Gath | −0.81 | −1.00 | −1.00 | −1.00 | −0.09 | −1.00 | +0.00 |
-| 47 | Ambessa | −0.85 | −1.00 | −1.00 | −1.00 | −0.34 | −1.00 | +0.00 |
+| 47 | Gangplank | −0.82 | −1.00 | −1.00 | −1.00 | −0.13 | −1.00 | +0.00 |
+| 48 | Ambessa | −0.85 | −1.00 | −1.00 | −1.00 | −0.34 | −1.00 | +0.00 |
 
 ## Interaction ledger (partial confidence)
 

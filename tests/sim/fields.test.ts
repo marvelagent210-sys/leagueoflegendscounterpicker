@@ -4,6 +4,7 @@ import { applyEffect } from "../../engine/sim/combat";
 import { derive } from "../../engine/sim/derived";
 import { createWorld, step } from "../../engine/sim/simulate";
 import type { AbilitySpec, Effect } from "../../engine/sim/spec";
+import { cloneWorld } from "../../engine/sim/state";
 import { castWhenReady, duel, idle, standStill } from "./helpers";
 import { ability, fighter } from "./kits";
 
@@ -91,6 +92,26 @@ describe("fields", () => {
     expect(hits).toHaveLength(12);
     expect(hits.slice(1).map((t, i) => t - (hits[i] ?? 0))).toEqual([8, 8, 44, 8, 8, 44, 8, 8, 44, 8, 8]);
     expect(2000 - enemy.hp).toBe(120);
+  });
+
+  it("keep each branch's place in the cluster when the fight branches", () => {
+    // A world cloned mid-cluster (a skillshot's hit and miss branches) pulses on its own.
+    const world = createWorld({ fighters: [fighter({ abilities: [barrage] }), fighter()], distance: 600, modes: ["idle", "idle"] });
+    step(world, [castWhenReady("R"), standStill]);
+    for (let i = 0; i < 20; i++) step(world, [standStill, standStill]);
+    const branch = cloneWorld(world);
+    const hitsIn = (w: typeof world) => {
+      const hits: number[] = [];
+      for (let i = 0; i < 280; i++) {
+        const before = w.units[1].hp;
+        step(w, [standStill, standStill]);
+        if (w.units[1].hp < before) hits.push(w.tick - 1);
+      }
+      return hits;
+    };
+    const first = hitsIn(world);
+    expect(hitsIn(branch)).toEqual(first);
+    expect(first).toHaveLength(11);
   });
 
   it("can open a fight from their reach", () => {

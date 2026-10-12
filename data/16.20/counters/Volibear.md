@@ -2,7 +2,7 @@
 
 ## Simulated duels (full confidence)
 
-The duel simulator played each of the 47 other champions with a simulator kit against Volibear: both at level 20 with 15,000 gold of plain stats, each side's spent against the other's, through six scenarios (PLAN.md §6). Scores run from −1 (Volibear wins every time) to +1 (the champion does). Run `npm run duel -- <champion> Volibear --log brawl` to watch a fight.
+The duel simulator played each of the 48 other champions with a simulator kit against Volibear: both at level 20 with 15,000 gold of plain stats, each side's spent against the other's, through six scenarios (PLAN.md §6). Scores run from −1 (Volibear wins every time) to +1 (the champion does). Run `npm run duel -- <champion> Volibear --log brawl` to watch a fight.
 
 | # | Champion | Score | You engage | Enemy engages | Brawl | Short trade | Spacing | Escape |
 |--:|---|--:|--:|--:|--:|--:|--:|--:|
@@ -35,24 +35,25 @@ The duel simulator played each of the 47 other champions with a simulator kit ag
 | 27 | Kennen | −0.48 | −0.83 | −0.82 | −0.81 | +0.25 | +0.54 | +0.00 |
 | 28 | Quinn | −0.58 | −1.00 | −1.00 | −1.00 | +0.16 | +1.00 | +0.00 |
 | 29 | Camille | −0.62 | −0.55 | −1.00 | −1.00 | +0.20 | – | +0.00 |
-| 30 | Irelia | −0.71 | −1.00 | −0.88 | −0.88 | +0.06 | – | +0.00 |
-| 31 | Poppy | −0.71 | −0.89 | −1.00 | −1.00 | +0.21 | – | +0.00 |
-| 32 | Cho'Gath | −0.72 | −0.93 | −0.99 | −0.93 | +0.14 | – | +0.00 |
-| 33 | Jayce | −0.72 | −1.00 | −1.00 | −1.00 | +0.32 | – | +0.00 |
-| 34 | Ambessa | −0.73 | −1.00 | −1.00 | −1.00 | +0.26 | – | +0.00 |
-| 35 | Riven | −0.75 | −1.00 | −1.00 | −1.00 | +0.19 | – | +0.00 |
-| 36 | Malphite | −0.75 | −1.00 | −1.00 | −1.00 | +0.14 | – | +0.00 |
-| 37 | Yasuo | −0.76 | −1.00 | −1.00 | −1.00 | +0.13 | – | +0.00 |
-| 38 | Garen | −0.76 | −1.00 | −1.00 | −1.00 | +0.13 | – | +0.00 |
-| 39 | Shen | −0.76 | −1.00 | −1.00 | −1.00 | +0.11 | – | +0.00 |
-| 40 | Ornn | −0.76 | −0.98 | −1.00 | −1.00 | +0.08 | – | +0.00 |
-| 41 | Pantheon | −0.77 | −1.00 | −1.00 | −1.00 | +0.07 | – | +0.00 |
-| 42 | Akali | −0.77 | −1.00 | −1.00 | −1.00 | +0.07 | – | +0.00 |
-| 43 | Mordekaiser | −0.77 | −0.97 | −1.00 | −1.00 | −0.01 | – | +0.00 |
-| 44 | Renekton | −0.77 | −1.00 | −1.00 | −1.00 | +0.02 | – | +0.00 |
-| 45 | Urgot | −0.77 | −1.00 | −1.00 | −1.00 | +0.17 | −1.00 | +0.00 |
-| 46 | Rumble | −0.78 | −1.00 | −1.00 | −1.00 | +0.01 | – | +0.00 |
-| 47 | Skarner | −0.78 | −1.00 | −1.00 | −1.00 | −0.00 | – | +0.00 |
+| 30 | Gangplank | −0.69 | −1.00 | −1.00 | −1.00 | +0.19 | – | +1.00 |
+| 31 | Irelia | −0.71 | −1.00 | −0.88 | −0.88 | +0.06 | – | +0.00 |
+| 32 | Poppy | −0.71 | −0.89 | −1.00 | −1.00 | +0.21 | – | +0.00 |
+| 33 | Cho'Gath | −0.72 | −0.93 | −0.99 | −0.93 | +0.14 | – | +0.00 |
+| 34 | Jayce | −0.72 | −1.00 | −1.00 | −1.00 | +0.32 | – | +0.00 |
+| 35 | Ambessa | −0.73 | −1.00 | −1.00 | −1.00 | +0.26 | – | +0.00 |
+| 36 | Riven | −0.75 | −1.00 | −1.00 | −1.00 | +0.19 | – | +0.00 |
+| 37 | Malphite | −0.75 | −1.00 | −1.00 | −1.00 | +0.14 | – | +0.00 |
+| 38 | Yasuo | −0.76 | −1.00 | −1.00 | −1.00 | +0.13 | – | +0.00 |
+| 39 | Garen | −0.76 | −1.00 | −1.00 | −1.00 | +0.13 | – | +0.00 |
+| 40 | Shen | −0.76 | −1.00 | −1.00 | −1.00 | +0.11 | – | +0.00 |
+| 41 | Ornn | −0.76 | −0.98 | −1.00 | −1.00 | +0.08 | – | +0.00 |
+| 42 | Pantheon | −0.77 | −1.00 | −1.00 | −1.00 | +0.07 | – | +0.00 |
+| 43 | Akali | −0.77 | −1.00 | −1.00 | −1.00 | +0.07 | – | +0.00 |
+| 44 | Mordekaiser | −0.77 | −0.97 | −1.00 | −1.00 | −0.01 | – | +0.00 |
+| 45 | Renekton | −0.77 | −1.00 | −1.00 | −1.00 | +0.02 | – | +0.00 |
+| 46 | Urgot | −0.77 | −1.00 | −1.00 | −1.00 | +0.17 | −1.00 | +0.00 |
+| 47 | Rumble | −0.78 | −1.00 | −1.00 | −1.00 | +0.01 | – | +0.00 |
+| 48 | Skarner | −0.78 | −1.00 | −1.00 | −1.00 | −0.00 | – | +0.00 |
 
 ## Interaction ledger (partial confidence)
 

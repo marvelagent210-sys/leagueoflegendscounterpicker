@@ -2,7 +2,7 @@
 
 ## Simulated duels (full confidence)
 
-The duel simulator played each of the 47 other champions with a simulator kit against Irelia: both at level 20 with 15,000 gold of plain stats, each side's spent against the other's, through six scenarios (PLAN.md §6). Scores run from −1 (Irelia wins every time) to +1 (the champion does). Run `npm run duel -- <champion> Irelia --log brawl` to watch a fight.
+The duel simulator played each of the 48 other champions with a simulator kit against Irelia: both at level 20 with 15,000 gold of plain stats, each side's spent against the other's, through six scenarios (PLAN.md §6). Scores run from −1 (Irelia wins every time) to +1 (the champion does). Run `npm run duel -- <champion> Irelia --log brawl` to watch a fight.
 
 | # | Champion | Score | You engage | Enemy engages | Brawl | Short trade | Spacing | Escape |
 |--:|---|--:|--:|--:|--:|--:|--:|--:|
@@ -40,19 +40,20 @@ The duel simulator played each of the 47 other champions with a simulator kit ag
 | 32 | Yone | +0.29 | +0.11 | +0.11 | +1.00 | +0.01 | – | +0.00 |
 | 33 | Pantheon | +0.24 | +1.00 | −0.32 | +0.32 | −0.11 | – | +0.00 |
 | 34 | Sion | +0.18 | +0.26 | +0.26 | +0.24 | −0.11 | – | +0.00 |
-| 35 | Sett | −0.03 | −0.60 | +1.00 | −0.60 | −0.04 | – | +0.00 |
-| 36 | Camille | −0.05 | −0.03 | −1.00 | +1.00 | +0.08 | – | +0.00 |
-| 37 | Quinn | −0.17 | +0.28 | +0.29 | −1.00 | −0.07 | −1.00 | +0.00 |
-| 38 | Skarner | −0.18 | +0.43 | −1.00 | −0.14 | +0.07 | – | +0.00 |
-| 39 | Jayce | −0.32 | −1.00 | −1.00 | +0.97 | +0.10 | – | +0.00 |
-| 40 | Heimerdinger | −0.39 | −1.00 | −1.00 | +0.98 | +0.10 | −1.00 | +0.00 |
-| 41 | Ambessa | −0.44 | −1.00 | +0.23 | −1.00 | −0.00 | – | +0.00 |
-| 42 | Olaf | −0.44 | −1.00 | −1.00 | +0.32 | −0.07 | +0.04 | +0.00 |
-| 43 | Rumble | −0.52 | −1.00 | −0.03 | −1.00 | −0.06 | – | +0.00 |
-| 44 | Akali | −0.56 | −0.55 | −0.61 | −1.00 | −0.07 | – | +0.00 |
-| 45 | Ornn | −0.76 | −1.00 | −1.00 | −1.00 | +0.12 | – | +0.00 |
-| 46 | Shen | −0.77 | −1.00 | −1.00 | −1.00 | +0.04 | – | +0.00 |
-| 47 | Riven | −0.78 | −1.00 | −1.00 | −1.00 | +0.01 | – | +0.00 |
+| 35 | Gangplank | +0.03 | +0.24 | −1.00 | +1.00 | +0.11 | – | +0.00 |
+| 36 | Sett | −0.03 | −0.60 | +1.00 | −0.60 | −0.04 | – | +0.00 |
+| 37 | Camille | −0.05 | −0.03 | −1.00 | +1.00 | +0.08 | – | +0.00 |
+| 38 | Quinn | −0.17 | +0.28 | +0.29 | −1.00 | −0.07 | −1.00 | +0.00 |
+| 39 | Skarner | −0.18 | +0.43 | −1.00 | −0.14 | +0.07 | – | +0.00 |
+| 40 | Jayce | −0.32 | −1.00 | −1.00 | +0.97 | +0.10 | – | +0.00 |
+| 41 | Heimerdinger | −0.39 | −1.00 | −1.00 | +0.98 | +0.10 | −1.00 | +0.00 |
+| 42 | Ambessa | −0.44 | −1.00 | +0.23 | −1.00 | −0.00 | – | +0.00 |
+| 43 | Olaf | −0.44 | −1.00 | −1.00 | +0.32 | −0.07 | +0.04 | +0.00 |
+| 44 | Rumble | −0.52 | −1.00 | −0.03 | −1.00 | −0.06 | – | +0.00 |
+| 45 | Akali | −0.56 | −0.55 | −0.61 | −1.00 | −0.07 | – | +0.00 |
+| 46 | Ornn | −0.76 | −1.00 | −1.00 | −1.00 | +0.12 | – | +0.00 |
+| 47 | Shen | −0.77 | −1.00 | −1.00 | −1.00 | +0.04 | – | +0.00 |
+| 48 | Riven | −0.78 | −1.00 | −1.00 | −1.00 | +0.01 | – | +0.00 |
 
 ## Interaction ledger (partial confidence)
 

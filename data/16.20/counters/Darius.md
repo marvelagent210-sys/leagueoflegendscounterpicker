@@ -2,7 +2,7 @@
 
 ## Simulated duels (full confidence)
 
-The duel simulator played each of the 47 other champions with a simulator kit against Darius: both at level 20 with 15,000 gold of plain stats, each side's spent against the other's, through six scenarios (PLAN.md §6). Scores run from −1 (Darius wins every time) to +1 (the champion does). Run `npm run duel -- <champion> Darius --log brawl` to watch a fight.
+The duel simulator played each of the 48 other champions with a simulator kit against Darius: both at level 20 with 15,000 gold of plain stats, each side's spent against the other's, through six scenarios (PLAN.md §6). Scores run from −1 (Darius wins every time) to +1 (the champion does). Run `npm run duel -- <champion> Darius --log brawl` to watch a fight.
 
 | # | Champion | Score | You engage | Enemy engages | Brawl | Short trade | Spacing | Escape |
 |--:|---|--:|--:|--:|--:|--:|--:|--:|
@@ -36,23 +36,24 @@ The duel simulator played each of the 47 other champions with a simulator kit ag
 | 28 | Skarner | −0.77 | −1.00 | −1.00 | −1.00 | +0.07 | – | +0.00 |
 | 29 | Kled | −0.77 | −1.00 | −1.00 | −1.00 | +0.06 | – | +0.00 |
 | 30 | Camille | −0.77 | −1.00 | −1.00 | −1.00 | +0.06 | – | +0.00 |
-| 31 | Volibear | −0.77 | −1.00 | −1.00 | −1.00 | +0.05 | – | +0.00 |
-| 32 | Sett | −0.77 | −1.00 | −1.00 | −1.00 | +0.05 | – | +0.00 |
-| 33 | Rumble | −0.77 | −1.00 | −1.00 | −1.00 | +0.04 | – | +0.00 |
-| 34 | Jayce | −0.77 | −1.00 | −1.00 | −1.00 | +0.04 | – | +0.00 |
-| 35 | Akali | −0.77 | −1.00 | −1.00 | −1.00 | +0.04 | – | +0.00 |
-| 36 | Garen | −0.77 | −1.00 | −1.00 | −1.00 | +0.04 | – | +0.00 |
-| 37 | Mordekaiser | −0.77 | −1.00 | −1.00 | −1.00 | +0.04 | – | +0.00 |
-| 38 | Renekton | −0.77 | −1.00 | −1.00 | −1.00 | +0.03 | – | +0.00 |
-| 39 | Shen | −0.77 | −1.00 | −1.00 | −1.00 | +0.02 | – | +0.00 |
-| 40 | Urgot | −0.78 | −1.00 | −1.00 | −1.00 | +0.15 | −1.00 | +0.00 |
-| 41 | Tryndamere | −0.78 | −1.00 | −1.00 | −1.00 | +0.00 | – | +0.00 |
-| 42 | Sion | −0.78 | −1.00 | −1.00 | −1.00 | −0.00 | – | +0.00 |
-| 43 | Olaf | −0.78 | −1.00 | −1.00 | −1.00 | −0.02 | – | +0.00 |
-| 44 | Dr. Mundo | −0.78 | −1.00 | −1.00 | −1.00 | −0.04 | – | +0.00 |
-| 45 | Jax | −0.79 | −1.00 | −1.00 | −1.00 | −0.04 | – | +0.00 |
-| 46 | Pantheon | −0.79 | −1.00 | −1.00 | −1.00 | −0.06 | – | +0.00 |
-| 47 | Gwen | −0.79 | −1.00 | −1.00 | −1.00 | −0.06 | – | +0.00 |
+| 31 | Gangplank | −0.77 | −1.00 | −1.00 | −1.00 | +0.06 | – | +0.00 |
+| 32 | Volibear | −0.77 | −1.00 | −1.00 | −1.00 | +0.05 | – | +0.00 |
+| 33 | Sett | −0.77 | −1.00 | −1.00 | −1.00 | +0.05 | – | +0.00 |
+| 34 | Rumble | −0.77 | −1.00 | −1.00 | −1.00 | +0.04 | – | +0.00 |
+| 35 | Jayce | −0.77 | −1.00 | −1.00 | −1.00 | +0.04 | – | +0.00 |
+| 36 | Akali | −0.77 | −1.00 | −1.00 | −1.00 | +0.04 | – | +0.00 |
+| 37 | Garen | −0.77 | −1.00 | −1.00 | −1.00 | +0.04 | – | +0.00 |
+| 38 | Mordekaiser | −0.77 | −1.00 | −1.00 | −1.00 | +0.04 | – | +0.00 |
+| 39 | Renekton | −0.77 | −1.00 | −1.00 | −1.00 | +0.03 | – | +0.00 |
+| 40 | Shen | −0.77 | −1.00 | −1.00 | −1.00 | +0.02 | – | +0.00 |
+| 41 | Urgot | −0.78 | −1.00 | −1.00 | −1.00 | +0.15 | −1.00 | +0.00 |
+| 42 | Tryndamere | −0.78 | −1.00 | −1.00 | −1.00 | +0.00 | – | +0.00 |
+| 43 | Sion | −0.78 | −1.00 | −1.00 | −1.00 | −0.00 | – | +0.00 |
+| 44 | Olaf | −0.78 | −1.00 | −1.00 | −1.00 | −0.02 | – | +0.00 |
+| 45 | Dr. Mundo | −0.78 | −1.00 | −1.00 | −1.00 | −0.04 | – | +0.00 |
+| 46 | Jax | −0.79 | −1.00 | −1.00 | −1.00 | −0.04 | – | +0.00 |
+| 47 | Pantheon | −0.79 | −1.00 | −1.00 | −1.00 | −0.06 | – | +0.00 |
+| 48 | Gwen | −0.79 | −1.00 | −1.00 | −1.00 | −0.06 | – | +0.00 |
 
 ## Interaction ledger (partial confidence)
 

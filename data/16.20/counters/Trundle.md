@@ -2,7 +2,7 @@
 
 ## Simulated duels (full confidence)
 
-The duel simulator played each of the 47 other champions with a simulator kit against Trundle: both at level 20 with 15,000 gold of plain stats, each side's spent against the other's, through six scenarios (PLAN.md §6). Scores run from −1 (Trundle wins every time) to +1 (the champion does). Run `npm run duel -- <champion> Trundle --log brawl` to watch a fight.
+The duel simulator played each of the 48 other champions with a simulator kit against Trundle: both at level 20 with 15,000 gold of plain stats, each side's spent against the other's, through six scenarios (PLAN.md §6). Scores run from −1 (Trundle wins every time) to +1 (the champion does). Run `npm run duel -- <champion> Trundle --log brawl` to watch a fight.
 
 | # | Champion | Score | You engage | Enemy engages | Brawl | Short trade | Spacing | Escape |
 |--:|---|--:|--:|--:|--:|--:|--:|--:|
@@ -46,13 +46,14 @@ The duel simulator played each of the 47 other champions with a simulator kit ag
 | 38 | Camille | −0.82 | −1.00 | −1.00 | −1.00 | +0.10 | – | −1.00 |
 | 39 | Irelia | −0.82 | −1.00 | −1.00 | −1.00 | +0.22 | −1.00 | −1.00 |
 | 40 | Urgot | −0.82 | −1.00 | −1.00 | −1.00 | +0.22 | −1.00 | −1.00 |
-| 41 | Yone | −0.82 | −1.00 | −1.00 | −1.00 | +0.08 | – | −1.00 |
-| 42 | Olaf | −0.82 | −1.00 | −1.00 | −1.00 | +0.05 | – | −1.00 |
-| 43 | Rumble | −0.82 | −1.00 | −1.00 | −1.00 | +0.05 | – | −1.00 |
-| 44 | Sett | −0.83 | −1.00 | −1.00 | −1.00 | +0.05 | – | −1.00 |
-| 45 | Garen | −0.84 | −1.00 | −1.00 | −1.00 | −0.03 | – | −1.00 |
-| 46 | Darius | −0.84 | −1.00 | −1.00 | −1.00 | −0.05 | – | −1.00 |
-| 47 | Volibear | −0.85 | −1.00 | −1.00 | −1.00 | −0.10 | – | −1.00 |
+| 41 | Gangplank | −0.82 | −1.00 | −1.00 | −1.00 | +0.09 | – | −1.00 |
+| 42 | Yone | −0.82 | −1.00 | −1.00 | −1.00 | +0.08 | – | −1.00 |
+| 43 | Olaf | −0.82 | −1.00 | −1.00 | −1.00 | +0.05 | – | −1.00 |
+| 44 | Rumble | −0.82 | −1.00 | −1.00 | −1.00 | +0.05 | – | −1.00 |
+| 45 | Sett | −0.83 | −1.00 | −1.00 | −1.00 | +0.05 | – | −1.00 |
+| 46 | Garen | −0.84 | −1.00 | −1.00 | −1.00 | −0.03 | – | −1.00 |
+| 47 | Darius | −0.84 | −1.00 | −1.00 | −1.00 | −0.05 | – | −1.00 |
+| 48 | Volibear | −0.85 | −1.00 | −1.00 | −1.00 | −0.10 | – | −1.00 |
 
 ## Interaction ledger (partial confidence)
 

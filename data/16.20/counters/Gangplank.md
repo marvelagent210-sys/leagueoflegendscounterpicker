@@ -1,5 +1,62 @@
 # Counters to Gangplank (patch 26.20)
 
+## Simulated duels (full confidence)
+
+The duel simulator played each of the 48 other champions with a simulator kit against Gangplank: both at level 20 with 15,000 gold of plain stats, each side's spent against the other's, through six scenarios (PLAN.md §6). Scores run from −1 (Gangplank wins every time) to +1 (the champion does). Run `npm run duel -- <champion> Gangplank --log brawl` to watch a fight.
+
+| # | Champion | Score | You engage | Enemy engages | Brawl | Short trade | Spacing | Escape |
+|--:|---|--:|--:|--:|--:|--:|--:|--:|
+| 1 | Teemo | +0.89 | +1.00 | +1.00 | +1.00 | +0.59 | +1.00 | +0.00 |
+| 2 | Aurora | +0.82 | +1.00 | +1.00 | +1.00 | +0.13 | +1.00 | +0.00 |
+| 3 | Trundle | +0.82 | +1.00 | +1.00 | +1.00 | −0.09 | – | +1.00 |
+| 4 | K'Sante | +0.80 | +1.00 | +1.00 | +1.00 | −0.02 | +1.00 | +0.00 |
+| 5 | Cho'Gath | +0.78 | +1.00 | +1.00 | +1.00 | −0.01 | – | +0.00 |
+| 6 | Dr. Mundo | +0.77 | +1.00 | +1.00 | +1.00 | −0.02 | – | +0.00 |
+| 7 | Darius | +0.77 | +1.00 | +1.00 | +1.00 | −0.06 | – | +0.00 |
+| 8 | Garen | +0.76 | +1.00 | +1.00 | +1.00 | −0.08 | – | +0.00 |
+| 9 | Yorick | +0.76 | +1.00 | +1.00 | +1.00 | −0.09 | – | +0.00 |
+| 10 | Tryndamere | +0.76 | +1.00 | +1.00 | +1.00 | −0.09 | – | +0.00 |
+| 11 | Nasus | +0.76 | +1.00 | +1.00 | +1.00 | −0.13 | – | +0.00 |
+| 12 | Volibear | +0.69 | +1.00 | +1.00 | +1.00 | −0.19 | – | −1.00 |
+| 13 | Jax | +0.50 | +0.00 | +1.00 | +1.00 | −0.03 | – | +0.00 |
+| 14 | Kled | +0.31 | +1.00 | +1.00 | −1.00 | −0.12 | – | +0.00 |
+| 15 | Tahm Kench | +0.31 | +1.00 | +1.00 | −1.00 | −0.15 | – | +0.00 |
+| 16 | Kayle | +0.27 | +1.00 | +0.53 | −1.00 | +0.44 | +0.67 | −1.00 |
+| 17 | Fiora | +0.22 | −1.00 | +1.00 | +1.00 | +0.01 | – | +0.00 |
+| 18 | Camille | +0.20 | +1.00 | −1.00 | +1.00 | −0.11 | – | +0.00 |
+| 19 | Mordekaiser | +0.07 | +0.51 | +0.47 | −0.84 | −0.07 | – | +0.00 |
+| 20 | Zaahen | +0.01 | −0.10 | +1.00 | −1.00 | −0.10 | – | +0.00 |
+| 21 | Sion | −0.01 | +0.00 | +0.00 | +0.00 | −0.04 | – | +0.00 |
+| 22 | Irelia | −0.03 | +1.00 | −0.24 | −1.00 | −0.11 | – | +0.00 |
+| 23 | Kennen | −0.21 | −1.00 | −0.92 | +0.87 | −0.01 | +1.00 | +0.00 |
+| 24 | Poppy | −0.21 | −1.00 | +1.00 | −1.00 | +0.09 | – | +0.00 |
+| 25 | Udyr | −0.23 | −1.00 | +1.00 | −1.00 | −0.05 | – | +0.00 |
+| 26 | Olaf | −0.25 | −1.00 | −0.37 | +1.00 | −0.23 | – | −1.00 |
+| 27 | Aatrox | −0.29 | −1.00 | +1.00 | −1.00 | −0.09 | – | −1.00 |
+| 28 | Jayce | −0.32 | −1.00 | −1.00 | +1.00 | +0.08 | – | +0.00 |
+| 29 | Yasuo | −0.32 | −1.00 | −1.00 | +1.00 | +0.06 | – | +0.00 |
+| 30 | Heimerdinger | −0.34 | −1.00 | −1.00 | +0.98 | +0.39 | −1.00 | +0.00 |
+| 31 | Quinn | −0.36 | −1.00 | −1.00 | +1.00 | −0.06 | +0.00 | −1.00 |
+| 32 | Gnar | −0.48 | −1.00 | −0.37 | −1.00 | +0.04 | +0.54 | +0.00 |
+| 33 | Shen | −0.56 | −1.00 | −1.00 | +0.00 | −0.01 | – | +0.00 |
+| 34 | Malphite | −0.76 | −1.00 | −1.00 | −1.00 | +0.11 | – | +0.00 |
+| 35 | Ornn | −0.78 | −1.00 | −1.00 | −1.00 | +0.01 | – | +0.00 |
+| 36 | Pantheon | −0.78 | −1.00 | −1.00 | −1.00 | −0.00 | – | +0.00 |
+| 37 | Ambessa | −0.78 | −1.00 | −1.00 | −1.00 | −0.03 | – | +0.00 |
+| 38 | Urgot | −0.79 | −1.00 | −1.00 | −1.00 | +0.07 | −1.00 | +0.00 |
+| 39 | Illaoi | −0.79 | −1.00 | −1.00 | −1.00 | −0.09 | – | +0.00 |
+| 40 | Rumble | −0.79 | −1.00 | −1.00 | −1.00 | −0.09 | – | +0.00 |
+| 41 | Gwen | −0.79 | −1.00 | −1.00 | −1.00 | −0.10 | – | +0.00 |
+| 42 | Skarner | −0.80 | −1.00 | −1.00 | −1.00 | −0.11 | – | +0.00 |
+| 43 | Sett | −0.80 | −1.00 | −1.00 | −1.00 | −0.11 | – | +0.00 |
+| 44 | Renekton | −0.81 | −1.00 | −1.00 | −1.00 | −0.17 | – | +0.00 |
+| 45 | Riven | −0.81 | −1.00 | −1.00 | −1.00 | −0.01 | – | −0.50 |
+| 46 | Akali | −0.81 | −1.00 | −1.00 | −1.00 | −0.19 | – | +0.00 |
+| 47 | Yone | −0.82 | −1.00 | −1.00 | −1.00 | +0.02 | – | −0.88 |
+| 48 | Singed | −0.83 | −1.00 | −1.00 | −1.00 | −0.29 | – | +0.00 |
+
+## Interaction ledger (partial confidence)
+
 Every champion ranked by what its kit does against Gangplank's, from the interaction ledger: projectile blocks, spell shields,
 parries, dash stops, crowd control and its defenses, range and more (PLAN.md §5). This ranking is **partial**: it weighs the
 interactions but doesn't play the fight out. The duel simulator replaces it as each champion's behavior is verified.
@@ -8,76 +65,76 @@ interactions but doesn't play the fight out. The duel simulator replaces it as e
 A hard counter shuts down part of a kit every time it is used (projectile block, attack dodge, attack block, blind, disarm, attack speed slow, attack reflect, dash stop, grounding, range) with an impact of 0.4 or more (0.5 for range).
 Run `npm run matchup -- <champion> Gangplank` for the full ledger of a matchup, with sources.
 
-## Top 10
+### Top 10
 
-### 1. Sivir (net +1.62)
+#### 1. Sivir (net +1.62)
 
 - **0.94** range: Sivir's basic attacks reach 375 units farther than Gangplank's (500 vs 125 attack range). Gangplank has no dash or blink to close the gap. (Sivir basic attacks → Gangplank basic attacks)
 - **0.55** spell shield: Spell Shield's spell shield blocks Gangplank's Cannon Barrage. Spell shield for 1.5 s, long enough to use ahead of Cannon Barrage. A spell shield blocks only the first enemy ability that reaches it. (Sivir E Spell Shield → Gangplank R Cannon Barrage)
 - **0.25** spell shield: Spell Shield's spell shield blocks Gangplank's Parrrley. Spell shield for 1.5 s, long enough to use ahead of Parrrley. A spell shield blocks only the first enemy ability that reaches it. (Sivir E Spell Shield → Gangplank Q Parrrley)
 
-### 2. Yuumi (net +1.28)
+#### 2. Yuumi (net +1.28)
 
 - **0.64** range: Yuumi's basic attacks reach 300 units farther than Gangplank's (425 vs 125 attack range). Gangplank has no dash or blink to close the gap. (Yuumi basic attacks → Gangplank basic attacks)
 - **0.55** untargetable: You and Me! makes Yuumi untargetable, dodging Gangplank's Cannon Barrage. Untargetable for ?; Cannon Barrage takes 0.25 s to land, enough to react. Does not destroy inbound projectiles, special cased to be targetable to turrets. (Yuumi W You and Me! → Gangplank R Cannon Barrage)
 - **0.45** untargetable: You and Me! makes Yuumi untargetable, dodging Gangplank's Parrrley. Untargetable for ?; Parrrley takes 0.49 s to land, enough to react. Does not destroy inbound projectiles, special cased to be targetable to turrets. (Yuumi W You and Me! → Gangplank Q Parrrley)
 - Watch out: Remove Scurvy cleanses Yuumi's Final Chapter (slow) after it lands.
 
-### 3. Kindred (net +1.25)
+#### 3. Kindred (net +1.25)
 
 - **0.94** range: Kindred's basic attacks reach 375 units farther than Gangplank's (500 vs 125 attack range). Gangplank has no dash or blink to close the gap. (Kindred basic attacks → Gangplank basic attacks)
 - **0.28** invulnerable: Lamb's Respite makes Kindred invulnerable to Gangplank's Cannon Barrage (its crowd control still applies). Invulnerable for ?; Cannon Barrage takes 0.25 s to land, enough to react. (Kindred R Lamb's Respite → Gangplank R Cannon Barrage)
 - **0.19** invulnerable: Lamb's Respite makes Kindred invulnerable to Gangplank's Parrrley. Invulnerable for ?; Parrrley takes 0.49 s to land, enough to react. (Kindred R Lamb's Respite → Gangplank Q Parrrley)
 - Watch out: Remove Scurvy cleanses Kindred's Mounting Dread (slow) after it lands.
 
-### 4. Aurora (net +1.03)
+#### 4. Aurora (net +1.03)
 
 - **0.58** range: Aurora's basic attacks reach 425 units farther than Gangplank's (550 vs 125 attack range). Gangplank has no dash or blink to close the gap. (Aurora basic attacks → Gangplank basic attacks)
 - **0.55** untargetable: Between Worlds makes Aurora untargetable, dodging Gangplank's Cannon Barrage. Untargetable for 0.4 s; Cannon Barrage takes 0.25 s to land, enough to react. Does not destroy inbound projectiles. (Aurora R Between Worlds → Gangplank R Cannon Barrage)
 - **0.19** untargetable: Between Worlds makes Aurora untargetable, dodging Gangplank's Parrrley. Untargetable for 0.4 s; Parrrley takes 0.49 s to land, enough to react. Does not destroy inbound projectiles. (Aurora R Between Worlds → Gangplank Q Parrrley)
 - Watch out: Remove Scurvy cleanses Aurora's Between Worlds (slow) after it lands.
 
-### 5. Kayle (net +1.03)
+#### 5. Kayle (net +1.03)
 
 - **0.72** range: Kayle's basic attacks reach 500 units farther than Gangplank's (625 vs 125 attack range). Gangplank has no dash or blink to close the gap. (Kayle basic attacks → Gangplank basic attacks)
 - **0.28** invulnerable: Divine Judgment makes Kayle invulnerable to Gangplank's Cannon Barrage (its crowd control still applies). Invulnerable for 2.5 s, long enough to use ahead of Cannon Barrage. (Kayle R Divine Judgment → Gangplank R Cannon Barrage)
 - **0.20** invulnerable: Divine Judgment makes Kayle invulnerable to Gangplank's Parrrley. Invulnerable for 2.5 s, long enough to use ahead of Parrrley. (Kayle R Divine Judgment → Gangplank Q Parrrley)
 - Watch out: Remove Scurvy cleanses Kayle's Radiant Blast (slow) after it lands.
 
-### 6. Xayah (net +1.00)
+#### 6. Xayah (net +1.00)
 
 - **0.77** range: Xayah's basic attacks reach 400 units farther than Gangplank's (525 vs 125 attack range). Gangplank has no dash or blink to close the gap. (Xayah basic attacks → Gangplank basic attacks)
 - **0.55** untargetable: Featherstorm makes Xayah untargetable, dodging Gangplank's Cannon Barrage. Untargetable for 1.5 s, long enough to use ahead of Cannon Barrage. (Xayah R Featherstorm → Gangplank R Cannon Barrage)
 - **0.19** untargetable: Featherstorm makes Xayah untargetable, dodging Gangplank's Parrrley. Untargetable for 1.5 s, long enough to use ahead of Parrrley. (Xayah R Featherstorm → Gangplank Q Parrrley)
 - Watch out: Remove Scurvy cleanses Xayah's Bladecaller (root) after it lands.
 
-### 7. Vladimir (net +0.92)
+#### 7. Vladimir (net +0.92)
 
 - **0.55** untargetable: Sanguine Pool makes Vladimir untargetable, dodging Gangplank's Cannon Barrage. Untargetable for 2 s, long enough to use ahead of Cannon Barrage. (Vladimir W Sanguine Pool → Gangplank R Cannon Barrage)
 - **0.36** range: Vladimir's basic attacks reach 325 units farther than Gangplank's (450 vs 125 attack range). Gangplank has no dash or blink to close the gap. (Vladimir basic attacks → Gangplank basic attacks)
 - **0.26** untargetable: Sanguine Pool makes Vladimir untargetable, dodging Gangplank's Parrrley. Untargetable for 2 s, long enough to use ahead of Parrrley. (Vladimir W Sanguine Pool → Gangplank Q Parrrley)
 - Watch out: Remove Scurvy cleanses Vladimir's Sanguine Pool (slow) after it lands.
 
-### 8. Elise (net +0.87)
+#### 8. Elise (net +0.87)
 
 - **0.65** range: Elise's basic attacks reach 425 units farther than Gangplank's (550 vs 125 attack range). Gangplank has no dash or blink to close the gap. (Elise basic attacks → Gangplank basic attacks)
 - **0.55** untargetable: Rappel makes Elise untargetable, dodging Gangplank's Cannon Barrage. Untargetable for 0.6 s; Cannon Barrage takes 0.25 s to land, enough to react. (Elise E Rappel → Gangplank R Cannon Barrage)
 - **0.25** untargetable: Rappel makes Elise untargetable, dodging Gangplank's Parrrley. Untargetable for 0.6 s; Parrrley takes 0.49 s to land, enough to react. (Elise E Rappel → Gangplank Q Parrrley)
 - Watch out: Remove Scurvy cleanses Elise's Cocoon (stun) after it lands.
 
-### 9. Teemo (net +0.85)
+#### 9. Teemo (net +0.85)
 
 - **0.68** range: Teemo's basic attacks reach 375 units farther than Gangplank's (500 vs 125 attack range). Gangplank has no dash or blink to close the gap. (Teemo basic attacks → Gangplank basic attacks)
 - **0.38** blind: Blinding Dart's blind makes Gangplank's basic attacks miss for 3 s. Blind for 3 s on a 7 s cooldown. (Teemo Q Blinding Dart → Gangplank basic attacks)
 - Watch out: Remove Scurvy cleanses Teemo's Blinding Dart (blind) after it lands.
 
-### 10. Master Yi (net +0.83)
+#### 10. Master Yi (net +0.83)
 
 - **0.55** untargetable: Alpha Strike makes Master Yi untargetable, dodging Gangplank's Cannon Barrage. Untargetable for ?; Cannon Barrage takes 0.25 s to land, enough to react. (Master Yi Q Alpha Strike → Gangplank R Cannon Barrage)
 - **0.25** untargetable: Alpha Strike makes Master Yi untargetable, dodging Gangplank's Parrrley. Untargetable for ?; Parrrley takes 0.49 s to land, enough to react. (Master Yi Q Alpha Strike → Gangplank Q Parrrley)
 - **0.11** cleanse: Highlander cleanses Gangplank's Cannon Barrage (slow) after it lands. 85 s cooldown; usable while crowd controlled. (Master Yi R Highlander → Gangplank R Cannon Barrage)
 
-## Full ranking
+### Full ranking
 
 | # | Champion | Net | For | Against | Hard counters |
 |--:|---|--:|--:|--:|---|

@@ -2,7 +2,7 @@
 
 ## Simulated duels (full confidence)
 
-The duel simulator played each of the 47 other champions with a simulator kit against Garen: both at level 20 with 15,000 gold of plain stats, each side's spent against the other's, through six scenarios (PLAN.md §6). Scores run from −1 (Garen wins every time) to +1 (the champion does). Run `npm run duel -- <champion> Garen --log brawl` to watch a fight.
+The duel simulator played each of the 48 other champions with a simulator kit against Garen: both at level 20 with 15,000 gold of plain stats, each side's spent against the other's, through six scenarios (PLAN.md §6). Scores run from −1 (Garen wins every time) to +1 (the champion does). Run `npm run duel -- <champion> Garen --log brawl` to watch a fight.
 
 | # | Champion | Score | You engage | Enemy engages | Brawl | Short trade | Spacing | Escape |
 |--:|---|--:|--:|--:|--:|--:|--:|--:|
@@ -41,18 +41,19 @@ The duel simulator played each of the 47 other champions with a simulator kit ag
 | 33 | Aurora | −0.75 | −1.00 | −1.00 | −1.00 | +0.28 | −0.93 | +0.00 |
 | 34 | Ornn | −0.75 | −1.00 | −1.00 | −1.00 | +0.16 | – | +0.00 |
 | 35 | Ambessa | −0.76 | −1.00 | −1.00 | −1.00 | +0.13 | – | +0.00 |
-| 36 | Sett | −0.77 | −1.00 | −1.00 | −1.00 | +0.05 | – | +0.00 |
-| 37 | Gwen | −0.78 | −1.00 | −1.00 | −1.00 | −0.00 | – | +0.00 |
-| 38 | Skarner | −0.78 | −1.00 | −1.00 | −1.00 | −0.02 | – | +0.00 |
-| 39 | Gnar | −0.78 | −1.00 | −1.00 | −1.00 | +0.11 | −1.00 | +0.00 |
-| 40 | Urgot | −0.79 | −1.00 | −1.00 | −1.00 | +0.09 | −1.00 | +0.00 |
-| 41 | Camille | −0.79 | −1.00 | −1.00 | −1.00 | −0.06 | – | +0.00 |
-| 42 | Olaf | −0.79 | −1.00 | −1.00 | −1.00 | −0.10 | – | +0.00 |
-| 43 | Yasuo | −0.80 | −1.00 | −1.00 | −1.00 | −0.11 | – | +0.00 |
-| 44 | Irelia | −0.80 | −1.00 | −1.00 | −1.00 | −0.12 | – | +0.00 |
-| 45 | Rumble | −0.80 | −1.00 | −1.00 | −1.00 | −0.13 | – | +0.00 |
-| 46 | Akali | −0.80 | −1.00 | −1.00 | −1.00 | −0.14 | – | +0.00 |
-| 47 | Riven | −0.81 | −1.00 | −1.00 | −1.00 | −0.18 | – | +0.00 |
+| 36 | Gangplank | −0.76 | −1.00 | −1.00 | −1.00 | +0.08 | – | +0.00 |
+| 37 | Sett | −0.77 | −1.00 | −1.00 | −1.00 | +0.05 | – | +0.00 |
+| 38 | Gwen | −0.78 | −1.00 | −1.00 | −1.00 | −0.00 | – | +0.00 |
+| 39 | Skarner | −0.78 | −1.00 | −1.00 | −1.00 | −0.02 | – | +0.00 |
+| 40 | Gnar | −0.78 | −1.00 | −1.00 | −1.00 | +0.11 | −1.00 | +0.00 |
+| 41 | Urgot | −0.79 | −1.00 | −1.00 | −1.00 | +0.09 | −1.00 | +0.00 |
+| 42 | Camille | −0.79 | −1.00 | −1.00 | −1.00 | −0.06 | – | +0.00 |
+| 43 | Olaf | −0.79 | −1.00 | −1.00 | −1.00 | −0.10 | – | +0.00 |
+| 44 | Yasuo | −0.80 | −1.00 | −1.00 | −1.00 | −0.11 | – | +0.00 |
+| 45 | Irelia | −0.80 | −1.00 | −1.00 | −1.00 | −0.12 | – | +0.00 |
+| 46 | Rumble | −0.80 | −1.00 | −1.00 | −1.00 | −0.13 | – | +0.00 |
+| 47 | Akali | −0.80 | −1.00 | −1.00 | −1.00 | −0.14 | – | +0.00 |
+| 48 | Riven | −0.81 | −1.00 | −1.00 | −1.00 | −0.18 | – | +0.00 |
 
 ## Interaction ledger (partial confidence)
 

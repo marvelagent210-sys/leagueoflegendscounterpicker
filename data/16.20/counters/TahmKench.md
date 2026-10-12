@@ -2,7 +2,7 @@
 
 ## Simulated duels (full confidence)
 
-The duel simulator played each of the 47 other champions with a simulator kit against Tahm Kench: both at level 20 with 15,000 gold of plain stats, each side's spent against the other's, through six scenarios (PLAN.md §6). Scores run from −1 (Tahm Kench wins every time) to +1 (the champion does). Run `npm run duel -- <champion> TahmKench --log brawl` to watch a fight.
+The duel simulator played each of the 48 other champions with a simulator kit against Tahm Kench: both at level 20 with 15,000 gold of plain stats, each side's spent against the other's, through six scenarios (PLAN.md §6). Scores run from −1 (Tahm Kench wins every time) to +1 (the champion does). Run `npm run duel -- <champion> TahmKench --log brawl` to watch a fight.
 
 | # | Champion | Score | You engage | Enemy engages | Brawl | Short trade | Spacing | Escape |
 |--:|---|--:|--:|--:|--:|--:|--:|--:|
@@ -43,16 +43,17 @@ The duel simulator played each of the 47 other champions with a simulator kit ag
 | 35 | Sett | −0.09 | −0.07 | −0.11 | −0.07 | −0.11 | – | +0.00 |
 | 36 | Sion | −0.10 | −0.12 | −0.12 | −0.13 | +0.01 | – | +0.00 |
 | 37 | Kennen | −0.21 | −0.40 | −0.40 | −0.11 | +0.01 | +0.06 | +0.00 |
-| 38 | Akali | −0.39 | −0.27 | −0.27 | −1.00 | −0.13 | – | +0.00 |
-| 39 | Garen | −0.48 | −1.00 | +0.05 | −1.00 | +0.02 | – | +0.00 |
-| 40 | Kayle | −0.49 | −0.52 | −0.52 | −0.83 | +0.07 | −0.73 | +0.00 |
-| 41 | Riven | −0.55 | −1.00 | −1.00 | +0.00 | +0.04 | – | +0.00 |
-| 42 | Irelia | −0.76 | −1.00 | −1.00 | −1.00 | +0.09 | – | +0.00 |
-| 43 | Yasuo | −0.77 | −1.00 | −1.00 | −1.00 | +0.07 | – | +0.00 |
-| 44 | Pantheon | −0.79 | −1.00 | −1.00 | −1.00 | −0.07 | – | +0.00 |
-| 45 | Ambessa | −0.79 | −1.00 | −1.00 | −1.00 | −0.07 | – | +0.00 |
-| 46 | Tryndamere | −0.81 | −1.00 | −1.00 | −1.00 | −0.18 | – | +0.00 |
-| 47 | Trundle | −0.82 | −1.00 | −1.00 | −1.00 | −0.19 | −0.89 | +0.00 |
+| 38 | Gangplank | −0.31 | −1.00 | −1.00 | +1.00 | +0.15 | – | +0.00 |
+| 39 | Akali | −0.39 | −0.27 | −0.27 | −1.00 | −0.13 | – | +0.00 |
+| 40 | Garen | −0.48 | −1.00 | +0.05 | −1.00 | +0.02 | – | +0.00 |
+| 41 | Kayle | −0.49 | −0.52 | −0.52 | −0.83 | +0.07 | −0.73 | +0.00 |
+| 42 | Riven | −0.55 | −1.00 | −1.00 | +0.00 | +0.04 | – | +0.00 |
+| 43 | Irelia | −0.76 | −1.00 | −1.00 | −1.00 | +0.09 | – | +0.00 |
+| 44 | Yasuo | −0.77 | −1.00 | −1.00 | −1.00 | +0.07 | – | +0.00 |
+| 45 | Pantheon | −0.79 | −1.00 | −1.00 | −1.00 | −0.07 | – | +0.00 |
+| 46 | Ambessa | −0.79 | −1.00 | −1.00 | −1.00 | −0.07 | – | +0.00 |
+| 47 | Tryndamere | −0.81 | −1.00 | −1.00 | −1.00 | −0.18 | – | +0.00 |
+| 48 | Trundle | −0.82 | −1.00 | −1.00 | −1.00 | −0.19 | −0.89 | +0.00 |
 
 ## Interaction ledger (partial confidence)
 

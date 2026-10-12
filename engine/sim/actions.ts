@@ -752,7 +752,7 @@ function completeOneCast(world: World, unit: Unit, ability: AbilitySpec, castSta
         nextTick: start,
         ...(delivery.attached ? { attached: { offset: delivery.offset ?? 0 } } : {}),
         ...(delivery.chase ? { chase: delivery.chase / 30 } : {}),
-        ...(delivery.burst ? { burst: { count: delivery.burst.count, gap: Math.max(1, toTicks(delivery.burst.gap)), index: 0 } } : {}),
+        ...(delivery.burst ? { burst: { count: delivery.burst.count, gap: Math.max(1, toTicks(delivery.burst.gap)) }, burstHit: 0 } : {}),
         ...(delivery.onOwner ? { onOwner: delivery.onOwner } : {}),
       });
       // A field that lands at once pulses with the zones this tick.
@@ -962,8 +962,8 @@ function pulseField(world: World, zone: Zone, owner: Unit, target: Unit): void {
   if (zone.nextTick === undefined || world.tick < zone.nextTick) return;
   if (zone.burst) {
     // The hits of a cluster `gap` apart; the next cluster `interval` after this one began.
-    zone.burst.index = (zone.burst.index + 1) % zone.burst.count;
-    zone.nextTick += zone.burst.index === 0 ? Math.max(1, (zone.interval ?? 1) - (zone.burst.count - 1) * zone.burst.gap) : zone.burst.gap;
+    zone.burstHit = ((zone.burstHit ?? 0) + 1) % zone.burst.count;
+    zone.nextTick += zone.burstHit === 0 ? Math.max(1, (zone.interval ?? 1) - (zone.burst.count - 1) * zone.burst.gap) : zone.burst.gap;
   } else zone.nextTick += zone.interval ?? 1;
   const ability = abilityOf(owner, zone.ability);
   if (ability && zone.onHit?.length && target.alive && Math.abs(target.x - zone.x) <= zone.radius + target.spec.base.radius + EPSILON) {

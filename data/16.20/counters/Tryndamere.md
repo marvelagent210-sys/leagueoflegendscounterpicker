@@ -2,7 +2,7 @@
 
 ## Simulated duels (full confidence)
 
-The duel simulator played each of the 47 other champions with a simulator kit against Tryndamere: both at level 20 with 15,000 gold of plain stats, each side's spent against the other's, through six scenarios (PLAN.md §6). Scores run from −1 (Tryndamere wins every time) to +1 (the champion does). Run `npm run duel -- <champion> Tryndamere --log brawl` to watch a fight.
+The duel simulator played each of the 48 other champions with a simulator kit against Tryndamere: both at level 20 with 15,000 gold of plain stats, each side's spent against the other's, through six scenarios (PLAN.md §6). Scores run from −1 (Tryndamere wins every time) to +1 (the champion does). Run `npm run duel -- <champion> Tryndamere --log brawl` to watch a fight.
 
 | # | Champion | Score | You engage | Enemy engages | Brawl | Short trade | Spacing | Escape |
 |--:|---|--:|--:|--:|--:|--:|--:|--:|
@@ -41,18 +41,19 @@ The duel simulator played each of the 47 other champions with a simulator kit ag
 | 33 | Yone | −0.76 | −1.00 | −1.00 | −1.00 | +0.10 | – | +0.00 |
 | 34 | Pantheon | −0.76 | −1.00 | −1.00 | −1.00 | +0.10 | – | +0.00 |
 | 35 | Irelia | −0.76 | −1.00 | −1.00 | −1.00 | +0.09 | – | +0.00 |
-| 36 | Camille | −0.77 | −1.00 | −1.00 | −1.00 | +0.07 | – | +0.00 |
-| 37 | Jayce | −0.77 | −1.00 | −1.00 | −1.00 | +0.06 | – | +0.00 |
-| 38 | Gwen | −0.77 | −1.00 | −1.00 | −1.00 | +0.05 | – | +0.00 |
-| 39 | Aurora | −0.77 | −1.00 | −1.00 | −1.00 | +0.20 | −1.00 | +0.00 |
-| 40 | Kayle | −0.77 | −1.00 | −1.00 | −1.00 | +0.20 | −1.00 | +0.00 |
-| 41 | Sett | −0.77 | −1.00 | −1.00 | −1.00 | +0.04 | – | +0.00 |
-| 42 | Olaf | −0.77 | −1.00 | −1.00 | −1.00 | +0.04 | – | +0.00 |
-| 43 | Urgot | −0.77 | −1.00 | −1.00 | −1.00 | +0.18 | −1.00 | +0.00 |
-| 44 | Trundle | −0.78 | −1.00 | −1.00 | −1.00 | −0.00 | – | +0.00 |
-| 45 | Volibear | −0.78 | −1.00 | −1.00 | −1.00 | −0.00 | – | +0.00 |
-| 46 | Udyr | −0.78 | −1.00 | −1.00 | −1.00 | −0.02 | – | +0.00 |
-| 47 | Akali | −0.79 | −1.00 | −1.00 | −1.00 | −0.07 | – | +0.00 |
+| 36 | Gangplank | −0.76 | −1.00 | −1.00 | −1.00 | +0.09 | – | +0.00 |
+| 37 | Camille | −0.77 | −1.00 | −1.00 | −1.00 | +0.07 | – | +0.00 |
+| 38 | Jayce | −0.77 | −1.00 | −1.00 | −1.00 | +0.06 | – | +0.00 |
+| 39 | Gwen | −0.77 | −1.00 | −1.00 | −1.00 | +0.05 | – | +0.00 |
+| 40 | Aurora | −0.77 | −1.00 | −1.00 | −1.00 | +0.20 | −1.00 | +0.00 |
+| 41 | Kayle | −0.77 | −1.00 | −1.00 | −1.00 | +0.20 | −1.00 | +0.00 |
+| 42 | Sett | −0.77 | −1.00 | −1.00 | −1.00 | +0.04 | – | +0.00 |
+| 43 | Olaf | −0.77 | −1.00 | −1.00 | −1.00 | +0.04 | – | +0.00 |
+| 44 | Urgot | −0.77 | −1.00 | −1.00 | −1.00 | +0.18 | −1.00 | +0.00 |
+| 45 | Trundle | −0.78 | −1.00 | −1.00 | −1.00 | −0.00 | – | +0.00 |
+| 46 | Volibear | −0.78 | −1.00 | −1.00 | −1.00 | −0.00 | – | +0.00 |
+| 47 | Udyr | −0.78 | −1.00 | −1.00 | −1.00 | −0.02 | – | +0.00 |
+| 48 | Akali | −0.79 | −1.00 | −1.00 | −1.00 | −0.07 | – | +0.00 |
 
 ## Interaction ledger (partial confidence)
 

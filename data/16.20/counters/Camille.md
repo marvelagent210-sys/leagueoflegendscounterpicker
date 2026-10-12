@@ -2,7 +2,7 @@
 
 ## Simulated duels (full confidence)
 
-The duel simulator played each of the 47 other champions with a simulator kit against Camille: both at level 20 with 15,000 gold of plain stats, each side's spent against the other's, through six scenarios (PLAN.md §6). Scores run from −1 (Camille wins every time) to +1 (the champion does). Run `npm run duel -- <champion> Camille --log brawl` to watch a fight.
+The duel simulator played each of the 48 other champions with a simulator kit against Camille: both at level 20 with 15,000 gold of plain stats, each side's spent against the other's, through six scenarios (PLAN.md §6). Scores run from −1 (Camille wins every time) to +1 (the champion does). Run `npm run duel -- <champion> Camille --log brawl` to watch a fight.
 
 | # | Champion | Score | You engage | Enemy engages | Brawl | Short trade | Spacing | Escape |
 |--:|---|--:|--:|--:|--:|--:|--:|--:|
@@ -32,27 +32,28 @@ The duel simulator played each of the 47 other champions with a simulator kit ag
 | 24 | Irelia | +0.05 | +1.00 | +0.03 | −1.00 | −0.08 | – | +0.00 |
 | 25 | Tahm Kench | −0.01 | +1.00 | −1.00 | +0.00 | −0.03 | – | +0.00 |
 | 26 | Sion | −0.01 | +0.00 | +0.00 | +0.00 | −0.04 | – | +0.00 |
-| 27 | Shen | −0.32 | −1.00 | −1.00 | +1.00 | +0.08 | – | +0.00 |
-| 28 | Heimerdinger | −0.38 | −1.00 | −1.00 | +1.00 | +0.11 | −1.00 | +0.00 |
-| 29 | Pantheon | −0.47 | −1.00 | +0.00 | −1.00 | +0.19 | – | +0.00 |
-| 30 | Sett | −0.50 | −1.00 | +0.00 | −1.00 | +0.01 | – | +0.00 |
-| 31 | Renekton | −0.50 | −1.00 | +0.00 | −1.00 | −0.01 | – | +0.00 |
-| 32 | Riven | −0.54 | −1.00 | −1.00 | +0.00 | +0.07 | – | +0.00 |
-| 33 | Kennen | −0.58 | −1.00 | −1.00 | −1.00 | +0.11 | +1.00 | +0.00 |
-| 34 | Gnar | −0.59 | −1.00 | −1.00 | −1.00 | +0.10 | +1.00 | +0.00 |
-| 35 | Ambessa | −0.75 | −1.00 | −1.00 | −1.00 | +0.18 | – | +0.00 |
-| 36 | Ornn | −0.75 | −1.00 | −1.00 | −1.00 | +0.16 | – | +0.00 |
-| 37 | Gwen | −0.75 | −1.00 | −1.00 | −1.00 | +0.14 | – | +0.00 |
-| 38 | Urgot | −0.77 | −1.00 | −1.00 | −1.00 | +0.22 | −1.00 | +0.00 |
-| 39 | Kayle | −0.77 | −1.00 | −1.00 | −1.00 | +0.20 | −1.00 | +0.00 |
-| 40 | Skarner | −0.78 | −1.00 | −1.00 | −1.00 | +0.00 | – | +0.00 |
-| 41 | Rumble | −0.78 | −1.00 | −1.00 | −1.00 | −0.01 | – | +0.00 |
-| 42 | Yasuo | −0.79 | −1.00 | −1.00 | −1.00 | −0.05 | – | +0.00 |
-| 43 | Jayce | −0.79 | −1.00 | −1.00 | −1.00 | −0.05 | – | +0.00 |
-| 44 | Singed | −0.79 | −1.00 | −1.00 | −1.00 | −0.08 | – | +0.00 |
-| 45 | Aurora | −0.79 | −1.00 | −1.00 | −1.00 | +0.05 | −1.00 | +0.00 |
-| 46 | Akali | −0.79 | −1.00 | −1.00 | −1.00 | −0.10 | – | +0.00 |
-| 47 | Quinn | −0.80 | −1.00 | −1.00 | −1.00 | +0.32 | −1.00 | −1.00 |
+| 27 | Gangplank | −0.20 | +1.00 | −1.00 | −1.00 | +0.11 | – | +0.00 |
+| 28 | Shen | −0.32 | −1.00 | −1.00 | +1.00 | +0.08 | – | +0.00 |
+| 29 | Heimerdinger | −0.38 | −1.00 | −1.00 | +1.00 | +0.11 | −1.00 | +0.00 |
+| 30 | Pantheon | −0.47 | −1.00 | +0.00 | −1.00 | +0.19 | – | +0.00 |
+| 31 | Sett | −0.50 | −1.00 | +0.00 | −1.00 | +0.01 | – | +0.00 |
+| 32 | Renekton | −0.50 | −1.00 | +0.00 | −1.00 | −0.01 | – | +0.00 |
+| 33 | Riven | −0.54 | −1.00 | −1.00 | +0.00 | +0.07 | – | +0.00 |
+| 34 | Kennen | −0.58 | −1.00 | −1.00 | −1.00 | +0.11 | +1.00 | +0.00 |
+| 35 | Gnar | −0.59 | −1.00 | −1.00 | −1.00 | +0.10 | +1.00 | +0.00 |
+| 36 | Ambessa | −0.75 | −1.00 | −1.00 | −1.00 | +0.18 | – | +0.00 |
+| 37 | Ornn | −0.75 | −1.00 | −1.00 | −1.00 | +0.16 | – | +0.00 |
+| 38 | Gwen | −0.75 | −1.00 | −1.00 | −1.00 | +0.14 | – | +0.00 |
+| 39 | Urgot | −0.77 | −1.00 | −1.00 | −1.00 | +0.22 | −1.00 | +0.00 |
+| 40 | Kayle | −0.77 | −1.00 | −1.00 | −1.00 | +0.20 | −1.00 | +0.00 |
+| 41 | Skarner | −0.78 | −1.00 | −1.00 | −1.00 | +0.00 | – | +0.00 |
+| 42 | Rumble | −0.78 | −1.00 | −1.00 | −1.00 | −0.01 | – | +0.00 |
+| 43 | Yasuo | −0.79 | −1.00 | −1.00 | −1.00 | −0.05 | – | +0.00 |
+| 44 | Jayce | −0.79 | −1.00 | −1.00 | −1.00 | −0.05 | – | +0.00 |
+| 45 | Singed | −0.79 | −1.00 | −1.00 | −1.00 | −0.08 | – | +0.00 |
+| 46 | Aurora | −0.79 | −1.00 | −1.00 | −1.00 | +0.05 | −1.00 | +0.00 |
+| 47 | Akali | −0.79 | −1.00 | −1.00 | −1.00 | −0.10 | – | +0.00 |
+| 48 | Quinn | −0.80 | −1.00 | −1.00 | −1.00 | +0.32 | −1.00 | −1.00 |
 
 ## Interaction ledger (partial confidence)
 

@@ -196,8 +196,10 @@ export interface Zone {
   attached?: { offset: number };
   /** Fields that move toward the enemy, this many units a tick. */
   chase?: number;
-  /** Fields whose pulses come in clusters: hits per cluster, ticks between them, and this cluster's next hit. */
-  burst?: { count: number; gap: number; index: number };
+  /** Fields whose pulses come in clusters: hits per cluster and ticks between them (left unchanged, so clones can share it). */
+  burst?: { count: number; gap: number };
+  /** The next pulse's place in its cluster (0 for the cluster's first). */
+  burstHit?: number;
   /** Fields: effects on the owner while its center is inside. */
   onOwner?: Effect[];
   /** Its kit deals with the enemy's pets in it (Illaoi's slams on a Spirit): the engine leaves them be. */
