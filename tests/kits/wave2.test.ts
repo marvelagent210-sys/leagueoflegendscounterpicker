@@ -197,6 +197,15 @@ describe("wave-2 kits read the wiki at level 20", () => {
     const blast = shot.log.find((e) => e.text === "a Powder Keg explodes");
     expect(blast?.tick).toBe(castAt + 8 + Math.round((400 / 2600) * 30));
     expect(shot.log.find((e) => e.text.startsWith("Powder Keg deals"))?.text).toBe(`Powder Keg deals ${Math.round((130 + gpAd + 155) * blastShare)} physical damage`);
+
+    // "Trial by Fire cannot be applied with Parrrley nor Powder Keg": neither the blast nor a Parrrley at the enemy burns.
+    expect(shot.log.some((e) => e.text.startsWith("Trial by Fire"))).toBe(false);
+    const parrrley = createWorld({ fighters: [kit("Gangplank").spec, fighter({ id: "enemy", base: { hp: 20000, armor: 100, mr: 100 } })], distance: 400, modes: ["fight", "idle"], settings: { log: true, maxSeconds: 3 } });
+    const shootOnce: Behavior = (view) => (view.world.tick === 0 ? { kind: "cast", ability: "Q" } : undefined);
+    while (!parrrley.result) step(parrrley, [shootOnce, () => undefined]);
+    expect(parrrley.log.find((e) => e.text.startsWith("Parrrley deals"))?.text).toBe(`Parrrley deals ${Math.round((130 + gpAd) / 2)} physical damage`);
+    expect(parrrley.log.some((e) => e.text.startsWith("Trial by Fire"))).toBe(false);
+    expect(parrrley.units[0].memory.fireReady ?? 0).toBe(0);
   });
 
   it("Trial by Fire: an attack burns for 273.5 (+ 100% bonus AD) true damage over 2.5 s every 15 s; a keg's blast readies it, and the burns stack", () => {

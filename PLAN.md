@@ -512,7 +512,7 @@ web/        the app
   - top: Yorick +0.74, K'Sante +0.61, Trundle +0.58, Fiora +0.54, Zaahen +0.51;
   - bottom: Akali −0.71, Ambessa −0.61, Pantheon −0.52, Skarner −0.50, Sett −0.46.
 - **Outliers**, checked against the wiki and their fights; no kit bug behind any of them:
-  - *Yorick* wins 46 of 48. His Walkers' and Maiden's damage doesn't depend on his stats, so the budget buys him health and resistances (5,600, 4,600 and 1,600 gold on average), and his summons grow tankier with his health, as the wiki says they do.
+  - *Yorick* wins 46 of 48. His summons' damage is mostly their own: a Mist Walker hits for 113 at level 20 and the Maiden for 100 (plus Touch of the Maiden's share of maximum health), with 20% and 30% of his bonus AD on top, as the wiki gives it. That bonus is small next to their base damage, so the budget buys him health and resistances instead (5,600, 4,600 and 1,600 gold on average), and the health also makes his summons tankier: they get 15% and 60% of his bonus health.
   - *K'Sante* loses only to Fiora, Olaf, Yorick, Trundle and Tryndamere. His abilities scale with bonus armor and magic resistance, so the resistances the budget buys are also his damage; All Out adds true damage on top.
   - *Trundle* loses only to Dr. Mundo, Nasus, Tryndamere, Tahm Kench and Yorick: Subjugate takes 30% of the enemy's maximum health and 40% of its resistances.
   - *Akali* loses 44 of 48 matchups and wins none. Her abilities scale with AP, but per gold the budget's damage model finds AD better for her, since it also feeds her attacks; without items like Lich Bane or Hextech Rocketbelt, she ends up an auto-attacker with weak spells. This is the cost of plain stats (section 10), not of her kit.
