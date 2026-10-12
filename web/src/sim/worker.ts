@@ -1,5 +1,5 @@
 /** A simulation worker: loads the dataset once, then runs the matchups it is sent. */
-import type { AbilityRecord, PetRecord } from "../../../engine/abilities";
+import type { AbilityRecord, PetRecord, RuneRecord } from "../../../engine/abilities";
 import type { StatPrices } from "../../../engine/budget";
 import type { ChampionDataset } from "../../../engine/types";
 import type { WorkerRequest, WorkerResponse } from "./protocol";
@@ -20,10 +20,11 @@ let source: Promise<SimSource> | undefined;
 
 function load(dataUrl: string): Promise<SimSource> {
   source ??= (async () => {
-    const [dataset, rules, pets] = await Promise.all([
+    const [dataset, rules, pets, runes] = await Promise.all([
       fetchJson<ChampionDataset>(`${dataUrl}champions.json`),
       fetchJson<{ statPrices: StatPrices }>(`${dataUrl}rules.json`),
       fetchJson<Record<string, PetRecord[]>>(`${dataUrl}pets.json`),
+      fetchJson<RuneRecord[]>(`${dataUrl}runes.json`),
     ]);
     const byId = new Map(dataset.champions.map((champion) => [champion.id, champion]));
     const records = new Map<string, Promise<AbilityRecord[]>>();
@@ -43,6 +44,7 @@ function load(dataUrl: string): Promise<SimSource> {
       },
       prices: rules.statPrices,
       pets: (id: string) => pets[id] ?? [],
+      runes,
     };
   })();
   return source;
@@ -51,7 +53,7 @@ function load(dataUrl: string): Promise<SimSource> {
 scope.onmessage = (event) => {
   const request = event.data;
   load(request.dataUrl)
-    .then((data) => runMatchup(data, request.you, request.enemy, request.settings, request.log))
+    .then((data) => runMatchup(data, request.you, request.enemy, request.settings, request.log, request.variant))
     .then((run) => scope.postMessage({ id: request.id, run }))
     .catch((error: unknown) => scope.postMessage({ id: request.id, error: error instanceof Error ? error.message : String(error) }));
 };

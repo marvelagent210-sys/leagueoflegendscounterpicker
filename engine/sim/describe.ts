@@ -132,7 +132,11 @@ export function deliveryText(delivery: Delivery): string {
     case "blink":
       return `blink ${delivery.direction} ${num(delivery.distance)} units`;
     case "field": {
-      const where = delivery.attached ? `around itself${delivery.offset ? `, ${num(delivery.offset)} units ahead` : ""}` : `up to ${num(delivery.range)} away`;
+      const where = delivery.attached
+        ? `around itself${delivery.offset ? `, ${num(delivery.offset)} units ahead` : ""}`
+        : delivery.chase
+          ? `moving toward the enemy at ${num(delivery.chase)}/s`
+          : `up to ${num(delivery.range)} away`;
       const timing = `${delivery.delay ? `after ${num(delivery.delay)} s, ` : ""}for ${num(delivery.duration)} s, pulsing every ${num(delivery.interval)} s`;
       return `field of ${num(delivery.radius)} radius ${where}, ${timing}${delivery.onOwner?.length ? `; on itself inside: ${effectsText(delivery.onOwner)}` : ""}`;
     }

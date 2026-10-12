@@ -9,6 +9,7 @@
  *   data/<dataset>/simulated.json    the duel results at the default settings
  *   data/<dataset>/abilities/<id>.json  each champion's ability records, for kit pages and kits
  *   data/<dataset>/pets.json         every champion's pets (turrets, Mist Walkers, ...), by champion
+ *   data/<dataset>/runes.json        the runes the simulator models (Triple Tonic)
  *
  * Usage: npm run web:data [-- --dataset 16.20]
  */
@@ -29,7 +30,7 @@ async function main(): Promise<void> {
   const out = path.join(OUT, dataset);
   await rm(OUT, { recursive: true, force: true });
   await mkdir(out, { recursive: true });
-  for (const file of ["champions.json", "rules.json", "glossary.json", "simulated.json"]) await cp(path.join(source, file), path.join(out, file));
+  for (const file of ["champions.json", "rules.json", "glossary.json", "simulated.json", "runes.json"]) await cp(path.join(source, file), path.join(out, file));
   await cp(path.join(source, "abilities"), path.join(out, "abilities"), { recursive: true });
   const petFiles = (await readdir(path.join(source, "pets"))).filter((file) => file.endsWith(".json")).sort();
   const pets = Object.fromEntries(

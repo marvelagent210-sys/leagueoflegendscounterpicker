@@ -51,6 +51,19 @@ export function datasetDir(dataset: string): string {
  * game rules the duel simulator encodes. They are maintained by the wiki's editors and
  * pinned by revision like every other page.
  */
+/**
+ * Runes the simulator reads (PLAN §4.1: Udyr's Triple Tonic is the one rune it models): the
+ * rune's data template, its article (whose patch history is newer than the item data), and
+ * the data of the elixirs it grants.
+ */
+export const WIKI_RUNE_PAGES = [
+  "Template:Rune data Triple Tonic",
+  "Triple Tonic",
+  "Module:ItemData/data/Elixir of Avarice",
+  "Module:ItemData/data/Elixir of Force",
+  "Module:ItemData/data/Elixir of Skill",
+];
+
 export const WIKI_GLOSSARY_PAGES = [
   // Lists of abilities by mechanic
   "Projectile",

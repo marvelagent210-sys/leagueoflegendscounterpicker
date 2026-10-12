@@ -11,7 +11,8 @@ import { BUDGET_STATS, DEFAULT_BUDGET, type StatPrices, allocateBoth } from "../
 import { SCENARIOS, type ScenarioId, runScenarios } from "../../engine/sim/scenarios";
 import type { FightOutcome } from "../../engine/sim/simulate";
 import type { FighterSpec } from "../../engine/sim/spec";
-import { loadFighter } from "../kitData";
+import { bestMatchup } from "../../engine/sim/matchup";
+import { loadFighter, loadVariants } from "../kitData";
 import { findChampion, loadSimData } from "../simData";
 
 function option(args: string[], flag: string): string | undefined {
@@ -64,6 +65,21 @@ async function main(): Promise<void> {
   const theirs = await loadFighter(data.dataset, enemy);
   const describe = (name: string, kit: unknown) => (kit ? `${name} (kit)` : `${name} (base stats and basic attacks only: no kit yet)`);
   console.log(`${describe(you.name, mine.kit)} vs ${describe(enemy.name, theirs.kit)}, level 20, patch ${data.patch}`);
+  // A kit with a choice to make (Udyr's rank split) plays the option set best for it here.
+  const [myVariants, theirVariants] = [await loadVariants(data.dataset, you), await loadVariants(data.dataset, enemy)];
+  if (myVariants.length > 1 || theirVariants.length > 1) {
+    const best = bestMatchup(myVariants, theirVariants, gold, data.prices);
+    const side = best.variant?.side;
+    const chosen = side === undefined ? undefined : (side === 0 ? myVariants : theirVariants).find((v) => v.options === best.variant?.options);
+    if (chosen && side !== undefined) {
+      if (side === 0) mine.spec = chosen.spec;
+      else theirs.spec = chosen.spec;
+      const options = Object.entries(chosen.options ?? {})
+        .map(([key, value]) => `${key} ${value}`)
+        .join(", ");
+      console.log(`${side === 0 ? you.name : enemy.name} plays ${options}: the best of ${(side === 0 ? myVariants : theirVariants).length} option sets here`);
+    }
+  }
   const [a, b, bought] = equip(mine.spec, theirs.spec, gold, data.prices);
   console.log(`Stat budget ${gold} gold: ${you.name} buys ${bought[0]}; ${enemy.name} buys ${bought[1]}\n`);
 

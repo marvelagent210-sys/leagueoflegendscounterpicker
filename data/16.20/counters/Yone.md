@@ -2,7 +2,7 @@
 
 ## Simulated duels (full confidence)
 
-The duel simulator played each of the 42 other champions with a simulator kit against Yone: both at level 20 with 15,000 gold of plain stats, each side's spent against the other's, through six scenarios (PLAN.md §6). Scores run from −1 (Yone wins every time) to +1 (the champion does). Run `npm run duel -- <champion> Yone --log brawl` to watch a fight.
+The duel simulator played each of the 44 other champions with a simulator kit against Yone: both at level 20 with 15,000 gold of plain stats, each side's spent against the other's, through six scenarios (PLAN.md §6). Scores run from −1 (Yone wins every time) to +1 (the champion does). Run `npm run duel -- <champion> Yone --log brawl` to watch a fight.
 
 | # | Champion | Score | You engage | Enemy engages | Brawl | Short trade | Spacing | Escape |
 |--:|---|--:|--:|--:|--:|--:|--:|--:|
@@ -29,25 +29,27 @@ The duel simulator played each of the 42 other champions with a simulator kit ag
 | 21 | Quinn | +0.40 | +1.00 | +1.00 | −1.00 | +0.01 | +1.00 | +0.00 |
 | 22 | Kled | +0.32 | +1.00 | +1.00 | −1.00 | −0.08 | – | +0.00 |
 | 23 | Cho'Gath | +0.31 | +0.33 | +0.50 | +0.35 | −0.00 | – | +0.00 |
-| 24 | Renekton | +0.22 | +1.00 | −1.00 | +1.00 | +0.00 | – | +0.00 |
-| 25 | Sion | −0.01 | +0.00 | +0.00 | +0.00 | −0.04 | – | +0.00 |
-| 26 | Irelia | −0.29 | −0.11 | −0.11 | −1.00 | −0.01 | – | +0.00 |
-| 27 | Camille | −0.34 | −1.00 | −1.00 | +1.00 | −0.03 | – | +0.00 |
-| 28 | Riven | −0.35 | −1.00 | −1.00 | +1.00 | +0.10 | – | −0.52 |
-| 29 | Mordekaiser | −0.42 | −0.47 | −0.45 | −0.73 | −0.02 | – | +0.00 |
-| 30 | Tahm Kench | −0.55 | −1.00 | −1.00 | +0.00 | +0.01 | – | +0.00 |
-| 31 | Gwen | −0.62 | −1.00 | −1.00 | −0.08 | −0.25 | – | +0.00 |
-| 32 | Volibear | −0.66 | −1.00 | −0.56 | −1.00 | −0.04 | – | +0.00 |
-| 33 | Ambessa | −0.75 | −1.00 | −1.00 | −1.00 | +0.14 | – | +0.00 |
-| 34 | Sett | −0.76 | −1.00 | −1.00 | −1.00 | +0.08 | – | +0.00 |
-| 35 | Ornn | −0.77 | −1.00 | −1.00 | −1.00 | +0.03 | – | +0.00 |
-| 36 | Pantheon | −0.78 | −1.00 | −1.00 | −1.00 | +0.01 | – | +0.00 |
-| 37 | Shen | −0.78 | −1.00 | −1.00 | −1.00 | +0.01 | – | +0.00 |
-| 38 | Skarner | −0.78 | −1.00 | −1.00 | −1.00 | −0.00 | – | +0.00 |
-| 39 | Rumble | −0.78 | −1.00 | −1.00 | −1.00 | −0.03 | – | +0.00 |
-| 40 | Urgot | −0.78 | −1.00 | −1.00 | −1.00 | +0.11 | −1.00 | +0.00 |
-| 41 | Singed | −0.79 | −1.00 | −1.00 | −1.00 | −0.09 | – | +0.00 |
-| 42 | Akali | −0.79 | −1.00 | −1.00 | −1.00 | −0.10 | – | +0.00 |
+| 24 | Udyr | +0.27 | +1.00 | −0.92 | +1.00 | +0.13 | – | +0.00 |
+| 25 | Renekton | +0.22 | +1.00 | −1.00 | +1.00 | +0.00 | – | +0.00 |
+| 26 | Sion | −0.01 | +0.00 | +0.00 | +0.00 | −0.04 | – | +0.00 |
+| 27 | Irelia | −0.29 | −0.11 | −0.11 | −1.00 | −0.01 | – | +0.00 |
+| 28 | Camille | −0.34 | −1.00 | −1.00 | +1.00 | −0.03 | – | +0.00 |
+| 29 | Riven | −0.35 | −1.00 | −1.00 | +1.00 | +0.10 | – | −0.52 |
+| 30 | Mordekaiser | −0.42 | −0.47 | −0.45 | −0.73 | −0.02 | – | +0.00 |
+| 31 | Tahm Kench | −0.55 | −1.00 | −1.00 | +0.00 | +0.01 | – | +0.00 |
+| 32 | Jayce | −0.56 | −1.00 | −1.00 | −0.09 | +0.10 | – | +0.00 |
+| 33 | Gwen | −0.62 | −1.00 | −1.00 | −0.08 | −0.25 | – | +0.00 |
+| 34 | Volibear | −0.66 | −1.00 | −0.56 | −1.00 | −0.04 | – | +0.00 |
+| 35 | Ambessa | −0.75 | −1.00 | −1.00 | −1.00 | +0.14 | – | +0.00 |
+| 36 | Sett | −0.76 | −1.00 | −1.00 | −1.00 | +0.08 | – | +0.00 |
+| 37 | Ornn | −0.77 | −1.00 | −1.00 | −1.00 | +0.03 | – | +0.00 |
+| 38 | Pantheon | −0.78 | −1.00 | −1.00 | −1.00 | +0.01 | – | +0.00 |
+| 39 | Shen | −0.78 | −1.00 | −1.00 | −1.00 | +0.01 | – | +0.00 |
+| 40 | Skarner | −0.78 | −1.00 | −1.00 | −1.00 | −0.00 | – | +0.00 |
+| 41 | Rumble | −0.78 | −1.00 | −1.00 | −1.00 | −0.03 | – | +0.00 |
+| 42 | Urgot | −0.78 | −1.00 | −1.00 | −1.00 | +0.11 | −1.00 | +0.00 |
+| 43 | Singed | −0.79 | −1.00 | −1.00 | −1.00 | −0.09 | – | +0.00 |
+| 44 | Akali | −0.79 | −1.00 | −1.00 | −1.00 | −0.10 | – | +0.00 |
 
 ## Interaction ledger (partial confidence)
 

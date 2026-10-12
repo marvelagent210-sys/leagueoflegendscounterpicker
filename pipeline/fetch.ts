@@ -6,6 +6,7 @@
  * Usage: npm run fetch
  *        npm run fetch -- --only glossary   (refetch just the glossary pages of the latest dataset)
  *        npm run fetch -- --only pets       (refetch just the champion pages with pets)
+ *        npm run fetch -- --only runes      (refetch just the rune and elixir pages)
  */
 import path from "node:path";
 import {
@@ -15,6 +16,7 @@ import {
   WIKI_GLOSSARY_PAGES,
   WIKI_LEVEL20_PAGE,
   WIKI_LICENSE,
+  WIKI_RUNE_PAGES,
   datasetDir,
   datasetName,
   patchName,
@@ -58,6 +60,15 @@ async function fetchPetPages(raw: string, championNames: string[]): Promise<{ pa
   return { pages, checked: result.pages.length, missing: result.missing, fetchedAt };
 }
 
+/** The rune and elixir pages the simulator reads (Triple Tonic). */
+async function fetchRunePages(raw: string): Promise<{ pages: wiki.WikiPage[]; missing: string[]; fetchedAt: string }> {
+  const fetchedAt = new Date().toISOString();
+  const result = await wiki.getPages(WIKI_RUNE_PAGES);
+  await writeJson(path.join(raw, "wiki", "rune-pages.json"), result.pages);
+  log(`Wiki: ${result.pages.length} rune and elixir pages${result.missing.length > 0 ? `, missing: ${result.missing.join(", ")}` : ""}`);
+  return { ...result, fetchedAt };
+}
+
 /** Writes new wiki revisions into a dataset's wiki-revisions.json, keeping the rest. */
 async function addRevisions(out: string, pages: wiki.WikiPage[]): Promise<void> {
   const revisions = await readJson<Record<string, number>>(path.join(out, "wiki-revisions.json"));
@@ -80,6 +91,17 @@ async function petsOnly(): Promise<void> {
   await addRevisions(out, pets.pages);
 }
 
+/** Refetches only the rune and elixir pages into the latest dataset and updates its provenance files. */
+async function runesOnly(): Promise<void> {
+  const dataset = await latestDataset(RAW_DIR, "ddragon");
+  const out = datasetDir(dataset);
+  const runes = await fetchRunePages(rawDir(dataset));
+  const manifest = await readJson<Manifest>(path.join(out, "manifest.json"));
+  manifest.wiki.runePages = { pages: runes.pages.length, missing: runes.missing, fetchedAt: runes.fetchedAt };
+  await writeJson(path.join(out, "manifest.json"), manifest);
+  await addRevisions(out, runes.pages);
+}
+
 /** Refetches only the glossary pages into the latest dataset and updates its provenance files. */
 async function glossaryOnly(): Promise<void> {
   const dataset = await latestDataset(RAW_DIR, "ddragon");
@@ -95,6 +117,7 @@ async function main(): Promise<void> {
   const only = process.argv.includes("--only") ? process.argv[process.argv.indexOf("--only") + 1] : undefined;
   if (only === "glossary") return glossaryOnly();
   if (only === "pets") return petsOnly();
+  if (only === "runes") return runesOnly();
   if (only !== undefined) throw new Error(`Unknown --only value: ${only}`);
 
   const ddragonVersion = await ddragon.latestVersion();
@@ -156,6 +179,7 @@ async function main(): Promise<void> {
   if (templates.missing.length > 0) log(`Wiki: ${templates.missing.length} listed pages were missing`);
   const glossary = await fetchGlossary(raw);
   const pets = await fetchPetPages(raw, parseChampionData(championData.content).map((entry) => entry.name));
+  const runes = await fetchRunePages(raw);
 
   const manifest: Manifest = {
     dataset,
@@ -171,6 +195,7 @@ async function main(): Promise<void> {
       dataTemplates: { pages: templates.pages.length, missing: templates.missing },
       glossary: { pages: glossary.pages.length, missing: glossary.missing, fetchedAt: glossary.fetchedAt },
       petPages: { pages: pets.pages.length, checked: pets.checked, missing: pets.missing, fetchedAt: pets.fetchedAt },
+      runePages: { pages: runes.pages.length, missing: runes.missing, fetchedAt: runes.fetchedAt },
     },
   };
   const out = datasetDir(dataset);
@@ -179,7 +204,7 @@ async function main(): Promise<void> {
   const revisions = Object.fromEntries(
     [
       [WIKI_LEVEL20_PAGE, level20.revid] as const,
-      ...[championData, ...templates.pages, ...glossary.pages, ...pets.pages].map((page) => [page.title, page.revid] as const),
+      ...[championData, ...templates.pages, ...glossary.pages, ...pets.pages, ...runes.pages].map((page) => [page.title, page.revid] as const),
     ].sort(([a], [b]) => a.localeCompare(b)),
   );
   await writeJson(path.join(out, "wiki-revisions.json"), revisions);

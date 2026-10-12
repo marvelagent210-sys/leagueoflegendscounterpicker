@@ -32,6 +32,7 @@ import { readGameAbilities } from "./abilities/gameSpells";
 import { reconcileWithGameFiles } from "./gameFiles";
 import { buildGlossary } from "./glossary/build";
 import { parsePets } from "./pets";
+import { parseRunes } from "./runes";
 import { buildProfiles } from "./profiles/build";
 import { GOLD_VALUE_PAGE, parseGoldValues } from "./rules";
 import { normalizeOracle } from "./oracle";
@@ -136,6 +137,13 @@ async function main(): Promise<void> {
   await rm(path.join(out, "pets"), { recursive: true, force: true });
   for (const [id, found] of [...pets].sort(([a], [b]) => a.localeCompare(b))) await writeJson(path.join(out, "pets", `${id}.json`), found);
   log(`Pets: ${[...pets.values()].reduce((sum, found) => sum + found.length, 0)} from ${pets.size} champion pages`);
+  // Runes: the one the simulator models (Triple Tonic, for Udyr) and the elixirs it grants.
+  const runePages = await readJson<WikiPage[]>(path.join(raw, "wiki", "rune-pages.json")).catch(() => {
+    throw new Error("Missing the rune pages; run npm run fetch -- --only runes");
+  });
+  const runes = parseRunes(runePages, petLookup);
+  await writeJson(path.join(out, "runes.json"), runes);
+  log(`Runes: ${runes.map((rune) => `${rune.name} (${rune.items.length} items)`).join(", ")}`);
   const glossaryPages = await readJson<WikiPage[]>(path.join(raw, "wiki", "glossary.json"));
   const glossary = buildGlossary(glossaryPages, pages, abilities.records);
   await writeJson(path.join(out, "glossary.json"), glossary);
@@ -160,7 +168,7 @@ async function main(): Promise<void> {
   for (const [id, module] of Object.entries(KITS).sort(([a], [b]) => a.localeCompare(b))) {
     const champion = byId.get(id);
     if (!champion) throw new Error(`Simulator kit for unknown champion ${id}`);
-    compiled.set(id, compileKit(champion, abilities.records.filter((record) => record.champion === id), module, {}, pets.get(id) ?? []));
+    compiled.set(id, compileKit(champion, abilities.records.filter((record) => record.champion === id), module, {}, pets.get(id) ?? [], runes));
   }
   const simulated = [...compiled.keys()];
   const pairs: Array<[string, string]> = simulated.flatMap((you, i) => simulated.slice(i + 1).map((enemy): [string, string] => [you, enemy]));

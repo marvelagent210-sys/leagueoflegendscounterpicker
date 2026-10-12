@@ -151,6 +151,63 @@ describe("wave-2 kits read the wiki at level 20", () => {
     expect(refunded).toBe(8 + 43);
   });
 
+  it("Jayce", () => {
+    // Hammer Stance (the champion's form, melee) and Cannon Stance (500 range, the game files' 2000 missile speed).
+    const jayce = kit("Jayce").spec;
+    expect(jayce.form).toBe("Hammer Stance");
+    expect(jayce.attack).toMatchObject({ range: 125, ranged: false });
+    expect(jayce.forms?.["Cannon Stance"]?.attack).toMatchObject({ range: 500, ranged: true, missileSpeed: 2000 });
+    // To the Skies!: 600 to the enemy, landing 0.5 s later however far.
+    expect(ability("Jayce", "QH")).toMatchObject({ cooldown: 6, cost: 40, delivery: { kind: "dash", direction: "target", distance: 600, time: 0.5, hitRadius: 300 } });
+    expect(ability("Jayce", "WH").delivery).toEqual({ kind: "field", range: 0, radius: 350, duration: 4, interval: 1, attached: true });
+    expect(ability("Jayce", "EH").onHit).toEqual([
+      { type: "damage", damageType: "magic", amount: { base: 0, ratios: { targetMaxHP: 0.22, bonusAD: 1 } } },
+      { type: "displace", direction: "away", distance: 600, duration: 0.35 },
+    ]);
+    // Shock Blast, and through the gate: 1600 at 2350 for 40% more.
+    expect(ability("Jayce", "QC")).toMatchObject({ cooldown: 8, cost: 80, castTime: 0.2143, delivery: { kind: "line", range: 1050, width: 140, speed: 1450 } });
+    expect(ability("Jayce", "QG")).toMatchObject({ cooldownKey: "QC", delivery: { kind: "line", range: 1600, width: 140, speed: 2350 } });
+    expect(ability("Jayce", "QG").onHit).toEqual([{ type: "damage", damageType: "physical", amount: { base: 399, ratios: { bonusAD: 1.82 } } }]);
+    // Hyper Charge: 3 attacks within 4 s at 110% AD and 360% attack speed; its cooldown after them.
+    expect(ability("Jayce", "WC")).toMatchObject({ cooldown: 5, cooldownAfter: "empower" });
+    expect(ability("Jayce", "WC").onSelf).toEqual([
+      { type: "empower", attacks: 3, window: 4, onHit: [], split: { physical: 1.1, magic: 0 }, resetAttack: true },
+      { type: "stat", stat: "attackSpeed", amount: { base: 3.6 }, duration: 4 },
+    ]);
+    expect([ability("Jayce", "R").cooldown, ability("Jayce", "RH").cooldownKey]).toEqual([6, "R"]);
+  });
+
+  it("Jayce fights: both stances in turn, Shock Blast through the gate, and each stance's first attack", () => {
+    const compiled = kit("Jayce");
+    const enemy = fighter({ id: "enemy", base: { hp: 9000, armor: 100, mr: 100, ad: 200, moveSpeed: 340 } });
+    const world = createWorld({ fighters: [compiled.spec, enemy], distance: 300, modes: ["fight", "fight"], settings: { log: true, maxSeconds: 20 } });
+    const jayce = world.units[0];
+    const guard: Array<{ form: string; armor: number }> = [];
+    let lockedAfterBlow = -1;
+    while (!world.result) {
+      step(world, [compiled.spec.behavior ?? defaultBehavior, defaultBehavior]);
+      guard.push({ form: jayce.spec.form ?? "", armor: derive(jayce).armor.bonus });
+      const blow = world.log.find((e) => e.side === 0 && e.text === "casts Thundering Blow");
+      if (blow && lockedAfterBlow < 0 && world.tick > blow.tick + 8) lockedAfterBlow = Math.min(jayce.cooldownReady.QH ?? 0, jayce.cooldownReady.QC ?? 0) - (blow.tick + 8);
+    }
+    const ticksOf = (text: string) => world.log.filter((e) => e.side === 0 && e.text === text).map((e) => e.tick);
+    const texts = world.log.filter((e) => e.side === 0).map((e) => e.text);
+    // Both stances, and back.
+    expect(ticksOf("becomes Cannon Stance").length).toBeGreaterThan(0);
+    expect(ticksOf("becomes Jayce").length).toBeGreaterThan(0);
+    // Hammer Stance's 26 armor (no bonus AD here), none in Cannon Stance.
+    expect(new Set(guard.filter((g) => g.form === "Hammer Stance").map((g) => g.armor))).toEqual(new Set([26]));
+    expect(new Set(guard.filter((g) => g.form === "Cannon Stance").map((g) => g.armor))).toEqual(new Set([0]));
+    // The gate and the blast together; 399 through 100 armor less the Cannon's 35% shred.
+    expect(ticksOf("casts Shock Blast (through the gate)")).toEqual(ticksOf("casts Acceleration Gate"));
+    expect(texts).toContain(`Shock Blast (through the gate) deals ${Math.round((399 * 100) / (100 + 65))} physical damage`);
+    // Thundering Blow: 22% of 9000, halved; no To the Skies! or Shock Blast for 0.4 s after its cast time.
+    expect(texts).toContain("Thundering Blow deals 990 magic damage");
+    expect(lockedAfterBlow).toBeGreaterThanOrEqual(12);
+    // Hammer Stance's first attack: 130 more magic damage, halved.
+    expect(texts).toContain("Transform Mercury Hammer deals 65 magic damage");
+  });
+
   it("Kayle", () => {
     const compiled = kit("Kayle");
     expect(compiled.spec.attack).toMatchObject({ range: 625, ranged: true });
@@ -449,6 +506,67 @@ describe("wave-2 kits read the wiki at level 20", () => {
     const r = ability("Trundle", "R");
     expect(r.onHit?.[0]).toEqual({ type: "damage", damageType: "magic", amount: { base: 0, ratios: { targetMaxHP: 0.15 }, products: [{ ratio: 0.0001, stats: ["AP", "targetMaxHP"] }] } });
     expect(r.onHit?.[1]).toMatchObject({ type: "dot", duration: 4, interval: 1, total: { ratios: { targetMaxHP: 0.15 } } });
+  });
+
+  it("Udyr", () => {
+    // Unpinned, the kit shows the reference split (Q6 W5 E5 R5) and offers every split of his 21 points.
+    const udyr = kit("Udyr");
+    expect(udyr.options).toMatchObject({ tripleTonic: 1, rankQ: 0, rankW: 0, rankE: 0, rankR: 0 });
+    expect(udyr.variants).toHaveLength(20);
+    expect(udyr.variants.every((v) => (v.rankQ ?? 0) + (v.rankW ?? 0) + (v.rankE ?? 0) + (v.rankR ?? 0) === 21)).toBe(true);
+    expect(kit("Udyr", { tripleTonic: 0 }).variants).toHaveLength(35);
+    expect(kit("Udyr", { rankQ: 6, rankW: 6, rankE: 6, rankR: 3 }).variants).toEqual([]);
+    expect(() => kit("Udyr", { rankQ: 6, rankW: 6, rankE: 6, rankR: 4 })).toThrow(/spend 22 skill points; level 20 gives 21/);
+    // Triple Tonic: Elixir of Avarice's 60 gold (its patch history; the item data still says 40).
+    expect(udyr.spec.extraGold).toBe(60);
+    expect(kit("Udyr", { tripleTonic: 0 }).spec.extraGold).toBeUndefined();
+    // Iron Mantle at rank 5; the Awaken adds its level-20 165.29 and the cast's own 125.
+    expect(ability("Udyr", "W").onSelf).toEqual([{ type: "shield", amount: { base: 125, ratios: { bonusAD: 0.5, AP: 0.4, maxHP: 0.032 } }, duration: 4 }]);
+    const awakened = ability("Udyr", "W2").onSelf?.[0] as { amount: { base: number; ratios: Record<string, number> } };
+    expect(awakened.amount.base).toBeCloseTo(165.294 + 125, 2);
+    expect(awakened.amount.ratios).toEqual({ bonusAD: 1, AP: 0.65, maxHP: 0.08 });
+    const pinned = (key: string) => allAbilities(kit("Udyr", { rankQ: 3, rankW: 6, rankE: 6, rankR: 6 }).spec).find((a) => a.key === key);
+    expect(pinned("W")?.onSelf).toEqual([{ type: "shield", amount: { base: 145, ratios: { bonusAD: 0.5, AP: 0.4, maxHP: 0.035 } }, duration: 4 }]);
+    // Every stance: 6 s, recast to Awaken it 0.25 s to 5 s later.
+    expect(ability("Udyr", "Q2").chain).toEqual({ root: "Q", index: 2, window: 5, delay: 0.25 });
+    expect(ability("Udyr", "E2").onSelf).toEqual([{ type: "state", state: "ccImmune", duration: 1.5 }]);
+    // Wingborne Storm's blizzard around him; Awakened, a storm that moves to the enemy at 250.
+    expect(ability("Udyr", "R").delivery).toEqual({ kind: "field", range: 0, radius: 370, duration: 4, interval: 0.5, attached: true });
+    expect(ability("Udyr", "R2").delivery).toMatchObject({ kind: "field", chase: 250, duration: 4, interval: 0.5 });
+  });
+
+  it("Udyr fights: the stance dance, Wilding Claw's lightning, and Monk Training's refunds", () => {
+    const compiled = kit("Udyr");
+    const enemy = fighter({ id: "enemy", base: { hp: 9000, armor: 100, mr: 100, ad: 200, moveSpeed: 340 } });
+    const world = createWorld({ fighters: [compiled.spec, enemy], distance: 400, modes: ["fight", "fight"], settings: { log: true, maxSeconds: 12 } });
+    const udyr = world.units[0];
+    const readyAt: Array<[number, number]> = [];
+    while (!world.result) {
+      step(world, [compiled.spec.behavior ?? defaultBehavior, defaultBehavior]);
+      readyAt.push([world.tick - 1, Number(udyr.memory.awakenReady ?? 0)]);
+    }
+    const casts = world.log.filter((e) => e.side === 0 && e.text.startsWith("casts ")).map((e) => [e.tick, e.text.slice(6)]);
+    // Blazing Stampede to close in and stun; then a stance every 1.5 s (the global cooldown), Wilding Claw
+    // Awakened 0.25 s after it; Wilding Claw's 6 s again from the Awaken, which refreshes it.
+    expect(casts.slice(0, 9)).toEqual([
+      [0, "Blazing Stampede"],
+      [45, "Wilding Claw"],
+      [53, "Wilding Claw (Awaken)"],
+      [90, "Wingborne Storm"],
+      [135, "Iron Mantle"],
+      [180, "Blazing Stampede"],
+      [53 + 180, "Wilding Claw"],
+      [278, "Wingborne Storm"],
+      [323, "Iron Mantle"],
+    ]);
+    // Awakened Spirit: 20 s from the Awaken, 1 s less for each of the two Monk Training hits after every cast.
+    const refunds = readyAt.filter(([, r], i) => i > 0 && r !== readyAt[i - 1]?.[1]).map(([, r]) => r);
+    expect(refunds[0]).toBe(53 + 600);
+    expect(new Set(refunds.slice(1).map((r, i) => (refunds[i] ?? 0) - r))).toEqual(new Set([30]));
+    // Lightning: 6 strikes from each of the next two hits, 1/6 s apart, each 3.18% of 9000 halved.
+    const strikes = world.log.filter((e) => e.side === 0 && e.text.startsWith("Wilding Claw (lightning)"));
+    expect(strikes).toHaveLength(12);
+    expect(new Set(strikes.map((e) => e.text))).toEqual(new Set([`Wilding Claw (lightning) deals ${Math.round(0.0317647 * 9000 * 0.5)} magic damage`]));
   });
 
   it("Zaahen", () => {

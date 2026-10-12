@@ -733,6 +733,7 @@ function completeOneCast(world: World, unit: Unit, ability: AbilitySpec, castSta
         interval: Math.max(1, toTicks(delivery.interval)),
         nextTick: start,
         ...(delivery.attached ? { attached: { offset: delivery.offset ?? 0 } } : {}),
+        ...(delivery.chase ? { chase: delivery.chase / 30 } : {}),
         ...(delivery.onOwner ? { onOwner: delivery.onOwner } : {}),
       });
       // A field that lands at once pulses with the zones this tick.
@@ -929,6 +930,10 @@ function blocked(world: World, m: Missile, from: number, to: number): boolean {
 /** A field's pulse: its effects on the enemy inside, and on its owner inside. */
 function pulseField(world: World, zone: Zone, owner: Unit, target: Unit): void {
   if (zone.attached) zone.x = owner.x + directionTo(owner, target) * zone.attached.offset;
+  if (zone.chase && target.alive && world.tick > zone.startTick) {
+    const gap = target.x - zone.x;
+    zone.x += Math.sign(gap) * Math.min(Math.abs(gap), zone.chase);
+  }
   if (zone.nextTick === undefined || world.tick < zone.nextTick) return;
   zone.nextTick += zone.interval ?? 1;
   const ability = abilityOf(owner, zone.ability);

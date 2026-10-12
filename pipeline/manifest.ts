@@ -22,5 +22,7 @@ export interface Manifest {
     glossary?: { pages: number; missing: string[]; fetchedAt: string };
     /** Champion pages with pet infoboxes (turrets, Mist Walkers, ...); fetched with the rest, or alone with --only pets. */
     petPages?: { pages: number; checked: number; missing: string[]; fetchedAt: string };
+    /** Rune and elixir pages (WIKI_RUNE_PAGES); fetched with the rest, or alone with --only runes. */
+    runePages?: { pages: number; missing: string[]; fetchedAt: string };
   };
 }

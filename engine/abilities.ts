@@ -165,6 +165,24 @@ export interface AbilityRecord {
  * A unit a champion summons or places (H-28G Evolution Turret, Mist Walker, Tentacle, Powder
  * Keg), read from the {{Infobox/Pet}} on the champion's wiki page.
  */
+/**
+ * A rune the simulator models (PLAN §4.1: Udyr's Triple Tonic): its description, what each
+ * item it grants does when consumed, and its article's patch history (newer than the item data).
+ */
+export interface RuneRecord {
+  name: string;
+  /** The rune's data template. */
+  page: { title: string; revid: number };
+  /** The description's lines, as displayed. */
+  text: string[];
+  /** The items it grants: what consuming each does, from the item's data module. */
+  items: Array<{ name: string; page: { title: string; revid: number }; consume: string }>;
+  /** Its article's patch history, newest first: the patch and one line per change. */
+  history: Array<{ patch: string; text: string }>;
+  /** The article the history was read from. */
+  article?: { title: string; revid: number };
+}
+
 export interface PetRecord {
   /** Data Dragon id of the champion. */
   champion: string;

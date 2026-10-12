@@ -3,7 +3,7 @@
  * ability data through a KitContext and describes each ability in the simulator's terms;
  * compiling it adds the champion's level-20 base stats and basic attack.
  */
-import type { AbilityRecord, PetRecord } from "../abilities";
+import type { AbilityRecord, PetRecord, RuneRecord } from "../abilities";
 import type { Behavior } from "../sim/behavior";
 import { baseFighter } from "../sim/fromChampion";
 import type { AbilitySpec, AttackSpec, BaseStats, BudgetHints, Effect, FighterSpec, KitHooks } from "../sim/spec";
@@ -54,6 +54,11 @@ export interface KitModule {
   champion: string;
   options?: Record<string, KitOption>;
   build(kit: KitContext, options: Record<string, number>): KitDefinition;
+  /**
+   * Option sets the simulator tries in each matchup, keeping the one best for this champion
+   * (Udyr's rank splits when none is pinned); none when the options settle it.
+   */
+  variants?(options: Record<string, number>, champion: Champion): Array<Record<string, number>>;
 }
 
 export interface CompiledKit {
@@ -64,10 +69,19 @@ export interface CompiledKit {
   /** The kit's simplifications, for its kit page. */
   assumptions: string[];
   options: Record<string, number>;
+  /** Option sets to try in each matchup (KitModule.variants), each complete; empty when there's nothing to choose. */
+  variants: Array<Record<string, number>>;
 }
 
-export function compileKit(champion: Champion, records: AbilityRecord[], module: KitModule, overrides: Record<string, number> = {}, pets: PetRecord[] = []): CompiledKit {
-  const kit = new KitContext(champion, records, pets);
+export function compileKit(
+  champion: Champion,
+  records: AbilityRecord[],
+  module: KitModule,
+  overrides: Record<string, number> = {},
+  pets: PetRecord[] = [],
+  runes: RuneRecord[] = [],
+): CompiledKit {
+  const kit = new KitContext(champion, records, pets, runes);
   const options = Object.fromEntries(Object.entries(module.options ?? {}).map(([key, option]) => [key, overrides[key] ?? option.default]));
   for (const [key, option] of Object.entries(module.options ?? {})) kit.assume(`${option.label}: ${options[key]}.`);
   const definition = module.build(kit, options);
@@ -112,5 +126,6 @@ export function compileKit(champion: Champion, records: AbilityRecord[], module:
     }
     for (const form of Object.values(all)) form.forms = all;
   }
-  return { champion: champion.id, spec, evidence: kit.evidence, assumptions: kit.assumptions, options };
+  const variants = (module.variants?.(options, champion) ?? []).map((variant) => ({ ...options, ...variant }));
+  return { champion: champion.id, spec, evidence: kit.evidence, assumptions: kit.assumptions, options, variants };
 }

@@ -1,0 +1,84 @@
+[
+  {
+    "name": "Triple Tonic",
+    "page": {
+      "title": "Template:Rune data Triple Tonic",
+      "revid": 3961243
+    },
+    "text": [
+      "Passive: Gain an Elixir upon reaching each of the following levels:",
+      "Level 3: Elixir of Avarice",
+      "Level 6: Elixir of Force",
+      "Level 9: Elixir of Skill",
+      "If the inventory is full upon the user becoming eligible to receive Elixir of Avarice or Elixir of Force, each item will be granted as soon as an empty slot is available. If the inventory is full upon becoming eligible to receive Elixir of Skill, the item is consumed automatically."
+    ],
+    "items": [
+      {
+        "name": "Elixir of Avarice",
+        "page": {
+          "title": "Module:ItemData/data/Elixir of Avarice",
+          "revid": 3905664
+        },
+        "consume": "Grants 5 bonus true damage on-hit against minions for 60 seconds. Additionally, when the effect expires, gain 40."
+      },
+      {
+        "name": "Elixir of Force",
+        "page": {
+          "title": "Module:ItemData/data/Elixir of Force",
+          "revid": 3905665
+        },
+        "consume": "Grants 20 for 60 seconds."
+      },
+      {
+        "name": "Elixir of Skill",
+        "page": {
+          "title": "Module:ItemData/data/Elixir of Skill",
+          "revid": 3905667
+        },
+        "consume": "Grants 1 skill point."
+      }
+    ],
+    "history": [
+      {
+        "patch": "V26.03",
+        "text": "Elixir of Force adaptive force reduced to 15 bonus Attack Damage or 25 Ability Power (Adaptive) from 18 bonus Attack Damage or 30 Ability Power (Adaptive)."
+      },
+      {
+        "patch": "V25.22",
+        "text": "Elixir of Avarice gold increased to 60 from 40."
+      },
+      {
+        "patch": "V25.22",
+        "text": "Elixir of Force adaptive force increased to 18 bonus Attack Damage or 30 Ability Power (Adaptive) from 12 bonus Attack Damage or 20 Ability Power (Adaptive)."
+      },
+      {
+        "patch": "V14.10",
+        "text": "Moved to slot 2 from 1."
+      },
+      {
+        "patch": "V14.1",
+        "text": "Inspiration Slot 1 rune."
+      },
+      {
+        "patch": "V14.1",
+        "text": "Passive: Gain an Elixir upon reaching each of the following levels:"
+      },
+      {
+        "patch": "V14.1",
+        "text": "Level 3: Elixir of Avarice"
+      },
+      {
+        "patch": "V14.1",
+        "text": "Level 6: Elixir of Force"
+      },
+      {
+        "patch": "V14.1",
+        "text": "Level 9: Elixir of Skill"
+      }
+    ],
+    "article": {
+      "title": "Triple Tonic",
+      "revid": 3989900
+    }
+  }
+]

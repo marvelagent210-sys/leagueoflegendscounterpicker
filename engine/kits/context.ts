@@ -11,7 +11,7 @@
  * can't leave a kit silently out of date. Everything read is recorded as evidence, and every
  * simplification a kit makes is recorded as an assumption, for its kit page.
  */
-import type { AbilityKind, AbilityRecord, Amount, PetRecord, ScalingTerm, Series } from "../abilities";
+import type { AbilityKind, AbilityRecord, Amount, PetRecord, RuneRecord, ScalingTerm, Series } from "../abilities";
 import type { Formula, StatRef } from "../sim/spec";
 import { TOP_LANE_MAX_LEVEL } from "../stats";
 import type { Champion } from "../types";
@@ -85,16 +85,23 @@ export function numbersIn(text: string): number[] {
 export class AbilityData {
   readonly name: string;
   readonly kind: AbilityKind;
-  /** Rank at level 20: every ability is maxed by level 18. */
+  /** Rank at level 20: every ability is maxed by level 18 (Udyr's ranks are a choice, see atRank). */
   readonly rank: number;
 
   constructor(
     readonly record: AbilityRecord,
     private readonly kit: KitContext,
+    rank = record.ranks,
   ) {
     this.name = record.name;
     this.kind = record.kind;
-    this.rank = record.ranks;
+    if (!Number.isInteger(rank) || rank < 1 || rank > record.ranks) throw new KitDataError(record.champion, record.name, `no rank ${rank} (it has ${record.ranks})`);
+    this.rank = rank;
+  }
+
+  /** The same ability read at another rank (Udyr's rank split leaves some ranks empty). */
+  atRank(rank: number): AbilityData {
+    return new AbilityData(this.record, this.kit, rank);
   }
 
   private fail(message: string): never {
@@ -448,6 +455,49 @@ export class PetData {
   }
 }
 
+/**
+ * A rune's data (Triple Tonic): its description, what consuming each item it grants does, and
+ * its article's patch history, which can be newer than the item data.
+ */
+export class RuneData {
+  readonly name: string;
+
+  constructor(
+    readonly record: RuneRecord,
+    private readonly kit: KitContext,
+  ) {
+    this.name = record.name;
+  }
+
+  /** Each source's text, whitespace normalized, with the page it comes from. */
+  private get sources(): Array<{ page: { title: string; revid: number }; text: string }> {
+    const { record } = this;
+    return [
+      { page: record.page, text: normalize(record.text.join(" \n ")) },
+      ...record.items.map((item) => ({ page: item.page, text: normalize(`${item.name}: ${item.consume}`) })),
+      ...(record.article ? [{ page: record.article, text: normalize(record.history.map((h) => `${h.patch}: ${h.text}`).join(" \n ")) }] : []),
+    ];
+  }
+
+  /** Asserts the words are in the rune's description, an item's effect or the patch history, verbatim; records them as evidence. */
+  quote(words: string): string {
+    const wanted = normalize(words);
+    const source = this.sources.find((s) => s.text.includes(wanted));
+    if (!source) throw new KitDataError(this.kit.champion.id, this.name, `the wiki no longer says "${wanted}"`);
+    this.kit.checkOpen(`${this.name}: ${wanted}`);
+    this.kit.evidence.push({ ability: this.name, page: source.page.title, revid: source.page.revid, text: wanted });
+    return wanted;
+  }
+
+  /** The `index`-th number (0-based) in a quoted phrase. */
+  quoted(words: string, index = 0): number {
+    const quote = this.quote(words);
+    const value = numbersIn(quote)[index];
+    if (value === undefined) throw new KitDataError(this.kit.champion.id, this.name, `no number ${index + 1} in "${quote}"`);
+    return value;
+  }
+}
+
 export class KitContext {
   readonly evidence: KitEvidence[] = [];
   readonly assumptions: string[] = [];
@@ -471,7 +521,15 @@ export class KitContext {
     readonly champion: Champion,
     readonly records: AbilityRecord[],
     readonly pets: PetRecord[] = [],
+    readonly runes: RuneRecord[] = [],
   ) {}
+
+  /** A rune the simulator models, by name ("Triple Tonic"). */
+  rune(name: string): RuneData {
+    const record = this.runes.find((r) => r.name === name);
+    if (!record) throw new KitDataError(this.champion.id, name, `no such rune (has: ${this.runes.map((r) => r.name).join(", ") || "none"})`);
+    return new RuneData(record, this);
+  }
 
   /** A pet of the champion by its infobox name ("H-28G Evolution Turret"). */
   pet(name: string): PetData {

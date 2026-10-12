@@ -2,7 +2,7 @@
 
 ## Simulated duels (full confidence)
 
-The duel simulator played each of the 42 other champions with a simulator kit against Nasus: both at level 20 with 15,000 gold of plain stats, each side's spent against the other's, through six scenarios (PLAN.md §6). Scores run from −1 (Nasus wins every time) to +1 (the champion does). Run `npm run duel -- <champion> Nasus --log brawl` to watch a fight.
+The duel simulator played each of the 44 other champions with a simulator kit against Nasus: both at level 20 with 15,000 gold of plain stats, each side's spent against the other's, through six scenarios (PLAN.md §6). Scores run from −1 (Nasus wins every time) to +1 (the champion does). Run `npm run duel -- <champion> Nasus --log brawl` to watch a fight.
 
 | # | Champion | Score | You engage | Enemy engages | Brawl | Short trade | Spacing | Escape |
 |--:|---|--:|--:|--:|--:|--:|--:|--:|
@@ -30,24 +30,26 @@ The duel simulator played each of the 42 other champions with a simulator kit ag
 | 22 | Yone | −0.77 | −1.00 | −1.00 | −1.00 | +0.06 | – | +0.00 |
 | 23 | Aurora | −0.77 | −1.00 | −1.00 | −1.00 | +0.21 | −1.00 | +0.00 |
 | 24 | Ambessa | −0.77 | −1.00 | −1.00 | −1.00 | +0.21 | −1.00 | +0.00 |
-| 25 | Camille | −0.77 | −1.00 | −1.00 | −1.00 | +0.04 | – | +0.00 |
-| 26 | Akali | −0.77 | −1.00 | −1.00 | −1.00 | +0.04 | – | +0.00 |
-| 27 | Sett | −0.77 | −1.00 | −1.00 | −1.00 | +0.03 | – | +0.00 |
-| 28 | Renekton | −0.78 | −1.00 | −1.00 | −1.00 | +0.00 | – | +0.00 |
-| 29 | Garen | −0.78 | −1.00 | −1.00 | −1.00 | +0.00 | – | +0.00 |
-| 30 | Trundle | −0.78 | −1.00 | −1.00 | −1.00 | −0.00 | – | +0.00 |
-| 31 | Tryndamere | −0.78 | −1.00 | −1.00 | −1.00 | −0.01 | – | +0.00 |
-| 32 | Jax | −0.78 | −1.00 | −1.00 | −1.00 | −0.01 | – | +0.00 |
-| 33 | Rumble | −0.78 | −1.00 | −1.00 | −1.00 | −0.03 | – | +0.00 |
-| 34 | Singed | −0.78 | −1.00 | −1.00 | −1.00 | −0.03 | – | +0.00 |
-| 35 | Malphite | −0.78 | −1.00 | −1.00 | −1.00 | +0.11 | −1.00 | +0.00 |
-| 36 | Yasuo | −0.78 | −1.00 | −1.00 | −1.00 | −0.03 | – | +0.00 |
-| 37 | Teemo | −0.79 | −1.00 | −1.00 | −1.00 | +0.09 | −1.00 | +0.00 |
-| 38 | Kennen | −0.79 | −1.00 | −1.00 | −1.00 | +0.07 | −0.98 | +0.00 |
-| 39 | Olaf | −0.79 | −1.00 | −1.00 | −1.00 | −0.08 | – | +0.00 |
-| 40 | Mordekaiser | −0.79 | −1.00 | −1.00 | −1.00 | +0.04 | −1.00 | +0.00 |
-| 41 | Quinn | −0.80 | −1.00 | −1.00 | −1.00 | +0.01 | −1.00 | +0.00 |
-| 42 | Irelia | −0.80 | −1.00 | −1.00 | −1.00 | −0.01 | −1.00 | +0.00 |
+| 25 | Udyr | −0.77 | −1.00 | −1.00 | −1.00 | +0.05 | – | +0.00 |
+| 26 | Camille | −0.77 | −1.00 | −1.00 | −1.00 | +0.04 | – | +0.00 |
+| 27 | Akali | −0.77 | −1.00 | −1.00 | −1.00 | +0.04 | – | +0.00 |
+| 28 | Jayce | −0.77 | −1.00 | −1.00 | −1.00 | +0.19 | −1.00 | +0.00 |
+| 29 | Sett | −0.77 | −1.00 | −1.00 | −1.00 | +0.03 | – | +0.00 |
+| 30 | Renekton | −0.78 | −1.00 | −1.00 | −1.00 | +0.00 | – | +0.00 |
+| 31 | Garen | −0.78 | −1.00 | −1.00 | −1.00 | +0.00 | – | +0.00 |
+| 32 | Trundle | −0.78 | −1.00 | −1.00 | −1.00 | −0.00 | – | +0.00 |
+| 33 | Tryndamere | −0.78 | −1.00 | −1.00 | −1.00 | −0.01 | – | +0.00 |
+| 34 | Jax | −0.78 | −1.00 | −1.00 | −1.00 | −0.01 | – | +0.00 |
+| 35 | Rumble | −0.78 | −1.00 | −1.00 | −1.00 | −0.03 | – | +0.00 |
+| 36 | Singed | −0.78 | −1.00 | −1.00 | −1.00 | −0.03 | – | +0.00 |
+| 37 | Malphite | −0.78 | −1.00 | −1.00 | −1.00 | +0.11 | −1.00 | +0.00 |
+| 38 | Yasuo | −0.78 | −1.00 | −1.00 | −1.00 | −0.03 | – | +0.00 |
+| 39 | Teemo | −0.79 | −1.00 | −1.00 | −1.00 | +0.09 | −1.00 | +0.00 |
+| 40 | Kennen | −0.79 | −1.00 | −1.00 | −1.00 | +0.07 | −0.98 | +0.00 |
+| 41 | Olaf | −0.79 | −1.00 | −1.00 | −1.00 | −0.08 | – | +0.00 |
+| 42 | Mordekaiser | −0.79 | −1.00 | −1.00 | −1.00 | +0.04 | −1.00 | +0.00 |
+| 43 | Quinn | −0.80 | −1.00 | −1.00 | −1.00 | +0.01 | −1.00 | +0.00 |
+| 44 | Irelia | −0.80 | −1.00 | −1.00 | −1.00 | −0.01 | −1.00 | +0.00 |
 
 ## Interaction ledger (partial confidence)
 

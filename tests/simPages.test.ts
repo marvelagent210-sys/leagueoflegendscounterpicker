@@ -40,12 +40,27 @@ describe("simulator pages", () => {
     const section = simulatedCounterSection("B", matrix, new Map([["A", "Alpha"]]));
     expect(section.find((line) => line.startsWith("| 1 |"))).toBe("| 1 | Alpha | +0.50 | +1.00 | −1.00 | +0.50 | +0.20 | – | +0.00 |");
   });
+
+  it("keep the kit options a champion played, whichever side it was on", () => {
+    const pairs: Array<[string, string]> = [
+      ["A", "U"],
+      ["U", "B"],
+    ];
+    const results: PairResult[] = [
+      { index: 0, score: 0.1, scenarios: [0, 0, 0, 0, null, 0], spent: [none, none], variant: { side: 1, options: { rankQ: 6 } } },
+      { index: 1, score: -0.2, scenarios: [0, 0, 0, 0, null, 0], spent: [none, none], variant: { side: 0, options: { rankQ: 5 } } },
+    ];
+    const matrix = simulatedMatrix(["A", "B", "U"], 15000, pairs, results);
+    const json = JSON.parse(simulatedJson("16.20", "26.20", matrix)) as { variants: Record<string, Record<string, Record<string, number>>> };
+    expect(json.variants).toEqual({ U: { A: { rankQ: 6 }, B: { rankQ: 5 } } });
+  });
 });
 
 describe("simulated.json", () => {
   const file = JSON.parse(readFileSync(new URL("../data/16.20/simulated.json", import.meta.url), "utf8")) as {
     confidence: string;
     matchups: Record<string, Record<string, Array<number | null>>>;
+    variants?: Record<string, Record<string, Record<string, number>>>;
   };
 
   it("has every matchup between champions with simulator kits, both ways and antisymmetric", () => {
@@ -59,5 +74,12 @@ describe("simulated.json", () => {
         expect(file.matchups[a]?.[b]?.[0], `${a} vs ${b}`).toBeCloseTo(-(file.matchups[b]?.[a]?.[0] ?? Number.NaN), 9);
       }
     }
+  });
+
+  it("has the rank split Udyr played against every opponent", () => {
+    const opponents = Object.keys(KITS).filter((id) => id !== "Udyr").sort();
+    const splits = file.variants?.Udyr ?? {};
+    expect(Object.keys(splits).sort()).toEqual(opponents);
+    for (const split of Object.values(splits)) expect((split.rankQ ?? 0) + (split.rankW ?? 0) + (split.rankE ?? 0) + (split.rankR ?? 0), JSON.stringify(split)).toBe(21);
   });
 });

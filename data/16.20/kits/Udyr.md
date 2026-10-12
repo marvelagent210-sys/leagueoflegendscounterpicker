@@ -280,3 +280,111 @@ All 18 level-based formulas in the game files (7 linked to wiki values above):
 | UdyrPassive | {1800f4cb} | linear 0.2 → 0.3 over levels 1-18, continues past 18 | 0.2 | 0.3 | 0.311765 |
 | UdyrPassive | UltCD | breakpoints at levels 6, 11, 16 (level 1: 50) | 50 | 20 | 20 |
 | UdyrPassive | {01dc7936} | linear 5 → 40 over levels 1-18, continues past 18 | 5 | 40 | 44.1176 |
+
+## Duel simulator kit (level 20, every ability at max rank)
+
+What the duel simulator fights with (`kits/champions/Udyr.ts`): every number is read from the wiki's ability data above at level 20; what the wiki doesn't say is listed under assumptions. Ratios are fractions of the stat (60% AD is 0.6 × AD).
+
+- Basic attack: range 125, melee.
+- Stat budget: 60 gold more than the enemy's.
+- Options: tripleTonic = 1, rankQ = 0, rankW = 0, rankE = 0, rankR = 0.
+
+| Key | Ability | Cooldown (s) | Cast time (s) | Cost | Delivery | On the enemy | On itself |
+|---|---|--:|--:|---|---|---|---|
+| Q | Wilding Claw | 6 | 0 | 20 | self | – | attackSpeed 0.8 for 4 s |
+| Q2 | Wilding Claw (Awaken) | 0 | 0 | – | self; recast of Q within 5 s, after 0.25 s | – | attackSpeed 0.759 for 4 s |
+| W | Iron Mantle | 6 | 0 | 21 | self | – | shield of 125 + 50% bonus AD + 40% AP + 3.2% maximum health for 4 s |
+| W2 | Iron Mantle (Awaken) | 0 | 0 | – | self; recast of W within 5 s, after 0.25 s | – | shield of 290.294 + 100% bonus AD + 65% AP + 8% maximum health for 4 s |
+| E | Blazing Stampede | 6 | 0 | 21 | self | – | – |
+| E2 | Blazing Stampede (Awaken) | 0 | 0 | – | self; recast of E within 5 s, after 0.25 s | – | ccImmune for 1.5 s |
+| R | Wingborne Storm | 6 | 0 | 21 | field of 370 radius around itself, for 4 s, pulsing every 0.5 s | 42 + 17.5% AP magic damage; slow 27% for 0.5 s | – |
+| R2 | Wingborne Storm (Awaken) | 0 | 0 | – | field of 370 radius moving toward the enemy at 250/s, for 4 s, pulsing every 0.5 s; recast of R within 5 s, after 0.25 s | 42 + 17.5% AP + 1.838% target's maximum health + 0.438% of target's maximum health per 100 AP magic damage; slow 32% for 0.5 s | – |
+
+Effects marked by a mark or a role are completed by the kit's hooks (see the kit's source).
+
+### Assumptions
+
+- Triple Tonic (1 on, 0 off): a 21st skill point and Elixir of Avarice's gold: 1.
+- Wilding Claw's rank (0: the best split in each matchup): 0.
+- Iron Mantle's rank (0: the best split in each matchup): 0.
+- Blazing Stampede's rank (0: the best split in each matchup): 0.
+- Wingborne Storm's rank (0: the best split in each matchup): 0.
+- Ranks: Q 6, W 5, E 5, R 5 (21 of 21 skill points); in matchups the simulator tries every split and keeps the best.
+- Triple Tonic: Elixir of Avarice's 60 gold (its patch history; the item data still says 40) goes into the stat budget; Elixir of Force's 60 seconds are long over by level 20.
+- Awakened Spirit is ready when a fight starts (the game starts it on cooldown, long before level 20); its cooldown is 20 s from level 16; an Awaken cast puts the other stances on a 0.5 s global cooldown (the game files' GlobalCDEmpowered).
+- Awakened Wilding Claw's 6 lightning strikes all hit the one enemy, one every 0.167 s from the hit.
+- Blazing Stampede's pounce is a melee attack from his range; its speed decays evenly, and the Awakened speed and range last its 4 seconds.
+- Awakened Wingborne Storm's storm moves at 250, its level-18 speed (the wiki gives none past 18).
+
+### Wiki values read (68)
+
+| Ability | Value | Revision |
+|---|---|---|
+| Triple Tonic | Level 9: Elixir of Skill | [3961243](https://wiki.leagueoflegends.com/en-us/Template:Rune_data_Triple_Tonic?oldid=3961243) |
+| Triple Tonic | Elixir of Skill: Grants 1 skill point | [3905667](https://wiki.leagueoflegends.com/en-us/Module:ItemData/data/Elixir_of_Skill?oldid=3905667) |
+| Triple Tonic | Elixir of Force: Grants 20 for 60 seconds | [3905665](https://wiki.leagueoflegends.com/en-us/Module:ItemData/data/Elixir_of_Force?oldid=3905665) |
+| Triple Tonic | Elixir of Avarice gold increased to 60 from 40 | [3989900](https://wiki.leagueoflegends.com/en-us/Triple_Tonic?oldid=3989900) |
+| Triple Tonic | Additionally, when the effect expires, gain 40 | [3905664](https://wiki.leagueoflegends.com/en-us/Module:ItemData/data/Elixir_of_Avarice?oldid=3905664) |
+| Bridge Between | 4 basic abilities that each incur a 1.5-second global cooldown when cast | [3983420](https://wiki.leagueoflegends.com/en-us/Template:Data_Udyr/Bridge_Between?oldid=3983420) |
+| Bridge Between | he can cast it again at no cost after 0.25 seconds and within the following 5 seconds to Awaken it | [3983420](https://wiki.leagueoflegends.com/en-us/Template:Data_Udyr/Bridge_Between?oldid=3983420) |
+| Bridge Between | Cooldown: 50 / 40 / 30 / 20 (based on level) | [3983420](https://wiki.leagueoflegends.com/en-us/Template:Data_Udyr/Bridge_Between?oldid=3983420) |
+| Bridge Between | switching Stances will replace the empowered attacks of the previous Stance | [3983420](https://wiki.leagueoflegends.com/en-us/Template:Data_Udyr/Bridge_Between?oldid=3983420) |
+| Bridge Between | Awakened Spirit is placed on full cooldown at the start of the game | [3983420](https://wiki.leagueoflegends.com/en-us/Template:Data_Udyr/Bridge_Between?oldid=3983420) |
+| Bridge Between | empowers his next two basic attacks on-hit within 4 seconds to gain 30% bonus attack speed and refund 5% of Awakened Spirit's total cooldown, though not if the remaining cooldown is less than 1 second | [3983420](https://wiki.leagueoflegends.com/en-us/Template:Data_Udyr/Bridge_Between?oldid=3983420) |
+| Wilding Claw | gain 50 bonus range | [4049976](https://wiki.leagueoflegends.com/en-us/Template:Data_Udyr/Wilding_Claw?oldid=4049976) |
+| Wilding Claw | Bonus Physical Damage: 3 / 4 / 5 / 6 / 7 / 8% (+ 3.5% per 100 bonus AD) of target's maximum health | [4049976](https://wiki.leagueoflegends.com/en-us/Template:Data_Udyr/Wilding_Claw?oldid=4049976) |
+| Wilding Claw | Bonus Attack Speed: 20 / 32 / 44 / 56 / 68 / 80% | [4049976](https://wiki.leagueoflegends.com/en-us/Template:Data_Udyr/Wilding_Claw?oldid=4049976) |
+| Wilding Claw | Bonus Physical Damage On-Hit: 6 / 12 / 18 / 24 / 30 / 36 (+ 20% bonus AD) (+ 1 / 1.2 / 1.4 / 1.6 / 1.8 / 2% bonus health) | [4049976](https://wiki.leagueoflegends.com/en-us/Template:Data_Udyr/Wilding_Claw?oldid=4049976) |
+| Wilding Claw | Udyr gains bonus attack speed and deals bonus physical damage on-hit for 4 seconds | [4049976](https://wiki.leagueoflegends.com/en-us/Template:Data_Udyr/Wilding_Claw?oldid=4049976) |
+| Wilding Claw | Recast - Awaken: Udyr gains an additional 20 – 70 (based on level)% bonus attack speed. | [4049976](https://wiki.leagueoflegends.com/en-us/Template:Data_Udyr/Wilding_Claw?oldid=4049976) |
+| Wilding Claw | The empowered attacks deal an additional 2 – 4 (based on level)% (+ 1.5% per 100 bonus AD) (+ 0.1% per 100 bonus health) of the target's maximum health bonus physical damage if used within 4 seconds. | [4049976](https://wiki.leagueoflegends.com/en-us/Template:Data_Udyr/Wilding_Claw?oldid=4049976) |
+| Wilding Claw | (+ 1.5% per 100 bonus AD) (+ 0.1% per 100 bonus health) | [4049976](https://wiki.leagueoflegends.com/en-us/Template:Data_Udyr/Wilding_Claw?oldid=4049976) |
+| Wilding Claw | Udyr's next two basic attacks on-hit in any Stance within 4 seconds are each empowered to strike with lightning 6 times over 1 second, dealing bonus magic damage equal to 1.5 – 3 (based on level)% (+ 0.6% per 100 AP) of the target's maximum health per hit, chaining to up to 3 nearby visible enemies and being able to hit the same target multiple times, for a total of 9 – 18 (based on level)% (+ 3.6% per 100 AP) of the target's maximum health. | [4049976](https://wiki.leagueoflegends.com/en-us/Template:Data_Udyr/Wilding_Claw?oldid=4049976) |
+| Wilding Claw | (+ 0.6% per 100 AP) of the target's maximum health per hit | [4049976](https://wiki.leagueoflegends.com/en-us/Template:Data_Udyr/Wilding_Claw?oldid=4049976) |
+| Wilding Claw | strike with lightning 6 times over 1 second | [4049976](https://wiki.leagueoflegends.com/en-us/Template:Data_Udyr/Wilding_Claw?oldid=4049976) |
+| Wilding Claw | being able to hit the same target multiple times | [4049976](https://wiki.leagueoflegends.com/en-us/Template:Data_Udyr/Wilding_Claw?oldid=4049976) |
+| Iron Mantle | Shield Strength: 45 / 65 / 85 / 105 / 125 / 145 (+ 50% bonus AD) (+ 40% AP) (+ 2 / 2.3 / 2.6 / 2.9 / 3.2 / 3.5% maximum health) | [4013279](https://wiki.leagueoflegends.com/en-us/Template:Data_Udyr/Iron_Mantle?oldid=4013279) |
+| Iron Mantle | Additionally, Udyr grants himself a shield for 4 seconds | [4013279](https://wiki.leagueoflegends.com/en-us/Template:Data_Udyr/Iron_Mantle?oldid=4013279) |
+| Iron Mantle | Life Steal: 15 / 16 / 17 / 18 / 19 / 20% | [4013279](https://wiki.leagueoflegends.com/en-us/Template:Data_Udyr/Iron_Mantle?oldid=4013279) |
+| Iron Mantle | heal him for 1.2% of his maximum health (+ 8% AP) | [4013279](https://wiki.leagueoflegends.com/en-us/Template:Data_Udyr/Iron_Mantle?oldid=4013279) |
+| Iron Mantle | Increased Shield Strength: 20 – 150 (based on level) (+ 45 / 65 / 85 / 105 / 125 / 145) | [4013279](https://wiki.leagueoflegends.com/en-us/Template:Data_Udyr/Iron_Mantle?oldid=4013279) |
+| Iron Mantle | Total Healing: 10 – 75 (based on level) (+ 22.5 / 32.5 / 42.5 / 52.5 / 62.5 / 72.5) | [4013279](https://wiki.leagueoflegends.com/en-us/Template:Data_Udyr/Iron_Mantle?oldid=4013279) |
+| Iron Mantle | Increased Shield Strength: 20 – 150 (based on level) (+ 45 / 65 / 85 / 105 / 125 / 145) (+ 100% bonus AD) (+ 65% AP) (+ 8% maximum health) | [4013279](https://wiki.leagueoflegends.com/en-us/Template:Data_Udyr/Iron_Mantle?oldid=4013279) |
+| Iron Mantle | Total Healing: 10 – 75 (based on level) (+ 22.5 / 32.5 / 42.5 / 52.5 / 62.5 / 72.5) (+ 50% bonus AD) (+ 32.5% AP) (+ 4% maximum health) | [4013279](https://wiki.leagueoflegends.com/en-us/Template:Data_Udyr/Iron_Mantle?oldid=4013279) |
+| Iron Mantle | heals every 0.25 seconds over the next 4 seconds | [4013279](https://wiki.leagueoflegends.com/en-us/Template:Data_Udyr/Iron_Mantle?oldid=4013279) |
+| Iron Mantle | Increased Life Steal: 30 / 32 / 34 / 36 / 38 / 40% | [4013279](https://wiki.leagueoflegends.com/en-us/Template:Data_Udyr/Iron_Mantle?oldid=4013279) |
+| Iron Mantle | heal him for 2.4% of his maximum health (+ 16% AP) | [4013279](https://wiki.leagueoflegends.com/en-us/Template:Data_Udyr/Iron_Mantle?oldid=4013279) |
+| Blazing Stampede | stun them for 0.75 seconds | [4052353](https://wiki.leagueoflegends.com/en-us/Template:Data_Udyr/Blazing_Stampede?oldid=4052353) |
+| Blazing Stampede | targetCooldown: 6 / 5.6 / 5.2 / 4.8 / 4.4 / 4 | [4052353](https://wiki.leagueoflegends.com/en-us/Template:Data_Udyr/Blazing_Stampede?oldid=4052353) |
+| Blazing Stampede | Bonus Movement Speed: 25 / 31 / 37 / 43 / 49 / 55% (+ 5% per 100 bonus AD) | [4052353](https://wiki.leagueoflegends.com/en-us/Template:Data_Udyr/Blazing_Stampede?oldid=4052353) |
+| Blazing Stampede | (+ 5% per 100 bonus AD) | [4052353](https://wiki.leagueoflegends.com/en-us/Template:Data_Udyr/Blazing_Stampede?oldid=4052353) |
+| Blazing Stampede | Decayed Bonus Movement Speed: 7.5 / 9.3 / 11.1 / 12.9 / 14.7 / 16.5% (+ 1.5% per 100 bonus AD) | [4052353](https://wiki.leagueoflegends.com/en-us/Template:Data_Udyr/Blazing_Stampede?oldid=4052353) |
+| Blazing Stampede | (+ 1.5% per 100 bonus AD) | [4052353](https://wiki.leagueoflegends.com/en-us/Template:Data_Udyr/Blazing_Stampede?oldid=4052353) |
+| Blazing Stampede | gains bonus movement speed for 4 seconds, which decays to 30% effectiveness over 1.5 seconds | [4052353](https://wiki.leagueoflegends.com/en-us/Template:Data_Udyr/Blazing_Stampede?oldid=4052353) |
+| Blazing Stampede | empowering his basic attacks to have an uncancellable windup | [4052353](https://wiki.leagueoflegends.com/en-us/Template:Data_Udyr/Blazing_Stampede?oldid=4052353) |
+| Blazing Stampede | Udyr gains 75 bonus attack range | [4052353](https://wiki.leagueoflegends.com/en-us/Template:Data_Udyr/Blazing_Stampede?oldid=4052353) |
+| Blazing Stampede | Recast - Awaken: Udyr gains 75 bonus attack range and an additional 30 – 40 (based on level)% (+ 10% per 100 bonus AD) bonus movement speed. | [4052353](https://wiki.leagueoflegends.com/en-us/Template:Data_Udyr/Blazing_Stampede?oldid=4052353) |
+| Blazing Stampede | (+ 10% per 100 bonus AD) bonus movement speed | [4052353](https://wiki.leagueoflegends.com/en-us/Template:Data_Udyr/Blazing_Stampede?oldid=4052353) |
+| Blazing Stampede | He also gains immunity to crowd control for 1.5 seconds | [4052353](https://wiki.leagueoflegends.com/en-us/Template:Data_Udyr/Blazing_Stampede?oldid=4052353) |
+| Wingborne Storm | Active - Stance: Udyr enters Storm Stance, empowering his next two basic attacks on-hit to deal 10 – 40 (based on level) (+ 35% AP) magic damage to nearby enemies. | [4008208](https://wiki.leagueoflegends.com/en-us/Template:Data_Udyr/Wingborne_Storm?oldid=4008208) |
+| Wingborne Storm | (+ 35% AP) magic damage to nearby enemies | [4008208](https://wiki.leagueoflegends.com/en-us/Template:Data_Udyr/Wingborne_Storm?oldid=4008208) |
+| Wingborne Storm | effectRadius: 370 • 1300 | [4008208](https://wiki.leagueoflegends.com/en-us/Template:Data_Udyr/Wingborne_Storm?oldid=4008208) |
+| Wingborne Storm | Magic Damage per Tick: 10 / 18 / 26 / 34 / 42 / 50 (+ 17.5% AP) | [4008208](https://wiki.leagueoflegends.com/en-us/Template:Data_Udyr/Wingborne_Storm?oldid=4008208) |
+| Wingborne Storm | Slow: 15 / 18 / 21 / 24 / 27 / 30% | [4008208](https://wiki.leagueoflegends.com/en-us/Template:Data_Udyr/Wingborne_Storm?oldid=4008208) |
+| Wingborne Storm | summons a blizzard around himself for 4 seconds that deals magic damage every 0.5 seconds | [4008208](https://wiki.leagueoflegends.com/en-us/Template:Data_Udyr/Wingborne_Storm?oldid=4008208) |
+| Wingborne Storm | The storm applies the same effects as the blizzard but deals bonus magic damage equal to 1 – 1.75 (based on level)% (+ 0.4375% per 100 AP) of the target's maximum health per tick and slows by an additional 5%. | [4008208](https://wiki.leagueoflegends.com/en-us/Template:Data_Udyr/Wingborne_Storm?oldid=4008208) |
+| Wingborne Storm | (+ 0.4375% per 100 AP) of the target's maximum health per tick | [4008208](https://wiki.leagueoflegends.com/en-us/Template:Data_Udyr/Wingborne_Storm?oldid=4008208) |
+| Wingborne Storm | Increased Slow: 20 / 23 / 26 / 29 / 32 / 35% | [4008208](https://wiki.leagueoflegends.com/en-us/Template:Data_Udyr/Wingborne_Storm?oldid=4008208) |
+| Wingborne Storm | Storm Speed: 109.5 – 250 (based on level) | [4008208](https://wiki.leagueoflegends.com/en-us/Template:Data_Udyr/Wingborne_Storm?oldid=4008208) |
+| Wilding Claw | cooldown: 6 | [4049976](https://wiki.leagueoflegends.com/en-us/Template:Data_Udyr/Wilding_Claw?oldid=4049976) |
+| Wilding Claw | cost: 20 | [4049976](https://wiki.leagueoflegends.com/en-us/Template:Data_Udyr/Wilding_Claw?oldid=4049976) |
+| Wilding Claw | castTime: none | [4049976](https://wiki.leagueoflegends.com/en-us/Template:Data_Udyr/Wilding_Claw?oldid=4049976) |
+| Iron Mantle | cooldown: 6 | [4013279](https://wiki.leagueoflegends.com/en-us/Template:Data_Udyr/Iron_Mantle?oldid=4013279) |
+| Iron Mantle | cost: 40 – 23 (based on level) | [4013279](https://wiki.leagueoflegends.com/en-us/Template:Data_Udyr/Iron_Mantle?oldid=4013279) |
+| Iron Mantle | castTime: none | [4013279](https://wiki.leagueoflegends.com/en-us/Template:Data_Udyr/Iron_Mantle?oldid=4013279) |
+| Blazing Stampede | cooldown: 6 | [4052353](https://wiki.leagueoflegends.com/en-us/Template:Data_Udyr/Blazing_Stampede?oldid=4052353) |
+| Blazing Stampede | cost: 40 – 23 (based on level) | [4052353](https://wiki.leagueoflegends.com/en-us/Template:Data_Udyr/Blazing_Stampede?oldid=4052353) |
+| Blazing Stampede | castTime: none | [4052353](https://wiki.leagueoflegends.com/en-us/Template:Data_Udyr/Blazing_Stampede?oldid=4052353) |
+| Wingborne Storm | cooldown: 6 | [4008208](https://wiki.leagueoflegends.com/en-us/Template:Data_Udyr/Wingborne_Storm?oldid=4008208) |
+| Wingborne Storm | cost: 40 – 23 (based on level) | [4008208](https://wiki.leagueoflegends.com/en-us/Template:Data_Udyr/Wingborne_Storm?oldid=4008208) |
+| Wingborne Storm | castTime: none | [4008208](https://wiki.leagueoflegends.com/en-us/Template:Data_Udyr/Wingborne_Storm?oldid=4008208) |

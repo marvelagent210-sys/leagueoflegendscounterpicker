@@ -211,6 +211,11 @@
       "checked": 175,
       "missing": [],
       "fetchedAt": "2026-10-11T11:27:22.790Z"
+    },
+    "runePages": {
+      "pages": 5,
+      "missing": [],
+      "fetchedAt": "2026-10-11T22:13:20.014Z"
     }
   }
 }

@@ -1,7 +1,7 @@
 import { existsSync, readFileSync } from "node:fs";
 import path from "node:path";
 import { describe, expect, it } from "vitest";
-import type { AbilityRecord, PetRecord } from "../../engine/abilities";
+import type { AbilityRecord, PetRecord, RuneRecord } from "../../engine/abilities";
 import type { StatPrices } from "../../engine/budget";
 import type { ChampionDataset } from "../../engine/types";
 import { DEFAULT_APP_SETTINGS } from "../../web/src/settings";
@@ -30,6 +30,7 @@ const source: SimSource = {
   records: async (id) => read<AbilityRecord[]>(path.join("abilities", `${id}.json`)),
   prices: read<{ statPrices: StatPrices }>("rules.json").statPrices,
   pets: (id) => (existsSync(path.join(DIR, "pets", `${id}.json`)) ? read<PetRecord[]>(path.join("pets", `${id}.json`)) : []),
+  runes: read<RuneRecord[]>("runes.json"),
 };
 
 describe("matchups run in the browser", () => {

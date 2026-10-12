@@ -46,6 +46,23 @@ describe("fields", () => {
     expect(2000 - enemy.hp).toBe(25);
   });
 
+  it("move toward the enemy at their speed when they chase it", () => {
+    // A storm cast on the caster that moves to the enemy at 300/s (Wingborne Storm's Awakened storm).
+    const storm = ability({ key: "R", cooldown: 100, delivery: { kind: "field", range: 0, radius: 100, duration: 4, interval: 0.5, chase: 300 }, onHit: [trueDamage(10)] });
+    const world = createWorld({ fighters: [fighter({ abilities: [storm] }), fighter()], distance: 600, modes: ["idle", "idle"] });
+    const [self, enemy] = world.units;
+    const start = self.x;
+    step(world, [castWhenReady("R"), standStill]);
+    const zone = world.zones.find((z) => z.ability === "R");
+    expect(zone?.x).toBe(start);
+    for (let i = 0; i < 30; i++) step(world, [standStill, standStill]);
+    // A second later it has come 300 units, and it stops on the enemy.
+    expect(Math.abs((zone?.x ?? 0) - start)).toBeCloseTo(300, 6);
+    for (let i = 0; i < 60; i++) step(world, [standStill, standStill]);
+    expect(zone?.x).toBe(enemy.x);
+    expect(2000 - enemy.hp).toBeGreaterThan(0);
+  });
+
   it("count every pulse in the stat budget", () => {
     // 4 pulses of 10 every 100 s.
     expect(damagePerSecond(fighter({ abilities: [ground] }), fighter()).true).toBeCloseTo(0.4, 9);

@@ -1,5 +1,58 @@
 # Counters to Jayce (patch 26.20)
 
+## Simulated duels (full confidence)
+
+The duel simulator played each of the 44 other champions with a simulator kit against Jayce: both at level 20 with 15,000 gold of plain stats, each side's spent against the other's, through six scenarios (PLAN.md §6). Scores run from −1 (Jayce wins every time) to +1 (the champion does). Run `npm run duel -- <champion> Jayce --log brawl` to watch a fight.
+
+| # | Champion | Score | You engage | Enemy engages | Brawl | Short trade | Spacing | Escape |
+|--:|---|--:|--:|--:|--:|--:|--:|--:|
+| 1 | Fiora | +0.85 | +1.00 | +1.00 | +1.00 | +0.07 | – | +1.00 |
+| 2 | Kayle | +0.82 | +1.00 | +1.00 | +1.00 | +0.13 | +1.00 | +0.00 |
+| 3 | Poppy | +0.79 | +1.00 | +1.00 | +1.00 | +0.09 | – | +0.00 |
+| 4 | Udyr | +0.79 | +1.00 | +1.00 | +1.00 | −0.08 | +1.00 | +0.00 |
+| 5 | Camille | +0.79 | +1.00 | +1.00 | +1.00 | +0.05 | – | +0.00 |
+| 6 | Malphite | +0.78 | +1.00 | +1.00 | +1.00 | +0.02 | – | +0.00 |
+| 7 | Renekton | +0.78 | +1.00 | +1.00 | +1.00 | +0.02 | – | +0.00 |
+| 8 | Kled | +0.78 | +1.00 | +1.00 | +1.00 | −0.01 | – | +0.00 |
+| 9 | Aatrox | +0.77 | +1.00 | +1.00 | +1.00 | −0.02 | – | +0.00 |
+| 10 | Nasus | +0.77 | +1.00 | +1.00 | +1.00 | −0.19 | +1.00 | +0.00 |
+| 11 | Darius | +0.77 | +1.00 | +1.00 | +1.00 | −0.04 | – | +0.00 |
+| 12 | K'Sante | +0.77 | +1.00 | +1.00 | +1.00 | −0.04 | – | +0.00 |
+| 13 | Tryndamere | +0.77 | +1.00 | +1.00 | +1.00 | −0.06 | – | +0.00 |
+| 14 | Zaahen | +0.77 | +1.00 | +1.00 | +1.00 | −0.07 | – | +0.00 |
+| 15 | Dr. Mundo | +0.76 | +1.00 | +1.00 | +1.00 | −0.09 | – | +0.00 |
+| 16 | Trundle | +0.76 | +1.00 | +1.00 | +1.00 | −0.26 | +1.00 | +0.00 |
+| 17 | Mordekaiser | +0.76 | +1.00 | +1.00 | +1.00 | −0.12 | – | +0.00 |
+| 18 | Gwen | +0.76 | +1.00 | +0.99 | +0.96 | −0.05 | – | +0.00 |
+| 19 | Volibear | +0.72 | +1.00 | +1.00 | +1.00 | −0.32 | – | +0.00 |
+| 20 | Teemo | +0.60 | +1.00 | +1.00 | +0.00 | +0.03 | +1.00 | +0.00 |
+| 21 | Jax | +0.60 | +1.00 | +1.00 | +1.00 | +0.03 | −1.00 | +0.00 |
+| 22 | Yone | +0.56 | +1.00 | +1.00 | +0.09 | −0.10 | – | +0.00 |
+| 23 | Cho'Gath | +0.54 | +1.00 | +1.00 | +0.00 | −0.07 | – | +0.00 |
+| 24 | Urgot | +0.48 | +1.00 | +1.00 | +0.42 | +0.01 | −1.00 | +0.00 |
+| 25 | Irelia | +0.32 | +1.00 | +1.00 | −0.97 | −0.10 | – | +0.00 |
+| 26 | Olaf | +0.18 | +1.00 | +1.00 | −0.90 | −0.25 | −1.00 | +0.00 |
+| 27 | Sion | −0.01 | +0.00 | +0.00 | +0.00 | −0.03 | – | +0.00 |
+| 28 | Tahm Kench | −0.02 | −0.02 | −0.04 | +0.03 | −0.04 | – | +0.00 |
+| 29 | Garen | −0.04 | −1.00 | +1.00 | +0.00 | −0.24 | – | +0.00 |
+| 30 | Gnar | −0.05 | +0.34 | +0.34 | −0.61 | +0.00 | −1.00 | +0.00 |
+| 31 | Ornn | −0.14 | −0.16 | −0.16 | −0.20 | −0.04 | – | +0.00 |
+| 32 | Riven | −0.19 | −1.00 | −0.30 | +0.95 | −0.27 | – | +0.00 |
+| 33 | Skarner | −0.20 | +0.02 | +0.01 | −1.00 | +0.06 | – | +0.00 |
+| 34 | Ambessa | −0.23 | −1.00 | +1.00 | −1.00 | −0.06 | – | +0.00 |
+| 35 | Shen | −0.28 | +0.03 | −1.00 | −0.03 | −0.01 | – | +0.00 |
+| 36 | Rumble | −0.42 | −0.94 | +0.32 | −1.00 | −0.17 | – | +0.00 |
+| 37 | Quinn | −0.44 | −0.46 | −0.53 | −1.00 | +0.01 | +0.03 | +0.00 |
+| 38 | Yasuo | −0.45 | +0.23 | −1.00 | −1.00 | −0.07 | – | +0.00 |
+| 39 | Pantheon | −0.56 | −1.00 | −1.00 | +0.00 | +0.00 | – | +0.00 |
+| 40 | Aurora | −0.60 | −1.00 | −1.00 | −1.00 | +0.02 | +1.00 | +0.00 |
+| 41 | Kennen | −0.64 | −1.00 | −1.00 | −1.00 | +0.01 | +0.61 | +0.00 |
+| 42 | Sett | −0.68 | −1.00 | −1.00 | −0.52 | −0.05 | – | +0.00 |
+| 43 | Akali | −0.82 | −1.00 | −1.00 | −1.00 | −0.28 | – | +0.00 |
+| 44 | Singed | −0.83 | −1.00 | −1.00 | −1.00 | −0.31 | – | +0.00 |
+
+## Interaction ledger (partial confidence)
+
 Every champion ranked by what its kit does against Jayce's, from the interaction ledger: projectile blocks, spell shields,
 parries, dash stops, crowd control and its defenses, range and more (PLAN.md §5). This ranking is **partial**: it weighs the
 interactions but doesn't play the fight out. The duel simulator replaces it as each champion's behavior is verified.
@@ -8,67 +61,67 @@ interactions but doesn't play the fight out. The duel simulator replaces it as e
 A hard counter shuts down part of a kit every time it is used (projectile block, attack dodge, attack block, blind, disarm, attack speed slow, attack reflect, dash stop, grounding, range) with an impact of 0.4 or more (0.5 for range).
 Run `npm run matchup -- <champion> Jayce` for the full ledger of a matchup, with sources.
 
-## Top 10
+### Top 10
 
-### 1. Sivir (net +0.69)
+#### 1. Sivir (net +0.69)
 
 - **0.51** spell shield: Spell Shield's spell shield blocks Jayce's Thundering Blow. Spell shield for 1.5 s, long enough to use ahead of Thundering Blow. A spell shield blocks only the first enemy ability that reaches it. (Sivir E Spell Shield → Jayce E Thundering Blow)
 - **0.36** spell shield: Spell Shield's spell shield blocks Jayce's To the Skies!. Spell shield for 1.5 s, long enough to use ahead of To the Skies!. A spell shield blocks only the first enemy ability that reaches it. (Sivir E Spell Shield → Jayce Q To the Skies!)
 
-### 2. Vladimir (net +0.65)
+#### 2. Vladimir (net +0.65)
 
 - **0.54** untargetable: Sanguine Pool makes Vladimir untargetable, dodging Jayce's Thundering Blow. Untargetable for 2 s, long enough to use ahead of Thundering Blow. (Vladimir W Sanguine Pool → Jayce E Thundering Blow)
 - **0.38** untargetable: Sanguine Pool makes Vladimir untargetable, dodging Jayce's To the Skies!. Untargetable for 2 s, long enough to use ahead of To the Skies!. (Vladimir W Sanguine Pool → Jayce Q To the Skies!)
 - Watch out: Thundering Blow's airborne interrupts Vladimir's Tides of Blood (charge-up).
 
-### 3. Elise (net +0.62)
+#### 3. Elise (net +0.62)
 
 - **0.51** untargetable: Rappel makes Elise untargetable, dodging Jayce's Thundering Blow. Untargetable for 0.6 s; Thundering Blow takes 0.25 s to land, enough to react. (Elise E Rappel → Jayce E Thundering Blow)
 - **0.22** untargetable: Rappel makes Elise untargetable, dodging Jayce's To the Skies!. Untargetable for 0.6 s; To the Skies! lands within 0 s, faster than a 0.25 s reaction, so it needs prediction. (Elise E Rappel → Jayce Q To the Skies!)
 
-### 4. Nocturne (net +0.61)
+#### 4. Nocturne (net +0.61)
 
 - **0.63** spell shield: Shroud of Darkness's spell shield blocks Jayce's Thundering Blow. Spell shield for 1.5 s, long enough to use ahead of Thundering Blow. A spell shield blocks only the first enemy ability that reaches it. (Nocturne W Shroud of Darkness → Jayce E Thundering Blow)
 - **0.42** spell shield: Shroud of Darkness's spell shield blocks Jayce's To the Skies!. Spell shield for 1.5 s, long enough to use ahead of To the Skies!. A spell shield blocks only the first enemy ability that reaches it. (Nocturne W Shroud of Darkness → Jayce Q To the Skies!)
 - **0.07** cc immunity: Paranoia is displacement immune, ignoring Jayce's Thundering Blow (airborne) during it. Only during Paranoia. (Nocturne R Paranoia → Jayce E Thundering Blow)
 - Watch out: Jayce's basic attacks reach 375 units farther than Nocturne's (500 vs 125 attack range).
 
-### 5. Morgana (net +0.59)
+#### 5. Morgana (net +0.59)
 
 - **0.54** cc immunity: Black Shield makes Morgana immune to Jayce's Thundering Blow (airborne, root). Immune for 5 s, long enough to use ahead of Thundering Blow. (Morgana E Black Shield → Jayce E Thundering Blow)
 - **0.09** cc immunity: Black Shield makes Morgana immune to Jayce's To the Skies! (slow). Immune for 5 s, long enough to use ahead of To the Skies!. (Morgana E Black Shield → Jayce Q To the Skies!)
 
-### 6. Maokai (net +0.54)
+#### 6. Maokai (net +0.54)
 
 - **0.70** untargetable: Twisted Advance makes Maokai untargetable, dodging Jayce's Thundering Blow. Untargetable for 1.4 s; Thundering Blow takes 0.25 s to land, enough to react. (Maokai W Twisted Advance → Jayce E Thundering Blow)
 - **0.27** untargetable: Twisted Advance makes Maokai untargetable, dodging Jayce's To the Skies!. Untargetable for 1.4 s; To the Skies! lands within 0 s, faster than a 0.25 s reaction, so it needs prediction. (Maokai W Twisted Advance → Jayce Q To the Skies!)
 - Watch out: Jayce's basic attacks reach 375 units farther than Maokai's (500 vs 125 attack range).
 
-### 7. Lissandra (net +0.50)
+#### 7. Lissandra (net +0.50)
 
 - **0.33** untargetable: Frozen Tomb makes Lissandra untargetable, dodging Jayce's Thundering Blow. Untargetable for 2.5 s, long enough to use ahead of Thundering Blow. (Lissandra R Frozen Tomb → Jayce E Thundering Blow)
 - **0.27** untargetable: Frozen Tomb makes Lissandra untargetable, dodging Jayce's To the Skies!. Untargetable for 2.5 s, long enough to use ahead of To the Skies!. (Lissandra R Frozen Tomb → Jayce Q To the Skies!)
 - **0.13** dash stop: Frozen Tomb's knockdown can stop Jayce's To the Skies! mid-dash. Must land during the dash. Fails if the dashing unit is crowd control immune, displacement immune, untargetable or spell shielded. (Lissandra R Frozen Tomb → Jayce Q To the Skies!)
 
-### 8. Fiora (net +0.49)
+#### 8. Fiora (net +0.49)
 
 - **0.64** parry: Riposte parries Jayce's Thundering Blow and stuns back. Parry for 0.75 s; Thundering Blow takes 0.25 s to land, enough to react. Negating Thundering Blow's immobilizing effect turns Riposte's slow into a stun (2 s). (Fiora W Riposte → Jayce E Thundering Blow)
 - **0.22** parry: Riposte parries Jayce's To the Skies!. Parry for 0.75 s; To the Skies! lands within 0 s, faster than a 0.25 s reaction, so it needs prediction. (Fiora W Riposte → Jayce Q To the Skies!)
 - **0.08** attack speed slow: Riposte cuts Jayce's attack speed by 25% for 2 s. 2 s on a 16 s cooldown. (Fiora W Riposte → Jayce basic attacks)
 - Watch out: Jayce's basic attacks reach 350 units farther than Fiora's (500 vs 150 attack range).
 
-### 9. Udyr (net +0.47)
+#### 9. Udyr (net +0.47)
 
 - **0.70** cc immunity: Blazing Stampede makes Udyr immune to Jayce's Thundering Blow (airborne, root). Immune for 1.5 s, long enough to use ahead of Thundering Blow. (Udyr E Blazing Stampede → Jayce E Thundering Blow)
 - **0.15** cc immunity: Blazing Stampede makes Udyr immune to Jayce's To the Skies! (slow). Immune for 1.5 s, long enough to use ahead of To the Skies!. (Udyr E Blazing Stampede → Jayce Q To the Skies!)
 - Watch out: Jayce's basic attacks reach 375 units farther than Udyr's (500 vs 125 attack range).
 
-### 10. Bard (net +0.47)
+#### 10. Bard (net +0.47)
 
 - **0.33** untargetable: Tempered Fate makes Bard untargetable, dodging Jayce's Thundering Blow. Untargetable for 2.5 s, long enough to use ahead of Thundering Blow. (Bard R Tempered Fate → Jayce E Thundering Blow)
 - **0.27** untargetable: Tempered Fate makes Bard untargetable, dodging Jayce's To the Skies!. Untargetable for 2.5 s, long enough to use ahead of To the Skies!. (Bard R Tempered Fate → Jayce Q To the Skies!)
 
-## Full ranking
+### Full ranking
 
 | # | Champion | Net | For | Against | Hard counters |
 |--:|---|--:|--:|--:|---|

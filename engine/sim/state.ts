@@ -194,6 +194,8 @@ export interface Zone {
   nextTick?: number;
   /** Fields that move with their owner, centered `offset` units toward the enemy. */
   attached?: { offset: number };
+  /** Fields that move toward the enemy, this many units a tick. */
+  chase?: number;
   /** Fields: effects on the owner while its center is inside. */
   onOwner?: Effect[];
 }

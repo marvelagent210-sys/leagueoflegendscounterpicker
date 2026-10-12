@@ -288,8 +288,9 @@ export type Delivery =
    * `attached` (its center `offset` units toward the enemy, moving with the caster). It lands
    * after `delay`, lasts `duration` seconds, and every `interval` seconds applies the ability's
    * `onHit` to the enemy if its hitbox is inside and `onOwner` to the caster if its center is.
+   * `chase`: a field that moves toward the enemy at this speed (Wingborne Storm's awakened storm).
    */
-  | { kind: "field"; range: number; radius: number; duration: number; interval: number; delay?: number; attached?: boolean; offset?: number; onOwner?: Effect[] };
+  | { kind: "field"; range: number; radius: number; duration: number; interval: number; delay?: number; attached?: boolean; offset?: number; onOwner?: Effect[]; chase?: number };
 
 export interface ChannelSpec {
   duration: number;
