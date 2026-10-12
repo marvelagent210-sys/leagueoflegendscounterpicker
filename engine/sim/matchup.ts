@@ -24,9 +24,15 @@ export interface KitVariant {
   options?: Record<string, number>;
 }
 
+/** The kit options a side played: 0 is you, 1 the enemy. */
+export interface MatchupVariant {
+  side: 0 | 1;
+  options: Record<string, number>;
+}
+
 export interface BestMatchup extends SimulatedMatchup {
-  /** The variant chosen, when a side had several: whose (0 you, 1 the enemy) and its options. */
-  variant?: { side: 0 | 1; options: Record<string, number> };
+  /** The variants chosen, one for each side that had several (both, Heimerdinger against Udyr). */
+  variants?: MatchupVariant[];
 }
 
 /**
@@ -39,12 +45,13 @@ export function bestMatchup(you: KitVariant[], enemy: KitVariant[], gold: number
     let worst: BestMatchup | undefined;
     for (const theirs of enemy) {
       const result: BestMatchup = simulateMatchup(mine.spec, theirs.spec, gold, prices, options);
-      if (enemy.length > 1 && theirs.options) result.variant = { side: 1, options: theirs.options };
+      const chosen: MatchupVariant[] = [];
+      if (you.length > 1 && mine.options) chosen.push({ side: 0, options: mine.options });
+      if (enemy.length > 1 && theirs.options) chosen.push({ side: 1, options: theirs.options });
+      if (chosen.length > 0) result.variants = chosen;
       if (!worst || result.score < worst.score) worst = result;
     }
-    if (!worst) continue;
-    if (you.length > 1 && mine.options) worst.variant = { side: 0, options: mine.options };
-    if (!best || worst.score > best.score) best = worst;
+    if (worst && (!best || worst.score > best.score)) best = worst;
   }
   if (!best) throw new Error("bestMatchup: a side has no kit");
   return best;

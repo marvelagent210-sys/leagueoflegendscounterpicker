@@ -5,6 +5,7 @@
 import { availableParallelism } from "node:os";
 import { Worker } from "node:worker_threads";
 import type { BudgetStat } from "../../engine/budget";
+import type { MatchupVariant } from "../../engine/sim/matchup";
 
 export interface PoolTask {
   dataset: string;
@@ -20,8 +21,8 @@ export interface PairResult {
   scenarios: Array<number | null>;
   /** Gold each side spent on each stat: you, then the enemy. */
   spent: [Record<BudgetStat, number>, Record<BudgetStat, number>];
-  /** The kit variant a side played when it had several (Udyr's rank split): whose, and its options. */
-  variant?: { side: 0 | 1; options: Record<string, number> };
+  /** The kit variants played by the sides that had several (Udyr's rank split): whose, and its options. */
+  variants?: MatchupVariant[];
 }
 
 export async function simulatePairs(dataset: string, gold: number, pairs: Array<[string, string]>, threads = availableParallelism()): Promise<PairResult[]> {

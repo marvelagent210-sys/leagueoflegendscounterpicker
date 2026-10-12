@@ -172,7 +172,8 @@ export type Effect =
    */
   | { type: "state"; state: StateType; duration: number; value?: number; charges?: number; effects?: Effect[] }
   | { type: "stat"; stat: BuffStat; amount: Formula; duration: number }
-  | { type: "dot"; damageType: DamageType; total: Formula; duration: number; interval: number; label?: string }
+  /** `stacks`: a new application runs alongside the old one instead of refreshing it (Trial by Fire). */
+  | { type: "dot"; damageType: DamageType; total: Formula; duration: number; interval: number; label?: string; stacks?: boolean }
   | { type: "grievousWounds"; duration: number }
   /** Removes the listed crowd control types from the caster, or every type when none are listed. */
   /** `sticky`: also removes non-dispellable crowd control, as cleanses that grant immunity do (Ragnarok). */
@@ -289,8 +290,21 @@ export type Delivery =
    * after `delay`, lasts `duration` seconds, and every `interval` seconds applies the ability's
    * `onHit` to the enemy if its hitbox is inside and `onOwner` to the caster if its center is.
    * `chase`: a field that moves toward the enemy at this speed (Wingborne Storm's awakened storm).
+   * `burst`: each pulse is `count` hits `gap` seconds apart (Cannon Barrage's clusters of waves).
    */
-  | { kind: "field"; range: number; radius: number; duration: number; interval: number; delay?: number; attached?: boolean; offset?: number; onOwner?: Effect[]; chase?: number };
+  | {
+      kind: "field";
+      range: number;
+      radius: number;
+      duration: number;
+      interval: number;
+      delay?: number;
+      attached?: boolean;
+      offset?: number;
+      onOwner?: Effect[];
+      chase?: number;
+      burst?: { count: number; gap: number };
+    };
 
 export interface ChannelSpec {
   duration: number;
@@ -341,6 +355,8 @@ export interface PetSpec {
   mr: number;
   /** Takes 1 damage from each champion basic attack and nothing else (Tentacles, Powder Kegs). */
   hitPoints?: boolean;
+  /** Damage taken from area abilities, as a multiplier (Mist Walkers' 40% at level 20); default 1. */
+  areaTaken?: number;
   /** Damage taken from melee champions' basic attacks, as a multiplier (turrets 1.4, Mist Walkers 2). */
   meleeAttackTaken?: number;
   radius: number;

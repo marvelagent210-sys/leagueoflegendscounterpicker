@@ -12,7 +12,7 @@ import { terrainLimit } from "./terrain";
 import { hitChance } from "./hitModel";
 import { type AbilitySpec, type AttackSplit, type Effect, cooldownKeyOf } from "./spec";
 import { type Action, type Aim, type Missile, type Pet, type Side, type Status, type Unit, type World, type Zone, other } from "./state";
-import { canAttackPet, damagePet, petDistance } from "./pets";
+import { areaOnPets, canAttackPet, damagePet, petDistance } from "./pets";
 import { averageCritFactor } from "../rules/defense";
 
 export const EPSILON = 1e-6;
@@ -606,6 +606,7 @@ function completeOneCast(world: World, unit: Unit, ability: AbilitySpec, castSta
       break;
     case "aura":
       if (centerDistance <= delivery.radius + EPSILON) abilityHit(world, unit, enemy, ability, onHit);
+      areaOnPets(world, unit, unit.x - delivery.radius, unit.x + delivery.radius, onHit);
       break;
     case "target":
       if (!enemy.alive || isUntargetable(enemy, unit)) break;
@@ -751,6 +752,7 @@ function completeOneCast(world: World, unit: Unit, ability: AbilitySpec, castSta
         nextTick: start,
         ...(delivery.attached ? { attached: { offset: delivery.offset ?? 0 } } : {}),
         ...(delivery.chase ? { chase: delivery.chase / 30 } : {}),
+        ...(delivery.burst ? { burst: { count: delivery.burst.count, gap: Math.max(1, toTicks(delivery.burst.gap)), index: 0 } } : {}),
         ...(delivery.onOwner ? { onOwner: delivery.onOwner } : {}),
       });
       // A field that lands at once pulses with the zones this tick.
@@ -920,13 +922,19 @@ export function progressChannel(world: World, unit: Unit): void {
   }
   const enemy = world.units[other(unit.side)];
   const inRange = channel.range === undefined || Math.abs(unit.x - enemy.x) - enemy.spec.base.radius <= channel.range + EPSILON;
+  // Pulses with a reach around the caster hit the enemy's pets in it too.
+  const onPets = (effects: Effect[]) => {
+    if (channel.range !== undefined) areaOnPets(world, unit, unit.x - channel.range, unit.x + channel.range, effects);
+  };
   if (world.tick >= action.nextTick && world.tick <= action.endTick) {
     if (inRange && channel.onTick) abilityHit(world, unit, enemy, ability, channel.onTick);
+    if (channel.onTick) onPets(channel.onTick);
     action.nextTick += action.intervalTicks;
   }
   if (world.tick >= action.endTick) {
     unit.action = undefined;
     if (inRange && channel.onComplete) abilityHit(world, unit, enemy, ability, channel.onComplete);
+    if (channel.onComplete) onPets(channel.onComplete);
     for (const effect of channel.onCompleteSelf ?? []) applyEffect(world, unit, unit, effect, { ability, scale: 1 });
   }
 }
@@ -952,11 +960,16 @@ function pulseField(world: World, zone: Zone, owner: Unit, target: Unit): void {
     zone.x += Math.sign(gap) * Math.min(Math.abs(gap), zone.chase);
   }
   if (zone.nextTick === undefined || world.tick < zone.nextTick) return;
-  zone.nextTick += zone.interval ?? 1;
+  if (zone.burst) {
+    // The hits of a cluster `gap` apart; the next cluster `interval` after this one began.
+    zone.burst.index = (zone.burst.index + 1) % zone.burst.count;
+    zone.nextTick += zone.burst.index === 0 ? Math.max(1, (zone.interval ?? 1) - (zone.burst.count - 1) * zone.burst.gap) : zone.burst.gap;
+  } else zone.nextTick += zone.interval ?? 1;
   const ability = abilityOf(owner, zone.ability);
   if (ability && zone.onHit?.length && target.alive && Math.abs(target.x - zone.x) <= zone.radius + target.spec.base.radius + EPSILON) {
     abilityHit(world, owner, target, ability, zone.onHit, zone.scale ?? 1);
   }
+  if (ability && zone.onHit?.length && !zone.noPets) areaOnPets(world, owner, zone.x - zone.radius, zone.x + zone.radius, zone.onHit);
   if (zone.onOwner?.length && Math.abs(owner.x - zone.x) <= zone.radius + EPSILON) {
     for (const effect of zone.onOwner) applyEffect(world, owner, owner, effect, { scale: 1, ...(ability ? { ability } : {}) });
   }
@@ -1033,6 +1046,8 @@ export function advanceZones(world: World): void {
       const inside = Math.abs(target.x - x) <= radius + (zone.centered ? 0 : target.spec.base.radius) + EPSILON;
       const band = bands?.find((b) => target.x >= Math.min(b.from, b.to) - EPSILON && target.x <= Math.max(b.from, b.to) + EPSILON);
       if (ability && zone.connects && inside) abilityHit(world, owner, target, ability, band?.onHit ?? zone.onHit ?? [], zone.scale ?? 1);
+      // Pets in it take the hit too, unless it is a line (an instant one the fight split on) or its kit handles them.
+      if (ability && ability.delivery.kind !== "line" && !zone.noPets && owner.alive) areaOnPets(world, owner, x - radius, x + radius, zone.onHit ?? []);
       continue;
     }
     if (world.tick < zone.endTick) keep.push(zone);

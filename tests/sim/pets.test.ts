@@ -4,8 +4,8 @@ import { createWorld, step } from "../../engine/sim/simulate";
 import { defaultBehavior } from "../../engine/sim/behavior";
 import type { PetSpec } from "../../engine/sim/spec";
 import type { World } from "../../engine/sim/state";
-import { idle, lasting, standStill, ticksOf } from "./helpers";
-import { fighter, RANGED } from "./kits";
+import { castWhenReady, idle, lasting, standStill, ticksOf } from "./helpers";
+import { ability, fighter, RANGED } from "./kits";
 
 const turret = (overrides: Partial<PetSpec> = {}): PetSpec => ({
   kind: "turret",
@@ -116,6 +116,18 @@ describe("pets", () => {
     expect(walker.x - owner.x).toBeCloseTo(1190, 6);
     for (let i = 0; i < 30; i++) step(w, [idle, standStill]);
     expect(walker.x - owner.x).toBeCloseTo(1000, 6);
+  });
+
+  it("take area abilities' damage by their share, unless they count hits or stand outside", () => {
+    const blast = ability({ key: "Q", cooldown: 100, delivery: { kind: "aura", radius: 300 }, onHit: [{ type: "damage", damageType: "true", amount: { base: 100 } }] });
+    const w = createWorld({ fighters: [fighter({ abilities: [blast] }), fighter()], distance: 1000, modes: ["idle", "idle"] });
+    const [caster, enemy] = w.units;
+    const walker = spawnPet(w, enemy, turret({ areaTaken: 0.4 }), caster.x + 200);
+    const keg = spawnPet(w, enemy, turret({ hitPoints: true, hp: 3 }), caster.x + 100);
+    const far = spawnPet(w, enemy, turret(), caster.x + 600);
+    const own = spawnPet(w, caster, turret(), caster.x + 50);
+    for (let i = 0; i < 2; i++) step(w, [castWhenReady("Q"), standStill]);
+    expect([walker.hp, keg.hp, far.hp, own.hp]).toEqual([500 - 40, 3, 500, 500]);
   });
 
   it("expire, and vanish with their owner", () => {

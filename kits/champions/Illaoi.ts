@@ -12,7 +12,7 @@ import { derive, evaluate } from "../../engine/sim/derived";
 import { damagePet, spawnPet } from "../../engine/sim/pets";
 import type { AbilitySpec, Effect, Formula, HookContext, PetSpec } from "../../engine/sim/spec";
 import type { Pet, Unit, World } from "../../engine/sim/state";
-import { flat, maxHp, ticks } from "./util";
+import { flat, maxHp, scaled, ticks } from "./util";
 
 const TENTACLE = "tentacle";
 const SPIRIT = "spirit";
@@ -74,7 +74,7 @@ const illaoi: KitModule = {
     tentacle.quote("Its attacks get queued up if it receives more than one attack command");
 
     // Tentacle Smash: a 0.75 s cast, then a slam 802.75 forward, 200 wide.
-    const smashReach = q.fieldValues("range")[1] ?? 802.75;
+    const [smashBehind = 52.75, smashReach = 802.75] = q.fieldValues("range");
     const smashWidth = q.field("width");
     q.quote("Illaoi slams down a Tentacle in the target direction");
 
@@ -213,9 +213,22 @@ const illaoi: KitModule = {
         onHit: slamEffects,
         connects: chance > 0.02,
         scale: chance >= 0.98 ? 1 : chance,
+        // The Spirit in its way is the kit's (landSlams).
+        noPets: true,
       });
       pet.memory.busyUntil = world.tick + ticks(windup) + (fast ? ticks(fastLock) : 0);
       ctx.log(`${tentacle.name} slams at ${at === "s" && spirit ? "the Spirit" : "the enemy"}`);
+    };
+
+    /** A slam on the Spirit, with its own falloff (the last two slams it took within the window); Illaoi heals for it. */
+    const slamSpirit = (ctx: HookContext, spirit: Pet) => {
+      const window = ticks(falloff.window);
+      const recent = [spirit.memory.hitA, spirit.memory.hitB].filter((t) => t !== undefined && ctx.tick - Number(t) < window).length;
+      const share = Math.max(falloff.floor, 1 - falloff.per * recent);
+      spirit.memory.hitB = spirit.memory.hitA ?? -1e9;
+      spirit.memory.hitA = ctx.tick;
+      damagePet(ctx.world, ctx.self, spirit, evaluate(slam, ctx.self, ctx.enemy) * share, "physical", false);
+      ctx.apply(slamHeal, true);
     };
 
     /** Slams landing this tick: a Spirit in the way takes the slam (and Illaoi heals for it); the champion's hit lands with the zone. */
@@ -226,14 +239,7 @@ const illaoi: KitModule = {
       for (const zone of world.zones) {
         if (zone.owner !== self.side || zone.ability !== slamSpec.key || zone.endTick > ctx.tick) continue;
         if (Math.abs(spirit.x - zone.x) > zone.radius + spirit.spec.radius) continue;
-        // Its own falloff: the last two slams it took within the window.
-        const window = ticks(falloff.window);
-        const recent = [spirit.memory.hitA, spirit.memory.hitB].filter((t) => t !== undefined && ctx.tick - Number(t) < window).length;
-        const share = Math.max(falloff.floor, 1 - falloff.per * recent);
-        spirit.memory.hitB = spirit.memory.hitA ?? -1e9;
-        spirit.memory.hitA = ctx.tick;
-        damagePet(world, self, spirit, evaluate(slam, self, enemy) * share, "physical", false);
-        ctx.apply(slamHeal, true);
+        slamSpirit(ctx, spirit);
         // Healed already: the champion's hit only damages.
         zone.onHit = [slamHit];
       }
@@ -298,7 +304,8 @@ const illaoi: KitModule = {
         cost: q.cost(),
         castTime: q.castTime(),
         delivery: { kind: "line", range: smashReach, width: smashWidth },
-        onHit: slamEffects,
+        // Its heal is the hooks': once, from the Spirit or the champion.
+        onHit: [slamHit],
         falloff,
         flags: { spellShield: q.flag("spellShield") ?? true, projectile: false },
         usable: (unit, world) => !locked(unit, world),
@@ -435,6 +442,15 @@ const illaoi: KitModule = {
         },
         onCast(ctx) {
           const key = ctx.ability.key;
+          if (key === "Q") {
+            // Tentacle Smash's slam lands on a Spirit in its stretch, 52.75 behind her to 802.75 ahead.
+            const spirit = spiritOf(ctx.world, ctx.enemy);
+            const ahead = spirit ? (spirit.x - ctx.self.x) * directionTo(ctx.self, ctx.enemy) : 0;
+            if (spirit && ahead >= -smashBehind - spirit.spec.radius && ahead <= smashReach + spirit.spec.radius) {
+              slamSpirit(ctx, spirit);
+              ctx.memory.smashHealed = ctx.tick;
+            }
+          }
           if (key === "E") {
             // Unable to act while the tendril flies (to its full range unless it hits).
             lock(ctx, tendrilRange / tendrilSpeed);
@@ -449,6 +465,8 @@ const illaoi: KitModule = {
           }
         },
         onAbilityHit(ctx) {
+          // Tentacle Smash heals once: here for the champion, unless its slam already hit the Spirit.
+          if (ctx.ability.key === "Q" && Number(ctx.memory.smashHealed ?? -1) !== ctx.tick) ctx.apply({ ...slamHeal, amount: scaled(slamHeal.amount, ctx.scale) }, true);
           if (ctx.ability.key !== "E" || ctx.scale < 0.5) return;
           // The pull: unable to act for 0.75 s, then the Spirit stands before her; the tether's 7 s run from the hit.
           lock(ctx, pullSeconds);

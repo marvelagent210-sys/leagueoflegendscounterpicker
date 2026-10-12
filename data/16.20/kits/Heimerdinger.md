@@ -269,3 +269,108 @@ All 6 level-based formulas in the game files (0 linked to wiki values above):
 | HeimerdingerQ | TurretHealth | breakpoints at levels 10 (level 1: 0.05) | 0.05 | 0.45 | 0.53 |
 | HeimerdingerQ | {f0517331} | breakpoints at levels 6, 8, 10, 14 (level 1: 0) | 0 | 80 | 100 |
 | HeimerdingerQ | {8109ae7b} | breakpoints at levels 8, 10, 12, 18 (level 1: 0) | 0 | 41 | 61 |
+
+## Duel simulator kit (level 20, every ability at max rank)
+
+What the duel simulator fights with (`kits/champions/Heimerdinger.ts`): every number is read from the wiki's ability data above at level 20; what the wiki doesn't say is listed under assumptions. Ratios are fractions of the stat (60% AD is 0.6 × AD).
+
+- Basic attack: range 550, missile at 1500/s.
+- Options: turrets = 3, upgrade = 0.
+
+| Key | Ability | Cooldown (s) | Cast time (s) | Cost | Delivery | On the enemy | On itself |
+|---|---|--:|--:|---|---|---|---|
+| Q | H-28G Evolution Turret | 3 charges, one every 20 s (1 s between casts) | 0.25 | 20 | self | – | – |
+| W | Hextech Micro-Rockets | 7 | 0.25 | 90 | skillshot 1150 long, 200 wide, at 750/s | 270 + 103% AP magic damage (Hextech Micro-Rockets) | – |
+| E | CH-2 Electron Storm Grenade | 11 | 0.25 | 85 | circle of 250 radius up to 925 away, lands after 0.771 s | 220 + 60% AP magic damage (CH-2 Electron Storm Grenade); slow 35% for 2 s | – |
+| R | UPGRADE!!! | 70 | 0 | 100 | self | – | – |
+| RQ | H-28Q Apex Turret | 1 | 0.25 | – | self | – | – |
+| RW | Hextech Rocket Swarm | 7 | 0.25 | – | skillshot 1150 long, 200 wide, at 750/s | 892 + 183% AP magic damage (Hextech Rocket Swarm) | – |
+| RE | CH-3X Lightning Grenade | 11 | 0.25 | – | circle of 300 radius up to 925 away, lands after 0.771 s | 300 + 60% AP magic damage (CH-3X Lightning Grenade); slow 35% for 2 s | – |
+| BEAM | Turret beam | 0 | 0 | – | area 0 to 1000 units ahead, lands after 0.425 s | 120 + 55% AP magic damage (Turret beam) | – |
+| APEXBEAM | Apex beam | 0 | 0 | – | area 0 to 1000 units ahead, lands after 0.425 s | 180 + 70% AP magic damage (Apex beam) | – |
+
+Effects marked by a mark or a role are completed by the kit's hooks (see the kit's source).
+
+### Assumptions
+
+- H-28G Evolution Turrets standing by Heimerdinger when a fight starts (0 to 3): 3.
+- UPGRADE!!! empowers: 0 the best for each matchup, 1 the turret, 2 the rockets, 3 the grenade: 0.
+- With the lane set up, 3 H-28G Evolution Turrets stand by Heimerdinger when the fight starts, uncharged, and his 3 kits are full again.
+- Turrets shoot 1.75 times a second (the wiki; the game files give the turret 1.25 before its scripts), and their shots land at once; they don't switch off when Heimerdinger is far.
+- A beam winds up for 0.425 s and flies 1000 units at about 1400 a second, 50 wide (the game files; the wiki says "a short wind-up"): the enemy can step out of its way unless held in place.
+- Hextech Micro-Rockets fly as one 200-wide volley at 750 a second (the game files): when it lands, all five rockets hit, and the swarm's twenty likewise.
+- The grenades land 0.771 s after their cast (their flight to full range); the Lightning Grenade's bounces past the first landing are left out.
+- UPGRADE!!! empowers his rockets (Hextech Rocket Swarm).
+- Heimerdinger deploys a turret toward the enemy (within 350 units of him) while fewer than three reach it, and casts UPGRADE!!! in a fight just before the ability it empowers.
+
+### Wiki values read (67)
+
+| Ability | Value | Revision |
+|---|---|---|
+| Hextech Affinity | Heimerdinger gains 20% bonus movement speed while near an allied turret | [3428651](https://wiki.leagueoflegends.com/en-us/Template:Data_Heimerdinger/Hextech_Affinity?oldid=3428651) |
+| Hextech Affinity | effectRadius: 300 | [3428651](https://wiki.leagueoflegends.com/en-us/Template:Data_Heimerdinger/Hextech_Affinity?oldid=3428651) |
+| H-28G Evolution Turret | Heimerdinger periodically stocks a Turret Kit charge, up to a maximum of 3 | [4036534](https://wiki.leagueoflegends.com/en-us/Template:Data_Heimerdinger/H-28G_Evolution_Turret?oldid=4036534) |
+| H-28G Evolution Turret | Up to 3 H-28G Evolution Turrets can be deployed at a time, with those deployed beyond the maximum destroying the oldest one | [4036534](https://wiki.leagueoflegends.com/en-us/Template:Data_Heimerdinger/H-28G_Evolution_Turret?oldid=4036534) |
+| H-28G Evolution Turret | targetRange: 350 | [4036534](https://wiki.leagueoflegends.com/en-us/Template:Data_Heimerdinger/H-28G_Evolution_Turret?oldid=4036534) |
+| H-28G Evolution Turret | hp: 130 – 640 (based on level) (+ 5 – 45 (based on level)% AP) | [4025016](https://wiki.leagueoflegends.com/en-us/Heimerdinger?oldid=4025016) |
+| H-28G Evolution Turret | armor: 10 / 15 / 20 / 25 / 30 / 35 / 40 / 50 / 60 / 70 / 80 / 90 / 100 / 110 (based on level) | [4025016](https://wiki.leagueoflegends.com/en-us/Heimerdinger?oldid=4025016) |
+| H-28G Evolution Turret | magicresist: 25 / 26 / 31 / 36 / 41 / 46 / 51 / 56 / 66 / 76 / 86 (based on level) | [4025016](https://wiki.leagueoflegends.com/en-us/Heimerdinger?oldid=4025016) |
+| H-28G Evolution Turret | radius: 35 | [4025016](https://wiki.leagueoflegends.com/en-us/Heimerdinger?oldid=4025016) |
+| H-28G Evolution Turret | 550 / 600 | [4025016](https://wiki.leagueoflegends.com/en-us/Heimerdinger?oldid=4025016) |
+| H-28G Evolution Turret | attackspeed: 1.75 | [4025016](https://wiki.leagueoflegends.com/en-us/Heimerdinger?oldid=4025016) |
+| H-28G Evolution Turret | damage: 7 / 11 / 15 / 19 / 23 (+ 35% AP) | [4025016](https://wiki.leagueoflegends.com/en-us/Heimerdinger?oldid=4025016) |
+| H-28G Evolution Turret | 7 / 11 / 15 / 19 / 23 (+ 35% AP) | [4025016](https://wiki.leagueoflegends.com/en-us/Heimerdinger?oldid=4025016) |
+| H-28G Evolution Turret | 40% increased damage from melee champion basic attacks and turrets | [4025016](https://wiki.leagueoflegends.com/en-us/Heimerdinger?oldid=4025016) |
+| H-28G Evolution Turret | Attacks can be mitigated by block, dodge, and blind | [4025016](https://wiki.leagueoflegends.com/en-us/Heimerdinger?oldid=4025016) |
+| H-28G Evolution Turret | generates 1.1% charge per second | [4025016](https://wiki.leagueoflegends.com/en-us/Heimerdinger?oldid=4025016) |
+| H-28G Evolution Turret | At 100% charge, if there are targets within 900 units range | [4025016](https://wiki.leagueoflegends.com/en-us/Heimerdinger?oldid=4025016) |
+| H-28G Evolution Turret | dealing 40 / 60 / 80 / 100 / 120 (+ 55% AP) magic damage to all enemies it passes through | [4025016](https://wiki.leagueoflegends.com/en-us/Heimerdinger?oldid=4025016) |
+| H-28Q Apex Turret | hp: 725 / 750 / 775 / 800 / 825 / 875 / 925 / 975 / 1025 / 1075 / 1225 / 1375 / 1525 / 1675 / 1825 (based on level) (+ 50% AP) | [4025016](https://wiki.leagueoflegends.com/en-us/Heimerdinger?oldid=4025016) |
+| H-28Q Apex Turret | (+ 50% AP) | [4025016](https://wiki.leagueoflegends.com/en-us/Heimerdinger?oldid=4025016) |
+| H-28Q Apex Turret | armor: 30 / 35 / 40 / 45 / 50 / 55 / 60 / 65 / 70 / 75 / 80 / 85 / 90 / 95 / 100 (based on level) | [4025016](https://wiki.leagueoflegends.com/en-us/Heimerdinger?oldid=4025016) |
+| H-28Q Apex Turret | magicresist: 30 / 35 / 40 / 45 / 50 / 55 / 60 / 65 / 70 / 75 / 80 / 85 / 90 / 95 / 100 (based on level) | [4025016](https://wiki.leagueoflegends.com/en-us/Heimerdinger?oldid=4025016) |
+| H-28Q Apex Turret | radius: 35 | [4025016](https://wiki.leagueoflegends.com/en-us/Heimerdinger?oldid=4025016) |
+| H-28Q Apex Turret | range: 650 | [4025016](https://wiki.leagueoflegends.com/en-us/Heimerdinger?oldid=4025016) |
+| H-28Q Apex Turret | attackspeed: 1.05 | [4025016](https://wiki.leagueoflegends.com/en-us/Heimerdinger?oldid=4025016) |
+| H-28Q Apex Turret | damage: 80 / 100 / 120 (+ 35% AP) | [4025016](https://wiki.leagueoflegends.com/en-us/Heimerdinger?oldid=4025016) |
+| H-28Q Apex Turret | 80 / 100 / 120 (+ 35% AP) | [4025016](https://wiki.leagueoflegends.com/en-us/Heimerdinger?oldid=4025016) |
+| H-28Q Apex Turret | slows affected targets by 25% for 1 second | [4025016](https://wiki.leagueoflegends.com/en-us/Heimerdinger?oldid=4025016) |
+| H-28Q Apex Turret | generates 12.5% charge per second, and an additional 20% per basic attack | [4025016](https://wiki.leagueoflegends.com/en-us/Heimerdinger?oldid=4025016) |
+| H-28Q Apex Turret | dealing 100 / 140 / 180 (+ 70% AP) magic damage | [4025016](https://wiki.leagueoflegends.com/en-us/Heimerdinger?oldid=4025016) |
+| H-28Q Apex Turret | which lasts for 8 seconds | [4025020](https://wiki.leagueoflegends.com/en-us/Template:Data_Heimerdinger/H-28Q_Apex_Turret?oldid=4025020) |
+| H-28Q Apex Turret | 40% increased damage from melee champion basic attacks and turrets | [4025016](https://wiki.leagueoflegends.com/en-us/Heimerdinger?oldid=4025016) |
+| H-28Q Apex Turret | Attacks cannot be mitigated by block or dodge | [4025016](https://wiki.leagueoflegends.com/en-us/Heimerdinger?oldid=4025016) |
+| Hextech Micro-Rockets | Every rocket hitting an enemy champion grants 20% beam charge to all H-28G Evolution Turret turrets within 1000 range | [3989864](https://wiki.leagueoflegends.com/en-us/Template:Data_Heimerdinger/Hextech_Micro-Rockets?oldid=3989864) |
+| Hextech Micro-Rockets | targetRange: 1150 | [3989864](https://wiki.leagueoflegends.com/en-us/Template:Data_Heimerdinger/Hextech_Micro-Rockets?oldid=3989864) |
+| CH-2 Electron Storm Grenade | targetRange: 925 | [4022980](https://wiki.leagueoflegends.com/en-us/Template:Data_Heimerdinger/CH-2_Electron_Storm_Grenade?oldid=4022980) |
+| CH-3X Lightning Grenade | targetRange: 925 | [3965591](https://wiki.leagueoflegends.com/en-us/Template:Data_Heimerdinger/CH-3X_Lightning_Grenade?oldid=3965591) |
+| H-28Q Apex Turret | targetRange: 450 | [4025020](https://wiki.leagueoflegends.com/en-us/Template:Data_Heimerdinger/H-28Q_Apex_Turret?oldid=4025020) |
+| CH-2 Electron Storm Grenade | speed: 1200 | [4022980](https://wiki.leagueoflegends.com/en-us/Template:Data_Heimerdinger/CH-2_Electron_Storm_Grenade?oldid=4022980) |
+| CH-2 Electron Storm Grenade | dealing magic damage to nearby enemies and slowing them by 35% for 2 seconds | [4022980](https://wiki.leagueoflegends.com/en-us/Template:Data_Heimerdinger/CH-2_Electron_Storm_Grenade?oldid=4022980) |
+| CH-2 Electron Storm Grenade | Enemies hit at the center of the grenade's impact are also stunned for 1.5 seconds | [4022980](https://wiki.leagueoflegends.com/en-us/Template:Data_Heimerdinger/CH-2_Electron_Storm_Grenade?oldid=4022980) |
+| CH-2 Electron Storm Grenade | If the grenade hits an enemy champion, all H-28G Evolution Turret turrets within 1000 range of the impact gain 100% beam charge | [4022980](https://wiki.leagueoflegends.com/en-us/Template:Data_Heimerdinger/CH-2_Electron_Storm_Grenade?oldid=4022980) |
+| UPGRADE!!! | Heimerdinger empowers his next basic ability for an additional effect, consuming the empowerment upon cast and placing UPGRADE!!! on full cooldown | [4006857](https://wiki.leagueoflegends.com/en-us/Template:Data_Heimerdinger/UPGRADE!!!?oldid=4006857) |
+| H-28G Evolution Turret | cooldown: 1 | [4036534](https://wiki.leagueoflegends.com/en-us/Template:Data_Heimerdinger/H-28G_Evolution_Turret?oldid=4036534) |
+| H-28G Evolution Turret | castTime: 0.25 | [4036534](https://wiki.leagueoflegends.com/en-us/Template:Data_Heimerdinger/H-28G_Evolution_Turret?oldid=4036534) |
+| H-28G Evolution Turret | cost: 20 | [4036534](https://wiki.leagueoflegends.com/en-us/Template:Data_Heimerdinger/H-28G_Evolution_Turret?oldid=4036534) |
+| H-28G Evolution Turret | recharge: 20 | [4036534](https://wiki.leagueoflegends.com/en-us/Template:Data_Heimerdinger/H-28G_Evolution_Turret?oldid=4036534) |
+| Hextech Micro-Rockets | cooldown: 11 / 10 / 9 / 8 / 7 | [3989864](https://wiki.leagueoflegends.com/en-us/Template:Data_Heimerdinger/Hextech_Micro-Rockets?oldid=3989864) |
+| Hextech Micro-Rockets | cost: 50 / 60 / 70 / 80 / 90 | [3989864](https://wiki.leagueoflegends.com/en-us/Template:Data_Heimerdinger/Hextech_Micro-Rockets?oldid=3989864) |
+| Hextech Micro-Rockets | castTime: 0.25 | [3989864](https://wiki.leagueoflegends.com/en-us/Template:Data_Heimerdinger/Hextech_Micro-Rockets?oldid=3989864) |
+| Hextech Micro-Rockets | Combined Total Non-Minion Damage: 90 / 135 / 180 / 225 / 270 (+ 103% AP) | [3989864](https://wiki.leagueoflegends.com/en-us/Template:Data_Heimerdinger/Hextech_Micro-Rockets?oldid=3989864) |
+| CH-2 Electron Storm Grenade | cooldown: 11 | [4022980](https://wiki.leagueoflegends.com/en-us/Template:Data_Heimerdinger/CH-2_Electron_Storm_Grenade?oldid=4022980) |
+| CH-2 Electron Storm Grenade | cost: 85 | [4022980](https://wiki.leagueoflegends.com/en-us/Template:Data_Heimerdinger/CH-2_Electron_Storm_Grenade?oldid=4022980) |
+| CH-2 Electron Storm Grenade | castTime: 0.25 | [4022980](https://wiki.leagueoflegends.com/en-us/Template:Data_Heimerdinger/CH-2_Electron_Storm_Grenade?oldid=4022980) |
+| CH-2 Electron Storm Grenade | effectRadius: 250 | [4022980](https://wiki.leagueoflegends.com/en-us/Template:Data_Heimerdinger/CH-2_Electron_Storm_Grenade?oldid=4022980) |
+| CH-2 Electron Storm Grenade | Magic Damage: 60 / 100 / 140 / 180 / 220 (+ 60% AP) | [4022980](https://wiki.leagueoflegends.com/en-us/Template:Data_Heimerdinger/CH-2_Electron_Storm_Grenade?oldid=4022980) |
+| UPGRADE!!! | cooldown: 100 / 85 / 70 | [4006857](https://wiki.leagueoflegends.com/en-us/Template:Data_Heimerdinger/UPGRADE!!!?oldid=4006857) |
+| UPGRADE!!! | cost: 100 | [4006857](https://wiki.leagueoflegends.com/en-us/Template:Data_Heimerdinger/UPGRADE!!!?oldid=4006857) |
+| UPGRADE!!! | castTime: none | [4006857](https://wiki.leagueoflegends.com/en-us/Template:Data_Heimerdinger/UPGRADE!!!?oldid=4006857) |
+| H-28Q Apex Turret | castTime: 0.25 | [4025020](https://wiki.leagueoflegends.com/en-us/Template:Data_Heimerdinger/H-28Q_Apex_Turret?oldid=4025020) |
+| Hextech Rocket Swarm | castTime: 0.25 | [3965590](https://wiki.leagueoflegends.com/en-us/Template:Data_Heimerdinger/Hextech_Rocket_Swarm?oldid=3965590) |
+| Hextech Rocket Swarm | Combined Total Non-Minion Damage: 503 / 697.5 / 892 (+ 183% AP) | [3965590](https://wiki.leagueoflegends.com/en-us/Template:Data_Heimerdinger/Hextech_Rocket_Swarm?oldid=3965590) |
+| CH-3X Lightning Grenade | castTime: 0.25 | [3965591](https://wiki.leagueoflegends.com/en-us/Template:Data_Heimerdinger/CH-3X_Lightning_Grenade?oldid=3965591) |
+| CH-3X Lightning Grenade | effectRadius: 300 | [3965591](https://wiki.leagueoflegends.com/en-us/Template:Data_Heimerdinger/CH-3X_Lightning_Grenade?oldid=3965591) |
+| CH-3X Lightning Grenade | Magic Damage: 100 / 200 / 300 (+ 60% AP) | [3965591](https://wiki.leagueoflegends.com/en-us/Template:Data_Heimerdinger/CH-3X_Lightning_Grenade?oldid=3965591) |
+| CH-2 Electron Storm Grenade | innerRadius: 100 | [4022980](https://wiki.leagueoflegends.com/en-us/Template:Data_Heimerdinger/CH-2_Electron_Storm_Grenade?oldid=4022980) |
+| CH-3X Lightning Grenade | innerRadius: 150 | [3965591](https://wiki.leagueoflegends.com/en-us/Template:Data_Heimerdinger/CH-3X_Lightning_Grenade?oldid=3965591) |

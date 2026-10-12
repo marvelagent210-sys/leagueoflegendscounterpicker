@@ -277,7 +277,7 @@ What the duel simulator fights with (`kits/champions/Illaoi.ts`): every number i
 | Key | Ability | Cooldown (s) | Cast time (s) | Cost | Delivery | On the enemy | On itself |
 |---|---|--:|--:|---|---|---|---|
 | E | Test of Spirit | 12 | 0.25 | 55 | skillshot 950 long, 100 wide, at 1900/s | marks it "testOfSpirit" for 7 s | – |
-| Q | Tentacle Smash | 6 | 0.75 | 60 | skillshot 802.75 long, 200 wide, instant | 260.153 + 143% AD + 52% AP physical damage (Tentacle); to itself: heal 5% missing health; 50% less damage for each hit it took from these in the last 0.66 s, down to 25% | – |
+| Q | Tentacle Smash | 6 | 0.75 | 60 | skillshot 802.75 long, 200 wide, instant | 260.153 + 143% AD + 52% AP physical damage (Tentacle); 50% less damage for each hit it took from these in the last 0.66 s, down to 25% | – |
 | W | Harsh Lesson | 4 (starts after the empowered attacks) | 0 | 30 | self | – | next 1 attack within 6 s: 5% target's maximum health + 3.5% of target's maximum health per 100 AD physical damage (Harsh Lesson), at least 60 (+225 range, resets the attack timer, uncancellable) |
 | R | Leap of Faith | 70 | 0.5 | 100 | around itself, 500 units | 350 + 50% bonus AD physical damage (Leap of Faith) | as the cast starts: displacementImmune for 0.5 s |
 | SLAM | Tentacle slam | 0 | 0 | – | area 0 to 927.75 units ahead, lands after 0.75 s | 260.153 + 143% AD + 52% AP physical damage (Tentacle); to itself: heal 5% missing health; 50% less damage for each hit it took from these in the last 0.66 s, down to 25% | – |

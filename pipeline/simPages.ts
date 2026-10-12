@@ -76,7 +76,7 @@ export interface SimulatedMatrix {
   scores: Map<string, Map<string, Array<number | null>>>;
   /** you -> enemy -> gold you spent on each stat */
   spent: Map<string, Map<string, Record<BudgetStat, number>>>;
-  /** champion -> enemy -> the kit options it played, for champions whose kits have variants (Udyr's rank split) */
+  /** champion -> enemy -> the kit options it played, for champions whose kits have variants (Udyr's rank split, Heimerdinger's upgrade) */
   variants: Map<string, Map<string, Record<string, number>>>;
 }
 
@@ -98,10 +98,10 @@ export function simulatedMatrix(champions: string[], gold: number, pairs: Array<
     scores.get(enemy)?.set(you, [negate(result.score), negate(engaged ?? null), negate(engage ?? null), ...rest.map(negate)]);
     spent.get(you)?.set(enemy, result.spent[0]);
     spent.get(enemy)?.set(you, result.spent[1]);
-    if (result.variant) {
-      const [who, against] = result.variant.side === 0 ? [you, enemy] : [enemy, you];
+    for (const variant of result.variants ?? []) {
+      const [who, against] = variant.side === 0 ? [you, enemy] : [enemy, you];
       if (!variants.has(who)) variants.set(who, new Map());
-      variants.get(who)?.set(against, result.variant.options);
+      variants.get(who)?.set(against, variant.options);
     }
   });
   return { champions, gold, scores, spent, variants };

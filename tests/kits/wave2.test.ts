@@ -1,9 +1,11 @@
 import { describe, expect, it } from "vitest";
 import { type Behavior, defaultBehavior } from "../../engine/sim/behavior";
+import { inAttackRange } from "../../engine/sim/actions";
 import { derive } from "../../engine/sim/derived";
 import { allAbilities } from "../../engine/sim/forms";
 import { createWorld, step } from "../../engine/sim/simulate";
 import type { AbilitySpec } from "../../engine/sim/spec";
+import type { World } from "../../engine/sim/state";
 import { fighter } from "../sim/kits";
 import { kit } from "./helpers";
 
@@ -151,6 +153,50 @@ describe("wave-2 kits read the wiki at level 20", () => {
     expect(refunded).toBe(8 + 43);
   });
 
+  it("Heimerdinger", () => {
+    // Three turret kits, one every 20 s; 20 mana a turret.
+    expect(ability("Heimerdinger", "Q")).toMatchObject({ cooldown: 1, cost: 20, castTime: 0.25, charges: { max: 3, recharge: 20 } });
+    // Hextech Micro-Rockets: all five, 270 (+ 103% AP); the swarm's twenty, 892 (+ 183% AP).
+    expect(ability("Heimerdinger", "W")).toMatchObject({ cooldown: 7, cost: 90, castTime: 0.25, delivery: { kind: "line", range: 1150, width: 200, speed: 750 } });
+    expect(ability("Heimerdinger", "W").onHit).toEqual([{ type: "damage", damageType: "magic", amount: { base: 270, ratios: { AP: 1.03 } }, label: "Hextech Micro-Rockets" }]);
+    expect(ability("Heimerdinger", "RW")).toMatchObject({ cooldownKey: "W", onHit: [{ amount: { base: 892, ratios: { AP: 1.83 } } }] });
+    // CH-2 Electron Storm Grenade: 220 (+ 60% AP) within 250, a 35% slow for 2 s; it lands after its 925 units at 1200.
+    expect(ability("Heimerdinger", "E")).toMatchObject({ cooldown: 11, cost: 85, delivery: { kind: "circle", range: 925, radius: 250, delay: 925 / 1200 } });
+    expect(ability("Heimerdinger", "E").onHit).toEqual([
+      { type: "damage", damageType: "magic", amount: { base: 220, ratios: { AP: 0.6 } }, label: "CH-2 Electron Storm Grenade" },
+      { type: "cc", cc: "slow", duration: 2, strength: 0.35 },
+    ]);
+    expect(ability("Heimerdinger", "RE")).toMatchObject({ cooldownKey: "E", delivery: { radius: 300 } });
+    expect(ability("Heimerdinger", "RE").onHit?.[0]).toMatchObject({ amount: { base: 300, ratios: { AP: 0.6 } } });
+    expect(ability("Heimerdinger", "R")).toMatchObject({ cooldown: 70, cost: 100, castTime: 0 });
+    // Each matchup tries all three upgrades unless one is pinned.
+    expect(kit("Heimerdinger").variants).toEqual([1, 2, 3].map((upgrade) => ({ turrets: 3, upgrade })));
+    expect(kit("Heimerdinger", { upgrade: 3 }).variants).toEqual([]);
+  });
+
+  it("Heimerdinger fights: three turrets by him from the start; the grenade's stun lets their fully charged beams land", () => {
+    const compiled = kit("Heimerdinger");
+    const enemy = fighter({ id: "enemy", base: { hp: 20000, armor: 100, mr: 100 } });
+    const world = createWorld({ fighters: [compiled.spec, enemy], distance: 300, modes: ["fight", "idle"], settings: { log: true, maxSeconds: 3, reactionTime: 10 } });
+    const heimer = world.units[0];
+    const turrets = world.pets.filter((p) => p.spec.kind === "turret");
+    expect(turrets).toHaveLength(3);
+    // 700 health at level 20 (+ 53% AP), 110 armor, 86 magic resistance; 23 (+ 35% AP) from 550, 1.75 a second; melee attacks deal 40% more.
+    expect(turrets[0]).toMatchObject({ x: heimer.x, spec: { hp: 700, armor: 110, mr: 86, radius: 35, meleeAttackTaken: 1.4, attack: { range: 550 } } });
+    expect(turrets[0]?.spec.attack?.interval).toBeCloseTo(1 / 1.75, 9);
+    const once: Behavior = (view) => (view.world.tick === 0 ? { kind: "cast", ability: "E" } : undefined);
+    while (!world.result) step(world, [once, () => undefined]);
+    expect(world.log.find((e) => e.text.startsWith("H-28G Evolution Turret deals"))?.text).toBe(`H-28G Evolution Turret deals ${Math.round(23 / 2)} magic damage`);
+    // The grenade lands 8 + 24 ticks in, on the enemy: stunned for 1.5 s, and the turrets charged fully.
+    const stun = world.log.find((e) => e.text === "inflicts stun for 1.50 s");
+    expect(stun?.tick).toBe(32);
+    const fired = world.log.filter((e) => e.text === "H-28G Evolution Turret fires its beam").map((e) => e.tick);
+    expect(fired).toEqual([33, 33, 33]);
+    // 0.425 s to wind up and 365 units at 1400 a second: all three land on the stunned enemy, 120 halved.
+    const beams = world.log.filter((e) => e.text.startsWith("Turret beam deals"));
+    expect(beams.map((e) => [e.tick, e.text])).toEqual([0, 1, 2].map(() => [33 + 21, "Turret beam deals 60 magic damage"]));
+  });
+
   it("Illaoi", () => {
     // The slam: 9 - 180 by level, 200.12 at 20 (+ 110% AD) (+ 40% AP), 30% more at Tentacle Smash's rank 5; 927.75 long, landing in 0.75 s.
     const slam = ability("Illaoi", "SLAM");
@@ -161,7 +207,8 @@ describe("wave-2 kits read the wiki at level 20", () => {
     // 50% less for each slam taken in the last 0.66 s, at most 75% less; 5% of her missing health back.
     expect(slam.falloff).toEqual({ group: "slam", per: 0.5, window: 0.66, floor: 0.25 });
     expect(slam.onHit?.[1]).toEqual({ type: "caster", effects: [{ type: "heal", amount: { base: 0, ratios: { missingHP: 0.05 } } }] });
-    expect(ability("Illaoi", "Q")).toMatchObject({ cooldown: 6, cost: 60, castTime: 0.75, delivery: { kind: "line", range: 802.75, width: 200 }, falloff: slam.falloff, onHit: slam.onHit });
+    // Tentacle Smash slams like a Tentacle; its heal comes once, from the hooks.
+    expect(ability("Illaoi", "Q")).toMatchObject({ cooldown: 6, cost: 60, castTime: 0.75, delivery: { kind: "line", range: 802.75, width: 200 }, falloff: slam.falloff, onHit: [hit] });
     // Harsh Lesson: 5% (+ 3.5% per 100 AD) of maximum health, at least 60, on an attack within 6 s with 225 more range.
     const lesson = ability("Illaoi", "W");
     expect(lesson).toMatchObject({ cooldown: 4, cost: 30, castTime: 0, cooldownAfter: "empower", overlay: true });
@@ -721,6 +768,132 @@ describe("wave-2 kits read the wiki at level 20", () => {
     const strikes = world.log.filter((e) => e.side === 0 && e.text.startsWith("Wilding Claw (lightning)"));
     expect(strikes).toHaveLength(12);
     expect(new Set(strikes.map((e) => e.text))).toEqual(new Set([`Wilding Claw (lightning) deals ${Math.round(0.0317647 * 9000 * 0.5)} magic damage`]));
+  });
+
+  it("Yorick", () => {
+    // Last Rites: the next attack within 5 s, 50 more range, 110 (+ 50% AD) and 78 (+ 10% of his missing health) back.
+    expect(ability("Yorick", "Q")).toMatchObject({ cooldown: 4, cost: 20, castTime: 0, cooldownAfter: "empower" });
+    expect(ability("Yorick", "Q").onSelf).toEqual([
+      {
+        type: "empower",
+        attacks: 1,
+        window: 5,
+        bonusRange: 50,
+        uncancellable: true,
+        resetAttack: true,
+        onHit: [
+          { type: "damage", damageType: "physical", amount: { base: 110, ratios: { AD: 0.5 } }, label: "Last Rites" },
+          { type: "caster", effects: [{ type: "heal", amount: { base: 78, ratios: { missingHP: 0.1 } } }] },
+        ],
+      },
+    ]);
+    expect(ability("Yorick", "W")).toMatchObject({ cooldown: 12, cost: 70, castTime: 0, delivery: { kind: "circle", range: 600, radius: 225, delay: 0.75 } });
+    // Mourning Mist: 8% (+ 3% per 100 AP) of maximum health, 30% slower for 1.5 s, Cursed for 4 s with 25% less armor.
+    expect(ability("Yorick", "E")).toMatchObject({ cooldown: 8, cost: 70, castTime: 0.25, delivery: { kind: "circle", range: 700, radius: 225, delay: 700 / 1800 } });
+    expect(ability("Yorick", "E").onHit).toEqual([
+      { type: "damage", damageType: "magic", amount: { base: 0, ratios: { targetMaxHP: 0.08 }, products: [{ ratio: expect.closeTo(0.0003, 12), stats: ["AP", "targetMaxHP"] }] }, label: "Mourning Mist" },
+      { type: "cc", cc: "slow", duration: 1.5, strength: 0.3 },
+      { type: "stat", stat: "armorReductionPercent", amount: { base: 0.25 }, duration: 4 },
+      { type: "mark", key: "cursed", duration: 4 },
+    ]);
+    expect(ability("Yorick", "R")).toMatchObject({ cooldown: 100, cost: 100, castTime: 0.5 });
+    // Three graves by default: one for every 2nd enemy dying near him at level 20, from a wave of 6.
+    expect(kit("Yorick").options).toEqual({ graves: 3 });
+  });
+
+  // Walk in and attack, after an opening cast.
+  const opening =
+    (...casts: string[]): Behavior =>
+    (view) => {
+      const cast = casts[view.world.tick];
+      if (cast) return { kind: "cast", ability: cast };
+      if (view.self.action) return undefined;
+      return inAttackRange(view.self, view.enemy) ? { kind: "attack" } : { kind: "move", direction: 1 };
+    };
+  const walkers = (world: World) => world.pets.filter((p) => p.spec.kind === "walker");
+
+  it("Yorick fights: Awakening raises his three graves as Mist Walkers 1 s later; Last Rites' hit leaves a grave", () => {
+    const compiled = kit("Yorick");
+    const enemy = fighter({ id: "enemy", base: { hp: 20000, armor: 100, mr: 100 } });
+    const world = createWorld({ fighters: [compiled.spec, enemy], distance: 0, modes: ["fight", "idle"], settings: { log: true, maxSeconds: 3 } });
+    const [yorick, target] = world.units;
+    expect(String(yorick.memory.graves).split(",").map(Number)).toEqual([yorick.x, yorick.x, yorick.x]);
+    let raised = -1;
+    while (!world.result) {
+      step(world, [opening("Q", "Q2"), () => undefined]);
+      if (raised < 0 && world.log.some((e) => e.text === "raises 3 graves")) raised = world.tick - 1;
+    }
+    const risen = world.log.filter((e) => e.text === "raises a Mist Walker").map((e) => e.tick);
+    expect(risen).toEqual([raised + 30, raised + 30, raised + 30]);
+    // 331.35 health (no bonus health here), 113.3 a hit halved by 100 armor, 0.956 attacks a second.
+    const [first] = walkers(world);
+    expect(first?.spec.hp).toBeCloseTo(331.353, 2);
+    expect(first?.spec.attack?.interval).toBeCloseTo(1 / 0.956435, 5);
+    expect(world.log.find((e) => e.text.startsWith("Mist Walker deals"))?.text).toBe(`Mist Walker deals ${Math.round(113.325 / 2)} physical damage`);
+    // Last Rites' hit: 110 (+ 50% AD) more, and a grave where the enemy stands.
+    expect(world.log.find((e) => e.text.startsWith("Last Rites deals"))?.text).toBe(`Last Rites deals ${Math.round((110 + 0.5 * 160.325) / 2)} physical damage`);
+    expect(String(yorick.memory.graves).split(",").map(Number)).toEqual([target.x]);
+  });
+
+  it("Mourning Mist: the Curse raises graves, and the Mist Walkers leap to the enemy, faster", () => {
+    const compiled = kit("Yorick");
+    const enemy = fighter({ id: "enemy", base: { hp: 20000, armor: 100, mr: 100 } });
+    const world = createWorld({ fighters: [compiled.spec, enemy], distance: 600, modes: ["fight", "idle"], settings: { log: true, maxSeconds: 3, reactionTime: 10 } });
+    const [yorick, target] = world.units;
+    const once: Behavior = (view) => (view.world.tick === 0 ? { kind: "cast", ability: "E" } : undefined);
+    let cursed = -1;
+    let leapt = -1;
+    while (!world.result) {
+      step(world, [once, () => undefined]);
+      if (cursed < 0 && yorick.memory.cursedUntil !== undefined) cursed = world.tick - 1;
+      if (leapt < 0 && walkers(world).length > 0) leapt = world.tick - 1;
+    }
+    // 0.25 s to cast, 0.389 s to land; 8% of 20000 halved by 100 magic resistance.
+    expect(cursed).toBe(8 + 12);
+    expect(world.log.find((e) => e.text.startsWith("Mourning Mist deals"))?.text).toBe("Mourning Mist deals 800 magic damage");
+    // The graves rise a second after the Curse, and the Walkers land beside the enemy.
+    expect(leapt).toBe(cursed + 1 + 30);
+    for (const walker of walkers(world)) expect(walker.x).toBeCloseTo(target.x - (65 + 1), 6);
+    expect(walkers(world)[0]?.spec.moveSpeed).toBeCloseTo((325 + 60) * 1.3, 6);
+    expect(world.log.find((e) => e.text.startsWith("Mist Walker deals"))?.tick).toBe(leapt);
+    expect(yorick.x).toBe(0);
+  });
+
+  it("Eulogy of the Isles: the Maiden and four Mist Walkers 1 s after the cast, up to 600 units out; her mark makes his attack deal 3% of maximum health", () => {
+    const compiled = kit("Yorick");
+    const enemy = fighter({ id: "enemy", base: { hp: 20000, armor: 100, mr: 100 } });
+    const world = createWorld({ fighters: [compiled.spec, enemy], distance: 900, modes: ["fight", "idle"], settings: { log: true, maxSeconds: 6 } });
+    const yorick = world.units[0];
+    while (!world.result) step(world, [opening("R"), () => undefined]);
+    const summoned = world.log.find((e) => e.text === "summons the Maiden of the Mist");
+    expect(summoned?.tick).toBe(15 + 30);
+    const maiden = world.pets.find((p) => p.spec.kind === "maiden");
+    expect(maiden).toMatchObject({ x: 600, spec: { hp: 3700, armor: 100, mr: 100, radius: 20, attack: { range: 600, interval: 1 } } });
+    expect(walkers(world).filter((p) => p.x === 600 || p.memory.maiden)).toHaveLength(4);
+    // 100 magic damage, halved; her mark makes Yorick's attack deal 3% of 20000, halved.
+    expect(world.log.find((e) => e.text.startsWith("Maiden of the Mist deals"))?.text).toBe("Maiden of the Mist deals 50 magic damage");
+    expect(world.log.find((e) => e.text.startsWith("Touch of the Maiden deals"))?.text).toBe("Touch of the Maiden deals 300 magic damage");
+    expect(yorick.alive).toBe(true);
+  });
+
+  it("Dark Procession: walls 125 to 325 from its center for 4 s, against the enemy only; within 210 the enemy is pulled inside", () => {
+    const compiled = kit("Yorick");
+    const enemy = fighter({ id: "enemy", base: { hp: 20000, armor: 100, mr: 100 } });
+    const world = createWorld({ fighters: [compiled.spec, enemy], distance: 300, modes: ["fight", "idle"], settings: { log: true, maxSeconds: 2, reactionTime: 10 } });
+    const target = world.units[1];
+    const center = target.x;
+    const once: Behavior = (view) => (view.world.tick === 0 ? { kind: "cast", ability: "W" } : undefined);
+    step(world, [once, () => undefined]);
+    // On the ring's walls when it rises, 180 from the center: pulled in.
+    target.x = center + 180;
+    while (world.tick < 30) step(world, [once, () => undefined]);
+    expect(world.terrain.map((t) => [t.from, t.to, t.enemyOnly])).toEqual([
+      [center - 325, center - 125, true],
+      [center + 125, center + 325, true],
+    ]);
+    expect(world.terrain[0]?.endTick).toBe(23 + 120);
+    expect(target.x).toBe(center + 125 - 35);
+    expect(target.statuses.find((s) => s.kind === "cc" && s.key === "airborne")).toMatchObject({ startTick: 23, endTick: 23 + 8 });
   });
 
   it("Zaahen", () => {

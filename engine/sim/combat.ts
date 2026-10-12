@@ -401,10 +401,11 @@ export function applyEffect(world: World, caster: Unit, target: Unit, effect: Ef
     case "dot": {
       const intervalTicks = Math.max(1, toTicks(effect.interval));
       const hits = Math.max(1, Math.round(effect.duration / effect.interval));
-      const key = ctx.ability?.key ?? (ctx.attack ? "attack" : "dot");
+      const source = ctx.ability?.key ?? (ctx.attack ? "attack" : "dot");
+      const key = effect.stacks ? `${source}:${world.nextId++}` : source;
       // A new application from the same source refreshes the old one (poisons, bleeds),
-      // keeping its tick timer.
-      const old = target.statuses.find((st) => st.kind === "dot" && st.source === caster.side && st.key === key);
+      // keeping its tick timer, unless they stack.
+      const old = effect.stacks ? undefined : target.statuses.find((st) => st.kind === "dot" && st.source === caster.side && st.key === key);
       if (old) target.statuses = target.statuses.filter((st) => st !== old);
       const first = old?.dot && old.dot.nextTick > tick ? old.dot.nextTick : tick + intervalTicks;
       addStatus(target, {

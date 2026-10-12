@@ -1,5 +1,61 @@
 # Counters to Yorick (patch 26.20)
 
+## Simulated duels (full confidence)
+
+The duel simulator played each of the 47 other champions with a simulator kit against Yorick: both at level 20 with 15,000 gold of plain stats, each side's spent against the other's, through six scenarios (PLAN.md §6). Scores run from −1 (Yorick wins every time) to +1 (the champion does). Run `npm run duel -- <champion> Yorick --log brawl` to watch a fight.
+
+| # | Champion | Score | You engage | Enemy engages | Brawl | Short trade | Spacing | Escape |
+|--:|---|--:|--:|--:|--:|--:|--:|--:|
+| 1 | Zaahen | +0.70 | +0.93 | +1.00 | +1.00 | −0.03 | – | −0.93 |
+| 2 | Aatrox | −0.21 | −0.50 | −0.82 | +0.98 | −0.00 | – | −1.00 |
+| 3 | Darius | −0.36 | −1.00 | +0.82 | −1.00 | −0.21 | – | −1.00 |
+| 4 | Kayle | −0.74 | −1.00 | −1.00 | −1.00 | +0.43 | −1.00 | +0.00 |
+| 5 | Jayce | −0.76 | −1.00 | −1.00 | −1.00 | +0.14 | – | +0.00 |
+| 6 | Poppy | −0.76 | −1.00 | −1.00 | −1.00 | +0.14 | – | +0.00 |
+| 7 | Malphite | −0.76 | −1.00 | −1.00 | −1.00 | +0.11 | – | +0.00 |
+| 8 | Heimerdinger | −0.76 | −1.00 | −1.00 | −1.00 | +0.27 | −1.00 | +0.00 |
+| 9 | Illaoi | −0.76 | −1.00 | −1.00 | −1.00 | +0.09 | – | +0.00 |
+| 10 | Cho'Gath | −0.76 | −1.00 | −1.00 | −1.00 | +0.08 | – | +0.00 |
+| 11 | Ambessa | −0.76 | −1.00 | −1.00 | −1.00 | +0.08 | – | +0.00 |
+| 12 | Tahm Kench | −0.76 | −1.00 | −1.00 | −1.00 | +0.08 | – | +0.00 |
+| 13 | Ornn | −0.77 | −1.00 | −1.00 | −1.00 | +0.07 | – | +0.00 |
+| 14 | Rumble | −0.77 | −1.00 | −1.00 | −1.00 | +0.06 | – | +0.00 |
+| 15 | Mordekaiser | −0.77 | −1.00 | −1.00 | −1.00 | +0.05 | – | +0.00 |
+| 16 | Akali | −0.77 | −1.00 | −1.00 | −1.00 | +0.05 | – | +0.00 |
+| 17 | Sion | −0.77 | −1.00 | −1.00 | −1.00 | +0.04 | – | +0.00 |
+| 18 | Gnar | −0.77 | −1.00 | −1.00 | −1.00 | +0.19 | −1.00 | +0.00 |
+| 19 | Tryndamere | −0.77 | −1.00 | −1.00 | −1.00 | +0.03 | – | +0.00 |
+| 20 | Dr. Mundo | −0.78 | −1.00 | −1.00 | −1.00 | +0.01 | – | +0.00 |
+| 21 | Kled | −0.78 | −1.00 | −1.00 | −1.00 | +0.01 | – | +0.00 |
+| 22 | Nasus | −0.78 | −1.00 | −1.00 | −1.00 | +0.00 | – | +0.00 |
+| 23 | Shen | −0.78 | −1.00 | −1.00 | −1.00 | −0.00 | – | +0.00 |
+| 24 | Urgot | −0.78 | −1.00 | −1.00 | −1.00 | +0.13 | −1.00 | +0.00 |
+| 25 | Teemo | −0.78 | −1.00 | −1.00 | −1.00 | +0.13 | −1.00 | +0.00 |
+| 26 | Gwen | −0.78 | −1.00 | −1.00 | −1.00 | −0.02 | – | −0.02 |
+| 27 | Singed | −0.78 | −1.00 | −1.00 | −1.00 | −0.02 | – | +0.00 |
+| 28 | Skarner | −0.78 | −1.00 | −1.00 | −1.00 | −0.04 | – | +0.00 |
+| 29 | Udyr | −0.78 | −1.00 | −1.00 | −1.00 | −0.04 | – | +0.00 |
+| 30 | Renekton | −0.79 | −1.00 | −1.00 | −1.00 | −0.05 | – | +0.00 |
+| 31 | Jax | −0.79 | −1.00 | −1.00 | −1.00 | −0.05 | – | +0.00 |
+| 32 | Yasuo | −0.79 | −1.00 | −1.00 | −1.00 | −0.07 | – | +0.00 |
+| 33 | Pantheon | −0.79 | −1.00 | −1.00 | −1.00 | −0.07 | – | +0.00 |
+| 34 | Irelia | −0.79 | −1.00 | −1.00 | −1.00 | −0.07 | – | +0.00 |
+| 35 | Sett | −0.79 | −1.00 | −1.00 | −1.00 | −0.10 | – | +0.00 |
+| 36 | Fiora | −0.81 | −1.00 | −1.00 | −1.00 | +0.15 | – | −1.00 |
+| 37 | Yone | −0.81 | −1.00 | −1.00 | −1.00 | +0.14 | – | −1.00 |
+| 38 | Riven | −0.81 | −1.00 | −1.00 | −1.00 | +0.11 | – | −1.00 |
+| 39 | Aurora | −0.82 | −1.00 | −1.00 | −1.00 | +0.22 | −1.00 | −1.00 |
+| 40 | K'Sante | −0.83 | −1.00 | −1.00 | −1.00 | +0.05 | – | −1.00 |
+| 41 | Olaf | −0.84 | −1.00 | −1.00 | −1.00 | −0.02 | – | −1.00 |
+| 42 | Volibear | −0.84 | −1.00 | −1.00 | −1.00 | −0.03 | – | −1.00 |
+| 43 | Trundle | −0.84 | −1.00 | −1.00 | −1.00 | −0.03 | – | −1.00 |
+| 44 | Kennen | −0.84 | −1.00 | −1.00 | −1.00 | −0.27 | −1.00 | +0.00 |
+| 45 | Camille | −0.85 | −1.00 | −1.00 | −1.00 | −0.10 | – | −1.00 |
+| 46 | Garen | −0.85 | −1.00 | −1.00 | −1.00 | −0.11 | – | −1.00 |
+| 47 | Quinn | −0.87 | −1.00 | −1.00 | −1.00 | −0.14 | −1.00 | −1.00 |
+
+## Interaction ledger (partial confidence)
+
 Every champion ranked by what its kit does against Yorick's, from the interaction ledger: projectile blocks, spell shields,
 parries, dash stops, crowd control and its defenses, range and more (PLAN.md §5). This ranking is **partial**: it weighs the
 interactions but doesn't play the fight out. The duel simulator replaces it as each champion's behavior is verified.
@@ -8,63 +64,63 @@ interactions but doesn't play the fight out. The duel simulator replaces it as e
 A hard counter shuts down part of a kit every time it is used (projectile block, attack dodge, attack block, blind, disarm, attack speed slow, attack reflect, dash stop, grounding, range) with an impact of 0.4 or more (0.5 for range).
 Run `npm run matchup -- <champion> Yorick` for the full ledger of a matchup, with sources.
 
-## Top 10
+### Top 10
 
-### 1. Teemo (net +1.27)
+#### 1. Teemo (net +1.27)
 
 - **0.59** range: Teemo's basic attacks reach 325 units farther than Yorick's (500 vs 175 attack range). Yorick has no dash or blink to close the gap. (Teemo basic attacks → Yorick basic attacks)
 - **0.50** blind: Blinding Dart's blind makes Yorick's basic attacks miss for 3 s. Blind for 3 s on a 7 s cooldown. (Teemo Q Blinding Dart → Yorick basic attacks)
 - **0.36** blind: Blinding Dart's blind makes Yorick's Last Rites, an empowered attack, miss. Blind for 3 s. (Teemo Q Blinding Dart → Yorick Q Last Rites)
 
-### 2. Lulu (net +1.04)
+#### 2. Lulu (net +1.04)
 
 - **0.68** range: Lulu's basic attacks reach 375 units farther than Yorick's (550 vs 175 attack range). Yorick has no dash or blink to close the gap. (Lulu basic attacks → Yorick basic attacks)
 - **0.36** disarm: Whimsy disarms Yorick for 2 s: no basic attacks. Disarm for 2 s on a 18 s cooldown. (Lulu W Whimsy → Yorick basic attacks)
 
-### 3. Xayah (net +1.00)
+#### 3. Xayah (net +1.00)
 
 - **0.67** range: Xayah's basic attacks reach 350 units farther than Yorick's (525 vs 175 attack range). Yorick has no dash or blink to close the gap. (Xayah basic attacks → Yorick basic attacks)
 - **0.33** untargetable: Featherstorm makes Xayah untargetable, dodging Yorick's Dark Procession. Untargetable for 1.5 s, long enough to use ahead of Dark Procession. (Xayah R Featherstorm → Yorick W Dark Procession)
 
-### 4. Morgana (net +0.97)
+#### 4. Morgana (net +0.97)
 
 - **0.60** cc immunity: Black Shield makes Morgana immune to Yorick's Dark Procession (airborne). Immune for 5 s, long enough to use ahead of Dark Procession. (Morgana E Black Shield → Yorick W Dark Procession)
 - **0.33** range: Morgana's basic attacks reach 275 units farther than Yorick's (450 vs 175 attack range). Yorick has no dash or blink to close the gap. (Morgana basic attacks → Yorick basic attacks)
 - **0.08** cc immunity: Black Shield makes Morgana immune to Yorick's Mourning Mist (slow). Immune for 5 s, long enough to use ahead of Mourning Mist. (Morgana E Black Shield → Yorick E Mourning Mist)
 
-### 5. Bard (net +0.96)
+#### 5. Bard (net +0.96)
 
 - **0.62** range: Bard's basic attacks reach 325 units farther than Yorick's (500 vs 175 attack range). Yorick has no dash or blink to close the gap. (Bard basic attacks → Yorick basic attacks)
 - **0.34** untargetable: Tempered Fate makes Bard untargetable, dodging Yorick's Dark Procession. Untargetable for 2.5 s, long enough to use ahead of Dark Procession. (Bard R Tempered Fate → Yorick W Dark Procession)
 
-### 6. Elise (net +0.95)
+#### 6. Elise (net +0.95)
 
 - **0.61** range: Elise's basic attacks reach 375 units farther than Yorick's (550 vs 175 attack range). Yorick has no dash or blink to close the gap. (Elise basic attacks → Yorick basic attacks)
 - **0.34** untargetable: Rappel makes Elise untargetable, dodging Yorick's Dark Procession. Untargetable for 0.6 s; Dark Procession lands within 0 s, faster than a 0.25 s reaction, so it needs prediction. (Elise E Rappel → Yorick W Dark Procession)
 
-### 7. Kalista (net +0.85)
+#### 7. Kalista (net +0.85)
 
 - **0.57** range: Kalista's basic attacks reach 350 units farther than Yorick's (525 vs 175 attack range). Yorick has no dash or blink to close the gap. (Kalista basic attacks → Yorick basic attacks)
 - **0.26** cleanse: Fate's Call cleanses Yorick's Dark Procession (airborne) after it lands. 120 s cooldown; usable while crowd controlled. (Kalista R Fate's Call → Yorick W Dark Procession)
 - **0.04** cleanse: Fate's Call cleanses Yorick's Mourning Mist (slow) after it lands. 120 s cooldown; usable while crowd controlled. (Kalista R Fate's Call → Yorick E Mourning Mist)
 
-### 8. Vladimir (net +0.83)
+#### 8. Vladimir (net +0.83)
 
 - **0.60** untargetable: Sanguine Pool makes Vladimir untargetable, dodging Yorick's Dark Procession. Untargetable for 2 s, long enough to use ahead of Dark Procession. (Vladimir W Sanguine Pool → Yorick W Dark Procession)
 - **0.30** range: Vladimir's basic attacks reach 275 units farther than Yorick's (450 vs 175 attack range). Yorick has no dash or blink to close the gap. (Vladimir basic attacks → Yorick basic attacks)
 - Watch out: Dark Procession's airborne interrupts Vladimir's Tides of Blood (charge-up).
 
-### 9. Zeri (net +0.83)
+#### 9. Zeri (net +0.83)
 
 - **0.83** range: Zeri's basic attacks reach 375 units farther than Yorick's (550 vs 175 attack range). Yorick has no dash or blink to close the gap. (Zeri basic attacks → Yorick basic attacks)
 
-### 10. Aurora (net +0.81)
+#### 10. Aurora (net +0.81)
 
 - **0.54** range: Aurora's basic attacks reach 375 units farther than Yorick's (550 vs 175 attack range). Yorick has no dash or blink to close the gap. (Aurora basic attacks → Yorick basic attacks)
 - **0.20** untargetable: Between Worlds makes Aurora untargetable, dodging Yorick's Dark Procession. Untargetable for 0.4 s; Dark Procession lands within 0 s, faster than a 0.25 s reaction, so it needs prediction. Does not destroy inbound projectiles. (Aurora R Between Worlds → Yorick W Dark Procession)
 - **0.14** cc immunity: Between Worlds is displacement immune, ignoring Yorick's Dark Procession (airborne) during it. Only during Between Worlds (0.4 s). (Aurora R Between Worlds → Yorick W Dark Procession)
 
-## Full ranking
+### Full ranking
 
 | # | Champion | Net | For | Against | Hard counters |
 |--:|---|--:|--:|--:|---|

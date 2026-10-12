@@ -2,7 +2,7 @@
 
 ## Simulated duels (full confidence)
 
-The duel simulator played each of the 45 other champions with a simulator kit against Akali: both at level 20 with 15,000 gold of plain stats, each side's spent against the other's, through six scenarios (PLAN.md §6). Scores run from −1 (Akali wins every time) to +1 (the champion does). Run `npm run duel -- <champion> Akali --log brawl` to watch a fight.
+The duel simulator played each of the 47 other champions with a simulator kit against Akali: both at level 20 with 15,000 gold of plain stats, each side's spent against the other's, through six scenarios (PLAN.md §6). Scores run from −1 (Akali wins every time) to +1 (the champion does). Run `npm run duel -- <champion> Akali --log brawl` to watch a fight.
 
 | # | Champion | Score | You engage | Enemy engages | Brawl | Short trade | Spacing | Escape |
 |--:|---|--:|--:|--:|--:|--:|--:|--:|
@@ -20,12 +20,12 @@ The duel simulator played each of the 45 other champions with a simulator kit ag
 | 12 | Kennen | +0.80 | +1.00 | +1.00 | +1.00 | +0.04 | +0.96 | +0.00 |
 | 13 | Garen | +0.80 | +1.00 | +1.00 | +1.00 | +0.14 | – | +0.00 |
 | 14 | Gwen | +0.80 | +1.00 | +1.00 | +1.00 | +0.11 | – | +0.00 |
-| 15 | Jax | +0.80 | +1.00 | +1.00 | +1.00 | +0.11 | – | +0.00 |
-| 16 | Riven | +0.80 | +1.00 | +1.00 | +1.00 | +0.11 | – | +0.00 |
-| 17 | Malphite | +0.80 | +1.00 | +1.00 | +1.00 | +0.11 | – | +0.00 |
-| 18 | Yone | +0.79 | +1.00 | +1.00 | +1.00 | +0.10 | – | +0.00 |
-| 19 | Quinn | +0.79 | +1.00 | +1.00 | +1.00 | −0.02 | +1.00 | +0.00 |
-| 20 | Illaoi | +0.79 | +1.00 | +1.00 | +1.00 | +0.10 | – | +0.00 |
+| 15 | Illaoi | +0.80 | +1.00 | +1.00 | +1.00 | +0.11 | – | +0.00 |
+| 16 | Jax | +0.80 | +1.00 | +1.00 | +1.00 | +0.11 | – | +0.00 |
+| 17 | Riven | +0.80 | +1.00 | +1.00 | +1.00 | +0.11 | – | +0.00 |
+| 18 | Malphite | +0.80 | +1.00 | +1.00 | +1.00 | +0.11 | – | +0.00 |
+| 19 | Yone | +0.79 | +1.00 | +1.00 | +1.00 | +0.10 | – | +0.00 |
+| 20 | Quinn | +0.79 | +1.00 | +1.00 | +1.00 | −0.02 | +1.00 | +0.00 |
 | 21 | Camille | +0.79 | +1.00 | +1.00 | +1.00 | +0.10 | – | +0.00 |
 | 22 | Zaahen | +0.79 | +1.00 | +1.00 | +1.00 | +0.08 | – | +0.00 |
 | 23 | Skarner | +0.79 | +1.00 | +1.00 | +1.00 | +0.08 | – | +0.00 |
@@ -39,18 +39,20 @@ The duel simulator played each of the 45 other champions with a simulator kit ag
 | 31 | Darius | +0.77 | +1.00 | +1.00 | +1.00 | −0.04 | – | +0.00 |
 | 32 | Kled | +0.77 | +1.00 | +1.00 | +1.00 | −0.04 | – | +0.00 |
 | 33 | Nasus | +0.77 | +1.00 | +1.00 | +1.00 | −0.05 | – | +0.00 |
-| 34 | Olaf | +0.77 | +1.00 | +1.00 | +1.00 | −0.07 | – | +0.00 |
-| 35 | Volibear | +0.77 | +1.00 | +1.00 | +1.00 | −0.07 | – | +0.00 |
-| 36 | Udyr | +0.76 | +1.00 | +1.00 | +1.00 | −0.08 | – | +0.00 |
-| 37 | Sion | +0.69 | +0.83 | +0.83 | +1.00 | +0.01 | – | +0.00 |
-| 38 | Irelia | +0.56 | +0.61 | +0.55 | +1.00 | +0.07 | – | +0.00 |
-| 39 | Ambessa | +0.48 | +1.00 | −0.05 | +1.00 | −0.03 | – | +0.00 |
-| 40 | Tahm Kench | +0.39 | +0.27 | +0.27 | +1.00 | +0.13 | – | +0.00 |
-| 41 | Aurora | +0.24 | −0.06 | −0.06 | +0.61 | +0.31 | +1.00 | +0.00 |
-| 42 | Shen | +0.19 | +0.04 | +0.04 | +0.71 | +0.06 | – | +0.00 |
-| 43 | Ornn | +0.12 | +0.11 | +0.11 | +0.12 | +0.16 | – | +0.00 |
-| 44 | Singed | +0.07 | +0.11 | +0.11 | +0.07 | −0.05 | – | +0.00 |
-| 45 | Pantheon | −0.24 | −0.37 | −0.34 | −0.34 | +0.19 | – | +0.00 |
+| 34 | Yorick | +0.77 | +1.00 | +1.00 | +1.00 | −0.05 | – | +0.00 |
+| 35 | Olaf | +0.77 | +1.00 | +1.00 | +1.00 | −0.07 | – | +0.00 |
+| 36 | Volibear | +0.77 | +1.00 | +1.00 | +1.00 | −0.07 | – | +0.00 |
+| 37 | Udyr | +0.76 | +1.00 | +1.00 | +1.00 | −0.08 | – | +0.00 |
+| 38 | Sion | +0.69 | +0.83 | +0.83 | +1.00 | +0.01 | – | +0.00 |
+| 39 | Irelia | +0.56 | +0.61 | +0.55 | +1.00 | +0.07 | – | +0.00 |
+| 40 | Ambessa | +0.48 | +1.00 | −0.05 | +1.00 | −0.03 | – | +0.00 |
+| 41 | Tahm Kench | +0.39 | +0.27 | +0.27 | +1.00 | +0.13 | – | +0.00 |
+| 42 | Heimerdinger | +0.35 | +0.09 | +0.05 | +1.00 | +0.32 | +0.62 | +0.00 |
+| 43 | Aurora | +0.24 | −0.06 | −0.06 | +0.61 | +0.31 | +1.00 | +0.00 |
+| 44 | Shen | +0.19 | +0.04 | +0.04 | +0.71 | +0.06 | – | +0.00 |
+| 45 | Ornn | +0.12 | +0.11 | +0.11 | +0.12 | +0.16 | – | +0.00 |
+| 46 | Singed | +0.07 | +0.11 | +0.11 | +0.07 | −0.05 | – | +0.00 |
+| 47 | Pantheon | −0.24 | −0.37 | −0.34 | −0.34 | +0.19 | – | +0.00 |
 
 ## Interaction ledger (partial confidence)
 

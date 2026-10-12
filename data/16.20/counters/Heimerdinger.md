@@ -1,5 +1,61 @@
 # Counters to Heimerdinger (patch 26.20)
 
+## Simulated duels (full confidence)
+
+The duel simulator played each of the 47 other champions with a simulator kit against Heimerdinger: both at level 20 with 15,000 gold of plain stats, each side's spent against the other's, through six scenarios (PLAN.md §6). Scores run from −1 (Heimerdinger wins every time) to +1 (the champion does). Run `npm run duel -- <champion> Heimerdinger --log brawl` to watch a fight.
+
+| # | Champion | Score | You engage | Enemy engages | Brawl | Short trade | Spacing | Escape |
+|--:|---|--:|--:|--:|--:|--:|--:|--:|
+| 1 | Jax | +0.80 | +1.00 | +1.00 | +1.00 | −0.01 | +1.00 | +0.00 |
+| 2 | Jayce | +0.79 | +1.00 | +1.00 | +1.00 | −0.04 | +1.00 | +0.00 |
+| 3 | Poppy | +0.76 | +1.00 | +1.00 | +0.80 | +0.01 | +1.00 | +0.00 |
+| 4 | Yorick | +0.76 | +1.00 | +1.00 | +1.00 | −0.27 | +1.00 | +0.00 |
+| 5 | Fiora | +0.75 | +1.00 | +1.00 | +1.00 | −0.64 | +1.00 | +1.00 |
+| 6 | Dr. Mundo | +0.74 | +0.99 | +0.86 | +1.00 | −0.13 | +0.99 | +0.00 |
+| 7 | Udyr | +0.74 | +1.00 | +1.00 | +1.00 | −0.40 | +1.00 | +0.00 |
+| 8 | K'Sante | +0.73 | +1.00 | +1.00 | +1.00 | −0.49 | +1.00 | +0.00 |
+| 9 | Garen | +0.73 | +1.00 | +1.00 | +1.00 | −0.49 | +1.00 | +0.00 |
+| 10 | Trundle | +0.70 | +1.00 | +1.00 | +1.00 | −0.71 | +1.00 | +0.12 |
+| 11 | Renekton | +0.65 | +1.00 | +1.00 | +1.00 | −0.40 | +0.13 | +0.00 |
+| 12 | Nasus | +0.58 | +0.33 | +1.00 | +1.00 | −0.35 | +1.00 | +0.00 |
+| 13 | Zaahen | +0.46 | +1.00 | +1.00 | −0.53 | −0.21 | +1.00 | +0.00 |
+| 14 | Rumble | +0.40 | +1.00 | +1.00 | −0.81 | −0.18 | +0.92 | +0.00 |
+| 15 | Irelia | +0.39 | +1.00 | +1.00 | −0.98 | −0.10 | +1.00 | +0.00 |
+| 16 | Camille | +0.38 | +1.00 | +1.00 | −1.00 | −0.11 | +1.00 | +0.00 |
+| 17 | Gnar | +0.37 | +1.00 | +1.00 | −1.00 | −0.05 | +0.73 | +0.00 |
+| 18 | Kayle | +0.36 | +1.00 | +1.00 | −1.00 | +0.15 | – | +0.00 |
+| 19 | Mordekaiser | +0.32 | +0.69 | +0.23 | +0.24 | −0.19 | +0.67 | +0.00 |
+| 20 | Kled | +0.18 | +1.00 | +1.00 | −1.00 | −0.13 | −1.00 | +0.00 |
+| 21 | Skarner | +0.09 | −0.11 | −0.13 | +0.98 | −0.46 | +0.21 | +0.00 |
+| 22 | Sett | +0.00 | +0.10 | +0.04 | +0.07 | −0.35 | +0.06 | +0.00 |
+| 23 | Tahm Kench | −0.01 | +0.04 | +0.04 | −0.01 | −0.14 | −0.04 | +0.00 |
+| 24 | Volibear | −0.03 | +0.62 | +0.21 | −0.99 | −0.71 | +0.69 | +0.00 |
+| 25 | Olaf | −0.09 | −0.73 | +1.00 | −1.00 | −0.34 | +0.97 | +0.00 |
+| 26 | Shen | −0.10 | −0.20 | +0.00 | −0.15 | −0.01 | −0.18 | +0.00 |
+| 27 | Ornn | −0.10 | −0.13 | −0.14 | −0.06 | −0.10 | −0.09 | +0.00 |
+| 28 | Tryndamere | −0.12 | −1.00 | +1.00 | −1.00 | −0.12 | +1.00 | +0.00 |
+| 29 | Cho'Gath | −0.14 | −0.07 | −0.11 | −0.21 | −0.21 | −0.20 | +0.00 |
+| 30 | Sion | −0.14 | −0.05 | −0.05 | −0.05 | −0.20 | −0.76 | +0.00 |
+| 31 | Darius | −0.21 | −1.00 | +1.00 | −1.00 | −0.71 | +1.00 | +0.00 |
+| 32 | Malphite | −0.22 | +0.34 | +0.31 | −1.00 | −0.57 | −1.00 | +0.00 |
+| 33 | Aatrox | −0.24 | −1.00 | +0.80 | −1.00 | −0.30 | +0.50 | +0.00 |
+| 34 | Urgot | −0.25 | −0.04 | −0.03 | −1.00 | −0.24 | −0.01 | +0.00 |
+| 35 | Pantheon | −0.28 | −0.78 | −0.78 | +1.00 | −0.09 | −0.78 | +0.00 |
+| 36 | Gwen | −0.29 | −0.48 | +0.98 | −1.00 | −0.76 | −0.99 | +0.00 |
+| 37 | Akali | −0.35 | −0.05 | −0.09 | −1.00 | −0.32 | −0.62 | +0.00 |
+| 38 | Riven | −0.37 | +0.09 | −0.82 | −1.00 | −0.59 | +1.00 | +0.00 |
+| 39 | Illaoi | −0.57 | −0.69 | −0.48 | −1.00 | −0.16 | −0.55 | +0.00 |
+| 40 | Yasuo | −0.60 | −0.77 | −0.43 | −1.00 | −0.08 | −0.84 | +0.00 |
+| 41 | Yone | −0.70 | −0.20 | −1.00 | −1.00 | −0.67 | −1.00 | +0.00 |
+| 42 | Aurora | −0.71 | −0.85 | −0.85 | −1.00 | −0.07 | – | +0.00 |
+| 43 | Kennen | −0.78 | −1.00 | −1.00 | −1.00 | −0.04 | – | +0.00 |
+| 44 | Teemo | −0.79 | −1.00 | −1.00 | −1.00 | −0.09 | – | +0.00 |
+| 45 | Quinn | −0.80 | −1.00 | −1.00 | −1.00 | −0.13 | – | +0.00 |
+| 46 | Singed | −0.88 | −1.00 | −1.00 | −1.00 | −0.50 | −1.00 | +0.00 |
+| 47 | Ambessa | −0.89 | −1.00 | −1.00 | −1.00 | −0.70 | −0.85 | +0.00 |
+
+## Interaction ledger (partial confidence)
+
 Every champion ranked by what its kit does against Heimerdinger's, from the interaction ledger: projectile blocks, spell shields,
 parries, dash stops, crowd control and its defenses, range and more (PLAN.md §5). This ranking is **partial**: it weighs the
 interactions but doesn't play the fight out. The duel simulator replaces it as each champion's behavior is verified.
@@ -8,71 +64,71 @@ interactions but doesn't play the fight out. The duel simulator replaces it as e
 A hard counter shuts down part of a kit every time it is used (projectile block, attack dodge, attack block, blind, disarm, attack speed slow, attack reflect, dash stop, grounding, range) with an impact of 0.4 or more (0.5 for range).
 Run `npm run matchup -- <champion> Heimerdinger` for the full ledger of a matchup, with sources.
 
-## Top 10
+### Top 10
 
-### 1. Braum (net +0.94)
+#### 1. Braum (net +0.94)
 
 - **0.70** projectile block: Unbreakable blocks Heimerdinger's CH-2 Electron Storm Grenade, a projectile. Unbreakable for 4 s, long enough to use ahead of CH-2 Electron Storm Grenade. (Braum E Unbreakable → Heimerdinger E CH-2 Electron Storm Grenade)
 - **0.70** projectile block: Unbreakable blocks Heimerdinger's CH-3X Lightning Grenade, a projectile. Unbreakable for 4 s, long enough to use ahead of CH-3X Lightning Grenade. (Braum E Unbreakable → Heimerdinger E CH-3X Lightning Grenade)
 - **0.45** projectile block: Unbreakable blocks Heimerdinger's H-28G Evolution Turret, a projectile. Unbreakable for 4 s, long enough to use ahead of H-28G Evolution Turret. (Braum E Unbreakable → Heimerdinger Q H-28G Evolution Turret)
 - Watch out: Heimerdinger's basic attacks reach 425 units farther than Braum's (550 vs 125 attack range).
 
-### 2. Samira (net +0.90)
+#### 2. Samira (net +0.90)
 
 - **0.49** projectile block: Blade Whirl blocks Heimerdinger's CH-2 Electron Storm Grenade, a projectile. Blade Whirl for 0.75 s; CH-2 Electron Storm Grenade takes 1.02 s to land, enough to react. (Samira W Blade Whirl → Heimerdinger E CH-2 Electron Storm Grenade)
 - **0.49** projectile block: Blade Whirl blocks Heimerdinger's CH-3X Lightning Grenade, a projectile. Blade Whirl for 0.75 s; CH-3X Lightning Grenade takes 1.02 s to land, enough to react. (Samira W Blade Whirl → Heimerdinger E CH-3X Lightning Grenade)
 - **0.43** projectile block: Blade Whirl blocks Heimerdinger's H-28G Evolution Turret, a projectile. Blade Whirl for 0.75 s; H-28G Evolution Turret takes 0.25 s to land, enough to react. (Samira W Blade Whirl → Heimerdinger Q H-28G Evolution Turret)
 
-### 3. Yasuo (net +0.88)
+#### 3. Yasuo (net +0.88)
 
 - **0.55** projectile block: Wind Wall blocks Heimerdinger's CH-2 Electron Storm Grenade, a projectile. Wind Wall for 4 s, long enough to use ahead of CH-2 Electron Storm Grenade. (Yasuo W Wind Wall → Heimerdinger E CH-2 Electron Storm Grenade)
 - **0.55** projectile block: Wind Wall blocks Heimerdinger's CH-3X Lightning Grenade, a projectile. Wind Wall for 4 s, long enough to use ahead of CH-3X Lightning Grenade. (Yasuo W Wind Wall → Heimerdinger E CH-3X Lightning Grenade)
 - **0.45** projectile block: Wind Wall blocks Heimerdinger's H-28G Evolution Turret, a projectile. Wind Wall for 4 s, long enough to use ahead of H-28G Evolution Turret. (Yasuo W Wind Wall → Heimerdinger Q H-28G Evolution Turret)
 - Watch out: Heimerdinger's basic attacks reach 375 units farther than Yasuo's (550 vs 175 attack range).
 
-### 4. Elise (net +0.81)
+#### 4. Elise (net +0.81)
 
 - **0.54** untargetable: Rappel makes Elise untargetable, dodging Heimerdinger's CH-2 Electron Storm Grenade. Untargetable for 0.6 s; CH-2 Electron Storm Grenade takes 1.02 s to land, enough to react. (Elise E Rappel → Heimerdinger E CH-2 Electron Storm Grenade)
 - **0.54** untargetable: Rappel makes Elise untargetable, dodging Heimerdinger's CH-3X Lightning Grenade. Untargetable for 0.6 s; CH-3X Lightning Grenade takes 1.02 s to land, enough to react. (Elise E Rappel → Heimerdinger E CH-3X Lightning Grenade)
 
-### 5. Sivir (net +0.81)
+#### 5. Sivir (net +0.81)
 
 - **0.54** spell shield: Spell Shield's spell shield blocks Heimerdinger's CH-2 Electron Storm Grenade. Spell shield for 1.5 s, long enough to use ahead of CH-2 Electron Storm Grenade. A spell shield blocks only the first enemy ability that reaches it. (Sivir E Spell Shield → Heimerdinger E CH-2 Electron Storm Grenade)
 - **0.54** spell shield: Spell Shield's spell shield blocks Heimerdinger's CH-3X Lightning Grenade. Spell shield for 1.5 s, long enough to use ahead of CH-3X Lightning Grenade. A spell shield blocks only the first enemy ability that reaches it. (Sivir E Spell Shield → Heimerdinger E CH-3X Lightning Grenade)
 
-### 6. Udyr (net +0.79)
+#### 6. Udyr (net +0.79)
 
 - **0.70** cc immunity: Blazing Stampede makes Udyr immune to Heimerdinger's CH-2 Electron Storm Grenade (slow, stun). Immune for 1.5 s, long enough to use ahead of CH-2 Electron Storm Grenade. (Udyr E Blazing Stampede → Heimerdinger E CH-2 Electron Storm Grenade)
 - **0.70** cc immunity: Blazing Stampede makes Udyr immune to Heimerdinger's CH-3X Lightning Grenade (slow, stun). Immune for 1.5 s, long enough to use ahead of CH-3X Lightning Grenade. (Udyr E Blazing Stampede → Heimerdinger E CH-3X Lightning Grenade)
 - Watch out: Heimerdinger's basic attacks reach 425 units farther than Udyr's (550 vs 125 attack range).
 
-### 7. Fiora (net +0.77)
+#### 7. Fiora (net +0.77)
 
 - **0.67** parry: Riposte parries Heimerdinger's CH-2 Electron Storm Grenade and stuns back. Parry for 0.75 s; CH-2 Electron Storm Grenade takes 1.02 s to land, enough to react. Negating CH-2 Electron Storm Grenade's immobilizing effect turns Riposte's slow into a stun (2 s). (Fiora W Riposte → Heimerdinger E CH-2 Electron Storm Grenade)
 - **0.67** parry: Riposte parries Heimerdinger's CH-3X Lightning Grenade and stuns back. Parry for 0.75 s; CH-3X Lightning Grenade takes 1.02 s to land, enough to react. Negating CH-3X Lightning Grenade's immobilizing effect turns Riposte's slow into a stun (2 s). (Fiora W Riposte → Heimerdinger E CH-3X Lightning Grenade)
 - **0.05** attack speed slow: Riposte cuts Heimerdinger's attack speed by 25% for 2 s. 2 s on a 16 s cooldown. (Fiora W Riposte → Heimerdinger basic attacks)
 - Watch out: Heimerdinger's basic attacks reach 400 units farther than Fiora's (550 vs 150 attack range).
 
-### 8. Mel (net +0.77)
+#### 8. Mel (net +0.77)
 
 - **0.46** projectile block: Rebuttal blocks Heimerdinger's CH-2 Electron Storm Grenade, a projectile. Rebuttal for 0.75 s; CH-2 Electron Storm Grenade takes 1.02 s to land, enough to react. (Mel W Rebuttal → Heimerdinger E CH-2 Electron Storm Grenade)
 - **0.46** projectile block: Rebuttal blocks Heimerdinger's CH-3X Lightning Grenade, a projectile. Rebuttal for 0.75 s; CH-3X Lightning Grenade takes 1.02 s to land, enough to react. (Mel W Rebuttal → Heimerdinger E CH-3X Lightning Grenade)
 - **0.39** projectile block: Rebuttal blocks Heimerdinger's H-28G Evolution Turret, a projectile. Rebuttal for 0.75 s; H-28G Evolution Turret takes 0.25 s to land, enough to react. (Mel W Rebuttal → Heimerdinger Q H-28G Evolution Turret)
 - Watch out: H-28G Evolution Turret makes Heimerdinger immune to Mel's Solar Snare slow.
 
-### 9. Maokai (net +0.75)
+#### 9. Maokai (net +0.75)
 
 - **0.70** untargetable: Twisted Advance makes Maokai untargetable, dodging Heimerdinger's CH-2 Electron Storm Grenade. Untargetable for 1.4 s; CH-2 Electron Storm Grenade takes 1.02 s to land, enough to react. (Maokai W Twisted Advance → Heimerdinger E CH-2 Electron Storm Grenade)
 - **0.70** untargetable: Twisted Advance makes Maokai untargetable, dodging Heimerdinger's CH-3X Lightning Grenade. Untargetable for 1.4 s; CH-3X Lightning Grenade takes 1.02 s to land, enough to react. (Maokai W Twisted Advance → Heimerdinger E CH-3X Lightning Grenade)
 - Watch out: Heimerdinger's basic attacks reach 425 units farther than Maokai's (550 vs 125 attack range).
 
-### 10. Nocturne (net +0.72)
+#### 10. Nocturne (net +0.72)
 
 - **0.66** spell shield: Shroud of Darkness's spell shield blocks Heimerdinger's CH-2 Electron Storm Grenade. Spell shield for 1.5 s, long enough to use ahead of CH-2 Electron Storm Grenade. A spell shield blocks only the first enemy ability that reaches it. (Nocturne W Shroud of Darkness → Heimerdinger E CH-2 Electron Storm Grenade)
 - **0.66** spell shield: Shroud of Darkness's spell shield blocks Heimerdinger's CH-3X Lightning Grenade. Spell shield for 1.5 s, long enough to use ahead of CH-3X Lightning Grenade. A spell shield blocks only the first enemy ability that reaches it. (Nocturne W Shroud of Darkness → Heimerdinger E CH-3X Lightning Grenade)
 - Watch out: Heimerdinger's basic attacks reach 425 units farther than Nocturne's (550 vs 125 attack range).
 
-## Full ranking
+### Full ranking
 
 | # | Champion | Net | For | Against | Hard counters |
 |--:|---|--:|--:|--:|---|

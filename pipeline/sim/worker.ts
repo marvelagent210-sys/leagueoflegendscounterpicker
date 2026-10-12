@@ -25,7 +25,7 @@ for (const [index, you, enemy] of task.pairs) {
     score: matchup.score,
     scenarios: matchup.scenarios.map((s) => s.score ?? null),
     spent: [matchup.builds[0].spent, matchup.builds[1].spent],
-    ...(matchup.variant ? { variant: matchup.variant } : {}),
+    ...(matchup.variants ? { variants: matchup.variants } : {}),
   });
 }
 parentPort?.postMessage(results);
