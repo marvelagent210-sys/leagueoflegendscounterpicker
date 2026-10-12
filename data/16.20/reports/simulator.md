@@ -12,51 +12,51 @@ Each champion's average score against the others (−1 to +1).
 | 2 | K'Sante | +0.61 |
 | 3 | Trundle | +0.58 |
 | 4 | Fiora | +0.54 |
-| 5 | Zaahen | +0.50 |
-| 6 | Darius | +0.46 |
+| 5 | Zaahen | +0.51 |
+| 6 | Darius | +0.47 |
 | 7 | Teemo | +0.45 |
-| 8 | Nasus | +0.43 |
+| 8 | Nasus | +0.42 |
 | 9 | Jax | +0.38 |
 | 10 | Poppy | +0.36 |
 | 11 | Kayle | +0.34 |
 | 12 | Dr. Mundo | +0.34 |
-| 13 | Aatrox | +0.26 |
+| 13 | Aatrox | +0.25 |
 | 14 | Udyr | +0.23 |
 | 15 | Illaoi | +0.20 |
 | 16 | Tryndamere | +0.19 |
-| 17 | Kled | +0.18 |
-| 18 | Olaf | +0.13 |
+| 17 | Kled | +0.17 |
+| 18 | Olaf | +0.12 |
 | 19 | Volibear | +0.12 |
-| 20 | Gangplank | +0.09 |
+| 20 | Gangplank | +0.11 |
 | 21 | Cho'Gath | +0.03 |
-| 22 | Malphite | +0.01 |
-| 23 | Quinn | +0.01 |
-| 24 | Gwen | +0.00 |
-| 25 | Mordekaiser | −0.02 |
+| 22 | Quinn | +0.01 |
+| 23 | Gwen | +0.00 |
+| 24 | Malphite | −0.00 |
+| 25 | Mordekaiser | −0.01 |
 | 26 | Gnar | −0.04 |
 | 27 | Tahm Kench | −0.04 |
-| 28 | Heimerdinger | −0.05 |
-| 29 | Camille | −0.05 |
+| 28 | Camille | −0.05 |
+| 29 | Heimerdinger | −0.05 |
 | 30 | Garen | −0.06 |
-| 31 | Renekton | −0.10 |
-| 32 | Aurora | −0.11 |
-| 33 | Yone | −0.17 |
-| 34 | Kennen | −0.20 |
-| 35 | Sion | −0.22 |
-| 36 | Jayce | −0.25 |
-| 37 | Rumble | −0.31 |
-| 38 | Irelia | −0.36 |
-| 39 | Urgot | −0.36 |
-| 40 | Singed | −0.37 |
-| 41 | Yasuo | −0.40 |
+| 31 | Aurora | −0.10 |
+| 32 | Renekton | −0.12 |
+| 33 | Yone | −0.18 |
+| 34 | Kennen | −0.21 |
+| 35 | Sion | −0.21 |
+| 36 | Jayce | −0.26 |
+| 37 | Rumble | −0.33 |
+| 38 | Irelia | −0.37 |
+| 39 | Singed | −0.37 |
+| 40 | Urgot | −0.37 |
+| 41 | Riven | −0.38 |
 | 42 | Ornn | −0.40 |
-| 43 | Shen | −0.41 |
-| 44 | Sett | −0.45 |
-| 45 | Riven | −0.49 |
-| 46 | Pantheon | −0.50 |
-| 47 | Skarner | −0.50 |
-| 48 | Ambessa | −0.59 |
-| 49 | Akali | −0.69 |
+| 43 | Yasuo | −0.41 |
+| 44 | Shen | −0.41 |
+| 45 | Sett | −0.46 |
+| 46 | Skarner | −0.50 |
+| 47 | Pantheon | −0.52 |
+| 48 | Ambessa | −0.61 |
+| 49 | Akali | −0.71 |
 
 ## Golden matchups
 
@@ -70,11 +70,21 @@ Kit-driven expectations (tests/golden/matchups.ts), drafted for review. Margins:
 | Poppy beats Yone | slight | +0.80 | holds | Steadfast Presence stops Mortal Steel's third-cast dash. |
 | Poppy beats Camille | slight | +0.83 | holds | Steadfast Presence stops Wall Dive. |
 | Poppy beats Fiora | slight | −0.74 | disputed | Steadfast Presence stops Lunge. *Disputed:* Fiora wins every all-in (-0.74). Poppy's damage is all physical, and with penetration capped the budget answers it with 5,600 gold of armor (406 in all), while Poppy spends hers on damage rather than health: her opening crowd control wears off with Fiora barely scratched. |
+| Poppy beats Kled | clear | +0.82 | holds | Steadfast Presence stops Jousting's dashes and Chaaaaaaaarge!!!'s final dash. |
+| Poppy beats Akali | clear | +0.82 | holds | Steadfast Presence stops Shuriken Flip's dash back in and both of Perfect Execution's dashes. |
+| Poppy beats Gnar | slight | +0.73 | holds | Steadfast Presence stops Hop and Crunch. |
+| Poppy beats Pantheon | slight | +0.82 | holds | Steadfast Presence stops Shield Vault's leap, and with it the stun. |
 | Teemo beats Tryndamere | clear | +0.83 | holds | Blinding Dart stops the crits Tryndamere's damage and Fury come from, and Teemo out-ranges him. |
 | Teemo beats Darius | slight | +0.88 | holds | Blinding Dart stops the attacks that stack Hemorrhage, and Teemo kites him. |
 | Teemo beats Garen | slight | +0.92 | holds | Blinding Dart makes Decisive Strike miss, and Garen's only way in is its haste. |
 | Teemo beats Olaf | slight | +0.93 | holds | Blinding Dart stops Olaf's attacks, and Teemo kites him. |
 | Teemo beats Volibear | slight | +0.91 | holds | Teemo kites him, and a blinded Thundering Smash attack misses, stun included. |
+| Teemo beats Gangplank | clear | +0.89 | holds | Teemo out-ranges Gangplank and shoots his Powder Kegs away, and Blinding Dart makes Trial by Fire's attack miss. |
+| Teemo beats Kled | slight | +0.82 | holds | Teemo kites Kled, and Blinding Dart stops his attacks. |
+| Teemo beats Udyr | slight | +0.87 | holds | Blinding Dart makes Udyr's empowered attacks miss, and Teemo kites him. |
+| Quinn beats Darius | clear | +0.70 | holds | Quinn out-ranges Darius, and Vault knocks him back when he closes in. |
+| Quinn beats Garen | clear | +0.75 | holds | Quinn out-ranges Garen, and Blinding Assault's nearsight and Vault keep him off her. |
+| Kayle beats Darius | slight | +0.89 | holds | By level 20 Kayle attacks from range, and Divine Judgment's invulnerability answers Noxian Guillotine. |
 | Jax beats Tryndamere | slight | +0.51 | holds | Counter Strike dodges Tryndamere's attacks for two seconds, then stuns him. |
 | Jax beats Camille | slight | +0.77 | holds | Counter Strike dodges Precision Protocol's empowered attacks. |
 | Fiora beats Malphite | slight | +0.74 | holds | Riposte parries Unstoppable Force, and Vitals' true damage ignores Malphite's armor. |
@@ -84,6 +94,11 @@ Kit-driven expectations (tests/golden/matchups.ts), drafted for review. Margins:
 | Fiora beats Garen | slight | +0.79 | holds | Riposte parries Decisive Strike's silence or Demacian Justice. |
 | Fiora beats Mordekaiser | slight | +0.88 | holds | Riposte parries Death's Grasp's pull, and Vitals' true damage ignores Mordekaiser's armor. |
 | Fiora beats Aatrox | slight | −0.25 | disputed | Riposte parries a Darkin Blade knock-up. *Disputed:* Aatrox wins both all-ins (-0.25 overall; Fiora wins the brawl). Each hit takes 2 s off Deathbringer Stance's cooldown, so the budget buys Aatrox 312% bonus attack speed: a Deathbringer Stance hit about every 1.2 s, healing double through World Ender. |
+| Jax beats Gangplank | slight | +0.50 | holds | Counter Strike dodges Gangplank's attacks, Trial by Fire's included, then stuns him. |
+| Jax beats Udyr | slight | +0.78 | holds | Counter Strike dodges Udyr's empowered attacks. |
+| Fiora beats K'Sante | clear | +0.86 | holds | Vitals deal true damage from maximum health, and Riposte parries Path Maker's stun or All Out's root. |
+| Fiora beats Skarner | slight | +0.76 | holds | Riposte parries Impale's suppression or Ixtal's Impact's stun. |
+| Fiora beats Sion | slight | +0.82 | holds | Riposte parries Decimating Smash's knock-up, and Vitals' true damage ignores Sion's armor. |
 | Fiora beats Ornn | clear | +0.79 | holds | Vitals deal true damage from maximum health, and Riposte parries Ornn's knock-ups. |
 | Fiora beats Dr. Mundo | slight | +0.78 | holds | Vitals deal true damage from maximum health. |
 | Fiora beats Shen | slight | +0.76 | holds | Vitals deal true damage from maximum health, and Riposte parries Shadow Dash's taunt. |
@@ -96,6 +111,12 @@ Kit-driven expectations (tests/golden/matchups.ts), drafted for review. Margins:
 | Camille beats Ornn | slight | +0.75 | holds | Precision Protocol's second hit is true damage. |
 | Camille beats Shen | slight | +0.32 | holds | Precision Protocol's second hit is true damage. |
 | Urgot beats Ornn | slight | −0.00 | disputed | Echoing Flames' shotgun legs deal damage from maximum health, and Fear Beyond Death executes. *Disputed:* Even (0.00): every all-in runs the full 30 s with both near half health. Urgot's damage is all physical, and Ornn buys 8,500 gold of armor that Living Forge makes worth 30% more (562 armor in all) against Urgot's capped 34% penetration. |
+| Trundle beats Ornn | clear | +0.77 | holds | Subjugate drains 30% of Ornn's maximum health and steals 40% of his armor and magic resistance. |
+| Trundle beats Cho'Gath | clear | +0.74 | holds | Subjugate drains 30% of Cho'Gath's maximum health, Feast's health included, and steals 40% of his resistances. |
+| Trundle beats Sion | clear | +0.77 | holds | Subjugate drains 30% of Sion's maximum health and steals 40% of his resistances. |
+| Trundle beats Dr. Mundo | clear | −0.78 | disputed | Subjugate drains 30% of Dr. Mundo's maximum health and steals 40% of his resistances. *Disputed:* Dr. Mundo wins every all-in (-0.78). He buys 8,600 gold of health and 5,100 of armor: Subjugate's share of his health comes to about 1,100 after magic resistance, Maximum Dosage heals more than that back, and Trundle's attacks run into the armor. |
+| Gwen beats Cho'Gath | clear | +0.78 | holds | A Thousand Cuts deals magic damage from maximum health, Feast's health included. |
+| Gwen beats Tahm Kench | clear | +0.76 | holds | A Thousand Cuts deals magic damage from maximum health. |
 | Olaf beats Malphite | slight | +0.77 | holds | Ragnarok ignores Unstoppable Force, and Reckless Swing's true damage ignores his armor. |
 | Olaf beats Ornn | slight | +0.78 | holds | Ragnarok ignores Ornn's knock-ups and stuns. |
 | Olaf beats Poppy | slight | +0.79 | holds | Ragnarok ignores Heroic Charge's stun and Keeper's Verdict. |
@@ -104,12 +125,16 @@ Kit-driven expectations (tests/golden/matchups.ts), drafted for review. Margins:
 | Malphite beats Yone | slight | +0.80 | holds | Armor against crits, and Ground Slam cuts Yone's attack speed. |
 | Malphite beats Riven | slight | +0.80 | holds | All of Riven's damage is physical, into Malphite's armor and Ground Slam. |
 | Malphite beats Irelia | slight | +0.80 | holds | Ground Slam cuts Irelia's attack speed, and her damage is mostly physical. |
+| Olaf beats K'Sante | slight | +0.85 | holds | Ragnarok ignores Path Maker's stun and All Out's root, and Reckless Swing's true damage ignores K'Sante's resistances. |
+| Olaf beats Skarner | slight | +0.81 | holds | Ragnarok ignores Impale's suppression and Ixtal's Impact's stun. |
+| Malphite beats Pantheon | slight | +0.81 | holds | Pantheon's damage is all physical, into Malphite's armor. |
+| Malphite beats Gangplank | slight | −0.76 | disputed | Gangplank's attacks, Parrrley and Powder Kegs are physical, into Malphite's armor. *Disputed:* Gangplank wins every all-in (+0.76 for him). Both buy armor (Malphite 7,650 gold, Gangplank 5,300), so Malphite's physical damage stays low, while Trial by Fire's true damage and Cannon Barrage's magic damage carry Gangplank through fights of about 18 seconds. |
 | Garen beats Yasuo | slight | +0.80 | holds | Decisive Strike silences Yasuo, so he can't Sweeping Blade away or stack Steel Tempest. |
 | Garen beats Yone | slight | +0.61 | holds | Decisive Strike silences Yone in the middle of his combo. |
 | Garen beats Irelia | slight | +0.80 | holds | Decisive Strike silences Irelia (no Bladesurge resets), and Garen's regeneration outlasts her trades. |
 | Nasus beats Renekton | slight | +0.78 | holds | By level 20 Siphoning Strike has its stacks, and Wither cripples Renekton's attacks. |
 
-41 of 44 expectations hold.
+64 of 69 expectations hold.
 
 ## What the stat budget buys
 
@@ -159,7 +184,7 @@ Average gold each champion spends on each stat across its matchups.
 | Teemo | 2042 | 741 | 4621 | 1797 | 0 | 25 | 461 | 14 | 11 | 2174 | 2500 | 614 |
 | Trundle | 2614 | 0 | 3952 | 3768 | 0 | 54 | 1750 | 0 | 0 | 859 | 1635 | 367 |
 | Tryndamere | 2658 | 0 | 4663 | 2268 | 0 | 224 | 1750 | 0 | 0 | 1240 | 1748 | 448 |
-| Udyr | 1169 | 1356 | 950 | 489 | 1549 | 546 | 752 | 2 | 444 | 3888 | 3150 | 757 |
+| Udyr | 1170 | 1357 | 950 | 489 | 1549 | 546 | 752 | 2 | 444 | 3883 | 3150 | 757 |
 | Urgot | 2854 | 0 | 0 | 0 | 0 | 1059 | 1750 | 0 | 0 | 4872 | 3233 | 1232 |
 | Volibear | 1192 | 3354 | 3634 | 753 | 0 | 104 | 324 | 8 | 39 | 2721 | 2282 | 588 |
 | Yasuo | 4379 | 0 | 3179 | 2000 | 0 | 120 | 1750 | 0 | 0 | 1328 | 1817 | 427 |

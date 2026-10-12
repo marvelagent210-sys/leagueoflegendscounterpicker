@@ -289,7 +289,7 @@ Effects marked by a mark or a role are completed by the kit's hooks (see the kit
 
 - A Tentacle is 65 units in radius: the wiki gives none, and the game files give it no gameplay radius, which leaves the game's default (the wiki's 65 for Gangplank's Powder Keg, which has none in the game files either).
 - Tentacles rise where Illaoi stands: the terrain at the lane's side is next to her.
-- With the lane set up, one awake Tentacle stands beside Illaoi when the fight starts, and the innate's timer is ready.
+- With the lane set up, one awake Tentacle stands beside Illaoi when the fight starts, and the innate's timer is ready; without it, the timer starts its cooldown.
 - A commanded slam lands 0.75 s after it starts, as Tentacle Smash's does (the wiki gives no time for the others), and a Tentacle's queued slams follow one another without a pause outside Leap of Faith.
 - The enemy can step out of a slam sideways, as from any skillshot. On the line, a slam always hits a Spirit standing in its stretch, and one aimed at the Spirit can catch the champion beyond it; a slam that hits a Spirit heals Illaoi as if it hit a champion (the wiki counts Spirits as clones).
 - Harsh Lesson's leap takes Illaoi to the target as the attack starts (the game files' leap, at her movement speed plus 600, covers its 225 units in under 0.25 s).

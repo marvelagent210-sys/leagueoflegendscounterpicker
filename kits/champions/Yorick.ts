@@ -315,7 +315,8 @@ const yorick: KitModule = {
       },
       hooks: {
         onStart(ctx) {
-          setGraves(ctx, Array.from({ length: startGraves }, () => ctx.self.x));
+          // Graves from laning, when the lane was set up in advance.
+          if (ctx.world.settings.environment.laneSetup) setGraves(ctx, Array.from({ length: startGraves }, () => ctx.self.x));
         },
         onTick(ctx) {
           const { world, self, enemy, tick } = ctx;

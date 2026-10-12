@@ -43,7 +43,7 @@ const illaoi: KitModule = {
     const spawnDelay = innate.quoted("Tentacles fully spawn after a 2 second delay and are untargetable in the meantime", 0);
     innate.quote("Periodically, Illaoi spawns a Tentacle on the nearest terrain, if no other Tentacle is around it");
     kit.assume("Tentacles rise where Illaoi stands: the terrain at the lane's side is next to her.");
-    kit.assume("With the lane set up, one awake Tentacle stands beside Illaoi when the fight starts, and the innate's timer is ready.");
+    kit.assume("With the lane set up, one awake Tentacle stands beside Illaoi when the fight starts, and the innate's timer is ready; without it, the timer starts its cooldown.");
 
     // The slam: 200.1 (+ 110% AD) (+ 40% AP), 30% more from Tentacle Smash's rank.
     const slamBase = innate.levelValue("Tentacles are commanded to attack by Illaoi's abilities, dealing");
@@ -362,8 +362,10 @@ const illaoi: KitModule = {
       },
       hooks: {
         onStart(ctx) {
-          spawnTentacle(ctx, ctx.self.x, tentacleSpec, 0, "has a Tentacle beside her");
-          ctx.memory.spawnReady = ctx.tick;
+          // A Tentacle from laning and the innate ready, when the lane was set up in advance; else the innate starts its cooldown.
+          const setUp = ctx.world.settings.environment.laneSetup;
+          if (setUp) spawnTentacle(ctx, ctx.self.x, tentacleSpec, 0, "has a Tentacle beside her");
+          ctx.memory.spawnReady = setUp ? ctx.tick : ctx.tick + ticks(spawnEvery);
         },
         onTick(ctx) {
           const { world, self, enemy, tick } = ctx;

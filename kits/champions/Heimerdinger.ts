@@ -350,7 +350,8 @@ const heimerdinger: KitModule = {
       },
       hooks: {
         onStart(ctx) {
-          for (let i = 0; i < startTurrets; i++) placeTurret(ctx, ctx.self.x);
+          // Turrets set up while laning, when the lane was set up in advance.
+          if (ctx.world.settings.environment.laneSetup) for (let i = 0; i < startTurrets; i++) placeTurret(ctx, ctx.self.x);
         },
         onTick(ctx) {
           const { world, self, enemy, tick } = ctx;

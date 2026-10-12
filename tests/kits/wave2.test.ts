@@ -6,7 +6,7 @@ import { applyEffect } from "../../engine/sim/combat";
 import { allAbilities } from "../../engine/sim/forms";
 import { createWorld, step } from "../../engine/sim/simulate";
 import type { AbilitySpec } from "../../engine/sim/spec";
-import type { World } from "../../engine/sim/state";
+import { DEFAULT_ENVIRONMENT, type World } from "../../engine/sim/state";
 import { fighter } from "../sim/kits";
 import { kit } from "./helpers";
 
@@ -260,6 +260,21 @@ describe("wave-2 kits read the wiki at level 20", () => {
     while (!stunned.result) step(stunned, [own, () => undefined]);
     expect(stunned.log.find((e) => e.side === 0 && e.text.startsWith("casts"))).toMatchObject({ tick: 0, text: "casts Remove Scurvy" });
     expect(stunned.log.find((e) => e.text === "cleanses crowd control")?.tick).toBe(8);
+  });
+
+  it("Lane setup: Illaoi's Tentacle, Yorick's graves and Heimerdinger's turrets are there only when the lane was set up in advance", () => {
+    const enemy = fighter({ id: "enemy" });
+    const start = (id: string, laneSetup: boolean) => {
+      const world = createWorld({ fighters: [kit(id).spec, enemy], distance: 500, modes: ["idle", "idle"], settings: { environment: { ...DEFAULT_ENVIRONMENT, laneSetup } } });
+      step(world, [() => undefined, () => undefined]);
+      return world;
+    };
+    for (const id of ["Illaoi", "Heimerdinger"]) {
+      expect(start(id, true).pets.length, id).toBeGreaterThan(0);
+      expect(start(id, false).pets, id).toEqual([]);
+    }
+    expect(String(start("Yorick", true).units[0].memory.graves ?? "")).not.toBe("");
+    expect(String(start("Yorick", false).units[0].memory.graves ?? "")).toBe("");
   });
 
   it("Gnar", () => {

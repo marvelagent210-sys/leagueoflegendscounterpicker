@@ -266,9 +266,9 @@ Effects marked by a mark or a role are completed by the kit's hooks (see the kit
 ### Assumptions
 
 - The Weirding's slow is full for 0.15 s, then decays and counts at half; its recoil goes at 150 + 200% of Aurora's base movement speed.
-- Between Worlds' shockwave reaches 700 units around a point 425 units ahead of Aurora, landing halfway through its 0.75 s expansion; her own dash across the rift on touching its border is left out (on a line it would carry her past the enemy).
+- Between Worlds' leap (25 to 250 units, landing after its 0.4 s) goes toward or away from the enemy to put it 425 units ahead, where the shockwave starts; the shockwave reaches 700 units around that point, landing halfway through its 0.75 s expansion. Her own dash across the rift on touching its border is left out (on a line it would carry her past the enemy).
 
-### Wiki values read (47)
+### Wiki values read (48)
 
 | Ability | Value | Revision |
 |---|---|---|
@@ -294,6 +294,7 @@ Effects marked by a mark or a role are completed by the kit's hooks (see the kit
 | The Weirding | recoils 250 units in the opposite direction | [4064843](https://wiki.leagueoflegends.com/en-us/Template:Data_Aurora/The_Weirding?oldid=4064843) |
 | The Weirding | speed: 150 + 200% movement speed | [4064843](https://wiki.leagueoflegends.com/en-us/Template:Data_Aurora/The_Weirding?oldid=4064843) |
 | Between Worlds | Aurora leaps in the target direction with displacement immunity over 0.4 seconds | [4066715](https://wiki.leagueoflegends.com/en-us/Template:Data_Aurora/Between_Worlds?oldid=4066715) |
+| Between Worlds | range: 25 – 250 • 450 | [4066715](https://wiki.leagueoflegends.com/en-us/Template:Data_Aurora/Between_Worlds?oldid=4066715) |
 | Between Worlds | unleashes a shockwave from 425 units in front of her | [4066715](https://wiki.leagueoflegends.com/en-us/Template:Data_Aurora/Between_Worlds?oldid=4066715) |
 | Between Worlds | expanding over 0.75 seconds | [4066715](https://wiki.leagueoflegends.com/en-us/Template:Data_Aurora/Between_Worlds?oldid=4066715) |
 | Between Worlds | effectRadius: 700 | [4066715](https://wiki.leagueoflegends.com/en-us/Template:Data_Aurora/Between_Worlds?oldid=4066715) |

@@ -57,6 +57,7 @@ const aurora: KitModule = {
 
     // Between Worlds: a leap, a shockwave 425 units ahead, Realm Hopper, and a rift that slows enemies crossing its border.
     const leapSeconds = r.quoted("Aurora leaps in the target direction with displacement immunity over 0.4 seconds", 0);
+    const [leapMin = 25, leapMax = 250] = r.fieldNumbers("range");
     const waveAhead = r.quoted("unleashes a shockwave from 425 units in front of her", 0);
     const waveSeconds = r.quoted("expanding over 0.75 seconds", 0);
     const riftRadius = r.field("effectRadius");
@@ -68,7 +69,7 @@ const aurora: KitModule = {
     const ultHopper = r.number("Realm Hopper Duration");
     r.quote("The rift closes immediately if Aurora dies, enters resurrection, leaves the area, or is not within the area upon creation");
     kit.assume(
-      `Between Worlds' shockwave reaches ${riftRadius} units around a point ${waveAhead} units ahead of Aurora, landing halfway through its ${waveSeconds} s expansion; her own dash across the rift on touching its border is left out (on a line it would carry her past the enemy).`,
+      `Between Worlds' leap (${leapMin} to ${leapMax} units, landing after its ${leapSeconds} s) goes toward or away from the enemy to put it ${waveAhead} units ahead, where the shockwave starts; the shockwave reaches ${riftRadius} units around that point, landing halfway through its ${waveSeconds} s expansion. Her own dash across the rift on touching its border is left out (on a line it would carry her past the enemy).`,
     );
 
     const realmHopper = (seconds: number): Effect[] => [
@@ -202,6 +203,11 @@ const aurora: KitModule = {
           if (spirits > 0 && (ctx.tick - Number(ctx.memory.spiritsUntil)) % 30 === 0) ctx.apply({ type: "heal", amount: flat(spirits * evaluate(spiritHeal, self)) }, true);
           // The rift: it forms when the shockwave has spread; enemies crossing its border are slowed.
           const formed = Number(ctx.memory.riftFrom ?? Number.POSITIVE_INFINITY);
+          // The rift is centered ahead of where the leap landed.
+          if (ctx.memory.riftDir !== undefined && ctx.tick > Number(ctx.memory.leapUntil)) {
+            ctx.memory.riftX = self.x + Number(ctx.memory.riftDir) * waveAhead;
+            delete ctx.memory.riftDir;
+          }
           if (ctx.tick >= formed && ctx.tick < Number(ctx.memory.riftUntil ?? -1)) {
             const center = Number(ctx.memory.riftX);
             if (Math.abs(self.x - center) > riftRadius) {
@@ -218,6 +224,12 @@ const aurora: KitModule = {
           unveil(ctx);
           if (ctx.ability.key === "R") {
             const toward = ctx.enemy.x >= ctx.self.x ? 1 : -1;
+            // The leap: as far as it takes (within its range) to put the enemy where the shockwave starts.
+            const short = Math.abs(ctx.enemy.x - ctx.self.x) - waveAhead;
+            const leap = Math.max(leapMin, Math.min(leapMax, Math.abs(short)));
+            ctx.apply({ type: "delayed", delay: leapSeconds, effects: [{ type: "reposition", direction: short > 0 ? "toward" : "away", distance: leap }] }, true);
+            ctx.memory.leapUntil = ctx.tick + ticks(leapSeconds);
+            ctx.memory.riftDir = toward;
             ctx.memory.riftX = ctx.self.x + toward * waveAhead;
             ctx.memory.riftFrom = ctx.tick + ticks(leapSeconds + waveSeconds);
             ctx.memory.riftUntil = ctx.tick + ticks(leapSeconds + waveSeconds + riftSeconds);
