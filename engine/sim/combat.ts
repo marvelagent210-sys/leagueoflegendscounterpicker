@@ -572,14 +572,28 @@ export function abilityHit(world: World, caster: Unit, target: Unit, ability: Ab
     }
   }
   const blocked = ability.flags?.parry === true && hasState(target, "blockAttacks");
+  const falloff = ability.falloff ? falloffShare(world, target, ability.falloff) : 1;
   for (const effect of effects) {
     if (blocked && effect.type === "damage") continue;
     if (!target.alive && negates(effect)) continue;
-    applyEffect(world, caster, target, effect, { ability, scale });
+    const share = effect.type === "damage" || effect.type === "dot" ? falloff : 1;
+    applyEffect(world, caster, target, effect, { ability, scale: scale * share });
+  }
+  if (ability.falloff) {
+    // Each hit counts toward the next ones' falloff for the window, by its share.
+    const { group, window } = ability.falloff;
+    addStatus(target, { kind: "mark", key: `falloff:${group}:${world.nextId++}`, source: caster.side, startTick: world.tick, endTick: world.tick + toTicks(window), value: scale });
   }
   if (ability.flags?.appliesOnHit) applyOnHit(world, caster, target, [], blocked);
   const onAbilityHit = caster.spec.hooks?.onAbilityHit;
   if (onAbilityHit) runHook(() => onAbilityHit({ ...hookContext(world, caster, ability), scale }));
+}
+
+/** The share of its damage a hit with falloff deals: less for each hit of its group the target took within the window. */
+function falloffShare(world: World, target: Unit, falloff: NonNullable<AbilitySpec["falloff"]>): number {
+  const prefix = `falloff:${falloff.group}:`;
+  const recent = target.statuses.reduce((sum, s) => (s.kind === "mark" && s.key.startsWith(prefix) && s.endTick > world.tick ? sum + s.value : sum), 0);
+  return Math.max(falloff.floor, 1 - falloff.per * recent);
 }
 
 function applyOnHit(world: World, attacker: Unit, target: Unit, bonus: Effect[], blocked: boolean): void {

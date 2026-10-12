@@ -2,7 +2,7 @@
 
 ## Simulated duels (full confidence)
 
-The duel simulator played each of the 44 other champions with a simulator kit against Teemo: both at level 20 with 15,000 gold of plain stats, each side's spent against the other's, through six scenarios (PLAN.md §6). Scores run from −1 (Teemo wins every time) to +1 (the champion does). Run `npm run duel -- <champion> Teemo --log brawl` to watch a fight.
+The duel simulator played each of the 45 other champions with a simulator kit against Teemo: both at level 20 with 15,000 gold of plain stats, each side's spent against the other's, through six scenarios (PLAN.md §6). Scores run from −1 (Teemo wins every time) to +1 (the champion does). Run `npm run duel -- <champion> Teemo --log brawl` to watch a fight.
 
 | # | Champion | Score | You engage | Enemy engages | Brawl | Short trade | Spacing | Escape |
 |--:|---|--:|--:|--:|--:|--:|--:|--:|
@@ -38,18 +38,19 @@ The duel simulator played each of the 44 other champions with a simulator kit ag
 | 30 | Camille | −0.83 | −1.00 | −1.00 | −1.00 | −0.23 | −1.00 | +0.00 |
 | 31 | Sett | −0.85 | −1.00 | −1.00 | −1.00 | −0.31 | −1.00 | +0.00 |
 | 32 | Gwen | −0.86 | −1.00 | −1.00 | −1.00 | −0.37 | −1.00 | +0.00 |
-| 33 | Zaahen | −0.86 | −1.00 | −1.00 | −1.00 | −0.42 | −1.00 | +0.00 |
-| 34 | Udyr | −0.87 | −1.00 | −1.00 | −1.00 | −0.44 | −1.00 | +0.00 |
-| 35 | Akali | −0.88 | −1.00 | −1.00 | −1.00 | −0.50 | −1.00 | +0.00 |
-| 36 | Aatrox | −0.88 | −1.00 | −1.00 | −1.00 | −0.50 | −1.00 | +0.00 |
-| 37 | Darius | −0.88 | −1.00 | −1.00 | −1.00 | −0.53 | −1.00 | +0.00 |
-| 38 | Ambessa | −0.89 | −1.00 | −1.00 | −1.00 | −0.57 | −1.00 | +0.00 |
-| 39 | Cho'Gath | −0.89 | −1.00 | −1.00 | −1.00 | −0.62 | −1.00 | +0.00 |
-| 40 | Volibear | −0.91 | −1.00 | −1.00 | −1.00 | −0.72 | −1.00 | +0.00 |
-| 41 | Garen | −0.92 | −1.00 | −1.00 | −1.00 | −0.83 | −1.00 | +0.00 |
-| 42 | Olaf | −0.93 | −1.00 | −1.00 | −1.00 | −0.85 | −1.00 | +0.00 |
-| 43 | Riven | −0.95 | −1.00 | −1.00 | −1.00 | −1.00 | −1.00 | +0.00 |
-| 44 | Singed | −0.95 | −1.00 | −1.00 | −1.00 | −1.00 | −1.00 | +0.00 |
+| 33 | Illaoi | −0.86 | −1.00 | −1.00 | −1.00 | −0.40 | −1.00 | +0.00 |
+| 34 | Zaahen | −0.86 | −1.00 | −1.00 | −1.00 | −0.42 | −1.00 | +0.00 |
+| 35 | Udyr | −0.87 | −1.00 | −1.00 | −1.00 | −0.44 | −1.00 | +0.00 |
+| 36 | Akali | −0.88 | −1.00 | −1.00 | −1.00 | −0.50 | −1.00 | +0.00 |
+| 37 | Aatrox | −0.88 | −1.00 | −1.00 | −1.00 | −0.50 | −1.00 | +0.00 |
+| 38 | Darius | −0.88 | −1.00 | −1.00 | −1.00 | −0.53 | −1.00 | +0.00 |
+| 39 | Ambessa | −0.89 | −1.00 | −1.00 | −1.00 | −0.57 | −1.00 | +0.00 |
+| 40 | Cho'Gath | −0.89 | −1.00 | −1.00 | −1.00 | −0.62 | −1.00 | +0.00 |
+| 41 | Volibear | −0.91 | −1.00 | −1.00 | −1.00 | −0.72 | −1.00 | +0.00 |
+| 42 | Garen | −0.92 | −1.00 | −1.00 | −1.00 | −0.83 | −1.00 | +0.00 |
+| 43 | Olaf | −0.93 | −1.00 | −1.00 | −1.00 | −0.85 | −1.00 | +0.00 |
+| 44 | Riven | −0.95 | −1.00 | −1.00 | −1.00 | −1.00 | −1.00 | +0.00 |
+| 45 | Singed | −0.95 | −1.00 | −1.00 | −1.00 | −1.00 | −1.00 | +0.00 |
 
 ## Interaction ledger (partial confidence)
 

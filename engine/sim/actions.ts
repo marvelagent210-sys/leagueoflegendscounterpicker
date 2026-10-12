@@ -454,11 +454,19 @@ function decisive(world: World, caster: Unit, target: Unit, effects: Effect[]): 
 
 const HOLDING_CC = new Set(["stun", "root", "airborne", "suppression", "sleep", "stasis", "suspension", "charm", "taunt"]);
 
-/** The last tick at which crowd control or the target's own cast, channel or dash holds it in place. */
+/**
+ * The last tick at which crowd control or the target's own cast, channel or dash holds it in
+ * place. Casts and channels it can walk through (Decimate's windup, Judgment) don't.
+ */
 export function heldUntil(target: Unit): number {
   let until = -1;
   const action = target.action;
-  if (action?.kind === "cast" || action?.kind === "channel" || action?.kind === "dash") until = action.endTick;
+  if (action?.kind === "dash") until = action.endTick;
+  else if (action?.kind === "cast" || action?.kind === "channel") {
+    const ability = abilityOf(target, action.ability);
+    const walks = action.kind === "cast" ? ability?.moveWhileCasting === true : ability?.channel?.mobile === true;
+    if (!walks) until = action.endTick;
+  }
   for (const s of target.statuses) if (s.kind === "cc" && HOLDING_CC.has(s.key)) until = Math.max(until, s.endTick);
   return until;
 }
@@ -466,6 +474,23 @@ export function heldUntil(target: Unit): number {
 /** Whether something holds the target in place until `untilTick`. */
 export function heldInPlace(target: Unit, untilTick: number): boolean {
   return heldUntil(target) >= untilTick;
+}
+
+/**
+ * The chance a skillshot catches the target (engine/sim/hitModel.ts): the target has seen it
+ * coming since `seenTick`, it lands `seconds` from now, and the target must move `reach` plus
+ * its radius sideways to get out of it.
+ */
+export function skillshotChance(world: World, target: Unit, seenTick: number, seconds: number, reach: number): number {
+  const timeToLand = (world.tick - seenTick) / 30 + seconds;
+  const landTick = world.tick + toTicks(seconds);
+  const held = heldUntil(target);
+  return hitChance(
+    { timeToLand, reach },
+    { radius: target.spec.base.radius, moveSpeed: derive(target).moveSpeed, heldInPlace: held >= landTick, heldFor: Math.max(0, held - seenTick) / 30, hasEscape: false },
+    world.settings.reactionTime,
+    world.settings.hitSpread,
+  );
 }
 
 /**
@@ -482,15 +507,7 @@ function resolveSkillshot(
   travelSeconds: number,
   reach: number,
 ): { connects: boolean; scale: number; split?: number } {
-  const timeToLand = (world.tick - castStartTick) / 30 + travelSeconds;
-  const landTick = world.tick + toTicks(travelSeconds);
-  const held = heldUntil(target);
-  const chance = hitChance(
-    { timeToLand, reach },
-    { radius: target.spec.base.radius, moveSpeed: derive(target).moveSpeed, heldInPlace: held >= landTick, heldFor: Math.max(0, held - castStartTick) / 30, hasEscape: false },
-    world.settings.reactionTime,
-    world.settings.hitSpread,
-  );
+  const chance = skillshotChance(world, target, castStartTick, travelSeconds, reach);
   if (chance >= 0.98) return { connects: true, scale: 1 };
   if (chance <= 0.02) return { connects: false, scale: 1 };
   if ((ability.decisive || decisive(world, caster, target, ability.onHit ?? [])) && world.splits < Math.log2(world.settings.maxBranches)) {

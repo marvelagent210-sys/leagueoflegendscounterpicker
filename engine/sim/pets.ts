@@ -13,8 +13,8 @@ import { derive, hasState } from "./derived";
 import type { Effect, PetSpec } from "./spec";
 import { type Pet, type Side, type Unit, type World, other } from "./state";
 
-/** Places a pet of `owner`'s at `x`. */
-export function spawnPet(world: World, owner: Unit, spec: PetSpec, x: number): Pet {
+/** Places a pet of `owner`'s at `x`; `text` says who placed it when that isn't the owner (a Spirit pulled out of its champion). */
+export function spawnPet(world: World, owner: Unit, spec: PetSpec, x: number, text?: { side: Side; text: string }): Pet {
   const pet: Pet = {
     id: world.nextId++,
     owner: owner.side,
@@ -26,7 +26,7 @@ export function spawnPet(world: World, owner: Unit, spec: PetSpec, x: number): P
     memory: {},
   };
   world.pets.push(pet);
-  log(world, owner.side, `places ${spec.name}`);
+  log(world, text?.side ?? owner.side, text?.text ?? `places ${spec.name}`);
   return pet;
 }
 
@@ -62,9 +62,11 @@ export function damagePet(world: World, attacker: Unit, pet: Pet, raw: number, t
     amount = mitigate(raw, type, resist, { dealt: a.damageDealt, received: [] });
     if (attack && !attacker.spec.attack.ranged) amount *= pet.spec.meleeAttackTaken ?? 1;
   }
+  const before = pet.hp;
   pet.hp -= amount;
   log(world, attacker.side, `hits ${pet.spec.name} for ${pet.spec.hitPoints ? 1 : Math.round(amount)}${pet.hp <= 0 ? ", destroying it" : ""}`);
-  if (pet.hp <= 0) removePet(world, pet, attacker.side === pet.owner);
+  pet.spec.onDamaged?.({ world, pet, attacker, raw, dealt: amount, before, damageType: type, attack });
+  if (pet.hp <= 0 && world.pets.includes(pet)) removePet(world, pet, attacker.side === pet.owner);
 }
 
 /** Destroys one of the unit's own pets (a keg it detonates, a turret replaced). */
@@ -120,9 +122,19 @@ export function advancePets(world: World): void {
     const attack = pet.spec.attack;
     const reach = attack?.range ?? 0;
     const gap = Math.abs(enemy.x - pet.x) - enemy.spec.base.radius;
+    const leash = pet.spec.leash;
+    if (pet.spec.moveSpeed > 0 && leash !== undefined && Math.abs(owner.x - pet.x) > leash) {
+      // Too far from its owner: back toward it, and no attacks on the way.
+      const dir = owner.x > pet.x ? 1 : -1;
+      pet.x += dir * Math.min(pet.spec.moveSpeed / 30, Math.abs(owner.x - pet.x) - leash);
+      continue;
+    }
     if (pet.spec.moveSpeed > 0 && gap > reach) {
       const dir = enemy.x > pet.x ? 1 : -1;
-      pet.x += dir * Math.min(pet.spec.moveSpeed / 30, gap - reach);
+      let step = Math.min(pet.spec.moveSpeed / 30, gap - reach);
+      // No farther than its leash allows.
+      if (leash !== undefined) step = Math.max(0, Math.min(step, leash - dir * (pet.x - owner.x)));
+      pet.x += dir * step;
     }
     if (!attack || world.tick < pet.nextAttackTick || Math.abs(enemy.x - pet.x) - enemy.spec.base.radius > reach) continue;
     if (!canTarget(enemy, owner)) continue;

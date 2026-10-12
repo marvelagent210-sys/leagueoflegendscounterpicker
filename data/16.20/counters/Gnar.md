@@ -2,7 +2,7 @@
 
 ## Simulated duels (full confidence)
 
-The duel simulator played each of the 44 other champions with a simulator kit against Gnar: both at level 20 with 15,000 gold of plain stats, each side's spent against the other's, through six scenarios (PLAN.md §6). Scores run from −1 (Gnar wins every time) to +1 (the champion does). Run `npm run duel -- <champion> Gnar --log brawl` to watch a fight.
+The duel simulator played each of the 45 other champions with a simulator kit against Gnar: both at level 20 with 15,000 gold of plain stats, each side's spent against the other's, through six scenarios (PLAN.md §6). Scores run from −1 (Gnar wins every time) to +1 (the champion does). Run `npm run duel -- <champion> Gnar --log brawl` to watch a fight.
 
 | # | Champion | Score | You engage | Enemy engages | Brawl | Short trade | Spacing | Escape |
 |--:|---|--:|--:|--:|--:|--:|--:|--:|
@@ -17,7 +17,7 @@ The duel simulator played each of the 44 other champions with a simulator kit ag
 | 9 | Olaf | +0.77 | +1.00 | +1.00 | +1.00 | −0.20 | +1.00 | +0.00 |
 | 10 | Aatrox | +0.77 | +1.00 | +1.00 | +1.00 | −0.23 | +1.00 | +0.00 |
 | 11 | Darius | +0.76 | +1.00 | +1.00 | +1.00 | −0.27 | +1.00 | +0.00 |
-| 12 | Gwen | +0.74 | +1.00 | +1.00 | +1.00 | −0.28 | +0.81 | +0.00 |
+| 12 | Gwen | +0.74 | +1.00 | +1.00 | +1.00 | −0.28 | +0.82 | +0.00 |
 | 13 | Tryndamere | +0.74 | +1.00 | +0.97 | +1.00 | −0.25 | +0.85 | +0.00 |
 | 14 | Poppy | +0.73 | +1.00 | +1.00 | +1.00 | +0.06 | +0.17 | +0.00 |
 | 15 | Quinn | +0.67 | +0.75 | +0.75 | +1.00 | −0.04 | +1.00 | +0.00 |
@@ -33,23 +33,24 @@ The duel simulator played each of the 44 other champions with a simulator kit ag
 | 25 | Ornn | −0.21 | −0.26 | −0.27 | −0.25 | −0.04 | −0.26 | +0.00 |
 | 26 | Irelia | −0.32 | −0.82 | −0.70 | +0.83 | −0.03 | −1.00 | +0.00 |
 | 27 | Yasuo | −0.41 | −0.94 | −1.00 | +1.00 | −0.16 | −1.00 | +0.00 |
-| 28 | Rumble | −0.43 | −1.00 | −1.00 | +1.00 | −0.19 | −1.00 | +0.00 |
-| 29 | Urgot | −0.45 | −0.26 | −1.00 | −0.16 | −0.03 | −1.00 | +0.00 |
-| 30 | Riven | −0.46 | −1.00 | −1.00 | +1.00 | −0.38 | −1.00 | +0.00 |
-| 31 | Renekton | −0.53 | −0.09 | −0.84 | −1.00 | +0.04 | −1.00 | +0.00 |
-| 32 | Volibear | −0.55 | +0.11 | −0.92 | −0.91 | −0.39 | −1.00 | +0.00 |
-| 33 | Ambessa | −0.56 | −0.52 | −0.94 | −0.52 | −0.12 | −0.76 | +0.00 |
-| 34 | Shen | −0.57 | −0.99 | −0.91 | −0.15 | +0.01 | −0.70 | +0.00 |
-| 35 | Yone | −0.60 | −0.14 | −0.93 | −1.00 | −0.19 | −1.00 | +0.00 |
-| 36 | Kennen | −0.62 | −1.00 | −1.00 | −1.00 | −0.03 | +0.83 | +0.00 |
-| 37 | Pantheon | −0.72 | −1.00 | −0.97 | −0.93 | −0.07 | −0.32 | +0.00 |
-| 38 | Mordekaiser | −0.77 | −0.88 | −0.97 | −1.00 | −0.06 | −1.00 | +0.00 |
-| 39 | Skarner | −0.79 | −0.99 | −1.00 | −1.00 | +0.07 | −1.00 | +0.00 |
-| 40 | Kled | −0.80 | −1.00 | −1.00 | −1.00 | +0.02 | −1.00 | +0.00 |
-| 41 | Sett | −0.81 | −1.00 | −1.00 | −1.00 | −0.09 | −1.00 | +0.00 |
-| 42 | Cho'Gath | −0.83 | −1.00 | −1.00 | −1.00 | −0.19 | −1.00 | +0.00 |
-| 43 | Akali | −0.83 | −1.00 | −1.00 | −1.00 | −0.21 | −1.00 | +0.00 |
-| 44 | Singed | −0.84 | −1.00 | −1.00 | −1.00 | −0.26 | −1.00 | +0.00 |
+| 28 | Illaoi | −0.43 | −1.00 | −1.00 | +1.00 | −0.18 | −1.00 | +0.00 |
+| 29 | Rumble | −0.43 | −1.00 | −1.00 | +1.00 | −0.19 | −1.00 | +0.00 |
+| 30 | Urgot | −0.45 | −0.26 | −1.00 | −0.16 | −0.03 | −1.00 | +0.00 |
+| 31 | Riven | −0.46 | −1.00 | −1.00 | +1.00 | −0.38 | −1.00 | +0.00 |
+| 32 | Renekton | −0.53 | −0.09 | −0.84 | −1.00 | +0.04 | −1.00 | +0.00 |
+| 33 | Volibear | −0.55 | +0.11 | −0.92 | −0.91 | −0.39 | −1.00 | +0.00 |
+| 34 | Ambessa | −0.56 | −0.52 | −0.94 | −0.52 | −0.12 | −0.76 | +0.00 |
+| 35 | Shen | −0.57 | −0.99 | −0.91 | −0.15 | +0.01 | −0.70 | +0.00 |
+| 36 | Yone | −0.60 | −0.14 | −0.93 | −1.00 | −0.19 | −1.00 | +0.00 |
+| 37 | Kennen | −0.62 | −1.00 | −1.00 | −1.00 | −0.03 | +0.83 | +0.00 |
+| 38 | Pantheon | −0.72 | −1.00 | −0.97 | −0.93 | −0.07 | −0.32 | +0.00 |
+| 39 | Mordekaiser | −0.77 | −0.88 | −0.97 | −1.00 | −0.06 | −1.00 | +0.00 |
+| 40 | Skarner | −0.79 | −0.99 | −1.00 | −1.00 | +0.07 | −1.00 | +0.00 |
+| 41 | Kled | −0.80 | −1.00 | −1.00 | −1.00 | +0.02 | −1.00 | +0.00 |
+| 42 | Sett | −0.81 | −1.00 | −1.00 | −1.00 | −0.09 | −1.00 | +0.00 |
+| 43 | Cho'Gath | −0.83 | −1.00 | −1.00 | −1.00 | −0.19 | −1.00 | +0.00 |
+| 44 | Akali | −0.83 | −1.00 | −1.00 | −1.00 | −0.21 | −1.00 | +0.00 |
+| 45 | Singed | −0.84 | −1.00 | −1.00 | −1.00 | −0.26 | −1.00 | +0.00 |
 
 ## Interaction ledger (partial confidence)
 

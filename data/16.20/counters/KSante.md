@@ -2,7 +2,7 @@
 
 ## Simulated duels (full confidence)
 
-The duel simulator played each of the 44 other champions with a simulator kit against K'Sante: both at level 20 with 15,000 gold of plain stats, each side's spent against the other's, through six scenarios (PLAN.md §6). Scores run from −1 (K'Sante wins every time) to +1 (the champion does). Run `npm run duel -- <champion> KSante --log brawl` to watch a fight.
+The duel simulator played each of the 45 other champions with a simulator kit against K'Sante: both at level 20 with 15,000 gold of plain stats, each side's spent against the other's, through six scenarios (PLAN.md §6). Scores run from −1 (K'Sante wins every time) to +1 (the champion does). Run `npm run duel -- <champion> KSante --log brawl` to watch a fight.
 
 | # | Champion | Score | You engage | Enemy engages | Brawl | Short trade | Spacing | Escape |
 |--:|---|--:|--:|--:|--:|--:|--:|--:|
@@ -43,13 +43,14 @@ The duel simulator played each of the 44 other champions with a simulator kit ag
 | 35 | Teemo | −0.84 | −1.00 | −1.00 | −1.00 | +0.04 | −1.00 | −1.00 |
 | 36 | Riven | −0.84 | −1.00 | −1.00 | −1.00 | −0.23 | – | −0.50 |
 | 37 | Zaahen | −0.85 | −1.00 | −1.00 | −1.00 | −0.01 | −1.00 | −1.00 |
-| 38 | Quinn | −0.86 | −1.00 | −1.00 | −1.00 | −0.05 | −1.00 | −1.00 |
-| 39 | Darius | −0.86 | −1.00 | −1.00 | −1.00 | −0.15 | – | −1.00 |
-| 40 | Volibear | −0.86 | −1.00 | −1.00 | −1.00 | −0.16 | – | −1.00 |
-| 41 | Aatrox | −0.87 | −1.00 | −1.00 | −1.00 | −0.13 | −1.00 | −1.00 |
-| 42 | Kled | −0.87 | −1.00 | −1.00 | −1.00 | −0.14 | −1.00 | −1.00 |
-| 43 | Rumble | −0.87 | −1.00 | −1.00 | −1.00 | −0.16 | −1.00 | −1.00 |
-| 44 | Yone | −0.88 | −1.00 | −1.00 | −1.00 | −0.21 | −1.00 | −1.00 |
+| 38 | Illaoi | −0.86 | −1.00 | −1.00 | −1.00 | −0.05 | −1.00 | −1.00 |
+| 39 | Quinn | −0.86 | −1.00 | −1.00 | −1.00 | −0.05 | −1.00 | −1.00 |
+| 40 | Darius | −0.86 | −1.00 | −1.00 | −1.00 | −0.15 | – | −1.00 |
+| 41 | Volibear | −0.86 | −1.00 | −1.00 | −1.00 | −0.16 | – | −1.00 |
+| 42 | Aatrox | −0.87 | −1.00 | −1.00 | −1.00 | −0.13 | −1.00 | −1.00 |
+| 43 | Kled | −0.87 | −1.00 | −1.00 | −1.00 | −0.14 | −1.00 | −1.00 |
+| 44 | Rumble | −0.87 | −1.00 | −1.00 | −1.00 | −0.16 | −1.00 | −1.00 |
+| 45 | Yone | −0.88 | −1.00 | −1.00 | −1.00 | −0.21 | −1.00 | −1.00 |
 
 ## Interaction ledger (partial confidence)
 

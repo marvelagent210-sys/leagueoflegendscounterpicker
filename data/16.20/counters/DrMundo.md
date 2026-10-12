@@ -2,7 +2,7 @@
 
 ## Simulated duels (full confidence)
 
-The duel simulator played each of the 44 other champions with a simulator kit against Dr. Mundo: both at level 20 with 15,000 gold of plain stats, each side's spent against the other's, through six scenarios (PLAN.md §6). Scores run from −1 (Dr. Mundo wins every time) to +1 (the champion does). Run `npm run duel -- <champion> DrMundo --log brawl` to watch a fight.
+The duel simulator played each of the 45 other champions with a simulator kit against Dr. Mundo: both at level 20 with 15,000 gold of plain stats, each side's spent against the other's, through six scenarios (PLAN.md §6). Scores run from −1 (Dr. Mundo wins every time) to +1 (the champion does). Run `npm run duel -- <champion> DrMundo --log brawl` to watch a fight.
 
 | # | Champion | Score | You engage | Enemy engages | Brawl | Short trade | Spacing | Escape |
 |--:|---|--:|--:|--:|--:|--:|--:|--:|
@@ -44,12 +44,13 @@ The duel simulator played each of the 44 other champions with a simulator kit ag
 | 36 | Sett | −0.77 | −1.00 | −1.00 | −1.00 | +0.04 | – | +0.00 |
 | 37 | Pantheon | −0.77 | −1.00 | −1.00 | −1.00 | +0.04 | – | +0.00 |
 | 38 | Trundle | −0.78 | −1.00 | −1.00 | −1.00 | +0.02 | – | +0.00 |
-| 39 | Akali | −0.78 | −1.00 | −1.00 | −1.00 | +0.01 | – | +0.00 |
-| 40 | Garen | −0.78 | −1.00 | −1.00 | −1.00 | −0.01 | – | +0.00 |
-| 41 | Jax | −0.78 | −1.00 | −1.00 | −1.00 | −0.04 | – | +0.00 |
-| 42 | Quinn | −0.79 | −1.00 | −1.00 | −1.00 | +0.04 | −1.00 | +0.00 |
-| 43 | Tryndamere | −0.80 | −1.00 | −1.00 | −1.00 | −0.11 | – | +0.00 |
-| 44 | Kennen | −0.80 | −1.00 | −1.00 | −1.00 | −0.00 | −1.00 | +0.00 |
+| 39 | Illaoi | −0.78 | −1.00 | −1.00 | −1.00 | +0.01 | – | +0.00 |
+| 40 | Akali | −0.78 | −1.00 | −1.00 | −1.00 | +0.01 | – | +0.00 |
+| 41 | Garen | −0.78 | −1.00 | −1.00 | −1.00 | −0.00 | – | +0.00 |
+| 42 | Jax | −0.78 | −1.00 | −1.00 | −1.00 | −0.04 | – | +0.00 |
+| 43 | Quinn | −0.79 | −1.00 | −1.00 | −1.00 | +0.04 | −1.00 | +0.00 |
+| 44 | Tryndamere | −0.80 | −1.00 | −1.00 | −1.00 | −0.11 | – | +0.00 |
+| 45 | Kennen | −0.80 | −1.00 | −1.00 | −1.00 | −0.00 | −1.00 | +0.00 |
 
 ## Interaction ledger (partial confidence)
 

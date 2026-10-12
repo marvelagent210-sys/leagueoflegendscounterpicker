@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { petHit, spawnPet } from "../../engine/sim/pets";
+import { damagePet, petHit, spawnPet } from "../../engine/sim/pets";
 import { createWorld, step } from "../../engine/sim/simulate";
 import { defaultBehavior } from "../../engine/sim/behavior";
 import type { PetSpec } from "../../engine/sim/spec";
@@ -85,6 +85,37 @@ describe("pets", () => {
     const keg = spawnPet(w, owner, turret({ hp: 1, hitPoints: true, attack: undefined, urgent: () => true }), owner.x + 100);
     step(w, [idle, defaultBehavior]);
     expect(w.units[1].action?.kind === "windup" && w.units[1].action.pet).toBe(keg.id);
+  });
+
+  it("tell their spec what each hit dealt, before and after resistances (Test of Spirit's echo)", () => {
+    const w = world(300);
+    const [owner, enemy] = w.units;
+    const hits: Array<{ raw: number; dealt: number; before: number; attack: boolean }> = [];
+    const pet = spawnPet(w, owner, turret({ armor: 100, onDamaged: ({ raw, dealt, before, attack }) => hits.push({ raw, dealt, before, attack }) }), owner.x);
+    damagePet(w, enemy, pet, 200, "physical", false);
+    damagePet(w, enemy, pet, 1000, "physical", true);
+    // Halved by 100 armor; the second hit finishes it, its health already at 0 or less.
+    expect(hits).toEqual([
+      { raw: 200, dealt: 100, before: 500, attack: false },
+      { raw: 1000, dealt: 500, before: 400, attack: true },
+    ]);
+    expect(w.pets).toHaveLength(0);
+  });
+
+  it("chase no farther than their leash from their owner, and walk back from beyond it", () => {
+    const w = world(3000);
+    const [owner, enemy] = w.units;
+    const walker = spawnPet(w, owner, turret({ moveSpeed: 300, leash: 1000, attack: { range: 100, interval: 1, attackLike: true, effects: [{ type: "damage", damageType: "true", amount: { base: 5 } }] } }), owner.x);
+    for (let i = 0; i < 150; i++) step(w, [idle, standStill]);
+    // Held at 1000 units from its owner, the enemy out of its reach.
+    expect(walker.x - owner.x).toBeCloseTo(1000, 6);
+    expect(enemy.hp).toBe(2000);
+    // Its owner steps back: it follows to within the leash, 10 units a tick.
+    owner.x -= 200;
+    step(w, [idle, standStill]);
+    expect(walker.x - owner.x).toBeCloseTo(1190, 6);
+    for (let i = 0; i < 30; i++) step(w, [idle, standStill]);
+    expect(walker.x - owner.x).toBeCloseTo(1000, 6);
   });
 
   it("expire, and vanish with their owner", () => {

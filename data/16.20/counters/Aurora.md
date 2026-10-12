@@ -2,7 +2,7 @@
 
 ## Simulated duels (full confidence)
 
-The duel simulator played each of the 44 other champions with a simulator kit against Aurora: both at level 20 with 15,000 gold of plain stats, each side's spent against the other's, through six scenarios (PLAN.md §6). Scores run from −1 (Aurora wins every time) to +1 (the champion does). Run `npm run duel -- <champion> Aurora --log brawl` to watch a fight.
+The duel simulator played each of the 45 other champions with a simulator kit against Aurora: both at level 20 with 15,000 gold of plain stats, each side's spent against the other's, through six scenarios (PLAN.md §6). Scores run from −1 (Aurora wins every time) to +1 (the champion does). Run `npm run duel -- <champion> Aurora --log brawl` to watch a fight.
 
 | # | Champion | Score | You engage | Enemy engages | Brawl | Short trade | Spacing | Escape |
 |--:|---|--:|--:|--:|--:|--:|--:|--:|
@@ -40,16 +40,17 @@ The duel simulator played each of the 44 other champions with a simulator kit ag
 | 32 | Irelia | −0.33 | −1.00 | −1.00 | +1.00 | −0.02 | −0.23 | +0.00 |
 | 33 | Ornn | −0.35 | −0.44 | −0.44 | −0.33 | −0.12 | −0.44 | +0.00 |
 | 34 | Quinn | −0.36 | −1.00 | −1.00 | +0.92 | −0.07 | – | +0.00 |
-| 35 | Riven | −0.47 | −1.00 | −1.00 | +1.00 | −0.46 | −1.00 | +0.00 |
-| 36 | Singed | −0.47 | −1.00 | −1.00 | +1.00 | −0.46 | −1.00 | +0.00 |
-| 37 | Yone | −0.62 | +0.00 | −1.00 | −1.00 | −0.44 | −1.00 | +0.00 |
-| 38 | Yasuo | −0.65 | −1.00 | −1.00 | −0.22 | −0.04 | −1.00 | +0.00 |
-| 39 | Olaf | −0.80 | −0.87 | −0.92 | −1.00 | −0.35 | −1.00 | +0.00 |
-| 40 | Gnar | −0.80 | −1.00 | −1.00 | −1.00 | −0.02 | −1.00 | +0.00 |
-| 41 | Sett | −0.80 | −0.98 | −0.98 | −0.98 | −0.23 | −0.85 | +0.00 |
-| 42 | Pantheon | −0.81 | −1.00 | −1.00 | −1.00 | −0.05 | −1.00 | +0.00 |
-| 43 | Cho'Gath | −0.81 | −1.00 | −1.00 | −1.00 | −0.09 | −1.00 | +0.00 |
-| 44 | Ambessa | −0.85 | −1.00 | −1.00 | −1.00 | −0.34 | −1.00 | +0.00 |
+| 35 | Illaoi | −0.43 | −1.00 | −1.00 | +0.94 | −0.16 | −0.95 | +0.00 |
+| 36 | Riven | −0.47 | −1.00 | −1.00 | +1.00 | −0.46 | −1.00 | +0.00 |
+| 37 | Singed | −0.47 | −1.00 | −1.00 | +1.00 | −0.46 | −1.00 | +0.00 |
+| 38 | Yone | −0.62 | +0.00 | −1.00 | −1.00 | −0.44 | −1.00 | +0.00 |
+| 39 | Yasuo | −0.65 | −1.00 | −1.00 | −0.22 | −0.04 | −1.00 | +0.00 |
+| 40 | Olaf | −0.80 | −0.87 | −0.92 | −1.00 | −0.35 | −1.00 | +0.00 |
+| 41 | Gnar | −0.80 | −1.00 | −1.00 | −1.00 | −0.02 | −1.00 | +0.00 |
+| 42 | Sett | −0.80 | −0.98 | −0.98 | −0.98 | −0.23 | −0.85 | +0.00 |
+| 43 | Pantheon | −0.81 | −1.00 | −1.00 | −1.00 | −0.05 | −1.00 | +0.00 |
+| 44 | Cho'Gath | −0.81 | −1.00 | −1.00 | −1.00 | −0.09 | −1.00 | +0.00 |
+| 45 | Ambessa | −0.85 | −1.00 | −1.00 | −1.00 | −0.34 | −1.00 | +0.00 |
 
 ## Interaction ledger (partial confidence)
 

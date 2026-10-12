@@ -346,6 +346,8 @@ export interface PetSpec {
   radius: number;
   /** 0 for pets that stay where they are placed; others walk toward the enemy champion. */
   moveSpeed: number;
+  /** How far from its owner it goes: it chases no farther, and walks back from farther (Mist Walkers' 1600). */
+  leash?: number;
   /** Seconds it lasts until killed or replaced; Infinity for no limit. */
   duration: number;
   /** Can't be attacked (Tentacles during Leap of Faith). */
@@ -357,6 +359,11 @@ export interface PetSpec {
   urgent?: (pet: Pet, enemy: Unit, world: World) => boolean;
   /** Its own attacks on the enemy champion, when it has any. */
   attack?: PetAttack;
+  /**
+   * Damage it took: `raw` before its resistances, `dealt` after, `before` its health before
+   * the hit (now lower). Test of Spirit's Spirit echoes a share to its champion.
+   */
+  onDamaged?: (hit: { world: World; pet: Pet; attacker: Unit; raw: number; dealt: number; before: number; damageType: DamageType; attack: boolean }) => void;
 }
 
 export interface PetAttack {
@@ -452,6 +459,12 @@ export interface AbilitySpec {
    * ability goes on that many seconds of cooldown (otherwise the one it started keeps running).
    */
   interruptible?: { cooldown?: number };
+  /**
+   * Repeated hits deal less (Tentacle slams): every hit of an ability of the same `group` the
+   * target took in the last `window` seconds cuts this hit's damage by `per`, down to `floor`
+   * of it. Hits counted by expected value count by their share.
+   */
+  falloff?: { group: string; window: number; per: number; floor: number };
 }
 
 /** The cooldown an ability uses. */

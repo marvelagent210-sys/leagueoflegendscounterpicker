@@ -2,7 +2,7 @@
 
 ## Simulated duels (full confidence)
 
-The duel simulator played each of the 44 other champions with a simulator kit against Tahm Kench: both at level 20 with 15,000 gold of plain stats, each side's spent against the other's, through six scenarios (PLAN.md §6). Scores run from −1 (Tahm Kench wins every time) to +1 (the champion does). Run `npm run duel -- <champion> TahmKench --log brawl` to watch a fight.
+The duel simulator played each of the 45 other champions with a simulator kit against Tahm Kench: both at level 20 with 15,000 gold of plain stats, each side's spent against the other's, through six scenarios (PLAN.md §6). Scores run from −1 (Tahm Kench wins every time) to +1 (the champion does). Run `npm run duel -- <champion> TahmKench --log brawl` to watch a fight.
 
 | # | Champion | Score | You engage | Enemy engages | Brawl | Short trade | Spacing | Escape |
 |--:|---|--:|--:|--:|--:|--:|--:|--:|
@@ -10,11 +10,11 @@ The duel simulator played each of the 44 other champions with a simulator kit ag
 | 2 | Olaf | +0.81 | +1.00 | +1.00 | +1.00 | +0.09 | +1.00 | +0.00 |
 | 3 | K'Sante | +0.81 | +1.00 | +1.00 | +1.00 | +0.19 | – | +0.00 |
 | 4 | Aatrox | +0.80 | +1.00 | +1.00 | +1.00 | +0.11 | – | +0.00 |
-| 5 | Garen | +0.79 | +1.00 | +1.00 | +1.00 | +0.08 | – | +0.00 |
-| 6 | Zaahen | +0.78 | +1.00 | +1.00 | +1.00 | +0.02 | – | +0.00 |
-| 7 | Gwen | +0.76 | +1.00 | +1.00 | +1.00 | −0.09 | – | +0.00 |
-| 8 | Darius | +0.75 | +1.00 | +1.00 | +1.00 | −0.15 | – | +0.00 |
-| 9 | Cho'Gath | +0.60 | +0.88 | +0.89 | +0.44 | +0.06 | – | +0.00 |
+| 5 | Zaahen | +0.78 | +1.00 | +1.00 | +1.00 | +0.02 | – | +0.00 |
+| 6 | Gwen | +0.76 | +1.00 | +1.00 | +1.00 | −0.09 | – | +0.00 |
+| 7 | Darius | +0.75 | +1.00 | +1.00 | +1.00 | −0.15 | – | +0.00 |
+| 8 | Cho'Gath | +0.60 | +0.88 | +0.89 | +0.44 | +0.06 | – | +0.00 |
+| 9 | Illaoi | +0.58 | +0.08 | +1.00 | +1.00 | +0.07 | +1.00 | +0.00 |
 | 10 | Yone | +0.55 | +1.00 | +1.00 | +0.00 | −0.01 | – | +0.00 |
 | 11 | Udyr | +0.32 | +0.05 | +0.04 | +0.96 | +0.08 | +0.96 | +0.00 |
 | 12 | Dr. Mundo | +0.22 | +0.31 | +0.30 | +0.25 | −0.03 | – | +0.00 |
@@ -42,14 +42,15 @@ The duel simulator played each of the 44 other champions with a simulator kit ag
 | 34 | Sion | −0.10 | −0.12 | −0.12 | −0.13 | +0.01 | – | +0.00 |
 | 35 | Kennen | −0.21 | −0.40 | −0.40 | −0.11 | +0.01 | +0.06 | +0.00 |
 | 36 | Akali | −0.39 | −0.27 | −0.27 | −1.00 | −0.13 | – | +0.00 |
-| 37 | Kayle | −0.49 | −0.52 | −0.52 | −0.83 | +0.07 | −0.73 | +0.00 |
-| 38 | Riven | −0.55 | −1.00 | −1.00 | +0.00 | +0.04 | – | +0.00 |
-| 39 | Irelia | −0.76 | −1.00 | −1.00 | −1.00 | +0.09 | – | +0.00 |
-| 40 | Yasuo | −0.77 | −1.00 | −1.00 | −1.00 | +0.07 | – | +0.00 |
-| 41 | Pantheon | −0.79 | −1.00 | −1.00 | −1.00 | −0.07 | – | +0.00 |
-| 42 | Ambessa | −0.79 | −1.00 | −1.00 | −1.00 | −0.07 | – | +0.00 |
-| 43 | Tryndamere | −0.81 | −1.00 | −1.00 | −1.00 | −0.18 | – | +0.00 |
-| 44 | Trundle | −0.82 | −1.00 | −1.00 | −1.00 | −0.19 | −0.89 | +0.00 |
+| 37 | Garen | −0.48 | −1.00 | +0.05 | −1.00 | +0.02 | – | +0.00 |
+| 38 | Kayle | −0.49 | −0.52 | −0.52 | −0.83 | +0.07 | −0.73 | +0.00 |
+| 39 | Riven | −0.55 | −1.00 | −1.00 | +0.00 | +0.04 | – | +0.00 |
+| 40 | Irelia | −0.76 | −1.00 | −1.00 | −1.00 | +0.09 | – | +0.00 |
+| 41 | Yasuo | −0.77 | −1.00 | −1.00 | −1.00 | +0.07 | – | +0.00 |
+| 42 | Pantheon | −0.79 | −1.00 | −1.00 | −1.00 | −0.07 | – | +0.00 |
+| 43 | Ambessa | −0.79 | −1.00 | −1.00 | −1.00 | −0.07 | – | +0.00 |
+| 44 | Tryndamere | −0.81 | −1.00 | −1.00 | −1.00 | −0.18 | – | +0.00 |
+| 45 | Trundle | −0.82 | −1.00 | −1.00 | −1.00 | −0.19 | −0.89 | +0.00 |
 
 ## Interaction ledger (partial confidence)
 

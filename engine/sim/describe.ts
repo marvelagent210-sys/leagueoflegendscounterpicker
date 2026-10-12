@@ -182,6 +182,8 @@ export function describeAbility(ability: AbilitySpec): AbilityDescription {
   const onHit = [effectsText(ability.onHit)];
   if (channel?.onTick) onHit.push(`each pulse: ${effectsText(channel.onTick)}`);
   if (channel?.onComplete) onHit.push(`at the end: ${effectsText(channel.onComplete)}`);
+  const falloff = ability.falloff;
+  if (falloff) onHit.push(`${num(falloff.per * 100)}% less damage for each hit it took from these in the last ${num(falloff.window)} s, down to ${num(falloff.floor * 100)}%`);
   const onSelf = [
     ability.onCastStart?.length ? `as the cast starts: ${effectsText(ability.onCastStart)}` : "",
     ability.onSelf?.length ? effectsText(ability.onSelf) : "",

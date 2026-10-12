@@ -151,6 +151,160 @@ describe("wave-2 kits read the wiki at level 20", () => {
     expect(refunded).toBe(8 + 43);
   });
 
+  it("Illaoi", () => {
+    // The slam: 9 - 180 by level, 200.12 at 20 (+ 110% AD) (+ 40% AP), 30% more at Tentacle Smash's rank 5; 927.75 long, landing in 0.75 s.
+    const slam = ability("Illaoi", "SLAM");
+    expect(slam.delivery).toEqual({ kind: "area", near: 0, far: 927.75, delay: 0.75, anchor: "ground" });
+    const hit = slam.onHit?.[0];
+    expect(hit?.type === "damage" && hit.amount.base).toBeCloseTo((9 + (171 / 17) * 19) * 1.3, 9);
+    expect(hit?.type === "damage" && hit.amount.ratios).toEqual({ AD: expect.closeTo(1.43, 9), AP: expect.closeTo(0.52, 9) });
+    // 50% less for each slam taken in the last 0.66 s, at most 75% less; 5% of her missing health back.
+    expect(slam.falloff).toEqual({ group: "slam", per: 0.5, window: 0.66, floor: 0.25 });
+    expect(slam.onHit?.[1]).toEqual({ type: "caster", effects: [{ type: "heal", amount: { base: 0, ratios: { missingHP: 0.05 } } }] });
+    expect(ability("Illaoi", "Q")).toMatchObject({ cooldown: 6, cost: 60, castTime: 0.75, delivery: { kind: "line", range: 802.75, width: 200 }, falloff: slam.falloff, onHit: slam.onHit });
+    // Harsh Lesson: 5% (+ 3.5% per 100 AD) of maximum health, at least 60, on an attack within 6 s with 225 more range.
+    const lesson = ability("Illaoi", "W");
+    expect(lesson).toMatchObject({ cooldown: 4, cost: 30, castTime: 0, cooldownAfter: "empower", overlay: true });
+    expect(lesson.onSelf).toEqual([
+      {
+        type: "empower",
+        attacks: 1,
+        window: 6,
+        bonusRange: 225,
+        uncancellable: true,
+        resetAttack: true,
+        onHit: [{ type: "damage", damageType: "physical", amount: { base: 0, ratios: { targetMaxHP: 0.05 }, products: [{ ratio: expect.closeTo(0.00035, 12), stats: ["AD", "targetMaxHP"] }] }, minimum: { base: 60 }, label: "Harsh Lesson" }],
+      },
+    ]);
+    expect(ability("Illaoi", "E")).toMatchObject({ cooldown: 12, cost: 55, castTime: 0.25, decisive: true, delivery: { kind: "line", range: 950, width: 100, speed: 1900 }, flags: { projectile: true, spellShield: true } });
+    expect(ability("Illaoi", "VESSEL").onHit).toEqual([{ type: "cc", cc: "slow", duration: 1.5, strength: 0.8 }]);
+    expect(ability("Illaoi", "R")).toMatchObject({ cooldown: 70, cost: 100, castTime: 0.5, delivery: { kind: "aura", radius: 500 }, onCastStart: [{ type: "state", state: "displacementImmune", duration: 0.5 }] });
+    expect(ability("Illaoi", "R").onHit).toEqual([{ type: "damage", damageType: "physical", amount: { base: 350, ratios: { bonusAD: 0.5 } }, label: "Leap of Faith" }]);
+  });
+
+  // Illaoi's level-20 numbers: 163.325 AD; a slam is 260.15 + 143% AD; Test of Spirit echoes 45% + 8% per 100 AD.
+  const illaoiAd = 163.325;
+  const slamRaw = (9 + (171 / 17) * 19) * 1.3 + 1.43 * illaoiAd;
+  const echoShare = 0.45 + 0.0008 * illaoiAd;
+  const spiritOf = (world: { pets: Array<{ spec: { kind: string }; id: number }> }) => world.pets.find((p) => p.spec.kind === "spirit");
+  // After the opening cast, attacks: the Spirit while it stands, else the champion.
+  const illaoiPlan =
+    (opening: string): Behavior =>
+    (view) => {
+      if (view.world.tick === 0) return { kind: "cast", ability: opening };
+      if (view.self.action) return undefined;
+      const spirit = spiritOf(view.world);
+      return spirit ? { kind: "attack", pet: spirit.id } : { kind: "attack" };
+    };
+
+  it("Illaoi fights: a Tentacle beside her from the start; Harsh Lesson's hit tells it to slam, landing 0.75 s later", () => {
+    const compiled = kit("Illaoi");
+    const enemy = fighter({ id: "enemy", base: { hp: 20000, armor: 100, mr: 100 } });
+    // A slow reaction: every slam lands.
+    const world = createWorld({ fighters: [compiled.spec, enemy], distance: 0, modes: ["fight", "idle"], settings: { log: true, maxSeconds: 3, reactionTime: 10 } });
+    const illaoi = world.units[0];
+    expect(world.pets).toHaveLength(1);
+    expect(world.pets[0]).toMatchObject({ owner: 0, x: illaoi.x, hp: 2, spec: { kind: "tentacle", hitPoints: true, radius: 65 } });
+    expect(world.pets[0]?.spec.untargetable).toBeFalsy();
+    while (!world.result) step(world, [illaoiPlan("W"), () => undefined]);
+    const at = (prefix: string) => world.log.filter((e) => e.text.startsWith(prefix));
+    // 5% (+ 3.5% per 100 AD) of 20000, halved by 100 armor.
+    const lessonHit = at("Harsh Lesson deals")[0];
+    expect(lessonHit?.text).toBe(`Harsh Lesson deals ${Math.round(((0.05 + 0.00035 * illaoiAd) * 20000) / 2)} physical damage`);
+    const slams = at("Tentacle slams at the enemy");
+    expect(slams.map((e) => e.tick)).toEqual([(lessonHit?.tick ?? 0) + 1]);
+    const landed = at("Tentacle deals");
+    expect(landed.map((e) => e.tick)).toEqual([(slams[0]?.tick ?? 0) + 23]);
+    expect(landed[0]?.text).toBe(`Tentacle deals ${Math.round(slamRaw / 2)} physical damage`);
+    // No other Tentacle rises while this one stands within 1000.
+    expect(world.pets).toHaveLength(1);
+  });
+
+  it("Test of Spirit: Illaoi can't act through the pull; the Spirit stands before her with the enemy's health and resistances and echoes 58% of what it takes", () => {
+    const compiled = kit("Illaoi");
+    const enemy = fighter({ id: "enemy", base: { hp: 20000, armor: 100, mr: 120 } });
+    const world = createWorld({ fighters: [compiled.spec, enemy], distance: 400, modes: ["fight", "idle"], settings: { log: true, maxSeconds: 3, reactionTime: 10 } });
+    const [illaoi, target] = world.units;
+    let hitTick = -1;
+    let lastLocked = -1;
+    let spirit: (typeof world.pets)[number] | undefined;
+    while (!world.result) {
+      step(world, [illaoiPlan("E"), () => undefined]);
+      if (hitTick < 0 && illaoi.memory.tetherUntil !== undefined) hitTick = world.tick - 1;
+      if (illaoi.statuses.some((s) => s.kind === "state" && s.key === "noAttacks")) lastLocked = world.tick - 1;
+      spirit ??= world.pets.find((p) => p.spec.kind === "spirit");
+    }
+    // Pulled out 0.75 s after the hit, 100 units in front of her; locked out until then.
+    const pulled = world.log.find((e) => e.text === "pulls out the enemy's Spirit");
+    expect(pulled?.tick).toBe(hitTick + 23);
+    expect(lastLocked).toBe(hitTick + 22);
+    expect(spirit).toMatchObject({ owner: 1, x: illaoi.x + 100, spec: { hp: 20000, armor: 100, mr: 120, radius: 65 } });
+    // The tether's 7 s run from the hit.
+    expect(spirit?.endTick).toBe(hitTick + 210);
+    // Her attack: 163.3 on the Spirit, halved by its armor, and 58% of it on the enemy, halved by the enemy's.
+    expect(world.log.find((e) => e.text.startsWith("hits Spirit"))?.text).toBe(`hits Spirit for ${Math.round(illaoiAd / 2)}`);
+    const echoes = world.log.filter((e) => e.text.startsWith("Test of Spirit (echo) deals")).map((e) => e.text);
+    expect(echoes).toContain(`Test of Spirit (echo) deals ${Math.round((illaoiAd * echoShare) / 2)} physical damage`);
+    // The Tentacle slams the Spirit at once on its own; it lands 0.75 s later on the Spirit and on the enemy beyond it.
+    expect(world.log.find((e) => e.text === "Tentacle slams at the Spirit")?.tick).toBe(pulled?.tick);
+    expect(echoes).toContain(`Test of Spirit (echo) deals ${Math.round((slamRaw * echoShare) / 2)} physical damage`);
+    expect(world.log.find((e) => e.text.startsWith("Tentacle deals"))?.tick).toBe((pulled?.tick ?? 0) + 23);
+    expect(target.alive).toBe(true);
+  });
+
+  it("A Vessel: with its Spirit killed, the enemy is slowed 80% for 1.5 s and a Tentacle rises by it", () => {
+    const compiled = kit("Illaoi");
+    // Just out of the slam's reach, inside the tendril's: the Spirit dies before its champion.
+    const enemy = fighter({ id: "enemy", base: { hp: 400, armor: 100, mr: 100 } });
+    const world = createWorld({ fighters: [compiled.spec, enemy], distance: 870, modes: ["fight", "idle"], settings: { log: true, maxSeconds: 4, reactionTime: 10 } });
+    const [illaoi, target] = world.units;
+    while (!world.result && illaoi.memory.vesselUntil === undefined) step(world, [illaoiPlan("E"), () => undefined]);
+    const vesselTick = world.tick - 1;
+    expect(spiritOf(world)).toBeUndefined();
+    expect(target.alive).toBe(true);
+    expect(Number(illaoi.memory.vesselUntil)).toBe(vesselTick + 120);
+    const slow = target.statuses.find((s) => s.kind === "cc" && s.key === "slow");
+    expect(slow).toMatchObject({ value: 0.8, startTick: vesselTick, endTick: vesselTick + 45 });
+    // Her Tentacle stands 1000 units away: one rises at the Vessel, untargetable for 2 s.
+    const risen = world.pets.filter((p) => p.spec.kind === "tentacle" && p.x === target.x);
+    expect(risen).toHaveLength(1);
+    expect(risen[0]?.spec.untargetable).toBe(true);
+    expect(risen[0]?.memory.activeAt).toBe(vesselTick + 60);
+  });
+
+  it("Leap of Faith: a Tentacle 700 units toward the enemy for 8 s; Tentacles out of reach, slamming in 0.5 s then locked 0.5 s; Harsh Lesson's cooldown halved", () => {
+    const compiled = kit("Illaoi");
+    const enemy = fighter({ id: "enemy", base: { hp: 20000, armor: 100, mr: 100 } });
+    const world = createWorld({ fighters: [compiled.spec, enemy], distance: 100, modes: ["fight", "idle"], settings: { log: true, maxSeconds: 3, reactionTime: 10 } });
+    const [illaoi, target] = world.units;
+    const plan: Behavior = (view) => (view.world.tick === 0 ? { kind: "cast", ability: "R" } : view.world.tick === 20 ? { kind: "cast", ability: "W" } : view.self.action ? undefined : { kind: "attack" });
+    let immune = false;
+    let launch = -1;
+    let readyAfter = -1;
+    while (!world.result) {
+      const attacking = illaoi.action?.kind === "windup";
+      step(world, [plan, () => undefined]);
+      if (world.tick === 1) immune = illaoi.statuses.some((s) => s.kind === "state" && s.key === "displacementImmune");
+      if (launch < 0 && attacking && illaoi.action?.kind !== "windup" && world.log.some((e) => e.text.startsWith("Harsh Lesson deals"))) {
+        launch = world.tick - 1;
+        readyAfter = (illaoi.cooldownReady.W ?? 0) - launch;
+      }
+    }
+    expect(immune).toBe(true);
+    const summoned = world.log.find((e) => e.text === "summons a Tentacle");
+    expect(summoned?.tick).toBe(15);
+    const leapTentacle = world.pets.find((p) => p.x === illaoi.x + 700);
+    expect(leapTentacle?.endTick).toBe(15 + 240);
+    expect(world.pets.every((p) => p.spec.untargetable)).toBe(true);
+    // Both Tentacles answer Harsh Lesson; their slams land 0.5 s later.
+    const slamStarts = world.log.filter((e) => e.text === "Tentacle slams at the enemy").map((e) => e.tick);
+    expect(slamStarts).toEqual([launch + 1, launch + 1]);
+    expect(world.log.filter((e) => e.text.startsWith("Tentacle deals")).map((e) => e.tick)).toEqual([launch + 16, launch + 16]);
+    expect(target.alive).toBe(true);
+    // 4 s halved.
+    expect(readyAfter).toBe(60);
+  });
+
   it("Jayce", () => {
     // Hammer Stance (the champion's form, melee) and Cannon Stance (500 range, the game files' 2000 missile speed).
     const jayce = kit("Jayce").spec;
