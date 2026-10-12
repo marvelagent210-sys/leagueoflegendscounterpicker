@@ -16,15 +16,26 @@ describe("matchups with kit variants (Udyr's rank splits)", () => {
 
   it("play the variant best for its side, whichever side has the choice", () => {
     const mine = bestMatchup([weak, strong], [plain], 0, prices);
-    expect(mine.variant).toEqual({ side: 0, options: { power: 2 } });
+    expect(mine.variants).toEqual([{ side: 0, options: { power: 2 } }]);
     expect(mine.score).toBe(simulateMatchup(strong.spec, plain.spec, 0, prices).score);
     expect(mine.score).toBeGreaterThan(simulateMatchup(weak.spec, plain.spec, 0, prices).score);
     const theirs = bestMatchup([plain], [weak, strong], 0, prices);
-    expect(theirs.variant).toEqual({ side: 1, options: { power: 2 } });
+    expect(theirs.variants).toEqual([{ side: 1, options: { power: 2 } }]);
     expect(theirs.score).toBe(simulateMatchup(plain.spec, strong.spec, 0, prices).score);
   });
 
+  it("record both sides' choices when both have one", () => {
+    // Each side's best answer: your strong nuke wins whatever the enemy plays, and against it
+    // the enemy's strong nuke loses least.
+    const both = bestMatchup([weak, strong], [weak, strong], 0, prices);
+    expect(both.variants).toEqual([
+      { side: 0, options: { power: 2 } },
+      { side: 1, options: { power: 2 } },
+    ]);
+    expect(both.score).toBe(simulateMatchup(strong.spec, strong.spec, 0, prices).score);
+  });
+
   it("record no choice with one kit a side", () => {
-    expect(bestMatchup([plain], [{ spec: fighter() }], 0, prices).variant).toBeUndefined();
+    expect(bestMatchup([plain], [{ spec: fighter() }], 0, prices).variants).toBeUndefined();
   });
 });

@@ -5,9 +5,17 @@ import { useSettings } from "../hooks";
 import { type AppSettings, DEFAULT_APP_SETTINGS, GOLD_RANGE, KIT_OPTIONS, REACTION_RANGE } from "../settings";
 
 const ENVIRONMENT: Array<{ key: keyof AppSettings["environment"]; label: string; effect: string }> = [
-  { key: "walls", label: "Walls nearby", effect: "Camille's Hookshot and Wall Dive, Poppy's Heroic Charge stun, Ornn's Searing Charge shockwave." },
+  {
+    key: "walls",
+    label: "Walls nearby",
+    effect: "Camille's Hookshot and Wall Dive, Poppy's Heroic Charge stun, Ornn's Searing Charge shockwave, Gnar's GNAR! stun, Skarner's Ixtal's Impact stun.",
+  },
   { key: "minions", label: "A minion wave", effect: "Yasuo's Sweeping Blade through minions." },
-  { key: "laneSetup", label: "The lane set up in advance", effect: "A Noxious Trap of Teemo's waiting between the two." },
+  {
+    key: "laneSetup",
+    label: "The lane set up in advance",
+    effect: "A Noxious Trap of Teemo's waiting between the two, a Tentacle beside Illaoi, Yorick's graves and Heimerdinger's turrets.",
+  },
   { key: "brush", label: "Brush nearby", effect: "No simulated champion uses it yet." },
 ];
 

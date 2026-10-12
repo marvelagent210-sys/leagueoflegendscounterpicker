@@ -39,6 +39,11 @@ export const DASH_DENIAL: GoldenMatchup[] = [
     disputed:
       "Fiora wins every all-in (-0.74). Poppy's damage is all physical, and with penetration capped the budget answers it with 5,600 gold of armor (406 in all), while Poppy spends hers on damage rather than health: her opening crowd control wears off with Fiora barely scratched.",
   },
+  // Wave 2.
+  { winner: "Poppy", loser: "Kled", margin: "clear", why: "Steadfast Presence stops Jousting's dashes and Chaaaaaaaarge!!!'s final dash." },
+  { winner: "Poppy", loser: "Akali", margin: "clear", why: "Steadfast Presence stops Shuriken Flip's dash back in and both of Perfect Execution's dashes." },
+  { winner: "Poppy", loser: "Gnar", margin: "slight", why: "Steadfast Presence stops Hop and Crunch." },
+  { winner: "Poppy", loser: "Pantheon", margin: "slight", why: "Steadfast Presence stops Shield Vault's leap, and with it the stun." },
 ];
 
 /** Range and blinds against champions whose damage is basic attacks. */
@@ -48,6 +53,13 @@ export const RANGE_AND_BLINDS: GoldenMatchup[] = [
   { winner: "Teemo", loser: "Garen", margin: "slight", why: "Blinding Dart makes Decisive Strike miss, and Garen's only way in is its haste." },
   { winner: "Teemo", loser: "Olaf", margin: "slight", why: "Blinding Dart stops Olaf's attacks, and Teemo kites him." },
   { winner: "Teemo", loser: "Volibear", margin: "slight", why: "Teemo kites him, and a blinded Thundering Smash attack misses, stun included." },
+  // Wave 2.
+  { winner: "Teemo", loser: "Gangplank", margin: "clear", why: "Teemo out-ranges Gangplank and shoots his Powder Kegs away, and Blinding Dart makes Trial by Fire's attack miss." },
+  { winner: "Teemo", loser: "Kled", margin: "slight", why: "Teemo kites Kled, and Blinding Dart stops his attacks." },
+  { winner: "Teemo", loser: "Udyr", margin: "slight", why: "Blinding Dart makes Udyr's empowered attacks miss, and Teemo kites him." },
+  { winner: "Quinn", loser: "Darius", margin: "clear", why: "Quinn out-ranges Darius, and Vault knocks him back when he closes in." },
+  { winner: "Quinn", loser: "Garen", margin: "clear", why: "Quinn out-ranges Garen, and Blinding Assault's nearsight and Vault keep him off her." },
+  { winner: "Kayle", loser: "Darius", margin: "slight", why: "By level 20 Kayle attacks from range, and Divine Judgment's invulnerability answers Noxian Guillotine." },
 ];
 
 /** Dodged or parried attacks and crowd control. */
@@ -68,6 +80,12 @@ export const DODGES_AND_PARRIES: GoldenMatchup[] = [
     disputed:
       "Aatrox wins both all-ins (-0.25 overall; Fiora wins the brawl). Each hit takes 2 s off Deathbringer Stance's cooldown, so the budget buys Aatrox 312% bonus attack speed: a Deathbringer Stance hit about every 1.2 s, healing double through World Ender.",
   },
+  // Wave 2.
+  { winner: "Jax", loser: "Gangplank", margin: "slight", why: "Counter Strike dodges Gangplank's attacks, Trial by Fire's included, then stuns him." },
+  { winner: "Jax", loser: "Udyr", margin: "slight", why: "Counter Strike dodges Udyr's empowered attacks." },
+  { winner: "Fiora", loser: "KSante", margin: "clear", why: "Vitals deal true damage from maximum health, and Riposte parries Path Maker's stun or All Out's root." },
+  { winner: "Fiora", loser: "Skarner", margin: "slight", why: "Riposte parries Impale's suppression or Ixtal's Impact's stun." },
+  { winner: "Fiora", loser: "Sion", margin: "slight", why: "Riposte parries Decimating Smash's knock-up, and Vitals' true damage ignores Sion's armor." },
 ];
 
 /** True damage and damage from maximum health against tanks. */
@@ -91,6 +109,20 @@ export const TANK_BUSTERS: GoldenMatchup[] = [
     disputed:
       "Even (0.00): every all-in runs the full 30 s with both near half health. Urgot's damage is all physical, and Ornn buys 8,500 gold of armor that Living Forge makes worth 30% more (562 armor in all) against Urgot's capped 34% penetration.",
   },
+  // Wave 2.
+  { winner: "Trundle", loser: "Ornn", margin: "clear", why: "Subjugate drains 30% of Ornn's maximum health and steals 40% of his armor and magic resistance." },
+  { winner: "Trundle", loser: "Chogath", margin: "clear", why: "Subjugate drains 30% of Cho'Gath's maximum health, Feast's health included, and steals 40% of his resistances." },
+  { winner: "Trundle", loser: "Sion", margin: "clear", why: "Subjugate drains 30% of Sion's maximum health and steals 40% of his resistances." },
+  {
+    winner: "Trundle",
+    loser: "DrMundo",
+    margin: "clear",
+    why: "Subjugate drains 30% of Dr. Mundo's maximum health and steals 40% of his resistances.",
+    disputed:
+      "Dr. Mundo wins every all-in (-0.78). He buys 8,600 gold of health and 5,100 of armor: Subjugate's share of his health comes to about 1,100 after magic resistance, Maximum Dosage heals more than that back, and Trundle's attacks run into the armor.",
+  },
+  { winner: "Gwen", loser: "Chogath", margin: "clear", why: "A Thousand Cuts deals magic damage from maximum health, Feast's health included." },
+  { winner: "Gwen", loser: "TahmKench", margin: "clear", why: "A Thousand Cuts deals magic damage from maximum health." },
 ];
 
 /** Crowd control immunity and armor. */
@@ -103,6 +135,18 @@ export const IMMUNITY_AND_ARMOR: GoldenMatchup[] = [
   { winner: "Malphite", loser: "Yone", margin: "slight", why: "Armor against crits, and Ground Slam cuts Yone's attack speed." },
   { winner: "Malphite", loser: "Riven", margin: "slight", why: "All of Riven's damage is physical, into Malphite's armor and Ground Slam." },
   { winner: "Malphite", loser: "Irelia", margin: "slight", why: "Ground Slam cuts Irelia's attack speed, and her damage is mostly physical." },
+  // Wave 2.
+  { winner: "Olaf", loser: "KSante", margin: "slight", why: "Ragnarok ignores Path Maker's stun and All Out's root, and Reckless Swing's true damage ignores K'Sante's resistances." },
+  { winner: "Olaf", loser: "Skarner", margin: "slight", why: "Ragnarok ignores Impale's suppression and Ixtal's Impact's stun." },
+  { winner: "Malphite", loser: "Pantheon", margin: "slight", why: "Pantheon's damage is all physical, into Malphite's armor." },
+  {
+    winner: "Malphite",
+    loser: "Gangplank",
+    margin: "slight",
+    why: "Gangplank's attacks, Parrrley and Powder Kegs are physical, into Malphite's armor.",
+    disputed:
+      "Gangplank wins every all-in (+0.76 for him). Both buy armor (Malphite 7,650 gold, Gangplank 5,300), so Malphite's physical damage stays low, while Trial by Fire's true damage and Cannon Barrage's magic damage carry Gangplank through fights of about 18 seconds.",
+  },
 ];
 
 /** Silences, sustain and late-game scaling. */

@@ -64,8 +64,8 @@ export interface MatchupRun {
   spent: [Record<BudgetStat, number>, Record<BudgetStat, number>];
   stats: [StatLine, StatLine];
   assumptions: [string[], string[]];
-  /** The kit options a side played when its kit had a choice (Udyr's rank split). */
-  variant?: MatchupVariant;
+  /** The kit options each side played when its kit has a choice (Udyr's rank split, Heimerdinger's upgrade). */
+  variants?: MatchupVariant[];
 }
 
 /** What a run needs from the dataset. */
@@ -137,9 +137,9 @@ function statLine(spec: FighterSpec): StatLine {
   };
 }
 
-export async function runMatchup(source: SimSource, you: string, enemy: string, settings: AppSettings, log: boolean, hint?: MatchupVariant): Promise<MatchupRun> {
-  const mine = await sideKits(source, you, settings, hint?.side === 0 ? hint.options : undefined);
-  const theirs = await sideKits(source, enemy, settings, hint?.side === 1 ? hint.options : undefined);
+export async function runMatchup(source: SimSource, you: string, enemy: string, settings: AppSettings, log: boolean, hints: MatchupVariant[] = []): Promise<MatchupRun> {
+  const mine = await sideKits(source, you, settings, hints.find((h) => h.side === 0)?.options);
+  const theirs = await sideKits(source, enemy, settings, hints.find((h) => h.side === 1)?.options);
   const options = scenarioOptions(settings);
   const result = bestMatchup(
     mine.map((m) => m.variant),
@@ -148,12 +148,18 @@ export async function runMatchup(source: SimSource, you: string, enemy: string, 
     source.prices,
     { ...options, settings: { ...options.settings, log } },
   );
-  // The kits that played: the chosen variant's, when a side had several.
-  const played = (side: 0 | 1, kits: Array<{ kit: CompiledKit; variant: KitVariant }>) =>
-    (result.variant?.side === side ? kits.find((k) => k.variant.options && sameOptions(k.variant.options, result.variant?.options ?? {})) : kits[0])?.kit ?? kits[0]?.kit;
+  // The kits that played: the chosen variant's when a side had several, else its one kit (the hinted variant's, if any).
+  const played = (side: 0 | 1, kits: Array<{ kit: CompiledKit; variant: KitVariant }>) => {
+    const chosen = result.variants?.find((v) => v.side === side);
+    return (chosen ? kits.find((k) => k.variant.options && sameOptions(k.variant.options, chosen.options)) : undefined) ?? kits[0];
+  };
   const a = played(0, mine);
   const b = played(1, theirs);
   if (!a || !b) throw new Error(`No kit for ${a ? enemy : you}`);
+  const variants = [
+    ...(a.variant.options ? [{ side: 0 as const, options: a.variant.options }] : []),
+    ...(b.variant.options ? [{ side: 1 as const, options: b.variant.options }] : []),
+  ];
   return {
     you,
     enemy,
@@ -175,8 +181,8 @@ export async function runMatchup(source: SimSource, you: string, enemy: string, 
       })),
     })),
     spent: [result.builds[0].spent, result.builds[1].spent],
-    stats: [statLine({ ...a.spec, bonus: result.builds[0].bonus }), statLine({ ...b.spec, bonus: result.builds[1].bonus })],
-    assumptions: [a.assumptions, b.assumptions],
-    ...(result.variant ? { variant: result.variant } : {}),
+    stats: [statLine({ ...a.kit.spec, bonus: result.builds[0].bonus }), statLine({ ...b.kit.spec, bonus: result.builds[1].bonus })],
+    assumptions: [a.kit.assumptions, b.kit.assumptions],
+    ...(variants.length > 0 ? { variants } : {}),
   };
 }

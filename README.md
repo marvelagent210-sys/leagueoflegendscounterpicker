@@ -2,16 +2,16 @@
 
 A kit-based 1v1 counter picker for top lane: pick the enemy champion, get every champion ranked by how well its kit beats theirs at level 20, with the reasoning behind each result. No win rates or statistics.
 
-Status: milestones 1 to 4 of 8 are done, milestone 5 is built and waiting for review, and milestone 6 is built:
+Status: milestones 1 to 4 of 8 are done, milestone 5 is built and waiting for review, milestone 6 is built, and milestone 7 has its first part (the second wave of top laners) built:
 
 - the data pipeline and level-20 stats;
 - every champion's abilities;
 - the interaction ledger, with a first counter ranking;
 - the duel simulator's core, which applies the game's rules and is tested on synthetic kits;
-- wave 1: 25 top laners whose kits the simulator plays out, and golden matchups to check it against;
+- waves 1 and 2: 49 top laners whose kits the simulator plays out, and golden matchups to check it against;
 - the web app: picker, matchup, kit and settings pages, published to GitHub Pages.
 
-Between two of the 25, the ranking comes from simulated duels (*full* confidence). Everywhere else it is still *partial*: the ledger weighs how the kits' abilities interact without playing the fight out. See [PLAN.md](PLAN.md) for the plan and progress.
+Between two of the 49, the ranking comes from simulated duels (*full* confidence). Everywhere else it is still *partial*: the ledger weighs how the kits' abilities interact without playing the fight out. See [PLAN.md](PLAN.md) for the plan and progress.
 
 ## Setup
 
@@ -45,7 +45,7 @@ Results at the default settings are precomputed by `npm run build:data`. If you 
 
 ```sh
 npm run matchup -- Fiora Darius     # every interaction between two kits, with timing, conditions and sources
-npm run counters -- Tryndamere      # champions ranked against an enemy: by simulated duels (wave 1), then by the ledger (partial)
+npm run counters -- Tryndamere      # champions ranked against an enemy: by simulated duels (champions with kits), then by the ledger (partial)
 ```
 
 Names are matched loosely (`"dr mundo"`, `wukong`). For example, the ledger finds that Riposte parries Darius's Apprehend and stuns him back, and that Teemo's blind makes Tryndamere's basic attacks miss.
@@ -69,7 +69,12 @@ The simulator plays a duel out at 30 ticks per second, in one dimension. Both ch
 
 Uncertain skillshots that decide a fight split it into weighted branches, so results are exact probabilities.
 
-These 25 champions fight with their abilities (`kits/champions/`): Aatrox, Camille, Darius, Dr. Mundo, Fiora, Garen, Gwen, Irelia, Jax, Malphite, Mordekaiser, Nasus, Olaf, Ornn, Poppy, Renekton, Riven, Sett, Shen, Teemo, Tryndamere, Urgot, Volibear, Yasuo and Yone. Every number in a kit is read from the wiki; the kit page lists them with their revisions, along with the kit's assumptions. Other champions fight with their base stats and basic attacks only.
+These 49 champions fight with their abilities (`kits/champions/`):
+
+- wave 1: Aatrox, Camille, Darius, Dr. Mundo, Fiora, Garen, Gwen, Irelia, Jax, Malphite, Mordekaiser, Nasus, Olaf, Ornn, Poppy, Renekton, Riven, Sett, Shen, Teemo, Tryndamere, Urgot, Volibear, Yasuo and Yone;
+- wave 2: Akali, Ambessa, Aurora, Cho'Gath, Gangplank, Gnar, Heimerdinger, Illaoi, Jayce, Kayle, K'Sante, Kennen, Kled, Pantheon, Quinn, Rumble, Singed, Sion, Skarner, Tahm Kench, Trundle, Udyr, Yorick and Zaahen.
+
+Every number in a kit is read from the wiki; the kit page lists them with their revisions, along with the kit's assumptions. Some kits have a choice to make (Udyr's rank split, Heimerdinger's upgrade): each matchup plays the option best for that side, and `simulated.json` records which. Other champions fight with their base stats and basic attacks only.
 
 ```sh
 npm run golden       # every golden matchup (tests/golden/matchups.ts) with its simulated score
@@ -80,7 +85,7 @@ npm run golden       # every golden matchup (tests/golden/matchups.ts) with its 
 ```sh
 npm run fetch        # download the current patch's sources into data/raw/ (not committed)
 npm run fetch -- --only glossary   # refetch just the wiki's glossary pages
-npm run build:data   # rebuild data/<dataset>/ from those downloads (about a minute: it simulates every wave-1 matchup)
+npm run build:data   # rebuild data/<dataset>/ from those downloads (about 10 minutes on 4 cores: it simulates all 1,176 matchups between champions with kits)
 ```
 
 Each patch gets a folder named after its Data Dragon version, e.g. `data/16.20/` for patch 26.20. It contains:
@@ -93,9 +98,9 @@ Each patch gets a folder named after its Data Dragon version, e.g. `data/16.20/`
 | `glossary.json` | The wiki's lists of abilities by mechanic (dashes, untargetability, spell shields, each crowd control type's sources, ...) and its crowd control rules |
 | `rules.json` | Game values the simulator reads from the wiki: the gold value of each stat, which prices the stat budget |
 | `profiles/<champion>.json` | What each ability does in a fight: how it's delivered, the crowd control it applies, how it moves, what it protects against; and basic attacks at level 20 |
-| `counters/<champion>.md` | Every champion ranked against this one: by simulated duels for the 25 champions with kits (full), and by the interaction ledger (partial), with the strongest reasons |
+| `counters/<champion>.md` | Every champion ranked against this one: by simulated duels for the 49 champions with kits (full), and by the interaction ledger (partial), with the strongest reasons |
 | `rankings.json` | The ledger rankings, machine-readable |
-| `simulated.json` | Every simulated matchup between champions with kits: the score and each scenario's |
+| `simulated.json` | Every simulated matchup between champions with kits: the score and each scenario's, and the options played by kits with a choice |
 | `oracle/level20.json` | The wiki's level-20 stat table, which the tests check the stat math against |
 | `manifest.json`, `wiki-revisions.json` | The exact source versions and wiki revisions used |
 | `reports/level20-stats.md` | Base stats of every form at level 20 |

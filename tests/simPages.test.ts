@@ -41,18 +41,29 @@ describe("simulator pages", () => {
     expect(section.find((line) => line.startsWith("| 1 |"))).toBe("| 1 | Alpha | +0.50 | +1.00 | −1.00 | +0.50 | +0.20 | – | +0.00 |");
   });
 
-  it("keep the kit options a champion played, whichever side it was on", () => {
+  it("keep the kit options a champion played, whichever side it was on, for both sides", () => {
     const pairs: Array<[string, string]> = [
       ["A", "U"],
       ["U", "B"],
+      ["H", "U"],
     ];
     const results: PairResult[] = [
-      { index: 0, score: 0.1, scenarios: [0, 0, 0, 0, null, 0], spent: [none, none], variant: { side: 1, options: { rankQ: 6 } } },
-      { index: 1, score: -0.2, scenarios: [0, 0, 0, 0, null, 0], spent: [none, none], variant: { side: 0, options: { rankQ: 5 } } },
+      { index: 0, score: 0.1, scenarios: [0, 0, 0, 0, null, 0], spent: [none, none], variants: [{ side: 1, options: { rankQ: 6 } }] },
+      { index: 1, score: -0.2, scenarios: [0, 0, 0, 0, null, 0], spent: [none, none], variants: [{ side: 0, options: { rankQ: 5 } }] },
+      {
+        index: 2,
+        score: 0.3,
+        scenarios: [0, 0, 0, 0, null, 0],
+        spent: [none, none],
+        variants: [
+          { side: 0, options: { upgrade: 2 } },
+          { side: 1, options: { rankQ: 4 } },
+        ],
+      },
     ];
-    const matrix = simulatedMatrix(["A", "B", "U"], 15000, pairs, results);
+    const matrix = simulatedMatrix(["A", "B", "H", "U"], 15000, pairs, results);
     const json = JSON.parse(simulatedJson("16.20", "26.20", matrix)) as { variants: Record<string, Record<string, Record<string, number>>> };
-    expect(json.variants).toEqual({ U: { A: { rankQ: 6 }, B: { rankQ: 5 } } });
+    expect(json.variants).toEqual({ H: { U: { upgrade: 2 } }, U: { A: { rankQ: 6 }, B: { rankQ: 5 }, H: { rankQ: 4 } } });
   });
 });
 

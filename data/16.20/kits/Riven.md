@@ -230,11 +230,12 @@ Effects marked by a mark or a role are completed by the kit's hooks (see the kit
 
 ### Assumptions
 
+- Riven saves Wind Slash until it kills, until its bonus for the enemy's missing health is full, until she drops below 30% health, or until Blade of the Exile is about to end.
 - Broken Wings' dashes move 225 units toward the enemy and strike it if it is within the slash's radius on arrival.
 - Valor dashes toward the enemy to engage, or away from it to escape.
 - Wind Slash's three missiles are one line skillshot as wide as the cone.
 
-### Wiki values read (32)
+### Wiki values read (33)
 
 | Ability | Value | Revision |
 |---|---|---|
@@ -249,6 +250,7 @@ Effects marked by a mark or a role are completed by the kit's hooks (see the kit
 | Blade of the Exile | 75 bonus attack range | [4046587](https://wiki.leagueoflegends.com/en-us/Template:Data_Riven/Blade_of_the_Exile?oldid=4046587) |
 | Blade of the Exile | After 0.5 seconds, she can cast Wind Slash within the duration | [4046587](https://wiki.leagueoflegends.com/en-us/Template:Data_Riven/Blade_of_the_Exile?oldid=4046587) |
 | Wind Slash | Minimum Physical Damage: 100 / 150 / 200 (+ 55% bonus AD) | [4046588](https://wiki.leagueoflegends.com/en-us/Template:Data_Riven/Wind_Slash?oldid=4046588) |
+| Wind Slash | Active: Riven unleashes a wave of energy in a cone in the target direction that deals physical damage to enemies hit, increased by 0 / 25 / 50 / 75 / 100 / 125 / 150 / 175 / 200 (based on target's missing health)%. | [4046588](https://wiki.leagueoflegends.com/en-us/Template:Data_Riven/Wind_Slash?oldid=4046588) |
 | Broken Wings | cooldown: 13 | [4025373](https://wiki.leagueoflegends.com/en-us/Template:Data_Riven/Broken_Wings?oldid=4025373) |
 | Ki Burst | cooldown: 11 / 10 / 9 / 8 / 7 | [4024218](https://wiki.leagueoflegends.com/en-us/Template:Data_Riven/Ki_Burst?oldid=4024218) |
 | Valor | cooldown: 10 / 9 / 8 / 7 / 6 | [3959341](https://wiki.leagueoflegends.com/en-us/Template:Data_Riven/Valor?oldid=3959341) |

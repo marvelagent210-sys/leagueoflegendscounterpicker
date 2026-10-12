@@ -82,7 +82,7 @@ export function effectText(effect: Effect): string {
     case "stat":
       return `${effect.stat} ${formulaText(effect.amount)} for ${num(effect.duration)} s`;
     case "dot":
-      return `${formulaText(effect.total)} ${effect.damageType} damage over ${num(effect.duration)} s`;
+      return `${formulaText(effect.total)} ${effect.damageType} damage over ${num(effect.duration)} s${effect.stacks ? " (stacking)" : ""}`;
     case "grievousWounds":
       return `Grievous Wounds for ${num(effect.duration)} s`;
     case "cleanse":
@@ -137,7 +137,8 @@ export function deliveryText(delivery: Delivery): string {
         : delivery.chase
           ? `moving toward the enemy at ${num(delivery.chase)}/s`
           : `up to ${num(delivery.range)} away`;
-      const timing = `${delivery.delay ? `after ${num(delivery.delay)} s, ` : ""}for ${num(delivery.duration)} s, pulsing every ${num(delivery.interval)} s`;
+      const burst = delivery.burst ? ` (${num(delivery.burst.count)} hits ${num(delivery.burst.gap)} s apart)` : "";
+      const timing = `${delivery.delay ? `after ${num(delivery.delay)} s, ` : ""}for ${num(delivery.duration)} s, pulsing every ${num(delivery.interval)} s${burst}`;
       return `field of ${num(delivery.radius)} radius ${where}, ${timing}${delivery.onOwner?.length ? `; on itself inside: ${effectsText(delivery.onOwner)}` : ""}`;
     }
     case "area": {

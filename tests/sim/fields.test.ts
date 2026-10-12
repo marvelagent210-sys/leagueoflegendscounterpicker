@@ -4,6 +4,7 @@ import { applyEffect } from "../../engine/sim/combat";
 import { derive } from "../../engine/sim/derived";
 import { createWorld, step } from "../../engine/sim/simulate";
 import type { AbilitySpec, Effect } from "../../engine/sim/spec";
+import { cloneWorld } from "../../engine/sim/state";
 import { castWhenReady, duel, idle, standStill } from "./helpers";
 import { ability, fighter } from "./kits";
 
@@ -11,6 +12,13 @@ const trueDamage = (amount: number): Effect => ({ type: "damage", damageType: "t
 
 /** A field 300 units wide, 2 s long, 10 true damage every 0.5 s. */
 const ground: AbilitySpec = ability({ key: "Q", cooldown: 100, delivery: { kind: "field", range: 1000, radius: 150, duration: 2, interval: 0.5 }, onHit: [trueDamage(10)] });
+/** Clusters of 3 hits 0.25 s apart every 2 s, 12 hits in all (Cannon Barrage). */
+const barrage: AbilitySpec = ability({
+  key: "R",
+  cooldown: 100,
+  delivery: { kind: "field", range: 30000, radius: 580, duration: 6.6, interval: 2, delay: 0.5, burst: { count: 3, gap: 0.25 } },
+  onHit: [trueDamage(10)],
+});
 
 describe("fields", () => {
   it("pulse on the enemy while it stays inside", () => {
@@ -66,6 +74,44 @@ describe("fields", () => {
   it("count every pulse in the stat budget", () => {
     // 4 pulses of 10 every 100 s.
     expect(damagePerSecond(fighter({ abilities: [ground] }), fighter()).true).toBeCloseTo(0.4, 9);
+    // 4 clusters of 3.
+    expect(damagePerSecond(fighter({ abilities: [barrage] }), fighter()).true).toBeCloseTo(1.2, 9);
+  });
+
+  it("pulse in clusters: hits a gap apart, clusters an interval apart (Cannon Barrage)", () => {
+    const world = createWorld({ fighters: [fighter({ abilities: [barrage] }), fighter()], distance: 600, modes: ["idle", "idle"] });
+    const enemy = world.units[1];
+    const hits: number[] = [];
+    step(world, [castWhenReady("R"), standStill]);
+    for (let i = 0; i < 300; i++) {
+      const before = enemy.hp;
+      step(world, [standStill, standStill]);
+      if (enemy.hp < before) hits.push(world.tick - 1);
+    }
+    // 12 waves: 0.25 s (8 ticks) apart within a cluster, a cluster every 2 s (60 ticks).
+    expect(hits).toHaveLength(12);
+    expect(hits.slice(1).map((t, i) => t - (hits[i] ?? 0))).toEqual([8, 8, 44, 8, 8, 44, 8, 8, 44, 8, 8]);
+    expect(2000 - enemy.hp).toBe(120);
+  });
+
+  it("keep each branch's place in the cluster when the fight branches", () => {
+    // A world cloned mid-cluster (a skillshot's hit and miss branches) pulses on its own.
+    const world = createWorld({ fighters: [fighter({ abilities: [barrage] }), fighter()], distance: 600, modes: ["idle", "idle"] });
+    step(world, [castWhenReady("R"), standStill]);
+    for (let i = 0; i < 20; i++) step(world, [standStill, standStill]);
+    const branch = cloneWorld(world);
+    const hitsIn = (w: typeof world) => {
+      const hits: number[] = [];
+      for (let i = 0; i < 280; i++) {
+        const before = w.units[1].hp;
+        step(w, [standStill, standStill]);
+        if (w.units[1].hp < before) hits.push(w.tick - 1);
+      }
+      return hits;
+    };
+    const first = hitsIn(world);
+    expect(hitsIn(branch)).toEqual(first);
+    expect(first).toHaveLength(11);
   });
 
   it("can open a fight from their reach", () => {

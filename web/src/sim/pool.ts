@@ -63,9 +63,9 @@ function pump(): void {
   }
 }
 
-export function simulate(dataUrl: string, you: string, enemy: string, settings: AppSettings, log: boolean, signal?: AbortSignal, variant?: MatchupVariant): Promise<MatchupRun> {
+export function simulate(dataUrl: string, you: string, enemy: string, settings: AppSettings, log: boolean, signal?: AbortSignal, variants?: MatchupVariant[]): Promise<MatchupRun> {
   return new Promise((resolve, reject) => {
-    const job: Job = { request: { id: nextId++, dataUrl, you, enemy, settings, log, ...(variant ? { variant } : {}) }, resolve, reject };
+    const job: Job = { request: { id: nextId++, dataUrl, you, enemy, settings, log, ...(variants && variants.length > 0 ? { variants } : {}) }, resolve, reject };
     if (signal) job.signal = signal;
     queue.push(job);
     pump();

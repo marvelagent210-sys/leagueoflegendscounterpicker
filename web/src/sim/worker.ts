@@ -53,7 +53,7 @@ function load(dataUrl: string): Promise<SimSource> {
 scope.onmessage = (event) => {
   const request = event.data;
   load(request.dataUrl)
-    .then((data) => runMatchup(data, request.you, request.enemy, request.settings, request.log, request.variant))
+    .then((data) => runMatchup(data, request.you, request.enemy, request.settings, request.log, request.variants))
     .then((run) => scope.postMessage({ id: request.id, run }))
     .catch((error: unknown) => scope.postMessage({ id: request.id, error: error instanceof Error ? error.message : String(error) }));
 };

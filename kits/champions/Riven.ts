@@ -28,8 +28,14 @@ const riven: KitModule = {
     const slashDelay = r.quoted("After 0.5 seconds, she can cast Wind Slash within the duration", 0);
     // Wind Slash: up to +200% damage at 75% missing health.
     const slashMin = slash.formula("Minimum Physical Damage");
-    const slashFullAt = 0.75;
-    const slashBonus = 2;
+    const missingSeries = slash.seriesIn("increased by 0 / 25 / 50 / 75 / 100 / 125 / 150 / 175 / 200");
+    if (missingSeries.kind !== "variable") throw new Error("Riven kit: Wind Slash's missing-health bonus changed shape");
+    const slashBonus = Math.max(...missingSeries.values.map(Number)) / 100;
+    const slashFullAt = Math.max(...missingSeries.points.map(Number)) / 100;
+    const slashLow = 0.3;
+    kit.assume(
+      `Riven saves Wind Slash until it kills, until its bonus for the enemy's missing health is full, until she drops below ${slashLow * 100}% health, or until Blade of the Exile is about to end.`,
+    );
     kit.assume("Broken Wings' dashes move 225 units toward the enemy and strike it if it is within the slash's radius on arrival.");
     kit.assume("Valor dashes toward the enemy to engage, or away from it to escape.");
     kit.assume("Wind Slash's three missiles are one line skillshot as wide as the cone.");
@@ -52,11 +58,13 @@ const riven: KitModule = {
 
     const behavior: Behavior = (view) => {
       const self = view.self;
-      // Wind Slash when it kills.
+      // Wind Slash when it kills, at its full bonus, when she is about to fall, or before her blade's empowerment ends.
       const windSlash = self.spec.abilities.find((a) => a.key === "R2");
       if (windSlash && canCast(view.world, self, windSlash)) {
-        const damage = expectedDamage([{ type: "damage", damageType: "physical", amount: slashDamage(missingShare(view.enemy)) }], self, view.enemy);
-        if (damage >= view.enemy.hp) return { kind: "cast", ability: "R2" };
+        const missing = missingShare(view.enemy);
+        const damage = expectedDamage([{ type: "damage", damageType: "physical", amount: slashDamage(missing) }], self, view.enemy);
+        const ending = (self.chains.R?.until ?? Number.POSITIVE_INFINITY) - view.world.tick <= 15;
+        if (damage >= view.enemy.hp || missing >= slashFullAt || missingShare(self) >= 1 - slashLow || ending) return { kind: "cast", ability: "R2" };
       }
       // Broken Wings: one attack between casts (the animation cancel), unless the window is closing.
       const chain = self.chains.Q;

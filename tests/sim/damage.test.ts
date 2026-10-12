@@ -78,6 +78,22 @@ describe("damage and mitigation in the simulator", () => {
     expect(b.hp).toBeCloseTo(1000 - 300 + (50 / 150) * 151, 6);
   });
 
+  it("refreshes a reapplied damage over time, unless it stacks (Trial by Fire)", () => {
+    const dealt = (stacks: boolean) => {
+      const w = world();
+      const burn: Effect = { type: "dot", damageType: "true", total: { base: 300 }, duration: 3, interval: 1, ...(stacks ? { stacks } : {}) };
+      apply(w, burn);
+      for (let i = 0; i < 45; i++) step(w, [idle, idle]);
+      apply(w, burn);
+      for (let i = 0; i < 150; i++) step(w, [idle, idle]);
+      return w.units[0].totals.damageDealt;
+    };
+    // Refreshed: 100 from the first, then the second's 300 on the first's tick timer.
+    expect(dealt(false)).toBeCloseTo(400, 6);
+    // Stacked: both run in full.
+    expect(dealt(true)).toBeCloseTo(600, 6);
+  });
+
   it("caps damage at the health left (no overkill) and credits executes", () => {
     const w = world();
     const [a, b] = w.units;

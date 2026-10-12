@@ -106,11 +106,11 @@ function cachedRun(data: AppData, you: string, enemy: string, settings: AppSetti
   const key = runKey(you, enemy, settings, log);
   let found = runs.get(key);
   if (!found) {
-    // Udyr's rank split: the one the precomputed matchup found best, tried first.
+    // Udyr's rank split, Heimerdinger's upgrade: the ones the precomputed matchup found best, tried first.
     const mine = data.simulated.variants?.[you]?.[enemy];
     const theirs = data.simulated.variants?.[enemy]?.[you];
-    const variant = mine ? { side: 0 as const, options: mine } : theirs ? { side: 1 as const, options: theirs } : undefined;
-    found = simulate(data.dataUrl, you, enemy, settings, log, signal, variant);
+    const variants = [...(mine ? [{ side: 0 as const, options: mine }] : []), ...(theirs ? [{ side: 1 as const, options: theirs }] : [])];
+    found = simulate(data.dataUrl, you, enemy, settings, log, signal, variants);
     found.catch(() => runs.delete(key));
     runs.set(key, found);
   }

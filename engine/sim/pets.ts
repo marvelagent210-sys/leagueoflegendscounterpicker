@@ -9,7 +9,7 @@
 import { type DamageType, effectiveResist, mitigate } from "../rules/damage";
 import { toTicks } from "../rules/time";
 import { applyEffect, canTarget, hookContext, inStasis, log } from "./combat";
-import { derive, hasState } from "./derived";
+import { derive, evaluate, hasState } from "./derived";
 import type { Effect, PetSpec } from "./spec";
 import { type Pet, type Side, type Unit, type World, other } from "./state";
 
@@ -67,6 +67,28 @@ export function damagePet(world: World, attacker: Unit, pet: Pet, raw: number, t
   log(world, attacker.side, `hits ${pet.spec.name} for ${pet.spec.hitPoints ? 1 : Math.round(amount)}${pet.hp <= 0 ? ", destroying it" : ""}`);
   pet.spec.onDamaged?.({ world, pet, attacker, raw, dealt: amount, before, damageType: type, attack });
   if (pet.hp <= 0 && world.pets.includes(pet)) removePet(world, pet, attacker.side === pet.owner);
+}
+
+/**
+ * An area ability's damage to the enemy's pets in it (`from` to `to` on the line, reaching
+ * their hitboxes): its damage effects at the caster's stats, terms of the target's stats
+ * counting as 0, times each pet's share of area damage. Pets that count hits (Tentacles,
+ * Powder Kegs) and untargetable ones aren't hurt.
+ */
+export function areaOnPets(world: World, caster: Unit, from: number, to: number, effects: Effect[]): void {
+  if (world.pets.length === 0) return;
+  const lo = Math.min(from, to);
+  const hi = Math.max(from, to);
+  for (const pet of [...world.pets]) {
+    if (pet.owner === caster.side || pet.spec.hitPoints || pet.spec.untargetable) continue;
+    if (pet.x + pet.spec.radius < lo || pet.x - pet.spec.radius > hi) continue;
+    for (const effect of effects) {
+      if (effect.type !== "damage" || !world.pets.includes(pet)) continue;
+      const amount = Math.max(evaluate(effect.amount, caster), effect.minimum ? evaluate(effect.minimum, caster) : 0);
+      const raw = amount * (pet.spec.areaTaken ?? 1);
+      if (raw > 0) damagePet(world, caster, pet, raw, effect.damageType, false);
+    }
+  }
 }
 
 /** Destroys one of the unit's own pets (a keg it detonates, a turret replaced). */

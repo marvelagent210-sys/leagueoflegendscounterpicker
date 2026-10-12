@@ -12,6 +12,7 @@ interface SimulatedFile {
   gold: number;
   values: string[];
   matchups: Record<string, Record<string, Array<number | null>>>;
+  variants?: Record<string, Record<string, Record<string, number>>>;
 }
 
 const DIR = path.join(import.meta.dirname, "..", "..", "data", "16.20");
@@ -48,6 +49,19 @@ describe("matchups run in the browser", () => {
       expected === null || expected === undefined ? actual === null : actual !== null && Math.abs(actual - expected) <= 0.0005 + 1e-9;
     expect(near(run.score, score), `score ${run.score} vs ${score}`).toBe(true);
     run.scenarios.forEach((s, i) => expect(near(s.score, scenarios[i]), `${s.id}: ${s.score} vs ${scenarios[i]}`).toBe(true));
+  }, 60_000);
+
+  it("plays the kit options both sides played in the precomputed matchup", async () => {
+    // Heimerdinger's upgrade and Udyr's rank split: both kits have a choice to make here.
+    const hints = [
+      { side: 0 as const, options: simulated.variants?.Heimerdinger?.Udyr ?? {} },
+      { side: 1 as const, options: simulated.variants?.Udyr?.Heimerdinger ?? {} },
+    ];
+    expect(hints[0]?.options.upgrade).toBeGreaterThan(0);
+    expect(hints[1]?.options.rankQ).toBeGreaterThan(0);
+    const run = await runMatchup(source, "Heimerdinger", "Udyr", DEFAULT_APP_SETTINGS, false, hints);
+    expect(run.variants).toEqual(hints);
+    expect(Math.abs(run.score - (simulated.matchups.Heimerdinger?.Udyr?.[0] ?? Number.NaN))).toBeLessThanOrEqual(0.0005 + 1e-9);
   }, 60_000);
 
   it("logs the fights only when asked", async () => {

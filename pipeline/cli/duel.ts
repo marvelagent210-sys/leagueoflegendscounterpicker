@@ -65,19 +65,20 @@ async function main(): Promise<void> {
   const theirs = await loadFighter(data.dataset, enemy);
   const describe = (name: string, kit: unknown) => (kit ? `${name} (kit)` : `${name} (base stats and basic attacks only: no kit yet)`);
   console.log(`${describe(you.name, mine.kit)} vs ${describe(enemy.name, theirs.kit)}, level 20, patch ${data.patch}`);
-  // A kit with a choice to make (Udyr's rank split) plays the option set best for it here.
+  // A kit with a choice to make (Udyr's rank split, Heimerdinger's upgrade) plays the option set best for it here.
   const [myVariants, theirVariants] = [await loadVariants(data.dataset, you), await loadVariants(data.dataset, enemy)];
   if (myVariants.length > 1 || theirVariants.length > 1) {
     const best = bestMatchup(myVariants, theirVariants, gold, data.prices);
-    const side = best.variant?.side;
-    const chosen = side === undefined ? undefined : (side === 0 ? myVariants : theirVariants).find((v) => v.options === best.variant?.options);
-    if (chosen && side !== undefined) {
+    for (const { side, options } of best.variants ?? []) {
+      const sideVariants = side === 0 ? myVariants : theirVariants;
+      const chosen = sideVariants.find((v) => v.options === options);
+      if (!chosen) continue;
       if (side === 0) mine.spec = chosen.spec;
       else theirs.spec = chosen.spec;
-      const options = Object.entries(chosen.options ?? {})
+      const named = Object.entries(options)
         .map(([key, value]) => `${key} ${value}`)
         .join(", ");
-      console.log(`${side === 0 ? you.name : enemy.name} plays ${options}: the best of ${(side === 0 ? myVariants : theirVariants).length} option sets here`);
+      console.log(`${side === 0 ? you.name : enemy.name} plays ${named}: the best of ${sideVariants.length} option sets here`);
     }
   }
   const [a, b, bought] = equip(mine.spec, theirs.spec, gold, data.prices);

@@ -486,3 +486,38 @@ web/        the app
   - the routes;
   - the settings: cleaning stored values, which changes rerun the fights, and blending;
   - four matchups run the way the browser runs them, which must match `simulated.json` to its three decimals, so the app's code and the precomputed data can't drift apart.
+
+### M7: behavior wave 2 (built)
+
+- **Wave 2**, 24 more top laners: Akali, Ambessa, Aurora, Cho'Gath, Gangplank, Gnar, Heimerdinger, Illaoi, Jayce, Kayle, K'Sante, Kennen, Kled, Pantheon, Quinn, Rumble, Singed, Sion, Skarner, Tahm Kench, Trundle, Udyr, Yorick and Zaahen. With wave 1, 49 champions have kits, and `simulated.json` holds 1,176 matchups.
+- **Kits** that needed the most care:
+  - *Udyr*: 24 stance ranks for 20 skill points (21 with Triple Tonic). Each matchup plays the rank split best against that enemy.
+  - *Jayce*: two stances whose spells keep their own cooldowns, running in both stances; Hammer Stance's resistances hold only while he is in it.
+  - *Kled*: Skaarl takes hits until she flees; Courage remounts him once.
+  - *Gnar*: Rage, then Mega Gnar for 15 s, then tired for 15 s. Catching the boomerang or the boulder refunds part of their cooldown, and GNAR! stuns into walls.
+  - *Sion*: Glory in Death's frenzy. *Tahm Kench*: grey health and Devour. *Skarner*: Ixtal's Impact into walls, broken by crowd control.
+  - *The pet champions*: Illaoi's Tentacles and the Spirit; Yorick's graves, Mist Walkers and the Maiden; Heimerdinger's turrets, beams and upgrades (each matchup plays the upgrade best for him); Gangplank's Powder Kegs, which chain.
+- **Engine additions**:
+  - abilities: charge-ups, ability charges, recast chains, post-effect cooldowns and cooldown refunds;
+  - movement: accelerating charges, charges the enemy can step aside from, leaps that take a fixed time, charges that lock on; casts and channels the caster can move during don't hold it still for skillshots;
+  - fights: forms, lethal saves and two-life champions, invisibility, terrain, fields (chasing ones, and ones whose pulses come in clusters), damage that falls off on repeated hits, and damage over time that stacks;
+  - pets: summons that fight, pets that count hits (Tentacles, kegs), pets their owner sets off, leashes, and area damage on pets;
+  - kit variants: options each matchup chooses between, recorded for both sides when both kits have a choice (Heimerdinger against Udyr).
+- **Lane setup.** When the lane was set up in advance (the default), Teemo's mushroom, Illaoi's Tentacle, Yorick's graves and Heimerdinger's turrets are on the field as the fight starts. The settings page turns that off for all four.
+- **Audit** of the wave's kits against the wiki, and of their fights:
+  - Riven only used Wind Slash when it would kill, so it went unused in most fights. She now also fires it at its full bonus for the enemy's missing health, below 30% health, or just before Blade of the Exile ends; the bonus is read from the wiki.
+  - Aurora's Between Worlds now leaps (25 to 250 units) before the shockwave, which starts ahead of where she lands.
+  - Cast times: the wiki's "Cast time" article says nothing interrupts them except death, which is what the engine does. Charges and channels are interrupted as before.
+- **Round robin of 49** (average score against the other 48; `reports/simulator.md` has the full table):
+  - top: Yorick +0.74, K'Sante +0.61, Trundle +0.58, Fiora +0.54, Zaahen +0.51;
+  - bottom: Akali −0.71, Ambessa −0.61, Pantheon −0.52, Skarner −0.50, Sett −0.46.
+- **Outliers**, checked against the wiki and their fights; no kit bug behind any of them:
+  - *Yorick* wins 46 of 48. His Walkers' and Maiden's damage doesn't depend on his stats, so the budget buys him health and resistances (5,600, 4,600 and 1,600 gold on average), and his summons grow tankier with his health, as the wiki says they do.
+  - *K'Sante* loses only to Fiora, Olaf, Yorick, Trundle and Tryndamere. His abilities scale with bonus armor and magic resistance, so the resistances the budget buys are also his damage; All Out adds true damage on top.
+  - *Trundle* loses only to Dr. Mundo, Nasus, Tryndamere, Tahm Kench and Yorick: Subjugate takes 30% of the enemy's maximum health and 40% of its resistances.
+  - *Akali* loses 44 of 48 matchups and wins none. Her abilities scale with AP, but per gold the budget's damage model finds AD better for her, since it also feeds her attacks; without items like Lich Bane or Hextech Rocketbelt, she ends up an auto-attacker with weak spells. This is the cost of plain stats (section 10), not of her kit.
+  - *Ambessa* spends her budget on damage (5,000 gold of AD, 3,000 of critical strike, no health) and loses the long fights.
+- **Golden matchups.** 25 new kit-driven expectations for wave 2, across the existing groups: dashes Poppy stops, range and blinds, dodges and parries, tank busters, immunity and armor. 64 of 69 hold. Two new ones are disputed, with what the simulator shows instead:
+  - Trundle beats Dr. Mundo: Mundo's 8,600 gold of health, Maximum Dosage and armor outlast Subjugate.
+  - Malphite beats Gangplank: both buy armor, so Gangplank's true and magic damage carry the long fight.
+- **Tests.** 744 pass and 5 are skipped (the disputed golden matchups). New: every wave-2 kit's values from the wiki and its fights, tick by tick; the engine additions on synthetic kits; both sides' kit options in matchups, in the build and in the browser.

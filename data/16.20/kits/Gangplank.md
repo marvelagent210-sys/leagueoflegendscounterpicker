@@ -254,3 +254,82 @@ All 3 level-based formulas in the game files (2 linked to wiki values above):
 | GangplankE | BarrelDecayTime | breakpoints at levels 7, 13 (level 1: 2) | 2 | 0.5 | 0.5 |
 | GangplankPassive | TotalDamage | linear 50 → 250 over levels 1-18, continues past 18 | 50 | 250 | 273.529 |
 | GangplankPassive | MoveSpeed | linear 0.15 → 0.3 over levels 1-18, continues past 18 | 0.15 | 0.3 | 0.317647 |
+
+## Duel simulator kit (level 20, every ability at max rank)
+
+What the duel simulator fights with (`kits/champions/Gangplank.ts`): every number is read from the wiki's ability data above at level 20; what the wiki doesn't say is listed under assumptions. Ratios are fractions of the stat (60% AD is 0.6 × AD).
+
+- Basic attack: range 125, melee.
+
+| Key | Ability | Cooldown (s) | Cast time (s) | Cost | Delivery | On the enemy | On itself |
+|---|---|--:|--:|---|---|---|---|
+| Q | Parrrley | 4.5 | 0.25 | 30 | targeted, 625 range, missile at 2600/s | 130 + 100% AD physical damage (Parrrley), can crit | – |
+| QK | Parrrley (at a keg) | 4.5 | 0.25 | 30 | self | – | – |
+| W | Remove Scurvy | 14 | 0.25 | 100 | self | – | cleanses crowd control; heal 145 + 90% AP + 13% missing health |
+| E | Powder Keg | 5 charges, one every 13 s (0.5 s between casts) | 0.25 | – | self | – | – |
+| R | Cannon Barrage | 120 | 0.25 | 100 | field of 580 radius up to 30000 away, after 0.5 s, for 6.75 s, pulsing every 2 s (3 hits 0.25 s apart) | 100 + 10% AP magic damage (Cannon Barrage); slow 30% for 0.5 s | – |
+| KEG | Powder Keg explosion | 0 | 0 | – | self | – | – |
+
+Effects marked by a mark or a role are completed by the kit's hooks (see the kit's source).
+
+### Assumptions
+
+- Trial by Fire burns in ticks every 0.5 s (the wiki and the game files give only the total and the 2.5 s).
+- Gangplank keeps Remove Scurvy to cleanse crowd control, or drinks it for the heal below 40% health; like any cleanse it works while he is disabled (the game files' canCastWhileDisabled).
+- Kegs connect when within 690 units of each other (their 345 connection radii overlap); an explosion catches the enemy whose hitbox is within 360.
+- Gangplank sets a keg 330 units in front of the enemy, inside the blast and out of a melee enemy's reach (ahead of an enemy walking away), where Parrrley can reach it; when it is down to 1 hit point he sets it off, first adding a connected keg on the enemy if it stepped out. He places none while fleeing.
+- Cannon Barrage's first wave lands 0.5 s after the cast (the game files' CannonDelay); his ship has no upgrades.
+
+### Wiki values read (49)
+
+| Ability | Value | Revision |
+|---|---|---|
+| Trial by Fire | staticCooldown: 15 | [4038337](https://wiki.leagueoflegends.com/en-us/Template:Data_Gangplank/Trial_by_Fire?oldid=4038337) |
+| Trial by Fire | Innate: Periodically, Gangplank empowers his next basic attack to set the target on fire, dealing them 50 – 250 (based on level) (+ 100% bonus AD) bonus true damage over 2.5 seconds. | [4038337](https://wiki.leagueoflegends.com/en-us/Template:Data_Gangplank/Trial_by_Fire?oldid=4038337) |
+| Trial by Fire | (+ 100% bonus AD) bonus true damage over 2.5 seconds | [4038337](https://wiki.leagueoflegends.com/en-us/Template:Data_Gangplank/Trial_by_Fire?oldid=4038337) |
+| Trial by Fire | If Gangplank successfully hits a target with Trial by Fire, he gains 15 – 30 (based on level)% bonus movement speed for 2 seconds. | [4038337](https://wiki.leagueoflegends.com/en-us/Template:Data_Gangplank/Trial_by_Fire?oldid=4038337) |
+| Trial by Fire | bonus movement speed for 2 seconds | [4038337](https://wiki.leagueoflegends.com/en-us/Template:Data_Gangplank/Trial_by_Fire?oldid=4038337) |
+| Trial by Fire | Every time a Powder Keg explodes, the cooldown for Trial by Fire resets and Gangplank gains its bonus movement speed | [4038337](https://wiki.leagueoflegends.com/en-us/Template:Data_Gangplank/Trial_by_Fire?oldid=4038337) |
+| Trial by Fire | Trial by Fire cannot be applied with Parrrley nor Powder Keg | [4038337](https://wiki.leagueoflegends.com/en-us/Template:Data_Gangplank/Trial_by_Fire?oldid=4038337) |
+| Trial by Fire | Reapplying Trial by Fire before a previous application has run out will stack the full damage | [4038337](https://wiki.leagueoflegends.com/en-us/Template:Data_Gangplank/Trial_by_Fire?oldid=4038337) |
+| Trial by Fire | If the attack is blocked, the effect is not applied, but Trial by Fire will go on cooldown | [4038337](https://wiki.leagueoflegends.com/en-us/Template:Data_Gangplank/Trial_by_Fire?oldid=4038337) |
+| Parrrley | Physical Damage: 10 / 40 / 70 / 100 / 130 (+ 100% AD) | [4063653](https://wiki.leagueoflegends.com/en-us/Template:Data_Gangplank/Parrrley?oldid=4063653) |
+| Parrrley | targetRange: 625 | [4063653](https://wiki.leagueoflegends.com/en-us/Template:Data_Gangplank/Parrrley?oldid=4063653) |
+| Parrrley | speed: 2600 | [4063653](https://wiki.leagueoflegends.com/en-us/Template:Data_Gangplank/Parrrley?oldid=4063653) |
+| Parrrley | applies on-hit effects as a ranged attack | [4063653](https://wiki.leagueoflegends.com/en-us/Template:Data_Gangplank/Parrrley?oldid=4063653) |
+| Parrrley | This damage is affected by critical strike modifiers | [4063653](https://wiki.leagueoflegends.com/en-us/Template:Data_Gangplank/Parrrley?oldid=4063653) |
+| Powder Keg | Maximum charges: 3 / 3 / 4 / 4 / 5 | [4058497](https://wiki.leagueoflegends.com/en-us/Template:Data_Gangplank/Powder_Keg?oldid=4058497) |
+| Powder Keg | targetRange: 1000 | [4058497](https://wiki.leagueoflegends.com/en-us/Template:Data_Gangplank/Powder_Keg?oldid=4058497) |
+| Powder Keg | effectRadius (Connection radius): 345 • 360 | [4058497](https://wiki.leagueoflegends.com/en-us/Template:Data_Gangplank/Powder_Keg?oldid=4058497) |
+| Powder Keg | effectRadius (Explosion radius): 345 • 360 | [4058497](https://wiki.leagueoflegends.com/en-us/Template:Data_Gangplank/Powder_Keg?oldid=4058497) |
+| Powder Keg | place a powder keg at the target location that lasts for 25 seconds | [4058497](https://wiki.leagueoflegends.com/en-us/Template:Data_Gangplank/Powder_Keg?oldid=4058497) |
+| Powder Keg | hp: 3 | [4069804](https://wiki.leagueoflegends.com/en-us/Gangplank?oldid=4069804) |
+| Powder Keg | castTime: 0.25 | [4058497](https://wiki.leagueoflegends.com/en-us/Template:Data_Gangplank/Powder_Keg?oldid=4058497) |
+| Powder Keg | The keg starts with 3 health and loses 1 every 2 / 1 / 0.5 (based on level) seconds until it is left with 1 health. | [4058497](https://wiki.leagueoflegends.com/en-us/Template:Data_Gangplank/Powder_Keg?oldid=4058497) |
+| Powder Keg | explodes other nearby connected kegs with a 0.33-delay between explosions | [4058497](https://wiki.leagueoflegends.com/en-us/Template:Data_Gangplank/Powder_Keg?oldid=4058497) |
+| Powder Keg | Slow: 40 / 50 / 60 / 70 / 80% | [4058497](https://wiki.leagueoflegends.com/en-us/Template:Data_Gangplank/Powder_Keg?oldid=4058497) |
+| Powder Keg | Enemies caught in an explosion are dealt the triggering attack's damage and slowed for 2 seconds | [4058497](https://wiki.leagueoflegends.com/en-us/Template:Data_Gangplank/Powder_Keg?oldid=4058497) |
+| Powder Keg | Bonus Champion Damage: 75 / 95 / 115 / 135 / 155 | [4058497](https://wiki.leagueoflegends.com/en-us/Template:Data_Gangplank/Powder_Keg?oldid=4058497) |
+| Powder Keg | the damage dealt ignores 40% of the target's armor | [4058497](https://wiki.leagueoflegends.com/en-us/Template:Data_Gangplank/Powder_Keg?oldid=4058497) |
+| Powder Keg | Each enemy can only be hit once per chain | [4058497](https://wiki.leagueoflegends.com/en-us/Template:Data_Gangplank/Powder_Keg?oldid=4058497) |
+| Powder Keg | The triggering attack on the keg can critically strike, causing the explosion to deal the attack's critical damage | [4058497](https://wiki.leagueoflegends.com/en-us/Template:Data_Gangplank/Powder_Keg?oldid=4058497) |
+| Powder Keg | The triggering attack's damage can include Parrrley base damage | [4058497](https://wiki.leagueoflegends.com/en-us/Template:Data_Gangplank/Powder_Keg?oldid=4058497) |
+| Powder Keg | 1 from champion basic attacks and Parrrley | [4069804](https://wiki.leagueoflegends.com/en-us/Gangplank?oldid=4069804) |
+| Powder Keg | until it is left with 1 health | [4058497](https://wiki.leagueoflegends.com/en-us/Template:Data_Gangplank/Powder_Keg?oldid=4058497) |
+| Cannon Barrage | Magic Damage Per Wave: 40 / 70 / 100 (+ 10% AP) | [4048098](https://wiki.leagueoflegends.com/en-us/Template:Data_Gangplank/Cannon_Barrage?oldid=4048098) |
+| Cannon Barrage | effectRadius: 580 | [4048098](https://wiki.leagueoflegends.com/en-us/Template:Data_Gangplank/Cannon_Barrage?oldid=4048098) |
+| Cannon Barrage | calling down 12 waves of cannonballs in clusters of 3 every 2 seconds, each wave in a cluster hitting 0.25 seconds after the other | [4048098](https://wiki.leagueoflegends.com/en-us/Template:Data_Gangplank/Cannon_Barrage?oldid=4048098) |
+| Cannon Barrage | slows them by 30% for 0.5 seconds | [4048098](https://wiki.leagueoflegends.com/en-us/Template:Data_Gangplank/Cannon_Barrage?oldid=4048098) |
+| Powder Keg | radius: 65 | [4069804](https://wiki.leagueoflegends.com/en-us/Gangplank?oldid=4069804) |
+| Parrrley | cooldown: 4.5 | [4063653](https://wiki.leagueoflegends.com/en-us/Template:Data_Gangplank/Parrrley?oldid=4063653) |
+| Parrrley | cost: 50 / 45 / 40 / 35 / 30 | [4063653](https://wiki.leagueoflegends.com/en-us/Template:Data_Gangplank/Parrrley?oldid=4063653) |
+| Parrrley | castTime: 0.25 | [4063653](https://wiki.leagueoflegends.com/en-us/Template:Data_Gangplank/Parrrley?oldid=4063653) |
+| Remove Scurvy | cooldown: 22 / 20 / 18 / 16 / 14 | [3906839](https://wiki.leagueoflegends.com/en-us/Template:Data_Gangplank/Remove_Scurvy?oldid=3906839) |
+| Remove Scurvy | cost: 60 / 70 / 80 / 90 / 100 | [3906839](https://wiki.leagueoflegends.com/en-us/Template:Data_Gangplank/Remove_Scurvy?oldid=3906839) |
+| Remove Scurvy | castTime: 0.25 | [3906839](https://wiki.leagueoflegends.com/en-us/Template:Data_Gangplank/Remove_Scurvy?oldid=3906839) |
+| Remove Scurvy | Heal: 45 / 70 / 95 / 120 / 145 (+ 90% AP) (+ 13% missing health) | [3906839](https://wiki.leagueoflegends.com/en-us/Template:Data_Gangplank/Remove_Scurvy?oldid=3906839) |
+| Powder Keg | staticCooldown: 0.5 | [4058497](https://wiki.leagueoflegends.com/en-us/Template:Data_Gangplank/Powder_Keg?oldid=4058497) |
+| Powder Keg | recharge: 17 / 16 / 15 / 14 / 13 | [4058497](https://wiki.leagueoflegends.com/en-us/Template:Data_Gangplank/Powder_Keg?oldid=4058497) |
+| Cannon Barrage | cooldown: 160 / 140 / 120 | [4048098](https://wiki.leagueoflegends.com/en-us/Template:Data_Gangplank/Cannon_Barrage?oldid=4048098) |
+| Cannon Barrage | cost: 100 | [4048098](https://wiki.leagueoflegends.com/en-us/Template:Data_Gangplank/Cannon_Barrage?oldid=4048098) |
+| Cannon Barrage | castTime: 0.25 | [4048098](https://wiki.leagueoflegends.com/en-us/Template:Data_Gangplank/Cannon_Barrage?oldid=4048098) |

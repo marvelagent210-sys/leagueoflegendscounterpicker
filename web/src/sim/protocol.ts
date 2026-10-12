@@ -1,6 +1,9 @@
 /** Messages between the app and its simulation workers. */
+import type { MatchupVariant } from "../../../engine/sim/matchup";
 import type { AppSettings } from "../settings";
 import type { MatchupRun } from "./run";
+
+export type { MatchupVariant };
 
 export interface WorkerRequest {
   id: number;
@@ -11,14 +14,8 @@ export interface WorkerRequest {
   settings: AppSettings;
   /** Keep the most likely fight of each scenario as a timeline. */
   log: boolean;
-  /** The kit options a side played in the precomputed matchup (Udyr's rank split), to try first. */
-  variant?: MatchupVariant;
-}
-
-/** A side's kit options in a matchup: 0 is you, 1 the enemy. */
-export interface MatchupVariant {
-  side: 0 | 1;
-  options: Record<string, number>;
+  /** The kit options each side played in the precomputed matchup (Udyr's rank split, Heimerdinger's upgrade), to try first. */
+  variants?: MatchupVariant[];
 }
 
 export type WorkerResponse = { id: number; run: MatchupRun } | { id: number; error: string };

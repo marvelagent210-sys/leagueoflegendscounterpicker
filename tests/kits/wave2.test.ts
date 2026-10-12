@@ -1,9 +1,12 @@
 import { describe, expect, it } from "vitest";
 import { type Behavior, defaultBehavior } from "../../engine/sim/behavior";
+import { inAttackRange } from "../../engine/sim/actions";
 import { derive } from "../../engine/sim/derived";
+import { applyEffect } from "../../engine/sim/combat";
 import { allAbilities } from "../../engine/sim/forms";
 import { createWorld, step } from "../../engine/sim/simulate";
 import type { AbilitySpec } from "../../engine/sim/spec";
+import { DEFAULT_ENVIRONMENT, type World } from "../../engine/sim/state";
 import { fighter } from "../sim/kits";
 import { kit } from "./helpers";
 
@@ -59,6 +62,219 @@ describe("wave-2 kits read the wiki at level 20", () => {
     expect(ability("Chogath", "R").delivery).toEqual({ kind: "target", range: 175 + 20 });
     expect(ability("Chogath", "E").cooldownAfter).toBe("empower");
     expect(kit("Chogath", { feastStacks: 20 }).spec.attack.range).toBe(125 + 75);
+  });
+
+  it("Gangplank", () => {
+    // Parrrley: 130 (+ 100% AD), a 625-range shot at 2600 that crits and applies on-hit effects; at a keg, the same cooldown.
+    expect(ability("Gangplank", "Q")).toMatchObject({ cooldown: 4.5, cost: 30, castTime: 0.25, delivery: { kind: "target", range: 625, missileSpeed: 2600 }, flags: { projectile: true, appliesOnHit: true } });
+    expect(ability("Gangplank", "Q").onHit).toEqual([{ type: "damage", damageType: "physical", amount: { base: 130, ratios: { AD: 1 } }, canCrit: true, label: "Parrrley" }]);
+    expect(ability("Gangplank", "QK")).toMatchObject({ cooldown: 4.5, cooldownKey: "Q", cost: 30, castTime: 0.25 });
+    // Remove Scurvy: a cleanse and 145 (+ 90% AP) (+ 13% missing health), even while disabled.
+    expect(ability("Gangplank", "W")).toMatchObject({ cooldown: 14, cost: 100, castTime: 0.25, flags: { usableWhileDisabled: true } });
+    expect(ability("Gangplank", "W").onSelf).toEqual([{ type: "cleanse" }, { type: "heal", amount: { base: 145, ratios: { AP: 0.9, missingHP: 0.13 } } }]);
+    // Powder Keg: 5 charges, one every 13 s, 0.5 s apart.
+    expect(ability("Gangplank", "E")).toMatchObject({ cooldown: 0.5, castTime: 0.25, charges: { max: 5, recharge: 13 } });
+    // Cannon Barrage: 12 waves of 100 (+ 10% AP) within 580, in clusters of 3 0.25 s apart every 2 s, the first 0.5 s after the cast.
+    expect(ability("Gangplank", "R")).toMatchObject({
+      cooldown: 120,
+      cost: 100,
+      castTime: 0.25,
+      delivery: { kind: "field", radius: 580, interval: 2, delay: 0.5, duration: 6.75, burst: { count: 3, gap: 0.25 } },
+    });
+    expect(ability("Gangplank", "R").onHit).toEqual([
+      { type: "damage", damageType: "magic", amount: { base: 100, ratios: { AP: 0.1 } }, label: "Cannon Barrage" },
+      { type: "cc", cc: "slow", duration: 0.5, strength: 0.3 },
+    ]);
+  });
+
+  // Gangplank's level-20 numbers: 146.593 AD and no crit. An explosion against 100 armor, 40% of it ignored, deals 100/160 of its damage.
+  const gpAd = 146.593;
+  const blastShare = 100 / 160;
+  const kegsIn = (world: World) => world.pets.filter((p) => p.spec.kind === "keg");
+  /** A Gangplank who places kegs where `places` says (tick: x), then follows `then`. */
+  const gpPlan =
+    (places: Record<number, number>, then: Behavior): Behavior =>
+    (view) => {
+      const x = places[view.world.tick];
+      if (x !== undefined) {
+        view.self.memory.placeX = x;
+        return { kind: "cast", ability: "E" };
+      }
+      return view.self.action ? undefined : then(view);
+    };
+  /** His attack on his first keg once it is down to 1 hit point. */
+  const setOff: Behavior = (view) => {
+    const keg = kegsIn(view.world).find((p) => p.hp <= 1);
+    return keg && view.self.attackReadyTick <= view.world.tick ? { kind: "attack", pet: keg.id } : undefined;
+  };
+
+  it("Gangplank fights: a keg loses a hit point every 0.5 s down to 1; his attack sets it off for the attack's damage and 155, 40% of armor ignored, and an 80% slow", () => {
+    const enemy = fighter({ id: "enemy", base: { hp: 20000, armor: 100, mr: 100 } });
+    const world = createWorld({ fighters: [kit("Gangplank").spec, enemy], distance: 0, modes: ["fight", "idle"], settings: { log: true, maxSeconds: 3 } });
+    const [gp, target] = world.units;
+    // Right behind him: in his reach, and 200 units from the enemy, inside the 360 blast.
+    const hp: number[] = [];
+    while (!world.result) {
+      step(world, [gpPlan({ 0: gp.x - 70 }, setOff), () => undefined]);
+      const keg = kegsIn(world)[0];
+      if (keg) hp[world.tick - 1] = keg.hp;
+    }
+    // Placed as the 0.25 s cast ends; 2 hit points 0.5 s later, 1 after 1 s.
+    const placed = world.log.find((e) => e.text === "places a Powder Keg")?.tick ?? -1;
+    expect(placed).toBe(8);
+    expect([hp[placed], hp[placed + 14], hp[placed + 15], hp[placed + 29], hp[placed + 30]]).toEqual([3, 3, 2, 2, 1]);
+    const exploded = world.log.find((e) => e.text === "a Powder Keg explodes");
+    expect(world.log.find((e) => e.text.startsWith("hits Powder Keg"))?.tick).toBe(exploded?.tick);
+    expect(world.log.filter((e) => e.text.startsWith("Powder Keg deals")).map((e) => [e.tick, e.text])).toEqual([[exploded?.tick, `Powder Keg deals ${Math.round((gpAd + 155) * blastShare)} physical damage`]]);
+    expect(world.log.find((e) => e.side === 0 && e.text === "inflicts slow 80% for 2.00 s")?.tick).toBe(exploded?.tick);
+    // Trial by Fire ready again, and its 31.8% speed for 2 s.
+    expect(gp.memory.fireReady).toBe(exploded?.tick);
+    const haste = gp.statuses.find((st) => st.kind === "stat" && st.key === "moveSpeedPercent");
+    expect(haste?.value).toBeCloseTo((15 + (15 / 17) * 19) / 100, 9);
+    expect(haste?.endTick).toBe((exploded?.tick ?? 0) + 60);
+    expect(target.alive).toBe(true);
+  });
+
+  it("Gangplank's kegs chain: the next goes off 0.33 s later and lights its own; each enemy is hit once a chain", () => {
+    const enemy = fighter({ id: "enemy", base: { hp: 20000, armor: 100, mr: 100 } });
+    const run = (second: (enemyX: number) => number) => {
+      const world = createWorld({ fighters: [kit("Gangplank").spec, enemy], distance: 500, modes: ["fight", "idle"], settings: { log: true, maxSeconds: 3 } });
+      const [gp, target] = world.units;
+      // One behind him, 700 units from the enemy and out of its blast; the next by the enemy 1 s later.
+      while (!world.result) step(world, [gpPlan({ 0: gp.x - 70, 30: second(target.x) }, setOff), () => undefined]);
+      return world.log;
+    };
+    // 670 units apart: linked (their 345 radii overlap).
+    const chained = run((x) => x - 60);
+    const blasts = chained.filter((e) => e.text === "a Powder Keg explodes").map((e) => e.tick);
+    expect(blasts).toHaveLength(2);
+    expect((blasts[1] ?? 0) - (blasts[0] ?? 0)).toBe(10);
+    expect(chained.filter((e) => e.text.startsWith("Powder Keg deals")).map((e) => e.tick)).toEqual([blasts[1]]);
+    // 760 apart: not linked, so the second stays.
+    expect(run((x) => x + 30).filter((e) => e.text === "a Powder Keg explodes")).toHaveLength(1);
+    // Both blasts reach an enemy between them: hit once.
+    const both = createWorld({ fighters: [kit("Gangplank").spec, enemy], distance: 100, modes: ["fight", "idle"], settings: { log: true, maxSeconds: 3 } });
+    const [gp, target] = both.units;
+    while (!both.result) step(both, [gpPlan({ 0: gp.x - 70, 30: target.x + 200 }, setOff), () => undefined]);
+    expect(both.log.filter((e) => e.text === "a Powder Keg explodes")).toHaveLength(2);
+    expect(both.log.filter((e) => e.text.startsWith("Powder Keg deals"))).toHaveLength(1);
+  });
+
+  it("Gangplank's kegs: the enemy's attacks defuse them; his Parrrley sets one off with its own damage", () => {
+    // An enemy attacking twice as fast hits the keg by it at once: 2 hit points, then 1 when the first decays; its next hit defuses it.
+    const enemy = fighter({ id: "enemy", base: { hp: 20000, armor: 100, mr: 100, attackSpeed: { base: 1.25, ratio: 1.25, bonus: 0 } } });
+    const defused = createWorld({ fighters: [kit("Gangplank").spec, enemy], distance: 400, modes: ["fight", "idle"], settings: { log: true, maxSeconds: 3 } });
+    const near = defused.units[1];
+    const hitKeg: Behavior = (view) => {
+      const keg = kegsIn(view.world)[0];
+      return keg && !view.self.action && view.self.attackReadyTick <= view.world.tick ? { kind: "attack", pet: keg.id } : undefined;
+    };
+    const hp: number[] = [];
+    while (!defused.result) {
+      step(defused, [gpPlan({ 0: near.x - 100 }, () => undefined), hitKeg]);
+      const keg = kegsIn(defused)[0];
+      if (keg) hp[defused.tick - 1] = keg.hp;
+    }
+    const hits = defused.log.filter((e) => e.side === 1 && e.text.startsWith("hits Powder Keg")).map((e) => e.tick);
+    expect(hits).toHaveLength(2);
+    expect(hits[0]).toBeLessThan(8 + 15);
+    expect([hp[hits[0] ?? 0], hp[8 + 15]]).toEqual([2, 1]);
+    expect(defused.log.some((e) => e.text === "a Powder Keg explodes")).toBe(false);
+    expect(kegsIn(defused)).toHaveLength(0);
+
+    // Parrrley from 400 units: a 0.25 s cast, then 400 / 2600 s in flight; the blast deals Parrrley's 130 (+ 100% AD) and 155.
+    const shot = createWorld({ fighters: [kit("Gangplank").spec, fighter({ id: "enemy", base: { hp: 20000, armor: 100, mr: 100 } })], distance: 500, modes: ["fight", "idle"], settings: { log: true, maxSeconds: 3 } });
+    const gp = shot.units[0];
+    let castAt = -1;
+    const shoot: Behavior = (view) => {
+      const keg = kegsIn(view.world).find((p) => p.hp <= 1);
+      if (!keg || castAt >= 0) return undefined;
+      castAt = view.world.tick;
+      view.self.memory.shotKeg = keg.id;
+      return { kind: "cast", ability: "QK" };
+    };
+    while (!shot.result) step(shot, [gpPlan({ 0: gp.x + 400 }, shoot), () => undefined]);
+    const blast = shot.log.find((e) => e.text === "a Powder Keg explodes");
+    expect(blast?.tick).toBe(castAt + 8 + Math.round((400 / 2600) * 30));
+    expect(shot.log.find((e) => e.text.startsWith("Powder Keg deals"))?.text).toBe(`Powder Keg deals ${Math.round((130 + gpAd + 155) * blastShare)} physical damage`);
+  });
+
+  it("Trial by Fire: an attack burns for 273.5 (+ 100% bonus AD) true damage over 2.5 s every 15 s; a keg's blast readies it, and the burns stack", () => {
+    const enemy = fighter({ id: "enemy", base: { hp: 20000, armor: 100, mr: 100 } });
+    const world = createWorld({ fighters: [kit("Gangplank").spec, enemy], distance: 0, modes: ["fight", "idle"], settings: { log: true, maxSeconds: 4 } });
+    const gp = world.units[0];
+    // He attacks the enemy, and Parrrleys the keg behind him once it is ready.
+    let shotAt = -1;
+    const plan = gpPlan({ 0: gp.x - 70 }, (view) => {
+      const keg = kegsIn(view.world).find((p) => p.hp <= 1);
+      if (keg && shotAt < 0) {
+        shotAt = view.world.tick;
+        view.self.memory.shotKeg = keg.id;
+        return { kind: "cast", ability: "QK" };
+      }
+      return view.self.attackReadyTick <= view.world.tick ? { kind: "attack" } : undefined;
+    });
+    while (!world.result) step(world, [plan, () => undefined]);
+    const burn = 50 + (200 / 17) * 19;
+    const ticks = world.log.filter((e) => e.text.startsWith("Trial by Fire deals"));
+    expect(ticks[0]?.text).toBe(`Trial by Fire deals ${Math.round(burn / 5)} true damage`);
+    // The first attack burns; the next ones don't until the blast; the first after it burns again while the first burn still runs.
+    const attacks = world.log.filter((e) => e.side === 0 && e.text.startsWith("attack deals")).map((e) => e.tick);
+    const blast = world.log.find((e) => e.text === "a Powder Keg explodes")?.tick ?? -1;
+    const first = attacks[0] ?? -1;
+    const second = attacks.find((t) => t > blast) ?? -1;
+    expect(attacks.some((t) => t > first && t < blast)).toBe(true);
+    expect(second).toBeLessThan(first + 75);
+    const due = (from: number) => [1, 2, 3, 4, 5].map((n) => from + 15 * n);
+    expect(ticks.map((e) => e.tick)).toEqual([...due(first), ...due(second)].sort((a, b) => a - b).filter((t) => t < world.tick));
+
+    // A blocked attack (Spirit's Refuge) puts it on cooldown all the same, without the burn or the speed.
+    const blocked = createWorld({ fighters: [kit("Gangplank").spec, enemy], distance: 0, modes: ["fight", "idle"], settings: { log: true, maxSeconds: 1 } });
+    const [blockedGp, shen] = blocked.units;
+    applyEffect(blocked, shen, shen, { type: "state", state: "blockAttacks", duration: 5 }, { scale: 1 });
+    const attackOnce: Behavior = (view) => (view.world.tick === 0 ? { kind: "attack" } : undefined);
+    while (!blocked.result) step(blocked, [attackOnce, () => undefined]);
+    const hit = blocked.log.find((e) => e.text === "blocks the attack's damage")?.tick ?? -1;
+    expect(hit).toBeGreaterThan(0);
+    expect(blockedGp.memory.fireReady).toBe(hit + 450);
+    expect(blocked.log.some((e) => e.text.startsWith("Trial by Fire deals"))).toBe(false);
+    expect(blockedGp.statuses.some((st) => st.kind === "stat" && st.key === "moveSpeedPercent")).toBe(false);
+  });
+
+  it("Remove Scurvy: Gangplank drinks it for the heal below 40% health, and to cleanse a stun, which he can do while stunned", () => {
+    const compiled = kit("Gangplank");
+    const own = compiled.spec.behavior ?? defaultBehavior;
+    const enemy = fighter({ id: "enemy", base: { hp: 20000, armor: 100, mr: 100 } });
+    const low = createWorld({ fighters: [compiled.spec, enemy], distance: 300, modes: ["fight", "idle"], settings: { log: true, maxSeconds: 1 } });
+    const gp = low.units[0];
+    const max = gp.hp;
+    gp.hp = 0.39 * max;
+    while (!low.result) step(low, [own, () => undefined]);
+    expect(low.log.find((e) => e.side === 0 && e.text.startsWith("casts"))).toMatchObject({ tick: 0, text: "casts Remove Scurvy" });
+    // 145 (+ 13% of his missing health) as the 0.25 s cast ends.
+    expect(low.log.find((e) => e.text.startsWith("heals"))).toMatchObject({ tick: 8, text: `heals ${Math.round(145 + 0.13 * 0.61 * max)}` });
+
+    const stunned = createWorld({ fighters: [compiled.spec, enemy], distance: 300, modes: ["fight", "idle"], settings: { log: true, maxSeconds: 1 } });
+    const [held, foe] = stunned.units;
+    applyEffect(stunned, foe, held, { type: "cc", cc: "stun", duration: 2 }, { scale: 1 });
+    while (!stunned.result) step(stunned, [own, () => undefined]);
+    expect(stunned.log.find((e) => e.side === 0 && e.text.startsWith("casts"))).toMatchObject({ tick: 0, text: "casts Remove Scurvy" });
+    expect(stunned.log.find((e) => e.text === "cleanses crowd control")?.tick).toBe(8);
+  });
+
+  it("Lane setup: Illaoi's Tentacle, Yorick's graves and Heimerdinger's turrets are there only when the lane was set up in advance", () => {
+    const enemy = fighter({ id: "enemy" });
+    const start = (id: string, laneSetup: boolean) => {
+      const world = createWorld({ fighters: [kit(id).spec, enemy], distance: 500, modes: ["idle", "idle"], settings: { environment: { ...DEFAULT_ENVIRONMENT, laneSetup } } });
+      step(world, [() => undefined, () => undefined]);
+      return world;
+    };
+    for (const id of ["Illaoi", "Heimerdinger"]) {
+      expect(start(id, true).pets.length, id).toBeGreaterThan(0);
+      expect(start(id, false).pets, id).toEqual([]);
+    }
+    expect(String(start("Yorick", true).units[0].memory.graves ?? "")).not.toBe("");
+    expect(String(start("Yorick", false).units[0].memory.graves ?? "")).toBe("");
   });
 
   it("Gnar", () => {
@@ -151,6 +367,50 @@ describe("wave-2 kits read the wiki at level 20", () => {
     expect(refunded).toBe(8 + 43);
   });
 
+  it("Heimerdinger", () => {
+    // Three turret kits, one every 20 s; 20 mana a turret.
+    expect(ability("Heimerdinger", "Q")).toMatchObject({ cooldown: 1, cost: 20, castTime: 0.25, charges: { max: 3, recharge: 20 } });
+    // Hextech Micro-Rockets: all five, 270 (+ 103% AP); the swarm's twenty, 892 (+ 183% AP).
+    expect(ability("Heimerdinger", "W")).toMatchObject({ cooldown: 7, cost: 90, castTime: 0.25, delivery: { kind: "line", range: 1150, width: 200, speed: 750 } });
+    expect(ability("Heimerdinger", "W").onHit).toEqual([{ type: "damage", damageType: "magic", amount: { base: 270, ratios: { AP: 1.03 } }, label: "Hextech Micro-Rockets" }]);
+    expect(ability("Heimerdinger", "RW")).toMatchObject({ cooldownKey: "W", onHit: [{ amount: { base: 892, ratios: { AP: 1.83 } } }] });
+    // CH-2 Electron Storm Grenade: 220 (+ 60% AP) within 250, a 35% slow for 2 s; it lands after its 925 units at 1200.
+    expect(ability("Heimerdinger", "E")).toMatchObject({ cooldown: 11, cost: 85, delivery: { kind: "circle", range: 925, radius: 250, delay: 925 / 1200 } });
+    expect(ability("Heimerdinger", "E").onHit).toEqual([
+      { type: "damage", damageType: "magic", amount: { base: 220, ratios: { AP: 0.6 } }, label: "CH-2 Electron Storm Grenade" },
+      { type: "cc", cc: "slow", duration: 2, strength: 0.35 },
+    ]);
+    expect(ability("Heimerdinger", "RE")).toMatchObject({ cooldownKey: "E", delivery: { radius: 300 } });
+    expect(ability("Heimerdinger", "RE").onHit?.[0]).toMatchObject({ amount: { base: 300, ratios: { AP: 0.6 } } });
+    expect(ability("Heimerdinger", "R")).toMatchObject({ cooldown: 70, cost: 100, castTime: 0 });
+    // Each matchup tries all three upgrades unless one is pinned.
+    expect(kit("Heimerdinger").variants).toEqual([1, 2, 3].map((upgrade) => ({ turrets: 3, upgrade })));
+    expect(kit("Heimerdinger", { upgrade: 3 }).variants).toEqual([]);
+  });
+
+  it("Heimerdinger fights: three turrets by him from the start; the grenade's stun lets their fully charged beams land", () => {
+    const compiled = kit("Heimerdinger");
+    const enemy = fighter({ id: "enemy", base: { hp: 20000, armor: 100, mr: 100 } });
+    const world = createWorld({ fighters: [compiled.spec, enemy], distance: 300, modes: ["fight", "idle"], settings: { log: true, maxSeconds: 3, reactionTime: 10 } });
+    const heimer = world.units[0];
+    const turrets = world.pets.filter((p) => p.spec.kind === "turret");
+    expect(turrets).toHaveLength(3);
+    // 700 health at level 20 (+ 53% AP), 110 armor, 86 magic resistance; 23 (+ 35% AP) from 550, 1.75 a second; melee attacks deal 40% more.
+    expect(turrets[0]).toMatchObject({ x: heimer.x, spec: { hp: 700, armor: 110, mr: 86, radius: 35, meleeAttackTaken: 1.4, attack: { range: 550 } } });
+    expect(turrets[0]?.spec.attack?.interval).toBeCloseTo(1 / 1.75, 9);
+    const once: Behavior = (view) => (view.world.tick === 0 ? { kind: "cast", ability: "E" } : undefined);
+    while (!world.result) step(world, [once, () => undefined]);
+    expect(world.log.find((e) => e.text.startsWith("H-28G Evolution Turret deals"))?.text).toBe(`H-28G Evolution Turret deals ${Math.round(23 / 2)} magic damage`);
+    // The grenade lands 8 + 24 ticks in, on the enemy: stunned for 1.5 s, and the turrets charged fully.
+    const stun = world.log.find((e) => e.text === "inflicts stun for 1.50 s");
+    expect(stun?.tick).toBe(32);
+    const fired = world.log.filter((e) => e.text === "H-28G Evolution Turret fires its beam").map((e) => e.tick);
+    expect(fired).toEqual([33, 33, 33]);
+    // 0.425 s to wind up and 365 units at 1400 a second: all three land on the stunned enemy, 120 halved.
+    const beams = world.log.filter((e) => e.text.startsWith("Turret beam deals"));
+    expect(beams.map((e) => [e.tick, e.text])).toEqual([0, 1, 2].map(() => [33 + 21, "Turret beam deals 60 magic damage"]));
+  });
+
   it("Illaoi", () => {
     // The slam: 9 - 180 by level, 200.12 at 20 (+ 110% AD) (+ 40% AP), 30% more at Tentacle Smash's rank 5; 927.75 long, landing in 0.75 s.
     const slam = ability("Illaoi", "SLAM");
@@ -161,7 +421,8 @@ describe("wave-2 kits read the wiki at level 20", () => {
     // 50% less for each slam taken in the last 0.66 s, at most 75% less; 5% of her missing health back.
     expect(slam.falloff).toEqual({ group: "slam", per: 0.5, window: 0.66, floor: 0.25 });
     expect(slam.onHit?.[1]).toEqual({ type: "caster", effects: [{ type: "heal", amount: { base: 0, ratios: { missingHP: 0.05 } } }] });
-    expect(ability("Illaoi", "Q")).toMatchObject({ cooldown: 6, cost: 60, castTime: 0.75, delivery: { kind: "line", range: 802.75, width: 200 }, falloff: slam.falloff, onHit: slam.onHit });
+    // Tentacle Smash slams like a Tentacle; its heal comes once, from the hooks.
+    expect(ability("Illaoi", "Q")).toMatchObject({ cooldown: 6, cost: 60, castTime: 0.75, delivery: { kind: "line", range: 802.75, width: 200 }, falloff: slam.falloff, onHit: [hit] });
     // Harsh Lesson: 5% (+ 3.5% per 100 AD) of maximum health, at least 60, on an attack within 6 s with 225 more range.
     const lesson = ability("Illaoi", "W");
     expect(lesson).toMatchObject({ cooldown: 4, cost: 30, castTime: 0, cooldownAfter: "empower", overlay: true });
@@ -721,6 +982,132 @@ describe("wave-2 kits read the wiki at level 20", () => {
     const strikes = world.log.filter((e) => e.side === 0 && e.text.startsWith("Wilding Claw (lightning)"));
     expect(strikes).toHaveLength(12);
     expect(new Set(strikes.map((e) => e.text))).toEqual(new Set([`Wilding Claw (lightning) deals ${Math.round(0.0317647 * 9000 * 0.5)} magic damage`]));
+  });
+
+  it("Yorick", () => {
+    // Last Rites: the next attack within 5 s, 50 more range, 110 (+ 50% AD) and 78 (+ 10% of his missing health) back.
+    expect(ability("Yorick", "Q")).toMatchObject({ cooldown: 4, cost: 20, castTime: 0, cooldownAfter: "empower" });
+    expect(ability("Yorick", "Q").onSelf).toEqual([
+      {
+        type: "empower",
+        attacks: 1,
+        window: 5,
+        bonusRange: 50,
+        uncancellable: true,
+        resetAttack: true,
+        onHit: [
+          { type: "damage", damageType: "physical", amount: { base: 110, ratios: { AD: 0.5 } }, label: "Last Rites" },
+          { type: "caster", effects: [{ type: "heal", amount: { base: 78, ratios: { missingHP: 0.1 } } }] },
+        ],
+      },
+    ]);
+    expect(ability("Yorick", "W")).toMatchObject({ cooldown: 12, cost: 70, castTime: 0, delivery: { kind: "circle", range: 600, radius: 225, delay: 0.75 } });
+    // Mourning Mist: 8% (+ 3% per 100 AP) of maximum health, 30% slower for 1.5 s, Cursed for 4 s with 25% less armor.
+    expect(ability("Yorick", "E")).toMatchObject({ cooldown: 8, cost: 70, castTime: 0.25, delivery: { kind: "circle", range: 700, radius: 225, delay: 700 / 1800 } });
+    expect(ability("Yorick", "E").onHit).toEqual([
+      { type: "damage", damageType: "magic", amount: { base: 0, ratios: { targetMaxHP: 0.08 }, products: [{ ratio: expect.closeTo(0.0003, 12), stats: ["AP", "targetMaxHP"] }] }, label: "Mourning Mist" },
+      { type: "cc", cc: "slow", duration: 1.5, strength: 0.3 },
+      { type: "stat", stat: "armorReductionPercent", amount: { base: 0.25 }, duration: 4 },
+      { type: "mark", key: "cursed", duration: 4 },
+    ]);
+    expect(ability("Yorick", "R")).toMatchObject({ cooldown: 100, cost: 100, castTime: 0.5 });
+    // Three graves by default: one for every 2nd enemy dying near him at level 20, from a wave of 6.
+    expect(kit("Yorick").options).toEqual({ graves: 3 });
+  });
+
+  // Walk in and attack, after an opening cast.
+  const opening =
+    (...casts: string[]): Behavior =>
+    (view) => {
+      const cast = casts[view.world.tick];
+      if (cast) return { kind: "cast", ability: cast };
+      if (view.self.action) return undefined;
+      return inAttackRange(view.self, view.enemy) ? { kind: "attack" } : { kind: "move", direction: 1 };
+    };
+  const walkers = (world: World) => world.pets.filter((p) => p.spec.kind === "walker");
+
+  it("Yorick fights: Awakening raises his three graves as Mist Walkers 1 s later; Last Rites' hit leaves a grave", () => {
+    const compiled = kit("Yorick");
+    const enemy = fighter({ id: "enemy", base: { hp: 20000, armor: 100, mr: 100 } });
+    const world = createWorld({ fighters: [compiled.spec, enemy], distance: 0, modes: ["fight", "idle"], settings: { log: true, maxSeconds: 3 } });
+    const [yorick, target] = world.units;
+    expect(String(yorick.memory.graves).split(",").map(Number)).toEqual([yorick.x, yorick.x, yorick.x]);
+    let raised = -1;
+    while (!world.result) {
+      step(world, [opening("Q", "Q2"), () => undefined]);
+      if (raised < 0 && world.log.some((e) => e.text === "raises 3 graves")) raised = world.tick - 1;
+    }
+    const risen = world.log.filter((e) => e.text === "raises a Mist Walker").map((e) => e.tick);
+    expect(risen).toEqual([raised + 30, raised + 30, raised + 30]);
+    // 331.35 health (no bonus health here), 113.3 a hit halved by 100 armor, 0.956 attacks a second.
+    const [first] = walkers(world);
+    expect(first?.spec.hp).toBeCloseTo(331.353, 2);
+    expect(first?.spec.attack?.interval).toBeCloseTo(1 / 0.956435, 5);
+    expect(world.log.find((e) => e.text.startsWith("Mist Walker deals"))?.text).toBe(`Mist Walker deals ${Math.round(113.325 / 2)} physical damage`);
+    // Last Rites' hit: 110 (+ 50% AD) more, and a grave where the enemy stands.
+    expect(world.log.find((e) => e.text.startsWith("Last Rites deals"))?.text).toBe(`Last Rites deals ${Math.round((110 + 0.5 * 160.325) / 2)} physical damage`);
+    expect(String(yorick.memory.graves).split(",").map(Number)).toEqual([target.x]);
+  });
+
+  it("Mourning Mist: the Curse raises graves, and the Mist Walkers leap to the enemy, faster", () => {
+    const compiled = kit("Yorick");
+    const enemy = fighter({ id: "enemy", base: { hp: 20000, armor: 100, mr: 100 } });
+    const world = createWorld({ fighters: [compiled.spec, enemy], distance: 600, modes: ["fight", "idle"], settings: { log: true, maxSeconds: 3, reactionTime: 10 } });
+    const [yorick, target] = world.units;
+    const once: Behavior = (view) => (view.world.tick === 0 ? { kind: "cast", ability: "E" } : undefined);
+    let cursed = -1;
+    let leapt = -1;
+    while (!world.result) {
+      step(world, [once, () => undefined]);
+      if (cursed < 0 && yorick.memory.cursedUntil !== undefined) cursed = world.tick - 1;
+      if (leapt < 0 && walkers(world).length > 0) leapt = world.tick - 1;
+    }
+    // 0.25 s to cast, 0.389 s to land; 8% of 20000 halved by 100 magic resistance.
+    expect(cursed).toBe(8 + 12);
+    expect(world.log.find((e) => e.text.startsWith("Mourning Mist deals"))?.text).toBe("Mourning Mist deals 800 magic damage");
+    // The graves rise a second after the Curse, and the Walkers land beside the enemy.
+    expect(leapt).toBe(cursed + 1 + 30);
+    for (const walker of walkers(world)) expect(walker.x).toBeCloseTo(target.x - (65 + 1), 6);
+    expect(walkers(world)[0]?.spec.moveSpeed).toBeCloseTo((325 + 60) * 1.3, 6);
+    expect(world.log.find((e) => e.text.startsWith("Mist Walker deals"))?.tick).toBe(leapt);
+    expect(yorick.x).toBe(0);
+  });
+
+  it("Eulogy of the Isles: the Maiden and four Mist Walkers 1 s after the cast, up to 600 units out; her mark makes his attack deal 3% of maximum health", () => {
+    const compiled = kit("Yorick");
+    const enemy = fighter({ id: "enemy", base: { hp: 20000, armor: 100, mr: 100 } });
+    const world = createWorld({ fighters: [compiled.spec, enemy], distance: 900, modes: ["fight", "idle"], settings: { log: true, maxSeconds: 6 } });
+    const yorick = world.units[0];
+    while (!world.result) step(world, [opening("R"), () => undefined]);
+    const summoned = world.log.find((e) => e.text === "summons the Maiden of the Mist");
+    expect(summoned?.tick).toBe(15 + 30);
+    const maiden = world.pets.find((p) => p.spec.kind === "maiden");
+    expect(maiden).toMatchObject({ x: 600, spec: { hp: 3700, armor: 100, mr: 100, radius: 20, attack: { range: 600, interval: 1 } } });
+    expect(walkers(world).filter((p) => p.x === 600 || p.memory.maiden)).toHaveLength(4);
+    // 100 magic damage, halved; her mark makes Yorick's attack deal 3% of 20000, halved.
+    expect(world.log.find((e) => e.text.startsWith("Maiden of the Mist deals"))?.text).toBe("Maiden of the Mist deals 50 magic damage");
+    expect(world.log.find((e) => e.text.startsWith("Touch of the Maiden deals"))?.text).toBe("Touch of the Maiden deals 300 magic damage");
+    expect(yorick.alive).toBe(true);
+  });
+
+  it("Dark Procession: walls 125 to 325 from its center for 4 s, against the enemy only; within 210 the enemy is pulled inside", () => {
+    const compiled = kit("Yorick");
+    const enemy = fighter({ id: "enemy", base: { hp: 20000, armor: 100, mr: 100 } });
+    const world = createWorld({ fighters: [compiled.spec, enemy], distance: 300, modes: ["fight", "idle"], settings: { log: true, maxSeconds: 2, reactionTime: 10 } });
+    const target = world.units[1];
+    const center = target.x;
+    const once: Behavior = (view) => (view.world.tick === 0 ? { kind: "cast", ability: "W" } : undefined);
+    step(world, [once, () => undefined]);
+    // On the ring's walls when it rises, 180 from the center: pulled in.
+    target.x = center + 180;
+    while (world.tick < 30) step(world, [once, () => undefined]);
+    expect(world.terrain.map((t) => [t.from, t.to, t.enemyOnly])).toEqual([
+      [center - 325, center - 125, true],
+      [center + 125, center + 325, true],
+    ]);
+    expect(world.terrain[0]?.endTick).toBe(23 + 120);
+    expect(target.x).toBe(center + 125 - 35);
+    expect(target.statuses.find((s) => s.kind === "cc" && s.key === "airborne")).toMatchObject({ startTick: 23, endTick: 23 + 8 });
   });
 
   it("Zaahen", () => {

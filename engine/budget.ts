@@ -234,9 +234,14 @@ function damageTerms(ability: AbilitySpec): DamageTerm[] {
   const cached = termCache.get(ability);
   if (cached) return cached;
   const pulses = ability.channel?.interval ? Math.max(1, Math.round(ability.channel.duration / ability.channel.interval)) : 0;
-  // A field's effects land on every pulse while the enemy stays inside.
+  // A field's effects land on every pulse while the enemy stays inside (every hit of a cluster).
   const d = ability.delivery;
-  const hits = d.kind === "field" ? Math.max(1, Math.round(d.duration / d.interval)) : 1;
+  const hits =
+    d.kind !== "field"
+      ? 1
+      : d.burst
+        ? d.burst.count * (Math.floor((d.duration - (d.burst.count - 1) * d.burst.gap) / d.interval + 1e-9) + 1)
+        : Math.max(1, Math.round(d.duration / d.interval));
   const groups: Array<[Effect[], number]> = [
     [ability.onHit ?? [], hits],
     [ability.channel?.onTick ?? [], pulses],

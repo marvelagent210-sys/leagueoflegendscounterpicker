@@ -231,3 +231,114 @@ All 8 level-based formulas in the game files (1 linked to wiki values above):
 | YorickPassive | YorickPassiveSpawnThreshold | breakpoints at levels 3, 5, 7, 9, 11, 13 (level 1: 8) | 8 | 2 | 2 |
 | YorickPassive | AOEDamageModifier | breakpoints at levels 15 (level 1: 0.66) | 0.66 | 0.32 | 0.28 |
 | YorickPassive | BonusAttackSpeed | along the stat growth curve 0.08 → 0.8 over levels 1-18, continues past 18 | 0.08 | 0.8 | 0.912871 |
+
+## Duel simulator kit (level 20, every ability at max rank)
+
+What the duel simulator fights with (`kits/champions/Yorick.ts`): every number is read from the wiki's ability data above at level 20; what the wiki doesn't say is listed under assumptions. Ratios are fractions of the stat (60% AD is 0.6 × AD).
+
+- Basic attack: range 175, melee.
+- Options: graves = 3.
+
+| Key | Ability | Cooldown (s) | Cast time (s) | Cost | Delivery | On the enemy | On itself |
+|---|---|--:|--:|---|---|---|---|
+| Q | Last Rites | 4 (starts after the empowered attacks) | 0 | 20 | self | – | next 1 attack within 5 s: 110 + 50% AD physical damage (Last Rites); to itself: heal 78 + 10% missing health (+50 range, resets the attack timer, uncancellable) |
+| Q2 | Awakening | 0 | 0 | – | self | – | – |
+| W | Dark Procession | 12 | 0 | 70 | circle of 225 radius up to 600 away, lands after 0.75 s | marks it "caged" for 4 s | – |
+| E | Mourning Mist | 8 | 0.25 | 70 | circle of 225 radius up to 700 away, lands after 0.389 s | 8% target's maximum health + 3% of target's maximum health per 100 AP magic damage (Mourning Mist); slow 30% for 1.5 s; armorReductionPercent 0.25 for 4 s; marks it "cursed" for 4 s | – |
+| R | Eulogy of the Isles | 100 | 0.5 | 100 | self | – | – |
+
+Effects marked by a mark or a role are completed by the kit's hooks (see the kit's source).
+
+### Assumptions
+
+- Graves near Yorick when a fight starts (0 to 4): 3.
+- With the lane set up, 3 graves lie by Yorick when the fight starts: at level 20 one rises for every 2nd enemy that dies near him, 3 from a wave of 6 minions.
+- Mist Walkers keep within 1600 units of Yorick (where they are hasted) and fight the enemy. They take 40% from area abilities (the wiki's level 18 value). The enemy attacks one before Yorick when a single basic attack kills it.
+- The Maiden's attacks are stopped by dodges, blinds and blocks alike (the wiki: not blocks); her mark lasts until Yorick's next attack or Mourning Mist uses it.
+- The enemy doesn't break Dark Procession's 4 hit points of wall: its four attacks would take most of the ring's 4 s.
+- Mourning Mist splashes 225 units around where it lands (the game files' radius; the wiki gives none), 0.389 s after its cast (its flight to full range).
+- Cursed, the enemy draws every Mist Walker within 1500 units into a leap at once, landing beside it; Yorick and his summons are faster for the whole Curse, whichever way they move.
+- The Maiden rises 600 units toward the enemy at most, her 4 Mist Walkers with her; the recast that sets her free is left out.
+- Yorick casts Awakening as soon as three graves can rise, and Eulogy of the Isles in a fight once the enemy is within its 600 units.
+
+### Wiki values read (77)
+
+| Ability | Value | Revision |
+|---|---|---|
+| Shepherd of Souls | Up to 4 graves can exist at once | [4008645](https://wiki.leagueoflegends.com/en-us/Template:Data_Yorick/Shepherd_of_Souls?oldid=4008645) |
+| Shepherd of Souls | effectRadius (Grave summon range): 1000 • 2500 | [4008645](https://wiki.leagueoflegends.com/en-us/Template:Data_Yorick/Shepherd_of_Souls?oldid=4008645) |
+| Shepherd of Souls | raise 1 Mist Walker from each grave after a 1-second delay | [4008645](https://wiki.leagueoflegends.com/en-us/Template:Data_Yorick/Shepherd_of_Souls?oldid=4008645) |
+| Shepherd of Souls | Up to 4 Mist Walkers can be active at once near Yorick or near The Maiden | [4008645](https://wiki.leagueoflegends.com/en-us/Template:Data_Yorick/Shepherd_of_Souls?oldid=4008645) |
+| Shepherd of Souls | with the nearest one always being replaced by the newest upon raising one over the limit | [4008645](https://wiki.leagueoflegends.com/en-us/Template:Data_Yorick/Shepherd_of_Souls?oldid=4008645) |
+| Shepherd of Souls | Whenever Yorick uses Last Rites to score the killing blow on any enemy or damage an enemy champion or large monster, he raises a grave at their location | [4008645](https://wiki.leagueoflegends.com/en-us/Template:Data_Yorick/Shepherd_of_Souls?oldid=4008645) |
+| Shepherd of Souls | Additionally, a grave is passively raised for every 8th / 7th / 6th / 5th / 4th / 3rd / 2nd (based on level) enemy that dies otherwise near him. | [4008645](https://wiki.leagueoflegends.com/en-us/Template:Data_Yorick/Shepherd_of_Souls?oldid=4008645) |
+| Mist Walker | hp: 100 – 300 (based on level) (+ 15% of Yorick's bonus health) | [4011713](https://wiki.leagueoflegends.com/en-us/Yorick?oldid=4011713) |
+| Mist Walker | (+ 15% of Yorick's bonus health) | [4011713](https://wiki.leagueoflegends.com/en-us/Yorick?oldid=4011713) |
+| Mist Walker | damage: 15 – 100 (based on level) (+ 20% of Yorick's bonus AD) | [4011713](https://wiki.leagueoflegends.com/en-us/Yorick?oldid=4011713) |
+| Mist Walker | (+ 20% of Yorick's bonus AD) | [4011713](https://wiki.leagueoflegends.com/en-us/Yorick?oldid=4011713) |
+| Mist Walker | attackspeed: 0.54 – 0.9 (based on level) | [4011713](https://wiki.leagueoflegends.com/en-us/Yorick?oldid=4011713) |
+| Mist Walker | While Mist Walkers are within 1600 units of Yorick, they gain 60 bonus movement speed | [4011713](https://wiki.leagueoflegends.com/en-us/Yorick?oldid=4011713) |
+| Mist Walker | 200% damage from melee champion basic attacks | [4011713](https://wiki.leagueoflegends.com/en-us/Yorick?oldid=4011713) |
+| Mist Walker | 66% – 40% (based on level) damage from area of effect abilities | [4011713](https://wiki.leagueoflegends.com/en-us/Yorick?oldid=4011713) |
+| Mist Walker | armor: 0 | [4011713](https://wiki.leagueoflegends.com/en-us/Yorick?oldid=4011713) |
+| Mist Walker | magicresist: 0 | [4011713](https://wiki.leagueoflegends.com/en-us/Yorick?oldid=4011713) |
+| Mist Walker | radius: 1 | [4011713](https://wiki.leagueoflegends.com/en-us/Yorick?oldid=4011713) |
+| Mist Walker | movespeed: 325 | [4011713](https://wiki.leagueoflegends.com/en-us/Yorick?oldid=4011713) |
+| Mist Walker | range: 125 | [4011713](https://wiki.leagueoflegends.com/en-us/Yorick?oldid=4011713) |
+| Mist Walker | Mist Walkers' attacks are mitigated by dodge, block, and blind | [4011713](https://wiki.leagueoflegends.com/en-us/Yorick?oldid=4011713) |
+| Mist Walker | have the ability to leap to marked enemy champions and large monsters, dealing 100% of their AD upon arrival | [4011713](https://wiki.leagueoflegends.com/en-us/Yorick?oldid=4011713) |
+| Maiden of the Mist | hp: 1050 / 1150 / 1250 / 1350 / 1450 / 1650 / 1850 / 2050 / 2250 / 2450 / 2700 / 2950 / 3200 / 3450 / 3700 (based on level) (+ 60% of Yorick's bonus health) | [4011713](https://wiki.leagueoflegends.com/en-us/Yorick?oldid=4011713) |
+| Maiden of the Mist | (+ 60% of Yorick's bonus health) | [4011713](https://wiki.leagueoflegends.com/en-us/Yorick?oldid=4011713) |
+| Maiden of the Mist | damage: 50 / 75 / 100 (+ 30% of Yorick's bonus AD) | [4011713](https://wiki.leagueoflegends.com/en-us/Yorick?oldid=4011713) |
+| Maiden of the Mist | (+ 30% of Yorick's bonus AD) | [4011713](https://wiki.leagueoflegends.com/en-us/Yorick?oldid=4011713) |
+| Maiden of the Mist | The Maiden of the Mist regenerates 2.5 health per second | [4011713](https://wiki.leagueoflegends.com/en-us/Yorick?oldid=4011713) |
+| Maiden of the Mist | leashing back to him if he moves 1200 units away from her | [4011713](https://wiki.leagueoflegends.com/en-us/Yorick?oldid=4011713) |
+| Maiden of the Mist | While the Maiden of the Mist is within 2000 units of Yorick, she gains 60 bonus movement speed | [4011713](https://wiki.leagueoflegends.com/en-us/Yorick?oldid=4011713) |
+| Maiden of the Mist | bonus magic damage equal to 2 / 2.5 / 3% of the target's maximum health | [4011713](https://wiki.leagueoflegends.com/en-us/Yorick?oldid=4011713) |
+| Maiden of the Mist | armor: 30 / 35 / 40 / 45 / 50 / 55 / 60 / 65 / 70 / 75 / 80 / 85 / 90 / 95 / 100 (based on level) | [4011713](https://wiki.leagueoflegends.com/en-us/Yorick?oldid=4011713) |
+| Maiden of the Mist | magicresist: 30 / 35 / 40 / 45 / 50 / 55 / 60 / 65 / 70 / 75 / 80 / 85 / 90 / 95 / 100 (based on level) | [4011713](https://wiki.leagueoflegends.com/en-us/Yorick?oldid=4011713) |
+| Maiden of the Mist | radius: 20 | [4011713](https://wiki.leagueoflegends.com/en-us/Yorick?oldid=4011713) |
+| Maiden of the Mist | movespeed: 300 | [4011713](https://wiki.leagueoflegends.com/en-us/Yorick?oldid=4011713) |
+| Maiden of the Mist | range: 600 | [4011713](https://wiki.leagueoflegends.com/en-us/Yorick?oldid=4011713) |
+| Maiden of the Mist | attackspeed: 1.0 | [4011713](https://wiki.leagueoflegends.com/en-us/Yorick?oldid=4011713) |
+| Maiden of the Mist | Yorick's next basic attack or E hit against the marked target consumes the mark | [4011713](https://wiki.leagueoflegends.com/en-us/Yorick?oldid=4011713) |
+| Last Rites | empowers his next basic attack within 5 seconds | [4001491](https://wiki.leagueoflegends.com/en-us/Template:Data_Yorick/Last_Rites?oldid=4001491) |
+| Last Rites | gain 50 bonus range | [4001491](https://wiki.leagueoflegends.com/en-us/Template:Data_Yorick/Last_Rites?oldid=4001491) |
+| Last Rites | Bonus Physical Damage: 30 / 50 / 70 / 90 / 110 (+ 50% AD) | [4001491](https://wiki.leagueoflegends.com/en-us/Template:Data_Yorick/Last_Rites?oldid=4001491) |
+| Last Rites | Heal: 10 – 68 (based on level) (+ 6 / 7 / 8 / 9 / 10% of his missing health) | [4001491](https://wiki.leagueoflegends.com/en-us/Template:Data_Yorick/Last_Rites?oldid=4001491) |
+| Last Rites | While there are at least 3 graves nearby and Last Rites is active or on cooldown, Yorick can cast Awakening | [4001491](https://wiki.leagueoflegends.com/en-us/Template:Data_Yorick/Last_Rites?oldid=4001491) |
+| Awakening | Yorick exhumes a Mist Walker under his command from each nearby grave | [3907373](https://wiki.leagueoflegends.com/en-us/Template:Data_Yorick/Awakening?oldid=3907373) |
+| Dark Procession | targetRange: 600 | [4051828](https://wiki.leagueoflegends.com/en-us/Template:Data_Yorick/Dark_Procession?oldid=4051828) |
+| Dark Procession | arises after a 0.75-second delay | [4051828](https://wiki.leagueoflegends.com/en-us/Template:Data_Yorick/Dark_Procession?oldid=4051828) |
+| Dark Procession | knocking aside enemies hit by the walls over 0.25 seconds | [4051828](https://wiki.leagueoflegends.com/en-us/Template:Data_Yorick/Dark_Procession?oldid=4051828) |
+| Dark Procession | Within 210-units, they are pulled inside; otherwise they are pushed away | [4051828](https://wiki.leagueoflegends.com/en-us/Template:Data_Yorick/Dark_Procession?oldid=4051828) |
+| Dark Procession | The ring remains for 4 seconds as impassible terrain against enemies | [4051828](https://wiki.leagueoflegends.com/en-us/Template:Data_Yorick/Dark_Procession?oldid=4051828) |
+| Dark Procession | effectRadius (Spirits spawn radius): 225 • 200 | [4051828](https://wiki.leagueoflegends.com/en-us/Template:Data_Yorick/Dark_Procession?oldid=4051828) |
+| Dark Procession | Impassable perimeter: 125 - 325 | [4051828](https://wiki.leagueoflegends.com/en-us/Template:Data_Yorick/Dark_Procession?oldid=4051828) |
+| Dark Procession | Wall Health: 2 / 2 / 3 / 3 / 4 | [4051828](https://wiki.leagueoflegends.com/en-us/Template:Data_Yorick/Dark_Procession?oldid=4051828) |
+| Mourning Mist | targetRange: 700 | [4046036](https://wiki.leagueoflegends.com/en-us/Template:Data_Yorick/Mourning_Mist?oldid=4046036) |
+| Mourning Mist | speed: 1800 | [4046036](https://wiki.leagueoflegends.com/en-us/Template:Data_Yorick/Mourning_Mist?oldid=4046036) |
+| Mourning Mist | Enemy champions and monsters hit are slowed by 30% for 1.5 seconds and marked as Cursed for 4 seconds | [4046036](https://wiki.leagueoflegends.com/en-us/Template:Data_Yorick/Mourning_Mist?oldid=4046036) |
+| Mourning Mist | Armor Reduction: 13 / 16 / 19 / 22 / 25% of target's armor | [4046036](https://wiki.leagueoflegends.com/en-us/Template:Data_Yorick/Mourning_Mist?oldid=4046036) |
+| Mourning Mist | Bonus Movement Speed: 18 / 21 / 24 / 27 / 30% | [4046036](https://wiki.leagueoflegends.com/en-us/Template:Data_Yorick/Mourning_Mist?oldid=4046036) |
+| Mourning Mist | effectRadius: 1500 | [4046036](https://wiki.leagueoflegends.com/en-us/Template:Data_Yorick/Mourning_Mist?oldid=4046036) |
+| Mourning Mist | continually raises a Mist Walker from each nearby grave, up to a maximum of 4 | [4046036](https://wiki.leagueoflegends.com/en-us/Template:Data_Yorick/Mourning_Mist?oldid=4046036) |
+| Mourning Mist | Mist Walkers will leap to nearby Cursed enemy champions and large monsters once, attacking them upon arrival | [4046036](https://wiki.leagueoflegends.com/en-us/Template:Data_Yorick/Mourning_Mist?oldid=4046036) |
+| Eulogy of the Isles | targetRange: 600 | [3972823](https://wiki.leagueoflegends.com/en-us/Template:Data_Yorick/Eulogy_of_the_Isles?oldid=3972823) |
+| Eulogy of the Isles | "over 1.5 seconds" (tooltip: From the start of the cast time; summons become alive 1 second after cast.) | [3972823](https://wiki.leagueoflegends.com/en-us/Template:Data_Yorick/Eulogy_of_the_Isles?oldid=3972823) |
+| Eulogy of the Isles | Mist Walkers: 2 / 3 / 4 | [3972823](https://wiki.leagueoflegends.com/en-us/Template:Data_Yorick/Eulogy_of_the_Isles?oldid=3972823) |
+| Eulogy of the Isles | which remain on the battlefield until she or Yorick dies | [3972823](https://wiki.leagueoflegends.com/en-us/Template:Data_Yorick/Eulogy_of_the_Isles?oldid=3972823) |
+| Last Rites | cooldown: 6 / 5.5 / 5 / 4.5 / 4 | [4001491](https://wiki.leagueoflegends.com/en-us/Template:Data_Yorick/Last_Rites?oldid=4001491) |
+| Last Rites | cost: 20 | [4001491](https://wiki.leagueoflegends.com/en-us/Template:Data_Yorick/Last_Rites?oldid=4001491) |
+| Last Rites | castTime: none | [4001491](https://wiki.leagueoflegends.com/en-us/Template:Data_Yorick/Last_Rites?oldid=4001491) |
+| Awakening | castTime: none | [3907373](https://wiki.leagueoflegends.com/en-us/Template:Data_Yorick/Awakening?oldid=3907373) |
+| Dark Procession | cooldown: 20 / 18 / 16 / 14 / 12 | [4051828](https://wiki.leagueoflegends.com/en-us/Template:Data_Yorick/Dark_Procession?oldid=4051828) |
+| Dark Procession | cost: 70 | [4051828](https://wiki.leagueoflegends.com/en-us/Template:Data_Yorick/Dark_Procession?oldid=4051828) |
+| Dark Procession | castTime: none | [4051828](https://wiki.leagueoflegends.com/en-us/Template:Data_Yorick/Dark_Procession?oldid=4051828) |
+| Mourning Mist | cooldown: 12 / 11 / 10 / 9 / 8 | [4046036](https://wiki.leagueoflegends.com/en-us/Template:Data_Yorick/Mourning_Mist?oldid=4046036) |
+| Mourning Mist | cost: 50 / 55 / 60 / 65 / 70 | [4046036](https://wiki.leagueoflegends.com/en-us/Template:Data_Yorick/Mourning_Mist?oldid=4046036) |
+| Mourning Mist | castTime: 0.25 | [4046036](https://wiki.leagueoflegends.com/en-us/Template:Data_Yorick/Mourning_Mist?oldid=4046036) |
+| Mourning Mist | Magic Damage: 6 / 6.5 / 7 / 7.5 / 8% (+ 3% per 100 AP) of target's maximum health | [4046036](https://wiki.leagueoflegends.com/en-us/Template:Data_Yorick/Mourning_Mist?oldid=4046036) |
+| Eulogy of the Isles | cooldown: 160 / 130 / 100 | [3972823](https://wiki.leagueoflegends.com/en-us/Template:Data_Yorick/Eulogy_of_the_Isles?oldid=3972823) |
+| Eulogy of the Isles | cost: 100 | [3972823](https://wiki.leagueoflegends.com/en-us/Template:Data_Yorick/Eulogy_of_the_Isles?oldid=3972823) |
+| Eulogy of the Isles | castTime: 0.5 | [3972823](https://wiki.leagueoflegends.com/en-us/Template:Data_Yorick/Eulogy_of_the_Isles?oldid=3972823) |
