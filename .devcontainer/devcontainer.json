@@ -1,0 +1,19 @@
+{
+  "name": "Private Counter Picker",
+  "image": "mcr.microsoft.com/devcontainers/python:3.12-bookworm",
+  "remoteUser": "vscode",
+  "postStartCommand": "python3 .devcontainer/start-preview.py",
+  "forwardPorts": [8000],
+  "portsAttributes": {
+    "8000": {
+      "label": "Counter Picker",
+      "onAutoForward": "openBrowser",
+      "protocol": "http",
+      "requireLocalPort": true
+    }
+  },
+  "otherPortsAttributes": { "onAutoForward": "ignore" },
+  "customizations": {
+    "codespaces": { "openFiles": ["README-MOBILE.md"] }
+  }
+}
