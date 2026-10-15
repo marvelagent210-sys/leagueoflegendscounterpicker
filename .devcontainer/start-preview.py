@@ -13,8 +13,10 @@ import urllib.error
 import urllib.request
 import zipfile
 
-ARCHIVE_SHA256 = "3ac13938d52271844c0f8444b007c27188e05f8d93b7f1391964c594ea7d8845"
-MODEL_FINGERPRINT = "b1311dfa0642fc86d3a56e9fc15813dd6c5e9fd884918287d3c16eab1c97194b"
+ARCHIVE_SHA256 = "cf0ff4c5369189a476f58e798ac821c05a94d8db8602169dad96d2580600e8ef"
+MODEL_FINGERPRINT = "890500814e355bdf3a7f082268996e10be8c61c2ffe3b4eca4347e155bdcb1b5"
+SIMULATOR_KITS = 61
+UNORDERED_PAIRINGS = 1830
 
 
 def main():
@@ -44,6 +46,12 @@ def main():
         dataset = json.loads((application / "data/16.20/simulated.json").read_text())
         if dataset.get("simulation", {}).get("fingerprint") != MODEL_FINGERPRINT:
             raise RuntimeError("The build contains an unexpected simulation dataset.")
+        matchups = dataset.get("matchups", {})
+        if len(matchups) != SIMULATOR_KITS or any(
+            set(rivals) != set(matchups) - {champion}
+            for champion, rivals in matchups.items()
+        ) or SIMULATOR_KITS * (SIMULATOR_KITS - 1) // 2 != UNORDERED_PAIRINGS:
+            raise RuntimeError("The build contains an incomplete champion matchup matrix.")
         marker_path.write_text(json.dumps(expected_marker))
 
     # These readiness requests only reach this same machine's loopback interface.
