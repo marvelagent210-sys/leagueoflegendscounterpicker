@@ -1,6 +1,6 @@
 # Champion simulator coverage
 
-61 of 173 champions have simulator kits; 112 remain. This covers 1,830 unordered simulated pairings.
+67 of 173 champions have simulator kits; 106 remain. This covers 2,211 unordered simulated pairings.
 
 A simulator kit is implemented coverage, not a certification of every mechanic. Each kit page records source revisions and explicit assumptions. Other champions retain interaction estimates until their kit is implemented and checked.
 
@@ -9,6 +9,7 @@ A simulator kit is implemented coverage, not a certification of every mechanic. 
 | Champion | ID | Source reads | Assumptions |
 |---|---|--:|--:|
 | Aatrox | Aatrox | 49 | 3 |
+| Ahri | Ahri | 73 | 4 |
 | Akali | Akali | 52 | 5 |
 | Ambessa | Ambessa | 46 | 6 |
 | Amumu | Amumu | 47 | 4 |
@@ -17,6 +18,7 @@ A simulator kit is implemented coverage, not a certification of every mechanic. 
 | Aurora | Aurora | 52 | 2 |
 | Brand | Brand | 56 | 7 |
 | Camille | Camille | 41 | 4 |
+| Cassiopeia | Cassiopeia | 52 | 9 |
 | Cho'Gath | Chogath | 42 | 3 |
 | Darius | Darius | 49 | 2 |
 | Dr. Mundo | DrMundo | 40 | 3 |
@@ -31,10 +33,12 @@ A simulator kit is implemented coverage, not a certification of every mechanic. 
 | Jax | Jax | 35 | 3 |
 | Jayce | Jayce | 66 | 4 |
 | K'Sante | KSante | 55 | 3 |
+| Kassadin | Kassadin | 56 | 6 |
 | Kayle | Kayle | 40 | 2 |
 | Kennen | Kennen | 47 | 3 |
 | Kled | Kled | 88 | 7 |
 | Leona | Leona | 53 | 4 |
+| Lissandra | Lissandra | 70 | 6 |
 | Lux | Lux | 48 | 4 |
 | Malphite | Malphite | 41 | 1 |
 | Master Yi | MasterYi | 51 | 5 |
@@ -63,6 +67,8 @@ A simulator kit is implemented coverage, not a certification of every mechanic. 
 | Udyr | Udyr | 80 | 11 |
 | Urgot | Urgot | 50 | 5 |
 | Vayne | Vayne | 47 | 7 |
+| Veigar | Veigar | 48 | 11 |
+| Vladimir | Vladimir | 64 | 10 |
 | Volibear | Volibear | 50 | 4 |
 | Xin Zhao | XinZhao | 65 | 6 |
 | Yasuo | Yasuo | 49 | 4 |
@@ -72,7 +78,6 @@ A simulator kit is implemented coverage, not a certification of every mechanic. 
 
 ## Remaining implementation queue
 
-- [ ] Ahri (Ahri)
 - [ ] Akshan (Akshan)
 - [ ] Alistar (Alistar)
 - [ ] Anivia (Anivia)
@@ -85,7 +90,6 @@ A simulator kit is implemented coverage, not a certification of every mechanic. 
 - [ ] Braum (Braum)
 - [ ] Briar (Briar)
 - [ ] Caitlyn (Caitlyn)
-- [ ] Cassiopeia (Cassiopeia)
 - [ ] Corki (Corki)
 - [ ] Diana (Diana)
 - [ ] Draven (Draven)
@@ -109,7 +113,6 @@ A simulator kit is implemented coverage, not a certification of every mechanic. 
 - [ ] Kalista (Kalista)
 - [ ] Karma (Karma)
 - [ ] Karthus (Karthus)
-- [ ] Kassadin (Kassadin)
 - [ ] Katarina (Katarina)
 - [ ] Kayn (Kayn)
 - [ ] Kha'Zix (Khazix)
@@ -118,7 +121,6 @@ A simulator kit is implemented coverage, not a certification of every mechanic. 
 - [ ] LeBlanc (Leblanc)
 - [ ] Lee Sin (LeeSin)
 - [ ] Lillia (Lillia)
-- [ ] Lissandra (Lissandra)
 - [ ] Locke (Locke)
 - [ ] Lucian (Lucian)
 - [ ] Lulu (Lulu)
@@ -165,13 +167,11 @@ A simulator kit is implemented coverage, not a certification of every mechanic. 
 - [ ] Twisted Fate (TwistedFate)
 - [ ] Twitch (Twitch)
 - [ ] Varus (Varus)
-- [ ] Veigar (Veigar)
 - [ ] Vel'Koz (Velkoz)
 - [ ] Vex (Vex)
 - [ ] Vi (Vi)
 - [ ] Viego (Viego)
 - [ ] Viktor (Viktor)
-- [ ] Vladimir (Vladimir)
 - [ ] Warwick (Warwick)
 - [ ] Xayah (Xayah)
 - [ ] Xerath (Xerath)
