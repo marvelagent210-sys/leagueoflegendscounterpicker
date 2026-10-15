@@ -340,9 +340,135 @@ The final source fingerprint is
   table scrolls inside its container. Unexpected page, console, HTTP and request
   error counts are zero, with no unfinished posted worker jobs.
 
+## Second expansion batch: six casters, 15 October 2026
+
+The second batch implements Ahri, Cassiopeia, Kassadin, Lissandra, Veigar and
+Vladimir. Coverage is now **67 of 173 champions**, with **106 remaining** and
+**2,211 unordered supported pairs** (4,422 directed entries). Every numeric kit
+value reads the pinned 16.20 ability records; individual source revisions and
+interpretations remain visible in each compiled kit page.
+
+Shared mechanics now support real mana formulas and dynamic cast-cost snapshots,
+reserved resources for overlapping casts, persistent facing, caster notifications,
+knockdown and channel disruption, replacement empowered on-hits, declared ground
+spell delays, and opt-in deliveries that continue after death. Piercing projectiles
+track independent champion/pet contacts and support return trajectories and changing
+speeds. Pet splash evaluates dynamic damage against a pet target rather than silently
+using a zero-stack or target-free reference. Center-based blink reach uses the same
+geometry in combat, behavior and scenario setup.
+
+Vladimir's bonus-health/AP conversion is solved simultaneously without converting
+its own results again. Cassiopeia's positive movement bonuses use her recorded
+level-20 effectiveness. Derived-stat cache validation now observes mutable base,
+purchased, conversion and status inputs, including in-place decaying buffs; the
+previous length-only status cache could return stale combat stats. The stronger
+validation adds allocation work; correctness takes precedence over reusing stale
+values.
+
+Source review and reflected-matchup checks cover each new kit. Additional cases
+exercise spell-shield and parry consumption, dynamic mana tiers, poison snapshots,
+cage boundaries, the rear origin of Petrifying Gaze, cast cancellation, trade-mode
+retreat, and damage/CC ordering. Golden winners, margins and disputed skips remain
+unchanged. Completed source preparation for the six remaining audited casters is
+listed in [docs/next-wave](docs/next-wave/README.md).
+
+These kits retain explicit limitations rather than guessed source precision:
+
+- Ahri's flame orbit has conflicting angular units in the source. Orbit geometry,
+  lateral coverage and fallback expected-value return contacts retain stated
+  approximations. Her qualifying takedown heal and extra dash apply on Sion's first
+  death while his zombie phase continues; each opponent's death is credited once. Lissandra's claw acceleration and spreading ice use documented
+  one-dimensional interpretations; her thrall after an ordinary final enemy death
+  cannot continue a duel that has already ended.
+- Kassadin's arrival damage uses the stated 270-unit center convention, since the
+  source does not identify hitbox measurement. His allocator uses a finite,
+  resource-aware Riftwalk reference, and the generic pet attack path still omits
+  Nether Blade's champion on-hit and mana restoration.
+- Cassiopeia's seven-cloud Miasma is represented on the duel axis. Poison timing,
+  slow refresh and the distinction between facing and forced movement are modeled;
+  lateral cloud coverage, unquantified facing exceptions and pet-specific effects
+  remain assumptions rather than certified interactions.
+- Veigar starts at an explicit adjustable stack count, default zero, without farming
+  during the duel. Q's pet collision/two-target allowance and pet kill stacks remain
+  unsupported. Dark Matter uses the recorded 1.221-second declaration-to-impact
+  delay, while the source omits Primordial Burst's missile speed; 1500 units/s is
+  retained as a visible assumption.
+- Vladimir's charge nova uses its target-facing bolt. The source does not establish
+  Hemoplague owner-death persistence, so it does not keep an otherwise ended duel
+  alive. Rush resets, charge interpolation and unquantified movement curves retain
+  the interpretations stated in his kit.
+
+### Second-batch pre-release validation (superseded metadata)
+
+The frozen source fingerprint is
+`5fd8b3c43a2ee4635ffccb39885eea2866300d8eeebdb4aeba1944f11f0426c0`.
+
+- Both TypeScript projects pass. All **440 focused tests across 11 new files** pass,
+  including all six kits, shared caster lifecycles, mana formulas, stat conversions,
+  mutable-stat caching, pet damage and centered blink boundaries.
+- A separate read-only preflight runs every **66 supported Darius opponents in both
+  orientations**, using **132 complete production variant searches**. Purchased stats
+  and chosen options reflect exactly. Maximum aggregate sum is **2.45e-15** and
+  maximum reflected scenario sum is **6.22e-15**, within the **1e-10** limit. The
+  fingerprint is checked before, during and after the run. No diagnostic loaders,
+  virtual source patches, matrix writes or checkpoint reuse are involved. The run
+  takes 142.5 seconds on the current instance.
+
+- All **2,211 unordered pairs** were freshly recomputed with four workers, with no
+  prior-fingerprint checkpoints copied or relabeled. The refresh wrote **245** simulator
+  and ledger files and preserved parsed source data and profiles. The final matrix has
+  **67 complete rows and 4,422 directed entries**. `npm run build:sim -- --check` passes.
+- The production build passes. Its matrix is byte-for-byte equal to the source matrix,
+  and its HTTP dataset index exposes the frozen fingerprint above. Recomputing the
+  matrix took 2,587.2 seconds on the current four-core instance.
+
+### Finite internal-effect metadata correction
+
+The first complete suite exposed non-finite cooldown metadata on Ahri's Q-return/R-bolt
+and Lissandra's ice-field helper effects. These are internal effects with an explicit
+`usable: () => false` guard. Their cooldown metadata is now zero, preserving that guard
+and satisfying the same finite-number contract used for every other registered kit.
+The existing assertions remain unchanged. Both TypeScript projects and **583 focused
+checks across 12 files**, including the complete 67-kit general contract suite, pass.
+This source correction requires a new matrix rather than relabeling prior checkpoints.
+The corrected fingerprint is
+`cc2d36964b514dc2d86ccc2e550d794c04b361e0d345b3fbdbd8ec4fda11c209`.
+
+### Final corrected-source validation
+
+- All **2,211 unordered pairings** have fresh checkpoints under the corrected
+  `cc2d3696…` fingerprint; none were copied or relabeled from the earlier pass. The
+  refresh wrote **245** generated files in **2,574.8 seconds**, with **67 complete rows
+  and 4,422 directed entries**. The final freshness check passes.
+- Comparing both complete generations, every score, scenario, purchased build and
+  selected kit variant is exactly equal; only their model provenance differs. The
+  finite internal-effect metadata correction changes no saved combat result.
+- The final production build passes. Its matrix is byte-for-byte equal to the source
+  matrix, and its HTTP dataset index carries the full corrected fingerprint above.
+
+- The final full suite has **1,887 passing tests, 2 failing draft expectations and
+  5 existing skips across 89 files**. Only Garen–Yasuo and Malphite–Yasuo fail; their
+  scores and the original winners/margins/skips are unchanged. The full test command
+  still exits with failure. Both newly exposed finite-metadata failures are fixed.
+- The corrected source also passes **132 complete production side-swap searches**
+  covering all 66 Darius opponents, with exactly reflected spending and selected
+  options. Maximum aggregate and scenario sums remain **2.45e-15** and **6.22e-15**.
+  Provenance stays equal to the corrected fingerprint throughout this run.
+
+- All **16 production Chromium checks pass**, including Ahri–Lissandra,
+  Kassadin–Vladimir and Cassiopeia–Veigar live/matrix comparisons, initialized stats,
+  visible source assumptions, current cached ranks, settings reruns, cancellation and
+  worker-failure recovery. Deliberately stale data triggers all **66** Darius rivals;
+  every rank agrees and maximum score difference is **2.45e-15** at tolerance **1e-10**.
+- At a **390-pixel phone width**, document width remains 390 pixels and the wide stats
+  table scrolls inside its 356-pixel container. The actual screenshot is visually
+  checked. Page, console, HTTP and request errors are all zero; all three worker
+  contexts have zero unfinished jobs. The final full suite takes 233.4 seconds while
+  the independent reflection preflight runs concurrently on this four-core instance.
+
 ## Remaining limits
 
-- Only 61 of the dataset's 173 champions have simulator kits. Other pairings use the
+- Only 67 of the dataset's 173 champions have simulator kits. Other pairings use the
   interaction ledger's heuristic estimates.
 - Movement is one-dimensional. Facing, side-stepping, vitals, terrain placement,
   pet placement, and some multi-hit geometry still use explicit approximations.
