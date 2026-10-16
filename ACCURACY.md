@@ -466,9 +466,124 @@ The corrected fingerprint is
   contexts have zero unfinished jobs. The final full suite takes 233.4 seconds while
   the independent reflection preflight runs concurrently on this four-core instance.
 
+## Third expansion batch: six casters, 16 October 2026
+
+Anivia, Karthus, Malzahar, Vel'Koz, Ziggs and Zyra bring implemented coverage to
+**73 of 173 champions**. **100 remain**, and the supported matrix requires
+**2,628 unordered pairs / 5,256 directed entries**. These are controlled kit
+simulations, not measured player win rates or certification of every mechanic.
+
+The five new champion test files contain **351 passing checks**. They exercise
+actual damage, resources, defenses, timing, ordinary policies and full-budget
+Darius matchups. Shared tests cover the lifecycle, CC, shield-order and pet APIs;
+the complete registered-kit contract also checks all 73 kits. Both TypeScript
+projects pass. Goldens, margins, tolerances and the five existing skips are unchanged.
+
+- Anivia separates Q passage from its controlled explosion and checks Iced when E
+  actually lands. Her storm has independent growth, damage, slow and resource clocks.
+  W raises terrain and ejects overlapping units through guarded displacement; its
+  unquantified push timing remains an explicit approximation. Rebirth creates an
+  attackable six-second egg with sourced level-20 resistances, preserves declared
+  cast times, interrupts ordinary channels and retains surviving current health.
+- Karthus Q counts actual eligible bodies for isolation. Wall of Pain tracks
+  contact and crossings independently for each wall, including pet debuffs. Defile
+  has its own pulse/drain clocks and is forced active during Death Defied. The
+  seven-second post-death window permits free spells without attacks or voluntary
+  movement; R's cutoff and cast-plus-channel timing are explicit. Counted champion
+  and actual pet kills trigger the resource refund once; expiry does not.
+- Malzahar applies ordinary damage shields before Void Shift's reduction, preserves
+  its spell-shield priority and true-damage exceptions, and distinguishes pet damage
+  from passive-consuming champion hits. Allied CC bypasses only its sourced hostile
+  immunity. E has sixteen absolute ordinal ticks, target-specific pet bounces and
+  a pinned level-20 execute threshold of 48. Its AP snapshot/refresh phase policy is
+  disclosed. R's tether, suppression, reveal and persistent pool have distinct
+  lifetimes, including movement/different-target attack cancellation after 0.5 s,
+  immediate reveal loss on suppression removal and the Anivia resurrection exception.
+- Vel'Koz tracks passive stacks and research independently. Q uses its real first
+  collision, W has two charges and a progressive formed rift, E uses its declared
+  origin and variable landing clock, and R creates thirteen directed pulse areas
+  with independent research/stack decisions and interruption cleanup. Forecasts
+  expose each W packet once rather than adding collapse damage to both stages.
+- Ziggs uses three finite Q landing checks and one explosion; W retains its ground
+  position, recast and independent self displacement. E places eleven finite mines
+  with projected two-dimensional geometry, per-victim falloff and current hitbox
+  sizes, including pet triggers. R follows its absolute declaration-to-impact clock
+  and separate epicenter. Bounce scaling, inner mine radius, self-dash timing and
+  other unresolved geometry remain explicit assumptions; turret execution is not
+  applied to champions. Short Fuse on pet-directed attacks remains unimplemented.
+- Zyra seeds retain identity, source, charges, lifetime, stepping and growth rules.
+  Plants snapshot level/AP, have individual health categories, CC, targets, windups
+  and projectile travel, and use shared target marks with separate owner priorities.
+  Lasher slows retain contributing plant identity. R's in-flight flurry behavior and
+  expiry, same-target damage falloff and independent plant defenses are covered.
+
+Shared pet combat uses the actual pet as the attacking actor. Retaliation cannot
+hit its owner by accident; pets do not inherit champion on-hits, critical chance or
+life steal. Resistance debuffs apply before owner penetration. Dynamic targetability,
+stasis and invulnerability are distinct from already-active damage-over-time, and
+status expiry is evaluated at the actual tick. Stationary pets remain stationary.
+Launched plant missiles retain their source snapshot after the plant dies. Copies
+of a fight preserve independent pet statuses, windups, missiles and zone memory.
+A separate champion-to-pet contact hook records Zyra's actual attacked-pet priority
+without enabling champion-only procs against every pet.
+
+Supplemental wiki quotations retain their own exact page/revision attribution.
+Selected game-file excerpts retain the exact **16.20.8248524+branch.releases-16-20.content.release**
+version, URL, object path and SHA-256, separately from wiki citations. Strict readers
+reject absent text and unversioned game evidence. Client targeter fields do not
+prove server geometry: those interpretations remain assumptions. Kit pages display
+these source links and continuous toggle drain. Planning archives are not runtime
+inputs.
+
+Defensive forecasting remains a model policy: it does not predict future Iced
+changes, and Anivia's pending hook-driven storm pulses are not individually exposed
+by the generic threat extractor. Her kit page states that limitation. One-axis
+geometry and deterministic policies remain approximations for all six kits.
+
+Frozen model fingerprint:
+`393ffdb2b3fa8fa0fd910745f60cf7cf4836df42875ea6d69abde5411a822220`.
+All **72 Darius opponents / 144 directed searches** passed through the unmodified
+production worker with complete variant searches. Purchased builds and selected
+options reflect exactly. Maximum absolute aggregate score sum is
+**2.456368441983159e-15**; maximum absolute reflected scenario sum is
+**3.2862601528904634e-14**.
+
+Before refresh, the full stable preflight executed **2,342 tests across 97 files**:
+**2,330 passed, 7 failed and 5 were skipped**, in **324.3 seconds** while reflection
+checks ran concurrently. Five failures compare against the previous 67-kit matrix;
+the other two are the original draft Garen–Yasuo and Malphite–Yasuo expectations.
+All combat, kit, pet and source regressions pass. The refresh has now completed
+all 2,628 verified pair checkpoints and written 251 simulator/ledger files. The
+resumed run reused only 364 validated checkpoints of this same frozen model and
+computed the remaining 2,264 pairs in 4,604.9 seconds; no older-model result was
+copied or relabeled. All 73 matrix rows and 5,256 directed entries are complete,
+and `npm run build:sim -- --check` passes for the exact fingerprint above. Both
+TypeScript projects and the production web build also pass. Final browser and
+post-refresh suite results are recorded below.
+
+The production Chromium run passed **all 17 checks**. Every one of the **72 live
+stale-matrix fallback scores** agrees with the refreshed matrix; maximum difference
+is **2.456368441983159e-15**, and the entire ranking order agrees. Logged matchups
+for all six new champions reproduce the matrix with finite initialized stats,
+six scenario results and rendered assumptions. All six kit pages display correct
+wiki/game source attribution, with no game evidence linked as wiki revision zero.
+Toggle drain is visible, and both new source evidence and combat tables fit the
+390-pixel phone viewport; wide tables scroll inside their containers. Page, console,
+HTTP and request errors are all zero, with no unfinished worker jobs.
+
+
+The final complete suite runs serially on this four-core environment: **2,335
+passing tests, the two original draft winner failures, and five existing skips**,
+across **97 files / 2,342 tests**, in **489.2 seconds**. Its Heimerdinger–Udyr full
+variant search passes in **145.0 seconds** within its unchanged 180-second limit.
+The preceding two-worker run had one additional timeout at 188.2 seconds; it had
+already resolved all five stale-data failures. The complete serial rerun verifies
+the same builds, score, scenarios and variant options. No assertion, golden winner,
+margin, skip or timeout was weakened. Source identity remains the frozen hash above.
+
 ## Remaining limits
 
-- Only 67 of the dataset's 173 champions have simulator kits. Other pairings use the
+- Only 73 of the dataset's 173 champions have simulator kits. Other pairings use the
   interaction ledger's heuristic estimates.
 - Movement is one-dimensional. Facing, side-stepping, vitals, terrain placement,
   pet placement, and some multi-hit geometry still use explicit approximations.
