@@ -1,6 +1,6 @@
 # Champion simulator coverage
 
-67 of 173 champions have simulator kits; 106 remain. This covers 2,211 unordered simulated pairings.
+73 of 173 champions have simulator kits; 100 remain. This covers 2,628 unordered simulated pairings.
 
 A simulator kit is implemented coverage, not a certification of every mechanic. Each kit page records source revisions and explicit assumptions. Other champions retain interaction estimates until their kit is implemented and checked.
 
@@ -13,6 +13,7 @@ A simulator kit is implemented coverage, not a certification of every mechanic. 
 | Akali | Akali | 52 | 5 |
 | Ambessa | Ambessa | 46 | 6 |
 | Amumu | Amumu | 47 | 4 |
+| Anivia | Anivia | 76 | 5 |
 | Annie | Annie | 64 | 8 |
 | Ashe | Ashe | 43 | 8 |
 | Aurora | Aurora | 52 | 2 |
@@ -33,6 +34,7 @@ A simulator kit is implemented coverage, not a certification of every mechanic. 
 | Jax | Jax | 35 | 3 |
 | Jayce | Jayce | 66 | 4 |
 | K'Sante | KSante | 55 | 3 |
+| Karthus | Karthus | 55 | 7 |
 | Kassadin | Kassadin | 56 | 6 |
 | Kayle | Kayle | 40 | 2 |
 | Kennen | Kennen | 47 | 3 |
@@ -41,9 +43,10 @@ A simulator kit is implemented coverage, not a certification of every mechanic. 
 | Lissandra | Lissandra | 70 | 6 |
 | Lux | Lux | 48 | 4 |
 | Malphite | Malphite | 41 | 1 |
+| Malzahar | Malzahar | 84 | 12 |
 | Master Yi | MasterYi | 51 | 5 |
 | Mordekaiser | Mordekaiser | 38 | 5 |
-| Morgana | Morgana | 43 | 4 |
+| Morgana | Morgana | 45 | 4 |
 | Nasus | Nasus | 40 | 2 |
 | Nautilus | Nautilus | 58 | 6 |
 | Olaf | Olaf | 36 | 3 |
@@ -68,6 +71,7 @@ A simulator kit is implemented coverage, not a certification of every mechanic. 
 | Urgot | Urgot | 50 | 5 |
 | Vayne | Vayne | 47 | 7 |
 | Veigar | Veigar | 48 | 11 |
+| Vel'Koz | Velkoz | 70 | 7 |
 | Vladimir | Vladimir | 64 | 10 |
 | Volibear | Volibear | 50 | 4 |
 | Xin Zhao | XinZhao | 65 | 6 |
@@ -75,12 +79,13 @@ A simulator kit is implemented coverage, not a certification of every mechanic. 
 | Yone | Yone | 34 | 3 |
 | Yorick | Yorick | 81 | 9 |
 | Zaahen | Zaahen | 61 | 5 |
+| Ziggs | Ziggs | 72 | 9 |
+| Zyra | Zyra | 87 | 14 |
 
 ## Remaining implementation queue
 
 - [ ] Akshan (Akshan)
 - [ ] Alistar (Alistar)
-- [ ] Anivia (Anivia)
 - [ ] Aphelios (Aphelios)
 - [ ] Aurelion Sol (AurelionSol)
 - [ ] Azir (Azir)
@@ -112,7 +117,6 @@ A simulator kit is implemented coverage, not a certification of every mechanic. 
 - [ ] Kai'Sa (Kaisa)
 - [ ] Kalista (Kalista)
 - [ ] Karma (Karma)
-- [ ] Karthus (Karthus)
 - [ ] Katarina (Katarina)
 - [ ] Kayn (Kayn)
 - [ ] Kha'Zix (Khazix)
@@ -124,7 +128,6 @@ A simulator kit is implemented coverage, not a certification of every mechanic. 
 - [ ] Locke (Locke)
 - [ ] Lucian (Lucian)
 - [ ] Lulu (Lulu)
-- [ ] Malzahar (Malzahar)
 - [ ] Maokai (Maokai)
 - [ ] Mel (Mel)
 - [ ] Milio (Milio)
@@ -167,7 +170,6 @@ A simulator kit is implemented coverage, not a certification of every mechanic. 
 - [ ] Twisted Fate (TwistedFate)
 - [ ] Twitch (Twitch)
 - [ ] Varus (Varus)
-- [ ] Vel'Koz (Velkoz)
 - [ ] Vex (Vex)
 - [ ] Vi (Vi)
 - [ ] Viego (Viego)
@@ -180,7 +182,5 @@ A simulator kit is implemented coverage, not a certification of every mechanic. 
 - [ ] Zac (Zac)
 - [ ] Zed (Zed)
 - [ ] Zeri (Zeri)
-- [ ] Ziggs (Ziggs)
 - [ ] Zilean (Zilean)
 - [ ] Zoe (Zoe)
-- [ ] Zyra (Zyra)
