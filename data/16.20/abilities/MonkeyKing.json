@@ -176,6 +176,29 @@
       "Casting Nimbus Strike interrupts the attack windup of enemies targeting Wukong.",
       "Nimbus Strike has an offset distance of 75 units from the target dashed to.",
       "The ability applies a stack of Electrocute even if the target is untargetable."
+    ],
+    "gameSources": [
+      {
+        "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/monkeyking/monkeyking.bin.json",
+        "sha256": "92f2a91971d5683b87145991a9a1db7b4acadae7ccc3676f8a15dfa00aaacb7a",
+        "object": "Characters/MonkeyKing/Spells/MonkeyKingNimbusAbility/MonkeyKingNimbus",
+        "text": [
+          "mSpell.DataValues.DashSpeed.values: [1050,1050,1050,1050,1050,1050,1050]"
+        ]
+      }
+    ],
+    "sources": [
+      {
+        "page": {
+          "title": "Template:Tip data/Uncancellable windup",
+          "revid": 4072133
+        },
+        "text": [
+          "Some effects cause a basic attack to have an uncancellable windup. Unlike normal basic attacks and similar to the cast time of a spell, the windup of these attacks cannot be interrupted by neither the user themselves nor any status effect, other than death, polymorph, Quinn's Vault, Hextech Rocketbelt Supersonic, and in some cases, untargetability and range.",
+          "Any effect that would disrupt an attack's windup, aside from the ones noted above, are ignored by basic attacks with uncancellable windups. If the attack doesn't lock out other abilities, they may be used normally, and the basic attack will hit during the ability cast."
+        ]
+      }
     ]
   },
   {
@@ -700,7 +723,8 @@
       "Casting a basic ability will always interrupt Wukong's Cyclone. A clone can be interrupted by casting Crushing Blow, but only if the clone was made during the current Cyclone cast and only for that cast. This means if both Wukong and his clone are spinning, the clone cannot be interrupted.",
       "Cyclone's remaining duration always stays the same even after the clone replicated the ability.",
       "During Cyclone, Wukong and his clone's attack ranges are reduced to 50 .",
-      "Spell shield will block one instance of damage.\n  - Blocking the knock up will still grant immunity to it from either of Cyclone's casts."
+      "Spell shield will block one instance of damage.\n  - Blocking the knock up will still grant immunity to it from either of Cyclone's casts.",
+      "Interaction table (ct): attack=false; move=true; cast=Other abilities are disabled for the first 0.3 seconds, casting them afterwards interrupts.; items=true; consume=true; spells=true,true,true,false,true; interrupts=death."
     ]
   },
   {

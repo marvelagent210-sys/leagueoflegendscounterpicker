@@ -136,9 +136,9 @@ export function deliveryText(delivery: Delivery): string {
     case "line":
       return `skillshot ${num(delivery.range)} long, ${num(delivery.width)} wide, ${delivery.speed ? `at ${num(delivery.speed)}/s` : "instant"}`;
     case "circle":
-      return `circle of ${num(delivery.radius)} radius${delivery.centered ? " (to the target's center)" : ""} up to ${num(delivery.range)} away, ${delivery.speed ? `projectile at ${num(delivery.speed)}/s then ` : ""}lands after ${num(delivery.delay)} s`;
+      return `circle of ${num(delivery.radius)} radius${delivery.centered ? " (to the target's center)" : ""} up to ${num(delivery.range)} away, ${delivery.flight !== undefined ? `projectile flying ${num(delivery.flight)} s then ` : delivery.speed ? `projectile at ${num(delivery.speed)}/s then ` : ""}lands after ${num(delivery.delay)} s`;
     case "dash":
-      return `dash ${delivery.direction} ${delivery.minDistance !== undefined ? `${num(delivery.minDistance)}–` : ""}${num(delivery.distance)} units ${delivery.time !== undefined ? `in ${num(delivery.time)} s` : `at ${num(delivery.speed)}/s${delivery.speedFor ? " (adjusted by current stats)" : ""}`}${delivery.lockOn ? `, at ${num(delivery.lockOn.speed)}/s within ${num(delivery.lockOn.within)} of the enemy` : ""}${delivery.hitRadius !== undefined ? `, hits within ${num(delivery.hitRadius)}` : ""}${delivery.through ? ", through the enemy" : ""}`;
+      return `dash ${delivery.direction} ${delivery.minDistance !== undefined ? `${num(delivery.minDistance)}–` : ""}${num(delivery.distance)} units${delivery.distanceFor ? " (adjusted by current stats)" : ""} ${delivery.time !== undefined ? `in ${num(delivery.time)} s` : `at ${num(delivery.speed)}/s${delivery.speedFor ? " (adjusted by current stats)" : ""}`}${delivery.lockOn ? `, at ${num(delivery.lockOn.speed)}/s within ${num(delivery.lockOn.within)} of the enemy` : ""}${delivery.hitRadius !== undefined ? `, hits within ${num(delivery.hitRadius)}` : ""}${delivery.through ? ", through the enemy" : ""}`;
     case "blink":
       return `blink ${delivery.direction} ${num(delivery.distance)} units`;
     case "field": {

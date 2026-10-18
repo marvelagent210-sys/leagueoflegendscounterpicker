@@ -269,7 +269,8 @@ export type Delivery =
    * target's center rather than its edge (the wiki's "center range", Rupture).
    */
   /** `hidden`: seconds into the cast before the enemy can see where it will land (Abyssal Dive's indicator). */
-  | { kind: "circle"; range: number; radius: number; delay: number; centered?: boolean; hidden?: number; speed?: number }
+  /** `flight`: a projectile that lands this many seconds after it is thrown however far it goes (Explosive Cask), in place of a `speed`. */
+  | { kind: "circle"; range: number; radius: number; delay: number; centered?: boolean; hidden?: number; speed?: number; flight?: number }
   /**
    * A dash; `hitRadius` hits the enemy on arrival. "target" dashes stop at the enemy. Dashes
    * to a location can be aimed (a cast's `aim`) anywhere from `minDistance` to `distance`.
@@ -294,6 +295,11 @@ export type Delivery =
       speed: number;
       /** Speed resolved at dash declaration from the caster's current stats. */
       speedFor?: (unit: Unit) => number;
+      /**
+       * Distance resolved at dash declaration from the caster's current stats (Infinite Duress:
+       * 250% of movement speed); `distance` stays the reference for setting up scenarios.
+       */
+      distanceFor?: (unit: Unit) => number;
       hitRadius?: number;
       /** Hit range between centers, rather than the default hitbox edges (Lunge's stab). */
       hitCentered?: boolean;
@@ -559,8 +565,12 @@ export interface AbilitySpec {
   overlayChannels?: string[];
   /** Casts allowed to end these channels, without bypassing ordinary CC restrictions. */
   allowedDuringChannel?: string[];
-  /** This cast retains an already-declared windup at its original launch time (Bloodlust, Decimate). */
-  preserveAttackWindup?: boolean;
+  /**
+   * This cast retains an already-declared windup at its original launch time (Bloodlust,
+   * Decimate); "uncancellable" retains only an uncancellable windup, and cancels the others as
+   * casting usually does (Crushing Blow's attack: "Other abilities can be used during the attack's animation").
+   */
+  preserveAttackWindup?: boolean | "uncancellable";
   /**
    * Its cast time is a charge or channel that crowd control interrupts as it would a channel
    * (Decimating Smash, Abyssal Dive): the cost is spent and, when `cooldown` is given, the

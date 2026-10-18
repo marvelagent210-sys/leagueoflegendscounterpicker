@@ -3,9 +3,10 @@
 These audits were prepared on 14 October 2026 while the 61-kit matrix was refreshing.
 The second expansion batch registered Ahri, Cassiopeia, Kassadin, Lissandra,
 Veigar, and Vladimir. The third registers Anivia, Karthus, Malzahar, Vel'Koz,
-Ziggs, and Zyra. Implemented source coverage is 73 of 173 champions, leaving
-100 to implement and 2,628 unordered pairings to simulate. Current release
-validation is recorded in [ACCURACY.md](../../ACCURACY.md).
+Ziggs, and Zyra. A fourth batch (Gragas, Warwick and Wukong, not audited here)
+brings implemented source coverage to 76 of 173 champions, leaving 97 to implement
+and 2,850 unordered pairings to simulate. Current release validation is recorded in
+[ACCURACY.md](../../ACCURACY.md).
 
 All twelve casters in these audits now have registered kits. The audits retain
 their original formulas and evidence gaps;
@@ -34,4 +35,6 @@ are not runtime inputs. Data attribution follows [data/README.md](../../data/REA
 Batch 3 also retains selected versioned game-file excerpts in the ability records.
 Each records its exact URL, game version, object path and SHA-256. These sources
 are attributed separately from wiki revisions; client geometry interpretations
-remain visible assumptions where server behavior is unverified.
+remain visible assumptions where server behavior is unverified. They and the
+recovered wiki notes are now listed in `pipeline/abilities/evidence.ts`, so
+`npm run build:data` regenerates them instead of dropping them.

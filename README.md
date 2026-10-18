@@ -11,7 +11,7 @@ Status: milestones 1 to 4 of 8 are done, milestone 5 is built and waiting for re
 - waves 1 and 2: 49 top laners, plus 18 champions across other roles in two expansion batches, with source-backed mechanics tests;
 - the web app: picker, matchup, kit and settings pages, with a private Codespaces preview.
 
-Between two of the 73 supported champions, the ranking comes from simulated duels under the displayed settings and kit assumptions. Everywhere else the ledger estimates how the abilities interact without playing the fight out. The app labels these bases **Simulated** and **Interaction estimate**; neither certifies every mechanic or decision. See [PLAN.md](PLAN.md) for the plan and progress.
+Between two of the 76 supported champions, the ranking comes from simulated duels under the displayed settings and kit assumptions. Everywhere else the ledger estimates how the abilities interact without playing the fight out. The app labels these bases **Simulated** and **Interaction estimate**; neither certifies every mechanic or decision. See [PLAN.md](PLAN.md) for the plan and progress.
 
 ## Setup
 
@@ -76,15 +76,16 @@ The simulator plays a duel out at 30 ticks per second, in one dimension. Both ch
 
 Uncertain skillshots that decide a fight split it into weighted branches, using the model's estimated hit chances. Smaller hits and hits beyond the branch limit use expected effects. These are model probabilities, not observed player win rates.
 
-These 73 champions fight with their abilities (`kits/champions/`):
+These 76 champions fight with their abilities (`kits/champions/`):
 
 - wave 1: Aatrox, Camille, Darius, Dr. Mundo, Fiora, Garen, Gwen, Irelia, Jax, Malphite, Mordekaiser, Nasus, Olaf, Ornn, Poppy, Renekton, Riven, Sett, Shen, Teemo, Tryndamere, Urgot, Volibear, Yasuo and Yone;
 - wave 2: Akali, Ambessa, Aurora, Cho'Gath, Gangplank, Gnar, Heimerdinger, Illaoi, Jayce, Kayle, K'Sante, Kennen, Kled, Pantheon, Quinn, Rumble, Singed, Sion, Skarner, Tahm Kench, Trundle, Udyr, Yorick and Zaahen.
 - expansion batch 1: Amumu, Annie, Ashe, Brand, Leona, Lux, Master Yi, Morgana, Nautilus, Rammus, Vayne and Xin Zhao.
 - expansion batch 2: Ahri, Cassiopeia, Kassadin, Lissandra, Veigar and Vladimir.
 - expansion batch 3: Anivia, Karthus, Malzahar, Vel'Koz, Ziggs and Zyra.
+- expansion batch 4: Gragas, Warwick and Wukong.
 
-Implemented coverage is 73 of 173 champions, leaving 100 to implement and covering 2,628 unordered simulated pairings. The generated [coverage report](data/16.20/reports/coverage.md) tracks the implementation queue. Coverage does not certify every mechanic; each kit retains its source evidence and assumptions. Source audits for these caster batches are recorded in [docs/next-wave](docs/next-wave/README.md).
+Implemented coverage is 76 of 173 champions, leaving 97 to implement and covering 2,850 unordered simulated pairings. The generated [coverage report](data/16.20/reports/coverage.md) tracks the implementation queue. Coverage does not certify every mechanic; each kit retains its source evidence and assumptions. Source audits for these caster batches are recorded in [docs/next-wave](docs/next-wave/README.md).
 
 Kit values come from the pinned sources; the kit page lists their revisions and the kit's assumptions. Some kits have a choice to make (Udyr's rank split, Heimerdinger's upgrade): both sides choose their best conservative variant across the opponent's choices, and `simulated.json` records the actual pairing. This does not establish a mixed-strategy equilibrium. The picker uses interaction estimates for other champions; a manual duel without their kit includes base stats and basic attacks only.
 
@@ -97,7 +98,7 @@ npm run golden       # every golden matchup (tests/golden/matchups.ts) with its 
 ```sh
 npm run fetch        # download the current patch's sources into data/raw/ (not committed)
 npm run fetch -- --only glossary   # refetch just the wiki's glossary pages
-npm run build:data   # rebuild data/<dataset>/ from those downloads, including all 2,628 supported pairings
+npm run build:data   # rebuild data/<dataset>/ from those downloads, including all 2,850 supported pairings
 ```
 
 Each patch gets a folder named after its Data Dragon version, e.g. `data/16.20/` for patch 26.20. It contains:
@@ -110,7 +111,7 @@ Each patch gets a folder named after its Data Dragon version, e.g. `data/16.20/`
 | `glossary.json` | The wiki's lists of abilities by mechanic (dashes, untargetability, spell shields, each crowd control type's sources, ...) and its crowd control rules |
 | `rules.json` | Game values the simulator reads from the wiki: the gold value of each stat, which prices the stat budget |
 | `profiles/<champion>.json` | What each ability does in a fight: how it's delivered, the crowd control it applies, how it moves, what it protects against; and basic attacks at level 20 |
-| `counters/<champion>.md` | Every champion ranked against this one: by simulated duels for the 73 champions with kits, and by interaction estimates, with the strongest reasons |
+| `counters/<champion>.md` | Every champion ranked against this one: by simulated duels for the 76 champions with kits, and by interaction estimates, with the strongest reasons |
 | `rankings.json` | The ledger rankings, machine-readable |
 | `simulated.json` | Every simulated matchup between champions with kits: the score and each scenario's, and the options played by kits with a choice |
 | `oracle/level20.json` | The wiki's level-20 stat table, which the tests check the stat math against |

@@ -17,6 +17,7 @@ import Darius from "./Darius";
 import DrMundo from "./DrMundo";
 import Fiora from "./Fiora";
 import Gangplank from "./Gangplank";
+import Gragas from "./Gragas";
 import Garen from "./Garen";
 import Gnar from "./Gnar";
 import Gwen from "./Gwen";
@@ -37,6 +38,7 @@ import Lux from "./Lux";
 import Malphite from "./Malphite";
 import Malzahar from "./Malzahar";
 import MasterYi from "./MasterYi";
+import MonkeyKing from "./MonkeyKing";
 import Mordekaiser from "./Mordekaiser";
 import Morgana from "./Morgana";
 import Nasus from "./Nasus";
@@ -66,6 +68,7 @@ import Veigar from "./Veigar";
 import Velkoz from "./Velkoz";
 import Vladimir from "./Vladimir";
 import Volibear from "./Volibear";
+import Warwick from "./Warwick";
 import XinZhao from "./XinZhao";
 import Yasuo from "./Yasuo";
 import Yone from "./Yone";
@@ -76,5 +79,5 @@ import Ziggs from "./Ziggs";
 import Zyra from "./Zyra";
 
 export const KITS: Readonly<Record<string, KitModule>> = Object.fromEntries(
-  [Aatrox, Ahri, Akali, Ambessa, Amumu, Anivia, Annie, Ashe, Aurora, Brand, Camille, Cassiopeia, Chogath, Darius, DrMundo, Fiora, Gangplank, Garen, Gnar, Gwen, Heimerdinger, Illaoi, Irelia, Jax, Jayce, Karthus, Kassadin, Kayle, KSante, Kennen, Kled, Leona, Lissandra, Lux, Malphite, Malzahar, MasterYi, Mordekaiser, Morgana, Nasus, Nautilus, Olaf, Ornn, Pantheon, Poppy, Quinn, Rammus, Renekton, Riven, Rumble, Sett, Shen, Singed, Sion, Skarner, TahmKench, Teemo, Trundle, Tryndamere, Udyr, Urgot, Vayne, Veigar, Velkoz, Vladimir, Volibear, XinZhao, Yasuo, Yone, Yorick, Zaahen, Ziggs, Zyra].map((kit) => [kit.champion, kit]),
+  [Aatrox, Ahri, Akali, Ambessa, Amumu, Anivia, Annie, Ashe, Aurora, Brand, Camille, Cassiopeia, Chogath, Darius, DrMundo, Fiora, Gangplank, Garen, Gnar, Gragas, Gwen, Heimerdinger, Illaoi, Irelia, Jax, Jayce, Karthus, Kassadin, Kayle, KSante, Kennen, Kled, Leona, Lissandra, Lux, Malphite, Malzahar, MasterYi, MonkeyKing, Mordekaiser, Morgana, Nasus, Nautilus, Olaf, Ornn, Pantheon, Poppy, Quinn, Rammus, Renekton, Riven, Rumble, Sett, Shen, Singed, Sion, Skarner, TahmKench, Teemo, Trundle, Tryndamere, Udyr, Urgot, Vayne, Veigar, Velkoz, Vladimir, Volibear, Warwick, XinZhao, Yasuo, Yone, Yorick, Zaahen, Ziggs, Zyra].map((kit) => [kit.champion, kit]),
 );

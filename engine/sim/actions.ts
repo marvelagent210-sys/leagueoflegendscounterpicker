@@ -331,7 +331,7 @@ export function abilityReach(ability: AbilitySpec, unit: Unit, enemy: Unit): num
     case "dash":
     case "blink":
       if (d.direction === "away" || d.hitRadius === undefined) return undefined;
-      return d.distance + d.hitRadius + (d.hitCentered ? 0 : radii);
+      return (d.kind === "dash" ? d.distanceFor?.(unit) ?? d.distance : d.distance) + d.hitRadius + (d.hitCentered ? 0 : radii);
     case "self":
       return ability.channel?.range !== undefined ? ability.channel.range + enemy.spec.base.radius : undefined;
   }
@@ -418,7 +418,7 @@ export function startCast(world: World, unit: Unit, ability: AbilitySpec, aim?: 
   const overlayDash = unit.action?.kind === "dash" && ability.overlay ? unit.action : undefined;
   const castTicks = toTicks(ability.castTimeFor?.(unit) ?? ability.castTime);
   if (unit.action?.kind === "windup") {
-    if (ability.preserveAttackWindup) {
+    if (ability.preserveAttackWindup === true || (ability.preserveAttackWindup === "uncancellable" && unit.action.uncancellable)) {
       if (castTicks > 0 || ability.delivery.kind === "dash" || (ability.channel && !ability.channel.manualStart)) {
         unit.pendingAttack = unit.action;
         unit.action = undefined;
@@ -760,8 +760,9 @@ function completeOneCast(world: World, unit: Unit, ability: AbilitySpec, castSta
       const edge = delivery.centered ? 0 : enemy.spec.base.radius;
       // The enemy can react only once it can see where it lands.
       const seen = castStartTick + toTicks(delivery.hidden ?? 0);
-      const travel = delivery.speed ? Math.abs(x - unit.x) / delivery.speed : 0;
-      const flight = delivery.speed !== undefined && travel > 0;
+      const span = Math.abs(x - unit.x);
+      const travel = span <= 0 ? 0 : delivery.flight ?? (delivery.speed ? span / delivery.speed : 0);
+      const flight = (delivery.speed !== undefined || delivery.flight !== undefined) && travel > 0;
       const decision =
         reach + edge > EPSILON ? resolveSkillshot(world, unit, enemy, ability, seen, travel + delivery.delay, reach - enemy.spec.base.radius + edge) : { connects: false, scale: 1 };
       const zone = {
@@ -782,7 +783,7 @@ function completeOneCast(world: World, unit: Unit, ability: AbilitySpec, castSta
       world.zones.push(zone);
       if (flight) {
         world.missiles.push({
-          ...missile(world, unit, enemy, ability, castStartTick, delivery.speed!, false, Math.abs(x - unit.x), false, 1),
+          ...missile(world, unit, enemy, ability, castStartTick, delivery.flight !== undefined ? span / delivery.flight : delivery.speed!, false, span, false, 1),
           landingZone: { id: zone.id, delayTicks: toTicks(delivery.delay) },
         });
       }
@@ -794,7 +795,8 @@ function completeOneCast(world: World, unit: Unit, ability: AbilitySpec, castSta
       const aimed = aim !== undefined && delivery.minDistance !== undefined;
       const away = aimed ? aim.direction < 0 : delivery.direction === "away";
       const dir = away ? -directionTo(unit, enemy) : directionTo(unit, enemy);
-      const distance = aimed ? Math.min(delivery.distance, Math.max(delivery.minDistance ?? 0, aim.distance ?? delivery.distance)) : delivery.distance;
+      const full = delivery.distanceFor?.(unit) ?? delivery.distance;
+      const distance = aimed ? Math.min(full, Math.max(delivery.minDistance ?? 0, aim.distance ?? full)) : full;
       const speed = delivery.speedFor?.(unit) ?? delivery.speed;
       // A charge starts at the caster's movement speed and speeds up (Unstoppable Onslaught).
       const ramp = delivery.ramp

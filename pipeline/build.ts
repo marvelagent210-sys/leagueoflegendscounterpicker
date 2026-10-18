@@ -27,6 +27,7 @@ import { buildAbilityRecords } from "./abilities/build";
 import { championIdResolver, championLookup } from "./abilities/championLookup";
 import { currentAbilities } from "./abilities/current";
 import { measureCoverage } from "./abilities/coverage";
+import { attachEvidence, excerptCharacters } from "./abilities/evidence";
 import { checkValues, type LevelLink, linkLevelSeries, type ValueCheck } from "./abilities/crossCheck";
 import { readGameAbilities } from "./abilities/gameSpells";
 import { reconcileWithGameFiles } from "./gameFiles";
@@ -109,6 +110,17 @@ async function main(): Promise<void> {
   const checks: ValueCheck[] = [];
   const links: LevelLink[] = [];
   const gameData = new Map<string, KitGameData>();
+  // Curated evidence the templates leave out (pipeline/abilities/evidence.ts): game-file excerpts and dropped wiki notes.
+  const evidenceBins = new Map<string, string>();
+  for (const character of excerptCharacters()) {
+    const file = path.join(raw, "cdragon", "bins", `${character}.bin.json`);
+    evidenceBins.set(character, await readText(file).catch(() => {
+      throw new Error(`Missing the game file of ${character} (${file}); run npm run fetch`);
+    }));
+  }
+  const wikitext = new Map(pages.map((page) => [page.title, page.content]));
+  const glossaryPages = await readJson<WikiPage[]>(path.join(raw, "wiki", "glossary.json"));
+  const revisions = new Map([...pages, ...glossaryPages].map((page) => [page.title, page.revid]));
   for (const champion of champions) {
     const records = abilities.records.filter((record) => record.champion === champion.id);
     const game = readGameAbilities(await readJson<unknown>(path.join(raw, "cdragon", "bins", `${champion.id}.bin.json`)));
@@ -118,6 +130,7 @@ async function main(): Promise<void> {
     const championChecks = checkValues(records, game, client.spells.map((spell) => spell.name));
     // Extends level-based values to levels 19-20 in place, before the records are written.
     const championLinks = linkLevelSeries(records, game);
+    attachEvidence(records, champion.id, { bin: (character) => evidenceBins.get(character), wikitext: (title) => wikitext.get(title), revision: (title) => revisions.get(title), version: manifest.cdragon.version, dataset });
     checks.push(...championChecks);
     links.push(...championLinks);
     await writeJson(path.join(out, "abilities", `${champion.id}.json`), records);
@@ -145,7 +158,6 @@ async function main(): Promise<void> {
   const runes = parseRunes(runePages, petLookup);
   await writeJson(path.join(out, "runes.json"), runes);
   log(`Runes: ${runes.map((rune) => `${rune.name} (${rune.items.length} items)`).join(", ")}`);
-  const glossaryPages = await readJson<WikiPage[]>(path.join(raw, "wiki", "glossary.json"));
   const glossary = buildGlossary(glossaryPages, pages, abilities.records);
   await writeJson(path.join(out, "glossary.json"), glossary);
   const goldValues = glossaryPages.find((page) => page.title === GOLD_VALUE_PAGE);

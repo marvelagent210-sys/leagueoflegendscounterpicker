@@ -176,6 +176,16 @@ export class AbilityData {
     return this.at20(values[0]?.series, name);
   }
 
+  /** The full label of a field's value picked by `label` (by substring), recorded as evidence: numbers the wiki writes only there ("in the last 2.5 seconds"). */
+  fieldLabel(name: NumberField, label: string): string {
+    const field = this.record.fields[name];
+    if (!field || typeof field !== "object") this.fail(`no ${name} field`);
+    const value = field.values.find((v) => v.label?.toLowerCase().includes(label.toLowerCase()));
+    if (!value?.label) this.fail(`no ${name} value labeled "${label}" in "${field.text}"`);
+    this.note(`${name} label: ${value.label}`);
+    return value.label;
+  }
+
   /** Every number written in a field's text, for fields the parser keeps only part of ("50 - 400"). */
   fieldNumbers(name: NumberField): number[] {
     const field = this.record.fields[name];
