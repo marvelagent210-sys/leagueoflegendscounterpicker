@@ -17,16 +17,16 @@
  * (state.ts).
  */
 import { type CCType, IMMOBILIZING } from "../rules/crowdControl";
-import { effectiveResist, resistMultiplier } from "../rules/damage";
-import { averageCritFactor } from "../rules/defense";
+import { effectiveResist, mitigate } from "../rules/damage";
+import { absorbWithShields, averageCritFactor, type Shield } from "../rules/defense";
 import { toTicks } from "../rules/time";
-import { EPSILON, attackRange, attackTiming, canCast, canStartAttack, canStartAttackOnPet, empowerStatus, heldInPlace, heldUntil, inAttackRange, inReach, targetRange } from "./actions";
+import { EPSILON, attackRange, attackTiming, canCast, canStartAttack, canStartAttackOnPet, empowerStatus, heldInPlace, heldUntil, inAttackRange, inReach, missileArrivalTicks, targetRange } from "./actions";
 import { canTarget, edgeDistance, isUntargetable } from "./combat";
 import { canAttack, canMove, ccTypes, derive, evaluate } from "./derived";
 import { abilityOf } from "./forms";
 import { hitChance } from "./hitModel";
-import type { AbilitySpec, Effect, Formula, StateType } from "./spec";
-import { type Aim, type Mode, type Pet, type Side, type Unit, type World, other } from "./state";
+import type { AbilitySpec, AttackSplit, Effect, Formula, StateType } from "./spec";
+import { type Aim, type AttackHitOptions, type Mode, type Pet, type Side, type Unit, type World, other } from "./state";
 
 export type Command =
   /** A basic attack on the enemy champion, or on a pet (by id). */
@@ -183,10 +183,15 @@ function reactive(ability: AbilitySpec, traits: Traits): boolean {
 // ---------------------------------------------------------------------------------------
 // Perception
 
-function damageOf(effects: Effect[], caster: Unit, target: Unit, scale = 1): number {
+function damageOf(effects: Effect[], caster: Unit, target: Unit, scale = 1, attackCritChance?: number): number {
   let total = 0;
   for (const e of effects) {
-    if (e.type === "damage") total += evaluate(e.amount, caster, target);
+    if (e.type === "damage") {
+      const raw = Math.max(e.amountFor?.(caster, target) ?? evaluate(e.amount, caster, target), e.minimum ? evaluate(e.minimum, caster, target) : 0);
+      // Attack snapshots also govern their critical on-hits. Ability forecasts retain
+      // their existing estimates; only attackThreat supplies a critical chance here.
+      total += raw * (e.canCrit && attackCritChance !== undefined ? averageCritFactor(attackCritChance, e.critMultiplier ?? derive(caster).critDamage) : 1);
+    }
     else if (e.type === "dot") total += evaluate(e.total, caster, target);
   }
   return total * scale;
@@ -201,7 +206,7 @@ function abilityThreat(ability: AbilitySpec, eta: number, caster: Unit, target: 
     eta,
     ...(id !== undefined ? { id } : {}),
     targeted: d.kind === "target",
-    projectile: (d.kind === "target" && d.missileSpeed !== undefined) || (d.kind === "line" && d.speed !== undefined) ? (ability.flags?.projectile ?? true) : false,
+    projectile: (d.kind === "target" && d.missileSpeed !== undefined) || ((d.kind === "line" || d.kind === "circle") && d.speed !== undefined) ? (ability.flags?.projectile ?? true) : false,
     skillshot: d.kind === "line" || d.kind === "circle",
     attackLike: ability.flags?.parry === true,
     spellShieldable: ability.flags?.spellShield !== false,
@@ -211,8 +216,11 @@ function abilityThreat(ability: AbilitySpec, eta: number, caster: Unit, target: 
   };
 }
 
-function attackThreat(attacker: Unit, target: Unit, eta: number, bonusOnHit: Effect[], id?: number): Threat {
+function attackThreat(attacker: Unit, target: Unit, eta: number, bonusOnHit: Effect[], id?: number, snapshot: AttackHitOptions & { split?: AttackSplit } = {}): Threat {
   const d = derive(attacker);
+  const chance = snapshot.critChance ?? d.critChance;
+  const split = snapshot.split;
+  const attackShare = split ? Math.max(0, split.physical) + Math.max(0, split.magic) + Math.max(0, split.true ?? 0) : 1;
   const effects = [...(attacker.spec.attack.onHit ?? []), ...bonusOnHit];
   return {
     source: "attack",
@@ -222,17 +230,17 @@ function attackThreat(attacker: Unit, target: Unit, eta: number, bonusOnHit: Eff
     projectile: attacker.spec.attack.projectile && Boolean(attacker.spec.attack.missileSpeed),
     skillshot: false,
     attackLike: true,
-    spellShieldable: false,
+    spellShieldable: snapshot.spellShield === true,
     immobilizes: effects.some(immobilizing),
     cc: effects.some((e) => e.type === "cc" || e.type === "displace"),
-    damage: d.ad * averageCritFactor(d.critChance, d.critDamage) + damageOf(effects, attacker, target),
+    damage: d.ad * averageCritFactor(chance, d.critDamage) * attackShare + damageOf(effects, attacker, target, 1, chance),
   };
 }
 
 /** Ticks a missile fired now from `from` takes to reach `to`'s hitbox. */
 function travelTicks(from: Unit, to: Unit, speed: number | undefined): number {
   if (!speed) return 0;
-  return Math.ceil(Math.max(0, Math.abs(to.x - from.x) - to.spec.base.radius) / (speed / 30));
+  return Math.max(0, Math.ceil(Math.max(0, Math.abs(to.x - from.x) - to.spec.base.radius) / (speed / 30) - EPSILON));
 }
 
 /** Threats the unit has had time to notice. */
@@ -268,13 +276,16 @@ export function threatsTo(world: World, side: Side): Threat[] {
   const threats: Threat[] = [];
   // A cast held under an overlay dash still lands when the dash ends.
   const held = enemy.action?.kind === "dash" ? enemy.action.resume : undefined;
-  for (const action of [enemy.action, held]) {
+  for (const action of new Set([enemy.action, held, enemy.pendingAttack])) {
     if (!action || action.startTick > seenBy) continue;
     const ability = "ability" in action ? abilityOf(enemy, action.ability) : undefined;
     const now = world.tick;
     if (action.kind === "windup") {
-      threats.push(attackThreat(enemy, self, action.launchTick - now + travelTicks(enemy, self, enemy.spec.attack.missileSpeed), action.onHit));
+      if (action.pet !== undefined) continue;
+      threats.push(attackThreat(enemy, self, action.launchTick - now + travelTicks(enemy, self, enemy.spec.attack.missileSpeed), action.onHit, undefined, action));
     } else if (action.kind === "cast" && ability) {
+      if (enemy.memory[`failedCast:${ability.key}`]) continue;
+      if (ability.deliveryAtCastStart) continue;
       const d = ability.delivery;
       // Where it lands can't be seen yet (Abyssal Dive's indicator).
       if (d.kind === "circle" && d.hidden !== undefined && action.startTick + toTicks(d.hidden) > seenBy) continue;
@@ -284,17 +295,25 @@ export function threatsTo(world: World, side: Side): Threat[] {
           : d.kind === "target"
             ? travelTicks(enemy, self, d.missileSpeed)
             : d.kind === "circle" || d.kind === "area"
-              ? toTicks(d.delay)
+              ? toTicks(d.delay) + (d.kind === "circle" && d.speed ? toTicks(Math.min(Math.abs(enemy.x - self.x), d.range) / d.speed) : 0)
               : d.kind === "dash"
                 ? d.time !== undefined
                   ? toTicks(d.time)
-                  : Math.ceil(d.distance / (d.speed / 30))
+                  : Math.ceil(d.distance / ((d.speedFor?.(enemy) ?? d.speed) / 30))
                 : 0;
       const threat = abilityThreat(ability, Math.max(action.endTick - now, 0) + travel, enemy, self, ability.onHit ?? [], undefined, 1, true);
       if (d.kind === "dash" && d.direction !== "away") threat.dash = true;
       // Where the area will land, as far as can be told now.
-      if (d.kind === "area") threat.area = areaOnLine(enemy.x, self.x, d.near, d.far, d.bands, enemy, self, d.centered);
-      threats.push(threat);
+      if (d.kind === "area") {
+        const toward = ability.castDirection === "start" ? enemy.x + Number(enemy.memory[`castDirection:${ability.key}`] ?? (self.x >= enemy.x ? 1 : -1)) : self.x;
+        threat.area = areaOnLine(enemy.x, toward, d.near, d.far, d.bands, enemy, self, d.centered);
+      }
+      if ((ability.onHit?.length ?? 0) > 0 || ability.estimate || !ability.channel?.onComplete?.length) threats.push(threat);
+      // A cast that begins a channel announces its final packet now. Its damage is
+      // still due after the channel, independently of any initial on-hit packet.
+      if (ability.channel?.onComplete?.length) {
+        threats.push(abilityThreat(ability, Math.max(action.endTick - now, 0) + toTicks(ability.channel.duration), enemy, self, ability.channel.onComplete));
+      }
     } else if (action.kind === "channel" && ability?.channel) {
       if (ability.channel.onTick && action.nextTick < action.endTick) threats.push(abilityThreat(ability, action.nextTick - now, enemy, self, ability.channel.onTick));
       if (ability.channel.onComplete) threats.push(abilityThreat(ability, action.endTick - now, enemy, self, ability.channel.onComplete));
@@ -303,15 +322,15 @@ export function threatsTo(world: World, side: Side): Threat[] {
     }
   }
   // An enemy attacking on its rhythm: its next attack can be seen coming, even when windups are quicker than reactions.
-  if (!threats.some((t) => t.source === "attack") && enemy.alive && !enemy.action && canAttack(enemy) && inAttackRange(enemy, self)) {
+  if (!threats.some((t) => t.source === "attack") && enemy.alive && !enemy.action && !enemy.pendingAttack && canAttack(enemy) && inAttackRange(enemy, self)) {
     const windup = attackTiming(enemy).windup;
     const eta = Math.max(0, enemy.attackReadyTick - world.tick) + windup + travelTicks(enemy, self, enemy.spec.attack.missileSpeed);
     threats.push({ ...attackThreat(enemy, self, eta, []), predicted: true });
   }
   for (const m of world.missiles) {
-    if (m.owner !== enemy.side || m.seenTick > seenBy || !m.connects) continue;
-    const eta = Math.ceil(Math.max(0, Math.abs(self.x - m.x) - self.spec.base.radius) / m.perTick);
-    if (m.attack) threats.push({ ...attackThreat(enemy, self, eta, m.attack.bonusOnHit, m.id), projectile: m.projectile });
+    if (m.owner !== enemy.side || m.pet !== undefined || m.seenTick > seenBy || !m.connects) continue;
+    const eta = missileArrivalTicks(m, Math.max(0, Math.abs(self.x - m.x) - self.spec.base.radius));
+    if (m.attack) threats.push({ ...attackThreat(enemy, self, eta, m.attack.bonusOnHit, m.id, m.attack), projectile: m.projectile });
     else {
       const ability = abilityOf(enemy, m.source);
       if (ability) threats.push({ ...abilityThreat(ability, eta, enemy, self, m.onHit, m.id, m.scale, true), projectile: m.projectile });
@@ -321,7 +340,10 @@ export function threatsTo(world: World, side: Side): Threat[] {
     if (z.owner !== enemy.side || z.kind !== "delayedArea" || z.seenTick > seenBy || !z.connects) continue;
     const ability = abilityOf(enemy, z.ability);
     if (!ability) continue;
-    const threat = abilityThreat(ability, z.endTick - world.tick, enemy, self, z.onHit ?? [], z.id, z.scale ?? 1, true);
+    const flight = world.missiles.find((missile) => missile.landingZone?.id === z.id);
+    const eta = flight ? missileArrivalTicks(flight, flight.travelLeft) + (flight.landingZone?.delayTicks ?? 0) : z.endTick - world.tick;
+    const threat = abilityThreat(ability, eta, enemy, self, z.onHit ?? [], z.id, z.scale ?? 1, true);
+    if (flight) threat.projectile = flight.projectile;
     if (ability.delivery.kind === "area") {
       // Where it will land: areas that follow their caster are where it is now.
       if (z.follow) threat.area = areaOnLine(enemy.x, self.x, z.follow.near, z.follow.far, z.follow.bands, enemy, self, z.centered);
@@ -343,25 +365,37 @@ export function perceive(world: World, side: Side): View {
 }
 
 /** Damage after the target's resistances and the caster's penetration, for deciding whether a hit kills. */
-export function expectedDamage(effects: Effect[], caster: Unit, target: Unit): number {
+export function expectedDamage(effects: Effect[], caster: Unit, target: Unit, afterShields = false): number {
   const c = derive(caster);
   const t = derive(target);
-  const multiplier = {
-    physical: resistMultiplier(effectiveResist(t.armor, t.armorReduction, { flat: c.lethality })),
-    magic: resistMultiplier(effectiveResist(t.mr, t.mrReduction, { flat: c.magicPen })),
-    true: 1,
+  const resistance = {
+    physical: effectiveResist(t.armor, t.armorReduction, { flat: c.lethality, percent: c.armorPen, bonusPercent: c.bonusArmorPen }),
+    magic: effectiveResist(t.mr, t.mrReduction, { flat: c.magicPen, percent: c.magicPenPercent }),
+    true: 0,
   };
-  const reduction = t.damageReduction.reduce((product, r) => product * (1 - r), 1);
+  const criticalArmor = c.criticalBonusArmorIgnore > 0
+    ? effectiveResist(t.armor, t.armorReduction, { flat: c.lethality, percent: c.armorPen, bonusPercent: c.bonusArmorPen, bonusIgnoreAdditive: c.criticalBonusArmorIgnore })
+    : resistance.physical;
+  // Copies only: estimating a finisher must never spend the real shields.
+  const shields: Shield[] = afterShields ? target.statuses.filter((s) => s.kind === "shield").map((s) => ({ amount: s.value, type: s.shieldType ?? "normal", endTick: s.endTick, ...(s.priority ? { priority: true } : {}) })) : [];
   let total = 0;
   for (const e of effects) {
-    if (e.type === "damage") total += evaluate(e.amount, caster, target) * multiplier[e.damageType] * reduction;
-    else if (e.type === "dot") total += evaluate(e.total, caster, target) * multiplier[e.damageType] * reduction;
+    if (e.type !== "damage" && e.type !== "dot") continue;
+    let raw = e.type === "damage" ? e.amountFor?.(caster, target) ?? evaluate(e.amount, caster, target) : evaluate(e.total, caster, target);
+    if (e.type === "damage") {
+      if (e.minimum) raw = Math.max(raw, evaluate(e.minimum, caster, target));
+    }
+    const typed = e.damageType === "physical" ? t.physicalReduction : e.damageType === "magic" ? t.magicReduction : [];
+    const modifiers = { dealt: c.damageDealt, received: [...t.damageReduction, ...typed] };
+    const critical = e.type === "damage" && e.canCrit;
+    const multiplier = e.type === "damage" ? e.critMultiplier ?? c.critDamage : 1;
+    const chance = Math.min(1, Math.max(0, c.critChance));
+    const amount = critical && e.damageType === "physical" && criticalArmor !== resistance.physical
+      ? (1 - chance) * mitigate(raw, e.damageType, resistance.physical, modifiers) + chance * mitigate(raw * multiplier, e.damageType, criticalArmor, modifiers)
+      : mitigate(raw * (critical ? averageCritFactor(chance, multiplier) : 1), e.damageType, resistance[e.damageType], modifiers);
+    total += afterShields ? absorbWithShields(amount, e.damageType, shields) : amount;
   }
   return total;
-}
-
-function shieldsOf(unit: Unit): number {
-  return unit.statuses.filter((s) => s.kind === "shield").reduce((sum, s) => sum + s.value, 0);
 }
 
 // ---------------------------------------------------------------------------------------
@@ -376,9 +410,9 @@ function answers(view: View, state: StateType, t: Threat): boolean {
   if (t.predicted && state !== "dodgeAttacks" && state !== "blockAttacks") return false;
   switch (state) {
     case "spellShield":
-      return t.ability !== undefined && t.spellShieldable && big(view, t);
+      return t.spellShieldable && big(view, t);
     case "parry":
-      return t.ability !== undefined ? big(view, t) : t.damage >= view.self.hp;
+      return t.ability !== undefined ? big(view, t) : t.immobilizes || t.damage >= view.self.hp;
     case "untargetable":
     case "invulnerable":
     case "stasis":
@@ -472,7 +506,7 @@ export function react(view: View): Command | undefined {
     const traits = traitsOf(ability);
     // A minimum health threshold also goes up when health runs low under steady damage.
     if (low && traits.defenses.has("minimumHealth")) return { kind: "cast", ability: ability.key };
-    const activation = traits.defensesAtStart ? 0 : toTicks(ability.castTime);
+    const activation = traits.defensesAtStart ? 0 : toTicks(ability.castTimeFor?.(self) ?? ability.castTime);
     // It must be up before the threat lands and still up when it does.
     const inWindow = (t: Threat, duration: number) => t.eta > activation && t.eta < activation + duration;
     if (traits.cleanse && disabledFor(self, world.tick) >= 15) return { kind: "cast", ability: ability.key };
@@ -508,8 +542,8 @@ function worthThrowing(view: View, ability: AbilitySpec): boolean {
   const { world, self, enemy } = view;
   const d = ability.delivery;
   if (d.kind !== "line" && d.kind !== "circle") return true;
-  const travel = d.kind === "line" ? travelTicks(self, enemy, d.speed) / 30 : d.delay;
-  const timeToLand = ability.castTime + travel;
+  const travel = d.kind === "line" ? travelTicks(self, enemy, d.speed) / 30 : d.delay + (d.speed ? Math.min(Math.abs(self.x - enemy.x), d.range) / d.speed : 0);
+  const timeToLand = (ability.deliveryAtCastStart ? 0 : (ability.castTimeFor?.(self) ?? ability.castTime)) + travel;
   const chance = hitChance(
     { timeToLand, reach: d.kind === "line" ? d.width / 2 : d.radius },
     { radius: enemy.spec.base.radius, moveSpeed: derive(enemy).moveSpeed, heldInPlace: heldInPlace(enemy, world.tick + toTicks(timeToLand)), heldFor: Math.max(0, heldUntil(enemy) - world.tick) / 30, hasEscape: false },
@@ -541,8 +575,8 @@ function wasted(view: View, ability: AbilitySpec): boolean {
   const d = ability.delivery;
   if (d.kind === "self" || ((d.kind === "dash" || d.kind === "blink") && d.hitRadius === undefined)) return false;
   const travel =
-    d.kind === "line" ? travelTicks(self, enemy, d.speed) : d.kind === "target" ? travelTicks(self, enemy, d.missileSpeed) : d.kind === "circle" || d.kind === "area" ? toTicks(d.delay) : 0;
-  const lands = world.tick + toTicks(ability.castTime) + travel;
+    d.kind === "line" ? travelTicks(self, enemy, d.speed) : d.kind === "target" ? travelTicks(self, enemy, d.missileSpeed) : d.kind === "circle" || d.kind === "area" ? toTicks(d.delay) + (d.kind === "circle" && d.speed ? toTicks(Math.min(Math.abs(self.x - enemy.x), d.range) / d.speed) : 0) : 0;
+  const lands = world.tick + (ability.deliveryAtCastStart ? 0 : toTicks(ability.castTimeFor?.(self) ?? ability.castTime)) + travel;
   return enemy.statuses.some((s) => s.endTick > lands && (s.key === "stasis" || (s.kind === "state" && (s.key === "untargetable" || s.key === "invulnerable"))));
 }
 
@@ -574,8 +608,8 @@ function offense(view: View, options: OffenseOptions): Command | undefined {
       Math.abs(self.x - enemy.x) <= targetRange(d, self, enemy) + FINISH_STEP * derive(self).moveSpeed;
     if (!ready && !step) continue;
     const kills = threshold
-      ? enemy.hp <= evaluate(threshold, self, enemy) + damageOf(ability.onHit ?? [], self, enemy) * 0.5
-      : expectedDamage(enemyEffects(ability), self, enemy) >= enemy.hp + shieldsOf(enemy);
+      ? enemy.hp <= evaluate(threshold, self, enemy) + expectedDamage(ability.onHit ?? [], self, enemy, true)
+      : expectedDamage(enemyEffects(ability), self, enemy, true) >= enemy.hp;
     if (!kills) continue;
     if (ready) return { kind: "cast", ability: ability.key };
     closeIn = true;
@@ -651,7 +685,7 @@ function escapeDuringWindup(view: View): number {
 /** Whether an enemy walking away would leave attack range before the windup ends (cancelling it). */
 function outrunsWindup(view: View): boolean {
   const gap = escapeDuringWindup(view);
-  return gap > 0 && view.distance + gap > attackRange(view.self);
+  return gap > 0 && view.distance + gap > attackRange(view.self) + EPSILON;
 }
 
 /** Walking: melee stay on the enemy; units that out-range it step back between attacks. */
@@ -661,9 +695,9 @@ function spacing(view: View, kite: boolean): Command {
   // An enemy only targetable from up close (Hallowed Mist): go in.
   if (isUntargetable(enemy, self) && !isUntargetable(enemy)) return { kind: "move", direction: 1 };
   // Chasing: get close enough that the next windup completes before the enemy walks out of range.
-  if (view.distance > range || (!kite && outrunsWindup(view))) return { kind: "move", direction: 1 };
+  if (view.distance > range + EPSILON || (!kite && outrunsWindup(view))) return { kind: "move", direction: 1 };
   const outranges = range > attackRange(enemy) + 50;
-  if ((kite || outranges) && self.attackReadyTick > world.tick + 1 && view.distance < range - 25) return { kind: "move", direction: -1 };
+  if ((kite || outranges) && self.attackReadyTick > world.tick + 1 && view.distance < range - 25 - EPSILON) return { kind: "move", direction: -1 };
   return { kind: "move", direction: 0 };
 }
 
@@ -692,7 +726,7 @@ function trade(view: View): Command | undefined {
       return a.slot !== "R" && (traits.damage || traits.cc) && !reactive(a, traits) && canCast(world, self, a);
     });
     // One attack after the burst, then out.
-    const attacked = self.attackReadyTick > world.tick && self.action?.kind !== "windup";
+    const attacked = self.attackReadyTick > world.tick && self.action?.kind !== "windup" && !self.pendingAttack;
     if (timeUp || (!burstLeft && attacked)) memory.tradeDone = true;
   }
   if (memory.tradeDone) return { kind: "move", direction: -1 };
@@ -703,6 +737,9 @@ export const defaultBehavior: Behavior = (view) => {
   const { self, mode } = view;
   if (mode === "idle" || !self.alive) return undefined;
   const action = self.action;
+  // canCast admits only the explicit overlays that may defend during another action.
+  const reaction = react(view);
+  if (reaction) return reaction;
   if (action && action.kind !== "windup") {
     // Busy: only walking, during casts and channels that allow it.
     const ability = "ability" in action ? abilityOf(self, action.ability) : undefined;
@@ -710,8 +747,6 @@ export const defaultBehavior: Behavior = (view) => {
     if (!walks) return undefined;
     return { kind: "move", direction: mode === "flee" || self.memory.tradeDone ? -1 : 1 };
   }
-  const reaction = react(view);
-  if (reaction) return reaction;
   if (action?.kind === "windup") return undefined;
   if (ccTypes(self).size > 0 && !canAct(self)) return undefined;
   switch (mode) {

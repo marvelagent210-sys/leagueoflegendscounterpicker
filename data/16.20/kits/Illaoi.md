@@ -270,7 +270,7 @@ All 5 level-based formulas in the game files (2 linked to wiki values above):
 
 ## Duel simulator kit (level 20, every ability at max rank)
 
-What the duel simulator fights with (`kits/champions/Illaoi.ts`): every number is read from the wiki's ability data above at level 20; what the wiki doesn't say is listed under assumptions. Ratios are fractions of the stat (60% AD is 0.6 × AD).
+What the duel simulator fights with (`kits/champions/Illaoi.ts`): values come from pinned wiki and versioned game-data records at level 20. Interpretations and missing evidence are listed under assumptions. Ratios are fractions of the stat (60% AD is 0.6 × AD).
 
 - Basic attack: range 125, melee.
 
@@ -300,9 +300,9 @@ Effects marked by a mark or a role are completed by the kit's hooks (see the kit
 - The enemy attacks a Tentacle before Illaoi when it can reach one awake and the Tentacle could slam it.
 - Illaoi casts Harsh Lesson to leap at an enemy just out of her reach, and between attacks otherwise.
 
-### Wiki values read (61)
+### Source values read (61)
 
-| Ability | Value | Revision |
+| Ability | Value | Source version |
 |---|---|---|
 | Tentacle | hp: 2 | [4065518](https://wiki.leagueoflegends.com/en-us/Illaoi?oldid=4065518) |
 | Tentacle | 1 from champion basic attacks | [4065518](https://wiki.leagueoflegends.com/en-us/Illaoi?oldid=4065518) |

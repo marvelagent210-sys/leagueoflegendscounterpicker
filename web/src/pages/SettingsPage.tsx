@@ -29,8 +29,8 @@ export function SettingsPage({ data }: { data: AppData }) {
         <p className="eyebrow">Settings</p>
         <h2>How the duels are played</h2>
         <p className="note">
-          The rankings use these defaults. Change one and the duels against the enemy you pick run again in your browser, which takes a few seconds; the scenario weights
-          only reweigh the results. Settings stay in this browser.
+          The rankings use these defaults. Change a setting and the duels against the enemy you pick run again in your browser. Scenario weights also affect which kit
+          variants a champion chooses. Settings stay in this browser.
         </p>
         <div>
           <button type="button" className="button" onClick={() => setSettings(DEFAULT_APP_SETTINGS)}>

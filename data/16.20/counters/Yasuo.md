@@ -1,61 +1,85 @@
 # Counters to Yasuo (patch 26.20)
 
-## Simulated duels (full confidence)
+## Simulated duels
 
-The duel simulator played each of the 48 other champions with a simulator kit against Yasuo: both at level 20 with 15,000 gold of plain stats, each side's spent against the other's, through six scenarios (PLAN.md §6). Scores run from −1 (Yasuo wins every time) to +1 (the champion does). Run `npm run duel -- <champion> Yasuo --log brawl` to watch a fight.
+The duel simulator played each of the 72 other champions with a simulator kit against Yasuo: both at level 20 with 15,000 gold of plain stats, each side's spent against the other's, through six scenarios (PLAN.md §6). Scores run from −1 (Yasuo wins every time) to +1 (the champion does). Run `npm run duel -- <champion> Yasuo --log brawl` to watch a fight.
 
 | # | Champion | Score | You engage | Enemy engages | Brawl | Short trade | Spacing | Escape |
 |--:|---|--:|--:|--:|--:|--:|--:|--:|
-| 1 | Kayle | +0.83 | +1.00 | +0.76 | +1.00 | +0.63 | +1.00 | +0.00 |
-| 2 | Teemo | +0.83 | +1.00 | +1.00 | +1.00 | +0.21 | +1.00 | +0.00 |
-| 3 | K'Sante | +0.81 | +1.00 | +1.00 | +1.00 | +0.06 | +1.00 | +0.00 |
-| 4 | Aurora | +0.81 | +1.00 | +1.00 | +1.00 | +0.04 | +1.00 | +0.00 |
-| 5 | Quinn | +0.80 | +1.00 | +1.00 | +0.85 | +0.21 | +1.00 | +0.00 |
-| 6 | Poppy | +0.80 | +1.00 | +1.00 | +1.00 | +0.13 | – | +0.00 |
-| 7 | Garen | +0.80 | +1.00 | +1.00 | +1.00 | +0.11 | – | +0.00 |
-| 8 | Illaoi | +0.80 | +1.00 | +1.00 | +1.00 | +0.11 | – | +0.00 |
-| 9 | Fiora | +0.80 | +1.00 | +1.00 | +1.00 | +0.11 | – | +0.00 |
-| 10 | Yorick | +0.79 | +1.00 | +1.00 | +1.00 | +0.07 | – | +0.00 |
-| 11 | Udyr | +0.79 | +1.00 | +1.00 | +1.00 | +0.06 | – | +0.00 |
-| 12 | Camille | +0.79 | +1.00 | +1.00 | +1.00 | +0.05 | – | +0.00 |
-| 13 | Nasus | +0.78 | +1.00 | +1.00 | +1.00 | +0.03 | – | +0.00 |
-| 14 | Malphite | +0.78 | +1.00 | +1.00 | +1.00 | +0.02 | – | +0.00 |
-| 15 | Cho'Gath | +0.78 | +1.00 | +1.00 | +1.00 | +0.01 | – | +0.00 |
-| 16 | Riven | +0.77 | +1.00 | +1.00 | +1.00 | −0.03 | – | +0.00 |
-| 17 | Jax | +0.77 | +1.00 | +1.00 | +1.00 | −0.03 | – | +0.00 |
-| 18 | Mordekaiser | +0.77 | +1.00 | +1.00 | +1.00 | −0.04 | – | +0.00 |
-| 19 | Renekton | +0.77 | +1.00 | +1.00 | +1.00 | −0.05 | – | +0.00 |
-| 20 | Tahm Kench | +0.77 | +1.00 | +1.00 | +1.00 | −0.07 | – | +0.00 |
-| 21 | Darius | +0.76 | +1.00 | +1.00 | +1.00 | −0.08 | – | +0.00 |
-| 22 | Kled | +0.76 | +1.00 | +1.00 | +1.00 | −0.09 | – | +0.00 |
-| 23 | Aatrox | +0.76 | +1.00 | +1.00 | +1.00 | −0.09 | – | +0.00 |
-| 24 | Trundle | +0.76 | +1.00 | +1.00 | +1.00 | −0.10 | – | +0.00 |
-| 25 | Zaahen | +0.76 | +1.00 | +1.00 | +1.00 | −0.11 | – | +0.00 |
-| 26 | Tryndamere | +0.76 | +1.00 | +1.00 | +1.00 | −0.11 | – | +0.00 |
-| 27 | Dr. Mundo | +0.76 | +1.00 | +1.00 | +1.00 | −0.13 | – | +0.00 |
-| 28 | Volibear | +0.76 | +1.00 | +1.00 | +1.00 | −0.13 | – | +0.00 |
-| 29 | Olaf | +0.75 | +1.00 | +1.00 | +1.00 | −0.17 | – | +0.00 |
-| 30 | Kennen | +0.74 | +1.00 | +1.00 | +1.00 | −0.08 | +0.50 | +0.00 |
-| 31 | Heimerdinger | +0.60 | +0.43 | +0.77 | +1.00 | +0.08 | +0.84 | +0.00 |
-| 32 | Urgot | +0.55 | +0.91 | +0.91 | +0.91 | +0.09 | −1.00 | +0.00 |
-| 33 | Jayce | +0.45 | +1.00 | −0.23 | +1.00 | +0.07 | – | +0.00 |
-| 34 | Gnar | +0.41 | +1.00 | +0.94 | −1.00 | +0.16 | +1.00 | +0.00 |
-| 35 | Gangplank | +0.32 | +1.00 | +1.00 | −1.00 | −0.06 | – | +0.00 |
-| 36 | Sett | +0.21 | +1.00 | −1.00 | +1.00 | −0.07 | – | +0.00 |
-| 37 | Singed | −0.00 | +0.03 | +0.01 | +0.01 | −0.08 | – | +0.00 |
-| 38 | Sion | −0.01 | +0.00 | +0.00 | +0.00 | −0.08 | – | +0.00 |
-| 39 | Ornn | −0.21 | −0.02 | −0.02 | −1.00 | +0.14 | – | +0.00 |
-| 40 | Pantheon | −0.23 | +0.00 | +0.00 | −1.00 | −0.07 | – | +0.00 |
-| 41 | Shen | −0.33 | −1.00 | −1.00 | +1.00 | −0.00 | – | +0.00 |
-| 42 | Rumble | −0.69 | −0.90 | −0.90 | −0.80 | −0.08 | – | +0.00 |
-| 43 | Ambessa | −0.76 | −1.00 | −0.92 | −1.00 | −0.04 | – | +0.00 |
-| 44 | Skarner | −0.77 | −1.00 | −1.00 | −1.00 | +0.04 | – | +0.00 |
-| 45 | Yone | −0.77 | −1.00 | −1.00 | −1.00 | +0.03 | – | +0.00 |
-| 46 | Irelia | −0.79 | −1.00 | −1.00 | −1.00 | −0.06 | – | +0.00 |
-| 47 | Gwen | −0.81 | −1.00 | −1.00 | −1.00 | −0.17 | – | +0.00 |
-| 48 | Akali | −0.83 | −1.00 | −1.00 | −1.00 | −0.28 | – | +0.00 |
+| 1 | K'Sante | +0.81 | +1.00 | +1.00 | +1.00 | +0.06 | +1.00 | +0.00 |
+| 2 | Poppy | +0.80 | +1.00 | +1.00 | +1.00 | +0.12 | – | +0.00 |
+| 3 | Yorick | +0.79 | +1.00 | +1.00 | +1.00 | +0.08 | – | +0.00 |
+| 4 | Darius | +0.77 | +1.00 | +1.00 | +1.00 | −0.03 | – | +0.00 |
+| 5 | Renekton | +0.77 | +1.00 | +1.00 | +1.00 | −0.07 | – | +0.00 |
+| 6 | Tryndamere | +0.76 | +1.00 | +1.00 | +1.00 | −0.10 | – | +0.00 |
+| 7 | Trundle | +0.75 | +1.00 | +1.00 | +1.00 | −0.15 | – | +0.00 |
+| 8 | Fiora | +0.75 | +1.00 | +1.00 | +1.00 | −0.15 | – | +0.00 |
+| 9 | Dr. Mundo | +0.75 | +1.00 | +1.00 | +1.00 | −0.15 | – | +0.00 |
+| 10 | Olaf | +0.75 | +1.00 | +1.00 | +1.00 | −0.18 | – | +0.00 |
+| 11 | Zaahen | +0.68 | +0.79 | +0.92 | +1.00 | −0.10 | – | +0.00 |
+| 12 | Vayne | +0.57 | +1.00 | +1.00 | −0.13 | −0.04 | +1.00 | +0.00 |
+| 13 | Quinn | +0.56 | +1.00 | +1.00 | −0.01 | +0.08 | +0.46 | +0.00 |
+| 14 | Nasus | +0.21 | +1.00 | −1.00 | +1.00 | −0.07 | – | +0.00 |
+| 15 | Ashe | +0.16 | −0.02 | +1.00 | −0.99 | +0.06 | +1.00 | +0.00 |
+| 16 | Gangplank | +0.12 | +0.10 | +1.00 | −0.84 | +0.02 | – | +0.00 |
+| 17 | Morgana | +0.01 | −0.87 | +0.00 | +1.00 | +0.16 | +0.01 | +0.00 |
+| 18 | Anivia | −0.00 | +0.06 | −0.08 | +0.04 | −0.12 | +0.16 | +0.00 |
+| 19 | Camille | −0.21 | +1.00 | −1.00 | −1.00 | +0.06 | – | +0.00 |
+| 20 | Illaoi | −0.22 | +1.00 | −1.00 | −1.00 | −0.01 | – | +0.00 |
+| 21 | Kennen | −0.29 | −0.89 | +0.90 | −0.97 | +0.00 | −1.00 | +0.00 |
+| 22 | Sion | −0.29 | −0.17 | +0.00 | −1.00 | −0.13 | – | +0.00 |
+| 23 | Kayle | −0.36 | −0.47 | −0.40 | −0.81 | +0.30 | −0.21 | +0.00 |
+| 24 | Aurora | −0.47 | −0.94 | +0.20 | −0.95 | −0.02 | −0.90 | +0.00 |
+| 25 | Kled | −0.48 | −0.52 | −0.33 | −1.00 | −0.11 | – | +0.00 |
+| 26 | Lux | −0.51 | −0.07 | −1.00 | −0.97 | +0.03 | −0.58 | +0.00 |
+| 27 | Brand | −0.52 | +0.20 | −1.00 | −1.00 | −0.10 | −1.00 | +0.00 |
+| 28 | Aatrox | −0.57 | −0.67 | −0.69 | −0.66 | −0.02 | – | −0.66 |
+| 29 | Malzahar | −0.66 | −0.99 | −0.90 | −0.93 | +0.02 | +0.00 | +0.00 |
+| 30 | Teemo | −0.67 | −0.96 | −0.96 | −0.46 | +0.03 | −0.97 | +0.00 |
+| 31 | Yone | −0.72 | −0.81 | −1.00 | −1.00 | −0.01 | – | +0.00 |
+| 32 | Heimerdinger | −0.74 | −0.97 | −0.99 | −0.96 | +0.21 | −0.92 | +0.00 |
+| 33 | Vel'Koz | −0.75 | −1.00 | −0.97 | −1.00 | +0.02 | −0.59 | +0.00 |
+| 34 | Riven | −0.75 | −0.95 | −0.94 | −1.00 | −0.05 | – | +0.00 |
+| 35 | Ornn | −0.76 | −1.00 | −1.00 | −1.00 | +0.13 | – | +0.00 |
+| 36 | Cho'Gath | −0.76 | −0.93 | −1.00 | −1.00 | −0.03 | – | +0.00 |
+| 37 | Udyr | −0.77 | −1.00 | −1.00 | −0.90 | −0.08 | – | +0.00 |
+| 38 | Garen | −0.78 | −1.00 | −1.00 | −1.00 | +0.01 | – | +0.00 |
+| 39 | Malphite | −0.78 | −1.00 | −1.00 | −1.00 | +0.01 | – | +0.00 |
+| 40 | Skarner | −0.78 | −1.00 | −1.00 | −1.00 | −0.00 | – | +0.00 |
+| 41 | Xin Zhao | −0.78 | −1.00 | −1.00 | −1.00 | −0.01 | – | +0.00 |
+| 42 | Singed | −0.78 | −0.98 | −0.98 | −1.00 | −0.08 | – | +0.00 |
+| 43 | Shen | −0.78 | −1.00 | −1.00 | −1.00 | −0.01 | – | +0.00 |
+| 44 | Ambessa | −0.78 | −1.00 | −1.00 | −1.00 | −0.02 | – | +0.00 |
+| 45 | Gnar | −0.78 | −1.00 | −1.00 | −1.00 | +0.13 | −1.00 | +0.00 |
+| 46 | Sett | −0.78 | −1.00 | −1.00 | −1.00 | −0.04 | – | +0.00 |
+| 47 | Urgot | −0.79 | −1.00 | −1.00 | −1.00 | +0.10 | −1.00 | +0.00 |
+| 48 | Annie | −0.79 | −0.99 | −1.00 | −1.00 | +0.04 | −0.95 | +0.00 |
+| 49 | Gwen | −0.79 | −1.00 | −1.00 | −1.00 | −0.05 | – | +0.00 |
+| 50 | Jax | −0.79 | −1.00 | −1.00 | −1.00 | −0.05 | – | +0.00 |
+| 51 | Jayce | −0.79 | −1.00 | −1.00 | −1.00 | −0.05 | – | +0.00 |
+| 52 | Mordekaiser | −0.79 | −1.00 | −1.00 | −1.00 | −0.06 | – | +0.00 |
+| 53 | Irelia | −0.79 | −1.00 | −1.00 | −1.00 | −0.07 | – | +0.00 |
+| 54 | Pantheon | −0.79 | −1.00 | −1.00 | −1.00 | −0.07 | – | +0.00 |
+| 55 | Amumu | −0.79 | −1.00 | −1.00 | −1.00 | −0.08 | – | +0.00 |
+| 56 | Kassadin | −0.79 | −1.00 | −1.00 | −1.00 | −0.09 | – | +0.00 |
+| 57 | Nautilus | −0.79 | −1.00 | −1.00 | −1.00 | +0.02 | −0.96 | +0.00 |
+| 58 | Rumble | −0.79 | −1.00 | −1.00 | −1.00 | −0.10 | – | +0.00 |
+| 59 | Volibear | −0.79 | −1.00 | −1.00 | −1.00 | −0.10 | – | +0.00 |
+| 60 | Leona | −0.80 | −1.00 | −1.00 | −1.00 | −0.10 | – | +0.00 |
+| 61 | Ahri | −0.80 | −1.00 | −1.00 | −1.00 | +0.03 | −1.00 | +0.00 |
+| 62 | Master Yi | −0.80 | −1.00 | −1.00 | −1.00 | −0.12 | – | +0.00 |
+| 63 | Tahm Kench | −0.80 | −1.00 | −1.00 | −1.00 | −0.12 | – | +0.00 |
+| 64 | Rammus | −0.80 | −1.00 | −1.00 | −1.00 | −0.12 | – | +0.00 |
+| 65 | Ziggs | −0.80 | −1.00 | −1.00 | −1.00 | +0.01 | −1.00 | +0.00 |
+| 66 | Zyra | −0.80 | −1.00 | −1.00 | −1.00 | +0.01 | −1.00 | +0.00 |
+| 67 | Lissandra | −0.80 | −1.00 | −1.00 | −1.00 | +0.00 | −1.00 | +0.00 |
+| 68 | Karthus | −0.80 | −1.00 | −1.00 | −1.00 | −0.03 | −1.00 | +0.00 |
+| 69 | Cassiopeia | −0.81 | −1.00 | −1.00 | −0.98 | −0.07 | −1.00 | +0.00 |
+| 70 | Veigar | −0.81 | −1.00 | −1.00 | −1.00 | −0.05 | −1.00 | +0.00 |
+| 71 | Akali | −0.81 | −1.00 | −1.00 | −1.00 | −0.19 | – | +0.00 |
+| 72 | Vladimir | −0.82 | −1.00 | −1.00 | −1.00 | −0.15 | −1.00 | +0.00 |
 
-## Interaction ledger (partial confidence)
+## Interaction ledger estimates
 
 Every champion ranked by what its kit does against Yasuo's, from the interaction ledger: projectile blocks, spell shields,
 parries, dash stops, crowd control and its defenses, range and more (PLAN.md §5). This ranking is **partial**: it weighs the
@@ -73,7 +97,7 @@ Run `npm run matchup -- <champion> Yasuo` for the full ledger of a matchup, with
 - **0.64** cc immunity: Blazing Stampede makes Udyr immune to Yasuo's Steel Tempest (airborne). Immune for 1.5 s, long enough to use ahead of Steel Tempest. (Udyr E Blazing Stampede → Yasuo Q Steel Tempest)
 - Watch out: Wind Wall blocks Udyr's Wilding Claw, a projectile.
 
-#### 2. Vladimir (net +0.92)
+#### 2. Vladimir (net +0.86)
 
 - **1.00** untargetable: Sanguine Pool makes Vladimir untargetable, dodging Yasuo's Last Breath. Untargetable for 2 s, long enough to use ahead of Last Breath. (Vladimir W Sanguine Pool → Yasuo R Last Breath)
 - **0.44** untargetable: Sanguine Pool makes Vladimir untargetable, dodging Yasuo's Steel Tempest. Untargetable for 2 s, long enough to use ahead of Steel Tempest. (Vladimir W Sanguine Pool → Yasuo Q Steel Tempest)
@@ -105,213 +129,213 @@ Run `npm run matchup -- <champion> Yasuo` for the full ledger of a matchup, with
 
 - **1.00** cc immunity: Black Shield makes Morgana immune to Yasuo's Last Breath (airborne). Immune for 5 s, long enough to use ahead of Last Breath. (Morgana E Black Shield → Yasuo R Last Breath)
 - **0.44** cc immunity: Black Shield makes Morgana immune to Yasuo's Steel Tempest (airborne). Immune for 5 s, long enough to use ahead of Steel Tempest. (Morgana E Black Shield → Yasuo Q Steel Tempest)
-- **0.11** range: Morgana's basic attacks reach 275 units farther than Yasuo's (450 vs 175 attack range). Yasuo closes the gap with Sweeping Blade, Last Breath. (Morgana basic attacks → Yasuo basic attacks)
+- **0.11** range: Morgana's basic attacks reach 275 units farther than Yasuo's (450 vs 175 attack range). Yasuo closes the gap with Last Breath, Sweeping Blade. (Morgana basic attacks → Yasuo basic attacks)
 - Watch out: Wind Wall blocks Morgana's Dark Binding, a projectile.
 
-#### 6. Master Yi (net +0.67)
+#### 6. Camille (net +0.66)
 
-- **0.60** untargetable: Alpha Strike makes Master Yi untargetable, dodging Yasuo's Last Breath. Untargetable for ?; Last Breath lands within 0 s, faster than a 0.25 s reaction, so it needs prediction. (Master Yi Q Alpha Strike → Yasuo R Last Breath)
-- **0.43** untargetable: Alpha Strike makes Master Yi untargetable, dodging Yasuo's Steel Tempest. Untargetable for ?; Steel Tempest takes 0.38 s to land, enough to react. (Master Yi Q Alpha Strike → Yasuo Q Steel Tempest)
-- **0.36** untargetable: Alpha Strike makes Master Yi untargetable, dodging Yasuo's Sweeping Blade. Untargetable for ?; Sweeping Blade takes 0.63 s to land, enough to react. (Master Yi Q Alpha Strike → Yasuo E Sweeping Blade)
-- Watch out: Steel Tempest's airborne interrupts Master Yi's Meditate (normal channel).
-
-#### 7. Camille (net +0.66)
-
-- **0.36** untargetable: The Hextech Ultimatum makes Camille untargetable, dodging Yasuo's Sweeping Blade. Untargetable for 0.5 s; Sweeping Blade takes 0.63 s to land, enough to react. (Camille R The Hextech Ultimatum → Yasuo E Sweeping Blade)
 - **0.36** untargetable: The Hextech Ultimatum makes Camille untargetable, dodging Yasuo's Last Breath. Untargetable for 0.5 s; Last Breath lands within 0 s, faster than a 0.25 s reaction, so it needs prediction. (Camille R The Hextech Ultimatum → Yasuo R Last Breath)
+- **0.36** untargetable: The Hextech Ultimatum makes Camille untargetable, dodging Yasuo's Sweeping Blade. Untargetable for 0.5 s; Sweeping Blade takes 0.63 s to land, enough to react. (Camille R The Hextech Ultimatum → Yasuo E Sweeping Blade)
 - **0.34** untargetable: The Hextech Ultimatum makes Camille untargetable, dodging Yasuo's Steel Tempest. Untargetable for 0.5 s; Steel Tempest takes 0.38 s to land, enough to react. (Camille R The Hextech Ultimatum → Yasuo Q Steel Tempest)
 
-#### 8. Fiora (net +0.64)
+#### 7. Fiora (net +0.64)
 
 - **0.70** parry: Riposte parries Yasuo's Last Breath and stuns back. Parry for 0.75 s; Last Breath lands within 0 s, faster than a 0.25 s reaction, so it needs prediction. Negating Last Breath's immobilizing effect turns Riposte's slow into a stun (2 s). (Fiora W Riposte → Yasuo R Last Breath)
 - **0.54** parry: Riposte parries Yasuo's Steel Tempest and stuns back. Parry for 0.75 s; Steel Tempest takes 0.38 s to land, enough to react. Negating Steel Tempest's immobilizing effect turns Riposte's slow into a stun (2 s). (Fiora W Riposte → Yasuo Q Steel Tempest)
 - **0.36** parry: Riposte parries Yasuo's Sweeping Blade. Parry for 0.75 s; Sweeping Blade takes 0.63 s to land, enough to react. (Fiora W Riposte → Yasuo E Sweeping Blade)
 - Watch out: Wind Wall blocks Fiora's Riposte, a projectile.
 
-#### 9. Olaf (net +0.64)
+#### 8. Olaf (net +0.64)
 
 - **0.63** cc immunity: Ragnarok makes Olaf immune to Yasuo's Last Breath (airborne). Immune for 3 s, long enough to use ahead of Last Breath. (Olaf R Ragnarok → Yasuo R Last Breath)
 - **0.34** cc immunity: Ragnarok makes Olaf immune to Yasuo's Steel Tempest (airborne). Immune for 3 s, long enough to use ahead of Steel Tempest. (Olaf R Ragnarok → Yasuo Q Steel Tempest)
 - Watch out: Wind Wall blocks part of Olaf's Undertow, a projectile.
 
-#### 10. Alistar (net +0.64)
+#### 9. Alistar (net +0.64)
 
 - **0.50** cleanse: Unbreakable Will cleanses Yasuo's Last Breath (airborne) after it lands. 80 s cooldown; usable while crowd controlled. (Alistar R Unbreakable Will → Yasuo R Last Breath)
 - **0.28** cleanse: Unbreakable Will cleanses Yasuo's Steel Tempest (airborne) after it lands. 80 s cooldown; usable while crowd controlled. (Alistar R Unbreakable Will → Yasuo Q Steel Tempest)
+
+#### 10. Rek'Sai (net +0.59)
+
+- **0.63** untargetable: Void Rush makes Rek'Sai untargetable, dodging Yasuo's Last Breath. Untargetable for 1.5 s, long enough to use ahead of Last Breath. (Rek'Sai R Void Rush → Yasuo R Last Breath)
+- **0.36** untargetable: Void Rush makes Rek'Sai untargetable, dodging Yasuo's Sweeping Blade. Untargetable for 1.5 s, long enough to use ahead of Sweeping Blade. (Rek'Sai R Void Rush → Yasuo E Sweeping Blade)
+- **0.34** untargetable: Void Rush makes Rek'Sai untargetable, dodging Yasuo's Steel Tempest. Untargetable for 1.5 s, long enough to use ahead of Steel Tempest. (Rek'Sai R Void Rush → Yasuo Q Steel Tempest)
+- Watch out: Wind Wall blocks Rek'Sai's Prey Seeker, a projectile.
 
 ### Full ranking
 
 | # | Champion | Net | For | Against | Hard counters |
 |--:|---|--:|--:|--:|---|
 | 1 | Udyr | +1.04 | 1.32 | 0.28 |  |
-| 2 | Vladimir | +0.92 | 1.41 | 0.49 |  |
+| 2 | Vladimir | +0.86 | 1.41 | 0.55 |  |
 | 3 | Nocturne | +0.80 | 1.11 | 0.31 |  |
 | 4 | Gangplank | +0.74 | 0.99 | 0.25 |  |
 | 5 | Morgana | +0.67 | 1.33 | 0.66 |  |
-| 6 | Master Yi | +0.67 | 0.90 | 0.23 |  |
-| 7 | Camille | +0.66 | 0.66 | 0.00 |  |
-| 8 | Fiora | +0.64 | 1.07 | 0.43 |  |
-| 9 | Olaf | +0.64 | 0.80 | 0.16 |  |
-| 10 | Alistar | +0.64 | 0.64 | 0.00 |  |
-| 11 | Rek'Sai | +0.59 | 0.93 | 0.34 |  |
+| 6 | Camille | +0.66 | 0.66 | 0.00 |  |
+| 7 | Fiora | +0.64 | 1.07 | 0.43 |  |
+| 8 | Olaf | +0.64 | 0.80 | 0.16 |  |
+| 9 | Alistar | +0.64 | 0.64 | 0.00 |  |
+| 10 | Rek'Sai | +0.59 | 0.93 | 0.34 |  |
+| 11 | Fizz | +0.57 | 0.97 | 0.40 |  |
 | 12 | Bard | +0.56 | 1.11 | 0.55 |  |
-| 13 | Sion | +0.55 | 0.88 | 0.33 |  |
-| 14 | Xin Zhao | +0.55 | 0.55 | 0.00 |  |
-| 15 | Taric | +0.54 | 0.54 | 0.00 |  |
-| 16 | Warwick | +0.49 | 0.89 | 0.40 |  |
-| 17 | Pantheon | +0.47 | 0.73 | 0.26 |  |
-| 18 | Jax | +0.45 | 0.45 | 0.00 |  |
-| 19 | Ekko | +0.44 | 0.73 | 0.29 |  |
-| 20 | Elise | +0.39 | 1.11 | 0.72 |  |
-| 21 | Sivir | +0.38 | 1.08 | 0.70 |  |
-| 22 | Lissandra | +0.37 | 1.06 | 0.69 |  |
-| 23 | Nilah | +0.37 | 0.37 | 0.00 |  |
-| 24 | Malzahar | +0.36 | 1.00 | 0.64 |  |
-| 25 | Gwen | +0.35 | 0.90 | 0.55 |  |
-| 26 | K'Sante | +0.35 | 0.56 | 0.21 |  |
-| 27 | Yuumi | +0.34 | 1.63 | 1.29 |  |
-| 28 | Rengar | +0.34 | 1.01 | 0.67 |  |
-| 29 | Zed | +0.34 | 0.62 | 0.28 |  |
-| 30 | Singed | +0.32 | 0.71 | 0.39 | grounding (Mega Adhesive), grounding (Mega Adhesive) |
-| 31 | Xayah | +0.30 | 1.07 | 0.77 |  |
-| 32 | Nasus | +0.29 | 0.29 | 0.00 |  |
-| 33 | Jarvan IV | +0.28 | 0.28 | 0.00 |  |
-| 34 | Sett | +0.28 | 0.28 | 0.00 |  |
-| 35 | Volibear | +0.28 | 0.28 | 0.00 |  |
-| 36 | Evelynn | +0.27 | 0.65 | 0.38 |  |
-| 37 | Aurora | +0.23 | 0.84 | 0.61 |  |
-| 38 | Cassiopeia | +0.23 | 0.84 | 0.61 | grounding (Miasma), grounding (Miasma) |
-| 39 | Kayn | +0.20 | 0.65 | 0.45 |  |
-| 40 | Kalista | +0.19 | 0.76 | 0.57 |  |
-| 41 | Yone | +0.19 | 0.46 | 0.27 |  |
-| 42 | Kayle | +0.18 | 0.80 | 0.62 |  |
-| 43 | Malphite | +0.16 | 0.47 | 0.31 |  |
-| 44 | Shaco | +0.14 | 0.65 | 0.51 |  |
-| 45 | Illaoi | +0.09 | 0.28 | 0.19 |  |
-| 46 | Mordekaiser | +0.07 | 0.07 | 0.00 |  |
-| 47 | Ambessa | 0.00 | 0.00 | 0.00 |  |
-| 48 | Bel'Veth | 0.00 | 0.00 | 0.00 |  |
-| 49 | Darius | 0.00 | 0.00 | 0.00 |  |
-| 50 | Garen | 0.00 | 0.00 | 0.00 |  |
-| 51 | Rell | 0.00 | 0.00 | 0.00 |  |
-| 52 | Renekton | 0.00 | 0.00 | 0.00 |  |
-| 53 | Trundle | 0.00 | 0.00 | 0.00 |  |
-| 54 | Tryndamere | 0.00 | 0.00 | 0.00 |  |
-| 55 | Zaahen | -0.03 | 0.55 | 0.58 |  |
-| 56 | Shyvana | -0.03 | 0.28 | 0.31 |  |
-| 57 | Zeri | -0.04 | 0.28 | 0.32 |  |
-| 58 | Rammus | -0.06 | 0.29 | 0.35 |  |
-| 59 | Kindred | -0.07 | 0.76 | 0.83 |  |
-| 60 | Maokai | -0.15 | 0.95 | 1.10 |  |
-| 61 | Shen | -0.16 | 0.42 | 0.58 |  |
-| 62 | Samira | -0.16 | 0.38 | 0.54 |  |
-| 63 | Viktor | -0.17 | 0.37 | 0.54 |  |
-| 64 | Nidalee | -0.18 | 0.18 | 0.36 |  |
-| 65 | Wukong | -0.20 | 0.00 | 0.20 |  |
-| 66 | Vi | -0.22 | 0.28 | 0.50 |  |
-| 67 | Jayce | -0.22 | 0.18 | 0.40 |  |
-| 68 | Aurelion Sol | -0.22 | 0.14 | 0.36 |  |
-| 69 | Lulu | -0.23 | 0.49 | 0.72 |  |
-| 70 | Rakan | -0.23 | 0.06 | 0.29 |  |
-| 71 | Kled | -0.27 | 0.56 | 0.83 |  |
-| 72 | Soraka | -0.27 | 0.17 | 0.44 |  |
-| 73 | Annie | -0.27 | 0.15 | 0.42 |  |
-| 74 | Kennen | -0.28 | 0.18 | 0.46 |  |
-| 75 | Lee Sin | -0.28 | 0.00 | 0.28 |  |
-| 76 | Rumble | -0.28 | 0.00 | 0.28 |  |
-| 77 | Kassadin | -0.29 | 0.00 | 0.29 |  |
-| 78 | Cho'Gath | -0.30 | 0.00 | 0.30 |  |
-| 79 | Dr. Mundo | -0.30 | 0.00 | 0.30 |  |
-| 80 | Corki | -0.31 | 0.47 | 0.78 |  |
-| 81 | Azir | -0.31 | 0.16 | 0.47 |  |
-| 82 | Yorick | -0.31 | 0.00 | 0.31 |  |
-| 83 | Teemo | -0.33 | 0.57 | 0.90 |  |
-| 84 | Orianna | -0.34 | 0.16 | 0.50 |  |
-| 85 | Skarner | -0.34 | 0.00 | 0.34 |  |
-| 86 | Poppy | -0.37 | 0.63 | 1.00 | dash stop (Steadfast Presence) |
-| 87 | Vex | -0.37 | 0.63 | 1.00 |  |
-| 88 | Mel | -0.37 | 0.37 | 0.74 |  |
-| 89 | Gnar | -0.37 | 0.19 | 0.56 |  |
-| 90 | Aatrox | -0.37 | 0.00 | 0.37 |  |
-| 91 | Karma | -0.40 | 0.13 | 0.53 |  |
-| 92 | Fizz | -0.40 | 0.00 | 0.40 |  |
-| 93 | Yunara | -0.41 | 0.24 | 0.65 |  |
-| 94 | Riven | -0.41 | 0.00 | 0.41 |  |
-| 95 | Locke | -0.42 | 0.00 | 0.42 |  |
-| 96 | Karthus | -0.43 | 0.11 | 0.54 |  |
-| 97 | Veigar | -0.44 | 0.33 | 0.77 |  |
-| 98 | Kog'Maw | -0.44 | 0.16 | 0.60 |  |
-| 99 | Jinx | -0.46 | 0.35 | 0.81 |  |
-| 100 | Zilean | -0.46 | 0.20 | 0.66 |  |
-| 101 | Diana | -0.46 | 0.00 | 0.46 |  |
-| 102 | Twitch | -0.47 | 0.27 | 0.74 |  |
-| 103 | Galio | -0.47 | 0.00 | 0.47 |  |
-| 104 | LeBlanc | -0.50 | 0.13 | 0.63 |  |
-| 105 | Thresh | -0.50 | 0.11 | 0.61 |  |
-| 106 | Aphelios | -0.51 | 0.24 | 0.75 |  |
-| 107 | Anivia | -0.51 | 0.16 | 0.67 |  |
-| 108 | Milio | -0.52 | 0.22 | 0.74 |  |
-| 109 | Zyra | -0.52 | 0.16 | 0.68 |  |
-| 110 | Kai'Sa | -0.57 | 0.22 | 0.79 |  |
-| 111 | Lux | -0.58 | 0.18 | 0.76 |  |
-| 112 | Vel'Koz | -0.59 | 0.16 | 0.75 |  |
-| 113 | Nautilus | -0.60 | 0.00 | 0.60 |  |
-| 114 | Leona | -0.61 | 0.00 | 0.61 |  |
-| 115 | Ryze | -0.62 | 0.15 | 0.77 |  |
-| 116 | Quinn | -0.63 | 0.22 | 0.85 |  |
-| 117 | Amumu | -0.64 | 0.18 | 0.82 |  |
-| 118 | Syndra | -0.64 | 0.14 | 0.78 |  |
-| 119 | Smolder | -0.65 | 0.20 | 0.85 |  |
-| 120 | Braum | -0.66 | 0.28 | 0.94 |  |
-| 121 | Swain | -0.66 | 0.12 | 0.78 |  |
-| 122 | Blitzcrank | -0.68 | 0.00 | 0.68 |  |
-| 123 | Vayne | -0.69 | 0.27 | 0.96 |  |
-| 124 | Brand | -0.69 | 0.14 | 0.83 |  |
-| 125 | Hwei | -0.70 | 0.32 | 1.02 |  |
-| 126 | Hecarim | -0.70 | 0.30 | 1.00 |  |
-| 127 | Zoe | -0.70 | 0.20 | 0.90 |  |
-| 128 | Neeko | -0.71 | 0.14 | 0.85 |  |
-| 129 | Kha'Zix | -0.71 | 0.00 | 0.71 |  |
-| 130 | Senna | -0.72 | 0.22 | 0.94 |  |
-| 131 | Draven | -0.73 | 0.22 | 0.95 |  |
-| 132 | Naafiri | -0.74 | 0.00 | 0.74 |  |
-| 133 | Sylas | -0.75 | 0.00 | 0.75 |  |
-| 134 | Viego | -0.76 | 0.28 | 1.04 |  |
-| 135 | Ezreal | -0.76 | 0.20 | 0.96 |  |
-| 136 | Ahri | -0.79 | 0.32 | 1.11 |  |
-| 137 | Zac | -0.80 | 0.18 | 0.98 |  |
-| 138 | Ivern | -0.80 | 0.11 | 0.91 |  |
-| 139 | Irelia | -0.82 | 0.00 | 0.82 |  |
-| 140 | Ashe | -0.83 | 0.24 | 1.07 |  |
-| 141 | Sona | -0.84 | 0.26 | 1.10 |  |
-| 142 | Akali | -0.84 | 0.00 | 0.84 |  |
-| 143 | Talon | -0.84 | 0.00 | 0.84 |  |
-| 144 | Twisted Fate | -0.85 | 0.25 | 1.10 |  |
-| 145 | Lillia | -0.85 | 0.05 | 0.90 |  |
-| 146 | Tristana | -0.86 | 0.24 | 1.10 |  |
-| 147 | Ziggs | -0.86 | 0.17 | 1.03 |  |
-| 148 | Xerath | -0.87 | 0.16 | 1.03 |  |
-| 149 | Miss Fortune | -0.88 | 0.20 | 1.08 |  |
-| 150 | Heimerdinger | -0.88 | 0.12 | 1.00 |  |
-| 151 | Graves | -0.89 | 0.14 | 1.03 |  |
-| 152 | Tahm Kench | -0.90 | 0.00 | 0.90 |  |
-| 153 | Lucian | -0.91 | 0.21 | 1.12 |  |
-| 154 | Qiyana | -0.91 | 0.00 | 0.91 |  |
-| 155 | Caitlyn | -0.93 | 0.24 | 1.17 |  |
-| 156 | Ornn | -0.95 | 0.28 | 1.23 |  |
-| 157 | Urgot | -0.98 | 0.08 | 1.06 |  |
-| 158 | Katarina | -0.98 | 0.00 | 0.98 |  |
-| 159 | Sejuani | -0.98 | 0.00 | 0.98 |  |
-| 160 | Seraphine | -1.02 | 0.17 | 1.19 |  |
-| 161 | Nami | -1.02 | 0.14 | 1.16 |  |
-| 162 | Varus | -1.04 | 0.18 | 1.22 |  |
-| 163 | Renata Glasc | -1.05 | 0.24 | 1.29 |  |
-| 164 | Janna | -1.08 | 0.22 | 1.30 |  |
-| 165 | Jhin | -1.09 | 0.17 | 1.26 |  |
-| 166 | Fiddlesticks | -1.10 | 0.11 | 1.21 |  |
-| 167 | Akshan | -1.16 | 0.19 | 1.35 |  |
-| 168 | Gragas | -1.17 | 0.00 | 1.17 |  |
-| 169 | Nunu & Willump | -1.18 | 0.00 | 1.18 |  |
-| 170 | Pyke | -1.20 | 0.00 | 1.20 |  |
-| 171 | Briar | -1.22 | 0.00 | 1.22 |  |
-| 172 | Taliyah | -1.49 | 0.16 | 1.65 |  |
+| 13 | Xin Zhao | +0.55 | 0.55 | 0.00 |  |
+| 14 | Master Yi | +0.53 | 0.90 | 0.37 |  |
+| 15 | Sion | +0.46 | 0.88 | 0.42 |  |
+| 16 | Jax | +0.45 | 0.45 | 0.00 |  |
+| 17 | Sivir | +0.38 | 1.08 | 0.70 |  |
+| 18 | Lissandra | +0.37 | 1.06 | 0.69 |  |
+| 19 | Nilah | +0.37 | 0.37 | 0.00 |  |
+| 20 | Gwen | +0.35 | 0.90 | 0.55 |  |
+| 21 | K'Sante | +0.35 | 0.56 | 0.21 |  |
+| 22 | Rengar | +0.34 | 1.01 | 0.67 |  |
+| 23 | Zed | +0.34 | 0.62 | 0.28 |  |
+| 24 | Singed | +0.32 | 0.71 | 0.39 | grounding (Mega Adhesive), grounding (Mega Adhesive) |
+| 25 | Xayah | +0.30 | 1.07 | 0.77 |  |
+| 26 | Nasus | +0.29 | 0.29 | 0.00 |  |
+| 27 | Jarvan IV | +0.28 | 0.28 | 0.00 |  |
+| 28 | Sett | +0.28 | 0.28 | 0.00 |  |
+| 29 | Volibear | +0.28 | 0.28 | 0.00 |  |
+| 30 | Evelynn | +0.27 | 0.65 | 0.38 |  |
+| 31 | Aurora | +0.23 | 0.84 | 0.61 |  |
+| 32 | Cassiopeia | +0.23 | 0.84 | 0.61 | grounding (Miasma), grounding (Miasma) |
+| 33 | Kalista | +0.19 | 0.76 | 0.57 |  |
+| 34 | Yone | +0.19 | 0.46 | 0.27 |  |
+| 35 | Kayle | +0.18 | 0.80 | 0.62 |  |
+| 36 | Malphite | +0.16 | 0.47 | 0.31 |  |
+| 37 | Shaco | +0.14 | 0.65 | 0.51 |  |
+| 38 | Illaoi | +0.09 | 0.28 | 0.19 |  |
+| 39 | Mordekaiser | +0.07 | 0.07 | 0.00 |  |
+| 40 | Ambessa | 0.00 | 0.00 | 0.00 |  |
+| 41 | Bel'Veth | 0.00 | 0.00 | 0.00 |  |
+| 42 | Darius | 0.00 | 0.00 | 0.00 |  |
+| 43 | Garen | 0.00 | 0.00 | 0.00 |  |
+| 44 | Rell | 0.00 | 0.00 | 0.00 |  |
+| 45 | Renekton | 0.00 | 0.00 | 0.00 |  |
+| 46 | Taric | 0.00 | 0.00 | 0.00 |  |
+| 47 | Trundle | 0.00 | 0.00 | 0.00 |  |
+| 48 | Tryndamere | 0.00 | 0.00 | 0.00 |  |
+| 49 | Zaahen | -0.03 | 0.55 | 0.58 |  |
+| 50 | Shyvana | -0.03 | 0.28 | 0.31 |  |
+| 51 | Yuumi | -0.04 | 1.63 | 1.67 |  |
+| 52 | Malzahar | -0.04 | 1.00 | 1.04 |  |
+| 53 | Zeri | -0.04 | 0.28 | 0.32 |  |
+| 54 | Maokai | -0.15 | 0.95 | 1.10 |  |
+| 55 | Samira | -0.16 | 0.38 | 0.54 |  |
+| 56 | Viktor | -0.17 | 0.37 | 0.54 |  |
+| 57 | Nidalee | -0.18 | 0.18 | 0.36 |  |
+| 58 | Wukong | -0.20 | 0.00 | 0.20 |  |
+| 59 | Jayce | -0.22 | 0.18 | 0.40 |  |
+| 60 | Lulu | -0.23 | 0.49 | 0.72 |  |
+| 61 | Rakan | -0.23 | 0.06 | 0.29 |  |
+| 62 | Rammus | -0.24 | 0.29 | 0.53 |  |
+| 63 | Kayn | -0.25 | 0.65 | 0.90 |  |
+| 64 | Kled | -0.27 | 0.56 | 0.83 |  |
+| 65 | Soraka | -0.27 | 0.17 | 0.44 |  |
+| 66 | Annie | -0.27 | 0.15 | 0.42 |  |
+| 67 | Kennen | -0.28 | 0.18 | 0.46 |  |
+| 68 | Aurelion Sol | -0.28 | 0.14 | 0.42 |  |
+| 69 | Lee Sin | -0.28 | 0.00 | 0.28 |  |
+| 70 | Rumble | -0.28 | 0.00 | 0.28 |  |
+| 71 | Ekko | -0.29 | 0.00 | 0.29 |  |
+| 72 | Kassadin | -0.29 | 0.00 | 0.29 |  |
+| 73 | Cho'Gath | -0.30 | 0.00 | 0.30 |  |
+| 74 | Dr. Mundo | -0.30 | 0.00 | 0.30 |  |
+| 75 | Azir | -0.31 | 0.16 | 0.47 |  |
+| 76 | Yorick | -0.31 | 0.00 | 0.31 |  |
+| 77 | Teemo | -0.33 | 0.57 | 0.90 |  |
+| 78 | Orianna | -0.34 | 0.16 | 0.50 |  |
+| 79 | Skarner | -0.34 | 0.00 | 0.34 |  |
+| 80 | Vex | -0.37 | 0.63 | 1.00 |  |
+| 81 | Mel | -0.37 | 0.37 | 0.74 |  |
+| 82 | Gnar | -0.37 | 0.19 | 0.56 |  |
+| 83 | Aatrox | -0.37 | 0.00 | 0.37 |  |
+| 84 | Karma | -0.40 | 0.13 | 0.53 |  |
+| 85 | Pantheon | -0.41 | 0.73 | 1.14 |  |
+| 86 | Yunara | -0.41 | 0.24 | 0.65 |  |
+| 87 | Riven | -0.41 | 0.00 | 0.41 |  |
+| 88 | Warwick | -0.42 | 0.89 | 1.31 |  |
+| 89 | Locke | -0.42 | 0.00 | 0.42 |  |
+| 90 | Veigar | -0.44 | 0.33 | 0.77 |  |
+| 91 | Kog'Maw | -0.44 | 0.16 | 0.60 |  |
+| 92 | Jinx | -0.46 | 0.35 | 0.81 |  |
+| 93 | Zilean | -0.46 | 0.20 | 0.66 |  |
+| 94 | Diana | -0.46 | 0.00 | 0.46 |  |
+| 95 | Twitch | -0.47 | 0.27 | 0.74 |  |
+| 96 | Vi | -0.48 | 0.28 | 0.76 |  |
+| 97 | LeBlanc | -0.50 | 0.13 | 0.63 |  |
+| 98 | Thresh | -0.50 | 0.11 | 0.61 |  |
+| 99 | Aphelios | -0.51 | 0.24 | 0.75 |  |
+| 100 | Anivia | -0.51 | 0.16 | 0.67 |  |
+| 101 | Milio | -0.52 | 0.22 | 0.74 |  |
+| 102 | Elise | -0.52 | 0.20 | 0.72 |  |
+| 103 | Zyra | -0.52 | 0.16 | 0.68 |  |
+| 104 | Kindred | -0.56 | 0.27 | 0.83 |  |
+| 105 | Poppy | -0.57 | 0.63 | 1.20 | dash stop (Steadfast Presence) |
+| 106 | Kai'Sa | -0.57 | 0.22 | 0.79 |  |
+| 107 | Lux | -0.58 | 0.18 | 0.76 |  |
+| 108 | Corki | -0.59 | 0.19 | 0.78 |  |
+| 109 | Nautilus | -0.60 | 0.00 | 0.60 |  |
+| 110 | Shen | -0.61 | 0.42 | 1.03 |  |
+| 111 | Leona | -0.61 | 0.00 | 0.61 |  |
+| 112 | Amumu | -0.64 | 0.18 | 0.82 |  |
+| 113 | Syndra | -0.64 | 0.14 | 0.78 |  |
+| 114 | Smolder | -0.65 | 0.20 | 0.85 |  |
+| 115 | Braum | -0.66 | 0.28 | 0.94 |  |
+| 116 | Swain | -0.66 | 0.12 | 0.78 |  |
+| 117 | Blitzcrank | -0.68 | 0.00 | 0.68 |  |
+| 118 | Vayne | -0.69 | 0.27 | 0.96 |  |
+| 119 | Brand | -0.69 | 0.14 | 0.83 |  |
+| 120 | Hwei | -0.70 | 0.32 | 1.02 |  |
+| 121 | Hecarim | -0.70 | 0.30 | 1.00 |  |
+| 122 | Zoe | -0.70 | 0.20 | 0.90 |  |
+| 123 | Neeko | -0.71 | 0.14 | 0.85 |  |
+| 124 | Karthus | -0.71 | 0.11 | 0.82 |  |
+| 125 | Kha'Zix | -0.71 | 0.00 | 0.71 |  |
+| 126 | Senna | -0.72 | 0.22 | 0.94 |  |
+| 127 | Draven | -0.75 | 0.22 | 0.97 |  |
+| 128 | Sylas | -0.75 | 0.00 | 0.75 |  |
+| 129 | Ezreal | -0.76 | 0.20 | 0.96 |  |
+| 130 | Quinn | -0.78 | 0.22 | 1.00 |  |
+| 131 | Ahri | -0.79 | 0.32 | 1.11 |  |
+| 132 | Irelia | -0.82 | 0.00 | 0.82 |  |
+| 133 | Ashe | -0.83 | 0.24 | 1.07 |  |
+| 134 | Sona | -0.84 | 0.26 | 1.10 |  |
+| 135 | Akali | -0.84 | 0.00 | 0.84 |  |
+| 136 | Talon | -0.84 | 0.00 | 0.84 |  |
+| 137 | Viego | -0.85 | 0.28 | 1.13 |  |
+| 138 | Lillia | -0.85 | 0.05 | 0.90 |  |
+| 139 | Tristana | -0.86 | 0.24 | 1.10 |  |
+| 140 | Ziggs | -0.86 | 0.17 | 1.03 |  |
+| 141 | Vel'Koz | -0.87 | 0.16 | 1.03 |  |
+| 142 | Heimerdinger | -0.88 | 0.12 | 1.00 |  |
+| 143 | Graves | -0.89 | 0.14 | 1.03 |  |
+| 144 | Ivern | -0.89 | 0.11 | 1.00 |  |
+| 145 | Qiyana | -0.91 | 0.00 | 0.91 |  |
+| 146 | Ornn | -0.95 | 0.28 | 1.23 |  |
+| 147 | Ryze | -0.97 | 0.15 | 1.12 |  |
+| 148 | Urgot | -0.98 | 0.08 | 1.06 |  |
+| 149 | Sejuani | -0.98 | 0.00 | 0.98 |  |
+| 150 | Seraphine | -1.02 | 0.17 | 1.19 |  |
+| 151 | Nami | -1.02 | 0.14 | 1.16 |  |
+| 152 | Renata Glasc | -1.05 | 0.24 | 1.29 |  |
+| 153 | Zac | -1.09 | 0.18 | 1.27 |  |
+| 154 | Varus | -1.11 | 0.18 | 1.29 |  |
+| 155 | Miss Fortune | -1.16 | 0.20 | 1.36 |  |
+| 156 | Xerath | -1.18 | 0.16 | 1.34 |  |
+| 157 | Lucian | -1.19 | 0.21 | 1.40 |  |
+| 158 | Naafiri | -1.19 | 0.00 | 1.19 |  |
+| 159 | Twisted Fate | -1.20 | 0.25 | 1.45 |  |
+| 160 | Caitlyn | -1.21 | 0.24 | 1.45 |  |
+| 161 | Briar | -1.22 | 0.00 | 1.22 |  |
+| 162 | Pyke | -1.25 | 0.00 | 1.25 |  |
+| 163 | Katarina | -1.26 | 0.00 | 1.26 |  |
+| 164 | Tahm Kench | -1.27 | 0.00 | 1.27 |  |
+| 165 | Gragas | -1.28 | 0.00 | 1.28 |  |
+| 166 | Akshan | -1.37 | 0.19 | 1.56 |  |
+| 167 | Jhin | -1.37 | 0.17 | 1.54 |  |
+| 168 | Galio | -1.44 | 0.00 | 1.44 |  |
+| 169 | Janna | -1.47 | 0.22 | 1.69 |  |
+| 170 | Fiddlesticks | -1.52 | 0.11 | 1.63 |  |
+| 171 | Nunu & Willump | -1.58 | 0.00 | 1.58 |  |
+| 172 | Taliyah | -1.97 | 0.16 | 2.13 |  |

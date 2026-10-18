@@ -237,3 +237,78 @@ Cooldowns and costs of each slot's main ability, wiki vs game files:
 | E: Wuju Style | cooldown | 14 / 14 / 14 / 14 / 14 | 14 / 14 / 14 / 14 / 14 | yes |
 | R: Highlander | cooldown | 85 / 85 / 85 | 85 / 85 / 85 | yes |
 | R: Highlander | cost | 100 / 100 / 100 | 100 / 100 / 100 | yes |
+
+## Duel simulator kit (level 20, every ability at max rank)
+
+What the duel simulator fights with (`kits/champions/MasterYi.ts`): values come from pinned wiki and versioned game-data records at level 20. Interpretations and missing evidence are listed under assumptions. Ratios are fractions of the stat (60% AD is 0.6 × AD).
+
+- Basic attack: range 175, melee.
+
+| Key | Ability | Cooldown (s) | Cast time (s) | Cost | Delivery | On the enemy | On itself |
+|---|---|--:|--:|---|---|---|---|
+| Q | Alpha Strike | 18 | 0 | 70 | targeted, 600 range; channel 1.089 s | – | – |
+| W | Meditate | 10 | 0 | 40 | self; channel 4 s | – | resets the attack timer |
+| W2 | Meditate (cancel) | 0 | 0 | – | self; recast of W within 4 s | – | – |
+| E | Wuju Style | 14 | 0 | 0 | self | – | – |
+| R | Highlander | 85 | 0 | 100 | self | – | cleanses slow, cripple; slowImmune for 7 s; crippleImmune for 7 s; ghosted for 7 s; attackSpeed 0.65 for 7 s; moveSpeedPercent 0.6 for 7 s |
+
+Effects marked by a mark or a role are completed by the kit's hooks (see the kit's source).
+
+### Assumptions
+
+- Alpha Strike marks the opposing champion four times; summoned units are not selected as extra bounce targets in this 1v1 model.
+- Alpha Strike exits 75 units on the near side of its primary target, without a player-selected exit direction.
+- Double Strike's second hit resolves immediately after the first; its unspecified animation delay and retargeting after a champion kill are not simulated.
+- Meditate's first heal occurs after 0.5 seconds; the wiki allows a variable first-tick phase, so an instant cancel never guarantees a heal here.
+- Highlander's takedown rewards apply on lethal champion damage; the engine does not expose a separate takedown event when a champion immediately enters a post-death fighting form.
+
+### Source values read (46)
+
+| Ability | Value | Source version |
+|---|---|---|
+| Double Strike | generate a stack of Double Strike for 4 seconds | [4057839](https://wiki.leagueoflegends.com/en-us/Template:Data_Master_Yi/Double_Strike?oldid=4057839) |
+| Double Strike | stacking up to 3 times | [4057839](https://wiki.leagueoflegends.com/en-us/Template:Data_Master_Yi/Double_Strike?oldid=4057839) |
+| Double Strike | the second strike dealing 50% AD physical damage | [4057839](https://wiki.leagueoflegends.com/en-us/Template:Data_Master_Yi/Double_Strike?oldid=4057839) |
+| Alpha Strike | After 0.231 | [4064856](https://wiki.leagueoflegends.com/en-us/Template:Data_Master_Yi/Alpha_Strike?oldid=4064856) |
+| Alpha Strike | recurring every 0.231 up to 3 times | [4064856](https://wiki.leagueoflegends.com/en-us/Template:Data_Master_Yi/Alpha_Strike?oldid=4064856) |
+| Alpha Strike | Master Yi reappears 75 units | [4064856](https://wiki.leagueoflegends.com/en-us/Template:Data_Master_Yi/Alpha_Strike?oldid=4064856) |
+| Alpha Strike | becomes able to act again after 0.165 | [4064856](https://wiki.leagueoflegends.com/en-us/Template:Data_Master_Yi/Alpha_Strike?oldid=4064856) |
+| Alpha Strike | Alpha Strike can only follow up-to 2000 units | [4064856](https://wiki.leagueoflegends.com/en-us/Template:Data_Master_Yi/Alpha_Strike?oldid=4064856) |
+| Alpha Strike | Primary Physical Damage: 20 / 40 / 60 / 80 / 100 (+ 70% AD) | [4064856](https://wiki.leagueoflegends.com/en-us/Template:Data_Master_Yi/Alpha_Strike?oldid=4064856) |
+| Alpha Strike | Reduced Damage per hit: 5 / 10 / 15 / 20 / 25 (+ 17.5% AD) | [4064856](https://wiki.leagueoflegends.com/en-us/Template:Data_Master_Yi/Alpha_Strike?oldid=4064856) |
+| Alpha Strike | can critically strike for 200% damage | [4064856](https://wiki.leagueoflegends.com/en-us/Template:Data_Master_Yi/Alpha_Strike?oldid=4064856) |
+| Alpha Strike | with on-hit damage reduced to 75% effectiveness | [4064856](https://wiki.leagueoflegends.com/en-us/Template:Data_Master_Yi/Alpha_Strike?oldid=4064856) |
+| Alpha Strike | with on-hit damage reduced to 18.75% effectiveness | [4064856](https://wiki.leagueoflegends.com/en-us/Template:Data_Master_Yi/Alpha_Strike?oldid=4064856) |
+| Alpha Strike | reduce Alpha Strike's current cooldown by 1 second | [4064856](https://wiki.leagueoflegends.com/en-us/Template:Data_Master_Yi/Alpha_Strike?oldid=4064856) |
+| Alpha Strike | Each time Alpha Strike hits a target, the current durations of Wuju Style and Highlander are refreshed | [4064856](https://wiki.leagueoflegends.com/en-us/Template:Data_Master_Yi/Alpha_Strike?oldid=4064856) |
+| Alpha Strike | does not trigger its cooldown reduction nor grant a stack of Double Strike | [4064856](https://wiki.leagueoflegends.com/en-us/Template:Data_Master_Yi/Alpha_Strike?oldid=4064856) |
+| Alpha Strike | On-hit damage applied by Alpha Strike will be negated by dodge and block, but not while Master Yi is blinded | [4064856](https://wiki.leagueoflegends.com/en-us/Template:Data_Master_Yi/Alpha_Strike?oldid=4064856) |
+| Meditate | channels for up to 4 seconds | [4039653](https://wiki.leagueoflegends.com/en-us/Template:Data_Master_Yi/Meditate?oldid=4039653) |
+| Meditate | healing himself every 0.5 seconds | [4039653](https://wiki.leagueoflegends.com/en-us/Template:Data_Master_Yi/Meditate?oldid=4039653) |
+| Meditate | Minimum Heal Per Tick: 15 / 25 / 35 / 45 / 55 (+ 12.5% AP) | [4039653](https://wiki.leagueoflegends.com/en-us/Template:Data_Master_Yi/Meditate?oldid=4039653) |
+| Meditate | Active: Master Yi channels for up to 4 seconds, healing himself every 0.5 seconds, increased by 0 / 10 / 20 / 30 / 40 / 50 / 60 / 70 / 80 / 90 / 100 (based on missing health)%. | [4039653](https://wiki.leagueoflegends.com/en-us/Template:Data_Master_Yi/Meditate?oldid=4039653) |
+| Meditate | gains 70% damage reduction for the first 0.5 seconds | [4039653](https://wiki.leagueoflegends.com/en-us/Template:Data_Master_Yi/Meditate?oldid=4039653) |
+| Meditate | Modified Damage Reduction: 45 / 47.5 / 50 / 52.5 / 55% | [4039653](https://wiki.leagueoflegends.com/en-us/Template:Data_Master_Yi/Meditate?oldid=4039653) |
+| Meditate | lingers for 0.5 seconds after the channel ends | [4039653](https://wiki.leagueoflegends.com/en-us/Template:Data_Master_Yi/Meditate?oldid=4039653) |
+| Wuju Style | within the next 5 seconds | [3959670](https://wiki.leagueoflegends.com/en-us/Template:Data_Master_Yi/Wuju_Style?oldid=3959670) |
+| Wuju Style | Bonus True Damage: 20 / 25 / 30 / 35 / 40 (+ 35% bonus AD) | [3959670](https://wiki.leagueoflegends.com/en-us/Template:Data_Master_Yi/Wuju_Style?oldid=3959670) |
+| Highlander | For the next 7 seconds | [4060364](https://wiki.leagueoflegends.com/en-us/Template:Data_Master_Yi/Highlander?oldid=4060364) |
+| Highlander | Bonus Attack Speed: 25 / 45 / 65% | [4060364](https://wiki.leagueoflegends.com/en-us/Template:Data_Master_Yi/Highlander?oldid=4060364) |
+| Highlander | Bonus Movement Speed: 40 / 50 / 60% | [4060364](https://wiki.leagueoflegends.com/en-us/Template:Data_Master_Yi/Highlander?oldid=4060364) |
+| Highlander | by 70% | [4060364](https://wiki.leagueoflegends.com/en-us/Template:Data_Master_Yi/Highlander?oldid=4060364) |
+| Highlander | extends Highlander's duration by 7 seconds | [4060364](https://wiki.leagueoflegends.com/en-us/Template:Data_Master_Yi/Highlander?oldid=4060364) |
+| Alpha Strike | cooldown: 20 / 19.5 / 19 / 18.5 / 18 | [4064856](https://wiki.leagueoflegends.com/en-us/Template:Data_Master_Yi/Alpha_Strike?oldid=4064856) |
+| Meditate | cooldown: 10 | [4039653](https://wiki.leagueoflegends.com/en-us/Template:Data_Master_Yi/Meditate?oldid=4039653) |
+| Wuju Style | cooldown: 14 | [3959670](https://wiki.leagueoflegends.com/en-us/Template:Data_Master_Yi/Wuju_Style?oldid=3959670) |
+| Highlander | cooldown: 85 | [4060364](https://wiki.leagueoflegends.com/en-us/Template:Data_Master_Yi/Highlander?oldid=4060364) |
+| Meditate | costType: mana (+ 6% maximum mana per second) | [4039653](https://wiki.leagueoflegends.com/en-us/Template:Data_Master_Yi/Meditate?oldid=4039653) |
+| Meditate | grants one stack of Double Strike per second during the channel | [4039653](https://wiki.leagueoflegends.com/en-us/Template:Data_Master_Yi/Meditate?oldid=4039653) |
+| Alpha Strike | cost: 50 / 55 / 60 / 65 / 70 | [4064856](https://wiki.leagueoflegends.com/en-us/Template:Data_Master_Yi/Alpha_Strike?oldid=4064856) |
+| Alpha Strike | castTime: none | [4064856](https://wiki.leagueoflegends.com/en-us/Template:Data_Master_Yi/Alpha_Strike?oldid=4064856) |
+| Alpha Strike | targetRange: 600 | [4064856](https://wiki.leagueoflegends.com/en-us/Template:Data_Master_Yi/Alpha_Strike?oldid=4064856) |
+| Meditate | cost: 40 | [4039653](https://wiki.leagueoflegends.com/en-us/Template:Data_Master_Yi/Meditate?oldid=4039653) |
+| Meditate | castTime: none | [4039653](https://wiki.leagueoflegends.com/en-us/Template:Data_Master_Yi/Meditate?oldid=4039653) |
+| Wuju Style | castTime: none | [3959670](https://wiki.leagueoflegends.com/en-us/Template:Data_Master_Yi/Wuju_Style?oldid=3959670) |
+| Highlander | cost: 100 | [4060364](https://wiki.leagueoflegends.com/en-us/Template:Data_Master_Yi/Highlander?oldid=4060364) |
+| Highlander | castTime: none | [4060364](https://wiki.leagueoflegends.com/en-us/Template:Data_Master_Yi/Highlander?oldid=4060364) |
+| Alpha Strike | Maximum Single-Target Damage: 35 / 70 / 105 / 140 / 175 (+ 122.5% AD) | [4064856](https://wiki.leagueoflegends.com/en-us/Template:Data_Master_Yi/Alpha_Strike?oldid=4064856) |

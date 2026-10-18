@@ -5,15 +5,18 @@
  *
  * Each champion spends it in small steps on whichever stat raises
  *
- *   ln(damage per second against the enemy) + ln(effective health against the enemy's damage)
+ *   ln(damage per second against the enemy) + ln(reference survival time)
  *
  * the most. Damage per second follows the champion's own ratios: attacks, on-hit effects and
  * damaging abilities over their cooldowns, through the enemy's resistances. Effective health
  * is health plus the shields and heals of its abilities over a reference fight, divided by
  * the share of the enemy's damage (its mix by type) that armor and magic resistance let
- * through. Maximizing the sum maximizes damage x survival time, which decides a duel; the
+ * through. Dividing effective health by the enemy's raw DPS gives survival time, including
+ * changes to that DPS from target-stat ratios such as maximum-health damage. Maximizing the
+ * sum maximizes damage x survival time in this reference fight; the
  * logarithms make each step weigh offense and defense by how much it adds relative to what
- * the champion already has.
+ * the champion already has. This is a build-selection heuristic; the tick simulator, rather
+ * than this reference, scores the resulting builds.
  *
  * Each side's damage mix and resistances depend on what the other buys, so the sides answer
  * each other's builds over several rounds (see allocateBoth). Penetration is capped near what
@@ -22,7 +25,9 @@
 import { effectiveResist, resistMultiplier } from "./rules/damage";
 import { averageCritFactor } from "./rules/defense";
 import { cooldownAfterHaste } from "./rules/timing";
-import { boughtPenetration, derive, evaluate } from "./sim/derived";
+import { toSeconds, toTicks } from "./rules/time";
+import { derive, evaluate } from "./sim/derived";
+import { createWorld } from "./sim/simulate";
 import { type AbilitySpec, type BonusStats, type DamageByType, type Effect, type FighterSpec, type Formula, cooldownKeyOf } from "./sim/spec";
 import { type Unit, newUnit } from "./sim/state";
 
@@ -52,15 +57,24 @@ export const BUDGET_STEP = 50;
  */
 export const PENETRATION_CAPS = { lethality: 40, armorPen: 0.35, magicPen: 20, magicPenPercent: 0.4 } as const;
 
-function overCaps(bonus: BonusStats): boolean {
-  const c = PENETRATION_CAPS;
-  const over = (value: number, cap: number) => value > cap + 1e-9;
-  return (
-    over(bonus.lethality ?? 0, c.lethality) ||
-    over(boughtPenetration(bonus.armorPenPoints ?? 0), c.armorPen) ||
-    over(bonus.magicPen ?? 0, c.magicPen) ||
-    over(boughtPenetration(bonus.magicPenPoints ?? 0), c.magicPenPercent)
-  );
+/** Points of a stat still worth buying before its cap, including a kit's multiplier. */
+function availablePoints(spec: FighterSpec, bonus: BonusStats, stat: BudgetStat): number {
+  const multiplier = spec.budget?.statMultipliers?.[stat] ?? 1;
+  const penetrationPoints = (cap: number) => Math.log1p(-cap) / Math.log(0.99);
+  switch (stat) {
+    case "crit":
+      return Math.max(0, (1 / multiplier - (bonus.critChance ?? 0)) * 100);
+    case "lethality":
+      return Math.max(0, PENETRATION_CAPS.lethality / multiplier - (bonus.lethality ?? 0));
+    case "armpen":
+      return Math.max(0, penetrationPoints(PENETRATION_CAPS.armorPen) / multiplier - (bonus.armorPenPoints ?? 0));
+    case "mpenflat":
+      return Math.max(0, PENETRATION_CAPS.magicPen / multiplier - (bonus.magicPen ?? 0));
+    case "mpen":
+      return Math.max(0, penetrationPoints(PENETRATION_CAPS.magicPenPercent) / multiplier - (bonus.magicPenPoints ?? 0));
+    default:
+      return Number.POSITIVE_INFINITY;
+  }
 }
 
 /** Seconds of fighting over which ability shields and heals count toward effective health. */
@@ -99,8 +113,10 @@ function valued(spec: FighterSpec, bonus: BonusStats): FighterSpec {
   set("magicPen", m.mpenflat);
   set("magicPenPoints", m.mpen);
   set("hp", m.hp);
-  set("armor", m.armor);
-  set("mr", m.mr);
+  // Total-resistance hints apply to base and bought stats together during initialization.
+  // They take precedence over an older purchased-stat hint for the same resistance.
+  if (spec.budget?.totalResistanceMultipliers?.armor === undefined) set("armor", m.armor);
+  if (spec.budget?.totalResistanceMultipliers?.mr === undefined) set("mr", m.mr);
   return withBonus(spec, scaled);
 }
 
@@ -170,21 +186,47 @@ function abilitiesOf(spec: FighterSpec): AbilitySpec[] {
 }
 
 function unitOf(spec: FighterSpec, side: 0 | 1): Unit {
-  return newUnit(spec, side, 0, spec.base.hp + (spec.bonus?.hp ?? 0), spec.base.resource);
+  const total = spec.budget?.totalResistanceMultipliers;
+  const extra: Effect[] = [];
+  for (const [stat, multiplier] of [["armorPercent", total?.armor], ["mrPercent", total?.mr]] as const) {
+    // An innate effect already represents the passive when a kit declares it in start.
+    if (multiplier !== undefined && !spec.start?.some((effect) => effect.type === "stat" && effect.stat === stat)) {
+      extra.push({ type: "stat", stat, amount: { base: multiplier - 1 }, duration: Infinity });
+    }
+  }
+  if (!spec.start?.length && !extra.length) return newUnit(spec, side, 0, spec.base.hp + (spec.bonus?.hp ?? 0), spec.resourceStart ?? spec.base.resource);
+  // Reuse the combat initialization for innate penetration, stack health, resistances, etc.
+  // Hook stat multipliers are already represented by valued(), and damage/healing by hints;
+  // running onStart here as well would count those multipliers twice.
+  const reference = { ...spec, hooks: undefined, start: [...(spec.start ?? []), ...extra] };
+  return createWorld({ fighters: [reference, reference], distance: 0, modes: ["idle", "idle"] }).units[side];
 }
 
 /** One damage term of an ability's use: a formula dealt `times` times. */
 interface DamageTerm {
   damageType: keyof DamageMix;
   amount: Formula;
+  amountFor?: (caster: Unit, target: Unit) => number;
   times: number;
+  canCrit?: boolean;
+  critMultiplier?: number;
+  minimum?: Formula;
+  pulseFormula?: Formula;
+  attackWindow?: number;
 }
 
 /** One use per cooldown: an ability with its recasts. */
-interface Use {
+interface ReferenceTiming {
   cooldown: number;
+  cooldownFor?: AbilitySpec["cooldownFor"];
+  staticCooldown?: boolean;
+  recharge?: number;
   castTime: number;
+  castTimeFor?: AbilitySpec["castTimeFor"];
   held: Held;
+}
+
+interface Use extends ReferenceTiming {
   terms: DamageTerm[];
 }
 
@@ -215,16 +257,34 @@ function heldOf(ability: AbilitySpec): Held {
   }
 }
 
-/** The cooldown that paces an ability's uses: a charge's recharge, or its cooldown. */
-function cycleCooldown(ability: AbilitySpec): number {
-  return ability.charges ? Math.max(ability.cooldown, ability.charges.recharge) : ability.cooldown;
+/** Keep dynamic callbacks so every candidate build supplies its own timing stats. */
+function timingOf(ability: AbilitySpec): ReferenceTiming {
+  return {
+    cooldown: ability.cooldown,
+    ...(ability.cooldownFor ? { cooldownFor: ability.cooldownFor } : {}),
+    ...(ability.staticCooldown ? { staticCooldown: true } : {}),
+    ...(ability.charges ? { recharge: ability.charges.recharge } : {}),
+    castTime: ability.castTime,
+    ...(ability.castTimeFor ? { castTimeFor: ability.castTimeFor } : {}),
+    held: heldOf(ability),
+  };
+}
+
+/** Cast duration for the candidate unit, with dynamic casts quantized as they are in combat. */
+function castTimeOf(use: { castTime: number; castTimeFor?: AbilitySpec["castTimeFor"] }, self: Unit): number {
+  // Evaluate after the candidate stats are installed; cache the callback, never its result.
+  return use.castTimeFor ? toSeconds(toTicks(use.castTimeFor(self))) : use.castTime;
 }
 
 /** Seconds from one use to the next: the cooldown after haste, the cast, and any post-effect wait. */
-function cycleOf(use: { cooldown: number; castTime: number; held: Held }, d: { abilityHaste: number; attackSpeed: number }): number {
-  const cooldown = cooldownAfterHaste(use.cooldown, d.abilityHaste);
+function cycleOf(use: ReferenceTiming, self: Unit): number {
+  const d = derive(self);
+  const base = use.cooldownFor?.(self) ?? use.cooldown;
+  let cooldown = use.staticCooldown ? base : cooldownAfterHaste(base, d.abilityHaste);
+  // Static cast cooldowns do not make a separate charge-recharge timer immune to haste.
+  if (use.recharge !== undefined) cooldown = Math.max(cooldown, cooldownAfterHaste(use.recharge, d.abilityHaste));
   if (cooldown <= 0) return 0;
-  return cooldown + use.castTime + use.held.seconds + (d.attackSpeed > 0 ? use.held.attacks / d.attackSpeed : 0);
+  return cooldown + castTimeOf(use, self) + use.held.seconds + (d.attackSpeed > 0 ? use.held.attacks / d.attackSpeed : 0);
 }
 
 const termCache = new WeakMap<AbilitySpec, DamageTerm[]>();
@@ -242,17 +302,18 @@ function damageTerms(ability: AbilitySpec): DamageTerm[] {
       : d.burst
         ? d.burst.count * (Math.floor((d.duration - (d.burst.count - 1) * d.burst.gap) / d.interval + 1e-9) + 1)
         : Math.max(1, Math.round(d.duration / d.interval));
-  const groups: Array<[Effect[], number]> = [
+  const groups: Array<[Effect[], number, Formula?, number?]> = [
     [ability.onHit ?? [], hits],
-    [ability.channel?.onTick ?? [], pulses],
+    [ability.channel?.onTick ?? [], pulses, ability.channel?.pulses],
     [ability.channel?.onComplete ?? [], 1],
   ];
-  for (const e of ability.onSelf ?? []) if (e.type === "empower") groups.push([e.onHit, e.attacks]);
+  for (const e of ability.onSelf ?? []) if (e.type === "empower") groups.push([e.onHit, e.attacks, undefined, e.window]);
   const terms: DamageTerm[] = [];
-  for (const [effects, times] of groups) {
+  for (const [effects, times, pulseFormula, attackWindow] of groups) {
     for (const e of flatten(effects)) {
-      if (e.type === "damage") terms.push({ damageType: e.damageType, amount: e.amount, times });
-      else if (e.type === "dot") terms.push({ damageType: e.damageType, amount: e.total, times });
+      const repeats = { times, ...(pulseFormula ? { pulseFormula } : {}), ...(attackWindow !== undefined ? { attackWindow } : {}) };
+      if (e.type === "damage") terms.push({ ...e, ...repeats });
+      else if (e.type === "dot") terms.push({ damageType: e.damageType, amount: e.total, ...repeats });
     }
   }
   termCache.set(ability, terms);
@@ -272,7 +333,7 @@ function usesOf(abilities: AbilitySpec[]): Use[][] {
   for (const ability of abilities) {
     if (ability.chain) continue;
     const stages = abilities.filter((stage) => stage.chain?.root === ability.key);
-    const use: Use = { cooldown: cycleCooldown(ability), castTime: ability.castTime, held: heldOf(ability), terms: [...damageTerms(ability), ...stages.flatMap(damageTerms)] };
+    const use: Use = { ...timingOf(ability), terms: [...damageTerms(ability), ...stages.flatMap(damageTerms)] };
     const key = cooldownKeyOf(ability);
     byCooldown.set(key, [...(byCooldown.get(key) ?? []), use]);
   }
@@ -287,9 +348,19 @@ function onHitTerms(effects: Effect[]): DamageTerm[] {
   const cached = onHitCache.get(effects);
   if (cached) return cached;
   const terms: DamageTerm[] = [];
-  for (const e of flatten(effects)) if (e.type === "damage") terms.push({ damageType: e.damageType, amount: e.amount, times: 1 });
+  for (const e of flatten(effects)) if (e.type === "damage") terms.push({ ...e, times: 1 });
   onHitCache.set(effects, terms);
   return terms;
+}
+
+/** The same damage floor and expected critical multiplier that a combat effect uses. */
+function termDamage(term: DamageTerm, self: Unit, target: Unit): number {
+  const d = derive(self);
+  const amount = Math.max(term.amountFor?.(self, target) ?? evaluate(term.amount, self, target), term.minimum ? evaluate(term.minimum, self, target) : 0);
+  const times = term.pulseFormula ? Math.max(1, Math.floor(evaluate(term.pulseFormula, self) + 1e-6))
+    : term.attackWindow !== undefined ? Math.min(term.times, d.attackSpeed * term.attackWindow)
+    : term.times;
+  return amount * (term.canCrit ? averageCritFactor(d.critChance, term.critMultiplier ?? d.critDamage) : 1) * times;
 }
 
 /**
@@ -300,25 +371,28 @@ function rawDamage(self: Unit, target: Unit): DamageMix {
   const d = derive(self);
   const hints = self.spec.budget;
   const attacks = hints?.attacks !== false;
-  const raw: DamageMix = { physical: attacks ? d.ad * averageCritFactor(d.critChance, d.critDamage) * d.attackSpeed : 0, magic: 0, true: 0 };
+  const attackDps = attacks ? d.ad * averageCritFactor(d.critChance, d.critDamage) * d.attackSpeed : 0;
+  const split = hints?.attackSplit ?? { physical: 1, magic: 0 };
+  const raw: DamageMix = { physical: attackDps * split.physical, magic: attackDps * split.magic, true: attackDps * (split.true ?? 0) };
   if (attacks && self.spec.attack.onHit) {
-    for (const term of onHitTerms(self.spec.attack.onHit)) raw[term.damageType] += evaluate(term.amount, self, target) * d.attackSpeed;
+    for (const term of onHitTerms(self.spec.attack.onHit)) raw[term.damageType] += termDamage(term, self, target) * d.attackSpeed;
   }
   const extra = hints?.damage?.(self, target);
   raw.physical += extra?.physical ?? 0;
   raw.magic += extra?.magic ?? 0;
   raw.true += extra?.true ?? 0;
-  // Of versions sharing a cooldown, the strongest.
+  // Of versions sharing a cooldown, the strongest sustained damage into this target.
+  const mitigation = multipliers(self, target);
   for (const alternatives of usesOf(abilitiesOf(self.spec))) {
     let best: DamageMix | undefined;
     let bestTotal = -1;
     let bestCooldown = 0;
     for (const use of alternatives) {
-      const cooldown = cycleOf(use, d);
+      const cooldown = cycleOf(use, self);
       if (cooldown <= 0) continue;
       const mix: DamageMix = { physical: 0, magic: 0, true: 0 };
-      for (const term of use.terms) mix[term.damageType] += term.times * evaluate(term.amount, self, target);
-      const total = mix.physical + mix.magic + mix.true;
+      for (const term of use.terms) mix[term.damageType] += termDamage(term, self, target);
+      const total = (mix.physical * mitigation.physical + mix.magic * mitigation.magic + mix.true) / cooldown;
       if (total > bestTotal) {
         best = mix;
         bestTotal = total;
@@ -338,52 +412,72 @@ function multipliers(attacker: Unit, target: Unit): { physical: number; magic: n
   const a = derive(attacker);
   const t = derive(target);
   return {
-    physical: resistMultiplier(effectiveResist(t.armor, {}, { flat: a.lethality, percent: a.armorPen })),
-    magic: resistMultiplier(effectiveResist(t.mr, {}, { flat: a.magicPen, percent: a.magicPenPercent })),
+    physical: resistMultiplier(effectiveResist(t.armor, t.armorReduction, { flat: a.lethality, percent: a.armorPen, bonusPercent: a.bonusArmorPen })),
+    magic: resistMultiplier(effectiveResist(t.mr, t.mrReduction, { flat: a.magicPen, percent: a.magicPenPercent })),
   };
 }
 
 /** Damage per second against the enemy, by type, after its resistances and the attacker's penetration. */
 export function damagePerSecond(spec: FighterSpec, enemy: FighterSpec): DamageMix {
-  const self = unitOf(spec, 0);
-  const target = unitOf(enemy, 1);
+  const self = unitOf(valued(spec, spec.bonus ?? {}), 0);
+  const target = unitOf(valued(enemy, enemy.bonus ?? {}), 1);
   const raw = rawDamage(self, target);
   const m = multipliers(self, target);
   return { physical: raw.physical * m.physical, magic: raw.magic * m.magic, true: raw.true };
 }
 
-const sustainCache = new WeakMap<AbilitySpec[], Array<{ amount: Formula; cooldown: number; castTime: number; held: Held }>>();
+interface SustainUse extends ReferenceTiming {
+  effects: Array<Extract<Effect, { type: "shield" | "heal" }>>;
+}
+
+const sustainCache = new WeakMap<AbilitySpec[], SustainUse[][]>();
 
 /** Shields and heals abilities give their caster over the reference fight. */
-function sustain(self: Unit): number {
+function sustain(self: Unit, incoming: DamageMix): number {
   const abilities = abilitiesOf(self.spec);
   let sources = sustainCache.get(abilities);
   if (!sources) {
-    sources = abilities.flatMap((ability) =>
-      flatten(ability.onSelf ?? [])
-        .filter((e): e is Extract<Effect, { type: "shield" | "heal" }> => e.type === "shield" || e.type === "heal")
-        .map((e) => ({ amount: e.amount, cooldown: cycleCooldown(ability), castTime: ability.castTime, held: heldOf(ability) })),
-    );
+    const groups = new Map<string, SustainUse[]>();
+    for (const ability of abilities) {
+      if (ability.chain) continue;
+      const stages = [ability, ...abilities.filter((stage) => stage.chain?.root === ability.key)];
+      const effects = stages.flatMap((stage) => flatten([...(stage.onCastStart ?? []), ...(stage.onSelf ?? [])]))
+        .filter((e): e is Extract<Effect, { type: "shield" | "heal" }> => e.type === "shield" || e.type === "heal");
+      if (!effects.length) continue;
+      const key = cooldownKeyOf(ability);
+      groups.set(key, [...(groups.get(key) ?? []), { effects, ...timingOf(ability) }]);
+    }
+    sources = [...groups.values()];
     sustainCache.set(abilities, sources);
   }
-  const d = derive(self);
   let total = 0;
-  for (const source of sources) {
-    const cooldown = cycleOf(source, d);
-    const uses = cooldown > 0 ? Math.max(1, Math.floor(SUSTAIN_WINDOW / cooldown)) : 1;
-    total += uses * evaluate(source.amount, self);
+  for (const alternatives of sources) {
+    let best = 0;
+    for (const source of alternatives) {
+      const cooldown = cycleOf(source, self);
+      // Ready at the start: a six-second cooldown is available twice in a ten-second fight.
+      const window = Math.max(0, SUSTAIN_WINDOW - castTimeOf(source, self));
+      const uses = cooldown > 0 ? Math.ceil(window / cooldown) : Number(window > 0);
+      let amount = 0;
+      for (const effect of source.effects) {
+        // A type-specific shield cannot absorb damage of an unrelated type.
+        if (effect.type === "shield" && effect.shieldType && effect.shieldType !== "normal" && incoming[effect.shieldType] <= 0) continue;
+        amount += evaluate(effect.amount, self);
+      }
+      best = Math.max(best, uses * amount);
+    }
+    total += best;
   }
   return total;
 }
 
-function health(self: Unit, enemy: Unit): number {
-  const raw = rawDamage(enemy, self);
+function health(self: Unit, enemy: Unit, raw = rawDamage(enemy, self)): number {
   const total = raw.physical + raw.magic + raw.true;
   const shares = total > 0 ? { physical: raw.physical / total, magic: raw.magic / total, true: raw.true / total } : { physical: 0.5, magic: 0.5, true: 0 };
   const m = multipliers(enemy, self);
   const taken = shares.physical * m.physical + shares.magic * m.magic + shares.true;
   const healing = (self.spec.budget?.healing?.(self, enemy) ?? 0) * SUSTAIN_WINDOW;
-  return (derive(self).maxHp + sustain(self) + healing) / taken;
+  return (derive(self).maxHp + sustain(self, raw) + healing) / taken;
 }
 
 /**
@@ -392,18 +486,31 @@ function health(self: Unit, enemy: Unit): number {
  * magic resistance after the enemy's penetration.
  */
 export function effectiveHealth(spec: FighterSpec, enemy: FighterSpec): number {
-  return health(unitOf(spec, 0), unitOf(enemy, 1));
+  return health(unitOf(valued(spec, spec.bonus ?? {}), 0), unitOf(valued(enemy, enemy.bonus ?? {}), 1));
 }
 
 function value(self: Unit, enemy: Unit): number {
   const raw = rawDamage(self, enemy);
   const m = multipliers(self, enemy);
   const dps = raw.physical * m.physical + raw.magic * m.magic + raw.true;
-  return Math.log(Math.max(dps, 1e-9)) + Math.log(health(self, enemy));
+  const incoming = rawDamage(enemy, self);
+  const incomingDps = incoming.physical + incoming.magic + incoming.true;
+  // Survival is effective health / incoming raw DPS. The latter is not constant when the
+  // enemy's damage scales with our health or other stats (e.g. % maximum-health damage).
+  return Math.log(Math.max(dps, 1e-9)) + Math.log(health(self, enemy, incoming)) - Math.log(Math.max(incomingDps, 1e-9));
+}
+
+function validateBudget(gold: number, prices: StatPrices): void {
+  if (!Number.isFinite(gold) || gold < 0) throw new RangeError("Stat budget must be finite and nonnegative");
+  for (const stat of BUDGET_STATS) {
+    if (!Number.isFinite(prices[stat]) || prices[stat] <= 0) throw new RangeError(`Stat price for ${stat} must be finite and positive`);
+  }
 }
 
 /** Spends `gold` on the stats that help `spec` most against `enemy`. */
 export function allocate(spec: FighterSpec, enemy: FighterSpec, gold: number, prices: StatPrices, step = BUDGET_STEP): Allocation {
+  validateBudget(gold, prices);
+  if (!Number.isFinite(step) || step <= 0) throw new RangeError("Allocation step must be finite and positive");
   const foe = unitOf(valued(enemy, enemy.bonus ?? {}), 1);
   const score = (bonus: BonusStats) => value(unitOf(valued(spec, bonus), 0), foe);
   let bonus: BonusStats = {};
@@ -412,19 +519,21 @@ export function allocate(spec: FighterSpec, enemy: FighterSpec, gold: number, pr
   // Stats the kit gets nothing from (ability power without AP ratios, ...) are never worth a step.
   const per = (stat: BudgetStat) => 1 / prices[stat];
   const useful = BUDGET_STATS.filter((stat) => score(addStat(bonus, stat, 1000 * per(stat))) > current + 1e-12);
-  for (let left = gold; left >= step; left -= step) {
-    let best: { stat: BudgetStat; bonus: BonusStats; value: number } | undefined;
+  for (let left = gold; left > 1e-9;) {
+    let best: { stat: BudgetStat; bonus: BonusStats; value: number; cost: number; gainPerGold: number } | undefined;
     for (const stat of useful) {
-      if (stat === "crit" && (bonus.critChance ?? 0) >= 1) continue;
-      const next = addStat(bonus, stat, step * per(stat));
-      if (overCaps(next)) continue;
+      const cost = Math.min(step, left, availablePoints(spec, bonus, stat) * prices[stat]);
+      if (cost <= 1e-9) continue;
+      const next = addStat(bonus, stat, cost * per(stat));
       const v = score(next);
-      if (!best || v > best.value + 1e-12) best = { stat, bonus: next, value: v };
+      const gainPerGold = (v - current) / cost;
+      if (!best || gainPerGold > best.gainPerGold + 1e-14) best = { stat, bonus: next, value: v, cost, gainPerGold };
     }
     // Nothing helps any more (stats can't lower the value, but they can stop raising it).
     if (!best || best.value <= current + 1e-12) break;
     bonus = best.bonus;
-    spent[best.stat] += step;
+    spent[best.stat] += best.cost;
+    left -= best.cost;
     current = best.value;
   }
   return { gold, bonus, spent };
@@ -452,6 +561,8 @@ function average(list: Allocation[]): Allocation {
  * average of the answers.
  */
 export function allocateBoth(a: FighterSpec, b: FighterSpec, gold: number, prices: StatPrices, rounds = BUDGET_ROUNDS): [Allocation, Allocation] {
+  validateBudget(gold, prices);
+  if (!Number.isInteger(rounds) || rounds < 1) throw new RangeError("Allocation rounds must be a positive integer");
   if (gold <= 0) {
     const none = (): Allocation => ({ gold: 0, bonus: {}, spent: Object.fromEntries(BUDGET_STATS.map((s) => [s, 0])) as Record<BudgetStat, number> });
     return [none(), none()];

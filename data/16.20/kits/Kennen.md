@@ -179,7 +179,7 @@ Cooldowns and costs of each slot's main ability, wiki vs game files:
 
 ## Duel simulator kit (level 20, every ability at max rank)
 
-What the duel simulator fights with (`kits/champions/Kennen.ts`): every number is read from the wiki's ability data above at level 20; what the wiki doesn't say is listed under assumptions. Ratios are fractions of the stat (60% AD is 0.6 × AD).
+What the duel simulator fights with (`kits/champions/Kennen.ts`): values come from pinned wiki and versioned game-data records at level 20. Interpretations and missing evidence are listed under assumptions. Ratios are fractions of the stat (60% AD is 0.6 × AD).
 
 - Basic attack: range 550, missile at 1700/s.
 
@@ -200,9 +200,9 @@ Effects marked by a mark or a role are completed by the kit's hooks (see the kit
 - Lightning Rush runs 670 units through the enemy (1 s at twice his base speed), then its recast gives the attack speed; fleeing, it runs the full 2 s away.
 - Lightning Rush's recast lets attack speed exceed the cap; the simulator's cap still applies (it rarely binds at level 20).
 
-### Wiki values read (42)
+### Source values read (42)
 
-| Ability | Value | Revision |
+| Ability | Value | Source version |
 |---|---|---|
 | Mark of the Storm | apply a stack of Mark of the Storm to enemies hit for 6 seconds | [3932481](https://wiki.leagueoflegends.com/en-us/Template:Data_Kennen/Mark_of_the_Storm?oldid=3932481) |
 | Mark of the Storm | stacking up to 3 times | [3932481](https://wiki.leagueoflegends.com/en-us/Template:Data_Kennen/Mark_of_the_Storm?oldid=3932481) |

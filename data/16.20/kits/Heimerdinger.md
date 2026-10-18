@@ -272,7 +272,7 @@ All 6 level-based formulas in the game files (0 linked to wiki values above):
 
 ## Duel simulator kit (level 20, every ability at max rank)
 
-What the duel simulator fights with (`kits/champions/Heimerdinger.ts`): every number is read from the wiki's ability data above at level 20; what the wiki doesn't say is listed under assumptions. Ratios are fractions of the stat (60% AD is 0.6 × AD).
+What the duel simulator fights with (`kits/champions/Heimerdinger.ts`): values come from pinned wiki and versioned game-data records at level 20. Interpretations and missing evidence are listed under assumptions. Ratios are fractions of the stat (60% AD is 0.6 × AD).
 
 - Basic attack: range 550, missile at 1500/s.
 - Options: turrets = 3, upgrade = 0.
@@ -303,9 +303,9 @@ Effects marked by a mark or a role are completed by the kit's hooks (see the kit
 - UPGRADE!!! empowers his rockets (Hextech Rocket Swarm).
 - Heimerdinger deploys a turret toward the enemy (within 350 units of him) while fewer than three reach it, and casts UPGRADE!!! in a fight just before the ability it empowers.
 
-### Wiki values read (67)
+### Source values read (67)
 
-| Ability | Value | Revision |
+| Ability | Value | Source version |
 |---|---|---|
 | Hextech Affinity | Heimerdinger gains 20% bonus movement speed while near an allied turret | [3428651](https://wiki.leagueoflegends.com/en-us/Template:Data_Heimerdinger/Hextech_Affinity?oldid=3428651) |
 | Hextech Affinity | effectRadius: 300 | [3428651](https://wiki.leagueoflegends.com/en-us/Template:Data_Heimerdinger/Hextech_Affinity?oldid=3428651) |

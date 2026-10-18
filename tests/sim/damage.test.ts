@@ -23,9 +23,9 @@ describe("damage and mitigation in the simulator", () => {
     // 30 lethality: 70 armor, 200 x 100 / 170.
     a.statuses.push(lasting("stat", "lethality", 30));
     expect(dealDamage(w, a, b, 200, "physical")).toBeCloseTo(200 / 1.7, 9);
-    // 20% damage reduction on the target, true damage.
+    // True damage ignores generic damage reduction (wiki: "True damage").
     b.statuses.push(lasting("state", "damageReduction", 0.2));
-    expect(dealDamage(w, a, b, 100, "true")).toBeCloseTo(80, 9);
+    expect(dealDamage(w, a, b, 100, "true")).toBeCloseTo(100, 9);
   });
 
   it("absorbs with shields of the right type, soonest to expire first", () => {

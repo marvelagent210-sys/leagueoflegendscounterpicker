@@ -1,10 +1,17 @@
 /** The champions the simulator plays, by Data Dragon id (behavior waves, PLAN.md section 9). */
 import type { KitModule } from "../../engine/kits/compile";
 import Aatrox from "./Aatrox";
+import Ahri from "./Ahri";
 import Akali from "./Akali";
 import Ambessa from "./Ambessa";
+import Amumu from "./Amumu";
+import Anivia from "./Anivia";
+import Annie from "./Annie";
+import Ashe from "./Ashe";
 import Aurora from "./Aurora";
+import Brand from "./Brand";
 import Camille from "./Camille";
+import Cassiopeia from "./Cassiopeia";
 import Chogath from "./Chogath";
 import Darius from "./Darius";
 import DrMundo from "./DrMundo";
@@ -18,18 +25,28 @@ import Illaoi from "./Illaoi";
 import Irelia from "./Irelia";
 import Jax from "./Jax";
 import Jayce from "./Jayce";
+import Karthus from "./Karthus";
+import Kassadin from "./Kassadin";
 import Kayle from "./Kayle";
 import KSante from "./KSante";
 import Kennen from "./Kennen";
 import Kled from "./Kled";
+import Leona from "./Leona";
+import Lissandra from "./Lissandra";
+import Lux from "./Lux";
 import Malphite from "./Malphite";
+import Malzahar from "./Malzahar";
+import MasterYi from "./MasterYi";
 import Mordekaiser from "./Mordekaiser";
+import Morgana from "./Morgana";
 import Nasus from "./Nasus";
+import Nautilus from "./Nautilus";
 import Olaf from "./Olaf";
 import Ornn from "./Ornn";
 import Pantheon from "./Pantheon";
 import Poppy from "./Poppy";
 import Quinn from "./Quinn";
+import Rammus from "./Rammus";
 import Renekton from "./Renekton";
 import Riven from "./Riven";
 import Rumble from "./Rumble";
@@ -44,12 +61,20 @@ import Trundle from "./Trundle";
 import Tryndamere from "./Tryndamere";
 import Udyr from "./Udyr";
 import Urgot from "./Urgot";
+import Vayne from "./Vayne";
+import Veigar from "./Veigar";
+import Velkoz from "./Velkoz";
+import Vladimir from "./Vladimir";
 import Volibear from "./Volibear";
+import XinZhao from "./XinZhao";
 import Yasuo from "./Yasuo";
 import Yone from "./Yone";
 import Yorick from "./Yorick";
 import Zaahen from "./Zaahen";
 
+import Ziggs from "./Ziggs";
+import Zyra from "./Zyra";
+
 export const KITS: Readonly<Record<string, KitModule>> = Object.fromEntries(
-  [Aatrox, Akali, Ambessa, Aurora, Camille, Chogath, Darius, DrMundo, Fiora, Gangplank, Garen, Gnar, Gwen, Heimerdinger, Illaoi, Irelia, Jax, Jayce, Kayle, KSante, Kennen, Kled, Malphite, Mordekaiser, Nasus, Olaf, Ornn, Pantheon, Poppy, Quinn, Renekton, Riven, Rumble, Sett, Shen, Singed, Sion, Skarner, TahmKench, Teemo, Trundle, Tryndamere, Udyr, Urgot, Volibear, Yasuo, Yone, Yorick, Zaahen].map((kit) => [kit.champion, kit]),
+  [Aatrox, Ahri, Akali, Ambessa, Amumu, Anivia, Annie, Ashe, Aurora, Brand, Camille, Cassiopeia, Chogath, Darius, DrMundo, Fiora, Gangplank, Garen, Gnar, Gwen, Heimerdinger, Illaoi, Irelia, Jax, Jayce, Karthus, Kassadin, Kayle, KSante, Kennen, Kled, Leona, Lissandra, Lux, Malphite, Malzahar, MasterYi, Mordekaiser, Morgana, Nasus, Nautilus, Olaf, Ornn, Pantheon, Poppy, Quinn, Rammus, Renekton, Riven, Rumble, Sett, Shen, Singed, Sion, Skarner, TahmKench, Teemo, Trundle, Tryndamere, Udyr, Urgot, Vayne, Veigar, Velkoz, Vladimir, Volibear, XinZhao, Yasuo, Yone, Yorick, Zaahen, Ziggs, Zyra].map((kit) => [kit.champion, kit]),
 );

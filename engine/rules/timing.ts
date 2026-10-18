@@ -3,7 +3,8 @@
  *
  * - Ability haste: cooldown x 100 / (100 + haste).
  * - Attack speed is capped at 1 / 0.333 (about 3.003) and floored at 0.2 attacks per second
- *   (engine/stats.ts).
+ *   (engine/stats.ts; wiki "Attack speed", pinned revision 4073067). The former 2.5 cap
+ *   changed in V25.S1.3.
  * - The attack timer: the windup (standing still) launches the attack, then the rest of the
  *   attack time is a cooldown. Interrupting the windup resets the timer; an attack reset
  *   skips the cooldown.

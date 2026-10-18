@@ -343,7 +343,7 @@ game formula supplies 19-20; "confirmed"/"differs": the wiki defines 19-20 and t
 
 ## Duel simulator kit (level 20, every ability at max rank)
 
-What the duel simulator fights with (`kits/champions/Sion.ts`): every number is read from the wiki's ability data above at level 20; what the wiki doesn't say is listed under assumptions. Ratios are fractions of the stat (60% AD is 0.6 × AD).
+What the duel simulator fights with (`kits/champions/Sion.ts`): values come from pinned wiki and versioned game-data records at level 20. Interpretations and missing evidence are listed under assumptions. Ratios are fractions of the stat (60% AD is 0.6 × AD).
 
 - Basic attack: range 175, melee.
 - Options: soulFurnaceHealth = 1000.
@@ -368,9 +368,9 @@ Effects marked by a mark or a role are completed by the kit's hooks (see the kit
 - Decimating Smash is tapped, charged 1 s or charged the full 2 s: the longest the enemy can't walk out of (its center past 850 units, after reacting), the full charge only on an enemy held or slowed; never while getting away.
 - Unstoppable Onslaught can be sidestepped; Sion then recasts it, and its slam (400 radius) still lands unless the enemy got that far aside, 0.23 s after the charge would have hit. Pull and stun reach 350 units, so the collision gets them. In fights he charges only when it lands at least half the time; getting away, he charges away.
 
-### Wiki values read (66)
+### Source values read (66)
 
-| Ability | Value | Revision |
+| Ability | Value | Source version |
 |---|---|---|
 | Glory in Death | Upon taking fatal damage, Sion enters stasis for 1.5 seconds to reanimate into a frenzy | [4058210](https://wiki.leagueoflegends.com/en-us/Template:Data_Sion/Glory_in_Death?oldid=4058210) |
 | Glory in Death | restoring 100% of his maximum health | [4058210](https://wiki.leagueoflegends.com/en-us/Template:Data_Sion/Glory_in_Death?oldid=4058210) |

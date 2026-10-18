@@ -231,7 +231,7 @@ All 4 level-based formulas in the game files (4 linked to wiki values above):
 
 ## Duel simulator kit (level 20, every ability at max rank)
 
-What the duel simulator fights with (`kits/champions/Rumble.ts`): every number is read from the wiki's ability data above at level 20; what the wiki doesn't say is listed under assumptions. Ratios are fractions of the stat (60% AD is 0.6 × AD).
+What the duel simulator fights with (`kits/champions/Rumble.ts`): values come from pinned wiki and versioned game-data records at level 20. Interpretations and missing evidence are listed under assumptions. Ratios are fractions of the stat (60% AD is 0.6 × AD).
 
 - Basic attack: range 125, melee.
 
@@ -255,9 +255,9 @@ Effects marked by a mark or a role are completed by the kit's hooks (see the kit
 - The Equalizer is laid across the enemy's path: a field 205 units each way of where it stood, landing 1.00 s after the cast and burning for up to 4 s (the 5-second cap on Burning), not along the line it fights on.
 - While Flamespitter burns, Rumble keeps 50 units outside the enemy's attack range and inside his cone; overheated or out-ranged, he fights up close.
 
-### Wiki values read (53)
+### Source values read (53)
 
-| Ability | Value | Revision |
+| Ability | Value | Source version |
 |---|---|---|
 | Junkyard Titan | which decays by 10 Heat per second after not using any basic ability within 4 seconds or The Equalizer within 2 seconds | [4064861](https://wiki.leagueoflegends.com/en-us/Template:Data_Rumble/Junkyard_Titan?oldid=4064861) |
 | Junkyard Titan | Rumble's mech enters the Danger Zone when at or above 50 Heat | [4064861](https://wiki.leagueoflegends.com/en-us/Template:Data_Rumble/Junkyard_Titan?oldid=4064861) |

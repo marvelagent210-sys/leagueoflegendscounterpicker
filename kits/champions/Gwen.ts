@@ -1,5 +1,6 @@
 /** Gwen: every number is read from the wiki's ability data at level 20 (see engine/kits/context.ts). */
 import type { KitModule } from "../../engine/kits/compile";
+import { effectiveResist, resistMultiplier } from "../../engine/rules/damage";
 import { canCast, inAttackRange } from "../../engine/sim/actions";
 import { type Behavior, defaultBehavior } from "../../engine/sim/behavior";
 import { derive, evaluate } from "../../engine/sim/derived";
@@ -102,7 +103,9 @@ const gwen: KitModule = {
     });
 
     // Snip Snip! at full stacks once per cooldown: the snips besides the final one, each with A Thousand Cuts.
-    const snipsPerSecond = (1 + maxStacks) / (q.cooldown() + q.castTime());
+    const snipCycle = q.cooldown() + q.castTime();
+    const snipsPerSecond = (1 + maxStacks) / snipCycle;
+    const allSnipsPerSecond = (2 + maxStacks) / snipCycle;
     const cutsAmount = cuts.type === "damage" ? cuts.amount : flat(0);
     return {
       behavior,
@@ -113,10 +116,14 @@ const gwen: KitModule = {
           const cut = evaluate(cutsAmount, self, target);
           return { magic: snipsPerSecond * (snip * (1 - trueShare) + cut), true: snipsPerSecond * snip * trueShare };
         },
-        // A Thousand Cuts heals on every attack and snip, up to its cap each time.
+        // A Thousand Cuts heals from post-mitigation damage on every attack and all six snips.
         healing: (self, target) => {
-          const cap = healCap + healCapAP * derive(self).ap;
-          return Math.min(cap, healShare * evaluate(cutsAmount, self, target)) * (derive(self).attackSpeed + snipsPerSecond);
+          const d = derive(self);
+          const t = derive(target);
+          const resistance = effectiveResist(t.mr, t.mrReduction, { flat: d.magicPen, percent: d.magicPenPercent });
+          const dealt = evaluate(cutsAmount, self, target) * resistMultiplier(resistance);
+          const cap = healCap + healCapAP * d.ap;
+          return Math.min(cap, healShare * dealt) * (d.attackSpeed + allSnipsPerSecond);
         },
       },
       hooks: {

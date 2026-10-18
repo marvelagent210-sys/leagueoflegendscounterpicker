@@ -210,3 +210,108 @@ All 1 level-based formulas in the game files (1 linked to wiki values above):
 | Spell | Calculation | Rule | Level 1 | Level 18 | Level 20 |
 |---|---|---|--:|--:|--:|
 | VelkozPassive | TotalDamage | linear 35 → 180 over levels 1-18, continues past 18 | 35 | 180 | 197.059 |
+
+## Duel simulator kit (level 20, every ability at max rank)
+
+What the duel simulator fights with (`kits/champions/Velkoz.ts`): values come from pinned wiki and versioned game-data records at level 20. Interpretations and missing evidence are listed under assumptions. Ratios are fractions of the stat (60% AD is 0.6 × AD).
+
+- Basic attack: range 525, melee.
+
+| Key | Ability | Cooldown (s) | Cast time (s) | Cost | Delivery | On the enemy | On itself |
+|---|---|--:|--:|---|---|---|---|
+| Q | Plasma Fission | 7 | 0.25 | 60 | skillshot 1100 long, 100 wide, at 1300/s | 240 + 90% AP magic damage; slow 70% for 2.6 s | – |
+| W | Void Rift | 2 charges, one every 15 s (1.5 s between casts) | 0 | 70 | skillshot 1105 long, 175 wide, at 1700/s | 110 + 20% AP magic damage | – |
+| E | Tectonic Disruption | 10 | 0.25 | 70 | circle of 225 radius up to 800 away, lands after 0.55 s | 190 + 30% AP magic damage; knock up over 0.75 s; stun for 0.75 s | – |
+| R | Life Form Disintegration Ray | 80 (starts after the channel) | 0 | 100 | area 0 to 1555 units ahead, lands after 0 s; channel 2.8 s | – | – |
+| Rend | Life Form Disintegration Ray: end | 0 | 0 | 0 | self; recast of R within 2.8 s, after 1.2 s | – | – |
+| deconstruction | Organic Deconstruction | 0 | 0 | – | self | 197.059 + 60% AP true damage | – |
+| riftCollapse | Void Rift: collapse | 0 | 0 | – | self | 165 + 25% AP magic damage | – |
+| rayMagic | Life Form Disintegration Ray | 0 | 0 | – | area 0 to 1555 units ahead, lands after 0 s | 71.154 + 9.615% AP magic damage; slow 20% for 1 s | – |
+| rayTrue | Life Form Disintegration Ray | 0 | 0 | – | area 0 to 1555 units ahead, lands after 0 s | 71.154 + 9.615% AP true damage; slow 20% for 1 s | – |
+| rayStack | Life Form Disintegration Ray: Deconstruction | 0 | 0 | – | self | marks it "velkoz:deconstruction" for 7 s | – |
+
+Effects marked by a mark or a role are completed by the kit's hooks (see the kit's source).
+
+### Assumptions
+
+- Plasma Fission models its primary bolt and its first enemy collision only. Its perpendicular split/recast is excluded from this one-axis duel; it never creates invented forward split bolts or a second hit on a shielded rival.
+- Deconstruction and Researched start empty and expire at their exact seven-second boundary. Connected unblocked basic attacks refresh existing marks; parried, dodged and blocked attacks do not refresh them, since the pinned interaction note is unresolved. The separately guarded passive proc follows its spell-shield flag, with ordinary spell parry semantics.
+- Void Rift's collapse occurs 0.75 seconds after its 0.25-second opening delay, at cast +1 second. Its formed prefix grows at the pinned 1700 speed and retains the 95-unit rear section; projectile-wall stopping is quantized to the collision tick. The pinned text does not identify the collapse delay's reference.
+- Tectonic Disruption's sampled distance delay is interpolated linearly and begins after its cast time; origin and target location are captured at cast declaration. Version-pinned game data supplies MoveDistance225, but its close-range directional knockback is omitted because the qualifying proximity threshold and forced-movement speed remain unpinned. Displacement immunity suppresses both stun and airborne, while preserving damage and Deconstruction.
+- Life Form Disintegration Ray retains its declaration direction on the duel axis; transverse steering and the unsourced angular speed are excluded. The beam starts after 0.2 seconds and its thirteen pulses land at cast +0.4 through +2.8 seconds. The independent Deconstruction clock starts at beam opening and fires at +0.9,+1.6,+2.3 seconds; simultaneous clocks resolve Deconstruction before damage. Beam packets use ordinary spell shields/parry because the pinned R record lacks the interaction table.
+- Void Rift, Tectonic Disruption and the ray use actual one-axis ground/rectangle overlap rather than fabricated lateral projectile outcomes. Enemy normal-HP pets receive spatial spell damage and separate Deconstruction but never champion research; hit-count and untargetable pets retain their existing exclusions. Basic attacks on pets do not refresh their Deconstruction under the current attack-pet hook API.
+- The stat budget uses one full nominal W collapse, one Q and E per cooldown, and an initially researched full ray for its true-damage reference. Passive procs are estimated from qualifying Q/W/E contacts and the independent three ray stack events; this reference omits misses, mana clipping, opening stored W charges and evolving research.
+
+### Source values read (69)
+
+| Ability | Value | Source version |
+|---|---|---|
+| Organic Deconstruction | for 7 seconds | [3986690](https://wiki.leagueoflegends.com/en-us/Template:Data_Vel'Koz/Organic_Deconstruction?oldid=3986690) |
+| Organic Deconstruction | stacking up to 3 times | [3986690](https://wiki.leagueoflegends.com/en-us/Template:Data_Vel'Koz/Organic_Deconstruction?oldid=3986690) |
+| Organic Deconstruction | The third stack consumes them all to deal 35 – 180 (based on level) (+ 60% AP) bonus true damage. | [3986690](https://wiki.leagueoflegends.com/en-us/Template:Data_Vel'Koz/Organic_Deconstruction?oldid=3986690) |
+| Organic Deconstruction | (+ 60% AP) | [3986690](https://wiki.leagueoflegends.com/en-us/Template:Data_Vel'Koz/Organic_Deconstruction?oldid=3986690) |
+| Organic Deconstruction | The stack duration will not be refreshed if the attack misses due to blind | [3986690](https://wiki.leagueoflegends.com/en-us/Template:Data_Vel'Koz/Organic_Deconstruction?oldid=3986690) |
+| Life Form Disintegration Ray | Researched for 7 seconds | [4012050](https://wiki.leagueoflegends.com/en-us/Template:Data_Vel'Koz/Life_Form_Disintegration_Ray?oldid=4012050) |
+| Life Form Disintegration Ray | refreshing on basic attacks and ability hits against them | [4012050](https://wiki.leagueoflegends.com/en-us/Template:Data_Vel'Koz/Life_Form_Disintegration_Ray?oldid=4012050) |
+| Plasma Fission | Magic Damage: 80 / 120 / 160 / 200 / 240 (+ 90% AP) | [4008544](https://wiki.leagueoflegends.com/en-us/Template:Data_Vel'Koz/Plasma_Fission?oldid=4008544) |
+| Plasma Fission | slows them by 70% | [4008544](https://wiki.leagueoflegends.com/en-us/Template:Data_Vel'Koz/Plasma_Fission?oldid=4008544) |
+| Plasma Fission | Slow Duration: 1 / 1.4 / 1.8 / 2.2 / 2.6 seconds | [4008544](https://wiki.leagueoflegends.com/en-us/Template:Data_Vel'Koz/Plasma_Fission?oldid=4008544) |
+| Plasma Fission | range (Primary): 1100 • 1100 | [4008544](https://wiki.leagueoflegends.com/en-us/Template:Data_Vel'Koz/Plasma_Fission?oldid=4008544) |
+| Plasma Fission | width (Primary): 100 • 90 | [4008544](https://wiki.leagueoflegends.com/en-us/Template:Data_Vel'Koz/Plasma_Fission?oldid=4008544) |
+| Plasma Fission | speed (Primary): 1300 • 2100 | [4008544](https://wiki.leagueoflegends.com/en-us/Template:Data_Vel'Koz/Plasma_Fission?oldid=4008544) |
+| Plasma Fission | range (Split): 1100 • 1100 | [4008544](https://wiki.leagueoflegends.com/en-us/Template:Data_Vel'Koz/Plasma_Fission?oldid=4008544) |
+| Plasma Fission | width (Split): 100 • 90 | [4008544](https://wiki.leagueoflegends.com/en-us/Template:Data_Vel'Koz/Plasma_Fission?oldid=4008544) |
+| Plasma Fission | speed (Split): 1300 • 2100 | [4008544](https://wiki.leagueoflegends.com/en-us/Template:Data_Vel'Koz/Plasma_Fission?oldid=4008544) |
+| Plasma Fission | perpendicularly in opposite directions | [4008544](https://wiki.leagueoflegends.com/en-us/Template:Data_Vel'Koz/Plasma_Fission?oldid=4008544) |
+| Plasma Fission | An enemy cannot be hit by multiple bolts even when having blocked one with a spell shield | [4008544](https://wiki.leagueoflegends.com/en-us/Template:Data_Vel'Koz/Plasma_Fission?oldid=4008544) |
+| Plasma Fission | Plasma Fission's damage applies before Organic Deconstruction | [4008544](https://wiki.leagueoflegends.com/en-us/Template:Data_Vel'Koz/Plasma_Fission?oldid=4008544) |
+| Plasma Fission | Mana Restored per Kill: 20 / 22.5 / 25 / 27.5 / 30 | [4008544](https://wiki.leagueoflegends.com/en-us/Template:Data_Vel'Koz/Plasma_Fission?oldid=4008544) |
+| Plasma Fission | Maximum Mana Restored: 60 / 67.5 / 75 / 82.5 / 90 | [4008544](https://wiki.leagueoflegends.com/en-us/Template:Data_Vel'Koz/Plasma_Fission?oldid=4008544) |
+| Void Rift | Magic Damage: 30 / 50 / 70 / 90 / 110 (+ 20% AP) | [4008545](https://wiki.leagueoflegends.com/en-us/Template:Data_Vel'Koz/Void_Rift?oldid=4008545) |
+| Void Rift | Magic Damage: 45 / 75 / 105 / 135 / 165 (+ 25% AP) | [4008545](https://wiki.leagueoflegends.com/en-us/Template:Data_Vel'Koz/Void_Rift?oldid=4008545) |
+| Void Rift | Total Magic Damage: 75 / 125 / 175 / 225 / 275 (+ 45% AP) | [4008545](https://wiki.leagueoflegends.com/en-us/Template:Data_Vel'Koz/Void_Rift?oldid=4008545) |
+| Void Rift | after a 0.25-second delay | [4008545](https://wiki.leagueoflegends.com/en-us/Template:Data_Vel'Koz/Void_Rift?oldid=4008545) |
+| Void Rift | After 0.75 seconds | [4008545](https://wiki.leagueoflegends.com/en-us/Template:Data_Vel'Koz/Void_Rift?oldid=4008545) |
+| Void Rift | range (Ripple): 1105 • 1105 • -95 | [4008545](https://wiki.leagueoflegends.com/en-us/Template:Data_Vel'Koz/Void_Rift?oldid=4008545) |
+| Void Rift | range (backwards): 1105 • 1105 • -95 | [4008545](https://wiki.leagueoflegends.com/en-us/Template:Data_Vel'Koz/Void_Rift?oldid=4008545) |
+| Void Rift | width (Ripple): 175 • 175 | [4008545](https://wiki.leagueoflegends.com/en-us/Template:Data_Vel'Koz/Void_Rift?oldid=4008545) |
+| Void Rift | speed: 1700 | [4008545](https://wiki.leagueoflegends.com/en-us/Template:Data_Vel'Koz/Void_Rift?oldid=4008545) |
+| Void Rift | range (collapse distance): 1105 • 1105 • -95 | [4008545](https://wiki.leagueoflegends.com/en-us/Template:Data_Vel'Koz/Void_Rift?oldid=4008545) |
+| Void Rift | width (collapse width): 175 • 175 | [4008545](https://wiki.leagueoflegends.com/en-us/Template:Data_Vel'Koz/Void_Rift?oldid=4008545) |
+| Void Rift | up to a maximum of 2 | [4008545](https://wiki.leagueoflegends.com/en-us/Template:Data_Vel'Koz/Void_Rift?oldid=4008545) |
+| Void Rift | recharge: 19 / 18 / 17 / 16 / 15 | [4008545](https://wiki.leagueoflegends.com/en-us/Template:Data_Vel'Koz/Void_Rift?oldid=4008545) |
+| Void Rift | staticCooldown: 1.5 | [4008545](https://wiki.leagueoflegends.com/en-us/Template:Data_Vel'Koz/Void_Rift?oldid=4008545) |
+| Void Rift | they will not destroy the section that was created already | [4008545](https://wiki.leagueoflegends.com/en-us/Template:Data_Vel'Koz/Void_Rift?oldid=4008545) |
+| Void Rift | Spell shield only blocks one instance of damage | [4008545](https://wiki.leagueoflegends.com/en-us/Template:Data_Vel'Koz/Void_Rift?oldid=4008545) |
+| Tectonic Disruption | Magic Damage: 70 / 100 / 130 / 160 / 190 (+ 30% AP) | [3952590](https://wiki.leagueoflegends.com/en-us/Template:Data_Vel'Koz/Tectonic_Disruption?oldid=3952590) |
+| Tectonic Disruption | targetRange: 800 | [3952590](https://wiki.leagueoflegends.com/en-us/Template:Data_Vel'Koz/Tectonic_Disruption?oldid=3952590) |
+| Tectonic Disruption | effectRadius: 225 | [3952590](https://wiki.leagueoflegends.com/en-us/Template:Data_Vel'Koz/Tectonic_Disruption?oldid=3952590) |
+| Tectonic Disruption | Active: Vel'Koz hurls a disruptive anomaly that lands to the target location after 0.25 / 0.25 / 0.273077 / 0.296154 / 0.319231 / 0.342308 / 0.365385 / 0.388462 / 0.411538 / 0.434615 / 0.457692 / 0.480769 / 0.503846 / 0.526923 / 0.55 (based on cast distance) seconds, dealing magic damage to enemies hit and knocking them up and stunning them for 0.75 seconds, as well as granting sight of the area briefly. | [3952590](https://wiki.leagueoflegends.com/en-us/Template:Data_Vel'Koz/Tectonic_Disruption?oldid=3952590) |
+| Tectonic Disruption | stunning them for 0.75 seconds | [3952590](https://wiki.leagueoflegends.com/en-us/Template:Data_Vel'Koz/Tectonic_Disruption?oldid=3952590) |
+| Tectonic Disruption | Displacement immunity will also resist the application of the stun | [3952590](https://wiki.leagueoflegends.com/en-us/Template:Data_Vel'Koz/Tectonic_Disruption?oldid=3952590) |
+| Tectonic Disruption | mSpell.DataValues.MoveDistance.values: [225,225,225,225,225,225,225] | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/velkoz/velkoz.bin.json) |
+| Tectonic Disruption | This ability will cast from wherever the caster is at the start of the cast time | [3952590](https://wiki.leagueoflegends.com/en-us/Template:Data_Vel'Koz/Tectonic_Disruption?oldid=3952590) |
+| Life Form Disintegration Ray | After a 0.2-second delay | [4012050](https://wiki.leagueoflegends.com/en-us/Template:Data_Vel'Koz/Life_Form_Disintegration_Ray?oldid=4012050) |
+| Life Form Disintegration Ray | for up to 2.6 seconds | [4012050](https://wiki.leagueoflegends.com/en-us/Template:Data_Vel'Koz/Life_Form_Disintegration_Ray?oldid=4012050) |
+| Life Form Disintegration Ray | every 0.2 seconds | [4012050](https://wiki.leagueoflegends.com/en-us/Template:Data_Vel'Koz/Life_Form_Disintegration_Ray?oldid=4012050) |
+| Life Form Disintegration Ray | every 0.7 seconds | [4012050](https://wiki.leagueoflegends.com/en-us/Template:Data_Vel'Koz/Life_Form_Disintegration_Ray?oldid=4012050) |
+| Life Form Disintegration Ray | after 1 second | [4012050](https://wiki.leagueoflegends.com/en-us/Template:Data_Vel'Koz/Life_Form_Disintegration_Ray?oldid=4012050) |
+| Life Form Disintegration Ray | slows them by 20% | [4012050](https://wiki.leagueoflegends.com/en-us/Template:Data_Vel'Koz/Life_Form_Disintegration_Ray?oldid=4012050) |
+| Life Form Disintegration Ray | lingering for 1 second | [4012050](https://wiki.leagueoflegends.com/en-us/Template:Data_Vel'Koz/Life_Form_Disintegration_Ray?oldid=4012050) |
+| Life Form Disintegration Ray | cooldown: 100 / 90 / 80 | [4012050](https://wiki.leagueoflegends.com/en-us/Template:Data_Vel'Koz/Life_Form_Disintegration_Ray?oldid=4012050) |
+| Life Form Disintegration Ray | Damage Per Tick: 34.6154 / 53.8462 / 71.1538 (+ 9.61538% AP) | [4012050](https://wiki.leagueoflegends.com/en-us/Template:Data_Vel'Koz/Life_Form_Disintegration_Ray?oldid=4012050) |
+| Life Form Disintegration Ray | Maximum Damage: 450 / 700 / 925 (+ 125% AP) | [4012050](https://wiki.leagueoflegends.com/en-us/Template:Data_Vel'Koz/Life_Form_Disintegration_Ray?oldid=4012050) |
+| Life Form Disintegration Ray | range: 1555 | [4012050](https://wiki.leagueoflegends.com/en-us/Template:Data_Vel'Koz/Life_Form_Disintegration_Ray?oldid=4012050) |
+| Life Form Disintegration Ray | width: 175 | [4012050](https://wiki.leagueoflegends.com/en-us/Template:Data_Vel'Koz/Life_Form_Disintegration_Ray?oldid=4012050) |
+| Life Form Disintegration Ray | The beam hits in a rectangular shape, intersecting with the edge of an enemy gameplay radius | [4012050](https://wiki.leagueoflegends.com/en-us/Template:Data_Vel'Koz/Life_Form_Disintegration_Ray?oldid=4012050) |
+| Life Form Disintegration Ray | Life Form Disintegration Ray's direction updates gradually | [4012050](https://wiki.leagueoflegends.com/en-us/Template:Data_Vel'Koz/Life_Form_Disintegration_Ray?oldid=4012050) |
+| Plasma Fission | cooldown: 7 | [4008544](https://wiki.leagueoflegends.com/en-us/Template:Data_Vel'Koz/Plasma_Fission?oldid=4008544) |
+| Plasma Fission | cost: 40 / 45 / 50 / 55 / 60 | [4008544](https://wiki.leagueoflegends.com/en-us/Template:Data_Vel'Koz/Plasma_Fission?oldid=4008544) |
+| Plasma Fission | castTime: 0.25 | [4008544](https://wiki.leagueoflegends.com/en-us/Template:Data_Vel'Koz/Plasma_Fission?oldid=4008544) |
+| Void Rift | cost: 50 / 55 / 60 / 65 / 70 | [4008545](https://wiki.leagueoflegends.com/en-us/Template:Data_Vel'Koz/Void_Rift?oldid=4008545) |
+| Void Rift | castTime: none | [4008545](https://wiki.leagueoflegends.com/en-us/Template:Data_Vel'Koz/Void_Rift?oldid=4008545) |
+| Tectonic Disruption | cooldown: 12 / 11.5 / 11 / 10.5 / 10 | [3952590](https://wiki.leagueoflegends.com/en-us/Template:Data_Vel'Koz/Tectonic_Disruption?oldid=3952590) |
+| Tectonic Disruption | cost: 50 / 55 / 60 / 65 / 70 | [3952590](https://wiki.leagueoflegends.com/en-us/Template:Data_Vel'Koz/Tectonic_Disruption?oldid=3952590) |
+| Tectonic Disruption | castTime: 0.25 | [3952590](https://wiki.leagueoflegends.com/en-us/Template:Data_Vel'Koz/Tectonic_Disruption?oldid=3952590) |
+| Life Form Disintegration Ray | cost: 100 | [4012050](https://wiki.leagueoflegends.com/en-us/Template:Data_Vel'Koz/Life_Form_Disintegration_Ray?oldid=4012050) |
+| Life Form Disintegration Ray | castTime: none | [4012050](https://wiki.leagueoflegends.com/en-us/Template:Data_Vel'Koz/Life_Form_Disintegration_Ray?oldid=4012050) |

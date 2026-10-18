@@ -204,13 +204,13 @@ All 1 level-based formulas in the game files (1 linked to wiki values above):
 
 ## Duel simulator kit (level 20, every ability at max rank)
 
-What the duel simulator fights with (`kits/champions/Trundle.ts`): every number is read from the wiki's ability data above at level 20; what the wiki doesn't say is listed under assumptions. Ratios are fractions of the stat (60% AD is 0.6 × AD).
+What the duel simulator fights with (`kits/champions/Trundle.ts`): values come from pinned wiki and versioned game-data records at level 20. Interpretations and missing evidence are listed under assumptions. Ratios are fractions of the stat (60% AD is 0.6 × AD).
 
 - Basic attack: range 175, melee.
 
 | Key | Ability | Cooldown (s) | Cast time (s) | Cost | Delivery | On the enemy | On itself |
 |---|---|--:|--:|---|---|---|---|
-| Q | Chomp | 3.5 (starts after the empowered attacks) | 0 | 20 | self | – | next 1 attack within 7 s: 90 + 55% AD physical damage (Chomp); slow 75% for 0.1 s; AD -20 for 5 s; to itself: AD 40 for 5 s (+25 range, resets the attack timer, uncancellable) |
+| Q | Chomp | 3.5 (starts after the empowered attacks) | 0 | 20 | self | – | next 1 attack within 7 s: 90 + 55% AD physical damage (Chomp) (+25 range, resets the attack timer, uncancellable) |
 | W | Frozen Domain | 14 | 0 | 40 | field of 775 radius up to 750 away, for 8 s, pulsing every 0.25 s; on itself inside: attackSpeed 1.1 for 0.3 s; moveSpeedPercent 0.52 for 0.3 s; healingIncrease 0.25 for 0.3 s | – | – |
 | E | Pillar of Ice | 15 | 0.25 | 75 | self | – | – |
 | R | Subjugate | 80 | 0.25 | 100 | targeted, 650 range | 15% target's maximum health + 1% of target's maximum health per 100 AP magic damage; 15% target's maximum health + 1% of target's maximum health per 100 AP magic damage over 4 s | – |
@@ -223,16 +223,20 @@ Effects marked by a mark or a role are completed by the kit's hooks (see the kit
 - Trundle raises the pillar touching the enemy, its center 150 units past the enemy's: behind it to cut off its retreat (it is knocked 75 units toward him), or, when he is getting away, between them. The knock back takes 0.25 s (the wiki gives no duration); units walk around the pillar.
 - Subjugate's size changes (a few units of attack range) are left out.
 
-### Wiki values read (38)
+### Source values read (42)
 
-| Ability | Value | Revision |
+| Ability | Value | Source version |
 |---|---|---|
+| King's Tribute | Innate: Whenever a nearby enemy dies, Trundle heals himself for 1.8 – 5.5 (based on level)% of their maximum health. | [3986655](https://wiki.leagueoflegends.com/en-us/Template:Data_Trundle/King's_Tribute?oldid=3986655) |
+| King's Tribute | effectRadius: 1400 | [3986655](https://wiki.leagueoflegends.com/en-us/Template:Data_Trundle/King's_Tribute?oldid=3986655) |
 | Chomp | empowers his next basic attack within 7 seconds | [3949665](https://wiki.leagueoflegends.com/en-us/Template:Data_Trundle/Chomp?oldid=3949665) |
 | Chomp | gain 25 bonus range | [3949665](https://wiki.leagueoflegends.com/en-us/Template:Data_Trundle/Chomp?oldid=3949665) |
 | Chomp | slow the target by 75% for 0.1 seconds | [3949665](https://wiki.leagueoflegends.com/en-us/Template:Data_Trundle/Chomp?oldid=3949665) |
 | Chomp | Trundle gains bonus attack damage for 5 seconds | [3949665](https://wiki.leagueoflegends.com/en-us/Template:Data_Trundle/Chomp?oldid=3949665) |
 | Chomp | Bonus Attack Damage: 20 / 25 / 30 / 35 / 40 | [3949665](https://wiki.leagueoflegends.com/en-us/Template:Data_Trundle/Chomp?oldid=3949665) |
 | Chomp | Attack Damage Reduction: 10 / 12.5 / 15 / 17.5 / 20 | [3949665](https://wiki.leagueoflegends.com/en-us/Template:Data_Trundle/Chomp?oldid=3949665) |
+| Chomp | Chomp will still incur the attack damage increase for Trundle even if the attack is dodged, blocked, missed while he is blinded, or it is blocked by spell shield | [3949665](https://wiki.leagueoflegends.com/en-us/Template:Data_Trundle/Chomp?oldid=3949665) |
+| Chomp | Spell shield will only block the attack damage reduction and slow | [3949665](https://wiki.leagueoflegends.com/en-us/Template:Data_Trundle/Chomp?oldid=3949665) |
 | Frozen Domain | Trundle coats the target location in ice for 8 seconds | [4057475](https://wiki.leagueoflegends.com/en-us/Template:Data_Trundle/Frozen_Domain?oldid=4057475) |
 | Frozen Domain | and 25% increased healing from all sources | [4057475](https://wiki.leagueoflegends.com/en-us/Template:Data_Trundle/Frozen_Domain?oldid=4057475) |
 | Frozen Domain | effectRadius: 775 | [4057475](https://wiki.leagueoflegends.com/en-us/Template:Data_Trundle/Frozen_Domain?oldid=4057475) |

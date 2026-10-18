@@ -95,10 +95,15 @@ export const DISPLACEMENTS: ReadonlySet<CCType> = new Set(["airborne", "kinemati
  * is its own group.
  */
 export function combineTenacity(groups: number[][]): number {
-  return groups.reduce((sum, group) => sum + (1 - group.reduce((product, t) => product * (1 - t), 1)), 0);
+  // Tenacity (revision 4021927): the sum of the groups cannot exceed 100%.
+  // There is no corresponding lower cap: negative tenacity lengthens disables.
+  return Math.min(1, groups.reduce((sum, group) => sum + (1 - group.reduce((product, t) => product * (1 - t), 1)), 0));
 }
 
 /** Duration of crowd control after tenacity, for the types tenacity shortens. */
 export function ccDuration(duration: number, type: CCType, tenacity: number): number {
-  return CC_RULES[type].tenacity ? duration * (1 - tenacity) : duration;
+  if (!CC_RULES[type].tenacity) return duration;
+  // Tenacity cannot shorten a disable below 0.3 s (Tenacity, revision 4021927).
+  // A naturally shorter pulse remains short; tenacity must not lengthen it.
+  return Math.max(duration * (1 - Math.min(1, tenacity)), Math.min(duration, 0.3));
 }

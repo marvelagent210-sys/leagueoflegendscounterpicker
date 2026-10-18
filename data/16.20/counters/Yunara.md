@@ -13,8 +13,8 @@ Run `npm run matchup -- <champion> Yunara` for the full ledger of a matchup, wit
 ### 1. Braum (net +0.48)
 
 - **0.50** projectile block: Unbreakable blocks Yunara's basic attacks, which are projectiles. Unbreakable lasts 4 s on a 8 s cooldown. (Braum E Unbreakable → Yunara basic attacks)
-- **0.45** projectile block: Unbreakable blocks Yunara's Cultivation of Spirit, a projectile. Unbreakable for 4 s, long enough to use ahead of Cultivation of Spirit. (Braum E Unbreakable → Yunara Q Cultivation of Spirit)
 - **0.45** projectile block: Unbreakable blocks Yunara's Arc of Judgment, a projectile. Unbreakable for 4 s, long enough to use ahead of Arc of Judgment. (Braum E Unbreakable → Yunara W Arc of Judgment)
+- **0.45** projectile block: Unbreakable blocks Yunara's Cultivation of Spirit, a projectile. Unbreakable for 4 s, long enough to use ahead of Cultivation of Spirit. (Braum E Unbreakable → Yunara Q Cultivation of Spirit)
 - Watch out: Yunara's basic attacks reach 450 units farther than Braum's (575 vs 125 attack range).
 
 ### 2. Mel (net +0.48)
@@ -25,16 +25,16 @@ Run `npm run matchup -- <champion> Yunara` for the full ledger of a matchup, wit
 
 ### 3. Samira (net +0.44)
 
-- **0.30** projectile block: Blade Whirl blocks Yunara's basic attacks, which are projectiles. Blade Whirl lasts 0.75 s on a 22 s cooldown. (Samira W Blade Whirl → Yunara basic attacks)
 - **0.30** projectile block: Blade Whirl blocks Yunara's Arc of Judgment, a projectile. Blade Whirl for 0.75 s; Arc of Judgment takes 0.98 s to land, enough to react. (Samira W Blade Whirl → Yunara W Arc of Judgment)
+- **0.30** projectile block: Blade Whirl blocks Yunara's basic attacks, which are projectiles. Blade Whirl lasts 0.75 s on a 22 s cooldown. (Samira W Blade Whirl → Yunara basic attacks)
 - **0.18** projectile block: Blade Whirl blocks Yunara's Cultivation of Spirit, a projectile. Blade Whirl for 0.75 s; Cultivation of Spirit lands within 0 s, faster than a 0.25 s reaction, so it needs prediction. (Samira W Blade Whirl → Yunara Q Cultivation of Spirit)
 - Watch out: Yunara's basic attacks reach 75 units farther than Samira's (575 vs 500 attack range).
 
 ### 4. Yasuo (net +0.41)
 
 - **0.39** projectile block: Wind Wall blocks Yunara's basic attacks, which are projectiles. Wind Wall lasts 4 s on a 17 s cooldown. (Yasuo W Wind Wall → Yunara basic attacks)
-- **0.34** projectile block: Wind Wall blocks Yunara's Cultivation of Spirit, a projectile. Wind Wall for 4 s, long enough to use ahead of Cultivation of Spirit. (Yasuo W Wind Wall → Yunara Q Cultivation of Spirit)
 - **0.34** projectile block: Wind Wall blocks Yunara's Arc of Judgment, a projectile. Wind Wall for 4 s, long enough to use ahead of Arc of Judgment. (Yasuo W Wind Wall → Yunara W Arc of Judgment)
+- **0.34** projectile block: Wind Wall blocks Yunara's Cultivation of Spirit, a projectile. Wind Wall for 4 s, long enough to use ahead of Cultivation of Spirit. (Yasuo W Wind Wall → Yunara Q Cultivation of Spirit)
 - Watch out: Yunara's basic attacks reach 400 units farther than Yasuo's (575 vs 175 attack range).
 
 ### 5. Lulu (net +0.34)

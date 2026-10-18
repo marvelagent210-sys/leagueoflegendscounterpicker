@@ -280,7 +280,7 @@ All 3 level-based formulas in the game files (0 linked to wiki values above):
 
 ## Duel simulator kit (level 20, every ability at max rank)
 
-What the duel simulator fights with (`kits/champions/Camille.ts`): every number is read from the wiki's ability data above at level 20; what the wiki doesn't say is listed under assumptions. Ratios are fractions of the stat (60% AD is 0.6 × AD).
+What the duel simulator fights with (`kits/champions/Camille.ts`): values come from pinned wiki and versioned game-data records at level 20. Interpretations and missing evidence are listed under assumptions. Ratios are fractions of the stat (60% AD is 0.6 × AD).
 
 - Basic attack: range 125, melee.
 
@@ -301,13 +301,14 @@ Effects marked by a mark or a role are completed by the kit's hooks (see the kit
 - Tactical Sweep's outer-cone slow, which decays over 2 seconds, is taken as 50% for 2 seconds.
 - Adaptive Defenses shields against the damage type the enemy deals most of.
 
-### Wiki values read (38)
+### Source values read (39)
 
-| Ability | Value | Revision |
+| Ability | Value | Source version |
 |---|---|---|
 | Adaptive Defenses | staticCooldown: 14 / 11 / 8 (based on level) | [4051341](https://wiki.leagueoflegends.com/en-us/Template:Data_Camille/Adaptive_Defenses?oldid=4051341) |
 | Adaptive Defenses | Innate: Periodically, Camille's next basic attack on-hit against an enemy champion grants her a shield equal to 10 / 15 / 20 / 25 (based on level)% of her maximum health, lasting for 2 seconds and absorbing damage from either exclusively physical damage or magic damage, based on which type the target has previously dealt most of against champions as well as on Camille's current armor and magic resistance. | [4051341](https://wiki.leagueoflegends.com/en-us/Template:Data_Camille/Adaptive_Defenses?oldid=4051341) |
 | Adaptive Defenses | lasting for 2 seconds | [4051341](https://wiki.leagueoflegends.com/en-us/Template:Data_Camille/Adaptive_Defenses?oldid=4051341) |
+| Adaptive Defenses | Adaptive Defenses will not trigger or go on cooldown if the attack is dodged, blocked, or if Camille is blinded | [4051341](https://wiki.leagueoflegends.com/en-us/Template:Data_Camille/Adaptive_Defenses?oldid=4051341) |
 | Precision Protocol | empowers her next basic attack within 4 seconds | [3972807](https://wiki.leagueoflegends.com/en-us/Template:Data_Camille/Precision_Protocol?oldid=3972807) |
 | Precision Protocol | gain 50 bonus range | [3972807](https://wiki.leagueoflegends.com/en-us/Template:Data_Camille/Precision_Protocol?oldid=3972807) |
 | Precision Protocol | If Precision Protocol is recast after 1.5 seconds of the first attack | [3972807](https://wiki.leagueoflegends.com/en-us/Template:Data_Camille/Precision_Protocol?oldid=3972807) |

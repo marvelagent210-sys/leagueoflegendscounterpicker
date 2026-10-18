@@ -187,12 +187,14 @@ describe("ability defenses", () => {
     expect(ticksOf(quick.timeline, 1, "spell shield blocks")).toEqual([]);
   });
 
-  it("parries an immobilizing ability and stuns back, but not a damage-only one", () => {
+  it("parries an immobilizing ability without stunning its caster directly", () => {
     const riposte = ability({ key: "W", cooldown: 20, delivery: { kind: "self" }, onSelf: [{ type: "state", state: "parry", duration: 0.75, value: 1.5 }] });
     const slowStun = stun(1, { castTime: 0.5 });
     const stunned = duel(fighter({ abilities: [slowStun] }), fighter({ abilities: [riposte] }), { settings: { maxSeconds: 1 } });
     expect(ticksOf(stunned.timeline, 1, "parries Q")).toEqual([15]);
-    expect(ticksOf(stunned.timeline, 1, "stun")).toEqual([15]);
+    // Riposte empowers its own shock when it negates an immobilize; the incoming spell
+    // doesn't stun its caster. This synthetic defensive stance has no outgoing shock.
+    expect(ticksOf(stunned.timeline, 1, "stun")).toEqual([]);
     const damage = duel(fighter({ abilities: [nuke(500, { castTime: 0.5 })] }), fighter({ abilities: [riposte] }), { settings: { maxSeconds: 1 } });
     expect(ticksOf(damage.timeline, 1, "parries Q")).toEqual([15]);
     expect(ticksOf(damage.timeline, 1, "stun")).toEqual([]);

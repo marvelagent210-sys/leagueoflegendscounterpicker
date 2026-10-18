@@ -4,9 +4,9 @@
  */
 import { CC_RULES, type CCType, combineTenacity } from "../rules/crowdControl";
 import { CRIT_DAMAGE } from "../rules/defense";
-import { movementSpeed } from "../rules/movement";
+import { combineSlowResist, movementSpeed } from "../rules/movement";
 import { capAttackSpeed } from "../rules/timing";
-import type { Formula, StatRef } from "./spec";
+import type { BaseStats, BonusStats, FighterSpec, Formula, StatRef } from "./spec";
 import type { Status, Unit } from "./state";
 
 export interface Derived {
@@ -30,6 +30,8 @@ export interface Derived {
   armorPen: number[];
   magicPenPercent: number[];
   moveSpeed: number;
+  /** Movement speed before soft caps, with the same buffs, slows and slow resistance. */
+  rawMoveSpeed: number;
   tenacity: number;
   /** Damage dealt modifiers (fractions, additive). */
   damageDealt: number[];
@@ -44,14 +46,39 @@ export interface Derived {
   healingIncrease: number;
   maxResource: number;
   bonusArmorPen: number[];
+  criticalBonusArmorIgnore: number;
 }
 
 function sum(statuses: Status[], key: string): number {
-  return statuses.filter((s) => s.kind === "stat" && s.key === key).reduce((total, s) => total + s.value, 0);
+  let total = 0;
+  for (let index = 0; index < statuses.length; index++) {
+    if (!(index in statuses)) continue;
+    const status = statuses[index]!;
+    if (status.kind === "stat" && status.key === key) total += status.value;
+  }
+  return total;
 }
 
 function list(statuses: Status[], kind: Status["kind"], key: string): number[] {
-  return statuses.filter((s) => s.kind === kind && s.key === key).map((s) => s.value);
+  const values: number[] = [];
+  for (let index = 0; index < statuses.length; index++) {
+    if (!(index in statuses)) continue;
+    const status = statuses[index]!;
+    if (status.kind === kind && status.key === key) values.push(status.value);
+  }
+  return values;
+}
+
+/** Distinct cripples multiply; refreshing/ramping the same source does not stack it. */
+function attackSpeedSlowFactor(statuses: Status[]): number {
+  const sources = new Map<string, number>();
+  for (const status of statuses) {
+    if (status.kind !== "cc" || status.key !== "cripple") continue;
+    const source = `${status.source}:${status.ability ?? "cripple"}`;
+    sources.set(source, Math.max(sources.get(source) ?? 0, status.value));
+  }
+  // Attack speed, revision 4073067: attack speed reductions stack multiplicatively.
+  return [...sources.values()].reduce((factor, slow) => factor * (1 - Math.min(1, slow)), 1);
 }
 
 export function hasState(unit: Unit, state: string): boolean {
@@ -62,18 +89,77 @@ export function ccTypes(unit: Unit): Set<CCType> {
   return new Set(unit.statuses.filter((s) => s.kind === "cc").map((s) => s.key as CCType));
 }
 
-/**
- * Derived stats depend only on the spec and the statuses, so they are cached per statuses
- * array: adding a status changes its length and removing one replaces the array.
- */
-const cache = new WeakMap<Status[], { length: number; spec: Unit["spec"]; value: Derived }>();
+type StatConversions = NonNullable<FighterSpec["statConversions"]>;
+type DerivedStatusInput = Pick<Status, "kind" | "key" | "value" | "source" | "ability" | "tenacityGroup" | "bypassSlowImmune">;
+
+interface DerivedCache {
+  base: BaseStats;
+  bonus: BonusStats | undefined;
+  conversions: StatConversions | undefined;
+  statuses: DerivedStatusInput[];
+  value: Derived;
+}
+
+/** Inputs can mutate in place; object identity or array length does not establish freshness. */
+const cache = new WeakMap<Unit, DerivedCache>();
+
+function sameDerivedInputs(unit: Unit, previous: DerivedCache): boolean {
+  // Keep these primitive reads aligned with computeDerived. The regression fixtures
+  // enumerate every base, bought and conversion stat when their interfaces expand.
+  const { base, bonus, statConversions } = unit.spec;
+  const old = previous.base;
+  if (base.hp !== old.hp || base.ad !== old.ad || base.armor !== old.armor || base.mr !== old.mr
+      || base.resource !== old.resource || base.moveSpeed !== old.moveSpeed
+      || base.critDamageModifier !== old.critDamageModifier
+      || base.attackSpeed.base !== old.attackSpeed.base || base.attackSpeed.ratio !== old.attackSpeed.ratio
+      || base.attackSpeed.bonus !== old.attackSpeed.bonus) return false;
+  const bought = previous.bonus;
+  if (bonus && bought) {
+    if (bonus.ad !== bought.ad || bonus.ap !== bought.ap || bonus.hp !== bought.hp
+        || bonus.armor !== bought.armor || bonus.mr !== bought.mr || bonus.attackSpeed !== bought.attackSpeed
+        || bonus.critChance !== bought.critChance || bonus.abilityHaste !== bought.abilityHaste
+        || bonus.lethality !== bought.lethality || bonus.magicPen !== bought.magicPen
+        || bonus.armorPenPoints !== bought.armorPenPoints || bonus.magicPenPoints !== bought.magicPenPoints) return false;
+  } else if (bonus !== bought) return false;
+  const conversions = previous.conversions;
+  if (statConversions && conversions) {
+    if (statConversions.healthToAP !== conversions.healthToAP || statConversions.apToHealth !== conversions.apToHealth
+        || statConversions.moveSpeedBonusEffectiveness !== conversions.moveSpeedBonusEffectiveness) return false;
+  } else if (statConversions !== conversions) return false;
+  if (unit.statuses.length !== previous.statuses.length) return false;
+  for (let index = 0; index < unit.statuses.length; index++) {
+    const status = unit.statuses[index]!;
+    const before = previous.statuses[index]!;
+    if (status.kind !== before.kind || status.key !== before.key || status.value !== before.value
+        || status.source !== before.source || status.ability !== before.ability
+        || status.tenacityGroup !== before.tenacityGroup
+        || status.bypassSlowImmune !== before.bypassSlowImmune) return false;
+  }
+  return true;
+}
 
 export function derive(unit: Unit): Derived {
-  const hit = cache.get(unit.statuses);
-  if (hit && hit.length === unit.statuses.length && hit.spec === unit.spec) return hit.value;
+  const hit = cache.get(unit);
+  if (hit && sameDerivedInputs(unit, hit)) return hit.value;
   const value = computeDerived(unit);
-  cache.set(unit.statuses, { length: unit.statuses.length, spec: unit.spec, value });
+  cache.set(unit, {
+    base: { ...unit.spec.base, attackSpeed: { ...unit.spec.base.attackSpeed } },
+    bonus: unit.spec.bonus ? { ...unit.spec.bonus } : undefined,
+    conversions: unit.spec.statConversions ? { ...unit.spec.statConversions } : undefined,
+    statuses: unit.statuses.map(({ kind, key, value, source, ability, tenacityGroup, bypassSlowImmune }) =>
+      ({ kind, key, value, source, ability, tenacityGroup, bypassSlowImmune })),
+    value,
+  });
   return value;
+}
+
+/** Exceptional slows (Charm) retain their strength during ordinary slow immunity. */
+function unavoidableSlows(statuses: Status[], key: "slow" | "drowsy"): number[] {
+  const values: number[] = [];
+  for (const status of statuses) {
+    if (status.kind === "cc" && status.key === key && status.bypassSlowImmune) values.push(status.value);
+  }
+  return values;
 }
 
 /** Bought percentage penetration: each point a separate 1% source, stacking multiplicatively. */
@@ -84,24 +170,63 @@ export function boughtPenetration(points: number): number {
 function computeDerived(unit: Unit): Derived {
   const { base, bonus = {} } = unit.spec;
   const st = unit.statuses;
-  const bonusAd = (bonus.ad ?? 0) + sum(st, "AD");
+  // Both conversions read the unconverted stats; their outputs never feed one another.
+  const healthBuffs = sum(st, "health");
+  const externalBonusHp = (bonus.hp ?? 0) + healthBuffs;
+  const externalAP = (bonus.ap ?? 0) + sum(st, "AP");
+  const conversion = unit.spec.statConversions;
+  const maxHp = conversion?.apToHealth === undefined
+    ? base.hp + (bonus.hp ?? 0) + healthBuffs
+    : base.hp + externalBonusHp + externalAP * conversion.apToHealth;
+  const ap = conversion?.healthToAP === undefined ? externalAP : externalAP + externalBonusHp * conversion.healthToAP;
+  const rawBonusAd = (bonus.ad ?? 0) + sum(st, "AD");
+  const totalADReduction = Math.max(0, sum(st, "totalADReduction"));
+  const bonusAd = Math.max(0, rawBonusAd - totalADReduction);
   const bonusAttackSpeed = base.attackSpeed.bonus + (bonus.attackSpeed ?? 0) + sum(st, "attackSpeed");
-  const cripple = Math.max(0, ...list(st, "cc", "cripple"));
   const rawAttackSpeed = base.attackSpeed.base + base.attackSpeed.ratio * bonusAttackSpeed;
   const slowImmune = hasState(unit, "slowImmune");
   // "Increases total armor by 16%": a share of the total, gained as bonus armor.
   const armorBonus = (bonus.armor ?? 0) + sum(st, "armor");
   const mrBonus = (bonus.mr ?? 0) + sum(st, "MR");
+  const speedEffectiveness = conversion?.moveSpeedBonusEffectiveness;
+  let flatSpeedBonus = sum(st, "moveSpeedFlat");
+  const percentSpeedBonuses = list(st, "stat", "moveSpeedPercent");
+  if (speedEffectiveness !== undefined) {
+    flatSpeedBonus = 0;
+    for (const status of st) {
+      if (status.kind !== "stat" || status.key !== "moveSpeedFlat") continue;
+      flatSpeedBonus += status.value > 0 ? status.value * speedEffectiveness : status.value;
+    }
+    for (let index = 0; index < percentSpeedBonuses.length; index++) {
+      if (percentSpeedBonuses[index]! > 0) percentSpeedBonuses[index]! *= speedEffectiveness;
+    }
+  }
+  const speedModifiers = {
+    flat: flatSpeedBonus,
+    additive: percentSpeedBonuses,
+    slows: slowImmune
+      ? [...unavoidableSlows(st, "slow"), ...unavoidableSlows(st, "drowsy")]
+      : [...list(st, "cc", "slow"), ...list(st, "cc", "drowsy")],
+    slowResist: combineSlowResist(list(st, "stat", "slowResist")),
+  };
+  const rawMoveSpeed = (base.moveSpeed + speedModifiers.flat) * (1 + speedModifiers.additive.reduce((total, value) => total + value, 0)) * (1 - Math.max(0, ...speedModifiers.slows) * (1 - speedModifiers.slowResist));
+  const tenacityGroups = new Map<string, number>();
+  const tenacitySources: number[] = [];
+  for (const status of st) {
+    if (status.kind !== "state" || status.key !== "tenacity") continue;
+    if (status.tenacityGroup) tenacityGroups.set(status.tenacityGroup, (tenacityGroups.get(status.tenacityGroup) ?? 0) + status.value);
+    else tenacitySources.push(status.value);
+  }
   return {
-    maxHp: base.hp + (bonus.hp ?? 0) + sum(st, "health"),
+    maxHp,
     baseAd: base.ad,
     bonusAd,
-    ad: base.ad + bonusAd,
-    ap: (bonus.ap ?? 0) + sum(st, "AP"),
+    ad: Math.max(0, base.ad + rawBonusAd - totalADReduction),
+    ap,
     armor: { base: base.armor, bonus: armorBonus + (base.armor + armorBonus) * sum(st, "armorPercent") },
     mr: { base: base.mr, bonus: mrBonus + (base.mr + mrBonus) * sum(st, "mrPercent") },
     bonusAttackSpeed,
-    attackSpeed: capAttackSpeed(rawAttackSpeed * (1 - cripple)),
+    attackSpeed: capAttackSpeed(rawAttackSpeed * attackSpeedSlowFactor(st)),
     critChance: Math.min(1, (bonus.critChance ?? 0) + sum(st, "critChance")),
     critDamage: CRIT_DAMAGE * base.critDamageModifier,
     abilityHaste: (bonus.abilityHaste ?? 0) + sum(st, "abilityHaste"),
@@ -109,13 +234,9 @@ function computeDerived(unit: Unit): Derived {
     magicPen: bonus.magicPen ?? 0,
     armorPen: [...list(st, "stat", "armorPen"), ...(bonus.armorPenPoints ? [boughtPenetration(bonus.armorPenPoints)] : [])],
     magicPenPercent: [...list(st, "stat", "magicPenPercent"), ...(bonus.magicPenPoints ? [boughtPenetration(bonus.magicPenPoints)] : [])],
-    moveSpeed: movementSpeed(base.moveSpeed, {
-      flat: sum(st, "moveSpeedFlat"),
-      additive: list(st, "stat", "moveSpeedPercent"),
-      slows: slowImmune ? [] : [...list(st, "cc", "slow"), ...list(st, "cc", "drowsy")],
-      slowResist: Math.min(1, sum(st, "slowResist")),
-    }),
-    tenacity: combineTenacity([list(st, "state", "tenacity")]),
+    moveSpeed: movementSpeed(base.moveSpeed, speedModifiers),
+    rawMoveSpeed,
+    tenacity: combineTenacity([[...tenacitySources, ...tenacityGroups.values()]]),
     damageDealt: list(st, "stat", "damageDealt"),
     damageReduction: list(st, "state", "damageReduction"),
     physicalReduction: list(st, "state", "physicalReduction"),
@@ -126,7 +247,17 @@ function computeDerived(unit: Unit): Derived {
     healingIncrease: sum(st, "healingIncrease"),
     maxResource: base.resource + sum(st, "maxResource"),
     bonusArmorPen: list(st, "stat", "bonusArmorPen"),
+    criticalBonusArmorIgnore: sum(st, "criticalBonusArmorIgnore"),
   };
+}
+
+/** Mana formulas cannot read energy, Fury, or another champion resource as mana. */
+function manaValue(kind: "max" | "current" | "missing", unit?: Unit, d?: Derived): number {
+  if (!unit || !d || unit.spec.resourceType !== "Mana") return 0;
+  const maximum = Math.max(0, d.maxResource);
+  if (kind === "max") return maximum;
+  const current = Math.min(maximum, Math.max(0, unit.resource));
+  return kind === "current" ? current : maximum - current;
 }
 
 function statValue(ref: StatRef, unit: Unit, d: Derived, target?: Unit, t?: Derived): number {
@@ -147,6 +278,12 @@ function statValue(ref: StatRef, unit: Unit, d: Derived, target?: Unit, t?: Deri
       return unit.hp;
     case "missingHP":
       return d.maxHp - unit.hp;
+    case "maxMana":
+      return manaValue("max", unit, d);
+    case "currentMana":
+      return manaValue("current", unit, d);
+    case "missingMana":
+      return manaValue("missing", unit, d);
     case "armor":
       return d.armor.base + d.armor.bonus;
     case "bonusArmor":
@@ -183,6 +320,12 @@ function statValue(ref: StatRef, unit: Unit, d: Derived, target?: Unit, t?: Deri
       return target && t ? t.maxHp - target.hp : 0;
     case "targetBonusHP":
       return target && t ? t.maxHp - target.spec.base.hp : 0;
+    case "targetMaxMana":
+      return manaValue("max", target, t);
+    case "targetCurrentMana":
+      return manaValue("current", target, t);
+    case "targetMissingMana":
+      return manaValue("missing", target, t);
     case "targetArmor":
       return t ? t.armor.base + t.armor.bonus : 0;
     case "targetBonusArmor":
@@ -194,23 +337,26 @@ function statValue(ref: StatRef, unit: Unit, d: Derived, target?: Unit, t?: Deri
   }
 }
 
-/** A formula with the caster's (and target's) current stats. */
-export function evaluate(formula: Formula, caster: Unit, target?: Unit): number {
+/** Current stats, with an optional declaring attack's critical chance for damage formulas. */
+export function evaluate(formula: Formula, caster: Unit, target?: Unit, critChance?: number): number {
   const { ratios, products } = formula;
   if (!ratios && !products) return formula.base;
   const d = derive(caster);
   const t = target ? derive(target) : undefined;
+  const valueOf = (ref: StatRef) => ref === "critChance" && critChance !== undefined
+    ? Math.min(1, Math.max(0, critChance))
+    : statValue(ref, caster, d, target, t);
   let value = formula.base;
   if (ratios) {
     for (const ref in ratios) {
       const ratio = ratios[ref as StatRef];
-      if (ratio) value += ratio * statValue(ref as StatRef, caster, d, target, t);
+      if (ratio) value += ratio * valueOf(ref as StatRef);
     }
   }
   if (products) {
     for (const term of products) {
       let product = term.ratio;
-      for (const ref of term.stats) product *= statValue(ref, caster, d, target, t);
+      for (const ref of term.stats) product *= valueOf(ref);
       value += product;
     }
   }
@@ -223,7 +369,7 @@ export function canMove(unit: Unit): boolean {
     const rule = CC_RULES[type].movement;
     if (rule === "disabled" || rule === "uncontrollable") return false;
   }
-  return !unit.forced;
+  return !unit.forced && !hasState(unit, "noMovement");
 }
 
 export function canAttack(unit: Unit): boolean {

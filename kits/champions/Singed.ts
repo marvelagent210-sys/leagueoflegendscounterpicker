@@ -141,6 +141,7 @@ const singed: KitModule = {
       {
         key: "Q",
         name: q.name,
+        activation: "toggle",
         slot: "Q",
         cooldown: q.field("staticCooldown"),
         castTime: 0,

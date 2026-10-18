@@ -150,7 +150,8 @@
       "onhit": "Thorn Spitters' attacks are mitigated by block and dodge as well as stopped by Blind and Disarm.",
       "spelleffects": "Thorn Spitters' basic attacks apply spell effects as area damage.\n* A Thorn Spitter deals 50% damage if it is not the first plant to attack its target.",
       "ccresist": "* Airborne\n* Cripple\n* Silence",
-      "abilities": ";Enrage\nThorn Spitters becomes enraged if they are hit by Stranglethorns, resetting their duration, restoring 50% of their current health, increasing their maximum health by 50% and attacking in a flurry for 50% bonus damage.\n\n;Monster Hunter\nThorn Spitters deal 50 – 100 (based on level) bonus damage against non-epic monsters."
+      "abilities": ";Enrage\nThorn Spitters becomes enraged if they are hit by Stranglethorns, resetting their duration, restoring 50% of their current health, increasing their maximum health by 50% and attacking in a flurry for 50% bonus damage.\n\n;Monster Hunter\nThorn Spitters deal 50 – 100 (based on level) bonus damage against non-epic monsters.",
+      "general": "Plants do not update their damage if Zyra levels up or changes her AP, but will trigger newly available spell effects. However the damage of in-air attacks update once a plant is hit by Stranglethorns or once the plant buffed by it dies."
     }
   },
   {
@@ -304,7 +305,8 @@
       "onhit": "Vine Lashers' attacks are mitigated by block and dodge as well as stopped by Blind and Disarm.",
       "spelleffects": "Vine Lashers' basic attacks apply spell effects as area damage.\n* A Vine Lasher deals 50% damage if it is not the first plant to attack its target.",
       "ccresist": "* Airborne\n* Cripple\n* Silence",
-      "abilities": ";Ensnare\nVine Lashers' attacks slow their target by 30% for 2 seconds. Slows from multiple Vine Lashers stack up to 2 times, stacking additively up to 60%.\n\n;Enrage\nVine Lashers become enraged if they are hit by Stranglethorns, resetting their duration, restoring 50% of their current health, increasing their maximum health by 50% and attacking in a flurry for 50% bonus damage.\n\n;Monster Hunter\nVine Lashers deal 50 – 100 (based on level) bonus damage against non-epic monsters."
+      "abilities": ";Ensnare\nVine Lashers' attacks slow their target by 30% for 2 seconds. Slows from multiple Vine Lashers stack up to 2 times, stacking additively up to 60%.\n\n;Enrage\nVine Lashers become enraged if they are hit by Stranglethorns, resetting their duration, restoring 50% of their current health, increasing their maximum health by 50% and attacking in a flurry for 50% bonus damage.\n\n;Monster Hunter\nVine Lashers deal 50 – 100 (based on level) bonus damage against non-epic monsters.",
+      "general": "Plants do not update their damage if Zyra levels up or changes her AP, but will trigger newly available spell effects. However the damage of in-air attacks update once a plant is hit by Stranglethorns or once the plant buffed by it dies."
     }
   }
 ]

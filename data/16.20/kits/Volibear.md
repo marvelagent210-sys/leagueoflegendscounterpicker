@@ -249,7 +249,7 @@ All 1 level-based formulas in the game files (1 linked to wiki values above):
 
 ## Duel simulator kit (level 20, every ability at max rank)
 
-What the duel simulator fights with (`kits/champions/Volibear.ts`): every number is read from the wiki's ability data above at level 20; what the wiki doesn't say is listed under assumptions. Ratios are fractions of the stat (60% AD is 0.6 × AD).
+What the duel simulator fights with (`kits/champions/Volibear.ts`): values come from pinned wiki and versioned game-data records at level 20. Interpretations and missing evidence are listed under assumptions. Ratios are fractions of the stat (60% AD is 0.6 × AD).
 
 - Basic attack: range 150, melee.
 
@@ -269,9 +269,9 @@ Effects marked by a mark or a role are completed by the kit's hooks (see the kit
 - Stormbringer's slow decaying over 1 second is taken as 25% for 1 second.
 - Stormbringer lands next to the enemy, up to 700 units away; the enemy can walk out of the impact during the leap.
 
-### Wiki values read (39)
+### Source values read (39)
 
-| Ability | Value | Revision |
+| Ability | Value | Source version |
 |---|---|---|
 | The Relentless Storm | he generates a stack of The Relentless Storm for 6 seconds | [4064866](https://wiki.leagueoflegends.com/en-us/Template:Data_Volibear/The_Relentless_Storm?oldid=4064866) |
 | The Relentless Storm | stacking up to 5 times | [4064866](https://wiki.leagueoflegends.com/en-us/Template:Data_Volibear/The_Relentless_Storm?oldid=4064866) |

@@ -118,7 +118,9 @@ describe("wave-1 kits read the wiki at level 20", () => {
 
   it("Urgot", () => {
     expect(ability("Urgot", "E").delivery).toMatchObject({ kind: "dash", distance: 450 });
-    expect(ability("Urgot", "R2").channel?.onComplete?.[0]?.type).toBe("execute");
+    // Execution is conditional on the owned suppression surviving; it is not a generic
+    // unconditional channel completion effect. Chains start the channel on attachment.
+    expect(ability("Urgot", "R2").channel?.manualStart).toBe(true);
     expect(kit("Urgot").spec.budget?.attacks).toBe(false);
   });
 

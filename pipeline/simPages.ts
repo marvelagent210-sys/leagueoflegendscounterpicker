@@ -4,13 +4,35 @@
  * simulated.json, and reports/simulator.md.
  */
 import { BUDGET_STATS, type BudgetStat } from "../engine/budget";
+import { compareChampionIds } from "../engine/championOrder";
 import type { CompiledKit } from "../engine/kits/compile";
 import { SCENARIO_LABELS, SCENARIOS } from "../engine/sim/scenarios";
 import { attackText, describeAbility, num } from "../engine/sim/describe";
 import type { AbilitySpec } from "../engine/sim/spec";
+import type { SimulationProvenance } from "../engine/sim/precomputed";
 import { type GoldenMatchup, MARGINS } from "../tests/golden/matchups";
 import { wikiUrl } from "../engine/abilityText";
 import type { PairResult } from "./sim/pool";
+import type { Champion } from "../engine/types";
+
+/** Whole-roster queue, generated from actual compiled kits rather than a manually maintained count. */
+export function coverageReport(champions: readonly Champion[], compiled: ReadonlyMap<string, CompiledKit>): string {
+  const supported = champions.filter((champion) => compiled.has(champion.id));
+  const remaining = champions.filter((champion) => !compiled.has(champion.id));
+  const pairs = supported.length * (supported.length - 1) / 2;
+  return [
+    "# Champion simulator coverage", "",
+    `${supported.length} of ${champions.length} champions have simulator kits; ${remaining.length} remain. This covers ${pairs.toLocaleString("en-US")} unordered simulated pairings.`, "",
+    "A simulator kit is implemented coverage, not a certification of every mechanic. Each kit page records source revisions and explicit assumptions. Other champions retain interaction estimates until their kit is implemented and checked.", "",
+    "## Implemented kits", "",
+    "| Champion | ID | Source reads | Assumptions |", "|---|---|--:|--:|",
+    ...supported.sort((a, b) => compareChampionIds(a.id, b.id)).map((champion) => {
+      const kit = compiled.get(champion.id)!;
+      return `| ${champion.name} | ${champion.id} | ${kit.evidence.length} | ${kit.assumptions.length} |`;
+    }), "", "## Remaining implementation queue", "",
+    ...remaining.sort((a, b) => compareChampionIds(a.id, b.id)).map((champion) => `- [ ] ${champion.name} (${champion.id})`), "",
+  ].join("\n");
+}
 
 function signed(value: number): string {
   return `${value >= 0 ? "+" : "−"}${Math.abs(value).toFixed(2)}`;
@@ -31,7 +53,7 @@ export function simulatorSection(kit: CompiledKit): string[] {
   // A value read twice (two numbers from one quote) is listed once.
   const seen = new Set<string>();
   const evidence = kit.evidence.filter((e) => {
-    const key = `${e.ability}\u0000${e.text}`;
+    const key = JSON.stringify([e.ability, e.text, e.page, e.revid, e.url]);
     if (seen.has(key)) return false;
     seen.add(key);
     return true;
@@ -39,7 +61,7 @@ export function simulatorSection(kit: CompiledKit): string[] {
   const lines = [
     "## Duel simulator kit (level 20, every ability at max rank)",
     "",
-    `What the duel simulator fights with (\`kits/champions/${kit.champion}.ts\`): every number is read from the wiki's ability data above at level 20; what the wiki doesn't say is listed under assumptions. Ratios are fractions of the stat (60% AD is 0.6 × AD).`,
+    `What the duel simulator fights with (\`kits/champions/${kit.champion}.ts\`): values come from pinned wiki and versioned game-data records at level 20. Interpretations and missing evidence are listed under assumptions. Ratios are fractions of the stat (60% AD is 0.6 × AD).`,
     "",
     `- Basic attack: ${attackText(spec.attack)}.`,
   ];
@@ -58,11 +80,11 @@ export function simulatorSection(kit: CompiledKit): string[] {
     "",
     ...(kit.assumptions.length > 0 ? kit.assumptions.map((a) => `- ${a}`) : ["- None."]),
     "",
-    `### Wiki values read (${evidence.length})`,
+    `### Source values read (${evidence.length})`,
     "",
-    "| Ability | Value | Revision |",
+    "| Ability | Value | Source version |",
     "|---|---|---|",
-    ...evidence.map((e) => `| ${cell(e.ability)} | ${cell(e.text)} | [${e.revid}](${wikiUrl(e.page, e.revid)}) |`),
+    ...evidence.map((e) => `| ${cell(e.ability)} | ${cell(e.text)} | [${cell(String(e.sourceVersion ?? e.revid))}](${e.url ?? wikiUrl(e.page, e.revid)}) |`),
     "",
   );
   return lines;
@@ -108,10 +130,12 @@ export function simulatedMatrix(champions: string[], gold: number, pairs: Array<
 }
 
 /** simulated.json: one line per champion keeps the file small and its per-patch diffs readable. */
-export function simulatedJson(dataset: string, patch: string, matrix: SimulatedMatrix): string {
+export function simulatedJson(dataset: string, patch: string, matrix: SimulatedMatrix, simulation?: SimulationProvenance): string {
   const round = (v: number | null) => (v === null ? null : Math.round(v * 1000) / 1000);
   const lines = matrix.champions.map((you) => {
-    const row = Object.fromEntries([...(matrix.scores.get(you) ?? [])].sort(([a], [b]) => a.localeCompare(b)).map(([enemy, values]) => [enemy, values.map(round)]));
+    // Keep the aggregate exact: rounding it can reverse close ranks or invent ties.
+    // Scenario columns are explanatory display values and retain their compact precision.
+    const row = Object.fromEntries([...(matrix.scores.get(you) ?? [])].sort(([a], [b]) => a.localeCompare(b)).map(([enemy, values]) => [enemy, values.map((value, i) => i === 0 ? value : round(value))]));
     return `    ${JSON.stringify(you)}: ${JSON.stringify(row)}`;
   });
   // The kit options a champion played in each matchup, when its kit had a choice (Udyr's rank split).
@@ -119,7 +143,8 @@ export function simulatedJson(dataset: string, patch: string, matrix: SimulatedM
     .sort(([a], [b]) => a.localeCompare(b))
     .map(([who, byEnemy]) => `    ${JSON.stringify(who)}: ${JSON.stringify(Object.fromEntries([...byEnemy].sort(([a], [b]) => a.localeCompare(b))))}`);
   const variantsJson = variants.length > 0 ? `,\n  "variants": {\n${variants.join(",\n")}\n  }` : "";
-  return `{\n  "dataset": ${JSON.stringify(dataset)},\n  "patch": ${JSON.stringify(patch)},\n  "confidence": "full",\n  "gold": ${matrix.gold},\n  "values": ${JSON.stringify(["score", ...SCENARIOS])},\n  "matchups": {\n${lines.join(",\n")}\n  }${variantsJson}\n}\n`;
+  const provenanceJson = simulation ? `\n  "simulation": ${JSON.stringify(simulation)},` : "";
+  return `{\n  "dataset": ${JSON.stringify(dataset)},\n  "patch": ${JSON.stringify(patch)},\n  "confidence": "full",${provenanceJson}\n  "gold": ${matrix.gold},\n  "values": ${JSON.stringify(["score", ...SCENARIOS])},\n  "matchups": {\n${lines.join(",\n")}\n  }${variantsJson}\n}\n`;
 }
 
 function scoreCells(values: Array<number | null>): string {
@@ -132,9 +157,9 @@ export function simulatedCounterSection(enemy: string, matrix: SimulatedMatrix, 
   const rows = matrix.champions
     .filter((you) => you !== enemy)
     .map((you) => ({ you, values: matrix.scores.get(you)?.get(enemy) ?? [] }))
-    .sort((a, b) => (b.values[0] ?? 0) - (a.values[0] ?? 0) || a.you.localeCompare(b.you));
+    .sort((a, b) => (b.values[0] ?? 0) - (a.values[0] ?? 0) || compareChampionIds(a.you, b.you));
   return [
-    "## Simulated duels (full confidence)",
+    "## Simulated duels",
     "",
     `The duel simulator played each of the ${rows.length} other champions with a simulator kit against ${name(enemy)}: both at level 20 with ${matrix.gold.toLocaleString("en-US")} gold of plain stats, each side's spent against the other's, through six scenarios (PLAN.md §6). Scores run from −1 (${name(enemy)} wins every time) to +1 (the champion does). Run \`npm run duel -- <champion> ${enemy} --log brawl\` to watch a fight.`,
     "",
@@ -152,12 +177,12 @@ export function simulatorReport(patch: string, matrix: SimulatedMatrix, names: M
     const values = [...(matrix.scores.get(id)?.values() ?? [])].map((v) => v[0] ?? 0);
     return values.reduce((a, b) => a + b, 0) / Math.max(1, values.length);
   };
-  const standings = [...matrix.champions].sort((a, b) => average(b) - average(a));
+  const standings = [...matrix.champions].sort((a, b) => average(b) - average(a) || compareChampionIds(a, b));
   const pairs = (matrix.champions.length * (matrix.champions.length - 1)) / 2;
   const lines = [
     `# Duel simulator (patch ${patch})`,
     "",
-    `Generated by \`npm run build:data\`: ${matrix.champions.length} champions with simulator kits, ${pairs} matchups, ${matrix.gold.toLocaleString("en-US")} gold of plain stats each. The counter pages show each enemy's simulated ranking; simulated.json has every score.`,
+    `Generated by \`npm run build:data\` or refreshed from parsed data by \`npm run build:sim\`: ${matrix.champions.length} champions with simulator kits, ${pairs} matchups, ${matrix.gold.toLocaleString("en-US")} gold of plain stats each. The counter pages show each enemy's simulated ranking; simulated.json has every score.`,
     "",
     "## Standings",
     "",

@@ -9,12 +9,14 @@ export interface WorkerRequest {
   id: number;
   /** Absolute URL of the dataset's folder, ending with "/". */
   dataUrl: string;
+  /** Identifies engine and parsed input revisions, even at the same dataset URL. */
+  dataFingerprint?: string;
   you: string;
   enemy: string;
   settings: AppSettings;
   /** Keep the most likely fight of each scenario as a timeline. */
   log: boolean;
-  /** The kit options each side played in the precomputed matchup (Udyr's rank split, Heimerdinger's upgrade), to try first. */
+  /** Legacy hints accepted for compatibility; live optimization considers every variant. */
   variants?: MatchupVariant[];
 }
 

@@ -32,6 +32,7 @@ export interface KitDefinition {
   /** Changes to base stats from innates. */
   base?: Partial<BaseStats>;
   hooks?: KitHooks;
+  statConversions?: FighterSpec["statConversions"];
   /** Innate effects that are always on (applied to itself before the fight). */
   start?: Effect[];
   /** Resource at the start of a fight (Fury starts empty); default full. */
@@ -98,6 +99,7 @@ export function compileKit(
     base: { ...base.base, ...definition.base },
     attack: { ...base.attack, ...definition.attack },
     abilities: definition.abilities,
+    ...(definition.statConversions ? { statConversions: definition.statConversions } : {}),
     ...(definition.hooks ? { hooks: definition.hooks } : {}),
     ...(definition.start ? { start: definition.start } : {}),
     ...(definition.resourceStart !== undefined ? { resourceStart: definition.resourceStart } : {}),

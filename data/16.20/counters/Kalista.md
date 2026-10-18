@@ -46,31 +46,31 @@ Run `npm run matchup -- <champion> Kalista` for the full ledger of a matchup, wi
 - **0.19** cc immunity: Paranoia is displacement immune, ignoring Kalista's Fate's Call (airborne) during it. Only during Paranoia. (Nocturne R Paranoia → Kalista R Fate's Call)
 - Watch out: Kalista's basic attacks reach 400 units farther than Nocturne's (525 vs 125 attack range).
 
-### 7. Elise (net +0.43)
-
-- **0.57** untargetable: Rappel makes Elise untargetable, dodging Kalista's Fate's Call. Untargetable for 0.6 s; Fate's Call lands within 0 s, faster than a 0.25 s reaction, so it needs prediction. (Elise E Rappel → Kalista R Fate's Call)
-- **0.22** untargetable: Rappel makes Elise untargetable, dodging Kalista's Basic Attack. Untargetable for 0.6 s, timed to Basic Attack. (Elise E Rappel → Kalista basic attacks)
-- Watch out: Fate's Call cleanses Elise's Cocoon (stun) after it lands.
-
-### 8. Bard (net +0.42)
+### 7. Bard (net +0.42)
 
 - **0.95** untargetable: Tempered Fate makes Bard untargetable, dodging Kalista's Fate's Call. Untargetable for 2.5 s, long enough to use ahead of Fate's Call. (Bard R Tempered Fate → Kalista R Fate's Call)
 - **0.14** untargetable: Tempered Fate makes Bard untargetable, dodging Kalista's Basic Attack. Untargetable for 2.5 s, long enough to use ahead of Basic Attack. (Bard R Tempered Fate → Kalista basic attacks)
 - Watch out: Fate's Call cleanses Bard's Tempered Fate (stun) after it lands.
 
-### 9. Lissandra (net +0.40)
+### 8. Lissandra (net +0.40)
 
 - **0.95** untargetable: Frozen Tomb makes Lissandra untargetable, dodging Kalista's Fate's Call. Untargetable for 2.5 s, long enough to use ahead of Fate's Call. (Lissandra R Frozen Tomb → Kalista R Fate's Call)
 - **0.14** untargetable: Frozen Tomb makes Lissandra untargetable, dodging Kalista's Basic Attack. Untargetable for 2.5 s, long enough to use ahead of Basic Attack. (Lissandra R Frozen Tomb → Kalista basic attacks)
 - **0.11** dash stop: Frozen Tomb's knockdown can stop Kalista's Martial Poise mid-dash. Must land during the dash. Fails if the dashing unit is crowd control immune, displacement immune, untargetable or spell shielded. (Lissandra R Frozen Tomb → Kalista I Martial Poise)
 - Watch out: Fate's Call cleanses Lissandra's Frozen Tomb (slow, stun) after it lands.
 
-### 10. Master Yi (net +0.37)
+### 9. Master Yi (net +0.37)
 
 - **0.57** untargetable: Alpha Strike makes Master Yi untargetable, dodging Kalista's Fate's Call. Untargetable for ?; Fate's Call lands within 0 s, faster than a 0.25 s reaction, so it needs prediction. (Master Yi Q Alpha Strike → Kalista R Fate's Call)
 - **0.22** untargetable: Alpha Strike makes Master Yi untargetable, dodging Kalista's Basic Attack. Untargetable for ?, timed to Basic Attack. (Master Yi Q Alpha Strike → Kalista basic attacks)
-- **0.05** cc immunity: Highlander makes Master Yi immune to Kalista's Rend slow. Highlander lasts 7 s on a 85 s cooldown. (Master Yi R Highlander → Kalista E Rend)
+- **0.05** cc immunity: Highlander makes Master Yi immune to Kalista's Rend (slow). Highlander lasts 7 s on a 85 s cooldown. (Master Yi R Highlander → Kalista E Rend)
 - Watch out: Kalista's basic attacks reach 350 units farther than Master Yi's (525 vs 175 attack range).
+
+### 10. Zed (net +0.37)
+
+- **0.57** untargetable: Death Mark makes Zed untargetable, dodging Kalista's Fate's Call. Untargetable for 0.6 s; Fate's Call lands within 0 s, faster than a 0.25 s reaction, so it needs prediction. (Zed R Death Mark → Kalista R Fate's Call)
+- **0.14** untargetable: Death Mark makes Zed untargetable, dodging Kalista's Basic Attack. Untargetable for 0.6 s, timed to Basic Attack. (Zed R Death Mark → Kalista basic attacks)
+- Watch out: Kalista's basic attacks reach 400 units farther than Zed's (525 vs 125 attack range).
 
 ## Full ranking
 
@@ -82,59 +82,59 @@ Run `npm run matchup -- <champion> Kalista` for the full ledger of a matchup, wi
 | 4 | Rek'Sai | +0.64 | 1.09 | 0.45 |  |
 | 5 | Aurora | +0.54 | 0.70 | 0.16 |  |
 | 6 | Nocturne | +0.49 | 1.14 | 0.65 |  |
-| 7 | Elise | +0.43 | 0.68 | 0.25 |  |
-| 8 | Bard | +0.42 | 1.02 | 0.60 |  |
-| 9 | Lissandra | +0.40 | 1.05 | 0.65 |  |
-| 10 | Master Yi | +0.37 | 0.75 | 0.38 |  |
-| 11 | Zed | +0.37 | 0.64 | 0.27 |  |
-| 12 | Morgana | +0.34 | 0.99 | 0.65 |  |
-| 13 | Fiora | +0.34 | 0.81 | 0.47 |  |
-| 14 | Samira | +0.32 | 0.48 | 0.16 |  |
-| 15 | Udyr | +0.31 | 1.00 | 0.69 |  |
-| 16 | Teemo | +0.31 | 0.43 | 0.12 | blind (Blinding Dart) |
-| 17 | Olaf | +0.29 | 0.98 | 0.69 |  |
-| 18 | Gwen | +0.29 | 0.68 | 0.39 |  |
-| 19 | Yuumi | +0.28 | 0.72 | 0.44 |  |
-| 20 | Ekko | +0.24 | 0.65 | 0.41 |  |
-| 21 | Mel | +0.20 | 0.45 | 0.25 |  |
-| 22 | Evelynn | +0.17 | 0.64 | 0.47 |  |
-| 23 | Kayle | +0.16 | 0.20 | 0.04 |  |
-| 24 | Shaco | +0.13 | 0.64 | 0.51 |  |
-| 25 | Vex | +0.13 | 0.36 | 0.23 |  |
-| 26 | Kindred | +0.10 | 0.14 | 0.04 |  |
-| 27 | Zaahen | +0.03 | 0.60 | 0.57 |  |
-| 28 | Gangplank | +0.02 | 0.80 | 0.78 |  |
-| 29 | Ezreal | 0.00 | 0.00 | 0.00 |  |
-| 30 | Kai'Sa | 0.00 | 0.00 | 0.00 |  |
-| 31 | Nidalee | 0.00 | 0.00 | 0.00 |  |
-| 32 | Alistar | -0.02 | 0.78 | 0.80 |  |
-| 33 | Kayn | -0.04 | 0.64 | 0.68 |  |
-| 34 | Kog'Maw | -0.04 | 0.00 | 0.04 |  |
-| 35 | Twitch | -0.04 | 0.00 | 0.04 |  |
-| 36 | Zeri | -0.04 | 0.00 | 0.04 |  |
-| 37 | Jinx | -0.06 | 0.22 | 0.28 |  |
-| 38 | Ahri | -0.06 | 0.20 | 0.26 |  |
-| 39 | Corki | -0.06 | 0.19 | 0.25 |  |
-| 40 | Yunara | -0.06 | 0.00 | 0.06 |  |
-| 41 | Malzahar | -0.07 | 0.62 | 0.69 |  |
-| 42 | Veigar | -0.07 | 0.19 | 0.26 |  |
-| 43 | Viktor | -0.07 | 0.19 | 0.26 |  |
-| 44 | Graves | -0.09 | 0.00 | 0.09 |  |
-| 45 | Rengar | -0.10 | 0.80 | 0.90 |  |
-| 46 | Jax | -0.12 | 0.45 | 0.57 |  |
-| 47 | Smolder | -0.12 | 0.00 | 0.12 |  |
-| 48 | Warwick | -0.16 | 0.83 | 0.99 |  |
-| 49 | Annie | -0.16 | 0.04 | 0.20 |  |
-| 50 | LeBlanc | -0.16 | 0.00 | 0.16 |  |
-| 51 | Illaoi | -0.17 | 0.19 | 0.36 |  |
-| 52 | Sion | -0.19 | 0.98 | 1.17 |  |
-| 53 | Yasuo | -0.19 | 0.57 | 0.76 |  |
-| 54 | Milio | -0.19 | 0.06 | 0.25 |  |
-| 55 | Kennen | -0.20 | 0.00 | 0.20 |  |
-| 56 | Hwei | -0.21 | 0.22 | 0.43 |  |
-| 57 | Akshan | -0.21 | 0.00 | 0.21 |  |
-| 58 | Senna | -0.23 | 0.04 | 0.27 |  |
-| 59 | Lucian | -0.23 | 0.00 | 0.23 |  |
+| 7 | Bard | +0.42 | 1.02 | 0.60 |  |
+| 8 | Lissandra | +0.40 | 1.05 | 0.65 |  |
+| 9 | Master Yi | +0.37 | 0.75 | 0.38 |  |
+| 10 | Zed | +0.37 | 0.64 | 0.27 |  |
+| 11 | Morgana | +0.34 | 0.99 | 0.65 |  |
+| 12 | Fiora | +0.32 | 0.81 | 0.49 |  |
+| 13 | Samira | +0.32 | 0.48 | 0.16 |  |
+| 14 | Udyr | +0.31 | 1.00 | 0.69 |  |
+| 15 | Teemo | +0.31 | 0.43 | 0.12 | blind (Blinding Dart) |
+| 16 | Olaf | +0.29 | 0.98 | 0.69 |  |
+| 17 | Gwen | +0.29 | 0.68 | 0.39 |  |
+| 18 | Yuumi | +0.28 | 0.72 | 0.44 |  |
+| 19 | Mel | +0.20 | 0.45 | 0.25 |  |
+| 20 | Evelynn | +0.17 | 0.64 | 0.47 |  |
+| 21 | Kayle | +0.16 | 0.20 | 0.04 |  |
+| 22 | Shaco | +0.13 | 0.64 | 0.51 |  |
+| 23 | Vex | +0.13 | 0.36 | 0.23 |  |
+| 24 | Fizz | +0.03 | 0.72 | 0.69 |  |
+| 25 | Zaahen | +0.03 | 0.60 | 0.57 |  |
+| 26 | Gangplank | +0.02 | 0.80 | 0.78 |  |
+| 27 | Ezreal | 0.00 | 0.00 | 0.00 |  |
+| 28 | Kai'Sa | 0.00 | 0.00 | 0.00 |  |
+| 29 | Nidalee | 0.00 | 0.00 | 0.00 |  |
+| 30 | Alistar | -0.02 | 0.78 | 0.80 |  |
+| 31 | Kayn | -0.04 | 0.64 | 0.68 |  |
+| 32 | Kindred | -0.04 | 0.00 | 0.04 |  |
+| 33 | Kog'Maw | -0.04 | 0.00 | 0.04 |  |
+| 34 | Twitch | -0.04 | 0.00 | 0.04 |  |
+| 35 | Zeri | -0.04 | 0.00 | 0.04 |  |
+| 36 | Jinx | -0.06 | 0.22 | 0.28 |  |
+| 37 | Ahri | -0.06 | 0.20 | 0.26 |  |
+| 38 | Yunara | -0.06 | 0.00 | 0.06 |  |
+| 39 | Malzahar | -0.07 | 0.62 | 0.69 |  |
+| 40 | Veigar | -0.07 | 0.19 | 0.26 |  |
+| 41 | Viktor | -0.07 | 0.19 | 0.26 |  |
+| 42 | Graves | -0.09 | 0.00 | 0.09 |  |
+| 43 | Rengar | -0.10 | 0.80 | 0.90 |  |
+| 44 | Jax | -0.12 | 0.45 | 0.57 |  |
+| 45 | Smolder | -0.12 | 0.00 | 0.12 |  |
+| 46 | Annie | -0.16 | 0.04 | 0.20 |  |
+| 47 | LeBlanc | -0.16 | 0.00 | 0.16 |  |
+| 48 | Illaoi | -0.17 | 0.19 | 0.36 |  |
+| 49 | Sion | -0.19 | 0.98 | 1.17 |  |
+| 50 | Yasuo | -0.19 | 0.57 | 0.76 |  |
+| 51 | Milio | -0.19 | 0.06 | 0.25 |  |
+| 52 | Kennen | -0.20 | 0.00 | 0.20 |  |
+| 53 | Hwei | -0.21 | 0.22 | 0.43 |  |
+| 54 | Akshan | -0.21 | 0.00 | 0.21 |  |
+| 55 | Senna | -0.23 | 0.04 | 0.27 |  |
+| 56 | Lucian | -0.23 | 0.00 | 0.23 |  |
+| 57 | Corki | -0.25 | 0.00 | 0.25 |  |
+| 58 | Elise | -0.25 | 0.00 | 0.25 |  |
+| 59 | Warwick | -0.26 | 0.83 | 1.09 |  |
 | 60 | Braum | -0.26 | 0.75 | 1.01 | projectile block (Unbreakable), projectile block (Unbreakable) |
 | 61 | Akali | -0.26 | 0.00 | 0.26 |  |
 | 62 | Draven | -0.26 | 0.00 | 0.26 |  |
@@ -149,27 +149,27 @@ Run `npm run matchup -- <champion> Kalista` for the full ledger of a matchup, wi
 | 71 | Jayce | -0.28 | 0.00 | 0.28 |  |
 | 72 | Swain | -0.29 | 0.00 | 0.29 |  |
 | 73 | Syndra | -0.29 | 0.00 | 0.29 |  |
-| 74 | Soraka | -0.30 | 0.00 | 0.30 |  |
-| 75 | Caitlyn | -0.31 | 0.07 | 0.38 |  |
-| 76 | Tryndamere | -0.32 | 0.00 | 0.32 |  |
-| 77 | Camille | -0.33 | 0.70 | 1.03 |  |
-| 78 | Heimerdinger | -0.33 | 0.05 | 0.38 |  |
-| 79 | Ziggs | -0.33 | 0.00 | 0.33 |  |
-| 80 | Kassadin | -0.34 | 0.00 | 0.34 |  |
-| 81 | Pantheon | -0.35 | 0.22 | 0.57 |  |
-| 82 | Cassiopeia | -0.35 | 0.21 | 0.56 |  |
-| 83 | Karma | -0.35 | 0.00 | 0.35 |  |
-| 84 | Nasus | -0.36 | 0.33 | 0.69 |  |
-| 85 | Ivern | -0.36 | 0.00 | 0.36 |  |
-| 86 | Anivia | -0.37 | 0.03 | 0.40 |  |
-| 87 | Nilah | -0.38 | 0.37 | 0.75 |  |
-| 88 | Kha'Zix | -0.38 | 0.00 | 0.38 |  |
-| 89 | Quinn | -0.38 | 0.00 | 0.38 |  |
-| 90 | Maokai | -0.39 | 0.72 | 1.11 |  |
-| 91 | Kled | -0.39 | 0.60 | 0.99 |  |
-| 92 | Vel'Koz | -0.39 | 0.00 | 0.39 |  |
-| 93 | Xerath | -0.39 | 0.00 | 0.39 |  |
-| 94 | Jhin | -0.40 | 0.00 | 0.40 |  |
+| 74 | Cassiopeia | -0.30 | 0.21 | 0.51 |  |
+| 75 | Soraka | -0.30 | 0.00 | 0.30 |  |
+| 76 | Caitlyn | -0.31 | 0.07 | 0.38 |  |
+| 77 | Tryndamere | -0.32 | 0.00 | 0.32 |  |
+| 78 | Camille | -0.33 | 0.70 | 1.03 |  |
+| 79 | Heimerdinger | -0.33 | 0.05 | 0.38 |  |
+| 80 | Ziggs | -0.33 | 0.00 | 0.33 |  |
+| 81 | Kassadin | -0.34 | 0.00 | 0.34 |  |
+| 82 | Karma | -0.35 | 0.00 | 0.35 |  |
+| 83 | Nasus | -0.36 | 0.33 | 0.69 |  |
+| 84 | Ivern | -0.36 | 0.00 | 0.36 |  |
+| 85 | Anivia | -0.37 | 0.03 | 0.40 |  |
+| 86 | Nilah | -0.38 | 0.37 | 0.75 |  |
+| 87 | Kha'Zix | -0.38 | 0.00 | 0.38 |  |
+| 88 | Quinn | -0.38 | 0.00 | 0.38 |  |
+| 89 | Maokai | -0.39 | 0.72 | 1.11 |  |
+| 90 | Kled | -0.39 | 0.60 | 0.99 |  |
+| 91 | Vel'Koz | -0.39 | 0.00 | 0.39 |  |
+| 92 | Xerath | -0.39 | 0.00 | 0.39 |  |
+| 93 | Jhin | -0.40 | 0.00 | 0.40 |  |
+| 94 | Ekko | -0.41 | 0.00 | 0.41 |  |
 | 95 | Ashe | -0.42 | 0.05 | 0.47 |  |
 | 96 | Karthus | -0.42 | 0.00 | 0.42 |  |
 | 97 | Shen | -0.43 | 0.43 | 0.86 |  |
@@ -193,41 +193,41 @@ Run `npm run matchup -- <champion> Kalista` for the full ledger of a matchup, wi
 | 115 | Renekton | -0.57 | 0.00 | 0.57 |  |
 | 116 | Sona | -0.58 | 0.00 | 0.58 |  |
 | 117 | Naafiri | -0.59 | 0.00 | 0.59 |  |
-| 118 | Aatrox | -0.61 | 0.00 | 0.61 |  |
-| 119 | Yone | -0.65 | 0.30 | 0.95 |  |
-| 120 | K'Sante | -0.66 | 0.38 | 1.04 |  |
-| 121 | Aphelios | -0.66 | 0.05 | 0.71 |  |
-| 122 | Malphite | -0.67 | 0.40 | 1.07 |  |
-| 123 | Neeko | -0.67 | 0.00 | 0.67 |  |
-| 124 | Zyra | -0.67 | 0.00 | 0.67 |  |
-| 125 | Fizz | -0.69 | 0.00 | 0.69 |  |
-| 126 | Lee Sin | -0.69 | 0.00 | 0.69 |  |
-| 127 | Dr. Mundo | -0.70 | 0.00 | 0.70 |  |
-| 128 | Hecarim | -0.71 | 0.20 | 0.91 |  |
+| 118 | Pantheon | -0.61 | 0.22 | 0.83 |  |
+| 119 | Aatrox | -0.61 | 0.00 | 0.61 |  |
+| 120 | Yone | -0.65 | 0.30 | 0.95 |  |
+| 121 | K'Sante | -0.66 | 0.38 | 1.04 |  |
+| 122 | Aphelios | -0.66 | 0.05 | 0.71 |  |
+| 123 | Malphite | -0.67 | 0.40 | 1.07 |  |
+| 124 | Neeko | -0.67 | 0.00 | 0.67 |  |
+| 125 | Zyra | -0.67 | 0.00 | 0.67 |  |
+| 126 | Singed | -0.68 | 0.22 | 0.90 |  |
+| 127 | Lee Sin | -0.69 | 0.00 | 0.69 |  |
+| 128 | Dr. Mundo | -0.70 | 0.00 | 0.70 |  |
 | 129 | Nami | -0.71 | 0.00 | 0.71 |  |
 | 130 | Pyke | -0.71 | 0.00 | 0.71 |  |
 | 131 | Riven | -0.71 | 0.00 | 0.71 |  |
-| 132 | Singed | -0.73 | 0.22 | 0.95 |  |
-| 133 | Taric | -0.73 | 0.14 | 0.87 |  |
-| 134 | Wukong | -0.73 | 0.00 | 0.73 |  |
-| 135 | Aurelion Sol | -0.74 | 0.00 | 0.74 |  |
-| 136 | Renata Glasc | -0.76 | 0.00 | 0.76 |  |
-| 137 | Rumble | -0.76 | 0.00 | 0.76 |  |
-| 138 | Seraphine | -0.77 | 0.00 | 0.77 |  |
-| 139 | Jarvan IV | -0.78 | 0.19 | 0.97 |  |
-| 140 | Viego | -0.78 | 0.19 | 0.97 |  |
-| 141 | Mordekaiser | -0.79 | 0.08 | 0.87 |  |
-| 142 | Lillia | -0.79 | 0.00 | 0.79 |  |
-| 143 | Urgot | -0.79 | 0.00 | 0.79 |  |
-| 144 | Diana | -0.81 | 0.00 | 0.81 |  |
-| 145 | Rammus | -0.82 | 0.32 | 1.14 |  |
-| 146 | Poppy | -0.82 | 0.28 | 1.10 |  |
-| 147 | Janna | -0.83 | 0.00 | 0.83 |  |
-| 148 | Rakan | -0.84 | 0.00 | 0.84 |  |
-| 149 | Yorick | -0.85 | 0.00 | 0.85 |  |
-| 150 | Xin Zhao | -0.86 | 0.14 | 1.00 |  |
-| 151 | Darius | -0.86 | 0.00 | 0.86 |  |
-| 152 | Zac | -0.87 | 0.22 | 1.09 |  |
+| 132 | Wukong | -0.73 | 0.00 | 0.73 |  |
+| 133 | Aurelion Sol | -0.74 | 0.00 | 0.74 |  |
+| 134 | Renata Glasc | -0.76 | 0.00 | 0.76 |  |
+| 135 | Rumble | -0.76 | 0.00 | 0.76 |  |
+| 136 | Seraphine | -0.77 | 0.00 | 0.77 |  |
+| 137 | Jarvan IV | -0.78 | 0.19 | 0.97 |  |
+| 138 | Viego | -0.78 | 0.19 | 0.97 |  |
+| 139 | Mordekaiser | -0.79 | 0.08 | 0.87 |  |
+| 140 | Lillia | -0.79 | 0.00 | 0.79 |  |
+| 141 | Urgot | -0.79 | 0.00 | 0.79 |  |
+| 142 | Diana | -0.81 | 0.00 | 0.81 |  |
+| 143 | Rammus | -0.82 | 0.32 | 1.14 |  |
+| 144 | Poppy | -0.82 | 0.28 | 1.10 |  |
+| 145 | Janna | -0.83 | 0.00 | 0.83 |  |
+| 146 | Rakan | -0.84 | 0.00 | 0.84 |  |
+| 147 | Yorick | -0.85 | 0.00 | 0.85 |  |
+| 148 | Xin Zhao | -0.86 | 0.14 | 1.00 |  |
+| 149 | Darius | -0.86 | 0.00 | 0.86 |  |
+| 150 | Zac | -0.87 | 0.22 | 1.09 |  |
+| 151 | Hecarim | -0.87 | 0.20 | 1.07 |  |
+| 152 | Taric | -0.87 | 0.00 | 0.87 |  |
 | 153 | Trundle | -0.87 | 0.00 | 0.87 |  |
 | 154 | Sett | -0.90 | 0.19 | 1.09 |  |
 | 155 | Ornn | -0.93 | 0.19 | 1.12 |  |
@@ -247,4 +247,4 @@ Run `npm run matchup -- <champion> Kalista` for the full ledger of a matchup, wi
 | 169 | Sejuani | -1.10 | 0.00 | 1.10 |  |
 | 170 | Taliyah | -1.10 | 0.00 | 1.10 |  |
 | 171 | Skarner | -1.20 | 0.06 | 1.26 |  |
-| 172 | Galio | -1.25 | 0.00 | 1.25 |  |
+| 172 | Galio | -1.37 | 0.00 | 1.37 |  |

@@ -1,8 +1,8 @@
 /**
  * The duel loop. Each tick (1/30 s):
  *
- *  1. delayed effects land; kit hooks, damage over time and regeneration run;
- *  2. statuses and forced movement that have run out end;
+ *  1. expired statuses and forced movement end, retaining a DoT's final due pulse;
+ *  2. delayed effects land; kit hooks, damage over time and regeneration run;
  *  3. missiles fly and ground areas land;
  *  4. attack windups and cast times that are due complete: all of them are collected first,
  *     then applied, so neither unit gets the first word on a shared tick;
@@ -23,6 +23,7 @@ import { CC_RULES } from "../rules/crowdControl";
 import { toTicks } from "../rules/time";
 import {
   type PendingSplit,
+  EPSILON,
   advanceMissiles,
   advanceZones,
   canCast,
@@ -40,11 +41,12 @@ import {
   startAttack,
   startCast,
 } from "./actions";
-import { type Behavior, type Command, defaultBehavior, perceive } from "./behavior";
+import { type Behavior, type Command, defaultBehavior, perceive, traitsOf } from "./behavior";
 import { applyEffect, contactGap, dealDamage, directionTo, edgeDistance, heal, hookContext, log } from "./combat";
 import { canMove, ccTypes, derive } from "./derived";
 import { abilityOf } from "./forms";
-import { advancePets } from "./pets";
+import { advancePets, petEffects } from "./pets";
+import { advanceLifecycles } from "./lifecycle";
 import { aroundFactor, expireTerrain, terrainLimit } from "./terrain";
 import type { FighterSpec } from "./spec";
 import { DEFAULT_SETTINGS, type LogEntry, type Mode, type Side, type SimSettings, type Unit, type World, cloneWorld, newUnit, other } from "./state";
@@ -142,6 +144,11 @@ function runScheduled(world: World): void {
   world.scheduled = world.scheduled.filter((e) => e.tick > world.tick);
   for (const entry of due) {
     const owner = world.units[entry.owner];
+    if (entry.targetPet !== undefined) {
+      const pet = world.pets.find((candidate) => candidate.id === entry.targetPet);
+      if (pet) petEffects(world, owner, pet, entry.effects, "persistent", entry.ability, entry.scale);
+      continue;
+    }
     const target = world.units[entry.target];
     if (!target.alive) continue;
     const ability = abilityOf(owner, entry.ability);
@@ -165,9 +172,10 @@ function upkeep(world: World, unit: Unit): void {
   unit.resource = Math.min(derive(unit).maxResource, unit.resource + base.resourceRegen / 5 / 30);
 }
 
-function expire(world: World, unit: Unit): void {
-  if (unit.statuses.some((s) => s.endTick <= world.tick)) {
-    unit.statuses = unit.statuses.filter((s) => s.endTick > world.tick);
+function expire(world: World, unit: Unit, keepFinalDot = false): void {
+  const active = (s: Unit["statuses"][number]) => s.endTick > world.tick || (keepFinalDot && s.kind === "dot" && s.endTick === world.tick && s.dot !== undefined && s.dot.nextTick <= world.tick);
+  if (unit.statuses.some((s) => !active(s))) {
+    unit.statuses = unit.statuses.filter(active);
     // Losing bonus maximum health doesn't take current health with it, but caps it.
     unit.hp = Math.min(unit.hp, derive(unit).maxHp);
   }
@@ -180,7 +188,12 @@ function expire(world: World, unit: Unit): void {
 /** Windups and casts due this tick: all are collected before any is applied. */
 function completeActions(world: World, splits: PendingSplit[]): void {
   const due = order(world)
-    .map((side) => ({ unit: world.units[side], action: world.units[side].action }))
+    .flatMap((side) => {
+      const unit = world.units[side];
+      // A permitted spell can run alongside an older attack; both retain their own
+      // completion times. Collect both before applying either side's due actions.
+      return [{ unit, action: unit.pendingAttack }, { unit, action: unit.action }];
+    })
     .filter(({ unit, action }) => unit.alive && action && ((action.kind === "windup" && action.launchTick <= world.tick) || (action.kind === "cast" && action.endTick <= world.tick)));
   for (const { unit, action } of due) {
     if (action?.kind === "windup") launchAttack(world, unit, action);
@@ -188,7 +201,7 @@ function completeActions(world: World, splits: PendingSplit[]): void {
       const ability = abilityOf(unit, action.ability);
       if (unit.action === action) unit.action = undefined;
       if (!ability) continue;
-      const split = completeCast(world, unit, ability, action.startTick, action.aim);
+      const split = completeCast(world, unit, ability, action.startTick, action.aim, action.cost);
       if (split) splits.push(split);
     }
   }
@@ -205,12 +218,27 @@ function forcedAttack(world: World, unit: Unit): void {
     if (rule === "disabled" || rule === "uncontrollable") return;
   }
   const enemy = world.units[other(unit.side)];
-  if (unit.action === undefined && unit.attackReadyTick <= world.tick && enemy.alive && inAttackRange(unit, enemy)) startAttack(world, unit);
+  if (unit.action === undefined && !unit.pendingAttack && unit.attackReadyTick <= world.tick && enemy.alive && inAttackRange(unit, enemy)) startAttack(world, unit);
+}
+
+function beginTrade(world: World, unit: Unit): void {
+  if (world.modes[unit.side] === "trade" && unit.memory.tradeStart === undefined) unit.memory.tradeStart = world.tick;
 }
 
 function execute(world: World, unit: Unit, command: Command): { acted: boolean; split?: PendingSplit } {
   switch (command.kind) {
     case "move":
+      if (unit.resurrection || unit.deathDefied) { unit.move = 0; return { acted: false }; }
+      if (command.direction !== 0 && unit.action?.kind === "channel") {
+        const action = unit.action;
+        const ability = abilityOf(unit, action.ability);
+        const cancelAfter = ability?.channel?.cancelAfter;
+        if (cancelAfter !== undefined && !ability?.channel?.mobile) {
+          if (world.tick < action.startTick + toTicks(cancelAfter)) { unit.move = 0; return { acted: false }; }
+          unit.action = undefined;
+          if (ability) unit.spec.hooks?.onChannelInterrupt?.({ ...hookContext(world, unit, ability), reason: "move" });
+        }
+      }
       if (command.direction !== 0 && unit.action?.kind === "windup") {
         // Walking off cancels the windup and resets the attack timer.
         unit.action = undefined;
@@ -221,17 +249,31 @@ function execute(world: World, unit: Unit, command: Command): { acted: boolean; 
     case "attack": {
       if (command.pet !== undefined) {
         const pet = world.pets.find((p) => p.id === command.pet);
-        if (!pet || !canStartAttackOnPet(world, unit, pet)) return { acted: false };
+        if (!pet) return { acted: false };
+        if (unit.action?.kind === "channel") {
+          const action = unit.action;
+          const ability = abilityOf(unit, action.ability);
+          const cancelAfter = ability?.channel?.cancelAttackOtherAfter;
+          if (cancelAfter === undefined || world.tick < action.startTick + toTicks(cancelAfter)) return { acted: false };
+          unit.action = undefined;
+          if (!canStartAttackOnPet(world, unit, pet)) { unit.action = action; return { acted: false }; }
+          if (ability) unit.spec.hooks?.onChannelInterrupt?.({ ...hookContext(world, unit, ability), reason: "attack" });
+        }
+        if (!canStartAttackOnPet(world, unit, pet)) return { acted: false };
+        if (pet.owner !== unit.side) beginTrade(world, unit);
         startAttack(world, unit, pet);
         return { acted: true };
       }
       if (!canStartAttack(world, unit)) return { acted: false };
+      beginTrade(world, unit);
       startAttack(world, unit);
       return { acted: true };
     }
     case "cast": {
       const ability = unit.spec.abilities.find((a) => a.key === command.ability);
       if (!ability || !canCast(world, unit, ability)) return { acted: false };
+      const traits = traitsOf(ability);
+      if (traits.damage || traits.cc) beginTrade(world, unit);
       if (command.dodge !== undefined) {
         // A dash or blink in answer to a skillshot gets the unit out of its way.
         const missile = world.missiles.find((m) => m.id === command.dodge);
@@ -268,7 +310,7 @@ function walksDuringAction(unit: Unit): boolean {
 }
 
 function walk(world: World, unit: Unit): void {
-  if (!unit.alive) return;
+  if (!unit.alive || unit.deathDefied) return;
   const enemy = world.units[other(unit.side)];
   if (unit.attached) {
     // Carried by the enemy: held at its side.
@@ -282,7 +324,11 @@ function walk(world: World, unit: Unit): void {
   const toward = directionTo(unit, enemy);
   let dx = 0;
   if (unit.forced) {
-    dx = unit.forced.over ? unit.forced.perTick : -toward * unit.forced.perTick;
+    dx = unit.forced.over || unit.forced.absolute ? unit.forced.perTick : -toward * unit.forced.perTick;
+    if (unit.forced.remaining !== undefined) {
+      dx = Math.sign(dx) * Math.min(Math.abs(dx), unit.forced.remaining);
+      unit.forced.remaining -= Math.abs(dx);
+    }
   } else {
     const types = ccTypes(unit);
     const held = [...types].some((t) => CC_RULES[t].movement === "disabled");
@@ -309,6 +355,7 @@ function walk(world: World, unit: Unit): void {
   if (limited !== dx && unit.forced) delete unit.forced;
   dx = walking ? limited * aroundFactor(world, unit, limited) : limited;
   unit.x += dx;
+  if (walking && dx !== 0) unit.facing = dx > 0 ? 1 : -1;
   unit.moved = dx === 0 ? 0 : dx * toward > 0 ? 1 : -1;
 }
 
@@ -331,13 +378,25 @@ function checkEnd(world: World): void {
   };
   // A unit that has fallen (Glory in Death) has died already.
   if ((deadA || a.fallen) && (deadB || b.fallen) && (deadA || deadB)) return end("draw", "death");
-  if (deadA) return end(1, "death");
-  if (deadB) return end(0, "death");
+  const pendingPersistent = (owner: Unit, survivor: Unit) => {
+    const persistent = (key: string | undefined) => {
+      const ability = abilityOf(owner, key);
+      return ability?.persistsAfterDeath || ability?.deliveryAtCastStart;
+    };
+    return world.tick < toTicks(world.settings.maxSeconds) && (
+      world.missiles.some((m) => m.owner === owner.side && persistent(m.source)) ||
+      world.zones.some((z) => z.owner === owner.side && z.kind === "delayedArea" && (z.onHit?.length ?? 0) > 0 && persistent(z.ability)) ||
+      world.scheduled.some((e) => e.owner === owner.side && e.target === survivor.side && persistent(e.ability))
+    );
+  };
+  if (deadA) { if (pendingPersistent(a, b)) return; return end(1, "death"); }
+  if (deadB) { if (pendingPersistent(b, a)) return; return end(0, "death"); }
   const distance = edgeDistance(a, b);
+  const lifecyclePending = world.units.some((unit) => unit.resurrection || unit.deathDefied);
   for (const unit of world.units) {
     const mode = world.modes[unit.side];
-    if (mode === "flee" && distance >= world.settings.escapeDistance && !threatsInFlight(world, unit.side)) return end("none", "escaped");
-    if (mode === "trade" && unit.memory.tradeDone && distance >= world.settings.disengageDistance && !threatsInFlight(world, unit.side)) {
+    if (!lifecyclePending && mode === "flee" && distance + EPSILON >= world.settings.escapeDistance && !threatsInFlight(world, unit.side)) return end("none", "escaped");
+    if (!lifecyclePending && mode === "trade" && unit.memory.tradeDone && distance + EPSILON >= world.settings.disengageDistance && !threatsInFlight(world, unit.side)) {
       return end("none", "disengaged");
     }
   }
@@ -347,11 +406,15 @@ function checkEnd(world: World): void {
 /** Runs one tick; returns the skillshots the fight should split on. */
 export function step(world: World, behaviors: [Behavior, Behavior]): PendingSplit[] {
   const splits: PendingSplit[] = [];
+  advanceLifecycles(world);
   const sides = order(world);
+  // Incoming effects at t must not see protection that ended at t. DoTs intentionally
+  // include their final scheduled pulse, which upkeep delivers before the second expiry.
+  for (const side of sides) expire(world, world.units[side], true);
+  expireTerrain(world);
   runScheduled(world);
   for (const side of sides) upkeep(world, world.units[side]);
   for (const side of sides) expire(world, world.units[side]);
-  expireTerrain(world);
   advanceMissiles(world);
   advanceZones(world);
   advancePets(world);
@@ -385,7 +448,8 @@ function splitTarget(world: World, split: PendingSplit): { connects?: boolean; s
 export function fork(world: World, splits: PendingSplit[]): World[] {
   const maxSplits = Math.floor(Math.log2(world.settings.maxBranches));
   let worlds = [world];
-  for (const split of splits) {
+  const allSplits = (pending: PendingSplit[]): PendingSplit[] => pending.flatMap((s) => [s, ...allSplits(s.followUps ?? [])]);
+  for (const split of allSplits(splits)) {
     const next: World[] = [];
     for (const w of worlds) {
       const target = splitTarget(w, split);

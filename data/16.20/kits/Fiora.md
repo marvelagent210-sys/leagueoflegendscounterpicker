@@ -279,14 +279,14 @@ All 1 level-based formulas in the game files (1 linked to wiki values above):
 
 ## Duel simulator kit (level 20, every ability at max rank)
 
-What the duel simulator fights with (`kits/champions/Fiora.ts`): every number is read from the wiki's ability data above at level 20; what the wiki doesn't say is listed under assumptions. Ratios are fractions of the stat (60% AD is 0.6 × AD).
+What the duel simulator fights with (`kits/champions/Fiora.ts`): values come from pinned wiki and versioned game-data records at level 20. Interpretations and missing evidence are listed under assumptions. Ratios are fractions of the stat (60% AD is 0.6 × AD).
 
 - Basic attack: range 150, melee.
 
 | Key | Ability | Cooldown (s) | Cast time (s) | Cost | Delivery | On the enemy | On itself |
 |---|---|--:|--:|---|---|---|---|
-| Q | Lunge | 6 | 0 | 20 | dash toward 400 units at 1100/s, hits within 50 | 110 + 110% bonus AD physical damage | – |
-| W | Riposte | 16 | 0.5 | 50 | skillshot 900 long, 140 wide, at 3200/s | 270 + 100% AP magic damage; slow 25% for 2 s; cripple 25% for 2 s | as the cast starts: parry 2 for 0.75 s |
+| Q | Lunge | 6 | 0 | 20 | dash toward 400 units at 1100/s, hits within 420 | 110 + 110% bonus AD physical damage | – |
+| W | Riposte | 16 | 0.5 | 50 | skillshot 900 long, 140 wide, at 3200/s; channel 0.25 s | 270 + 100% AP magic damage; slow 25% for 2 s; cripple 25% for 2 s | as the cast starts: parry for 0.75 s |
 | E | Bladework | 7 (starts after the empowered attacks) | 0 | 40 | self | – | next 2 attacks within 4 s (+25 range); attackSpeed 0.9 for 4 s; resets the attack timer |
 | R | Grand Challenge | 70 | 0 | 100 | targeted, 500 range | marks it "grandChallenge" for 8 s | – |
 
@@ -298,10 +298,11 @@ Effects marked by a mark or a role are completed by the kit's hooks (see the kit
 - A Vital's movement speed is kept for its full duration rather than decaying.
 - Bladework's guaranteed critical strike adds its critical damage minus the attack's average critical damage.
 
-### Wiki values read (37)
+### Source values read (44)
 
-| Ability | Value | Revision |
+| Ability | Value | Source version |
 |---|---|---|
+| Lunge | Fiora can cast any of her abilities during the dash | [4007770](https://wiki.leagueoflegends.com/en-us/Template:Data_Fiora/Lunge?oldid=4007770) |
 | Duelist's Dance | Vitals take 1.75 seconds to become targetable | [4038335](https://wiki.leagueoflegends.com/en-us/Template:Data_Fiora/Duelist's_Dance?oldid=4038335) |
 | Duelist's Dance | bonus true damage equal to 3% (+ 4% per 100 bonus AD) of target's maximum health | [4038335](https://wiki.leagueoflegends.com/en-us/Template:Data_Fiora/Duelist's_Dance?oldid=4038335) |
 | Duelist's Dance | Dealing damage in the direction of a Vital will trigger it to deal bonus true damage equal to 3% (+ 4% per 100 bonus AD) of target's maximum health, heal Fiora for 35 – 100 (based on level), and grant her 20 / 30 / 40 / 50 (based on Grand Challenge's Rank)% bonus movement speed that decays over 1.85 seconds. | [4038335](https://wiki.leagueoflegends.com/en-us/Template:Data_Fiora/Duelist's_Dance?oldid=4038335) |
@@ -309,27 +310,33 @@ Effects marked by a mark or a role are completed by the kit's hooks (see the kit
 | Duelist's Dance | that decays over 1.85 seconds | [4038335](https://wiki.leagueoflegends.com/en-us/Template:Data_Fiora/Duelist's_Dance?oldid=4038335) |
 | Grand Challenge | highlighting all four of their Vitals after a 0.5-second delay | [4064848](https://wiki.leagueoflegends.com/en-us/Template:Data_Fiora/Grand_Challenge?oldid=4064848) |
 | Grand Challenge | Heal per Second: 80 / 105 / 130 (+ 70% bonus AD) | [4064848](https://wiki.leagueoflegends.com/en-us/Template:Data_Fiora/Grand_Challenge?oldid=4064848) |
+| Grand Challenge | Heal per Tick: 20 / 26.25 / 32.5 (+ 17.5% bonus AD) | [4064848](https://wiki.leagueoflegends.com/en-us/Template:Data_Fiora/Grand_Challenge?oldid=4064848) |
+| Grand Challenge | heals Fiora and all allies within the area every 0.25 seconds | [4064848](https://wiki.leagueoflegends.com/en-us/Template:Data_Fiora/Grand_Challenge?oldid=4064848) |
+| Grand Challenge | effectRadius (Movement speed radius): 550 • 600 | [4064848](https://wiki.leagueoflegends.com/en-us/Template:Data_Fiora/Grand_Challenge?oldid=4064848) |
+| Grand Challenge | effectRadius (Heal zone radius): 550 • 600 | [4064848](https://wiki.leagueoflegends.com/en-us/Template:Data_Fiora/Grand_Challenge?oldid=4064848) |
 | Grand Challenge | a Victory Zone is created on their death location for 5 seconds | [4064848](https://wiki.leagueoflegends.com/en-us/Template:Data_Fiora/Grand_Challenge?oldid=4064848) |
 | Grand Challenge | challenges the target enemy champion for 8 seconds | [4064848](https://wiki.leagueoflegends.com/en-us/Template:Data_Fiora/Grand_Challenge?oldid=4064848) |
 | Bladework | The first attack slows the target by 30% for 1 second | [3906658](https://wiki.leagueoflegends.com/en-us/Template:Data_Fiora/Bladework?oldid=3906658) |
 | Bladework | Critical damage: 160 / 170 / 180 / 190 / 200% | [3906658](https://wiki.leagueoflegends.com/en-us/Template:Data_Fiora/Bladework?oldid=3906658) |
+| Bladework | The first attack slows the target by 30% for 1 second but cannot critically strike | [3906658](https://wiki.leagueoflegends.com/en-us/Template:Data_Fiora/Bladework?oldid=3906658) |
 | Bladework | next two basic attacks on-attack within 4 seconds | [3906658](https://wiki.leagueoflegends.com/en-us/Template:Data_Fiora/Bladework?oldid=3906658) |
 | Lunge | Stabbing a target reduces Lunge's cooldown by 50% | [4007770](https://wiki.leagueoflegends.com/en-us/Template:Data_Fiora/Lunge?oldid=4007770) |
+| Riposte | enters a defensive stance for 0.75 seconds | [4007365](https://wiki.leagueoflegends.com/en-us/Template:Data_Fiora/Riposte?oldid=4007365) |
+| Riposte | over the first 0.5 seconds of the duration | [4007365](https://wiki.leagueoflegends.com/en-us/Template:Data_Fiora/Riposte?oldid=4007365) |
+| Riposte | slowed and crippled by 25% for 2 seconds | [4007365](https://wiki.leagueoflegends.com/en-us/Template:Data_Fiora/Riposte?oldid=4007365) |
 | Lunge | cooldown: 13 / 11.25 / 9.5 / 7.75 / 6 | [4007770](https://wiki.leagueoflegends.com/en-us/Template:Data_Fiora/Lunge?oldid=4007770) |
 | Lunge | cost: 20 | [4007770](https://wiki.leagueoflegends.com/en-us/Template:Data_Fiora/Lunge?oldid=4007770) |
 | Lunge | castTime: none | [4007770](https://wiki.leagueoflegends.com/en-us/Template:Data_Fiora/Lunge?oldid=4007770) |
 | Lunge | targetRange: 50 - 400 | [4007770](https://wiki.leagueoflegends.com/en-us/Template:Data_Fiora/Lunge?oldid=4007770) |
 | Lunge | speed: 1100 (+ 300% • 350% bonus movement speed) | [4007770](https://wiki.leagueoflegends.com/en-us/Template:Data_Fiora/Lunge?oldid=4007770) |
+| Lunge | range (Stab range): 420 | [4007770](https://wiki.leagueoflegends.com/en-us/Template:Data_Fiora/Lunge?oldid=4007770) |
 | Lunge | Physical Damage: 70 / 80 / 90 / 100 / 110 (+ 90 / 95 / 100 / 105 / 110% bonus AD) | [4007770](https://wiki.leagueoflegends.com/en-us/Template:Data_Fiora/Lunge?oldid=4007770) |
 | Riposte | cooldown: 24 / 22 / 20 / 18 / 16 | [4007365](https://wiki.leagueoflegends.com/en-us/Template:Data_Fiora/Riposte?oldid=4007365) |
 | Riposte | cost: 50 | [4007365](https://wiki.leagueoflegends.com/en-us/Template:Data_Fiora/Riposte?oldid=4007365) |
-| Riposte | over the first 0.5 seconds of the duration | [4007365](https://wiki.leagueoflegends.com/en-us/Template:Data_Fiora/Riposte?oldid=4007365) |
-| Riposte | enters a defensive stance for 0.75 seconds | [4007365](https://wiki.leagueoflegends.com/en-us/Template:Data_Fiora/Riposte?oldid=4007365) |
 | Riposte | targetRange: 900 | [4007365](https://wiki.leagueoflegends.com/en-us/Template:Data_Fiora/Riposte?oldid=4007365) |
 | Riposte | width: 140 | [4007365](https://wiki.leagueoflegends.com/en-us/Template:Data_Fiora/Riposte?oldid=4007365) |
 | Riposte | speed: 3200 | [4007365](https://wiki.leagueoflegends.com/en-us/Template:Data_Fiora/Riposte?oldid=4007365) |
 | Riposte | Magic Damage: 110 / 150 / 190 / 230 / 270 (+ 100% AP) | [4007365](https://wiki.leagueoflegends.com/en-us/Template:Data_Fiora/Riposte?oldid=4007365) |
-| Riposte | slowed and crippled by 25% for 2 seconds | [4007365](https://wiki.leagueoflegends.com/en-us/Template:Data_Fiora/Riposte?oldid=4007365) |
 | Bladework | cooldown: 11 / 10 / 9 / 8 / 7 | [3906658](https://wiki.leagueoflegends.com/en-us/Template:Data_Fiora/Bladework?oldid=3906658) |
 | Bladework | cost: 40 | [3906658](https://wiki.leagueoflegends.com/en-us/Template:Data_Fiora/Bladework?oldid=3906658) |
 | Bladework | castTime: none | [3906658](https://wiki.leagueoflegends.com/en-us/Template:Data_Fiora/Bladework?oldid=3906658) |

@@ -210,3 +210,110 @@ All 1 level-based formulas in the game files (0 linked to wiki values above):
 | Spell | Calculation | Rule | Level 1 | Level 18 | Level 20 |
 |---|---|---|--:|--:|--:|
 | RebirthMarker | BonusResists | breakpoints at levels 5, 8, 12, 15 (level 1: -40) | -40 | 20 | 20 |
+
+## Duel simulator kit (level 20, every ability at max rank)
+
+What the duel simulator fights with (`kits/champions/Anivia.ts`): values come from pinned wiki and versioned game-data records at level 20. Interpretations and missing evidence are listed under assumptions. Ratios are fractions of the stat (60% AD is 0.6 × AD).
+
+- Basic attack: range 600, missile at 1600/s.
+
+| Key | Ability | Cooldown (s) | Cast time (s) | Cost | Delivery | On the enemy | On itself |
+|---|---|--:|--:|---|---|---|---|
+| Q | Flash Frost | 7 (starts when its effect on the caster ends) | 0.25 | 100 | skillshot 1325 long, 220 wide, at 950/s | 130 + 25% AP magic damage; slow 40% for 3 s | – |
+| W | Crystallize | 17 | 0.25 | 70 | circle of 100 radius up to 1000 away, lands after 0 s | – | – |
+| E | Frostbite | 4 | 0.25 | 50 | targeted, 600 range, missile at 1600/s | 155 + 55% AP magic damage, varies with combat state; formula is a reference | – |
+| R | Glacial Storm | 2 (starts when the area fades) | 0 | 60; 55 resource/s while active | self | – | – |
+| Q2 | Flash Frost (recast) | 0 | 0 | 0 | self | – | – |
+| Qburst | Flash Frost (explosion) | 0 | 0 | – | self | 200 + 45% AP magic damage; slow 40% for 3 s; stun for 1.5 s | – |
+| Roff | Glacial Storm (toggle off) | 0 | 0 | – | self | – | – |
+
+Effects marked by a mark or a role are completed by the kit's hooks (see the kit's source).
+
+### Assumptions
+
+- Flash Frost's Iced mark is applied only after the packet passes spell-shield/parry guards; the record does not settle blocked Iced. Its explosion independently checks its actual control point and current defensive states, even after a missed pass. Callback explosions use the shared hit model's expected share rather than creating a second branch; independent lateral escapes between the linked packets are an approximation.
+- Crystallize is a perpendicular 200-unit-thick impassable slab on the duel axis, affecting both sides; the eight lateral ice chunks and walking around a finite wall are outside this one-dimensional model. Its unknown knockback speed is represented by immediate ejection by the sourced 120/250 units, from the wall rather than the caster, respecting displacement/CC immunity and existing terrain. An exactly centered unit is ejected toward its own side of the lane. The zero-damage proc's turret/rune/item triggers are outside the plain-stat duel.
+- Glacial Storm interpolates its sourced radius points. Its inferred startup clock deals three half-normal packets at 0, 0.5 and 1.0 s, then full empowered damage from 1.5 s every 0.5 s. Mature slows refresh on an independent cumulative 0.25-s clock. Mana drains continuously at 30 Hz after activation, reserving the already-declared cost of any concurrent cast. Its unexplained static one-second field is used as a minimum manual-toggle interval; automatic CC/range/mana shutdown bypasses it. Final damage uses the current growth tier, with half-normal damage while growing, and is coalesced with a nominal damage tick on the same tick. Self-owned stasis is interpreted as the recorded Zhonya exception; hostile stasis and attachment end the storm.
+- Generic defensive threat forecasts omit pending Glacial Storm damage because its field pulses are resolved by hooks. This limits preemptive shield, dodge and invulnerability decisions against those packets. Frostbite forecasts use the current Iced mark without predicting future mark application or expiry; its actual damage rechecks Iced at impact.
+- The budget estimates ten seconds with full storm occupancy, enhanced Frostbite, one Q explosion per Q, and available mana allocated first to Q/E then to storm upkeep. Rebirth contributes no guaranteed healing or permanent defenses to this heuristic because an attackable egg can be killed.
+
+### Source values read (76)
+
+| Ability | Value | Source version |
+|---|---|---|
+| Rebirth | enters resurrection for 6 seconds | [3906517](https://wiki.leagueoflegends.com/en-us/Template:Data_Anivia/Rebirth?oldid=3906517) |
+| Rebirth | staticCooldown: 240 | [3906517](https://wiki.leagueoflegends.com/en-us/Template:Data_Anivia/Rebirth?oldid=3906517) |
+| Rebirth | While under resurrection, Anivia is unable to act and gains -40 / -25 / -10 / 5 / 20 (based on level) bonus armor and bonus magic resistance. | [3906517](https://wiki.leagueoflegends.com/en-us/Template:Data_Anivia/Rebirth?oldid=3906517) |
+| Rebirth | restores all of her health | [3906517](https://wiki.leagueoflegends.com/en-us/Template:Data_Anivia/Rebirth?oldid=3906517) |
+| Rebirth | revived with her current health | [3906517](https://wiki.leagueoflegends.com/en-us/Template:Data_Anivia/Rebirth?oldid=3906517) |
+| Rebirth | Triggering Rebirth will break tethers on Anivia | [3906517](https://wiki.leagueoflegends.com/en-us/Template:Data_Anivia/Rebirth?oldid=3906517) |
+| Rebirth | All other channels will be interrupted upon triggering Rebirth | [3906517](https://wiki.leagueoflegends.com/en-us/Template:Data_Anivia/Rebirth?oldid=3906517) |
+| Rebirth | Entering resurrection does not cancel cast times. | [4060644](https://wiki.leagueoflegends.com/en-us/Template:Tip_data/Resurrection?oldid=4060644) |
+| Rebirth | Resurrection effects do not count for kills or assists. | [4060644](https://wiki.leagueoflegends.com/en-us/Template:Tip_data/Resurrection?oldid=4060644) |
+| Rebirth | move=false; cast=false; attack=false | [3906517](https://wiki.leagueoflegends.com/en-us/Template:Data_Anivia/Rebirth?oldid=3906517) |
+| Flash Frost | Magic Damage: 50 / 70 / 90 / 110 / 130 (+ 25% AP) | [4026612](https://wiki.leagueoflegends.com/en-us/Template:Data_Anivia/Flash_Frost?oldid=4026612) |
+| Flash Frost | Magic Damage: 60 / 95 / 130 / 165 / 200 (+ 45% AP) | [4026612](https://wiki.leagueoflegends.com/en-us/Template:Data_Anivia/Flash_Frost?oldid=4026612) |
+| Flash Frost | Total Magic Damage: 110 / 165 / 220 / 275 / 330 (+ 70% AP) | [4026612](https://wiki.leagueoflegends.com/en-us/Template:Data_Anivia/Flash_Frost?oldid=4026612) |
+| Flash Frost | range: 1100 | [4026612](https://wiki.leagueoflegends.com/en-us/Template:Data_Anivia/Flash_Frost?oldid=4026612) |
+| Flash Frost | width: 220 | [4026612](https://wiki.leagueoflegends.com/en-us/Template:Data_Anivia/Flash_Frost?oldid=4026612) |
+| Flash Frost | speed: 950 | [4026612](https://wiki.leagueoflegends.com/en-us/Template:Data_Anivia/Flash_Frost?oldid=4026612) |
+| Flash Frost | effectRadius: 225 | [4026612](https://wiki.leagueoflegends.com/en-us/Template:Data_Anivia/Flash_Frost?oldid=4026612) |
+| Flash Frost | Active: Anivia launches a chunk of ice in the target direction that deals magic damage to enemies hit and slows them by 20 / 20 / 30 / 40 (based on Glacial Storm's Rank)% for 3 seconds. | [4026612](https://wiki.leagueoflegends.com/en-us/Template:Data_Anivia/Flash_Frost?oldid=4026612) |
+| Frostbite | become Iced for 3 seconds | [4057862](https://wiki.leagueoflegends.com/en-us/Template:Data_Anivia/Frostbite?oldid=4057862) |
+| Flash Frost | Stun Duration: 1.1 / 1.2 / 1.3 / 1.4 / 1.5 seconds | [4026612](https://wiki.leagueoflegends.com/en-us/Template:Data_Anivia/Flash_Frost?oldid=4026612) |
+| Flash Frost | Flash Frost will fire from wherever Anivia was at the start of the cast time | [4026612](https://wiki.leagueoflegends.com/en-us/Template:Data_Anivia/Flash_Frost?oldid=4026612) |
+| Flash Frost | automatically at maximum range | [4026612](https://wiki.leagueoflegends.com/en-us/Template:Data_Anivia/Flash_Frost?oldid=4026612) |
+| Flash Frost | Spell shield can block the effects of either the active or the recast, but not both | [4026612](https://wiki.leagueoflegends.com/en-us/Template:Data_Anivia/Flash_Frost?oldid=4026612) |
+| Flash Frost | the secondary effect will trigger without being considered as an ability activation | [4026612](https://wiki.leagueoflegends.com/en-us/Template:Data_Anivia/Flash_Frost?oldid=4026612) |
+| Crystallize | targetRange (Maximum): 1000 • 100 | [4007565](https://wiki.leagueoflegends.com/en-us/Template:Data_Anivia/Crystallize?oldid=4007565) |
+| Crystallize | targetRange (Minimum): 1000 • 100 | [4007565](https://wiki.leagueoflegends.com/en-us/Template:Data_Anivia/Crystallize?oldid=4007565) |
+| Crystallize | impassable terrain for 5 seconds | [4007565](https://wiki.leagueoflegends.com/en-us/Template:Data_Anivia/Crystallize?oldid=4007565) |
+| Crystallize | 100 units pathing radius and gameplay radius | [4007565](https://wiki.leagueoflegends.com/en-us/Template:Data_Anivia/Crystallize?oldid=4007565) |
+| Crystallize | Champions are knocked 120 units | [4007565](https://wiki.leagueoflegends.com/en-us/Template:Data_Anivia/Crystallize?oldid=4007565) |
+| Crystallize | non-champions 250 units | [4007565](https://wiki.leagueoflegends.com/en-us/Template:Data_Anivia/Crystallize?oldid=4007565) |
+| Crystallize | mSpell.DataValues.ChampPushDistance.values: [120,120,120,120,120,120,120] | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/anivia/anivia.bin.json) |
+| Crystallize | Width: 600 / 700 / 800 / 900 / 1000 units | [4007565](https://wiki.leagueoflegends.com/en-us/Template:Data_Anivia/Crystallize?oldid=4007565) |
+| Crystallize | Number of ice segments: 4 / 5 / 6 / 7 / 8 chunks of ice | [4007565](https://wiki.leagueoflegends.com/en-us/Template:Data_Anivia/Crystallize?oldid=4007565) |
+| Crystallize | Distance between outermost segments: 400 / 500 / 600 / 700 / 800 units | [4007565](https://wiki.leagueoflegends.com/en-us/Template:Data_Anivia/Crystallize?oldid=4007565) |
+| Crystallize | Distance between individual segments: 133.33 / 125 / 120 / 116.67 / 114.29 units | [4007565](https://wiki.leagueoflegends.com/en-us/Template:Data_Anivia/Crystallize?oldid=4007565) |
+| Crystallize | perpendicular to her facing | [4007565](https://wiki.leagueoflegends.com/en-us/Template:Data_Anivia/Crystallize?oldid=4007565) |
+| Crystallize | though not through terrain | [4007565](https://wiki.leagueoflegends.com/en-us/Template:Data_Anivia/Crystallize?oldid=4007565) |
+| Crystallize | does not block sight | [4007565](https://wiki.leagueoflegends.com/en-us/Template:Data_Anivia/Crystallize?oldid=4007565) |
+| Crystallize | dealing 0 proc true damage | [4007565](https://wiki.leagueoflegends.com/en-us/Template:Data_Anivia/Crystallize?oldid=4007565) |
+| Crystallize | Knockback speed? | [4007565](https://wiki.leagueoflegends.com/en-us/Template:Data_Anivia/Crystallize?oldid=4007565) |
+| Frostbite | Magic Damage: 55 / 80 / 105 / 130 / 155 (+ 55% AP) | [4057862](https://wiki.leagueoflegends.com/en-us/Template:Data_Anivia/Frostbite?oldid=4057862) |
+| Frostbite | Enhanced Damage: 110 / 160 / 210 / 260 / 310 (+ 110% AP) | [4057862](https://wiki.leagueoflegends.com/en-us/Template:Data_Anivia/Frostbite?oldid=4057862) |
+| Frostbite | The damage of Frostbite is calculated once it hits | [4057862](https://wiki.leagueoflegends.com/en-us/Template:Data_Anivia/Frostbite?oldid=4057862) |
+| Frostbite | does not go on cooldown nor pay its cost | [4057862](https://wiki.leagueoflegends.com/en-us/Template:Data_Anivia/Frostbite?oldid=4057862) |
+| Glacial Storm | Magic Damage per Tick: 15 / 22.5 / 30 (+ 6.25% AP) | [4006729](https://wiki.leagueoflegends.com/en-us/Template:Data_Anivia/Glacial_Storm?oldid=4006729) |
+| Glacial Storm | Empowered Damage per Tick: 45 / 67.5 / 90 (+ 18.75% AP) | [4006729](https://wiki.leagueoflegends.com/en-us/Template:Data_Anivia/Glacial_Storm?oldid=4006729) |
+| Glacial Storm | targetRange: 750 | [4006729](https://wiki.leagueoflegends.com/en-us/Template:Data_Anivia/Glacial_Storm?oldid=4006729) |
+| Glacial Storm | tetherRadius: 1000 | [4006729](https://wiki.leagueoflegends.com/en-us/Template:Data_Anivia/Glacial_Storm?oldid=4006729) |
+| Glacial Storm | effectRadius: 200 / 225 / 250 / 275 / 300 / 325 / 350 / 375 / 400 / 400 (based on time active) | [4006729](https://wiki.leagueoflegends.com/en-us/Template:Data_Anivia/Glacial_Storm?oldid=4006729) |
+| Glacial Storm | increases in size over 1.5 seconds | [4006729](https://wiki.leagueoflegends.com/en-us/Template:Data_Anivia/Glacial_Storm?oldid=4006729) |
+| Glacial Storm | dealing magic damage every 0.5 seconds | [4006729](https://wiki.leagueoflegends.com/en-us/Template:Data_Anivia/Glacial_Storm?oldid=4006729) |
+| Glacial Storm | refreshes every 0.25 seconds | [4006729](https://wiki.leagueoflegends.com/en-us/Template:Data_Anivia/Glacial_Storm?oldid=4006729) |
+| Glacial Storm | Slow: 20 / 30 / 40% | [4006729](https://wiki.leagueoflegends.com/en-us/Template:Data_Anivia/Glacial_Storm?oldid=4006729) |
+| Glacial Storm | Empowered Slow: 30 / 45 / 60% | [4006729](https://wiki.leagueoflegends.com/en-us/Template:Data_Anivia/Glacial_Storm?oldid=4006729) |
+| Glacial Storm | slowing them for 1 second | [4006729](https://wiki.leagueoflegends.com/en-us/Template:Data_Anivia/Glacial_Storm?oldid=4006729) |
+| Glacial Storm | instead lasts 1.5 seconds | [4006729](https://wiki.leagueoflegends.com/en-us/Template:Data_Anivia/Glacial_Storm?oldid=4006729) |
+| Glacial Storm | staticCooldown: 1 | [4006729](https://wiki.leagueoflegends.com/en-us/Template:Data_Anivia/Glacial_Storm?oldid=4006729) |
+| Glacial Storm | deals 3 half ticks | [4006729](https://wiki.leagueoflegends.com/en-us/Template:Data_Anivia/Glacial_Storm?oldid=4006729) |
+| Glacial Storm | Toggling Glacial Storm off triggers a final tick of damage | [4006729](https://wiki.leagueoflegends.com/en-us/Template:Data_Anivia/Glacial_Storm?oldid=4006729) |
+| Glacial Storm | cast-inhibiting crowd control | [4006729](https://wiki.leagueoflegends.com/en-us/Template:Data_Anivia/Glacial_Storm?oldid=4006729) |
+| Glacial Storm | Stasis via Zhonya's Hourglass doesn't interrupt Glacial Storm | [4006729](https://wiki.leagueoflegends.com/en-us/Template:Data_Anivia/Glacial_Storm?oldid=4006729) |
+| Glacial Storm | costType: mana + 35 / 45 / 55 per second | [4006729](https://wiki.leagueoflegends.com/en-us/Template:Data_Anivia/Glacial_Storm?oldid=4006729) |
+| Flash Frost | cooldown: 11 / 10 / 9 / 8 / 7 | [4026612](https://wiki.leagueoflegends.com/en-us/Template:Data_Anivia/Flash_Frost?oldid=4026612) |
+| Flash Frost | cost: 80 / 85 / 90 / 95 / 100 | [4026612](https://wiki.leagueoflegends.com/en-us/Template:Data_Anivia/Flash_Frost?oldid=4026612) |
+| Flash Frost | castTime: 0.25 | [4026612](https://wiki.leagueoflegends.com/en-us/Template:Data_Anivia/Flash_Frost?oldid=4026612) |
+| Crystallize | cooldown: 17 | [4007565](https://wiki.leagueoflegends.com/en-us/Template:Data_Anivia/Crystallize?oldid=4007565) |
+| Crystallize | cost: 70 | [4007565](https://wiki.leagueoflegends.com/en-us/Template:Data_Anivia/Crystallize?oldid=4007565) |
+| Crystallize | castTime: 0.25 | [4007565](https://wiki.leagueoflegends.com/en-us/Template:Data_Anivia/Crystallize?oldid=4007565) |
+| Frostbite | cooldown: 4 | [4057862](https://wiki.leagueoflegends.com/en-us/Template:Data_Anivia/Frostbite?oldid=4057862) |
+| Frostbite | cost: 50 | [4057862](https://wiki.leagueoflegends.com/en-us/Template:Data_Anivia/Frostbite?oldid=4057862) |
+| Frostbite | castTime: 0.25 | [4057862](https://wiki.leagueoflegends.com/en-us/Template:Data_Anivia/Frostbite?oldid=4057862) |
+| Frostbite | targetRange: 600 | [4057862](https://wiki.leagueoflegends.com/en-us/Template:Data_Anivia/Frostbite?oldid=4057862) |
+| Frostbite | speed: 1600 | [4057862](https://wiki.leagueoflegends.com/en-us/Template:Data_Anivia/Frostbite?oldid=4057862) |
+| Glacial Storm | cooldown: 4 / 3 / 2 | [4006729](https://wiki.leagueoflegends.com/en-us/Template:Data_Anivia/Glacial_Storm?oldid=4006729) |
+| Glacial Storm | cost: 60 | [4006729](https://wiki.leagueoflegends.com/en-us/Template:Data_Anivia/Glacial_Storm?oldid=4006729) |
+| Glacial Storm | castTime: none | [4006729](https://wiki.leagueoflegends.com/en-us/Template:Data_Anivia/Glacial_Storm?oldid=4006729) |

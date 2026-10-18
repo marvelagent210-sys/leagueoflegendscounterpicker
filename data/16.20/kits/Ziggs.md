@@ -213,3 +213,112 @@ All 2 level-based formulas in the game files (1 linked to wiki values above):
 |---|---|---|--:|--:|--:|
 | ZiggsPassiveBuff | TotalDamage | breakpoints at levels 7, 13 (level 1: 20) | 20 | 160 | 184 |
 | ZiggsPassiveBuff | SpellCdr | breakpoints at levels 7, 13 (level 1: 4) | 4 | 6 | 6 |
+
+## Duel simulator kit (level 20, every ability at max rank)
+
+What the duel simulator fights with (`kits/champions/Ziggs.ts`): values come from pinned wiki and versioned game-data records at level 20. Interpretations and missing evidence are listed under assumptions. Ratios are fractions of the stat (60% AD is 0.6 × AD).
+
+- Basic attack: range 550, missile at 1500/s.
+- Options: firstBounceShare = 0.591, innerMineRadius = 100.
+
+| Key | Ability | Cooldown (s) | Cast time (s) | Cost | Delivery | On the enemy | On itself |
+|---|---|--:|--:|---|---|---|---|
+| Q | Bouncing Bomb | 4 | 0.25 | 70 | circle of 240 radius up to 850 away, lands after 10 s | 280 + 80% AP magic damage | – |
+| W | Satchel Charge | 12 | 0.25 | 80 | circle of 325 radius up to 1000 away, projectile at 1750/s then lands after 0 s | – | – |
+| E | Hexplosive Minefield | 16 | 0.25 | 110 | circle of 335 radius up to 900 away, projectile at 1550/s then lands after 0 s | – | – |
+| R | Mega Inferno Bomb | 70 | 0.375 | 100 | circle of 525 radius up to 5000 away, lands after 1.617 s | 455 + 65% AP magic damage | – |
+| Wdetonate | Satchel Charge: detonate | 0 | 0 | – | self; recast of W within 5.571 s | – | – |
+| satchelHit | Satchel Charge: detonation | 0 | 0 | – | self | 210 + 50% AP magic damage | – |
+| mineHit | Hexplosive Minefield | 0 | 0 | – | self | – | – |
+| satchelDash | Satchel Charge: self dash | 0 | 0 | – | dash away 825 units at 1650/s, through the enemy | – | – |
+
+Effects marked by a mark or a role are completed by the kit's hooks (see the kit's source).
+
+### Assumptions
+
+- Share of extra bomb range on first bounce (325/550 from pinned maximum distances): 0.5909090909090909.
+- Assumed unmeasured inner mine-ring radius: 100.
+- Short Fuse starts ready. Eligibility is captured when an attack windup is declared; its static twelve-second cooldown starts on launch, so an interrupted windup does not consume it. Blind, parry, dodge and block consume a launched proc; the last three interactions are unresolved in the pinned source. The captured separate magic packet never critically strikes and does not consume ordinary attack spell shields.
+- Bouncing Bomb has three landing checks, each using the separate 180-unit detection radius, and only one 240-radius explosion. Version-pinned game data supplies first/second maximum bounce distances 325/225. The source does not establish short-throw scaling: total additional range is assumed to scale linearly with original throw length, with the firstBounceShare option defaulting to 325/550. Each bounce uses the pinned 0.495-second clock; cumulative absolute times are rounded once. Arc height and transverse wall interception are outside the one-axis model.
+- Satchel Charge enemy push uses a linear proximity curve from the sourced 500-unit maximum, but has zero horizontal movement exactly at its center as explicitly sourced. Self travel uses the pinned wiki maximum825 rather than the conflicting version-pinned game KnockbackDistanceAlly 775, a linear proximity curve, a chosen 0.5-second dash duration, and direction away from the satchel (away from the rival at exact center); these curves and self speed are not pinned. The game movement-component speed1750 describes the thrown projectile and does not prove self-dash speed. Terrain stops the push without granting a wall stun. The self dash is independent of the rival's defenses and is suppressed by immobilization or grounding.
+- Minefield's unmeasured inner-ring radius is the explicit innerMineRadius option. Its three inner and eight outer mines are equally spaced in two dimensions and projected onto the duel line with circle/gameplay-hitbox intersections; whether the source's detection radius is center-only is unresolved. A rival with radius 65 exactly at field center can therefore touch all eight outer 200-radius mines in this model. A deterministic cast-ordinal angular phase stands in for the sourced random rotation and is preserved on copied branches. Mines arm 0.5 seconds after the initial projectile lands and last ten seconds from arming. A shielded contact consumes that mine and the victim's first-hit allowance; each victim/cast has its own falloff. Player terrain does not consume mines.
+- Mega Inferno Bomb lands 1.617 seconds after declaration through 2700 range, then adds (distance-2700)/2250; this continuous interpolation reproduces the pinned rounded 2.64-second maximum despite the source's omitted launch overhead. Epicenter uses rival center within 250; outer explosion intersects gameplay hitbox within 525. It is not projectile-blockable. Sight/reveal does not grant true sight.
+- Manual bomb bounces, satchel and finite mine objects use actual one-axis spatial outcomes; transverse evasion probability is not fabricated. Normal-HP enemy pets can trigger bombs/mines and receive spatial area damage with individual mine falloff. When champion and pet touch a mine on the same tick the champion is the trigger, but all overlapping victims receive the explosion. Short Fuse on pet-directed basic attacks remains outside the current attack-pet API. No champion receives Satchel Charge's turret-only execute.
+- The stat budget assumes one Q explosion, one W explosion, three mines per E (one full plus two 40% hits), and one epicenter R per cooldown. Short Fuse rate is bounded by attack speed and continuous six-second refunds from valid initial casts; clipping, misses and mana limits remain fight-simulation effects. Recasts add no independent damage/cost term.
+
+### Source values read (72)
+
+| Ability | Value | Source version |
+|---|---|---|
+| Short Fuse | Innate: Periodically, Ziggs empowers his next basic attack to deal 20 – 160 (based on level) (+ 50% AP) bonus magic damage, increased by 75% against structures. | [4005222](https://wiki.leagueoflegends.com/en-us/Template:Data_Ziggs/Short_Fuse?oldid=4005222) |
+| Short Fuse | (+ 50% AP) | [4005222](https://wiki.leagueoflegends.com/en-us/Template:Data_Ziggs/Short_Fuse?oldid=4005222) |
+| Short Fuse | staticCooldown: 12 | [4005222](https://wiki.leagueoflegends.com/en-us/Template:Data_Ziggs/Short_Fuse?oldid=4005222) |
+| Short Fuse | Short Fuse's cooldown is reduced by 4 / 5 / 6 (based on level) seconds whenever Ziggs casts an ability. | [4005222](https://wiki.leagueoflegends.com/en-us/Template:Data_Ziggs/Short_Fuse?oldid=4005222) |
+| Short Fuse | The cooldown reduction is granted at the start of the abilities' cast time | [4005222](https://wiki.leagueoflegends.com/en-us/Template:Data_Ziggs/Short_Fuse?oldid=4005222) |
+| Short Fuse | Short Fuse will go on cooldown but not deal any damage if the attack misses due to blind | [4005222](https://wiki.leagueoflegends.com/en-us/Template:Data_Ziggs/Short_Fuse?oldid=4005222) |
+| Bouncing Bomb | targetRange: 850 | [4008669](https://wiki.leagueoflegends.com/en-us/Template:Data_Ziggs/Bouncing_Bomb?oldid=4008669) |
+| Bouncing Bomb | range: 1400 | [4008669](https://wiki.leagueoflegends.com/en-us/Template:Data_Ziggs/Bouncing_Bomb?oldid=4008669) |
+| Bouncing Bomb | effectRadius: 240 | [4008669](https://wiki.leagueoflegends.com/en-us/Template:Data_Ziggs/Bouncing_Bomb?oldid=4008669) |
+| Bouncing Bomb | collisionRadius: 180 | [4008669](https://wiki.leagueoflegends.com/en-us/Template:Data_Ziggs/Bouncing_Bomb?oldid=4008669) |
+| Bouncing Bomb | speed: 1700 | [4008669](https://wiki.leagueoflegends.com/en-us/Template:Data_Ziggs/Bouncing_Bomb?oldid=4008669) |
+| Bouncing Bomb | Magic Damage: 80 / 130 / 180 / 230 / 280 (+ 60 / 65 / 70 / 75 / 80% AP) | [4008669](https://wiki.leagueoflegends.com/en-us/Template:Data_Ziggs/Bouncing_Bomb?oldid=4008669) |
+| Bouncing Bomb | each bounce occurring over 0.495 seconds | [4008669](https://wiki.leagueoflegends.com/en-us/Template:Data_Ziggs/Bouncing_Bomb?oldid=4008669) |
+| Bouncing Bomb | mSpell.DataValues.MaxRangeFirstBounce.values: [325,325,325,325,325,325,325] | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/ziggs/ziggs.bin.json) |
+| Bouncing Bomb | mSpell.DataValues.MaxRangeSecondBounce.values: [225,225,225,225,225,225,225] | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/ziggs/ziggs.bin.json) |
+| Bouncing Bomb | bounces forward up to two times | [4008669](https://wiki.leagueoflegends.com/en-us/Template:Data_Ziggs/Bouncing_Bomb?oldid=4008669) |
+| Bouncing Bomb | Bouncing Bomb can be thrown or bounce over units/terrain | [4008669](https://wiki.leagueoflegends.com/en-us/Template:Data_Ziggs/Bouncing_Bomb?oldid=4008669) |
+| Bouncing Bomb | towards the pre-clamped cast location | [4008669](https://wiki.leagueoflegends.com/en-us/Template:Data_Ziggs/Bouncing_Bomb?oldid=4008669) |
+| Satchel Charge | targetRange: 1000 | [4008672](https://wiki.leagueoflegends.com/en-us/Template:Data_Ziggs/Satchel_Charge?oldid=4008672) |
+| Satchel Charge | effectRadius (explosion): 325 • 400 | [4008672](https://wiki.leagueoflegends.com/en-us/Template:Data_Ziggs/Satchel_Charge?oldid=4008672) |
+| Satchel Charge | speed: 1750 | [4008672](https://wiki.leagueoflegends.com/en-us/Template:Data_Ziggs/Satchel_Charge?oldid=4008672) |
+| Satchel Charge | Magic Damage: 70 / 105 / 140 / 175 / 210 (+ 50% AP) | [4008672](https://wiki.leagueoflegends.com/en-us/Template:Data_Ziggs/Satchel_Charge?oldid=4008672) |
+| Satchel Charge | remaining there for 4 seconds | [4008672](https://wiki.leagueoflegends.com/en-us/Template:Data_Ziggs/Satchel_Charge?oldid=4008672) |
+| Satchel Charge | over 0.5 seconds | [4008672](https://wiki.leagueoflegends.com/en-us/Template:Data_Ziggs/Satchel_Charge?oldid=4008672) |
+| Satchel Charge | up to 500 units | [4008672](https://wiki.leagueoflegends.com/en-us/Template:Data_Ziggs/Satchel_Charge?oldid=4008672) |
+| Satchel Charge | up to 825 units | [4008672](https://wiki.leagueoflegends.com/en-us/Template:Data_Ziggs/Satchel_Charge?oldid=4008672) |
+| Satchel Charge | "mSpeed":1750 | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/ziggs/ziggs.bin.json) |
+| Satchel Charge | mSpell.DataValues.KnockbackDistanceAlly.values: [775,775,775,775,775,775,775] | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/ziggs/ziggs.bin.json) |
+| Satchel Charge | If recast while in flight, the charge will explode immediately upon landing | [4008672](https://wiki.leagueoflegends.com/en-us/Template:Data_Ziggs/Satchel_Charge?oldid=4008672) |
+| Satchel Charge | Detonating the ability manually does not | [4008672](https://wiki.leagueoflegends.com/en-us/Template:Data_Ziggs/Satchel_Charge?oldid=4008672) |
+| Satchel Charge | He can cast any of his abilities during the dash | [4008672](https://wiki.leagueoflegends.com/en-us/Template:Data_Ziggs/Satchel_Charge?oldid=4008672) |
+| Satchel Charge | resulting in being knocked straight up when aligned directly on top of it | [4008672](https://wiki.leagueoflegends.com/en-us/Template:Data_Ziggs/Satchel_Charge?oldid=4008672) |
+| Satchel Charge | Demolition Threshold: 25 / 27.5 / 30 / 32.5 / 35% of turret's maximum health | [4008672](https://wiki.leagueoflegends.com/en-us/Template:Data_Ziggs/Satchel_Charge?oldid=4008672) |
+| Hexplosive Minefield | targetRange: 900 | [4008673](https://wiki.leagueoflegends.com/en-us/Template:Data_Ziggs/Hexplosive_Minefield?oldid=4008673) |
+| Hexplosive Minefield | effectRadius (Effective): 335 • 135 | [4008673](https://wiki.leagueoflegends.com/en-us/Template:Data_Ziggs/Hexplosive_Minefield?oldid=4008673) |
+| Hexplosive Minefield | effectRadius (individual): 335 • 135 | [4008673](https://wiki.leagueoflegends.com/en-us/Template:Data_Ziggs/Hexplosive_Minefield?oldid=4008673) |
+| Hexplosive Minefield | speed: 1550 | [4008673](https://wiki.leagueoflegends.com/en-us/Template:Data_Ziggs/Hexplosive_Minefield?oldid=4008673) |
+| Hexplosive Minefield | a cluster of 11 proximity mines | [4008673](https://wiki.leagueoflegends.com/en-us/Template:Data_Ziggs/Hexplosive_Minefield?oldid=4008673) |
+| Hexplosive Minefield | arming after 0.5 seconds | [4008673](https://wiki.leagueoflegends.com/en-us/Template:Data_Ziggs/Hexplosive_Minefield?oldid=4008673) |
+| Hexplosive Minefield | for up to 10 seconds | [4008673](https://wiki.leagueoflegends.com/en-us/Template:Data_Ziggs/Hexplosive_Minefield?oldid=4008673) |
+| Hexplosive Minefield | Magic Damage per Mine: 30 / 70 / 110 / 150 / 190 (+ 25 / 30 / 35 / 40 / 45% AP) | [4008673](https://wiki.leagueoflegends.com/en-us/Template:Data_Ziggs/Hexplosive_Minefield?oldid=4008673) |
+| Hexplosive Minefield | Reduced Damage per Mine: 12 / 28 / 44 / 60 / 76 (+ 10 / 12 / 14 / 16 / 18% AP) | [4008673](https://wiki.leagueoflegends.com/en-us/Template:Data_Ziggs/Hexplosive_Minefield?oldid=4008673) |
+| Hexplosive Minefield | Maximum Total Magic Damage: 150 / 350 / 550 / 750 / 950 (+ 125 / 150 / 175 / 200 / 225% AP) | [4008673](https://wiki.leagueoflegends.com/en-us/Template:Data_Ziggs/Hexplosive_Minefield?oldid=4008673) |
+| Hexplosive Minefield | Slow: 10 / 20 / 30 / 40 / 50% | [4008673](https://wiki.leagueoflegends.com/en-us/Template:Data_Ziggs/Hexplosive_Minefield?oldid=4008673) |
+| Hexplosive Minefield | slowing them for 1.5 seconds | [4008673](https://wiki.leagueoflegends.com/en-us/Template:Data_Ziggs/Hexplosive_Minefield?oldid=4008673) |
+| Hexplosive Minefield | 3 mines in the inner ring | [4008673](https://wiki.leagueoflegends.com/en-us/Template:Data_Ziggs/Hexplosive_Minefield?oldid=4008673) |
+| Hexplosive Minefield | 8 mines on the other ring | [4008673](https://wiki.leagueoflegends.com/en-us/Template:Data_Ziggs/Hexplosive_Minefield?oldid=4008673) |
+| Hexplosive Minefield | (200 radius) | [4008673](https://wiki.leagueoflegends.com/en-us/Template:Data_Ziggs/Hexplosive_Minefield?oldid=4008673) |
+| Hexplosive Minefield | The angular offset is randomized on each cast | [4008673](https://wiki.leagueoflegends.com/en-us/Template:Data_Ziggs/Hexplosive_Minefield?oldid=4008673) |
+| Hexplosive Minefield | Mines will not explode upon contact with player-generated terrain | [4008673](https://wiki.leagueoflegends.com/en-us/Template:Data_Ziggs/Hexplosive_Minefield?oldid=4008673) |
+| Hexplosive Minefield | Spell shield will block the effects of a single detonation | [4008673](https://wiki.leagueoflegends.com/en-us/Template:Data_Ziggs/Hexplosive_Minefield?oldid=4008673) |
+| Mega Inferno Bomb | targetRange: 5000 | [4008677](https://wiki.leagueoflegends.com/en-us/Template:Data_Ziggs/Mega_Inferno_Bomb?oldid=4008677) |
+| Mega Inferno Bomb | effectRadius (Explosion): 525 • 600 | [4008677](https://wiki.leagueoflegends.com/en-us/Template:Data_Ziggs/Mega_Inferno_Bomb?oldid=4008677) |
+| Mega Inferno Bomb | innerRadius: 250 | [4008677](https://wiki.leagueoflegends.com/en-us/Template:Data_Ziggs/Mega_Inferno_Bomb?oldid=4008677) |
+| Mega Inferno Bomb | speed: 2250 | [4008677](https://wiki.leagueoflegends.com/en-us/Template:Data_Ziggs/Mega_Inferno_Bomb?oldid=4008677) |
+| Mega Inferno Bomb | Epicenter Magic Damage: 300 / 500 / 700 (+ 100% AP) | [4008677](https://wiki.leagueoflegends.com/en-us/Template:Data_Ziggs/Mega_Inferno_Bomb?oldid=4008677) |
+| Mega Inferno Bomb | Reduced Damage: 195 / 325 / 455 (+ 65% AP) | [4008677](https://wiki.leagueoflegends.com/en-us/Template:Data_Ziggs/Mega_Inferno_Bomb?oldid=4008677) |
+| Mega Inferno Bomb | 1.617 seconds from the start of the cast time | [4008677](https://wiki.leagueoflegends.com/en-us/Template:Data_Ziggs/Mega_Inferno_Bomb?oldid=4008677) |
+| Mega Inferno Bomb | when casting within 2700 units | [4008677](https://wiki.leagueoflegends.com/en-us/Template:Data_Ziggs/Mega_Inferno_Bomb?oldid=4008677) |
+| Mega Inferno Bomb | 2.64 seconds from the start of the cast time | [4008677](https://wiki.leagueoflegends.com/en-us/Template:Data_Ziggs/Mega_Inferno_Bomb?oldid=4008677) |
+| Bouncing Bomb | cooldown: 6 / 5.5 / 5 / 4.5 / 4 | [4008669](https://wiki.leagueoflegends.com/en-us/Template:Data_Ziggs/Bouncing_Bomb?oldid=4008669) |
+| Bouncing Bomb | cost: 50 / 55 / 60 / 65 / 70 | [4008669](https://wiki.leagueoflegends.com/en-us/Template:Data_Ziggs/Bouncing_Bomb?oldid=4008669) |
+| Bouncing Bomb | castTime: 0.25 | [4008669](https://wiki.leagueoflegends.com/en-us/Template:Data_Ziggs/Bouncing_Bomb?oldid=4008669) |
+| Satchel Charge | cooldown: 20 / 18 / 16 / 14 / 12 | [4008672](https://wiki.leagueoflegends.com/en-us/Template:Data_Ziggs/Satchel_Charge?oldid=4008672) |
+| Satchel Charge | cost: 80 | [4008672](https://wiki.leagueoflegends.com/en-us/Template:Data_Ziggs/Satchel_Charge?oldid=4008672) |
+| Satchel Charge | castTime: 0.25 | [4008672](https://wiki.leagueoflegends.com/en-us/Template:Data_Ziggs/Satchel_Charge?oldid=4008672) |
+| Hexplosive Minefield | cooldown: 16 | [4008673](https://wiki.leagueoflegends.com/en-us/Template:Data_Ziggs/Hexplosive_Minefield?oldid=4008673) |
+| Hexplosive Minefield | cost: 70 / 80 / 90 / 100 / 110 | [4008673](https://wiki.leagueoflegends.com/en-us/Template:Data_Ziggs/Hexplosive_Minefield?oldid=4008673) |
+| Hexplosive Minefield | castTime: 0.25 | [4008673](https://wiki.leagueoflegends.com/en-us/Template:Data_Ziggs/Hexplosive_Minefield?oldid=4008673) |
+| Mega Inferno Bomb | cooldown: 120 / 95 / 70 | [4008677](https://wiki.leagueoflegends.com/en-us/Template:Data_Ziggs/Mega_Inferno_Bomb?oldid=4008677) |
+| Mega Inferno Bomb | cost: 100 | [4008677](https://wiki.leagueoflegends.com/en-us/Template:Data_Ziggs/Mega_Inferno_Bomb?oldid=4008677) |
+| Mega Inferno Bomb | castTime: 0.375 | [4008677](https://wiki.leagueoflegends.com/en-us/Template:Data_Ziggs/Mega_Inferno_Bomb?oldid=4008677) |

@@ -280,7 +280,7 @@ All 2 level-based formulas in the game files (2 linked to wiki values above):
 
 ## Duel simulator kit (level 20, every ability at max rank)
 
-What the duel simulator fights with (`kits/champions/Skarner.ts`): every number is read from the wiki's ability data above at level 20; what the wiki doesn't say is listed under assumptions. Ratios are fractions of the stat (60% AD is 0.6 × AD).
+What the duel simulator fights with (`kits/champions/Skarner.ts`): values come from pinned wiki and versioned game-data records at level 20. Interpretations and missing evidence are listed under assumptions. Ratios are fractions of the stat (60% AD is 0.6 × AD).
 
 - Basic attack: range 150, melee.
 
@@ -302,9 +302,9 @@ Effects marked by a mark or a role are completed by the kit's hooks (see the kit
 - Ixtal's Impact steers after the enemy, so it reaches it unless outrun, dashed or blinked away from; it carries the enemy away from Skarner, into the lane's wall when there is one.
 - Impale leaves the enemy where it was carried (the wiki's 200-unit placement at the end is left out).
 
-### Wiki values read (49)
+### Source values read (49)
 
-| Ability | Value | Revision |
+| Ability | Value | Source version |
 |---|---|---|
 | Threads of Vibration | apply a stack of Quaking to enemies hit for 4 seconds, refreshing on subsequent applications and stacking up to 3 times | [4050105](https://wiki.leagueoflegends.com/en-us/Template:Data_Skarner/Threads_of_Vibration?oldid=4050105) |
 | Threads of Vibration | Enemies afflicted with 3 stacks take magic damage equal to 5 – 9 (based on level)% of their maximum health over the duration, capped at 100 – 300 (based on level) against monsters. | [4050105](https://wiki.leagueoflegends.com/en-us/Template:Data_Skarner/Threads_of_Vibration?oldid=4050105) |

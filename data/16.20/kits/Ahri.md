@@ -195,3 +195,105 @@ All 2 level-based formulas in the game files (2 linked to wiki values above):
 |---|---|---|--:|--:|--:|
 | AhriPassive | ChampionHeal | linear 75 → 165 over levels 1-18, continues past 18 | 75 | 165 | 175.588 |
 | AhriPassive | MinionHeal | linear 35 → 95 over levels 1-18, continues past 18 | 35 | 95 | 102.059 |
+
+## Duel simulator kit (level 20, every ability at max rank)
+
+What the duel simulator fights with (`kits/champions/Ahri.ts`): values come from pinned wiki and versioned game-data records at level 20. Interpretations and missing evidence are listed under assumptions. Ratios are fractions of the stat (60% AD is 0.6 × AD).
+
+- Basic attack: range 550, missile at 1750/s.
+
+| Key | Ability | Cooldown (s) | Cast time (s) | Cost | Delivery | On the enemy | On itself |
+|---|---|--:|--:|---|---|---|---|
+| Q | Orb of Deception | 7 | 0.25 | 95 | skillshot 1000 long, 200 wide, at 1550/s | 135 + 50% AP magic damage | – |
+| W | Fox-Fire | 5 (starts when its effect on the caster ends) | 0 | 30 | self | – | lingering for 2.5 s |
+| E | Charm | 12 | 0.25 | 60 | skillshot 1000 long, 120 wide, at 1550/s | 240 + 85% AP magic damage; stops an interruptible dash without an airborne duration; charm for 1.8 s | – |
+| R | Spirit Rush | 100 | 0 | 100 | dash toward 0–500 units at 1200/s (adjusted by current stats), through the enemy | – | – |
+| R2 | Spirit Rush (recast) | 1 (unaffected by ability haste) | 0 | 0 | dash toward 0–500 units at 1200/s (adjusted by current stats), through the enemy | – | – |
+| Qreturn | Orb of Deception (return) | 0 | 0 | – | skillshot 900 long, 200 wide, at 60/s | 135 + 50% AP true damage | – |
+| Rbolt | Spirit Rush bolt | 0 | 0 | – | targeted, 600 range, missile at 1400/s | 175 + 35% AP magic damage | – |
+
+Effects marked by a mark or a role are completed by the kit's hooks (see the kit's source).
+
+### Assumptions
+
+- Essence Theft starts with zero of its 9 minion/monster fragments; its 102.058823529412 + 0.2 AP fragment heal is not preloaded. Champion-owned pets are not farm or champion takedowns. A qualifying first champion death grants the 175.588235294118 + 0.3 AP heal within 3 s of Ahri's damage. The engine's explicit fallen flag includes Sion's first death before his continuing zombie form; that death is claimed once, not again when the zombie expires. Ordinary final deaths also trigger the heal, although the duel then ends.
+- Orb of Deception retains its cast direction and uses its cast-end origin. Its special spell-shield flag has no detailed linked-pass rule in the record: each pass independently checks current spell shields and parries. Return sidesteps use the shared hit model's expected damage share, calculated independently at turnaround from current enemy/owner geometry; callback-created return legs do not create another fight branch. Both launched passes persist after Ahri's death and can produce a posthumous draw. A returning leg expires at the world's configured maximum fight time.
+- Fox-Fire has three flames (the source spells this count as a word). The sole visible enemy champion has priority after 0.25 s, rather than non-priority 0.4 s. Flame missiles originate at Ahri's center on the one-dimensional line; the 150-unit orbit and 550-unit non-priority search are not projected into artificial forward/backward offsets. The source's 75.92 degrees/s and parsed 2.65 rad/s disagree. Post-effect cooldown begins after the last flame launches or expires; missile impact is not used. A shielded/parried flame contact counts toward subsequent reduced flames, independently of health damage. Automatic flames select the opposing champion; alternate minion/pet targeting is not inferred from the engine's unclassified champion-owned pets.
+- Spirit Rush uses two initial free recasts with a fixed first-cast 15-second expiry and a static one-second spacing. A qualifying Essence Theft death, including Sion entering Glory in Death, adds one recast up to three and restarts R's normal cooldown. 'Extends … by and up to 10 seconds' is interpreted monotonically: retain the later of the old expiry and ten seconds after the grant, preserving an already longer initial window. Each dash searches for the one opposing visible champion at its actual end and fires one bolt; three bolts against one champion per dash are not assumed. Additional bolts selecting champion-owned pets are not represented: the record does not supply priority among more than three targets and the simulator lacks ability missiles homing on a selected pet. Dash speed includes current movement speed at declaration. The behavior aims dashes toward attack range in combat and away when fleeing.
+
+### Source values read (72)
+
+| Ability | Value | Source version |
+|---|---|---|
+| Essence Theft | At 9 stacks | [4038191](https://wiki.leagueoflegends.com/en-us/Template:Data_Ahri/Essence_Theft?oldid=4038191) |
+| Essence Theft | At 9 stacks, she consumes them to heal herself for 35 – 95 (based on level) (+ 20% AP). | [4038191](https://wiki.leagueoflegends.com/en-us/Template:Data_Ahri/Essence_Theft?oldid=4038191) |
+| Essence Theft | (+ 20% AP) | [4038191](https://wiki.leagueoflegends.com/en-us/Template:Data_Ahri/Essence_Theft?oldid=4038191) |
+| Essence Theft | Additionally, whenever Ahri scores a champion takedown within 3 seconds of damaging them, she consumes their essence to heal herself for 75 – 165 (based on level) (+ 30% AP). | [4038191](https://wiki.leagueoflegends.com/en-us/Template:Data_Ahri/Essence_Theft?oldid=4038191) |
+| Essence Theft | (+ 30% AP) | [4038191](https://wiki.leagueoflegends.com/en-us/Template:Data_Ahri/Essence_Theft?oldid=4038191) |
+| Essence Theft | within 3 seconds of damaging them | [4038191](https://wiki.leagueoflegends.com/en-us/Template:Data_Ahri/Essence_Theft?oldid=4038191) |
+| Essence Theft | whenever she kills a minion or monster | [4038191](https://wiki.leagueoflegends.com/en-us/Template:Data_Ahri/Essence_Theft?oldid=4038191) |
+| Orb of Deception | Damage Per Pass: 35 / 60 / 85 / 110 / 135 (+ 50% AP) | [4074380](https://wiki.leagueoflegends.com/en-us/Template:Data_Ahri/Orb_of_Deception?oldid=4074380) |
+| Orb of Deception | Total Mixed Damage: 70 / 120 / 170 / 220 / 270 (+ 100% AP) | [4074380](https://wiki.leagueoflegends.com/en-us/Template:Data_Ahri/Orb_of_Deception?oldid=4074380) |
+| Orb of Deception | range (Without return point): 900 | [4074380](https://wiki.leagueoflegends.com/en-us/Template:Data_Ahri/Orb_of_Deception?oldid=4074380) |
+| Orb of Deception | width: 200 | [4074380](https://wiki.leagueoflegends.com/en-us/Template:Data_Ahri/Orb_of_Deception?oldid=4074380) |
+| Orb of Deception | effectRadius (Circle check): 100 | [4074380](https://wiki.leagueoflegends.com/en-us/Template:Data_Ahri/Orb_of_Deception?oldid=4074380) |
+| Orb of Deception | speed (Outgoing): 1550 • 60 - 2600 | [4074380](https://wiki.leagueoflegends.com/en-us/Template:Data_Ahri/Orb_of_Deception?oldid=4074380) |
+| Orb of Deception | speed (Returning): 1550 • 60 - 2600 | [4074380](https://wiki.leagueoflegends.com/en-us/Template:Data_Ahri/Orb_of_Deception?oldid=4074380) |
+| Orb of Deception | speed: 1550 • 60 - 2600 | [4074380](https://wiki.leagueoflegends.com/en-us/Template:Data_Ahri/Orb_of_Deception?oldid=4074380) |
+| Orb of Deception | speed (acceleration 1900): 1550 • 60 - 2600 | [4074380](https://wiki.leagueoflegends.com/en-us/Template:Data_Ahri/Orb_of_Deception?oldid=4074380) |
+| Orb of Deception | Enemies can be hit only once per pass | [4074380](https://wiki.leagueoflegends.com/en-us/Template:Data_Ahri/Orb_of_Deception?oldid=4074380) |
+| Orb of Deception | around the return point in a small circle | [4074380](https://wiki.leagueoflegends.com/en-us/Template:Data_Ahri/Orb_of_Deception?oldid=4074380) |
+| Orb of Deception | If Ahri dies while the orb is out | [4074380](https://wiki.leagueoflegends.com/en-us/Template:Data_Ahri/Orb_of_Deception?oldid=4074380) |
+| Orb of Deception | This ability will cast from wherever the caster is at the end of the cast time | [4074380](https://wiki.leagueoflegends.com/en-us/Template:Data_Ahri/Orb_of_Deception?oldid=4074380) |
+| Fox-Fire | Primary Magic Damage: 40 / 60 / 80 / 100 / 120 (+ 40% AP) | [4074423](https://wiki.leagueoflegends.com/en-us/Template:Data_Ahri/Fox-Fire?oldid=4074423) |
+| Fox-Fire | Subsequent Magic Damage: 16 / 24 / 32 / 40 / 48 (+ 16% AP) | [4074423](https://wiki.leagueoflegends.com/en-us/Template:Data_Ahri/Fox-Fire?oldid=4074423) |
+| Fox-Fire | Total Single-Target Damage: 72 / 108 / 144 / 180 / 216 (+ 72% AP) | [4074423](https://wiki.leagueoflegends.com/en-us/Template:Data_Ahri/Fox-Fire?oldid=4074423) |
+| Fox-Fire | speed (Fired missile): 75.92° per second • 1400 | [4074423](https://wiki.leagueoflegends.com/en-us/Template:Data_Ahri/Fox-Fire?oldid=4074423) |
+| Fox-Fire | effectRadius (Prioritized targets): 150 • 550 • 725 | [4074423](https://wiki.leagueoflegends.com/en-us/Template:Data_Ahri/Fox-Fire?oldid=4074423) |
+| Fox-Fire | effectRadius (Orbit radius): 150 • 550 • 725 | [4074423](https://wiki.leagueoflegends.com/en-us/Template:Data_Ahri/Fox-Fire?oldid=4074423) |
+| Fox-Fire | effectRadius (Non-prioritized): 150 • 550 • 725 | [4074423](https://wiki.leagueoflegends.com/en-us/Template:Data_Ahri/Fox-Fire?oldid=4074423) |
+| Fox-Fire | speed (Orbiting angular velocity): 75.92° per second • 1400 | [4074423](https://wiki.leagueoflegends.com/en-us/Template:Data_Ahri/Fox-Fire?oldid=4074423) |
+| Fox-Fire | gains 40% bonus movement speed that decays over 2 seconds | [4074423](https://wiki.leagueoflegends.com/en-us/Template:Data_Ahri/Fox-Fire?oldid=4074423) |
+| Fox-Fire | conjures three flames | [4074423](https://wiki.leagueoflegends.com/en-us/Template:Data_Ahri/Fox-Fire?oldid=4074423) |
+| Fox-Fire | orbit her clockwise for up to 2.5 seconds | [4074423](https://wiki.leagueoflegends.com/en-us/Template:Data_Ahri/Fox-Fire?oldid=4074423) |
+| Fox-Fire | After 0.25 seconds of the cast | [4074423](https://wiki.leagueoflegends.com/en-us/Template:Data_Ahri/Fox-Fire?oldid=4074423) |
+| Fox-Fire | or after 0.4 seconds | [4074423](https://wiki.leagueoflegends.com/en-us/Template:Data_Ahri/Fox-Fire?oldid=4074423) |
+| Fox-Fire | enemy champions hit by Charm, then enemy champions | [4074423](https://wiki.leagueoflegends.com/en-us/Template:Data_Ahri/Fox-Fire?oldid=4074423) |
+| Fox-Fire | Any unused Fox-Fires will fizzle upon death | [4074423](https://wiki.leagueoflegends.com/en-us/Template:Data_Ahri/Fox-Fire?oldid=4074423) |
+| Charm | Magic Damage: 80 / 120 / 160 / 200 / 240 (+ 85% AP) | [4074445](https://wiki.leagueoflegends.com/en-us/Template:Data_Ahri/Charm?oldid=4074445) |
+| Charm | Disable Duration: 1.2 / 1.35 / 1.5 / 1.65 / 1.8 seconds | [4074445](https://wiki.leagueoflegends.com/en-us/Template:Data_Ahri/Charm?oldid=4074445) |
+| Charm | slowing them by 65% | [4074445](https://wiki.leagueoflegends.com/en-us/Template:Data_Ahri/Charm?oldid=4074445) |
+| Charm | knocking them down and charming | [4074445](https://wiki.leagueoflegends.com/en-us/Template:Data_Ahri/Charm?oldid=4074445) |
+| Charm | Charm is able to slow targets otherwise immune to slows upon charming them | [4074445](https://wiki.leagueoflegends.com/en-us/Template:Data_Ahri/Charm?oldid=4074445) |
+| Charm | This ability will cast from wherever the caster is at the end of the cast time | [4074445](https://wiki.leagueoflegends.com/en-us/Template:Data_Ahri/Charm?oldid=4074445) |
+| Spirit Rush | Magic Damage: 75 / 125 / 175 (+ 35% AP) | [4074438](https://wiki.leagueoflegends.com/en-us/Template:Data_Ahri/Spirit_Rush?oldid=4074438) |
+| Spirit Rush | cooldown: 140 / 120 / 100 | [4074438](https://wiki.leagueoflegends.com/en-us/Template:Data_Ahri/Spirit_Rush?oldid=4074438) |
+| Spirit Rush | cost: 100 | [4074438](https://wiki.leagueoflegends.com/en-us/Template:Data_Ahri/Spirit_Rush?oldid=4074438) |
+| Spirit Rush | targetRange (Maximum dash distance): 500 | [4074438](https://wiki.leagueoflegends.com/en-us/Template:Data_Ahri/Spirit_Rush?oldid=4074438) |
+| Spirit Rush | effectRadius: 600 | [4074438](https://wiki.leagueoflegends.com/en-us/Template:Data_Ahri/Spirit_Rush?oldid=4074438) |
+| Spirit Rush | speed (Dash speed): 1200 + 100% movement speed • 1400 | [4074438](https://wiki.leagueoflegends.com/en-us/Template:Data_Ahri/Spirit_Rush?oldid=4074438) |
+| Spirit Rush | speed (Energy bolt): 1200 + 100% movement speed • 1400 | [4074438](https://wiki.leagueoflegends.com/en-us/Template:Data_Ahri/Spirit_Rush?oldid=4074438) |
+| Spirit Rush | speed: 1200 + 100% movement speed • 1400 | [4074438](https://wiki.leagueoflegends.com/en-us/Template:Data_Ahri/Spirit_Rush?oldid=4074438) |
+| Spirit Rush | within 15 seconds of the activation | [4074438](https://wiki.leagueoflegends.com/en-us/Template:Data_Ahri/Spirit_Rush?oldid=4074438) |
+| Spirit Rush | a 1-second static cooldown between casts | [4074438](https://wiki.leagueoflegends.com/en-us/Template:Data_Ahri/Spirit_Rush?oldid=4074438) |
+| Spirit Rush | recast twice more | [4074438](https://wiki.leagueoflegends.com/en-us/Template:Data_Ahri/Spirit_Rush?oldid=4074438) |
+| Spirit Rush | recast duration will persist even after using all recasts | [4074438](https://wiki.leagueoflegends.com/en-us/Template:Data_Ahri/Spirit_Rush?oldid=4074438) |
+| Spirit Rush | Fox-Fire can be cast during the dash | [4074438](https://wiki.leagueoflegends.com/en-us/Template:Data_Ahri/Spirit_Rush?oldid=4074438) |
+| Spirit Rush | The bolts do not fire if Ahri dies while dashing | [4074438](https://wiki.leagueoflegends.com/en-us/Template:Data_Ahri/Spirit_Rush?oldid=4074438) |
+| Spirit Rush | The bolts will fire if the dash is interrupted by other means | [4074438](https://wiki.leagueoflegends.com/en-us/Template:Data_Ahri/Spirit_Rush?oldid=4074438) |
+| Spirit Rush | extends the recast duration by and up to 10 seconds | [4074438](https://wiki.leagueoflegends.com/en-us/Template:Data_Ahri/Spirit_Rush?oldid=4074438) |
+| Spirit Rush | storing up to 3 recasts at a time | [4074438](https://wiki.leagueoflegends.com/en-us/Template:Data_Ahri/Spirit_Rush?oldid=4074438) |
+| Spirit Rush | to up to 3 nearby visible enemies | [4074438](https://wiki.leagueoflegends.com/en-us/Template:Data_Ahri/Spirit_Rush?oldid=4074438) |
+| Orb of Deception | cooldown: 7 | [4074380](https://wiki.leagueoflegends.com/en-us/Template:Data_Ahri/Orb_of_Deception?oldid=4074380) |
+| Orb of Deception | cost: 55 / 65 / 75 / 85 / 95 | [4074380](https://wiki.leagueoflegends.com/en-us/Template:Data_Ahri/Orb_of_Deception?oldid=4074380) |
+| Orb of Deception | castTime: 0.25 | [4074380](https://wiki.leagueoflegends.com/en-us/Template:Data_Ahri/Orb_of_Deception?oldid=4074380) |
+| Fox-Fire | cooldown: 9 / 8 / 7 / 6 / 5 | [4074423](https://wiki.leagueoflegends.com/en-us/Template:Data_Ahri/Fox-Fire?oldid=4074423) |
+| Fox-Fire | cost: 30 | [4074423](https://wiki.leagueoflegends.com/en-us/Template:Data_Ahri/Fox-Fire?oldid=4074423) |
+| Fox-Fire | castTime: none | [4074423](https://wiki.leagueoflegends.com/en-us/Template:Data_Ahri/Fox-Fire?oldid=4074423) |
+| Charm | cooldown: 12 | [4074445](https://wiki.leagueoflegends.com/en-us/Template:Data_Ahri/Charm?oldid=4074445) |
+| Charm | cost: 60 | [4074445](https://wiki.leagueoflegends.com/en-us/Template:Data_Ahri/Charm?oldid=4074445) |
+| Charm | castTime: 0.25 | [4074445](https://wiki.leagueoflegends.com/en-us/Template:Data_Ahri/Charm?oldid=4074445) |
+| Charm | range: 1000 | [4074445](https://wiki.leagueoflegends.com/en-us/Template:Data_Ahri/Charm?oldid=4074445) |
+| Charm | width: 120 | [4074445](https://wiki.leagueoflegends.com/en-us/Template:Data_Ahri/Charm?oldid=4074445) |
+| Charm | speed: 1550 | [4074445](https://wiki.leagueoflegends.com/en-us/Template:Data_Ahri/Charm?oldid=4074445) |
+| Spirit Rush | castTime: none | [4074438](https://wiki.leagueoflegends.com/en-us/Template:Data_Ahri/Spirit_Rush?oldid=4074438) |

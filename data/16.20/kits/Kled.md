@@ -433,7 +433,7 @@ All 4 level-based formulas in the game files (2 linked to wiki values above):
 
 ## Duel simulator kit (level 20, every ability at max rank)
 
-What the duel simulator fights with (`kits/champions/Kled.ts`): every number is read from the wiki's ability data above at level 20; what the wiki doesn't say is listed under assumptions. Ratios are fractions of the stat (60% AD is 0.6 × AD).
+What the duel simulator fights with (`kits/champions/Kled.ts`): values come from pinned wiki and versioned game-data records at level 20. Interpretations and missing evidence are listed under assumptions. Ratios are fractions of the stat (60% AD is 0.6 × AD).
 
 - Basic attack: range 125, melee.
 
@@ -456,9 +456,9 @@ Effects marked by a mark or a role are completed by the kit's hooks (see the kit
 - Jousting dashes at 600 plus Kled & Skaarl's base movement speed (945).
 - Chaaaaaaaarge!!! speeds up from Kled & Skaarl's base movement speed by a twelfth of the way to 950 every 0.25 s, and its damage grows with the charge as the wiki's series says (full after 4 s; the game files say 3).
 
-### Wiki values read (80)
+### Source values read (80)
 
-| Ability | Value | Revision |
+| Ability | Value | Source version |
 |---|---|---|
 | Dismounted Skaarl the Cowardly Lizard | Kled has 410 – 1838 (based on level) base health, which is not improved by sources of bonus health, his movement speed is reduced by 40 , and he gains 125 total attack range. | [4038397](https://wiki.leagueoflegends.com/en-us/Template:Data_Kled/Dismounted_Skaarl_the_Cowardly_Lizard?oldid=4038397) |
 | Skaarl the Cowardly Lizard | While Mounted, all damage dealt to the duo is suffered by Skaarl, who has 400 – 1400 (based on level) base health; additional sources of health are applied to Skaarl maximum health. | [4058479](https://wiki.leagueoflegends.com/en-us/Template:Data_Kled/Skaarl_the_Cowardly_Lizard?oldid=4058479) |

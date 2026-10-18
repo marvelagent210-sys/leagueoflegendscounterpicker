@@ -1,61 +1,85 @@
 # Counters to Sion (patch 26.20)
 
-## Simulated duels (full confidence)
+## Simulated duels
 
-The duel simulator played each of the 48 other champions with a simulator kit against Sion: both at level 20 with 15,000 gold of plain stats, each side's spent against the other's, through six scenarios (PLAN.md §6). Scores run from −1 (Sion wins every time) to +1 (the champion does). Run `npm run duel -- <champion> Sion --log brawl` to watch a fight.
+The duel simulator played each of the 72 other champions with a simulator kit against Sion: both at level 20 with 15,000 gold of plain stats, each side's spent against the other's, through six scenarios (PLAN.md §6). Scores run from −1 (Sion wins every time) to +1 (the champion does). Run `npm run duel -- <champion> Sion --log brawl` to watch a fight.
 
 | # | Champion | Score | You engage | Enemy engages | Brawl | Short trade | Spacing | Escape |
 |--:|---|--:|--:|--:|--:|--:|--:|--:|
-| 1 | Fiora | +0.82 | +1.00 | +1.00 | +1.00 | +0.27 | – | +0.00 |
-| 2 | Poppy | +0.81 | +1.00 | +1.00 | +1.00 | +0.22 | – | +0.00 |
-| 3 | K'Sante | +0.79 | +1.00 | +1.00 | +1.00 | −0.04 | +1.00 | +0.00 |
-| 4 | Zaahen | +0.78 | +1.00 | +1.00 | +1.00 | +0.01 | – | +0.00 |
-| 5 | Darius | +0.78 | +1.00 | +1.00 | +1.00 | +0.00 | – | +0.00 |
-| 6 | Olaf | +0.77 | +1.00 | +1.00 | +1.00 | −0.03 | – | +0.00 |
-| 7 | Udyr | +0.77 | +1.00 | +1.00 | +1.00 | −0.04 | – | +0.00 |
-| 8 | Yorick | +0.77 | +1.00 | +1.00 | +1.00 | −0.04 | – | +0.00 |
-| 9 | Trundle | +0.77 | +1.00 | +1.00 | +1.00 | −0.08 | – | +0.00 |
-| 10 | Mordekaiser | +0.76 | +0.97 | +0.98 | +1.00 | −0.00 | – | +0.00 |
-| 11 | Kayle | +0.76 | +1.00 | +1.00 | +0.52 | +0.39 | +1.00 | +0.00 |
-| 12 | Aatrox | +0.76 | +1.00 | +1.00 | +1.00 | −0.13 | – | +0.00 |
-| 13 | Jax | +0.67 | +1.00 | +1.00 | +0.50 | +0.00 | – | +0.00 |
-| 14 | Cho'Gath | +0.60 | +1.00 | +0.34 | +1.00 | +0.04 | – | +0.00 |
-| 15 | Kled | +0.53 | +0.54 | +0.54 | +1.00 | +0.05 | – | +0.00 |
-| 16 | Illaoi | +0.51 | +1.00 | +0.00 | +1.00 | +0.08 | – | +0.00 |
-| 17 | Gwen | +0.38 | +0.30 | +0.30 | +1.00 | −0.05 | – | +0.00 |
-| 18 | Nasus | +0.36 | +0.29 | +0.23 | +1.00 | −0.04 | – | +0.00 |
-| 19 | Teemo | +0.33 | +0.62 | +0.42 | +0.06 | +0.05 | +0.47 | +0.00 |
-| 20 | Dr. Mundo | +0.32 | +0.44 | +0.45 | +0.38 | −0.08 | – | +0.00 |
-| 21 | Volibear | +0.28 | +0.00 | +1.00 | +0.00 | +0.03 | – | +0.00 |
-| 22 | Heimerdinger | +0.14 | +0.05 | +0.05 | +0.05 | +0.20 | +0.76 | +0.00 |
-| 23 | Renekton | +0.10 | +0.13 | +0.15 | +0.07 | +0.03 | – | +0.00 |
-| 24 | Tryndamere | +0.10 | +0.00 | +0.00 | +0.50 | −0.07 | – | +0.00 |
-| 25 | Tahm Kench | +0.10 | +0.12 | +0.12 | +0.13 | −0.01 | – | +0.00 |
-| 26 | Malphite | +0.08 | +0.10 | +0.10 | +0.03 | +0.10 | – | +0.00 |
-| 27 | Sett | +0.06 | +0.00 | +0.17 | +0.00 | +0.05 | – | +0.00 |
-| 28 | Shen | +0.02 | +0.02 | +0.02 | +0.00 | +0.09 | – | +0.00 |
-| 29 | Ambessa | +0.02 | +0.00 | +0.00 | +0.00 | +0.10 | – | +0.00 |
-| 30 | Yasuo | +0.01 | +0.00 | +0.00 | +0.00 | +0.08 | – | +0.00 |
-| 31 | Yone | +0.01 | +0.00 | +0.00 | +0.00 | +0.04 | – | +0.00 |
-| 32 | Gangplank | +0.01 | +0.00 | +0.00 | +0.00 | +0.04 | – | +0.00 |
-| 33 | Camille | +0.01 | +0.00 | +0.00 | +0.00 | +0.04 | – | +0.00 |
-| 34 | Jayce | +0.01 | +0.00 | +0.00 | +0.00 | +0.03 | – | +0.00 |
-| 35 | Skarner | +0.00 | −0.02 | −0.02 | +0.14 | −0.09 | – | +0.00 |
-| 36 | Ornn | −0.01 | −0.02 | −0.02 | −0.06 | +0.11 | – | +0.00 |
-| 37 | Garen | −0.02 | +0.00 | +0.00 | +0.00 | −0.10 | – | +0.00 |
-| 38 | Singed | −0.02 | −0.01 | −0.02 | −0.01 | −0.05 | – | +0.00 |
-| 39 | Urgot | −0.10 | −0.02 | −0.02 | +0.05 | −0.02 | −1.00 | +0.00 |
-| 40 | Gnar | −0.11 | +0.04 | +0.04 | −0.77 | +0.06 | +0.10 | +0.00 |
-| 41 | Irelia | −0.18 | −0.26 | −0.26 | −0.24 | +0.11 | – | +0.00 |
-| 42 | Quinn | −0.31 | −0.07 | −0.07 | −1.00 | +0.20 | −1.00 | +0.00 |
-| 43 | Kennen | −0.31 | −0.04 | −0.05 | −0.97 | +0.01 | −0.92 | +0.00 |
-| 44 | Rumble | −0.40 | −0.53 | −0.53 | −0.50 | +0.01 | – | +0.00 |
-| 45 | Riven | −0.41 | −0.43 | −0.30 | −1.00 | +0.12 | – | +0.00 |
-| 46 | Aurora | −0.64 | −0.97 | −0.97 | −0.42 | +0.11 | −0.86 | +0.00 |
-| 47 | Akali | −0.69 | −0.83 | −0.83 | −1.00 | −0.01 | – | +0.00 |
-| 48 | Pantheon | −0.76 | −1.00 | −0.97 | −1.00 | +0.08 | – | +0.00 |
+| 1 | Fiora | +0.84 | +1.00 | +1.00 | +1.00 | +0.38 | – | +0.00 |
+| 2 | Poppy | +0.83 | +1.00 | +1.00 | +1.00 | +0.28 | – | +0.00 |
+| 3 | K'Sante | +0.80 | +1.00 | +1.00 | +1.00 | −0.03 | +1.00 | +0.00 |
+| 4 | Illaoi | +0.79 | +1.00 | +1.00 | +1.00 | +0.10 | – | +0.00 |
+| 5 | Kled | +0.79 | +1.00 | +1.00 | +1.00 | +0.05 | – | +0.00 |
+| 6 | Morgana | +0.78 | +1.00 | +0.97 | +1.00 | −0.05 | +0.99 | +0.00 |
+| 7 | Zaahen | +0.78 | +1.00 | +1.00 | +1.00 | −0.01 | – | +0.00 |
+| 8 | Yorick | +0.77 | +1.00 | +1.00 | +1.00 | −0.03 | – | +0.00 |
+| 9 | Nasus | +0.77 | +1.00 | +1.00 | +1.00 | −0.04 | – | +0.00 |
+| 10 | Aatrox | +0.76 | +1.00 | +1.00 | +1.00 | −0.12 | – | +0.00 |
+| 11 | Teemo | +0.74 | +0.66 | +1.00 | +1.00 | +0.18 | +1.00 | +0.00 |
+| 12 | Dr. Mundo | +0.74 | +0.91 | +1.00 | +1.00 | −0.07 | – | +0.00 |
+| 13 | Vayne | +0.72 | +1.00 | +0.64 | +1.00 | +0.07 | +1.00 | +0.00 |
+| 14 | Jax | +0.67 | +1.00 | +1.00 | +0.50 | +0.03 | – | +0.00 |
+| 15 | Darius | +0.64 | +1.00 | +0.46 | +1.00 | +0.07 | – | +0.00 |
+| 16 | Renekton | +0.64 | +0.50 | +1.00 | +1.00 | −0.01 | – | +0.00 |
+| 17 | Kayle | +0.63 | +1.00 | +1.00 | +0.02 | +0.18 | +1.00 | +0.00 |
+| 18 | Heimerdinger | +0.59 | +0.36 | +0.76 | +1.00 | +0.17 | +0.85 | +0.00 |
+| 19 | Trundle | +0.46 | +0.04 | +0.85 | +1.00 | −0.08 | – | +0.00 |
+| 20 | Olaf | +0.44 | +0.53 | +0.59 | +0.57 | −0.02 | – | +0.00 |
+| 21 | Kennen | +0.40 | +0.90 | +0.99 | +0.04 | +0.02 | −0.80 | +0.00 |
+| 22 | Mordekaiser | +0.37 | +0.30 | +0.35 | +0.82 | +0.02 | – | +0.00 |
+| 23 | Yasuo | +0.29 | +0.00 | +0.17 | +1.00 | +0.13 | – | +0.00 |
+| 24 | Quinn | +0.25 | +1.00 | +1.00 | −1.00 | +0.08 | −0.59 | +0.00 |
+| 25 | Cho'Gath | +0.23 | +0.00 | +0.00 | +1.00 | +0.05 | – | +0.00 |
+| 26 | Xin Zhao | +0.22 | +0.28 | +0.51 | +0.00 | −0.02 | – | +0.00 |
+| 27 | Malzahar | +0.16 | +0.05 | +0.17 | +1.00 | +0.04 | −0.98 | +0.00 |
+| 28 | Anivia | +0.15 | +0.26 | +0.22 | +0.17 | −0.05 | +0.10 | +0.00 |
+| 29 | Yone | +0.12 | +0.00 | +0.00 | +0.50 | +0.04 | – | +0.00 |
+| 30 | Tahm Kench | +0.09 | +0.10 | +0.10 | +0.17 | −0.00 | – | +0.00 |
+| 31 | Malphite | +0.06 | +0.07 | +0.10 | −0.03 | +0.10 | – | +0.00 |
+| 32 | Ashe | +0.06 | +0.23 | −0.48 | +1.00 | +0.09 | −0.93 | +0.00 |
+| 33 | Ambessa | +0.02 | +0.00 | +0.00 | +0.00 | +0.15 | – | +0.00 |
+| 34 | Volibear | +0.02 | +0.00 | +0.08 | +0.00 | −0.01 | – | +0.00 |
+| 35 | Sett | +0.01 | −1.00 | +1.00 | +0.00 | +0.04 | – | +0.00 |
+| 36 | Udyr | −0.00 | +0.00 | +0.00 | +0.00 | −0.01 | – | +0.00 |
+| 37 | Tryndamere | −0.01 | +0.00 | +0.00 | +0.00 | −0.03 | – | +0.00 |
+| 38 | Ornn | −0.01 | +0.02 | −0.02 | −0.10 | +0.09 | – | +0.00 |
+| 39 | Garen | −0.03 | +0.00 | +0.00 | +0.00 | −0.16 | – | +0.00 |
+| 40 | Gangplank | −0.03 | −0.28 | +0.17 | +0.00 | +0.02 | – | +0.00 |
+| 41 | Jayce | −0.03 | +0.06 | −0.26 | +0.00 | +0.16 | – | +0.00 |
+| 42 | Camille | −0.07 | −0.25 | +0.02 | +0.00 | −0.03 | – | +0.00 |
+| 43 | Shen | −0.08 | −0.02 | −0.31 | −0.05 | +0.10 | – | +0.00 |
+| 44 | Irelia | −0.31 | −0.38 | −0.62 | −0.24 | +0.13 | – | +0.00 |
+| 45 | Lux | −0.32 | −0.79 | −0.47 | −0.12 | +0.12 | −0.02 | +0.00 |
+| 46 | Brand | −0.40 | −0.71 | −0.60 | −0.38 | +0.03 | −0.01 | +0.00 |
+| 47 | Gwen | −0.40 | −0.70 | −0.70 | +0.00 | −0.10 | – | +0.00 |
+| 48 | Master Yi | −0.41 | −0.50 | −0.50 | −0.50 | −0.13 | – | +0.00 |
+| 49 | Annie | −0.41 | −0.66 | +0.03 | −0.99 | +0.12 | −0.73 | +0.00 |
+| 50 | Pantheon | −0.43 | −0.62 | −1.00 | +0.00 | +0.11 | – | +0.00 |
+| 51 | Rammus | −0.50 | +0.01 | −1.00 | −1.00 | −0.03 | – | +0.00 |
+| 52 | Riven | −0.51 | −1.00 | −0.54 | −0.50 | +0.19 | – | +0.00 |
+| 53 | Rumble | −0.51 | −1.00 | −0.85 | +0.00 | −0.00 | – | +0.00 |
+| 54 | Nautilus | −0.55 | −1.00 | −0.86 | +0.00 | +0.08 | −1.00 | +0.00 |
+| 55 | Singed | −0.59 | −0.82 | −0.65 | −0.82 | +0.00 | – | +0.00 |
+| 56 | Zyra | −0.61 | −0.97 | −0.88 | −0.64 | +0.04 | −0.23 | +0.00 |
+| 57 | Gnar | −0.62 | −0.87 | −0.87 | −1.00 | +0.10 | +0.04 | +0.00 |
+| 58 | Cassiopeia | −0.69 | −1.00 | −1.00 | −0.50 | +0.07 | −1.00 | +0.00 |
+| 59 | Vel'Koz | −0.70 | −0.83 | −0.94 | −1.00 | +0.16 | −0.84 | +0.00 |
+| 60 | Aurora | −0.71 | −1.00 | −0.88 | −0.74 | +0.08 | −1.00 | +0.00 |
+| 61 | Kassadin | −0.78 | −1.00 | −1.00 | −1.00 | +0.01 | – | +0.00 |
+| 62 | Leona | −0.78 | −1.00 | −1.00 | −1.00 | +0.00 | – | +0.00 |
+| 63 | Akali | −0.78 | −1.00 | −1.00 | −1.00 | −0.03 | – | +0.00 |
+| 64 | Lissandra | −0.78 | −1.00 | −1.00 | −1.00 | +0.11 | −1.00 | +0.00 |
+| 65 | Amumu | −0.79 | −1.00 | −1.00 | −1.00 | −0.05 | – | +0.00 |
+| 66 | Ziggs | −0.79 | −1.00 | −1.00 | −1.00 | +0.08 | −1.00 | +0.00 |
+| 67 | Karthus | −0.79 | −0.99 | −0.99 | −1.00 | +0.04 | −1.00 | +0.00 |
+| 68 | Urgot | −0.79 | −1.00 | −1.00 | −1.00 | +0.05 | −1.00 | +0.00 |
+| 69 | Veigar | −0.79 | −1.00 | −1.00 | −1.00 | +0.04 | −1.00 | +0.00 |
+| 70 | Skarner | −0.80 | −1.00 | −1.00 | −1.00 | −0.11 | – | +0.00 |
+| 71 | Ahri | −0.82 | −1.00 | −1.00 | −1.00 | −0.16 | −1.00 | +0.00 |
+| 72 | Vladimir | −0.83 | −1.00 | −1.00 | −1.00 | −0.17 | −1.00 | +0.00 |
 
-## Interaction ledger (partial confidence)
+## Interaction ledger estimates
 
 Every champion ranked by what its kit does against Sion's, from the interaction ledger: projectile blocks, spell shields,
 parries, dash stops, crowd control and its defenses, range and more (PLAN.md §5). This ranking is **partial**: it weighs the
@@ -73,7 +97,7 @@ Run `npm run matchup -- <champion> Sion` for the full ledger of a matchup, with 
 - **0.80** spell shield: Spell Shield's spell shield blocks Sion's Unstoppable Onslaught. Spell shield for 1.5 s, long enough to use ahead of Unstoppable Onslaught. A spell shield blocks only the first enemy ability that reaches it. (Sivir E Spell Shield → Sion R Unstoppable Onslaught)
 - **0.42** spell shield: Spell Shield's spell shield blocks Sion's Decimating Smash. Spell shield for 1.5 s, long enough to use ahead of Decimating Smash. A spell shield blocks only the first enemy ability that reaches it. (Sivir E Spell Shield → Sion Q Decimating Smash)
 
-#### 2. Vladimir (net +1.13)
+#### 2. Vladimir (net +1.12)
 
 - **0.80** untargetable: Sanguine Pool makes Vladimir untargetable, dodging Sion's Unstoppable Onslaught. Untargetable for 2 s, long enough to use ahead of Unstoppable Onslaught. (Vladimir W Sanguine Pool → Sion R Unstoppable Onslaught)
 - **0.44** untargetable: Sanguine Pool makes Vladimir untargetable, dodging Sion's Decimating Smash. Untargetable for 2 s, long enough to use ahead of Decimating Smash. (Vladimir W Sanguine Pool → Sion Q Decimating Smash)
@@ -101,214 +125,211 @@ Run `npm run matchup -- <champion> Sion` for the full ledger of a matchup, with 
 - **0.24** cleanse: Breath of Life cleanses Sion's Decimating Smash (slow, stun) after it lands. 130 s cooldown; usable while crowd controlled. Doesn't remove airborne. (Milio R Breath of Life → Sion Q Decimating Smash)
 - Watch out: Unstoppable Onslaught makes Sion immune to Milio's Ultra Mega Fire Kick (airborne, slow, stun).
 
-#### 6. Elise (net +0.99)
-
-- **0.61** range: Elise's basic attacks reach 375 units farther than Sion's (550 vs 175 attack range). Sion has no dash or blink to close the gap. (Elise basic attacks → Sion basic attacks)
-- **0.48** untargetable: Rappel makes Elise untargetable, dodging Sion's Unstoppable Onslaught. Untargetable for 0.6 s; Unstoppable Onslaught lands within 0 s, faster than a 0.25 s reaction, so it needs prediction. (Elise E Rappel → Sion R Unstoppable Onslaught)
-- **0.25** untargetable: Rappel makes Elise untargetable, dodging Sion's Decimating Smash. Untargetable for 0.6 s; Decimating Smash lands within 0 s, faster than a 0.25 s reaction, so it needs prediction. (Elise E Rappel → Sion Q Decimating Smash)
-- Watch out: Unstoppable Onslaught makes Sion immune to Elise's Cocoon (stun).
-
-#### 7. Kindred (net +0.98)
-
-- **0.81** range: Kindred's basic attacks reach 325 units farther than Sion's (500 vs 175 attack range). Sion has no dash or blink to close the gap. (Kindred basic attacks → Sion basic attacks)
-- **0.17** invulnerable: Lamb's Respite makes Kindred invulnerable to Sion's Unstoppable Onslaught (its crowd control still applies). Invulnerable for ?; Unstoppable Onslaught lands within 0 s, faster than a 0.25 s reaction, so it needs prediction. (Kindred R Lamb's Respite → Sion R Unstoppable Onslaught)
-- **0.09** invulnerable: Lamb's Respite makes Kindred invulnerable to Sion's Decimating Smash (its crowd control still applies). Invulnerable for ?; Decimating Smash lands within 0 s, faster than a 0.25 s reaction, so it needs prediction. (Kindred R Lamb's Respite → Sion Q Decimating Smash)
-- Watch out: Unstoppable Onslaught makes Sion immune to Kindred's Mounting Dread (slow).
-
-#### 8. Nocturne (net +0.81)
+#### 6. Nocturne (net +0.81)
 
 - **0.80** spell shield: Shroud of Darkness's spell shield blocks Sion's Unstoppable Onslaught. Spell shield for 1.5 s, long enough to use ahead of Unstoppable Onslaught. A spell shield blocks only the first enemy ability that reaches it. (Nocturne W Shroud of Darkness → Sion R Unstoppable Onslaught)
 - **0.49** spell shield: Shroud of Darkness's spell shield blocks Sion's Decimating Smash. Spell shield for 1.5 s, long enough to use ahead of Decimating Smash. A spell shield blocks only the first enemy ability that reaches it. (Nocturne W Shroud of Darkness → Sion Q Decimating Smash)
 - **0.13** interrupt: Unspeakable Horror's fear interrupts Sion's Decimating Smash (charge-up). Unspeakable Horror must land during the charge-up. Sion can release Decimating Smash early instead of charging it fully. (Nocturne E Unspeakable Horror → Sion Q Decimating Smash)
 - Watch out: Unstoppable Onslaught makes Sion immune to Nocturne's Unspeakable Horror (fear, slow).
 
-#### 9. Aurora (net +0.80)
+#### 7. Aurora (net +0.80)
 
 - **0.54** range: Aurora's basic attacks reach 375 units farther than Sion's (550 vs 175 attack range). Sion has no dash or blink to close the gap. (Aurora basic attacks → Sion basic attacks)
 - **0.36** untargetable: Between Worlds makes Aurora untargetable, dodging Sion's Unstoppable Onslaught. Untargetable for 0.4 s; Unstoppable Onslaught lands within 0 s, faster than a 0.25 s reaction, so it needs prediction. Does not destroy inbound projectiles. (Aurora R Between Worlds → Sion R Unstoppable Onslaught)
 - **0.18** untargetable: Between Worlds makes Aurora untargetable, dodging Sion's Decimating Smash. Untargetable for 0.4 s; Decimating Smash lands within 0 s, faster than a 0.25 s reaction, so it needs prediction. Does not destroy inbound projectiles. (Aurora R Between Worlds → Sion Q Decimating Smash)
 - Watch out: Unstoppable Onslaught makes Sion immune to Aurora's Between Worlds (slow).
 
-#### 10. Olaf (net +0.79)
+#### 8. Olaf (net +0.79)
 
 - **0.68** cc immunity: Ragnarok makes Olaf immune to Sion's Unstoppable Onslaught (airborne, slow, stun). Immune for 3 s, long enough to use ahead of Unstoppable Onslaught. (Olaf R Ragnarok → Sion R Unstoppable Onslaught)
 - **0.31** cc immunity: Ragnarok makes Olaf immune to Sion's Decimating Smash (airborne, slow, stun). Immune for 3 s, long enough to use ahead of Decimating Smash. (Olaf R Ragnarok → Sion Q Decimating Smash)
 - **0.05** cc immunity: Ragnarok makes Olaf immune to Sion's Roar of the Slayer (slow). Immune for 3 s, long enough to use ahead of Roar of the Slayer. (Olaf R Ragnarok → Sion E Roar of the Slayer)
 - Watch out: Unstoppable Onslaught makes Sion immune to Olaf's Undertow (slow).
 
+#### 9. Zeri (net +0.78)
+
+- **0.83** range: Zeri's basic attacks reach 375 units farther than Sion's (550 vs 175 attack range). Sion has no dash or blink to close the gap. (Zeri basic attacks → Sion basic attacks)
+- Watch out: Unstoppable Onslaught makes Sion immune to Zeri's Ultrashock Laser (slow).
+
+#### 10. Teemo (net +0.76)
+
+- **0.59** range: Teemo's basic attacks reach 325 units farther than Sion's (500 vs 175 attack range). Sion has no dash or blink to close the gap. (Teemo basic attacks → Sion basic attacks)
+- **0.35** blind: Blinding Dart's blind makes Sion's basic attacks miss for 3 s. Blind for 3 s on a 7 s cooldown. (Teemo Q Blinding Dart → Sion basic attacks)
+- Watch out: Unstoppable Onslaught makes Sion immune to Teemo's Blinding Dart (blind).
+
 ### Full ranking
 
 | # | Champion | Net | For | Against | Hard counters |
 |--:|---|--:|--:|--:|---|
 | 1 | Sivir | +1.82 | 1.82 | 0.00 | range (attacks) |
-| 2 | Vladimir | +1.13 | 1.32 | 0.19 |  |
+| 2 | Vladimir | +1.12 | 1.32 | 0.20 |  |
 | 3 | Xayah | +1.10 | 1.44 | 0.34 | range (attacks) |
 | 4 | Kayle | +1.09 | 1.14 | 0.05 | range (attacks) |
 | 5 | Milio | +1.08 | 1.43 | 0.35 | range (attacks) |
-| 6 | Elise | +0.99 | 1.34 | 0.35 | range (attacks) |
-| 7 | Kindred | +0.98 | 1.03 | 0.05 | range (attacks) |
-| 8 | Nocturne | +0.81 | 1.29 | 0.48 |  |
-| 9 | Aurora | +0.80 | 1.02 | 0.22 | range (attacks) |
-| 10 | Olaf | +0.79 | 0.85 | 0.06 |  |
-| 11 | Zeri | +0.78 | 0.83 | 0.05 | range (attacks) |
-| 12 | Teemo | +0.76 | 0.94 | 0.18 | range (attacks) |
-| 13 | Twitch | +0.75 | 0.81 | 0.06 | range (attacks) |
-| 14 | Udyr | +0.72 | 1.21 | 0.49 |  |
-| 15 | Rek'Sai | +0.71 | 1.04 | 0.33 |  |
-| 16 | Gangplank | +0.67 | 0.84 | 0.17 |  |
-| 17 | Kai'Sa | +0.67 | 0.67 | 0.00 | range (attacks) |
-| 18 | Morgana | +0.64 | 1.37 | 0.73 |  |
-| 19 | Yuumi | +0.63 | 1.23 | 0.60 | range (attacks) |
-| 20 | Yunara | +0.63 | 0.72 | 0.09 | range (attacks) |
-| 21 | Ezreal | +0.61 | 0.61 | 0.00 | range (attacks) |
-| 22 | Master Yi | +0.58 | 0.81 | 0.23 |  |
-| 23 | Vayne | +0.57 | 0.93 | 0.36 | range (attacks) |
-| 24 | Bard | +0.56 | 1.48 | 0.92 | range (attacks) |
-| 25 | Rengar | +0.53 | 0.88 | 0.35 |  |
-| 26 | Fiora | +0.53 | 0.78 | 0.25 |  |
-| 27 | Nidalee | +0.53 | 0.53 | 0.00 | range (attacks) |
-| 28 | Gwen | +0.47 | 0.61 | 0.14 |  |
-| 29 | Samira | +0.45 | 0.67 | 0.22 | range (attacks) |
-| 30 | Garen | +0.45 | 0.58 | 0.13 |  |
-| 31 | Draven | +0.44 | 0.80 | 0.36 | range (attacks) |
-| 32 | Smolder | +0.44 | 0.61 | 0.17 | range (attacks) |
-| 33 | Kog'Maw | +0.41 | 0.47 | 0.06 |  |
-| 34 | Corki | +0.40 | 0.75 | 0.35 | range (attacks) |
-| 35 | Zilean | +0.39 | 0.76 | 0.37 | range (attacks) |
-| 36 | Vex | +0.39 | 0.73 | 0.34 | range (attacks) |
-| 37 | Kennen | +0.39 | 0.67 | 0.28 | range (attacks) |
-| 38 | Zed | +0.39 | 0.45 | 0.06 |  |
-| 39 | Zoe | +0.35 | 0.73 | 0.38 | range (attacks) |
-| 40 | Lucian | +0.34 | 0.62 | 0.28 | range (attacks) |
-| 41 | Graves | +0.34 | 0.41 | 0.07 |  |
-| 42 | Singed | +0.31 | 0.72 | 0.41 |  |
-| 43 | Akshan | +0.31 | 0.59 | 0.28 | range (attacks) |
-| 44 | Ekko | +0.31 | 0.58 | 0.27 |  |
-| 45 | Mel | +0.29 | 0.63 | 0.34 | range (attacks) |
-| 46 | Annie | +0.29 | 0.57 | 0.28 |  |
-| 47 | Lissandra | +0.28 | 1.27 | 0.99 |  |
-| 48 | Evelynn | +0.28 | 0.64 | 0.36 |  |
-| 49 | Jayce | +0.27 | 0.66 | 0.39 | range (attacks) |
-| 50 | Miss Fortune | +0.27 | 0.61 | 0.34 | range (attacks) |
-| 51 | Twisted Fate | +0.26 | 0.93 | 0.67 | range (attacks) |
-| 52 | Senna | +0.26 | 0.65 | 0.39 | range (attacks) |
-| 53 | Nasus | +0.21 | 0.27 | 0.06 |  |
-| 54 | Shaco | +0.20 | 0.62 | 0.42 |  |
-| 55 | Brand | +0.20 | 0.59 | 0.39 |  |
-| 56 | Kalista | +0.19 | 1.17 | 0.98 | range (attacks) |
-| 57 | Soraka | +0.19 | 0.61 | 0.42 | range (attacks) |
-| 58 | Veigar | +0.19 | 0.57 | 0.38 |  |
-| 59 | Zaahen | +0.18 | 0.70 | 0.52 |  |
+| 6 | Nocturne | +0.81 | 1.29 | 0.48 |  |
+| 7 | Aurora | +0.80 | 1.02 | 0.22 | range (attacks) |
+| 8 | Olaf | +0.79 | 0.85 | 0.06 |  |
+| 9 | Zeri | +0.78 | 0.83 | 0.05 | range (attacks) |
+| 10 | Teemo | +0.76 | 0.94 | 0.18 | range (attacks) |
+| 11 | Kindred | +0.76 | 0.81 | 0.05 | range (attacks) |
+| 12 | Twitch | +0.75 | 0.81 | 0.06 | range (attacks) |
+| 13 | Udyr | +0.72 | 1.21 | 0.49 |  |
+| 14 | Rek'Sai | +0.71 | 1.04 | 0.33 |  |
+| 15 | Gangplank | +0.67 | 0.84 | 0.17 |  |
+| 16 | Kai'Sa | +0.67 | 0.67 | 0.00 | range (attacks) |
+| 17 | Morgana | +0.64 | 1.37 | 0.73 |  |
+| 18 | Yunara | +0.63 | 0.72 | 0.09 | range (attacks) |
+| 19 | Ezreal | +0.61 | 0.61 | 0.00 | range (attacks) |
+| 20 | Vayne | +0.57 | 0.93 | 0.36 | range (attacks) |
+| 21 | Bard | +0.56 | 1.48 | 0.92 | range (attacks) |
+| 22 | Rengar | +0.53 | 0.88 | 0.35 |  |
+| 23 | Nidalee | +0.53 | 0.53 | 0.00 | range (attacks) |
+| 24 | Fiora | +0.50 | 0.78 | 0.28 |  |
+| 25 | Master Yi | +0.47 | 0.81 | 0.34 |  |
+| 26 | Gwen | +0.47 | 0.61 | 0.14 |  |
+| 27 | Samira | +0.45 | 0.67 | 0.22 | range (attacks) |
+| 28 | Garen | +0.45 | 0.58 | 0.13 |  |
+| 29 | Draven | +0.44 | 0.80 | 0.36 | range (attacks) |
+| 30 | Smolder | +0.44 | 0.61 | 0.17 | range (attacks) |
+| 31 | Kog'Maw | +0.41 | 0.47 | 0.06 |  |
+| 32 | Yuumi | +0.40 | 1.23 | 0.83 | range (attacks) |
+| 33 | Zilean | +0.39 | 0.76 | 0.37 | range (attacks) |
+| 34 | Elise | +0.39 | 0.74 | 0.35 | range (attacks) |
+| 35 | Vex | +0.39 | 0.73 | 0.34 | range (attacks) |
+| 36 | Kennen | +0.39 | 0.67 | 0.28 | range (attacks) |
+| 37 | Zed | +0.39 | 0.45 | 0.06 |  |
+| 38 | Zoe | +0.35 | 0.73 | 0.38 | range (attacks) |
+| 39 | Corki | +0.34 | 0.69 | 0.35 | range (attacks) |
+| 40 | Graves | +0.34 | 0.41 | 0.07 |  |
+| 41 | Singed | +0.31 | 0.72 | 0.41 |  |
+| 42 | Zaahen | +0.30 | 0.82 | 0.52 |  |
+| 43 | Mel | +0.29 | 0.63 | 0.34 | range (attacks) |
+| 44 | Annie | +0.29 | 0.57 | 0.28 |  |
+| 45 | Lissandra | +0.28 | 1.27 | 0.99 |  |
+| 46 | Alistar | +0.28 | 0.94 | 0.66 |  |
+| 47 | Evelynn | +0.28 | 0.64 | 0.36 |  |
+| 48 | Jayce | +0.27 | 0.66 | 0.39 | range (attacks) |
+| 49 | Senna | +0.26 | 0.65 | 0.39 | range (attacks) |
+| 50 | Viktor | +0.23 | 0.77 | 0.54 | range (attacks) |
+| 51 | Heimerdinger | +0.22 | 0.76 | 0.54 |  |
+| 52 | Nasus | +0.21 | 0.27 | 0.06 |  |
+| 53 | Shaco | +0.20 | 0.62 | 0.42 |  |
+| 54 | Brand | +0.20 | 0.59 | 0.39 |  |
+| 55 | Kalista | +0.19 | 1.17 | 0.98 | range (attacks) |
+| 56 | Soraka | +0.19 | 0.61 | 0.42 | range (attacks) |
+| 57 | Veigar | +0.19 | 0.57 | 0.38 |  |
+| 58 | Lulu | +0.18 | 1.07 | 0.89 | range (attacks) |
+| 59 | Anivia | +0.17 | 0.75 | 0.58 |  |
 | 60 | Ahri | +0.17 | 0.53 | 0.36 |  |
 | 61 | Lux | +0.16 | 0.54 | 0.38 | range (attacks) |
-| 62 | Quinn | +0.15 | 0.82 | 0.67 | range (attacks) |
-| 63 | Alistar | +0.15 | 0.81 | 0.66 |  |
-| 64 | Ziggs | +0.15 | 0.62 | 0.47 | range (attacks) |
-| 65 | LeBlanc | +0.15 | 0.38 | 0.23 |  |
-| 66 | Jinx | +0.13 | 0.51 | 0.38 | range (attacks) |
-| 67 | Lulu | +0.12 | 1.01 | 0.89 | range (attacks) |
-| 68 | Taric | +0.12 | 0.48 | 0.36 |  |
-| 69 | Viktor | +0.11 | 0.65 | 0.54 | range (attacks) |
-| 70 | Syndra | +0.10 | 0.52 | 0.42 |  |
-| 71 | Heimerdinger | +0.09 | 0.63 | 0.54 |  |
-| 72 | Swain | +0.09 | 0.49 | 0.40 |  |
-| 73 | Anivia | +0.06 | 0.64 | 0.58 |  |
-| 74 | Illaoi | +0.06 | 0.12 | 0.06 |  |
-| 75 | Sona | +0.05 | 0.85 | 0.80 | range (attacks) |
-| 76 | Caitlyn | +0.05 | 0.72 | 0.67 | range (attacks) |
-| 77 | Jax | +0.01 | 0.35 | 0.34 |  |
-| 78 | Kassadin | 0.00 | 0.16 | 0.16 |  |
-| 79 | Cassiopeia | -0.01 | 0.87 | 0.88 |  |
-| 80 | Karthus | -0.01 | 0.33 | 0.34 |  |
-| 81 | Ashe | -0.02 | 0.80 | 0.82 | range (attacks) |
-| 82 | Tristana | -0.04 | 0.80 | 0.84 | range (attacks) |
-| 83 | Hwei | -0.04 | 0.56 | 0.60 |  |
-| 84 | Talon | -0.05 | 0.00 | 0.05 |  |
-| 85 | Akali | -0.06 | 0.00 | 0.06 |  |
-| 86 | Dr. Mundo | -0.06 | 0.00 | 0.06 |  |
-| 87 | Tryndamere | -0.06 | 0.00 | 0.06 |  |
+| 62 | Ziggs | +0.15 | 0.62 | 0.47 | range (attacks) |
+| 63 | LeBlanc | +0.15 | 0.38 | 0.23 |  |
+| 64 | Jinx | +0.13 | 0.51 | 0.38 | range (attacks) |
+| 65 | Syndra | +0.10 | 0.52 | 0.42 |  |
+| 66 | Quinn | +0.09 | 0.82 | 0.73 | range (attacks) |
+| 67 | Swain | +0.09 | 0.49 | 0.40 |  |
+| 68 | Twisted Fate | +0.07 | 0.93 | 0.86 | range (attacks) |
+| 69 | Gnar | +0.06 | 0.82 | 0.76 | range (attacks) |
+| 70 | Lucian | +0.06 | 0.62 | 0.56 | range (attacks) |
+| 71 | Illaoi | +0.06 | 0.12 | 0.06 |  |
+| 72 | Sona | +0.05 | 0.85 | 0.80 | range (attacks) |
+| 73 | Akshan | +0.03 | 0.59 | 0.56 | range (attacks) |
+| 74 | Miss Fortune | +0.02 | 0.61 | 0.59 | range (attacks) |
+| 75 | Jax | +0.01 | 0.35 | 0.34 |  |
+| 76 | Kassadin | 0.00 | 0.16 | 0.16 |  |
+| 77 | Cassiopeia | -0.01 | 0.87 | 0.88 |  |
+| 78 | Ashe | -0.02 | 0.80 | 0.82 | range (attacks) |
+| 79 | Thresh | -0.03 | 0.60 | 0.63 |  |
+| 80 | Tristana | -0.04 | 0.80 | 0.84 | range (attacks) |
+| 81 | Hwei | -0.04 | 0.56 | 0.60 |  |
+| 82 | Talon | -0.05 | 0.00 | 0.05 |  |
+| 83 | Akali | -0.06 | 0.00 | 0.06 |  |
+| 84 | Dr. Mundo | -0.06 | 0.00 | 0.06 |  |
+| 85 | Tryndamere | -0.06 | 0.00 | 0.06 |  |
+| 86 | Caitlyn | -0.07 | 0.72 | 0.79 | range (attacks) |
+| 87 | Cho'Gath | -0.08 | 0.32 | 0.40 |  |
 | 88 | Kha'Zix | -0.08 | 0.00 | 0.08 |  |
-| 89 | Gnar | -0.10 | 0.66 | 0.76 | range (attacks) |
-| 90 | Vel'Koz | -0.11 | 0.60 | 0.71 |  |
-| 91 | Pantheon | -0.11 | 0.51 | 0.62 |  |
-| 92 | Karma | -0.11 | 0.38 | 0.49 |  |
-| 93 | Xerath | -0.12 | 0.60 | 0.72 |  |
-| 94 | Malzahar | -0.13 | 1.13 | 1.26 |  |
-| 95 | Aphelios | -0.14 | 0.85 | 0.99 | range (attacks) |
-| 96 | Kayn | -0.14 | 0.65 | 0.79 |  |
-| 97 | Katarina | -0.16 | 0.12 | 0.28 |  |
-| 98 | Thresh | -0.17 | 0.46 | 0.63 |  |
-| 99 | Locke | -0.17 | 0.00 | 0.17 |  |
-| 100 | Rumble | -0.17 | 0.00 | 0.17 |  |
-| 101 | Renata Glasc | -0.18 | 0.83 | 1.01 | range (attacks) |
-| 102 | Renekton | -0.19 | 0.15 | 0.34 |  |
-| 103 | Mordekaiser | -0.20 | 0.21 | 0.41 |  |
-| 104 | Cho'Gath | -0.22 | 0.18 | 0.40 |  |
-| 105 | Jhin | -0.23 | 0.50 | 0.73 | range (attacks) |
-| 106 | Ryze | -0.24 | 0.45 | 0.69 |  |
-| 107 | Bel'Veth | -0.24 | 0.15 | 0.39 |  |
-| 108 | Aatrox | -0.26 | 0.18 | 0.44 |  |
-| 109 | Yorick | -0.27 | 0.12 | 0.39 |  |
-| 110 | Azir | -0.28 | 0.55 | 0.83 |  |
-| 111 | Orianna | -0.28 | 0.55 | 0.83 |  |
-| 112 | Ivern | -0.28 | 0.33 | 0.61 |  |
-| 113 | Varus | -0.29 | 0.65 | 0.94 | range (attacks) |
-| 114 | Irelia | -0.29 | 0.13 | 0.42 |  |
-| 115 | Darius | -0.31 | 0.11 | 0.42 |  |
-| 116 | Trundle | -0.31 | 0.11 | 0.42 |  |
-| 117 | Maokai | -0.32 | 0.82 | 1.14 |  |
-| 118 | Seraphine | -0.34 | 0.64 | 0.98 | range (attacks) |
-| 119 | Shyvana | -0.34 | 0.19 | 0.53 |  |
-| 120 | Fiddlesticks | -0.38 | 0.52 | 0.90 |  |
-| 121 | Volibear | -0.38 | 0.25 | 0.63 |  |
+| 89 | Renata Glasc | -0.10 | 0.91 | 1.01 | range (attacks) |
+| 90 | Fizz | -0.11 | 0.74 | 0.85 |  |
+| 91 | Karma | -0.11 | 0.38 | 0.49 |  |
+| 92 | Aphelios | -0.14 | 0.85 | 0.99 | range (attacks) |
+| 93 | Locke | -0.17 | 0.00 | 0.17 |  |
+| 94 | Rumble | -0.17 | 0.00 | 0.17 |  |
+| 95 | Renekton | -0.19 | 0.15 | 0.34 |  |
+| 96 | Mordekaiser | -0.20 | 0.21 | 0.41 |  |
+| 97 | Vel'Koz | -0.21 | 0.60 | 0.81 |  |
+| 98 | Blitzcrank | -0.21 | 0.39 | 0.60 |  |
+| 99 | Malzahar | -0.22 | 1.21 | 1.43 |  |
+| 100 | Bel'Veth | -0.24 | 0.15 | 0.39 |  |
+| 101 | Taric | -0.24 | 0.12 | 0.36 |  |
+| 102 | Xerath | -0.25 | 0.60 | 0.85 |  |
+| 103 | Seraphine | -0.26 | 0.72 | 0.98 | range (attacks) |
+| 104 | Karthus | -0.26 | 0.33 | 0.59 |  |
+| 105 | Aatrox | -0.26 | 0.18 | 0.44 |  |
+| 106 | Yorick | -0.27 | 0.12 | 0.39 |  |
+| 107 | Ekko | -0.27 | 0.00 | 0.27 |  |
+| 108 | Azir | -0.28 | 0.55 | 0.83 |  |
+| 109 | Orianna | -0.28 | 0.55 | 0.83 |  |
+| 110 | Irelia | -0.29 | 0.13 | 0.42 |  |
+| 111 | Ivern | -0.30 | 0.33 | 0.63 |  |
+| 112 | Varus | -0.31 | 0.65 | 0.96 | range (attacks) |
+| 113 | Darius | -0.31 | 0.11 | 0.42 |  |
+| 114 | Trundle | -0.31 | 0.11 | 0.42 |  |
+| 115 | Maokai | -0.32 | 0.82 | 1.14 |  |
+| 116 | Jhin | -0.32 | 0.50 | 0.82 | range (attacks) |
+| 117 | Nami | -0.33 | 0.64 | 0.97 |  |
+| 118 | Shyvana | -0.34 | 0.19 | 0.53 |  |
+| 119 | Volibear | -0.38 | 0.25 | 0.63 |  |
+| 120 | Kled | -0.39 | 0.78 | 1.17 |  |
+| 121 | Katarina | -0.39 | 0.12 | 0.51 |  |
 | 122 | Sylas | -0.40 | 0.13 | 0.53 |  |
-| 123 | Kled | -0.41 | 0.76 | 1.17 |  |
-| 124 | Nami | -0.41 | 0.56 | 0.97 |  |
-| 125 | Zyra | -0.42 | 0.56 | 0.98 |  |
-| 126 | Blitzcrank | -0.42 | 0.18 | 0.60 |  |
-| 127 | Xin Zhao | -0.44 | 0.55 | 0.99 |  |
-| 128 | Nilah | -0.47 | 0.33 | 0.80 |  |
-| 129 | Neeko | -0.49 | 0.49 | 0.98 |  |
-| 130 | Yasuo | -0.55 | 0.33 | 0.88 |  |
-| 131 | Shen | -0.58 | 0.40 | 0.98 |  |
-| 132 | Riven | -0.58 | 0.12 | 0.70 |  |
-| 133 | Braum | -0.59 | 0.36 | 0.95 |  |
+| 123 | Fiddlesticks | -0.41 | 0.64 | 1.05 |  |
+| 124 | Kayn | -0.42 | 0.65 | 1.07 |  |
+| 125 | Xin Zhao | -0.42 | 0.57 | 0.99 |  |
+| 126 | Zyra | -0.42 | 0.56 | 0.98 |  |
+| 127 | Ryze | -0.42 | 0.45 | 0.87 |  |
+| 128 | Riven | -0.42 | 0.28 | 0.70 |  |
+| 129 | Yasuo | -0.46 | 0.42 | 0.88 |  |
+| 130 | Nilah | -0.47 | 0.33 | 0.80 |  |
+| 131 | Neeko | -0.49 | 0.49 | 0.98 |  |
+| 132 | Aurelion Sol | -0.50 | 0.62 | 1.12 |  |
+| 133 | Braum | -0.51 | 0.44 | 0.95 |  |
 | 134 | Lillia | -0.59 | 0.24 | 0.83 |  |
-| 135 | Janna | -0.60 | 0.80 | 1.40 | range (attacks) |
-| 136 | Camille | -0.63 | 0.63 | 1.26 |  |
-| 137 | Aurelion Sol | -0.63 | 0.49 | 1.12 |  |
-| 138 | Naafiri | -0.68 | 0.00 | 0.68 |  |
-| 139 | Urgot | -0.69 | 0.35 | 1.04 |  |
-| 140 | Malphite | -0.72 | 0.32 | 1.04 |  |
-| 141 | Skarner | -0.72 | 0.24 | 0.96 |  |
-| 142 | Diana | -0.72 | 0.08 | 0.80 |  |
-| 143 | Wukong | -0.72 | 0.08 | 0.80 |  |
-| 144 | Pyke | -0.73 | 0.13 | 0.86 |  |
-| 145 | Lee Sin | -0.75 | 0.08 | 0.83 |  |
-| 146 | Nunu & Willump | -0.77 | 0.31 | 1.08 |  |
-| 147 | Fizz | -0.77 | 0.08 | 0.85 |  |
-| 148 | Warwick | -0.79 | 0.79 | 1.58 |  |
-| 149 | Rakan | -0.79 | 0.26 | 1.05 |  |
-| 150 | Hecarim | -0.86 | 0.14 | 1.00 |  |
-| 151 | Qiyana | -0.90 | 0.08 | 0.98 |  |
-| 152 | Yone | -0.92 | 0.30 | 1.22 |  |
-| 153 | K'Sante | -0.93 | 0.41 | 1.34 |  |
-| 154 | Sett | -0.93 | 0.25 | 1.18 |  |
-| 155 | Leona | -0.93 | 0.18 | 1.11 |  |
-| 156 | Amumu | -0.94 | 0.12 | 1.06 |  |
+| 135 | Pyke | -0.60 | 0.28 | 0.88 |  |
+| 136 | Urgot | -0.61 | 0.43 | 1.04 |  |
+| 137 | Janna | -0.62 | 0.88 | 1.50 | range (attacks) |
+| 138 | Camille | -0.63 | 0.63 | 1.26 |  |
+| 139 | Rell | -0.63 | 0.61 | 1.24 |  |
+| 140 | Rakan | -0.66 | 0.39 | 1.05 |  |
+| 141 | Pantheon | -0.70 | 0.51 | 1.21 |  |
+| 142 | Malphite | -0.72 | 0.32 | 1.04 |  |
+| 143 | Skarner | -0.72 | 0.24 | 0.96 |  |
+| 144 | Diana | -0.72 | 0.08 | 0.80 |  |
+| 145 | Wukong | -0.72 | 0.08 | 0.80 |  |
+| 146 | Lee Sin | -0.75 | 0.08 | 0.83 |  |
+| 147 | Sejuani | -0.77 | 0.38 | 1.15 |  |
+| 148 | Shen | -0.79 | 0.40 | 1.19 |  |
+| 149 | K'Sante | -0.83 | 0.51 | 1.34 |  |
+| 150 | Yone | -0.84 | 0.38 | 1.22 |  |
+| 151 | Nunu & Willump | -0.84 | 0.31 | 1.15 |  |
+| 152 | Leona | -0.85 | 0.26 | 1.11 |  |
+| 153 | Amumu | -0.86 | 0.20 | 1.06 |  |
+| 154 | Qiyana | -0.90 | 0.08 | 0.98 |  |
+| 155 | Sett | -0.91 | 0.27 | 1.18 |  |
+| 156 | Ornn | -0.93 | 0.36 | 1.29 |  |
 | 157 | Ambessa | -0.95 | 0.08 | 1.03 |  |
-| 158 | Sejuani | -0.97 | 0.18 | 1.15 |  |
-| 159 | Nautilus | -1.00 | 0.08 | 1.08 |  |
-| 160 | Ornn | -1.01 | 0.28 | 1.29 |  |
-| 161 | Jarvan IV | -1.06 | 0.14 | 1.20 |  |
-| 162 | Rell | -1.11 | 0.13 | 1.24 |  |
-| 163 | Taliyah | -1.12 | 0.59 | 1.71 |  |
-| 164 | Rammus | -1.12 | 0.39 | 1.51 |  |
-| 165 | Poppy | -1.13 | 0.08 | 1.21 |  |
-| 166 | Gragas | -1.15 | 0.12 | 1.27 |  |
-| 167 | Briar | -1.18 | 0.08 | 1.26 |  |
-| 168 | Galio | -1.35 | 0.16 | 1.51 |  |
-| 169 | Viego | -1.35 | 0.14 | 1.49 |  |
-| 170 | Tahm Kench | -1.40 | 0.18 | 1.58 |  |
-| 171 | Vi | -1.43 | 0.30 | 1.73 |  |
-| 172 | Zac | -1.49 | 0.14 | 1.63 |  |
+| 158 | Rammus | -0.96 | 0.57 | 1.53 |  |
+| 159 | Taliyah | -0.99 | 0.82 | 1.81 |  |
+| 160 | Nautilus | -1.00 | 0.08 | 1.08 |  |
+| 161 | Naafiri | -1.02 | 0.00 | 1.02 |  |
+| 162 | Jarvan IV | -1.06 | 0.14 | 1.20 |  |
+| 163 | Gragas | -1.09 | 0.20 | 1.29 |  |
+| 164 | Hecarim | -1.09 | 0.14 | 1.23 |  |
+| 165 | Briar | -1.18 | 0.08 | 1.26 |  |
+| 166 | Poppy | -1.18 | 0.08 | 1.26 |  |
+| 167 | Tahm Kench | -1.23 | 0.39 | 1.62 |  |
+| 168 | Viego | -1.23 | 0.29 | 1.52 |  |
+| 169 | Warwick | -1.25 | 0.81 | 2.06 |  |
+| 170 | Zac | -1.29 | 0.37 | 1.66 |  |
+| 171 | Vi | -1.47 | 0.32 | 1.79 |  |
+| 172 | Galio | -1.66 | 0.35 | 2.01 |  |

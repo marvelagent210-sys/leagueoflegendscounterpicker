@@ -25,6 +25,7 @@ export function baseFighter(champion: Champion, form: ChampionForm | undefined =
   return {
     id: form.id,
     name: form.name,
+    resourceType: champion.resource,
     base: {
       hp: statAtLevel(s.hp, level),
       hpRegen: statAtLevel(s.hpRegen, level),

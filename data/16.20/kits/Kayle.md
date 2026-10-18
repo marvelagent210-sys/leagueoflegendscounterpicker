@@ -284,7 +284,7 @@ All 1 level-based formulas in the game files (0 linked to wiki values above):
 
 ## Duel simulator kit (level 20, every ability at max rank)
 
-What the duel simulator fights with (`kits/champions/Kayle.ts`): every number is read from the wiki's ability data above at level 20; what the wiki doesn't say is listed under assumptions. Ratios are fractions of the stat (60% AD is 0.6 × AD).
+What the duel simulator fights with (`kits/champions/Kayle.ts`): values come from pinned wiki and versioned game-data records at level 20. Interpretations and missing evidence are listed under assumptions. Ratios are fractions of the stat (60% AD is 0.6 × AD).
 
 - Basic attack: range 625, missile at 5000/s, on hit: 35 + 10% bonus AD + 20% AP magic damage (Starfire Spellblade (passive)); 47 + 10% bonus AD + 25% AP magic damage (Fire wave), can crit.
 
@@ -302,9 +302,9 @@ Effects marked by a mark or a role are completed by the kit's hooks (see the kit
 - Kayle's fire wave always hits her attack's target, as on-hit damage; Zeal's 6% per stack is at its 30% maximum for good.
 - Radiant Blast's sword launches 0.264 s after the cast starts: her windup at level 20 with Zeal, or the portal's 0.264 s if longer.
 
-### Wiki values read (36)
+### Source values read (36)
 
-| Ability | Value | Revision |
+| Ability | Value | Source version |
 |---|---|---|
 | Divine Ascent | Kayle gains an additional 100 bonus attack range for a total of 625 | [4051190](https://wiki.leagueoflegends.com/en-us/Template:Data_Kayle/Divine_Ascent?oldid=4051190) |
 | Divine Ascent | permanently gains the full effects of Zealous | [4051190](https://wiki.leagueoflegends.com/en-us/Template:Data_Kayle/Divine_Ascent?oldid=4051190) |

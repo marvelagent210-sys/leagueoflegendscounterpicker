@@ -316,7 +316,7 @@ All 4 level-based formulas in the game files (2 linked to wiki values above):
 
 ## Duel simulator kit (level 20, every ability at max rank)
 
-What the duel simulator fights with (`kits/champions/Mordekaiser.ts`): every number is read from the wiki's ability data above at level 20; what the wiki doesn't say is listed under assumptions. Ratios are fractions of the stat (60% AD is 0.6 × AD).
+What the duel simulator fights with (`kits/champions/Mordekaiser.ts`): values come from pinned wiki and versioned game-data records at level 20. Interpretations and missing evidence are listed under assumptions. Ratios are fractions of the stat (60% AD is 0.6 × AD).
 
 - Basic attack: range 175, melee, on hit: 40% AP magic damage (Darkness Rise).
 
@@ -338,9 +338,9 @@ Effects marked by a mark or a role are completed by the kit's hooks (see the kit
 - Realm of Death is centered between the two champions; neither can leave it for its duration.
 - Realm of Death's slow during its cast time is left out.
 
-### Wiki values read (31)
+### Source values read (31)
 
-| Ability | Value | Revision |
+| Ability | Value | Source version |
 |---|---|---|
 | Darkness Rise | Mordekaiser's basic attacks are empowered to deal 40% AP bonus magic damage on-hit | [4070051](https://wiki.leagueoflegends.com/en-us/Template:Data_Mordekaiser/Darkness_Rise?oldid=4070051) |
 | Darkness Rise | lasting for 4 seconds, refreshing on subsequent triggers, and stacking up to 3 times | [4070051](https://wiki.leagueoflegends.com/en-us/Template:Data_Mordekaiser/Darkness_Rise?oldid=4070051) |

@@ -324,6 +324,7 @@ const kled: KitModule = {
         },
       },
       hooks: {
+        onTargetResurrection(ctx) { delete ctx.memory.trapAt; },
         onTick(ctx) {
           const self = ctx.self;
           const enemy = ctx.enemy;

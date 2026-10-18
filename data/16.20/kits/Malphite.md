@@ -204,14 +204,14 @@ All 1 level-based formulas in the game files (0 linked to wiki values above):
 
 ## Duel simulator kit (level 20, every ability at max rank)
 
-What the duel simulator fights with (`kits/champions/Malphite.ts`): every number is read from the wiki's ability data above at level 20; what the wiki doesn't say is listed under assumptions. Ratios are fractions of the stat (60% AD is 0.6 × AD).
+What the duel simulator fights with (`kits/champions/Malphite.ts`): values come from pinned wiki and versioned game-data records at level 20. Interpretations and missing evidence are listed under assumptions. Ratios are fractions of the stat (60% AD is 0.6 × AD).
 
 - Basic attack: range 125, melee.
 
 | Key | Ability | Cooldown (s) | Cast time (s) | Cost | Delivery | On the enemy | On itself |
 |---|---|--:|--:|---|---|---|---|
-| Q | Seismic Shard | 8 | 0.25 | 90 | targeted, 625 range, missile at 1200/s | 270 + 60% AP magic damage; to itself: moveSpeedFlat 40% target's movement speed for 3 s; slow 40% for 3 s | – |
-| W | Thunderclap | 8 | 0 | 50 | self | – | next 1 attack within 6 s: 70 + 20% AP + 15% armor physical damage (+50 range, resets the attack timer, uncancellable); next 99 attacks within 5 s: 55 + 30% AP + 15% armor physical damage (Thunderclap (cone)) |
+| Q | Seismic Shard | 8 | 0.25 | 90 | targeted, 625 range, missile at 1200/s | 270 + 60% AP magic damage; slow 40% for 3 s | – |
+| W | Thunderclap | 8 | 0 | 50 | self | – | next 1 attack within 6 s: 70 + 20% AP + 15% armor physical damage (Thunderclap) (+50 range, resets the attack timer, uncancellable); next 99 attacks within 5 s: 55 + 30% AP + 15% armor physical damage (Thunderclap (cone)) |
 | E | Ground Slam | 7 | 0.242 | 70 | around itself, 400 units | 200 + 60% AP + 40% armor magic damage; cripple 50% for 3 s | – |
 | R | Unstoppable Force | 100 | 0 | 100 | dash toward 1000 units at 1835/s, hits within 325 | 400 + 90% AP magic damage; knock up over 1.5 s | displacementImmune for 1 s |
 
@@ -221,17 +221,23 @@ Effects marked by a mark or a role are completed by the kit's hooks (see the kit
 
 - Unstoppable Force's dash speed (1500 + 100% movement speed) uses Malphite's base movement speed.
 
-### Wiki values read (35)
+### Source values read (41)
 
-| Ability | Value | Revision |
+| Ability | Value | Source version |
 |---|---|---|
 | Granite Shield | a shield equal to 10% of his maximum health | [3973718](https://wiki.leagueoflegends.com/en-us/Template:Data_Malphite/Granite_Shield?oldid=3973718) |
 | Granite Shield | staticCooldown: 8 / 7 / 6 (based on level) | [3973718](https://wiki.leagueoflegends.com/en-us/Template:Data_Malphite/Granite_Shield?oldid=3973718) |
+| Granite Shield | Granite Shield does not refresh its cooldown from damage that is mitigated by shields | [3973718](https://wiki.leagueoflegends.com/en-us/Template:Data_Malphite/Granite_Shield?oldid=3973718) |
 | Thunderclap | Bonus Armor: 10 / 15 / 20 / 25 / 30% armor | [4013417](https://wiki.leagueoflegends.com/en-us/Template:Data_Malphite/Thunderclap?oldid=4013417) |
 | Thunderclap | Increased Bonus Armor: 30 / 45 / 60 / 75 / 90% armor | [4013417](https://wiki.leagueoflegends.com/en-us/Template:Data_Malphite/Thunderclap?oldid=4013417) |
 | Seismic Shard | Slow: 20 / 25 / 30 / 35 / 40% | [4003493](https://wiki.leagueoflegends.com/en-us/Template:Data_Malphite/Seismic_Shard?oldid=4003493) |
 | Seismic Shard | slows them for 3 seconds upon impact | [4003493](https://wiki.leagueoflegends.com/en-us/Template:Data_Malphite/Seismic_Shard?oldid=4003493) |
 | Thunderclap | on-hit for the next 5 seconds | [4013417](https://wiki.leagueoflegends.com/en-us/Template:Data_Malphite/Thunderclap?oldid=4013417) |
+| Thunderclap | The main target is dealt basic damage, though without applying life steal | [4013417](https://wiki.leagueoflegends.com/en-us/Template:Data_Malphite/Thunderclap?oldid=4013417) |
+| Thunderclap | Prevents Malphite from casting Seismic Shard and Ground Slam during its windup | [4013417](https://wiki.leagueoflegends.com/en-us/Template:Data_Malphite/Thunderclap?oldid=4013417) |
+| Thunderclap | Cannot have its windup canceled by new movement or attack commands, or casting Unstoppable Force | [4013417](https://wiki.leagueoflegends.com/en-us/Template:Data_Malphite/Thunderclap?oldid=4013417) |
+| Seismic Shard | Slow-resistant and slow-immune targets will reduce or nullify Malphite's gain | [4003493](https://wiki.leagueoflegends.com/en-us/Template:Data_Malphite/Seismic_Shard?oldid=4003493) |
+| Seismic Shard | If the target becomes untargetable, dies, or is too far away or no longer in sight during the cast time, this ability will cancel but does not go on cooldown nor pay its cost | [4003493](https://wiki.leagueoflegends.com/en-us/Template:Data_Malphite/Seismic_Shard?oldid=4003493) |
 | Unstoppable Force | knocks them up for 1.5 seconds | [4074437](https://wiki.leagueoflegends.com/en-us/Template:Data_Malphite/Unstoppable_Force?oldid=4074437) |
 | Seismic Shard | cooldown: 8 | [4003493](https://wiki.leagueoflegends.com/en-us/Template:Data_Malphite/Seismic_Shard?oldid=4003493) |
 | Seismic Shard | cost: 70 / 75 / 80 / 85 / 90 | [4003493](https://wiki.leagueoflegends.com/en-us/Template:Data_Malphite/Seismic_Shard?oldid=4003493) |

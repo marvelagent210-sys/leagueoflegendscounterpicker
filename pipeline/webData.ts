@@ -13,38 +13,88 @@
  *
  * Usage: npm run web:data [-- --dataset 16.20]
  */
-import { cp, mkdir, readFile, readdir, rm } from "node:fs/promises";
+import { cp, mkdir, readFile, readdir, rename, rm } from "node:fs/promises";
 import path from "node:path";
+import { fileURLToPath } from "node:url";
+import { randomUUID } from "node:crypto";
 import { DATA_DIR, REPO_ROOT, datasetDir } from "./config";
 import { latestDataset } from "./datasets";
 import { readJson, writeJson, writeText } from "./lib/files";
 import type { Manifest } from "./manifest";
+import { simulationProvenance } from "./sim/fingerprint";
 
 const OUT = path.join(REPO_ROOT, "web", "public", "data");
 
-async function main(): Promise<void> {
-  const index = process.argv.indexOf("--dataset");
-  const dataset = index >= 0 ? (process.argv[index + 1] ?? "") : await latestDataset(DATA_DIR, "simulated.json");
+/** Used by the CLI and Vite's development watcher; importing this module performs no IO. */
+export async function exportWebData(selected?: string, output = OUT): Promise<void> {
+  const dataset = selected ?? await latestDataset(DATA_DIR, "simulated.json");
   const source = datasetDir(dataset);
-  const manifest = await readJson<Manifest>(path.join(source, "manifest.json"));
-  const out = path.join(OUT, dataset);
-  await rm(OUT, { recursive: true, force: true });
-  await mkdir(out, { recursive: true });
-  for (const file of ["champions.json", "rules.json", "glossary.json", "simulated.json", "runes.json"]) await cp(path.join(source, file), path.join(out, file));
-  await cp(path.join(source, "abilities"), path.join(out, "abilities"), { recursive: true });
-  const petFiles = (await readdir(path.join(source, "pets"))).filter((file) => file.endsWith(".json")).sort();
-  const pets = Object.fromEntries(
-    await Promise.all(petFiles.map(async (file) => [file.replace(/\.json$/, ""), JSON.parse(await readFile(path.join(source, "pets", file), "utf8")) as unknown] as const)),
-  );
-  await writeText(path.join(out, "pets.json"), JSON.stringify(pets));
-  const profileFiles = (await readdir(path.join(source, "profiles"))).filter((file) => file.endsWith(".json")).sort();
-  const profiles = await Promise.all(profileFiles.map(async (file) => JSON.parse(await readFile(path.join(source, "profiles", file), "utf8")) as unknown));
-  await writeText(path.join(out, "profiles.json"), JSON.stringify(profiles));
-  await writeJson(path.join(OUT, "index.json"), { dataset, patch: manifest.patch });
-  console.log(`[web] data for patch ${manifest.patch} (dataset ${dataset}) in web/public/data/`);
+  for (let attempt = 0; attempt < 3; attempt++) {
+    if (await exportSnapshot(dataset, source, output)) {
+      console.log(`[web] data for dataset ${dataset} in ${path.relative(REPO_ROOT, output)}`);
+      return;
+    }
+  }
+  throw new Error("Dataset inputs changed during export. The previous export was preserved; retry after edits finish.");
 }
 
-main().catch((error: unknown) => {
-  console.error(error);
-  process.exitCode = 1;
-});
+/** A changed input snapshot is discarded before publication, never stamped as current. */
+async function exportSnapshot(dataset: string, source: string, output: string): Promise<boolean> {
+  const simulation = await simulationProvenance(dataset);
+  const manifest = await readJson<Manifest>(path.join(source, "manifest.json"));
+  const operation = `${process.pid}-${randomUUID()}`;
+  const staging = path.join(path.dirname(output), `.data-staging-${operation}`);
+  const backup = path.join(path.dirname(output), `.data-backup-${operation}`);
+  const out = path.join(staging, dataset);
+  try {
+    await mkdir(out, { recursive: true });
+    for (const file of ["champions.json", "rules.json", "glossary.json", "simulated.json", "runes.json"]) await cp(path.join(source, file), path.join(out, file));
+    await cp(path.join(source, "abilities"), path.join(out, "abilities"), { recursive: true });
+    const petFiles = (await readdir(path.join(source, "pets"))).filter((file) => file.endsWith(".json")).sort();
+    const pets = Object.fromEntries(
+      await Promise.all(petFiles.map(async (file) => [file.replace(/\.json$/, ""), JSON.parse(await readFile(path.join(source, "pets", file), "utf8")) as unknown] as const)),
+    );
+    await writeText(path.join(out, "pets.json"), JSON.stringify(pets));
+    const profileFiles = (await readdir(path.join(source, "profiles"))).filter((file) => file.endsWith(".json")).sort();
+    const profiles = await Promise.all(profileFiles.map(async (file) => JSON.parse(await readFile(path.join(source, "profiles", file), "utf8")) as unknown));
+    await writeText(path.join(out, "profiles.json"), JSON.stringify(profiles));
+    if ((await simulationProvenance(dataset)).fingerprint !== simulation.fingerprint) return false;
+    await writeJson(path.join(staging, "index.json"), { dataset, patch: manifest.patch, simulationFingerprint: simulation.fingerprint });
+    // Serve the previous complete export until its replacement is fully written.
+    await rm(backup, { recursive: true, force: true });
+    let hadPreviousOutput = false;
+    try {
+      await rename(output, backup);
+      hadPreviousOutput = true;
+    } catch (error) {
+      if ((error as NodeJS.ErrnoException).code !== "ENOENT") throw error;
+    }
+    let preserveBackup = false;
+    try {
+      await rename(staging, output);
+    } catch (error) {
+      if (hadPreviousOutput) {
+        try {
+          await rename(backup, output);
+        } catch (rollbackError) {
+          preserveBackup = true;
+          throw new AggregateError([error, rollbackError], `Export publication and rollback failed. The previous complete export is preserved at ${backup}`);
+        }
+      }
+      throw error;
+    } finally {
+      if (!preserveBackup) await rm(backup, { recursive: true, force: true });
+    }
+    return true;
+  } finally {
+    await rm(staging, { recursive: true, force: true });
+  }
+}
+
+if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
+  const index = process.argv.indexOf("--dataset");
+  void exportWebData(index >= 0 ? (process.argv[index + 1] ?? "") : undefined).catch((error: unknown) => {
+    console.error(error);
+    process.exitCode = 1;
+  });
+}

@@ -110,8 +110,9 @@ const mundo: KitModule = {
           // Regeneration every half second: the innate's, and Maximum Dosage's.
           if (ctx.tick % 15 === 0) {
             ctx.regenerate((regenShare * maxHp(self)) / 10);
-            if (ctx.tick < Number(ctx.memory.dosageUntil ?? -1)) ctx.regenerate((regenTotal * maxHp(self)) / (dosageSeconds * 2));
           }
+          const dosageAt = Number(ctx.memory.dosageAt ?? -1);
+          if (dosageAt >= 0 && ctx.tick > dosageAt && ctx.tick <= Number(ctx.memory.dosageUntil ?? -1) && (ctx.tick - dosageAt) % 15 === 0) ctx.regenerate((regenTotal * maxHp(self)) / (dosageSeconds * 2));
           // Goes Where He Pleases: spent on an immobilizing effect, it costs health and comes back later.
           if (ctx.memory.negateArmed && !hasState(self, "ccNegate")) {
             ctx.memory.negateArmed = false;
@@ -124,7 +125,7 @@ const mundo: KitModule = {
           // Heart Zapper's pulses.
           if (zapping(ctx) && (ctx.tick - Number(ctx.memory.zapStart)) % ticks(zapEvery) === 0 && ctx.tick > Number(ctx.memory.zapStart)) {
             if (Math.abs(self.x - ctx.enemy.x) - ctx.enemy.spec.base.radius <= zapRadius) {
-              ctx.apply({ type: "damage", damageType: "magic", amount: zapPulse, label: w.name });
+              ctx.apply({ type: "damage", damageType: "magic", amount: zapPulse, label: w.name, persistent: true });
             }
           }
         },
@@ -151,6 +152,7 @@ const mundo: KitModule = {
           }
           if (key === "E") ctx.apply(trauma(ctx), true);
           if (key === "R") {
+            ctx.memory.dosageAt = ctx.tick;
             ctx.memory.dosageUntil = ctx.tick + ticks(dosageSeconds);
             // More base health: a share of missing health, gained (and healed) for the duration.
             ctx.apply({ type: "stat", stat: "health", amount: flat(baseHealth * (maxHp(ctx.self) - ctx.self.hp)), duration: dosageSeconds }, true);

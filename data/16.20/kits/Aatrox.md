@@ -247,7 +247,7 @@ All 4 level-based formulas in the game files (3 linked to wiki values above):
 
 ## Duel simulator kit (level 20, every ability at max rank)
 
-What the duel simulator fights with (`kits/champions/Aatrox.ts`): every number is read from the wiki's ability data above at level 20; what the wiki doesn't say is listed under assumptions. Ratios are fractions of the stat (60% AD is 0.6 × AD).
+What the duel simulator fights with (`kits/champions/Aatrox.ts`): values come from pinned wiki and versioned game-data records at level 20. Interpretations and missing evidence are listed under assumptions. Ratios are fractions of the stat (60% AD is 0.6 × AD).
 
 - Basic attack: range 175, melee.
 
@@ -269,16 +269,18 @@ Effects marked by a mark or a role are completed by the kit's hooks (see the kit
 - Infernal Chains' tether breaks 225 units from where it hit (the wiki gives no size); its pull back is a 0.25-second knock up in place.
 - Umbral Dash is aimed late in each Darkin Blade strike to put its sweet spot on the enemy, when it is up.
 
-### Wiki values read (40)
+### Source values read (41)
 
-| Ability | Value | Revision |
+| Ability | Value | Source version |
 |---|---|---|
 | Deathbringer Stance | staticCooldown: 22 – 10 (based on level) | [4076803](https://wiki.leagueoflegends.com/en-us/Template:Data_Aatrox/Deathbringer_Stance?oldid=4076803) |
 | Deathbringer Stance | empowers his next basic attack to gain 50 bonus range | [4076803](https://wiki.leagueoflegends.com/en-us/Template:Data_Aatrox/Deathbringer_Stance?oldid=4076803) |
 | Deathbringer Stance | Innate: Periodically, Aatrox empowers his next basic attack to gain 50 bonus range and deal bonus magic damage equal to 4 – 10 (based on level)% of the target's maximum health, capped at 100 – 320 (based on level) against monsters. | [4076803](https://wiki.leagueoflegends.com/en-us/Template:Data_Aatrox/Deathbringer_Stance?oldid=4076803) |
 | Deathbringer Stance | Deathbringer Stance's current cooldown is reduced by 2 seconds, doubled to 4 | [4076803](https://wiki.leagueoflegends.com/en-us/Template:Data_Aatrox/Deathbringer_Stance?oldid=4076803) |
 | The Darkin Blade | Aatrox can activate The Darkin Blade three times | [4074361](https://wiki.leagueoflegends.com/en-us/Template:Data_Aatrox/The_Darkin_Blade?oldid=4074361) |
+| The Darkin Blade | Cooldown starts: cooldown starts on first cast and restarts on each successive recast | [4074361](https://wiki.leagueoflegends.com/en-us/Template:Data_Aatrox/The_Darkin_Blade?oldid=4074361) |
 | The Darkin Blade | with a 1-second static cooldown between casts | [4074361](https://wiki.leagueoflegends.com/en-us/Template:Data_Aatrox/The_Darkin_Blade?oldid=4074361) |
+| The Darkin Blade | cooldown: 14 / 12 / 10 / 8 / 6 | [4074361](https://wiki.leagueoflegends.com/en-us/Template:Data_Aatrox/The_Darkin_Blade?oldid=4074361) |
 | The Darkin Blade | If Aatrox does not recast the ability within 4 seconds of the previous cast | [4074361](https://wiki.leagueoflegends.com/en-us/Template:Data_Aatrox/The_Darkin_Blade?oldid=4074361) |
 | The Darkin Blade | are also knocked up for 0.25 seconds | [4074361](https://wiki.leagueoflegends.com/en-us/Template:Data_Aatrox/The_Darkin_Blade?oldid=4074361) |
 | The Darkin Blade | Aatrox's first strike affects a 625 × 180-unit rectangular area | [4074361](https://wiki.leagueoflegends.com/en-us/Template:Data_Aatrox/The_Darkin_Blade?oldid=4074361) |
@@ -295,7 +297,6 @@ Effects marked by a mark or a role are completed by the kit's hooks (see the kit
 | World Ender | Increased Healing: 50 / 75 / 100% | [3959270](https://wiki.leagueoflegends.com/en-us/Template:Data_Aatrox/World_Ender?oldid=3959270) |
 | Infernal Chains | Physical Damage: 30 / 40 / 50 / 60 / 70 (+ 40% AD) | [4064835](https://wiki.leagueoflegends.com/en-us/Template:Data_Aatrox/Infernal_Chains?oldid=4064835) |
 | World Ender | Bonus Attack Damage: 20 / 30 / 40% AD | [3959270](https://wiki.leagueoflegends.com/en-us/Template:Data_Aatrox/World_Ender?oldid=3959270) |
-| The Darkin Blade | cooldown: 14 / 12 / 10 / 8 / 6 | [4074361](https://wiki.leagueoflegends.com/en-us/Template:Data_Aatrox/The_Darkin_Blade?oldid=4074361) |
 | The Darkin Blade | castTime: 0.6 | [4074361](https://wiki.leagueoflegends.com/en-us/Template:Data_Aatrox/The_Darkin_Blade?oldid=4074361) |
 | The Darkin Blade | First Sweetspot Damage: 17.5 / 43.75 / 70 / 96.25 / 122.5 (+ 105 / 118.125 / 131.25 / 144.375 / 157.5% AD) | [4074361](https://wiki.leagueoflegends.com/en-us/Template:Data_Aatrox/The_Darkin_Blade?oldid=4074361) |
 | The Darkin Blade | First Cast Damage: 10 / 25 / 40 / 55 / 70 (+ 60 / 67.5 / 75 / 82.5 / 90% AD) | [4074361](https://wiki.leagueoflegends.com/en-us/Template:Data_Aatrox/The_Darkin_Blade?oldid=4074361) |

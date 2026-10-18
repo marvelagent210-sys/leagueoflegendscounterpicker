@@ -196,3 +196,78 @@ All 1 level-based formulas in the game files (1 linked to wiki values above):
 | Spell | Calculation | Rule | Level 1 | Level 18 | Level 20 |
 |---|---|---|--:|--:|--:|
 | LuxIlluminationPassive | TotalDamage | table of values per level (30 levels) | 30 | 200 | 220 |
+
+## Duel simulator kit (level 20, every ability at max rank)
+
+What the duel simulator fights with (`kits/champions/Lux.ts`): values come from pinned wiki and versioned game-data records at level 20. Interpretations and missing evidence are listed under assumptions. Ratios are fractions of the stat (60% AD is 0.6 × AD).
+
+- Basic attack: range 550, missile at 1600/s, on hit: 220 + 35% AP magic damage (Illumination), varies with combat state; formula is a reference.
+
+| Key | Ability | Cooldown (s) | Cast time (s) | Cost | Delivery | On the enemy | On itself |
+|---|---|--:|--:|---|---|---|---|
+| Q | Light Binding | 10 | 0.25 | 50 | skillshot 1300 long, 140 wide, at 1200/s | 240 + 75% AP magic damage; root for 2 s; marks it "illumination" for 6 s | – |
+| W | Prismatic Barrier | 10 | 0.25 | 80 | self | – | as the cast starts: shield of 100 + 40% AP for 2.5 s |
+| E | Lucent Singularity | 8 | 0.25 | 110 | circle of 310 radius up to 1100 away, projectile at 1200/s then lands after 0 s | 265 + 80% AP magic damage; slow 45% for 1 s; marks it "illumination" for 6 s | – |
+| R | Final Spark | 40 | 1 | 100 | skillshot 3400 long, 200 wide, instant | 500 + 120% AP magic damage; marks it "illumination" for 6 s | – |
+
+Effects marked by a mark or a role are completed by the kit's hooks (see the kit's source).
+
+### Assumptions
+
+- Prismatic Barrier protects Lux herself; the duel has no allied champions. Its wand travels at the recorded original speed of 2400 units/s on both passes because the committed source does not give the acceleration curve.
+- Lux immediately recasts Lucent Singularity while it is in flight, so its explosion and 1-second slow occur on arrival; she does not hold the 5-second field in this duel policy.
+- Light Binding hits the opposing champion without minion collision; its second-target allowance is irrelevant in a champion-only duel. Its range field has unlabeled values 1300 and 1240; the first is used for cast and missile range.
+- Vision is not modeled. Final Spark retains its cast-start position and firing direction on the simulator's line.
+
+### Source values read (48)
+
+| Ability | Value | Source version |
+|---|---|---|
+| Illumination | apply a mark to enemies hit for 6 seconds | [4059694](https://wiki.leagueoflegends.com/en-us/Template:Data_Lux/Illumination?oldid=4059694) |
+| Illumination | Lux's basic attacks on-hit and Final Spark consume the mark to deal 30 – 200 (based on level) (+ 35% AP) bonus magic damage. | [4059694](https://wiki.leagueoflegends.com/en-us/Template:Data_Lux/Illumination?oldid=4059694) |
+| Illumination | (+ 35% AP) bonus magic damage | [4059694](https://wiki.leagueoflegends.com/en-us/Template:Data_Lux/Illumination?oldid=4059694) |
+| Illumination | refreshes its duration to 0.25 seconds | [4059694](https://wiki.leagueoflegends.com/en-us/Template:Data_Lux/Illumination?oldid=4059694) |
+| Illumination | refreshes the marks of all marked enemies to 1.25 seconds | [4059694](https://wiki.leagueoflegends.com/en-us/Template:Data_Lux/Illumination?oldid=4059694) |
+| Illumination | within 5000 units | [4059694](https://wiki.leagueoflegends.com/en-us/Template:Data_Lux/Illumination?oldid=4059694) |
+| Illumination | remaining duration of less than 1 second | [4059694](https://wiki.leagueoflegends.com/en-us/Template:Data_Lux/Illumination?oldid=4059694) |
+| Illumination | Illumination will be consumed but not deal any damage if the basic attack is blocked | [4059694](https://wiki.leagueoflegends.com/en-us/Template:Data_Lux/Illumination?oldid=4059694) |
+| Illumination | Illumination will not be consumed if the basic attack misses due to blind | [4059694](https://wiki.leagueoflegends.com/en-us/Template:Data_Lux/Illumination?oldid=4059694) |
+| Illumination | Illumination will not be consumed if the basic attack misses due to dodge | [4059694](https://wiki.leagueoflegends.com/en-us/Template:Data_Lux/Illumination?oldid=4059694) |
+| Illumination | Spell shield prevents Final Spark from consuming the mark | [4059694](https://wiki.leagueoflegends.com/en-us/Template:Data_Lux/Illumination?oldid=4059694) |
+| Prismatic Barrier | Shield Strength: 40 / 55 / 70 / 85 / 100 (+ 40% AP) | [3992656](https://wiki.leagueoflegends.com/en-us/Template:Data_Lux/Prismatic_Barrier?oldid=3992656) |
+| Prismatic Barrier | gain a shield for 2.5 seconds | [3992656](https://wiki.leagueoflegends.com/en-us/Template:Data_Lux/Prismatic_Barrier?oldid=3992656) |
+| Prismatic Barrier | range: 1175 | [3992656](https://wiki.leagueoflegends.com/en-us/Template:Data_Lux/Prismatic_Barrier?oldid=3992656) |
+| Prismatic Barrier | speed (Original speed): 2400 | [3992656](https://wiki.leagueoflegends.com/en-us/Template:Data_Lux/Prismatic_Barrier?oldid=3992656) |
+| Prismatic Barrier | Lux gains the shield upon throwing and upon retrieving the wand | [3992656](https://wiki.leagueoflegends.com/en-us/Template:Data_Lux/Prismatic_Barrier?oldid=3992656) |
+| Prismatic Barrier | stacking with the previous shield and refreshing its duration | [3992656](https://wiki.leagueoflegends.com/en-us/Template:Data_Lux/Prismatic_Barrier?oldid=3992656) |
+| Prismatic Barrier | Lux's wand decelerates on the way out and accelerates on the way back | [3992656](https://wiki.leagueoflegends.com/en-us/Template:Data_Lux/Prismatic_Barrier?oldid=3992656) |
+| Prismatic Barrier | Prismatic Barrier is destroyed by Wind Wall, Blade Whirl, and Rebuttal but not Unbreakable | [3992656](https://wiki.leagueoflegends.com/en-us/Template:Data_Lux/Prismatic_Barrier?oldid=3992656) |
+| Lucent Singularity | If Lucent Singularity was recast while in flight, it will detonate upon arrival | [4007677](https://wiki.leagueoflegends.com/en-us/Template:Data_Lux/Lucent_Singularity?oldid=4007677) |
+| Final Spark | This ability will cast from wherever the caster is at the start of the cast time | [3919833](https://wiki.leagueoflegends.com/en-us/Template:Data_Lux/Final_Spark?oldid=3919833) |
+| Final Spark | a massive light beam in a line in the target direction | [3919833](https://wiki.leagueoflegends.com/en-us/Template:Data_Lux/Final_Spark?oldid=3919833) |
+| Light Binding | cooldown: 10 | [4007675](https://wiki.leagueoflegends.com/en-us/Template:Data_Lux/Light_Binding?oldid=4007675) |
+| Light Binding | cost: 50 | [4007675](https://wiki.leagueoflegends.com/en-us/Template:Data_Lux/Light_Binding?oldid=4007675) |
+| Light Binding | castTime: 0.25 | [4007675](https://wiki.leagueoflegends.com/en-us/Template:Data_Lux/Light_Binding?oldid=4007675) |
+| Light Binding | range: 1300 • 1240 | [4007675](https://wiki.leagueoflegends.com/en-us/Template:Data_Lux/Light_Binding?oldid=4007675) |
+| Light Binding | width: 140 | [4007675](https://wiki.leagueoflegends.com/en-us/Template:Data_Lux/Light_Binding?oldid=4007675) |
+| Light Binding | speed: 1200 | [4007675](https://wiki.leagueoflegends.com/en-us/Template:Data_Lux/Light_Binding?oldid=4007675) |
+| Light Binding | Magic Damage: 80 / 120 / 160 / 200 / 240 (+ 75% AP) | [4007675](https://wiki.leagueoflegends.com/en-us/Template:Data_Lux/Light_Binding?oldid=4007675) |
+| Light Binding | roots them for 2 seconds | [4007675](https://wiki.leagueoflegends.com/en-us/Template:Data_Lux/Light_Binding?oldid=4007675) |
+| Prismatic Barrier | cooldown: 12 / 11.5 / 11 / 10.5 / 10 | [3992656](https://wiki.leagueoflegends.com/en-us/Template:Data_Lux/Prismatic_Barrier?oldid=3992656) |
+| Prismatic Barrier | cost: 60 / 65 / 70 / 75 / 80 | [3992656](https://wiki.leagueoflegends.com/en-us/Template:Data_Lux/Prismatic_Barrier?oldid=3992656) |
+| Prismatic Barrier | castTime: 0.25 | [3992656](https://wiki.leagueoflegends.com/en-us/Template:Data_Lux/Prismatic_Barrier?oldid=3992656) |
+| Lucent Singularity | cooldown: 10 / 9.5 / 9 / 8.5 / 8 | [4007677](https://wiki.leagueoflegends.com/en-us/Template:Data_Lux/Lucent_Singularity?oldid=4007677) |
+| Lucent Singularity | cost: 70 / 80 / 90 / 100 / 110 | [4007677](https://wiki.leagueoflegends.com/en-us/Template:Data_Lux/Lucent_Singularity?oldid=4007677) |
+| Lucent Singularity | castTime: 0.25 | [4007677](https://wiki.leagueoflegends.com/en-us/Template:Data_Lux/Lucent_Singularity?oldid=4007677) |
+| Lucent Singularity | targetRange: 1100 | [4007677](https://wiki.leagueoflegends.com/en-us/Template:Data_Lux/Lucent_Singularity?oldid=4007677) |
+| Lucent Singularity | effectRadius (Singularity radius): 310 • 650 | [4007677](https://wiki.leagueoflegends.com/en-us/Template:Data_Lux/Lucent_Singularity?oldid=4007677) |
+| Lucent Singularity | speed: 1200 | [4007677](https://wiki.leagueoflegends.com/en-us/Template:Data_Lux/Lucent_Singularity?oldid=4007677) |
+| Lucent Singularity | Magic Damage: 65 / 115 / 165 / 215 / 265 (+ 80% AP) | [4007677](https://wiki.leagueoflegends.com/en-us/Template:Data_Lux/Lucent_Singularity?oldid=4007677) |
+| Lucent Singularity | Slow: 25 / 30 / 35 / 40 / 45% | [4007677](https://wiki.leagueoflegends.com/en-us/Template:Data_Lux/Lucent_Singularity?oldid=4007677) |
+| Lucent Singularity | also slowed by the same amount for 1 second | [4007677](https://wiki.leagueoflegends.com/en-us/Template:Data_Lux/Lucent_Singularity?oldid=4007677) |
+| Final Spark | cooldown: 60 / 50 / 40 | [3919833](https://wiki.leagueoflegends.com/en-us/Template:Data_Lux/Final_Spark?oldid=3919833) |
+| Final Spark | cost: 100 | [3919833](https://wiki.leagueoflegends.com/en-us/Template:Data_Lux/Final_Spark?oldid=3919833) |
+| Final Spark | castTime: 1 | [3919833](https://wiki.leagueoflegends.com/en-us/Template:Data_Lux/Final_Spark?oldid=3919833) |
+| Final Spark | range: 3400 | [3919833](https://wiki.leagueoflegends.com/en-us/Template:Data_Lux/Final_Spark?oldid=3919833) |
+| Final Spark | width: 200 | [3919833](https://wiki.leagueoflegends.com/en-us/Template:Data_Lux/Final_Spark?oldid=3919833) |
+| Final Spark | Magic Damage: 300 / 400 / 500 (+ 120% AP) | [3919833](https://wiki.leagueoflegends.com/en-us/Template:Data_Lux/Final_Spark?oldid=3919833) |

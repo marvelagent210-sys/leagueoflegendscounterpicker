@@ -228,7 +228,7 @@ All 3 level-based formulas in the game files (2 linked to wiki values above):
 
 ## Duel simulator kit (level 20, every ability at max rank)
 
-What the duel simulator fights with (`kits/champions/DrMundo.ts`): every number is read from the wiki's ability data above at level 20; what the wiki doesn't say is listed under assumptions. Ratios are fractions of the stat (60% AD is 0.6 × AD).
+What the duel simulator fights with (`kits/champions/DrMundo.ts`): values come from pinned wiki and versioned game-data records at level 20. Interpretations and missing evidence are listed under assumptions. Ratios are fractions of the stat (60% AD is 0.6 × AD).
 
 - Basic attack: range 125, melee.
 
@@ -248,9 +248,9 @@ Effects marked by a mark or a role are completed by the kit's hooks (see the kit
 - Heart Zapper pulses every 0.25 s for its 3 s (the wiki's total damage implies a few more pulses) and detonates when it runs out.
 - Maximum Dosage is used once Dr. Mundo is below half health, with one enemy champion nearby.
 
-### Wiki values read (35)
+### Source values read (35)
 
-| Ability | Value | Revision |
+| Ability | Value | Source version |
 |---|---|---|
 | Goes Where He Pleases | Mundo regenerates an additional 0.4 – 2.3 (based on level)% of his maximum health every 5 seconds. | [4038331](https://wiki.leagueoflegends.com/en-us/Template:Data_Dr._Mundo/Goes_Where_He_Pleases?oldid=4038331) |
 | Goes Where He Pleases | staticCooldown: 60 / 51 / 42 / 33 / 24 / 15 (based on level) | [4038331](https://wiki.leagueoflegends.com/en-us/Template:Data_Dr._Mundo/Goes_Where_He_Pleases?oldid=4038331) |

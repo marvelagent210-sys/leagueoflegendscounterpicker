@@ -8,10 +8,10 @@ Status: milestones 1 to 4 of 8 are done, milestone 5 is built and waiting for re
 - every champion's abilities;
 - the interaction ledger, with a first counter ranking;
 - the duel simulator's core, which applies the game's rules and is tested on synthetic kits;
-- waves 1 and 2: 49 top laners whose kits the simulator plays out, and golden matchups to check it against;
-- the web app: picker, matchup, kit and settings pages, published to GitHub Pages.
+- waves 1 and 2: 49 top laners, plus 18 champions across other roles in two expansion batches, with source-backed mechanics tests;
+- the web app: picker, matchup, kit and settings pages, with a private Codespaces preview.
 
-Between two of the 49, the ranking comes from simulated duels (*full* confidence). Everywhere else it is still *partial*: the ledger weighs how the kits' abilities interact without playing the fight out. See [PLAN.md](PLAN.md) for the plan and progress.
+Between two of the 73 supported champions, the ranking comes from simulated duels under the displayed settings and kit assumptions. Everywhere else the ledger estimates how the abilities interact without playing the fight out. The app labels these bases **Simulated** and **Interaction estimate**; neither certifies every mechanic or decision. See [PLAN.md](PLAN.md) for the plan and progress.
 
 ## Setup
 
@@ -19,6 +19,9 @@ Requires Node.js 22.19 or later.
 
 ```sh
 npm ci
+npm run typecheck
+npm run build:sim -- --threads 4   # refresh duels, counter pages, ledger rankings and reports after engine changes
+npm run build:sim -- --check       # check whether committed duel results match current inputs
 npm test
 ```
 
@@ -37,7 +40,11 @@ The app has four pages:
 - a kit (`#/kit/<champion>`): everything the engine knows about one champion, with links to the wiki revisions it read;
 - the settings (`#/settings`).
 
-Results at the default settings are precomputed by `npm run build:data`. If you change a setting, the duels against the chosen enemy run again in your browser, in Web Workers; changing only the scenario weights reweighs the precomputed results. Settings stay in the browser.
+Results at the default settings are precomputed by `npm run build:data`, or refreshed from committed parsed data with `npm run build:sim` without fetching raw sources. Each matrix records a fingerprint of its simulator, kits and input data. The browser reruns outdated results instead of presenting them as current. Changed settings, including weights that affect kit variant choices, run again in Web Workers. Settings stay in the browser.
+
+The [private mobile preview](https://codespaces.new/marvelagent210-sys/leagueoflegendscounterpicker/tree/counter-picker-download-393ffdb2?quickstart=1) uses a packaged build in a GitHub Codespace. Preview updates follow validation of each batch. Its `README-MOBILE.md` explains startup, phone access and resuming it. Keep port 8000's visibility **Private**. The downloadable package also includes the exact working source and parsed inputs in `SOURCE`, with computer setup instructions in `README-PRIVATE.md`.
+
+The full test suite retains two failing draft winner expectations, Garen–Yasuo and Malphite–Yasuo. See [ACCURACY.md](ACCURACY.md) for current validation and model limits.
 
 `.github/workflows/pages.yml` runs the type checks, tests and build on every pull request. On each push to main it also publishes the app to GitHub Pages. Pages must be turned on once, with "GitHub Actions" as the source (Settings → Pages).
 
@@ -48,7 +55,7 @@ npm run matchup -- Fiora Darius     # every interaction between two kits, with t
 npm run counters -- Tryndamere      # champions ranked against an enemy: by simulated duels (champions with kits), then by the ledger (partial)
 ```
 
-Names are matched loosely (`"dr mundo"`, `wukong`). For example, the ledger finds that Riposte parries Darius's Apprehend and stuns him back, and that Teemo's blind makes Tryndamere's basic attacks miss.
+Names are matched loosely (`"dr mundo"`, `wukong`). For example, parrying Darius's Apprehend empowers Riposte's shock to stun if it hits, and Teemo's blind makes Tryndamere's basic attacks miss.
 
 ## Duel simulator
 
@@ -67,14 +74,19 @@ The simulator plays a duel out at 30 ticks per second, in one dimension. Both ch
 - spacing;
 - escape.
 
-Uncertain skillshots that decide a fight split it into weighted branches, so results are exact probabilities.
+Uncertain skillshots that decide a fight split it into weighted branches, using the model's estimated hit chances. Smaller hits and hits beyond the branch limit use expected effects. These are model probabilities, not observed player win rates.
 
-These 49 champions fight with their abilities (`kits/champions/`):
+These 73 champions fight with their abilities (`kits/champions/`):
 
 - wave 1: Aatrox, Camille, Darius, Dr. Mundo, Fiora, Garen, Gwen, Irelia, Jax, Malphite, Mordekaiser, Nasus, Olaf, Ornn, Poppy, Renekton, Riven, Sett, Shen, Teemo, Tryndamere, Urgot, Volibear, Yasuo and Yone;
 - wave 2: Akali, Ambessa, Aurora, Cho'Gath, Gangplank, Gnar, Heimerdinger, Illaoi, Jayce, Kayle, K'Sante, Kennen, Kled, Pantheon, Quinn, Rumble, Singed, Sion, Skarner, Tahm Kench, Trundle, Udyr, Yorick and Zaahen.
+- expansion batch 1: Amumu, Annie, Ashe, Brand, Leona, Lux, Master Yi, Morgana, Nautilus, Rammus, Vayne and Xin Zhao.
+- expansion batch 2: Ahri, Cassiopeia, Kassadin, Lissandra, Veigar and Vladimir.
+- expansion batch 3: Anivia, Karthus, Malzahar, Vel'Koz, Ziggs and Zyra.
 
-Every number in a kit is read from the wiki; the kit page lists them with their revisions, along with the kit's assumptions. Some kits have a choice to make (Udyr's rank split, Heimerdinger's upgrade): each matchup plays the option best for that side, and `simulated.json` records which. Other champions fight with their base stats and basic attacks only.
+Implemented coverage is 73 of 173 champions, leaving 100 to implement and covering 2,628 unordered simulated pairings. The generated [coverage report](data/16.20/reports/coverage.md) tracks the implementation queue. Coverage does not certify every mechanic; each kit retains its source evidence and assumptions. Source audits for these caster batches are recorded in [docs/next-wave](docs/next-wave/README.md).
+
+Kit values come from the pinned sources; the kit page lists their revisions and the kit's assumptions. Some kits have a choice to make (Udyr's rank split, Heimerdinger's upgrade): both sides choose their best conservative variant across the opponent's choices, and `simulated.json` records the actual pairing. This does not establish a mixed-strategy equilibrium. The picker uses interaction estimates for other champions; a manual duel without their kit includes base stats and basic attacks only.
 
 ```sh
 npm run golden       # every golden matchup (tests/golden/matchups.ts) with its simulated score
@@ -85,7 +97,7 @@ npm run golden       # every golden matchup (tests/golden/matchups.ts) with its 
 ```sh
 npm run fetch        # download the current patch's sources into data/raw/ (not committed)
 npm run fetch -- --only glossary   # refetch just the wiki's glossary pages
-npm run build:data   # rebuild data/<dataset>/ from those downloads (about 10 minutes on 4 cores: it simulates all 1,176 matchups between champions with kits)
+npm run build:data   # rebuild data/<dataset>/ from those downloads, including all 2,628 supported pairings
 ```
 
 Each patch gets a folder named after its Data Dragon version, e.g. `data/16.20/` for patch 26.20. It contains:
@@ -98,7 +110,7 @@ Each patch gets a folder named after its Data Dragon version, e.g. `data/16.20/`
 | `glossary.json` | The wiki's lists of abilities by mechanic (dashes, untargetability, spell shields, each crowd control type's sources, ...) and its crowd control rules |
 | `rules.json` | Game values the simulator reads from the wiki: the gold value of each stat, which prices the stat budget |
 | `profiles/<champion>.json` | What each ability does in a fight: how it's delivered, the crowd control it applies, how it moves, what it protects against; and basic attacks at level 20 |
-| `counters/<champion>.md` | Every champion ranked against this one: by simulated duels for the 49 champions with kits (full), and by the interaction ledger (partial), with the strongest reasons |
+| `counters/<champion>.md` | Every champion ranked against this one: by simulated duels for the 73 champions with kits, and by interaction estimates, with the strongest reasons |
 | `rankings.json` | The ledger rankings, machine-readable |
 | `simulated.json` | Every simulated matchup between champions with kits: the score and each scenario's, and the options played by kits with a choice |
 | `oracle/level20.json` | The wiki's level-20 stat table, which the tests check the stat math against |
@@ -110,6 +122,10 @@ Each patch gets a folder named after its Data Dragon version, e.g. `data/16.20/`
 | `reports/simulator.md` | The simulated standings, the golden matchups with their scores, and what the stat budget buys each champion |
 
 Tests run offline against the committed data.
+
+See [ACCURACY.md](ACCURACY.md) for the validation workflow, source-backed corrections,
+and the model's remaining limits. Rebuild the committed rankings with `npm run build:sim`
+after changing simulator inputs; `npm run build:sim -- --check` detects stale results.
 
 ## Data sources and attribution
 

@@ -283,7 +283,7 @@ All 18 level-based formulas in the game files (7 linked to wiki values above):
 
 ## Duel simulator kit (level 20, every ability at max rank)
 
-What the duel simulator fights with (`kits/champions/Udyr.ts`): every number is read from the wiki's ability data above at level 20; what the wiki doesn't say is listed under assumptions. Ratios are fractions of the stat (60% AD is 0.6 × AD).
+What the duel simulator fights with (`kits/champions/Udyr.ts`): values come from pinned wiki and versioned game-data records at level 20. Interpretations and missing evidence are listed under assumptions. Ratios are fractions of the stat (60% AD is 0.6 × AD).
 
 - Basic attack: range 125, melee.
 - Stat budget: 60 gold more than the enemy's.
@@ -316,9 +316,9 @@ Effects marked by a mark or a role are completed by the kit's hooks (see the kit
 - Blazing Stampede's pounce is a melee attack from his range; its speed decays evenly, and the Awakened speed and range last its 4 seconds.
 - Awakened Wingborne Storm's storm moves at 250, its level-18 speed (the wiki gives none past 18).
 
-### Wiki values read (68)
+### Source values read (68)
 
-| Ability | Value | Revision |
+| Ability | Value | Source version |
 |---|---|---|
 | Triple Tonic | Level 9: Elixir of Skill | [3961243](https://wiki.leagueoflegends.com/en-us/Template:Rune_data_Triple_Tonic?oldid=3961243) |
 | Triple Tonic | Elixir of Skill: Grants 1 skill point | [3905667](https://wiki.leagueoflegends.com/en-us/Module:ItemData/data/Elixir_of_Skill?oldid=3905667) |

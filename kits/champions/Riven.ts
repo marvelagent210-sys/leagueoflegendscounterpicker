@@ -2,8 +2,10 @@
 import type { KitModule } from "../../engine/kits/compile";
 import { canCast, canStartAttack } from "../../engine/sim/actions";
 import { type Behavior, defaultBehavior, expectedDamage } from "../../engine/sim/behavior";
+import { derive, evaluate } from "../../engine/sim/derived";
 import type { AbilitySpec, Effect } from "../../engine/sim/spec";
-import { attackDamage, bump, counter, flat, missingShare, scaled } from "./util";
+import type { Unit } from "../../engine/sim/state";
+import { attackDamage, bump, counter, flat, missingShare, scaled, ticks } from "./util";
 
 const riven: KitModule = {
   champion: "Riven",
@@ -25,7 +27,16 @@ const riven: KitModule = {
     const knockBack = q.quoted("knocking back enemies hit 75 units over 0.5 seconds", 0);
     const exileSeconds = r.quoted("Riven empowers her blade for 15 seconds", 0);
     const exileRange = r.quoted("75 bonus attack range", 0);
+    const exileAD = r.quoted("gaining 20% AD bonus attack damage", 0) / 100;
     const slashDelay = r.quoted("After 0.5 seconds, she can cast Wind Slash within the duration", 0);
+    const exileDelay = r.quoted("All bonuses are gained after 0.5 seconds of the ability starting its cast", 0);
+    const exileAfterCast = (ticks(exileDelay + exileSeconds) - ticks(r.castTime())) / 30;
+    const slashAfterCast = (ticks(slashDelay) - ticks(r.castTime())) / 30;
+    r.quote("The bonus attack damage amount is factored upon cast, and does not change");
+    innate.quote("applies life steal at 100% effectiveness");
+    const qRadii = q.fieldValues("effectRadius");
+    const wRadii = w.fieldValues("effectRadius");
+    const exiled = (unit: Unit) => unit.statuses.some((s) => s.kind === "stat" && s.memoKey === "R:attackRange");
     // Wind Slash: up to +200% damage at 75% missing health.
     const slashMin = slash.formula("Minimum Physical Damage");
     const missingSeries = slash.seriesIn("increased by 0 / 25 / 50 / 75 / 100 / 125 / 150 / 175 / 200");
@@ -62,7 +73,7 @@ const riven: KitModule = {
       const windSlash = self.spec.abilities.find((a) => a.key === "R2");
       if (windSlash && canCast(view.world, self, windSlash)) {
         const missing = missingShare(view.enemy);
-        const damage = expectedDamage([{ type: "damage", damageType: "physical", amount: slashDamage(missing) }], self, view.enemy);
+        const damage = expectedDamage([{ type: "damage", damageType: "physical", amount: slashDamage(missing) }], self, view.enemy, true);
         const ending = (self.chains.R?.until ?? Number.POSITIVE_INFINITY) - view.world.tick <= 15;
         if (damage >= view.enemy.hp || missing >= slashFullAt || missingShare(self) >= 1 - slashLow || ending) return { kind: "cast", ability: "R2" };
       }
@@ -88,27 +99,44 @@ const riven: KitModule = {
     return {
       budget: { damage: (self) => ({ physical: charges * runicShare * attackDamage(self) }) },
       hooks: {
+        onTick(ctx) {
+          const up = exiled(ctx.self);
+          if (Boolean(ctx.memory.exileGeometry) === up) return;
+          ctx.memory.exileGeometry = up;
+          // Each unit owns its replacement spec. Shared compiled kits and branches are
+          // never mutated when Blade of the Exile starts or ends.
+          ctx.self.spec = {
+            ...ctx.self.spec,
+            abilities: ctx.self.spec.abilities.map((ability) => {
+              if (ability.key.startsWith("Q") && ability.delivery.kind === "dash") {
+                const third = ability.key === "Q3";
+                return { ...ability, delivery: { ...ability.delivery, hitRadius: qRadii[Number(third) + 2 * Number(up)]! } };
+              }
+              if (ability.key === "W" && ability.delivery.kind === "aura") return { ...ability, delivery: { ...ability.delivery, radius: wRadii[Number(up)]! } };
+              return ability;
+            }),
+          };
+        },
+        onCastStart(ctx) {
+          if (ctx.ability.key !== "R") return;
+          const bonusAD = derive(ctx.self).ad * exileAD;
+          ctx.apply({ type: "delayed", delay: exileDelay, effects: [
+            { type: "stat", stat: "AD", amount: flat(bonusAD), duration: exileSeconds },
+            { type: "stat", stat: "attackRange", amount: flat(exileRange), duration: exileSeconds },
+          ] }, true);
+        },
         onCast(ctx) {
           bump(ctx, "runic", maxCharges, chargeSeconds);
         },
         onAttack(ctx) {
           ctx.memory.lastAttackTick = ctx.tick;
           const charges = counter(ctx, "runic");
-          ctx.memory.runicPending = charges > 0;
           if (charges > 0) {
             ctx.memory.runic = charges - 1;
             ctx.memory.runicUntil = ctx.tick + Math.ceil(chargeSeconds * 30);
-          }
-        },
-        onAttackHit(ctx) {
-          if (ctx.memory.runicPending) ctx.apply(runic);
-          ctx.memory.runicPending = false;
-        },
-        onAbilityHit(ctx) {
-          if (ctx.ability.key === "R2") {
-            // The rest of Wind Slash's bonus for the target's missing health.
-            const bonus = slashDamage(missingShare(ctx.enemy));
-            ctx.apply({ type: "damage", damageType: "physical", amount: { base: bonus.base - slashMin.base, ratios: { bonusAD: (bonus.ratios?.bonusAD ?? 0) - (slashMin.ratios?.bonusAD ?? 0) } }, label: "Wind Slash (missing health)" });
+            // Attach the passive to the real attack, so block/dodge/parry and life
+            // steal use the same rules as the attack's own damage.
+            if (ctx.self.action?.kind === "windup") ctx.self.action.onHit.push(runic);
           }
         },
       },
@@ -146,11 +174,11 @@ const riven: KitModule = {
           slot: "R",
           cooldown: r.cooldown(),
           castTime: r.castTime(),
-          chainCooldown: "last",
+          chainCooldown: "first",
+          cooldownAfter: "state",
           delivery: { kind: "self" },
           onSelf: [
-            { type: "stat", stat: "AD", amount: { base: 0, ratios: { AD: r.quoted("gaining 20% AD bonus attack damage", 0) / 100 } }, duration: exileSeconds },
-            { type: "stat", stat: "attackRange", amount: flat(exileRange), duration: exileSeconds },
+            { type: "state", state: "lingering", duration: exileAfterCast },
           ],
           roles: ["buff"],
         },
@@ -160,9 +188,9 @@ const riven: KitModule = {
           slot: "R",
           cooldown: 0,
           castTime: slash.castTime(),
-          chain: { root: "R", index: 2, window: exileSeconds, delay: slashDelay },
+          chain: { root: "R", index: 2, window: exileAfterCast, delay: slashAfterCast },
           delivery: { kind: "line", range: slash.field("targetRange"), width: slash.field("width") * 3, speed: slash.field("speed") },
-          onHit: [{ type: "damage", damageType: "physical", amount: slashMin }],
+          onHit: [{ type: "damage", damageType: "physical", amount: slashMin, amountFor: (self, target) => evaluate(slashDamage(missingShare(target)), self, target) }],
           roles: ["finisher"],
           flags: { projectile: slash.flag("projectile") ?? true },
         },

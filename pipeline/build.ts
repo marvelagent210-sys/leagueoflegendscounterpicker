@@ -48,7 +48,8 @@ import { type CompiledKit, compileKit } from "../engine/kits/compile";
 import { KITS } from "../kits/champions/index";
 import { GOLDEN } from "../tests/golden/matchups";
 import { simulatePairs } from "./sim/pool";
-import { type SimulatedMatrix, simulatedCounterSection, simulatedJson, simulatedMatrix, simulatorReport, simulatorSection } from "./simPages";
+import { simulationProvenance } from "./sim/fingerprint";
+import { type SimulatedMatrix, coverageReport, simulatedCounterSection, simulatedJson, simulatedMatrix, simulatorReport, simulatorSection } from "./simPages";
 import type { DDragonChampionFull } from "./sources/ddragon";
 import type { WikiPage } from "./sources/wiki";
 
@@ -163,7 +164,7 @@ async function main(): Promise<void> {
   log(`Profiles: ${profiles.kits.length} kits; ${profiles.descriptionOnly.length} effects read only from descriptions`);
   const profileOf = new Map(profiles.kits.map((kit) => [kit.champion, kit]));
 
-  // The duel simulator: every pairing of champions with simulator kits (full confidence).
+  // The duel simulator: every pairing of champions with simulator kits.
   const compiled = new Map<string, CompiledKit>();
   for (const [id, module] of Object.entries(KITS).sort(([a], [b]) => a.localeCompare(b))) {
     const champion = byId.get(id);
@@ -172,9 +173,11 @@ async function main(): Promise<void> {
   }
   const simulated = [...compiled.keys()];
   const pairs: Array<[string, string]> = simulated.flatMap((you, i) => simulated.slice(i + 1).map((enemy): [string, string] => [you, enemy]));
+  const simulation = await simulationProvenance(dataset);
   const started = Date.now();
   const matrix: SimulatedMatrix = simulatedMatrix(simulated, DEFAULT_BUDGET, pairs, await simulatePairs(dataset, DEFAULT_BUDGET, pairs));
-  await writeText(path.join(out, "simulated.json"), simulatedJson(dataset, manifest.patch, matrix));
+  if ((await simulationProvenance(dataset)).fingerprint !== simulation.fingerprint) throw new Error("Simulator inputs changed during the build; retry after edits finish.");
+  await writeText(path.join(out, "simulated.json"), simulatedJson(dataset, manifest.patch, matrix, simulation));
   log(`Simulator: ${pairs.length} matchups between ${simulated.length} champions with kits in ${((Date.now() - started) / 1000).toFixed(0)} s (see simulated.json and reports/simulator.md)`);
 
   for (const champion of champions) {
@@ -202,6 +205,7 @@ async function main(): Promise<void> {
   );
   await writeText(path.join(out, "reports", "ledger.md"), ledgerReport(manifest.patch, glossary, profiles.kits, rankings, names, profiles.descriptionOnly));
   await writeText(path.join(out, "reports", "simulator.md"), simulatorReport(manifest.patch, matrix, names, GOLDEN));
+  await writeText(path.join(out, "reports", "coverage.md"), coverageReport(champions, compiled));
   log(`Ledger: counter rankings for ${rankings.length} champions (partial; see counters/ and reports/ledger.md)`);
 
   const coverage = measureCoverage(abilities.records);

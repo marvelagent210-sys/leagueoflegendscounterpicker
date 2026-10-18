@@ -162,3 +162,86 @@ Cooldowns and costs of each slot's main ability, wiki vs game files:
 | E: Event Horizon | cost | 70 / 75 / 80 / 85 / 90 | 70 / 75 / 80 / 85 / 90 | yes |
 | R: Primordial Burst | cooldown | 120 / 90 / 60 | 120 / 90 / 60 | yes |
 | R: Primordial Burst | cost | 100 / 100 / 100 | 100 / 100 / 100 | yes |
+
+## Duel simulator kit (level 20, every ability at max rank)
+
+What the duel simulator fights with (`kits/champions/Veigar.ts`): values come from pinned wiki and versioned game-data records at level 20. Interpretations and missing evidence are listed under assumptions. Ratios are fractions of the stat (60% AD is 0.6 × AD).
+
+- Basic attack: range 550, missile at 1500/s.
+- Options: phenomenalEvilStacks = 0.
+
+| Key | Ability | Cooldown (s) | Cast time (s) | Cost | Delivery | On the enemy | On itself |
+|---|---|--:|--:|---|---|---|---|
+| Q | Baleful Strike | 4 | 0.25 | 50 | skillshot 1050 long, 140 wide, at 2200/s | 240 + 70% AP magic damage | – |
+| W | Dark Matter | 8 (depends on stats) | 0.25 | 80 | circle of 240 radius up to 950 away, lands after 1.221 s | 305 + 110% AP magic damage | – |
+| E | Event Horizon | 14 | 0.25 | 90 | circle of 411 radius up to 725 away, lands after 0.5 s | – | – |
+| R | Primordial Burst | 60 | 0.25 | 100 | targeted, 650 range, missile at 1500/s | 325 + 75% AP magic damage, varies with combat state; formula is a reference | – |
+
+Effects marked by a mark or a role are completed by the kit's hooks (see the kit's source).
+
+### Assumptions
+
+- Phenomenal Evil stacks before the duel (fresh-duel default, not farmed late-game stacks): 0.
+- Phenomenal Evil starts at the explicitly chosen stack count (default 0), grants connected-spell AP after that packet's damage, and grants negated-contact AP without increasing the same packet's damage. The stat budget holds starting stacks fixed instead of forecasting duel-dependent growth.
+- Baleful Strike uses the first unlabeled range value, 1050 rather than 990. The duel contains one enemy champion, so the two-target bolt and minion/monster farming stacks are not simulated.
+- Enemy-pet limitations: Baleful Strike does not track pet collisions or its two-enemy piercing allowance, and eligible pet kills do not grant Q stacks. Dark Matter's area splash damages eligible enemy pets even after Veigar dies, without granting champion-contact AP or champion-takedown stacks. The cage's traps affect only the opposing champion.
+- Dark Matter cooldown uses discrete 50-stack thresholds: 8 × 0.9^floor(stacks/50), matching every retained sample. The source does not specify behavior between those samples. Newly gained stacks affect subsequent declarations, not an already-running cooldown.
+- Dark Matter lands at ceil(1.221 × 30) = 37 ticks from cast declaration at its fixed target location, including after caster death. Area vision is not modeled.
+- Event Horizon uses center-based boundary intervals [290, 411] from its fixed center, sampled each 30 Hz tick; this preserves a safe interior and permits sufficiently fast movement to skip the boundary. Its unspecified 0.5-second erection clock is interpreted from cast completion. Kill/assist vision markers and third-party credit are not modeled.
+- Primordial Burst uses continuous interpolation between the retained missing-health samples, capped at twice minimum damage at two-thirds missing health, with current AP/HP read at impact. Its missile speed is absent from the pinned record; 1500 units/s is an explicit simulation assumption, retaining homing travel and projectile-blocker counterplay.
+- Takedown AP is recorded once when Veigar's damage kills or triggers a death continuation. Baleful Strike's extra kill stack is credited then but its AP is applied on the next tick; a later last hit of an already-counted death continuation does not grant another Q kill bonus in this model. Credit from a third-party/non-damage death is not simulated.
+- After the simulator's skillshot branch limit, expected-value Q/W contacts grant the same expected fraction of passive AP as their hit share; the resulting fractional expected stacks are a simulation approximation rather than an in-game stack count.
+- The duel policy aims a cage boundary across the rival, follows a lasting stun with Dark Matter, and uses Primordial Burst in all-in/kiting modes from one-third missing health or when lethal. Short trades and return-fire mode retain the simulator's no-ultimate policy; a fleeing Veigar only uses a cage against a nearby pursuer.
+
+### Source values read (48)
+
+| Ability | Value | Source version |
+|---|---|---|
+| Phenomenal Evil Power | Veigar generates a stack of Phenomenal Evil for each enemy champion hit by his abilities | [3932550](https://wiki.leagueoflegends.com/en-us/Template:Data_Veigar/Phenomenal_Evil_Power?oldid=3932550) |
+| Phenomenal Evil Power | 5 stacks whenever he scores an enemy champion takedown | [3932550](https://wiki.leagueoflegends.com/en-us/Template:Data_Veigar/Phenomenal_Evil_Power?oldid=3932550) |
+| Phenomenal Evil Power | For each stack, Veigar gains 1 ability power | [3932550](https://wiki.leagueoflegends.com/en-us/Template:Data_Veigar/Phenomenal_Evil_Power?oldid=3932550) |
+| Phenomenal Evil Power | Veigar's abilities do not have to deal damage nor affect their targets to grant a stack | [3932550](https://wiki.leagueoflegends.com/en-us/Template:Data_Veigar/Phenomenal_Evil_Power?oldid=3932550) |
+| Baleful Strike | deals magic damage to the first two enemies hit | [4050924](https://wiki.leagueoflegends.com/en-us/Template:Data_Veigar/Baleful_Strike?oldid=4050924) |
+| Baleful Strike | If this kills an enemy, it generates 1 stack of Phenomenal Evil | [4050924](https://wiki.leagueoflegends.com/en-us/Template:Data_Veigar/Baleful_Strike?oldid=4050924) |
+| Baleful Strike | Baleful Strike will only grant stacks of Phenomenal Evil from its bolt | [4050924](https://wiki.leagueoflegends.com/en-us/Template:Data_Veigar/Baleful_Strike?oldid=4050924) |
+| Baleful Strike | The stacks are added immediately on enemy kill (on next game tick) | [4050924](https://wiki.leagueoflegends.com/en-us/Template:Data_Veigar/Baleful_Strike?oldid=4050924) |
+| Baleful Strike | This ability will cast from wherever the caster is at the end of the cast time | [4050924](https://wiki.leagueoflegends.com/en-us/Template:Data_Veigar/Baleful_Strike?oldid=4050924) |
+| Dark Matter | after a 1.221 delay | [3991312](https://wiki.leagueoflegends.com/en-us/Template:Data_Veigar/Dark_Matter?oldid=3991312) |
+| Dark Matter | The delay starts at the beginning of the cast time | [3991312](https://wiki.leagueoflegends.com/en-us/Template:Data_Veigar/Dark_Matter?oldid=3991312) |
+| Dark Matter | If Veigar dies during the cast time, Dark Matter will still successfully fall from the sky | [3991312](https://wiki.leagueoflegends.com/en-us/Template:Data_Veigar/Dark_Matter?oldid=3991312) |
+| Dark Matter | cooldown: 8 / 7.2 / 6.48 / 5.832 / 5.2488 / 4.72392 / 4.25153 / 3.82638 / 3.44374 / 3.09936 / 2.78943 / 2.51048 / 2.25944 / 2.03349 / 1.83014 / 1.64713 / 1.48242 / 1.33417 / 1.20076 / ... / 0 (based on Phenomenal Evil stacks) | [3991312](https://wiki.leagueoflegends.com/en-us/Template:Data_Veigar/Dark_Matter?oldid=3991312) |
+| Event Horizon | targetRange: 725 | [4016714](https://wiki.leagueoflegends.com/en-us/Template:Data_Veigar/Event_Horizon?oldid=4016714) |
+| Event Horizon | effectRadius (Outer radius): 411 • 290 • 390 | [4016714](https://wiki.leagueoflegends.com/en-us/Template:Data_Veigar/Event_Horizon?oldid=4016714) |
+| Event Horizon | effectRadius (Safe zone radius): 411 • 290 • 390 | [4016714](https://wiki.leagueoflegends.com/en-us/Template:Data_Veigar/Event_Horizon?oldid=4016714) |
+| Event Horizon | effectRadius (Credit marker radius): 411 • 290 • 390 | [4016714](https://wiki.leagueoflegends.com/en-us/Template:Data_Veigar/Event_Horizon?oldid=4016714) |
+| Event Horizon | erects after a 0.5 second delay | [4016714](https://wiki.leagueoflegends.com/en-us/Template:Data_Veigar/Event_Horizon?oldid=4016714) |
+| Event Horizon | remaining there for 3 seconds | [4016714](https://wiki.leagueoflegends.com/en-us/Template:Data_Veigar/Event_Horizon?oldid=4016714) |
+| Event Horizon | only once every 4.5 seconds | [4016714](https://wiki.leagueoflegends.com/en-us/Template:Data_Veigar/Event_Horizon?oldid=4016714) |
+| Event Horizon | Event Horizon can affect enemies only once per cast | [4016714](https://wiki.leagueoflegends.com/en-us/Template:Data_Veigar/Event_Horizon?oldid=4016714) |
+| Event Horizon | Units that negate the stun will still count as passing through the edges | [4016714](https://wiki.leagueoflegends.com/en-us/Template:Data_Veigar/Event_Horizon?oldid=4016714) |
+| Event Horizon | Displacement immune enemies will still be stunned, but not knocked down | [4016714](https://wiki.leagueoflegends.com/en-us/Template:Data_Veigar/Event_Horizon?oldid=4016714) |
+| Event Horizon | Event Horizon may fail to catch enemies that move very quickly through the boundary distance | [4016714](https://wiki.leagueoflegends.com/en-us/Template:Data_Veigar/Event_Horizon?oldid=4016714) |
+| Event Horizon | Stun Duration: 1.5 / 1.75 / 2 / 2.25 / 2.5 seconds | [4016714](https://wiki.leagueoflegends.com/en-us/Template:Data_Veigar/Event_Horizon?oldid=4016714) |
+| Primordial Burst | Minimum Magic Damage: 175 / 250 / 325 (+ 65 / 70 / 75% AP) | [4004085](https://wiki.leagueoflegends.com/en-us/Template:Data_Veigar/Primordial_Burst?oldid=4004085) |
+| Primordial Burst | Maximum Magic Damage: 350 / 500 / 650 (+ 130 / 140 / 150% AP) | [4004085](https://wiki.leagueoflegends.com/en-us/Template:Data_Veigar/Primordial_Burst?oldid=4004085) |
+| Primordial Burst | Active: Veigar sends a primordial burst at the target enemy champion that deals magic damage, increased by 0 / 10 / 20 / 30 / 40 / 50 / 60 / 70 / 80 / 90 / 100 (based on target's missing health)%. | [4004085](https://wiki.leagueoflegends.com/en-us/Template:Data_Veigar/Primordial_Burst?oldid=4004085) |
+| Primordial Burst | If the target becomes untargetable, dies, or is too far away or no longer in sight during the cast time, this ability will cancel but does not go on cooldown nor pay its cost | [4004085](https://wiki.leagueoflegends.com/en-us/Template:Data_Veigar/Primordial_Burst?oldid=4004085) |
+| Baleful Strike | cooldown: 6 / 5.5 / 5 / 4.5 / 4 | [4050924](https://wiki.leagueoflegends.com/en-us/Template:Data_Veigar/Baleful_Strike?oldid=4050924) |
+| Baleful Strike | cost: 30 / 35 / 40 / 45 / 50 | [4050924](https://wiki.leagueoflegends.com/en-us/Template:Data_Veigar/Baleful_Strike?oldid=4050924) |
+| Baleful Strike | castTime: 0.25 | [4050924](https://wiki.leagueoflegends.com/en-us/Template:Data_Veigar/Baleful_Strike?oldid=4050924) |
+| Baleful Strike | targetRange: 1050 • 990 | [4050924](https://wiki.leagueoflegends.com/en-us/Template:Data_Veigar/Baleful_Strike?oldid=4050924) |
+| Baleful Strike | width: 140 | [4050924](https://wiki.leagueoflegends.com/en-us/Template:Data_Veigar/Baleful_Strike?oldid=4050924) |
+| Baleful Strike | speed: 2200 | [4050924](https://wiki.leagueoflegends.com/en-us/Template:Data_Veigar/Baleful_Strike?oldid=4050924) |
+| Baleful Strike | Magic Damage: 80 / 120 / 160 / 200 / 240 (+ 50 / 55 / 60 / 65 / 70% AP) | [4050924](https://wiki.leagueoflegends.com/en-us/Template:Data_Veigar/Baleful_Strike?oldid=4050924) |
+| Dark Matter | cost: 60 / 65 / 70 / 75 / 80 | [3991312](https://wiki.leagueoflegends.com/en-us/Template:Data_Veigar/Dark_Matter?oldid=3991312) |
+| Dark Matter | castTime: 0.25 | [3991312](https://wiki.leagueoflegends.com/en-us/Template:Data_Veigar/Dark_Matter?oldid=3991312) |
+| Dark Matter | targetRange: 950 | [3991312](https://wiki.leagueoflegends.com/en-us/Template:Data_Veigar/Dark_Matter?oldid=3991312) |
+| Dark Matter | effectRadius: 240 | [3991312](https://wiki.leagueoflegends.com/en-us/Template:Data_Veigar/Dark_Matter?oldid=3991312) |
+| Dark Matter | Magic Damage: 85 / 140 / 195 / 250 / 305 (+ 70 / 80 / 90 / 100 / 110% AP) | [3991312](https://wiki.leagueoflegends.com/en-us/Template:Data_Veigar/Dark_Matter?oldid=3991312) |
+| Event Horizon | cooldown: 20 / 18.5 / 17 / 15.5 / 14 | [4016714](https://wiki.leagueoflegends.com/en-us/Template:Data_Veigar/Event_Horizon?oldid=4016714) |
+| Event Horizon | cost: 70 / 75 / 80 / 85 / 90 | [4016714](https://wiki.leagueoflegends.com/en-us/Template:Data_Veigar/Event_Horizon?oldid=4016714) |
+| Event Horizon | castTime: 0.25 | [4016714](https://wiki.leagueoflegends.com/en-us/Template:Data_Veigar/Event_Horizon?oldid=4016714) |
+| Primordial Burst | cooldown: 120 / 90 / 60 | [4004085](https://wiki.leagueoflegends.com/en-us/Template:Data_Veigar/Primordial_Burst?oldid=4004085) |
+| Primordial Burst | cost: 100 | [4004085](https://wiki.leagueoflegends.com/en-us/Template:Data_Veigar/Primordial_Burst?oldid=4004085) |
+| Primordial Burst | castTime: 0.25 | [4004085](https://wiki.leagueoflegends.com/en-us/Template:Data_Veigar/Primordial_Burst?oldid=4004085) |
+| Primordial Burst | targetRange: 650 | [4004085](https://wiki.leagueoflegends.com/en-us/Template:Data_Veigar/Primordial_Burst?oldid=4004085) |

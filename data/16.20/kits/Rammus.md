@@ -200,3 +200,86 @@ All 1 level-based formulas in the game files (0 linked to wiki values above):
 | Spell | Calculation | Rule | Level 1 | Level 18 | Level 20 |
 |---|---|---|--:|--:|--:|
 | PowerBall | MinimumMoveSpeed | linear 0.25 → 0.391 over levels 1-18, continues past 18 | 0.25 | 0.391 | 0.407588 |
+
+## Duel simulator kit (level 20, every ability at max rank)
+
+What the duel simulator fights with (`kits/champions/Rammus.ts`): values come from pinned wiki and versioned game-data records at level 20. Interpretations and missing evidence are listed under assumptions. Ratios are fractions of the stat (60% AD is 0.6 × AD).
+
+- Basic attack: range 125, melee.
+
+| Key | Ability | Cooldown (s) | Cast time (s) | Cost | Delivery | On the enemy | On itself |
+|---|---|--:|--:|---|---|---|---|
+| Q | Powerball | 6 (starts when its effect on the caster ends) | 0 | 60 | self; channel 6 s | 240 + 100% AP magic damage; knock back 125 units over 0.25 s; stun for 0.4 s; slow 80% for 1 s | lingering for 6 s |
+| W | Defensive Ball Curl | 7 (starts when its effect on the caster ends) | 0 | 40 | self | – | armor 47 for 7 s; MR 40 for 7 s; armorPercent 0.6 for 7 s; mrPercent 0.6 for 7 s; lingering for 7 s |
+| E | Frenzying Taunt | 12 | 0.25 | 50 | targeted, 325 range | taunt for 2 s | – |
+| R | Soaring Slam | 90 | 0 | 100 | dash toward 800 units at 900/s, hits within 400 | 350 + 60% AP magic damage; slow 50% for 1.5 s | ccImmune for Infinity s |
+| R-aftershock | Soaring Slam (aftershock) | 0 | 0 | – | self | – | – |
+| Q-end | Powerball (recast) | 0 | 0 | – | self; recast of Q within 6 s, after 1 s | – | – |
+| W-end | Defensive Ball Curl (recast) | 0 | 0 | – | self; recast of W within 7 s, after 1 s | – | – |
+
+Effects marked by a mark or a role are completed by the kit's hooks (see the kit's source).
+
+### Assumptions
+
+- Powerball is a mobile channel, paths straight toward the only enemy in one dimension, and accelerates continuously using the wiki's level-20 40.8333% bonus total movement speed per second, capped at 245%. The game-file MinimumMoveSpeed extension differs slightly (40.7588% at level 20); the pinned wiki progression is used.
+- Powerball's 125-unit knockback takes 0.25 seconds because the source does not specify travel duration; its recorded estimated 0.4-second stun begins with the collision. Displacement immunity prevents this stun as well as the knockback, but leaves damage and slow intact.
+- Soaring Slam uses the source's base 800 range and minimum 900 dash speed. The source also lists movement-speed-dependent range and 2000 maximum speed without a complete dash-speed formula; those extensions are not inferred. The three aftershocks are evenly spaced across 3.5 seconds and refresh only the slow, as the pinned source specifies.
+- Soaring Slam's impact and aftershocks resolve at its landing location. All three aftershocks are created on landing even if the impact misses or is spell-shielded; an interrupted leap creates no aftershocks.
+- Frenzying Taunt affects an enemy champion, so its monster-only damage is excluded. The pinned reworked kit has no attack-speed steroid on E, no magic on-hit passive, and no Defensive Ball Curl self-slow or percentage damage reduction.
+- The behavior uses Powerball to engage and casts Soaring Slam during Powerball when available, then Defensive Ball Curl and Frenzying Taunt at close range. It preserves Defensive Ball Curl while fighting at attack range instead of immediately cancelling it for another Powerball.
+- The stat budget estimates Defensive Ball Curl at its 7/(7+7) uptime for resistance multiplication and reflected basic-attack damage. Its flat resistance gains and damage returned by the opponent's on-hit spells are resolved in the duel; those terms are not separately estimated by the stat budget.
+
+### Source values read (50)
+
+| Ability | Value | Source version |
+|---|---|---|
+| Spiked Shell | 15% total armor and 15% total magic resistance | [3910990](https://wiki.leagueoflegends.com/en-us/Template:Data_Rammus/Spiked_Shell?oldid=3910990) |
+| Powerball | channeling for up to 6 seconds | [3988570](https://wiki.leagueoflegends.com/en-us/Template:Data_Rammus/Powerball?oldid=3988570) |
+| Powerball | Powerball can be recast after 1 second | [3988570](https://wiki.leagueoflegends.com/en-us/Template:Data_Rammus/Powerball?oldid=3988570) |
+| Powerball | Active: Rammus rolls into an accelerating ball, channeling for up to 6 seconds to gain 25 – 39.1667 (based on level)% bonus total movement speed per second over the duration, up to a maximum of 150 – 235 (based on level)%. | [3988570](https://wiki.leagueoflegends.com/en-us/Template:Data_Rammus/Powerball?oldid=3988570) |
+| Powerball | collisionRadius: 75 | [3988570](https://wiki.leagueoflegends.com/en-us/Template:Data_Rammus/Powerball?oldid=3988570) |
+| Powerball | effectRadius: 250 | [3988570](https://wiki.leagueoflegends.com/en-us/Template:Data_Rammus/Powerball?oldid=3988570) |
+| Powerball | Magic Damage: 80 / 120 / 160 / 200 / 240 (+ 100% AP) | [3988570](https://wiki.leagueoflegends.com/en-us/Template:Data_Rammus/Powerball?oldid=3988570) |
+| Powerball | knocking them back 125 units | [3988570](https://wiki.leagueoflegends.com/en-us/Template:Data_Rammus/Powerball?oldid=3988570) |
+| Powerball | stunned and revealed for 0.4 seconds | [3988570](https://wiki.leagueoflegends.com/en-us/Template:Data_Rammus/Powerball?oldid=3988570) |
+| Powerball | slowed for 1 second | [3988570](https://wiki.leagueoflegends.com/en-us/Template:Data_Rammus/Powerball?oldid=3988570) |
+| Defensive Ball Curl | a defensive stance for 7 seconds | [3982827](https://wiki.leagueoflegends.com/en-us/Template:Data_Rammus/Defensive_Ball_Curl?oldid=3982827) |
+| Defensive Ball Curl | Defensive Ball Curl can be recast after 1 second | [3982827](https://wiki.leagueoflegends.com/en-us/Template:Data_Rammus/Defensive_Ball_Curl?oldid=3982827) |
+| Defensive Ball Curl | Bonus Armor: 27 / 32 / 37 / 42 / 47 (+ 30 / 37.5 / 45 / 52.5 / 60% total armor) | [3982827](https://wiki.leagueoflegends.com/en-us/Template:Data_Rammus/Defensive_Ball_Curl?oldid=3982827) |
+| Defensive Ball Curl | Bonus Magic Resistance: 20 / 25 / 30 / 35 / 40 (+ 30 / 37.5 / 45 / 52.5 / 60% total magic resistance) | [3982827](https://wiki.leagueoflegends.com/en-us/Template:Data_Rammus/Defensive_Ball_Curl?oldid=3982827) |
+| Defensive Ball Curl | 30 / 37.5 / 45 / 52.5 / 60% total armor | [3982827](https://wiki.leagueoflegends.com/en-us/Template:Data_Rammus/Defensive_Ball_Curl?oldid=3982827) |
+| Defensive Ball Curl | 30 / 37.5 / 45 / 52.5 / 60% total magic resistance | [3982827](https://wiki.leagueoflegends.com/en-us/Template:Data_Rammus/Defensive_Ball_Curl?oldid=3982827) |
+| Defensive Ball Curl | are dealt 15 (+ 10% total armor) (+ 10% total magic resistance) magic damage | [3982827](https://wiki.leagueoflegends.com/en-us/Template:Data_Rammus/Defensive_Ball_Curl?oldid=3982827) |
+| Frenzying Taunt | targetRange: 325 | [4052309](https://wiki.leagueoflegends.com/en-us/Template:Data_Rammus/Frenzying_Taunt?oldid=4052309) |
+| Soaring Slam | targetRange: 800 OR 150% movement speed | [4008005](https://wiki.leagueoflegends.com/en-us/Template:Data_Rammus/Soaring_Slam?oldid=4008005) |
+| Soaring Slam | effectRadius (Impact radius): 400 • 400 | [4008005](https://wiki.leagueoflegends.com/en-us/Template:Data_Rammus/Soaring_Slam?oldid=4008005) |
+| Soaring Slam | innerRadius: 200 | [4008005](https://wiki.leagueoflegends.com/en-us/Template:Data_Rammus/Soaring_Slam?oldid=4008005) |
+| Soaring Slam | speed (Minimum dash speed): 900 • 2000 | [4008005](https://wiki.leagueoflegends.com/en-us/Template:Data_Rammus/Soaring_Slam?oldid=4008005) |
+| Soaring Slam | knocked up for 0.75 seconds | [4008005](https://wiki.leagueoflegends.com/en-us/Template:Data_Rammus/Soaring_Slam?oldid=4008005) |
+| Soaring Slam | slows them for 1.5 seconds | [4008005](https://wiki.leagueoflegends.com/en-us/Template:Data_Rammus/Soaring_Slam?oldid=4008005) |
+| Soaring Slam | 3 aftershocks to burst from the area over 3.5 seconds | [4008005](https://wiki.leagueoflegends.com/en-us/Template:Data_Rammus/Soaring_Slam?oldid=4008005) |
+| Soaring Slam | effectRadius (Aftershock radius): 400 • 400 | [4008005](https://wiki.leagueoflegends.com/en-us/Template:Data_Rammus/Soaring_Slam?oldid=4008005) |
+| Soaring Slam | Slow: 30 / 40 / 50% | [4008005](https://wiki.leagueoflegends.com/en-us/Template:Data_Rammus/Soaring_Slam?oldid=4008005) |
+| Powerball | Powerball is not a movement channel, and so will not be interrupted by root and ground | [3988570](https://wiki.leagueoflegends.com/en-us/Template:Data_Rammus/Powerball?oldid=3988570) |
+| Powerball | The bonus movement speed stacks multiplicatively with other sources of movement speed boosts | [3988570](https://wiki.leagueoflegends.com/en-us/Template:Data_Rammus/Powerball?oldid=3988570) |
+| Powerball | Displacement immunity will also resist the application of the stun | [3988570](https://wiki.leagueoflegends.com/en-us/Template:Data_Rammus/Powerball?oldid=3988570) |
+| Defensive Ball Curl | The resistance scaling will factor from all sources, including Defensive Ball Curl's flat bonus. This will recalculate over the duration | [3982827](https://wiki.leagueoflegends.com/en-us/Template:Data_Rammus/Defensive_Ball_Curl?oldid=3982827) |
+| Defensive Ball Curl | Defensive Ball Curl will return damage from attacks and/or abilities that apply on-hit effects | [3982827](https://wiki.leagueoflegends.com/en-us/Template:Data_Rammus/Defensive_Ball_Curl?oldid=3982827) |
+| Frenzying Taunt | Monsters are additionally dealt magic damage | [4052309](https://wiki.leagueoflegends.com/en-us/Template:Data_Rammus/Frenzying_Taunt?oldid=4052309) |
+| Soaring Slam | Spell shield will block the impact (including with Powerball) but not each aftershock | [4008005](https://wiki.leagueoflegends.com/en-us/Template:Data_Rammus/Soaring_Slam?oldid=4008005) |
+| Soaring Slam | Soaring Slam will not impact nor generate aftershocks if the dash is interrupted | [4008005](https://wiki.leagueoflegends.com/en-us/Template:Data_Rammus/Soaring_Slam?oldid=4008005) |
+| Powerball | cooldown: 12 / 10.5 / 9 / 7.5 / 6 | [3988570](https://wiki.leagueoflegends.com/en-us/Template:Data_Rammus/Powerball?oldid=3988570) |
+| Powerball | cost: 60 | [3988570](https://wiki.leagueoflegends.com/en-us/Template:Data_Rammus/Powerball?oldid=3988570) |
+| Powerball | castTime: none | [3988570](https://wiki.leagueoflegends.com/en-us/Template:Data_Rammus/Powerball?oldid=3988570) |
+| Powerball | Slow: 40 / 50 / 60 / 70 / 80% | [3988570](https://wiki.leagueoflegends.com/en-us/Template:Data_Rammus/Powerball?oldid=3988570) |
+| Defensive Ball Curl | cooldown: 7 | [3982827](https://wiki.leagueoflegends.com/en-us/Template:Data_Rammus/Defensive_Ball_Curl?oldid=3982827) |
+| Defensive Ball Curl | cost: 40 | [3982827](https://wiki.leagueoflegends.com/en-us/Template:Data_Rammus/Defensive_Ball_Curl?oldid=3982827) |
+| Defensive Ball Curl | castTime: none | [3982827](https://wiki.leagueoflegends.com/en-us/Template:Data_Rammus/Defensive_Ball_Curl?oldid=3982827) |
+| Frenzying Taunt | cooldown: 12 | [4052309](https://wiki.leagueoflegends.com/en-us/Template:Data_Rammus/Frenzying_Taunt?oldid=4052309) |
+| Frenzying Taunt | cost: 50 | [4052309](https://wiki.leagueoflegends.com/en-us/Template:Data_Rammus/Frenzying_Taunt?oldid=4052309) |
+| Frenzying Taunt | castTime: 0.25 | [4052309](https://wiki.leagueoflegends.com/en-us/Template:Data_Rammus/Frenzying_Taunt?oldid=4052309) |
+| Frenzying Taunt | Taunt Duration: 1.2 / 1.4 / 1.6 / 1.8 / 2 seconds | [4052309](https://wiki.leagueoflegends.com/en-us/Template:Data_Rammus/Frenzying_Taunt?oldid=4052309) |
+| Soaring Slam | cooldown: 120 / 105 / 90 | [4008005](https://wiki.leagueoflegends.com/en-us/Template:Data_Rammus/Soaring_Slam?oldid=4008005) |
+| Soaring Slam | cost: 100 | [4008005](https://wiki.leagueoflegends.com/en-us/Template:Data_Rammus/Soaring_Slam?oldid=4008005) |
+| Soaring Slam | castTime: none | [4008005](https://wiki.leagueoflegends.com/en-us/Template:Data_Rammus/Soaring_Slam?oldid=4008005) |
+| Soaring Slam | Magic Damage: 150 / 250 / 350 (+ 60% AP) | [4008005](https://wiki.leagueoflegends.com/en-us/Template:Data_Rammus/Soaring_Slam?oldid=4008005) |

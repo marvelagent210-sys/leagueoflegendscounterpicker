@@ -39,6 +39,7 @@ const tahmKench: KitModule = {
     const lashSpeed = q.field("speed");
     const lashRange = q.field("range");
     q.quote("Tahm Kench is unable to move, attack, or cast Abyssal Dive or Devour on a different target while his tongue is in flight");
+    q.quote("All three An Acquired Taste stacks will be consumed even if Tongue Lash's stun is negated");
 
     // Abyssal Dive: a 1.35 s channel, then a blink 0.15 s later that knocks up and stuns around him; refunds on a champion hit.
     const diveChannel = w.quoted("Tahm Kench channels for 1.35 seconds as he dives into the waters", 0);
@@ -73,6 +74,9 @@ const tahmKench: KitModule = {
     const spitDamage = spit.formula("Magic Damage");
     r.quote("Devour can only be cast on enemies with 3 stacks of An Acquired Taste");
     r.quote("After 1 second, Tahm Kench can cast Regurgitate while a target is inside of his belly, and automatically does so after the duration");
+    r.quote("if the suppression is not applied, neither is the pull");
+    r.quote("if the suppression is removed, the displacement from the pull plus the untargetability and displacement immunity are instantly stopped");
+    r.quote("Enemies will be dealt Regurgitate damage regardless of Tahm Kench casting the ability if Devour's suppression ends by any means other than dismounting");
     kit.assume(
       `Devour holds the enemy the full ${bellySeconds} s (its suppression starts with the ${devourCast} s cast); the wiki gives no distance for Regurgitate's spit, so the enemy lands where it was and takes the damage then.`,
     );
@@ -88,7 +92,9 @@ const tahmKench: KitModule = {
       ctx.memory.taste = Math.min(tasteMax, stacksOf(ctx.self, ctx.world) + 1);
       ctx.memory.tasteUntil = ctx.tick + ticks(tasteSeconds);
     };
-    const locked = (unit: Unit, world: World) => world.tick < Number(unit.memory.lockedUntil ?? -1);
+    const tongueOut = (unit: Unit, world: World) => world.missiles.some((m) => m.owner === unit.side && (m.source === "Q" || m.source === "Qstun"));
+    const hardLocked = (unit: Unit, world: World) => world.tick < Number(unit.memory.lockedUntil ?? -1);
+    const locked = (unit: Unit, world: World) => hardLocked(unit, world) || tongueOut(unit, world);
     const full = (unit: Unit, world: World) => stacksOf(unit, world) >= tasteMax;
     const grey = (unit: Unit) => Number(unit.memory.grey ?? 0);
 
@@ -162,34 +168,50 @@ const tahmKench: KitModule = {
         delivery: { kind: "target", range: r.field("targetRange"), edge: true },
         onHit: [
           { type: "cc", cc: "suppression", duration: devourCast + bellySeconds },
-          { type: "attach", offset: 0, duration: devourCast + bellySeconds },
-          { type: "state", state: "untargetable", duration: devourCast + bellySeconds },
-          { type: "state", state: "displacementImmune", duration: devourCast + bellySeconds },
           { type: "delayed", delay: devourCast + bellySeconds, effects: [{ type: "damage", damageType: "magic", amount: spitDamage, label: spit.name }] },
         ],
         roles: ["cc", "damage"],
-        flags: { spellShield: r.flag("spellShield") ?? true },
+        flags: { spellShield: r.flag("spellShield") ?? true, requiresCC: "suppression", blockedByDisplacementImmunity: true },
       },
     ];
-    const gated = abilities.map((a): AbilitySpec => ({ ...a, usable: (unit, world) => !locked(unit, world) && (a.usable?.(unit, world) ?? true) }));
+    const gated = abilities.map((a): AbilitySpec => ({ ...a, usable: (unit, world) => !hardLocked(unit, world) && (!(a.key === "W" || a.key === "R") || !tongueOut(unit, world)) && (a.usable?.(unit, world) ?? true) }));
 
     const behavior: Behavior = (view) => {
       const { world, self } = view;
+      if (hardLocked(self, world)) return { kind: "move", direction: 0 };
+      const skin = self.spec.abilities.find((a) => a.key === "E");
+      const share = self.hp / maxHp(self);
+      if (skin && canCast(world, self, skin) && (grey(self) >= 0.15 * maxHp(self) || share <= 0.35)) return { kind: "cast", ability: "E" };
       if (locked(self, world)) return { kind: "move", direction: 0 };
       if (!self.action) {
         // Three stacks: swallow if in reach, else the stunning lash.
         const devour = self.spec.abilities.find((a) => a.key === "R");
         if (devour && canCast(world, self, devour) && inReach(devour, self, view.enemy)) return { kind: "cast", ability: "R" };
-        // Grey health into a shield.
-        const skin = self.spec.abilities.find((a) => a.key === "E");
-        const share = self.hp / maxHp(self);
-        if (skin && canCast(world, self, skin) && (grey(self) >= 0.15 * maxHp(self) || share <= 0.35)) return { kind: "cast", ability: "E" };
       }
       return defaultBehavior(view);
     };
 
     const endSkin = (ctx: HookContext) => {
       ctx.self.statuses = ctx.self.statuses.filter((s) => !((s.kind === "shield" && s.key === "E") || (s.kind === "state" && s.key === "lingering" && s.ability === "E")));
+    };
+    const releaseDevour = (ctx: HookContext) => {
+      const until = Number(ctx.memory.devourUntil ?? -1);
+      if (until < 0) return;
+      delete ctx.memory.devourUntil;
+      const enemy = ctx.enemy;
+      enemy.statuses = enemy.statuses.filter((s) => !(s.source === ctx.self.side && s.ability === "R" && ((s.kind === "cc" && s.key === "suppression") || (s.kind === "state" && (s.key === "untargetable" || s.key === "displacementImmune")))));
+      delete enemy.attached;
+      ctx.self.statuses = ctx.self.statuses.filter((s) => !(s.source === ctx.self.side && s.ability === "R" && s.kind === "cc" && (s.key === "ground" || s.key === "slow")));
+      if (ctx.tick < until) {
+        // A cleanse or caster death ends suppression early and consumes the future packet.
+        ctx.world.scheduled = ctx.world.scheduled.filter((entry) => !(entry.owner === ctx.self.side && entry.target === enemy.side && entry.ability === "R"));
+        ctx.apply({ type: "damage", damageType: "magic", amount: spitDamage, label: spit.name });
+      } else {
+        // The scheduled damage was delivered before this tick's hooks; automatic spit locks every action.
+        ctx.memory.lockedUntil = ctx.tick + ticks(spitLock);
+        ctx.apply({ type: "state", state: "noAttacks", duration: spitLock }, true);
+        ctx.self.move = 0;
+      }
     };
 
     return {
@@ -199,6 +221,8 @@ const tahmKench: KitModule = {
       hooks: {
         onTick(ctx) {
           const self = ctx.self;
+          if (Number(ctx.memory.devourUntil ?? -1) >= 0 && !ctx.enemy.statuses.some((s) => s.kind === "cc" && s.key === "suppression" && s.source === self.side && s.ability === "R" && s.endTick > ctx.tick)) releaseDevour(ctx);
+          if (!tongueOut(self, ctx.world)) self.statuses = self.statuses.filter((s) => s.memoKey !== "tongueFlight");
           // Grey health is part of the missing health.
           const missing = maxHp(self) - self.hp;
           if (grey(self) > missing) ctx.memory.grey = Math.max(0, missing);
@@ -218,15 +242,19 @@ const tahmKench: KitModule = {
           ctx.memory.hurtAt = ctx.tick;
           ctx.memory.grey = Math.min(storedCap * maxHp(ctx.self), grey(ctx.self) + stored * ctx.amount);
         },
+        onLethal(ctx) {
+          releaseDevour(ctx);
+          return false;
+        },
         onAttackHit(ctx) {
           addStack(ctx);
         },
         onCast(ctx) {
           const key = ctx.ability.key;
           if (key === "Q" || key === "Qstun") {
-            // Unable to act while the tongue is out.
-            const reach = Math.max(0, Math.abs(ctx.enemy.x - ctx.self.x) - ctx.enemy.spec.base.radius);
-            ctx.memory.lockedUntil = ctx.tick + Math.max(1, ticks(Math.min(reach, lashRange) / lashSpeed));
+            // A missed tongue travels its full range; Thick Skin remains usable during flight.
+            ctx.self.move = 0;
+            ctx.self.statuses.push({ kind: "state", key: "noAttacks", source: ctx.self.side, startTick: ctx.tick, endTick: ctx.tick + Math.max(1, ticks(lashRange / lashSpeed)), value: 0, memoKey: "tongueFlight" });
           }
           if (key === "W") {
             // Up from the water next to the enemy, then unable to act for a moment.
@@ -239,21 +267,37 @@ const tahmKench: KitModule = {
             ctx.apply({ type: "shield", amount: flat(grey(ctx.self)), duration: skinSeconds }, true);
             ctx.memory.grey = 0;
           }
-          if (key === "R") {
-            // Grounded and slowed while the enemy is inside; spat out at the end, then a short lockout.
-            const hold = devourCast + bellySeconds;
-            ctx.apply({ type: "cc", cc: "ground", duration: hold }, true);
-            ctx.apply({ type: "cc", cc: "slow", strength: selfSlow, duration: hold }, true);
-            ctx.memory.lockedUntil = ctx.tick + ticks(devourCast);
-            ctx.apply({ type: "delayed", delay: hold, effects: [{ type: "state", state: "noAttacks", duration: spitLock }] }, true);
-            ctx.memory.spitLockAt = ctx.tick + ticks(hold);
+        },
+        onAbilityContact(ctx) {
+          if (ctx.ability.key === "Q" || ctx.ability.key === "Qstun") {
+            ctx.self.statuses = ctx.self.statuses.filter((s) => s.memoKey !== "tongueFlight");
+            // The cast's hint can be stale: Taste may fade or arrive while the tongue travels.
+            const impactFull = full(ctx.self, ctx.world);
+            ctx.memory.lashFullHit = impactFull;
+            return impactFull ? [...lashHit, { type: "cc", cc: "stun", duration: lashStun } satisfies Effect] : [...lashHit];
           }
         },
         onAbilityHit(ctx) {
           const key = ctx.ability.key;
-          if (key === "Q") addStack(ctx);
-          // Tongue Lash's stun and Devour use up the stacks.
-          if (key === "Qstun" || key === "R") ctx.memory.taste = 0;
+          if (key === "Q" || key === "Qstun") {
+            if (ctx.memory.lashFullHit === true) ctx.memory.taste = 0;
+            else addStack(ctx);
+            delete ctx.memory.lashFullHit;
+          }
+          // Successful Devour uses the stacks that enabled its suppression.
+          if (key === "R") ctx.memory.taste = 0;
+          if (key === "R") {
+            // Pull and defensive states are conditional on the suppression succeeding.
+            const hold = devourCast + bellySeconds;
+            ctx.apply({ type: "attach", offset: 0, duration: hold });
+            ctx.apply({ type: "state", state: "untargetable", duration: hold });
+            ctx.apply({ type: "state", state: "displacementImmune", duration: hold });
+            ctx.apply({ type: "cc", cc: "ground", duration: hold }, true);
+            ctx.apply({ type: "cc", cc: "slow", strength: selfSlow, duration: hold }, true);
+            ctx.memory.lockedUntil = ctx.tick + ticks(devourCast);
+            ctx.apply({ type: "state", state: "noAttacks", duration: devourCast }, true);
+            ctx.memory.devourUntil = ctx.tick + ticks(hold);
+          }
         },
       },
     };

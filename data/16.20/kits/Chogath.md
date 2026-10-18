@@ -209,7 +209,7 @@ All 2 level-based formulas in the game files (2 linked to wiki values above):
 
 ## Duel simulator kit (level 20, every ability at max rank)
 
-What the duel simulator fights with (`kits/champions/Chogath.ts`): every number is read from the wiki's ability data above at level 20; what the wiki doesn't say is listed under assumptions. Ratios are fractions of the stat (60% AD is 0.6 × AD).
+What the duel simulator fights with (`kits/champions/Chogath.ts`): values come from pinned wiki and versioned game-data records at level 20. Interpretations and missing evidence are listed under assumptions. Ratios are fractions of the stat (60% AD is 0.6 × AD).
 
 - Basic attack: range 186.6, melee.
 - Options: feastStacks = 8.
@@ -229,9 +229,9 @@ Effects marked by a mark or a role are completed by the kit's hooks (see the kit
 - 8 Feast stacks: 1280 bonus health, 61.6 bonus attack range, 80% bigger (the hitbox doesn't grow).
 - Vorpal Spikes' slow, which decays over 1.5 s, is taken as half its strength for the whole time; the spikes are 440 wide at 80% bonus size and always hit the attack's target.
 
-### Wiki values read (39)
+### Source values read (39)
 
-| Ability | Value | Revision |
+| Ability | Value | Source version |
 |---|---|---|
 | Feast | Bonus Health Per Stack: 80 / 120 / 160 | [3932267](https://wiki.leagueoflegends.com/en-us/Template:Data_Cho'Gath/Feast?oldid=3932267) |
 | Feast | Bonus Attack Range Per Stack: 4.7 / 6.2 / 7.7 | [3932267](https://wiki.leagueoflegends.com/en-us/Template:Data_Cho'Gath/Feast?oldid=3932267) |

@@ -213,3 +213,102 @@ All 2 level-based formulas in the game files (1 linked to wiki values above):
 |---|---|---|--:|--:|--:|
 | VladimirQ | {097cda4f} | linear 30 → 200 over levels 1-18, continues past 18 | 30 | 200 | 220 |
 | VladimirQ | MovementSpeedOnQ2 | breakpoints at levels 6, 11, 16, 21, 26 (level 1: 10) | 10 | 40 | 40 |
+
+## Duel simulator kit (level 20, every ability at max rank)
+
+What the duel simulator fights with (`kits/champions/Vladimir.ts`): values come from pinned wiki and versioned game-data records at level 20. Interpretations and missing evidence are listed under assumptions. Ratios are fractions of the stat (60% AD is 0.6 × AD).
+
+- Basic attack: range 450, missile at 1600/s.
+
+| Key | Ability | Cooldown (s) | Cast time (s) | Cost | Delivery | On the enemy | On itself |
+|---|---|--:|--:|---|---|---|---|
+| Q | Transfusion | 4.6 | 0.25 | – | targeted, 600 range | 160 + 60% AP magic damage | – |
+| W | Sanguine Pool | 16 | 0 | 15% current health health | self | – | untargetable for 2 s; ghosted for 2 s; noAttacks for 2 s |
+| E | Tides of Blood | 5 | 0 | – | self; channel 1.5 s | at the end: – | – |
+| E2 | Tides of Blood release | 0 | 0 | – | self; recast of E within 1.5 s, automatic | – | – |
+| R | Hemoplague | 120 | 0 | – | circle of 375 radius up to 625 away, lands after 0 s | marks it "vladimir:infection" for 4.033 s | – |
+| WP | Sanguine Pool | 0 | 0 | – | self | 75 + 3.75% bonus health magic damage; slow 40% for 0.067 s | – |
+| RB | Hemoplague detonation | 0 | 0 | – | self | 350 + 70% AP magic damage | – |
+
+Effects marked by a mark or a role are completed by the kit's hooks (see the kit's source).
+
+### Assumptions
+
+- Crimson Rush starts empty. Ordinary Transfusion generates one point over its cooldown; the empowered cast consumes both points and does not generate another, giving one empowered Q per three casts. This reset policy reconciles the base spell's generation wording with the empowered spell's consume-all wording. Empowered entitlement is captured at declaration. Ordinary Q healing survives spell shields/parries as a separate completion heal; the source explicitly confirms only the untargetability exception.
+- Crimson Rush's 0.5-second movement-speed bonus decays linearly. Pool's unpinned exponential decay uses exp(-5*t) over its sourced one-second duration, then zero.
+- Tides of Blood damage interpolates linearly through its first second. The missing channel-interaction table is represented by ordinary non-movement channel interrupts; W overlays the charge and a pre-existing E can release while pooled.
+- The default policy releases E at one second when the champion is in reach, otherwise at maximum charge. Its charge telegraph reports the maximum 1.5-second release deadline to enemy reactions; the earlier policy recast is visible as its resulting missile.
+- The fifteen-bolt nova is represented by its target-facing bolt on the duel axis. Enemy pet interception and lateral bolt coverage are not represented; the enemy champion can receive only one packet.
+- Pool affects the sole enemy champion within 350 center units. Its zero-damage ending proc, minion healing, pets and item/summoner actions are outside the modeled duel.
+- Hemoplague is blocked by a spell shield at infection, but a shield acquired after infection does not block its burst. Untargetability/parry still guard the burst; an infected living champion grants its delayed heal even if its burst is guarded. A champion already dead at detonation grants no heal.
+- Hemoplague uses separate physical/magic amplification, preserving true damage. Its named additive exception with Alistar's Unbreakable Will requires that future kit's explicit implementation; item and monster sources are absent.
+- The pinned Hemoplague text does not establish owner-death persistence. A detonation whose clock has not elapsed when Vladimir dies does not prolong this duel; no posthumous burst or heal is granted.
+- The budget assumes one empowered Q every three casts, a half-health reference for its additional heal, four Pool contacts, full-charge E with eight-percent max-health self-cost, and one Hemoplague champion; it does not price Pool untargetability or repeated minion healing.
+
+### Source values read (63)
+
+| Ability | Value | Source version |
+|---|---|---|
+| Crimson Pact | (3.333% bonus health) | [4073468](https://wiki.leagueoflegends.com/en-us/Template:Data_Vladimir/Crimson_Pact?oldid=4073468) |
+| Crimson Pact | (160% AP) | [4073468](https://wiki.leagueoflegends.com/en-us/Template:Data_Vladimir/Crimson_Pact?oldid=4073468) |
+| Crimson Pact | These two bonuses do not stack with each other | [4073468](https://wiki.leagueoflegends.com/en-us/Template:Data_Vladimir/Crimson_Pact?oldid=4073468) |
+| Crimson Pact | will not increase Vladimir's current health | [4073468](https://wiki.leagueoflegends.com/en-us/Template:Data_Vladimir/Crimson_Pact?oldid=4073468) |
+| Transfusion | Magic Damage: 80 / 100 / 120 / 140 / 160 (+ 60% AP) | [3997094](https://wiki.leagueoflegends.com/en-us/Template:Data_Vladimir/Transfusion?oldid=3997094) |
+| Transfusion | Increased Damage: 148 / 185 / 222 / 259 / 296 (+ 111% AP) | [3997094](https://wiki.leagueoflegends.com/en-us/Template:Data_Vladimir/Transfusion?oldid=3997094) |
+| Transfusion | Heal: 20 / 25 / 30 / 35 / 40 (+ 35% AP) | [3997094](https://wiki.leagueoflegends.com/en-us/Template:Data_Vladimir/Transfusion?oldid=3997094) |
+| Transfusion | Crimson Rush depletes over 2.5 seconds | [3997094](https://wiki.leagueoflegends.com/en-us/Template:Data_Vladimir/Transfusion?oldid=3997094) |
+| Transfusion | depletes 75% slower | [3997094](https://wiki.leagueoflegends.com/en-us/Template:Data_Vladimir/Transfusion?oldid=3997094) |
+| Transfusion | decaying over 0.5 seconds | [3997094](https://wiki.leagueoflegends.com/en-us/Template:Data_Vladimir/Transfusion?oldid=3997094) |
+| Transfusion | 10% / 20% / 30% / 40% (based on level) | [3997094](https://wiki.leagueoflegends.com/en-us/Template:Data_Vladimir/Transfusion?oldid=3997094) |
+| Transfusion | Casting Transfusion during the surge consumes all Crimson Rush to deal 85% increased damage and heal Vladimir for an additional 30 – 200 (based on level) (+ 5% (+ 4% per 100 AP) of his missing health). | [3997094](https://wiki.leagueoflegends.com/en-us/Template:Data_Vladimir/Transfusion?oldid=3997094) |
+| Transfusion | (+ 5% (+ 4% per 100 AP) of his missing health) | [3997094](https://wiki.leagueoflegends.com/en-us/Template:Data_Vladimir/Transfusion?oldid=3997094) |
+| Transfusion | White while generating the first stack and while at 1 stack (there is no time-out period) | [3997094](https://wiki.leagueoflegends.com/en-us/Template:Data_Vladimir/Transfusion?oldid=3997094) |
+| Transfusion | Vladimir can cast Sanguine Pool and Hemoplague during Transfusion's cast time | [3997094](https://wiki.leagueoflegends.com/en-us/Template:Data_Vladimir/Transfusion?oldid=3997094) |
+| Transfusion | not be cancelled if the target becomes untargetable, dies, or is too far away or no longer in sight | [3997094](https://wiki.leagueoflegends.com/en-us/Template:Data_Vladimir/Transfusion?oldid=3997094) |
+| Transfusion | will not deal them damage but still grant Vladimir the healing | [3997094](https://wiki.leagueoflegends.com/en-us/Template:Data_Vladimir/Transfusion?oldid=3997094) |
+| Sanguine Pool | untargetable and ghosted for 2 seconds | [4034923](https://wiki.leagueoflegends.com/en-us/Template:Data_Vladimir/Sanguine_Pool?oldid=4034923) |
+| Sanguine Pool | magic damage every 0.5 seconds | [4034923](https://wiki.leagueoflegends.com/en-us/Template:Data_Vladimir/Sanguine_Pool?oldid=4034923) |
+| Sanguine Pool | Magic Damage Per Tick: 20 / 33.75 / 47.5 / 61.25 / 75 (+ 3.75% bonus health) | [4034923](https://wiki.leagueoflegends.com/en-us/Template:Data_Vladimir/Sanguine_Pool?oldid=4034923) |
+| Sanguine Pool | heals himself for 30% of the pre-mitigation damage dealt | [4034923](https://wiki.leagueoflegends.com/en-us/Template:Data_Vladimir/Sanguine_Pool?oldid=4034923) |
+| Sanguine Pool | slowed by 40% | [4034923](https://wiki.leagueoflegends.com/en-us/Template:Data_Vladimir/Sanguine_Pool?oldid=4034923) |
+| Sanguine Pool | 37.5% bonus movement speed | [4034923](https://wiki.leagueoflegends.com/en-us/Template:Data_Vladimir/Sanguine_Pool?oldid=4034923) |
+| Sanguine Pool | decays exponentially over 1 second | [4034923](https://wiki.leagueoflegends.com/en-us/Template:Data_Vladimir/Sanguine_Pool?oldid=4034923) |
+| Sanguine Pool | cost: 15% | [4034923](https://wiki.leagueoflegends.com/en-us/Template:Data_Vladimir/Sanguine_Pool?oldid=4034923) |
+| Sanguine Pool | effectRadius: 350 | [4034923](https://wiki.leagueoflegends.com/en-us/Template:Data_Vladimir/Sanguine_Pool?oldid=4034923) |
+| Sanguine Pool | The first tick damages immediately | [4034923](https://wiki.leagueoflegends.com/en-us/Template:Data_Vladimir/Sanguine_Pool?oldid=4034923) |
+| Sanguine Pool | The slow ends immediately once affected enemies get out of range | [4034923](https://wiki.leagueoflegends.com/en-us/Template:Data_Vladimir/Sanguine_Pool?oldid=4034923) |
+| Sanguine Pool | that ability may still be recast | [4034923](https://wiki.leagueoflegends.com/en-us/Template:Data_Vladimir/Sanguine_Pool?oldid=4034923) |
+| Tides of Blood | charges for up to 1.5 seconds | [3853799](https://wiki.leagueoflegends.com/en-us/Template:Data_Vladimir/Tides_of_Blood?oldid=3853799) |
+| Tides of Blood | charged for at least 1 second | [3853799](https://wiki.leagueoflegends.com/en-us/Template:Data_Vladimir/Tides_of_Blood?oldid=3853799) |
+| Tides of Blood | slowed for 0.5 seconds | [3853799](https://wiki.leagueoflegends.com/en-us/Template:Data_Vladimir/Tides_of_Blood?oldid=3853799) |
+| Tides of Blood | Slow: 40 / 45 / 50 / 55 / 60% | [3853799](https://wiki.leagueoflegends.com/en-us/Template:Data_Vladimir/Tides_of_Blood?oldid=3853799) |
+| Tides of Blood | slowed by 20% afterwards | [3853799](https://wiki.leagueoflegends.com/en-us/Template:Data_Vladimir/Tides_of_Blood?oldid=3853799) |
+| Tides of Blood | Minimum Magic Damage: 30 / 45 / 60 / 75 / 90 (+ 1.5% maximum health) (+ 35% AP) | [3853799](https://wiki.leagueoflegends.com/en-us/Template:Data_Vladimir/Tides_of_Blood?oldid=3853799) |
+| Tides of Blood | Maximum Magic Damage: 60 / 90 / 120 / 150 / 180 (+ 6% maximum health) (+ 80% AP) | [3853799](https://wiki.leagueoflegends.com/en-us/Template:Data_Vladimir/Tides_of_Blood?oldid=3853799) |
+| Tides of Blood | cost: 2 / 4 / 6 / 8 (based on seconds)% | [3853799](https://wiki.leagueoflegends.com/en-us/Template:Data_Vladimir/Tides_of_Blood?oldid=3853799) |
+| Tides of Blood | below 12% of his maximum health | [3853799](https://wiki.leagueoflegends.com/en-us/Template:Data_Vladimir/Tides_of_Blood?oldid=3853799) |
+| Tides of Blood | does so automatically afterwards or if it is interrupted | [3853799](https://wiki.leagueoflegends.com/en-us/Template:Data_Vladimir/Tides_of_Blood?oldid=3853799) |
+| Tides of Blood | nova of 15 blood bolts | [3853799](https://wiki.leagueoflegends.com/en-us/Template:Data_Vladimir/Tides_of_Blood?oldid=3853799) |
+| Tides of Blood | Enemies can intercept multiple bolts, but can be damaged only once | [3853799](https://wiki.leagueoflegends.com/en-us/Template:Data_Vladimir/Tides_of_Blood?oldid=3853799) |
+| Tides of Blood | effectRadius: 600 | [3853799](https://wiki.leagueoflegends.com/en-us/Template:Data_Vladimir/Tides_of_Blood?oldid=3853799) |
+| Tides of Blood | speed: 4000 | [3853799](https://wiki.leagueoflegends.com/en-us/Template:Data_Vladimir/Tides_of_Blood?oldid=3853799) |
+| Tides of Blood | width: 120 | [3853799](https://wiki.leagueoflegends.com/en-us/Template:Data_Vladimir/Tides_of_Blood?oldid=3853799) |
+| Hemoplague | infects enemies hit for 4 seconds | [4039794](https://wiki.leagueoflegends.com/en-us/Template:Data_Vladimir/Hemoplague?oldid=4039794) |
+| Hemoplague | increasing the damage they take from all sources by 10% | [4039794](https://wiki.leagueoflegends.com/en-us/Template:Data_Vladimir/Hemoplague?oldid=4039794) |
+| Hemoplague | after a 0.4-second delay | [4039794](https://wiki.leagueoflegends.com/en-us/Template:Data_Vladimir/Hemoplague?oldid=4039794) |
+| Hemoplague | Magic damage: 150 / 250 / 350 (+ 70% AP) | [4039794](https://wiki.leagueoflegends.com/en-us/Template:Data_Vladimir/Hemoplague?oldid=4039794) |
+| Hemoplague | Heal: 150 / 250 / 350 (+ 70% AP) | [4039794](https://wiki.leagueoflegends.com/en-us/Template:Data_Vladimir/Hemoplague?oldid=4039794) |
+| Hemoplague | True damage will however not be amplified | [4039794](https://wiki.leagueoflegends.com/en-us/Template:Data_Vladimir/Hemoplague?oldid=4039794) |
+| Hemoplague | Spell shield does not negate the detonation | [4039794](https://wiki.leagueoflegends.com/en-us/Template:Data_Vladimir/Hemoplague?oldid=4039794) |
+| Hemoplague | stacks additively with Unbreakable Will | [4039794](https://wiki.leagueoflegends.com/en-us/Template:Data_Vladimir/Hemoplague?oldid=4039794) |
+| Transfusion | cooldown: 9 / 7.9 / 6.8 / 5.7 / 4.6 | [3997094](https://wiki.leagueoflegends.com/en-us/Template:Data_Vladimir/Transfusion?oldid=3997094) |
+| Transfusion | castTime: 0.25 | [3997094](https://wiki.leagueoflegends.com/en-us/Template:Data_Vladimir/Transfusion?oldid=3997094) |
+| Sanguine Pool | cooldown: 28 / 25 / 22 / 19 / 16 | [4034923](https://wiki.leagueoflegends.com/en-us/Template:Data_Vladimir/Sanguine_Pool?oldid=4034923) |
+| Tides of Blood | cooldown: 13 / 11 / 9 / 7 / 5 | [3853799](https://wiki.leagueoflegends.com/en-us/Template:Data_Vladimir/Tides_of_Blood?oldid=3853799) |
+| Hemoplague | cooldown: 120 | [4039794](https://wiki.leagueoflegends.com/en-us/Template:Data_Vladimir/Hemoplague?oldid=4039794) |
+| Transfusion | targetRange: 600 | [3997094](https://wiki.leagueoflegends.com/en-us/Template:Data_Vladimir/Transfusion?oldid=3997094) |
+| Sanguine Pool | castTime: none | [4034923](https://wiki.leagueoflegends.com/en-us/Template:Data_Vladimir/Sanguine_Pool?oldid=4034923) |
+| Tides of Blood | castTime: none | [3853799](https://wiki.leagueoflegends.com/en-us/Template:Data_Vladimir/Tides_of_Blood?oldid=3853799) |
+| Hemoplague | castTime: none | [4039794](https://wiki.leagueoflegends.com/en-us/Template:Data_Vladimir/Hemoplague?oldid=4039794) |
+| Hemoplague | targetRange: 625 | [4039794](https://wiki.leagueoflegends.com/en-us/Template:Data_Vladimir/Hemoplague?oldid=4039794) |
+| Hemoplague | effectRadius: 375 | [4039794](https://wiki.leagueoflegends.com/en-us/Template:Data_Vladimir/Hemoplague?oldid=4039794) |

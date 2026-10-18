@@ -242,7 +242,7 @@ All 1 level-based formulas in the game files (1 linked to wiki values above):
 
 ## Duel simulator kit (level 20, every ability at max rank)
 
-What the duel simulator fights with (`kits/champions/Quinn.ts`): every number is read from the wiki's ability data above at level 20; what the wiki doesn't say is listed under assumptions. Ratios are fractions of the stat (60% AD is 0.6 × AD).
+What the duel simulator fights with (`kits/champions/Quinn.ts`): values come from pinned wiki and versioned game-data records at level 20. Interpretations and missing evidence are listed under assumptions. Ratios are fractions of the stat (60% AD is 0.6 × AD).
 
 - Basic attack: range 525, missile at 2000/s.
 
@@ -250,7 +250,7 @@ What the duel simulator fights with (`kits/champions/Quinn.ts`): every number is
 |---|---|--:|--:|---|---|---|---|
 | Q | Blinding Assault | 9 | 0.25 | 70 | skillshot 1050 long, 120 wide, at 1550/s | 205 + 100% bonus AD + 50% AP physical damage; nearsight to 350 units for 1.75 s | – |
 | E | Vault | 8 | 0 | 50 | dash target 600 units at 2500/s, hits within 0 | 140 + 20% bonus AD physical damage; knock back 50 units over 0.5 s; slow 25% for 1.5 s | – |
-| E2 | Vault (bounce) | 0 | 0 | – | dash away 525 units at 850/s; recast of E within 0.307 s, automatic | – | resets the attack timer |
+| E2 | Vault (bounce) | 0 | 0 | – | dash away 525 units at 850/s; recast of E within 0.49 s, automatic | – | resets the attack timer |
 | R | Behind Enemy Lines | 3 (starts when its effect on the caster ends) | 0.25 | 0 | self; channel 2 s | – | when the channel completes: ghosted for 30 s; moveSpeedPercent 1.3 for 30 s |
 
 Effects marked by a mark or a role are completed by the kit's hooks (see the kit's source).
@@ -259,16 +259,18 @@ Effects marked by a mark or a role are completed by the kit's hooks (see the kit
 
 - Valor marks the enemy on his own once Harrier's cooldown (by critical strike chance) has passed and no mark has stood for 1 second.
 - Vault's "very short" knock back is 50 units; its slow, decaying over 1.5 s, is taken as half its strength for the whole time.
+- Vault resets the attack timer and applies Harrier 0.25 s after the first dash ends, the minimum of its documented 0.25–0.5 s delay.
 - Behind Enemy Lines is used only to get away, once the enemy is out of reach.
 
-### Wiki values read (34)
+### Source values read (37)
 
-| Ability | Value | Revision |
+| Ability | Value | Source version |
 |---|---|---|
 | Harrier | mark enemies hit with Harrier for 4 seconds | [4024765](https://wiki.leagueoflegends.com/en-us/Template:Data_Quinn/Harrier?oldid=4024765) |
 | Harrier | Quinn's basic attacks on-hit against Harrier targets are empowered to consume the mark to deal 15 – 120 (based on level) (+ 40% bonus AD) bonus physical damage. | [4024765](https://wiki.leagueoflegends.com/en-us/Template:Data_Quinn/Harrier?oldid=4024765) |
 | Harrier | (+ 40% bonus AD) bonus physical damage | [4024765](https://wiki.leagueoflegends.com/en-us/Template:Data_Quinn/Harrier?oldid=4024765) |
 | Harrier | if no Harrier targets exist for 1 second | [4024765](https://wiki.leagueoflegends.com/en-us/Template:Data_Quinn/Harrier?oldid=4024765) |
+| Harrier | Harrier goes on a 1-second cooldown if it's not already on cooldown | [4024765](https://wiki.leagueoflegends.com/en-us/Template:Data_Quinn/Harrier?oldid=4024765) |
 | Harrier | staticCooldown: 7 / 6.33067 / 5.72535 / 5.1779 / 4.6828 / 4.23504 / 3.8301 / 3.46387 / 3.13266 / 2.83312 / 2.56223 (based on critical strike chance) | [4024765](https://wiki.leagueoflegends.com/en-us/Template:Data_Quinn/Harrier?oldid=4024765) |
 | Heightened Senses | Bonus Attack Speed: 28 / 41 / 54 / 67 / 80% | [4024767](https://wiki.leagueoflegends.com/en-us/Template:Data_Quinn/Heightened_Senses?oldid=4024767) |
 | Heightened Senses | Bonus Movement Speed: 20 / 25 / 30 / 35 / 40% | [4024767](https://wiki.leagueoflegends.com/en-us/Template:Data_Quinn/Heightened_Senses?oldid=4024767) |
@@ -279,6 +281,8 @@ Effects marked by a mark or a role are completed by the kit's hooks (see the kit
 | Vault | She then leaps back 525 units away from them | [4024768](https://wiki.leagueoflegends.com/en-us/Template:Data_Quinn/Vault?oldid=4024768) |
 | Vault | knocking them back a very short distance over 0.5 seconds | [4024768](https://wiki.leagueoflegends.com/en-us/Template:Data_Quinn/Vault?oldid=4024768) |
 | Vault | slowing them by 50% decaying over 1.5 seconds | [4024768](https://wiki.leagueoflegends.com/en-us/Template:Data_Quinn/Vault?oldid=4024768) |
+| Vault | This delay is a fuzzy 0.25 to 0.5 seconds | [4024768](https://wiki.leagueoflegends.com/en-us/Template:Data_Quinn/Vault?oldid=4024768) |
+| Vault | Vault's knock back also interrupts the windup of basic attacks with uncancellable windups | [4024768](https://wiki.leagueoflegends.com/en-us/Template:Data_Quinn/Vault?oldid=4024768) |
 | Behind Enemy Lines | Quinn channels for 2 seconds, signaling Valor to pair up | [4021953](https://wiki.leagueoflegends.com/en-us/Template:Data_Quinn/Behind_Enemy_Lines?oldid=4021953) |
 | Behind Enemy Lines | Total Movement Speed Increase: 70 / 100 / 130% | [4021953](https://wiki.leagueoflegends.com/en-us/Template:Data_Quinn/Behind_Enemy_Lines?oldid=4021953) |
 | Behind Enemy Lines | causes her to lose the bonus total movement speed for 3 seconds | [4021953](https://wiki.leagueoflegends.com/en-us/Template:Data_Quinn/Behind_Enemy_Lines?oldid=4021953) |

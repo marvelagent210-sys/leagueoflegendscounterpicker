@@ -50,7 +50,7 @@ const yone: KitModule = {
 
     return {
       // Intent doubles the crit chance bought.
-      budget: { statMultipliers: { crit: 2 } },
+      budget: { statMultipliers: { crit: 2 }, attackSplit: { physical: 0.75, magic: 0.25 } },
       hooks: {
         onStart(ctx) {
           const doubled = 2 * (ctx.self.spec.bonus?.critChance ?? 0);

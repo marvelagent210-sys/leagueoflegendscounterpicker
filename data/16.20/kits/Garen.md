@@ -243,7 +243,7 @@ All 1 level-based formulas in the game files (1 linked to wiki values above):
 
 ## Duel simulator kit (level 20, every ability at max rank)
 
-What the duel simulator fights with (`kits/champions/Garen.ts`): every number is read from the wiki's ability data above at level 20; what the wiki doesn't say is listed under assumptions. Ratios are fractions of the stat (60% AD is 0.6 × AD).
+What the duel simulator fights with (`kits/champions/Garen.ts`): values come from pinned wiki and versioned game-data records at level 20. Interpretations and missing evidence are listed under assumptions. Ratios are fractions of the stat (60% AD is 0.6 × AD).
 
 - Basic attack: range 175, melee.
 - Options: courageStacks = 150.
@@ -263,9 +263,9 @@ Effects marked by a mark or a role are completed by the kit's hooks (see the kit
 - Decisive Strike's lunge toward its target isn't modeled (the wiki gives no distance).
 - Judgment always hits Garen's only enemy, the nearest one, for 25% more damage.
 
-### Wiki values read (30)
+### Source values read (30)
 
-| Ability | Value | Revision |
+| Ability | Value | Source version |
 |---|---|---|
 | Perseverance | Innate: Garen regenerates an additional 1.5 – 10.1 (based on level)% of his maximum health every 5 seconds. | [4038338](https://wiki.leagueoflegends.com/en-us/Template:Data_Garen/Perseverance?oldid=4038338) |
 | Perseverance | Perseverance is lost for 8 seconds | [4038338](https://wiki.leagueoflegends.com/en-us/Template:Data_Garen/Perseverance?oldid=4038338) |

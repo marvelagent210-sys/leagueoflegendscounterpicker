@@ -179,3 +179,75 @@ Cooldowns and costs of each slot's main ability, wiki vs game files:
 | E: Condemn | cost | 90 / 90 / 90 / 90 / 90 | 90 / 90 / 90 / 90 / 90 | yes |
 | R: Final Hour | cooldown | 100 / 85 / 70 | 100 / 85 / 70 | yes |
 | R: Final Hour | cost | 80 / 80 / 80 | 80 / 80 / 80 | yes |
+
+## Duel simulator kit (level 20, every ability at max rank)
+
+What the duel simulator fights with (`kits/champions/Vayne.ts`): values come from pinned wiki and versioned game-data records at level 20. Interpretations and missing evidence are listed under assumptions. Ratios are fractions of the stat (60% AD is 0.6 × AD).
+
+- Basic attack: range 550, missile at 2000/s.
+
+| Key | Ability | Cooldown (s) | Cast time (s) | Cost | Delivery | On the enemy | On itself |
+|---|---|--:|--:|---|---|---|---|
+| Q | Tumble | 2 (depends on stats) (starts after the empowered attacks) | 0 | 30 | dash away 300–300 units at 500/s (adjusted by current stats) | – | next 1 attack within 3 s: 115% AD + 50% AP physical damage (Tumble) (resets the attack timer, uncancellable) |
+| E | Condemn | 12 | 0.25 | 90 | targeted, 550 range, missile at 2200/s | 190 + 50% bonus AD physical damage; knock back 475 units over 0.238 s, stun 1.5 s into a wall | – |
+| R | Final Hour | 70 | 0 | 80 | self | – | AD 65 for 12 s |
+
+Effects marked by a mark or a role are completed by the kit's hooks (see the kit's source).
+
+### Assumptions
+
+- Night Hunter uses the enemy's center within the documented 2000-unit radius. Vayne starts facing her enemy; attacks, Condemn and forward movement turn her toward it, while retreating or tumbling away turns her away. Standing still retains that facing. Sight loss retains the bonus for two seconds while she continues facing the enemy.
+- Silver Bolts tracks the one enemy champion; switching to a pet clears its champion stacks. The engine does not model Silver Bolts stacks/damage on pets or its documented stack-consumption exception during stasis.
+- Final Hour's champion-takedown extension cannot affect a single-enemy duel, which ends at that takedown. Tumble's invisibility starts when its actual dash ends, including terrain/knockdown endings; Vayne can reveal herself immediately by attacking.
+- Condemn uses the engine's one-dimensional wall/terrain collision. Its knockback direction follows the current caster-target axis rather than retaining the source's cast-completion direction if they cross while the bolt is in flight.
+- Suppression during Condemn's cast prevents its bolt even if removed before completion. The failed cast still spends the ordinary mana cost and cooldown; the pinned note specifies failure to fire but does not specify a resource refund.
+- Vayne weaves Tumble between attacks, choosing toward/away along the duel's line to keep her target within attack range where possible, while preserving the default behavior's defensive dodge commands. This does not optimize free-angle kiting or waiting in stealth.
+- The stat-budget hint estimates Silver Bolts every three continuous attacks and Final Hour's average AD and Tumble-cooldown contribution over its duration/cooldown; Condemn's extra stack is left to the combat simulation.
+
+### Source values read (43)
+
+| Ability | Value | Source version |
+|---|---|---|
+| Night Hunter | Vayne gains 30 bonus movement speed | [3920984](https://wiki.leagueoflegends.com/en-us/Template:Data_Vayne/Night_Hunter?oldid=3920984) |
+| Night Hunter | increased to 90 while under the effects of Final Hour | [3920984](https://wiki.leagueoflegends.com/en-us/Template:Data_Vayne/Night_Hunter?oldid=3920984) |
+| Night Hunter | effectRadius: 2000 | [3920984](https://wiki.leagueoflegends.com/en-us/Template:Data_Vayne/Night_Hunter?oldid=3920984) |
+| Night Hunter | persists for 2 seconds after Vayne loses sight | [3920984](https://wiki.leagueoflegends.com/en-us/Template:Data_Vayne/Night_Hunter?oldid=3920984) |
+| Silver Bolts | a stack of Silver Bolts for 3.5 seconds | [4057477](https://wiki.leagueoflegends.com/en-us/Template:Data_Vayne/Silver_Bolts?oldid=4057477) |
+| Silver Bolts | stacking up to 3 times | [4057477](https://wiki.leagueoflegends.com/en-us/Template:Data_Vayne/Silver_Bolts?oldid=4057477) |
+| Silver Bolts | Bonus True Damage: 4 / 5.5 / 7 / 8.5 / 10% of target's maximum health | [4057477](https://wiki.leagueoflegends.com/en-us/Template:Data_Vayne/Silver_Bolts?oldid=4057477) |
+| Silver Bolts | Minimum Bonus Damage: 40 / 55 / 70 / 85 / 100 | [4057477](https://wiki.leagueoflegends.com/en-us/Template:Data_Vayne/Silver_Bolts?oldid=4057477) |
+| Silver Bolts | The third stack consumes them all | [4057477](https://wiki.leagueoflegends.com/en-us/Template:Data_Vayne/Silver_Bolts?oldid=4057477) |
+| Silver Bolts | Vayne's basic attacks on-hit and Condemn apply a stack of Silver Bolts | [4057477](https://wiki.leagueoflegends.com/en-us/Template:Data_Vayne/Silver_Bolts?oldid=4057477) |
+| Tumble | range: 300 | [4078271](https://wiki.leagueoflegends.com/en-us/Template:Data_Vayne/Tumble?oldid=4078271) |
+| Tumble | speed: 500 + 100% movement speed | [4078271](https://wiki.leagueoflegends.com/en-us/Template:Data_Vayne/Tumble?oldid=4078271) |
+| Tumble | her next basic attack within 3 seconds | [4078271](https://wiki.leagueoflegends.com/en-us/Template:Data_Vayne/Tumble?oldid=4078271) |
+| Tumble | Bonus Physical Damage: 75 / 85 / 95 / 105 / 115% AD (+ 50% AP) | [4078271](https://wiki.leagueoflegends.com/en-us/Template:Data_Vayne/Tumble?oldid=4078271) |
+| Tumble | Tumble resets Vayne's basic attack timer | [4078271](https://wiki.leagueoflegends.com/en-us/Template:Data_Vayne/Tumble?oldid=4078271) |
+| Tumble | The bonus damage applies life steal | [4078271](https://wiki.leagueoflegends.com/en-us/Template:Data_Vayne/Tumble?oldid=4078271) |
+| Tumble | Vayne cannot attack until the animation is complete | [4078271](https://wiki.leagueoflegends.com/en-us/Template:Data_Vayne/Tumble?oldid=4078271) |
+| Tumble | Vayne can cast Final Hour during Tumble. She does not become invisible during the dash | [4078271](https://wiki.leagueoflegends.com/en-us/Template:Data_Vayne/Tumble?oldid=4078271) |
+| Final Hour | Effect Duration: 8 / 10 / 12 seconds | [3807995](https://wiki.leagueoflegends.com/en-us/Template:Data_Vayne/Final_Hour?oldid=3807995) |
+| Final Hour | Bonus Attack Damage: 35 / 50 / 65 | [3807995](https://wiki.leagueoflegends.com/en-us/Template:Data_Vayne/Final_Hour?oldid=3807995) |
+| Final Hour | Tumble Cooldown Reduction: 30 / 40 / 50% | [3807995](https://wiki.leagueoflegends.com/en-us/Template:Data_Vayne/Final_Hour?oldid=3807995) |
+| Final Hour | Tumble cast grants Vayne invisibility for 1 second | [3807995](https://wiki.leagueoflegends.com/en-us/Template:Data_Vayne/Final_Hour?oldid=3807995) |
+| Final Hour | Using a basic attack breaks the stealth at the start of the attack windup | [3807995](https://wiki.leagueoflegends.com/en-us/Template:Data_Vayne/Final_Hour?oldid=3807995) |
+| Final Hour | Attacking or casting abilities ends the stealth immediately | [3807995](https://wiki.leagueoflegends.com/en-us/Template:Data_Vayne/Final_Hour?oldid=3807995) |
+| Condemn | Condemn's displacement direction is determined at the end of the cast time | [4008541](https://wiki.leagueoflegends.com/en-us/Template:Data_Vayne/Condemn?oldid=4008541) |
+| Condemn | If the target becomes untargetable, dies, or is too far away or no longer in sight during the cast time, this ability will cancel but does not go on cooldown nor pay its cost | [4008541](https://wiki.leagueoflegends.com/en-us/Template:Data_Vayne/Condemn?oldid=4008541) |
+| Condemn | Condemn's missile will fail to fire if Vayne is suppressed during the cast time | [4008541](https://wiki.leagueoflegends.com/en-us/Template:Data_Vayne/Condemn?oldid=4008541) |
+| Tumble | cooldown: 6 / 5 / 4 / 3 / 2 | [4078271](https://wiki.leagueoflegends.com/en-us/Template:Data_Vayne/Tumble?oldid=4078271) |
+| Tumble | cost: 30 | [4078271](https://wiki.leagueoflegends.com/en-us/Template:Data_Vayne/Tumble?oldid=4078271) |
+| Tumble | castTime: none | [4078271](https://wiki.leagueoflegends.com/en-us/Template:Data_Vayne/Tumble?oldid=4078271) |
+| Condemn | cooldown: 20 / 18 / 16 / 14 / 12 | [4008541](https://wiki.leagueoflegends.com/en-us/Template:Data_Vayne/Condemn?oldid=4008541) |
+| Condemn | cost: 90 | [4008541](https://wiki.leagueoflegends.com/en-us/Template:Data_Vayne/Condemn?oldid=4008541) |
+| Condemn | castTime: 0.25 | [4008541](https://wiki.leagueoflegends.com/en-us/Template:Data_Vayne/Condemn?oldid=4008541) |
+| Condemn | targetRange: 550 | [4008541](https://wiki.leagueoflegends.com/en-us/Template:Data_Vayne/Condemn?oldid=4008541) |
+| Condemn | speed (Missile): 2200 • 2000 | [4008541](https://wiki.leagueoflegends.com/en-us/Template:Data_Vayne/Condemn?oldid=4008541) |
+| Condemn | Physical Damage: 50 / 85 / 120 / 155 / 190 (+ 50% bonus AD) | [4008541](https://wiki.leagueoflegends.com/en-us/Template:Data_Vayne/Condemn?oldid=4008541) |
+| Condemn | knocks them back 475 units | [4008541](https://wiki.leagueoflegends.com/en-us/Template:Data_Vayne/Condemn?oldid=4008541) |
+| Condemn | speed (Knockback): 2200 • 2000 | [4008541](https://wiki.leagueoflegends.com/en-us/Template:Data_Vayne/Condemn?oldid=4008541) |
+| Condemn | stunned for 1.5 seconds | [4008541](https://wiki.leagueoflegends.com/en-us/Template:Data_Vayne/Condemn?oldid=4008541) |
+| Condemn | Bonus Physical Damage: 75 / 127.5 / 180 / 232.5 / 285 (+ 75% bonus AD) | [4008541](https://wiki.leagueoflegends.com/en-us/Template:Data_Vayne/Condemn?oldid=4008541) |
+| Final Hour | cooldown: 100 / 85 / 70 | [3807995](https://wiki.leagueoflegends.com/en-us/Template:Data_Vayne/Final_Hour?oldid=3807995) |
+| Final Hour | cost: 80 | [3807995](https://wiki.leagueoflegends.com/en-us/Template:Data_Vayne/Final_Hour?oldid=3807995) |
+| Final Hour | castTime: none | [3807995](https://wiki.leagueoflegends.com/en-us/Template:Data_Vayne/Final_Hour?oldid=3807995) |

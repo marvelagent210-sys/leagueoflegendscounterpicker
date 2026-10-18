@@ -1,7 +1,7 @@
 /**
  * The settings a visitor can change (PLAN.md section 7). The precomputed results use the
- * defaults; the scenario weights only reweigh them, while the rest changes the fights
- * themselves, which then run again in the browser.
+ * defaults. Weights also affect a kit's choice of variants, so changed settings rerun
+ * matchups before applying the weights.
  */
 import { DEFAULT_BUDGET } from "../../engine/budget";
 import { SCENARIO_WEIGHTS, SCENARIOS, type ScenarioId, type ScenarioOptions } from "../../engine/sim/scenarios";
@@ -89,6 +89,11 @@ export function fightKey(s: AppSettings): string {
     .sort()
     .map((champion) => `${champion}:${Object.entries(s.kitOptions[champion] ?? {}).sort().map(([k, v]) => `${k}=${v}`).join(",")}`);
   return [s.gold, s.reactionTime, s.environment.walls, s.environment.minions, s.environment.laneSetup, s.environment.brush, ...options].join("|");
+}
+
+/** Variant optimization depends on weights as well as the physical fight settings. */
+export function simulationKey(s: AppSettings): string {
+  return JSON.stringify([fightKey(s), ...SCENARIOS.map((id) => s.weights[id])]);
 }
 
 /** The kit options a champion is compiled with. */

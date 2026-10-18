@@ -124,6 +124,8 @@ describe("timing (Haste, Attack speed, ticks)", () => {
   it("applies haste and the attack speed cap and floor", () => {
     expect(cooldownAfterHaste(10, 100)).toBeCloseTo(5, 9);
     expect(cooldownAfterHaste(10, 0)).toBe(10);
+    // Attack speed rev 4073067: the former 2.5 cap changed to 1 / 0.333 in V25.S1.3.
+    expect(capAttackSpeed(2.8)).toBe(2.8);
     expect(capAttackSpeed(5)).toBeCloseTo(3.003, 3);
     expect(capAttackSpeed(0.1)).toBe(0.2);
   });

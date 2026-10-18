@@ -1,6 +1,9 @@
 /** Garen: every number is read from the wiki's ability data at level 20 (see engine/kits/context.ts). */
 import type { KitModule } from "../../engine/kits/compile";
-import { derive } from "../../engine/sim/derived";
+import { attackRange, attackTiming, canStartAttack } from "../../engine/sim/actions";
+import { type Behavior, defaultBehavior } from "../../engine/sim/behavior";
+import { canTarget } from "../../engine/sim/combat";
+import { canMove, derive } from "../../engine/sim/derived";
 
 const garen: KitModule = {
   champion: "Garen",
@@ -23,7 +26,29 @@ const garen: KitModule = {
     kit.assume("Decisive Strike's lunge toward its target isn't modeled (the wiki gives no distance).");
     kit.assume("Judgment always hits Garen's only enemy, the nearest one, for 25% more damage.");
 
+    const behavior: Behavior = (view) => {
+      // Let reactions, finishers and the other modes keep their normal priority. Starting
+      // Judgment must not postpone an already-armed Decisive Strike for the entire spin.
+      const command = defaultBehavior(view);
+      if (command?.kind !== "cast" || command.ability !== "E") return command;
+      const { self, enemy, world } = view;
+      const armed = self.statuses.find((s) => s.kind === "empower" && s.key === "Q" && s.endTick > world.tick && (s.empower?.attacks ?? 0) > 0);
+      if (!armed) return command;
+      if (canStartAttack(world, self)) return { kind: "attack" };
+      // Close the short remaining gap while Q's haste still lets its empowered hit land.
+      // A holding opponent in the trade scenario must retain its no-chasing policy.
+      if ((view.mode !== "fight" && view.mode !== "trade") || !canMove(self) || !canTarget(enemy, self)) return command;
+      const haste = self.statuses.find((s) => s.kind === "stat" && s.memoKey === "Q:moveSpeedPercent" && s.endTick > world.tick);
+      if (!haste) return command;
+      const closingSpeed = derive(self).moveSpeed - (enemy.moved === -1 ? derive(enemy).moveSpeed : 0);
+      const gap = Math.max(0, view.distance - attackRange(self));
+      const remaining = (Math.min(armed.endTick, haste.endTick) - world.tick) / 30;
+      if (gap > 0 && closingSpeed > 0 && gap / closingSpeed + attackTiming(self).windup / 30 < remaining) return { kind: "move", direction: 1 };
+      return command;
+    };
+
     return {
+      behavior,
       start: [
         { type: "stat", stat: "armor", amount: { base: resists }, duration: Number.POSITIVE_INFINITY },
         { type: "stat", stat: "MR", amount: { base: resists }, duration: Number.POSITIVE_INFINITY },
@@ -36,7 +61,9 @@ const garen: KitModule = {
           ctx.regenerate((regen * derive(ctx.self).maxHp) / 150);
         },
         onDamageTaken(ctx) {
-          ctx.memory.hurtTick = ctx.tick;
+          // Perseverance rev 4038338: damage entirely absorbed by a shield does not
+          // start or refresh its lockout. Damage hooks also report shield-only hits.
+          if (ctx.amount > 0) ctx.memory.hurtTick = ctx.tick;
         },
         onAbilityHit(ctx) {
           if (ctx.ability.key !== "E") return;
@@ -68,10 +95,11 @@ const garen: KitModule = {
               attacks: 1,
               window: q.quoted("empowers his next basic attack within 4.5 seconds", 0),
               uncancellable: true,
+              hitsUntargetable: true,
               resetAttack: true,
               onHit: [
                 { type: "damage", damageType: "physical", amount: q.formula("Bonus Physical Damage") },
-                { type: "cc", cc: "silence", duration: q.quoted("silence them for 1.5 seconds", 0) },
+                { type: "cc", cc: "silence", duration: q.quoted("silence them for 1.5 seconds", 0), spellShield: true },
               ],
             },
           ],
@@ -87,7 +115,10 @@ const garen: KitModule = {
           onSelf: [
             { type: "state", state: "damageReduction", value: w.fraction("Damage Reduction"), duration: w.quoted("reduces incoming damage for 4 seconds", 0) },
             { type: "shield", amount: w.formula("Shield Strength"), duration: w.quoted("For the first 0.75 seconds", 0) },
-            { type: "state", state: "tenacity", value: w.quoted("a shield and 60% tenacity", 0) / 100, duration: w.quoted("For the first 0.75 seconds", 0) },
+            // Courage revision 4064595 explicitly adds Courage and Brittle; Tenacity
+            // revision 4021927 instead puts both in a multiplicative group C. Prefer the
+            // specific ability note for this pair, while keeping other sources unchanged.
+            { type: "state", state: "tenacity", value: w.quoted("a shield and 60% tenacity", 0) / 100, duration: w.quoted("For the first 0.75 seconds", 0), tenacityGroup: "courage-brittle" },
           ],
         },
         {
@@ -113,6 +144,7 @@ const garen: KitModule = {
           key: "R",
           name: r.name,
           slot: "R",
+          cancelOnInvalidTarget: true,
           cooldown: r.cooldown(),
           castTime: r.castTime(),
           delivery: { kind: "target", range: r.field("targetRange") },

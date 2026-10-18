@@ -159,6 +159,10 @@ export interface AbilityRecord {
   custom: Array<{ label: string; text: string }>;
   /** The wiki's notes, one entry per top-level bullet (sub-bullets included). */
   notes: string[];
+  /** Supplemental pinned rules from another page, retaining their actual source revision. */
+  sources?: Array<{ page: { title: string; revid: number }; text: string[] }>;
+  /** Versioned game-file excerpts, separate from wiki revisions and attributed by content hash. */
+  gameSources?: Array<{ version: string; url: string; sha256: string; object: string; text: string[] }>;
 }
 
 /**

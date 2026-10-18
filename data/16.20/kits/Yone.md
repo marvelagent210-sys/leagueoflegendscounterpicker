@@ -291,7 +291,7 @@ All 4 level-based formulas in the game files (2 linked to wiki values above):
 
 ## Duel simulator kit (level 20, every ability at max rank)
 
-What the duel simulator fights with (`kits/champions/Yone.ts`): every number is read from the wiki's ability data above at level 20; what the wiki doesn't say is listed under assumptions. Ratios are fractions of the stat (60% AD is 0.6 × AD).
+What the duel simulator fights with (`kits/champions/Yone.ts`): values come from pinned wiki and versioned game-data records at level 20. Interpretations and missing evidence are listed under assumptions. Ratios are fractions of the stat (60% AD is 0.6 × AD).
 
 - Basic attack: range 175, melee.
 
@@ -312,9 +312,9 @@ Effects marked by a mark or a role are completed by the kit's hooks (see the kit
 - Fate Sealed pulls Yone next to its target; Soul Unbound's return takes him straight back to his body.
 - Crit chance bought counts double for Yone (the stat budget values it that way).
 
-### Wiki values read (32)
+### Source values read (32)
 
-| Ability | Value | Revision |
+| Ability | Value | Source version |
 |---|---|---|
 | Way of the Hunter | Yone's total critical strike chance is doubled from all other sources | [4058456](https://wiki.leagueoflegends.com/en-us/Template:Data_Yone/Way_of_the_Hunter?oldid=4058456) |
 | Way of the Hunter | every 1% critical strike chance in excess of 100% is converted into 0.5 bonus attack damage | [4058456](https://wiki.leagueoflegends.com/en-us/Template:Data_Yone/Way_of_the_Hunter?oldid=4058456) |
