@@ -581,9 +581,109 @@ already resolved all five stale-data failures. The complete serial rerun verifie
 the same builds, score, scenarios and variant options. No assertion, golden winner,
 margin, skip or timeout was weakened. Source identity remains the frozen hash above.
 
+## Fourth expansion batch: six marksmen, 18 October 2026
+
+Caitlyn, Ezreal, Jhin, Jinx, Lucian and Miss Fortune bring implemented coverage to
+**79 of 173 champions**, leaving **94**. The matrix requires **3,081 unordered
+pairs / 6,162 directed entries**. These remain controlled level-20 kit simulations,
+with programmed policies and plain-stat budgets, rather than observed win rates.
+
+The three new champion test files contain **250 passing checks**. They exercise
+actual numbers, casts, contact defenses, target identity, resources, cooldowns,
+ordinary policies and full-budget reflected Darius cases. The shared regressions
+cover attack snapshots, one-packet critical/additive damage, fixed attack speed,
+actual pet protection and contact callbacks, timed casts over channels, terrain
+endpoints and projectile perception. All 79 registered kits pass the ordinary
+fight/finite-metadata contract. Both TypeScript projects pass.
+
+- Caitlyn separates Count from independent trap/net Headshots. Their added physical
+  damage remains inside one basic packet with only ordinary AD critically striking.
+  Q widens and reduces after actual first contact; trap revelation preserves its full
+  packet. Net's missile, suppression failure, recoil and endpoint terrain checks have
+  distinct clocks. Ace in the Hole preserves a pre-existing spell shield through its
+  cast/channel and checks it on the real homing shot. That shot is forecast throughout
+  the channel with its own flight time and defense metadata.
+- Jhin has real four-round ammunition, launch-time consumption, fourth-shot critical
+  and missing-health damage, reloads and fixed growth-only attack speed. Manual R
+  shots are excluded from one-second independent budget valuation. Their projectiles
+  leave at 0.2 seconds while the 0.25-second lock retains the original parent channel.
+  Accepted CC ends the retained channel while its committed shot completes. Normal
+  policy fires all four shots against an uninterrupted target; Darius's real airborne
+  correctly stops the tested channel after the third shot.
+- Ezreal distinguishes successful spell contact from HP damage and basic-attack
+  classification. Q's spell-shield cooldown refund, on-hits, passive stacks and blind
+  exception are separate. W detonates only on eligible real contacts, with its mana
+  refund. E chooses an actual target after the blink, including its mark priority,
+  without converting ordinary sight into true sight. R is a real piercing projectile.
+- Lucian's second shot is an independent delayed basic attack with full on-hits and
+  life steal, actual target identity and its own critical outcome. His E can overlay
+  the mobile channel and cross terrain only with a clear endpoint. Culling emits real
+  fixed-axis projectiles using its exact pinned critical-dependent shot count;
+  perception follows emitted bullets instead of treating the full channel as one hit.
+- Jinx snapshots weapon, critical chance, rocket scale and speed per attack. Minigun
+  stacks, first-rocket consumption, mana and weapon policies do not drift or starve
+  offensive actions. Internal impact helpers cannot be cast as free spells. Chomper
+  toss, arming, shielded control and independent explosion are separate. R accelerates,
+  scales by real traveled distance and collides with the champion before collateral.
+- Miss Fortune tracks Love Tap across actual targets and folds it into one basic
+  packet. Q chooses a real secondary body behind its primary, handles shielded/invalid
+  contacts separately and retains its killed-primary critical exception. W's refunds,
+  capped AS uptime and Strut buildup are distinct. E ticks and eighteen traveling R
+  waves have their own timing and damage; budget hints do not confuse an initial
+  forecast with sustained damage or award repeated same-target Love Taps.
+
+Exact versioned game calculations supply three level-20 values omitted from the wiki's
+ordinary-level tables: Jhin's 52% innate AD increase, Lucian's 70% AD second shot and
+Miss Fortune's 110% AD Love Tap. Each retains its precise URL/version/object/SHA-256
+separately from wiki quotations. Jhin's contradictory idle-reload/trap client constants
+remain documented; the explicit wiki timings are retained without server-script proof.
+
+New test fixture corrections use the pinned 0.681 Caitlyn base attack speed, Jhin's
+15.625% windup and Jinx's max-rank ten-second E cooldown. A zero-cast Chomper spell
+is tested through its real tossed packet. Existing golden files remain byte-for-byte
+unchanged: no winner, margin, skip or acceptance tolerance was tuned to this batch.
+
+The frozen model is
+`bc04dfd2c7fa0a9f58423fdc473b499b4233a2d74c14119a9e324ac36db5e7d9`.
+All **3,081 unordered pairs / 6,162 directed entries** were freshly computed with
+four workers in **3,099.7 seconds**, writing **257** simulator and ledger files.
+All 79 rows are complete and the final freshness check passes. No checkpoint was
+copied or relabeled from an earlier model. Jhin's zero external AS ratio retains
+his level growth, giving an actual level-20 rhythm of **0.99371875**; external AS
+and cripples leave that rhythm unchanged while bonus AS still contributes to AD.
+
+The final serial suite has **2,684 passing tests, the two original draft winner
+failures and five existing skips**, across **103 files / 2,691 tests**, in
+**350.9 seconds**. All stale-data assertions are resolved. The Heimerdinger–Udyr
+full variant search passes in **106.7 seconds** within its unchanged 180-second
+limit. Both TypeScript projects and the production build pass. Golden files,
+winners, margins, skips, acceptance tolerances and timeout limits remain unchanged.
+
+The corrected source passes **156 complete production side-swap searches** for
+all 78 Darius opponents, plus **30 searches** covering both directions of all 15
+pairings among the six new champions. Purchased spending and selected variants
+reflect exactly. Maximum aggregate/scenario sums in the Darius check are
+**3.83e-15 / 3.29e-14**; the new-champion checks stay within
+**6.67e-16 / 2.67e-15**. The exact frozen fingerprint is verified throughout.
+
+All **17 production Chromium checks pass**. Every one of the **78 live stale-matrix
+fallback scores** agrees with the rebuilt matrix, with maximum difference
+**3.774758283725532e-15**, and every ranking position agrees. Live logged matchups
+cover all six new champions with finite initialized stats and actual worker runs.
+Their kit pages preserve exact pinned ability, pet and versioned game attribution;
+no game evidence is linked as wiki revision zero. The citation verifier includes
+Jhin's separate Lotus Trap pet-page revision as well as ability-template revisions.
+
+At **390 pixels**, all six source pages and the matchup page stay at a 390-pixel
+document width. The wide combat stats table scrolls within its 356-pixel container
+(the full table is 582 pixels). The actual screenshot was visually checked. Page,
+console, HTTP and request errors are all zero; all three worker contexts have zero
+unfinished jobs. Private delivery packages the compiled build and exact source
+snapshot; packaging/startup and remote-byte receipts accompany that delivery.
+
 ## Remaining limits
 
-- Only 73 of the dataset's 173 champions have simulator kits. Other pairings use the
+- Only 79 of the dataset's 173 champions have simulator kits. Other pairings use the
   interaction ledger's heuristic estimates.
 - Movement is one-dimensional. Facing, side-stepping, vitals, terrain placement,
   pet placement, and some multi-hit geometry still use explicit approximations.
