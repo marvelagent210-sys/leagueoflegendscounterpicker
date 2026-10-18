@@ -1,6 +1,6 @@
 # Champion simulator coverage
 
-73 of 173 champions have simulator kits; 100 remain. This covers 2,628 unordered simulated pairings.
+79 of 173 champions have simulator kits; 94 remain. This covers 3,081 unordered simulated pairings.
 
 A simulator kit is implemented coverage, not a certification of every mechanic. Each kit page records source revisions and explicit assumptions. Other champions retain interaction estimates until their kit is implemented and checked.
 
@@ -18,11 +18,13 @@ A simulator kit is implemented coverage, not a certification of every mechanic. 
 | Ashe | Ashe | 43 | 8 |
 | Aurora | Aurora | 52 | 2 |
 | Brand | Brand | 56 | 7 |
+| Caitlyn | Caitlyn | 69 | 5 |
 | Camille | Camille | 41 | 4 |
 | Cassiopeia | Cassiopeia | 52 | 9 |
 | Cho'Gath | Chogath | 42 | 3 |
 | Darius | Darius | 49 | 2 |
 | Dr. Mundo | DrMundo | 40 | 3 |
+| Ezreal | Ezreal | 53 | 5 |
 | Fiora | Fiora | 50 | 3 |
 | Gangplank | Gangplank | 57 | 5 |
 | Garen | Garen | 32 | 3 |
@@ -33,6 +35,8 @@ A simulator kit is implemented coverage, not a certification of every mechanic. 
 | Irelia | Irelia | 45 | 6 |
 | Jax | Jax | 35 | 3 |
 | Jayce | Jayce | 66 | 4 |
+| Jhin | Jhin | 80 | 8 |
+| Jinx | Jinx | 70 | 9 |
 | K'Sante | KSante | 55 | 3 |
 | Karthus | Karthus | 55 | 7 |
 | Kassadin | Kassadin | 56 | 6 |
@@ -41,10 +45,12 @@ A simulator kit is implemented coverage, not a certification of every mechanic. 
 | Kled | Kled | 88 | 7 |
 | Leona | Leona | 53 | 4 |
 | Lissandra | Lissandra | 70 | 6 |
+| Lucian | Lucian | 66 | 10 |
 | Lux | Lux | 48 | 4 |
 | Malphite | Malphite | 41 | 1 |
 | Malzahar | Malzahar | 84 | 12 |
 | Master Yi | MasterYi | 51 | 5 |
+| Miss Fortune | MissFortune | 62 | 6 |
 | Mordekaiser | Mordekaiser | 38 | 5 |
 | Morgana | Morgana | 45 | 4 |
 | Nasus | Nasus | 40 | 2 |
@@ -94,14 +100,12 @@ A simulator kit is implemented coverage, not a certification of every mechanic. 
 - [ ] Blitzcrank (Blitzcrank)
 - [ ] Braum (Braum)
 - [ ] Briar (Briar)
-- [ ] Caitlyn (Caitlyn)
 - [ ] Corki (Corki)
 - [ ] Diana (Diana)
 - [ ] Draven (Draven)
 - [ ] Ekko (Ekko)
 - [ ] Elise (Elise)
 - [ ] Evelynn (Evelynn)
-- [ ] Ezreal (Ezreal)
 - [ ] Fiddlesticks (Fiddlesticks)
 - [ ] Fizz (Fizz)
 - [ ] Galio (Galio)
@@ -112,8 +116,6 @@ A simulator kit is implemented coverage, not a certification of every mechanic. 
 - [ ] Ivern (Ivern)
 - [ ] Janna (Janna)
 - [ ] Jarvan IV (JarvanIV)
-- [ ] Jhin (Jhin)
-- [ ] Jinx (Jinx)
 - [ ] Kai'Sa (Kaisa)
 - [ ] Kalista (Kalista)
 - [ ] Karma (Karma)
@@ -126,12 +128,10 @@ A simulator kit is implemented coverage, not a certification of every mechanic. 
 - [ ] Lee Sin (LeeSin)
 - [ ] Lillia (Lillia)
 - [ ] Locke (Locke)
-- [ ] Lucian (Lucian)
 - [ ] Lulu (Lulu)
 - [ ] Maokai (Maokai)
 - [ ] Mel (Mel)
 - [ ] Milio (Milio)
-- [ ] Miss Fortune (MissFortune)
 - [ ] Wukong (MonkeyKing)
 - [ ] Naafiri (Naafiri)
 - [ ] Nami (Nami)
