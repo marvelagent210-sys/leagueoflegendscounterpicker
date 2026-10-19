@@ -1,6 +1,6 @@
 # Champion simulator coverage
 
-79 of 173 champions have simulator kits; 94 remain. This covers 3,081 unordered simulated pairings.
+85 of 173 champions have simulator kits; 88 remain. This covers 3,570 unordered simulated pairings.
 
 A simulator kit is implemented coverage, not a certification of every mechanic. Each kit page records source revisions and explicit assumptions. Other champions retain interaction estimates until their kit is implemented and checked.
 
@@ -20,10 +20,12 @@ A simulator kit is implemented coverage, not a certification of every mechanic. 
 | Brand | Brand | 56 | 7 |
 | Caitlyn | Caitlyn | 69 | 5 |
 | Camille | Camille | 41 | 4 |
-| Cassiopeia | Cassiopeia | 52 | 9 |
+| Cassiopeia | Cassiopeia | 53 | 9 |
 | Cho'Gath | Chogath | 42 | 3 |
+| Corki | Corki | 60 | 6 |
 | Darius | Darius | 49 | 2 |
 | Dr. Mundo | DrMundo | 40 | 3 |
+| Draven | Draven | 53 | 8 |
 | Ezreal | Ezreal | 53 | 5 |
 | Fiora | Fiora | 50 | 3 |
 | Gangplank | Gangplank | 57 | 5 |
@@ -43,6 +45,7 @@ A simulator kit is implemented coverage, not a certification of every mechanic. 
 | Kayle | Kayle | 40 | 2 |
 | Kennen | Kennen | 47 | 3 |
 | Kled | Kled | 88 | 7 |
+| Kog'Maw | KogMaw | 59 | 5 |
 | Leona | Leona | 53 | 4 |
 | Lissandra | Lissandra | 70 | 6 |
 | Lucian | Lucian | 66 | 10 |
@@ -68,11 +71,14 @@ A simulator kit is implemented coverage, not a certification of every mechanic. 
 | Shen | Shen | 29 | 4 |
 | Singed | Singed | 42 | 4 |
 | Sion | Sion | 75 | 5 |
+| Sivir | Sivir | 55 | 4 |
 | Skarner | Skarner | 62 | 5 |
 | Tahm Kench | TahmKench | 61 | 4 |
 | Teemo | Teemo | 29 | 2 |
+| Tristana | Tristana | 54 | 6 |
 | Trundle | Trundle | 43 | 3 |
 | Tryndamere | Tryndamere | 34 | 3 |
+| Twitch | Twitch | 67 | 6 |
 | Udyr | Udyr | 80 | 11 |
 | Urgot | Urgot | 50 | 5 |
 | Vayne | Vayne | 47 | 7 |
@@ -100,9 +106,7 @@ A simulator kit is implemented coverage, not a certification of every mechanic. 
 - [ ] Blitzcrank (Blitzcrank)
 - [ ] Braum (Braum)
 - [ ] Briar (Briar)
-- [ ] Corki (Corki)
 - [ ] Diana (Diana)
-- [ ] Draven (Draven)
 - [ ] Ekko (Ekko)
 - [ ] Elise (Elise)
 - [ ] Evelynn (Evelynn)
@@ -123,7 +127,6 @@ A simulator kit is implemented coverage, not a certification of every mechanic. 
 - [ ] Kayn (Kayn)
 - [ ] Kha'Zix (Khazix)
 - [ ] Kindred (Kindred)
-- [ ] Kog'Maw (KogMaw)
 - [ ] LeBlanc (Leblanc)
 - [ ] Lee Sin (LeeSin)
 - [ ] Lillia (Lillia)
@@ -155,7 +158,6 @@ A simulator kit is implemented coverage, not a certification of every mechanic. 
 - [ ] Seraphine (Seraphine)
 - [ ] Shaco (Shaco)
 - [ ] Shyvana (Shyvana)
-- [ ] Sivir (Sivir)
 - [ ] Smolder (Smolder)
 - [ ] Sona (Sona)
 - [ ] Soraka (Soraka)
@@ -166,9 +168,7 @@ A simulator kit is implemented coverage, not a certification of every mechanic. 
 - [ ] Talon (Talon)
 - [ ] Taric (Taric)
 - [ ] Thresh (Thresh)
-- [ ] Tristana (Tristana)
 - [ ] Twisted Fate (TwistedFate)
-- [ ] Twitch (Twitch)
 - [ ] Varus (Varus)
 - [ ] Vex (Vex)
 - [ ] Vi (Vi)
