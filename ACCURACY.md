@@ -756,9 +756,70 @@ Final validation:
   `SOURCE`. It uses a new private preview branch and preserves the previous ZIP
   and the repository's main commit.
 
+## Sixth expansion batch: six more marksmen
+
+Kai'Sa, Kalista, Samira, Smolder, Varus and Xayah bring implemented coverage to
+**91 of 173 champions**, leaving **82**. This model covers **4,095 unordered pairs /
+8,190 directed entries** with simulation fingerprint
+`158c0a49217720e7f577473a978738b4398ba1ad18390275c2d4ebad164a57a9`.
+The preceding 85-champion report remains a historical snapshot.
+
+The independent source audit checks **31 exact primary wiki templates** (including
+Kalista's basic attack page), six binary hashes, and **26 game-source records with
+54 exact excerpts**. Every revision, URL, game version, object value and SHA matches.
+Source conflicts remain explicit, including Kalista's unresolved positive
+attack-speed contribution to hop velocity. The chosen policies and limits are
+recorded in [Kai'Sa/Kalista](docs/next-wave/Kaisa-Kalista.md),
+[Samira/Smolder](docs/next-wave/Samira-Smolder.md), and
+[Varus/Xayah](docs/next-wave/Varus-Xayah.md).
+
+Shared integration covers pre-physical target-local passives, visible fixed-time
+projectiles, interception during flight, actual-pet contact guards, independent
+channel/dash clocks, terrain flight and legal landing positions. Summons retain
+the targeting class stated by their pinned source; unknown units do not inherit
+minion-only damage modifiers. Lethal pet packets retain ability and persistence
+attribution for exact refunds and stack credit. Already-launched basic missiles can
+complete after their owner's death, including reflected trade kills.
+
+Validation of this snapshot:
+
+- All **4,095** unordered pairs were recomputed with four workers from an empty
+  fingerprint directory. No prior-fingerprint checkpoints were reused. All **269**
+  generated simulator and ledger files pass freshness checks. Both TypeScript
+  projects and the production build pass.
+- Independent comparison checks every checkpoint against all **8,190** generated
+  directions, including scenarios, aggregates, spending and selected variants.
+  All **180** Heimerdinger/Udyr variant selections and all 91 spending summaries
+  match. Every supported counter page contains the correct 90-rival ranking.
+- Actual production-worker searches pass both orientations for all **90** Darius
+  rivals and all **15** pairings among the six new champions. Swapped spending
+  and options match exactly. The largest scenario reflection difference is
+  **`3.29e-14`**, below the unchanged **`1e-10`** tolerance.
+- The final serial suite records **3,397 passing tests, 2 failing draft winner
+  expectations and 5 existing skips**. The failures remain Garen–Yasuo and
+  Malphite–Yasuo. All five golden files are byte-for-byte unchanged, and the
+  test command still exits with failure for those disagreements. The complete
+  Heimerdinger–Udyr search passes in **150.2 seconds** under its unchanged
+  **180-second** limit.
+- Chromium passes all **17 browser checks**, including live agreement for all
+  three new pairs, seven source pages at **390-pixel** phone width, cached ranks,
+  changed weights, cancellation and retry. All **90** live fallback rankings
+  against Darius match the refreshed matrix within the unchanged `1e-10`
+  tolerance; the largest score difference is **`3.78e-15`**.
+- Long assumption formulas wrap within phone width, while numeric tables scroll
+  inside their containers. The phone screenshot was inspected visually. Page,
+  console, HTTP and request errors are zero; all three browser contexts have no
+  unfinished posted jobs. Corki's historical Special Delivery record remains
+  byte-identical to batch 5 and absent from current ability headings.
+- Private delivery includes the compiled app and exact parsed source snapshot.
+  Publication requires every archive member and source digest to match, valid
+  archive CRCs, and all five startup checks, including freshness from extracted
+  `SOURCE`. It uses a new private preview branch and preserves the previous ZIP
+  and the repository's main commit.
+
 ## Remaining limits
 
-- Only 85 of the dataset's 173 champions have simulator kits. Other pairings use the
+- Only 91 of the dataset's 173 champions have simulator kits. Other pairings use the
   interaction ledger's heuristic estimates.
 - Movement is one-dimensional. Facing, side-stepping, vitals, terrain placement,
   pet placement, and some multi-hit geometry still use explicit approximations.
