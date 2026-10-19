@@ -681,9 +681,84 @@ console, HTTP and request errors are all zero; all three worker contexts have ze
 unfinished jobs. Private delivery packages the compiled build and exact source
 snapshot; packaging/startup and remote-byte receipts accompany that delivery.
 
+## Fifth expansion batch: validated on 19 October 2026
+
+Corki, Draven, Kog'Maw, Sivir, Tristana and Twitch bring registered coverage to
+**85 of 173 champions**, leaving **88**. This model requires **3,570 unordered
+pairs / 7,140 directed entries**. All pairs were freshly recomputed from the frozen
+model. The completed 79-champion report above remains a historical validation snapshot.
+
+The frozen source fingerprint is
+`5d28e2451925b24ce97f0b72890ba8fb1047125bd6b1da3b3e2cd637530a06c4`.
+The three champion suites pass **241 focused checks** (Corki/Draven 80,
+Kog'Maw/Tristana 90, Sivir/Twitch 71), including actual post-death effects and pet
+contacts. Source review corrected Draven Q/W refresh legality, preserved Tristana's
+independent stun after a wall stops knockback, retained Corki's due pet burn pulse
+and full lingering interval, and kept champion rocket splash dodgeable after a
+summon intercepts the missile. Cloned active, pending and resumed windups retain
+independent on-hit arrays; Kog'Maw's W cannot duplicate damage across branches.
+
+The fallback profiles were also regenerated from the reviewed records. Corki's retired
+Special Delivery is retained as an explicitly historical source, supported by the
+pinned client spell registry, and excluded from current kit lookups and displays.
+Draven's profile no longer misattributes the slow's two-second duration to knock-aside;
+Kog'Maw's uncertain spacing note retains its pending-test qualifier. Nine additional
+profile/archive regressions and both TypeScript projects pass.
+
+All 31 ability templates were retrieved by their exact pinned revisions and checked
+against the existing records. Versioned game-file excerpts retain separate URL,
+version, object and SHA-256 attribution. The pair audits in
+[docs/next-wave](docs/next-wave/README.md) document formulas, source conflicts and
+explicit geometry and policy limits.
+
+Shared work adds ordered critical basic packets, piercing basic skillshots using the
+existing finite branch budget, genuine spell-shield consumption callbacks, actual-pet
+contact state, moving post-death phases and finite persistent aftermath. Ordinary
+registered-kit behavior and stat-reference contracts pass before the matrix refresh.
+Before regeneration, all 84 Darius opponents and all 15 pairings among the six new
+champions pass independent production-worker searches in both orientations, including
+complete variant selection and exact reflected spending. The unchanged score tolerance
+is `1e-10`; maximum aggregate sums are `3.83e-15` and `3.05e-15`, respectively.
+The corresponding maximum scenario sums are `3.29e-14` and `1.08e-14`.
+The new Corki–Tristana regression also reproduces the actual allocated short trade:
+using the shared spatial margin at maximum Q reach keeps the declaration and impact
+on the same ticks after reflection. Its three checks pass without changing score
+tolerances or golden expectations. Adjacent custom new-kit range checks use the same
+engine margin.
+
+Final validation:
+
+- All **3,570** unordered pairs were recomputed with four workers from an empty
+  fingerprint-specific checkpoint directory. The refresh wrote **263** simulator
+  and ledger files in **3,119.9 seconds**, preserving parsed source data and profiles.
+  Every one of the **7,140** directed entries matches its checkpoint. Freshness and
+  both TypeScript projects pass.
+- The full serial suite completes with **3,026 passing tests, two existing draft
+  winner failures, and five existing skips** (**3,033 total**). The two failures
+  remain Garen–Yasuo and Malphite–Yasuo, at scores `−0.7758431083` and
+  `−0.7759328978`. There are no additional failures. All five golden files remain
+  byte-for-byte unchanged, and the command still exits with failure for those two
+  disagreements. The full Heimerdinger–Udyr variant-search regression passes in
+  **104.5 seconds** with its unchanged **180-second** limit.
+- The production build passes. Chromium passes **17 checks**, including live
+  agreement for all three new marksman pairs, the six source pages at **390-pixel**
+  phone width, cached ranks, changed weights, cancellation and retry. Every one of
+  **84** live fallback rankings against Darius matches the refreshed matrix within
+  the existing `1e-10` tolerance; the largest score difference is **`3.77e-15`**.
+  Corki's archived Special Delivery remains in source data and is absent from
+  current ability headings. The phone screenshot was also inspected visually.
+- Page, console, HTTP, request and worker error counts are zero. All three browser
+  contexts have no unfinished posted jobs. Independent delivery review confirms
+  coverage, source pins, variant selections and checkpoint correspondence.
+- Private delivery includes the compiled app and exact parsed source snapshot.
+  Publication requires every archive member and source digest to match, a valid
+  archive CRC, and all five startup checks, including freshness from extracted
+  `SOURCE`. It uses a new private preview branch and preserves the previous ZIP
+  and the repository's main commit.
+
 ## Remaining limits
 
-- Only 79 of the dataset's 173 champions have simulator kits. Other pairings use the
+- Only 85 of the dataset's 173 champions have simulator kits. Other pairings use the
   interaction ledger's heuristic estimates.
 - Movement is one-dimensional. Facing, side-stepping, vitals, terrain placement,
   pet placement, and some multi-hit geometry still use explicit approximations.
