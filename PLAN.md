@@ -77,8 +77,8 @@ The seventh batch implements Gragas, Hecarim, Warwick and Wukong, and merges the
 private 91-kit build (`158c0a49`), which had been published only as an archive, into
 this branch. Coverage is 95 of 173 champions, with 78 remaining and 4,465 unordered
 pairings. Every restriction the four kits quote was broken on purpose to confirm a
-test catches it: Warwick 20 of 20, Gragas 14 of 14, Wukong 63 of 63 and Hecarim 43
-of 43. `npm run build:data` now also reproduces the curated ability evidence, the
+test catches it: Warwick 21 of 21, Gragas 14 of 14, Wukong 63 of 63 and Hecarim 47
+of 47. `npm run build:data` now also reproduces the curated ability evidence, the
 marksmen's included, and all 173 ability records rebuild byte-identically from the
 downloads. {{VALIDATION}}
 Validation is recorded in [ACCURACY.md](ACCURACY.md).

@@ -825,12 +825,17 @@ champions**. **78 remain**, and the supported matrix requires **4,465 unordered 
 rates or certification of every mechanic. The batch also merges the private 91-kit
 build into this branch (below).
 
-The four new champion test files contain **98 passing checks** (Warwick 23, Gragas 18,
-Wukong 34, Hecarim 23). Each quoted restriction was also broken on purpose, one at a
-time, to confirm that a test fails: **{{MUT}}** mutations are caught. Wukong's first pass left two
-survivors, and each became a new test: a cooldown cut from ability hits on a running
-Crushing Blow cooldown, and the clone's shared knock-up, which only shows when the
-clone and Wukong first reach the enemy on different ticks.
+The four new champion test files contain **100 passing checks** (Warwick 23, Gragas 18,
+Wukong 34, Hecarim 25). Each quoted restriction was also broken on purpose, one at a
+time, to confirm that a test fails. Rerun on the merged engine, **21 of 21** Warwick
+mutations, **14 of 14** Gragas, **63 of 63** Wukong and **47 of 47** Hecarim mutations
+are caught. Wukong's first pass left two survivors, and each became a new test: a
+cooldown cut from ability hits on a running Crushing Blow cooldown, and the clone's
+shared knock-up, which only shows when the clone and Wukong first reach the enemy on
+different ticks. On the merged engine one Hecarim mutation, letting any damage give
+Rampage a stack, first survived: the one-stack-per-cast guard also blocks stacks before
+the first cast, which is when the test attacked. The test now also attacks after a
+missed cast.
 
 - Warwick's Eternal Hunger heals for 100% of its damage below 50% health and 250%
   below 25%. Jaws of the Beast is the tapped bite: it lunges, unless he is rooted or
@@ -873,29 +878,31 @@ clone and Wukong first reach the enemy on different ticks.
   with the clone, with a blocked pulse still using it up. It can be recast after
   0.5 s, and ending it with another ability counts as the recast. The second spin
   comes 1 s after that, within 8 s of the first, and the cooldown waits for it.
-- Hecarim's Warpath turns 24% of his bonus movement speed into attack damage, read
-  every 0.25 s, never less than none when he is slowed. Rampage's stacks come only from
-  its own damage to the champion. Each adds 3% (+ 3% per 100 bonus AD), up to three, and they set its
-  base cooldown from 4 down to 1.75 s. They last 8 s after its last hit, then go one a
-  second. Spirit of Dread pulses four times, through spell shields, and gives 25 armor
-  and magic resistance. It heals him for 25% of the damage he deals to the enemy in its
-  525-unit area while it lasts. Devastating Charge's run-up is ghosted and 25% faster,
-  3.33% more every 0.25 s up to 65% at 3 s, and stands still during Onslaught of
-  Shadows' dash. The charge takes the place of his attack: silence and blindness don't
-  stop it, stuns and disarms do, and roots and grounds hold it. It reaches 50 to 250
-  farther and deals 90 (+ 50% bonus AD) up to double. It knocks back 150 to 350 units,
-  stopping at the lane wall, and stuns for 0.25 s after the knock back. All of these
-  follow the distance he had traveled when he charged; being knocked about doesn't
-  count. Dodges and blocks stop its damage, not its knock back. An enemy gone out of
-  reach by his arrival leaves the charge for later. Onslaught of Shadows dashes 300 to
-  1000 units with displacement immunity, and its riders (a projectile wave) strike
-  once. Its fear on arrival lasts 0.75 to 1.5 s by the distance dashed, within 315 of
-  where he stops. Its slow follows the enemy's distance from him (none within 150, 99%
-  at 300) as a negative share of speed, and ends with the fear, a cleansed one
-  included. The run-up's ramp time disagrees with the pinned game file
-  (TimeToMaxMoveSpeed 2.5 s against the wiki's 3 s): the wiki is used and the excerpt
-  is recorded. The charge's dash speed and its knock back's duration are in neither
-  source and are explicit assumptions.
+- Hecarim's Warpath turns 24% of his bonus movement speed into attack damage, read every
+  0.25 s, never less than none when he is slowed. Rampage's stacks come only from its
+  own damage: one a cast however many enemies it damages, pets included, and every enemy
+  a cast hits takes the stacks it started with. It deals 60% to the summons their pet
+  data classes as minions. Each stack adds 3% (+ 3% per 100 bonus AD), up to three, and
+  they set its base cooldown from 4 down to 1.75 s. They last 8 s after its last hit,
+  then go one a second. Spirit of Dread pulses four times, through spell shields, and
+  gives 25 armor and magic resistance. It heals him for 25% of the damage he deals to
+  the enemy in its 525-unit area while it lasts. Devastating Charge's run-up is ghosted
+  and 25% faster, 3.33% more every 0.25 s up to 65% at 3 s, and stands still during
+  Onslaught of Shadows' dash. The charge takes the place of his attack: silence and
+  blindness don't stop it, stuns and disarms do, and roots and grounds hold it. It
+  reaches 50 to 250 farther and deals 90 (+ 50% bonus AD) up to double. It knocks back
+  150 to 350 units, stopping at the lane wall, and stuns for 0.25 s after the knock
+  back. All of these follow the distance he had traveled when he charged; being knocked
+  about doesn't count. Dodges and blocks stop its damage, not its knock back. An enemy
+  gone out of reach by his arrival leaves the charge for later. Onslaught of Shadows
+  dashes 300 to 1000 units with displacement immunity, and its riders (a projectile
+  wave) strike once. Its fear on arrival lasts 0.75 to 1.5 s by the distance dashed,
+  within 315 of where he stops. Its slow follows the enemy's distance from him (none
+  within 150, 99% at 300) as a negative share of speed, and ends with the fear, a
+  cleansed one included. The run-up's ramp time disagrees with the pinned game file
+  (TimeToMaxMoveSpeed 2.5 s against the wiki's 3 s): the wiki is used and the excerpt is
+  recorded. The charge's dash speed and its knock back's duration are in neither source
+  and are explicit assumptions.
 
 Shared engine changes are small and opt-in. Dashes can resolve their distance from the
 caster's stats at declaration (`distanceFor`, Infinite Duress). Ground areas can land
@@ -923,15 +930,35 @@ Winners and margins were not tuned toward any expectation.
 
 ### Merging the private 91-kit build
 
-The private workspace published its 91-kit build (`158c0a49`) only as an archive and
-a preview branch based on `main`. Its `SOURCE` folder was imported as one commit on
-the 73-kit build it started from, then merged with this branch. The three code
-conflicts were mechanical: both sides added a dash option in the same place
-(`distanceFor` and `crossTerrain`), changed the same dash-distance line, and
-registered kits. The private build's attack hooks now say which attack started and
-whether it targets a pet. With that, Warwick's Blood Hunt counts an enemy pet by its
-own health, and the active's mark only on the champion, as the wiki's text reads; a
-new test covers it. {{MERGE}}
+The private workspace published its 91-kit build (`158c0a49`) only as an archive and a
+preview branch based on `main`. Its `SOURCE` folder was imported as one commit on the
+73-kit build it started from, then merged with this branch. The three code conflicts
+were mechanical: both sides added a dash option in the same place (`distanceFor` and
+`crossTerrain`), changed the same dash-distance line, and registered kits. The private
+build's attack hooks now say which attack started and whether it targets a pet. With
+that, Warwick's Blood Hunt counts an enemy pet by its own health, and the active's mark
+only on the champion, as the wiki's text reads; a new test covers it.
+
+The private build had added evidence to 17 marksmen's ability records by hand, which a
+rebuild from `data/raw` would have dropped, and with it text their kits quote. The
+pipeline now reproduces all of it. There are 54 game-file excerpts: 44 quote the file
+exactly as written ("2250.0", new `exact`), 8 re-serialize it, and 2 are lines written
+by hand that the build checks against the file (new `lines`). There are 13 texts
+rendered by hand from templates, each pinned to its revision, and Varus's note on his
+Hail of Arrows damage type. Five corrections (new `RECORD_CORRECTIONS`) each state what
+the parser gives and fail the build if that changes: Corki's retired Special Delivery is
+marked historical, Draven's Stand Aside knock aside loses the slow's 2 seconds,
+Kog'Maw's and Tristana's notes keep text the parser drops, and Varus's Hail of Arrows is
+physical damage, as its text and formula say. The 17 records' content is identical to
+the private build's, and all 173 records rebuild byte-identically.
+
+Three fight profiles (Anivia, Malzahar, Wukong) were older than their records' curated
+interaction tables; they now match a rebuild, as do all 173 profiles and the glossary.
+Nine kits' assumptions from the private builds had lost the spaces around their numbers
+("A300radius desecrated field lasts4seconds"); only spaces, leading zeros, formula
+spacing and glued words were restored. The engine's pet classes, read from each pet's
+wiki targeting, let Rampage deal 60% to minion-class summons and gain its stack from
+damaging a pet. {{COMPARE}}
 
 ### 76-kit snapshot (superseded)
 
