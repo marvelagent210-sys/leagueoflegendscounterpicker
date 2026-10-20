@@ -217,5 +217,14 @@
       "missing": [],
       "fetchedAt": "2026-10-11T22:13:20.014Z"
     }
+  },
+  "items": {
+    "ddragonVersion": "16.20.1",
+    "cdragonVersion": "16.20.8248524+branch.releases-16-20.content.release",
+    "itemData": {
+      "title": "Module:ItemData/data",
+      "revid": 4082420
+    },
+    "fetchedAt": "2026-10-20T16:58:41.125Z"
   }
 }

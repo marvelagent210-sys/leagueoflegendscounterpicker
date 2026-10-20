@@ -1072,6 +1072,31 @@ matchups against Darius show the matrix scores, their kit pages show their assum
 without horizontal scrolling, and the matchup page fits a 390-pixel phone. Page, console
 and HTTP errors are all zero.
 
+## Item catalog, 20 October 2026
+
+The first step of M8 (PLAN.md §13): the items the build search will choose from, read from
+pinned sources. The simulator doesn't use them yet, so no simulated score changes, and
+`npm run build:sim -- --check` still matches fingerprint `248fa67b…`.
+
+- **Sources.**
+  - Data Dragon 16.20.1's item list decides which items the Summoner's Rift shop sells, and their gold.
+  - The items' game file gives stats and item groups. It comes from CommunityDragon 16.20.8248524, the dataset's own game build.
+  - [Module:ItemData/data revision 4082420](https://wiki.leagueoflegends.com/en-us/Module:ItemData/data?oldid=4082420) gives stats, effects and limits.
+- **The wiki's per-item subpages are out of date.** The `Module:ItemData/data/<item>` pages are an older copy, last edited in June 2025. There, Infinity Edge has 65 AD and 40% critical strike damage; the 16.20 game file and the combined module give 75 AD and 30%. The catalog reads the combined module.
+  - Triple Tonic's elixirs are still read from those subpages. Moving them is a follow-up, since it changes `runes.json` and so the simulation fingerprint.
+- **The catalog has 106 finished items and 7 tier-2 boots,** the counts confirmed on review.
+- **Cross-check:** all 323 stats the wiki gives for those items match the game file, once its float noise is rounded (30.000001% is 30%). The one difference is Redemption's gold: 2,250 on the wiki, 2,300 in Data Dragon. The catalog uses Data Dragon's.
+- **One-per-build groups:**
+  - Nine game-file caps bind the catalog. Besides the boots, the wiki's limits name the same items in each.
+  - They differ in three places from the rules confirmed on review (PLAN.md §13):
+    - The Tear items are one per build.
+    - Mortal Reminder and Morellonomicon can be combined.
+    - Penetration is two groups: LastWhisper (Lord Dominik's Regards, Mortal Reminder, Serylda's Grudge, Black Cleaver) and VoidPen (Void Staff, Cryptbloom, Bloodletter's Curse). Terminus is in both.
+- **Effects:**
+  - All 163 effect and restriction texts render without wiki markup, with both melee and ranged values.
+  - The shared evaluator shows only the melee value of `{{rd}}`, so the item step spells out both before rendering. Melee/ranged values that scale by level render as level progressions.
+- **Tests:** `tests/items.test.ts` (11 tests) covers the selection, the text, the records, the cross-check, the groups and the committed catalog.
+
 ## Remaining limits
 
 - Only 95 of the dataset's 173 champions have simulator kits. Other pairings use the

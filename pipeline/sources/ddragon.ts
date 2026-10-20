@@ -31,3 +31,8 @@ export async function latestVersion(): Promise<string> {
 export function championFullText(version: string): Promise<string> {
   return fetchText(`${DDRAGON}/cdn/${version}/data/en_US/championFull.json`);
 }
+
+/** Every item of the version: names, gold, build paths and the maps each is sold on. */
+export function itemText(version: string): Promise<string> {
+  return fetchText(`${DDRAGON}/cdn/${version}/data/en_US/item.json`);
+}

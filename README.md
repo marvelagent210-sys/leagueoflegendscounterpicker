@@ -101,7 +101,9 @@ npm run golden       # every golden matchup (tests/golden/matchups.ts) with its 
 ```sh
 npm run fetch        # download the current patch's sources into data/raw/ (not committed)
 npm run fetch -- --only glossary   # refetch just the wiki's glossary pages
+npm run fetch -- --only items      # refetch just the item catalog's sources
 npm run build:data   # rebuild data/<dataset>/ from those downloads, including all 4,465 supported pairings
+npm run build:items  # rebuild the item catalog (items.json, reports/items.md); the simulator doesn't use items yet
 ```
 
 Each patch gets a folder named after its Data Dragon version, e.g. `data/16.20/` for patch 26.20. It contains:
@@ -117,6 +119,7 @@ Each patch gets a folder named after its Data Dragon version, e.g. `data/16.20/`
 | `counters/<champion>.md` | Every champion ranked against this one: by simulated duels for the 95 champions with kits, and by interaction estimates, with the strongest reasons |
 | `rankings.json` | The ledger rankings, machine-readable |
 | `simulated.json` | Every simulated matchup between champions with kits: the score and each scenario's, and the options played by kits with a choice |
+| `items.json` | The item catalog for the planned build search (M8): the 106 finished items and 7 tier-2 boots with stats, effects and limits, the game file's one-per-build groups, and the stat cross-check. Not used by the simulator yet |
 | `oracle/level20.json` | The wiki's level-20 stat table, which the tests check the stat math against |
 | `manifest.json`, `wiki-revisions.json` | The exact source versions and wiki revisions used |
 | `reports/level20-stats.md` | Base stats of every form at level 20 |
@@ -124,6 +127,7 @@ Each patch gets a folder named after its Data Dragon version, e.g. `data/16.20/`
 | `reports/abilities.md` | Parsing coverage, level 19-20 values, ability cooldowns and costs that differ from the game files, and the removed abilities skipped |
 | `reports/ledger.md` | The glossary pages used, what the profiles found, hard counters by check, and each champion's best ledger-only counter |
 | `reports/simulator.md` | The simulated standings, the golden matchups with their scores, and what the stat budget buys each champion |
+| `reports/items.md` | The item catalog, readable: how it's chosen, the one-per-build groups, the cross-check against the game file, and every item's stats and effects |
 
 Tests run offline against the committed data.
 

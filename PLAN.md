@@ -655,6 +655,8 @@ web/        the app
 
 It starts once all 173 champions have kits; at the M7 pace (46 kits from 14 to 20 October) the last 78 take about two weeks. M8 itself is about 5 to 7 weeks of work. Each matchup then plays the item build and rune page found best for each side against the other's, instead of plain stats.
 
+Progress: the item data came first, on 20 October, while the remaining kits are written elsewhere. `npm run fetch -- --only items` and `npm run build:items` write the catalog to `items.json` and `reports/items.md`; the simulator doesn't read it yet, so the matrix and its fingerprint are unchanged. See ACCURACY.md for its validation.
+
 - **What changes.**
   - Two ground rules (§1): items and runes join the kits. The plain-stat budget (§10) becomes a setting, so the kit-only view stays available.
   - Builds are full (decided on 20 October): six finished items without boots, or five with one of the seven tier-2 boots. Order doesn't matter, and no item appears twice. Full builds cost more than the default 15,000 gold, which stays for the plain-stat setting.
@@ -675,6 +677,7 @@ It starts once all 173 champions have kits; at the M7 pace (46 kits from 14 to 2
   - Sunfire Aegis or Hollow Radiance; Mortal Reminder or Morellonomicon (Grievous Wounds); Banshee's Veil or Edge of Night (Annul).
   - The Tear items (Manamune, Archangel's Staff, Winter's Approach) can be combined.
   - That leaves 1,538,705,768 six-item builds and 661,723,587 five-item builds with boots: 2,200,429,355 per side.
+  - Open question: the game file's own caps, which the wiki's limits match (`reports/items.md`), differ from these rules in three places. The Tear items are one per build (TearItems), and so are Archangel's Staff and the Lifeline items. Mortal Reminder and Morellonomicon can be combined. Penetration is two groups, both with Terminus: Lord Dominik's Regards, Mortal Reminder, Serylda's Grudge and Black Cleaver (LastWhisper), and Void Staff, Cryptbloom and Bloodletter's Curse (VoidPen).
 - **Build and rune search** (1 to 2 weeks).
   - Each side has about 2.2 billion builds and about a million rune pages. Fighting every pairing would take about 15 billion processor-years per matchup, so nothing is searched exhaustively.
   - Per champion, the search drops items its kit can't use and items another beats on every stat it uses, at the same price or less. For hybrids such as Kai'Sa and Kog'Maw this removes little, which the steps below don't depend on.

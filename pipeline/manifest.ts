@@ -25,4 +25,9 @@ export interface Manifest {
     /** Rune and elixir pages (WIKI_RUNE_PAGES); fetched with the rest, or alone with --only runes. */
     runePages?: { pages: number; missing: string[]; fetchedAt: string };
   };
+  /**
+   * The item catalog's sources (M8): Data Dragon's item list, the items' game data file and
+   * the wiki's item data module. Fetched with the rest, or alone with --only items.
+   */
+  items?: { ddragonVersion: string; cdragonVersion: string; itemData: { title: string; revid: number }; fetchedAt: string };
 }
