@@ -44,7 +44,7 @@ Results at the default settings are precomputed by `npm run build:data`, or refr
 
 The [private mobile preview](https://codespaces.new/marvelagent210-sys/leagueoflegendscounterpicker/tree/counter-picker-download-158c0a49?quickstart=1) uses a packaged build in a GitHub Codespace. Preview updates follow validation of each batch. Its `README-MOBILE.md` explains startup, phone access and resuming it. Keep port 8000's visibility **Private**. The downloadable package also includes the exact working source and parsed inputs in `SOURCE`, with computer setup instructions in `README-PRIVATE.md`.
 
-The full test suite retains two failing draft winner expectations, Garen–Yasuo and Malphite–Yasuo. See [ACCURACY.md](ACCURACY.md) for current validation and model limits.
+The full test suite passes. Five draft winner expectations stay marked disputed, each with what the simulator shows instead, and the tests skip them. See [ACCURACY.md](ACCURACY.md) for current validation and model limits.
 
 `.github/workflows/pages.yml` runs the type checks, tests and build on every pull request. On each push to main it also publishes the app to GitHub Pages. Pages must be turned on once, with "GitHub Actions" as the source (Settings → Pages).
 

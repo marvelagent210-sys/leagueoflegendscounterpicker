@@ -1049,6 +1049,29 @@ and reverted on the way; the engine and every kit end up exactly as they were, s
 simulated score changes. The matrix is refreshed only because the golden file is part
 of the simulation fingerprint.
 
+### Validation of the review
+
+Model fingerprint:
+`248fa67b24bbbef9305f9a394077dedefcd1c386fd5759199fd0bc2e5e6598d2`.
+
+The refresh computed all **4,465 pairs** on four workers in **5,184.2 seconds** and
+rewrote 273 simulator and ledger files; only `simulated.json` and the simulator report
+changed. All 8,930 directed scores, every scenario and every kit choice are identical
+to the previous matrix (`090fdf2d…`), and only the fingerprint differs.
+`npm run build:sim -- --check` passes, both TypeScript projects pass, and the report
+now shows 65 of 69 expectations holding.
+
+The full suite ran **3,521 tests across 125 files** on four workers in **191
+seconds**: **3,516 passed** and the five disputed matchups were skipped. No test failed,
+for the first time since the wave-3 import.
+
+The production build passes. In Chromium, the matchup pages for Yasuo against Garen and
+Malphite, both ways round, show the stored ±0.78 within about two seconds, without the
+rerun banner. Yasuo's, Garen's and Malphite's counter pages rank all 94 opponents, their
+matchups against Darius show the matrix scores, their kit pages show their assumptions
+without horizontal scrolling, and the matchup page fits a 390-pixel phone. Page, console
+and HTTP errors are all zero.
+
 ## Remaining limits
 
 - Only 95 of the dataset's 173 champions have simulator kits. Other pairings use the
