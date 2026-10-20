@@ -200,7 +200,7 @@ export function dealDamage(world: World, source: Unit, target: Unit, raw: number
   const typed = type === "physical" ? t.physicalReduction : type === "magic" ? t.magicReduction : [];
   const modifiers = { dealt: s.damageDealt, received: [...t.damageReduction, ...typed] };
   const criticalResist = type === "physical" && critChance > 0 && s.criticalBonusArmorIgnore > 0
-    ? effectiveResist(t.armor, t.armorReduction, { flat: s.lethality, percent: s.armorPen, bonusPercent: s.bonusArmorPen, bonusIgnoreAdditive: s.criticalBonusArmorIgnore })
+    ? effectiveResist(t.armor, t.armorReduction, { flat: s.lethality, percent: s.armorPen, bonusPercent: [...s.bonusArmorPen, s.criticalBonusArmorIgnore] })
     : resist;
   // Armor differs between ordinary and critical outcomes. Average their mitigated
   // damage once, so shields, floors, vamp and damage hooks still see one hit.

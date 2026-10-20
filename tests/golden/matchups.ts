@@ -131,7 +131,14 @@ export const IMMUNITY_AND_ARMOR: GoldenMatchup[] = [
   { winner: "Olaf", loser: "Ornn", margin: "slight", why: "Ragnarok ignores Ornn's knock-ups and stuns." },
   { winner: "Olaf", loser: "Poppy", margin: "slight", why: "Ragnarok ignores Heroic Charge's stun and Keeper's Verdict." },
   { winner: "Malphite", loser: "Tryndamere", margin: "clear", why: "Ground Slam cuts Tryndamere's attack speed, and Malphite's armor blunts his crits." },
-  { winner: "Malphite", loser: "Yasuo", margin: "slight", why: "Armor against crits, and Unstoppable Force goes through Wind Wall." },
+  {
+    winner: "Malphite",
+    loser: "Yasuo",
+    margin: "slight",
+    why: "Armor against crits, and Unstoppable Force goes through Wind Wall.",
+    disputed:
+      "Yasuo wins 94-100% of the all-ins (+0.74 for him), with 5-17% of his health left after fights of 17-19 seconds. Intent doubles his bought crit chance to 100%, and after Last Breath his critical strikes, with his 35% armor penetration, leave 26% of Malphite's bonus armor (8,314 gold of it). Without that armor ignorance, which the kit didn't model before wave 3, Malphite wins every all-in (+0.78).",
+  },
   { winner: "Malphite", loser: "Yone", margin: "slight", why: "Armor against crits, and Ground Slam cuts Yone's attack speed." },
   { winner: "Malphite", loser: "Riven", margin: "slight", why: "All of Riven's damage is physical, into Malphite's armor and Ground Slam." },
   { winner: "Malphite", loser: "Irelia", margin: "slight", why: "Ground Slam cuts Irelia's attack speed, and her damage is mostly physical." },
@@ -151,7 +158,14 @@ export const IMMUNITY_AND_ARMOR: GoldenMatchup[] = [
 
 /** Silences, sustain and late-game scaling. */
 export const SCALING_AND_SUSTAIN: GoldenMatchup[] = [
-  { winner: "Garen", loser: "Yasuo", margin: "slight", why: "Decisive Strike silences Yasuo, so he can't Sweeping Blade away or stack Steel Tempest." },
+  {
+    winner: "Garen",
+    loser: "Yasuo",
+    margin: "slight",
+    why: "Decisive Strike silences Yasuo, so he can't Sweeping Blade away or stack Steel Tempest.",
+    disputed:
+      "Yasuo wins every all-in (+0.78 for him), with 27-37% of his health left. Intent doubles his bought crit chance to 100%, and after Last Breath his critical strikes, with his 35% armor penetration, leave 26% of Garen's bonus armor (3,043 gold of it); Decisive Strike's silence lands but doesn't turn the fight. Without that armor ignorance, which the kit didn't model before wave 3, Garen wins every all-in (+0.78).",
+  },
   { winner: "Garen", loser: "Yone", margin: "slight", why: "Decisive Strike silences Yone in the middle of his combo." },
   { winner: "Garen", loser: "Irelia", margin: "slight", why: "Decisive Strike silences Irelia (no Bladesurge resets), and Garen's regeneration outlasts her trades." },
   { winner: "Nasus", loser: "Renekton", margin: "slight", why: "By level 20 Siphoning Strike has its stacks, and Wither cripples Renekton's attacks." },

@@ -1,4 +1,5 @@
 /** Yasuo: every number is read from the wiki's ability data at level 20 (see engine/kits/context.ts). */
+import { PENETRATION_CAPS } from "../../engine/budget";
 import type { KitModule } from "../../engine/kits/compile";
 import { IMMOBILIZING } from "../../engine/rules/crowdControl";
 import { abilityHit, canTarget, consumeSpellShield } from "../../engine/sim/combat";
@@ -50,7 +51,6 @@ const yasuo: KitModule = {
     const breathDamage: Effect = { type: "damage", damageType: "physical", amount: r.formula("Physical Damage") };
     const armorIgnore = r.quoted("critical strikes ignores 60% of the target's bonus armor", 0) / 100;
     const armorIgnoreSeconds = r.quoted("For the next 15 seconds", 0);
-    r.quote("The percentage bonus armor ignorance stacks additively with sources of percentage armor penetration");
     r.quote("Yasuo gains the bonus armor ignorance on-cast");
     r.quote("While performing Last Breath, Yasuo is locked out of performing actions");
     r.quote("Spell shield will not prevent Last Breath from being cast and the target will be knocked up and dealt the damage");
@@ -66,6 +66,8 @@ const yasuo: KitModule = {
     kit.assume(`With a minion wave, Sweeping Blade through minions gives a dash toward or away from the enemy every ${minionDash} seconds.`);
     kit.assume("Yasuo starts every fight with full Flow.");
     kit.assume("A partial Sweeping Blade generates its documented 7.5 Flow per full dash in proportion to the distance traveled.");
+    const capped = PENETRATION_CAPS.armorPen;
+    kit.assume(`Last Breath's ${Math.round(armorIgnore * 100)}% bonus armor ignorance multiplies with percentage armor penetration, as other percentage penetration does: with ${Math.round(capped * 100)}% penetration, critical strikes leave ${Math.round((1 - capped) * (1 - armorIgnore) * 100)}% of bonus armor. The wiki's note says it stacks additively, which would leave ${Math.round(Math.max(0, 1 - capped - armorIgnore) * 100)}%.`);
     kit.assume("Crit chance bought counts double for Yasuo (the stat budget values it that way).");
 
     const thrustHit: Effect[] = [

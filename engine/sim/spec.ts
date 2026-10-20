@@ -154,7 +154,7 @@ export type BuffStat =
   | "maxResource"
   /** Percentage penetration of bonus armor only (All Out's 50%). */
   | "bonusArmorPen"
-  /** Bonus armor ignored by critical strikes, additive with total percentage armor penetration (Last Breath). */
+  /** Bonus armor ignored by critical strikes, multiplying with percentage armor penetration (Last Breath). */
   | "criticalBonusArmorIgnore"
   /** Flat loss of total AD; bonus AD floors at zero without reducing base AD ratios (Mocking Shout). */
   | "totalADReduction";
