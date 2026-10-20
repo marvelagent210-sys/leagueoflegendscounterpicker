@@ -220,7 +220,8 @@
         "As long as the target is within the tether radius, they will take the full tether damage over 2.5 seconds even if they are not tethered due to the tether being broken early into the channel.\n  - This occurs regardless of how the tether was broken.\n  - If the target exits tether range they will stop taking damage, but can be damaged again by the remaining ticks if they re-enter the tether range within the duration.",
         "Removing the suppression will also remove the reveal.",
         "Malzahar places himself onto the ground and interrupts displacements affecting him upon starting the channel.",
-        "The following table refers for interactions while Malzahar is channeling:\n  - The channel will be interrupted if the tether is broken."
+        "The following table refers for interactions while Malzahar is channeling:\n  - The channel will be interrupted if the tether is broken.",
+        "Interaction table (ct): attack=Disabled if attacking Nether Grasp target. Otherwise interrupts after 0.5 seconds of channeling.; cast=interrupts; move=Disabled for the first 0.5 seconds. Interrupts afterwards.; consume=true; items=interrupts,true,interrupts,false,interrupts; spells=true,interrupts,interrupts,interrupts."
       ]
     },
     {

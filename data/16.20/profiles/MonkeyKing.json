@@ -173,7 +173,8 @@
       "boostsAttacks": true,
       "notes": [
         "Casting a basic ability will always interrupt Wukong's Cyclone. A clone can be interrupted by casting Crushing Blow, but only if the clone was made during the current Cyclone cast and only for that cast. This means if both Wukong and his clone are spinning, the clone cannot be interrupted.",
-        "Spell shield will block one instance of damage.\n  - Blocking the knock up will still grant immunity to it from either of Cyclone's casts."
+        "Spell shield will block one instance of damage.\n  - Blocking the knock up will still grant immunity to it from either of Cyclone's casts.",
+        "Interaction table (ct): attack=false; move=true; cast=Other abilities are disabled for the first 0.3 seconds, casting them afterwards interrupts.; items=true; consume=true; spells=true,true,true,false,true; interrupts=death."
       ]
     },
     {
