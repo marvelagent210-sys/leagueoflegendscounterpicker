@@ -76,6 +76,7 @@ describe("curated ability evidence", () => {
     expect(rawFieldAt(bin, "Obj", "mSpell.missileSpeed")).toBe("2250.0");
     expect(rawFieldAt(bin, "Obj", "mSpell.DataValues.A.values")).toBe("[1.0,2.5]");
     expect(() => rawFieldAt(bin, "Obj", "mSpell.DataValues.B.values")).toThrow(/No game field/);
+    expect(() => rawFieldAt('{"Obj":{"mSpell":{"missileSpeed":2250.0', "Obj", "mSpell.missileSpeed")).toThrow(/Unterminated/);
     const fields = ["mSpell.missileSpeed", "mSpell.DataValues.A.values"];
     const exact = synthetic();
     attachEvidence(exact, "Xayah", binInput, [{ champion: "Xayah", ability: "Test", character: "C", object: "Obj", fields, exact: true }], [], []);

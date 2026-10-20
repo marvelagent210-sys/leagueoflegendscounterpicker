@@ -139,6 +139,15 @@ describe("Rampage", () => {
     const tick = w.tick;
     cast(w, "Q");
     expect(self.cooldownReady.Q).toBe(tick + 120);
+    // Nor an attack after a cast that missed, while that cast has no stack yet.
+    const far = worldFor({}, 600);
+    const hec = far.units[0];
+    cast(far, "Q");
+    attackHit(far, hec, far.units[1], false, []);
+    hec.cooldownReady.Q = 0;
+    const next = far.tick;
+    cast(far, "Q");
+    expect(hec.cooldownReady.Q).toBe(next + 120);
   });
 
   it("no stack when it misses", () => {

@@ -343,6 +343,7 @@ function members(text: string, start: number): Array<{ key?: string; start: numb
   const object = text[start] === "{";
   let i = skipSpace(text, start + 1);
   while (text[i] !== (object ? "}" : "]")) {
+    if (i >= text.length) throw new Error("Unterminated JSON value");
     let key: string | undefined;
     if (object) {
       const keyEnd = valueEnd(text, i);
