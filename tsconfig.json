@@ -23,6 +23,7 @@
     "pipeline",
     "engine",
     "kits",
+    "items",
     "tests",
     "vitest.config.ts"
   ]
