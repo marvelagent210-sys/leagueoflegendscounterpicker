@@ -3,6 +3,8 @@ import { canCast, startCast } from "../../engine/sim/actions";
 import { type Behavior, defaultBehavior } from "../../engine/sim/behavior";
 import { applyEffect, attackHit, hookContext } from "../../engine/sim/combat";
 import { derive, hasState } from "../../engine/sim/derived";
+import { spawnPet } from "../../engine/sim/pets";
+import { petFormulaTarget } from "../../engine/sim/petTarget";
 import { createWorld, step } from "../../engine/sim/simulate";
 import type { AbilitySpec, BonusStats, FighterSpec } from "../../engine/sim/spec";
 import type { Action, World } from "../../engine/sim/state";
@@ -152,6 +154,27 @@ describe("Blood Hunt", () => {
     through(w, 10);
     self.spec.hooks?.onAttack?.({ ...hookContext(w, self), action: windup(w) });
     expect(huntBuff(w)!.endTick).toBe(end);
+  });
+
+  it("an attack started on an enemy pet counts the pet's own health, not the champion's mark", () => {
+    const w = worldFor();
+    const [self, target] = w.units;
+    const pet = spawnPet(w, target, { kind: "dummy", name: "Enemy pet", hp: 1000, armor: 0, mr: 0, radius: 35, moveSpeed: 0, duration: 10 }, 150);
+    const onPet = () => self.spec.hooks?.onAttack?.({ ...hookContext(w, self, undefined, petFormulaTarget(pet, self, w.tick)), action: { ...windup(w), pet: pet.id }, targetPet: pet });
+    // The champion is low and marked, but the pet is healthy: no attack speed.
+    target.hp = 0.4 * 20000;
+    self.memory.huntMarkUntil = w.tick + 240;
+    onPet();
+    expect(huntBuff(w)).toBeUndefined();
+    // Below the threshold, the pet grants it, doubled below 25%.
+    pet.hp = 400;
+    onPet();
+    expect(huntBuff(w)?.value).toBeCloseTo(1.1, 9);
+    delete self.memory.huntAsUntil;
+    self.statuses = self.statuses.filter((s) => s.memoKey !== "buff:warwick:hunt");
+    pet.hp = 200;
+    onPet();
+    expect(huntBuff(w)?.value).toBeCloseTo(2.2, 9);
   });
 
   it("the active marks the enemy for 8 s: the attack speed whatever its health", () => {

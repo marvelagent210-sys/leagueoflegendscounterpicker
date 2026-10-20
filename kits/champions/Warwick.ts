@@ -371,7 +371,9 @@ const warwick: KitModule = {
         },
         onAttack(ctx) {
           // Blood Hunt's attack speed on starting an attack against a hunted enemy, unless he has it already.
-          if (ctx.tick >= Number(ctx.memory.huntAsUntil ?? -1) && hunted(ctx.self, ctx.enemy, ctx.world)) huntSpeed(ctx);
+          // An enemy pet counts by its own health; the active's mark is only on the champion.
+          const below = ctx.targetPet ? ctx.enemy.hp < huntBelow * maxHp(ctx.enemy) : hunted(ctx.self, ctx.enemy, ctx.world);
+          if (ctx.tick >= Number(ctx.memory.huntAsUntil ?? -1) && below) huntSpeed(ctx);
         },
         onDamageDealt(ctx) {
           if (ctx.petSource) return;
