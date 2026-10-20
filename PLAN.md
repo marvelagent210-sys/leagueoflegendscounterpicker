@@ -80,8 +80,12 @@ pairings. Every restriction the four kits quote was broken on purpose to confirm
 test catches it: Warwick 21 of 21, Gragas 14 of 14, Wukong 63 of 63 and Hecarim 47
 of 47. `npm run build:data` now also reproduces the curated ability evidence, the
 marksmen's included, and all 173 ability records rebuild byte-identically from the
-downloads. {{VALIDATION}}
-Validation is recorded in [ACCURACY.md](ACCURACY.md).
+downloads. All 4,465 pairs were computed under fingerprint `090fdf2d…`. The 91 champions
+the private build simulated keep its results exactly (24 entries within 2.2e-16). The
+full suite has 3,514 passing tests, the two original draft winner failures and five
+existing skips. All 41 production browser checks pass, and all 94 live fallback scores
+against Darius match the matrix within 3.83e-15. Validation is recorded in
+[ACCURACY.md](ACCURACY.md).
 
 Each batch must read pinned source values, check meaningful damage/timing/counterplay
 cases, exercise ordinary behavior, regenerate all affected duels, and pass type/build

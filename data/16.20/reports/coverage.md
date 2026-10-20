@@ -1,6 +1,6 @@
 # Champion simulator coverage
 
-91 of 173 champions have simulator kits; 82 remain. This covers 4,095 unordered simulated pairings.
+95 of 173 champions have simulator kits; 78 remain. This covers 4,465 unordered simulated pairings.
 
 A simulator kit is implemented coverage, not a certification of every mechanic. Each kit page records source revisions and explicit assumptions. Other champions retain interaction estimates until their kit is implemented and checked.
 
@@ -31,7 +31,9 @@ A simulator kit is implemented coverage, not a certification of every mechanic. 
 | Gangplank | Gangplank | 58 | 5 |
 | Garen | Garen | 32 | 3 |
 | Gnar | Gnar | 70 | 7 |
+| Gragas | Gragas | 57 | 3 |
 | Gwen | Gwen | 52 | 5 |
+| Hecarim | Hecarim | 73 | 11 |
 | Heimerdinger | Heimerdinger | 79 | 9 |
 | Illaoi | Illaoi | 70 | 12 |
 | Irelia | Irelia | 45 | 6 |
@@ -56,6 +58,7 @@ A simulator kit is implemented coverage, not a certification of every mechanic. 
 | Malzahar | Malzahar | 85 | 12 |
 | Master Yi | MasterYi | 51 | 5 |
 | Miss Fortune | MissFortune | 62 | 6 |
+| Wukong | MonkeyKing | 85 | 9 |
 | Mordekaiser | Mordekaiser | 38 | 5 |
 | Morgana | Morgana | 45 | 4 |
 | Nasus | Nasus | 40 | 2 |
@@ -91,6 +94,7 @@ A simulator kit is implemented coverage, not a certification of every mechanic. 
 | Vel'Koz | Velkoz | 70 | 7 |
 | Vladimir | Vladimir | 64 | 10 |
 | Volibear | Volibear | 50 | 4 |
+| Warwick | Warwick | 67 | 5 |
 | Xayah | Xayah | 75 | 7 |
 | Xin Zhao | XinZhao | 65 | 6 |
 | Yasuo | Yasuo | 49 | 4 |
@@ -119,9 +123,7 @@ A simulator kit is implemented coverage, not a certification of every mechanic. 
 - [ ] Fiddlesticks (Fiddlesticks)
 - [ ] Fizz (Fizz)
 - [ ] Galio (Galio)
-- [ ] Gragas (Gragas)
 - [ ] Graves (Graves)
-- [ ] Hecarim (Hecarim)
 - [ ] Hwei (Hwei)
 - [ ] Ivern (Ivern)
 - [ ] Janna (Janna)
@@ -139,7 +141,6 @@ A simulator kit is implemented coverage, not a certification of every mechanic. 
 - [ ] Maokai (Maokai)
 - [ ] Mel (Mel)
 - [ ] Milio (Milio)
-- [ ] Wukong (MonkeyKing)
 - [ ] Naafiri (Naafiri)
 - [ ] Nami (Nami)
 - [ ] Neeko (Neeko)
@@ -175,7 +176,6 @@ A simulator kit is implemented coverage, not a certification of every mechanic. 
 - [ ] Vi (Vi)
 - [ ] Viego (Viego)
 - [ ] Viktor (Viktor)
-- [ ] Warwick (Warwick)
 - [ ] Xerath (Xerath)
 - [ ] Yunara (Yunara)
 - [ ] Yuumi (Yuumi)

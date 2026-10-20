@@ -958,7 +958,10 @@ Nine kits' assumptions from the private builds had lost the spaces around their 
 ("A300radius desecrated field lasts4seconds"); only spaces, leading zeros, formula
 spacing and glued words were restored. The engine's pet classes, read from each pet's
 wiki targeting, let Rampage deal 60% to minion-class summons and gain its stack from
-damaging a pet. {{COMPARE}}
+damaging a pet. After the refresh, all 8,190 directed results among the 91 champions the
+private build simulated match its `158c0a49` matrix: 8,166 bit for bit and 24 within
+2.2e-16 of floating-point rounding, with every scenario value and every Heimerdinger and
+Udyr kit choice the same. The merge changes none of those duels.
 
 ### 76-kit snapshot (superseded)
 
@@ -973,7 +976,49 @@ supersedes it.
 
 ### Seventh-batch validation
 
-{{VALIDATION}}
+Model fingerprint:
+`090fdf2d6feba7dec518d2eab5665eb2365f70a7691fa5107e9d9b5f36107ac5`.
+
+The refresh computed all **4,465 pairs** afresh on four workers. A container restart
+stopped it after 492 verified pair checkpoints of this same fingerprint; the resumed run
+reused those and computed the other 3,973 in **3,815.6 seconds**, writing **273**
+simulator and ledger files. All 95 rows and 8,930 directed entries are complete,
+`npm run build:sim -- --check` passes for the fingerprint above, and every directed
+score is the exact negative of its mirror. Both TypeScript projects pass. All 173
+ability records, all 173 fight profiles and the glossary rebuild identically from the
+downloads.
+
+Against the 76-kit snapshot, 5,502 of the 5,700 shared directed entries are unchanged.
+Of the 198 that change, 192 are the private build's corrections among the original 73
+kits and 6 involve Gragas, Warwick or Wukong. The largest is Annie against Warwick, from
++0.12 to −0.78, with two sources: the merged engine flips the brawl, and Blood Hunt's
+fix flips the enemy engage (with the fix reverted Annie scores −0.28).
+
+By mean score against the other 94, Warwick ranks **23rd** (+0.195, 61 wins), Wukong
+**46th** (+0.032, 50 wins), Gragas **67th** (−0.202, 35 wins) and Hecarim **93rd**
+(−0.616, 9 wins). Warwick's best matchup is Wukong (+0.86) and his worst Xayah (−0.89);
+Wukong's are Draven (+0.80) and Darius (−0.88), Gragas's Vladimir (+0.83) and Fiora
+(−0.86), and Hecarim's Vladimir (+0.80) and Kayle (−0.87). Hecarim's logged fights use
+his kit as written: from range, Onslaught of Shadows' full 1000-unit dash fears for
+1.5 s and the charge lands at nearly double its base damage. He loses on sustained
+damage at level 20, often against heavy armor: Darius spends 3,500 gold on it against him.
+
+The full suite ran **3,521 tests across 125 files** on four workers in **157.1
+seconds**: **3,514 passed**, the five existing tests were skipped, and only the two
+original draft Garen–Yasuo and Malphite–Yasuo expectations failed. The Heimerdinger–Udyr
+full variant search passed within its unchanged 180-second limit.
+
+The production Chromium run passed **all 41 checks** for Hecarim, Gragas, Warwick,
+Wukong and three merged marksmen (Varus, Xayah, Kalista). The picker lists all 95
+simulated champions, and each of the seven counter pages ranks all 94 opponents. Their
+matchup pages against Darius show the matrix scores. Each kit page shows its assumptions
+without horizontal scrolling at 1,200 pixels; Wukong's, Hecarim's and Xayah's cite their
+pinned game files (Xayah's exact `mSpell.missileSpeed: 2500.0`), and Varus's shows the
+respaced text. The matchup page fits a 390-pixel phone. With the stored results marked
+stale, the production workers reran all **94 Darius opponents** in the browser in 60.7
+seconds, Heimerdinger's and Udyr's kit-option searches included. Every live score agrees
+with the matrix within **3.83e-15**, every scenario within its three-decimal rounding,
+and the whole ranking order agrees. Page, console, HTTP and request errors are all zero.
 
 ## Remaining limits
 
@@ -1027,3 +1072,7 @@ supersedes it.
   source, and Explosive Cask's knock back is taken to last 0.5 s. Wukong's clone is
   static, with his resistances as it appears, and its crits are expected values.
   Nimbus Strike's dash doesn't follow an enemy who dashes away during it.
+  Against a feared enemy walking away, Hecarim's attacks often start at the edge of
+  range and are cancelled when it walks out: the shared chase policy doesn't close in
+  first. Rampage's 60% against minions follows each summon's wiki targeting class, so an
+  unclassified summon takes its full damage.

@@ -232,7 +232,7 @@ Effects marked by a mark or a role are completed by the kit's hooks (see the kit
 ### Assumptions
 
 - The clone attacks the enemy champion, or an enemy pet Wukong last damaged or that is the only one in its reach, from the moment it appears; its armor and magic resistance are Wukong's as it appears.
-- The clone's attacks critically strike as Wukong's would, counted by expected value; the wiki gives its damage as 100% of Wukong's attack damage and says nothing of crits.
+- The clone's attacks critically strike as Wukong's would, counted by expected value: the wiki's clone data gives it 100% of his attack damage, before its 60% outgoing damage, and says nothing of crits.
 - Casting Warrior Trickster copies Wukong's Crushing Blow empowerment to the clone and leaves Wukong his own; a Cyclone spin it interrupts carries on as the clone's.
 - Nimbus Strike and Cyclone wait for Warrior Trickster's dash (at most a third of a second) to end; Crushing Blow can be cast during it.
 - Nimbus Strike's dash ends where Wukong and the enemy touch (their pathing radii, about the wiki's 75-unit offset), and hits on arrival within its 187.5 radius; it doesn't follow an enemy that dashes away during it.
@@ -241,7 +241,7 @@ Effects marked by a mark or a role are completed by the kit's hooks (see the kit
 - Crushing Blow's 0.5-second cut counts each attack once (its bonus damage included), each ability hit, and each of the clone's hits; ability damage to enemy pets is left out.
 - Crushing Blow's cut shortens only a cooldown that is running: hits while its empowered attack is still waiting (its post-effect cooldown not yet started) cut nothing.
 
-### Source values read (82)
+### Source values read (83)
 
 | Ability | Value | Source version |
 |---|---|---|
@@ -327,3 +327,4 @@ Effects marked by a mark or a role are completed by the kit's hooks (see the kit
 | Nimbus Strike | castTime: none | [4021858](https://wiki.leagueoflegends.com/en-us/Template:Data_Wukong/Nimbus_Strike?oldid=4021858) |
 | Cyclone | cost: 100 | [4021867](https://wiki.leagueoflegends.com/en-us/Template:Data_Wukong/Cyclone?oldid=4021867) |
 | Cyclone | castTime: none | [4021867](https://wiki.leagueoflegends.com/en-us/Template:Data_Wukong/Cyclone?oldid=4021867) |
+| Decoy | Champion | [4021883](https://wiki.leagueoflegends.com/en-us/Wukong?oldid=4021883) |

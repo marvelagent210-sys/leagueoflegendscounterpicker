@@ -2,7 +2,7 @@
 
 ## Simulated duels
 
-The duel simulator played each of the 90 other champions with a simulator kit against Cho'Gath: both at level 20 with 15,000 gold of plain stats, each side's spent against the other's, through six scenarios (PLAN.md §6). Scores run from −1 (Cho'Gath wins every time) to +1 (the champion does). Run `npm run duel -- <champion> Chogath --log brawl` to watch a fight.
+The duel simulator played each of the 94 other champions with a simulator kit against Cho'Gath: both at level 20 with 15,000 gold of plain stats, each side's spent against the other's, through six scenarios (PLAN.md §6). Scores run from −1 (Cho'Gath wins every time) to +1 (the champion does). Run `npm run duel -- <champion> Chogath --log brawl` to watch a fight.
 
 | # | Champion | Score | You engage | Enemy engages | Brawl | Short trade | Spacing | Escape |
 |--:|---|--:|--:|--:|--:|--:|--:|--:|
@@ -76,26 +76,30 @@ The duel simulator played each of the 90 other champions with a simulator kit ag
 | 68 | Akali | −0.78 | −1.00 | −1.00 | −1.00 | −0.04 | – | +0.00 |
 | 69 | Lissandra | −0.78 | −1.00 | −1.00 | −1.00 | +0.11 | −1.00 | +0.00 |
 | 70 | Yone | −0.78 | −1.00 | −1.00 | −1.00 | −0.04 | – | +0.00 |
-| 71 | Irelia | −0.79 | −1.00 | −1.00 | −1.00 | −0.06 | – | +0.00 |
-| 72 | Rumble | −0.79 | −1.00 | −1.00 | −1.00 | −0.07 | – | +0.00 |
-| 73 | Ahri | −0.79 | −1.00 | −1.00 | −1.00 | +0.07 | −1.00 | +0.00 |
-| 74 | Amumu | −0.79 | −1.00 | −1.00 | −1.00 | −0.07 | – | +0.00 |
-| 75 | Skarner | −0.79 | −1.00 | −1.00 | −1.00 | −0.08 | – | +0.00 |
-| 76 | Malzahar | −0.79 | −1.00 | −1.00 | −1.00 | +0.06 | −1.00 | +0.00 |
-| 77 | Kassadin | −0.79 | −1.00 | −1.00 | −1.00 | −0.08 | – | +0.00 |
-| 78 | Veigar | −0.79 | −1.00 | −1.00 | −1.00 | +0.05 | −1.00 | +0.00 |
-| 79 | Nautilus | −0.79 | −1.00 | −1.00 | −1.00 | +0.04 | −1.00 | +0.00 |
-| 80 | Pantheon | −0.80 | −1.00 | −1.00 | −1.00 | −0.11 | – | +0.00 |
-| 81 | Caitlyn | −0.80 | −1.00 | −1.00 | −1.00 | +0.02 | −1.00 | +0.00 |
-| 82 | Renekton | −0.80 | −1.00 | −1.00 | −1.00 | −0.11 | – | +0.00 |
-| 83 | Smolder | −0.80 | −1.00 | −1.00 | −1.00 | +0.00 | −1.00 | +0.00 |
-| 84 | Tryndamere | −0.81 | −1.00 | −1.00 | −1.00 | −0.17 | – | +0.00 |
-| 85 | Samira | −0.81 | −1.00 | −1.00 | −1.00 | −0.05 | −1.00 | +0.00 |
-| 86 | Udyr | −0.81 | −1.00 | −1.00 | −1.00 | −0.18 | – | +0.00 |
-| 87 | Vladimir | −0.81 | −1.00 | −1.00 | −1.00 | −0.07 | −1.00 | +0.00 |
-| 88 | Olaf | −0.81 | −1.00 | −1.00 | −1.00 | −0.19 | – | +0.00 |
-| 89 | Kai'Sa | −0.82 | −1.00 | −1.00 | −1.00 | −0.13 | −1.00 | +0.00 |
-| 90 | Rammus | −0.82 | −1.00 | −1.00 | −1.00 | −0.26 | – | +0.00 |
+| 71 | Hecarim | −0.79 | −1.00 | −1.00 | −1.00 | −0.05 | – | +0.00 |
+| 72 | Irelia | −0.79 | −1.00 | −1.00 | −1.00 | −0.06 | – | +0.00 |
+| 73 | Rumble | −0.79 | −1.00 | −1.00 | −1.00 | −0.07 | – | +0.00 |
+| 74 | Ahri | −0.79 | −1.00 | −1.00 | −1.00 | +0.07 | −1.00 | +0.00 |
+| 75 | Amumu | −0.79 | −1.00 | −1.00 | −1.00 | −0.07 | – | +0.00 |
+| 76 | Skarner | −0.79 | −1.00 | −1.00 | −1.00 | −0.08 | – | +0.00 |
+| 77 | Malzahar | −0.79 | −1.00 | −1.00 | −1.00 | +0.06 | −1.00 | +0.00 |
+| 78 | Kassadin | −0.79 | −1.00 | −1.00 | −1.00 | −0.08 | – | +0.00 |
+| 79 | Veigar | −0.79 | −1.00 | −1.00 | −1.00 | +0.05 | −1.00 | +0.00 |
+| 80 | Gragas | −0.79 | −1.00 | −1.00 | −1.00 | +0.05 | −1.00 | +0.00 |
+| 81 | Nautilus | −0.79 | −1.00 | −1.00 | −1.00 | +0.04 | −1.00 | +0.00 |
+| 82 | Warwick | −0.80 | −1.00 | −1.00 | −1.00 | −0.11 | – | +0.00 |
+| 83 | Pantheon | −0.80 | −1.00 | −1.00 | −1.00 | −0.11 | – | +0.00 |
+| 84 | Caitlyn | −0.80 | −1.00 | −1.00 | −1.00 | +0.02 | −1.00 | +0.00 |
+| 85 | Renekton | −0.80 | −1.00 | −1.00 | −1.00 | −0.11 | – | +0.00 |
+| 86 | Smolder | −0.80 | −1.00 | −1.00 | −1.00 | +0.00 | −1.00 | +0.00 |
+| 87 | Wukong | −0.80 | −1.00 | −1.00 | −1.00 | −0.13 | – | +0.00 |
+| 88 | Tryndamere | −0.81 | −1.00 | −1.00 | −1.00 | −0.17 | – | +0.00 |
+| 89 | Samira | −0.81 | −1.00 | −1.00 | −1.00 | −0.05 | −1.00 | +0.00 |
+| 90 | Udyr | −0.81 | −1.00 | −1.00 | −1.00 | −0.18 | – | +0.00 |
+| 91 | Vladimir | −0.81 | −1.00 | −1.00 | −1.00 | −0.07 | −1.00 | +0.00 |
+| 92 | Olaf | −0.81 | −1.00 | −1.00 | −1.00 | −0.19 | – | +0.00 |
+| 93 | Kai'Sa | −0.82 | −1.00 | −1.00 | −1.00 | −0.13 | −1.00 | +0.00 |
+| 94 | Rammus | −0.82 | −1.00 | −1.00 | −1.00 | −0.26 | – | +0.00 |
 
 ## Interaction ledger estimates
 

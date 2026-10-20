@@ -2,7 +2,7 @@
 
 ## Simulated duels
 
-The duel simulator played each of the 90 other champions with a simulator kit against Ezreal: both at level 20 with 15,000 gold of plain stats, each side's spent against the other's, through six scenarios (PLAN.md §6). Scores run from −1 (Ezreal wins every time) to +1 (the champion does). Run `npm run duel -- <champion> Ezreal --log brawl` to watch a fight.
+The duel simulator played each of the 94 other champions with a simulator kit against Ezreal: both at level 20 with 15,000 gold of plain stats, each side's spent against the other's, through six scenarios (PLAN.md §6). Scores run from −1 (Ezreal wins every time) to +1 (the champion does). Run `npm run duel -- <champion> Ezreal --log brawl` to watch a fight.
 
 | # | Champion | Score | You engage | Enemy engages | Brawl | Short trade | Spacing | Escape |
 |--:|---|--:|--:|--:|--:|--:|--:|--:|
@@ -84,18 +84,22 @@ The duel simulator played each of the 90 other champions with a simulator kit ag
 | 76 | Zyra | −0.54 | −0.93 | −0.32 | −0.99 | +0.01 | −0.27 | +0.00 |
 | 77 | Rammus | −0.57 | −0.53 | −0.76 | −0.75 | +0.02 | −0.97 | +0.00 |
 | 78 | Malzahar | −0.68 | −0.94 | −0.71 | −1.00 | −0.01 | – | +0.00 |
-| 79 | Karthus | −0.74 | −0.94 | −0.86 | −1.00 | −0.02 | −0.93 | +0.00 |
-| 80 | Rumble | −0.76 | −0.94 | −0.94 | −0.89 | −0.10 | −1.00 | +0.00 |
-| 81 | Vladimir | −0.77 | −1.00 | −1.00 | −1.00 | −0.09 | −0.53 | +0.00 |
-| 82 | Ahri | −0.77 | −1.00 | −1.00 | −0.97 | +0.02 | – | +0.00 |
-| 83 | Nautilus | −0.78 | −0.91 | −1.00 | −1.00 | +0.01 | −1.00 | +0.00 |
-| 84 | Lissandra | −0.78 | −1.00 | −1.00 | −1.00 | −0.02 | – | +0.00 |
-| 85 | Malphite | −0.79 | −1.00 | −1.00 | −0.99 | −0.03 | −0.89 | +0.00 |
-| 86 | Shen | −0.79 | −1.00 | −1.00 | −0.97 | +0.02 | −1.00 | +0.00 |
-| 87 | Singed | −0.80 | −0.99 | −1.00 | −0.95 | −0.07 | −1.00 | +0.00 |
-| 88 | Leona | −0.80 | −1.00 | −1.00 | −1.00 | −0.02 | −1.00 | +0.00 |
-| 89 | Amumu | −0.80 | −1.00 | −1.00 | −1.00 | −0.04 | −1.00 | +0.00 |
-| 90 | Ornn | −0.81 | −1.00 | −1.00 | −1.00 | −0.06 | −1.00 | +0.00 |
+| 79 | Wukong | −0.69 | −0.89 | −0.96 | −0.72 | −0.09 | −0.67 | +0.00 |
+| 80 | Warwick | −0.69 | −0.93 | −0.97 | −0.57 | −0.02 | −0.98 | +0.00 |
+| 81 | Karthus | −0.74 | −0.94 | −0.86 | −1.00 | −0.02 | −0.93 | +0.00 |
+| 82 | Rumble | −0.76 | −0.94 | −0.94 | −0.89 | −0.10 | −1.00 | +0.00 |
+| 83 | Gragas | −0.76 | −0.95 | −0.95 | −0.94 | −0.01 | −1.00 | +0.00 |
+| 84 | Vladimir | −0.77 | −1.00 | −1.00 | −1.00 | −0.09 | −0.53 | +0.00 |
+| 85 | Ahri | −0.77 | −1.00 | −1.00 | −0.97 | +0.02 | – | +0.00 |
+| 86 | Nautilus | −0.78 | −0.91 | −1.00 | −1.00 | +0.01 | −1.00 | +0.00 |
+| 87 | Lissandra | −0.78 | −1.00 | −1.00 | −1.00 | −0.02 | – | +0.00 |
+| 88 | Hecarim | −0.79 | −1.00 | −1.00 | −1.00 | +0.07 | −1.00 | +0.00 |
+| 89 | Malphite | −0.79 | −1.00 | −1.00 | −0.99 | −0.03 | −0.89 | +0.00 |
+| 90 | Shen | −0.79 | −1.00 | −1.00 | −0.97 | +0.02 | −1.00 | +0.00 |
+| 91 | Singed | −0.80 | −0.99 | −1.00 | −0.95 | −0.07 | −1.00 | +0.00 |
+| 92 | Leona | −0.80 | −1.00 | −1.00 | −1.00 | −0.02 | −1.00 | +0.00 |
+| 93 | Amumu | −0.80 | −1.00 | −1.00 | −1.00 | −0.04 | −1.00 | +0.00 |
+| 94 | Ornn | −0.81 | −1.00 | −1.00 | −1.00 | −0.06 | −1.00 | +0.00 |
 
 ## Interaction ledger estimates
 
