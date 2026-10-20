@@ -73,7 +73,7 @@ const wukong: KitModule = {
     decoy.quote("Clone attacks can be mitigated by block, dodge, and blind, as well as stopped by Disarm.");
     decoy.quote("The clone's Cyclone won't knock up enemies if they were already knocked up by Wukong.");
     kit.assume("The clone attacks the enemy champion, or an enemy pet Wukong last damaged or that is the only one in its reach, from the moment it appears; its armor and magic resistance are Wukong's as it appears.");
-    kit.assume("The clone's attacks critically strike as Wukong's would, counted by expected value; the wiki gives its damage as 100% of Wukong's attack damage and says nothing of crits.");
+    kit.assume(`The clone's attacks critically strike as Wukong's would, counted by expected value: the wiki's clone data gives it ${Math.round(cloneAd * 100)}% of his attack damage, before its ${Math.round(cloneShare * 100)}% outgoing damage, and says nothing of crits.`);
     kit.assume("Casting Warrior Trickster copies Wukong's Crushing Blow empowerment to the clone and leaves Wukong his own; a Cyclone spin it interrupts carries on as the clone's.");
     kit.assume("Nimbus Strike and Cyclone wait for Warrior Trickster's dash (at most a third of a second) to end; Crushing Blow can be cast during it.");
 

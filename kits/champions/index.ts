@@ -25,6 +25,7 @@ import Garen from "./Garen";
 import Gnar from "./Gnar";
 import Gragas from "./Gragas";
 import Gwen from "./Gwen";
+import Hecarim from "./Hecarim";
 import Heimerdinger from "./Heimerdinger";
 import Illaoi from "./Illaoi";
 import Irelia from "./Irelia";
@@ -96,5 +97,5 @@ import Ziggs from "./Ziggs";
 import Zyra from "./Zyra";
 
 export const KITS: Readonly<Record<string, KitModule>> = Object.fromEntries(
-  [Aatrox, Ahri, Akali, Ambessa, Amumu, Anivia, Annie, Ashe, Aurora, Brand, Caitlyn, Camille, Cassiopeia, Chogath, Corki, Darius, DrMundo, Draven, Ezreal, Fiora, Gangplank, Garen, Gnar, Gragas, Gwen, Heimerdinger, Illaoi, Irelia, Jax, Jayce, Jhin, Jinx, KSante, Kaisa, Kalista, Karthus, Kassadin, Kayle, Kennen, Kled, KogMaw, Leona, Lissandra, Lucian, Lux, Malphite, Malzahar, MasterYi, MissFortune, MonkeyKing, Mordekaiser, Morgana, Nasus, Nautilus, Olaf, Ornn, Pantheon, Poppy, Quinn, Rammus, Renekton, Riven, Rumble, Samira, Sett, Shen, Singed, Sion, Sivir, Skarner, Smolder, TahmKench, Teemo, Tristana, Trundle, Tryndamere, Twitch, Udyr, Urgot, Varus, Vayne, Veigar, Velkoz, Vladimir, Volibear, Warwick, Xayah, XinZhao, Yasuo, Yone, Yorick, Zaahen, Ziggs, Zyra].map((kit) => [kit.champion, kit]),
+  [Aatrox, Ahri, Akali, Ambessa, Amumu, Anivia, Annie, Ashe, Aurora, Brand, Caitlyn, Camille, Cassiopeia, Chogath, Corki, Darius, DrMundo, Draven, Ezreal, Fiora, Gangplank, Garen, Gnar, Gragas, Gwen, Hecarim, Heimerdinger, Illaoi, Irelia, Jax, Jayce, Jhin, Jinx, KSante, Kaisa, Kalista, Karthus, Kassadin, Kayle, Kennen, Kled, KogMaw, Leona, Lissandra, Lucian, Lux, Malphite, Malzahar, MasterYi, MissFortune, MonkeyKing, Mordekaiser, Morgana, Nasus, Nautilus, Olaf, Ornn, Pantheon, Poppy, Quinn, Rammus, Renekton, Riven, Rumble, Samira, Sett, Shen, Singed, Sion, Sivir, Skarner, Smolder, TahmKench, Teemo, Tristana, Trundle, Tryndamere, Twitch, Udyr, Urgot, Varus, Vayne, Veigar, Velkoz, Vladimir, Volibear, Warwick, Xayah, XinZhao, Yasuo, Yone, Yorick, Zaahen, Ziggs, Zyra].map((kit) => [kit.champion, kit]),
 );
