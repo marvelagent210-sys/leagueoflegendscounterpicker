@@ -42,8 +42,10 @@ const SLOT_LABELS: Record<string, string> = { act: "Active" };
 
 function effect(item: ItemEffect): string {
   const kind = SLOT_LABELS[item.slot] ?? "Passive";
-  const notes = [item.unique ? "unique" : "", item.cooldown ? `cooldown ${item.cooldown} s` : ""].filter(Boolean).join("; ");
-  return `- **${kind}${item.name ? `: ${item.name}` : ""}**${notes ? ` (${notes})` : ""}. ${item.text}`;
+  const notes = [item.unique ? "unique" : "", item.cooldown ? `cooldown ${item.cooldown} s` : "", item.range ? `range ${item.range}` : ""].filter(Boolean).join("; ");
+  // Further paragraphs (the wiki's notes) continue the list item.
+  const [first = "", ...more] = item.text.split("\n");
+  return [`- **${kind}${item.name ? `: ${item.name}` : ""}**${notes ? ` (${notes})` : ""}. ${first}`, ...more.map((paragraph) => `  ${paragraph}`)].join("\n");
 }
 
 function searchSection(search: BuildSearchRules): string[] {
@@ -95,10 +97,13 @@ export function itemsReport(catalog: ItemCatalog): string {
     ...(catalog.checks.differences.length > 0 ? ["", ...catalog.checks.differences.map((difference) => `- ${difference}`)] : []),
     "",
   ];
-  for (const [title, list] of [["Finished items", legendary], ["Boots", boots]] as const) {
+  const sections = [["Finished items", legendary, ""], ["Boots", boots, ""], ["Transformed items", catalog.transforms, "What a catalog item becomes once stacked. The shop doesn't sell them; a build holds one in place of the item it comes from."]] as const;
+  for (const [title, list, about] of sections) {
     lines.push(`## ${title}`, "");
+    if (about) lines.push(about, "");
     for (const item of list) {
       lines.push(`### ${item.name} (${gold(item.gold)} gold)`, "", `Stats: ${stats(item)}.`);
+      if (item.transformsFrom) lines.push(`Transforms from: ${item.transformsFrom}.`);
       if (item.groups.length > 0) lines.push(`One per build: ${item.groups.join(", ")}.`);
       if (item.restriction) lines.push(`Restriction: ${item.restriction}`);
       if (item.recipe.length > 0) lines.push(`Built from: ${item.recipe.join(", ")}.`);

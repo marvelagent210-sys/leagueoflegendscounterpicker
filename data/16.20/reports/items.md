@@ -46,7 +46,7 @@ Builds per side under these rules: 1,538,705,768 six-item builds and 661,723,587
 
 ## Cross-check
 
-323 stats on the wiki were compared with the game file. Differences (1):
+332 stats on the wiki were compared with the game file. Differences (1):
 
 - Redemption: costs 2,250 gold on the wiki, 2,300 in Data Dragon
 
@@ -120,6 +120,7 @@ One per build: Fatality.
 Built from: Phage, Kindlegem, Pickaxe.
 
 - **Passive: Carve** (unique). Dealing physical damage to an enemy champion applies a stack of Carve for 6 seconds, stacking up to 5 times. Each stack inflicts 6% armor reduction, up to 30% at 5 stacks.
+  Non-basic damage dealt on the same target may apply stacks only once per frame.
 - **Passive: Fervor** (unique). Dealing physical damage grants you 20 (melee) / 10 (ranged) bonus movement speed for 2 seconds.
 
 ### Blackfire Torch (2,800 gold)
@@ -310,7 +311,7 @@ Built from: Pickaxe, Noonquiver, Long Sword.
 Stats: 40 attack damage, 80 ability power, 10% omnivamp.
 Built from: Vampiric Scepter, Hextech Alternator, Amplifying Tome.
 
-- **Active: Lightning Bolt** (unique; cooldown 60 s). Shocks the target enemy champion with a bolt of lightning, dealing 175 – 253 (based on level) (+ 30% AP) magic damage and slowing them by 25% for 1.5 seconds.
+- **Active: Lightning Bolt** (unique; cooldown 60 s; range 700). Shocks the target enemy champion with a bolt of lightning, dealing 175 – 253 (based on level) (+ 30% AP) magic damage and slowing them by 25% for 1.5 seconds.
 
 ### Hextech Rocketbelt (2,650 gold)
 
@@ -318,6 +319,7 @@ Stats: 10 ability haste, 60 ability power, 350 health.
 Built from: Hextech Alternator, Kindlegem, Ruby Crystal.
 
 - **Active: Supersonic** (unique; cooldown 50 s). Dash 275 units in the target direction, though not through terrain, then unleash an arc of 7 rockets forward which travel up to 1050 units; and upon collision with an enemy or terrain, explode in a 185-radius area. Enemies within 85 units of your dash and ones hit by any rocket's explosion are dealt 135 (+ 15% AP) magic damage, once per cast.
+  Supersonic resets the user's basic attack timer.
 
 ### Hollow Radiance (2,800 gold)
 
@@ -400,7 +402,7 @@ Stats: 10 ability haste, 40 armor, 200 health, 100% base health regeneration.
 Built from: Kindlegem, Chain Vest, Rejuvenation Bead.
 
 - **Passive: Sacrifice** (unique). While your Worthy ally is tethered to you and you are above 30% of your maximum health, redirect 14% of the pre-mitigation physical and magic damage they take to you as the respective damage type. Additionally, you heal for 12% of the post-mitigation damage dealt by your Worthy ally to champions.
-- **Active: Pledge** (unique; cooldown 60 s). Designate the target allied champion as being Worthy, forming a tether between you and them. Champions can only be designated as Worthy by one Knight's Vow at a time. You cannot be designated as Worthy by an ally's Knight's Vow once you've formed a tether.
+- **Active: Pledge** (unique; cooldown 60 s; range 1250). Designate the target allied champion as being Worthy, forming a tether between you and them. Champions can only be designated as Worthy by one Knight's Vow at a time. You cannot be designated as Worthy by an ally's Knight's Vow once you've formed a tether.
 
 ### Kraken Slayer (3,000 gold)
 
@@ -408,6 +410,7 @@ Stats: 45 attack damage, 40% attack speed, 4% movement speed.
 Built from: Rectrix, Hearthbound Axe, Recurve Bow.
 
 - **Passive: Bring It Down** (unique). Basic attacks on-hit (melee) / on-attack (ranged) grant a stack for 4 seconds, up to 2 stacks. At 2 stacks, the next basic attack consumes all stacks to deal 150 – 210 (based on level) (melee) / 120 – 168 (based on level) (ranged) bonus physical damage on-hit, increased by 0% – 75% (based on target's missing health), for up to 262.5 – 367.5 (based on level) (melee) / 210 – 294 (based on level) (ranged) bonus physical damage.
+  Abilities that do not trigger on-attack effects, will always grant stacks on-hit.
 
 ### Liandry's Torment (3,000 gold)
 
@@ -493,7 +496,7 @@ Built from: Quicksilver Sash, Pickaxe, Vampiric Scepter.
 Stats: 250 health, 15 ability haste, 12% heal and shield power, 100% base mana regeneration.
 Built from: Kindlegem, Forbidden Idol.
 
-- **Active: Purify** (unique; cooldown 120 s). Remove all crowd control debuffs (except Airborne, Blind, Disarm, Nearsight, and Suppression) from yourself or the target allied champion and heal the target for 100 – 250 (based on level).
+- **Active: Purify** (unique; cooldown 120 s; range 650). Remove all crowd control debuffs (except Airborne, Blind, Disarm, Nearsight, and Suppression) from yourself or the target allied champion and heal the target for 100 – 250 (based on level).
 
 ### Moonstone Renewer (2,200 gold)
 
@@ -553,6 +556,7 @@ One per build: Hydra.
 Built from: Tiamat, The Brutalizer.
 
 - **Passive: Cleave** (unique). Damaging basic attacks on-hit deal 40% AD (melee) / 20% AD (ranged) physical damage to other enemies in a 350 radius centered around the target.
+  The same target may be damaged only once per frame.
 - **Active: Heretical Cleave** (unique; cooldown 10 s). Deal 80% AD physical damage to enemies in a 450 radius in front of you.
 
 ### Protoplasm Harness (2,600 gold)
@@ -576,7 +580,7 @@ Stats: 75 armor, 350 health.
 Built from: Warden's Mail, Giant's Belt.
 
 - **Passive: Resilience** (unique). Reduces incoming damage from critical strikes by 30%.
-- **Active: Humility** (unique; cooldown 90 s). Unleash a shockwave around you that slows nearby enemies by 70% for 2 seconds.
+- **Active: Humility** (unique; cooldown 90 s; range 500). Unleash a shockwave around you that slows nearby enemies by 70% for 2 seconds.
 
 ### Rapid Firecannon (2,650 gold)
 
@@ -601,7 +605,7 @@ Stats: 30 ability power, 15 ability haste, 10% heal and shield power, 100% base 
 Restriction: Intervention's effects are reduced by 50% if the target was affected by another Intervention in the last 12 seconds.
 Built from: Fiendish Codex, Forbidden Idol.
 
-- **Active: Intervention** (unique; cooldown 90 s). Call upon a 550-radius beam of light to strike upon the target location after 2.5 seconds, granting sight of the area for the duration. Allies within the area are healed for 150 – 350 (based on level), while enemy champions within take 10% of target's maximum health as true damage. Can be used while dead.
+- **Active: Intervention** (unique; cooldown 90 s; range 5500). Call upon a 550-radius beam of light to strike upon the target location after 2.5 seconds, granting sight of the area for the duration. Allies within the area are healed for 150 – 350 (based on level), while enemy champions within take 10% of target's maximum health as true damage. Can be used while dead.
 
 ### Riftmaker (3,100 gold)
 
@@ -626,6 +630,7 @@ Restriction: Can only be purchased on ranged champions.
 Built from: Zeal, Scout's Slingshot.
 
 - **Passive: Wind's Fury** (unique). Basic attacks on-attack fire additional bolts at up to 2 enemies in front of you, each dealing 60% AD physical damage. Bolts apply on-hit effects and are affected by critical strike modifiers.
+  The bolts will target the closest enemies to you that are not the main target.
 
 ### Rylai's Crystal Scepter (2,600 gold)
 
@@ -670,6 +675,7 @@ Built from: Pickaxe, Tunneler, Ruby Crystal.
 
 - **Passive: Dragonforce** (unique). Gain 25 basic ability haste.
 - **Passive: Focused Will** (unique). Dealing ability damage or pet damage from a non-innate ability cast instance, generates a stack of Focused Will for 6 seconds, stacking up to 4 times. For each stack, your ability, proc and pet damage originating from your ability cast instances deals 3% increased damage, for a total increase of 12% at maximum stacks.
+  Each cast instance can only grant one stack per second.
 
 ### Spirit Visage (2,700 gold)
 
@@ -775,6 +781,7 @@ Built from: Tiamat, Tunneler, Giant's Belt.
 
 - **Passive: Cleave** (unique). Basic attacks on-hit deal 1% (melee) / 0.5% (ranged) maximum health bonus physical damage to the target and 3% (melee) / 1.5% (ranged) maximum health physical damage to other enemies in a cone in the direction of the primary target.
 - **Active: Titanic Crescent** (unique). Your next basic attack on-hit within 10 seconds empowers Cleave to deal 4% (melee) / 2% (ranged) maximum health bonus physical damage to the primary target and 9% (melee) / 4.5% (ranged) maximum health physical damage to secondary targets (10 second cooldown, starts after using the empowered attack).
+  Titanic Crescent resets the user's basic attack timer.
 
 ### Trinity Force (3,333 gold)
 
@@ -790,7 +797,7 @@ Built from: Sheen, Phage, Hearthbound Axe.
 Stats: 60 attack damage, 15 ability haste, 18 lethality.
 Built from: Serrated Dirk, Caulfield's Warhammer.
 
-- **Passive: Blackout** (unique; cooldown 90 s). When spotted by enemy stealthed wards or traps, gain Blackout for 8 seconds.
+- **Passive: Blackout** (unique; cooldown 90 s; range 400). When spotted by enemy stealthed wards or traps, gain Blackout for 8 seconds.
 - **Passive: Blackout**. You disable surrounding stealthed wards, as well as expose and reveal nearby stealthed wards and traps while Blackout is active. Your basic attacks deal 2 (melee) / 1 (ranged) bonus true damage to wards.
 - **Passive: Nightstalker** (unique). After being not visible to enemies for at least 1 second, your next basic attack against a champion is empowered to deal 50 (+ 1.5 per 1 Lethality) bonus true damage on-hit. The empowered attack lasts for 4 seconds after being seen by an enemy.
 
@@ -924,3 +931,37 @@ Built from: Boots, Cloth Armor.
 Stats: 12 magic penetration, 45 movement speed.
 One per build: Boots, BootsWithoutActives.
 Built from: Boots.
+
+## Transformed items
+
+What a catalog item becomes once stacked. The shop doesn't sell them; a build holds one in place of the item it comes from.
+
+### Seraph's Embrace (2,900 gold)
+
+Stats: 70 ability power, 25 ability haste, 1000 mana.
+Transforms from: Archangel's Staff.
+Built from: Archangel's Staff.
+
+- **Passive: Awe** (unique). Grants ability power equal to 2% bonus mana.
+- **Passive: Lifeline** (unique; cooldown 90 s). If you would take damage that would reduce you below 30% of your maximum health, you first gain a shield for 3 seconds that absorbs damage equal to 18% maximum mana for 3 seconds.
+
+### Muramana (2,900 gold)
+
+Stats: 35 attack damage, 15 ability haste, 1000 mana.
+Transforms from: Manamune.
+Restriction: Limited to 1 Manamune.
+Built from: Manamune.
+
+- **Passive: Awe** (unique). Grants bonus attack damage equal to 2% maximum mana.
+- **Passive: Shock** (unique). Basic attacks on-hit against champions deal 1.2% maximum mana bonus physical damage.
+  Dealing ability damage to champions with a champion ability deals 4% (melee) / 3% (ranged) maximum mana bonus physical damage, unless the damage also counts as proc damage or indirect damage. This can only be triggered on the same target once every 6.5 seconds from the same cast instance.
+
+### Fimbulwinter (2,400 gold)
+
+Stats: 550 health, 15 ability haste, 1000 mana.
+Transforms from: Winter's Approach.
+Restriction: Limited to 1 Winter's Approach.
+Built from: Winter's Approach.
+
+- **Passive: Awe** (unique). Grants bonus health equal to 15% bonus mana.
+- **Passive: Everlasting** (unique). Immobilizing, or slowing if you are melee, an enemy champion grants a 100 (+ 4.5% current mana) shield for 3 seconds (8 second cooldown). The shield's strength is increased by 80% if there is more than one enemy champion within 1200 units.

@@ -1,8 +1,11 @@
 /**
  * Item records for the catalog (PLAN.md §13, M8), read from the wiki's item data module and
- * cross-checked against the items' game data file. The simulator doesn't read them yet.
+ * cross-checked against the items' game data file. The item effects (items/) read them.
  */
+import type { Series } from "../../engine/abilities";
+import { descriptionValues } from "../abilities/build";
 import type { ChampionLookup } from "../abilities/championLookup";
+import { renderMarked } from "../abilities/marked";
 import { type LuaTable, type LuaValue, parseLuaModule } from "../parse/lua";
 import type { WikiPage } from "../sources/wiki";
 import { cleanText, createContext, type EvalContext, render } from "../wikitext/evaluate";
@@ -16,12 +19,19 @@ export interface ItemEffect {
   name?: string;
   /** A unique effect doesn't add up with another of the same name. */
   unique: boolean;
-  /** The description as the wiki shows it, values included. */
+  /** The description as the wiki shows it, values included; its further paragraphs (notes) each on a line of their own. */
   text: string;
-  /** The description's wikitext, for reading values later the way kits read abilities. */
+  /** The description's wikitext, paragraph by paragraph on lines of their own. */
   wikitext: string;
+  /**
+   * Numbers the description writes as value templates, each with the sentence around it: by
+   * level ("175 – 253 (based on level)"), or by another variable (stacks, missing health).
+   */
+  values: Array<{ series: Series; context: string }>;
   /** The cooldown as the wiki writes it: seconds, or a formula. */
   cooldown?: string;
+  /** An active's range as the wiki writes it ("700"). */
+  range?: string;
 }
 
 export interface ItemRecord {
@@ -43,6 +53,12 @@ export interface ItemRecord {
   groups: string[];
   /** Its components, by name. */
   recipe: string[];
+  /** The wiki's tags, e.g. "OnHitAppliesLifeSteal" for on-hit damage that life steal heals from. */
+  tags: string[];
+  /** The item it turns into once stacked (Manamune's Muramana), a record of `ItemCatalog.transforms`. */
+  transformsInto?: string;
+  /** For a transformed item, the catalog item it comes from. */
+  transformsFrom?: string;
 }
 
 /** A game-file item group that caps how many of its items a build holds, shared by two or more catalog items. */
@@ -61,6 +77,8 @@ export interface ItemCatalog {
   sources: { ddragon: string; cdragon: string; itemData: { title: string; revid: number } };
   rules: string[];
   items: ItemRecord[];
+  /** What catalog items turn into once stacked (Muramana, Seraph's Embrace, Fimbulwinter); the shop doesn't sell them. */
+  transforms: ItemRecord[];
   groups: ItemGroup[];
   /** Every stat the wiki gives, compared with the game file's; and every difference found. */
   checks: { stats: number; differences: string[] };
@@ -108,6 +126,10 @@ export const GAME_STAT_FIELDS: Record<string, readonly [string, number]> = {
 };
 
 const EFFECT_SLOTS = ["pass", "pass2", "pass3", "pass4", "act"];
+/** An effect's paragraphs: its description, then further notes ("description2", ...). */
+const PARAGRAPH = /^description(\d*)$/;
+/** The effect that says what a stacked item becomes: "Transforms into Muramana at 360 bonus mana." */
+const TRANSFORMS = /^Transforms into (.+?) at /;
 
 export interface GameItem {
   mItemGroups?: string[];
@@ -197,6 +219,29 @@ function shown(wikitext: string, ctx: EvalContext): string {
   return cleanText(render(parseWikitext(preprocess(spellOutRanged(wikitext))), ctx)).replace(/\s+/g, " ").trim();
 }
 
+/** The value templates of a paragraph, with their sentences, read like an ability's description. */
+function valuesOf(wikitext: string, ctx: EvalContext): ItemEffect["values"] {
+  return descriptionValues(renderMarked(parseWikitext(preprocess(spellOutRanged(wikitext))), ctx)).map(({ series, context }) => ({ series, context: context.replace(/\s+/g, " ").trim() }));
+}
+
+/**
+ * The module writes "=>Manamune" for a field that is the same as another item's (Muramana's
+ * attack damage): the entry with every such field replaced by that item's.
+ */
+function resolveEntry(module: LuaTable, entry: LuaTable, name: string): LuaTable {
+  const resolve = (value: LuaValue, path: string[]): LuaValue => {
+    if (typeof value === "string" && value.startsWith("=>")) {
+      let found: LuaValue | undefined = module[value.slice(2)];
+      for (const key of path) found = isTable(found) ? found[key] : undefined;
+      if (found === undefined) throw new Error(`${name}: ${path.join(".")} refers to ${value.slice(2)}, which has no such field`);
+      return resolve(found, path);
+    }
+    if (isTable(value)) return Object.fromEntries(Object.entries(value).map(([key, inner]) => [key, resolve(inner, [...path, key])]));
+    return value;
+  };
+  return resolve(entry, []) as LuaTable;
+}
+
 /** Rounds away the game file's float noise (0.30000001192092896 is 30%). */
 const tidy = (value: number) => Math.round(value * 1e4) / 1e4;
 
@@ -216,10 +261,9 @@ export function buildItemCatalog(sources: ItemSources): ItemCatalog {
     return def && typeof def.mMaxGroupOwnable === "number" ? { id: def.mItemGroupID ?? key, max: def.mMaxGroupOwnable } : undefined;
   };
   const members = new Map<string, string[]>();
-  const items = entries.map(({ id, item, kind }): ItemRecord => {
-    const found = wikiById.get(id);
-    if (!found) throw new Error(`Item ${id} (${item.name}) has no entry in ${sources.itemData.title}`);
-    const [name, entry] = found;
+  // `sold`: a shop item, which joins the game file's one-per-build groups (a transformed item doesn't).
+  const recordOf = (id: number, name: string, raw: LuaTable, kind: CatalogEntry["kind"], gold: number, sold = true): ItemRecord => {
+    const entry = resolveEntry(module, raw, name);
     const stats: Record<string, number> = {};
     for (const [key, value] of Object.entries(isTable(entry.stats) ? entry.stats : {})) {
       if (typeof value !== "number") throw new Error(`${name}: stat ${key} is ${JSON.stringify(value)}, not a number`);
@@ -230,14 +274,23 @@ export function buildItemCatalog(sources: ItemSources): ItemCatalog {
     for (const slot of [...EFFECT_SLOTS, ...Object.keys(effectTable).filter((key) => !EFFECT_SLOTS.includes(key))]) {
       const effect = effectTable[slot];
       if (!isTable(effect)) continue;
-      const wikitext = typeof effect.description === "string" ? effect.description : "";
+      const paragraphs = Object.entries(effect)
+        .flatMap(([key, value]) => {
+          const match = PARAGRAPH.exec(key);
+          return match && typeof value === "string" ? [[Number(match[1] || 1), value] as const] : [];
+        })
+        .sort(([a], [b]) => a - b)
+        .map(([, value]) => value);
+      const range = typeof effect.range === "string" || typeof effect.range === "number" ? shown(String(effect.range), ctx) : undefined;
       effects.push({
         slot,
         ...(typeof effect.name === "string" ? { name: effect.name } : {}),
         unique: effect.unique === true,
-        text: shown(wikitext, ctx),
-        wikitext,
+        text: paragraphs.map((paragraph) => shown(paragraph, ctx)).join("\n"),
+        wikitext: paragraphs.join("\n"),
+        values: paragraphs.flatMap((paragraph) => valuesOf(paragraph, ctx)),
         ...(effect.cd !== undefined && effect.cd !== null ? { cooldown: String(effect.cd) } : {}),
+        ...(range ? { range } : {}),
       });
     }
     // The game file's stats and price, against the wiki's.
@@ -257,24 +310,41 @@ export function buildItemCatalog(sources: ItemSources): ItemCatalog {
       if (typeof game[field] === "number" && game[field] !== 0 && !(key in stats)) differences.push(`${name}: the game file's ${field} (${tidy(game[field] as number)}) has no ${key} on the wiki`);
     }
     const buy = typeof entry.buy === "number" ? entry.buy : undefined;
-    if (buy !== undefined && buy !== item.gold.total) differences.push(`${name}: costs ${buy.toLocaleString("en-US")} gold on the wiki, ${item.gold.total.toLocaleString("en-US")} in Data Dragon`);
-    for (const key of game.mItemGroups ?? []) {
+    if (buy !== undefined && buy !== gold) differences.push(`${name}: costs ${buy.toLocaleString("en-US")} gold on the wiki, ${gold.toLocaleString("en-US")} in Data Dragon`);
+    for (const key of sold ? (game.mItemGroups ?? []) : []) {
       if (groupDef(key)) members.set(key, [...(members.get(key) ?? []), name]);
     }
     const restriction = typeof entry.limit === "string" ? shown(entry.limit, ctx) : undefined;
+    const transformsInto = effects.map((effect) => TRANSFORMS.exec(effect.text)?.[1]).find((into) => into !== undefined);
     return {
       id,
       name,
       kind,
-      gold: item.gold.total,
-      ...(buy !== undefined && buy !== item.gold.total ? { wikiGold: buy } : {}),
+      gold,
+      ...(buy !== undefined && buy !== gold ? { wikiGold: buy } : {}),
       stats,
       effects,
       ...(restriction ? { restriction } : {}),
       limits: [entry.itemlimit, entry.itemlimit2].flatMap(strings),
       groups: [],
       recipe: strings(entry.recipe),
+      tags: strings(entry.tags),
+      ...(transformsInto ? { transformsInto } : {}),
     };
+  };
+  const items = entries.map(({ id, item, kind }): ItemRecord => {
+    const found = wikiById.get(id);
+    if (!found) throw new Error(`Item ${id} (${item.name}) has no entry in ${sources.itemData.title}`);
+    return recordOf(id, found[0], found[1], kind, item.gold.total);
+  });
+  // What stacked items become: the module's entry of that name, with Data Dragon's price.
+  const transforms = items.flatMap((record): ItemRecord[] => {
+    if (!record.transformsInto) return [];
+    const entry = module[record.transformsInto];
+    if (!isTable(entry) || typeof entry.id !== "number") throw new Error(`${record.name} transforms into ${record.transformsInto}, which has no entry in ${sources.itemData.title}`);
+    const shop = sources.ddragon.data[String(entry.id)];
+    if (!shop) throw new Error(`${record.transformsInto} (${entry.id}) is missing from Data Dragon`);
+    return [{ ...recordOf(entry.id, record.transformsInto, entry, record.kind, shop.gold.total, false), transformsFrom: record.name }];
   });
   // Exclusive groups: a cap the game file sets that more catalog items share than it allows.
   // Groups with the same items and cap are one rule (Boots and BootsWithoutActives).
@@ -305,6 +375,7 @@ export function buildItemCatalog(sources: ItemSources): ItemCatalog {
     sources: { ddragon: sources.ddragon.version, cdragon: sources.cdragonVersion, itemData: { title: sources.itemData.title, revid: sources.itemData.revid } },
     rules: CATALOG_RULES,
     items,
+    transforms,
     groups,
     checks: { stats: compared, differences },
   };
