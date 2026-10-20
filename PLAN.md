@@ -384,7 +384,7 @@ web/        the app
 - **The 1D simplification.** Side-stepping, cones and facing are approximated by the hit model.
 - **Assumptions shape the results.** Reaction time, environment, stacks and behaviors are all explicit, adjustable and shown on every matchup page.
 - **Legal.** The app needs Riot's fan-project disclaimer and attribution under the wiki's license.
-- **Items and runes multiply the computing.** Searching builds and rune pages makes a full refresh take days on four cores (M8, §13). Incremental refreshes and a bigger machine are part of that milestone.
+- **Items and runes multiply the computing.** Searching builds and rune pages makes a full refresh an estimated 20 to 80 processor-hours instead of about 5 (M8, §13). Incremental refreshes and a bigger machine are part of that milestone.
 
 ## 13. Progress
 
@@ -657,25 +657,40 @@ It starts once all 173 champions have kits; at the M7 pace (46 kits from 14 to 2
 
 - **What changes.**
   - Two ground rules (§1): items and runes join the kits. The plain-stat budget (§10) becomes a setting, so the kit-only view stays available.
-  - Gold: boots and five legendary items cost about 17,000 to 18,000 gold, more than the default 15,000. To decide first: a fixed number of items at level 20, or a gold budget that can buy components.
+  - Builds are full (decided on 20 October): six finished items without boots, or five with one of the seven tier-2 boots. Order doesn't matter, and no item appears twice. Full builds cost more than the default 15,000 gold, which stays for the plain-stat setting.
 - **Item data and behavior** (about 2 weeks).
-  - Only the stat prices (Module:Gold value) are fetched now. Fetch and parse the roughly 100 to 110 finished items: their stats, passives, actives and unique effects, pinned to wiki revisions and cross-checked against the game files, as abilities are (M2).
+  - Only the stat prices (Module:Gold value) are fetched now. The catalog for patch 26.20 (Data Dragon 16.20.1, purchasable on Summoner's Rift) is 106 finished items (105 at 2,000 gold or more, plus Mejai's Soulstealer) and 7 tier-2 boots. Left out: trinkets, consumables, starters, components, basic Boots, the 7 tier-3 boots (free upgrades), the 5 support quest upgrades, items only one champion can buy, and 33 copies the data carries for other modes.
+  - The search uses all 106 items for now. Fetch and parse them: their stats, passives, actives and unique effects, pinned to wiki revisions and cross-checked against the game files, as abilities are (M2).
   - The engine needs stacking passives, shared effects such as Spellblade, item cooldowns and haste.
   - Actives need behavior that decides when to use them (Zhonya's Hourglass). Every rule an item quotes gets a test, as kits' rules do.
 - **Runes** (about 1 week).
   - `runes.json` holds only Triple Tonic. Fetch the rest: about 60 runes and the stat shards.
   - About half matter in a level-20 1v1. The others are recorded as having no effect, with the reason.
   - Runes that stack over a game (Legend, Conditioning, Eyeball Collection) need stated assumptions about what they have gathered by level 20.
+- **Item rules** (confirmed on 20 October). A build holds at most one item from each group:
+  - %pen: Lord Dominik's Regards, Serylda's Grudge, Mortal Reminder, Void Staff, Cryptbloom and Terminus;
+  - Spellblade: Trinity Force, Lich Bane, Essence Reaver, Iceborn Gauntlet and Dusk and Dawn;
+  - Lifeline: Sterak's Gage, Maw of Malmortius, Immortal Shieldbow and Protoplasm Harness;
+  - Hydras: Ravenous, Titanic and Profane Hydra, and Stridebreaker;
+  - Sunfire Aegis or Hollow Radiance; Mortal Reminder or Morellonomicon (Grievous Wounds); Banshee's Veil or Edge of Night (Annul).
+  - The Tear items (Manamune, Archangel's Staff, Winter's Approach) can be combined.
+  - That leaves 1,538,705,768 six-item builds and 661,723,587 five-item builds with boots: 2,200,429,355 per side.
 - **Build and rune search** (1 to 2 weeks).
-  - Each side has tens of millions of five-item builds and about a million rune pages, so nothing is searched exhaustively.
-  - A quick estimate, like today's stat budget, shortlists each side's loadouts against the other's. The simulator plays the top few against each other, and each side takes the loadout that does best against the other's best answer: the rule Udyr's rank splits use.
-  - The result is the best loadout found within the model, not a guaranteed optimum, and the matchup page shows it.
+  - Each side has about 2.2 billion builds and about a million rune pages. Fighting every pairing would take about 15 billion processor-years per matchup, so nothing is searched exhaustively.
+  - Per champion, the search drops items its kit can't use and items another beats on every stat it uses, at the same price or less. For hybrids such as Kai'Sa and Kog'Maw this removes little, which the steps below don't depend on.
+  - The quick estimate, like today's stat budget (about 23 µs a build), assembles builds slot by slot. It keeps the best 50 partial builds and tries one- and two-item swaps, so thresholds such as Kai'Sa's evolutions can be crossed.
+  - So that it doesn't settle on one route: it starts once from each usable finished item, keeps the best few builds of each profile (mostly AP, attack speed, crit or tank), and restarts from random swaps.
+  - Both sides take turns answering each other's build for 8 rounds, as the stat budget does now. Runes follow the same turns: keystone first, then each row and the shards; items and runes alternate a few times.
+  - Each route's best build gets real fights, and each side takes the loadout that does best against the other's best answer: the rule Udyr's rank splits use. The matchup page lists each route's best build with its score, and routes within a small margin as equally good.
+  - On a sample of matchups, hybrids first, a much larger search measures how often this one misses a better build.
+  - The result is the best loadout found within the model, not a guaranteed optimum.
+  - Player data, such as lolalytics' most-built items (31 for Kog'Maw top in Emerald+), is kept for the comparison at the end. Limiting the search to it would hide niche builds.
 - **Incremental refresh and the app** (about 1 week).
   - Today any change to the engine, a kit or the golden file recomputes every matchup. M8 recomputes only the matchups a change affects.
   - The picker, the matchup pages and the Kit Counter Picker show each side's build and runes.
 - **Computing.**
-  - A matchup costs about 4.6 seconds of processor time now (4,465 pairs in 5,184 s on four workers). All 173 champions make 14,878 pairs: about 5 hours per full refresh on four cores.
-  - Playing 3 loadouts per side (9 fights per matchup) makes that about 2 days, and 5 per side about 5 days. A 64-core machine brings either down to hours, so the search's size is a choice of hardware as much as of accuracy.
+  - A matchup costs about 4.6 seconds of processor time now (4,465 pairs in 5,184 s on four workers), stat budget included. With both builds fixed, one matchup's fights take 0.12 to 1.4 s (Kog'Maw's 0.18 to 0.29 s).
+  - All 173 champions make 14,878 pairs. With the search above, a matchup takes about 5 to 20 seconds, and tens of seconds for hybrids. That's roughly 20 to 80 processor-hours per full refresh: under a day on four cores, about an hour on 64. To be measured once items exist.
 - **Limits it keeps.**
   - Best means best for a level-20 1v1 in these scenarios. Laning, item timings, teamfights and team composition stay out.
   - Items change most patches, so each patch update re-checks them; M9 automates that.
