@@ -232,13 +232,13 @@
       "Feathers that are 'in flight' will be called to Xayah too, but only once they've landed normally first.",
       "Spell shield will only block a single instance of damage.",
       "This ability cannot be ranked at Level 1.",
-      "The damage dealt by Bladecaller follows a diminishing returns formula not mentioned in the ability's description, successively reducing extra damage from feathers beyond the first.\n  - This formula is:\n    - For feathers <=19: Damage of one feather \u00d7 (n\u22120.05 \u00d7 (n\u22121) \u00f7 2 \u00d7 n) where n stands for the number of feathers hit.\n    - For feathers >=20: Damage of one feather \u00d7 (19\u22120.05 \u00d7 (19\u22121) \u00f7 2 \u00d7 19 + 0.1 \u00d7 (n\u221219)) where n stands for the number of feathers hit.\n  - For example, at rank 1 Bladecaller deals 50 \u2013 517.5 (based on level).",
+      "The damage dealt by Bladecaller follows a diminishing returns formula not mentioned in the ability's description, successively reducing extra damage from feathers beyond the first.\n  - This formula is:\n    - For feathers <=19: Damage of one feather × (n−0.05 × (n−1) ÷ 2 × n) where n stands for the number of feathers hit.\n    - For feathers >=20: Damage of one feather × (19−0.05 × (19−1) ÷ 2 × 19 + 0.1 × (n−19)) where n stands for the number of feathers hit.\n  - For example, at rank 1 Bladecaller deals 50 – 517.5 (based on level).",
       "Bladecaller cannot be cast without a Feather on the ground."
     ],
     "gameSources": [
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/xayah/xayah.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/xayah/xayah.bin.json",
         "sha256": "8954bd1d2b6884bbb8dc3ecfffff6e89ad3db423ea36f4b67204a1e3c79bb636",
         "object": "Characters/Xayah/Spells/XayahEAbility/XayahE",
         "text": [
@@ -373,8 +373,8 @@
     ],
     "gameSources": [
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/xayah/xayah.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/xayah/xayah.bin.json",
         "sha256": "8954bd1d2b6884bbb8dc3ecfffff6e89ad3db423ea36f4b67204a1e3c79bb636",
         "object": "Characters/Xayah/Spells/XayahBasicAttack",
         "text": [
@@ -623,8 +623,8 @@
     ],
     "gameSources": [
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/xayah/xayah.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/xayah/xayah.bin.json",
         "sha256": "8954bd1d2b6884bbb8dc3ecfffff6e89ad3db423ea36f4b67204a1e3c79bb636",
         "object": "Characters/Xayah/Spells/XayahQAbility/XayahQ",
         "text": [
@@ -689,7 +689,7 @@
         "values": []
       },
       "effectRadius": {
-        "text": "1060 \u2022 1000",
+        "text": "1060 • 1000",
         "values": [
           {
             "series": {
@@ -707,7 +707,7 @@
         ]
       },
       "angle": {
-        "text": "30\u00b0",
+        "text": "30°",
         "values": [
           {
             "series": {
@@ -805,8 +805,8 @@
     ],
     "gameSources": [
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/xayah/xayah.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/xayah/xayah.bin.json",
         "sha256": "8954bd1d2b6884bbb8dc3ecfffff6e89ad3db423ea36f4b67204a1e3c79bb636",
         "object": "Characters/Xayah/Spells/XayahRAbility/XayahRMissile",
         "text": [

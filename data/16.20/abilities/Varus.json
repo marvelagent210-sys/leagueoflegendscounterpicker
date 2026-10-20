@@ -182,8 +182,8 @@
     ],
     "gameSources": [
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/varus/varus.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/varus/varus.bin.json",
         "sha256": "9e8e5f0ea50717e1544792aefc4a7bd7247147d42a8e09e930a1eb0aac089252",
         "object": "Characters/Varus/Spells/VarusEAbility/VarusE",
         "text": [
@@ -269,8 +269,8 @@
     ],
     "gameSources": [
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/varus/varus.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/varus/varus.bin.json",
         "sha256": "9e8e5f0ea50717e1544792aefc4a7bd7247147d42a8e09e930a1eb0aac089252",
         "object": "Characters/Varus/Spells/VarusBasicAttack",
         "text": [
@@ -712,7 +712,7 @@
         ]
       },
       "tetherRadius": {
-        "text": "650 \u2022 600",
+        "text": "650 • 600",
         "values": [
           {
             "series": {
@@ -937,7 +937,7 @@
       },
       {
         "label": "Blight",
-        "text": "Blight: For each stack consumed, the target is dealt bonus magic damage. If the stacks were consumed with Piercing Arrow, this damage is increased by 0% \u2013 50% (based on Piercing Arrow's charge time). This damage is capped at 120 per stack against monsters, for a total cap of 360 at maximum stacks.\n\nAdditionally, each stack consumed against a champion or epic monster reduces the remaining cooldowns of Varus' basic abilities by 13% of each of their total cooldowns, up to a 39% cooldown reduction per target. If the stacks were consumed with Piercing Arrow, the cooldown reduction is increased by 0% \u2013 50% (based on Piercing Arrow's charge time), up to a 39 / 40.95 / 42.9 / 44.85 / 46.8 / 48.75 / 50.7 / 52.65 / 54.6 / 56.55 / 58.5 (based on Piercing Arrow's charge time)% cooldown reduction per target from consuming maximum stacks against them.",
+        "text": "Blight: For each stack consumed, the target is dealt bonus magic damage. If the stacks were consumed with Piercing Arrow, this damage is increased by 0% – 50% (based on Piercing Arrow's charge time). This damage is capped at 120 per stack against monsters, for a total cap of 360 at maximum stacks.\n\nAdditionally, each stack consumed against a champion or epic monster reduces the remaining cooldowns of Varus' basic abilities by 13% of each of their total cooldowns, up to a 39% cooldown reduction per target. If the stacks were consumed with Piercing Arrow, the cooldown reduction is increased by 0% – 50% (based on Piercing Arrow's charge time), up to a 39 / 40.95 / 42.9 / 44.85 / 46.8 / 48.75 / 50.7 / 52.65 / 54.6 / 56.55 / 58.5 (based on Piercing Arrow's charge time)% cooldown reduction per target from consuming maximum stacks against them.",
         "leveling": [
           {
             "label": "Bonus Magic Damage per Stack",
@@ -1103,13 +1103,13 @@
                 58.5
               ]
             },
-            "context": "If the stacks were consumed with Piercing Arrow, the cooldown reduction is increased by 0% \u2013 50% (based on Piercing Arrow's charge time), up to a 39 / 40.95 / 42.9 / 44.85 / 46.8 / 48.75 / 50.7 / 52.65 / 54.6 / 56.55 / 58.5 (based on Piercing Arrow's charge time)% cooldown reduction per target from consuming maximum stacks against them."
+            "context": "If the stacks were consumed with Piercing Arrow, the cooldown reduction is increased by 0% – 50% (based on Piercing Arrow's charge time), up to a 39 / 40.95 / 42.9 / 44.85 / 46.8 / 48.75 / 50.7 / 52.65 / 54.6 / 56.55 / 58.5 (based on Piercing Arrow's charge time)% cooldown reduction per target from consuming maximum stacks against them."
           }
         ]
       },
       {
         "label": "Active",
-        "text": "Active: Varus next Piercing Arrow within 5.5 seconds is empowered to deal additional bonus magic damage, increased by 0% \u2013 50% (based on Piercing Arrow's charge time). This damage is capped at 360 against monsters.",
+        "text": "Active: Varus next Piercing Arrow within 5.5 seconds is empowered to deal additional bonus magic damage, increased by 0% – 50% (based on Piercing Arrow's charge time). This damage is capped at 360 against monsters.",
         "leveling": [
           {
             "label": "Active Minimum Magic Damage",
@@ -1177,7 +1177,7 @@
     ],
     "custom": [],
     "notes": [
-      "The monster damage cap is also increased by 0% \u2013 50% (based on Piercing Arrow's charge time) if the stacks were consumed with Piercing Arrow.",
+      "The monster damage cap is also increased by 0% – 50% (based on Piercing Arrow's charge time) if the stacks were consumed with Piercing Arrow.",
       "Spell shield will not block the on-hit damage but will block the consumption damage if the target is hit by his abilities.",
       "Blighted Quiver will not apply stacks nor deal on-hit damage if blocked by blind, block or dodge effects.\n  - The consumption damage will not be blocked.",
       "Blighted Quiver's active damage is dealt after the damage of Piercing Arrow.",

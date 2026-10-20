@@ -229,7 +229,7 @@
         "values": []
       },
       {
-        "text": "When Draven kills an enemy champion, he consumes all of his Adoration stacks and gains 25 + (2 \u00d7 stacks) bonus gold.",
+        "text": "When Draven kills an enemy champion, he consumes all of his Adoration stacks and gains 25 + (2 × stacks) bonus gold.",
         "leveling": [],
         "mechanics": [],
         "values": []

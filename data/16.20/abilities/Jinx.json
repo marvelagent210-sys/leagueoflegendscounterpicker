@@ -845,17 +845,6 @@
       "Unlike similar spells, Super Mega Death Rocket will not increase it's damage when ranked up while the missile is in flight.\n  - This is because the base damage is fixed at a multiple of the damage the rocket initially started with.\n  - The bonus AD ratio will still update when AD is gained or lost between the cast and hit of the missile.",
       "This ability will cast from wherever the caster is at the start of the cast time."
     ],
-    "sources": [
-      {
-        "page": {
-          "title": "Template:Data Jinx/Super Mega Death Rocket!",
-          "revid": 4007616
-        },
-        "text": [
-          "The maximum damage is reached after traveling 1500 units, which is exactly equal to the range of her Zap!, or roughly 0.85 seconds of travel time. The rocket changes its visual appearance and missile speed slightly earlier, after traveling 1350 units."
-        ]
-      }
-    ],
     "gameSources": [
       {
         "version": "16.20.8248524+branch.releases-16-20.content.release",
@@ -864,6 +853,17 @@
         "object": "Characters/Jinx/Spells/JinxRAbility/JinxR",
         "text": [
           "mSpell.castRange: [25000,25000,25000,25000,25000,25000,25000]"
+        ]
+      }
+    ],
+    "sources": [
+      {
+        "page": {
+          "title": "Template:Data Jinx/Super Mega Death Rocket!",
+          "revid": 4007616
+        },
+        "text": [
+          "The maximum damage is reached after traveling 1500 units, which is exactly equal to the range of her Zap!, or roughly 0.85 seconds of travel time. The rocket changes its visual appearance and missile speed slightly earlier, after traveling 1350 units."
         ]
       }
     ]

@@ -283,6 +283,17 @@
     "notes": [
       "Her attack commands during this time are switched to movement commands instead. Upon finishing the charge and if an attack command was issued, Kai'Sa will continue walking toward her target.\n  - Kai'Sa behaves normally if attack move click was issued not on a target during the cast time, stopping at attack range of the closest target and starts attacking when charged up."
     ],
+    "gameSources": [
+      {
+        "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/kaisa/kaisa.bin.json",
+        "sha256": "40e12d94baf3409f5a8eadb9d44bdd44a58b27de745bc7e84739b99700d9b222",
+        "object": "Characters/Kaisa/Spells/KaisaEAbility/KaisaE",
+        "text": [
+          "mSpell.mSpellCalculations.TotalCastTime: {\"mExpandedTooltipCalculationDisplay\":6,\"tooltipOnly\":true,\"mFormulaParts\":[{\"mCeiling\":null,\"mFloor\":0.6000000238418579,\"mSubparts\":[{\"mEffectIndex\":3,\"__type\":\"EffectValueCalculationPart\"},{\"mStat\":4,\"mCoefficient\":-0.4000000059604645,\"__type\":\"StatByCoefficientCalculationPart\"}],\"__type\":\"ClampSubPartsCalculationPart\"}],\"mPrecision\":2,\"__type\":\"GameCalculation\"}"
+        ]
+      }
+    ],
     "sources": [
       {
         "page": {
@@ -291,17 +302,6 @@
         },
         "text": [
           "|cast time    = {{as|{{pp|type='''bonus''' attack speed|1.2;1.155;1.089;0.99;0.924;0.858;0.792;0.726;0.693;0.66;0.627;0.6|key1=%|0;3.90;10.20;21.22;29.88;39.87;51.52;65.29;73.17;81.82;91.39;100|formula= 1.2 /(1 + '''bonus''' attack speed/100) . ''This is capped at 0.6 seconds.''}}|attack speed}}"
-        ]
-      }
-    ],
-    "gameSources": [
-      {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/kaisa/kaisa.bin.json",
-        "version": "16.20.8248524+branch.releases-16-20.content.release",
-        "sha256": "40e12d94baf3409f5a8eadb9d44bdd44a58b27de745bc7e84739b99700d9b222",
-        "object": "Characters/Kaisa/Spells/KaisaEAbility/KaisaE",
-        "text": [
-          "mSpell.mSpellCalculations.TotalCastTime: {\"mExpandedTooltipCalculationDisplay\":6,\"tooltipOnly\":true,\"mFormulaParts\":[{\"mCeiling\":null,\"mFloor\":0.6000000238418579,\"mSubparts\":[{\"mEffectIndex\":3,\"__type\":\"EffectValueCalculationPart\"},{\"mStat\":4,\"mCoefficient\":-0.4000000059604645,\"__type\":\"StatByCoefficientCalculationPart\"}],\"__type\":\"ClampSubPartsCalculationPart\"}],\"mPrecision\":2,\"__type\":\"GameCalculation\"}"
         ]
       }
     ]
@@ -790,8 +790,8 @@
     ],
     "gameSources": [
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/kaisa/kaisa.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/kaisa/kaisa.bin.json",
         "sha256": "40e12d94baf3409f5a8eadb9d44bdd44a58b27de745bc7e84739b99700d9b222",
         "object": "Characters/Kaisa/Spells/KaisaQAbility/KaisaQLeftMissile1",
         "text": [

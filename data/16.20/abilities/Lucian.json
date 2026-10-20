@@ -340,7 +340,7 @@
       },
       "costType": "mana",
       "castTime": {
-        "text": "0.4 \u2013 0.25 (based on level)",
+        "text": "0.4 – 0.25 (based on level)",
         "values": [
           {
             "series": {
@@ -504,7 +504,7 @@
         "values": []
       },
       "range": {
-        "text": "1200 \u2022 1140 + offset",
+        "text": "1200 • 1140 + offset",
         "values": [
           {
             "series": {

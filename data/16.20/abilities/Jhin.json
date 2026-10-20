@@ -21,7 +21,7 @@
         ]
       },
       "speed": {
-        "text": "2600 \u2022 3000",
+        "text": "2600 • 3000",
         "values": [
           {
             "series": {
@@ -186,7 +186,7 @@
         ]
       },
       "effectRadius": {
-        "text": "260 \u2022 260",
+        "text": "260 • 260",
         "values": [
           {
             "series": {
@@ -467,7 +467,7 @@
       },
       {
         "label": "Innate - Every Moment Matters",
-        "text": "Innate - Every Moment Matters: Jhin gains bonus attack damage equal to 4 \u2013 44 (based on level)% (+ 0.35% per 1% critical strike chance) (+ 0.3% per 1% bonus attack speed) AD.",
+        "text": "Innate - Every Moment Matters: Jhin gains bonus attack damage equal to 4 – 44 (based on level)% (+ 0.35% per 1% critical strike chance) (+ 0.3% per 1% bonus attack speed) AD.",
         "leveling": [],
         "mechanics": [],
         "values": [
@@ -498,7 +498,7 @@
               ],
               "past18": "game files"
             },
-            "context": "Innate - Every Moment Matters: Jhin gains bonus attack damage equal to 4 \u2013 44 (based on level)% (+ 0.35% per 1% critical strike chance) (+ 0.3% per 1% bonus attack speed) AD."
+            "context": "Innate - Every Moment Matters: Jhin gains bonus attack damage equal to 4 – 44 (based on level)% (+ 0.35% per 1% critical strike chance) (+ 0.3% per 1% bonus attack speed) AD."
           }
         ]
       },
@@ -619,7 +619,7 @@
         ]
       },
       "speed": {
-        "text": "1800 \u2022 600",
+        "text": "1800 • 600",
         "values": [
           {
             "series": {
@@ -837,7 +837,7 @@
       },
       "costType": "mana",
       "castTime": {
-        "text": "1 \u2022 0.25",
+        "text": "1 • 0.25",
         "values": [
           {
             "series": {
@@ -891,7 +891,7 @@
         ]
       },
       "angle": {
-        "text": "60\u00b0",
+        "text": "60°",
         "values": [
           {
             "series": {
@@ -1153,6 +1153,18 @@
       "This ability will cast from wherever the caster is at the end of the cast time.",
       "The following table refers for interactions while Jhin is channeling:"
     ],
+    "gameSources": [
+      {
+        "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/jhin/jhin.bin.json",
+        "sha256": "85ae67d7de00031e48f6a9f6d9a99248082d3e0f57627a125a4b9fe7e00013eb",
+        "object": "Characters/Jhin/Spells/JhinRAbility/JhinRShot",
+        "text": [
+          "mSpell.mCantCancelWhileWindingUp: true",
+          "mSpell.mDoesntBreakChannels: true"
+        ]
+      }
+    ],
     "sources": [
       {
         "page": {
@@ -1163,18 +1175,6 @@
           "|description3 = The fourth shot {{tip|critical strike|critically strikes}} for {{as|{{critical damage|200|100}}|critical damage}} damage.",
           "{{ct|channel|cast=interrupts|items=interrupts,true,,false|spells=true,false,interrupts,interrupts,false}}",
           "{{ct|cast|spells=true,false,false,false,false}}"
-        ]
-      }
-    ],
-    "gameSources": [
-      {
-        "version": "16.20.8248524+branch.releases-16-20.content.release",
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/jhin/jhin.bin.json",
-        "sha256": "85ae67d7de00031e48f6a9f6d9a99248082d3e0f57627a125a4b9fe7e00013eb",
-        "object": "Characters/Jhin/Spells/JhinRAbility/JhinRShot",
-        "text": [
-          "mSpell.mCantCancelWhileWindingUp: true",
-          "mSpell.mDoesntBreakChannels: true"
         ]
       }
     ]
@@ -1230,7 +1230,7 @@
         ]
       },
       "range": {
-        "text": "2520 \u2022 -20",
+        "text": "2520 • -20",
         "values": [
           {
             "series": {

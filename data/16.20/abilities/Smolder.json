@@ -194,10 +194,10 @@
     ],
     "gameSources": [
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/smolder/smolder.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
-        "object": "Characters/Smolder/Spells/SmolderEAbility/SmolderE",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/smolder/smolder.bin.json",
         "sha256": "70d21d42ef90cdf2b89b2faa5ba3b39343419530fb528c2f59532b5a7b6208f8",
+        "object": "Characters/Smolder/Spells/SmolderEAbility/SmolderE",
         "text": [
           "mSpell.DataValues: [{\"name\":\"Duration\",\"values\":[1.25,1.25,1.25,1.25,1.25,1.25,1.25],\"__type\":\"SpellDataValue\"},{\"name\":\"MoveSpeed\",\"values\":[0.75,0.75,0.75,0.75,0.75,0.75,0.75],\"__type\":\"SpellDataValue\"},{\"name\":\"NumOfAttacksBase\",\"values\":[5.0,5.0,5.0,5.0,5.0,5.0,5.0],\"__type\":\"SpellDataValue\"},{\"name\":\"BaseDamage\",\"values\":[5.0,10.0,15.0,20.0,25.0,30.0,35.0],\"__type\":\"SpellDataValue\"},{\"name\":\"ADRatio\",\"values\":[0.30000001192092896,0.30000001192092896,0.30000001192092896,0.30000001192092896,0.30000001192092896,0.30000001192092896,0.30000001192092896],\"__type\":\"SpellDataValue\"},{\"name\":\"Range\",\"values\":[700.0,700.0,700.0,700.0,700.0,700.0,700.0],\"__type\":\"SpellDataValue\"},{\"name\":\"NumAttackStackRatio\",\"values\":[0.009999999776482582,0.009999999776482582,0.009999999776482582,0.009999999776482582,0.009999999776482582,0.009999999776482582,0.009999999776482582],\"__type\":\"SpellDataValue\"}]",
           "mSpell.mSpellCalculations: {\"TotalNumberOfAttacks\":{\"mFormulaParts\":[{\"mDataValue\":\"NumOfAttacksBase\",\"__type\":\"NamedDataValueCalculationPart\"},{\"mBuffName\":\"{32bcea5d}\",\"mIconKey\":\"%i:Smolder%\",\"mDataValue\":\"NumAttackStackRatio\",\"__type\":\"BuffCounterByNamedDataValueCalculationPart\"}],\"mPrecision\":2,\"__type\":\"GameCalculation\"},\"DamagePerHit\":{\"mFormulaParts\":[{\"mDataValue\":\"BaseDamage\",\"__type\":\"NamedDataValueCalculationPart\"},{\"mStat\":2,\"mDataValue\":\"ADRatio\",\"__type\":\"StatByNamedDataValueCalculationPart\"}],\"__type\":\"GameCalculation\"}}",
@@ -205,10 +205,10 @@
         ]
       },
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/smolder/smolder.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
-        "object": "Characters/Smolder/Spells/SmolderEAbility/SmolderEAttack",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/smolder/smolder.bin.json",
         "sha256": "70d21d42ef90cdf2b89b2faa5ba3b39343419530fb528c2f59532b5a7b6208f8",
+        "object": "Characters/Smolder/Spells/SmolderEAbility/SmolderEAttack",
         "text": [
           "mSpell.mMissileSpec: {\"movementComponent\":{\"mTargetHeightAugment\":100.0,\"mOffsetInitialTargetHeight\":100.0,\"mStartBoneName\":\"Jaw\",\"mSpeed\":2000.0,\"__type\":\"FixedSpeedMovement\"},\"verticalFacing\":{\"__type\":\"VeritcalFacingMatchVelocity\"},\"behaviors\":[{\"__type\":\"CastOnMovementComplete\"},{\"__type\":\"DestroyOnMovementComplete\"}],\"__type\":\"MissileSpecification\"}",
           "mSpell.missileSpeed: 1800.0"
@@ -258,20 +258,20 @@
     ],
     "gameSources": [
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/smolder/smolder.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
-        "object": "Characters/Smolder/Spells/SmolderPAbility/SmolderP",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/smolder/smolder.bin.json",
         "sha256": "70d21d42ef90cdf2b89b2faa5ba3b39343419530fb528c2f59532b5a7b6208f8",
+        "object": "Characters/Smolder/Spells/SmolderPAbility/SmolderP",
         "text": [
           "mSpell.DataValues: [{\"name\":\"QCritRatio\",\"values\":[1.399999976158142,1.399999976158142,1.399999976158142,1.399999976158142,1.399999976158142,1.399999976158142,1.399999976158142],\"__type\":\"SpellDataValue\"},{\"name\":\"QDamagePerStack\",\"values\":[0.25,0.25,0.25,0.25,0.25,0.25,0.25],\"__type\":\"SpellDataValue\"},{\"name\":\"WDamagePerStack\",\"values\":[0.550000011920929,0.550000011920929,0.550000011920929,0.550000011920929,0.550000011920929,0.550000011920929,0.550000011920929],\"__type\":\"SpellDataValue\"},{\"name\":\"EDamagePerStack\",\"values\":[0.07999999821186066,0.07999999821186066,0.07999999821186066,0.07999999821186066,0.07999999821186066,0.07999999821186066,0.07999999821186066],\"__type\":\"SpellDataValue\"},{\"name\":\"EStacksPerAttackTooltip\",\"values\":[100.0,100.0,100.0,100.0,100.0,100.0,100.0],\"__type\":\"SpellDataValue\"}]",
           "mSpell.mSpellCalculations: {\"Passive_QDamageIncrease\":{\"mMultiplier\":{\"mSubparts\":[{\"mNumber\":1.0,\"__type\":\"NumberCalculationPart\"},{\"mPart1\":{\"mStat\":8,\"mDataValue\":\"QCritRatio\",\"__type\":\"StatByNamedDataValueCalculationPart\"},\"mPart2\":{\"mSubparts\":[{\"mNumber\":-1.0,\"__type\":\"NumberCalculationPart\"},{\"mStat\":9,\"mCoefficient\":1.0,\"__type\":\"StatByCoefficientCalculationPart\"}],\"__type\":\"SumOfSubPartsCalculationPart\"},\"__type\":\"ProductOfSubPartsCalculationPart\"}],\"__type\":\"SumOfSubPartsCalculationPart\"},\"mFormulaParts\":[{\"mBuffName\":\"{32bcea5d}\",\"mIconKey\":\"%i:Smolder%\",\"mDataValue\":\"QDamagePerStack\",\"__type\":\"BuffCounterByNamedDataValueCalculationPart\"}],\"__type\":\"GameCalculation\"},\"Passive_WDamageIncrease\":{\"mFormulaParts\":[{\"mBuffName\":\"{32bcea5d}\",\"mIconKey\":\"%i:Smolder%\",\"mDataValue\":\"WDamagePerStack\",\"__type\":\"BuffCounterByNamedDataValueCalculationPart\"}],\"__type\":\"GameCalculation\"},\"TooltipOnly_QStacks\":{\"mExpandedTooltipCalculationDisplay\":2,\"tooltipOnly\":true,\"mFormulaParts\":[{\"mBuffName\":\"{32bcea5d}\",\"mIconKey\":\"%i:Smolder%\",\"mDataValue\":\"QDamagePerStack\",\"__type\":\"BuffCounterByNamedDataValueCalculationPart\"}],\"mDisplayAsPercent\":true,\"__type\":\"GameCalculation\"},\"TooltipOnly_QCritMultiplier\":{\"mExpandedTooltipCalculationDisplay\":2,\"tooltipOnly\":true,\"mFormulaParts\":[{\"mBuffName\":\"{098531db}\",\"mIconKey\":\"%i:scaleCrit%\",\"mDataValue\":\"QCritRatio\",\"__type\":\"BuffCounterByNamedDataValueCalculationPart\"}],\"mDisplayAsPercent\":true,\"__type\":\"GameCalculation\"},\"EBonusDamage\":{\"mMultiplier\":{\"mSubparts\":[{\"mNumber\":1.0,\"__type\":\"NumberCalculationPart\"},{\"mPart1\":{\"mStat\":8,\"mCoefficient\":0.75,\"__type\":\"StatByCoefficientCalculationPart\"},\"mPart2\":{\"mSubparts\":[{\"mNumber\":-1.0,\"__type\":\"NumberCalculationPart\"},{\"mStat\":9,\"mCoefficient\":1.0,\"__type\":\"StatByCoefficientCalculationPart\"}],\"__type\":\"SumOfSubPartsCalculationPart\"},\"__type\":\"ProductOfSubPartsCalculationPart\"}],\"__type\":\"SumOfSubPartsCalculationPart\"},\"mFormulaParts\":[{\"mBuffName\":\"{32bcea5d}\",\"mIconKey\":\"%i:Smolder%\",\"mDataValue\":\"EDamagePerStack\",\"__type\":\"BuffCounterByNamedDataValueCalculationPart\"}],\"__type\":\"GameCalculation\"}}"
         ]
       },
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/smolder/smolder.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
-        "object": "Characters/Smolder/Spells/SmolderBasicAttack",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/smolder/smolder.bin.json",
         "sha256": "70d21d42ef90cdf2b89b2faa5ba3b39343419530fb528c2f59532b5a7b6208f8",
+        "object": "Characters/Smolder/Spells/SmolderBasicAttack",
         "text": [
           "mSpell.mMissileSpec: {\"movementComponent\":{\"mTargetHeightAugment\":100.0,\"mOffsetInitialTargetHeight\":100.0,\"mStartBoneName\":\"Neck2\",\"mSpeed\":1600.0,\"__type\":\"FixedSpeedMovement\"},\"verticalFacing\":{\"__type\":\"VeritcalFacingMatchVelocity\"},\"behaviors\":[{\"__type\":\"CastOnMovementComplete\"},{\"__type\":\"DestroyOnMovementComplete\"}],\"__type\":\"MissileSpecification\"}",
           "mSpell.missileSpeed: 1800.0"
@@ -593,10 +593,10 @@
     ],
     "gameSources": [
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/smolder/smolder.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
-        "object": "Characters/Smolder/Spells/SmolderQAbility/SmolderQ",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/smolder/smolder.bin.json",
         "sha256": "70d21d42ef90cdf2b89b2faa5ba3b39343419530fb528c2f59532b5a7b6208f8",
+        "object": "Characters/Smolder/Spells/SmolderQAbility/SmolderQ",
         "text": [
           "mSpell.DataValues: [{\"name\":\"BaseDamage\",\"values\":[50.0,60.0,70.0,80.0,90.0,100.0,110.0],\"__type\":\"SpellDataValue\"},{\"name\":\"ADRatio\",\"values\":[1.2999999523162842,1.2999999523162842,1.2999999523162842,1.2999999523162842,1.2999999523162842,1.2999999523162842,1.2999999523162842],\"__type\":\"SpellDataValue\"},{\"name\":\"StackTier1\",\"values\":[25.0,25.0,25.0,25.0,25.0,25.0,25.0],\"__type\":\"SpellDataValue\"},{\"name\":\"StackTier2\",\"values\":[125.0,125.0,125.0,125.0,125.0,125.0,125.0],\"__type\":\"SpellDataValue\"},{\"name\":\"StackTier3\",\"values\":[225.0,225.0,225.0,225.0,225.0,225.0,225.0],\"__type\":\"SpellDataValue\"},{\"name\":\"Tier1_ExplosionRadius\",\"values\":[285.0,285.0,285.0,285.0,285.0,285.0,285.0],\"__type\":\"SpellDataValue\"},{\"name\":\"Tier2_BlowbackDistance\",\"values\":[500.0,500.0,500.0,500.0,500.0,500.0,500.0],\"__type\":\"SpellDataValue\"},{\"name\":\"Tier2_BlowbackAmountBase\",\"values\":[2.0,2.0,2.0,2.0,2.0,2.0,2.0],\"__type\":\"SpellDataValue\"},{\"name\":\"Tier2_BlowbackExplosionRadius\",\"values\":[150.0,150.0,150.0,150.0,150.0,150.0,150.0],\"__type\":\"SpellDataValue\"},{\"name\":\"Tier2_BlowbackSpreadAngle\",\"values\":[15.0,15.0,15.0,15.0,15.0,15.0,15.0],\"__type\":\"SpellDataValue\"},{\"name\":\"Tier3_TrueDamagePercent\",\"values\":[0.009999999776482582,0.009999999776482582,0.009999999776482582,0.009999999776482582,0.009999999776482582,0.009999999776482582,0.009999999776482582],\"__type\":\"SpellDataValue\"},{\"name\":\"Tier3_MonsterCap\",\"values\":[300.0,300.0,300.0,300.0,300.0,300.0,300.0],\"__type\":\"SpellDataValue\"},{\"name\":\"CritRatio\",\"values\":[0.75,0.75,0.75,0.75,0.75,0.75,0.75],\"__type\":\"SpellDataValue\"},{\"name\":\"LifestealMod\",\"values\":[0.5,0.5,0.5,0.5,0.5,0.5,0.5],\"__type\":\"SpellDataValue\"},{\"name\":\"Tier3_ExecuteThresholdStart\",\"values\":[6.5,6.5,6.5,6.5,6.5,6.5,6.5],\"__type\":\"SpellDataValue\"},{\"name\":\"Tier3_DotLength\",\"values\":[3.0,3.0,3.0,3.0,3.0,3.0,3.0],\"__type\":\"SpellDataValue\"},{\"name\":\"Tier2_BlowbackPercentageDamage\",\"values\":[50.0,50.0,50.0,50.0,50.0,50.0,50.0],\"__type\":\"SpellDataValue\"},{\"name\":\"minionmod\",\"values\":[1.0,1.0,1.0,1.0,1.0,1.0,1.0],\"__type\":\"SpellDataValue\"},{\"name\":\"Tier3_Burn_Stack_Mult\",\"values\":[4.999999873689376e-05,4.999999873689376e-05,4.999999873689376e-05,4.999999873689376e-05,4.999999873689376e-05,4.999999873689376e-05,4.999999873689376e-05],\"__type\":\"SpellDataValue\"},{\"name\":\"ManaRestore\",\"values\":[15.0,15.0,15.0,15.0,15.0,15.0,15.0],\"__type\":\"SpellDataValue\"}]",
           "mSpell.mSpellCalculations: {\"TotalDamage\":{\"mMultiplier\":{\"mSubparts\":[{\"mNumber\":1.0,\"__type\":\"NumberCalculationPart\"},{\"mPart1\":{\"mStat\":8,\"mDataValue\":\"CritRatio\",\"__type\":\"StatByNamedDataValueCalculationPart\"},\"mPart2\":{\"mSubparts\":[{\"mNumber\":-1.0,\"__type\":\"NumberCalculationPart\"},{\"mStat\":9,\"mCoefficient\":1.0,\"__type\":\"StatByCoefficientCalculationPart\"}],\"__type\":\"SumOfSubPartsCalculationPart\"},\"__type\":\"ProductOfSubPartsCalculationPart\"}],\"__type\":\"SumOfSubPartsCalculationPart\"},\"mFormulaParts\":[{\"mDataValue\":\"BaseDamage\",\"__type\":\"NamedDataValueCalculationPart\"},{\"mStat\":2,\"mStatFormula\":2,\"mDataValue\":\"ADRatio\",\"__type\":\"StatByNamedDataValueCalculationPart\"}],\"__type\":\"GameCalculation\"},\"Tier2_NumberOfBlowback\":{\"mFormulaParts\":[{\"mDataValue\":\"Tier2_BlowbackAmountBase\",\"__type\":\"NamedDataValueCalculationPart\"},{\"mBuffName\":\"{32bcea5d}\",\"mIconKey\":\"%i:Smolder%\",\"mCoefficient\":0.00800000037997961,\"__type\":\"BuffCounterByCoefficientCalculationPart\"}],\"__type\":\"GameCalculation\"},\"Tier3_ExecuteThreshold\":{\"mMultiplier\":{\"mNumber\":0.009999999776482582,\"__type\":\"NumberCalculationPart\"},\"mExpandedTooltipCalculationDisplay\":5,\"mFormulaParts\":[{\"mDataValue\":\"Tier3_ExecuteThresholdStart\",\"__type\":\"NamedDataValueCalculationPart\"}],\"mDisplayAsPercent\":true,\"mPrecision\":1,\"__type\":\"GameCalculation\"},\"Tier3_Burn\":{\"mFormulaParts\":[{\"mStat\":2,\"mStatFormula\":2,\"mCoefficient\":0.0002500000118743628,\"__type\":\"StatByCoefficientCalculationPart\"},{\"mBuffName\":\"{32bcea5d}\",\"mIconKey\":\"%i:Smolder%\",\"mDataValue\":\"Tier3_Burn_Stack_Mult\",\"__type\":\"BuffCounterByNamedDataValueCalculationPart\"}],\"mDisplayAsPercent\":true,\"mPrecision\":1,\"__type\":\"GameCalculation\"}}",
@@ -605,10 +605,10 @@
         ]
       },
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/smolder/smolder.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
-        "object": "Characters/Smolder/Spells/SmolderQAbility/SmolderQ2BlowbackMissileA",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/smolder/smolder.bin.json",
         "sha256": "70d21d42ef90cdf2b89b2faa5ba3b39343419530fb528c2f59532b5a7b6208f8",
+        "object": "Characters/Smolder/Spells/SmolderQAbility/SmolderQ2BlowbackMissileA",
         "text": [
           "mSpell.mMissileSpec: {\"mMissileWidth\":25.0,\"movementComponent\":{\"mStartBoneName\":\"C_BuffBone_Glb_Center_Loc\",\"mSplineInfo\":{\"mControlPoint1\":[0.011026403866708279,-0.49999985098838806,1.5804511308670044],\"mControlPoint2\":[-0.0036754680331796408,-0.9999997019767761,1.1979297399520874],\"__type\":\"HermiteSplineInfo\"},\"mTravelTime\":0.25,\"__type\":\"FixedTimeSplineMovement\"},\"heightSolver\":{\"mGravity\":500.0,\"__type\":\"GravityHeightSolver\"},\"verticalFacing\":{\"__type\":\"VeritcalFacingMatchVelocity\"},\"behaviors\":[{\"__type\":\"CastOnHit\"},{\"__type\":\"DestroyOnMovementComplete\"}],\"__type\":\"MissileSpecification\"}"
         ]
@@ -894,29 +894,29 @@
     ],
     "gameSources": [
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/smolder/smolder.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
-        "object": "Characters/Smolder/Spells/SmolderRAbility/SmolderR",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/smolder/smolder.bin.json",
         "sha256": "70d21d42ef90cdf2b89b2faa5ba3b39343419530fb528c2f59532b5a7b6208f8",
+        "object": "Characters/Smolder/Spells/SmolderRAbility/SmolderR",
         "text": [
           "mSpell.DataValues: [{\"name\":\"BaseDamage\",\"values\":[50.0,150.0,250.0,350.0,450.0,550.0,650.0],\"__type\":\"SpellDataValue\"},{\"name\":\"ADRatio\",\"values\":[1.0,1.0,1.0,1.0,1.0,1.0,1.0],\"__type\":\"SpellDataValue\"},{\"name\":\"MomDistBehindOffset\",\"values\":[600.0,600.0,600.0,600.0,600.0,600.0,600.0],\"__type\":\"SpellDataValue\"},{\"name\":\"SlowDuration\",\"values\":[2.0,2.0,2.0,2.0,2.0,2.0,2.0],\"__type\":\"SpellDataValue\"},{\"name\":\"SlowAmount\",\"values\":[0.4000000059604645,0.4000000059604645,0.4000000059604645,0.4000000059604645,0.4000000059604645,0.4000000059604645,0.4000000059604645],\"__type\":\"SpellDataValue\"},{\"name\":\"MomSpawnDelay\",\"values\":[1.0,1.0,1.0,1.0,1.0,1.0,1.0],\"__type\":\"SpellDataValue\"},{\"name\":\"SweetspotPercentageIncrease\",\"values\":[1.5,1.5,1.5,1.5,1.5,1.5,1.5],\"__type\":\"SpellDataValue\"},{\"name\":\"MomHeal\",\"values\":[25.0,100.0,175.0,250.0,325.0,400.0,475.0],\"__type\":\"SpellDataValue\"},{\"name\":\"SoundDistanceBehindSmolder\",\"values\":[100.0,100.0,100.0,100.0,100.0,100.0,100.0],\"__type\":\"SpellDataValue\"},{\"name\":\"SoundDistanceBehindSmolderSelfOnly\",\"values\":[1000.0,1000.0,1000.0,1000.0,1000.0,1000.0,1000.0],\"__type\":\"SpellDataValue\"},{\"name\":\"LingeringSimmerSoundAmount\",\"values\":[3.0,3.0,3.0,3.0,3.0,3.0,3.0],\"__type\":\"SpellDataValue\"},{\"name\":\"LingeringSimmerSoundOffset\",\"values\":[1500.0,1500.0,1500.0,1500.0,1500.0,1500.0,1500.0],\"__type\":\"SpellDataValue\"},{\"name\":\"LingeringSimmerSoundDebug\",\"__type\":\"SpellDataValue\"},{\"name\":\"MissileLandingSound\",\"values\":[500.0,500.0,500.0,500.0,500.0,500.0,500.0],\"__type\":\"SpellDataValue\"},{\"name\":\"VFXNorthAngleReplacement\",\"values\":[90.0,90.0,90.0,90.0,90.0,90.0,90.0],\"__type\":\"SpellDataValue\"},{\"name\":\"LingeringSimmerSoundDelay\",\"values\":[1.0,1.0,1.0,1.0,1.0,1.0,1.0],\"__type\":\"SpellDataValue\"},{\"name\":\"MinionMod\",\"values\":[0.5,0.5,0.5,0.5,0.5,0.5,0.5],\"__type\":\"SpellDataValue\"}]",
           "mSpell.mSpellCalculations: {\"TotalDamage\":{\"mFormulaParts\":[{\"mDataValue\":\"BaseDamage\",\"__type\":\"NamedDataValueCalculationPart\"},{\"mStat\":2,\"mStatFormula\":2,\"mDataValue\":\"ADRatio\",\"__type\":\"StatByNamedDataValueCalculationPart\"},{\"mCoefficient\":1.0,\"__type\":\"StatByCoefficientCalculationPart\"}],\"__type\":\"GameCalculation\"},\"TooltipOnly_TotalSweetspotDamage\":{\"mMultiplier\":{\"mDataValue\":\"SweetspotPercentageIncrease\",\"__type\":\"NamedDataValueCalculationPart\"},\"mModifiedGameCalculation\":\"TotalDamage\",\"__type\":\"GameCalculationModified\"},\"MomHealCalc\":{\"mFormulaParts\":[{\"mDataValue\":\"MomHeal\",\"__type\":\"NamedDataValueCalculationPart\"},{\"mStat\":2,\"mStatFormula\":2,\"mCoefficient\":0.75,\"__type\":\"StatByCoefficientCalculationPart\"},{\"mCoefficient\":0.75,\"__type\":\"StatByCoefficientCalculationPart\"}],\"__type\":\"GameCalculation\"}}"
         ]
       },
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/smolder/smolder.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
-        "object": "Characters/Smolder/Spells/SmolderRAbility/SmolderRMomMissile",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/smolder/smolder.bin.json",
         "sha256": "70d21d42ef90cdf2b89b2faa5ba3b39343419530fb528c2f59532b5a7b6208f8",
+        "object": "Characters/Smolder/Spells/SmolderRAbility/SmolderRMomMissile",
         "text": [
           "mSpell.mMissileSpec: {\"mMissileWidth\":300.0,\"movementComponent\":{\"mStartBoneName\":\"\",\"mProjectTargetToCastRange\":true,\"mSpeed\":1700.0,\"__type\":\"FixedSpeedMovement\"},\"visibilityComponent\":{\"mPerceptionBubbleRadius\":1000.0,\"__type\":\"Defaultvisibility\"},\"heightSolver\":{\"__type\":\"BlendedLinearHeightSolver\"},\"behaviors\":[{\"RenderParticlesAfterDestroy\":false,\"__type\":\"DestroyOnMovementComplete\"},{\"__type\":\"CastOnHit\"},{\"{ccfd27e6}\":1.0,\"{dc9124b1}\":[0,0,244,0],\"__type\":\"{72f86c81}\"}],\"__type\":\"MissileSpecification\"}"
         ]
       },
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/smolder/smolder.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
-        "object": "Characters/Smolder/Spells/SmolderRAbility/SmolderRMomMissileSweetspot",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/smolder/smolder.bin.json",
         "sha256": "70d21d42ef90cdf2b89b2faa5ba3b39343419530fb528c2f59532b5a7b6208f8",
+        "object": "Characters/Smolder/Spells/SmolderRAbility/SmolderRMomMissileSweetspot",
         "text": [
           "mSpell.mMissileSpec: {\"mMissileWidth\":125.0,\"movementComponent\":{\"mStartBoneName\":\"\",\"mProjectTargetToCastRange\":true,\"mSpeed\":1700.0,\"__type\":\"FixedSpeedMovement\"},\"visibilityComponent\":{\"mPerceptionBubbleRadius\":1000.0,\"__type\":\"Defaultvisibility\"},\"heightSolver\":{\"__type\":\"BlendedLinearHeightSolver\"},\"verticalFacing\":{\"__type\":\"VeritcalFacingMatchVelocity\"},\"behaviors\":[{\"RenderParticlesAfterDestroy\":false,\"__type\":\"DestroyOnMovementComplete\"},{\"__type\":\"CastOnHit\"},{\"{ccfd27e6}\":1.0,\"{dc9124b1}\":[13,8,13,0],\"__type\":\"{72f86c81}\"}],\"__type\":\"MissileSpecification\"}"
         ]
@@ -1195,10 +1195,10 @@
     ],
     "gameSources": [
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/smolder/smolder.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
-        "object": "Characters/Smolder/Spells/SmolderWAbility/SmolderW",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/smolder/smolder.bin.json",
         "sha256": "70d21d42ef90cdf2b89b2faa5ba3b39343419530fb528c2f59532b5a7b6208f8",
+        "object": "Characters/Smolder/Spells/SmolderWAbility/SmolderW",
         "text": [
           "mSpell.DataValues: [{\"name\":\"BaseDamage\",\"values\":[50.0,60.0,70.0,80.0,90.0,100.0,110.0],\"__type\":\"SpellDataValue\"},{\"name\":\"HitADRatio\",\"values\":[0.6000000238418579,0.6000000238418579,0.6000000238418579,0.6000000238418579,0.6000000238418579,0.6000000238418579,0.6000000238418579],\"__type\":\"SpellDataValue\"},{\"name\":\"ExplosionBaseDamage\",\"values\":[-15.0,10.0,35.0,60.0,85.0,110.0,135.0],\"__type\":\"SpellDataValue\"},{\"name\":\"ExplosionRadius\",\"values\":[385.0,385.0,385.0,385.0,385.0,385.0,385.0],\"__type\":\"SpellDataValue\"},{\"name\":\"SlowAmount\",\"values\":[0.3499999940395355,0.3499999940395355,0.3499999940395355,0.3499999940395355,0.3499999940395355,0.3499999940395355,0.3499999940395355],\"__type\":\"SpellDataValue\"},{\"name\":\"SlowDuration\",\"values\":[1.5,1.5,1.5,1.5,1.5,1.5,1.5],\"__type\":\"SpellDataValue\"},{\"name\":\"ExplosionDamageMult\",\"values\":[1.0,1.0,1.0,1.0,1.0,1.0,1.0],\"__type\":\"SpellDataValue\"},{\"name\":\"ExplosionDamageMultihitPenalty\",\"values\":[0.75,0.75,0.75,0.75,0.75,0.75,0.75],\"__type\":\"SpellDataValue\"},{\"name\":\"MinionMod\",\"values\":[1.0,1.0,1.0,1.0,1.0,1.0,1.0],\"__type\":\"SpellDataValue\"}]",
           "mSpell.mSpellCalculations: {\"InitialDamage\":{\"mFormulaParts\":[{\"mDataValue\":\"BaseDamage\",\"__type\":\"NamedDataValueCalculationPart\"},{\"mStat\":2,\"mStatFormula\":2,\"mDataValue\":\"HitADRatio\",\"__type\":\"StatByNamedDataValueCalculationPart\"}],\"__type\":\"GameCalculation\"},\"ExplosionDamage\":{\"mFormulaParts\":[{\"mDataValue\":\"ExplosionBaseDamage\",\"__type\":\"NamedDataValueCalculationPart\"},{\"mStat\":2,\"mStatFormula\":2,\"mCoefficient\":0.5,\"__type\":\"StatByCoefficientCalculationPart\"},{\"mCoefficient\":0.800000011920929,\"__type\":\"StatByCoefficientCalculationPart\"}],\"__type\":\"GameCalculation\"}}",
