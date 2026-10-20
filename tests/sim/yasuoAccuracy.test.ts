@@ -113,26 +113,25 @@ describe("Last Breath's critical-only bonus armor ignorance", () => {
     expect(enemy.totals.damageTaken - beforeQ).toBeCloseTo(estimate, 6);
   });
 
-  it("multiplies its bonus armor ignorance with total percentage penetration", () => {
+  it("adds its bonus armor ignorance to existing total percentage penetration", () => {
     const world = breathWorld();
     advance(world, 30);
     const [self, enemy] = world.units;
     self.statuses.push(lasting("stat", "armorPen", 0.2));
     const before = enemy.totals.damageTaken;
     attackHit(world, self, enemy, false, []);
-    // Base armor: 100 * .8; bonus armor: 100 * .8 * .4, not 100 * (1 - .2 - .6). Total: 112.
-    expect(enemy.totals.damageTaken - before).toBeCloseTo(1.9 * derive(self).ad / 2.12, 6);
+    // Base armor: 100 * .8; bonus armor: 100 * (1 - .2 - .6). Total: 100.
+    expect(enemy.totals.damageTaken - before).toBeCloseTo(1.9 * derive(self).ad / 2, 6);
   });
 
-  it("leaves some bonus armor under high penetration, and negative total armor alone", () => {
+  it("cannot penetrate bonus armor below zero or affect already-negative total armor", () => {
     const world = breathWorld();
     advance(world, 30);
     const [self, enemy] = world.units;
     self.statuses.push(lasting("stat", "armorPen", 0.6));
     let before = enemy.totals.damageTaken;
     attackHit(world, self, enemy, false, []);
-    // Base armor: 100 * .4; bonus armor: 100 * .4 * .4, where adding would leave none. Total: 56.
-    expect(enemy.totals.damageTaken - before).toBeCloseTo(1.9 * derive(self).ad / 1.56, 6);
+    expect(enemy.totals.damageTaken - before).toBeCloseTo(1.9 * derive(self).ad / 1.4, 6);
     enemy.spec = { ...enemy.spec, base: { ...enemy.spec.base, armor: -100 }, bonus: {} };
     before = enemy.totals.damageTaken;
     attackHit(world, self, enemy, false, []);

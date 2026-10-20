@@ -36,8 +36,10 @@ export interface ResistReduction {
 export interface Penetration {
   /** Fractions of the whole resistance ignored; several stack multiplicatively. */
   percent?: number[];
-  /** Fractions of the bonus resistance ignored; several stack multiplicatively, and with `percent`. */
+  /** Fractions of the bonus resistance ignored. */
   bonusPercent?: number[];
+  /** Critical-strike bonus armor ignorance adds to total percentage penetration (Last Breath). */
+  bonusIgnoreAdditive?: number;
   /** Lethality for armor, flat magic penetration for magic resistance. */
   flat?: number;
 }
@@ -69,7 +71,7 @@ export function effectiveResist(resist: Resistance, reduction: ResistReduction =
   if (base + bonus > 0) {
     const factor = keep(pen.percent);
     base *= factor;
-    bonus *= factor * keep(pen.bonusPercent);
+    bonus *= Math.max(0, factor - (pen.bonusIgnoreAdditive ?? 0)) * keep(pen.bonusPercent);
   }
   // 4. Flat penetration: can't take the resistance below 0.
   const total = base + bonus;

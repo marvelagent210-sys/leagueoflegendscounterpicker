@@ -390,7 +390,7 @@ export function expectedDamage(effects: Effect[], caster: Unit, target: Unit, af
     true: 0,
   };
   const criticalArmor = c.criticalBonusArmorIgnore > 0
-    ? effectiveResist(t.armor, t.armorReduction, { flat: c.lethality, percent: c.armorPen, bonusPercent: [...c.bonusArmorPen, c.criticalBonusArmorIgnore] })
+    ? effectiveResist(t.armor, t.armorReduction, { flat: c.lethality, percent: c.armorPen, bonusPercent: c.bonusArmorPen, bonusIgnoreAdditive: c.criticalBonusArmorIgnore })
     : resistance.physical;
   // Copies only: estimating a finisher must never spend the real shields.
   const shields: Shield[] = afterShields ? target.statuses.filter((s) => s.kind === "shield").map((s) => ({ amount: s.value, type: s.shieldType ?? "normal", endTick: s.endTick, ...(s.priority ? { priority: true } : {}) })) : [];
