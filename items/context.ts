@@ -15,7 +15,7 @@
 import type { Series } from "../engine/abilities";
 import { numbersIn } from "../engine/kits/context";
 import { TOP_LANE_MAX_LEVEL } from "../engine/stats";
-import type { ItemEffect, ItemRecord } from "../pipeline/items/records";
+import type { ItemEffect, ItemRecord, RulePage } from "../pipeline/items/records";
 
 export class ItemDataError extends Error {
   constructor(item: string, message: string) {
@@ -165,6 +165,11 @@ export class ItemData {
     return new ItemEffectData(effect, this);
   }
 
+  /** A rule page the item follows (Template:Tip data/Energized). */
+  rule(title: string): RuleData {
+    return this.context.rule(title, this.name);
+  }
+
   /** Records a simplification the item makes, under its name. */
   assume(text: string): void {
     this.context.assume(`${this.name}: ${text}`);
@@ -178,10 +183,36 @@ export class ItemData {
   }
 }
 
-/** Where an item build's data comes from, for its evidence. */
+/** Where an item build's data comes from, for its evidence: the item data module, and the rule pages items quote. */
 export interface ItemSource {
   page: string;
   revid: number;
+  rules?: RulePage[];
+}
+
+/** A wiki rule page item effects follow (Template:Tip data/Energized, Combat status). */
+export class RuleData {
+  constructor(
+    readonly page: RulePage,
+    private readonly context: ItemContext,
+    private readonly item: string,
+  ) {}
+
+  /** Asserts the words are on the rule page, verbatim; records them as evidence. */
+  quote(words: string): string {
+    const wanted = normalize(words);
+    if (!normalize(this.page.text).includes(wanted)) throw new ItemDataError(this.item, `${this.page.title}: the wiki no longer says "${wanted}"`);
+    this.context.recordRule(this.item, this.page, wanted);
+    return wanted;
+  }
+
+  /** The `index`-th number (0-based) in a quoted phrase. */
+  quoted(words: string, index = 0): number {
+    const quote = this.quote(words);
+    const value = numbersIn(quote)[index];
+    if (value === undefined) throw new ItemDataError(this.item, `${this.page.title}: no number ${index + 1} in "${quote}"`);
+    return value;
+  }
 }
 
 /** Reads the items of one build for one fighter, and keeps what they read and assumed. */
@@ -200,6 +231,18 @@ export class ItemContext {
   record(item: string, effect: string | undefined, text: string): void {
     if (this.sealed) throw new Error(`${item} reads "${text}" from the wiki during a fight; read it while building the item`);
     this.evidence.push({ item, ...(effect ? { effect } : {}), page: this.source.page, revid: this.source.revid, text });
+  }
+
+  recordRule(item: string, page: RulePage, text: string): void {
+    if (this.sealed) throw new Error(`${item} reads "${text}" from ${page.title} during a fight; read it while building the item`);
+    this.evidence.push({ item, page: page.title, revid: page.revid, text });
+  }
+
+  /** A rule page the catalog holds, read for `item` (an item's name, or the mechanic that reads it). */
+  rule(title: string, item: string): RuleData {
+    const page = this.source.rules?.find((candidate) => candidate.title === title);
+    if (!page) throw new ItemDataError(item, `the catalog holds no rule page "${title}" (has: ${this.source.rules?.map((r) => r.title).join(", ") || "none"})`);
+    return new RuleData(page, this, item);
   }
 
   item(record: ItemRecord): ItemData {

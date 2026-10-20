@@ -79,11 +79,21 @@ export interface ItemCatalog {
   items: ItemRecord[];
   /** What catalog items turn into once stacked (Muramana, Seraph's Embrace, Fimbulwinter); the shop doesn't sell them. */
   transforms: ItemRecord[];
+  /** The wiki's rule pages that item effects quote (how Energized charges build, when combat ends). */
+  rulePages: RulePage[];
   groups: ItemGroup[];
   /** Every stat the wiki gives, compared with the game file's; and every difference found. */
   checks: { stats: number; differences: string[] };
   /** The rules the build search uses (rules.ts), and the builds they allow. */
   search?: BuildSearchRules;
+}
+
+/** A wiki rule page as item effects quote it. */
+export interface RulePage {
+  title: string;
+  revid: number;
+  /** Tip data by its descriptions, other templates by their wikitext, articles as the wiki shows them; whitespace normalized. */
+  text: string;
 }
 
 export interface BuildCount {
@@ -144,6 +154,8 @@ export interface ItemSources {
   gameFile: Record<string, unknown>;
   cdragonVersion: string;
   itemData: WikiPage;
+  /** The rule pages item effects quote (WIKI_ITEM_RULE_PAGES). */
+  rulePages?: WikiPage[];
   championData: ChampionLookup;
 }
 
@@ -217,6 +229,23 @@ export function spellOutRanged(wikitext: string): string {
 
 function shown(wikitext: string, ctx: EvalContext): string {
   return cleanText(render(parseWikitext(preprocess(spellOutRanged(wikitext))), ctx)).replace(/\s+/g, " ").trim();
+}
+
+/** A rule page's text for quoting: a tip data template's descriptions, another template's wikitext, or an article as shown. */
+export function rulePage(page: WikiPage, ctx: EvalContext): RulePage {
+  const squash = (text: string) => text.replace(/\s+/g, " ").trim();
+  let text: string;
+  if (page.title.startsWith("Template:Tip data/")) {
+    const call = parseWikitext(preprocess(page.content)).find((node) => node.type === "template");
+    const descriptions = call?.type === "template" ? call.args.filter((arg) => arg.name?.trim().startsWith("description")) : [];
+    if (descriptions.length === 0) throw new Error(`${page.title} has no description`);
+    text = descriptions.map((arg) => cleanText(render(arg.value, ctx))).join("\n");
+  } else if (page.title.startsWith("Template:")) {
+    text = page.content.replace(/<noinclude>[\s\S]*?<\/noinclude>/g, "");
+  } else {
+    text = cleanText(render(parseWikitext(preprocess(page.content)), ctx));
+  }
+  return { title: page.title, revid: page.revid, text: text.split("\n").map(squash).filter(Boolean).join("\n") };
 }
 
 /** The value templates of a paragraph, with their sentences, read like an ability's description. */
@@ -376,6 +405,7 @@ export function buildItemCatalog(sources: ItemSources): ItemCatalog {
     rules: CATALOG_RULES,
     items,
     transforms,
+    rulePages: (sources.rulePages ?? []).map((page) => rulePage(page, ctx)),
     groups,
     checks: { stats: compared, differences },
   };

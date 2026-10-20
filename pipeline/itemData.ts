@@ -33,11 +33,27 @@ export function findItem(catalog: ItemCatalog, name: string): ItemRecord {
   throw new Error(`No item "${name}"${close.length ? ` (did you mean ${close.slice(0, 5).join(", ")}?)` : ""}`);
 }
 
+export interface BuildOptions {
+  /** Option overrides, by item name and option (items/modules/). */
+  options?: Record<string, Record<string, number>>;
+  /**
+   * Whether the Tear items are fully stacked: then a build's Manamune is Muramana, and so on.
+   * Default true: a level-20 champion has had a long game to stack them.
+   */
+  stacked?: boolean;
+}
+
 /** A fighter holding the named items, with every item module the simulator has. */
-export function equipBuild(spec: FighterSpec, names: string[], catalog: ItemCatalog, options: Record<string, Record<string, number>> = {}): EquippedFighter {
-  return equipItems(spec, names.map((name) => findItem(catalog, name)), {
+export function equipBuild(spec: FighterSpec, names: string[], catalog: ItemCatalog, build: BuildOptions = {}): EquippedFighter {
+  const stacked = build.stacked ?? true;
+  const records = names.map((name) => findItem(catalog, name));
+  const held = records.map((record) => (stacked && record.transformsInto ? findItem(catalog, record.transformsInto) : record));
+  const equipped = equipItems(spec, held, {
     modules: ITEM_MODULES,
-    source: { page: catalog.sources.itemData.title, revid: catalog.sources.itemData.revid },
-    options,
+    source: { page: catalog.sources.itemData.title, revid: catalog.sources.itemData.revid, rules: catalog.rulePages },
+    options: build.options ?? {},
   });
+  const transformed = records.filter((record, i) => held[i] !== record);
+  if (transformed.length > 0) equipped.assumptions.unshift(`The Tear items are fully stacked: ${transformed.map((record) => `${record.name} is ${record.transformsInto}`).join(", ")}.`);
+  return equipped;
 }

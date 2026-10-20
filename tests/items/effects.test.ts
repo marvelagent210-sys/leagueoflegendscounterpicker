@@ -54,9 +54,9 @@ describe("item stats", () => {
   });
 
   it("gives mana and its regeneration to mana champions only, and base health regeneration by its percent", () => {
-    const mage = equip(fighter({ base: { resource: 1000, resourceRegen: 10 } }), "Manamune", "Warmog's Armor");
+    const mage = equipBuild(fighter({ base: { resource: 1000, resourceRegen: 10 } }), ["Manamune", "Warmog's Armor"], catalog, { stacked: false });
     expect({ ...mage.spec, resourceType: "Mana" }.base.resource).toBe(1000);
-    const manaUser = equip({ ...fighter({ base: { resource: 1000, resourceRegen: 10, hpRegen: 20 } }), resourceType: "Mana" }, "Manamune", "Warmog's Armor", "Mikael's Blessing");
+    const manaUser = equipBuild({ ...fighter({ base: { resource: 1000, resourceRegen: 10, hpRegen: 20 } }), resourceType: "Mana" }, ["Manamune", "Warmog's Armor", "Mikael's Blessing"], catalog, { stacked: false });
     expect(manaUser.spec.base.resource).toBe(1500);
     expect(manaUser.spec.base.resourceRegen).toBeCloseTo(20, 10);
     expect(manaUser.spec.base.hpRegen).toBeCloseTo(40, 10);
@@ -218,7 +218,8 @@ describe("the item modules", () => {
   it("are all catalog items and still read their words from the committed wiki data, for melee and ranged champions", () => {
     for (const name of Object.keys(ITEM_MODULES)) {
       expect([...catalog.items, ...catalog.transforms].map((record) => record.name)).toContain(name);
-      for (const spec of champions) expect(() => equip(spec, name)).not.toThrow();
+      const rangedOnly = /only be purchased on ranged champions/.test(findItem(catalog, name).restriction ?? "");
+      for (const spec of champions) if (spec.attack.ranged || !rangedOnly) expect(() => equip(spec, name), `${spec.id}: ${name}`).not.toThrow();
     }
   });
 

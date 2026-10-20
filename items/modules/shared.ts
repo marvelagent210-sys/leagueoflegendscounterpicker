@@ -2,6 +2,7 @@
  * Mechanics several items share: what an item's own effects are applied as, Spellblade,
  * Lifeline, decaying shields, and Grievous Wounds on damage.
  */
+import { ccDuration } from "../../engine/rules/crowdControl";
 import { toTicks } from "../../engine/rules/time";
 import { addStatus, applyEffect } from "../../engine/sim/combat";
 import { derive } from "../../engine/sim/derived";
@@ -164,4 +165,29 @@ export function joinHooks(...all: Array<KitHooks | undefined>): KitHooks {
     };
   }
   return joined as KitHooks;
+}
+
+/**
+ * Slows the enemy, extending the item's own slow of the same strength instead of stacking
+ * another (a slow on every hit or pulse).
+ */
+export function refreshSlow(ctx: Pick<HookContext, "world" | "self" | "enemy" | "tick">, item: string, strength: number, seconds: number): void {
+  const own = ctx.enemy.statuses.find((status) => status.kind === "cc" && status.key === "slow" && status.source === ctx.self.side && status.ability === activeKey(item) && status.value === strength && status.endTick > ctx.tick);
+  if (own) {
+    own.endTick = Math.max(own.endTick, ctx.tick + toTicks(ccDuration(seconds, "slow", derive(ctx.enemy).tenacity)));
+    return;
+  }
+  applyFrom(ctx, item, { type: "cc", cc: "slow", duration: seconds, strength });
+}
+
+/**
+ * Makes the shield an item's active just gave decay evenly over `seconds` (Locket of the Iron
+ * Solari): the active's own shield effect lets the default behavior see it as sustain.
+ */
+export function decayActiveShield(ctx: Pick<HookContext, "self" | "tick">, item: string, seconds: number): void {
+  const shield = ctx.self.statuses.find((status) => status.kind === "shield" && status.key === activeKey(item) && status.startTick === ctx.tick);
+  if (!shield) return;
+  ctx.self.statuses = ctx.self.statuses.filter((status) => status === shield || status.memoKey !== memo(item, "shield"));
+  shield.memoKey = memo(item, "shield");
+  ctx.self.memory[memo(item, "decay")] = shield.value / toTicks(seconds);
 }

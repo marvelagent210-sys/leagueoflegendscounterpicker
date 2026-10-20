@@ -227,6 +227,13 @@ describe("the committed item catalog", async () => {
     expect(catalog.search?.gameFileBuilds).toEqual({ sixItems: 1_510_649_782, fiveItemsWithBoots: 653_589_622 });
   });
 
+  it("holds the rule pages item effects quote, at the revisions recorded for the dataset", () => {
+    expect(catalog.rulePages.map((page) => page.title)).toEqual(["Combat status", "Critical strike", "Template:Critical damage", "Template:Tip data/Energized", "Vamp"]);
+    for (const page of catalog.rulePages) expect(revisions[page.title], page.title).toBe(page.revid);
+    const energized = catalog.rulePages.find((page) => page.title === "Template:Tip data/Energized")?.text;
+    expect(energized).toContain("Champions with Energized gain 6 Charges per basic attack and 1 Charge for every 24 units travelled by any means.");
+  });
+
   it("holds the three transformed Tear items, checked against the game file like the rest", () => {
     expect(catalog.transforms.map((record) => [record.name, record.transformsFrom, record.stats])).toEqual([
       ["Seraph's Embrace", "Archangel's Staff", { ap: 70, ah: 25, mana: 1000 }],

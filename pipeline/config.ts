@@ -25,6 +25,12 @@ export const WIKI_CHAMPION_DATA_PAGE = "Module:ChampionData/data";
  */
 export const WIKI_ITEM_DATA_PAGE = "Module:ItemData/data";
 
+/**
+ * The game rules item effects follow that their own text leaves out: how Energized charges
+ * build, when combat ends, what omnivamp heals from, and how critical strike damage adds up.
+ */
+export const WIKI_ITEM_RULE_PAGES = ["Combat status", "Critical strike", "Template:Critical damage", "Template:Tip data/Energized", "Vamp"];
+
 /** Dataset folder name, e.g. Data Dragon "16.20.1" -> "16.20". */
 export function datasetName(ddragonVersion: string): string {
   const [major, minor] = ddragonVersion.split(".");

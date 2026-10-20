@@ -225,6 +225,28 @@
       "title": "Module:ItemData/data",
       "revid": 4082420
     },
-    "fetchedAt": "2026-10-20T16:58:41.125Z"
+    "fetchedAt": "2026-10-20T16:58:41.125Z",
+    "rules": [
+      {
+        "title": "Combat status",
+        "revid": 4058480
+      },
+      {
+        "title": "Critical strike",
+        "revid": 4059009
+      },
+      {
+        "title": "Template:Critical damage",
+        "revid": 4001015
+      },
+      {
+        "title": "Template:Tip data/Energized",
+        "revid": 4013385
+      },
+      {
+        "title": "Vamp",
+        "revid": 4058226
+      }
+    ]
   }
 }

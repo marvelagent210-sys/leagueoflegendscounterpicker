@@ -42,6 +42,11 @@ async function main(): Promise<void> {
   ]);
   const itemData = itemPages.find((page) => page.title === manifest.items!.itemData.title);
   if (!itemData) throw new Error(`The item downloads lack ${manifest.items.itemData.title}`);
+  const rulePages = (manifest.items.rules ?? []).map(({ title, revid }) => {
+    const page = itemPages.find((candidate) => candidate.title === title);
+    if (!page || page.revid !== revid) throw new Error(`The item downloads lack ${title} revision ${revid}; run npm run fetch -- --only item-rules`);
+    return page;
+  });
   const catalog = buildItemCatalog({
     dataset,
     patch: manifest.patch,
@@ -49,6 +54,7 @@ async function main(): Promise<void> {
     gameFile,
     cdragonVersion: manifest.items.cdragonVersion,
     itemData,
+    rulePages,
     championData: championLookup(championData),
   });
   catalog.search = searchRules(catalog);
