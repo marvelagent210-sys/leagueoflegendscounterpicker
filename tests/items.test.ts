@@ -5,6 +5,7 @@ import { DATA_DIR } from "../pipeline/config";
 import { latestDataset } from "../pipeline/datasets";
 import { type DDragonItem, type DDragonItems, catalogItems } from "../pipeline/items/catalog";
 import { type ItemCatalog, buildItemCatalog, spellOutRanged } from "../pipeline/items/records";
+import { REVIEWED_GROUPS, countBuilds, unknownItems } from "../pipeline/items/rules";
 import { readJson } from "../pipeline/lib/files";
 
 const gold = (total: number) => ({ base: 0, total, purchasable: true });
@@ -119,6 +120,24 @@ describe("item records", () => {
   });
 });
 
+describe("build counting", () => {
+  it("counts builds as sets with at most one item from each group, groups sharing items included", () => {
+    const items = ["A", "B", "C", "D", "E"];
+    expect(countBuilds(items, {}, 2)).toBe(10);
+    // {A, B} is the one pair a single group forbids.
+    expect(countBuilds(items, { g: ["A", "B"] }, 2)).toBe(9);
+    // B is in both groups: {A, B} and {B, C} are out, {A, C} is fine.
+    expect(countBuilds(items, { g1: ["A", "B"], g2: ["B", "C"] }, 2)).toBe(8);
+    expect(countBuilds(items, { g1: ["A", "B"], g2: ["B", "C"] }, 3)).toBe(5);
+    // Names outside the item list don't restrict anything.
+    expect(countBuilds(items, { g: ["A", "Z"] }, 2)).toBe(10);
+  });
+
+  it("names the rules' items that aren't catalog items", () => {
+    expect(unknownItems({ g: ["A", "Typo"] }, ["A", "B"])).toEqual(["Typo"]);
+  });
+});
+
 describe("the committed item catalog", async () => {
   const dataset = await latestDataset(DATA_DIR, "items.json");
   const catalog = await readJson<ItemCatalog>(path.join(DATA_DIR, dataset, "items.json"));
@@ -160,6 +179,12 @@ describe("the committed item catalog", async () => {
       Hydra: ["Profane Hydra", "Ravenous Hydra", "Stridebreaker", "Titanic Hydra"],
     });
     expect(catalog.groups.every((group) => group.max === 1)).toBe(true);
+  });
+
+  it("keeps the build search's rules confirmed on review, and counts the builds PLAN.md gives", () => {
+    expect(catalog.search?.groups).toEqual(REVIEWED_GROUPS);
+    expect(catalog.search?.builds).toEqual({ sixItems: 1_538_705_768, fiveItemsWithBoots: 661_723_587 });
+    expect(catalog.search?.gameFileBuilds).toEqual({ sixItems: 1_510_649_782, fiveItemsWithBoots: 653_589_622 });
   });
 
   it("renders every effect without wiki markup, with both melee and ranged values", () => {

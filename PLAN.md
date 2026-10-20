@@ -677,7 +677,11 @@ Progress: the item data came first, on 20 October, while the remaining kits are 
   - Sunfire Aegis or Hollow Radiance; Mortal Reminder or Morellonomicon (Grievous Wounds); Banshee's Veil or Edge of Night (Annul).
   - The Tear items (Manamune, Archangel's Staff, Winter's Approach) can be combined.
   - That leaves 1,538,705,768 six-item builds and 661,723,587 five-item builds with boots: 2,200,429,355 per side.
-  - Open question: the game file's own caps, which the wiki's limits match (`reports/items.md`), differ from these rules in three places. The Tear items are one per build (TearItems), and so are Archangel's Staff and the Lifeline items. Mortal Reminder and Morellonomicon can be combined. Penetration is two groups, both with Terminus: Lord Dominik's Regards, Mortal Reminder, Serylda's Grudge and Black Cleaver (LastWhisper), and Void Staff, Cryptbloom and Bloodletter's Curse (VoidPen).
+  - These rules stand (kept on review, 20 October), and `pipeline/items/rules.ts` gives them to the build search; `items.json` counts the builds above from the catalog. The game file's own caps, which the wiki's limits match (`reports/items.md`), differ in three places:
+    - The Tear items are one per build (TearItems), and so are Archangel's Staff and the Lifeline items.
+    - Mortal Reminder and Morellonomicon can be combined.
+    - Penetration is two groups, both with Terminus: Lord Dominik's Regards, Mortal Reminder, Serylda's Grudge and Black Cleaver (LastWhisper), and Void Staff, Cryptbloom and Bloodletter's Curse (VoidPen).
+  - Under the game file's caps there would be 2,164,239,404 builds per side.
 - **Build and rune search** (1 to 2 weeks).
   - Each side has about 2.2 billion builds and about a million rune pages. Fighting every pairing would take about 15 billion processor-years per matchup, so nothing is searched exhaustively.
   - Per champion, the search drops items its kit can't use and items another beats on every stat it uses, at the same price or less. For hybrids such as Kai'Sa and Kog'Maw this removes little, which the steps below don't depend on.

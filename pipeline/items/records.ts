@@ -64,6 +64,21 @@ export interface ItemCatalog {
   groups: ItemGroup[];
   /** Every stat the wiki gives, compared with the game file's; and every difference found. */
   checks: { stats: number; differences: string[] };
+  /** The rules the build search uses (rules.ts), and the builds they allow. */
+  search?: BuildSearchRules;
+}
+
+export interface BuildCount {
+  sixItems: number;
+  fiveItemsWithBoots: number;
+}
+
+export interface BuildSearchRules {
+  /** One item per build from each group, as confirmed on review. */
+  groups: Record<string, string[]>;
+  /** Builds per side under those rules, and under the game file's caps instead. */
+  builds: BuildCount;
+  gameFileBuilds: BuildCount;
 }
 
 /** The wiki's stat keys and the game file's fields, with the factor from the game file's fraction to the wiki's percent. */

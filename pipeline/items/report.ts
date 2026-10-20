@@ -1,6 +1,6 @@
 /** The item catalog as a readable page: reports/items.md. */
 import { wikiUrl } from "../../engine/abilityText";
-import type { ItemCatalog, ItemEffect, ItemRecord } from "./records";
+import type { BuildSearchRules, ItemCatalog, ItemEffect, ItemRecord } from "./records";
 
 /** The wiki's stat keys as the shop names them; percentages carry their sign. */
 const STAT_LABELS: Record<string, string> = {
@@ -46,6 +46,21 @@ function effect(item: ItemEffect): string {
   return `- **${kind}${item.name ? `: ${item.name}` : ""}**${notes ? ` (${notes})` : ""}. ${item.text}`;
 }
 
+function searchSection(search: BuildSearchRules): string[] {
+  const count = (builds: BuildSearchRules["builds"]) =>
+    `${gold(builds.sixItems)} six-item builds and ${gold(builds.fiveItemsWithBoots)} five-item builds with boots (${gold(builds.sixItems + builds.fiveItemsWithBoots)} in all)`;
+  return [
+    "## Rules for the build search",
+    "",
+    "The build search uses the rules confirmed on review (`pipeline/items/rules.ts`, PLAN.md §13). They keep these groups to one item per build, where the game file's caps differ: the Tear items can be combined, Mortal Reminder and Morellonomicon can't, and penetration is one group.",
+    "",
+    ...Object.entries(search.groups).map(([name, items]) => `- ${name}: ${items.join(", ")}`),
+    "",
+    `Builds per side under these rules: ${count(search.builds)}. Under the game file's caps they would be ${count(search.gameFileBuilds)}.`,
+    "",
+  ];
+}
+
 export function itemsReport(catalog: ItemCatalog): string {
   const { itemData } = catalog.sources;
   const legendary = catalog.items.filter((item) => item.kind === "legendary");
@@ -73,6 +88,7 @@ export function itemsReport(catalog: ItemCatalog): string {
     "",
     "No item can be held twice.",
     "",
+    ...(catalog.search ? searchSection(catalog.search) : []),
     "## Cross-check",
     "",
     `${catalog.checks.stats} stats on the wiki were compared with the game file. ${catalog.checks.differences.length === 0 ? "They all agree." : `Differences (${catalog.checks.differences.length}):`}`,

@@ -3592,5 +3592,56 @@
     "differences": [
       "Redemption: costs 2,250 gold on the wiki, 2,300 in Data Dragon"
     ]
+  },
+  "search": {
+    "groups": {
+      "%pen": [
+        "Lord Dominik's Regards",
+        "Serylda's Grudge",
+        "Mortal Reminder",
+        "Void Staff",
+        "Cryptbloom",
+        "Terminus"
+      ],
+      "Spellblade": [
+        "Trinity Force",
+        "Lich Bane",
+        "Essence Reaver",
+        "Iceborn Gauntlet",
+        "Dusk and Dawn"
+      ],
+      "Lifeline": [
+        "Sterak's Gage",
+        "Maw of Malmortius",
+        "Immortal Shieldbow",
+        "Protoplasm Harness"
+      ],
+      "Hydras": [
+        "Ravenous Hydra",
+        "Titanic Hydra",
+        "Profane Hydra",
+        "Stridebreaker"
+      ],
+      "Immolate": [
+        "Sunfire Aegis",
+        "Hollow Radiance"
+      ],
+      "Grievous Wounds": [
+        "Mortal Reminder",
+        "Morellonomicon"
+      ],
+      "Annul": [
+        "Banshee's Veil",
+        "Edge of Night"
+      ]
+    },
+    "builds": {
+      "sixItems": 1538705768,
+      "fiveItemsWithBoots": 661723587
+    },
+    "gameFileBuilds": {
+      "sixItems": 1510649782,
+      "fiveItemsWithBoots": 653589622
+    }
   }
 }

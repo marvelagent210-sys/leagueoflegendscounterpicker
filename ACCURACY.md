@@ -1092,10 +1092,13 @@ pinned sources. The simulator doesn't use them yet, so no simulated score change
     - The Tear items are one per build.
     - Mortal Reminder and Morellonomicon can be combined.
     - Penetration is two groups: LastWhisper (Lord Dominik's Regards, Mortal Reminder, Serylda's Grudge, Black Cleaver) and VoidPen (Void Staff, Cryptbloom, Bloodletter's Curse). Terminus is in both.
+  - Shown these differences, the review kept its rules. `pipeline/items/rules.ts` gives them to the build search.
+  - Counted from the catalog, those rules allow PLAN.md's 2,200,429,355 builds per side. The game file's caps would allow 2,164,239,404.
 - **Effects:**
   - All 163 effect and restriction texts render without wiki markup, with both melee and ranged values.
   - The shared evaluator shows only the melee value of `{{rd}}`, so the item step spells out both before rendering. Melee/ranged values that scale by level render as level progressions.
-- **Tests:** `tests/items.test.ts` (11 tests) covers the selection, the text, the records, the cross-check, the groups and the committed catalog.
+- **Tests:** `tests/items.test.ts` (14 tests) covers the selection, the text, the records, the cross-check, the groups, the build counts and the committed catalog.
+- **Full suite:** 3,529 of 3,535 tests pass and 5 are skipped. The one failure is the browser's full Heimerdinger–Udyr variant search (`tests/web/run.test.ts`), which ran past its 180-second limit on this machine. It passes alone in about 150 seconds, and the code from before the item work takes as long on this machine (162 s); the earlier validation measured 106 seconds. It doesn't involve items.
 
 ## Remaining limits
 

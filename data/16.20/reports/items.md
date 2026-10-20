@@ -30,6 +30,20 @@ The game file caps how many items of a group a build may hold. These caps bind t
 
 No item can be held twice.
 
+## Rules for the build search
+
+The build search uses the rules confirmed on review (`pipeline/items/rules.ts`, PLAN.md §13). They keep these groups to one item per build, where the game file's caps differ: the Tear items can be combined, Mortal Reminder and Morellonomicon can't, and penetration is one group.
+
+- %pen: Lord Dominik's Regards, Serylda's Grudge, Mortal Reminder, Void Staff, Cryptbloom, Terminus
+- Spellblade: Trinity Force, Lich Bane, Essence Reaver, Iceborn Gauntlet, Dusk and Dawn
+- Lifeline: Sterak's Gage, Maw of Malmortius, Immortal Shieldbow, Protoplasm Harness
+- Hydras: Ravenous Hydra, Titanic Hydra, Profane Hydra, Stridebreaker
+- Immolate: Sunfire Aegis, Hollow Radiance
+- Grievous Wounds: Mortal Reminder, Morellonomicon
+- Annul: Banshee's Veil, Edge of Night
+
+Builds per side under these rules: 1,538,705,768 six-item builds and 661,723,587 five-item builds with boots (2,200,429,355 in all). Under the game file's caps they would be 1,510,649,782 six-item builds and 653,589,622 five-item builds with boots (2,164,239,404 in all).
+
 ## Cross-check
 
 323 stats on the wiki were compared with the game file. Differences (1):

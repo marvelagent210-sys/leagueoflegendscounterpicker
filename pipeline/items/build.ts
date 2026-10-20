@@ -18,6 +18,7 @@ import type { WikiPage } from "../sources/wiki";
 import type { DDragonItems } from "./catalog";
 import { buildItemCatalog } from "./records";
 import { itemsReport } from "./report";
+import { searchRules } from "./rules";
 
 function argValue(flag: string): string | undefined {
   const index = process.argv.indexOf(flag);
@@ -50,6 +51,7 @@ async function main(): Promise<void> {
     itemData,
     championData: championLookup(championData),
   });
+  catalog.search = searchRules(catalog);
   await writeJson(path.join(out, "items.json"), catalog);
   await writeText(path.join(out, "reports", "items.md"), itemsReport(catalog));
   const counts = { legendary: catalog.items.filter((item) => item.kind === "legendary").length, boots: catalog.items.filter((item) => item.kind === "boots").length };
