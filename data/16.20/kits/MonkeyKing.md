@@ -210,3 +210,120 @@ All 2 level-based formulas in the game files (1 linked to wiki values above):
 |---|---|---|--:|--:|--:|
 | MonkeyKingSpinToWin | MonsterCap | breakpoints at levels 11, 16 (level 1: 200) | 200 | 600 | 600 |
 | MonkeyKingPassive | BonusArmor | linear 6 → 10 over levels 1-18, continues past 18 | 6 | 10 | 10.4706 |
+
+## Duel simulator kit (level 20, every ability at max rank)
+
+What the duel simulator fights with (`kits/champions/MonkeyKing.ts`): values come from pinned wiki and versioned game-data records at level 20. Interpretations and missing evidence are listed under assumptions. Ratios are fractions of the stat (60% AD is 0.6 × AD).
+
+- Basic attack: range 175, melee.
+
+| Key | Ability | Cooldown (s) | Cast time (s) | Cost | Delivery | On the enemy | On itself |
+|---|---|--:|--:|---|---|---|---|
+| Q | Crushing Blow | 6 (starts after the empowered attacks) | 0 | 20 | self | – | next 1 attack within 5 s: 120 + 50% bonus AD physical damage (Crushing Blow); armorReductionPercent 0.3 for 3 s (+175 range, resets the attack timer, uncancellable) |
+| W | Warrior Trickster | 18 | 0 | 40 | dash away 100–300 units at 900/s | – | invisible for 1 s |
+| E | Nimbus Strike | 7 | 0 | 50 | dash target 650 units at 1050/s, hits within 187.5 | 240 + 100% AP magic damage (Nimbus Strike) | – |
+| R | Cyclone | 90 (starts when its effect on the caster ends) | 0 | 100 | self; channel 2 s, 8 pulses | each pulse: 2% target's maximum health + 34.375% AD physical damage (Cyclone) | ghosted for 2 s; moveSpeedPercent 0.2 for 2 s; lingering for 8 s |
+| R2 | Cyclone (recast) | 0 | 0 | – | self; recast of R within 2 s, after 0.5 s, automatic | – | – |
+| R3 | Cyclone (second cast) | 0 | 0 | – | self; recast of R within 8 s, after 1 s; channel 2 s, 8 pulses | each pulse: 2% target's maximum health + 34.375% AD physical damage (Cyclone) | ghosted for 2 s; moveSpeedPercent 0.2 for 2 s |
+| R4 | Cyclone (second recast) | 0 | 0 | – | self; recast of R within 2 s, after 0.5 s, automatic | – | – |
+
+Effects marked by a mark or a role are completed by the kit's hooks (see the kit's source).
+
+### Assumptions
+
+- The clone attacks the enemy champion, or an enemy pet Wukong last damaged or that is the only one in its reach, from the moment it appears; its armor and magic resistance are Wukong's as it appears.
+- The clone's attacks critically strike as Wukong's would, counted by expected value; the wiki gives its damage as 100% of Wukong's attack damage and says nothing of crits.
+- Casting Warrior Trickster copies Wukong's Crushing Blow empowerment to the clone and leaves Wukong his own; a Cyclone spin it interrupts carries on as the clone's.
+- Nimbus Strike and Cyclone wait for Warrior Trickster's dash (at most a third of a second) to end; Crushing Blow can be cast during it.
+- Nimbus Strike's dash ends where Wukong and the enemy touch (their pathing radii, about the wiki's 75-unit offset), and hits on arrival within its 187.5 radius; it doesn't follow an enemy that dashes away during it.
+- Cyclone's knock-up is once per cast: the first spin and the second each knock up once, shared by Wukong and his clone, and a pulse a spell shield blocks still uses it up.
+- Wukong can't attack while he spins (the interaction table), so the attack range Cyclone reduces to 50 changes nothing; the clone doesn't attack while it spins either.
+- Crushing Blow's 0.5-second cut counts each attack once (its bonus damage included), each ability hit, and each of the clone's hits; ability damage to enemy pets is left out.
+- Crushing Blow's cut shortens only a cooldown that is running: hits while its empowered attack is still waiting (its post-effect cooldown not yet started) cut nothing.
+
+### Source values read (82)
+
+| Ability | Value | Source version |
+|---|---|---|
+| Stone Skin | Innate: Wukong gains 6 – 10 (based on level) bonus armor and regenerates an additional 0.35% of his maximum health every 5 seconds. | [3986748](https://wiki.leagueoflegends.com/en-us/Template:Data_Wukong/Stone_Skin?oldid=3986748) |
+| Stone Skin | regenerates an additional 0.35% of his maximum health every 5 seconds | [3986748](https://wiki.leagueoflegends.com/en-us/Template:Data_Wukong/Stone_Skin?oldid=3986748) |
+| Stone Skin | he generates a stack of Strength of Stone for 5 seconds | [3986748](https://wiki.leagueoflegends.com/en-us/Template:Data_Wukong/Stone_Skin?oldid=3986748) |
+| Stone Skin | refreshing on subsequent hits and stacking up to 5 times | [3986748](https://wiki.leagueoflegends.com/en-us/Template:Data_Wukong/Stone_Skin?oldid=3986748) |
+| Stone Skin | Stacks expire one by one every second when the duration ends | [3986748](https://wiki.leagueoflegends.com/en-us/Template:Data_Wukong/Stone_Skin?oldid=3986748) |
+| Stone Skin | For each stack, Stone Skin's effects are increased by 100% | [3986748](https://wiki.leagueoflegends.com/en-us/Template:Data_Wukong/Stone_Skin?oldid=3986748) |
+| Stone Skin | Strength of Stone: For each stack, Stone Skin's effects are increased by 100%, up to a maximum of 36 – 60 (based on level) bonus armor and total additional regeneration of 2.1% maximum health every 5 seconds. | [3986748](https://wiki.leagueoflegends.com/en-us/Template:Data_Wukong/Stone_Skin?oldid=3986748) |
+| Stone Skin | Whenever Wukong or his clone damage an enemy champion or monster with his basic attacks or abilities | [3986748](https://wiki.leagueoflegends.com/en-us/Template:Data_Wukong/Stone_Skin?oldid=3986748) |
+| Stone Skin | Stacks of Strength of Stone are also granted on-hit, but will specifically not be if the target is invulnerable | [3986748](https://wiki.leagueoflegends.com/en-us/Template:Data_Wukong/Stone_Skin?oldid=3986748) |
+| Crushing Blow | Wukong empowers his next basic attack within 5 seconds | [4064066](https://wiki.leagueoflegends.com/en-us/Template:Data_Wukong/Crushing_Blow?oldid=4064066) |
+| Crushing Blow | Bonus Range: 135 / 145 / 155 / 165 / 175 | [4064066](https://wiki.leagueoflegends.com/en-us/Template:Data_Wukong/Crushing_Blow?oldid=4064066) |
+| Crushing Blow | Bonus Physical Damage: 20 / 45 / 70 / 95 / 120 (+ 50% bonus AD) | [4064066](https://wiki.leagueoflegends.com/en-us/Template:Data_Wukong/Crushing_Blow?oldid=4064066) |
+| Crushing Blow | Armor Reduction: 10 / 15 / 20 / 25 / 30% of target's armor | [4064066](https://wiki.leagueoflegends.com/en-us/Template:Data_Wukong/Crushing_Blow?oldid=4064066) |
+| Crushing Blow | then inflict armor reduction for 3 seconds | [4064066](https://wiki.leagueoflegends.com/en-us/Template:Data_Wukong/Crushing_Blow?oldid=4064066) |
+| Crushing Blow | Crushing Blow's cooldown is reduced by 0.5 seconds whenever Wukong or his clone damage an enemy | [4064066](https://wiki.leagueoflegends.com/en-us/Template:Data_Wukong/Crushing_Blow?oldid=4064066) |
+| Crushing Blow | to have an uncancellable windup | [4064066](https://wiki.leagueoflegends.com/en-us/Template:Data_Wukong/Crushing_Blow?oldid=4064066) |
+| Crushing Blow | Crushing Blow resets Wukong's and his clone's basic attack timer | [4064066](https://wiki.leagueoflegends.com/en-us/Template:Data_Wukong/Crushing_Blow?oldid=4064066) |
+| Crushing Blow | Other abilities can be used during the attack's animation | [4064066](https://wiki.leagueoflegends.com/en-us/Template:Data_Wukong/Crushing_Blow?oldid=4064066) |
+| Warrior Trickster | targetRange: 100 - 300 | [4016976](https://wiki.leagueoflegends.com/en-us/Template:Data_Wukong/Warrior_Trickster?oldid=4016976) |
+| Warrior Trickster | speed: 900 | [4016976](https://wiki.leagueoflegends.com/en-us/Template:Data_Wukong/Warrior_Trickster?oldid=4016976) |
+| Warrior Trickster | Wukong enters invisibility for 1 second | [4016976](https://wiki.leagueoflegends.com/en-us/Template:Data_Wukong/Warrior_Trickster?oldid=4016976) |
+| Warrior Trickster | leaving behind a clone of himself at his casting position for 4 seconds | [4016976](https://wiki.leagueoflegends.com/en-us/Template:Data_Wukong/Warrior_Trickster?oldid=4016976) |
+| Warrior Trickster | Clone Outgoing Damage: 40 / 45 / 50 / 55 / 60% | [4016976](https://wiki.leagueoflegends.com/en-us/Template:Data_Wukong/Warrior_Trickster?oldid=4016976) |
+| Warrior Trickster | can basic attack autonomously, prioritizing the last enemy Wukong damaged | [4016976](https://wiki.leagueoflegends.com/en-us/Template:Data_Wukong/Warrior_Trickster?oldid=4016976) |
+| Warrior Trickster | It can also gain the effects of Crushing Blow and Nimbus Strike bonus attack speed, and casts Cyclone whenever Wukong does | [4016976](https://wiki.leagueoflegends.com/en-us/Template:Data_Wukong/Warrior_Trickster?oldid=4016976) |
+| Warrior Trickster | Using a basic attack breaks the stealth at the end of the attack windup | [4016976](https://wiki.leagueoflegends.com/en-us/Template:Data_Wukong/Warrior_Trickster?oldid=4016976) |
+| Warrior Trickster | Casting Warrior Trickster during an ability's effects will transfer them to the clone | [4016976](https://wiki.leagueoflegends.com/en-us/Template:Data_Wukong/Warrior_Trickster?oldid=4016976) |
+| Warrior Trickster | Wukong can cast any of his abilities during the dash | [4016976](https://wiki.leagueoflegends.com/en-us/Template:Data_Wukong/Warrior_Trickster?oldid=4016976) |
+| Decoy | range: 275 | [4021883](https://wiki.leagueoflegends.com/en-us/Wukong?oldid=4021883) |
+| Decoy | radius: 65 | [4021883](https://wiki.leagueoflegends.com/en-us/Wukong?oldid=4021883) |
+| Decoy | damage: 100% of Wukong's attack damage | [4021883](https://wiki.leagueoflegends.com/en-us/Wukong?oldid=4021883) |
+| Decoy | attackspeed: 100% of Wukong's attack speed | [4021883](https://wiki.leagueoflegends.com/en-us/Wukong?oldid=4021883) |
+| Decoy | hp: 100% of Wukong's current health | [4021883](https://wiki.leagueoflegends.com/en-us/Wukong?oldid=4021883) |
+| Decoy | armor: 100% of Wukong's armor | [4021883](https://wiki.leagueoflegends.com/en-us/Wukong?oldid=4021883) |
+| Decoy | magicresist: 100% of Wukong's magic resistance | [4021883](https://wiki.leagueoflegends.com/en-us/Wukong?oldid=4021883) |
+| Decoy | It is static. | [4021883](https://wiki.leagueoflegends.com/en-us/Wukong?oldid=4021883) |
+| Decoy | Clone attacks can be mitigated by block, dodge, and blind, as well as stopped by Disarm. | [4021883](https://wiki.leagueoflegends.com/en-us/Wukong?oldid=4021883) |
+| Decoy | The clone's Cyclone won't knock up enemies if they were already knocked up by Wukong. | [4021883](https://wiki.leagueoflegends.com/en-us/Wukong?oldid=4021883) |
+| Nimbus Strike | targetRange: 650 | [4021858](https://wiki.leagueoflegends.com/en-us/Template:Data_Wukong/Nimbus_Strike?oldid=4021858) |
+| Nimbus Strike | effectRadius: 187.5 | [4021858](https://wiki.leagueoflegends.com/en-us/Template:Data_Wukong/Nimbus_Strike?oldid=4021858) |
+| Nimbus Strike | mSpell.DataValues.DashSpeed.values: [1050,1050,1050,1050,1050,1050,1050] | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/monkeyking/monkeyking.bin.json) |
+| Nimbus Strike | Magic Damage: 80 / 120 / 160 / 200 / 240 (+ 100% AP) | [4021858](https://wiki.leagueoflegends.com/en-us/Template:Data_Wukong/Nimbus_Strike?oldid=4021858) |
+| Nimbus Strike | Bonus Attack Speed: 40 / 45 / 50 / 55 / 60% | [4021858](https://wiki.leagueoflegends.com/en-us/Template:Data_Wukong/Nimbus_Strike?oldid=4021858) |
+| Nimbus Strike | Upon arrival, Wukong gains bonus attack speed for 5 seconds | [4021858](https://wiki.leagueoflegends.com/en-us/Template:Data_Wukong/Nimbus_Strike?oldid=4021858) |
+| Nimbus Strike | sends out untargetable clones to strike up to two additional enemies near the target's location | [4021858](https://wiki.leagueoflegends.com/en-us/Template:Data_Wukong/Nimbus_Strike?oldid=4021858) |
+| Nimbus Strike | Crushing Blow can be cast during the dash | [4021858](https://wiki.leagueoflegends.com/en-us/Template:Data_Wukong/Nimbus_Strike?oldid=4021858) |
+| Nimbus Strike | Casting Nimbus Strike interrupts the attack windup of enemies targeting Wukong | [4021858](https://wiki.leagueoflegends.com/en-us/Template:Data_Wukong/Nimbus_Strike?oldid=4021858) |
+| Nimbus Strike | Nimbus Strike has an offset distance of 75 units from the target dashed to | [4021858](https://wiki.leagueoflegends.com/en-us/Template:Data_Wukong/Nimbus_Strike?oldid=4021858) |
+| Nimbus Strike | the windup of these attacks cannot be interrupted by neither the user themselves nor any status effect | [4072133](https://wiki.leagueoflegends.com/en-us/Template:Tip_data/Uncancellable_windup?oldid=4072133) |
+| Cyclone | Wukong spins his staff around for up to 2 seconds | [4021867](https://wiki.leagueoflegends.com/en-us/Template:Data_Wukong/Cyclone?oldid=4021867) |
+| Cyclone | becoming ghosted and gaining 20% bonus movement speed | [4021867](https://wiki.leagueoflegends.com/en-us/Template:Data_Wukong/Cyclone?oldid=4021867) |
+| Cyclone | The staff deals physical damage every 0.25 seconds to enemies hit | [4021867](https://wiki.leagueoflegends.com/en-us/Template:Data_Wukong/Cyclone?oldid=4021867) |
+| Cyclone | can knock them up once for 0.6 seconds | [4021867](https://wiki.leagueoflegends.com/en-us/Template:Data_Wukong/Cyclone?oldid=4021867) |
+| Cyclone | Cyclone will not knock up enemies who were already hit by either Wukong or his clone within the same cast | [4021867](https://wiki.leagueoflegends.com/en-us/Template:Data_Wukong/Cyclone?oldid=4021867) |
+| Cyclone | effectRadius: 315 | [4021867](https://wiki.leagueoflegends.com/en-us/Template:Data_Wukong/Cyclone?oldid=4021867) |
+| Cyclone | Physical Damage Per Tick: 1 / 1.5 / 2% of target's maximum health (+ 34.375% AD) | [4021867](https://wiki.leagueoflegends.com/en-us/Template:Data_Wukong/Cyclone?oldid=4021867) |
+| Cyclone | Cyclone can be recast after 0.5 seconds within the duration | [4021867](https://wiki.leagueoflegends.com/en-us/Template:Data_Wukong/Cyclone?oldid=4021867) |
+| Cyclone | and does so automatically afterwards or by casting another ability | [4021867](https://wiki.leagueoflegends.com/en-us/Template:Data_Wukong/Cyclone?oldid=4021867) |
+| Cyclone | After 1 second, he can cast Cyclone a second time within 8 seconds of the first cast | [4021867](https://wiki.leagueoflegends.com/en-us/Template:Data_Wukong/Cyclone?oldid=4021867) |
+| Cyclone | Nimbus Strike bonus attack speed duration is continuously refreshed while spinning | [4021867](https://wiki.leagueoflegends.com/en-us/Template:Data_Wukong/Cyclone?oldid=4021867) |
+| Cyclone | Casting a basic ability will always interrupt Wukong's Cyclone | [4021867](https://wiki.leagueoflegends.com/en-us/Template:Data_Wukong/Cyclone?oldid=4021867) |
+| Cyclone | A clone can be interrupted by casting Crushing Blow, but only if the clone was made during the current Cyclone cast and only for that cast | [4021867](https://wiki.leagueoflegends.com/en-us/Template:Data_Wukong/Cyclone?oldid=4021867) |
+| Cyclone | Cyclone's remaining duration always stays the same even after the clone replicated the ability | [4021867](https://wiki.leagueoflegends.com/en-us/Template:Data_Wukong/Cyclone?oldid=4021867) |
+| Cyclone | During Cyclone, Wukong and his clone's attack ranges are reduced to 50 | [4021867](https://wiki.leagueoflegends.com/en-us/Template:Data_Wukong/Cyclone?oldid=4021867) |
+| Cyclone | Spell shield will block one instance of damage | [4021867](https://wiki.leagueoflegends.com/en-us/Template:Data_Wukong/Cyclone?oldid=4021867) |
+| Cyclone | Blocking the knock up will still grant immunity to it from either of Cyclone's casts | [4021867](https://wiki.leagueoflegends.com/en-us/Template:Data_Wukong/Cyclone?oldid=4021867) |
+| Cyclone | Interaction table (ct): attack=false; move=true | [4021867](https://wiki.leagueoflegends.com/en-us/Template:Data_Wukong/Cyclone?oldid=4021867) |
+| Cyclone | cast=Other abilities are disabled for the first 0.3 seconds, casting them afterwards interrupts. | [4021867](https://wiki.leagueoflegends.com/en-us/Template:Data_Wukong/Cyclone?oldid=4021867) |
+| Cyclone | interrupts=death | [4021867](https://wiki.leagueoflegends.com/en-us/Template:Data_Wukong/Cyclone?oldid=4021867) |
+| Cyclone | Total Physical Damage: 8 / 12 / 16% of target's maximum health (+ 275% AD) | [4021867](https://wiki.leagueoflegends.com/en-us/Template:Data_Wukong/Cyclone?oldid=4021867) |
+| Crushing Blow | cooldown: 8 / 7.5 / 7 / 6.5 / 6 | [4064066](https://wiki.leagueoflegends.com/en-us/Template:Data_Wukong/Crushing_Blow?oldid=4064066) |
+| Warrior Trickster | cooldown: 22 / 21 / 20 / 19 / 18 | [4016976](https://wiki.leagueoflegends.com/en-us/Template:Data_Wukong/Warrior_Trickster?oldid=4016976) |
+| Cyclone | cooldown: 130 / 110 / 90 | [4021867](https://wiki.leagueoflegends.com/en-us/Template:Data_Wukong/Cyclone?oldid=4021867) |
+| Crushing Blow | cost: 20 | [4064066](https://wiki.leagueoflegends.com/en-us/Template:Data_Wukong/Crushing_Blow?oldid=4064066) |
+| Crushing Blow | castTime: none | [4064066](https://wiki.leagueoflegends.com/en-us/Template:Data_Wukong/Crushing_Blow?oldid=4064066) |
+| Warrior Trickster | cost: 60 / 55 / 50 / 45 / 40 | [4016976](https://wiki.leagueoflegends.com/en-us/Template:Data_Wukong/Warrior_Trickster?oldid=4016976) |
+| Warrior Trickster | castTime: none | [4016976](https://wiki.leagueoflegends.com/en-us/Template:Data_Wukong/Warrior_Trickster?oldid=4016976) |
+| Nimbus Strike | cooldown: 10 / 9.25 / 8.5 / 7.75 / 7 | [4021858](https://wiki.leagueoflegends.com/en-us/Template:Data_Wukong/Nimbus_Strike?oldid=4021858) |
+| Nimbus Strike | cost: 30 / 35 / 40 / 45 / 50 | [4021858](https://wiki.leagueoflegends.com/en-us/Template:Data_Wukong/Nimbus_Strike?oldid=4021858) |
+| Nimbus Strike | castTime: none | [4021858](https://wiki.leagueoflegends.com/en-us/Template:Data_Wukong/Nimbus_Strike?oldid=4021858) |
+| Cyclone | cost: 100 | [4021867](https://wiki.leagueoflegends.com/en-us/Template:Data_Wukong/Cyclone?oldid=4021867) |
+| Cyclone | castTime: none | [4021867](https://wiki.leagueoflegends.com/en-us/Template:Data_Wukong/Cyclone?oldid=4021867) |

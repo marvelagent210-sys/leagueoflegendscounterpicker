@@ -1,5 +1,89 @@
 # Counters to Warwick (patch 26.20)
 
+## Simulated duels
+
+The duel simulator played each of the 75 other champions with a simulator kit against Warwick: both at level 20 with 15,000 gold of plain stats, each side's spent against the other's, through six scenarios (PLAN.md §6). Scores run from −1 (Warwick wins every time) to +1 (the champion does). Run `npm run duel -- <champion> Warwick --log brawl` to watch a fight.
+
+| # | Champion | Score | You engage | Enemy engages | Brawl | Short trade | Spacing | Escape |
+|--:|---|--:|--:|--:|--:|--:|--:|--:|
+| 1 | Ashe | +0.87 | +1.00 | +1.00 | +1.00 | +0.48 | +1.00 | +0.00 |
+| 2 | Yorick | +0.84 | +1.00 | +1.00 | +1.00 | +0.02 | – | +1.00 |
+| 3 | K'Sante | +0.83 | +1.00 | +1.00 | +1.00 | +0.00 | – | +1.00 |
+| 4 | Trundle | +0.83 | +1.00 | +1.00 | +1.00 | −0.14 | +1.00 | +1.00 |
+| 5 | Olaf | +0.81 | +1.00 | +1.00 | +1.00 | +0.07 | +1.00 | +0.00 |
+| 6 | Nasus | +0.80 | +1.00 | +1.00 | +1.00 | −0.01 | +1.00 | +0.00 |
+| 7 | Cho'Gath | +0.80 | +1.00 | +1.00 | +1.00 | +0.11 | – | +0.00 |
+| 8 | Yasuo | +0.79 | +1.00 | +1.00 | +1.00 | +0.10 | – | +0.00 |
+| 9 | Garen | +0.79 | +1.00 | +1.00 | +1.00 | +0.08 | – | +0.00 |
+| 10 | Jax | +0.79 | +1.00 | +1.00 | +1.00 | −0.09 | +1.00 | +0.00 |
+| 11 | Quinn | +0.77 | +1.00 | +1.00 | +1.00 | −0.19 | +1.00 | +0.00 |
+| 12 | Vayne | +0.77 | +1.00 | +1.00 | +1.00 | −0.22 | +1.00 | +0.00 |
+| 13 | Renekton | +0.76 | +1.00 | +1.00 | +1.00 | −0.08 | – | +0.00 |
+| 14 | Darius | +0.76 | +1.00 | +1.00 | +1.00 | −0.10 | – | +0.00 |
+| 15 | Lux | +0.76 | +0.93 | +1.00 | +0.90 | +0.03 | +0.94 | +0.00 |
+| 16 | Volibear | +0.76 | +1.00 | +1.00 | +1.00 | −0.26 | – | +0.42 |
+| 17 | Tryndamere | +0.76 | +1.00 | +1.00 | +1.00 | −0.13 | – | +0.00 |
+| 18 | Aatrox | +0.74 | +1.00 | +1.00 | +1.00 | −0.20 | – | +0.00 |
+| 19 | Zaahen | +0.69 | +0.84 | +0.84 | +1.00 | −0.00 | – | +0.00 |
+| 20 | Illaoi | +0.68 | +0.64 | +1.00 | +1.00 | −0.17 | +1.00 | +0.00 |
+| 21 | Singed | +0.59 | +1.00 | +1.00 | +0.18 | −0.04 | – | +0.00 |
+| 22 | Kayle | +0.48 | +1.00 | +1.00 | −1.00 | +0.52 | +1.00 | +0.00 |
+| 23 | Anivia | +0.42 | +0.05 | +1.00 | +1.00 | −0.21 | −0.14 | +0.00 |
+| 24 | Morgana | +0.39 | +1.00 | +1.00 | −1.00 | −0.05 | +1.00 | +0.00 |
+| 25 | Gangplank | +0.29 | +1.00 | −1.00 | +1.00 | +0.06 | – | +1.00 |
+| 26 | Poppy | +0.24 | +1.00 | −1.00 | +1.00 | +0.11 | – | +0.00 |
+| 27 | Kled | +0.20 | +0.00 | +0.00 | +1.00 | −0.12 | – | +0.00 |
+| 28 | Annie | +0.12 | −1.00 | +1.00 | +1.00 | +0.17 | −1.00 | +0.00 |
+| 29 | Malzahar | −0.04 | +0.00 | +1.00 | −1.00 | +0.05 | −1.00 | +0.00 |
+| 30 | Lissandra | −0.09 | −1.00 | +1.00 | −1.00 | +0.08 | +1.00 | +0.00 |
+| 31 | Master Yi | −0.21 | −1.00 | −1.00 | +1.00 | −0.06 | +1.00 | +0.00 |
+| 32 | Riven | −0.25 | −1.00 | +0.00 | +0.00 | +0.19 | – | +0.00 |
+| 33 | Teemo | −0.30 | −1.00 | −0.95 | +1.00 | +0.56 | −1.00 | +0.00 |
+| 34 | Kennen | −0.33 | −1.00 | −1.00 | +1.00 | −0.02 | −0.28 | +0.00 |
+| 35 | Gwen | −0.35 | −1.00 | −1.00 | +1.00 | −0.12 | – | +0.00 |
+| 36 | Heimerdinger | −0.39 | −1.00 | −1.00 | +1.00 | +0.05 | −1.00 | +0.00 |
+| 37 | Irelia | −0.51 | +0.00 | −1.00 | −1.00 | −0.05 | – | +0.00 |
+| 38 | Brand | −0.53 | −1.00 | +0.00 | −1.00 | +0.16 | −1.00 | +0.00 |
+| 39 | Rammus | −0.53 | −1.00 | +0.00 | −1.00 | −0.16 | – | +0.00 |
+| 40 | Aurora | −0.59 | −1.00 | −1.00 | −1.00 | +0.08 | +1.00 | +0.00 |
+| 41 | Cassiopeia | −0.59 | −1.00 | −1.00 | −1.00 | +0.04 | +1.00 | +0.00 |
+| 42 | Gnar | −0.62 | −1.00 | −1.00 | −1.00 | −0.15 | +1.00 | +0.00 |
+| 43 | Vel'Koz | −0.64 | −1.00 | −1.00 | −1.00 | −0.21 | +0.95 | +0.00 |
+| 44 | Fiora | −0.73 | −1.00 | −1.00 | −1.00 | −0.03 | – | +1.00 |
+| 45 | Jayce | −0.75 | −1.00 | −1.00 | −1.00 | +0.14 | – | +0.00 |
+| 46 | Malphite | −0.76 | −1.00 | −1.00 | −1.00 | +0.11 | – | +0.00 |
+| 47 | Ambessa | −0.76 | −1.00 | −1.00 | −1.00 | +0.11 | – | +0.00 |
+| 48 | Sett | −0.77 | −1.00 | −1.00 | −1.00 | +0.07 | – | +0.00 |
+| 49 | Ornn | −0.77 | −1.00 | −1.00 | −1.00 | +0.05 | – | +0.00 |
+| 50 | Kassadin | −0.77 | −1.00 | −1.00 | −1.00 | +0.04 | – | +0.00 |
+| 51 | Tahm Kench | −0.78 | −1.00 | −1.00 | −1.00 | +0.01 | – | +0.00 |
+| 52 | Shen | −0.78 | −1.00 | −1.00 | −1.00 | +0.00 | – | +0.00 |
+| 53 | Akali | −0.78 | −1.00 | −1.00 | −1.00 | −0.03 | – | +0.00 |
+| 54 | Leona | −0.78 | −1.00 | −1.00 | −1.00 | −0.04 | – | +0.00 |
+| 55 | Zyra | −0.79 | −1.00 | −1.00 | −1.00 | +0.08 | −1.00 | +0.00 |
+| 56 | Karthus | −0.79 | −1.00 | −1.00 | −1.00 | +0.06 | −1.00 | +0.00 |
+| 57 | Nautilus | −0.79 | −1.00 | −1.00 | −1.00 | −0.09 | – | +0.00 |
+| 58 | Gragas | −0.80 | −1.00 | −1.00 | −1.00 | −0.11 | – | +0.00 |
+| 59 | Sion | −0.80 | −1.00 | −1.00 | −1.00 | −0.11 | – | +0.00 |
+| 60 | Rumble | −0.80 | −1.00 | −1.00 | −1.00 | −0.12 | – | +0.00 |
+| 61 | Urgot | −0.80 | −1.00 | −1.00 | −1.00 | +0.01 | −1.00 | +0.00 |
+| 62 | Camille | −0.80 | −1.00 | −1.00 | −1.00 | −0.13 | – | +0.00 |
+| 63 | Mordekaiser | −0.80 | −1.00 | −1.00 | −1.00 | −0.13 | – | +0.00 |
+| 64 | Xin Zhao | −0.80 | −1.00 | −1.00 | −1.00 | −0.13 | – | +0.00 |
+| 65 | Ziggs | −0.80 | −1.00 | −1.00 | −1.00 | −0.01 | −1.00 | +0.00 |
+| 66 | Vladimir | −0.80 | −1.00 | −1.00 | −1.00 | −0.01 | −1.00 | +0.00 |
+| 67 | Veigar | −0.80 | −1.00 | −1.00 | −1.00 | −0.02 | −1.00 | +0.00 |
+| 68 | Amumu | −0.81 | −1.00 | −1.00 | −1.00 | −0.17 | – | +0.00 |
+| 69 | Skarner | −0.81 | −1.00 | −1.00 | −1.00 | −0.17 | – | +0.00 |
+| 70 | Pantheon | −0.81 | −1.00 | −1.00 | −1.00 | −0.17 | – | +0.00 |
+| 71 | Udyr | −0.81 | −1.00 | −1.00 | −1.00 | −0.05 | −1.00 | +0.00 |
+| 72 | Dr. Mundo | −0.81 | −1.00 | −1.00 | −1.00 | −0.19 | – | +0.00 |
+| 73 | Yone | −0.82 | −1.00 | −1.00 | −1.00 | −0.24 | – | +0.00 |
+| 74 | Ahri | −0.85 | −1.00 | −1.00 | −1.00 | −0.31 | −1.00 | +0.00 |
+| 75 | Wukong | −0.86 | −1.00 | −1.00 | −1.00 | −0.19 | – | −1.00 |
+
+## Interaction ledger estimates
+
 Every champion ranked by what its kit does against Warwick's, from the interaction ledger: projectile blocks, spell shields,
 parries, dash stops, crowd control and its defenses, range and more (PLAN.md §5). This ranking is **partial**: it weighs the
 interactions but doesn't play the fight out. The duel simulator replaces it as each champion's behavior is verified.
@@ -8,9 +92,9 @@ interactions but doesn't play the fight out. The duel simulator replaces it as e
 A hard counter shuts down part of a kit every time it is used (projectile block, attack dodge, attack block, blind, disarm, attack speed slow, attack reflect, dash stop, grounding, range) with an impact of 0.4 or more (0.5 for range).
 Run `npm run matchup -- <champion> Warwick` for the full ledger of a matchup, with sources.
 
-## Top 10
+### Top 10
 
-### 1. Rell (net +1.74)
+#### 1. Rell (net +1.74)
 
 - **0.50** interrupt: Ferromancy: Crash Down's airborne interrupts Warwick's Infinite Duress (normal channel). Ferromancy: Crash Down must land during the channel. If Warwick does not collide with a champion, he will slide a fixed distance past the maximum range during which he is no longer crowd control immune and unable to declare basic attacks or cast movement abilities, including Flash, but being able to cast Jaws of the Beast and Blood Hunt, with the former also interrupting the slide.
   - Warwick is able to cast Primal Howl at any time during the dash. Activating Zhonya's Hourglass during the dash interrupts it. (Rell W Ferromancy: Crash Down → Warwick R Infinite Duress)
@@ -20,7 +104,7 @@ Run `npm run matchup -- <champion> Warwick` for the full ledger of a matchup, wi
   - Warwick is able to cast Primal Howl at any time during the dash. Activating Zhonya's Hourglass during the dash interrupts it. (Rell E Full Tilt → Warwick R Infinite Duress)
 - Watch out: Infinite Duress makes Warwick immune to Rell's Magnet Storm (airborne, kinematics).
 
-### 2. Singed (net +1.72)
+#### 2. Singed (net +1.72)
 
 - **0.50** interrupt: Fling's airborne interrupts Warwick's Infinite Duress (normal channel). Fling must land during the channel. If Warwick does not collide with a champion, he will slide a fixed distance past the maximum range during which he is no longer crowd control immune and unable to declare basic attacks or cast movement abilities, including Flash, but being able to cast Jaws of the Beast and Blood Hunt, with the former also interrupting the slide.
   - Warwick is able to cast Primal Howl at any time during the dash. Activating Zhonya's Hourglass during the dash interrupts it. (Singed E Fling → Warwick R Infinite Duress)
@@ -28,7 +112,7 @@ Run `npm run matchup -- <champion> Warwick` for the full ledger of a matchup, wi
 - **0.40** anti-heal: Insanity Potion's Grievous Wounds cuts Warwick's healing from Infinite Duress by 40%. (Singed R Insanity Potion → Warwick R Infinite Duress)
 - Watch out: Infinite Duress makes Warwick immune to Singed's Fling (airborne, root).
 
-### 3. Rek'Sai (net +1.43)
+#### 3. Rek'Sai (net +1.43)
 
 - **0.93** untargetable: Void Rush makes Rek'Sai untargetable, dodging Warwick's Infinite Duress. Untargetable for 1.5 s, long enough to use ahead of Infinite Duress. (Rek'Sai R Void Rush → Warwick R Infinite Duress)
 - **0.50** interrupt: Unburrow's airborne interrupts Warwick's Infinite Duress (normal channel). Unburrow must land during the channel. If Warwick does not collide with a champion, he will slide a fixed distance past the maximum range during which he is no longer crowd control immune and unable to declare basic attacks or cast movement abilities, including Flash, but being able to cast Jaws of the Beast and Blood Hunt, with the former also interrupting the slide.
@@ -36,7 +120,7 @@ Run `npm run matchup -- <champion> Warwick` for the full ledger of a matchup, wi
 - **0.40** interrupt: Unburrow's airborne interrupts Warwick's Jaws of the Beast (movement channel). Unburrow must land during the channel. (Rek'Sai W Unburrow → Warwick Q Jaws of the Beast)
 - Watch out: Infinite Duress's knockdown can stop Rek'Sai's Tunnel mid-dash.
 
-### 4. Nocturne (net +1.43)
+#### 4. Nocturne (net +1.43)
 
 - **0.66** spell shield: Shroud of Darkness's spell shield blocks Warwick's Primal Howl. Spell shield for 1.5 s, long enough to use ahead of Primal Howl. A spell shield blocks only the first enemy ability that reaches it. (Nocturne W Shroud of Darkness → Warwick E Primal Howl)
 - **0.56** spell shield: Shroud of Darkness's spell shield blocks Warwick's Jaws of the Beast. Spell shield for 1.5 s, long enough to use ahead of Jaws of the Beast. A spell shield blocks only the first enemy ability that reaches it. (Nocturne W Shroud of Darkness → Warwick Q Jaws of the Beast)
@@ -44,7 +128,7 @@ Run `npm run matchup -- <champion> Warwick` for the full ledger of a matchup, wi
   - Warwick is able to cast Primal Howl at any time during the dash. Activating Zhonya's Hourglass during the dash interrupts it. (Nocturne E Unspeakable Horror → Warwick R Infinite Duress)
 - Watch out: Infinite Duress makes Warwick immune to Nocturne's Paranoia (nearsight).
 
-### 5. Alistar (net +1.42)
+#### 5. Alistar (net +1.42)
 
 - **0.74** cleanse: Unbreakable Will cleanses Warwick's Infinite Duress (suppression) after it lands. 80 s cooldown; usable while crowd controlled. Doesn't remove knockdown. (Alistar R Unbreakable Will → Warwick R Infinite Duress)
 - **0.50** interrupt: Pulverize's airborne interrupts Warwick's Infinite Duress (normal channel). Pulverize must land during the channel. If Warwick does not collide with a champion, he will slide a fixed distance past the maximum range during which he is no longer crowd control immune and unable to declare basic attacks or cast movement abilities, including Flash, but being able to cast Jaws of the Beast and Blood Hunt, with the former also interrupting the slide.
@@ -53,14 +137,14 @@ Run `npm run matchup -- <champion> Warwick` for the full ledger of a matchup, wi
   - Warwick is able to cast Primal Howl at any time during the dash. Activating Zhonya's Hourglass during the dash interrupts it. (Alistar E Trample → Warwick R Infinite Duress)
 - Watch out: Infinite Duress makes Warwick immune to Alistar's Headbutt (airborne, stun).
 
-### 6. Vladimir (net +1.37)
+#### 6. Vladimir (net +1.37)
 
 - **1.00** untargetable: Sanguine Pool makes Vladimir untargetable, dodging Warwick's Infinite Duress. Untargetable for 2 s, long enough to use ahead of Infinite Duress. (Vladimir W Sanguine Pool → Warwick R Infinite Duress)
 - **0.57** untargetable: Sanguine Pool makes Vladimir untargetable, dodging Warwick's Primal Howl. Untargetable for 2 s, long enough to use ahead of Primal Howl. (Vladimir W Sanguine Pool → Warwick E Primal Howl)
 - **0.50** untargetable: Sanguine Pool makes Vladimir untargetable, dodging Warwick's Jaws of the Beast. Untargetable for 2 s, long enough to use ahead of Jaws of the Beast. (Vladimir W Sanguine Pool → Warwick Q Jaws of the Beast)
 - Watch out: Primal Howl's fear interrupts Vladimir's Tides of Blood (charge-up).
 
-### 7. Zaahen (net +1.33)
+#### 7. Zaahen (net +1.33)
 
 - **0.56** cc immunity: Grim Deliverance makes Zaahen immune to Warwick's Infinite Duress (knockdown, suppression). Immune for ?; Infinite Duress lands within 0.1 s, faster than a 0.25 s reaction, so it needs prediction. (Zaahen R Grim Deliverance → Warwick R Infinite Duress)
 - **0.50** interrupt: Dreaded Return's airborne interrupts Warwick's Infinite Duress (normal channel). Dreaded Return must land during the channel. If Warwick does not collide with a champion, he will slide a fixed distance past the maximum range during which he is no longer crowd control immune and unable to declare basic attacks or cast movement abilities, including Flash, but being able to cast Jaws of the Beast and Blood Hunt, with the former also interrupting the slide.
@@ -69,7 +153,7 @@ Run `npm run matchup -- <champion> Warwick` for the full ledger of a matchup, wi
   - Warwick is able to cast Primal Howl at any time during the dash. Activating Zhonya's Hourglass during the dash interrupts it. (Zaahen Q The Darkin Glaive → Warwick R Infinite Duress)
 - Watch out: Infinite Duress makes Warwick immune to Zaahen's Dreaded Return (airborne, stun).
 
-### 8. Nilah (net +1.28)
+#### 8. Nilah (net +1.28)
 
 - **1.00** attack dodge: Jubilant Veil dodges Warwick's Infinite Duress, which applies on-hit effects. Jubilant Veil lasts 2.25 s on a 22 s cooldown. (Nilah W Jubilant Veil → Warwick R Infinite Duress)
 - **0.46** interrupt: Apotheosis's airborne interrupts Warwick's Infinite Duress (normal channel). Apotheosis must land during the channel. If Warwick does not collide with a champion, he will slide a fixed distance past the maximum range during which he is no longer crowd control immune and unable to declare basic attacks or cast movement abilities, including Flash, but being able to cast Jaws of the Beast and Blood Hunt, with the former also interrupting the slide.
@@ -77,7 +161,7 @@ Run `npm run matchup -- <champion> Warwick` for the full ledger of a matchup, wi
 - **0.45** attack dodge: Jubilant Veil dodges Warwick's Jaws of the Beast, which applies on-hit effects. Jubilant Veil lasts 2.25 s on a 22 s cooldown. (Nilah W Jubilant Veil → Warwick Q Jaws of the Beast)
 - Watch out: Infinite Duress makes Warwick immune to Nilah's Apotheosis (airborne, slow).
 
-### 9. Sion (net +1.25)
+#### 9. Sion (net +1.25)
 
 - **1.00** cc immunity: Unstoppable Onslaught makes Sion immune to Warwick's Infinite Duress (knockdown, suppression). Immune for 8 s, long enough to use ahead of Infinite Duress. (Sion R Unstoppable Onslaught → Warwick R Infinite Duress)
 - **0.50** interrupt: Decimating Smash's airborne interrupts Warwick's Infinite Duress (normal channel). Decimating Smash must land during the channel. If Warwick does not collide with a champion, he will slide a fixed distance past the maximum range during which he is no longer crowd control immune and unable to declare basic attacks or cast movement abilities, including Flash, but being able to cast Jaws of the Beast and Blood Hunt, with the former also interrupting the slide.
@@ -86,7 +170,7 @@ Run `npm run matchup -- <champion> Warwick` for the full ledger of a matchup, wi
   - Warwick is able to cast Primal Howl at any time during the dash. Activating Zhonya's Hourglass during the dash interrupts it. (Sion R Unstoppable Onslaught → Warwick R Infinite Duress)
 - Watch out: Infinite Duress makes Warwick immune to Sion's Unstoppable Onslaught (airborne, slow, stun).
 
-### 10. Milio (net +1.25)
+#### 10. Milio (net +1.25)
 
 - **0.58** cleanse: Breath of Life cleanses Warwick's Infinite Duress (suppression) after it lands. 130 s cooldown; usable while crowd controlled. Doesn't remove knockdown. (Milio R Breath of Life → Warwick R Infinite Duress)
 - **0.50** interrupt: Ultra Mega Fire Kick's airborne interrupts Warwick's Infinite Duress (normal channel). Ultra Mega Fire Kick must land during the channel. If Warwick does not collide with a champion, he will slide a fixed distance past the maximum range during which he is no longer crowd control immune and unable to declare basic attacks or cast movement abilities, including Flash, but being able to cast Jaws of the Beast and Blood Hunt, with the former also interrupting the slide.
@@ -94,7 +178,7 @@ Run `npm run matchup -- <champion> Warwick` for the full ledger of a matchup, wi
 - **0.30** interrupt: Ultra Mega Fire Kick's airborne interrupts Warwick's Jaws of the Beast (movement channel). Ultra Mega Fire Kick must land during the channel. (Milio Q Ultra Mega Fire Kick → Warwick Q Jaws of the Beast)
 - Watch out: Infinite Duress makes Warwick immune to Milio's Ultra Mega Fire Kick (airborne, slow, stun).
 
-## Full ranking
+### Full ranking
 
 | # | Champion | Net | For | Against | Hard counters |
 |--:|---|--:|--:|--:|---|

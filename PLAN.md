@@ -1,6 +1,6 @@
 # Kit-Based Counter Picker: Plan
 
-Status: M1 to M4 done; M5 built and waiting for your review of the golden matchups; M6 built. A private Codespaces preview starts the packaged app automatically. All-champion expansion began on 2026-10-14 with 12 additional kits. The third batch adds six casters, bringing implemented coverage to 73 of 173 champions. Data sources remain pinned to patch 26.20 (Data Dragon 16.20.1).
+Status: M1 to M4 done; M5 built and waiting for your review of the golden matchups; M6 built. A private Codespaces preview starts the packaged app automatically. All-champion expansion began on 2026-10-14 with 12 additional kits. The third batch adds six casters, and the fourth adds Gragas, Warwick and Wukong, bringing implemented coverage to 76 of 173 champions. Data sources remain pinned to patch 26.20 (Data Dragon 16.20.1).
 
 Accuracy audit on 2026-10-13: combat, crowd control, movement, budgets, source-backed
 champion mechanics, result caches, and ranking consistency were corrected; all 1,176
@@ -37,6 +37,20 @@ failures and five existing skips. All 17 production browser checks pass, and all
 72 live fallback scores match the matrix within 2.46e-15. Full validation and
 remaining limits are recorded in [ACCURACY.md](ACCURACY.md).
 
+The fourth batch implements Gragas, Warwick and Wukong. Coverage is 76 of 173
+champions, with 97 remaining. All 2,850 unordered pairs have been computed afresh
+under fingerprint `c280f431…`. The 73 earlier kits' results are unchanged apart from
+floating-point rounding (at most 2.2e-16), so the batch's opt-in engine additions
+alter no existing duel. Every restriction the three kits quote was broken on purpose
+to confirm a test catches it: Warwick 20 of 20, Gragas 14 of 14, Wukong 63 of 63.
+`npm run build:data` now also reproduces the curated ability evidence, and all 173
+ability records rebuild byte-identically from the downloads. The full suite has
+2,419 passing tests, the two original draft winner failures and five existing skips.
+The Heimerdinger–Udyr variant search timed out at its 180-second limit in a fully
+parallel run and passes alone in 148.6 seconds. All 18 production browser checks
+pass, and all 75 live fallback scores against Darius match the matrix within 2.46e-15.
+Validation is recorded in [ACCURACY.md](ACCURACY.md).
+
 Each batch must read pinned source values, check meaningful damage/timing/counterplay
 cases, exercise ordinary behavior, regenerate all affected duels, and pass type/build
 checks before updating the private preview. Unresolved source conflicts and model
@@ -47,10 +61,10 @@ Source audits for twelve casters were recorded in
 [docs/next-wave](docs/next-wave/README.md): Ahri, Anivia, Cassiopeia, Karthus,
 Kassadin, Lissandra, Malzahar, Veigar, Vel'Koz, Vladimir, Ziggs, and Zyra. These
 audits cover pinned formulas, counterplay, tests, and required shared-engine work;
-the second batch implements six of them. Anivia, Karthus, Malzahar, Vel'Koz,
-Ziggs, and Zyra remain source preparation for future batches. Their resurrection,
-post-death spellcasting, channel, beam, mine, and plant mechanics require further
-implementation and validation; an audit alone does not add implemented coverage.
+the second and third batches implement all twelve. An audit alone does not add
+implemented coverage. The fourth batch was read directly from the pinned sources:
+each kit page lists its sources and assumptions, and the generated coverage report
+counts them.
 
 ### First expansion validation (61-kit snapshot)
 

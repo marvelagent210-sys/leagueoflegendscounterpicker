@@ -1,5 +1,89 @@
 # Counters to Gragas (patch 26.20)
 
+## Simulated duels
+
+The duel simulator played each of the 75 other champions with a simulator kit against Gragas: both at level 20 with 15,000 gold of plain stats, each side's spent against the other's, through six scenarios (PLAN.md §6). Scores run from −1 (Gragas wins every time) to +1 (the champion does). Run `npm run duel -- <champion> Gragas --log brawl` to watch a fight.
+
+| # | Champion | Score | You engage | Enemy engages | Brawl | Short trade | Spacing | Escape |
+|--:|---|--:|--:|--:|--:|--:|--:|--:|
+| 1 | Fiora | +0.86 | +1.00 | +1.00 | +1.00 | +0.43 | +1.00 | +0.00 |
+| 2 | Poppy | +0.84 | +1.00 | +1.00 | +1.00 | +0.26 | +1.00 | +0.00 |
+| 3 | Master Yi | +0.83 | +1.00 | +1.00 | +1.00 | +0.04 | +1.00 | +0.50 |
+| 4 | Zaahen | +0.82 | +1.00 | +1.00 | +1.00 | +0.15 | +1.00 | +0.00 |
+| 5 | Kayle | +0.82 | +1.00 | +1.00 | +1.00 | +0.14 | +1.00 | +0.00 |
+| 6 | K'Sante | +0.82 | +1.00 | +1.00 | +1.00 | −0.08 | – | +1.00 |
+| 7 | Gangplank | +0.82 | +1.00 | +1.00 | +1.00 | +0.11 | +1.00 | +0.00 |
+| 8 | Olaf | +0.81 | +1.00 | +1.00 | +1.00 | +0.09 | +1.00 | +0.00 |
+| 9 | Jayce | +0.81 | +1.00 | +1.00 | +1.00 | +0.20 | – | +0.00 |
+| 10 | Illaoi | +0.81 | +1.00 | +1.00 | +1.00 | +0.06 | +1.00 | +0.00 |
+| 11 | Yone | +0.81 | +1.00 | +1.00 | +1.00 | +0.05 | +1.00 | +0.00 |
+| 12 | Aatrox | +0.81 | +1.00 | +1.00 | +1.00 | +0.05 | +1.00 | +0.00 |
+| 13 | Gnar | +0.80 | +1.00 | +1.00 | +1.00 | +0.01 | +1.00 | +0.00 |
+| 14 | Renekton | +0.80 | +1.00 | +1.00 | +1.00 | −0.02 | +1.00 | +0.00 |
+| 15 | Udyr | +0.80 | +1.00 | +1.00 | +1.00 | −0.02 | +1.00 | +0.00 |
+| 16 | Xin Zhao | +0.80 | +1.00 | +1.00 | +1.00 | −0.02 | +1.00 | +0.00 |
+| 17 | Warwick | +0.80 | +1.00 | +1.00 | +1.00 | +0.11 | – | +0.00 |
+| 18 | Dr. Mundo | +0.80 | +1.00 | +1.00 | +1.00 | −0.03 | +1.00 | +0.00 |
+| 19 | Vayne | +0.79 | +1.00 | +1.00 | +1.00 | −0.04 | +1.00 | +0.00 |
+| 20 | Cho'Gath | +0.79 | +1.00 | +1.00 | +1.00 | −0.05 | +1.00 | +0.00 |
+| 21 | Nasus | +0.79 | +1.00 | +1.00 | +1.00 | −0.05 | +1.00 | +0.00 |
+| 22 | Jax | +0.79 | +1.00 | +1.00 | +1.00 | −0.05 | +1.00 | +0.00 |
+| 23 | Yorick | +0.79 | +1.00 | +1.00 | +1.00 | +0.07 | – | +0.00 |
+| 24 | Trundle | +0.79 | +1.00 | +1.00 | +1.00 | −0.08 | +1.00 | +0.00 |
+| 25 | Garen | +0.79 | +1.00 | +1.00 | +1.00 | +0.06 | – | +0.00 |
+| 26 | Kled | +0.79 | +1.00 | +1.00 | +1.00 | −0.09 | +1.00 | +0.00 |
+| 27 | Ambessa | +0.79 | +1.00 | +1.00 | +1.00 | +0.05 | – | +0.00 |
+| 28 | Sett | +0.78 | +1.00 | +1.00 | +1.00 | +0.04 | – | +0.00 |
+| 29 | Tryndamere | +0.78 | +1.00 | +1.00 | +1.00 | −0.11 | +1.00 | +0.00 |
+| 30 | Riven | +0.78 | +1.00 | +1.00 | +1.00 | +0.02 | – | +0.00 |
+| 31 | Darius | +0.78 | +1.00 | +1.00 | +1.00 | +0.02 | – | +0.00 |
+| 32 | Volibear | +0.78 | +1.00 | +1.00 | +1.00 | +0.02 | – | +0.00 |
+| 33 | Rammus | +0.78 | +1.00 | +1.00 | +1.00 | −0.00 | – | +0.00 |
+| 34 | Gwen | +0.78 | +1.00 | +1.00 | +1.00 | −0.01 | – | +0.00 |
+| 35 | Camille | +0.77 | +1.00 | +1.00 | +1.00 | −0.04 | – | +0.00 |
+| 36 | Mordekaiser | +0.77 | +1.00 | +1.00 | +1.00 | −0.05 | – | +0.00 |
+| 37 | Irelia | +0.77 | +1.00 | +1.00 | +1.00 | −0.07 | – | +0.00 |
+| 38 | Wukong | +0.76 | +1.00 | +1.00 | +1.00 | −0.12 | – | +0.00 |
+| 39 | Yasuo | +0.72 | +1.00 | +1.00 | +1.00 | +0.03 | +0.20 | +0.00 |
+| 40 | Sion | +0.69 | +1.00 | +1.00 | +0.50 | −0.07 | +1.00 | +0.00 |
+| 41 | Quinn | +0.55 | +1.00 | +0.00 | +0.95 | +0.06 | +1.00 | +0.00 |
+| 42 | Teemo | +0.40 | +1.00 | +1.00 | −1.00 | +0.02 | +1.00 | +0.00 |
+| 43 | Aurora | +0.40 | +1.00 | +1.00 | −1.00 | +0.02 | +1.00 | +0.00 |
+| 44 | Malphite | +0.34 | +1.00 | +1.00 | −1.00 | +0.06 | – | +0.00 |
+| 45 | Ashe | +0.20 | +1.00 | +1.00 | −1.00 | +0.01 | −1.00 | +0.00 |
+| 46 | Tahm Kench | +0.10 | +0.14 | +0.14 | +0.16 | −0.08 | – | +0.00 |
+| 47 | Shen | +0.07 | +0.01 | +0.10 | +0.15 | +0.02 | – | +0.00 |
+| 48 | Morgana | +0.05 | +0.04 | +0.04 | +0.06 | +0.11 | +0.01 | +0.00 |
+| 49 | Anivia | +0.03 | +0.18 | +0.17 | −0.26 | −0.15 | +0.17 | +0.00 |
+| 50 | Malzahar | +0.00 | +0.02 | +0.04 | −0.08 | +0.07 | −0.08 | +0.00 |
+| 51 | Urgot | −0.00 | −0.05 | −0.05 | +0.03 | +0.07 | +0.02 | +0.00 |
+| 52 | Ornn | −0.03 | −0.06 | −0.05 | +0.00 | +0.02 | – | +0.00 |
+| 53 | Leona | −0.07 | −0.05 | −0.05 | −0.09 | −0.12 | – | +0.00 |
+| 54 | Annie | −0.08 | −0.02 | −0.03 | −0.11 | +0.13 | −0.63 | +0.00 |
+| 55 | Singed | −0.11 | −0.01 | −0.03 | −0.03 | +0.01 | −1.00 | +0.00 |
+| 56 | Pantheon | −0.17 | −0.29 | +0.00 | −1.00 | +0.03 | +1.00 | +0.00 |
+| 57 | Nautilus | −0.21 | −0.01 | +0.04 | −1.00 | +0.03 | – | +0.00 |
+| 58 | Heimerdinger | −0.22 | −0.02 | −0.04 | −1.00 | +0.01 | −0.05 | +0.00 |
+| 59 | Karthus | −0.29 | −0.37 | −0.31 | −0.37 | −0.05 | −0.40 | +0.00 |
+| 60 | Veigar | −0.31 | −0.40 | −0.31 | −0.22 | +0.06 | −1.00 | +0.00 |
+| 61 | Kassadin | −0.32 | −1.00 | −0.97 | +1.00 | +0.02 | – | +0.00 |
+| 62 | Skarner | −0.35 | −1.00 | −1.00 | +1.00 | −0.11 | – | +0.00 |
+| 63 | Kennen | −0.38 | −0.58 | −0.58 | −0.11 | −0.08 | −0.61 | +0.00 |
+| 64 | Vel'Koz | −0.58 | −0.59 | −0.59 | −1.00 | +0.11 | −1.00 | +0.00 |
+| 65 | Rumble | −0.60 | −1.00 | −1.00 | −1.00 | −0.02 | +1.00 | +0.00 |
+| 66 | Akali | −0.63 | −1.00 | −0.25 | −1.00 | −0.12 | −1.00 | +0.00 |
+| 67 | Ziggs | −0.68 | −1.00 | −1.00 | −1.00 | +0.16 | −0.04 | +0.00 |
+| 68 | Lissandra | −0.70 | −1.00 | −1.00 | −1.00 | +0.14 | −0.17 | +0.00 |
+| 69 | Zyra | −0.70 | −1.00 | −0.65 | −1.00 | +0.07 | −1.00 | +0.00 |
+| 70 | Amumu | −0.78 | −1.00 | −1.00 | −1.00 | −0.03 | – | +0.00 |
+| 71 | Ahri | −0.79 | −1.00 | −1.00 | −1.00 | +0.05 | −1.00 | +0.00 |
+| 72 | Cassiopeia | −0.80 | −1.00 | −1.00 | −1.00 | +0.03 | −1.00 | +0.00 |
+| 73 | Lux | −0.80 | −1.00 | −1.00 | −1.00 | +0.02 | −1.00 | +0.00 |
+| 74 | Brand | −0.81 | −0.97 | −0.97 | −1.00 | −0.15 | −1.00 | +0.00 |
+| 75 | Vladimir | −0.83 | −1.00 | −1.00 | −1.00 | −0.18 | −1.00 | +0.00 |
+
+## Interaction ledger estimates
+
 Every champion ranked by what its kit does against Gragas's, from the interaction ledger: projectile blocks, spell shields,
 parries, dash stops, crowd control and its defenses, range and more (PLAN.md §5). This ranking is **partial**: it weighs the
 interactions but doesn't play the fight out. The duel simulator replaces it as each champion's behavior is verified.
@@ -8,70 +92,70 @@ interactions but doesn't play the fight out. The duel simulator replaces it as e
 A hard counter shuts down part of a kit every time it is used (projectile block, attack dodge, attack block, blind, disarm, attack speed slow, attack reflect, dash stop, grounding, range) with an impact of 0.4 or more (0.5 for range).
 Run `npm run matchup -- <champion> Gragas` for the full ledger of a matchup, with sources.
 
-## Top 10
+### Top 10
 
-### 1. Nocturne (net +1.83)
+#### 1. Nocturne (net +1.83)
 
 - **1.00** spell shield: Shroud of Darkness's spell shield blocks Gragas's Body Slam. Spell shield for 1.5 s, long enough to use ahead of Body Slam. A spell shield blocks only the first enemy ability that reaches it. (Nocturne W Shroud of Darkness → Gragas E Body Slam)
 - **0.80** spell shield: Shroud of Darkness's spell shield blocks Gragas's Explosive Cask. Spell shield for 1.5 s, long enough to use ahead of Explosive Cask. A spell shield blocks only the first enemy ability that reaches it. (Nocturne W Shroud of Darkness → Gragas R Explosive Cask)
 - **0.29** spell shield: Shroud of Darkness's spell shield blocks Gragas's Drunken Rage. Spell shield for 1.5 s, long enough to use ahead of Drunken Rage. A spell shield blocks only the first enemy ability that reaches it. (Nocturne W Shroud of Darkness → Gragas W Drunken Rage)
 
-### 2. Sivir (net +1.74)
+#### 2. Sivir (net +1.74)
 
 - **0.80** spell shield: Spell Shield's spell shield blocks Gragas's Body Slam. Spell shield for 1.5 s, long enough to use ahead of Body Slam. A spell shield blocks only the first enemy ability that reaches it. (Sivir E Spell Shield → Gragas E Body Slam)
 - **0.80** spell shield: Spell Shield's spell shield blocks Gragas's Explosive Cask. Spell shield for 1.5 s, long enough to use ahead of Explosive Cask. A spell shield blocks only the first enemy ability that reaches it. (Sivir E Spell Shield → Gragas R Explosive Cask)
 - **0.47** range: Sivir's basic attacks reach 375 units farther than Gragas's (500 vs 125 attack range). Gragas closes the gap with Body Slam. (Sivir basic attacks → Gragas basic attacks)
 
-### 3. Maokai (net +1.68)
+#### 3. Maokai (net +1.68)
 
 - **1.00** untargetable: Twisted Advance makes Maokai untargetable, dodging Gragas's Body Slam. Untargetable for 1.4 s; Body Slam takes 0.66 s to land, enough to react. (Maokai W Twisted Advance → Gragas E Body Slam)
 - **0.80** untargetable: Twisted Advance makes Maokai untargetable, dodging Gragas's Explosive Cask. Untargetable for 1.4 s; Explosive Cask takes 0.25 s to land, enough to react. (Maokai W Twisted Advance → Gragas R Explosive Cask)
 - **0.23** interrupt: Bramble Smash's airborne interrupts Gragas's Drunken Rage (normal channel). Bramble Smash must land during the channel. (Maokai Q Bramble Smash → Gragas W Drunken Rage)
 
-### 4. Fizz (net +1.55)
+#### 4. Fizz (net +1.55)
 
 - **1.00** untargetable: Playful makes Fizz untargetable, dodging Gragas's Body Slam. Untargetable for 0.75 s; Body Slam takes 0.66 s to land, enough to react. (Fizz E Playful → Gragas E Body Slam)
 - **0.80** untargetable: Playful makes Fizz untargetable, dodging Gragas's Explosive Cask. Untargetable for 0.75 s; Explosive Cask takes 0.25 s to land, enough to react. (Fizz E Playful → Gragas R Explosive Cask)
 - **0.21** untargetable: Playful makes Fizz untargetable, dodging Gragas's Drunken Rage. Untargetable for 0.75 s; Drunken Rage lands within 0 s, faster than a 0.25 s reaction, so it needs prediction. (Fizz E Playful → Gragas W Drunken Rage)
 
-### 5. Morgana (net +1.46)
+#### 5. Morgana (net +1.46)
 
 - **0.85** cc immunity: Black Shield makes Morgana immune to Gragas's Body Slam (airborne, stun). Immune for 5 s, long enough to use ahead of Body Slam. (Morgana E Black Shield → Gragas E Body Slam)
 - **0.80** cc immunity: Black Shield makes Morgana immune to Gragas's Explosive Cask (airborne). Immune for 5 s, long enough to use ahead of Explosive Cask. (Morgana E Black Shield → Gragas R Explosive Cask)
 - **0.19** range: Morgana's basic attacks reach 325 units farther than Gragas's (450 vs 125 attack range). Gragas closes the gap with Body Slam. (Morgana basic attacks → Gragas basic attacks)
 
-### 6. Udyr (net +1.46)
+#### 6. Udyr (net +1.46)
 
 - **1.00** cc immunity: Blazing Stampede makes Udyr immune to Gragas's Body Slam (airborne, stun). Immune for 1.5 s, long enough to use ahead of Body Slam. (Udyr E Blazing Stampede → Gragas E Body Slam)
 - **0.80** cc immunity: Blazing Stampede makes Udyr immune to Gragas's Explosive Cask (airborne). Immune for 1.5 s, long enough to use ahead of Explosive Cask. (Udyr E Blazing Stampede → Gragas R Explosive Cask)
 - **0.20** interrupt: Blazing Stampede's stun interrupts Gragas's Drunken Rage (normal channel). Blazing Stampede must land during the channel. (Udyr E Blazing Stampede → Gragas W Drunken Rage)
 
-### 7. Fiora (net +1.45)
+#### 7. Fiora (net +1.45)
 
 - **0.95** parry: Riposte parries Gragas's Body Slam and stuns back. Parry for 0.75 s; Body Slam takes 0.66 s to land, enough to react. Negating Body Slam's immobilizing effect turns Riposte's slow into a stun (2 s). (Fiora W Riposte → Gragas E Body Slam)
 - **0.90** parry: Riposte parries Gragas's Explosive Cask and stuns back. Parry for 0.75 s; Explosive Cask takes 0.25 s to land, enough to react. Negating Explosive Cask's immobilizing effect turns Riposte's slow into a stun (2 s). (Fiora W Riposte → Gragas R Explosive Cask)
 - **0.16** parry: Riposte parries Gragas's Drunken Rage. Parry for 0.75 s; Drunken Rage lands within 0 s, faster than a 0.25 s reaction, so it needs prediction. (Fiora W Riposte → Gragas W Drunken Rage)
 
-### 8. Bard (net +1.41)
+#### 8. Bard (net +1.41)
 
 - **0.74** untargetable: Tempered Fate makes Bard untargetable, dodging Gragas's Explosive Cask. Untargetable for 2.5 s, long enough to use ahead of Explosive Cask. (Bard R Tempered Fate → Gragas R Explosive Cask)
 - **0.49** untargetable: Tempered Fate makes Bard untargetable, dodging Gragas's Body Slam. Untargetable for 2.5 s, long enough to use ahead of Body Slam. (Bard R Tempered Fate → Gragas E Body Slam)
 - **0.36** range: Bard's basic attacks reach 375 units farther than Gragas's (500 vs 125 attack range). Gragas closes the gap with Body Slam. (Bard basic attacks → Gragas basic attacks)
 
-### 9. Vladimir (net +1.38)
+#### 9. Vladimir (net +1.38)
 
 - **0.85** untargetable: Sanguine Pool makes Vladimir untargetable, dodging Gragas's Body Slam. Untargetable for 2 s, long enough to use ahead of Body Slam. (Vladimir W Sanguine Pool → Gragas E Body Slam)
 - **0.80** untargetable: Sanguine Pool makes Vladimir untargetable, dodging Gragas's Explosive Cask. Untargetable for 2 s, long enough to use ahead of Explosive Cask. (Vladimir W Sanguine Pool → Gragas R Explosive Cask)
 - **0.26** untargetable: Sanguine Pool makes Vladimir untargetable, dodging Gragas's Drunken Rage. Untargetable for 2 s, long enough to use ahead of Drunken Rage. (Vladimir W Sanguine Pool → Gragas W Drunken Rage)
 - Watch out: Body Slam's airborne interrupts Vladimir's Tides of Blood (charge-up).
 
-### 10. Zaahen (net +1.35)
+#### 10. Zaahen (net +1.35)
 
 - **0.74** cc immunity: Grim Deliverance makes Zaahen immune to Gragas's Explosive Cask (airborne). Immune for ?; Explosive Cask takes 0.25 s to land, enough to react. (Zaahen R Grim Deliverance → Gragas R Explosive Cask)
 - **0.49** cc immunity: Grim Deliverance makes Zaahen immune to Gragas's Body Slam (airborne, stun). Immune for ?; Body Slam takes 0.66 s to land, enough to react. (Zaahen R Grim Deliverance → Gragas E Body Slam)
 - **0.20** interrupt: The Darkin Glaive's airborne interrupts Gragas's Drunken Rage (normal channel). The Darkin Glaive must land during the channel. (Zaahen Q The Darkin Glaive → Gragas W Drunken Rage)
 
-## Full ranking
+### Full ranking
 
 | # | Champion | Net | For | Against | Hard counters |
 |--:|---|--:|--:|--:|---|

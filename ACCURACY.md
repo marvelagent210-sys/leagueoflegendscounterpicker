@@ -581,9 +581,124 @@ already resolved all five stale-data failures. The complete serial rerun verifie
 the same builds, score, scenarios and variant options. No assertion, golden winner,
 margin, skip or timeout was weakened. Source identity remains the frozen hash above.
 
+## Fourth expansion batch: Gragas, Warwick and Wukong, 18 October 2026
+
+Gragas, Warwick and Wukong bring implemented coverage to **76 of 173 champions**.
+**97 remain**, and the supported matrix requires **2,850 unordered pairs / 5,700
+directed entries**. These are controlled kit simulations, not measured player win
+rates or certification of every mechanic.
+
+The three new champion test files contain **74 passing checks** (Warwick 22, Gragas 18,
+Wukong 34). Each quoted restriction was also broken on purpose, one at a time, to
+confirm that a test fails: **20 of 20** Warwick mutations, **14 of 14** Gragas
+mutations and **63 of 63** Wukong mutations are caught. Wukong's first pass left two
+survivors, and each became a new test: a cooldown cut from ability hits on a running
+Crushing Blow cooldown, and the clone's shared knock-up, which only shows when the
+clone and Wukong first reach the enemy on different ticks.
+
+- Warwick's Eternal Hunger heals for 100% of its damage below 50% health and 250%
+  below 25%. Jaws of the Beast is the tapped bite: it lunges, unless he is rooted or
+  grounded, and heals for 75% of its own damage, without its on-hits. Blood Hunt's
+  attack speed comes from damage to a hunted enemy, or from starting an attack on one
+  when he has none (without refreshing it). Its trail speed is lost for 0.5 s on
+  champion combat and builds back over 3.5 s. Primal Howl's damage reduction ends
+  with its recast, which fears and slows and locks him out for 0.25 s. Infinite
+  Duress leaps 250% of his movement speed averaged over the last 2.5 s (ten samples
+  0.25 s apart), never less than 275. It channels only on a target the suppression
+  took hold of. Its six strikes deal 2/9 (with on-hits) and 1/9 of the total, and it
+  heals for all of its damage. A cleansed suppression keeps him striking for no
+  damage. A howl in progress recasts at the channel's start, keeping its damage
+  reduction. The leap's speed is in neither the wiki nor the game data and is an
+  explicit assumption.
+- Gragas's Happy Hour heals 5.5% of his maximum health on Q, W, E and R (not the
+  cask's detonation), on its own 6-second static cooldown. Barrel Roll ferments from
+  where it lands, goes off when recast or after 4 s, and is set off only once it has
+  landed. Drunken Rage channels for 0.75 s, reducing damage from its start; its
+  empowered attack reaches 50 farther and can't be cancelled, and a spell shield
+  blocks only its bonus. Body Slam stuns and refunds 40% of its remaining cooldown on
+  a hit. Explosive Cask lands 0.5 s after it is thrown however far it goes (new
+  circle `flight`), knocking back away from where it lands. With walls nearby, its
+  900-unit knock back stops at the lane's 300-unit wall.
+- Wukong's Stone Skin gives 10.47 armor and 0.35% maximum health every 5 s,
+  multiplied by Strength of Stone's stacks. A stack comes from his attacks (blocked
+  ones included, on-hit), his ability hits and his clone's hits on champions, none
+  from hits on an invulnerable enemy. Crushing Blow reaches 175 farther with an
+  uncancellable windup, and abilities cast during that windup keep it (new
+  `preserveAttackWindup: "uncancellable"`). Every hit by Wukong or his clone cuts
+  0.5 s off its cooldown while it runs, not while its empowered attack still waits.
+  The Warrior Trickster clone is left where he cast it, for 4 s, with his current
+  health. It attacks for 60% of his attack damage at his live attack speed, and it
+  copies Crushing Blow (reset timer, reach and 60% of the bonus). Its attacks are
+  basic attacks for dodges, blinds and disarms. Cast during a spin, it carries the
+  spin on for the time left. Nimbus Strike dashes at the pinned game-file speed of
+  1050 and interrupts cancellable windups on him. It strikes up to two enemy pets
+  near the target, and its attack speed lasts while he spins. Cyclone is a mobile,
+  uninterruptible 2-second spin of eight pulses. It knocks up once a cast, shared
+  with the clone, with a blocked pulse still using it up. It can be recast after
+  0.5 s, and ending it with another ability counts as the recast. The second spin
+  comes 1 s after that, within 8 s of the first, and the cooldown waits for it.
+
+Shared engine changes are small and opt-in. Dashes can resolve their distance from the
+caster's stats at declaration (`distanceFor`, Infinite Duress). Ground areas can land
+after a fixed flight time (`flight`, Explosive Cask). A cast can keep only an
+uncancellable attack windup (Crushing Blow). Kits can quote a field's value label
+(`fieldLabel`). No other kit uses them, and their tests are unchanged.
+
+The build now reproduces the curated evidence the imported 73-kit build had added to
+ability records by hand. `pipeline/abilities/evidence.ts` re-reads every pinned
+game-file excerpt from the downloaded character file, with its game version, URL and
+SHA-256. It also adds the wiki notes the template parser drops. Each note must still
+be on its ability's template, or the build fails until the note is checked again. Text
+rendered by hand from another wiki page is pinned to that page's revision: a fetch
+that brings a newer revision fails the build. All **173** ability records rebuild
+byte-identically from `data/raw`. This batch adds Cyclone's interaction table and the
+glossary's uncancellable-windup rule, which Nimbus Strike's interruption honors.
+
+Wukong's behavior ends a spin early once its knock-up has landed, if his attacks would
+deal more than its pulses. Measured against 27 opponents when it was introduced, it
+changed 9 scores. Eight rose, the largest from **−0.82 to +0.73** against Gwen and from
+**−0.81 to +0.53** against Xin Zhao; one fell, from **+0.72 to +0.45** against Volibear.
+Later kit corrections came after that comparison; the matrix below is the reference.
+Winners and margins were not tuned toward any expectation.
+
+### Fourth-batch validation
+
+Model fingerprint:
+`c280f4316ecc1d5fb8ea1eefb5066449ebc973eaa286cce57b6705439041d421`.
+The refresh computed all **2,850 pairs** afresh on four workers in **3,929.3
+seconds**, reusing no checkpoint, and wrote **254** simulator and ledger files. All
+76 rows and 5,700 directed entries are complete, and `npm run build:sim -- --check`
+passes for the fingerprint above. Every directed score is the exact negative of its
+mirror (maximum absolute sum **0**). Of the 5,256 directed entries between the 73
+earlier kits, **5,232** are bit-for-bit unchanged and **24** differ by at most
+**2.220446049250313e-16**. That is floating-point rounding: the new engine options
+change no earlier result. Both TypeScript projects pass.
+
+By mean score against the other 75, Warwick ranks **23rd** (+0.173, 47 wins), Wukong
+**41st** (+0.008, 38 wins) and Gragas **57th** (−0.301, 25 wins). Warwick's best
+matchup is Wukong (+0.86) and his worst Ashe (−0.87). Gragas's are Vladimir (+0.83)
+and Fiora (−0.86), and Wukong's are Vladimir (+0.80) and Darius (−0.88).
+
+The full suite ran **2,427 tests across 101 files** on four workers in **193.7
+seconds**. **2,419 passed**, and five existing tests were skipped. The two original
+draft Garen–Yasuo and Malphite–Yasuo expectations failed, as before. One test timed
+out: the Heimerdinger–Udyr full variant search in `tests/web/run.test.ts`, at its
+unchanged 180-second limit, while every core ran other files. Run alone, it passes in
+**148.6 seconds**; it took 145.0 seconds in the third batch's serial run.
+
+The production Chromium run passed **all 18 checks**. The picker lists all 76 simulated
+champions, and each new champion's counter page ranks all 75 opponents. Their matchup
+pages against Darius show the matrix scores. Each new kit page shows its assumptions
+without horizontal scrolling at 1,200 pixels, and Wukong's cites the pinned game file.
+The matchup page fits a 390-pixel phone. With the stored results marked stale, the
+production workers reran all **75 Darius opponents** in the browser in 76.8 seconds.
+Every live score agrees with the matrix within **2.456368441983159e-15**, and every
+scenario agrees within the matrix's three-decimal rounding (at most 0.00049). Page,
+console, HTTP and request errors are all zero.
+
 ## Remaining limits
 
-- Only 73 of the dataset's 173 champions have simulator kits. Other pairings use the
+- Only 76 of the dataset's 173 champions have simulator kits. Other pairings use the
   interaction ledger's heuristic estimates.
 - Movement is one-dimensional. Facing, side-stepping, vitals, terrain placement,
   pet placement, and some multi-hit geometry still use explicit approximations.
@@ -626,3 +741,10 @@ margin, skip or timeout was weakened. Source identity remains the frozen hash ab
 - Apprehend's pull/rebound geometry remains collapsed into a half-second pull. Its slow
   currently begins immediately; the pinned note ties it to the rebound without giving
   a numerical onset time for this approximation.
+- Warwick's Jaws of the Beast is always the tapped bite, never the held leap behind
+  the target. Infinite Duress's leap speed is in neither source and is taken to cover
+  its range in 0.5 s, and its three on-attack effects are left out. Gragas's Body
+  Slam stuns without moving the enemy, since its knock back distance is in neither
+  source, and Explosive Cask's knock back is taken to last 0.5 s. Wukong's clone is
+  static, with his resistances as it appears, and its crits are expected values.
+  Nimbus Strike's dash doesn't follow an enemy who dashes away during it.

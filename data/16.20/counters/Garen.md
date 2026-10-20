@@ -2,7 +2,7 @@
 
 ## Simulated duels
 
-The duel simulator played each of the 72 other champions with a simulator kit against Garen: both at level 20 with 15,000 gold of plain stats, each side's spent against the other's, through six scenarios (PLAN.md §6). Scores run from −1 (Garen wins every time) to +1 (the champion does). Run `npm run duel -- <champion> Garen --log brawl` to watch a fight.
+The duel simulator played each of the 75 other champions with a simulator kit against Garen: both at level 20 with 15,000 gold of plain stats, each side's spent against the other's, through six scenarios (PLAN.md §6). Scores run from −1 (Garen wins every time) to +1 (the champion does). Run `npm run duel -- <champion> Garen --log brawl` to watch a fight.
 
 | # | Champion | Score | You engage | Enemy engages | Brawl | Short trade | Spacing | Escape |
 |--:|---|--:|--:|--:|--:|--:|--:|--:|
@@ -59,25 +59,28 @@ The duel simulator played each of the 72 other champions with a simulator kit ag
 | 51 | Gnar | −0.78 | −1.00 | −1.00 | −1.00 | +0.12 | −1.00 | +0.00 |
 | 52 | Amumu | −0.79 | −1.00 | −1.00 | −1.00 | −0.04 | – | +0.00 |
 | 53 | Cassiopeia | −0.79 | −1.00 | −1.00 | −1.00 | +0.09 | −1.00 | +0.00 |
-| 54 | Camille | −0.79 | −1.00 | −1.00 | −1.00 | −0.06 | – | +0.00 |
-| 55 | Nautilus | −0.79 | −1.00 | −1.00 | −1.00 | +0.06 | −1.00 | +0.00 |
-| 56 | Heimerdinger | −0.79 | −1.00 | −1.00 | −1.00 | +0.06 | −1.00 | +0.00 |
-| 57 | Rammus | −0.79 | −1.00 | −1.00 | −1.00 | −0.09 | – | +0.00 |
-| 58 | Olaf | −0.79 | −1.00 | −1.00 | −1.00 | −0.09 | – | +0.00 |
-| 59 | Leona | −0.79 | −1.00 | −1.00 | −1.00 | −0.09 | – | +0.00 |
-| 60 | Kennen | −0.79 | −1.00 | −1.00 | −1.00 | −0.04 | −0.87 | +0.00 |
-| 61 | Skarner | −0.79 | −1.00 | −1.00 | −1.00 | −0.10 | – | +0.00 |
-| 62 | Renekton | −0.80 | −1.00 | −1.00 | −1.00 | −0.10 | – | +0.00 |
-| 63 | Rumble | −0.80 | −1.00 | −1.00 | −1.00 | −0.11 | – | +0.00 |
-| 64 | Irelia | −0.80 | −1.00 | −1.00 | −1.00 | −0.11 | – | +0.00 |
-| 65 | Ahri | −0.80 | −1.00 | −1.00 | −0.96 | −0.03 | −1.00 | +0.00 |
-| 66 | Kassadin | −0.80 | −1.00 | −1.00 | −1.00 | −0.13 | – | +0.00 |
-| 67 | Karthus | −0.80 | −1.00 | −1.00 | −1.00 | −0.02 | −1.00 | +0.00 |
-| 68 | Veigar | −0.81 | −1.00 | −1.00 | −1.00 | −0.04 | −1.00 | +0.00 |
-| 69 | Malzahar | −0.81 | −1.00 | −1.00 | −1.00 | −0.05 | −1.00 | +0.00 |
-| 70 | Akali | −0.81 | −1.00 | −1.00 | −1.00 | −0.18 | – | +0.00 |
-| 71 | Vladimir | −0.81 | −1.00 | −1.00 | −1.00 | −0.08 | −1.00 | +0.00 |
-| 72 | Riven | −0.81 | −1.00 | −1.00 | −1.00 | −0.22 | – | +0.00 |
+| 54 | Gragas | −0.79 | −1.00 | −1.00 | −1.00 | −0.06 | – | +0.00 |
+| 55 | Camille | −0.79 | −1.00 | −1.00 | −1.00 | −0.06 | – | +0.00 |
+| 56 | Warwick | −0.79 | −1.00 | −1.00 | −1.00 | −0.08 | – | +0.00 |
+| 57 | Nautilus | −0.79 | −1.00 | −1.00 | −1.00 | +0.06 | −1.00 | +0.00 |
+| 58 | Heimerdinger | −0.79 | −1.00 | −1.00 | −1.00 | +0.06 | −1.00 | +0.00 |
+| 59 | Rammus | −0.79 | −1.00 | −1.00 | −1.00 | −0.09 | – | +0.00 |
+| 60 | Olaf | −0.79 | −1.00 | −1.00 | −1.00 | −0.09 | – | +0.00 |
+| 61 | Leona | −0.79 | −1.00 | −1.00 | −1.00 | −0.09 | – | +0.00 |
+| 62 | Kennen | −0.79 | −1.00 | −1.00 | −1.00 | −0.04 | −0.87 | +0.00 |
+| 63 | Skarner | −0.79 | −1.00 | −1.00 | −1.00 | −0.10 | – | +0.00 |
+| 64 | Renekton | −0.80 | −1.00 | −1.00 | −1.00 | −0.10 | – | +0.00 |
+| 65 | Rumble | −0.80 | −1.00 | −1.00 | −1.00 | −0.11 | – | +0.00 |
+| 66 | Irelia | −0.80 | −1.00 | −1.00 | −1.00 | −0.11 | – | +0.00 |
+| 67 | Ahri | −0.80 | −1.00 | −1.00 | −0.96 | −0.03 | −1.00 | +0.00 |
+| 68 | Kassadin | −0.80 | −1.00 | −1.00 | −1.00 | −0.13 | – | +0.00 |
+| 69 | Karthus | −0.80 | −1.00 | −1.00 | −1.00 | −0.02 | −1.00 | +0.00 |
+| 70 | Veigar | −0.81 | −1.00 | −1.00 | −1.00 | −0.04 | −1.00 | +0.00 |
+| 71 | Wukong | −0.81 | −1.00 | −1.00 | −1.00 | −0.18 | – | +0.00 |
+| 72 | Malzahar | −0.81 | −1.00 | −1.00 | −1.00 | −0.05 | −1.00 | +0.00 |
+| 73 | Akali | −0.81 | −1.00 | −1.00 | −1.00 | −0.18 | – | +0.00 |
+| 74 | Vladimir | −0.81 | −1.00 | −1.00 | −1.00 | −0.08 | −1.00 | +0.00 |
+| 75 | Riven | −0.81 | −1.00 | −1.00 | −1.00 | −0.22 | – | +0.00 |
 
 ## Interaction ledger estimates
 
