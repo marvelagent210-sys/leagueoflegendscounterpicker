@@ -139,69 +139,6 @@
     {
       "champion": "Corki",
       "kind": "W",
-      "name": "Special Delivery",
-      "page": {
-        "title": "Template:Data Corki/Special Delivery",
-        "revid": 3906612
-      },
-      "damageTypes": [
-        "magic"
-      ],
-      "delivery": {
-        "targeting": [
-          "location"
-        ],
-        "affectsEnemies": true,
-        "spellShield": "no",
-        "grounded": "yes",
-        "knockdown": "no"
-      },
-      "applies": [
-        {
-          "type": "airborne",
-          "evidence": [
-            {
-              "page": "Template:Data Corki/Special Delivery",
-              "revid": 3906612,
-              "quote": "Active: Corki dashes with displacement immunity to the target location, knocking aside all enemies in his path 500 units and leaving behind a trail of fire for 5 seconds, which grants sight of the area for its duration and for 3 seconds afterwards."
-            }
-          ],
-          "duration": 5
-        },
-        {
-          "type": "slow",
-          "evidence": [
-            {
-              "page": "Template:Data Corki/Special Delivery",
-              "revid": 3906612,
-              "quote": "Enemies hit by Corki's dash or within the trail are burned and slowed by 90% for 2 seconds, refreshing every 0.25 seconds while inside the area."
-            }
-          ],
-          "duration": 2,
-          "amount": 90
-        }
-      ],
-      "movement": [],
-      "states": [
-        {
-          "state": "displacement immune",
-          "evidence": [
-            {
-              "page": "Template:Data Corki/Special Delivery",
-              "revid": 3906612,
-              "quote": "Active: Corki dashes with displacement immunity to the target location, knocking aside all enemies in his path 500 units and leaving behind a trail of fire for 5 seconds, which grants sight of the area for its duration and for 3 seconds afterwards."
-            }
-          ],
-          "duration": 5
-        }
-      ],
-      "castTime": 0,
-      "range": 1800,
-      "speed": 1500
-    },
-    {
-      "champion": "Corki",
-      "kind": "W",
       "name": "Valkyrie",
       "page": {
         "title": "Template:Data Corki/Valkyrie",

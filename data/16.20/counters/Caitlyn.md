@@ -1,5 +1,104 @@
 # Counters to Caitlyn (patch 26.20)
 
+## Simulated duels
+
+The duel simulator played each of the 90 other champions with a simulator kit against Caitlyn: both at level 20 with 15,000 gold of plain stats, each side's spent against the other's, through six scenarios (PLAN.md §6). Scores run from −1 (Caitlyn wins every time) to +1 (the champion does). Run `npm run duel -- <champion> Caitlyn --log brawl` to watch a fight.
+
+| # | Champion | Score | You engage | Enemy engages | Brawl | Short trade | Spacing | Escape |
+|--:|---|--:|--:|--:|--:|--:|--:|--:|
+| 1 | K'Sante | +0.85 | +1.00 | +1.00 | +1.00 | −0.00 | +1.00 | +1.00 |
+| 2 | Vayne | +0.85 | +1.00 | +1.00 | +1.00 | −0.02 | +1.00 | +1.00 |
+| 3 | Yorick | +0.83 | +1.00 | +1.00 | +1.00 | −0.11 | +1.00 | +1.00 |
+| 4 | Fiora | +0.83 | +1.00 | +1.00 | +1.00 | −0.16 | +1.00 | +1.00 |
+| 5 | Ziggs | +0.82 | +1.00 | +1.00 | +1.00 | +0.13 | +1.00 | +0.00 |
+| 6 | Ambessa | +0.82 | +1.00 | +1.00 | +1.00 | +0.12 | +1.00 | +0.00 |
+| 7 | Tahm Kench | +0.82 | +1.00 | +1.00 | +1.00 | +0.10 | +1.00 | +0.00 |
+| 8 | Jayce | +0.81 | +1.00 | +1.00 | +1.00 | +0.09 | +1.00 | +0.00 |
+| 9 | Ornn | +0.81 | +1.00 | +1.00 | +1.00 | +0.07 | +1.00 | +0.00 |
+| 10 | Malphite | +0.81 | +1.00 | +1.00 | +1.00 | +0.05 | +1.00 | +0.00 |
+| 11 | Poppy | +0.80 | +1.00 | +1.00 | +1.00 | +0.03 | +1.00 | +0.00 |
+| 12 | Yasuo | +0.80 | +1.00 | +1.00 | +1.00 | +0.02 | +1.00 | +0.00 |
+| 13 | Garen | +0.80 | +1.00 | +1.00 | +1.00 | +0.01 | +1.00 | +0.00 |
+| 14 | Shen | +0.80 | +1.00 | +1.00 | +1.00 | +0.01 | +1.00 | +0.00 |
+| 15 | Darius | +0.80 | +1.00 | +1.00 | +1.00 | +0.01 | +1.00 | +0.00 |
+| 16 | Amumu | +0.80 | +1.00 | +1.00 | +1.00 | +0.00 | +1.00 | +0.00 |
+| 17 | Cassiopeia | +0.80 | +1.00 | +1.00 | +1.00 | −0.01 | +1.00 | +0.00 |
+| 18 | Heimerdinger | +0.80 | +1.00 | +1.00 | +1.00 | −0.01 | +1.00 | +0.00 |
+| 19 | Teemo | +0.80 | +1.00 | +1.00 | +1.00 | −0.02 | +1.00 | +0.00 |
+| 20 | Gwen | +0.80 | +1.00 | +1.00 | +1.00 | −0.02 | +1.00 | +0.00 |
+| 21 | Kog'Maw | +0.80 | +1.00 | +1.00 | +1.00 | −0.02 | +1.00 | +0.00 |
+| 22 | Cho'Gath | +0.80 | +1.00 | +1.00 | +1.00 | −0.02 | +1.00 | +0.00 |
+| 23 | Jax | +0.80 | +1.00 | +1.00 | +1.00 | −0.03 | +1.00 | +0.00 |
+| 24 | Gangplank | +0.80 | +1.00 | +1.00 | +1.00 | −0.03 | +1.00 | +0.00 |
+| 25 | Sett | +0.80 | +1.00 | +1.00 | +1.00 | −0.03 | +1.00 | +0.00 |
+| 26 | Leona | +0.79 | +1.00 | +1.00 | +1.00 | −0.03 | +1.00 | +0.00 |
+| 27 | Skarner | +0.79 | +1.00 | +1.00 | +1.00 | −0.04 | +1.00 | +0.00 |
+| 28 | Udyr | +0.79 | +1.00 | +1.00 | +1.00 | −0.04 | +1.00 | +0.00 |
+| 29 | Jinx | +0.79 | +1.00 | +1.00 | +1.00 | −0.03 | +1.00 | +0.00 |
+| 30 | Gnar | +0.79 | +1.00 | +1.00 | +1.00 | −0.04 | +1.00 | +0.00 |
+| 31 | Volibear | +0.79 | +1.00 | +1.00 | +1.00 | −0.04 | +1.00 | +0.00 |
+| 32 | Renekton | +0.79 | +1.00 | +1.00 | +1.00 | −0.05 | +1.00 | +0.00 |
+| 33 | Kayle | +0.79 | +1.00 | +1.00 | +1.00 | +0.09 | – | +0.00 |
+| 34 | Smolder | +0.79 | +1.00 | +1.00 | +1.00 | −0.05 | +1.00 | +0.00 |
+| 35 | Lucian | +0.79 | +1.00 | +1.00 | +1.00 | −0.06 | +1.00 | +0.00 |
+| 36 | Rammus | +0.79 | +1.00 | +1.00 | +1.00 | −0.06 | +1.00 | +0.00 |
+| 37 | Kassadin | +0.79 | +1.00 | +1.00 | +1.00 | −0.07 | +1.00 | +0.00 |
+| 38 | Kennen | +0.79 | +1.00 | +1.00 | +1.00 | −0.08 | +1.00 | +0.00 |
+| 39 | Corki | +0.79 | +1.00 | +1.00 | +1.00 | +0.02 | +0.85 | +0.00 |
+| 40 | Xayah | +0.79 | +1.00 | +1.00 | +1.00 | −0.08 | +1.00 | +0.00 |
+| 41 | Trundle | +0.79 | +1.00 | +1.00 | +1.00 | −0.09 | +1.00 | +0.00 |
+| 42 | Nautilus | +0.79 | +1.00 | +0.89 | +1.00 | +0.09 | +1.00 | +0.00 |
+| 43 | Draven | +0.79 | +0.99 | +1.00 | +1.00 | −0.08 | +1.00 | +0.00 |
+| 44 | Urgot | +0.79 | +1.00 | +1.00 | +1.00 | −0.10 | +1.00 | +0.00 |
+| 45 | Nasus | +0.78 | +1.00 | +1.00 | +1.00 | −0.10 | +1.00 | +0.00 |
+| 46 | Rumble | +0.78 | +1.00 | +1.00 | +1.00 | −0.11 | +1.00 | +0.00 |
+| 47 | Dr. Mundo | +0.78 | +1.00 | +1.00 | +1.00 | −0.11 | +1.00 | +0.00 |
+| 48 | Camille | +0.78 | +1.00 | +1.00 | +1.00 | −0.11 | +1.00 | +0.00 |
+| 49 | Xin Zhao | +0.78 | +1.00 | +1.00 | +1.00 | −0.11 | +1.00 | +0.00 |
+| 50 | Mordekaiser | +0.78 | +1.00 | +1.00 | +1.00 | −0.12 | +1.00 | +0.00 |
+| 51 | Illaoi | +0.78 | +1.00 | +1.00 | +1.00 | −0.14 | +1.00 | +0.00 |
+| 52 | Olaf | +0.78 | +1.00 | +1.00 | +1.00 | −0.15 | +1.00 | +0.00 |
+| 53 | Singed | +0.78 | +1.00 | +0.91 | +1.00 | −0.01 | +1.00 | +0.00 |
+| 54 | Tryndamere | +0.78 | +1.00 | +1.00 | +1.00 | −0.16 | +1.00 | +0.00 |
+| 55 | Aatrox | +0.77 | +1.00 | +1.00 | +1.00 | −0.19 | +1.00 | +0.00 |
+| 56 | Zaahen | +0.77 | +1.00 | +1.00 | +1.00 | −0.20 | +1.00 | +0.00 |
+| 57 | Ashe | +0.77 | +1.00 | +1.00 | +1.00 | −0.07 | – | +0.00 |
+| 58 | Tristana | +0.77 | +1.00 | +1.00 | +1.00 | −0.07 | – | +0.00 |
+| 59 | Kai'Sa | +0.75 | +0.89 | +0.95 | +1.00 | −0.03 | +1.00 | +0.00 |
+| 60 | Quinn | +0.74 | +0.82 | +1.00 | +1.00 | −0.08 | +1.00 | +0.00 |
+| 61 | Pantheon | +0.73 | +1.00 | +1.00 | +1.00 | −0.06 | +0.38 | +0.00 |
+| 62 | Riven | +0.72 | +1.00 | +0.66 | +1.00 | +0.02 | +1.00 | +0.00 |
+| 63 | Irelia | +0.71 | +1.00 | +0.70 | +1.00 | −0.11 | +1.00 | +0.00 |
+| 64 | Yone | +0.70 | +0.49 | +1.00 | +1.00 | −0.16 | +1.00 | +1.00 |
+| 65 | Jhin | +0.70 | +1.00 | +1.00 | +1.00 | −0.06 | +0.04 | +0.00 |
+| 66 | Varus | +0.61 | +1.00 | +0.40 | +1.00 | −0.00 | – | +0.00 |
+| 67 | Master Yi | +0.60 | +1.00 | +1.00 | +0.00 | −0.00 | +1.00 | +0.00 |
+| 68 | Kalista | +0.53 | +1.00 | −0.01 | +1.00 | −0.11 | +1.00 | +0.00 |
+| 69 | Aurora | +0.45 | +0.99 | +0.12 | +0.45 | −0.05 | +0.92 | +0.00 |
+| 70 | Miss Fortune | +0.40 | +1.00 | +1.00 | −1.00 | −0.02 | +1.00 | +0.00 |
+| 71 | Anivia | +0.39 | +0.35 | +0.32 | +1.00 | −0.09 | – | +0.00 |
+| 72 | Morgana | +0.35 | +0.24 | +0.24 | +1.00 | −0.05 | +0.35 | +0.00 |
+| 73 | Sion | +0.33 | +0.84 | +0.11 | +0.02 | −0.07 | +1.00 | +0.00 |
+| 74 | Lux | +0.15 | +0.50 | −0.96 | +1.00 | −0.01 | +0.63 | +0.00 |
+| 75 | Lissandra | +0.06 | +0.19 | −1.00 | +1.00 | +0.02 | +0.55 | +0.00 |
+| 76 | Karthus | −0.01 | +0.00 | +0.00 | +0.00 | −0.04 | +0.00 | +0.00 |
+| 77 | Twitch | −0.01 | +0.00 | +0.00 | −0.49 | −0.07 | +1.00 | +0.00 |
+| 78 | Akali | −0.04 | +1.00 | −0.41 | −0.84 | −0.03 | −0.12 | +0.00 |
+| 79 | Vel'Koz | −0.09 | −0.14 | −0.14 | −0.75 | +0.24 | +1.00 | +0.00 |
+| 80 | Brand | −0.21 | −0.84 | −0.54 | +1.00 | −0.05 | −0.61 | +0.00 |
+| 81 | Sivir | −0.24 | −1.00 | −1.00 | +0.87 | −0.09 | +1.00 | +0.00 |
+| 82 | Samira | −0.25 | −0.38 | −1.00 | +1.00 | −0.06 | −1.00 | +0.00 |
+| 83 | Zyra | −0.28 | −1.00 | −1.00 | +1.00 | −0.08 | +0.28 | +0.00 |
+| 84 | Annie | −0.35 | −1.00 | −1.00 | +1.00 | −0.11 | – | +0.00 |
+| 85 | Veigar | −0.37 | −1.00 | −0.44 | −0.09 | −0.06 | +0.19 | +0.00 |
+| 86 | Kled | −0.42 | −1.00 | −1.00 | +1.00 | −0.11 | −1.00 | +0.00 |
+| 87 | Vladimir | −0.62 | −1.00 | −1.00 | −1.00 | −0.13 | +1.00 | +0.00 |
+| 88 | Ahri | −0.64 | −1.00 | −1.00 | −1.00 | −0.05 | +0.67 | +0.00 |
+| 89 | Ezreal | −0.76 | −1.00 | −0.86 | −1.00 | −0.04 | −0.94 | +0.00 |
+| 90 | Malzahar | −0.81 | −1.00 | −1.00 | −1.00 | −0.05 | −1.00 | +0.00 |
+
+## Interaction ledger estimates
+
 Every champion ranked by what its kit does against Caitlyn's, from the interaction ledger: projectile blocks, spell shields,
 parries, dash stops, crowd control and its defenses, range and more (PLAN.md §5). This ranking is **partial**: it weighs the
 interactions but doesn't play the fight out. The duel simulator replaces it as each champion's behavior is verified.
@@ -8,78 +107,78 @@ interactions but doesn't play the fight out. The duel simulator replaces it as e
 A hard counter shuts down part of a kit every time it is used (projectile block, attack dodge, attack block, blind, disarm, attack speed slow, attack reflect, dash stop, grounding, range) with an impact of 0.4 or more (0.5 for range).
 Run `npm run matchup -- <champion> Caitlyn` for the full ledger of a matchup, with sources.
 
-## Top 10
+### Top 10
 
-### 1. Braum (net +1.23)
+#### 1. Braum (net +1.23)
 
 - **0.60** projectile block: Unbreakable blocks Caitlyn's 90 Caliber Net, a projectile. Unbreakable for 4 s, long enough to use ahead of 90 Caliber Net. (Braum E Unbreakable → Caitlyn E 90 Caliber Net)
 - **0.55** projectile block: Unbreakable blocks Caitlyn's Ace in the Hole, a projectile. Unbreakable for 4 s, long enough to use ahead of Ace in the Hole. (Braum E Unbreakable → Caitlyn R Ace in the Hole)
 - **0.50** projectile block: Unbreakable blocks Caitlyn's basic attacks, which are projectiles. Unbreakable lasts 4 s on a 8 s cooldown. (Braum E Unbreakable → Caitlyn basic attacks)
 - Watch out: Caitlyn's basic attacks reach 525 units farther than Braum's (650 vs 125 attack range).
 
-### 2. Yasuo (net +1.21)
+#### 2. Yasuo (net +1.21)
 
 - **0.55** projectile block: Wind Wall blocks Caitlyn's Ace in the Hole, a projectile. Wind Wall for 4 s, long enough to use ahead of Ace in the Hole. (Yasuo W Wind Wall → Caitlyn R Ace in the Hole)
 - **0.41** projectile block: Wind Wall blocks Caitlyn's 90 Caliber Net, a projectile. Wind Wall for 4 s, long enough to use ahead of 90 Caliber Net. (Yasuo W Wind Wall → Caitlyn E 90 Caliber Net)
 - **0.39** projectile block: Wind Wall blocks Caitlyn's basic attacks, which are projectiles. Wind Wall lasts 4 s on a 17 s cooldown. (Yasuo W Wind Wall → Caitlyn basic attacks)
 - Watch out: Caitlyn's basic attacks reach 475 units farther than Yasuo's (650 vs 175 attack range).
 
-### 3. Rell (net +1.16)
+#### 3. Rell (net +1.16)
 
 - **0.28** interrupt: Ferromancy: Crash Down's airborne interrupts Caitlyn's Ace in the Hole (normal channel). Ferromancy: Crash Down must land during the channel. (Rell W Ferromancy: Crash Down → Caitlyn R Ace in the Hole)
 - **0.28** interrupt: Ferromancy: Mount Up's airborne interrupts Caitlyn's Ace in the Hole (normal channel). Ferromancy: Mount Up must land during the channel. (Rell W Ferromancy: Mount Up → Caitlyn R Ace in the Hole)
 - **0.28** interrupt: Full Tilt's stun interrupts Caitlyn's Ace in the Hole (normal channel). Full Tilt must land during the channel. (Rell E Full Tilt → Caitlyn R Ace in the Hole)
 - Watch out: Caitlyn's basic attacks reach 475 units farther than Rell's (650 vs 175 attack range).
 
-### 4. Fizz (net +1.07)
+#### 4. Fizz (net +1.07)
 
 - **0.70** untargetable: Playful makes Fizz untargetable, dodging Caitlyn's Yordle Snap Trap. Untargetable for 0.75 s; Yordle Snap Trap takes 0.25 s to land, enough to react. (Fizz E Playful → Caitlyn W Yordle Snap Trap)
 - **0.55** untargetable: Playful makes Fizz untargetable, dodging Caitlyn's Ace in the Hole. Untargetable for 0.75 s; Ace in the Hole takes 1.47 s to land, enough to react. (Fizz E Playful → Caitlyn R Ace in the Hole)
 - **0.28** interrupt: Chum the Waters's airborne interrupts Caitlyn's Ace in the Hole (normal channel). Chum the Waters must land during the channel. (Fizz R Chum the Waters → Caitlyn R Ace in the Hole)
 - Watch out: Caitlyn's basic attacks reach 475 units farther than Fizz's (650 vs 175 attack range).
 
-### 5. Maokai (net +0.89)
+#### 5. Maokai (net +0.89)
 
 - **0.70** untargetable: Twisted Advance makes Maokai untargetable, dodging Caitlyn's Yordle Snap Trap. Untargetable for 1.4 s; Yordle Snap Trap takes 0.25 s to land, enough to react. (Maokai W Twisted Advance → Caitlyn W Yordle Snap Trap)
 - **0.55** untargetable: Twisted Advance makes Maokai untargetable, dodging Caitlyn's Ace in the Hole. Untargetable for 1.4 s; Ace in the Hole takes 1.47 s to land, enough to react. (Maokai W Twisted Advance → Caitlyn R Ace in the Hole)
 - **0.28** interrupt: Bramble Smash's airborne interrupts Caitlyn's Ace in the Hole (normal channel). Bramble Smash must land during the channel. (Maokai Q Bramble Smash → Caitlyn R Ace in the Hole)
 - Watch out: Caitlyn's basic attacks reach 525 units farther than Maokai's (650 vs 125 attack range).
 
-### 6. Camille (net +0.89)
+#### 6. Camille (net +0.89)
 
 - **0.55** untargetable: The Hextech Ultimatum makes Camille untargetable, dodging Caitlyn's Ace in the Hole. Untargetable for 0.5 s; Ace in the Hole takes 1.47 s to land, enough to react. (Camille R The Hextech Ultimatum → Caitlyn R Ace in the Hole)
 - **0.33** untargetable: The Hextech Ultimatum makes Camille untargetable, dodging Caitlyn's Yordle Snap Trap. Untargetable for 0.5 s; Yordle Snap Trap takes 0.25 s to land, enough to react. (Camille R The Hextech Ultimatum → Caitlyn W Yordle Snap Trap)
 - **0.28** interrupt: The Hextech Ultimatum's airborne interrupts Caitlyn's Ace in the Hole (normal channel). The Hextech Ultimatum must land during the channel. (Camille R The Hextech Ultimatum → Caitlyn R Ace in the Hole)
 - Watch out: Caitlyn's basic attacks reach 525 units farther than Camille's (650 vs 125 attack range).
 
-### 7. Nocturne (net +0.83)
+#### 7. Nocturne (net +0.83)
 
 - **0.63** spell shield: Shroud of Darkness's spell shield blocks Caitlyn's Yordle Snap Trap. Spell shield for 1.5 s, long enough to use ahead of Yordle Snap Trap. A spell shield blocks only the first enemy ability that reaches it. (Nocturne W Shroud of Darkness → Caitlyn W Yordle Snap Trap)
 - **0.55** spell shield: Shroud of Darkness's spell shield blocks Caitlyn's Ace in the Hole. Spell shield for 1.5 s, long enough to use ahead of Ace in the Hole. A spell shield blocks only the first enemy ability that reaches it. (Nocturne W Shroud of Darkness → Caitlyn R Ace in the Hole)
 - **0.28** interrupt: Unspeakable Horror's fear interrupts Caitlyn's Ace in the Hole (normal channel). Unspeakable Horror must land during the channel. (Nocturne E Unspeakable Horror → Caitlyn R Ace in the Hole)
 - Watch out: Caitlyn's basic attacks reach 525 units farther than Nocturne's (650 vs 125 attack range).
 
-### 8. Yuumi (net +0.78)
+#### 8. Yuumi (net +0.78)
 
 - **0.70** untargetable: You and Me! makes Yuumi untargetable, dodging Caitlyn's Yordle Snap Trap. Untargetable for ?; Yordle Snap Trap takes 0.25 s to land, enough to react. Does not destroy inbound projectiles, special cased to be targetable to turrets. (Yuumi W You and Me! → Caitlyn W Yordle Snap Trap)
 - **0.55** untargetable: You and Me! makes Yuumi untargetable, dodging Caitlyn's Ace in the Hole. Untargetable for ?; Ace in the Hole takes 1.47 s to land, enough to react. Does not destroy inbound projectiles, special cased to be targetable to turrets. (Yuumi W You and Me! → Caitlyn R Ace in the Hole)
 - Watch out: Caitlyn's basic attacks reach 225 units farther than Yuumi's (650 vs 425 attack range).
 
-### 9. Kayn (net +0.76)
+#### 9. Kayn (net +0.76)
 
 - **0.55** untargetable: Umbral Trespass makes Kayn untargetable, dodging Caitlyn's Ace in the Hole. Untargetable for 0.25 s; Ace in the Hole takes 1.47 s to land, enough to react. (Kayn R Umbral Trespass → Caitlyn R Ace in the Hole)
 - **0.33** untargetable: Umbral Trespass makes Kayn untargetable, dodging Caitlyn's Yordle Snap Trap. Untargetable for 0.25 s; Yordle Snap Trap takes 0.25 s to land, enough to react. (Kayn R Umbral Trespass → Caitlyn W Yordle Snap Trap)
 - **0.28** interrupt: Blade's Reach's airborne interrupts Caitlyn's Ace in the Hole (normal channel). Blade's Reach must land during the channel. (Kayn W Blade's Reach → Caitlyn R Ace in the Hole)
 - Watch out: Caitlyn's basic attacks reach 475 units farther than Kayn's (650 vs 175 attack range).
 
-### 10. Rek'Sai (net +0.76)
+#### 10. Rek'Sai (net +0.76)
 
 - **0.55** untargetable: Void Rush makes Rek'Sai untargetable, dodging Caitlyn's Ace in the Hole. Untargetable for 1.5 s, long enough to use ahead of Ace in the Hole. (Rek'Sai R Void Rush → Caitlyn R Ace in the Hole)
 - **0.33** untargetable: Void Rush makes Rek'Sai untargetable, dodging Caitlyn's Yordle Snap Trap. Untargetable for 1.5 s, long enough to use ahead of Yordle Snap Trap. (Rek'Sai R Void Rush → Caitlyn W Yordle Snap Trap)
 - **0.28** interrupt: Unburrow's airborne interrupts Caitlyn's Ace in the Hole (normal channel). Unburrow must land during the channel. (Rek'Sai W Unburrow → Caitlyn R Ace in the Hole)
 - Watch out: Caitlyn's basic attacks reach 475 units farther than Rek'Sai's (650 vs 175 attack range).
 
-## Full ranking
+### Full ranking
 
 | # | Champion | Net | For | Against | Hard counters |
 |--:|---|--:|--:|--:|---|
@@ -160,52 +259,52 @@ Run `npm run matchup -- <champion> Caitlyn` for the full ledger of a matchup, wi
 | 75 | Gragas | +0.20 | 0.56 | 0.36 |  |
 | 76 | Leona | +0.20 | 0.56 | 0.36 |  |
 | 77 | Sett | +0.20 | 0.56 | 0.36 |  |
-| 78 | Corki | +0.19 | 0.28 | 0.09 |  |
-| 79 | Ziggs | +0.19 | 0.28 | 0.09 |  |
-| 80 | Zoe | +0.19 | 0.28 | 0.09 |  |
-| 81 | Quinn | +0.17 | 0.28 | 0.11 |  |
-| 82 | Twisted Fate | +0.17 | 0.28 | 0.11 |  |
-| 83 | Viego | +0.16 | 0.56 | 0.40 |  |
-| 84 | Jax | +0.16 | 0.52 | 0.36 |  |
-| 85 | Malphite | +0.14 | 0.50 | 0.36 |  |
-| 86 | Jayce | +0.14 | 0.28 | 0.14 |  |
-| 87 | Zyra | +0.14 | 0.28 | 0.14 |  |
-| 88 | Blitzcrank | +0.12 | 0.84 | 0.72 |  |
-| 89 | Pyke | +0.10 | 0.56 | 0.46 |  |
-| 90 | Brand | +0.10 | 0.28 | 0.18 |  |
-| 91 | Briar | +0.10 | 0.28 | 0.18 |  |
-| 92 | Draven | +0.10 | 0.28 | 0.18 |  |
-| 93 | Jarvan IV | +0.10 | 0.28 | 0.18 |  |
-| 94 | Kennen | +0.10 | 0.28 | 0.18 |  |
-| 95 | Soraka | +0.10 | 0.28 | 0.18 |  |
-| 96 | Sylas | +0.10 | 0.28 | 0.18 |  |
-| 97 | Syndra | +0.10 | 0.28 | 0.18 |  |
-| 98 | Zilean | +0.10 | 0.28 | 0.18 |  |
-| 99 | Sona | +0.08 | 0.26 | 0.18 |  |
-| 100 | Sion | +0.07 | 0.79 | 0.72 |  |
-| 101 | Orianna | +0.06 | 0.28 | 0.22 |  |
-| 102 | Swain | +0.06 | 0.28 | 0.22 |  |
-| 103 | Vel'Koz | +0.06 | 0.28 | 0.22 |  |
-| 104 | Xerath | +0.06 | 0.28 | 0.22 |  |
-| 105 | Teemo | +0.04 | 0.47 | 0.43 | blind (Blinding Dart) |
-| 106 | Bel'Veth | +0.04 | 0.28 | 0.24 |  |
-| 107 | Lee Sin | +0.04 | 0.28 | 0.24 |  |
-| 108 | Pantheon | +0.04 | 0.28 | 0.24 |  |
-| 109 | Volibear | +0.04 | 0.28 | 0.24 |  |
-| 110 | Jinx | +0.04 | 0.26 | 0.22 |  |
-| 111 | Ambessa | +0.02 | 0.26 | 0.24 |  |
-| 112 | Hecarim | +0.02 | 0.26 | 0.24 |  |
-| 113 | Neeko | -0.03 | 0.28 | 0.31 |  |
-| 114 | Lillia | -0.04 | 0.25 | 0.29 |  |
-| 115 | Yunara | -0.07 | 0.00 | 0.07 |  |
-| 116 | Aatrox | -0.08 | 0.28 | 0.36 |  |
-| 117 | Diana | -0.08 | 0.28 | 0.36 |  |
-| 118 | Irelia | -0.08 | 0.28 | 0.36 |  |
-| 119 | Kassadin | -0.08 | 0.28 | 0.36 |  |
-| 120 | Nautilus | -0.08 | 0.28 | 0.36 |  |
-| 121 | Renekton | -0.08 | 0.28 | 0.36 |  |
-| 122 | Shyvana | -0.08 | 0.28 | 0.36 |  |
-| 123 | Vayne | -0.09 | 0.28 | 0.37 |  |
+| 78 | Ziggs | +0.19 | 0.28 | 0.09 |  |
+| 79 | Zoe | +0.19 | 0.28 | 0.09 |  |
+| 80 | Quinn | +0.17 | 0.28 | 0.11 |  |
+| 81 | Twisted Fate | +0.17 | 0.28 | 0.11 |  |
+| 82 | Viego | +0.16 | 0.56 | 0.40 |  |
+| 83 | Jax | +0.16 | 0.52 | 0.36 |  |
+| 84 | Malphite | +0.14 | 0.50 | 0.36 |  |
+| 85 | Jayce | +0.14 | 0.28 | 0.14 |  |
+| 86 | Zyra | +0.14 | 0.28 | 0.14 |  |
+| 87 | Blitzcrank | +0.12 | 0.84 | 0.72 |  |
+| 88 | Pyke | +0.10 | 0.56 | 0.46 |  |
+| 89 | Brand | +0.10 | 0.28 | 0.18 |  |
+| 90 | Briar | +0.10 | 0.28 | 0.18 |  |
+| 91 | Draven | +0.10 | 0.28 | 0.18 |  |
+| 92 | Jarvan IV | +0.10 | 0.28 | 0.18 |  |
+| 93 | Kennen | +0.10 | 0.28 | 0.18 |  |
+| 94 | Soraka | +0.10 | 0.28 | 0.18 |  |
+| 95 | Sylas | +0.10 | 0.28 | 0.18 |  |
+| 96 | Syndra | +0.10 | 0.28 | 0.18 |  |
+| 97 | Zilean | +0.10 | 0.28 | 0.18 |  |
+| 98 | Sona | +0.08 | 0.26 | 0.18 |  |
+| 99 | Sion | +0.07 | 0.79 | 0.72 |  |
+| 100 | Orianna | +0.06 | 0.28 | 0.22 |  |
+| 101 | Swain | +0.06 | 0.28 | 0.22 |  |
+| 102 | Vel'Koz | +0.06 | 0.28 | 0.22 |  |
+| 103 | Xerath | +0.06 | 0.28 | 0.22 |  |
+| 104 | Teemo | +0.04 | 0.47 | 0.43 | blind (Blinding Dart) |
+| 105 | Bel'Veth | +0.04 | 0.28 | 0.24 |  |
+| 106 | Lee Sin | +0.04 | 0.28 | 0.24 |  |
+| 107 | Pantheon | +0.04 | 0.28 | 0.24 |  |
+| 108 | Volibear | +0.04 | 0.28 | 0.24 |  |
+| 109 | Jinx | +0.04 | 0.26 | 0.22 |  |
+| 110 | Ambessa | +0.02 | 0.26 | 0.24 |  |
+| 111 | Hecarim | +0.02 | 0.26 | 0.24 |  |
+| 112 | Neeko | -0.03 | 0.28 | 0.31 |  |
+| 113 | Lillia | -0.04 | 0.25 | 0.29 |  |
+| 114 | Yunara | -0.07 | 0.00 | 0.07 |  |
+| 115 | Aatrox | -0.08 | 0.28 | 0.36 |  |
+| 116 | Diana | -0.08 | 0.28 | 0.36 |  |
+| 117 | Irelia | -0.08 | 0.28 | 0.36 |  |
+| 118 | Kassadin | -0.08 | 0.28 | 0.36 |  |
+| 119 | Nautilus | -0.08 | 0.28 | 0.36 |  |
+| 120 | Renekton | -0.08 | 0.28 | 0.36 |  |
+| 121 | Shyvana | -0.08 | 0.28 | 0.36 |  |
+| 122 | Vayne | -0.09 | 0.28 | 0.37 |  |
+| 123 | Corki | -0.09 | 0.00 | 0.09 |  |
 | 124 | Ezreal | -0.09 | 0.00 | 0.09 |  |
 | 125 | Ryze | -0.09 | 0.00 | 0.09 |  |
 | 126 | Zeri | -0.09 | 0.00 | 0.09 |  |

@@ -89,17 +89,17 @@ Run `npm run matchup -- <champion> Taric` for the full ledger of a matchup, with
 | 24 | Yunara | +0.72 | 0.72 | 0.00 | range (attacks) |
 | 25 | Nocturne | +0.70 | 0.70 | 0.00 |  |
 | 26 | Udyr | +0.70 | 0.70 | 0.00 |  |
-| 27 | Elise | +0.65 | 0.65 | 0.00 | range (attacks) |
-| 28 | Ezreal | +0.65 | 0.65 | 0.00 | range (attacks) |
-| 29 | Senna | +0.65 | 0.65 | 0.00 | range (attacks) |
-| 30 | Smolder | +0.65 | 0.65 | 0.00 | range (attacks) |
-| 31 | Zilean | +0.65 | 0.65 | 0.00 | range (attacks) |
-| 32 | Zoe | +0.65 | 0.65 | 0.00 | range (attacks) |
-| 33 | Gnar | +0.62 | 0.62 | 0.00 | range (attacks) |
-| 34 | Yuumi | +0.61 | 1.01 | 0.40 | range (attacks) |
-| 35 | Viktor | +0.61 | 0.61 | 0.00 | range (attacks) |
-| 36 | Varus | +0.60 | 0.71 | 0.11 | range (attacks) |
-| 37 | Corki | +0.60 | 0.60 | 0.00 | range (attacks) |
+| 27 | Corki | +0.65 | 0.65 | 0.00 | range (attacks) |
+| 28 | Elise | +0.65 | 0.65 | 0.00 | range (attacks) |
+| 29 | Ezreal | +0.65 | 0.65 | 0.00 | range (attacks) |
+| 30 | Senna | +0.65 | 0.65 | 0.00 | range (attacks) |
+| 31 | Smolder | +0.65 | 0.65 | 0.00 | range (attacks) |
+| 32 | Zilean | +0.65 | 0.65 | 0.00 | range (attacks) |
+| 33 | Zoe | +0.65 | 0.65 | 0.00 | range (attacks) |
+| 34 | Gnar | +0.62 | 0.62 | 0.00 | range (attacks) |
+| 35 | Yuumi | +0.61 | 1.01 | 0.40 | range (attacks) |
+| 36 | Viktor | +0.61 | 0.61 | 0.00 | range (attacks) |
+| 37 | Varus | +0.60 | 0.71 | 0.11 | range (attacks) |
 | 38 | Kennen | +0.58 | 0.58 | 0.00 | range (attacks) |
 | 39 | Lux | +0.58 | 0.58 | 0.00 | range (attacks) |
 | 40 | Jayce | +0.57 | 0.57 | 0.00 | range (attacks) |

@@ -68,10 +68,10 @@ Glossary entries: 1005. Mentions that name no current ability: 1 (Rhaast: W).
 
 ## What the profiles found
 
-- Abilities applying crowd control or debuffs to the enemy: 372.
+- Abilities applying crowd control or debuffs to the enemy: 371.
 - Dashes: 141; of them unstoppable by knockdowns: 19. Blinks: 34. Lunges: 10.
 - Channels and charge-ups: 54.
-- States abilities give their caster: heal 131, shield 65, untargetable 33, displacement immune 23, cc immune 14, invisible 13, cleanse 12, invulnerable 11, camouflage 7, slow immune 6, resurrection 4, stasis 4, projectile block 4, minimum health 3, tenacity 2, dodge attacks 2, spell shield 2, parry 1, reflect attacks 1, block attacks 1.
+- States abilities give their caster: heal 131, shield 65, untargetable 33, displacement immune 22, cc immune 14, invisible 13, cleanse 12, invulnerable 11, camouflage 7, slow immune 6, resurrection 4, stasis 4, projectile block 4, minimum health 3, tenacity 2, dodge attacks 2, spell shield 2, parry 1, reflect attacks 1, block attacks 1.
 
 ## Effects read only from descriptions (11)
 
@@ -81,8 +81,6 @@ Crowd control a description applies that no glossary list names for that ability
 - Aphelios Moonlight Vigil: applies slow. "Gravitum Increases the initial slow to 99% and empowers Binding Eclipse to root targets affected by the enhanced slow for 1.35 seconds."
 - Aphelios Moonlight Vigil: applies root. "Gravitum Increases the initial slow to 99% and empowers Binding Eclipse to root targets affected by the enhanced slow for 1.35 seconds."
 - Bel'Veth Endless Banquet: applies slow. "Active: Bel'Veth dashes to the target Void Coral to consume it over the cast time, slowing nearby enemies by 25 / 42 / 69 / 96 (based on seconds elapsed)% for the duration."
-- Corki Special Delivery: applies airborne. "Active: Corki dashes with displacement immunity to the target location, knocking aside all enemies in his path 500 units and leaving behind a trail of fire for 5 seconds, which grants sight of the area for its duration and for 3 seconds afterwards."
-- Corki Special Delivery: applies slow. "Enemies hit by Corki's dash or within the trail are burned and slowed by 90% for 2 seconds, refreshing every 0.25 seconds while inside the area."
 - Lillia Lilting Lullaby: applies drowsy. "Active: Lillia casts a magical lullaby over all enemy champions affected by Dream Dust, which arrives after 0.3 seconds and renders them drowsy for 1.5 seconds, slowing them by 10%."
 - Shyvana Dragon's Descent: applies slow. "Active: Shyvana transforms into Dragon Form and flies with displacement immunity to the target location, breathing fire in a cone along the way that deals magic damage to enemies hit and fears them for 0.75 seconds, as well as slows them by 99% for the same duration."
 - Taliyah Unraveled Earth: applies airborne. "Enemies that dash or are knocked over a stone will detonate it, taking magic damage and becoming stunned for 0.75 seconds, increased to 2 seconds if they are a monster."
@@ -98,7 +96,7 @@ A hard counter shuts down part of a kit every time it is used (projectile block,
 - dash stop: 294
 - grounding: 104
 - attack dodge: 103
-- blind: 100
+- blind: 101
 - attack block: 54
 - attack speed slow: 19
 - attack reflect: 19
@@ -132,7 +130,7 @@ A hard counter shuts down part of a kit every time it is used (projectile block,
 | Camille | Sivir | +1.60 | Spell Shield's spell shield blocks Camille's The Hextech Ultimatum. |
 | Cassiopeia | Vladimir | +0.93 | Sanguine Pool makes Vladimir untargetable, dodging Cassiopeia's Petrifying Gaze. |
 | Cho'Gath | Sivir | +1.78 | Sivir's basic attacks reach 375 units farther than Cho'Gath's (500 vs 125 attack range). |
-| Corki | Fizz | +0.84 | Playful makes Fizz untargetable, dodging Corki's Special Delivery. |
+| Corki | Samira | +0.72 | Blade Whirl blocks Corki's Missile Barrage, a projectile. |
 | Darius | Sivir | +1.80 | Sivir's basic attacks reach 325 units farther than Darius's (500 vs 175 attack range). |
 | Diana | Sivir | +1.33 | Spell Shield's spell shield blocks Diana's Lunar Rush. |
 | Dr. Mundo | Teemo | +1.26 | Teemo's basic attacks reach 375 units farther than Dr. Mundo's (500 vs 125 attack range). |

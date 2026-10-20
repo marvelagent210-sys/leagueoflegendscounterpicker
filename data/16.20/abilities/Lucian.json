@@ -268,6 +268,30 @@
       "The second attack separately rolls a critical strike.",
       "The second attack does not trigger Sundered Sky Lightshield Strike.",
       "The empowered shots will apply against structures."
+    ],
+    "gameSources": [
+      {
+        "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/lucian/lucian.bin.json",
+        "sha256": "5fb83f89c40863507666081dfa5a5f5bfe24ebf3e6622e79b78386006b82b0a0",
+        "object": "Characters/Lucian/Spells/LucianPassiveAbility/LucianPassive",
+        "text": [
+          "mSpell.mSpellCalculations.TotalDamage.mFormulaParts[0].mSubpart.mLevel1Value: 0.5",
+          "mSpell.mSpellCalculations.TotalDamage.breakpoint {\"mLevel\":7,\"mAdditionalBonusAtThisLevel\":0.05000000074505806}",
+          "mSpell.mSpellCalculations.TotalDamage.breakpoint {\"mLevel\":13,\"mAdditionalBonusAtThisLevel\":0.05000000074505806}",
+          "mSpell.mSpellCalculations.TotalDamage.breakpoint {\"mLevel\":19,\"mAdditionalBonusAtThisLevel\":0.10000000149011612}",
+          "mSpell.mSpellCalculations.TotalDamage.breakpoint {\"mLevel\":25,\"mAdditionalBonusAtThisLevel\":0.10000000149011612}"
+        ]
+      },
+      {
+        "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/lucian/lucian.bin.json",
+        "sha256": "5fb83f89c40863507666081dfa5a5f5bfe24ebf3e6622e79b78386006b82b0a0",
+        "object": "Characters/Lucian/Spells/LucianPassiveAbility/LucianPassiveAttack",
+        "text": [
+          "mSpell.mMissileSpec.movementComponent.mSpeed: 2800.0"
+        ]
+      }
     ]
   },
   {
@@ -316,7 +340,7 @@
       },
       "costType": "mana",
       "castTime": {
-        "text": "0.4 – 0.25 (based on level)",
+        "text": "0.4 \u2013 0.25 (based on level)",
         "values": [
           {
             "series": {
@@ -480,7 +504,7 @@
         "values": []
       },
       "range": {
-        "text": "1200 • 1140 + offset",
+        "text": "1200 \u2022 1140 + offset",
         "values": [
           {
             "series": {
@@ -657,6 +681,30 @@
       "The damage dealt by each bullet of The Culling is calculated when the bullet reaches a target, just like single missile abilities.",
       "Spell shield only blocks one instance of damage.",
       "The following table refers for interactions while Lucian is channeling:"
+    ],
+    "gameSources": [
+      {
+        "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/lucian/lucian.bin.json",
+        "sha256": "5fb83f89c40863507666081dfa5a5f5bfe24ebf3e6622e79b78386006b82b0a0",
+        "object": "Characters/Lucian/Spells/LucianRAbility/LucianR",
+        "text": [
+          "mSpell.mSpellCalculations.TotalNumShots: {\"mMultiplier\":{\"mDataValue\":\"NumShots\",\"__type\":\"NamedDataValueCalculationPart\"},\"mSimpleTooltipCalculationDisplay\":6,\"mExpandedTooltipCalculationDisplay\":6,\"mFormulaParts\":[{\"mSubparts\":[{\"mNumber\":1.0,\"__type\":\"NumberCalculationPart\"},{\"mPart1\":{\"mStat\":8,\"mDataValue\":\"CritValueMod\",\"__type\":\"StatByNamedDataValueCalculationPart\"},\"mPart2\":{\"mSubparts\":[{\"mStat\":9,\"mCoefficient\":1.0,\"__type\":\"StatByCoefficientCalculationPart\"},{\"mNumber\":-1.0,\"__type\":\"NumberCalculationPart\"}],\"__type\":\"SumOfSubPartsCalculationPart\"},\"__type\":\"ProductOfSubPartsCalculationPart\"}],\"__type\":\"SumOfSubPartsCalculationPart\"}],\"__type\":\"GameCalculation\"}",
+          "mSpell.DataValues.NumShots.values: [22.0,22.0,22.0,22.0,22.0,22.0,22.0]",
+          "mSpell.DataValues.CritValueMod.values: [1.0,1.0,1.0,1.0,1.0,1.0,1.0]"
+        ]
+      }
+    ],
+    "sources": [
+      {
+        "page": {
+          "title": "Template:Data Lucian/The Culling",
+          "revid": 4007670
+        },
+        "text": [
+          "While channeling, Relentless Pursuit is usable. Piercing Light and Ardent Blaze are disabled. This ability recasts to end channel."
+        ]
+      }
     ]
   },
   {

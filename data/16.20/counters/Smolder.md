@@ -1,5 +1,104 @@
 # Counters to Smolder (patch 26.20)
 
+## Simulated duels
+
+The duel simulator played each of the 90 other champions with a simulator kit against Smolder: both at level 20 with 15,000 gold of plain stats, each side's spent against the other's, through six scenarios (PLAN.md §6). Scores run from −1 (Smolder wins every time) to +1 (the champion does). Run `npm run duel -- <champion> Smolder --log brawl` to watch a fight.
+
+| # | Champion | Score | You engage | Enemy engages | Brawl | Short trade | Spacing | Escape |
+|--:|---|--:|--:|--:|--:|--:|--:|--:|
+| 1 | K'Sante | +0.85 | +1.00 | +1.00 | +1.00 | −0.02 | +1.00 | +1.00 |
+| 2 | Yorick | +0.84 | +1.00 | +1.00 | +1.00 | −0.05 | +1.00 | +1.00 |
+| 3 | Gangplank | +0.84 | +1.00 | +1.00 | +1.00 | −0.06 | +1.00 | +1.00 |
+| 4 | Fiora | +0.83 | +1.00 | +1.00 | +1.00 | −0.12 | +1.00 | +1.00 |
+| 5 | Nasus | +0.83 | +1.00 | +1.00 | +1.00 | −0.15 | +1.00 | +1.00 |
+| 6 | Master Yi | +0.83 | +1.00 | +1.00 | +1.00 | −0.15 | +1.00 | +1.00 |
+| 7 | Poppy | +0.82 | +1.00 | +1.00 | +1.00 | +0.12 | +1.00 | +0.00 |
+| 8 | Trundle | +0.82 | +1.00 | +1.00 | +1.00 | −0.21 | +1.00 | +1.00 |
+| 9 | Yasuo | +0.81 | +1.00 | +1.00 | +1.00 | +0.11 | +0.99 | +0.00 |
+| 10 | Tristana | +0.81 | +1.00 | +1.00 | +1.00 | +0.08 | +1.00 | +0.00 |
+| 11 | Kayle | +0.81 | +1.00 | +1.00 | +1.00 | +0.17 | – | +0.00 |
+| 12 | Jax | +0.81 | +1.00 | +1.00 | +1.00 | +0.04 | +1.00 | +0.00 |
+| 13 | Samira | +0.81 | +1.00 | +1.00 | +1.00 | +0.17 | – | +0.00 |
+| 14 | Vayne | +0.80 | +1.00 | +1.00 | +1.00 | −0.01 | – | +0.50 |
+| 15 | Kalista | +0.80 | +1.00 | +1.00 | +1.00 | −0.18 | – | +0.95 |
+| 16 | Malphite | +0.80 | +1.00 | +1.00 | +1.00 | −0.00 | +1.00 | +0.00 |
+| 17 | Cho'Gath | +0.80 | +1.00 | +1.00 | +1.00 | −0.00 | +1.00 | +0.00 |
+| 18 | Heimerdinger | +0.80 | +1.00 | +1.00 | +1.00 | +0.12 | – | +0.00 |
+| 19 | Annie | +0.80 | +1.00 | +1.00 | +1.00 | +0.11 | – | +0.00 |
+| 20 | Dr. Mundo | +0.79 | +1.00 | +1.00 | +1.00 | −0.04 | +1.00 | +0.00 |
+| 21 | Corki | +0.79 | +1.00 | +1.00 | +1.00 | +0.09 | – | +0.00 |
+| 22 | Zaahen | +0.79 | +1.00 | +1.00 | +1.00 | −0.06 | +1.00 | +0.00 |
+| 23 | Cassiopeia | +0.79 | +1.00 | +1.00 | +1.00 | +0.08 | – | +0.00 |
+| 24 | Renekton | +0.79 | +1.00 | +1.00 | +1.00 | −0.10 | +1.00 | +0.00 |
+| 25 | Xin Zhao | +0.78 | +1.00 | +1.00 | +1.00 | +0.03 | +0.79 | +0.00 |
+| 26 | Tryndamere | +0.78 | +1.00 | +1.00 | +1.00 | −0.11 | +1.00 | +0.00 |
+| 27 | Camille | +0.78 | +1.00 | +1.00 | +1.00 | −0.11 | +1.00 | +0.00 |
+| 28 | Ambessa | +0.78 | +1.00 | +1.00 | +1.00 | −0.13 | +1.00 | +0.00 |
+| 29 | Riven | +0.78 | +1.00 | +1.00 | +1.00 | −0.13 | +1.00 | +0.00 |
+| 30 | Sett | +0.78 | +1.00 | +1.00 | +1.00 | −0.15 | +1.00 | +0.00 |
+| 31 | Kassadin | +0.78 | +1.00 | +1.00 | +1.00 | −0.16 | +1.00 | +0.00 |
+| 32 | Teemo | +0.77 | +1.00 | +1.00 | +1.00 | −0.04 | – | +0.00 |
+| 33 | Kog'Maw | +0.77 | +1.00 | +1.00 | +1.00 | −0.06 | – | +0.00 |
+| 34 | Volibear | +0.76 | +0.91 | +0.99 | +0.91 | −0.28 | +0.99 | +0.87 |
+| 35 | Aatrox | +0.76 | +1.00 | +1.00 | +1.00 | −0.29 | +1.00 | +0.00 |
+| 36 | Gwen | +0.76 | +1.00 | +1.00 | +1.00 | −0.29 | +1.00 | +0.00 |
+| 37 | Anivia | +0.75 | +1.00 | +1.00 | +1.00 | −0.14 | – | +0.00 |
+| 38 | Kennen | +0.74 | +1.00 | +0.88 | +1.00 | −0.01 | – | +0.00 |
+| 39 | Tahm Kench | +0.73 | +0.99 | +0.99 | +0.61 | +0.06 | +1.00 | +0.00 |
+| 40 | Mordekaiser | +0.69 | +0.81 | +0.89 | +0.91 | −0.10 | +0.98 | +0.00 |
+| 41 | Varus | +0.65 | +0.73 | +0.73 | +1.00 | +0.12 | – | +0.00 |
+| 42 | Udyr | +0.61 | +1.00 | +1.00 | +1.00 | −0.28 | −1.00 | +1.00 |
+| 43 | Gnar | +0.58 | +1.00 | +1.00 | +1.00 | −0.15 | −1.00 | +0.00 |
+| 44 | Ashe | +0.57 | +0.62 | +0.62 | +1.00 | −0.00 | – | +0.00 |
+| 45 | Draven | +0.55 | +1.00 | +0.97 | +0.00 | −0.00 | – | +0.00 |
+| 46 | Pantheon | +0.54 | +0.00 | +1.00 | +1.00 | −0.07 | +1.00 | +0.00 |
+| 47 | Jhin | +0.50 | +0.48 | +0.48 | +1.00 | +0.08 | – | +0.00 |
+| 48 | Irelia | +0.48 | +1.00 | +0.44 | +1.00 | +0.16 | −1.00 | +0.00 |
+| 49 | Xayah | +0.48 | +1.00 | +0.00 | +1.00 | −0.12 | – | +0.00 |
+| 50 | Jayce | +0.34 | +1.00 | +0.00 | +1.00 | −0.04 | −1.00 | +0.00 |
+| 51 | Miss Fortune | +0.34 | +1.00 | +1.00 | −1.00 | +0.05 | – | +0.00 |
+| 52 | Illaoi | +0.29 | +1.00 | −1.00 | +1.00 | −0.08 | +1.00 | +0.00 |
+| 53 | Lucian | +0.25 | +0.00 | +1.00 | +0.00 | −0.16 | – | +0.00 |
+| 54 | Sion | +0.03 | −1.00 | +0.95 | +0.00 | −0.07 | +0.50 | +0.00 |
+| 55 | Quinn | +0.00 | −0.33 | −0.33 | +0.88 | −0.04 | – | +0.00 |
+| 56 | Jinx | −0.06 | +0.29 | +0.29 | −1.00 | +0.04 | – | +0.00 |
+| 57 | Ziggs | −0.19 | +1.00 | −1.00 | −1.00 | +0.19 | – | +0.00 |
+| 58 | Twitch | −0.22 | +0.00 | +0.00 | −1.00 | +0.03 | – | +0.00 |
+| 59 | Rumble | −0.24 | −1.00 | −1.00 | +0.94 | −0.11 | +0.91 | +0.00 |
+| 60 | Lux | −0.27 | −0.87 | −0.87 | +0.87 | +0.08 | – | +0.00 |
+| 61 | Olaf | −0.29 | −1.00 | −0.42 | +1.00 | −0.26 | −1.00 | +0.00 |
+| 62 | Brand | −0.30 | +0.75 | −1.00 | −1.00 | −0.04 | – | +0.00 |
+| 63 | Morgana | −0.35 | −0.52 | −0.59 | −0.07 | −0.13 | −0.45 | +0.00 |
+| 64 | Kai'Sa | −0.37 | −1.00 | −1.00 | +1.00 | −0.23 | – | +0.00 |
+| 65 | Urgot | −0.41 | −1.00 | −1.00 | +0.95 | −0.02 | −1.00 | +0.00 |
+| 66 | Karthus | −0.44 | +0.00 | −0.50 | −1.00 | −0.11 | −1.00 | +0.00 |
+| 67 | Yone | −0.45 | −0.95 | +0.17 | −0.90 | −0.14 | −0.90 | +0.59 |
+| 68 | Garen | −0.56 | +0.00 | −1.00 | −1.00 | −0.07 | −1.00 | +0.00 |
+| 69 | Akali | −0.64 | −0.73 | −1.00 | −0.69 | −0.10 | −0.50 | +0.00 |
+| 70 | Darius | −0.72 | −1.00 | −1.00 | −1.00 | −0.12 | +0.00 | +0.00 |
+| 71 | Vel'Koz | −0.75 | −1.00 | −1.00 | −1.00 | +0.19 | – | +0.00 |
+| 72 | Lissandra | −0.78 | −1.00 | −1.00 | −1.00 | −0.01 | – | +0.00 |
+| 73 | Aurora | −0.78 | −1.00 | −1.00 | −1.00 | −0.04 | – | +0.00 |
+| 74 | Veigar | −0.78 | −1.00 | −1.00 | −1.00 | −0.04 | – | +0.00 |
+| 75 | Shen | −0.79 | −1.00 | −1.00 | −1.00 | +0.10 | −1.00 | +0.00 |
+| 76 | Skarner | −0.79 | −1.00 | −1.00 | −1.00 | +0.08 | −1.00 | +0.00 |
+| 77 | Ezreal | −0.79 | −1.00 | −1.00 | −1.00 | −0.06 | – | +0.00 |
+| 78 | Ahri | −0.79 | −1.00 | −1.00 | −1.00 | −0.06 | – | +0.00 |
+| 79 | Zyra | −0.79 | −1.00 | −1.00 | −1.00 | −0.08 | – | +0.00 |
+| 80 | Malzahar | −0.79 | −1.00 | −1.00 | −1.00 | −0.08 | – | +0.00 |
+| 81 | Caitlyn | −0.79 | −1.00 | −1.00 | −1.00 | +0.05 | −1.00 | +0.00 |
+| 82 | Nautilus | −0.80 | −1.00 | −1.00 | −1.00 | +0.03 | −1.00 | +0.00 |
+| 83 | Amumu | −0.80 | −1.00 | −1.00 | −1.00 | −0.01 | −1.00 | +0.00 |
+| 84 | Kled | −0.80 | −1.00 | −1.00 | −1.00 | −0.02 | −1.00 | +0.00 |
+| 85 | Ornn | −0.80 | −1.00 | −1.00 | −1.00 | −0.03 | −1.00 | +0.00 |
+| 86 | Leona | −0.81 | −1.00 | −1.00 | −1.00 | −0.06 | −1.00 | +0.00 |
+| 87 | Sivir | −0.82 | −1.00 | −1.00 | −1.00 | −0.23 | – | +0.00 |
+| 88 | Vladimir | −0.82 | −1.00 | −1.00 | −1.00 | −0.11 | −1.00 | +0.00 |
+| 89 | Rammus | −0.82 | −1.00 | −1.00 | −1.00 | −0.16 | −1.00 | +0.00 |
+| 90 | Singed | −0.84 | −1.00 | −1.00 | −1.00 | −0.29 | −1.00 | +0.00 |
+
+## Interaction ledger estimates
+
 Every champion ranked by what its kit does against Smolder's, from the interaction ledger: projectile blocks, spell shields,
 parries, dash stops, crowd control and its defenses, range and more (PLAN.md §5). This ranking is **partial**: it weighs the
 interactions but doesn't play the fight out. The duel simulator replaces it as each champion's behavior is verified.
@@ -8,66 +107,66 @@ interactions but doesn't play the fight out. The duel simulator replaces it as e
 A hard counter shuts down part of a kit every time it is used (projectile block, attack dodge, attack block, blind, disarm, attack speed slow, attack reflect, dash stop, grounding, range) with an impact of 0.4 or more (0.5 for range).
 Run `npm run matchup -- <champion> Smolder` for the full ledger of a matchup, with sources.
 
-## Top 10
+### Top 10
 
-### 1. Samira (net +0.80)
+#### 1. Samira (net +0.80)
 
 - **0.55** projectile block: Blade Whirl blocks Smolder's MMOOOMMMM!, a projectile. Blade Whirl for 0.75 s; MMOOOMMMM! takes 3.25 s to land, enough to react. (Samira W Blade Whirl → Smolder R MMOOOMMMM!)
 - **0.30** projectile block: Blade Whirl blocks Smolder's Achooo!, a projectile. Blade Whirl for 0.75 s; Achooo! takes 1.1 s to land, enough to react. (Samira W Blade Whirl → Smolder W Achooo!)
 - **0.27** projectile block: Blade Whirl blocks Smolder's basic attacks, which are projectiles. Blade Whirl lasts 0.75 s on a 22 s cooldown. (Samira W Blade Whirl → Smolder basic attacks)
 
-### 2. Mel (net +0.79)
+#### 2. Mel (net +0.79)
 
 - **0.55** projectile block: Rebuttal blocks Smolder's MMOOOMMMM!, a projectile. Rebuttal for 0.75 s; MMOOOMMMM! takes 3.25 s to land, enough to react. (Mel W Rebuttal → Smolder R MMOOOMMMM!)
 - **0.28** projectile block: Rebuttal blocks Smolder's Achooo!, a projectile. Rebuttal for 0.75 s; Achooo! takes 1.1 s to land, enough to react. (Mel W Rebuttal → Smolder W Achooo!)
 - **0.27** projectile block: Rebuttal blocks Smolder's basic attacks, which are projectiles. Rebuttal lasts 0.75 s on a 26 s cooldown. (Mel W Rebuttal → Smolder basic attacks)
 
-### 3. Yuumi (net +0.73)
+#### 3. Yuumi (net +0.73)
 
 - **0.55** untargetable: You and Me! makes Yuumi untargetable, dodging Smolder's MMOOOMMMM!. Untargetable for ?; MMOOOMMMM! takes 3.25 s to land, enough to react. Does not destroy inbound projectiles, special cased to be targetable to turrets. (Yuumi W You and Me! → Smolder R MMOOOMMMM!)
 - **0.55** untargetable: You and Me! makes Yuumi untargetable, dodging Smolder's Super Scorcher Breath. Untargetable for ?; Super Scorcher Breath takes 0.57 s to land, enough to react. Does not destroy inbound projectiles, special cased to be targetable to turrets. (Yuumi W You and Me! → Smolder Q Super Scorcher Breath)
 - Watch out: Smolder's basic attacks reach 125 units farther than Yuumi's (550 vs 425 attack range).
 
-### 4. Sivir (net +0.69)
+#### 4. Sivir (net +0.69)
 
 - **0.55** spell shield: Spell Shield's spell shield blocks Smolder's MMOOOMMMM!. Spell shield for 1.5 s, long enough to use ahead of MMOOOMMMM!. A spell shield blocks only the first enemy ability that reaches it. (Sivir E Spell Shield → Smolder R MMOOOMMMM!)
 - **0.28** spell shield: Spell Shield's spell shield blocks Smolder's Super Scorcher Breath. Spell shield for 1.5 s, long enough to use ahead of Super Scorcher Breath. A spell shield blocks only the first enemy ability that reaches it. (Sivir E Spell Shield → Smolder Q Super Scorcher Breath)
 
-### 5. Aurora (net +0.67)
+#### 5. Aurora (net +0.67)
 
 - **0.55** untargetable: Between Worlds makes Aurora untargetable, dodging Smolder's MMOOOMMMM!. Untargetable for 0.4 s; MMOOOMMMM! takes 3.25 s to land, enough to react. Does not destroy inbound projectiles. (Aurora R Between Worlds → Smolder R MMOOOMMMM!)
 - **0.23** untargetable: Between Worlds makes Aurora untargetable, dodging Smolder's Super Scorcher Breath. Untargetable for 0.4 s; Super Scorcher Breath takes 0.57 s to land, enough to react. Does not destroy inbound projectiles. (Aurora R Between Worlds → Smolder Q Super Scorcher Breath)
 
-### 6. Bard (net +0.67)
+#### 6. Bard (net +0.67)
 
 - **0.55** untargetable: Tempered Fate makes Bard untargetable, dodging Smolder's MMOOOMMMM!. Untargetable for 2.5 s, long enough to use ahead of MMOOOMMMM!. (Bard R Tempered Fate → Smolder R MMOOOMMMM!)
 - **0.23** untargetable: Tempered Fate makes Bard untargetable, dodging Smolder's Super Scorcher Breath. Untargetable for 2.5 s, long enough to use ahead of Super Scorcher Breath. (Bard R Tempered Fate → Smolder Q Super Scorcher Breath)
 
-### 7. Lissandra (net +0.67)
+#### 7. Lissandra (net +0.67)
 
 - **0.55** untargetable: Frozen Tomb makes Lissandra untargetable, dodging Smolder's MMOOOMMMM!. Untargetable for 2.5 s, long enough to use ahead of MMOOOMMMM!. (Lissandra R Frozen Tomb → Smolder R MMOOOMMMM!)
 - **0.23** untargetable: Frozen Tomb makes Lissandra untargetable, dodging Smolder's Super Scorcher Breath. Untargetable for 2.5 s, long enough to use ahead of Super Scorcher Breath. (Lissandra R Frozen Tomb → Smolder Q Super Scorcher Breath)
 
-### 8. Xayah (net +0.67)
+#### 8. Xayah (net +0.67)
 
 - **0.55** untargetable: Featherstorm makes Xayah untargetable, dodging Smolder's MMOOOMMMM!. Untargetable for 1.5 s, long enough to use ahead of MMOOOMMMM!. (Xayah R Featherstorm → Smolder R MMOOOMMMM!)
 - **0.23** untargetable: Featherstorm makes Xayah untargetable, dodging Smolder's Super Scorcher Breath. Untargetable for 1.5 s, long enough to use ahead of Super Scorcher Breath. (Xayah R Featherstorm → Smolder Q Super Scorcher Breath)
 
-### 9. Yasuo (net +0.65)
+#### 9. Yasuo (net +0.65)
 
 - **0.55** projectile block: Wind Wall blocks Smolder's MMOOOMMMM!, a projectile. Wind Wall for 4 s, long enough to use ahead of MMOOOMMMM!. (Yasuo W Wind Wall → Smolder R MMOOOMMMM!)
 - **0.35** projectile block: Wind Wall blocks Smolder's basic attacks, which are projectiles. Wind Wall lasts 4 s on a 17 s cooldown. (Yasuo W Wind Wall → Smolder basic attacks)
 - **0.34** projectile block: Wind Wall blocks Smolder's Achooo!, a projectile. Wind Wall for 4 s, long enough to use ahead of Achooo!. (Yasuo W Wind Wall → Smolder W Achooo!)
 - Watch out: Smolder's basic attacks reach 375 units farther than Yasuo's (550 vs 175 attack range).
 
-### 10. Braum (net +0.61)
+#### 10. Braum (net +0.61)
 
 - **0.55** projectile block: Unbreakable blocks Smolder's MMOOOMMMM!, a projectile. Unbreakable for 4 s, long enough to use ahead of MMOOOMMMM!. (Braum E Unbreakable → Smolder R MMOOOMMMM!)
 - **0.45** projectile block: Unbreakable blocks Smolder's Achooo!, a projectile. Unbreakable for 4 s, long enough to use ahead of Achooo!. (Braum E Unbreakable → Smolder W Achooo!)
 - **0.45** projectile block: Unbreakable blocks Smolder's basic attacks, which are projectiles. Unbreakable lasts 4 s on a 8 s cooldown. (Braum E Unbreakable → Smolder basic attacks)
 - Watch out: Smolder's basic attacks reach 425 units farther than Braum's (550 vs 125 attack range).
 
-## Full ranking
+### Full ranking
 
 | # | Champion | Net | For | Against | Hard counters |
 |--:|---|--:|--:|--:|---|

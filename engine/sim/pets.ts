@@ -13,11 +13,14 @@ import { CC_RULES, type CCType } from "../rules/crowdControl";
 import { derive, evaluate, hasState } from "./derived";
 import { petAttackEffects, petCombatHit } from "./petCombat";
 import { petFormulaTarget } from "./petTarget";
+import { projectileAuraBlocked } from "./projectileBlock";
 import type { Effect, PetDamageCategory, PetSpec } from "./spec";
 import { type Pet, type PetMissile, type Side, type Unit, type World, other } from "./state";
 
 /** Places a pet of `owner`'s at `x`; `text` says who placed it when that isn't the owner (a Spirit pulled out of its champion). */
 export function spawnPet(world: World, owner: Unit, spec: PetSpec, x: number, text?: { side: Side; text: string }): Pet {
+  const targetClass = spec.targetClass ?? owner.spec.petTargetClasses?.[spec.name];
+  if (targetClass !== undefined && spec.targetClass === undefined) spec = { ...spec, targetClass };
   const pet: Pet = {
     id: world.nextId++,
     owner: owner.side,
@@ -54,12 +57,12 @@ function removePet(world: World, pet: Pet, byOwner: boolean): void {
  * Damage to a pet from `attacker`: a basic attack (`attack`) or anything else. Pets that count
  * hits lose 1 to each champion basic attack and ignore the rest.
  */
-export function damagePet(world: World, attacker: Unit, pet: Pet, raw: number, type: DamageType, attack: boolean, ability?: string, category: PetDamageCategory = attack ? "basic" : "singleTarget", packetScale = 1): void {
-  if (!world.pets.includes(pet)) return;
+export function damagePet(world: World, attacker: Unit, pet: Pet, raw: number, type: DamageType, attack: boolean, ability?: string, category: PetDamageCategory = attack ? "basic" : "singleTarget", packetScale = 1): number {
+  if (!world.pets.includes(pet)) return 0;
   const target = petFormulaTarget(pet, attacker, world.tick);
   const outsideGuard = target.statuses.some((status) => status.kind === "state" && status.key === "invulnerableFar" && Math.abs(attacker.x - target.x) > status.value + 1e-6);
   // Existing persistent damage can continue through untargetability, just as on champions.
-  if (hasState(target, "invulnerable") || outsideGuard || inStasis(target)) return;
+  if (hasState(target, "invulnerable") || outsideGuard || inStasis(target)) return 0;
   let amount: number;
   if (attack && attacker.petId === undefined && pet.spec.diesToChampionAttack) {
     amount = Math.max(0, pet.hp);
@@ -67,7 +70,7 @@ export function damagePet(world: World, attacker: Unit, pet: Pet, raw: number, t
     const table = pet.spec.fixedDamage;
     amount = (attacker.petId !== undefined && attack ? table.pet ?? 0 : attack ? (attacker.spec.attack.ranged ? table.rangedBasic : table.meleeBasic) ?? table.basic ?? 0 : table[category] ?? 0) * packetScale;
   } else if (pet.spec.hitPoints) {
-    if (!attack) return;
+    if (!attack) return 0;
     amount = 1;
   } else {
     const a = derive(attacker), p = derive(target);
@@ -79,7 +82,28 @@ export function damagePet(world: World, attacker: Unit, pet: Pet, raw: number, t
   pet.hp -= amount;
   log(world, attacker.side, `hits ${pet.spec.name} for ${Math.round(amount)}${pet.hp <= 0 ? ", destroying it" : ""}`);
   pet.spec.onDamaged?.({ world, pet, attacker, raw, dealt: amount, before, damageType: type, attack, ...(ability ? { ability } : {}) });
-  if (pet.hp <= 0 && world.pets.includes(pet)) { notifyKill(world, attacker, pet); removePet(world, pet, attacker.side === pet.owner); }
+  if (pet.hp <= 0 && world.pets.includes(pet)) { notifyKill(world, attacker, pet, { ...(ability ? { ability } : {}), persistent: category === "persistent" }); removePet(world, pet, attacker.side === pet.owner); }
+  return amount;
+}
+
+/** A protected pet drops only the actions and projectiles actually aimed at that pet. */
+function dropPetTargeting(world: World, pet: Pet, dropMissiles: boolean, stasis: boolean): void {
+  if (dropMissiles) {
+    world.missiles = world.missiles.filter((missile) => !(missile.pet === pet.id && missile.homing && (!missile.hitsUntargetable || stasis)));
+    if (world.petMissiles) world.petMissiles = world.petMissiles.filter((missile) => typeof missile.target === "number" || missile.target.pet !== pet.id);
+  }
+  for (const unit of world.units) {
+    if (unit.side === pet.owner) continue;
+    for (const action of [unit.action, unit.pendingAttack]) {
+      if (action?.kind !== "windup" || action.pet !== pet.id || (action.hitsUntargetable && !stasis)) continue;
+      if (unit.action === action) unit.action = undefined;
+      if (unit.pendingAttack === action) delete unit.pendingAttack;
+      unit.attackReadyTick = world.tick;
+    }
+  }
+  for (const attacker of world.pets) {
+    if (attacker.owner !== pet.owner && typeof attacker.windup?.target !== "number" && attacker.windup?.target.pet === pet.id) delete attacker.windup;
+  }
 }
 
 /** Effects applied to the actual pet: its CC and clocks never belong to its owner. */
@@ -112,12 +136,15 @@ export function petEffects(world: World, caster: Unit, pet: Pet, effects: readon
         const before = pet.hp;
         pet.hp = 0;
         pet.spec.onDamaged?.({ world, pet, attacker: caster, raw: before, dealt: before, before, damageType: "true", attack: false, ...(ability ? { ability } : {}) });
-        if (pet.hp <= 0 && world.pets.includes(pet)) { notifyKill(world, caster, pet); removePet(world, pet, caster.side === pet.owner); }
+        if (pet.hp <= 0 && world.pets.includes(pet)) { notifyKill(world, caster, pet, { ...(ability ? { ability } : {}), persistent: category === "persistent" }); removePet(world, pet, caster.side === pet.owner); }
       }
     } else if (effect.type === "state" || effect.type === "stat" || effect.type === "cleanse" || effect.type === "mark") {
       delete target.petId;
       applyEffect(world, caster, target, effect, context);
       pet.statuses = target.statuses;
+      if (effect.type === "state" && ["untargetable", "stasis", "invisible"].includes(effect.state)) {
+        dropPetTargeting(world, pet, effect.state !== "invisible", effect.state === "stasis");
+      }
     }
   }
 }
@@ -171,22 +198,27 @@ function disabled(pet: Pet, action: "movement" | "attacking"): boolean { return 
 /** Launched projectiles survive their pet, and can meet a projectile wall before impact. */
 function advancePetMissiles(world: World): void {
   const keep: PetMissile[] = [];
-  for (const missile of world.petMissiles ?? []) {
+  const snapshot = [...(world.petMissiles ?? [])];
+  const initialIds = new Set(snapshot.map((missile) => missile.id));
+  for (const missile of snapshot) {
+    // Another contact can make a target untargetable and remove its pending missiles.
+    if (!world.petMissiles?.some((current) => current.id === missile.id)) continue;
     const target = resolvePetTarget(world, missile.target);
     const pet = world.pets.find((candidate) => candidate.id === missile.pet) ?? missile.sourcePet;
     if (!target || !pet || ("alive" in target && !target.alive) || ("owner" in target && !world.pets.includes(target))) continue;
     const direction = target.x >= missile.x ? 1 : -1;
     const from = missile.x, remaining = Math.max(0, Math.abs(target.x - from) - targetRadius(target));
     missile.x += direction * Math.min(missile.perTick, remaining);
-    const blocked = missile.projectile && world.zones.some((zone) => zone.kind === "projectileWall" && zone.owner !== missile.owner && zone.startTick <= world.tick && zone.endTick > world.tick && Math.max(Math.min(from, missile.x), zone.x - zone.radius) <= Math.min(Math.max(from, missile.x), zone.x + zone.radius));
+    const blocked = missile.projectile && (projectileAuraBlocked(world, missile.owner, from, missile.x) || world.zones.some((zone) => zone.kind === "projectileWall" && zone.owner !== missile.owner && zone.startTick <= world.tick && zone.endTick > world.tick && Math.max(Math.min(from, missile.x), zone.x - zone.radius) <= Math.min(Math.max(from, missile.x), zone.x + zone.radius)));
     if (blocked) { log(world, other(missile.owner), `blocks a projectile (${pet.spec.name})`); continue; }
     if (remaining <= missile.perTick + 1e-6) {
-      if (missile.projectile && !("owner" in target) && target.statuses.some((status) => status.kind === "state" && status.key === "projectileBlock")) continue;
       petHit(world, pet, target, missile.effects, missile.attackLike ?? true, missile.blinded);
     }
     else keep.push(missile);
   }
-  world.petMissiles = keep;
+  const current = world.petMissiles ?? [];
+  const remainingIds = new Set(current.map((missile) => missile.id));
+  world.petMissiles = [...keep.filter((missile) => remainingIds.has(missile.id)), ...current.filter((missile) => !initialIds.has(missile.id))];
 }
 
 function launchPetAttack(world: World, pet: Pet): void {

@@ -58,7 +58,11 @@ describe.each(Object.keys(KITS).sort())("%s kit", (id) => {
       if (fight.mode === "fight") expect(outcome.damage[0], fight.enemy.id).toBeGreaterThan(0);
       for (const e of outcome.timeline) if (e.side === 0 && (e.text.startsWith("casts ") || e.text.endsWith(" fires"))) cast.add(e.text.replace(/^casts /, "").replace(/ fires$/, ""));
     }
-    expect(cast.size, [...cast].join(", ")).toBeGreaterThanOrEqual(3);
+    if (id === "Kalista") {
+      // The solo duel has no Oathsworn for R or Soul-Mark. A vision scout's W
+      // contributes no combat effect here; require both real offensive spells.
+      expect([...cast].sort()).toEqual(["Pierce", "Rend"]);
+    } else expect(cast.size, [...cast].join(", ")).toBeGreaterThanOrEqual(3);
   });
 });
 

@@ -280,7 +280,7 @@ Effects marked by a mark or a role are completed by the kit's hooks (see the kit
 - Gangplank sets a keg 330 units in front of the enemy, inside the blast and out of a melee enemy's reach (ahead of an enemy walking away), where Parrrley can reach it; when it is down to 1 hit point he sets it off, first adding a connected keg on the enemy if it stepped out. He places none while fleeing.
 - Cannon Barrage's first wave lands 0.5 s after the cast (the game files' CannonDelay); his ship has no upgrades.
 
-### Source values read (49)
+### Source values read (50)
 
 | Ability | Value | Source version |
 |---|---|---|
@@ -333,3 +333,4 @@ Effects marked by a mark or a role are completed by the kit's hooks (see the kit
 | Cannon Barrage | cooldown: 160 / 140 / 120 | [4048098](https://wiki.leagueoflegends.com/en-us/Template:Data_Gangplank/Cannon_Barrage?oldid=4048098) |
 | Cannon Barrage | cost: 100 | [4048098](https://wiki.leagueoflegends.com/en-us/Template:Data_Gangplank/Cannon_Barrage?oldid=4048098) |
 | Cannon Barrage | castTime: 0.25 | [4048098](https://wiki.leagueoflegends.com/en-us/Template:Data_Gangplank/Cannon_Barrage?oldid=4048098) |
+| Powder Keg | Minion | [4069804](https://wiki.leagueoflegends.com/en-us/Gangplank?oldid=4069804) |

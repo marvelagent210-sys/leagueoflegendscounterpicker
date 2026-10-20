@@ -220,7 +220,7 @@ Effects marked by a mark or a role are completed by the kit's hooks (see the kit
 - With the lane set up, one mushroom lies halfway between Teemo and his enemy when the fight starts.
 - Teemo drops mushrooms at his feet while his enemy chases him; Guerrilla Warfare's stealth isn't modeled.
 
-### Source values read (29)
+### Source values read (30)
 
 | Ability | Value | Source version |
 |---|---|---|
@@ -253,3 +253,4 @@ Effects marked by a mark or a role are completed by the kit's hooks (see the kit
 | Noxious Trap | recharge: 35 / 30 / 25 | [4015245](https://wiki.leagueoflegends.com/en-us/Template:Data_Teemo/Noxious_Trap?oldid=4015245) |
 | Noxious Trap | cost: 75 / 55 / 35 | [4015245](https://wiki.leagueoflegends.com/en-us/Template:Data_Teemo/Noxious_Trap?oldid=4015245) |
 | Noxious Trap | castTime: 0.25 | [4015245](https://wiki.leagueoflegends.com/en-us/Template:Data_Teemo/Noxious_Trap?oldid=4015245) |
+| Mushroom Trap | Ward | [3994789](https://wiki.leagueoflegends.com/en-us/Teemo?oldid=3994789) |

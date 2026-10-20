@@ -19,7 +19,7 @@ Cooldowns at max rank. Flags: the wiki's interaction flags (yes, no, partly). * 
 
 | Slot | Ability | Cooldown | Delivery | Applies to the enemy | Movement | Gives itself |
 |---|---|--:|---|---|---|---|
-| E | Stand Aside | 12 | projectile yes; spell shield yes | airborne (knock aside) 2 s; slow 2 s 40% | – | – |
+| E | Stand Aside | 12 | projectile yes; spell shield yes | airborne (knock aside); slow 2 s 40% | – | – |
 | I | League of Draven | – | – | – | – | – |
 | Q | Spinning Axe | 8 | projectile partly; parry yes; attack | – | – | – |
 | R | Whirling Death | 80 | projectile yes; spell shield partly | – | – | – |
@@ -134,7 +134,7 @@ Active: Draven throws a fan of axes in a line in the target direction, dealing p
 
 - **Physical Damage:** 75 / 110 / 145 / 180 / 215 (+ 50% bonus AD) → at max rank, level 20: 215 (+ 50% bonusAD)
 - **Slow:** 20 / 25 / 30 / 35 / 40% → at max rank, level 20: 40%
-- **Mechanics:** airborne (2 s); slow (2 s, 40%)
+- **Mechanics:** airborne; slow (2 s, 40%)
 
 Notes:
 
@@ -193,3 +193,88 @@ Cooldowns and costs of each slot's main ability, wiki vs game files:
 | E: Stand Aside | cost | 70 / 70 / 70 / 70 / 70 | 70 / 70 / 70 / 70 / 70 | yes |
 | R: Whirling Death | cooldown | 100 / 90 / 80 | 100 / 90 / 80 | yes |
 | R: Whirling Death | cost | 100 / 100 / 100 | 100 / 100 / 100 | yes |
+
+## Duel simulator kit (level 20, every ability at max rank)
+
+What the duel simulator fights with (`kits/champions/Draven.ts`): values come from pinned wiki and versioned game-data records at level 20. Interpretations and missing evidence are listed under assumptions. Ratios are fractions of the stat (60% AD is 0.6 × AD).
+
+- Basic attack: range 550, missile at 1600/s.
+- Options: adoration = 0.
+
+| Key | Ability | Cooldown (s) | Cast time (s) | Cost | Delivery | On the enemy | On itself |
+|---|---|--:|--:|---|---|---|---|
+| Q | Spinning Axe | 8 | 0 | 45 | self | – | – |
+| W | Blood Rush | 12 | 0 | 20 | self | – | attackSpeed 0.4 for 3 s; ghosted for 1.5 s |
+| E | Stand Aside | 12 | 0.25 | 70 | skillshot 1100 long, 260 wide, at 1400/s | 215 + 50% bonus AD physical damage; knock up over 0.5 s; slow 40% for 2 s | – |
+| R | Whirling Death | 80 | 0.5 | 100 | self | – | – |
+| Rreturn | Whirling Death (reverse) | 0 | 0 | – | self; recast of R within 13.5 s, after 1 s | – | – |
+| Raxe | Whirling Death | 0 | 0 | – | skillshot 25000 long, 320 wide, at 2000/s | 400 + 150% bonus AD physical damage | – |
+
+Effects marked by a mark or a role are completed by the kit's hooks (see the kit's source).
+
+### Assumptions
+
+- Adoration stacks before the duel: 0.
+- Spinning Axe starts unprimed. Q can ready up to two held axes and refreshes their shared 5.8-second lifetime; an attack consumes one at launch, so Q during a retained windup empowers that fired attack. Its 60 + 115% bonus AD is a non-critical addition inside the same ordinary physical basic packet. The separately sourced 1700 missile speed is used for an empowered axe; the game also contains older 1600-speed attack-animation wrappers.
+- Each axe contact schedules an independently catchable landing 1.4 seconds later, following the pinned wiki over the conflicting 1.2-second raw return-missile field. Stationary Draven's landing is his current center; while actually moving it is one 1.4-second movement projection ahead. Catching requires his gameplay hitbox to cover that center at the landing tick. The source does not pin a catch radius or precise landing projection; this is an explicit one-dimensional approximation, and the policy does not leave a safe attack position to optimize catches. Parry still returns the axe; blindness/dodge conservatively lose it. Projectile-wall destruction creates no landing. Movement changes, immobilization and displacement can therefore make a catch fail.
+- Blood Rush grants the sourced 40% attack speed for three seconds. Its 70% movement-speed bonus decays linearly to zero over 1.5 seconds and grants ghosting for that duration. The precise decay curve is not specified by the wiki; the client Temp_MSDecay is not used to assert server script timing. Successful catches reset its entire cooldown, even when the held-axe limit prevents another held empowerment.
+- Adoration begins at the explicit configurable stack count, default zero, gains one per successful catch and per actual enemy-summon kill, and cashes out only on a champion kill. Bonus gold is recorded without buying stats mid-duel. Its death loss is modeled at the lethal notification. Shared Riches, lane minions, turrets and team assists do not exist in this arena.
+- Stand Aside's sourced half-second sideways displacement becomes half a second of airborne interruption with zero longitudinal travel in the one-axis arena. Its two-second slow, spell shield, parry and displacement-immunity guards remain independent. No unsourced sideways distance or wall crossing is invented.
+- Whirling Death travels the pinned finite 25000-unit global range, pierces health-based enemy summons, and reverses on geometric champion contact, including a spell-shielded contact, or range/recast. The axes decelerate at the game's 4500 units/s² on the original line, then accelerate at that rate up to 2000 while following Draven's current position. Thirty-Hz integration rounds this turnaround rather than reproducing sub-tick server motion. Damage drops multiplicatively by 5% per contacted unit to a 50% floor, independently resets for the return pass, and each target can be hit once per pass. Ordinary sight/minimap information has no fog-of-war effect.
+- The policy primes Q before an available basic attack, refreshes Blood Rush while fighting, and preserves default defensive responses. The sustained reference values the lesser of attack speed and two continuously juggled axes per attack-flight-plus-return cycle, capped bonus attack speed at full catch-supported uptime, and two complete ultimate passes per cooldown. It assumes successful catches and target occupancy as a stat valuation, not a guarantee of the actual simulated result.
+
+### Source values read (51)
+
+| Ability | Value | Source version |
+|---|---|---|
+| League of Draven | When Draven catches a Spinning Axe, kills a non-champion, or destroys a turret, he gains a stack of Adoration | [4040578](https://wiki.leagueoflegends.com/en-us/Template:Data_Draven/League_of_Draven?oldid=4040578) |
+| League of Draven | gains 25 + (2 × stacks) bonus gold | [4040578](https://wiki.leagueoflegends.com/en-us/Template:Data_Draven/League_of_Draven?oldid=4040578) |
+| League of Draven | loses 50% of his Adoration stacks | [4040578](https://wiki.leagueoflegends.com/en-us/Template:Data_Draven/League_of_Draven?oldid=4040578) |
+| Spinning Axe | Bonus Physical Damage: 40 / 45 / 50 / 55 / 60 (+ 75 / 85 / 95 / 105 / 115% bonus AD) | [3997560](https://wiki.leagueoflegends.com/en-us/Template:Data_Draven/Spinning_Axe?oldid=3997560) |
+| Spinning Axe | within 5.8 seconds | [3997560](https://wiki.leagueoflegends.com/en-us/Template:Data_Draven/Spinning_Axe?oldid=3997560) |
+| Spinning Axe | land after roughly 1.4 seconds | [3997560](https://wiki.leagueoflegends.com/en-us/Template:Data_Draven/Spinning_Axe?oldid=3997560) |
+| Spinning Axe | Draven can hold up to two Spinning Axes at once | [3997560](https://wiki.leagueoflegends.com/en-us/Template:Data_Draven/Spinning_Axe?oldid=3997560) |
+| Spinning Axe | Recasting Spinning Axe will refresh the buff and add another axe if possible | [3997560](https://wiki.leagueoflegends.com/en-us/Template:Data_Draven/Spinning_Axe?oldid=3997560) |
+| Spinning Axe | The axe will still bounce against parrying effects | [3997560](https://wiki.leagueoflegends.com/en-us/Template:Data_Draven/Spinning_Axe?oldid=3997560) |
+| Spinning Axe | Spinning Axe attacks deal their total increased damage in a single instance of basic damage | [3997560](https://wiki.leagueoflegends.com/en-us/Template:Data_Draven/Spinning_Axe?oldid=3997560) |
+| Spinning Axe | If a Spinning Axe is readied during a basic attack wind-up, the effects will be applied to the fired attack | [3997560](https://wiki.leagueoflegends.com/en-us/Template:Data_Draven/Spinning_Axe?oldid=3997560) |
+| Spinning Axe | they will be destroyed upon collision | [3997560](https://wiki.leagueoflegends.com/en-us/Template:Data_Draven/Spinning_Axe?oldid=3997560) |
+| Spinning Axe | "mSpeed":1700.0 | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/draven/draven.bin.json) |
+| Blood Rush | Bonus Attack Speed: 20 / 25 / 30 / 35 / 40% | [3982566](https://wiki.leagueoflegends.com/en-us/Template:Data_Draven/Blood_Rush?oldid=3982566) |
+| Blood Rush | Bonus Movement Speed: 50 / 55 / 60 / 65 / 70% | [3982566](https://wiki.leagueoflegends.com/en-us/Template:Data_Draven/Blood_Rush?oldid=3982566) |
+| Blood Rush | attack speed for 3 seconds | [3982566](https://wiki.leagueoflegends.com/en-us/Template:Data_Draven/Blood_Rush?oldid=3982566) |
+| Blood Rush | ghosting for 1.5 seconds | [3982566](https://wiki.leagueoflegends.com/en-us/Template:Data_Draven/Blood_Rush?oldid=3982566) |
+| Blood Rush | Catching a Spinning Axe resets Blood Rush's cooldown | [3982566](https://wiki.leagueoflegends.com/en-us/Template:Data_Draven/Blood_Rush?oldid=3982566) |
+| Blood Rush | while the effect is already active will refresh the duration | [3982566](https://wiki.leagueoflegends.com/en-us/Template:Data_Draven/Blood_Rush?oldid=3982566) |
+| Stand Aside | Physical Damage: 75 / 110 / 145 / 180 / 215 (+ 50% bonus AD) | [4034694](https://wiki.leagueoflegends.com/en-us/Template:Data_Draven/Stand_Aside?oldid=4034694) |
+| Stand Aside | Slow: 20 / 25 / 30 / 35 / 40% | [4034694](https://wiki.leagueoflegends.com/en-us/Template:Data_Draven/Stand_Aside?oldid=4034694) |
+| Stand Aside | slowing them for 2 seconds | [4034694](https://wiki.leagueoflegends.com/en-us/Template:Data_Draven/Stand_Aside?oldid=4034694) |
+| Stand Aside | mSpell.DataValues.KnockbackDuration.values: [0.5,0.5,0.5,0.5,0.5,0.5,0.5] | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/draven/draven.bin.json) |
+| Stand Aside | knocking them aside, though not through terrain | [4034694](https://wiki.leagueoflegends.com/en-us/Template:Data_Draven/Stand_Aside?oldid=4034694) |
+| Whirling Death | Physical Damage: 200 / 300 / 400 (+ 110 / 130 / 150% bonus AD) | [4040576](https://wiki.leagueoflegends.com/en-us/Template:Data_Draven/Whirling_Death?oldid=4040576) |
+| Whirling Death | speed: 2000 | [4040576](https://wiki.leagueoflegends.com/en-us/Template:Data_Draven/Whirling_Death?oldid=4040576) |
+| Whirling Death | width: 320 | [4040576](https://wiki.leagueoflegends.com/en-us/Template:Data_Draven/Whirling_Death?oldid=4040576) |
+| Whirling Death | recast after 1 second | [4040576](https://wiki.leagueoflegends.com/en-us/Template:Data_Draven/Whirling_Death?oldid=4040576) |
+| Whirling Death | Minimum Physical Damage: 100 / 150 / 200 (+ 55 / 65 / 75% bonus AD) | [4040576](https://wiki.leagueoflegends.com/en-us/Template:Data_Draven/Whirling_Death?oldid=4040576) |
+| Whirling Death | 100 / 95 / 90.25 | [4040576](https://wiki.leagueoflegends.com/en-us/Template:Data_Draven/Whirling_Death?oldid=4040576) |
+| Whirling Death | Enemy champions that are damaged to or while below a health threshold equal to the number of Adoration stacks are executed | [4040576](https://wiki.leagueoflegends.com/en-us/Template:Data_Draven/Whirling_Death?oldid=4040576) |
+| Whirling Death | resetting upon reversing direction | [4040576](https://wiki.leagueoflegends.com/en-us/Template:Data_Draven/Whirling_Death?oldid=4040576) |
+| Whirling Death | Enemies can be hit only once per pass | [4040576](https://wiki.leagueoflegends.com/en-us/Template:Data_Draven/Whirling_Death?oldid=4040576) |
+| Whirling Death | Spell shield will block one instance of damage | [4040576](https://wiki.leagueoflegends.com/en-us/Template:Data_Draven/Whirling_Death?oldid=4040576) |
+| Whirling Death | mSpell.castRange: [25000.0,25000.0,25000.0,25000.0,25000.0,25000.0,25000.0] | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/draven/draven.bin.json) |
+| Whirling Death | "mAcceleration":4500.0 | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/draven/draven.bin.json) |
+| Spinning Axe | cooldown: 12 / 11 / 10 / 9 / 8 | [3997560](https://wiki.leagueoflegends.com/en-us/Template:Data_Draven/Spinning_Axe?oldid=3997560) |
+| Blood Rush | cooldown: 12 | [3982566](https://wiki.leagueoflegends.com/en-us/Template:Data_Draven/Blood_Rush?oldid=3982566) |
+| Stand Aside | cooldown: 16 / 15 / 14 / 13 / 12 | [4034694](https://wiki.leagueoflegends.com/en-us/Template:Data_Draven/Stand_Aside?oldid=4034694) |
+| Whirling Death | cooldown: 100 / 90 / 80 | [4040576](https://wiki.leagueoflegends.com/en-us/Template:Data_Draven/Whirling_Death?oldid=4040576) |
+| Whirling Death | castTime: 0.5 | [4040576](https://wiki.leagueoflegends.com/en-us/Template:Data_Draven/Whirling_Death?oldid=4040576) |
+| Spinning Axe | cost: 45 | [3997560](https://wiki.leagueoflegends.com/en-us/Template:Data_Draven/Spinning_Axe?oldid=3997560) |
+| Spinning Axe | castTime: none | [3997560](https://wiki.leagueoflegends.com/en-us/Template:Data_Draven/Spinning_Axe?oldid=3997560) |
+| Blood Rush | cost: 40 / 35 / 30 / 25 / 20 | [3982566](https://wiki.leagueoflegends.com/en-us/Template:Data_Draven/Blood_Rush?oldid=3982566) |
+| Blood Rush | castTime: none | [3982566](https://wiki.leagueoflegends.com/en-us/Template:Data_Draven/Blood_Rush?oldid=3982566) |
+| Stand Aside | cost: 70 | [4034694](https://wiki.leagueoflegends.com/en-us/Template:Data_Draven/Stand_Aside?oldid=4034694) |
+| Stand Aside | castTime: 0.25 | [4034694](https://wiki.leagueoflegends.com/en-us/Template:Data_Draven/Stand_Aside?oldid=4034694) |
+| Stand Aside | targetRange: 1100 | [4034694](https://wiki.leagueoflegends.com/en-us/Template:Data_Draven/Stand_Aside?oldid=4034694) |
+| Stand Aside | width: 260 | [4034694](https://wiki.leagueoflegends.com/en-us/Template:Data_Draven/Stand_Aside?oldid=4034694) |
+| Stand Aside | speed: 1400 | [4034694](https://wiki.leagueoflegends.com/en-us/Template:Data_Draven/Stand_Aside?oldid=4034694) |
+| Whirling Death | cost: 100 | [4040576](https://wiki.leagueoflegends.com/en-us/Template:Data_Draven/Whirling_Death?oldid=4040576) |

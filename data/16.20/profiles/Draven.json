@@ -52,8 +52,7 @@
               "quote": "Active: Draven throws a fan of axes in a line in the target direction, dealing physical damage to enemies hit, knocking them aside, though not through terrain, and slowing them for 2 seconds."
             }
           ],
-          "variant": "knock aside",
-          "duration": 2
+          "variant": "knock aside"
         },
         {
           "type": "slow",

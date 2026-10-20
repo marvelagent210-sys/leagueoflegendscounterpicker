@@ -1,5 +1,5 @@
 /** Pet attack actors: incoming hooks see the attacking pet, without lending it owner actions. */
-import { applyEffect, attackHit, inStasis, isUntargetable, log } from "./combat";
+import { applyEffect, attackHit, consumeSpellShield, inStasis, isUntargetable, log } from "./combat";
 import { evaluate, hasState } from "./derived";
 import { petFormulaTarget } from "./petTarget";
 import type { Effect } from "./spec";
@@ -31,17 +31,20 @@ export function petCombatHit(world: World, pet: Pet, target: Unit | Pet, effects
   if (targetPet) victim.petId = targetPet.id;
   if (!victim.alive || isUntargetable(victim, actor) || inStasis(victim) || targetPet?.spec.untargetable) return false;
   const mayConnect = !attackLike || (!blinded && !hasState(victim, "dodgeAttacks") && !hasState(victim, "parry"));
+  if (targetPet && !mayConnect) return false;
   const actualEffects = mayConnect ? pet.spec.effectsForHit?.({ world, pet, target, effects }) ?? effects : effects;
   const packets = petAttackEffects(owner, victim, actualEffects);
   let connected = false, blocked = false;
   if (attackLike) {
-    actor.spec.hooks = { onAttackResolved(ctx) { connected = !ctx.missed && !(ctx.blocked && hasState(victim, "parry")); blocked = ctx.blocked; } };
+    actor.spec.hooks = {
+      onAttackResolved(ctx) { connected = !ctx.missed && !(ctx.blocked && hasState(victim, "parry")); blocked = ctx.blocked; },
+      onAttackPetHit(ctx) { connected = true; blocked = ctx.blocked; },
+    };
     attackHit(world, actor, victim, blinded, packets, undefined, false, { critChance: 0 });
   } else {
     const shield = victim.statuses.find((status) => status.kind === "state" && status.key === "spellShield");
     if (shield) {
-      shield.charges = (shield.charges ?? 1) - 1;
-      if (shield.charges <= 0) victim.statuses = victim.statuses.filter((status) => status !== shield);
+      consumeSpellShield(world, actor, victim);
       log(world, victim.side, `spell shield blocks ${pet.spec.name}`);
     } else if (!hasState(victim, "parry")) {
       for (const effect of packets) applyEffect(world, actor, victim, effect, { scale: 1 });

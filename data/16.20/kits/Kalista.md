@@ -281,3 +281,105 @@ Cooldowns and costs of each slot's main ability, wiki vs game files:
 | E: Rend | cost | 30 / 30 / 30 / 30 / 30 | 30 / 30 / 30 / 30 / 30 | yes |
 | R: Fate's Call | cooldown | 160 / 140 / 120 | 160 / 140 / 120 | yes |
 | R: Fate's Call | cost | 100 / 100 / 100 | 100 / 100 / 100 | yes |
+
+## Duel simulator kit (level 20, every ability at max rank)
+
+What the duel simulator fights with (`kits/champions/Kalista.ts`): values come from pinned wiki and versioned game-data records at level 20. Interpretations and missing evidence are listed under assumptions. Ratios are fractions of the stat (60% AD is 0.6 × AD).
+
+- Basic attack: range 525, missile at 2600/s.
+- Options: martialPoise = 1.
+
+| Key | Ability | Cooldown (s) | Cast time (s) | Cost | Delivery | On the enemy | On itself |
+|---|---|--:|--:|---|---|---|---|
+| Q | Pierce | 9 | 0.25 | 80 | skillshot 1200 long, 80 wide, at 2400/s | 270 + 105% AD physical damage | – |
+| W | Sentinel | 2 charges, one every 50 s (30 s between casts) | 0.5 | – | self | – | – |
+| E | Rend | 8 | depends on stats (0.25 base) | 30 | self | – | – |
+| R | Fate's Call | 120 | 0 | 100 | self | – | – |
+| RendLock | Rend (cast lock) | 0 | 0 | – | self | – | – |
+| Hop | Martial Poise | 0 | 0 | – | self | – | – |
+| Ehit | Rend | 0 | 0 | – | self | 45 + 70% AD + 65% AP physical damage | – |
+
+Effects marked by a mark or a role are completed by the kit's hooks (see the kit's source).
+
+### Assumptions
+
+- Use barefeet Martial Poise hops (0 disables the approximate dash policy): 1.
+- The current pinned basic attack deals ordinary100%AD physical damage and ordinary critical strikes; historical90%AD and sight-loss penalties are absent from the current source. Its35.9999998659% base windup uses the pinned0.75 modifier, is uncancellable by movement, and may be cancelled by Rend. Automatic retargeting during an already-declared windup is not optimized.
+- Martial Poise defaults to barefeet forward140/backward225-unit attack hops and forward300/backward150-unit Pierce hops on the duel's axis. The normal policy buffers a retreat while kiting/fleeing or while a backward hop retains attack range, otherwise an advance. It uses the sourced nominal1025 speed, scaled by the engine's multiplicative movement-speed/slows while excluding additive movement-speed buffs. The complete attack-speed velocity formula is not present in the pinned wiki/client evidence; positive AS velocity scaling remains unresolved and is deliberately omitted. This can understate high-AS Kalista kiting. Set martialPoise=0 to inspect stationary combat. No unproved full-speed formula or boot item is invented. Terrain uses the shared clear-endpoint jump rules, and ordinary immobilization/grounding prevents launch; the source's sleep knockdown bug is not specially emulated.
+- Rend lives on each actual champion/summon, starts empty, refreshes4 seconds, and caps254 stacks. Accepted basics and unshielded Pierce apply stacks; blind/dodge/block/parry do not. E consumes all eligible in-range marks and resolves immediately, spending mana and starting cooldown before its0.25-second cast lock. Its reference castTime remains0.25 while the instantaneous delivery uses castTimeFor=0 plus a local lock. Existing Pierce casts and hops retain their absolute clocks. Untargetable/stasis targets keep their marks and cannot supply an activation target. The pinned page gives1100 effect radius but only says cast range is lower; this model openly uses1100 for activation because the smaller exact distance is unavailable.
+- Pierce flies at2400, collides with the first real spell target, and continues only if that contacted target dies. It carries only the last killed target's pre-contact Rend stacks, following the pinned multi-kill bug rather than accumulating all corpses. An unshielded surviving target receives its carried stacks plus its own new spear. E empowers already-flying basic/Pierce missiles to rend immediately on impact; an E during an unfinished Q also empowers its future missile and models the documented additional first-spear repeat on the previously rended target at impact. These finite launched packets can finish after Kalista's death. Monster-only50% damage reduction is absent because the duel has no epic jungle monsters.
+- Rend kill resets and30 mana refunds require an actual counted E kill; resurrection-protected targets grant none. A targetable Sion already in Glory in Death grants the documented reset even when it survives. The offensive policy keeps accumulating spears while basic attacks remain in range and rends when leaving attack reach or when its damage after resistance, reductions and shields can finish the target; it is an explicit policy rather than an exhaustive timing search. The budget amortizes a sustained E cycle containing ordinary attacks and one Q application per Q cycle, without pre-awarding kill refunds.
+- There is no Oathsworn allied champion in the duel. Soul-Mark contributes no fabricated18%-max-health magic damage, and Fate's Call cannot be cast to grant Kalista her ally's invulnerability, retrieval or two-second knockup. W can be cast manually as a two-charge,50-second-recharge scout with0.5-second cast and30-second between-cast cooldown; the damage policy does not waste casts on a scout when ordinary global duel visibility already suffices.
+- A Sentinel is a two-basic-hit, non-attacking, CC-immune pet invalid to abilities. It patrols the selected1400–5000-unit line for three round trips at280 speed, half at one health, detects visible champions within450, then chases/reports ordinary sight for4 seconds and disappears. Its raw65 radius is an upstream assumed default. The two-dimensional forward cone, obstacle routing, and unquantified rapid decay of its initial+200 speed are not asserted. The shared pet lifecycle removes scouts when their owner dies.
+
+### Source values read (67)
+
+| Ability | Value | Source version |
+|---|---|---|
+| Basic Attack | attackRange: 525 | [3951529](https://wiki.leagueoflegends.com/en-us/Template:Data_Kalista/Basic_Attack?oldid=3951529) |
+| Basic Attack | speed: 2600 | [3951529](https://wiki.leagueoflegends.com/en-us/Template:Data_Kalista/Basic_Attack?oldid=3951529) |
+| Basic Attack | only reduced by 0.75% per 1% bonus attack speed | [3951529](https://wiki.leagueoflegends.com/en-us/Template:Data_Kalista/Basic_Attack?oldid=3951529) |
+| Basic Attack | uncancellable except by casting Rend | [3951529](https://wiki.leagueoflegends.com/en-us/Template:Data_Kalista/Basic_Attack?oldid=3951529) |
+| Martial Poise | minimum dash range is 140 | [4024157](https://wiki.leagueoflegends.com/en-us/Template:Data_Kalista/Martial_Poise?oldid=4024157) |
+| Martial Poise | Minimum dash range of 225 units when dashing backwards | [4024157](https://wiki.leagueoflegends.com/en-us/Template:Data_Kalista/Martial_Poise?oldid=4024157) |
+| Martial Poise | Dash range of Pierce is 300 units | [4024157](https://wiki.leagueoflegends.com/en-us/Template:Data_Kalista/Martial_Poise?oldid=4024157) |
+| Martial Poise | minimum distance of 150 units | [4024157](https://wiki.leagueoflegends.com/en-us/Template:Data_Kalista/Martial_Poise?oldid=4024157) |
+| Martial Poise | Dash Speed: 1025 | [4024157](https://wiki.leagueoflegends.com/en-us/Template:Data_Kalista/Martial_Poise?oldid=4024157) |
+| Martial Poise | dash speed is unaffected by additive movement speed modifiers | [4024157](https://wiki.leagueoflegends.com/en-us/Template:Data_Kalista/Martial_Poise?oldid=4024157) |
+| Martial Poise | Sleep does not count for knocking the dash down | [4024157](https://wiki.leagueoflegends.com/en-us/Template:Data_Kalista/Martial_Poise?oldid=4024157) |
+| Martial Poise | dash while immobilized or grounded | [4024157](https://wiki.leagueoflegends.com/en-us/Template:Data_Kalista/Martial_Poise?oldid=4024157) |
+| Pierce | Physical Damage: 10 / 75 / 140 / 205 / 270 (+ 105% AD) | [3997075](https://wiki.leagueoflegends.com/en-us/Template:Data_Kalista/Pierce?oldid=3997075) |
+| Pierce | only the last target killed will have their Rend stacks transferred | [3997075](https://wiki.leagueoflegends.com/en-us/Template:Data_Kalista/Pierce?oldid=3997075) |
+| Rend | Rend to enemies for 4 seconds | [4004071](https://wiki.leagueoflegends.com/en-us/Template:Data_Kalista/Rend?oldid=4004071) |
+| Rend | stacking up to 254 times | [4004071](https://wiki.leagueoflegends.com/en-us/Template:Data_Kalista/Rend?oldid=4004071) |
+| Rend | effectRadius: 1100 | [4004071](https://wiki.leagueoflegends.com/en-us/Template:Data_Kalista/Rend?oldid=4004071) |
+| Rend | Physical Damage: 5 / 15 / 25 / 35 / 45 (+ 70% AD) (+ 65% AP) | [4004071](https://wiki.leagueoflegends.com/en-us/Template:Data_Kalista/Rend?oldid=4004071) |
+| Rend | Bonus Damage per Additional Stack: 7 / 14 / 21 / 28 / 35 (+ 20 / 27.5 / 35 / 42.5 / 50% AD) (+ 50% AP) | [4004071](https://wiki.leagueoflegends.com/en-us/Template:Data_Kalista/Rend?oldid=4004071) |
+| Rend | Slow: 10 / 18 / 26 / 34 / 42% (+ 5% per 100 AP) | [4004071](https://wiki.leagueoflegends.com/en-us/Template:Data_Kalista/Rend?oldid=4004071) |
+| Rend | (+ 5% per 100 AP) | [4004071](https://wiki.leagueoflegends.com/en-us/Template:Data_Kalista/Rend?oldid=4004071) |
+| Rend | slow them for 2 seconds | [4004071](https://wiki.leagueoflegends.com/en-us/Template:Data_Kalista/Rend?oldid=4004071) |
+| Rend | Mana Restored: 10 / 15 / 20 / 25 / 30 | [4004071](https://wiki.leagueoflegends.com/en-us/Template:Data_Kalista/Rend?oldid=4004071) |
+| Rend | castTime: 0.25 | [4004071](https://wiki.leagueoflegends.com/en-us/Template:Data_Kalista/Rend?oldid=4004071) |
+| Rend | cost: 30 | [4004071](https://wiki.leagueoflegends.com/en-us/Template:Data_Kalista/Rend?oldid=4004071) |
+| Rend | Rend applies its effects instantly on cast | [4004071](https://wiki.leagueoflegends.com/en-us/Template:Data_Kalista/Rend?oldid=4004071) |
+| Rend | in-flight missiles | [4004071](https://wiki.leagueoflegends.com/en-us/Template:Data_Kalista/Rend?oldid=4004071) |
+| Rend | during the cast time of Pierce | [4004071](https://wiki.leagueoflegends.com/en-us/Template:Data_Kalista/Rend?oldid=4004071) |
+| Rend | repeat the first-spear damage | [4004071](https://wiki.leagueoflegends.com/en-us/Template:Data_Kalista/Rend?oldid=4004071) |
+| Rend | resurrection effects | [4004071](https://wiki.leagueoflegends.com/en-us/Template:Data_Kalista/Rend?oldid=4004071) |
+| Rend | Sion under the effects of Glory in Death | [4004071](https://wiki.leagueoflegends.com/en-us/Template:Data_Kalista/Rend?oldid=4004071) |
+| Rend | lower cast range than effect range | [4004071](https://wiki.leagueoflegends.com/en-us/Template:Data_Kalista/Rend?oldid=4004071) |
+| Sentinel | While Kalista and her Oathsworn are tethered | [4007621](https://wiki.leagueoflegends.com/en-us/Template:Data_Kalista/Sentinel?oldid=4007621) |
+| Sentinel | Bonus Magic Damage: 10 / 12 / 14 / 16 / 18% of target's maximum health | [4007621](https://wiki.leagueoflegends.com/en-us/Template:Data_Kalista/Sentinel?oldid=4007621) |
+| Sentinel | Maximum Non-Champion Damage: 100 / 125 / 150 / 175 / 200 | [4007621](https://wiki.leagueoflegends.com/en-us/Template:Data_Kalista/Sentinel?oldid=4007621) |
+| Sentinel | targetCooldown: 10 | [4007621](https://wiki.leagueoflegends.com/en-us/Template:Data_Kalista/Sentinel?oldid=4007621) |
+| Sentinel | tetherRadius: 1100 | [4007621](https://wiki.leagueoflegends.com/en-us/Template:Data_Kalista/Sentinel?oldid=4007621) |
+| Sentinel | does not reveal stealthed targets | [4007621](https://wiki.leagueoflegends.com/en-us/Template:Data_Kalista/Sentinel?oldid=4007621) |
+| Sentinel | hp: 2 | [4002537](https://wiki.leagueoflegends.com/en-us/Kalista?oldid=4002537) |
+| Sentinel | movespeed: 280 | [4002537](https://wiki.leagueoflegends.com/en-us/Kalista?oldid=4002537) |
+| Sentinel | radius: 65 | [4002537](https://wiki.leagueoflegends.com/en-us/Kalista?oldid=4002537) |
+| Sentinel | 450 | [4002537](https://wiki.leagueoflegends.com/en-us/Kalista?oldid=4002537) |
+| Sentinel | chases them for 4 seconds | [4002537](https://wiki.leagueoflegends.com/en-us/Kalista?oldid=4002537) |
+| Sentinel | for 3 laps | [4002537](https://wiki.leagueoflegends.com/en-us/Kalista?oldid=4002537) |
+| Sentinel | slowed by 50% while at 1 health | [4002537](https://wiki.leagueoflegends.com/en-us/Kalista?oldid=4002537) |
+| Sentinel | Not a valid target to minions, turrets and abilities | [4002537](https://wiki.leagueoflegends.com/en-us/Kalista?oldid=4002537) |
+| Sentinel | Immune to crowd control | [4002537](https://wiki.leagueoflegends.com/en-us/Kalista?oldid=4002537) |
+| Sentinel | targetRange: 1400 - 5000 | [4007621](https://wiki.leagueoflegends.com/en-us/Template:Data_Kalista/Sentinel?oldid=4007621) |
+| Sentinel | maximum of 2 | [4007621](https://wiki.leagueoflegends.com/en-us/Template:Data_Kalista/Sentinel?oldid=4007621) |
+| Fate's Call | targetRange: 1200 | [4015001](https://wiki.leagueoflegends.com/en-us/Template:Data_Kalista/Fate's_Call?oldid=4015001) |
+| Fate's Call | Airborne Duration: 1 / 1.5 / 2 seconds | [4015001](https://wiki.leagueoflegends.com/en-us/Template:Data_Kalista/Fate's_Call?oldid=4015001) |
+| Fate's Call | The Oathsworn must be within tether range | [4015001](https://wiki.leagueoflegends.com/en-us/Template:Data_Kalista/Fate's_Call?oldid=4015001) |
+| Fate's Call | Kalista's death does not cancel Fate's Call | [4015001](https://wiki.leagueoflegends.com/en-us/Template:Data_Kalista/Fate's_Call?oldid=4015001) |
+| Pierce | cooldown: 9 | [3997075](https://wiki.leagueoflegends.com/en-us/Template:Data_Kalista/Pierce?oldid=3997075) |
+| Pierce | cost: 60 / 65 / 70 / 75 / 80 | [3997075](https://wiki.leagueoflegends.com/en-us/Template:Data_Kalista/Pierce?oldid=3997075) |
+| Pierce | castTime: 0.25 | [3997075](https://wiki.leagueoflegends.com/en-us/Template:Data_Kalista/Pierce?oldid=3997075) |
+| Pierce | targetRange: 1200 | [3997075](https://wiki.leagueoflegends.com/en-us/Template:Data_Kalista/Pierce?oldid=3997075) |
+| Pierce | width: 80 | [3997075](https://wiki.leagueoflegends.com/en-us/Template:Data_Kalista/Pierce?oldid=3997075) |
+| Pierce | speed: 2400 | [3997075](https://wiki.leagueoflegends.com/en-us/Template:Data_Kalista/Pierce?oldid=3997075) |
+| Sentinel | cooldown: 30 | [4007621](https://wiki.leagueoflegends.com/en-us/Template:Data_Kalista/Sentinel?oldid=4007621) |
+| Sentinel | castTime: 0.5 | [4007621](https://wiki.leagueoflegends.com/en-us/Template:Data_Kalista/Sentinel?oldid=4007621) |
+| Sentinel | recharge: 90 / 80 / 70 / 60 / 50 | [4007621](https://wiki.leagueoflegends.com/en-us/Template:Data_Kalista/Sentinel?oldid=4007621) |
+| Rend | cooldown: 10 / 9.5 / 9 / 8.5 / 8 | [4004071](https://wiki.leagueoflegends.com/en-us/Template:Data_Kalista/Rend?oldid=4004071) |
+| Fate's Call | cooldown: 160 / 140 / 120 | [4015001](https://wiki.leagueoflegends.com/en-us/Template:Data_Kalista/Fate's_Call?oldid=4015001) |
+| Fate's Call | cost: 100 | [4015001](https://wiki.leagueoflegends.com/en-us/Template:Data_Kalista/Fate's_Call?oldid=4015001) |
+| Fate's Call | castTime: none | [4015001](https://wiki.leagueoflegends.com/en-us/Template:Data_Kalista/Fate's_Call?oldid=4015001) |
+| Sentinel | Minion | [4002537](https://wiki.leagueoflegends.com/en-us/Kalista?oldid=4002537) |

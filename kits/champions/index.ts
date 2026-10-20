@@ -10,11 +10,13 @@ import Annie from "./Annie";
 import Ashe from "./Ashe";
 import Aurora from "./Aurora";
 import Brand from "./Brand";
+import Caitlyn from "./Caitlyn";
 import Camille from "./Camille";
 import Cassiopeia from "./Cassiopeia";
 import Chogath from "./Chogath";
 import Darius from "./Darius";
 import DrMundo from "./DrMundo";
+import Ezreal from "./Ezreal";
 import Fiora from "./Fiora";
 import Gangplank from "./Gangplank";
 import Garen from "./Garen";
@@ -25,6 +27,8 @@ import Illaoi from "./Illaoi";
 import Irelia from "./Irelia";
 import Jax from "./Jax";
 import Jayce from "./Jayce";
+import Jhin from "./Jhin";
+import Jinx from "./Jinx";
 import Karthus from "./Karthus";
 import Kassadin from "./Kassadin";
 import Kayle from "./Kayle";
@@ -33,10 +37,12 @@ import Kennen from "./Kennen";
 import Kled from "./Kled";
 import Leona from "./Leona";
 import Lissandra from "./Lissandra";
+import Lucian from "./Lucian";
 import Lux from "./Lux";
 import Malphite from "./Malphite";
 import Malzahar from "./Malzahar";
 import MasterYi from "./MasterYi";
+import MissFortune from "./MissFortune";
 import Mordekaiser from "./Mordekaiser";
 import Morgana from "./Morgana";
 import Nasus from "./Nasus";
@@ -75,6 +81,25 @@ import Zaahen from "./Zaahen";
 import Ziggs from "./Ziggs";
 import Zyra from "./Zyra";
 
+import Corki from "./Corki";
+
+import Draven from "./Draven";
+
+import KogMaw from "./KogMaw";
+
+import Sivir from "./Sivir";
+
+import Tristana from "./Tristana";
+
+import Twitch from "./Twitch";
+
+import Kaisa from "./Kaisa";
+import Kalista from "./Kalista";
+import Samira from "./Samira";
+import Smolder from "./Smolder";
+import Varus from "./Varus";
+import Xayah from "./Xayah";
+
 export const KITS: Readonly<Record<string, KitModule>> = Object.fromEntries(
-  [Aatrox, Ahri, Akali, Ambessa, Amumu, Anivia, Annie, Ashe, Aurora, Brand, Camille, Cassiopeia, Chogath, Darius, DrMundo, Fiora, Gangplank, Garen, Gnar, Gwen, Heimerdinger, Illaoi, Irelia, Jax, Jayce, Karthus, Kassadin, Kayle, KSante, Kennen, Kled, Leona, Lissandra, Lux, Malphite, Malzahar, MasterYi, Mordekaiser, Morgana, Nasus, Nautilus, Olaf, Ornn, Pantheon, Poppy, Quinn, Rammus, Renekton, Riven, Rumble, Sett, Shen, Singed, Sion, Skarner, TahmKench, Teemo, Trundle, Tryndamere, Udyr, Urgot, Vayne, Veigar, Velkoz, Vladimir, Volibear, XinZhao, Yasuo, Yone, Yorick, Zaahen, Ziggs, Zyra].map((kit) => [kit.champion, kit]),
+  [Aatrox, Ahri, Akali, Ambessa, Amumu, Anivia, Annie, Ashe, Aurora, Brand, Caitlyn, Camille, Cassiopeia, Chogath, Corki, Darius, DrMundo, Draven, Ezreal, Fiora, Gangplank, Garen, Gnar, Gwen, Heimerdinger, Illaoi, Irelia, Jax, Jayce, Jhin, Jinx, KSante, Kaisa, Kalista, Karthus, Kassadin, Kayle, Kennen, Kled, KogMaw, Leona, Lissandra, Lucian, Lux, Malphite, Malzahar, MasterYi, MissFortune, Mordekaiser, Morgana, Nasus, Nautilus, Olaf, Ornn, Pantheon, Poppy, Quinn, Rammus, Renekton, Riven, Rumble, Samira, Sett, Shen, Singed, Sion, Sivir, Skarner, Smolder, TahmKench, Teemo, Tristana, Trundle, Tryndamere, Twitch, Udyr, Urgot, Varus, Vayne, Veigar, Velkoz, Vladimir, Volibear, Xayah, XinZhao, Yasuo, Yone, Yorick, Zaahen, Ziggs, Zyra].map((kit) => [kit.champion, kit]),
 );

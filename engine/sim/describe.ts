@@ -218,6 +218,7 @@ export function describeAbility(ability: AbilitySpec): AbilityDescription {
 
 export function attackText(attack: AttackSpec): string {
   const parts = [`range ${num(attack.range)}`, attack.missileSpeed ? `missile at ${num(attack.missileSpeed)}/s` : "melee"];
-  if (attack.onHit?.length) parts.push(`on hit: ${effectsText(attack.onHit)}`);
+  if (attack.onHit?.length) parts.push(`on hit${attack.onHitBeforeDamage ? " before basic damage" : ""}: ${effectsText(attack.onHit)}`);
+  if (attack.beforeDamage?.length) parts.push(`before basic damage: ${effectsText(attack.beforeDamage)}`);
   return parts.join(", ");
 }

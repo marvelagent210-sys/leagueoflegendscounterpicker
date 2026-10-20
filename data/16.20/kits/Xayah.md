@@ -207,3 +207,112 @@ Cooldowns and costs of each slot's main ability, wiki vs game files:
 | E: Bladecaller | cost | 20 / 20 / 20 / 20 / 20 | 20 / 20 / 20 / 20 / 20 | yes |
 | R: Featherstorm | cooldown | 140 / 120 / 100 | 140 / 120 / 100 | yes |
 | R: Featherstorm | cost | 100 / 100 / 100 | 100 / 100 / 100 | yes |
+
+## Duel simulator kit (level 20, every ability at max rank)
+
+What the duel simulator fights with (`kits/champions/Xayah.ts`): values come from pinned wiki and versioned game-data records at level 20. Interpretations and missing evidence are listed under assumptions. Ratios are fractions of the stat (60% AD is 0.6 × AD).
+
+- Basic attack: range 525, missile at 2500/s.
+
+| Key | Ability | Cooldown (s) | Cast time (s) | Cost | Delivery | On the enemy | On itself |
+|---|---|--:|--:|---|---|---|---|
+| Q | Double Daggers | 8 | depends on stats (0.25 base) | 35 | skillshot 1100 long, 100 wide, at 3500/s | 105 + 50% bonus AD physical damage | – |
+| W | Deadly Plumage | 14 | 0 | 40 | self | – | attackSpeed 0.55 for 4 s |
+| E | Bladecaller | 8 | 0 | 20 | self | – | – |
+| R | Featherstorm | 100 | 0 | 100 | self; channel 1.5 s | – | untargetable for 1.5 s; ghosted for 1.5 s; noAttacks for 1.5 s |
+| Qsecond | Double Daggers (second dagger) | 0 | 0 | – | self | 105 + 50% bonus AD physical damage | – |
+| Ifeather | Clean Cuts | 0 | 0 | – | self | – | – |
+| Ereturn | Bladecaller | 0 | 0 | – | self | 110 + 40% bonus AD physical damage | – |
+| Rfeather | Featherstorm | 0 | 0 | – | self | 400 + 100% bonus AD physical damage | – |
+| Wextra | Deadly Plumage (extra strike) | 0 | 0 | – | self | – | – |
+| feather | Clean Cuts (planted) | 0 | 0 | – | self | – | – |
+
+Effects marked by a mark or a role are completed by the kit's hooks (see the kit's source).
+
+### Assumptions
+
+- Clean Cuts stores scalar per-world stacks, starts empty, grants3 per completed Q/W/E/R cast, caps at5 and expires8 seconds after the last grant. A stack is consumed at windup declaration even if that attack later misses or is cancelled. The primary remains a homing ordinary attack at4000speed; after actual contact, the same logical feather continues along the current axis to1000 from Xayah's impact-time position, without hitting that primary twice. Projectile-wall destruction prevents a new planted feather. If the primary has moved beyond1000, it plants at the primary immediately. Basic blind/dodge/parry still deny primary damage while an already launched physical feather can continue.
+- Planted feathers last6seconds, have individual ground positions and expire exclusively at their deadline. All planted feathers are removed at actual lethal death, and outbound projectiles cannot plant new feathers while Xayah is dead. A previously launched E return may still deal damage. No imaginary Rakan, recall companion, ward, structure or item interaction is created.
+- Double Daggers has max(.1,.25−.07×bonusAS) cast time from the exact raw-template formula, with ordinary30Hz rounding. Two3500speed piercing daggers use the version-pinned root DataValues; the separate400speed missile objects appear inconsistent, so the runtime choice is disclosed. Their relative.25second spacing is the difference between the two pinned animation-delay values; first launch is at cast completion. Both use the100width body on the duel axis; lateral origin offsets and the unsized initial formation-area contact are not invented. Each dagger independently falls to50% damage after its first actual enemy contact, and a spell shield blocks only that dagger.
+- Deadly Plumage gives55%AS for4seconds. Successful attacks declared during it launch a separate3000speed25%-of-basic-physical strike and grant30%MS for1.5seconds on champion contact; its raw basic damage inherits the triggering attack's averaged critical factor without applying onhits or critting a second time. W cast during an already flying attack adds the strike but not movement speed. The supplemental missile is launched from Xayah on the primary's successful contact; exact undocumented script launch geometry is an approximation. Blind, dodge, parry and damage block conservatively prevent the supplemental strike; the wiki leaves dodge/block interactions unresolved.
+- Bladecaller requires an actual unexpired planted feather, costs20, waits the pinned.25second return delay and returns each feather at4000speed toward Xayah's current position. Feathers already in flight at E declaration are tagged and recall only after landing, while subsequently launched feathers are excluded. Each actual return checks independent projectile walls, spell shields, parry and spatial overlap. Accepted contacts receive per-target/per-E falloff100/95/90…floor10%, with1+.5×critChance×(critDamage−1) exact pinned scaling, and the third accepted feather roots1.25seconds. Only pets explicitly classified as minions by their pinned pet records receive the additional50%minion multiplier; unknown summons and champion clones are not guessed to be minions. A spell-shielded feather is conservatively excluded from the three accepted-hit counter because the available note specifies only a single blocked damage instance. Champion sidesteps are expected shares per return; the combination of every fan feather is not independently branch-enumerated.
+- Featherstorm keeps its1.5second untargetable/ghosted/noattacks/noothercasts mobile phase and fires after1second. The pinned client RUntargetable value is1.25, a documented conflict resolved in favor of the explicit wiki1.5. Five feathers are equally spaced across the sourced30degree cone, an explicit geometry approximation, with1000effective outward length and4000speed. Actual 2D fan positions are retained for recall, while champion movement remains on the duel axis. Each target receives at most one R damage packet; this prevents the five projectiles becoming five times the listed damage. The unsourced rear launch offset behind Xayah is not invented; the wiki1060/1000 effective-reach distinction remains a limitation.
+- The budget includes only capped W attack-speed uptime and its25%strike, two Q damage packets percycle, and a finite E feather supply from Q, capped CleanCuts attacks and only one centralR feather. Its E reference applies the real diminishing-return sum and critical factor, excludes fake preplanted feathers, and does not value guaranteed five-feather fan overlap or allied Rakan damage.
+
+### Source values read (73)
+
+| Ability | Value | Source version |
+|---|---|---|
+| Clean Cuts | for 6 seconds | [4070748](https://wiki.leagueoflegends.com/en-us/Template:Data_Xayah/Clean_Cuts?oldid=4070748) |
+| Clean Cuts | lasting for 8 seconds | [4070748](https://wiki.leagueoflegends.com/en-us/Template:Data_Xayah/Clean_Cuts?oldid=4070748) |
+| Clean Cuts | generate 3 stacks | [4070748](https://wiki.leagueoflegends.com/en-us/Template:Data_Xayah/Clean_Cuts?oldid=4070748) |
+| Clean Cuts | stacking up to 5 times | [4070748](https://wiki.leagueoflegends.com/en-us/Template:Data_Xayah/Clean_Cuts?oldid=4070748) |
+| Clean Cuts | Xayah's basic attacks are empowered to each consume a stack on-attack to instead shoot a Feather that deals the triggering attack's damage to the primary target and 35 / 45 / 55 (based on level)% AD physical damage to other enemies hit. | [4070748](https://wiki.leagueoflegends.com/en-us/Template:Data_Xayah/Clean_Cuts?oldid=4070748) |
+| Clean Cuts | effectRadius: 1000 | [4070748](https://wiki.leagueoflegends.com/en-us/Template:Data_Xayah/Clean_Cuts?oldid=4070748) |
+| Clean Cuts | width: 120 | [4070748](https://wiki.leagueoflegends.com/en-us/Template:Data_Xayah/Clean_Cuts?oldid=4070748) |
+| Clean Cuts | speed: 4000 | [4070748](https://wiki.leagueoflegends.com/en-us/Template:Data_Xayah/Clean_Cuts?oldid=4070748) |
+| Clean Cuts | mSpell.missileSpeed: 2500.0 | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/xayah/xayah.bin.json) |
+| Clean Cuts | consume a stack on-attack | [4070748](https://wiki.leagueoflegends.com/en-us/Template:Data_Xayah/Clean_Cuts?oldid=4070748) |
+| Clean Cuts | secondary target damage can critically strike for 200% | [4070748](https://wiki.leagueoflegends.com/en-us/Template:Data_Xayah/Clean_Cuts?oldid=4070748) |
+| Clean Cuts | ground will be destroyed when Xayah dies | [4070748](https://wiki.leagueoflegends.com/en-us/Template:Data_Xayah/Clean_Cuts?oldid=4070748) |
+| Clean Cuts | same missile | [4070748](https://wiki.leagueoflegends.com/en-us/Template:Data_Xayah/Clean_Cuts?oldid=4070748) |
+| Double Daggers | Physical Damage Per Hit: 45 / 60 / 75 / 90 / 105 (+ 50% bonus AD) | [4008615](https://wiki.leagueoflegends.com/en-us/Template:Data_Xayah/Double_Daggers?oldid=4008615) |
+| Double Daggers | range: 1100 | [4008615](https://wiki.leagueoflegends.com/en-us/Template:Data_Xayah/Double_Daggers?oldid=4008615) |
+| Double Daggers | width: 100 + offset | [4008615](https://wiki.leagueoflegends.com/en-us/Template:Data_Xayah/Double_Daggers?oldid=4008615) |
+| Double Daggers | take 50% reduced damage | [4008615](https://wiki.leagueoflegends.com/en-us/Template:Data_Xayah/Double_Daggers?oldid=4008615) |
+| Double Daggers | 0.25-(0.07 per 100% bonus attack speed) | [4008615](https://wiki.leagueoflegends.com/en-us/Template:Data_Xayah/Double_Daggers?oldid=4008615) |
+| Double Daggers | castTime: 0.25 / 0.231 / 0.198 / 0.165 / 0.132 / 0.1 (based on bonus attack speed) | [4008615](https://wiki.leagueoflegends.com/en-us/Template:Data_Xayah/Double_Daggers?oldid=4008615) |
+| Double Daggers | mSpell.DataValues.Missile1DelaySpeed.values: [3500.0 | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/xayah/xayah.bin.json) |
+| Double Daggers | mSpell.DataValues.Missile1DelayTime.values: [0.33399999141693115 | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/xayah/xayah.bin.json) |
+| Double Daggers | mSpell.DataValues.Missile2DelayTime.values: [0.5839999914169312 | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/xayah/xayah.bin.json) |
+| Double Daggers | Spell shield will only block a single instance of damage | [4008615](https://wiki.leagueoflegends.com/en-us/Template:Data_Xayah/Double_Daggers?oldid=4008615) |
+| Double Daggers | small area around Xayah | [4008615](https://wiki.leagueoflegends.com/en-us/Template:Data_Xayah/Double_Daggers?oldid=4008615) |
+| Deadly Plumage | Bonus Attack Speed: 35 / 40 / 45 / 50 / 55% | [4062257](https://wiki.leagueoflegends.com/en-us/Template:Data_Xayah/Deadly_Plumage?oldid=4062257) |
+| Deadly Plumage | for 4 seconds | [4062257](https://wiki.leagueoflegends.com/en-us/Template:Data_Xayah/Deadly_Plumage?oldid=4062257) |
+| Deadly Plumage | deals 25% damage | [4062257](https://wiki.leagueoflegends.com/en-us/Template:Data_Xayah/Deadly_Plumage?oldid=4062257) |
+| Deadly Plumage | 30% bonus movement speed | [4062257](https://wiki.leagueoflegends.com/en-us/Template:Data_Xayah/Deadly_Plumage?oldid=4062257) |
+| Deadly Plumage | for 1.5 seconds | [4062257](https://wiki.leagueoflegends.com/en-us/Template:Data_Xayah/Deadly_Plumage?oldid=4062257) |
+| Deadly Plumage | speed: 3000 | [4062257](https://wiki.leagueoflegends.com/en-us/Template:Data_Xayah/Deadly_Plumage?oldid=4062257) |
+| Deadly Plumage | already in flight will also be empowered | [4062257](https://wiki.leagueoflegends.com/en-us/Template:Data_Xayah/Deadly_Plumage?oldid=4062257) |
+| Deadly Plumage | not be granted the bonus movement speed | [4062257](https://wiki.leagueoflegends.com/en-us/Template:Data_Xayah/Deadly_Plumage?oldid=4062257) |
+| Deadly Plumage | does not technically count as a Feather | [4062257](https://wiki.leagueoflegends.com/en-us/Template:Data_Xayah/Deadly_Plumage?oldid=4062257) |
+| Deadly Plumage | additional missile itself however cannot critically strike | [4062257](https://wiki.leagueoflegends.com/en-us/Template:Data_Xayah/Deadly_Plumage?oldid=4062257) |
+| Deadly Plumage | misses while Xayah is blinded | [4062257](https://wiki.leagueoflegends.com/en-us/Template:Data_Xayah/Deadly_Plumage?oldid=4062257) |
+| Bladecaller | Physical Damage Per Feather: 50 / 65 / 80 / 95 / 110 (+ 40% bonus AD) | [4002073](https://wiki.leagueoflegends.com/en-us/Template:Data_Xayah/Bladecaller?oldid=4002073) |
+| Bladecaller | deals 50% damage to minions | [4002073](https://wiki.leagueoflegends.com/en-us/Template:Data_Xayah/Bladecaller?oldid=4002073) |
+| Bladecaller | width: 160 | [4002073](https://wiki.leagueoflegends.com/en-us/Template:Data_Xayah/Bladecaller?oldid=4002073) |
+| Bladecaller | speed: 4000 | [4002073](https://wiki.leagueoflegends.com/en-us/Template:Data_Xayah/Bladecaller?oldid=4002073) |
+| Bladecaller | rooted for 1.25 seconds | [4002073](https://wiki.leagueoflegends.com/en-us/Template:Data_Xayah/Bladecaller?oldid=4002073) |
+| Bladecaller | mSpell.DataValues.FeatherThreshold.values: [3.0 | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/xayah/xayah.bin.json) |
+| Bladecaller | A planted Feather is required | [4002073](https://wiki.leagueoflegends.com/en-us/Template:Data_Xayah/Bladecaller?oldid=4002073) |
+| Bladecaller | only once per pass | [4002073](https://wiki.leagueoflegends.com/en-us/Template:Data_Xayah/Bladecaller?oldid=4002073) |
+| Bladecaller | only once they've landed normally first | [4002073](https://wiki.leagueoflegends.com/en-us/Template:Data_Xayah/Bladecaller?oldid=4002073) |
+| Bladecaller | Spell shield will only block a single instance of damage | [4002073](https://wiki.leagueoflegends.com/en-us/Template:Data_Xayah/Bladecaller?oldid=4002073) |
+| Bladecaller | mSpell.DataValues.FeatherReturnDelay.values: [0.25 | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/xayah/xayah.bin.json) |
+| Bladecaller | mSpell.DataValues.CritRatio.values: [0.5 | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/xayah/xayah.bin.json) |
+| Bladecaller | "mStat":8,"mDataValue":"CritRatio" | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/xayah/xayah.bin.json) |
+| Bladecaller | "mStat":9,"mCoefficient":1.0 | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/xayah/xayah.bin.json) |
+| Bladecaller | 100 / 95 / 90 / 85 / 80 | [4002073](https://wiki.leagueoflegends.com/en-us/Template:Data_Xayah/Bladecaller?oldid=4002073) |
+| Bladecaller | 35 / 30 / 25 / 20 / 15 / 10 | [4002073](https://wiki.leagueoflegends.com/en-us/Template:Data_Xayah/Bladecaller?oldid=4002073) |
+| Featherstorm | Physical Damage: 200 / 300 / 400 (+ 100% bonus AD) | [4008617](https://wiki.leagueoflegends.com/en-us/Template:Data_Xayah/Featherstorm?oldid=4008617) |
+| Featherstorm | untargetable for 1.5 seconds | [4008617](https://wiki.leagueoflegends.com/en-us/Template:Data_Xayah/Featherstorm?oldid=4008617) |
+| Featherstorm | After 1 second | [4008617](https://wiki.leagueoflegends.com/en-us/Template:Data_Xayah/Featherstorm?oldid=4008617) |
+| Featherstorm | shoots 5 Feathers | [4008617](https://wiki.leagueoflegends.com/en-us/Template:Data_Xayah/Featherstorm?oldid=4008617) |
+| Featherstorm | angle: 30° | [4008617](https://wiki.leagueoflegends.com/en-us/Template:Data_Xayah/Featherstorm?oldid=4008617) |
+| Featherstorm | effectRadius: 1060 • 1000 | [4008617](https://wiki.leagueoflegends.com/en-us/Template:Data_Xayah/Featherstorm?oldid=4008617) |
+| Featherstorm | mSpell.missileSpeed: 4000.0 | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/xayah/xayah.bin.json) |
+| Featherstorm | mSpell.mMissileSpec.mMissileWidth: 20.0 | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/xayah/xayah.bin.json) |
+| Featherstorm | can still move | [4008617](https://wiki.leagueoflegends.com/en-us/Template:Data_Xayah/Featherstorm?oldid=4008617) |
+| Featherstorm | unable to basic attack or cast abilities | [4008617](https://wiki.leagueoflegends.com/en-us/Template:Data_Xayah/Featherstorm?oldid=4008617) |
+| Featherstorm | missiles have 1100 range but start slightly behind | [4008617](https://wiki.leagueoflegends.com/en-us/Template:Data_Xayah/Featherstorm?oldid=4008617) |
+| Double Daggers | cooldown: 10 / 9.5 / 9 / 8.5 / 8 | [4008615](https://wiki.leagueoflegends.com/en-us/Template:Data_Xayah/Double_Daggers?oldid=4008615) |
+| Deadly Plumage | cooldown: 18 / 17 / 16 / 15 / 14 | [4062257](https://wiki.leagueoflegends.com/en-us/Template:Data_Xayah/Deadly_Plumage?oldid=4062257) |
+| Bladecaller | cooldown: 12 / 11 / 10 / 9 / 8 | [4002073](https://wiki.leagueoflegends.com/en-us/Template:Data_Xayah/Bladecaller?oldid=4002073) |
+| Featherstorm | cooldown: 140 / 120 / 100 | [4008617](https://wiki.leagueoflegends.com/en-us/Template:Data_Xayah/Featherstorm?oldid=4008617) |
+| Double Daggers | cost: 35 | [4008615](https://wiki.leagueoflegends.com/en-us/Template:Data_Xayah/Double_Daggers?oldid=4008615) |
+| Deadly Plumage | cost: 60 / 55 / 50 / 45 / 40 | [4062257](https://wiki.leagueoflegends.com/en-us/Template:Data_Xayah/Deadly_Plumage?oldid=4062257) |
+| Deadly Plumage | castTime: none | [4062257](https://wiki.leagueoflegends.com/en-us/Template:Data_Xayah/Deadly_Plumage?oldid=4062257) |
+| Bladecaller | cost: 20 | [4002073](https://wiki.leagueoflegends.com/en-us/Template:Data_Xayah/Bladecaller?oldid=4002073) |
+| Bladecaller | castTime: none | [4002073](https://wiki.leagueoflegends.com/en-us/Template:Data_Xayah/Bladecaller?oldid=4002073) |
+| Featherstorm | cost: 100 | [4008617](https://wiki.leagueoflegends.com/en-us/Template:Data_Xayah/Featherstorm?oldid=4008617) |
+| Featherstorm | castTime: none | [4008617](https://wiki.leagueoflegends.com/en-us/Template:Data_Xayah/Featherstorm?oldid=4008617) |

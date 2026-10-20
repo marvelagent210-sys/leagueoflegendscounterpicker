@@ -456,7 +456,7 @@ Effects marked by a mark or a role are completed by the kit's hooks (see the kit
 - Jousting dashes at 600 plus Kled & Skaarl's base movement speed (945).
 - Chaaaaaaaarge!!! speeds up from Kled & Skaarl's base movement speed by a twelfth of the way to 950 every 0.25 s, and its damage grows with the charge as the wiki's series says (full after 4 s; the game files say 3).
 
-### Source values read (80)
+### Source values read (81)
 
 | Ability | Value | Source version |
 |---|---|---|
@@ -540,3 +540,4 @@ Effects marked by a mark or a role are completed by the kit's hooks (see the kit
 | Pocket Pistol | castTime: 0.25 | [4070350](https://wiki.leagueoflegends.com/en-us/Template:Data_Kled/Pocket_Pistol?oldid=4070350) |
 | Pocket Pistol | recharge: 18 / 16 / 14 / 12 / 10 | [4070350](https://wiki.leagueoflegends.com/en-us/Template:Data_Kled/Pocket_Pistol?oldid=4070350) |
 | Pocket Pistol | Physical Damage: 35 / 50 / 65 / 80 / 95 (+ 65% bonus AD) | [4070350](https://wiki.leagueoflegends.com/en-us/Template:Data_Kled/Pocket_Pistol?oldid=4070350) |
+| Skaarl | Untargetable | [4069972](https://wiki.leagueoflegends.com/en-us/Kled?oldid=4069972) |

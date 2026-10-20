@@ -1,7 +1,7 @@
 /** Yasuo: every number is read from the wiki's ability data at level 20 (see engine/kits/context.ts). */
 import type { KitModule } from "../../engine/kits/compile";
 import { IMMOBILIZING } from "../../engine/rules/crowdControl";
-import { abilityHit, canTarget } from "../../engine/sim/combat";
+import { abilityHit, canTarget, consumeSpellShield } from "../../engine/sim/combat";
 import { ccTypes, derive, hasState } from "../../engine/sim/derived";
 import type { AbilitySpec, Effect } from "../../engine/sim/spec";
 import type { Unit, World } from "../../engine/sim/state";
@@ -140,8 +140,7 @@ const yasuo: KitModule = {
             // Last Breath consumes the shield while still applying its suspension and damage.
             const shield = ctx.enemy.statuses.find((s) => s.kind === "state" && s.key === "spellShield");
             if (shield) {
-              shield.charges = (shield.charges ?? 1) - 1;
-              if (shield.charges <= 0) ctx.enemy.statuses = ctx.enemy.statuses.filter((s) => s !== shield);
+              consumeSpellShield(ctx.world, ctx.self, ctx.enemy, ctx.ability);
             }
           }
         },

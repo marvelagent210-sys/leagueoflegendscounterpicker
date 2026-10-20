@@ -223,7 +223,7 @@ export function kitPage(
   }
   lines.push("");
   if (profile) lines.push(...fightProfileSection(profile));
-  const sorted = [...records].sort((a, b) => KIND_ORDER.indexOf(a.kind) - KIND_ORDER.indexOf(b.kind));
+  const sorted = records.filter((record) => !record.historical).sort((a, b) => KIND_ORDER.indexOf(a.kind) - KIND_ORDER.indexOf(b.kind));
   for (const record of sorted) lines.push(...abilitySection(record));
   if (gameData) lines.push(...gameSection(gameData));
   return `${lines.join("\n").replace(/\n{3,}/g, "\n\n").trimEnd()}\n`;

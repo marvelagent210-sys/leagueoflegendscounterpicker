@@ -17,12 +17,13 @@ const bonus: Required<BonusStats> = {
 };
 const conversions: Required<NonNullable<FighterSpec["statConversions"]>> = {
   healthToAP: 0.03333, apToHealth: 1.6, moveSpeedBonusEffectiveness: 1.4,
+  attackDamageMultiplier: { base: 0, critChance: 0, bonusAttackSpeed: 0 }, fixedAttackSpeed: false,
 };
 
 function world(): World {
   const spec: FighterSpec = {
     ...fighter({ bonus: { ...bonus }, base: { attackSpeed: { base: 0.7, ratio: 0.7, bonus: 0.3 } } }),
-    statConversions: { ...conversions },
+    statConversions: { ...conversions, attackDamageMultiplier: { ...conversions.attackDamageMultiplier } },
   };
   return createWorld({ fighters: [spec, fighter()], distance: 0, modes: ["idle", "idle"] });
 }
@@ -95,12 +96,35 @@ describe("derived-stat cache freshness", () => {
     expect(derive(self)).toEqual(fresh(w));
   });
 
-  it.each(Object.keys(conversions) as Array<keyof typeof conversions>)("tracks in-place %s conversion changes", (key) => {
+  it.each(["healthToAP", "apToHealth", "moveSpeedBonusEffectiveness"] as const)("tracks in-place %s conversion changes", (key) => {
     const w = world(), self = w.units[0];
     self.statuses.push(lasting("stat", "moveSpeedPercent", 0.2));
     const before = derive(self);
     self.spec.statConversions![key]! += 0.2;
     expect(derive(self)).not.toEqual(before);
+    expect(derive(self)).toEqual(fresh(w));
+  });
+
+  it.each(["base", "critChance", "bonusAttackSpeed"] as const)("tracks an in-place AD multiplier %s change", (key) => {
+    const w = world(), self = w.units[0];
+    const before = derive(self);
+    self.spec.statConversions!.attackDamageMultiplier![key] += 0.2;
+    expect(derive(self).ad).toBeGreaterThan(before.ad);
+    expect(derive(self).bonusAd).toBeGreaterThan(before.bonusAd);
+    expect(derive(self)).toEqual(fresh(w));
+  });
+
+  it("tracks in-place fixed attack speed changes without losing bonus AS formulas", () => {
+    const w = world(), self = w.units[0];
+    self.statuses.push(lasting("cc", "cripple", 0.8));
+    derive(self);
+    self.spec.statConversions!.fixedAttackSpeed = true;
+    expect(derive(self).attackSpeed).toBeCloseTo(0.7 + 0.7 * 0.3, 12);
+    expect(derive(self).bonusAttackSpeed).toBe(0.55);
+    expect(derive(self)).toEqual(fresh(w));
+    delete self.spec.statConversions!.attackDamageMultiplier;
+    expect(derive(self)).toEqual(fresh(w));
+    self.spec.statConversions!.attackDamageMultiplier = { base: 0.44, critChance: 0.35, bonusAttackSpeed: 0.3 };
     expect(derive(self)).toEqual(fresh(w));
   });
 

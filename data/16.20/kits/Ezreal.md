@@ -175,3 +175,85 @@ Cooldowns and costs of each slot's main ability, wiki vs game files:
 | E: Arcane Shift | cost | 70 / 70 / 70 / 70 / 70 | 70 / 70 / 70 / 70 / 70 | yes |
 | R: Trueshot Barrage | cooldown | 120 / 105 / 90 | 120 / 105 / 90 | yes |
 | R: Trueshot Barrage | cost | 100 / 100 / 100 | 100 / 100 / 100 | yes |
+
+## Duel simulator kit (level 20, every ability at max rank)
+
+What the duel simulator fights with (`kits/champions/Ezreal.ts`): values come from pinned wiki and versioned game-data records at level 20. Interpretations and missing evidence are listed under assumptions. Ratios are fractions of the stat (60% AD is 0.6 × AD).
+
+- Basic attack: range 550, missile at 2000/s.
+
+| Key | Ability | Cooldown (s) | Cast time (s) | Cost | Delivery | On the enemy | On itself |
+|---|---|--:|--:|---|---|---|---|
+| Q | Mystic Shot | 4.5 | 0.25 | 40 | skillshot 1200 long, 120 wide, at 2000/s | 120 + 130% AD + 40% AP physical damage | – |
+| W | Essence Flux | 8 | 0.25 | 50 | skillshot 1200 long, 160 wide, at 1700/s | marks it "ezreal:flux" for 4 s | – |
+| E | Arcane Shift | 14 | 0.25 | 70 | blink away 475 units | 280 + 60% bonus AD + 75% AP magic damage | – |
+| R | Trueshot Barrage | 90 | 1 | 100 | skillshot 25000 long, 320 wide, at 2000/s | 750 + 100% bonus AD + 110% AP magic damage | – |
+| Wpop | Essence Flux (detonation) | 0 | 0 | – | self | 300 + 100% bonus AD + 90% AP magic damage | – |
+
+Effects marked by a mark or a role are completed by the kit's hooks (see the kit's source).
+
+### Assumptions
+
+- Rising Spell Force starts at zero stacks and refreshes its shared six-second timer on each contacted enemy, including spell shields. Parry/dodge contacts are conservatively excluded because their passive interaction is not pinned. Expected-value contacts add fractional stacks, bounded at five.
+- Essence Flux's zero-damage initial orb attaches through a spell shield; the pinned special-shield note explicitly defines detonation guards but does not expressly define the initial attachment. It passes ordinary summons, which are neither champions, epic monsters nor structures. A spell-shielded ability retains the mark; a connected basic attack consumes it even when its separate magical detonation is spell-shielded. The source does not settle two simultaneous triggering packets, so the first resolved valid packet owns the one detonation.
+- Arcane Shift chooses the nearest targetable enemy after the blink, with a marked champion taking priority. Invisible enemies remain eligible. Its launch-time one-second reveal is ordinary sight, not true sight: it is recorded as an ordinary-sight mark and does not expose invisibility in the arena, which has no map fog. Equal-distance targets use a stable champion-first ordering.
+- Trueshot Barrage uses the pinned game's finite 25000-unit global projectile range. It passes through units once each, deals its sourced reduced damage to health-based summons classified as minions, and does not apply the old unused game-data per-hit falloff. The one-dimensional arena does not simulate map sight or global terrain.
+- The policy prioritizes Essence Flux before a ready Mystic Shot when in range, then weaves attacks. Arcane Shift keeps the default defensive dodge choice and otherwise repositions to preserve basic-attack range after an attack; it does not optimize arbitrary free-angle blink destinations. The stat-budget correction assumes successful Mystic Shots, at most five passive stacks, and one Flux detonation per W cooldown; hit chance and mana exhaustion remain combat outcomes.
+
+### Source values read (53)
+
+| Ability | Value | Source version |
+|---|---|---|
+| Rising Spell Force | lasting for 6 seconds | [3932280](https://wiki.leagueoflegends.com/en-us/Template:Data_Ezreal/Rising_Spell_Force?oldid=3932280) |
+| Rising Spell Force | stacking up to 5 times | [3932280](https://wiki.leagueoflegends.com/en-us/Template:Data_Ezreal/Rising_Spell_Force?oldid=3932280) |
+| Rising Spell Force | gains 10% bonus attack speed | [3932280](https://wiki.leagueoflegends.com/en-us/Template:Data_Ezreal/Rising_Spell_Force?oldid=3932280) |
+| Rising Spell Force | Rising Spell Force will stack even if the abilities hit were blocked by spell shields | [3932280](https://wiki.leagueoflegends.com/en-us/Template:Data_Ezreal/Rising_Spell_Force?oldid=3932280) |
+| Mystic Shot | reduced by 1.5 seconds | [4064006](https://wiki.leagueoflegends.com/en-us/Template:Data_Ezreal/Mystic_Shot?oldid=4064006) |
+| Mystic Shot | applying on-hit effects and triggering on-attack effects | [4064006](https://wiki.leagueoflegends.com/en-us/Template:Data_Ezreal/Mystic_Shot?oldid=4064006) |
+| Mystic Shot | Mystic Shot deals basic damage, but also triggers spell effects by also being tagged as spell damage | [4064006](https://wiki.leagueoflegends.com/en-us/Template:Data_Ezreal/Mystic_Shot?oldid=4064006) |
+| Mystic Shot | Mystic Shot benefits from life steal, omnivamp, and physical vamp, but not spell vamp | [4064006](https://wiki.leagueoflegends.com/en-us/Template:Data_Ezreal/Mystic_Shot?oldid=4064006) |
+| Mystic Shot | Even if the ability is blocked by spell shield it will still trigger the cooldown reduction | [4064006](https://wiki.leagueoflegends.com/en-us/Template:Data_Ezreal/Mystic_Shot?oldid=4064006) |
+| Mystic Shot | Blind has no effect on abilities that trigger on-hit effects (e.g. Mystic Shot, Parrrley, and Steel Tempest) | [4061028](https://wiki.leagueoflegends.com/en-us/Types_of_Crowd_Control?oldid=4061028) |
+| Mystic Shot | This ability will cast from wherever the caster is at the end of the cast time | [4064006](https://wiki.leagueoflegends.com/en-us/Template:Data_Ezreal/Mystic_Shot?oldid=4064006) |
+| Mystic Shot | Physical Damage: 20 / 45 / 70 / 95 / 120 (+ 130% AD) (+ 40% AP) | [4064006](https://wiki.leagueoflegends.com/en-us/Template:Data_Ezreal/Mystic_Shot?oldid=4064006) |
+| Essence Flux | Bonus Magic Damage: 80 / 135 / 190 / 245 / 300 (+ 100% bonus AD) (+ 90% AP) | [4059864](https://wiki.leagueoflegends.com/en-us/Template:Data_Ezreal/Essence_Flux?oldid=4059864) |
+| Essence Flux | hit for 4 seconds | [4059864](https://wiki.leagueoflegends.com/en-us/Template:Data_Ezreal/Essence_Flux?oldid=4059864) |
+| Essence Flux | Ezreal restores 60 mana | [4059864](https://wiki.leagueoflegends.com/en-us/Template:Data_Ezreal/Essence_Flux?oldid=4059864) |
+| Essence Flux | first enemy champion, epic monster, or structure | [4059864](https://wiki.leagueoflegends.com/en-us/Template:Data_Ezreal/Essence_Flux?oldid=4059864) |
+| Essence Flux | Block and Dodge prevents the mark from being triggered by a basic attack | [4059864](https://wiki.leagueoflegends.com/en-us/Template:Data_Ezreal/Essence_Flux?oldid=4059864) |
+| Essence Flux | Spell shield prevents the mark from being triggered by an ability | [4059864](https://wiki.leagueoflegends.com/en-us/Template:Data_Ezreal/Essence_Flux?oldid=4059864) |
+| Essence Flux | If the mark is triggered by a basic attack, spell shield will prevent Essence Flux's damage | [4059864](https://wiki.leagueoflegends.com/en-us/Template:Data_Ezreal/Essence_Flux?oldid=4059864) |
+| Arcane Shift | effectRadius: 750 | [3989862](https://wiki.leagueoflegends.com/en-us/Template:Data_Ezreal/Arcane_Shift?oldid=3989862) |
+| Arcane Shift | speed: 2000 | [3989862](https://wiki.leagueoflegends.com/en-us/Template:Data_Ezreal/Arcane_Shift?oldid=3989862) |
+| Arcane Shift | targetRange: 475 | [3989862](https://wiki.leagueoflegends.com/en-us/Template:Data_Ezreal/Arcane_Shift?oldid=3989862) |
+| Arcane Shift | reveals them for 1 second | [3989862](https://wiki.leagueoflegends.com/en-us/Template:Data_Ezreal/Arcane_Shift?oldid=3989862) |
+| Arcane Shift | Arcane Shift prioritizes firing at the nearest enemy marked by Essence Flux | [3989862](https://wiki.leagueoflegends.com/en-us/Template:Data_Ezreal/Arcane_Shift?oldid=3989862) |
+| Arcane Shift | The target does not have to be visible to be hit by this ability | [3989862](https://wiki.leagueoflegends.com/en-us/Template:Data_Ezreal/Arcane_Shift?oldid=3989862) |
+| Arcane Shift | The target is revealed as soon as Ezreal fires the missile at them | [3989862](https://wiki.leagueoflegends.com/en-us/Template:Data_Ezreal/Arcane_Shift?oldid=3989862) |
+| Arcane Shift | If Ezreal is moved during the cast time, his range to blink will update accordingly | [3989862](https://wiki.leagueoflegends.com/en-us/Template:Data_Ezreal/Arcane_Shift?oldid=3989862) |
+| Arcane Shift | Magic Damage: 80 / 130 / 180 / 230 / 280 (+ 60% bonus AD) (+ 75% AP) | [3989862](https://wiki.leagueoflegends.com/en-us/Template:Data_Ezreal/Arcane_Shift?oldid=3989862) |
+| Trueshot Barrage | Magic Damage: 350 / 550 / 750 (+ 100% bonus AD) (+ 110% AP) | [4013235](https://wiki.leagueoflegends.com/en-us/Template:Data_Ezreal/Trueshot_Barrage?oldid=4013235) |
+| Trueshot Barrage | Modified Damage: 150 / 225 / 300 (+ 100% bonus AD) (+ 110% AP) | [4013235](https://wiki.leagueoflegends.com/en-us/Template:Data_Ezreal/Trueshot_Barrage?oldid=4013235) |
+| Trueshot Barrage | This ability will cast from wherever the caster is at the start of the cast time | [4013235](https://wiki.leagueoflegends.com/en-us/Template:Data_Ezreal/Trueshot_Barrage?oldid=4013235) |
+| Trueshot Barrage | targetRange: Global | [4013235](https://wiki.leagueoflegends.com/en-us/Template:Data_Ezreal/Trueshot_Barrage?oldid=4013235) |
+| Trueshot Barrage | mSpell.castRange: [25000.0,25000.0,25000.0,25000.0,25000.0,25000.0,25000.0] | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/ezreal/ezreal.bin.json) |
+| Mystic Shot | cost: 28 / 31 / 34 / 37 / 40 | [4064006](https://wiki.leagueoflegends.com/en-us/Template:Data_Ezreal/Mystic_Shot?oldid=4064006) |
+| Essence Flux | cost: 50 | [4059864](https://wiki.leagueoflegends.com/en-us/Template:Data_Ezreal/Essence_Flux?oldid=4059864) |
+| Arcane Shift | cost: 70 | [3989862](https://wiki.leagueoflegends.com/en-us/Template:Data_Ezreal/Arcane_Shift?oldid=3989862) |
+| Trueshot Barrage | cost: 100 | [4013235](https://wiki.leagueoflegends.com/en-us/Template:Data_Ezreal/Trueshot_Barrage?oldid=4013235) |
+| Mystic Shot | cooldown: 5.5 / 5.25 / 5 / 4.75 / 4.5 | [4064006](https://wiki.leagueoflegends.com/en-us/Template:Data_Ezreal/Mystic_Shot?oldid=4064006) |
+| Essence Flux | cooldown: 8 | [4059864](https://wiki.leagueoflegends.com/en-us/Template:Data_Ezreal/Essence_Flux?oldid=4059864) |
+| Arcane Shift | cooldown: 26 / 23 / 20 / 17 / 14 | [3989862](https://wiki.leagueoflegends.com/en-us/Template:Data_Ezreal/Arcane_Shift?oldid=3989862) |
+| Trueshot Barrage | cooldown: 120 / 105 / 90 | [4013235](https://wiki.leagueoflegends.com/en-us/Template:Data_Ezreal/Trueshot_Barrage?oldid=4013235) |
+| Mystic Shot | castTime: 0.25 | [4064006](https://wiki.leagueoflegends.com/en-us/Template:Data_Ezreal/Mystic_Shot?oldid=4064006) |
+| Mystic Shot | targetRange: 1200 | [4064006](https://wiki.leagueoflegends.com/en-us/Template:Data_Ezreal/Mystic_Shot?oldid=4064006) |
+| Mystic Shot | width: 120 | [4064006](https://wiki.leagueoflegends.com/en-us/Template:Data_Ezreal/Mystic_Shot?oldid=4064006) |
+| Mystic Shot | speed: 2000 | [4064006](https://wiki.leagueoflegends.com/en-us/Template:Data_Ezreal/Mystic_Shot?oldid=4064006) |
+| Essence Flux | castTime: 0.25 | [4059864](https://wiki.leagueoflegends.com/en-us/Template:Data_Ezreal/Essence_Flux?oldid=4059864) |
+| Essence Flux | targetRange: 1200 | [4059864](https://wiki.leagueoflegends.com/en-us/Template:Data_Ezreal/Essence_Flux?oldid=4059864) |
+| Essence Flux | width: 160 | [4059864](https://wiki.leagueoflegends.com/en-us/Template:Data_Ezreal/Essence_Flux?oldid=4059864) |
+| Essence Flux | speed: 1700 | [4059864](https://wiki.leagueoflegends.com/en-us/Template:Data_Ezreal/Essence_Flux?oldid=4059864) |
+| Arcane Shift | castTime: 0.25 | [3989862](https://wiki.leagueoflegends.com/en-us/Template:Data_Ezreal/Arcane_Shift?oldid=3989862) |
+| Trueshot Barrage | castTime: 1 | [4013235](https://wiki.leagueoflegends.com/en-us/Template:Data_Ezreal/Trueshot_Barrage?oldid=4013235) |
+| Trueshot Barrage | width: 320 | [4013235](https://wiki.leagueoflegends.com/en-us/Template:Data_Ezreal/Trueshot_Barrage?oldid=4013235) |
+| Trueshot Barrage | speed: 2000 | [4013235](https://wiki.leagueoflegends.com/en-us/Template:Data_Ezreal/Trueshot_Barrage?oldid=4013235) |

@@ -54,7 +54,8 @@ const cassiopeia: KitModule = {
     r.quote("it will factor the direction they were facing on cast");
     const qCD = q.cooldown(), qCast = q.castTime(), wCD = w.cooldown(), wCast = w.castTime(), eCD = e.cooldown(), eCast = e.castTime(), rCD = r.cooldown();
     const facing = (self: Unit, enemy: Unit) => self.facing ?? directionTo(self, enemy);
-    const poisoned = (target: Unit, tick: number) => target.statuses.some((status) => status.kind === "mark" && (status.key === POISON || status.key.startsWith(`${POISON}:`)) && status.endTick > tick);
+    e.quote("Against a poisoned target");
+    const poisoned = (target: Unit, tick: number) => target.statuses.some((status) => status.kind === "mark" && (status.key === POISON || status.key.startsWith(`${POISON}:`) || status.key === "twitch:poison") && status.endTick > tick);
     const poison = (ctx: HookContext, seconds: number) => {
       ctx.enemy.statuses = ctx.enemy.statuses.filter((status) => !(status.kind === "mark" && status.key === `${POISON}:W` && status.source === ctx.self.side));
       addStatus(ctx.enemy, { kind: "mark", key: `${POISON}:W`, source: ctx.self.side, startTick: ctx.tick, endTick: ctx.tick + ticks(seconds), value: 1 });
@@ -114,7 +115,7 @@ const cassiopeia: KitModule = {
     kit.assume("Noxious Blast movement speed decays linearly over three seconds and is granted only on a connected champion hit; a spell shield denies both poison and speed.");
     kit.assume("Miasma's seven-cloud arc is represented by the portion on the duel axis, with one traveling cloud and no overlap stacking. A wall removes that portion; lateral surviving portions and enemy pet poisoning are not simulated.");
     kit.assume("Miasma deterministically applies nineteen packets, beginning at field arrival and using absolute 5/19-second boundaries. The source's occasional eighteen-packet outcome is not randomized. Its unpinned slow curve decays linearly from 80% to zero over the field's age, with 0.25-second contact refresh outside the cloud.");
-    kit.assume("Twin Fang checks only explicitly tagged Cassiopeia poison; arbitrary DOTs never qualify. Its level-20 ordinary damage follows the 128.235294117647 wiki series, rather than the conflicting 128.234 enhanced-label game-file base. Fang impact waits only for a pending own Q whose blast overlaps the target, with no invented hold timeout.");
+    kit.assume("Twin Fang recognizes explicitly tagged Cassiopeia and Twitch poison at impact; arbitrary DOTs never qualify. Its level-20 ordinary damage follows the 128.235294117647 wiki series, rather than the conflicting 128.234 enhanced-label game-file base. Fang impact waits only for a pending own Q whose blast overlaps the target, with no invented hold timeout.");
     kit.assume(`Petrifying Gaze uses persistent absolute facing from walking, attacks and cast commands. Its ${coneAngle}-degree cone is the deterministic intersection with the duel axis, starting ${coneRearOffset} units behind the caster and ending ${rReach} units in front, including target-hitbox overlap. Lateral targets, pet cone damage and the source's unnamed R exception are absent. Forced displacement retains command-facing in this model, so the unquantified knockback-facing exception remains unresolved.`);
     kit.assume("The budget estimates poison uptime from Q plus the corrected nineteen-packet W duration, prices impact-poisoned E damage and AP-only healing by that uptime, and has no repeated kill mana refunds. Actual fights consume mana on every completed cast.");
     return {

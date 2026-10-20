@@ -13,3 +13,5 @@ versioned CommunityDragon game-file excerpts. Game evidence records its URL,
 version, object path and SHA-256 separately from wiki revisions. The kit compiler
 rejects missing quotations and unversioned game sources; interpreting a client
 field as combat geometry still requires an explicit assumption.
+
+Parsed ability records can explicitly mark a retained template as `historical`. These records remain available for source history but are excluded from current kit lookups, interaction profiles and ability displays. Corki's archived Special Delivery carries the exact versioned client character-registry excerpt used in that review; it is not presented as an extra current W.

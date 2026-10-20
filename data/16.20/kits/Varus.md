@@ -134,7 +134,7 @@ Source: [Template:Data Varus/Hail of Arrows](https://wiki.leagueoflegends.com/en
 | Target range | 925 |
 | Effect radius | 300 |
 
-Targeting: Location · Affects: Enemies · Damage type: Magic · Spell shield blocks it: true · Projectile: true · Parry: – · Disabled by grounded: – · Usable while knocked down: –
+Targeting: Location · Affects: Enemies · Damage type: Physical · Spell shield blocks it: true · Projectile: true · Parry: – · Disabled by grounded: – · Usable while knocked down: –
 
 Active: Varus fires a hail of arrows at the target location that land after 0.5 seconds, dealing physical damage to enemies hit.
 
@@ -149,6 +149,7 @@ Notes:
 
 - Slow lingers for 0.25 seconds after leaving the marked area.
 - Hail of Arrows consumes Blighted Quiver stacks for bonus damage a second time after ~0.3 seconds of hitting, allowing stacks applied during this time to be triggered.
+- Curated source conflict: the exact pinned template metadata says damagetype = Magic, while its active text and Physical Damage leveling formula say physical damage. The damageType flag follows the explicit description and formula.
 
 ## R: Chain of Corruption
 
@@ -214,3 +215,106 @@ All 2 level-based formulas in the game files (0 linked to wiki values above):
 |---|---|---|--:|--:|--:|
 | VarusPassive | MinionAS | breakpoints at levels 7, 13 (level 1: 0.1) | 0.1 | 0.2 | 0.2 |
 | VarusPassive | ASDuration | breakpoints at levels 6, 11, 16, 21, 26 (level 1: 5) | 5 | 11 | 11 |
+
+## Duel simulator kit (level 20, every ability at max rank)
+
+What the duel simulator fights with (`kits/champions/Varus.ts`): values come from pinned wiki and versioned game-data records at level 20. Interpretations and missing evidence are listed under assumptions. Ratios are fractions of the stat (60% AD is 0.6 × AD).
+
+- Basic attack: range 575, missile at 2000/s, on hit: 40 + 15% bonus AD + 25% AP magic damage.
+
+| Key | Ability | Cooldown (s) | Cast time (s) | Cost | Delivery | On the enemy | On itself |
+|---|---|--:|--:|---|---|---|---|
+| Q | Piercing Arrow | 12 (starts after the channel) | 0 | 70 | self; channel 4 s | – | – |
+| Q2 | Piercing Arrow (release) | 0 | 0 | – | skillshot 1525 long, 140 wide, at 1900/s; recast of Q within 4 s | 240 + 80% bonus AD physical damage | – |
+| W | Blighted Quiver | 40 (starts when its effect on the caster ends) | 0 | – | self | – | lingering for 5.5 s |
+| W2 | Blighted Quiver (cancel) | 0 | 0 | – | self; recast of W within 5.5 s, after 1 s | – | – |
+| E | Hail of Arrows | 10 | 0.242 | 90 | circle of 300 radius up to 925 away, lands after 0.5 s | 180 + 90% bonus AD physical damage | – |
+| R | Chain of Corruption | 60 | 0.242 | 100 | skillshot 1370 long, 240 wide, at 1500/s | 350 + 100% AP magic damage; root for 2 s | – |
+| blight | Blighted Quiver | 0 | 0 | – | self | – | – |
+| Esecond | Hail of Arrows (second Blight check) | 0 | 0 | – | self | marks it "varus:eCheck" for 0.033 s | – |
+| Efield | Hail of Arrows (desecration) | 0 | 0 | – | self | slow 50% for 0.25 s; Grievous Wounds for 0.5 s | – |
+| Rstack | Chain of Corruption (Blight clock) | 0 | 0 | – | self | – | – |
+
+Effects marked by a mark or a role are completed by the kit's hooks (see the kit's source).
+
+### Assumptions
+
+- Living Vengeance starts inactive: no invented minion kill. Actual nonchampion kills grant20%AS for11 seconds atlevel20; champion kills grant30%AS and3.33cap. AD/AP conversion reads the full current bonus-AS percentage, including this buff, at11% or33%, and updates each tick. Nonchampion kills during empowerment retain the sourced delayed ordinary-buff remainder; pets cannot refresh champion empowerment.
+- Piercing Arrow is an interruptible mobile four-second charge with20% self-slow; release is explicit and timeout cancels with half mana refunded; an external interrupt does not invent that timeout refund. Damage and Blight effects scale linearly to150% at1.25 seconds. Its range field and description imply825→1525 missile travel over1.5 seconds plus70radius; an old note says maximum at1.25 seconds. The current description/field wins this source conflict. The policy releases at1.25 seconds when reachable, otherwise waits. Post-effect Q cooldown is hasted then reduced by actual charge duration, as the exact raw-template cooldown tooltip states.
+- Piercing Arrow pierces actual champions and normal-HP summons, reducing only arrow physical damage by15 percentage points per previous contact to33%; each target's own full Blight/empowered-W packet is independent. Projectiles obey the common sidestep branch model and projectile walls. Cosmetic critical text does not create critical damage. Fractional outcomes retain expected Blight consumption and refunds rather than inventing integer stacks in both outcomes.
+- Blight is separate per actual target, expires six seconds after its last application and caps atthree. Blind/dodge/parry/basic damage blocks deny its40+15%bonusAD+25%AP onhit and stack. Spell shields block ability damage and consumption together. Detonation uses5%+1.3%per100AP maxHP perstack atmaxrank; only champion contacts refund13% of each hasted total basic cooldown perstack, amplified up to1.5 byQcharge. Actual summons have no invented champion or epic-monster refund.
+- W grants a5.5-second entitlement, can overlay Q only during its first.85seconds and ignores cast-inhibitingCC. It is explicitly excluded from opponent on-cast counters. Manual/unused expiry cancels to a fixed one-second cooldown; an entitled Q spends the full40-second hasted cooldown when the charge ends, even if Q is cancelled. Empowered Q deals14%missingHP multiplied bycharge after physical and Blight damage; no additional spell-shield check is invented inside the accepted packet.
+- Hail of Arrows retains its.2419-second cast plus.5-second flight, with a fixed landing point and projectile-wall destruction before landing. A300radius desecrated field lasts4seconds and refreshes50%slow with.25secondlinger and ordinary40%GrievousWounds withthe separatelypinned.5secondGWlinger. A separately shieldable second Blight check at+.3seconds hits only targets still overlapping the actual ground circle. The upstream approximate second-check timing remains approximate; slow andGW have separate sourced linger clocks.
+- Chain of Corruption hits the first champion, ignores pets as blockers and does not create nonexistent allied/enemy champions for its spreading tether. Its2second root and root-linked ordinary sight are independently guarded. Three Blight applications occur at+.65,+1.2,+1.75seconds only while the original root remains; cleanse or CC immunity denies later stacks. A tenacity-shortened root gets its first stack on its final active30Hz tick. Launched spells, fields and corruption stack clocks survive Varus dying; there is no unearned post-death attack.
+- The budget excludes the conditional kill passive and assigns fully charged Q one real1.25second charge cost percycle. Its Blight reference is capped by real attack+R stackgeneration and basic-spell consumption cadence, with no free cooldown-refund loop or epic-monster lane. W values a50%missingHP reference only on itsown40second cycle. E damage and R damage retain their ordinary direct formula budgets.
+
+### Source values read (66)
+
+| Ability | Value | Source version |
+|---|---|---|
+| Living Vengeance | Innate: When Varus kills an enemy, he gains 10 / 15 / 20 (based on level)% bonus attack speed as well as bonus attack damage and ability power equal to 11% of his total bonus attack speed for 5 / 7 / 9 / 11 (based on level) seconds, refreshing on subsequent unit kills. | [4026465](https://wiki.leagueoflegends.com/en-us/Template:Data_Varus/Living_Vengeance?oldid=4026465) |
+| Living Vengeance | equal to 11% | [4026465](https://wiki.leagueoflegends.com/en-us/Template:Data_Varus/Living_Vengeance?oldid=4026465) |
+| Living Vengeance | 30% bonus attack speed | [4026465](https://wiki.leagueoflegends.com/en-us/Template:Data_Varus/Living_Vengeance?oldid=4026465) |
+| Living Vengeance | equal to 33% | [4026465](https://wiki.leagueoflegends.com/en-us/Template:Data_Varus/Living_Vengeance?oldid=4026465) |
+| Living Vengeance | cap of 3.33 | [4026465](https://wiki.leagueoflegends.com/en-us/Template:Data_Varus/Living_Vengeance?oldid=4026465) |
+| Living Vengeance | empowerment may only be refreshed by subsequent champion takedowns | [4026465](https://wiki.leagueoflegends.com/en-us/Template:Data_Varus/Living_Vengeance?oldid=4026465) |
+| Living Vengeance | minus the remaining duration of the empowered version | [4026465](https://wiki.leagueoflegends.com/en-us/Template:Data_Varus/Living_Vengeance?oldid=4026465) |
+| Living Vengeance | mSpell.missileSpeed: 2000.0 | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/varus/varus.bin.json) |
+| Piercing Arrow | for up to 4 seconds | [4026469](https://wiki.leagueoflegends.com/en-us/Template:Data_Varus/Piercing_Arrow?oldid=4026469) |
+| Piercing Arrow | over the first 1.25 seconds | [4026469](https://wiki.leagueoflegends.com/en-us/Template:Data_Varus/Piercing_Arrow?oldid=4026469) |
+| Piercing Arrow | over the first 1.5 seconds | [4026469](https://wiki.leagueoflegends.com/en-us/Template:Data_Varus/Piercing_Arrow?oldid=4026469) |
+| Piercing Arrow | slowed by 20% | [4026469](https://wiki.leagueoflegends.com/en-us/Template:Data_Varus/Piercing_Arrow?oldid=4026469) |
+| Piercing Arrow | refunds 50% | [4026469](https://wiki.leagueoflegends.com/en-us/Template:Data_Varus/Piercing_Arrow?oldid=4026469) |
+| Piercing Arrow | range: 895 / 1011.67 / 1128.33 / 1245 / 1361.67 / 1478.33 / 1595 (based on channel time) | [4026469](https://wiki.leagueoflegends.com/en-us/Template:Data_Varus/Piercing_Arrow?oldid=4026469) |
+| Piercing Arrow | width: 140 | [4026469](https://wiki.leagueoflegends.com/en-us/Template:Data_Varus/Piercing_Arrow?oldid=4026469) |
+| Piercing Arrow | speed: 1900 | [4026469](https://wiki.leagueoflegends.com/en-us/Template:Data_Varus/Piercing_Arrow?oldid=4026469) |
+| Piercing Arrow | Minimum Physical Damage: 53.3333 / 100 / 146.667 / 193.333 / 240 (+ 80% bonus AD) | [4026469](https://wiki.leagueoflegends.com/en-us/Template:Data_Varus/Piercing_Arrow?oldid=4026469) |
+| Piercing Arrow | Maximum Physical Damage: 80 / 150 / 220 / 290 / 360 (+ 120% bonus AD) | [4026469](https://wiki.leagueoflegends.com/en-us/Template:Data_Varus/Piercing_Arrow?oldid=4026469) |
+| Piercing Arrow | reduced by 0 / 15 / 30 / 45 / 60 / 67 | [4026469](https://wiki.leagueoflegends.com/en-us/Template:Data_Varus/Piercing_Arrow?oldid=4026469) |
+| Piercing Arrow | after charge ends the cooldown is reduced equal to the charge duration | [4026469](https://wiki.leagueoflegends.com/en-us/Template:Data_Varus/Piercing_Arrow?oldid=4026469) |
+| Piercing Arrow | cooldownStart: post-effect | [4026469](https://wiki.leagueoflegends.com/en-us/Template:Data_Varus/Piercing_Arrow?oldid=4026469) |
+| Piercing Arrow | missile range is 825 to 1525 | [4026469](https://wiki.leagueoflegends.com/en-us/Template:Data_Varus/Piercing_Arrow?oldid=4026469) |
+| Blighted Quiver | for 6 seconds | [4062256](https://wiki.leagueoflegends.com/en-us/Template:Data_Varus/Blighted_Quiver?oldid=4062256) |
+| Blighted Quiver | stacking up to 3 times | [4062256](https://wiki.leagueoflegends.com/en-us/Template:Data_Varus/Blighted_Quiver?oldid=4062256) |
+| Blighted Quiver | Bonus Magic Damage: 4 / 13 / 22 / 31 / 40 (+ 15% bonus AD) (+ 25% AP) | [4062256](https://wiki.leagueoflegends.com/en-us/Template:Data_Varus/Blighted_Quiver?oldid=4062256) |
+| Blighted Quiver | Bonus Magic Damage per Stack: 3 / 3.5 / 4 / 4.5 / 5% (+ 1.3% per 100 AP) of the target's maximum health | [4062256](https://wiki.leagueoflegends.com/en-us/Template:Data_Varus/Blighted_Quiver?oldid=4062256) |
+| Blighted Quiver | by 13% | [4062256](https://wiki.leagueoflegends.com/en-us/Template:Data_Varus/Blighted_Quiver?oldid=4062256) |
+| Blighted Quiver | within 5.5 seconds | [4062256](https://wiki.leagueoflegends.com/en-us/Template:Data_Varus/Blighted_Quiver?oldid=4062256) |
+| Blighted Quiver | after 1 second | [4062256](https://wiki.leagueoflegends.com/en-us/Template:Data_Varus/Blighted_Quiver?oldid=4062256) |
+| Blighted Quiver | first 0.85 seconds | [4062256](https://wiki.leagueoflegends.com/en-us/Template:Data_Varus/Blighted_Quiver?oldid=4062256) |
+| Blighted Quiver | Active Minimum Magic Damage: 6 / 8 / 10 / 12 / 14% of target's missing health | [4062256](https://wiki.leagueoflegends.com/en-us/Template:Data_Varus/Blighted_Quiver?oldid=4062256) |
+| Blighted Quiver | will not apply stacks nor deal on-hit damage if blocked by blind, block or dodge effects | [4062256](https://wiki.leagueoflegends.com/en-us/Template:Data_Varus/Blighted_Quiver?oldid=4062256) |
+| Blighted Quiver | active damage is dealt after the damage of Piercing Arrow | [4062256](https://wiki.leagueoflegends.com/en-us/Template:Data_Varus/Blighted_Quiver?oldid=4062256) |
+| Blighted Quiver | does not count as an ability activation | [4062256](https://wiki.leagueoflegends.com/en-us/Template:Data_Varus/Blighted_Quiver?oldid=4062256) |
+| Blighted Quiver | can both be used while affected by cast-inhibiting crowd control | [4062256](https://wiki.leagueoflegends.com/en-us/Template:Data_Varus/Blighted_Quiver?oldid=4062256) |
+| Hail of Arrows | Physical Damage: 60 / 90 / 120 / 150 / 180 (+ 90% bonus AD) | [3969402](https://wiki.leagueoflegends.com/en-us/Template:Data_Varus/Hail_of_Arrows?oldid=3969402) |
+| Hail of Arrows | targetRange: 925 | [3969402](https://wiki.leagueoflegends.com/en-us/Template:Data_Varus/Hail_of_Arrows?oldid=3969402) |
+| Hail of Arrows | effectRadius: 300 | [3969402](https://wiki.leagueoflegends.com/en-us/Template:Data_Varus/Hail_of_Arrows?oldid=3969402) |
+| Hail of Arrows | land after 0.5 seconds | [3969402](https://wiki.leagueoflegends.com/en-us/Template:Data_Varus/Hail_of_Arrows?oldid=3969402) |
+| Hail of Arrows | desecrated for 4 seconds | [3969402](https://wiki.leagueoflegends.com/en-us/Template:Data_Varus/Hail_of_Arrows?oldid=3969402) |
+| Hail of Arrows | Slow: 30 / 35 / 40 / 45 / 50% | [3969402](https://wiki.leagueoflegends.com/en-us/Template:Data_Varus/Hail_of_Arrows?oldid=3969402) |
+| Hail of Arrows | lingers for 0.25 seconds | [3969402](https://wiki.leagueoflegends.com/en-us/Template:Data_Varus/Hail_of_Arrows?oldid=3969402) |
+| Hail of Arrows | after ~0.3 seconds | [3969402](https://wiki.leagueoflegends.com/en-us/Template:Data_Varus/Hail_of_Arrows?oldid=3969402) |
+| Hail of Arrows | mSpell.DataValues.GrievousDuration.values: [0.5 | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/varus/varus.bin.json) |
+| Chain of Corruption | Magic Damage: 150 / 250 / 350 (+ 100% AP) | [4008213](https://wiki.leagueoflegends.com/en-us/Template:Data_Varus/Chain_of_Corruption?oldid=4008213) |
+| Chain of Corruption | rooting them for 2 seconds | [4008213](https://wiki.leagueoflegends.com/en-us/Template:Data_Varus/Chain_of_Corruption?oldid=4008213) |
+| Chain of Corruption | range: 1370 | [4008213](https://wiki.leagueoflegends.com/en-us/Template:Data_Varus/Chain_of_Corruption?oldid=4008213) |
+| Chain of Corruption | width: 240 | [4008213](https://wiki.leagueoflegends.com/en-us/Template:Data_Varus/Chain_of_Corruption?oldid=4008213) |
+| Chain of Corruption | speed: 1500 | [4008213](https://wiki.leagueoflegends.com/en-us/Template:Data_Varus/Chain_of_Corruption?oldid=4008213) |
+| Chain of Corruption | after ~0.65 seconds | [4008213](https://wiki.leagueoflegends.com/en-us/Template:Data_Varus/Chain_of_Corruption?oldid=4008213) |
+| Chain of Corruption | after ~1.2 seconds | [4008213](https://wiki.leagueoflegends.com/en-us/Template:Data_Varus/Chain_of_Corruption?oldid=4008213) |
+| Chain of Corruption | and ~1.75 seconds | [4008213](https://wiki.leagueoflegends.com/en-us/Template:Data_Varus/Chain_of_Corruption?oldid=4008213) |
+| Chain of Corruption | first enemy champion hit | [4008213](https://wiki.leagueoflegends.com/en-us/Template:Data_Varus/Chain_of_Corruption?oldid=4008213) |
+| Chain of Corruption | If the root is not applied | [4008213](https://wiki.leagueoflegends.com/en-us/Template:Data_Varus/Chain_of_Corruption?oldid=4008213) |
+| Chain of Corruption | cleanses the root immediately | [4008213](https://wiki.leagueoflegends.com/en-us/Template:Data_Varus/Chain_of_Corruption?oldid=4008213) |
+| Chain of Corruption | not have to be visible | [4008213](https://wiki.leagueoflegends.com/en-us/Template:Data_Varus/Chain_of_Corruption?oldid=4008213) |
+| Piercing Arrow | cooldown: 16 / 15 / 14 / 13 / 12 | [4026469](https://wiki.leagueoflegends.com/en-us/Template:Data_Varus/Piercing_Arrow?oldid=4026469) |
+| Piercing Arrow | cost: 50 / 55 / 60 / 65 / 70 | [4026469](https://wiki.leagueoflegends.com/en-us/Template:Data_Varus/Piercing_Arrow?oldid=4026469) |
+| Blighted Quiver | cooldown: 40 | [4062256](https://wiki.leagueoflegends.com/en-us/Template:Data_Varus/Blighted_Quiver?oldid=4062256) |
+| Hail of Arrows | cooldown: 18 / 16 / 14 / 12 / 10 | [3969402](https://wiki.leagueoflegends.com/en-us/Template:Data_Varus/Hail_of_Arrows?oldid=3969402) |
+| Hail of Arrows | castTime: 0.2419 | [3969402](https://wiki.leagueoflegends.com/en-us/Template:Data_Varus/Hail_of_Arrows?oldid=3969402) |
+| Chain of Corruption | cooldown: 100 / 80 / 60 | [4008213](https://wiki.leagueoflegends.com/en-us/Template:Data_Varus/Chain_of_Corruption?oldid=4008213) |
+| Chain of Corruption | castTime: 0.2419 | [4008213](https://wiki.leagueoflegends.com/en-us/Template:Data_Varus/Chain_of_Corruption?oldid=4008213) |
+| Piercing Arrow | castTime: none | [4026469](https://wiki.leagueoflegends.com/en-us/Template:Data_Varus/Piercing_Arrow?oldid=4026469) |
+| Hail of Arrows | cost: 90 | [3969402](https://wiki.leagueoflegends.com/en-us/Template:Data_Varus/Hail_of_Arrows?oldid=3969402) |
+| Chain of Corruption | cost: 100 | [4008213](https://wiki.leagueoflegends.com/en-us/Template:Data_Varus/Chain_of_Corruption?oldid=4008213) |

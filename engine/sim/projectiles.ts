@@ -3,8 +3,9 @@
  * missiles retain their existing path in actions.ts. Distances and velocity curves here
  * are supplied by the kit; the shared mover supplies no champion-specific numbers.
  */
-import { abilityHit, hookContext, isUntargetable, log } from "./combat";
+import { abilityHit, abilityHitPet, attackHit, hookContext, inStasis, isUntargetable, log } from "./combat";
 import { abilityOf } from "./forms";
+import { resolveAttackOnPet } from "./attackPet";
 import { petEffects } from "./pets";
 import { petFormulaTarget } from "./petTarget";
 import type { Effect } from "./spec";
@@ -36,7 +37,7 @@ function nextContact(world: World, missile: Missile, length: number): Contact | 
   const target = world.units[other(missile.owner)];
   const radius = Math.max(0, missile.radius ?? 0);
   let closest: Contact | undefined;
-  if (missile.connects && target.alive && !isUntargetable(target, owner) && !missile.hitTargets?.includes(target.side)) {
+  if (missile.connects && target.alive && !inStasis(target) && (missile.hitsUntargetable || !isUntargetable(target, owner)) && !missile.hitTargets?.includes(target.side)) {
     const distance = contactDistance(missile.x, missile.direction, target.x, target.spec.base.radius + radius, length);
     if (distance !== undefined) closest = { distance, target };
   }
@@ -44,7 +45,7 @@ function nextContact(world: World, missile: Missile, length: number): Contact | 
     for (const pet of world.pets) {
       // The simulator's area-damage targets: untargetable objects and hit-count props
       // (kegs/tentacles) are not damageable spell targets and do not absorb this flight.
-      if (pet.owner === missile.owner || pet.spec.untargetable || pet.spec.hitPoints || pet.hp <= 0 || missile.hitPets?.includes(pet.id) || isUntargetable(petFormulaTarget(pet, owner, world.tick), owner)) continue;
+      if (pet.owner === missile.owner || pet.spec.untargetable || (!missile.attack && pet.spec.hitPoints) || pet.hp <= 0 || missile.hitPets?.includes(pet.id) || isUntargetable(petFormulaTarget(pet, owner, world.tick), owner)) continue;
       const distance = contactDistance(missile.x, missile.direction, pet.x, pet.spec.radius + radius, length);
       if (distance !== undefined && (!closest || distance < closest.distance - EPSILON)) closest = { distance, pet };
     }
@@ -56,7 +57,9 @@ function nextContact(world: World, missile: Missile, length: number): Contact | 
 function hitPet(world: World, missile: Missile, pet: Pet, effects: Effect[]): void {
   const owner = world.units[missile.owner];
   // Champion sidestep branches do not make a stationary pet miss or reduce its packet.
-  petEffects(world, owner, pet, effects, "area", missile.source);
+  const ability = abilityOf(owner, missile.source);
+  if (ability?.flags?.petContactHooks) abilityHitPet(world, owner, pet, ability, effects, "area");
+  else petEffects(world, owner, pet, effects, "area", missile.source);
 }
 
 function accelerate(missile: Missile): void {
@@ -74,6 +77,8 @@ export function advanceSpecialMissile(world: World, missile: Missile, blocked: B
   if (missile.ended) return false;
   if (missile.expiresTick !== undefined && world.tick >= missile.expiresTick) return end(world, missile, "range");
   const owner = world.units[missile.owner];
+  owner.spec.hooks?.onMissileTick?.({ ...hookContext(world, owner), missile });
+  if (missile.ended) return false;
   let timeLeft = 1;
   while (timeLeft > EPSILON) {
     if (missile.followOwner && Math.abs(owner.x - missile.x) <= EPSILON) {
@@ -104,12 +109,14 @@ export function advanceSpecialMissile(world: World, missile: Missile, blocked: B
       if ("target" in contact) {
         (missile.hitTargets ??= []).push(contact.target.side);
         const ability = abilityOf(owner, missile.source);
-        if (ability) abilityHit(world, owner, contact.target, ability, effects, missile.scale);
+        if (missile.attack) attackHit(world, owner, contact.target, missile.attack.blinded, missile.attack.bonusOnHit, missile.attack.split, missile.hitsUntargetable, missile.attack, missile.scale);
+        else if (ability) abilityHit(world, owner, contact.target, ability, effects, missile.scale);
         owner.spec.hooks?.onMissileContact?.({ ...hookContext(world, owner), missile });
       } else {
         (missile.hitPets ??= []).push(contact.pet.id);
-        hitPet(world, missile, contact.pet, effects);
-        owner.spec.hooks?.onMissileContact?.({ ...hookContext(world, owner), missile, targetPet: contact.pet });
+        if (missile.attack) resolveAttackOnPet(world, owner, contact.pet, missile.attack.blinded, missile.attack.bonusOnHit, missile.attack, missile.attack.split);
+        else hitPet(world, missile, contact.pet, effects);
+        owner.spec.hooks?.onMissileContact?.({ ...hookContext(world, owner, undefined, petFormulaTarget(contact.pet, owner, world.tick)), missile, targetPet: contact.pet });
       }
       if (missile.ended) return false;
       // A shattering kit can set piercing and extend travelLeft in its contact hook.

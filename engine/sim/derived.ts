@@ -6,6 +6,7 @@ import { CC_RULES, type CCType, combineTenacity } from "../rules/crowdControl";
 import { CRIT_DAMAGE } from "../rules/defense";
 import { combineSlowResist, movementSpeed } from "../rules/movement";
 import { capAttackSpeed } from "../rules/timing";
+import { ATTACK_SPEED_CAP } from "../stats";
 import type { BaseStats, BonusStats, FighterSpec, Formula, StatRef } from "./spec";
 import type { Status, Unit } from "./state";
 
@@ -124,7 +125,12 @@ function sameDerivedInputs(unit: Unit, previous: DerivedCache): boolean {
   const conversions = previous.conversions;
   if (statConversions && conversions) {
     if (statConversions.healthToAP !== conversions.healthToAP || statConversions.apToHealth !== conversions.apToHealth
-        || statConversions.moveSpeedBonusEffectiveness !== conversions.moveSpeedBonusEffectiveness) return false;
+        || statConversions.moveSpeedBonusEffectiveness !== conversions.moveSpeedBonusEffectiveness
+        || statConversions.fixedAttackSpeed !== conversions.fixedAttackSpeed) return false;
+    const multiplier = statConversions.attackDamageMultiplier, before = conversions.attackDamageMultiplier;
+    if (multiplier && before) {
+      if (multiplier.base !== before.base || multiplier.critChance !== before.critChance || multiplier.bonusAttackSpeed !== before.bonusAttackSpeed) return false;
+    } else if (multiplier !== before) return false;
   } else if (statConversions !== conversions) return false;
   if (unit.statuses.length !== previous.statuses.length) return false;
   for (let index = 0; index < unit.statuses.length; index++) {
@@ -145,7 +151,7 @@ export function derive(unit: Unit): Derived {
   cache.set(unit, {
     base: { ...unit.spec.base, attackSpeed: { ...unit.spec.base.attackSpeed } },
     bonus: unit.spec.bonus ? { ...unit.spec.bonus } : undefined,
-    conversions: unit.spec.statConversions ? { ...unit.spec.statConversions } : undefined,
+    conversions: unit.spec.statConversions ? { ...unit.spec.statConversions, ...(unit.spec.statConversions.attackDamageMultiplier ? { attackDamageMultiplier: { ...unit.spec.statConversions.attackDamageMultiplier } } : {}) } : undefined,
     statuses: unit.statuses.map(({ kind, key, value, source, ability, tenacityGroup, bypassSlowImmune }) =>
       ({ kind, key, value, source, ability, tenacityGroup, bypassSlowImmune })),
     value,
@@ -181,9 +187,15 @@ function computeDerived(unit: Unit): Derived {
   const ap = conversion?.healthToAP === undefined ? externalAP : externalAP + externalBonusHp * conversion.healthToAP;
   const rawBonusAd = (bonus.ad ?? 0) + sum(st, "AD");
   const totalADReduction = Math.max(0, sum(st, "totalADReduction"));
-  const bonusAd = Math.max(0, rawBonusAd - totalADReduction);
   const bonusAttackSpeed = base.attackSpeed.bonus + (bonus.attackSpeed ?? 0) + sum(st, "attackSpeed");
-  const rawAttackSpeed = base.attackSpeed.base + base.attackSpeed.ratio * bonusAttackSpeed;
+  const critChance = Math.min(1, Math.max(0, (bonus.critChance ?? 0) + sum(st, "critChance")));
+  const unconvertedAD = Math.max(0, base.ad + rawBonusAd - totalADReduction);
+  const adMultiplier = conversion?.attackDamageMultiplier;
+  const convertedAD = adMultiplier ? unconvertedAD * (adMultiplier.base + adMultiplier.critChance * critChance + adMultiplier.bonusAttackSpeed * bonusAttackSpeed) : 0;
+  const bonusAd = Math.max(0, rawBonusAd - totalADReduction) + convertedAD;
+  const rawAttackSpeed = conversion?.fixedAttackSpeed
+    ? base.attackSpeed.base * (1 + base.attackSpeed.bonus)
+    : (base.attackSpeed.base + base.attackSpeed.ratio * bonusAttackSpeed) * Math.max(0, 1 + sum(st, "attackSpeedMultiplier")) * attackSpeedSlowFactor(st);
   const slowImmune = hasState(unit, "slowImmune");
   // "Increases total armor by 16%": a share of the total, gained as bonus armor.
   const armorBonus = (bonus.armor ?? 0) + sum(st, "armor");
@@ -221,13 +233,13 @@ function computeDerived(unit: Unit): Derived {
     maxHp,
     baseAd: base.ad,
     bonusAd,
-    ad: Math.max(0, base.ad + rawBonusAd - totalADReduction),
+    ad: unconvertedAD + convertedAD,
     ap,
     armor: { base: base.armor, bonus: armorBonus + (base.armor + armorBonus) * sum(st, "armorPercent") },
     mr: { base: base.mr, bonus: mrBonus + (base.mr + mrBonus) * sum(st, "mrPercent") },
     bonusAttackSpeed,
-    attackSpeed: capAttackSpeed(rawAttackSpeed * attackSpeedSlowFactor(st)),
-    critChance: Math.min(1, (bonus.critChance ?? 0) + sum(st, "critChance")),
+    attackSpeed: capAttackSpeed(rawAttackSpeed, Math.max(ATTACK_SPEED_CAP, ...list(st, "stat", "attackSpeedCap"))),
+    critChance,
     critDamage: CRIT_DAMAGE * base.critDamageModifier,
     abilityHaste: (bonus.abilityHaste ?? 0) + sum(st, "abilityHaste"),
     lethality: (bonus.lethality ?? 0) + sum(st, "lethality"),

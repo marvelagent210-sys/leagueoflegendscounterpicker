@@ -224,11 +224,11 @@ Effects marked by a mark or a role are completed by the kit's hooks (see the kit
 - Noxious Blast movement speed decays linearly over three seconds and is granted only on a connected champion hit; a spell shield denies both poison and speed.
 - Miasma's seven-cloud arc is represented by the portion on the duel axis, with one traveling cloud and no overlap stacking. A wall removes that portion; lateral surviving portions and enemy pet poisoning are not simulated.
 - Miasma deterministically applies nineteen packets, beginning at field arrival and using absolute 5/19-second boundaries. The source's occasional eighteen-packet outcome is not randomized. Its unpinned slow curve decays linearly from 80% to zero over the field's age, with 0.25-second contact refresh outside the cloud.
-- Twin Fang checks only explicitly tagged Cassiopeia poison; arbitrary DOTs never qualify. Its level-20 ordinary damage follows the 128.235294117647 wiki series, rather than the conflicting 128.234 enhanced-label game-file base. Fang impact waits only for a pending own Q whose blast overlaps the target, with no invented hold timeout.
+- Twin Fang recognizes explicitly tagged Cassiopeia and Twitch poison at impact; arbitrary DOTs never qualify. Its level-20 ordinary damage follows the 128.235294117647 wiki series, rather than the conflicting 128.234 enhanced-label game-file base. Fang impact waits only for a pending own Q whose blast overlaps the target, with no invented hold timeout.
 - Petrifying Gaze uses persistent absolute facing from walking, attacks and cast commands. Its 80-degree cone is the deterministic intersection with the duel axis, starting 100 units behind the caster and ending 850 units in front, including target-hitbox overlap. Lateral targets, pet cone damage and the source's unnamed R exception are absent. Forced displacement retains command-facing in this model, so the unquantified knockback-facing exception remains unresolved.
 - The budget estimates poison uptime from Q plus the corrected nineteen-packet W duration, prices impact-poisoned E damage and AP-only healing by that uptime, and has no repeated kill mana refunds. Actual fights consume mana on every completed cast.
 
-### Source values read (49)
+### Source values read (50)
 
 | Ability | Value | Source version |
 |---|---|---|
@@ -272,6 +272,7 @@ Effects marked by a mark or a role are completed by the kit's hooks (see the kit
 | Twin Fang | cooldown: 0.75 | [4064399](https://wiki.leagueoflegends.com/en-us/Template:Data_Cassiopeia/Twin_Fang?oldid=4064399) |
 | Twin Fang | castTime: 0.125 | [4064399](https://wiki.leagueoflegends.com/en-us/Template:Data_Cassiopeia/Twin_Fang?oldid=4064399) |
 | Petrifying Gaze | cooldown: 120 / 100 / 80 | [4060360](https://wiki.leagueoflegends.com/en-us/Template:Data_Cassiopeia/Petrifying_Gaze?oldid=4060360) |
+| Twin Fang | Against a poisoned target | [4064399](https://wiki.leagueoflegends.com/en-us/Template:Data_Cassiopeia/Twin_Fang?oldid=4064399) |
 | Noxious Blast | cost: 50 / 55 / 60 / 65 / 70 | [4060358](https://wiki.leagueoflegends.com/en-us/Template:Data_Cassiopeia/Noxious_Blast?oldid=4060358) |
 | Noxious Blast | targetRange: 850 | [4060358](https://wiki.leagueoflegends.com/en-us/Template:Data_Cassiopeia/Noxious_Blast?oldid=4060358) |
 | Noxious Blast | effectRadius: 200 | [4060358](https://wiki.leagueoflegends.com/en-us/Template:Data_Cassiopeia/Noxious_Blast?oldid=4060358) |

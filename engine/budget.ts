@@ -331,8 +331,8 @@ function usesOf(abilities: AbilitySpec[]): Use[][] {
   if (cached) return cached;
   const byCooldown = new Map<string, Use[]>();
   for (const ability of abilities) {
-    if (ability.chain) continue;
-    const stages = abilities.filter((stage) => stage.chain?.root === ability.key);
+    if (ability.chain || ability.budgetExcluded) continue;
+    const stages = abilities.filter((stage) => !stage.budgetExcluded && stage.chain?.root === ability.key);
     const use: Use = { ...timingOf(ability), terms: [...damageTerms(ability), ...stages.flatMap(damageTerms)] };
     const key = cooldownKeyOf(ability);
     byCooldown.set(key, [...(byCooldown.get(key) ?? []), use]);
@@ -376,6 +376,9 @@ function rawDamage(self: Unit, target: Unit): DamageMix {
   const raw: DamageMix = { physical: attackDps * split.physical, magic: attackDps * split.magic, true: attackDps * (split.true ?? 0) };
   if (attacks && self.spec.attack.onHit) {
     for (const term of onHitTerms(self.spec.attack.onHit)) raw[term.damageType] += termDamage(term, self, target) * d.attackSpeed;
+  }
+  if (attacks && self.spec.attack.beforeDamage) {
+    for (const term of onHitTerms(self.spec.attack.beforeDamage)) raw[term.damageType] += termDamage(term, self, target) * d.attackSpeed;
   }
   const extra = hints?.damage?.(self, target);
   raw.physical += extra?.physical ?? 0;
@@ -439,8 +442,8 @@ function sustain(self: Unit, incoming: DamageMix): number {
   if (!sources) {
     const groups = new Map<string, SustainUse[]>();
     for (const ability of abilities) {
-      if (ability.chain) continue;
-      const stages = [ability, ...abilities.filter((stage) => stage.chain?.root === ability.key)];
+      if (ability.chain || ability.budgetExcluded) continue;
+      const stages = [ability, ...abilities.filter((stage) => !stage.budgetExcluded && stage.chain?.root === ability.key)];
       const effects = stages.flatMap((stage) => flatten([...(stage.onCastStart ?? []), ...(stage.onSelf ?? [])]))
         .filter((e): e is Extract<Effect, { type: "shield" | "heal" }> => e.type === "shield" || e.type === "heal");
       if (!effects.length) continue;

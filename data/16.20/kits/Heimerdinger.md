@@ -303,7 +303,7 @@ Effects marked by a mark or a role are completed by the kit's hooks (see the kit
 - UPGRADE!!! empowers his rockets (Hextech Rocket Swarm).
 - Heimerdinger deploys a turret toward the enemy (within 350 units of him) while fewer than three reach it, and casts UPGRADE!!! in a fight just before the ability it empowers.
 
-### Source values read (67)
+### Source values read (69)
 
 | Ability | Value | Source version |
 |---|---|---|
@@ -374,3 +374,5 @@ Effects marked by a mark or a role are completed by the kit's hooks (see the kit
 | CH-3X Lightning Grenade | Magic Damage: 100 / 200 / 300 (+ 60% AP) | [3965591](https://wiki.leagueoflegends.com/en-us/Template:Data_Heimerdinger/CH-3X_Lightning_Grenade?oldid=3965591) |
 | CH-2 Electron Storm Grenade | innerRadius: 100 | [4022980](https://wiki.leagueoflegends.com/en-us/Template:Data_Heimerdinger/CH-2_Electron_Storm_Grenade?oldid=4022980) |
 | CH-3X Lightning Grenade | innerRadius: 150 | [3965591](https://wiki.leagueoflegends.com/en-us/Template:Data_Heimerdinger/CH-3X_Lightning_Grenade?oldid=3965591) |
+| H-28G Evolution Turret | Minion, does not count towards the minion kill tracking score | [4025016](https://wiki.leagueoflegends.com/en-us/Heimerdinger?oldid=4025016) |
+| H-28Q Apex Turret | Minion | [4025016](https://wiki.leagueoflegends.com/en-us/Heimerdinger?oldid=4025016) |

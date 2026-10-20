@@ -232,8 +232,22 @@
       "Feathers that are 'in flight' will be called to Xayah too, but only once they've landed normally first.",
       "Spell shield will only block a single instance of damage.",
       "This ability cannot be ranked at Level 1.",
-      "The damage dealt by Bladecaller follows a diminishing returns formula not mentioned in the ability's description, successively reducing extra damage from feathers beyond the first.\n  - This formula is:\n    - For feathers <=19: Damage of one feather × (n−0.05 × (n−1) ÷ 2 × n) where n stands for the number of feathers hit.\n    - For feathers >=20: Damage of one feather × (19−0.05 × (19−1) ÷ 2 × 19 + 0.1 × (n−19)) where n stands for the number of feathers hit.\n  - For example, at rank 1 Bladecaller deals 50 – 517.5 (based on level).",
+      "The damage dealt by Bladecaller follows a diminishing returns formula not mentioned in the ability's description, successively reducing extra damage from feathers beyond the first.\n  - This formula is:\n    - For feathers <=19: Damage of one feather \u00d7 (n\u22120.05 \u00d7 (n\u22121) \u00f7 2 \u00d7 n) where n stands for the number of feathers hit.\n    - For feathers >=20: Damage of one feather \u00d7 (19\u22120.05 \u00d7 (19\u22121) \u00f7 2 \u00d7 19 + 0.1 \u00d7 (n\u221219)) where n stands for the number of feathers hit.\n  - For example, at rank 1 Bladecaller deals 50 \u2013 517.5 (based on level).",
       "Bladecaller cannot be cast without a Feather on the ground."
+    ],
+    "gameSources": [
+      {
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/xayah/xayah.bin.json",
+        "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "sha256": "8954bd1d2b6884bbb8dc3ecfffff6e89ad3db423ea36f4b67204a1e3c79bb636",
+        "object": "Characters/Xayah/Spells/XayahEAbility/XayahE",
+        "text": [
+          "mSpell.DataValues.FeatherReturnDelay.values: [0.25,0.25,0.25,0.25,0.25,0.25,0.25]",
+          "mSpell.DataValues.CritRatio.values: [0.5,0.5,0.5,0.5,0.5,0.5,0.5]",
+          "mSpell.mSpellCalculations.FeatherDamage.mMultiplier: {\"mSubparts\":[{\"mNumber\":1.0,\"__type\":\"NumberCalculationPart\"},{\"mPart1\":{\"mStat\":8,\"mDataValue\":\"CritRatio\",\"__type\":\"StatByNamedDataValueCalculationPart\"},\"mPart2\":{\"mSubparts\":[{\"mStat\":9,\"mCoefficient\":1.0,\"__type\":\"StatByCoefficientCalculationPart\"},{\"mNumber\":-1.0,\"__type\":\"NumberCalculationPart\"}],\"__type\":\"SumOfSubPartsCalculationPart\"},\"__type\":\"ProductOfSubPartsCalculationPart\"}],\"__type\":\"SumOfSubPartsCalculationPart\"}",
+          "mSpell.DataValues.FeatherThreshold.values: [3.0,3.0,3.0,3.0,3.0,3.0,3.0]"
+        ]
+      }
     ]
   },
   {
@@ -356,6 +370,17 @@
       "All her Feathers on the ground will be destroyed when Xayah dies, and while she is dead, missiles that are still in flight will not spawn new ones, either.",
       "The empowered attack will not trigger against structures nor wards.\n  - The duration will be refreshed when starting the attack windup against them.",
       "The number of Clean Cuts stacks available is represented by a feather counter in her ammo bar, visible to the player only."
+    ],
+    "gameSources": [
+      {
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/xayah/xayah.bin.json",
+        "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "sha256": "8954bd1d2b6884bbb8dc3ecfffff6e89ad3db423ea36f4b67204a1e3c79bb636",
+        "object": "Characters/Xayah/Spells/XayahBasicAttack",
+        "text": [
+          "mSpell.missileSpeed: 2500.0"
+        ]
+      }
     ]
   },
   {
@@ -595,6 +620,31 @@
       "As the feathers are forming, they will deal damage in a small area around Xayah's before firing.",
       "Spell shield will only block a single instance of damage.",
       "This ability will cast from wherever the caster is at the end of the cast time."
+    ],
+    "gameSources": [
+      {
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/xayah/xayah.bin.json",
+        "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "sha256": "8954bd1d2b6884bbb8dc3ecfffff6e89ad3db423ea36f4b67204a1e3c79bb636",
+        "object": "Characters/Xayah/Spells/XayahQAbility/XayahQ",
+        "text": [
+          "mSpell.DataValues.Missile1DelayTime.values: [0.33399999141693115,0.33399999141693115,0.33399999141693115,0.33399999141693115,0.33399999141693115,0.33399999141693115,0.33399999141693115]",
+          "mSpell.DataValues.Missile2DelayTime.values: [0.5839999914169312,0.5839999914169312,0.5839999914169312,0.5839999914169312,0.5839999914169312,0.5839999914169312,0.5839999914169312]",
+          "mSpell.DataValues.Missile1DelaySpeed.values: [3500.0,3500.0,3500.0,3500.0,3500.0,3500.0,3500.0]",
+          "mSpell.DataValues.Missile2DelaySpeed.values: [3500.0,3500.0,3500.0,3500.0,3500.0,3500.0,3500.0]"
+        ]
+      }
+    ],
+    "sources": [
+      {
+        "page": {
+          "title": "Template:Data Xayah/Double Daggers",
+          "revid": 4008615
+        },
+        "text": [
+          "0.25-(0.07 per 100% bonus attack speed). This is capped at 60% reduction at 214.3% bonus attack speed."
+        ]
+      }
     ]
   },
   {
@@ -639,7 +689,7 @@
         "values": []
       },
       "effectRadius": {
-        "text": "1060 • 1000",
+        "text": "1060 \u2022 1000",
         "values": [
           {
             "series": {
@@ -657,7 +707,7 @@
         ]
       },
       "angle": {
-        "text": "30°",
+        "text": "30\u00b0",
         "values": [
           {
             "series": {
@@ -752,6 +802,18 @@
     "notes": [
       "The individual missiles have 1100 range but start slightly behind Xayah, reducing their total range.",
       "The following table refers for interactions while Xayah is in Featherstorm:"
+    ],
+    "gameSources": [
+      {
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/xayah/xayah.bin.json",
+        "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "sha256": "8954bd1d2b6884bbb8dc3ecfffff6e89ad3db423ea36f4b67204a1e3c79bb636",
+        "object": "Characters/Xayah/Spells/XayahRAbility/XayahRMissile",
+        "text": [
+          "mSpell.missileSpeed: 4000.0",
+          "mSpell.mMissileSpec.mMissileWidth: 20.0"
+        ]
+      }
     ]
   },
   {

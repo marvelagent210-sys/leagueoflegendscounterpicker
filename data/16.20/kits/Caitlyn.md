@@ -221,3 +221,100 @@ All 2 level-based formulas in the game files (0 linked to wiki values above):
 |---|---|---|--:|--:|--:|
 | CaitlynPassive | HeadShotBonusDamage | breakpoints at levels 7, 13 (level 1: 0.6) | 0.6 | 1 | 1 |
 | CaitlynPassive | HeadShotMinionBonusDamage | breakpoints at levels 7, 13 (level 1: 0.5) | 0.5 | 0.9 | 0.9 |
+
+## Duel simulator kit (level 20, every ability at max rank)
+
+What the duel simulator fights with (`kits/champions/Caitlyn.ts`): values come from pinned wiki and versioned game-data records at level 20. Interpretations and missing evidence are listed under assumptions. Ratios are fractions of the stat (60% AD is 0.6 × AD).
+
+- Basic attack: range 650, missile at 2500/s.
+
+| Key | Ability | Cooldown (s) | Cast time (s) | Cost | Delivery | On the enemy | On itself |
+|---|---|--:|--:|---|---|---|---|
+| Q | Piltover Peacemaker | 6 | 0.625 | 75 | skillshot 1300 long, 120 wide, at 2200/s | 210 + 205% AD physical damage | – |
+| W | Yordle Snap Trap | 5 charges, one every 10 s (0.5 s between casts) | 0.25 | 20 | self | root for 1.5 s; revealed for 3 s; marks it "caitlyn:trapReveal" for 3 s | – |
+| E | 90 Caliber Net | 8 | 0.15 | 75 | skillshot 800 long, 140 wide, at 1600/s | 280 + 80% AP magic damage; slow 50% for 1 s | – |
+| R | Ace in the Hole | 90 | 0.375 | 100 | targeted, 3500 range; channel 1 s | – | – |
+| Rshot | Ace in the Hole | 0 | 0 | – | targeted, 3500 range, missile at 3200/s | 650 + 100% bonus AD physical damage, varies with combat state; formula is a reference | – |
+
+Effects marked by a mark or a role are completed by the kit's hooks (see the kit's source).
+
+### Assumptions
+
+- Headshot starts at zero Count stacks, with no brush on the duel axis. Trap and net independently grant one target-specific 1.8-second Headshot; they preserve Count, still generate one Count stack, and take priority over a ready ordinary Headshot. Their range is 1300, including during the recoil. Headshot is one life-stealing physical packet with only its ordinary AD portion critically striking.
+- The pinned attack-cooldown refund is explicitly pending for test: this model uses its stated 50% period refund capped to allow an attack within 0.5 seconds of the preceding windup completion. Same-location traps respect the pinned three-second immunity; the note explicitly permits trapping at another location. Initial traps are not provided for free; the policy prefers trapping enemies already held through the one-second arm delay.
+- Piltover Peacemaker uses its 1300-unit targeting/missile range and initial/expanded widths. The first enemy pet or champion consumes full damage even through a spell shield; later enemies take the reduced packet unless still revealed by a trap. Its pinned attack-reset behavior is retained. Net uses its 800-unit range and 140-unit effect diameter; its cast-time suppression failure and recoil cancellation after immobilization are separate. Recoil crosses intervening terrain when its endpoint is clear; an endpoint inside terrain clips to the near edge without extending the dash, a conservative one-dimensional geometry assumption.
+- Ace in the Hole has its 0.375-second cast, one-second immobile channel and homing shot. Target true sight begins at declaration, ends one second after contact/cancel, and expires after four seconds if a projectile is destroyed. There are no other allied champions to intercept its shot. Ordinary self-reveal has no extra effect in the no-fog duel. The policy saves R for a predicted lethal hit.
+- The budget estimates one ordinary Headshot per six continuous attacks average Q damage per cooldown and one Ace in the Hole shot per cooldown plus cast time. It omits conditional net/trap Headshots rather than assuming every telegraphed control hits; actual fights retain charges, mana, interruptions and defenses.
+
+### Source values read (68)
+
+| Ability | Value | Source version |
+|---|---|---|
+| Headshot | At 5 stacks | [3982560](https://wiki.leagueoflegends.com/en-us/Template:Data_Caitlyn/Headshot?oldid=3982560) |
+| Headshot | Headshot: Caitlyn's basic attack is empowered to have an uncancellable windup and deal 60 / 80 / 100 (based on level)% (+ critical strike damage (based on critical strike chance)) AD bonus physical damage, increased to 110% (+ critical strike damage (based on critical strike chance)) AD against non-champions. | [3982560](https://wiki.leagueoflegends.com/en-us/Template:Data_Caitlyn/Headshot?oldid=3982560) |
+| Headshot | increased to 110% | [3982560](https://wiki.leagueoflegends.com/en-us/Template:Data_Caitlyn/Headshot?oldid=3982560) |
+| Headshot | {{critical damage\|0 to 100\|critScaling=true}} | [3982560](https://wiki.leagueoflegends.com/en-us/Template:Data_Caitlyn/Headshot?oldid=3982560) |
+| Headshot | at 1300 range | [3982560](https://wiki.leagueoflegends.com/en-us/Template:Data_Caitlyn/Headshot?oldid=3982560) |
+| Headshot | within 1.8 seconds | [3982560](https://wiki.leagueoflegends.com/en-us/Template:Data_Caitlyn/Headshot?oldid=3982560) |
+| Headshot | speed: 3000 | [3982560](https://wiki.leagueoflegends.com/en-us/Template:Data_Caitlyn/Headshot?oldid=3982560) |
+| Headshot | Only the ordinary 100% attack damage portion of the attack can critically strike | [3982560](https://wiki.leagueoflegends.com/en-us/Template:Data_Caitlyn/Headshot?oldid=3982560) |
+| Headshot | Headshot is a single instance of damage | [3982560](https://wiki.leagueoflegends.com/en-us/Template:Data_Caitlyn/Headshot?oldid=3982560) |
+| Headshot | The full damage of Headshot applies life steal | [3982560](https://wiki.leagueoflegends.com/en-us/Template:Data_Caitlyn/Headshot?oldid=3982560) |
+| Headshot | They trigger on-attack effects (including stacking Headshot) | [3982560](https://wiki.leagueoflegends.com/en-us/Template:Data_Caitlyn/Headshot?oldid=3982560) |
+| Headshot | appears to be 50% of the attack cooldown | [3982560](https://wiki.leagueoflegends.com/en-us/Template:Data_Caitlyn/Headshot?oldid=3982560) |
+| Headshot | within 0.5 seconds of her previous attack windup completing | [3982560](https://wiki.leagueoflegends.com/en-us/Template:Data_Caitlyn/Headshot?oldid=3982560) |
+| Yordle Snap Trap | Headshot Damage Increase: 35 / 80 / 125 / 170 / 215 (+ 30% bonus AD) | [4080202](https://wiki.leagueoflegends.com/en-us/Template:Data_Caitlyn/Yordle_Snap_Trap?oldid=4080202) |
+| Yordle Snap Trap | collisionRadius: 15 | [4080202](https://wiki.leagueoflegends.com/en-us/Template:Data_Caitlyn/Yordle_Snap_Trap?oldid=4080202) |
+| Yordle Snap Trap | arms after 1 second | [4080202](https://wiki.leagueoflegends.com/en-us/Template:Data_Caitlyn/Yordle_Snap_Trap?oldid=4080202) |
+| Yordle Snap Trap | Trap Duration: 30 / 35 / 40 / 45 / 50 seconds | [4080202](https://wiki.leagueoflegends.com/en-us/Template:Data_Caitlyn/Yordle_Snap_Trap?oldid=4080202) |
+| Yordle Snap Trap | Maximum Number of Traps: 3 / 3 / 4 / 4 / 5 | [4080202](https://wiki.leagueoflegends.com/en-us/Template:Data_Caitlyn/Yordle_Snap_Trap?oldid=4080202) |
+| Yordle Snap Trap | rooted for 1.5 seconds | [4080202](https://wiki.leagueoflegends.com/en-us/Template:Data_Caitlyn/Yordle_Snap_Trap?oldid=4080202) |
+| Yordle Snap Trap | revealed for 3 seconds | [4080202](https://wiki.leagueoflegends.com/en-us/Template:Data_Caitlyn/Yordle_Snap_Trap?oldid=4080202) |
+| Yordle Snap Trap | immune to further Yordle Snap Traps for 3 seconds | [4080202](https://wiki.leagueoflegends.com/en-us/Template:Data_Caitlyn/Yordle_Snap_Trap?oldid=4080202) |
+| Yordle Snap Trap | they can still be trap in other place if walk in by themselves | [4080202](https://wiki.leagueoflegends.com/en-us/Template:Data_Caitlyn/Yordle_Snap_Trap?oldid=4080202) |
+| 90 Caliber Net | recoils 390 units | [4007584](https://wiki.leagueoflegends.com/en-us/Template:Data_Caitlyn/90_Caliber_Net?oldid=4007584) |
+| 90 Caliber Net | slows them by 50% | [4007584](https://wiki.leagueoflegends.com/en-us/Template:Data_Caitlyn/90_Caliber_Net?oldid=4007584) |
+| 90 Caliber Net | for 1 second | [4007584](https://wiki.leagueoflegends.com/en-us/Template:Data_Caitlyn/90_Caliber_Net?oldid=4007584) |
+| 90 Caliber Net | speed (Dash speed): 1600 • 1000 | [4007584](https://wiki.leagueoflegends.com/en-us/Template:Data_Caitlyn/90_Caliber_Net?oldid=4007584) |
+| 90 Caliber Net | range: 800 • 740 | [4007584](https://wiki.leagueoflegends.com/en-us/Template:Data_Caitlyn/90_Caliber_Net?oldid=4007584) |
+| Yordle Snap Trap | targetRange: 800 | [4080202](https://wiki.leagueoflegends.com/en-us/Template:Data_Caitlyn/Yordle_Snap_Trap?oldid=4080202) |
+| 90 Caliber Net | will not recoil after the cast time if she was immobilized or grounded during it | [4007584](https://wiki.leagueoflegends.com/en-us/Template:Data_Caitlyn/90_Caliber_Net?oldid=4007584) |
+| 90 Caliber Net | missile will fail to fire if Caitlyn is suppressed during the cast time | [4007584](https://wiki.leagueoflegends.com/en-us/Template:Data_Caitlyn/90_Caliber_Net?oldid=4007584) |
+| 90 Caliber Net | She can cast any of her abilities during the recoil dash | [4007584](https://wiki.leagueoflegends.com/en-us/Template:Data_Caitlyn/90_Caliber_Net?oldid=4007584) |
+| 90 Caliber Net | The recoil can be used to pass through terrain | [4007584](https://wiki.leagueoflegends.com/en-us/Template:Data_Caitlyn/90_Caliber_Net?oldid=4007584) |
+| Ace in the Hole | cooldown: 90 | [3982561](https://wiki.leagueoflegends.com/en-us/Template:Data_Caitlyn/Ace_in_the_Hole?oldid=3982561) |
+| Ace in the Hole | castTime: 0.375 | [3982561](https://wiki.leagueoflegends.com/en-us/Template:Data_Caitlyn/Ace_in_the_Hole?oldid=3982561) |
+| Ace in the Hole | channels for 1 second | [3982561](https://wiki.leagueoflegends.com/en-us/Template:Data_Caitlyn/Ace_in_the_Hole?oldid=3982561) |
+| Ace in the Hole | a 5-second cooldown | [3982561](https://wiki.leagueoflegends.com/en-us/Template:Data_Caitlyn/Ace_in_the_Hole?oldid=3982561) |
+| Ace in the Hole | {{critical damage\|0 to 30\|critScaling=true}} | [3982561](https://wiki.leagueoflegends.com/en-us/Template:Data_Caitlyn/Ace_in_the_Hole?oldid=3982561) |
+| Ace in the Hole | Physical damage: 300 / 475 / 650 (+ 100% bonus AD) | [3982561](https://wiki.leagueoflegends.com/en-us/Template:Data_Caitlyn/Ace_in_the_Hole?oldid=3982561) |
+| Ace in the Hole | speed: 3200 | [3982561](https://wiki.leagueoflegends.com/en-us/Template:Data_Caitlyn/Ace_in_the_Hole?oldid=3982561) |
+| Ace in the Hole | targetRange: 3500 | [3982561](https://wiki.leagueoflegends.com/en-us/Template:Data_Caitlyn/Ace_in_the_Hole?oldid=3982561) |
+| Ace in the Hole | lasts for up to 4 seconds | [3982561](https://wiki.leagueoflegends.com/en-us/Template:Data_Caitlyn/Ace_in_the_Hole?oldid=3982561) |
+| Ace in the Hole | revealed for 1 second if the buff is ended prematurely | [3982561](https://wiki.leagueoflegends.com/en-us/Template:Data_Caitlyn/Ace_in_the_Hole?oldid=3982561) |
+| Ace in the Hole | The buff is applied to the target from the start of the cast time | [3982561](https://wiki.leagueoflegends.com/en-us/Template:Data_Caitlyn/Ace_in_the_Hole?oldid=3982561) |
+| Ace in the Hole | This excludes losing sight of the target | [3982561](https://wiki.leagueoflegends.com/en-us/Template:Data_Caitlyn/Ace_in_the_Hole?oldid=3982561) |
+| Ace in the Hole | {{ct\|channel\|attack=false\|move=false\|cast=false | [3982561](https://wiki.leagueoflegends.com/en-us/Template:Data_Caitlyn/Ace_in_the_Hole?oldid=3982561) |
+| Piltover Peacemaker | This ability will cast from wherever the caster is at the start of the cast time | [4007583](https://wiki.leagueoflegends.com/en-us/Template:Data_Caitlyn/Piltover_Peacemaker?oldid=4007583) |
+| Piltover Peacemaker | Enemies revealed by Yordle Snap Trap always take full damage | [4007583](https://wiki.leagueoflegends.com/en-us/Template:Data_Caitlyn/Piltover_Peacemaker?oldid=4007583) |
+| Piltover Peacemaker | Upon Piltover Peacemaker dealing damage to an enemy, Caitlyn's attack timer is forcibly reset | [4007583](https://wiki.leagueoflegends.com/en-us/Template:Data_Caitlyn/Piltover_Peacemaker?oldid=4007583) |
+| Piltover Peacemaker | Physical Damage: 50 / 90 / 130 / 170 / 210 (+ 125 / 145 / 165 / 185 / 205% AD) | [4007583](https://wiki.leagueoflegends.com/en-us/Template:Data_Caitlyn/Piltover_Peacemaker?oldid=4007583) |
+| Piltover Peacemaker | Reduced Damage: 30 / 54 / 78 / 102 / 126 (+ 75 / 87 / 99 / 111 / 123% AD) | [4007583](https://wiki.leagueoflegends.com/en-us/Template:Data_Caitlyn/Piltover_Peacemaker?oldid=4007583) |
+| Piltover Peacemaker | range: 1300 • 1240 | [4007583](https://wiki.leagueoflegends.com/en-us/Template:Data_Caitlyn/Piltover_Peacemaker?oldid=4007583) |
+| Piltover Peacemaker | width (Initial missile): 120 • 180 | [4007583](https://wiki.leagueoflegends.com/en-us/Template:Data_Caitlyn/Piltover_Peacemaker?oldid=4007583) |
+| Piltover Peacemaker | width (Expanded missile): 120 • 180 | [4007583](https://wiki.leagueoflegends.com/en-us/Template:Data_Caitlyn/Piltover_Peacemaker?oldid=4007583) |
+| Piltover Peacemaker | cooldown: 10 / 9 / 8 / 7 / 6 | [4007583](https://wiki.leagueoflegends.com/en-us/Template:Data_Caitlyn/Piltover_Peacemaker?oldid=4007583) |
+| Piltover Peacemaker | cost: 55 / 60 / 65 / 70 / 75 | [4007583](https://wiki.leagueoflegends.com/en-us/Template:Data_Caitlyn/Piltover_Peacemaker?oldid=4007583) |
+| Piltover Peacemaker | castTime: 0.625 | [4007583](https://wiki.leagueoflegends.com/en-us/Template:Data_Caitlyn/Piltover_Peacemaker?oldid=4007583) |
+| Piltover Peacemaker | speed: 2200 | [4007583](https://wiki.leagueoflegends.com/en-us/Template:Data_Caitlyn/Piltover_Peacemaker?oldid=4007583) |
+| Yordle Snap Trap | cooldown: 0.5 | [4080202](https://wiki.leagueoflegends.com/en-us/Template:Data_Caitlyn/Yordle_Snap_Trap?oldid=4080202) |
+| Yordle Snap Trap | recharge: 26 / 22 / 18 / 14 / 10 | [4080202](https://wiki.leagueoflegends.com/en-us/Template:Data_Caitlyn/Yordle_Snap_Trap?oldid=4080202) |
+| Yordle Snap Trap | cost: 20 | [4080202](https://wiki.leagueoflegends.com/en-us/Template:Data_Caitlyn/Yordle_Snap_Trap?oldid=4080202) |
+| Yordle Snap Trap | castTime: 0.25 | [4080202](https://wiki.leagueoflegends.com/en-us/Template:Data_Caitlyn/Yordle_Snap_Trap?oldid=4080202) |
+| 90 Caliber Net | cooldown: 16 / 14 / 12 / 10 / 8 | [4007584](https://wiki.leagueoflegends.com/en-us/Template:Data_Caitlyn/90_Caliber_Net?oldid=4007584) |
+| 90 Caliber Net | cost: 75 | [4007584](https://wiki.leagueoflegends.com/en-us/Template:Data_Caitlyn/90_Caliber_Net?oldid=4007584) |
+| 90 Caliber Net | castTime: 0.15 | [4007584](https://wiki.leagueoflegends.com/en-us/Template:Data_Caitlyn/90_Caliber_Net?oldid=4007584) |
+| 90 Caliber Net | effectRadius: 140 | [4007584](https://wiki.leagueoflegends.com/en-us/Template:Data_Caitlyn/90_Caliber_Net?oldid=4007584) |
+| 90 Caliber Net | speed (Missile speed): 1600 • 1000 | [4007584](https://wiki.leagueoflegends.com/en-us/Template:Data_Caitlyn/90_Caliber_Net?oldid=4007584) |
+| 90 Caliber Net | Magic Damage: 80 / 130 / 180 / 230 / 280 (+ 80% AP) | [4007584](https://wiki.leagueoflegends.com/en-us/Template:Data_Caitlyn/90_Caliber_Net?oldid=4007584) |
+| Ace in the Hole | cost: 100 | [3982561](https://wiki.leagueoflegends.com/en-us/Template:Data_Caitlyn/Ace_in_the_Hole?oldid=3982561) |

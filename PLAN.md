@@ -1,6 +1,6 @@
 # Kit-Based Counter Picker: Plan
 
-Status: M1 to M4 done; M5 built and waiting for your review of the golden matchups; M6 built. A private Codespaces preview starts the packaged app automatically. All-champion expansion began on 2026-10-14 with 12 additional kits. The third batch adds six casters, bringing implemented coverage to 73 of 173 champions. Data sources remain pinned to patch 26.20 (Data Dragon 16.20.1).
+Status: M1 to M4 done; M5 built and waiting for your review of the golden matchups; M6 built. A private Codespaces preview starts the packaged app automatically. All-champion expansion began on 2026-10-14 with 12 additional kits. The sixth batch adds Kai'Sa, Kalista, Samira, Smolder, Varus and Xayah, bringing implemented coverage to 91 of 173 champions. Data sources remain pinned to patch 26.20 (Data Dragon 16.20.1).
 
 Accuracy audit on 2026-10-13: combat, crowd control, movement, budgets, source-backed
 champion mechanics, result caches, and ranking consistency were corrected; all 1,176
@@ -37,6 +37,42 @@ failures and five existing skips. All 17 production browser checks pass, and all
 72 live fallback scores match the matrix within 2.46e-15. Full validation and
 remaining limits are recorded in [ACCURACY.md](ACCURACY.md).
 
+The fourth batch implements Caitlyn, Ezreal, Jhin, Jinx, Lucian and Miss Fortune.
+Coverage is 79 of 173 champions, with 94 remaining and 3,081 unordered pairings.
+All 3,081 pairs are freshly rebuilt under fingerprint `bc04dfd2…`. Pinned source
+conflicts and explicit one-dimensional/expected-value assumptions stay with each kit.
+The full serial suite has 2,684 passing tests, two original draft winner failures
+and five existing skips; types, freshness and production build pass. All 17 production
+browser checks pass, including 78 complete live fallback rankings and six new source
+pages at phone width. Private delivery packages the frozen model and source snapshot;
+evidence is in [ACCURACY.md](ACCURACY.md).
+
+The fifth batch implements Corki, Draven, Kog'Maw, Sivir, Tristana and Twitch.
+Implemented coverage is 85 of 173 champions, leaving 88 and requiring 3,570 unordered
+pairings. The full matrix was freshly regenerated and passes freshness, type and
+production-build checks. The final serial suite has 3,026 passing tests, the two
+original draft winner failures and five existing skips. All 17 browser checks pass,
+including 84 complete live fallback rankings and six source pages at phone width.
+Private packaging verifies the exact compiled/source snapshot and startup helper
+before publishing a new preview branch; the previous package remains preserved.
+Shared contracts cover moving post-death phases, persistent aftermath, separately
+ordered basic packets, piercing basic skillshots, spell-shield consumption and actual
+pet contacts. Pinned source gaps remain explicit in the three new pair audits.
+
+The sixth batch implements Kai'Sa, Kalista, Samira, Smolder, Varus and Xayah.
+Implemented coverage is 91 of 173 champions, leaving 82. All 4,095 unordered
+pairings were freshly regenerated and pass provenance, type and production-build
+checks. The final serial suite records 3,397 passes, the two original draft winner
+failures and five existing skips. Actual production searches pass strict side
+reflection for all 90 Darius rivals and all 15 new-champion pairings. All 17 browser
+checks pass, including seven source pages at phone width and all 90 live fallback
+rankings. Long formulas now wrap within phone width. Private delivery requires
+exact archive/source integrity and five startup checks before publication to a new
+preview branch. Shared work covers pre-physical passives, visible fixed-time
+missiles, projectile interception, independent dash/channel clocks, terrain flight,
+sourced summoned-unit classes, lethal-pet attribution and committed post-death
+basic missiles. Source conflicts remain explicit in the three new pair audits.
+
 Each batch must read pinned source values, check meaningful damage/timing/counterplay
 cases, exercise ordinary behavior, regenerate all affected duels, and pass type/build
 checks before updating the private preview. Unresolved source conflicts and model
@@ -47,10 +83,10 @@ Source audits for twelve casters were recorded in
 [docs/next-wave](docs/next-wave/README.md): Ahri, Anivia, Cassiopeia, Karthus,
 Kassadin, Lissandra, Malzahar, Veigar, Vel'Koz, Vladimir, Ziggs, and Zyra. These
 audits cover pinned formulas, counterplay, tests, and required shared-engine work;
-the second batch implements six of them. Anivia, Karthus, Malzahar, Vel'Koz,
-Ziggs, and Zyra remain source preparation for future batches. Their resurrection,
-post-death spellcasting, channel, beam, mine, and plant mechanics require further
-implementation and validation; an audit alone does not add implemented coverage.
+the second and third batches now implement all twelve. Their resurrection,
+post-death spellcasting, channel, beam, mine and plant mechanics are covered by
+the corresponding batch regressions. The fourth batch adds separate source audits
+for Caitlyn/Jhin, Ezreal/Lucian and Jinx/Miss Fortune.
 
 ### First expansion validation (61-kit snapshot)
 

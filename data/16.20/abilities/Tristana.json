@@ -378,6 +378,18 @@
       "Explosive Charge's detonation will deal damage to the primary target even if they have become untargetable.",
       "Explosive Charge's stacks from basic attacks are applied as an on-hit effect and will therefore interact with Guinsoo's Rageblade Phantom Hit and Runaan's Hurricane bolts.",
       "If the target becomes untargetable, dies, or is too far away or no longer in sight during the cast time, this ability will cancel but does not go on cooldown nor pay its cost (if applicable)."
+    ],
+    "gameSources": [
+      {
+        "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/tristana/tristana.bin.json",
+        "sha256": "68b9df27d732d28a93af63e6816913c44e0d36826c78a258316a2f0718344171",
+        "object": "Characters/Tristana/Spells/TristanaEAbility/TristanaE",
+        "text": [
+          "mSpell.DataValues.CritChanceModifier.values: [0.4000000059604645,0.4000000059604645,0.4000000059604645,0.4000000059604645,0.4000000059604645,0.4000000059604645,0.4000000059604645]",
+          "mSpell.mSpellCalculations.ActiveDamage: {\"mMultiplier\":{\"mSubparts\":[{\"mNumber\":1.0,\"__type\":\"NumberCalculationPart\"},{\"mPart1\":{\"mStat\":8,\"mDataValue\":\"CritChanceModifier\",\"__type\":\"StatByNamedDataValueCalculationPart\"},\"mPart2\":{\"mSubparts\":[{\"mStat\":9,\"mCoefficient\":1.0,\"__type\":\"StatByCoefficientCalculationPart\"},{\"mNumber\":-1.0,\"__type\":\"NumberCalculationPart\"}],\"__type\":\"SumOfSubPartsCalculationPart\"},\"__type\":\"ProductOfSubPartsCalculationPart\"}],\"__type\":\"SumOfSubPartsCalculationPart\"},\"mFormulaParts\":[{\"mDataValue\":\"ActiveBaseDamage\",\"__type\":\"NamedDataValueCalculationPart\"},{\"mStat\":2,\"mStatFormula\":2,\"mSubpart\":{\"mDataValue\":\"ActiveBADRatio\",\"__type\":\"NamedDataValueCalculationPart\"},\"__type\":\"StatBySubPartCalculationPart\"},{\"mDataValue\":\"APRatio\",\"__type\":\"StatByNamedDataValueCalculationPart\"}],\"__type\":\"GameCalculation\"}"
+        ]
+      }
     ]
   },
   {
@@ -470,6 +482,17 @@
     "custom": [],
     "notes": [
       "No additional details."
+    ],
+    "gameSources": [
+      {
+        "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/tristana/tristana.bin.json",
+        "sha256": "68b9df27d732d28a93af63e6816913c44e0d36826c78a258316a2f0718344171",
+        "object": "Characters/Tristana/Spells/TristanaBasicAttack",
+        "text": [
+          "mSpell.missileSpeed: 2250.0"
+        ]
+      }
     ]
   },
   {
@@ -797,7 +820,7 @@
       "Applies spell damage to the primary target and deals 0 default damage to secondary targets.\n  - The 0 damage to secondary targets triggers turret aggro, but does not stack Explosive Charge.",
       "Tristana will attempt to basic attack the target afterwards.",
       "Buster Shot's displacement direction is based on Tristana's location at the end of the cast time.\n  - The primary target is pushed in a straight line away from that location, but the knockback distance and speed may be impeded by terrain.\n  - Secondary targets are displaced parallel to the primary target's displacement.",
-      "The debuff is removed early when the forced movement stops.",
+      "The airborne debuff is removed early when the forced movement stops.",
       "Displacement immunity will also resist the application of the stun.",
       "If the target becomes untargetable, dies, or is too far away or no longer in sight during the cast time, this ability will cancel but does not go on cooldown nor pay its cost (if applicable)."
     ]

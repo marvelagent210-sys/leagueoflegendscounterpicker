@@ -248,7 +248,7 @@ Effects marked by a mark or a role are completed by the kit's hooks (see the kit
 - Voidling AP/bonus AD are read dynamically at attack time. The source has no attack-windup or post-owner-death lifetime, so their attacks have the existing instant pet windup and surviving pets use the engine's owner-death removal rule. Summons have individual ten-second lives and one W cast identity across staggered births.
 - The deterministic policy establishes E, prefers two-stack W, then R in fight/kite and Q. Zero/one-stack W remains usable; hold/trade follow the shared disengagement clock and never force R. The budget assumes three Voidlings per W and values their active time within the first ten seconds, subtracting staggered birth and travel time, with no enemy pet-clearing; it omits passive survival value rather than pricing permanent 90% reduction.
 
-### Source values read (82)
+### Source values read (83)
 
 | Ability | Value | Source version |
 |---|---|---|
@@ -334,3 +334,4 @@ Effects marked by a mark or a role are completed by the kit's hooks (see the kit
 | Malefic Visions | cost: 60 / 70 / 80 / 90 / 100 | [4015185](https://wiki.leagueoflegends.com/en-us/Template:Data_Malzahar/Malefic_Visions?oldid=4015185) |
 | Nether Grasp | cost: 100 | [4015186](https://wiki.leagueoflegends.com/en-us/Template:Data_Malzahar/Nether_Grasp?oldid=4015186) |
 | Nether Grasp | targetRange: 700 | [4015186](https://wiki.leagueoflegends.com/en-us/Template:Data_Malzahar/Nether_Grasp?oldid=4015186) |
+| Voidling | Minion, does not count towards the minion kill tracking score | [4058496](https://wiki.leagueoflegends.com/en-us/Malzahar?oldid=4058496) |

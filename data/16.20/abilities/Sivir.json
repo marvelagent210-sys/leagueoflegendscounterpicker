@@ -167,6 +167,17 @@
     "custom": [],
     "notes": [
       "Fleet of Foot will trigger even if the attack is dodged, blocked or misses due to blind or if the ability is negated by a spell shield."
+    ],
+    "gameSources": [
+      {
+        "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/sivir/sivir.bin.json",
+        "sha256": "e41dd51b70b5a334fe7b149ce9f9566ba620e225521e3e9b0b7ebf0597d72700",
+        "object": "Characters/Sivir/Spells/SivirBasicAttack",
+        "text": [
+          "mSpell.missileSpeed: 1750.0"
+        ]
+      }
     ]
   },
   {
@@ -253,7 +264,7 @@
         ]
       },
       "width": {
-        "text": "180 • 200",
+        "text": "180 \u2022 200",
         "values": [
           {
             "series": {
@@ -272,7 +283,7 @@
         ]
       },
       "speed": {
-        "text": "1450 • 1200",
+        "text": "1450 \u2022 1200",
         "values": [
           {
             "series": {
@@ -462,6 +473,18 @@
       "The damage reduction per unit hit resets back to full damage upon changing direction.",
       "Boomerang Blade will still return to Sivir even if she dies before it changes direction.",
       "Spell shield only blocks one instance of damage."
+    ],
+    "gameSources": [
+      {
+        "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/sivir/sivir.bin.json",
+        "sha256": "e41dd51b70b5a334fe7b149ce9f9566ba620e225521e3e9b0b7ebf0597d72700",
+        "object": "Characters/Sivir/Spells/SivirQAbility/SivirQ",
+        "text": [
+          "mSpell.DataValues: [{\"name\":\"BaseDamage\",\"values\":[35.0,60.0,85.0,110.0,135.0,160.0,185.0],\"__type\":\"SpellDataValue\"},{\"name\":\"ADRatio\",\"values\":[0.699999988079071,0.699999988079071,0.699999988079071,0.699999988079071,0.699999988079071,0.699999988079071,0.699999988079071],\"__type\":\"SpellDataValue\"},{\"name\":\"FallOffRatio\",\"values\":[0.15000000596046448,0.15000000596046448,0.15000000596046448,0.15000000596046448,0.15000000596046448,0.15000000596046448,0.15000000596046448],\"__type\":\"SpellDataValue\"},{\"name\":\"FallOffMinimum\",\"values\":[0.4000000059604645,0.4000000059604645,0.4000000059604645,0.4000000059604645,0.4000000059604645,0.4000000059604645,0.4000000059604645],\"__type\":\"SpellDataValue\"},{\"name\":\"QAttackSpeedCastReductionPercent\",\"values\":[0.5,0.5,0.5,0.5,0.5,0.5,0.5],\"__type\":\"SpellDataValue\"},{\"name\":\"QBaseCastTime\",\"values\":[0.25,0.25,0.25,0.25,0.25,0.25,0.25],\"__type\":\"SpellDataValue\"},{\"name\":\"QAttackSpeedCastReductionMax\",\"values\":[0.6000000238418579,0.6000000238418579,0.6000000238418579,0.6000000238418579,0.6000000238418579,0.6000000238418579,0.6000000238418579],\"__type\":\"SpellDataValue\"},{\"name\":\"CritRatio\",\"values\":[0.4000000059604645,0.4000000059604645,0.4000000059604645,0.4000000059604645,0.4000000059604645,0.4000000059604645,0.4000000059604645],\"__type\":\"SpellDataValue\"},{\"name\":\"APRatio\",\"values\":[0.6000000238418579,0.6000000238418579,0.6000000238418579,0.6000000238418579,0.6000000238418579,0.6000000238418579,0.6000000238418579],\"__type\":\"SpellDataValue\"}]",
+          "mSpell.mSpellCalculations.TotalDamage: {\"mMultiplier\":{\"mSubparts\":[{\"mNumber\":1.0,\"__type\":\"NumberCalculationPart\"},{\"mPart1\":{\"mStat\":8,\"mDataValue\":\"CritRatio\",\"__type\":\"StatByNamedDataValueCalculationPart\"},\"mPart2\":{\"mSubparts\":[{\"mStat\":9,\"mCoefficient\":1.0,\"__type\":\"StatByCoefficientCalculationPart\"},{\"mNumber\":-1.0,\"__type\":\"NumberCalculationPart\"}],\"__type\":\"SumOfSubPartsCalculationPart\"},\"__type\":\"ProductOfSubPartsCalculationPart\"}],\"__type\":\"SumOfSubPartsCalculationPart\"},\"mFormulaParts\":[{\"mDataValue\":\"BaseDamage\",\"__type\":\"NamedDataValueCalculationPart\"},{\"mStat\":2,\"mStatFormula\":2,\"mDataValue\":\"ADRatio\",\"__type\":\"StatByNamedDataValueCalculationPart\"},{\"mDataValue\":\"APRatio\",\"__type\":\"StatByNamedDataValueCalculationPart\"}],\"__type\":\"GameCalculation\"}"
+        ]
+      }
     ]
   },
   {
@@ -655,7 +678,7 @@
         ]
       },
       "speed": {
-        "text": "1750 • 1000",
+        "text": "1750 \u2022 1000",
         "values": [
           {
             "series": {
