@@ -1,6 +1,6 @@
 # Kit-Based Counter Picker: Plan
 
-Status: M1 to M4 done; M5 built and waiting for your review of the golden matchups; M6 built. A private Codespaces preview starts the packaged app automatically. All-champion expansion began on 2026-10-14 with 12 additional kits. The sixth batch adds Kai'Sa, Kalista, Samira, Smolder, Varus and Xayah, and the seventh adds Gragas, Hecarim, Warwick and Wukong, bringing implemented coverage to 95 of 173 champions. Data sources remain pinned to patch 26.20 (Data Dragon 16.20.1).
+Status: M1 to M4 done; M5 built and waiting for your review of the golden matchups; M6 built. A private Codespaces preview starts the packaged app automatically. All-champion expansion began on 2026-10-14 with 12 additional kits. The sixth batch adds Kai'Sa, Kalista, Samira, Smolder, Varus and Xayah, and the seventh adds Gragas, Hecarim, Warwick and Wukong, bringing implemented coverage to 95 of 173 champions. Data sources remain pinned to patch 26.20 (Data Dragon 16.20.1). Items and runes are planned as M8, once every champion has a kit (§13).
 
 Accuracy audit on 2026-10-13: combat, crowd control, movement, budgets, source-backed
 champion mechanics, result caches, and ranking consistency were corrected; all 1,176
@@ -134,12 +134,12 @@ A static web app for top lane. You pick the enemy champion, and it ranks every c
 
 | Rule | Detail |
 |---|---|
-| Kits only | No win rates, matchup statistics, tier lists or meta. No runes or summoner spells, with one exception: Udyr's Triple Tonic (§4.1). Correctness is checked with hand-written tests (§8), not statistics. |
+| Kits only | No win rates, matchup statistics, tier lists or meta. No runes or summoner spells, with one exception: Udyr's Triple Tonic (§4.1). Correctness is checked with hand-written tests (§8), not statistics. M8 (planned, §13) adds items and runes. |
 | Level 20 | Completing the Top Lane Role Quest raises the level cap from 18 to 20, so both champions are level 20. Base stats keep growing through level 20. Effects that scale with champion level use the game's own formulas, which say whether they keep growing past 18 or cap there. Skill points work differently for Udyr (§4.1). |
 | Pure 1v1 | No draft, teammates, jungler or lane phases, and no early-game power spikes. |
 | Any champion | You can play every champion, so all 173 are candidates. The enemy can also be any champion; champions the client tags as top lane are listed first. |
 | Static web app | No backend, accounts or API keys. |
-| Stat budget | Both champions get the same amount of gold, as plain stats only (§10). |
+| Stat budget | Both champions get the same amount of gold, as plain stats only (§10). M8 (planned) spends it on items instead and keeps plain stats as a setting. |
 
 ## 2. How a counter is decided
 
@@ -349,7 +349,8 @@ Every pairing (173 × 172) is precomputed for the default settings at build time
 | M5 | Behavior wave 1 (about 25 top laners you choose, e.g. the ones you face most) and golden matchups | Golden tests pass and you've reviewed the results. |
 | M6 | Web app on GitHub Pages | Picker, matchup page, kit page and settings are live. |
 | M7 | Behavior waves 2 and 3 | All remaining top-lane champions, then all 173, are simulated. |
-| M8 | Patch automation | A scheduled job refetches the data, rebuilds, runs the tests, and opens a PR with a diff report. |
+| M8 | Items and runes (planned, §13) | Every matchup plays the item build and rune page found best for each side against the other's, and every item and rune has wiki evidence and tests. |
+| M9 | Patch automation | A scheduled job refetches the data, rebuilds, runs the tests, and opens a PR with a diff report. |
 
 ## 10. Stat budget at level 20 (decided)
 
@@ -360,6 +361,8 @@ With zero items, ability ratios (AP, bonus AD, bonus HP) would add nothing at le
 - Penetration is capped near what a full build's items give: 40 lethality, 35% armor penetration, 20 flat and 40% magic penetration. Uncapped, penetration at gold value cost less than the armor it cancels, both sides bought up to 138 lethality (more than any item build reaches), and armor stopped mattering (decided in M5).
 
 A slider runs from 0 gold (pure kit) up to a full build. The default is 15,000 gold, about what a top laner has when the role quest takes it to level 20 (set in M4; see §13).
+
+M8 (planned, §13) replaces plain stats with item builds and rune pages; plain stats stay available as a setting.
 
 ## 11. Tech and layout
 
@@ -381,6 +384,7 @@ web/        the app
 - **The 1D simplification.** Side-stepping, cones and facing are approximated by the hit model.
 - **Assumptions shape the results.** Reaction time, environment, stacks and behaviors are all explicit, adjustable and shown on every matchup page.
 - **Legal.** The app needs Riot's fan-project disclaimer and attribution under the wiki's license.
+- **Items and runes multiply the computing.** Searching builds and rune pages makes a full refresh an estimated 20 to 80 processor-hours instead of about 5 (M8, §13). Incremental refreshes and a bigger machine are part of that milestone.
 
 ## 13. Progress
 
@@ -646,3 +650,48 @@ web/        the app
   - Malphite beats Gangplank: both buy armor, so Gangplank's true and magic damage carry the long fight.
 - **Tests.** 744 pass and 5 are skipped (the disputed golden matchups). New: every wave-2 kit's values from the wiki and its fights, tick by tick; the engine additions on synthetic kits; both sides' kit options in matchups, in the build and in the browser.
 - **Known gap: quoted restrictions can go untested.** A kit quoting a wiki rule ("Trial by Fire cannot be applied with Parrrley nor Powder Keg") only checks that the sentence is still on the wiki; the kit's code enforces the rule, and a test may or may not. Breaking the four restrictions Akali, Ambessa and Aurora quote, in eight ways one at a time (attacks that don't break stealth, or break it at the wrong point of the windup; Ambessa acting while she holds the enemy), failed no test, and seven of the eight changed matchup results: with Ambessa able to attack while she holds the enemy, her loss to Gnar (−0.56) becomes a win (+0.76). Before wave 3: a test for each quoted restriction, each shown to fail when its rule is broken, then a full audit of the 49 kits.
+
+### M8: items and runes (planned)
+
+It starts once all 173 champions have kits; at the M7 pace (46 kits from 14 to 20 October) the last 78 take about two weeks. M8 itself is about 5 to 7 weeks of work. Each matchup then plays the item build and rune page found best for each side against the other's, instead of plain stats.
+
+- **What changes.**
+  - Two ground rules (§1): items and runes join the kits. The plain-stat budget (§10) becomes a setting, so the kit-only view stays available.
+  - Builds are full (decided on 20 October): six finished items without boots, or five with one of the seven tier-2 boots. Order doesn't matter, and no item appears twice. Full builds cost more than the default 15,000 gold, which stays for the plain-stat setting.
+- **Item data and behavior** (about 2 weeks).
+  - Only the stat prices (Module:Gold value) are fetched now. The catalog for patch 26.20 (Data Dragon 16.20.1, purchasable on Summoner's Rift) is 106 finished items (105 at 2,000 gold or more, plus Mejai's Soulstealer) and 7 tier-2 boots. Left out: trinkets, consumables, starters, components, basic Boots, the 7 tier-3 boots (free upgrades), the 5 support quest upgrades, items only one champion can buy, and 33 copies the data carries for other modes.
+  - The search uses all 106 items for now. Fetch and parse them: their stats, passives, actives and unique effects, pinned to wiki revisions and cross-checked against the game files, as abilities are (M2).
+  - The engine needs stacking passives, shared effects such as Spellblade, item cooldowns and haste.
+  - Actives need behavior that decides when to use them (Zhonya's Hourglass). Every rule an item quotes gets a test, as kits' rules do.
+- **Runes** (about 1 week).
+  - `runes.json` holds only Triple Tonic. Fetch the rest: about 60 runes and the stat shards.
+  - About half matter in a level-20 1v1. The others are recorded as having no effect, with the reason.
+  - Runes that stack over a game (Legend, Conditioning, Eyeball Collection) need stated assumptions about what they have gathered by level 20.
+- **Item rules** (confirmed on 20 October). A build holds at most one item from each group:
+  - %pen: Lord Dominik's Regards, Serylda's Grudge, Mortal Reminder, Void Staff, Cryptbloom and Terminus;
+  - Spellblade: Trinity Force, Lich Bane, Essence Reaver, Iceborn Gauntlet and Dusk and Dawn;
+  - Lifeline: Sterak's Gage, Maw of Malmortius, Immortal Shieldbow and Protoplasm Harness;
+  - Hydras: Ravenous, Titanic and Profane Hydra, and Stridebreaker;
+  - Sunfire Aegis or Hollow Radiance; Mortal Reminder or Morellonomicon (Grievous Wounds); Banshee's Veil or Edge of Night (Annul).
+  - The Tear items (Manamune, Archangel's Staff, Winter's Approach) can be combined.
+  - That leaves 1,538,705,768 six-item builds and 661,723,587 five-item builds with boots: 2,200,429,355 per side.
+- **Build and rune search** (1 to 2 weeks).
+  - Each side has about 2.2 billion builds and about a million rune pages. Fighting every pairing would take about 15 billion processor-years per matchup, so nothing is searched exhaustively.
+  - Per champion, the search drops items its kit can't use and items another beats on every stat it uses, at the same price or less. For hybrids such as Kai'Sa and Kog'Maw this removes little, which the steps below don't depend on.
+  - The quick estimate, like today's stat budget (about 23 µs a build), assembles builds slot by slot. It keeps the best 50 partial builds and tries one- and two-item swaps, so thresholds such as Kai'Sa's evolutions can be crossed.
+  - So that it doesn't settle on one route: it starts once from each usable finished item, keeps the best few builds of each profile (mostly AP, attack speed, crit or tank), and restarts from random swaps.
+  - Both sides take turns answering each other's build for 8 rounds, as the stat budget does now. Runes follow the same turns: keystone first, then each row and the shards; items and runes alternate a few times.
+  - Each route's best build gets real fights, and each side takes the loadout that does best against the other's best answer: the rule Udyr's rank splits use. The matchup page lists each route's best build with its score, and routes within a small margin as equally good.
+  - On a sample of matchups, hybrids first, a much larger search measures how often this one misses a better build.
+  - The result is the best loadout found within the model, not a guaranteed optimum.
+  - Player data, such as lolalytics' most-built items (31 for Kog'Maw top in Emerald+), is kept for the comparison at the end. Limiting the search to it would hide niche builds.
+- **Incremental refresh and the app** (about 1 week).
+  - Today any change to the engine, a kit or the golden file recomputes every matchup. M8 recomputes only the matchups a change affects.
+  - The picker, the matchup pages and the Kit Counter Picker show each side's build and runes.
+- **Computing.**
+  - A matchup costs about 4.6 seconds of processor time now (4,465 pairs in 5,184 s on four workers), stat budget included. With both builds fixed, one matchup's fights take 0.12 to 1.4 s (Kog'Maw's 0.18 to 0.29 s).
+  - All 173 champions make 14,878 pairs. With the search above, a matchup takes about 5 to 20 seconds, and tens of seconds for hybrids. That's roughly 20 to 80 processor-hours per full refresh: under a day on four cores, about an hour on 64. To be measured once items exist.
+- **Limits it keeps.**
+  - Best means best for a level-20 1v1 in these scenarios. Laning, item timings, teamfights and team composition stay out.
+  - Items change most patches, so each patch update re-checks them; M9 automates that.
+- **Done when** every matchup records both sides' builds and runes, every item and rune has its wiki evidence and tests, and the golden matchups are reviewed again with items. Items capture counters that plain stats can't, such as Randuin's Omen against critical strikes if it is still in the game. Some reviewed results may change, Yasuo against Garen and Malphite among them.
