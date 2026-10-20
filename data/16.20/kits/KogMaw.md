@@ -130,7 +130,7 @@ A field of ooze is created in its wake for 3 seconds, slowing enemies within the
 Notes:
 
 - This ability will cast from wherever the caster is at the start of the cast time.
-- : The missile leaves a blob of ooze on the ground every 125 units traveled.
+- Pending for test: The missile leaves a blob of ooze on the ground every 125 units traveled.
 
 ## R: Living Artillery
 
@@ -190,3 +190,87 @@ All 3 level-based formulas in the game files (1 linked to wiki values above):
 | KogMawIcathianSurpriseReady | PassiveDamage | linear 140 → 650 over levels 1-18, continues past 18 | 140 | 650 | 710 |
 | KogMawIcathianDisplay | PassiveDamage | linear 140 → 650 over levels 1-18, continues past 18 | 140 | 650 | 710 |
 | KogMawIcathianSurprise | PassiveDamage | linear 125 → 550 over levels 1-18, continues past 18 | 125 | 550 | 600 |
+
+## Duel simulator kit (level 20, every ability at max rank)
+
+What the duel simulator fights with (`kits/champions/KogMaw.ts`): values come from pinned wiki and versioned game-data records at level 20. Interpretations and missing evidence are listed under assumptions. Ratios are fractions of the stat (60% AD is 0.6 × AD).
+
+- Basic attack: range 500, missile at 1800/s.
+
+| Key | Ability | Cooldown (s) | Cast time (s) | Cost | Delivery | On the enemy | On itself |
+|---|---|--:|--:|---|---|---|---|
+| Q | Caustic Spittle | 7 | depends on stats (0.25 base) | 40 | skillshot 1200 long, 140 wide, at 1650/s | 260 + 90% AP magic damage; armorReductionPercent 0.32 for 4 s; mrReductionPercent 0.32 for 4 s | – |
+| W | Bio-Arcane Barrage | 17 | 0 | 40 | self | – | attackRange 210 for 8 s |
+| E | Void Ooze | 12 | 0.25 | 100 | skillshot 1360 long, 240 wide, at 1400/s | 230 + 65% AP magic damage | – |
+| R | Living Artillery | 1 | 0.25 | 40 (depends on combat state) | circle of 240 radius up to 1800 away, lands after 0.6 s | 180 + 75% bonus AD + 45% AP magic damage, varies with combat state; formula is a reference; marks it "kogmaw:artillerySight" for 2 s | – |
+| Iburst | Icathian Surprise | 0 | 0 | – | self | 710 true damage | – |
+| Eslow | Void Ooze (ground ooze) | 0 | 0 | – | self | slow 60% for 0.25 s | – |
+
+Effects marked by a mark or a role are completed by the kit's hooks (see the kit's source).
+
+### Assumptions
+
+- Icathian Surprise counts the first death immediately, remains movable for exactly four seconds, disables attacks/casts, preserves incoming projectiles and explodes through each actual nearby target's spell shield/parry independently. Its level-20 explosion is the pinned wiki's explicit 710 true damage; the matching game display calculation is 140–650 at levels 1–18, while the separate runtime-named object still contains 125–550 and is not treated as verified server script. The bonus movement speed advances 2.5 percentage points every 0.264 seconds, clamped at the pinned actual 45%; 30-Hz scheduling samples that absolute clock. The documented one-basic-attack zombie bug is not reproduced.
+- Caustic Spittle uses current rounded basic-attack windup, first-target projectile collision and four-second armor/MR reductions; its damage lands before its shred. Its attack-speed passive is permanent. Bio-Arcane Barrage snapshots the empowered on-hit at attack launch, does not reset the attack timer, and caps its separate max-health magic packet at 100 against actual summoned minions. Buildings and neutral monsters are absent.
+- Void Ooze drops a 240-wide one-axis ground blob at launch and each assumed 125-unit traveled interval; the pinned wiki marks that spacing pending for test. Each blob lasts three seconds from placement, refreshes the slow every 0.25 seconds rounded to eight ticks, and remains after a projectile is destroyed; no trail is deposited beyond the blocking wall. The sourced blob size is not separately specified, so its longitudinal radius uses half the listed 240 width. Longitudinal blob overlap replaces the unsimulated two-dimensional strip.
+- Living Artillery applies its missing-health multiplier at impact, interpolates the pinned 0–50% amplification table and doubles only strictly below 40% health. The 0.6-second landing delay follows cast completion. Its shared eight-second stack timer refreshes on completed casts; nine stacks cap cost at 400, and a cancelled cast spends nothing. Ordinary sight is a mark and never exposes stealth. Every emitted projectile and artillery strike persists after death.
+- The budget values Barrage's eight-second uptime over its haste-adjusted cooldown, and limits artillery to the ten-second reference mana reserve after one Q/W/E, paying rising per-cast costs and respecting cooldown plus cast time. It does not pre-award the post-death explosion or guarantee artillery hits. The passive death policy chases the actual rival regardless of the original scenario mode.
+
+### Source values read (54)
+
+| Ability | Value | Source version |
+|---|---|---|
+| Icathian Surprise | zombie state for 4 seconds | [4038400](https://wiki.leagueoflegends.com/en-us/Template:Data_Kog'Maw/Icathian_Surprise?oldid=4038400) |
+| Icathian Surprise | gaining 10% bonus movement speed | [4038400](https://wiki.leagueoflegends.com/en-us/Template:Data_Kog'Maw/Icathian_Surprise?oldid=4038400) |
+| Icathian Surprise | increases by 2.5% every 0.264 | [4038400](https://wiki.leagueoflegends.com/en-us/Template:Data_Kog'Maw/Icathian_Surprise?oldid=4038400) |
+| Icathian Surprise | only reaches up to 45% | [4038400](https://wiki.leagueoflegends.com/en-us/Template:Data_Kog'Maw/Icathian_Surprise?oldid=4038400) |
+| Icathian Surprise | At the end of the duration, he explodes to deal 140 – 650 (based on level) true damage to nearby enemies. | [4038400](https://wiki.leagueoflegends.com/en-us/Template:Data_Kog'Maw/Icathian_Surprise?oldid=4038400) |
+| Icathian Surprise | effectRadius: 400 | [4038400](https://wiki.leagueoflegends.com/en-us/Template:Data_Kog'Maw/Icathian_Surprise?oldid=4038400) |
+| Icathian Surprise | unable to declare basic attacks, cast abilities | [4038400](https://wiki.leagueoflegends.com/en-us/Template:Data_Kog'Maw/Icathian_Surprise?oldid=4038400) |
+| Icathian Surprise | untargetability does not destroy in-flight projectiles | [4038400](https://wiki.leagueoflegends.com/en-us/Template:Data_Kog'Maw/Icathian_Surprise?oldid=4038400) |
+| Icathian Surprise | attack range is reduced to 0 | [4038400](https://wiki.leagueoflegends.com/en-us/Template:Data_Kog'Maw/Icathian_Surprise?oldid=4038400) |
+| Icathian Surprise | mSpell.mSpellCalculations.PassiveDamage: {"mFormulaParts":[{"mStartValue":140.0,"mEndValue":650.0 | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/kogmaw/kogmaw.bin.json) |
+| Caustic Spittle | Bonus Attack Speed: 5 / 10 / 15 / 20 / 25% | [3960434](https://wiki.leagueoflegends.com/en-us/Template:Data_Kog'Maw/Caustic_Spittle?oldid=3960434) |
+| Caustic Spittle | Magic Damage: 80 / 125 / 170 / 215 / 260 (+ 90% AP) | [3960434](https://wiki.leagueoflegends.com/en-us/Template:Data_Kog'Maw/Caustic_Spittle?oldid=3960434) |
+| Caustic Spittle | Resistances Reduction: 16 / 20 / 24 / 28 / 32% | [3960434](https://wiki.leagueoflegends.com/en-us/Template:Data_Kog'Maw/Caustic_Spittle?oldid=3960434) |
+| Caustic Spittle | magic resistance for 4 seconds | [3960434](https://wiki.leagueoflegends.com/en-us/Template:Data_Kog'Maw/Caustic_Spittle?oldid=3960434) |
+| Caustic Spittle | mSpell.mUseAutoattackCastTimeData: {"__type":"UseAutoattackCastTimeData"} | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/kogmaw/kogmaw.bin.json) |
+| Bio-Arcane Barrage | for the next 8 seconds | [4052263](https://wiki.leagueoflegends.com/en-us/Template:Data_Kog'Maw/Bio-Arcane_Barrage?oldid=4052263) |
+| Bio-Arcane Barrage | Bonus Attack Range: 130 / 150 / 170 / 190 / 210 | [4052263](https://wiki.leagueoflegends.com/en-us/Template:Data_Kog'Maw/Bio-Arcane_Barrage?oldid=4052263) |
+| Bio-Arcane Barrage | Bonus Magic Damage: 3 / 3.75 / 4.5 / 5.25 / 6% (+ 1.5% per 100 AP) of target's maximum health | [4052263](https://wiki.leagueoflegends.com/en-us/Template:Data_Kog'Maw/Bio-Arcane_Barrage?oldid=4052263) |
+| Bio-Arcane Barrage | capped at 100 against minions and monsters | [4052263](https://wiki.leagueoflegends.com/en-us/Template:Data_Kog'Maw/Bio-Arcane_Barrage?oldid=4052263) |
+| Bio-Arcane Barrage | mSpell.missileSpeed: 1800.0 | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/kogmaw/kogmaw.bin.json) |
+| Void Ooze | Magic Damage: 70 / 110 / 150 / 190 / 230 (+ 65% AP) | [3965135](https://wiki.leagueoflegends.com/en-us/Template:Data_Kog'Maw/Void_Ooze?oldid=3965135) |
+| Void Ooze | Slow: 40 / 45 / 50 / 55 / 60% | [3965135](https://wiki.leagueoflegends.com/en-us/Template:Data_Kog'Maw/Void_Ooze?oldid=3965135) |
+| Void Ooze | in its wake for 3 seconds | [3965135](https://wiki.leagueoflegends.com/en-us/Template:Data_Kog'Maw/Void_Ooze?oldid=3965135) |
+| Void Ooze | every 0.25 seconds | [3965135](https://wiki.leagueoflegends.com/en-us/Template:Data_Kog'Maw/Void_Ooze?oldid=3965135) |
+| Void Ooze | every 125 units traveled | [3965135](https://wiki.leagueoflegends.com/en-us/Template:Data_Kog'Maw/Void_Ooze?oldid=3965135) |
+| Void Ooze | width: 240 | [3965135](https://wiki.leagueoflegends.com/en-us/Template:Data_Kog'Maw/Void_Ooze?oldid=3965135) |
+| Void Ooze | Pending for test: The missile leaves a blob of ooze on the ground every 125 units traveled. | [3965135](https://wiki.leagueoflegends.com/en-us/Template:Data_Kog'Maw/Void_Ooze?oldid=3965135) |
+| Living Artillery | Minimum Magic Damage: 100 / 140 / 180 (+ 75% bonus AD) (+ 35 / 40 / 45% AP) | [4007636](https://wiki.leagueoflegends.com/en-us/Template:Data_Kog'Maw/Living_Artillery?oldid=4007636) |
+| Living Artillery | Living Artillery's damage is increased by 0 / 5 / 10 / 15 / 20 / 25 / 30 / 35 / 40 / 45 / 50 (based on target's missing health)%, or instead by 100% if the target is below 40% maximum health. | [4007636](https://wiki.leagueoflegends.com/en-us/Template:Data_Kog'Maw/Living_Artillery?oldid=4007636) |
+| Living Artillery | below 40% maximum health | [4007636](https://wiki.leagueoflegends.com/en-us/Template:Data_Kog'Maw/Living_Artillery?oldid=4007636) |
+| Living Artillery | instead by 100% | [4007636](https://wiki.leagueoflegends.com/en-us/Template:Data_Kog'Maw/Living_Artillery?oldid=4007636) |
+| Living Artillery | after 0.6 seconds | [4007636](https://wiki.leagueoflegends.com/en-us/Template:Data_Kog'Maw/Living_Artillery?oldid=4007636) |
+| Living Artillery | revealing them for 2 seconds | [4007636](https://wiki.leagueoflegends.com/en-us/Template:Data_Kog'Maw/Living_Artillery?oldid=4007636) |
+| Living Artillery | for 8 seconds | [4007636](https://wiki.leagueoflegends.com/en-us/Template:Data_Kog'Maw/Living_Artillery?oldid=4007636) |
+| Living Artillery | stacking up to 9 times | [4007636](https://wiki.leagueoflegends.com/en-us/Template:Data_Kog'Maw/Living_Artillery?oldid=4007636) |
+| Living Artillery | mana cost is increased by 40 | [4007636](https://wiki.leagueoflegends.com/en-us/Template:Data_Kog'Maw/Living_Artillery?oldid=4007636) |
+| Living Artillery | will not reveal stealthed champions | [4007636](https://wiki.leagueoflegends.com/en-us/Template:Data_Kog'Maw/Living_Artillery?oldid=4007636) |
+| Caustic Spittle | cost: 40 | [3960434](https://wiki.leagueoflegends.com/en-us/Template:Data_Kog'Maw/Caustic_Spittle?oldid=3960434) |
+| Bio-Arcane Barrage | cost: 40 | [4052263](https://wiki.leagueoflegends.com/en-us/Template:Data_Kog'Maw/Bio-Arcane_Barrage?oldid=4052263) |
+| Void Ooze | cost: 40 / 55 / 70 / 85 / 100 | [3965135](https://wiki.leagueoflegends.com/en-us/Template:Data_Kog'Maw/Void_Ooze?oldid=3965135) |
+| Caustic Spittle | cooldown: 7 | [3960434](https://wiki.leagueoflegends.com/en-us/Template:Data_Kog'Maw/Caustic_Spittle?oldid=3960434) |
+| Caustic Spittle | range: 1200 | [3960434](https://wiki.leagueoflegends.com/en-us/Template:Data_Kog'Maw/Caustic_Spittle?oldid=3960434) |
+| Caustic Spittle | width: 140 | [3960434](https://wiki.leagueoflegends.com/en-us/Template:Data_Kog'Maw/Caustic_Spittle?oldid=3960434) |
+| Caustic Spittle | speed: 1650 | [3960434](https://wiki.leagueoflegends.com/en-us/Template:Data_Kog'Maw/Caustic_Spittle?oldid=3960434) |
+| Bio-Arcane Barrage | cooldown: 17 | [4052263](https://wiki.leagueoflegends.com/en-us/Template:Data_Kog'Maw/Bio-Arcane_Barrage?oldid=4052263) |
+| Bio-Arcane Barrage | castTime: none | [4052263](https://wiki.leagueoflegends.com/en-us/Template:Data_Kog'Maw/Bio-Arcane_Barrage?oldid=4052263) |
+| Void Ooze | cooldown: 12 | [3965135](https://wiki.leagueoflegends.com/en-us/Template:Data_Kog'Maw/Void_Ooze?oldid=3965135) |
+| Void Ooze | castTime: 0.25 | [3965135](https://wiki.leagueoflegends.com/en-us/Template:Data_Kog'Maw/Void_Ooze?oldid=3965135) |
+| Void Ooze | range: 1360 | [3965135](https://wiki.leagueoflegends.com/en-us/Template:Data_Kog'Maw/Void_Ooze?oldid=3965135) |
+| Void Ooze | speed: 1400 | [3965135](https://wiki.leagueoflegends.com/en-us/Template:Data_Kog'Maw/Void_Ooze?oldid=3965135) |
+| Living Artillery | cooldown: 2 / 1.5 / 1 | [4007636](https://wiki.leagueoflegends.com/en-us/Template:Data_Kog'Maw/Living_Artillery?oldid=4007636) |
+| Living Artillery | castTime: 0.25 | [4007636](https://wiki.leagueoflegends.com/en-us/Template:Data_Kog'Maw/Living_Artillery?oldid=4007636) |
+| Living Artillery | targetRange: 1300 / 1550 / 1800 | [4007636](https://wiki.leagueoflegends.com/en-us/Template:Data_Kog'Maw/Living_Artillery?oldid=4007636) |
+| Living Artillery | effectRadius: 240 | [4007636](https://wiki.leagueoflegends.com/en-us/Template:Data_Kog'Maw/Living_Artillery?oldid=4007636) |

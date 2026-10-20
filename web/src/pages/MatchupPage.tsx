@@ -1,5 +1,5 @@
 /** One matchup: the verdict, each scenario and its fight, the numbers, the ledger, and the assumptions. */
-import { useMemo, useState } from "react";
+import { Fragment, useMemo, useState } from "react";
 import { BUDGET_STATS, type BudgetStat } from "../../../engine/budget";
 import { buildLedger, isHardCounter, type LedgerEntry } from "../../../engine/ledger/index";
 import { SCENARIO_LABELS, type ScenarioId } from "../../../engine/sim/scenarios";
@@ -9,7 +9,7 @@ import { Confidence, ErrorBox, Loading, Score, ScoreBar, percent, signed } from 
 import { type AppData, findChampion } from "../data";
 import { useMatchupRun, useSettings } from "../hooks";
 import { routeHash } from "../routes";
-import { type AppSettings, DEFAULT_APP_SETTINGS, blend, fightsChanged } from "../settings";
+import { type AppSettings, DEFAULT_APP_SETTINGS, fightsChanged } from "../settings";
 import type { MatchupRun, OutcomeSummary, StatLine } from "../sim/run";
 
 export function MatchupPage({ data, youId, enemyId }: { data: AppData; youId: string; enemyId: string }) {
@@ -77,10 +77,7 @@ function outcomeText(o: OutcomeSummary, you: string, enemy: string): string {
 }
 
 function Results({ you, enemy, run, settings }: { you: Champion; enemy: Champion; run: MatchupRun; settings: AppSettings }) {
-  const score = blend(
-    run.scenarios.map((s) => s.score),
-    settings.weights,
-  );
+  const score = run.score;
   const decided = run.scenarios.filter((s) => s.score !== null);
   const won = decided.filter((s) => (s.score ?? 0) > 0.05).length;
   const lost = decided.filter((s) => (s.score ?? 0) < -0.05).length;
@@ -146,7 +143,7 @@ function Results({ you, enemy, run, settings }: { you: Champion; enemy: Champion
         {shown ? <Timeline entries={shown.outcome.timeline} you={you.name} enemy={enemy.name} /> : null}
       </section>
 
-      <Numbers you={you} enemy={enemy} run={run} />
+      <CombatNumbers you={you} enemy={enemy} run={run} />
       <Assumptions you={you} enemy={enemy} run={run} settings={settings} />
     </>
   );
@@ -199,22 +196,33 @@ const STAT_NAMES: Record<BudgetStat, string> = {
   mr: "Magic resistance",
 };
 
-function Numbers({ you, enemy, run }: { you: Champion; enemy: Champion; run: MatchupRun }) {
+export function CombatNumbers({ you, enemy, run }: { you: Champion; enemy: Champion; run: MatchupRun }) {
   const base = [you, enemy].map((c) => (c.forms[0] ? statsAtLevel(c.forms[0].stats, TOP_LANE_MAX_LEVEL) : undefined));
   const bought = BUDGET_STATS.filter((stat) => run.spent[0][stat] > 0 || run.spent[1][stat] > 0);
   return (
     <section className="section" aria-labelledby="numbers-head">
-      <h3 id="numbers-head">Level-20 numbers</h3>
-      <p className="note">Base stats at level 20, then with the gold each side spent against the other.</p>
+      <h3 id="numbers-head">Level-20 combat stats</h3>
+      <p className="note">
+        Equipped includes the selected kit and purchased stats. Fight setup includes its initial kit effects in the You engage scenario, before the first passive tick.
+        Passives and temporary buffs can change these values during the fight.
+      </p>
+      {you.id === "Poppy" || enemy.id === "Poppy" ? <p className="note">Poppy's resistance bonus and buckler empowerment begin on the first passive tick and are not included in this setup snapshot.</p> : null}
       <div className="table-wrap">
         <table>
           <thead>
             <tr>
-              <th>Stat</th>
-              <th className="n">{you.name}</th>
-              <th className="n">with gold</th>
-              <th className="n">{enemy.name}</th>
-              <th className="n">with gold</th>
+              <th rowSpan={2} scope="col">Stat</th>
+              <th className="n" colSpan={3} scope="colgroup">{you.name}</th>
+              <th className="n" colSpan={3} scope="colgroup">{enemy.name}</th>
+            </tr>
+            <tr>
+              {[you, enemy].map((champion) => (
+                <Fragment key={champion.id}>
+                  <th className="n" scope="col">Base record</th>
+                  <th className="n" scope="col">Equipped</th>
+                  <th className="n" scope="col">Fight setup</th>
+                </Fragment>
+              ))}
             </tr>
           </thead>
           <tbody>
@@ -227,15 +235,19 @@ function Numbers({ you, enemy, run }: { you: Champion; enemy: Champion; run: Mat
                 if (key === "attackSpeed") return format(b.attackSpeed);
                 if (key === "armor") return format(b.armor);
                 if (key === "mr") return format(b.magicResist);
-                return "";
+                if (key === "moveSpeed") return format([you, enemy][i]?.forms[0]?.stats.moveSpeed ?? 0);
+                if (key === "attackRange") return format([you, enemy][i]?.forms[0]?.stats.attackRange ?? 0);
+                return format(0);
               };
               return (
                 <tr key={key}>
                   <td>{label}</td>
                   <td className="n">{baseValue(0)}</td>
                   <td className="n">{format(run.stats[0][key])}</td>
+                  <td className="n">{format(run.openingStats[0][key])}</td>
                   <td className="n">{baseValue(1)}</td>
                   <td className="n">{format(run.stats[1][key])}</td>
+                  <td className="n">{format(run.openingStats[1][key])}</td>
                 </tr>
               );
             })}

@@ -124,7 +124,7 @@ const jayce: KitModule = {
           { type: "displace", direction: "away", distance: knock, duration: knockSeconds },
         ],
       },
-      { key: "R", name: toCannon.name, slot: "R", cooldown: transformCooldown, castTime: toCannon.castTime(), delivery: { kind: "self" } },
+      { key: "R", name: toCannon.name, slot: "R", activation: "transformation", cooldown: transformCooldown, castTime: toCannon.castTime(), delivery: { kind: "self" } },
     ];
     const cannonAbilities: AbilitySpec[] = [
       {
@@ -168,7 +168,7 @@ const jayce: KitModule = {
       },
       // Its speed in the hooks: no traits for the default behavior, which leaves it to Jayce's.
       { key: "EC", name: gate.name, slot: "E", cooldown: gate.cooldown(), cost: gate.cost(), castTime: gate.castTime(), delivery: { kind: "self" } },
-      { key: "RH", name: toHammer.name, slot: "R", cooldownKey: "R", cooldown: transformCooldown, castTime: toHammer.castTime(), delivery: { kind: "self" } },
+      { key: "RH", name: toHammer.name, slot: "R", activation: "transformation", cooldownKey: "R", cooldown: transformCooldown, castTime: toHammer.castTime(), delivery: { kind: "self" } },
     ];
     const everything = [...hammerAbilities, ...cannonAbilities];
     const spec = (key: string) => {

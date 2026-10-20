@@ -212,3 +212,86 @@ All 3 level-based formulas in the game files (1 linked to wiki values above):
 | BrandPassive | ManaRestore | breakpoints at levels 3, 6, 9, 12, 15, 18 (level 1: 20) | 20 | 39.983 | 39.983 |
 | BrandPassive | ExplosionDamage | linear 6 → 12 over levels 1-18, continues past 18 | 6 | 12 | 12.7059 |
 | BrandPassive | JungleMonsterExplosionFlatCap | breakpoints at levels 6, 11, 16 (level 1: 270) | 270 | 525 | 525 |
+
+## Duel simulator kit (level 20, every ability at max rank)
+
+What the duel simulator fights with (`kits/champions/Brand.ts`): values come from pinned wiki and versioned game-data records at level 20. Interpretations and missing evidence are listed under assumptions. Ratios are fractions of the stat (60% AD is 0.6 × AD).
+
+- Basic attack: range 550, missile at 2000/s.
+
+| Key | Ability | Cooldown (s) | Cast time (s) | Cost | Delivery | On the enemy | On itself |
+|---|---|--:|--:|---|---|---|---|
+| Q | Sear | 6 | 0.25 | 70 | skillshot 1040 long, 120 wide, at 1600/s | 190 + 65% AP magic damage | – |
+| W | Pillar of Flame | 8 | 0.25 | 100 | circle of 260 radius up to 900 away, lands after 0.627 s | 255 + 70% AP magic damage, varies with combat state; formula is a reference | – |
+| E | Conflagration | 9 | 0.25 | 90 | targeted, 675 range | 155 + 60% AP magic damage | – |
+| R | Pyroclasm | 80 | 0.25 | 100 | targeted, 750 range, missile at 750/s | 250 + 30% AP magic damage | – |
+| RB | Pyroclasm (bounce) | 0 | 0 | – | targeted, 600 range, missile at 750/s | 250 + 30% AP magic damage | – |
+| BLAZE | Blaze explosion | 0 | 0 | – | around itself, 475 units | 12.706% target's maximum health + 2% of target's maximum health per 100 AP magic damage (Blaze explosion); marks it "blazeExplosion" for 0.1 s | – |
+
+Effects marked by a mark or a role are completed by the kit's hooks (see the kit's source).
+
+### Assumptions
+
+- Blaze's committed source specifies 2% maximum-health damage over 4 seconds but no tick cadence; the model uses sixteen equal 0.25-second ticks per stack. Existing stacks preserve their independent pulse clocks when refreshed.
+- Blaze follows the description's explicit 2% per-stack formula. The same revision's illustrative notes claim 6–7% over 4 seconds for two stacks and 9–11% for three, which this equal per-stack model does not reproduce; this source inconsistency remains unresolved.
+- Each Pyroclasm leg restarts at the sourced 750 units/second and accelerates by 500 units/second each second, capped at the sourced 3000. The source does not explicitly state whether bounce legs retain velocity; this model resets it at each leg.
+- Pyroclasm bounces only between the sole enemy champion and Brand, allowing three enemy hits when each intervening bounce has a target within 600 units. Extra minion/pet bounce targets and Conflagration's splash onto them are not modeled.
+- Blaze's stack clocks and detonation are tracked on the enemy champion; burn stacks on enemy pets and the explosion's splash damage to those pets are not modeled.
+- Blaze grants no pre-fight stacks. The duel ends on champion death, so a ring persisting through death cannot change its recorded result.
+- The stat-budget reference estimates sustained Ablaze uptime and detonation frequency from spell cooldowns; fight damage instead uses the actual landed hits, stack clocks, and bounce paths.
+
+### Source values read (51)
+
+| Ability | Value | Source version |
+|---|---|---|
+| Blaze | for 4 seconds, stacking up to 3 times | [4052621](https://wiki.leagueoflegends.com/en-us/Template:Data_Brand/Blaze?oldid=4052621) |
+| Blaze | equal to 2% of their maximum health over 4 seconds | [4052621](https://wiki.leagueoflegends.com/en-us/Template:Data_Brand/Blaze?oldid=4052621) |
+| Blaze | after 2 seconds, consumes their stacks to explode | [4052621](https://wiki.leagueoflegends.com/en-us/Template:Data_Brand/Blaze?oldid=4052621) |
+| Blaze | in the last 4 seconds | [4052621](https://wiki.leagueoflegends.com/en-us/Template:Data_Brand/Blaze?oldid=4052621) |
+| Blaze | All enemies within the detonation are applied a stack of Ablaze and dealt magic damage equal to 6 – 12 (based on level)% (+ 2% per 100 AP) of their maximum health, capped at 270 / 355 / 440 / 525 (based on level) against monsters. | [4052621](https://wiki.leagueoflegends.com/en-us/Template:Data_Brand/Blaze?oldid=4052621) |
+| Blaze | (+ 2% per 100 AP) | [4052621](https://wiki.leagueoflegends.com/en-us/Template:Data_Brand/Blaze?oldid=4052621) |
+| Blaze | effectRadius: 475 | [4052621](https://wiki.leagueoflegends.com/en-us/Template:Data_Brand/Blaze?oldid=4052621) |
+| Blaze | Killing an enemy afflicted with Ablaze or any enemy with an ability restores 20 / 25 / 30 / 35 / 40 (based on level) mana. | [4052621](https://wiki.leagueoflegends.com/en-us/Template:Data_Brand/Blaze?oldid=4052621) |
+| Blaze | Each stack of Ablaze deals damage to the target individually and applies their damage ticks dependent on the time they were applied, even if the duration of all the stacks are refreshed | [4052621](https://wiki.leagueoflegends.com/en-us/Template:Data_Brand/Blaze?oldid=4052621) |
+| Blaze | The explosion is not considered a tether effect and will not affect untargetable targets, even if the explosion originated from them | [4052621](https://wiki.leagueoflegends.com/en-us/Template:Data_Brand/Blaze?oldid=4052621) |
+| Blaze | Ablaze is a debuff that persists through death | [4052621](https://wiki.leagueoflegends.com/en-us/Template:Data_Brand/Blaze?oldid=4052621) |
+| Blaze | At sub-optimal applied times, 2 stacks will deal a minimum of 6% maximum health damage over 4 seconds, but will deal 7% maximum health at optimal applied times | [4052621](https://wiki.leagueoflegends.com/en-us/Template:Data_Brand/Blaze?oldid=4052621) |
+| Sear | The target is stunned for 1.75 seconds | [4007576](https://wiki.leagueoflegends.com/en-us/Template:Data_Brand/Sear?oldid=4007576) |
+| Pillar of Flame | Magic Damage: 75 / 120 / 165 / 210 / 255 (+ 70% AP) | [3955084](https://wiki.leagueoflegends.com/en-us/Template:Data_Brand/Pillar_of_Flame?oldid=3955084) |
+| Pillar of Flame | Increased Damage: 93.75 / 150 / 206.25 / 262.5 / 318.75 (+ 87.5% AP) | [3955084](https://wiki.leagueoflegends.com/en-us/Template:Data_Brand/Pillar_of_Flame?oldid=3955084) |
+| Pillar of Flame | After a 0.627 delay | [3955084](https://wiki.leagueoflegends.com/en-us/Template:Data_Brand/Pillar_of_Flame?oldid=3955084) |
+| Pillar of Flame | The delay before the eruption does not include the cast time | [3955084](https://wiki.leagueoflegends.com/en-us/Template:Data_Brand/Pillar_of_Flame?oldid=3955084) |
+| Pyroclasm | Magic Damage: 100 / 175 / 250 (+ 30% AP) | [3955099](https://wiki.leagueoflegends.com/en-us/Template:Data_Brand/Pyroclasm?oldid=3955099) |
+| Pyroclasm | a 0.15-second delay between bounces | [3955099](https://wiki.leagueoflegends.com/en-us/Template:Data_Brand/Pyroclasm?oldid=3955099) |
+| Pyroclasm | up to four times | [3955099](https://wiki.leagueoflegends.com/en-us/Template:Data_Brand/Pyroclasm?oldid=3955099) |
+| Pyroclasm | effectRadius: 600 | [3955099](https://wiki.leagueoflegends.com/en-us/Template:Data_Brand/Pyroclasm?oldid=3955099) |
+| Pyroclasm | speed: 750 - 3000 | [3955099](https://wiki.leagueoflegends.com/en-us/Template:Data_Brand/Pyroclasm?oldid=3955099) |
+| Pyroclasm | speed (Acceleration 500u/s): 750 - 3000 | [3955099](https://wiki.leagueoflegends.com/en-us/Template:Data_Brand/Pyroclasm?oldid=3955099) |
+| Pyroclasm | Slow: 30 / 45 / 60% | [3955099](https://wiki.leagueoflegends.com/en-us/Template:Data_Brand/Pyroclasm?oldid=3955099) |
+| Pyroclasm | The target is slowed for 0.25 seconds | [3955099](https://wiki.leagueoflegends.com/en-us/Template:Data_Brand/Pyroclasm?oldid=3955099) |
+| Pyroclasm | The fireball acquires a new valid, bounce target once the bounce delay finishes | [3955099](https://wiki.leagueoflegends.com/en-us/Template:Data_Brand/Pyroclasm?oldid=3955099) |
+| Pyroclasm | If the initial cast target uses spell shield, Pyroclasm will not bounce | [3955099](https://wiki.leagueoflegends.com/en-us/Template:Data_Brand/Pyroclasm?oldid=3955099) |
+| Pyroclasm | If the bounce is blocked by an enemy's spell shield it will not deal any damage, but it will keep on bouncing | [3955099](https://wiki.leagueoflegends.com/en-us/Template:Data_Brand/Pyroclasm?oldid=3955099) |
+| Pyroclasm | The target does not have to be visible for the fireball to bounce to them | [3955099](https://wiki.leagueoflegends.com/en-us/Template:Data_Brand/Pyroclasm?oldid=3955099) |
+| Pyroclasm | This does not apply if the target is Brand, as the missile would not be destroyed and would bounce from him even if he is untargetable | [3955099](https://wiki.leagueoflegends.com/en-us/Template:Data_Brand/Pyroclasm?oldid=3955099) |
+| Sear | cooldown: 8 / 7.5 / 7 / 6.5 / 6 | [4007576](https://wiki.leagueoflegends.com/en-us/Template:Data_Brand/Sear?oldid=4007576) |
+| Sear | cost: 70 | [4007576](https://wiki.leagueoflegends.com/en-us/Template:Data_Brand/Sear?oldid=4007576) |
+| Sear | castTime: 0.25 | [4007576](https://wiki.leagueoflegends.com/en-us/Template:Data_Brand/Sear?oldid=4007576) |
+| Sear | range: 1100 • 1040 | [4007576](https://wiki.leagueoflegends.com/en-us/Template:Data_Brand/Sear?oldid=4007576) |
+| Sear | width: 120 | [4007576](https://wiki.leagueoflegends.com/en-us/Template:Data_Brand/Sear?oldid=4007576) |
+| Sear | speed: 1600 | [4007576](https://wiki.leagueoflegends.com/en-us/Template:Data_Brand/Sear?oldid=4007576) |
+| Sear | Magic Damage: 70 / 100 / 130 / 160 / 190 (+ 65% AP) | [4007576](https://wiki.leagueoflegends.com/en-us/Template:Data_Brand/Sear?oldid=4007576) |
+| Pillar of Flame | cooldown: 10 / 9.5 / 9 / 8.5 / 8 | [3955084](https://wiki.leagueoflegends.com/en-us/Template:Data_Brand/Pillar_of_Flame?oldid=3955084) |
+| Pillar of Flame | cost: 60 / 70 / 80 / 90 / 100 | [3955084](https://wiki.leagueoflegends.com/en-us/Template:Data_Brand/Pillar_of_Flame?oldid=3955084) |
+| Pillar of Flame | castTime: 0.25 | [3955084](https://wiki.leagueoflegends.com/en-us/Template:Data_Brand/Pillar_of_Flame?oldid=3955084) |
+| Pillar of Flame | targetRange: 900 | [3955084](https://wiki.leagueoflegends.com/en-us/Template:Data_Brand/Pillar_of_Flame?oldid=3955084) |
+| Pillar of Flame | effectRadius: 260 | [3955084](https://wiki.leagueoflegends.com/en-us/Template:Data_Brand/Pillar_of_Flame?oldid=3955084) |
+| Conflagration | cooldown: 13 / 12 / 11 / 10 / 9 | [4034693](https://wiki.leagueoflegends.com/en-us/Template:Data_Brand/Conflagration?oldid=4034693) |
+| Conflagration | cost: 90 | [4034693](https://wiki.leagueoflegends.com/en-us/Template:Data_Brand/Conflagration?oldid=4034693) |
+| Conflagration | castTime: 0.25 | [4034693](https://wiki.leagueoflegends.com/en-us/Template:Data_Brand/Conflagration?oldid=4034693) |
+| Conflagration | targetRange: 675 | [4034693](https://wiki.leagueoflegends.com/en-us/Template:Data_Brand/Conflagration?oldid=4034693) |
+| Conflagration | Magic Damage: 55 / 80 / 105 / 130 / 155 (+ 60% AP) | [4034693](https://wiki.leagueoflegends.com/en-us/Template:Data_Brand/Conflagration?oldid=4034693) |
+| Pyroclasm | cooldown: 100 / 90 / 80 | [3955099](https://wiki.leagueoflegends.com/en-us/Template:Data_Brand/Pyroclasm?oldid=3955099) |
+| Pyroclasm | cost: 100 | [3955099](https://wiki.leagueoflegends.com/en-us/Template:Data_Brand/Pyroclasm?oldid=3955099) |
+| Pyroclasm | castTime: 0.25 | [3955099](https://wiki.leagueoflegends.com/en-us/Template:Data_Brand/Pyroclasm?oldid=3955099) |
+| Pyroclasm | targetRange: 750 | [3955099](https://wiki.leagueoflegends.com/en-us/Template:Data_Brand/Pyroclasm?oldid=3955099) |

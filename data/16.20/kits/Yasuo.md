@@ -269,40 +269,60 @@ All 2 level-based formulas in the game files (1 linked to wiki values above):
 
 ## Duel simulator kit (level 20, every ability at max rank)
 
-What the duel simulator fights with (`kits/champions/Yasuo.ts`): every number is read from the wiki's ability data above at level 20; what the wiki doesn't say is listed under assumptions. Ratios are fractions of the stat (60% AD is 0.6 × AD).
+What the duel simulator fights with (`kits/champions/Yasuo.ts`): values come from pinned wiki and versioned game-data records at level 20. Interpretations and missing evidence are listed under assumptions. Ratios are fractions of the stat (60% AD is 0.6 × AD).
 
 - Basic attack: range 175, melee.
 
 | Key | Ability | Cooldown (s) | Cast time (s) | Cost | Delivery | On the enemy | On itself |
 |---|---|--:|--:|---|---|---|---|
-| Q | Steel Tempest | 4 | 0.35 | – | skillshot 450 long, 80 wide, instant | 120 physical damage; 105% AD physical damage, can crit | – |
-| Q3 | Steel Tempest (whirlwind) | 4 | 0.35 | – | skillshot 1150 long, 180 wide, at 1200/s | 120 physical damage; 105% AD physical damage, can crit; knock up over 0.9 s | – |
+| Q | Steel Tempest | 4 (depends on stats) (unaffected by ability haste) | depends on stats (0.35 base) | – | skillshot 450 long, 80 wide, instant | 120 physical damage; 105% AD physical damage, can crit | – |
+| Q3 | Steel Tempest (whirlwind) | 4 (depends on stats) (unaffected by ability haste) | depends on stats (0.35 base) | – | skillshot 1150 long, 180 wide, at 1200/s | 120 physical damage; 105% AD physical damage, can crit; knock up over 0.9 s | – |
 | W | Wind Wall | 17 | 0.013 | – | self | – | projectile wall 300 units ahead for 4 s |
-| E | Sweeping Blade | 6 | 0 | – | dash toward 475 units at 957/s, hits within 100 | 130 + 20% bonus AD + 60% AP magic damage | – |
-| Eminion | Sweeping Blade (through minions) | 1.5 | 0 | – | dash away 475 units at 957/s | – | – |
-| R | Last Breath | 30 | 0 | – | blink toward 1400 units | knock up over 1 s; after 1 s: 500 + 150% bonus AD physical damage | – |
+| E | Sweeping Blade | 6 (unaffected by ability haste) | 0 | – | dash toward 475 units at 957/s, hits within 100, through the enemy | 130 + 20% bonus AD + 60% AP magic damage | ghosted for 2 s |
+| Eminion | Sweeping Blade (through minions) | 1.5 | 0 | – | dash away 475 units at 957/s | – | ghosted for 2 s |
+| R | Last Breath | 30 | 0 | – | blink toward 1400 units; channel 1 s | knock up over 1 s; at the end: 500 + 150% bonus AD physical damage | – |
 
 Effects marked by a mark or a role are completed by the kit's hooks (see the kit's source).
 
 ### Assumptions
 
 - With a minion wave, Sweeping Blade through minions gives a dash toward or away from the enemy every 1.5 seconds.
-- Yasuo starts every fight with full Flow; Steel Tempest's cast time is taken at 0 bonus attack speed.
-- Last Breath's armor penetration on critical strikes isn't modeled.
+- Yasuo starts every fight with full Flow.
+- A partial Sweeping Blade generates its documented 7.5 Flow per full dash in proportion to the distance traveled.
 - Crit chance bought counts double for Yasuo (the stat budget values it that way).
 
-### Wiki values read (28)
+### Source values read (45)
 
-| Ability | Value | Revision |
+| Ability | Value | Source version |
 |---|---|---|
 | Way of the Wanderer | Yasuo's total critical strike chance is doubled from all other sources | [4051866](https://wiki.leagueoflegends.com/en-us/Template:Data_Yasuo/Way_of_the_Wanderer?oldid=4051866) |
 | Way of the Wanderer | every 1% critical strike chance in excess of 100% is converted into 0.5 bonus attack damage | [4051866](https://wiki.leagueoflegends.com/en-us/Template:Data_Yasuo/Way_of_the_Wanderer?oldid=4051866) |
 | Way of the Wanderer | Innate - Resolve: Yasuo generates a stack of Flow for every 59 / 52.5 / 46 (based on level) units he travels by any means. | [4051866](https://wiki.leagueoflegends.com/en-us/Template:Data_Yasuo/Way_of_the_Wanderer?oldid=4051866) |
 | Way of the Wanderer | At 100 stacks and upon taking damage from an enemy champion or monster, Yasuo consumes all Flow to grant himself a shield for 125 – 600 (based on level) that lasts for 1 second. | [4051866](https://wiki.leagueoflegends.com/en-us/Template:Data_Yasuo/Way_of_the_Wanderer?oldid=4051866) |
 | Way of the Wanderer | that lasts for 1 second | [4051866](https://wiki.leagueoflegends.com/en-us/Template:Data_Yasuo/Way_of_the_Wanderer?oldid=4051866) |
+| Steel Tempest | staticCooldown: 4 / 3.64 / 3.28 / 2.92 / 2.56 / 2.2 / 1.84 / 1.48 / 1.33333 (based on bonus attack speed) | [4072892](https://wiki.leagueoflegends.com/en-us/Template:Data_Yasuo/Steel_Tempest?oldid=4072892) |
 | Steel Tempest | Yasuo generates a stack of Gathering Storm for 6 seconds | [4072892](https://wiki.leagueoflegends.com/en-us/Template:Data_Yasuo/Steel_Tempest?oldid=4072892) |
 | Steel Tempest | additionally knocks up enemies hit for 0.9 seconds | [4072892](https://wiki.leagueoflegends.com/en-us/Template:Data_Yasuo/Steel_Tempest?oldid=4072892) |
+| Steel Tempest | Thrust Cast Time: 0.35 / 0.33 / 0.297 / 0.264 / 0.231 / 0.198 / 0.175 (based on bonus attack speed) | [4072892](https://wiki.leagueoflegends.com/en-us/Template:Data_Yasuo/Steel_Tempest?oldid=4072892) |
+| Steel Tempest | Whirlwind Cast Time: 0.35 / 0.33 / 0.297 / 0.28 (based on bonus attack speed) | [4072892](https://wiki.leagueoflegends.com/en-us/Template:Data_Yasuo/Steel_Tempest?oldid=4072892) |
+| Steel Tempest | Life steal will heal based on the damage dealt to the first target hit | [4072892](https://wiki.leagueoflegends.com/en-us/Template:Data_Yasuo/Steel_Tempest?oldid=4072892) |
+| Steel Tempest | Spell shield does not prevent a stack of Gathering Storm from being gained | [4072892](https://wiki.leagueoflegends.com/en-us/Template:Data_Yasuo/Steel_Tempest?oldid=4072892) |
+| Steel Tempest | In either case Yasuo still gains a stack of Gathering Storm and his whirlwind knock-up cannot be negated by parries | [4072892](https://wiki.leagueoflegends.com/en-us/Template:Data_Yasuo/Steel_Tempest?oldid=4072892) |
+| Steel Tempest | Cast-time source widget: 0.35-0.035 per 24% bonus attack speed; thrust capped at 50% reduction at 120%, whirlwind capped at 20% reduction at 48%. | [4072892](https://wiki.leagueoflegends.com/en-us/Template:Data_Yasuo/Steel_Tempest?oldid=4072892) |
+| Last Breath | knocks up all nearby airborne enemy champions for 1 second | [4027670](https://wiki.leagueoflegends.com/en-us/Template:Data_Yasuo/Last_Breath?oldid=4027670) |
+| Last Breath | Physical Damage: 200 / 350 / 500 (+ 150% bonus AD) | [4027670](https://wiki.leagueoflegends.com/en-us/Template:Data_Yasuo/Last_Breath?oldid=4027670) |
+| Last Breath | critical strikes ignores 60% of the target's bonus armor | [4027670](https://wiki.leagueoflegends.com/en-us/Template:Data_Yasuo/Last_Breath?oldid=4027670) |
+| Last Breath | For the next 15 seconds | [4027670](https://wiki.leagueoflegends.com/en-us/Template:Data_Yasuo/Last_Breath?oldid=4027670) |
+| Last Breath | The percentage bonus armor ignorance stacks additively with sources of percentage armor penetration | [4027670](https://wiki.leagueoflegends.com/en-us/Template:Data_Yasuo/Last_Breath?oldid=4027670) |
+| Last Breath | Yasuo gains the bonus armor ignorance on-cast | [4027670](https://wiki.leagueoflegends.com/en-us/Template:Data_Yasuo/Last_Breath?oldid=4027670) |
+| Last Breath | While performing Last Breath, Yasuo is locked out of performing actions | [4027670](https://wiki.leagueoflegends.com/en-us/Template:Data_Yasuo/Last_Breath?oldid=4027670) |
+| Last Breath | Spell shield will not prevent Last Breath from being cast and the target will be knocked up and dealt the damage | [4027670](https://wiki.leagueoflegends.com/en-us/Template:Data_Yasuo/Last_Breath?oldid=4027670) |
 | Sweeping Blade | targetCooldown: 10 / 9 / 8 / 7 / 6 | [4008638](https://wiki.leagueoflegends.com/en-us/Template:Data_Yasuo/Sweeping_Blade?oldid=4008638) |
+| Sweeping Blade | range (Dash distance): 475 • 625 | [4008638](https://wiki.leagueoflegends.com/en-us/Template:Data_Yasuo/Sweeping_Blade?oldid=4008638) |
+| Sweeping Blade | Sweeping Blade will generate 7.5 Flow stacks per cast that travels the maximum distance | [4008638](https://wiki.leagueoflegends.com/en-us/Template:Data_Yasuo/Sweeping_Blade?oldid=4008638) |
+| Sweeping Blade | becomes ghosted for 2 seconds | [4008638](https://wiki.leagueoflegends.com/en-us/Template:Data_Yasuo/Sweeping_Blade?oldid=4008638) |
+| Sweeping Blade | Yasuo will be knocked down by any immobilizing or polymorphing crowd control during the dash | [4008638](https://wiki.leagueoflegends.com/en-us/Template:Data_Yasuo/Sweeping_Blade?oldid=4008638) |
+| Sweeping Blade | Sleep does not count for knocking the dash down | [4008638](https://wiki.leagueoflegends.com/en-us/Template:Data_Yasuo/Sweeping_Blade?oldid=4008638) |
 | Sweeping Blade | Bonus Damage per Stack: 17.5 / 21.25 / 25 / 28.75 / 32.5 (+ 5% bonus AD) (+ 15% AP) | [4008638](https://wiki.leagueoflegends.com/en-us/Template:Data_Yasuo/Sweeping_Blade?oldid=4008638) |
 | Steel Tempest | Physical Damage: 20 / 45 / 70 / 95 / 120 (+ 105% AD) | [4072892](https://wiki.leagueoflegends.com/en-us/Template:Data_Yasuo/Steel_Tempest?oldid=4072892) |
 | Steel Tempest | range (Thrust range): 450 • 1150 | [4072892](https://wiki.leagueoflegends.com/en-us/Template:Data_Yasuo/Steel_Tempest?oldid=4072892) |
@@ -314,12 +334,9 @@ Effects marked by a mark or a role are completed by the kit's hooks (see the kit
 | Wind Wall | castTime: 0.013 | [4008635](https://wiki.leagueoflegends.com/en-us/Template:Data_Yasuo/Wind_Wall?oldid=4008635) |
 | Wind Wall | raises a wall of wind in the target direction for 4 seconds | [4008635](https://wiki.leagueoflegends.com/en-us/Template:Data_Yasuo/Wind_Wall?oldid=4008635) |
 | Sweeping Blade | castTime: none | [4008638](https://wiki.leagueoflegends.com/en-us/Template:Data_Yasuo/Sweeping_Blade?oldid=4008638) |
-| Sweeping Blade | range (Dash distance): 475 • 625 | [4008638](https://wiki.leagueoflegends.com/en-us/Template:Data_Yasuo/Sweeping_Blade?oldid=4008638) |
 | Sweeping Blade | speed: 750 + 60% movement speed | [4008638](https://wiki.leagueoflegends.com/en-us/Template:Data_Yasuo/Sweeping_Blade?oldid=4008638) |
 | Sweeping Blade | Magic Damage: 70 / 85 / 100 / 115 / 130 (+ 20% bonus AD) (+ 60% AP) | [4008638](https://wiki.leagueoflegends.com/en-us/Template:Data_Yasuo/Sweeping_Blade?oldid=4008638) |
 | Last Breath | cooldown: 70 / 50 / 30 | [4027670](https://wiki.leagueoflegends.com/en-us/Template:Data_Yasuo/Last_Breath?oldid=4027670) |
 | Last Breath | castTime: none | [4027670](https://wiki.leagueoflegends.com/en-us/Template:Data_Yasuo/Last_Breath?oldid=4027670) |
 | Last Breath | targetRange: 1400 | [4027670](https://wiki.leagueoflegends.com/en-us/Template:Data_Yasuo/Last_Breath?oldid=4027670) |
 | Last Breath | effectRadius (Anchored around the target): 400 | [4027670](https://wiki.leagueoflegends.com/en-us/Template:Data_Yasuo/Last_Breath?oldid=4027670) |
-| Last Breath | knocks up all nearby airborne enemy champions for 1 second | [4027670](https://wiki.leagueoflegends.com/en-us/Template:Data_Yasuo/Last_Breath?oldid=4027670) |
-| Last Breath | Physical Damage: 200 / 350 / 500 (+ 150% bonus AD) | [4027670](https://wiki.leagueoflegends.com/en-us/Template:Data_Yasuo/Last_Breath?oldid=4027670) |

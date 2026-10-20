@@ -222,6 +222,19 @@
       "The area of effect indicator appears at the end of the cast time.\n  - It will persist even if the cast cancels (e.g. Vel'Koz dies before cast time completes) despite the projectile not firing.",
       "Displacement immunity will also resist the application of the stun.",
       "This ability will cast from wherever the caster is at the start of the cast time."
+    ],
+    "gameSources": [
+      {
+        "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/velkoz/velkoz.bin.json",
+        "sha256": "376ffced51823f1fd2b66ed380623e94f299590d142fc048ef569a2325537d91",
+        "object": "Characters/Velkoz/Spells/VelkozEAbility/VelkozE",
+        "text": [
+          "mSpell.DataValues.MoveDistance.values: [225,225,225,225,225,225,225]",
+          "mSpell.DataValues.MinDetonationTime.values: [0.25,0.25,0.25,0.25,0.25,0.25,0.25]",
+          "mSpell.DataValues.MaxDetonationTime.values: [0.550000011920929,0.550000011920929,0.550000011920929,0.550000011920929,0.550000011920929,0.550000011920929,0.550000011920929]"
+        ]
+      }
     ]
   },
   {

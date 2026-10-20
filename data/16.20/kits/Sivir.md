@@ -181,3 +181,87 @@ All 1 level-based formulas in the game files (0 linked to wiki values above):
 | Spell | Calculation | Rule | Level 1 | Level 18 | Level 20 |
 |---|---|---|--:|--:|--:|
 | SivirPassive | FlatMS | breakpoints at levels 6, 11, 16, 18, 24, 30 (level 1: 55) | 55 | 75 | 75 |
+
+## Duel simulator kit (level 20, every ability at max rank)
+
+What the duel simulator fights with (`kits/champions/Sivir.ts`): values come from pinned wiki and versioned game-data records at level 20. Interpretations and missing evidence are listed under assumptions. Ratios are fractions of the stat (60% AD is 0.6 × AD).
+
+- Basic attack: range 500, missile at 1750/s.
+
+| Key | Ability | Cooldown (s) | Cast time (s) | Cost | Delivery | On the enemy | On itself |
+|---|---|--:|--:|---|---|---|---|
+| Q | Boomerang Blade | 8 | depends on stats (0.25 base) | 75 | skillshot 1250 long, 180 wide, at 1450/s | 160 + 70% bonus AD + 60% AP physical damage | – |
+| W | Ricochet | 12 | 0 | 60 | self | – | attackSpeed 0.4 for 4 s |
+| E | Spell Shield | 18 | 0 | – | self | – | spellShield for 1.5 s (1 charge) |
+| R | On the Hunt | 80 | 0 | 100 | self | – | moveSpeedPercent 0.3 for 12 s |
+| Qreturn | Boomerang Blade (return) | 0 | 0 | – | skillshot 1250 long, 200 wide, at 1200/s | 160 + 70% bonus AD + 60% AP physical damage | – |
+| Wbounce | Ricochet (bounce) | 0 | 0 | – | self | 50% AD physical damage | – |
+
+Effects marked by a mark or a role are completed by the kit's hooks (see the kit's source).
+
+### Assumptions
+
+- Fleet of Foot starts on a basic attack declaration against an actual champion, including attacks later blinded, dodged or blocked, and on a champion ability contact even through a spell shield. It grants 75 flat movement speed at level 20 and decays linearly for 1.5 seconds. Pets do not grant the passive. Successful own E consumption schedules its heal and passive together 0.25 seconds later; ordinary expiry grants neither.
+- Boomerang Blade has two separate once-per-target traveling passes. Outbound 1450-speed/180-width and returning 1200-speed/200-width projectiles have independently checked spell shields and can be destroyed by projectile walls. The return follows Sivir's actual position, including after her death. Each actual non-champion contact reduces later damage on that pass by 15 percentage points down to 40%; a new return starts at full damage. Champion contacts do not reduce it. Its version-pinned game calculation multiplies each impact by 1 + 0.4 × critChance × (critDamage − 1). Cast time uses the wiki table's formula 0.25 × (1 − min(0.6, 0.5 × bonus AS)) with matching pinned game parameters, rather than the rendered wiki note's conflicting 0.198-second minimum at 99.8% bonus AS. Return sidestep probability is independently estimated at turnaround using current geometry; it creates no extra branch.
+- Ricochet grants 40% bonus attack speed for 4 seconds, resetting the attack timer only on inactive-to-active casts. Each empowered missile contact searches actual hostile targets within 500 center units, including unseen targets, preferring nearest never-hit targets before repeats. Each target receives at most two contacts from a chain (the primary basic counts as one), and at most 8 bounces launch; a lone champion receives no invented second hit. Bounces use 50% AD, retain the triggering attack's expected crit outcome, apply no basic on-hits or life steal, ignore spell shields, and use the sourced 65% minion factor for modeled ordinary summons. The pinned wiki explicitly leaves dodge/block/blind interactions pending for testing; this model allows the bounce search after any actual primary missile contact, including a denied primary, and treats bounce damage as a proc rather than a second basic attack. That unresolved interaction remains a documented limitation.
+- On the Hunt gives Sivir 30% movement speed for 12 seconds and each declared basic attack refunds 0.5 actual seconds from Q/W/E current cooldowns. Champion takedowns within 3 seconds of her damage refresh only an already-active own buff. The duel contains no additional allied champions. The budget prices both Q passes with its critical multiplier and W's capped four-second attack-speed uptime; it assumes one eligible E shield heal per cooldown and no free Ricochet target lane or takedown reset.
+
+### Source values read (55)
+
+| Ability | Value | Source version |
+|---|---|---|
+| Fleet of Foot | Innate: Sivir's basic attacks on-attack and ability hits against enemy champions grant her 55 / 60 / 65 / 70 / 75 (based on level) bonus movement speed decaying over 1.5 seconds, refreshing on subsequent hits. | [3985850](https://wiki.leagueoflegends.com/en-us/Template:Data_Sivir/Fleet_of_Foot?oldid=3985850) |
+| Fleet of Foot | decaying over 1.5 seconds | [3985850](https://wiki.leagueoflegends.com/en-us/Template:Data_Sivir/Fleet_of_Foot?oldid=3985850) |
+| Fleet of Foot | will trigger even if the attack is dodged, blocked or misses due to blind | [3985850](https://wiki.leagueoflegends.com/en-us/Template:Data_Sivir/Fleet_of_Foot?oldid=3985850) |
+| Fleet of Foot | ability is negated by a spell shield | [3985850](https://wiki.leagueoflegends.com/en-us/Template:Data_Sivir/Fleet_of_Foot?oldid=3985850) |
+| Fleet of Foot | mSpell.missileSpeed: 1750.0 | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/sivir/sivir.bin.json) |
+| Boomerang Blade | Physical Damage: 60 / 85 / 110 / 135 / 160 (+ 70% bonus AD) (+ 60% AP) | [4068684](https://wiki.leagueoflegends.com/en-us/Template:Data_Sivir/Boomerang_Blade?oldid=4068684) |
+| Boomerang Blade | targetRange: 1250 | [4068684](https://wiki.leagueoflegends.com/en-us/Template:Data_Sivir/Boomerang_Blade?oldid=4068684) |
+| Boomerang Blade | width (Outgoing): 180 • 200 | [4068684](https://wiki.leagueoflegends.com/en-us/Template:Data_Sivir/Boomerang_Blade?oldid=4068684) |
+| Boomerang Blade | width (Returning): 180 • 200 | [4068684](https://wiki.leagueoflegends.com/en-us/Template:Data_Sivir/Boomerang_Blade?oldid=4068684) |
+| Boomerang Blade | speed (Outgoing): 1450 • 1200 | [4068684](https://wiki.leagueoflegends.com/en-us/Template:Data_Sivir/Boomerang_Blade?oldid=4068684) |
+| Boomerang Blade | speed (Returning): 1450 • 1200 | [4068684](https://wiki.leagueoflegends.com/en-us/Template:Data_Sivir/Boomerang_Blade?oldid=4068684) |
+| Boomerang Blade | Minimum Damage: 24 / 34 / 44 / 54 / 64 (+ 28% bonus AD) (+ 24% AP) | [4068684](https://wiki.leagueoflegends.com/en-us/Template:Data_Sivir/Boomerang_Blade?oldid=4068684) |
+| Boomerang Blade | Total Maximum Champion Damage: 120 / 170 / 220 / 270 / 320 (+ 140% bonus AD) (+ 120% AP) | [4068684](https://wiki.leagueoflegends.com/en-us/Template:Data_Sivir/Boomerang_Blade?oldid=4068684) |
+| Boomerang Blade | castTime: 0.25 / 0.231 / 0.198 / 0.165 / 0.132 / 0.1 (based on bonus attack speed) | [4068684](https://wiki.leagueoflegends.com/en-us/Template:Data_Sivir/Boomerang_Blade?oldid=4068684) |
+| Boomerang Blade | Enemies can be hit only once per pass | [4068684](https://wiki.leagueoflegends.com/en-us/Template:Data_Sivir/Boomerang_Blade?oldid=4068684) |
+| Boomerang Blade | returns to her, resetting the damage modifier | [4068684](https://wiki.leagueoflegends.com/en-us/Template:Data_Sivir/Boomerang_Blade?oldid=4068684) |
+| Boomerang Blade | Spell shield only blocks one instance of damage | [4068684](https://wiki.leagueoflegends.com/en-us/Template:Data_Sivir/Boomerang_Blade?oldid=4068684) |
+| Boomerang Blade | still return to Sivir even if she dies | [4068684](https://wiki.leagueoflegends.com/en-us/Template:Data_Sivir/Boomerang_Blade?oldid=4068684) |
+| Boomerang Blade | at the end of the cast time | [4068684](https://wiki.leagueoflegends.com/en-us/Template:Data_Sivir/Boomerang_Blade?oldid=4068684) |
+| Boomerang Blade | mSpell.DataValues: [{"name":"BaseDamage","values":[35.0,60.0,85.0,110.0,135.0,160.0,185.0],"__type":"SpellDataValue"},{"name":"ADRatio","values":[0.699999988079071,0.699999988079071,0.699999988079071,0.699999988079071,0.699999988079071,0.699999988079071,0.699999988079071],"__type":"SpellDataValue"},{"name":"FallOffRatio","values":[0.15000000596046448,0.15000000596046448,0.15000000596046448,0.15000000596046448,0.15000000596046448,0.15000000596046448,0.15000000596046448],"__type":"SpellDataValue"},{"name":"FallOffMinimum","values":[0.4000000059604645,0.4000000059604645,0.4000000059604645,0.4000000059604645,0.4000000059604645,0.4000000059604645,0.4000000059604645],"__type":"SpellDataValue"},{"name":"QAttackSpeedCastReductionPercent","values":[0.5,0.5,0.5,0.5,0.5,0.5,0.5],"__type":"SpellDataValue"},{"name":"QBaseCastTime","values":[0.25,0.25,0.25,0.25,0.25,0.25,0.25],"__type":"SpellDataValue"},{"name":"QAttackSpeedCastReductionMax","values":[0.6000000238418579,0.6000000238418579,0.6000000238418579,0.6000000238418579,0.6000000238418579,0.6000000238418579,0.6000000238418579],"__type":"SpellDataValue"},{"name":"CritRatio","values":[0.4000000059604645,0.4000000059604645,0.4000000059604645,0.4000000059604645,0.4000000059604645,0.4000000059604645,0.4000000059604645],"__type":"SpellDataValue"},{"name":"APRatio","values":[0.6000000238418579,0.6000000238418579,0.6000000238418579,0.6000000238418579,0.6000000238418579,0.6000000238418579,0.6000000238418579],"__type":"SpellDataValue"}] | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/sivir/sivir.bin.json) |
+| Boomerang Blade | mSpell.mSpellCalculations.TotalDamage: {"mMultiplier":{"mSubparts":[{"mNumber":1.0,"__type":"NumberCalculationPart"},{"mPart1":{"mStat":8,"mDataValue":"CritRatio","__type":"StatByNamedDataValueCalculationPart"},"mPart2":{"mSubparts":[{"mStat":9,"mCoefficient":1.0,"__type":"StatByCoefficientCalculationPart"},{"mNumber":-1.0,"__type":"NumberCalculationPart"}],"__type":"SumOfSubPartsCalculationPart"},"__type":"ProductOfSubPartsCalculationPart"}],"__type":"SumOfSubPartsCalculationPart"},"mFormulaParts":[{"mDataValue":"BaseDamage","__type":"NamedDataValueCalculationPart"},{"mStat":2,"mStatFormula":2,"mDataValue":"ADRatio","__type":"StatByNamedDataValueCalculationPart"},{"mDataValue":"APRatio","__type":"StatByNamedDataValueCalculationPart"}],"__type":"GameCalculation"} | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/sivir/sivir.bin.json) |
+| Ricochet | next 4 seconds | [4062258](https://wiki.leagueoflegends.com/en-us/Template:Data_Sivir/Ricochet?oldid=4062258) |
+| Ricochet | Bonus Attack Speed: 20 / 25 / 30 / 35 / 40% | [4062258](https://wiki.leagueoflegends.com/en-us/Template:Data_Sivir/Ricochet?oldid=4062258) |
+| Ricochet | Bounce Damage: 40 / 42.5 / 45 / 47.5 / 50% AD | [4062258](https://wiki.leagueoflegends.com/en-us/Template:Data_Sivir/Ricochet?oldid=4062258) |
+| Ricochet | effectRadius: 500 | [4062258](https://wiki.leagueoflegends.com/en-us/Template:Data_Sivir/Ricochet?oldid=4062258) |
+| Ricochet | speed (Bounced): 1750 • 1000 | [4062258](https://wiki.leagueoflegends.com/en-us/Template:Data_Sivir/Ricochet?oldid=4062258) |
+| Ricochet | up to 8 times | [4062258](https://wiki.leagueoflegends.com/en-us/Template:Data_Sivir/Ricochet?oldid=4062258) |
+| Ricochet | deals 65% damage against minions | [4062258](https://wiki.leagueoflegends.com/en-us/Template:Data_Sivir/Ricochet?oldid=4062258) |
+| Ricochet | below 15 health | [4062258](https://wiki.leagueoflegends.com/en-us/Template:Data_Sivir/Ricochet?oldid=4062258) |
+| Ricochet | for 200% damage | [4062258](https://wiki.leagueoflegends.com/en-us/Template:Data_Sivir/Ricochet?oldid=4062258) |
+| Ricochet | can target each enemy up to one additional time | [4062258](https://wiki.leagueoflegends.com/en-us/Template:Data_Sivir/Ricochet?oldid=4062258) |
+| Ricochet | prioritize the nearest new target | [4062258](https://wiki.leagueoflegends.com/en-us/Template:Data_Sivir/Ricochet?oldid=4062258) |
+| Ricochet | does not have to be visible | [4062258](https://wiki.leagueoflegends.com/en-us/Template:Data_Sivir/Ricochet?oldid=4062258) |
+| Ricochet | Refreshing the buff will not grant an attack reset | [4062258](https://wiki.leagueoflegends.com/en-us/Template:Data_Sivir/Ricochet?oldid=4062258) |
+| Spell Shield | spell shield for 1.5 seconds | [3788826](https://wiki.leagueoflegends.com/en-us/Template:Data_Sivir/Spell_Shield?oldid=3788826) |
+| Spell Shield | after 0.25 seconds | [3788826](https://wiki.leagueoflegends.com/en-us/Template:Data_Sivir/Spell_Shield?oldid=3788826) |
+| Spell Shield | Heal: 60 / 65 / 70 / 75 / 80% AD (+ 50% AP) | [3788826](https://wiki.leagueoflegends.com/en-us/Template:Data_Sivir/Spell_Shield?oldid=3788826) |
+| Spell Shield | Upon successfully blocking a hostile effect | [3788826](https://wiki.leagueoflegends.com/en-us/Template:Data_Sivir/Spell_Shield?oldid=3788826) |
+| On the Hunt | Buff Duration: 8 / 10 / 12 seconds | [3936364](https://wiki.leagueoflegends.com/en-us/Template:Data_Sivir/On_the_Hunt?oldid=3936364) |
+| On the Hunt | Bonus Movement Speed: 20 / 25 / 30% | [3936364](https://wiki.leagueoflegends.com/en-us/Template:Data_Sivir/On_the_Hunt?oldid=3936364) |
+| On the Hunt | by 0.5 seconds each | [3936364](https://wiki.leagueoflegends.com/en-us/Template:Data_Sivir/On_the_Hunt?oldid=3936364) |
+| On the Hunt | within 3 seconds of damaging them | [3936364](https://wiki.leagueoflegends.com/en-us/Template:Data_Sivir/On_the_Hunt?oldid=3936364) |
+| On the Hunt | effectRadius: 1000 | [3936364](https://wiki.leagueoflegends.com/en-us/Template:Data_Sivir/On_the_Hunt?oldid=3936364) |
+| On the Hunt | refresh the duration | [3936364](https://wiki.leagueoflegends.com/en-us/Template:Data_Sivir/On_the_Hunt?oldid=3936364) |
+| On the Hunt | cooldownStart: on-cast | [3936364](https://wiki.leagueoflegends.com/en-us/Template:Data_Sivir/On_the_Hunt?oldid=3936364) |
+| Boomerang Blade | cooldown: 10 / 9.5 / 9 / 8.5 / 8 | [4068684](https://wiki.leagueoflegends.com/en-us/Template:Data_Sivir/Boomerang_Blade?oldid=4068684) |
+| Boomerang Blade | cost: 55 / 60 / 65 / 70 / 75 | [4068684](https://wiki.leagueoflegends.com/en-us/Template:Data_Sivir/Boomerang_Blade?oldid=4068684) |
+| Ricochet | cooldown: 12 | [4062258](https://wiki.leagueoflegends.com/en-us/Template:Data_Sivir/Ricochet?oldid=4062258) |
+| Ricochet | cost: 60 | [4062258](https://wiki.leagueoflegends.com/en-us/Template:Data_Sivir/Ricochet?oldid=4062258) |
+| Ricochet | castTime: none | [4062258](https://wiki.leagueoflegends.com/en-us/Template:Data_Sivir/Ricochet?oldid=4062258) |
+| Spell Shield | cooldown: 24 / 22.5 / 21 / 19.5 / 18 | [3788826](https://wiki.leagueoflegends.com/en-us/Template:Data_Sivir/Spell_Shield?oldid=3788826) |
+| Spell Shield | castTime: none | [3788826](https://wiki.leagueoflegends.com/en-us/Template:Data_Sivir/Spell_Shield?oldid=3788826) |
+| On the Hunt | cooldown: 120 / 100 / 80 | [3936364](https://wiki.leagueoflegends.com/en-us/Template:Data_Sivir/On_the_Hunt?oldid=3936364) |
+| On the Hunt | cost: 100 | [3936364](https://wiki.leagueoflegends.com/en-us/Template:Data_Sivir/On_the_Hunt?oldid=3936364) |
+| On the Hunt | castTime: none | [3936364](https://wiki.leagueoflegends.com/en-us/Template:Data_Sivir/On_the_Hunt?oldid=3936364) |

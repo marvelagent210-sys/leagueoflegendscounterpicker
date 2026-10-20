@@ -36,23 +36,45 @@ export interface BestMatchup extends SimulatedMatchup {
 }
 
 /**
- * The matchup with each side's kit variants (Udyr's rank splits, PLAN §4.1): a side with
- * several plays the one best for it, so yours raise the score and the enemy's lower it.
+ * Both sides choose their kit variant simultaneously (Udyr's rank splits, PLAN §4.1).
+ * Each chooses the pure variant with the best worst-case score against the other's choices:
+ * your largest row minimum, and the enemy's smallest column maximum. Returning their actual
+ * intersection preserves concrete builds and scenario evidence and treats the sides equally.
+ * When no pure saddle point exists, these conservative choices are a model assumption,
+ * rather than a mixed-strategy equilibrium or one side choosing after seeing the other.
  */
 export function bestMatchup(you: KitVariant[], enemy: KitVariant[], gold: number, prices: StatPrices, options: ScenarioOptions = {}): BestMatchup {
-  let best: BestMatchup | undefined;
-  for (const mine of you) {
-    let worst: BestMatchup | undefined;
-    for (const theirs of enemy) {
-      const result: BestMatchup = simulateMatchup(mine.spec, theirs.spec, gold, prices, options);
-      const chosen: MatchupVariant[] = [];
-      if (you.length > 1 && mine.options) chosen.push({ side: 0, options: mine.options });
-      if (enemy.length > 1 && theirs.options) chosen.push({ side: 1, options: theirs.options });
-      if (chosen.length > 0) result.variants = chosen;
-      if (!worst || result.score < worst.score) worst = result;
+  if (!you.length || !enemy.length) throw new Error("bestMatchup: a side has no kit");
+  // Stable keyed ordering makes tied choices independent of the caller's variant list order.
+  const compare = (a: string, b: string) => a < b ? -1 : a > b ? 1 : 0;
+  const key = (variant: KitVariant) => `${variant.spec.id}:${JSON.stringify(Object.entries(variant.options ?? {}).sort(([a], [b]) => compare(a, b)))}`;
+  const mine = [...you].sort((a, b) => compare(key(a), key(b)));
+  const theirs = [...enemy].sort((a, b) => compare(key(a), key(b)));
+  const matrix = mine.map((a) => theirs.map((b) => simulateMatchup(a.spec, b.spec, gold, prices, options)));
+  let row = 0;
+  let column = 0;
+  let floor = Number.NEGATIVE_INFINITY;
+  let ceiling = Number.POSITIVE_INFINITY;
+  for (let i = 0; i < mine.length; i++) {
+    const worst = Math.min(...matrix[i]!.map((result) => result.score));
+    if (worst > floor + 1e-12) {
+      floor = worst;
+      row = i;
     }
-    if (worst && (!best || worst.score > best.score)) best = worst;
   }
-  if (!best) throw new Error("bestMatchup: a side has no kit");
-  return best;
+  for (let j = 0; j < theirs.length; j++) {
+    const worst = Math.max(...matrix.map((results) => results[j]!.score));
+    if (worst < ceiling - 1e-12) {
+      ceiling = worst;
+      column = j;
+    }
+  }
+  const result: BestMatchup = matrix[row]![column]!;
+  const chosen: MatchupVariant[] = [];
+  const yourOptions = mine[row]!.options;
+  const enemyOptions = theirs[column]!.options;
+  if (you.length > 1 && yourOptions) chosen.push({ side: 0, options: yourOptions });
+  if (enemy.length > 1 && enemyOptions) chosen.push({ side: 1, options: enemyOptions });
+  if (chosen.length) result.variants = chosen;
+  return result;
 }

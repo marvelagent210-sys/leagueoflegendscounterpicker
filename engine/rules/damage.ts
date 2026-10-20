@@ -38,6 +38,8 @@ export interface Penetration {
   percent?: number[];
   /** Fractions of the bonus resistance ignored. */
   bonusPercent?: number[];
+  /** Critical-strike bonus armor ignorance adds to total percentage penetration (Last Breath). */
+  bonusIgnoreAdditive?: number;
   /** Lethality for armor, flat magic penetration for magic resistance. */
   flat?: number;
 }
@@ -69,7 +71,7 @@ export function effectiveResist(resist: Resistance, reduction: ResistReduction =
   if (base + bonus > 0) {
     const factor = keep(pen.percent);
     base *= factor;
-    bonus *= factor * keep(pen.bonusPercent);
+    bonus *= Math.max(0, factor - (pen.bonusIgnoreAdditive ?? 0)) * keep(pen.bonusPercent);
   }
   // 4. Flat penetration: can't take the resistance below 0.
   const total = base + bonus;
@@ -88,8 +90,10 @@ export interface DamageModifiers {
 
 /** Post-mitigation damage of one hit, before shields. */
 export function mitigate(raw: number, type: DamageType, resist: number, modifiers: DamageModifiers = {}): number {
-  const dealt = 1 + (modifiers.dealt ?? []).reduce((sum, m) => sum + m, 0);
-  const received = (modifiers.received ?? []).reduce((product, m) => product * (1 - m), 1);
+  // True damage ignores damage reductions, including Exhaust and flat reduction. Since
+  // V25.S1.3, champion true damage can still be amplified (wiki: "True damage").
+  const dealt = 1 + (modifiers.dealt ?? []).reduce((sum, m) => sum + (type === "true" ? Math.max(0, m) : m), 0);
+  const received = (modifiers.received ?? []).reduce((product, m) => product * (1 - (type === "true" ? Math.min(0, m) : m)), 1);
   const resisted = type === "true" ? 1 : resistMultiplier(resist);
-  return Math.max(0, raw * dealt * resisted * received - (modifiers.flatReduction ?? 0));
+  return Math.max(0, raw * dealt * resisted * received - (type === "true" ? 0 : (modifiers.flatReduction ?? 0)));
 }

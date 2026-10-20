@@ -6,15 +6,10 @@ import { type LedgerContext, ledgerContext } from "../../engine/ledger/index";
 import type { KitProfile } from "../../engine/profiles";
 import type { Champion, ChampionDataset } from "../../engine/types";
 import { KITS } from "../../kits/champions/index";
+import type { PrecomputedMatchups } from "../../engine/sim/precomputed";
+import { precomputedCompatible } from "./sim/cache";
 
-export interface SimulatedFile {
-  gold: number;
-  values: string[];
-  /** you -> enemy -> [score, ...scenario scores] */
-  matchups: Record<string, Record<string, Array<number | null>>>;
-  /** champion -> enemy -> the kit options it played (Udyr's best rank split in each matchup) */
-  variants?: Record<string, Record<string, Record<string, number>>>;
-}
+export type SimulatedFile = PrecomputedMatchups;
 
 export interface AppData {
   dataset: string;
@@ -26,6 +21,10 @@ export interface AppData {
   profiles: Map<string, KitProfile>;
   ledger: LedgerContext;
   simulated: SimulatedFile;
+  /** False for legacy, stale or incomplete precomputed matrices: the browser reruns them. */
+  precomputedCompatible: boolean;
+  /** Identity for result caches, including the current engine and parsed inputs. */
+  simulationFingerprint: string;
   prices: StatPrices;
   /** Each champion's pets (turrets, Mist Walkers, ...), for the kits that use them. */
   pets: Map<string, PetRecord[]>;
@@ -40,7 +39,7 @@ const cache = new Map<string, Promise<unknown>>();
 function fetchJson<T>(path: string): Promise<T> {
   let found = cache.get(path);
   if (!found) {
-    found = fetch(new URL(path, document.baseURI)).then(async (response) => {
+    found = fetch(new URL(path, document.baseURI), { cache: "no-cache" }).then(async (response) => {
       if (!response.ok) throw new Error(`Couldn't load ${path} (${response.status})`);
       return response.json() as Promise<unknown>;
     });
@@ -54,7 +53,7 @@ let app: Promise<AppData> | undefined;
 
 export function loadAppData(): Promise<AppData> {
   app ??= (async () => {
-    const index = await fetchJson<{ dataset: string; patch: string }>("data/index.json");
+    const index = await fetchJson<{ dataset: string; patch: string; simulationFingerprint?: string }>("data/index.json");
     const dir = `data/${index.dataset}/`;
     const [dataset, profiles, glossary, simulated, rules, pets, runes] = await Promise.all([
       fetchJson<ChampionDataset>(`${dir}champions.json`),
@@ -67,6 +66,9 @@ export function loadAppData(): Promise<AppData> {
     ]);
     const champions = [...dataset.champions].sort((a, b) => a.name.localeCompare(b.name));
     const byId = new Map(champions.map((champion) => [champion.id, champion]));
+    const kitIds = Object.keys(KITS)
+      .filter((id) => byId.has(id))
+      .sort((a, b) => (byId.get(a)?.name ?? a).localeCompare(byId.get(b)?.name ?? b));
     return {
       dataset: index.dataset,
       patch: index.patch,
@@ -76,12 +78,12 @@ export function loadAppData(): Promise<AppData> {
       profiles: new Map(profiles.map((profile) => [profile.champion, profile])),
       ledger: ledgerContext(glossary),
       simulated,
+      precomputedCompatible: precomputedCompatible(simulated, index.dataset, index.patch, index.simulationFingerprint, kitIds),
+      simulationFingerprint: index.simulationFingerprint ?? "legacy",
       prices: rules.statPrices,
       pets: new Map(Object.entries(pets)),
       runes,
-      kitIds: Object.keys(KITS)
-        .filter((id) => byId.has(id))
-        .sort((a, b) => (byId.get(a)?.name ?? a).localeCompare(byId.get(b)?.name ?? b)),
+      kitIds,
     };
   })();
   app.catch(() => {

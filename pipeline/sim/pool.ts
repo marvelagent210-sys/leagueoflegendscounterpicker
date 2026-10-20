@@ -6,12 +6,14 @@ import { availableParallelism } from "node:os";
 import { Worker } from "node:worker_threads";
 import type { BudgetStat } from "../../engine/budget";
 import type { MatchupVariant } from "../../engine/sim/matchup";
+import type { CheckpointContext } from "./checkpoint";
 
 export interface PoolTask {
   dataset: string;
   gold: number;
   /** [index, you, enemy] */
   pairs: Array<[number, string, string]>;
+  checkpoint?: CheckpointContext;
 }
 
 export interface PairResult {
@@ -25,17 +27,27 @@ export interface PairResult {
   variants?: MatchupVariant[];
 }
 
-export async function simulatePairs(dataset: string, gold: number, pairs: Array<[string, string]>, threads = availableParallelism()): Promise<PairResult[]> {
+export interface PoolProgress {
+  completed: number;
+}
+
+export async function simulatePairs(dataset: string, gold: number, pairs: Array<[string, string]>, threads = availableParallelism(), onProgress?: (completed: number, total: number) => void, checkpoint?: CheckpointContext): Promise<PairResult[]> {
   const count = Math.max(1, Math.min(threads, pairs.length));
   const shares: Array<Array<[number, string, string]>> = Array.from({ length: count }, () => []);
   pairs.forEach(([you, enemy], index) => shares[index % count]?.push([index, you, enemy]));
+  const completed = shares.map(() => 0);
   const parts = await Promise.all(
     shares.map(
-      (share) =>
+      (share, shareIndex) =>
         new Promise<PairResult[]>((resolve, reject) => {
-          const worker = new Worker(new URL("./worker.mjs", import.meta.url), { workerData: { dataset, gold, pairs: share } satisfies PoolTask });
+          const worker = new Worker(new URL("./worker.mjs", import.meta.url), { workerData: { dataset, gold, pairs: share, ...(checkpoint ? { checkpoint } : {}) } satisfies PoolTask });
           let done = false;
-          worker.once("message", (results: PairResult[]) => {
+          worker.on("message", (results: PairResult[] | PoolProgress) => {
+            if (!Array.isArray(results)) {
+              completed[shareIndex] = results.completed;
+              onProgress?.(completed.reduce((sum, value) => sum + value, 0), pairs.length);
+              return;
+            }
             done = true;
             resolve(results);
             void worker.terminate();

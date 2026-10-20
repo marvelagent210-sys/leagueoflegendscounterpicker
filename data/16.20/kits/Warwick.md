@@ -275,3 +275,94 @@ All 1 level-based formulas in the game files (1 linked to wiki values above):
 | Spell | Calculation | Rule | Level 1 | Level 18 | Level 20 |
 |---|---|---|--:|--:|--:|
 | WarwickP | OnHitDamage | linear 6 → 55 over levels 1-18, continues past 18 | 6 | 55 | 60.7647 |
+
+## Duel simulator kit (level 20, every ability at max rank)
+
+What the duel simulator fights with (`kits/champions/Warwick.ts`): values come from pinned wiki and versioned game-data records at level 20. Interpretations and missing evidence are listed under assumptions. Ratios are fractions of the stat (60% AD is 0.6 × AD).
+
+- Basic attack: range 125, melee, on hit: 60.765 + 15% bonus AD + 10% AP magic damage (Eternal Hunger).
+
+| Key | Ability | Cooldown (s) | Cast time (s) | Cost | Delivery | On the enemy | On itself |
+|---|---|--:|--:|---|---|---|---|
+| Q | Jaws of the Beast | 6 | 0.264 | 100 | targeted, 365 range | 10% target's maximum health + 120% AD + 100% AP magic damage (Jaws of the Beast) | as the cast starts: displacementImmune for 0.264 s |
+| W | Blood Hunt | 40 | 0.5 | 55 | self | – | – |
+| E | Primal Howl | 11 | 0 | 40 | self | – | – |
+| E2 | Primal Howl (recast) | 0 | 0 | – | around itself, 375 units; recast of E within 2.75 s, after 1 s, automatic | fear for 1 s; slow 90% for 1 s | resets the attack timer |
+| R | Infinite Duress | 70 | 0.1 | 100 | dash toward 837.5 units (adjusted by current stats) at 1675/s (adjusted by current stats), hits within 130.25; channel 1.5 s | stops an interruptible dash without an airborne duration; suppression for 1.5 s | as the cast starts: ccImmune for 0.6 s |
+
+Effects marked by a mark or a role are completed by the kit's hooks (see the kit's source).
+
+### Assumptions
+
+- Jaws of the Beast is always tapped: the bite, never the held charge that leaps behind the target.
+- Jaws of the Beast's lunge ends with the bite, 0.264 s after the cast; the wiki's longer lunges from farther away (up to 0.5 s) are left out, and so is the bite still landing if Warwick dies during the lunge.
+- Blood Hunt's movement speed applies while Warwick walks toward a hunted enemy, ramping up evenly over 3.5 s after the 0.5 s it is lost on dealing or taking champion damage.
+- Infinite Duress's leap speed is in neither the wiki nor the game data: the leap is taken to cover its range in 0.5 s, and its slide past the range when it misses is left out.
+- Infinite Duress's on-attack effects (three over the channel) are left out; its on-hit effects apply.
+
+### Source values read (62)
+
+| Ability | Value | Source version |
+|---|---|---|
+| Eternal Hunger | Innate: Warwick deals 6 – 55 (based on level) (+ 15% bonus AD) (+ 10% AP) bonus magic damage on-hit. | [4051829](https://wiki.leagueoflegends.com/en-us/Template:Data_Warwick/Eternal_Hunger?oldid=4051829) |
+| Eternal Hunger | (+ 15% bonus AD) | [4051829](https://wiki.leagueoflegends.com/en-us/Template:Data_Warwick/Eternal_Hunger?oldid=4051829) |
+| Eternal Hunger | (+ 10% AP) | [4051829](https://wiki.leagueoflegends.com/en-us/Template:Data_Warwick/Eternal_Hunger?oldid=4051829) |
+| Eternal Hunger | While below 50% maximum health | [4051829](https://wiki.leagueoflegends.com/en-us/Template:Data_Warwick/Eternal_Hunger?oldid=4051829) |
+| Eternal Hunger | heals for 100% of the post-mitigation damage dealt by Eternal Hunger | [4051829](https://wiki.leagueoflegends.com/en-us/Template:Data_Warwick/Eternal_Hunger?oldid=4051829) |
+| Eternal Hunger | increased to 250% while below 25% maximum health | [4051829](https://wiki.leagueoflegends.com/en-us/Template:Data_Warwick/Eternal_Hunger?oldid=4051829) |
+| Jaws of the Beast | lunges at the target enemy over 0.264 and bites them | [4007380](https://wiki.leagueoflegends.com/en-us/Template:Data_Warwick/Jaws_of_the_Beast?oldid=4007380) |
+| Jaws of the Beast | Magic Damage: 6 / 7 / 8 / 9 / 10% of target's maximum health (+ 120% AD) (+ 100% AP) | [4007380](https://wiki.leagueoflegends.com/en-us/Template:Data_Warwick/Jaws_of_the_Beast?oldid=4007380) |
+| Jaws of the Beast | Healing Percentage: 25 / 37.5 / 50 / 62.5 / 75% | [4007380](https://wiki.leagueoflegends.com/en-us/Template:Data_Warwick/Jaws_of_the_Beast?oldid=4007380) |
+| Jaws of the Beast | targetRange: 365 | [4007380](https://wiki.leagueoflegends.com/en-us/Template:Data_Warwick/Jaws_of_the_Beast?oldid=4007380) |
+| Jaws of the Beast | The healing is calculated only from Jaws of the Beast's damage, while additional effects, such as on-hits, are not | [4007380](https://wiki.leagueoflegends.com/en-us/Template:Data_Warwick/Jaws_of_the_Beast?oldid=4007380) |
+| Jaws of the Beast | This does not affect the lockout timer, which is the same as the bite's delay | [4007380](https://wiki.leagueoflegends.com/en-us/Template:Data_Warwick/Jaws_of_the_Beast?oldid=4007380) |
+| Jaws of the Beast | The lunge always places Warwick to his attack range to the center of his target | [4007380](https://wiki.leagueoflegends.com/en-us/Template:Data_Warwick/Jaws_of_the_Beast?oldid=4007380) |
+| Jaws of the Beast | Jaws of the Beast's channel cannot be initiated while grounded or rooted. Warwick can only use the normal cast | [4007380](https://wiki.leagueoflegends.com/en-us/Template:Data_Warwick/Jaws_of_the_Beast?oldid=4007380) |
+| Blood Hunt | Bonus Attack Speed: 70 / 80 / 90 / 100 / 110% | [4052302](https://wiki.leagueoflegends.com/en-us/Template:Data_Warwick/Blood_Hunt?oldid=4052302) |
+| Blood Hunt | Increased Attack Speed: 140 / 160 / 180 / 200 / 220% | [4052302](https://wiki.leagueoflegends.com/en-us/Template:Data_Warwick/Blood_Hunt?oldid=4052302) |
+| Blood Hunt | Bonus Movement Speed: 35 / 42.5 / 50 / 57.5 / 65% | [4052302](https://wiki.leagueoflegends.com/en-us/Template:Data_Warwick/Blood_Hunt?oldid=4052302) |
+| Blood Hunt | Increased Movement Speed: 70 / 85 / 100 / 115 / 130% | [4052302](https://wiki.leagueoflegends.com/en-us/Template:Data_Warwick/Blood_Hunt?oldid=4052302) |
+| Blood Hunt | while they are below 50% of their maximum health | [4052302](https://wiki.leagueoflegends.com/en-us/Template:Data_Warwick/Blood_Hunt?oldid=4052302) |
+| Blood Hunt | doubled against enemies who are below 25% of their maximum health | [4052302](https://wiki.leagueoflegends.com/en-us/Template:Data_Warwick/Blood_Hunt?oldid=4052302) |
+| Blood Hunt | gains bonus attack speed for 1.25 seconds | [4052302](https://wiki.leagueoflegends.com/en-us/Template:Data_Warwick/Blood_Hunt?oldid=4052302) |
+| Blood Hunt | This bonus is lost for 0.5 seconds upon entering champion combat | [4052302](https://wiki.leagueoflegends.com/en-us/Template:Data_Warwick/Blood_Hunt?oldid=4052302) |
+| Blood Hunt | but will build up again over 3.5 seconds | [4052302](https://wiki.leagueoflegends.com/en-us/Template:Data_Warwick/Blood_Hunt?oldid=4052302) |
+| Blood Hunt | marking them with Blood Hunt for 8 seconds | [4052302](https://wiki.leagueoflegends.com/en-us/Template:Data_Warwick/Blood_Hunt?oldid=4052302) |
+| Blood Hunt | If Warwick does not have the bonus attack speed already, he also gains it upon initiating an attack windup against an enemy below the threshold | [4052302](https://wiki.leagueoflegends.com/en-us/Template:Data_Warwick/Blood_Hunt?oldid=4052302) |
+| Blood Hunt | it does not refresh the duration of the attack speed buff if Warwick has it already | [4052302](https://wiki.leagueoflegends.com/en-us/Template:Data_Warwick/Blood_Hunt?oldid=4052302) |
+| Primal Howl | Warwick gains damage reduction for up to 2.75 seconds | [4047663](https://wiki.leagueoflegends.com/en-us/Template:Data_Warwick/Primal_Howl?oldid=4047663) |
+| Primal Howl | Damage Reduction: 35 / 40 / 45 / 50 / 55% | [4047663](https://wiki.leagueoflegends.com/en-us/Template:Data_Warwick/Primal_Howl?oldid=4047663) |
+| Primal Howl | Primal Howl can be recast after 1 second | [4047663](https://wiki.leagueoflegends.com/en-us/Template:Data_Warwick/Primal_Howl?oldid=4047663) |
+| Primal Howl | fearing nearby enemies for 1 second | [4047663](https://wiki.leagueoflegends.com/en-us/Template:Data_Warwick/Primal_Howl?oldid=4047663) |
+| Primal Howl | slowing them by 90% | [4047663](https://wiki.leagueoflegends.com/en-us/Template:Data_Warwick/Primal_Howl?oldid=4047663) |
+| Primal Howl | effectRadius: 375 | [4047663](https://wiki.leagueoflegends.com/en-us/Template:Data_Warwick/Primal_Howl?oldid=4047663) |
+| Primal Howl | The recast's howling animation has a 0.25-second lockout time | [4047663](https://wiki.leagueoflegends.com/en-us/Template:Data_Warwick/Primal_Howl?oldid=4047663) |
+| Primal Howl | Primal Howl's recast resets Warwick's basic attack timer | [4047663](https://wiki.leagueoflegends.com/en-us/Template:Data_Warwick/Primal_Howl?oldid=4047663) |
+| Primal Howl | Warwick cannot attack or cast abilities during the animation | [4047663](https://wiki.leagueoflegends.com/en-us/Template:Data_Warwick/Primal_Howl?oldid=4047663) |
+| Infinite Duress | range (Measures the average): 250% movement speed | [4052859](https://wiki.leagueoflegends.com/en-us/Template:Data_Warwick/Infinite_Duress?oldid=4052859) |
+| Infinite Duress | range label: Measures the average of this percentage of movement speed in the last 2.5 seconds. Updates every 0.25 seconds. | [4052859](https://wiki.leagueoflegends.com/en-us/Template:Data_Warwick/Infinite_Duress?oldid=4052859) |
+| Infinite Duress | The minimum range of the ability is 275 units | [4052859](https://wiki.leagueoflegends.com/en-us/Template:Data_Warwick/Infinite_Duress?oldid=4052859) |
+| Infinite Duress | collisionRadius: 205 | [4052859](https://wiki.leagueoflegends.com/en-us/Template:Data_Warwick/Infinite_Duress?oldid=4052859) |
+| Infinite Duress | channels for up to 1.5 seconds | [4052859](https://wiki.leagueoflegends.com/en-us/Template:Data_Warwick/Infinite_Duress?oldid=4052859) |
+| Infinite Duress | deal magic damage every 0.25 seconds | [4052859](https://wiki.leagueoflegends.com/en-us/Template:Data_Warwick/Infinite_Duress?oldid=4052859) |
+| Infinite Duress | Total Magic Damage: 175 / 350 / 525 (+ 167% bonus AD) | [4052859](https://wiki.leagueoflegends.com/en-us/Template:Data_Warwick/Infinite_Duress?oldid=4052859) |
+| Infinite Duress | Warwick heals for 100% of all post-mitigation damage he deals to the target during Infinite Duress | [4052859](https://wiki.leagueoflegends.com/en-us/Template:Data_Warwick/Infinite_Duress?oldid=4052859) |
+| Infinite Duress | The 1st, 3rd, and 5th ticks deals 2/9ths of the total damage as a single instance while applying both spell and on-hit effects | [4052859](https://wiki.leagueoflegends.com/en-us/Template:Data_Warwick/Infinite_Duress?oldid=4052859) |
+| Infinite Duress | The 2nd, 4th, and 6th ticks deal 1/9ths of the total damage as a single instance while applying spell effects but not on-hit effects | [4052859](https://wiki.leagueoflegends.com/en-us/Template:Data_Warwick/Infinite_Duress?oldid=4052859) |
+| Infinite Duress | Warwick gains the cc-immunity at the start of the cast time | [4052859](https://wiki.leagueoflegends.com/en-us/Template:Data_Warwick/Infinite_Duress?oldid=4052859) |
+| Infinite Duress | If the target is crowd control immune or protected by spell shield upon collision, Warwick will not start the channel | [4052859](https://wiki.leagueoflegends.com/en-us/Template:Data_Warwick/Infinite_Duress?oldid=4052859) |
+| Infinite Duress | Spell shield will not prevent the effects of Infinite Duress if Warwick is already channeling | [4052859](https://wiki.leagueoflegends.com/en-us/Template:Data_Warwick/Infinite_Duress?oldid=4052859) |
+| Infinite Duress | Cleansing the suppression does not interrupt the channel and Warwick will continue to strike but not deal any damage | [4052859](https://wiki.leagueoflegends.com/en-us/Template:Data_Warwick/Infinite_Duress?oldid=4052859) |
+| Infinite Duress | Primal Howl can be cast during the dash | [4052859](https://wiki.leagueoflegends.com/en-us/Template:Data_Warwick/Infinite_Duress?oldid=4052859) |
+| Primal Howl | Starting Infinite Duress channel while Primal Howl is active will initiate the recast without ending the damage reduction buff prematurely | [4047663](https://wiki.leagueoflegends.com/en-us/Template:Data_Warwick/Primal_Howl?oldid=4047663) |
+| Jaws of the Beast | cooldown: 8 / 7.5 / 7 / 6.5 / 6 | [4007380](https://wiki.leagueoflegends.com/en-us/Template:Data_Warwick/Jaws_of_the_Beast?oldid=4007380) |
+| Blood Hunt | cooldown: 80 / 70 / 60 / 50 / 40 | [4052302](https://wiki.leagueoflegends.com/en-us/Template:Data_Warwick/Blood_Hunt?oldid=4052302) |
+| Infinite Duress | cooldown: 110 / 90 / 70 | [4052859](https://wiki.leagueoflegends.com/en-us/Template:Data_Warwick/Infinite_Duress?oldid=4052859) |
+| Jaws of the Beast | cost: 80 / 85 / 90 / 95 / 100 | [4007380](https://wiki.leagueoflegends.com/en-us/Template:Data_Warwick/Jaws_of_the_Beast?oldid=4007380) |
+| Blood Hunt | cost: 55 | [4052302](https://wiki.leagueoflegends.com/en-us/Template:Data_Warwick/Blood_Hunt?oldid=4052302) |
+| Blood Hunt | castTime: 0.5 | [4052302](https://wiki.leagueoflegends.com/en-us/Template:Data_Warwick/Blood_Hunt?oldid=4052302) |
+| Primal Howl | cooldown: 15 / 14 / 13 / 12 / 11 | [4047663](https://wiki.leagueoflegends.com/en-us/Template:Data_Warwick/Primal_Howl?oldid=4047663) |
+| Primal Howl | cost: 40 | [4047663](https://wiki.leagueoflegends.com/en-us/Template:Data_Warwick/Primal_Howl?oldid=4047663) |
+| Primal Howl | castTime: none | [4047663](https://wiki.leagueoflegends.com/en-us/Template:Data_Warwick/Primal_Howl?oldid=4047663) |
+| Infinite Duress | cost: 100 | [4052859](https://wiki.leagueoflegends.com/en-us/Template:Data_Warwick/Infinite_Duress?oldid=4052859) |
+| Infinite Duress | castTime: 0.1 | [4052859](https://wiki.leagueoflegends.com/en-us/Template:Data_Warwick/Infinite_Duress?oldid=4052859) |

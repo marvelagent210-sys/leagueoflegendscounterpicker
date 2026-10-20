@@ -29,6 +29,10 @@ export interface KitEvidence {
   revid: number;
   /** The label, field or quote that was read. */
   text: string;
+  /** Exact versioned URL for non-wiki evidence; wiki evidence uses its page and revision. */
+  url?: string;
+  sourceVersion?: string;
+  sourceSha256?: string;
 }
 
 /** Which wiki stat each scaling term reads, as a simulator stat. */
@@ -40,6 +44,9 @@ const STAT_REFS: Record<string, StatRef> = {
   bonusHealth: "bonusHP",
   missingHealth: "missingHP",
   currentHealth: "currentHP",
+  maxMana: "maxMana",
+  currentMana: "currentMana",
+  missingMana: "missingMana",
   armor: "armor",
   bonusArmor: "bonusArmor",
   MR: "MR",
@@ -50,6 +57,9 @@ const STAT_REFS: Record<string, StatRef> = {
   targetMissingHealth: "targetMissingHP",
   targetCurrentHealth: "targetCurrentHP",
   targetBonusHealth: "targetBonusHP",
+  targetMaxMana: "targetMaxMana",
+  targetCurrentMana: "targetCurrentMana",
+  targetMissingMana: "targetMissingMana",
   targetArmor: "targetArmor",
   targetMR: "targetMR",
   targetBonusArmor: "targetBonusArmor",
@@ -74,6 +84,9 @@ export type NumberField =
   | "angle"
   | "collisionRadius"
   | "tetherRadius";
+
+/** Fields whose full wording, rather than a parsed numeric series, defines the rule. */
+export type TextField = "costType" | "cooldownStart";
 
 const normalize = (text: string) => text.replace(/\s+/g, " ").trim();
 
@@ -108,9 +121,9 @@ export class AbilityData {
     throw new KitDataError(this.record.champion, this.name, message);
   }
 
-  private note(text: string): void {
+  private note(text: string, page = this.record.page): void {
     this.kit.checkOpen(`${this.name}: ${text}`);
-    this.kit.evidence.push({ ability: this.name, page: this.record.page.title, revid: this.record.page.revid, text });
+    this.kit.evidence.push({ ability: this.name, page: page.title, revid: page.revid, text });
   }
 
   /** A series at level 20 and this ability's maximum rank. */
@@ -163,12 +176,30 @@ export class AbilityData {
     return this.at20(values[0]?.series, name);
   }
 
+  /** The full label of a field's value picked by `label` (by substring), recorded as evidence: numbers the wiki writes only there ("in the last 2.5 seconds"). */
+  fieldLabel(name: NumberField, label: string): string {
+    const field = this.record.fields[name];
+    if (!field || typeof field !== "object") this.fail(`no ${name} field`);
+    const value = field.values.find((v) => v.label?.toLowerCase().includes(label.toLowerCase()));
+    if (!value?.label) this.fail(`no ${name} value labeled "${label}" in "${field.text}"`);
+    this.note(`${name} label: ${value.label}`);
+    return value.label;
+  }
+
   /** Every number written in a field's text, for fields the parser keeps only part of ("50 - 400"). */
   fieldNumbers(name: NumberField): number[] {
     const field = this.record.fields[name];
     if (!field || typeof field !== "object") this.fail(`no ${name} field`);
     this.note(`${name}: ${field.text}`);
     return numbersIn(field.text);
+  }
+
+  /** A text-only field, recorded verbatim as evidence; missing or blank rules fail closed. */
+  textField(name: TextField): string {
+    const field = this.record.fields[name];
+    if (typeof field !== "string" || normalize(field) === "") this.fail(`no ${name} text field`);
+    this.note(`${name}: ${field}`);
+    return field;
   }
 
   /** Every value of a field at level 20, in order (a cost with a separate ratio, for example). */
@@ -296,15 +327,24 @@ export class AbilityData {
     return ref;
   }
 
-  /** The ability's text: every part, value line and note, whitespace normalized. */
+  /** Each independently attributed source; a quote must be present within one source. */
+  private get textSources(): Array<{ page: { title: string; revid: number }; text: string }> {
+    return [
+      {
+        page: this.record.page,
+        text: normalize([
+          ...this.record.parts.flatMap((p) => [p.text, ...p.leveling.map((l) => `${l.label}: ${l.amount.text}`)]),
+          ...this.record.notes,
+          ...this.record.custom.map((c) => `${c.label}: ${c.text}`),
+        ].join(" \n ")),
+      },
+      ...(this.record.sources ?? []).map((source) => ({ page: source.page, text: normalize(source.text.join(" \n ")) })),
+    ];
+  }
+
+  /** The ability's description, notes and supplemental source text, whitespace normalized. */
   get text(): string {
-    return normalize(
-      [
-        ...this.record.parts.flatMap((p) => [p.text, ...p.leveling.map((l) => `${l.label}: ${l.amount.text}`)]),
-        ...this.record.notes,
-        ...this.record.custom.map((c) => `${c.label}: ${c.text}`),
-      ].join(" \n "),
-    );
+    return normalize(this.textSources.map((source) => source.text).join(" \n "));
   }
 
   /** A leveling value that is a percentage of one stat ("30% armor"), as a fraction. */
@@ -318,8 +358,9 @@ export class AbilityData {
   /** Asserts the words are in the ability's description or notes, verbatim; records them as evidence. */
   quote(words: string): string {
     const wanted = normalize(words);
-    if (!this.text.includes(wanted)) this.fail(`the wiki no longer says "${wanted}"`);
-    this.note(wanted);
+    const source = this.textSources.find((entry) => entry.text.includes(wanted));
+    if (!source) this.fail(`the wiki no longer says "${wanted}"`);
+    this.note(wanted, source.page);
     return wanted;
   }
 
@@ -328,6 +369,39 @@ export class AbilityData {
     const quote = this.quote(words);
     const value = numbersIn(quote)[index];
     if (value === undefined) this.fail(`no number ${index + 1} in "${quote}"`);
+    return value;
+  }
+
+  /** A verbatim excerpt of an explicitly versioned game file, with its own attribution. */
+  gameQuote(words: string, object?: string): string {
+    const wanted = normalize(words);
+    if (!wanted) this.fail("a game evidence quote cannot be blank");
+    const source = this.record.gameSources?.find((entry) => (object === undefined || entry.object === object) && normalize(entry.text.join(" \n ")).includes(wanted));
+    if (!source) this.fail(`the pinned game data no longer says "${wanted}"`);
+    const patch = typeof source.version === "string" ? /^(\d+\.\d+)(?:\.|$)/.exec(source.version)?.[1] : undefined;
+    if (!patch || typeof source.object !== "string" || !source.object.trim() || typeof source.url !== "string" || !source.url.startsWith(`https://raw.communitydragon.org/${patch}/`) || typeof source.sha256 !== "string" || !/^[a-f0-9]{64}$/i.test(source.sha256)) {
+      this.fail(`incomplete game source attribution for "${wanted}"`);
+    }
+    this.kit.checkOpen(`${this.name}: ${wanted}`);
+    this.kit.evidence.push({
+      ability: this.name,
+      page: source.object,
+      revid: 0,
+      text: wanted,
+      url: source.url,
+      sourceVersion: source.version,
+      sourceSha256: source.sha256,
+    });
+    return wanted;
+  }
+
+  /** The index-th number in a strictly pinned game-file excerpt. */
+  gameQuoted(words: string, index = 0, object?: string): number {
+    const quote = this.gameQuote(words, object);
+    // JSON commas separate values; unlike prose, "280,280" is never a thousands separator.
+    const values = [...quote.matchAll(/(?<![\w.])-?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?/g)].map((match) => Number(match[0]));
+    const value = values[index];
+    if (value === undefined) this.fail(`no number ${index + 1} in game excerpt "${quote}"`);
     return value;
   }
 
@@ -542,10 +616,11 @@ export class KitContext {
   ability(nameOrSlot: string): AbilityData {
     const cached = this.byName.get(nameOrSlot);
     if (cached) return cached;
-    const bySlot = /^[IQWER]$/.test(nameOrSlot) ? this.records.filter((r) => r.kind === nameOrSlot) : [];
-    const matches = bySlot.length > 0 ? bySlot : this.records.filter((r) => r.name === nameOrSlot);
+    const current = this.records.filter((r) => !r.historical);
+    const bySlot = /^[IQWER]$/.test(nameOrSlot) ? current.filter((r) => r.kind === nameOrSlot) : [];
+    const matches = bySlot.length > 0 ? bySlot : current.filter((r) => r.name === nameOrSlot);
     if (matches.length !== 1 || !matches[0]) {
-      const names = this.records.map((r) => `${r.kind} ${r.name}`).join(", ");
+      const names = current.map((r) => `${r.kind} ${r.name}`).join(", ");
       throw new KitDataError(this.champion.id, nameOrSlot, matches.length === 0 ? `no such ability (has: ${names})` : `ambiguous (${matches.map((r) => r.name).join(", ")})`);
     }
     const data = new AbilityData(matches[0], this);

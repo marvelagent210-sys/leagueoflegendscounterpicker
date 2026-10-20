@@ -61,7 +61,7 @@ export function ccImportance(types: string[]): number {
 }
 
 export function completeness(tri: Tri | undefined): number {
-  return tri === "partly" ? WEIGHTS.partly : 1;
+  return tri === "no" ? 0 : tri === "partly" ? WEIGHTS.partly : 1;
 }
 
 export function isMelee(kit: KitProfile): boolean {
@@ -107,7 +107,9 @@ export function attackWeight(kit: KitProfile): number {
 
 /** Share of the time a state with this duration and cooldown is up, turned into coverage. */
 export function availability(duration: number | undefined, cooldown: number | undefined): number {
-  const uptime = duration && cooldown ? Math.min(1, duration / Math.max(cooldown, duration)) : 0;
+  const uptime = duration !== undefined && duration > 0 && cooldown !== undefined && cooldown >= 0
+    ? Math.min(1, duration / Math.max(cooldown, duration))
+    : 0;
   return WEIGHTS.availabilityFloor + (1 - WEIGHTS.availabilityFloor) * uptime;
 }
 

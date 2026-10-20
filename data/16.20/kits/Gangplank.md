@@ -257,7 +257,7 @@ All 3 level-based formulas in the game files (2 linked to wiki values above):
 
 ## Duel simulator kit (level 20, every ability at max rank)
 
-What the duel simulator fights with (`kits/champions/Gangplank.ts`): every number is read from the wiki's ability data above at level 20; what the wiki doesn't say is listed under assumptions. Ratios are fractions of the stat (60% AD is 0.6 × AD).
+What the duel simulator fights with (`kits/champions/Gangplank.ts`): values come from pinned wiki and versioned game-data records at level 20. Interpretations and missing evidence are listed under assumptions. Ratios are fractions of the stat (60% AD is 0.6 × AD).
 
 - Basic attack: range 125, melee.
 
@@ -280,9 +280,9 @@ Effects marked by a mark or a role are completed by the kit's hooks (see the kit
 - Gangplank sets a keg 330 units in front of the enemy, inside the blast and out of a melee enemy's reach (ahead of an enemy walking away), where Parrrley can reach it; when it is down to 1 hit point he sets it off, first adding a connected keg on the enemy if it stepped out. He places none while fleeing.
 - Cannon Barrage's first wave lands 0.5 s after the cast (the game files' CannonDelay); his ship has no upgrades.
 
-### Wiki values read (49)
+### Source values read (50)
 
-| Ability | Value | Revision |
+| Ability | Value | Source version |
 |---|---|---|
 | Trial by Fire | staticCooldown: 15 | [4038337](https://wiki.leagueoflegends.com/en-us/Template:Data_Gangplank/Trial_by_Fire?oldid=4038337) |
 | Trial by Fire | Innate: Periodically, Gangplank empowers his next basic attack to set the target on fire, dealing them 50 – 250 (based on level) (+ 100% bonus AD) bonus true damage over 2.5 seconds. | [4038337](https://wiki.leagueoflegends.com/en-us/Template:Data_Gangplank/Trial_by_Fire?oldid=4038337) |
@@ -333,3 +333,4 @@ Effects marked by a mark or a role are completed by the kit's hooks (see the kit
 | Cannon Barrage | cooldown: 160 / 140 / 120 | [4048098](https://wiki.leagueoflegends.com/en-us/Template:Data_Gangplank/Cannon_Barrage?oldid=4048098) |
 | Cannon Barrage | cost: 100 | [4048098](https://wiki.leagueoflegends.com/en-us/Template:Data_Gangplank/Cannon_Barrage?oldid=4048098) |
 | Cannon Barrage | castTime: 0.25 | [4048098](https://wiki.leagueoflegends.com/en-us/Template:Data_Gangplank/Cannon_Barrage?oldid=4048098) |
+| Powder Keg | Minion | [4069804](https://wiki.leagueoflegends.com/en-us/Gangplank?oldid=4069804) |

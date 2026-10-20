@@ -181,7 +181,7 @@
     "custom": [],
     "notes": [
       "This ability will cast from wherever the caster is at the start of the cast time.",
-      ": The missile leaves a blob of ooze on the ground every 125 units traveled."
+      "Pending for test: The missile leaves a blob of ooze on the ground every 125 units traveled."
     ]
   },
   {
@@ -318,6 +318,17 @@
       "If Kog'Maw has the missile from a basic attack in-flight at the same time that he's moving while he dies, as long as the missile hits the target after Icathian Surprise has started, Kog'Maw will be able to use a basic attack once during Icathian Surprise.",
       "Kog'Maw's usable summoner spells will be placed on a 5 second cooldown upon becoming a zombie.",
       "During Icathian Surprise, Kog'Maw's attack range is reduced to 0 , making him automatically path near enemies he is trying to target."
+    ],
+    "gameSources": [
+      {
+        "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/kogmaw/kogmaw.bin.json",
+        "sha256": "d863884d159b09d561549eff51bc550bf2a6486da3d29275e3cf94531808588b",
+        "object": "Characters/KogMaw/Spells/KogMawIcathianSurpriseReadyAbility/KogMawIcathianDisplay",
+        "text": [
+          "mSpell.mSpellCalculations.PassiveDamage: {\"mFormulaParts\":[{\"mStartValue\":140.0,\"mEndValue\":650.0,\"__type\":\"ByCharLevelInterpolationCalculationPart\"}],\"__type\":\"GameCalculation\"}"
+        ]
+      }
     ]
   },
   {
@@ -491,6 +502,17 @@
     "custom": [],
     "notes": [
       "This ability will cast from wherever the caster is at the start of the cast time."
+    ],
+    "gameSources": [
+      {
+        "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/kogmaw/kogmaw.bin.json",
+        "sha256": "d863884d159b09d561549eff51bc550bf2a6486da3d29275e3cf94531808588b",
+        "object": "Characters/KogMaw/Spells/KogMawQAbility/KogMawQ",
+        "text": [
+          "mSpell.mUseAutoattackCastTimeData: {\"__type\":\"UseAutoattackCastTimeData\"}"
+        ]
+      }
     ]
   },
   {
@@ -884,6 +906,17 @@
     "custom": [],
     "notes": [
       "The attacks do not deal the bonus damage against structures."
+    ],
+    "gameSources": [
+      {
+        "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/kogmaw/kogmaw.bin.json",
+        "sha256": "d863884d159b09d561549eff51bc550bf2a6486da3d29275e3cf94531808588b",
+        "object": "Characters/KogMaw/Spells/KogMawBasicAttack",
+        "text": [
+          "mSpell.missileSpeed: 1800.0"
+        ]
+      }
     ]
   }
 ]

@@ -1,16 +1,29 @@
 /** Trundle: every number is read from the wiki's ability data at level 20 (see engine/kits/context.ts). */
 import type { KitModule } from "../../engine/kits/compile";
+import { abilityHit } from "../../engine/sim/combat";
 import { derive, evaluate } from "../../engine/sim/derived";
-import type { Effect, Formula } from "../../engine/sim/spec";
+import type { AbilitySpec, Effect, Formula, HookContext } from "../../engine/sim/spec";
 import { fieldAt, flat, scaled, ticks } from "./util";
 
 const trundle: KitModule = {
   champion: "Trundle",
   build(kit) {
+    const innate = kit.ability("King's Tribute");
     const q = kit.ability("Chomp");
     const w = kit.ability("Frozen Domain");
     const e = kit.ability("Pillar of Ice");
     const r = kit.ability("Subjugate");
+    const tributeShare = innate.levelValue("Whenever a nearby enemy dies, Trundle heals himself") / 100;
+    const tributeRadius = innate.field("effectRadius");
+    const tribute = (ctx: HookContext) => {
+      if (ctx.memory.tributeClaimed || (!ctx.enemy.fallen && ctx.enemy.alive && ctx.enemy.hp > 0)) return;
+      // A zombie's reanimation and subsequent expiry are the same champion death.
+      ctx.memory.tributeClaimed = true;
+      if (Math.abs(ctx.self.x - ctx.enemy.x) <= tributeRadius) {
+        ctx.apply({ type: "heal", amount: flat(tributeShare * derive(ctx.enemy).maxHp) }, true);
+        ctx.log(innate.name);
+      }
+    };
 
     // Chomp: an empowered bite that slows, then borrows the enemy's attack damage for 5 seconds.
     const biteWindow = q.quoted("empowers his next basic attack within 7 seconds", 0);
@@ -20,6 +33,9 @@ const trundle: KitModule = {
     const stolenFor = q.quoted("Trundle gains bonus attack damage for 5 seconds", 0);
     const gained = q.number("Bonus Attack Damage");
     const taken = q.number("Attack Damage Reduction");
+    q.quote("Chomp will still incur the attack damage increase for Trundle even if the attack is dodged, blocked, missed while he is blinded, or it is blocked by spell shield");
+    q.quote("Spell shield will only block the attack damage reduction and slow");
+    const bite: AbilitySpec = { key: "Q", name: q.name, slot: "Q", cooldown: 0, castTime: 0, delivery: { kind: "self" } };
 
     // Frozen Domain: ice where Trundle fights; standing on it, he attacks and moves faster and heals more.
     const domainSeconds = w.quoted("Trundle coats the target location in ice for 8 seconds", 0);
@@ -57,6 +73,26 @@ const trundle: KitModule = {
     const total = drainSeconds + linger;
     return {
       hooks: {
+        onTick: tribute,
+        onDamageDealt: tribute,
+        onAttack(ctx) {
+          const attack = ctx.self.action;
+          ctx.memory.chompPending = attack?.kind === "windup" && (attack.empowered?.includes("Q") ?? false);
+        },
+        onAttackHit(ctx) {
+          if (!ctx.memory.chompPending) return;
+          abilityHit(ctx.world, ctx.self, ctx.enemy, bite, [
+            { type: "cc", cc: "slow", strength: biteSlow, duration: biteSlowFor },
+            { type: "stat", stat: "AD", amount: flat(-taken), duration: stolenFor },
+          ]);
+        },
+        onAttackResolved(ctx) {
+          if (!ctx.memory.chompPending) return;
+          ctx.memory.chompPending = false;
+          // Chomp's own attack uses the old AD; the self-buff is granted after its resolution,
+          // including a blind miss, dodge, damage block, parry or spell-shielded debuff.
+          ctx.buff("chompAD", "AD", gained, stolenFor);
+        },
         onCast(ctx) {
           if (ctx.ability.key !== "E") return;
           const self = ctx.self;
@@ -120,9 +156,6 @@ const trundle: KitModule = {
               resetAttack: true,
               onHit: [
                 { type: "damage", damageType: "physical", amount: q.formula("Bonus Physical Damage"), label: q.name },
-                { type: "cc", cc: "slow", strength: biteSlow, duration: biteSlowFor },
-                { type: "stat", stat: "AD", amount: flat(-taken), duration: stolenFor },
-                { type: "caster", effects: [{ type: "stat", stat: "AD", amount: flat(gained), duration: stolenFor }] },
               ],
             },
           ],

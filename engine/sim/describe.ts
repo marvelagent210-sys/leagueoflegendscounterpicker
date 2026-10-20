@@ -13,6 +13,12 @@ export const STAT_NAMES: Record<StatRef, string> = {
   bonusHP: "bonus health",
   currentHP: "current health",
   missingHP: "missing health",
+  maxMana: "maximum mana",
+  currentMana: "current mana",
+  missingMana: "missing mana",
+  targetMaxMana: "target's maximum mana",
+  targetCurrentMana: "target's current mana",
+  targetMissingMana: "target's missing mana",
   armor: "armor",
   bonusArmor: "bonus armor",
   MR: "magic resistance",
@@ -63,7 +69,7 @@ export function formulaText(formula: Formula): string {
 export function effectText(effect: Effect): string {
   switch (effect.type) {
     case "damage": {
-      const extras = [effect.canCrit ? "can crit" : "", effect.minimum ? `at least ${formulaText(effect.minimum)}` : "", effect.lifesteal ? `heals ${pct(effect.lifesteal)} of it` : ""].filter(Boolean);
+      const extras = [effect.amountFor ? "varies with combat state; formula is a reference" : "", effect.canCrit ? "can crit" : "", effect.minimum ? `at least ${formulaText(effect.minimum)}` : "", effect.lifesteal ? `heals ${pct(effect.lifesteal)} of it` : ""].filter(Boolean);
       return `${formulaText(effect.amount)} ${effect.damageType} damage${effect.label ? ` (${effect.label})` : ""}${extras.length ? `, ${extras.join(", ")}` : ""}`;
     }
     case "cc":
@@ -71,8 +77,12 @@ export function effectText(effect: Effect): string {
       return `${effect.cc}${effect.strength ? ` ${pct(effect.strength)}` : ""} for ${num(effect.duration)} s`;
     case "displace": {
       const kind = effect.direction === "toward" ? "pull" : effect.distance === 0 ? "knock up" : "knock back";
-      return `${kind}${effect.distance ? ` ${num(effect.distance)} units` : ""} over ${num(effect.duration)} s${effect.wallStun ? `, stun ${num(effect.wallStun)} s into a wall` : ""}`;
+      return `${kind}${effect.distance ? ` ${num(effect.distance)} units` : ""} over ${num(effect.duration)} s${effect.airborneDuration !== undefined ? `, airborne ${num(effect.airborneDuration)} s` : ""}${effect.wallStun ? `, stun ${num(effect.wallStun)} s into a wall` : ""}`;
     }
+    case "disrupt":
+      return "interrupts an interruptible channel without lasting crowd control";
+    case "knockdown":
+      return "stops an interruptible dash without an airborne duration";
     case "shield":
       return `${effect.shieldType && effect.shieldType !== "normal" ? `${effect.shieldType} ` : ""}shield of ${formulaText(effect.amount)} for ${num(effect.duration)} s`;
     case "heal":
@@ -126,9 +136,9 @@ export function deliveryText(delivery: Delivery): string {
     case "line":
       return `skillshot ${num(delivery.range)} long, ${num(delivery.width)} wide, ${delivery.speed ? `at ${num(delivery.speed)}/s` : "instant"}`;
     case "circle":
-      return `circle of ${num(delivery.radius)} radius${delivery.centered ? " (to the target's center)" : ""} up to ${num(delivery.range)} away, lands after ${num(delivery.delay)} s`;
+      return `circle of ${num(delivery.radius)} radius${delivery.centered ? " (to the target's center)" : ""} up to ${num(delivery.range)} away, ${delivery.flight !== undefined ? `projectile flying ${num(delivery.flight)} s then ` : delivery.speed ? `projectile at ${num(delivery.speed)}/s then ` : ""}lands after ${num(delivery.delay)} s`;
     case "dash":
-      return `dash ${delivery.direction} ${delivery.minDistance !== undefined ? `${num(delivery.minDistance)}–` : ""}${num(delivery.distance)} units ${delivery.time !== undefined ? `in ${num(delivery.time)} s` : `at ${num(delivery.speed)}/s`}${delivery.lockOn ? `, at ${num(delivery.lockOn.speed)}/s within ${num(delivery.lockOn.within)} of the enemy` : ""}${delivery.hitRadius !== undefined ? `, hits within ${num(delivery.hitRadius)}` : ""}${delivery.through ? ", through the enemy" : ""}`;
+      return `dash ${delivery.direction} ${delivery.minDistance !== undefined ? `${num(delivery.minDistance)}–` : ""}${num(delivery.distance)} units${delivery.distanceFor ? " (adjusted by current stats)" : ""} ${delivery.time !== undefined ? `in ${num(delivery.time)} s` : `at ${num(delivery.speed)}/s${delivery.speedFor ? " (adjusted by current stats)" : ""}`}${delivery.lockOn ? `, at ${num(delivery.lockOn.speed)}/s within ${num(delivery.lockOn.within)} of the enemy` : ""}${delivery.hitRadius !== undefined ? `, hits within ${num(delivery.hitRadius)}` : ""}${delivery.through ? ", through the enemy" : ""}`;
     case "blink":
       return `blink ${delivery.direction} ${num(delivery.distance)} units`;
     case "field": {
@@ -191,14 +201,15 @@ export function describeAbility(ability: AbilitySpec): AbilityDescription {
     channel?.onCompleteSelf?.length ? `when the channel completes: ${effectsText(channel.onCompleteSelf)}` : "",
   ].filter(Boolean);
   const paidWith = ability.costType === "health" ? " health" : "";
+  const initialCost = ability.cost === undefined && !ability.costFor ? "–" : `${typeof ability.cost === "number" ? num(ability.cost) : ability.cost ? formulaText(ability.cost) : "varies"}${ability.costFor ? " (depends on combat state)" : ""}${paidWith}`;
   return {
     key: ability.key,
     name: ability.name,
     cooldown: ability.charges
       ? `${ability.charges.max} charges, one every ${num(ability.charges.recharge)} s (${num(ability.cooldown)} s between casts)`
-      : `${num(ability.cooldown)}${ability.cooldownAfter ? ` (${COOLDOWN_AFTER[ability.cooldownAfter]})` : ""}`,
-    castTime: num(ability.castTime),
-    cost: ability.cost === undefined ? "–" : `${typeof ability.cost === "number" ? num(ability.cost) : formulaText(ability.cost)}${paidWith}`,
+      : `${num(ability.cooldown)}${ability.cooldownFor ? " (depends on stats)" : ""}${ability.staticCooldown ? " (unaffected by ability haste)" : ""}${ability.cooldownAfter ? ` (${COOLDOWN_AFTER[ability.cooldownAfter]})` : ""}`,
+    castTime: ability.castTimeFor ? `depends on stats (${num(ability.castTime)} base)` : num(ability.castTime),
+    cost: `${initialCost}${ability.resourceDrainPerSecond !== undefined ? `; ${num(ability.resourceDrainPerSecond)} resource/s while active` : ""}`,
     delivery: [deliveryText(ability.delivery), ...timing].join("; "),
     onEnemy: onHit.filter((t) => t !== "–").join("; ") || "–",
     onSelf: onSelf.join("; ") || "–",
@@ -207,6 +218,7 @@ export function describeAbility(ability: AbilitySpec): AbilityDescription {
 
 export function attackText(attack: AttackSpec): string {
   const parts = [`range ${num(attack.range)}`, attack.missileSpeed ? `missile at ${num(attack.missileSpeed)}/s` : "melee"];
-  if (attack.onHit?.length) parts.push(`on hit: ${effectsText(attack.onHit)}`);
+  if (attack.onHit?.length) parts.push(`on hit${attack.onHitBeforeDamage ? " before basic damage" : ""}: ${effectsText(attack.onHit)}`);
+  if (attack.beforeDamage?.length) parts.push(`before basic damage: ${effectsText(attack.beforeDamage)}`);
   return parts.join(", ");
 }

@@ -198,6 +198,29 @@
       "This ability will cast from wherever the caster is at the end of the cast time.",
       "Zyra will be locked out of actions for 0.15 seconds after casting Grasping Roots.",
       "Each Vine Lasher will generate 2 stacks of Conqueror and 1 stack of Electrocute."
+    ],
+    "gameSources": [
+      {
+        "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/zyragraspingplant/zyragraspingplant.bin.json",
+        "sha256": "1313c27ca46554fd0ebfd95471f976236f59eeac2f3f83898500d408e545921d",
+        "object": "Characters/ZyraGraspingPlant/CharacterRecords/Root",
+        "text": [
+          "basicAttack: {\"mAttackDelayCastOffsetPercent\":-0.12455999851226807,\"mAttackProbability\":0.6000000238418579,\"__type\":\"AttackSlotData\"}",
+          "attackSpeedModifiable.baseValue: 0.800000011920929",
+          "attackRangeModifiable.baseValue: 175"
+        ]
+      },
+      {
+        "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/zyra/zyra.bin.json",
+        "sha256": "3701520a220ffe78e9b681e6c5d1bb45e39e88461b6e0c077e1d3e6dee00456d",
+        "object": "Characters/Zyra/Spells/ZyraEAbility/ZyraEPlantAttack",
+        "text": [
+          "mSpell.missileSpeed: 0",
+          "mSpell.spellCastTime: 0.25"
+        ]
+      }
     ]
   },
   {
@@ -436,6 +459,40 @@
     "custom": [],
     "notes": [
       "Each Thorn Spitter will generate 2 stacks of Conqueror and 1 stack of Electrocute."
+    ],
+    "gameSources": [
+      {
+        "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/zyra/zyra.bin.json",
+        "sha256": "3701520a220ffe78e9b681e6c5d1bb45e39e88461b6e0c077e1d3e6dee00456d",
+        "object": "Characters/Zyra/Spells/ZyraQAbility/ZyraQ",
+        "text": [
+          "mSpell.castRadius: [140,140,140,140,140,140,140]",
+          "mSpell.castRadiusSecondary: [430,430,430,430,430,430,430]",
+          "mSpell.mClientData.mTargeterDefinitions: [{\"centerLocator\":{\"basePosition\":3,\"__type\":\"DrawablePositionLocator\"},\"thickness\":{\"mPerLevelValues\":[250,250,250,250,250,250],\"mValueType\":1,\"__type\":\"FloatPerSpellLevel\"},\"length\":{\"mPerLevelValues\":[850,850,850,850,850,850],\"mValueType\":1,\"__type\":\"FloatPerSpellLevel\"},\"textureWallOverrideName\":\"assets/characters/zyra/hud/textures/skillshot_rectangle_v4.tex\",\"__type\":\"TargeterDefinitionWall\"},{\"overrideBaseRange\":{\"mPerLevelValues\":[800,800,800,800,800,800],\"__type\":\"FloatPerSpellLevel\"},\"__type\":\"TargeterDefinitionRange\"},{\"centerLocator\":{\"basePosition\":3,\"__type\":\"DrawablePositionLocator\"},\"thickness\":{\"mPerLevelValues\":[650,650,650,650,650,650],\"mValueType\":1,\"__type\":\"FloatPerSpellLevel\"},\"length\":{\"mPerLevelValues\":[1250,1250,1250,1250,1250,1250],\"mValueType\":1,\"__type\":\"FloatPerSpellLevel\"},\"textureWallOverrideName\":\"assets/characters/zyra/hud/textures/skillshot_rectangle.tex\",\"__type\":\"TargeterDefinitionWall\"}]"
+        ]
+      },
+      {
+        "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/zyra/zyra.bin.json",
+        "sha256": "3701520a220ffe78e9b681e6c5d1bb45e39e88461b6e0c077e1d3e6dee00456d",
+        "object": "Characters/Zyra/Spells/ZyraQAbility/ZyraQPlantMissile",
+        "text": [
+          "mSpell.mMissileSpec.movementComponent: {\"mTargetHeightAugment\":100,\"mOffsetInitialTargetHeight\":100,\"mStartBoneName\":\"\",\"mSpeed\":1200,\"__type\":\"FixedSpeedMovement\"}",
+          "mSpell.missileSpeed: 1200"
+        ]
+      },
+      {
+        "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/zyrathornplant/zyrathornplant.bin.json",
+        "sha256": "fb770c857f1dee0f61cc2740ad06dd125524157d0bcb12896a8231d7324a0893",
+        "object": "Characters/ZyraThornPlant/CharacterRecords/Root",
+        "text": [
+          "basicAttack: {\"mAttackDelayCastOffsetPercent\":-0.08070175349712372,\"mAttackProbability\":1,\"__type\":\"AttackSlotData\"}",
+          "attackSpeedModifiable.baseValue: 0.800000011920929",
+          "attackRangeModifiable.baseValue: 600"
+        ]
+      }
     ]
   },
   {

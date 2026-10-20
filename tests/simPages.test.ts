@@ -1,6 +1,7 @@
 import { readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
 import { BUDGET_STATS, type BudgetStat } from "../engine/budget";
+import { compareChampionIds } from "../engine/championOrder";
 import { SCENARIOS } from "../engine/sim/scenarios";
 import { KITS } from "../kits/champions/index";
 import type { PairResult } from "../pipeline/sim/pool";
@@ -39,6 +40,26 @@ describe("simulator pages", () => {
     expect(json.matchups.B?.A?.[0]).toBe(-0.5);
     const section = simulatedCounterSection("B", matrix, new Map([["A", "Alpha"]]));
     expect(section.find((line) => line.startsWith("| 1 |"))).toBe("| 1 | Alpha | +0.50 | +1.00 | −1.00 | +0.50 | +0.20 | – | +0.00 |");
+  });
+
+  it("retains exact aggregate scores so close ranks are never rounded into ties", () => {
+    const results: PairResult[] = [{ index: 0, score: 0.1234567890123456, scenarios: [0.123456789, 0, 0, 0, null, 0], spent: [none, none] }];
+    const matrix = simulatedMatrix(["A", "B"], 15000, [["A", "B"]], results);
+    const file = JSON.parse(simulatedJson("16.20", "26.20", matrix)) as { matchups: Record<string, Record<string, number[]>> };
+    expect(file.matchups.A?.B?.[0]).toBe(results[0]?.score);
+    expect(file.matchups.B?.A?.[0]).toBe(-(results[0]?.score ?? Number.NaN));
+    expect(file.matchups.A?.B?.[1]).toBe(0.123);
+  });
+
+  it("breaks exact score ties by canonical ID regardless of display name or locale", () => {
+    const pairs: Array<[string, string]> = [["Nami", "Enemy"], ["MonkeyKing", "Enemy"]];
+    const results: PairResult[] = pairs.map((_, index) => ({ index, score: 1, scenarios: [1, 1, 1, 1, null, 1], spent: [none, none] }));
+    const matrix = simulatedMatrix(["Nami", "MonkeyKing", "Enemy"], 15000, pairs, results);
+    const section = simulatedCounterSection("Enemy", matrix, new Map([["MonkeyKing", "Wukong"], ["Nami", "Nami"]]));
+    expect(section.find((line) => line.startsWith("| 1 |"))).toContain("Wukong");
+    expect(section.find((line) => line.startsWith("| 2 |"))).toContain("Nami");
+    // Case is part of the canonical ID order; language collation must not change it.
+    expect(compareChampionIds("KSante", "Kennen")).toBe(-1);
   });
 
   it("keep the kit options a champion played, whichever side it was on, for both sides", () => {

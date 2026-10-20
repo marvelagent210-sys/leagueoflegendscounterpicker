@@ -199,3 +199,129 @@ All 4 level-based formulas in the game files (1 linked to wiki values above):
 | ZyraP | PlantDamage | linear 15 → 75 over levels 1-18, continues past 18 | 15 | 75 | 82.0588 |
 | ZyraP | monstermod | linear 50 → 100 over levels 1-18, continues past 18 | 50 | 100 | 105.882 |
 | ZyraP | {c951f1e1} | breakpoints at levels none (level 1: 50) | 50 | 33 | 31 |
+
+## Duel simulator kit (level 20, every ability at max rank)
+
+What the duel simulator fights with (`kits/champions/Zyra.ts`): values come from pinned wiki and versioned game-data records at level 20. Interpretations and missing evidence are listed under assumptions. Ratios are fractions of the stat (60% AD is 0.6 × AD).
+
+- Basic attack: range 575, missile at 1700/s.
+- Options: passiveSeeds = 1, initialSeeds = 0, qHalfExtent = 125, qSeedHalfExtent = 325.
+
+| Key | Ability | Cooldown (s) | Cast time (s) | Cost | Delivery | On the enemy | On itself |
+|---|---|--:|--:|---|---|---|---|
+| Q | Deadly Spines | 5 | 0.25 | 55 | circle of 125 radius up to 800 away, lands after 0.625 s | 220 + 65% AP magic damage | – |
+| W | Rampant Growth | 2 charges, one every 10 s (0 s between casts) | 0 | 0 | self | – | – |
+| E | Grasping Roots | 11 | 0.25 | 90 | skillshot 1100 long, 140 wide, at 1150/s | 200 + 60% AP magic damage; root for 2 s | – |
+| R | Stranglethorns | 90 | 0.25 | 100 | circle of 560 radius up to 700 away, lands after 0 s | 400 + 70% AP magic damage | – |
+
+Effects marked by a mark or a role are completed by the kit's hooks (see the kit's source).
+
+### Assumptions
+
+- Assumed seeds per passive trigger (1 or 2): 1.
+- Pre-existing passive seeds (0 to 8): 0.
+- Q axis half-extent (interpreted client damage targeter): 125.
+- Q seed half-extent (interpreted client sprout targeter): 325.
+- Garden of Thorns starts with the configurable initialSeeds (default zero), then triggers after one full sourced cadence. passiveSeeds deterministically supplies one seed by default; the pinned source marks the one/two probability pending. Seeds project to equally spaced points between Zyra and the visible opponent within 900; brush, fountains, jungle entrances and lateral angles are absent from this duel.
+- Deadly Spines uses the pinned game client wall targeters (250×850 and 650×1250) as damage and seed rectangles respectively, with their thickness on the caster-target axis and length perpendicular. The server mapping is not explicit: qHalfExtent/qSeedHalfExtent expose this interpretation (125/325). Its 0.625-second delay starts at cast completion and both stages use the fixed chosen center.
+- Seeds are untargetable point locations: stepping tests the enemy champion's gameplay radius against the seed point after its source-specific immunity. At the eight-seed cap, a new W replaces the oldest passive seed first; if all are W, it replaces the oldest W. Passive insertion never displaces W seeds.
+- Plant windups use the pinned plant-character cast offsets plus the existing compiler's default 0.3 attack-cycle fraction, divided by the wiki 0.8 attack speed (Spitter about 0.2741s, Lasher 0.2193s). This interprets game fields with the same convention as champion attacks; the game base ranges conflict with the wiki so sourced wiki 575/400 ranges take priority. Spitter uses pinned QPlantMissile speed 1200; Lasher resolves at launch. Enraged flurries use two same-tick 75% damage packets with one basic-attack notification because shot spacing and notification count are not sourced.
+- The first living plant to connect to each target is its primary plant, across both families; later plants deal 50% until the primary dies or expires, when the next successful contact becomes primary. Target switching maintains separate primary identities. No unsupported timed damage-falloff window is invented.
+- Plants prefer taunt sources, the owner's latest three-second champion mark, the nearest target with any plant's nonrefreshing three-second lesser-priority mark, then the owner's most recently attacked pet, then the nearest target in range. Lesser-priority marks are shared across plants and last independently of the marking plant's death. Target priority never grants attacks beyond range. Independent pet blind/disarm and incoming basic/single-target/area/persistent/proc damage are resolved separately from Zyra.
+- Stranglethorns applies its expansion damage immediately over the full sourced radius; the expansion travel curve is absent. Knock-up is a separate fixed-location stage after two seconds, with its own spell-shield check. Each plant gains HP/size only on its first enrage, refreshes life from actual enrage time, and restores 50% current HP capped at its new maximum.
+- Plant level/AP damage snapshots at growth. In-flight Spitter packets change damage when their actual plant is enraged or an enraged plant dies; other later AP changes do not alter packets. Natural plant expiry is treated as death for removing that enrage update.
+- Plants stop creating attacks when Zyra dies; already launched missiles continue. The pinned record does not specify owner-death continuation. Leona Sunlight's hidden 10% visual-size interaction and estimated 33-second duration are retained as an unsupported gameplay-radius interaction; no radius change is inferred.
+- The behavior plants W before a usable Q/E, at a fixed point ahead within both seed placement and next spell range, then favors E/Q using ordinary mode gates. W does not overlay an existing cast. The stat budget values one W-enabled plant plus sourced passive cadence, a half-life exposure allowance for enemy destruction, secondary-plant reduction and a limited R enrage uptime; it does not assume invulnerable plants.
+
+### Source values read (88)
+
+| Ability | Value | Source version |
+|---|---|---|
+| Deadly Spines | mSpell.missileSpeed: 1200 | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/zyra/zyra.bin.json) |
+| Deadly Spines | "thickness":{"mPerLevelValues":[250,250,250,250,250,250] | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/zyra/zyra.bin.json) |
+| Deadly Spines | "thickness":{"mPerLevelValues":[650,650,650,650,650,650] | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/zyra/zyra.bin.json) |
+| Garden of Thorns | staticCooldown: 13.6 – 9.05 (based on level) | [3986877](https://wiki.leagueoflegends.com/en-us/Template:Data_Zyra/Garden_of_Thorns?oldid=3986877) |
+| Garden of Thorns | effectRadius: 900 | [3986877](https://wiki.leagueoflegends.com/en-us/Template:Data_Zyra/Garden_of_Thorns?oldid=3986877) |
+| Garden of Thorns | last for 30 seconds | [3986877](https://wiki.leagueoflegends.com/en-us/Template:Data_Zyra/Garden_of_Thorns?oldid=3986877) |
+| Garden of Thorns | After 1 second | [3986877](https://wiki.leagueoflegends.com/en-us/Template:Data_Zyra/Garden_of_Thorns?oldid=3986877) |
+| Garden of Thorns | total of 8 Seeds | [3986877](https://wiki.leagueoflegends.com/en-us/Template:Data_Zyra/Garden_of_Thorns?oldid=3986877) |
+| Garden of Thorns | preserving Seeds spawned by Rampant Growth over Seeds spawned by Garden of Thorns | [3986877](https://wiki.leagueoflegends.com/en-us/Template:Data_Zyra/Garden_of_Thorns?oldid=3986877) |
+| Garden of Thorns | The pattern/probability of Garden of Thorns spawning one seed or two | [3986877](https://wiki.leagueoflegends.com/en-us/Template:Data_Zyra/Garden_of_Thorns?oldid=3986877) |
+| Rampant Growth | remains for 60 seconds | [4044057](https://wiki.leagueoflegends.com/en-us/Template:Data_Zyra/Rampant_Growth?oldid=4044057) |
+| Rampant Growth | After 1.5 seconds | [4044057](https://wiki.leagueoflegends.com/en-us/Template:Data_Zyra/Rampant_Growth?oldid=4044057) |
+| Rampant Growth | reveals them for 2 seconds | [4044057](https://wiki.leagueoflegends.com/en-us/Template:Data_Zyra/Rampant_Growth?oldid=4044057) |
+| Rampant Growth | maximum of 2 | [4044057](https://wiki.leagueoflegends.com/en-us/Template:Data_Zyra/Rampant_Growth?oldid=4044057) |
+| Rampant Growth | recharge: 18 / 16 / 14 / 12 / 10 | [4044057](https://wiki.leagueoflegends.com/en-us/Template:Data_Zyra/Rampant_Growth?oldid=4044057) |
+| Rampant Growth | targetRange: 850 | [4044057](https://wiki.leagueoflegends.com/en-us/Template:Data_Zyra/Rampant_Growth?oldid=4044057) |
+| Rampant Growth | generates 35% charge | [4044057](https://wiki.leagueoflegends.com/en-us/Template:Data_Zyra/Rampant_Growth?oldid=4044057) |
+| Rampant Growth | increased to 100% | [4044057](https://wiki.leagueoflegends.com/en-us/Template:Data_Zyra/Rampant_Growth?oldid=4044057) |
+| Rampant Growth | Seeds are untargetable | [4044057](https://wiki.leagueoflegends.com/en-us/Template:Data_Zyra/Rampant_Growth?oldid=4044057) |
+| Rampant Growth | Upon first rank up, Rampant Growth gains 2 charges | [4044057](https://wiki.leagueoflegends.com/en-us/Template:Data_Zyra/Rampant_Growth?oldid=4044057) |
+| Deadly Spines | lasts for 8 seconds | [4013461](https://wiki.leagueoflegends.com/en-us/Template:Data_Zyra/Deadly_Spines?oldid=4013461) |
+| Deadly Spines | after a 0.625-seconds delay | [4013461](https://wiki.leagueoflegends.com/en-us/Template:Data_Zyra/Deadly_Spines?oldid=4013461) |
+| Deadly Spines | targetRange: 800 | [4013461](https://wiki.leagueoflegends.com/en-us/Template:Data_Zyra/Deadly_Spines?oldid=4013461) |
+| Grasping Roots | targetRange (Damaging missile): 1100 • 1200 | [4013460](https://wiki.leagueoflegends.com/en-us/Template:Data_Zyra/Grasping_Roots?oldid=4013460) |
+| Grasping Roots | targetRange (Seed sprout): 1100 • 1200 | [4013460](https://wiki.leagueoflegends.com/en-us/Template:Data_Zyra/Grasping_Roots?oldid=4013460) |
+| Grasping Roots | width (Damaging missile): 140 • 560 | [4013460](https://wiki.leagueoflegends.com/en-us/Template:Data_Zyra/Grasping_Roots?oldid=4013460) |
+| Grasping Roots | width (Seed Sprout): 140 • 560 | [4013460](https://wiki.leagueoflegends.com/en-us/Template:Data_Zyra/Grasping_Roots?oldid=4013460) |
+| Grasping Roots | speed: 1150 | [4013460](https://wiki.leagueoflegends.com/en-us/Template:Data_Zyra/Grasping_Roots?oldid=4013460) |
+| Grasping Roots | locked out of actions for 0.15 seconds | [4013460](https://wiki.leagueoflegends.com/en-us/Template:Data_Zyra/Grasping_Roots?oldid=4013460) |
+| Grasping Roots | wherever the caster is at the end of the cast time | [4013460](https://wiki.leagueoflegends.com/en-us/Template:Data_Zyra/Grasping_Roots?oldid=4013460) |
+| Stranglethorns | targetRange: 700 | [3945317](https://wiki.leagueoflegends.com/en-us/Template:Data_Zyra/Stranglethorns?oldid=3945317) |
+| Stranglethorns | effectRadius: 560 | [3945317](https://wiki.leagueoflegends.com/en-us/Template:Data_Zyra/Stranglethorns?oldid=3945317) |
+| Stranglethorns | After 2 seconds | [3945317](https://wiki.leagueoflegends.com/en-us/Template:Data_Zyra/Stranglethorns?oldid=3945317) |
+| Stranglethorns | within for 1 second | [3945317](https://wiki.leagueoflegends.com/en-us/Template:Data_Zyra/Stranglethorns?oldid=3945317) |
+| Stranglethorns | restoring 50% of their current health | [3945317](https://wiki.leagueoflegends.com/en-us/Template:Data_Zyra/Stranglethorns?oldid=3945317) |
+| Stranglethorns | increasing their maximum health by 50% | [3945317](https://wiki.leagueoflegends.com/en-us/Template:Data_Zyra/Stranglethorns?oldid=3945317) |
+| Stranglethorns | gaining 25% increased size | [3945317](https://wiki.leagueoflegends.com/en-us/Template:Data_Zyra/Stranglethorns?oldid=3945317) |
+| Stranglethorns | dealing 150% damage per flurry | [3945317](https://wiki.leagueoflegends.com/en-us/Template:Data_Zyra/Stranglethorns?oldid=3945317) |
+| Stranglethorns | buff on Plants lasts 10 seconds | [3945317](https://wiki.leagueoflegends.com/en-us/Template:Data_Zyra/Stranglethorns?oldid=3945317) |
+| Stranglethorns | Plants grown during the 2 seconds prior to the displacement will also be enraged | [3945317](https://wiki.leagueoflegends.com/en-us/Template:Data_Zyra/Stranglethorns?oldid=3945317) |
+| Thorn Spitter | damage: 15 – 75 (based on level) (+ 20% AP) | [4002566](https://wiki.leagueoflegends.com/en-us/Zyra?oldid=4002566) |
+| Thorn Spitter | (+ 20% AP) | [4002566](https://wiki.leagueoflegends.com/en-us/Zyra?oldid=4002566) |
+| Thorn Spitter | 8 / 12 | [4002566](https://wiki.leagueoflegends.com/en-us/Zyra?oldid=4002566) |
+| Thorn Spitter | radius: 20 | [4002566](https://wiki.leagueoflegends.com/en-us/Zyra?oldid=4002566) |
+| Thorn Spitter | attackspeed: 0.8 | [4002566](https://wiki.leagueoflegends.com/en-us/Zyra?oldid=4002566) |
+| Thorn Spitter | range: 575 | [4002566](https://wiki.leagueoflegends.com/en-us/Zyra?oldid=4002566) |
+| Vine Lasher | range: 400 | [4002566](https://wiki.leagueoflegends.com/en-us/Zyra?oldid=4002566) |
+| Deadly Spines | "mAttackDelayCastOffsetPercent":-0.08070175349712372 | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/zyrathornplant/zyrathornplant.bin.json) |
+| Grasping Roots | "mAttackDelayCastOffsetPercent":-0.12455999851226807 | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/zyragraspingplant/zyragraspingplant.bin.json) |
+| Thorn Spitter | A Thorn Spitter deals 50% damage if it is not the first plant to attack its target | [4002566](https://wiki.leagueoflegends.com/en-us/Zyra?oldid=4002566) |
+| Thorn Spitter | high-priority mark for 3 seconds | [4002566](https://wiki.leagueoflegends.com/en-us/Zyra?oldid=4002566) |
+| Vine Lasher | slow their target by 30% | [4002566](https://wiki.leagueoflegends.com/en-us/Zyra?oldid=4002566) |
+| Vine Lasher | for 2 seconds | [4002566](https://wiki.leagueoflegends.com/en-us/Zyra?oldid=4002566) |
+| Thorn Spitter | Plants do not update their damage if Zyra levels up or changes her AP, but will trigger newly available spell effects. | [4002566](https://wiki.leagueoflegends.com/en-us/Zyra?oldid=4002566) |
+| Thorn Spitter | However the damage of in-air attacks update once a plant is hit by Stranglethorns or once the plant buffed by it dies. | [4002566](https://wiki.leagueoflegends.com/en-us/Zyra?oldid=4002566) |
+| Thorn Spitter | stopped by Blind and Disarm | [4002566](https://wiki.leagueoflegends.com/en-us/Zyra?oldid=4002566) |
+| Thorn Spitter | basic attacks apply spell effects as area damage | [4002566](https://wiki.leagueoflegends.com/en-us/Zyra?oldid=4002566) |
+| Vine Lasher | stacking additively up to 60% | [4002566](https://wiki.leagueoflegends.com/en-us/Zyra?oldid=4002566) |
+| Thorn Spitter | 0 from champion proc damage abilities | [4002566](https://wiki.leagueoflegends.com/en-us/Zyra?oldid=4002566) |
+| Thorn Spitter | 1 from champion damage-over-time abilities | [4002566](https://wiki.leagueoflegends.com/en-us/Zyra?oldid=4002566) |
+| Thorn Spitter | 3 from champion area-of-effect abilities | [4002566](https://wiki.leagueoflegends.com/en-us/Zyra?oldid=4002566) |
+| Thorn Spitter | 4 from ranged champion basic attacks | [4002566](https://wiki.leagueoflegends.com/en-us/Zyra?oldid=4002566) |
+| Thorn Spitter | 8 from melee champion basic attacks | [4002566](https://wiki.leagueoflegends.com/en-us/Zyra?oldid=4002566) |
+| Thorn Spitter | 8 from champion single target abilities | [4002566](https://wiki.leagueoflegends.com/en-us/Zyra?oldid=4002566) |
+| Thorn Spitter | 1 from minions and monsters | [4002566](https://wiki.leagueoflegends.com/en-us/Zyra?oldid=4002566) |
+| Vine Lasher | 0 from champion proc damage abilities | [4002566](https://wiki.leagueoflegends.com/en-us/Zyra?oldid=4002566) |
+| Vine Lasher | 1 from champion damage-over-time abilities | [4002566](https://wiki.leagueoflegends.com/en-us/Zyra?oldid=4002566) |
+| Vine Lasher | 3 from champion area-of-effect abilities | [4002566](https://wiki.leagueoflegends.com/en-us/Zyra?oldid=4002566) |
+| Vine Lasher | 5 from ranged champion basic attacks | [4002566](https://wiki.leagueoflegends.com/en-us/Zyra?oldid=4002566) |
+| Vine Lasher | 8 from melee champion basic attacks | [4002566](https://wiki.leagueoflegends.com/en-us/Zyra?oldid=4002566) |
+| Vine Lasher | 8 from champion single target abilities | [4002566](https://wiki.leagueoflegends.com/en-us/Zyra?oldid=4002566) |
+| Vine Lasher | 1 from minions and monsters | [4002566](https://wiki.leagueoflegends.com/en-us/Zyra?oldid=4002566) |
+| Deadly Spines | cooldown: 7 / 6.5 / 6 / 5.5 / 5 | [4013461](https://wiki.leagueoflegends.com/en-us/Template:Data_Zyra/Deadly_Spines?oldid=4013461) |
+| Deadly Spines | cost: 55 | [4013461](https://wiki.leagueoflegends.com/en-us/Template:Data_Zyra/Deadly_Spines?oldid=4013461) |
+| Deadly Spines | castTime: 0.25 | [4013461](https://wiki.leagueoflegends.com/en-us/Template:Data_Zyra/Deadly_Spines?oldid=4013461) |
+| Deadly Spines | Magic Damage: 60 / 100 / 140 / 180 / 220 (+ 65% AP) | [4013461](https://wiki.leagueoflegends.com/en-us/Template:Data_Zyra/Deadly_Spines?oldid=4013461) |
+| Rampant Growth | castTime: none | [4044057](https://wiki.leagueoflegends.com/en-us/Template:Data_Zyra/Rampant_Growth?oldid=4044057) |
+| Grasping Roots | cooldown: 11 | [4013460](https://wiki.leagueoflegends.com/en-us/Template:Data_Zyra/Grasping_Roots?oldid=4013460) |
+| Grasping Roots | cost: 70 / 75 / 80 / 85 / 90 | [4013460](https://wiki.leagueoflegends.com/en-us/Template:Data_Zyra/Grasping_Roots?oldid=4013460) |
+| Grasping Roots | castTime: 0.25 | [4013460](https://wiki.leagueoflegends.com/en-us/Template:Data_Zyra/Grasping_Roots?oldid=4013460) |
+| Grasping Roots | Magic Damage: 60 / 95 / 130 / 165 / 200 (+ 60% AP) | [4013460](https://wiki.leagueoflegends.com/en-us/Template:Data_Zyra/Grasping_Roots?oldid=4013460) |
+| Grasping Roots | Root Duration: 1 / 1.25 / 1.5 / 1.75 / 2 seconds | [4013460](https://wiki.leagueoflegends.com/en-us/Template:Data_Zyra/Grasping_Roots?oldid=4013460) |
+| Stranglethorns | cooldown: 110 / 100 / 90 | [3945317](https://wiki.leagueoflegends.com/en-us/Template:Data_Zyra/Stranglethorns?oldid=3945317) |
+| Stranglethorns | cost: 100 | [3945317](https://wiki.leagueoflegends.com/en-us/Template:Data_Zyra/Stranglethorns?oldid=3945317) |
+| Stranglethorns | castTime: 0.25 | [3945317](https://wiki.leagueoflegends.com/en-us/Template:Data_Zyra/Stranglethorns?oldid=3945317) |
+| Stranglethorns | Magic Damage: 200 / 300 / 400 (+ 70% AP) | [3945317](https://wiki.leagueoflegends.com/en-us/Template:Data_Zyra/Stranglethorns?oldid=3945317) |
+| Thorn Spitter | Minion, does not count towards the minion kill tracking score | [4002566](https://wiki.leagueoflegends.com/en-us/Zyra?oldid=4002566) |
+| Vine Lasher | Minion, does not count towards the minion kill tracking score | [4002566](https://wiki.leagueoflegends.com/en-us/Zyra?oldid=4002566) |

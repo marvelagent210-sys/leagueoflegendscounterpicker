@@ -183,7 +183,7 @@ All 1 level-based formulas in the game files (0 linked to wiki values above):
 
 ## Duel simulator kit (level 20, every ability at max rank)
 
-What the duel simulator fights with (`kits/champions/Nasus.ts`): every number is read from the wiki's ability data above at level 20; what the wiki doesn't say is listed under assumptions. Ratios are fractions of the stat (60% AD is 0.6 × AD).
+What the duel simulator fights with (`kits/champions/Nasus.ts`): values come from pinned wiki and versioned game-data records at level 20. Interpretations and missing evidence are listed under assumptions. Ratios are fractions of the stat (60% AD is 0.6 × AD).
 
 - Basic attack: range 125, melee.
 - Options: siphoningStacks = 300.
@@ -202,9 +202,9 @@ Effects marked by a mark or a role are completed by the kit's hooks (see the kit
 - Siphoning Strike stacks by level 20: 300.
 - Spirit Fire's enemy stays in the fire for its full 5 seconds.
 
-### Wiki values read (39)
+### Source values read (39)
 
-| Ability | Value | Revision |
+| Ability | Value | Source version |
 |---|---|---|
 | Siphoning Strike | Bonus Physical Damage: 30 / 50 / 70 / 90 / 110 (+ 100% of Siphoning Strike stacks) | [4064857](https://wiki.leagueoflegends.com/en-us/Template:Data_Nasus/Siphoning_Strike?oldid=4064857) |
 | Siphoning Strike | (+ 100% of Siphoning Strike stacks) | [4064857](https://wiki.leagueoflegends.com/en-us/Template:Data_Nasus/Siphoning_Strike?oldid=4064857) |

@@ -163,6 +163,17 @@
       "Chompers will halt when encountering Wind Wall and Unbreakable.",
       "Spell shield does not negate the explosion.",
       "Each Chomper gives vision of its surrounding area."
+    ],
+    "gameSources": [
+      {
+        "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/jinx/jinx.bin.json",
+        "sha256": "a244534e29eaa09c30459dae561dcfae53c2af73e10403064aa3e30b82d4ee3e",
+        "object": "Characters/Jinx/Spells/JinxEAbility/JinxEHit",
+        "text": [
+          "mSpell.mMissileSpec.movementComponent: {\"mTargetHeightAugment\":60.0,\"mOffsetInitialTargetHeight\":60.0,\"mTravelTime\":0.4000000059604645,\"__type\":\"FixedTimeMovement\"}"
+        ]
+      }
     ]
   },
   {
@@ -422,6 +433,36 @@
       "Both weapons deal basic damage to their primary target (this includes the increased damage of Fishbones), which applies life steal based on the damage dealt (post-mitigation) as usual.",
       "The splash damage of Fishbones is based on the pre-mitigation damage done to the primary target (which includes critical strikes). It deals proc damage and thus doesn't apply life steal or on-hit effects.\n  - The splash damage of Fishbones will not account for damage modifiers applied to the primary target (e.g. Hexoptics C44 Magnification).",
       "Fishbones damage calculations:\n  - Basic attack damage: 110% AD\n  - Critical strike damage: 220% AD\n  - Critical strike damage with Infinity Edge: 253% AD\n  - Runaan's Hurricane bolt damage: 71.5% AD\n  - Bolt critical strike damage: 143% AD\n  - Bolt critical strike damage with Infinity Edge: 164.45% AD\n  - Maximum potential damage with Runaan's Hurricane: 253% AD\n  - Maximum potential critical strike damage with Runaan's Hurricane: 506% AD\n  - Maximum potential critical strike damage with Runaan's Hurricane and Infinity Edge: 581.9% AD"
+    ],
+    "gameSources": [
+      {
+        "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/jinx/jinx.bin.json",
+        "sha256": "a244534e29eaa09c30459dae561dcfae53c2af73e10403064aa3e30b82d4ee3e",
+        "object": "Characters/Jinx/Spells/JinxBasicAttack",
+        "text": [
+          "mSpell.missileSpeed: 2750.0"
+        ]
+      },
+      {
+        "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/jinx/jinx.bin.json",
+        "sha256": "a244534e29eaa09c30459dae561dcfae53c2af73e10403064aa3e30b82d4ee3e",
+        "object": "Characters/Jinx/Spells/JinxQAbility/JinxQAttack",
+        "text": [
+          "mSpell.missileSpeed: 2000.0"
+        ]
+      },
+      {
+        "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/jinx/jinx.bin.json",
+        "sha256": "a244534e29eaa09c30459dae561dcfae53c2af73e10403064aa3e30b82d4ee3e",
+        "object": "Characters/Jinx/CharacterRecords/Root",
+        "text": [
+          "extraAttacks[6]: {\"mAttackTotalTime\":1.600000023841858,\"mAttackCastTime\":0.27000001072883606,\"mAttackName\":\"JinxQAttack\",\"__type\":\"AttackSlotData\"}",
+          "basicAttack: {\"mAttackTotalTime\":1.600000023841858,\"mAttackCastTime\":0.2833299934864044,\"mAttackProbability\":1.0,\"__type\":\"AttackSlotData\"}"
+        ]
+      }
     ]
   },
   {
@@ -803,6 +844,28 @@
       "The bonus damage based on missing health is based on each unit's own missing health and not the primary target's.",
       "Unlike similar spells, Super Mega Death Rocket will not increase it's damage when ranked up while the missile is in flight.\n  - This is because the base damage is fixed at a multiple of the damage the rocket initially started with.\n  - The bonus AD ratio will still update when AD is gained or lost between the cast and hit of the missile.",
       "This ability will cast from wherever the caster is at the start of the cast time."
+    ],
+    "gameSources": [
+      {
+        "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/jinx/jinx.bin.json",
+        "sha256": "a244534e29eaa09c30459dae561dcfae53c2af73e10403064aa3e30b82d4ee3e",
+        "object": "Characters/Jinx/Spells/JinxRAbility/JinxR",
+        "text": [
+          "mSpell.castRange: [25000,25000,25000,25000,25000,25000,25000]"
+        ]
+      }
+    ],
+    "sources": [
+      {
+        "page": {
+          "title": "Template:Data Jinx/Super Mega Death Rocket!",
+          "revid": 4007616
+        },
+        "text": [
+          "The maximum damage is reached after traveling 1500 units, which is exactly equal to the range of her Zap!, or roughly 0.85 seconds of travel time. The rocket changes its visual appearance and missile speed slightly earlier, after traveling 1350 units."
+        ]
+      }
     ]
   },
   {

@@ -312,6 +312,17 @@
       "Since Caitlyn's Art and Sustainability Update, Ability-granted Headshots are the same as the original Headshot override attack, though what lets them cast at high range is still relatively special. They trigger on-attack effects (including stacking Headshot).\n  - Runaan's Hurricane Wind's Fury, is special cased to search targets with the increased range as well.",
       "Because Headshot stacks are generated on-attack, Runaan's Hurricane Wind's Fury bolts will not generate any.",
       "The empowered attack will not trigger against wards.\n  - Stacks will still be generated towards Headshot when attacking them."
+    ],
+    "sources": [
+      {
+        "page": {
+          "title": "Template:Data Caitlyn/Headshot",
+          "revid": 3982560
+        },
+        "text": [
+          "|description2 = {{sbc|Headshot:}} '''Caitlyn's''' basic attack is empowered to have an {{tip|uncancellable windup}} and deal {{as|{{pp|key=%|60 to 100 for 3|1 to 13}}|ad}} {{as|(+ {{critical damage|0 to 100|critScaling=true}}) AD}} {{as|'''bonus''' physical damage}}, increased to {{as|110% (+ {{critical damage|0 to 100|critScaling=true}}) AD}} against non-champions."
+        ]
+      }
     ]
   },
   {
@@ -707,6 +718,18 @@
       "The bullet has a sight radius of 1500 attached to it.",
       "If the target becomes untargetable, dies, or is too far away or no longer in sight during the cast time, this ability will cancel but does not go on cooldown nor pay its cost (if applicable).** This excludes losing sight of the target.",
       "The following table refers for interactions while Caitlyn is channeling:"
+    ],
+    "sources": [
+      {
+        "page": {
+          "title": "Template:Data Caitlyn/Ace in the Hole",
+          "revid": 3982561
+        },
+        "text": [
+          "|description3 = Once '''Caitlyn''' completes the channel, she fires a homing bullet toward the target that deals {{as|physical damage}} to the first enemy champion it hits, increased by {{critical damage|0 to 30|critScaling=true}}.",
+          "{{ct|channel|attack=false|move=false|cast=false|items=false,true,false,false,false|spells=true,false,false,false,false}}"
+        ]
+      }
     ]
   },
   {

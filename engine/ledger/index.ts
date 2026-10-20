@@ -52,7 +52,9 @@ export function buildLedger(you: KitProfile, enemy: KitProfile, ctx: LedgerConte
   }
   entries.length = 0;
   entries.push(...unique.values());
-  entries.sort((a, b) => b.impact - a.impact || a.check.localeCompare(b.check));
+  entries.sort((a, b) => b.impact - a.impact || a.check.localeCompare(b.check) ||
+    a.by.champion.localeCompare(b.by.champion) || a.by.name.localeCompare(b.by.name) ||
+    a.against.champion.localeCompare(b.against.champion) || a.against.name.localeCompare(b.against.name));
   const total = (champion: string) => round2(scoreFor(entries.filter((e) => e.favors === champion)));
   const yours = total(you.champion);
   const theirs = you.champion === enemy.champion ? yours : total(enemy.champion);

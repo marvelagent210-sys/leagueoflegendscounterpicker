@@ -308,7 +308,7 @@ All 4 level-based formulas in the game files (1 linked to wiki values above):
 
 ## Duel simulator kit (level 20, every ability at max rank)
 
-What the duel simulator fights with (`kits/champions/Urgot.ts`): every number is read from the wiki's ability data above at level 20; what the wiki doesn't say is listed under assumptions. Ratios are fractions of the stat (60% AD is 0.6 × AD).
+What the duel simulator fights with (`kits/champions/Urgot.ts`): values come from pinned wiki and versioned game-data records at level 20. Interpretations and missing evidence are listed under assumptions. Ratios are fractions of the stat (60% AD is 0.6 × AD).
 
 - Basic attack: range 350, missile at 2500/s.
 
@@ -317,7 +317,8 @@ What the duel simulator fights with (`kits/champions/Urgot.ts`): every number is
 | Q | Corrosive Charge | 8 | 0.25 | 70 | circle of 210 radius up to 800 away, lands after 0.6 s | 205 + 70% AD physical damage; slow 65% for 1.25 s | – |
 | E | Disdain | 14 | 0.45 | 100 | dash toward 450 units at 1405/s, hits within 50 | 210 + 100% bonus AD physical damage; stun for 1.5 s | as the cast starts: shield of 135 + 135% bonus AD + 13.5% bonus health for 4 s |
 | R | Fear Beyond Death | 70 | 0.5 | 100 | skillshot 2500 long, 160 wide, at 3200/s | 350 + 50% bonus AD physical damage | – |
-| R2 | Fear Beyond Death (Mercy) | 0 | 0 | – | targeted, 5000 range; recast of R within 4 s; channel 1.5 s | suppression for 1.5 s; at the end: executes at 9007199254740991 health or less | – |
+| R2 | Fear Beyond Death (Mercy) | 0 | 0 | – | self; channel 1.5 s | – | – |
+| Rchains | Fear Beyond Death (chains) | 0 | 0 | – | targeted, Infinity range, missile at 3200/s | suppression for 11.5 s | – |
 
 Effects marked by a mark or a role are completed by the kit's hooks (see the kit's source).
 
@@ -327,10 +328,11 @@ Effects marked by a mark or a role are completed by the kit's hooks (see the kit
 - Urgot keeps 2 legs facing the enemy, so a shotgun can fire every 1.25 s (each leg every 2.5 s at level 20).
 - Disdain's fling over Urgot is left out.
 - Fear Beyond Death's slow is set when the drill hits, from the target's missing health then.
+- Mercy's preliminary push of up to 1000 units is omitted: the wiki gives no proximity formula. Its subsequent pull follows the target toward Urgot over the channel.
 
-### Wiki values read (41)
+### Source values read (47)
 
-| Ability | Value | Revision |
+| Ability | Value | Source version |
 |---|---|---|
 | Echoing Flames | Urgot's next basic attack on-hit within the arc of a shotgun will cause it to fire in a cone, dealing 40 / 52 / 64 / 76 / 88 / 100 (based on level)% AD (+ 2 / 3 / 4 / 5 / 6 (based on level)% of target's maximum health) physical damage to enemies hit, capped at 100 – 360 (based on level) against monsters. | [4051193](https://wiki.leagueoflegends.com/en-us/Template:Data_Urgot/Echoing_Flames?oldid=4051193) |
 | Echoing Flames | Per-Leg Cooldown: 30 / 20 / 10 / 5 / 2.5 (based on level) | [4051193](https://wiki.leagueoflegends.com/en-us/Template:Data_Urgot/Echoing_Flames?oldid=4051193) |
@@ -348,7 +350,15 @@ Effects marked by a mark or a role are completed by the kit's hooks (see the kit
 | Fear Beyond Death | leashing the target for 4 seconds | [4015146](https://wiki.leagueoflegends.com/en-us/Template:Data_Urgot/Fear_Beyond_Death?oldid=4015146) |
 | Fear Beyond Death | if the leashed target is below 25% of their maximum health | [4015146](https://wiki.leagueoflegends.com/en-us/Template:Data_Urgot/Fear_Beyond_Death?oldid=4015146) |
 | Fear Beyond Death | channels for 1.5 seconds once they latch on | [4015146](https://wiki.leagueoflegends.com/en-us/Template:Data_Urgot/Fear_Beyond_Death?oldid=4015146) |
+| Fear Beyond Death | cooldown: 100 / 85 / 70 | [4015146](https://wiki.leagueoflegends.com/en-us/Template:Data_Urgot/Fear_Beyond_Death?oldid=4015146) |
+| Fear Beyond Death | speed: 3200 | [4015146](https://wiki.leagueoflegends.com/en-us/Template:Data_Urgot/Fear_Beyond_Death?oldid=4015146) |
+| Fear Beyond Death | does not end within 10 seconds | [4015146](https://wiki.leagueoflegends.com/en-us/Template:Data_Urgot/Fear_Beyond_Death?oldid=4015146) |
+| Fear Beyond Death | reduce him to 1 health | [4015146](https://wiki.leagueoflegends.com/en-us/Template:Data_Urgot/Fear_Beyond_Death?oldid=4015146) |
+| Fear Beyond Death | The recast's chains are classified as a projectile | [4015146](https://wiki.leagueoflegends.com/en-us/Template:Data_Urgot/Fear_Beyond_Death?oldid=4015146) |
+| Fear Beyond Death | Spell shield will not block the recast's chains | [4015146](https://wiki.leagueoflegends.com/en-us/Template:Data_Urgot/Fear_Beyond_Death?oldid=4015146) |
 | Fear Beyond Death | Active: Urgot fires a chem-drill in the target direction that impales the first enemy champion hit, dealing physical damage and leashing the target for 4 seconds, during which they are revealed and slowed by 0 / 7.5 / 15 / 22.5 / 30 / 37.5 / 45 / 52.5 / 60 / 67.5 / 75 (based on target's missing health)%. | [4015146](https://wiki.leagueoflegends.com/en-us/Template:Data_Urgot/Fear_Beyond_Death?oldid=4015146) |
+| Purge | on-hit and on-attack damage reduced to 50% effectiveness | [4058781](https://wiki.leagueoflegends.com/en-us/Template:Data_Urgot/Purge?oldid=4058781) |
+| Echoing Flames | It bypasses blocking and dodging effects | [4051193](https://wiki.leagueoflegends.com/en-us/Template:Data_Urgot/Echoing_Flames?oldid=4051193) |
 | Corrosive Charge | cooldown: 10 / 9.5 / 9 / 8.5 / 8 | [3952903](https://wiki.leagueoflegends.com/en-us/Template:Data_Urgot/Corrosive_Charge?oldid=3952903) |
 | Corrosive Charge | cost: 70 | [3952903](https://wiki.leagueoflegends.com/en-us/Template:Data_Urgot/Corrosive_Charge?oldid=3952903) |
 | Corrosive Charge | castTime: 0.25 | [3952903](https://wiki.leagueoflegends.com/en-us/Template:Data_Urgot/Corrosive_Charge?oldid=3952903) |
@@ -366,10 +376,8 @@ Effects marked by a mark or a role are completed by the kit's hooks (see the kit
 | Disdain | speed: 1200 + 100% movement speed | [4008211](https://wiki.leagueoflegends.com/en-us/Template:Data_Urgot/Disdain?oldid=4008211) |
 | Disdain | Physical Damage: 90 / 120 / 150 / 180 / 210 (+ 100% bonus AD) | [4008211](https://wiki.leagueoflegends.com/en-us/Template:Data_Urgot/Disdain?oldid=4008211) |
 | Disdain | stunning them for 1.5 seconds | [4008211](https://wiki.leagueoflegends.com/en-us/Template:Data_Urgot/Disdain?oldid=4008211) |
-| Fear Beyond Death | cooldown: 100 / 85 / 70 | [4015146](https://wiki.leagueoflegends.com/en-us/Template:Data_Urgot/Fear_Beyond_Death?oldid=4015146) |
 | Fear Beyond Death | cost: 100 | [4015146](https://wiki.leagueoflegends.com/en-us/Template:Data_Urgot/Fear_Beyond_Death?oldid=4015146) |
 | Fear Beyond Death | castTime: 0.5 | [4015146](https://wiki.leagueoflegends.com/en-us/Template:Data_Urgot/Fear_Beyond_Death?oldid=4015146) |
 | Fear Beyond Death | targetRange: 2500 | [4015146](https://wiki.leagueoflegends.com/en-us/Template:Data_Urgot/Fear_Beyond_Death?oldid=4015146) |
 | Fear Beyond Death | width: 160 | [4015146](https://wiki.leagueoflegends.com/en-us/Template:Data_Urgot/Fear_Beyond_Death?oldid=4015146) |
-| Fear Beyond Death | speed: 3200 | [4015146](https://wiki.leagueoflegends.com/en-us/Template:Data_Urgot/Fear_Beyond_Death?oldid=4015146) |
 | Fear Beyond Death | Physical Damage: 100 / 225 / 350 (+ 50% bonus AD) | [4015146](https://wiki.leagueoflegends.com/en-us/Template:Data_Urgot/Fear_Beyond_Death?oldid=4015146) |

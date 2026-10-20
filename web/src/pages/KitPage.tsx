@@ -106,12 +106,12 @@ function SimulatorKit({ champion, records, pets, runes }: { champion: Champion; 
     }
   }, [champion, records, options, pets, runes]);
   if (kit instanceof Error) return <ErrorBox error={kit} />;
-  const evidence = [...new Map(kit.evidence.map((e) => [`${e.ability}\u0000${e.text}`, e])).values()];
+  const evidence = [...new Map(kit.evidence.map((e) => [JSON.stringify([e.ability, e.text, e.page, e.revid, e.url]), e])).values()];
   return (
     <section className="section" aria-labelledby="kit-head">
       <h3 id="kit-head">The simulator's kit</h3>
       <p className="note">
-        What the duel simulator fights with: every number is read from the wiki's ability data at level 20, and what the wiki doesn't say is listed under assumptions.
+        Values come from pinned wiki and versioned game-data records at level 20. Interpretations and missing evidence are listed under assumptions.
       </p>
       <ul className="bullets">
         <li>Basic attack: {attackText(kit.spec.attack)}.</li>
@@ -158,24 +158,24 @@ function SimulatorKit({ champion, records, pets, runes }: { champion: Champion; 
       <h3>Assumptions</h3>
       <ul className="bullets">{kit.assumptions.length ? kit.assumptions.map((a) => <li key={a}>{a}</li>) : <li>None.</li>}</ul>
       <details>
-        <summary>Every wiki value it read ({evidence.length})</summary>
+        <summary>Every source value it read ({evidence.length})</summary>
         <div className="table-wrap">
           <table>
             <thead>
               <tr>
                 <th>Ability</th>
                 <th>Value</th>
-                <th>Revision</th>
+                <th>Source version</th>
               </tr>
             </thead>
             <tbody>
               {evidence.map((e) => (
-                <tr key={`${e.ability}|${e.text}`}>
+                <tr key={JSON.stringify([e.ability, e.text, e.page, e.revid, e.url])}>
                   <td>{e.ability}</td>
                   <td>{e.text}</td>
                   <td>
-                    <a href={wikiUrl(e.page, e.revid)} target="_blank" rel="noreferrer">
-                      {e.revid}
+                    <a href={e.url ?? wikiUrl(e.page, e.revid)} target="_blank" rel="noreferrer">
+                      {e.sourceVersion ?? e.revid}
                     </a>
                   </td>
                 </tr>
@@ -232,7 +232,7 @@ function FightProfile({ data, champion }: { data: AppData; champion: Champion })
 }
 
 function WikiAbilities({ records }: { records: AbilityRecord[] }) {
-  const sorted = [...records].sort((a, b) => KIND_ORDER.indexOf(a.kind) - KIND_ORDER.indexOf(b.kind));
+  const sorted = records.filter((record) => !record.historical).sort((a, b) => KIND_ORDER.indexOf(a.kind) - KIND_ORDER.indexOf(b.kind));
   return (
     <section className="section" aria-labelledby="wiki-head">
       <h3 id="wiki-head">Abilities on the wiki</h3>

@@ -208,3 +208,77 @@ All 2 level-based formulas in the game files (3 linked to wiki values above):
 |---|---|---|--:|--:|--:|
 | AshePassive | SlowAmount | linear 0.2 → 0.3 over levels 1-18, continues past 18 | 0.2 | 0.3 | 0.311765 |
 | AshePassive | EmpoweredSlowAmount | linear 0.4 → 0.6 over levels 1-18, continues past 18 | 0.4 | 0.6 | 0.623529 |
+
+## Duel simulator kit (level 20, every ability at max rank)
+
+What the duel simulator fights with (`kits/champions/Ashe.ts`): values come from pinned wiki and versioned game-data records at level 20. Interpretations and missing evidence are listed under assumptions. Ratios are fractions of the stat (60% AD is 0.6 × AD).
+
+- Basic attack: range 600, missile at 2500/s.
+
+| Key | Ability | Cooldown (s) | Cast time (s) | Cost | Delivery | On the enemy | On itself |
+|---|---|--:|--:|---|---|---|---|
+| Q | Ranger's Focus | 0 | 0 | 30 | self | – | attackSpeed 0.6 for 6 s; resets the attack timer |
+| W | Volley | 4 | 0.25 | 55 | skillshot 1275 long, 20 wide, at 2000/s | 200 + 100% bonus AD physical damage | – |
+| E | Hawkshot | 2 charges, one every 50 s (5 s between casts) | 0.25 | 0 | self | – | – |
+| R | Enchanted Crystal Arrow | 60 | 0.25 | 100 | skillshot Infinity long, 260 wide, at 2100/s | 600 + 120% AP magic damage; stun for 1 s | – |
+
+Effects marked by a mark or a role are completed by the kit's hooks (see the kit's source).
+
+### Assumptions
+
+- Frost critical slow is averaged by the attack's declaration-time critical chance; its extra strength decays linearly over the documented first second. A new Frost hit refreshes the ordinary slow without weakening a stronger critical slow still decaying.
+- Ranger's Focus resolves its five arrows (six on the first flurry) at the same contact tick because the pinned source gives no inter-arrow interval. Each arrow is a separate damage packet; attached on-hit effects and the attack-hit hook occur once. Follow-up packets use the engine's attached-damage classification.
+- Enchanted Crystal Arrow's stun is interpolated between the pinned distance bands, using travel from the cast-start position to the enemy's hitbox at contact. The one-dimensional model cannot distinguish transverse contact positions.
+- Volley models the aimed arrow in its cone; an enemy receives its damage only once. The source's 75-unit forward missile spawn offset is included in its reach, while travel starts at Ashe's center.
+- Hawkshot has its documented charges, recharge, cast time and no mana cost. The duel has no fog of war or brush, and ordinary sight cannot reveal invisibility, so Hawkshot provides no combat effect and the automatic behavior does not cast it.
+- Enchanted Crystal Arrow: speed has no value past level 4; its level-4 value is used at 20.
+- The stat-budget hint estimates continuous attacks: four ordinary attacks to build Focus, six seconds of flurries, and one extra arrow per activation. Actual fights retain stack expiry, mana, cast decisions, defenses and interruptions.
+- Ashe's base critical-damage modifier is normalized to one for the engine's averaged damage calculation: this represents Frost Shot's unconditional, continuous critical-chance bonus rather than ordinary attacks dealing extra damage only when they critically strike.
+
+### Source values read (43)
+
+| Ability | Value | Source version |
+|---|---|---|
+| Frost Shot | Ashe's basic attacks deal bonus physical damage equal to critical strike damage (based on critical strike chance) of the attack's damage. Critical strikes do not deal any additional damage | [4062251](https://wiki.leagueoflegends.com/en-us/Template:Data_Ashe/Frost_Shot?oldid=4062251) |
+| Frost Shot | apply Frost to enemies for 2 seconds | [4062251](https://wiki.leagueoflegends.com/en-us/Template:Data_Ashe/Frost_Shot?oldid=4062251) |
+| Frost Shot | Innate - Frost Shot: Ashe's basic attacks and ability hits apply Frost to enemies for 2 seconds, which slows them by 20 – 30 (based on level)% for the duration. | [4062251](https://wiki.leagueoflegends.com/en-us/Template:Data_Ashe/Frost_Shot?oldid=4062251) |
+| Frost Shot | Innate - Critical Slow: Ashe's critical strikes double Frost's slow strength to 40 – 60 (based on level)%, decaying over the first second of the duration to its normal strength. | [4062251](https://wiki.leagueoflegends.com/en-us/Template:Data_Ashe/Frost_Shot?oldid=4062251) |
+| Frost Shot | decaying over the first second of the duration to its normal strength | [4062251](https://wiki.leagueoflegends.com/en-us/Template:Data_Ashe/Frost_Shot?oldid=4062251) |
+| Ranger's Focus | generate a stack of Focus for 4 seconds | [4053426](https://wiki.leagueoflegends.com/en-us/Template:Data_Ashe/Ranger's_Focus?oldid=4053426) |
+| Ranger's Focus | stacking up to 4 times | [4053426](https://wiki.leagueoflegends.com/en-us/Template:Data_Ashe/Ranger's_Focus?oldid=4053426) |
+| Ranger's Focus | Stacks expire one by one every second when the duration ends | [4053426](https://wiki.leagueoflegends.com/en-us/Template:Data_Ashe/Ranger's_Focus?oldid=4053426) |
+| Ranger's Focus | For 6 seconds | [4053426](https://wiki.leagueoflegends.com/en-us/Template:Data_Ashe/Ranger's_Focus?oldid=4053426) |
+| Ranger's Focus | Bonus Attack Speed: 20 / 30 / 40 / 50 / 60% | [4053426](https://wiki.leagueoflegends.com/en-us/Template:Data_Ashe/Ranger's_Focus?oldid=4053426) |
+| Ranger's Focus | Physical Damage Per Arrow: 22 / 23 / 24 / 25 / 26% AD | [4053426](https://wiki.leagueoflegends.com/en-us/Template:Data_Ashe/Ranger's_Focus?oldid=4053426) |
+| Ranger's Focus | Total Damage Per Flurry: 110 / 115 / 120 / 125 / 130% AD | [4053426](https://wiki.leagueoflegends.com/en-us/Template:Data_Ashe/Ranger's_Focus?oldid=4053426) |
+| Ranger's Focus | The flurries apply life steal and Frost Shot per arrow, but apply on-hit effects only once | [4053426](https://wiki.leagueoflegends.com/en-us/Template:Data_Ashe/Ranger's_Focus?oldid=4053426) |
+| Ranger's Focus | Ranger's Focus resets Ashe's basic attack timer | [4053426](https://wiki.leagueoflegends.com/en-us/Template:Data_Ashe/Ranger's_Focus?oldid=4053426) |
+| Ranger's Focus | The flurries deal 1 instance of basic damage followed by 4 instances of a non-reactive type of damage | [4053426](https://wiki.leagueoflegends.com/en-us/Template:Data_Ashe/Ranger's_Focus?oldid=4053426) |
+| Ranger's Focus | The first flurry of a Ranger's Focus cast fires one additional arrow, dealing 20% increased total damage | [4053426](https://wiki.leagueoflegends.com/en-us/Template:Data_Ashe/Ranger's_Focus?oldid=4053426) |
+| Ranger's Focus | followed by 4 instances | [4053426](https://wiki.leagueoflegends.com/en-us/Template:Data_Ashe/Ranger's_Focus?oldid=4053426) |
+| Ranger's Focus | dealing 20% increased total damage | [4053426](https://wiki.leagueoflegends.com/en-us/Template:Data_Ashe/Ranger's_Focus?oldid=4053426) |
+| Enchanted Crystal Arrow | The arrow shatters upon hitting an enemy champion, dealing them magic damage, stunning them for 1 / 1 / 1 / 1 / 1 / 1.25 / 1.5 / 1.75 / 2 / 2.25 / 2.5 / 2.75 / 3 / 3.25 / 3.5 (based on distance traveled) seconds, and granting sight of the area around them for 1 second. | [4026934](https://wiki.leagueoflegends.com/en-us/Template:Data_Ashe/Enchanted_Crystal_Arrow?oldid=4026934) |
+| Enchanted Crystal Arrow | This ability will cast from wherever the caster is at the start of the cast time | [4026934](https://wiki.leagueoflegends.com/en-us/Template:Data_Ashe/Enchanted_Crystal_Arrow?oldid=4026934) |
+| Enchanted Crystal Arrow | range: Global | [4026934](https://wiki.leagueoflegends.com/en-us/Template:Data_Ashe/Enchanted_Crystal_Arrow?oldid=4026934) |
+| Volley | 75 units in front of Ashe | [4007430](https://wiki.leagueoflegends.com/en-us/Template:Data_Ashe/Volley?oldid=4007430) |
+| Hawkshot | granting sight of the area along its path repeatedly for 0.5 seconds after every 100 units traveled and at its destination for 5 seconds | [3936951](https://wiki.leagueoflegends.com/en-us/Template:Data_Ashe/Hawkshot?oldid=3936951) |
+| Hawkshot | but does not actually reveal the units in particular | [3936951](https://wiki.leagueoflegends.com/en-us/Template:Data_Ashe/Hawkshot?oldid=3936951) |
+| Ranger's Focus | cost: 30 | [4053426](https://wiki.leagueoflegends.com/en-us/Template:Data_Ashe/Ranger's_Focus?oldid=4053426) |
+| Ranger's Focus | castTime: none | [4053426](https://wiki.leagueoflegends.com/en-us/Template:Data_Ashe/Ranger's_Focus?oldid=4053426) |
+| Volley | cooldown: 18 / 14.5 / 11 / 7.5 / 4 | [4007430](https://wiki.leagueoflegends.com/en-us/Template:Data_Ashe/Volley?oldid=4007430) |
+| Volley | cost: 75 / 70 / 65 / 60 / 55 | [4007430](https://wiki.leagueoflegends.com/en-us/Template:Data_Ashe/Volley?oldid=4007430) |
+| Volley | castTime: 0.25 | [4007430](https://wiki.leagueoflegends.com/en-us/Template:Data_Ashe/Volley?oldid=4007430) |
+| Volley | effectRadius: 1200 | [4007430](https://wiki.leagueoflegends.com/en-us/Template:Data_Ashe/Volley?oldid=4007430) |
+| Volley | width: 20 | [4007430](https://wiki.leagueoflegends.com/en-us/Template:Data_Ashe/Volley?oldid=4007430) |
+| Volley | speed: 2000 | [4007430](https://wiki.leagueoflegends.com/en-us/Template:Data_Ashe/Volley?oldid=4007430) |
+| Volley | Physical Damage: 60 / 95 / 130 / 165 / 200 (+ 100% bonus AD) | [4007430](https://wiki.leagueoflegends.com/en-us/Template:Data_Ashe/Volley?oldid=4007430) |
+| Hawkshot | cooldown: 5 | [3936951](https://wiki.leagueoflegends.com/en-us/Template:Data_Ashe/Hawkshot?oldid=3936951) |
+| Hawkshot | castTime: 0.25 | [3936951](https://wiki.leagueoflegends.com/en-us/Template:Data_Ashe/Hawkshot?oldid=3936951) |
+| Hawkshot | up to a maximum of 2 | [3936951](https://wiki.leagueoflegends.com/en-us/Template:Data_Ashe/Hawkshot?oldid=3936951) |
+| Hawkshot | recharge: 90 / 80 / 70 / 60 / 50 | [3936951](https://wiki.leagueoflegends.com/en-us/Template:Data_Ashe/Hawkshot?oldid=3936951) |
+| Enchanted Crystal Arrow | cooldown: 100 / 80 / 60 | [4026934](https://wiki.leagueoflegends.com/en-us/Template:Data_Ashe/Enchanted_Crystal_Arrow?oldid=4026934) |
+| Enchanted Crystal Arrow | cost: 100 | [4026934](https://wiki.leagueoflegends.com/en-us/Template:Data_Ashe/Enchanted_Crystal_Arrow?oldid=4026934) |
+| Enchanted Crystal Arrow | castTime: 0.25 | [4026934](https://wiki.leagueoflegends.com/en-us/Template:Data_Ashe/Enchanted_Crystal_Arrow?oldid=4026934) |
+| Enchanted Crystal Arrow | width: 260 | [4026934](https://wiki.leagueoflegends.com/en-us/Template:Data_Ashe/Enchanted_Crystal_Arrow?oldid=4026934) |
+| Enchanted Crystal Arrow | speed: 1500 – 2100 (based on level) | [4026934](https://wiki.leagueoflegends.com/en-us/Template:Data_Ashe/Enchanted_Crystal_Arrow?oldid=4026934) |
+| Enchanted Crystal Arrow | Magic Damage: 200 / 400 / 600 (+ 120% AP) | [4026934](https://wiki.leagueoflegends.com/en-us/Template:Data_Ashe/Enchanted_Crystal_Arrow?oldid=4026934) |

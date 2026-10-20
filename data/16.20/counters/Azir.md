@@ -28,32 +28,33 @@ Run `npm run matchup -- <champion> Azir` for the full ledger of a matchup, with 
 - **0.16** cc immunity: Paranoia is displacement immune, ignoring Azir's Emperor's Divide (airborne) during it. Only during Paranoia. (Nocturne R Paranoia → Azir R Emperor's Divide)
 - Watch out: Azir's basic attacks reach 400 units farther than Nocturne's (525 vs 125 attack range).
 
-### 4. Elise (net +0.97)
-
-- **0.80** untargetable: Rappel makes Elise untargetable, dodging Azir's Emperor's Divide. Untargetable for 0.6 s; Emperor's Divide takes 0.9 s to land, enough to react. (Elise E Rappel → Azir R Emperor's Divide)
-- **0.34** untargetable: Rappel makes Elise untargetable, dodging Azir's Shifting Sands. Untargetable for 0.6 s; Shifting Sands lands within 0 s, faster than a 0.25 s reaction, so it needs prediction. (Elise E Rappel → Azir E Shifting Sands)
-
-### 5. Bard (net +0.96)
+### 4. Bard (net +0.96)
 
 - **0.80** untargetable: Tempered Fate makes Bard untargetable, dodging Azir's Emperor's Divide. Untargetable for 2.5 s, long enough to use ahead of Emperor's Divide. (Bard R Tempered Fate → Azir R Emperor's Divide)
 - **0.31** untargetable: Tempered Fate makes Bard untargetable, dodging Azir's Shifting Sands. Untargetable for 2.5 s, long enough to use ahead of Shifting Sands. (Bard R Tempered Fate → Azir E Shifting Sands)
 
-### 6. Vladimir (net +0.95)
+### 5. Vladimir (net +0.95)
 
 - **0.80** untargetable: Sanguine Pool makes Vladimir untargetable, dodging Azir's Emperor's Divide. Untargetable for 2 s, long enough to use ahead of Emperor's Divide. (Vladimir W Sanguine Pool → Azir R Emperor's Divide)
 - **0.60** untargetable: Sanguine Pool makes Vladimir untargetable, dodging Azir's Shifting Sands. Untargetable for 2 s, long enough to use ahead of Shifting Sands. (Vladimir W Sanguine Pool → Azir E Shifting Sands)
 - Watch out: Azir's basic attacks reach 75 units farther than Vladimir's (525 vs 450 attack range).
 
-### 7. Xayah (net +0.90)
+### 6. Xayah (net +0.90)
 
 - **0.75** untargetable: Featherstorm makes Xayah untargetable, dodging Azir's Emperor's Divide. Untargetable for 1.5 s, long enough to use ahead of Emperor's Divide. (Xayah R Featherstorm → Azir R Emperor's Divide)
 - **0.30** untargetable: Featherstorm makes Xayah untargetable, dodging Azir's Shifting Sands. Untargetable for 1.5 s, long enough to use ahead of Shifting Sands. (Xayah R Featherstorm → Azir E Shifting Sands)
 
-### 8. Aurora (net +0.88)
+### 7. Aurora (net +0.88)
 
 - **0.75** untargetable: Between Worlds makes Aurora untargetable, dodging Azir's Emperor's Divide. Untargetable for 0.4 s; Emperor's Divide takes 0.9 s to land, enough to react. Does not destroy inbound projectiles. (Aurora R Between Worlds → Azir R Emperor's Divide)
 - **0.18** untargetable: Between Worlds makes Aurora untargetable, dodging Azir's Shifting Sands. Untargetable for 0.4 s; Shifting Sands lands within 0 s, faster than a 0.25 s reaction, so it needs prediction. Does not destroy inbound projectiles. (Aurora R Between Worlds → Azir E Shifting Sands)
 - **0.16** cc immunity: Between Worlds is displacement immune, ignoring Azir's Emperor's Divide (airborne) during it. Only during Between Worlds (0.4 s). (Aurora R Between Worlds → Azir R Emperor's Divide)
+
+### 8. Fizz (net +0.86)
+
+- **0.80** untargetable: Playful makes Fizz untargetable, dodging Azir's Emperor's Divide. Untargetable for 0.75 s; Emperor's Divide takes 0.9 s to land, enough to react. (Fizz E Playful → Azir R Emperor's Divide)
+- **0.36** untargetable: Playful makes Fizz untargetable, dodging Azir's Shifting Sands. Untargetable for 0.75 s; Shifting Sands lands within 0 s, faster than a 0.25 s reaction, so it needs prediction. (Fizz E Playful → Azir E Shifting Sands)
+- Watch out: Azir's basic attacks reach 350 units farther than Fizz's (525 vs 175 attack range).
 
 ### 9. Fiora (net +0.85)
 
@@ -76,77 +77,77 @@ Run `npm run matchup -- <champion> Azir` for the full ledger of a matchup, with 
 | 1 | Sivir | +1.08 | 1.08 | 0.00 |  |
 | 2 | Lissandra | +1.00 | 1.00 | 0.00 |  |
 | 3 | Nocturne | +0.99 | 1.26 | 0.27 |  |
-| 4 | Elise | +0.97 | 0.97 | 0.00 |  |
-| 5 | Bard | +0.96 | 0.96 | 0.00 |  |
-| 6 | Vladimir | +0.95 | 1.10 | 0.15 |  |
-| 7 | Xayah | +0.90 | 0.90 | 0.00 |  |
-| 8 | Aurora | +0.88 | 0.88 | 0.00 |  |
+| 4 | Bard | +0.96 | 0.96 | 0.00 |  |
+| 5 | Vladimir | +0.95 | 1.10 | 0.15 |  |
+| 6 | Xayah | +0.90 | 0.90 | 0.00 |  |
+| 7 | Aurora | +0.88 | 0.88 | 0.00 |  |
+| 8 | Fizz | +0.86 | 0.98 | 0.12 |  |
 | 9 | Fiora | +0.85 | 1.10 | 0.25 |  |
 | 10 | Rek'Sai | +0.84 | 1.00 | 0.16 |  |
 | 11 | Camille | +0.80 | 0.93 | 0.13 |  |
 | 12 | Morgana | +0.74 | 0.84 | 0.10 |  |
-| 13 | Ekko | +0.73 | 0.91 | 0.18 |  |
-| 14 | Gwen | +0.72 | 0.97 | 0.25 |  |
-| 15 | Evelynn | +0.72 | 0.90 | 0.18 |  |
-| 16 | Shaco | +0.72 | 0.90 | 0.18 |  |
-| 17 | Maokai | +0.71 | 0.98 | 0.27 |  |
-| 18 | Warwick | +0.70 | 1.06 | 0.36 |  |
-| 19 | Master Yi | +0.70 | 1.04 | 0.34 |  |
-| 20 | Zaahen | +0.67 | 0.83 | 0.16 |  |
-| 21 | Zed | +0.66 | 0.84 | 0.18 |  |
-| 22 | Kled | +0.65 | 0.74 | 0.09 |  |
-| 23 | Kayle | +0.62 | 0.62 | 0.00 |  |
-| 24 | Udyr | +0.59 | 0.86 | 0.27 |  |
-| 25 | Kalista | +0.56 | 0.56 | 0.00 |  |
-| 26 | Pantheon | +0.55 | 0.76 | 0.21 |  |
-| 27 | Yuumi | +0.53 | 0.98 | 0.45 |  |
-| 28 | Vex | +0.51 | 0.51 | 0.00 |  |
-| 29 | Samira | +0.47 | 0.47 | 0.00 | projectile block (Blade Whirl) |
-| 30 | Mel | +0.46 | 0.46 | 0.00 | projectile block (Rebuttal) |
-| 31 | Kindred | +0.43 | 0.43 | 0.00 |  |
-| 32 | Alistar | +0.39 | 0.66 | 0.27 |  |
-| 33 | Ahri | +0.36 | 0.36 | 0.00 |  |
-| 34 | Hwei | +0.36 | 0.36 | 0.00 |  |
-| 35 | Jinx | +0.36 | 0.36 | 0.00 |  |
-| 36 | Jax | +0.35 | 0.62 | 0.27 | attack dodge (Counter Strike) |
-| 37 | Teemo | +0.35 | 0.35 | 0.00 |  |
-| 38 | Veigar | +0.35 | 0.35 | 0.00 |  |
-| 39 | Viktor | +0.35 | 0.35 | 0.00 |  |
-| 40 | Kayn | +0.32 | 0.90 | 0.58 |  |
-| 41 | Yasuo | +0.31 | 0.47 | 0.16 | projectile block (Wind Wall) |
-| 42 | Olaf | +0.30 | 0.83 | 0.53 |  |
-| 43 | Xin Zhao | +0.30 | 0.53 | 0.23 |  |
-| 44 | Cassiopeia | +0.29 | 0.29 | 0.00 |  |
-| 45 | Sion | +0.28 | 0.83 | 0.55 |  |
-| 46 | Nilah | +0.27 | 0.47 | 0.20 |  |
-| 47 | Malzahar | +0.26 | 0.63 | 0.37 |  |
-| 48 | Lulu | +0.25 | 0.25 | 0.00 |  |
-| 49 | Yone | +0.24 | 0.36 | 0.12 |  |
-| 50 | Braum | +0.23 | 0.50 | 0.27 | projectile block (Unbreakable) |
-| 51 | K'Sante | +0.19 | 0.32 | 0.13 |  |
-| 52 | Corki | +0.16 | 0.16 | 0.00 |  |
-| 53 | Rengar | +0.15 | 0.68 | 0.53 |  |
-| 54 | Gangplank | +0.14 | 0.67 | 0.53 |  |
-| 55 | Tristana | +0.11 | 0.11 | 0.00 |  |
-| 56 | Malphite | +0.07 | 0.34 | 0.27 |  |
-| 57 | Milio | +0.06 | 0.06 | 0.00 |  |
-| 58 | Aphelios | +0.05 | 0.05 | 0.00 |  |
-| 59 | Ashe | +0.05 | 0.05 | 0.00 |  |
-| 60 | Heimerdinger | +0.05 | 0.05 | 0.00 |  |
-| 61 | Jarvan IV | +0.04 | 0.16 | 0.12 |  |
-| 62 | Annie | +0.04 | 0.04 | 0.00 |  |
-| 63 | Senna | +0.04 | 0.04 | 0.00 |  |
-| 64 | Anivia | +0.03 | 0.03 | 0.00 |  |
-| 65 | Hecarim | +0.01 | 0.17 | 0.16 |  |
-| 66 | Ornn | 0.00 | 0.16 | 0.16 |  |
-| 67 | Brand | 0.00 | 0.00 | 0.00 |  |
-| 68 | Draven | 0.00 | 0.00 | 0.00 |  |
-| 69 | Ezreal | 0.00 | 0.00 | 0.00 |  |
-| 70 | Gnar | 0.00 | 0.00 | 0.00 |  |
-| 71 | Jayce | 0.00 | 0.00 | 0.00 |  |
-| 72 | Kai'Sa | 0.00 | 0.00 | 0.00 |  |
-| 73 | Karma | 0.00 | 0.00 | 0.00 |  |
-| 74 | Kennen | 0.00 | 0.00 | 0.00 |  |
+| 13 | Gwen | +0.72 | 0.97 | 0.25 |  |
+| 14 | Evelynn | +0.72 | 0.90 | 0.18 |  |
+| 15 | Shaco | +0.72 | 0.90 | 0.18 |  |
+| 16 | Maokai | +0.71 | 0.98 | 0.27 |  |
+| 17 | Master Yi | +0.70 | 1.04 | 0.34 |  |
+| 18 | Zaahen | +0.67 | 0.83 | 0.16 |  |
+| 19 | Zed | +0.66 | 0.84 | 0.18 |  |
+| 20 | Kled | +0.65 | 0.74 | 0.09 |  |
+| 21 | Kayle | +0.62 | 0.62 | 0.00 |  |
+| 22 | Udyr | +0.59 | 0.86 | 0.27 |  |
+| 23 | Kalista | +0.56 | 0.56 | 0.00 |  |
+| 24 | Yuumi | +0.53 | 0.98 | 0.45 |  |
+| 25 | Vex | +0.51 | 0.51 | 0.00 |  |
+| 26 | Samira | +0.47 | 0.47 | 0.00 | projectile block (Blade Whirl) |
+| 27 | Mel | +0.46 | 0.46 | 0.00 | projectile block (Rebuttal) |
+| 28 | Alistar | +0.39 | 0.66 | 0.27 |  |
+| 29 | Warwick | +0.36 | 1.06 | 0.70 |  |
+| 30 | Ahri | +0.36 | 0.36 | 0.00 |  |
+| 31 | Hwei | +0.36 | 0.36 | 0.00 |  |
+| 32 | Jinx | +0.36 | 0.36 | 0.00 |  |
+| 33 | Jax | +0.35 | 0.62 | 0.27 | attack dodge (Counter Strike) |
+| 34 | Teemo | +0.35 | 0.35 | 0.00 |  |
+| 35 | Veigar | +0.35 | 0.35 | 0.00 |  |
+| 36 | Viktor | +0.35 | 0.35 | 0.00 |  |
+| 37 | Kayn | +0.32 | 0.90 | 0.58 |  |
+| 38 | Yasuo | +0.31 | 0.47 | 0.16 | projectile block (Wind Wall) |
+| 39 | Olaf | +0.30 | 0.83 | 0.53 |  |
+| 40 | Xin Zhao | +0.30 | 0.53 | 0.23 |  |
+| 41 | Cassiopeia | +0.29 | 0.29 | 0.00 |  |
+| 42 | Sion | +0.28 | 0.83 | 0.55 |  |
+| 43 | Nilah | +0.27 | 0.47 | 0.20 |  |
+| 44 | Malzahar | +0.26 | 0.63 | 0.37 |  |
+| 45 | Lulu | +0.25 | 0.25 | 0.00 |  |
+| 46 | Yone | +0.24 | 0.36 | 0.12 |  |
+| 47 | Braum | +0.23 | 0.50 | 0.27 | projectile block (Unbreakable) |
+| 48 | K'Sante | +0.19 | 0.32 | 0.13 |  |
+| 49 | Rengar | +0.15 | 0.68 | 0.53 |  |
+| 50 | Gangplank | +0.14 | 0.67 | 0.53 |  |
+| 51 | Pantheon | +0.12 | 0.76 | 0.64 |  |
+| 52 | Tristana | +0.11 | 0.11 | 0.00 |  |
+| 53 | Malphite | +0.07 | 0.34 | 0.27 |  |
+| 54 | Milio | +0.06 | 0.06 | 0.00 |  |
+| 55 | Aphelios | +0.05 | 0.05 | 0.00 |  |
+| 56 | Ashe | +0.05 | 0.05 | 0.00 |  |
+| 57 | Heimerdinger | +0.05 | 0.05 | 0.00 |  |
+| 58 | Jarvan IV | +0.04 | 0.16 | 0.12 |  |
+| 59 | Annie | +0.04 | 0.04 | 0.00 |  |
+| 60 | Senna | +0.04 | 0.04 | 0.00 |  |
+| 61 | Anivia | +0.03 | 0.03 | 0.00 |  |
+| 62 | Hecarim | +0.01 | 0.17 | 0.16 |  |
+| 63 | Ornn | 0.00 | 0.16 | 0.16 |  |
+| 64 | Brand | 0.00 | 0.00 | 0.00 |  |
+| 65 | Corki | 0.00 | 0.00 | 0.00 |  |
+| 66 | Draven | 0.00 | 0.00 | 0.00 |  |
+| 67 | Elise | 0.00 | 0.00 | 0.00 |  |
+| 68 | Ezreal | 0.00 | 0.00 | 0.00 |  |
+| 69 | Gnar | 0.00 | 0.00 | 0.00 |  |
+| 70 | Jayce | 0.00 | 0.00 | 0.00 |  |
+| 71 | Kai'Sa | 0.00 | 0.00 | 0.00 |  |
+| 72 | Karma | 0.00 | 0.00 | 0.00 |  |
+| 73 | Kennen | 0.00 | 0.00 | 0.00 |  |
+| 74 | Kindred | 0.00 | 0.00 | 0.00 |  |
 | 75 | Kog'Maw | 0.00 | 0.00 | 0.00 |  |
 | 76 | LeBlanc | 0.00 | 0.00 | 0.00 |  |
 | 77 | Lux | 0.00 | 0.00 | 0.00 |  |
@@ -169,79 +170,79 @@ Run `npm run matchup -- <champion> Azir` for the full ledger of a matchup, with 
 | 94 | Zilean | 0.00 | 0.00 | 0.00 |  |
 | 95 | Zoe | 0.00 | 0.00 | 0.00 |  |
 | 96 | Zyra | 0.00 | 0.00 | 0.00 |  |
-| 97 | Taric | -0.01 | 0.49 | 0.50 |  |
-| 98 | Volibear | -0.01 | 0.16 | 0.17 |  |
-| 99 | Shen | -0.03 | 0.60 | 0.63 | attack block (Spirit's Refuge) |
-| 100 | Thresh | -0.03 | 0.00 | 0.03 |  |
-| 101 | Graves | -0.04 | 0.00 | 0.04 |  |
-| 102 | Varus | -0.05 | 0.00 | 0.05 |  |
-| 103 | Poppy | -0.06 | 0.41 | 0.47 |  |
-| 104 | Viego | -0.06 | 0.16 | 0.22 |  |
-| 105 | Aurelion Sol | -0.06 | 0.00 | 0.06 |  |
-| 106 | Ivern | -0.07 | 0.00 | 0.07 |  |
-| 107 | Amumu | -0.08 | 0.19 | 0.27 |  |
-| 108 | Zac | -0.09 | 0.37 | 0.46 |  |
-| 109 | Shyvana | -0.09 | 0.16 | 0.25 |  |
-| 110 | Rakan | -0.10 | 0.00 | 0.10 |  |
-| 111 | Illaoi | -0.11 | 0.16 | 0.27 |  |
-| 112 | Sett | -0.11 | 0.16 | 0.27 |  |
-| 113 | Fizz | -0.12 | 0.00 | 0.12 |  |
-| 114 | Sylas | -0.12 | 0.00 | 0.12 |  |
-| 115 | Urgot | -0.12 | 0.00 | 0.12 |  |
-| 116 | Briar | -0.13 | 0.00 | 0.13 |  |
-| 117 | Lillia | -0.13 | 0.00 | 0.13 |  |
-| 118 | Quinn | -0.14 | 0.00 | 0.14 |  |
-| 119 | Rammus | -0.15 | 0.27 | 0.42 |  |
-| 120 | Wukong | -0.16 | 0.00 | 0.16 |  |
-| 121 | Rell | -0.16 | 0.00 | 0.16 |  |
-| 122 | Bel'Veth | -0.17 | 0.00 | 0.17 |  |
-| 123 | Qiyana | -0.17 | 0.00 | 0.17 |  |
-| 124 | Akali | -0.18 | 0.00 | 0.18 |  |
-| 125 | Ambessa | -0.18 | 0.00 | 0.18 |  |
-| 126 | Lee Sin | -0.18 | 0.00 | 0.18 |  |
-| 127 | Riven | -0.18 | 0.00 | 0.18 |  |
-| 128 | Talon | -0.18 | 0.00 | 0.18 |  |
-| 129 | Caitlyn | -0.21 | 0.07 | 0.28 |  |
-| 130 | Irelia | -0.22 | 0.00 | 0.22 |  |
-| 131 | Singed | -0.23 | 0.30 | 0.53 |  |
-| 132 | Aatrox | -0.23 | 0.00 | 0.23 |  |
-| 133 | Nautilus | -0.23 | 0.00 | 0.23 |  |
-| 134 | Tryndamere | -0.23 | 0.00 | 0.23 |  |
-| 135 | Vi | -0.24 | 0.16 | 0.40 |  |
-| 136 | Akshan | -0.24 | 0.00 | 0.24 |  |
-| 137 | Diana | -0.25 | 0.00 | 0.25 |  |
-| 138 | Kassadin | -0.25 | 0.00 | 0.25 |  |
-| 139 | Pyke | -0.25 | 0.00 | 0.25 |  |
-| 140 | Sejuani | -0.25 | 0.00 | 0.25 |  |
-| 141 | Nasus | -0.26 | 0.27 | 0.53 |  |
-| 142 | Galio | -0.26 | 0.00 | 0.26 |  |
-| 143 | Vel'Koz | -0.26 | 0.00 | 0.26 |  |
-| 144 | Kha'Zix | -0.27 | 0.00 | 0.27 |  |
-| 145 | Leona | -0.27 | 0.00 | 0.27 |  |
-| 146 | Locke | -0.27 | 0.00 | 0.27 |  |
-| 147 | Renekton | -0.27 | 0.00 | 0.27 |  |
-| 148 | Jhin | -0.28 | 0.00 | 0.28 |  |
-| 149 | Lucian | -0.28 | 0.00 | 0.28 |  |
-| 150 | Miss Fortune | -0.28 | 0.00 | 0.28 |  |
-| 151 | Xerath | -0.31 | 0.00 | 0.31 |  |
-| 152 | Ryze | -0.35 | 0.00 | 0.35 |  |
-| 153 | Twisted Fate | -0.35 | 0.00 | 0.35 |  |
-| 154 | Garen | -0.36 | 0.11 | 0.47 |  |
-| 155 | Gragas | -0.37 | 0.00 | 0.37 |  |
-| 156 | Fiddlesticks | -0.38 | 0.00 | 0.38 |  |
-| 157 | Karthus | -0.38 | 0.00 | 0.38 |  |
-| 158 | Janna | -0.40 | 0.00 | 0.40 |  |
-| 159 | Mordekaiser | -0.41 | 0.06 | 0.47 |  |
-| 160 | Skarner | -0.44 | 0.06 | 0.50 |  |
-| 161 | Katarina | -0.46 | 0.00 | 0.46 |  |
-| 162 | Darius | -0.47 | 0.00 | 0.47 |  |
-| 163 | Trundle | -0.47 | 0.00 | 0.47 |  |
-| 164 | Yorick | -0.47 | 0.00 | 0.47 |  |
-| 165 | Taliyah | -0.48 | 0.00 | 0.48 |  |
-| 166 | Tahm Kench | -0.49 | 0.00 | 0.49 |  |
-| 167 | Blitzcrank | -0.53 | 0.00 | 0.53 |  |
-| 168 | Cho'Gath | -0.53 | 0.00 | 0.53 |  |
-| 169 | Dr. Mundo | -0.53 | 0.00 | 0.53 |  |
-| 170 | Rumble | -0.53 | 0.00 | 0.53 |  |
-| 171 | Naafiri | -0.55 | 0.00 | 0.55 |  |
+| 97 | Volibear | -0.01 | 0.16 | 0.17 |  |
+| 98 | Shen | -0.03 | 0.60 | 0.63 | attack block (Spirit's Refuge) |
+| 99 | Thresh | -0.03 | 0.00 | 0.03 |  |
+| 100 | Graves | -0.04 | 0.00 | 0.04 |  |
+| 101 | Varus | -0.05 | 0.00 | 0.05 |  |
+| 102 | Poppy | -0.06 | 0.41 | 0.47 |  |
+| 103 | Viego | -0.06 | 0.16 | 0.22 |  |
+| 104 | Aurelion Sol | -0.06 | 0.00 | 0.06 |  |
+| 105 | Ivern | -0.07 | 0.00 | 0.07 |  |
+| 106 | Amumu | -0.08 | 0.19 | 0.27 |  |
+| 107 | Zac | -0.09 | 0.37 | 0.46 |  |
+| 108 | Shyvana | -0.09 | 0.16 | 0.25 |  |
+| 109 | Rakan | -0.10 | 0.00 | 0.10 |  |
+| 110 | Illaoi | -0.11 | 0.16 | 0.27 |  |
+| 111 | Sett | -0.11 | 0.16 | 0.27 |  |
+| 112 | Sylas | -0.12 | 0.00 | 0.12 |  |
+| 113 | Urgot | -0.12 | 0.00 | 0.12 |  |
+| 114 | Briar | -0.13 | 0.00 | 0.13 |  |
+| 115 | Lillia | -0.13 | 0.00 | 0.13 |  |
+| 116 | Quinn | -0.14 | 0.00 | 0.14 |  |
+| 117 | Rammus | -0.15 | 0.27 | 0.42 |  |
+| 118 | Wukong | -0.16 | 0.00 | 0.16 |  |
+| 119 | Rell | -0.16 | 0.00 | 0.16 |  |
+| 120 | Bel'Veth | -0.17 | 0.00 | 0.17 |  |
+| 121 | Qiyana | -0.17 | 0.00 | 0.17 |  |
+| 122 | Akali | -0.18 | 0.00 | 0.18 |  |
+| 123 | Ambessa | -0.18 | 0.00 | 0.18 |  |
+| 124 | Ekko | -0.18 | 0.00 | 0.18 |  |
+| 125 | Lee Sin | -0.18 | 0.00 | 0.18 |  |
+| 126 | Riven | -0.18 | 0.00 | 0.18 |  |
+| 127 | Talon | -0.18 | 0.00 | 0.18 |  |
+| 128 | Caitlyn | -0.21 | 0.07 | 0.28 |  |
+| 129 | Irelia | -0.22 | 0.00 | 0.22 |  |
+| 130 | Singed | -0.23 | 0.30 | 0.53 |  |
+| 131 | Aatrox | -0.23 | 0.00 | 0.23 |  |
+| 132 | Nautilus | -0.23 | 0.00 | 0.23 |  |
+| 133 | Tryndamere | -0.23 | 0.00 | 0.23 |  |
+| 134 | Vi | -0.24 | 0.16 | 0.40 |  |
+| 135 | Akshan | -0.24 | 0.00 | 0.24 |  |
+| 136 | Diana | -0.25 | 0.00 | 0.25 |  |
+| 137 | Kassadin | -0.25 | 0.00 | 0.25 |  |
+| 138 | Pyke | -0.25 | 0.00 | 0.25 |  |
+| 139 | Sejuani | -0.25 | 0.00 | 0.25 |  |
+| 140 | Nasus | -0.26 | 0.27 | 0.53 |  |
+| 141 | Vel'Koz | -0.26 | 0.00 | 0.26 |  |
+| 142 | Kha'Zix | -0.27 | 0.00 | 0.27 |  |
+| 143 | Leona | -0.27 | 0.00 | 0.27 |  |
+| 144 | Locke | -0.27 | 0.00 | 0.27 |  |
+| 145 | Renekton | -0.27 | 0.00 | 0.27 |  |
+| 146 | Jhin | -0.28 | 0.00 | 0.28 |  |
+| 147 | Lucian | -0.28 | 0.00 | 0.28 |  |
+| 148 | Miss Fortune | -0.28 | 0.00 | 0.28 |  |
+| 149 | Xerath | -0.31 | 0.00 | 0.31 |  |
+| 150 | Ryze | -0.35 | 0.00 | 0.35 |  |
+| 151 | Twisted Fate | -0.35 | 0.00 | 0.35 |  |
+| 152 | Garen | -0.36 | 0.11 | 0.47 |  |
+| 153 | Gragas | -0.37 | 0.00 | 0.37 |  |
+| 154 | Fiddlesticks | -0.38 | 0.00 | 0.38 |  |
+| 155 | Karthus | -0.38 | 0.00 | 0.38 |  |
+| 156 | Janna | -0.40 | 0.00 | 0.40 |  |
+| 157 | Mordekaiser | -0.41 | 0.06 | 0.47 |  |
+| 158 | Skarner | -0.44 | 0.06 | 0.50 |  |
+| 159 | Katarina | -0.46 | 0.00 | 0.46 |  |
+| 160 | Darius | -0.47 | 0.00 | 0.47 |  |
+| 161 | Trundle | -0.47 | 0.00 | 0.47 |  |
+| 162 | Yorick | -0.47 | 0.00 | 0.47 |  |
+| 163 | Taliyah | -0.48 | 0.00 | 0.48 |  |
+| 164 | Tahm Kench | -0.49 | 0.00 | 0.49 |  |
+| 165 | Taric | -0.50 | 0.00 | 0.50 |  |
+| 166 | Blitzcrank | -0.53 | 0.00 | 0.53 |  |
+| 167 | Cho'Gath | -0.53 | 0.00 | 0.53 |  |
+| 168 | Dr. Mundo | -0.53 | 0.00 | 0.53 |  |
+| 169 | Rumble | -0.53 | 0.00 | 0.53 |  |
+| 170 | Naafiri | -0.55 | 0.00 | 0.55 |  |
+| 171 | Galio | -0.72 | 0.00 | 0.72 |  |
 | 172 | Nunu & Willump | -0.78 | 0.12 | 0.90 |  |

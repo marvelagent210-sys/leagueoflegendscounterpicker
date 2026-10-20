@@ -18,6 +18,7 @@ const camille: KitModule = {
     const shieldEvery = innate.field("staticCooldown");
     const shieldShare = innate.levelValue("grants her a shield equal to 10 / 15 / 20 / 25 (based on level)% of her maximum health") / 100;
     const shieldSeconds = innate.quoted("lasting for 2 seconds", 0);
+    innate.quote("Adaptive Defenses will not trigger or go on cooldown if the attack is dodged, blocked, or if Camille is blinded");
     const qWindow = q.quoted("empowers her next basic attack within 4 seconds", 0);
     const qRange = q.quoted("gain 50 bonus range", 0);
     const recastAfter = q.quoted("If Precision Protocol is recast after 1.5 seconds of the first attack", 0);
@@ -63,7 +64,7 @@ const camille: KitModule = {
             const chain = ctx.self.chains.Q;
             if (chain) ctx.self.chains.Q = { ...chain, castTick: ctx.tick, until: ctx.tick + ticks(recastOpens + recastWindow) };
           }
-          if (ctx.tick >= Number(ctx.memory.shieldReady ?? 0)) {
+          if (!ctx.blocked && ctx.tick >= Number(ctx.memory.shieldReady ?? 0)) {
             ctx.memory.shieldReady = ctx.tick + ticks(shieldEvery);
             const enemyDamage = damagePerSecond(ctx.enemy.spec, ctx.self.spec);
             const type = enemyDamage.magic > enemyDamage.physical ? "magic" : "physical";

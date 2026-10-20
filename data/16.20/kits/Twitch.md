@@ -207,3 +207,103 @@ All 1 level-based formulas in the game files (0 linked to wiki values above):
 | Spell | Calculation | Rule | Level 1 | Level 18 | Level 20 |
 |---|---|---|--:|--:|--:|
 | TwitchDeadlyVenomMarker | DamagePerSecond | breakpoints at levels 5, 9, 13, 17, 21, 25, 29 (level 1: 1) | 1 | 5 | 5 |
+
+## Duel simulator kit (level 20, every ability at max rank)
+
+What the duel simulator fights with (`kits/champions/Twitch.ts`): values come from pinned wiki and versioned game-data records at level 20. Interpretations and missing evidence are listed under assumptions. Ratios are fractions of the stat (60% AD is 0.6 × AD).
+
+- Basic attack: range 550, missile at 2500/s.
+
+| Key | Ability | Cooldown (s) | Cast time (s) | Cost | Delivery | On the enemy | On itself |
+|---|---|--:|--:|---|---|---|---|
+| Q | Ambush | 16 (starts when its effect on the caster ends) | 0 | 40 | self | – | lingering for 15 s |
+| W | Venom Cask | 9 | 0.25 | 70 | circle of 300 radius up to 950 away, projectile at 1400/s then lands after 0 s | marks it "twitch:caskContact" for 0.033 s; slow 50% for 0.067 s | – |
+| E | Contaminate | 8 | 0.25 | 90 | self | – | – |
+| R | Spray and Pray | 90 | 0 | 100 | self | – | AD 60 for 6 s; attackRange 300 for 6 s |
+| I | Deadly Venom | 0 | 0 | – | self | – | – |
+| Wfield | Venom Cask (contamination) | 0 | 0 | – | self | marks it "twitch:caskContact" for 0.033 s | – |
+| Wslow | Venom Cask (slow) | 0 | 0 | – | self | slow 50% for 0.067 s | – |
+| Ehit | Contaminate | 0 | 0 | – | self | – | – |
+| Rbolt | Spray and Pray (bolt) | 0 | 0 | – | skillshot 1100 long, 120 wide, at 5000/s | – | – |
+
+Effects marked by a mark or a role are completed by the kit's hooks (see the kit's source).
+
+### Assumptions
+
+- Deadly Venom is stored separately on every actually contacted champion and ordinary summon, with a common six-second stack expiry, at most six stacks, and one-second damage clock preserved when refreshed. At level 20 each stack deals 5 + 3% AP true damage per tick, with AP read on application. The mark explicitly identifies poison for shared interactions. Real blind/dodge/parry denial prevents the on-hit application; a damage block preserves ordinary on-hit rules. Poison does not trigger spell effects and persists after Twitch dies. Fixed-damage objects and hit-count props do not receive unsupported poison stacks. Fractional hit shares use expected stack counts, without branching all combinations.
+- Ambush retains its actual one-second fade delay and 14-second camouflage duration; actions during the delay remain legal. Entering camouflage cancels an ordinary pending basic attack, and stasis postpones entry. Its exact version-pinned game data supplies the 500-unit champion detection radius. Outside that radius its invisibility state obeys true sight; moving inside removes concealment without ending Ambush. The 10% movement bonus rises to 30% only while facing an enemy within 1000 who cannot see Twitch. Attacking at declaration or casting W/E ends entered Ambush and grants 60% attack speed for 6 seconds. R does not end camouflage. Post-effect cooldown begins when camouflage ends; a venom-afflicted champion's counted death resets Q without a free pet reset.
+- Venom Cask travels at 1400 speed and can be destroyed by projectile walls. On landing it applies one separately shieldable poison stack and leaves a fixed 300-radius field for 3 seconds. Three subsequent one-second pulses apply at most one extra stack each, for the sourced maximum 4 per cast; its AP-scaled slow refreshes only during actual field occupancy. The field pulses bypass spell shields; the initial impact is shieldable. Its sight is ordinary map sight and does not grant true sight. Suppression during the declared cast prevents its missile.
+- Contaminate requires an actually poisoned nearby target, snapshots each target's stack count at cast declaration, checks 1200 center range again when its 0.25-second cast ends, and independently applies 60 + (35 + 35% bonus AD) × stacks physical plus 35% AP × stacks magic damage. It hits unseen targets without granting true sight, independently checks actual champion/pet spell shields, and does not consume or refresh poison. A target entering range after declaration has no snapshot and receives no invented stack damage.
+- Spray and Pray grants 60 AD and 300 range for 6 seconds. An empowered attack snapshots its initial line direction and blind/crit state at windup declaration, launches one 5000-speed 120-width piercing basic bolt, and can miss the original target. It uses 1100 plus other bonus attack range as its travel range; each subsequent actual contact scales ordinary basic damage to 90/80/70/60% while full on-hit effects retain their own packet. Every target uses real basic-attack defenses, life steal and its own poison state. Projectile walls destroy the remaining bolt. The pinned game missile object has conflicting 4000 speed; the explicit ability-page 5000 speed is retained. There is no lane of invented collateral targets.
+- The budget uses a ten-second-style sustained reference: poison stacks build from actual reference attack speed plus the sourced four Cask stacks per cooldown, capped at six; E is valued at that reference stack count. Q contributes only capped six-second attack-speed uptime over its 16-second cooldown plus one-second fade, and R contributes its six-second AD uptime per 90-second cooldown. It values no repeated champion kills or free collateral R hits. The policy waits for full venom, imminent expiry, range loss or a lethal E before detonating.
+
+### Source values read (66)
+
+| Ability | Value | Source version |
+|---|---|---|
+| Deadly Venom | for 6 seconds | [4062255](https://wiki.leagueoflegends.com/en-us/Template:Data_Twitch/Deadly_Venom?oldid=4062255) |
+| Deadly Venom | stacking up to 6 times | [4062255](https://wiki.leagueoflegends.com/en-us/Template:Data_Twitch/Deadly_Venom?oldid=4062255) |
+| Deadly Venom | Deadly Venom: For each stack, the target is dealt 1 / 2 / 3 / 4 / 5 (based on level) (+ 3% AP) true damage per second over the duration, for a maximum of 6 / 12 / 18 / 24 / 30 (based on level) (+ 18% AP) true damage with each tick. | [4062255](https://wiki.leagueoflegends.com/en-us/Template:Data_Twitch/Deadly_Venom?oldid=4062255) |
+| Deadly Venom | (+ 3% AP) | [4062255](https://wiki.leagueoflegends.com/en-us/Template:Data_Twitch/Deadly_Venom?oldid=4062255) |
+| Deadly Venom | true damage per second | [4062255](https://wiki.leagueoflegends.com/en-us/Template:Data_Twitch/Deadly_Venom?oldid=4062255) |
+| Deadly Venom | considered a poison | [4062255](https://wiki.leagueoflegends.com/en-us/Template:Data_Twitch/Deadly_Venom?oldid=4062255) |
+| Deadly Venom | does not trigger spell effects | [4062255](https://wiki.leagueoflegends.com/en-us/Template:Data_Twitch/Deadly_Venom?oldid=4062255) |
+| Deadly Venom | mSpell.missileSpeed: 2500.0 | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/twitch/twitch.bin.json) |
+| Ambush | After a 1-second delay | [3982645](https://wiki.leagueoflegends.com/en-us/Template:Data_Twitch/Ambush?oldid=3982645) |
+| Ambush | Stealth Duration: 10 / 11 / 12 / 13 / 14 seconds | [3982645](https://wiki.leagueoflegends.com/en-us/Template:Data_Twitch/Ambush?oldid=3982645) |
+| Ambush | Bonus Attack Speed: 40 / 45 / 50 / 55 / 60% | [3982645](https://wiki.leagueoflegends.com/en-us/Template:Data_Twitch/Ambush?oldid=3982645) |
+| Ambush | attack speed for 6 seconds | [3982645](https://wiki.leagueoflegends.com/en-us/Template:Data_Twitch/Ambush?oldid=3982645) |
+| Ambush | gains 10% bonus movement speed | [3982645](https://wiki.leagueoflegends.com/en-us/Template:Data_Twitch/Ambush?oldid=3982645) |
+| Ambush | increased to 30% | [3982645](https://wiki.leagueoflegends.com/en-us/Template:Data_Twitch/Ambush?oldid=3982645) |
+| Ambush | within a 1000-unit radius | [3982645](https://wiki.leagueoflegends.com/en-us/Template:Data_Twitch/Ambush?oldid=3982645) |
+| Ambush | Attacking or casting Venom Cask or Contaminate ends Ambush | [3982645](https://wiki.leagueoflegends.com/en-us/Template:Data_Twitch/Ambush?oldid=3982645) |
+| Ambush | can still perform actions normally before entering camouflage | [3982645](https://wiki.leagueoflegends.com/en-us/Template:Data_Twitch/Ambush?oldid=3982645) |
+| Ambush | Entering stealth cancels Twitch's current basic attack | [3982645](https://wiki.leagueoflegends.com/en-us/Template:Data_Twitch/Ambush?oldid=3982645) |
+| Ambush | If Twitch enters stasis during the delay | [3982645](https://wiki.leagueoflegends.com/en-us/Template:Data_Twitch/Ambush?oldid=3982645) |
+| Ambush | Using a basic attack breaks the stealth at the start of the attack windup | [3982645](https://wiki.leagueoflegends.com/en-us/Template:Data_Twitch/Ambush?oldid=3982645) |
+| Ambush | Ambush's cooldown is reset | [3982645](https://wiki.leagueoflegends.com/en-us/Template:Data_Twitch/Ambush?oldid=3982645) |
+| Ambush | cooldownStart: post-effect | [3982645](https://wiki.leagueoflegends.com/en-us/Template:Data_Twitch/Ambush?oldid=3982645) |
+| Ambush | mSpell.DataValues: [{"name":"AttackSpeedMod","values":[0.3499999940395355,0.4000000059604645,0.44999998807907104,0.5,0.550000011920929,0.6000000238418579,0.6499999761581421],"__type":"SpellDataValue"},{"name":"AttackSpeedDuration","values":[6.0,6.0,6.0,6.0,6.0,6.0,6.0],"__type":"SpellDataValue"},{"name":"StealthDuration","values":[9.0,10.0,11.0,12.0,13.0,14.0,15.0],"__type":"SpellDataValue"},{"name":"MaxFadeTime","values":[1.0,1.0,1.0,1.0,1.0,1.0,1.0],"__type":"SpellDataValue"},{"name":"StealthDetectionRange","values":[500.0,500.0,500.0,500.0,500.0,500.0,500.0],"__type":"SpellDataValue"},{"name":"MoveSpeedMod","values":[10.0,10.0,10.0,10.0,10.0,10.0,10.0],"__type":"SpellDataValue"},{"name":"HiddenSpeed","values":[30.0,30.0,30.0,30.0,30.0,30.0,30.0],"__type":"SpellDataValue"},{"name":"MoveBonusRange","values":[1000.0,1000.0,1000.0,1000.0,1000.0,1000.0,1000.0],"__type":"SpellDataValue"}] | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/twitch/twitch.bin.json) |
+| Venom Cask | effectRadius: 300 | [4012250](https://wiki.leagueoflegends.com/en-us/Template:Data_Twitch/Venom_Cask?oldid=4012250) |
+| Venom Cask | targetRange: 950 | [4012250](https://wiki.leagueoflegends.com/en-us/Template:Data_Twitch/Venom_Cask?oldid=4012250) |
+| Venom Cask | speed: 1400 | [4012250](https://wiki.leagueoflegends.com/en-us/Template:Data_Twitch/Venom_Cask?oldid=4012250) |
+| Venom Cask | contaminated for 3 seconds | [4012250](https://wiki.leagueoflegends.com/en-us/Template:Data_Twitch/Venom_Cask?oldid=4012250) |
+| Venom Cask | maximum of 4 Deadly Venom stacks | [4012250](https://wiki.leagueoflegends.com/en-us/Template:Data_Twitch/Venom_Cask?oldid=4012250) |
+| Venom Cask | Slow: 30 / 35 / 40 / 45 / 50% (+ 6% per 100 AP) | [4012250](https://wiki.leagueoflegends.com/en-us/Template:Data_Twitch/Venom_Cask?oldid=4012250) |
+| Venom Cask | (+ 6% per 100 AP) | [4012250](https://wiki.leagueoflegends.com/en-us/Template:Data_Twitch/Venom_Cask?oldid=4012250) |
+| Venom Cask | applying a Deadly Venom stack each second | [4012250](https://wiki.leagueoflegends.com/en-us/Template:Data_Twitch/Venom_Cask?oldid=4012250) |
+| Venom Cask | granting sight | [4012250](https://wiki.leagueoflegends.com/en-us/Template:Data_Twitch/Venom_Cask?oldid=4012250) |
+| Venom Cask | suppressed during the cast time | [4012250](https://wiki.leagueoflegends.com/en-us/Template:Data_Twitch/Venom_Cask?oldid=4012250) |
+| Contaminate | castTime: 0.25 | [3907215](https://wiki.leagueoflegends.com/en-us/Template:Data_Twitch/Contaminate?oldid=3907215) |
+| Contaminate | Base Physical Damage: 20 / 30 / 40 / 50 / 60 | [3907215](https://wiki.leagueoflegends.com/en-us/Template:Data_Twitch/Contaminate?oldid=3907215) |
+| Contaminate | Physical Damage Per Stack: 15 / 20 / 25 / 30 / 35 (+ 35% bonus AD) | [3907215](https://wiki.leagueoflegends.com/en-us/Template:Data_Twitch/Contaminate?oldid=3907215) |
+| Contaminate | 35% AP magic damage | [3907215](https://wiki.leagueoflegends.com/en-us/Template:Data_Twitch/Contaminate?oldid=3907215) |
+| Contaminate | effectRadius: 1200 | [3907215](https://wiki.leagueoflegends.com/en-us/Template:Data_Twitch/Contaminate?oldid=3907215) |
+| Contaminate | at the start of the cast time | [3907215](https://wiki.leagueoflegends.com/en-us/Template:Data_Twitch/Contaminate?oldid=3907215) |
+| Contaminate | not within range of the ability before the cast time completes | [3907215](https://wiki.leagueoflegends.com/en-us/Template:Data_Twitch/Contaminate?oldid=3907215) |
+| Contaminate | does not have to be visible | [3907215](https://wiki.leagueoflegends.com/en-us/Template:Data_Twitch/Contaminate?oldid=3907215) |
+| Contaminate | A nearby enemy with Deadly Venom is required | [3907215](https://wiki.leagueoflegends.com/en-us/Template:Data_Twitch/Contaminate?oldid=3907215) |
+| Spray and Pray | Bonus Attack Damage: 30 / 45 / 60 | [4063223](https://wiki.leagueoflegends.com/en-us/Template:Data_Twitch/Spray_and_Pray?oldid=4063223) |
+| Spray and Pray | 300 bonus attack range | [4063223](https://wiki.leagueoflegends.com/en-us/Template:Data_Twitch/Spray_and_Pray?oldid=4063223) |
+| Spray and Pray | for 6 seconds | [4063223](https://wiki.leagueoflegends.com/en-us/Template:Data_Twitch/Spray_and_Pray?oldid=4063223) |
+| Spray and Pray | width: 120 | [4063223](https://wiki.leagueoflegends.com/en-us/Template:Data_Twitch/Spray_and_Pray?oldid=4063223) |
+| Spray and Pray | speed: 5000 | [4063223](https://wiki.leagueoflegends.com/en-us/Template:Data_Twitch/Spray_and_Pray?oldid=4063223) |
+| Spray and Pray | range: 1100 (+ 100% bonus attack range) | [4063223](https://wiki.leagueoflegends.com/en-us/Template:Data_Twitch/Spray_and_Pray?oldid=4063223) |
+| Spray and Pray | for 200% damage | [4063223](https://wiki.leagueoflegends.com/en-us/Template:Data_Twitch/Spray_and_Pray?oldid=4063223) |
+| Spray and Pray | 100 / 90 / 80 / 70 / 60 | [4063223](https://wiki.leagueoflegends.com/en-us/Template:Data_Twitch/Spray_and_Pray?oldid=4063223) |
+| Spray and Pray | apply on-hit effects | [4063223](https://wiki.leagueoflegends.com/en-us/Template:Data_Twitch/Spray_and_Pray?oldid=4063223) |
+| Spray and Pray | at his target's location at the start of his attack windup | [4063223](https://wiki.leagueoflegends.com/en-us/Template:Data_Twitch/Spray_and_Pray?oldid=4063223) |
+| Spray and Pray | Even the primary target can dodge | [4063223](https://wiki.leagueoflegends.com/en-us/Template:Data_Twitch/Spray_and_Pray?oldid=4063223) |
+| Spray and Pray | If Twitch is blinded before winding up the attack | [4063223](https://wiki.leagueoflegends.com/en-us/Template:Data_Twitch/Spray_and_Pray?oldid=4063223) |
+| Spray and Pray | not considered area of effect for other effects | [4063223](https://wiki.leagueoflegends.com/en-us/Template:Data_Twitch/Spray_and_Pray?oldid=4063223) |
+| Ambush | cooldown: 16 | [3982645](https://wiki.leagueoflegends.com/en-us/Template:Data_Twitch/Ambush?oldid=3982645) |
+| Ambush | cost: 40 | [3982645](https://wiki.leagueoflegends.com/en-us/Template:Data_Twitch/Ambush?oldid=3982645) |
+| Ambush | castTime: none | [3982645](https://wiki.leagueoflegends.com/en-us/Template:Data_Twitch/Ambush?oldid=3982645) |
+| Venom Cask | cooldown: 13 / 12 / 11 / 10 / 9 | [4012250](https://wiki.leagueoflegends.com/en-us/Template:Data_Twitch/Venom_Cask?oldid=4012250) |
+| Venom Cask | cost: 70 | [4012250](https://wiki.leagueoflegends.com/en-us/Template:Data_Twitch/Venom_Cask?oldid=4012250) |
+| Venom Cask | castTime: 0.25 | [4012250](https://wiki.leagueoflegends.com/en-us/Template:Data_Twitch/Venom_Cask?oldid=4012250) |
+| Contaminate | cooldown: 12 / 11 / 10 / 9 / 8 | [3907215](https://wiki.leagueoflegends.com/en-us/Template:Data_Twitch/Contaminate?oldid=3907215) |
+| Contaminate | cost: 50 / 60 / 70 / 80 / 90 | [3907215](https://wiki.leagueoflegends.com/en-us/Template:Data_Twitch/Contaminate?oldid=3907215) |
+| Spray and Pray | cooldown: 90 | [4063223](https://wiki.leagueoflegends.com/en-us/Template:Data_Twitch/Spray_and_Pray?oldid=4063223) |
+| Spray and Pray | cost: 100 | [4063223](https://wiki.leagueoflegends.com/en-us/Template:Data_Twitch/Spray_and_Pray?oldid=4063223) |
+| Spray and Pray | castTime: none | [4063223](https://wiki.leagueoflegends.com/en-us/Template:Data_Twitch/Spray_and_Pray?oldid=4063223) |

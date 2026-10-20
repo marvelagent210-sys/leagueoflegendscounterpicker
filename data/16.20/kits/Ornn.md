@@ -273,7 +273,7 @@ All 2 level-based formulas in the game files (1 linked to wiki values above):
 
 ## Duel simulator kit (level 20, every ability at max rank)
 
-What the duel simulator fights with (`kits/champions/Ornn.ts`): every number is read from the wiki's ability data above at level 20; what the wiki doesn't say is listed under assumptions. Ratios are fractions of the stat (60% AD is 0.6 × AD).
+What the duel simulator fights with (`kits/champions/Ornn.ts`): values come from pinned wiki and versioned game-data records at level 20. Interpretations and missing evidence are listed under assumptions. Ratios are fractions of the stat (60% AD is 0.6 × AD).
 
 - Basic attack: range 175, melee.
 - Stat budget: 1000 gold more than the enemy's.
@@ -283,7 +283,7 @@ What the duel simulator fights with (`kits/champions/Ornn.ts`): every number is 
 | Q | Volcanic Rupture | 7 | 0.25 | 45 | skillshot 750 long, 130 wide, at 1800/s | 120 + 110% AD physical damage; slow 40% for 2 s | – |
 | W | Bellows Breath | 10 | 0 | 65 | self; channel 0.75 s, pulses every 0.15 s | each pulse: 3.2% target's maximum health magic damage, at least 56; at the end: 3.2% target's maximum health magic damage, at least 56 | as the cast starts: displacementImmune for 0.75 s |
 | E | Searing Charge | 12 | 0.35 | 55 | dash toward 650 units at 1600/s, hits within 0, through the enemy | 260 + 40% bonus armor + 40% bonus magic resistance physical damage | – |
-| Eshock | Searing Charge (shockwave) | 0 | 0 | – | self | knock up over 1.25 s | – |
+| Eshock | Searing Charge (shockwave) | 0 | 0 | – | self | 260 + 40% bonus armor + 40% bonus magic resistance physical damage; knock up over 1.25 s | – |
 | R | Call of the Forge God | 100 | 0.5 | 100 | circle of 170 radius up to 3000 away, lands after 2.2 s | 225 + 20% AP magic damage; slow 60% for 2 s | – |
 | R2 | Call of the Forge God (headbutt) | 0 | 0 | – | skillshot 2550 long, 340 wide, at 1250/s; recast of R within 2.4 s, after 1.25 s, automatic | 225 + 20% AP magic damage; knock up over 1 s; stun for 1 s | – |
 
@@ -298,9 +298,9 @@ Effects marked by a mark or a role are completed by the kit's hooks (see the kit
 - Call of the Forge God's elemental reaches the enemy 2.2 s after the cast, and Ornn always headbutts it back 2.4 s after the cast; his recast dash is left out.
 - Ornn calls the elemental in a fight once the enemy is within 600 units: the headbutt lands even when the first pass is dodged.
 
-### Wiki values read (44)
+### Source values read (44)
 
-| Ability | Value | Revision |
+| Ability | Value | Source version |
 |---|---|---|
 | Living Forge | for a total increase of 30% to each stat after the maximum of 5 upgrades | [4063954](https://wiki.leagueoflegends.com/en-us/Template:Data_Ornn/Living_Forge?oldid=4063954) |
 | Living Forge | increasing the gold value of all upgradeable stats on the item by exactly 1000 | [4063954](https://wiki.leagueoflegends.com/en-us/Template:Data_Ornn/Living_Forge?oldid=4063954) |
@@ -319,6 +319,7 @@ Effects marked by a mark or a role are completed by the kit's hooks (see the kit
 | Bellows Breath | Magic Damage Per Tick: 2.4 / 2.6 / 2.8 / 3 / 3.2% of target's maximum health | [4011962](https://wiki.leagueoflegends.com/en-us/Template:Data_Ornn/Bellows_Breath?oldid=4011962) |
 | Bellows Breath | Minimum/Minion Damage Per Tick: 16 / 26 / 36 / 46 / 56 | [4011962](https://wiki.leagueoflegends.com/en-us/Template:Data_Ornn/Bellows_Breath?oldid=4011962) |
 | Searing Charge | castTime: 0.35 | [4007982](https://wiki.leagueoflegends.com/en-us/Template:Data_Ornn/Searing_Charge?oldid=4007982) |
+| Searing Charge | Physical Damage: 80 / 125 / 170 / 215 / 260 (+ 40% bonus armor) (+ 40% bonus magic resistance) | [4007982](https://wiki.leagueoflegends.com/en-us/Template:Data_Ornn/Searing_Charge?oldid=4007982) |
 | Bellows Breath | cooldown: 12 / 11.5 / 11 / 10.5 / 10 | [4011962](https://wiki.leagueoflegends.com/en-us/Template:Data_Ornn/Bellows_Breath?oldid=4011962) |
 | Volcanic Rupture | cooldown: 9 / 8.5 / 8 / 7.5 / 7 | [3998234](https://wiki.leagueoflegends.com/en-us/Template:Data_Ornn/Volcanic_Rupture?oldid=3998234) |
 | Volcanic Rupture | cost: 45 | [3998234](https://wiki.leagueoflegends.com/en-us/Template:Data_Ornn/Volcanic_Rupture?oldid=3998234) |
@@ -333,7 +334,6 @@ Effects marked by a mark or a role are completed by the kit's hooks (see the kit
 | Searing Charge | cooldown: 14 / 13.5 / 13 / 12.5 / 12 | [4007982](https://wiki.leagueoflegends.com/en-us/Template:Data_Ornn/Searing_Charge?oldid=4007982) |
 | Searing Charge | cost: 35 / 40 / 45 / 50 / 55 | [4007982](https://wiki.leagueoflegends.com/en-us/Template:Data_Ornn/Searing_Charge?oldid=4007982) |
 | Searing Charge | speed: 1600 | [4007982](https://wiki.leagueoflegends.com/en-us/Template:Data_Ornn/Searing_Charge?oldid=4007982) |
-| Searing Charge | Physical Damage: 80 / 125 / 170 / 215 / 260 (+ 40% bonus armor) (+ 40% bonus magic resistance) | [4007982](https://wiki.leagueoflegends.com/en-us/Template:Data_Ornn/Searing_Charge?oldid=4007982) |
 | Call of the Forge God | cooldown: 140 / 120 / 100 | [4007985](https://wiki.leagueoflegends.com/en-us/Template:Data_Ornn/Call_of_the_Forge_God?oldid=4007985) |
 | Call of the Forge God | cost: 100 | [4007985](https://wiki.leagueoflegends.com/en-us/Template:Data_Ornn/Call_of_the_Forge_God?oldid=4007985) |
 | Call of the Forge God | castTime: 0.5 | [4007985](https://wiki.leagueoflegends.com/en-us/Template:Data_Ornn/Call_of_the_Forge_God?oldid=4007985) |

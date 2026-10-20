@@ -173,3 +173,75 @@ Cooldowns and costs of each slot's main ability, wiki vs game files:
 | E: Black Shield | cost | 80 / 80 / 80 / 80 / 80 | 80 / 80 / 80 / 80 / 80 | yes |
 | R: Soul Shackles | cooldown | 120 / 110 / 100 | 120 / 110 / 100 | yes |
 | R: Soul Shackles | cost | 100 / 100 / 100 | 100 / 100 / 100 | yes |
+
+## Duel simulator kit (level 20, every ability at max rank)
+
+What the duel simulator fights with (`kits/champions/Morgana.ts`): values come from pinned wiki and versioned game-data records at level 20. Interpretations and missing evidence are listed under assumptions. Ratios are fractions of the stat (60% AD is 0.6 × AD).
+
+- Basic attack: range 450, missile at 1600/s.
+
+| Key | Ability | Cooldown (s) | Cast time (s) | Cost | Delivery | On the enemy | On itself |
+|---|---|--:|--:|---|---|---|---|
+| Q | Dark Binding | 10 | 0.25 | 70 | skillshot 1300 long, 140 wide, at 1200/s | 300 + 90% AP magic damage; root for 3 s | – |
+| W | Tormented Shadow | 12 | 0.25 | 110 | field of 280 radius up to 900 away, for 5 s, pulsing every 0.5 s | 35 + 10% AP magic damage, varies with combat state; formula is a reference | – |
+| E | Black Shield | 16 | 0 | 80 | self | – | magic shield of 320 + 70% AP for 5 s |
+| R | Soul Shackles | 100 | 0.35 | 100 | self | 350 + 80% AP magic damage; slow 20% for 3 s; revealed for 3 s | – |
+| R2 | Soul Shackles (tether completion) | 0 | 0 | – | self; recast of R within 3 s | 350 + 80% AP magic damage; stun for 2 s; revealed for 2 s | – |
+
+Effects marked by a mark or a role are completed by the kit's hooks (see the kit's source).
+
+### Assumptions
+
+- Black Shield is self-cast in the champion-only duel. Soul Siphon heals from champion damage; minion and monster targets are absent.
+- Dark Binding's first-enemy collision resolves against the opposing champion; intervening minions and targetable pets are not modeled as projectile blockers.
+- Soul Shackles' cast requirement, latch and tether radii use champion centers on the simulator's line. Its reveal exposes invisible enemies while the tether or completion stun lasts; nearsight still limits vision.
+- Tormented Shadow's missing-health damage bonus is linearly interpolated from its committed 0–100% source series. Its field deals ten pulses including the on-cast pulse, and overlapping pools from this Morgana do not stack.
+
+### Source values read (44)
+
+| Ability | Value | Source version |
+|---|---|---|
+| Soul Siphon | heals herself for 18% of the post-mitigation damage | [3985603](https://wiki.leagueoflegends.com/en-us/Template:Data_Morgana/Soul_Siphon?oldid=3985603) |
+| Tormented Shadow | reduced by 5% of its total cooldown | [4065640](https://wiki.leagueoflegends.com/en-us/Template:Data_Morgana/Tormented_Shadow?oldid=4065640) |
+| Tormented Shadow | desecrated for 5 seconds | [4065640](https://wiki.leagueoflegends.com/en-us/Template:Data_Morgana/Tormented_Shadow?oldid=4065640) |
+| Tormented Shadow | every 0.5 seconds thereafter | [4065640](https://wiki.leagueoflegends.com/en-us/Template:Data_Morgana/Tormented_Shadow?oldid=4065640) |
+| Tormented Shadow | Enemies within take magic damage on-cast and every 0.5 seconds thereafter, increased by 0 / 10 / 20 / 30 / 40 / 50 / 60 / 70 / 80 / 90 / 100 (based on target's missing health)%. | [4065640](https://wiki.leagueoflegends.com/en-us/Template:Data_Morgana/Tormented_Shadow?oldid=4065640) |
+| Tormented Shadow | Minimum Damage Per Tick: 9 / 15.5 / 22 / 28.5 / 35 (+ 10% AP) | [4065640](https://wiki.leagueoflegends.com/en-us/Template:Data_Morgana/Tormented_Shadow?oldid=4065640) |
+| Dark Binding | Magic Damage: 80 / 135 / 190 / 245 / 300 (+ 90% AP) | [3936353](https://wiki.leagueoflegends.com/en-us/Template:Data_Morgana/Dark_Binding?oldid=3936353) |
+| Tormented Shadow | Damage from multiple Tormented Shadows does not stack | [4065640](https://wiki.leagueoflegends.com/en-us/Template:Data_Morgana/Tormented_Shadow?oldid=4065640) |
+| Black Shield | for 5 seconds | [4050925](https://wiki.leagueoflegends.com/en-us/Template:Data_Morgana/Black_Shield?oldid=4050925) |
+| Black Shield | absorbs incoming magic damage and grants crowd control immunity while it holds | [4050925](https://wiki.leagueoflegends.com/en-us/Template:Data_Morgana/Black_Shield?oldid=4050925) |
+| Black Shield | Black Shield will not resist nearsight | [4050925](https://wiki.leagueoflegends.com/en-us/Template:Data_Morgana/Black_Shield?oldid=4050925) |
+| Black Shield | Black Shield negates crowd control effects before any magic damage is absorbed | [4050925](https://wiki.leagueoflegends.com/en-us/Template:Data_Morgana/Black_Shield?oldid=4050925) |
+| Black Shield | Shield-destroying effects bypass this however | [4050925](https://wiki.leagueoflegends.com/en-us/Template:Data_Morgana/Black_Shield?oldid=4050925) |
+| Black Shield | Black Shield will always take priority over regular shields | [4050925](https://wiki.leagueoflegends.com/en-us/Template:Data_Morgana/Black_Shield?oldid=4050925) |
+| Soul Shackles | for 3 seconds | [4020315](https://wiki.leagueoflegends.com/en-us/Template:Data_Morgana/Soul_Shackles?oldid=4020315) |
+| Soul Shackles | within 575 units is required to cast | [4020315](https://wiki.leagueoflegends.com/en-us/Template:Data_Morgana/Soul_Shackles?oldid=4020315) |
+| Soul Shackles | effectRadius (Latch-on range): 625 | [4020315](https://wiki.leagueoflegends.com/en-us/Template:Data_Morgana/Soul_Shackles?oldid=4020315) |
+| Soul Shackles | tetherRadius: 625 | [4020315](https://wiki.leagueoflegends.com/en-us/Template:Data_Morgana/Soul_Shackles?oldid=4020315) |
+| Soul Shackles | slowed by 20% | [4020315](https://wiki.leagueoflegends.com/en-us/Template:Data_Morgana/Soul_Shackles?oldid=4020315) |
+| Soul Shackles | Magic Damage: 200 / 275 / 350 (+ 80% AP) | [4020315](https://wiki.leagueoflegends.com/en-us/Template:Data_Morgana/Soul_Shackles?oldid=4020315) |
+| Soul Shackles | Bonus Movement Speed: 20 / 40 / 60% | [4020315](https://wiki.leagueoflegends.com/en-us/Template:Data_Morgana/Soul_Shackles?oldid=4020315) |
+| Soul Shackles | targets are revealed | [4020315](https://wiki.leagueoflegends.com/en-us/Template:Data_Morgana/Soul_Shackles?oldid=4020315) |
+| Soul Shackles | Spell shield will block the tether's application and initial damage but not the aftereffects of one already applied | [4020315](https://wiki.leagueoflegends.com/en-us/Template:Data_Morgana/Soul_Shackles?oldid=4020315) |
+| Soul Shackles | Morgana's exact location at the start of the cast time | [4020315](https://wiki.leagueoflegends.com/en-us/Template:Data_Morgana/Soul_Shackles?oldid=4020315) |
+| Dark Binding | cooldown: 10 | [3936353](https://wiki.leagueoflegends.com/en-us/Template:Data_Morgana/Dark_Binding?oldid=3936353) |
+| Dark Binding | cost: 50 / 55 / 60 / 65 / 70 | [3936353](https://wiki.leagueoflegends.com/en-us/Template:Data_Morgana/Dark_Binding?oldid=3936353) |
+| Dark Binding | castTime: 0.25 | [3936353](https://wiki.leagueoflegends.com/en-us/Template:Data_Morgana/Dark_Binding?oldid=3936353) |
+| Dark Binding | range: 1300 | [3936353](https://wiki.leagueoflegends.com/en-us/Template:Data_Morgana/Dark_Binding?oldid=3936353) |
+| Dark Binding | width: 140 | [3936353](https://wiki.leagueoflegends.com/en-us/Template:Data_Morgana/Dark_Binding?oldid=3936353) |
+| Dark Binding | speed: 1200 | [3936353](https://wiki.leagueoflegends.com/en-us/Template:Data_Morgana/Dark_Binding?oldid=3936353) |
+| Dark Binding | Root Duration: 2 / 2.25 / 2.5 / 2.75 / 3 seconds | [3936353](https://wiki.leagueoflegends.com/en-us/Template:Data_Morgana/Dark_Binding?oldid=3936353) |
+| Tormented Shadow | cooldown: 12 | [4065640](https://wiki.leagueoflegends.com/en-us/Template:Data_Morgana/Tormented_Shadow?oldid=4065640) |
+| Tormented Shadow | cost: 70 / 80 / 90 / 100 / 110 | [4065640](https://wiki.leagueoflegends.com/en-us/Template:Data_Morgana/Tormented_Shadow?oldid=4065640) |
+| Tormented Shadow | castTime: 0.25 | [4065640](https://wiki.leagueoflegends.com/en-us/Template:Data_Morgana/Tormented_Shadow?oldid=4065640) |
+| Tormented Shadow | targetRange: 900 | [4065640](https://wiki.leagueoflegends.com/en-us/Template:Data_Morgana/Tormented_Shadow?oldid=4065640) |
+| Tormented Shadow | effectRadius: 280 | [4065640](https://wiki.leagueoflegends.com/en-us/Template:Data_Morgana/Tormented_Shadow?oldid=4065640) |
+| Black Shield | cooldown: 26 / 23.5 / 21 / 18.5 / 16 | [4050925](https://wiki.leagueoflegends.com/en-us/Template:Data_Morgana/Black_Shield?oldid=4050925) |
+| Black Shield | cost: 80 | [4050925](https://wiki.leagueoflegends.com/en-us/Template:Data_Morgana/Black_Shield?oldid=4050925) |
+| Black Shield | castTime: none | [4050925](https://wiki.leagueoflegends.com/en-us/Template:Data_Morgana/Black_Shield?oldid=4050925) |
+| Black Shield | Magic Shield Strength: 100 / 155 / 210 / 265 / 320 (+ 70% AP) | [4050925](https://wiki.leagueoflegends.com/en-us/Template:Data_Morgana/Black_Shield?oldid=4050925) |
+| Soul Shackles | cooldown: 120 / 110 / 100 | [4020315](https://wiki.leagueoflegends.com/en-us/Template:Data_Morgana/Soul_Shackles?oldid=4020315) |
+| Soul Shackles | cost: 100 | [4020315](https://wiki.leagueoflegends.com/en-us/Template:Data_Morgana/Soul_Shackles?oldid=4020315) |
+| Soul Shackles | castTime: 0.35 | [4020315](https://wiki.leagueoflegends.com/en-us/Template:Data_Morgana/Soul_Shackles?oldid=4020315) |
+| Soul Shackles | Stun Duration: 1.5 / 1.75 / 2 seconds | [4020315](https://wiki.leagueoflegends.com/en-us/Template:Data_Morgana/Soul_Shackles?oldid=4020315) |

@@ -199,3 +199,109 @@ Cooldowns and costs of each slot's main ability, wiki vs game files:
 | E: Flame Chompers! | cost | 90 / 90 / 90 / 90 / 90 | 90 / 90 / 90 / 90 / 90 | yes |
 | R: Super Mega Death Rocket! | cooldown | 85 / 65 / 45 | 85 / 65 / 45 | yes |
 | R: Super Mega Death Rocket! | cost | 100 / 100 / 100 | 100 / 100 / 100 | yes |
+
+## Duel simulator kit (level 20, every ability at max rank)
+
+What the duel simulator fights with (`kits/champions/Jinx.ts`): values come from pinned wiki and versioned game-data records at level 20. Interpretations and missing evidence are listed under assumptions. Ratios are fractions of the stat (60% AD is 0.6 × AD).
+
+- Basic attack: range 525, missile at 2750/s.
+- Options: weaponPolicy = 0, revDecayInterval = 1.
+
+| Key | Ability | Cooldown (s) | Cast time (s) | Cost | Delivery | On the enemy | On itself |
+|---|---|--:|--:|---|---|---|---|
+| Q | Switcheroo! | 0.9 (unaffected by ability haste) | 0 | – | self | – | – |
+| W | Zap! | 4 | depends on stats (0.6 base) | 60 | skillshot 1500 long, 120 wide, at 3300/s | 210 + 140% AD physical damage; slow 80% for 2 s; marks it "jinx:zapSight" for 2 s | – |
+| E | Flame Chompers! | 10 | 0 | 90 | self | – | – |
+| R | Super Mega Death Rocket! | 45 | 0.6 | 100 | skillshot 25000 long, 280 wide, at 1700/s | 500 + 120% bonus AD + 35% target's missing health physical damage, varies with combat state; formula is a reference | – |
+| Econtrol | Flame Chompers! (snare) | 0 | 0 | – | self | stops an interruptible dash without an airborne duration; root for 1.5 s | – |
+| Rblast | Super Mega Death Rocket! (collateral) | 0 | 0 | – | self | 400 + 96% bonus AD + 28% target's missing health physical damage, varies with combat state; formula is a reference | – |
+| Eburst | Flame Chompers! (explosion) | 0 | 0 | – | self | 290 + 100% AP magic damage | – |
+
+Effects marked by a mark or a role are completed by the kit's hooks (see the kit's source).
+
+### Assumptions
+
+- Weapon policy: 0 switches for range, 1 prefers minigun, 2 prefers rockets: 0.
+- Assumed seconds between later Rev'd up stack expiries: 1.
+- Jinx starts with Pow-Pow, no Rev'd up stacks and no Get Excited! stacks. Weapon policy switches to Fishbones only outside minigun range by default; explicit policies can prefer either weapon. Rocket mana is paid on attack declaration, even if the windup is cancelled; insufficient mana returns to Pow-Pow before the next attack. Toggle declarations retain their sourced static 0.9-second cooldown and are not spell activations for other kits.
+- Pow-Pow gains Rev'd up on launched attacks, including blinded launches, with a shared sourced 2.5-second timer. The pinned text says stacks expire one by one but does not give later intervals; revDecayInterval exposes the assumed one-second interval. Fishbones retains stacks for its first declared attack and consumes them when that attack launches. The 10% penalty applies to bonus attack speed, before total-attack-speed multipliers. Fishbones windup uses the pinned 0.27/1.6 cast/total fraction, relative to the minigun's compiled fraction.
+- Get Excited! is earned only from counted enemy champion deaths in this two-champion arena; ordinary summons, natural expiry and resurrection eggs do not qualify. Epic monsters, structures and summoned Rift Herald are absent. Its 175% movement burst uses an explicit linear six-second decay because the pinned text gives no decay curve. The 25% total attack-speed stacks are additive with one another, refresh together and raise the cap to the sourced 90.
+- Zap!'s sourced cast-time table is linearly interpolated by current bonus attack speed and clamps at 0.6/0.4 seconds. Its reveal is ordinary sight, recorded as a timed mark without exposing invisibility; map fog is absent.
+- The three Chompers are projected as one central 115-radius trigger and one 225-radius explosion per cast, respecting the sourced one-chomper-per-champion limit. Their transverse arrangement is absent, so side-chomper placement and separate pet explosions are not fabricated. The toss takes 0.4 seconds, is stopped by projectile walls, then arms after 0.5 seconds and expires five seconds after landing. A champion trigger explodes immediately, independently checks shielded snare/knockdown, and consumes the whole represented cluster. Natural expiry causes damage without snare. Summons receive explosion damage but never trigger champion-only traps. Sight does not grant true sight.
+- Super Mega Death Rocket uses the pinned finite 25000-unit global range, moves at 1700 then switches to 2200 after 1350 traveled units, and linearly interpolates the sourced distance damage table up to 1500. Only its flat/bonus-AD component ramps; each actual target supplies its own missing health at impact. It collides only with champions; shielded primary contacts still explode onto nearby summons for 80%. No epic-monster missing-health cap is applied to ordinary minion summons. Its launch position and direction are fixed at cast declaration; map sight and lateral geometry are absent.
+- The stat budget values fully stacked minigun attack speed, its sourced normal cap and one actual Chomper explosion per E cooldown, without preloading combat stacks. Death Rocket uses its actual distance callback in the reference state (zero distance), without an invented maximum-range hit. It does not pre-award champion takedown buffs or assume collateral targets. Actual weapon choice, mana, stack timing and destruction remain combat outcomes.
+
+### Source values read (70)
+
+| Ability | Value | Source version |
+|---|---|---|
+| Get Excited! | decaying over 6 seconds | [3973632](https://wiki.leagueoflegends.com/en-us/Template:Data_Jinx/Get_Excited!?oldid=3973632) |
+| Get Excited! | 175% bonus movement speed | [3973632](https://wiki.leagueoflegends.com/en-us/Template:Data_Jinx/Get_Excited!?oldid=3973632) |
+| Get Excited! | 25% total attack speed | [3973632](https://wiki.leagueoflegends.com/en-us/Template:Data_Jinx/Get_Excited!?oldid=3973632) |
+| Get Excited! | stacking up to 5 times | [3973632](https://wiki.leagueoflegends.com/en-us/Template:Data_Jinx/Get_Excited!?oldid=3973632) |
+| Get Excited! | increased to 90.0 | [3973632](https://wiki.leagueoflegends.com/en-us/Template:Data_Jinx/Get_Excited!?oldid=3973632) |
+| Get Excited! | within 3 seconds of damaging them | [3973632](https://wiki.leagueoflegends.com/en-us/Template:Data_Jinx/Get_Excited!?oldid=3973632) |
+| Get Excited! | Only takedowns against enemy champions can grant stacks beyond the first | [3973632](https://wiki.leagueoflegends.com/en-us/Template:Data_Jinx/Get_Excited!?oldid=3973632) |
+| Switcheroo! | for 2.5 seconds | [4062629](https://wiki.leagueoflegends.com/en-us/Template:Data_Jinx/Switcheroo!?oldid=4062629) |
+| Switcheroo! | stacking up to 3 times | [4062629](https://wiki.leagueoflegends.com/en-us/Template:Data_Jinx/Switcheroo!?oldid=4062629) |
+| Switcheroo! | 50% effective | [4062629](https://wiki.leagueoflegends.com/en-us/Template:Data_Jinx/Switcheroo!?oldid=4062629) |
+| Switcheroo! | Bonus Attack Speed: 15 / 27.5 / 40 / 52.5 / 65% | [4062629](https://wiki.leagueoflegends.com/en-us/Template:Data_Jinx/Switcheroo!?oldid=4062629) |
+| Switcheroo! | Maximum Attack Speed: 30 / 55 / 80 / 105 / 130% | [4062629](https://wiki.leagueoflegends.com/en-us/Template:Data_Jinx/Switcheroo!?oldid=4062629) |
+| Switcheroo! | 110% AD | [4062629](https://wiki.leagueoflegends.com/en-us/Template:Data_Jinx/Switcheroo!?oldid=4062629) |
+| Switcheroo! | loses 10% of her bonus attack speed | [4062629](https://wiki.leagueoflegends.com/en-us/Template:Data_Jinx/Switcheroo!?oldid=4062629) |
+| Switcheroo! | cost: 20 | [4062629](https://wiki.leagueoflegends.com/en-us/Template:Data_Jinx/Switcheroo!?oldid=4062629) |
+| Switcheroo! | Bonus Range: 100 / 125 / 150 / 175 / 200 | [4062629](https://wiki.leagueoflegends.com/en-us/Template:Data_Jinx/Switcheroo!?oldid=4062629) |
+| Switcheroo! | effectRadius: 250 | [4062629](https://wiki.leagueoflegends.com/en-us/Template:Data_Jinx/Switcheroo!?oldid=4062629) |
+| Switcheroo! | staticCooldown: 0.9 | [4062629](https://wiki.leagueoflegends.com/en-us/Template:Data_Jinx/Switcheroo!?oldid=4062629) |
+| Switcheroo! | mSpell.missileSpeed: 2750.0 | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/jinx/jinx.bin.json) |
+| Switcheroo! | mSpell.missileSpeed: 2000.0 | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/jinx/jinx.bin.json) |
+| Switcheroo! | "mAttackTotalTime":1.600000023841858 | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/jinx/jinx.bin.json) |
+| Switcheroo! | "mAttackCastTime":0.27000001072883606 | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/jinx/jinx.bin.json) |
+| Switcheroo! | Only the first attack after switching to Fishbones will benefit from Rev'd up | [4062629](https://wiki.leagueoflegends.com/en-us/Template:Data_Jinx/Switcheroo!?oldid=4062629) |
+| Switcheroo! | The splash damage of Fishbones is based on the pre-mitigation damage done to the primary target | [4062629](https://wiki.leagueoflegends.com/en-us/Template:Data_Jinx/Switcheroo!?oldid=4062629) |
+| Switcheroo! | It deals proc damage and thus doesn't apply life steal or on-hit effects | [4062629](https://wiki.leagueoflegends.com/en-us/Template:Data_Jinx/Switcheroo!?oldid=4062629) |
+| Switcheroo! | does not affect targets if Jinx's attacks are blocked, dodged, or missed | [4062629](https://wiki.leagueoflegends.com/en-us/Template:Data_Jinx/Switcheroo!?oldid=4062629) |
+| Switcheroo! | Both weapons deal basic damage to their primary target | [4062629](https://wiki.leagueoflegends.com/en-us/Template:Data_Jinx/Switcheroo!?oldid=4062629) |
+| Zap! | Physical Damage: 10 / 60 / 110 / 160 / 210 (+ 140% AD) | [3907092](https://wiki.leagueoflegends.com/en-us/Template:Data_Jinx/Zap!?oldid=3907092) |
+| Zap! | Slow: 40 / 50 / 60 / 70 / 80% | [3907092](https://wiki.leagueoflegends.com/en-us/Template:Data_Jinx/Zap!?oldid=3907092) |
+| Zap! | reveals and slows them for 2 seconds | [3907092](https://wiki.leagueoflegends.com/en-us/Template:Data_Jinx/Zap!?oldid=3907092) |
+| Zap! | castTime: 0.6 / 0.58 / 0.56 / 0.54 / 0.52 / 0.5 / 0.48 / 0.46 / 0.44 / 0.42 / 0.4 (based on bonus attack speed) | [3907092](https://wiki.leagueoflegends.com/en-us/Template:Data_Jinx/Zap!?oldid=3907092) |
+| Zap! | This ability will cast from wherever the caster is at the start of the cast time | [3907092](https://wiki.leagueoflegends.com/en-us/Template:Data_Jinx/Zap!?oldid=3907092) |
+| Flame Chompers! | Magic Damage: 90 / 140 / 190 / 240 / 290 (+ 100% AP) | [3993368](https://wiki.leagueoflegends.com/en-us/Template:Data_Jinx/Flame_Chompers!?oldid=3993368) |
+| Flame Chompers! | targetRange: 925 | [3993368](https://wiki.leagueoflegends.com/en-us/Template:Data_Jinx/Flame_Chompers!?oldid=3993368) |
+| Flame Chompers! | effectRadius: 225 | [3993368](https://wiki.leagueoflegends.com/en-us/Template:Data_Jinx/Flame_Chompers!?oldid=3993368) |
+| Flame Chompers! | collisionRadius: 115 | [3993368](https://wiki.leagueoflegends.com/en-us/Template:Data_Jinx/Flame_Chompers!?oldid=3993368) |
+| Flame Chompers! | landing after 0.4 seconds | [3993368](https://wiki.leagueoflegends.com/en-us/Template:Data_Jinx/Flame_Chompers!?oldid=3993368) |
+| Flame Chompers! | arming after 0.5 seconds | [3993368](https://wiki.leagueoflegends.com/en-us/Template:Data_Jinx/Flame_Chompers!?oldid=3993368) |
+| Flame Chompers! | exploding after 5 seconds | [3993368](https://wiki.leagueoflegends.com/en-us/Template:Data_Jinx/Flame_Chompers!?oldid=3993368) |
+| Flame Chompers! | rooting them for 1.5 seconds | [3993368](https://wiki.leagueoflegends.com/en-us/Template:Data_Jinx/Flame_Chompers!?oldid=3993368) |
+| Flame Chompers! | 3 Chompers | [3993368](https://wiki.leagueoflegends.com/en-us/Template:Data_Jinx/Flame_Chompers!?oldid=3993368) |
+| Flame Chompers! | Enemy champions can be affected by only one Chomper | [3993368](https://wiki.leagueoflegends.com/en-us/Template:Data_Jinx/Flame_Chompers!?oldid=3993368) |
+| Flame Chompers! | Spell shield does not negate the explosion | [3993368](https://wiki.leagueoflegends.com/en-us/Template:Data_Jinx/Flame_Chompers!?oldid=3993368) |
+| Flame Chompers! | Chompers will halt when encountering Wind Wall and Unbreakable | [3993368](https://wiki.leagueoflegends.com/en-us/Template:Data_Jinx/Flame_Chompers!?oldid=3993368) |
+| Super Mega Death Rocket! | Minimum Physical Damage: 20 / 35 / 50 (+ 12% bonus AD) (+ 25 / 30 / 35% of target's missing health) | [4007616](https://wiki.leagueoflegends.com/en-us/Template:Data_Jinx/Super_Mega_Death_Rocket!?oldid=4007616) |
+| Super Mega Death Rocket! | Maximum Physical Damage: 200 / 350 / 500 (+ 120% bonus AD) (+ 25 / 30 / 35% of target's missing health) | [4007616](https://wiki.leagueoflegends.com/en-us/Template:Data_Jinx/Super_Mega_Death_Rocket!?oldid=4007616) |
+| Super Mega Death Rocket! | Super Mega Death Rocket! deals 10 / 16 / 22 / 28 / 34 / 40 / 46 / 52 / 58 / 64 / 70 / 76 / 82 / 88 / 94 / 100 (based on distance traveled)% damage. | [4007616](https://wiki.leagueoflegends.com/en-us/Template:Data_Jinx/Super_Mega_Death_Rocket!?oldid=4007616) |
+| Super Mega Death Rocket! | maximum damage is reached after traveling 1500 units | [4007616](https://wiki.leagueoflegends.com/en-us/Template:Data_Jinx/Super_Mega_Death_Rocket!?oldid=4007616) |
+| Super Mega Death Rocket! | after traveling 1350 units | [4007616](https://wiki.leagueoflegends.com/en-us/Template:Data_Jinx/Super_Mega_Death_Rocket!?oldid=4007616) |
+| Super Mega Death Rocket! | speed (Initial): 1700 • 2200 | [4007616](https://wiki.leagueoflegends.com/en-us/Template:Data_Jinx/Super_Mega_Death_Rocket!?oldid=4007616) |
+| Super Mega Death Rocket! | speed (Increased): 1700 • 2200 | [4007616](https://wiki.leagueoflegends.com/en-us/Template:Data_Jinx/Super_Mega_Death_Rocket!?oldid=4007616) |
+| Super Mega Death Rocket! | effectRadius (Explosion radius): 400 • 1000 • 1000 | [4007616](https://wiki.leagueoflegends.com/en-us/Template:Data_Jinx/Super_Mega_Death_Rocket!?oldid=4007616) |
+| Super Mega Death Rocket! | take 80% damage | [4007616](https://wiki.leagueoflegends.com/en-us/Template:Data_Jinx/Super_Mega_Death_Rocket!?oldid=4007616) |
+| Super Mega Death Rocket! | mSpell.castRange: [25000,25000,25000,25000,25000,25000,25000] | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/jinx/jinx.bin.json) |
+| Super Mega Death Rocket! | Spell shield will not prevent the explosion | [4007616](https://wiki.leagueoflegends.com/en-us/Template:Data_Jinx/Super_Mega_Death_Rocket!?oldid=4007616) |
+| Super Mega Death Rocket! | missing health is based on each unit's own missing health | [4007616](https://wiki.leagueoflegends.com/en-us/Template:Data_Jinx/Super_Mega_Death_Rocket!?oldid=4007616) |
+| Super Mega Death Rocket! | This ability will cast from wherever the caster is at the start of the cast time | [4007616](https://wiki.leagueoflegends.com/en-us/Template:Data_Jinx/Super_Mega_Death_Rocket!?oldid=4007616) |
+| Switcheroo! | castTime: none | [4062629](https://wiki.leagueoflegends.com/en-us/Template:Data_Jinx/Switcheroo!?oldid=4062629) |
+| Zap! | cooldown: 8 / 7 / 6 / 5 / 4 | [3907092](https://wiki.leagueoflegends.com/en-us/Template:Data_Jinx/Zap!?oldid=3907092) |
+| Zap! | cost: 40 / 45 / 50 / 55 / 60 | [3907092](https://wiki.leagueoflegends.com/en-us/Template:Data_Jinx/Zap!?oldid=3907092) |
+| Zap! | range: 1500 | [3907092](https://wiki.leagueoflegends.com/en-us/Template:Data_Jinx/Zap!?oldid=3907092) |
+| Zap! | width: 120 | [3907092](https://wiki.leagueoflegends.com/en-us/Template:Data_Jinx/Zap!?oldid=3907092) |
+| Zap! | speed: 3300 | [3907092](https://wiki.leagueoflegends.com/en-us/Template:Data_Jinx/Zap!?oldid=3907092) |
+| Flame Chompers! | cooldown: 24 / 20.5 / 17 / 13.5 / 10 | [3993368](https://wiki.leagueoflegends.com/en-us/Template:Data_Jinx/Flame_Chompers!?oldid=3993368) |
+| Flame Chompers! | cost: 90 | [3993368](https://wiki.leagueoflegends.com/en-us/Template:Data_Jinx/Flame_Chompers!?oldid=3993368) |
+| Flame Chompers! | castTime: none | [3993368](https://wiki.leagueoflegends.com/en-us/Template:Data_Jinx/Flame_Chompers!?oldid=3993368) |
+| Super Mega Death Rocket! | cooldown: 85 / 65 / 45 | [4007616](https://wiki.leagueoflegends.com/en-us/Template:Data_Jinx/Super_Mega_Death_Rocket!?oldid=4007616) |
+| Super Mega Death Rocket! | cost: 100 | [4007616](https://wiki.leagueoflegends.com/en-us/Template:Data_Jinx/Super_Mega_Death_Rocket!?oldid=4007616) |
+| Super Mega Death Rocket! | castTime: 0.6 | [4007616](https://wiki.leagueoflegends.com/en-us/Template:Data_Jinx/Super_Mega_Death_Rocket!?oldid=4007616) |
+| Super Mega Death Rocket! | width: 280 | [4007616](https://wiki.leagueoflegends.com/en-us/Template:Data_Jinx/Super_Mega_Death_Rocket!?oldid=4007616) |

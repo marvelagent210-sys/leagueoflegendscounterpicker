@@ -209,3 +209,104 @@ All 1 level-based formulas in the game files (1 linked to wiki values above):
 | Spell | Calculation | Rule | Level 1 | Level 18 | Level 20 |
 |---|---|---|--:|--:|--:|
 | LissandraPassive | TotalDamage | breakpoints at levels 13 (level 1: 120) | 120 | 520 | 580 |
+
+## Duel simulator kit (level 20, every ability at max rank)
+
+What the duel simulator fights with (`kits/champions/Lissandra.ts`): values come from pinned wiki and versioned game-data records at level 20. Interpretations and missing evidence are listed under assumptions. Ratios are fractions of the stat (60% AD is 0.6 × AD).
+
+- Basic attack: range 550, missile at 2200/s.
+
+| Key | Ability | Cooldown (s) | Cast time (s) | Cost | Delivery | On the enemy | On itself |
+|---|---|--:|--:|---|---|---|---|
+| Q | Ice Shard | 3 | 0.25 | 75 | skillshot 825 long, 150 wide, at 2200/s | 220 + 75% AP magic damage; slow 36% for 1.5 s | – |
+| W | Ring of Frost | 8 | 0 | 40 | around itself, 275 units | 210 + 70% AP magic damage; root for 1.65 s | – |
+| E | Glacial Path | 12 | 0.25 | 100 | skillshot 1025 long, 250 wide, at 1200/s | 210 + 60% AP magic damage | – |
+| R | Frozen Tomb | 80 | 0.375 | 100 | targeted, 550 range | 350 + 75% AP magic damage; stops an interruptible dash without an airborne duration; stun for 1.5 s; slow 75% for 0.5 s | – |
+| E2 | Glacial Path (recast) | 0 | 0 | – | self | – | – |
+| Rself | Frozen Tomb (self) | 80 | 0 | 100 | self | – | stasis for 2.5 s |
+| Rice | Frozen Tomb ice | 0 | 0 | – | self | 350 + 75% AP magic damage; slow 75% for 0.5 s | – |
+
+Effects marked by a mark or a role are completed by the kit's hooks (see the kit's source).
+
+### Assumptions
+
+- Iceborn Subjugation is a terminal effect in a one-enemy duel: no living opposing champion remains after the sole champion's final death, and zombie entry is not final death. No starting Thrall, passive slow, or passive DPS is granted. Audited level-20 values are 580 + 0.5 AP, 1350-unit death aura, 450-unit explosion/slow radius, 25% slow, 4-second life, and the pinned age-speed series; pets are not champion corpses.
+- Ice Shard uses its actual 700-unit initial flight and endpoint circle, followed by a wider shattered flight toward the fixed 950-unit endpoint only after a real enemy contact. A champion is damaged at most once by the combined initial/shattered cast; the pinned record does not explicitly specify duplicate-hit suppression. Flight timing uses 2200 units/s and tick quantization rather than also forcing the rounded 0.33-second note. Shatters triggered by pets recompute champion sidestep chance using their remaining geometry and wider missile, as expected damage within the current branch. Generic pre-cast forecasts use the effective 825-unit reach and initial width; they do not exactly reproduce the final 725-center/100-radius circle footprint before the actual trajectory reaches it.
+- Ring of Frost uses a 275-unit center-to-center aura in the simulator; the source radius has no explicit edge-range annotation. Root permits ordinary attacks and non-movement spells.
+- Glacial Path decelerates linearly from 1200 to 640 units/s over 1.25 seconds because the source omits its curve. The half-second recast gate starts at first cast declaration. The late recast/hit grace is 0.25 seconds, the midpoint of the recorded 0.2–0.3 range; its late hit checks the final claw point against unit hitboxes, because no separate endpoint radius is supplied. Recast is instant and free because no separate cost/cast time is supplied; its blink goes to the actual claw position and ends that projectile. The initial E is not movement and remains castable while grounded/rooted. Scalar terrain cannot reproduce the two-dimensional halfway-through-wall test; its blink crosses the line's terrain.
+- Frozen Tomb's field has a fixed contact-position center, expands linearly through its first 1.5 seconds, and expires three seconds from creation. The source supplies neither its growth curve nor an explicit duration anchor or moving-center rule. First field entry is checked every simulation tick; slow refreshes then use quarter-second phases anchored to field creation. The damage opportunity is consumed by a guarded contact, including parry or invulnerability, rather than retried every slow pulse. The field preserves this cast's shield-blocked damage ledger while continuing to spread. Self R snapshots missing health once and heals on ten quarter-second pulses; ordinary CC restrictions still apply to declaring it.
+- The plain-stat budget values Frozen Tomb's one field damage hit, shared by either cast form. Its conditional self-healing and stasis are not independently added to that damage reference, avoiding credit for both enemy and self alternatives of the same cooldown. Actual combat selects one form and uses its healing and control.
+
+### Source values read (69)
+
+| Ability | Value | Source version |
+|---|---|---|
+| Iceborn Subjugation | effectRadius (Aura radius): 1350 • 450 | [4038403](https://wiki.leagueoflegends.com/en-us/Template:Data_Lissandra/Iceborn_Subjugation?oldid=4038403) |
+| Iceborn Subjugation | effectRadius (Thrall slow): 1350 • 450 | [4038403](https://wiki.leagueoflegends.com/en-us/Template:Data_Lissandra/Iceborn_Subjugation?oldid=4038403) |
+| Iceborn Subjugation | They will chase nearby visible enemies for 4 seconds, prioritizing champions, after which they shatter to deal 120 – 520 (based on level) (+ 50% AP) magic damage to nearby enemies. | [4038403](https://wiki.leagueoflegends.com/en-us/Template:Data_Lissandra/Iceborn_Subjugation?oldid=4038403) |
+| Iceborn Subjugation | (+ 50% AP) | [4038403](https://wiki.leagueoflegends.com/en-us/Template:Data_Lissandra/Iceborn_Subjugation?oldid=4038403) |
+| Iceborn Subjugation | Frozen Thralls are ice spirits that have 33.475 / 78.65 / 117.325 / 149.825 / 177.775 / 201.175 / 221.325 / 238.225 / 252.85 / 263.9 / 275.6 / 284.7 / 292.175 / 298.675 / 303.875 / 308.75 / 325 (based on seconds alive) movement speed and slow nearby enemies by 25%. | [4038403](https://wiki.leagueoflegends.com/en-us/Template:Data_Lissandra/Iceborn_Subjugation?oldid=4038403) |
+| Iceborn Subjugation | chase nearby visible enemies for 4 seconds | [4038403](https://wiki.leagueoflegends.com/en-us/Template:Data_Lissandra/Iceborn_Subjugation?oldid=4038403) |
+| Iceborn Subjugation | slow nearby enemies by 25% | [4038403](https://wiki.leagueoflegends.com/en-us/Template:Data_Lissandra/Iceborn_Subjugation?oldid=4038403) |
+| Iceborn Subjugation | Thralls are untargetable and invulnerable | [4038403](https://wiki.leagueoflegends.com/en-us/Template:Data_Lissandra/Iceborn_Subjugation?oldid=4038403) |
+| Iceborn Subjugation | will not summon a Thrall against enemy champions that enter a zombie state | [4038403](https://wiki.leagueoflegends.com/en-us/Template:Data_Lissandra/Iceborn_Subjugation?oldid=4038403) |
+| Ice Shard | Magic Damage: 80 / 115 / 150 / 185 / 220 (+ 75% AP) | [4007664](https://wiki.leagueoflegends.com/en-us/Template:Data_Lissandra/Ice_Shard?oldid=4007664) |
+| Ice Shard | Slow: 20 / 24 / 28 / 32 / 36% | [4007664](https://wiki.leagueoflegends.com/en-us/Template:Data_Lissandra/Ice_Shard?oldid=4007664) |
+| Ice Shard | slows enemies hit for 1.5 seconds | [4007664](https://wiki.leagueoflegends.com/en-us/Template:Data_Lissandra/Ice_Shard?oldid=4007664) |
+| Ice Shard | range (Standard range): 825 • 950 | [4007664](https://wiki.leagueoflegends.com/en-us/Template:Data_Lissandra/Ice_Shard?oldid=4007664) |
+| Ice Shard | range (Enhanced range): 825 • 950 | [4007664](https://wiki.leagueoflegends.com/en-us/Template:Data_Lissandra/Ice_Shard?oldid=4007664) |
+| Ice Shard | width (Standard missile): 150 • 180 | [4007664](https://wiki.leagueoflegends.com/en-us/Template:Data_Lissandra/Ice_Shard?oldid=4007664) |
+| Ice Shard | width (after shattering): 150 • 180 | [4007664](https://wiki.leagueoflegends.com/en-us/Template:Data_Lissandra/Ice_Shard?oldid=4007664) |
+| Ice Shard | speed: 2200 | [4007664](https://wiki.leagueoflegends.com/en-us/Template:Data_Lissandra/Ice_Shard?oldid=4007664) |
+| Ice Shard | initial Ice Shard missile has a range of 700 units | [4007664](https://wiki.leagueoflegends.com/en-us/Template:Data_Lissandra/Ice_Shard?oldid=4007664) |
+| Ice Shard | checks for enemies in a 100 radius | [4007664](https://wiki.leagueoflegends.com/en-us/Template:Data_Lissandra/Ice_Shard?oldid=4007664) |
+| Ice Shard | point 25 units in front of it | [4007664](https://wiki.leagueoflegends.com/en-us/Template:Data_Lissandra/Ice_Shard?oldid=4007664) |
+| Ice Shard | Spell shield will block the damage and the slow but will not stop the projectile from shattering | [4007664](https://wiki.leagueoflegends.com/en-us/Template:Data_Lissandra/Ice_Shard?oldid=4007664) |
+| Ice Shard | This ability will cast from wherever the caster is at the end of the cast time | [4007664](https://wiki.leagueoflegends.com/en-us/Template:Data_Lissandra/Ice_Shard?oldid=4007664) |
+| Ring of Frost | Magic Damage: 70 / 105 / 140 / 175 / 210 (+ 70% AP) | [3936419](https://wiki.leagueoflegends.com/en-us/Template:Data_Lissandra/Ring_of_Frost?oldid=3936419) |
+| Ring of Frost | Root Duration: 1.25 / 1.35 / 1.45 / 1.55 / 1.65 seconds | [3936419](https://wiki.leagueoflegends.com/en-us/Template:Data_Lissandra/Ring_of_Frost?oldid=3936419) |
+| Ring of Frost | effectRadius: 275 | [3936419](https://wiki.leagueoflegends.com/en-us/Template:Data_Lissandra/Ring_of_Frost?oldid=3936419) |
+| Glacial Path | Magic Damage: 70 / 105 / 140 / 175 / 210 (+ 60% AP) | [4050877](https://wiki.leagueoflegends.com/en-us/Template:Data_Lissandra/Glacial_Path?oldid=4050877) |
+| Glacial Path | range: 1025 | [4050877](https://wiki.leagueoflegends.com/en-us/Template:Data_Lissandra/Glacial_Path?oldid=4050877) |
+| Glacial Path | width: 250 | [4050877](https://wiki.leagueoflegends.com/en-us/Template:Data_Lissandra/Glacial_Path?oldid=4050877) |
+| Glacial Path | speed: 1200 - 640 | [4050877](https://wiki.leagueoflegends.com/en-us/Template:Data_Lissandra/Glacial_Path?oldid=4050877) |
+| Glacial Path | decelerating over 1.25 seconds | [4050877](https://wiki.leagueoflegends.com/en-us/Template:Data_Lissandra/Glacial_Path?oldid=4050877) |
+| Glacial Path | recast after 0.5 seconds | [4050877](https://wiki.leagueoflegends.com/en-us/Template:Data_Lissandra/Glacial_Path?oldid=4050877) |
+| Glacial Path | blinks to the claw's current location, ending its trajectory | [4050877](https://wiki.leagueoflegends.com/en-us/Template:Data_Lissandra/Glacial_Path?oldid=4050877) |
+| Glacial Path | plus another 0.2-0.3 seconds after the claw 'sinks' | [4050877](https://wiki.leagueoflegends.com/en-us/Template:Data_Lissandra/Glacial_Path?oldid=4050877) |
+| Glacial Path | cannot be recast while grounded or rooted | [4050877](https://wiki.leagueoflegends.com/en-us/Template:Data_Lissandra/Glacial_Path?oldid=4050877) |
+| Glacial Path | so long as the claw is at least halfway through them | [4050877](https://wiki.leagueoflegends.com/en-us/Template:Data_Lissandra/Glacial_Path?oldid=4050877) |
+| Glacial Path | enemies within 600 range | [4050877](https://wiki.leagueoflegends.com/en-us/Template:Data_Lissandra/Glacial_Path?oldid=4050877) |
+| Frozen Tomb | cooldown: 120 / 100 / 80 | [4017996](https://wiki.leagueoflegends.com/en-us/Template:Data_Lissandra/Frozen_Tomb?oldid=4017996) |
+| Frozen Tomb | cost: 100 | [4017996](https://wiki.leagueoflegends.com/en-us/Template:Data_Lissandra/Frozen_Tomb?oldid=4017996) |
+| Frozen Tomb | targetRange: 550 | [4017996](https://wiki.leagueoflegends.com/en-us/Template:Data_Lissandra/Frozen_Tomb?oldid=4017996) |
+| Frozen Tomb | effectRadius: 550 | [4017996](https://wiki.leagueoflegends.com/en-us/Template:Data_Lissandra/Frozen_Tomb?oldid=4017996) |
+| Frozen Tomb | stunning them for 1.5 seconds | [4017996](https://wiki.leagueoflegends.com/en-us/Template:Data_Lissandra/Frozen_Tomb?oldid=4017996) |
+| Frozen Tomb | entering stasis for 2.5 seconds | [4017996](https://wiki.leagueoflegends.com/en-us/Template:Data_Lissandra/Frozen_Tomb?oldid=4017996) |
+| Frozen Tomb | healing herself every 0.25 seconds | [4017996](https://wiki.leagueoflegends.com/en-us/Template:Data_Lissandra/Frozen_Tomb?oldid=4017996) |
+| Frozen Tomb | Minimum Heal per Tick: 10 / 15 / 20 (+ 5.5% AP) | [4017996](https://wiki.leagueoflegends.com/en-us/Template:Data_Lissandra/Frozen_Tomb?oldid=4017996) |
+| Frozen Tomb | Maximum Heal per Tick: 20 / 30 / 40 (+ 11% AP) | [4017996](https://wiki.leagueoflegends.com/en-us/Template:Data_Lissandra/Frozen_Tomb?oldid=4017996) |
+| Frozen Tomb | Minimum Total Heal: 100 / 150 / 200 (+ 55% AP) | [4017996](https://wiki.leagueoflegends.com/en-us/Template:Data_Lissandra/Frozen_Tomb?oldid=4017996) |
+| Frozen Tomb | Maximum Total Heal: 200 / 300 / 400 (+ 110% AP) | [4017996](https://wiki.leagueoflegends.com/en-us/Template:Data_Lissandra/Frozen_Tomb?oldid=4017996) |
+| Frozen Tomb | The healing is increased by 0 / 10 / 20 / 30 / 40 / 50 / 60 / 70 / 80 / 90 / 100 (based on missing health at the time of cast)%. | [4017996](https://wiki.leagueoflegends.com/en-us/Template:Data_Lissandra/Frozen_Tomb?oldid=4017996) |
+| Frozen Tomb | Magic Damage: 150 / 250 / 350 (+ 75% AP) | [4017996](https://wiki.leagueoflegends.com/en-us/Template:Data_Lissandra/Frozen_Tomb?oldid=4017996) |
+| Frozen Tomb | Slow: 45 / 60 / 75% | [4017996](https://wiki.leagueoflegends.com/en-us/Template:Data_Lissandra/Frozen_Tomb?oldid=4017996) |
+| Frozen Tomb | spreads out from the target over 1.5 seconds | [4017996](https://wiki.leagueoflegends.com/en-us/Template:Data_Lissandra/Frozen_Tomb?oldid=4017996) |
+| Frozen Tomb | covers the surrounding area for 3 seconds | [4017996](https://wiki.leagueoflegends.com/en-us/Template:Data_Lissandra/Frozen_Tomb?oldid=4017996) |
+| Frozen Tomb | slowing them for 0.5 seconds | [4017996](https://wiki.leagueoflegends.com/en-us/Template:Data_Lissandra/Frozen_Tomb?oldid=4017996) |
+| Frozen Tomb | refreshing every 0.25 seconds | [4017996](https://wiki.leagueoflegends.com/en-us/Template:Data_Lissandra/Frozen_Tomb?oldid=4017996) |
+| Frozen Tomb | can only be damaged by the field of ice once every 4 seconds | [4017996](https://wiki.leagueoflegends.com/en-us/Template:Data_Lissandra/Frozen_Tomb?oldid=4017996) |
+| Frozen Tomb | Spell shield will block the single-targeted portion and the radiating ice damage, but will not stop it from spreading | [4017996](https://wiki.leagueoflegends.com/en-us/Template:Data_Lissandra/Frozen_Tomb?oldid=4017996) |
+| Frozen Tomb | The ability is not cancelled by loss of sight of the target | [4017996](https://wiki.leagueoflegends.com/en-us/Template:Data_Lissandra/Frozen_Tomb?oldid=4017996) |
+| Frozen Tomb | this ability will cancel but does not go on cooldown nor pay its cost | [4017996](https://wiki.leagueoflegends.com/en-us/Template:Data_Lissandra/Frozen_Tomb?oldid=4017996) |
+| Frozen Tomb | Lissandra destroys enemy projectiles targeting her | [4017996](https://wiki.leagueoflegends.com/en-us/Template:Data_Lissandra/Frozen_Tomb?oldid=4017996) |
+| Ice Shard | cooldown: 7 / 6 / 5 / 4 / 3 | [4007664](https://wiki.leagueoflegends.com/en-us/Template:Data_Lissandra/Ice_Shard?oldid=4007664) |
+| Ice Shard | cost: 55 / 60 / 65 / 70 / 75 | [4007664](https://wiki.leagueoflegends.com/en-us/Template:Data_Lissandra/Ice_Shard?oldid=4007664) |
+| Ice Shard | castTime: 0.25 | [4007664](https://wiki.leagueoflegends.com/en-us/Template:Data_Lissandra/Ice_Shard?oldid=4007664) |
+| Ring of Frost | cooldown: 10 / 9.5 / 9 / 8.5 / 8 | [3936419](https://wiki.leagueoflegends.com/en-us/Template:Data_Lissandra/Ring_of_Frost?oldid=3936419) |
+| Ring of Frost | cost: 40 | [3936419](https://wiki.leagueoflegends.com/en-us/Template:Data_Lissandra/Ring_of_Frost?oldid=3936419) |
+| Ring of Frost | castTime: none | [3936419](https://wiki.leagueoflegends.com/en-us/Template:Data_Lissandra/Ring_of_Frost?oldid=3936419) |
+| Glacial Path | cooldown: 24 / 21 / 18 / 15 / 12 | [4050877](https://wiki.leagueoflegends.com/en-us/Template:Data_Lissandra/Glacial_Path?oldid=4050877) |
+| Glacial Path | cost: 80 / 85 / 90 / 95 / 100 | [4050877](https://wiki.leagueoflegends.com/en-us/Template:Data_Lissandra/Glacial_Path?oldid=4050877) |
+| Glacial Path | castTime: 0.25 | [4050877](https://wiki.leagueoflegends.com/en-us/Template:Data_Lissandra/Glacial_Path?oldid=4050877) |
+| Frozen Tomb | castTime (Enemy cast): 0.375 • None | [4017996](https://wiki.leagueoflegends.com/en-us/Template:Data_Lissandra/Frozen_Tomb?oldid=4017996) |

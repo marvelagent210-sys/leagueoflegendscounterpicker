@@ -222,26 +222,27 @@ All 2 level-based formulas in the game files (2 linked to wiki values above):
 
 ## Duel simulator kit (level 20, every ability at max rank)
 
-What the duel simulator fights with (`kits/champions/Darius.ts`): every number is read from the wiki's ability data above at level 20; what the wiki doesn't say is listed under assumptions. Ratios are fractions of the stat (60% AD is 0.6 × AD).
+What the duel simulator fights with (`kits/champions/Darius.ts`): values come from pinned wiki and versioned game-data records at level 20. Interpretations and missing evidence are listed under assumptions. Ratios are fractions of the stat (60% AD is 0.6 × AD).
 
 - Basic attack: range 175, melee.
 
 | Key | Ability | Cooldown (s) | Cast time (s) | Cost | Delivery | On the enemy | On itself |
 |---|---|--:|--:|---|---|---|---|
-| Q | Decimate | 5 | 0.75 | – | area 0 to 460 units ahead, lands after 0 s; bands 0–240: 59.5 + 49% AD physical damage (Decimate (handle)) | 170 + 140% AD physical damage; to itself: heal 17% missing health | – |
-| W | Crippling Strike | 5 (starts after the empowered attacks) | 0 | – | self | – | next 1 attack within 4 s: 60% AD physical damage, can crit; slow 90% for 1 s (+25 range, resets the attack timer, uncancellable) |
-| E | Apprehend | 16 | 0.25 | – | area 0 to 535 units ahead, lands after 0 s | pull 535 units over 0.5 s; slow 40% for 1 s | – |
-| R | Noxian Guillotine | 80 | 0.367 | – | targeted, 475 range | 375 + 75% bonus AD true damage | – |
+| Q | Decimate | 5 | 0.75 | 45 | area 0 to 460 units ahead, lands after 0 s; bands 0–240: 59.5 + 49% AD physical damage (Decimate (handle)) | 170 + 140% AD physical damage; to itself: heal 17% missing health | – |
+| W | Crippling Strike | 5 (starts after the empowered attacks) | 0 | 40 | self | – | next 1 attack within 4 s: 60% AD physical damage, can crit; slow 90% for 1 s (+25 range, resets the attack timer, uncancellable) |
+| E | Apprehend | 16 | 0.25 | 30 | area 0 to 535 units ahead, lands after 0 s | pull 535 units over 0.5 s, airborne 1 s; slow 40% for 1 s | – |
+| R | Noxian Guillotine | 80 | 0.367 | 0 | targeted, 475 range | 375 + 75% bonus AD true damage, varies with combat state; formula is a reference | – |
 
 Effects marked by a mark or a role are completed by the kit's hooks (see the kit's source).
 
 ### Assumptions
 
 - Hemorrhage deals its damage in ticks every 1.25 seconds (the wiki gives only the total).
+- Apprehend's initial drag and rebound are collapsed into one linear movement. Its slow starts at impact because the model does not represent the initial drag separately.
 
-### Wiki values read (30)
+### Source values read (43)
 
-| Ability | Value | Revision |
+| Ability | Value | Source version |
 |---|---|---|
 | Hemorrhage | Hemorrhage: For each stack, the target is dealt 13 – 30 (based on level) (+ 30% bonus AD) total physical damage over the duration, up to a maximum of 65 – 150 (based on level) (+ 150% bonus AD) total physical damage over the duration. | [4063939](https://wiki.leagueoflegends.com/en-us/Template:Data_Darius/Hemorrhage?oldid=4063939) |
 | Hemorrhage | (+ 30% bonus AD) total physical damage over the duration | [4063939](https://wiki.leagueoflegends.com/en-us/Template:Data_Darius/Hemorrhage?oldid=4063939) |
@@ -249,13 +250,24 @@ Effects marked by a mark or a role are completed by the kit's hooks (see the kit
 | Hemorrhage | stacking up to 5 times | [4063939](https://wiki.leagueoflegends.com/en-us/Template:Data_Darius/Hemorrhage?oldid=4063939) |
 | Hemorrhage | Noxian Might: Darius gains 30 – 230 (based on level) bonus attack damage and instantly applies 5 Hemorrhage stacks through his usual means. | [4063939](https://wiki.leagueoflegends.com/en-us/Template:Data_Darius/Hemorrhage?oldid=4063939) |
 | Hemorrhage | he becomes empowered with Noxian Might for 5 seconds | [4063939](https://wiki.leagueoflegends.com/en-us/Template:Data_Darius/Hemorrhage?oldid=4063939) |
+| Hemorrhage | Hemorrhage can be applied to and refreshed against shielded targets | [4063939](https://wiki.leagueoflegends.com/en-us/Template:Data_Darius/Hemorrhage?oldid=4063939) |
+| Noxian Guillotine | Noxian Guillotine applies Hemorrhage after the damage | [4004898](https://wiki.leagueoflegends.com/en-us/Template:Data_Darius/Noxian_Guillotine?oldid=4004898) |
+| Crippling Strike | Spell shields will negate all effects of Crippling Strike, including the damage of the basic attack itself | [4013692](https://wiki.leagueoflegends.com/en-us/Template:Data_Darius/Crippling_Strike?oldid=4013692) |
+| Crippling Strike | The attack's animation can be cancelled by casting Decimate, but the attack will still land | [4013692](https://wiki.leagueoflegends.com/en-us/Template:Data_Darius/Crippling_Strike?oldid=4013692) |
 | Noxian Guillotine | increased by 0 / 20 / 40 / 60 / 80 / 100 (based on target's Hemorrhage stacks)% | [4004898](https://wiki.leagueoflegends.com/en-us/Template:Data_Darius/Noxian_Guillotine?oldid=4004898) |
 | Noxian Guillotine | True Damage: 125 / 250 / 375 (+ 75% bonus AD) | [4004898](https://wiki.leagueoflegends.com/en-us/Template:Data_Darius/Noxian_Guillotine?oldid=4004898) |
+| Noxian Guillotine | within 0.15 seconds after being hit | [4004898](https://wiki.leagueoflegends.com/en-us/Template:Data_Darius/Noxian_Guillotine?oldid=4004898) |
+| Crippling Strike | cost: 40 | [4013692](https://wiki.leagueoflegends.com/en-us/Template:Data_Darius/Crippling_Strike?oldid=4013692) |
+| Apprehend | unable to move or cast Decimate or Noxian Guillotine for 0.4 seconds | [3906616](https://wiki.leagueoflegends.com/en-us/Template:Data_Darius/Apprehend?oldid=3906616) |
+| Noxian Guillotine | unable to cast Decimate or Apprehend for 0.25 seconds | [4004898](https://wiki.leagueoflegends.com/en-us/Template:Data_Darius/Noxian_Guillotine?oldid=4004898) |
+| Apprehend | remaining airborne and becoming slowed by 40% for 1 second | [3906616](https://wiki.leagueoflegends.com/en-us/Template:Data_Darius/Apprehend?oldid=3906616) |
+| Apprehend | forced movement's duration is roughly 0.5 seconds | [3906616](https://wiki.leagueoflegends.com/en-us/Template:Data_Darius/Apprehend?oldid=3906616) |
 | Noxian Guillotine | targetRange: 475 | [4004898](https://wiki.leagueoflegends.com/en-us/Template:Data_Darius/Noxian_Guillotine?oldid=4004898) |
 | Decimate | innerRadius: 240 | [4007591](https://wiki.leagueoflegends.com/en-us/Template:Data_Darius/Decimate?oldid=4007591) |
 | Decimate | effectRadius (Outer radius): 460 | [4007591](https://wiki.leagueoflegends.com/en-us/Template:Data_Darius/Decimate?oldid=4007591) |
 | Apprehend | Armor Penetration: 20 / 25 / 30 / 35 / 40% | [3906616](https://wiki.leagueoflegends.com/en-us/Template:Data_Darius/Apprehend?oldid=3906616) |
 | Decimate | cooldown: 9 / 8 / 7 / 6 / 5 | [4007591](https://wiki.leagueoflegends.com/en-us/Template:Data_Darius/Decimate?oldid=4007591) |
+| Decimate | cost: 25 / 30 / 35 / 40 / 45 | [4007591](https://wiki.leagueoflegends.com/en-us/Template:Data_Darius/Decimate?oldid=4007591) |
 | Decimate | hefts his axe for 0.75 seconds | [4007591](https://wiki.leagueoflegends.com/en-us/Template:Data_Darius/Decimate?oldid=4007591) |
 | Decimate | Reduced Damage (Handle): 17.5 / 28 / 38.5 / 49 / 59.5 (+ 35 / 38.5 / 42 / 45.5 / 49% AD) | [4007591](https://wiki.leagueoflegends.com/en-us/Template:Data_Darius/Decimate?oldid=4007591) |
 | Decimate | Physical Damage (Blade): 50 / 80 / 110 / 140 / 170 (+ 100 / 110 / 120 / 130 / 140% AD) | [4007591](https://wiki.leagueoflegends.com/en-us/Template:Data_Darius/Decimate?oldid=4007591) |
@@ -267,9 +279,11 @@ Effects marked by a mark or a role are completed by the kit's hooks (see the kit
 | Crippling Strike | Bonus Physical Damage: 40 / 45 / 50 / 55 / 60% AD | [4013692](https://wiki.leagueoflegends.com/en-us/Template:Data_Darius/Crippling_Strike?oldid=4013692) |
 | Crippling Strike | slow the target by 90% for 1 second | [4013692](https://wiki.leagueoflegends.com/en-us/Template:Data_Darius/Crippling_Strike?oldid=4013692) |
 | Apprehend | cooldown: 26 / 23.5 / 21 / 18.5 / 16 | [3906616](https://wiki.leagueoflegends.com/en-us/Template:Data_Darius/Apprehend?oldid=3906616) |
+| Apprehend | cost: 70 / 60 / 50 / 40 / 30 | [3906616](https://wiki.leagueoflegends.com/en-us/Template:Data_Darius/Apprehend?oldid=3906616) |
 | Apprehend | castTime: 0.25 | [3906616](https://wiki.leagueoflegends.com/en-us/Template:Data_Darius/Apprehend?oldid=3906616) |
 | Apprehend | effectRadius: 535 | [3906616](https://wiki.leagueoflegends.com/en-us/Template:Data_Darius/Apprehend?oldid=3906616) |
 | Apprehend | they rebound 150 units off of him | [3906616](https://wiki.leagueoflegends.com/en-us/Template:Data_Darius/Apprehend?oldid=3906616) |
 | Apprehend | slowed by 40% for 1 second | [3906616](https://wiki.leagueoflegends.com/en-us/Template:Data_Darius/Apprehend?oldid=3906616) |
 | Noxian Guillotine | cooldown: 120 / 100 / 80 | [4004898](https://wiki.leagueoflegends.com/en-us/Template:Data_Darius/Noxian_Guillotine?oldid=4004898) |
+| Noxian Guillotine | cost: 100 / 100 / 0 | [4004898](https://wiki.leagueoflegends.com/en-us/Template:Data_Darius/Noxian_Guillotine?oldid=4004898) |
 | Noxian Guillotine | castTime: 0.3667 | [4004898](https://wiki.leagueoflegends.com/en-us/Template:Data_Darius/Noxian_Guillotine?oldid=4004898) |

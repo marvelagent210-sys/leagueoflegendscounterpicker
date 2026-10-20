@@ -239,7 +239,7 @@ All 2 level-based formulas in the game files (2 linked to wiki values above):
 
 ## Duel simulator kit (level 20, every ability at max rank)
 
-What the duel simulator fights with (`kits/champions/Gwen.ts`): every number is read from the wiki's ability data above at level 20; what the wiki doesn't say is listed under assumptions. Ratios are fractions of the stat (60% AD is 0.6 × AD).
+What the duel simulator fights with (`kits/champions/Gwen.ts`): values come from pinned wiki and versioned game-data records at level 20. Interpretations and missing evidence are listed under assumptions. Ratios are fractions of the stat (60% AD is 0.6 × AD).
 
 - Basic attack: range 150, melee, on hit: 1% target's maximum health + 0.6% of target's maximum health per 100 AP magic damage (A Thousand Cuts).
 
@@ -262,9 +262,9 @@ Effects marked by a mark or a role are completed by the kit's hooks (see the kit
 - Every needle of a Needlework cast hits an enemy the cast hits.
 - Hallowed Mist stays where it was raised; Gwen fights inside it.
 
-### Wiki values read (38)
+### Source values read (38)
 
-| Ability | Value | Revision |
+| Ability | Value | Source version |
 |---|---|---|
 | A Thousand Cuts | bonus magic damage equal to 1% (+ 0.6% per 100 AP) of the target's maximum health | [4051343](https://wiki.leagueoflegends.com/en-us/Template:Data_Gwen/A_Thousand_Cuts?oldid=4051343) |
 | A Thousand Cuts | Heals Gwen for 67% of post-mitigation damage dealt against champions | [4051343](https://wiki.leagueoflegends.com/en-us/Template:Data_Gwen/A_Thousand_Cuts?oldid=4051343) |

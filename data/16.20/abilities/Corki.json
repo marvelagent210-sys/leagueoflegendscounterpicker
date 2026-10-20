@@ -711,6 +711,17 @@
       "This ability will cast from wherever the caster is at the start of the cast time.",
       "Missile Barrage's effect radius is centered around the location of the missile as it collides.",
       "Malignance damage from Missile Barrage does not count toward Eclipse passive."
+    ],
+    "gameSources": [
+      {
+        "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/corki/corki.bin.json",
+        "sha256": "a97cf1a9b02fa58cfe6902f37343774c55d104853e5f287e70b0c54e9088a222",
+        "object": "Characters/Corki/Spells/MissileBarrageAbility/MissileBarrage",
+        "text": [
+          "mSpell.mSpellCalculations: {\"RSmallMissileDamage\":{\"mFormulaParts\":[{\"mDataValue\":\"BaseDamage\",\"__type\":\"NamedDataValueCalculationPart\"},{\"mStat\":2,\"mStatFormula\":2,\"mDataValue\":\"ADRatio\",\"__type\":\"StatByNamedDataValueCalculationPart\"}],\"__type\":\"GameCalculation\"},\"RBigMissileDamage\":{\"mMultiplier\":{\"mDataValue\":\"RBigOneMultiplier\",\"__type\":\"NamedDataValueCalculationPart\"},\"mModifiedGameCalculation\":\"RSmallMissileDamage\",\"__type\":\"GameCalculationModified\"},\"AttackRefund\":{\"mMultiplier\":{\"mDataValue\":\"CDReductionOnHit\",\"__type\":\"NamedDataValueCalculationPart\"},\"mFormulaParts\":[{\"mNumber\":1.0,\"__type\":\"NumberCalculationPart\"},{\"mStat\":8,\"mCoefficient\":2.0,\"__type\":\"StatByCoefficientCalculationPart\"}],\"mPrecision\":1,\"__type\":\"GameCalculation\"}}"
+        ]
+      }
     ]
   },
   {
@@ -901,6 +912,19 @@
     "custom": [],
     "notes": [
       "Enemies that stay within the trail for its entire duration are dealt 210 – 700 (based on level) (+ 1400% bonus AD) (+ 168% AP) total magic damage."
+    ],
+    "historical": true,
+    "gameSources": [
+      {
+        "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/corki/corki.bin.json",
+        "sha256": "a97cf1a9b02fa58cfe6902f37343774c55d104853e5f287e70b0c54e9088a222",
+        "object": "Characters/Corki/CharacterRecords/Root",
+        "text": [
+          "spells: [\"Characters/Corki/Spells/PhosphorusBombAbility/PhosphorusBomb\",\"Characters/Corki/Spells/CarpetBombAbility/CarpetBomb\",\"Characters/Corki/Spells/GGunAbility/GGun\",\"Characters/Corki/Spells/MissileBarrageAbility/MissileBarrage\"]",
+          "extraSpellsList: [\"Characters/Corki/Spells/GGunAbility/GGSpray\",\"Characters/Corki/Spells/MissileBarrageAbility/MissileBarrageMissile\",\"Characters/Corki/Spells/MissileBarrageAbility/MissileBarrageMissile2\",\"Characters/Corki/Spells/PhosphorusBombAbility/PhosphorusBombMissile\",\"Characters/Corki/Spells/PhosphorusBombAbility/PhosphorusBombMissileMin\",\"{00000000}\",\"Shared/Spells/BaseSpell\",\"Shared/Spells/BaseSpell\",\"Shared/Spells/BaseSpell\",\"Shared/Spells/BaseSpell\",\"Shared/Spells/BaseSpell\",\"Shared/Spells/BaseSpell\",\"Shared/Spells/BaseSpell\",\"Shared/Spells/BaseSpell\",\"Shared/Spells/BaseSpell\",\"Shared/Spells/BaseSpell\"]"
+        ]
+      }
     ]
   },
   {
@@ -1117,6 +1141,27 @@
     "custom": [],
     "notes": [
       "No additional information."
+    ],
+    "gameSources": [
+      {
+        "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/corki/corki.bin.json",
+        "sha256": "a97cf1a9b02fa58cfe6902f37343774c55d104853e5f287e70b0c54e9088a222",
+        "object": "Characters/Corki/Spells/CarpetBombAbility/CarpetBomb",
+        "text": [
+          "mSpell.DataValues.BaseDamage.values: [75.0,150.0,225.0,300.0,375.0,450.0,525.0]",
+          "mSpell.DataValues.APRatio.values: [1.5,1.5,1.5,1.5,1.5,1.5,1.5]",
+          "mSpell.DataValues.TrailDuration.values: [2.5,2.5,2.5,2.5,2.5,2.5,2.5]",
+          "mSpell.DataValues.TicksPerSecond.values: [2.0,2.0,2.0,2.0,2.0,2.0,2.0]",
+          "mSpell.DataValues.MaximumTicks.values: [5.0,5.0,5.0,5.0,5.0,5.0,5.0]",
+          "mSpell.DataValues.DamageRadius.values: [200.0,200.0,200.0,200.0,200.0,200.0,200.0]",
+          "mSpell.DataValues.DashSpeedBase.values: [650.0,650.0,650.0,650.0,650.0,650.0,650.0]",
+          "mSpell.DataValues.DashSpeedRatio.values: [1.0,1.0,1.0,1.0,1.0,1.0,1.0]",
+          "mSpell.DataValues.MinimumRange.values: [300.0,300.0,300.0,300.0,300.0,300.0,300.0]",
+          "mSpell.DataValues.MaximumRange.values: [600.0,600.0,600.0,600.0,600.0,600.0,600.0]",
+          "mSpell.DataValues.ADRatio.values: [2.0,2.0,2.0,2.0,2.0,2.0,2.0]"
+        ]
+      }
     ]
   }
 ]

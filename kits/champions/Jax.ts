@@ -23,6 +23,7 @@ const jax: KitModule = {
     // Grandmaster-at-Arms: every third attack (every second while active) deals bonus magic damage.
     const procDamage: Effect = { type: "damage", damageType: "magic", amount: r.formula("Additional Magic Damage"), label: "Grandmaster-at-Arms (passive)" };
     const procAt = r.quoted("stacking up to 2 times", 0) + 1;
+    r.quote("The additional magic damage can be dodged and blocked but it cannot miss");
     const activeSeconds = r.quoted("as well as 10% increased size for 8 seconds", 1);
     // Counter Strike: +20% damage per attack dodged, up to +100%.
     const minimum = e.formula("Minimum Magic Damage");
@@ -62,7 +63,7 @@ const jax: KitModule = {
           const hits = Number(ctx.memory.lanternHits ?? 0) + 1;
           if (hits >= (ultimate ? procAt - 1 : procAt)) {
             ctx.memory.lanternHits = 0;
-            ctx.apply(procDamage);
+            if (!ctx.blocked) ctx.apply(procDamage);
           } else ctx.memory.lanternHits = hits;
         },
         onAttackAvoided(ctx) {

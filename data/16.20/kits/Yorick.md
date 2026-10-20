@@ -234,7 +234,7 @@ All 8 level-based formulas in the game files (1 linked to wiki values above):
 
 ## Duel simulator kit (level 20, every ability at max rank)
 
-What the duel simulator fights with (`kits/champions/Yorick.ts`): every number is read from the wiki's ability data above at level 20; what the wiki doesn't say is listed under assumptions. Ratios are fractions of the stat (60% AD is 0.6 × AD).
+What the duel simulator fights with (`kits/champions/Yorick.ts`): values come from pinned wiki and versioned game-data records at level 20. Interpretations and missing evidence are listed under assumptions. Ratios are fractions of the stat (60% AD is 0.6 × AD).
 
 - Basic attack: range 175, melee.
 - Options: graves = 3.
@@ -261,9 +261,9 @@ Effects marked by a mark or a role are completed by the kit's hooks (see the kit
 - The Maiden rises 600 units toward the enemy at most, her 4 Mist Walkers with her; the recast that sets her free is left out.
 - Yorick casts Awakening as soon as three graves can rise, and Eulogy of the Isles in a fight once the enemy is within its 600 units.
 
-### Wiki values read (77)
+### Source values read (79)
 
-| Ability | Value | Revision |
+| Ability | Value | Source version |
 |---|---|---|
 | Shepherd of Souls | Up to 4 graves can exist at once | [4008645](https://wiki.leagueoflegends.com/en-us/Template:Data_Yorick/Shepherd_of_Souls?oldid=4008645) |
 | Shepherd of Souls | effectRadius (Grave summon range): 1000 • 2500 | [4008645](https://wiki.leagueoflegends.com/en-us/Template:Data_Yorick/Shepherd_of_Souls?oldid=4008645) |
@@ -342,3 +342,5 @@ Effects marked by a mark or a role are completed by the kit's hooks (see the kit
 | Eulogy of the Isles | cooldown: 160 / 130 / 100 | [3972823](https://wiki.leagueoflegends.com/en-us/Template:Data_Yorick/Eulogy_of_the_Isles?oldid=3972823) |
 | Eulogy of the Isles | cost: 100 | [3972823](https://wiki.leagueoflegends.com/en-us/Template:Data_Yorick/Eulogy_of_the_Isles?oldid=3972823) |
 | Eulogy of the Isles | castTime: 0.5 | [3972823](https://wiki.leagueoflegends.com/en-us/Template:Data_Yorick/Eulogy_of_the_Isles?oldid=3972823) |
+| Mist Walker | Minion, does not count towards creep score | [4011713](https://wiki.leagueoflegends.com/en-us/Yorick?oldid=4011713) |
+| Maiden of the Mist | Minion | [4011713](https://wiki.leagueoflegends.com/en-us/Yorick?oldid=4011713) |

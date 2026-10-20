@@ -322,7 +322,7 @@ All 6 level-based formulas in the game files (4 linked to wiki values above):
 
 ## Duel simulator kit (level 20, every ability at max rank)
 
-What the duel simulator fights with (`kits/champions/Gnar.ts`): every number is read from the wiki's ability data above at level 20; what the wiki doesn't say is listed under assumptions. Ratios are fractions of the stat (60% AD is 0.6 × AD).
+What the duel simulator fights with (`kits/champions/Gnar.ts`): values come from pinned wiki and versioned game-data records at level 20. Interpretations and missing evidence are listed under assumptions. Ratios are fractions of the stat (60% AD is 0.6 × AD).
 
 - Basic attack: range 511.765, missile at 1500/s.
 - Options: rage = 50.
@@ -344,9 +344,9 @@ Effects marked by a mark or a role are completed by the kit's hooks (see the kit
 - Hop and Crunch land 0.6 s after they leave the ground, however far they go (the game files' TravelTime; the wiki gives no speed). Hop is kept for getting away: its bounce off the enemy is left out.
 - GNAR!'s knockback flies for the 0.4 s before its slow (the wiki gives no flight time).
 
-### Wiki values read (62)
+### Source values read (62)
 
-| Ability | Value | Revision |
+| Ability | Value | Source version |
 |---|---|---|
 | Mini Gnar | Bonus Range: 225 – 325 (based on level) | [4038340](https://wiki.leagueoflegends.com/en-us/Template:Data_Gnar/Mini_Gnar?oldid=4038340) |
 | Mini Gnar | Bonus Movespeed: 0 – 20 (based on level) | [4038340](https://wiki.leagueoflegends.com/en-us/Template:Data_Gnar/Mini_Gnar?oldid=4038340) |

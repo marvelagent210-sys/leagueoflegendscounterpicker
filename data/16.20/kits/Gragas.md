@@ -181,3 +181,83 @@ Cooldowns and costs of each slot's main ability, wiki vs game files:
 | E: Body Slam | cost | 50 / 50 / 50 / 50 / 50 | 50 / 50 / 50 / 50 / 50 | yes |
 | R: Explosive Cask | cooldown | 100 / 85 / 70 | 100 / 85 / 70 | yes |
 | R: Explosive Cask | cost | 100 / 100 / 100 | 100 / 100 / 100 | yes |
+
+## Duel simulator kit (level 20, every ability at max rank)
+
+What the duel simulator fights with (`kits/champions/Gragas.ts`): values come from pinned wiki and versioned game-data records at level 20. Interpretations and missing evidence are listed under assumptions. Ratios are fractions of the stat (60% AD is 0.6 × AD).
+
+- Basic attack: range 125, melee.
+
+| Key | Ability | Cooldown (s) | Cast time (s) | Cost | Delivery | On the enemy | On itself |
+|---|---|--:|--:|---|---|---|---|
+| Q | Barrel Roll | 6 | 0.25 | 80 | circle of 250 radius up to 850 away, projectile at 1000/s then lands after 0 s | – | – |
+| Q2 | Barrel Roll (recast) | 0 | 0 | – | self | – | – |
+| W | Drunken Rage | 5 | 0 | 30 | self; channel 0.75 s | – | when the channel completes: next 1 attack within 5 s: 140 + 7% target's maximum health + 70% AP magic damage (Drunken Rage) (+50 range, uncancellable) |
+| E | Body Slam | 12 | 0 | 50 | dash toward 600 units at 910/s, hits within 180 | 260 + 60% AP magic damage; stun for 1 s | – |
+| R | Explosive Cask | 70 | 0.25 | 100 | circle of 400 radius up to 1000 away, projectile flying 0.5 s then lands after 0 s | 400 + 80% AP magic damage; knock back 900 units over 0.5 s | – |
+
+Effects marked by a mark or a role are completed by the kit's hooks (see the kit's source).
+
+### Assumptions
+
+- Barrel Roll goes off as soon as it lands on the enemy, unless the enemy is held in place inside it: then it ferments until the hold is about to end (2 s at most).
+- Body Slam's knock back distance is in neither the wiki nor the game data: its hit stuns the enemy without moving it.
+- Explosive Cask's knock back takes 0.5 s: the wiki and the game data give its distance but not its duration.
+
+### Source values read (53)
+
+| Ability | Value | Source version |
+|---|---|---|
+| Happy Hour | heals himself for 5.5% of his maximum health | [3985369](https://wiki.leagueoflegends.com/en-us/Template:Data_Gragas/Happy_Hour?oldid=3985369) |
+| Happy Hour | staticCooldown: 12 / 10 / 8 / 6 (based on level) | [3985369](https://wiki.leagueoflegends.com/en-us/Template:Data_Gragas/Happy_Hour?oldid=3985369) |
+| Barrel Roll | The initial cast counts as an ability activation for the purposes of on-cast effects | [3907002](https://wiki.leagueoflegends.com/en-us/Template:Data_Gragas/Barrel_Roll?oldid=3907002) |
+| Barrel Roll | Deactivating the ability manually does not | [3907002](https://wiki.leagueoflegends.com/en-us/Template:Data_Gragas/Barrel_Roll?oldid=3907002) |
+| Barrel Roll | targetRange: 850 | [3907002](https://wiki.leagueoflegends.com/en-us/Template:Data_Gragas/Barrel_Roll?oldid=3907002) |
+| Barrel Roll | effectRadius: 250 | [3907002](https://wiki.leagueoflegends.com/en-us/Template:Data_Gragas/Barrel_Roll?oldid=3907002) |
+| Barrel Roll | speed: 1000 | [3907002](https://wiki.leagueoflegends.com/en-us/Template:Data_Gragas/Barrel_Roll?oldid=3907002) |
+| Barrel Roll | remaining there for 4 seconds | [3907002](https://wiki.leagueoflegends.com/en-us/Template:Data_Gragas/Barrel_Roll?oldid=3907002) |
+| Barrel Roll | ferment over the first 2 seconds of its duration | [3907002](https://wiki.leagueoflegends.com/en-us/Template:Data_Gragas/Barrel_Roll?oldid=3907002) |
+| Barrel Roll | up to a maximum of 150% of their initial values | [3907002](https://wiki.leagueoflegends.com/en-us/Template:Data_Gragas/Barrel_Roll?oldid=3907002) |
+| Barrel Roll | Minimum Magic Damage: 80 / 120 / 160 / 200 / 240 (+ 80% AP) | [3907002](https://wiki.leagueoflegends.com/en-us/Template:Data_Gragas/Barrel_Roll?oldid=3907002) |
+| Barrel Roll | Maximum Magic Damage: 120 / 180 / 240 / 300 / 360 (+ 120% AP) | [3907002](https://wiki.leagueoflegends.com/en-us/Template:Data_Gragas/Barrel_Roll?oldid=3907002) |
+| Barrel Roll | Minimum Slow: 40 / 45 / 50 / 55 / 60% | [3907002](https://wiki.leagueoflegends.com/en-us/Template:Data_Gragas/Barrel_Roll?oldid=3907002) |
+| Barrel Roll | Maximum Slow: 60 / 67.5 / 75 / 82.5 / 90% | [3907002](https://wiki.leagueoflegends.com/en-us/Template:Data_Gragas/Barrel_Roll?oldid=3907002) |
+| Barrel Roll | slowing them for 2 seconds | [3907002](https://wiki.leagueoflegends.com/en-us/Template:Data_Gragas/Barrel_Roll?oldid=3907002) |
+| Barrel Roll | Barrel Roll has an internal cooldown while traveling so that Gragas may only make it explode on arrival | [3907002](https://wiki.leagueoflegends.com/en-us/Template:Data_Gragas/Barrel_Roll?oldid=3907002) |
+| Barrel Roll | The charge-up countdown will only start once the cask stops rolling | [3907002](https://wiki.leagueoflegends.com/en-us/Template:Data_Gragas/Barrel_Roll?oldid=3907002) |
+| Barrel Roll | does so automatically after its duration ends | [3907002](https://wiki.leagueoflegends.com/en-us/Template:Data_Gragas/Barrel_Roll?oldid=3907002) |
+| Drunken Rage | Gragas channels for 0.75 seconds | [4013236](https://wiki.leagueoflegends.com/en-us/Template:Data_Gragas/Drunken_Rage?oldid=4013236) |
+| Drunken Rage | gains damage reduction for 2.5 seconds | [4013236](https://wiki.leagueoflegends.com/en-us/Template:Data_Gragas/Drunken_Rage?oldid=4013236) |
+| Drunken Rage | Damage Reduction: 10 / 14 / 18 / 22 / 26% (+ 4% per 100 AP) | [4013236](https://wiki.leagueoflegends.com/en-us/Template:Data_Gragas/Drunken_Rage?oldid=4013236) |
+| Drunken Rage | (+ 4% per 100 AP) | [4013236](https://wiki.leagueoflegends.com/en-us/Template:Data_Gragas/Drunken_Rage?oldid=4013236) |
+| Drunken Rage | empowers his next basic attack within 5 seconds | [4013236](https://wiki.leagueoflegends.com/en-us/Template:Data_Gragas/Drunken_Rage?oldid=4013236) |
+| Drunken Rage | gain 50 bonus range | [4013236](https://wiki.leagueoflegends.com/en-us/Template:Data_Gragas/Drunken_Rage?oldid=4013236) |
+| Drunken Rage | Bonus Magic Damage: 20 / 50 / 80 / 110 / 140 (+ 7% of target's maximum health) (+ 70% AP) | [4013236](https://wiki.leagueoflegends.com/en-us/Template:Data_Gragas/Drunken_Rage?oldid=4013236) |
+| Drunken Rage | Upon completing the channel, Gragas empowers his next basic attack | [4013236](https://wiki.leagueoflegends.com/en-us/Template:Data_Gragas/Drunken_Rage?oldid=4013236) |
+| Drunken Rage | The enhanced attack will apply other on-hit effects and can critically strike as normal | [4013236](https://wiki.leagueoflegends.com/en-us/Template:Data_Gragas/Drunken_Rage?oldid=4013236) |
+| Body Slam | targetRange: 600 | [4007602](https://wiki.leagueoflegends.com/en-us/Template:Data_Gragas/Body_Slam?oldid=4007602) |
+| Body Slam | speed: 910 | [4007602](https://wiki.leagueoflegends.com/en-us/Template:Data_Gragas/Body_Slam?oldid=4007602) |
+| Body Slam | effectRadius (Center-to-center collision radius): 180 • 180 | [4007602](https://wiki.leagueoflegends.com/en-us/Template:Data_Gragas/Body_Slam?oldid=4007602) |
+| Body Slam | Magic Damage: 80 / 125 / 170 / 215 / 260 (+ 60% AP) | [4007602](https://wiki.leagueoflegends.com/en-us/Template:Data_Gragas/Body_Slam?oldid=4007602) |
+| Body Slam | stunning them for 1 second | [4007602](https://wiki.leagueoflegends.com/en-us/Template:Data_Gragas/Body_Slam?oldid=4007602) |
+| Body Slam | Body Slam's current cooldown is reduced by 40% if Gragas hits an enemy | [4007602](https://wiki.leagueoflegends.com/en-us/Template:Data_Gragas/Body_Slam?oldid=4007602) |
+| Body Slam | Barrel Roll and Explosive Cask can be cast during the dash | [4007602](https://wiki.leagueoflegends.com/en-us/Template:Data_Gragas/Body_Slam?oldid=4007602) |
+| Body Slam | Displacement immunity will not resist the application of the stun | [4007602](https://wiki.leagueoflegends.com/en-us/Template:Data_Gragas/Body_Slam?oldid=4007602) |
+| Explosive Cask | targetRange: 1000 | [3906845](https://wiki.leagueoflegends.com/en-us/Template:Data_Gragas/Explosive_Cask?oldid=3906845) |
+| Explosive Cask | effectRadius: 400 | [3906845](https://wiki.leagueoflegends.com/en-us/Template:Data_Gragas/Explosive_Cask?oldid=3906845) |
+| Explosive Cask | travels to the target location over 0.5 seconds | [3906845](https://wiki.leagueoflegends.com/en-us/Template:Data_Gragas/Explosive_Cask?oldid=3906845) |
+| Explosive Cask | Magic Damage: 200 / 300 / 400 (+ 80% AP) | [3906845](https://wiki.leagueoflegends.com/en-us/Template:Data_Gragas/Explosive_Cask?oldid=3906845) |
+| Explosive Cask | knock them back 900 units | [3906845](https://wiki.leagueoflegends.com/en-us/Template:Data_Gragas/Explosive_Cask?oldid=3906845) |
+| Explosive Cask | though not through terrain, from the epicenter of the explosion | [3906845](https://wiki.leagueoflegends.com/en-us/Template:Data_Gragas/Explosive_Cask?oldid=3906845) |
+| Barrel Roll | cooldown: 10 / 9 / 8 / 7 / 6 | [3907002](https://wiki.leagueoflegends.com/en-us/Template:Data_Gragas/Barrel_Roll?oldid=3907002) |
+| Drunken Rage | cooldown: 5 | [4013236](https://wiki.leagueoflegends.com/en-us/Template:Data_Gragas/Drunken_Rage?oldid=4013236) |
+| Explosive Cask | cooldown: 100 / 85 / 70 | [3906845](https://wiki.leagueoflegends.com/en-us/Template:Data_Gragas/Explosive_Cask?oldid=3906845) |
+| Barrel Roll | cost: 80 | [3907002](https://wiki.leagueoflegends.com/en-us/Template:Data_Gragas/Barrel_Roll?oldid=3907002) |
+| Barrel Roll | castTime: 0.25 | [3907002](https://wiki.leagueoflegends.com/en-us/Template:Data_Gragas/Barrel_Roll?oldid=3907002) |
+| Drunken Rage | cost: 30 | [4013236](https://wiki.leagueoflegends.com/en-us/Template:Data_Gragas/Drunken_Rage?oldid=4013236) |
+| Drunken Rage | castTime: none | [4013236](https://wiki.leagueoflegends.com/en-us/Template:Data_Gragas/Drunken_Rage?oldid=4013236) |
+| Body Slam | cooldown: 14 / 13.5 / 13 / 12.5 / 12 | [4007602](https://wiki.leagueoflegends.com/en-us/Template:Data_Gragas/Body_Slam?oldid=4007602) |
+| Body Slam | cost: 50 | [4007602](https://wiki.leagueoflegends.com/en-us/Template:Data_Gragas/Body_Slam?oldid=4007602) |
+| Body Slam | castTime: none | [4007602](https://wiki.leagueoflegends.com/en-us/Template:Data_Gragas/Body_Slam?oldid=4007602) |
+| Explosive Cask | cost: 100 | [3906845](https://wiki.leagueoflegends.com/en-us/Template:Data_Gragas/Explosive_Cask?oldid=3906845) |
+| Explosive Cask | castTime: 0.25 | [3906845](https://wiki.leagueoflegends.com/en-us/Template:Data_Gragas/Explosive_Cask?oldid=3906845) |

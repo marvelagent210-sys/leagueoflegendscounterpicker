@@ -257,7 +257,7 @@ All 4 level-based formulas in the game files (3 linked to wiki values above):
 
 ## Duel simulator kit (level 20, every ability at max rank)
 
-What the duel simulator fights with (`kits/champions/Pantheon.ts`): every number is read from the wiki's ability data above at level 20; what the wiki doesn't say is listed under assumptions. Ratios are fractions of the stat (60% AD is 0.6 × AD).
+What the duel simulator fights with (`kits/champions/Pantheon.ts`): values come from pinned wiki and versioned game-data records at level 20. Interpretations and missing evidence are listed under assumptions. Ratios are fractions of the stat (60% AD is 0.6 × AD).
 
 - Basic attack: range 175, melee.
 
@@ -281,9 +281,9 @@ Effects marked by a mark or a role are completed by the kit's hooks (see the kit
 - Aegis Assault's invulnerability covers every hit: in one dimension the enemy stays in front of Pantheon.
 - Grand Starfall is used only to get away: after its interruptible 2-second channel Pantheon vanishes and lands far away.
 
-### Wiki values read (49)
+### Source values read (49)
 
-| Ability | Value | Revision |
+| Ability | Value | Source version |
 |---|---|---|
 | Mortal Will | stacking up to 5 times | [3963570](https://wiki.leagueoflegends.com/en-us/Template:Data_Pantheon/Mortal_Will?oldid=3963570) |
 | Mortal Will | Pantheon gains maximum stacks of Mortal Will upon starting the game | [3963570](https://wiki.leagueoflegends.com/en-us/Template:Data_Pantheon/Mortal_Will?oldid=3963570) |

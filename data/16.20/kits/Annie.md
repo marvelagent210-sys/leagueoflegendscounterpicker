@@ -192,3 +192,90 @@ All 4 level-based formulas in the game files (1 linked to wiki values above):
 | AnnieR | TibbersTotalHP | breakpoints at levels 7, 11, 16 (level 1: 1150) | 1150 | 3500 | 4100 |
 | AnnieR | TibbersTotalResists | breakpoints at levels 7 (level 1: 30) | 30 | 90 | 100 |
 | AnniePassive | StunDuration | breakpoints at levels 6, 11 (level 1: 1.25) | 1.25 | 1.75 | 1.75 |
+
+## Duel simulator kit (level 20, every ability at max rank)
+
+What the duel simulator fights with (`kits/champions/Annie.ts`): values come from pinned wiki and versioned game-data records at level 20. Interpretations and missing evidence are listed under assumptions. Ratios are fractions of the stat (60% AD is 0.6 × AD).
+
+- Basic attack: range 625, missile at 1500/s.
+
+| Key | Ability | Cooldown (s) | Cast time (s) | Cost | Delivery | On the enemy | On itself |
+|---|---|--:|--:|---|---|---|---|
+| Q | Disintegrate | 4 | 0.25 | 80 | targeted, 625 range, missile at 1400/s | 260 + 80% AP magic damage | – |
+| W | Incinerate | 7 | 0.25 | 90 | area 0 to 600 units ahead, lands after 0 s | 230 + 80% AP magic damage | – |
+| E | Molten Shield | 10 | 0 | 80 | self | – | shield of 200 + 40% AP for 3 s |
+| R | Summon: Tibbers | 100 | 0.25 | 100 | circle of 250 radius up to 600 away, lands after 0 s | 400 + 75% AP magic damage | – |
+
+Effects marked by a mark or a role are completed by the kit's hooks (see the kit's source).
+
+### Assumptions
+
+- Annie starts with four Pyromania stacks, matching game start/respawn; no pre-existing Tibbers is assumed.
+- Pyromania's 'next cast' empowerment is captured when a damaging cast completes. The source does not explicitly describe gaining the fourth stack during Disintegrate's flight; this model does not add a stun to an already-launched, unempowered fireball.
+- Incinerate uses the forward 600-unit section of its cone in the 1D duel; the cone's rear hitbox overlap is not modeled.
+- Tibbers is continuously commanded to chase the sole enemy champion. His attacks have instantaneous impact; pet-specific blind/disarm, out-of-combat Recovery, leash blinks, and manual commands are not modeled.
+- Tibbers Revenge after Annie dies is not modeled: the duel ends when its champion dies, and the engine removes the deceased owner's pets.
+- The quoted five approximate Enrage attack speeds are used in attack order, with linear movement-speed decay over its quoted duration.
+- Molten Shield's bonus movement speed decays linearly; it shields Annie and an existing Tibbers, each with one independent retaliation against the duel opponent. Pet absorption is applied before destruction in the pet damage hook.
+- The stat budget averages Tibbers' normal attack/aura damage over his lifetime and the summon cooldown, while the actual fight uses each Enrage and chase. Pet-specific crowd-control and attacks after Annie's death remain outside this duel model.
+
+### Source values read (56)
+
+| Ability | Value | Source version |
+|---|---|---|
+| Pyromania | stacking up to 4 times | [3932255](https://wiki.leagueoflegends.com/en-us/Template:Data_Annie/Pyromania?oldid=3932255) |
+| Pyromania | Energized: Annie empowers her next cast of Disintegrate, Incinerate, or Summon: Tibbers to consume all Pyromania stacks to stun enemies hit for 1.25 / 1.5 / 1.75 (based on level) seconds. | [3932255](https://wiki.leagueoflegends.com/en-us/Template:Data_Annie/Pyromania?oldid=3932255) |
+| Pyromania | Annie gains maximum stacks of Pyromania when the game starts and upon respawning | [3932255](https://wiki.leagueoflegends.com/en-us/Template:Data_Annie/Pyromania?oldid=3932255) |
+| Pyromania | Stacks are gained even if the ability is blocked by spell shield | [3932255](https://wiki.leagueoflegends.com/en-us/Template:Data_Annie/Pyromania?oldid=3932255) |
+| Pyromania | whenever she hits an enemy with Disintegrate or casts her other abilities | [3932255](https://wiki.leagueoflegends.com/en-us/Template:Data_Annie/Pyromania?oldid=3932255) |
+| Pyromania | her next cast of Disintegrate, Incinerate, or Summon: Tibbers to consume all Pyromania stacks | [3932255](https://wiki.leagueoflegends.com/en-us/Template:Data_Annie/Pyromania?oldid=3932255) |
+| Molten Shield | a shield for 3 seconds | [4064223](https://wiki.leagueoflegends.com/en-us/Template:Data_Annie/Molten_Shield?oldid=4064223) |
+| Molten Shield | Active: Annie grants herself or the target allied champion and Tibbers a shield for 3 seconds and 20 – 50 (based on level)% bonus movement speed that decays over 1.5 seconds. | [4064223](https://wiki.leagueoflegends.com/en-us/Template:Data_Annie/Molten_Shield?oldid=4064223) |
+| Molten Shield | decays over 1.5 seconds | [4064223](https://wiki.leagueoflegends.com/en-us/Template:Data_Annie/Molten_Shield?oldid=4064223) |
+| Molten Shield | Shield Strength: 60 / 95 / 130 / 165 / 200 (+ 40% AP) | [4064223](https://wiki.leagueoflegends.com/en-us/Template:Data_Annie/Molten_Shield?oldid=4064223) |
+| Molten Shield | Magic Damage: 25 / 35 / 45 / 55 / 65 (+ 40% AP) | [4064223](https://wiki.leagueoflegends.com/en-us/Template:Data_Annie/Molten_Shield?oldid=4064223) |
+| Molten Shield | This may only occur once per enemy per cast for each active Molten Shield | [4064223](https://wiki.leagueoflegends.com/en-us/Template:Data_Annie/Molten_Shield?oldid=4064223) |
+| Molten Shield | Attacks that are dodged or miss against the shielded target will not cause the shield to deal damage, while blocked attacks still deal damage to the attacker | [4064223](https://wiki.leagueoflegends.com/en-us/Template:Data_Annie/Molten_Shield?oldid=4064223) |
+| Molten Shield | The reaction damage does not trigger from Noxious Trap and Jack in the Box | [4064223](https://wiki.leagueoflegends.com/en-us/Template:Data_Annie/Molten_Shield?oldid=4064223) |
+| Summon: Tibbers | targetRange: 600 | [4012758](https://wiki.leagueoflegends.com/en-us/Template:Data_Annie/Summon:_Tibbers?oldid=4012758) |
+| Summon: Tibbers | effectRadius (aura): 250 • 350 | [4012758](https://wiki.leagueoflegends.com/en-us/Template:Data_Annie/Summon:_Tibbers?oldid=4012758) |
+| Summon: Tibbers | for up to 45 seconds | [4012758](https://wiki.leagueoflegends.com/en-us/Template:Data_Annie/Summon:_Tibbers?oldid=4012758) |
+| Tibbers | hp: 1150 / 1200 / 1250 / 1300 / 1350 / 1600 / 1850 / 2100 / 2350 / 2600 / 2900 / 3200 / 3500 / 3800 / 4100 (based on level) (+ 50% AP) | [4033194](https://wiki.leagueoflegends.com/en-us/Annie?oldid=4033194) |
+| Tibbers | (+ 50% AP) | [4033194](https://wiki.leagueoflegends.com/en-us/Annie?oldid=4033194) |
+| Tibbers | damage: 30 / 45 / 60 (+ 10% AP) | [4033194](https://wiki.leagueoflegends.com/en-us/Annie?oldid=4033194) |
+| Tibbers | 30 / 45 / 60 (+ 10% AP) | [4033194](https://wiki.leagueoflegends.com/en-us/Annie?oldid=4033194) |
+| Tibbers | Tibbers deals 2 / 3 / 4 (+ 1% AP) magic damage to all enemies within a 350 unit radius every 0.25 seconds | [4033194](https://wiki.leagueoflegends.com/en-us/Annie?oldid=4033194) |
+| Tibbers | range: 150 | [4033194](https://wiki.leagueoflegends.com/en-us/Annie?oldid=4033194) |
+| Tibbers | attackspeed: 0.625 | [4033194](https://wiki.leagueoflegends.com/en-us/Annie?oldid=4033194) |
+| Tibbers | movespeed: 350 / 375 / 400 | [4033194](https://wiki.leagueoflegends.com/en-us/Annie?oldid=4033194) |
+| Tibbers | Tibbers enrages for 3 seconds on summon and when Pyromania stuns an enemy champion | [4033194](https://wiki.leagueoflegends.com/en-us/Annie?oldid=4033194) |
+| Tibbers | gains 100% bonus movement speed, which decays over the duration | [4033194](https://wiki.leagueoflegends.com/en-us/Annie?oldid=4033194) |
+| Tibbers | for his next 5 attacks while enraged | [4033194](https://wiki.leagueoflegends.com/en-us/Annie?oldid=4033194) |
+| Tibbers | 1.736 / 1.5362732 / 1.3070344 / 1.0430756 / 0.7391888 | [4033194](https://wiki.leagueoflegends.com/en-us/Annie?oldid=4033194) |
+| Tibbers | Tibbers' attacks are mitigated by block, dodge, and blind, as well as stopped by Disarm | [4033194](https://wiki.leagueoflegends.com/en-us/Annie?oldid=4033194) |
+| Tibbers | His flaming aura applies spell effects as persistent area damage | [4033194](https://wiki.leagueoflegends.com/en-us/Annie?oldid=4033194) |
+| Tibbers | armor: 30 / 35 / 40 / 45 / 50 / 55 / 60 / 65 / 70 / 75 / 80 / 85 / 90 / 95 / 100 (based on level) | [4033194](https://wiki.leagueoflegends.com/en-us/Annie?oldid=4033194) |
+| Tibbers | magicresist: 30 / 35 / 40 / 45 / 50 / 55 / 60 / 65 / 70 / 75 / 80 / 85 / 90 / 95 / 100 (based on level) | [4033194](https://wiki.leagueoflegends.com/en-us/Annie?oldid=4033194) |
+| Tibbers | radius: 80 | [4033194](https://wiki.leagueoflegends.com/en-us/Annie?oldid=4033194) |
+| Disintegrate | cooldown: 4 | [3992633](https://wiki.leagueoflegends.com/en-us/Template:Data_Annie/Disintegrate?oldid=3992633) |
+| Disintegrate | cost: 60 / 65 / 70 / 75 / 80 | [3992633](https://wiki.leagueoflegends.com/en-us/Template:Data_Annie/Disintegrate?oldid=3992633) |
+| Disintegrate | castTime: 0.25 | [3992633](https://wiki.leagueoflegends.com/en-us/Template:Data_Annie/Disintegrate?oldid=3992633) |
+| Disintegrate | targetRange: 625 | [3992633](https://wiki.leagueoflegends.com/en-us/Template:Data_Annie/Disintegrate?oldid=3992633) |
+| Disintegrate | speed: 1400 | [3992633](https://wiki.leagueoflegends.com/en-us/Template:Data_Annie/Disintegrate?oldid=3992633) |
+| Disintegrate | Magic Damage: 80 / 125 / 170 / 215 / 260 (+ 80% AP) | [3992633](https://wiki.leagueoflegends.com/en-us/Template:Data_Annie/Disintegrate?oldid=3992633) |
+| Incinerate | cooldown: 7 | [3952555](https://wiki.leagueoflegends.com/en-us/Template:Data_Annie/Incinerate?oldid=3952555) |
+| Incinerate | cost: 70 / 75 / 80 / 85 / 90 | [3952555](https://wiki.leagueoflegends.com/en-us/Template:Data_Annie/Incinerate?oldid=3952555) |
+| Incinerate | castTime: 0.25 | [3952555](https://wiki.leagueoflegends.com/en-us/Template:Data_Annie/Incinerate?oldid=3952555) |
+| Incinerate | effectRadius: 600 | [3952555](https://wiki.leagueoflegends.com/en-us/Template:Data_Annie/Incinerate?oldid=3952555) |
+| Incinerate | Magic Damage: 70 / 110 / 150 / 190 / 230 (+ 80% AP) | [3952555](https://wiki.leagueoflegends.com/en-us/Template:Data_Annie/Incinerate?oldid=3952555) |
+| Molten Shield | cooldown: 10 | [4064223](https://wiki.leagueoflegends.com/en-us/Template:Data_Annie/Molten_Shield?oldid=4064223) |
+| Molten Shield | cost: 60 / 65 / 70 / 75 / 80 | [4064223](https://wiki.leagueoflegends.com/en-us/Template:Data_Annie/Molten_Shield?oldid=4064223) |
+| Molten Shield | castTime: none | [4064223](https://wiki.leagueoflegends.com/en-us/Template:Data_Annie/Molten_Shield?oldid=4064223) |
+| Summon: Tibbers | cooldown: 130 / 115 / 100 | [4012758](https://wiki.leagueoflegends.com/en-us/Template:Data_Annie/Summon:_Tibbers?oldid=4012758) |
+| Summon: Tibbers | cost: 100 | [4012758](https://wiki.leagueoflegends.com/en-us/Template:Data_Annie/Summon:_Tibbers?oldid=4012758) |
+| Summon: Tibbers | castTime (Initial): 0.25 • None | [4012758](https://wiki.leagueoflegends.com/en-us/Template:Data_Annie/Summon:_Tibbers?oldid=4012758) |
+| Summon: Tibbers | effectRadius (impact): 250 • 350 | [4012758](https://wiki.leagueoflegends.com/en-us/Template:Data_Annie/Summon:_Tibbers?oldid=4012758) |
+| Summon: Tibbers | Initial Magic Damage: 150 / 275 / 400 (+ 75% AP) | [4012758](https://wiki.leagueoflegends.com/en-us/Template:Data_Annie/Summon:_Tibbers?oldid=4012758) |
+| Disintegrate | Disintegrate's cooldown is reduced by 50% | [3992633](https://wiki.leagueoflegends.com/en-us/Template:Data_Annie/Disintegrate?oldid=3992633) |
+| Summon: Tibbers | Magic Penetration: 10 / 15 / 20% | [4012758](https://wiki.leagueoflegends.com/en-us/Template:Data_Annie/Summon:_Tibbers?oldid=4012758) |
+| Tibbers | Minion | [4033194](https://wiki.leagueoflegends.com/en-us/Annie?oldid=4033194) |

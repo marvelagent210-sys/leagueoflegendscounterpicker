@@ -7,7 +7,8 @@ import type { CCType } from "../rules/crowdControl";
 import type { DamageType } from "../rules/damage";
 import type { ShieldType } from "../rules/defense";
 import type { Behavior } from "./behavior";
-import type { Pet, Unit, World } from "./state";
+import type { Action, Aim, AttackHitOptions, Missile, Pet, Status, Unit, World, Zone } from "./state";
+import type { PendingSplit } from "./actions";
 
 /** Stats a formula can read: the caster's, or the target's with a "target" prefix. */
 export type StatRef =
@@ -19,6 +20,12 @@ export type StatRef =
   | "bonusHP"
   | "currentHP"
   | "missingHP"
+  | "maxMana"
+  | "currentMana"
+  | "missingMana"
+  | "targetMaxMana"
+  | "targetCurrentMana"
+  | "targetMissingMana"
   | "armor"
   | "bonusArmor"
   | "MR"
@@ -70,6 +77,11 @@ export type StateType =
   | "ccImmune"
   | "displacementImmune"
   | "slowImmune"
+  | "crippleImmune"
+  /** Damage immunity outside a radius measured from the moving protected unit. Does not prevent targeting or CC. */
+  | "invulnerableFar"
+  /** Flat pre-mitigation reduction for each non-true damage instance, capped at half its damage. */
+  | "flatDamageReduction"
   | "minimumHealth"
   | "damageReduction"
   /** Damage reduction against one damage type only (Defiant Dance). */
@@ -77,6 +89,8 @@ export type StateType =
   | "magicReduction"
   | "tenacity"
   | "ghosted"
+  /** Voluntary walking may cross terrain; forced movement keeps its normal collision. */
+  | "terrainIgnore"
   /** Stops enemy dashes that come within `value` units and applies the status's effects to the dasher (Steadfast Presence). */
   | "antiDash"
   /** Negates the next immobilizing crowd control (Goes Where He Pleases). */
@@ -85,6 +99,8 @@ export type StateType =
   | "untargetableFar"
   /** Can't declare basic attacks, without being crowd control (Purge fires in their place). */
   | "noAttacks"
+  /** Prevents voluntary walking without being crowd control or grounding the unit. */
+  | "noMovement"
   /** Healing and regeneration have no effect, except life steal and omnivamp (Glory in Death). */
   | "noHealing"
   /**
@@ -92,6 +108,8 @@ export type StateType =
    * or aim at it, but areas still hit it and missiles already on their way still land.
    */
   | "invisible"
+  /** True sight exposes invisibility without overriding nearsight or untargetability. */
+  | "revealed"
   /** An ability still at work in a way its kit's hooks model (Twilight Shroud's smoke): no rule of its own, but it holds a post-effect cooldown. */
   | "lingering"
   /** Health can't go above `value` (a share of maximum health); gaining it lowers health to it (All Out's 65%). */
@@ -104,6 +122,10 @@ export type BuffStat =
   | "armor"
   | "MR"
   | "attackSpeed"
+  /** Multiplies total attack speed by one plus the sum of these fractions. */
+  | "attackSpeedMultiplier"
+  /** Raises the normal attack speed cap to this value while active. */
+  | "attackSpeedCap"
   | "moveSpeedFlat"
   | "moveSpeedPercent"
   | "armorReduction"
@@ -131,7 +153,11 @@ export type BuffStat =
   /** More maximum resource (Twilight Shroud's 100 energy). */
   | "maxResource"
   /** Percentage penetration of bonus armor only (All Out's 50%). */
-  | "bonusArmorPen";
+  | "bonusArmorPen"
+  /** Bonus armor ignored by critical strikes, additive with total percentage armor penetration (Last Breath). */
+  | "criticalBonusArmorIgnore"
+  /** Flat loss of total AD; bonus AD floors at zero without reducing base AD ratios (Mocking Shout). */
+  | "totalADReduction";
 
 /** How a basic attack's damage divides between damage types, as shares of the attack. */
 export interface AttackSplit {
@@ -139,6 +165,8 @@ export interface AttackSplit {
   magic: number;
   true?: number;
 }
+
+export type PetDamageCategory = "basic" | "singleTarget" | "area" | "persistent" | "proc" | "pet";
 
 export type Effect =
   /**
@@ -148,10 +176,14 @@ export type Effect =
    * least this much before mitigation (Infected Bonesaw's minimum damage).
    */
   /** `noLifeSteal`: life steal doesn't heal from it, though it comes with a basic attack (Glory in Death's on-hit). */
-  | { type: "damage"; damageType: DamageType; amount: Formula; canCrit?: boolean; critMultiplier?: number; lifesteal?: number; label?: string; minimum?: Formula; noLifeSteal?: boolean }
+  | { type: "damage"; damageType: DamageType; amount: Formula; amountFor?: (caster: Unit, target: Unit) => number; canCrit?: boolean; critMultiplier?: number; lifesteal?: number; label?: string; minimum?: Formula; noLifeSteal?: boolean; persistent?: boolean; petDamageCategory?: PetDamageCategory }
   /** `strength`: a slow's fraction, or for nearsight the sight radius left (Blinding Assault's 350). */
   /** `sticky`: non-dispellable, so most cleanses leave it (Mega Adhesive's slow and ground). */
-  | { type: "cc"; cc: CCType; duration: number; strength?: number; sticky?: boolean }
+  | { type: "cc"; cc: CCType; duration: number; strength?: number; sticky?: boolean; spellShield?: boolean; bypassSlowImmune?: boolean }
+  /** Immediate guarded channel interruption without a lasting crowd-control status. */
+  | { type: "disrupt" }
+  /** Stops an interruptible dash without inventing an airborne duration. */
+  | { type: "knockdown" }
   /**
    * Knock up (distance 0), knock back ("away") or pull ("toward"): airborne plus forced
    * movement. `to`: pull only until the target's center is this far from the caster's
@@ -162,15 +194,15 @@ export type Effect =
    * Knock ups (distance 0), knock backs and pulls. `over`: thrown over the caster, landing
    * `distance` units from where it was (Fling), over terrain too.
    */
-  | { type: "displace"; direction: "away" | "toward"; distance: number; duration: number; to?: number; wallStun?: number; wallEffects?: Effect[]; over?: boolean }
-  | { type: "shield"; amount: Formula; duration: number; shieldType?: ShieldType; priority?: boolean }
+  | { type: "displace"; direction: "away" | "toward"; distance: number; duration: number; airborneDuration?: number; to?: number; wallStun?: number; wallEffects?: Effect[]; over?: boolean; interruptUncancellable?: boolean; originX?: number; stopAtWall?: boolean }
+  | { type: "shield"; amount: Formula; duration: number; shieldType?: ShieldType; priority?: boolean; blackShield?: boolean }
   | { type: "heal"; amount: Formula }
   /**
    * `value`: hit points for minimumHealth, a fraction for damageReduction and tenacity, a
    * radius for projectileBlock, antiDash and untargetableFar. `effects`: what the state does
    * when triggered (antiDash). States with a position are anchored where the target stands.
    */
-  | { type: "state"; state: StateType; duration: number; value?: number; charges?: number; effects?: Effect[] }
+  | { type: "state"; state: StateType; duration: number; value?: number; charges?: number; effects?: Effect[]; tenacityGroup?: string; hostileOnly?: boolean; revealWhileCC?: CCType }
   | { type: "stat"; stat: BuffStat; amount: Formula; duration: number }
   /** `stacks`: a new application runs alongside the old one instead of refreshing it (Trial by Fire). */
   | { type: "dot"; damageType: DamageType; total: Formula; duration: number; interval: number; label?: string; stacks?: boolean }
@@ -192,11 +224,21 @@ export type Effect =
       bonusRange?: number;
       resetAttack?: boolean;
       uncancellable?: boolean;
+      /** The empowered windup still hits a target that becomes untargetable (Decisive Strike). */
+      hitsUntargetable?: boolean;
+      /** A spell shield blocks this entire empowered attack, including its ordinary damage. */
+      spellShield?: boolean;
+      /** A spell shield negates only this empowered on-hit packet, preserving the ordinary attack. */
+      spellShieldOnHit?: boolean;
+      /** Replaces ordinary attack on-hits only when this empowered packet is unshielded. */
+      attackOnHitReplacement?: Effect[];
+      /** Breaks damage shields on contact, including when a spell shield blocks the attack. */
+      breakShields?: boolean;
       split?: AttackSplit;
       windup?: number;
     }
   /** Kills the target if its health is at or below the threshold after the hit. */
-  | { type: "execute"; threshold: Formula }
+  | { type: "execute"; threshold: Formula; minimumHealthFloor?: number }
   | { type: "resetAttack" }
   /** A wall in front of the caster that destroys enemy projectiles crossing it. */
   | { type: "projectileWall"; distance: number; duration: number }
@@ -226,15 +268,16 @@ export type Delivery =
   | { kind: "aura"; radius: number }
   /** Unit-targeted; a homing missile when `missileSpeed` is set. */
   /** `edge`: the range reaches from the caster's edge to the target's (the wiki's "edge range", Devour) rather than center to center. */
-  | { kind: "target"; range: number; missileSpeed?: number; edge?: boolean }
+  | { kind: "target"; range: number; rangeFor?: (caster: Unit, target: Unit) => number; missileSpeed?: number; edge?: boolean }
   /** A skillshot: a missile (or instant line when `speed` is unset) that the target can sidestep. */
-  | { kind: "line"; range: number; width: number; speed?: number }
+  | { kind: "line"; range: number; width: number; speed?: number; travelRange?: number; collisionRange?: number; piercing?: boolean; radius?: number; collisionPet?: boolean }
   /**
    * Ground-targeted area that lands after `delay` seconds. `centered`: its radius reaches the
    * target's center rather than its edge (the wiki's "center range", Rupture).
    */
   /** `hidden`: seconds into the cast before the enemy can see where it will land (Abyssal Dive's indicator). */
-  | { kind: "circle"; range: number; radius: number; delay: number; centered?: boolean; hidden?: number }
+  /** `flight`: a projectile that lands this many seconds after it is thrown however far it goes (Explosive Cask), in place of a `speed`. */
+  | { kind: "circle"; range: number; radius: number; delay: number; centered?: boolean; hidden?: number; speed?: number; flight?: number }
   /**
    * A dash; `hitRadius` hits the enemy on arrival. "target" dashes stop at the enemy. Dashes
    * to a location can be aimed (a cast's `aim`) anywhere from `minDistance` to `distance`.
@@ -257,7 +300,18 @@ export type Delivery =
       direction: "toward" | "away" | "target";
       distance: number;
       speed: number;
+      /** Speed resolved at dash declaration from the caster's current stats. */
+      speedFor?: (unit: Unit) => number;
+      /**
+       * Distance resolved at dash declaration from the caster's current stats (Infinite Duress:
+       * 250% of movement speed); `distance` stays the reference for setting up scenarios.
+       */
+      distanceFor?: (unit: Unit) => number;
+      /** Crosses intervening terrain when its endpoint is clear; never extends to escape a wall. */
+      crossTerrain?: boolean;
       hitRadius?: number;
+      /** Hit range between centers, rather than the default hitbox edges (Lunge's stab). */
+      hitCentered?: boolean;
       minDistance?: number;
       through?: boolean;
       ramp?: { amount: number; every: number; from?: number };
@@ -265,7 +319,7 @@ export type Delivery =
       time?: number;
       lockOn?: { within: number; speed: number };
     }
-  | { kind: "blink"; direction: "toward" | "away"; distance: number; hitRadius?: number }
+  | { kind: "blink"; direction: "toward" | "away"; distance: number; hitRadius?: number; through?: boolean; minDistance?: number; hitCentered?: boolean }
   /**
    * A stretch of the line from `near` to `far` units in front of the caster's center that
    * lands `delay` seconds after the cast: it hits the enemy if its hitbox overlaps it.
@@ -308,6 +362,12 @@ export type Delivery =
 
 export interface ChannelSpec {
   duration: number;
+  /** Voluntary movement may cancel only after this many seconds of channeling. */
+  cancelAfter?: number;
+  /** An attack on a different target (a pet in a duel) may cancel after this delay. */
+  cancelAttackOtherAfter?: number;
+  /** The kit starts the declared channel after its projectile attaches (Mercy), rather than at cast completion. */
+  manualStart?: boolean;
   /** Crowd control that disables casting interrupts it unless false. */
   interruptible: boolean;
   /** Effects on the enemy every `interval` seconds while channeling, if in range. */
@@ -315,6 +375,8 @@ export interface ChannelSpec {
   onTick?: Effect[];
   /** Effects when the channel completes. */
   onComplete?: Effect[];
+  /** A real kit-owned packet announced for channel completion; perception only, with its own delivery defenses. */
+  completionThreat?: string;
   /** Effects on the caster when the channel completes uninterrupted (Grand Starfall's leap). */
   onCompleteSelf?: Effect[];
   /** Center-to-edge reach of the pulses and the completion effects. */
@@ -332,8 +394,22 @@ export interface AbilityFlags {
   spellShield?: boolean;
   /** Dodges, blocks and blinds stop it (abilities that strike like basic attacks). */
   parry?: boolean;
+  /** Attack defenses negate damage/on-hits while the spell's other effects still connect (Steel Tempest). */
+  dodgeKeepsEffects?: boolean;
+  /** A failed matching CC application cancels the remaining hit packet (Devour). */
+  requiresCC?: CCType;
+  /** This ability's whole hit packet also requires absence of displacement immunity. */
+  blockedByDisplacementImmunity?: boolean;
   /** Fires the caster's on-hit effects. */
   appliesOnHit?: boolean;
+  /** Its own basic damage benefits from life steal (Lunge, Parrrley, Purge). */
+  appliesLifeSteal?: boolean;
+  /** Classifies its damage as basic damage while preserving spell delivery and defenses. */
+  basicDamage?: boolean;
+  /** Resolve spell contact, on-hits and kit hooks against the actual contacted pet. */
+  petContactHooks?: boolean;
+  /** An attached packet can resolve on an untargetable target; stasis still denies it. */
+  hitsUntargetable?: boolean;
   /** Can't be cast while grounded. Default: true for dashes and blinks. */
   grounded?: boolean;
   /** Its dash is interrupted by knockdowns and displacements. Default true. */
@@ -347,6 +423,15 @@ export interface AbilityFlags {
  * kit from the wiki's pet infobox (H-28G Evolution Turret, Mist Walker, Tentacle, Powder Keg).
  */
 export interface PetSpec {
+  /** Explicit targeting class from the pet's pinned source; absence means unclassified. */
+  targetClass?: "minion" | "champion" | "other";
+  fixedDamage?: Partial<Record<PetDamageCategory, number>> & { rangedBasic?: number; meleeBasic?: number };
+  diesToChampionAttack?: boolean;
+  ccImmune?: CCType[];
+  target?: (world: World, pet: Pet) => Unit | Pet | undefined;
+  onAttackHit?: (ctx: { world: World; pet: Pet; target: Unit | Pet; blocked: boolean }) => void;
+  /** Contact-time packets, selected only after attack avoidance checks succeed. */
+  effectsForHit?: (ctx: { world: World; pet: Pet; target: Unit | Pet; effects: readonly Effect[] }) => Effect[];
   /** The kit's name for the kind of pet ("turret", "walker", "keg", ...). */
   kind: string;
   name: string;
@@ -379,10 +464,14 @@ export interface PetSpec {
    * Damage it took: `raw` before its resistances, `dealt` after, `before` its health before
    * the hit (now lower). Test of Spirit's Spirit echoes a share to its champion.
    */
-  onDamaged?: (hit: { world: World; pet: Pet; attacker: Unit; raw: number; dealt: number; before: number; damageType: DamageType; attack: boolean }) => void;
+  onDamaged?: (hit: { world: World; pet: Pet; attacker: Unit; raw: number; dealt: number; before: number; damageType: DamageType; attack: boolean; ability?: string }) => void;
 }
 
 export interface PetAttack {
+  windup?: number;
+  missileSpeed?: number;
+  projectile?: boolean;
+  category?: PetDamageCategory;
   /** Reach of its attacks, from its center to the enemy's edge. */
   range: number;
   /** Seconds between attacks. */
@@ -400,18 +489,46 @@ export type CooldownAfter = "empower" | "channel" | "dash" | "field" | "state";
 export type AbilityRole = "damage" | "cc" | "engage" | "escape" | "defense" | "buff" | "finisher";
 
 export interface AbilitySpec {
+  /** False for explicit non-activation toggles; own implementation hooks still run. */
+  countsAsCast?: boolean;
   /** Unique within the kit: "Q", "W", "E", "R", "Q2", ... */
   key: string;
   name: string;
   slot: "Q" | "W" | "E" | "R" | "I" | "other";
   /** Seconds at max rank, before ability haste. */
   cooldown: number;
+  /** An explicit manual stage already counted by its root spell's reference budget. */
+  budgetExcluded?: boolean;
+  /** The cast cooldown is unaffected by ability haste (Steel Tempest); charge recharge remains separate. */
+  staticCooldown?: boolean;
   /** A number, or a formula of the caster's stats (Reckless Swing's health cost). */
   cost?: number | Formula;
+  /** Descriptive continuous drain; the kit's independent toggle clock pays it. */
+  resourceDrainPerSecond?: number;
+  /** Dynamic cost captured when the cast is declared. */
+  costFor?: (unit: Unit, ability: AbilitySpec) => number;
+  activation?: "cast" | "toggle" | "transformation" | "internal";
   /** What the cost is paid with. Default: the champion's resource. */
   costType?: "resource" | "health";
   castTime: number;
+  /** Line/projectile delivery retains the caster's position or facing from cast declaration. */
+  castOrigin?: "start";
+  castDirection?: "start";
+  /** Revalidate target range and visibility at cast completion; invalid casts cost no resource or cooldown. */
+  cancelOnInvalidTarget?: boolean;
+  retainTargetOnVisibilityLoss?: boolean;
+  retainTargetOnInvalidation?: boolean;
+  /** Ground delivery starts at declaration, independently of cast completion. */
+  deliveryAtCastStart?: boolean;
+  /** A line is delivered this many seconds into its cast; the original cast lock and completion costs remain. */
+  deliveryDuringCastAt?: number;
+  /** Already-created impacts remain relevant to the result after this caster dies. */
+  persistsAfterDeath?: boolean;
+  /** These CC types during the cast prevent delivery while retaining normal completion cost/cooldown. */
+  failCastOnCC?: CCType[];
   moveWhileCasting?: boolean;
+  /** A timed recast temporarily overlays its allowed channel, retaining its absolute clock. */
+  preserveChannel?: boolean;
   /** Most cooldowns start when the cast time ends (wiki: "Cast time"). */
   cooldownAtCastStart?: boolean;
   /**
@@ -423,6 +540,8 @@ export interface AbilitySpec {
   delivery: Delivery;
   /** Effects on the enemy when the ability lands. */
   onHit?: Effect[];
+  /** Share of attached attack on-hit effects, when flags.appliesOnHit is set (Purge: 0.5). */
+  onHitScale?: number;
   /** Effects on the caster when the cast completes. */
   onSelf?: Effect[];
   /** Effects on the caster as soon as the cast starts (Riposte's parry during its cast time). */
@@ -445,6 +564,8 @@ export interface AbilitySpec {
    * damage (Haymaker's grows with the Grit spent): what the enemy sees coming.
    */
   estimate?: (caster: Unit, target: Unit) => number;
+  /** Additional delay before hook-delivered forecast damage, beyond ordinary cast and delivery time. */
+  estimateDelay?: (caster: Unit, target: Unit) => number;
   /**
    * A recast: castable within `window` seconds of the previous stage of `root` (stage
    * `index - 1`), at least `delay` seconds after it; `auto` casts it when the window closes
@@ -469,6 +590,16 @@ export interface AbilitySpec {
    * Dash during The Darkin Blade). A dash cast this way holds the other cast until it ends.
    */
   overlay?: boolean;
+  /** Instant overlay casts allowed during these channels, preserving their original clocks. */
+  overlayChannels?: string[];
+  /** Casts allowed to end these channels, without bypassing ordinary CC restrictions. */
+  allowedDuringChannel?: string[];
+  /**
+   * This cast retains an already-declared windup at its original launch time (Bloodlust,
+   * Decimate); "uncancellable" retains only an uncancellable windup, and cancels the others as
+   * casting usually does (Crushing Blow's attack: "Other abilities can be used during the attack's animation").
+   */
+  preserveAttackWindup?: boolean | "uncancellable";
   /**
    * Its cast time is a charge or channel that crowd control interrupts as it would a channel
    * (Decimating Smash, Abyssal Dive): the cost is spent and, when `cooldown` is given, the
@@ -498,6 +629,18 @@ export interface AttackSpec {
   projectile: boolean;
   /** Effects every basic attack applies on hit (attack modifiers such as Teemo's Toxic Shot). */
   onHit?: Effect[];
+  /** This kit's attached on-hit packet is also denied when basic attack damage is blocked. */
+  blockStopsOnHit?: boolean;
+  /** Opt in to basic modifiers and on-hits against real pets, without champion hit hooks. */
+  onHitToPets?: boolean;
+  /** Extra range against this particular target, in addition to ordinary range buffs. */
+  bonusRangeFor?: (self: Unit, target: Unit) => number;
+  /** Pure raw physical addition selected at impact, after ordinary critical damage. */
+  bonusPhysicalFor?: (self: Unit, target: Unit, attack: AttackHitOptions) => number;
+  /** Opt-in packets resolved before ordinary basic damage, with the attack's critical snapshot. */
+  beforeDamage?: Effect[];
+  /** The kit's attached on-hits precede its basic damage, without applying them twice. */
+  onHitBeforeDamage?: boolean;
 }
 
 /** Level-20 base statistics. Percentages are fractions. */
@@ -557,23 +700,70 @@ export interface KitHooks {
   onStart?(ctx: HookContext): void;
   onTick?(ctx: HookContext): void;
   /** A basic attack is declared (its windup starts). */
-  onAttack?(ctx: HookContext): void;
-  /** A basic attack's windup ends: it strikes, or its missile is fired. */
-  onAttackLaunch?(ctx: HookContext): void;
-  onAttackHit?(ctx: HookContext): void;
+  onAttack?(ctx: HookContext & { action: Extract<Action, { kind: "windup" }>; targetPet?: Pet }): void;
+  /** The windup ends. False replaces the default launch; a returned split also branches on the replacement missile. */
+  onAttackLaunch?(ctx: HookContext & { action: Extract<Action, { kind: "windup" }>; targetPet?: Pet }): boolean | PendingSplit | void;
+  /** A connected basic's target-local packet before ordinary on-hits and physical damage.
+   * Blind, dodge, parry and whole-attack spell shields deny this callback. A damage
+   * block is supplied explicitly; each passive decides whether it can still apply. */
+  onAttackBeforeDamage?(ctx: HookContext & { pet?: Pet; blocked: boolean; critChance: number; attack: AttackHitOptions; scale: number }): void;
+  /** A connected attack; blocked damage can still trigger some effects (Ragnarok). */
+  onAttackHit?(ctx: HookContext & { blocked: boolean; critChance: number; attack: AttackHitOptions; scale: number }): void;
+  /** A champion basic attack contacts a pet; champion-only hit hooks are separate. */
+  onAttackPetHit?(ctx: HookContext & { pet: Pet; blocked: boolean; critChance: number; attack: AttackHitOptions; scale: number }): void;
+  /** A declared attack reached resolution, including misses/avoidance, after its damage. */
+  onAttackResolved?(ctx: HookContext & { blocked: boolean; missed: boolean }): void;
+  /** A hostile packet actually consumed this champion's spell shield, after charge removal. */
+  onSpellShieldBlock?(ctx: HookContext & { source: Unit; shield: Readonly<Status>; ability?: AbilitySpec }): void;
+  /** The stance negated a hit; immobilizing says Riposte itself prevented an immobilize. */
+  onParry?(ctx: HookContext & { immobilizing: boolean }): void;
+  /**
+   * Contact before defenses resolve. Return a replacement packet for effects that depend
+   * on impact state; the supplied hit-band template must remain reusable by other worlds.
+   */
+  onAbilityContact?(ctx: HookContext & { ability: AbilitySpec; effects: readonly Effect[]; scale: number; defense?: "parry" | "spellShield" | "dodge" | "block" | "immunity" }): Effect[] | void;
+  /** A connected ability, after defensive guards and before applying its effects. */
+  beforeAbilityHit?(ctx: HookContext & { ability: AbilitySpec; effects: Effect[]; scale: number }): void;
   /** `scale`: the share of the hit that counts, below 1 for skillshots resolved by expected value. */
   onAbilityHit?(ctx: HookContext & { ability: AbilitySpec; scale: number }): void;
   /** One of this unit's casts starts (before its cast time). */
-  onCastStart?(ctx: HookContext & { ability: AbilitySpec }): void;
+  onCastStart?(ctx: HookContext & { ability: AbilitySpec; aim?: Aim }): void;
   /** One of this unit's casts completes. */
-  onCast?(ctx: HookContext & { ability: AbilitySpec }): void;
+  onCast?(ctx: HookContext & { ability: AbilitySpec; aim?: Aim }): void;
+  onEnemyCast?(ctx: HookContext & { ability: AbilitySpec; caster: Unit }): void;
+  onChannelInterrupt?(ctx: HookContext & { ability: AbilitySpec; reason: "cc" | "recast" | "cast" | "move" | "attack" | "resurrection" | "death"; cc?: CCType }): void;
+  onCCAttempt?(ctx: HookContext & { cc: CCType; source: Unit; ability?: string }): void;
+  onCCApplied?(ctx: HookContext & { cc: CCType; source: Unit; ability?: string }): void;
+  /** An enemy champion received hostile immobilization, after its own accepted-CC callback. */
+  onEnemyCCApplied?(ctx: HookContext & { target: Unit; cc: CCType; source: Unit; ability?: string }): void;
+  onTargetResurrection?(ctx: HookContext & { target: Unit }): void;
+  onKill?(ctx: HookContext & { victim: Unit | Pet; pet?: Pet; damage?: { ability?: string; persistent?: boolean } }): void;
+  /** Once before a special missile moves, including zero-speed and post-death phases. */
+  onMissileTick?(ctx: HookContext & { missile: Missile }): void;
+  onMissileMove?(ctx: HookContext & { missile: Missile; from: number; to: number }): void;
+  onZoneTrigger?(ctx: HookContext & { zone: Zone; targetPet?: Pet }): void;
+  onMissileContact?(ctx: HookContext & { missile: Missile; targetPet?: Pet }): void;
+  onMissileEnd?(ctx: HookContext & { missile: Missile; reason: "range" | "owner" | "blocked" }): void;
+  onZoneLand?(ctx: HookContext & { zone: Zone }): void;
   /** Damage about to reach this unit, after mitigation and before shields. */
-  beforeDamageTaken?(ctx: HookContext & { amount: number }): void;
+  beforeDamageTaken?(ctx: HookContext & { amount: number; damageType: DamageType; attack: boolean; persistent: boolean; ability?: string; petSource?: boolean }): void;
+  /** Pure adjustment of remaining HP damage after normal shields. */
+  modifyDamageAfterShields?(ctx: HookContext & { amount: number; damageType: DamageType; attack: boolean; persistent: boolean; ability?: string; petSource?: boolean }): number;
+  /** Pure pre-mitigation adjustment, independently evaluated for normal and critical outcomes. */
+  modifyDamageTakenRaw?(ctx: HookContext & { raw: number; damageType: DamageType; attack: boolean; ability?: string; persistent: boolean }): number;
+  /** Connected incoming on-hit application, including damage blocks but excluding misses, dodges and parries. */
+  onIncomingOnHit?(ctx: HookContext & { attack: boolean; ability?: string; scale: number }): void;
+  /** A dash ends at its actual completion/interrupt tick, after its contact effects. */
+  onDashEnd?(ctx: HookContext & { ability: AbilitySpec; interrupted: boolean }): void;
+  /** A blink has finished moving, before its landing effects. */
+  onBlinkEnd?(ctx: HookContext & { ability: AbilitySpec }): void;
   /**
    * Damage or an execute brought this unit to 0 health. Returning true keeps it alive: the
    * hook has set its health and state (Glory in Death's reanimation, Skaarl fleeing).
    */
   onLethal?(ctx: HookContext): boolean;
+  /** The death-defied timer expires, before the unit is finalized as dead. */
+  onDeathDefiedEnd?(ctx: HookContext): void;
   /** `amount`: health lost; `mitigated`: the damage after resistances, shields included; `raw`: before resistances. */
   onDamageTaken?(ctx: HookContext & DamageReport): void;
   onDamageDealt?(ctx: HookContext & DamageReport & { attack: boolean; ability?: string; persistent: boolean }): void;
@@ -586,9 +776,14 @@ export interface KitHooks {
 /** One hit of damage, as damage hooks see it. */
 export interface DamageReport {
   amount: number;
+  absorbed: number;
+  petSource?: boolean;
   mitigated: number;
   raw: number;
   damageType: DamageType;
+  /** Persistent damage (DoT) is distinct from a direct ability or attack hit. */
+  persistent: boolean;
+  ability?: string;
 }
 
 /** What hooks can see and do. Implemented by the simulator (engine/sim/combat.ts). */
@@ -631,17 +826,32 @@ export interface DamageByType {
 export interface BudgetHints {
   /** False when its basic attacks don't happen (Purge fires in their place). */
   attacks?: boolean;
+  /** Average basic-attack damage split before mitigation (Yone's alternating swords: 75% physical, 25% magic). */
+  attackSplit?: AttackSplit;
   /** Damage per second from hooks, before the target's resistances. */
   damage?: (self: Unit, target: Unit) => Partial<DamageByType>;
   /** Healing and shielding per second from hooks. */
   healing?: (self: Unit, target: Unit) => number;
   /** Bought stats the kit's hooks multiply in fights (Living Forge's 30% more bonus armor), for the budget to value them so. */
   statMultipliers?: Partial<Record<"ad" | "ap" | "as" | "crit" | "ah" | "lethality" | "armpen" | "mpenflat" | "mpen" | "hp" | "armor" | "mr", number>>;
+  /** Total resistance multipliers from hooks, including base resistance (Poppy, Malphite). Replaces the corresponding purchased-stat multiplier. */
+  totalResistanceMultipliers?: Partial<Record<"armor" | "mr", number>>;
 }
 
 export interface FighterSpec {
+  /** Pinned targeting classes keyed by exact summoned-unit name. */
+  petTargetClasses?: Record<string, NonNullable<PetSpec["targetClass"]>>;
   id: string;
   name: string;
+  resourceType?: string;
+  /** Simultaneous passive conversions, without recursive gains or direct healing. */
+  statConversions?: {
+    healthToAP?: number; apToHealth?: number; moveSpeedBonusEffectiveness?: number;
+    /** Additional total AD from the post-reduction total, also counted as bonus AD. */
+    attackDamageMultiplier?: { base: number; critChance: number; bonusAttackSpeed: number };
+    /** Only base and growth attack speed affect attacks; bonus AS remains available to formulas. */
+    fixedAttackSpeed?: boolean;
+  };
   base: BaseStats;
   bonus?: BonusStats;
   attack: AttackSpec;

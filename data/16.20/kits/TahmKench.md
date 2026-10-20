@@ -258,7 +258,7 @@ All 2 level-based formulas in the game files (1 linked to wiki values above):
 
 ## Duel simulator kit (level 20, every ability at max rank)
 
-What the duel simulator fights with (`kits/champions/TahmKench.ts`): every number is read from the wiki's ability data above at level 20; what the wiki doesn't say is listed under assumptions. Ratios are fractions of the stat (60% AD is 0.6 × AD).
+What the duel simulator fights with (`kits/champions/TahmKench.ts`): values come from pinned wiki and versioned game-data records at level 20. Interpretations and missing evidence are listed under assumptions. Ratios are fractions of the stat (60% AD is 0.6 × AD).
 
 - Basic attack: range 175, melee, on hit: 60 + 4% bonus health + 1.25% of bonus health per 100 AP magic damage (An Acquired Taste).
 
@@ -268,7 +268,7 @@ What the duel simulator fights with (`kits/champions/TahmKench.ts`): every numbe
 | Qstun | Tongue Lash (stun) | 5 | 0.25 | 34 | skillshot 900 long, 140 wide, at 2800/s | 255 + 100% AP magic damage; 60 + 4% bonus health + 1.25% of bonus health per 100 AP magic damage (An Acquired Taste); slow 50% for 2 s; to itself: heal 50 + 7% missing health; stun for 1.5 s | – |
 | W | Abyssal Dive | 17 | 1.35 | 120 | circle of 275 radius (to the target's center) up to 1200 away, lands after 0.15 s | 240 + 150% AP magic damage; knock up over 1 s; stun for 1 s; to itself: cuts W's cooldown by 50%; 48 resource | – |
 | E | Thick Skin | 3 (starts when its effect on the caster ends) | 0.25 | – | self | – | lingering for 2.5 s |
-| R | Devour | 80 | 0 | 100 | targeted, 250 edge range | suppression for 3.25 s; carried 0 units from the caster for 3.25 s; untargetable for 3.25 s; displacementImmune for 3.25 s; after 3.25 s: 400 + 15% target's maximum health + 7% of target's maximum health per 100 AP magic damage (Regurgitate) | – |
+| R | Devour | 80 | 0 | 100 | targeted, 250 edge range | suppression for 3.25 s; after 3.25 s: 400 + 15% target's maximum health + 7% of target's maximum health per 100 AP magic damage (Regurgitate) | – |
 
 Effects marked by a mark or a role are completed by the kit's hooks (see the kit's source).
 
@@ -279,9 +279,9 @@ Effects marked by a mark or a role are completed by the kit's hooks (see the kit
 - Thick Skin stores 47% of the health Tahm Kench loses (a duel has one enemy champion), up to his missing health; he turns it into a shield once it reaches 15% of his maximum health, or at any amount below 35% health.
 - Devour holds the enemy the full 3 s (its suppression starts with the 0.25 s cast); the wiki gives no distance for Regurgitate's spit, so the enemy lands where it was and takes the damage then.
 
-### Wiki values read (49)
+### Source values read (53)
 
-| Ability | Value | Revision |
+| Ability | Value | Source version |
 |---|---|---|
 | An Acquired Taste | Innate: Tahm Kench's basic attacks on-hit and Tongue Lash are empowered to deal 5 – 60 (based on level) (+ 1.25% AP per 100 bonus health) (+ 4% of his bonus health) bonus magic damage and apply a stack of An Acquired Taste against enemy champions for 5 seconds, refreshing on subsequent hits and stacking up to 3 times. | [4008458](https://wiki.leagueoflegends.com/en-us/Template:Data_Tahm_Kench/An_Acquired_Taste?oldid=4008458) |
 | An Acquired Taste | (+ 1.25% AP per 100 bonus health) (+ 4% of his bonus health) | [4008458](https://wiki.leagueoflegends.com/en-us/Template:Data_Tahm_Kench/An_Acquired_Taste?oldid=4008458) |
@@ -296,6 +296,7 @@ Effects marked by a mark or a role are completed by the kit's hooks (see the kit
 | Tongue Lash | speed: 2800 | [4078270](https://wiki.leagueoflegends.com/en-us/Template:Data_Tahm_Kench/Tongue_Lash?oldid=4078270) |
 | Tongue Lash | range: 900 | [4078270](https://wiki.leagueoflegends.com/en-us/Template:Data_Tahm_Kench/Tongue_Lash?oldid=4078270) |
 | Tongue Lash | Tahm Kench is unable to move, attack, or cast Abyssal Dive or Devour on a different target while his tongue is in flight | [4078270](https://wiki.leagueoflegends.com/en-us/Template:Data_Tahm_Kench/Tongue_Lash?oldid=4078270) |
+| Tongue Lash | All three An Acquired Taste stacks will be consumed even if Tongue Lash's stun is negated | [4078270](https://wiki.leagueoflegends.com/en-us/Template:Data_Tahm_Kench/Tongue_Lash?oldid=4078270) |
 | Abyssal Dive | Tahm Kench channels for 1.35 seconds as he dives into the waters | [4020963](https://wiki.leagueoflegends.com/en-us/Template:Data_Tahm_Kench/Abyssal_Dive?oldid=4020963) |
 | Abyssal Dive | blinks to the target location after a 0.15-second delay | [4020963](https://wiki.leagueoflegends.com/en-us/Template:Data_Tahm_Kench/Abyssal_Dive?oldid=4020963) |
 | Abyssal Dive | dealing magic damage to nearby enemies and knocking them up and stunning them for 1 second | [4020963](https://wiki.leagueoflegends.com/en-us/Template:Data_Tahm_Kench/Abyssal_Dive?oldid=4020963) |
@@ -319,6 +320,9 @@ Effects marked by a mark or a role are completed by the kit's hooks (see the kit
 | Regurgitate | Magic Damage: 100 / 250 / 400 (+ 15% (+ 7% per 100 AP) of the target's maximum health) | [4013502](https://wiki.leagueoflegends.com/en-us/Template:Data_Tahm_Kench/Regurgitate?oldid=4013502) |
 | Devour | Devour can only be cast on enemies with 3 stacks of An Acquired Taste | [4063964](https://wiki.leagueoflegends.com/en-us/Template:Data_Tahm_Kench/Devour?oldid=4063964) |
 | Devour | After 1 second, Tahm Kench can cast Regurgitate while a target is inside of his belly, and automatically does so after the duration | [4063964](https://wiki.leagueoflegends.com/en-us/Template:Data_Tahm_Kench/Devour?oldid=4063964) |
+| Devour | if the suppression is not applied, neither is the pull | [4063964](https://wiki.leagueoflegends.com/en-us/Template:Data_Tahm_Kench/Devour?oldid=4063964) |
+| Devour | if the suppression is removed, the displacement from the pull plus the untargetability and displacement immunity are instantly stopped | [4063964](https://wiki.leagueoflegends.com/en-us/Template:Data_Tahm_Kench/Devour?oldid=4063964) |
+| Devour | Enemies will be dealt Regurgitate damage regardless of Tahm Kench casting the ability if Devour's suppression ends by any means other than dismounting | [4063964](https://wiki.leagueoflegends.com/en-us/Template:Data_Tahm_Kench/Devour?oldid=4063964) |
 | Tongue Lash | Heal: 10 / 20 / 30 / 40 / 50 (+ 5 / 5.5 / 6 / 6.5 / 7% of missing health) | [4078270](https://wiki.leagueoflegends.com/en-us/Template:Data_Tahm_Kench/Tongue_Lash?oldid=4078270) |
 | Tongue Lash | cooldown: 7 / 6.5 / 6 / 5.5 / 5 | [4078270](https://wiki.leagueoflegends.com/en-us/Template:Data_Tahm_Kench/Tongue_Lash?oldid=4078270) |
 | Tongue Lash | cost: 50 / 46 / 42 / 38 / 34 | [4078270](https://wiki.leagueoflegends.com/en-us/Template:Data_Tahm_Kench/Tongue_Lash?oldid=4078270) |

@@ -100,6 +100,17 @@
     "custom": [],
     "notes": [
       "The 3000 missile speed for critical strikes also applies to Whisper 4th shot, which is a guaranteed critical strike."
+    ],
+    "sources": [
+      {
+        "page": {
+          "title": "Template:Data Jhin/Basic Attack",
+          "revid": 4075435
+        },
+        "text": [
+          "|description2 = '''Jhin's''' {{tip|critically strike|critical strikes}} have slightly increased missile speed, but deal only{{ft|{{as|{{critical damage|{{ccd|Jhin|crit_base}}|100|mod={{ccd|Jhin|crit_mod}}}} AD}} {{as|physical damage}}.|{{fd|{{#expr:{{ccd|Jhin|crit_mod}}*100}}}}% of the {{sti|{{as|critical damage}}}} champions usually have.}}"
+        ]
+      }
     ]
   },
   {
@@ -514,6 +525,18 @@
       "The attack damage multiplier stacks additively with Dragon Slayer's.",
       "Every Moment Matters' bonus AD will benefit from any amount of bonus attack speed, even in excess of an amount that would usually reach the attacks per second cap (3).\n  - The maximum modifier without attack speed is 79%.\n    - 44% base modifier at level 18.\n    - 35% from critical strike chance on account of the 100% cap.\n    - Sources of cripple will not affect Jhin's bonus attack damage from his passive and will ignore his attack speed as it is fixed.\n      - However, Realm of Death will reduce Jhin's bonus attack damage.",
       "Attack damage reductions apply before the multiplier causing them to be stronger against Jhin than advertised or versus other champions."
+    ],
+    "gameSources": [
+      {
+        "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/jhin/jhin.bin.json",
+        "sha256": "85ae67d7de00031e48f6a9f6d9a99248082d3e0f57627a125a4b9fe7e00013eb",
+        "object": "Characters/Jhin/Spells/JhinPassiveAbility/JhinPassive",
+        "text": [
+          "mSpell.mSpellCalculations.TotalADPercent: {\"mSimpleTooltipCalculationDisplay\":6,\"mFormulaParts\":[{\"mLevel1Value\":0.03999999910593033,\"mInitialBonusPerLevel\":0.009999999776482582,\"mBreakpoints\":[{\"mLevel\":10,\"mBonusPerLevelAtAndAfter\":0.019999999552965164,\"__type\":\"Breakpoint\"},{\"mLevel\":12,\"mBonusPerLevelAtAndAfter\":0.03999999910593033,\"__type\":\"Breakpoint\"}],\"__type\":\"ByCharLevelBreakpointsCalculationPart\"},{\"mStat\":8,\"mCoefficient\":0.3499999940395355,\"__type\":\"StatByCoefficientCalculationPart\"},{\"mStat\":4,\"mStatFormula\":2,\"mCoefficient\":0.30000001192092896,\"__type\":\"StatByCoefficientCalculationPart\"}],\"mDisplayAsPercent\":true,\"__type\":\"GameCalculation\"}",
+          "mSpell.DataValues.OutOfCombatTimeBeforeReload.values: [8.0,8.0,8.0,8.0,8.0,8.0,8.0]"
+        ]
+      }
     ]
   },
   {
@@ -1129,6 +1152,31 @@
       "The reveal debuff is named Caught Out.\n  - This debuff is shared between Captive Audience and Curtain Call.",
       "This ability will cast from wherever the caster is at the end of the cast time.",
       "The following table refers for interactions while Jhin is channeling:"
+    ],
+    "gameSources": [
+      {
+        "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/jhin/jhin.bin.json",
+        "sha256": "85ae67d7de00031e48f6a9f6d9a99248082d3e0f57627a125a4b9fe7e00013eb",
+        "object": "Characters/Jhin/Spells/JhinRAbility/JhinRShot",
+        "text": [
+          "mSpell.mCantCancelWhileWindingUp: true",
+          "mSpell.mDoesntBreakChannels: true"
+        ]
+      }
+    ],
+    "sources": [
+      {
+        "page": {
+          "title": "Template:Data Jhin/Curtain Call",
+          "revid": 4007615
+        },
+        "text": [
+          "|description3 = The fourth shot {{tip|critical strike|critically strikes}} for {{as|{{critical damage|200|100}}|critical damage}} damage.",
+          "{{ct|channel|cast=interrupts|items=interrupts,true,,false|spells=true,false,interrupts,interrupts,false}}",
+          "{{ct|cast|spells=true,false,false,false,false}}"
+        ]
+      }
     ]
   },
   {

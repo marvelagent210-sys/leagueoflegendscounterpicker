@@ -1,5 +1,108 @@
 # Counters to Twitch (patch 26.20)
 
+## Simulated duels
+
+The duel simulator played each of the 94 other champions with a simulator kit against Twitch: both at level 20 with 15,000 gold of plain stats, each side's spent against the other's, through six scenarios (PLAN.md §6). Scores run from −1 (Twitch wins every time) to +1 (the champion does). Run `npm run duel -- <champion> Twitch --log brawl` to watch a fight.
+
+| # | Champion | Score | You engage | Enemy engages | Brawl | Short trade | Spacing | Escape |
+|--:|---|--:|--:|--:|--:|--:|--:|--:|
+| 1 | Fiora | +0.85 | +1.00 | +1.00 | +1.00 | −0.03 | +1.00 | +1.00 |
+| 2 | Master Yi | +0.84 | +1.00 | +1.00 | +1.00 | −0.06 | +1.00 | +1.00 |
+| 3 | Skarner | +0.83 | +1.00 | +1.00 | +1.00 | +0.21 | +1.00 | +0.00 |
+| 4 | Trundle | +0.83 | +1.00 | +1.00 | +1.00 | −0.14 | +1.00 | +1.00 |
+| 5 | Poppy | +0.82 | +1.00 | +1.00 | +1.00 | +0.15 | +1.00 | +0.00 |
+| 6 | Xin Zhao | +0.82 | +1.00 | +1.00 | +1.00 | +0.15 | +1.00 | +0.00 |
+| 7 | Tahm Kench | +0.82 | +1.00 | +1.00 | +1.00 | +0.12 | +1.00 | +0.00 |
+| 8 | Yasuo | +0.82 | +1.00 | +1.00 | +1.00 | +0.11 | +1.00 | +0.00 |
+| 9 | Pantheon | +0.81 | +1.00 | +1.00 | +1.00 | +0.10 | +1.00 | +0.00 |
+| 10 | Tristana | +0.81 | +1.00 | +1.00 | +1.00 | +0.09 | +1.00 | +0.00 |
+| 11 | Ambessa | +0.81 | +1.00 | +1.00 | +1.00 | +0.08 | +1.00 | +0.00 |
+| 12 | Gragas | +0.81 | +1.00 | +1.00 | +1.00 | +0.07 | +1.00 | +0.00 |
+| 13 | Nautilus | +0.81 | +1.00 | +1.00 | +1.00 | +0.07 | +1.00 | +0.00 |
+| 14 | Kled | +0.81 | +1.00 | +1.00 | +1.00 | +0.06 | +1.00 | +0.00 |
+| 15 | Gangplank | +0.81 | +1.00 | +1.00 | +1.00 | +0.06 | +1.00 | +0.00 |
+| 16 | Kayle | +0.81 | +1.00 | +1.00 | +1.00 | +0.18 | – | +0.00 |
+| 17 | Camille | +0.81 | +1.00 | +1.00 | +1.00 | +0.05 | +1.00 | +0.00 |
+| 18 | Jax | +0.81 | +1.00 | +1.00 | +1.00 | +0.04 | +1.00 | +0.00 |
+| 19 | Malphite | +0.80 | +1.00 | +1.00 | +1.00 | +0.01 | +1.00 | +0.00 |
+| 20 | Zaahen | +0.80 | +1.00 | +1.00 | +1.00 | +0.01 | +1.00 | +0.00 |
+| 21 | Jayce | +0.80 | +1.00 | +1.00 | +1.00 | +0.07 | +0.91 | +0.00 |
+| 22 | Urgot | +0.80 | +1.00 | +1.00 | +1.00 | +0.04 | +0.94 | +0.00 |
+| 23 | Tryndamere | +0.80 | +1.00 | +1.00 | +1.00 | −0.01 | +1.00 | +0.00 |
+| 24 | Volibear | +0.80 | +1.00 | +1.00 | +1.00 | −0.03 | +1.00 | +0.00 |
+| 25 | Garen | +0.79 | +1.00 | +1.00 | +1.00 | −0.03 | +1.00 | +0.00 |
+| 26 | Rammus | +0.79 | +1.00 | +1.00 | +1.00 | −0.04 | +1.00 | +0.00 |
+| 27 | Miss Fortune | +0.79 | +1.00 | +1.00 | +1.00 | +0.10 | – | +0.00 |
+| 28 | Singed | +0.79 | +1.00 | +1.00 | +1.00 | −0.04 | +1.00 | +0.00 |
+| 29 | Gwen | +0.79 | +1.00 | +1.00 | +1.00 | −0.05 | +1.00 | +0.00 |
+| 30 | Sion | +0.79 | +1.00 | +1.00 | +1.00 | −0.05 | +1.00 | +0.00 |
+| 31 | Dr. Mundo | +0.79 | +1.00 | +1.00 | +1.00 | −0.06 | +1.00 | +0.00 |
+| 32 | Renekton | +0.79 | +1.00 | +1.00 | +1.00 | −0.07 | +1.00 | +0.00 |
+| 33 | K'Sante | +0.79 | +1.00 | +1.00 | +1.00 | −0.07 | +1.00 | +0.00 |
+| 34 | Nasus | +0.79 | +1.00 | +1.00 | +1.00 | −0.07 | +1.00 | +0.00 |
+| 35 | Yorick | +0.79 | +1.00 | +1.00 | +1.00 | −0.07 | +1.00 | +0.00 |
+| 36 | Kennen | +0.79 | +1.00 | +1.00 | +1.00 | +0.06 | – | +0.00 |
+| 37 | Sett | +0.79 | +1.00 | +1.00 | +1.00 | −0.08 | +1.00 | +0.00 |
+| 38 | Vayne | +0.79 | +1.00 | +1.00 | +1.00 | +0.06 | – | +0.00 |
+| 39 | Udyr | +0.79 | +1.00 | +1.00 | +1.00 | −0.09 | +1.00 | +0.00 |
+| 40 | Teemo | +0.79 | +1.00 | +1.00 | +1.00 | +0.05 | – | +0.00 |
+| 41 | Wukong | +0.79 | +1.00 | +1.00 | +1.00 | −0.09 | +1.00 | +0.00 |
+| 42 | Warwick | +0.78 | +1.00 | +1.00 | +1.00 | −0.10 | +1.00 | +0.00 |
+| 43 | Aatrox | +0.78 | +1.00 | +0.98 | +1.00 | −0.08 | +1.00 | +0.00 |
+| 44 | Kassadin | +0.78 | +1.00 | +1.00 | +1.00 | −0.14 | +1.00 | +0.00 |
+| 45 | Kog'Maw | +0.78 | +1.00 | +1.00 | +1.00 | +0.00 | – | +0.00 |
+| 46 | Lucian | +0.78 | +1.00 | +1.00 | +1.00 | −0.00 | – | +0.00 |
+| 47 | Jinx | +0.78 | +1.00 | +1.00 | +1.00 | −0.00 | – | +0.00 |
+| 48 | Riven | +0.78 | +1.00 | +1.00 | +1.00 | −0.16 | +1.00 | +0.00 |
+| 49 | Samira | +0.76 | +0.92 | +1.00 | +1.00 | +0.04 | – | +0.00 |
+| 50 | Mordekaiser | +0.76 | +0.95 | +1.00 | +1.00 | −0.14 | +0.91 | +0.00 |
+| 51 | Rumble | +0.73 | +1.00 | +0.98 | +1.00 | −0.15 | +0.56 | +0.00 |
+| 52 | Ashe | +0.72 | +0.74 | +0.98 | +1.00 | +0.12 | – | +0.00 |
+| 53 | Leona | +0.70 | +0.78 | +0.94 | +1.00 | +0.00 | +0.65 | +0.00 |
+| 54 | Cassiopeia | +0.66 | +0.63 | +0.88 | +1.00 | +0.09 | – | +0.00 |
+| 55 | Cho'Gath | +0.54 | +1.00 | +0.00 | +1.00 | −0.04 | +1.00 | +0.00 |
+| 56 | Anivia | +0.54 | +0.46 | +0.70 | +1.00 | −0.06 | – | +0.00 |
+| 57 | Gnar | +0.48 | +0.97 | +0.61 | +1.00 | −0.08 | −1.00 | +0.00 |
+| 58 | Kalista | +0.48 | +0.98 | +0.84 | −0.04 | −0.10 | – | +0.00 |
+| 59 | Irelia | +0.41 | +0.93 | −0.55 | +1.00 | +0.11 | +1.00 | +0.00 |
+| 60 | Corki | +0.41 | +0.63 | +0.00 | +1.00 | +0.08 | – | +0.00 |
+| 61 | Aurora | +0.41 | +0.00 | +0.64 | +1.00 | +0.06 | – | +0.00 |
+| 62 | Xayah | +0.36 | +1.00 | −0.50 | +1.00 | −0.02 | – | +0.00 |
+| 63 | Yone | +0.30 | +0.17 | +0.17 | +1.00 | −0.05 | +0.17 | +0.00 |
+| 64 | Amumu | +0.29 | +0.04 | +0.02 | +1.00 | +0.03 | +0.74 | +0.00 |
+| 65 | Hecarim | +0.29 | +0.00 | +0.00 | +1.00 | −0.07 | +1.00 | +0.00 |
+| 66 | Vel'Koz | +0.27 | +1.00 | −1.00 | +1.00 | +0.26 | – | +0.00 |
+| 67 | Jhin | +0.25 | +1.00 | −0.93 | +1.00 | +0.03 | – | +0.00 |
+| 68 | Quinn | +0.23 | +0.22 | +0.00 | +0.76 | −0.00 | – | +0.00 |
+| 69 | Annie | +0.23 | −1.00 | +1.00 | +1.00 | +0.05 | – | +0.00 |
+| 70 | Smolder | +0.22 | +0.00 | +0.00 | +1.00 | −0.03 | – | +0.00 |
+| 71 | Ziggs | +0.09 | +0.00 | +1.00 | −1.00 | +0.19 | – | +0.00 |
+| 72 | Varus | +0.08 | −0.24 | −0.31 | +1.00 | +0.06 | – | +0.00 |
+| 73 | Olaf | +0.01 | +0.10 | −1.00 | +1.00 | −0.12 | +0.56 | +0.00 |
+| 74 | Caitlyn | +0.01 | +0.00 | +0.00 | +0.49 | +0.07 | −1.00 | +0.00 |
+| 75 | Draven | −0.04 | −0.68 | −0.31 | +1.00 | +0.10 | – | +0.00 |
+| 76 | Illaoi | −0.04 | −0.06 | −0.64 | +1.00 | −0.05 | −0.60 | +0.00 |
+| 77 | Malzahar | −0.06 | −0.01 | −1.00 | +1.00 | +0.00 | – | +0.00 |
+| 78 | Ornn | −0.10 | −0.57 | −0.07 | +0.79 | −0.02 | −1.00 | +0.00 |
+| 79 | Shen | −0.19 | −1.00 | −1.00 | +1.00 | +0.10 | +1.00 | +0.00 |
+| 80 | Akali | −0.22 | −0.91 | −0.01 | −0.36 | −0.02 | +0.88 | +0.00 |
+| 81 | Kai'Sa | −0.23 | −0.77 | +0.00 | +0.00 | −0.11 | – | +0.00 |
+| 82 | Heimerdinger | −0.32 | −1.00 | −1.00 | +1.00 | +0.07 | – | +0.00 |
+| 83 | Karthus | −0.35 | +0.00 | −1.00 | +0.00 | +0.00 | −1.00 | +0.00 |
+| 84 | Brand | −0.54 | −1.00 | −1.00 | +0.09 | −0.05 | – | +0.00 |
+| 85 | Lux | −0.57 | −1.00 | −1.00 | −0.06 | −0.02 | – | +0.00 |
+| 86 | Veigar | −0.77 | −1.00 | −1.00 | −0.95 | −0.02 | – | +0.00 |
+| 87 | Lissandra | −0.77 | −1.00 | −1.00 | −1.00 | +0.02 | – | +0.00 |
+| 88 | Zyra | −0.78 | −1.00 | −1.00 | −1.00 | −0.00 | – | +0.00 |
+| 89 | Ahri | −0.78 | −1.00 | −1.00 | −1.00 | −0.02 | – | +0.00 |
+| 90 | Ezreal | −0.79 | −1.00 | −1.00 | −1.00 | −0.05 | – | +0.00 |
+| 91 | Morgana | −0.79 | −1.00 | −0.99 | −0.99 | +0.02 | −1.00 | +0.00 |
+| 92 | Sivir | −0.80 | −1.00 | −1.00 | −1.00 | −0.11 | – | +0.00 |
+| 93 | Vladimir | −0.83 | −1.00 | −1.00 | −1.00 | −0.18 | −1.00 | +0.00 |
+| 94 | Darius | −0.83 | −1.00 | −1.00 | −1.00 | −0.21 | −1.00 | +0.00 |
+
+## Interaction ledger estimates
+
 Every champion ranked by what its kit does against Twitch's, from the interaction ledger: projectile blocks, spell shields,
 parries, dash stops, crowd control and its defenses, range and more (PLAN.md §5). This ranking is **partial**: it weighs the
 interactions but doesn't play the fight out. The duel simulator replaces it as each champion's behavior is verified.
@@ -8,60 +111,61 @@ interactions but doesn't play the fight out. The duel simulator replaces it as e
 A hard counter shuts down part of a kit every time it is used (projectile block, attack dodge, attack block, blind, disarm, attack speed slow, attack reflect, dash stop, grounding, range) with an impact of 0.4 or more (0.5 for range).
 Run `npm run matchup -- <champion> Twitch` for the full ledger of a matchup, with sources.
 
-## Top 10
+### Top 10
 
-### 1. Teemo (net +0.57)
+#### 1. Teemo (net +0.57)
 
 - **0.57** blind: Blinding Dart's blind makes Twitch's basic attacks miss for 3 s. Blind for 3 s on a 7 s cooldown. (Teemo Q Blinding Dart → Twitch basic attacks)
 
-### 2. Lulu (net +0.51)
+#### 2. Lulu (net +0.51)
 
 - **0.40** disarm: Whimsy disarms Twitch for 2 s: no basic attacks. Disarm for 2 s on a 18 s cooldown. (Lulu W Whimsy → Twitch basic attacks)
 - **0.11** reveal: Help, Pix! reveals Twitch through Ambush's stealth. (Lulu E Help, Pix! → Twitch Q Ambush)
 
-### 3. Samira (net +0.51)
+#### 3. Samira (net +0.51)
 
 - **0.36** projectile block: Blade Whirl blocks Twitch's basic attacks, which are projectiles. Blade Whirl lasts 0.75 s on a 22 s cooldown. (Samira W Blade Whirl → Twitch basic attacks)
 - **0.29** projectile block: Blade Whirl blocks Twitch's Venom Cask, a projectile. Blade Whirl for 0.75 s; Venom Cask takes 0.93 s to land, enough to react. (Samira W Blade Whirl → Twitch W Venom Cask)
 
-### 4. Mel (net +0.50)
+#### 4. Mel (net +0.50)
 
 - **0.36** projectile block: Rebuttal blocks Twitch's basic attacks, which are projectiles. Rebuttal lasts 0.75 s on a 26 s cooldown. (Mel W Rebuttal → Twitch basic attacks)
 - **0.27** projectile block: Rebuttal blocks Twitch's Venom Cask, a projectile. Rebuttal for 0.75 s; Venom Cask takes 0.93 s to land, enough to react. (Mel W Rebuttal → Twitch W Venom Cask)
 
-### 5. Yasuo (net +0.47)
+#### 5. Yasuo (net +0.47)
 
 - **0.47** projectile block: Wind Wall blocks Twitch's basic attacks, which are projectiles. Wind Wall lasts 4 s on a 17 s cooldown. (Yasuo W Wind Wall → Twitch basic attacks)
 - **0.32** projectile block: Wind Wall blocks Twitch's Venom Cask, a projectile. Wind Wall for 4 s, long enough to use ahead of Venom Cask. (Yasuo W Wind Wall → Twitch W Venom Cask)
 - **0.11** reveal: Last Breath reveals Twitch through Ambush's stealth. (Yasuo R Last Breath → Twitch Q Ambush)
 - Watch out: Twitch's basic attacks reach 375 units farther than Yasuo's (550 vs 175 attack range).
 
-### 6. Braum (net +0.40)
+#### 6. Braum (net +0.40)
 
 - **0.60** projectile block: Unbreakable blocks Twitch's basic attacks, which are projectiles. Unbreakable lasts 4 s on a 8 s cooldown. (Braum E Unbreakable → Twitch basic attacks)
 - **0.45** projectile block: Unbreakable blocks Twitch's Venom Cask, a projectile. Unbreakable for 4 s, long enough to use ahead of Venom Cask. (Braum E Unbreakable → Twitch W Venom Cask)
 - Watch out: Twitch's basic attacks reach 425 units farther than Braum's (550 vs 125 attack range).
 
-### 7. Caitlyn (net +0.29)
+#### 7. Caitlyn (net +0.40)
 
 - **0.18** range: Caitlyn's basic attacks reach 100 units farther than Twitch's (650 vs 550 attack range). Twitch has no dash or blink to close the gap. (Caitlyn basic attacks → Twitch basic attacks)
 - **0.11** reveal: Ace in the Hole reveals Twitch through Ambush's stealth. (Caitlyn R Ace in the Hole → Twitch Q Ambush)
+- **0.11** reveal: Yordle Snap Trap reveals Twitch through Ambush's stealth. (Caitlyn W Yordle Snap Trap → Twitch Q Ambush)
 
-### 8. Tristana (net +0.27)
+#### 8. Tristana (net +0.27)
 
 - **0.27** range: Tristana's basic attacks reach 150 units farther than Twitch's (700 vs 550 attack range). Twitch has no dash or blink to close the gap. (Tristana basic attacks → Twitch basic attacks)
 
-### 9. Malzahar (net +0.17)
+#### 9. Fiddlesticks (net +0.22)
 
-- **0.11** reveal: Nether Grasp reveals Twitch through Ambush's stealth. (Malzahar R Nether Grasp → Twitch Q Ambush)
-- **0.06** cc immunity: Void Shift makes Malzahar immune to Twitch's Venom Cask (slow). Void Shift is up on its own and ends on the first damage or crowd control it takes. (Malzahar I Void Shift → Twitch W Venom Cask)
+- **0.11** reveal: A Harmless Scarecrow reveals Twitch through Ambush's stealth. (Fiddlesticks I A Harmless Scarecrow → Twitch Q Ambush)
+- **0.11** reveal: Bountiful Harvest reveals Twitch through Ambush's stealth. (Fiddlesticks W Bountiful Harvest → Twitch Q Ambush)
 
-### 10. Shen (net +0.14)
+#### 10. Hwei (net +0.22)
 
-- **0.43** attack block: Spirit's Refuge blocks Twitch's basic attacks (with Deadly Venom). Spirit's Refuge lasts 1.75 s on a 10 s cooldown. (Shen W Spirit's Refuge → Twitch basic attacks)
-- Watch out: Twitch's basic attacks reach 425 units farther than Shen's (550 vs 125 attack range).
+- **0.11** reveal: Gaze of the Abyss reveals Twitch through Ambush's stealth. (Hwei W Gaze of the Abyss → Twitch Q Ambush)
+- **0.11** reveal: Spiraling Despair reveals Twitch through Ambush's stealth. (Hwei R Spiraling Despair → Twitch Q Ambush)
 
-## Full ranking
+### Full ranking
 
 | # | Champion | Net | For | Against | Hard counters |
 |--:|---|--:|--:|--:|---|
@@ -71,33 +175,33 @@ Run `npm run matchup -- <champion> Twitch` for the full ledger of a matchup, wit
 | 4 | Mel | +0.50 | 0.50 | 0.00 |  |
 | 5 | Yasuo | +0.47 | 0.74 | 0.27 | projectile block (Wind Wall) |
 | 6 | Braum | +0.40 | 0.83 | 0.43 | projectile block (Unbreakable), projectile block (Unbreakable) |
-| 7 | Caitlyn | +0.29 | 0.29 | 0.00 |  |
+| 7 | Caitlyn | +0.40 | 0.40 | 0.00 |  |
 | 8 | Tristana | +0.27 | 0.27 | 0.00 |  |
-| 9 | Malzahar | +0.17 | 0.17 | 0.00 |  |
-| 10 | Shen | +0.14 | 0.43 | 0.29 | attack block (Spirit's Refuge) |
-| 11 | Kayle | +0.14 | 0.14 | 0.00 |  |
-| 12 | Akshan | +0.11 | 0.11 | 0.00 |  |
-| 13 | Elise | +0.11 | 0.11 | 0.00 |  |
-| 14 | Fiddlesticks | +0.11 | 0.11 | 0.00 |  |
-| 15 | Hwei | +0.11 | 0.11 | 0.00 |  |
-| 16 | Kai'Sa | +0.11 | 0.11 | 0.00 |  |
-| 17 | Karma | +0.11 | 0.11 | 0.00 |  |
-| 18 | LeBlanc | +0.11 | 0.11 | 0.00 |  |
-| 19 | Nidalee | +0.11 | 0.11 | 0.00 |  |
-| 20 | Renata Glasc | +0.11 | 0.11 | 0.00 |  |
-| 21 | Twisted Fate | +0.11 | 0.11 | 0.00 |  |
-| 22 | Vex | +0.11 | 0.11 | 0.00 |  |
-| 23 | Zyra | +0.11 | 0.11 | 0.00 |  |
-| 24 | Annie | +0.08 | 0.08 | 0.00 |  |
-| 25 | Milio | +0.06 | 0.06 | 0.00 |  |
-| 26 | Nilah | +0.05 | 0.40 | 0.35 | attack dodge (Jubilant Veil) |
-| 27 | Aphelios | +0.05 | 0.05 | 0.00 |  |
-| 28 | Heimerdinger | +0.05 | 0.05 | 0.00 |  |
-| 29 | Thresh | +0.04 | 0.11 | 0.07 |  |
-| 30 | Kalista | +0.04 | 0.04 | 0.00 |  |
-| 31 | Jax | +0.03 | 0.46 | 0.43 | attack dodge (Counter Strike) |
-| 32 | Rammus | 0.00 | 0.43 | 0.43 | attack reflect (Defensive Ball Curl) |
-| 33 | Kled | 0.00 | 0.16 | 0.16 |  |
+| 9 | Fiddlesticks | +0.22 | 0.22 | 0.00 |  |
+| 10 | Hwei | +0.22 | 0.22 | 0.00 |  |
+| 11 | Karma | +0.22 | 0.22 | 0.00 |  |
+| 12 | Kled | +0.20 | 0.36 | 0.16 |  |
+| 13 | Malzahar | +0.17 | 0.17 | 0.00 |  |
+| 14 | Shen | +0.14 | 0.43 | 0.29 | attack block (Spirit's Refuge) |
+| 15 | Kayle | +0.14 | 0.14 | 0.00 |  |
+| 16 | Akshan | +0.11 | 0.11 | 0.00 |  |
+| 17 | Elise | +0.11 | 0.11 | 0.00 |  |
+| 18 | Kai'Sa | +0.11 | 0.11 | 0.00 |  |
+| 19 | LeBlanc | +0.11 | 0.11 | 0.00 |  |
+| 20 | Nidalee | +0.11 | 0.11 | 0.00 |  |
+| 21 | Renata Glasc | +0.11 | 0.11 | 0.00 |  |
+| 22 | Twisted Fate | +0.11 | 0.11 | 0.00 |  |
+| 23 | Vex | +0.11 | 0.11 | 0.00 |  |
+| 24 | Zyra | +0.11 | 0.11 | 0.00 |  |
+| 25 | Annie | +0.08 | 0.08 | 0.00 |  |
+| 26 | Milio | +0.06 | 0.06 | 0.00 |  |
+| 27 | Nilah | +0.05 | 0.40 | 0.35 | attack dodge (Jubilant Veil) |
+| 28 | Aphelios | +0.05 | 0.05 | 0.00 |  |
+| 29 | Heimerdinger | +0.05 | 0.05 | 0.00 |  |
+| 30 | Thresh | +0.04 | 0.11 | 0.07 |  |
+| 31 | Kalista | +0.04 | 0.04 | 0.00 |  |
+| 32 | Jax | +0.03 | 0.46 | 0.43 | attack dodge (Counter Strike) |
+| 33 | Rammus | 0.00 | 0.43 | 0.43 | attack reflect (Defensive Ball Curl) |
 | 34 | Ahri | 0.00 | 0.00 | 0.00 |  |
 | 35 | Anivia | 0.00 | 0.00 | 0.00 |  |
 | 36 | Ashe | 0.00 | 0.00 | 0.00 |  |
@@ -149,21 +253,21 @@ Run `npm run matchup -- <champion> Twitch` for the full ledger of a matchup, wit
 | 82 | Zilean | 0.00 | 0.00 | 0.00 |  |
 | 83 | Zoe | 0.00 | 0.00 | 0.00 |  |
 | 84 | Morgana | -0.02 | 0.19 | 0.21 |  |
-| 85 | Ivern | -0.08 | 0.00 | 0.08 |  |
-| 86 | Fizz | -0.09 | 0.11 | 0.20 |  |
-| 87 | Sylas | -0.09 | 0.11 | 0.20 |  |
-| 88 | Graves | -0.09 | 0.00 | 0.09 |  |
-| 89 | Briar | -0.10 | 0.11 | 0.21 |  |
-| 90 | Naafiri | -0.10 | 0.11 | 0.21 |  |
-| 91 | Urgot | -0.10 | 0.11 | 0.21 |  |
-| 92 | Yuumi | -0.13 | 0.00 | 0.13 |  |
-| 93 | Malphite | -0.15 | 0.28 | 0.43 |  |
-| 94 | Warwick | -0.15 | 0.14 | 0.29 |  |
-| 95 | Kayn | -0.16 | 0.11 | 0.27 |  |
-| 96 | Rek'Sai | -0.16 | 0.11 | 0.27 |  |
-| 97 | Akali | -0.18 | 0.11 | 0.29 |  |
-| 98 | Ambessa | -0.18 | 0.11 | 0.29 |  |
-| 99 | Lee Sin | -0.18 | 0.11 | 0.29 |  |
+| 85 | Lee Sin | -0.07 | 0.22 | 0.29 |  |
+| 86 | Ivern | -0.08 | 0.00 | 0.08 |  |
+| 87 | Fizz | -0.09 | 0.11 | 0.20 |  |
+| 88 | Sylas | -0.09 | 0.11 | 0.20 |  |
+| 89 | Graves | -0.09 | 0.00 | 0.09 |  |
+| 90 | Briar | -0.10 | 0.11 | 0.21 |  |
+| 91 | Naafiri | -0.10 | 0.11 | 0.21 |  |
+| 92 | Urgot | -0.10 | 0.11 | 0.21 |  |
+| 93 | Yuumi | -0.13 | 0.00 | 0.13 |  |
+| 94 | Malphite | -0.15 | 0.28 | 0.43 |  |
+| 95 | Warwick | -0.15 | 0.14 | 0.29 |  |
+| 96 | Kayn | -0.16 | 0.11 | 0.27 |  |
+| 97 | Rek'Sai | -0.16 | 0.11 | 0.27 |  |
+| 98 | Akali | -0.18 | 0.11 | 0.29 |  |
+| 99 | Ambessa | -0.18 | 0.11 | 0.29 |  |
 | 100 | Vi | -0.18 | 0.11 | 0.29 |  |
 | 101 | Rakan | -0.18 | 0.00 | 0.18 |  |
 | 102 | Viego | -0.19 | 0.00 | 0.19 |  |
@@ -220,10 +324,10 @@ Run `npm run matchup -- <champion> Twitch` for the full ledger of a matchup, wit
 | 153 | Renekton | -0.43 | 0.00 | 0.43 |  |
 | 154 | Sejuani | -0.43 | 0.00 | 0.43 |  |
 | 155 | Shyvana | -0.43 | 0.00 | 0.43 |  |
-| 156 | Garen | -0.58 | 0.23 | 0.81 |  |
-| 157 | Mordekaiser | -0.65 | 0.16 | 0.81 |  |
-| 158 | Rengar | -0.67 | 0.19 | 0.86 |  |
-| 159 | Skarner | -0.72 | 0.14 | 0.86 |  |
+| 156 | Rengar | -0.56 | 0.30 | 0.86 |  |
+| 157 | Garen | -0.58 | 0.23 | 0.81 |  |
+| 158 | Skarner | -0.61 | 0.25 | 0.86 |  |
+| 159 | Mordekaiser | -0.65 | 0.16 | 0.81 |  |
 | 160 | Nunu & Willump | -0.73 | 0.13 | 0.86 |  |
 | 161 | Sion | -0.75 | 0.06 | 0.81 |  |
 | 162 | Gangplank | -0.79 | 0.07 | 0.86 |  |

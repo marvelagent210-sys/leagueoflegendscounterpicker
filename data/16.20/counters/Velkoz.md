@@ -1,5 +1,108 @@
 # Counters to Vel'Koz (patch 26.20)
 
+## Simulated duels
+
+The duel simulator played each of the 94 other champions with a simulator kit against Vel'Koz: both at level 20 with 15,000 gold of plain stats, each side's spent against the other's, through six scenarios (PLAN.md §6). Scores run from −1 (Vel'Koz wins every time) to +1 (the champion does). Run `npm run duel -- <champion> Velkoz --log brawl` to watch a fight.
+
+| # | Champion | Score | You engage | Enemy engages | Brawl | Short trade | Spacing | Escape |
+|--:|---|--:|--:|--:|--:|--:|--:|--:|
+| 1 | Yorick | +0.84 | +1.00 | +1.00 | +1.00 | −0.09 | +1.00 | +1.00 |
+| 2 | Fiora | +0.82 | +1.00 | +1.00 | +1.00 | −0.17 | +1.00 | +1.00 |
+| 3 | Kled | +0.82 | +1.00 | +1.00 | +1.00 | +0.15 | +1.00 | +0.00 |
+| 4 | Kayle | +0.82 | +1.00 | +1.00 | +1.00 | +0.15 | +1.00 | +0.00 |
+| 5 | Trundle | +0.80 | +1.00 | +1.00 | +1.00 | −0.30 | +1.00 | +1.00 |
+| 6 | K'Sante | +0.80 | +1.00 | +1.00 | +1.00 | −0.00 | +1.00 | +0.00 |
+| 7 | Poppy | +0.80 | +1.00 | +1.00 | +1.00 | −0.03 | +1.00 | +0.00 |
+| 8 | Kassadin | +0.80 | +1.00 | +1.00 | +1.00 | −0.03 | +1.00 | +0.00 |
+| 9 | Vayne | +0.79 | +1.00 | +1.00 | +1.00 | −0.12 | – | +0.56 |
+| 10 | Jayce | +0.79 | +1.00 | +1.00 | +1.00 | −0.07 | +1.00 | +0.00 |
+| 11 | Corki | +0.79 | +1.00 | +1.00 | +1.00 | −0.09 | +1.00 | +0.00 |
+| 12 | Tristana | +0.79 | +1.00 | +1.00 | +1.00 | −0.10 | +1.00 | +0.00 |
+| 13 | Jax | +0.78 | +1.00 | +1.00 | +1.00 | −0.10 | +1.00 | +0.00 |
+| 14 | Yone | +0.78 | +1.00 | +1.00 | +1.00 | −0.12 | +1.00 | +0.00 |
+| 15 | Dr. Mundo | +0.78 | +1.00 | +0.99 | +1.00 | −0.14 | +1.00 | +0.00 |
+| 16 | Tryndamere | +0.77 | +1.00 | +1.00 | +1.00 | −0.18 | +1.00 | +0.00 |
+| 17 | Master Yi | +0.77 | +1.00 | +1.00 | +1.00 | −0.22 | +1.00 | +0.00 |
+| 18 | Jhin | +0.77 | +1.00 | +1.00 | +1.00 | −0.07 | – | +0.00 |
+| 19 | Heimerdinger | +0.77 | +1.00 | +1.00 | +1.00 | −0.08 | – | +0.00 |
+| 20 | Camille | +0.77 | +1.00 | +1.00 | +1.00 | −0.23 | +1.00 | +0.00 |
+| 21 | Nasus | +0.76 | +1.00 | +1.00 | +1.00 | −0.24 | +1.00 | +0.00 |
+| 22 | Rumble | +0.76 | +0.99 | +0.99 | +1.00 | −0.16 | +0.92 | +0.00 |
+| 23 | Ashe | +0.76 | +1.00 | +1.00 | +1.00 | −0.28 | +1.00 | +0.00 |
+| 24 | Yasuo | +0.76 | +0.98 | +1.00 | +1.00 | +0.01 | +0.60 | +0.00 |
+| 25 | Smolder | +0.75 | +1.00 | +1.00 | +1.00 | −0.19 | – | +0.00 |
+| 26 | Varus | +0.74 | +1.00 | +1.00 | +1.00 | −0.22 | – | +0.00 |
+| 27 | Gnar | +0.73 | +1.00 | +1.00 | +0.76 | −0.11 | +1.00 | +0.00 |
+| 28 | Kog'Maw | +0.73 | +1.00 | +1.00 | +1.00 | −0.27 | – | +0.00 |
+| 29 | Sion | +0.70 | +0.94 | +0.83 | +1.00 | −0.16 | +0.84 | +0.00 |
+| 30 | Warwick | +0.64 | +1.00 | +1.00 | +1.00 | +0.21 | −0.95 | +0.00 |
+| 31 | Darius | +0.62 | +0.64 | +0.97 | +1.00 | −0.30 | +0.62 | +0.00 |
+| 32 | Malzahar | +0.61 | +0.45 | +1.00 | +1.00 | −0.11 | – | +0.00 |
+| 33 | Gragas | +0.58 | +0.59 | +0.59 | +1.00 | −0.11 | +1.00 | +0.00 |
+| 34 | Garen | +0.56 | +1.00 | +0.13 | +1.00 | −0.13 | +1.00 | +0.00 |
+| 35 | Mordekaiser | +0.56 | +0.70 | +0.53 | +1.00 | −0.22 | +0.84 | +0.00 |
+| 36 | Volibear | +0.53 | +1.00 | +0.09 | +1.00 | −0.25 | +0.98 | +0.00 |
+| 37 | Gangplank | +0.52 | +0.34 | +0.34 | +1.00 | +0.03 | +1.00 | +1.00 |
+| 38 | Wukong | +0.50 | +1.00 | +0.30 | +1.00 | −0.15 | +0.01 | +0.00 |
+| 39 | Akali | +0.46 | +1.00 | +0.29 | +0.29 | −0.08 | +0.92 | +0.00 |
+| 40 | Zaahen | +0.45 | +0.21 | +0.52 | +1.00 | −0.21 | +1.00 | +0.00 |
+| 41 | Aatrox | +0.42 | +0.91 | +0.12 | +1.00 | −0.40 | +0.28 | +0.00 |
+| 42 | Renekton | +0.34 | +0.60 | +0.07 | +0.61 | −0.10 | +0.60 | +0.00 |
+| 43 | Lucian | +0.32 | −0.59 | +1.00 | +1.00 | −0.07 | – | +0.00 |
+| 44 | Annie | +0.32 | −0.05 | +1.00 | +0.02 | −0.18 | +1.00 | +0.00 |
+| 45 | Jinx | +0.30 | +1.00 | +1.00 | −1.00 | −0.22 | +0.32 | +0.00 |
+| 46 | Teemo | +0.30 | +1.00 | +1.00 | −1.00 | −0.22 | – | +0.00 |
+| 47 | Draven | +0.29 | +1.00 | +1.00 | −1.00 | −0.24 | – | +0.00 |
+| 48 | Singed | +0.27 | +1.00 | −0.96 | +1.00 | −0.23 | +1.00 | +0.00 |
+| 49 | Skarner | +0.23 | +0.13 | +0.13 | +0.83 | −0.09 | +0.11 | +0.00 |
+| 50 | Shen | +0.17 | +0.02 | −0.11 | +1.00 | −0.02 | +0.02 | +0.00 |
+| 51 | Miss Fortune | +0.17 | +1.00 | +1.00 | −1.00 | −0.24 | −0.93 | +0.00 |
+| 52 | Illaoi | +0.16 | −0.32 | +0.02 | +1.00 | −0.26 | +0.75 | +0.00 |
+| 53 | Riven | +0.16 | −0.36 | −0.10 | +1.00 | −0.19 | +1.00 | +0.00 |
+| 54 | Kai'Sa | +0.15 | −0.05 | −0.05 | +1.00 | −0.28 | – | +0.00 |
+| 55 | Gwen | +0.13 | −0.39 | −0.06 | +1.00 | −0.40 | +1.00 | +0.00 |
+| 56 | Tahm Kench | +0.13 | +0.18 | +0.18 | +0.13 | +0.03 | +0.05 | +0.00 |
+| 57 | Ornn | +0.12 | +0.13 | −0.00 | +0.09 | −0.15 | +0.93 | +0.00 |
+| 58 | Ziggs | +0.12 | +1.00 | −0.55 | −0.39 | −0.10 | +1.00 | +0.00 |
+| 59 | Sett | +0.09 | +0.15 | −0.01 | +0.34 | −0.20 | +0.17 | +0.00 |
+| 60 | Caitlyn | +0.09 | +0.14 | +0.14 | +0.75 | −0.24 | −1.00 | +0.00 |
+| 61 | Xayah | +0.08 | +1.00 | +0.00 | −0.93 | +0.05 | – | +0.00 |
+| 62 | Nautilus | +0.07 | +0.14 | +0.03 | +0.13 | −0.08 | +0.10 | +0.00 |
+| 63 | Xin Zhao | +0.02 | −0.90 | −0.13 | +1.00 | −0.18 | +1.00 | +0.00 |
+| 64 | Anivia | −0.00 | −0.10 | −0.07 | +0.34 | −0.22 | +0.04 | +0.00 |
+| 65 | Urgot | −0.03 | −0.01 | −0.01 | +0.03 | −0.18 | −0.03 | +0.00 |
+| 66 | Cho'Gath | −0.04 | −0.21 | −0.28 | +0.39 | −0.23 | +0.43 | +0.00 |
+| 67 | Amumu | −0.04 | +0.89 | −0.99 | −0.42 | −0.10 | +0.86 | +0.00 |
+| 68 | Leona | −0.07 | −0.13 | −0.13 | +0.10 | −0.16 | +0.01 | +0.00 |
+| 69 | Olaf | −0.09 | −1.00 | +0.34 | +1.00 | −0.18 | −1.00 | +0.00 |
+| 70 | Ezreal | −0.14 | +0.20 | +0.20 | −0.74 | −0.14 | −0.77 | +0.00 |
+| 71 | Malphite | −0.17 | +0.15 | +0.15 | −1.00 | +0.12 | −0.64 | +0.00 |
+| 72 | Aurora | −0.25 | +0.98 | −1.00 | −1.00 | −0.15 | – | +0.00 |
+| 73 | Udyr | −0.26 | +0.05 | +0.03 | −0.69 | −0.25 | −1.00 | +0.00 |
+| 74 | Kalista | −0.26 | −0.82 | +0.27 | −0.31 | −0.23 | – | +0.00 |
+| 75 | Twitch | −0.27 | +1.00 | −1.00 | −1.00 | −0.26 | – | +0.00 |
+| 76 | Kennen | −0.29 | −0.77 | −0.98 | +1.00 | −0.17 | – | +0.00 |
+| 77 | Pantheon | −0.29 | −0.95 | +1.00 | −0.96 | −0.13 | −0.95 | +0.00 |
+| 78 | Samira | −0.32 | −0.95 | −1.00 | +1.00 | −0.02 | – | +0.00 |
+| 79 | Zyra | −0.35 | −0.12 | −1.00 | −0.00 | −0.21 | – | +0.00 |
+| 80 | Karthus | −0.35 | −0.22 | −0.15 | −1.00 | −0.14 | – | +0.00 |
+| 81 | Brand | −0.37 | −1.00 | −1.00 | +1.00 | −0.20 | – | +0.00 |
+| 82 | Morgana | −0.42 | −0.74 | −0.55 | −0.20 | −0.07 | – | +0.00 |
+| 83 | Sivir | −0.50 | +0.05 | −0.94 | −0.99 | −0.19 | – | +0.00 |
+| 84 | Irelia | −0.54 | −1.00 | −0.98 | −0.10 | −0.16 | −0.02 | +0.00 |
+| 85 | Ambessa | −0.66 | −1.00 | −1.00 | −0.95 | −0.50 | +1.00 | +0.00 |
+| 86 | Quinn | −0.68 | −0.57 | −1.00 | −1.00 | −0.12 | – | +0.00 |
+| 87 | Vladimir | −0.68 | −0.88 | −0.98 | −0.56 | −0.27 | – | +0.00 |
+| 88 | Rammus | −0.70 | −1.00 | −1.00 | −1.00 | −0.20 | +0.29 | +0.00 |
+| 89 | Ahri | −0.76 | −1.00 | −0.93 | −1.00 | −0.02 | – | +0.00 |
+| 90 | Lissandra | −0.80 | −1.00 | −0.99 | −1.00 | −0.00 | −0.98 | +0.00 |
+| 91 | Cassiopeia | −0.82 | −1.00 | −1.00 | −1.00 | −0.23 | – | +0.00 |
+| 92 | Veigar | −0.82 | −1.00 | −1.00 | −1.00 | −0.24 | – | +0.00 |
+| 93 | Lux | −0.82 | −1.00 | −1.00 | −1.00 | −0.24 | – | +0.00 |
+| 94 | Hecarim | −0.84 | −1.00 | −1.00 | −1.00 | −0.29 | −1.00 | +0.00 |
+
+## Interaction ledger estimates
+
 Every champion ranked by what its kit does against Vel'Koz's, from the interaction ledger: projectile blocks, spell shields,
 parries, dash stops, crowd control and its defenses, range and more (PLAN.md §5). This ranking is **partial**: it weighs the
 interactions but doesn't play the fight out. The duel simulator replaces it as each champion's behavior is verified.
@@ -8,48 +111,23 @@ interactions but doesn't play the fight out. The duel simulator replaces it as e
 A hard counter shuts down part of a kit every time it is used (projectile block, attack dodge, attack block, blind, disarm, attack speed slow, attack reflect, dash stop, grounding, range) with an impact of 0.4 or more (0.5 for range).
 Run `npm run matchup -- <champion> Velkoz` for the full ledger of a matchup, with sources.
 
-## Top 10
+### Top 10
 
-### 1. Elise (net +0.96)
+#### 1. Rell (net +1.24)
 
-- **0.51** untargetable: Rappel makes Elise untargetable, dodging Vel'Koz's Tectonic Disruption. Untargetable for 0.6 s; Tectonic Disruption takes 0.25 s to land, enough to react. (Elise E Rappel → Vel'Koz E Tectonic Disruption)
-- **0.33** untargetable: Rappel makes Elise untargetable, dodging Vel'Koz's Life Form Disintegration Ray. Untargetable for 0.6 s; Life Form Disintegration Ray lands within 0 s, faster than a 0.25 s reaction, so it needs prediction. (Elise E Rappel → Vel'Koz R Life Form Disintegration Ray)
-- **0.28** interrupt: Cocoon's stun interrupts Vel'Koz's Life Form Disintegration Ray (normal channel). Cocoon must land during the channel. (Elise E Cocoon → Vel'Koz R Life Form Disintegration Ray)
+- **0.28** interrupt: Ferromancy: Crash Down's airborne interrupts Vel'Koz's Life Form Disintegration Ray (normal channel). Ferromancy: Crash Down must land during the channel. (Rell W Ferromancy: Crash Down → Vel'Koz R Life Form Disintegration Ray)
+- **0.28** interrupt: Ferromancy: Mount Up's airborne interrupts Vel'Koz's Life Form Disintegration Ray (normal channel). Ferromancy: Mount Up must land during the channel. (Rell W Ferromancy: Mount Up → Vel'Koz R Life Form Disintegration Ray)
+- **0.28** interrupt: Full Tilt's stun interrupts Vel'Koz's Life Form Disintegration Ray (normal channel). Full Tilt must land during the channel. (Rell E Full Tilt → Vel'Koz R Life Form Disintegration Ray)
+- Watch out: Vel'Koz's basic attacks reach 350 units farther than Rell's (525 vs 175 attack range).
 
-### 2. Maokai (net +0.88)
+#### 2. Fizz (net +1.03)
 
-- **0.70** untargetable: Twisted Advance makes Maokai untargetable, dodging Vel'Koz's Tectonic Disruption. Untargetable for 1.4 s; Tectonic Disruption takes 0.25 s to land, enough to react. (Maokai W Twisted Advance → Vel'Koz E Tectonic Disruption)
-- **0.33** untargetable: Twisted Advance makes Maokai untargetable, dodging Vel'Koz's Life Form Disintegration Ray. Untargetable for 1.4 s; Life Form Disintegration Ray lands within 0 s, faster than a 0.25 s reaction, so it needs prediction. (Maokai W Twisted Advance → Vel'Koz R Life Form Disintegration Ray)
-- **0.28** interrupt: Bramble Smash's airborne interrupts Vel'Koz's Life Form Disintegration Ray (normal channel). Bramble Smash must land during the channel. (Maokai Q Bramble Smash → Vel'Koz R Life Form Disintegration Ray)
-- Watch out: Vel'Koz's basic attacks reach 400 units farther than Maokai's (525 vs 125 attack range).
+- **0.70** untargetable: Playful makes Fizz untargetable, dodging Vel'Koz's Tectonic Disruption. Untargetable for 0.75 s; Tectonic Disruption takes 0.25 s to land, enough to react. (Fizz E Playful → Vel'Koz E Tectonic Disruption)
+- **0.33** untargetable: Playful makes Fizz untargetable, dodging Vel'Koz's Life Form Disintegration Ray. Untargetable for 0.75 s; Life Form Disintegration Ray lands within 0 s, faster than a 0.25 s reaction, so it needs prediction. (Fizz E Playful → Vel'Koz R Life Form Disintegration Ray)
+- **0.28** interrupt: Chum the Waters's airborne interrupts Vel'Koz's Life Form Disintegration Ray (normal channel). Chum the Waters must land during the channel. (Fizz R Chum the Waters → Vel'Koz R Life Form Disintegration Ray)
+- Watch out: Vel'Koz's basic attacks reach 350 units farther than Fizz's (525 vs 175 attack range).
 
-### 3. Rek'Sai (net +0.85)
-
-- **0.55** untargetable: Void Rush makes Rek'Sai untargetable, dodging Vel'Koz's Life Form Disintegration Ray. Untargetable for 1.5 s, long enough to use ahead of Life Form Disintegration Ray. (Rek'Sai R Void Rush → Vel'Koz R Life Form Disintegration Ray)
-- **0.33** untargetable: Void Rush makes Rek'Sai untargetable, dodging Vel'Koz's Tectonic Disruption. Untargetable for 1.5 s, long enough to use ahead of Tectonic Disruption. (Rek'Sai R Void Rush → Vel'Koz E Tectonic Disruption)
-- **0.28** interrupt: Unburrow's airborne interrupts Vel'Koz's Life Form Disintegration Ray (normal channel). Unburrow must land during the channel. (Rek'Sai W Unburrow → Vel'Koz R Life Form Disintegration Ray)
-- Watch out: Vel'Koz's basic attacks reach 350 units farther than Rek'Sai's (525 vs 175 attack range).
-
-### 4. Bard (net +0.79)
-
-- **0.55** untargetable: Tempered Fate makes Bard untargetable, dodging Vel'Koz's Life Form Disintegration Ray. Untargetable for 2.5 s, long enough to use ahead of Life Form Disintegration Ray. (Bard R Tempered Fate → Vel'Koz R Life Form Disintegration Ray)
-- **0.33** untargetable: Tempered Fate makes Bard untargetable, dodging Vel'Koz's Tectonic Disruption. Untargetable for 2.5 s, long enough to use ahead of Tectonic Disruption. (Bard R Tempered Fate → Vel'Koz E Tectonic Disruption)
-- **0.28** interrupt: Tempered Fate's stasis interrupts Vel'Koz's Life Form Disintegration Ray (normal channel). Tempered Fate must land during the channel. (Bard R Tempered Fate → Vel'Koz R Life Form Disintegration Ray)
-
-### 5. Lissandra (net +0.79)
-
-- **0.55** untargetable: Frozen Tomb makes Lissandra untargetable, dodging Vel'Koz's Life Form Disintegration Ray. Untargetable for 2.5 s, long enough to use ahead of Life Form Disintegration Ray. (Lissandra R Frozen Tomb → Vel'Koz R Life Form Disintegration Ray)
-- **0.33** untargetable: Frozen Tomb makes Lissandra untargetable, dodging Vel'Koz's Tectonic Disruption. Untargetable for 2.5 s, long enough to use ahead of Tectonic Disruption. (Lissandra R Frozen Tomb → Vel'Koz E Tectonic Disruption)
-- **0.28** interrupt: Frozen Tomb's stun interrupts Vel'Koz's Life Form Disintegration Ray (normal channel). Frozen Tomb must land during the channel. (Lissandra R Frozen Tomb → Vel'Koz R Life Form Disintegration Ray)
-
-### 6. Nocturne (net +0.71)
-
-- **0.63** spell shield: Shroud of Darkness's spell shield blocks Vel'Koz's Tectonic Disruption. Spell shield for 1.5 s, long enough to use ahead of Tectonic Disruption. A spell shield blocks only the first enemy ability that reaches it. (Nocturne W Shroud of Darkness → Vel'Koz E Tectonic Disruption)
-- **0.28** interrupt: Unspeakable Horror's fear interrupts Vel'Koz's Life Form Disintegration Ray (normal channel). Unspeakable Horror must land during the channel. (Nocturne E Unspeakable Horror → Vel'Koz R Life Form Disintegration Ray)
-- **0.07** cc immunity: Paranoia is displacement immune, ignoring Vel'Koz's Tectonic Disruption (airborne) during it. Only during Paranoia. (Nocturne R Paranoia → Vel'Koz E Tectonic Disruption)
-- Watch out: Vel'Koz's basic attacks reach 400 units farther than Nocturne's (525 vs 125 attack range).
-
-### 7. Braum (net +0.66)
+#### 3. Braum (net +0.90)
 
 - **0.42** projectile block: Unbreakable blocks Vel'Koz's Plasma Fission, a projectile. Unbreakable for 4 s, long enough to use ahead of Plasma Fission. (Braum E Unbreakable → Vel'Koz Q Plasma Fission)
 - **0.35** projectile block: Unbreakable blocks part of Vel'Koz's Tectonic Disruption, a projectile. Unbreakable for 4 s, long enough to use ahead of Tectonic Disruption. Only part of the ability is a projectile. While the effect is fully prevented by blocking the missile (e.g. with Unbreakable and Wind Wall), the missile may not be destroyed visually. The area of effect indicator appears at the end of the cast time.
@@ -57,196 +135,224 @@ Run `npm run matchup -- <champion> Velkoz` for the full ledger of a matchup, wit
 - **0.28** interrupt: Concussive Blows's stun interrupts Vel'Koz's Life Form Disintegration Ray (normal channel). Concussive Blows must land during the channel. (Braum I Concussive Blows → Vel'Koz R Life Form Disintegration Ray)
 - Watch out: Vel'Koz's basic attacks reach 400 units farther than Braum's (525 vs 125 attack range).
 
-### 8. Camille (net +0.65)
+#### 4. Maokai (net +0.88)
 
-- **0.33** untargetable: The Hextech Ultimatum makes Camille untargetable, dodging Vel'Koz's Tectonic Disruption. Untargetable for 0.5 s; Tectonic Disruption takes 0.25 s to land, enough to react. (Camille R The Hextech Ultimatum → Vel'Koz E Tectonic Disruption)
-- **0.31** untargetable: The Hextech Ultimatum makes Camille untargetable, dodging Vel'Koz's Life Form Disintegration Ray. Untargetable for 0.5 s; Life Form Disintegration Ray lands within 0 s, faster than a 0.25 s reaction, so it needs prediction. (Camille R The Hextech Ultimatum → Vel'Koz R Life Form Disintegration Ray)
-- **0.28** interrupt: Wall Dive's airborne interrupts Vel'Koz's Life Form Disintegration Ray (normal channel). Wall Dive must land during the channel. (Camille E Wall Dive → Vel'Koz R Life Form Disintegration Ray)
-- Watch out: Vel'Koz's basic attacks reach 400 units farther than Camille's (525 vs 125 attack range).
+- **0.70** untargetable: Twisted Advance makes Maokai untargetable, dodging Vel'Koz's Tectonic Disruption. Untargetable for 1.4 s; Tectonic Disruption takes 0.25 s to land, enough to react. (Maokai W Twisted Advance → Vel'Koz E Tectonic Disruption)
+- **0.33** untargetable: Twisted Advance makes Maokai untargetable, dodging Vel'Koz's Life Form Disintegration Ray. Untargetable for 1.4 s; Life Form Disintegration Ray lands within 0 s, faster than a 0.25 s reaction, so it needs prediction. (Maokai W Twisted Advance → Vel'Koz R Life Form Disintegration Ray)
+- **0.28** interrupt: Bramble Smash's airborne interrupts Vel'Koz's Life Form Disintegration Ray (normal channel). Bramble Smash must land during the channel. (Maokai Q Bramble Smash → Vel'Koz R Life Form Disintegration Ray)
+- Watch out: Vel'Koz's basic attacks reach 400 units farther than Maokai's (525 vs 125 attack range).
 
-### 9. Milio (net +0.65)
+#### 5. Yasuo (net +0.87)
 
-- **0.28** interrupt: Ultra Mega Fire Kick's airborne interrupts Vel'Koz's Life Form Disintegration Ray (normal channel). Ultra Mega Fire Kick must land during the channel. (Milio Q Ultra Mega Fire Kick → Vel'Koz R Life Form Disintegration Ray)
-- **0.25** cleanse: Breath of Life cleanses Vel'Koz's Tectonic Disruption (stun) after it lands. 130 s cooldown; usable while crowd controlled. Doesn't remove airborne. (Milio R Breath of Life → Vel'Koz E Tectonic Disruption)
-- **0.19** tenacity: Breath of Life's 65% tenacity shortens Vel'Koz's Tectonic Disruption (stun). Breath of Life lasts 3 s on a 130 s cooldown. (Milio R Breath of Life → Vel'Koz E Tectonic Disruption)
+- **0.29** projectile block: Wind Wall blocks Vel'Koz's Plasma Fission, a projectile. Wind Wall for 4 s, long enough to use ahead of Plasma Fission. (Yasuo W Wind Wall → Vel'Koz Q Plasma Fission)
+- **0.28** interrupt: Last Breath's airborne interrupts Vel'Koz's Life Form Disintegration Ray (normal channel). Last Breath must land during the channel. (Yasuo R Last Breath → Vel'Koz R Life Form Disintegration Ray)
+- **0.28** interrupt: Steel Tempest's airborne interrupts Vel'Koz's Life Form Disintegration Ray (normal channel). Steel Tempest must land during the channel. (Yasuo Q Steel Tempest → Vel'Koz R Life Form Disintegration Ray)
+- Watch out: Vel'Koz's basic attacks reach 350 units farther than Yasuo's (525 vs 175 attack range).
 
-### 10. Vladimir (net +0.64)
+#### 6. Rek'Sai (net +0.85)
 
-- **0.55** untargetable: Sanguine Pool makes Vladimir untargetable, dodging Vel'Koz's Life Form Disintegration Ray. Untargetable for 2 s, long enough to use ahead of Life Form Disintegration Ray. (Vladimir W Sanguine Pool → Vel'Koz R Life Form Disintegration Ray)
-- **0.54** untargetable: Sanguine Pool makes Vladimir untargetable, dodging Vel'Koz's Tectonic Disruption. Untargetable for 2 s, long enough to use ahead of Tectonic Disruption. (Vladimir W Sanguine Pool → Vel'Koz E Tectonic Disruption)
-- Watch out: Vel'Koz's basic attacks reach 75 units farther than Vladimir's (525 vs 450 attack range).
+- **0.55** untargetable: Void Rush makes Rek'Sai untargetable, dodging Vel'Koz's Life Form Disintegration Ray. Untargetable for 1.5 s, long enough to use ahead of Life Form Disintegration Ray. (Rek'Sai R Void Rush → Vel'Koz R Life Form Disintegration Ray)
+- **0.33** untargetable: Void Rush makes Rek'Sai untargetable, dodging Vel'Koz's Tectonic Disruption. Untargetable for 1.5 s, long enough to use ahead of Tectonic Disruption. (Rek'Sai R Void Rush → Vel'Koz E Tectonic Disruption)
+- **0.28** interrupt: Unburrow's airborne interrupts Vel'Koz's Life Form Disintegration Ray (normal channel). Unburrow must land during the channel. (Rek'Sai W Unburrow → Vel'Koz R Life Form Disintegration Ray)
+- Watch out: Vel'Koz's basic attacks reach 350 units farther than Rek'Sai's (525 vs 175 attack range).
 
-## Full ranking
+#### 7. Bard (net +0.79)
+
+- **0.55** untargetable: Tempered Fate makes Bard untargetable, dodging Vel'Koz's Life Form Disintegration Ray. Untargetable for 2.5 s, long enough to use ahead of Life Form Disintegration Ray. (Bard R Tempered Fate → Vel'Koz R Life Form Disintegration Ray)
+- **0.33** untargetable: Tempered Fate makes Bard untargetable, dodging Vel'Koz's Tectonic Disruption. Untargetable for 2.5 s, long enough to use ahead of Tectonic Disruption. (Bard R Tempered Fate → Vel'Koz E Tectonic Disruption)
+- **0.28** interrupt: Tempered Fate's stasis interrupts Vel'Koz's Life Form Disintegration Ray (normal channel). Tempered Fate must land during the channel. (Bard R Tempered Fate → Vel'Koz R Life Form Disintegration Ray)
+
+#### 8. Lissandra (net +0.79)
+
+- **0.55** untargetable: Frozen Tomb makes Lissandra untargetable, dodging Vel'Koz's Life Form Disintegration Ray. Untargetable for 2.5 s, long enough to use ahead of Life Form Disintegration Ray. (Lissandra R Frozen Tomb → Vel'Koz R Life Form Disintegration Ray)
+- **0.33** untargetable: Frozen Tomb makes Lissandra untargetable, dodging Vel'Koz's Tectonic Disruption. Untargetable for 2.5 s, long enough to use ahead of Tectonic Disruption. (Lissandra R Frozen Tomb → Vel'Koz E Tectonic Disruption)
+- **0.28** interrupt: Frozen Tomb's stun interrupts Vel'Koz's Life Form Disintegration Ray (normal channel). Frozen Tomb must land during the channel. (Lissandra R Frozen Tomb → Vel'Koz R Life Form Disintegration Ray)
+
+#### 9. Zaahen (net +0.78)
+
+- **0.33** cc immunity: Grim Deliverance makes Zaahen immune to Vel'Koz's Tectonic Disruption (airborne, stun). Immune for ?; Tectonic Disruption takes 0.25 s to land, enough to react. (Zaahen R Grim Deliverance → Vel'Koz E Tectonic Disruption)
+- **0.28** interrupt: Dreaded Return's airborne interrupts Vel'Koz's Life Form Disintegration Ray (normal channel). Dreaded Return must land during the channel. (Zaahen W Dreaded Return → Vel'Koz R Life Form Disintegration Ray)
+- **0.28** interrupt: The Darkin Glaive's airborne interrupts Vel'Koz's Life Form Disintegration Ray (normal channel). The Darkin Glaive must land during the channel. (Zaahen Q The Darkin Glaive → Vel'Koz R Life Form Disintegration Ray)
+- Watch out: Vel'Koz's basic attacks reach 350 units farther than Zaahen's (525 vs 175 attack range).
+
+#### 10. K'Sante (net +0.78)
+
+- **0.28** interrupt: All Out's airborne interrupts Vel'Koz's Life Form Disintegration Ray (normal channel). All Out must land during the channel. (K'Sante R All Out → Vel'Koz R Life Form Disintegration Ray)
+- **0.28** interrupt: Ntofo Strikes's airborne interrupts Vel'Koz's Life Form Disintegration Ray (normal channel). Ntofo Strikes must land during the channel. (K'Sante Q Ntofo Strikes → Vel'Koz R Life Form Disintegration Ray)
+- **0.28** interrupt: Path Maker's airborne interrupts Vel'Koz's Life Form Disintegration Ray (normal channel). Path Maker must land during the channel. (K'Sante W Path Maker → Vel'Koz R Life Form Disintegration Ray)
+- Watch out: Vel'Koz's basic attacks reach 375 units farther than K'Sante's (525 vs 150 attack range).
+
+### Full ranking
 
 | # | Champion | Net | For | Against | Hard counters |
 |--:|---|--:|--:|--:|---|
-| 1 | Elise | +0.96 | 0.96 | 0.00 |  |
-| 2 | Maokai | +0.88 | 1.15 | 0.27 |  |
-| 3 | Rek'Sai | +0.85 | 1.01 | 0.16 |  |
-| 4 | Bard | +0.79 | 0.79 | 0.00 |  |
-| 5 | Lissandra | +0.79 | 0.79 | 0.00 |  |
-| 6 | Nocturne | +0.71 | 0.98 | 0.27 |  |
-| 7 | Braum | +0.66 | 0.93 | 0.27 | projectile block (Unbreakable) |
-| 8 | Camille | +0.65 | 0.78 | 0.13 |  |
-| 9 | Milio | +0.65 | 0.65 | 0.00 |  |
-| 10 | Vladimir | +0.64 | 0.82 | 0.18 |  |
-| 11 | Xayah | +0.64 | 0.64 | 0.00 |  |
-| 12 | Udyr | +0.62 | 0.89 | 0.27 |  |
-| 13 | Evelynn | +0.60 | 0.78 | 0.18 |  |
-| 14 | Shaco | +0.60 | 0.78 | 0.18 |  |
-| 15 | Yasuo | +0.59 | 0.75 | 0.16 |  |
-| 16 | Fiora | +0.57 | 0.82 | 0.25 |  |
-| 17 | Kled | +0.56 | 0.65 | 0.09 |  |
-| 18 | Tristana | +0.56 | 0.56 | 0.00 |  |
-| 19 | Kayle | +0.55 | 0.55 | 0.00 |  |
-| 20 | Morgana | +0.53 | 0.63 | 0.10 |  |
-| 21 | Lulu | +0.53 | 0.53 | 0.00 |  |
-| 22 | Sivir | +0.51 | 0.51 | 0.00 |  |
-| 23 | Zaahen | +0.50 | 0.66 | 0.16 |  |
-| 24 | Aurora | +0.48 | 0.48 | 0.00 |  |
-| 25 | Samira | +0.44 | 0.44 | 0.00 |  |
-| 26 | Gwen | +0.43 | 0.68 | 0.25 |  |
-| 27 | Ashe | +0.42 | 0.42 | 0.00 |  |
-| 28 | Mel | +0.40 | 0.40 | 0.00 |  |
-| 29 | Yuumi | +0.39 | 0.87 | 0.48 |  |
-| 30 | Annie | +0.39 | 0.39 | 0.00 |  |
-| 31 | Kalista | +0.39 | 0.39 | 0.00 |  |
-| 32 | Master Yi | +0.37 | 0.83 | 0.46 |  |
-| 33 | Xin Zhao | +0.37 | 0.60 | 0.23 |  |
-| 34 | Anivia | +0.37 | 0.37 | 0.00 |  |
-| 35 | Heimerdinger | +0.37 | 0.37 | 0.00 |  |
-| 36 | Alistar | +0.35 | 0.62 | 0.27 |  |
-| 37 | Ekko | +0.35 | 0.53 | 0.18 |  |
-| 38 | Teemo | +0.35 | 0.35 | 0.00 |  |
-| 39 | Vex | +0.35 | 0.35 | 0.00 |  |
-| 40 | Nilah | +0.33 | 0.53 | 0.20 |  |
-| 41 | Corki | +0.32 | 0.32 | 0.00 |  |
-| 42 | Zed | +0.29 | 0.47 | 0.18 |  |
-| 43 | K'Sante | +0.29 | 0.42 | 0.13 |  |
-| 44 | Malzahar | +0.28 | 0.68 | 0.40 |  |
-| 45 | Ahri | +0.28 | 0.28 | 0.00 |  |
-| 46 | Brand | +0.28 | 0.28 | 0.00 |  |
-| 47 | Cassiopeia | +0.28 | 0.28 | 0.00 |  |
-| 48 | Draven | +0.28 | 0.28 | 0.00 |  |
-| 49 | Gnar | +0.28 | 0.28 | 0.00 |  |
-| 50 | Hwei | +0.28 | 0.28 | 0.00 |  |
-| 51 | Jayce | +0.28 | 0.28 | 0.00 |  |
-| 52 | Kennen | +0.28 | 0.28 | 0.00 |  |
-| 53 | Nami | +0.28 | 0.28 | 0.00 |  |
-| 54 | Orianna | +0.28 | 0.28 | 0.00 |  |
-| 55 | Renata Glasc | +0.28 | 0.28 | 0.00 |  |
-| 56 | Seraphine | +0.28 | 0.28 | 0.00 |  |
-| 57 | Soraka | +0.28 | 0.28 | 0.00 |  |
-| 58 | Swain | +0.28 | 0.28 | 0.00 |  |
-| 59 | Syndra | +0.28 | 0.28 | 0.00 |  |
-| 60 | Vayne | +0.28 | 0.28 | 0.00 |  |
-| 61 | Veigar | +0.28 | 0.28 | 0.00 |  |
-| 62 | Viktor | +0.28 | 0.28 | 0.00 |  |
-| 63 | Ziggs | +0.28 | 0.28 | 0.00 |  |
-| 64 | Zilean | +0.28 | 0.28 | 0.00 |  |
-| 65 | Zoe | +0.28 | 0.28 | 0.00 |  |
-| 66 | Warwick | +0.26 | 0.74 | 0.48 |  |
-| 67 | Azir | +0.26 | 0.26 | 0.00 |  |
-| 68 | Neeko | +0.26 | 0.26 | 0.00 |  |
-| 69 | Zyra | +0.26 | 0.26 | 0.00 |  |
-| 70 | Thresh | +0.25 | 0.28 | 0.03 |  |
-| 71 | Sona | +0.24 | 0.24 | 0.00 |  |
-| 72 | Yone | +0.23 | 0.35 | 0.12 |  |
-| 73 | Kindred | +0.23 | 0.23 | 0.00 |  |
-| 74 | Malphite | +0.19 | 0.46 | 0.27 |  |
-| 75 | Ornn | +0.19 | 0.35 | 0.16 |  |
-| 76 | Volibear | +0.18 | 0.35 | 0.17 |  |
-| 77 | Jarvan IV | +0.18 | 0.30 | 0.12 |  |
-| 78 | Kayn | +0.17 | 0.78 | 0.61 |  |
-| 79 | Fizz | +0.16 | 0.28 | 0.12 |  |
-| 80 | Sylas | +0.16 | 0.28 | 0.12 |  |
-| 81 | Urgot | +0.16 | 0.28 | 0.12 |  |
-| 82 | Rakan | +0.16 | 0.26 | 0.10 |  |
-| 83 | Aurelion Sol | +0.16 | 0.24 | 0.08 |  |
-| 84 | Jax | +0.15 | 0.42 | 0.27 |  |
-| 85 | Pantheon | +0.15 | 0.41 | 0.26 |  |
-| 86 | Briar | +0.15 | 0.28 | 0.13 |  |
-| 87 | Hecarim | +0.12 | 0.28 | 0.16 |  |
-| 88 | Rell | +0.12 | 0.28 | 0.16 |  |
-| 89 | Senna | +0.12 | 0.12 | 0.00 |  |
-| 90 | Sion | +0.11 | 0.71 | 0.60 |  |
-| 91 | Bel'Veth | +0.11 | 0.28 | 0.17 |  |
-| 92 | Rengar | +0.10 | 0.63 | 0.53 |  |
-| 93 | Lee Sin | +0.10 | 0.28 | 0.18 |  |
-| 94 | Riven | +0.10 | 0.28 | 0.18 |  |
-| 95 | Wukong | +0.10 | 0.26 | 0.16 |  |
-| 96 | Lillia | +0.10 | 0.23 | 0.13 |  |
-| 97 | Garen | +0.09 | 0.56 | 0.47 |  |
-| 98 | Quinn | +0.09 | 0.28 | 0.19 |  |
-| 99 | Aphelios | +0.09 | 0.09 | 0.00 |  |
-| 100 | Taric | +0.08 | 0.58 | 0.50 |  |
-| 101 | Sett | +0.08 | 0.35 | 0.27 |  |
-| 102 | Shyvana | +0.07 | 0.32 | 0.25 |  |
-| 103 | Irelia | +0.06 | 0.28 | 0.22 |  |
-| 104 | Ambessa | +0.06 | 0.24 | 0.18 |  |
-| 105 | Aatrox | +0.05 | 0.28 | 0.23 |  |
-| 106 | Nautilus | +0.05 | 0.28 | 0.23 |  |
-| 107 | Qiyana | +0.05 | 0.22 | 0.17 |  |
-| 108 | Diana | +0.03 | 0.28 | 0.25 |  |
-| 109 | Kassadin | +0.03 | 0.28 | 0.25 |  |
-| 110 | Sejuani | +0.03 | 0.28 | 0.25 |  |
-| 111 | Rammus | +0.01 | 0.55 | 0.54 |  |
-| 112 | Amumu | +0.01 | 0.28 | 0.27 |  |
-| 113 | Leona | +0.01 | 0.28 | 0.27 |  |
-| 114 | Renekton | +0.01 | 0.28 | 0.27 |  |
-| 115 | Gangplank | 0.00 | 0.53 | 0.53 |  |
-| 116 | Ezreal | 0.00 | 0.00 | 0.00 |  |
-| 117 | Jinx | 0.00 | 0.00 | 0.00 |  |
-| 118 | Kai'Sa | 0.00 | 0.00 | 0.00 |  |
-| 119 | Karma | 0.00 | 0.00 | 0.00 |  |
-| 120 | Kog'Maw | 0.00 | 0.00 | 0.00 |  |
-| 121 | LeBlanc | 0.00 | 0.00 | 0.00 |  |
-| 122 | Lux | 0.00 | 0.00 | 0.00 |  |
-| 123 | Nidalee | 0.00 | 0.00 | 0.00 |  |
-| 124 | Smolder | 0.00 | 0.00 | 0.00 |  |
-| 125 | Twitch | 0.00 | 0.00 | 0.00 |  |
-| 126 | Yunara | 0.00 | 0.00 | 0.00 |  |
-| 127 | Zeri | 0.00 | 0.00 | 0.00 |  |
-| 128 | Viego | -0.01 | 0.32 | 0.33 |  |
-| 129 | Pyke | -0.04 | 0.28 | 0.32 |  |
-| 130 | Xerath | -0.04 | 0.28 | 0.32 |  |
-| 131 | Graves | -0.04 | 0.00 | 0.04 |  |
-| 132 | Caitlyn | -0.06 | 0.22 | 0.28 |  |
-| 133 | Galio | -0.07 | 0.28 | 0.35 |  |
-| 134 | Twisted Fate | -0.07 | 0.28 | 0.35 |  |
-| 135 | Shen | -0.08 | 0.55 | 0.63 |  |
-| 136 | Varus | -0.11 | 0.00 | 0.11 |  |
-| 137 | Olaf | -0.12 | 0.41 | 0.53 |  |
-| 138 | Janna | -0.12 | 0.28 | 0.40 |  |
-| 139 | Mordekaiser | -0.13 | 0.34 | 0.47 |  |
-| 140 | Skarner | -0.14 | 0.36 | 0.50 |  |
-| 141 | Gragas | -0.15 | 0.28 | 0.43 |  |
-| 142 | Ivern | -0.15 | 0.00 | 0.15 |  |
-| 143 | Fiddlesticks | -0.17 | 0.28 | 0.45 |  |
-| 144 | Akali | -0.18 | 0.00 | 0.18 |  |
-| 145 | Talon | -0.18 | 0.00 | 0.18 |  |
-| 146 | Darius | -0.19 | 0.28 | 0.47 |  |
-| 147 | Trundle | -0.19 | 0.28 | 0.47 |  |
-| 148 | Yorick | -0.19 | 0.28 | 0.47 |  |
-| 149 | Taliyah | -0.20 | 0.28 | 0.48 |  |
-| 150 | Illaoi | -0.20 | 0.07 | 0.27 |  |
-| 151 | Vi | -0.21 | 0.35 | 0.56 |  |
-| 152 | Poppy | -0.23 | 0.24 | 0.47 |  |
-| 153 | Tryndamere | -0.23 | 0.00 | 0.23 |  |
-| 154 | Blitzcrank | -0.25 | 0.28 | 0.53 |  |
-| 155 | Cho'Gath | -0.25 | 0.28 | 0.53 |  |
-| 156 | Singed | -0.25 | 0.28 | 0.53 |  |
-| 157 | Nasus | -0.26 | 0.27 | 0.53 |  |
-| 158 | Kha'Zix | -0.27 | 0.00 | 0.27 |  |
-| 159 | Locke | -0.27 | 0.00 | 0.27 |  |
-| 160 | Akshan | -0.28 | 0.00 | 0.28 |  |
-| 161 | Jhin | -0.28 | 0.00 | 0.28 |  |
-| 162 | Lucian | -0.28 | 0.00 | 0.28 |  |
-| 163 | Miss Fortune | -0.28 | 0.00 | 0.28 |  |
-| 164 | Ryze | -0.35 | 0.00 | 0.35 |  |
-| 165 | Karthus | -0.38 | 0.00 | 0.38 |  |
-| 166 | Zac | -0.42 | 0.28 | 0.70 |  |
-| 167 | Tahm Kench | -0.45 | 0.28 | 0.73 |  |
+| 1 | Rell | +1.24 | 1.40 | 0.16 |  |
+| 2 | Fizz | +1.03 | 1.15 | 0.12 |  |
+| 3 | Braum | +0.90 | 1.17 | 0.27 | projectile block (Unbreakable) |
+| 4 | Maokai | +0.88 | 1.15 | 0.27 |  |
+| 5 | Yasuo | +0.87 | 1.03 | 0.16 |  |
+| 6 | Rek'Sai | +0.85 | 1.01 | 0.16 |  |
+| 7 | Bard | +0.79 | 0.79 | 0.00 |  |
+| 8 | Lissandra | +0.79 | 0.79 | 0.00 |  |
+| 9 | Zaahen | +0.78 | 0.94 | 0.16 |  |
+| 10 | K'Sante | +0.78 | 0.91 | 0.13 |  |
+| 11 | Nocturne | +0.71 | 0.98 | 0.27 |  |
+| 12 | Camille | +0.71 | 0.84 | 0.13 |  |
+| 13 | Lulu | +0.69 | 0.69 | 0.00 |  |
+| 14 | Kled | +0.65 | 0.74 | 0.09 |  |
+| 15 | Anivia | +0.65 | 0.65 | 0.00 |  |
+| 16 | Heimerdinger | +0.65 | 0.65 | 0.00 |  |
+| 17 | Milio | +0.65 | 0.65 | 0.00 |  |
+| 18 | Vladimir | +0.64 | 0.82 | 0.18 |  |
+| 19 | Xayah | +0.64 | 0.64 | 0.00 |  |
+| 20 | Alistar | +0.63 | 0.90 | 0.27 |  |
+| 21 | Udyr | +0.62 | 0.89 | 0.27 |  |
+| 22 | Evelynn | +0.60 | 0.78 | 0.18 |  |
+| 23 | Shaco | +0.60 | 0.78 | 0.18 |  |
+| 24 | Fiora | +0.57 | 0.82 | 0.25 |  |
+| 25 | Sejuani | +0.57 | 0.82 | 0.25 |  |
+| 26 | Malzahar | +0.56 | 0.96 | 0.40 |  |
+| 27 | Gnar | +0.56 | 0.56 | 0.00 |  |
+| 28 | Tristana | +0.56 | 0.56 | 0.00 |  |
+| 29 | Viktor | +0.56 | 0.56 | 0.00 |  |
+| 30 | Kayle | +0.55 | 0.55 | 0.00 |  |
+| 31 | Morgana | +0.53 | 0.63 | 0.10 |  |
+| 32 | Thresh | +0.53 | 0.56 | 0.03 |  |
+| 33 | Nami | +0.52 | 0.52 | 0.00 |  |
+| 34 | Yone | +0.51 | 0.63 | 0.12 |  |
+| 35 | Renata Glasc | +0.51 | 0.51 | 0.00 |  |
+| 36 | Sivir | +0.51 | 0.51 | 0.00 |  |
+| 37 | Seraphine | +0.50 | 0.50 | 0.00 |  |
+| 38 | Aurora | +0.48 | 0.48 | 0.00 |  |
+| 39 | Xin Zhao | +0.45 | 0.68 | 0.23 |  |
+| 40 | Urgot | +0.44 | 0.56 | 0.12 |  |
+| 41 | Rakan | +0.44 | 0.54 | 0.10 |  |
+| 42 | Aurelion Sol | +0.44 | 0.52 | 0.08 |  |
+| 43 | Samira | +0.44 | 0.44 | 0.00 |  |
+| 44 | Gwen | +0.43 | 0.68 | 0.25 |  |
+| 45 | Ornn | +0.43 | 0.59 | 0.16 |  |
+| 46 | Ashe | +0.42 | 0.42 | 0.00 |  |
+| 47 | Mel | +0.40 | 0.40 | 0.00 |  |
+| 48 | Yuumi | +0.39 | 0.87 | 0.48 |  |
+| 49 | Annie | +0.39 | 0.39 | 0.00 |  |
+| 50 | Kalista | +0.39 | 0.39 | 0.00 |  |
+| 51 | Riven | +0.38 | 0.56 | 0.18 |  |
+| 52 | Master Yi | +0.37 | 0.83 | 0.46 |  |
+| 53 | Teemo | +0.35 | 0.35 | 0.00 |  |
+| 54 | Vex | +0.35 | 0.35 | 0.00 |  |
+| 55 | Sett | +0.33 | 0.60 | 0.27 |  |
+| 56 | Nilah | +0.33 | 0.53 | 0.20 |  |
+| 57 | Blitzcrank | +0.31 | 0.84 | 0.53 |  |
+| 58 | Taliyah | +0.30 | 0.78 | 0.48 |  |
+| 59 | Rammus | +0.29 | 0.83 | 0.54 |  |
+| 60 | Leona | +0.29 | 0.56 | 0.27 |  |
+| 61 | Zed | +0.29 | 0.47 | 0.18 |  |
+| 62 | Ahri | +0.28 | 0.28 | 0.00 |  |
+| 63 | Brand | +0.28 | 0.28 | 0.00 |  |
+| 64 | Cassiopeia | +0.28 | 0.28 | 0.00 |  |
+| 65 | Draven | +0.28 | 0.28 | 0.00 |  |
+| 66 | Elise | +0.28 | 0.28 | 0.00 |  |
+| 67 | Hwei | +0.28 | 0.28 | 0.00 |  |
+| 68 | Jayce | +0.28 | 0.28 | 0.00 |  |
+| 69 | Kennen | +0.28 | 0.28 | 0.00 |  |
+| 70 | Orianna | +0.28 | 0.28 | 0.00 |  |
+| 71 | Soraka | +0.28 | 0.28 | 0.00 |  |
+| 72 | Swain | +0.28 | 0.28 | 0.00 |  |
+| 73 | Syndra | +0.28 | 0.28 | 0.00 |  |
+| 74 | Vayne | +0.28 | 0.28 | 0.00 |  |
+| 75 | Veigar | +0.28 | 0.28 | 0.00 |  |
+| 76 | Ziggs | +0.28 | 0.28 | 0.00 |  |
+| 77 | Zilean | +0.28 | 0.28 | 0.00 |  |
+| 78 | Zoe | +0.28 | 0.28 | 0.00 |  |
+| 79 | Viego | +0.27 | 0.60 | 0.33 |  |
+| 80 | Azir | +0.26 | 0.26 | 0.00 |  |
+| 81 | Neeko | +0.26 | 0.26 | 0.00 |  |
+| 82 | Zyra | +0.26 | 0.26 | 0.00 |  |
+| 83 | Amumu | +0.25 | 0.52 | 0.27 |  |
+| 84 | Pyke | +0.24 | 0.56 | 0.32 |  |
+| 85 | Sona | +0.24 | 0.24 | 0.00 |  |
+| 86 | Sion | +0.21 | 0.81 | 0.60 |  |
+| 87 | Malphite | +0.19 | 0.46 | 0.27 |  |
+| 88 | Volibear | +0.18 | 0.35 | 0.17 |  |
+| 89 | Jarvan IV | +0.18 | 0.30 | 0.12 |  |
+| 90 | Kayn | +0.17 | 0.78 | 0.61 |  |
+| 91 | Sylas | +0.16 | 0.28 | 0.12 |  |
+| 92 | Jax | +0.15 | 0.42 | 0.27 |  |
+| 93 | Briar | +0.15 | 0.28 | 0.13 |  |
+| 94 | Gragas | +0.13 | 0.56 | 0.43 |  |
+| 95 | Zac | +0.12 | 0.82 | 0.70 |  |
+| 96 | Janna | +0.12 | 0.52 | 0.40 |  |
+| 97 | Hecarim | +0.12 | 0.28 | 0.16 |  |
+| 98 | Senna | +0.12 | 0.12 | 0.00 |  |
+| 99 | Tahm Kench | +0.11 | 0.84 | 0.73 |  |
+| 100 | Fiddlesticks | +0.11 | 0.56 | 0.45 |  |
+| 101 | Bel'Veth | +0.11 | 0.28 | 0.17 |  |
+| 102 | Rengar | +0.10 | 0.63 | 0.53 |  |
+| 103 | Lee Sin | +0.10 | 0.28 | 0.18 |  |
+| 104 | Wukong | +0.10 | 0.26 | 0.16 |  |
+| 105 | Lillia | +0.10 | 0.23 | 0.13 |  |
+| 106 | Garen | +0.09 | 0.56 | 0.47 |  |
+| 107 | Quinn | +0.09 | 0.28 | 0.19 |  |
+| 108 | Aphelios | +0.09 | 0.09 | 0.00 |  |
+| 109 | Shyvana | +0.07 | 0.32 | 0.25 |  |
+| 110 | Irelia | +0.06 | 0.28 | 0.22 |  |
+| 111 | Ambessa | +0.06 | 0.24 | 0.18 |  |
+| 112 | Aatrox | +0.05 | 0.28 | 0.23 |  |
+| 113 | Nautilus | +0.05 | 0.28 | 0.23 |  |
+| 114 | Qiyana | +0.05 | 0.22 | 0.17 |  |
+| 115 | Warwick | +0.03 | 0.86 | 0.83 |  |
+| 116 | Cho'Gath | +0.03 | 0.56 | 0.53 |  |
+| 117 | Diana | +0.03 | 0.28 | 0.25 |  |
+| 118 | Kassadin | +0.03 | 0.28 | 0.25 |  |
+| 119 | Vi | +0.02 | 0.58 | 0.56 |  |
+| 120 | Renekton | +0.01 | 0.28 | 0.27 |  |
+| 121 | Galio | 0.00 | 0.76 | 0.76 |  |
+| 122 | Gangplank | 0.00 | 0.53 | 0.53 |  |
+| 123 | Corki | 0.00 | 0.00 | 0.00 |  |
+| 124 | Ezreal | 0.00 | 0.00 | 0.00 |  |
+| 125 | Jinx | 0.00 | 0.00 | 0.00 |  |
+| 126 | Kai'Sa | 0.00 | 0.00 | 0.00 |  |
+| 127 | Karma | 0.00 | 0.00 | 0.00 |  |
+| 128 | Kindred | 0.00 | 0.00 | 0.00 |  |
+| 129 | Kog'Maw | 0.00 | 0.00 | 0.00 |  |
+| 130 | LeBlanc | 0.00 | 0.00 | 0.00 |  |
+| 131 | Lux | 0.00 | 0.00 | 0.00 |  |
+| 132 | Nidalee | 0.00 | 0.00 | 0.00 |  |
+| 133 | Smolder | 0.00 | 0.00 | 0.00 |  |
+| 134 | Twitch | 0.00 | 0.00 | 0.00 |  |
+| 135 | Yunara | 0.00 | 0.00 | 0.00 |  |
+| 136 | Zeri | 0.00 | 0.00 | 0.00 |  |
+| 137 | Xerath | -0.04 | 0.28 | 0.32 |  |
+| 138 | Graves | -0.04 | 0.00 | 0.04 |  |
+| 139 | Caitlyn | -0.06 | 0.22 | 0.28 |  |
+| 140 | Twisted Fate | -0.07 | 0.28 | 0.35 |  |
+| 141 | Shen | -0.08 | 0.55 | 0.63 |  |
+| 142 | Varus | -0.11 | 0.00 | 0.11 |  |
+| 143 | Olaf | -0.12 | 0.41 | 0.53 |  |
+| 144 | Mordekaiser | -0.13 | 0.34 | 0.47 |  |
+| 145 | Skarner | -0.14 | 0.36 | 0.50 |  |
+| 146 | Ivern | -0.15 | 0.00 | 0.15 |  |
+| 147 | Akali | -0.18 | 0.00 | 0.18 |  |
+| 148 | Ekko | -0.18 | 0.00 | 0.18 |  |
+| 149 | Talon | -0.18 | 0.00 | 0.18 |  |
+| 150 | Darius | -0.19 | 0.28 | 0.47 |  |
+| 151 | Trundle | -0.19 | 0.28 | 0.47 |  |
+| 152 | Yorick | -0.19 | 0.28 | 0.47 |  |
+| 153 | Illaoi | -0.20 | 0.07 | 0.27 |  |
+| 154 | Taric | -0.22 | 0.28 | 0.50 |  |
+| 155 | Poppy | -0.23 | 0.24 | 0.47 |  |
+| 156 | Tryndamere | -0.23 | 0.00 | 0.23 |  |
+| 157 | Pantheon | -0.25 | 0.41 | 0.66 |  |
+| 158 | Singed | -0.25 | 0.28 | 0.53 |  |
+| 159 | Nasus | -0.26 | 0.27 | 0.53 |  |
+| 160 | Kha'Zix | -0.27 | 0.00 | 0.27 |  |
+| 161 | Locke | -0.27 | 0.00 | 0.27 |  |
+| 162 | Akshan | -0.28 | 0.00 | 0.28 |  |
+| 163 | Jhin | -0.28 | 0.00 | 0.28 |  |
+| 164 | Lucian | -0.28 | 0.00 | 0.28 |  |
+| 165 | Miss Fortune | -0.28 | 0.00 | 0.28 |  |
+| 166 | Ryze | -0.35 | 0.00 | 0.35 |  |
+| 167 | Karthus | -0.38 | 0.00 | 0.38 |  |
 | 168 | Dr. Mundo | -0.53 | 0.00 | 0.53 |  |
 | 169 | Rumble | -0.53 | 0.00 | 0.53 |  |
 | 170 | Katarina | -0.55 | 0.00 | 0.55 |  |

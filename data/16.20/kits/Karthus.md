@@ -172,3 +172,88 @@ Cooldowns and costs of each slot's main ability, wiki vs game files:
 | E: Defile | cost | 30 / 42 / 54 / 66 / 78 | 30 / 42 / 54 / 66 / 78 | yes |
 | R: Requiem | cooldown | 200 / 180 / 160 | 200 / 180 / 160 | yes |
 | R: Requiem | cost | 100 / 100 / 100 | 100 / 100 / 100 | yes |
+
+## Duel simulator kit (level 20, every ability at max rank)
+
+What the duel simulator fights with (`kits/champions/Karthus.ts`): values come from pinned wiki and versioned game-data records at level 20. Interpretations and missing evidence are listed under assumptions. Ratios are fractions of the stat (60% AD is 0.6 × AD).
+
+- Basic attack: range 450, missile at 1500/s.
+
+| Key | Ability | Cooldown (s) | Cast time (s) | Cost | Delivery | On the enemy | On itself |
+|---|---|--:|--:|---|---|---|---|
+| Q | Lay Waste | 1 | 0.25 | 40 (depends on combat state) | circle of 160 radius up to 875 away, lands after 0.528 s | 232 + 70% AP magic damage | – |
+| W | Wall of Pain | 15 | 0.25 | 70 (depends on combat state) | circle of 0 radius up to 1000 away, lands after 0 s | – | – |
+| E | Defile | 0.5 (unaffected by ability haste) | 0 | 0; 78 resource/s while active | self | – | – |
+| R | Requiem | 160 | 0.25 | 100 (depends on combat state) | self; channel 3 s | at the end: 500 + 70% AP magic damage | – |
+
+Effects marked by a mark or a role are completed by the kit's hooks (see the kit's source).
+
+### Assumptions
+
+- Lay Waste uses the pinned 0.528-second lower delay bound after its 0.25-second cast; the source reports an inconsistent 0.528–0.759-second delay without a distribution or unambiguous cast-time composition. This deterministic policy is not a claim that its in-game delay is fixed.
+- Lay Waste snapshots its location at cast completion and reads AP when the blast lands. Isolation counts the targetable, non-stasis enemy champion actually hit and overlapping targetable health-based enemy pets; invulnerability, parry and spell shields do not remove otherwise struck units from the count. Hit-point pets and untargetable pets do not count. With one pet and a fractional champion-hit chance, that pet receives the corresponding expected mixture of isolated spell damage and ordinary area damage, preserving its category-specific defenses. These hit-classification details are not pinned. An already-created blast persists through initial and final death.
+- Wall of Pain is a zero-thickness crossing perpendicular to the one-axis arena, expanded by each enemy unit's hitbox, rather than a 1200-unit wall along the combat axis. Its center is locked at declaration; each champion or pet contacts once per cast, with a linear 80% to 40% slow decay over the actual slow duration. Thickness and decay shape are absent from the source. Map sight is not simulated.
+- Defile begins off. Toggling on deals its first packet immediately; subsequent nominal 0.25-second packets use cumulative tick rounding, with dynamic AP. Mana drains continuously at 78 per second while alive, without spending a pending declared spell's reserved mana. Toggling off or running out of unreserved mana deals the sourced final packet. The first-pulse offset and the source's reported timing inconsistency after the first pulse are unresolved.
+- Requiem uses its separate 0.25-second cast followed by the pinned 3-second normal channel. During Death Defied it must be declared strictly before four seconds have elapsed, and final death interrupts any unfinished channel; the source does not reconcile the four-second cutoff with the separate cast field. Ordinary summons are excluded; the arena has no clone/disguise classification, map vision, minions, structures, items or summoner spells.
+- The initial fatal hit clears existing statuses and cancels unfinished casts/channels and attack windups before Death Defied starts; already-created blasts continue. The pinned passive does not specify this cleanup or resurrection priority. Initial death counts once for takedowns even though the seven-second untargetable zombie can still cast; its mandatory final death grants no second kill. Entering resurrection switches Defile off without an extra off packet; that specific transition's packet is unpinned.
+- The stat allocator uses an isolated opponent and a ten-second opening resource window: one W and one R reserve their costs, Q casts consume mana at their haste-adjusted cast/cooldown rate, and remaining starting mana plus regeneration bounds Defile uptime. It does not value Death Defied as surviving health or assume repeated kill refunds. Requiem's ordinary channel remains in the generic budget once per cooldown; Q's budget correction replaces its unlimited-mana reference rather than adding a second Q.
+
+### Source values read (55)
+
+| Ability | Value | Source version |
+|---|---|---|
+| Death Defied | zombie state for 7 seconds | [3985387](https://wiki.leagueoflegends.com/en-us/Template:Data_Karthus/Death_Defied?oldid=3985387) |
+| Death Defied | Requiem becomes disabled after 4 seconds | [3985387](https://wiki.leagueoflegends.com/en-us/Template:Data_Karthus/Death_Defied?oldid=3985387) |
+| Death Defied | cast his abilities at no cost | [3985387](https://wiki.leagueoflegends.com/en-us/Template:Data_Karthus/Death_Defied?oldid=3985387) |
+| Death Defied | it will remain toggled on for Death Defied's entire duration | [3985387](https://wiki.leagueoflegends.com/en-us/Template:Data_Karthus/Death_Defied?oldid=3985387) |
+| Death Defied | untargetable and immune to crowd control as well as prevents all incoming damage | [3985387](https://wiki.leagueoflegends.com/en-us/Template:Data_Karthus/Death_Defied?oldid=3985387) |
+| Death Defied | unable to move, declare basic attacks | [3985387](https://wiki.leagueoflegends.com/en-us/Template:Data_Karthus/Death_Defied?oldid=3985387) |
+| Death Defied | Death Defied's untargetability does not destroy in-flight projectiles | [3985387](https://wiki.leagueoflegends.com/en-us/Template:Data_Karthus/Death_Defied?oldid=3985387) |
+| Death Defied | Karthus is set to 1 health | [3985387](https://wiki.leagueoflegends.com/en-us/Template:Data_Karthus/Death_Defied?oldid=3985387) |
+| Death Defied | Karthus can still regenerate his health over the duration, but he will always die at the end of it | [3985387](https://wiki.leagueoflegends.com/en-us/Template:Data_Karthus/Death_Defied?oldid=3985387) |
+| Lay Waste | Magic Damage: 40 / 59 / 78 / 97 / 116 (+ 35% AP) | [4011136](https://wiki.leagueoflegends.com/en-us/Template:Data_Karthus/Lay_Waste?oldid=4011136) |
+| Lay Waste | Isolated Enhanced Damage: 80 / 118 / 156 / 194 / 232 (+ 70% AP) | [4011136](https://wiki.leagueoflegends.com/en-us/Template:Data_Karthus/Lay_Waste?oldid=4011136) |
+| Lay Waste | detonates after 0.528−0.759 | [4011136](https://wiki.leagueoflegends.com/en-us/Template:Data_Karthus/Lay_Waste?oldid=4011136) |
+| Lay Waste | doubled when only one target is struck | [4011136](https://wiki.leagueoflegends.com/en-us/Template:Data_Karthus/Lay_Waste?oldid=4011136) |
+| Lay Waste | The delay between the cast and the detonation is inconsistent | [4011136](https://wiki.leagueoflegends.com/en-us/Template:Data_Karthus/Lay_Waste?oldid=4011136) |
+| Lay Waste | Applies spell damage if it hits a single target and area damage if it hits multiple targets | [4011136](https://wiki.leagueoflegends.com/en-us/Template:Data_Karthus/Lay_Waste?oldid=4011136) |
+| Lay Waste | targetRange: 875 | [4011136](https://wiki.leagueoflegends.com/en-us/Template:Data_Karthus/Lay_Waste?oldid=4011136) |
+| Lay Waste | effectRadius: 160 | [4011136](https://wiki.leagueoflegends.com/en-us/Template:Data_Karthus/Lay_Waste?oldid=4011136) |
+| Lay Waste | cost: 20 / 25 / 30 / 35 / 40 | [4011136](https://wiki.leagueoflegends.com/en-us/Template:Data_Karthus/Lay_Waste?oldid=4011136) |
+| Lay Waste | cooldown: 1 | [4011136](https://wiki.leagueoflegends.com/en-us/Template:Data_Karthus/Lay_Waste?oldid=4011136) |
+| Lay Waste | castTime: 0.25 | [4011136](https://wiki.leagueoflegends.com/en-us/Template:Data_Karthus/Lay_Waste?oldid=4011136) |
+| Wall of Pain | lasts 5 seconds | [3990033](https://wiki.leagueoflegends.com/en-us/Template:Data_Karthus/Wall_of_Pain?oldid=3990033) |
+| Wall of Pain | become slowed for 5 seconds | [3990033](https://wiki.leagueoflegends.com/en-us/Template:Data_Karthus/Wall_of_Pain?oldid=3990033) |
+| Wall of Pain | 25% magic resistance reduction | [3990033](https://wiki.leagueoflegends.com/en-us/Template:Data_Karthus/Wall_of_Pain?oldid=3990033) |
+| Wall of Pain | Slow: 40 / 50 / 60 / 70 / 80% | [3990033](https://wiki.leagueoflegends.com/en-us/Template:Data_Karthus/Wall_of_Pain?oldid=3990033) |
+| Wall of Pain | Reduced Slow: 20 / 25 / 30 / 35 / 40% | [3990033](https://wiki.leagueoflegends.com/en-us/Template:Data_Karthus/Wall_of_Pain?oldid=3990033) |
+| Wall of Pain | targetRange: 1000 | [3990033](https://wiki.leagueoflegends.com/en-us/Template:Data_Karthus/Wall_of_Pain?oldid=3990033) |
+| Wall of Pain | Wall Length: 800 / 900 / 1000 / 1100 / 1200 units | [3990033](https://wiki.leagueoflegends.com/en-us/Template:Data_Karthus/Wall_of_Pain?oldid=3990033) |
+| Wall of Pain | perpendicular to his facing | [3990033](https://wiki.leagueoflegends.com/en-us/Template:Data_Karthus/Wall_of_Pain?oldid=3990033) |
+| Wall of Pain | This can affect enemies only once per cast | [3990033](https://wiki.leagueoflegends.com/en-us/Template:Data_Karthus/Wall_of_Pain?oldid=3990033) |
+| Wall of Pain | cost: 70 | [3990033](https://wiki.leagueoflegends.com/en-us/Template:Data_Karthus/Wall_of_Pain?oldid=3990033) |
+| Defile | cost: 30 / 42 / 54 / 66 / 78 | [4006733](https://wiki.leagueoflegends.com/en-us/Template:Data_Karthus/Defile?oldid=4006733) |
+| Defile | deals magic damage every 0.25 seconds | [4006733](https://wiki.leagueoflegends.com/en-us/Template:Data_Karthus/Defile?oldid=4006733) |
+| Defile | Magic Damage Per Tick: 7.5 / 12.5 / 17.5 / 22.5 / 27.5 (+ 5% AP) | [4006733](https://wiki.leagueoflegends.com/en-us/Template:Data_Karthus/Defile?oldid=4006733) |
+| Defile | effectRadius: 550 | [4006733](https://wiki.leagueoflegends.com/en-us/Template:Data_Karthus/Defile?oldid=4006733) |
+| Defile | Mana Restored: 10 / 20 / 30 / 40 / 50 | [4006733](https://wiki.leagueoflegends.com/en-us/Template:Data_Karthus/Defile?oldid=4006733) |
+| Defile | restores mana whenever he kills an enemy | [4006733](https://wiki.leagueoflegends.com/en-us/Template:Data_Karthus/Defile?oldid=4006733) |
+| Defile | Toggling Defile off triggers a final tick of damage | [4006733](https://wiki.leagueoflegends.com/en-us/Template:Data_Karthus/Defile?oldid=4006733) |
+| Defile | Defile is toggled off automatically if Karthus becomes unable to pay its mana cost | [4006733](https://wiki.leagueoflegends.com/en-us/Template:Data_Karthus/Defile?oldid=4006733) |
+| Defile | Defile cannot be toggled off during Death Defied | [4006733](https://wiki.leagueoflegends.com/en-us/Template:Data_Karthus/Defile?oldid=4006733) |
+| Defile | Toggled abilities do not count as ability activations | [4006733](https://wiki.leagueoflegends.com/en-us/Template:Data_Karthus/Defile?oldid=4006733) |
+| Defile | Defile re-calculates its damage with each tick | [4006733](https://wiki.leagueoflegends.com/en-us/Template:Data_Karthus/Defile?oldid=4006733) |
+| Defile | Defile will toggle off automatically if Karthus enters resurrection | [4006733](https://wiki.leagueoflegends.com/en-us/Template:Data_Karthus/Defile?oldid=4006733) |
+| Requiem | cost: 100 | [4015394](https://wiki.leagueoflegends.com/en-us/Template:Data_Karthus/Requiem?oldid=4015394) |
+| Requiem | Magic Damage: 200 / 350 / 500 (+ 70% AP) | [4015394](https://wiki.leagueoflegends.com/en-us/Template:Data_Karthus/Requiem?oldid=4015394) |
+| Requiem | channels for 3 seconds | [4015394](https://wiki.leagueoflegends.com/en-us/Template:Data_Karthus/Requiem?oldid=4015394) |
+| Requiem | all targetable enemy champions upon completion | [4015394](https://wiki.leagueoflegends.com/en-us/Template:Data_Karthus/Requiem?oldid=4015394) |
+| Requiem | Requiem will affect clones | [4015394](https://wiki.leagueoflegends.com/en-us/Template:Data_Karthus/Requiem?oldid=4015394) |
+| Requiem | including if they are untargetable or even dead | [4015394](https://wiki.leagueoflegends.com/en-us/Template:Data_Karthus/Requiem?oldid=4015394) |
+| Requiem | effectRadius: Global | [4015394](https://wiki.leagueoflegends.com/en-us/Template:Data_Karthus/Requiem?oldid=4015394) |
+| Wall of Pain | cooldown: 15 | [3990033](https://wiki.leagueoflegends.com/en-us/Template:Data_Karthus/Wall_of_Pain?oldid=3990033) |
+| Wall of Pain | castTime: 0.25 | [3990033](https://wiki.leagueoflegends.com/en-us/Template:Data_Karthus/Wall_of_Pain?oldid=3990033) |
+| Defile | staticCooldown: 0.5 | [4006733](https://wiki.leagueoflegends.com/en-us/Template:Data_Karthus/Defile?oldid=4006733) |
+| Defile | castTime: none | [4006733](https://wiki.leagueoflegends.com/en-us/Template:Data_Karthus/Defile?oldid=4006733) |
+| Requiem | cooldown: 200 / 180 / 160 | [4015394](https://wiki.leagueoflegends.com/en-us/Template:Data_Karthus/Requiem?oldid=4015394) |
+| Requiem | castTime: 0.25 | [4015394](https://wiki.leagueoflegends.com/en-us/Template:Data_Karthus/Requiem?oldid=4015394) |

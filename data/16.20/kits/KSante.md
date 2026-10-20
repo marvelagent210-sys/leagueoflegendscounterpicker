@@ -271,18 +271,18 @@ All 3 level-based formulas in the game files (0 linked to wiki values above):
 
 ## Duel simulator kit (level 20, every ability at max rank)
 
-What the duel simulator fights with (`kits/champions/KSante.ts`): every number is read from the wiki's ability data above at level 20; what the wiki doesn't say is listed under assumptions. Ratios are fractions of the stat (60% AD is 0.6 × AD).
+What the duel simulator fights with (`kits/champions/KSante.ts`): values come from pinned wiki and versioned game-data records at level 20. Interpretations and missing evidence are listed under assumptions. Ratios are fractions of the stat (60% AD is 0.6 × AD).
 
 - Basic attack: range 150, melee.
 
 | Key | Ability | Cooldown (s) | Cast time (s) | Cost | Delivery | On the enemy | On itself |
 |---|---|--:|--:|---|---|---|---|
-| Q | Ntofo Strikes | 3.5 | 0.4 | 20 | area 0 to 465 units ahead, lands after 0 s | 190 + 40% bonus armor + 40% bonus magic resistance physical damage; slow 80% for 0.5 s | resets the attack timer |
-| Q3 | Ntofo Strikes (empowered) | 3.5 | 0.4 | 20 | area 0 to 930 units ahead, lands after 0 s | 190 + 40% bonus armor + 40% bonus magic resistance physical damage; slow 80% for 0.5 s; pull 930 units over 0.65 s; after 0.65 s: stun for 0.8 s | resets the attack timer |
+| Q | Ntofo Strikes | 3.5 (depends on stats) | depends on stats (0.4 base) | 20 | area 0 to 465 units ahead, lands after 0 s | 190 + 40% bonus armor + 40% bonus magic resistance physical damage; slow 80% for 0.5 s | resets the attack timer |
+| Q3 | Ntofo Strikes (empowered) | 3.5 (depends on stats) | depends on stats (0.4 base) | 20 | area 0 to 930 units ahead, lands after 0 s | 190 + 40% bonus armor + 40% bonus magic resistance physical damage; slow 80% for 0.5 s; pull 930 units over 0.65 s; after 0.65 s: stun for 0.8 s | resets the attack timer |
 | W | Path Maker | 10 (starts after the dash) | 0.9 | 65 | dash toward 450 units at 1500/s, hits within 50 | 165 + 8% target's maximum health + 2% of target's maximum health per 100 bonus armor + 2% of target's maximum health per 100 bonus magic resistance physical damage; knock back 150 units over 0.115 s; after 0.115 s: stun for 1.75 s | as the cast starts: displacementImmune for 0.9 s; damageReduction 0.25 for 0.9 s |
 | WallOut | Path Maker (All Out) | 10 (starts after the dash) | 0.9 | 65 | dash toward 450 units at 1800/s, hits within 50 | 165 + 8% target's maximum health + 2% of target's maximum health per 100 bonus armor + 2% of target's maximum health per 100 bonus magic resistance physical damage; 132 + 6.4% target's maximum health + 1.6% of target's maximum health per 100 bonus armor + 1.6% of target's maximum health per 100 bonus magic resistance true damage (Path Maker (true damage)) | as the cast starts: displacementImmune for 0.9 s; damageReduction 0.7 for 0.9 s |
-| E | Footwork | 8 | 0 | 65 | dash toward 250 units at 830/s | – | as the cast starts: shield of 240 + 13.5% bonus health for 2 s |
-| EallOut | Footwork (All Out) | 8 | 0 | 65 | dash toward 250 units at 1580/s | – | as the cast starts: shield of 240 + 13.5% bonus health for 2 s |
+| E | Footwork | 8 (depends on stats) | 0 | 65 | dash toward 250 units at 830/s | – | as the cast starts: shield of 240 + 13.5% bonus health for 2 s |
+| EallOut | Footwork (All Out) | 8 (depends on stats) | 0 | 65 | dash toward 250 units at 1580/s | – | as the cast starts: shield of 240 + 13.5% bonus health for 2 s |
 | R | All Out | 80 (starts when its effect on the caster ends) | 0.4 | 100 | targeted, 300 range | after 0.15 s: 150 physical damage; stun for 0.3 s | as the cast starts: displacementImmune for 0.4 s; lingering for 15 s |
 
 Effects marked by a mark or a role are completed by the kit's hooks (see the kit's source).
@@ -293,9 +293,9 @@ Effects marked by a mark or a role are completed by the kit's hooks (see the kit
 - Path Maker is charged fully (0.9 s) and carries the enemy 150 units along before the stun.
 - All Out pulls the enemy without terrain behind it; its mana changes don't matter, as its abilities are free.
 
-### Wiki values read (42)
+### Source values read (42)
 
-| Ability | Value | Revision |
+| Ability | Value | Source version |
 |---|---|---|
 | Dauntless Instinct | K'Sante's abilities mark enemies hit for 4 seconds | [4038388](https://wiki.leagueoflegends.com/en-us/Template:Data_K'Sante/Dauntless_Instinct?oldid=4038388) |
 | Dauntless Instinct | dealing 12 (+ 1 – 2 (based on level)% of target's maximum health) bonus physical damage | [4038388](https://wiki.leagueoflegends.com/en-us/Template:Data_K'Sante/Dauntless_Instinct?oldid=4038388) |

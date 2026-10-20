@@ -282,6 +282,28 @@
     ],
     "notes": [
       "Her attack commands during this time are switched to movement commands instead. Upon finishing the charge and if an attack command was issued, Kai'Sa will continue walking toward her target.\n  - Kai'Sa behaves normally if attack move click was issued not on a target during the cast time, stopping at attack range of the closest target and starts attacking when charged up."
+    ],
+    "gameSources": [
+      {
+        "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/kaisa/kaisa.bin.json",
+        "sha256": "40e12d94baf3409f5a8eadb9d44bdd44a58b27de745bc7e84739b99700d9b222",
+        "object": "Characters/Kaisa/Spells/KaisaEAbility/KaisaE",
+        "text": [
+          "mSpell.mSpellCalculations.TotalCastTime: {\"mExpandedTooltipCalculationDisplay\":6,\"tooltipOnly\":true,\"mFormulaParts\":[{\"mCeiling\":null,\"mFloor\":0.6000000238418579,\"mSubparts\":[{\"mEffectIndex\":3,\"__type\":\"EffectValueCalculationPart\"},{\"mStat\":4,\"mCoefficient\":-0.4000000059604645,\"__type\":\"StatByCoefficientCalculationPart\"}],\"__type\":\"ClampSubPartsCalculationPart\"}],\"mPrecision\":2,\"__type\":\"GameCalculation\"}"
+        ]
+      }
+    ],
+    "sources": [
+      {
+        "page": {
+          "title": "Template:Data Kai'Sa/Supercharge",
+          "revid": 4038391
+        },
+        "text": [
+          "|cast time    = {{as|{{pp|type='''bonus''' attack speed|1.2;1.155;1.089;0.99;0.924;0.858;0.792;0.726;0.693;0.66;0.627;0.6|key1=%|0;3.90;10.20;21.22;29.88;39.87;51.52;65.29;73.17;81.82;91.39;100|formula= 1.2 /(1 + '''bonus''' attack speed/100) . ''This is capped at 0.6 seconds.''}}|attack speed}}"
+        ]
+      }
     ]
   },
   {
@@ -765,6 +787,17 @@
       "Icathian Rain acquires its targets upon cast. Moving will not change its targets.",
       "Charging Supercharge will not stop the missiles from firing.",
       "It takes 1 second for all missiles to fire at a single target."
+    ],
+    "gameSources": [
+      {
+        "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/kaisa/kaisa.bin.json",
+        "sha256": "40e12d94baf3409f5a8eadb9d44bdd44a58b27de745bc7e84739b99700d9b222",
+        "object": "Characters/Kaisa/Spells/KaisaQAbility/KaisaQLeftMissile1",
+        "text": [
+          "mSpell.mMissileSpec.movementComponent: {\"mStartBoneName\":\"L_Buffbone_Engine\",\"mTargetBoneName\":\"C_Buffbone_Glb_Center_Loc\",\"mSplineInfo\":{\"mControlPoint1\":[-1.171246886253357,-0.49999988079071045,-0.5080956220626831],\"mControlPoint2\":[0.08420729637145996,-0.9999997615814209,1.268193244934082],\"__type\":\"HermiteSplineInfo\"},\"mTravelTime\":0.4000000059604645,\"__type\":\"FixedTimeSplineMovement\"}"
+        ]
+      }
     ]
   },
   {
@@ -956,6 +989,17 @@
     "notes": [
       "Kai'Sa will issue a movement command to the targeted location regardless of whether the target location is valid. The dash is not buffered during this movement command. Kai'Sa will not dash if the targeted location becomes valid by walking in range or a nearby enemy champion becomes affected by Plasma.\n  - If the targeted location is not valid, the range indicator will glow.",
       "The enemy champion recently affected by Plasma must be in range of Kai'Sa for the targeted location to be valid, and not the targeted location itself."
+    ],
+    "sources": [
+      {
+        "page": {
+          "title": "Template:Data Kai'Sa/Killer Instinct",
+          "revid": 4034697
+        },
+        "text": [
+          "|description  = {{sbc|Active:}} '''Kai'Sa''' grants herself a {{tip|shield}} for 2 seconds and {{tip|dash|dashes}} to a target location near a {{tip|sight|visible}} enemy champion that was {{tt|affected|Stack application or consumption}} by {{as|Plasma|buzzword}} within the last 4 seconds. The shield's duration is refreshed when the dash ends."
+        ]
+      }
     ]
   },
   {
@@ -1141,6 +1185,17 @@
     "notes": [
       "This ability will cast from wherever the caster is at the end of the cast time.",
       "Size of area revealed around target"
+    ],
+    "sources": [
+      {
+        "page": {
+          "title": "Template:Data Kai'Sa/Void Seeker",
+          "revid": 4034696
+        },
+        "text": [
+          "|description  = {{sbc|Active:}} '''Kai'Sa''' fires a void bolt in the target direction that briefly grants {{tip|sight}} around its trajectory as it travels, deals {{as|magic damage}} to the first enemy hit, applies {{as|2 Plasma|buzzword}}, and {{tip|true sight|reveals}} them for 4 seconds."
+        ]
+      }
     ]
   }
 ]

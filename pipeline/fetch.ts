@@ -22,6 +22,7 @@ import {
   patchName,
   rawDir,
 } from "./config";
+import { excerptCharacters } from "./abilities/evidence";
 import { latestDataset } from "./datasets";
 import { readJson, readText, writeJson, writeText } from "./lib/files";
 import { mapLimit } from "./lib/http";
@@ -163,7 +164,13 @@ async function main(): Promise<void> {
     const text = await cdragon.characterBinText(name);
     await writeText(path.join(raw, "cdragon", "bins", `${name}.bin.json`), text);
   });
-  log(`CommunityDragon: ${championKeys.length} champion detail files, ${characterNames.length} game data files`);
+  // Game files the curated evidence quotes beyond the champions' own (Zyra's plants).
+  const extraCharacters = excerptCharacters().filter((name) => !characterNames.includes(name));
+  await mapLimit(extraCharacters, 6, async (name) => {
+    const text = await cdragon.characterBinText(name);
+    await writeText(path.join(raw, "cdragon", "bins", `${name}.bin.json`), text);
+  });
+  log(`CommunityDragon: ${championKeys.length} champion detail files, ${characterNames.length + extraCharacters.length} game data files`);
 
   // Wiki: the level-20 oracle table and every ability data template.
   const level20 = await wiki.parsePage(WIKI_LEVEL20_PAGE);

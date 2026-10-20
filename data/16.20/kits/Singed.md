@@ -178,7 +178,7 @@ Cooldowns and costs of each slot's main ability, wiki vs game files:
 
 ## Duel simulator kit (level 20, every ability at max rank)
 
-What the duel simulator fights with (`kits/champions/Singed.ts`): every number is read from the wiki's ability data above at level 20; what the wiki doesn't say is listed under assumptions. Ratios are fractions of the stat (60% AD is 0.6 × AD).
+What the duel simulator fights with (`kits/champions/Singed.ts`): values come from pinned wiki and versioned game-data records at level 20. Interpretations and missing evidence are listed under assumptions. Ratios are fractions of the stat (60% AD is 0.6 × AD).
 
 - Basic attack: range 125, melee.
 
@@ -198,9 +198,9 @@ Effects marked by a mark or a role are completed by the kit's hooks (see the kit
 - Singed throws Mega Adhesive where Fling will land the enemy, then flings it in; otherwise he saves Mega Adhesive while Fling is ready.
 - Against a melee enemy no faster than him, Singed runs ahead 75 units out of its attack range, so it walks through the poison, and attacks only while it can't hit back; he comes back to 15 units out of its reach while it can't move.
 
-### Wiki values read (39)
+### Source values read (39)
 
-| Ability | Value | Revision |
+| Ability | Value | Source version |
 |---|---|---|
 | Noxious Slipstream | effectRadius: 225 | [3985843](https://wiki.leagueoflegends.com/en-us/Template:Data_Singed/Noxious_Slipstream?oldid=3985843) |
 | Noxious Slipstream | he gains a stack of Noxious Slipstream for 2 seconds | [3985843](https://wiki.leagueoflegends.com/en-us/Template:Data_Singed/Noxious_Slipstream?oldid=3985843) |

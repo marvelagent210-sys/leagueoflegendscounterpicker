@@ -6,17 +6,19 @@
 import type { AbilityRecord, PetRecord, RuneRecord } from "../../../engine/abilities";
 import type { BudgetStat, StatPrices } from "../../../engine/budget";
 import { type CompiledKit, compileKit } from "../../../engine/kits/compile";
+import { attackRange } from "../../../engine/sim/actions";
 import { derive } from "../../../engine/sim/derived";
 import { type KitVariant, bestMatchup } from "../../../engine/sim/matchup";
-import type { ScenarioId } from "../../../engine/sim/scenarios";
+import { engageRange, type ScenarioId } from "../../../engine/sim/scenarios";
+import { createWorld } from "../../../engine/sim/simulate";
 import type { FighterSpec } from "../../../engine/sim/spec";
-import { type LogEntry, newUnit } from "../../../engine/sim/state";
+import { type LogEntry, type Unit, newUnit } from "../../../engine/sim/state";
 import type { Champion } from "../../../engine/types";
 import { KITS } from "../../../kits/champions/index";
 import { type AppSettings, kitOptionsFor, scenarioOptions } from "../settings";
 import type { MatchupVariant } from "./protocol";
 
-/** A champion's numbers in a fight: level-20 base stats plus what the stat budget bought. */
+/** A champion's combat numbers at one explicitly identified point in initialization. */
 export interface StatLine {
   maxHp: number;
   ad: number;
@@ -62,7 +64,10 @@ export interface MatchupRun {
   scenarios: ScenarioRun[];
   /** Gold each side spent on each stat. */
   spent: [Record<BudgetStat, number>, Record<BudgetStat, number>];
+  /** Chosen kit and purchased stats, before applying start effects or onStart hooks. */
   stats: [StatLine, StatLine];
+  /** After initial kit effects in the You engage setup, before the first passive tick. */
+  openingStats: [StatLine, StatLine];
   assumptions: [string[], string[]];
   /** The kit options each side played when its kit has a choice (Udyr's rank split, Heimerdinger's upgrade). */
   variants?: MatchupVariant[];
@@ -79,17 +84,25 @@ export interface SimSource {
   prices: StatPrices;
 }
 
-const compiled = new Map<string, CompiledKit>();
+// The same champion and options on another patch are different kits. WeakMap also lets
+// a discarded dataset release all of its compiled kits.
+const compiled = new WeakMap<SimSource, Map<string, Promise<CompiledKit>>>();
 
 /** The champion's kit with these options (compiled once per options). */
 async function kitWith(source: SimSource, id: string, options: Record<string, number>): Promise<CompiledKit> {
-  const key = `${id}|${JSON.stringify(options)}`;
-  const known = compiled.get(key);
+  let sourceCache = compiled.get(source);
+  if (!sourceCache) {
+    sourceCache = new Map();
+    compiled.set(source, sourceCache);
+  }
+  const key = `${id}|${JSON.stringify(Object.entries(options).sort(([a], [b]) => a.localeCompare(b)))}`;
+  const known = sourceCache.get(key);
   if (known) return known;
   const module = KITS[id];
   if (!module) throw new Error(`${id} has no simulator kit`);
-  const kit = compileKit(source.champion(id), await source.records(id), module, options, source.pets(id), source.runes);
-  compiled.set(key, kit);
+  const kit = source.records(id).then((records) => compileKit(source.champion(id), records, module, options, source.pets(id), source.runes));
+  sourceCache.set(key, kit);
+  void kit.catch(() => sourceCache.delete(key));
   return kit;
 }
 
@@ -102,22 +115,21 @@ const sameOptions = (a: Record<string, number>, b: Record<string, number>) => Ob
 
 /**
  * The kits a side may play: its variants when its kit has a choice (Udyr's rank splits), or
- * just the one hinted at when it is still one of them; else the kit itself.
+ * the kit itself. Cached variant hints never restrict the options of a new run.
  */
-async function sideKits(source: SimSource, id: string, settings: AppSettings, hint?: Record<string, number>): Promise<Array<{ kit: CompiledKit; variant: KitVariant }>> {
+async function sideKits(source: SimSource, id: string, settings: AppSettings): Promise<Array<{ kit: CompiledKit; variant: KitVariant }>> {
   const kit = await kitFor(source, id, settings);
   if (kit.variants.length === 0) return [{ kit, variant: { spec: kit.spec } }];
-  const hinted = hint && kit.variants.find((options) => sameOptions(options, { ...kit.options, ...hint }));
   return Promise.all(
-    (hinted ? [hinted] : kit.variants).map(async (options) => {
+    kit.variants.map(async (options) => {
       const variantKit = await kitWith(source, id, options);
       return { kit: variantKit, variant: { spec: variantKit.spec, options } };
     }),
   );
 }
 
-function statLine(spec: FighterSpec): StatLine {
-  const d = derive(newUnit(spec, 0, 0, spec.base.hp + (spec.bonus?.hp ?? 0), spec.base.resource));
+function statLine(unit: Unit): StatLine {
+  const d = derive(unit);
   const combined = (fractions: number[]) => 1 - fractions.reduce((left, p) => left * (1 - p), 1);
   return {
     maxHp: d.maxHp,
@@ -133,13 +145,29 @@ function statLine(spec: FighterSpec): StatLine {
     magicPen: d.magicPen,
     magicPenPercent: combined(d.magicPenPercent),
     moveSpeed: d.moveSpeed,
-    attackRange: spec.attack.range,
+    attackRange: attackRange(unit),
   };
 }
 
-export async function runMatchup(source: SimSource, you: string, enemy: string, settings: AppSettings, log: boolean, hints: MatchupVariant[] = []): Promise<MatchupRun> {
-  const mine = await sideKits(source, you, settings, hints.find((h) => h.side === 0)?.options);
-  const theirs = await sideKits(source, enemy, settings, hints.find((h) => h.side === 1)?.options);
+/**
+ * Use the same initialization as a real duel, without advancing combat. Calling onTick
+ * here would also fire Purge, damage-over-time and pets, changing the state being reported.
+ */
+export function combatStatSnapshots(fighters: [FighterSpec, FighterSpec], settings: AppSettings): { stats: [StatLine, StatLine]; openingStats: [StatLine, StatLine] } {
+  const stats = fighters.map((spec, side) => statLine(newUnit(spec, side as 0 | 1, 0, spec.base.hp + (spec.bonus?.hp ?? 0), spec.resourceStart ?? spec.base.resource))) as [StatLine, StatLine];
+  const options = scenarioOptions(settings);
+  const world = createWorld({
+    fighters,
+    distance: engageRange(fighters[0], fighters[1]),
+    modes: ["fight", "fight"],
+    settings: { ...options.settings, log: false },
+  });
+  return { stats, openingStats: [statLine(world.units[0]), statLine(world.units[1])] };
+}
+
+export async function runMatchup(source: SimSource, you: string, enemy: string, settings: AppSettings, log: boolean, _hints: MatchupVariant[] = []): Promise<MatchupRun> {
+  const mine = await sideKits(source, you, settings);
+  const theirs = await sideKits(source, enemy, settings);
   const options = scenarioOptions(settings);
   const result = bestMatchup(
     mine.map((m) => m.variant),
@@ -160,6 +188,10 @@ export async function runMatchup(source: SimSource, you: string, enemy: string, 
     ...(a.variant.options ? [{ side: 0 as const, options: a.variant.options }] : []),
     ...(b.variant.options ? [{ side: 1 as const, options: b.variant.options }] : []),
   ];
+  const statSnapshots = combatStatSnapshots([
+    { ...a.kit.spec, bonus: result.builds[0].bonus },
+    { ...b.kit.spec, bonus: result.builds[1].bonus },
+  ], settings);
   return {
     you,
     enemy,
@@ -181,7 +213,7 @@ export async function runMatchup(source: SimSource, you: string, enemy: string, 
       })),
     })),
     spent: [result.builds[0].spent, result.builds[1].spent],
-    stats: [statLine({ ...a.kit.spec, bonus: result.builds[0].bonus }), statLine({ ...b.kit.spec, bonus: result.builds[1].bonus })],
+    ...statSnapshots,
     assumptions: [a.kit.assumptions, b.kit.assumptions],
     ...(variants.length > 0 ? { variants } : {}),
   };

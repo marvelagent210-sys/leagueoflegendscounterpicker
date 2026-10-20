@@ -218,3 +218,101 @@ All 2 level-based formulas in the game files (2 linked to wiki values above):
 |---|---|---|--:|--:|--:|
 | KaisaPassive | PBaseDamage | linear 4 → 30 over levels 1-18, continues past 18 | 4 | 30 | 33.0588 |
 | KaisaPassive | PCurrentPerStackDamage | linear 1 → 8 over levels 1-18, continues past 18 | 1 | 8 | 8.82353 |
+
+## Duel simulator kit (level 20, every ability at max rank)
+
+What the duel simulator fights with (`kits/champions/Kaisa.ts`): values come from pinned wiki and versioned game-data records at level 20. Interpretations and missing evidence are listed under assumptions. Ratios are fractions of the stat (60% AD is 0.6 × AD).
+
+- Basic attack: range 525, missile at 2000/s.
+
+| Key | Ability | Cooldown (s) | Cast time (s) | Cost | Delivery | On the enemy | On itself |
+|---|---|--:|--:|---|---|---|---|
+| Q | Icathian Rain | 6 | 0 | 55 | self | – | – |
+| W | Void Seeker | 14 | 0.4 | 75 | skillshot 3000 long, 200 wide, at 1750/s | 130 + 130% AD + 45% AP magic damage | – |
+| E | Supercharge | 10 | depends on stats (1.2 base) | 30 | self | – | attackSpeed 0.8 for 4 s |
+| R | Killer Instinct | 70 | 0 | 100 | self | – | shield of 200 + 180% AD + 120% AP for 2 s; resets the attack timer |
+| Qfirst | Icathian Rain (first missile) | 0 | 0 | – | self | 100 + 55% bonus AD + 20% AP physical damage | – |
+| Qrepeat | Icathian Rain (subsequent missile) | 0 | 0 | – | self | 25 + 13.75% bonus AD + 5% AP physical damage | – |
+
+Effects marked by a mark or a role are completed by the kit's hooks (see the kit's source).
+
+### Assumptions
+
+- Living Weapon counts only permanent level-growth stats plus directly allocated stat-budget AD/AP/attack speed. Base level-one AD, temporary buffs and adaptive-force items do not qualify; the abstract budget contains no such items. At level 20 the growth contribution is 51.129 AD and 35.397% AS. Evolutions are available before the duel without a free in-combat two-second upgrade cast, and are removed when qualifying permanent stats are absent.
+- Plasma is target-local, expires after 4 seconds and starts empty. Every accepted ordinary attack applies its flat magic on-hit, then a possible fifth-stack missing-health rupture, before ordinary critical physical damage. Void Seeker deals its own magic first, then applies two or three sequential flat passive packets and any rupture; overflow stacks remain. Blind/dodge/parry/block deny the basic passive. Expected-value branch-cap hits carry fractional stack progress. Only actual own accepted immobilization/polymorph can supply a non-damaging stack; no allied champion is invented. The duel has no jungle monsters, so the monster-only 400 rupture cap is not applied to ordinary summons.
+- Icathian Rain locks visible targets within 600 center units at cast, distributes six/twelve individual missiles evenly in stable champion-then-pet order, and assigns any remainder in that order. It commits its one-second release sequence even if Kai'Sa dies. Every release has an exact 0.4-second flight and target-following straight-line interpolation; the source's cosmetic spline is absent. Each crossed projectile wall can destroy that missile. Ordinary targetability/stasis/parry and each target's own spell shield are checked per impact. First missiles are area packets and repeats persistent-area packets. Non-minion repeats deal 25%; summons explicitly classified as Minion by their pinned pet record instead take full repeat damage, doubled for each packet whose impact finds them below 35% maximum health. Champion-class Spirits and unclassified pets retain the non-minion rule. A target's death does not retarget its committed missiles.
+- Supercharge snapshots its bonus-AS cast time and movement-speed multiplier when declared: max(0.6, 1.2 / (1 + bonus AS)) seconds and 75%–150% movement speed. This uses the pinned raw wiki formula; the client tooltip calculation instead references total attack speed with a linear subtraction, an unresolved source conflict. Charging is mobile and ghosted, prevents attacks, and grants 80% AS for 4 seconds only on completion. Evolved E gives 0.5-second invisibility at declaration. Charged attacks use 6.4433% windup and 2500 missile speed; every declared attack refunds 0.5 actual seconds of current E cooldown, independently of later avoidance.
+- Void Seeker collides with the first real champion or summon, uses the ordinary skillshot branching model, grants four-second true sight according to the exact pinned reveal tooltip, and refunds 75% of its total haste-adjusted cooldown only on an evolved champion hit. New Q/W casts are denied during E charging; already-committed Q missiles continue. Q/W/E can overlay R's dash, while timed W/E casts cannot replace another ongoing cast. Killer Instinct requires a visible actual champion within 3000 whose Plasma was applied or consumed in the last 4 seconds. Its shield is applied once on departure and its remaining amount lasts another 2 seconds after landing; it is not refilled. Its 3800 dash speed is a wiki estimate. The normal policy lands on the near side 525 units from the enemy; free-angle positioning is absent, and caller-selected line endpoints are clipped to the sourced 525-unit landing circle.
+- The budget values an isolated full Q sequence, the average continuous-attack flat passive and a rupture against half-missing health, plus capped four-second E attack-speed uptime. W is priced by its ordinary packet and sequential passive contribution, with evolved champion-hit cooldown refunds. Runtime missile sharing, shields, death and stack expiration remain resolved by the duel.
+
+### Source values read (67)
+
+| Ability | Value | Source version |
+|---|---|---|
+| Second Skin | Plasma to enemies for 4 seconds | [4053367](https://wiki.leagueoflegends.com/en-us/Template:Data_Kai'Sa/Second_Skin?oldid=4053367) |
+| Second Skin | stacking up to 5 times | [4053367](https://wiki.leagueoflegends.com/en-us/Template:Data_Kai'Sa/Second_Skin?oldid=4053367) |
+| Second Skin | Basic attacks each apply 1 stack | [4053367](https://wiki.leagueoflegends.com/en-us/Template:Data_Kai'Sa/Second_Skin?oldid=4053367) |
+| Second Skin | Void Seeker applies 2 stacks | [4053367](https://wiki.leagueoflegends.com/en-us/Template:Data_Kai'Sa/Second_Skin?oldid=4053367) |
+| Second Skin | increased to 3 if it is evolved | [4053367](https://wiki.leagueoflegends.com/en-us/Template:Data_Kai'Sa/Second_Skin?oldid=4053367) |
+| Second Skin | Innate - Caustic Wounds: Plasma stacks applied by Kai'Sa's basic attacks or Void Seeker deal 4 – 30 (based on level) (+ 12% AP) additional magic damage plus 1 – 8 (based on level) (+ 3% AP) additional magic damage per Plasma stack before application, up to a total of 8 – 62 (based on level) (+ 24% AP) additional magic damage at 4 Plasma stacks before application. | [4053367](https://wiki.leagueoflegends.com/en-us/Template:Data_Kai'Sa/Second_Skin?oldid=4053367) |
+| Second Skin | (+ 12% AP) additional magic damage | [4053367](https://wiki.leagueoflegends.com/en-us/Template:Data_Kai'Sa/Second_Skin?oldid=4053367) |
+| Second Skin | (+ 3% AP) additional magic damage per Plasma stack | [4053367](https://wiki.leagueoflegends.com/en-us/Template:Data_Kai'Sa/Second_Skin?oldid=4053367) |
+| Second Skin | 15% (+ 6% per 100 AP) of the target's missing health | [4053367](https://wiki.leagueoflegends.com/en-us/Template:Data_Kai'Sa/Second_Skin?oldid=4053367) |
+| Second Skin | before a triggering basic attack's | [4053367](https://wiki.leagueoflegends.com/en-us/Template:Data_Kai'Sa/Second_Skin?oldid=4053367) |
+| Second Skin | remaining stacks are reapplied afterwards | [4053367](https://wiki.leagueoflegends.com/en-us/Template:Data_Kai'Sa/Second_Skin?oldid=4053367) |
+| Second Skin | permanent stats from items and stat growth | [4053367](https://wiki.leagueoflegends.com/en-us/Template:Data_Kai'Sa/Second_Skin?oldid=4053367) |
+| Second Skin | Adaptive force from items does not count | [4053367](https://wiki.leagueoflegends.com/en-us/Template:Data_Kai'Sa/Second_Skin?oldid=4053367) |
+| Icathian Rain | swarm of 6 missiles | [4038389](https://wiki.leagueoflegends.com/en-us/Template:Data_Kai'Sa/Icathian_Rain?oldid=4038389) |
+| Icathian Rain | instead fires 12 missiles | [4038389](https://wiki.leagueoflegends.com/en-us/Template:Data_Kai'Sa/Icathian_Rain?oldid=4038389) |
+| Icathian Rain | after 0.4 seconds | [4038389](https://wiki.leagueoflegends.com/en-us/Template:Data_Kai'Sa/Icathian_Rain?oldid=4038389) |
+| Icathian Rain | takes 1 second for all missiles | [4038389](https://wiki.leagueoflegends.com/en-us/Template:Data_Kai'Sa/Icathian_Rain?oldid=4038389) |
+| Icathian Rain | Non-minions take 25% damage | [4038389](https://wiki.leagueoflegends.com/en-us/Template:Data_Kai'Sa/Icathian_Rain?oldid=4038389) |
+| Icathian Rain | Physical Damage Per Missile: 40 / 55 / 70 / 85 / 100 (+ 55% bonus AD) (+ 20% AP) | [4038389](https://wiki.leagueoflegends.com/en-us/Template:Data_Kai'Sa/Icathian_Rain?oldid=4038389) |
+| Icathian Rain | targetRange: 600 | [4038389](https://wiki.leagueoflegends.com/en-us/Template:Data_Kai'Sa/Icathian_Rain?oldid=4038389) |
+| Icathian Rain | Minions below 35% health take double damage | [4038389](https://wiki.leagueoflegends.com/en-us/Template:Data_Kai'Sa/Icathian_Rain?oldid=4038389) |
+| Icathian Rain | "mTravelTime":0.4000000059604645,"__type":"FixedTimeSplineMovement" | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/kaisa/kaisa.bin.json) |
+| Icathian Rain | Spell shields only block the damage from a single missile | [4038389](https://wiki.leagueoflegends.com/en-us/Template:Data_Kai'Sa/Icathian_Rain?oldid=4038389) |
+| Icathian Rain | acquires its targets upon cast | [4038389](https://wiki.leagueoflegends.com/en-us/Template:Data_Kai'Sa/Icathian_Rain?oldid=4038389) |
+| Icathian Rain | visible enemies | [4038389](https://wiki.leagueoflegends.com/en-us/Template:Data_Kai'Sa/Icathian_Rain?oldid=4038389) |
+| Icathian Rain | the rest on the same target apply persistent area damage | [4038389](https://wiki.leagueoflegends.com/en-us/Template:Data_Kai'Sa/Icathian_Rain?oldid=4038389) |
+| Icathian Rain | Requires 100 | [4038389](https://wiki.leagueoflegends.com/en-us/Template:Data_Kai'Sa/Icathian_Rain?oldid=4038389) |
+| Void Seeker | Requires 100 ability power | [4034696](https://wiki.leagueoflegends.com/en-us/Template:Data_Kai'Sa/Void_Seeker?oldid=4034696) |
+| Supercharge | Requires 100 | [4038391](https://wiki.leagueoflegends.com/en-us/Template:Data_Kai'Sa/Supercharge?oldid=4038391) |
+| Void Seeker | Magic Damage: 30 / 55 / 80 / 105 / 130 (+ 130% AD) (+ 45% AP) | [4034696](https://wiki.leagueoflegends.com/en-us/Template:Data_Kai'Sa/Void_Seeker?oldid=4034696) |
+| Void Seeker | reveals them for 4 seconds | [4034696](https://wiki.leagueoflegends.com/en-us/Template:Data_Kai'Sa/Void_Seeker?oldid=4034696) |
+| Void Seeker | refunds 75% of its cooldown | [4034696](https://wiki.leagueoflegends.com/en-us/Template:Data_Kai'Sa/Void_Seeker?oldid=4034696) |
+| Void Seeker | {{tip\|true sight\|reveals}} them for 4 seconds | [4034696](https://wiki.leagueoflegends.com/en-us/Template:Data_Kai'Sa/Void_Seeker?oldid=4034696) |
+| Supercharge | Bonus Attack Speed: 40 / 50 / 60 / 70 / 80% | [4038391](https://wiki.leagueoflegends.com/en-us/Template:Data_Kai'Sa/Supercharge?oldid=4038391) |
+| Supercharge | bonus attack speed for 4 seconds | [4038391](https://wiki.leagueoflegends.com/en-us/Template:Data_Kai'Sa/Supercharge?oldid=4038391) |
+| Supercharge | Minimum Movement Speed: 55 / 60 / 65 / 70 / 75% | [4038391](https://wiki.leagueoflegends.com/en-us/Template:Data_Kai'Sa/Supercharge?oldid=4038391) |
+| Supercharge | Maximum Movement Speed: 110 / 120 / 130 / 140 / 150% | [4038391](https://wiki.leagueoflegends.com/en-us/Template:Data_Kai'Sa/Supercharge?oldid=4038391) |
+| Supercharge | reduced by 0.5 seconds on-attack | [4038391](https://wiki.leagueoflegends.com/en-us/Template:Data_Kai'Sa/Supercharge?oldid=4038391) |
+| Supercharge | invisibility at the start of the cast time for 0.5 seconds | [4038391](https://wiki.leagueoflegends.com/en-us/Template:Data_Kai'Sa/Supercharge?oldid=4038391) |
+| Supercharge | lower windup of 6.4433% | [4038391](https://wiki.leagueoflegends.com/en-us/Template:Data_Kai'Sa/Supercharge?oldid=4038391) |
+| Supercharge | Attack Missile Speed: 2500 | [4038391](https://wiki.leagueoflegends.com/en-us/Template:Data_Kai'Sa/Supercharge?oldid=4038391) |
+| Supercharge | castTime: 1.2 / 1.155 / 1.089 / 0.99 / 0.924 / 0.858 / 0.792 / 0.726 / 0.693 / 0.66 / 0.627 / 0.6 (based on bonus attack speed) | [4038391](https://wiki.leagueoflegends.com/en-us/Template:Data_Kai'Sa/Supercharge?oldid=4038391) |
+| Supercharge | formula= 1.2 /(1 + '''bonus''' attack speed/100) | [4038391](https://wiki.leagueoflegends.com/en-us/Template:Data_Kai'Sa/Supercharge?oldid=4038391) |
+| Supercharge | mSpell.mSpellCalculations.TotalCastTime: {"mExpandedTooltipCalculationDisplay":6,"tooltipOnly":true,"mFormulaParts":[{"mCeiling":null,"mFloor":0.6000000238418579,"mSubparts":[{"mEffectIndex":3,"__type":"EffectValueCalculationPart"},{"mStat":4,"mCoefficient":-0.4000000059604645,"__type":"StatByCoefficientCalculationPart"}],"__type":"ClampSubPartsCalculationPart"}],"mPrecision":2,"__type":"GameCalculation"} | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/kaisa/kaisa.bin.json) |
+| Killer Instinct | Shield Strength: 100 / 150 / 200 (+ 90 / 135 / 180% AD) (+ 120% AP) | [4034697](https://wiki.leagueoflegends.com/en-us/Template:Data_Kai'Sa/Killer_Instinct?oldid=4034697) |
+| Killer Instinct | shield for 2 seconds | [4034697](https://wiki.leagueoflegends.com/en-us/Template:Data_Kai'Sa/Killer_Instinct?oldid=4034697) |
+| Killer Instinct | targetRange: 2000 / 2500 / 3000 | [4034697](https://wiki.leagueoflegends.com/en-us/Template:Data_Kai'Sa/Killer_Instinct?oldid=4034697) |
+| Killer Instinct | effectRadius: 525 | [4034697](https://wiki.leagueoflegends.com/en-us/Template:Data_Kai'Sa/Killer_Instinct?oldid=4034697) |
+| Killer Instinct | speed: 3800 | [4034697](https://wiki.leagueoflegends.com/en-us/Template:Data_Kai'Sa/Killer_Instinct?oldid=4034697) |
+| Killer Instinct | duration is refreshed when the dash ends | [4034697](https://wiki.leagueoflegends.com/en-us/Template:Data_Kai'Sa/Killer_Instinct?oldid=4034697) |
+| Killer Instinct | resets Kai'Sa's basic attack timer | [4034697](https://wiki.leagueoflegends.com/en-us/Template:Data_Kai'Sa/Killer_Instinct?oldid=4034697) |
+| Killer Instinct | cast any of her abilities during the dash | [4034697](https://wiki.leagueoflegends.com/en-us/Template:Data_Kai'Sa/Killer_Instinct?oldid=4034697) |
+| Killer Instinct | Stack application or consumption | [4034697](https://wiki.leagueoflegends.com/en-us/Template:Data_Kai'Sa/Killer_Instinct?oldid=4034697) |
+| Icathian Rain | cooldown: 10 / 9 / 8 / 7 / 6 | [4038389](https://wiki.leagueoflegends.com/en-us/Template:Data_Kai'Sa/Icathian_Rain?oldid=4038389) |
+| Icathian Rain | cost: 55 | [4038389](https://wiki.leagueoflegends.com/en-us/Template:Data_Kai'Sa/Icathian_Rain?oldid=4038389) |
+| Icathian Rain | castTime: none | [4038389](https://wiki.leagueoflegends.com/en-us/Template:Data_Kai'Sa/Icathian_Rain?oldid=4038389) |
+| Void Seeker | cooldown: 20 / 18.5 / 17 / 15.5 / 14 | [4034696](https://wiki.leagueoflegends.com/en-us/Template:Data_Kai'Sa/Void_Seeker?oldid=4034696) |
+| Void Seeker | cost: 55 / 60 / 65 / 70 / 75 | [4034696](https://wiki.leagueoflegends.com/en-us/Template:Data_Kai'Sa/Void_Seeker?oldid=4034696) |
+| Void Seeker | castTime: 0.4 | [4034696](https://wiki.leagueoflegends.com/en-us/Template:Data_Kai'Sa/Void_Seeker?oldid=4034696) |
+| Void Seeker | targetRange: 3000 | [4034696](https://wiki.leagueoflegends.com/en-us/Template:Data_Kai'Sa/Void_Seeker?oldid=4034696) |
+| Void Seeker | width: 200 | [4034696](https://wiki.leagueoflegends.com/en-us/Template:Data_Kai'Sa/Void_Seeker?oldid=4034696) |
+| Void Seeker | speed: 1750 | [4034696](https://wiki.leagueoflegends.com/en-us/Template:Data_Kai'Sa/Void_Seeker?oldid=4034696) |
+| Supercharge | cooldown: 16 / 14.5 / 13 / 11.5 / 10 | [4038391](https://wiki.leagueoflegends.com/en-us/Template:Data_Kai'Sa/Supercharge?oldid=4038391) |
+| Supercharge | cost: 30 | [4038391](https://wiki.leagueoflegends.com/en-us/Template:Data_Kai'Sa/Supercharge?oldid=4038391) |
+| Killer Instinct | cooldown: 130 / 100 / 70 | [4034697](https://wiki.leagueoflegends.com/en-us/Template:Data_Kai'Sa/Killer_Instinct?oldid=4034697) |
+| Killer Instinct | cost: 100 | [4034697](https://wiki.leagueoflegends.com/en-us/Template:Data_Kai'Sa/Killer_Instinct?oldid=4034697) |
+| Killer Instinct | castTime: none | [4034697](https://wiki.leagueoflegends.com/en-us/Template:Data_Kai'Sa/Killer_Instinct?oldid=4034697) |

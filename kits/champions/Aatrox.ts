@@ -1,6 +1,7 @@
 /** Aatrox: every number is read from the wiki's ability data at level 20 (see engine/kits/context.ts). */
 import type { KitModule } from "../../engine/kits/compile";
 import { abilityReady, canCast } from "../../engine/sim/actions";
+import { cooldownAfterHaste } from "../../engine/rules/timing";
 import { type Behavior, type Command, defaultBehavior } from "../../engine/sim/behavior";
 import { derive } from "../../engine/sim/derived";
 import type { AbilitySpec, Effect, Formula, HookContext } from "../../engine/sim/spec";
@@ -26,7 +27,11 @@ const aatrox: KitModule = {
     const stanceSweetCut = innate.quoted("Deathbringer Stance's current cooldown is reduced by 2 seconds, doubled to 4", 1);
     // The Darkin Blade: three strikes, each with a sweet spot at its far end (the third's is its middle).
     q.quote("Aatrox can activate The Darkin Blade three times");
+    const cooldownStart = q.record.fields.cooldownStart;
+    if (cooldownStart !== "cooldown starts on first cast and restarts on each successive recast") throw new Error("Aatrox's Darkin Blade cooldown-start rule needs review");
+    kit.evidence.push({ ability: q.name, page: q.record.page.title, revid: q.record.page.revid, text: `Cooldown starts: ${cooldownStart}` });
     const between = q.quoted("with a 1-second static cooldown between casts", 0);
+    const strikeCooldown = q.cooldown();
     const window = q.quoted("If Aatrox does not recast the ability within 4 seconds of the previous cast", 0);
     const knockUp = q.quoted("are also knocked up for 0.25 seconds", 0);
     const firstLength = q.quoted("Aatrox's first strike affects a 625 × 180-unit rectangular area", 0);
@@ -73,7 +78,8 @@ const aatrox: KitModule = {
         slot: "Q",
         cooldown: index === 1 ? q.cooldown() : 0,
         castTime: q.castTime(),
-        ...(index === 1 ? { chainCooldown: "last" as const } : { chain: { root: "Q1", index, window, delay: between } }),
+        cooldownAtCastStart: true,
+        ...(index === 1 ? { chainCooldown: "first" as const } : { chain: { root: "Q1", index, window, delay: between } }),
         delivery: {
           kind: "area",
           near: shape.near,
@@ -166,6 +172,14 @@ const aatrox: KitModule = {
         },
       },
       hooks: {
+        onTargetResurrection(ctx) {
+          ctx.world.zones = ctx.world.zones.filter((zone) => !(zone.owner === ctx.self.side && zone.ability === "Wtether"));
+        },
+        onCastStart(ctx) {
+          if (!geometry[ctx.ability.key]) return;
+          ctx.memory.strikeAt = ctx.tick;
+          ctx.self.cooldownReady.Q1 = ctx.tick + ticks(cooldownAfterHaste(strikeCooldown, derive(ctx.self).abilityHaste));
+        },
         onTick(ctx) {
           // Deathbringer Stance comes back on its cooldown.
           if (!ctx.memory.stanceArmed && ctx.tick >= Number(ctx.memory.stanceReady ?? 0)) {
@@ -191,22 +205,34 @@ const aatrox: KitModule = {
           cutStance(ctx, stanceCut);
         },
         onDamageDealt(ctx) {
-          if (ctx.ability === SWEET) ctx.memory.sweetTick = ctx.tick;
           // Umbral Dash's passive: healing from damage dealt, except damage over time.
           if (!ctx.persistent && ctx.mitigated > 0) {
             const bonusHealth = maxHp(ctx.self) - ctx.self.spec.base.hp;
             ctx.apply({ type: "heal", amount: flat(ctx.mitigated * (healShare + (healPer100 * bonusHealth) / 100)) }, true);
           }
         },
+        onAbilityContact(ctx) {
+          if (ctx.defense && ctx.defense !== "spellShield") return;
+          const sweet = ctx.effects.some((effect) => effect.type === "damage" && effect.label === SWEET);
+          cutStance(ctx, sweet ? stanceSweetCut : stanceCut);
+        },
         onAbilityHit(ctx) {
           const key = ctx.ability.key;
-          cutStance(ctx, key.startsWith("Q") && ctx.memory.sweetTick === ctx.tick ? stanceSweetCut : stanceCut);
           if (key === "W") {
             // The tether: still within reach of where the chain hit when it runs out, the target is hit again and pulled back.
             areaAt(ctx, "Wtether", ctx.enemy.x, tetherRadius, tetherSeconds, [chainDamage, { type: "displace", direction: "toward", distance: 0, duration: pullSeconds }]);
           }
         },
         onCast(ctx) {
+          if (geometry[ctx.ability.key]) {
+            const chain = ctx.self.chains.Q1;
+            if (chain) {
+              // The static recast delay and window are measured from activation,
+              // rather than after the strike's 0.6-second windup.
+              chain.castTick = Number(ctx.memory.strikeAt ?? ctx.tick);
+              chain.until = chain.castTick + ticks(window);
+            }
+          }
           if (ctx.ability.key !== "R") return;
           ctx.memory.unleashedAt = ctx.tick;
           ctx.memory.unleashedUntil = ctx.tick + ticks(unleashed);
@@ -255,6 +281,7 @@ const aatrox: KitModule = {
           name: r.name,
           slot: "R",
           cooldown: r.cooldown(),
+          cooldownAtCastStart: true,
           castTime: r.castTime(),
           moveWhileCasting: true,
           delivery: { kind: "self" },

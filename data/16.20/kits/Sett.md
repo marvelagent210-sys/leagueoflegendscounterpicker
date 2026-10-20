@@ -231,7 +231,7 @@ All 5 level-based formulas in the game files (2 linked to wiki values above):
 
 ## Duel simulator kit (level 20, every ability at max rank)
 
-What the duel simulator fights with (`kits/champions/Sett.ts`): every number is read from the wiki's ability data above at level 20; what the wiki doesn't say is listed under assumptions. Ratios are fractions of the stat (60% AD is 0.6 × AD).
+What the duel simulator fights with (`kits/champions/Sett.ts`): values come from pinned wiki and versioned game-data records at level 20. Interpretations and missing evidence are listed under assumptions. Ratios are fractions of the stat (60% AD is 0.6 × AD).
 
 - Basic attack: range 125, melee.
 - Options: facebreakerStun = 1.
@@ -254,9 +254,9 @@ Effects marked by a mark or a role are completed by the kit's hooks (see the kit
 - Haymaker's true-damage center lands as often as a skillshot of its width would; the rest of the blast is physical.
 - Grit decays per instance by 30% a second after 4 seconds; Haymaker's shield doesn't decay.
 
-### Wiki values read (30)
+### Source values read (30)
 
-| Ability | Value | Revision |
+| Ability | Value | Source version |
 |---|---|---|
 | Pit Grit | Sett's Right Punch is empowered to gain 50 bonus range (unless Knuckle Down is active), attack at 8 times the Left Punch's attack speed, and deal 5 – 90 (based on level) (+ 55% bonus AD) bonus physical damage. | [4018819](https://wiki.leagueoflegends.com/en-us/Template:Data_Sett/Pit_Grit?oldid=4018819) |
 | Pit Grit | (+ 55% bonus AD) bonus physical damage | [4018819](https://wiki.leagueoflegends.com/en-us/Template:Data_Sett/Pit_Grit?oldid=4018819) |

@@ -479,7 +479,7 @@ export function buildProfiles(champions: Champion[], records: AbilityRecord[], g
   const staleOverrides: string[] = [];
   const kits: KitProfile[] = [];
   for (const champion of champions) {
-    const own = records.filter((record) => record.champion === champion.id);
+    const own = records.filter((record) => record.champion === champion.id && !record.historical);
     const abilities = own.map((record) => {
       const entries = entriesFor.get(`${record.champion}/${record.name}`) ?? [];
       const profile: AbilityProfile = {

@@ -30,8 +30,9 @@ const teemo: KitModule = {
     kit.assume("With the lane set up, one mushroom lies halfway between Teemo and his enemy when the fight starts.");
     kit.assume("Teemo drops mushrooms at his feet while his enemy chases him; Guerrilla Warfare's stealth isn't modeled.");
 
+    const trapSeconds = r.quoted("lasting for up to 5 minutes", 0) * 60;
     const placeTrap = (world: Parameters<NonNullable<Behavior>>[0]["world"], side: 0 | 1, x: number, armed: boolean) => {
-      world.zones.push({ id: world.nextId++, owner: side, kind: "trap", seenTick: world.tick, x, radius: trigger, startTick: world.tick + (armed ? 0 : Math.ceil(arming * 30)), endTick: FOREVER, onHit: trap });
+      world.zones.push({ id: world.nextId++, owner: side, kind: "trap", seenTick: world.tick, x, radius: trigger, startTick: world.tick + (armed ? 0 : Math.ceil(arming * 30)), endTick: world.tick + Math.ceil(trapSeconds * 30), ability: "R", onHit: trap });
     };
 
     const behavior: Behavior = (view) => {
@@ -50,6 +51,7 @@ const teemo: KitModule = {
       },
       hooks: {
         onStart(ctx) {
+          ctx.buff("moveQuick", "moveSpeedPercent", passiveSpeed, FOREVER);
           if (ctx.world.settings.environment.laneSetup) placeTrap(ctx.world, ctx.self.side, (ctx.self.x + ctx.enemy.x) / 2, true);
         },
         onTick(ctx) {
@@ -58,10 +60,16 @@ const teemo: KitModule = {
           ctx.buff("moveQuick", "moveSpeedPercent", sprinting ? 0 : ctx.tick - calmSince >= calm * 30 ? passiveSpeed : 0, 1e9);
         },
         onDamageTaken(ctx) {
-          ctx.memory.hitTick = ctx.tick;
+          if (!ctx.persistent) {
+            ctx.memory.hitTick = ctx.tick;
+            if (ctx.tick >= Number(ctx.memory.sprintUntil ?? -1)) ctx.buff("moveQuick", "moveSpeedPercent", 0, FOREVER);
+          }
         },
         onCast(ctx) {
-          if (ctx.ability.key === "W") ctx.memory.sprintUntil = ctx.tick + Math.ceil(sprintSeconds * 30);
+          if (ctx.ability.key === "W") {
+            ctx.memory.sprintUntil = ctx.tick + Math.ceil(sprintSeconds * 30);
+            ctx.buff("moveQuick", "moveSpeedPercent", 0, FOREVER);
+          }
           if (ctx.ability.key === "R") placeTrap(ctx.world, ctx.self.side, ctx.self.x, false);
         },
       },
@@ -96,7 +104,8 @@ const teemo: KitModule = {
           key: "R",
           name: r.name,
           slot: "R",
-          cooldown: r.field("recharge"),
+          cooldown: r.cooldown(),
+          charges: { max: r.number("Maximum Charges"), recharge: r.field("recharge") },
           cost: r.cost(),
           castTime: r.castTime(),
           delivery: { kind: "self" },

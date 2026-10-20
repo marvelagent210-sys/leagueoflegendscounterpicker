@@ -1,5 +1,6 @@
 /** The enemy picker: every champion ranked against the enemy, by simulated duels and by the ledger. */
 import { useEffect, useMemo, useState } from "react";
+import { compareChampionIds } from "../../../engine/championOrder";
 import { rankCounters } from "../../../engine/ledger/index";
 import { SCENARIO_LABELS, SCENARIOS } from "../../../engine/sim/scenarios";
 import type { Champion } from "../../../engine/types";
@@ -8,7 +9,7 @@ import { Confidence, ErrorBox, Progress, ScaleHead, Score, ScoreBar } from "../c
 import { type AppData, findChampion } from "../data";
 import { lastEnemy, rememberEnemy, useMatchupBatch, useSettings } from "../hooks";
 import { routeHash } from "../routes";
-import { blend, fightsChanged } from "../settings";
+import { needsSimulation } from "../sim/cache";
 
 const DEFAULT_ENEMY = "Darius";
 
@@ -52,24 +53,27 @@ export function PickerPage({ data, enemyId }: { data: AppData; enemyId?: string 
 function SimulatedSection({ data, enemy, hasKit }: { data: AppData; enemy: Champion; hasKit: boolean }) {
   const { settings } = useSettings();
   const others = useMemo(() => data.kitIds.filter((id) => id !== enemy.id), [data, enemy.id]);
-  const custom = hasKit && fightsChanged(settings);
+  const custom = hasKit && needsSimulation(settings, data.precomputedCompatible);
   const batch = useMatchupBatch(data, others, enemy.id, settings, custom);
   const rows = useMemo(() => {
     if (!hasKit) return [];
     return others
       .map((id) => {
-        const scenarios = custom ? batch.runs.get(id)?.scenarios.map((s) => s.score) : data.simulated.matchups[id]?.[enemy.id]?.slice(1);
-        return scenarios ? { id, scenarios, score: blend(scenarios, settings.weights) } : undefined;
+        const run = custom ? batch.runs.get(id) : undefined;
+        const values = custom ? undefined : data.simulated.matchups[id]?.[enemy.id];
+        const scenarios = custom ? run?.scenarios.map((s) => s.score) : values?.slice(1);
+        const score = custom ? run?.score : values?.[0];
+        return scenarios && typeof score === "number" ? { id, scenarios, score } : undefined;
       })
       .filter((row): row is { id: string; scenarios: Array<number | null>; score: number } => row !== undefined)
-      .sort((a, b) => b.score - a.score || (data.byId.get(a.id)?.name ?? a.id).localeCompare(data.byId.get(b.id)?.name ?? b.id));
+      .sort((a, b) => b.score - a.score || compareChampionIds(a.id, b.id));
   }, [hasKit, others, custom, batch.runs, data, enemy.id, settings.weights]);
 
   return (
     <section className="section" aria-labelledby="simulated-head">
       <div className="title-row">
         <h3 id="simulated-head">Simulated duels</h3>
-        <Confidence full />
+        {hasKit ? <Confidence full /> : null}
       </div>
       {!hasKit ? (
         <p className="note">
@@ -82,11 +86,10 @@ function SimulatedSection({ data, enemy, hasKit }: { data: AppData; enemy: Champ
             Each pick fought {enemy.name} through six scenarios, both at level 20 and each spending {settings.gold.toLocaleString("en-US")} gold of plain stats against the
             other. The score runs from −1 ({enemy.name} wins every time) to +1 (the pick does). Open a row for the scenarios.
           </p>
-          {batch.error ? <ErrorBox error={batch.error} /> : null}
-          {custom && batch.done < batch.total ? (
+          {batch.error ? <ErrorBox error={batch.error} /> : custom && batch.done < batch.total ? (
             <div className="section" aria-live="polite">
               <p className="note">
-                Running the duels again with your settings: {batch.done} of {batch.total}.
+                {data.precomputedCompatible ? "Running the duels with your settings" : "Updating the duel results"}: {batch.done} of {batch.total}.
               </p>
               <Progress done={batch.done} total={batch.total} />
             </div>

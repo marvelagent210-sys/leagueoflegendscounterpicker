@@ -231,3 +231,86 @@ All 3 level-based formulas in the game files (1 linked to wiki values above):
 | NautilusPassive | BonusDamage | table of values per level (30 levels) | 14 | 116 | 128 |
 | NautilusPassive | TotalDamageTooltip | table of values per level (30 levels) | 14 | 116 | 128 |
 | NautilusPassive | RootDuration | breakpoints at levels 6, 11, 16, 21, 26 (level 1: 0.75) | 0.75 | 1.5 | 1.5 |
+
+## Duel simulator kit (level 20, every ability at max rank)
+
+What the duel simulator fights with (`kits/champions/Nautilus.ts`): values come from pinned wiki and versioned game-data records at level 20. Interpretations and missing evidence are listed under assumptions. Ratios are fractions of the stat (60% AD is 0.6 × AD).
+
+- Basic attack: range 175, melee.
+
+| Key | Ability | Cooldown (s) | Cast time (s) | Cost | Delivery | On the enemy | On itself |
+|---|---|--:|--:|---|---|---|---|
+| Q | Dredge Line | 10 | 0.25 | 60 | skillshot 1122 long, 180 wide, at 2000/s | 245 + 90% AP magic damage; stun for 1 s | – |
+| W | Titan's Wrath | 12 | 0 | 60 | self | 35 + 20% AP magic damage (Pain of Wrath) | shield of 90 + 12% maximum health for 6 s; resets the attack timer |
+| E | Riptide | 5 | 0.25 | 90 | around itself, 350 units | 195 + 50% AP magic damage (Riptide); slow 50% for 1.5 s; 50% less damage for each hit it took from these in the last 0.594 s, down to 50% | – |
+| R | Depth Charge | 80 | 0.46 | 100 | targeted, 825 range | – | – |
+
+Effects marked by a mark or a role are completed by the kit's hooks (see the kit's source).
+
+### Assumptions
+
+- Dredge Line's simultaneous pull and dash split the available gap equally over 0.9 seconds; the pinned source gives the duration but no separate travel distances. A target negating displacement makes Nautilus traverse the full gap instead.
+- Dredge Line aims at the enemy champion; terrain anchoring and its 50% refund are not chosen by this one-dimensional duel behavior.
+- Riptide uses the actual three annuli, measured delays and 25-unit forward offsets. Its slow decays linearly over 1.5 seconds because the source does not specify the decay curve.
+- Depth Charge starts at Nautilus's center because its facing-dependent launch offset is unspecified. It accelerates by 466.67 units per second each second on the 30 Hz simulation clock; only the primary champion's final eruption is modeled in a duel.
+- Pain of Wrath uses a 0.25-second post-tick debuff tail, the source's stated maximum. Reapplications add their immediate hit but neither refresh nor increase the original delayed hit.
+- The stat budget estimates Titan's Wrath attack damage using six seconds of shield uptime per cooldown, and Staggering Blow once per six seconds; shield breakage and attack avoidance are resolved in actual fights.
+
+### Source values read (54)
+
+| Ability | Value | Source version |
+|---|---|---|
+| Staggering Blow | Innate: Nautilus' basic attacks are empowered to deal 14 – 116 (based on level) bonus physical damage and root the target for 0.75 / 1 / 1.25 / 1.5 (based on level) seconds. | [4072880](https://wiki.leagueoflegends.com/en-us/Template:Data_Nautilus/Staggering_Blow?oldid=4072880) |
+| Staggering Blow | targetCooldown: 6 | [4072880](https://wiki.leagueoflegends.com/en-us/Template:Data_Nautilus/Staggering_Blow?oldid=4072880) |
+| Staggering Blow | Spell shield will block the root but not the bonus damage | [4072880](https://wiki.leagueoflegends.com/en-us/Template:Data_Nautilus/Staggering_Blow?oldid=4072880) |
+| Staggering Blow | Staggering Blow's enhanced attack can be blocked and dodged (the on-target cooldown will still be applied) | [4072880](https://wiki.leagueoflegends.com/en-us/Template:Data_Nautilus/Staggering_Blow?oldid=4072880) |
+| Staggering Blow | It will fail to trigger while he is blinded | [4072880](https://wiki.leagueoflegends.com/en-us/Template:Data_Nautilus/Staggering_Blow?oldid=4072880) |
+| Dredge Line | both over 0.9 seconds | [4060365](https://wiki.leagueoflegends.com/en-us/Template:Data_Nautilus/Dredge_Line?oldid=4060365) |
+| Dredge Line | stuns them for 1 second | [4060365](https://wiki.leagueoflegends.com/en-us/Template:Data_Nautilus/Dredge_Line?oldid=4060365) |
+| Dredge Line | range: 1122 | [4060365](https://wiki.leagueoflegends.com/en-us/Template:Data_Nautilus/Dredge_Line?oldid=4060365) |
+| Dredge Line | speed: 2000 | [4060365](https://wiki.leagueoflegends.com/en-us/Template:Data_Nautilus/Dredge_Line?oldid=4060365) |
+| Dredge Line | Spell shield will block the ability but Nautilus will still dash partway to the target | [4060365](https://wiki.leagueoflegends.com/en-us/Template:Data_Nautilus/Dredge_Line?oldid=4060365) |
+| Dredge Line | Nautilus will dash all the way to the target's location if Dredge Line executed them or they negated the displacement | [4060365](https://wiki.leagueoflegends.com/en-us/Template:Data_Nautilus/Dredge_Line?oldid=4060365) |
+| Dredge Line | Displacement immunity will not resist the application of the stun | [4060365](https://wiki.leagueoflegends.com/en-us/Template:Data_Nautilus/Dredge_Line?oldid=4060365) |
+| Dredge Line | Nautilus is unable to move or attack while Dredge Line is in flight | [4060365](https://wiki.leagueoflegends.com/en-us/Template:Data_Nautilus/Dredge_Line?oldid=4060365) |
+| Dredge Line | He can cast any of his abilities during the dash | [4060365](https://wiki.leagueoflegends.com/en-us/Template:Data_Nautilus/Dredge_Line?oldid=4060365) |
+| Titan's Wrath | grants himself a shield for 6 seconds | [3981480](https://wiki.leagueoflegends.com/en-us/Template:Data_Nautilus/Titan's_Wrath?oldid=3981480) |
+| Titan's Wrath | the other half dealt after 1.25 seconds | [3981480](https://wiki.leagueoflegends.com/en-us/Template:Data_Nautilus/Titan's_Wrath?oldid=3981480) |
+| Titan's Wrath | debuff can last up to 0.25 seconds after dealing the second instance of damage | [3981480](https://wiki.leagueoflegends.com/en-us/Template:Data_Nautilus/Titan's_Wrath?oldid=3981480) |
+| Titan's Wrath | Magic Damage per Instance: 15 / 20 / 25 / 30 / 35 (+ 20% AP) | [3981480](https://wiki.leagueoflegends.com/en-us/Template:Data_Nautilus/Titan's_Wrath?oldid=3981480) |
+| Titan's Wrath | cooldown: 12 | [3981480](https://wiki.leagueoflegends.com/en-us/Template:Data_Nautilus/Titan's_Wrath?oldid=3981480) |
+| Titan's Wrath | Pain of Wrath damage over time debuff gains another stack when reapplied to the target, but doesn't restart its tick timer | [3981480](https://wiki.leagueoflegends.com/en-us/Template:Data_Nautilus/Titan's_Wrath?oldid=3981480) |
+| Titan's Wrath | Additional stacks of Pain of Wrath expire when the original debuff does and do not deal any additional damage | [3981480](https://wiki.leagueoflegends.com/en-us/Template:Data_Nautilus/Titan's_Wrath?oldid=3981480) |
+| Titan's Wrath | Pain of Wrath will be applied by Nautilus's basic attack if he is affected by Titan's Wrath at the start of the attack windup, even if Titan's Wrath expires during the windup | [3981480](https://wiki.leagueoflegends.com/en-us/Template:Data_Nautilus/Titan's_Wrath?oldid=3981480) |
+| Titan's Wrath | Pain of Wrath will not be applied if the basic attack is dodged or blocked, but will be applied if it is missed | [3981480](https://wiki.leagueoflegends.com/en-us/Template:Data_Nautilus/Titan's_Wrath?oldid=3981480) |
+| Titan's Wrath | Spell shield will block the ability (but only a single application) | [3981480](https://wiki.leagueoflegends.com/en-us/Template:Data_Nautilus/Titan's_Wrath?oldid=3981480) |
+| Riptide | effectRadius: 0 - 350 • 215 - 465 • 350 - 590 | [4007701](https://wiki.leagueoflegends.com/en-us/Template:Data_Nautilus/Riptide?oldid=4007701) |
+| Riptide | at an offset of 25 units in front of Nautilus at the original cast location | [4007701](https://wiki.leagueoflegends.com/en-us/Template:Data_Nautilus/Riptide?oldid=4007701) |
+| Riptide | the second wave at 0.297 seconds | [4007701](https://wiki.leagueoflegends.com/en-us/Template:Data_Nautilus/Riptide?oldid=4007701) |
+| Riptide | the third wave at 0.561 seconds | [4007701](https://wiki.leagueoflegends.com/en-us/Template:Data_Nautilus/Riptide?oldid=4007701) |
+| Riptide | decays over 1.5 seconds | [4007701](https://wiki.leagueoflegends.com/en-us/Template:Data_Nautilus/Riptide?oldid=4007701) |
+| Riptide | Slow: 30 / 35 / 40 / 45 / 50% | [4007701](https://wiki.leagueoflegends.com/en-us/Template:Data_Nautilus/Riptide?oldid=4007701) |
+| Riptide | Magic Damage: 55 / 90 / 125 / 160 / 195 (+ 50% AP) | [4007701](https://wiki.leagueoflegends.com/en-us/Template:Data_Nautilus/Riptide?oldid=4007701) |
+| Depth Charge | speed: 275 + 466.67 per second | [4007702](https://wiki.leagueoflegends.com/en-us/Template:Data_Nautilus/Depth_Charge?oldid=4007702) |
+| Depth Charge | Increased Damage: 150 / 275 / 400 (+ 80% AP) | [4007702](https://wiki.leagueoflegends.com/en-us/Template:Data_Nautilus/Depth_Charge?oldid=4007702) |
+| Depth Charge | cooldown: 120 / 100 / 80 | [4007702](https://wiki.leagueoflegends.com/en-us/Template:Data_Nautilus/Depth_Charge?oldid=4007702) |
+| Depth Charge | castTime: 0.46 | [4007702](https://wiki.leagueoflegends.com/en-us/Template:Data_Nautilus/Depth_Charge?oldid=4007702) |
+| Depth Charge | Knock Up Duration: 1 / 1.5 / 2 seconds | [4007702](https://wiki.leagueoflegends.com/en-us/Template:Data_Nautilus/Depth_Charge?oldid=4007702) |
+| Depth Charge | Stun Duration: 1 / 1.5 / 2 seconds | [4007702](https://wiki.leagueoflegends.com/en-us/Template:Data_Nautilus/Depth_Charge?oldid=4007702) |
+| Depth Charge | primary target moves more than 3000 units away from it | [4007702](https://wiki.leagueoflegends.com/en-us/Template:Data_Nautilus/Depth_Charge?oldid=4007702) |
+| Depth Charge | Depth Charge will not stop chasing if the target dies or becomes untargetable | [4007702](https://wiki.leagueoflegends.com/en-us/Template:Data_Nautilus/Depth_Charge?oldid=4007702) |
+| Depth Charge | Displacement immunity will not resist the application of the stun | [4007702](https://wiki.leagueoflegends.com/en-us/Template:Data_Nautilus/Depth_Charge?oldid=4007702) |
+| Depth Charge | If the target becomes untargetable, dies, or is too far away or no longer in sight during the cast time, this ability will cancel but does not go on cooldown nor pay its cost | [4007702](https://wiki.leagueoflegends.com/en-us/Template:Data_Nautilus/Depth_Charge?oldid=4007702) |
+| Dredge Line | cooldown: 14 / 13 / 12 / 11 / 10 | [4060365](https://wiki.leagueoflegends.com/en-us/Template:Data_Nautilus/Dredge_Line?oldid=4060365) |
+| Dredge Line | cost: 60 | [4060365](https://wiki.leagueoflegends.com/en-us/Template:Data_Nautilus/Dredge_Line?oldid=4060365) |
+| Dredge Line | castTime: 0.25 | [4060365](https://wiki.leagueoflegends.com/en-us/Template:Data_Nautilus/Dredge_Line?oldid=4060365) |
+| Dredge Line | width (Unit collision): 180 • 0 | [4060365](https://wiki.leagueoflegends.com/en-us/Template:Data_Nautilus/Dredge_Line?oldid=4060365) |
+| Dredge Line | Magic Damage: 85 / 125 / 165 / 205 / 245 (+ 90% AP) | [4060365](https://wiki.leagueoflegends.com/en-us/Template:Data_Nautilus/Dredge_Line?oldid=4060365) |
+| Titan's Wrath | cost: 60 | [3981480](https://wiki.leagueoflegends.com/en-us/Template:Data_Nautilus/Titan's_Wrath?oldid=3981480) |
+| Titan's Wrath | castTime: none | [3981480](https://wiki.leagueoflegends.com/en-us/Template:Data_Nautilus/Titan's_Wrath?oldid=3981480) |
+| Titan's Wrath | Shield Strength: 50 / 60 / 70 / 80 / 90 (+ 8 / 9 / 10 / 11 / 12% maximum health) | [3981480](https://wiki.leagueoflegends.com/en-us/Template:Data_Nautilus/Titan's_Wrath?oldid=3981480) |
+| Riptide | cooldown: 7 / 6.5 / 6 / 5.5 / 5 | [4007701](https://wiki.leagueoflegends.com/en-us/Template:Data_Nautilus/Riptide?oldid=4007701) |
+| Riptide | cost: 50 / 60 / 70 / 80 / 90 | [4007701](https://wiki.leagueoflegends.com/en-us/Template:Data_Nautilus/Riptide?oldid=4007701) |
+| Riptide | castTime: 0.25 | [4007701](https://wiki.leagueoflegends.com/en-us/Template:Data_Nautilus/Riptide?oldid=4007701) |
+| Depth Charge | cost: 100 | [4007702](https://wiki.leagueoflegends.com/en-us/Template:Data_Nautilus/Depth_Charge?oldid=4007702) |
+| Depth Charge | targetRange: 825 | [4007702](https://wiki.leagueoflegends.com/en-us/Template:Data_Nautilus/Depth_Charge?oldid=4007702) |

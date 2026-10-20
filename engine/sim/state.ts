@@ -5,7 +5,8 @@
  */
 import type { DamageType } from "../rules/damage";
 import type { ShieldType } from "../rules/defense";
-import type { AttackSplit, Effect, FighterSpec, PetSpec } from "./spec";
+import type { CCType } from "../rules/crowdControl";
+import type { AttackSplit, Effect, FighterSpec, Formula, PetSpec } from "./spec";
 
 export type Side = 0 | 1;
 
@@ -21,9 +22,11 @@ export interface Status {
   charges?: number;
   shieldType?: ShieldType;
   priority?: boolean;
+  /** Black Shield's CC protection follows this shield's lifetime and its incoming hit packet. */
+  blackShield?: boolean;
   /** `label`: what its ticks are logged as (the ability's name). */
   dot?: { damageType: DamageType; perHit: number; intervalTicks: number; nextTick: number; label?: string };
-  empower?: { attacks: number; onHit: Effect[]; bonusRange: number; uncancellable: boolean; split?: AttackSplit; windup?: number };
+  empower?: { attacks: number; onHit: Effect[]; bonusRange: number; uncancellable: boolean; hitsUntargetable?: boolean; spellShield?: boolean; spellShieldOnHit?: boolean; attackOnHitReplacement?: Effect[]; breakShields?: boolean; split?: AttackSplit; windup?: number };
   /** What a triggered state does (antiDash), and the ability it comes from. */
   effects?: Effect[];
   ability?: string;
@@ -33,6 +36,30 @@ export interface Status {
   memoKey?: string;
   /** Crowd control most cleanses can't remove (non-dispellable). */
   sticky?: boolean;
+  tenacityGroup?: string;
+  /** This particular slow is an explicit source exception to slow immunity. */
+  bypassSlowImmune?: boolean;
+  /** This immunity applies to hostile sources only (Void Shift). */
+  hostileOnly?: boolean;
+  /** A reveal lasts only while this same-source, same-ability crowd control exists. */
+  revealWhileCC?: CCType;
+}
+
+/** Attack properties captured with the windup and retained by an in-flight missile. */
+export interface AttackHitOptions {
+  critChance?: number;
+  /** Scales the ordinary AD part, including its critical outcome, without scaling on-hits. */
+  baseDamageScale?: number;
+  /** Added after the ordinary critical outcome, inside the same basic physical packet. */
+  bonusPhysical?: Formula;
+  critMultiplier?: number;
+  missileSpeed?: number;
+  /** Identifies this launched attack independently of mutable kit memory. */
+  attackTag?: string;
+  spellShield?: boolean;
+  spellShieldOnHit?: boolean;
+  attackOnHitReplacement?: Effect[];
+  breakShields?: boolean;
 }
 
 export type Action =
@@ -41,6 +68,17 @@ export type Action =
       startTick: number;
       launchTick: number;
       uncancellable: boolean;
+      hitsUntargetable?: boolean;
+      critChance?: number;
+      baseDamageScale?: number;
+      bonusPhysical?: Formula;
+      critMultiplier?: number;
+      missileSpeed?: number;
+      attackTag?: string;
+      spellShield?: boolean;
+      spellShieldOnHit?: boolean;
+      attackOnHitReplacement?: Effect[];
+      breakShields?: boolean;
       blinded: boolean;
       onHit: Effect[];
       bonusRange: number;
@@ -50,8 +88,18 @@ export type Action =
       /** The abilities whose empowerments this attack spent: their post-effect cooldowns wait for it to land. */
       empowered?: string[];
     }
-  | { kind: "cast"; ability: string; startTick: number; endTick: number; aim?: Aim }
-  | { kind: "channel"; ability: string; startTick: number; endTick: number; nextTick: number; intervalTicks: number }
+  | { kind: "cast"; ability: string; startTick: number; endTick: number; aim?: Aim; cost?: number; resume?: Action; delivered?: boolean }
+  | {
+      kind: "channel";
+      ability: string;
+      startTick: number;
+      endTick: number;
+      nextTick: number;
+      intervalTicks: number;
+      /** Exact formula-based pulse count and progress, without rounding every interval down. */
+      pulseCount?: number;
+      pulsesDone?: number;
+    }
   | {
       kind: "dash";
       ability: string;
@@ -60,6 +108,8 @@ export type Action =
       perTick: number;
       stopAtContact: boolean;
       unstoppable: boolean;
+      /** This dash's declaration already validated a clear endpoint across terrain. */
+      crossTerrain?: boolean;
       /** A cast this dash was made during (an overlay dash): it carries on when the dash ends. */
       resume?: Action;
       /** Passes through the enemy, hitting it once on the way (`hit` once it has). */
@@ -82,10 +132,17 @@ export interface Aim {
 }
 
 export interface Unit {
+  /** Present only on a temporary view of a real pet in combat transactions. */
+  petId?: number;
+  resurrection?: { endTick: number; ability?: string };
+  deathDefied?: { endTick: number; ability?: string; allowMovement?: boolean; allowCasting?: boolean };
+  deathNotified?: boolean;
   side: Side;
   spec: FighterSpec;
   /** Position on the line, in game units. */
   x: number;
+  /** Persistent absolute facing; forced movement does not normally turn it. */
+  facing?: 1 | -1;
   hp: number;
   resource: number;
   statuses: Status[];
@@ -100,6 +157,8 @@ export interface Unit {
   /** First tick a new attack windup may start. */
   attackReadyTick: number;
   action?: Action;
+  /** A declared attack whose windup continues independently through an explicit cast/dash. */
+  pendingAttack?: Extract<Action, { kind: "windup" }>;
   /** Movement intent: toward the enemy (1), away (-1) or none. */
   move: -1 | 0 | 1;
   /** Which way the unit actually walked last tick, relative to the enemy: what the enemy sees. */
@@ -109,7 +168,7 @@ export interface Unit {
    * enemy). A throw over the enemy (`over`, Fling) moves along the line instead (positive is
    * toward larger x), passing through it.
    */
-  forced?: { endTick: number; perTick: number; over?: boolean };
+  forced?: { endTick: number; perTick: number; over?: boolean; absolute?: boolean; remaining?: number };
   /**
    * Carried by the enemy until `endTick` (Ixtal's Impact, Devour): held `offset` units from its
    * center, on the side (`dir`, +1 or -1 along the line) it was on when grabbed.
@@ -129,6 +188,9 @@ export interface Unit {
 }
 
 export interface Missile {
+  /** Absolute contact clock for an explicitly kit-resolved fixed-time projectile.
+   * Only perception uses this; movement and collision remain owned by its kit. */
+  impactTick?: number;
   id: number;
   owner: Side;
   /** "attack" or the key of the ability that fired it. */
@@ -138,6 +200,17 @@ export interface Missile {
   x: number;
   /** Units per tick. */
   perTick: number;
+  /** Velocity increase per tick and its cap, in units per tick (acceleration in units/s² divided by 900). */
+  acceleration?: { perTick: number; maxPerTick: number; minPerTick?: number };
+  piercing?: boolean;
+  hitTargets?: number[];
+  hitPets?: number[];
+  followOwner?: boolean;
+  radius?: number;
+  collisionPet?: boolean;
+  collisionDistanceLeft?: number;
+  ended?: boolean;
+  expiresTick?: number;
   /** Homing missiles follow their target; others fly along the line until `travelLeft` runs out. */
   homing: boolean;
   direction: 1 | -1;
@@ -149,13 +222,19 @@ export interface Missile {
   scale: number;
   onHit: Effect[];
   /** For basic attacks: the attack's state when it launched. */
-  attack?: { blinded: boolean; bonusOnHit: Effect[]; split?: AttackSplit };
+  attack?: { blinded: boolean; bonusOnHit: Effect[]; split?: AttackSplit } & AttackHitOptions;
+  /** A specifically documented attack that survives its target becoming untargetable. */
+  hitsUntargetable?: boolean;
   /** A basic attack flying at a pet (by id). */
   pet?: number;
+  /** A location projectile releases this dormant area after reaching its destination. */
+  landingZone?: { id: number; delayTicks: number };
 }
 
 /** A pet on the line (engine/sim/pets.ts). */
 export interface Pet {
+  statuses?: Status[];
+  windup?: { target: Side | { pet: number }; launchTick: number; blinded: boolean; effects: Effect[] };
   id: number;
   owner: Side;
   spec: PetSpec;
@@ -169,6 +248,7 @@ export interface Pet {
 }
 
 export interface Zone {
+  memory?: Record<string, number | string | boolean>;
   id: number;
   owner: Side;
   /** A trap goes off when the enemy's hitbox touches it; a field pulses while it lasts. */
@@ -229,6 +309,7 @@ export interface Terrain {
 
 /** Effects waiting for their tick (see the "delayed" effect). */
 export interface Scheduled {
+  targetPet?: number;
   tick: number;
   owner: Side;
   target: Side;
@@ -311,7 +392,22 @@ export const DEFAULT_SETTINGS: SimSettings = {
  */
 export type Mode = "fight" | "trade" | "hold" | "kite" | "flee" | "idle";
 
+export interface PetMissile {
+  id: number;
+  owner: Side;
+  pet: number;
+  target: Side | { pet: number };
+  x: number;
+  perTick: number;
+  projectile: boolean;
+  effects: Effect[];
+  blinded: boolean;
+  attackLike?: boolean;
+  sourcePet?: Pet;
+}
+
 export interface World {
+  petMissiles?: PetMissile[];
   tick: number;
   units: [Unit, Unit];
   missiles: Missile[];
@@ -337,6 +433,7 @@ export function newUnit(spec: FighterSpec, side: Side, x: number, maxHp: number,
     spec,
     x,
     hp: maxHp,
+    facing: side === 0 ? 1 : -1,
     resource,
     statuses: [],
     cooldownReady: {},
@@ -361,6 +458,18 @@ function cloneStatus(status: Status): Status {
   };
 }
 
+/** Launch hooks can append on-hits to any retained windup after a world branches. */
+function cloneWindup(action: Extract<Action, { kind: "windup" }>): Extract<Action, { kind: "windup" }> {
+  return { ...action, onHit: [...action.onHit], ...(action.empowered ? { empowered: [...action.empowered] } : {}) };
+}
+
+function cloneAction(action: Action): Action {
+  if (action.kind === "windup") return cloneWindup(action);
+  return (action.kind === "cast" || action.kind === "dash") && action.resume
+    ? { ...action, resume: cloneAction(action.resume) }
+    : { ...action };
+}
+
 function cloneUnit(unit: Unit): Unit {
   return {
     ...unit,
@@ -370,22 +479,30 @@ function cloneUnit(unit: Unit): Unit {
     pendingRefunds: Object.fromEntries(Object.entries(unit.pendingRefunds).map(([k, v]) => [k, { ...v }])),
     charges: Object.fromEntries(Object.entries(unit.charges).map(([k, v]) => [k, { ...v }])),
     chains: Object.fromEntries(Object.entries(unit.chains).map(([k, v]) => [k, { ...v }])),
-    ...(unit.action ? { action: unit.action.kind === "dash" && unit.action.resume ? { ...unit.action, resume: { ...unit.action.resume } } : { ...unit.action } } : {}),
+    ...(unit.action ? { action: cloneAction(unit.action) } : {}),
+    ...(unit.pendingAttack ? { pendingAttack: cloneWindup(unit.pendingAttack) } : {}),
     ...(unit.forced ? { forced: { ...unit.forced } } : {}),
     ...(unit.attached ? { attached: { ...unit.attached } } : {}),
+    ...(unit.resurrection ? { resurrection: { ...unit.resurrection } } : {}),
+    ...(unit.deathDefied ? { deathDefied: { ...unit.deathDefied } } : {}),
     memory: { ...unit.memory },
     totals: { ...unit.totals },
   };
+}
+
+function clonePet(pet: Pet): Pet {
+  return { ...pet, memory: { ...pet.memory }, ...(pet.statuses ? { statuses: pet.statuses.map((s) => ({ ...s, ...(s.dot ? { dot: { ...s.dot } } : {}), ...(s.empower ? { empower: { ...s.empower, onHit: [...s.empower.onHit] } } : {}) })) } : {}), ...(pet.windup ? { windup: { ...pet.windup, target: typeof pet.windup.target === "number" ? pet.windup.target : { ...pet.windup.target }, effects: [...pet.windup.effects] } } : {}) };
 }
 
 export function cloneWorld(world: World): World {
   return {
     ...world,
     units: [cloneUnit(world.units[0]), cloneUnit(world.units[1])],
-    missiles: world.missiles.map((m) => ({ ...m, ...(m.attack ? { attack: { ...m.attack } } : {}) })),
-    zones: world.zones.map((z) => ({ ...z })),
+    missiles: world.missiles.map((m) => ({ ...m, ...(m.attack ? { attack: { ...m.attack } } : {}), ...(m.acceleration ? { acceleration: { ...m.acceleration } } : {}), ...(m.hitTargets ? { hitTargets: [...m.hitTargets] } : {}), ...(m.hitPets ? { hitPets: [...m.hitPets] } : {}) })),
+    zones: world.zones.map((z) => ({ ...z, ...(z.memory ? { memory: { ...z.memory } } : {}) })),
     terrain: world.terrain.map((t) => ({ ...t })),
-    pets: world.pets.map((p) => ({ ...p, memory: { ...p.memory } })),
+    pets: world.pets.map(clonePet),
+    ...(world.petMissiles ? { petMissiles: world.petMissiles.map((m) => ({ ...m, target: typeof m.target === "number" ? m.target : { ...m.target }, effects: [...m.effects], ...(m.sourcePet ? { sourcePet: clonePet(m.sourcePet) } : {}) })) } : {}),
     scheduled: world.scheduled.map((e) => ({ ...e })),
     modes: [...world.modes],
     log: world.settings.log ? [...world.log] : world.log,

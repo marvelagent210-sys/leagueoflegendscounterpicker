@@ -248,7 +248,7 @@ All 4 level-based formulas in the game files (1 linked to wiki values above):
 
 ## Duel simulator kit (level 20, every ability at max rank)
 
-What the duel simulator fights with (`kits/champions/Aurora.ts`): every number is read from the wiki's ability data above at level 20; what the wiki doesn't say is listed under assumptions. Ratios are fractions of the stat (60% AD is 0.6 × AD).
+What the duel simulator fights with (`kits/champions/Aurora.ts`): values come from pinned wiki and versioned game-data records at level 20. Interpretations and missing evidence are listed under assumptions. Ratios are fractions of the stat (60% AD is 0.6 × AD).
 
 - Basic attack: range 550, missile at 1750/s.
 
@@ -268,9 +268,9 @@ Effects marked by a mark or a role are completed by the kit's hooks (see the kit
 - The Weirding's slow is full for 0.15 s, then decays and counts at half; its recoil goes at 150 + 200% of Aurora's base movement speed.
 - Between Worlds' leap (25 to 250 units, landing after its 0.4 s) goes toward or away from the enemy to put it 425 units ahead, where the shockwave starts; the shockwave reaches 700 units around that point, landing halfway through its 0.75 s expansion. Her own dash across the rift on touching its border is left out (on a line it would carry her past the enemy).
 
-### Wiki values read (48)
+### Source values read (48)
 
-| Ability | Value | Revision |
+| Ability | Value | Source version |
 |---|---|---|
 | Spirit Abjuration | apply a stack of Spirit Abjuration to enemies for 4 seconds | [4064315](https://wiki.leagueoflegends.com/en-us/Template:Data_Aurora/Spirit_Abjuration?oldid=4064315) |
 | Spirit Abjuration | refreshing on subsequent applications and stacking up to 3 times | [4064315](https://wiki.leagueoflegends.com/en-us/Template:Data_Aurora/Spirit_Abjuration?oldid=4064315) |

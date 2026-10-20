@@ -257,6 +257,27 @@
       "With Runaan's Hurricane, Love Tap only applies to the primary target.",
       "The bonus damage applies life steal.",
       "The empowered attack will not trigger against buildings."
+    ],
+    "gameSources": [
+      {
+        "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/missfortune/missfortune.bin.json",
+        "sha256": "103a7c354d1e0a2bf2eeb4e54f329accdf1ce594ca0c317f204a9c6c9ea79dc3",
+        "object": "Characters/MissFortune/Spells/MissFortunePassiveAbility/MissFortunePassive",
+        "text": [
+          "mSpell.mSpellCalculations.TotalDamage: {\"mSimpleTooltipCalculationDisplay\":6,\"mFormulaParts\":[{\"mStat\":2,\"mSubpart\":{\"mLevel1Value\":0.5,\"mBreakpoints\":[{\"mLevel\":4,\"mAdditionalBonusAtThisLevel\":0.10000000149011612,\"__type\":\"Breakpoint\"},{\"mLevel\":7,\"mAdditionalBonusAtThisLevel\":0.10000000149011612,\"__type\":\"Breakpoint\"},{\"mLevel\":9,\"mAdditionalBonusAtThisLevel\":0.10000000149011612,\"__type\":\"Breakpoint\"},{\"mLevel\":11,\"mAdditionalBonusAtThisLevel\":0.10000000149011612,\"__type\":\"Breakpoint\"},{\"mLevel\":13,\"mAdditionalBonusAtThisLevel\":0.10000000149011612,\"__type\":\"Breakpoint\"},{\"mLevel\":20,\"mAdditionalBonusAtThisLevel\":0.10000000149011612,\"__type\":\"Breakpoint\"},{\"mLevel\":25,\"mAdditionalBonusAtThisLevel\":0.10000000149011612,\"__type\":\"Breakpoint\"},{\"mLevel\":30,\"mAdditionalBonusAtThisLevel\":0.10000000149011612,\"__type\":\"Breakpoint\"}],\"__type\":\"ByCharLevelBreakpointsCalculationPart\"},\"__type\":\"StatBySubPartCalculationPart\"}],\"__type\":\"GameCalculation\"}",
+          "mSpell.mSpellCalculations.MinionDamage: {\"mMultiplier\":{\"mNumber\":0.5,\"__type\":\"NumberCalculationPart\"},\"mModifiedGameCalculation\":\"TotalDamage\",\"__type\":\"GameCalculationModified\"}"
+        ]
+      },
+      {
+        "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/missfortune/missfortune.bin.json",
+        "sha256": "103a7c354d1e0a2bf2eeb4e54f329accdf1ce594ca0c317f204a9c6c9ea79dc3",
+        "object": "Characters/MissFortune/Spells/MissFortuneBasicAttack",
+        "text": [
+          "mSpell.missileSpeed: 2000.0"
+        ]
+      }
     ]
   },
   {

@@ -4,7 +4,7 @@ import { abilityReach, canCast } from "../../engine/sim/actions";
 import { type Behavior, defaultBehavior } from "../../engine/sim/behavior";
 import { directionTo } from "../../engine/sim/combat";
 import { type Effect, cooldownKeyOf } from "../../engine/sim/spec";
-import { areaAt, maxHp, ticks } from "./util";
+import { areaAt, fieldAt, maxHp, ticks } from "./util";
 
 const poppy: KitModule = {
   champion: "Poppy",
@@ -28,11 +28,13 @@ const poppy: KitModule = {
     const auraSeconds = w.quoted("creates an aura around herself for 2 seconds", 0);
     const hammerField = q.quoted("The impact creates a field for 1 second", 0);
     const hammerLength = q.field("range", "Forward range");
+    const hammerBehind = q.field("range", "Backward range");
+    const hammerSlow = q.baseOf("Slow") / 100;
+    const hammerSlowPerHealth = q.quoted("0.8% per 100 Poppy's bonus health", 0) / 100 / 100;
     const carry = e.quoted("carries them along with her for up to 400 units", 0);
     kit.assume("Poppy picks her buckler back up whenever she is next to her enemy a second after throwing it.");
     kit.assume("Poppy raises Steadfast Presence as soon as the enemy could dash onto her, rather than reacting to the dash.");
     kit.assume("In fights Keeper's Verdict is released at once (knock up); when running away it is charged to knock the enemy away.");
-    kit.assume("Hammer Shock's slow leaves out its bonus from Poppy's bonus health.");
 
     const hit: Effect = { type: "damage", damageType: "physical", amount: q.formula("Physical Damage") };
 
@@ -50,7 +52,7 @@ const poppy: KitModule = {
     return {
       budget: {
         // Stubborn to a Fault: more armor and magic resistance for each point.
-        statMultipliers: { armor: 1 + stubborn, mr: 1 + stubborn },
+        totalResistanceMultipliers: { armor: 1 + stubborn, mr: 1 + stubborn },
         // The buckler: its damage and its shield, once per cooldown.
         damage: () => ({ magic: bucklerDamage / bucklerCooldown }),
         healing: (self) => (bucklerShield * maxHp(self)) / bucklerCooldown,
@@ -81,16 +83,20 @@ const poppy: KitModule = {
           ctx.memory.bucklerLands = ctx.tick + ticks(bucklerFall) + 10;
         },
         onAbilityHit(ctx) {
-          if (ctx.ability.key === "Q") {
-            // The field ruptures a second later where it was, hitting whoever is still in it
-            // (as its own ability, so the rupture doesn't set off another).
-            const dir = directionTo(ctx.self, ctx.enemy);
-            areaAt(ctx, "Qrupture", ctx.self.x + (dir * hammerLength) / 2, hammerLength / 2, hammerField, [hit]);
-          }
           if (ctx.ability.key === "E") {
             // Poppy carries the enemy along: she moves with it.
             if (ctx.enemy.forced) ctx.self.forced = { ...ctx.enemy.forced, perTick: -ctx.enemy.forced.perTick };
           }
+        },
+        onCast(ctx) {
+          if (ctx.ability.key !== "Q") return;
+          // The ground impact exists even when the first hit misses or is shielded.
+          const dir = directionTo(ctx.self, ctx.enemy);
+          const center = ctx.self.x + dir * (hammerLength - hammerBehind) / 2;
+          const radius = (hammerLength + hammerBehind) / 2;
+          const slow = hammerSlow + hammerSlowPerHealth * (maxHp(ctx.self) - ctx.self.spec.base.hp);
+          areaAt(ctx, "Qrupture", center, radius, hammerField, [hit]);
+          fieldAt(ctx, "Qfield", center, radius, hammerField, 1 / 30, [{ type: "cc", cc: "slow", strength: slow, duration: 1 / 30 }]);
         },
       },
       behavior,
@@ -102,8 +108,18 @@ const poppy: KitModule = {
           cooldown: q.cooldown(),
           cost: q.cost(),
           castTime: q.castTime(),
-          delivery: { kind: "area", near: 0, far: hammerLength, delay: 0, anchor: "caster" },
-          onHit: [hit, { type: "cc", cc: "slow", strength: q.baseOf("Slow") / 100, duration: hammerField }],
+          delivery: { kind: "area", near: -hammerBehind, far: hammerLength, delay: 0, anchor: "caster" },
+          onHit: [hit],
+        },
+        {
+          key: "Qfield",
+          name: `${q.name} (slow field)`,
+          slot: "other",
+          cooldown: 0,
+          castTime: 0,
+          usable: () => false,
+          delivery: { kind: "self" },
+          flags: { spellShield: false },
         },
         {
           // Hammer Shock's rupture, set off only by Hammer Shock itself.

@@ -223,7 +223,7 @@ All 5 level-based formulas in the game files (2 linked to wiki values above):
 
 ## Duel simulator kit (level 20, every ability at max rank)
 
-What the duel simulator fights with (`kits/champions/Shen.ts`): every number is read from the wiki's ability data above at level 20; what the wiki doesn't say is listed under assumptions. Ratios are fractions of the stat (60% AD is 0.6 × AD).
+What the duel simulator fights with (`kits/champions/Shen.ts`): values come from pinned wiki and versioned game-data records at level 20. Interpretations and missing evidence are listed under assumptions. Ratios are fractions of the stat (60% AD is 0.6 × AD).
 
 - Basic attack: range 125, melee.
 
@@ -242,9 +242,9 @@ Effects marked by a mark or a role are completed by the kit's hooks (see the kit
 - Twilight Assault's slow applies whichever way the enemy walks.
 - Shadow Dash is aimed to end 150 units past the enemy.
 
-### Wiki values read (26)
+### Source values read (26)
 
-| Ability | Value | Revision |
+| Ability | Value | Source version |
 |---|---|---|
 | Ki Barrier | Innate: After completing an ability's effects, Shen grants himself a shield for 47 – 120 (based on level) (+ 13% bonus health) for 2.5 seconds. | [3985839](https://wiki.leagueoflegends.com/en-us/Template:Data_Shen/Ki_Barrier?oldid=3985839) |
 | Ki Barrier | (+ 13% bonus health) for 2.5 seconds | [3985839](https://wiki.leagueoflegends.com/en-us/Template:Data_Shen/Ki_Barrier?oldid=3985839) |

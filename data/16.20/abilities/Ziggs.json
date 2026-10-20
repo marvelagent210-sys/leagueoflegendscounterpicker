@@ -296,6 +296,19 @@
       "The mine cluster is built of 2 rings, with 3 mines in the inner ring (radius pending for test) and 8 mines on the other ring (200 radius), all equally spaced.\n  - The angular offset is randomized on each cast.\n  - Because of the 135 detonation radius of each mine, the total possible range of a mine from the minefield hitting an enemy from the cast location is 335 units. It will often be slightly less as the minefield is not guaranteed to be angled the right way for this.",
       "Mines will not explode upon contact with player-generated terrain.",
       "Spell shield will block the effects of a single detonation."
+    ],
+    "gameSources": [
+      {
+        "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/ziggs/ziggs.bin.json",
+        "sha256": "3119c50bba5918be6ebbf0f14af94cb8838978def37a8986c1a28c6d9c87c4bf",
+        "object": "Characters/Ziggs/Spells/ZiggsEAbility/ZiggsE",
+        "text": [
+          "mSpell.DataValues.TriggerRange.values: [135,135,135,135,135,135,135]",
+          "mSpell.DataValues.MinePerceptionBubbleSize.values: [150,150,150,150,150,150,150]",
+          "mSpell.castRadius: [235,235,235,235,235,235,235]"
+        ]
+      }
     ]
   },
   {
@@ -603,6 +616,52 @@
       "Bouncing Bomb can be thrown or bounce over units/terrain.",
       "Spell shield will block the damage of the explosion, but the explosion can still damage other targets in the radius.",
       "Ziggs will throw the bomb from his location at the end of the cast time, towards the pre-clamped cast location, causing the bounces to adjust their angle accordingly."
+    ],
+    "gameSources": [
+      {
+        "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/ziggs/ziggs.bin.json",
+        "sha256": "3119c50bba5918be6ebbf0f14af94cb8838978def37a8986c1a28c6d9c87c4bf",
+        "object": "Characters/Ziggs/Spells/ZiggsQAbility/ZiggsQ",
+        "text": [
+          "mSpell.DataValues.MaxRange.values: [850,850,850,850,850,850,850]",
+          "mSpell.DataValues.MaxRangeFirstBounce.values: [325,325,325,325,325,325,325]",
+          "mSpell.DataValues.MaxRangeSecondBounce.values: [225,225,225,225,225,225,225]",
+          "mSpell.DataValues.BombTriggerRange.values: [180,180,180,180,180,180,180]",
+          "mSpell.DataValues.ExplosionRadius.values: [240,240,240,240,240,240,240]",
+          "mSpell.DataValues.BoundingBoxTrigger.values: [70,70,70,70,70,70,70]"
+        ]
+      },
+      {
+        "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/ziggs/ziggs.bin.json",
+        "sha256": "3119c50bba5918be6ebbf0f14af94cb8838978def37a8986c1a28c6d9c87c4bf",
+        "object": "Characters/Ziggs/Spells/ZiggsQAbility/ZiggsQSpell",
+        "text": [
+          "mSpell.missileSpeed: 1700",
+          "mSpell.mMissileSpec: {\"mMissileWidth\":120,\"movementComponent\":{\"mTargetHeightAugment\":60,\"mOffsetInitialTargetHeight\":60,\"mSpeed\":1700,\"__type\":\"FixedSpeedMovement\"},\"heightSolver\":{\"mGravity\":7000,\"__type\":\"GravityHeightSolver\"},\"verticalFacing\":{\"__type\":\"VeritcalFacingMatchVelocity\"},\"behaviors\":[{\"__type\":\"CastOnMovementComplete\"},{\"__type\":\"DestroyOnMovementComplete\"}],\"{c195fba6}\":true,\"__type\":\"MissileSpecification\"}"
+        ]
+      },
+      {
+        "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/ziggs/ziggs.bin.json",
+        "sha256": "3119c50bba5918be6ebbf0f14af94cb8838978def37a8986c1a28c6d9c87c4bf",
+        "object": "Characters/Ziggs/Spells/ZiggsQAbility/ZiggsQSpell2",
+        "text": [
+          "mSpell.missileSpeed: 1600",
+          "mSpell.mMissileSpec: {\"mMissileWidth\":120,\"movementComponent\":{\"mTargetHeightAugment\":60,\"mOffsetInitialTargetHeight\":60,\"mTravelTime\":0.47999998927116394,\"__type\":\"FixedTimeMovement\"},\"heightSolver\":{\"mGravity\":5000,\"__type\":\"GravityHeightSolver\"},\"verticalFacing\":{\"__type\":\"VeritcalFacingMatchVelocity\"},\"behaviors\":[{\"__type\":\"CastOnMovementComplete\"},{\"__type\":\"DestroyOnMovementComplete\"}],\"{c195fba6}\":true,\"__type\":\"MissileSpecification\"}"
+        ]
+      },
+      {
+        "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/ziggs/ziggs.bin.json",
+        "sha256": "3119c50bba5918be6ebbf0f14af94cb8838978def37a8986c1a28c6d9c87c4bf",
+        "object": "Characters/Ziggs/Spells/ZiggsQAbility/ZiggsQSpell3",
+        "text": [
+          "mSpell.missileSpeed: 1600",
+          "mSpell.mMissileSpec: {\"mMissileWidth\":120,\"movementComponent\":{\"mTargetHeightAugment\":60,\"mOffsetInitialTargetHeight\":60,\"mTravelTime\":0.47999998927116394,\"__type\":\"FixedTimeMovement\"},\"heightSolver\":{\"mGravity\":3000,\"__type\":\"GravityHeightSolver\"},\"verticalFacing\":{\"__type\":\"VeritcalFacingMatchVelocity\"},\"behaviors\":[{\"__type\":\"CastOnMovementComplete\"},{\"__type\":\"DestroyOnMovementComplete\"}],\"{c195fba6}\":true,\"__type\":\"MissileSpecification\"}"
+        ]
+      }
     ]
   },
   {
@@ -1042,6 +1101,23 @@
       "Deals area damage to non-turrets and raw damage to turrets.",
       "Satchel Charge's distance increases with proximity to the charge, resulting in being knocked straight up when aligned directly on top of it.",
       "Ziggs will not dash from Satchel Charge's detonation while Teleporting but he will while Recalling."
+    ],
+    "gameSources": [
+      {
+        "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/ziggs/ziggs.bin.json",
+        "sha256": "3119c50bba5918be6ebbf0f14af94cb8838978def37a8986c1a28c6d9c87c4bf",
+        "object": "Characters/Ziggs/Spells/ZiggsWAbility/ZiggsW",
+        "text": [
+          "mSpell.DataValues.KnockbackSpeed.values: [600,600,600,600,600,600,600]",
+          "mSpell.DataValues.KnockbackGravity.values: [50,50,50,50,50,50,50]",
+          "mSpell.DataValues.KnockbackDistance.values: [500,500,500,500,500,500,500]",
+          "mSpell.DataValues.KnockbackDistanceAlly.values: [775,775,775,775,775,775,775]",
+          "mSpell.DataValues.ExplosionRadius.values: [325,325,325,325,325,325,325]",
+          "mSpell.missileSpeed: 1750",
+          "mSpell.mMissileSpec.movementComponent: {\"mTracksTarget\":false,\"mStartBoneName\":\"root\",\"mSpeed\":1750,\"__type\":\"FixedSpeedMovement\"}"
+        ]
+      }
     ]
   }
 ]

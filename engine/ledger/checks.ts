@@ -28,8 +28,14 @@ function definition(ctx: LedgerContext, page: string, quote?: string): Evidence 
 /** An ability that does something to the enemy: damage, crowd control or an execute. */
 function isThreat(ability: AbilityProfile): boolean {
   if (ability.delivery.attack === "attack modifier") return false; // counted with the basic attacks
-  if (!ability.delivery.affectsEnemies) return false;
+  // An attack empowerment targets its caster, but its empowered hit still affects the
+  // opponent (Fiora E, Camille Q, Nasus Q, ...). Targeting the buff isn't hit delivery.
+  if (!affectsOpponent(ability)) return false;
   return ability.damageTypes.length > 0 || ability.applies.some((a) => a.type !== "reveal") || ability.execute !== undefined;
+}
+
+function affectsOpponent(ability: AbilityProfile): boolean {
+  return ability.delivery.affectsEnemies || ability.delivery.attack === "attack";
 }
 
 /** A spell a player saves a dodge or a shield for: the ultimate, crowd control that stops or disables them, or a targeted spell. */
@@ -39,6 +45,7 @@ function isKeySpell(ability: AbilityProfile): boolean {
     ability.kind === "R" ||
     ability.applies.some((a) => IMMOBILIZING.has(a.type) || DISABLING.has(a.type)) ||
     ability.delivery.targeting.includes("unit") ||
+    ability.delivery.attack === "attack" ||
     ability.execute !== undefined
   );
 }
@@ -100,7 +107,7 @@ function stateOf(ability: AbilityProfile, state: SelfState["state"]): SelfState 
 /** States that come from dying, dismounting or transforming, not from a choice made in the fight. */
 const NOT_ON_DEMAND = /fatal damage|\bdies\b|\bdeath\b|dismount|zombie|resurrection|reviv|transformation|summoning platform|lethal damage/i;
 /** States that arrive only after a channel or delay (Galio's and Pantheon's ultimates), too late to react with. */
-const DELAYED = /\bafter (?:channeling|a delay|\d)|\bchannels? for [^.]* before\b|\bupon completion\b/i;
+const DELAYED = /\bafter (?:channeling|a delay)|(?:^|[:.])\s*after \d|\bafterwards\b|\bchannels? for [^.]* before\b|\bupon completion\b/i;
 
 /**
  * A defensive state the champion can use in reaction to a spell: from an ability they cast
@@ -108,11 +115,20 @@ const DELAYED = /\bafter (?:channeling|a delay|\d)|\bchannels? for [^.]* before\
  * immunity that is up on its own (Malzahar's Void Shift).
  */
 function onDemand(ability: AbilityProfile, state: SelfState): boolean {
-  const text = [state.condition ?? "", ...state.evidence.map((e) => e.quote ?? "")].join(" ");
+  // A glossary-only state can share the delayed activation documented for another
+  // defensive state on the same spell (Pantheon R's minimum health, for example).
+  const evidence = state.evidence.some((e) => e.quote && e.page === ability.page.title)
+    ? state.evidence
+    : [...state.evidence, ...ability.states.flatMap((s) => s.evidence)];
+  const text = [state.condition ?? "", ...evidence.map((e) => e.quote ?? "")].join(" ");
   if (NOT_ON_DEMAND.test(text)) return false;
   if (ability.kind === "I") return state.state === "cc immune";
   if ((ability.castTime ?? 0) > 0.5) return false;
-  return !DELAYED.test(text);
+  if (state.state === "invulnerable" && /when they reach or are at the threshold/i.test(text)) return false;
+  // Shen W activates immediately when he is in the sword's zone; its two-second
+  // wait applies only while the zone is empty.
+  const immediateAlternative = text.includes(`or when ${ability.champion} `);
+  return !DELAYED.test(text) || immediateAlternative;
 }
 
 /** A state the ability grants that can be used on demand. */
@@ -136,10 +152,16 @@ const primaryAttack = (kit: KitProfile): BasicAttackProfile | undefined => kit.a
 // Checks against basic attacks and attack-based abilities
 
 /** Abilities that strike as basic attacks or apply on-hit effects, which parries stop. */
-function parryable(ability: AbilityProfile, includeOnHit: boolean): boolean {
+function parryable(ability: AbilityProfile, includeOnHit: boolean, defense: "blind" | "block" | "dodge"): boolean {
   const parry = ability.delivery.parry;
   if (parry !== "yes" && parry !== "partly") return false;
   if (!isThreat(ability)) return false;
+  // The wiki's combined parry flag can mean that only one of blind, block and dodge
+  // works. Its explicit exceptions take precedence over that aggregate flag.
+  const notes = (ability.notes ?? []).join(" ");
+  if (defense === "dodge" && /\b(?:cannot|can't) be dodged\b/i.test(notes)) return false;
+  if (defense === "block" && /\b(?:cannot|can't) be (?:dodged (?:or|and(?:\/or)?) )?blocked\b/i.test(notes)) return false;
+  if (defense === "blind" && /\b(?:cannot|can't) (?:be missed|miss)\b|\bwill still deal damage while blinded\b/i.test(notes)) return false;
   return ability.delivery.attack === "attack" || (includeOnHit && ability.delivery.attack === "on-hit");
 }
 
@@ -220,7 +242,7 @@ export const parry: Check = (own, other) => {
           summary: `${tool.name} parries ${other.name}'s ${victim.name}${immobilizes && stun ? " and stuns back" : ""}.`,
           timing: reactionText("Parry", state.duration, victim),
           conditions,
-          impact: abilityWeight(victim, other) * answerRate(tool, victim) * reactionFactor(state.duration, victim) + (conditions.length > 0 ? 0.1 : 0),
+          impact: Math.min(1, abilityWeight(victim, other) * answerRate(tool, victim) * reactionFactor(state.duration, victim) + (conditions.length > 0 ? 0.1 : 0)),
           evidence: [...state.evidence, ...(stun ? stun.evidence : [])],
         }),
       );
@@ -234,7 +256,7 @@ function attackCounter(check: "attack dodge" | "attack block", state: "dodge att
     const entries: LedgerEntry[] = [];
     const verb = check === "attack dodge" ? "dodges" : "blocks";
     for (const tool of own.abilities) {
-      const found = stateOf(tool, state);
+      const found = usableState(tool, state);
       if (!found) continue;
       const evidence = [...found.evidence, definition(ctx, check === "attack dodge" ? "Template:Tip data/Dodge" : "Template:Tip data/Block")];
       entries.push(
@@ -246,7 +268,7 @@ function attackCounter(check: "attack dodge" | "attack block", state: "dodge att
           evidence,
         }),
       );
-      for (const victim of other.abilities.filter((a) => parryable(a, true))) {
+      for (const victim of other.abilities.filter((a) => parryable(a, true, check === "attack dodge" ? "dodge" : "block"))) {
         entries.push(
           entry(check, own, ref(tool), ref(victim), {
             effect: victim.delivery.parry === "yes" ? "negates" : "partly negates",
@@ -281,12 +303,13 @@ export const blind: Check = (own, other, ctx) => {
         evidence,
       }),
     );
-    for (const victim of other.abilities.filter((a) => parryable(a, false))) {
+    for (const victim of other.abilities.filter((a) => parryable(a, false, "blind"))) {
       entries.push(
         entry("blind", own, ref(tool), ref(victim), {
-          effect: "negates",
+          effect: victim.delivery.parry === "partly" ? "partly negates" : "negates",
           summary: `${tool.name}'s blind makes ${other.name}'s ${victim.name}, an empowered attack, miss.`,
           timing: `Blind for ${seconds(effect.duration)}`,
+          conditions: notesAbout(victim, /blind|miss|dodg|block/i),
           impact: abilityWeight(victim, other) * completeness(victim.delivery.parry) * availability(effect.duration, tool.cooldown),
           evidence,
         }),
@@ -429,17 +452,28 @@ function dodgeState(check: "untargetable" | "invulnerable"): Check {
       for (const victim of other.abilities.filter(isKeySpell)) {
         // Invulnerability stops damage, not crowd control.
         if (check === "invulnerable" && victim.damageTypes.length === 0 && victim.execute === undefined) continue;
+        const bypassNotes = check === "untargetable" && state.state !== "stasis"
+          ? (victim.notes ?? []).filter((note) => /\buntargetab/i.test(note) &&
+            /still complete and hit the target|still deal damage even if the target is untargetable|still apply the knock up if the target is untargetable|stun will apply even if the first target becomes untargetable|damage is not blocked if the target is untargetable|detonation will deal damage.*even if.*untargetable|instead deals its damage at the end of the dash|detonation damage cannot be dodged by becoming untargetable|deal damage.*through untargetab/i.test(note))
+          : [];
+        const partial = bypassNotes.length > 0;
         entries.push(
           entry(check, own, ref(tool), ref(victim), {
-            effect: check === "untargetable" ? "negates" : "negates the damage of",
+            effect: check === "untargetable" ? (partial ? "partly negates" : "negates") : "negates the damage of",
             summary:
               check === "untargetable"
-                ? `${tool.name} makes ${own.name} untargetable, dodging ${other.name}'s ${victim.name}.`
+                ? partial
+                  ? `${tool.name} can deny the initial targeting of ${other.name}'s ${victim.name}, but untargetability does not stop its committed effect.`
+                  : `${tool.name} makes ${own.name} untargetable, dodging ${other.name}'s ${victim.name}.`
                 : `${tool.name} makes ${own.name} invulnerable to ${other.name}'s ${victim.name}${victim.applies.length > 0 ? " (its crowd control still applies)" : ""}.`,
-            timing: reactionText(check === "untargetable" ? "Untargetable" : "Invulnerable", state.duration, victim),
-            conditions: [state.note, state.condition].filter((s): s is string => Boolean(s)),
-            impact: abilityWeight(victim, other) * answerRate(tool, victim) * reactionFactor(state.duration, victim) * (check === "invulnerable" && victim.applies.length > 0 ? WEIGHTS.partly : 1),
-            evidence: [...state.evidence, definition(ctx, check === "untargetable" ? "Template:Tip data/Untargetable" : "Invulnerability")],
+            timing: partial ? "Must be used before the enemy commits the attack, dash or mark." : reactionText(check === "untargetable" ? "Untargetable" : "Invulnerable", state.duration, victim),
+            conditions: [...[state.note, state.condition].filter((s): s is string => Boolean(s)), ...bypassNotes],
+            impact: abilityWeight(victim, other) * answerRate(tool, victim) * reactionFactor(state.duration, victim) * ((check === "invulnerable" && victim.applies.length > 0) || partial ? WEIGHTS.partly : 1),
+            evidence: [
+              ...state.evidence,
+              ...bypassNotes.map((quote) => ({ page: victim.page.title, revid: victim.page.revid, quote })),
+              definition(ctx, check === "untargetable" ? "Template:Tip data/Untargetable" : "Invulnerability"),
+            ],
           }),
         );
       }
@@ -465,7 +499,7 @@ export const crowdControlDefense: Check = (own, other, ctx) => {
     const tenacity = usableState(tool, "tenacity");
     for (const victim of other.abilities) {
       const cc = victim.applies.filter((a) => !["reveal", "grievous wounds", "dash cancel"].includes(a.type));
-      if (cc.length === 0 || !victim.delivery.affectsEnemies) continue;
+      if (cc.length === 0 || !affectsOpponent(victim)) continue;
       const types = [...new Set(cc.map((a) => a.type))];
       // What the counter saves is the crowd control, not the whole ability.
       const weight = abilityWeight(victim, other) * ccImportance(types);
@@ -500,19 +534,24 @@ export const crowdControlDefense: Check = (own, other, ctx) => {
           }),
         );
       }
-      if (slowImmune && types.some((t) => t === "slow" || t === "cripple")) {
+      // Slow immunity does not imply attack-speed immunity. Highlander explicitly
+      // grants both, whereas Nunu's snowball and Skarner's charge grant only the former.
+      const immuneToCripple = slowImmune?.evidence.some((e) => /cripple.immun|immun\w* to crippl/i.test(e.quote ?? ""));
+      const slowTypes = types.filter((t) => t === "slow" || (immuneToCripple && (t === "cripple" || t === "attack speed slow")));
+      if (slowImmune && slowTypes.length > 0) {
         entries.push(
           entry("cc immunity", own, ref(tool), ref(victim), {
-            effect: "partly negates",
-            summary: `${tool.name} makes ${own.name} immune to ${other.name}'s ${victim.name} slow.`,
+            effect: slowTypes.length === types.length ? "negates" : "partly negates",
+            summary: `${tool.name} makes ${own.name} immune to ${other.name}'s ${victim.name} (${slowTypes.join(", ")}).`,
             timing: uptimeText(tool, slowImmune.duration),
-            impact: abilityWeight(victim, other) * ccImportance(["slow"]) * availability(slowImmune.duration, tool.cooldown),
+            impact: abilityWeight(victim, other) * ccImportance(slowTypes) * availability(slowImmune.duration, tool.cooldown),
             evidence: slowImmune.evidence,
           }),
         );
       }
       if (cleanse?.removes) {
-        const removed = types.filter((t) => cleanse.removes?.includes(t));
+        const nondispellable = (victim.notes ?? []).some((n) => /non-dispellable|not removed by most cleanses/i.test(n));
+        const removed = types.filter((t) => cleanse.removes?.includes(t) && !(nondispellable && (t === "slow" || t === "ground")));
         if (removed.length > 0) {
           entries.push(
             entry("cleanse", own, ref(tool), ref(victim), {
@@ -555,21 +594,27 @@ export const interrupt: Check = (own, other, ctx) => {
   for (const victim of other.abilities) {
     const channel = victim.channel?.find((c) => c.type !== "uninterruptible" && c.type !== "objective");
     if (!channel || victim.channel?.some((c) => c.type === "uninterruptible")) continue;
-    if (victim.states.some((s) => s.state === "cc immune")) continue;
+    // Some spells become immune only after an interruptible channel, or lose the
+    // immunity before their channel (Pantheon R, Galio R, Warwick R).
+    if (usableState(victim, "cc immune") && victim.delivery.disruptable !== "yes" && victim.delivery.disruptable !== "partly") continue;
     for (const tool of own.abilities) {
       const cc = tool.applies.find((a) => !a.condition && (interrupting.has(a.type) || a.type === "disrupt"));
-      if (!cc || !tool.delivery.affectsEnemies) continue;
+      if (!cc || !affectsOpponent(tool)) continue;
       entries.push(
         entry("interrupt", own, ref(tool), ref(victim), {
           effect: "interrupts",
           summary: `${tool.name}'s ${cc.type} interrupts ${other.name}'s ${victim.name} (${channel.type === "charged" ? "charge-up" : `${channel.type} channel`}).`,
           timing: `${tool.name} must land during the ${channel.type === "charged" ? "charge-up" : "channel"}`,
-          conditions: channel.type === "charged" ? [`${other.name} can release ${victim.name} early instead of charging it fully.`] : [],
+          conditions: [
+            ...(channel.type === "charged" ? [`${other.name} can release ${victim.name} early instead of charging it fully.`] : []),
+            ...(victim.delivery.disruptable === "partly" || victim.states.some((s) => s.state === "cc immune")
+              ? notesAbout(victim, /interrupt|channel/i)
+              : []),
+          ],
           impact: abilityWeight(victim, other) * WEIGHTS.situational * answerRate(tool, victim) * (channel.type === "charged" ? WEIGHTS.partly : 1),
           evidence: [...cc.evidence, ...channel.evidence, definition(ctx, "Template:Tip data/Cast-inhibiting crowd control")],
         }),
       );
-      break;
     }
   }
   return entries;
@@ -578,14 +623,17 @@ export const interrupt: Check = (own, other, ctx) => {
 export const deathPrevention: Check = (own, other, ctx) => {
   const entries: LedgerEntry[] = [];
   for (const tool of own.abilities) {
-    const state = stateOf(tool, "minimum health") ?? stateOf(tool, "resurrection") ?? stateOf(tool, "invulnerable");
+    const state = usableState(tool, "minimum health") ?? stateOf(tool, "resurrection") ?? usableState(tool, "invulnerable");
     if (!state) continue;
     for (const victim of other.abilities.filter((a) => a.execute !== undefined)) {
       entries.push(
         entry("death prevention", own, ref(tool), ref(victim), {
-          effect: "negates",
-          summary: `${other.name}'s ${victim.name} can't execute ${own.name} during ${tool.name} (${state.state}).`,
+          effect: state.state === "resurrection" ? "revives" : "negates",
+          summary: state.state === "resurrection"
+            ? `${tool.name} allows ${own.name} to resurrect after fatal damage from ${other.name}'s ${victim.name}.`
+            : `${other.name}'s ${victim.name} can't execute ${own.name} during ${tool.name} (${state.state}).`,
           timing: uptimeText(tool, state.duration),
+          conditions: [state.condition, state.note].filter((s): s is string => Boolean(s)),
           impact: abilityWeight(victim, other) * 0.8 * answerRate(tool, victim),
           evidence: [...state.evidence, ...(victim.execute ?? []), definition(ctx, "Template:Tip data/Execute", "Most executes do not ignore invulnerability, resurrection and effects that grant a minimum health threshold.")],
         }),
@@ -612,7 +660,6 @@ export const reveal: Check = (own, other, ctx) => {
         }),
       );
     }
-    break;
   }
   return entries;
 };
@@ -658,7 +705,7 @@ export const range: Check = (own, other, ctx) => {
     entry("range", own, attackRef(own), attackRef(other), {
       effect: "out-ranges",
       summary: `${own.name}'s basic attacks reach ${lead} units farther than ${other.name}'s (${best(own)} vs ${best(other)} attack range).`,
-      timing: closers.length > 0 ? `${other.name} closes the gap with ${closers.map((a) => a.name).join(", ")}` : `${other.name} has no dash or blink to close the gap`,
+      timing: closers.length > 0 ? `${other.name} closes the gap with ${closers.map((a) => a.name).sort().join(", ")}` : `${other.name} has no dash or blink to close the gap`,
       impact: Math.min(1, lead / WEIGHTS.rangeFull) * attackWeight(own) * gapFactor,
       evidence: [{ page: "Module:ChampionData/data" }, definition(ctx, "Range")],
     }),

@@ -194,3 +194,82 @@ All 1 level-based formulas in the game files (1 linked to wiki values above):
 | Spell | Calculation | Rule | Level 1 | Level 18 | Level 20 |
 |---|---|---|--:|--:|--:|
 | LeonaSunlightPassive | TotalDamage | table of values per level (30 levels) | 32 | 151 | 165 |
+
+## Duel simulator kit (level 20, every ability at max rank)
+
+What the duel simulator fights with (`kits/champions/Leona.ts`): values come from pinned wiki and versioned game-data records at level 20. Interpretations and missing evidence are listed under assumptions. Ratios are fractions of the stat (60% AD is 0.6 × AD).
+
+- Basic attack: range 125, melee.
+
+| Key | Ability | Cooldown (s) | Cast time (s) | Cost | Delivery | On the enemy | On itself |
+|---|---|--:|--:|---|---|---|---|
+| Q | Shield of Daybreak | 5 (starts after the empowered attacks) | 0 | 50 | self | – | next 1 attack within 6 s: 110 + 30% AP magic damage (Shield of Daybreak); stun for 1 s; marks it "sunlight" for 2.5 s (+50 range, resets the attack timer, uncancellable) |
+| W | Eclipse | 10 | 0 | 60 | self | 175 + 40% AP magic damage | flatDamageReduction 24 for 3 s |
+| E | Zenith Blade | 6 | 0.25 | 60 | skillshot 900 long, 140 wide, at 2000/s | 210 + 40% AP magic damage | – |
+| R | Solar Flare | 60 | 0.25 | 100 | circle of 325 radius up to 1200 away, lands after 0.625 s | 300 + 80% AP magic damage; slow 80% for 1.75 s | – |
+
+Effects marked by a mark or a role are completed by the kit's hooks (see the kit's source).
+
+### Assumptions
+
+- Sunlight is applied and refreshed by Leona's damaging abilities, but never consumed in a solo duel: Leona cannot trigger her own allied-champion passive.
+- Eclipse continuously recalculates its resistance bonuses from the current bonus resistances of other sources, excluding its own granted resistance buff to avoid self-scaling feedback.
+- Zenith Blade roots when the sword reaches maximum range, since the pinned source says the root timing is inconsistent. Its dash uses the documented 2000-unit missile speed as an estimate; the source gives no dash speed. The landing point is fixed 225 units beyond the target's position at sword expiry.
+- Solar Flare aims at the enemy's location within 1200 units, with a 325-unit outer radius and the documented 175-unit epicenter. Epicenter membership is determined by the target's center on the one-dimensional line.
+
+### Source values read (52)
+
+| Ability | Value | Source version |
+|---|---|---|
+| Sunlight | mark enemies hit for 2.5 seconds | [4038401](https://wiki.leagueoflegends.com/en-us/Template:Data_Leona/Sunlight?oldid=4038401) |
+| Sunlight | Allied champions' damaging attacks and abilities against a marked target will consume the mark | [4038401](https://wiki.leagueoflegends.com/en-us/Template:Data_Leona/Sunlight?oldid=4038401) |
+| Sunlight | Allied champions' damaging attacks and abilities against a marked target will consume the mark to deal 32 – 151 (based on level) bonus magic damage. | [4038401](https://wiki.leagueoflegends.com/en-us/Template:Data_Leona/Sunlight?oldid=4038401) |
+| Shield of Daybreak | next basic attack within 6 seconds | [4001219](https://wiki.leagueoflegends.com/en-us/Template:Data_Leona/Shield_of_Daybreak?oldid=4001219) |
+| Shield of Daybreak | gain 50 bonus range | [4001219](https://wiki.leagueoflegends.com/en-us/Template:Data_Leona/Shield_of_Daybreak?oldid=4001219) |
+| Shield of Daybreak | stun the target for 1 second | [4001219](https://wiki.leagueoflegends.com/en-us/Template:Data_Leona/Shield_of_Daybreak?oldid=4001219) |
+| Shield of Daybreak | have an uncancellable windup | [4001219](https://wiki.leagueoflegends.com/en-us/Template:Data_Leona/Shield_of_Daybreak?oldid=4001219) |
+| Shield of Daybreak | Shield of Daybreak's attack does not put Leona's basic attack on cooldown | [4001219](https://wiki.leagueoflegends.com/en-us/Template:Data_Leona/Shield_of_Daybreak?oldid=4001219) |
+| Shield of Daybreak | Critical strikes do not interact with Shield of Daybreak's bonus damage | [4001219](https://wiki.leagueoflegends.com/en-us/Template:Data_Leona/Shield_of_Daybreak?oldid=4001219) |
+| Eclipse | raises her guard for 3 seconds | [4042253](https://wiki.leagueoflegends.com/en-us/Template:Data_Leona/Eclipse?oldid=4042253) |
+| Eclipse | guard is extended for an additional 3 seconds | [4042253](https://wiki.leagueoflegends.com/en-us/Template:Data_Leona/Eclipse?oldid=4042253) |
+| Eclipse | Flat Damage Reduction: 8 / 12 / 16 / 20 / 24 | [4042253](https://wiki.leagueoflegends.com/en-us/Template:Data_Leona/Eclipse?oldid=4042253) |
+| Eclipse | flat pre-mitigation damage reduction of up to 50% of the damage instance | [4042253](https://wiki.leagueoflegends.com/en-us/Template:Data_Leona/Eclipse?oldid=4042253) |
+| Eclipse | The resistance scaling will factor from all other sources, excluding Eclipse's flat bonus. This will recalculate over the duration | [4042253](https://wiki.leagueoflegends.com/en-us/Template:Data_Leona/Eclipse?oldid=4042253) |
+| Eclipse | Spell shield will block the damage but Eclipse's extended duration will not be prevented | [4042253](https://wiki.leagueoflegends.com/en-us/Template:Data_Leona/Eclipse?oldid=4042253) |
+| Eclipse | Neither the cast nor detonation of Eclipse interrupts any of Leona's previous orders or ongoing attack windups | [4042253](https://wiki.leagueoflegends.com/en-us/Template:Data_Leona/Eclipse?oldid=4042253) |
+| Eclipse | Bonus Armor: 20 / 27.5 / 35 / 42.5 / 50 (+ 20% bonus armor) | [4042253](https://wiki.leagueoflegends.com/en-us/Template:Data_Leona/Eclipse?oldid=4042253) |
+| Eclipse | Bonus Magic Resistance: 20 / 27.5 / 35 / 42.5 / 50 (+ 20% bonus magic resistance) | [4042253](https://wiki.leagueoflegends.com/en-us/Template:Data_Leona/Eclipse?oldid=4042253) |
+| Eclipse | effectRadius: 450 | [4042253](https://wiki.leagueoflegends.com/en-us/Template:Data_Leona/Eclipse?oldid=4042253) |
+| Zenith Blade | targetRange: 900 | [4007645](https://wiki.leagueoflegends.com/en-us/Template:Data_Leona/Zenith_Blade?oldid=4007645) |
+| Zenith Blade | speed: 2000 | [4007645](https://wiki.leagueoflegends.com/en-us/Template:Data_Leona/Zenith_Blade?oldid=4007645) |
+| Zenith Blade | dashes to 225 units beyond the location of the last champion struck | [4007645](https://wiki.leagueoflegends.com/en-us/Template:Data_Leona/Zenith_Blade?oldid=4007645) |
+| Zenith Blade | roots them for 0.5 seconds | [4007645](https://wiki.leagueoflegends.com/en-us/Template:Data_Leona/Zenith_Blade?oldid=4007645) |
+| Zenith Blade | not within 3000 units of her by the time the sword missile fizzles | [4007645](https://wiki.leagueoflegends.com/en-us/Template:Data_Leona/Zenith_Blade?oldid=4007645) |
+| Zenith Blade | After reaching its maximum range | [4007645](https://wiki.leagueoflegends.com/en-us/Template:Data_Leona/Zenith_Blade?oldid=4007645) |
+| Zenith Blade | Leona will not track the target if they change locations during her dash | [4007645](https://wiki.leagueoflegends.com/en-us/Template:Data_Leona/Zenith_Blade?oldid=4007645) |
+| Zenith Blade | Spell shield will block the damage, and prevent Leona from dashing | [4007645](https://wiki.leagueoflegends.com/en-us/Template:Data_Leona/Zenith_Blade?oldid=4007645) |
+| Zenith Blade | Leona is unable to move or attack while Zenith Blade is in flight | [4007645](https://wiki.leagueoflegends.com/en-us/Template:Data_Leona/Zenith_Blade?oldid=4007645) |
+| Zenith Blade | She can cast any of her abilities during the dash | [4007645](https://wiki.leagueoflegends.com/en-us/Template:Data_Leona/Zenith_Blade?oldid=4007645) |
+| Solar Flare | strikes upon the target location after 0.625 seconds | [4007649](https://wiki.leagueoflegends.com/en-us/Template:Data_Leona/Solar_Flare?oldid=4007649) |
+| Solar Flare | slowed by 80% for 1.75 seconds | [4007649](https://wiki.leagueoflegends.com/en-us/Template:Data_Leona/Solar_Flare?oldid=4007649) |
+| Solar Flare | effectRadius (Damage radius): 325 • 175 • 800 | [4007649](https://wiki.leagueoflegends.com/en-us/Template:Data_Leona/Solar_Flare?oldid=4007649) |
+| Solar Flare | effectRadius (Epicenter radius): 325 • 175 • 800 | [4007649](https://wiki.leagueoflegends.com/en-us/Template:Data_Leona/Solar_Flare?oldid=4007649) |
+| Solar Flare | are also stunned for the same duration if they are struck by the epicenter | [4007649](https://wiki.leagueoflegends.com/en-us/Template:Data_Leona/Solar_Flare?oldid=4007649) |
+| Solar Flare | Magic Damage: 150 / 225 / 300 (+ 80% AP) | [4007649](https://wiki.leagueoflegends.com/en-us/Template:Data_Leona/Solar_Flare?oldid=4007649) |
+| Shield of Daybreak | cooldown: 5 | [4001219](https://wiki.leagueoflegends.com/en-us/Template:Data_Leona/Shield_of_Daybreak?oldid=4001219) |
+| Shield of Daybreak | cost: 30 / 35 / 40 / 45 / 50 | [4001219](https://wiki.leagueoflegends.com/en-us/Template:Data_Leona/Shield_of_Daybreak?oldid=4001219) |
+| Shield of Daybreak | castTime: none | [4001219](https://wiki.leagueoflegends.com/en-us/Template:Data_Leona/Shield_of_Daybreak?oldid=4001219) |
+| Shield of Daybreak | Bonus Magic Damage: 10 / 35 / 60 / 85 / 110 (+ 30% AP) | [4001219](https://wiki.leagueoflegends.com/en-us/Template:Data_Leona/Shield_of_Daybreak?oldid=4001219) |
+| Eclipse | cooldown: 14 / 13 / 12 / 11 / 10 | [4042253](https://wiki.leagueoflegends.com/en-us/Template:Data_Leona/Eclipse?oldid=4042253) |
+| Eclipse | cost: 60 | [4042253](https://wiki.leagueoflegends.com/en-us/Template:Data_Leona/Eclipse?oldid=4042253) |
+| Eclipse | castTime: none | [4042253](https://wiki.leagueoflegends.com/en-us/Template:Data_Leona/Eclipse?oldid=4042253) |
+| Eclipse | Magic Damage: 55 / 85 / 115 / 145 / 175 (+ 40% AP) | [4042253](https://wiki.leagueoflegends.com/en-us/Template:Data_Leona/Eclipse?oldid=4042253) |
+| Zenith Blade | cooldown: 12 / 10.5 / 9 / 7.5 / 6 | [4007645](https://wiki.leagueoflegends.com/en-us/Template:Data_Leona/Zenith_Blade?oldid=4007645) |
+| Zenith Blade | cost: 40 / 45 / 50 / 55 / 60 | [4007645](https://wiki.leagueoflegends.com/en-us/Template:Data_Leona/Zenith_Blade?oldid=4007645) |
+| Zenith Blade | castTime: 0.25 | [4007645](https://wiki.leagueoflegends.com/en-us/Template:Data_Leona/Zenith_Blade?oldid=4007645) |
+| Zenith Blade | width: 140 | [4007645](https://wiki.leagueoflegends.com/en-us/Template:Data_Leona/Zenith_Blade?oldid=4007645) |
+| Zenith Blade | Magic Damage: 50 / 90 / 130 / 170 / 210 (+ 40% AP) | [4007645](https://wiki.leagueoflegends.com/en-us/Template:Data_Leona/Zenith_Blade?oldid=4007645) |
+| Solar Flare | cooldown: 90 / 75 / 60 | [4007649](https://wiki.leagueoflegends.com/en-us/Template:Data_Leona/Solar_Flare?oldid=4007649) |
+| Solar Flare | cost: 100 | [4007649](https://wiki.leagueoflegends.com/en-us/Template:Data_Leona/Solar_Flare?oldid=4007649) |
+| Solar Flare | castTime: 0.25 | [4007649](https://wiki.leagueoflegends.com/en-us/Template:Data_Leona/Solar_Flare?oldid=4007649) |
+| Solar Flare | targetRange: 1200 | [4007649](https://wiki.leagueoflegends.com/en-us/Template:Data_Leona/Solar_Flare?oldid=4007649) |

@@ -199,3 +199,86 @@ All 4 level-based formulas in the game files (2 linked to wiki values above):
 | CassiopeiaPassive | PercentHasteMod | breakpoints at levels none (level 1: 0.05) | 0.05 | 0.356 | 0.392 |
 | CassiopeiaPassive_Feats | TotalMovementSpeed | breakpoints at levels none (level 1: 4) | 4 | 72 | 80 |
 | CassiopeiaPassive_Feats | BonusAbilityPower | breakpoints at levels none (level 1: 3) | 3 | 54 | 60 |
+
+## Duel simulator kit (level 20, every ability at max rank)
+
+What the duel simulator fights with (`kits/champions/Cassiopeia.ts`): values come from pinned wiki and versioned game-data records at level 20. Interpretations and missing evidence are listed under assumptions. Ratios are fractions of the stat (60% AD is 0.6 × AD).
+
+- Basic attack: range 550, missile at 1500/s.
+
+| Key | Ability | Cooldown (s) | Cast time (s) | Cost | Delivery | On the enemy | On itself |
+|---|---|--:|--:|---|---|---|---|
+| Q | Noxious Blast | 3.5 | 0.25 | 70 | circle of 200 radius up to 850 away, lands after 0.4 s | marks it "cassiopeia:poison:Q" for 3.25 s | – |
+| W | Miasma | 16 | 0.25 | 90 | circle of 200 radius up to 700 away, projectile at 3000/s then lands after 0 s | – | – |
+| E | Twin Fang | 0.75 | 0.125 | 45 | targeted, 700 range, missile at 2500/s | 128.235 + 20% AP magic damage, varies with combat state; formula is a reference | – |
+| R | Petrifying Gaze | 80 | 0.5 | 100 | self | 325 + 75% AP magic damage; stun for 2 s | – |
+| WP | Miasma | 0 | 0 | – | self | 10 + 2.5% AP magic damage | – |
+
+Effects marked by a mark or a role are completed by the kit's hooks (see the kit's source).
+
+### Assumptions
+
+- Serpentine Grace uses the pinned 26.20 passive and explicit level-20 value. Positive flat/percentage movement bonuses are amplified before slows and movement soft caps; negative modifiers are not treated as bonuses. There is no historical flat level speed or no-boots passive.
+- The passive source does not define the interaction order when simultaneous flat and percentage bonuses coexist. This model amplifies each positive component before their ordinary flat-then-percentage combination; it preserves base speed and negative components.
+- Noxious Blast uses seven absolute pulse times across three seconds, with first pulse after 3/7 seconds and cumulative integer floors. Poison eligibility lasts 3.25 seconds within the source's 3.2–3.3 range; refresh replaces future pulses. The source's isolated 20/40 AP one-damage bug remains unresolved.
+- Noxious Blast movement speed decays linearly over three seconds and is granted only on a connected champion hit; a spell shield denies both poison and speed.
+- Miasma's seven-cloud arc is represented by the portion on the duel axis, with one traveling cloud and no overlap stacking. A wall removes that portion; lateral surviving portions and enemy pet poisoning are not simulated.
+- Miasma deterministically applies nineteen packets, beginning at field arrival and using absolute 5/19-second boundaries. The source's occasional eighteen-packet outcome is not randomized. Its unpinned slow curve decays linearly from 80% to zero over the field's age, with 0.25-second contact refresh outside the cloud.
+- Twin Fang recognizes explicitly tagged Cassiopeia and Twitch poison at impact; arbitrary DOTs never qualify. Its level-20 ordinary damage follows the 128.235294117647 wiki series, rather than the conflicting 128.234 enhanced-label game-file base. Fang impact waits only for a pending own Q whose blast overlaps the target, with no invented hold timeout.
+- Petrifying Gaze uses persistent absolute facing from walking, attacks and cast commands. Its 80-degree cone is the deterministic intersection with the duel axis, starting 100 units behind the caster and ending 850 units in front, including target-hitbox overlap. Lateral targets, pet cone damage and the source's unnamed R exception are absent. Forced displacement retains command-facing in this model, so the unquantified knockback-facing exception remains unresolved.
+- The budget estimates poison uptime from Q plus the corrected nineteen-packet W duration, prices impact-poisoned E damage and AP-only healing by that uptime, and has no repeated kill mana refunds. Actual fights consume mana on every completed cast.
+
+### Source values read (50)
+
+| Ability | Value | Source version |
+|---|---|---|
+| Serpentine Grace | Innate: Cassiopeia increases the effectiveness of all movement speed bonuses by 5 – 36 (based on level)%. | [4060357](https://wiki.leagueoflegends.com/en-us/Template:Data_Cassiopeia/Serpentine_Grace?oldid=4060357) |
+| Noxious Blast | Total Magic Damage: 65 / 100 / 135 / 170 / 205 (+ 75% AP) | [4060358](https://wiki.leagueoflegends.com/en-us/Template:Data_Cassiopeia/Noxious_Blast?oldid=4060358) |
+| Noxious Blast | poisoned for 3 seconds | [4060358](https://wiki.leagueoflegends.com/en-us/Template:Data_Cassiopeia/Noxious_Blast?oldid=4060358) |
+| Noxious Blast | after a 0.4-second delay | [4060358](https://wiki.leagueoflegends.com/en-us/Template:Data_Cassiopeia/Noxious_Blast?oldid=4060358) |
+| Noxious Blast | damage / 7 ticks rounded down to the nearest integer | [4060358](https://wiki.leagueoflegends.com/en-us/Template:Data_Cassiopeia/Noxious_Blast?oldid=4060358) |
+| Noxious Blast | poisoned for something between 3.2 and 3.3 seconds | [4060358](https://wiki.leagueoflegends.com/en-us/Template:Data_Cassiopeia/Noxious_Blast?oldid=4060358) |
+| Noxious Blast | Bonus Movement Speed: 30 / 35 / 40 / 45 / 50% | [4060358](https://wiki.leagueoflegends.com/en-us/Template:Data_Cassiopeia/Noxious_Blast?oldid=4060358) |
+| Noxious Blast | decays over 3 seconds | [4060358](https://wiki.leagueoflegends.com/en-us/Template:Data_Cassiopeia/Noxious_Blast?oldid=4060358) |
+| Miasma | creating toxic clouds at the area for 5 seconds | [3936292](https://wiki.leagueoflegends.com/en-us/Template:Data_Cassiopeia/Miasma?oldid=3936292) |
+| Miasma | because there is 19 ticks and not 20 ticks | [3936292](https://wiki.leagueoflegends.com/en-us/Template:Data_Cassiopeia/Miasma?oldid=3936292) |
+| Miasma | 5 / 6.25 / 7.5 / 8.75 / 10 (+ 2.5% AP) | [3936292](https://wiki.leagueoflegends.com/en-us/Template:Data_Cassiopeia/Miasma?oldid=3936292) |
+| Miasma | Slow: 40 / 50 / 60 / 70 / 80% | [3936292](https://wiki.leagueoflegends.com/en-us/Template:Data_Cassiopeia/Miasma?oldid=3936292) |
+| Miasma | the debuff will refresh to 0.25 seconds | [3936292](https://wiki.leagueoflegends.com/en-us/Template:Data_Cassiopeia/Miasma?oldid=3936292) |
+| Miasma | Wind Wall will block the portion of Miasma it destroys | [3936292](https://wiki.leagueoflegends.com/en-us/Template:Data_Cassiopeia/Miasma?oldid=3936292) |
+| Miasma | not removed by most cleanses | [3936292](https://wiki.leagueoflegends.com/en-us/Template:Data_Cassiopeia/Miasma?oldid=3936292) |
+| Miasma | Sometimes Miasma randomly inflicts only 18 ticks of damage | [3936292](https://wiki.leagueoflegends.com/en-us/Template:Data_Cassiopeia/Miasma?oldid=3936292) |
+| Twin Fang | Active: Cassiopeia launches her fangs at the target enemy that deal 50 – 120 (based on level) (+ 20% AP) magic damage. | [4064399](https://wiki.leagueoflegends.com/en-us/Template:Data_Cassiopeia/Twin_Fang?oldid=4064399) |
+| Twin Fang | (+ 20% AP) magic damage | [4064399](https://wiki.leagueoflegends.com/en-us/Template:Data_Cassiopeia/Twin_Fang?oldid=4064399) |
+| Twin Fang | Bonus Magic Damage: 20 / 45 / 70 / 95 / 120 (+ 45% AP) | [4064399](https://wiki.leagueoflegends.com/en-us/Template:Data_Cassiopeia/Twin_Fang?oldid=4064399) |
+| Twin Fang | Heal: 10 / 11.5 / 13 / 14.5 / 16% AP | [4064399](https://wiki.leagueoflegends.com/en-us/Template:Data_Cassiopeia/Twin_Fang?oldid=4064399) |
+| Twin Fang | targetRange: 700 | [4064399](https://wiki.leagueoflegends.com/en-us/Template:Data_Cassiopeia/Twin_Fang?oldid=4064399) |
+| Twin Fang | speed: 2500 | [4064399](https://wiki.leagueoflegends.com/en-us/Template:Data_Cassiopeia/Twin_Fang?oldid=4064399) |
+| Twin Fang | cost: 45 | [4064399](https://wiki.leagueoflegends.com/en-us/Template:Data_Cassiopeia/Twin_Fang?oldid=4064399) |
+| Twin Fang | Twin Fang will wait for an ongoing Noxious Blast to explode | [4064399](https://wiki.leagueoflegends.com/en-us/Template:Data_Cassiopeia/Twin_Fang?oldid=4064399) |
+| Twin Fang | does not go on cooldown nor pay its cost | [4064399](https://wiki.leagueoflegends.com/en-us/Template:Data_Cassiopeia/Twin_Fang?oldid=4064399) |
+| Twin Fang | slightly larger than the actual cast range | [4064399](https://wiki.leagueoflegends.com/en-us/Template:Data_Cassiopeia/Twin_Fang?oldid=4064399) |
+| Petrifying Gaze | Magic Damage: 125 / 225 / 325 (+ 75% AP) | [4060360](https://wiki.leagueoflegends.com/en-us/Template:Data_Cassiopeia/Petrifying_Gaze?oldid=4060360) |
+| Petrifying Gaze | slowing them by 40% for 2 seconds | [4060360](https://wiki.leagueoflegends.com/en-us/Template:Data_Cassiopeia/Petrifying_Gaze?oldid=4060360) |
+| Petrifying Gaze | effectRadius (starts 100 units behind): 850 | [4060360](https://wiki.leagueoflegends.com/en-us/Template:Data_Cassiopeia/Petrifying_Gaze?oldid=4060360) |
+| Petrifying Gaze | angle: 80° | [4060360](https://wiki.leagueoflegends.com/en-us/Template:Data_Cassiopeia/Petrifying_Gaze?oldid=4060360) |
+| Petrifying Gaze | cast from wherever the caster is at the end of the cast time | [4060360](https://wiki.leagueoflegends.com/en-us/Template:Data_Cassiopeia/Petrifying_Gaze?oldid=4060360) |
+| Petrifying Gaze | target direction will change if Cassiopeia's facing direction changes during the cast time | [4060360](https://wiki.leagueoflegends.com/en-us/Template:Data_Cassiopeia/Petrifying_Gaze?oldid=4060360) |
+| Petrifying Gaze | it will factor the direction they were facing on cast | [4060360](https://wiki.leagueoflegends.com/en-us/Template:Data_Cassiopeia/Petrifying_Gaze?oldid=4060360) |
+| Noxious Blast | cooldown: 3.5 | [4060358](https://wiki.leagueoflegends.com/en-us/Template:Data_Cassiopeia/Noxious_Blast?oldid=4060358) |
+| Noxious Blast | castTime: 0.25 | [4060358](https://wiki.leagueoflegends.com/en-us/Template:Data_Cassiopeia/Noxious_Blast?oldid=4060358) |
+| Miasma | cooldown: 24 / 22 / 20 / 18 / 16 | [3936292](https://wiki.leagueoflegends.com/en-us/Template:Data_Cassiopeia/Miasma?oldid=3936292) |
+| Miasma | castTime: 0.25 | [3936292](https://wiki.leagueoflegends.com/en-us/Template:Data_Cassiopeia/Miasma?oldid=3936292) |
+| Twin Fang | cooldown: 0.75 | [4064399](https://wiki.leagueoflegends.com/en-us/Template:Data_Cassiopeia/Twin_Fang?oldid=4064399) |
+| Twin Fang | castTime: 0.125 | [4064399](https://wiki.leagueoflegends.com/en-us/Template:Data_Cassiopeia/Twin_Fang?oldid=4064399) |
+| Petrifying Gaze | cooldown: 120 / 100 / 80 | [4060360](https://wiki.leagueoflegends.com/en-us/Template:Data_Cassiopeia/Petrifying_Gaze?oldid=4060360) |
+| Twin Fang | Against a poisoned target | [4064399](https://wiki.leagueoflegends.com/en-us/Template:Data_Cassiopeia/Twin_Fang?oldid=4064399) |
+| Noxious Blast | cost: 50 / 55 / 60 / 65 / 70 | [4060358](https://wiki.leagueoflegends.com/en-us/Template:Data_Cassiopeia/Noxious_Blast?oldid=4060358) |
+| Noxious Blast | targetRange: 850 | [4060358](https://wiki.leagueoflegends.com/en-us/Template:Data_Cassiopeia/Noxious_Blast?oldid=4060358) |
+| Noxious Blast | effectRadius: 200 | [4060358](https://wiki.leagueoflegends.com/en-us/Template:Data_Cassiopeia/Noxious_Blast?oldid=4060358) |
+| Miasma | cost: 70 / 75 / 80 / 85 / 90 | [3936292](https://wiki.leagueoflegends.com/en-us/Template:Data_Cassiopeia/Miasma?oldid=3936292) |
+| Miasma | targetRange: 700 | [3936292](https://wiki.leagueoflegends.com/en-us/Template:Data_Cassiopeia/Miasma?oldid=3936292) |
+| Miasma | effectRadius: 200 | [3936292](https://wiki.leagueoflegends.com/en-us/Template:Data_Cassiopeia/Miasma?oldid=3936292) |
+| Miasma | speed: 3000 | [3936292](https://wiki.leagueoflegends.com/en-us/Template:Data_Cassiopeia/Miasma?oldid=3936292) |
+| Petrifying Gaze | cost: 100 | [4060360](https://wiki.leagueoflegends.com/en-us/Template:Data_Cassiopeia/Petrifying_Gaze?oldid=4060360) |
+| Petrifying Gaze | castTime: 0.5 | [4060360](https://wiki.leagueoflegends.com/en-us/Template:Data_Cassiopeia/Petrifying_Gaze?oldid=4060360) |

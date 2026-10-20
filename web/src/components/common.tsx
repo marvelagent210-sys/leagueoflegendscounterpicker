@@ -27,7 +27,7 @@ export function Score({ value }: { value: number | null | undefined }) {
 }
 
 export function Confidence({ full }: { full: boolean }) {
-  return <span className={`tag ${full ? "full" : "partial"}`}>{full ? "Full confidence" : "Partial confidence"}</span>;
+  return <span className={`tag ${full ? "full" : "partial"}`} title={full ? "Fights modeled under the displayed settings and assumptions." : "Estimated from documented ability interactions."}>{full ? "Simulated" : "Interaction estimate"}</span>;
 }
 
 export function ErrorBox({ error }: { error: Error }) {

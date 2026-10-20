@@ -16,7 +16,8 @@
  * (spacing between equals) drop out and the rest are renormalized.
  */
 import { type Behavior, traitsOf } from "./behavior";
-import { type FightOutcome, fairFight } from "./simulate";
+import { canCast } from "./actions";
+import { type FightOutcome, createWorld, fairFight } from "./simulate";
 import type { AbilitySpec, FighterSpec } from "./spec";
 import type { Mode, SimSettings } from "./state";
 
@@ -77,7 +78,7 @@ function openingReach(ability: AbilitySpec, self: FighterSpec, enemy: FighterSpe
   const traits = traitsOf(ability);
   const d = ability.delivery;
   const radii = self.base.radius + enemy.base.radius;
-  if (traits.engage && (d.kind === "dash" || d.kind === "blink")) return d.distance + (d.hitRadius ?? self.attack.range);
+  if (traits.engage && (d.kind === "dash" || d.kind === "blink")) return d.distance + (d.hitRadius ?? self.attack.range) - (d.hitCentered ? radii : 0);
   if (!traits.cc && !traits.damage) return undefined;
   switch (d.kind) {
     case "target":
@@ -85,23 +86,31 @@ function openingReach(ability: AbilitySpec, self: FighterSpec, enemy: FighterSpe
     case "line":
       return d.range - self.base.radius;
     case "circle":
-      return d.delay > OPENER_MAX_DELAY ? undefined : d.range + d.radius - self.base.radius;
+      return d.delay > OPENER_MAX_DELAY ? undefined : d.range + d.radius - self.base.radius - (d.centered ? enemy.base.radius : 0);
     case "field":
-      if (d.attached) return (d.offset ?? 0) + d.radius - radii;
+      if (d.attached) return (d.offset ?? 0) + d.radius - self.base.radius;
       return (d.delay ?? 0) > OPENER_MAX_DELAY ? undefined : d.range + d.radius - self.base.radius;
+    case "area":
+      return d.delay > OPENER_MAX_DELAY ? undefined : d.far - self.base.radius - (d.centered ? enemy.base.radius : 0);
     case "aura":
       return d.radius - radii;
+    case "self":
+      return ability.channel?.range !== undefined ? ability.channel.range - self.base.radius : undefined;
     default:
       return undefined;
   }
 }
 
 /** The distance a fighter starts its all-in from: its longest opener, or its attack range. */
-export function engageRange(self: FighterSpec, enemy: FighterSpec): number {
+export function engageRange(self: FighterSpec, enemy: FighterSpec, settings: Partial<SimSettings> = {}): number {
   let best = self.attack.range;
+  const world = createWorld({ fighters: [self, enemy], distance: 0, modes: ["idle", "idle"], settings });
   for (const ability of self.abilities) {
     const reach = openingReach(ability, self, enemy);
-    if (reach !== undefined && reach > best) best = reach;
+    if (reach === undefined || reach <= best) continue;
+    // Recasts, stack-gated abilities and unaffordable spells cannot open a full-resource fight.
+    world.units[1].x = self.base.radius + enemy.base.radius + reach;
+    if (canCast(world, world.units[0], ability, true)) best = reach;
   }
   return Math.max(0, Math.min(best, MAX_ENGAGE_RANGE));
 }
@@ -112,40 +121,48 @@ export function fightScore(outcome: FightOutcome): number {
   for (const leaf of outcome.leaves) {
     if (leaf.winner === "none") unresolved += leaf.weight * (leaf.hp[0] - leaf.hp[1]) * 0.5;
   }
-  return outcome.win[0] - outcome.win[1] + unresolved;
+  // Branch arithmetic can sum to 1 + a floating-point epsilon. Keep the declared
+  // score domain exact without changing probabilities or rounding interior scores.
+  return Math.max(-1, Math.min(1, outcome.win[0] - outcome.win[1] + unresolved));
 }
 
 /** Health exchanged in a trade by its initiator, as shares of maximum health (deaths count fully). */
 export function tradeValue(outcome: FightOutcome, trader: 0 | 1): number {
   const other = trader === 0 ? 1 : 0;
-  return outcome.hp[trader] - outcome.hp[other];
+  return Math.max(-1, Math.min(1, outcome.hp[trader] - outcome.hp[other]));
 }
 
 /** Chance that the fleeing side survives. */
 export function escapeChance(outcome: FightOutcome, fleeing: 0 | 1): number {
   const chaser = fleeing === 0 ? 1 : 0;
-  return 1 - outcome.win[chaser] - outcome.draw;
+  return Math.max(0, Math.min(1, 1 - outcome.win[chaser] - outcome.draw));
 }
 
 export function runScenarios(you: FighterSpec, enemy: FighterSpec, options: ScenarioOptions = {}): MatchupResult {
+  const weights = { ...SCENARIO_WEIGHTS, ...options.weights };
+  for (const id of SCENARIOS) {
+    if (!Number.isFinite(weights[id]) || weights[id] < 0) throw new RangeError(`Scenario weight for ${id} must be finite and nonnegative`);
+  }
   const fighters: [FighterSpec, FighterSpec] = [you, enemy];
   const behaviors = options.behaviors;
   const run = (distance: number, modes: [Mode, Mode], settings: Partial<SimSettings> = {}): FightOutcome =>
     fairFight({ fighters, distance, modes, ...(behaviors ? { behaviors } : {}), settings: { ...options.settings, ...settings } });
   const results: ScenarioResult[] = [];
+  const yourRange = engageRange(you, enemy, options.settings);
+  const theirRange = engageRange(enemy, you, options.settings);
 
-  const youEngage = run(engageRange(you, enemy), ["fight", "fight"]);
-  results.push({ id: "youEngage", score: fightScore(youEngage), outcomes: [youEngage], note: `from ${Math.round(engageRange(you, enemy))} units` });
+  const youEngage = run(yourRange, ["fight", "fight"]);
+  results.push({ id: "youEngage", score: fightScore(youEngage), outcomes: [youEngage], note: `from ${Math.round(yourRange)} units` });
 
-  const enemyEngages = run(engageRange(enemy, you), ["fight", "fight"]);
-  results.push({ id: "enemyEngages", score: fightScore(enemyEngages), outcomes: [enemyEngages], note: `from ${Math.round(engageRange(enemy, you))} units` });
+  const enemyEngages = run(theirRange, ["fight", "fight"]);
+  results.push({ id: "enemyEngages", score: fightScore(enemyEngages), outcomes: [enemyEngages], note: `from ${Math.round(theirRange)} units` });
 
   const brawl = run(0, ["fight", "fight"]);
   results.push({ id: "brawl", score: fightScore(brawl), outcomes: [brawl], note: "from melee range" });
 
   const tradeSettings = { maxSeconds: 15 };
-  const yourTrade = run(engageRange(you, enemy) + 100, ["trade", "hold"], tradeSettings);
-  const theirTrade = run(engageRange(enemy, you) + 100, ["hold", "trade"], tradeSettings);
+  const yourTrade = run(yourRange + 100, ["trade", "hold"], tradeSettings);
+  const theirTrade = run(theirRange + 100, ["hold", "trade"], tradeSettings);
   results.push({
     id: "shortTrade",
     score: (tradeValue(yourTrade, 0) - tradeValue(theirTrade, 1)) / 2,
@@ -175,7 +192,6 @@ export function runScenarios(you: FighterSpec, enemy: FighterSpec, options: Scen
     note: `you get away ${chance(escapeChance(youRun, 0))} of the time, they get away ${chance(escapeChance(theyRun, 1))}`,
   });
 
-  const weights = { ...SCENARIO_WEIGHTS, ...options.weights };
   let total = 0;
   let weighted = 0;
   for (const result of results) {
@@ -183,7 +199,7 @@ export function runScenarios(you: FighterSpec, enemy: FighterSpec, options: Scen
     total += weights[result.id];
     weighted += weights[result.id] * result.score;
   }
-  return { score: total > 0 ? weighted / total : 0, scenarios: results };
+  return { score: total > 0 ? Math.max(-1, Math.min(1, weighted / total)) : 0, scenarios: results };
 }
 
 function pct(value: number): string {

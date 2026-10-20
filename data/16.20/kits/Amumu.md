@@ -170,3 +170,72 @@ Cooldowns and costs of each slot's main ability, wiki vs game files:
 | E: Tantrum | cost | 35 / 35 / 35 / 35 / 35 | 35 / 35 / 35 / 35 / 35 | yes |
 | R: Curse of the Sad Mummy | cooldown | 150 / 125 / 100 | 150 / 125 / 100 | yes |
 | R: Curse of the Sad Mummy | cost | 100 / 150 / 200 | 100 / 150 / 200 | yes |
+
+## Duel simulator kit (level 20, every ability at max rank)
+
+What the duel simulator fights with (`kits/champions/Amumu.ts`): values come from pinned wiki and versioned game-data records at level 20. Interpretations and missing evidence are listed under assumptions. Ratios are fractions of the stat (60% AD is 0.6 × AD).
+
+- Basic attack: range 125, melee, on hit: marks it "cursedTouch" for 3 s.
+
+| Key | Ability | Cooldown (s) | Cast time (s) | Cost | Delivery | On the enemy | On itself |
+|---|---|--:|--:|---|---|---|---|
+| Q | Bandage Toss | 2 charges, one every 12 s (3 s between casts) | 0.25 | 50 | skillshot 1100 long, 160 wide, at 2000/s | 170 + 85% AP magic damage; stun for 1 s | – |
+| Q-pull | Bandage Toss (pull) | 0 | 0 | – | dash target 2000 units at 1800/s | – | – |
+| W | Despair | 1 (unaffected by ability haste) | 0 | – | self | – | – |
+| E | Tantrum | 5 | 0.25 | 35 | around itself, 350 units | 185 + 50% AP magic damage | – |
+| R | Curse of the Sad Mummy | 100 | 0.25 | 200 | around itself, 550 units | 400 + 80% AP magic damage; stun for 1.5 s; marks it "cursedTouch" for 3 s | – |
+
+Effects marked by a mark or a role are completed by the kit's hooks (see the kit's source).
+
+### Assumptions
+
+- Despair starts toggled on, drains 8 mana per second continuously, and turns off when mana is exhausted; it is not automatically toggled back on. Its first damage pulse is 0.5 seconds into the fight. Only existing Curse marks are refreshed by its damage.
+- Bandage Toss pulls to the enemy's moving position until it moves at least 2000 units away, then finishes toward its last tracked position. The duel has one enemy and no lane minions intercepting the bandage.
+- The simulator ends a duel on champion death; a Bandage Toss still in flight at that point cannot affect the already-ended duel.
+- The stat budget values Despair as continuously in range and Cursed Touch as active on Amumu's magic damage. Tantrum's attack-driven cooldown refunds and flat mitigation are resolved in the duel, rather than estimated by the stat budget.
+
+### Source values read (41)
+
+| Ability | Value | Source version |
+|---|---|---|
+| Cursed Touch | mark enemies with Curse for 3 seconds | [4046475](https://wiki.leagueoflegends.com/en-us/Template:Data_Amumu/Cursed_Touch?oldid=4046475) |
+| Cursed Touch | Cursed targets receive 10% bonus true damage from all incoming pre-mitigation magic damage | [4046475](https://wiki.leagueoflegends.com/en-us/Template:Data_Amumu/Cursed_Touch?oldid=4046475) |
+| Cursed Touch | If the triggering basic attack from Amumu applies magic damage on-hit, Curse will be applied before the magic damage | [4046475](https://wiki.leagueoflegends.com/en-us/Template:Data_Amumu/Cursed_Touch?oldid=4046475) |
+| Cursed Touch | The Curse application from Curse of the Sad Mummy happens after the magic damage is dealt by it | [4046475](https://wiki.leagueoflegends.com/en-us/Template:Data_Amumu/Cursed_Touch?oldid=4046475) |
+| Bandage Toss | speed (Dash speed): 2000 • 1800 | [4007564](https://wiki.leagueoflegends.com/en-us/Template:Data_Amumu/Bandage_Toss?oldid=4007564) |
+| Bandage Toss | the target is 2000 or more units away | [4007564](https://wiki.leagueoflegends.com/en-us/Template:Data_Amumu/Bandage_Toss?oldid=4007564) |
+| Despair | dealing magic damage every 0.5 seconds | [4006735](https://wiki.leagueoflegends.com/en-us/Template:Data_Amumu/Despair?oldid=4006735) |
+| Despair | Magic Damage Per Tick: 5 (+ 0.5 / 0.625 / 0.75 / 0.875 / 1% (+ 0.25% per 100 AP) of target's maximum health) | [4006735](https://wiki.leagueoflegends.com/en-us/Template:Data_Amumu/Despair?oldid=4006735) |
+| Despair | cost: 8 | [4006735](https://wiki.leagueoflegends.com/en-us/Template:Data_Amumu/Despair?oldid=4006735) |
+| Despair | effectRadius: 350 | [4006735](https://wiki.leagueoflegends.com/en-us/Template:Data_Amumu/Despair?oldid=4006735) |
+| Tantrum | Physical Damage Reduction: 5 / 7 / 9 / 11 / 13 (+ 3% bonus armor) (+ 3% bonus magic resistance) | [3996197](https://wiki.leagueoflegends.com/en-us/Template:Data_Amumu/Tantrum?oldid=3996197) |
+| Tantrum | capped at 50% of the damage instance | [3996197](https://wiki.leagueoflegends.com/en-us/Template:Data_Amumu/Tantrum?oldid=3996197) |
+| Tantrum | current cooldown is reduced by 0.75 seconds | [3996197](https://wiki.leagueoflegends.com/en-us/Template:Data_Amumu/Tantrum?oldid=3996197) |
+| Bandage Toss | Amumu is still able to dash even if Bandage Toss is blocked by spell shield | [4007564](https://wiki.leagueoflegends.com/en-us/Template:Data_Amumu/Bandage_Toss?oldid=4007564) |
+| Bandage Toss | Immobilizing effects will not prevent Amumu from commencing the dash | [4007564](https://wiki.leagueoflegends.com/en-us/Template:Data_Amumu/Bandage_Toss?oldid=4007564) |
+| Bandage Toss | Bandage Toss does not fizzle on Amumu's death | [4007564](https://wiki.leagueoflegends.com/en-us/Template:Data_Amumu/Bandage_Toss?oldid=4007564) |
+| Despair | Despair is toggled off automatically if Amumu becomes unable to pay its mana cost | [4006735](https://wiki.leagueoflegends.com/en-us/Template:Data_Amumu/Despair?oldid=4006735) |
+| Tantrum | The cooldown will be reduced, even if the incoming attack is blocked | [3996197](https://wiki.leagueoflegends.com/en-us/Template:Data_Amumu/Tantrum?oldid=3996197) |
+| Bandage Toss | staticCooldown: 3 | [4007564](https://wiki.leagueoflegends.com/en-us/Template:Data_Amumu/Bandage_Toss?oldid=4007564) |
+| Bandage Toss | up to a maximum of 2 | [4007564](https://wiki.leagueoflegends.com/en-us/Template:Data_Amumu/Bandage_Toss?oldid=4007564) |
+| Bandage Toss | recharge: 16 / 15 / 14 / 13 / 12 | [4007564](https://wiki.leagueoflegends.com/en-us/Template:Data_Amumu/Bandage_Toss?oldid=4007564) |
+| Bandage Toss | cost: 50 | [4007564](https://wiki.leagueoflegends.com/en-us/Template:Data_Amumu/Bandage_Toss?oldid=4007564) |
+| Bandage Toss | castTime: 0.25 | [4007564](https://wiki.leagueoflegends.com/en-us/Template:Data_Amumu/Bandage_Toss?oldid=4007564) |
+| Bandage Toss | range: 1100 | [4007564](https://wiki.leagueoflegends.com/en-us/Template:Data_Amumu/Bandage_Toss?oldid=4007564) |
+| Bandage Toss | width: 160 | [4007564](https://wiki.leagueoflegends.com/en-us/Template:Data_Amumu/Bandage_Toss?oldid=4007564) |
+| Bandage Toss | speed (Bandage missle speed): 2000 • 1800 | [4007564](https://wiki.leagueoflegends.com/en-us/Template:Data_Amumu/Bandage_Toss?oldid=4007564) |
+| Bandage Toss | Magic Damage: 70 / 95 / 120 / 145 / 170 (+ 85% AP) | [4007564](https://wiki.leagueoflegends.com/en-us/Template:Data_Amumu/Bandage_Toss?oldid=4007564) |
+| Bandage Toss | stunning them for 1 second | [4007564](https://wiki.leagueoflegends.com/en-us/Template:Data_Amumu/Bandage_Toss?oldid=4007564) |
+| Despair | staticCooldown: 1 | [4006735](https://wiki.leagueoflegends.com/en-us/Template:Data_Amumu/Despair?oldid=4006735) |
+| Despair | castTime: none | [4006735](https://wiki.leagueoflegends.com/en-us/Template:Data_Amumu/Despair?oldid=4006735) |
+| Tantrum | cooldown: 9 / 8 / 7 / 6 / 5 | [3996197](https://wiki.leagueoflegends.com/en-us/Template:Data_Amumu/Tantrum?oldid=3996197) |
+| Tantrum | cost: 35 | [3996197](https://wiki.leagueoflegends.com/en-us/Template:Data_Amumu/Tantrum?oldid=3996197) |
+| Tantrum | castTime: 0.25 | [3996197](https://wiki.leagueoflegends.com/en-us/Template:Data_Amumu/Tantrum?oldid=3996197) |
+| Tantrum | effectRadius: 350 | [3996197](https://wiki.leagueoflegends.com/en-us/Template:Data_Amumu/Tantrum?oldid=3996197) |
+| Tantrum | Magic Damage: 65 / 95 / 125 / 155 / 185 (+ 50% AP) | [3996197](https://wiki.leagueoflegends.com/en-us/Template:Data_Amumu/Tantrum?oldid=3996197) |
+| Curse of the Sad Mummy | cooldown: 150 / 125 / 100 | [3953818](https://wiki.leagueoflegends.com/en-us/Template:Data_Amumu/Curse_of_the_Sad_Mummy?oldid=3953818) |
+| Curse of the Sad Mummy | cost: 100 / 150 / 200 | [3953818](https://wiki.leagueoflegends.com/en-us/Template:Data_Amumu/Curse_of_the_Sad_Mummy?oldid=3953818) |
+| Curse of the Sad Mummy | castTime: 0.25 | [3953818](https://wiki.leagueoflegends.com/en-us/Template:Data_Amumu/Curse_of_the_Sad_Mummy?oldid=3953818) |
+| Curse of the Sad Mummy | effectRadius: 550 | [3953818](https://wiki.leagueoflegends.com/en-us/Template:Data_Amumu/Curse_of_the_Sad_Mummy?oldid=3953818) |
+| Curse of the Sad Mummy | Magic Damage: 200 / 300 / 400 (+ 80% AP) | [3953818](https://wiki.leagueoflegends.com/en-us/Template:Data_Amumu/Curse_of_the_Sad_Mummy?oldid=3953818) |
+| Curse of the Sad Mummy | stunning them for 1.5 seconds | [3953818](https://wiki.leagueoflegends.com/en-us/Template:Data_Amumu/Curse_of_the_Sad_Mummy?oldid=3953818) |

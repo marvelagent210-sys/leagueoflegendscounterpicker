@@ -54,7 +54,9 @@ const ornn: KitModule = {
     const gout: Effect = { type: "damage", damageType: "magic", amount: w.formula("Magic Damage Per Tick"), minimum: w.formula("Minimum/Minion Damage Per Tick") };
     const brittle: Effect[] = [
       { type: "mark", key: BRITTLE, duration: brittleSeconds },
-      { type: "state", state: "tenacity", value: -brittleLonger, duration: brittleSeconds },
+      // Courage revision 4064595 explicitly adds Courage and Brittle, conflicting with
+      // Tenacity revision 4021927's multiplicative group C. Tag only the documented pair.
+      { type: "state", state: "tenacity", value: -brittleLonger, duration: brittleSeconds, tenacityGroup: "courage-brittle" },
     ];
     const isBrittle = (unit: Unit) => unit.statuses.some((s) => s.kind === "mark" && s.key === BRITTLE);
     const clearBrittle = (unit: Unit) => {
@@ -71,6 +73,7 @@ const ornn: KitModule = {
     };
 
     const chargeCast = e.castTime();
+    const chargeDamage: Effect = { type: "damage", damageType: "physical", amount: e.formula("Physical Damage") };
     const bellowsEvery = w.cooldown();
     // Terrain Searing Charge can hit beyond the enemy: the pillar, and a wall behind it.
     const terrain = (unit: Unit, enemy: Unit, world: World): number | undefined => {
@@ -125,6 +128,7 @@ const ornn: KitModule = {
         },
         onAbilityHit(ctx) {
           const key = ctx.ability.key;
+          if (key === "E") ctx.memory.chargeHit = true;
           if (key === "Q") {
             // The pillar rises 200 units behind the enemy.
             const dir = directionTo(ctx.self, ctx.enemy);
@@ -143,6 +147,7 @@ const ornn: KitModule = {
           const wall = terrain(ctx.self, ctx.enemy, ctx.world);
           ctx.memory.charging = wall !== undefined;
           ctx.memory.chargeWall = wall ?? 0;
+          ctx.memory.chargeHit = false;
         },
         onTick(ctx) {
           if (!ctx.memory.charging) return;
@@ -162,6 +167,7 @@ const ornn: KitModule = {
           ctx.memory.pillarUntil = -1;
           ctx.log("Searing Charge hits terrain");
           areaAt(ctx, "Eshock", self.x, shockRadius, 0, [
+            ...(!ctx.memory.chargeHit ? [chargeDamage] : []),
             { type: "displace", direction: "away", distance: 0, duration: shockStun },
             { type: "cc", cc: "stun", duration: shockStun },
           ]);
@@ -210,7 +216,7 @@ const ornn: KitModule = {
           castTime: e.castTime(),
           usable: chargeLands,
           delivery: { kind: "dash", direction: "toward", distance: chargeDistance, speed: e.field("speed"), hitRadius: 0, through: true },
-          onHit: [{ type: "damage", damageType: "physical", amount: e.formula("Physical Damage") }],
+          onHit: [chargeDamage],
           flags: { grounded: true, knockdown: true },
         },
         {
@@ -222,7 +228,7 @@ const ornn: KitModule = {
           castTime: 0,
           usable: () => false,
           delivery: { kind: "self" },
-          onHit: [{ type: "displace", direction: "away", distance: 0, duration: shockStun }],
+          onHit: [chargeDamage, { type: "displace", direction: "away", distance: 0, duration: shockStun }],
         },
         {
           key: "R",

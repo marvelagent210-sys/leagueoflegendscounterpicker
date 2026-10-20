@@ -257,7 +257,20 @@
       "Triggering Rebirth will break tethers on Anivia.",
       "Chronoshift and Guardian Angel will take priority over Rebirth.",
       "If Rebirth triggers while Anivia is channeling Teleport, her channel won't be interrupted.\n  - All other channels will be interrupted upon triggering Rebirth.",
-      "The following refers for interactions while Anivia is resurrecting:"
+      "The following refers for interactions while Anivia is resurrecting:",
+      "Interaction table (ct): move=false; cast=false; attack=false; items=false; consume=false; spells=false; interrupts=death."
+    ],
+    "sources": [
+      {
+        "page": {
+          "title": "Template:Tip data/Resurrection",
+          "revid": 4060644
+        },
+        "text": [
+          "A unit that is protected by Resurrection will enter a revival state and dispel most debuffs upon taking fatal damage. After the state completes, the unit is revived. Resurrection effects do not count for kills or assists.",
+          "Resurrection sources have a hierarchy, and will trigger in the following order:\n# Chronoshift\n# Cultivation of War\n# Guardian Angel\n# Rebirth and Cell Division\n\nResurrection will always take precedence over zombie state effects. Entering resurrection does not cancel cast times. Bailout always takes priority over resurrection."
+        ]
+      }
     ]
   },
   {
@@ -1058,6 +1071,20 @@
       "Individual ice chunks have both 100 units pathing radius and gameplay radius.",
       "Champions are knocked 120 units to either side of a wall segment, non-champions 250 units.\n  - Knockback speed?",
       "Player-generated terrain such as Crystallize does not block sight."
+    ],
+    "gameSources": [
+      {
+        "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/anivia/anivia.bin.json",
+        "sha256": "9b3d47d23a5e4f08bf9050031fd60ef9678201a5228e97785ab044fde082e718",
+        "object": "Characters/Anivia/Spells/CrystallizeAbility/Crystallize",
+        "text": [
+          "mSpell.DataValues.ChampPushDistance.values: [120,120,120,120,120,120,120]",
+          "mSpell.DataValues.NonChampPushDistance.values: [250,250,250,250,250,250,250]",
+          "mSpell.missileSpeed: 1600",
+          "mSpell.mClientData.mTargeterDefinitions: [{\"useCasterBoundingBox\":false,\"__type\":\"TargeterDefinitionRange\"},{\"centerLocator\":{\"basePosition\":3,\"__type\":\"DrawablePositionLocator\"},\"thickness\":{\"mPerLevelValues\":[150,150,150,150,150,150],\"mValueType\":2,\"__type\":\"FloatPerSpellLevel\"},\"length\":{\"mPerLevelValues\":[525,625,725,825,925,1025],\"mValueType\":2,\"__type\":\"FloatPerSpellLevel\"},\"__type\":\"TargeterDefinitionWall\"}]"
+        ]
+      }
     ]
   }
 ]

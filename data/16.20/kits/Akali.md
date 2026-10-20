@@ -241,7 +241,7 @@ All 12 level-based formulas in the game files (1 linked to wiki values above):
 
 ## Duel simulator kit (level 20, every ability at max rank)
 
-What the duel simulator fights with (`kits/champions/Akali.ts`): every number is read from the wiki's ability data above at level 20; what the wiki doesn't say is listed under assumptions. Ratios are fractions of the stat (60% AD is 0.6 × AD).
+What the duel simulator fights with (`kits/champions/Akali.ts`): values come from pinned wiki and versioned game-data records at level 20. Interpretations and missing evidence are listed under assumptions. Ratios are fractions of the stat (60% AD is 0.6 × AD).
 
 - Basic attack: range 125, melee.
 
@@ -264,9 +264,9 @@ Effects marked by a mark or a role are completed by the kit's hooks (see the kit
 - Shuriken Flip's flip back is a 400-unit jump 0.15 s into the cast; the shuriken still reaches 825 units past where she started.
 - Akali throws Twilight Shroud once she is within 150 units of the enemy's attack range.
 
-### Wiki values read (48)
+### Source values read (48)
 
-| Ability | Value | Revision |
+| Ability | Value | Source version |
 |---|---|---|
 | Assassin's Mark | she creates a ring around them for 4 seconds | [4074464](https://wiki.leagueoflegends.com/en-us/Template:Data_Akali/Assassin's_Mark?oldid=4074464) |
 | Assassin's Mark | effectRadius: 500 | [4074464](https://wiki.leagueoflegends.com/en-us/Template:Data_Akali/Assassin's_Mark?oldid=4074464) |

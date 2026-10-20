@@ -204,6 +204,18 @@
       "Inferno Trigger will be buffered to cast at the end of the dash if Flair was cast during the dash.",
       "Casting Flash during Wild Rush will interrupt the dash but deal damage to nearby enemies at the location.\n  - If Flair was cast during this time, an explosive will also be placed at that location.",
       "Wild Rush will also reset if Samira kills or gets assist credit on a clone that dies (to hostiles)."
+    ],
+    "gameSources": [
+      {
+        "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/samira/samira.bin.json",
+        "sha256": "042e9d9a1fa2eac9493799d5f047e5af468822e57c944c12182a143aa4ab9b19",
+        "object": "Characters/Samira/Spells/SamiraEAbility/SamiraE",
+        "text": [
+          "mSpell.DataValues: [{\"name\":\"BaseDamage\",\"values\":[40.0,50.0,60.0,70.0,80.0,90.0,100.0],\"__type\":\"SpellDataValue\"},{\"name\":\"BonusAttackSpeed\",\"values\":[0.15000000596046448,0.20000000298023224,0.25,0.30000001192092896,0.3499999940395355,0.4000000059604645,0.44999998807907104],\"__type\":\"SpellDataValue\"},{\"name\":\"DashSpeed\",\"values\":[1600.0,1600.0,1600.0,1600.0,1600.0,1600.0,1600.0],\"__type\":\"SpellDataValue\"},{\"name\":\"DashTotalDistance\",\"values\":[650.0,650.0,650.0,650.0,650.0,650.0,650.0],\"__type\":\"SpellDataValue\"},{\"name\":\"AttackSpeedDuration\",\"values\":[5.0,5.0,5.0,5.0,5.0,5.0,5.0],\"__type\":\"SpellDataValue\"}]",
+          "mSpell.mSpellCalculations: {\"DashDamage\":{\"mFormulaParts\":[{\"mDataValue\":\"BaseDamage\",\"__type\":\"NamedDataValueCalculationPart\"},{\"mStat\":2,\"mStatFormula\":2,\"mCoefficient\":0.20000000298023224,\"__type\":\"StatByCoefficientCalculationPart\"}],\"__type\":\"GameCalculation\"}}"
+        ]
+      }
     ]
   },
   {
@@ -655,6 +667,39 @@
       "The empowered attack's speed is unaffected by attack speed modifiers.",
       "If Samira is outside maximum initiation range for the dash when targeting an immobilized target, the player must input a new Attack order on the target upon entering initiation range in order to actually initiate the dash.\n  - However if Samira enters the bolts' cast range via her movement while the target is still immobilized without issuing any other commands, the empowered attack will cast without requiring a new order (without the dash).",
       "The empowered attack removes any forced movement affecting the target once its knock up ends.\n  - Does this also happen if it's cleansed."
+    ],
+    "gameSources": [
+      {
+        "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/samira/samira.bin.json",
+        "sha256": "042e9d9a1fa2eac9493799d5f047e5af468822e57c944c12182a143aa4ab9b19",
+        "object": "Characters/Samira/Spells/SamiraPassiveCombo",
+        "text": [
+          "mSpell.DataValues: [{\"name\":\"SwordRange\",\"values\":[200.0,200.0,200.0,200.0,200.0,200.0,200.0],\"__type\":\"SpellDataValue\"}]",
+          "mSpell.mSpellCalculations: {\"QueenMaxDashRange\":{\"mFormulaParts\":[{\"mLevel1Value\":800.0,\"mBreakpoints\":[{\"mLevel\":4,\"mAdditionalBonusAtThisLevel\":50.0,\"__type\":\"Breakpoint\"},{\"mLevel\":8,\"mAdditionalBonusAtThisLevel\":50.0,\"__type\":\"Breakpoint\"},{\"mLevel\":12,\"mAdditionalBonusAtThisLevel\":50.0,\"__type\":\"Breakpoint\"},{\"mLevel\":16,\"mAdditionalBonusAtThisLevel\":50.0,\"__type\":\"Breakpoint\"}],\"__type\":\"ByCharLevelBreakpointsCalculationPart\"}],\"__type\":\"GameCalculation\"},\"BonusMeleeDamage\":{\"mFormulaParts\":[{\"mStat\":2,\"mCoefficient\":0.10000000149011612,\"__type\":\"StatByCoefficientCalculationPart\"},{\"mLevel1Value\":2.0,\"mInitialBonusPerLevel\":1.0,\"__type\":\"ByCharLevelBreakpointsCalculationPart\"}],\"__type\":\"GameCalculation\"}}"
+        ]
+      },
+      {
+        "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/samira/samira.bin.json",
+        "sha256": "042e9d9a1fa2eac9493799d5f047e5af468822e57c944c12182a143aa4ab9b19",
+        "object": "Characters/Samira/Spells/SamiraBasicAttack",
+        "text": [
+          "mSpell.mMissileSpec: {\"movementComponent\":{\"mTargetHeightAugment\":100.0,\"mOffsetInitialTargetHeight\":100.0,\"mStartBoneName\":\"Pistol_Muzzle\",\"mSpeed\":2800.0,\"__type\":\"FixedSpeedMovement\"},\"verticalFacing\":{\"__type\":\"VeritcalFacingMatchVelocity\"},\"behaviors\":[{\"__type\":\"CastOnMovementComplete\"},{\"__type\":\"DestroyOnMovementComplete\"}],\"__type\":\"MissileSpecification\"}",
+          "mSpell.missileSpeed: 2800.0"
+        ]
+      },
+      {
+        "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/samira/samira.bin.json",
+        "sha256": "042e9d9a1fa2eac9493799d5f047e5af468822e57c944c12182a143aa4ab9b19",
+        "object": "Characters/Samira/Spells/SamiraPJuggle",
+        "text": [
+          "mSpell.DataValues: [{\"name\":\"Duration\",\"values\":[0.5,0.5,0.5,0.5,0.5,0.5,0.5],\"__type\":\"SpellDataValue\"},{\"name\":\"NumShots\",\"values\":[6.0,6.0,6.0,6.0,6.0,6.0,6.0],\"__type\":\"SpellDataValue\"},{\"name\":\"RecastLockout\",\"values\":[0.75,0.75,0.75,0.75,0.75,0.75,0.75],\"__type\":\"SpellDataValue\"},{\"name\":\"RangeCheck\",\"values\":[650.0,650.0,650.0,650.0,650.0,650.0,650.0],\"__type\":\"SpellDataValue\"},{\"name\":\"PercentDamageAmpToMinions\",\"values\":[200.0,200.0,200.0,200.0,200.0,200.0,200.0],\"__type\":\"SpellDataValue\"},{\"name\":\"BaseDamage\",\"values\":[0.0,5.0,10.0,15.0,20.0,25.0,30.0],\"__type\":\"SpellDataValue\"}]",
+          "mSpell.mSpellCalculations: {\"DamagePerBullet\":{\"mFormulaParts\":[{\"mStat\":2,\"mCoefficient\":0.17000000178813934,\"__type\":\"StatByCoefficientCalculationPart\"}],\"__type\":\"GameCalculation\"},\"TotalDamage\":{\"mMultiplier\":{\"mDataValue\":\"NumShots\",\"__type\":\"NamedDataValueCalculationPart\"},\"mModifiedGameCalculation\":\"DamagePerBullet\",\"__type\":\"GameCalculationModified\"}}",
+          "mSpell.mCastTime: 0.009999999776482582"
+        ]
+      }
     ]
   },
   {
@@ -887,6 +932,18 @@
       "This ability will cast from wherever the caster is at the end of the cast time.\n  - Flair will fire or slash from wherever Samira is at the end of the cast time.\n    - Samira will always slash in her facing direction, and she will turn to face the target direction only once at the start of the cast time.",
       "Only the shot will be destroyed by projectile-intercepting effects.",
       "The explosive placement is illustrated in Wild Rush regardless of whether Flair is available.\n  - The VFX always covers the the full dash's distance even if Wild Rush is interrupted mid-dash."
+    ],
+    "gameSources": [
+      {
+        "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/samira/samira.bin.json",
+        "sha256": "042e9d9a1fa2eac9493799d5f047e5af468822e57c944c12182a143aa4ab9b19",
+        "object": "Characters/Samira/Spells/SamiraQAbility/SamiraQ",
+        "text": [
+          "mSpell.DataValues: [{\"name\":\"BaseDamage\",\"values\":[-5.0,0.0,5.0,10.0,15.0,20.0,25.0],\"__type\":\"SpellDataValue\"},{\"name\":\"CheatingThreshold\",\"values\":[20.0,20.0,20.0,20.0,20.0,20.0,20.0],\"__type\":\"SpellDataValue\"},{\"name\":\"CritDamageMod\",\"values\":[0.5,0.5,0.5,0.5,0.5,0.5,0.5],\"__type\":\"SpellDataValue\"},{\"name\":\"LifestealMod\",\"values\":[1.0,1.0,1.0,1.0,1.0,1.0,1.0],\"__type\":\"SpellDataValue\"},{\"name\":\"QADRatio\",\"values\":[1.100000023841858,1.100000023841858,1.100000023841858,1.100000023841858,1.100000023841858,1.100000023841858,1.100000023841858],\"__type\":\"SpellDataValue\"}]",
+          "mSpell.mSpellCalculations: {\"DamageCalc\":{\"mFormulaParts\":[{\"mDataValue\":\"BaseDamage\",\"__type\":\"NamedDataValueCalculationPart\"},{\"mStat\":2,\"mDataValue\":\"QADRatio\",\"__type\":\"StatByNamedDataValueCalculationPart\"}],\"__type\":\"GameCalculation\"},\"CriticalDamageCalc\":{\"mMultiplier\":{\"mSubparts\":[{\"mNumber\":1.0,\"__type\":\"NumberCalculationPart\"},{\"mPart1\":{\"mDataValue\":\"CritDamageMod\",\"__type\":\"NamedDataValueCalculationPart\"},\"mPart2\":{\"mSubparts\":[{\"mStat\":9,\"mCoefficient\":1.0,\"__type\":\"StatByCoefficientCalculationPart\"},{\"mNumber\":-1.0,\"__type\":\"NumberCalculationPart\"}],\"__type\":\"SumOfSubPartsCalculationPart\"},\"__type\":\"ProductOfSubPartsCalculationPart\"}],\"__type\":\"SumOfSubPartsCalculationPart\"},\"mModifiedGameCalculation\":\"DamageCalc\",\"__type\":\"GameCalculationModified\"}}"
+        ]
+      }
     ]
   },
   {
@@ -1135,6 +1192,28 @@
       "Inferno Trigger will not end if there are no enemies that remain in range.",
       "The bottom of the player's screen will have a fiery visual effect while Samira is at S rank and Inferno Trigger has at least one rank.",
       "Since R cooldown is static, Ultimate Hunter will be swapped with Treasure Hunter for Samira at the start of the game."
+    ],
+    "gameSources": [
+      {
+        "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/samira/samira.bin.json",
+        "sha256": "042e9d9a1fa2eac9493799d5f047e5af468822e57c944c12182a143aa4ab9b19",
+        "object": "Characters/Samira/Spells/SamiraRAbility/SamiraR",
+        "text": [
+          "mSpell.DataValues: [{\"name\":\"BaseDamage\",\"values\":[0.0,20.0,40.0,60.0,80.0,100.0,120.0],\"__type\":\"SpellDataValue\"},{\"name\":\"BaseMSBonus\",\"values\":[0.019999999552965164,0.019999999552965164,0.019999999552965164,0.019999999552965164,0.019999999552965164,0.019999999552965164,0.019999999552965164],\"__type\":\"SpellDataValue\"},{\"name\":\"LifestealMod\",\"values\":[1.0,1.0,1.0,1.0,1.0,1.0,1.0],\"__type\":\"SpellDataValue\"},{\"name\":\"MinionDamageMod\",\"values\":[0.25,0.25,0.25,0.25,0.25,0.25,0.25],\"__type\":\"SpellDataValue\"},{\"name\":\"ADRatio\",\"values\":[0.30000001192092896,0.30000001192092896,0.30000001192092896,0.30000001192092896,0.30000001192092896,0.30000001192092896,0.30000001192092896],\"__type\":\"SpellDataValue\"}]",
+          "mSpell.mSpellCalculations: {\"DamageCalc\":{\"mFormulaParts\":[{\"mDataValue\":\"BaseDamage\",\"__type\":\"NamedDataValueCalculationPart\"},{\"mStat\":2,\"mDataValue\":\"ADRatio\",\"__type\":\"StatByNamedDataValueCalculationPart\"}],\"__type\":\"GameCalculation\"},\"CriticalDamageCalc\":{\"mMultiplier\":{\"mStat\":9,\"mCoefficient\":1.0,\"__type\":\"StatByCoefficientCalculationPart\"},\"mModifiedGameCalculation\":\"DamageCalc\",\"__type\":\"GameCalculationModified\"}}"
+        ]
+      },
+      {
+        "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/samira/samira.bin.json",
+        "sha256": "042e9d9a1fa2eac9493799d5f047e5af468822e57c944c12182a143aa4ab9b19",
+        "object": "Characters/Samira/Spells/SamiraRAbility/SamiraRMissile",
+        "text": [
+          "mSpell.mMissileSpec: {\"mMissileWidth\":50.0,\"movementComponent\":{\"mTargetHeightAugment\":100.0,\"mOffsetInitialTargetHeight\":100.0,\"mStartBoneName\":\"\",\"mSpeed\":2800.0,\"__type\":\"FixedSpeedMovement\"},\"visibilityComponent\":{\"mPerceptionBubbleRadius\":100.0,\"__type\":\"Defaultvisibility\"},\"verticalFacing\":{\"__type\":\"VeritcalFacingMatchVelocity\"},\"behaviors\":[{\"__type\":\"CastOnMovementComplete\"},{\"__type\":\"DestroyOnMovementComplete\"}],\"__type\":\"MissileSpecification\"}",
+          "mSpell.missileSpeed: 2800.0"
+        ]
+      }
     ]
   },
   {
@@ -1305,6 +1384,18 @@
       "The effect ending early includes the second slash not being performed, if applicable.",
       "Entering stasis will also end Blade Whirl early.\n  - Other item actives and channeling Teleport or Recall will not end the effect early.",
       "Samira can ignore the lockout for Flair and basic attacks if she uses Wild Rush and queues up Flair and/or a basic attack at the start of it."
+    ],
+    "gameSources": [
+      {
+        "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/samira/samira.bin.json",
+        "sha256": "042e9d9a1fa2eac9493799d5f047e5af468822e57c944c12182a143aa4ab9b19",
+        "object": "Characters/Samira/Spells/SamiraWAbility/SamiraW",
+        "text": [
+          "mSpell.DataValues: [{\"name\":\"BaseDamage\",\"values\":[5.0,20.0,35.0,50.0,65.0,80.0,95.0],\"__type\":\"SpellDataValue\"},{\"name\":\"SlashDuration\",\"values\":[0.75,0.75,0.75,0.75,0.75,0.75,0.75],\"__type\":\"SpellDataValue\"}]",
+          "mSpell.mSpellCalculations: {\"DamageCalc\":{\"mFormulaParts\":[{\"mDataValue\":\"BaseDamage\",\"__type\":\"NamedDataValueCalculationPart\"},{\"mStat\":2,\"mStatFormula\":2,\"mCoefficient\":0.5,\"__type\":\"StatByCoefficientCalculationPart\"}],\"__type\":\"GameCalculation\"}}"
+        ]
+      }
     ]
   }
 ]

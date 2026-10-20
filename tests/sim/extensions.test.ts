@@ -133,13 +133,14 @@ describe("states", () => {
   const dash = (knockdown: boolean) =>
     ability({ key: "E", cooldown: 20, delivery: { kind: "dash", direction: "toward", distance: 600, speed: 1200, hitRadius: 100 }, onHit: [trueDamage(100)], flags: { knockdown } });
 
-  it("stops dashes within an anti-dash aura and hits the dasher, but not unstoppable ones", () => {
+  it("stops ordinary dashes within an anti-dash aura and damages unstoppable ones without stopping them", () => {
     const aura = lasting("state", "antiDash", 400, { effects: [trueDamage(70), { type: "cc", cc: "ground", duration: 2 }] });
     const stopped = duel(fighter({ abilities: [dash(true)] }), fighter(), { distance: 600, behaviors: [castSequence(["E"]), idle], settings: { maxSeconds: 1 }, setup: (w) => w.units[1].statuses.push(aura) });
     expect(stopped.damage).toEqual([0, 70]);
     expect(ticksOf(stopped.timeline, 1, "stops the dash").length).toBe(1);
     const through = duel(fighter({ abilities: [dash(false)] }), fighter(), { distance: 600, behaviors: [castSequence(["E"]), idle], settings: { maxSeconds: 1 }, setup: (w) => w.units[1].statuses.push({ ...aura }) });
-    expect(through.damage).toEqual([100, 0]);
+    // Poppy's recorded notes: an immune/unstoppable dash still triggers and takes damage.
+    expect(through.damage).toEqual([100, 70]);
   });
 
   it("negates the first immobilizing crowd control", () => {
@@ -167,8 +168,8 @@ describe("states", () => {
     const charge = ability({ key: "E", cooldown: 20, delivery: { kind: "target", range: 600 }, onHit: [{ type: "displace", direction: "away", distance: 400, duration: 0.5, wallStun: 1.5 }] });
     const walls = duel(fighter({ abilities: [charge] }), fighter(), { behaviors: [castSequence(["E"]), idle], settings: { maxSeconds: 2 } });
     expect(ticksOf(walls.timeline, 0, "into a wall")).toEqual([0]);
-    // 300 of the 400 units take 3/4 of the 15-tick knock back: the stun lands on tick 11.
-    expect(ticksOf(walls.timeline, 0, "stun for")).toEqual([11]);
+    // 300 of the 400 units take 11.25 ticks at the original speed; arrival rounds up to tick 12.
+    expect(ticksOf(walls.timeline, 0, "stun for")).toEqual([12]);
     const open = duel(fighter({ abilities: [charge] }), fighter(), { behaviors: [castSequence(["E"]), idle], settings: { maxSeconds: 2, environment: { walls: false, wallDistance: 300, minions: true, brush: true, laneSetup: true } } });
     expect(ticksOf(open.timeline, 0, "stun for")).toEqual([]);
   });

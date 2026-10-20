@@ -361,6 +361,18 @@
       "While grounded or rooted, Hecarim loses the bonus attack range from Devastating Charge.\n  - Hecarim will not use the empowered attack while rooted.",
       "The dash does not follow targets. The target's position at the time of the enhanced attack is the direction Hecarim will leap to.",
       "Displacement immunity will not resist the application of the stun."
+    ],
+    "gameSources": [
+      {
+        "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/hecarim/hecarim.bin.json",
+        "sha256": "b4274755f94e324f7200a1adf9c6a5bc808db6ade6a2f7176dcbac35fd46401e",
+        "object": "Characters/Hecarim/Spells/HecarimRampAbility/HecarimRamp",
+        "text": [
+          "mSpell.DataValues.TimeToMaxMoveSpeed.values: [2.5,2.5,2.5,2.5,2.5,2.5,2.5]",
+          "mSpell.DataValues.DistanceToMaxDamage.values: [1200,1200,1200,1200,1200,1200,1200]"
+        ]
+      }
     ]
   },
   {

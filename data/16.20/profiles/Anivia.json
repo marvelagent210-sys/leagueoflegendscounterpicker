@@ -86,7 +86,8 @@
       ],
       "cooldown": 240,
       "notes": [
-        "If Rebirth triggers while Anivia is channeling Teleport, her channel won't be interrupted.\n  - All other channels will be interrupted upon triggering Rebirth."
+        "If Rebirth triggers while Anivia is channeling Teleport, her channel won't be interrupted.\n  - All other channels will be interrupted upon triggering Rebirth.",
+        "Interaction table (ct): move=false; cast=false; attack=false; items=false; consume=false; spells=false; interrupts=death."
       ]
     },
     {

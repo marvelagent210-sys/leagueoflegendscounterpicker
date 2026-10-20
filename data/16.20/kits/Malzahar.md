@@ -214,3 +214,124 @@ All 6 level-based formulas in the game files (1 linked to wiki values above):
 | MalzaharWCancel | VoidlingBonusDamageTooltip | along the stat growth curve 5 → 64.5 over levels 1-18, continues past 18 | 5 | 64.5 | 73.8275 |
 | MalzaharPassive | ShieldCooldown | breakpoints at levels 6, 11, 16 (level 1: 30) | 30 | 12 | 12 |
 | MalzaharE | MinionExecuteThreshold | breakpoints at levels 12 (level 1: 10) | 10 | 44 | 48 |
+
+## Duel simulator kit (level 20, every ability at max rank)
+
+What the duel simulator fights with (`kits/champions/Malzahar.ts`): values come from pinned wiki and versioned game-data records at level 20. Interpretations and missing evidence are listed under assumptions. Ratios are fractions of the stat (60% AD is 0.6 × AD).
+
+- Basic attack: range 500, missile at 2000/s.
+
+| Key | Ability | Cooldown (s) | Cast time (s) | Cost | Delivery | On the enemy | On itself |
+|---|---|--:|--:|---|---|---|---|
+| Q | Call of the Void | 6 | 0.25 | 80 | circle of 200 radius up to 900 away, lands after 0.4 s | 210 + 55% AP magic damage; silence for 2 s | – |
+| W | Void Swarm | 8 | 0 | 60 | self | – | – |
+| E | Malefic Visions | 7 | 0.25 | 100 | targeted, 650 range | marks it "malzahar:E" for 4 s | – |
+| R | Nether Grasp | 80 | 0.005 | 100 | targeted, 700 range; channel 2.5 s | stops an interruptible dash without an airborne duration; suppression for 2.5 s | – |
+| EP | Malefic Visions | 0 | 0 | – | self | 13.75 + 5% AP magic damage (Malefic Visions) | – |
+| RP | Nether Grasp | 0 | 0 | – | self | 27.5 + 8% AP magic damage (Nether Grasp) | – |
+| RPOOL | Null Zone | 0 | 0 | – | self | 2% target's maximum health + 0.25% of target's maximum health per 100 AP magic damage (Null Zone), varies with combat state; formula is a reference | – |
+
+Effects marked by a mark or a role are completed by the kit's hooks (see the kit's source).
+
+### Assumptions
+
+- Voidling: hp has no value past level 18; its level-18 value is used at 20.
+- Voidling: armor has no value past level 18; its level-18 value is used at 20.
+- Voidling: magicresist has no value past level 18; its level-18 value is used at 20.
+- Voidling: attackspeed has no value past level 18; its level-18 value is used at 20.
+- Void Shift starts available. Its 0.25-second linger is fixed by the first qualifying hit/CC; further events restart only the twelve-second rearm timer. Normal shields absorb the mitigated incoming amount before Void Shift reduces remaining nontrue health damage; spell-shield-present full absorption leaves the passive available.
+- The pinned Void Shift bug allows Zoe E trap drowsy through its immunity, but Zoe and her trap classification are not modeled by this batch. Other drowsy effects retain ordinary immunity; no guessed general exception is applied.
+- Call of the Void is a fixed 200-radius intersection with the duel axis, placed at cast completion and detonating 0.4 seconds later. The perpendicular portal shape and ordinary sight of its area are not a complete map-vision simulation.
+- Null Zone's radius is absent from the pinned wiki. The pinned 16.20 game-file 280-unit castRadius agrees with its AOE targeter's constraintRange; interpreting those client fields as the damaging pool radius remains an explicit spatial assumption because server logic is absent. Its fixed center is captured at R declaration; ten half-second pulses persist independently of channel cancellation.
+- Malefic Visions snapshots AP on application. Q/R damage refreshes duration while retaining the original absolute quarter-second phase and damage snapshot; a new E replaces the previous infection. Sixteen original pulses end exactly four seconds after application, without rounding each 0.25 seconds to eight ticks.
+- Malefic Visions chooses the closest eligible champion or enemy pet when an infected target has a counted death, with stable identity as an exact-distance tie breaker. The minion execute threshold uses the pinned game-file level-20 value 48 instead of the wiki's truncated 30 series. Resurrection without counted death grants no refund; Sion's first death does.
+- Voidling AP/bonus AD are read dynamically at attack time. The source has no attack-windup or post-owner-death lifetime, so their attacks have the existing instant pet windup and surviving pets use the engine's owner-death removal rule. Summons have individual ten-second lives and one W cast identity across staggered births.
+- The deterministic policy establishes E, prefers two-stack W, then R in fight/kite and Q. Zero/one-stack W remains usable; hold/trade follow the shared disengagement clock and never force R. The budget assumes three Voidlings per W and values their active time within the first ten seconds, subtracting staggered birth and travel time, with no enemy pet-clearing; it omits passive survival value rather than pricing permanent 90% reduction.
+
+### Source values read (83)
+
+| Ability | Value | Source version |
+|---|---|---|
+| Void Shift | staticCooldown: 30 / 24 / 18 / 12 (based on level) | [4035856](https://wiki.leagueoflegends.com/en-us/Template:Data_Malzahar/Void_Shift?oldid=4035856) |
+| Void Shift | lingers for 0.25 seconds before expiring | [4035856](https://wiki.leagueoflegends.com/en-us/Template:Data_Malzahar/Void_Shift?oldid=4035856) |
+| Void Shift | 90% damage reduction | [4035856](https://wiki.leagueoflegends.com/en-us/Template:Data_Malzahar/Void_Shift?oldid=4035856) |
+| Void Shift | will not mitigate true damage but the buff will still be consumed | [4035856](https://wiki.leagueoflegends.com/en-us/Template:Data_Malzahar/Void_Shift?oldid=4035856) |
+| Void Shift | Void Shift will not resist allied crowd control nor will it be deactivated by them | [4035856](https://wiki.leagueoflegends.com/en-us/Template:Data_Malzahar/Void_Shift?oldid=4035856) |
+| Void Shift | Void Shift does not prevent E trap drowsy | [4035856](https://wiki.leagueoflegends.com/en-us/Template:Data_Malzahar/Void_Shift?oldid=4035856) |
+| Void Shift | Spell shields take priority over Void Shift for abilities that contain a crowd control effect | [4035856](https://wiki.leagueoflegends.com/en-us/Template:Data_Malzahar/Void_Shift?oldid=4035856) |
+| Void Shift | if the shield fully mitigates the damage, Void Shift will not be consumed | [4035856](https://wiki.leagueoflegends.com/en-us/Template:Data_Malzahar/Void_Shift?oldid=4035856) |
+| Call of the Void | Magic Damage: 70 / 105 / 140 / 175 / 210 (+ 55% AP) | [3906985](https://wiki.leagueoflegends.com/en-us/Template:Data_Malzahar/Call_of_the_Void?oldid=3906985) |
+| Call of the Void | Silence Duration: 1 / 1.25 / 1.5 / 1.75 / 2 seconds | [3906985](https://wiki.leagueoflegends.com/en-us/Template:Data_Malzahar/Call_of_the_Void?oldid=3906985) |
+| Call of the Void | After 0.4 seconds | [3906985](https://wiki.leagueoflegends.com/en-us/Template:Data_Malzahar/Call_of_the_Void?oldid=3906985) |
+| Call of the Void | targetRange: 900 | [3906985](https://wiki.leagueoflegends.com/en-us/Template:Data_Malzahar/Call_of_the_Void?oldid=3906985) |
+| Call of the Void | effectRadius: 200 | [3906985](https://wiki.leagueoflegends.com/en-us/Template:Data_Malzahar/Call_of_the_Void?oldid=3906985) |
+| Call of the Void | Malefic Visions debuff will also be removed | [3906985](https://wiki.leagueoflegends.com/en-us/Template:Data_Malzahar/Call_of_the_Void?oldid=3906985) |
+| Void Swarm | up to a maximum of 2 | [4041818](https://wiki.leagueoflegends.com/en-us/Template:Data_Malzahar/Void_Swarm?oldid=4041818) |
+| Void Swarm | after a 0.5-second delay | [4041818](https://wiki.leagueoflegends.com/en-us/Template:Data_Malzahar/Void_Swarm?oldid=4041818) |
+| Void Swarm | 0.5 seconds after the previous one | [4041818](https://wiki.leagueoflegends.com/en-us/Template:Data_Malzahar/Void_Swarm?oldid=4041818) |
+| Void Swarm | Voidling Duration: 8 / 8 / 9 / 9 / 10 seconds | [4041818](https://wiki.leagueoflegends.com/en-us/Template:Data_Malzahar/Void_Swarm?oldid=4041818) |
+| Void Swarm | targetRange: 150 | [4041818](https://wiki.leagueoflegends.com/en-us/Template:Data_Malzahar/Void_Swarm?oldid=4041818) |
+| Void Swarm | Zz'Rot Swarm stacks are gained per cast and not per ability activation | [4041818](https://wiki.leagueoflegends.com/en-us/Template:Data_Malzahar/Void_Swarm?oldid=4041818) |
+| Void Swarm | Malzahar loses all stacks upon death | [4041818](https://wiki.leagueoflegends.com/en-us/Template:Data_Malzahar/Void_Swarm?oldid=4041818) |
+| Void Swarm | Magic Damage: 5 – 64.5 (based on level) (+ 12 / 14 / 16 / 18 / 20) (+ 40% bonus AD) (+ 20% AP) | [4041818](https://wiki.leagueoflegends.com/en-us/Template:Data_Malzahar/Void_Swarm?oldid=4041818) |
+| Void Swarm | (+ 12 / 14 / 16 / 18 / 20) | [4041818](https://wiki.leagueoflegends.com/en-us/Template:Data_Malzahar/Void_Swarm?oldid=4041818) |
+| Void Swarm | (+ 40% bonus AD) | [4041818](https://wiki.leagueoflegends.com/en-us/Template:Data_Malzahar/Void_Swarm?oldid=4041818) |
+| Void Swarm | (+ 20% AP) | [4041818](https://wiki.leagueoflegends.com/en-us/Template:Data_Malzahar/Void_Swarm?oldid=4041818) |
+| Voidling | hp: 65 – 201 (based on level) | [4058496](https://wiki.leagueoflegends.com/en-us/Malzahar?oldid=4058496) |
+| Voidling | armor: 16 – 50 (based on level) | [4058496](https://wiki.leagueoflegends.com/en-us/Malzahar?oldid=4058496) |
+| Voidling | magicresist: 8 – 25 (based on level) | [4058496](https://wiki.leagueoflegends.com/en-us/Malzahar?oldid=4058496) |
+| Voidling | attackspeed: 0.665 – 0.8911 (based on level) | [4058496](https://wiki.leagueoflegends.com/en-us/Malzahar?oldid=4058496) |
+| Voidling | range: 100 | [4058496](https://wiki.leagueoflegends.com/en-us/Malzahar?oldid=4058496) |
+| Voidling | radius: 10 | [4058496](https://wiki.leagueoflegends.com/en-us/Malzahar?oldid=4058496) |
+| Voidling | movespeed: 400 | [4058496](https://wiki.leagueoflegends.com/en-us/Malzahar?oldid=4058496) |
+| Voidling | champion basic attacks will kill Voidlings regardless of their health | [4058496](https://wiki.leagueoflegends.com/en-us/Malzahar?oldid=4058496) |
+| Voidling | attacks can be mitigated by block, dodge, and blind, as well as stopped by Disarm | [4058496](https://wiki.leagueoflegends.com/en-us/Malzahar?oldid=4058496) |
+| Voidling | The attacks of all Voidlings are considered to belong to the same cast instance | [4058496](https://wiki.leagueoflegends.com/en-us/Malzahar?oldid=4058496) |
+| Voidling | Prioritize attacking Nether Grasp target and enemies (champions have a higher priority than minions) infected by Malefic Visions, or the nearest target. | [4058496](https://wiki.leagueoflegends.com/en-us/Malzahar?oldid=4058496) |
+| Void Swarm | increased by 200% to enemy minions infected by Malefic Visions | [4041818](https://wiki.leagueoflegends.com/en-us/Template:Data_Malzahar/Void_Swarm?oldid=4041818) |
+| Malefic Visions | Total Magic Damage: 80 / 115 / 150 / 185 / 220 (+ 80% AP) | [4015185](https://wiki.leagueoflegends.com/en-us/Template:Data_Malzahar/Malefic_Visions?oldid=4015185) |
+| Malefic Visions | Magic Damage Per Tick: 5 / 7.1875 / 9.375 / 11.5625 / 13.75 (+ 5% AP) | [4015185](https://wiki.leagueoflegends.com/en-us/Template:Data_Malzahar/Malefic_Visions?oldid=4015185) |
+| Malefic Visions | every 0.25 seconds over 4 seconds | [4015185](https://wiki.leagueoflegends.com/en-us/Template:Data_Malzahar/Malefic_Visions?oldid=4015185) |
+| Malefic Visions | effectRadius (Bounce): 500 | [4015185](https://wiki.leagueoflegends.com/en-us/Template:Data_Malzahar/Malefic_Visions?oldid=4015185) |
+| Malefic Visions | restores 2% of his maximum mana | [4015185](https://wiki.leagueoflegends.com/en-us/Template:Data_Malzahar/Malefic_Visions?oldid=4015185) |
+| Malefic Visions | not be cancelled if the target becomes untargetable, dies, or is too far away or no longer in sight during the cast time | [4015185](https://wiki.leagueoflegends.com/en-us/Template:Data_Malzahar/Malefic_Visions?oldid=4015185) |
+| Nether Grasp | Total Magic Damage: 125 / 200 / 275 (+ 80% AP) | [4015186](https://wiki.leagueoflegends.com/en-us/Template:Data_Malzahar/Nether_Grasp?oldid=4015186) |
+| Nether Grasp | Magic Damage Per Tick: 12.5 / 20 / 27.5 (+ 8% AP) | [4015186](https://wiki.leagueoflegends.com/en-us/Template:Data_Malzahar/Nether_Grasp?oldid=4015186) |
+| Nether Grasp | Total Magic Damage: 10 / 15 / 20% (+ 2.5% per 100 AP) of target's maximum health | [4015186](https://wiki.leagueoflegends.com/en-us/Template:Data_Malzahar/Nether_Grasp?oldid=4015186) |
+| Nether Grasp | Magic Damage Per Tick: 1 / 1.5 / 2% (+ 0.25% per 100 AP) of target's maximum health | [4015186](https://wiki.leagueoflegends.com/en-us/Template:Data_Malzahar/Nether_Grasp?oldid=4015186) |
+| Nether Grasp | channels for up to 2.5 seconds | [4015186](https://wiki.leagueoflegends.com/en-us/Template:Data_Malzahar/Nether_Grasp?oldid=4015186) |
+| Nether Grasp | magic damage every 0.25 seconds | [4015186](https://wiki.leagueoflegends.com/en-us/Template:Data_Malzahar/Nether_Grasp?oldid=4015186) |
+| Nether Grasp | tetherRadius: 1250 | [4015186](https://wiki.leagueoflegends.com/en-us/Template:Data_Malzahar/Nether_Grasp?oldid=4015186) |
+| Nether Grasp | lasts 5 seconds | [4015186](https://wiki.leagueoflegends.com/en-us/Template:Data_Malzahar/Nether_Grasp?oldid=4015186) |
+| Nether Grasp | magic damage every 0.5 seconds | [4015186](https://wiki.leagueoflegends.com/en-us/Template:Data_Malzahar/Nether_Grasp?oldid=4015186) |
+| Nether Grasp | capped at 120 per tick | [4015186](https://wiki.leagueoflegends.com/en-us/Template:Data_Malzahar/Nether_Grasp?oldid=4015186) |
+| Nether Grasp | The tether will not break if the target enters a zombie state or enters resurrection | [4015186](https://wiki.leagueoflegends.com/en-us/Template:Data_Malzahar/Nether_Grasp?oldid=4015186) |
+| Nether Grasp | can be damaged again by the remaining ticks if they re-enter the tether range within the duration | [4015186](https://wiki.leagueoflegends.com/en-us/Template:Data_Malzahar/Nether_Grasp?oldid=4015186) |
+| Nether Grasp | Removing the suppression will also remove the reveal | [4015186](https://wiki.leagueoflegends.com/en-us/Template:Data_Malzahar/Nether_Grasp?oldid=4015186) |
+| Nether Grasp | Null Zone will persist even if the channel is interrupted | [4015186](https://wiki.leagueoflegends.com/en-us/Template:Data_Malzahar/Nether_Grasp?oldid=4015186) |
+| Nether Grasp | Spell shield prevents both the tether and the Null Zone from appearing | [4015186](https://wiki.leagueoflegends.com/en-us/Template:Data_Malzahar/Nether_Grasp?oldid=4015186) |
+| Nether Grasp | Malzahar places himself onto the ground and interrupts displacements affecting him upon starting the channel. | [4015186](https://wiki.leagueoflegends.com/en-us/Template:Data_Malzahar/Nether_Grasp?oldid=4015186) |
+| Nether Grasp | mSpell.castRadius: [280,280,280,280,280,280,280] | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/malzahar/malzahar.bin.json) |
+| Nether Grasp | "constraintRange":{"mPerLevelValues":[280,280,280,280,280,280] | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/malzahar/malzahar.bin.json) |
+| Nether Grasp | "__type":"TargeterDefinitionAoe" | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/malzahar/malzahar.bin.json) |
+| Malefic Visions | "mLevel1Value":10 | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/malzahar/malzahar.bin.json) |
+| Malefic Visions | "mInitialBonusPerLevel":2 | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/malzahar/malzahar.bin.json) |
+| Malefic Visions | "mBreakpoints":[{"mLevel":12,"__type":"Breakpoint"}] | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/malzahar/malzahar.bin.json) |
+| Call of the Void | cooldown: 6 | [3906985](https://wiki.leagueoflegends.com/en-us/Template:Data_Malzahar/Call_of_the_Void?oldid=3906985) |
+| Malefic Visions | cooldown: 11 / 10 / 9 / 8 / 7 | [4015185](https://wiki.leagueoflegends.com/en-us/Template:Data_Malzahar/Malefic_Visions?oldid=4015185) |
+| Void Swarm | cooldown: 8 | [4041818](https://wiki.leagueoflegends.com/en-us/Template:Data_Malzahar/Void_Swarm?oldid=4041818) |
+| Nether Grasp | cooldown: 140 / 110 / 80 | [4015186](https://wiki.leagueoflegends.com/en-us/Template:Data_Malzahar/Nether_Grasp?oldid=4015186) |
+| Malefic Visions | targetRange: 650 | [4015185](https://wiki.leagueoflegends.com/en-us/Template:Data_Malzahar/Malefic_Visions?oldid=4015185) |
+| Malefic Visions | castTime: 0.25 | [4015185](https://wiki.leagueoflegends.com/en-us/Template:Data_Malzahar/Malefic_Visions?oldid=4015185) |
+| Nether Grasp | castTime: 0.005 | [4015186](https://wiki.leagueoflegends.com/en-us/Template:Data_Malzahar/Nether_Grasp?oldid=4015186) |
+| Nether Grasp | move=Disabled for the first 0.5 seconds. Interrupts afterwards. | [4015186](https://wiki.leagueoflegends.com/en-us/Template:Data_Malzahar/Nether_Grasp?oldid=4015186) |
+| Nether Grasp | attack=Disabled if attacking Nether Grasp target. Otherwise interrupts after 0.5 seconds of channeling. | [4015186](https://wiki.leagueoflegends.com/en-us/Template:Data_Malzahar/Nether_Grasp?oldid=4015186) |
+| Nether Grasp | cooldownStart: on-cast | [4015186](https://wiki.leagueoflegends.com/en-us/Template:Data_Malzahar/Nether_Grasp?oldid=4015186) |
+| Call of the Void | cost: 60 / 65 / 70 / 75 / 80 | [3906985](https://wiki.leagueoflegends.com/en-us/Template:Data_Malzahar/Call_of_the_Void?oldid=3906985) |
+| Call of the Void | castTime: 0.25 | [3906985](https://wiki.leagueoflegends.com/en-us/Template:Data_Malzahar/Call_of_the_Void?oldid=3906985) |
+| Void Swarm | cost: 40 / 45 / 50 / 55 / 60 | [4041818](https://wiki.leagueoflegends.com/en-us/Template:Data_Malzahar/Void_Swarm?oldid=4041818) |
+| Void Swarm | castTime: none | [4041818](https://wiki.leagueoflegends.com/en-us/Template:Data_Malzahar/Void_Swarm?oldid=4041818) |
+| Malefic Visions | cost: 60 / 70 / 80 / 90 / 100 | [4015185](https://wiki.leagueoflegends.com/en-us/Template:Data_Malzahar/Malefic_Visions?oldid=4015185) |
+| Nether Grasp | cost: 100 | [4015186](https://wiki.leagueoflegends.com/en-us/Template:Data_Malzahar/Nether_Grasp?oldid=4015186) |
+| Nether Grasp | targetRange: 700 | [4015186](https://wiki.leagueoflegends.com/en-us/Template:Data_Malzahar/Nether_Grasp?oldid=4015186) |
+| Voidling | Minion, does not count towards the minion kill tracking score | [4058496](https://wiki.leagueoflegends.com/en-us/Malzahar?oldid=4058496) |

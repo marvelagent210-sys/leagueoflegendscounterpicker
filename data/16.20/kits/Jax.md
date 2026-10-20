@@ -199,7 +199,7 @@ All 3 level-based formulas in the game files (0 linked to wiki values above):
 
 ## Duel simulator kit (level 20, every ability at max rank)
 
-What the duel simulator fights with (`kits/champions/Jax.ts`): every number is read from the wiki's ability data above at level 20; what the wiki doesn't say is listed under assumptions. Ratios are fractions of the stat (60% AD is 0.6 × AD).
+What the duel simulator fights with (`kits/champions/Jax.ts`): values come from pinned wiki and versioned game-data records at level 20. Interpretations and missing evidence are listed under assumptions. Ratios are fractions of the stat (60% AD is 0.6 × AD).
 
 - Basic attack: range 125, melee.
 
@@ -219,15 +219,16 @@ Effects marked by a mark or a role are completed by the kit's hooks (see the kit
 - Evasion's 25% reduction of area damage isn't modeled.
 - Empower is used on basic attacks, not on Leap Strike.
 
-### Wiki values read (34)
+### Source values read (35)
 
-| Ability | Value | Revision |
+| Ability | Value | Source version |
 |---|---|---|
 | Relentless Assault | Relentless Assault: For each stack, Jax gains 5 / 6.5 / 8 / 9.5 / 11 / 12.5 / 14 (based on level)% bonus attack speed, up to a maximum of 40 / 52 / 64 / 76 / 88 / 100 / 112 (based on level)%. | [4038387](https://wiki.leagueoflegends.com/en-us/Template:Data_Jax/Relentless_Assault?oldid=4038387) |
 | Relentless Assault | stacking up to 8 times | [4038387](https://wiki.leagueoflegends.com/en-us/Template:Data_Jax/Relentless_Assault?oldid=4038387) |
 | Relentless Assault | on-attack for 2.5 seconds | [4038387](https://wiki.leagueoflegends.com/en-us/Template:Data_Jax/Relentless_Assault?oldid=4038387) |
 | Grandmaster-at-Arms | Additional Magic Damage: 75 / 130 / 185 (+ 60% AP) | [3973573](https://wiki.leagueoflegends.com/en-us/Template:Data_Jax/Grandmaster-at-Arms?oldid=3973573) |
 | Grandmaster-at-Arms | stacking up to 2 times | [3973573](https://wiki.leagueoflegends.com/en-us/Template:Data_Jax/Grandmaster-at-Arms?oldid=3973573) |
+| Grandmaster-at-Arms | The additional magic damage can be dodged and blocked but it cannot miss | [3973573](https://wiki.leagueoflegends.com/en-us/Template:Data_Jax/Grandmaster-at-Arms?oldid=3973573) |
 | Grandmaster-at-Arms | as well as 10% increased size for 8 seconds | [3973573](https://wiki.leagueoflegends.com/en-us/Template:Data_Jax/Grandmaster-at-Arms?oldid=3973573) |
 | Counter Strike | Minimum Magic Damage: 40 / 70 / 100 / 130 / 160 (+ 70% AP) (+ 4% of target's maximum health) | [4026415](https://wiki.leagueoflegends.com/en-us/Template:Data_Jax/Counter_Strike?oldid=4026415) |
 | Counter Strike | increased by 20% for each attack dodged | [4026415](https://wiki.leagueoflegends.com/en-us/Template:Data_Jax/Counter_Strike?oldid=4026415) |

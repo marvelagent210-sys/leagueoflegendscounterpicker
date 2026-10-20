@@ -238,3 +238,85 @@ All 5 level-based formulas in the game files (0 linked to wiki values above):
 | XinZhaoP | HealHPRatio | breakpoints at levels 6, 11 (level 1: 0.02) | 0.02 | 0.05 | 0.05 |
 | XinZhaoP | HealAPRatio | breakpoints at levels 6, 11 (level 1: 0.4) | 0.4 | 0.7 | 0.7 |
 | XinZhaoW | MinionMod | breakpoints at levels 16 (level 1: 50) | 50 | 110.001 | 116.667 |
+
+## Duel simulator kit (level 20, every ability at max rank)
+
+What the duel simulator fights with (`kits/champions/XinZhao.ts`): values come from pinned wiki and versioned game-data records at level 20. Interpretations and missing evidence are listed under assumptions. Ratios are fractions of the stat (60% AD is 0.6 × AD).
+
+- Basic attack: range 175, melee.
+
+| Key | Ability | Cooldown (s) | Cast time (s) | Cost | Delivery | On the enemy | On itself |
+|---|---|--:|--:|---|---|---|---|
+| Q | Three Talon Strike | 5 (starts after the empowered attacks) | 0 | 30 | self | – | next 3 attacks within 5 s: 75 + 40% bonus AD physical damage (Three Talon Strike), can crit (resets the attack timer, uncancellable) |
+| W | Wind Becomes Lightning | 8 | 0.5 | 60 | skillshot 940 long, 80 wide, at 6250/s | 190 + 90% AD + 65% AP physical damage (Wind Becomes Lightning (thrust)); slow 50% for 1.5 s; marks it "xin:challenge" for 3 s | – |
+| E | Audacious Charge | 11 | 0 | 60 | dash target 1100 units at 2500/s, hits within 250 | 150 + 120% AP magic damage; slow 30% for 0.5 s | – |
+| R | Crescent Guard | 100 | 0.35 | 100 | around itself, 500 units | 275 + 100% bonus AD + 110% AP + 15% target's current health physical damage (Crescent Guard) | invulnerableFar 450 for 4 s |
+
+Effects marked by a mark or a role are completed by the kit's hooks (see the kit's source).
+
+### Assumptions
+
+- Wind Becomes Lightning's four slashes are evenly spaced over the stated 0.15 seconds; the committed source does not give four individual impact times.
+- Wind Becomes Lightning's cone is aligned with the opposing champion at cast start in the 1D duel; its extra 125-unit check also reaches behind Xin Zhao.
+- Wind Becomes Lightning uses the wiki's 60-mana cost and Audacious Charge the wiki's 60-mana cost; the committed game files disagree (40 and 50 at maximum rank).
+- Determination's unknown parry interaction is modeled as an independent self-heal on W contact, while Riposte negates its damage and attack dodge/blind prevent basic-attack stacks.
+- A spell shield on Wind Becomes Lightning's first slash blocks the entire cast. A later shield blocks its contact only; the source notes inconsistent first/second-slash behavior.
+- Audacious Charge uses the simulator's initial dash direction. A target teleporting across Xin Zhao during travel can evade its primary damage, slow and Challenge; the source guarantees that primary hit, but full target-dash tracking is not yet simulated.
+
+### Source values read (53)
+
+| Ability | Value | Source version |
+|---|---|---|
+| Determination | stacking up to 3 times | [4051470](https://wiki.leagueoflegends.com/en-us/Template:Data_Xin_Zhao/Determination?oldid=4051470) |
+| Determination | The third stack consumes them all to deal 15 / 30 / 45 / 60 (based on level)% AD (+ 5 / 10 / 15 / 20 (based on level)% AP) bonus physical damage and heal Xin Zhao for 2 / 3.5 / 5 (based on level)% of his maximum health (+ 40 / 50 / 70 (based on level)% AP). | [4051470](https://wiki.leagueoflegends.com/en-us/Template:Data_Xin_Zhao/Determination?oldid=4051470) |
+| Determination | for 3 seconds | [4051470](https://wiki.leagueoflegends.com/en-us/Template:Data_Xin_Zhao/Determination?oldid=4051470) |
+| Determination | the bonus damage stacks are consumed on-attack, and the healing ones on-hit | [4051470](https://wiki.leagueoflegends.com/en-us/Template:Data_Xin_Zhao/Determination?oldid=4051470) |
+| Determination | Stacks of Determination will be gained even if the attack is blocked | [4051470](https://wiki.leagueoflegends.com/en-us/Template:Data_Xin_Zhao/Determination?oldid=4051470) |
+| Determination | Spell shield will block the mark application from W, but not from basic attacks and E | [4051470](https://wiki.leagueoflegends.com/en-us/Template:Data_Xin_Zhao/Determination?oldid=4051470) |
+| Three Talon Strike | within 5 seconds | [3986754](https://wiki.leagueoflegends.com/en-us/Template:Data_Xin_Zhao/Three_Talon_Strike?oldid=3986754) |
+| Three Talon Strike | Bonus Physical Damage: 15 / 30 / 45 / 60 / 75 (+ 40% bonus AD) | [3986754](https://wiki.leagueoflegends.com/en-us/Template:Data_Xin_Zhao/Three_Talon_Strike?oldid=3986754) |
+| Three Talon Strike | reduce his other abilities' current cooldowns by 1 second | [3986754](https://wiki.leagueoflegends.com/en-us/Template:Data_Xin_Zhao/Three_Talon_Strike?oldid=3986754) |
+| Three Talon Strike | knocks up the target for 0.75 seconds | [3986754](https://wiki.leagueoflegends.com/en-us/Template:Data_Xin_Zhao/Three_Talon_Strike?oldid=3986754) |
+| Three Talon Strike | Spell shield will only block the knock up | [3986754](https://wiki.leagueoflegends.com/en-us/Template:Data_Xin_Zhao/Three_Talon_Strike?oldid=3986754) |
+| Wind Becomes Lightning | unleashes 4 slashes | [4026481](https://wiki.leagueoflegends.com/en-us/Template:Data_Xin_Zhao/Wind_Becomes_Lightning?oldid=4026481) |
+| Wind Becomes Lightning | over the first 0.15 seconds | [4026481](https://wiki.leagueoflegends.com/en-us/Template:Data_Xin_Zhao/Wind_Becomes_Lightning?oldid=4026481) |
+| Wind Becomes Lightning | Physical Damage per Slash: 7.5 / 10 / 12.5 / 15 / 17.5 (+ 7.5% AD) | [4026481](https://wiki.leagueoflegends.com/en-us/Template:Data_Xin_Zhao/Wind_Becomes_Lightning?oldid=4026481) |
+| Wind Becomes Lightning | Thrust Physical Damage: 50 / 85 / 120 / 155 / 190 (+ 90% AD) (+ 65% AP) | [4026481](https://wiki.leagueoflegends.com/en-us/Template:Data_Xin_Zhao/Wind_Becomes_Lightning?oldid=4026481) |
+| Wind Becomes Lightning | After the remaining cast time, he then thrusts his spear in a line in the target direction, dealing physical damage to enemies hit, increased by 0 / 3.33 / 6.66 / 9.99 / 13.32 / 16.65 / 19.98 / 23.31 / 26.64 / 29.97 / 33.3 (based on critical strike chance)%, and slowing them by 50% for 1.5 (+ 0.5 per 100 AP) seconds. | [4026481](https://wiki.leagueoflegends.com/en-us/Template:Data_Xin_Zhao/Wind_Becomes_Lightning?oldid=4026481) |
+| Wind Becomes Lightning | effectRadius (Slash semi-circle radius): 275 • 125 | [4026481](https://wiki.leagueoflegends.com/en-us/Template:Data_Xin_Zhao/Wind_Becomes_Lightning?oldid=4026481) |
+| Wind Becomes Lightning | effectRadius (Slash and thrust extra check radius): 275 • 125 | [4026481](https://wiki.leagueoflegends.com/en-us/Template:Data_Xin_Zhao/Wind_Becomes_Lightning?oldid=4026481) |
+| Wind Becomes Lightning | range (Maximum possible range; See notes): 1000 • 940 | [4026481](https://wiki.leagueoflegends.com/en-us/Template:Data_Xin_Zhao/Wind_Becomes_Lightning?oldid=4026481) |
+| Wind Becomes Lightning | slowing them by 50% for 1.5 (+ 0.5 per 100 AP) seconds | [4026481](https://wiki.leagueoflegends.com/en-us/Template:Data_Xin_Zhao/Wind_Becomes_Lightning?oldid=4026481) |
+| Wind Becomes Lightning | heals Xin Zhao for 33.3% of his life steal | [4026481](https://wiki.leagueoflegends.com/en-us/Template:Data_Xin_Zhao/Wind_Becomes_Lightning?oldid=4026481) |
+| Wind Becomes Lightning | Spirit Visage will amplify the life gain twice | [4026481](https://wiki.leagueoflegends.com/en-us/Template:Data_Xin_Zhao/Wind_Becomes_Lightning?oldid=4026481) |
+| Wind Becomes Lightning | The durations of Three Talon Strike and Audacious Charge bonus attack speed are delayed relative to Wind Becomes Lightning's cast time | [4026481](https://wiki.leagueoflegends.com/en-us/Template:Data_Xin_Zhao/Wind_Becomes_Lightning?oldid=4026481) |
+| Audacious Charge | targetRange (Normal range): 650 • 1100 | [4026484](https://wiki.leagueoflegends.com/en-us/Template:Data_Xin_Zhao/Audacious_Charge?oldid=4026484) |
+| Audacious Charge | targetRange (Enhanced range against Challenged targets): 650 • 1100 | [4026484](https://wiki.leagueoflegends.com/en-us/Template:Data_Xin_Zhao/Audacious_Charge?oldid=4026484) |
+| Audacious Charge | gains bonus attack speed for 5 seconds | [4026484](https://wiki.leagueoflegends.com/en-us/Template:Data_Xin_Zhao/Audacious_Charge?oldid=4026484) |
+| Audacious Charge | Bonus Attack Speed: 38 / 46 / 54 / 62 / 70% (+ 10% per 100 AP) (+ 1% per 5% bonus attack speed from non-buff sources) | [4026484](https://wiki.leagueoflegends.com/en-us/Template:Data_Xin_Zhao/Audacious_Charge?oldid=4026484) |
+| Audacious Charge | (+ 10% per 100 AP) | [4026484](https://wiki.leagueoflegends.com/en-us/Template:Data_Xin_Zhao/Audacious_Charge?oldid=4026484) |
+| Audacious Charge | (+ 1% per 5% bonus attack speed from non-buff sources) | [4026484](https://wiki.leagueoflegends.com/en-us/Template:Data_Xin_Zhao/Audacious_Charge?oldid=4026484) |
+| Audacious Charge | slowing all targets hit by 30% for 0.5 seconds | [4026484](https://wiki.leagueoflegends.com/en-us/Template:Data_Xin_Zhao/Audacious_Charge?oldid=4026484) |
+| Crescent Guard | For the next 4 seconds | [4008632](https://wiki.leagueoflegends.com/en-us/Template:Data_Xin_Zhao/Crescent_Guard?oldid=4008632) |
+| Crescent Guard | effectRadius (Immunity minimum radius): 500 • 450 | [4008632](https://wiki.leagueoflegends.com/en-us/Template:Data_Xin_Zhao/Crescent_Guard?oldid=4008632) |
+| Crescent Guard | Physical Damage: 75 / 175 / 275 (+ 100% bonus AD) (+ 110% AP) (+ 15% of target's current health) | [4008632](https://wiki.leagueoflegends.com/en-us/Template:Data_Xin_Zhao/Crescent_Guard?oldid=4008632) |
+| Crescent Guard | up-to 700 units over 0.75 seconds | [4008632](https://wiki.leagueoflegends.com/en-us/Template:Data_Xin_Zhao/Crescent_Guard?oldid=4008632) |
+| Crescent Guard | Displacement immunity will also resist the application of the stun | [4008632](https://wiki.leagueoflegends.com/en-us/Template:Data_Xin_Zhao/Crescent_Guard?oldid=4008632) |
+| Wind Becomes Lightning | cooldown: 12 / 11 / 10 / 9 / 8 | [4026481](https://wiki.leagueoflegends.com/en-us/Template:Data_Xin_Zhao/Wind_Becomes_Lightning?oldid=4026481) |
+| Audacious Charge | cooldown: 11 | [4026484](https://wiki.leagueoflegends.com/en-us/Template:Data_Xin_Zhao/Audacious_Charge?oldid=4026484) |
+| Three Talon Strike | cooldown: 7 / 6.5 / 6 / 5.5 / 5 | [3986754](https://wiki.leagueoflegends.com/en-us/Template:Data_Xin_Zhao/Three_Talon_Strike?oldid=3986754) |
+| Three Talon Strike | cost: 30 | [3986754](https://wiki.leagueoflegends.com/en-us/Template:Data_Xin_Zhao/Three_Talon_Strike?oldid=3986754) |
+| Three Talon Strike | castTime: none | [3986754](https://wiki.leagueoflegends.com/en-us/Template:Data_Xin_Zhao/Three_Talon_Strike?oldid=3986754) |
+| Wind Becomes Lightning | cost: 60 | [4026481](https://wiki.leagueoflegends.com/en-us/Template:Data_Xin_Zhao/Wind_Becomes_Lightning?oldid=4026481) |
+| Wind Becomes Lightning | castTime: 0.5 | [4026481](https://wiki.leagueoflegends.com/en-us/Template:Data_Xin_Zhao/Wind_Becomes_Lightning?oldid=4026481) |
+| Wind Becomes Lightning | width: 80 | [4026481](https://wiki.leagueoflegends.com/en-us/Template:Data_Xin_Zhao/Wind_Becomes_Lightning?oldid=4026481) |
+| Wind Becomes Lightning | speed: 6250 | [4026481](https://wiki.leagueoflegends.com/en-us/Template:Data_Xin_Zhao/Wind_Becomes_Lightning?oldid=4026481) |
+| Audacious Charge | cost: 60 | [4026484](https://wiki.leagueoflegends.com/en-us/Template:Data_Xin_Zhao/Audacious_Charge?oldid=4026484) |
+| Audacious Charge | castTime: none | [4026484](https://wiki.leagueoflegends.com/en-us/Template:Data_Xin_Zhao/Audacious_Charge?oldid=4026484) |
+| Audacious Charge | speed: 2500 | [4026484](https://wiki.leagueoflegends.com/en-us/Template:Data_Xin_Zhao/Audacious_Charge?oldid=4026484) |
+| Audacious Charge | effectRadius: 250 | [4026484](https://wiki.leagueoflegends.com/en-us/Template:Data_Xin_Zhao/Audacious_Charge?oldid=4026484) |
+| Audacious Charge | Magic Damage: 50 / 75 / 100 / 125 / 150 (+ 120% AP) | [4026484](https://wiki.leagueoflegends.com/en-us/Template:Data_Xin_Zhao/Audacious_Charge?oldid=4026484) |
+| Crescent Guard | cooldown: 120 / 110 / 100 | [4008632](https://wiki.leagueoflegends.com/en-us/Template:Data_Xin_Zhao/Crescent_Guard?oldid=4008632) |
+| Crescent Guard | cost: 100 | [4008632](https://wiki.leagueoflegends.com/en-us/Template:Data_Xin_Zhao/Crescent_Guard?oldid=4008632) |
+| Crescent Guard | castTime: 0.35 | [4008632](https://wiki.leagueoflegends.com/en-us/Template:Data_Xin_Zhao/Crescent_Guard?oldid=4008632) |
+| Crescent Guard | effectRadius (Knockback radius): 500 • 450 | [4008632](https://wiki.leagueoflegends.com/en-us/Template:Data_Xin_Zhao/Crescent_Guard?oldid=4008632) |

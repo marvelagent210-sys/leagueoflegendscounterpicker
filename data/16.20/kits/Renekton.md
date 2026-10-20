@@ -200,20 +200,21 @@ Cooldowns and costs of each slot's main ability, wiki vs game files:
 
 ## Duel simulator kit (level 20, every ability at max rank)
 
-What the duel simulator fights with (`kits/champions/Renekton.ts`): every number is read from the wiki's ability data above at level 20; what the wiki doesn't say is listed under assumptions. Ratios are fractions of the stat (60% AD is 0.6 × AD).
+What the duel simulator fights with (`kits/champions/Renekton.ts`): values come from pinned wiki and versioned game-data records at level 20. Interpretations and missing evidence are listed under assumptions. Ratios are fractions of the stat (60% AD is 0.6 × AD).
 
 - Basic attack: range 125, melee.
 
 | Key | Ability | Cooldown (s) | Cast time (s) | Cost | Delivery | On the enemy | On itself |
 |---|---|--:|--:|---|---|---|---|
-| Q | Cull the Meek | 7 | 0 | – | around itself, 400 units | 180 + 100% bonus AD physical damage; to itself: heal 44 + 17% bonus AD | – |
-| Qfury | Cull the Meek (Fury) | 7 | 0 | 50 | around itself, 400 units | 270 + 140% bonus AD physical damage; to itself: heal 132 + 51% bonus AD | – |
-| W | Ruthless Predator | 8 (starts after the empowered attacks) | 0 | – | self | – | next 1 attack within 7 s: 130 + 50% AD physical damage (Ruthless Predator); stun for 0.75 s (+50 range, resets the attack timer) |
-| Wfury | Ruthless Predator (Fury) | 8 (starts after the empowered attacks) | 0 | 50 | self | – | next 1 attack within 7 s: 195 + 125% AD physical damage (Ruthless Predator); stun for 1.5 s (+50 range, resets the attack timer) |
-| E | Slice and Dice | 10 | 0 | – | dash toward 450 units at 1105/s, hits within 75 | 160 + 90% bonus AD physical damage | – |
-| E2 | Slice and Dice (Dice) | 0 | 0 | – | dash toward 450 units at 1105/s, hits within 75; recast of E within 4 s | 160 + 90% bonus AD physical damage | – |
-| E2fury | Slice and Dice (Dice, Fury) | 0 | 0 | 50 | dash toward 450 units at 1105/s, hits within 75; recast of E within 4 s | 160 + 90% bonus AD physical damage; 250 + 135% bonus AD physical damage; armorReductionPercent 0.35 for 4 s | – |
-| E2out | Slice and Dice (Dice) | 0 | 0 | – | dash away 450 units at 1105/s; recast of E within 4 s | – | – |
+| Q | Cull the Meek | 7 | 0 | – | around itself, 400 units | 180 + 100% bonus AD physical damage | – |
+| Qfury | Cull the Meek (Fury) | 7 | 0 | 50 | around itself, 400 units | 270 + 140% bonus AD physical damage | – |
+| W | Ruthless Predator | 8 (starts after the empowered attacks) | 0 | – | self | – | next 1 attack within 7 s: 65 + 75% AD + 10000% of crit chance per 100 AD physical damage (Ruthless Predator); 65 + 75% AD physical damage (Ruthless Predator); stun for 0.75 s (+50 range, resets the attack timer) |
+| Wfury | Ruthless Predator (Fury) | 8 (starts after the empowered attacks) | 0 | 50 | self | – | next 1 attack within 7 s: 65 + 75% AD + 10000% of crit chance per 100 AD physical damage (Ruthless Predator); 65 + 75% AD physical damage (Ruthless Predator); 65 + 75% AD physical damage (Ruthless Predator); stun for 1.5 s (+50 range, resets the attack timer) |
+| E | Slice and Dice | 10 | 0 | – | dash toward 450 units at 1105/s, hits within 75, through the enemy | 160 + 90% bonus AD physical damage | – |
+| E2 | Slice and Dice (Dice) | 0 | 0 | – | dash toward 450 units at 1105/s, hits within 75, through the enemy; recast of E within 4 s | 160 + 90% bonus AD physical damage | – |
+| E2fury | Slice and Dice (Dice, Fury) | 0 | 0 | 50 | dash toward 450 units at 1105/s, hits within 75, through the enemy; recast of E within 4 s | 250 + 135% bonus AD physical damage; armorReductionPercent 0.35 for 4 s | – |
+| E2out | Slice and Dice (Dice) | 0 | 0 | – | dash away 450 units at 1105/s, hits within 75, through the enemy; recast of E within 4 s | 160 + 90% bonus AD physical damage | – |
+| E2outfury | Slice and Dice (Dice escape, Fury) | 0 | 0 | 50 | dash away 450 units at 1105/s, hits within 75, through the enemy; recast of E within 4 s | 250 + 135% bonus AD physical damage; armorReductionPercent 0.35 for 4 s | – |
 | R | Dominus | 80 | 0.25 | – | self | – | health 700 for 15 s; attackRange 25 for 15 s |
 
 Effects marked by a mark or a role are completed by the kit's hooks (see the kit's source).
@@ -221,45 +222,53 @@ Effects marked by a mark or a role are completed by the kit's hooks (see the kit
 ### Assumptions
 
 - Renekton starts fights with no Fury.
-- Ruthless Predator's extra strikes count as bonus damage on one attack; their extra on-hit effects aren't applied.
+- Ruthless Predator deals two or three separate basic-damage strikes; other attached attack on-hit effects are applied once, as no additional on-hit item or champion effect is modeled for Renekton.
 - Dice dashes back out of a short trade, and on through the enemy in an all-in.
 
-### Wiki values read (36)
+### Source values read (44)
 
-| Ability | Value | Revision |
+| Ability | Value | Source version |
 |---|---|---|
 | Reign of Anger | Renekton's basic attacks generate 5 Fury on-hit | [3961774](https://wiki.leagueoflegends.com/en-us/Template:Data_Renekton/Reign_of_Anger?oldid=3961774) |
 | Reign of Anger | While Renekton has at least 50 Fury | [3961774](https://wiki.leagueoflegends.com/en-us/Template:Data_Renekton/Reign_of_Anger?oldid=3961774) |
 | Reign of Anger | Renekton generates 50% bonus Fury from all sources while below 50% of his maximum health | [3961774](https://wiki.leagueoflegends.com/en-us/Template:Data_Renekton/Reign_of_Anger?oldid=3961774) |
 | Cull the Meek | 10 Fury for each champion hit | [4008014](https://wiki.leagueoflegends.com/en-us/Template:Data_Renekton/Cull_the_Meek?oldid=4008014) |
+| Ruthless Predator | Hitting an enemy champion generates 10 bonus Fury | [4065616](https://wiki.leagueoflegends.com/en-us/Template:Data_Renekton/Ruthless_Predator?oldid=4065616) |
+| Slice and Dice | he can recast Slice and Dice within the next 4 seconds | [3943397](https://wiki.leagueoflegends.com/en-us/Template:Data_Renekton/Slice_and_Dice?oldid=3943397) |
 | Dominus | Renekton empowers himself for 15 seconds | [3963895](https://wiki.leagueoflegends.com/en-us/Template:Data_Renekton/Dominus?oldid=3963895) |
 | Dominus | and 20 Fury, as well as increasing | [3963895](https://wiki.leagueoflegends.com/en-us/Template:Data_Renekton/Dominus?oldid=3963895) |
 | Dominus | generates 5 Fury per second | [3963895](https://wiki.leagueoflegends.com/en-us/Template:Data_Renekton/Dominus?oldid=3963895) |
 | Dominus | he deals magic damage every 0.5 seconds | [3963895](https://wiki.leagueoflegends.com/en-us/Template:Data_Renekton/Dominus?oldid=3963895) |
 | Dominus | Magic Damage Per Tick: 30 / 75 / 120 (+ 5% bonus AD) (+ 5% AP) | [3963895](https://wiki.leagueoflegends.com/en-us/Template:Data_Renekton/Dominus?oldid=3963895) |
 | Dominus | effectRadius: 375 | [3963895](https://wiki.leagueoflegends.com/en-us/Template:Data_Renekton/Dominus?oldid=3963895) |
+| Cull the Meek | effectRadius: 400 • 480 | [4008014](https://wiki.leagueoflegends.com/en-us/Template:Data_Renekton/Cull_the_Meek?oldid=4008014) |
+| Cull the Meek | Champion Healing: 12 / 20 / 28 / 36 / 44 (+ 17% bonus AD) | [4008014](https://wiki.leagueoflegends.com/en-us/Template:Data_Renekton/Cull_the_Meek?oldid=4008014) |
+| Cull the Meek | Enhanced Champion Healing: 36 / 60 / 84 / 108 / 132 (+ 51% bonus AD) | [4008014](https://wiki.leagueoflegends.com/en-us/Template:Data_Renekton/Cull_the_Meek?oldid=4008014) |
+| Cull the Meek | Healing Cap: 50 / 75 / 100 / 125 / 150 | [4008014](https://wiki.leagueoflegends.com/en-us/Template:Data_Renekton/Cull_the_Meek?oldid=4008014) |
+| Cull the Meek | Enhanced Healing Cap: 200 / 300 / 400 / 500 / 600 | [4008014](https://wiki.leagueoflegends.com/en-us/Template:Data_Renekton/Cull_the_Meek?oldid=4008014) |
+| Ruthless Predator | Each strike applies on-hit effects and generates Fury | [4065616](https://wiki.leagueoflegends.com/en-us/Template:Data_Renekton/Ruthless_Predator?oldid=4065616) |
+| Ruthless Predator | Ruthless Predator's first strike can critically strike for 100% AD bonus physical damage | [4065616](https://wiki.leagueoflegends.com/en-us/Template:Data_Renekton/Ruthless_Predator?oldid=4065616) |
+| Ruthless Predator | Even if empowered Ruthless Predator is blocked by a spell shield, it will still destroy any existing damage shields on the target | [4065616](https://wiki.leagueoflegends.com/en-us/Template:Data_Renekton/Ruthless_Predator?oldid=4065616) |
 | Cull the Meek | cooldown: 7 | [4008014](https://wiki.leagueoflegends.com/en-us/Template:Data_Renekton/Cull_the_Meek?oldid=4008014) |
 | Cull the Meek | castTime: none | [4008014](https://wiki.leagueoflegends.com/en-us/Template:Data_Renekton/Cull_the_Meek?oldid=4008014) |
 | Cull the Meek | effectRadius (Standard cleave radius): 400 • 480 | [4008014](https://wiki.leagueoflegends.com/en-us/Template:Data_Renekton/Cull_the_Meek?oldid=4008014) |
 | Cull the Meek | Physical Damage: 60 / 90 / 120 / 150 / 180 (+ 100% bonus AD) | [4008014](https://wiki.leagueoflegends.com/en-us/Template:Data_Renekton/Cull_the_Meek?oldid=4008014) |
-| Cull the Meek | Champion Healing: 12 / 20 / 28 / 36 / 44 (+ 17% bonus AD) | [4008014](https://wiki.leagueoflegends.com/en-us/Template:Data_Renekton/Cull_the_Meek?oldid=4008014) |
+| Ruthless Predator | Physical Damage Per Hit: 5 / 20 / 35 / 50 / 65 (+ 75% AD) | [4065616](https://wiki.leagueoflegends.com/en-us/Template:Data_Renekton/Ruthless_Predator?oldid=4065616) |
 | Ruthless Predator | cooldown: 16 / 14 / 12 / 10 / 8 | [4065616](https://wiki.leagueoflegends.com/en-us/Template:Data_Renekton/Ruthless_Predator?oldid=4065616) |
 | Ruthless Predator | castTime: none | [4065616](https://wiki.leagueoflegends.com/en-us/Template:Data_Renekton/Ruthless_Predator?oldid=4065616) |
-| Ruthless Predator | Total Physical Damage: 10 / 40 / 70 / 100 / 130 (+ 150% AD) | [4065616](https://wiki.leagueoflegends.com/en-us/Template:Data_Renekton/Ruthless_Predator?oldid=4065616) |
 | Ruthless Predator | stunning them for 0.75 seconds | [4065616](https://wiki.leagueoflegends.com/en-us/Template:Data_Renekton/Ruthless_Predator?oldid=4065616) |
 | Ruthless Predator | empowers his next basic attack within 7 seconds | [4065616](https://wiki.leagueoflegends.com/en-us/Template:Data_Renekton/Ruthless_Predator?oldid=4065616) |
 | Ruthless Predator | have 175 range | [4065616](https://wiki.leagueoflegends.com/en-us/Template:Data_Renekton/Ruthless_Predator?oldid=4065616) |
+| Ruthless Predator | have a 0.2-second cast time | [4065616](https://wiki.leagueoflegends.com/en-us/Template:Data_Renekton/Ruthless_Predator?oldid=4065616) |
 | Slice and Dice | Physical Damage: 40 / 70 / 100 / 130 / 160 (+ 90% bonus AD) | [3943397](https://wiki.leagueoflegends.com/en-us/Template:Data_Renekton/Slice_and_Dice?oldid=3943397) |
 | Slice and Dice | Enhanced Physical Damage: 70 / 115 / 160 / 205 / 250 (+ 135% bonus AD) | [3943397](https://wiki.leagueoflegends.com/en-us/Template:Data_Renekton/Slice_and_Dice?oldid=3943397) |
 | Slice and Dice | Armor Reduction: 25 / 27.5 / 30 / 32.5 / 35% | [3943397](https://wiki.leagueoflegends.com/en-us/Template:Data_Renekton/Slice_and_Dice?oldid=3943397) |
 | Slice and Dice | inflicts armor reduction to enemies hit for 4 seconds | [3943397](https://wiki.leagueoflegends.com/en-us/Template:Data_Renekton/Slice_and_Dice?oldid=3943397) |
 | Cull the Meek | Enhanced Damage: 90 / 135 / 180 / 225 / 270 (+ 140% bonus AD) | [4008014](https://wiki.leagueoflegends.com/en-us/Template:Data_Renekton/Cull_the_Meek?oldid=4008014) |
-| Cull the Meek | Enhanced Champion Healing: 36 / 60 / 84 / 108 / 132 (+ 51% bonus AD) | [4008014](https://wiki.leagueoflegends.com/en-us/Template:Data_Renekton/Cull_the_Meek?oldid=4008014) |
 | Ruthless Predator | increasing the stun duration to 1.5 seconds | [4065616](https://wiki.leagueoflegends.com/en-us/Template:Data_Renekton/Ruthless_Predator?oldid=4065616) |
 | Slice and Dice | cooldown: 16 / 14.5 / 13 / 11.5 / 10 | [3943397](https://wiki.leagueoflegends.com/en-us/Template:Data_Renekton/Slice_and_Dice?oldid=3943397) |
 | Slice and Dice | range: 450 | [3943397](https://wiki.leagueoflegends.com/en-us/Template:Data_Renekton/Slice_and_Dice?oldid=3943397) |
 | Slice and Dice | speed: 760 + 100% movement speed | [3943397](https://wiki.leagueoflegends.com/en-us/Template:Data_Renekton/Slice_and_Dice?oldid=3943397) |
-| Slice and Dice | he can recast Slice and Dice within the next 4 seconds | [3943397](https://wiki.leagueoflegends.com/en-us/Template:Data_Renekton/Slice_and_Dice?oldid=3943397) |
 | Dominus | cooldown: 120 / 100 / 80 | [3963895](https://wiki.leagueoflegends.com/en-us/Template:Data_Renekton/Dominus?oldid=3963895) |
 | Dominus | castTime: 0.25 | [3963895](https://wiki.leagueoflegends.com/en-us/Template:Data_Renekton/Dominus?oldid=3963895) |
 | Dominus | Bonus Health: 300 / 500 / 700 | [3963895](https://wiki.leagueoflegends.com/en-us/Template:Data_Renekton/Dominus?oldid=3963895) |
