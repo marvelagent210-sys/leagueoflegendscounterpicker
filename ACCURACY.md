@@ -1020,6 +1020,58 @@ seconds, Heimerdinger's and Udyr's kit-option searches included. Every live scor
 with the matrix within **3.83e-15**, every scenario within its three-decimal rounding,
 and the whole ranking order agrees. Page, console, HTTP and request errors are all zero.
 
+## Review of the Yasuo golden matchups, 20 October 2026
+
+Two draft expectations, Garen beats Yasuo and Malphite beats Yasuo, had failed since the
+wave-3 import corrected Yasuo's kit: both scored −0.776 for the expected winner. Undoing
+the import's Yasuo corrections one at a time shows what decides them: Last Breath's
+critical-strike bonus armor ignorance, alone. Without it Garen and Malphite win every
+all-in (+0.78 each). Undoing Steel Tempest's cast-time scaling, life steal, the parry
+rules, Sweeping Blade's Flow or its ghosting leaves both lost; only the cast time moves
+Garen at all, to −0.73. The ignorance is read from
+[Template:Data Yasuo/Last Breath revision 4027670](https://wiki.leagueoflegends.com/en-us/Template:Data_Yasuo/Last_Breath?oldid=4027670):
+for 15 seconds his critical strikes ignore 60% of the target's bonus armor, and its note
+says this "stacks additively with sources of percentage armor penetration". With the
+capped 35% armor penetration and Intent's doubled crit chance (100%), every attack
+Yasuo lands after Last Breath ignores 95% of the target's bonus armor.
+
+Two other readings were checked, and neither changes the winners. If the ignorance
+multiplied with armor penetration instead (74% ignored), Garen would still lose at
+−0.78 and Malphite at −0.74. The stat budget values stats at the start of a fight and
+doesn't see this mid-fight buff, so Garen and Malphite buy armor against Yasuo (3,043
+and 8,314 gold); a budget that sees it moves their gold out of armor, and they still
+lose (−0.77). Firing Garen's Demacian Justice below 20% or 35% of his health, rather
+than only when it kills, changes neither score either.
+
+On review the additive stacking stands, as the wiki has it, and both expectations now
+say Yasuo wins, resting on that interaction. A multiplicative version was committed
+and reverted on the way; the engine and every kit end up exactly as they were, so no
+simulated score changes. The matrix is refreshed only because the golden file is part
+of the simulation fingerprint.
+
+### Validation of the review
+
+Model fingerprint:
+`248fa67b24bbbef9305f9a394077dedefcd1c386fd5759199fd0bc2e5e6598d2`.
+
+The refresh computed all **4,465 pairs** on four workers in **5,184.2 seconds** and
+rewrote 273 simulator and ledger files; only `simulated.json` and the simulator report
+changed. All 8,930 directed scores, every scenario and every kit choice are identical
+to the previous matrix (`090fdf2d…`), and only the fingerprint differs.
+`npm run build:sim -- --check` passes, both TypeScript projects pass, and the report
+now shows 65 of 69 expectations holding.
+
+The full suite ran **3,521 tests across 125 files** on four workers in **191
+seconds**: **3,516 passed** and the five disputed matchups were skipped. No test failed,
+for the first time since the wave-3 import.
+
+The production build passes. In Chromium, the matchup pages for Yasuo against Garen and
+Malphite, both ways round, show the stored ±0.78 within about two seconds, without the
+rerun banner. Yasuo's, Garen's and Malphite's counter pages rank all 94 opponents, their
+matchups against Darius show the matrix scores, their kit pages show their assumptions
+without horizontal scrolling, and the matchup page fits a 390-pixel phone. Page, console
+and HTTP errors are all zero.
+
 ## Remaining limits
 
 - Only 95 of the dataset's 173 champions have simulator kits. Other pairings use the
@@ -1030,6 +1082,9 @@ and the whole ranking order agrees. Page, console, HTTP and request errors are a
   effects. Those approximations are most consequential around death, shields, and CC.
 - Behaviors are programmed policies with a reaction-time model, rather than an
   exhaustive search over every possible action sequence.
+- The stat budget values stats at the start of a fight. Buffs a kit gains during the
+  fight, such as Last Breath's armor ignorance, are invisible to it unless the kit
+  hints them, so the other side can buy stats the buff later ignores.
 - The matchup's numbers table shows base and purchased stats before kit buffs,
   the selected equipped kit, and the fight setup before the first passive tick. It does
   not summarize every subsequent buff or transformation. Poppy's first-tick resistance

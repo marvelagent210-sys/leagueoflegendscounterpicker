@@ -87,6 +87,14 @@ existing skips. All 41 production browser checks pass, and all 94 live fallback 
 against Darius match the matrix within 3.83e-15. Validation is recorded in
 [ACCURACY.md](ACCURACY.md).
 
+On review on 20 October, the two draft expectations that had failed since the wave-3
+import now say Yasuo beats Garen and Malphite. After Last Breath his critical strikes
+ignore 60% of bonus armor, adding to his armor penetration as the wiki's note says, and
+that alone decides both matchups (+0.78 for him). No simulated score changed; the
+matrix was refreshed under fingerprint `248fa67b…` because the golden file is part of
+it. The full suite passes for the first time since that import: 3,516 tests pass and
+the five disputed matchups are skipped.
+
 Each batch must read pinned source values, check meaningful damage/timing/counterplay
 cases, exercise ordinary behavior, regenerate all affected duels, and pass type/build
 checks before updating the private preview. Unresolved source conflicts and model

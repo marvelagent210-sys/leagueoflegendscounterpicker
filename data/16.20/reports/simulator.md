@@ -167,7 +167,7 @@ Kit-driven expectations (tests/golden/matchups.ts), drafted for review. Margins:
 | Olaf beats Ornn | slight | +0.78 | holds | Ragnarok ignores Ornn's knock-ups and stuns. |
 | Olaf beats Poppy | slight | +0.79 | holds | Ragnarok ignores Heroic Charge's stun and Keeper's Verdict. |
 | Malphite beats Tryndamere | clear | +0.80 | holds | Ground Slam cuts Tryndamere's attack speed, and Malphite's armor blunts his crits. |
-| Malphite beats Yasuo | slight | −0.78 | **fails** | Armor against crits, and Unstoppable Force goes through Wind Wall. |
+| Yasuo beats Malphite | slight | +0.78 | holds | After Last Breath, Yasuo's critical strikes ignore 60% of Malphite's bonus armor, adding to his armor penetration, and Intent's doubled crit chance makes every attack crit. |
 | Malphite beats Yone | slight | +0.79 | holds | Armor against crits, and Ground Slam cuts Yone's attack speed. |
 | Malphite beats Riven | slight | +0.80 | holds | All of Riven's damage is physical, into Malphite's armor and Ground Slam. |
 | Malphite beats Irelia | slight | +0.61 | holds | Ground Slam cuts Irelia's attack speed, and her damage is mostly physical. |
@@ -175,12 +175,12 @@ Kit-driven expectations (tests/golden/matchups.ts), drafted for review. Margins:
 | Olaf beats Skarner | slight | +0.81 | holds | Ragnarok ignores Impale's suppression and Ixtal's Impact's stun. |
 | Malphite beats Pantheon | slight | +0.80 | holds | Pantheon's damage is all physical, into Malphite's armor. |
 | Malphite beats Gangplank | slight | −0.76 | disputed | Gangplank's attacks, Parrrley and Powder Kegs are physical, into Malphite's armor. *Disputed:* Gangplank wins every all-in (+0.76 for him). Both buy armor (Malphite 7,650 gold, Gangplank 5,300), so Malphite's physical damage stays low, while Trial by Fire's true damage and Cannon Barrage's magic damage carry Gangplank through fights of about 18 seconds. |
-| Garen beats Yasuo | slight | −0.78 | **fails** | Decisive Strike silences Yasuo, so he can't Sweeping Blade away or stack Steel Tempest. |
+| Yasuo beats Garen | slight | +0.78 | holds | Intent doubles Yasuo's crit chance, and after Last Breath his critical strikes ignore 60% of Garen's bonus armor, adding to his armor penetration; Decisive Strike's silence doesn't turn the fight. |
 | Garen beats Yone | slight | +0.34 | holds | Decisive Strike silences Yone in the middle of his combo. |
 | Garen beats Irelia | slight | +0.80 | holds | Decisive Strike silences Irelia (no Bladesurge resets), and Garen's regeneration outlasts her trades. |
 | Nasus beats Renekton | slight | +0.79 | holds | By level 20 Siphoning Strike has its stacks, and Wither cripples Renekton's attacks. |
 
-63 of 69 expectations hold.
+65 of 69 expectations hold.
 
 ## What the stat budget buys
 

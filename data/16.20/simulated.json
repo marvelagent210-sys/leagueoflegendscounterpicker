@@ -2,7 +2,7 @@
   "dataset": "16.20",
   "patch": "26.20",
   "confidence": "full",
-  "simulation": {"schema":1,"fingerprint":"090fdf2d6feba7dec518d2eab5665eb2365f70a7691fa5107e9d9b5f36107ac5"},
+  "simulation": {"schema":1,"fingerprint":"248fa67b24bbbef9305f9a394077dedefcd1c386fd5759199fd0bc2e5e6598d2"},
   "gold": 15000,
   "values": ["score","youEngage","enemyEngages","brawl","shortTrade","spacing","escape"],
   "matchups": {
