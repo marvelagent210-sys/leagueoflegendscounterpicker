@@ -9,7 +9,7 @@ export const TheCollector: ItemModule = {
     return {
       hooks: {
         onDamageDealt(ctx) {
-          if (ctx.enemy.alive && ctx.enemy.hp > 0 && ctx.enemy.hp < below * derive(ctx.enemy).maxHp) applyFrom(ctx, item.name, { type: "execute", threshold: { base: 0, ratios: { targetMaxHP: below } } });
+          if (ctx.enemy.alive && ctx.enemy.hp > 0 && ctx.enemy.hp < below * derive(ctx.enemy).maxHp) applyFrom(ctx, item.label, { type: "execute", threshold: { base: 0, ratios: { targetMaxHP: below } } });
         },
       },
       unmodeled: ["Taxes: gold doesn't matter in a duel."],

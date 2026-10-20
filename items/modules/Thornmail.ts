@@ -13,7 +13,7 @@ export const Thornmail: ItemModule = {
       hooks: {
         onIncomingOnHit(ctx) {
           if (!ctx.attack || ctx.enemy.petId !== undefined) return;
-          applyFrom(ctx, item.name, { type: "damage", damageType: "magic", amount: { base, ratios: { bonusArmor: share } }, label: item.name }, false, ctx.scale);
+          applyFrom(ctx, item.label, { type: "damage", damageType: "magic", amount: { base, ratios: { bonusArmor: share } }, label: item.label }, false, ctx.scale);
           inflictGrievous(ctx.world, ctx.self, ctx.enemy, seconds);
         },
       },

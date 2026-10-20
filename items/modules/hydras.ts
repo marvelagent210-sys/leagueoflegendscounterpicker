@@ -1,2 +1,2 @@
-/** The Hydras' Cleave: its damage to other enemies has no target in a duel. */
-export const CLEAVE = "Cleave: its damage to other enemies has no target in a duel.";
+/** The Hydras' Cleave: its damage to other enemies, which in a duel can only be pets. */
+export const CLEAVE = "Cleave: its damage to other enemies isn't modeled: in a duel they can only be pets.";

@@ -13,7 +13,7 @@ export const SeryldasGrudge: ItemModule = {
     return {
       hooks: {
         onDamageDealt(ctx) {
-          if (fighter.isAbilityDamage(ctx) && ctx.enemy.hp <= below * derive(ctx.enemy).maxHp) refreshSlow(ctx, item.name, slow, seconds);
+          if (fighter.isAbilityDamage(ctx) && ctx.enemy.hp <= below * derive(ctx.enemy).maxHp) refreshSlow(ctx, item.label, slow, seconds);
         },
       },
     };

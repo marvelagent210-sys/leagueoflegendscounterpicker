@@ -21,7 +21,7 @@ export const Redemption: ItemModule = {
       }],
       hooks: {
         onAbilityHit(ctx) {
-          if (ctx.ability.key === activeKey(item.name) && Math.abs(ctx.self.x - ctx.enemy.x) <= radius) applyFrom(ctx, item.name, { type: "heal", amount: { base: heal } }, true);
+          if (ctx.ability.key === activeKey(item.name) && Math.abs(ctx.self.x - ctx.enemy.x) <= radius) applyFrom(ctx, item.label, { type: "heal", amount: { base: heal } }, true);
         },
       },
     };

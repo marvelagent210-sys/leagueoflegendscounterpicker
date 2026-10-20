@@ -13,7 +13,7 @@ export const Stormrazor: ItemModule = {
     const seconds = bolt.quoted(words, 2);
     fighter.energized().add({
       onHit(ctx, scale) {
-        applyFrom(ctx, item.name, { type: "damage", damageType: "magic", amount: { base: damage }, label: item.name }, false, scale);
+        applyFrom(ctx, item.label, { type: "damage", damageType: "magic", amount: { base: damage }, label: item.label }, false, scale);
         ctx.buff(memo(item.name, "speed"), "moveSpeedPercent", speed, seconds);
       },
     });

@@ -41,7 +41,7 @@ export const FiendhunterBolts: ItemModule = {
           const chance = Math.min(1, Math.max(0, ctx.action.critChance ?? derive(ctx.self).critChance));
           ctx.action.critChance = 1;
           ctx.action.critMultiplier = 1 + empowered + chance * (doubled - empowered);
-          if (chance > 0) ctx.action.onHit = [...ctx.action.onHit, { type: "damage", damageType: "true", amount: { base: 0, ratios: { AD: chance * extra * (1 + doubled) } }, label: item.name }];
+          if (chance > 0) ctx.action.onHit = [...ctx.action.onHit, { type: "damage", damageType: "true", amount: { base: 0, ratios: { AD: chance * extra * (1 + doubled) } }, label: item.label }];
           ctx.self.memory[left] = remaining - 1;
           if (remaining - 1 <= 0) ctx.buff(memo(item.name, "attackSpeed"), "attackSpeed", 0, 0);
         },

@@ -15,14 +15,14 @@ export const Muramana: ItemModule = {
     const share = (fighter.ranged ? ability.ranged : ability.melee) / 100;
     if (!fighter.mana) return { unmodeled: ["Awe: the champion has no mana.", "Shock: its damage is a share of mana, which the champion doesn't have."] };
     return {
-      onHit: [itemDamage(item.name, "physical", { base: 0, ratios: { maxMana: onHit } }, item.tagged("OnHitAppliesLifeSteal"))],
+      onHit: [itemDamage(item.label, "physical", { base: 0, ratios: { maxMana: onHit } }, item.tagged("OnHitAppliesLifeSteal"))],
       hooks: joinHooks(follow(memo(item.name, "AD"), "AD", (self) => awe * derive(self).maxResource), {
         onDamageDealt(ctx) {
           if (!fighter.isAbilityDamage(ctx) || ctx.persistent || !ctx.ability) return;
           const gate = memo(item.name, `next:${ctx.ability}`);
           if (ctx.tick < until(ctx.self, gate)) return;
           ctx.self.memory[gate] = ctx.tick + toTicks(once);
-          applyFrom(ctx, item.name, { type: "damage", damageType: "physical", amount: { base: 0, ratios: { maxMana: share } }, label: item.name });
+          applyFrom(ctx, item.label, { type: "damage", damageType: "physical", amount: { base: 0, ratios: { maxMana: share } }, label: item.label });
         },
       }),
     };

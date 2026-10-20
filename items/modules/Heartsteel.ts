@@ -45,7 +45,7 @@ export const Heartsteel: ItemModule = {
           delete ctx.self.memory[stacks];
           ctx.self.memory[ready] = ctx.tick + toTicks(cooldown);
           const dealt = evaluate(amount, ctx.self, ctx.enemy) * ctx.scale;
-          applyFrom(ctx, item.name, { type: "damage", damageType: "physical", amount: { base: dealt }, label: item.name, ...(lifeSteal ? { lifesteal: derive(ctx.self).lifeSteal } : {}) });
+          applyFrom(ctx, item.label, { type: "damage", damageType: "physical", amount: { base: dealt }, label: item.label, ...(lifeSteal ? { lifesteal: derive(ctx.self).lifeSteal } : {}) });
           const gained = (ownStatus(ctx.self, health)?.value ?? 0) + growth * dealt;
           setStat(ctx.self, health, "health", gained, ctx.tick);
           ctx.self.hp += growth * dealt;

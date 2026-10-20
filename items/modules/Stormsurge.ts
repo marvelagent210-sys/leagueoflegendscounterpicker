@@ -30,7 +30,7 @@ export const Stormsurge: ItemModule = {
           if (hits.reduce((sum, [, amount]) => sum + amount, 0) >= share * derive(ctx.enemy).maxHp) {
             delete ctx.self.memory[recent];
             ctx.self.memory[ready] = ctx.tick + toTicks(cooldown);
-            applyFrom(ctx, item.name, { type: "delayed", delay, effects: [{ type: "damage", damageType: "magic", amount: { base, ratios: { AP: ap } }, label: item.name }] });
+            applyFrom(ctx, item.label, { type: "delayed", delay, effects: [{ type: "damage", damageType: "magic", amount: { base, ratios: { AP: ap } }, label: item.label }] });
             return;
           }
           ctx.self.memory[recent] = hits.map(([tick, amount]) => `${tick}:${amount}`).join(",");

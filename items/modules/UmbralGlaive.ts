@@ -29,7 +29,7 @@ export const UmbralGlaive: ItemModule = {
         onAttackHit(ctx) {
           if (ctx.blocked || ctx.tick > until(ctx.self, armed)) return;
           delete ctx.self.memory[armed];
-          applyFrom(ctx, item.name, { type: "damage", damageType: "true", amount: { base, ratios: { lethality: perLethality } }, label: item.name }, false, ctx.scale);
+          applyFrom(ctx, item.label, { type: "damage", damageType: "true", amount: { base, ratios: { lethality: perLethality } }, label: item.label }, false, ctx.scale);
         },
       },
       unmodeled: ["Blackout: there are no wards in a duel."],

@@ -18,7 +18,7 @@ export const Bastionbreaker: ItemModule = {
         onDamageDealt(ctx) {
           if (!fighter.isAbilityDamage(ctx) || ctx.persistent || ctx.tick < until(ctx.self, ready)) return;
           ctx.self.memory[ready] = ctx.tick + toTicks(cooldown);
-          applyFrom(ctx, item.name, { type: "damage", damageType: "true", amount: { base: pick(base), ratios: { lethality: pick(perLethality) } }, label: item.name });
+          applyFrom(ctx, item.label, { type: "damage", damageType: "true", amount: { base: pick(base), ratios: { lethality: pick(perLethality) } }, label: item.label });
         },
       },
       unmodeled: ["Sabotage: a takedown ends the duel, and there are no turrets."],

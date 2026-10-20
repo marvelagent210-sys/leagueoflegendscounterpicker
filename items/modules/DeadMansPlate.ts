@@ -48,7 +48,7 @@ export const DeadMansPlate: ItemModule = {
           if (held <= 0) return;
           ctx.self.memory[stacks] = 0;
           show(ctx, 0);
-          if (!ctx.blocked) applyFrom(ctx, item.name, { type: "damage", damageType: "physical", amount: { base: perStack * held, ratios: { baseAD: sharePerStack * held } }, label: item.name }, false, ctx.scale);
+          if (!ctx.blocked) applyFrom(ctx, item.label, { type: "damage", damageType: "physical", amount: { base: perStack * held, ratios: { baseAD: sharePerStack * held } }, label: item.label }, false, ctx.scale);
         },
       },
     };

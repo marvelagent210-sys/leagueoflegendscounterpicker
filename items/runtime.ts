@@ -233,9 +233,9 @@ export function energizedPool(rule: { full: number; perAttack: number; unitsPerC
       },
       onAttackLaunch(ctx) {
         if (charges(ctx.self) >= rule.full) {
-          // The attack launched at full charges is the Energized one.
+          // The attack launched at full charges is the Energized one; on a pet, it spends them there.
           ctx.self.memory[CHARGES] = 0;
-          ctx.self.memory[LOADED] = true;
+          if (!ctx.targetPet) ctx.self.memory[LOADED] = true;
           show(ctx, false);
           return;
         }

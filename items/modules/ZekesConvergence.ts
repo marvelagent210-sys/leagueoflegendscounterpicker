@@ -40,8 +40,8 @@ export const ZekesConvergence: ItemModule = {
           if (ctx.tick > until(ctx.self, ends) || ctx.tick < until(ctx.self, next)) return;
           ctx.self.memory[next] = ctx.tick + toTicks(every);
           if (!within(ctx.self, ctx.enemy, radius)) return;
-          applyFrom(ctx, item.name, { type: "damage", damageType: "magic", amount: { base: damage }, label: item.name, persistent: true });
-          refreshSlow(ctx, item.name, slow, every * 2);
+          applyFrom(ctx, item.label, { type: "damage", damageType: "magic", amount: { base: damage }, label: item.label, persistent: true });
+          refreshSlow(ctx, item.label, slow, every * 2);
         },
       },
     };

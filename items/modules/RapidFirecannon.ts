@@ -13,7 +13,7 @@ export const RapidFirecannon: ItemModule = {
     const range = Math.min(cap, share * fighter.spec.attack.range);
     fighter.energized().add({
       full: (ctx, on) => ctx.buff(memo(item.name, "range"), "attackRange", on ? range : 0, 1e6),
-      onHit: (ctx, scale) => applyFrom(ctx, item.name, { type: "damage", damageType: "magic", amount: { base: damage }, label: item.name }, false, scale),
+      onHit: (ctx, scale) => applyFrom(ctx, item.label, { type: "damage", damageType: "magic", amount: { base: damage }, label: item.label }, false, scale),
     });
     return {};
   },

@@ -14,7 +14,7 @@ export const LichBane: ItemModule = {
     return {
       hooks: spellblade(item.name, blade, {
         armed: (ctx, on) => ctx.buff(memo(item.name, "attackSpeed"), "attackSpeed", on ? attackSpeed : 0, window),
-        onHit: (ctx, scale) => applyFrom(ctx, item.name, { type: "damage", damageType: "magic", amount: { base: 0, ratios: { baseAD: ad, AP: ap } }, label: item.name }, false, scale),
+        onHit: (ctx, scale) => applyFrom(ctx, item.label, { type: "damage", damageType: "magic", amount: { base: 0, ratios: { baseAD: ad, AP: ap } }, label: item.label }, false, scale),
       }),
     };
   },

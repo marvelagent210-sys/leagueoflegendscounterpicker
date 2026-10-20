@@ -651,20 +651,32 @@ web/        the app
 - **Tests.** 744 pass and 5 are skipped (the disputed golden matchups). New: every wave-2 kit's values from the wiki and its fights, tick by tick; the engine additions on synthetic kits; both sides' kit options in matchups, in the build and in the browser.
 - **Known gap: quoted restrictions can go untested.** A kit quoting a wiki rule ("Trial by Fire cannot be applied with Parrrley nor Powder Keg") only checks that the sentence is still on the wiki; the kit's code enforces the rule, and a test may or may not. Breaking the four restrictions Akali, Ambessa and Aurora quote, in eight ways one at a time (attacks that don't break stealth, or break it at the wrong point of the windup; Ambessa acting while she holds the enemy), failed no test, and seven of the eight changed matchup results: with Ambessa able to attack while she holds the enemy, her loss to Gnar (−0.56) becomes a win (+0.76). Before wave 3: a test for each quoted restriction, each shown to fail when its rule is broken, then a full audit of the 49 kits.
 
-### M8: items and runes (planned)
+### M8: items and runes (in progress)
 
 It starts once all 173 champions have kits; at the M7 pace (46 kits from 14 to 20 October) the last 78 take about two weeks. M8 itself is about 5 to 7 weeks of work. Each matchup then plays the item build and rune page found best for each side against the other's, instead of plain stats.
 
-Progress: the item data came first, on 20 October, while the remaining kits are written elsewhere. `npm run fetch -- --only items` and `npm run build:items` write the catalog to `items.json` and `reports/items.md`; the simulator doesn't read it yet, so the matrix and its fingerprint are unchanged. See ACCURACY.md for its validation.
+Progress (20 October, while the remaining kits are written elsewhere):
+
+- **Item data, done.** `npm run fetch -- --only items` and `npm run build:items` write the catalog to `items.json` and `reports/items.md`. It holds the 106 finished items, the 7 tier-2 boots and the 3 transformed Tear items, with each effect's notes and values by level, and the wiki rule pages item effects quote (`--only item-rules`).
+- **Item effects, done.** Every item's effects are modeled from its wiki text, or left out with a reason (`items/`, `reports/item-effects.md`): 99 item modules, and 12 items whose effects can't act in a duel (allies, takedowns, summoner spells, other enemies). `npm run duel -- A B --items "..." --enemy-items "..."` plays a matchup with fixed builds. With both builds fixed, a matchup's six scenarios take 0.25 to 0.85 s.
+- **Not yet:** runes, the build search, and the precomputed matrix with builds. Until the matrix uses items, they stay out of the simulation fingerprint, which is unchanged (`248fa67b`).
+
+See ACCURACY.md for the validation.
 
 - **What changes.**
   - Two ground rules (§1): items and runes join the kits. The plain-stat budget (§10) becomes a setting, so the kit-only view stays available.
   - Builds are full (decided on 20 October): six finished items without boots, or five with one of the seven tier-2 boots. Order doesn't matter, and no item appears twice. Full builds cost more than the default 15,000 gold, which stays for the plain-stat setting.
-- **Item data and behavior** (about 2 weeks).
-  - Only the stat prices (Module:Gold value) are fetched now. The catalog for patch 26.20 (Data Dragon 16.20.1, purchasable on Summoner's Rift) is 106 finished items (105 at 2,000 gold or more, plus Mejai's Soulstealer) and 7 tier-2 boots. Left out: trinkets, consumables, starters, components, basic Boots, the 7 tier-3 boots (free upgrades), the 5 support quest upgrades, items only one champion can buy, and 33 copies the data carries for other modes.
-  - The search uses all 106 items for now. Fetch and parse them: their stats, passives, actives and unique effects, pinned to wiki revisions and cross-checked against the game files, as abilities are (M2).
-  - The engine needs stacking passives, shared effects such as Spellblade, item cooldowns and haste.
-  - Actives need behavior that decides when to use them (Zhonya's Hourglass). Every rule an item quotes gets a test, as kits' rules do.
+- **Item data and behavior** (done on 20 October).
+  - The catalog for patch 26.20 (Data Dragon 16.20.1, purchasable on Summoner's Rift) is 106 finished items (105 at 2,000 gold or more, plus Mejai's Soulstealer) and 7 tier-2 boots. Left out: trinkets, consumables, starters, components, basic Boots, the 7 tier-3 boots (free upgrades), the 5 support quest upgrades, items only one champion can buy, and 33 copies the data carries for other modes.
+  - Items put their stats, passives and actives on a champion's kit through the engine's extension points, without changing the engine (`items/equip.ts`). Shared mechanics: Spellblade, Lifeline, Energized, Annul, Immolate, combat status, ultimate and basic ability haste, decaying shields.
+  - Actives are abilities the default behavior casts: it saves Zhonya's Hourglass for the threats stasis answers, as kits' defenses are.
+  - Stacks a game gathers are options with stated defaults: Tear items are stacked and transformed, Yun Tal Wildarrows and Rod of Ages are fully stacked, and Mejai's Soulstealer and Heartsteel have none.
+  - What the engine can't express yet, to fix with the next matrix refresh (each changes the fingerprint):
+    - Randuin's Omen's Resilience: the damage hooks can't tell a critical outcome from an ordinary one.
+    - Heal and shield power, shields received (Spirit Visage) and champion size.
+    - Actualizer's doubled costs and faster cooldowns.
+    - Tenacity groups: the wiki adds the groups (Mercury's Treads' 30% and Courage's 60% are 90%); the engine multiplies them (72%).
+    - The engine's own stasis state lets a unit act (Lissandra's Frozen Tomb on herself). Item stasis stops attacks, walking and casts itself.
 - **Runes** (about 1 week).
   - `runes.json` holds only Triple Tonic. Fetch the rest: about 60 runes and the stat shards.
   - About half matter in a level-20 1v1. The others are recorded as having no effect, with the reason.

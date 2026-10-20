@@ -19,7 +19,7 @@ export const GuardianAngel: ItemModule = {
           if (ctx.self.memory[ends] !== undefined) return false;
           ctx.self.memory[ends] = ctx.tick + toTicks(seconds);
           ctx.self.hp = 1;
-          for (const state of ["stasis", "noAttacks", "noMovement"] as const) applyFrom(ctx, item.name, { type: "state", state, duration: seconds }, true);
+          for (const state of ["stasis", "noAttacks", "noMovement"] as const) applyFrom(ctx, item.label, { type: "state", state, duration: seconds }, true);
           ctx.log("Guardian Angel: resurrecting");
           return true;
         },

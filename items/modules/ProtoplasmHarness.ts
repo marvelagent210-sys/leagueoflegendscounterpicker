@@ -20,9 +20,9 @@ export const ProtoplasmHarness: ItemModule = {
     return {
       hooks: joinHooks(
         lifeline(item.name, line, (ctx) => {
-          applyFrom(ctx, item.name, { type: "stat", stat: "health", amount: { base: health }, duration: seconds }, true);
-          applyFrom(ctx, item.name, { type: "stat", stat: "moveSpeedPercent", amount: { base: speed }, duration: seconds }, true);
-          applyFrom(ctx, item.name, { type: "state", state: "tenacity", value: tenacity, duration: seconds }, true);
+          applyFrom(ctx, item.label, { type: "stat", stat: "health", amount: { base: health }, duration: seconds }, true);
+          applyFrom(ctx, item.label, { type: "stat", stat: "moveSpeedPercent", amount: { base: speed }, duration: seconds }, true);
+          applyFrom(ctx, item.label, { type: "state", state: "tenacity", value: tenacity, duration: seconds }, true);
           const d = derive(ctx.self);
           ctx.self.memory[perTick] = (heal + (ratios / 100) * (d.armor.bonus + d.mr.bonus)) / toTicks(seconds);
           ctx.self.memory[ends] = ctx.tick + toTicks(seconds);
@@ -30,7 +30,7 @@ export const ProtoplasmHarness: ItemModule = {
         {
           onTick(ctx) {
             if (ctx.tick >= until(ctx.self, ends)) return;
-            applyFrom(ctx, item.name, { type: "heal", amount: { base: Number(ctx.self.memory[perTick] ?? 0) } }, true);
+            applyFrom(ctx, item.label, { type: "heal", amount: { base: Number(ctx.self.memory[perTick] ?? 0) } }, true);
           },
         },
       ),

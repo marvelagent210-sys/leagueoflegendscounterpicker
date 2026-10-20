@@ -16,7 +16,7 @@ export const DeathsDance: ItemModule = {
         modifyDamageAfterShields(ctx) {
           if (ctx.damageType === "true" || ctx.amount <= 0) return ctx.amount;
           const stored = ctx.amount * cut;
-          applyFrom(ctx, item.name, { type: "dot", damageType: "true", total: { base: stored }, duration: seconds, interval: 1, label: item.name, stacks: true }, true);
+          applyFrom(ctx, item.label, { type: "dot", damageType: "true", total: { base: stored }, duration: seconds, interval: 1, label: item.label, stacks: true }, true);
           return ctx.amount - stored;
         },
       },

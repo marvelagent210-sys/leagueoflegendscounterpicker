@@ -57,7 +57,7 @@ export const Malignance: ItemModule = {
           setStat(ctx.enemy, key, "mrReduction", inside ? shred : 0, ctx.tick, Number.POSITIVE_INFINITY, ctx.self.side);
           if (!inside || ctx.tick < until(ctx.self, next)) return;
           ctx.self.memory[next] = ctx.tick + toTicks(every);
-          applyFrom(ctx, item.name, { type: "damage", damageType: "magic", amount: { base, ratios: { AP: ap } }, label: item.name, persistent: true });
+          applyFrom(ctx, item.label, { type: "damage", damageType: "magic", amount: { base, ratios: { AP: ap } }, label: item.label, persistent: true });
         },
       },
     };

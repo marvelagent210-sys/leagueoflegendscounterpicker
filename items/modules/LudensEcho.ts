@@ -13,7 +13,8 @@ export const LudensEcho: ItemModule = {
     const total = echo.series("for a total of", 2);
     const totalAP = echo.series("for a total of", 3);
     if (total.kind !== "variable" || totalAP.kind !== "variable") throw new Error(`${item.name}: Echo's total should depend on remaining Echo stacks`);
-    // A duel has no other enemies: every stack beyond the first stays for the primary target.
+    // Every stack beyond the first stays for the primary target, as when there are no other enemies.
+    item.assume("Echo's orbs for other enemies within 600 units add to the primary target's damage instead: in a duel they can only be pets.");
     const remaining = stacks - 1;
     const at = total.points.indexOf(remaining);
     if (at < 0) throw new Error(`${item.name}: no total for ${remaining} remaining Echo stacks`);
@@ -26,7 +27,7 @@ export const LudensEcho: ItemModule = {
         onDamageDealt(ctx) {
           if (!fighter.isAbilityDamage(ctx) || ctx.persistent || ctx.tick < until(ctx.self, ready)) return;
           ctx.self.memory[ready] = ctx.tick + toTicks(cooldown);
-          applyFrom(ctx, item.name, { type: "damage", damageType: "magic", amount: { base, ratios: { AP: ap } }, label: item.name });
+          applyFrom(ctx, item.label, { type: "damage", damageType: "magic", amount: { base, ratios: { AP: ap } }, label: item.label });
         },
       },
     };

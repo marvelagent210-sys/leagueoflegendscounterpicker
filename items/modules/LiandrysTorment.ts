@@ -20,7 +20,7 @@ export const LiandrysTorment: ItemModule = {
       hooks: joinHooks({
         onDamageDealt(ctx) {
           if (!fighter.isAbilityDamage(ctx)) return;
-          applyFrom(ctx, item.name, { type: "dot", damageType: "magic", total: { base: 0, ratios: { targetMaxHP: share * (seconds / interval) } }, duration: seconds, interval, label: item.name });
+          applyFrom(ctx, item.label, { type: "dot", damageType: "magic", total: { base: 0, ratios: { targetMaxHP: share * (seconds / interval) } }, duration: seconds, interval, label: item.label });
         },
         onTick(ctx) {
           setStat(ctx.self, memo(item.name, "damage"), "damageDealt", Math.min(maxStacks, Math.floor(combat.seconds(ctx.self, ctx.tick))) * perStack, ctx.tick);

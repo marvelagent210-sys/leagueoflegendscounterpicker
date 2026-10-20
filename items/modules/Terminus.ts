@@ -25,7 +25,7 @@ export const Terminus: ItemModule = {
       return now;
     };
     return {
-      onHit: [itemDamage(item.name, "magic", { base: shadow.quoted(words), ratios: { bonusAD: shadow.quoted(words, 1) / 100, AP: shadow.quoted(words, 2) / 100 } }, item.tagged("OnHitAppliesLifeSteal"))],
+      onHit: [itemDamage(item.label, "magic", { base: shadow.quoted(words), ratios: { bonusAD: shadow.quoted(words, 1) / 100, AP: shadow.quoted(words, 2) / 100 } }, item.tagged("OnHitAppliesLifeSteal"))],
       hooks: {
         onAttackHit(ctx) {
           if (ctx.blocked) return;

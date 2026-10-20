@@ -5,6 +5,7 @@
 import { describe, expect, it } from "vitest";
 import { consumeSpellShield, dealDamage, hookContext } from "../../engine/sim/combat";
 import { derive } from "../../engine/sim/derived";
+import { damagePet, spawnPet } from "../../engine/sim/pets";
 import { createWorld } from "../../engine/sim/simulate";
 import type { AbilitySpec, FighterSpec } from "../../engine/sim/spec";
 import type { World } from "../../engine/sim/state";
@@ -192,6 +193,20 @@ describe("items in combat", () => {
     expect(burns.length).toBeGreaterThanOrEqual(2);
     expect(burns[1]! - burns[0]!).toBe(30);
     expect(hits(outcome.timeline, 0, "Sunfire Aegis")[0]).toBe(Math.round((20 + 0.015 * 350) / 2));
+  });
+
+  it("Hollow Radiance: killing a pet erupts where it died, for 30 + 2% bonus health magic damage to an enemy within 350 units", () => {
+    const eruption = (offset: number) => {
+      const w = world(equip(fighter(), "Hollow Radiance").spec);
+      const [holder, enemy] = w.units;
+      const pet = spawnPet(w, enemy, { kind: "test", name: "Test pet", hp: 1, armor: 0, mr: 0, radius: 10, moveSpeed: 0, duration: 100 }, enemy.x + offset);
+      const before = enemy.hp;
+      damagePet(w, holder, pet, 100, "physical", true);
+      return before - enemy.hp;
+    };
+    // 30 + 2% of its 400 bonus health, halved by 100 magic resistance; the 350 units reach the enemy's edge (65).
+    expect(eruption(415)).toBeCloseTo(19, 10);
+    expect(eruption(416)).toBe(0);
   });
 
   it("Jak'Sho: after 5 seconds in combat, 30% more bonus armor and magic resistance", () => {

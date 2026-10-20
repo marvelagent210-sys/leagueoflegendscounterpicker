@@ -30,7 +30,7 @@ export const Eclipse: ItemModule = {
       if (ctx.tick - previous <= toTicks(window) && previous > Number.NEGATIVE_INFINITY) {
         delete ctx.self.memory[last];
         ctx.self.memory[ready] = ctx.tick + toTicks(cooldown);
-        applyFrom(ctx, item.name, { type: "damage", damageType: "physical", amount: { base: 0, ratios: { targetMaxHP: pick(share) / 100 } }, label: item.name });
+        applyFrom(ctx, item.label, { type: "damage", damageType: "physical", amount: { base: 0, ratios: { targetMaxHP: pick(share) / 100 } }, label: item.label });
         itemShield(ctx, item.name, pick(shield) + (pick(ad) / 100) * derive(ctx.self).bonusAd, seconds, false);
         return;
       }
@@ -39,7 +39,7 @@ export const Eclipse: ItemModule = {
     return {
       hooks: {
         onDamageDealt(ctx) {
-          if (ctx.persistent || ctx.petSource || ctx.ability === item.name) return;
+          if (ctx.persistent || ctx.petSource || ctx.ability === item.label) return;
           stack(ctx, ctx.ability ?? (ctx.attack ? "attack" : "effect"));
         },
         onEnemyCCApplied(ctx) {

@@ -16,7 +16,7 @@ export const TrinityForce: ItemModule = {
     return {
       hooks: joinHooks(
         spellblade(item.name, blade, {
-          onHit: (ctx, scale) => applyFrom(ctx, item.name, { type: "damage", damageType: "physical", amount: { base: 0, ratios: { baseAD: share } }, label: item.name, ...(lifeSteal ? { lifesteal: derive(ctx.self).lifeSteal } : {}) }, false, scale),
+          onHit: (ctx, scale) => applyFrom(ctx, item.label, { type: "damage", damageType: "physical", amount: { base: 0, ratios: { baseAD: share } }, label: item.label, ...(lifeSteal ? { lifesteal: derive(ctx.self).lifeSteal } : {}) }, false, scale),
         }),
         { onAttackHit: (ctx) => { if (!ctx.blocked) ctx.buff(memo(item.name, "quicken"), "moveSpeedFlat", speed, seconds); } },
       ),

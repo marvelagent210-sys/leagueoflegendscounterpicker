@@ -63,7 +63,11 @@ Names are matched loosely (`"dr mundo"`, `wukong`). For example, parrying Darius
 npm run duel -- Garen Darius                 # the six scenarios at level 20 with the default 15,000-gold stat budget
 npm run duel -- Garen Darius --log brawl     # plus the timeline of one fight
 npm run duel -- Garen Darius --sweep         # plus the score at budgets from 0 to 20,000 gold
+npm run duel -- KogMaw Garen --items "Nashor's Tooth, Guinsoo's Rageblade, Rabadon's Deathcap, Sorcerer's Shoes, Lich Bane, Zhonya's Hourglass" --enemy-items "Stridebreaker, Black Cleaver, Plated Steelcaps, Sterak's Gage, Dead Man's Plate, Spirit Visage"
+                                             # item builds instead of the stat budget
 ```
+
+With `--items` and `--enemy-items`, each side holds a build of up to six items instead of the stat budget, checked against the build rules (`pipeline/items/rules.ts`): one pair of boots, no item twice, one item of each one-per-build group. Tear items are fully stacked (Manamune is Muramana) unless `--unstacked`, and `--item-option "Heartsteel.stacked=600"` changes an item's option. The output lists what each build's items leave out and assumes. Every item's effects are modeled from its wiki text, or left out with a reason ([item effects](data/16.20/reports/item-effects.md)); the build search that picks builds is still to come (PLAN.md M8).
 
 The simulator plays a duel out at 30 ticks per second, in one dimension. Both champions spend the same gold on plain stats, with penetration capped near what items give. Each prints a score from -1 to +1 for these scenarios:
 
@@ -102,8 +106,9 @@ npm run golden       # every golden matchup (tests/golden/matchups.ts) with its 
 npm run fetch        # download the current patch's sources into data/raw/ (not committed)
 npm run fetch -- --only glossary   # refetch just the wiki's glossary pages
 npm run fetch -- --only items      # refetch just the item catalog's sources
+npm run fetch -- --only item-rules # refetch just the wiki rule pages item effects quote (Energized, combat status, ...)
 npm run build:data   # rebuild data/<dataset>/ from those downloads, including all 4,465 supported pairings
-npm run build:items  # rebuild the item catalog (items.json, reports/items.md); the simulator doesn't use items yet
+npm run build:items  # rebuild the item catalog (items.json, reports/items.md, reports/item-effects.md)
 ```
 
 Each patch gets a folder named after its Data Dragon version, e.g. `data/16.20/` for patch 26.20. It contains:
@@ -119,7 +124,7 @@ Each patch gets a folder named after its Data Dragon version, e.g. `data/16.20/`
 | `counters/<champion>.md` | Every champion ranked against this one: by simulated duels for the 95 champions with kits, and by interaction estimates, with the strongest reasons |
 | `rankings.json` | The ledger rankings, machine-readable |
 | `simulated.json` | Every simulated matchup between champions with kits: the score and each scenario's, and the options played by kits with a choice |
-| `items.json` | The item catalog for the planned build search (M8): the 106 finished items and 7 tier-2 boots with stats, effects and limits, the game file's one-per-build groups, and the stat cross-check. Not used by the simulator yet |
+| `items.json` | The item catalog (M8): the 106 finished items and 7 tier-2 boots with stats, effects (their notes and values by level) and limits, the 3 transformed Tear items, the game file's one-per-build groups, the stat cross-check, and the wiki rule pages item effects quote. Item builds use it in `npm run duel`; the precomputed matrix doesn't yet |
 | `oracle/level20.json` | The wiki's level-20 stat table, which the tests check the stat math against |
 | `manifest.json`, `wiki-revisions.json` | The exact source versions and wiki revisions used |
 | `reports/level20-stats.md` | Base stats of every form at level 20 |
@@ -128,6 +133,7 @@ Each patch gets a folder named after its Data Dragon version, e.g. `data/16.20/`
 | `reports/ledger.md` | The glossary pages used, what the profiles found, hard counters by check, and each champion's best ledger-only counter |
 | `reports/simulator.md` | The simulated standings, the golden matchups with their scores, and what the stat budget buys each champion |
 | `reports/items.md` | The item catalog, readable: how it's chosen, the one-per-build groups, the cross-check against the game file, and every item's stats and effects |
+| `reports/item-effects.md` | What the simulator makes of each item: the effects it models, what it leaves out and why, its simplifications and options |
 
 Tests run offline against the committed data.
 

@@ -16,7 +16,7 @@ export const VoltaicCyclosword: ItemModule = {
     energized.add({
       onHit(ctx, scale) {
         ctx.buff(memo(item.name, "lethality"), "lethality", pick(lethality), seconds);
-        applyFrom(ctx, item.name, { type: "damage", damageType: "physical", amount: { base: 0, ratios: { targetCurrentHP: pick(share) / 100 } }, label: item.name }, false, scale);
+        applyFrom(ctx, item.label, { type: "damage", damageType: "physical", amount: { base: 0, ratios: { targetCurrentHP: pick(share) / 100 } }, label: item.label }, false, scale);
       },
     });
     return {

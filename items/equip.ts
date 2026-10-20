@@ -33,7 +33,7 @@ export interface ItemFighter {
   mana: boolean;
   /** Maximum mana before items, for "bonus mana". */
   baseMana: number;
-  /** The names of the items in the build: their damage is labeled with them. */
+  /** What the build's items label their damage with (their names, but for a clash with an ability's). */
   itemNames: ReadonlySet<string>;
   /** The build's items, for passives that count what the others give (Warmog's Vitality). */
   build: readonly ItemRecord[];
@@ -294,7 +294,10 @@ function permanent(item: string, statuses: Permanent[]): KitHooks {
 }
 
 function equipForm(form: FighterSpec, build: ItemRecord[], context: ItemContext, equip: EquipOptions, options: Record<string, Record<string, number>>, coverage: Map<string, ItemCoverage>): { spec: FighterSpec; enemyHooks: KitHooks[] } {
-  const itemNames = new Set(build.map((record) => record.name));
+  // The kit's ability names, in every form: an item of the same name labels its damage apart.
+  const reserved = new Set(Object.values(form.forms ?? { [form.name]: form }).flatMap((f) => f.abilities.map((ability) => ability.name)));
+  const items = build.map((record) => context.item(record, reserved));
+  const itemNames = new Set(items.map((item) => item.label));
   let combat: CombatStatus | undefined;
   let energized: Energized | undefined;
   const fighter: ItemFighter = {
@@ -311,7 +314,7 @@ function equipForm(form: FighterSpec, build: ItemRecord[], context: ItemContext,
       const rule = context.rule("Template:Tip data/Energized", "Energized");
       const gain = "Champions with Energized gain 6 Charges per basic attack and 1 Charge for every 24 units travelled by any means.";
       rule.quote("At 100 charges, they become fully Energized, empowering their next basic attack to consume the charges on-hit to trigger bonus effects. All sources of Energized stack with each other");
-      context.assume("Energized: the holder is fully Energized when the fight starts, from walking to it.");
+      context.assume("Energized: the holder is fully Energized when the fight starts, from walking to it. An Energized attack on a pet spends the charges, but its effects don't hit the pet.");
       return (energized = energizedPool({ full: rule.quoted("Energized is an effect of certain items and runes that grants Charges, up to 100."), perAttack: rule.quoted(gain), unitsPerCharge: rule.quoted(gain, 2) }));
     },
   };
@@ -326,7 +329,7 @@ function equipForm(form: FighterSpec, build: ItemRecord[], context: ItemContext,
   let omnivamp = 0;
   const regen = { hp5: 0, mp5: 0 };
   const built: Built[] = [];
-  for (const record of build) {
+  for (const [index, record] of build.entries()) {
     const notes = coverage.get(record.name) ?? { item: record.name, modeled: [], unmodeled: [] };
     coverage.set(record.name, notes);
     const leaveOut = (text: string) => {
@@ -356,7 +359,7 @@ function equipForm(form: FighterSpec, build: ItemRecord[], context: ItemContext,
     const chosen = { ...Object.fromEntries(Object.entries(module.options ?? {}).map(([key, option]) => [key, option.default])), ...options[record.name] };
     for (const [key, option] of Object.entries(module.options ?? {})) context.assume(`${record.name}: ${option.label}: ${chosen[key]}.`);
     options[record.name] = chosen;
-    const definition = module.build(context.item(record), fighter, chosen);
+    const definition = module.build(items[index]!, fighter, chosen);
     built.push({ record, definition });
     for (const text of definition.unmodeled ?? []) leaveOut(text);
     for (const effect of record.effects) {

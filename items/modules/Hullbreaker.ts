@@ -29,7 +29,7 @@ export const Hullbreaker: ItemModule = {
             return;
           }
           delete ctx.self.memory[stacks];
-          applyFrom(ctx, item.name, { type: "damage", damageType: "physical", amount: { base: 0, ratios: { baseAD: pick(ad), maxHP: pick(health) } }, label: item.name, ...(lifeSteal ? { lifesteal: derive(ctx.self).lifeSteal } : {}) }, false, ctx.scale);
+          applyFrom(ctx, item.label, { type: "damage", damageType: "physical", amount: { base: 0, ratios: { baseAD: pick(ad), maxHP: pick(health) } }, label: item.label, ...(lifeSteal ? { lifesteal: derive(ctx.self).lifeSteal } : {}) }, false, ctx.scale);
         },
       },
       unmodeled: ["Boarding Party: there are no minions in a duel."],

@@ -19,7 +19,7 @@ export const BladeOfTheRuinedKing: ItemModule = {
     const expires = memo(item.name, "stacksUntil");
     const ready = memo(item.name, "ready");
     return {
-      onHit: [itemDamage(item.name, "physical", { base: 0, ratios: { targetCurrentHP: (fighter.ranged ? share.ranged : share.melee) / 100 } }, item.tagged("OnHitAppliesLifeSteal"))],
+      onHit: [itemDamage(item.label, "physical", { base: 0, ratios: { targetCurrentHP: (fighter.ranged ? share.ranged : share.melee) / 100 } }, item.tagged("OnHitAppliesLifeSteal"))],
       hooks: {
         onAttackHit(ctx) {
           if (ctx.blocked || ctx.tick < until(ctx.self, ready)) return;
@@ -32,7 +32,7 @@ export const BladeOfTheRuinedKing: ItemModule = {
           delete ctx.self.memory[stacks];
           delete ctx.self.memory[expires];
           ctx.self.memory[ready] = ctx.tick + toTicks(cooldown);
-          applyFrom(ctx, item.name, { type: "cc", cc: "slow", duration: slowSeconds, strength: slow });
+          applyFrom(ctx, item.label, { type: "cc", cc: "slow", duration: slowSeconds, strength: slow });
         },
       },
     };

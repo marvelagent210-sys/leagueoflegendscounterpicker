@@ -5,7 +5,7 @@ import { DATA_DIR } from "../pipeline/config";
 import { latestDataset } from "../pipeline/datasets";
 import { type DDragonItem, type DDragonItems, catalogItems } from "../pipeline/items/catalog";
 import { type ItemCatalog, buildItemCatalog, spellOutRanged } from "../pipeline/items/records";
-import { REVIEWED_GROUPS, countBuilds, unknownItems } from "../pipeline/items/rules";
+import { REVIEWED_GROUPS, buildProblems, countBuilds, unknownItems } from "../pipeline/items/rules";
 import { readJson } from "../pipeline/lib/files";
 
 const gold = (total: number) => ({ base: 0, total, purchasable: true });
@@ -175,6 +175,27 @@ describe("build counting", () => {
 
   it("names the rules' items that aren't catalog items", () => {
     expect(unknownItems({ g: ["A", "Typo"] }, ["A", "B"])).toEqual(["Typo"]);
+  });
+
+  it("says what breaks the build rules, counting a transformed Tear item as its item", () => {
+    const legendary = (name: string, transformsFrom?: string) => ({ name, kind: "legendary", ...(transformsFrom ? { transformsFrom } : {}) });
+    const boots = (name: string) => ({ name, kind: "boots" });
+    const six = ["Manamune", "Archangel's Staff", "Winter's Approach", "Black Cleaver", "Void Staff", "Sterak's Gage"].map((name) => legendary(name));
+    // The Tear items can be combined, and five items go with one pair of boots.
+    expect(buildProblems(six)).toEqual([]);
+    expect(buildProblems([...six.slice(0, 5), boots("Plated Steelcaps")])).toEqual([]);
+    expect(buildProblems([...six, legendary("Thornmail")])).toEqual(["7 items: a build holds 6 at most"]);
+    expect(buildProblems([boots("Plated Steelcaps"), boots("Mercury's Treads")])).toEqual(["more than one pair of boots"]);
+    expect(buildProblems([legendary("Manamune"), legendary("Muramana", "Manamune")])).toEqual(["Manamune twice"]);
+    expect(buildProblems([legendary("Void Staff"), legendary("Terminus"), legendary("Sterak's Gage"), legendary("Maw of Malmortius")])).toEqual([
+      "Void Staff and Terminus: one %pen item per build",
+      "Sterak's Gage and Maw of Malmortius: one Lifeline item per build",
+    ]);
+    // Mortal Reminder is in two groups: with Morellonomicon it breaks one, with Void Staff the other.
+    expect(buildProblems([legendary("Mortal Reminder"), legendary("Morellonomicon"), legendary("Void Staff")])).toEqual([
+      "Mortal Reminder and Void Staff: one %pen item per build",
+      "Mortal Reminder and Morellonomicon: one Grievous Wounds item per build",
+    ]);
   });
 });
 

@@ -26,7 +26,7 @@ export const UnendingDespair: ItemModule = {
           const due = Math.floor((seconds * 30 + 1e-6) / toTicks(every));
           if (due <= Number(ctx.self.memory[pulses] ?? 0)) return;
           ctx.self.memory[pulses] = due;
-          if (within(ctx.self, ctx.enemy, radius)) applyFrom(ctx, item.name, { type: "damage", damageType: "magic", amount: { base: 0, ratios: { bonusHP: share } }, label: item.name, lifesteal: healShare });
+          if (within(ctx.self, ctx.enemy, radius)) applyFrom(ctx, item.label, { type: "damage", damageType: "magic", amount: { base: 0, ratios: { bonusHP: share } }, label: item.label, lifesteal: healShare });
         },
       },
     };

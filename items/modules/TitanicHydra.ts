@@ -12,16 +12,16 @@ export const TitanicHydra: ItemModule = {
     const cooldown = crescent.quoted("(10 second cooldown, starts after using the empowered attack)");
     crescent.quote("Titanic Crescent resets the user's basic attack timer.");
     const pick = (pair: { melee: number; ranged: number }) => (fighter.ranged ? pair.ranged : pair.melee) / 100;
-    item.assume("Cleave's and Titanic Crescent's damage to other enemies has no target in a duel.");
+    item.assume("Cleave's and Titanic Crescent's damage to other enemies isn't modeled: in a duel they can only be pets.");
     return {
-      onHit: [itemDamage(item.name, "physical", { base: 0, ratios: { maxHP: pick(share) } }, item.tagged("OnHitAppliesLifeSteal"))],
+      onHit: [itemDamage(item.label, "physical", { base: 0, ratios: { maxHP: pick(share) } }, item.tagged("OnHitAppliesLifeSteal"))],
       actives: [{
         name: crescent.name,
         cooldown,
         cooldownAfter: "empower",
         delivery: { kind: "self" },
         // The empowered Cleave replaces the ordinary one's damage on the target: the rest of it.
-        onSelf: [{ type: "empower", attacks: 1, window, resetAttack: true, onHit: [itemDamage(item.name, "physical", { base: 0, ratios: { maxHP: pick(empowered) - pick(share) } })] }],
+        onSelf: [{ type: "empower", attacks: 1, window, resetAttack: true, onHit: [itemDamage(item.label, "physical", { base: 0, ratios: { maxHP: pick(empowered) - pick(share) } })] }],
         roles: ["buff"],
       }],
     };

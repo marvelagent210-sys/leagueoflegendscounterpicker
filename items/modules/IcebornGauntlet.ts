@@ -22,10 +22,10 @@ export const IcebornGauntlet: ItemModule = {
       hooks: joinHooks(
         spellblade(item.name, blade, {
           onHit(ctx, scale) {
-            applyFrom(ctx, item.name, { type: "damage", damageType: "physical", amount: { base: 0, ratios: { baseAD: share } }, label: item.name, ...(lifeSteal ? { lifesteal: derive(ctx.self).lifeSteal } : {}) }, false, scale);
+            applyFrom(ctx, item.label, { type: "damage", damageType: "physical", amount: { base: 0, ratios: { baseAD: share } }, label: item.label, ...(lifeSteal ? { lifesteal: derive(ctx.self).lifeSteal } : {}) }, false, scale);
             ctx.self.memory[center] = ctx.enemy.x;
             ctx.self.memory[ends] = ctx.tick + toTicks(seconds);
-            applyFrom(ctx, item.name, { type: "cc", cc: "slow", duration: seconds, strength: slowOf(ctx.self.spec.attack.ranged) });
+            applyFrom(ctx, item.label, { type: "cc", cc: "slow", duration: seconds, strength: slowOf(ctx.self.spec.attack.ranged) });
           },
         }),
         {
@@ -34,7 +34,7 @@ export const IcebornGauntlet: ItemModule = {
             const inside = Math.abs(ctx.enemy.x - Number(ctx.self.memory[center])) <= radius + ctx.enemy.spec.base.radius;
             if (ctx.tick <= until(ctx.self, ends) && inside) return;
             delete ctx.self.memory[center];
-            ctx.enemy.statuses = ctx.enemy.statuses.filter((status) => !(status.kind === "cc" && status.key === "slow" && status.source === ctx.self.side && status.ability === activeKey(item.name)));
+            ctx.enemy.statuses = ctx.enemy.statuses.filter((status) => !(status.kind === "cc" && status.key === "slow" && status.source === ctx.self.side && status.ability === activeKey(item.label)));
           },
         },
       ),

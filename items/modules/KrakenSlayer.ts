@@ -33,7 +33,7 @@ export const KrakenSlayer: ItemModule = {
       const t = derive(ctx.enemy);
       const missingShare = Math.max(0, Math.min(1, 1 - ctx.enemy.hp / t.maxHp));
       const amount = damage * (1 + top * Math.min(1, missingShare / at));
-      applyFrom(ctx, item.name, { type: "damage", damageType: "physical", amount: { base: amount }, label: item.name, ...(lifeSteal ? { lifesteal: derive(ctx.self).lifeSteal } : {}) }, false, scale);
+      applyFrom(ctx, item.label, { type: "damage", damageType: "physical", amount: { base: amount }, label: item.label, ...(lifeSteal ? { lifesteal: derive(ctx.self).lifeSteal } : {}) }, false, scale);
     };
     return {
       hooks: {

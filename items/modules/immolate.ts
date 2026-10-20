@@ -28,7 +28,7 @@ export function immolate(item: ItemData, damage: string): ItemDefinition {
       onTick(ctx) {
         if (ctx.tick > until(ctx.self, active) || ctx.tick < until(ctx.self, next)) return;
         ctx.self.memory[next] = ctx.tick + toTicks(interval);
-        if (within(ctx.self, ctx.enemy, radius)) applyFrom(ctx, item.name, { type: "damage", damageType: "magic", amount: { base, ratios: { bonusHP: share } }, label: item.name, persistent: true });
+        if (within(ctx.self, ctx.enemy, radius)) applyFrom(ctx, item.label, { type: "damage", damageType: "magic", amount: { base, ratios: { bonusHP: share } }, label: item.label, persistent: true });
       },
     },
   };

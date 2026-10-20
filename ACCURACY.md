@@ -1100,6 +1100,41 @@ pinned sources. The simulator doesn't use them yet, so no simulated score change
 - **Tests:** `tests/items.test.ts` (14 tests) covers the selection, the text, the records, the cross-check, the groups, the build counts and the committed catalog.
 - **Full suite:** 3,529 of 3,535 tests pass and 5 are skipped. The one failure is the browser's full Heimerdinger–Udyr variant search (`tests/web/run.test.ts`), which ran past its 180-second limit on this machine. It passes alone in about 150 seconds, and the code from before the item work takes as long on this machine (162 s); the earlier validation measured 106 seconds. It doesn't involve items.
 
+## Item effects, 20 October 2026
+
+The second step of M8: what each item does in a duel, read from its wiki text the way kits
+read their abilities. The precomputed matrix doesn't use items yet; `npm run build:sim --
+--check` still matches fingerprint `248fa67b…`, and no simulated score changes.
+
+- **Catalog additions.**
+  - The wiki module's further description paragraphs were dropped before; seven items keep rules there. For example, Hextech Rocketbelt and Titanic Hydra reset the attack timer, and Spear of Shojin gives one stack per cast per second.
+  - Each effect now carries its value templates as series with their sentences, its active range and the item's tags (`OnHitAppliesLifeSteal` decides whether on-hit damage heals through life steal).
+  - Muramana, Seraph's Embrace and Fimbulwinter join as transforms, their `=>` fields resolved from the base item. Their stats match the game file too (332 stats in all, the same one difference).
+- **Rules beyond the items' text** come from pinned wiki pages fetched with the items:
+  - [Template:Tip data/Energized revision 4013385](https://wiki.leagueoflegends.com/en-us/Template:Tip_data/Energized?oldid=4013385): 6 charges an attack, one per 24 units travelled, full at 100.
+  - [Combat status revision 4058480](https://wiki.leagueoflegends.com/en-us/Combat_status?oldid=4058480): out of combat 5 seconds after the last damage or crowd control.
+  - [Vamp revision 4058226](https://wiki.leagueoflegends.com/en-us/Vamp?oldid=4058226): omnivamp heals from post-mitigation physical, magic and true damage.
+  - [Critical strike revision 4059009](https://wiki.leagueoflegends.com/en-us/Critical_strike?oldid=4059009) and [Template:Critical damage revision 4001015](https://wiki.leagueoflegends.com/en-us/Template:Critical_damage?oldid=4001015): crit damage adds up, and a champion's modifier scales the total. Infinity Edge makes most crits 230%, and Yasuo's 218.5%.
+  - A quote no longer on these pages, or in an item's text, fails the build.
+- **Coverage** (`reports/item-effects.md`), of 116 items:
+  - 5 have stats only, and 83 have every effect modeled. The rest leave part out, each with its reason.
+  - 12 have no effect that can act in a duel: their effects work through allies, a takedown (which ends the duel), summoner spells or other enemies.
+  - Actualizer's active isn't cast, since its costs aren't modeled.
+- **Findings while modeling.**
+  - A stat effect in a kit's `start` replaces another of the same stat (their memo key is `effect:<stat>`). So items keep each stat under their own key: Lord Dominik's Regards' 35% armor penetration stays a separate source next to Darius's innate.
+  - The engine's stasis state makes a unit invulnerable and untargetable, but it can still attack and cast. Item stasis (Zhonya's Hourglass, Guardian Angel) adds the no-attack and no-movement states and blocks casts itself. Lissandra's self-cast Frozen Tomb has the same gap; its fix is in the engine, for the next refresh.
+  - The wiki's cast-inhibiting crowd control (silence included) stops item actives too, as the engine already treats them. Only Quicksilver is cast under crowd control.
+  - Leona's W and an item are both called Eclipse. Item damage is labeled with the item's name, so her W would have counted as the item's damage, and the item's passive would have skipped it. When a kit has an ability of the item's name, the item's damage now reads "Eclipse (item)".
+  - An Energized attack that hits a pet (Tibbers, the Maiden of the Mist) spends the charges there; before, the next attack on the champion fired them. Its effects don't hit the pet, which is stated as an assumption.
+  - Hollow Radiance's Desolate was left out as needing a kill, but its smaller eruption follows any non-champion kill, and a duel's pets are those. Killing a pet now erupts where it died, on the enemy within 350 units; only the champion-takedown eruption stays out. The effects that reach other enemies (the Hydras' Cleave, Runaan's Hurricane's bolts, Statikk Shiv's bounces, Luden's Echo's orbs) now say those can only be pets in a duel, and that the model leaves them out; Luden's Echo puts all its orbs' damage on the target, as with no other enemies.
+- **Tests:** 63 item tests pass (`tests/items.test.ts`, `tests/items/effects.test.ts`, `tests/items/mechanics.test.ts`):
+  - every item builds for a melee and a ranged champion;
+  - a changed quote fails the build;
+  - each shared mechanic plays as its wiki text says in synthetic fights (Spellblade, Lifeline, Energized, Annul, Guardian Angel, Death's Dance, auras, item haste, burns and executes);
+  - the build rules the duel command checks, and the label of an item named like a kit's ability.
+- **Speed:** with both builds fixed, a matchup's six scenarios took 0.25 to 0.85 s on four sample matchups. With the stat budget the same matchups took 1.8 to 3.1 s, its allocation included.
+- **Full suite:** 3,576 of 3,582 tests pass and 5 are skipped, with two item tests added since. The one failure is again the browser's Heimerdinger–Udyr variant search (`tests/web/run.test.ts`), past its 180-second limit under the suite's load (193 s); alone it passes in 156 seconds. It doesn't involve items. `npm run build:sim -- --check` still matches `248fa67b…`.
+
 ## Remaining limits
 
 - Only 95 of the dataset's 173 champions have simulator kits. Other pairings use the

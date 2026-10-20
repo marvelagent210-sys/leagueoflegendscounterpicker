@@ -14,10 +14,10 @@ export const DuskAndDawn: ItemModule = {
     return {
       hooks: spellblade(item.name, blade, {
         onHit(ctx, scale) {
-          applyFrom(ctx, item.name, { type: "damage", damageType: "magic", amount: { base: 0, ratios: { baseAD: ad, AP: ap } }, label: item.name }, false, scale);
-          applyFrom(ctx, item.name, { type: "heal", amount: { base: 0, ratios: { AP: healAP, bonusHP: healHealth } } }, true, scale);
+          applyFrom(ctx, item.label, { type: "damage", damageType: "magic", amount: { base: 0, ratios: { baseAD: ad, AP: ap } }, label: item.label }, false, scale);
+          applyFrom(ctx, item.label, { type: "heal", amount: { base: 0, ratios: { AP: healAP, bonusHP: healHealth } } }, true, scale);
           const onHit = ctx.self.spec.attack.onHit ?? [];
-          if (onHit.length) applyFrom(ctx, item.name, { type: "delayed", delay: again, effects: onHit }, false, scale);
+          if (onHit.length) applyFrom(ctx, item.label, { type: "delayed", delay: again, effects: onHit }, false, scale);
         },
       }),
     };

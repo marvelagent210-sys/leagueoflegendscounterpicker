@@ -138,12 +138,19 @@ export class ItemEffectData {
 /** One item's record, for its module. */
 export class ItemData {
   readonly name: string;
+  /**
+   * What the item's effects are labeled with in fights, to tell its damage from the kit's: its
+   * name, unless one of the kit's abilities has that name (Leona's Eclipse).
+   */
+  readonly label: string;
 
   constructor(
     readonly record: ItemRecord,
     readonly context: ItemContext,
+    reserved: ReadonlySet<string> = new Set(),
   ) {
     this.name = record.name;
+    this.label = reserved.has(record.name) ? `${record.name} (item)` : record.name;
   }
 
   private fail(message: string): never {
@@ -245,8 +252,9 @@ export class ItemContext {
     return new RuleData(page, this, item);
   }
 
-  item(record: ItemRecord): ItemData {
-    return new ItemData(record, this);
+  /** An item's data, for a kit whose abilities have the `reserved` names. */
+  item(record: ItemRecord, reserved?: ReadonlySet<string>): ItemData {
+    return new ItemData(record, this, reserved);
   }
 
   /** Records a simplification an item makes. */

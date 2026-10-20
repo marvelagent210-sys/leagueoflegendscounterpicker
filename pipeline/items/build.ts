@@ -2,6 +2,7 @@
  * Builds the item catalog (PLAN.md §13, M8) from the raw downloads in data/raw/<dataset>/:
  *   data/<dataset>/items.json          the finished items and tier-2 boots: stats, effects, limits
  *   data/<dataset>/reports/items.md    the same as a readable page, with the game-file cross-check
+ *   data/<dataset>/reports/item-effects.md  what the simulator's item effects (items/) make of each item
  *
  * The simulator doesn't read items yet, so this runs on its own, outside build.ts and the
  * simulation fingerprint: after npm run fetch, run npm run build:data and npm run build:items.
@@ -17,6 +18,7 @@ import type { Manifest } from "../manifest";
 import type { WikiPage } from "../sources/wiki";
 import type { DDragonItems } from "./catalog";
 import { buildItemCatalog } from "./records";
+import { itemEffectsReport } from "./effectsReport";
 import { itemsReport } from "./report";
 import { searchRules } from "./rules";
 
@@ -60,6 +62,7 @@ async function main(): Promise<void> {
   catalog.search = searchRules(catalog);
   await writeJson(path.join(out, "items.json"), catalog);
   await writeText(path.join(out, "reports", "items.md"), itemsReport(catalog));
+  await writeText(path.join(out, "reports", "item-effects.md"), itemEffectsReport(catalog));
   const counts = { legendary: catalog.items.filter((item) => item.kind === "legendary").length, boots: catalog.items.filter((item) => item.kind === "boots").length };
   console.log(`[items] ${counts.legendary} finished items and ${counts.boots} tier-2 boots; ${catalog.groups.length} one-per-build groups; ${catalog.checks.stats} stats checked against the game file, ${catalog.checks.differences.length} differences (see items.json and reports/items.md)`);
 }

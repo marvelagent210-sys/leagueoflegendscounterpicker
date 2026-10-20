@@ -18,7 +18,7 @@ export const EssenceReaver: ItemModule = {
     return {
       hooks: spellblade(item.name, blade, {
         onHit(ctx, scale) {
-          applyFrom(ctx, item.name, { type: "damage", damageType: "physical", amount, label: item.name, ...(lifeSteal ? { lifesteal: derive(ctx.self).lifeSteal } : {}) }, false, scale);
+          applyFrom(ctx, item.label, { type: "damage", damageType: "physical", amount, label: item.label, ...(lifeSteal ? { lifesteal: derive(ctx.self).lifeSteal } : {}) }, false, scale);
           if (fighter.mana) ctx.apply({ type: "resource", amount: { base: evaluate(amount, ctx.self, ctx.enemy) * mana * scale } }, true);
         },
       }),

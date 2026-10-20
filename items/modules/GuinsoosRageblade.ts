@@ -23,7 +23,7 @@ export const GuinsoosRageblade: ItemModule = {
     const phantom = memo(item.name, "phantom");
     const phantomExpires = memo(item.name, "phantomUntil");
     return {
-      onHit: [itemDamage(item.name, "magic", { base: wrath }, item.tagged("OnHitAppliesLifeSteal"))],
+      onHit: [itemDamage(item.label, "magic", { base: wrath }, item.tagged("OnHitAppliesLifeSteal"))],
       hooks: {
         onAttackLaunch(ctx) {
           if (ctx.targetPet) return;

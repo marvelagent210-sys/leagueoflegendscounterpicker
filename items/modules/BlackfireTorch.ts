@@ -14,13 +14,13 @@ export const BlackfireTorch: ItemModule = {
     const seconds = blaze.quoted(words, 3);
     const ticks = seconds / interval;
     const share = item.effect("Blackfire").quoted("For each champion, epic monster, and large monster afflicted with Baleful Blaze's burn, increase your ability power by 4%.") / 100;
-    const burnKey = activeKey(item.name);
+    const burnKey = activeKey(item.label);
     item.assume("Baleful Blaze burns on the kit's ability damage, its damage over time included; a new burn replaces the one running.");
     return {
       hooks: joinHooks(
         {
           onDamageDealt(ctx) {
-            if (fighter.isAbilityDamage(ctx)) applyFrom(ctx, item.name, { type: "dot", damageType: "magic", total: { base: perTick * ticks, ratios: { AP: apPerTick * ticks } }, duration: seconds, interval, label: item.name });
+            if (fighter.isAbilityDamage(ctx)) applyFrom(ctx, item.label, { type: "dot", damageType: "magic", total: { base: perTick * ticks, ratios: { AP: apPerTick * ticks } }, duration: seconds, interval, label: item.label });
           },
         },
         // One champion in a duel: 4% more of the holder's other AP while it burns.

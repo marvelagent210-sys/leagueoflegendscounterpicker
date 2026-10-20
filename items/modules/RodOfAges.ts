@@ -30,7 +30,7 @@ export const RodOfAges: ItemModule = {
               onCast(ctx) {
                 if (!championCast(ctx.ability)) return;
                 const heal = Math.min(most, perMana * costOf(ctx.self, ctx.ability));
-                if (heal > 0) applyFrom(ctx, item.name, { type: "heal", amount: { base: heal } }, true);
+                if (heal > 0) applyFrom(ctx, item.label, { type: "heal", amount: { base: heal } }, true);
               },
             },
           }

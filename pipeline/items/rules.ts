@@ -76,3 +76,20 @@ export function searchRules(catalog: ItemCatalog, groups: Readonly<Record<string
   });
   return { groups: Object.fromEntries(Object.entries(groups).map(([name, items]) => [name, [...items]])), builds: builds(groups), gameFileBuilds: builds(gameFile) };
 }
+
+/**
+ * What makes a build break the rules: more than six items, more than one pair of boots, an item
+ * twice, or two items of one group. A transformed Tear item counts as the item it comes from.
+ */
+export function buildProblems(build: ReadonlyArray<{ name: string; kind: string; transformsFrom?: string }>, groups: Readonly<Record<string, readonly string[]>> = REVIEWED_GROUPS): string[] {
+  const problems: string[] = [];
+  const names = build.map((record) => record.transformsFrom ?? record.name);
+  if (build.length > BUILD_SLOTS) problems.push(`${build.length} items: a build holds ${BUILD_SLOTS} at most`);
+  if (build.filter((record) => record.kind === "boots").length > 1) problems.push("more than one pair of boots");
+  for (const name of new Set(names)) if (names.filter((other) => other === name).length > 1) problems.push(`${name} twice`);
+  for (const [group, members] of Object.entries(groups)) {
+    const held = [...new Set(names)].filter((name) => members.includes(name));
+    if (held.length > 1) problems.push(`${held.join(" and ")}: one ${group} item per build`);
+  }
+  return problems;
+}

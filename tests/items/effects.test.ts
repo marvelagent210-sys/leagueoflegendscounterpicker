@@ -91,6 +91,15 @@ describe("item hooks", () => {
     expect(enemy.hooks?.onTick).toBeDefined();
   });
 
+  it("labels an item's damage with its name, or \"Name (item)\" when the kit has an ability of that name (Leona's Eclipse)", () => {
+    const eclipse = { key: "W", name: "Eclipse", slot: "W" as const, cooldown: 10, castTime: 0, delivery: { kind: "target" as const, range: 600 }, onHit: [{ type: "damage" as const, damageType: "magic" as const, amount: { base: 100 } }] };
+    const outcome = duel(equip(fighter({ abilities: [eclipse] }), "Eclipse").spec, fighter(), { behaviors: [undefined, idle], settings: { maxSeconds: 3 } });
+    // The kit's Eclipse is ability damage that stacks Ever Rising Moon: with an attack, 8% of
+    // the target's 2000 maximum health, halved by armor.
+    expect(hits(outcome.timeline, 0, "Eclipse")[0]).toBe(50);
+    expect(hits(outcome.timeline, 0, "Eclipse (item)")[0]).toBe(80);
+  });
+
   it("reads each item from the wiki while it is built, never during a fight", () => {
     const context = new ItemContext({ page: "Module:ItemData/data", revid: 1 });
     const item = context.item(findItem(catalog, "Nashor's Tooth"));

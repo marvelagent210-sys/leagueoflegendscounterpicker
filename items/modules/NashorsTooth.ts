@@ -6,6 +6,6 @@ export const NashorsTooth: ItemModule = {
   build(item) {
     const bite = item.effect("Icathian Bite");
     const words = "Basic attacks deal 15 (+ 15% AP) bonus magic damage on-hit.";
-    return { onHit: [itemDamage(item.name, "magic", { base: bite.quoted(words), ratios: { AP: bite.quoted(words, 1) / 100 } }, item.tagged("OnHitAppliesLifeSteal"))] };
+    return { onHit: [itemDamage(item.label, "magic", { base: bite.quoted(words), ratios: { AP: bite.quoted(words, 1) / 100 } }, item.tagged("OnHitAppliesLifeSteal"))] };
   },
 };
