@@ -1,5 +1,104 @@
 # Counters to Xayah (patch 26.20)
 
+## Simulated duels
+
+The duel simulator played each of the 90 other champions with a simulator kit against Xayah: both at level 20 with 15,000 gold of plain stats, each side's spent against the other's, through six scenarios (PLAN.md §6). Scores run from −1 (Xayah wins every time) to +1 (the champion does). Run `npm run duel -- <champion> Xayah --log brawl` to watch a fight.
+
+| # | Champion | Score | You engage | Enemy engages | Brawl | Short trade | Spacing | Escape |
+|--:|---|--:|--:|--:|--:|--:|--:|--:|
+| 1 | Yorick | +0.83 | +1.00 | +1.00 | +1.00 | −0.12 | +1.00 | +1.00 |
+| 2 | Annie | +0.82 | +1.00 | +1.00 | +1.00 | +0.12 | +1.00 | +0.00 |
+| 3 | Trundle | +0.82 | +1.00 | +1.00 | +1.00 | −0.22 | +1.00 | +1.00 |
+| 4 | Kayle | +0.80 | +1.00 | +1.00 | +1.00 | +0.02 | +1.00 | +0.00 |
+| 5 | Jax | +0.80 | +1.00 | +1.00 | +1.00 | +0.02 | +1.00 | +0.00 |
+| 6 | Ashe | +0.80 | +1.00 | +1.00 | +1.00 | +0.14 | – | +0.00 |
+| 7 | Fiora | +0.80 | +1.00 | +1.00 | +1.00 | −0.36 | +1.00 | +1.00 |
+| 8 | Kled | +0.80 | +1.00 | +1.00 | +1.00 | −0.03 | +1.00 | +0.00 |
+| 9 | Tristana | +0.80 | +1.00 | +1.00 | +1.00 | −0.03 | +1.00 | +0.00 |
+| 10 | Camille | +0.79 | +1.00 | +1.00 | +1.00 | −0.08 | +1.00 | +0.00 |
+| 11 | Jhin | +0.79 | +1.00 | +1.00 | +1.00 | +0.05 | – | +0.00 |
+| 12 | Dr. Mundo | +0.78 | +1.00 | +1.00 | +1.00 | −0.10 | +1.00 | +0.00 |
+| 13 | Nasus | +0.78 | +1.00 | +1.00 | +1.00 | −0.12 | +1.00 | +0.00 |
+| 14 | Heimerdinger | +0.78 | +1.00 | +1.00 | +1.00 | −0.00 | – | +0.00 |
+| 15 | Teemo | +0.78 | +1.00 | +1.00 | +1.00 | −0.01 | – | +0.00 |
+| 16 | Cassiopeia | +0.78 | +1.00 | +1.00 | +0.95 | +0.05 | – | +0.00 |
+| 17 | Kog'Maw | +0.77 | +1.00 | +1.00 | +1.00 | −0.07 | – | +0.00 |
+| 18 | Vayne | +0.75 | +1.00 | +1.00 | +1.00 | −0.17 | – | +0.00 |
+| 19 | Volibear | +0.63 | +0.91 | +0.74 | +0.91 | −0.14 | +0.60 | +0.00 |
+| 20 | Poppy | +0.63 | +1.00 | +1.00 | +1.00 | +0.21 | −1.00 | +0.00 |
+| 21 | Jayce | +0.60 | +1.00 | +1.00 | +1.00 | +0.01 | −1.00 | +0.00 |
+| 22 | Tahm Kench | +0.60 | +0.74 | +0.95 | +0.61 | −0.04 | +0.61 | +0.00 |
+| 23 | Gangplank | +0.40 | +1.00 | +1.00 | −1.00 | −0.02 | +1.00 | +0.00 |
+| 24 | Renekton | +0.38 | +1.00 | +1.00 | −1.00 | −0.15 | +1.00 | +0.00 |
+| 25 | Kennen | +0.35 | +1.00 | +1.00 | −1.00 | +0.08 | – | +0.00 |
+| 26 | Malphite | +0.33 | +0.52 | +0.03 | +1.00 | −0.06 | +0.02 | +0.00 |
+| 27 | Anivia | +0.29 | +0.97 | −0.01 | +0.20 | −0.14 | – | +0.00 |
+| 28 | Yasuo | +0.29 | −1.00 | +1.00 | +0.97 | −0.03 | +0.96 | +0.00 |
+| 29 | Corki | +0.26 | +1.00 | −0.48 | +0.51 | +0.00 | – | +0.00 |
+| 30 | Master Yi | +0.19 | +0.00 | +1.00 | +0.00 | −0.06 | −1.00 | +1.00 |
+| 31 | Tryndamere | +0.17 | +1.00 | +1.00 | −1.00 | −0.17 | −1.00 | +0.00 |
+| 32 | Rammus | +0.12 | +1.00 | +0.00 | −1.00 | −0.17 | +1.00 | +0.00 |
+| 33 | K'Sante | +0.09 | −1.00 | +1.00 | +1.00 | −0.05 | −1.00 | +0.00 |
+| 34 | Ziggs | −0.02 | +0.00 | −1.00 | +1.00 | +0.19 | – | +0.00 |
+| 35 | Vel'Koz | −0.08 | −0.00 | −1.00 | +0.93 | −0.05 | – | +0.00 |
+| 36 | Sion | −0.09 | −1.00 | +0.53 | −0.08 | −0.12 | +0.63 | +0.00 |
+| 37 | Kai'Sa | −0.22 | +1.00 | −1.00 | −1.00 | −0.00 | – | +0.00 |
+| 38 | Akali | −0.29 | +0.08 | −0.75 | −0.60 | −0.10 | +0.07 | +0.00 |
+| 39 | Kalista | −0.31 | +0.74 | −1.00 | −1.00 | −0.11 | – | +0.00 |
+| 40 | Samira | −0.34 | −1.00 | −1.00 | +1.00 | −0.01 | – | +0.00 |
+| 41 | Twitch | −0.36 | +0.50 | −1.00 | −1.00 | +0.02 | – | +0.00 |
+| 42 | Udyr | −0.38 | −1.00 | −1.00 | +1.00 | −0.22 | −1.00 | +1.00 |
+| 43 | Varus | −0.40 | −0.45 | −0.14 | −1.00 | −0.08 | – | +0.00 |
+| 44 | Pantheon | −0.43 | −1.00 | −1.00 | +1.00 | −0.21 | −1.00 | +0.00 |
+| 45 | Riven | −0.47 | −1.00 | −1.00 | +0.00 | −0.14 | +0.50 | +0.00 |
+| 46 | Smolder | −0.48 | +0.00 | −1.00 | −1.00 | +0.12 | – | +0.00 |
+| 47 | Gnar | −0.56 | +0.02 | −1.00 | −1.00 | −0.07 | −1.00 | +0.00 |
+| 48 | Skarner | −0.57 | +0.00 | −1.00 | −1.00 | −0.10 | −1.00 | +0.00 |
+| 49 | Singed | −0.62 | −1.00 | −1.00 | +0.00 | −0.12 | −1.00 | +0.00 |
+| 50 | Xin Zhao | −0.71 | −1.00 | −1.00 | −0.56 | +0.01 | −1.00 | +0.00 |
+| 51 | Rumble | −0.72 | −0.60 | −1.00 | −1.00 | −0.13 | −1.00 | +0.00 |
+| 52 | Ambessa | −0.74 | −0.50 | −1.00 | −1.00 | −0.45 | −1.00 | +0.00 |
+| 53 | Irelia | −0.76 | −1.00 | −0.83 | −1.00 | −0.00 | −1.00 | +0.00 |
+| 54 | Morgana | −0.77 | −0.87 | −1.00 | −1.00 | −0.18 | – | +0.00 |
+| 55 | Jinx | −0.77 | −1.00 | −1.00 | −1.00 | +0.02 | – | +0.00 |
+| 56 | Lux | −0.78 | −1.00 | −1.00 | −1.00 | +0.01 | – | +0.00 |
+| 57 | Aurora | −0.78 | −1.00 | −1.00 | −1.00 | +0.00 | – | +0.00 |
+| 58 | Miss Fortune | −0.78 | −1.00 | −1.00 | −1.00 | +0.00 | – | +0.00 |
+| 59 | Lissandra | −0.78 | −1.00 | −1.00 | −1.00 | −0.01 | – | +0.00 |
+| 60 | Zyra | −0.78 | −1.00 | −1.00 | −1.00 | −0.02 | – | +0.00 |
+| 61 | Gwen | −0.78 | −1.00 | −1.00 | −0.58 | −0.43 | −1.00 | +0.00 |
+| 62 | Brand | −0.78 | −1.00 | −1.00 | −1.00 | −0.02 | – | +0.00 |
+| 63 | Karthus | −0.78 | −1.00 | −1.00 | −1.00 | −0.04 | – | +0.00 |
+| 64 | Veigar | −0.79 | −1.00 | −1.00 | −1.00 | −0.05 | – | +0.00 |
+| 65 | Ezreal | −0.79 | −1.00 | −1.00 | −1.00 | −0.05 | – | +0.00 |
+| 66 | Mordekaiser | −0.79 | −1.00 | −1.00 | −0.80 | −0.18 | −1.00 | +0.00 |
+| 67 | Caitlyn | −0.79 | −1.00 | −1.00 | −1.00 | +0.08 | −1.00 | +0.00 |
+| 68 | Malzahar | −0.79 | −1.00 | −1.00 | −1.00 | −0.06 | – | +0.00 |
+| 69 | Draven | −0.79 | −1.00 | −1.00 | −1.00 | −0.07 | – | +0.00 |
+| 70 | Lucian | −0.80 | −1.00 | −1.00 | −1.00 | −0.11 | – | +0.00 |
+| 71 | Shen | −0.80 | −1.00 | −1.00 | −1.00 | +0.01 | −1.00 | +0.00 |
+| 72 | Ahri | −0.80 | −1.00 | −1.00 | −1.00 | −0.13 | – | +0.00 |
+| 73 | Sivir | −0.80 | −1.00 | −1.00 | −1.00 | −0.14 | – | +0.00 |
+| 74 | Garen | −0.80 | −1.00 | −1.00 | −1.00 | −0.01 | −1.00 | +0.00 |
+| 75 | Quinn | −0.80 | −1.00 | −1.00 | −1.00 | −0.15 | – | +0.00 |
+| 76 | Leona | −0.80 | −1.00 | −1.00 | −1.00 | −0.02 | −1.00 | +0.00 |
+| 77 | Vladimir | −0.80 | −1.00 | −1.00 | −1.00 | −0.16 | – | +0.00 |
+| 78 | Urgot | −0.81 | −1.00 | −1.00 | −1.00 | −0.05 | −1.00 | +0.00 |
+| 79 | Nautilus | −0.81 | −1.00 | −1.00 | −1.00 | −0.09 | −1.00 | +0.00 |
+| 80 | Ornn | −0.81 | −1.00 | −1.00 | −1.00 | −0.09 | −1.00 | +0.00 |
+| 81 | Illaoi | −0.82 | −1.00 | −1.00 | −1.00 | −0.10 | −1.00 | +0.00 |
+| 82 | Amumu | −0.82 | −1.00 | −1.00 | −1.00 | −0.14 | −1.00 | +0.00 |
+| 83 | Kassadin | −0.82 | −1.00 | −1.00 | −1.00 | −0.15 | −1.00 | +0.00 |
+| 84 | Cho'Gath | −0.83 | −1.00 | −1.00 | −1.00 | −0.20 | −1.00 | +0.00 |
+| 85 | Sett | −0.84 | −1.00 | −1.00 | −1.00 | −0.23 | −1.00 | +0.00 |
+| 86 | Darius | −0.84 | −1.00 | −1.00 | −1.00 | −0.24 | −1.00 | +0.00 |
+| 87 | Zaahen | −0.84 | −1.00 | −1.00 | −1.00 | −0.25 | −1.00 | +0.00 |
+| 88 | Aatrox | −0.84 | −1.00 | −1.00 | −1.00 | −0.27 | −1.00 | +0.00 |
+| 89 | Yone | −0.84 | −1.00 | −1.00 | −1.00 | −0.27 | −1.00 | +0.00 |
+| 90 | Olaf | −0.85 | −1.00 | −1.00 | −1.00 | −0.31 | −1.00 | +0.00 |
+
+## Interaction ledger estimates
+
 Every champion ranked by what its kit does against Xayah's, from the interaction ledger: projectile blocks, spell shields,
 parries, dash stops, crowd control and its defenses, range and more (PLAN.md §5). This ranking is **partial**: it weighs the
 interactions but doesn't play the fight out. The duel simulator replaces it as each champion's behavior is verified.
@@ -8,63 +107,63 @@ interactions but doesn't play the fight out. The duel simulator replaces it as e
 A hard counter shuts down part of a kit every time it is used (projectile block, attack dodge, attack block, blind, disarm, attack speed slow, attack reflect, dash stop, grounding, range) with an impact of 0.4 or more (0.5 for range).
 Run `npm run matchup -- <champion> Xayah` for the full ledger of a matchup, with sources.
 
-## Top 10
+### Top 10
 
-### 1. Sivir (net +0.67)
+#### 1. Sivir (net +0.67)
 
 - **0.55** spell shield: Spell Shield's spell shield blocks Xayah's Featherstorm. Spell shield for 1.5 s, long enough to use ahead of Featherstorm. A spell shield blocks only the first enemy ability that reaches it. (Sivir E Spell Shield → Xayah R Featherstorm)
 - **0.23** spell shield: Spell Shield's spell shield blocks part of Xayah's Bladecaller. Spell shield for 1.5 s, long enough to use ahead of Bladecaller. A spell shield blocks only the first enemy ability that reaches it. Spell shield will only block a single instance of damage. (Sivir E Spell Shield → Xayah E Bladecaller)
 
-### 2. Kayle (net +0.61)
+#### 2. Kayle (net +0.61)
 
 - **0.55** invulnerable: Divine Judgment makes Kayle invulnerable to Xayah's Featherstorm. Invulnerable for 2.5 s, long enough to use ahead of Featherstorm. (Kayle R Divine Judgment → Xayah R Featherstorm)
 - **0.18** range: Kayle's basic attacks reach 100 units farther than Xayah's (625 vs 525 attack range). Xayah has no dash or blink to close the gap. (Kayle basic attacks → Xayah basic attacks)
 - **0.16** invulnerable: Divine Judgment makes Kayle invulnerable to Xayah's Bladecaller (its crowd control still applies). Invulnerable for 2.5 s, long enough to use ahead of Bladecaller. (Kayle R Divine Judgment → Xayah E Bladecaller)
 - Watch out: Featherstorm makes Xayah untargetable, dodging Kayle's Starfire Spellblade.
 
-### 3. Samira (net +0.11)
+#### 3. Samira (net +0.11)
 
 - **0.32** projectile block: Blade Whirl blocks Xayah's basic attacks, which are projectiles. Blade Whirl lasts 0.75 s on a 22 s cooldown. (Samira W Blade Whirl → Xayah basic attacks)
 - **0.26** projectile block: Blade Whirl blocks Xayah's Bladecaller, a projectile. Blade Whirl for 0.75 s; Bladecaller lands within 0 s, faster than a 0.25 s reaction, so it needs prediction. (Samira W Blade Whirl → Xayah E Bladecaller)
 - **0.17** projectile block: Blade Whirl blocks part of Xayah's Featherstorm, a projectile. Blade Whirl for 0.75 s; Featherstorm lands within 0 s, faster than a 0.25 s reaction, so it needs prediction. Only part of the ability is a projectile. The individual missiles have 1100 range but start slightly behind Xayah, reducing their total range. (Samira W Blade Whirl → Xayah R Featherstorm)
 - Watch out: Featherstorm makes Xayah untargetable, dodging Samira's Wild Rush.
 
-### 4. Teemo (net +0.10)
+#### 4. Teemo (net +0.10)
 
 - **0.50** blind: Blinding Dart's blind makes Xayah's basic attacks miss for 3 s. Blind for 3 s on a 7 s cooldown. (Teemo Q Blinding Dart → Xayah basic attacks)
 - Watch out: Featherstorm makes Xayah untargetable, dodging Teemo's Noxious Trap.
 
-### 5. Milio (net +0.02)
+#### 5. Milio (net +0.02)
 
 - **0.24** cleanse: Breath of Life cleanses Xayah's Bladecaller (root) after it lands. 130 s cooldown; usable while crowd controlled. (Milio R Breath of Life → Xayah E Bladecaller)
 - **0.19** tenacity: Breath of Life's 65% tenacity shortens Xayah's Bladecaller (root). Breath of Life lasts 3 s on a 130 s cooldown. (Milio R Breath of Life → Xayah E Bladecaller)
 - Watch out: Featherstorm makes Xayah untargetable, dodging Milio's Ultra Mega Fire Kick.
 
-### 6. Vladimir (net +0.01)
+#### 6. Vladimir (net +0.01)
 
 - **0.55** untargetable: Sanguine Pool makes Vladimir untargetable, dodging Xayah's Featherstorm. Untargetable for 2 s, long enough to use ahead of Featherstorm. (Vladimir W Sanguine Pool → Xayah R Featherstorm)
 - **0.49** untargetable: Sanguine Pool makes Vladimir untargetable, dodging Xayah's Bladecaller. Untargetable for 2 s, long enough to use ahead of Bladecaller. (Vladimir W Sanguine Pool → Xayah E Bladecaller)
 - Watch out: Featherstorm makes Xayah untargetable, dodging Vladimir's Hemoplague.
 
-### 7. Kai'Sa (net 0.00)
+#### 7. Kai'Sa (net 0.00)
 
 - No interaction in Kai'Sa's favor.
 
-### 8. Twitch (net 0.00)
+#### 8. Twitch (net 0.00)
 
 - No interaction in Twitch's favor.
 
-### 9. Yunara (net 0.00)
+#### 9. Yunara (net 0.00)
 
 - No interaction in Yunara's favor.
 
-### 10. Bard (net -0.04)
+#### 10. Bard (net -0.04)
 
 - **0.55** untargetable: Tempered Fate makes Bard untargetable, dodging Xayah's Featherstorm. Untargetable for 2.5 s, long enough to use ahead of Featherstorm. (Bard R Tempered Fate → Xayah R Featherstorm)
 - **0.32** untargetable: Tempered Fate makes Bard untargetable, dodging Xayah's Bladecaller. Untargetable for 2.5 s, long enough to use ahead of Bladecaller. (Bard R Tempered Fate → Xayah E Bladecaller)
 - Watch out: Featherstorm makes Xayah untargetable, dodging Bard's Tempered Fate.
 
-## Full ranking
+### Full ranking
 
 | # | Champion | Net | For | Against | Hard counters |
 |--:|---|--:|--:|--:|---|
@@ -88,26 +187,26 @@ Run `npm run matchup -- <champion> Xayah` for the full ledger of a matchup, with
 | 18 | Kog'Maw | -0.26 | 0.00 | 0.26 |  |
 | 19 | Aurora | -0.27 | 0.43 | 0.70 |  |
 | 20 | Master Yi | -0.28 | 0.47 | 0.75 |  |
-| 21 | Yasuo | -0.30 | 0.77 | 1.07 | projectile block (Wind Wall), projectile block (Wind Wall) |
-| 22 | Zilean | -0.30 | 0.00 | 0.30 |  |
-| 23 | LeBlanc | -0.31 | 0.00 | 0.31 |  |
-| 24 | Twisted Fate | -0.31 | 0.00 | 0.31 |  |
-| 25 | Tryndamere | -0.34 | 0.00 | 0.34 |  |
-| 26 | Zoe | -0.34 | 0.00 | 0.34 |  |
-| 27 | Kayn | -0.35 | 0.43 | 0.78 |  |
-| 28 | Soraka | -0.35 | 0.00 | 0.35 |  |
-| 29 | Morgana | -0.36 | 0.49 | 0.85 |  |
-| 30 | Nidalee | -0.36 | 0.00 | 0.36 |  |
-| 31 | Gwen | -0.37 | 0.47 | 0.84 |  |
-| 32 | Shaco | -0.42 | 0.43 | 0.85 |  |
-| 33 | Shen | -0.43 | 0.39 | 0.82 |  |
-| 34 | Karma | -0.43 | 0.00 | 0.43 |  |
-| 35 | Ryze | -0.44 | 0.00 | 0.44 |  |
-| 36 | Akshan | -0.45 | 0.00 | 0.45 |  |
-| 37 | Zeri | -0.45 | 0.00 | 0.45 |  |
-| 38 | Caitlyn | -0.46 | 0.22 | 0.68 |  |
-| 39 | Ashe | -0.47 | 0.14 | 0.61 |  |
-| 40 | Corki | -0.47 | 0.00 | 0.47 |  |
+| 21 | Corki | -0.29 | 0.00 | 0.29 |  |
+| 22 | Yasuo | -0.30 | 0.77 | 1.07 | projectile block (Wind Wall), projectile block (Wind Wall) |
+| 23 | Zilean | -0.30 | 0.00 | 0.30 |  |
+| 24 | LeBlanc | -0.31 | 0.00 | 0.31 |  |
+| 25 | Twisted Fate | -0.31 | 0.00 | 0.31 |  |
+| 26 | Tryndamere | -0.34 | 0.00 | 0.34 |  |
+| 27 | Zoe | -0.34 | 0.00 | 0.34 |  |
+| 28 | Kayn | -0.35 | 0.43 | 0.78 |  |
+| 29 | Soraka | -0.35 | 0.00 | 0.35 |  |
+| 30 | Morgana | -0.36 | 0.49 | 0.85 |  |
+| 31 | Nidalee | -0.36 | 0.00 | 0.36 |  |
+| 32 | Gwen | -0.37 | 0.47 | 0.84 |  |
+| 33 | Shaco | -0.42 | 0.43 | 0.85 |  |
+| 34 | Shen | -0.43 | 0.39 | 0.82 |  |
+| 35 | Karma | -0.43 | 0.00 | 0.43 |  |
+| 36 | Ryze | -0.44 | 0.00 | 0.44 |  |
+| 37 | Akshan | -0.45 | 0.00 | 0.45 |  |
+| 38 | Zeri | -0.45 | 0.00 | 0.45 |  |
+| 39 | Caitlyn | -0.46 | 0.22 | 0.68 |  |
+| 40 | Ashe | -0.47 | 0.14 | 0.61 |  |
 | 41 | Vayne | -0.48 | 0.00 | 0.48 |  |
 | 42 | Ivern | -0.49 | 0.00 | 0.49 |  |
 | 43 | Malzahar | -0.50 | 0.35 | 0.85 |  |

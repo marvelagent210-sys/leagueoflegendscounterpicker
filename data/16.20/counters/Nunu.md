@@ -138,44 +138,44 @@ Run `npm run matchup -- <champion> Nunu` for the full ledger of a matchup, with 
 | 57 | Twisted Fate | +0.91 | 1.35 | 0.44 | range (attacks) |
 | 58 | Evelynn | +0.91 | 1.11 | 0.20 |  |
 | 59 | Mel | +0.90 | 1.10 | 0.20 | range (attacks), projectile block (Rebuttal) |
-| 60 | Corki | +0.89 | 1.09 | 0.20 | range (attacks) |
-| 61 | Tristana | +0.89 | 1.07 | 0.18 | range (attacks) |
-| 62 | Fiddlesticks | +0.88 | 1.37 | 0.49 |  |
-| 63 | Urgot | +0.88 | 1.16 | 0.28 |  |
-| 64 | Ziggs | +0.88 | 1.02 | 0.14 | range (attacks) |
-| 65 | Rammus | +0.86 | 1.25 | 0.39 |  |
-| 66 | Rakan | +0.86 | 1.11 | 0.25 |  |
-| 67 | Shaco | +0.86 | 1.10 | 0.24 |  |
-| 68 | Vex | +0.86 | 1.06 | 0.20 | range (attacks) |
-| 69 | Teemo | +0.86 | 1.03 | 0.17 | range (attacks) |
-| 70 | Soraka | +0.85 | 0.99 | 0.14 | range (attacks) |
-| 71 | Zyra | +0.85 | 0.85 | 0.00 |  |
-| 72 | Sion | +0.84 | 1.15 | 0.31 |  |
-| 73 | Amumu | +0.84 | 0.84 | 0.00 |  |
-| 74 | Gwen | +0.82 | 0.99 | 0.17 |  |
-| 75 | Garen | +0.82 | 0.82 | 0.00 |  |
-| 76 | Zac | +0.81 | 1.35 | 0.54 |  |
-| 77 | Kindred | +0.81 | 0.94 | 0.13 | range (attacks) |
-| 78 | Neeko | +0.81 | 0.81 | 0.00 |  |
-| 79 | Azir | +0.78 | 0.90 | 0.12 | range (attacks) |
-| 80 | Orianna | +0.78 | 0.90 | 0.12 | range (attacks) |
-| 81 | Kai'Sa | +0.77 | 0.77 | 0.00 | range (attacks) |
-| 82 | Tahm Kench | +0.76 | 1.35 | 0.59 |  |
-| 83 | Brand | +0.76 | 0.93 | 0.17 |  |
-| 84 | Cho'Gath | +0.75 | 0.98 | 0.23 |  |
-| 85 | Pyke | +0.75 | 0.98 | 0.23 |  |
-| 86 | Zeri | +0.75 | 0.88 | 0.13 | range (attacks) |
-| 87 | Twitch | +0.73 | 0.86 | 0.13 | range (attacks) |
-| 88 | Ahri | +0.72 | 0.93 | 0.21 |  |
-| 89 | Swain | +0.72 | 0.91 | 0.19 |  |
-| 90 | Viego | +0.71 | 1.07 | 0.36 |  |
-| 91 | Xin Zhao | +0.70 | 0.97 | 0.27 |  |
-| 92 | Hwei | +0.70 | 0.95 | 0.25 |  |
-| 93 | Syndra | +0.68 | 0.92 | 0.24 |  |
-| 94 | Xerath | +0.67 | 1.02 | 0.35 | range (attacks) |
-| 95 | Rengar | +0.67 | 0.87 | 0.20 |  |
-| 96 | Singed | +0.67 | 0.76 | 0.09 |  |
-| 97 | Gragas | +0.66 | 0.86 | 0.20 |  |
+| 60 | Tristana | +0.89 | 1.07 | 0.18 | range (attacks) |
+| 61 | Fiddlesticks | +0.88 | 1.37 | 0.49 |  |
+| 62 | Urgot | +0.88 | 1.16 | 0.28 |  |
+| 63 | Ziggs | +0.88 | 1.02 | 0.14 | range (attacks) |
+| 64 | Rammus | +0.86 | 1.25 | 0.39 |  |
+| 65 | Rakan | +0.86 | 1.11 | 0.25 |  |
+| 66 | Shaco | +0.86 | 1.10 | 0.24 |  |
+| 67 | Vex | +0.86 | 1.06 | 0.20 | range (attacks) |
+| 68 | Teemo | +0.86 | 1.03 | 0.17 | range (attacks) |
+| 69 | Soraka | +0.85 | 0.99 | 0.14 | range (attacks) |
+| 70 | Zyra | +0.85 | 0.85 | 0.00 |  |
+| 71 | Sion | +0.84 | 1.15 | 0.31 |  |
+| 72 | Amumu | +0.84 | 0.84 | 0.00 |  |
+| 73 | Gwen | +0.82 | 0.99 | 0.17 |  |
+| 74 | Garen | +0.82 | 0.82 | 0.00 |  |
+| 75 | Zac | +0.81 | 1.35 | 0.54 |  |
+| 76 | Kindred | +0.81 | 0.94 | 0.13 | range (attacks) |
+| 77 | Neeko | +0.81 | 0.81 | 0.00 |  |
+| 78 | Azir | +0.78 | 0.90 | 0.12 | range (attacks) |
+| 79 | Orianna | +0.78 | 0.90 | 0.12 | range (attacks) |
+| 80 | Kai'Sa | +0.77 | 0.77 | 0.00 | range (attacks) |
+| 81 | Tahm Kench | +0.76 | 1.35 | 0.59 |  |
+| 82 | Brand | +0.76 | 0.93 | 0.17 |  |
+| 83 | Cho'Gath | +0.75 | 0.98 | 0.23 |  |
+| 84 | Pyke | +0.75 | 0.98 | 0.23 |  |
+| 85 | Zeri | +0.75 | 0.88 | 0.13 | range (attacks) |
+| 86 | Twitch | +0.73 | 0.86 | 0.13 | range (attacks) |
+| 87 | Ahri | +0.72 | 0.93 | 0.21 |  |
+| 88 | Swain | +0.72 | 0.91 | 0.19 |  |
+| 89 | Viego | +0.71 | 1.07 | 0.36 |  |
+| 90 | Xin Zhao | +0.70 | 0.97 | 0.27 |  |
+| 91 | Hwei | +0.70 | 0.95 | 0.25 |  |
+| 92 | Syndra | +0.68 | 0.92 | 0.24 |  |
+| 93 | Xerath | +0.67 | 1.02 | 0.35 | range (attacks) |
+| 94 | Rengar | +0.67 | 0.87 | 0.20 |  |
+| 95 | Singed | +0.67 | 0.76 | 0.09 |  |
+| 96 | Gragas | +0.66 | 0.86 | 0.20 |  |
+| 97 | Corki | +0.65 | 0.65 | 0.00 | range (attacks) |
 | 98 | Ezreal | +0.65 | 0.65 | 0.00 | range (attacks) |
 | 99 | Galio | +0.64 | 1.28 | 0.64 |  |
 | 100 | Vel'Koz | +0.64 | 1.02 | 0.38 | range (attacks) |

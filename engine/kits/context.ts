@@ -616,10 +616,11 @@ export class KitContext {
   ability(nameOrSlot: string): AbilityData {
     const cached = this.byName.get(nameOrSlot);
     if (cached) return cached;
-    const bySlot = /^[IQWER]$/.test(nameOrSlot) ? this.records.filter((r) => r.kind === nameOrSlot) : [];
-    const matches = bySlot.length > 0 ? bySlot : this.records.filter((r) => r.name === nameOrSlot);
+    const current = this.records.filter((r) => !r.historical);
+    const bySlot = /^[IQWER]$/.test(nameOrSlot) ? current.filter((r) => r.kind === nameOrSlot) : [];
+    const matches = bySlot.length > 0 ? bySlot : current.filter((r) => r.name === nameOrSlot);
     if (matches.length !== 1 || !matches[0]) {
-      const names = this.records.map((r) => `${r.kind} ${r.name}`).join(", ");
+      const names = current.map((r) => `${r.kind} ${r.name}`).join(", ");
       throw new KitDataError(this.champion.id, nameOrSlot, matches.length === 0 ? `no such ability (has: ${names})` : `ambiguous (${matches.map((r) => r.name).join(", ")})`);
     }
     const data = new AbilityData(matches[0], this);

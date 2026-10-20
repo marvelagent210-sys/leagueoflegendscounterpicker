@@ -338,6 +338,17 @@
       "Deadly Venom deals proc damage over time, and does not trigger spell effects.",
       "The first 5 stacks on a target are indicated each by a small mark around them, while a target affected by the maximum stacks of 6 is indicated by a single large mark above them instead.",
       "Deadly Venom does not affect structures."
+    ],
+    "gameSources": [
+      {
+        "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/twitch/twitch.bin.json",
+        "sha256": "9062e3836d1c8e06a571bc0ea55480bf0324ef872ef595c2127e7b0f6789a843",
+        "object": "Characters/Twitch/Spells/TwitchBasicAttack",
+        "text": [
+          "mSpell.missileSpeed: 2500.0"
+        ]
+      }
     ]
   },
   {
@@ -474,6 +485,17 @@
       "Ambush follows the same rules as stealth but he can still perform actions normally before entering camouflage. Activating Recall during the 1-second delay allows him to channel it while stealthed.",
       "If Twitch enters stasis during the delay, he will gain the camouflage after the stasis ends.",
       "Using a basic attack breaks the stealth at the start of the attack windup."
+    ],
+    "gameSources": [
+      {
+        "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/twitch/twitch.bin.json",
+        "sha256": "9062e3836d1c8e06a571bc0ea55480bf0324ef872ef595c2127e7b0f6789a843",
+        "object": "Characters/Twitch/Spells/TwitchHideInShadowsAbility/TwitchHideInShadows",
+        "text": [
+          "mSpell.DataValues: [{\"name\":\"AttackSpeedMod\",\"values\":[0.3499999940395355,0.4000000059604645,0.44999998807907104,0.5,0.550000011920929,0.6000000238418579,0.6499999761581421],\"__type\":\"SpellDataValue\"},{\"name\":\"AttackSpeedDuration\",\"values\":[6.0,6.0,6.0,6.0,6.0,6.0,6.0],\"__type\":\"SpellDataValue\"},{\"name\":\"StealthDuration\",\"values\":[9.0,10.0,11.0,12.0,13.0,14.0,15.0],\"__type\":\"SpellDataValue\"},{\"name\":\"MaxFadeTime\",\"values\":[1.0,1.0,1.0,1.0,1.0,1.0,1.0],\"__type\":\"SpellDataValue\"},{\"name\":\"StealthDetectionRange\",\"values\":[500.0,500.0,500.0,500.0,500.0,500.0,500.0],\"__type\":\"SpellDataValue\"},{\"name\":\"MoveSpeedMod\",\"values\":[10.0,10.0,10.0,10.0,10.0,10.0,10.0],\"__type\":\"SpellDataValue\"},{\"name\":\"HiddenSpeed\",\"values\":[30.0,30.0,30.0,30.0,30.0,30.0,30.0],\"__type\":\"SpellDataValue\"},{\"name\":\"MoveBonusRange\",\"values\":[1000.0,1000.0,1000.0,1000.0,1000.0,1000.0,1000.0],\"__type\":\"SpellDataValue\"}]"
+        ]
+      }
     ]
   },
   {

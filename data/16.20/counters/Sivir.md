@@ -1,5 +1,104 @@
 # Counters to Sivir (patch 26.20)
 
+## Simulated duels
+
+The duel simulator played each of the 90 other champions with a simulator kit against Sivir: both at level 20 with 15,000 gold of plain stats, each side's spent against the other's, through six scenarios (PLAN.md §6). Scores run from −1 (Sivir wins every time) to +1 (the champion does). Run `npm run duel -- <champion> Sivir --log brawl` to watch a fight.
+
+| # | Champion | Score | You engage | Enemy engages | Brawl | Short trade | Spacing | Escape |
+|--:|---|--:|--:|--:|--:|--:|--:|--:|
+| 1 | Master Yi | +0.85 | +1.00 | +1.00 | +1.00 | +0.01 | +1.00 | +1.00 |
+| 2 | Kayle | +0.84 | +1.00 | +1.00 | +1.00 | +0.29 | +1.00 | +0.00 |
+| 3 | Udyr | +0.84 | +1.00 | +1.00 | +1.00 | −0.05 | +1.00 | +1.00 |
+| 4 | Nasus | +0.84 | +1.00 | +1.00 | +1.00 | −0.06 | +1.00 | +1.00 |
+| 5 | Trundle | +0.83 | +1.00 | +1.00 | +1.00 | −0.10 | +1.00 | +1.00 |
+| 6 | Kled | +0.83 | +1.00 | +1.00 | +1.00 | +0.20 | +1.00 | +0.00 |
+| 7 | Ziggs | +0.82 | +1.00 | +1.00 | +1.00 | +0.27 | – | +0.00 |
+| 8 | Annie | +0.82 | +1.00 | +1.00 | +1.00 | +0.13 | +1.00 | +0.00 |
+| 9 | Ashe | +0.82 | +1.00 | +1.00 | +1.00 | +0.12 | +1.00 | +0.00 |
+| 10 | Smolder | +0.82 | +1.00 | +1.00 | +1.00 | +0.23 | – | +0.00 |
+| 11 | Tristana | +0.81 | +1.00 | +1.00 | +1.00 | +0.09 | +1.00 | +0.00 |
+| 12 | Jayce | +0.81 | +1.00 | +1.00 | +1.00 | +0.09 | +1.00 | +0.00 |
+| 13 | Fiora | +0.81 | +1.00 | +1.00 | +1.00 | −0.28 | +1.00 | +1.00 |
+| 14 | Xayah | +0.80 | +1.00 | +1.00 | +1.00 | +0.14 | – | +0.00 |
+| 15 | Cassiopeia | +0.80 | +1.00 | +1.00 | +1.00 | +0.14 | – | +0.00 |
+| 16 | Jax | +0.80 | +1.00 | +1.00 | +1.00 | +0.01 | +1.00 | +0.00 |
+| 17 | Miss Fortune | +0.80 | +1.00 | +1.00 | +1.00 | +0.14 | – | +0.00 |
+| 18 | Camille | +0.80 | +1.00 | +1.00 | +1.00 | −0.00 | +1.00 | +0.00 |
+| 19 | Twitch | +0.80 | +1.00 | +1.00 | +1.00 | +0.11 | – | +0.00 |
+| 20 | Corki | +0.80 | +1.00 | +1.00 | +1.00 | +0.11 | – | +0.00 |
+| 21 | Varus | +0.79 | +1.00 | +1.00 | +1.00 | +0.10 | – | +0.00 |
+| 22 | Kai'Sa | +0.79 | +1.00 | +1.00 | +1.00 | +0.09 | – | +0.00 |
+| 23 | Tryndamere | +0.79 | +1.00 | +1.00 | +1.00 | −0.05 | +1.00 | +0.00 |
+| 24 | Jinx | +0.79 | +1.00 | +1.00 | +1.00 | +0.08 | – | +0.00 |
+| 25 | Kennen | +0.79 | +1.00 | +1.00 | +1.00 | +0.07 | – | +0.00 |
+| 26 | Lucian | +0.79 | +1.00 | +1.00 | +1.00 | +0.07 | – | +0.00 |
+| 27 | Teemo | +0.79 | +1.00 | +1.00 | +1.00 | +0.06 | – | +0.00 |
+| 28 | Jhin | +0.79 | +1.00 | +1.00 | +1.00 | +0.06 | – | +0.00 |
+| 29 | Kog'Maw | +0.79 | +1.00 | +1.00 | +1.00 | +0.06 | – | +0.00 |
+| 30 | Kassadin | +0.79 | +1.00 | +1.00 | +1.00 | −0.09 | +1.00 | +0.00 |
+| 31 | Lissandra | +0.79 | +1.00 | +1.00 | +1.00 | +0.05 | – | +0.00 |
+| 32 | Kalista | +0.78 | +1.00 | +1.00 | +1.00 | +0.04 | – | +0.00 |
+| 33 | Samira | +0.78 | +1.00 | +1.00 | +1.00 | +0.03 | – | +0.00 |
+| 34 | Quinn | +0.78 | +1.00 | +1.00 | +1.00 | +0.02 | – | +0.00 |
+| 35 | Draven | +0.78 | +1.00 | +1.00 | +1.00 | +0.00 | – | +0.00 |
+| 36 | Vladimir | +0.77 | +1.00 | +1.00 | +1.00 | −0.03 | – | +0.00 |
+| 37 | Morgana | +0.77 | +1.00 | +1.00 | +0.93 | +0.02 | – | +0.00 |
+| 38 | Vayne | +0.77 | +1.00 | +1.00 | +1.00 | −0.08 | – | +0.00 |
+| 39 | Dr. Mundo | +0.75 | +0.94 | +0.95 | +0.97 | −0.08 | +0.95 | +0.00 |
+| 40 | Vel'Koz | +0.50 | +0.94 | −0.05 | +0.99 | +0.19 | – | +0.00 |
+| 41 | K'Sante | +0.43 | −0.04 | +1.00 | +1.00 | −0.04 | −0.04 | +0.00 |
+| 42 | Rammus | +0.39 | +1.00 | +1.00 | −1.00 | −0.07 | +1.00 | +0.00 |
+| 43 | Malphite | +0.33 | +0.05 | +0.04 | +1.00 | +0.03 | +1.00 | +0.00 |
+| 44 | Anivia | +0.32 | +0.21 | +0.21 | +1.00 | −0.05 | +0.21 | +0.00 |
+| 45 | Caitlyn | +0.24 | +1.00 | +1.00 | −0.87 | +0.09 | −1.00 | +0.00 |
+| 46 | Rumble | +0.23 | +0.08 | +0.04 | +0.74 | −0.03 | +0.58 | +0.00 |
+| 47 | Aurora | +0.12 | +0.46 | −0.69 | +0.83 | +0.01 | – | +0.00 |
+| 48 | Poppy | +0.12 | −1.00 | +1.00 | +1.00 | +0.12 | −1.00 | +0.00 |
+| 49 | Ahri | +0.06 | −1.00 | +0.94 | +0.33 | +0.01 | – | +0.00 |
+| 50 | Karthus | −0.00 | −0.02 | +0.00 | −0.02 | +0.05 | – | +0.00 |
+| 51 | Tahm Kench | −0.02 | +0.00 | −0.01 | −0.03 | −0.08 | −0.02 | +0.00 |
+| 52 | Yorick | −0.16 | −1.00 | −0.83 | +0.82 | −0.05 | +0.91 | +1.00 |
+| 53 | Yasuo | −0.24 | −1.00 | +0.28 | +0.22 | −0.01 | −1.00 | +0.00 |
+| 54 | Ornn | −0.25 | −0.32 | −0.31 | −0.25 | −0.06 | −0.33 | +0.00 |
+| 55 | Brand | −0.26 | −0.92 | −0.85 | +1.00 | +0.02 | – | +0.00 |
+| 56 | Mordekaiser | −0.32 | −0.55 | −0.53 | −0.12 | −0.07 | −0.14 | +0.00 |
+| 57 | Heimerdinger | −0.32 | −1.00 | −1.00 | +1.00 | +0.06 | – | +0.00 |
+| 58 | Sion | −0.41 | −1.00 | +0.15 | −0.44 | −0.06 | −1.00 | +0.00 |
+| 59 | Akali | −0.56 | −1.00 | −0.52 | −0.66 | −0.04 | −0.42 | +0.00 |
+| 60 | Renekton | −0.56 | −1.00 | −0.02 | −1.00 | −0.07 | −1.00 | +0.00 |
+| 61 | Irelia | −0.63 | −1.00 | −1.00 | −1.00 | +0.08 | +0.61 | +0.00 |
+| 62 | Gangplank | −0.73 | −1.00 | −1.00 | −1.00 | +0.12 | −1.00 | +1.00 |
+| 63 | Gwen | −0.74 | −0.80 | −0.80 | −1.00 | −0.23 | −1.00 | +0.00 |
+| 64 | Malzahar | −0.74 | −1.00 | −1.00 | −0.85 | +0.01 | – | +0.00 |
+| 65 | Lux | −0.75 | −1.00 | −1.00 | −0.92 | +0.04 | – | +0.00 |
+| 66 | Zyra | −0.76 | −1.00 | −1.00 | −1.00 | +0.09 | – | +0.00 |
+| 67 | Veigar | −0.78 | −1.00 | −1.00 | −1.00 | +0.00 | – | +0.00 |
+| 68 | Ezreal | −0.78 | −1.00 | −1.00 | −1.00 | −0.01 | – | +0.00 |
+| 69 | Garen | −0.79 | −1.00 | −1.00 | −1.00 | +0.09 | −1.00 | +0.00 |
+| 70 | Xin Zhao | −0.79 | −1.00 | −1.00 | −1.00 | +0.05 | −1.00 | +0.00 |
+| 71 | Skarner | −0.80 | −1.00 | −1.00 | −1.00 | +0.02 | −1.00 | +0.00 |
+| 72 | Urgot | −0.80 | −1.00 | −1.00 | −1.00 | +0.01 | −1.00 | +0.00 |
+| 73 | Pantheon | −0.80 | −1.00 | −1.00 | −1.00 | +0.01 | −1.00 | +0.00 |
+| 74 | Gnar | −0.80 | −1.00 | −1.00 | −1.00 | +0.00 | −1.00 | +0.00 |
+| 75 | Nautilus | −0.80 | −1.00 | −1.00 | −1.00 | +0.00 | −1.00 | +0.00 |
+| 76 | Shen | −0.80 | −1.00 | −1.00 | −1.00 | −0.00 | −1.00 | +0.00 |
+| 77 | Leona | −0.80 | −1.00 | −1.00 | −1.00 | −0.02 | −1.00 | +0.00 |
+| 78 | Amumu | −0.80 | −1.00 | −1.00 | −1.00 | −0.03 | −1.00 | +0.00 |
+| 79 | Volibear | −0.81 | −1.00 | −1.00 | −1.00 | −0.03 | −1.00 | +0.00 |
+| 80 | Illaoi | −0.81 | −1.00 | −1.00 | −1.00 | −0.06 | −1.00 | +0.00 |
+| 81 | Singed | −0.81 | −1.00 | −1.00 | −1.00 | −0.08 | −1.00 | +0.00 |
+| 82 | Cho'Gath | −0.82 | −1.00 | −1.00 | −1.00 | −0.11 | −1.00 | +0.00 |
+| 83 | Aatrox | −0.82 | −1.00 | −1.00 | −1.00 | −0.11 | −1.00 | +0.00 |
+| 84 | Riven | −0.82 | −1.00 | −1.00 | −1.00 | −0.15 | −1.00 | +0.00 |
+| 85 | Olaf | −0.82 | −1.00 | −1.00 | −1.00 | −0.16 | −1.00 | +0.00 |
+| 86 | Sett | −0.82 | −1.00 | −1.00 | −1.00 | −0.16 | −1.00 | +0.00 |
+| 87 | Zaahen | −0.83 | −1.00 | −1.00 | −1.00 | −0.17 | −1.00 | +0.00 |
+| 88 | Ambessa | −0.83 | −1.00 | −1.00 | −1.00 | −0.18 | −1.00 | +0.00 |
+| 89 | Yone | −0.83 | −1.00 | −1.00 | −1.00 | −0.18 | −1.00 | +0.00 |
+| 90 | Darius | −0.83 | −1.00 | −1.00 | −1.00 | −0.19 | −1.00 | +0.00 |
+
+## Interaction ledger estimates
+
 Every champion ranked by what its kit does against Sivir's, from the interaction ledger: projectile blocks, spell shields,
 parries, dash stops, crowd control and its defenses, range and more (PLAN.md §5). This ranking is **partial**: it weighs the
 interactions but doesn't play the fight out. The duel simulator replaces it as each champion's behavior is verified.
@@ -8,58 +107,58 @@ interactions but doesn't play the fight out. The duel simulator replaces it as e
 A hard counter shuts down part of a kit every time it is used (projectile block, attack dodge, attack block, blind, disarm, attack speed slow, attack reflect, dash stop, grounding, range) with an impact of 0.4 or more (0.5 for range).
 Run `npm run matchup -- <champion> Sivir` for the full ledger of a matchup, with sources.
 
-## Top 10
+### Top 10
 
-### 1. Teemo (net +0.24)
+#### 1. Teemo (net +0.24)
 
 - **0.66** blind: Blinding Dart's blind makes Sivir's basic attacks miss for 3 s. Blind for 3 s on a 7 s cooldown. (Teemo Q Blinding Dart → Sivir basic attacks)
 - Watch out: Spell Shield's spell shield blocks Teemo's Blinding Dart.
 
-### 2. Yunara (net +0.14)
+#### 2. Yunara (net +0.14)
 
 - **0.14** range: Yunara's basic attacks reach 75 units farther than Sivir's (575 vs 500 attack range). Sivir has no dash or blink to close the gap. (Yunara basic attacks → Sivir basic attacks)
 
-### 3. Samira (net 0.00)
+#### 3. Samira (net 0.00)
 
 - **0.42** projectile block: Blade Whirl blocks Sivir's basic attacks, which are projectiles. Blade Whirl lasts 0.75 s on a 22 s cooldown. (Samira W Blade Whirl → Sivir basic attacks)
 - **0.28** projectile block: Blade Whirl blocks Sivir's Boomerang Blade, a projectile. Blade Whirl for 0.75 s; Boomerang Blade takes 1.11 s to land, enough to react. (Samira W Blade Whirl → Sivir Q Boomerang Blade)
 - Watch out: Spell Shield's spell shield blocks Samira's Wild Rush.
 
-### 4. Kai'Sa (net 0.00)
+#### 4. Kai'Sa (net 0.00)
 
 - No interaction in Kai'Sa's favor.
 
-### 5. Twitch (net 0.00)
+#### 5. Twitch (net 0.00)
 
 - No interaction in Twitch's favor.
 
-### 6. Kayle (net -0.05)
+#### 6. Kayle (net -0.05)
 
 - **0.22** range: Kayle's basic attacks reach 125 units farther than Sivir's (625 vs 500 attack range). Sivir has no dash or blink to close the gap. (Kayle basic attacks → Sivir basic attacks)
 - Watch out: Spell Shield's spell shield blocks Kayle's Starfire Spellblade.
 
-### 7. Mel (net -0.12)
+#### 7. Mel (net -0.12)
 
 - **0.42** projectile block: Rebuttal blocks Sivir's basic attacks, which are projectiles. Rebuttal lasts 0.75 s on a 26 s cooldown. (Mel W Rebuttal → Sivir basic attacks)
 - **0.26** projectile block: Rebuttal blocks Sivir's Boomerang Blade, a projectile. Rebuttal for 0.75 s; Boomerang Blade takes 1.11 s to land, enough to react. (Mel W Rebuttal → Sivir Q Boomerang Blade)
 - Watch out: Spell Shield's spell shield blocks Mel's Golden Eclipse.
 
-### 8. Miss Fortune (net -0.14)
+#### 8. Miss Fortune (net -0.14)
 
 - No interaction in Miss Fortune's favor.
 - Watch out: Spell Shield's spell shield blocks part of Miss Fortune's Double Up.
 
-### 9. Anivia (net -0.28)
+#### 9. Anivia (net -0.28)
 
 - **0.12** range: Anivia's basic attacks reach 100 units farther than Sivir's (600 vs 500 attack range). Sivir has no dash or blink to close the gap. (Anivia basic attacks → Sivir basic attacks)
 - Watch out: Spell Shield's spell shield blocks Anivia's Frostbite.
 
-### 10. Akshan (net -0.28)
+#### 10. Akshan (net -0.28)
 
 - No interaction in Akshan's favor.
 - Watch out: Spell Shield's spell shield blocks part of Akshan's Comeuppance.
 
-## Full ranking
+### Full ranking
 
 | # | Champion | Net | For | Against | Hard counters |
 |--:|---|--:|--:|--:|---|

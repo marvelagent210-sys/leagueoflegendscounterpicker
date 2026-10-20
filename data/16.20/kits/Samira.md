@@ -281,3 +281,116 @@ All 6 level-based formulas in the game files (2 linked to wiki values above):
 | SamiraPassive | MSBonusNew | breakpoints at levels 6, 11, 16 (level 1: 0.0275) | 0.0275 | 0.035 | 0.035 |
 | SamiraPassiveCombo | QueenMaxDashRange | breakpoints at levels 4, 8, 12, 16 (level 1: 800) | 800 | 1000 | 1000 |
 | SamiraPassiveCombo | BonusMeleeDamage | breakpoints at levels none (level 1: 2) | 2 | 19 | 21 |
+
+## Duel simulator kit (level 20, every ability at max rank)
+
+What the duel simulator fights with (`kits/champions/Samira.ts`): values come from pinned wiki and versioned game-data records at level 20. Interpretations and missing evidence are listed under assumptions. Ratios are fractions of the stat (60% AD is 0.6 × AD).
+
+- Basic attack: range 500, missile at 2800/s.
+
+| Key | Ability | Cooldown (s) | Cast time (s) | Cost | Delivery | On the enemy | On itself |
+|---|---|--:|--:|---|---|---|---|
+| Q | Flair | 2 | 0.25 | 30 | skillshot 950 long, 120 wide, at 2600/s | 20 + 110% AD physical damage, can crit | – |
+| W | Blade Whirl | 22 | 0 | 60 | self | – | projectileBlock 260 for 0.75 s; noAttacks for 0.75 s |
+| E | Wild Rush | 12 | 0 | 40 | dash toward 650–650 units at 1600/s, hits within 125, through the enemy | 90 + 20% bonus AD magic damage | attackSpeed 0.4 for 5 s |
+| R | Inferno Trigger | 5 (unaffected by ability haste) | 0 | 0 | self; channel 2.277 s | – | moveSpeedPercent -0.3 for 2.277 s |
+| Qslash | Flair (blade) | 2 | 0.25 | 30 | area 0 to 400 units ahead, lands after 0 s | 20 + 110% AD physical damage, can crit | – |
+| Qdash | Flair (dash explosives) | 2 | 0 | 30 | self | – | – |
+| Wslash | Blade Whirl | 0 | 0 | – | self | 80 + 50% bonus AD physical damage | – |
+| Rshot | Inferno Trigger | 0 | 0 | – | self | 60 + 30% AD physical damage, can crit | – |
+| Pbolt | Daredevil Impulse (additional bolt) | 0 | 0 | – | self | 17% AD physical damage, can crit | – |
+| Pdash | Daredevil Impulse (immobilized-target dash) | 0 | 0 | – | dash toward 0–950 units at 2050/s | – | – |
+
+Effects marked by a mark or a role are completed by the kit's hooks (see the kit's source).
+
+### Assumptions
+
+- Daredevil Impulse starts at zero Style, earns one stack only when a different attack/Q/W/E contact hits a champion or source-classified champion clone, refreshes its six-second clock on repeats, and grants 21% movement speed at S. Spell-shielded damaging abilities still grant Style; parried or avoided packets and minion/unknown summons do not. Expected-value contacts at the branch cap gain their numeric share. Both W slashes share one identity but may each add Style when separated by another hit. R consumes all Style on completion or interruption.
+- At level 20 the pinned wiki explicitly projects the sword bonus to 21 + 11.323529% AD; the versioned client tooltip calculation instead gives 21 + 10% AD. This kit uses the wiki's explicit level 20 series, doubled linearly with missing-health share. This unresolved client/wiki coefficient conflict is retained as evidence. Sword bonus is separate noncritical default magic damage after its physical packet, grants no life steal, and applies to melee basics, Q blade/explosives, W and E. Blade selection uses 200 edge units and remains a ranged attack.
+- The immobilized-target passive starts only when CC is already present, excludes spell shields, CC/displacement immunity and stasis, and has a ten-second per-target lockout beginning at declaration even if parried. Its fixed one-tick windup launches six 2800-speed homing bolts spaced 0.1 seconds; only the first is a basic with on-hits, the rest are separately critical default-damage spell packets without on-hits, each granting life steal. Airborne targets can receive one half-second knock-up if still airborne at a connected unblocked bolt. Ally CC, monsters, Blast Cones and full two-dimensional dash order reacquisition are absent; the optional passive dash approaches to normal attack range and respects root/ground/terrain.
+- Flair chooses shot or forward cone from the champion's 340 center-distance switch at declaration; the cone extends 400 along the one-dimensional facing axis. This substitutes declaration selection for the source's end-of-cast form check when an enemy changes distance during the quarter-second cast. Both forms share one cooldown and Style identity. Q critical scaling follows the pinned calculation 1+0.5×critChance×(critDamage−1); the gun is stopped by the first target or wall, the blade is not a projectile. Q during E is an instant queued explosive request that resolves once over the actual traveled dash segment at dash end, including interruption, rather than inventing an untraveled full trail. Two-dimensional cone angles and lateral explosives are not retained.
+- Blade Whirl begins immediately despite its nonrestrictive 0.1-second infobox cast time, permits movement and E, disables attacks/Q, destroys hostile projectiles within 325 center units for 0.75 seconds, and independently hits each real nearby target at start/end. R or stasis ends it early without the second hit. E sweeps one 650-unit dash at 1600 speed after requiring a champion within 600 center units; the fixed dash crosses intervening terrain only when its endpoint is legal. Actual summons swept by its 125-radius path receive independent guarded packets. Turret targeting, transverse path choices and multichampion takedown resets are absent.
+- Inferno Trigger is a mobile interruptible 2.277-second channel, with ten homing shots per actual in-range target scheduled uniformly by absolute cumulative rounding across the source's 2.013-second firing span, starting immediately. The source's sporadic 0.198/0.231 interval order is unspecified, so this is a declared tick-level approximation. Shots independently check 600 center range when emitted, need no target vision after activation, are stopped by walls and each spell shield consumes only one shot. Only source-classified minion summons receive the sourced 25% packet; champion clones and unknown classes retain full damage. E may overlay the original clock. Root does not interrupt R; silence/stun/disarm do. Already launched shots remain after interruption/death. The 30% penalty is additive movement-speed loss, not a resistible slow. R has a static five-second cooldown and no mana cost.
+- The policy weaves attacks between different damaging casts, uses Q during E, spends S on R and keeps ordinary defensive reactions. The budget explicitly values two W hits, full R per an illustrative alternating six-hit Style cycle (also bounded by five-second static cooldown plus channel), one close sword bonus per basic and E attack-speed uptime. It does not promise full R occupancy, item/rune on-attacks, allied knock-ups or initial free Style.
+
+### Source values read (77)
+
+| Ability | Value | Source version |
+|---|---|---|
+| Daredevil Impulse | a stack of Style for 6 seconds | [4051977](https://wiki.leagueoflegends.com/en-us/Template:Data_Samira/Daredevil_Impulse?oldid=4051977) |
+| Daredevil Impulse | stacking up to 6 times | [4051977](https://wiki.leagueoflegends.com/en-us/Template:Data_Samira/Daredevil_Impulse?oldid=4051977) |
+| Daredevil Impulse | Style: For each stack, Samira gains 2.75 / 3 / 3.25 / 3.5 (based on level)% bonus movement speed, up to a maximum of 16.5 / 18 / 19.5 / 21 (based on level)%. | [4051977](https://wiki.leagueoflegends.com/en-us/Template:Data_Samira/Daredevil_Impulse?oldid=4051977) |
+| Daredevil Impulse | targets within 200 units | [4051977](https://wiki.leagueoflegends.com/en-us/Template:Data_Samira/Daredevil_Impulse?oldid=4051977) |
+| Daredevil Impulse | Blade attacks, Blade Whirl, Wild Rush, and the slash and explosives of Flair deal 2 – 19 (based on level) (+ 3.5 – 10.5 (based on level)% AD) bonus magic damage, increased by 0 / 5 / 10 / 15 / 20 / 25 / 30 / 35 / 40 / 45 / 50 / 55 / 60 / 65 / 70 / 75 / 80 / 85 / 90 / 95 / 100 (based on target's missing health)%, up to 4 – 38 (based on level) (+ 7 – 21 (based on level)% AD). | [4051977](https://wiki.leagueoflegends.com/en-us/Template:Data_Samira/Daredevil_Impulse?oldid=4051977) |
+| Daredevil Impulse | increased by 0 / 5 / 10 / 15 / 20 / 25 / 30 / 35 / 40 / 45 / 50 / 55 / 60 / 65 / 70 / 75 / 80 / 85 / 90 / 95 / 100 | [4051977](https://wiki.leagueoflegends.com/en-us/Template:Data_Samira/Daredevil_Impulse?oldid=4051977) |
+| Daredevil Impulse | applies after the primary damage of the attack and is not an on-hit effect | [4051977](https://wiki.leagueoflegends.com/en-us/Template:Data_Samira/Daredevil_Impulse?oldid=4051977) |
+| Daredevil Impulse | Abilities blocked by spell shields will still grant Samira Style stacks | [4051977](https://wiki.leagueoflegends.com/en-us/Template:Data_Samira/Daredevil_Impulse?oldid=4051977) |
+| Daredevil Impulse | Style stacks can be generated via clones | [4051977](https://wiki.leagueoflegends.com/en-us/Template:Data_Samira/Daredevil_Impulse?oldid=4051977) |
+| Daredevil Impulse | Gun and blade attacks do not count as different | [4051977](https://wiki.leagueoflegends.com/en-us/Template:Data_Samira/Daredevil_Impulse?oldid=4051977) |
+| Daredevil Impulse | fire 6 bolts | [4051977](https://wiki.leagueoflegends.com/en-us/Template:Data_Samira/Daredevil_Impulse?oldid=4051977) |
+| Daredevil Impulse | 6 bolts over 0.5 seconds | [4051977](https://wiki.leagueoflegends.com/en-us/Template:Data_Samira/Daredevil_Impulse?oldid=4051977) |
+| Daredevil Impulse | each dealing 17% AD | [4051977](https://wiki.leagueoflegends.com/en-us/Template:Data_Samira/Daredevil_Impulse?oldid=4051977) |
+| Daredevil Impulse | "6 bolts over 0.5 seconds" (tooltip: First bolt at the time of cast then once every 0.1 seconds thereafter.) | [4051977](https://wiki.leagueoflegends.com/en-us/Template:Data_Samira/Daredevil_Impulse?oldid=4051977) |
+| Daredevil Impulse | targetCooldown: 10 | [4051977](https://wiki.leagueoflegends.com/en-us/Template:Data_Samira/Daredevil_Impulse?oldid=4051977) |
+| Daredevil Impulse | targetRange: 650 / 725 / 800 / 875 / 950 (based on level) | [4051977](https://wiki.leagueoflegends.com/en-us/Template:Data_Samira/Daredevil_Impulse?oldid=4051977) |
+| Daredevil Impulse | speed (bolt): 2050 • 2800 | [4051977](https://wiki.leagueoflegends.com/en-us/Template:Data_Samira/Daredevil_Impulse?oldid=4051977) |
+| Daredevil Impulse | speed (dash): 2050 • 2800 | [4051977](https://wiki.leagueoflegends.com/en-us/Template:Data_Samira/Daredevil_Impulse?oldid=4051977) |
+| Daredevil Impulse | applies on-hit effects only once | [4051977](https://wiki.leagueoflegends.com/en-us/Template:Data_Samira/Daredevil_Impulse?oldid=4051977) |
+| Daredevil Impulse | cannot be used against a target with a spell shield | [4051977](https://wiki.leagueoflegends.com/en-us/Template:Data_Samira/Daredevil_Impulse?oldid=4051977) |
+| Daredevil Impulse | will not trigger against crowd control immune and displacement immune targets | [4051977](https://wiki.leagueoflegends.com/en-us/Template:Data_Samira/Daredevil_Impulse?oldid=4051977) |
+| Daredevil Impulse | will not apply the knock up against suspended enemies | [4051977](https://wiki.leagueoflegends.com/en-us/Template:Data_Samira/Daredevil_Impulse?oldid=4051977) |
+| Daredevil Impulse | mSpell.mSpellCalculations: {"QueenMaxDashRange":{"mFormulaParts":[{"mLevel1Value":800.0,"mBreakpoints":[{"mLevel":4,"mAdditionalBonusAtThisLevel":50.0,"__type":"Breakpoint"},{"mLevel":8,"mAdditionalBonusAtThisLevel":50.0,"__type":"Breakpoint"},{"mLevel":12,"mAdditionalBonusAtThisLevel":50.0,"__type":"Breakpoint"},{"mLevel":16,"mAdditionalBonusAtThisLevel":50.0,"__type":"Breakpoint"}],"__type":"ByCharLevelBreakpointsCalculationPart"}],"__type":"GameCalculation"},"BonusMeleeDamage":{"mFormulaParts":[{"mStat":2,"mCoefficient":0.10000000149011612,"__type":"StatByCoefficientCalculationPart"},{"mLevel1Value":2.0,"mInitialBonusPerLevel":1.0,"__type":"ByCharLevelBreakpointsCalculationPart"}],"__type":"GameCalculation"}} | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/samira/samira.bin.json) |
+| Daredevil Impulse | mSpell.mMissileSpec: {"movementComponent":{"mTargetHeightAugment":100.0,"mOffsetInitialTargetHeight":100.0,"mStartBoneName":"Pistol_Muzzle","mSpeed":2800.0,"__type":"FixedSpeedMovement"},"verticalFacing":{"__type":"VeritcalFacingMatchVelocity"},"behaviors":[{"__type":"CastOnMovementComplete"},{"__type":"DestroyOnMovementComplete"}],"__type":"MissileSpecification"} | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/samira/samira.bin.json) |
+| Daredevil Impulse | mSpell.mCastTime: 0.009999999776482582 | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/samira/samira.bin.json) |
+| Flair | Physical Damage: 0 / 5 / 10 / 15 / 20 (+ 110% AD) | [4008027](https://wiki.leagueoflegends.com/en-us/Template:Data_Samira/Flair?oldid=4008027) |
+| Flair | range (Shot): 950 • 400 | [4008027](https://wiki.leagueoflegends.com/en-us/Template:Data_Samira/Flair?oldid=4008027) |
+| Flair | range (Cone): 950 • 400 | [4008027](https://wiki.leagueoflegends.com/en-us/Template:Data_Samira/Flair?oldid=4008027) |
+| Flair | targetRange: 340 | [4008027](https://wiki.leagueoflegends.com/en-us/Template:Data_Samira/Flair?oldid=4008027) |
+| Flair | speed: 2600 | [4008027](https://wiki.leagueoflegends.com/en-us/Template:Data_Samira/Flair?oldid=4008027) |
+| Flair | width (Shot): 120 • 130 | [4008027](https://wiki.leagueoflegends.com/en-us/Template:Data_Samira/Flair?oldid=4008027) |
+| Flair | life steal at 100% effectiveness | [4008027](https://wiki.leagueoflegends.com/en-us/Template:Data_Samira/Flair?oldid=4008027) |
+| Flair | Only the shot will be destroyed by projectile-intercepting effects | [4008027](https://wiki.leagueoflegends.com/en-us/Template:Data_Samira/Flair?oldid=4008027) |
+| Flair | shot and the slash do not count as different abilities | [4008027](https://wiki.leagueoflegends.com/en-us/Template:Data_Samira/Flair?oldid=4008027) |
+| Flair | detonate upon the end of the dash | [4008027](https://wiki.leagueoflegends.com/en-us/Template:Data_Samira/Flair?oldid=4008027) |
+| Flair | mSpell.DataValues: [{"name":"BaseDamage","values":[-5.0,0.0,5.0,10.0,15.0,20.0,25.0],"__type":"SpellDataValue"},{"name":"CheatingThreshold","values":[20.0,20.0,20.0,20.0,20.0,20.0,20.0],"__type":"SpellDataValue"},{"name":"CritDamageMod","values":[0.5,0.5,0.5,0.5,0.5,0.5,0.5],"__type":"SpellDataValue"},{"name":"LifestealMod","values":[1.0,1.0,1.0,1.0,1.0,1.0,1.0],"__type":"SpellDataValue"},{"name":"QADRatio","values":[1.100000023841858,1.100000023841858,1.100000023841858,1.100000023841858,1.100000023841858,1.100000023841858,1.100000023841858],"__type":"SpellDataValue"}] | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/samira/samira.bin.json) |
+| Flair | mSpell.mSpellCalculations: {"DamageCalc":{"mFormulaParts":[{"mDataValue":"BaseDamage","__type":"NamedDataValueCalculationPart"},{"mStat":2,"mDataValue":"QADRatio","__type":"StatByNamedDataValueCalculationPart"}],"__type":"GameCalculation"},"CriticalDamageCalc":{"mMultiplier":{"mSubparts":[{"mNumber":1.0,"__type":"NumberCalculationPart"},{"mPart1":{"mDataValue":"CritDamageMod","__type":"NamedDataValueCalculationPart"},"mPart2":{"mSubparts":[{"mStat":9,"mCoefficient":1.0,"__type":"StatByCoefficientCalculationPart"},{"mNumber":-1.0,"__type":"NumberCalculationPart"}],"__type":"SumOfSubPartsCalculationPart"},"__type":"ProductOfSubPartsCalculationPart"}],"__type":"SumOfSubPartsCalculationPart"},"mModifiedGameCalculation":"DamageCalc","__type":"GameCalculationModified"}} | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/samira/samira.bin.json) |
+| Blade Whirl | over 0.75 seconds | [3936240](https://wiki.leagueoflegends.com/en-us/Template:Data_Samira/Blade_Whirl?oldid=3936240) |
+| Blade Whirl | effectRadius: 325 | [3936240](https://wiki.leagueoflegends.com/en-us/Template:Data_Samira/Blade_Whirl?oldid=3936240) |
+| Blade Whirl | Physical Damage per Hit: 20 / 35 / 50 / 65 / 80 (+ 50% bonus AD) | [3936240](https://wiki.leagueoflegends.com/en-us/Template:Data_Samira/Blade_Whirl?oldid=3936240) |
+| Blade Whirl | All effects begin immediately and Samira can move throughout | [3936240](https://wiki.leagueoflegends.com/en-us/Template:Data_Samira/Blade_Whirl?oldid=3936240) |
+| Blade Whirl | Spell shield will block the damage from one slash | [3936240](https://wiki.leagueoflegends.com/en-us/Template:Data_Samira/Blade_Whirl?oldid=3936240) |
+| Blade Whirl | Entering stasis will also end Blade Whirl early | [3936240](https://wiki.leagueoflegends.com/en-us/Template:Data_Samira/Blade_Whirl?oldid=3936240) |
+| Blade Whirl | effect ending early includes the second slash not being performed | [3936240](https://wiki.leagueoflegends.com/en-us/Template:Data_Samira/Blade_Whirl?oldid=3936240) |
+| Wild Rush | targetRange: 600 | [4067464](https://wiki.leagueoflegends.com/en-us/Template:Data_Samira/Wild_Rush?oldid=4067464) |
+| Wild Rush | range (Fixed dash): 650 • 775 • -125 | [4067464](https://wiki.leagueoflegends.com/en-us/Template:Data_Samira/Wild_Rush?oldid=4067464) |
+| Wild Rush | width: 250 | [4067464](https://wiki.leagueoflegends.com/en-us/Template:Data_Samira/Wild_Rush?oldid=4067464) |
+| Wild Rush | speed: 1600 | [4067464](https://wiki.leagueoflegends.com/en-us/Template:Data_Samira/Wild_Rush?oldid=4067464) |
+| Wild Rush | Magic Damage: 50 / 60 / 70 / 80 / 90 (+ 20% bonus AD) | [4067464](https://wiki.leagueoflegends.com/en-us/Template:Data_Samira/Wild_Rush?oldid=4067464) |
+| Wild Rush | Bonus Attack Speed: 20 / 25 / 30 / 35 / 40% | [4067464](https://wiki.leagueoflegends.com/en-us/Template:Data_Samira/Wild_Rush?oldid=4067464) |
+| Wild Rush | attack speed for 5 seconds | [4067464](https://wiki.leagueoflegends.com/en-us/Template:Data_Samira/Wild_Rush?oldid=4067464) |
+| Wild Rush | within 3 seconds of damaging them resets Wild Rush's cooldown | [4067464](https://wiki.leagueoflegends.com/en-us/Template:Data_Samira/Wild_Rush?oldid=4067464) |
+| Wild Rush | Flair and Inferno Trigger can be cast during the dash | [4067464](https://wiki.leagueoflegends.com/en-us/Template:Data_Samira/Wild_Rush?oldid=4067464) |
+| Inferno Trigger | torrent of shots for 2.277 | [3992663](https://wiki.leagueoflegends.com/en-us/Template:Data_Samira/Inferno_Trigger?oldid=3992663) |
+| Inferno Trigger | over 2.013 | [3992663](https://wiki.leagueoflegends.com/en-us/Template:Data_Samira/Inferno_Trigger?oldid=3992663) |
+| Inferno Trigger | up to 10 times per enemy | [3992663](https://wiki.leagueoflegends.com/en-us/Template:Data_Samira/Inferno_Trigger?oldid=3992663) |
+| Inferno Trigger | movement speed by 30% | [3992663](https://wiki.leagueoflegends.com/en-us/Template:Data_Samira/Inferno_Trigger?oldid=3992663) |
+| Inferno Trigger | effectRadius: 600 | [3992663](https://wiki.leagueoflegends.com/en-us/Template:Data_Samira/Inferno_Trigger?oldid=3992663) |
+| Inferno Trigger | Physical Damage Per Shot: 20 / 40 / 60 (+ 30% AD) | [3992663](https://wiki.leagueoflegends.com/en-us/Template:Data_Samira/Inferno_Trigger?oldid=3992663) |
+| Inferno Trigger | Minion Damage Per Shot: 5 / 10 / 15 (+ 7.5% AD) | [3992663](https://wiki.leagueoflegends.com/en-us/Template:Data_Samira/Inferno_Trigger?oldid=3992663) |
+| Inferno Trigger | staticCooldown: 5 | [3992663](https://wiki.leagueoflegends.com/en-us/Template:Data_Samira/Inferno_Trigger?oldid=3992663) |
+| Inferno Trigger | Style stacks are consumed at the end of the effect | [3992663](https://wiki.leagueoflegends.com/en-us/Template:Data_Samira/Inferno_Trigger?oldid=3992663) |
+| Inferno Trigger | targets do not have to be visible to be shot at | [3992663](https://wiki.leagueoflegends.com/en-us/Template:Data_Samira/Inferno_Trigger?oldid=3992663) |
+| Inferno Trigger | as well as disarm | [3992663](https://wiki.leagueoflegends.com/en-us/Template:Data_Samira/Inferno_Trigger?oldid=3992663) |
+| Inferno Trigger | Spell shield will block the damage of one shot | [3992663](https://wiki.leagueoflegends.com/en-us/Template:Data_Samira/Inferno_Trigger?oldid=3992663) |
+| Inferno Trigger | life steal at 100% effectiveness | [3992663](https://wiki.leagueoflegends.com/en-us/Template:Data_Samira/Inferno_Trigger?oldid=3992663) |
+| Inferno Trigger | A nearby visible enemy is required to cast this ability | [3992663](https://wiki.leagueoflegends.com/en-us/Template:Data_Samira/Inferno_Trigger?oldid=3992663) |
+| Inferno Trigger | mSpell.mMissileSpec: {"mMissileWidth":50.0,"movementComponent":{"mTargetHeightAugment":100.0,"mOffsetInitialTargetHeight":100.0,"mStartBoneName":"","mSpeed":2800.0,"__type":"FixedSpeedMovement"},"visibilityComponent":{"mPerceptionBubbleRadius":100.0,"__type":"Defaultvisibility"},"verticalFacing":{"__type":"VeritcalFacingMatchVelocity"},"behaviors":[{"__type":"CastOnMovementComplete"},{"__type":"DestroyOnMovementComplete"}],"__type":"MissileSpecification"} | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/samira/samira.bin.json) |
+| Flair | cooldown: 6 / 5 / 4 / 3 / 2 | [4008027](https://wiki.leagueoflegends.com/en-us/Template:Data_Samira/Flair?oldid=4008027) |
+| Flair | cost: 30 | [4008027](https://wiki.leagueoflegends.com/en-us/Template:Data_Samira/Flair?oldid=4008027) |
+| Flair | castTime: 0.25 | [4008027](https://wiki.leagueoflegends.com/en-us/Template:Data_Samira/Flair?oldid=4008027) |
+| Blade Whirl | cooldown: 30 / 28 / 26 / 24 / 22 | [3936240](https://wiki.leagueoflegends.com/en-us/Template:Data_Samira/Blade_Whirl?oldid=3936240) |
+| Blade Whirl | cost: 60 | [3936240](https://wiki.leagueoflegends.com/en-us/Template:Data_Samira/Blade_Whirl?oldid=3936240) |
+| Wild Rush | cooldown: 20 / 18 / 16 / 14 / 12 | [4067464](https://wiki.leagueoflegends.com/en-us/Template:Data_Samira/Wild_Rush?oldid=4067464) |
+| Wild Rush | cost: 40 | [4067464](https://wiki.leagueoflegends.com/en-us/Template:Data_Samira/Wild_Rush?oldid=4067464) |
+| Wild Rush | castTime: none | [4067464](https://wiki.leagueoflegends.com/en-us/Template:Data_Samira/Wild_Rush?oldid=4067464) |
+| Inferno Trigger | castTime: none | [3992663](https://wiki.leagueoflegends.com/en-us/Template:Data_Samira/Inferno_Trigger?oldid=3992663) |

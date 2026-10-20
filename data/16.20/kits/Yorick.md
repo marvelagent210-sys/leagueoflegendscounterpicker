@@ -261,7 +261,7 @@ Effects marked by a mark or a role are completed by the kit's hooks (see the kit
 - The Maiden rises 600 units toward the enemy at most, her 4 Mist Walkers with her; the recast that sets her free is left out.
 - Yorick casts Awakening as soon as three graves can rise, and Eulogy of the Isles in a fight once the enemy is within its 600 units.
 
-### Source values read (77)
+### Source values read (79)
 
 | Ability | Value | Source version |
 |---|---|---|
@@ -342,3 +342,5 @@ Effects marked by a mark or a role are completed by the kit's hooks (see the kit
 | Eulogy of the Isles | cooldown: 160 / 130 / 100 | [3972823](https://wiki.leagueoflegends.com/en-us/Template:Data_Yorick/Eulogy_of_the_Isles?oldid=3972823) |
 | Eulogy of the Isles | cost: 100 | [3972823](https://wiki.leagueoflegends.com/en-us/Template:Data_Yorick/Eulogy_of_the_Isles?oldid=3972823) |
 | Eulogy of the Isles | castTime: 0.5 | [3972823](https://wiki.leagueoflegends.com/en-us/Template:Data_Yorick/Eulogy_of_the_Isles?oldid=3972823) |
+| Mist Walker | Minion, does not count towards creep score | [4011713](https://wiki.leagueoflegends.com/en-us/Yorick?oldid=4011713) |
+| Maiden of the Mist | Minion | [4011713](https://wiki.leagueoflegends.com/en-us/Yorick?oldid=4011713) |

@@ -5,7 +5,7 @@ import { applyEffect, attackHit, hookContext } from "../../engine/sim/combat";
 import { derive, hasState } from "../../engine/sim/derived";
 import { createWorld, step } from "../../engine/sim/simulate";
 import type { AbilitySpec, BonusStats, FighterSpec } from "../../engine/sim/spec";
-import type { World } from "../../engine/sim/state";
+import type { Action, World } from "../../engine/sim/state";
 import { fighter } from "../sim/kits";
 import { kit } from "./helpers";
 
@@ -23,9 +23,11 @@ const until = (world: World, done: () => boolean, limit = 300) => {
   for (let i = 0; i < limit && !done(); i++) step(world, idle);
   expect(done(), "the awaited event never happened").toBe(true);
 };
+/** A plain attack windup starting now, as the attack hook receives it. */
+const windup = (world: World): Extract<Action, { kind: "windup" }> => ({ kind: "windup", startTick: world.tick, launchTick: world.tick, uncancellable: false, blinded: false, onHit: [], bonusRange: 0 });
 const hit = (world: World) => {
   const [self, target] = world.units;
-  self.spec.hooks?.onAttack?.(hookContext(world, self));
+  self.spec.hooks?.onAttack?.({ ...hookContext(world, self), action: windup(world) });
   attackHit(world, self, target, false, []);
 };
 const logged = (world: World, start: string) => world.log.filter((e) => e.side === 0 && e.text.startsWith(start));
@@ -143,12 +145,12 @@ describe("Blood Hunt", () => {
     const w = worldFor();
     const [self, target] = w.units;
     target.hp = 0.4 * 20000;
-    self.spec.hooks?.onAttack?.(hookContext(w, self));
+    self.spec.hooks?.onAttack?.({ ...hookContext(w, self), action: windup(w) });
     const first = huntBuff(w);
     expect(first?.value).toBeCloseTo(1.1, 9);
     const end = first!.endTick;
     through(w, 10);
-    self.spec.hooks?.onAttack?.(hookContext(w, self));
+    self.spec.hooks?.onAttack?.({ ...hookContext(w, self), action: windup(w) });
     expect(huntBuff(w)!.endTick).toBe(end);
   });
 

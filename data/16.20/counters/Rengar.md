@@ -90,56 +90,56 @@ Run `npm run matchup -- <champion> Rengar` for the full ledger of a matchup, wit
 | 11 | Samira | +0.72 | 1.08 | 0.36 | range (attacks), projectile block (Blade Whirl) |
 | 12 | Lucian | +0.72 | 0.72 | 0.00 | range (attacks) |
 | 13 | Kai'Sa | +0.69 | 0.91 | 0.22 | range (attacks) |
-| 14 | Ezreal | +0.65 | 0.65 | 0.00 | range (attacks) |
-| 15 | Bard | +0.63 | 1.44 | 0.81 | range (attacks) |
-| 16 | Yunara | +0.58 | 0.72 | 0.14 | range (attacks) |
-| 17 | Twisted Fate | +0.57 | 1.00 | 0.43 | range (attacks) |
-| 18 | Gwen | +0.57 | 0.68 | 0.11 |  |
-| 19 | Milio | +0.56 | 1.12 | 0.56 | range (attacks) |
-| 20 | Twitch | +0.56 | 0.86 | 0.30 | range (attacks) |
-| 21 | Miss Fortune | +0.56 | 0.65 | 0.09 | range (attacks) |
-| 22 | Aurora | +0.55 | 1.05 | 0.50 | range (attacks) |
-| 23 | Akshan | +0.54 | 0.82 | 0.28 | range (attacks) |
-| 24 | Smolder | +0.49 | 0.65 | 0.16 | range (attacks) |
-| 25 | Rek'Sai | +0.46 | 0.75 | 0.29 |  |
-| 26 | Lulu | +0.45 | 1.22 | 0.77 | range (attacks) |
-| 27 | Kog'Maw | +0.45 | 0.54 | 0.09 | range (attacks) |
-| 28 | Mel | +0.44 | 0.97 | 0.53 | range (attacks), projectile block (Rebuttal) |
-| 29 | Vex | +0.43 | 0.92 | 0.49 | range (attacks) |
-| 30 | Fiora | +0.43 | 0.83 | 0.40 |  |
-| 31 | Zed | +0.41 | 0.47 | 0.06 |  |
-| 32 | Graves | +0.40 | 0.49 | 0.09 |  |
-| 33 | Caitlyn | +0.38 | 1.00 | 0.62 | range (attacks) |
-| 34 | Viktor | +0.37 | 0.93 | 0.56 | range (attacks) |
-| 35 | Nilah | +0.34 | 0.98 | 0.64 | attack dodge (Jubilant Veil) |
-| 36 | Jinx | +0.30 | 0.90 | 0.60 | range (attacks) |
-| 37 | Gangplank | +0.30 | 0.46 | 0.16 |  |
-| 38 | Karthus | +0.30 | 0.39 | 0.09 |  |
-| 39 | Nasus | +0.30 | 0.39 | 0.09 |  |
-| 40 | Morgana | +0.29 | 1.07 | 0.78 |  |
-| 41 | Fizz | +0.29 | 1.00 | 0.71 |  |
-| 42 | Lissandra | +0.28 | 1.19 | 0.91 |  |
-| 43 | Garen | +0.27 | 0.46 | 0.19 |  |
-| 44 | Malzahar | +0.26 | 0.98 | 0.72 |  |
-| 45 | Olaf | +0.25 | 0.33 | 0.08 |  |
-| 46 | Elise | +0.23 | 0.79 | 0.56 | range (attacks) |
-| 47 | Jax | +0.23 | 0.76 | 0.53 | attack dodge (Counter Strike), attack dodge (Counter Strike) |
-| 48 | Sona | +0.19 | 0.83 | 0.64 | range (attacks) |
-| 49 | Veigar | +0.19 | 0.75 | 0.56 |  |
-| 50 | Katarina | +0.18 | 0.18 | 0.00 |  |
-| 51 | Ahri | +0.17 | 0.73 | 0.56 |  |
-| 52 | Draven | +0.16 | 0.72 | 0.56 | range (attacks) |
-| 53 | Kennen | +0.14 | 0.58 | 0.44 | range (attacks) |
-| 54 | Quinn | +0.13 | 0.77 | 0.64 | range (attacks) |
-| 55 | Hwei | +0.11 | 1.06 | 0.95 |  |
-| 56 | Zilean | +0.11 | 0.65 | 0.54 | range (attacks) |
-| 57 | Kalista | +0.10 | 0.90 | 0.80 | range (attacks) |
-| 58 | Zoe | +0.09 | 0.65 | 0.56 | range (attacks) |
-| 59 | LeBlanc | +0.06 | 0.58 | 0.52 |  |
-| 60 | Ashe | +0.05 | 0.72 | 0.67 | range (attacks) |
-| 61 | Udyr | +0.05 | 0.70 | 0.65 |  |
-| 62 | Illaoi | +0.05 | 0.14 | 0.09 |  |
-| 63 | Corki | +0.04 | 0.60 | 0.56 | range (attacks) |
+| 14 | Corki | +0.65 | 0.65 | 0.00 | range (attacks) |
+| 15 | Ezreal | +0.65 | 0.65 | 0.00 | range (attacks) |
+| 16 | Bard | +0.63 | 1.44 | 0.81 | range (attacks) |
+| 17 | Yunara | +0.58 | 0.72 | 0.14 | range (attacks) |
+| 18 | Twisted Fate | +0.57 | 1.00 | 0.43 | range (attacks) |
+| 19 | Gwen | +0.57 | 0.68 | 0.11 |  |
+| 20 | Milio | +0.56 | 1.12 | 0.56 | range (attacks) |
+| 21 | Twitch | +0.56 | 0.86 | 0.30 | range (attacks) |
+| 22 | Miss Fortune | +0.56 | 0.65 | 0.09 | range (attacks) |
+| 23 | Aurora | +0.55 | 1.05 | 0.50 | range (attacks) |
+| 24 | Akshan | +0.54 | 0.82 | 0.28 | range (attacks) |
+| 25 | Smolder | +0.49 | 0.65 | 0.16 | range (attacks) |
+| 26 | Rek'Sai | +0.46 | 0.75 | 0.29 |  |
+| 27 | Lulu | +0.45 | 1.22 | 0.77 | range (attacks) |
+| 28 | Kog'Maw | +0.45 | 0.54 | 0.09 | range (attacks) |
+| 29 | Mel | +0.44 | 0.97 | 0.53 | range (attacks), projectile block (Rebuttal) |
+| 30 | Vex | +0.43 | 0.92 | 0.49 | range (attacks) |
+| 31 | Fiora | +0.43 | 0.83 | 0.40 |  |
+| 32 | Zed | +0.41 | 0.47 | 0.06 |  |
+| 33 | Graves | +0.40 | 0.49 | 0.09 |  |
+| 34 | Caitlyn | +0.38 | 1.00 | 0.62 | range (attacks) |
+| 35 | Viktor | +0.37 | 0.93 | 0.56 | range (attacks) |
+| 36 | Nilah | +0.34 | 0.98 | 0.64 | attack dodge (Jubilant Veil) |
+| 37 | Jinx | +0.30 | 0.90 | 0.60 | range (attacks) |
+| 38 | Gangplank | +0.30 | 0.46 | 0.16 |  |
+| 39 | Karthus | +0.30 | 0.39 | 0.09 |  |
+| 40 | Nasus | +0.30 | 0.39 | 0.09 |  |
+| 41 | Morgana | +0.29 | 1.07 | 0.78 |  |
+| 42 | Fizz | +0.29 | 1.00 | 0.71 |  |
+| 43 | Lissandra | +0.28 | 1.19 | 0.91 |  |
+| 44 | Garen | +0.27 | 0.46 | 0.19 |  |
+| 45 | Malzahar | +0.26 | 0.98 | 0.72 |  |
+| 46 | Olaf | +0.25 | 0.33 | 0.08 |  |
+| 47 | Elise | +0.23 | 0.79 | 0.56 | range (attacks) |
+| 48 | Jax | +0.23 | 0.76 | 0.53 | attack dodge (Counter Strike), attack dodge (Counter Strike) |
+| 49 | Sona | +0.19 | 0.83 | 0.64 | range (attacks) |
+| 50 | Veigar | +0.19 | 0.75 | 0.56 |  |
+| 51 | Katarina | +0.18 | 0.18 | 0.00 |  |
+| 52 | Ahri | +0.17 | 0.73 | 0.56 |  |
+| 53 | Draven | +0.16 | 0.72 | 0.56 | range (attacks) |
+| 54 | Kennen | +0.14 | 0.58 | 0.44 | range (attacks) |
+| 55 | Quinn | +0.13 | 0.77 | 0.64 | range (attacks) |
+| 56 | Hwei | +0.11 | 1.06 | 0.95 |  |
+| 57 | Zilean | +0.11 | 0.65 | 0.54 | range (attacks) |
+| 58 | Kalista | +0.10 | 0.90 | 0.80 | range (attacks) |
+| 59 | Zoe | +0.09 | 0.65 | 0.56 | range (attacks) |
+| 60 | LeBlanc | +0.06 | 0.58 | 0.52 |  |
+| 61 | Ashe | +0.05 | 0.72 | 0.67 | range (attacks) |
+| 62 | Udyr | +0.05 | 0.70 | 0.65 |  |
+| 63 | Illaoi | +0.05 | 0.14 | 0.09 |  |
 | 64 | Fiddlesticks | +0.03 | 0.67 | 0.64 |  |
 | 65 | Vayne | +0.02 | 0.86 | 0.84 | range (attacks) |
 | 66 | Tristana | +0.02 | 0.72 | 0.70 | range (attacks) |

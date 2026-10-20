@@ -27,6 +27,26 @@ function impactTicks(movement: Movement, hitboxDistance: number, direction: 1 | 
 }
 
 describe("projectile ETA at discrete travel boundaries", () => {
+  it("matches decelerating flights before and after the minimum speed in both directions", () => {
+    const movement = { perTick: 20, acceleration: { perTick: -8, maxPerTick: 20, minPerTick: 5 } };
+    // Moves 20, 12, then 5 units on every later tick.
+    for (const [distance, expected] of [[20, 1], [32, 2], [37, 3], [62, 8]] as const) {
+      for (const direction of [1, -1] as const) {
+        expect(missileArrivalTicks(movement, distance)).toBe(expected);
+        expect(impactTicks(movement, distance, direction)).toBe(expected);
+        expect(missileArrivalTicks(movement, distance + 1.1e-12)).toBe(expected);
+        expect(missileArrivalTicks(movement, distance + .001)).toBe(expected + 1);
+      }
+    }
+  });
+  it("reports an unreachable hitbox after deceleration to a complete stop", () => {
+    const movement = { perTick: 20, acceleration: { perTick: -10, maxPerTick: 20 } };
+    expect(missileArrivalTicks(movement, 30)).toBe(2);
+    expect(impactTicks(movement, 30, 1)).toBe(2);
+    expect(missileArrivalTicks(movement, 30.001)).toBe(Infinity);
+    expect(missileArrivalTicks({ perTick: 0 }, 0)).toBe(0);
+    expect(missileArrivalTicks({ perTick: 0 }, 1)).toBe(Infinity);
+  });
   it("keeps mirrored rounding around a thirteen-tick ordinary flight on the same tick", () => {
     const movement = { perTick: 40 };
     // Reflection can put the same 585-unit center gap just above or below its exact value.

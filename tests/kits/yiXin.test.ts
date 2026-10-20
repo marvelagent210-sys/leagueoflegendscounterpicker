@@ -25,7 +25,7 @@ const noRegen = (world: World) => { for (const u of world.units) u.spec = { ...u
 const hit = (world: World, blocked = false) => {
   const [self, target] = world.units;
   if (blocked) applyEffect(world, target, target, { type: "state", state: "blockAttacks", duration: 10 }, { scale: 1 });
-  self.spec.hooks?.onAttack?.(hookContext(world, self));
+  self.spec.hooks?.onAttack?.({ ...hookContext(world, self), action: { kind: "windup", startTick: world.tick, launchTick: world.tick, uncancellable: false, blinded: false, onHit: [], bonusRange: 0 } });
   attackHit(world, self, target, false, []);
 };
 
@@ -103,12 +103,12 @@ describe("Master Yi source-backed kit", () => {
     const dodge = worldFor("MasterYi");
     const [self, target] = dodge.units;
     self.memory.doubleStacks = 3; self.memory.doubleUntil = 120;
-    self.spec.hooks?.onAttack?.(hookContext(dodge, self));
+    self.spec.hooks?.onAttack?.({ ...hookContext(dodge, self), action: { kind: "windup", startTick: dodge.tick, launchTick: dodge.tick, uncancellable: false, blinded: false, onHit: [], bonusRange: 0 } });
     applyEffect(dodge, target, target, { type: "state", state: "dodgeAttacks", duration: 10 }, { scale: 1 });
     attackHit(dodge, self, target, false, []);
     expect(self.memory.doubleStacks).toBe(3);
     target.statuses = [];
-    self.spec.hooks?.onAttack?.(hookContext(dodge, self));
+    self.spec.hooks?.onAttack?.({ ...hookContext(dodge, self), action: { kind: "windup", startTick: dodge.tick, launchTick: dodge.tick, uncancellable: false, blinded: false, onHit: [], bonusRange: 0 } });
     attackHit(dodge, self, target, true, []);
     expect(self.memory.doubleStacks).toBe(0);
     expect(target.totals.damageTaken).toBe(0);

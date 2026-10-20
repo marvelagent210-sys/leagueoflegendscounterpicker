@@ -1,5 +1,104 @@
 # Counters to Kog'Maw (patch 26.20)
 
+## Simulated duels
+
+The duel simulator played each of the 90 other champions with a simulator kit against Kog'Maw: both at level 20 with 15,000 gold of plain stats, each side's spent against the other's, through six scenarios (PLAN.md §6). Scores run from −1 (Kog'Maw wins every time) to +1 (the champion does). Run `npm run duel -- <champion> KogMaw --log brawl` to watch a fight.
+
+| # | Champion | Score | You engage | Enemy engages | Brawl | Short trade | Spacing | Escape |
+|--:|---|--:|--:|--:|--:|--:|--:|--:|
+| 1 | Tahm Kench | +0.81 | +1.00 | +1.00 | +1.00 | +0.09 | +1.00 | +0.00 |
+| 2 | Dr. Mundo | +0.79 | +1.00 | +1.00 | +1.00 | −0.08 | +1.00 | +0.00 |
+| 3 | Trundle | +0.74 | +1.00 | +1.00 | +1.00 | −0.37 | +1.00 | +0.00 |
+| 4 | Yorick | +0.70 | +1.00 | +0.67 | +1.00 | −0.14 | +1.00 | +0.00 |
+| 5 | Jax | +0.63 | +0.50 | +1.00 | +1.00 | +0.00 | +0.50 | +0.00 |
+| 6 | Zaahen | +0.58 | +0.27 | +1.00 | +1.00 | −0.24 | +1.00 | +0.00 |
+| 7 | Nasus | +0.44 | +0.00 | +1.00 | +1.00 | −0.10 | +0.00 | +0.00 |
+| 8 | Yasuo | +0.42 | +0.77 | −0.03 | +0.84 | −0.10 | +0.78 | +0.00 |
+| 9 | Poppy | +0.29 | +0.00 | +0.00 | +1.00 | −0.07 | +1.00 | +0.00 |
+| 10 | Anivia | +0.19 | +0.06 | +0.19 | +0.60 | −0.10 | +0.18 | +0.00 |
+| 11 | K'Sante | +0.17 | +0.00 | +0.00 | +1.00 | −0.19 | +0.00 | +0.00 |
+| 12 | Gangplank | +0.10 | +0.00 | +0.00 | +0.00 | −0.01 | +1.00 | +0.00 |
+| 13 | Fiora | +0.04 | −1.00 | +0.00 | +1.00 | −0.39 | +1.00 | +1.00 |
+| 14 | Malphite | −0.03 | +0.00 | +0.00 | +0.00 | −0.20 | +0.00 | +0.00 |
+| 15 | Tryndamere | −0.05 | +0.00 | +0.00 | +0.00 | −0.31 | +0.00 | +0.00 |
+| 16 | Master Yi | −0.11 | +0.00 | +0.00 | −0.50 | −0.07 | +0.00 | +0.00 |
+| 17 | Garen | −0.19 | +0.00 | −1.00 | +1.00 | −0.28 | −1.00 | +0.00 |
+| 18 | Camille | −0.24 | +0.00 | +0.00 | −1.00 | −0.28 | +0.00 | +0.00 |
+| 19 | Vayne | −0.30 | +0.00 | −1.00 | +0.00 | −0.14 | – | +0.00 |
+| 20 | Heimerdinger | −0.32 | −1.00 | −1.00 | +1.00 | +0.07 | – | +0.00 |
+| 21 | Rammus | −0.33 | +0.00 | +0.00 | −1.00 | −0.23 | −1.00 | +0.00 |
+| 22 | Volibear | −0.35 | −0.07 | −1.00 | −0.07 | −0.36 | −0.13 | +0.00 |
+| 23 | Gwen | −0.55 | −1.00 | −1.00 | +0.00 | −0.36 | +0.00 | +0.00 |
+| 24 | Teemo | −0.56 | −1.00 | −1.00 | +0.00 | +0.00 | – | +0.00 |
+| 25 | Yone | −0.58 | −0.41 | −0.41 | −1.00 | −0.34 | −1.00 | −0.41 |
+| 26 | Kayle | −0.59 | −1.00 | −1.00 | +0.00 | +0.06 | −1.00 | +0.00 |
+| 27 | Urgot | −0.61 | −1.00 | −1.00 | −0.03 | −0.05 | −1.00 | +0.00 |
+| 28 | Mordekaiser | −0.62 | −1.00 | −1.00 | −0.02 | −0.14 | −1.00 | +0.00 |
+| 29 | Morgana | −0.64 | −1.00 | −0.93 | −0.37 | −0.09 | – | +0.00 |
+| 30 | Riven | −0.72 | −1.00 | −1.00 | −0.50 | −0.14 | −1.00 | +0.00 |
+| 31 | Ornn | −0.72 | −1.00 | −1.00 | −0.50 | −0.15 | −1.00 | +0.00 |
+| 32 | Vel'Koz | −0.73 | −1.00 | −1.00 | −1.00 | +0.27 | – | +0.00 |
+| 33 | Ziggs | −0.76 | −1.00 | −1.00 | −1.00 | +0.14 | – | +0.00 |
+| 34 | Sion | −0.76 | −0.90 | −0.88 | −1.00 | −0.09 | −1.00 | +0.00 |
+| 35 | Cassiopeia | −0.76 | −1.00 | −1.00 | −1.00 | +0.09 | – | +0.00 |
+| 36 | Jhin | −0.76 | −1.00 | −1.00 | −0.96 | +0.04 | – | +0.00 |
+| 37 | Jinx | −0.77 | −1.00 | −1.00 | −1.00 | +0.08 | – | +0.00 |
+| 38 | Miss Fortune | −0.77 | −1.00 | −1.00 | −1.00 | +0.07 | – | +0.00 |
+| 39 | Xayah | −0.77 | −1.00 | −1.00 | −1.00 | +0.07 | – | +0.00 |
+| 40 | Smolder | −0.77 | −1.00 | −1.00 | −1.00 | +0.06 | – | +0.00 |
+| 41 | Varus | −0.77 | −1.00 | −1.00 | −1.00 | +0.05 | – | +0.00 |
+| 42 | Aurora | −0.77 | −1.00 | −1.00 | −1.00 | +0.05 | – | +0.00 |
+| 43 | Draven | −0.77 | −1.00 | −1.00 | −1.00 | +0.05 | – | +0.00 |
+| 44 | Zyra | −0.77 | −1.00 | −1.00 | −1.00 | +0.05 | – | +0.00 |
+| 45 | Kai'Sa | −0.77 | −1.00 | −1.00 | −1.00 | +0.04 | – | +0.00 |
+| 46 | Corki | −0.77 | −1.00 | −1.00 | −1.00 | +0.02 | – | +0.00 |
+| 47 | Veigar | −0.78 | −1.00 | −1.00 | −1.00 | +0.01 | – | +0.00 |
+| 48 | Lux | −0.78 | −1.00 | −1.00 | −1.00 | +0.01 | – | +0.00 |
+| 49 | Samira | −0.78 | −1.00 | −1.00 | −1.00 | +0.01 | – | +0.00 |
+| 50 | Ahri | −0.78 | −1.00 | −1.00 | −1.00 | +0.00 | – | +0.00 |
+| 51 | Karthus | −0.78 | −1.00 | −1.00 | −1.00 | +0.00 | – | +0.00 |
+| 52 | Twitch | −0.78 | −1.00 | −1.00 | −1.00 | −0.00 | – | +0.00 |
+| 53 | Brand | −0.78 | −1.00 | −1.00 | −1.00 | −0.01 | – | +0.00 |
+| 54 | Ezreal | −0.78 | −1.00 | −1.00 | −1.00 | −0.02 | – | +0.00 |
+| 55 | Annie | −0.78 | −1.00 | −1.00 | −1.00 | +0.10 | −1.00 | +0.00 |
+| 56 | Sivir | −0.79 | −1.00 | −1.00 | −1.00 | −0.06 | – | +0.00 |
+| 57 | Malzahar | −0.79 | −1.00 | −1.00 | −1.00 | −0.06 | – | +0.00 |
+| 58 | Lissandra | −0.79 | −1.00 | −1.00 | −1.00 | −0.06 | – | +0.00 |
+| 59 | Kennen | −0.79 | −1.00 | −1.00 | −1.00 | −0.07 | – | +0.00 |
+| 60 | Ashe | −0.79 | −1.00 | −1.00 | −1.00 | +0.05 | −1.00 | +0.00 |
+| 61 | Nautilus | −0.79 | −1.00 | −1.00 | −1.00 | +0.05 | −1.00 | +0.00 |
+| 62 | Lucian | −0.79 | −1.00 | −1.00 | −1.00 | −0.09 | – | +0.00 |
+| 63 | Caitlyn | −0.80 | −1.00 | −1.00 | −1.00 | +0.02 | −1.00 | +0.00 |
+| 64 | Kalista | −0.80 | −1.00 | −1.00 | −1.00 | −0.12 | – | +0.00 |
+| 65 | Skarner | −0.80 | −1.00 | −1.00 | −1.00 | +0.01 | −1.00 | +0.00 |
+| 66 | Gnar | −0.80 | −1.00 | −1.00 | −1.00 | +0.00 | −1.00 | +0.00 |
+| 67 | Jayce | −0.80 | −1.00 | −1.00 | −1.00 | −0.01 | −1.00 | +0.00 |
+| 68 | Shen | −0.80 | −1.00 | −1.00 | −1.00 | −0.02 | −1.00 | +0.00 |
+| 69 | Kled | −0.80 | −1.00 | −1.00 | −1.00 | −0.03 | −1.00 | +0.00 |
+| 70 | Quinn | −0.80 | −1.00 | −1.00 | −1.00 | −0.12 | – | −0.13 |
+| 71 | Irelia | −0.80 | −1.00 | −1.00 | −1.00 | −0.03 | −1.00 | +0.00 |
+| 72 | Xin Zhao | −0.80 | −1.00 | −1.00 | −1.00 | −0.03 | −1.00 | +0.00 |
+| 73 | Leona | −0.81 | −1.00 | −1.00 | −1.00 | −0.03 | −1.00 | +0.00 |
+| 74 | Amumu | −0.81 | −1.00 | −1.00 | −1.00 | −0.05 | −1.00 | +0.00 |
+| 75 | Illaoi | −0.81 | −1.00 | −1.00 | −1.00 | −0.05 | −1.00 | +0.00 |
+| 76 | Akali | −0.81 | −1.00 | −1.00 | −1.00 | −0.07 | −1.00 | +0.00 |
+| 77 | Rumble | −0.81 | −1.00 | −1.00 | −1.00 | −0.10 | −1.00 | +0.00 |
+| 78 | Tristana | −0.82 | −1.00 | −1.00 | −1.00 | −0.12 | −1.00 | +0.00 |
+| 79 | Pantheon | −0.82 | −1.00 | −1.00 | −1.00 | −0.14 | −1.00 | +0.00 |
+| 80 | Kassadin | −0.83 | −1.00 | −1.00 | −1.00 | −0.17 | −1.00 | +0.00 |
+| 81 | Ambessa | −0.83 | −1.00 | −1.00 | −1.00 | −0.17 | −1.00 | +0.00 |
+| 82 | Vladimir | −0.83 | −1.00 | −1.00 | −1.00 | −0.30 | – | +0.00 |
+| 83 | Cho'Gath | −0.83 | −1.00 | −1.00 | −1.00 | −0.22 | −1.00 | +0.00 |
+| 84 | Sett | −0.83 | −1.00 | −1.00 | −1.00 | −0.23 | −1.00 | +0.00 |
+| 85 | Olaf | −0.83 | −1.00 | −1.00 | −1.00 | −0.23 | −1.00 | +0.00 |
+| 86 | Renekton | −0.84 | −1.00 | −1.00 | −1.00 | −0.26 | −1.00 | +0.00 |
+| 87 | Udyr | −0.84 | −1.00 | −1.00 | −1.00 | −0.28 | −1.00 | +0.00 |
+| 88 | Singed | −0.84 | −1.00 | −1.00 | −1.00 | −0.29 | −1.00 | +0.00 |
+| 89 | Darius | −0.85 | −1.00 | −1.00 | −1.00 | −0.36 | −1.00 | +0.00 |
+| 90 | Aatrox | −0.85 | −1.00 | −1.00 | −1.00 | −0.36 | −1.00 | +0.00 |
+
+## Interaction ledger estimates
+
 Every champion ranked by what its kit does against Kog'Maw's, from the interaction ledger: projectile blocks, spell shields,
 parries, dash stops, crowd control and its defenses, range and more (PLAN.md §5). This ranking is **partial**: it weighs the
 interactions but doesn't play the fight out. The duel simulator replaces it as each champion's behavior is verified.
@@ -8,65 +107,65 @@ interactions but doesn't play the fight out. The duel simulator replaces it as e
 A hard counter shuts down part of a kit every time it is used (projectile block, attack dodge, attack block, blind, disarm, attack speed slow, attack reflect, dash stop, grounding, range) with an impact of 0.4 or more (0.5 for range).
 Run `npm run matchup -- <champion> KogMaw` for the full ledger of a matchup, with sources.
 
-## Top 10
+### Top 10
 
-### 1. Yuumi (net +0.60)
+#### 1. Yuumi (net +0.60)
 
 - **0.65** untargetable: You and Me! makes Yuumi untargetable, dodging Kog'Maw's Living Artillery. Untargetable for ?; Living Artillery takes 0.25 s to land, enough to react. Does not destroy inbound projectiles, special cased to be targetable to turrets. (Yuumi W You and Me! → Kog'Maw R Living Artillery)
 - Watch out: Kog'Maw's basic attacks reach 75 units farther than Yuumi's (500 vs 425 attack range).
 
-### 2. Samira (net +0.53)
+#### 2. Samira (net +0.53)
 
 - **0.33** projectile block: Blade Whirl blocks Kog'Maw's Void Ooze, a projectile. Blade Whirl for 0.75 s; Void Ooze takes 1.22 s to land, enough to react. (Samira W Blade Whirl → Kog'Maw E Void Ooze)
 - **0.27** projectile block: Blade Whirl blocks Kog'Maw's Caustic Spittle, a projectile. Blade Whirl for 0.75 s; Caustic Spittle takes 0.73 s to land, enough to react. (Samira W Blade Whirl → Kog'Maw Q Caustic Spittle)
 - **0.24** projectile block: Blade Whirl blocks Kog'Maw's basic attacks, which are projectiles. Blade Whirl lasts 0.75 s on a 22 s cooldown. (Samira W Blade Whirl → Kog'Maw basic attacks)
 
-### 3. Braum (net +0.49)
+#### 3. Braum (net +0.49)
 
 - **0.45** projectile block: Unbreakable blocks Kog'Maw's Void Ooze, a projectile. Unbreakable for 4 s, long enough to use ahead of Void Ooze. (Braum E Unbreakable → Kog'Maw E Void Ooze)
 - **0.42** projectile block: Unbreakable blocks Kog'Maw's Caustic Spittle, a projectile. Unbreakable for 4 s, long enough to use ahead of Caustic Spittle. (Braum E Unbreakable → Kog'Maw Q Caustic Spittle)
 - **0.41** projectile block: Unbreakable blocks Kog'Maw's basic attacks, which are projectiles. Unbreakable lasts 4 s on a 8 s cooldown. (Braum E Unbreakable → Kog'Maw basic attacks)
 - Watch out: Kog'Maw's basic attacks reach 375 units farther than Braum's (500 vs 125 attack range).
 
-### 4. Mel (net +0.49)
+#### 4. Mel (net +0.49)
 
 - **0.30** projectile block: Rebuttal blocks Kog'Maw's Void Ooze, a projectile. Rebuttal for 0.75 s; Void Ooze takes 1.22 s to land, enough to react. (Mel W Rebuttal → Kog'Maw E Void Ooze)
 - **0.25** projectile block: Rebuttal blocks Kog'Maw's Caustic Spittle, a projectile. Rebuttal for 0.75 s; Caustic Spittle takes 0.73 s to land, enough to react. (Mel W Rebuttal → Kog'Maw Q Caustic Spittle)
 - **0.24** projectile block: Rebuttal blocks Kog'Maw's basic attacks, which are projectiles. Rebuttal lasts 0.75 s on a 26 s cooldown. (Mel W Rebuttal → Kog'Maw basic attacks)
 
-### 5. Kayle (net +0.48)
+#### 5. Kayle (net +0.48)
 
 - **0.26** invulnerable: Divine Judgment makes Kayle invulnerable to Kog'Maw's Living Artillery. Invulnerable for 2.5 s, long enough to use ahead of Living Artillery. (Kayle R Divine Judgment → Kog'Maw R Living Artillery)
 - **0.22** range: Kayle's basic attacks reach 125 units farther than Kog'Maw's (625 vs 500 attack range). Kog'Maw has no dash or blink to close the gap. (Kayle basic attacks → Kog'Maw basic attacks)
 
-### 6. Yasuo (net +0.44)
+#### 6. Yasuo (net +0.44)
 
 - **0.37** projectile block: Wind Wall blocks Kog'Maw's Void Ooze, a projectile. Wind Wall for 4 s, long enough to use ahead of Void Ooze. (Yasuo W Wind Wall → Kog'Maw E Void Ooze)
 - **0.31** projectile block: Wind Wall blocks Kog'Maw's basic attacks, which are projectiles. Wind Wall lasts 4 s on a 17 s cooldown. (Yasuo W Wind Wall → Kog'Maw basic attacks)
 - **0.29** projectile block: Wind Wall blocks Kog'Maw's Caustic Spittle, a projectile. Wind Wall for 4 s, long enough to use ahead of Caustic Spittle. (Yasuo W Wind Wall → Kog'Maw Q Caustic Spittle)
 - Watch out: Kog'Maw's basic attacks reach 325 units farther than Yasuo's (500 vs 175 attack range).
 
-### 7. Shen (net +0.42)
+#### 7. Shen (net +0.42)
 
 - **0.45** attack block: Spirit's Refuge blocks Kog'Maw's Bio-Arcane Barrage, which applies on-hit effects. Spirit's Refuge lasts 1.75 s on a 10 s cooldown. (Shen W Spirit's Refuge → Kog'Maw W Bio-Arcane Barrage)
 - **0.29** attack block: Spirit's Refuge blocks Kog'Maw's basic attacks. Spirit's Refuge lasts 1.75 s on a 10 s cooldown. (Shen W Spirit's Refuge → Kog'Maw basic attacks)
 - Watch out: Kog'Maw's basic attacks reach 375 units farther than Shen's (500 vs 125 attack range).
 
-### 8. Teemo (net +0.38)
+#### 8. Teemo (net +0.38)
 
 - **0.38** blind: Blinding Dart's blind makes Kog'Maw's basic attacks miss for 3 s. Blind for 3 s on a 7 s cooldown. (Teemo Q Blinding Dart → Kog'Maw basic attacks)
 
-### 9. Tristana (net +0.36)
+#### 9. Tristana (net +0.36)
 
 - **0.36** range: Tristana's basic attacks reach 200 units farther than Kog'Maw's (700 vs 500 attack range). Kog'Maw has no dash or blink to close the gap. (Tristana basic attacks → Kog'Maw basic attacks)
 
-### 10. Jax (net +0.34)
+#### 10. Jax (net +0.34)
 
 - **0.45** attack dodge: Counter Strike dodges Kog'Maw's Bio-Arcane Barrage, which applies on-hit effects. Counter Strike lasts 2 s on a 9 s cooldown. (Jax E Counter Strike → Kog'Maw W Bio-Arcane Barrage)
 - **0.31** attack dodge: Counter Strike dodges Kog'Maw's basic attacks. Counter Strike lasts 2 s on a 9 s cooldown. (Jax E Counter Strike → Kog'Maw basic attacks)
 - Watch out: Kog'Maw's basic attacks reach 375 units farther than Jax's (500 vs 125 attack range).
 
-## Full ranking
+### Full ranking
 
 | # | Champion | Net | For | Against | Hard counters |
 |--:|---|--:|--:|--:|---|

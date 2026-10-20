@@ -200,3 +200,97 @@ All 1 level-based formulas in the game files (0 linked to wiki values above):
 | Spell | Calculation | Rule | Level 1 | Level 18 | Level 20 |
 |---|---|---|--:|--:|--:|
 | MissFortunePassive | TotalDamage | breakpoints at levels 4, 7, 9, 11, 13, 20, 25, 30 (level 1: 0.5) | 0.5 | 1 | 1.1 |
+
+## Duel simulator kit (level 20, every ability at max rank)
+
+What the duel simulator fights with (`kits/champions/MissFortune.ts`): values come from pinned wiki and versioned game-data records at level 20. Interpretations and missing evidence are listed under assumptions. Ratios are fractions of the stat (60% AD is 0.6 × AD).
+
+- Basic attack: range 550, missile at 2000/s.
+
+| Key | Ability | Cooldown (s) | Cast time (s) | Cost | Delivery | On the enemy | On itself |
+|---|---|--:|--:|---|---|---|---|
+| Q | Double Up | 3 | depends on stats (0 base) | 40 | targeted, 550 edge range, missile at 1400/s | 120 + 100% AD + 35% AP physical damage | – |
+| W | Strut | 12 | 0 | 45 | self | – | attackSpeed 1 for 4 s |
+| E | Make It Rain | 14 | 0.25 | 80 | field of 350 radius up to 1000 away, for 2 s, pulsing every 0.25 s | 23.75 + 15% AP magic damage; slow 40% for 0.283 s | – |
+| R | Bullet Time | 100 | 0.001 | 100 | around itself, 1450 units; channel 3 s | – | – |
+| Qbounce | Double Up (bounce) | 0 | 0 | – | self | 120 + 100% AD + 35% AP physical damage, can crit | – |
+| QkillBounce | Double Up (kill bounce) | 0 | 0 | – | self | 180 + 150% AD + 52.5% AP physical damage | – |
+| Rwave | Bullet Time (wave) | 0 | 0 | – | self | 40 + 60% AD + 25% AP physical damage, can crit | – |
+
+Effects marked by a mark or a role are completed by the kit's hooks (see the kit's source).
+
+### Assumptions
+
+- Love Tap uses the version-pinned game's explicit level-20 breakpoint: 110% AD, conflicting with the wiki description's 100% cap at level13. The exact game calculation and its SHA/version remain visible as separate evidence. The mark belongs to the last actually contacted target, including individual summons. Ordinary minion summons receive the game's 50% factor. Its bonus joins the ordinary noncritical part of a basic attack and applies life steal; Q carries its own basic-damage Love Tap packet. Blocked, dodged, parried and spell-shielded contacts do not change the mark or refund Strut.
+- Double Up uses the current basic-attack windup and dynamically adjusts edge range with attack-range buffs. Invalidated cast targets cancel without cost/cooldown. Its primary target is the enemy champion under the arena's unit-targeted cast API; the policy cannot directly select a summoned primary target. Actual homing primary contacts, including spell shields, search real enemies behind the primary within500 center-to-center units and launch a separate homing bounce. The one-dimensional line removes the four angular priority bands; the nearest directly behind target wins, and invisibility does not hide it. A killed primary forces the actual bounce's 150% crit. No target means no damage-bearing bounce and no invented dud damage.
+- Strut starts fully built after an assumed out-of-combat approach. Positive nonperiodic health damage resets its movement stages; fully shielded or zero-health-damage packets and persistent damage do not. Its active restores the full movement stage immediately and grants the sourced four-second attack-speed buff. Each new Love Tap target refunds two seconds divided by one plus ability haste, without starting a ready cooldown.
+- Make It Rain uses eight fixed-location quarter-second damage pulses over two seconds. Its AP-scaled, noncleanseable slow is refreshed only while an actual target intersects the field and persists through the next scheduled pulse plus one tick; no map-fog vision or true sight is invented. Independent pets receive spatial field damage.
+- Bullet Time fires exactly18 waves at maximum rank on ordinal absolute clocks from the sourced0.066 through2.904 seconds after declaration; each rounded time is independent, avoiding interval drift. Each wave is one piercing2000-speed missile along the current facing axis, with at most one hit per actual target and impact-time stats/missing defenses. This represents one hit from the six angular streams in the one-dimensional arena, without multiplying damage by six. Already launched missiles persist after interruption/death; no future waves fire after channel cancellation. Facing can change if another actual action updates it; there is no free automatic target tracking. Root alone does not interrupt, silence/stun do, and projectile walls can stop each wave. Spell shields do not block persistent R or E damage.
+- The stat budget values one opening Love Tap over its ten-second reference window, the full eighteen R waves per root R cooldown, and Strut's four-second attack-speed uptime capped by the sourced normal attack-speed limit. It does not assume a lane of free bounce targets or repeated same-target Love Taps. Actual channel interruption, flight, cooldown refunds and field exposure are combat outcomes.
+
+### Source values read (62)
+
+| Ability | Value | Source version |
+|---|---|---|
+| Love Tap | a mark that expires upon attacking a new enemy | [4027989](https://wiki.leagueoflegends.com/en-us/Template:Data_Miss_Fortune/Love_Tap?oldid=4027989) |
+| Love Tap | The bonus damage applies life steal | [4027989](https://wiki.leagueoflegends.com/en-us/Template:Data_Miss_Fortune/Love_Tap?oldid=4027989) |
+| Love Tap | halved to 25 / 30 / 35 / 40 / 45 / 50 | [4027989](https://wiki.leagueoflegends.com/en-us/Template:Data_Miss_Fortune/Love_Tap?oldid=4027989) |
+| Love Tap | mSpell.mSpellCalculations.TotalDamage: {"mSimpleTooltipCalculationDisplay":6,"mFormulaParts":[{"mStat":2,"mSubpart":{"mLevel1Value":0.5,"mBreakpoints":[{"mLevel":4,"mAdditionalBonusAtThisLevel":0.10000000149011612,"__type":"Breakpoint"},{"mLevel":7,"mAdditionalBonusAtThisLevel":0.10000000149011612,"__type":"Breakpoint"},{"mLevel":9,"mAdditionalBonusAtThisLevel":0.10000000149011612,"__type":"Breakpoint"},{"mLevel":11,"mAdditionalBonusAtThisLevel":0.10000000149011612,"__type":"Breakpoint"},{"mLevel":13,"mAdditionalBonusAtThisLevel":0.10000000149011612,"__type":"Breakpoint"},{"mLevel":20,"mAdditionalBonusAtThisLevel":0.10000000149011612,"__type":"Breakpoint"},{"mLevel":25,"mAdditionalBonusAtThisLevel":0.10000000149011612,"__type":"Breakpoint"},{"mLevel":30,"mAdditionalBonusAtThisLevel":0.10000000149011612,"__type":"Breakpoint"}],"__type":"ByCharLevelBreakpointsCalculationPart"},"__type":"StatBySubPartCalculationPart"}],"__type":"GameCalculation"} | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/missfortune/missfortune.bin.json) |
+| Love Tap | "mNumber":0.5 | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/missfortune/missfortune.bin.json) |
+| Love Tap | mSpell.missileSpeed: 2000.0 | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/missfortune/missfortune.bin.json) |
+| Double Up | Physical Damage: 20 / 45 / 70 / 95 / 120 (+ 100% AD) (+ 35% AP) | [3993572](https://wiki.leagueoflegends.com/en-us/Template:Data_Miss_Fortune/Double_Up?oldid=3993572) |
+| Double Up | effectRadius: 500 | [3993572](https://wiki.leagueoflegends.com/en-us/Template:Data_Miss_Fortune/Double_Up?oldid=3993572) |
+| Double Up | speed: 1400 | [3993572](https://wiki.leagueoflegends.com/en-us/Template:Data_Miss_Fortune/Double_Up?oldid=3993572) |
+| Double Up | critically strike for 150% damage | [3993572](https://wiki.leagueoflegends.com/en-us/Template:Data_Miss_Fortune/Double_Up?oldid=3993572) |
+| Double Up | castTime: Basic Attack Timer | [3993572](https://wiki.leagueoflegends.com/en-us/Template:Data_Miss_Fortune/Double_Up?oldid=3993572) |
+| Double Up | targetRange: 550 (+ 100% bonus attack range) | [3993572](https://wiki.leagueoflegends.com/en-us/Template:Data_Miss_Fortune/Double_Up?oldid=3993572) |
+| Double Up | applying on-attack effects to the primary target and on-hit effects to both enemies hit | [3993572](https://wiki.leagueoflegends.com/en-us/Template:Data_Miss_Fortune/Double_Up?oldid=3993572) |
+| Double Up | Double Up deals basic damage to both targets | [3993572](https://wiki.leagueoflegends.com/en-us/Template:Data_Miss_Fortune/Double_Up?oldid=3993572) |
+| Double Up | the spell shield will not prevent the shot from bouncing | [3993572](https://wiki.leagueoflegends.com/en-us/Template:Data_Miss_Fortune/Double_Up?oldid=3993572) |
+| Double Up | If Double Up kills the primary target, the bounce will critically strike | [3993572](https://wiki.leagueoflegends.com/en-us/Template:Data_Miss_Fortune/Double_Up?oldid=3993572) |
+| Double Up | target does not have to be visible to be hit by the bounce | [3993572](https://wiki.leagueoflegends.com/en-us/Template:Data_Miss_Fortune/Double_Up?oldid=3993572) |
+| Double Up | range adjusts based on Miss Fortune's attack range | [3993572](https://wiki.leagueoflegends.com/en-us/Template:Data_Miss_Fortune/Double_Up?oldid=3993572) |
+| Double Up | does not go on cooldown nor pay its cost | [3993572](https://wiki.leagueoflegends.com/en-us/Template:Data_Miss_Fortune/Double_Up?oldid=3993572) |
+| Strut | after 4 seconds without taking non-periodic damage | [4015416](https://wiki.leagueoflegends.com/en-us/Template:Data_Miss_Fortune/Strut?oldid=4015416) |
+| Strut | after another 3 seconds | [4015416](https://wiki.leagueoflegends.com/en-us/Template:Data_Miss_Fortune/Strut?oldid=4015416) |
+| Strut | Bonus Movement Speed: 30 / 35 / 40 / 45 / 50 | [4015416](https://wiki.leagueoflegends.com/en-us/Template:Data_Miss_Fortune/Strut?oldid=4015416) |
+| Strut | Increased Bonus Movement Speed: 60 / 70 / 80 / 90 / 100 | [4015416](https://wiki.leagueoflegends.com/en-us/Template:Data_Miss_Fortune/Strut?oldid=4015416) |
+| Strut | Bonus Attack Speed: 40 / 55 / 70 / 85 / 100% | [4015416](https://wiki.leagueoflegends.com/en-us/Template:Data_Miss_Fortune/Strut?oldid=4015416) |
+| Strut | attack speed for 4 seconds | [4015416](https://wiki.leagueoflegends.com/en-us/Template:Data_Miss_Fortune/Strut?oldid=4015416) |
+| Strut | cooldown by 2 seconds | [4015416](https://wiki.leagueoflegends.com/en-us/Template:Data_Miss_Fortune/Strut?oldid=4015416) |
+| Strut | "2 seconds" (tooltip: Affected by ability haste) | [4015416](https://wiki.leagueoflegends.com/en-us/Template:Data_Miss_Fortune/Strut?oldid=4015416) |
+| Strut | bonus movement speed is not lost from taking 0 damage instances | [4015416](https://wiki.leagueoflegends.com/en-us/Template:Data_Miss_Fortune/Strut?oldid=4015416) |
+| Make It Rain | Magic Damage Per Tick: 8.75 / 12.5 / 16.25 / 20 / 23.75 (+ 15% AP) | [4065641](https://wiki.leagueoflegends.com/en-us/Template:Data_Miss_Fortune/Make_It_Rain?oldid=4065641) |
+| Make It Rain | Total Magic Damage: 70 / 100 / 130 / 160 / 190 (+ 120% AP) | [4065641](https://wiki.leagueoflegends.com/en-us/Template:Data_Miss_Fortune/Make_It_Rain?oldid=4065641) |
+| Make It Rain | for 2 seconds | [4065641](https://wiki.leagueoflegends.com/en-us/Template:Data_Miss_Fortune/Make_It_Rain?oldid=4065641) |
+| Make It Rain | every 0.25 seconds | [4065641](https://wiki.leagueoflegends.com/en-us/Template:Data_Miss_Fortune/Make_It_Rain?oldid=4065641) |
+| Make It Rain | slowing them by 40% | [4065641](https://wiki.leagueoflegends.com/en-us/Template:Data_Miss_Fortune/Make_It_Rain?oldid=4065641) |
+| Make It Rain | (+ 6% per 100 AP) | [4065641](https://wiki.leagueoflegends.com/en-us/Template:Data_Miss_Fortune/Make_It_Rain?oldid=4065641) |
+| Make It Rain | slow cannot be cleansed | [4065641](https://wiki.leagueoflegends.com/en-us/Template:Data_Miss_Fortune/Make_It_Rain?oldid=4065641) |
+| Bullet Time | Physical Damage per Wave: 20 / 30 / 40 (+ 60% AD) (+ 25% AP) | [4050364](https://wiki.leagueoflegends.com/en-us/Template:Data_Miss_Fortune/Bullet_Time?oldid=4050364) |
+| Bullet Time | Total Waves: 14 / 16 / 18 | [4050364](https://wiki.leagueoflegends.com/en-us/Template:Data_Miss_Fortune/Bullet_Time?oldid=4050364) |
+| Bullet Time | channels for up to 3 seconds | [4050364](https://wiki.leagueoflegends.com/en-us/Template:Data_Miss_Fortune/Bullet_Time?oldid=4050364) |
+| Bullet Time | critically strike for 130% damage | [4050364](https://wiki.leagueoflegends.com/en-us/Template:Data_Miss_Fortune/Bullet_Time?oldid=4050364) |
+| Bullet Time | fires the first wave at 0.066 | [4050364](https://wiki.leagueoflegends.com/en-us/Template:Data_Miss_Fortune/Bullet_Time?oldid=4050364) |
+| Bullet Time | last at 2.904 | [4050364](https://wiki.leagueoflegends.com/en-us/Template:Data_Miss_Fortune/Bullet_Time?oldid=4050364) |
+| Bullet Time | effectRadius: 1450 | [4050364](https://wiki.leagueoflegends.com/en-us/Template:Data_Miss_Fortune/Bullet_Time?oldid=4050364) |
+| Bullet Time | width: 40 | [4050364](https://wiki.leagueoflegends.com/en-us/Template:Data_Miss_Fortune/Bullet_Time?oldid=4050364) |
+| Bullet Time | speed: 2000 | [4050364](https://wiki.leagueoflegends.com/en-us/Template:Data_Miss_Fortune/Bullet_Time?oldid=4050364) |
+| Bullet Time | Targets cannot be damaged by more than one projectile per wave | [4050364](https://wiki.leagueoflegends.com/en-us/Template:Data_Miss_Fortune/Bullet_Time?oldid=4050364) |
+| Bullet Time | calculated when the wave reaches the target | [4050364](https://wiki.leagueoflegends.com/en-us/Template:Data_Miss_Fortune/Bullet_Time?oldid=4050364) |
+| Bullet Time | the cone will fire towards her new facing direction | [4050364](https://wiki.leagueoflegends.com/en-us/Template:Data_Miss_Fortune/Bullet_Time?oldid=4050364) |
+| Bullet Time | effective cast time of 0.033 | [4050364](https://wiki.leagueoflegends.com/en-us/Template:Data_Miss_Fortune/Bullet_Time?oldid=4050364) |
+| Bullet Time | cooldownStart: on-cast | [4050364](https://wiki.leagueoflegends.com/en-us/Template:Data_Miss_Fortune/Bullet_Time?oldid=4050364) |
+| Bullet Time | castTime: 0.001 | [4050364](https://wiki.leagueoflegends.com/en-us/Template:Data_Miss_Fortune/Bullet_Time?oldid=4050364) |
+| Double Up | cooldown: 7 / 6 / 5 / 4 / 3 | [3993572](https://wiki.leagueoflegends.com/en-us/Template:Data_Miss_Fortune/Double_Up?oldid=3993572) |
+| Double Up | cost: 40 | [3993572](https://wiki.leagueoflegends.com/en-us/Template:Data_Miss_Fortune/Double_Up?oldid=3993572) |
+| Strut | cooldown: 12 | [4015416](https://wiki.leagueoflegends.com/en-us/Template:Data_Miss_Fortune/Strut?oldid=4015416) |
+| Strut | cost: 45 | [4015416](https://wiki.leagueoflegends.com/en-us/Template:Data_Miss_Fortune/Strut?oldid=4015416) |
+| Strut | castTime: none | [4015416](https://wiki.leagueoflegends.com/en-us/Template:Data_Miss_Fortune/Strut?oldid=4015416) |
+| Make It Rain | cooldown: 18 / 17 / 16 / 15 / 14 | [4065641](https://wiki.leagueoflegends.com/en-us/Template:Data_Miss_Fortune/Make_It_Rain?oldid=4065641) |
+| Make It Rain | cost: 80 | [4065641](https://wiki.leagueoflegends.com/en-us/Template:Data_Miss_Fortune/Make_It_Rain?oldid=4065641) |
+| Make It Rain | castTime: 0.25 | [4065641](https://wiki.leagueoflegends.com/en-us/Template:Data_Miss_Fortune/Make_It_Rain?oldid=4065641) |
+| Make It Rain | targetRange: 1000 | [4065641](https://wiki.leagueoflegends.com/en-us/Template:Data_Miss_Fortune/Make_It_Rain?oldid=4065641) |
+| Make It Rain | effectRadius: 350 | [4065641](https://wiki.leagueoflegends.com/en-us/Template:Data_Miss_Fortune/Make_It_Rain?oldid=4065641) |
+| Bullet Time | cooldown: 120 / 110 / 100 | [4050364](https://wiki.leagueoflegends.com/en-us/Template:Data_Miss_Fortune/Bullet_Time?oldid=4050364) |
+| Bullet Time | cost: 100 | [4050364](https://wiki.leagueoflegends.com/en-us/Template:Data_Miss_Fortune/Bullet_Time?oldid=4050364) |

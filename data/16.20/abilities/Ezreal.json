@@ -410,6 +410,17 @@
       "Mystic Shot benefits from life steal, omnivamp, and physical vamp, but not spell vamp.",
       "Even if the ability is blocked by spell shield it will still trigger the cooldown reduction.",
       "This ability will cast from wherever the caster is at the end of the cast time."
+    ],
+    "sources": [
+      {
+        "page": {
+          "title": "Types of Crowd Control",
+          "revid": 4061028
+        },
+        "text": [
+          "Blind has no effect on abilities that trigger on-hit effects (e.g. Mystic Shot, Parrrley, and Steel Tempest)."
+        ]
+      }
     ]
   },
   {
@@ -597,6 +608,17 @@
     "notes": [
       "Trueshot Barrage's projectile has an icon on the mini-map while it is in flight. It can be seen by only Ezreal and his allies.",
       "This ability will cast from wherever the caster is at the start of the cast time."
+    ],
+    "gameSources": [
+      {
+        "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/ezreal/ezreal.bin.json",
+        "sha256": "c940c43be0abc156a58206955688d013ff0960cb8501d48c9750e944963cca0a",
+        "object": "Characters/Ezreal/Spells/EzrealRAbility/EzrealR",
+        "text": [
+          "mSpell.castRange: [25000.0,25000.0,25000.0,25000.0,25000.0,25000.0,25000.0]"
+        ]
+      }
     ]
   },
   {

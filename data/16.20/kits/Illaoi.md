@@ -300,10 +300,11 @@ Effects marked by a mark or a role are completed by the kit's hooks (see the kit
 - The enemy attacks a Tentacle before Illaoi when it can reach one awake and the Tentacle could slam it.
 - Illaoi casts Harsh Lesson to leap at an enemy just out of her reach, and between attacks otherwise.
 
-### Source values read (61)
+### Source values read (63)
 
 | Ability | Value | Source version |
 |---|---|---|
+| Test of Spirit | Spirits are classified as clones | [4078506](https://wiki.leagueoflegends.com/en-us/Template:Data_Illaoi/Test_of_Spirit?oldid=4078506) |
 | Tentacle | hp: 2 | [4065518](https://wiki.leagueoflegends.com/en-us/Illaoi?oldid=4065518) |
 | Tentacle | 1 from champion basic attacks | [4065518](https://wiki.leagueoflegends.com/en-us/Illaoi?oldid=4065518) |
 | Tentacle | range: 927.75 x 200 | [4065518](https://wiki.leagueoflegends.com/en-us/Illaoi?oldid=4065518) |
@@ -365,3 +366,4 @@ Effects marked by a mark or a role are completed by the kit's hooks (see the kit
 | Leap of Faith | cooldown: 120 / 95 / 70 | [4050880](https://wiki.leagueoflegends.com/en-us/Template:Data_Illaoi/Leap_of_Faith?oldid=4050880) |
 | Leap of Faith | cost: 100 | [4050880](https://wiki.leagueoflegends.com/en-us/Template:Data_Illaoi/Leap_of_Faith?oldid=4050880) |
 | Leap of Faith | Physical Damage: 150 / 250 / 350 (+ 50% bonus AD) | [4050880](https://wiki.leagueoflegends.com/en-us/Template:Data_Illaoi/Leap_of_Faith?oldid=4050880) |
+| Tentacle | Minion (e.g interacts with I and I), but it does not interact with W. | [4065518](https://wiki.leagueoflegends.com/en-us/Illaoi?oldid=4065518) |

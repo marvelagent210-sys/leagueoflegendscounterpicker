@@ -23,7 +23,6 @@ Cooldowns at max rank. Flags: the wiki's interaction flags (yes, no, partly). * 
 | I | Hextech Munitions | – | parry yes; attack modifier | – | – | – |
 | Q | Phosphorus Bomb | 7 | projectile yes; spell shield yes | – | – | – |
 | R | Missile Barrage | 20 | projectile yes; spell shield yes; on-hit | – | – | – |
-| W | Special Delivery | – | spell shield no; grounded yes; knockdown no | airborne 5 s; slow 2 s 90% | – | displacement immune 5 s |
 | W | Valkyrie | 12 | spell shield no; grounded yes; knockdown yes | – | dash | – |
 
 ## Innate: Hextech Munitions
@@ -74,36 +73,6 @@ The bomb also grants sight of the impact area for 6 seconds and reveals enemy ch
 Notes:
 
 - The missile has a minimum travel time of 0.227 seconds.
-
-## W: Special Delivery
-
-Source: [Template:Data Corki/Special Delivery](https://wiki.leagueoflegends.com/en-us/Template:Data_Corki/Special_Delivery?oldid=3906612) (revision 3906612). Ranks: 5.
-
-| Field | Value |
-|---|---|
-| Cast time | none |
-| Target range | 1800 |
-| Effect radius | 200 |
-| Speed | 1500 |
-| Collision radius | 100 |
-
-Targeting: Location · Affects: Enemies · Damage type: Magic · Spell shield blocks it: false · Projectile: – · Parry: – · Disabled by grounded: true · Usable while knocked down: false
-
-Active: Corki dashes with displacement immunity to the target location, knocking aside all enemies in his path 500 units and leaving behind a trail of fire for 5 seconds, which grants sight of the area for its duration and for 3 seconds afterwards.
-
-- **Mechanics:** dash; displacement-immune (5 s); airborne (5 s); reveal (3 s)
-
-Enemies hit by Corki's dash or within the trail are burned and slowed by 90% for 2 seconds, refreshing every 0.25 seconds while inside the area. The burn deals 7.5 – 25 (based on level) (+ 50% bonus AD) (+ 6% AP) magic damage every 0.25 seconds.
-
-- **Mechanics:** slow (2 s, 90%)
-
-Casting Special Delivery instantly resets Valkyrie cooldown.
-
-Special Delivery will cast at max range if cast beyond that.
-
-Notes:
-
-- Enemies that stay within the trail for its entire duration are dealt 210 – 700 (based on level) (+ 1400% bonus AD) (+ 168% AP) total magic damage.
 
 ## W: Valkyrie
 
@@ -228,4 +197,95 @@ game formula supplies 19-20; "confirmed"/"differs": the wiki defines 19-20 and t
 
 | Ability | Value | Outcome | Level 18 | Level 19 | Level 20 | Game formula |
 |---|---|---|--:|--:|--:|---|
-| Special Delivery | description: The burn deals 7.5 – 25 (based on level) (+ 50% bonus AD) (+ 6% AP) magic damage | no match | 25 | – | – | – |
+
+## Duel simulator kit (level 20, every ability at max rank)
+
+What the duel simulator fights with (`kits/champions/Corki.ts`): values come from pinned wiki and versioned game-data records at level 20. Interpretations and missing evidence are listed under assumptions. Ratios are fractions of the stat (60% AD is 0.6 × AD).
+
+- Basic attack: range 550, missile at 2000/s, before basic damage: 20% AD true damage (Hextech Munitions), can crit.
+
+| Key | Ability | Cooldown (s) | Cast time (s) | Cost | Delivery | On the enemy | On itself |
+|---|---|--:|--:|---|---|---|---|
+| Q | Phosphorus Bomb | 7 | 0.25 | 80 | self | – | – |
+| W | Valkyrie | 12 | 0 | 100 | dash away 300–600 units at 650/s (adjusted by current stats), through the enemy | – | – |
+| E | Gatling Gun | 12 | 0 | 70 | self | – | – |
+| R | Missile Barrage | 4 charges, one every 20 s (2 s between casts) | 0.175 | 35 | skillshot 1300 long, 80 wide, at 2000/s | 250 + 85% bonus AD physical damage | – |
+| Rbig | Missile Barrage (Big One) | 4 charges, one every 20 s (2 s between casts) | 0.175 | 35 | skillshot 1500 long, 80 wide, at 2000/s | 500 + 170% bonus AD physical damage | – |
+| Qimpact | Phosphorus Bomb | 0 | 0 | – | self | 240 + 125% bonus AD + 100% AP magic damage | – |
+| Wpatch | Valkyrie | 0 | 0 | – | self | 180 + 80% bonus AD + 60% AP magic damage over 1 s | – |
+| Epulse | Gatling Gun | 0 | 0 | – | self | 17.5 + 15% bonus AD physical damage | – |
+
+Effects marked by a mark or a role are completed by the kit's hooks (see the kit's source).
+
+### Assumptions
+
+- The current Hextech Munitions passive adds 20% total AD as true basic damage before the ordinary physical packet, with the attack's critical chance and ordinary life steal. Its on-hit packet runs once before both damage packets. The arena has no purchased item passives, so the specifically named Spellblade and Runaan interactions are outside its stat-only loadout. Normal lethal-packet resolution stops subsequent damage against a dead target; it does not log post-mortem overkill.
+- Missile Barrage starts with all four charges as a fresh level-20 spawn, zero Big One progress, and replenishes one charge per haste-adjusted 20 seconds. Champion on-hit contacts refund 2 × (1 + 2 × critical chance) seconds from the active recharge, including attack damage blocks but excluding blind/dodge/parry and pets. Every third cast uses the separately sourced Big One range, damage and splash. The pinned wiki's 150-unit ordinary splash is retained over the game's conflicting 200-unit tooltip value.
+- Phosphorus Bomb flies for max(0.227 seconds, center distance / 1100) after the cast and can be destroyed in flight. Its six-second reveal is ordinary sight, not true sight: no map fog exists in this arena and it does not expose invisibility. Its area uses the common expected sidestep model without inventing a lateral landing position.
+- Valkyrie uses the pinned 300–600 distance and 650 + total movement-speed dash. The source does not specify patch center spacing: this one-axis trail places up to three radius-200 patches at equal 200-unit milestones, starting at the dash origin, for 2.5 seconds each. Their damage never stacks on overlapping patches. All patches refresh one shared one-second burn debuff on contact without resetting its half-second clock; the first tick is one interval after entry. The independent fields and applied burn persist after Corki dies. This explicitly includes lingering damage beyond the wiki's nominal five-tick total; the game MaximumTicks tooltip is not treated as proof that the lingering debuff stops after five ticks. Wall crossing uses the arena's clear-endpoint approximation.
+- Gatling Gun remains active while Corki acts or is crowd controlled, follows his current facing, and hits enemies whose hitbox overlaps the forward 690-unit cone segment. Sixteen pulses use cumulative quarter-second rounding, first at 0.25 seconds and last at four seconds. Resistance reduction is applied after each pulse's damage, caps at four expected stacks, and all stacks refresh together for two seconds. The cone's angular and close-behind geometry is reduced to a directed segment.
+- The policy weaves in-range attacks, prioritizes Gatling Gun during an available attack cooldown and preserves defensive Valkyrie choices. Its sustained stat reference assumes connected attacks and a fully occupied Gatling Gun, one nominal five-tick Valkyrie burn per cooldown, and ammo-limited Missile Barrage with a one-third Big One share; actual occupancy, catches, mana and avoidance are simulated separately.
+
+### Source values read (59)
+
+| Ability | Value | Source version |
+|---|---|---|
+| Hextech Munitions | bonus true damage equal to 20% AD | [4050625](https://wiki.leagueoflegends.com/en-us/Template:Data_Corki/Hextech_Munitions?oldid=4050625) |
+| Hextech Munitions | This damage is affected by critical strike modifiers | [4050625](https://wiki.leagueoflegends.com/en-us/Template:Data_Corki/Hextech_Munitions?oldid=4050625) |
+| Hextech Munitions | The true damage is dealt in an instance before the physical damage | [4050625](https://wiki.leagueoflegends.com/en-us/Template:Data_Corki/Hextech_Munitions?oldid=4050625) |
+| Hextech Munitions | The attack applies on-hit effects only once, right at the start | [4050625](https://wiki.leagueoflegends.com/en-us/Template:Data_Corki/Hextech_Munitions?oldid=4050625) |
+| Hextech Munitions | Both instances deal basic damage and thus natively apply life steal | [4050625](https://wiki.leagueoflegends.com/en-us/Template:Data_Corki/Hextech_Munitions?oldid=4050625) |
+| Phosphorus Bomb | Magic Damage: 60 / 105 / 150 / 195 / 240 (+ 125% bonus AD) (+ 100% AP) | [4007588](https://wiki.leagueoflegends.com/en-us/Template:Data_Corki/Phosphorus_Bomb?oldid=4007588) |
+| Phosphorus Bomb | targetRange: 825 | [4007588](https://wiki.leagueoflegends.com/en-us/Template:Data_Corki/Phosphorus_Bomb?oldid=4007588) |
+| Phosphorus Bomb | effectRadius: 275 • 500 | [4007588](https://wiki.leagueoflegends.com/en-us/Template:Data_Corki/Phosphorus_Bomb?oldid=4007588) |
+| Phosphorus Bomb | speed: 1100 | [4007588](https://wiki.leagueoflegends.com/en-us/Template:Data_Corki/Phosphorus_Bomb?oldid=4007588) |
+| Phosphorus Bomb | minimum travel time of 0.227 seconds | [4007588](https://wiki.leagueoflegends.com/en-us/Template:Data_Corki/Phosphorus_Bomb?oldid=4007588) |
+| Phosphorus Bomb | impact area for 6 seconds | [4007588](https://wiki.leagueoflegends.com/en-us/Template:Data_Corki/Phosphorus_Bomb?oldid=4007588) |
+| Valkyrie | Magic Damage Per Tick: 30 / 45 / 60 / 75 / 90 (+ 40% bonus AD) (+ 30% AP) | [4007589](https://wiki.leagueoflegends.com/en-us/Template:Data_Corki/Valkyrie?oldid=4007589) |
+| Valkyrie | Each patch lasts 2.5 seconds | [4007589](https://wiki.leagueoflegends.com/en-us/Template:Data_Corki/Valkyrie?oldid=4007589) |
+| Valkyrie | every 0.5 seconds | [4007589](https://wiki.leagueoflegends.com/en-us/Template:Data_Corki/Valkyrie?oldid=4007589) |
+| Valkyrie | lingering for 1 second | [4007589](https://wiki.leagueoflegends.com/en-us/Template:Data_Corki/Valkyrie?oldid=4007589) |
+| Valkyrie | up to 3 blazing patches | [4007589](https://wiki.leagueoflegends.com/en-us/Template:Data_Corki/Valkyrie?oldid=4007589) |
+| Valkyrie | effectRadius: 200 | [4007589](https://wiki.leagueoflegends.com/en-us/Template:Data_Corki/Valkyrie?oldid=4007589) |
+| Valkyrie | mSpell.DataValues.MinimumRange.values: [300.0,300.0,300.0,300.0,300.0,300.0,300.0] | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/corki/corki.bin.json) |
+| Valkyrie | mSpell.DataValues.MaximumRange.values: [600.0,600.0,600.0,600.0,600.0,600.0,600.0] | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/corki/corki.bin.json) |
+| Valkyrie | mSpell.DataValues.DashSpeedBase.values: [650.0,650.0,650.0,650.0,650.0,650.0,650.0] | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/corki/corki.bin.json) |
+| Valkyrie | mSpell.DataValues.DashSpeedRatio.values: [1.0,1.0,1.0,1.0,1.0,1.0,1.0] | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/corki/corki.bin.json) |
+| Valkyrie | Gatling Gun can be cast during the dash | [4007589](https://wiki.leagueoflegends.com/en-us/Template:Data_Corki/Valkyrie?oldid=4007589) |
+| Gatling Gun | Physical Damage Per Tick: 5 / 8.125 / 11.25 / 14.375 / 17.5 (+ 15% bonus AD) | [3948411](https://wiki.leagueoflegends.com/en-us/Template:Data_Corki/Gatling_Gun?oldid=3948411) |
+| Gatling Gun | facing direction for 4 seconds | [3948411](https://wiki.leagueoflegends.com/en-us/Template:Data_Corki/Gatling_Gun?oldid=3948411) |
+| Gatling Gun | every 0.25 seconds | [3948411](https://wiki.leagueoflegends.com/en-us/Template:Data_Corki/Gatling_Gun?oldid=3948411) |
+| Gatling Gun | same tick rate for 2 seconds | [3948411](https://wiki.leagueoflegends.com/en-us/Template:Data_Corki/Gatling_Gun?oldid=3948411) |
+| Gatling Gun | stacking up to 4 times | [3948411](https://wiki.leagueoflegends.com/en-us/Template:Data_Corki/Gatling_Gun?oldid=3948411) |
+| Gatling Gun | Resistances Reduction Per Stack: 3 / 3.5 / 4 / 4.5 / 5 | [3948411](https://wiki.leagueoflegends.com/en-us/Template:Data_Corki/Gatling_Gun?oldid=3948411) |
+| Gatling Gun | effectRadius: 690 | [3948411](https://wiki.leagueoflegends.com/en-us/Template:Data_Corki/Gatling_Gun?oldid=3948411) |
+| Gatling Gun | The maximum resistances reduction is applied after 4 ticks (1 second) | [3948411](https://wiki.leagueoflegends.com/en-us/Template:Data_Corki/Gatling_Gun?oldid=3948411) |
+| Gatling Gun | The direction of the gun firing changes depending on where Corki is facing | [3948411](https://wiki.leagueoflegends.com/en-us/Template:Data_Corki/Gatling_Gun?oldid=3948411) |
+| Missile Barrage | Physical Damage: 90 / 170 / 250 (+ 85% bonus AD) | [4042863](https://wiki.leagueoflegends.com/en-us/Template:Data_Corki/Missile_Barrage?oldid=4042863) |
+| Missile Barrage | Big One Physical Damage: 180 / 340 / 500 (+ 170% bonus AD) | [4042863](https://wiki.leagueoflegends.com/en-us/Template:Data_Corki/Missile_Barrage?oldid=4042863) |
+| Missile Barrage | maximum of 4 | [4042863](https://wiki.leagueoflegends.com/en-us/Template:Data_Corki/Missile_Barrage?oldid=4042863) |
+| Missile Barrage | cooldown: 2 | [4042863](https://wiki.leagueoflegends.com/en-us/Template:Data_Corki/Missile_Barrage?oldid=4042863) |
+| Missile Barrage | recharge: 20 | [4042863](https://wiki.leagueoflegends.com/en-us/Template:Data_Corki/Missile_Barrage?oldid=4042863) |
+| Missile Barrage | speed: 2000 | [4042863](https://wiki.leagueoflegends.com/en-us/Template:Data_Corki/Missile_Barrage?oldid=4042863) |
+| Missile Barrage | width: 80 | [4042863](https://wiki.leagueoflegends.com/en-us/Template:Data_Corki/Missile_Barrage?oldid=4042863) |
+| Missile Barrage | targetRange (Standard missile range): 1300 • 1500 | [4042863](https://wiki.leagueoflegends.com/en-us/Template:Data_Corki/Missile_Barrage?oldid=4042863) |
+| Missile Barrage | targetRange (Big One missile range): 1300 • 1500 | [4042863](https://wiki.leagueoflegends.com/en-us/Template:Data_Corki/Missile_Barrage?oldid=4042863) |
+| Missile Barrage | effectRadius (Standard explosion radius): 150 • 300 | [4042863](https://wiki.leagueoflegends.com/en-us/Template:Data_Corki/Missile_Barrage?oldid=4042863) |
+| Missile Barrage | effectRadius (Big One explosion radius): 150 • 300 | [4042863](https://wiki.leagueoflegends.com/en-us/Template:Data_Corki/Missile_Barrage?oldid=4042863) |
+| Missile Barrage | Every third missile Corki fires is a Big One | [4042863](https://wiki.leagueoflegends.com/en-us/Template:Data_Corki/Missile_Barrage?oldid=4042863) |
+| Missile Barrage | Corki retains progress towards a Big One when he dies | [4042863](https://wiki.leagueoflegends.com/en-us/Template:Data_Corki/Missile_Barrage?oldid=4042863) |
+| Missile Barrage | This ability will cast from wherever the caster is at the start of the cast time | [4042863](https://wiki.leagueoflegends.com/en-us/Template:Data_Corki/Missile_Barrage?oldid=4042863) |
+| Missile Barrage | "mMultiplier":{"mDataValue":"CDReductionOnHit","__type":"NamedDataValueCalculationPart"},"mFormulaParts":[{"mNumber":1.0,"__type":"NumberCalculationPart"},{"mStat":8,"mCoefficient":2.0,"__type":"StatByCoefficientCalculationPart"}] | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/corki/corki.bin.json) |
+| Missile Barrage | by 2 / 2.4 / 2.8 | [4042863](https://wiki.leagueoflegends.com/en-us/Template:Data_Corki/Missile_Barrage?oldid=4042863) |
+| Missile Barrage | "mStat":8,"mCoefficient":2.0 | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/corki/corki.bin.json) |
+| Phosphorus Bomb | cooldown: 9 / 8.5 / 8 / 7.5 / 7 | [4007588](https://wiki.leagueoflegends.com/en-us/Template:Data_Corki/Phosphorus_Bomb?oldid=4007588) |
+| Phosphorus Bomb | castTime: 0.25 | [4007588](https://wiki.leagueoflegends.com/en-us/Template:Data_Corki/Phosphorus_Bomb?oldid=4007588) |
+| Valkyrie | cooldown: 20 / 18 / 16 / 14 / 12 | [4007589](https://wiki.leagueoflegends.com/en-us/Template:Data_Corki/Valkyrie?oldid=4007589) |
+| Gatling Gun | cooldown: 12 | [3948411](https://wiki.leagueoflegends.com/en-us/Template:Data_Corki/Gatling_Gun?oldid=3948411) |
+| Missile Barrage | castTime: 0.175 | [4042863](https://wiki.leagueoflegends.com/en-us/Template:Data_Corki/Missile_Barrage?oldid=4042863) |
+| Phosphorus Bomb | cost: 60 / 65 / 70 / 75 / 80 | [4007588](https://wiki.leagueoflegends.com/en-us/Template:Data_Corki/Phosphorus_Bomb?oldid=4007588) |
+| Valkyrie | cost: 80 / 85 / 90 / 95 / 100 | [4007589](https://wiki.leagueoflegends.com/en-us/Template:Data_Corki/Valkyrie?oldid=4007589) |
+| Valkyrie | castTime: none | [4007589](https://wiki.leagueoflegends.com/en-us/Template:Data_Corki/Valkyrie?oldid=4007589) |
+| Gatling Gun | cost: 50 / 55 / 60 / 65 / 70 | [3948411](https://wiki.leagueoflegends.com/en-us/Template:Data_Corki/Gatling_Gun?oldid=3948411) |
+| Gatling Gun | castTime: none | [3948411](https://wiki.leagueoflegends.com/en-us/Template:Data_Corki/Gatling_Gun?oldid=3948411) |
+| Missile Barrage | cost: 35 | [4042863](https://wiki.leagueoflegends.com/en-us/Template:Data_Corki/Missile_Barrage?oldid=4042863) |

@@ -11,6 +11,28 @@ const prices = (JSON.parse(readFileSync(new URL("../data/16.20/rules.json", impo
 const totalSpent = (spent: Record<string, number>) => Object.values(spent).reduce((sum, cost) => sum + cost, 0);
 const damage = (amount: number): Effect => ({ type: "damage", damageType: "true", amount: { base: amount } });
 
+describe("channel shots valued through their parent cycle", () => {
+  it("excludes a finite manual recast from independent DPS while retaining its explicit parent hint", () => {
+    const shot = ability({ key: "R4", cooldown: 1, castTime: 0.25, delivery: { kind: "self" },
+      budgetExcluded: true, onHit: [damage(1000)] });
+    const spec = { ...fighter({ abilities: [shot] }), budget: { attacks: false, damage: () => ({ true: 4000 / 100 }) } };
+    expect(damagePerSecond(spec, fighter()).true).toBe(40);
+    expect(damagePerSecond({ ...spec, budget: { attacks: false } }, fighter()).true).toBe(0);
+    expect(damagePerSecond({ ...spec, abilities: [{ ...shot, budgetExcluded: false }], budget: { attacks: false } }, fighter()).true).toBe(800);
+  });
+
+  it("excludes marked recasts from chained damage and duplicated reference sustain", () => {
+    const root = ability({ key: "R", cooldown: 10, delivery: { kind: "self" }, onHit: [damage(100)] });
+    const shot = ability({ key: "R2", cooldown: 1, delivery: { kind: "self" }, budgetExcluded: true,
+      chain: { root: "R", index: 2, window: 10 }, onHit: [damage(1000)],
+      onSelf: [{ type: "heal", amount: { base: 1000 } }] });
+    const spec = { ...fighter({ abilities: [root, shot] }), budget: { attacks: false } };
+    const without = { ...spec, abilities: [root] };
+    expect(damagePerSecond(spec, fighter()).true).toBe(10);
+    expect(effectiveHealth(spec, fighter())).toBe(effectiveHealth(without, fighter()));
+  });
+});
+
 describe("feasible stat allocations", () => {
   it.each([0.25, 49, 51, 6013])("spends the full %s gold, including its final fraction", (gold) => {
     const result = allocate(fighter(), fighter(), gold, prices);

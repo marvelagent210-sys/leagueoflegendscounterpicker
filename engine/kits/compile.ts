@@ -86,6 +86,13 @@ export function compileKit(
   const options = Object.fromEntries(Object.entries(module.options ?? {}).map(([key, option]) => [key, overrides[key] ?? option.default]));
   for (const [key, option] of Object.entries(module.options ?? {})) kit.assume(`${option.label}: ${options[key]}.`);
   const definition = module.build(kit, options);
+  const petTargetClasses: NonNullable<FighterSpec["petTargetClasses"]> = {};
+  for (const record of pets) {
+    const targeting = record.text.targeting;
+    if (!targeting || /^N\/A$/i.test(targeting)) continue;
+    kit.pet(record.name).quote(targeting);
+    petTargetClasses[record.name] = /^(?:Lane )?Minion\b/i.test(targeting) ? "minion" : /^Champion\b/i.test(targeting) ? "champion" : "other";
+  }
   kit.seal();
   const base = baseFighter(champion);
   const keys = new Set<string>();
@@ -96,6 +103,7 @@ export function compileKit(
   }
   const spec: FighterSpec = {
     ...base,
+    ...(Object.keys(petTargetClasses).length ? { petTargetClasses } : {}),
     base: { ...base.base, ...definition.base },
     attack: { ...base.attack, ...definition.attack },
     abilities: definition.abilities,

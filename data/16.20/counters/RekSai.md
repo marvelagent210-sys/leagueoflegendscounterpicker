@@ -112,26 +112,26 @@ Run `npm run matchup -- <champion> RekSai` for the full ledger of a matchup, wit
 | 27 | Vex | -0.02 | 0.70 | 0.72 |  |
 | 28 | Jinx | -0.02 | 0.57 | 0.59 | dash stop (Flame Chompers!) |
 | 29 | Nasus | -0.04 | 0.30 | 0.34 |  |
-| 30 | Kog'Maw | -0.10 | 0.16 | 0.26 |  |
-| 31 | Veigar | -0.11 | 0.55 | 0.66 | dash stop (Event Horizon) |
-| 32 | Zilean | -0.11 | 0.20 | 0.31 |  |
-| 33 | Evelynn | -0.14 | 1.07 | 1.21 |  |
-| 34 | Milio | -0.15 | 0.22 | 0.37 |  |
-| 35 | Udyr | -0.17 | 0.40 | 0.57 |  |
-| 36 | Viktor | -0.19 | 0.59 | 0.78 | dash stop (Gravity Field) |
-| 37 | Zoe | -0.19 | 0.20 | 0.39 |  |
-| 38 | Nidalee | -0.19 | 0.18 | 0.37 |  |
-| 39 | Soraka | -0.19 | 0.17 | 0.36 |  |
-| 40 | Dr. Mundo | -0.20 | 0.00 | 0.20 |  |
-| 41 | Cassiopeia | -0.21 | 0.76 | 0.97 | grounding (Miasma) |
-| 42 | LeBlanc | -0.21 | 0.13 | 0.34 |  |
-| 43 | Zeri | -0.23 | 0.28 | 0.51 |  |
-| 44 | Camille | -0.26 | 1.02 | 1.28 |  |
-| 45 | Morgana | -0.26 | 0.46 | 0.72 |  |
-| 46 | Vayne | -0.26 | 0.27 | 0.53 |  |
-| 47 | Mel | -0.27 | 0.45 | 0.72 |  |
-| 48 | Hwei | -0.30 | 0.54 | 0.84 | dash stop (Grim Visage) |
-| 49 | Corki | -0.31 | 0.19 | 0.50 |  |
+| 30 | Corki | -0.10 | 0.20 | 0.30 |  |
+| 31 | Kog'Maw | -0.10 | 0.16 | 0.26 |  |
+| 32 | Veigar | -0.11 | 0.55 | 0.66 | dash stop (Event Horizon) |
+| 33 | Zilean | -0.11 | 0.20 | 0.31 |  |
+| 34 | Evelynn | -0.14 | 1.07 | 1.21 |  |
+| 35 | Milio | -0.15 | 0.22 | 0.37 |  |
+| 36 | Udyr | -0.17 | 0.40 | 0.57 |  |
+| 37 | Viktor | -0.19 | 0.59 | 0.78 | dash stop (Gravity Field) |
+| 38 | Zoe | -0.19 | 0.20 | 0.39 |  |
+| 39 | Nidalee | -0.19 | 0.18 | 0.37 |  |
+| 40 | Soraka | -0.19 | 0.17 | 0.36 |  |
+| 41 | Dr. Mundo | -0.20 | 0.00 | 0.20 |  |
+| 42 | Cassiopeia | -0.21 | 0.76 | 0.97 | grounding (Miasma) |
+| 43 | LeBlanc | -0.21 | 0.13 | 0.34 |  |
+| 44 | Zeri | -0.23 | 0.28 | 0.51 |  |
+| 45 | Camille | -0.26 | 1.02 | 1.28 |  |
+| 46 | Morgana | -0.26 | 0.46 | 0.72 |  |
+| 47 | Vayne | -0.26 | 0.27 | 0.53 |  |
+| 48 | Mel | -0.27 | 0.45 | 0.72 |  |
+| 49 | Hwei | -0.30 | 0.54 | 0.84 | dash stop (Grim Visage) |
 | 50 | Karma | -0.31 | 0.13 | 0.44 |  |
 | 51 | Elise | -0.32 | 0.20 | 0.52 |  |
 | 52 | Ahri | -0.34 | 0.54 | 0.88 | dash stop (Charm) |

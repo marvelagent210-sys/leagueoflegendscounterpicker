@@ -233,7 +233,7 @@ Effects marked by a mark or a role are completed by the kit's hooks (see the kit
 - Plants stop creating attacks when Zyra dies; already launched missiles continue. The pinned record does not specify owner-death continuation. Leona Sunlight's hidden 10% visual-size interaction and estimated 33-second duration are retained as an unsupported gameplay-radius interaction; no radius change is inferred.
 - The behavior plants W before a usable Q/E, at a fixed point ahead within both seed placement and next spell range, then favors E/Q using ordinary mode gates. W does not overlay an existing cast. The stat budget values one W-enabled plant plus sourced passive cadence, a half-life exposure allowance for enemy destruction, secondary-plant reduction and a limited R enrage uptime; it does not assume invulnerable plants.
 
-### Source values read (86)
+### Source values read (88)
 
 | Ability | Value | Source version |
 |---|---|---|
@@ -323,3 +323,5 @@ Effects marked by a mark or a role are completed by the kit's hooks (see the kit
 | Stranglethorns | cost: 100 | [3945317](https://wiki.leagueoflegends.com/en-us/Template:Data_Zyra/Stranglethorns?oldid=3945317) |
 | Stranglethorns | castTime: 0.25 | [3945317](https://wiki.leagueoflegends.com/en-us/Template:Data_Zyra/Stranglethorns?oldid=3945317) |
 | Stranglethorns | Magic Damage: 200 / 300 / 400 (+ 70% AP) | [3945317](https://wiki.leagueoflegends.com/en-us/Template:Data_Zyra/Stranglethorns?oldid=3945317) |
+| Thorn Spitter | Minion, does not count towards the minion kill tracking score | [4002566](https://wiki.leagueoflegends.com/en-us/Zyra?oldid=4002566) |
+| Vine Lasher | Minion, does not count towards the minion kill tracking score | [4002566](https://wiki.leagueoflegends.com/en-us/Zyra?oldid=4002566) |

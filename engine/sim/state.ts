@@ -6,7 +6,7 @@
 import type { DamageType } from "../rules/damage";
 import type { ShieldType } from "../rules/defense";
 import type { CCType } from "../rules/crowdControl";
-import type { AttackSplit, Effect, FighterSpec, PetSpec } from "./spec";
+import type { AttackSplit, Effect, FighterSpec, Formula, PetSpec } from "./spec";
 
 export type Side = 0 | 1;
 
@@ -48,6 +48,14 @@ export interface Status {
 /** Attack properties captured with the windup and retained by an in-flight missile. */
 export interface AttackHitOptions {
   critChance?: number;
+  /** Scales the ordinary AD part, including its critical outcome, without scaling on-hits. */
+  baseDamageScale?: number;
+  /** Added after the ordinary critical outcome, inside the same basic physical packet. */
+  bonusPhysical?: Formula;
+  critMultiplier?: number;
+  missileSpeed?: number;
+  /** Identifies this launched attack independently of mutable kit memory. */
+  attackTag?: string;
   spellShield?: boolean;
   spellShieldOnHit?: boolean;
   attackOnHitReplacement?: Effect[];
@@ -62,6 +70,11 @@ export type Action =
       uncancellable: boolean;
       hitsUntargetable?: boolean;
       critChance?: number;
+      baseDamageScale?: number;
+      bonusPhysical?: Formula;
+      critMultiplier?: number;
+      missileSpeed?: number;
+      attackTag?: string;
       spellShield?: boolean;
       spellShieldOnHit?: boolean;
       attackOnHitReplacement?: Effect[];
@@ -75,7 +88,7 @@ export type Action =
       /** The abilities whose empowerments this attack spent: their post-effect cooldowns wait for it to land. */
       empowered?: string[];
     }
-  | { kind: "cast"; ability: string; startTick: number; endTick: number; aim?: Aim; cost?: number }
+  | { kind: "cast"; ability: string; startTick: number; endTick: number; aim?: Aim; cost?: number; resume?: Action; delivered?: boolean }
   | {
       kind: "channel";
       ability: string;
@@ -95,6 +108,8 @@ export type Action =
       perTick: number;
       stopAtContact: boolean;
       unstoppable: boolean;
+      /** This dash's declaration already validated a clear endpoint across terrain. */
+      crossTerrain?: boolean;
       /** A cast this dash was made during (an overlay dash): it carries on when the dash ends. */
       resume?: Action;
       /** Passes through the enemy, hitting it once on the way (`hit` once it has). */
@@ -120,7 +135,7 @@ export interface Unit {
   /** Present only on a temporary view of a real pet in combat transactions. */
   petId?: number;
   resurrection?: { endTick: number; ability?: string };
-  deathDefied?: { endTick: number; ability?: string };
+  deathDefied?: { endTick: number; ability?: string; allowMovement?: boolean; allowCasting?: boolean };
   deathNotified?: boolean;
   side: Side;
   spec: FighterSpec;
@@ -173,6 +188,9 @@ export interface Unit {
 }
 
 export interface Missile {
+  /** Absolute contact clock for an explicitly kit-resolved fixed-time projectile.
+   * Only perception uses this; movement and collision remain owned by its kit. */
+  impactTick?: number;
   id: number;
   owner: Side;
   /** "attack" or the key of the ability that fired it. */
@@ -440,6 +458,18 @@ function cloneStatus(status: Status): Status {
   };
 }
 
+/** Launch hooks can append on-hits to any retained windup after a world branches. */
+function cloneWindup(action: Extract<Action, { kind: "windup" }>): Extract<Action, { kind: "windup" }> {
+  return { ...action, onHit: [...action.onHit], ...(action.empowered ? { empowered: [...action.empowered] } : {}) };
+}
+
+function cloneAction(action: Action): Action {
+  if (action.kind === "windup") return cloneWindup(action);
+  return (action.kind === "cast" || action.kind === "dash") && action.resume
+    ? { ...action, resume: cloneAction(action.resume) }
+    : { ...action };
+}
+
 function cloneUnit(unit: Unit): Unit {
   return {
     ...unit,
@@ -449,8 +479,8 @@ function cloneUnit(unit: Unit): Unit {
     pendingRefunds: Object.fromEntries(Object.entries(unit.pendingRefunds).map(([k, v]) => [k, { ...v }])),
     charges: Object.fromEntries(Object.entries(unit.charges).map(([k, v]) => [k, { ...v }])),
     chains: Object.fromEntries(Object.entries(unit.chains).map(([k, v]) => [k, { ...v }])),
-    ...(unit.action ? { action: unit.action.kind === "dash" && unit.action.resume ? { ...unit.action, resume: { ...unit.action.resume } } : { ...unit.action } } : {}),
-    ...(unit.pendingAttack ? { pendingAttack: { ...unit.pendingAttack } } : {}),
+    ...(unit.action ? { action: cloneAction(unit.action) } : {}),
+    ...(unit.pendingAttack ? { pendingAttack: cloneWindup(unit.pendingAttack) } : {}),
     ...(unit.forced ? { forced: { ...unit.forced } } : {}),
     ...(unit.attached ? { attached: { ...unit.attached } } : {}),
     ...(unit.resurrection ? { resurrection: { ...unit.resurrection } } : {}),

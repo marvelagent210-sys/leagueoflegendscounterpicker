@@ -1,6 +1,6 @@
 # Kit-Based Counter Picker: Plan
 
-Status: M1 to M4 done; M5 built and waiting for your review of the golden matchups; M6 built. A private Codespaces preview starts the packaged app automatically. All-champion expansion began on 2026-10-14 with 12 additional kits. The third batch adds six casters, and the fourth adds Gragas, Warwick and Wukong, bringing implemented coverage to 76 of 173 champions. Data sources remain pinned to patch 26.20 (Data Dragon 16.20.1).
+Status: M1 to M4 done; M5 built and waiting for your review of the golden matchups; M6 built. A private Codespaces preview starts the packaged app automatically. All-champion expansion began on 2026-10-14 with 12 additional kits. The sixth batch adds Kai'Sa, Kalista, Samira, Smolder, Varus and Xayah, and the seventh adds Gragas, Hecarim, Warwick and Wukong, bringing implemented coverage to 95 of 173 champions. Data sources remain pinned to patch 26.20 (Data Dragon 16.20.1).
 
 Accuracy audit on 2026-10-13: combat, crowd control, movement, budgets, source-backed
 champion mechanics, result caches, and ranking consistency were corrected; all 1,176
@@ -37,18 +37,50 @@ failures and five existing skips. All 17 production browser checks pass, and all
 72 live fallback scores match the matrix within 2.46e-15. Full validation and
 remaining limits are recorded in [ACCURACY.md](ACCURACY.md).
 
-The fourth batch implements Gragas, Warwick and Wukong. Coverage is 76 of 173
-champions, with 97 remaining. All 2,850 unordered pairs have been computed afresh
-under fingerprint `c280f431…`. The 73 earlier kits' results are unchanged apart from
-floating-point rounding (at most 2.2e-16), so the batch's opt-in engine additions
-alter no existing duel. Every restriction the three kits quote was broken on purpose
-to confirm a test catches it: Warwick 20 of 20, Gragas 14 of 14, Wukong 63 of 63.
-`npm run build:data` now also reproduces the curated ability evidence, and all 173
-ability records rebuild byte-identically from the downloads. The full suite has
-2,419 passing tests, the two original draft winner failures and five existing skips.
-The Heimerdinger–Udyr variant search timed out at its 180-second limit in a fully
-parallel run and passes alone in 148.6 seconds. All 18 production browser checks
-pass, and all 75 live fallback scores against Darius match the matrix within 2.46e-15.
+The fourth batch implements Caitlyn, Ezreal, Jhin, Jinx, Lucian and Miss Fortune.
+Coverage is 79 of 173 champions, with 94 remaining and 3,081 unordered pairings.
+All 3,081 pairs are freshly rebuilt under fingerprint `bc04dfd2…`. Pinned source
+conflicts and explicit one-dimensional/expected-value assumptions stay with each kit.
+The full serial suite has 2,684 passing tests, two original draft winner failures
+and five existing skips; types, freshness and production build pass. All 17 production
+browser checks pass, including 78 complete live fallback rankings and six new source
+pages at phone width. Private delivery packages the frozen model and source snapshot;
+evidence is in [ACCURACY.md](ACCURACY.md).
+
+The fifth batch implements Corki, Draven, Kog'Maw, Sivir, Tristana and Twitch.
+Implemented coverage is 85 of 173 champions, leaving 88 and requiring 3,570 unordered
+pairings. The full matrix was freshly regenerated and passes freshness, type and
+production-build checks. The final serial suite has 3,026 passing tests, the two
+original draft winner failures and five existing skips. All 17 browser checks pass,
+including 84 complete live fallback rankings and six source pages at phone width.
+Private packaging verifies the exact compiled/source snapshot and startup helper
+before publishing a new preview branch; the previous package remains preserved.
+Shared contracts cover moving post-death phases, persistent aftermath, separately
+ordered basic packets, piercing basic skillshots, spell-shield consumption and actual
+pet contacts. Pinned source gaps remain explicit in the three new pair audits.
+
+The sixth batch implements Kai'Sa, Kalista, Samira, Smolder, Varus and Xayah.
+Implemented coverage is 91 of 173 champions, leaving 82. All 4,095 unordered
+pairings were freshly regenerated and pass provenance, type and production-build
+checks. The final serial suite records 3,397 passes, the two original draft winner
+failures and five existing skips. Actual production searches pass strict side
+reflection for all 90 Darius rivals and all 15 new-champion pairings. All 17 browser
+checks pass, including seven source pages at phone width and all 90 live fallback
+rankings. Long formulas now wrap within phone width. Private delivery requires
+exact archive/source integrity and five startup checks before publication to a new
+preview branch. Shared work covers pre-physical passives, visible fixed-time
+missiles, projectile interception, independent dash/channel clocks, terrain flight,
+sourced summoned-unit classes, lethal-pet attribution and committed post-death
+basic missiles. Source conflicts remain explicit in the three new pair audits.
+
+The seventh batch implements Gragas, Hecarim, Warwick and Wukong, and merges the
+private 91-kit build (`158c0a49`), which had been published only as an archive, into
+this branch. Coverage is 95 of 173 champions, with 78 remaining and 4,465 unordered
+pairings. Every restriction the four kits quote was broken on purpose to confirm a
+test catches it: Warwick 20 of 20, Gragas 14 of 14, Wukong 63 of 63 and Hecarim 43
+of 43. `npm run build:data` now also reproduces the curated ability evidence, the
+marksmen's included, and all 173 ability records rebuild byte-identically from the
+downloads. {{VALIDATION}}
 Validation is recorded in [ACCURACY.md](ACCURACY.md).
 
 Each batch must read pinned source values, check meaningful damage/timing/counterplay
@@ -61,10 +93,12 @@ Source audits for twelve casters were recorded in
 [docs/next-wave](docs/next-wave/README.md): Ahri, Anivia, Cassiopeia, Karthus,
 Kassadin, Lissandra, Malzahar, Veigar, Vel'Koz, Vladimir, Ziggs, and Zyra. These
 audits cover pinned formulas, counterplay, tests, and required shared-engine work;
-the second and third batches implement all twelve. An audit alone does not add
-implemented coverage. The fourth batch was read directly from the pinned sources:
-each kit page lists its sources and assumptions, and the generated coverage report
-counts them.
+the second and third batches now implement all twelve. Their resurrection,
+post-death spellcasting, channel, beam, mine and plant mechanics are covered by
+the corresponding batch regressions. The fourth to sixth batches add separate source
+audits for their marksman pairs. The seventh batch was read directly from the pinned
+sources: each kit page lists its sources and assumptions, and the generated coverage
+report counts them.
 
 ### First expansion validation (61-kit snapshot)
 

@@ -2,6 +2,7 @@
 import { hookContext, log } from "./combat";
 import { abilityOf } from "./forms";
 import type { World } from "./state";
+import { channelIn } from "./channelState";
 
 export function advanceLifecycles(world: World): void {
   for (const unit of world.units) {
@@ -12,17 +13,21 @@ export function advanceLifecycles(world: World): void {
     }
     if (unit.deathDefied && world.tick >= unit.deathDefied.endTick) {
       const action = unit.action;
+      // Remove the marker first so nested lifecycle work cannot repeat the terminal
+      // callback. The kit resolves its final packet before the corpse is finalized.
       delete unit.deathDefied;
+      unit.spec.hooks?.onDeathDefiedEnd?.(hookContext(world, unit));
       unit.action = undefined;
       delete unit.pendingAttack;
-      if (action?.kind === "channel") {
-        const ability = abilityOf(unit, action.ability);
+      const channel = channelIn(action);
+      if (channel) {
+        const ability = abilityOf(unit, channel.ability);
         if (ability) unit.spec.hooks?.onChannelInterrupt?.({ ...hookContext(world, unit, ability), reason: "death" });
       }
       unit.hp = 0;
       unit.alive = false;
       unit.statuses = unit.statuses.filter((status) => status.ability !== "engine:deathDefied");
-      log(world, unit.side, "post-death casting window ends");
+      log(world, unit.side, "post-death window ends");
     }
   }
 }

@@ -115,15 +115,15 @@ Run `npm run matchup -- <champion> Blitzcrank` for the full ledger of a matchup,
 | 39 | Braum | +0.70 | 0.70 | 0.00 | projectile block (Unbreakable) |
 | 40 | Yasuo | +0.68 | 0.68 | 0.00 | projectile block (Wind Wall) |
 | 41 | Gnar | +0.66 | 0.66 | 0.00 | range (attacks) |
-| 42 | Elise | +0.65 | 0.65 | 0.00 | range (attacks) |
-| 43 | Ezreal | +0.65 | 0.65 | 0.00 | range (attacks) |
-| 44 | Senna | +0.65 | 0.65 | 0.00 | range (attacks) |
-| 45 | Smolder | +0.65 | 0.65 | 0.00 | range (attacks) |
-| 46 | Viktor | +0.65 | 0.65 | 0.00 | range (attacks) |
-| 47 | Zilean | +0.65 | 0.65 | 0.00 | range (attacks) |
-| 48 | Zoe | +0.65 | 0.65 | 0.00 | range (attacks) |
-| 49 | Jayce | +0.61 | 0.61 | 0.00 | range (attacks) |
-| 50 | Corki | +0.60 | 0.60 | 0.00 | range (attacks) |
+| 42 | Corki | +0.65 | 0.65 | 0.00 | range (attacks) |
+| 43 | Elise | +0.65 | 0.65 | 0.00 | range (attacks) |
+| 44 | Ezreal | +0.65 | 0.65 | 0.00 | range (attacks) |
+| 45 | Senna | +0.65 | 0.65 | 0.00 | range (attacks) |
+| 46 | Smolder | +0.65 | 0.65 | 0.00 | range (attacks) |
+| 47 | Viktor | +0.65 | 0.65 | 0.00 | range (attacks) |
+| 48 | Zilean | +0.65 | 0.65 | 0.00 | range (attacks) |
+| 49 | Zoe | +0.65 | 0.65 | 0.00 | range (attacks) |
+| 50 | Jayce | +0.61 | 0.61 | 0.00 | range (attacks) |
 | 51 | Nidalee | +0.60 | 0.60 | 0.00 | range (attacks) |
 | 52 | Jinx | +0.58 | 0.58 | 0.00 | range (attacks) |
 | 53 | Kennen | +0.58 | 0.58 | 0.00 | range (attacks) |

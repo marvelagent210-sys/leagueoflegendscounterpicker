@@ -130,6 +130,8 @@ export interface AbilityRecord {
   name: string;
   /** Wiki page and revision the record was read from. */
   page: { title: string; revid: number };
+  /** Curated historical template retained as an archive, excluded from the current kit. */
+  historical?: boolean;
   /** Ranks the ability has (1 for innates and basic attacks). */
   ranks: number;
   fields: {

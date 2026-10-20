@@ -219,7 +219,7 @@ Effects marked by a mark or a role are completed by the kit's hooks (see the kit
 - Molten Shield's bonus movement speed decays linearly; it shields Annie and an existing Tibbers, each with one independent retaliation against the duel opponent. Pet absorption is applied before destruction in the pet damage hook.
 - The stat budget averages Tibbers' normal attack/aura damage over his lifetime and the summon cooldown, while the actual fight uses each Enrage and chase. Pet-specific crowd-control and attacks after Annie's death remain outside this duel model.
 
-### Source values read (55)
+### Source values read (56)
 
 | Ability | Value | Source version |
 |---|---|---|
@@ -278,3 +278,4 @@ Effects marked by a mark or a role are completed by the kit's hooks (see the kit
 | Summon: Tibbers | Initial Magic Damage: 150 / 275 / 400 (+ 75% AP) | [4012758](https://wiki.leagueoflegends.com/en-us/Template:Data_Annie/Summon:_Tibbers?oldid=4012758) |
 | Disintegrate | Disintegrate's cooldown is reduced by 50% | [3992633](https://wiki.leagueoflegends.com/en-us/Template:Data_Annie/Disintegrate?oldid=3992633) |
 | Summon: Tibbers | Magic Penetration: 10 / 15 / 20% | [4012758](https://wiki.leagueoflegends.com/en-us/Template:Data_Annie/Summon:_Tibbers?oldid=4012758) |
+| Tibbers | Minion | [4033194](https://wiki.leagueoflegends.com/en-us/Annie?oldid=4033194) |

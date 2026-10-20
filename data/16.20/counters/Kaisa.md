@@ -1,5 +1,104 @@
 # Counters to Kai'Sa (patch 26.20)
 
+## Simulated duels
+
+The duel simulator played each of the 90 other champions with a simulator kit against Kai'Sa: both at level 20 with 15,000 gold of plain stats, each side's spent against the other's, through six scenarios (PLAN.md §6). Scores run from −1 (Kai'Sa wins every time) to +1 (the champion does). Run `npm run duel -- <champion> Kaisa --log brawl` to watch a fight.
+
+| # | Champion | Score | You engage | Enemy engages | Brawl | Short trade | Spacing | Escape |
+|--:|---|--:|--:|--:|--:|--:|--:|--:|
+| 1 | Fiora | +0.88 | +1.00 | +1.00 | +1.00 | +0.20 | +1.00 | +1.00 |
+| 2 | K'Sante | +0.87 | +1.00 | +1.00 | +1.00 | +0.17 | +1.00 | +1.00 |
+| 3 | Master Yi | +0.87 | +1.00 | +1.00 | +1.00 | +0.12 | +1.00 | +1.00 |
+| 4 | Gangplank | +0.86 | +1.00 | +1.00 | +1.00 | +0.10 | +1.00 | +1.00 |
+| 5 | Udyr | +0.84 | +1.00 | +1.00 | +1.00 | −0.04 | +1.00 | +1.00 |
+| 6 | Camille | +0.84 | +1.00 | +1.00 | +1.00 | −0.07 | +1.00 | +1.00 |
+| 7 | Urgot | +0.84 | +1.00 | +1.00 | +1.00 | +0.30 | +0.94 | +0.00 |
+| 8 | Nasus | +0.84 | +1.00 | +1.00 | +1.00 | −0.08 | +1.00 | +1.00 |
+| 9 | Yorick | +0.84 | +1.00 | +1.00 | +1.00 | −0.09 | +1.00 | +1.00 |
+| 10 | Trundle | +0.83 | +1.00 | +1.00 | +1.00 | −0.11 | +1.00 | +1.00 |
+| 11 | Poppy | +0.83 | +1.00 | +1.00 | +1.00 | +0.21 | +1.00 | +0.00 |
+| 12 | Kayle | +0.83 | +1.00 | +1.00 | +1.00 | +0.19 | +1.00 | +0.00 |
+| 13 | Volibear | +0.82 | +1.00 | +1.00 | +1.00 | −0.09 | +0.99 | +0.76 |
+| 14 | Riven | +0.82 | +1.00 | +1.00 | +1.00 | +0.15 | +1.00 | +0.00 |
+| 15 | Annie | +0.82 | +1.00 | +1.00 | +1.00 | +0.15 | +1.00 | +0.00 |
+| 16 | Malphite | +0.82 | +1.00 | +1.00 | +1.00 | +0.15 | +1.00 | +0.00 |
+| 17 | Cho'Gath | +0.82 | +1.00 | +1.00 | +1.00 | +0.13 | +1.00 | +0.00 |
+| 18 | Tahm Kench | +0.82 | +1.00 | +1.00 | +1.00 | +0.13 | +1.00 | +0.00 |
+| 19 | Amumu | +0.81 | +1.00 | +1.00 | +1.00 | +0.08 | +1.00 | +0.00 |
+| 20 | Sett | +0.81 | +1.00 | +1.00 | +1.00 | +0.08 | +1.00 | +0.00 |
+| 21 | Xin Zhao | +0.81 | +1.00 | +1.00 | +1.00 | +0.04 | +1.00 | +0.00 |
+| 22 | Cassiopeia | +0.80 | +1.00 | +1.00 | +1.00 | +0.16 | – | +0.00 |
+| 23 | Jax | +0.80 | +1.00 | +1.00 | +1.00 | +0.03 | +1.00 | +0.00 |
+| 24 | Tryndamere | +0.80 | +1.00 | +1.00 | +1.00 | +0.03 | +1.00 | +0.00 |
+| 25 | Jayce | +0.80 | +1.00 | +1.00 | +1.00 | +0.02 | +1.00 | +0.00 |
+| 26 | Irelia | +0.80 | +0.89 | +1.00 | +1.00 | +0.20 | +1.00 | +0.00 |
+| 27 | Miss Fortune | +0.80 | +1.00 | +1.00 | +1.00 | +0.13 | – | +0.00 |
+| 28 | Kennen | +0.80 | +1.00 | +1.00 | +1.00 | +0.13 | – | +0.00 |
+| 29 | Singed | +0.80 | +1.00 | +1.00 | +1.00 | −0.01 | +1.00 | +0.00 |
+| 30 | Vayne | +0.80 | +1.00 | +1.00 | +1.00 | +0.12 | – | +0.00 |
+| 31 | Dr. Mundo | +0.80 | +1.00 | +1.00 | +1.00 | −0.02 | +1.00 | +0.00 |
+| 32 | Teemo | +0.79 | +1.00 | +1.00 | +1.00 | +0.08 | – | +0.00 |
+| 33 | Ashe | +0.79 | +1.00 | +1.00 | +1.00 | +0.07 | – | +0.00 |
+| 34 | Heimerdinger | +0.79 | +1.00 | +1.00 | +1.00 | +0.07 | – | +0.00 |
+| 35 | Jhin | +0.79 | +1.00 | +1.00 | +1.00 | +0.05 | – | +0.00 |
+| 36 | Renekton | +0.78 | +1.00 | +1.00 | +1.00 | −0.11 | +1.00 | +0.00 |
+| 37 | Rumble | +0.77 | +0.96 | +0.96 | +1.00 | −0.04 | +1.00 | +0.00 |
+| 38 | Kog'Maw | +0.77 | +1.00 | +1.00 | +1.00 | −0.04 | – | +0.00 |
+| 39 | Malzahar | +0.77 | +1.00 | +1.00 | +1.00 | −0.04 | – | +0.00 |
+| 40 | Samira | +0.77 | +0.99 | +0.95 | +1.00 | +0.04 | – | +0.00 |
+| 41 | Corki | +0.77 | +0.93 | +1.00 | +1.00 | +0.04 | – | +0.00 |
+| 42 | Anivia | +0.76 | +1.00 | +1.00 | +1.00 | −0.09 | – | +0.00 |
+| 43 | Lucian | +0.73 | +0.85 | +1.00 | +1.00 | −0.04 | – | +0.00 |
+| 44 | Yasuo | +0.72 | +0.83 | +0.84 | +0.97 | +0.16 | +0.83 | +0.00 |
+| 45 | Sion | +0.68 | +0.93 | +0.65 | +1.00 | −0.06 | +0.98 | +0.00 |
+| 46 | Gwen | +0.61 | +0.36 | +1.00 | +1.00 | −0.17 | +1.00 | +0.00 |
+| 47 | Gnar | +0.60 | +1.00 | +1.00 | +1.00 | +0.01 | −1.00 | +0.00 |
+| 48 | Kled | +0.59 | +1.00 | +1.00 | +1.00 | −0.05 | −1.00 | +0.00 |
+| 49 | Darius | +0.59 | +1.00 | +1.00 | +1.00 | −0.08 | −1.00 | +0.00 |
+| 50 | Lux | +0.52 | +0.90 | +0.90 | +0.00 | +0.11 | – | +0.00 |
+| 51 | Kalista | +0.51 | +0.07 | +1.00 | +1.00 | −0.04 | – | +0.00 |
+| 52 | Yone | +0.48 | +0.55 | +0.11 | +1.00 | +0.05 | +0.77 | +0.55 |
+| 53 | Morgana | +0.45 | +0.96 | +1.00 | −0.52 | +0.13 | – | +0.00 |
+| 54 | Illaoi | +0.43 | +0.35 | +0.94 | +1.00 | +0.03 | −1.00 | +0.00 |
+| 55 | Mordekaiser | +0.41 | +0.65 | +0.75 | +0.37 | −0.02 | −0.06 | +0.00 |
+| 56 | Rammus | +0.40 | +1.00 | +1.00 | −1.00 | +0.02 | +1.00 | +0.00 |
+| 57 | Smolder | +0.37 | +1.00 | +1.00 | −1.00 | +0.23 | – | +0.00 |
+| 58 | Ambessa | +0.33 | +1.00 | +1.00 | −1.00 | +0.17 | +0.00 | +0.00 |
+| 59 | Tristana | +0.30 | +0.00 | +0.00 | +1.00 | −0.00 | +1.00 | +0.00 |
+| 60 | Kassadin | +0.28 | −1.00 | +1.00 | +1.00 | −0.15 | +1.00 | +0.00 |
+| 61 | Ziggs | +0.26 | +0.58 | +1.00 | −1.00 | +0.24 | – | +0.00 |
+| 62 | Twitch | +0.23 | +0.00 | +0.77 | +0.00 | +0.11 | – | +0.00 |
+| 63 | Xayah | +0.22 | +1.00 | −1.00 | +1.00 | +0.00 | – | +0.00 |
+| 64 | Garen | +0.21 | −1.00 | +1.00 | +1.00 | +0.21 | −0.21 | +0.00 |
+| 65 | Jinx | +0.13 | +0.54 | +0.54 | −0.84 | +0.12 | – | +0.00 |
+| 66 | Zaahen | +0.08 | +0.33 | +0.21 | −0.46 | +0.10 | +0.17 | +0.00 |
+| 67 | Olaf | +0.07 | −0.39 | +0.29 | +1.00 | −0.02 | −1.00 | +0.00 |
+| 68 | Varus | −0.02 | +0.33 | +0.33 | −1.00 | +0.09 | – | +0.00 |
+| 69 | Brand | −0.09 | +0.47 | −0.12 | −0.83 | +0.00 | – | +0.00 |
+| 70 | Nautilus | −0.09 | +0.50 | +0.25 | −1.00 | +0.15 | −1.00 | +0.00 |
+| 71 | Karthus | −0.12 | −0.45 | +0.00 | +0.00 | +0.00 | – | +0.00 |
+| 72 | Vel'Koz | −0.15 | +0.05 | +0.05 | −1.00 | +0.28 | – | +0.00 |
+| 73 | Draven | −0.15 | −0.38 | −1.00 | +1.00 | +0.08 | – | +0.00 |
+| 74 | Shen | −0.28 | −1.00 | +1.00 | −1.00 | +0.15 | −1.00 | +0.00 |
+| 75 | Zyra | −0.32 | −1.00 | −1.00 | +1.00 | +0.08 | – | +0.00 |
+| 76 | Aurora | −0.40 | −0.04 | −0.64 | −1.00 | +0.09 | – | +0.00 |
+| 77 | Akali | −0.47 | −0.32 | −0.66 | −1.00 | −0.06 | −0.18 | +0.00 |
+| 78 | Ornn | −0.58 | −1.00 | −0.35 | −1.00 | +0.06 | −0.53 | +0.00 |
+| 79 | Leona | −0.58 | −0.56 | −0.56 | −1.00 | −0.02 | −1.00 | +0.00 |
+| 80 | Pantheon | −0.60 | −1.00 | −1.00 | −1.00 | +0.01 | +1.00 | +0.00 |
+| 81 | Skarner | −0.69 | −1.00 | −1.00 | −1.00 | +0.11 | −0.01 | +0.00 |
+| 82 | Caitlyn | −0.75 | −0.95 | −0.89 | −1.00 | +0.03 | −1.00 | +0.00 |
+| 83 | Ezreal | −0.76 | −0.98 | −0.98 | −1.00 | +0.00 | – | +0.00 |
+| 84 | Veigar | −0.77 | −1.00 | −1.00 | −1.00 | +0.05 | – | +0.00 |
+| 85 | Lissandra | −0.77 | −1.00 | −1.00 | −1.00 | +0.04 | – | +0.00 |
+| 86 | Ahri | −0.78 | −1.00 | −1.00 | −1.00 | +0.00 | – | +0.00 |
+| 87 | Quinn | −0.79 | −1.00 | −1.00 | −1.00 | −0.07 | – | +0.00 |
+| 88 | Vladimir | −0.79 | −1.00 | −1.00 | −1.00 | −0.09 | – | +0.00 |
+| 89 | Sivir | −0.79 | −1.00 | −1.00 | −1.00 | −0.09 | – | +0.00 |
+| 90 | Aatrox | −0.82 | −1.00 | −1.00 | −1.00 | −0.14 | −1.00 | +0.00 |
+
+## Interaction ledger estimates
+
 Every champion ranked by what its kit does against Kai'Sa's, from the interaction ledger: projectile blocks, spell shields,
 parries, dash stops, crowd control and its defenses, range and more (PLAN.md §5). This ranking is **partial**: it weighs the
 interactions but doesn't play the fight out. The duel simulator replaces it as each champion's behavior is verified.
@@ -8,65 +107,65 @@ interactions but doesn't play the fight out. The duel simulator replaces it as e
 A hard counter shuts down part of a kit every time it is used (projectile block, attack dodge, attack block, blind, disarm, attack speed slow, attack reflect, dash stop, grounding, range) with an impact of 0.4 or more (0.5 for range).
 Run `npm run matchup -- <champion> Kaisa` for the full ledger of a matchup, with sources.
 
-## Top 10
+### Top 10
 
-### 1. Yasuo (net +0.57)
+#### 1. Yasuo (net +0.57)
 
 - **0.41** projectile block: Wind Wall blocks Kai'Sa's basic attacks, which are projectiles. Wind Wall lasts 4 s on a 17 s cooldown. (Yasuo W Wind Wall → Kai'Sa basic attacks)
 - **0.40** projectile block: Wind Wall blocks Kai'Sa's Void Seeker, a projectile. Wind Wall for 4 s, long enough to use ahead of Void Seeker. (Yasuo W Wind Wall → Kai'Sa W Void Seeker)
 - **0.28** projectile block: Wind Wall blocks Kai'Sa's Icathian Rain, a projectile. Wind Wall for 4 s, long enough to use ahead of Icathian Rain. (Yasuo W Wind Wall → Kai'Sa Q Icathian Rain)
 - Watch out: Kai'Sa's basic attacks reach 350 units farther than Yasuo's (525 vs 175 attack range).
 
-### 2. Hwei (net +0.57)
+#### 2. Hwei (net +0.57)
 
 - **0.35** dash stop: Grim Visage's knockdown can stop Kai'Sa's Killer Instinct mid-dash. Must land during the dash. Fails if the dashing unit is crowd control immune, displacement immune, untargetable or spell shielded. (Hwei Q Grim Visage → Kai'Sa R Killer Instinct)
 - **0.11** reveal: Gaze of the Abyss reveals Kai'Sa through Supercharge's stealth. (Hwei W Gaze of the Abyss → Kai'Sa E Supercharge)
 - **0.11** reveal: Spiraling Despair reveals Kai'Sa through Supercharge's stealth. (Hwei R Spiraling Despair → Kai'Sa E Supercharge)
 
-### 3. Samira (net +0.55)
+#### 3. Samira (net +0.55)
 
 - **0.35** projectile block: Blade Whirl blocks Kai'Sa's Void Seeker, a projectile. Blade Whirl for 0.75 s; Void Seeker takes 2.11 s to land, enough to react. (Samira W Blade Whirl → Kai'Sa W Void Seeker)
 - **0.32** projectile block: Blade Whirl blocks Kai'Sa's basic attacks, which are projectiles. Blade Whirl lasts 0.75 s on a 22 s cooldown. (Samira W Blade Whirl → Kai'Sa basic attacks)
 - **0.15** projectile block: Blade Whirl blocks Kai'Sa's Icathian Rain, a projectile. Blade Whirl for 0.75 s; Icathian Rain lands within 0 s, faster than a 0.25 s reaction, so it needs prediction. (Samira W Blade Whirl → Kai'Sa Q Icathian Rain)
 
-### 4. Mel (net +0.53)
+#### 4. Mel (net +0.53)
 
 - **0.33** projectile block: Rebuttal blocks Kai'Sa's Void Seeker, a projectile. Rebuttal for 0.75 s; Void Seeker takes 2.11 s to land, enough to react. (Mel W Rebuttal → Kai'Sa W Void Seeker)
 - **0.32** projectile block: Rebuttal blocks Kai'Sa's basic attacks, which are projectiles. Rebuttal lasts 0.75 s on a 26 s cooldown. (Mel W Rebuttal → Kai'Sa basic attacks)
 - **0.15** projectile block: Rebuttal blocks Kai'Sa's Icathian Rain, a projectile. Rebuttal for 0.75 s; Icathian Rain lands within 0 s, faster than a 0.25 s reaction, so it needs prediction. (Mel W Rebuttal → Kai'Sa Q Icathian Rain)
 
-### 5. Braum (net +0.48)
+#### 5. Braum (net +0.48)
 
 - **0.54** projectile block: Unbreakable blocks Kai'Sa's basic attacks, which are projectiles. Unbreakable lasts 4 s on a 8 s cooldown. (Braum E Unbreakable → Kai'Sa basic attacks)
 - **0.45** projectile block: Unbreakable blocks Kai'Sa's Void Seeker, a projectile. Unbreakable for 4 s, long enough to use ahead of Void Seeker. (Braum E Unbreakable → Kai'Sa W Void Seeker)
 - **0.38** projectile block: Unbreakable blocks Kai'Sa's Icathian Rain, a projectile. Unbreakable for 4 s, long enough to use ahead of Icathian Rain. (Braum E Unbreakable → Kai'Sa Q Icathian Rain)
 - Watch out: Kai'Sa's basic attacks reach 400 units farther than Braum's (525 vs 125 attack range).
 
-### 6. Lulu (net +0.47)
+#### 6. Lulu (net +0.47)
 
 - **0.36** disarm: Whimsy disarms Kai'Sa for 2 s: no basic attacks. Disarm for 2 s on a 18 s cooldown. (Lulu W Whimsy → Kai'Sa basic attacks)
 - **0.11** reveal: Help, Pix! reveals Kai'Sa through Supercharge's stealth. (Lulu E Help, Pix! → Kai'Sa E Supercharge)
 
-### 7. Vex (net +0.46)
+#### 7. Vex (net +0.46)
 
 - **0.35** dash stop: Doom 'n Gloom's knockdown can stop Kai'Sa's Killer Instinct mid-dash. Must land during the dash. Fails if the dashing unit is crowd control immune, displacement immune, untargetable or spell shielded. (Vex I Doom 'n Gloom → Kai'Sa R Killer Instinct)
 - **0.11** reveal: Shadow Surge reveals Kai'Sa through Supercharge's stealth. (Vex R Shadow Surge → Kai'Sa E Supercharge)
 
-### 8. Teemo (net +0.42)
+#### 8. Teemo (net +0.42)
 
 - **0.50** blind: Blinding Dart's blind makes Kai'Sa's basic attacks miss for 3 s. Blind for 3 s on a 7 s cooldown. (Teemo Q Blinding Dart → Kai'Sa basic attacks)
 - Watch out: Void Seeker reveals Teemo through Guerrilla Warfare's stealth.
 
-### 9. Malzahar (net +0.38)
+#### 9. Malzahar (net +0.38)
 
 - **0.32** dash stop: Nether Grasp's knockdown can stop Kai'Sa's Killer Instinct mid-dash. Must land during the dash. Fails if the dashing unit is crowd control immune, displacement immune, untargetable or spell shielded. (Malzahar R Nether Grasp → Kai'Sa R Killer Instinct)
 - **0.11** reveal: Nether Grasp reveals Kai'Sa through Supercharge's stealth. (Malzahar R Nether Grasp → Kai'Sa E Supercharge)
 
-### 10. Ahri (net +0.35)
+#### 10. Ahri (net +0.35)
 
 - **0.35** dash stop: Charm's knockdown can stop Kai'Sa's Killer Instinct mid-dash. Must land during the dash. Fails if the dashing unit is crowd control immune, displacement immune, untargetable or spell shielded. (Ahri E Charm → Kai'Sa R Killer Instinct)
 
-## Full ranking
+### Full ranking
 
 | # | Champion | Net | For | Against | Hard counters |
 |--:|---|--:|--:|--:|---|

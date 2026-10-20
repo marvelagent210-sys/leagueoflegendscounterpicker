@@ -173,7 +173,7 @@ Notes:
 - Buster Shot's displacement direction is based on Tristana's location at the end of the cast time.
     - The primary target is pushed in a straight line away from that location, but the knockback distance and speed may be impeded by terrain.
     - Secondary targets are displaced parallel to the primary target's displacement.
-- The debuff is removed early when the forced movement stops.
+- The airborne debuff is removed early when the forced movement stops.
 - Displacement immunity will also resist the application of the stun.
 - If the target becomes untargetable, dies, or is too far away or no longer in sight during the cast time, this ability will cancel but does not go on cooldown nor pay its cost (if applicable).
 
@@ -208,3 +208,92 @@ All 1 level-based formulas in the game files (1 linked to wiki values above):
 | Spell | Calculation | Rule | Level 1 | Level 18 | Level 20 |
 |---|---|---|--:|--:|--:|
 | TristanaPassive | BonusPassiveRange | linear 0 → 150 over levels 1-18, continues past 18 | 0 | 150 | 167.647 |
+
+## Duel simulator kit (level 20, every ability at max rank)
+
+What the duel simulator fights with (`kits/champions/Tristana.ts`): values come from pinned wiki and versioned game-data records at level 20. Interpretations and missing evidence are listed under assumptions. Ratios are fractions of the stat (60% AD is 0.6 × AD).
+
+- Basic attack: range 717.647, missile at 2250/s.
+
+| Key | Ability | Cooldown (s) | Cast time (s) | Cost | Delivery | On the enemy | On itself |
+|---|---|--:|--:|---|---|---|---|
+| Q | Rapid Fire | 16 | 0 | 35 | self | – | attackSpeed 1.2 for 7 s |
+| W | Rocket Jump | 14 | 0.25 | 50 | dash toward 0–900 units at 1100/s, through the enemy | 210 + 100% bonus AD + 50% AP magic damage; slow 40% for 2 s | – |
+| E | Explosive Charge | 14 | depends on stats (0.226 base) | 70 | targeted, 717.647 range, missile at 2400/s | 0 physical damage | – |
+| R | Buster Shot | 100 | 0.25 | 100 | targeted, 717.647 range, missile at 2000/s | 325 + 70% bonus AD + 100% AP magic damage | – |
+| Eburst | Explosive Charge (detonation) | 0 | 0 | – | self | 160 + 80% bonus AD + 50% AP physical damage | – |
+| Eprimary | Explosive Charge (detonation) | 0 | 0 | – | self | 160 + 80% bonus AD + 50% AP physical damage | – |
+| Epassive | Explosive Charge (kill explosion) | 0 | 0 | – | self | 105 + 25% AP magic damage | – |
+| Eclock | Explosive Charge (attached timer) | 0 | 0 | – | self | 0 physical damage | – |
+| Rcontrol | Buster Shot (knockback) | 0 | 0 | – | self | – | – |
+| Rsecondary | Buster Shot (collateral control) | 0 | 0 | – | self | 0 magic damage | – |
+
+Effects marked by a mark or a role are completed by the kit's hooks (see the kit's source).
+
+### Assumptions
+
+- Draw a Bead uses the pinned level-20 167.647058823529 bonus range for attacks, E and R, yielding 717.647058823529 total. Their separate target-range tables stop at level 18 and do not cap the passive. Rapid Fire retains its non-refreshing seven-second buff, mana cost and cooldown, and preserves a declared attack windup.
+- Rocket Jump uses the sourced 1100 speed and 0.25-second cast, with an explicit variable-distance one-axis endpoint up to 900. It crosses intervening terrain when the requested endpoint is clear; an endpoint inside terrain clips to its near boundary. The vertical arc, distance-dependent server speed and two-dimensional landings are absent. Q/E/R overlay the active jump; knockdown interrupts it and prevents its landing packet. Only counted champion kills and max-stack champion detonations reset W; ordinary summons are not treated as clones.
+- Explosive Charge travels at 2400 after its current rounded attack windup. Invalid targeting cancels the cast without mana or cooldown. Application is a separately shieldable zero physical packet; the four-second fuse starts at attachment. Connected ordinary attacks and damaging abilities add one stack, while blinded/dodged/blocked attacks and spell-shielded spells add none. Four stacks multiply base damage by two. The exact pinned game calculation additionally multiplies by 1 + 0.4 × critical chance × (critical damage − 1), giving 1.4 at current default full critical chance; it is not a normal critical strike.
+- Each charge follows its actual champion or summon via branch-copyable target IDs and a lightweight timer, surviving Tristana's death. Damage uses caster stats at detonation, since the pinned text does not specify an earlier snapshot. The primary detonation explicitly hits untargetable units but still respects stasis, invulnerability, parry and a fresh spell shield; collateral targets retain ordinary targetability and their own defenses. A killed or expired summon leaves its last observed bomb position until the fuse expires; target-death early detonation is not asserted by the pinned page. Ordinary attack kills trigger E's passive explosion; unrelated spell kills do not.
+- Buster Shot stores the caster's cast-completion origin, deals its magic packet only to its primary target and displaces nearby secondary targets without stacking their charge. Its knockback uses the sourced 1500 speed and stops at terrain; accepted airborne control is required before applying stun. Only airborne is removed when forced movement stops; the ranked stun and ordinary sight retain their separate duration. A fourth stack supplied by the primary R waits until that displacement ends or the original fuse expires, including early wall stops and dead-caster cases. Sight is recorded without claiming true sight over stealth.
+- The offensive policy places E before its attack sequence, activates Q while that charge is attached, and spends available basic attacks before another spell. The budget values Q's haste-adjusted seven-second uptime and a maximum-stack, critical-scaled charge per E cycle; it does not pre-award kill resets, passive collateral targets, or a guaranteed landing hit.
+
+### Source values read (54)
+
+| Ability | Value | Source version |
+|---|---|---|
+| Draw a Bead | Innate: Tristana's basic attacks, Explosive Charge and Buster Shot gain 0 – 150 (based on level) bonus range, for a total of 550 – 700 (based on level). | [3986179](https://wiki.leagueoflegends.com/en-us/Template:Data_Tristana/Draw_a_Bead?oldid=3986179) |
+| Draw a Bead | mSpell.missileSpeed: 2250.0 | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/tristana/tristana.bin.json) |
+| Rapid Fire | Bonus Attack Speed: 60 / 75 / 90 / 105 / 120% | [4026462](https://wiki.leagueoflegends.com/en-us/Template:Data_Tristana/Rapid_Fire?oldid=4026462) |
+| Rapid Fire | for 7 seconds | [4026462](https://wiki.leagueoflegends.com/en-us/Template:Data_Tristana/Rapid_Fire?oldid=4026462) |
+| Rapid Fire | non-refreshing buff | [4026462](https://wiki.leagueoflegends.com/en-us/Template:Data_Tristana/Rapid_Fire?oldid=4026462) |
+| Rocket Jump | Magic Damage: 70 / 105 / 140 / 175 / 210 (+ 100% bonus AD) (+ 50% AP) | [4007758](https://wiki.leagueoflegends.com/en-us/Template:Data_Tristana/Rocket_Jump?oldid=4007758) |
+| Rocket Jump | targetRange: 900 | [4007758](https://wiki.leagueoflegends.com/en-us/Template:Data_Tristana/Rocket_Jump?oldid=4007758) |
+| Rocket Jump | effectRadius: 350 | [4007758](https://wiki.leagueoflegends.com/en-us/Template:Data_Tristana/Rocket_Jump?oldid=4007758) |
+| Rocket Jump | speed: 1100 | [4007758](https://wiki.leagueoflegends.com/en-us/Template:Data_Tristana/Rocket_Jump?oldid=4007758) |
+| Rocket Jump | slows them by 40% | [4007758](https://wiki.leagueoflegends.com/en-us/Template:Data_Tristana/Rocket_Jump?oldid=4007758) |
+| Rocket Jump | for 2 seconds | [4007758](https://wiki.leagueoflegends.com/en-us/Template:Data_Tristana/Rocket_Jump?oldid=4007758) |
+| Rocket Jump | can cast any of her abilities during the dash | [4007758](https://wiki.leagueoflegends.com/en-us/Template:Data_Tristana/Rocket_Jump?oldid=4007758) |
+| Rocket Jump | detonating Explosive Charge at maximum stacks on a champion will reset | [4007758](https://wiki.leagueoflegends.com/en-us/Template:Data_Tristana/Rocket_Jump?oldid=4007758) |
+| Rocket Jump | Killing clones or detonating Explosive Charge on them also resets | [4007758](https://wiki.leagueoflegends.com/en-us/Template:Data_Tristana/Rocket_Jump?oldid=4007758) |
+| Explosive Charge | Magic Damage: 45 / 60 / 75 / 90 / 105 (+ 25% AP) | [4008204](https://wiki.leagueoflegends.com/en-us/Template:Data_Tristana/Explosive_Charge?oldid=4008204) |
+| Explosive Charge | Minimum Physical Damage: 60 / 85 / 110 / 135 / 160 (+ 80% bonus AD) (+ 50% AP) | [4008204](https://wiki.leagueoflegends.com/en-us/Template:Data_Tristana/Explosive_Charge?oldid=4008204) |
+| Explosive Charge | attaches to them for 4 seconds | [4008204](https://wiki.leagueoflegends.com/en-us/Template:Data_Tristana/Explosive_Charge?oldid=4008204) |
+| Explosive Charge | damage by 25% | [4008204](https://wiki.leagueoflegends.com/en-us/Template:Data_Tristana/Explosive_Charge?oldid=4008204) |
+| Explosive Charge | stacking up to 4 times | [4008204](https://wiki.leagueoflegends.com/en-us/Template:Data_Tristana/Explosive_Charge?oldid=4008204) |
+| Explosive Charge | effectRadius (Active): 300 • 300 • 600 | [4008204](https://wiki.leagueoflegends.com/en-us/Template:Data_Tristana/Explosive_Charge?oldid=4008204) |
+| Explosive Charge | effectRadius (Passive): 300 • 300 • 600 | [4008204](https://wiki.leagueoflegends.com/en-us/Template:Data_Tristana/Explosive_Charge?oldid=4008204) |
+| Explosive Charge | Dodge, block and blind all prevent | [4008204](https://wiki.leagueoflegends.com/en-us/Template:Data_Tristana/Explosive_Charge?oldid=4008204) |
+| Explosive Charge | detonation will deal damage to the primary target even if they have become untargetable | [4008204](https://wiki.leagueoflegends.com/en-us/Template:Data_Tristana/Explosive_Charge?oldid=4008204) |
+| Explosive Charge | delayed until the end of the knock back or the 4 seconds expire | [4008204](https://wiki.leagueoflegends.com/en-us/Template:Data_Tristana/Explosive_Charge?oldid=4008204) |
+| Explosive Charge | does not go on cooldown nor pay its cost | [4008204](https://wiki.leagueoflegends.com/en-us/Template:Data_Tristana/Explosive_Charge?oldid=4008204) |
+| Explosive Charge | initial application deals 0 physical damage | [4008204](https://wiki.leagueoflegends.com/en-us/Template:Data_Tristana/Explosive_Charge?oldid=4008204) |
+| Explosive Charge | always 100% of the caster's attack windup time | [4008204](https://wiki.leagueoflegends.com/en-us/Template:Data_Tristana/Explosive_Charge?oldid=4008204) |
+| Explosive Charge | base attack speed, Tristana's attack windup is 0.225625 seconds | [4008204](https://wiki.leagueoflegends.com/en-us/Template:Data_Tristana/Explosive_Charge?oldid=4008204) |
+| Explosive Charge | mSpell.DataValues.CritChanceModifier.values: [0.4000000059604645 | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/tristana/tristana.bin.json) |
+| Explosive Charge | "mPart1":{"mStat":8,"mDataValue":"CritChanceModifier","__type":"StatByNamedDataValueCalculationPart"},"mPart2":{"mSubparts":[{"mStat":9,"mCoefficient":1.0,"__type":"StatByCoefficientCalculationPart"},{"mNumber":-1.0,"__type":"NumberCalculationPart"}] | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/tristana/tristana.bin.json) |
+| Buster Shot | Magic Damage: 225 / 275 / 325 (+ 70% bonus AD) (+ 100% AP) | [4008205](https://wiki.leagueoflegends.com/en-us/Template:Data_Tristana/Buster_Shot?oldid=4008205) |
+| Buster Shot | Knock Back Distance: 600 / 800 / 1000 | [4008205](https://wiki.leagueoflegends.com/en-us/Template:Data_Tristana/Buster_Shot?oldid=4008205) |
+| Buster Shot | Stun Duration: 0.4 / 0.55 / 0.7 seconds | [4008205](https://wiki.leagueoflegends.com/en-us/Template:Data_Tristana/Buster_Shot?oldid=4008205) |
+| Buster Shot | speed (Missile speed): 2000 • 1500 | [4008205](https://wiki.leagueoflegends.com/en-us/Template:Data_Tristana/Buster_Shot?oldid=4008205) |
+| Buster Shot | speed (Knockback speed): 2000 • 1500 | [4008205](https://wiki.leagueoflegends.com/en-us/Template:Data_Tristana/Buster_Shot?oldid=4008205) |
+| Buster Shot | effectRadius: 200 | [4008205](https://wiki.leagueoflegends.com/en-us/Template:Data_Tristana/Buster_Shot?oldid=4008205) |
+| Buster Shot | 0 default damage to secondary targets | [4008205](https://wiki.leagueoflegends.com/en-us/Template:Data_Tristana/Buster_Shot?oldid=4008205) |
+| Buster Shot | does not stack Explosive Charge | [4008205](https://wiki.leagueoflegends.com/en-us/Template:Data_Tristana/Buster_Shot?oldid=4008205) |
+| Buster Shot | location at the end of the cast time | [4008205](https://wiki.leagueoflegends.com/en-us/Template:Data_Tristana/Buster_Shot?oldid=4008205) |
+| Buster Shot | airborne debuff is removed early when the forced movement stops | [4008205](https://wiki.leagueoflegends.com/en-us/Template:Data_Tristana/Buster_Shot?oldid=4008205) |
+| Buster Shot | Displacement immunity will also resist the application of the stun | [4008205](https://wiki.leagueoflegends.com/en-us/Template:Data_Tristana/Buster_Shot?oldid=4008205) |
+| Buster Shot | does not go on cooldown nor pay its cost | [4008205](https://wiki.leagueoflegends.com/en-us/Template:Data_Tristana/Buster_Shot?oldid=4008205) |
+| Rapid Fire | cooldown: 20 / 19 / 18 / 17 / 16 | [4026462](https://wiki.leagueoflegends.com/en-us/Template:Data_Tristana/Rapid_Fire?oldid=4026462) |
+| Rapid Fire | cost: 15 / 20 / 25 / 30 / 35 | [4026462](https://wiki.leagueoflegends.com/en-us/Template:Data_Tristana/Rapid_Fire?oldid=4026462) |
+| Rapid Fire | castTime: none | [4026462](https://wiki.leagueoflegends.com/en-us/Template:Data_Tristana/Rapid_Fire?oldid=4026462) |
+| Rocket Jump | cooldown: 22 / 20 / 18 / 16 / 14 | [4007758](https://wiki.leagueoflegends.com/en-us/Template:Data_Tristana/Rocket_Jump?oldid=4007758) |
+| Rocket Jump | cost: 30 / 35 / 40 / 45 / 50 | [4007758](https://wiki.leagueoflegends.com/en-us/Template:Data_Tristana/Rocket_Jump?oldid=4007758) |
+| Rocket Jump | castTime: 0.25 | [4007758](https://wiki.leagueoflegends.com/en-us/Template:Data_Tristana/Rocket_Jump?oldid=4007758) |
+| Explosive Charge | cooldown: 16 / 15.5 / 15 / 14.5 / 14 | [4008204](https://wiki.leagueoflegends.com/en-us/Template:Data_Tristana/Explosive_Charge?oldid=4008204) |
+| Explosive Charge | cost: 50 / 55 / 60 / 65 / 70 | [4008204](https://wiki.leagueoflegends.com/en-us/Template:Data_Tristana/Explosive_Charge?oldid=4008204) |
+| Explosive Charge | speed: 2400 | [4008204](https://wiki.leagueoflegends.com/en-us/Template:Data_Tristana/Explosive_Charge?oldid=4008204) |
+| Buster Shot | cooldown: 100 | [4008205](https://wiki.leagueoflegends.com/en-us/Template:Data_Tristana/Buster_Shot?oldid=4008205) |
+| Buster Shot | cost: 100 | [4008205](https://wiki.leagueoflegends.com/en-us/Template:Data_Tristana/Buster_Shot?oldid=4008205) |
+| Buster Shot | castTime: 0.25 | [4008205](https://wiki.leagueoflegends.com/en-us/Template:Data_Tristana/Buster_Shot?oldid=4008205) |

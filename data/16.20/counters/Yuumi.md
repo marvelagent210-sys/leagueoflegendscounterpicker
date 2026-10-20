@@ -136,12 +136,12 @@ Run `npm run matchup -- <champion> Yuumi` for the full ledger of a matchup, with
 | 60 | Rammus | -0.43 | 1.25 | 1.68 | attack reflect (Defensive Ball Curl) |
 | 61 | Sona | -0.43 | 0.51 | 0.94 |  |
 | 62 | Tahm Kench | -0.44 | 1.21 | 1.65 |  |
-| 63 | Sylas | -0.46 | 0.41 | 0.87 |  |
-| 64 | Blitzcrank | -0.47 | 1.20 | 1.67 |  |
-| 65 | Galio | -0.47 | 1.14 | 1.61 |  |
-| 66 | Nilah | -0.47 | 0.78 | 1.25 | attack dodge (Jubilant Veil) |
-| 67 | Annie | -0.48 | 0.52 | 1.00 |  |
-| 68 | Corki | -0.48 | 0.50 | 0.98 |  |
+| 63 | Corki | -0.45 | 0.10 | 0.55 |  |
+| 64 | Sylas | -0.46 | 0.41 | 0.87 |  |
+| 65 | Blitzcrank | -0.47 | 1.20 | 1.67 |  |
+| 66 | Galio | -0.47 | 1.14 | 1.61 |  |
+| 67 | Nilah | -0.47 | 0.78 | 1.25 | attack dodge (Jubilant Veil) |
+| 68 | Annie | -0.48 | 0.52 | 1.00 |  |
 | 69 | Jayce | -0.48 | 0.47 | 0.95 |  |
 | 70 | Akshan | -0.48 | 0.07 | 0.55 |  |
 | 71 | Rek'Sai | -0.49 | 0.98 | 1.47 |  |

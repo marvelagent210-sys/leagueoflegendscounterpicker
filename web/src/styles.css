@@ -183,7 +183,7 @@ td.n, th.n { text-align: right; font-variant-numeric: tabular-nums; white-space:
 .entries li { background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 8px 12px; display: flex; flex-direction: column; gap: 4px; }
 .entries .meta { display: flex; flex-wrap: wrap; gap: 6px 10px; font-size: 0.8rem; color: var(--muted); }
 .two { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
-.bullets { margin: 0; padding-left: 1.1rem; display: flex; flex-direction: column; gap: 4px; font-size: 0.9rem; }
+.bullets { margin: 0; padding-left: 1.1rem; display: flex; flex-direction: column; gap: 4px; font-size: 0.9rem; overflow-wrap: anywhere; }
 
 /* Kit page */
 .ability { display: flex; flex-direction: column; gap: 10px; }

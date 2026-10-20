@@ -154,10 +154,6 @@
             "type": "airborne",
             "category": "control",
             "wording": "knocking them aside",
-            "duration": {
-              "kind": "constant",
-              "value": 2
-            },
             "evidence": "Active: Draven throws a fan of axes in a line in the target direction, dealing physical damage to enemies hit, knocking them aside, though not through terrain, and slowing them for 2 seconds.",
             "conditional": false
           },
@@ -189,6 +185,20 @@
     "custom": [],
     "notes": [
       "This ability will cast from wherever the caster is at the end of the cast time."
+    ],
+    "gameSources": [
+      {
+        "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/draven/draven.bin.json",
+        "sha256": "61c43120cbd4d5bd9b7de3e3e4c20e15a3c1628b0b66528bb4b540c254eca6e1",
+        "object": "Characters/Draven/Spells/DravenDoubleShotAbility/DravenDoubleShot",
+        "text": [
+          "mSpell.DataValues.BaseDamage.values: [40.0,75.0,110.0,145.0,180.0,215.0,250.0]",
+          "mSpell.DataValues.SlowAmount.values: [15.0,20.0,25.0,30.0,35.0,40.0,45.0]",
+          "mSpell.DataValues.SlowDuration.values: [2.0,2.0,2.0,2.0,2.0,2.0,2.0]",
+          "mSpell.DataValues.KnockbackDuration.values: [0.5,0.5,0.5,0.5,0.5,0.5,0.5]"
+        ]
+      }
     ]
   },
   {
@@ -219,7 +229,7 @@
         "values": []
       },
       {
-        "text": "When Draven kills an enemy champion, he consumes all of his Adoration stacks and gains 25 + (2 × stacks) bonus gold.",
+        "text": "When Draven kills an enemy champion, he consumes all of his Adoration stacks and gains 25 + (2 \u00d7 stacks) bonus gold.",
         "leveling": [],
         "mechanics": [],
         "values": []
@@ -378,6 +388,17 @@
       "The empowered attack will not trigger against structures.\n  - The duration will refresh on-attack against them.",
       "Spinning Axe has an indicator that appears on the ground for Draven to stand on. Some skins have a unique indicator.",
       "Gladiator Draven Axe Indicator.png"
+    ],
+    "gameSources": [
+      {
+        "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/draven/draven.bin.json",
+        "sha256": "61c43120cbd4d5bd9b7de3e3e4c20e15a3c1628b0b66528bb4b540c254eca6e1",
+        "object": "Characters/Draven/Spells/DravenSpinningAbility/DravenSpinningAttack",
+        "text": [
+          "mSpell.mMissileSpec: {\"movementComponent\":{\"mTargetHeightAugment\":100.0,\"mOffsetInitialTargetHeight\":100.0,\"mStartBoneName\":\"R_hand\",\"mSpeed\":1700.0,\"__type\":\"FixedSpeedMovement\"},\"verticalFacing\":{\"__type\":\"VeritcalFacingMatchVelocity\"},\"behaviors\":[{\"__type\":\"CastOnMovementComplete\"},{\"__type\":\"DestroyOnMovementComplete\"}],\"__type\":\"MissileSpecification\"}"
+        ]
+      }
     ]
   },
   {
@@ -686,6 +707,18 @@
       "Whirling Death's projectile has an icon on the mini-map while it is in flight. It can be seen by only Draven and his allies.",
       "Spell shield will block one instance of damage.",
       "This ability will cast from wherever the caster is at the end of the cast time."
+    ],
+    "gameSources": [
+      {
+        "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/draven/draven.bin.json",
+        "sha256": "61c43120cbd4d5bd9b7de3e3e4c20e15a3c1628b0b66528bb4b540c254eca6e1",
+        "object": "Characters/Draven/Spells/DravenRCastAbility/DravenR",
+        "text": [
+          "mSpell.castRange: [25000.0,25000.0,25000.0,25000.0,25000.0,25000.0,25000.0]",
+          "mSpell.mMissileSpec: {\"mMissileWidth\":160.0,\"movementComponent\":{\"mUseHeightOffsetAtEnd\":true,\"mTracksTarget\":false,\"mTargetHeightAugment\":10.0,\"mStartBoneName\":\"root\",\"mProjectTargetToCastRange\":true,\"mAcceleration\":4500.0,\"mMinSpeed\":2000.0,\"mMaxSpeed\":2000.0,\"mInitialSpeed\":2000.0,\"__type\":\"DecelToLocationMovement\"},\"visibilityComponent\":{\"mPerceptionBubbleRadius\":650.0,\"__type\":\"Defaultvisibility\"},\"heightSolver\":{\"mHeightOffset\":10.0,\"__type\":\"FollowTerrainHeightSolver\"},\"verticalFacing\":{\"__type\":\"VerticalFacingFaceTarget\"},\"behaviors\":[{\"__type\":\"CastOnHit\"},{\"mActions\":[{\"__type\":\"CallOnMissileBounce\"},{\"__type\":\"ClearAlreadyHitTracking\"}],\"__type\":\"TriggerOnMovementComplete\"},{\"mPreserveSpeed\":true,\"mOverrideSpec\":{\"mVisualsTrackHiddenTargets\":true,\"mAcceleration\":4500.0,\"mMinSpeed\":2000.0,\"mMaxSpeed\":2000.0,\"mInitialSpeed\":2000.0,\"__type\":\"AcceleratingMovement\"},\"__type\":\"ReturnToCasterOnMovementComplete\"},{\"mDelay\":1,\"__type\":\"DestroyOnMovementComplete\"}],\"__type\":\"MissileSpecification\"}"
+        ]
+      }
     ]
   },
   {

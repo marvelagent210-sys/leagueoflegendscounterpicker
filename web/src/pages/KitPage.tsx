@@ -232,7 +232,7 @@ function FightProfile({ data, champion }: { data: AppData; champion: Champion })
 }
 
 function WikiAbilities({ records }: { records: AbilityRecord[] }) {
-  const sorted = [...records].sort((a, b) => KIND_ORDER.indexOf(a.kind) - KIND_ORDER.indexOf(b.kind));
+  const sorted = records.filter((record) => !record.historical).sort((a, b) => KIND_ORDER.indexOf(a.kind) - KIND_ORDER.indexOf(b.kind));
   return (
     <section className="section" aria-labelledby="wiki-head">
       <h3 id="wiki-head">Abilities on the wiki</h3>

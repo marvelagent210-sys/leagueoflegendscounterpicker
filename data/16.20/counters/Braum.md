@@ -177,8 +177,8 @@ Run `npm run matchup -- <champion> Braum` for the full ledger of a matchup, with
 | 95 | Vi | -0.52 | 0.08 | 0.60 |  |
 | 96 | Locke | -0.52 | 0.00 | 0.52 |  |
 | 97 | Riven | -0.55 | 0.00 | 0.55 |  |
-| 98 | Vayne | -0.57 | 0.43 | 1.00 |  |
-| 99 | Corki | -0.57 | 0.30 | 0.87 |  |
+| 98 | Corki | -0.56 | 0.32 | 0.88 |  |
+| 99 | Vayne | -0.57 | 0.43 | 1.00 |  |
 | 100 | Syndra | -0.58 | 0.22 | 0.80 |  |
 | 101 | Smolder | -0.61 | 0.32 | 0.93 |  |
 | 102 | Zilean | -0.61 | 0.32 | 0.93 |  |

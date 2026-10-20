@@ -257,6 +257,27 @@
       "With Runaan's Hurricane, Love Tap only applies to the primary target.",
       "The bonus damage applies life steal.",
       "The empowered attack will not trigger against buildings."
+    ],
+    "gameSources": [
+      {
+        "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/missfortune/missfortune.bin.json",
+        "sha256": "103a7c354d1e0a2bf2eeb4e54f329accdf1ce594ca0c317f204a9c6c9ea79dc3",
+        "object": "Characters/MissFortune/Spells/MissFortunePassiveAbility/MissFortunePassive",
+        "text": [
+          "mSpell.mSpellCalculations.TotalDamage: {\"mSimpleTooltipCalculationDisplay\":6,\"mFormulaParts\":[{\"mStat\":2,\"mSubpart\":{\"mLevel1Value\":0.5,\"mBreakpoints\":[{\"mLevel\":4,\"mAdditionalBonusAtThisLevel\":0.10000000149011612,\"__type\":\"Breakpoint\"},{\"mLevel\":7,\"mAdditionalBonusAtThisLevel\":0.10000000149011612,\"__type\":\"Breakpoint\"},{\"mLevel\":9,\"mAdditionalBonusAtThisLevel\":0.10000000149011612,\"__type\":\"Breakpoint\"},{\"mLevel\":11,\"mAdditionalBonusAtThisLevel\":0.10000000149011612,\"__type\":\"Breakpoint\"},{\"mLevel\":13,\"mAdditionalBonusAtThisLevel\":0.10000000149011612,\"__type\":\"Breakpoint\"},{\"mLevel\":20,\"mAdditionalBonusAtThisLevel\":0.10000000149011612,\"__type\":\"Breakpoint\"},{\"mLevel\":25,\"mAdditionalBonusAtThisLevel\":0.10000000149011612,\"__type\":\"Breakpoint\"},{\"mLevel\":30,\"mAdditionalBonusAtThisLevel\":0.10000000149011612,\"__type\":\"Breakpoint\"}],\"__type\":\"ByCharLevelBreakpointsCalculationPart\"},\"__type\":\"StatBySubPartCalculationPart\"}],\"__type\":\"GameCalculation\"}",
+          "mSpell.mSpellCalculations.MinionDamage: {\"mMultiplier\":{\"mNumber\":0.5,\"__type\":\"NumberCalculationPart\"},\"mModifiedGameCalculation\":\"TotalDamage\",\"__type\":\"GameCalculationModified\"}"
+        ]
+      },
+      {
+        "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/missfortune/missfortune.bin.json",
+        "sha256": "103a7c354d1e0a2bf2eeb4e54f329accdf1ce594ca0c317f204a9c6c9ea79dc3",
+        "object": "Characters/MissFortune/Spells/MissFortuneBasicAttack",
+        "text": [
+          "mSpell.missileSpeed: 2000.0"
+        ]
+      }
     ]
   },
   {
@@ -337,7 +358,7 @@
         ]
       },
       "angle": {
-        "text": "160°",
+        "text": "160\u00b0",
         "values": [
           {
             "series": {
@@ -465,10 +486,10 @@
       "Spell shields can be used by either target. If it is on the primary target, the spell shield will not prevent the shot from bouncing.",
       "Neutral units count as valid targets to bounce.",
       "The bounce follows a priority order on targets behind in a certain angle:",
-      "# 500 units in 20º.",
-      "# 500 units in 40º.",
-      "# 500 units in 110º.",
-      "# 150 units in 160º.",
+      "# 500 units in 20\u00ba.",
+      "# 500 units in 40\u00ba.",
+      "# 500 units in 110\u00ba.",
+      "# 150 units in 160\u00ba.",
       "Double Up's cast range adjusts based on Miss Fortune's attack range, which can be increased by items such as Rapid Firecannon.",
       "The damage of a critically striking shot is 30 / 67.5 / 105 / 142.5 / 180 (+ 150% AD) (+ 52.5% AP) physical damage, increased to 33 / 74.25 / 115.5 / 156.75 / 198 (+ 165% AD) (+ 57.75% AP) physical damage by Infinity Edge bonus critical damage.",
       "If there is no secondary target, the shot will not bounce and the dud will instead fall to the ground.\n  - The dud lands on the ground 176 units behind the primary target and has a missile speed of 400 on its way there.",
@@ -560,7 +581,7 @@
         ]
       },
       "angle": {
-        "text": "30°",
+        "text": "30\u00b0",
         "values": [
           {
             "series": {
@@ -733,9 +754,9 @@
     "custom": [],
     "notes": [
       "The damage dealt by each wave of Bullet Time is calculated when the wave reaches the target.",
-      "Miss Fortune reveals a 200-radius area around herself for 2.0 seconds to the enemy team if she fires from an unseen location and there is one of their units within the target cone of 1400 units radius and 17° cone (toward either side from her facing direction), and repeatedly as she fires waves while enemies are in a cone of 1500 units radius and 23° cone (toward either side from her facing direction) in front of her.",
+      "Miss Fortune reveals a 200-radius area around herself for 2.0 seconds to the enemy team if she fires from an unseen location and there is one of their units within the target cone of 1400 units radius and 17\u00b0 cone (toward either side from her facing direction), and repeatedly as she fires waves while enemies are in a cone of 1500 units radius and 23\u00b0 cone (toward either side from her facing direction) in front of her.",
       "Targets cannot be damaged by more than one projectile per wave.",
-      "The bullet streams that each fire 1 projectile per wave are spead by 6° between one another, aiming towards the angles +-3/9/15° from Miss Fortune's facing direction.",
+      "The bullet streams that each fire 1 projectile per wave are spead by 6\u00b0 between one another, aiming towards the angles +-3/9/15\u00b0 from Miss Fortune's facing direction.",
       "Bullet Time picks 6 locations on the ground 500 units from Miss Fortune (with the aforementioned angles) and fires a bullet stream towards each.\n  - If Miss Fortune is moved to a new location, these locations will update (since patch V13.3); the cone will fire towards her new facing direction.",
       "The unusually short cast time of Bullet Time will result in an effective cast time of 0.033, as the server must wait until the next game tick for the channel time to start.\n  - Miss Fortune is allowed to cast Flash during this cast time. As Flash changes the user's facing direction, this will cause Bullet Time to fire in the new facing direction.\n    - Casting Flash before the cast time will not affect the cast direction (Bullet Time will correctly fire towards the targeted location on the ground).",
       "Bullet Time fires the first wave at 0.066, and the last at 2.904. Times between waves are equally spread between these values.\n  - Miss Fortune may cancel the last ~0.1 seconds of channel time at no loss of effect.",

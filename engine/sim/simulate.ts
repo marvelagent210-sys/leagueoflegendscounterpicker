@@ -31,6 +31,7 @@ import {
   canStartAttackOnPet,
   cancelOutOfRange,
   completeCast,
+  deliverDuringCast,
   expireChains,
   inAttackRange,
   launchAttack,
@@ -43,7 +44,7 @@ import {
 } from "./actions";
 import { type Behavior, type Command, defaultBehavior, perceive, traitsOf } from "./behavior";
 import { applyEffect, contactGap, dealDamage, directionTo, edgeDistance, heal, hookContext, log } from "./combat";
-import { canMove, ccTypes, derive } from "./derived";
+import { canMove, ccTypes, derive, hasState } from "./derived";
 import { abilityOf } from "./forms";
 import { advancePets, petEffects } from "./pets";
 import { advanceLifecycles } from "./lifecycle";
@@ -194,13 +195,28 @@ function completeActions(world: World, splits: PendingSplit[]): void {
       // completion times. Collect both before applying either side's due actions.
       return [{ unit, action: unit.pendingAttack }, { unit, action: unit.action }];
     })
-    .filter(({ unit, action }) => unit.alive && action && ((action.kind === "windup" && action.launchTick <= world.tick) || (action.kind === "cast" && action.endTick <= world.tick)));
+    .filter(({ unit, action }) => {
+      if (!unit.alive || !action) return false;
+      if (action.kind === "windup") return action.launchTick <= world.tick;
+      if (action.kind !== "cast") return false;
+      const offset = abilityOf(unit, action.ability)?.deliveryDuringCastAt;
+      return action.endTick <= world.tick || (!action.delivered && offset !== undefined && world.tick >= action.startTick + toTicks(offset));
+    });
   for (const { unit, action } of due) {
-    if (action?.kind === "windup") launchAttack(world, unit, action);
+    if (action?.kind === "windup") {
+      const split = launchAttack(world, unit, action);
+      if (split) splits.push(split);
+    }
     else if (action?.kind === "cast") {
       const ability = abilityOf(unit, action.ability);
-      if (unit.action === action) unit.action = undefined;
       if (!ability) continue;
+      if (!action.delivered && ability.deliveryDuringCastAt !== undefined && world.tick >= action.startTick + toTicks(ability.deliveryDuringCastAt)) {
+        action.delivered = true;
+        const early = deliverDuringCast(world, unit, ability, action.startTick, action.aim);
+        if (early) splits.push(early);
+      }
+      if (action.endTick > world.tick) continue;
+      if (unit.action === action) unit.action = action.resume;
       const split = completeCast(world, unit, ability, action.startTick, action.aim, action.cost);
       if (split) splits.push(split);
     }
@@ -228,7 +244,7 @@ function beginTrade(world: World, unit: Unit): void {
 function execute(world: World, unit: Unit, command: Command): { acted: boolean; split?: PendingSplit } {
   switch (command.kind) {
     case "move":
-      if (unit.resurrection || unit.deathDefied) { unit.move = 0; return { acted: false }; }
+      if (unit.resurrection || (unit.deathDefied && !unit.deathDefied.allowMovement)) { unit.move = 0; return { acted: false }; }
       if (command.direction !== 0 && unit.action?.kind === "channel") {
         const action = unit.action;
         const ability = abilityOf(unit, action.ability);
@@ -239,7 +255,7 @@ function execute(world: World, unit: Unit, command: Command): { acted: boolean; 
           if (ability) unit.spec.hooks?.onChannelInterrupt?.({ ...hookContext(world, unit, ability), reason: "move" });
         }
       }
-      if (command.direction !== 0 && unit.action?.kind === "windup") {
+      if (command.direction !== 0 && unit.action?.kind === "windup" && !unit.action.uncancellable) {
         // Walking off cancels the windup and resets the attack timer.
         unit.action = undefined;
         unit.attackReadyTick = world.tick;
@@ -310,7 +326,7 @@ function walksDuringAction(unit: Unit): boolean {
 }
 
 function walk(world: World, unit: Unit): void {
-  if (!unit.alive || unit.deathDefied) return;
+  if (!unit.alive || (unit.deathDefied && !unit.deathDefied.allowMovement)) return;
   const enemy = world.units[other(unit.side)];
   if (unit.attached) {
     // Carried by the enemy: held at its side.
@@ -348,7 +364,9 @@ function walk(world: World, unit: Unit): void {
     return;
   }
   // Champions collide: moving toward the enemy stops where their pathing radii touch.
-  if (dx * toward > 0) dx = toward * Math.min(Math.abs(dx), Math.max(0, contactGap(unit, enemy)));
+  const postDeathGhosted = unit.deathDefied?.allowMovement && hasState(unit, "ghosted");
+  const flyingGhosted = !unit.forced && hasState(unit, "terrainIgnore") && hasState(unit, "ghosted");
+  if (dx * toward > 0 && !postDeathGhosted && !flyingGhosted) dx = toward * Math.min(Math.abs(dx), Math.max(0, contactGap(unit, enemy)));
   // Terrain stops knock backs, and walking into walls; walking around a round obstacle is slower along the line.
   const walking = !unit.forced;
   const limited = terrainLimit(world, unit, dx, walking);
@@ -384,9 +402,10 @@ function checkEnd(world: World): void {
       return ability?.persistsAfterDeath || ability?.deliveryAtCastStart;
     };
     return world.tick < toTicks(world.settings.maxSeconds) && (
-      world.missiles.some((m) => m.owner === owner.side && persistent(m.source)) ||
-      world.zones.some((z) => z.owner === owner.side && z.kind === "delayedArea" && (z.onHit?.length ?? 0) > 0 && persistent(z.ability)) ||
-      world.scheduled.some((e) => e.owner === owner.side && e.target === survivor.side && persistent(e.ability))
+      world.missiles.some((m) => m.owner === owner.side && (m.source === "attack" || m.attack !== undefined || persistent(m.source))) ||
+      world.zones.some((z) => z.owner === owner.side && (z.kind === "delayedArea" || (z.kind === "field" && z.endTick > world.tick && (z.nextTick ?? Infinity) < z.endTick)) && (z.onHit?.length ?? 0) > 0 && persistent(z.ability)) ||
+      world.scheduled.some((e) => e.owner === owner.side && e.target === survivor.side && persistent(e.ability)) ||
+      survivor.statuses.some((status) => status.kind === "dot" && status.source === owner.side && status.dot && status.dot.perHit > 0 && status.dot.nextTick <= status.endTick && status.endTick > world.tick && persistent(status.ability ?? status.key))
     );
   };
   if (deadA) { if (pendingPersistent(a, b)) return; return end(1, "death"); }

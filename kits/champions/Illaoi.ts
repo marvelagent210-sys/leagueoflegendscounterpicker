@@ -24,6 +24,7 @@ const illaoi: KitModule = {
     const q = kit.ability("Tentacle Smash");
     const w = kit.ability("Harsh Lesson");
     const e = kit.ability("Test of Spirit");
+    e.quote("Spirits are classified as clones");
     const r = kit.ability("Leap of Faith");
     const tentacle = kit.pet("Tentacle");
 
@@ -269,6 +270,7 @@ const illaoi: KitModule = {
       const spec: PetSpec = {
         kind: SPIRIT,
         name: "Spirit",
+        targetClass: "champion",
         hp: enemy.hp,
         armor: d.armor.base + d.armor.bonus,
         mr: d.mr.base + d.mr.bonus,

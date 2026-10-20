@@ -214,3 +214,103 @@ All 1 level-based formulas in the game files (0 linked to wiki values above):
 | Spell | Calculation | Rule | Level 1 | Level 18 | Level 20 |
 |---|---|---|--:|--:|--:|
 | LucianPassive | TotalDamage | breakpoints at levels 7, 13, 19, 25 (level 1: 0.5) | 0.5 | 0.6 | 0.7 |
+
+## Duel simulator kit (level 20, every ability at max rank)
+
+What the duel simulator fights with (`kits/champions/Lucian.ts`): values come from pinned wiki and versioned game-data records at level 20. Interpretations and missing evidence are listed under assumptions. Ratios are fractions of the stat (60% AD is 0.6 × AD).
+
+- Basic attack: range 500, missile at 2800/s.
+
+| Key | Ability | Cooldown (s) | Cast time (s) | Cost | Delivery | On the enemy | On itself |
+|---|---|--:|--:|---|---|---|---|
+| Q | Piercing Light | 5 | 0.25 | 80 | skillshot 1000 long, 120 wide, instant | 250 + 100% bonus AD physical damage | – |
+| W | Ardent Blaze | 10 | 0.25 | 60 | skillshot 900 long, 110 wide, at 1600/s | 215 + 90% AP magic damage | – |
+| E | Relentless Pursuit | 14 | 0 | 0 | dash away 200–425 units at 1350/s | – | resets the attack timer |
+| R | The Culling | 90 (starts after the channel) | 0 | 100 | self; channel 3 s | – | – |
+| Rend | The Culling (end) | 0 | 0 | – | self; recast of R within 3 s, after 0.75 s | – | – |
+| Rbullet | The Culling | 0 | 0 | – | skillshot 1200 long, 220 wide, at 2800/s | 45 + 25% AD + 15% AP physical damage | – |
+
+Effects marked by a mark or a role are completed by the kit's hooks (see the kit's source).
+
+### Assumptions
+
+- Lightslinger's level-20 secondary attack uses 70% AD: the exact pinned game calculation adds a level-19 10% breakpoint omitted by the wiki's level-1/7/13-only 50/55/60% description. The second attack has its own declaration-time critical expectation, full on-hit packet and life steal, and launches 0.25 seconds after the first attack launches. The source's on-attack wording does not unambiguously distinguish windup declaration from projectile launch. Cancelling the first windup consumes that empowerment without launching the second shot.
+- Lightslinger prefers its original living target; if that target dies or becomes untargetable before the second launch, it selects the champion first and then a health-based enemy summon within 50 units beyond attack range. This follows the pinned retarget priority; only the documented retarget case may acquire an invisible champion. In-flight shots retain independent target and cooldown-refund tags.
+- Vigilance starts empty and gains two charges from an accepted nearby enemy-champion immobilization. Ally healing/shielding and allied Ardent Blaze triggers are absent in a one-enemy duel. Empowered shots spend their charge when declared, including attacks that subsequently miss; this consumption timing is not specified by the source. Damage from fully absorbed connected packets still triggers Ardent Blaze's movement buff.
+- Piercing Light requires the enemy champion within its 500-unit edge target range, then uses the declared direction for its 1000-unit laser and ordinary skillshot dodge model. It also damages enemy health-based summons on that segment. Initial targeting of a summon to extend the beam onto a farther champion and early cast cancellation when the initial target dies are not modeled.
+- Ardent Blaze resolves its first colliding target and applies the six-second mark even through a spell shield, preserving damage guards. The pinned wiki and game files omit the cross explosion's arm lengths and widths, so secondary cross contacts and range-end splash beyond the known missile corridor are not invented. Ordinary map sight is not simulated. A new W mark is applied after its own damage and therefore does not proc its movement buff without a subsequent connected damaging packet.
+- The Culling snapshots its discrete shot count as floor(22 × [1 + critical chance × (critical damage − 1)]), using the pinned game calculation rather than the wiki's rounded 22.222 critical-damage template. Current default 200% critical damage gives 22–44 shots. Shots are evenly scheduled by cumulative tick rounding across three seconds, with the first at one interval and the last at channel completion; the source does not give the first-shot phase. Each missile travels independently from the moving caster's 35-unit forward gun offset along the original direction; lateral alternating gun offsets are omitted in one dimension.
+- Culling's per-projectile sideways avoidance uses the shared hit model with that bullet's launch as its visible origin. The one-axis arena cannot retain a rival's lateral sidestep between bullets. Enemy health-based summons use the sourced doubled minion packet; hit-count props are excluded. Root leaves the mobile channel running; cast-inhibiting CC interrupts it, and E retains the original channel's absolute clock. Threat perception includes emitted bullets and an initial one-bullet estimate, but does not forecast bullets that have not launched.
+- Relentless Pursuit crosses a wall when its requested endpoint is clear. When the endpoint intersects a one-dimensional terrain interval expanded by Lucian's pathing radius, it clips to the near edge rather than extending through that wall. This models the pinned no-extension exception without claiming exact two-dimensional wall placement.
+- The policy spends a primed Lightslinger attack before another ordinary offensive spell, dashes between attacks when an attack reset is useful, and preserves the default defensive response. The budget values one secondary attack per successfully woven ability, bounded by attack speed, plus one complete Culling per its cooldown and channel duration; it does not assume allied Vigilance or guarantee Culling occupancy.
+- Piercing Light: castTime has no value past level 18; its level-18 value is used at 20.
+
+### Source values read (65)
+
+| Ability | Value | Source version |
+|---|---|---|
+| Lightslinger | next basic attack within 3.5 seconds | [4064854](https://wiki.leagueoflegends.com/en-us/Template:Data_Lucian/Lightslinger?oldid=4064854) |
+| Lightslinger | after 0.25 seconds | [4064854](https://wiki.leagueoflegends.com/en-us/Template:Data_Lucian/Lightslinger?oldid=4064854) |
+| Lightslinger | within 50 units beyond his basic attack range | [4064854](https://wiki.leagueoflegends.com/en-us/Template:Data_Lucian/Lightslinger?oldid=4064854) |
+| Lightslinger | The second shot applies life steal and on-hit effects, triggers on-attack effects, and is affected by critical strike modifiers | [4064854](https://wiki.leagueoflegends.com/en-us/Template:Data_Lucian/Lightslinger?oldid=4064854) |
+| Lightslinger | The second attack separately rolls a critical strike | [4064854](https://wiki.leagueoflegends.com/en-us/Template:Data_Lucian/Lightslinger?oldid=4064854) |
+| Lightslinger | Lightslinger is triggered and consumed by the first attack | [4064854](https://wiki.leagueoflegends.com/en-us/Template:Data_Lucian/Lightslinger?oldid=4064854) |
+| Lightslinger | mSpell.mSpellCalculations.TotalDamage.mFormulaParts[0].mSubpart.mLevel1Value: 0.5 | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/lucian/lucian.bin.json) |
+| Lightslinger | mSpell.mSpellCalculations.TotalDamage.breakpoint {"mLevel":7,"mAdditionalBonusAtThisLevel":0.05000000074505806} | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/lucian/lucian.bin.json) |
+| Lightslinger | mSpell.mSpellCalculations.TotalDamage.breakpoint {"mLevel":13,"mAdditionalBonusAtThisLevel":0.05000000074505806} | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/lucian/lucian.bin.json) |
+| Lightslinger | mSpell.mSpellCalculations.TotalDamage.breakpoint {"mLevel":19,"mAdditionalBonusAtThisLevel":0.10000000149011612} | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/lucian/lucian.bin.json) |
+| Lightslinger | mSpell.mMissileSpec.movementComponent.mSpeed: 2800.0 | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/lucian/lucian.bin.json) |
+| Lightslinger | enemy champion within 1000 units is immobilized | [4064854](https://wiki.leagueoflegends.com/en-us/Template:Data_Lucian/Lightslinger?oldid=4064854) |
+| Lightslinger | his next two shots within 6 seconds | [4064854](https://wiki.leagueoflegends.com/en-us/Template:Data_Lucian/Lightslinger?oldid=4064854) |
+| Lightslinger | up to 4 empowered shots | [4064854](https://wiki.leagueoflegends.com/en-us/Template:Data_Lucian/Lightslinger?oldid=4064854) |
+| Lightslinger | Whenever Lucian is healed or shielded by an ally | [4064854](https://wiki.leagueoflegends.com/en-us/Template:Data_Lucian/Lightslinger?oldid=4064854) |
+| Lightslinger | deal 5 (+ 15% AD) bonus magic damage on-hit | [4064854](https://wiki.leagueoflegends.com/en-us/Template:Data_Lucian/Lightslinger?oldid=4064854) |
+| Piercing Light | Physical Damage: 90 / 130 / 170 / 210 / 250 (+ 100% bonus AD) | [4064855](https://wiki.leagueoflegends.com/en-us/Template:Data_Lucian/Piercing_Light?oldid=4064855) |
+| Piercing Light | targetRange: 500 | [4064855](https://wiki.leagueoflegends.com/en-us/Template:Data_Lucian/Piercing_Light?oldid=4064855) |
+| Piercing Light | range: 1000 | [4064855](https://wiki.leagueoflegends.com/en-us/Template:Data_Lucian/Piercing_Light?oldid=4064855) |
+| Piercing Light | does not adjust further during the cast time | [4064855](https://wiki.leagueoflegends.com/en-us/Template:Data_Lucian/Piercing_Light?oldid=4064855) |
+| Ardent Blaze | Magic Damage: 75 / 110 / 145 / 180 / 215 (+ 90% AP) | [3594941](https://wiki.leagueoflegends.com/en-us/Template:Data_Lucian/Ardent_Blaze?oldid=3594941) |
+| Ardent Blaze | marked for 6 seconds | [3594941](https://wiki.leagueoflegends.com/en-us/Template:Data_Lucian/Ardent_Blaze?oldid=3594941) |
+| Ardent Blaze | bonus movement speed for 1 second | [3594941](https://wiki.leagueoflegends.com/en-us/Template:Data_Lucian/Ardent_Blaze?oldid=3594941) |
+| Ardent Blaze | Bonus Movement Speed: 60 / 65 / 70 / 75 / 80 | [3594941](https://wiki.leagueoflegends.com/en-us/Template:Data_Lucian/Ardent_Blaze?oldid=3594941) |
+| Ardent Blaze | explodes in a cross pattern upon hitting an enemy or reaching maximum range | [3594941](https://wiki.leagueoflegends.com/en-us/Template:Data_Lucian/Ardent_Blaze?oldid=3594941) |
+| Ardent Blaze | Spell shield will not prevent the mark | [3594941](https://wiki.leagueoflegends.com/en-us/Template:Data_Lucian/Ardent_Blaze?oldid=3594941) |
+| Ardent Blaze | DoTs will proc Ardent Blaze only once | [3594941](https://wiki.leagueoflegends.com/en-us/Template:Data_Lucian/Ardent_Blaze?oldid=3594941) |
+| Relentless Pursuit | reduced by 1 second | [4008455](https://wiki.leagueoflegends.com/en-us/Template:Data_Lucian/Relentless_Pursuit?oldid=4008455) |
+| Relentless Pursuit | doubled to 2 seconds against enemy champions | [4008455](https://wiki.leagueoflegends.com/en-us/Template:Data_Lucian/Relentless_Pursuit?oldid=4008455) |
+| Relentless Pursuit | targetRange: 200 - 425 | [4008455](https://wiki.leagueoflegends.com/en-us/Template:Data_Lucian/Relentless_Pursuit?oldid=4008455) |
+| Relentless Pursuit | speed: 1350 | [4008455](https://wiki.leagueoflegends.com/en-us/Template:Data_Lucian/Relentless_Pursuit?oldid=4008455) |
+| Relentless Pursuit | Relentless Pursuit resets Lucian's basic attack timer | [4008455](https://wiki.leagueoflegends.com/en-us/Template:Data_Lucian/Relentless_Pursuit?oldid=4008455) |
+| Relentless Pursuit | Relentless Pursuit can be cast during W cast time and during R channel | [4008455](https://wiki.leagueoflegends.com/en-us/Template:Data_Lucian/Relentless_Pursuit?oldid=4008455) |
+| Relentless Pursuit | Relentless Pursuit's dash can go through terrain, but will not be extended further if the target location is within terrain | [4008455](https://wiki.leagueoflegends.com/en-us/Template:Data_Lucian/Relentless_Pursuit?oldid=4008455) |
+| The Culling | Physical Damage Per Shot: 15 / 30 / 45 (+ 25% AD) (+ 15% AP) | [4007670](https://wiki.leagueoflegends.com/en-us/Template:Data_Lucian/The_Culling?oldid=4007670) |
+| The Culling | Minion Damage Per Shot: 30 / 60 / 90 (+ 50% AD) (+ 30% AP) | [4007670](https://wiki.leagueoflegends.com/en-us/Template:Data_Lucian/The_Culling?oldid=4007670) |
+| The Culling | channels for up to 3 seconds | [4007670](https://wiki.leagueoflegends.com/en-us/Template:Data_Lucian/The_Culling?oldid=4007670) |
+| The Culling | recast after 0.75 seconds | [4007670](https://wiki.leagueoflegends.com/en-us/Template:Data_Lucian/The_Culling?oldid=4007670) |
+| The Culling | offset of 35 units to the front | [4007670](https://wiki.leagueoflegends.com/en-us/Template:Data_Lucian/The_Culling?oldid=4007670) |
+| The Culling | Relentless Pursuit is usable. Piercing Light and Ardent Blaze are disabled | [4007670](https://wiki.leagueoflegends.com/en-us/Template:Data_Lucian/The_Culling?oldid=4007670) |
+| The Culling | Spell shield only blocks one instance of damage | [4007670](https://wiki.leagueoflegends.com/en-us/Template:Data_Lucian/The_Culling?oldid=4007670) |
+| The Culling | calculated when the bullet reaches a target | [4007670](https://wiki.leagueoflegends.com/en-us/Template:Data_Lucian/The_Culling?oldid=4007670) |
+| The Culling | cooldownStart: post-effect | [4007670](https://wiki.leagueoflegends.com/en-us/Template:Data_Lucian/The_Culling?oldid=4007670) |
+| The Culling | mSpell.DataValues.NumShots.values: [22.0,22.0,22.0,22.0,22.0,22.0,22.0] | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/lucian/lucian.bin.json) |
+| The Culling | mSpell.DataValues.CritValueMod.values: [1.0,1.0,1.0,1.0,1.0,1.0,1.0] | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/lucian/lucian.bin.json) |
+| The Culling | "mPart1":{"mStat":8,"mDataValue":"CritValueMod","__type":"StatByNamedDataValueCalculationPart"},"mPart2":{"mSubparts":[{"mStat":9,"mCoefficient":1.0,"__type":"StatByCoefficientCalculationPart"},{"mNumber":-1.0,"__type":"NumberCalculationPart"}] | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/lucian/lucian.bin.json) |
+| The Culling | range (Individual missile range): 1200 • 1140 + offset | [4007670](https://wiki.leagueoflegends.com/en-us/Template:Data_Lucian/The_Culling?oldid=4007670) |
+| The Culling | width: 220 + offset | [4007670](https://wiki.leagueoflegends.com/en-us/Template:Data_Lucian/The_Culling?oldid=4007670) |
+| The Culling | speed: 2800 | [4007670](https://wiki.leagueoflegends.com/en-us/Template:Data_Lucian/The_Culling?oldid=4007670) |
+| Piercing Light | cooldown: 9 / 8 / 7 / 6 / 5 | [4064855](https://wiki.leagueoflegends.com/en-us/Template:Data_Lucian/Piercing_Light?oldid=4064855) |
+| Ardent Blaze | cooldown: 14 / 13 / 12 / 11 / 10 | [3594941](https://wiki.leagueoflegends.com/en-us/Template:Data_Lucian/Ardent_Blaze?oldid=3594941) |
+| Relentless Pursuit | cooldown: 16 / 15.5 / 15 / 14.5 / 14 | [4008455](https://wiki.leagueoflegends.com/en-us/Template:Data_Lucian/Relentless_Pursuit?oldid=4008455) |
+| The Culling | cooldown: 110 / 100 / 90 | [4007670](https://wiki.leagueoflegends.com/en-us/Template:Data_Lucian/The_Culling?oldid=4007670) |
+| Piercing Light | cost: 48 / 56 / 64 / 72 / 80 | [4064855](https://wiki.leagueoflegends.com/en-us/Template:Data_Lucian/Piercing_Light?oldid=4064855) |
+| Piercing Light | castTime: 0.4 – 0.25 (based on level) | [4064855](https://wiki.leagueoflegends.com/en-us/Template:Data_Lucian/Piercing_Light?oldid=4064855) |
+| Piercing Light | width: 120 | [4064855](https://wiki.leagueoflegends.com/en-us/Template:Data_Lucian/Piercing_Light?oldid=4064855) |
+| Ardent Blaze | cost: 60 | [3594941](https://wiki.leagueoflegends.com/en-us/Template:Data_Lucian/Ardent_Blaze?oldid=3594941) |
+| Ardent Blaze | castTime: 0.25 | [3594941](https://wiki.leagueoflegends.com/en-us/Template:Data_Lucian/Ardent_Blaze?oldid=3594941) |
+| Ardent Blaze | range: 900 | [3594941](https://wiki.leagueoflegends.com/en-us/Template:Data_Lucian/Ardent_Blaze?oldid=3594941) |
+| Ardent Blaze | width: 110 | [3594941](https://wiki.leagueoflegends.com/en-us/Template:Data_Lucian/Ardent_Blaze?oldid=3594941) |
+| Ardent Blaze | speed: 1600 | [3594941](https://wiki.leagueoflegends.com/en-us/Template:Data_Lucian/Ardent_Blaze?oldid=3594941) |
+| Relentless Pursuit | cost: 32 / 24 / 16 / 8 / 0 | [4008455](https://wiki.leagueoflegends.com/en-us/Template:Data_Lucian/Relentless_Pursuit?oldid=4008455) |
+| Relentless Pursuit | castTime: none | [4008455](https://wiki.leagueoflegends.com/en-us/Template:Data_Lucian/Relentless_Pursuit?oldid=4008455) |
+| The Culling | cost: 100 | [4007670](https://wiki.leagueoflegends.com/en-us/Template:Data_Lucian/The_Culling?oldid=4007670) |
+| The Culling | castTime: none | [4007670](https://wiki.leagueoflegends.com/en-us/Template:Data_Lucian/The_Culling?oldid=4007670) |
