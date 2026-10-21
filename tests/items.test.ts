@@ -177,7 +177,7 @@ describe("build counting", () => {
     expect(unknownItems({ g: ["A", "Typo"] }, ["A", "B"])).toEqual(["Typo"]);
   });
 
-  it("says what breaks the build rules, counting a transformed Tear item as its item", () => {
+  it("says what breaks the build rules, counting a transformed Tear item as its item, and what a build format doesn't hold", () => {
     const legendary = (name: string, transformsFrom?: string) => ({ name, kind: "legendary", ...(transformsFrom ? { transformsFrom } : {}) });
     const boots = (name: string) => ({ name, kind: "boots" });
     const six = ["Manamune", "Archangel's Staff", "Winter's Approach", "Black Cleaver", "Void Staff", "Sterak's Gage"].map((name) => legendary(name));
@@ -191,6 +191,12 @@ describe("build counting", () => {
       "Void Staff and Terminus: one %pen item per build",
       "Sterak's Gage and Maw of Malmortius: one Lifeline item per build",
     ]);
+    // The format toggle: six items hold no boots, and five items and boots hold five finished items.
+    const withBoots = [...six.slice(0, 5), boots("Plated Steelcaps")];
+    expect(buildProblems(withBoots, REVIEWED_GROUPS, "sixItems")).toEqual(["boots in a build of six items"]);
+    expect(buildProblems(six, REVIEWED_GROUPS, "fiveItemsWithBoots")).toEqual(["6 finished items: a build of five items and boots holds 5"]);
+    expect([buildProblems(six, REVIEWED_GROUPS, "sixItems"), buildProblems(withBoots, REVIEWED_GROUPS, "fiveItemsWithBoots")]).toEqual([[], []]);
+    expect(buildProblems([boots("Plated Steelcaps"), boots("Mercury's Treads")], REVIEWED_GROUPS, "fiveItemsWithBoots")).toEqual(["more than one pair of boots"]);
     // Mortal Reminder is in two groups: with Morellonomicon it breaks one, with Void Staff the other.
     expect(buildProblems([legendary("Mortal Reminder"), legendary("Morellonomicon"), legendary("Void Staff")])).toEqual([
       "Mortal Reminder and Void Staff: one %pen item per build",

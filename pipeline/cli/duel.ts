@@ -21,7 +21,7 @@ import type { FighterSpec } from "../../engine/sim/spec";
 import { bestMatchup } from "../../engine/sim/matchup";
 import { equipBuild, findItem, loadItemCatalog } from "../itemData";
 import type { ItemCatalog } from "../items/records";
-import { buildProblems } from "../items/rules";
+import { BUILD_FORMATS, buildProblems } from "../items/rules";
 import { loadFighter, loadVariants } from "../kitData";
 import { findChampion, loadSimData } from "../simData";
 
@@ -73,7 +73,10 @@ function itemOptions(args: string[], catalog: ItemCatalog): Record<string, Recor
 
 function describeBuild(name: string, fighter: EquippedFighter): string[] {
   const gold = fighter.items.reduce((sum, record) => sum + record.gold, 0);
-  const lines = [`${name} holds ${fighter.items.map((record) => record.name).join(", ") || "no items"} (${gold.toLocaleString("en-US")} gold)`];
+  // A full build names its format: six items, or five items and boots.
+  const boots = fighter.items.filter((record) => record.kind === "boots").length;
+  const format = Object.values(BUILD_FORMATS).find((f) => f.boots === boots && f.finished === fighter.items.length - boots);
+  const lines = [`${name} holds ${fighter.items.map((record) => record.name).join(", ") || "no items"} (${format ? `${format.label}, ` : ""}${gold.toLocaleString("en-US")} gold)`];
   const left = fighter.coverage.flatMap((entry) => entry.unmodeled.map((text) => `${entry.item}: ${text}`));
   if (left.length > 0) lines.push(...left.map((text) => `  not modeled: ${text}`));
   return lines;

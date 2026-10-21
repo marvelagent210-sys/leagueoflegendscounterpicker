@@ -1,6 +1,6 @@
 # Kit-Based Counter Picker: Plan
 
-Status: M1 to M4 done; M5 built and waiting for your review of the golden matchups; M6 built. A private Codespaces preview starts the packaged app automatically. All-champion expansion began on 2026-10-14 with 12 additional kits. The sixth batch adds Kai'Sa, Kalista, Samira, Smolder, Varus and Xayah, and the seventh adds Gragas, Hecarim, Warwick and Wukong, bringing implemented coverage to 95 of 173 champions. Data sources remain pinned to patch 26.20 (Data Dragon 16.20.1). Items and runes are planned as M8, once every champion has a kit (§13).
+Status: M1 to M4 done; M5 built and waiting for your review of the golden matchups; M6 built. A private Codespaces preview starts the packaged app automatically. All-champion expansion began on 2026-10-14 with 12 additional kits. The sixth batch adds Kai'Sa, Kalista, Samira, Smolder, Varus and Xayah, and the seventh adds Gragas, Hecarim, Warwick and Wukong, bringing implemented coverage to 95 of 173 champions. Data sources remain pinned to patch 26.20 (Data Dragon 16.20.1). Items and runes are M8 (§13), in progress: the item catalog and every item's effects are done, and duels can be played with fixed builds; runes and the build search come once every champion has a kit.
 
 Accuracy audit on 2026-10-13: combat, crowd control, movement, budgets, source-backed
 champion mechanics, result caches, and ranking consistency were corrected; all 1,176
@@ -134,12 +134,12 @@ A static web app for top lane. You pick the enemy champion, and it ranks every c
 
 | Rule | Detail |
 |---|---|
-| Kits only | No win rates, matchup statistics, tier lists or meta. No runes or summoner spells, with one exception: Udyr's Triple Tonic (§4.1). Correctness is checked with hand-written tests (§8), not statistics. M8 (planned, §13) adds items and runes. |
+| Kits only | No win rates, matchup statistics, tier lists or meta. No runes or summoner spells, with one exception: Udyr's Triple Tonic (§4.1). Correctness is checked with hand-written tests (§8), not statistics. M8 (in progress, §13) adds items and runes. |
 | Level 20 | Completing the Top Lane Role Quest raises the level cap from 18 to 20, so both champions are level 20. Base stats keep growing through level 20. Effects that scale with champion level use the game's own formulas, which say whether they keep growing past 18 or cap there. Skill points work differently for Udyr (§4.1). |
 | Pure 1v1 | No draft, teammates, jungler or lane phases, and no early-game power spikes. |
 | Any champion | You can play every champion, so all 173 are candidates. The enemy can also be any champion; champions the client tags as top lane are listed first. |
 | Static web app | No backend, accounts or API keys. |
-| Stat budget | Both champions get the same amount of gold, as plain stats only (§10). M8 (planned) spends it on items instead and keeps plain stats as a setting. |
+| Stat budget | Both champions get the same amount of gold, as plain stats only (§10). M8 (in progress) replaces it with full item builds and keeps plain stats as a setting. |
 
 ## 2. How a counter is decided
 
@@ -349,7 +349,7 @@ Every pairing (173 × 172) is precomputed for the default settings at build time
 | M5 | Behavior wave 1 (about 25 top laners you choose, e.g. the ones you face most) and golden matchups | Golden tests pass and you've reviewed the results. |
 | M6 | Web app on GitHub Pages | Picker, matchup page, kit page and settings are live. |
 | M7 | Behavior waves 2 and 3 | All remaining top-lane champions, then all 173, are simulated. |
-| M8 | Items and runes (planned, §13) | Every matchup plays the item build and rune page found best for each side against the other's, and every item and rune has wiki evidence and tests. |
+| M8 | Items and runes (in progress, §13) | Every matchup plays the item build and rune page found best for each side against the other's, and every item and rune has wiki evidence and tests. |
 | M9 | Patch automation | A scheduled job refetches the data, rebuilds, runs the tests, and opens a PR with a diff report. |
 
 ## 10. Stat budget at level 20 (decided)
@@ -362,7 +362,7 @@ With zero items, ability ratios (AP, bonus AD, bonus HP) would add nothing at le
 
 A slider runs from 0 gold (pure kit) up to a full build. The default is 15,000 gold, about what a top laner has when the role quest takes it to level 20 (set in M4; see §13).
 
-M8 (planned, §13) replaces plain stats with item builds and rune pages; plain stats stay available as a setting.
+M8 (in progress, §13) replaces plain stats with item builds and rune pages; plain stats stay available as a setting.
 
 ## 11. Tech and layout
 
@@ -665,11 +665,12 @@ See ACCURACY.md for the validation.
 
 - **What changes.**
   - Two ground rules (§1): items and runes join the kits. The plain-stat budget (§10) becomes a setting, so the kit-only view stays available.
-  - Builds are full (decided on 20 October): six finished items without boots, or five with one of the seven tier-2 boots. Order doesn't matter, and no item appears twice. Full builds cost more than the default 15,000 gold, which stays for the plain-stat setting.
+  - Builds are full: six finished items without boots, or five with one of the seven tier-2 boots. The two formats are a toggle (decided on 20 October): a search plays one of them, for both sides (`pipeline/items/rules.ts` `BUILD_FORMATS`), and the app gets the switch. Order doesn't matter, and no item appears twice. Full builds cost more than the default 15,000 gold, which stays for the plain-stat setting.
 - **Item data and behavior** (done on 20 October).
   - The catalog for patch 26.20 (Data Dragon 16.20.1, purchasable on Summoner's Rift) is 106 finished items (105 at 2,000 gold or more, plus Mejai's Soulstealer) and 7 tier-2 boots. Left out: trinkets, consumables, starters, components, basic Boots, the 7 tier-3 boots (free upgrades), the 5 support quest upgrades, items only one champion can buy, and 33 copies the data carries for other modes.
   - Items put their stats, passives and actives on a champion's kit through the engine's extension points, without changing the engine (`items/equip.ts`). Shared mechanics: Spellblade, Lifeline, Energized, Annul, Immolate, combat status, ultimate and basic ability haste, decaying shields.
   - Actives are abilities the default behavior casts: it saves Zhonya's Hourglass for the threats stasis answers, as kits' defenses are.
+  - Actives can be used under any crowd control but knock-ups and stuns (suppression, sleep and stasis count as stuns), and the cleanse item (Mercurial Scimitar) under stuns too, never knocked up (confirmed on 20 October). The wiki stops items under every cast-inhibiting type, silence included; kit abilities keep that rule.
   - Stacks a game gathers are options with stated defaults: Tear items are stacked and transformed, Yun Tal Wildarrows and Rod of Ages are fully stacked, and Mejai's Soulstealer and Heartsteel have none.
   - What the engine can't express yet, to fix with the next matrix refresh (each changes the fingerprint):
     - Randuin's Omen's Resilience: the damage hooks can't tell a critical outcome from an ordinary one.
@@ -688,14 +689,14 @@ See ACCURACY.md for the validation.
   - Hydras: Ravenous, Titanic and Profane Hydra, and Stridebreaker;
   - Sunfire Aegis or Hollow Radiance; Mortal Reminder or Morellonomicon (Grievous Wounds); Banshee's Veil or Edge of Night (Annul).
   - The Tear items (Manamune, Archangel's Staff, Winter's Approach) can be combined.
-  - That leaves 1,538,705,768 six-item builds and 661,723,587 five-item builds with boots: 2,200,429,355 per side.
+  - That leaves 1,538,705,768 builds per side with six items, or 661,723,587 with five items and boots, by the toggle.
   - These rules stand (kept on review, 20 October), and `pipeline/items/rules.ts` gives them to the build search; `items.json` counts the builds above from the catalog. The game file's own caps, which the wiki's limits match (`reports/items.md`), differ in three places:
     - The Tear items are one per build (TearItems), and so are Archangel's Staff and the Lifeline items.
     - Mortal Reminder and Morellonomicon can be combined.
     - Penetration is two groups, both with Terminus: Lord Dominik's Regards, Mortal Reminder, Serylda's Grudge and Black Cleaver (LastWhisper), and Void Staff, Cryptbloom and Bloodletter's Curse (VoidPen).
-  - Under the game file's caps there would be 2,164,239,404 builds per side.
+  - Under the game file's caps there would be 1,510,649,782 or 653,589,622 builds per side.
 - **Build and rune search** (1 to 2 weeks).
-  - Each side has about 2.2 billion builds and about a million rune pages. Fighting every pairing would take about 15 billion processor-years per matchup, so nothing is searched exhaustively.
+  - Each side has about 1.5 billion builds with six items, or 0.66 billion with five items and boots, and about a million rune pages. Fighting every pairing of builds alone, at about 0.1 s a pairing, would take about 7.5 billion processor-years per matchup with six items (1.4 billion with boots), so nothing is searched exhaustively.
   - Per champion, the search drops items its kit can't use and items another beats on every stat it uses, at the same price or less. For hybrids such as Kai'Sa and Kog'Maw this removes little, which the steps below don't depend on.
   - The quick estimate, like today's stat budget (about 23 µs a build), assembles builds slot by slot. It keeps the best 50 partial builds and tries one- and two-item swaps, so thresholds such as Kai'Sa's evolutions can be crossed.
   - So that it doesn't settle on one route: it starts once from each usable finished item, keeps the best few builds of each profile (mostly AP, attack speed, crit or tank), and restarts from random swaps.

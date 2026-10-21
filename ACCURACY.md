@@ -1093,7 +1093,7 @@ pinned sources. The simulator doesn't use them yet, so no simulated score change
     - Mortal Reminder and Morellonomicon can be combined.
     - Penetration is two groups: LastWhisper (Lord Dominik's Regards, Mortal Reminder, Serylda's Grudge, Black Cleaver) and VoidPen (Void Staff, Cryptbloom, Bloodletter's Curse). Terminus is in both.
   - Shown these differences, the review kept its rules. `pipeline/items/rules.ts` gives them to the build search.
-  - Counted from the catalog, those rules allow PLAN.md's 2,200,429,355 builds per side. The game file's caps would allow 2,164,239,404.
+  - Counted from the catalog, those rules allow 1,538,705,768 builds per side with six items and 661,723,587 with five items and boots: 2,200,429,355 together, before the two formats became a toggle (20 October). The game file's caps would allow 2,164,239,404 together.
 - **Effects:**
   - All 163 effect and restriction texts render without wiki markup, with both melee and ranged values.
   - The shared evaluator shows only the melee value of `{{rd}}`, so the item step spells out both before rendering. Melee/ranged values that scale by level render as level progressions.
@@ -1123,17 +1123,17 @@ read their abilities. The precomputed matrix doesn't use items yet; `npm run bui
 - **Findings while modeling.**
   - A stat effect in a kit's `start` replaces another of the same stat (their memo key is `effect:<stat>`). So items keep each stat under their own key: Lord Dominik's Regards' 35% armor penetration stays a separate source next to Darius's innate.
   - The engine's stasis state makes a unit invulnerable and untargetable, but it can still attack and cast. Item stasis (Zhonya's Hourglass, Guardian Angel) adds the no-attack and no-movement states and blocks casts itself. Lissandra's self-cast Frozen Tomb has the same gap; its fix is in the engine, for the next refresh.
-  - The wiki's cast-inhibiting crowd control (silence included) stops item actives too, as the engine already treats them. Only Quicksilver is cast under crowd control.
+  - When item actives can be used (confirmed on review, 20 October): under any crowd control but knock-ups and stuns, and the cleanse item (Mercurial Scimitar) under stuns too, never knocked up. Suppression, sleep and stasis count as stuns here: they stop a champion at least as fully, and Mercurial Scimitar removes suppression and sleep. A dash (Hextech Rocketbelt) still can't be used while rooted or grounded. The wiki's [Cast-inhibiting crowd control revision 4035713](https://wiki.leagueoflegends.com/en-us/Template:Tip_data/Cast-inhibiting_crowd_control?oldid=4035713) page says every cast-inhibiting type stops items, silence included; the review's rule is used for items, and kit abilities keep the wiki's (`items/equip.ts` `STOPS_ITEMS`).
   - Leona's W and an item are both called Eclipse. Item damage is labeled with the item's name, so her W would have counted as the item's damage, and the item's passive would have skipped it. When a kit has an ability of the item's name, the item's damage now reads "Eclipse (item)".
   - An Energized attack that hits a pet (Tibbers, the Maiden of the Mist) spends the charges there; before, the next attack on the champion fired them. Its effects don't hit the pet, which is stated as an assumption.
   - Hollow Radiance's Desolate was left out as needing a kill, but its smaller eruption follows any non-champion kill, and a duel's pets are those. Killing a pet now erupts where it died, on the enemy within 350 units; only the champion-takedown eruption stays out. The effects that reach other enemies (the Hydras' Cleave, Runaan's Hurricane's bolts, Statikk Shiv's bounces, Luden's Echo's orbs) now say those can only be pets in a duel, and that the model leaves them out; Luden's Echo puts all its orbs' damage on the target, as with no other enemies.
-- **Tests:** 63 item tests pass (`tests/items.test.ts`, `tests/items/effects.test.ts`, `tests/items/mechanics.test.ts`):
+- **Tests:** 64 item tests pass (`tests/items.test.ts`, `tests/items/effects.test.ts`, `tests/items/mechanics.test.ts`):
   - every item builds for a melee and a ranged champion;
   - a changed quote fails the build;
   - each shared mechanic plays as its wiki text says in synthetic fights (Spellblade, Lifeline, Energized, Annul, Guardian Angel, Death's Dance, auras, item haste, burns and executes);
-  - the build rules the duel command checks, and the label of an item named like a kit's ability.
+  - the build rules the duel command checks, the label of an item named like a kit's ability, and the crowd control each kind of item active can be used under.
 - **Speed:** with both builds fixed, a matchup's six scenarios took 0.25 to 0.85 s on four sample matchups. With the stat budget the same matchups took 1.8 to 3.1 s, its allocation included.
-- **Full suite:** 3,576 of 3,582 tests pass and 5 are skipped, with two item tests added since. The one failure is again the browser's Heimerdinger–Udyr variant search (`tests/web/run.test.ts`), past its 180-second limit under the suite's load (193 s); alone it passes in 156 seconds. It doesn't involve items. `npm run build:sim -- --check` still matches `248fa67b…`.
+- **Full suite:** 3,576 of 3,582 tests pass and 5 are skipped, with three item tests added since. The one failure is again the browser's Heimerdinger–Udyr variant search (`tests/web/run.test.ts`), past its 180-second limit under the suite's load (193 s); alone it passes in 156 seconds. It doesn't involve items. `npm run build:sim -- --check` still matches `248fa67b…`.
 
 ## Remaining limits
 

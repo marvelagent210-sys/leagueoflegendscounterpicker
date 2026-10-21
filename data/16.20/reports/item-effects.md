@@ -6,6 +6,8 @@ What the duel simulator makes of each item (items/, PLAN.md §13, M8): the effec
 
 The rules the items follow beyond their own text come from pinned wiki pages: Combat status (revision 4058480), Critical strike (revision 4059009), Template:Critical damage (revision 4001015), Template:Tip data/Energized (revision 4013385), Vamp (revision 4058226).
 
+Actives can be used under any crowd control but knock-ups and stuns (suppression, sleep and stasis count as stuns), and Mercurial Scimitar's Quicksilver under stuns too, never knocked up; a dash not while rooted or grounded either (confirmed on review, 20 October; the wiki's own rule stops items under every cast-inhibiting type).
+
 ## Finished items
 
 ### Abyssal Mask

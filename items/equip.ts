@@ -15,10 +15,11 @@
  * Nothing here changes the engine or the kits: items only use their extension points.
  */
 import type { KitOption } from "../engine/kits/compile";
+import type { CCType } from "../engine/rules/crowdControl";
 import { CRIT_DAMAGE } from "../engine/rules/defense";
 import { traitsOf } from "../engine/sim/behavior";
 import { addStatus } from "../engine/sim/combat";
-import { derive } from "../engine/sim/derived";
+import { ccTypes, derive } from "../engine/sim/derived";
 import type { AbilitySpec, BaseStats, BonusStats, BuffStat, Effect, FighterSpec, HookContext, KitHooks, StateType } from "../engine/sim/spec";
 import type { ItemRecord } from "../pipeline/items/records";
 import { ItemContext, type ItemData, ItemDataError, type ItemEvidence, type ItemSource } from "./context";
@@ -61,8 +62,11 @@ export interface ItemDefinition {
   hooks?: KitHooks;
   /** Hooks on the enemy's side: what the enemy takes from the holder (Shadowflame's critical magic damage). */
   enemyHooks?: KitHooks;
-  /** Actives, without their key: the default behavior casts them like the kit's abilities. */
-  actives?: Array<Omit<AbilitySpec, "key" | "slot" | "castTime"> & Partial<Pick<AbilitySpec, "castTime">>>;
+  /**
+   * Actives, without their key: the default behavior casts them like the kit's abilities.
+   * `usableWhileStunned` marks the cleanse item's (Mercurial Scimitar's Quicksilver).
+   */
+  actives?: Array<Omit<AbilitySpec, "key" | "slot" | "castTime"> & Partial<Pick<AbilitySpec, "castTime">> & { usableWhileStunned?: boolean }>;
   /** The item grants timed omnivamp (an OMNIVAMP status of runtime.ts). */
   omnivamp?: boolean;
   /**
@@ -275,6 +279,32 @@ function withItemHaste(ability: AbilitySpec, haste: NonNullable<ItemDefinition["
   };
 }
 
+/**
+ * Crowd control that stops item actives (confirmed on review, 20 October): knock-ups and stuns.
+ * Suppression, sleep and stasis stop a champion at least as fully as a stun, so they stop
+ * items too. The wiki's "Cast-inhibiting crowd control" page says every cast-inhibiting type
+ * stops items, silence included; the review's rule is the one used. Kit abilities keep the
+ * wiki's rule (the engine's `canCastUnderCC`).
+ */
+export const STOPS_ITEMS: ReadonlySet<CCType> = new Set(["airborne", "suspension", "stun", "suppression", "sleep", "stasis"]);
+/** What stops the cleanse item, which works under stuns: knock-ups (suspension keeps one up), and stasis. */
+export const STOPS_CLEANSE: ReadonlySet<CCType> = new Set(["airborne", "suspension", "stasis"]);
+
+/** An item active, usable under any crowd control but `stops`; a dash or blink not while rooted or grounded either. */
+function itemActive(ability: AbilitySpec, stops: ReadonlySet<CCType>): AbilitySpec {
+  const own = ability.usable;
+  const movement = ability.delivery.kind === "dash" || ability.delivery.kind === "blink" || ability.flags?.grounded === true;
+  return {
+    ...ability,
+    flags: { ...ability.flags, usableWhileDisabled: true },
+    usable: (unit, world) => {
+      const types = ccTypes(unit);
+      if ([...types].some((type) => stops.has(type)) || (movement && (types.has("root") || types.has("ground")))) return false;
+      return own?.(unit, world) ?? true;
+    },
+  };
+}
+
 /** No casting while an item holds its holder in stasis. */
 function lockedInStasis(ability: AbilitySpec): AbilitySpec {
   const own = ability.usable;
@@ -372,8 +402,8 @@ function equipForm(form: FighterSpec, build: ItemRecord[], context: ItemContext,
     onHit.push(...(definition.onHit ?? []));
     if (definition.hooks) hooks.push(definition.hooks);
     if (definition.enemyHooks) enemyHooks.push(definition.enemyHooks);
-    for (const active of definition.actives ?? []) {
-      actives.push({ castTime: 0, staticCooldown: true, countsAsCast: false, budgetExcluded: true, ...active, key: activeKey(record.name), slot: "other" });
+    for (const { usableWhileStunned, ...active } of definition.actives ?? []) {
+      actives.push(itemActive({ castTime: 0, staticCooldown: true, countsAsCast: false, budgetExcluded: true, ...active, key: activeKey(record.name), slot: "other" }, usableWhileStunned ? STOPS_CLEANSE : STOPS_ITEMS));
     }
   }
   // Bonus critical strike damage adds to the 200%, and a champion's own modifier scales the

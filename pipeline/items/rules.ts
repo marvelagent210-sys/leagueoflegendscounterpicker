@@ -19,8 +19,18 @@ export const REVIEWED_GROUPS: Readonly<Record<string, readonly string[]>> = {
   Annul: ["Banshee's Veil", "Edge of Night"],
 };
 
-/** Builds are six finished items, or five with one pair of tier-2 boots (PLAN.md §13). */
+/** Builds hold six items: six finished items, or five with one pair of tier-2 boots (PLAN.md §13). */
 export const BUILD_SLOTS = 6;
+
+/**
+ * The two build formats are a toggle (decided on 20 October): a search plays one of them, for
+ * both sides. The keys are the build counts' (`BuildCount`).
+ */
+export type BuildFormat = keyof BuildCount;
+export const BUILD_FORMATS: Readonly<Record<BuildFormat, { label: string; finished: number; boots: number }>> = {
+  sixItems: { label: "six items", finished: BUILD_SLOTS, boots: 0 },
+  fiveItemsWithBoots: { label: "five items and boots", finished: BUILD_SLOTS - 1, boots: 1 },
+};
 
 function choose(n: number, k: number): bigint {
   if (k < 0 || k > n) return 0n;
@@ -71,21 +81,28 @@ export function searchRules(catalog: ItemCatalog, groups: Readonly<Record<string
     return [group.wiki ?? group.id, group.items];
   }));
   const builds = (rules: Readonly<Record<string, readonly string[]>>): BuildCount => ({
-    sixItems: countBuilds(finished, rules, BUILD_SLOTS),
-    fiveItemsWithBoots: countBuilds(finished, rules, BUILD_SLOTS - 1) * boots,
+    sixItems: countBuilds(finished, rules, BUILD_FORMATS.sixItems.finished),
+    fiveItemsWithBoots: countBuilds(finished, rules, BUILD_FORMATS.fiveItemsWithBoots.finished) * boots,
   });
   return { groups: Object.fromEntries(Object.entries(groups).map(([name, items]) => [name, [...items]])), builds: builds(groups), gameFileBuilds: builds(gameFile) };
 }
 
 /**
  * What makes a build break the rules: more than six items, more than one pair of boots, an item
- * twice, or two items of one group. A transformed Tear item counts as the item it comes from.
+ * twice, or two items of one group; with a `format`, more finished items or boots than it holds.
+ * A transformed Tear item counts as the item it comes from.
  */
-export function buildProblems(build: ReadonlyArray<{ name: string; kind: string; transformsFrom?: string }>, groups: Readonly<Record<string, readonly string[]>> = REVIEWED_GROUPS): string[] {
+export function buildProblems(build: ReadonlyArray<{ name: string; kind: string; transformsFrom?: string }>, groups: Readonly<Record<string, readonly string[]>> = REVIEWED_GROUPS, format?: BuildFormat): string[] {
   const problems: string[] = [];
   const names = build.map((record) => record.transformsFrom ?? record.name);
+  const boots = build.filter((record) => record.kind === "boots").length;
   if (build.length > BUILD_SLOTS) problems.push(`${build.length} items: a build holds ${BUILD_SLOTS} at most`);
-  if (build.filter((record) => record.kind === "boots").length > 1) problems.push("more than one pair of boots");
+  if (boots > 1) problems.push("more than one pair of boots");
+  if (format) {
+    const { label, finished, boots: allowed } = BUILD_FORMATS[format];
+    if (build.length - boots > finished) problems.push(`${build.length - boots} finished items: a build of ${label} holds ${finished}`);
+    if (allowed === 0 && boots > 0) problems.push(`boots in a build of ${label}`);
+  }
   for (const name of new Set(names)) if (names.filter((other) => other === name).length > 1) problems.push(`${name} twice`);
   for (const [group, members] of Object.entries(groups)) {
     const held = [...new Set(names)].filter((name) => members.includes(name));

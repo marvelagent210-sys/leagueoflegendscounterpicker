@@ -10,7 +10,7 @@ export const MikaelsBlessing: ItemModule = {
     const types = (Object.keys(CC_RULES) as CCType[]).filter((type) => !kept.has(type));
     const heal = purify.level("and heal the target for");
     return {
-      // Not under cast-inhibiting crowd control, which stops items too: only Quicksilver is made for that.
+      // Like every item but the cleanse item, not while knocked up or stunned (equip.ts STOPS_ITEMS).
       actives: [{ name: purify.name, cooldown: purify.cooldown(), delivery: { kind: "self" }, onSelf: [{ type: "cleanse", types }, { type: "heal", amount: { base: heal } }], roles: ["defense"] }],
     };
   },

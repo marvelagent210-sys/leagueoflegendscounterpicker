@@ -14,7 +14,7 @@ export const MercurialScimitar: ItemModule = {
         name: silver.name,
         cooldown: silver.cooldown(),
         delivery: { kind: "self" },
-        flags: { usableWhileDisabled: true },
+        usableWhileStunned: true,
         onSelf: [{ type: "cleanse", types }, { type: "stat", stat: "moveSpeedPercent", amount: { base: speed }, duration: seconds }, { type: "state", state: "ghosted", duration: seconds }],
         roles: ["defense"],
       }],

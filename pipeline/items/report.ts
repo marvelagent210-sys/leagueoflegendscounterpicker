@@ -49,8 +49,7 @@ function effect(item: ItemEffect): string {
 }
 
 function searchSection(search: BuildSearchRules): string[] {
-  const count = (builds: BuildSearchRules["builds"]) =>
-    `${gold(builds.sixItems)} six-item builds and ${gold(builds.fiveItemsWithBoots)} five-item builds with boots (${gold(builds.sixItems + builds.fiveItemsWithBoots)} in all)`;
+  const count = (builds: BuildSearchRules["builds"]) => `${gold(builds.sixItems)} with six items, or ${gold(builds.fiveItemsWithBoots)} with five items and boots`;
   return [
     "## Rules for the build search",
     "",
@@ -58,7 +57,7 @@ function searchSection(search: BuildSearchRules): string[] {
     "",
     ...Object.entries(search.groups).map(([name, items]) => `- ${name}: ${items.join(", ")}`),
     "",
-    `Builds per side under these rules: ${count(search.builds)}. Under the game file's caps they would be ${count(search.gameFileBuilds)}.`,
+    `Builds per side under these rules, for each position of the build format toggle: ${count(search.builds)}. Under the game file's caps they would be ${count(search.gameFileBuilds)}.`,
     "",
   ];
 }

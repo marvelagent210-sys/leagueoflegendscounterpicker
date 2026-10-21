@@ -3,7 +3,9 @@
  * synthetic fighters (tests/sim/kits.ts: 2000 health, 100 AD, 100 armor and magic resistance).
  */
 import { describe, expect, it } from "vitest";
-import { consumeSpellShield, dealDamage, hookContext } from "../../engine/sim/combat";
+import type { CCType } from "../../engine/rules/crowdControl";
+import { canCast } from "../../engine/sim/actions";
+import { applyEffect, consumeSpellShield, dealDamage, hookContext } from "../../engine/sim/combat";
 import { derive } from "../../engine/sim/derived";
 import { damagePet, spawnPet } from "../../engine/sim/pets";
 import { createWorld } from "../../engine/sim/simulate";
@@ -229,6 +231,25 @@ describe("items in combat", () => {
     // 100 raw physical into 100 armor less 10 lethality: about 52.6, leaving under 100 (5%).
     dealDamage(w, holder, enemy, 100, "physical", { attack: true });
     expect(enemy.hp).toBe(0);
+  });
+});
+
+describe("when item actives can be used", () => {
+  it("under any crowd control but knock-ups, stuns and suppression, and the cleanse item under all but knock-ups; a dash not while rooted or grounded", () => {
+    const w = world(equip(fighter({ abilities: [spell()] }), "Zhonya's Hourglass", "Mercurial Scimitar", "Hextech Rocketbelt").spec);
+    const [holder, enemy] = w.units;
+    const usable = (key: string) => canCast(w, holder, holder.spec.abilities.find((ability) => ability.key === key)!, true);
+    const under = (cc: CCType) => {
+      holder.statuses = holder.statuses.filter((status) => status.kind !== "cc");
+      applyEffect(w, enemy, holder, { type: "cc", cc, duration: 5 }, { scale: 1 });
+      return [cc, usable(activeKey("Zhonya's Hourglass")), usable(activeKey("Mercurial Scimitar")), usable(activeKey("Hextech Rocketbelt")), usable("Q")];
+    };
+    // Zhonya's Hourglass, Mercurial Scimitar, Hextech Rocketbelt, and the kit's own spell (the wiki's rule).
+    expect(under("slow")).toEqual(["slow", true, true, true, true]);
+    for (const cc of ["silence", "polymorph", "charm", "fear", "taunt", "berserk"] as const) expect(under(cc)).toEqual([cc, true, true, true, false]);
+    for (const cc of ["root", "ground"] as const) expect(under(cc)).toEqual([cc, true, true, false, true]);
+    for (const cc of ["stun", "suppression", "sleep"] as const) expect(under(cc)).toEqual([cc, false, true, false, false]);
+    for (const cc of ["airborne", "suspension"] as const) expect(under(cc)).toEqual([cc, false, false, false, false]);
   });
 });
 

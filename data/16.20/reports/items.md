@@ -42,7 +42,7 @@ The build search uses the rules confirmed on review (`pipeline/items/rules.ts`, 
 - Grievous Wounds: Mortal Reminder, Morellonomicon
 - Annul: Banshee's Veil, Edge of Night
 
-Builds per side under these rules: 1,538,705,768 six-item builds and 661,723,587 five-item builds with boots (2,200,429,355 in all). Under the game file's caps they would be 1,510,649,782 six-item builds and 653,589,622 five-item builds with boots (2,164,239,404 in all).
+Builds per side under these rules, for each position of the build format toggle: 1,538,705,768 with six items, or 661,723,587 with five items and boots. Under the game file's caps they would be 1,510,649,782 with six items, or 653,589,622 with five items and boots.
 
 ## Cross-check
 
