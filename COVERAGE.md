@@ -1,6 +1,6 @@
 # Champion simulator coverage
 
-91 of 173 champions have simulator kits; 82 remain. This covers 4,095 unordered simulated pairings.
+97 of 173 champions have simulator kits; 76 remain. This covers 4,656 unordered simulated pairings.
 
 A simulator kit is implemented coverage, not a certification of every mechanic. Each kit page records source revisions and explicit assumptions. Other champions retain interaction estimates until their kit is implemented and checked.
 
@@ -11,10 +11,12 @@ A simulator kit is implemented coverage, not a certification of every mechanic. 
 | Aatrox | Aatrox | 49 | 3 |
 | Ahri | Ahri | 73 | 4 |
 | Akali | Akali | 52 | 5 |
+| Akshan | Akshan | 118 | 9 |
 | Ambessa | Ambessa | 46 | 6 |
 | Amumu | Amumu | 47 | 4 |
 | Anivia | Anivia | 76 | 5 |
 | Annie | Annie | 65 | 8 |
+| Aphelios | Aphelios | 179 | 9 |
 | Ashe | Ashe | 43 | 8 |
 | Aurora | Aurora | 52 | 2 |
 | Brand | Brand | 56 | 7 |
@@ -31,6 +33,7 @@ A simulator kit is implemented coverage, not a certification of every mechanic. 
 | Gangplank | Gangplank | 58 | 5 |
 | Garen | Garen | 32 | 3 |
 | Gnar | Gnar | 70 | 7 |
+| Graves | Graves | 90 | 7 |
 | Gwen | Gwen | 52 | 5 |
 | Heimerdinger | Heimerdinger | 79 | 9 |
 | Illaoi | Illaoi | 70 | 12 |
@@ -46,6 +49,7 @@ A simulator kit is implemented coverage, not a certification of every mechanic. 
 | Kassadin | Kassadin | 56 | 6 |
 | Kayle | Kayle | 40 | 2 |
 | Kennen | Kennen | 47 | 3 |
+| Kindred | Kindred | 93 | 8 |
 | Kled | Kled | 89 | 7 |
 | Kog'Maw | KogMaw | 59 | 5 |
 | Leona | Leona | 53 | 4 |
@@ -70,6 +74,7 @@ A simulator kit is implemented coverage, not a certification of every mechanic. 
 | Riven | Riven | 47 | 4 |
 | Rumble | Rumble | 62 | 5 |
 | Samira | Samira | 83 | 7 |
+| Senna | Senna | 90 | 10 |
 | Sett | Sett | 36 | 6 |
 | Shen | Shen | 29 | 4 |
 | Singed | Singed | 42 | 4 |
@@ -97,14 +102,13 @@ A simulator kit is implemented coverage, not a certification of every mechanic. 
 | Yone | Yone | 34 | 3 |
 | Yorick | Yorick | 83 | 9 |
 | Zaahen | Zaahen | 61 | 5 |
+| Zeri | Zeri | 114 | 6 |
 | Ziggs | Ziggs | 72 | 9 |
 | Zyra | Zyra | 89 | 14 |
 
 ## Remaining implementation queue
 
-- [ ] Akshan (Akshan)
 - [ ] Alistar (Alistar)
-- [ ] Aphelios (Aphelios)
 - [ ] Aurelion Sol (AurelionSol)
 - [ ] Azir (Azir)
 - [ ] Bard (Bard)
@@ -120,7 +124,6 @@ A simulator kit is implemented coverage, not a certification of every mechanic. 
 - [ ] Fizz (Fizz)
 - [ ] Galio (Galio)
 - [ ] Gragas (Gragas)
-- [ ] Graves (Graves)
 - [ ] Hecarim (Hecarim)
 - [ ] Hwei (Hwei)
 - [ ] Ivern (Ivern)
@@ -130,7 +133,6 @@ A simulator kit is implemented coverage, not a certification of every mechanic. 
 - [ ] Katarina (Katarina)
 - [ ] Kayn (Kayn)
 - [ ] Kha'Zix (Khazix)
-- [ ] Kindred (Kindred)
 - [ ] LeBlanc (Leblanc)
 - [ ] Lee Sin (LeeSin)
 - [ ] Lillia (Lillia)
@@ -157,7 +159,6 @@ A simulator kit is implemented coverage, not a certification of every mechanic. 
 - [ ] Rengar (Rengar)
 - [ ] Ryze (Ryze)
 - [ ] Sejuani (Sejuani)
-- [ ] Senna (Senna)
 - [ ] Seraphine (Seraphine)
 - [ ] Shaco (Shaco)
 - [ ] Shyvana (Shyvana)
@@ -181,6 +182,5 @@ A simulator kit is implemented coverage, not a certification of every mechanic. 
 - [ ] Yuumi (Yuumi)
 - [ ] Zac (Zac)
 - [ ] Zed (Zed)
-- [ ] Zeri (Zeri)
 - [ ] Zilean (Zilean)
 - [ ] Zoe (Zoe)
