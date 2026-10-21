@@ -817,9 +817,60 @@ Validation of this snapshot:
   `SOURCE`. It uses a new private preview branch and preserves the previous ZIP
   and the repository's main commit.
 
+## Seventh expansion batch: validated model and private delivery
+
+Akshan, Aphelios, Graves, Kindred, Senna and Zeri bring coverage to **97 of 173
+champions**, with **76 remaining**. All **4,656 unordered pairings / 9,312 directed
+entries** were freshly generated with four workers under fingerprint
+`f5ee5ef463912c6f174e508dbec6048b257131ffddc1550d4a034afc061d84bd`.
+The refresh took **8,997.1 seconds** and updated **275** simulator and ledger files.
+Parsed source records and profiles remain preserved.
+
+The source review checks **41 exact primary wiki templates**, the separately pinned
+Aphelios Sentry pet page and **seven versioned binary hashes**, including Kindred's
+Wolf. All **39 game-source records / 121 exact excerpts** match those binaries.
+Source conflicts and explicit limits remain with [Akshan](docs/next-wave/Akshan.md),
+[Aphelios](docs/next-wave/Aphelios.md), [Graves/Zeri](docs/next-wave/Graves-Zeri.md)
+and [Kindred/Senna](docs/next-wave/Kindred-Senna.md).
+
+Shared contracts cover actual pet contacts and projectile lifetimes, independent
+cast/dash clocks, anchored nearsight, camouflage detection and shared health-floor
+protection. Duskwave skips a follow-up whose initial hit removed its target; a
+surviving pet still receives its actual off-hand attack and returned Chakram.
+Failed simulation workers now stop and await their siblings, suppress late progress
+and report the failed dataset and pair without discarding valid checkpoints.
+
+- All **539 focused tests** pass, including the production Aphelios–Heimerdinger
+  regression, lethal/surviving pet contacts and worker failure cleanup. Both
+  TypeScript projects, provenance freshness and the production build pass.
+- An independent read-only audit validates every one of the **4,656 checkpoints**,
+  all matrix directions and six scenarios, rounded display scores, finite spending,
+  generated budget means, legal variant selections, all 97 counter rankings,
+  exact coverage and seven source pages. It reports **zero issues**.
+- Production searches pass strict side reflection for **192 Darius directions**
+  covering all 96 rivals and **30 directions** among the six new champions. Spending
+  and selected options match exactly. The largest scenario reflection difference is
+  **3.2862601528904634e-14**, below the unchanged **1e-10** tolerance.
+- The final unfiltered serial suite records **3,877 passing tests, 2 retained draft
+  winner failures and 5 existing skips**. Garen–Yasuo and Malphite–Yasuo remain the
+  two failures; all five golden files are byte-for-byte unchanged. The command
+  honestly exits with failure. The full Heimerdinger–Udyr search passes in
+  **148.01 seconds**, under its unchanged **180-second** limit, without concurrent
+  heavy jobs.
+- Chromium passes all **17 browser check groups**, including the three new live
+  pairings and seven source pages at **390-pixel** phone width. Every one of the
+  **96** live stale-cache fallback results and ranks agrees with the fresh matrix;
+  the largest score difference is **3.774758283725532e-15**. Page, console, HTTP
+  and request errors are zero, and no posted worker jobs remain unfinished.
+  The phone screenshot was inspected visually.
+- Private delivery packages the compiled app and exact working source. Archive
+  CRCs, every member digest, source inventory and five startup checks must pass
+  before publication to a new private fingerprint branch. Earlier previews, local
+  source HEAD, golden files and externally updated main commits are preserved.
+
 ## Remaining limits
 
-- Only 91 of the dataset's 173 champions have simulator kits. Other pairings use the
+- Only 97 of the dataset's 173 champions have simulator kits. Other pairings use the
   interaction ledger's heuristic estimates.
 - Movement is one-dimensional. Facing, side-stepping, vitals, terrain placement,
   pet placement, and some multi-hit geometry still use explicit approximations.
