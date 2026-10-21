@@ -1133,7 +1133,7 @@ read their abilities. The precomputed matrix doesn't use items yet; `npm run bui
   - each shared mechanic plays as its wiki text says in synthetic fights (Spellblade, Lifeline, Energized, Annul, Guardian Angel, Death's Dance, auras, item haste, burns and executes);
   - the build rules the duel command checks, the label of an item named like a kit's ability, and the crowd control each kind of item active can be used under.
 - **Speed:** with both builds fixed, a matchup's six scenarios took 0.25 to 0.85 s on four sample matchups. With the stat budget the same matchups took 1.8 to 3.1 s, its allocation included.
-- **Full suite:** 3,576 of 3,582 tests pass and 5 are skipped, with three item tests added since. The one failure is again the browser's Heimerdinger–Udyr variant search (`tests/web/run.test.ts`), past its 180-second limit under the suite's load (193 s); alone it passes in 156 seconds. It doesn't involve items. `npm run build:sim -- --check` still matches `248fa67b…`.
+- **Full suite:** 3,579 of 3,585 tests pass and 5 are skipped. The one failure is again the browser's Heimerdinger–Udyr variant search (`tests/web/run.test.ts`), past its 180-second limit under the suite's load (193 to 229 s); alone it passes in 156 seconds. It doesn't involve items: nothing outside the item tests imports `items/`. `npm run build:sim -- --check` still matches `248fa67b…`.
 
 ## Remaining limits
 
