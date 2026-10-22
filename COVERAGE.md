@@ -1,6 +1,6 @@
 # Champion simulator coverage
 
-97 of 173 champions have simulator kits; 76 remain. This covers 4,656 unordered simulated pairings.
+103 of 173 champions have simulator kits; 70 remain. This covers 5,253 unordered simulated pairings.
 
 A simulator kit is implemented coverage, not a certification of every mechanic. Each kit page records source revisions and explicit assumptions. Other champions retain interaction estimates until their kit is implemented and checked.
 
@@ -26,10 +26,14 @@ A simulator kit is implemented coverage, not a certification of every mechanic. 
 | Cho'Gath | Chogath | 42 | 3 |
 | Corki | Corki | 60 | 6 |
 | Darius | Darius | 49 | 2 |
+| Diana | Diana | 81 | 6 |
 | Dr. Mundo | DrMundo | 40 | 3 |
 | Draven | Draven | 53 | 8 |
+| Ekko | Ekko | 86 | 7 |
+| Evelynn | Evelynn | 72 | 6 |
 | Ezreal | Ezreal | 53 | 5 |
 | Fiora | Fiora | 50 | 3 |
+| Fizz | Fizz | 83 | 6 |
 | Gangplank | Gangplank | 58 | 5 |
 | Garen | Garen | 32 | 3 |
 | Gnar | Gnar | 70 | 7 |
@@ -47,11 +51,13 @@ A simulator kit is implemented coverage, not a certification of every mechanic. 
 | Kalista | Kalista | 68 | 8 |
 | Karthus | Karthus | 55 | 7 |
 | Kassadin | Kassadin | 56 | 6 |
+| Katarina | Katarina | 64 | 5 |
 | Kayle | Kayle | 40 | 2 |
 | Kennen | Kennen | 47 | 3 |
 | Kindred | Kindred | 93 | 8 |
 | Kled | Kled | 89 | 7 |
 | Kog'Maw | KogMaw | 59 | 5 |
+| LeBlanc | Leblanc | 87 | 7 |
 | Leona | Leona | 53 | 4 |
 | Lissandra | Lissandra | 70 | 6 |
 | Lucian | Lucian | 66 | 10 |
@@ -116,12 +122,8 @@ A simulator kit is implemented coverage, not a certification of every mechanic. 
 - [ ] Blitzcrank (Blitzcrank)
 - [ ] Braum (Braum)
 - [ ] Briar (Briar)
-- [ ] Diana (Diana)
-- [ ] Ekko (Ekko)
 - [ ] Elise (Elise)
-- [ ] Evelynn (Evelynn)
 - [ ] Fiddlesticks (Fiddlesticks)
-- [ ] Fizz (Fizz)
 - [ ] Galio (Galio)
 - [ ] Gragas (Gragas)
 - [ ] Hecarim (Hecarim)
@@ -130,10 +132,8 @@ A simulator kit is implemented coverage, not a certification of every mechanic. 
 - [ ] Janna (Janna)
 - [ ] Jarvan IV (JarvanIV)
 - [ ] Karma (Karma)
-- [ ] Katarina (Katarina)
 - [ ] Kayn (Kayn)
 - [ ] Kha'Zix (Khazix)
-- [ ] LeBlanc (Leblanc)
 - [ ] Lee Sin (LeeSin)
 - [ ] Lillia (Lillia)
 - [ ] Locke (Locke)
