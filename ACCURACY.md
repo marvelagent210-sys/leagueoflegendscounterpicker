@@ -868,9 +868,69 @@ and report the failed dataset and pair without discarding valid checkpoints.
   before publication to a new private fingerprint branch. Earlier previews, local
   source HEAD, golden files and externally updated main commits are preserved.
 
+## Eighth expansion validation (103-kit snapshot)
+
+Diana, Ekko, Evelynn, Fizz, Katarina and LeBlanc bring coverage to **103 of 173
+champions**, with **70 remaining**. All **5,253 unordered pairings / 10,506 directed
+entries** were freshly computed with four production workers under fingerprint
+`50faa12336b7e4b5c3fbc5a0290ba7ec2dc32a6cb919e7cf50b43a01cdb585ad`.
+The refresh started with zero checkpoints, completed in **7,155.1 seconds**, updated
+**281** simulator/ledger files and preserved parsed inputs and profiles. No checkpoint
+was copied from another model. Source HEAD and all five golden files remain unchanged.
+
+The exact source audit verifies **33 primary revisions** (32 ability templates and
+LeBlanc's separate clone article), **six** versioned binaries, **24** curated game
+objects and **33** numeric excerpts. Arrays and scalars are compared exactly with
+Decimal parsing; URLs, object paths, bytes, SHA-256, version and source attribution
+are checked independently. Primary/bin conflicts remain explicit, including Diana's
+E cast/speed metadata, Ekko's E distance/W delay/R cost, Katarina's E range and
+LeBlanc's W radius. Individual audits are linked in [docs/next-wave](docs/next-wave/README.md).
+
+Shared changes distinguish spell dodge and block, preserve actual pet/clone classes
+and pathing radii, make clone attacks cosmetic without hit/retaliation events, and
+report pet attack resolution separately. Missile destruction uses the first actual
+wall/aura coordinate. Voluntary channel cancellation respects opening/closing locks;
+CC still interrupts. A per-dash callback tracks targets after same-tick cast completions,
+and opted-in targeted dashes revalidate range/visibility before paying cast costs.
+
+Production checks exposed and corrected exact-overlap direction choices after Shunpo:
+Diana's Q/E, Evelynn's R/Q recasts and Fizz's R now use reflected facing. A last-tick
+blink during empowered Whiplash cancels without mana/cooldown/empowerment loss, while
+post-commit target loss gives no refund. Custom policies preserve completed-trade
+retreat and reserve offensive ultimates in hold/trade modes, using tests where R is
+actually eligible. Defensive reactions remain available against real incoming threats.
+
+- All **676 focused tests** pass. Both TypeScript projects, final provenance freshness
+  and production build pass.
+- An independent read-only audit checks every one of the **5,253 checkpoints**, all
+  matrix directions/scenarios, legal variants/spending, 103 budget means and rankings,
+  complete coverage and seven source pages. It reports **zero issues**.
+- Strict production reflection passes **204 Darius directions** and **30 directions**
+  among the six new champions. Spending and selected variants match exactly. The
+  largest scenario difference is **3.2862601528904634e-14**, below unchanged **1e-10**.
+- The final unfiltered serial suite records **4,283 passing tests, 2 retained draft
+  winner failures and 5 existing skips / 4,290 total**. Garen–Yasuo and Malphite–Yasuo
+  remain the two failures; the command honestly exits with failure. The full
+  Heimerdinger–Udyr variant search passes in **109.40 seconds** under its
+  unchanged **180-second** limit, with no concurrent heavy jobs.
+- Chromium passes all **17 browser check groups**, including three new live matchups,
+  all **102** live stale-cache fallback score/rank and seven source pages at
+  **390-pixel** phone width. The largest fallback score difference is **3.774758283725532e-15**.
+  Page, console, HTTP and request errors are zero; no posted worker jobs remain pending.
+  The phone screenshot is inspected before private packaging.
+- Private delivery packages the compiled app and exact working source. Every ZIP member,
+  CRC, source inventory and five startup checks must pass before publication to a new
+  private fingerprint branch. Older previews, main, local source HEAD and golden files
+  are preserved; no Codespace or public hosting is created by this work.
+
+Unquantified dash speeds retain explicit earliest-tick approximations; lateral geometry,
+Diana's orbital phase and Q projection, Katarina's unsourced pickup trigger radius, Ekko's
+path interpolation and LeBlanc's clone health snapshot interpretation remain documented.
+Each kit links its retained source conflicts and model interpretations.
+
 ## Remaining limits
 
-- Only 97 of the dataset's 173 champions have simulator kits. Other pairings use the
+- Only 103 of the dataset's 173 champions have simulator kits. Other pairings use the
   interaction ledger's heuristic estimates.
 - Movement is one-dimensional. Facing, side-stepping, vitals, terrain placement,
   pet placement, and some multi-hit geometry still use explicit approximations.
