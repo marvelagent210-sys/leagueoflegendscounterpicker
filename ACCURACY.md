@@ -928,9 +928,75 @@ Diana's orbital phase and Q projection, Katarina's unsourced pickup trigger radi
 path interpolation and LeBlanc's clone health snapshot interpretation remain documented.
 Each kit links its retained source conflicts and model interpretations.
 
+## Ninth expansion validation (109-kit snapshot)
+
+Kha'Zix, Naafiri, Nocturne, Rengar, Talon and Zed bring coverage to **109 of 173 champions**, with
+**64 remaining**. All **5,886 unordered pairings / 11,772 directed entries** were
+freshly computed with four production workers under fingerprint
+`d2cb2f6a86c2ddf52db35ee35fc28c7e9f84f3526adf3c8f8783155d55c00e8b`. The initial attempt started with zero checkpoints and
+was interrupted after saving 854 pairs. Their exact bytes were verified and retained
+under the same fingerprint; the resumed invocation computed the remaining 5,032 pairs.
+No checkpoint was copied from another model, and no raw checkpoint index was rewritten.
+The audit validates each recorded worker index against its actual invocation's
+dispatch map and checks every final matrix direction in canonical pair order.
+The local source HEAD and all five
+retained golden files remain unchanged.
+
+The strict source audit verifies **36 primary revisions** (34 ability templates and
+the separate Naafiri and Zed pet articles), **six** exact versioned binaries,
+**37** curated game objects and **115** exact numeric excerpts. Every full raw
+wiki revision is retained in its authored record. Arrays and scalar values are
+compared exactly with Decimal parsing, including object paths, SHA-256 and version.
+Primary/bin conflicts and unquantified movement timing remain explicit in the
+[individual audits](docs/next-wave/README.md).
+
+Kha'Zix has four legal combinations of three evolutions. Isolation uses actual
+nearby target classes and summons, with the lane-minion proxy declared as an
+assumption. Naafiri uses the pinned W Call of the Pack and R Hounds' Pursuit layout,
+actual Packmate bodies and target-local bleed consumption. Nocturne's declared
+missile and trail, spell-shield trigger, fear tether and nearsight use separate
+clocks and guards. Rengar's Ferocity and healing use actual duel events. Talon's
+close-range Q retains its independent cast clock during movement. Zed uses actual
+independent shadows, grouped E damage and accepted damage accounting for Death Mark.
+
+Shared engine changes add independent movement multipliers before soft caps,
+explicit opt-ins for death-persistent statuses and pets, reflected basic-attack
+facing at exact overlap, casts that retain declaration-time dashes, instant overlays
+on those dashes, and lines released at declaration without duplicate completion.
+Standard sight remains distinct from true sight. Each new champion has source,
+counterplay, target-identity, lifecycle and ordinary-mode regressions.
+
+- All **1,147 focused tests** pass. Both TypeScript projects, final provenance
+  freshness and the production build pass.
+- The final unfiltered serial suite records **4,686 passing tests, 2 retained
+  draft winner failures and 5 existing skips / 4,693 total**.
+  Garen–Yasuo and Malphite–Yasuo remain the two failures; the command honestly exits
+  with failure. The Heimerdinger–Udyr full search passes within its unchanged
+  180-second limit with no concurrent heavy work.
+- A separate read-only audit checks all **5,886 checkpoints**, every matrix
+  direction/scenario, legal variants and spending, all 109 budget means and counter
+  rankings, complete coverage and seven source pages. It reports **zero issues**.
+- Strict production reflection passes **216 Darius directions** and **30 directions**
+  among the six added champions. Spending and selected variants match exactly;
+  scenario differences remain within the unchanged **1e-10** limit.
+- Chromium passes all **17 browser check groups**, including three new live
+  matchups, all **108** supported live fallback scores and rankings, and seven
+  source pages at **390-pixel** phone width. Page, console, request and HTTP errors
+  are zero, with no pending worker jobs. The phone screenshot is inspected.
+- Private delivery packages the compiled app and exact working source. ZIP member
+  hashes, CRC, source inventory and five actual startup checks must pass before
+  publication to a new private fingerprint branch. The nine older previews,
+  historical helper/proof files, remote main, local HEAD and golden files are
+  preserved. This work creates no Codespace or public hosting.
+
+One-dimensional projection, finite skillshot branching, abstract lane minions and
+brush, unavailable preduel history and missing source timing remain model limits.
+Coverage does not claim exact reproduction of every champion interaction; each
+individual audit records its remaining approximations and evidence conflicts.
+
 ## Remaining limits
 
-- Only 103 of the dataset's 173 champions have simulator kits. Other pairings use the
+- Only 109 of the dataset's 173 champions have simulator kits. Other pairings use the
   interaction ledger's heuristic estimates.
 - Movement is one-dimensional. Facing, side-stepping, vitals, terrain placement,
   pet placement, and some multi-hit geometry still use explicit approximations.
