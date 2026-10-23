@@ -1,6 +1,6 @@
 # Champion simulator coverage
 
-103 of 173 champions have simulator kits; 70 remain. This covers 5,253 unordered simulated pairings.
+109 of 173 champions have simulator kits; 64 remain. This covers 5,886 unordered simulated pairings.
 
 A simulator kit is implemented coverage, not a certification of every mechanic. Each kit page records source revisions and explicit assumptions. Other champions retain interaction estimates until their kit is implemented and checked.
 
@@ -54,6 +54,7 @@ A simulator kit is implemented coverage, not a certification of every mechanic. 
 | Katarina | Katarina | 64 | 5 |
 | Kayle | Kayle | 40 | 2 |
 | Kennen | Kennen | 47 | 3 |
+| Kha'Zix | Khazix | 85 | 8 |
 | Kindred | Kindred | 93 | 8 |
 | Kled | Kled | 89 | 7 |
 | Kog'Maw | KogMaw | 59 | 5 |
@@ -68,8 +69,10 @@ A simulator kit is implemented coverage, not a certification of every mechanic. 
 | Miss Fortune | MissFortune | 62 | 6 |
 | Mordekaiser | Mordekaiser | 38 | 5 |
 | Morgana | Morgana | 45 | 4 |
+| Naafiri | Naafiri | 107 | 10 |
 | Nasus | Nasus | 40 | 2 |
 | Nautilus | Nautilus | 58 | 6 |
+| Nocturne | Nocturne | 80 | 4 |
 | Olaf | Olaf | 36 | 3 |
 | Ornn | Ornn | 50 | 6 |
 | Pantheon | Pantheon | 51 | 7 |
@@ -77,6 +80,7 @@ A simulator kit is implemented coverage, not a certification of every mechanic. 
 | Quinn | Quinn | 39 | 4 |
 | Rammus | Rammus | 56 | 7 |
 | Renekton | Renekton | 53 | 3 |
+| Rengar | Rengar | 77 | 8 |
 | Riven | Riven | 47 | 4 |
 | Rumble | Rumble | 62 | 5 |
 | Samira | Samira | 83 | 7 |
@@ -89,6 +93,7 @@ A simulator kit is implemented coverage, not a certification of every mechanic. 
 | Skarner | Skarner | 62 | 5 |
 | Smolder | Smolder | 72 | 9 |
 | Tahm Kench | TahmKench | 61 | 4 |
+| Talon | Talon | 89 | 6 |
 | Teemo | Teemo | 30 | 2 |
 | Tristana | Tristana | 54 | 6 |
 | Trundle | Trundle | 43 | 3 |
@@ -108,6 +113,7 @@ A simulator kit is implemented coverage, not a certification of every mechanic. 
 | Yone | Yone | 34 | 3 |
 | Yorick | Yorick | 83 | 9 |
 | Zaahen | Zaahen | 61 | 5 |
+| Zed | Zed | 90 | 6 |
 | Zeri | Zeri | 114 | 6 |
 | Ziggs | Ziggs | 72 | 9 |
 | Zyra | Zyra | 89 | 14 |
@@ -133,7 +139,6 @@ A simulator kit is implemented coverage, not a certification of every mechanic. 
 - [ ] Jarvan IV (JarvanIV)
 - [ ] Karma (Karma)
 - [ ] Kayn (Kayn)
-- [ ] Kha'Zix (Khazix)
 - [ ] Lee Sin (LeeSin)
 - [ ] Lillia (Lillia)
 - [ ] Locke (Locke)
@@ -142,12 +147,10 @@ A simulator kit is implemented coverage, not a certification of every mechanic. 
 - [ ] Mel (Mel)
 - [ ] Milio (Milio)
 - [ ] Wukong (MonkeyKing)
-- [ ] Naafiri (Naafiri)
 - [ ] Nami (Nami)
 - [ ] Neeko (Neeko)
 - [ ] Nidalee (Nidalee)
 - [ ] Nilah (Nilah)
-- [ ] Nocturne (Nocturne)
 - [ ] Nunu & Willump (Nunu)
 - [ ] Orianna (Orianna)
 - [ ] Pyke (Pyke)
@@ -156,7 +159,6 @@ A simulator kit is implemented coverage, not a certification of every mechanic. 
 - [ ] Rek'Sai (RekSai)
 - [ ] Rell (Rell)
 - [ ] Renata Glasc (Renata)
-- [ ] Rengar (Rengar)
 - [ ] Ryze (Ryze)
 - [ ] Sejuani (Sejuani)
 - [ ] Seraphine (Seraphine)
@@ -168,7 +170,6 @@ A simulator kit is implemented coverage, not a certification of every mechanic. 
 - [ ] Sylas (Sylas)
 - [ ] Syndra (Syndra)
 - [ ] Taliyah (Taliyah)
-- [ ] Talon (Talon)
 - [ ] Taric (Taric)
 - [ ] Thresh (Thresh)
 - [ ] Twisted Fate (TwistedFate)
@@ -181,6 +182,5 @@ A simulator kit is implemented coverage, not a certification of every mechanic. 
 - [ ] Yunara (Yunara)
 - [ ] Yuumi (Yuumi)
 - [ ] Zac (Zac)
-- [ ] Zed (Zed)
 - [ ] Zilean (Zilean)
 - [ ] Zoe (Zoe)
