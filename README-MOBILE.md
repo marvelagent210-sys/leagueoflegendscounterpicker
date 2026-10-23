@@ -4,7 +4,7 @@ This private GitHub Codespace opens the packaged Counter Picker in your phone's
 browser. You do not need to download the ZIP, install Python, or type commands.
 
 1. Sign in to the GitHub account that can access this private repository.
-2. Open [Set up this Counter Picker build](https://codespaces.new/marvelagent210-sys/leagueoflegendscounterpicker/tree/counter-picker-download-50faa123?quickstart=1).
+2. Open [Set up this Counter Picker build](https://codespaces.new/marvelagent210-sys/leagueoflegendscounterpicker/tree/counter-picker-download-d2cb2f6a?quickstart=1).
 3. Select **Create codespace** if asked, and allow the first setup to finish.
 4. The preview should open automatically. If your browser blocks it, open the
    Codespace's **Ports** tab and select **Open in Browser** for port **8000**,
@@ -28,10 +28,10 @@ Codespace uses two core-hours per running hour. Stop it when finished; delete it
 when no longer needed to stop storage usage. Usage beyond your included quota
 may be billed if you have enabled paid usage.
 
-This build contains dataset 16.20 (patch 26.20), 103 simulator kits and
-5,253 unordered simulated pairings; 70 champions remain in the implementation
+This build contains dataset 16.20 (patch 26.20), 109 simulator kits and
+5,886 unordered simulated pairings; 64 champions remain in the implementation
 queue. Coverage does not certify every mechanic. Startup verifies the ZIP's
 checksum and matrix identity before serving it.
 
-Model fingerprint: `50faa12336b7e4b5c3fbc5a0290ba7ec2dc32a6cb919e7cf50b43a01cdb585ad`.
+Model fingerprint: `d2cb2f6a86c2ddf52db35ee35fc28c7e9f84f3526adf3c8f8783155d55c00e8b`.
 See **ACCURACY.md**, **COVERAGE.md**, and the data attribution inside the ZIP.
