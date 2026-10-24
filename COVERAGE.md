@@ -1,6 +1,6 @@
 # Champion simulator coverage
 
-109 of 173 champions have simulator kits; 64 remain. This covers 5,886 unordered simulated pairings.
+115 of 173 champions have simulator kits; 58 remain. This covers 6,555 unordered simulated pairings.
 
 A simulator kit is implemented coverage, not a certification of every mechanic. Each kit page records source revisions and explicit assumptions. Other champions retain interaction estimates until their kit is implemented and checked.
 
@@ -39,9 +39,11 @@ A simulator kit is implemented coverage, not a certification of every mechanic. 
 | Gnar | Gnar | 70 | 7 |
 | Graves | Graves | 90 | 7 |
 | Gwen | Gwen | 52 | 5 |
+| Hecarim | Hecarim | 89 | 5 |
 | Heimerdinger | Heimerdinger | 79 | 9 |
 | Illaoi | Illaoi | 70 | 12 |
 | Irelia | Irelia | 45 | 6 |
+| Jarvan IV | JarvanIV | 73 | 6 |
 | Jax | Jax | 35 | 3 |
 | Jayce | Jayce | 66 | 4 |
 | Jhin | Jhin | 81 | 8 |
@@ -59,6 +61,7 @@ A simulator kit is implemented coverage, not a certification of every mechanic. 
 | Kled | Kled | 89 | 7 |
 | Kog'Maw | KogMaw | 59 | 5 |
 | LeBlanc | Leblanc | 87 | 7 |
+| Lee Sin | LeeSin | 92 | 6 |
 | Leona | Leona | 53 | 4 |
 | Lissandra | Lissandra | 70 | 6 |
 | Lucian | Lucian | 66 | 10 |
@@ -67,6 +70,7 @@ A simulator kit is implemented coverage, not a certification of every mechanic. 
 | Malzahar | Malzahar | 85 | 12 |
 | Master Yi | MasterYi | 51 | 5 |
 | Miss Fortune | MissFortune | 62 | 6 |
+| Wukong | MonkeyKing | 91 | 5 |
 | Mordekaiser | Mordekaiser | 38 | 5 |
 | Morgana | Morgana | 45 | 4 |
 | Naafiri | Naafiri | 107 | 10 |
@@ -105,8 +109,10 @@ A simulator kit is implemented coverage, not a certification of every mechanic. 
 | Vayne | Vayne | 47 | 7 |
 | Veigar | Veigar | 48 | 11 |
 | Vel'Koz | Velkoz | 70 | 7 |
+| Vi | Vi | 88 | 7 |
 | Vladimir | Vladimir | 64 | 10 |
 | Volibear | Volibear | 50 | 4 |
+| Warwick | Warwick | 87 | 5 |
 | Xayah | Xayah | 75 | 7 |
 | Xin Zhao | XinZhao | 65 | 6 |
 | Yasuo | Yasuo | 49 | 4 |
@@ -132,21 +138,17 @@ A simulator kit is implemented coverage, not a certification of every mechanic. 
 - [ ] Fiddlesticks (Fiddlesticks)
 - [ ] Galio (Galio)
 - [ ] Gragas (Gragas)
-- [ ] Hecarim (Hecarim)
 - [ ] Hwei (Hwei)
 - [ ] Ivern (Ivern)
 - [ ] Janna (Janna)
-- [ ] Jarvan IV (JarvanIV)
 - [ ] Karma (Karma)
 - [ ] Kayn (Kayn)
-- [ ] Lee Sin (LeeSin)
 - [ ] Lillia (Lillia)
 - [ ] Locke (Locke)
 - [ ] Lulu (Lulu)
 - [ ] Maokai (Maokai)
 - [ ] Mel (Mel)
 - [ ] Milio (Milio)
-- [ ] Wukong (MonkeyKing)
 - [ ] Nami (Nami)
 - [ ] Neeko (Neeko)
 - [ ] Nidalee (Nidalee)
@@ -174,10 +176,8 @@ A simulator kit is implemented coverage, not a certification of every mechanic. 
 - [ ] Thresh (Thresh)
 - [ ] Twisted Fate (TwistedFate)
 - [ ] Vex (Vex)
-- [ ] Vi (Vi)
 - [ ] Viego (Viego)
 - [ ] Viktor (Viktor)
-- [ ] Warwick (Warwick)
 - [ ] Xerath (Xerath)
 - [ ] Yunara (Yunara)
 - [ ] Yuumi (Yuumi)
