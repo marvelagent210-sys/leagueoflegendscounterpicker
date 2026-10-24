@@ -1,6 +1,6 @@
 # Champion simulator coverage
 
-115 of 173 champions have simulator kits; 58 remain. This covers 6,555 unordered simulated pairings.
+121 of 173 champions have simulator kits; 52 remain. This covers 7,260 unordered simulated pairings.
 
 A simulator kit is implemented coverage, not a certification of every mechanic. Each kit page records source revisions and explicit assumptions. Other champions retain interaction estimates until their kit is implemented and checked.
 
@@ -12,6 +12,7 @@ A simulator kit is implemented coverage, not a certification of every mechanic. 
 | Ahri | Ahri | 73 | 4 |
 | Akali | Akali | 52 | 5 |
 | Akshan | Akshan | 118 | 9 |
+| Alistar | Alistar | 73 | 5 |
 | Ambessa | Ambessa | 46 | 6 |
 | Amumu | Amumu | 47 | 4 |
 | Anivia | Anivia | 76 | 5 |
@@ -19,7 +20,9 @@ A simulator kit is implemented coverage, not a certification of every mechanic. 
 | Aphelios | Aphelios | 179 | 9 |
 | Ashe | Ashe | 43 | 8 |
 | Aurora | Aurora | 52 | 2 |
+| Blitzcrank | Blitzcrank | 78 | 6 |
 | Brand | Brand | 56 | 7 |
+| Braum | Braum | 68 | 6 |
 | Caitlyn | Caitlyn | 69 | 5 |
 | Camille | Camille | 41 | 4 |
 | Cassiopeia | Cassiopeia | 53 | 9 |
@@ -34,9 +37,11 @@ A simulator kit is implemented coverage, not a certification of every mechanic. 
 | Ezreal | Ezreal | 53 | 5 |
 | Fiora | Fiora | 50 | 3 |
 | Fizz | Fizz | 83 | 6 |
+| Galio | Galio | 111 | 5 |
 | Gangplank | Gangplank | 58 | 5 |
 | Garen | Garen | 32 | 3 |
 | Gnar | Gnar | 70 | 7 |
+| Gragas | Gragas | 84 | 6 |
 | Graves | Graves | 90 | 7 |
 | Gwen | Gwen | 52 | 5 |
 | Hecarim | Hecarim | 89 | 5 |
@@ -46,7 +51,7 @@ A simulator kit is implemented coverage, not a certification of every mechanic. 
 | Jarvan IV | JarvanIV | 73 | 6 |
 | Jax | Jax | 35 | 3 |
 | Jayce | Jayce | 66 | 4 |
-| Jhin | Jhin | 81 | 8 |
+| Jhin | Jhin | 82 | 8 |
 | Jinx | Jinx | 70 | 9 |
 | K'Sante | KSante | 55 | 3 |
 | Kai'Sa | Kaisa | 69 | 6 |
@@ -68,6 +73,7 @@ A simulator kit is implemented coverage, not a certification of every mechanic. 
 | Lux | Lux | 48 | 4 |
 | Malphite | Malphite | 41 | 1 |
 | Malzahar | Malzahar | 85 | 12 |
+| Maokai | Maokai | 90 | 6 |
 | Master Yi | MasterYi | 51 | 5 |
 | Miss Fortune | MissFortune | 62 | 6 |
 | Wukong | MonkeyKing | 91 | 5 |
@@ -126,18 +132,13 @@ A simulator kit is implemented coverage, not a certification of every mechanic. 
 
 ## Remaining implementation queue
 
-- [ ] Alistar (Alistar)
 - [ ] Aurelion Sol (AurelionSol)
 - [ ] Azir (Azir)
 - [ ] Bard (Bard)
 - [ ] Bel'Veth (Belveth)
-- [ ] Blitzcrank (Blitzcrank)
-- [ ] Braum (Braum)
 - [ ] Briar (Briar)
 - [ ] Elise (Elise)
 - [ ] Fiddlesticks (Fiddlesticks)
-- [ ] Galio (Galio)
-- [ ] Gragas (Gragas)
 - [ ] Hwei (Hwei)
 - [ ] Ivern (Ivern)
 - [ ] Janna (Janna)
@@ -146,7 +147,6 @@ A simulator kit is implemented coverage, not a certification of every mechanic. 
 - [ ] Lillia (Lillia)
 - [ ] Locke (Locke)
 - [ ] Lulu (Lulu)
-- [ ] Maokai (Maokai)
 - [ ] Mel (Mel)
 - [ ] Milio (Milio)
 - [ ] Nami (Nami)
