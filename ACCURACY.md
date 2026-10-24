@@ -994,9 +994,83 @@ brush, unavailable preduel history and missing source timing remain model limits
 Coverage does not claim exact reproduction of every champion interaction; each
 individual audit records its remaining approximations and evidence conflicts.
 
+## Tenth expansion validation (115-kit snapshot)
+
+Hecarim, Jarvan IV, Lee Sin, Wukong, Vi and Warwick bring coverage to **115 of 173 champions**, with
+**58 remaining**. All **6,555 unordered pairings / 13,110 directed entries** were
+freshly computed with four production workers under fingerprint
+`d9b033ae559724a9cef49565920eb1e9d2d40eb32d8e61328e29f0f316ab134c`. The actual refresh began with **zero checkpoints**
+and completed all 6,555 pairs under this exact source freeze. A separate audit
+verifies every raw worker index against the fresh canonical dispatch and every
+final matrix direction. No checkpoint came from another model and no raw index
+was rewritten. The local source HEAD and all five golden files remain unchanged.
+
+The strict source audit verifies **34 primary revisions**: **33 ability templates**
+and Wukong's separate pet article. It checks **six** exact versioned binaries,
+**56 distinct game objects** across **59 source records** and **185 exact excerpts**.
+Every full raw revision remains in the authored data. Complete arrays, scalar
+values, object paths, versions and SHA-256 hashes are compared exactly with
+Decimal parsing. Primary/game-file conflicts and missing timing remain explicit
+in the [individual source audits](docs/next-wave/README.md).
+
+Hecarim derives his passive from current movement speed and heals from resolved
+damage around Spirit of Dread. Jarvan IV retains target-local passive clocks,
+actual flag auras, Dragon Strike contacts and Cataclysm terrain. Lee Sin keeps
+energy, Flurry, target marks, recast windows, real anchors and source-classified
+shields distinct. Wukong's clone has its own identity, health, statuses, attacks
+and copied spell contacts, with shared target history for Cyclone knockups.
+Vi preserves charge/release clocks, target-local Denting Blows and actual tracking
+contacts. Warwick heals from resolved packets and separates attached bites,
+fear, flight projection and suppression lifecycles.
+
+Damage-based healing follows the retained Riposte revision's explicit vamp rule:
+it uses post-mitigation damage before late parry negation, including shield damage.
+Actual health loss and shield absorption remain separate for stacks, hunts and
+combat events. The same ordering preserves actual allied pet-spell damage for
+Hecarim's healing, while parry still denies debuffs and hit callbacks. Invulnerability
+and stasis grant no damage-based healing. Focused regressions and an independent
+review cover the correction; the earlier incomplete model and its stopped-run
+evidence are retained separately and none of its checkpoints enters this model.
+
+Shared changes add opt-in damage observation with real source and victim identity,
+including pets and clone actors, and separate accepted health/shield damage from
+immunity. Typed shields now protect actual pets. Explicit pet state immunity
+preserves source exceptions, and non-damage pet contacts retain exact stage keys
+when several stages share a display name. Existing champion-only damage hooks keep
+their scope. Missing finite dash speeds, one-dimensional displacement and terrain,
+unavailable allies and preduel history remain stated limits rather than guessed data.
+
+- All **891 focused tests** pass. Both TypeScript projects, final provenance
+  freshness and the production build pass.
+- The final unfiltered serial suite records **5,097 passing tests, 2 retained
+  draft winner failures and 5 existing skips / 5,104 total**.
+  Garen–Yasuo and Malphite–Yasuo remain the two failures; the full command honestly
+  exits with failure. The Heimerdinger–Udyr full search passes in
+  **102.100 seconds** within its unchanged 180-second limit.
+- The independent audit checks all **6,555 checkpoints**, both matrix directions
+  and every scenario, complete legal variants and spending, all **115** budget means
+  and counter rankings, coverage and seven source pages. It reports **zero issues**.
+- Strict production reflection passes **228 Darius directions** and **30 directions**
+  among the six added champions: **258 directions** in total. Spending and selected
+  variants match exactly; all aggregate and scenario differences remain within
+  the unchanged **1e-10** limit.
+- Chromium passes all **17 browser check groups**, including three new live
+  matchups, every **114** supported live fallback score/ranking and seven source
+  pages at **390-pixel** phone width. Page, console, HTTP and request errors are
+  zero, with no pending worker jobs. The actual phone screenshot was visually inspected.
+- Private delivery packages the compiled app and exact working source. ZIP member
+  hashes, safe inventory, CRC, source bytes and five actual startup checks must pass
+  before publication to a new private fingerprint branch. All **ten** older previews,
+  historical helper/proof files, remote main, local HEAD and golden files are
+  preserved. This workflow creates no Codespace or public hosting.
+
+Coverage does not certify every mechanic or every player decision. One-dimensional
+geometry, finite skillshot branching, abstract lane minions and brush, absent
+preduel events and unquantified source timing remain model limits.
+
 ## Remaining limits
 
-- Only 109 of the dataset's 173 champions have simulator kits. Other pairings use the
+- Only 115 of the dataset's 173 champions have simulator kits. Other pairings use the
   interaction ledger's heuristic estimates.
 - Movement is one-dimensional. Facing, side-stepping, vitals, terrain placement,
   pet placement, and some multi-hit geometry still use explicit approximations.
