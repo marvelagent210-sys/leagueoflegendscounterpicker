@@ -1068,9 +1068,78 @@ Coverage does not certify every mechanic or every player decision. One-dimension
 geometry, finite skillshot branching, abstract lane minions and brush, absent
 preduel events and unquantified source timing remain model limits.
 
+## Eleventh expansion validation (121-kit snapshot)
+
+Alistar, Blitzcrank, Braum, Galio, Gragas and Maokai bring coverage to **121 of 173 champions**, with
+**52 remaining**. All **7,260 unordered pairings / 14,520 directed entries** were
+freshly computed with four production workers under fingerprint
+`0678eb2da46eec316542e5b47a8cb9849ed6bb3a7dc1dc63af3752bb05ade074`. The actual refresh began with **zero checkpoints**
+and completed every pair under this exact source freeze. A separate audit checks
+every raw worker index against that invocation's canonical dispatch and every
+final matrix direction. No checkpoint came from another model and no raw index
+was rewritten. The local source HEAD and all five golden files remain unchanged.
+
+The strict source audit verifies **31 primary revisions**: **30 ability templates**
+and Maokai's separate Sapling article. It checks **six** exact versioned binaries,
+**61 distinct game objects** across **61 source records** and **1058 exact excerpts**.
+Every full raw revision remains in the authored data. Arrays, scalar values,
+object paths, versions and SHA-256 hashes are compared exactly with Decimal
+parsing. Source conflicts, unquantified timings and geometry assumptions remain
+in the [individual source audits](docs/next-wave/README.md).
+
+Alistar observes actual nearby combat deaths and deduplicates passive stack
+credits for simultaneous control from one cast on one target. Buffered
+Headbutt/Pulverize and Trample keep their separate contact clocks. Blitzcrank's Mana
+Barrier absorbs only damage beyond the health threshold on its triggering packet,
+after existing shields; it scales from maximum mana. Rocket Grab preserves actual
+body selection and guarded displacement, and Static Field removes real shields.
+Braum's guard uses the damage's ground or traveled projectile origin, resolves
+collision effects before ending intercepted flights and keeps the first frontal
+nontrue packet's shield/vamp ordering. Rear-departing shots and genuine newly
+emitted collision bounces keep their independent lifecycles. Returning missiles
+and curved rays preserve source-specific destruction and collision rules.
+
+Galio retains actual curved gust contacts, the passive cooldown's qualifying
+bodies, channel interruption exceptions and charged taunt. His ultimate requires
+an explicitly eligible real allied champion body; ordinary duels acquire no ally
+or invented ultimate budget. Gragas keeps real drink completion, fermenting barrel
+age, body collision refunds and center-relative explosions. Maokai's saplings
+retain actual identities, brush-qualified empowerment and real pursuit; his
+ultimate models the central traveling branch and its trailers, with unsized
+lateral branches explicitly omitted. Shared pet movement and death observation use
+actual combat bodies and preserve immunity, terrain and despawn boundaries.
+
+- All **2,671 focused tests** pass. Both TypeScript projects, final provenance
+  freshness and the production build pass.
+- The final unfiltered serial suite records **5,536 passing tests, 2 retained
+  draft winner failures and 5 existing skips / 5,543 total**.
+  Garen–Yasuo and Malphite–Yasuo remain the two failures; the full command honestly
+  exits with failure. The Heimerdinger–Udyr full search passes in
+  **145.757 seconds** within its unchanged 180-second limit.
+- The independent audit checks all **7,260 checkpoints**, both matrix directions
+  and every scenario, complete legal variants and spending, all **121** budget means
+  and counter rankings, coverage and seven source pages. It reports **zero issues**.
+- Strict production reflection passes **240 Darius directions** and **30 directions**
+  among the six added champions: **270 directions** in total. Spending and selected
+  variants match exactly; aggregate and scenario differences stay within the
+  unchanged **1e-10** limit.
+- Chromium passes all **17 browser check groups**, including three new live
+  matchups, all **120** supported live fallback scores/rankings and seven source
+  pages at **390-pixel** phone width. Page, console, HTTP and request errors are
+  zero, with no pending worker jobs. The actual phone screenshot was visually inspected.
+- Private delivery packages the compiled app and exact working source. ZIP member
+  hashes, safe inventory, CRC, source bytes and five actual startup checks must pass
+  before publication to a new private fingerprint branch. All **eleven** older
+  previews, historical helper/proof files, remote main, local HEAD and golden files
+  are preserved. This workflow creates no Codespace or public hosting.
+
+Coverage does not certify every mechanic or player decision. Scalar geometry,
+finite skillshot branching, abstract lane minions and brush, absent preduel
+history, unavailable allies and unquantified source timing remain model limits.
+
 ## Remaining limits
 
-- Only 115 of the dataset's 173 champions have simulator kits. Other pairings use the
+- Only 121 of the dataset's 173 champions have simulator kits. Other pairings use the
   interaction ledger's heuristic estimates.
 - Movement is one-dimensional. Facing, side-stepping, vitals, terrain placement,
   pet placement, and some multi-hit geometry still use explicit approximations.
