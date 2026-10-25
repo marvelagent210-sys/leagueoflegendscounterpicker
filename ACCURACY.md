@@ -1137,9 +1137,67 @@ Coverage does not certify every mechanic or player decision. Scalar geometry,
 finite skillshot branching, abstract lane minions and brush, absent preduel
 history, unavailable allies and unquantified source timing remain model limits.
 
+## Twelfth expansion validation (127-kit snapshot)
+
+Nunu & Willump, Rakan, Rell, Sejuani, Taric and Thresh bring coverage to **127 of 173 champions**, with
+**46 remaining**. All **8,001 unordered pairings / 16,002 directed entries** were freshly
+computed with four production workers under fingerprint
+`60f98b364c8647567737d7153792fb92e8116ea03324cc7358e548a6cc76d89d`. The actual refresh began with **zero checkpoints**
+and completed every pair under this exact source freeze. A separate audit checks
+every raw worker index against that invocation's canonical dispatch and every
+final matrix direction. No checkpoint came from another model and no raw index
+was rewritten. The local source HEAD and all five golden files remain unchanged.
+
+The strict source audit verifies **31 ability-template revisions**, including both
+independently pinned Rell W forms, with **zero separate pet-article pins**. It
+checks **six** exact versioned binaries, **49 distinct game objects** across
+**49 source records** and **126 exact excerpts**. Every full raw revision
+remains in the authored data. Arrays, scalar values, object paths, versions and
+SHA-256 hashes are compared exactly with Decimal parsing. The final strict report
+requires original primary values to remain preserved and rejects unpromoted game
+evidence. Source conflicts and unquantified timings remain explicit in the
+[individual source audits](docs/next-wave/README.md).
+
+The six kits use actual cast and resource clocks, target-local contacts, defensive
+guards and real body identities. Rell's two W records remain distinct while the
+runtime forms share their cooldown. Her passive snapshots each target's first
+resistances, her Q removes accepted non-monster shields and her ultimate keeps
+nondisabling kinematics separate from the initial pull. Conditional ally spells
+across the batch require real eligible bodies; ordinary duels acquire no invented
+teammate. Farm history, unsupported lateral geometry and missing finite movement
+timings remain declared model boundaries.
+
+- All **3,314 focused tests** pass. Both TypeScript projects, final provenance
+  freshness and the production build pass.
+- The final unfiltered serial suite records **6,075 passing tests, 2 retained
+  draft winner failures and 5 existing skips / 6,082 total**.
+  Garen–Yasuo and Malphite–Yasuo remain the two failures; the full command honestly
+  exits with failure. The Heimerdinger–Udyr full search passes in
+  **175.570 seconds** within its unchanged 180-second limit.
+- The independent audit checks all **8,001 checkpoints**, both matrix directions and
+  every scenario, complete legal variants and spending, all **127** budget means and
+  counter rankings, coverage and seven source pages. It reports **zero issues**.
+- Strict production reflection passes **252 Darius directions** and **30 directions**
+  among the six added champions: **282 directions** in total. Spending and selected
+  variants match exactly; aggregate and scenario differences stay within the
+  unchanged **1e-10** limit.
+- Chromium passes all **17 browser check groups**, including three new live matchups,
+  all **126** supported live fallback scores/rankings and seven source pages at
+  **390-pixel** phone width. Page, console, HTTP and request errors are zero, with no
+  pending worker jobs. The actual phone screenshot was visually inspected.
+- Private delivery packages the compiled app and exact working source. ZIP member
+  hashes, safe inventory, CRC, source bytes and five actual startup checks must pass
+  before publication to a new private fingerprint branch. All **twelve** older
+  previews, historical helper/proof files, remote main, local HEAD and golden files
+  are preserved. This workflow creates no Codespace or public hosting.
+
+Coverage does not certify every mechanic or player decision. Scalar geometry,
+finite skillshot branching, abstract lane minions and brush, absent preduel history,
+unavailable allies and unquantified source timing remain model limits.
+
 ## Remaining limits
 
-- Only 121 of the dataset's 173 champions have simulator kits. Other pairings use the
+- Only 127 of the dataset's 173 champions have simulator kits. Other pairings use the
   interaction ledger's heuristic estimates.
 - Movement is one-dimensional. Facing, side-stepping, vitals, terrain placement,
   pet placement, and some multi-hit geometry still use explicit approximations.
