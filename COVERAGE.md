@@ -1,6 +1,6 @@
 # Champion simulator coverage
 
-121 of 173 champions have simulator kits; 52 remain. This covers 7,260 unordered simulated pairings.
+127 of 173 champions have simulator kits; 46 remain. This covers 8,001 unordered simulated pairings.
 
 A simulator kit is implemented coverage, not a certification of every mechanic. Each kit page records source revisions and explicit assumptions. Other champions retain interaction estimates until their kit is implemented and checked.
 
@@ -83,17 +83,21 @@ A simulator kit is implemented coverage, not a certification of every mechanic. 
 | Nasus | Nasus | 40 | 2 |
 | Nautilus | Nautilus | 58 | 6 |
 | Nocturne | Nocturne | 80 | 4 |
+| Nunu & Willump | Nunu | 96 | 5 |
 | Olaf | Olaf | 36 | 3 |
 | Ornn | Ornn | 50 | 6 |
 | Pantheon | Pantheon | 51 | 7 |
 | Poppy | Poppy | 50 | 3 |
 | Quinn | Quinn | 39 | 4 |
+| Rakan | Rakan | 74 | 6 |
 | Rammus | Rammus | 56 | 7 |
+| Rell | Rell | 85 | 7 |
 | Renekton | Renekton | 53 | 3 |
 | Rengar | Rengar | 77 | 8 |
 | Riven | Riven | 47 | 4 |
 | Rumble | Rumble | 62 | 5 |
 | Samira | Samira | 83 | 7 |
+| Sejuani | Sejuani | 90 | 7 |
 | Senna | Senna | 90 | 10 |
 | Sett | Sett | 36 | 6 |
 | Shen | Shen | 29 | 4 |
@@ -104,7 +108,9 @@ A simulator kit is implemented coverage, not a certification of every mechanic. 
 | Smolder | Smolder | 72 | 9 |
 | Tahm Kench | TahmKench | 61 | 4 |
 | Talon | Talon | 89 | 6 |
+| Taric | Taric | 63 | 6 |
 | Teemo | Teemo | 30 | 2 |
+| Thresh | Thresh | 106 | 6 |
 | Tristana | Tristana | 54 | 6 |
 | Trundle | Trundle | 43 | 3 |
 | Tryndamere | Tryndamere | 34 | 3 |
@@ -153,16 +159,12 @@ A simulator kit is implemented coverage, not a certification of every mechanic. 
 - [ ] Neeko (Neeko)
 - [ ] Nidalee (Nidalee)
 - [ ] Nilah (Nilah)
-- [ ] Nunu & Willump (Nunu)
 - [ ] Orianna (Orianna)
 - [ ] Pyke (Pyke)
 - [ ] Qiyana (Qiyana)
-- [ ] Rakan (Rakan)
 - [ ] Rek'Sai (RekSai)
-- [ ] Rell (Rell)
 - [ ] Renata Glasc (Renata)
 - [ ] Ryze (Ryze)
-- [ ] Sejuani (Sejuani)
 - [ ] Seraphine (Seraphine)
 - [ ] Shaco (Shaco)
 - [ ] Shyvana (Shyvana)
@@ -172,8 +174,6 @@ A simulator kit is implemented coverage, not a certification of every mechanic. 
 - [ ] Sylas (Sylas)
 - [ ] Syndra (Syndra)
 - [ ] Taliyah (Taliyah)
-- [ ] Taric (Taric)
-- [ ] Thresh (Thresh)
 - [ ] Twisted Fate (TwistedFate)
 - [ ] Vex (Vex)
 - [ ] Viego (Viego)
