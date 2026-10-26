@@ -1195,9 +1195,87 @@ Coverage does not certify every mechanic or player decision. Scalar geometry,
 finite skillshot branching, abstract lane minions and brush, absent preduel history,
 unavailable allies and unquantified source timing remain model limits.
 
+## Thirteenth expansion validation (133-kit snapshot)
+
+Janna, Karma, Lulu, Nami, Sona and Soraka bring coverage to **133 of 173 champions**, with
+**40 remaining**. All **8,778 unordered pairings / 17,556 directed entries** were freshly
+computed with four production workers under fingerprint
+`1c41a50fa21c36ec6e1705bcc7efd7ba3efea5855a5f73fb6007f1ac23ec8eda`. The actual refresh began with **zero checkpoints**
+and completed every pair under this exact source freeze. A separate audit checks
+every raw worker index against that invocation's canonical dispatch and every
+final matrix direction. No checkpoint came from another model and no raw index
+was rewritten. The local source HEAD is unchanged. All golden expectations remain
+intact: four golden files match their original checksums, and the golden-search
+driver differs only in its CI deadline, raised from 60 to 180 seconds.
+
+The strict source audit verifies **33 ability-template revisions**, including the
+three independently pinned Karma Mantra forms, with **zero separate pet-article pins**. It
+checks **six** exact versioned binaries, **100 distinct game objects** across
+**115 source records** and **115 exact excerpts**. Every full raw revision
+remains in the authored data. Arrays, scalar values, object paths, versions and
+SHA-256 hashes are compared exactly with Decimal parsing. The final strict report
+requires original primary values to remain preserved and rejects unpromoted game
+evidence. Source conflicts and unquantified timings remain explicit in the
+[individual source audits](docs/next-wave/README.md).
+
+The six kits use actual cast and resource clocks, target-local contacts, defensive
+guards and real body identities. Karma retains separate primary records for her
+three Mantra forms. Shield-dependent bonuses end with their exact source's shield;
+polymorph's flat movement penalty ends with its accepted control. Damage reports
+identify the standard shield and exact amount absorbed, including actual pet
+recipients. Target cancellation preserves each spell's explicit free or paid rule,
+including early loss of visibility. Actual pet basic declarations stay separate
+from connected hits, and explicitly released ally buffs can finish after caster
+death without enabling new actions. Temporary pet health, refresh, expiry and
+healing reduction use the recipient's own state. Hook-created uncertain packets
+retain normal finite skillshot branching and independent cloned queues. Ground
+delivery preserves actual per-cast delays, initialized zone identity and centered
+champion/pet contacts. Ally effects require real eligible bodies; ordinary duels
+acquire no invented teammate. Each kit audit retains its source conflicts and
+remaining limits. Farm history, unsupported lateral and size geometry, and missing
+finite movement timings remain declared model boundaries.
+
+- All **3,754 focused tests** pass. Both TypeScript projects, final provenance
+  freshness and the production build pass.
+- The actual unfiltered serial suite records **6,526 passing tests, 3 failures
+  and 5 existing skips / 6,534 total**, and exits with failure.
+  It retains the Garen–Yasuo and Malphite–Yasuo draft winner failures plus an
+  exhaustive Heimerdinger–Udyr timing failure. The subsequent complete browser-file
+  retest records **7 passes, 0 failures and 0 skips**. Its Heimerdinger–Udyr search
+  passes in **284.473 seconds** with a revised **900-second CI deadline**.
+  Across both actual commands, distinct assertion coverage is **6,527 passes,
+  2 retained failures and 5 skips / 6,534 total**, counting the six repeated
+  successful assertions once. This derived coverage does not change the raw
+  failed full-suite verdict. The deadline changed from 180 to 360, then 900
+  seconds for cloud runtime variation; each failed attempt remains preserved.
+  Golden searches now allow 180 seconds per case and the configured default is
+  30 seconds. All 60 variant pairings and every result assertion remain intact;
+  earlier timing failures are preserved. These are revised CI allowances; custom live searches
+  can still take minutes. Default rankings use the precomputed matrix.
+- The independent audit checks all **8,778 checkpoints**, both matrix directions and
+  every scenario, complete legal variants and spending, all **133** budget means and
+  counter rankings, coverage and seven source pages. It reports **zero issues**.
+- Strict production reflection passes **264 Darius directions** and **30 directions**
+  among the six added champions: **294 directions** in total. Spending and selected
+  variants match exactly; aggregate and scenario differences stay within the
+  unchanged **1e-10** limit.
+- Chromium passes all **17 browser check groups**, including three new live matchups,
+  all **132** supported live fallback scores/rankings and seven source pages at
+  **390-pixel** phone width. Page, console, HTTP and request errors are zero, with no
+  pending worker jobs. The actual phone screenshot was visually inspected.
+- Private delivery packages the compiled app and exact working source. ZIP member
+  hashes, safe inventory, CRC, source bytes and five actual startup checks must pass
+  before publication to a new private fingerprint branch. All **thirteen** older
+  previews, historical helper/proof files, remote main, local HEAD and golden expectations
+  are preserved. This workflow creates no Codespace or public hosting.
+
+Coverage does not certify every mechanic or player decision. Scalar geometry,
+finite skillshot branching, abstract lane minions and brush, absent preduel history,
+unavailable allies and unquantified source timing remain model limits.
+
 ## Remaining limits
 
-- Only 127 of the dataset's 173 champions have simulator kits. Other pairings use the
+- Only 133 of the dataset's 173 champions have simulator kits. Other pairings use the
   interaction ledger's heuristic estimates.
 - Movement is one-dimensional. Facing, side-stepping, vitals, terrain placement,
   pet placement, and some multi-hit geometry still use explicit approximations.
