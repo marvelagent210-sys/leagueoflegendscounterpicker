@@ -1,6 +1,6 @@
 # Champion simulator coverage
 
-127 of 173 champions have simulator kits; 46 remain. This covers 8,001 unordered simulated pairings.
+133 of 173 champions have simulator kits; 40 remain. This covers 8,778 unordered simulated pairings.
 
 A simulator kit is implemented coverage, not a certification of every mechanic. Each kit page records source revisions and explicit assumptions. Other champions retain interaction estimates until their kit is implemented and checked.
 
@@ -48,6 +48,7 @@ A simulator kit is implemented coverage, not a certification of every mechanic. 
 | Heimerdinger | Heimerdinger | 79 | 9 |
 | Illaoi | Illaoi | 70 | 12 |
 | Irelia | Irelia | 45 | 6 |
+| Janna | Janna | 62 | 6 |
 | Jarvan IV | JarvanIV | 73 | 6 |
 | Jax | Jax | 35 | 3 |
 | Jayce | Jayce | 66 | 4 |
@@ -56,6 +57,7 @@ A simulator kit is implemented coverage, not a certification of every mechanic. 
 | K'Sante | KSante | 55 | 3 |
 | Kai'Sa | Kaisa | 69 | 6 |
 | Kalista | Kalista | 68 | 8 |
+| Karma | Karma | 64 | 7 |
 | Karthus | Karthus | 55 | 7 |
 | Kassadin | Kassadin | 56 | 6 |
 | Katarina | Katarina | 64 | 5 |
@@ -70,6 +72,7 @@ A simulator kit is implemented coverage, not a certification of every mechanic. 
 | Leona | Leona | 53 | 4 |
 | Lissandra | Lissandra | 70 | 6 |
 | Lucian | Lucian | 66 | 10 |
+| Lulu | Lulu | 91 | 6 |
 | Lux | Lux | 48 | 4 |
 | Malphite | Malphite | 41 | 1 |
 | Malzahar | Malzahar | 85 | 12 |
@@ -80,6 +83,7 @@ A simulator kit is implemented coverage, not a certification of every mechanic. 
 | Mordekaiser | Mordekaiser | 38 | 5 |
 | Morgana | Morgana | 45 | 4 |
 | Naafiri | Naafiri | 107 | 10 |
+| Nami | Nami | 77 | 6 |
 | Nasus | Nasus | 40 | 2 |
 | Nautilus | Nautilus | 58 | 6 |
 | Nocturne | Nocturne | 80 | 4 |
@@ -106,6 +110,8 @@ A simulator kit is implemented coverage, not a certification of every mechanic. 
 | Sivir | Sivir | 55 | 4 |
 | Skarner | Skarner | 62 | 5 |
 | Smolder | Smolder | 72 | 9 |
+| Sona | Sona | 74 | 7 |
+| Soraka | Soraka | 61 | 7 |
 | Tahm Kench | TahmKench | 61 | 4 |
 | Talon | Talon | 89 | 6 |
 | Taric | Taric | 63 | 6 |
@@ -147,15 +153,11 @@ A simulator kit is implemented coverage, not a certification of every mechanic. 
 - [ ] Fiddlesticks (Fiddlesticks)
 - [ ] Hwei (Hwei)
 - [ ] Ivern (Ivern)
-- [ ] Janna (Janna)
-- [ ] Karma (Karma)
 - [ ] Kayn (Kayn)
 - [ ] Lillia (Lillia)
 - [ ] Locke (Locke)
-- [ ] Lulu (Lulu)
 - [ ] Mel (Mel)
 - [ ] Milio (Milio)
-- [ ] Nami (Nami)
 - [ ] Neeko (Neeko)
 - [ ] Nidalee (Nidalee)
 - [ ] Nilah (Nilah)
@@ -168,8 +170,6 @@ A simulator kit is implemented coverage, not a certification of every mechanic. 
 - [ ] Seraphine (Seraphine)
 - [ ] Shaco (Shaco)
 - [ ] Shyvana (Shyvana)
-- [ ] Sona (Sona)
-- [ ] Soraka (Soraka)
 - [ ] Swain (Swain)
 - [ ] Sylas (Sylas)
 - [ ] Syndra (Syndra)
