@@ -1273,9 +1273,87 @@ Coverage does not certify every mechanic or player decision. Scalar geometry,
 finite skillshot branching, abstract lane minions and brush, absent preduel history,
 unavailable allies and unquantified source timing remain model limits.
 
+## Fourteenth expansion validation (139-kit snapshot)
+
+Hwei, Orianna, Ryze, Syndra, Taliyah and Viktor bring coverage to **139 of 173 champions**, with
+**34 remaining**. All **9,591 unordered pairings / 19,182 directed entries** were
+freshly computed with four production workers under fingerprint
+`d2a43acafdaaa5cfc3f9999c23903335f60717713b8dd4b9c9b07de80e711858`. The actual refresh began with **zero checkpoints**
+and completed every pair under this exact source freeze. A separate audit checks
+every raw worker index against that invocation's canonical dispatch and every
+final matrix direction. No checkpoint came from another model and no raw index
+was rewritten. The local source HEAD is unchanged. **All five current golden
+files** and the existing test harness match their batch 14 starting checksums.
+Original golden expectations remain preserved; batch 14 changes no test deadline.
+
+The strict source audit verifies **40 ability-template revisions** and **one
+separately pinned Orianna Ball article**, retaining **41 full raw revisions**.
+It checks **six** exact versioned binaries, **85 distinct game objects** across
+**85 source records** and **169 exact excerpts**. Arrays, scalar values,
+object paths, versions and SHA-256 hashes are compared exactly with Decimal
+parsing. Original primary values remain preserved and unpromoted game evidence
+is rejected. Source conflicts and unquantified timings remain explicit in the
+[individual source audits](docs/next-wave/README.md).
+
+The six kits preserve actual cast clocks, resource costs, recipient identities
+and finite histories. Hwei uses eligible-body isolation snapshots, exact rotated
+rectangle contacts and accepted Despair slow renewal. Orianna's Ball retains its
+actual position, travel, attachment and local command origin. Ryze derives mana
+without recurring resource refills and transports only actual eligible bodies.
+Syndra collects actual Splinters on their delayed arrival, including large-minion
+mana restoration. Taliyah commits mine rows at declaration time and responds to
+actual accepted movement; completed landings resolve before terminal observers.
+Viktor preserves ray-local travel decisions and snapshots storm recipients before
+a packet can grow the field. Shared rules retain independent empowered attack
+packets, multiplicative ability power, source-grouped slows, carried pet state and
+accepted movement transitions. A separate legacy follow-up corrects Wukong's
+Nimbus Strike so protected current and pending attacks retain their own windup
+and timer. Ordinary basic windups remain interruptible; ability-like pet deliveries,
+other recipients and launched projectiles remain independent. This follow-up
+preserves all five original primary records and game evidence, verifies 42 exact
+game fields, and restores the separately pinned Uncancellable windup revision
+4072133 plus Cyclone's exact interaction-table note. The previous complete matrix
+and its failed evidence checks are retained, and the corrected model receives a
+new source freeze and fresh matrix. These modeled mechanics do not imply exhaustive
+server equivalence. Missing allies, absent farm history, lateral geometry and
+unquantified timing retain the explicit limits in each champion audit.
+
+- All **4,327 focused tests** pass. Both TypeScript projects, final provenance
+  freshness and the production build pass.
+- The actual unfiltered serial suite records **7,091 passing tests, 2 retained
+  failures and 5 existing skips / 7,098 total**, and exits with failure. Its only
+  failures are the unchanged Garen–Yasuo and Malphite–Yasuo draft winner expectations.
+  Every previous assertion identity is retained, including all **6,527** previously
+  passing assertions. The exhaustive Heimerdinger–Udyr case passes within this same
+  unfiltered run in **118.862 seconds**. The existing 30-second default,
+  180-second golden driver and 900-second exhaustive-search allowances remain
+  unchanged. All legal variant searches and result assertions remain intact;
+  earlier failed attempts remain preserved. Custom live searches can still take
+  minutes; default rankings use the precomputed matrix.
+- The independent audit checks all **9,591 checkpoints**, both matrix directions,
+  every scenario, legal variants and spending, all **139** budget means and counter
+  rankings, coverage and seven source pages. It reports **zero issues**.
+- Strict production reflection passes **276 Darius directions** and **30 directions**
+  among the six added champions: **306 directions** in total. Spending and selected
+  variants match exactly; aggregate and scenario differences stay within the
+  unchanged **1e-10** limit.
+- Chromium passes all **17 browser check groups**, including three new live matchups,
+  all **138** supported live fallback scores/rankings and seven source pages at
+  **390-pixel** phone width. Page, console, HTTP and request errors are zero, with no
+  pending worker jobs. The actual phone screenshot was visually inspected.
+- Private delivery packages the compiled app and exact working source. ZIP member
+  hashes, safe inventory, CRC, source bytes and five actual startup checks must pass
+  before publication to a new private fingerprint branch. All **fourteen** older
+  previews, historical helper/proof files, remote main, local HEAD and original
+  golden expectations are preserved. This workflow creates no Codespace or public hosting.
+
+Coverage does not certify every mechanic or player decision. Scalar geometry,
+finite skillshot branching, abstract lane minions and brush, absent preduel history,
+unavailable allies and unquantified source timing remain model limits.
+
 ## Remaining limits
 
-- Only 133 of the dataset's 173 champions have simulator kits. Other pairings use the
+- Only 139 of the dataset's 173 champions have simulator kits. Other pairings use the
   interaction ledger's heuristic estimates.
 - Movement is one-dimensional. Facing, side-stepping, vitals, terrain placement,
   pet placement, and some multi-hit geometry still use explicit approximations.
