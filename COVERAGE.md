@@ -1,6 +1,6 @@
 # Champion simulator coverage
 
-133 of 173 champions have simulator kits; 40 remain. This covers 8,778 unordered simulated pairings.
+139 of 173 champions have simulator kits; 34 remain. This covers 9,591 unordered simulated pairings.
 
 A simulator kit is implemented coverage, not a certification of every mechanic. Each kit page records source revisions and explicit assumptions. Other champions retain interaction estimates until their kit is implemented and checked.
 
@@ -46,6 +46,7 @@ A simulator kit is implemented coverage, not a certification of every mechanic. 
 | Gwen | Gwen | 52 | 5 |
 | Hecarim | Hecarim | 89 | 5 |
 | Heimerdinger | Heimerdinger | 79 | 9 |
+| Hwei | Hwei | 144 | 10 |
 | Illaoi | Illaoi | 70 | 12 |
 | Irelia | Irelia | 45 | 6 |
 | Janna | Janna | 62 | 6 |
@@ -79,7 +80,7 @@ A simulator kit is implemented coverage, not a certification of every mechanic. 
 | Maokai | Maokai | 90 | 6 |
 | Master Yi | MasterYi | 51 | 5 |
 | Miss Fortune | MissFortune | 62 | 6 |
-| Wukong | MonkeyKing | 91 | 5 |
+| Wukong | MonkeyKing | 92 | 5 |
 | Mordekaiser | Mordekaiser | 38 | 5 |
 | Morgana | Morgana | 45 | 4 |
 | Naafiri | Naafiri | 107 | 10 |
@@ -89,6 +90,7 @@ A simulator kit is implemented coverage, not a certification of every mechanic. 
 | Nocturne | Nocturne | 80 | 4 |
 | Nunu & Willump | Nunu | 96 | 5 |
 | Olaf | Olaf | 36 | 3 |
+| Orianna | Orianna | 73 | 8 |
 | Ornn | Ornn | 50 | 6 |
 | Pantheon | Pantheon | 51 | 7 |
 | Poppy | Poppy | 50 | 3 |
@@ -100,6 +102,7 @@ A simulator kit is implemented coverage, not a certification of every mechanic. 
 | Rengar | Rengar | 77 | 8 |
 | Riven | Riven | 47 | 4 |
 | Rumble | Rumble | 62 | 5 |
+| Ryze | Ryze | 76 | 7 |
 | Samira | Samira | 83 | 7 |
 | Sejuani | Sejuani | 90 | 7 |
 | Senna | Senna | 90 | 10 |
@@ -112,7 +115,9 @@ A simulator kit is implemented coverage, not a certification of every mechanic. 
 | Smolder | Smolder | 72 | 9 |
 | Sona | Sona | 74 | 7 |
 | Soraka | Soraka | 61 | 7 |
+| Syndra | Syndra | 90 | 9 |
 | Tahm Kench | TahmKench | 61 | 4 |
+| Taliyah | Taliyah | 106 | 5 |
 | Talon | Talon | 89 | 6 |
 | Taric | Taric | 63 | 6 |
 | Teemo | Teemo | 30 | 2 |
@@ -128,6 +133,7 @@ A simulator kit is implemented coverage, not a certification of every mechanic. 
 | Veigar | Veigar | 48 | 11 |
 | Vel'Koz | Velkoz | 70 | 7 |
 | Vi | Vi | 88 | 7 |
+| Viktor | Viktor | 84 | 8 |
 | Vladimir | Vladimir | 64 | 10 |
 | Volibear | Volibear | 50 | 4 |
 | Warwick | Warwick | 87 | 5 |
@@ -151,7 +157,6 @@ A simulator kit is implemented coverage, not a certification of every mechanic. 
 - [ ] Briar (Briar)
 - [ ] Elise (Elise)
 - [ ] Fiddlesticks (Fiddlesticks)
-- [ ] Hwei (Hwei)
 - [ ] Ivern (Ivern)
 - [ ] Kayn (Kayn)
 - [ ] Lillia (Lillia)
@@ -161,23 +166,18 @@ A simulator kit is implemented coverage, not a certification of every mechanic. 
 - [ ] Neeko (Neeko)
 - [ ] Nidalee (Nidalee)
 - [ ] Nilah (Nilah)
-- [ ] Orianna (Orianna)
 - [ ] Pyke (Pyke)
 - [ ] Qiyana (Qiyana)
 - [ ] Rek'Sai (RekSai)
 - [ ] Renata Glasc (Renata)
-- [ ] Ryze (Ryze)
 - [ ] Seraphine (Seraphine)
 - [ ] Shaco (Shaco)
 - [ ] Shyvana (Shyvana)
 - [ ] Swain (Swain)
 - [ ] Sylas (Sylas)
-- [ ] Syndra (Syndra)
-- [ ] Taliyah (Taliyah)
 - [ ] Twisted Fate (TwistedFate)
 - [ ] Vex (Vex)
 - [ ] Viego (Viego)
-- [ ] Viktor (Viktor)
 - [ ] Xerath (Xerath)
 - [ ] Yunara (Yunara)
 - [ ] Yuumi (Yuumi)
