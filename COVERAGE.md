@@ -1,6 +1,6 @@
 # Champion simulator coverage
 
-139 of 173 champions have simulator kits; 34 remain. This covers 9,591 unordered simulated pairings.
+145 of 173 champions have simulator kits; 28 remain. This covers 10,440 unordered simulated pairings.
 
 A simulator kit is implemented coverage, not a certification of every mechanic. Each kit page records source revisions and explicit assumptions. Other champions retain interaction estimates until their kit is implemented and checked.
 
@@ -87,6 +87,7 @@ A simulator kit is implemented coverage, not a certification of every mechanic. 
 | Nami | Nami | 77 | 6 |
 | Nasus | Nasus | 40 | 2 |
 | Nautilus | Nautilus | 58 | 6 |
+| Neeko | Neeko | 66 | 5 |
 | Nocturne | Nocturne | 80 | 4 |
 | Nunu & Willump | Nunu | 96 | 5 |
 | Olaf | Olaf | 36 | 3 |
@@ -115,6 +116,7 @@ A simulator kit is implemented coverage, not a certification of every mechanic. 
 | Smolder | Smolder | 72 | 9 |
 | Sona | Sona | 74 | 7 |
 | Soraka | Soraka | 61 | 7 |
+| Swain | Swain | 89 | 9 |
 | Syndra | Syndra | 90 | 9 |
 | Tahm Kench | TahmKench | 61 | 4 |
 | Taliyah | Taliyah | 106 | 5 |
@@ -125,6 +127,7 @@ A simulator kit is implemented coverage, not a certification of every mechanic. 
 | Tristana | Tristana | 54 | 6 |
 | Trundle | Trundle | 43 | 3 |
 | Tryndamere | Tryndamere | 34 | 3 |
+| Twisted Fate | TwistedFate | 58 | 8 |
 | Twitch | Twitch | 67 | 6 |
 | Udyr | Udyr | 80 | 11 |
 | Urgot | Urgot | 50 | 5 |
@@ -132,12 +135,14 @@ A simulator kit is implemented coverage, not a certification of every mechanic. 
 | Vayne | Vayne | 47 | 7 |
 | Veigar | Veigar | 48 | 11 |
 | Vel'Koz | Velkoz | 70 | 7 |
+| Vex | Vex | 73 | 6 |
 | Vi | Vi | 88 | 7 |
 | Viktor | Viktor | 84 | 8 |
 | Vladimir | Vladimir | 64 | 10 |
 | Volibear | Volibear | 50 | 4 |
 | Warwick | Warwick | 87 | 5 |
 | Xayah | Xayah | 75 | 7 |
+| Xerath | Xerath | 67 | 8 |
 | Xin Zhao | XinZhao | 65 | 6 |
 | Yasuo | Yasuo | 49 | 4 |
 | Yone | Yone | 34 | 3 |
@@ -146,6 +151,7 @@ A simulator kit is implemented coverage, not a certification of every mechanic. 
 | Zed | Zed | 90 | 6 |
 | Zeri | Zeri | 114 | 6 |
 | Ziggs | Ziggs | 72 | 9 |
+| Zoe | Zoe | 74 | 7 |
 | Zyra | Zyra | 89 | 14 |
 
 ## Remaining implementation queue
@@ -163,7 +169,6 @@ A simulator kit is implemented coverage, not a certification of every mechanic. 
 - [ ] Locke (Locke)
 - [ ] Mel (Mel)
 - [ ] Milio (Milio)
-- [ ] Neeko (Neeko)
 - [ ] Nidalee (Nidalee)
 - [ ] Nilah (Nilah)
 - [ ] Pyke (Pyke)
@@ -173,14 +178,9 @@ A simulator kit is implemented coverage, not a certification of every mechanic. 
 - [ ] Seraphine (Seraphine)
 - [ ] Shaco (Shaco)
 - [ ] Shyvana (Shyvana)
-- [ ] Swain (Swain)
 - [ ] Sylas (Sylas)
-- [ ] Twisted Fate (TwistedFate)
-- [ ] Vex (Vex)
 - [ ] Viego (Viego)
-- [ ] Xerath (Xerath)
 - [ ] Yunara (Yunara)
 - [ ] Yuumi (Yuumi)
 - [ ] Zac (Zac)
 - [ ] Zilean (Zilean)
-- [ ] Zoe (Zoe)
