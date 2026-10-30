@@ -1351,9 +1351,56 @@ Coverage does not certify every mechanic or player decision. Scalar geometry,
 finite skillshot branching, abstract lane minions and brush, absent preduel history,
 unavailable allies and unquantified source timing remain model limits.
 
+## Fifteenth expansion validation (145-kit snapshot)
+
+Neeko, Swain, Twisted Fate, Vex, Xerath and Zoe bring coverage to **145 of 173 champions**, with
+**28 remaining**. All **10,440 unordered pairings / 20,880 directed entries** were
+computed from zero checkpoints under the actual frozen source fingerprint
+`244198f803f736138620972d8074c840a983121b91aa6dadb54a3856ad1df2b6`, using four production workers. No old-model checkpoint was reused or
+restamped. The independent audit verifies every raw dispatch index against this
+fresh invocation, both matrix directions, spending, legal options, all 145 budget
+means and rankings, complete roster coverage and seven generated source pages.
+
+All **4,766 focused checks** and both TypeScript projects pass. The actual
+unfiltered full suite reports **7,542 passes, two retained draft winner
+failures and five existing skips out of 7,549 assertions**, with exit code 1.
+Only Garen–Yasuo and Malphite–Yasuo retain their draft winner failures. All **7,098
+previous assertion identities** and all **7,091 previously passing assertions**
+are preserved. The full Heimerdinger–Udyr case passes in
+**134.297 seconds** within the unchanged 900-second allowance.
+All five current golden files and the established test harness match their
+batch 15 starting checksums; original golden expectations remain preserved.
+No test deadline changes in this batch.
+
+The strict source audit verifies **31 original ability-template revisions**,
+retaining their full raw text and original primary values. **3 separately pinned
+wiki supplements** retain Champion summoned units (revision 4023248); Flash (revision 4008665); Module:SpellData/data (revision 4089805). The audit checks **six exact
+versioned binaries**, **61 distinct game objects**, **63
+object-scoped source records** and **87 excerpts** using exact numeric,
+complete-array and dictionary-fragment comparisons. Every comparison stays
+inside the cited binary object. Missing sources and unpromoted records fail the
+audit. The individual champion audits document assumptions and any unsupported
+mechanics; coverage alone does not certify every mechanic or in-game decision.
+
+Final provenance freshness and the production build pass. Strict production
+reflection verifies **288 Darius directions** and **30 directions among the six
+new champions**: **318 directions** total, with unchanged `1e-10` tolerance and
+exact reflected spending and options. All **17 production browser groups** pass,
+including the three new live pairs, all **144** fallback rivals, default legal
+option metadata, seven source pages at 390-pixel width, worker lifecycles,
+initialized stats, reruns, cancellation, retry and unsupported labels. Root
+visually inspected the actual final phone screenshot. No unexpected page,
+console, HTTP or request errors and no pending worker jobs remain.
+
+The package contains the exact compiled app and working source, with five actual
+startup checks required before publication. Publication is restricted to a new
+fingerprint branch of the existing private repository. The fifteen earlier
+private previews, main branch and local HEAD must remain unchanged. No Codespace
+or public hosting is created by this delivery workflow.
+
 ## Remaining limits
 
-- Only 139 of the dataset's 173 champions have simulator kits. Other pairings use the
+- Only 145 of the dataset's 173 champions have simulator kits. Other pairings use the
   interaction ledger's heuristic estimates.
 - Movement is one-dimensional. Facing, side-stepping, vitals, terrain placement,
   pet placement, and some multi-hit geometry still use explicit approximations.
