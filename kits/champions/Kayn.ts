@@ -212,7 +212,7 @@ const kayn: KitModule = {
           // A basic attack ends Shadow Step.
           if (ctx.memory["kayn:stepping"] === true) {
             ctx.memory["kayn:stepping"] = false;
-            ctx.self.statuses = ctx.self.statuses.filter((s) => s.ability !== "E");
+            ctx.self.statuses = ctx.self.statuses.filter((s) => s.ability !== "E" && s.memoKey !== "E:moveSpeedMultiplier");
           }
         },
         onDamageDealt(ctx) {

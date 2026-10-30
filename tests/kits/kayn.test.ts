@@ -164,5 +164,6 @@ describe("Blade's Reach and Shadow Step", () => {
     w.units[0].attackReadyTick = 0;
     step(w, [() => ({ kind: "attack" }), () => undefined]);
     expect(hasState(w.units[0], "ghosted")).toBe(false);
+    expect(w.units[0].statuses.some((s) => s.memoKey === "E:moveSpeedMultiplier")).toBe(false);
   });
 });

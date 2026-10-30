@@ -250,7 +250,7 @@ const reksai: KitModule = {
           // Each completed attack refreshes Queen's Wrath's duration.
           if (!ctx.action.empowered?.includes("Q")) return;
           for (const s of ctx.self.statuses) if (s.kind === "empower" && s.key === "Q") s.endTick = ctx.tick + ticks(wrathSeconds);
-          for (const s of ctx.self.statuses) if (s.kind === "stat" && s.key === "attackSpeed" && s.ability === "Q") s.endTick = ctx.tick + ticks(wrathSeconds);
+          for (const s of ctx.self.statuses) if (s.kind === "stat" && s.memoKey === "Q:attackSpeed") s.endTick = ctx.tick + ticks(wrathSeconds);
         },
         onTick(ctx) {
           const self = ctx.self;

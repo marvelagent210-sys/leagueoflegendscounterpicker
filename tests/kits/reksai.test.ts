@@ -133,7 +133,12 @@ describe("Queen's Wrath and Furious Bite", () => {
   it("three empowered attacks of 50% AD more, each refreshing the 3 s", () => {
     const w = worldFor();
     cast(w, "Q");
-    for (let i = 0; i < 4; i++) { startAttack(w, w.units[0]); settle(w); wait(w, 0.6); }
+    for (let i = 0; i < 4; i++) {
+      startAttack(w, w.units[0]); settle(w);
+      // Each attack refreshes the attack speed too.
+      if (i < 2) expect(w.units[0].statuses.find((s) => s.memoKey === "Q:attackSpeed")?.endTick).toBeGreaterThanOrEqual(w.tick + 80);
+      wait(w, 0.6);
+    }
     expect(logged(w, "Queen's Wrath deals")).toHaveLength(3);
   });
 
