@@ -48,6 +48,34 @@ Notes:
 - Revitalize will record bonus shielding when a new shield is created, but not when it regenerates. In either case, there is no bonus shielding received.
 - The cooldown reduction is granted even if the ability is blocked by a spell shield or Riposte.
 - The cooldown reduction is granted even if the attack is blocked, dodged, or misses due to blind.
+- {{{{{1<noinclude>|Ability data</noinclude>}}}|Fey Feathers|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}
+  |champion     = Rakan
+  |skill        = I
+  |blurb        = {{sbc|Innate:}} Periodically, {{ci|Rakan}} generates a {{tip|shield}} that regenerates out of combat if not broken.
+  |blurb2       = '''Rakan's''' basic attacks and ability hits against enemy {{tip|champions}} {{sti|ah|reduce}} this ability's cooldown.
+  |blurb3       = {{sbc|Innate - Lover's Leap:}} '''Rakan''' and {{ci|Xayah}} may {{si|recall|Recall}} together by {{tip|channel|channeling}} their ''Recalls'' beside each other.
+  |icon         = Fey Feathers.png
+  |description  = {{sbc|Innate:}} Periodically, '''Rakan''' grants himself a {{tip|shield}} for {{pp|30 + (225-30)/17*(x-1) for 20}} {{as|(+ 95% AP)}} that lasts until broken. After being [[out of combat]] for 5 seconds, any leftover shield will be restored to '''maximum''' value.
+  |description2 = '''Rakan's''' {{tip|basic attacks}} <!--{{tip|on-attack}}?--> and {{tip|ability}} hits reduce ''Fey Feathers' '' {{sti|cooldown}} by 1 second for each enemy {{tip|champion}} hit.
+  |description3 = {{sbc|Innate - Lover's Leap:}} If either '''Rakan''' or {{ci|Xayah}} is channeling {{si|Recall}}, the other may move nearby and channel their own to join alongside them. '''Both''' reach base at the time of which the initiator's {{si|Recall}} completes.
+  |cooldown     = {{pp|40 to 14.5 for 18; then -0.875*x for 2|formula=40 - 1.5 * level until level 18, then -0.875 per level}}
+  |range        = 
+  |targeting    = Passive
+  |affects      = Self
+  |damagetype   =
+  |spelleffects = 
+  |spellshield  = false
+  |parry        = false
+  |projectile   =
+  |grounded     =
+  |knockdown    =
+  |notes        = 
+  * {{ri|Revitalize}} will record bonus shielding when a new shield is created, but not when it regenerates. In either case, there is no bonus shielding received.
+  * The cooldown reduction is granted even if the ability is blocked by a {{tip|spell shield}} or {{ai|Riposte|Fiora}}.
+  * The cooldown reduction is granted even if the attack is {{tip|blocked}}, {{tip|dodged}}, or misses due to {{tip|blind}}.
+  |yvideo       = u22-li_gDAw
+  |yvideo2      = c-52Kgq7dEU
+  }}
 
 ## Q: Gleaming Quill
 
@@ -81,6 +109,39 @@ Notes:
 - The heal can activate immediately after the projectile hits the target, before the healing return animation completes.
 - This ability will cast from wherever the caster is at the end of the cast time.
 - The heal will trigger and affect Rakan even if he is untargetable.
+- {{{{{1<noinclude>|Ability data</noinclude>}}}|Gleaming Quill|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}
+  |champion     = Rakan
+  |skill        = Q
+  |icon         = Gleaming Quill.png
+  |blurb        = {{sbc|Active:}} {{ci|Rakan}} slings an enchanted feather in the target direction that deals {{as|magic damage}} to the first enemy hit.
+  |blurb2       = If the feather hits an enemy {{tip|champion}} or epic {{tip|monster}}, '''Rakan''' winds up a circular mark around him over a few seconds. When the mark completes, Rakan {{tip|heal|heals}} himself.
+  |blurb3       = If '''Rakan''' collides with an allied champion, the mark instantly completes to grant an increased heal to all champions within the circle.
+  |description  = {{sbc|Active:}} '''Rakan''' slings an enchanted feather in the target direction that deals {{as|magic damage}} to the first enemy hit.
+  |leveling     = {{st|Magic Damage|{{ap|70 to 250}} {{as|(+ 70% AP)}}}}
+  |description2 = If the target was an enemy {{tip|champion}} or epic {{tip|monster}}, a radius is marked around '''Rakan'''. After 3 seconds or if an allied champion enters the radius, '''Rakan''' {{tip|heals}} himself and nearby allied champions for {{pp|40 + (210-40)*(x-1)/17|1 to 20 by 1|color=heal}} {{as|(+ 55% AP)}}.
+  |target range = 900
+  |effect radius= 200
+  |width        = {{tip|er|icononly=true}} 130
+  |speed        = 1850
+  |cooldown     = {{tt|{{ap|11 to 7}}|Starts once the projectile vanishes}}
+  |cdstart      = post-effect
+  |cast time    = {{fd|0.25}}
+  |cost         = 45
+  |costtype     = Mana
+  |targeting    = Direction
+  |affects      = Enemies / Allies
+  |damagetype   = Magic
+  |spelleffects = spell
+  |spellshield  = Special
+  |projectile   = True
+  |notes        = 
+  * The trigger radius is slightly smaller than the heal radius.
+  * {{tip|Spell shield}} will not prevent the marked area from being formed.
+  * The heal can activate immediately after the projectile hits the target, before the healing return animation completes.
+  {{Effect at cast time end}}
+  * The heal will trigger and affect '''Rakan''' even if he is {{tip|untargetable}}.
+  |yvideo       = cpcKa3EHtcM
+  }}
 
 ## W: Grand Entrance
 
@@ -109,6 +170,36 @@ Notes:
 
 - Grand Entrance has no minimum dash range.
 - Sleep does not count for knocking the dash down.
+- {{{{{1<noinclude>|Ability data</noinclude>}}}|Grand Entrance|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}
+  |champion     = Rakan
+  |skill        = W
+  |icon         = Grand Entrance.png
+  |blurb        = {{sbc|Active:}} {{ci|Rakan}} {{tip|dashes}} to the target location.
+  |blurb2       = After a brief delay, he deals {{as|magic damage}} and briefly {{tip|airborne|knocks up}} nearby enemies.
+  |description  = {{sbc|Active:}} '''Rakan''' {{tip|dashes}} to the target location. After a {{fd|0.35}}-second delay upon arrival, he deals {{as|magic damage}} to nearby enemies and {{tip|airborne|knocks them up}} for 1 second.
+  |leveling     = {{st|Magic Damage|{{ap|70 to 270}} {{as|(+ 80% AP)}}}}
+  |description2 = '''''Rakan''' will be {{tip|knockdown|knocked down}} by any {{tip|immobilize|immobilizing}} or {{tip|polymorph|polymorphing}} crowd control during the dash.''
+  |target range = {{tt|650|Maximum dash distance}}
+  |effect radius= 275
+  |cast time = none
+  |speed        = 1700
+  |cooldown     = {{ap|14 to 10}}
+  |cdstart      = on-cast
+  |cost         = {{ap|50 to 90}}
+  |costtype     = Mana
+  |targeting    = Location
+  |affects      = Enemies
+  |damagetype   = Magic
+  |spelleffects = spellaoe
+  |spellshield  = True
+  |grounded     = True
+  |knockdown    = True
+  |outofrange   = cast at max
+  |notes        = 
+  * ''Grand Entrance'' has no minimum dash range.
+  * {{tip|Sleep}} does not count for knocking the dash down.{{bug}}
+  |yvideo       = ddC8dxtbx8g
+  }}
 
 ## E: Battle Dance
 
@@ -142,6 +233,38 @@ Notes:
 - The shields do not stack if Battle Dance is cast on the same target twice. Only the duration and shield amount is refreshed.
 - Battle Dance, its recast, and its empowered version on Xayah all have a forgiveness radius of 175 units.
 - Sleep does not count for knocking the dash down.
+- {{{{{1<noinclude>|Ability data</noinclude>}}}|Battle Dance|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}
+  |champion     = Rakan
+  |skill        = E
+  |icon         = Battle Dance.png
+  |icon2        = Battle Dance 2.png
+  |blurb        = {{sbc|Passive:}} {{ci|Rakan}} can cast or re-cast ''Battle Dance'' at an increased {{sti|range}} when targeting {{ci|Xayah}}.
+  |blurb2       = {{sbc|Active:}} '''Rakan''' {{tip|shield|shields}} the target allied champion for a short time, then {{tip|dash|dashes}} to them. ''Battle Dance'' can be recast once with no cost.
+  |blurb3       = {{sbc|Recast:}} '''Rakan''' mimics the first cast.
+  |description  = {{sbc|Active:}} '''Rakan''' grants a {{tip|shield}} to the target allied champion for 3 seconds and then {{tip|dash|dashes}} to and around them. ''Battle Dance'' can be recast within 5 seconds at no additional cost.
+  |leveling     = {{st|Shield Strength|{{ap|50 to 150}} {{as|(+ 70% AP)}}}}
+  |description2 = {{sbc|Recast:}} '''Rakan''' mimics the first cast's effects.
+  |description3 = '''''Rakan''' will be {{tip|knockdown|knocked down}} by any {{tip|immobilize|immobilizing}} or {{tip|polymorph|polymorphing}} crowd control during the dash.''
+  |description4 = ''If {{ci|Xayah}} is the target, Battle Dance can be cast from an increased range.''
+  |cost         = {{ap|40 to 60}}
+  |costtype     = Mana
+  |cast time = none
+  |cooldown     = {{ap|20 to 12}}
+  |cdstart      = on-cast
+  |target range = {{dv|{{tt|700|Standard range}}|{{tt|1000|Enhanced range on Xayah}}}}
+  |targeting    = Unit
+  |speed        = 1250 {{as|+ 80% movement speed}}
+  |affects      = Allies
+  |spelleffects = 
+  |grounded     = True
+  |knockdown    = True
+  |notes        = 
+  * Both casts count as ability activations for the purposes of on-cast effects such as {{tip|Spellblade}} and triggering {{ais|Force Pulse|Kassadin}} passive.
+  * The shields do not stack if ''Battle Dance'' is cast on the same target twice. Only the duration and shield amount is refreshed.
+  * ''Battle Dance'', its recast, and its empowered version on {{ci|Xayah}} all have a {{tip|forgiveness radius}} of 175 units. 
+  * {{tip|Sleep}} does not count for knocking the dash down.{{bug}}
+  |yvideo       = TU9PghCne4w
+  }}
 
 ## R: The Quickness
 
@@ -170,6 +293,36 @@ During The Quickness, Rakan cannot basic attack enemy champions he did not colli
 Notes:
 
 - The following table refers for interactions while Rakan is in cast time:
+- {{{{{1<noinclude>|Ability data</noinclude>}}}|The Quickness|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}
+  |champion     = Rakan
+  |skill        = R
+  |icon         = The Quickness.png
+  |blurb        = {{sbc|Active:}} {{ci|Rakan}} breaks into a captivating sprint, becoming {{tip|ghosted}} and gaining {{sti|ms|{{as|'''bonus''' movement speed}}}} for a few seconds. '''Rakan''' deals {{as|magic damage}} to enemies he touches, briefly {{tip|charm|charming}} and {{tip|slow|slowing}} them.
+  |blurb2       = Unique enemy {{tip|champion}} collisions slightly extend ''The Quickness' ''duration. The first enemy {{tip|champion|champion}} '''Rakan''' touches also grants him a burst of {{sti|ms|{{as|'''bonus''' movement speed}}}}.
+  |description  = {{sbc|Active:}} '''Rakan''' breaks into a captivating sprint for 4 seconds, gaining {{tip|ghosting}} and {{sti|ms|{{as|75% '''bonus''' movement speed}}}} for the duration. During this time, he deals {{as|magic damage}} to enemies he collides with and {{tip|charm|charms}} and {{tip|slow|slows}} them by 75% for a duration. This cannot affect the same enemy more than once. 
+  |leveling    = {{st|Magic Damage|{{ap|100 to 300}} {{as|(+ 50% AP)}}}}
+  {{st|Disable Duration|{{ap|1 to 1.5}} seconds}}
+  |description2  = Colliding with an enemy {{tip|champion}} extends ''The Quickness' ''duration by {{fd|0.25}} seconds, which can occur once per champion. When '''Rakan''' collides with his first enemy champion, he gains an additional {{as|75% '''bonus''' movement speed}} that decays after {{fd|0.5}} seconds by 20% every {{fd|0.5}} seconds, then by 15% after decaying by 60% over {{fd|1.5}} seconds.
+  |description4 = ''During The Quickness, '''Rakan''' cannot basic attack enemy champions he did not collide with, unless the attack command was inputted before the ability was activated.''
+  |collision radius= 150
+  |cooldown     = {{ap|130 to 90}}
+  |cdstart      = on-cast
+  |cost         = 100
+  |costtype     = Mana
+  |targeting    = Auto
+  |cast time    = 0.5
+  |affects      = Self, Enemies
+  |damagetype   = Magic
+  |spelleffects = spellaoe
+  |spellshield  = True
+  |grounded     = 
+  |knockdown    = 
+  |notes        =
+  * The following table refers for interactions while '''Rakan''' is in cast time:
+  {{ct|cast|attack=true|cast=[[File: Grand Entrance.png|20px|link=]] ''Grand Entrance'' is disabled but can still be buffered. [[File: Gleaming Quill.png|20px|link=]] ''Gleaming Quill'' and [[File: Battle Dance.png|20px|link=]] ''Battle Dance'' are usable.|move=true|items=true|consume=true|spells=true,false,true,true,true}}
+  |yvideo       = Jjeix7M4CSw
+  |flavorsound  = {{sm2|Rakan_Original_R_0.ogg}} ''"Party starter!"''
+  }}
 
 ## Game files
 
@@ -201,3 +354,106 @@ All 3 level-based formulas in the game files (2 linked to wiki values above):
 | RakanQ | TotalHeal | linear 40 → 210 over levels 1-18, continues past 18 | 40 | 210 | 230 |
 | RakanPassive | TotalShield | linear 30 → 225 over levels 1-18, continues past 18 | 30 | 225 | 247.941 |
 | RakanPassive | ShieldCooldown | breakpoints at levels 19 (level 1: 40) | 40 | 14.5 | 12.75 |
+
+## Duel simulator kit (level 20, every ability at max rank)
+
+What the duel simulator fights with (`kits/champions/Rakan.ts`): values come from pinned wiki and versioned game-data records at level 20. Interpretations and missing evidence are listed under assumptions. Ratios are fractions of the stat (60% AD is 0.6 × AD).
+
+- Basic attack: range 300, melee.
+
+| Key | Ability | Cooldown (s) | Cast time (s) | Cost | Delivery | On the enemy | On itself |
+|---|---|--:|--:|---|---|---|---|
+| Q | Gleaming Quill | 7 (starts when its effect on the caster ends) | 0.25 | 45 | skillshot 900 long, 130 wide, at 1850/s | 250 + 70% AP magic damage | – |
+| W | Grand Entrance | 10 | 0 | 90 | self | 270 + 80% AP magic damage; airborne for 1 s | – |
+| E | Battle Dance | 12 | 0 | 60 | self | – | – |
+| E2 | Battle Dance (recast) | 0 | 0 | 0 | self; recast of E within 5 s | – | – |
+| R | The Quickness | 90 | depends on stats (0.5 base) | 100 | self | 300 + 50% AP magic damage; charm for 1.5 s; slow 75% for 1.5 s | – |
+| Wimpact | Grand Entrance | 0 | 0 | – | self | 270 + 80% AP magic damage; airborne for 1 s | – |
+
+Effects marked by a mark or a role are completed by the kit's hooks (see the kit's source).
+
+### Assumptions
+
+- Fey Feathers begins naturally ready, granting its level20 247.941176470588+95%AP persistent shield. Only a broken shield starts the static12.75second regeneration clock; each actual champion basic resolution refunds one second even blind/dodge/block, and each real champion ability contact refunds through spell shields/Riposte. Ordinary minions do not refund. Actual outgoing/incoming health or shield damage restarts the five-second out-of-combat residual-shield restoration clock. No recalled or pre-attacked state is supplied.
+- Gleaming Quill is one first-body900-range130-width projectile at1850 speed, cast from completion position. Its seven-second hasted cooldown starts exactly when that projectile disappears, including wall destruction or Braum interception. Real champion or explicitly Epic Monster contact arms a three-second230+55%AP heal even through spell shield. The healing-return animation is cosmetic. Rakan can heal while untargetable under the shared healing rules; death cancels the pending heal. Only actual allied Champion-class bodies receive the200-center-radius heal, independently of their visibility. The primary says the early ally trigger is slightly smaller but supplies no exact radius; binary castRadius175 is not identified as that trigger. Literal allied-body collision from the pinned blurb triggers early; the unresolved outer early-trigger band is omitted. A new successful Q refreshes its one pending mark; expected-value contacts retain their probability in healing.
+- Grand Entrance uses a real interruptible1700-speed location dash up to650, including zero-distance activation, then an independent0.35second ground-centered275-radius270+80%AP impact and one-second knockup. It crosses intervening projected terrain only when its endpoint is legal. Accepted immobilization/polymorph knocks down travel, except the explicitly sourced sleep exception; an interrupted flight creates no landing packet. The committed landing packet can persist after death, and retains each actual body's spell shield/parry/airborne immunity.
+- Battle Dance is unavailable and excluded from the ordinary1v1 budget unless a real visible allied Champion-class body exists. Minions, turrets, wards and a clone-looking name alone do not qualify. Exact Xayah identity receives1000 range; others700. Cursor forgiveness175 selects a nearby real legal target and does not extend cast range. Shield150+70%AP is granted to that ally before travel for3seconds, replacing only Rakan's previous E shield on the same body. The free second activation remains available for5seconds and the first cast starts the12second cooldown. Dash speed follows primary1250+80%currentMS, overriding conflicting binary BonusDashSpeed1150. It follows the actual ally and ends if that body becomes invalid; the unsized around-ally landing offset is omitted rather than invented. The pinned sources do not specify whether resurrection cancels the recast; the model retains its existing five-second chain clock across resurrection as an unresolved boundary.
+- The Quickness activates a four-second ghosted75%MS sprint and retains the source's0.5second selective opening window: W is locked while movement, Q/E and a previously declared basic remain available. Its nominal castTime is retained for audit and an immediate runtime activation plus independent W deadline represents that selective cast table. Swept150-radius collisions affect each actual enemy once, including ordinary pets, for300+50%AP with guarded1.5second charm/75%slow. Every actual champion collision extends0.25seconds, even when its packet is guarded; the first grants an additional75%MS decaying to55/35/15/0% at0.5/1/1.5/2seconds. Untouched enemy champions cannot receive new basics; ordinary nonchampion pets remain attackable and old attacks continue. Per-recipient cast memory is cloned with the world, and death/resurrection clears active sprint/heal/dash memory.
+- Fight uses Q/W, the real R sprint and ordinary basics; hold/trade reserve R, and completed trades retreat first. Flee can use an actual farther allied E anchor, backward W or R speed. No allied champion, Xayah, epic monster, minion wave, recall, item effect or prefight buff is fabricated. Reference damage prices ordinary Q/W/R once per cadence; healing values Q and the naturally cycling passive with contact-limited refunds. Allied E shielding contributes nothing to an ordinary duel's budget.
+
+### Source values read (72)
+
+| Ability | Value | Source version |
+|---|---|---|
+| Fey Feathers | Innate: Periodically, Rakan grants himself a shield for 30 – 225 (based on level) (+ 95% AP) that lasts until broken. | [4016025](https://wiki.leagueoflegends.com/en-us/Template:Data_Rakan/Fey_Feathers?oldid=4016025) |
+| Fey Feathers | (+ 95% AP) | [4016025](https://wiki.leagueoflegends.com/en-us/Template:Data_Rakan/Fey_Feathers?oldid=4016025) |
+| Fey Feathers | cooldown: 40 – 14.5 (based on level) | [4016025](https://wiki.leagueoflegends.com/en-us/Template:Data_Rakan/Fey_Feathers?oldid=4016025) |
+| Fey Feathers | out of combat for 5 seconds | [4016025](https://wiki.leagueoflegends.com/en-us/Template:Data_Rakan/Fey_Feathers?oldid=4016025) |
+| Fey Feathers | cooldown by 1 second | [4016025](https://wiki.leagueoflegends.com/en-us/Template:Data_Rakan/Fey_Feathers?oldid=4016025) |
+| Fey Feathers | lasts until broken | [4016025](https://wiki.leagueoflegends.com/en-us/Template:Data_Rakan/Fey_Feathers?oldid=4016025) |
+| Fey Feathers | even if the ability is blocked by a spell shield or Riposte | [4016025](https://wiki.leagueoflegends.com/en-us/Template:Data_Rakan/Fey_Feathers?oldid=4016025) |
+| Fey Feathers | even if the attack is blocked, dodged, or misses due to blind | [4016025](https://wiki.leagueoflegends.com/en-us/Template:Data_Rakan/Fey_Feathers?oldid=4016025) |
+| Fey Feathers | "name":"HitCooldown","values":[1.0,1.0,1.0,1.0,1.0,1.0,1.0] | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/rakan/rakan.bin.json) |
+| Fey Feathers | "mLevel1Value":40.0,"mInitialBonusPerLevel":-1.5,"mBreakpoints":[{"mLevel":19,"mBonusPerLevelAtAndAfter":-0.875,"__type":"Breakpoint"}] | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/rakan/rakan.bin.json) |
+| Gleaming Quill | Magic Damage: 70 / 115 / 160 / 205 / 250 (+ 70% AP) | [3996425](https://wiki.leagueoflegends.com/en-us/Template:Data_Rakan/Gleaming_Quill?oldid=3996425) |
+| Gleaming Quill | After 3 seconds or if an allied champion enters the radius, Rakan heals himself and nearby allied champions for 40 / 50 / 60 / 70 / 80 / 90 / 100 / 110 / 120 / 130 / 140 / 150 / 160 / 170 / 180 / 190 / 200 / 210 / 220 / 230 (based on level) (+ 55% AP). | [3996425](https://wiki.leagueoflegends.com/en-us/Template:Data_Rakan/Gleaming_Quill?oldid=3996425) |
+| Gleaming Quill | (+ 55% AP) | [3996425](https://wiki.leagueoflegends.com/en-us/Template:Data_Rakan/Gleaming_Quill?oldid=3996425) |
+| Gleaming Quill | After 3 seconds | [3996425](https://wiki.leagueoflegends.com/en-us/Template:Data_Rakan/Gleaming_Quill?oldid=3996425) |
+| Gleaming Quill | effectRadius: 200 | [3996425](https://wiki.leagueoflegends.com/en-us/Template:Data_Rakan/Gleaming_Quill?oldid=3996425) |
+| Gleaming Quill | cooldown: 11 / 10 / 9 / 8 / 7 | [3996425](https://wiki.leagueoflegends.com/en-us/Template:Data_Rakan/Gleaming_Quill?oldid=3996425) |
+| Gleaming Quill | castTime: 0.25 | [3996425](https://wiki.leagueoflegends.com/en-us/Template:Data_Rakan/Gleaming_Quill?oldid=3996425) |
+| Gleaming Quill | targetRange: 900 | [3996425](https://wiki.leagueoflegends.com/en-us/Template:Data_Rakan/Gleaming_Quill?oldid=3996425) |
+| Gleaming Quill | width: 130 | [3996425](https://wiki.leagueoflegends.com/en-us/Template:Data_Rakan/Gleaming_Quill?oldid=3996425) |
+| Gleaming Quill | speed: 1850 | [3996425](https://wiki.leagueoflegends.com/en-us/Template:Data_Rakan/Gleaming_Quill?oldid=3996425) |
+| Gleaming Quill | Spell shield will not prevent the marked area from being formed | [3996425](https://wiki.leagueoflegends.com/en-us/Template:Data_Rakan/Gleaming_Quill?oldid=3996425) |
+| Gleaming Quill | heal will trigger and affect Rakan even if he is untargetable | [3996425](https://wiki.leagueoflegends.com/en-us/Template:Data_Rakan/Gleaming_Quill?oldid=3996425) |
+| Gleaming Quill | trigger radius is slightly smaller than the heal radius | [3996425](https://wiki.leagueoflegends.com/en-us/Template:Data_Rakan/Gleaming_Quill?oldid=3996425) |
+| Gleaming Quill | blurb3 = If '''Rakan''' collides with an allied champion | [3996425](https://wiki.leagueoflegends.com/en-us/Template:Data_Rakan/Gleaming_Quill?oldid=3996425) |
+| Gleaming Quill | cooldownStart: post-effect | [3996425](https://wiki.leagueoflegends.com/en-us/Template:Data_Rakan/Gleaming_Quill?oldid=3996425) |
+| Gleaming Quill | "castRange":[900.0,900.0,900.0,900.0,900.0,900.0,900.0] | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/rakan/rakan.bin.json) |
+| Gleaming Quill | "mMissileWidth":65.0 | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/rakan/rakan.bin.json) |
+| Gleaming Quill | "mSpeed":1850.0 | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/rakan/rakan.bin.json) |
+| Grand Entrance | Magic Damage: 70 / 120 / 170 / 220 / 270 (+ 80% AP) | [4007760](https://wiki.leagueoflegends.com/en-us/Template:Data_Rakan/Grand_Entrance?oldid=4007760) |
+| Grand Entrance | targetRange: 650 | [4007760](https://wiki.leagueoflegends.com/en-us/Template:Data_Rakan/Grand_Entrance?oldid=4007760) |
+| Grand Entrance | effectRadius: 275 | [4007760](https://wiki.leagueoflegends.com/en-us/Template:Data_Rakan/Grand_Entrance?oldid=4007760) |
+| Grand Entrance | speed: 1700 | [4007760](https://wiki.leagueoflegends.com/en-us/Template:Data_Rakan/Grand_Entrance?oldid=4007760) |
+| Grand Entrance | After a 0.35-second delay | [4007760](https://wiki.leagueoflegends.com/en-us/Template:Data_Rakan/Grand_Entrance?oldid=4007760) |
+| Grand Entrance | knocks them up for 1 second | [4007760](https://wiki.leagueoflegends.com/en-us/Template:Data_Rakan/Grand_Entrance?oldid=4007760) |
+| Grand Entrance | cooldown: 14 / 13 / 12 / 11 / 10 | [4007760](https://wiki.leagueoflegends.com/en-us/Template:Data_Rakan/Grand_Entrance?oldid=4007760) |
+| Grand Entrance | no minimum dash range | [4007760](https://wiki.leagueoflegends.com/en-us/Template:Data_Rakan/Grand_Entrance?oldid=4007760) |
+| Grand Entrance | Sleep does not count for knocking the dash down | [4007760](https://wiki.leagueoflegends.com/en-us/Template:Data_Rakan/Grand_Entrance?oldid=4007760) |
+| Grand Entrance | "name":"BaseDashSpeed","values":[1700.0,1700.0,1700.0,1700.0,1700.0,1700.0,1700.0] | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/rakan/rakan.bin.json) |
+| Grand Entrance | "spellCastTime":0.3499999940395355 | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/rakan/rakan.bin.json) |
+| Battle Dance | Shield Strength: 50 / 75 / 100 / 125 / 150 (+ 70% AP) | [4008001](https://wiki.leagueoflegends.com/en-us/Template:Data_Rakan/Battle_Dance?oldid=4008001) |
+| Battle Dance | for 3 seconds | [4008001](https://wiki.leagueoflegends.com/en-us/Template:Data_Rakan/Battle_Dance?oldid=4008001) |
+| Battle Dance | within 5 seconds | [4008001](https://wiki.leagueoflegends.com/en-us/Template:Data_Rakan/Battle_Dance?oldid=4008001) |
+| Battle Dance | targetRange (Standard): 700 • 1000 | [4008001](https://wiki.leagueoflegends.com/en-us/Template:Data_Rakan/Battle_Dance?oldid=4008001) |
+| Battle Dance | targetRange (Enhanced): 700 • 1000 | [4008001](https://wiki.leagueoflegends.com/en-us/Template:Data_Rakan/Battle_Dance?oldid=4008001) |
+| Battle Dance | speed: 1250 + 80% movement speed | [4008001](https://wiki.leagueoflegends.com/en-us/Template:Data_Rakan/Battle_Dance?oldid=4008001) |
+| Battle Dance | cooldown: 20 / 18 / 16 / 14 / 12 | [4008001](https://wiki.leagueoflegends.com/en-us/Template:Data_Rakan/Battle_Dance?oldid=4008001) |
+| Battle Dance | forgiveness radius of 175 units | [4008001](https://wiki.leagueoflegends.com/en-us/Template:Data_Rakan/Battle_Dance?oldid=4008001) |
+| Battle Dance | shields do not stack | [4008001](https://wiki.leagueoflegends.com/en-us/Template:Data_Rakan/Battle_Dance?oldid=4008001) |
+| Battle Dance | Only the duration and shield amount is refreshed | [4008001](https://wiki.leagueoflegends.com/en-us/Template:Data_Rakan/Battle_Dance?oldid=4008001) |
+| Battle Dance | Sleep does not count for knocking the dash down | [4008001](https://wiki.leagueoflegends.com/en-us/Template:Data_Rakan/Battle_Dance?oldid=4008001) |
+| Battle Dance | "name":"BonusDashSpeed","values":[1150.0,1150.0,1150.0,1150.0,1150.0,1150.0,1150.0] | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/rakan/rakan.bin.json) |
+| Battle Dance | "ForgivenessRange":175.0 | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/rakan/rakan.bin.json) |
+| The Quickness | Magic Damage: 100 / 200 / 300 (+ 50% AP) | [3971183](https://wiki.leagueoflegends.com/en-us/Template:Data_Rakan/The_Quickness?oldid=3971183) |
+| The Quickness | sprint for 4 seconds | [3971183](https://wiki.leagueoflegends.com/en-us/Template:Data_Rakan/The_Quickness?oldid=3971183) |
+| The Quickness | 75% bonus movement speed | [3971183](https://wiki.leagueoflegends.com/en-us/Template:Data_Rakan/The_Quickness?oldid=3971183) |
+| The Quickness | collisionRadius: 150 | [3971183](https://wiki.leagueoflegends.com/en-us/Template:Data_Rakan/The_Quickness?oldid=3971183) |
+| The Quickness | Disable Duration: 1 / 1.25 / 1.5 seconds | [3971183](https://wiki.leagueoflegends.com/en-us/Template:Data_Rakan/The_Quickness?oldid=3971183) |
+| The Quickness | slows them by 75% | [3971183](https://wiki.leagueoflegends.com/en-us/Template:Data_Rakan/The_Quickness?oldid=3971183) |
+| The Quickness | duration by 0.25 seconds | [3971183](https://wiki.leagueoflegends.com/en-us/Template:Data_Rakan/The_Quickness?oldid=3971183) |
+| The Quickness | after 0.5 seconds by 20% every 0.5 seconds | [3971183](https://wiki.leagueoflegends.com/en-us/Template:Data_Rakan/The_Quickness?oldid=3971183) |
+| The Quickness | cooldown: 130 / 110 / 90 | [3971183](https://wiki.leagueoflegends.com/en-us/Template:Data_Rakan/The_Quickness?oldid=3971183) |
+| The Quickness | castTime: 0.5 | [3971183](https://wiki.leagueoflegends.com/en-us/Template:Data_Rakan/The_Quickness?oldid=3971183) |
+| The Quickness | cannot affect the same enemy more than once | [3971183](https://wiki.leagueoflegends.com/en-us/Template:Data_Rakan/The_Quickness?oldid=3971183) |
+| The Quickness | unless the attack command was inputted before the ability was activated | [3971183](https://wiki.leagueoflegends.com/en-us/Template:Data_Rakan/The_Quickness?oldid=3971183) |
+| The Quickness | Gleaming Quill'' and [[File: Battle Dance.png | [3971183](https://wiki.leagueoflegends.com/en-us/Template:Data_Rakan/The_Quickness?oldid=3971183) |
+| The Quickness | "name":"TouchSpeed","values":[150.0,150.0,150.0,150.0,150.0,150.0,150.0] | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/rakan/rakan.bin.json) |
+| Gleaming Quill | cost: 45 | [3996425](https://wiki.leagueoflegends.com/en-us/Template:Data_Rakan/Gleaming_Quill?oldid=3996425) |
+| Grand Entrance | cost: 50 / 60 / 70 / 80 / 90 | [4007760](https://wiki.leagueoflegends.com/en-us/Template:Data_Rakan/Grand_Entrance?oldid=4007760) |
+| Grand Entrance | castTime: none | [4007760](https://wiki.leagueoflegends.com/en-us/Template:Data_Rakan/Grand_Entrance?oldid=4007760) |
+| Battle Dance | cost: 40 / 45 / 50 / 55 / 60 | [4008001](https://wiki.leagueoflegends.com/en-us/Template:Data_Rakan/Battle_Dance?oldid=4008001) |
+| Battle Dance | castTime: none | [4008001](https://wiki.leagueoflegends.com/en-us/Template:Data_Rakan/Battle_Dance?oldid=4008001) |
+| The Quickness | cost: 100 | [3971183](https://wiki.leagueoflegends.com/en-us/Template:Data_Rakan/The_Quickness?oldid=3971183) |

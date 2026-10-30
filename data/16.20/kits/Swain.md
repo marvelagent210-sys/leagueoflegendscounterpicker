@@ -232,3 +232,128 @@ All 1 level-based formulas in the game files (0 linked to wiki values above):
 | Spell | Calculation | Rule | Level 1 | Level 18 | Level 20 |
 |---|---|---|--:|--:|--:|
 | SwainPassive | PassiveHealPercent | linear 0.06 → 0.06 over levels 1-18, continues past 18 | 0.06 | 0.06 | 0.06 |
+
+## Duel simulator kit (level 20, every ability at max rank)
+
+What the duel simulator fights with (`kits/champions/Swain.ts`): values come from pinned wiki and versioned game-data records at level 20. Interpretations and missing evidence are listed under assumptions. Ratios are fractions of the stat (60% AD is 0.6 × AD).
+
+- Basic attack: range 525, missile at 1800/s.
+- Options: souls = 0.
+
+| Key | Ability | Cooldown (s) | Cast time (s) | Cost | Delivery | On the enemy | On itself |
+|---|---|--:|--:|---|---|---|---|
+| Q | Death's Hand | 3 | 0.25 | 60 | self | – | – |
+| W | Vision of Empire | 16 | 0.25 | 80 | circle of 325 radius up to 7500 away, lands after 1.5 s | 250 + 60% AP magic damage; slow 50% for 1.5 s | – |
+| E | Nevermove | 10 | 0.25 | 70 | self | – | – |
+| R | Demonic Ascension | 120 | 0.5 | 100 | self | – | – |
+| R2 | Demonflare | 8 (unaffected by ability haste) | 0.25 | – | self | – | – |
+| E2 | Nevermove (pull) | 0 | 0 | – | self | – | – |
+| Q-impact | Death's Hand | 0 | 0 | – | self | – | – |
+| E-out | Nevermove | 0 | 0 | – | self | – | – |
+| E-return | Nevermove | 0 | 0 | – | self | 250 + 70% AP magic damage; root for 1.5 s; standardSight for 1.5 s | – |
+| E-impact | Nevermove | 0 | 0 | – | self | 250 + 70% AP magic damage; root for 1.5 s; standardSight for 1.5 s | – |
+| E-pull | Nevermove (pull) | 0 | 0 | – | self | 0 magic damage | – |
+| Soul-raven | Ravenous Flock | 0 | 0 | – | self | – | – |
+| R-drain | Demonic Ascension | 0 | 0 | – | self | 17.5 + 2% AP magic damage | – |
+| R-wave | Demonflare | 0 | 0 | – | self | 350 + 40% AP magic damage; slow 50% for 1.5 s | – |
+
+Effects marked by a mark or a role are completed by the kit's hooks (see the kit's source).
+
+### Assumptions
+
+- Actual Soul Fragments collected before the duel: 0.
+- Soul history starts at the explicit0, adding15actualbonusHP per fragment. W/E2 launch a1200-speed noninterceptable raven from the actual victim; health/healing are awarded only on arrival at the living caster, after the15HP maximum/current-health increase. Healing is6%of that newmaximum and obeys healingdenial/GrievousWounds. Actual hostile champion deaths (including champion-class summons) leave independent16secondfragments with1secondpickupdelay and1100centerpickupdistance; nearby W contacts trigger the same legalpickup rules. There is no fabricatedfarm, allykill or upfrontcombatheal. Raven sight radius250does not invent fogbenefits.
+- Q uses five equally spaced rays across the32degree fan, primary725range and completion-position origin/declaration-facing. Actual target circles and the clientdummy20width determine how many rays intersect. Each recipient gets180+45%AP plus45+11.25%AP per extra ray. The primary's rendered note says split total evenly among connected bolts, but its exact raw HTML comment disputes this: equal packet split is an explicit uncertain interpretation, not server-verified. Contacts share one completion snapshot rather than guessed inter-bolt chronology. The client's0.20000000298023224second dummy flight is retained but does not override the primary's end-of-cast nonprojectile contacts. Q's released finite declaration marker survives death, spends mana/CD once at declaration and evaluates actual finalorigin/recipients when the cast delay ends. One shield blocks the whole per-recipient packet.
+- W lands after its0.25secondcast plus1.5seconddelay at the actualselected7500range location,325center-to-edge radius. It deals250+60%AP,125+30%AP only to actualminion-class bodies (monsters/unknownclasses are not silentlyminions), and50%slow for1.5seconds. Champion-class contacts gain6secondsstandardsight even through spellshield/parry; only acceptedunshielded contacts grant Souls, including realclones, while livingSwain. Sight does not reveal invisibility. The initial2secondareasight has no invented fog-of-war payoff.
+- Nevermove launches its harmless outward wave at declaration from capturedorigin/facing, traveling850 with the exactserver stepped1125→1800 speedtable. Its2000→2800 returningtable is honored despite the primary's contradictory acceleration-sign prose. It follows the actualmovingowner and detonates on the first realenemybody (90radius), with no outgoing damage. The primary100detonationradius wins over binary205; each realnearbyrecipient receives250+70%AP,1.5secondtenacity-affectedroot andstandardSight conditionalonthatroot. Returnedwave sidestep uses normalfinitebranching, realpets remain actualcollisionbodies; projectilewalls/interception terminate the realleg.
+- E2 is free, global onlyforactualchampion-classrecipients stillrootedbythisE; removal or anyactualdash/blink permanentlyrevokes thatroot's entitlement. Recast can overlay anothercast and doesnot resetEcooldown. Independentspellshield/parry guards apply. Its290unitpull rebounds excessdistance on the starting side if it would passSwain. Pulltravel time is unquantified, so guardedimmediate terrain-clipped displacement models interruption atstart without inventing anairbornehold. Displacementimmunity can deny motion without denying anotherwise acceptedSoul contact; ordinaryCC/untargetability and actualpetCCimmunities are respected. Source root remains within itsoriginalexpiry.
+- DemonicAscension spends100mana/starts120secondhastedcooldown atdeclaration; activation occursafter0.5secondmobilecast. First drain/energytick is0.5secondsafteractivation (explicit unquantified phase).50DemonicEnergy loses5pertick, or7.5from5seconds, and gains10oncepertick if at leastone actualchampion is successfullydrained, capped50. Each eligible650center-to-edgerecipient takes17.5+2%AP persistentmagic and heals22.5+2.5%AP+.75%bonusHP, with90%lesshealing for actualminions/monsters. Spellshields do not block drain; invulnerability can preventdamage without denying separatehealing. Actualchampiontakedown refillsenergy. Dead/untargetable/stasisbodies cannot sustain it, nofictionalallies orvictims exist. Death/fallenstate cancelsactiveaura andneverautoflares; liveexpiration mayautoflare.
+- Demonflare unlocksafter2seconds, has an8secondstaticcooldown and atmost100casts peractivation. It releasesafter0.25secondmobilecast from completionposition as two opposed675range/60width axialmissiles at3000speed, onceperactualrecipient percast. Independent wall/interception portions canstopone ray. Acceptedcontacts deal350+40%AP and50%slow decayinglinearlyover1.5seconds; CCexpiry/tenacity remainactual. Anexpirationautoflare counts as a realactivation without inventing acommand/castlock; a manualcast alreadyinprogress canstillcomplete, retaining the pinnedknown double-flareedge. Releasednovas persistafterdeath, while remainingaura doesnot.
+- Budget prices Q's actual axialray count at ordinary attackreach, E onceperhastedcooldown and one Rdrain per120secondactivation with a five-second first-engagement envelope, plus oneDemonflare. Source resource/castclocks and a10secondmanaenvelope scale basicspellrates; noimaginedmulti-targethealing, Souls orfarm increase price. Rutility is amortized over cooldown rather than treating everyduel as permanentfreehealing. Runtime AI preserveshold/tradeultimate, prioritizeslegalpulls, startsRnearrealfoes, and obeys completedtrade retreat.
+
+### Source values read (82)
+
+| Ability | Value | Source version |
+|---|---|---|
+| Ravenous Flock | gains 15 bonus health | [4008055](https://wiki.leagueoflegends.com/en-us/Template:Data_Swain/Ravenous_Flock?oldid=4008055) |
+| Ravenous Flock | heal for 6% of his maximum health | [4008055](https://wiki.leagueoflegends.com/en-us/Template:Data_Swain/Ravenous_Flock?oldid=4008055) |
+| Ravenous Flock | effectRadius (pickup): 1100 • 250 | [4008055](https://wiki.leagueoflegends.com/en-us/Template:Data_Swain/Ravenous_Flock?oldid=4008055) |
+| Ravenous Flock | effectRadius (sight): 1100 • 250 | [4008055](https://wiki.leagueoflegends.com/en-us/Template:Data_Swain/Ravenous_Flock?oldid=4008055) |
+| Ravenous Flock | speed: 1200 | [4008055](https://wiki.leagueoflegends.com/en-us/Template:Data_Swain/Ravenous_Flock?oldid=4008055) |
+| Ravenous Flock | for 16 seconds | [4008055](https://wiki.leagueoflegends.com/en-us/Template:Data_Swain/Ravenous_Flock?oldid=4008055) |
+| Ravenous Flock | after a 1-second delay | [4008055](https://wiki.leagueoflegends.com/en-us/Template:Data_Swain/Ravenous_Flock?oldid=4008055) |
+| Death's Hand | Magic Damage: 60 / 90 / 120 / 150 / 180 (+ 45% AP) | [4042686](https://wiki.leagueoflegends.com/en-us/Template:Data_Swain/Death's_Hand?oldid=4042686) |
+| Death's Hand | Bonus Damage Per Bolt: 15 / 22.5 / 30 / 37.5 / 45 (+ 11.25% AP) | [4042686](https://wiki.leagueoflegends.com/en-us/Template:Data_Swain/Death's_Hand?oldid=4042686) |
+| Death's Hand | effectRadius: 725 | [4042686](https://wiki.leagueoflegends.com/en-us/Template:Data_Swain/Death's_Hand?oldid=4042686) |
+| Death's Hand | angle: 32° | [4042686](https://wiki.leagueoflegends.com/en-us/Template:Data_Swain/Death's_Hand?oldid=4042686) |
+| Death's Hand | five bolts | [4042686](https://wiki.leagueoflegends.com/en-us/Template:Data_Swain/Death's_Hand?oldid=4042686) |
+| Death's Hand | split evenly among each bolt that hits | [4042686](https://wiki.leagueoflegends.com/en-us/Template:Data_Swain/Death's_Hand?oldid=4042686) |
+| Death's Hand | will still cast and deal damage if Swain dies during the cast time | [4042686](https://wiki.leagueoflegends.com/en-us/Template:Data_Swain/Death's_Hand?oldid=4042686) |
+| Death's Hand | Spell shield will block all bolts | [4042686](https://wiki.leagueoflegends.com/en-us/Template:Data_Swain/Death's_Hand?oldid=4042686) |
+| Death's Hand | "mMissileWidth":20.0 | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/swain/swain.bin.json) |
+| Death's Hand | "mTravelTime":0.20000000298023224 | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/swain/swain.bin.json) |
+| Vision of Empire | Magic Damage: 70 / 115 / 160 / 205 / 250 (+ 60% AP) | [4078269](https://wiki.leagueoflegends.com/en-us/Template:Data_Swain/Vision_of_Empire?oldid=4078269) |
+| Vision of Empire | Minion Damage: 35 / 57.5 / 80 / 102.5 / 125 (+ 30% AP) | [4078269](https://wiki.leagueoflegends.com/en-us/Template:Data_Swain/Vision_of_Empire?oldid=4078269) |
+| Vision of Empire | effectRadius: 325 | [4078269](https://wiki.leagueoflegends.com/en-us/Template:Data_Swain/Vision_of_Empire?oldid=4078269) |
+| Vision of Empire | targetRange: 5500 / 6000 / 6500 / 7000 / 7500 | [4078269](https://wiki.leagueoflegends.com/en-us/Template:Data_Swain/Vision_of_Empire?oldid=4078269) |
+| Vision of Empire | explodes after 1.5 seconds | [4078269](https://wiki.leagueoflegends.com/en-us/Template:Data_Swain/Vision_of_Empire?oldid=4078269) |
+| Vision of Empire | slowing them by 50% | [4078269](https://wiki.leagueoflegends.com/en-us/Template:Data_Swain/Vision_of_Empire?oldid=4078269) |
+| Vision of Empire | for 1.5 seconds | [4078269](https://wiki.leagueoflegends.com/en-us/Template:Data_Swain/Vision_of_Empire?oldid=4078269) |
+| Vision of Empire | revealed for 6 seconds | [4078269](https://wiki.leagueoflegends.com/en-us/Template:Data_Swain/Vision_of_Empire?oldid=4078269) |
+| Vision of Empire | protected by a spell shield do not have a Soul Fragment collected from them but are revealed anyway | [4078269](https://wiki.leagueoflegends.com/en-us/Template:Data_Swain/Vision_of_Empire?oldid=4078269) |
+| Vision of Empire | will not receive the Soul Fragments | [4078269](https://wiki.leagueoflegends.com/en-us/Template:Data_Swain/Vision_of_Empire?oldid=4078269) |
+| Vision of Empire | collects nearby Soul Fragments | [4078269](https://wiki.leagueoflegends.com/en-us/Template:Data_Swain/Vision_of_Empire?oldid=4078269) |
+| Nevermove | Magic Damage: 90 / 130 / 170 / 210 / 250 (+ 70% AP) | [4008056](https://wiki.leagueoflegends.com/en-us/Template:Data_Swain/Nevermove?oldid=4008056) |
+| Nevermove | targetRange: 850 | [4008056](https://wiki.leagueoflegends.com/en-us/Template:Data_Swain/Nevermove?oldid=4008056) |
+| Nevermove | width: 180 | [4008056](https://wiki.leagueoflegends.com/en-us/Template:Data_Swain/Nevermove?oldid=4008056) |
+| Nevermove | effectRadius: 100 • Global | [4008056](https://wiki.leagueoflegends.com/en-us/Template:Data_Swain/Nevermove?oldid=4008056) |
+| Nevermove | rooting them for 1.5 seconds | [4008056](https://wiki.leagueoflegends.com/en-us/Template:Data_Swain/Nevermove?oldid=4008056) |
+| Nevermove | over 290 units | [4008056](https://wiki.leagueoflegends.com/en-us/Template:Data_Swain/Nevermove?oldid=4008056) |
+| Nevermove | revealing himself for 5 seconds | [4008056](https://wiki.leagueoflegends.com/en-us/Template:Data_Swain/Nevermove?oldid=4008056) |
+| Nevermove | speed: 1125 / 1200 / 1275 / 1350 / 1425 / 1500 / 1575 / 1650 / 1725 / 1800 (based on seconds in flight) • 2000 / 2200 / 2400 / 2600 / 2800 (based on seconds in flight) | [4008056](https://wiki.leagueoflegends.com/en-us/Template:Data_Swain/Nevermove?oldid=4008056) |
+| Nevermove | cooldownStart: on-cast | [4008056](https://wiki.leagueoflegends.com/en-us/Template:Data_Swain/Nevermove?oldid=4008056) |
+| Nevermove | hitbox behaviour itself only uses the timings noted above | [4008056](https://wiki.leagueoflegends.com/en-us/Template:Data_Swain/Nevermove?oldid=4008056) |
+| Nevermove | recast can be used during the cast time of other spells | [4008056](https://wiki.leagueoflegends.com/en-us/Template:Data_Swain/Nevermove?oldid=4008056) |
+| Nevermove | root is not applied to, removed or its targets blink or dash | [4008056](https://wiki.leagueoflegends.com/en-us/Template:Data_Swain/Nevermove?oldid=4008056) |
+| Nevermove | does not keep the target stunned for the rest of the movement | [4008056](https://wiki.leagueoflegends.com/en-us/Template:Data_Swain/Nevermove?oldid=4008056) |
+| Nevermove | "name":"ExplosionRadius","values":[205.0 | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/swain/swain.bin.json) |
+| Demonic Ascension | Magic Damage per Tick: 7.5 / 12.5 / 17.5 (+ 2% AP) | [4020887](https://wiki.leagueoflegends.com/en-us/Template:Data_Swain/Demonic_Ascension?oldid=4020887) |
+| Demonic Ascension | Heal per Tick: 7.5 / 15 / 22.5 (+ 2.5% AP) (+ 0.75% of his bonus health) | [4020887](https://wiki.leagueoflegends.com/en-us/Template:Data_Swain/Demonic_Ascension?oldid=4020887) |
+| Demonic Ascension | Reduced Heal per Tick: 0.75 / 1.5 / 2.25 (+ 0.25% AP) (+ 0.075% of his bonus health) | [4020887](https://wiki.leagueoflegends.com/en-us/Template:Data_Swain/Demonic_Ascension?oldid=4020887) |
+| Demonic Ascension | effectRadius: 650 | [4020887](https://wiki.leagueoflegends.com/en-us/Template:Data_Swain/Demonic_Ascension?oldid=4020887) |
+| Demonic Ascension | generating 50 Demonic Energy | [4020887](https://wiki.leagueoflegends.com/en-us/Template:Data_Swain/Demonic_Ascension?oldid=4020887) |
+| Demonic Ascension | every 0.5 seconds | [4020887](https://wiki.leagueoflegends.com/en-us/Template:Data_Swain/Demonic_Ascension?oldid=4020887) |
+| Demonic Ascension | decays by 5 every | [4020887](https://wiki.leagueoflegends.com/en-us/Template:Data_Swain/Demonic_Ascension?oldid=4020887) |
+| Demonic Ascension | increased to 7.5 after | [4020887](https://wiki.leagueoflegends.com/en-us/Template:Data_Swain/Demonic_Ascension?oldid=4020887) |
+| Demonic Ascension | after 5 seconds have elapsed | [4020887](https://wiki.leagueoflegends.com/en-us/Template:Data_Swain/Demonic_Ascension?oldid=4020887) |
+| Demonic Ascension | generates 10 Demonic Energy | [4020887](https://wiki.leagueoflegends.com/en-us/Template:Data_Swain/Demonic_Ascension?oldid=4020887) |
+| Demonic Ascension | After 2 seconds | [4020887](https://wiki.leagueoflegends.com/en-us/Template:Data_Swain/Demonic_Ascension?oldid=4020887) |
+| Demonic Ascension | up to 100 times | [4020887](https://wiki.leagueoflegends.com/en-us/Template:Data_Swain/Demonic_Ascension?oldid=4020887) |
+| Demonic Ascension | cooldownStart: on-cast | [4020887](https://wiki.leagueoflegends.com/en-us/Template:Data_Swain/Demonic_Ascension?oldid=4020887) |
+| Demonic Ascension | targets do not have to be visible | [4020887](https://wiki.leagueoflegends.com/en-us/Template:Data_Swain/Demonic_Ascension?oldid=4020887) |
+| Demonic Ascension | will not automatically cast | [4020887](https://wiki.leagueoflegends.com/en-us/Template:Data_Swain/Demonic_Ascension?oldid=4020887) |
+| Demonflare | Magic Damage: 150 / 250 / 350 (+ 40% AP) | [4002226](https://wiki.leagueoflegends.com/en-us/Template:Data_Swain/Demonflare?oldid=4002226) |
+| Demonflare | effectRadius: 675 | [4002226](https://wiki.leagueoflegends.com/en-us/Template:Data_Swain/Demonflare?oldid=4002226) |
+| Demonflare | speed: 3000 | [4002226](https://wiki.leagueoflegends.com/en-us/Template:Data_Swain/Demonflare?oldid=4002226) |
+| Demonflare | width: 60 | [4002226](https://wiki.leagueoflegends.com/en-us/Template:Data_Swain/Demonflare?oldid=4002226) |
+| Demonflare | slows them by 50% | [4002226](https://wiki.leagueoflegends.com/en-us/Template:Data_Swain/Demonflare?oldid=4002226) |
+| Demonflare | decaying over 1.5 seconds | [4002226](https://wiki.leagueoflegends.com/en-us/Template:Data_Swain/Demonflare?oldid=4002226) |
+| Demonflare | staticCooldown: 8 | [4002226](https://wiki.leagueoflegends.com/en-us/Template:Data_Swain/Demonflare?oldid=4002226) |
+| Death's Hand | cooldown: 7 / 6 / 5 / 4 / 3 | [4042686](https://wiki.leagueoflegends.com/en-us/Template:Data_Swain/Death's_Hand?oldid=4042686) |
+| Death's Hand | cost: 40 / 45 / 50 / 55 / 60 | [4042686](https://wiki.leagueoflegends.com/en-us/Template:Data_Swain/Death's_Hand?oldid=4042686) |
+| Vision of Empire | cooldown: 20 / 19 / 18 / 17 / 16 | [4078269](https://wiki.leagueoflegends.com/en-us/Template:Data_Swain/Vision_of_Empire?oldid=4078269) |
+| Vision of Empire | cost: 60 / 65 / 70 / 75 / 80 | [4078269](https://wiki.leagueoflegends.com/en-us/Template:Data_Swain/Vision_of_Empire?oldid=4078269) |
+| Nevermove | cooldown: 12 / 11.5 / 11 / 10.5 / 10 | [4008056](https://wiki.leagueoflegends.com/en-us/Template:Data_Swain/Nevermove?oldid=4008056) |
+| Nevermove | cost: 50 / 55 / 60 / 65 / 70 | [4008056](https://wiki.leagueoflegends.com/en-us/Template:Data_Swain/Nevermove?oldid=4008056) |
+| Demonic Ascension | cooldown: 120 | [4020887](https://wiki.leagueoflegends.com/en-us/Template:Data_Swain/Demonic_Ascension?oldid=4020887) |
+| Demonflare | counts as an ability activation | [4002226](https://wiki.leagueoflegends.com/en-us/Template:Data_Swain/Demonflare?oldid=4002226) |
+| Demonflare | block the portion of the nova they intercept | [4002226](https://wiki.leagueoflegends.com/en-us/Template:Data_Swain/Demonflare?oldid=4002226) |
+| Demonflare | wherever Swain is at the end of the cast time | [4002226](https://wiki.leagueoflegends.com/en-us/Template:Data_Swain/Demonflare?oldid=4002226) |
+| Demonic Ascension | "name":"TimeBetweenTicks","values":[0.5 | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/swain/swain.bin.json) |
+| Demonflare | "mMissileWidth":60.0 | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/swain/swain.bin.json) |
+| Death's Hand | castTime: 0.25 | [4042686](https://wiki.leagueoflegends.com/en-us/Template:Data_Swain/Death's_Hand?oldid=4042686) |
+| Vision of Empire | castTime: 0.25 | [4078269](https://wiki.leagueoflegends.com/en-us/Template:Data_Swain/Vision_of_Empire?oldid=4078269) |
+| Nevermove | castTime: 0.25 | [4008056](https://wiki.leagueoflegends.com/en-us/Template:Data_Swain/Nevermove?oldid=4008056) |
+| Demonic Ascension | cost: 100 | [4020887](https://wiki.leagueoflegends.com/en-us/Template:Data_Swain/Demonic_Ascension?oldid=4020887) |
+| Demonic Ascension | castTime: 0.5 | [4020887](https://wiki.leagueoflegends.com/en-us/Template:Data_Swain/Demonic_Ascension?oldid=4020887) |
+| Demonflare | castTime: 0.25 | [4002226](https://wiki.leagueoflegends.com/en-us/Template:Data_Swain/Demonflare?oldid=4002226) |

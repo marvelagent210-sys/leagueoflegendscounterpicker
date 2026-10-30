@@ -298,7 +298,7 @@ Effects marked by a mark or a role are completed by the kit's hooks (see the kit
 - Curtain Call's one-second activation opens a ten-second stationary channel, with four separately cast 0.25-second shots and one-second intervals unaffected by haste. Its original facing fixes the cone on the duel axis. Shots pierce enemy pets, stop on the first champion even through a spell shield, evaluate missing health at contact and double the fourth packet. Versioned recast flags say its windup is uncancellable and does not break the parent channel; an announced shot therefore completes when ordinary CC interrupts the retained channel, an interpretation without server-script confirmation.
 - The budget values sustained basic rounds plus reload time, one full-health trap explosion per recharge, and all four base Curtain Call packets over the parent cooldown plus actual activation/recast duration. Manual shots are excluded from independent per-second ability estimates; conditional grenade kills and R missing-health escalation are not guaranteed. The combat policy establishes marks with Q/basic damage, prefers marked W, and channels R outside basic attack reach in fight/kite modes.
 
-### Source values read (80)
+### Source values read (81)
 
 | Ability | Value | Source version |
 |---|---|---|
@@ -349,6 +349,7 @@ Effects marked by a mark or a role are completed by the kit's hooks (see the kit
 | Captive Audience | up to a maximum of 2 | [4007613](https://wiki.leagueoflegends.com/en-us/Template:Data_Jhin/Captive_Audience?oldid=4007613) |
 | Captive Audience | revealed for 4 seconds | [4007613](https://wiki.leagueoflegends.com/en-us/Template:Data_Jhin/Captive_Audience?oldid=4007613) |
 | Captive Audience | recharge: 24 / 21.5 / 19 / 16.5 / 14 | [4007613](https://wiki.leagueoflegends.com/en-us/Template:Data_Jhin/Captive_Audience?oldid=4007613) |
+| Captive Audience | The Lotus Trap will stop upon encountering a Wind Wall or Unbreakable. | [4007613](https://wiki.leagueoflegends.com/en-us/Template:Data_Jhin/Captive_Audience?oldid=4007613) |
 | Lotus Trap | hp: 3 | [4022310](https://wiki.leagueoflegends.com/en-us/Jhin?oldid=4022310) |
 | Lotus Trap | stealths and becomes untargetable after 1 second | [4022310](https://wiki.leagueoflegends.com/en-us/Jhin?oldid=4022310) |
 | Captive Audience | Beauty in Death does not consume Lotus Trap charges | [4007613](https://wiki.leagueoflegends.com/en-us/Template:Data_Jhin/Captive_Audience?oldid=4007613) |

@@ -1,5 +1,158 @@
 # Counters to Zeri (patch 26.20)
 
+## Simulated duels
+
+The duel simulator played each of the 144 other champions with a simulator kit against Zeri: both at level 20 with 15,000 gold of plain stats, each side's spent against the other's, through six scenarios (PLAN.md §6). Scores run from −1 (Zeri wins every time) to +1 (the champion does). Run `npm run duel -- <champion> Zeri --log brawl` to watch a fight.
+
+| # | Champion | Score | You engage | Enemy engages | Brawl | Short trade | Spacing | Escape |
+|--:|---|--:|--:|--:|--:|--:|--:|--:|
+| 1 | Fiora | +0.86 | +1.00 | +1.00 | +1.00 | +0.04 | +1.00 | +1.00 |
+| 2 | Nasus | +0.85 | +1.00 | +1.00 | +1.00 | −0.03 | +1.00 | +1.00 |
+| 3 | K'Sante | +0.84 | +1.00 | +1.00 | +1.00 | −0.03 | +1.00 | +1.00 |
+| 4 | Camille | +0.84 | +1.00 | +1.00 | +1.00 | −0.04 | +1.00 | +1.00 |
+| 5 | Poppy | +0.84 | +1.00 | +1.00 | +1.00 | +0.24 | +1.00 | +0.00 |
+| 6 | Master Yi | +0.84 | +1.00 | +1.00 | +1.00 | −0.09 | +1.00 | +1.00 |
+| 7 | Trundle | +0.83 | +1.00 | +1.00 | +1.00 | −0.13 | +1.00 | +1.00 |
+| 8 | Jax | +0.81 | +1.00 | +1.00 | +1.00 | +0.07 | +1.00 | +0.00 |
+| 9 | Malphite | +0.80 | +1.00 | +1.00 | +1.00 | +0.01 | +1.00 | +0.00 |
+| 10 | Yorick | +0.79 | +0.73 | +1.00 | +1.00 | +0.05 | +1.00 | +1.00 |
+| 11 | Gwen | +0.79 | +0.95 | +1.00 | +1.00 | +0.02 | +1.00 | +0.00 |
+| 12 | Riven | +0.79 | +1.00 | +1.00 | +1.00 | −0.09 | +1.00 | +0.00 |
+| 13 | Jhin | +0.78 | +1.00 | +1.00 | +1.00 | +0.02 | – | +0.00 |
+| 14 | Samira | +0.78 | +1.00 | +1.00 | +0.99 | +0.01 | – | +0.00 |
+| 15 | Lulu | +0.77 | +1.00 | +1.00 | +1.00 | −0.05 | – | +0.00 |
+| 16 | Cassiopeia | +0.77 | +0.99 | +1.00 | +1.00 | −0.05 | – | +0.00 |
+| 17 | Xayah | +0.77 | +1.00 | +1.00 | +1.00 | −0.08 | – | +0.00 |
+| 18 | Kog'Maw | +0.76 | +1.00 | +1.00 | +1.00 | −0.08 | – | +0.00 |
+| 19 | Vayne | +0.76 | +1.00 | +1.00 | +1.00 | −0.10 | – | +0.00 |
+| 20 | Anivia | +0.76 | +1.00 | +1.00 | +1.00 | −0.11 | – | +0.00 |
+| 21 | Twisted Fate | +0.75 | +1.00 | +1.00 | +1.00 | −0.14 | – | +0.00 |
+| 22 | Aphelios | +0.62 | +0.50 | +1.00 | +1.00 | −0.12 | – | +0.00 |
+| 23 | Ashe | +0.47 | +0.33 | +0.72 | +1.00 | −0.08 | – | −0.50 |
+| 24 | Teemo | +0.32 | +1.00 | +1.00 | −1.00 | −0.06 | – | +0.00 |
+| 25 | Tryndamere | +0.30 | −1.00 | +1.00 | +1.00 | +0.02 | +1.00 | +0.00 |
+| 26 | Yone | +0.29 | −1.00 | +1.00 | +1.00 | −0.08 | +1.00 | +0.00 |
+| 27 | Heimerdinger | +0.26 | −1.00 | +1.00 | +1.00 | +0.22 | – | +0.00 |
+| 28 | Annie | +0.22 | −1.00 | +1.00 | +1.00 | −0.04 | – | +0.00 |
+| 29 | Sion | +0.21 | +0.18 | +0.50 | −0.08 | +0.05 | +0.50 | +0.00 |
+| 30 | Fizz | +0.15 | +0.00 | +1.00 | −1.00 | +0.02 | +1.00 | +0.00 |
+| 31 | Kalista | +0.15 | −1.00 | +0.71 | +1.00 | +0.02 | – | +0.00 |
+| 32 | Rumble | +0.11 | −1.00 | +0.45 | +1.00 | −0.01 | +0.45 | +0.00 |
+| 33 | Tahm Kench | +0.11 | +0.03 | +0.24 | +0.11 | −0.03 | +0.24 | +0.00 |
+| 34 | Jayce | +0.10 | +1.00 | −1.00 | +1.00 | −0.00 | −1.00 | +0.00 |
+| 35 | Maokai | +0.09 | +1.00 | −1.00 | +1.00 | −0.06 | −1.00 | +0.00 |
+| 36 | Zed | +0.09 | +1.00 | −1.00 | +1.00 | −0.07 | −1.00 | +0.00 |
+| 37 | Lee Sin | +0.05 | +1.00 | +0.00 | −1.00 | +0.01 | +0.00 | +0.00 |
+| 38 | Wukong | −0.00 | +0.00 | +0.00 | +0.00 | −0.02 | +0.00 | +0.00 |
+| 39 | Dr. Mundo | −0.03 | +0.09 | −0.29 | +0.23 | +0.01 | −0.29 | +0.00 |
+| 40 | Yasuo | −0.03 | +0.04 | +0.03 | −0.34 | +0.10 | +0.03 | +0.00 |
+| 41 | Kayle | −0.04 | +1.00 | −0.33 | −1.00 | −0.05 | – | +0.00 |
+| 42 | Udyr | −0.08 | −1.00 | +1.00 | −1.00 | −0.18 | +1.00 | +1.00 |
+| 43 | Shen | −0.09 | −1.00 | +1.00 | −1.00 | +0.07 | +1.00 | +0.00 |
+| 44 | Tristana | −0.13 | −1.00 | +0.00 | +0.00 | +0.12 | +1.00 | +0.00 |
+| 45 | Xin Zhao | −0.16 | −0.61 | −0.66 | +1.00 | +0.17 | −0.66 | +0.00 |
+| 46 | Hwei | −0.18 | −1.00 | −0.41 | +1.00 | −0.06 | – | +0.00 |
+| 47 | Zaahen | −0.22 | −0.41 | −1.00 | +1.00 | +0.20 | −1.00 | +0.00 |
+| 48 | Smolder | −0.27 | −1.00 | +0.00 | +0.00 | +0.04 | – | +0.00 |
+| 49 | Miss Fortune | −0.29 | +1.00 | −1.00 | −1.00 | −0.05 | – | −1.00 |
+| 50 | Renekton | −0.31 | +1.00 | −1.00 | −1.00 | −0.03 | −1.00 | +0.00 |
+| 51 | Nocturne | −0.32 | +1.00 | −1.00 | −1.00 | −0.11 | −1.00 | +0.00 |
+| 52 | Corki | −0.34 | −1.00 | −1.00 | +1.00 | −0.01 | – | +0.00 |
+| 53 | Graves | −0.44 | −1.00 | +0.00 | −1.00 | +0.05 | +0.00 | +0.00 |
+| 54 | Olaf | −0.46 | −1.00 | −1.00 | +0.79 | −0.04 | −1.00 | −0.20 |
+| 55 | Taric | −0.47 | −0.50 | −1.00 | −0.00 | +0.01 | −1.00 | +0.00 |
+| 56 | Kennen | −0.51 | −1.00 | −1.00 | +0.13 | +0.08 | – | +0.00 |
+| 57 | Mordekaiser | −0.58 | −1.00 | −0.84 | −0.18 | −0.01 | −0.84 | +0.00 |
+| 58 | Volibear | −0.60 | −0.82 | −0.64 | −0.82 | −0.04 | −0.64 | +0.00 |
+| 59 | Kai'Sa | −0.65 | −1.00 | −0.57 | −1.00 | +0.03 | – | +0.00 |
+| 60 | Braum | −0.69 | −1.00 | −1.00 | −0.41 | −0.04 | −1.00 | +0.00 |
+| 61 | Rengar | −0.73 | −1.00 | −1.00 | −1.00 | +0.46 | −1.00 | +0.00 |
+| 62 | Urgot | −0.75 | −1.00 | −1.00 | −1.00 | +0.36 | −1.00 | +0.00 |
+| 63 | Ziggs | −0.75 | −1.00 | −1.00 | −1.00 | +0.17 | – | +0.00 |
+| 64 | Swain | −0.77 | −1.00 | −1.00 | −1.00 | +0.08 | – | +0.00 |
+| 65 | Vel'Koz | −0.77 | −1.00 | −1.00 | −1.00 | +0.07 | – | +0.00 |
+| 66 | Taliyah | −0.77 | −1.00 | −1.00 | −1.00 | +0.06 | – | +0.00 |
+| 67 | Irelia | −0.77 | −1.00 | −1.00 | −1.00 | +0.19 | −1.00 | +0.00 |
+| 68 | Malzahar | −0.77 | −1.00 | −1.00 | −1.00 | +0.03 | – | +0.00 |
+| 69 | Naafiri | −0.77 | −1.00 | −1.00 | −1.00 | +0.17 | −1.00 | +0.00 |
+| 70 | Garen | −0.78 | −1.00 | −1.00 | −1.00 | +0.17 | −1.00 | +0.00 |
+| 71 | Nunu & Willump | −0.78 | −1.00 | −1.00 | −1.00 | +0.15 | −1.00 | +0.00 |
+| 72 | Neeko | −0.78 | −1.00 | −1.00 | −1.00 | +0.00 | – | +0.00 |
+| 73 | Rakan | −0.78 | −1.00 | −1.00 | −1.00 | +0.13 | −1.00 | +0.00 |
+| 74 | Syndra | −0.78 | −1.00 | −1.00 | −1.00 | −0.02 | – | +0.00 |
+| 75 | Senna | −0.78 | −1.00 | −1.00 | −1.00 | −0.02 | – | +0.00 |
+| 76 | Xerath | −0.78 | −1.00 | −1.00 | −1.00 | −0.03 | – | +0.00 |
+| 77 | Jarvan IV | −0.78 | −1.00 | −1.00 | −1.00 | +0.12 | −1.00 | +0.00 |
+| 78 | Vex | −0.78 | −1.00 | −1.00 | −1.00 | −0.04 | – | +0.00 |
+| 79 | Brand | −0.78 | −1.00 | −1.00 | −1.00 | −0.04 | – | +0.00 |
+| 80 | Cho'Gath | −0.78 | −1.00 | −1.00 | −1.00 | +0.10 | −1.00 | +0.00 |
+| 81 | Kindred | −0.78 | −1.00 | −1.00 | −1.00 | −0.04 | – | +0.00 |
+| 82 | Ryze | −0.78 | −1.00 | −1.00 | −1.00 | −0.04 | – | +0.00 |
+| 83 | Skarner | −0.78 | −1.00 | −1.00 | −1.00 | +0.10 | −1.00 | +0.00 |
+| 84 | Zoe | −0.79 | −1.00 | −1.00 | −1.00 | −0.05 | – | +0.00 |
+| 85 | Rell | −0.79 | −1.00 | −1.00 | −1.00 | +0.09 | −1.00 | +0.00 |
+| 86 | LeBlanc | −0.79 | −1.00 | −1.00 | −1.00 | −0.05 | – | +0.00 |
+| 87 | Varus | −0.79 | −1.00 | −1.00 | −1.00 | −0.05 | – | +0.00 |
+| 88 | Jinx | −0.79 | −1.00 | −1.00 | −1.00 | −0.05 | – | +0.00 |
+| 89 | Zyra | −0.79 | −1.00 | −1.00 | −1.00 | −0.05 | – | +0.00 |
+| 90 | Lux | −0.79 | −1.00 | −1.00 | −1.00 | −0.05 | – | +0.00 |
+| 91 | Nami | −0.79 | −1.00 | −1.00 | −1.00 | −0.05 | – | +0.00 |
+| 92 | Gragas | −0.79 | −1.00 | −1.00 | −1.00 | +0.09 | −1.00 | +0.00 |
+| 93 | Draven | −0.79 | −1.00 | −1.00 | −1.00 | −0.06 | – | +0.00 |
+| 94 | Diana | −0.79 | −1.00 | −1.00 | −1.00 | +0.08 | −1.00 | +0.00 |
+| 95 | Amumu | −0.79 | −1.00 | −1.00 | −1.00 | +0.08 | −1.00 | +0.00 |
+| 96 | Lissandra | −0.79 | −1.00 | −1.00 | −1.00 | −0.06 | – | +0.00 |
+| 97 | Ahri | −0.79 | −1.00 | −1.00 | −1.00 | −0.07 | – | +0.00 |
+| 98 | Orianna | −0.79 | −1.00 | −1.00 | −1.00 | −0.07 | – | +0.00 |
+| 99 | Gangplank | −0.79 | −1.00 | −1.00 | −1.00 | +0.06 | −1.00 | +0.00 |
+| 100 | Veigar | −0.79 | −1.00 | −1.00 | −1.00 | −0.08 | – | +0.00 |
+| 101 | Akshan | −0.79 | −1.00 | −1.00 | −1.00 | −0.08 | – | +0.00 |
+| 102 | Karma | −0.79 | −1.00 | −1.00 | −1.00 | −0.08 | – | +0.00 |
+| 103 | Kled | −0.79 | −1.00 | −1.00 | −1.00 | +0.06 | −1.00 | +0.00 |
+| 104 | Nautilus | −0.79 | −1.00 | −1.00 | −1.00 | +0.05 | −1.00 | +0.00 |
+| 105 | Sona | −0.79 | −1.00 | −1.00 | −1.00 | −0.09 | – | +0.00 |
+| 106 | Lucian | −0.79 | −1.00 | −1.00 | −1.00 | −0.09 | – | +0.00 |
+| 107 | Aurora | −0.79 | −1.00 | −1.00 | −1.00 | −0.09 | – | +0.00 |
+| 108 | Ornn | −0.79 | −1.00 | −1.00 | −1.00 | +0.05 | −1.00 | +0.00 |
+| 109 | Kha'Zix | −0.80 | −1.00 | −1.00 | −1.00 | +0.03 | −1.00 | +0.00 |
+| 110 | Illaoi | −0.80 | −1.00 | −1.00 | −1.00 | +0.02 | −1.00 | +0.00 |
+| 111 | Galio | −0.80 | −1.00 | −1.00 | −1.00 | +0.02 | −1.00 | +0.00 |
+| 112 | Pantheon | −0.80 | −1.00 | −1.00 | −1.00 | +0.02 | −1.00 | +0.00 |
+| 113 | Akali | −0.80 | −1.00 | −1.00 | −1.00 | +0.02 | −1.00 | +0.00 |
+| 114 | Sejuani | −0.80 | −1.00 | −1.00 | −1.00 | +0.01 | −1.00 | +0.00 |
+| 115 | Blitzcrank | −0.80 | −1.00 | −1.00 | −1.00 | +0.00 | −1.00 | +0.00 |
+| 116 | Twitch | −0.80 | −1.00 | −1.00 | −1.00 | −0.13 | – | +0.00 |
+| 117 | Warwick | −0.80 | −1.00 | −1.00 | −1.00 | −0.01 | −1.00 | +0.00 |
+| 118 | Ezreal | −0.80 | −1.00 | −1.00 | −1.00 | −0.15 | – | +0.00 |
+| 119 | Gnar | −0.80 | −1.00 | −0.93 | −1.00 | −0.13 | −1.00 | +0.00 |
+| 120 | Rammus | −0.80 | −1.00 | −1.00 | −1.00 | −0.02 | −1.00 | +0.00 |
+| 121 | Sivir | −0.81 | −1.00 | −1.00 | −1.00 | −0.17 | – | +0.00 |
+| 122 | Ambessa | −0.81 | −1.00 | −1.00 | −1.00 | −0.04 | −1.00 | +0.00 |
+| 123 | Karthus | −0.81 | −1.00 | −1.00 | −1.00 | −0.06 | −1.00 | +0.00 |
+| 124 | Ekko | −0.81 | −1.00 | −1.00 | −1.00 | −0.06 | −1.00 | +0.00 |
+| 125 | Darius | −0.81 | −1.00 | −1.00 | −1.00 | −0.06 | −1.00 | +0.00 |
+| 126 | Leona | −0.81 | −1.00 | −1.00 | −1.00 | −0.07 | −1.00 | +0.00 |
+| 127 | Vi | −0.81 | −1.00 | −1.00 | −1.00 | −0.08 | −1.00 | +0.00 |
+| 128 | Singed | −0.81 | −1.00 | −1.00 | −1.00 | −0.08 | −1.00 | +0.00 |
+| 129 | Alistar | −0.81 | −1.00 | −1.00 | −1.00 | −0.08 | −1.00 | +0.00 |
+| 130 | Kassadin | −0.81 | −1.00 | −1.00 | −1.00 | −0.09 | −1.00 | +0.00 |
+| 131 | Sett | −0.81 | −1.00 | −1.00 | −1.00 | −0.09 | −1.00 | +0.00 |
+| 132 | Morgana | −0.81 | −1.00 | −1.00 | −1.00 | −0.09 | −1.00 | +0.00 |
+| 133 | Vladimir | −0.81 | −1.00 | −1.00 | −1.00 | −0.09 | −1.00 | +0.00 |
+| 134 | Evelynn | −0.82 | −1.00 | −1.00 | −1.00 | −0.10 | −1.00 | +0.00 |
+| 135 | Katarina | −0.82 | −1.00 | −1.00 | −1.00 | −0.12 | −1.00 | +0.00 |
+| 136 | Hecarim | −0.82 | −1.00 | −1.00 | −1.00 | −0.12 | −1.00 | +0.00 |
+| 137 | Janna | −0.84 | −1.00 | −1.00 | −1.00 | −0.06 | – | −0.89 |
+| 138 | Soraka | −0.84 | −1.00 | −1.00 | −1.00 | −0.14 | – | −0.73 |
+| 139 | Quinn | −0.85 | −1.00 | −1.00 | −1.00 | −0.08 | – | −1.00 |
+| 140 | Caitlyn | −0.86 | −1.00 | −1.00 | −1.00 | −0.04 | −1.00 | −1.00 |
+| 141 | Viktor | −0.86 | −1.00 | −1.00 | −1.00 | −0.14 | – | −1.00 |
+| 142 | Aatrox | −0.86 | −1.00 | −1.00 | −1.00 | −0.08 | −1.00 | −1.00 |
+| 143 | Talon | −0.86 | −1.00 | −1.00 | −1.00 | −0.09 | −1.00 | −1.00 |
+| 144 | Thresh | −0.87 | −1.00 | −1.00 | −1.00 | −0.11 | −1.00 | −1.00 |
+
+## Interaction ledger estimates
+
 Every champion ranked by what its kit does against Zeri's, from the interaction ledger: projectile blocks, spell shields,
 parries, dash stops, crowd control and its defenses, range and more (PLAN.md §5). This ranking is **partial**: it weighs the
 interactions but doesn't play the fight out. The duel simulator replaces it as each champion's behavior is verified.
@@ -8,23 +161,23 @@ interactions but doesn't play the fight out. The duel simulator replaces it as e
 A hard counter shuts down part of a kit every time it is used (projectile block, attack dodge, attack block, blind, disarm, attack speed slow, attack reflect, dash stop, grounding, range) with an impact of 0.4 or more (0.5 for range).
 Run `npm run matchup -- <champion> Zeri` for the full ledger of a matchup, with sources.
 
-## Top 10
+### Top 10
 
-### 1. Lissandra (net +0.59)
+#### 1. Lissandra (net +0.59)
 
 - **0.51** untargetable: Frozen Tomb makes Lissandra untargetable, dodging Zeri's Lightning Crash. Untargetable for 2.5 s, long enough to use ahead of Lightning Crash. (Lissandra R Frozen Tomb → Zeri R Lightning Crash)
 - **0.16** dash stop: Frozen Tomb's knockdown can stop Zeri's Spark Surge mid-dash. Must land during the dash. Fails if the dashing unit is crowd control immune, displacement immune, untargetable or spell shielded. (Lissandra R Frozen Tomb → Zeri E Spark Surge)
 
-### 2. Kayle (net +0.58)
+#### 2. Kayle (net +0.58)
 
 - **0.51** invulnerable: Divine Judgment makes Kayle invulnerable to Zeri's Lightning Crash. Invulnerable for 2.5 s, long enough to use ahead of Lightning Crash. (Kayle R Divine Judgment → Zeri R Lightning Crash)
 - **0.07** range: Kayle's basic attacks reach 75 units farther than Zeri's (625 vs 550 attack range). Zeri closes the gap with Spark Surge. (Kayle basic attacks → Zeri basic attacks)
 
-### 3. Teemo (net +0.58)
+#### 3. Teemo (net +0.58)
 
 - **0.58** blind: Blinding Dart's blind makes Zeri's basic attacks miss for 3 s. Blind for 3 s on a 7 s cooldown. (Teemo Q Blinding Dart → Zeri basic attacks)
 
-### 4. Shen (net +0.57)
+#### 4. Shen (net +0.57)
 
 - **0.60** attack block: Spirit's Refuge blocks Zeri's Spark Surge, which applies on-hit effects. Spirit's Refuge lasts 1.75 s on a 10 s cooldown. (Shen W Spirit's Refuge → Zeri E Spark Surge)
 - **0.45** attack block: Spirit's Refuge blocks Zeri's basic attacks (with Living Battery). Spirit's Refuge lasts 1.75 s on a 10 s cooldown. (Shen W Spirit's Refuge → Zeri basic attacks)
@@ -32,19 +185,19 @@ Run `npm run matchup -- <champion> Zeri` for the full ledger of a matchup, with 
   - Blind causes Burst Fire to cast in a random direction. The rounds will still deal damage to enemies hit. (Shen W Spirit's Refuge → Zeri Q Burst Fire)
 - Watch out: Zeri's basic attacks reach 425 units farther than Shen's (550 vs 125 attack range).
 
-### 5. Bard (net +0.51)
+#### 5. Bard (net +0.51)
 
 - **0.51** untargetable: Tempered Fate makes Bard untargetable, dodging Zeri's Lightning Crash. Untargetable for 2.5 s, long enough to use ahead of Lightning Crash. (Bard R Tempered Fate → Zeri R Lightning Crash)
 
-### 6. Aurora (net +0.45)
+#### 6. Aurora (net +0.45)
 
 - **0.45** untargetable: Between Worlds makes Aurora untargetable, dodging Zeri's Lightning Crash. Untargetable for 0.4 s; Lightning Crash takes 0.25 s to land, enough to react. Does not destroy inbound projectiles. (Aurora R Between Worlds → Zeri R Lightning Crash)
 
-### 7. Xayah (net +0.45)
+#### 7. Xayah (net +0.45)
 
 - **0.45** untargetable: Featherstorm makes Xayah untargetable, dodging Zeri's Lightning Crash. Untargetable for 1.5 s, long enough to use ahead of Lightning Crash. (Xayah R Featherstorm → Zeri R Lightning Crash)
 
-### 8. Jax (net +0.43)
+#### 8. Jax (net +0.43)
 
 - **0.60** attack dodge: Counter Strike dodges Zeri's Spark Surge, which applies on-hit effects. Counter Strike lasts 2 s on a 9 s cooldown. (Jax E Counter Strike → Zeri E Spark Surge)
 - **0.47** attack dodge: Counter Strike dodges Zeri's basic attacks (with Living Battery). Counter Strike lasts 2 s on a 9 s cooldown. (Jax E Counter Strike → Zeri basic attacks)
@@ -52,7 +205,7 @@ Run `npm run matchup -- <champion> Zeri` for the full ledger of a matchup, with 
   - Blind causes Burst Fire to cast in a random direction. The rounds will still deal damage to enemies hit. (Jax E Counter Strike → Zeri Q Burst Fire)
 - Watch out: Zeri's basic attacks reach 425 units farther than Jax's (550 vs 125 attack range).
 
-### 9. Nilah (net +0.41)
+#### 9. Nilah (net +0.41)
 
 - **0.53** attack dodge: Jubilant Veil dodges Zeri's Spark Surge, which applies on-hit effects. Jubilant Veil lasts 2.25 s on a 22 s cooldown. (Nilah W Jubilant Veil → Zeri E Spark Surge)
 - **0.41** attack dodge: Jubilant Veil dodges Zeri's basic attacks (with Living Battery). Jubilant Veil lasts 2.25 s on a 22 s cooldown. (Nilah W Jubilant Veil → Zeri basic attacks)
@@ -60,12 +213,12 @@ Run `npm run matchup -- <champion> Zeri` for the full ledger of a matchup, with 
   - Blind causes Burst Fire to cast in a random direction. The rounds will still deal damage to enemies hit. (Nilah W Jubilant Veil → Zeri Q Burst Fire)
 - Watch out: Zeri's basic attacks reach 325 units farther than Nilah's (550 vs 225 attack range).
 
-### 10. Yuumi (net +0.41)
+#### 10. Yuumi (net +0.41)
 
 - **0.55** untargetable: You and Me! makes Yuumi untargetable, dodging Zeri's Lightning Crash. Untargetable for ?; Lightning Crash takes 0.25 s to land, enough to react. Does not destroy inbound projectiles, special cased to be targetable to turrets. (Yuumi W You and Me! → Zeri R Lightning Crash)
 - Watch out: Zeri's basic attacks reach 125 units farther than Yuumi's (550 vs 425 attack range).
 
-## Full ranking
+### Full ranking
 
 | # | Champion | Net | For | Against | Hard counters |
 |--:|---|--:|--:|--:|---|

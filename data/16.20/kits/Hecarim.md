@@ -191,3 +191,123 @@ All 1 level-based formulas in the game files (0 linked to wiki values above):
 | Spell | Calculation | Rule | Level 1 | Level 18 | Level 20 |
 |---|---|---|--:|--:|--:|
 | HecarimPassive | BonusAD | breakpoints at levels 3, 6, 9, 12, 15, 18 (level 1: 0.12) | 0.12 | 0.24 | 0.24 |
+
+## Duel simulator kit (level 20, every ability at max rank)
+
+What the duel simulator fights with (`kits/champions/Hecarim.ts`): values come from pinned wiki and versioned game-data records at level 20. Interpretations and missing evidence are listed under assumptions. Ratios are fractions of the stat (60% AD is 0.6 × AD).
+
+- Basic attack: range 175, melee.
+
+| Key | Ability | Cooldown (s) | Cast time (s) | Cost | Delivery | On the enemy | On itself |
+|---|---|--:|--:|---|---|---|---|
+| Q | Rampage | 4 (depends on stats) | 0 | 20 | self | – | – |
+| W | Spirit of Dread | 14 | 0 | 70 | self | – | armor 25 for 4 s; MR 25 for 4 s |
+| E | Devastating Charge | 16 | 0 | 60 | self | – | resets the attack timer; ghosted for 4 s |
+| R | Onslaught of Shadows | 100 | 0 | 100 | dash toward 300–1000 units at 1100/s, through the enemy | – | displacementImmune for Infinity s |
+| Qhit | Rampage | 0 | 0 | – | self | 180 + 90% bonus AD physical damage | – |
+| Wtick | Spirit of Dread | 0 | 0 | – | self | 60 + 20% AP magic damage | – |
+| Eimpact | Devastating Charge | 0 | 0 | – | self | – | – |
+| Rwave | Onslaught of Shadows | 0 | 0 | – | self | 350 + 100% AP magic damage; standardSight for 2.5 s | – |
+| Rfear | Onslaught of Shadows (fear) | 0 | 0 | – | self | – | – |
+
+Effects marked by a mark or a role are completed by the kit's hooks (see the kit's source).
+
+### Assumptions
+
+- Warpath converts24%of positive final movement speed above base into bonusAD, refreshed every0.25seconds with ceil-rounded30Hz deadlines. It samples actual movement buffs, soft caps and slows; below-base speed grants0AD. A keyed ordinary bonusAD contribution participates once in totalAD reductions and other AD conversions without recursively evaluating derive. No speed or damage is granted from fictional travel before the duel.
+- Rampage starts at zero stacks. Each actual damaging cast grants at most one of three stacks, refreshes the eight-second lifetime and adjusts that cast's base cooldown by0.75per current stack before haste. Damage snapshots pre-hit stacks across all bodies, increases3%plus3%per100bonusAD per stack, and minions alone receive60%. Expiry loses one stack at eight seconds, then one per second. The primary eight-second duration wins over the binary's conflicting RampageDuration6; binary BuffDuration8 agrees.
+- Spirit of Dread lasts four seconds and makes four60+20%AP persistent ticks at one-second deadlines; primary timing wins over binary TickTime0.5 and its unused0.43935cast metadata. It grants25armor/MR while active. Healing uses actual observed post-mitigation damage, including shield absorption and damage later negated by Riposte under its explicit vamp rule, within525center range:25%from Hecarim and12.5%from allies. The240nonchampion healing allowance is shared across all minions/monsters during that cast, before ordinary healing modifiers. Unused binary HealBonusADRatio0.02 does not invent a primary bonusAD healing coefficient. No allied champion or lane wave is supplied.
+- Devastating Charge is a four-second movement buff with a0.25-second stepped25–65%totalMS multiplier reaching its cap at three seconds. Primary three seconds wins over binary TimeToMaxMoveSpeed2.5. Only real movement/dashes/blinks add distance, up to the primary1200scaling cap; R pauses the E lifetime and ramp. E resets the basic timer and its real next declared basic gains50–250range except under root/ground. Root preserves E and allows an ordinary basic. The empowered basic uses its actual target/critical snapshot/on-hits/life steal, ignores blind, and adds the sourced90+50%bonusAD minimum packet scaled up to double; critical strikes add100%AD. Dodge/block deny damage while a separate spell-shield/parry/CC-guarded knockback/stun still attempts. E's dash speed is unquantified in both primary and exact RampAttack record, so the explicit fallback immediately relocates along the declaration's fixed direction at launch; it never invents a finite speed or tracking flight. Knockback duration is also unquantified, so its guarded displacement uses the same immediate fallback, followed by the sourced0.25-second stun. Terrain clips relocation and the knockback. No travel-time interruption window, target chase or resurrection hit is fabricated.
+- Onslaught travels at primary1100speed over the requested300–1000distance, with displacement immunity and cross-terrain endpoint validation. Its independently traveling central spectral rider pierces for350+100%AP out to primary estimated1510range and grants2.5seconds standard sight. The four off-axis riders'145/290longitudinal and100/200lateral offsets and full480width remain evidence; this scalar duel resolves the central80width rider, never fivefold damage. A projectile wall stops that rider without cancelling dash/fear; released flight persists after owner death. Arrival independently fears actual enemies within315center radius for0.75–1.5seconds based on actual travel to1000. The primary wins over binary RangeForMaxFearDuration950, spellCastTime0.75and missileSpeed1200. During accepted fear, its0–99%distance slow is the sourced negative additiveMS modifier, bypassing slow resist and stacking ordinary slows. Fear, slow and standard sight belong to actual pet statuses. Hold/trade reserve ready R and completed trades retreat.
+
+### Source values read (87)
+
+| Ability | Value | Source version |
+|---|---|---|
+| Warpath | Innate: Hecarim gains bonus attack damage equal to 12 / 14 / 16 / 18 / 20 / 22 / 24 (based on level)% of his bonus movement speed. | [3985372](https://wiki.leagueoflegends.com/en-us/Template:Data_Hecarim/Warpath?oldid=3985372) |
+| Warpath | {{fd\|0.25}} seconds | [3985372](https://wiki.leagueoflegends.com/en-us/Template:Data_Hecarim/Warpath?oldid=3985372) |
+| Warpath | will adjust itself to any temporary movement speed | [3985372](https://wiki.leagueoflegends.com/en-us/Template:Data_Hecarim/Warpath?oldid=3985372) |
+| Warpath | will not dip below his regular attack damage | [3985372](https://wiki.leagueoflegends.com/en-us/Template:Data_Hecarim/Warpath?oldid=3985372) |
+| Warpath | "mLevel1Value":0.11999999731779099 | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/hecarim/hecarim.bin.json) |
+| Warpath | "mLevel":18,"mAdditionalBonusAtThisLevel":0.019999999552965164 | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/hecarim/hecarim.bin.json) |
+| Rampage | Physical Damage: 60 / 90 / 120 / 150 / 180 (+ 90% bonus AD) | [3989863](https://wiki.leagueoflegends.com/en-us/Template:Data_Hecarim/Rampage?oldid=3989863) |
+| Rampage | reduced to 60% | [3989863](https://wiki.leagueoflegends.com/en-us/Template:Data_Hecarim/Rampage?oldid=3989863) |
+| Rampage | effectRadius: 375 | [3989863](https://wiki.leagueoflegends.com/en-us/Template:Data_Hecarim/Rampage?oldid=3989863) |
+| Rampage | cooldown: 4 / 3.25 / 2.5 / 1.75 (based on Rampage stacks) | [3989863](https://wiki.leagueoflegends.com/en-us/Template:Data_Hecarim/Rampage?oldid=3989863) |
+| Rampage | base cooldown by 0.75 seconds | [3989863](https://wiki.leagueoflegends.com/en-us/Template:Data_Hecarim/Rampage?oldid=3989863) |
+| Rampage | Rampage for 8 seconds | [3989863](https://wiki.leagueoflegends.com/en-us/Template:Data_Hecarim/Rampage?oldid=3989863) |
+| Rampage | stacking up to 3 times | [3989863](https://wiki.leagueoflegends.com/en-us/Template:Data_Hecarim/Rampage?oldid=3989863) |
+| Rampage | every 1 second | [3989863](https://wiki.leagueoflegends.com/en-us/Template:Data_Hecarim/Rampage?oldid=3989863) |
+| Rampage | damage by 3% | [3989863](https://wiki.leagueoflegends.com/en-us/Template:Data_Hecarim/Rampage?oldid=3989863) |
+| Rampage | (+ 3% per 100 bonus AD) | [3989863](https://wiki.leagueoflegends.com/en-us/Template:Data_Hecarim/Rampage?oldid=3989863) |
+| Rampage | mSpell.DataValues.RampageDuration.values: [6.0,6.0,6.0,6.0,6.0,6.0,6.0] | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/hecarim/hecarim.bin.json) |
+| Rampage | mSpell.DataValues.BuffDuration.values: [8.0,8.0,8.0,8.0,8.0,8.0,8.0] | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/hecarim/hecarim.bin.json) |
+| Rampage | mSpell.DataValues.RampageCooldownReduction.values: [0.75,0.75,0.75,0.75,0.75,0.75,0.75] | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/hecarim/hecarim.bin.json) |
+| Spirit of Dread | Magic Damage Per Tick: 20 / 30 / 40 / 50 / 60 (+ 20% AP) | [4061151](https://wiki.leagueoflegends.com/en-us/Template:Data_Hecarim/Spirit_of_Dread?oldid=4061151) |
+| Spirit of Dread | Total Magic Damage: 80 / 120 / 160 / 200 / 240 (+ 80% AP) | [4061151](https://wiki.leagueoflegends.com/en-us/Template:Data_Hecarim/Spirit_of_Dread?oldid=4061151) |
+| Spirit of Dread | Dread for 4 seconds | [4061151](https://wiki.leagueoflegends.com/en-us/Template:Data_Hecarim/Spirit_of_Dread?oldid=4061151) |
+| Spirit of Dread | cooldown: 14 | [4061151](https://wiki.leagueoflegends.com/en-us/Template:Data_Hecarim/Spirit_of_Dread?oldid=4061151) |
+| Devastating Charge | cooldown: 20 / 19 / 18 / 17 / 16 | [3959924](https://wiki.leagueoflegends.com/en-us/Template:Data_Hecarim/Devastating_Charge?oldid=3959924) |
+| Onslaught of Shadows | cooldown: 140 / 120 / 100 | [4007604](https://wiki.leagueoflegends.com/en-us/Template:Data_Hecarim/Onslaught_of_Shadows?oldid=4007604) |
+| Spirit of Dread | effectRadius: 525 | [4061151](https://wiki.leagueoflegends.com/en-us/Template:Data_Hecarim/Spirit_of_Dread?oldid=4061151) |
+| Spirit of Dread | Bonus Resistances: 5 / 10 / 15 / 20 / 25 | [4061151](https://wiki.leagueoflegends.com/en-us/Template:Data_Hecarim/Spirit_of_Dread?oldid=4061151) |
+| Spirit of Dread | healed for 25% | [4061151](https://wiki.leagueoflegends.com/en-us/Template:Data_Hecarim/Spirit_of_Dread?oldid=4061151) |
+| Spirit of Dread | halved to 12.5% | [4061151](https://wiki.leagueoflegends.com/en-us/Template:Data_Hecarim/Spirit_of_Dread?oldid=4061151) |
+| Spirit of Dread | Capped Healing: 120 / 150 / 180 / 210 / 240 | [4061151](https://wiki.leagueoflegends.com/en-us/Template:Data_Hecarim/Spirit_of_Dread?oldid=4061151) |
+| Spirit of Dread | every second | [4061151](https://wiki.leagueoflegends.com/en-us/Template:Data_Hecarim/Spirit_of_Dread?oldid=4061151) |
+| Spirit of Dread | post-mitigation damage | [4061151](https://wiki.leagueoflegends.com/en-us/Template:Data_Hecarim/Spirit_of_Dread?oldid=4061151) |
+| Spirit of Dread | accounts for every single one | [4061151](https://wiki.leagueoflegends.com/en-us/Template:Data_Hecarim/Spirit_of_Dread?oldid=4061151) |
+| Spirit of Dread | mSpell.DataValues.TickTime.values: [0.5,0.5,0.5,0.5,0.5,0.5,0.5] | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/hecarim/hecarim.bin.json) |
+| Spirit of Dread | mSpell.DataValues.ResistAmount.values: [0.0,5.0,10.0,15.0,20.0,25.0,30.0] | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/hecarim/hecarim.bin.json) |
+| Spirit of Dread | mSpell.DataValues.HealBonusADRatio.values: [0.019999999552965164,0.019999999552965164,0.019999999552965164,0.019999999552965164,0.019999999552965164,0.019999999552965164,0.019999999552965164] | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/hecarim/hecarim.bin.json) |
+| Spirit of Dread | mSpell.spellCastTime: 0.4393500089645386 | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/hecarim/hecarim.bin.json) |
+| Devastating Charge | movement speed for 4 seconds | [3959924](https://wiki.leagueoflegends.com/en-us/Template:Data_Hecarim/Devastating_Charge?oldid=3959924) |
+| Devastating Charge | Active: Hecarim becomes ghosted and gains 25 / 28.3333 / 31.6667 / 35 / 38.3333 / 41.6667 / 45 / 48.3333 / 51.6667 / 55 / 58.3333 / 61.6667 / 65 (based on time active)% bonus total movement speed for 4 seconds. | [3959924](https://wiki.leagueoflegends.com/en-us/Template:Data_Hecarim/Devastating_Charge?oldid=3959924) |
+| Devastating Charge | During this time, Hecarim's next basic attack is replaced by a Devastating Charge, empowering it to gain 50 / 75 / 100 / 125 / 150 / 175 / 200 / 225 / 250 (based on distance traveled) bonus range and cause him to dash in the target's direction, revealing them for 1 second. | [3959924](https://wiki.leagueoflegends.com/en-us/Template:Data_Hecarim/Devastating_Charge?oldid=3959924) |
+| Devastating Charge | If the target remains nearby during the dash, the ghosting and bonus movement speed ends prematurely and Hecarim knocks them back 150 / 175 / 200 / 225 / 250 / 275 / 300 / 325 / 350 (based on distance traveled) units, though not through terrain, stuns them for 0.25 seconds, and deals them modified physical damage, increased by 0 / 12.5 / 25 / 37.5 / 50 / 62.5 / 75 / 87.5 / 100 (based on distance traveled)%. | [3959924](https://wiki.leagueoflegends.com/en-us/Template:Data_Hecarim/Devastating_Charge?oldid=3959924) |
+| Devastating Charge | Minimum Physical Damage: 30 / 45 / 60 / 75 / 90 (+ 50% bonus AD) | [3959924](https://wiki.leagueoflegends.com/en-us/Template:Data_Hecarim/Devastating_Charge?oldid=3959924) |
+| Devastating Charge | revealing them for 1 second | [3959924](https://wiki.leagueoflegends.com/en-us/Template:Data_Hecarim/Devastating_Charge?oldid=3959924) |
+| Devastating Charge | stuns them for 0.25 seconds | [3959924](https://wiki.leagueoflegends.com/en-us/Template:Data_Hecarim/Devastating_Charge?oldid=3959924) |
+| Devastating Charge | 100% AD bonus physical damage | [3959924](https://wiki.leagueoflegends.com/en-us/Template:Data_Hecarim/Devastating_Charge?oldid=3959924) |
+| Devastating Charge | every 0.25 seconds | [3959924](https://wiki.leagueoflegends.com/en-us/Template:Data_Hecarim/Devastating_Charge?oldid=3959924) |
+| Devastating Charge | capped at 3 seconds | [3959924](https://wiki.leagueoflegends.com/en-us/Template:Data_Hecarim/Devastating_Charge?oldid=3959924) |
+| Devastating Charge | resets Hecarim's basic attack timer | [3959924](https://wiki.leagueoflegends.com/en-us/Template:Data_Hecarim/Devastating_Charge?oldid=3959924) |
+| Devastating Charge | paused during Onslaught of Shadows | [3959924](https://wiki.leagueoflegends.com/en-us/Template:Data_Hecarim/Devastating_Charge?oldid=3959924) |
+| Devastating Charge | stacks multiplicatively | [3959924](https://wiki.leagueoflegends.com/en-us/Template:Data_Hecarim/Devastating_Charge?oldid=3959924) |
+| Devastating Charge | simple movement as well as dashing and blinking | [3959924](https://wiki.leagueoflegends.com/en-us/Template:Data_Hecarim/Devastating_Charge?oldid=3959924) |
+| Devastating Charge | will still deal damage while blinded | [3959924](https://wiki.leagueoflegends.com/en-us/Template:Data_Hecarim/Devastating_Charge?oldid=3959924) |
+| Devastating Charge | knock back will still be applied | [3959924](https://wiki.leagueoflegends.com/en-us/Template:Data_Hecarim/Devastating_Charge?oldid=3959924) |
+| Devastating Charge | will not use the empowered attack while rooted | [3959924](https://wiki.leagueoflegends.com/en-us/Template:Data_Hecarim/Devastating_Charge?oldid=3959924) |
+| Devastating Charge | The dash does not follow targets | [3959924](https://wiki.leagueoflegends.com/en-us/Template:Data_Hecarim/Devastating_Charge?oldid=3959924) |
+| Devastating Charge | not if he goes into resurrection | [3959924](https://wiki.leagueoflegends.com/en-us/Template:Data_Hecarim/Devastating_Charge?oldid=3959924) |
+| Devastating Charge | mSpell.DataValues.TimeToMaxMoveSpeed.values: [2.5,2.5,2.5,2.5,2.5,2.5,2.5] | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/hecarim/hecarim.bin.json) |
+| Devastating Charge | mSpell.DataValues.DistanceToMaxDamage.values: [1200.0,1200.0,1200.0,1200.0,1200.0,1200.0,1200.0] | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/hecarim/hecarim.bin.json) |
+| Devastating Charge | "spellCastTime":0.3461499810218811 | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/hecarim/hecarim.bin.json) |
+| Onslaught of Shadows | Magic damage: 150 / 250 / 350 (+ 100% AP) | [4007604](https://wiki.leagueoflegends.com/en-us/Template:Data_Hecarim/Onslaught_of_Shadows?oldid=4007604) |
+| Onslaught of Shadows | targetRange: 300 - 1000 | [4007604](https://wiki.leagueoflegends.com/en-us/Template:Data_Hecarim/Onslaught_of_Shadows?oldid=4007604) |
+| Onslaught of Shadows | range: 1510 | [4007604](https://wiki.leagueoflegends.com/en-us/Template:Data_Hecarim/Onslaught_of_Shadows?oldid=4007604) |
+| Onslaught of Shadows | speed: 1100 | [4007604](https://wiki.leagueoflegends.com/en-us/Template:Data_Hecarim/Onslaught_of_Shadows?oldid=4007604) |
+| Onslaught of Shadows | effectRadius: 315 | [4007604](https://wiki.leagueoflegends.com/en-us/Template:Data_Hecarim/Onslaught_of_Shadows?oldid=4007604) |
+| Onslaught of Shadows | width (Individual): 80 • 480 | [4007604](https://wiki.leagueoflegends.com/en-us/Template:Data_Hecarim/Onslaught_of_Shadows?oldid=4007604) |
+| Onslaught of Shadows | Upon arrival, he fears nearby enemies for 0.75 / 0.825 / 0.9 / 0.975 / 1.05 / 1.125 / 1.2 / 1.275 / 1.35 / 1.425 / 1.5 (based on distance traveled) seconds and slows them by 0 / 0 / 16.5 / 33 / 49.5 / 66 / 82.5 / 99 (based on distance from Hecarim)%. | [4007604](https://wiki.leagueoflegends.com/en-us/Template:Data_Hecarim/Onslaught_of_Shadows?oldid=4007604) |
+| Onslaught of Shadows | revealing them for 2.5 seconds | [4007604](https://wiki.leagueoflegends.com/en-us/Template:Data_Hecarim/Onslaught_of_Shadows?oldid=4007604) |
+| Onslaught of Shadows | width (full effect): 80 • 480 | [4007604](https://wiki.leagueoflegends.com/en-us/Template:Data_Hecarim/Onslaught_of_Shadows?oldid=4007604) |
+| Onslaught of Shadows | summons 5 spectral riders | [4007604](https://wiki.leagueoflegends.com/en-us/Template:Data_Hecarim/Onslaught_of_Shadows?oldid=4007604) |
+| Onslaught of Shadows | 145 units behind and 100 units | [4007604](https://wiki.leagueoflegends.com/en-us/Template:Data_Hecarim/Onslaught_of_Shadows?oldid=4007604) |
+| Onslaught of Shadows | 290 units behind and 200 units | [4007604](https://wiki.leagueoflegends.com/en-us/Template:Data_Hecarim/Onslaught_of_Shadows?oldid=4007604) |
+| Onslaught of Shadows | Only the spectral riders deal damage | [4007604](https://wiki.leagueoflegends.com/en-us/Template:Data_Hecarim/Onslaught_of_Shadows?oldid=4007604) |
+| Onslaught of Shadows | wave of spectral riders travels independently | [4007604](https://wiki.leagueoflegends.com/en-us/Template:Data_Hecarim/Onslaught_of_Shadows?oldid=4007604) |
+| Onslaught of Shadows | additive percent movement speed modifier | [4007604](https://wiki.leagueoflegends.com/en-us/Template:Data_Hecarim/Onslaught_of_Shadows?oldid=4007604) |
+| Onslaught of Shadows | unaffected by slow resist | [4007604](https://wiki.leagueoflegends.com/en-us/Template:Data_Hecarim/Onslaught_of_Shadows?oldid=4007604) |
+| Onslaught of Shadows | mSpell.DataValues.DashSpeed.values: [1100.0,1100.0,1100.0,1100.0,1100.0,1100.0,1100.0] | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/hecarim/hecarim.bin.json) |
+| Onslaught of Shadows | mSpell.DataValues.RangeForMaxFearDuration.values: [950.0,950.0,950.0,950.0,950.0,950.0,950.0] | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/hecarim/hecarim.bin.json) |
+| Onslaught of Shadows | mSpell.spellCastTime: 0.75 | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/hecarim/hecarim.bin.json) |
+| Onslaught of Shadows | mSpell.missileSpeed: 1200.0 | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/hecarim/hecarim.bin.json) |
+| Rampage | cost: 28 / 26 / 24 / 22 / 20 | [3989863](https://wiki.leagueoflegends.com/en-us/Template:Data_Hecarim/Rampage?oldid=3989863) |
+| Rampage | castTime: none | [3989863](https://wiki.leagueoflegends.com/en-us/Template:Data_Hecarim/Rampage?oldid=3989863) |
+| Spirit of Dread | cost: 50 / 55 / 60 / 65 / 70 | [4061151](https://wiki.leagueoflegends.com/en-us/Template:Data_Hecarim/Spirit_of_Dread?oldid=4061151) |
+| Spirit of Dread | castTime: none | [4061151](https://wiki.leagueoflegends.com/en-us/Template:Data_Hecarim/Spirit_of_Dread?oldid=4061151) |
+| Devastating Charge | cost: 60 | [3959924](https://wiki.leagueoflegends.com/en-us/Template:Data_Hecarim/Devastating_Charge?oldid=3959924) |
+| Devastating Charge | castTime: none | [3959924](https://wiki.leagueoflegends.com/en-us/Template:Data_Hecarim/Devastating_Charge?oldid=3959924) |
+| Onslaught of Shadows | cost: 100 | [4007604](https://wiki.leagueoflegends.com/en-us/Template:Data_Hecarim/Onslaught_of_Shadows?oldid=4007604) |
+| Onslaught of Shadows | castTime: none | [4007604](https://wiki.leagueoflegends.com/en-us/Template:Data_Hecarim/Onslaught_of_Shadows?oldid=4007604) |

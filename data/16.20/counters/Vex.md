@@ -1,5 +1,158 @@
 # Counters to Vex (patch 26.20)
 
+## Simulated duels
+
+The duel simulator played each of the 144 other champions with a simulator kit against Vex: both at level 20 with 15,000 gold of plain stats, each side's spent against the other's, through six scenarios (PLAN.md §6). Scores run from −1 (Vex wins every time) to +1 (the champion does). Run `npm run duel -- <champion> Vex --log brawl` to watch a fight.
+
+| # | Champion | Score | You engage | Enemy engages | Brawl | Short trade | Spacing | Escape |
+|--:|---|--:|--:|--:|--:|--:|--:|--:|
+| 1 | Gangplank | +0.83 | +1.00 | +1.00 | +1.00 | +0.21 | +1.00 | +0.00 |
+| 2 | Master Yi | +0.83 | +1.00 | +1.00 | +1.00 | +0.02 | +1.00 | +0.50 |
+| 3 | Vayne | +0.83 | +1.00 | +1.00 | +1.00 | −0.04 | – | +1.00 |
+| 4 | Vel'Koz | +0.82 | +1.00 | +1.00 | +1.00 | +0.28 | – | +0.00 |
+| 5 | Kayle | +0.82 | +1.00 | +1.00 | +1.00 | +0.26 | – | +0.00 |
+| 6 | Kled | +0.82 | +1.00 | +1.00 | +1.00 | +0.12 | +1.00 | +0.00 |
+| 7 | Poppy | +0.81 | +1.00 | +1.00 | +1.00 | +0.08 | +1.00 | +0.00 |
+| 8 | Fiora | +0.81 | +1.00 | +1.00 | +1.00 | +0.05 | +1.00 | +0.00 |
+| 9 | Jayce | +0.81 | +1.00 | +1.00 | +1.00 | +0.05 | +1.00 | +0.00 |
+| 10 | Jax | +0.81 | +1.00 | +1.00 | +1.00 | +0.05 | +1.00 | +0.00 |
+| 11 | Galio | +0.81 | +1.00 | +1.00 | +1.00 | +0.04 | +1.00 | +0.00 |
+| 12 | Garen | +0.80 | +1.00 | +1.00 | +1.00 | +0.02 | +1.00 | +0.00 |
+| 13 | Dr. Mundo | +0.80 | +1.00 | +1.00 | +1.00 | +0.02 | +1.00 | +0.00 |
+| 14 | Yasuo | +0.80 | +1.00 | +1.00 | +0.98 | +0.07 | +0.97 | +0.00 |
+| 15 | Rammus | +0.80 | +1.00 | +1.00 | +1.00 | +0.01 | +1.00 | +0.00 |
+| 16 | Nasus | +0.80 | +1.00 | +1.00 | +1.00 | +0.01 | +1.00 | +0.00 |
+| 17 | Maokai | +0.80 | +1.00 | +1.00 | +1.00 | +0.01 | +1.00 | +0.00 |
+| 18 | Gnar | +0.80 | +1.00 | +1.00 | +1.00 | −0.00 | +1.00 | +0.00 |
+| 19 | Tristana | +0.80 | +1.00 | +1.00 | +1.00 | −0.02 | +1.00 | +0.00 |
+| 20 | Yorick | +0.80 | +1.00 | +1.00 | +1.00 | −0.02 | +1.00 | +0.00 |
+| 21 | Gwen | +0.80 | +1.00 | +1.00 | +0.95 | +0.05 | +1.00 | +0.00 |
+| 22 | Nocturne | +0.80 | +1.00 | +1.00 | +1.00 | −0.03 | +1.00 | +0.00 |
+| 23 | Rumble | +0.80 | +1.00 | +1.00 | +0.98 | +0.00 | +1.00 | +0.00 |
+| 24 | Tryndamere | +0.80 | +1.00 | +1.00 | +1.00 | −0.03 | +1.00 | +0.00 |
+| 25 | K'Sante | +0.79 | +1.00 | +1.00 | +1.00 | −0.04 | +1.00 | +0.00 |
+| 26 | Sion | +0.79 | +1.00 | +1.00 | +1.00 | −0.04 | +1.00 | +0.00 |
+| 27 | Kassadin | +0.79 | +1.00 | +1.00 | +1.00 | −0.04 | +1.00 | +0.00 |
+| 28 | Volibear | +0.79 | +1.00 | +1.00 | +1.00 | −0.05 | +1.00 | +0.00 |
+| 29 | Darius | +0.79 | +1.00 | +1.00 | +1.00 | −0.05 | +1.00 | +0.00 |
+| 30 | Gragas | +0.79 | +1.00 | +1.00 | +1.00 | −0.06 | +1.00 | +0.00 |
+| 31 | Miss Fortune | +0.79 | +1.00 | +1.00 | +1.00 | +0.08 | – | +0.00 |
+| 32 | Cho'Gath | +0.79 | +1.00 | +1.00 | +1.00 | −0.07 | +1.00 | +0.00 |
+| 33 | Udyr | +0.79 | +1.00 | +1.00 | +1.00 | −0.07 | +1.00 | +0.00 |
+| 34 | Renekton | +0.79 | +1.00 | +1.00 | +1.00 | −0.07 | +1.00 | +0.00 |
+| 35 | Sejuani | +0.79 | +1.00 | +1.00 | +1.00 | −0.07 | +1.00 | +0.00 |
+| 36 | Aphelios | +0.79 | +1.00 | +1.00 | +1.00 | +0.07 | – | +0.00 |
+| 37 | Twitch | +0.79 | +1.00 | +1.00 | +1.00 | +0.06 | – | +0.00 |
+| 38 | Swain | +0.79 | +1.00 | +1.00 | +1.00 | +0.06 | – | +0.00 |
+| 39 | Neeko | +0.79 | +1.00 | +1.00 | +1.00 | +0.06 | – | +0.00 |
+| 40 | Ashe | +0.79 | +1.00 | +1.00 | +1.00 | +0.06 | – | +0.00 |
+| 41 | Smolder | +0.79 | +1.00 | +1.00 | +1.00 | +0.05 | – | +0.00 |
+| 42 | Jhin | +0.79 | +1.00 | +1.00 | +1.00 | +0.05 | – | +0.00 |
+| 43 | Kennen | +0.79 | +1.00 | +1.00 | +1.00 | +0.05 | – | +0.00 |
+| 44 | Draven | +0.79 | +1.00 | +1.00 | +1.00 | +0.04 | – | +0.00 |
+| 45 | Annie | +0.79 | +1.00 | +1.00 | +1.00 | +0.04 | – | +0.00 |
+| 46 | Varus | +0.78 | +1.00 | +1.00 | +1.00 | +0.04 | – | +0.00 |
+| 47 | Cassiopeia | +0.78 | +1.00 | +1.00 | +1.00 | +0.04 | – | +0.00 |
+| 48 | Corki | +0.78 | +1.00 | +1.00 | +1.00 | +0.04 | – | +0.00 |
+| 49 | Zeri | +0.78 | +1.00 | +1.00 | +1.00 | +0.04 | – | +0.00 |
+| 50 | Sona | +0.78 | +1.00 | +1.00 | +1.00 | +0.03 | – | +0.00 |
+| 51 | Kog'Maw | +0.78 | +1.00 | +1.00 | +1.00 | +0.03 | – | +0.00 |
+| 52 | Syndra | +0.78 | +1.00 | +1.00 | +0.97 | +0.08 | – | +0.00 |
+| 53 | Orianna | +0.78 | +1.00 | +1.00 | +1.00 | +0.03 | – | +0.00 |
+| 54 | Aurora | +0.78 | +1.00 | +1.00 | +1.00 | +0.03 | – | +0.00 |
+| 55 | Trundle | +0.78 | +1.00 | +1.00 | +1.00 | −0.12 | +1.00 | +0.00 |
+| 56 | Ryze | +0.78 | +1.00 | +1.00 | +1.00 | +0.02 | – | +0.00 |
+| 57 | Heimerdinger | +0.78 | +1.00 | +1.00 | +1.00 | +0.01 | – | +0.00 |
+| 58 | Akshan | +0.78 | +1.00 | +1.00 | +1.00 | +0.01 | – | +0.00 |
+| 59 | Lulu | +0.78 | +1.00 | +1.00 | +1.00 | +0.01 | – | +0.00 |
+| 60 | Teemo | +0.78 | +1.00 | +1.00 | +1.00 | +0.01 | – | +0.00 |
+| 61 | Olaf | +0.78 | +0.95 | +1.00 | +1.00 | −0.05 | +1.00 | +0.00 |
+| 62 | Lucian | +0.78 | +1.00 | +1.00 | +1.00 | +0.01 | – | +0.00 |
+| 63 | Twisted Fate | +0.78 | +1.00 | +1.00 | +1.00 | +0.01 | – | +0.00 |
+| 64 | Xayah | +0.78 | +1.00 | +1.00 | +1.00 | +0.00 | – | +0.00 |
+| 65 | Karma | +0.78 | +1.00 | +1.00 | +1.00 | +0.00 | – | +0.00 |
+| 66 | Kai'Sa | +0.78 | +1.00 | +1.00 | +1.00 | +0.00 | – | +0.00 |
+| 67 | Hwei | +0.78 | +1.00 | +1.00 | +1.00 | −0.00 | – | +0.00 |
+| 68 | Samira | +0.78 | +1.00 | +1.00 | +1.00 | −0.00 | – | +0.00 |
+| 69 | Janna | +0.78 | +1.00 | +1.00 | +0.99 | −0.00 | – | +0.00 |
+| 70 | Quinn | +0.78 | +1.00 | +1.00 | +1.00 | −0.01 | – | +0.00 |
+| 71 | Zoe | +0.77 | +1.00 | +1.00 | +1.00 | −0.02 | – | +0.00 |
+| 72 | Xin Zhao | +0.77 | +1.00 | +0.82 | +1.00 | +0.13 | +1.00 | +0.00 |
+| 73 | Viktor | +0.77 | +1.00 | +1.00 | +1.00 | −0.02 | – | +0.00 |
+| 74 | Kindred | +0.76 | +1.00 | +1.00 | +1.00 | −0.10 | – | +0.00 |
+| 75 | Jinx | +0.76 | +1.00 | +1.00 | +0.87 | +0.07 | – | +0.00 |
+| 76 | Ziggs | +0.74 | +0.79 | +1.00 | +1.00 | +0.10 | – | +0.00 |
+| 77 | Diana | +0.73 | +1.00 | +1.00 | +0.59 | +0.09 | +1.00 | +0.00 |
+| 78 | Lux | +0.72 | +1.00 | +1.00 | +0.72 | +0.03 | – | +0.00 |
+| 79 | Ekko | +0.71 | +1.00 | +0.72 | +1.00 | −0.10 | +1.00 | +0.00 |
+| 80 | Anivia | +0.71 | +1.00 | +1.00 | +0.71 | −0.02 | – | +0.00 |
+| 81 | Malphite | +0.71 | +1.00 | +1.00 | +0.53 | +0.03 | +1.00 | +0.00 |
+| 82 | Mordekaiser | +0.70 | +0.99 | +0.83 | +0.80 | −0.06 | +0.93 | +0.00 |
+| 83 | Brand | +0.69 | +0.99 | +0.70 | +1.00 | +0.01 | – | +0.00 |
+| 84 | Skarner | +0.67 | +0.77 | +0.77 | +0.81 | +0.13 | +1.00 | +0.00 |
+| 85 | Zyra | +0.67 | +0.84 | +0.80 | +0.89 | +0.07 | – | +0.00 |
+| 86 | Caitlyn | +0.64 | +1.00 | +1.00 | +1.00 | +0.04 | −0.67 | +0.00 |
+| 87 | Singed | +0.62 | +1.00 | +0.31 | +1.00 | −0.06 | +1.00 | +0.00 |
+| 88 | Urgot | +0.62 | +0.84 | +0.84 | +0.49 | +0.00 | +1.00 | +0.00 |
+| 89 | Sett | +0.62 | +1.00 | +0.30 | +1.00 | −0.05 | +1.00 | +0.00 |
+| 90 | Nami | +0.62 | +1.00 | +1.00 | +0.23 | +0.06 | – | +0.00 |
+| 91 | Lee Sin | +0.62 | +1.00 | +1.00 | +0.10 | −0.02 | +1.00 | +0.00 |
+| 92 | Rell | +0.61 | +0.55 | +1.00 | +0.55 | +0.11 | +1.00 | +0.00 |
+| 93 | Rakan | +0.60 | +1.00 | +1.00 | +0.00 | −0.01 | +1.00 | +0.00 |
+| 94 | Zaahen | +0.59 | +1.00 | +1.00 | +0.00 | −0.06 | +1.00 | +0.00 |
+| 95 | Wukong | +0.58 | +1.00 | +0.14 | +1.00 | −0.03 | +1.00 | +0.00 |
+| 96 | Graves | +0.58 | +0.55 | +1.00 | +0.38 | +0.10 | +1.00 | +0.00 |
+| 97 | Jarvan IV | +0.57 | +0.00 | +1.00 | +1.00 | +0.12 | +1.00 | +0.00 |
+| 98 | Irelia | +0.56 | +0.95 | +0.68 | +1.00 | +0.06 | −0.53 | +0.00 |
+| 99 | Nautilus | +0.54 | +0.93 | +0.11 | +0.94 | +0.07 | +0.78 | +0.00 |
+| 100 | Illaoi | +0.51 | +1.00 | +0.66 | +0.22 | +0.01 | +0.49 | +0.00 |
+| 101 | Yone | +0.50 | +1.00 | +0.29 | +0.43 | −0.07 | +1.00 | +0.00 |
+| 102 | Ezreal | +0.49 | +0.80 | +0.80 | +0.21 | +0.00 | – | +0.00 |
+| 103 | Riven | +0.48 | +0.00 | +1.00 | +0.68 | −0.02 | +1.00 | +0.00 |
+| 104 | Camille | +0.41 | +1.00 | −0.59 | +1.00 | +0.04 | +1.00 | +0.00 |
+| 105 | Braum | +0.40 | +0.17 | +0.63 | +0.96 | −0.01 | +0.13 | +0.00 |
+| 106 | Fizz | +0.39 | +1.00 | +1.00 | −1.00 | −0.08 | +1.00 | +0.00 |
+| 107 | Vi | +0.39 | +1.00 | +1.00 | −1.00 | −0.10 | +1.00 | +0.00 |
+| 108 | Soraka | +0.37 | +0.98 | +0.27 | +0.12 | +0.01 | – | +0.00 |
+| 109 | Leona | +0.37 | +0.31 | +0.31 | +0.69 | −0.00 | +0.71 | +0.00 |
+| 110 | Akali | +0.36 | +0.49 | +0.07 | +0.60 | +0.00 | +0.96 | +0.00 |
+| 111 | Evelynn | +0.34 | +1.00 | +1.00 | −1.00 | +0.19 | +0.17 | +0.00 |
+| 112 | Xerath | +0.34 | +1.00 | +1.00 | −0.98 | +0.01 | – | +0.00 |
+| 113 | Amumu | +0.28 | +0.90 | +0.54 | −0.88 | +0.00 | +0.99 | +0.00 |
+| 114 | Pantheon | +0.26 | +1.00 | −0.34 | +0.00 | −0.01 | +1.00 | +0.00 |
+| 115 | Morgana | +0.21 | +0.00 | +0.06 | +0.68 | −0.01 | +0.57 | +0.00 |
+| 116 | Nunu & Willump | +0.20 | +0.04 | +0.61 | +0.07 | +0.11 | +0.06 | +0.00 |
+| 117 | Tahm Kench | +0.19 | +0.26 | +0.26 | +0.10 | +0.14 | +0.23 | +0.00 |
+| 118 | Sivir | +0.19 | +0.66 | +0.83 | −1.00 | −0.02 | – | +0.00 |
+| 119 | Rengar | +0.15 | +0.86 | −0.45 | +0.00 | +0.45 | −0.16 | +0.00 |
+| 120 | Ornn | +0.14 | +0.07 | +0.08 | +0.05 | −0.01 | +0.88 | +0.00 |
+| 121 | Zed | +0.09 | +1.00 | −1.00 | +1.00 | −0.06 | −1.00 | +0.00 |
+| 122 | Naafiri | +0.08 | +0.27 | +1.00 | −1.00 | +0.01 | −0.36 | +0.00 |
+| 123 | Alistar | +0.08 | +0.08 | +0.10 | +0.11 | +0.01 | +0.07 | +0.00 |
+| 124 | Lissandra | +0.06 | +1.00 | +0.02 | −1.00 | +0.01 | – | +0.00 |
+| 125 | Shen | +0.04 | −0.03 | +0.04 | +0.14 | −0.02 | +0.09 | +0.00 |
+| 126 | Taric | +0.03 | +0.03 | +0.05 | +0.03 | −0.00 | +0.08 | +0.00 |
+| 127 | Ahri | −0.00 | −0.03 | +0.83 | −0.99 | −0.02 | – | +0.00 |
+| 128 | Warwick | −0.04 | +0.39 | −1.00 | +0.39 | −0.08 | +0.44 | +0.00 |
+| 129 | Vladimir | −0.05 | −0.07 | +0.00 | −0.07 | −0.07 | −0.06 | +0.00 |
+| 130 | Karthus | −0.05 | −0.03 | −0.05 | −0.13 | +0.03 | −0.08 | +0.00 |
+| 131 | Blitzcrank | −0.07 | −0.06 | −0.10 | −0.11 | +0.05 | −0.21 | +0.00 |
+| 132 | Veigar | −0.08 | +0.28 | +0.17 | −0.91 | +0.01 | – | +0.00 |
+| 133 | Ambessa | −0.17 | −0.92 | −1.00 | +1.00 | +0.04 | +1.00 | +0.00 |
+| 134 | Kalista | −0.36 | −0.83 | +0.37 | −1.00 | −0.04 | – | +0.00 |
+| 135 | Taliyah | −0.38 | −0.54 | −0.11 | −1.00 | +0.12 | – | +0.00 |
+| 136 | Aatrox | −0.40 | −0.01 | −0.31 | −1.00 | −0.09 | −1.00 | +0.00 |
+| 137 | Malzahar | −0.44 | −0.14 | −0.66 | −1.00 | +0.01 | – | +0.00 |
+| 138 | Katarina | −0.45 | −1.00 | +0.02 | −1.00 | −0.01 | +0.00 | +0.00 |
+| 139 | LeBlanc | −0.75 | −0.92 | −0.95 | −1.00 | −0.06 | – | +0.00 |
+| 140 | Senna | −0.77 | −1.00 | −1.00 | −1.00 | +0.06 | – | +0.00 |
+| 141 | Thresh | −0.80 | −0.98 | −0.99 | −1.00 | −0.07 | −1.00 | +0.00 |
+| 142 | Hecarim | −0.80 | −1.00 | −0.98 | −1.00 | −0.06 | −1.00 | +0.00 |
+| 143 | Kha'Zix | −0.81 | −1.00 | −1.00 | −1.00 | −0.04 | −1.00 | +0.00 |
+| 144 | Talon | −0.81 | −1.00 | −1.00 | −1.00 | −0.06 | −1.00 | +0.00 |
+
+## Interaction ledger estimates
+
 Every champion ranked by what its kit does against Vex's, from the interaction ledger: projectile blocks, spell shields,
 parries, dash stops, crowd control and its defenses, range and more (PLAN.md §5). This ranking is **partial**: it weighs the
 interactions but doesn't play the fight out. The duel simulator replaces it as each champion's behavior is verified.
@@ -8,64 +161,64 @@ interactions but doesn't play the fight out. The duel simulator replaces it as e
 A hard counter shuts down part of a kit every time it is used (projectile block, attack dodge, attack block, blind, disarm, attack speed slow, attack reflect, dash stop, grounding, range) with an impact of 0.4 or more (0.5 for range).
 Run `npm run matchup -- <champion> Vex` for the full ledger of a matchup, with sources.
 
-## Top 10
+### Top 10
 
-### 1. Mel (net +0.95)
+#### 1. Mel (net +0.95)
 
 - **0.70** projectile block: Rebuttal blocks Vex's Shadow Surge, a projectile. Rebuttal for 0.75 s; Shadow Surge takes 2.13 s to land, enough to react. (Mel W Rebuttal → Vex R Shadow Surge)
 - **0.30** projectile block: Rebuttal blocks Vex's Looming Darkness, a projectile. Rebuttal for 0.75 s; Looming Darkness takes 0.87 s to land, enough to react. (Mel W Rebuttal → Vex E Looming Darkness)
 - **0.27** projectile block: Rebuttal blocks Vex's Mistral Bolt, a projectile. Rebuttal for 0.75 s; Mistral Bolt takes 2.15 s to land, enough to react. (Mel W Rebuttal → Vex Q Mistral Bolt)
 
-### 2. Sivir (net +0.70)
+#### 2. Sivir (net +0.70)
 
 - **0.70** spell shield: Spell Shield's spell shield blocks Vex's Shadow Surge. Spell shield for 1.5 s, long enough to use ahead of Shadow Surge. A spell shield blocks only the first enemy ability that reaches it. (Sivir E Spell Shield → Vex R Shadow Surge)
 
-### 3. Xayah (net +0.70)
+#### 3. Xayah (net +0.70)
 
 - **0.70** untargetable: Featherstorm makes Xayah untargetable, dodging Vex's Shadow Surge. Untargetable for 1.5 s, long enough to use ahead of Shadow Surge. (Xayah R Featherstorm → Vex R Shadow Surge)
 
-### 4. Lissandra (net +0.65)
+#### 4. Lissandra (net +0.65)
 
 - **0.70** untargetable: Frozen Tomb makes Lissandra untargetable, dodging Vex's Shadow Surge. Untargetable for 2.5 s, long enough to use ahead of Shadow Surge. (Lissandra R Frozen Tomb → Vex R Shadow Surge)
 - Watch out: Shadow Surge is displacement immune, ignoring Lissandra's Frozen Tomb (knockdown) during it.
 
-### 5. Samira (net +0.52)
+#### 5. Samira (net +0.52)
 
 - **0.70** projectile block: Blade Whirl blocks Vex's Shadow Surge, a projectile. Blade Whirl for 0.75 s; Shadow Surge takes 2.13 s to land, enough to react. (Samira W Blade Whirl → Vex R Shadow Surge)
 - **0.33** projectile block: Blade Whirl blocks Vex's Looming Darkness, a projectile. Blade Whirl for 0.75 s; Looming Darkness takes 0.87 s to land, enough to react. (Samira W Blade Whirl → Vex E Looming Darkness)
 - **0.28** projectile block: Blade Whirl blocks Vex's Mistral Bolt, a projectile. Blade Whirl for 0.75 s; Mistral Bolt takes 2.15 s to land, enough to react. (Samira W Blade Whirl → Vex Q Mistral Bolt)
 - Watch out: Doom 'n Gloom's knockdown can stop Samira's Wild Rush mid-dash.
 
-### 6. Zed (net +0.52)
+#### 6. Zed (net +0.52)
 
 - **0.70** untargetable: Death Mark makes Zed untargetable, dodging Vex's Shadow Surge. Untargetable for 0.6 s; Shadow Surge takes 2.13 s to land, enough to react. (Zed R Death Mark → Vex R Shadow Surge)
 - Watch out: Vex's basic attacks reach 425 units farther than Zed's (550 vs 125 attack range).
 
-### 7. Vladimir (net +0.50)
+#### 7. Vladimir (net +0.50)
 
 - **0.70** untargetable: Sanguine Pool makes Vladimir untargetable, dodging Vex's Shadow Surge. Untargetable for 2 s, long enough to use ahead of Shadow Surge. (Vladimir W Sanguine Pool → Vex R Shadow Surge)
 - Watch out: Vex's basic attacks reach 100 units farther than Vladimir's (550 vs 450 attack range).
 
-### 8. Morgana (net +0.47)
+#### 8. Morgana (net +0.47)
 
 - **0.55** cc immunity: Black Shield makes Morgana immune to Vex's Doom 'n Gloom (fear, knockdown, slow). Immune for 5 s, long enough to use ahead of Doom 'n Gloom. (Morgana E Black Shield → Vex I Doom 'n Gloom)
 - **0.10** cc immunity: Black Shield makes Morgana immune to Vex's Looming Darkness (slow). Immune for 5 s, long enough to use ahead of Looming Darkness. (Morgana E Black Shield → Vex E Looming Darkness)
 - Watch out: Vex's basic attacks reach 100 units farther than Morgana's (550 vs 450 attack range).
 
-### 9. Nocturne (net +0.46)
+#### 9. Nocturne (net +0.46)
 
 - **0.70** spell shield: Shroud of Darkness's spell shield blocks Vex's Shadow Surge. Spell shield for 1.5 s, long enough to use ahead of Shadow Surge. A spell shield blocks only the first enemy ability that reaches it. (Nocturne W Shroud of Darkness → Vex R Shadow Surge)
 - **0.03** cc immunity: Paranoia is displacement immune, ignoring Vex's Doom 'n Gloom (knockdown) during it. Only during Paranoia. (Nocturne R Paranoia → Vex I Doom 'n Gloom)
 - Watch out: Vex's basic attacks reach 425 units farther than Nocturne's (550 vs 125 attack range).
 
-### 10. Braum (net +0.44)
+#### 10. Braum (net +0.44)
 
 - **0.70** projectile block: Unbreakable blocks Vex's Shadow Surge, a projectile. Unbreakable for 4 s, long enough to use ahead of Shadow Surge. (Braum E Unbreakable → Vex R Shadow Surge)
 - **0.45** projectile block: Unbreakable blocks Vex's Looming Darkness, a projectile. Unbreakable for 4 s, long enough to use ahead of Looming Darkness. (Braum E Unbreakable → Vex E Looming Darkness)
 - **0.39** projectile block: Unbreakable blocks Vex's Mistral Bolt, a projectile. Unbreakable for 4 s, long enough to use ahead of Mistral Bolt. (Braum E Unbreakable → Vex Q Mistral Bolt)
 - Watch out: Doom 'n Gloom's knockdown can stop Braum's Stand Behind Me mid-dash.
 
-## Full ranking
+### Full ranking
 
 | # | Champion | Net | For | Against | Hard counters |
 |--:|---|--:|--:|--:|---|

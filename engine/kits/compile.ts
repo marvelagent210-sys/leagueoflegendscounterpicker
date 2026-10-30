@@ -91,7 +91,7 @@ export function compileKit(
     const targeting = record.text.targeting;
     if (!targeting || /^N\/A$/i.test(targeting)) continue;
     kit.pet(record.name).quote(targeting);
-    petTargetClasses[record.name] = /^(?:Lane )?Minion\b/i.test(targeting) ? "minion" : /^Champion\b/i.test(targeting) ? "champion" : "other";
+    petTargetClasses[record.name] = /^(?:Lane )?Minion\b/i.test(targeting) ? "minion" : /^(?:(?:Epic|Large|Small) )?Monster\b/i.test(targeting) ? "monster" : /^Champion\b/i.test(targeting) ? "champion" : "other";
   }
   kit.seal();
   const base = baseFighter(champion);

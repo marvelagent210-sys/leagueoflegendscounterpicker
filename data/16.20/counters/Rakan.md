@@ -1,5 +1,158 @@
 # Counters to Rakan (patch 26.20)
 
+## Simulated duels
+
+The duel simulator played each of the 144 other champions with a simulator kit against Rakan: both at level 20 with 15,000 gold of plain stats, each side's spent against the other's, through six scenarios (PLAN.md §6). Scores run from −1 (Rakan wins every time) to +1 (the champion does). Run `npm run duel -- <champion> Rakan --log brawl` to watch a fight.
+
+| # | Champion | Score | You engage | Enemy engages | Brawl | Short trade | Spacing | Escape |
+|--:|---|--:|--:|--:|--:|--:|--:|--:|
+| 1 | Fiora | +0.84 | +1.00 | +1.00 | +1.00 | +0.30 | +1.00 | +0.00 |
+| 2 | Kog'Maw | +0.84 | +1.00 | +1.00 | +1.00 | +0.29 | +1.00 | +0.00 |
+| 3 | Ashe | +0.84 | +1.00 | +1.00 | +1.00 | +0.28 | +1.00 | +0.00 |
+| 4 | Corki | +0.84 | +1.00 | +1.00 | +1.00 | +0.25 | +1.00 | +0.00 |
+| 5 | Gnar | +0.84 | +1.00 | +1.00 | +1.00 | +0.26 | +1.00 | +0.00 |
+| 6 | Aphelios | +0.83 | +1.00 | +1.00 | +1.00 | +0.18 | +1.00 | +0.00 |
+| 7 | Morgana | +0.83 | +1.00 | +1.00 | +0.99 | +0.19 | +1.00 | +0.00 |
+| 8 | Sivir | +0.83 | +1.00 | +1.00 | +1.00 | +0.17 | +1.00 | +0.00 |
+| 9 | Akshan | +0.82 | +1.00 | +1.00 | +1.00 | +0.15 | +1.00 | +0.00 |
+| 10 | Smolder | +0.82 | +1.00 | +1.00 | +1.00 | +0.15 | +1.00 | +0.00 |
+| 11 | Kalista | +0.82 | +1.00 | +1.00 | +1.00 | +0.15 | +1.00 | +0.00 |
+| 12 | Kayle | +0.82 | +1.00 | +1.00 | +1.00 | +0.14 | +1.00 | +0.00 |
+| 13 | Xayah | +0.81 | +1.00 | +1.00 | +1.00 | +0.08 | +1.00 | +0.00 |
+| 14 | Twisted Fate | +0.81 | +1.00 | +1.00 | +1.00 | +0.08 | +1.00 | +0.00 |
+| 15 | Lulu | +0.81 | +1.00 | +1.00 | +1.00 | +0.08 | +1.00 | +0.00 |
+| 16 | Kled | +0.81 | +1.00 | +1.00 | +1.00 | +0.07 | +1.00 | +0.00 |
+| 17 | Graves | +0.81 | +1.00 | +1.00 | +1.00 | +0.07 | +1.00 | +0.00 |
+| 18 | Cassiopeia | +0.81 | +1.00 | +1.00 | +1.00 | +0.05 | +1.00 | +0.00 |
+| 19 | Orianna | +0.81 | +1.00 | +1.00 | +1.00 | +0.05 | +1.00 | +0.00 |
+| 20 | Neeko | +0.81 | +1.00 | +1.00 | +1.00 | +0.04 | +1.00 | +0.00 |
+| 21 | Vayne | +0.80 | +1.00 | +1.00 | +1.00 | +0.03 | +1.00 | +0.00 |
+| 22 | Gangplank | +0.80 | +1.00 | +1.00 | +1.00 | +0.01 | +1.00 | +0.00 |
+| 23 | Karma | +0.80 | +1.00 | +1.00 | +1.00 | +0.01 | +1.00 | +0.00 |
+| 24 | Teemo | +0.80 | +1.00 | +1.00 | +1.00 | +0.01 | +1.00 | +0.00 |
+| 25 | Yorick | +0.80 | +1.00 | +1.00 | +1.00 | +0.00 | +1.00 | +0.00 |
+| 26 | Samira | +0.80 | +1.00 | +1.00 | +1.00 | +0.00 | +1.00 | +0.00 |
+| 27 | Urgot | +0.80 | +1.00 | +1.00 | +1.00 | +0.12 | – | +0.00 |
+| 28 | K'Sante | +0.80 | +1.00 | +1.00 | +1.00 | −0.02 | +1.00 | +0.00 |
+| 29 | Kai'Sa | +0.80 | +1.00 | +1.00 | +1.00 | −0.03 | +1.00 | +0.00 |
+| 30 | Dr. Mundo | +0.79 | +1.00 | +1.00 | +0.99 | −0.01 | +1.00 | +0.00 |
+| 31 | Quinn | +0.79 | +1.00 | +1.00 | +1.00 | −0.04 | +1.00 | +0.00 |
+| 32 | Udyr | +0.79 | +1.00 | +1.00 | +1.00 | −0.05 | +1.00 | +0.00 |
+| 33 | Nasus | +0.79 | +1.00 | +1.00 | +1.00 | −0.07 | +1.00 | +0.00 |
+| 34 | Zaahen | +0.79 | +1.00 | +1.00 | +1.00 | −0.07 | +1.00 | +0.00 |
+| 35 | Jax | +0.79 | +1.00 | +1.00 | +1.00 | −0.07 | +1.00 | +0.00 |
+| 36 | Zeri | +0.78 | +1.00 | +1.00 | +1.00 | −0.13 | +1.00 | +0.00 |
+| 37 | Renekton | +0.78 | +1.00 | +1.00 | +1.00 | −0.14 | +1.00 | +0.00 |
+| 38 | Kennen | +0.78 | +1.00 | +1.00 | +1.00 | −0.15 | +1.00 | +0.00 |
+| 39 | Tryndamere | +0.77 | +1.00 | +1.00 | +1.00 | −0.18 | +1.00 | +0.00 |
+| 40 | Jinx | +0.77 | +1.00 | +1.00 | +0.89 | −0.04 | +1.00 | +0.00 |
+| 41 | Camille | +0.77 | +1.00 | +1.00 | +1.00 | −0.22 | +1.00 | +0.00 |
+| 42 | Yasuo | +0.76 | +0.92 | +0.99 | +0.96 | −0.03 | +0.94 | +0.00 |
+| 43 | Volibear | +0.65 | +0.88 | +0.61 | +0.93 | −0.03 | +1.00 | +0.00 |
+| 44 | Swain | +0.61 | +1.00 | +1.00 | +0.12 | −0.10 | +1.00 | +0.00 |
+| 45 | Lee Sin | +0.61 | +1.00 | +1.00 | +0.00 | +0.04 | +1.00 | +0.00 |
+| 46 | Annie | +0.58 | +1.00 | +0.89 | +0.00 | +0.08 | +1.00 | +0.00 |
+| 47 | Olaf | +0.57 | +1.00 | +1.00 | +0.88 | −0.03 | −1.00 | +0.00 |
+| 48 | Ezreal | +0.56 | +1.00 | +1.00 | −0.16 | −0.02 | +0.93 | +0.00 |
+| 49 | Heimerdinger | +0.53 | −0.27 | +1.00 | +1.00 | +0.30 | +1.00 | +0.00 |
+| 50 | Janna | +0.52 | +1.00 | +1.00 | −0.50 | +0.16 | +0.93 | +0.00 |
+| 51 | Jayce | +0.50 | +1.00 | −0.23 | +1.00 | +0.09 | +1.00 | +0.00 |
+| 52 | Jhin | +0.44 | +1.00 | +1.00 | +0.03 | +0.00 | −0.65 | +0.00 |
+| 53 | Mordekaiser | +0.42 | +0.57 | +0.85 | +0.37 | +0.02 | −0.17 | +0.00 |
+| 54 | Cho'Gath | +0.39 | +1.00 | +1.00 | −1.00 | −0.04 | +1.00 | +0.00 |
+| 55 | Draven | +0.37 | +1.00 | +0.00 | +0.00 | +0.15 | +1.00 | +0.00 |
+| 56 | Tahm Kench | +0.37 | +1.00 | +0.04 | +0.44 | +0.13 | +0.03 | +0.00 |
+| 57 | Ziggs | +0.36 | +1.00 | +0.00 | +0.00 | +0.09 | +1.00 | +0.00 |
+| 58 | Diana | +0.35 | +0.00 | +1.00 | +1.00 | +0.03 | −1.00 | +0.00 |
+| 59 | Varus | +0.32 | +1.00 | +1.00 | −1.00 | −0.02 | +0.23 | +0.00 |
+| 60 | Poppy | +0.31 | −1.00 | +1.00 | +1.00 | +0.09 | +1.00 | +0.00 |
+| 61 | Tristana | +0.29 | −1.00 | +1.00 | +1.00 | −0.06 | +1.00 | +0.00 |
+| 62 | Miss Fortune | +0.22 | +1.00 | +1.00 | −1.00 | +0.15 | −1.00 | +0.00 |
+| 63 | Illaoi | +0.13 | +0.12 | +0.13 | +0.48 | −0.06 | −0.15 | +0.00 |
+| 64 | Warwick | +0.10 | +1.00 | −1.00 | +1.00 | +0.02 | −1.00 | +0.00 |
+| 65 | Trundle | +0.09 | −1.00 | +1.00 | +1.00 | −0.06 | −1.00 | +0.00 |
+| 66 | Nocturne | +0.04 | +0.00 | −1.00 | +1.00 | −0.07 | +1.00 | +0.00 |
+| 67 | Aurora | +0.01 | +0.11 | −0.07 | −0.03 | +0.06 | −0.02 | +0.00 |
+| 68 | Yone | −0.02 | −0.37 | +0.54 | −0.52 | +0.01 | +0.44 | +0.00 |
+| 69 | Sona | −0.03 | +1.00 | +0.07 | −1.00 | +0.04 | −1.00 | +0.00 |
+| 70 | Gwen | −0.05 | −0.75 | +0.10 | +0.25 | −0.07 | +0.75 | +0.00 |
+| 71 | Brand | −0.10 | +0.31 | +0.51 | −1.00 | +0.01 | −1.00 | +0.00 |
+| 72 | Anivia | −0.11 | −0.15 | +0.00 | −0.23 | −0.09 | −0.12 | +0.00 |
+| 73 | Jarvan IV | −0.12 | −1.00 | +1.00 | −1.00 | −0.11 | +1.00 | +0.00 |
+| 74 | Singed | −0.14 | −0.18 | −0.13 | −0.16 | −0.11 | −0.13 | +0.00 |
+| 75 | Syndra | −0.15 | −0.03 | −1.00 | +0.00 | +0.05 | +1.00 | +0.00 |
+| 76 | Braum | −0.15 | −0.36 | +0.62 | −0.60 | −0.02 | −0.98 | +0.00 |
+| 77 | Taric | −0.15 | −0.19 | −0.17 | −0.16 | −0.04 | −0.28 | +0.00 |
+| 78 | Malphite | −0.17 | −0.22 | −0.23 | −0.19 | +0.00 | −0.21 | +0.00 |
+| 79 | Lucian | −0.17 | −1.00 | −1.00 | +1.00 | +0.19 | +1.00 | +0.00 |
+| 80 | Ryze | −0.19 | +0.67 | −1.00 | −1.00 | +0.04 | +0.83 | +0.00 |
+| 81 | Vel'Koz | −0.19 | +0.66 | −1.00 | −0.12 | +0.09 | −1.00 | +0.00 |
+| 82 | Shen | −0.21 | −0.33 | −0.25 | −0.20 | −0.02 | −0.24 | +0.00 |
+| 83 | Rammus | −0.22 | −1.00 | +1.00 | −0.55 | −0.10 | −1.00 | +0.00 |
+| 84 | Aatrox | −0.25 | −1.00 | +0.71 | −0.24 | −0.23 | −1.00 | +0.00 |
+| 85 | Ornn | −0.26 | −0.36 | −0.27 | −0.33 | −0.02 | −0.35 | +0.00 |
+| 86 | Rengar | −0.26 | −1.00 | +0.95 | −1.00 | +0.32 | −1.00 | +0.00 |
+| 87 | Hwei | −0.28 | −0.09 | −1.00 | +0.47 | −0.01 | −0.98 | +0.00 |
+| 88 | Xin Zhao | −0.28 | +1.00 | −1.00 | −0.92 | +0.03 | −1.00 | +0.00 |
+| 89 | Ambessa | −0.29 | −1.00 | +1.00 | −1.00 | +0.07 | −1.00 | +0.00 |
+| 90 | Thresh | −0.29 | +1.00 | −1.00 | −1.00 | +0.06 | −1.00 | +0.00 |
+| 91 | Caitlyn | −0.30 | +0.96 | −1.00 | −1.00 | +0.03 | −1.00 | +0.00 |
+| 92 | Pantheon | −0.31 | +1.00 | −1.00 | −1.00 | −0.07 | −1.00 | +0.00 |
+| 93 | Kassadin | −0.32 | −1.00 | +1.00 | −1.00 | −0.15 | −1.00 | +0.00 |
+| 94 | Senna | −0.35 | +0.82 | −1.00 | −1.00 | −0.02 | −1.00 | +0.00 |
+| 95 | Karthus | −0.37 | −0.43 | −0.43 | −0.50 | −0.03 | −0.50 | +0.00 |
+| 96 | Sion | −0.38 | −1.00 | −0.50 | +0.00 | −0.12 | +0.11 | +0.00 |
+| 97 | Vi | −0.39 | −1.00 | +0.00 | −1.00 | −0.27 | +1.00 | +0.00 |
+| 98 | Malzahar | −0.43 | −0.28 | −0.24 | −1.00 | −0.00 | −1.00 | +0.00 |
+| 99 | Akali | −0.45 | −1.00 | +0.42 | −0.92 | −0.12 | −1.00 | +0.00 |
+| 100 | Rumble | −0.46 | +0.40 | −1.00 | −1.00 | −0.08 | −1.00 | +0.00 |
+| 101 | Soraka | −0.47 | −0.29 | −0.52 | −0.83 | −0.01 | −1.00 | +0.00 |
+| 102 | Rell | −0.54 | −1.00 | +0.00 | −1.00 | +0.05 | −1.00 | +0.00 |
+| 103 | Nami | −0.55 | −0.14 | −0.87 | −1.00 | −0.00 | −1.00 | +0.00 |
+| 104 | Viktor | −0.57 | −0.06 | −1.00 | −1.00 | −0.03 | −1.00 | +0.00 |
+| 105 | Lissandra | −0.58 | −1.00 | −1.00 | −1.00 | +0.21 | +0.88 | +0.00 |
+| 106 | Master Yi | −0.58 | −1.00 | −1.00 | +0.00 | +0.12 | −1.00 | +0.00 |
+| 107 | Zoe | −0.59 | −1.00 | −0.10 | −1.00 | −0.08 | −1.00 | +0.00 |
+| 108 | Vex | −0.60 | −1.00 | −1.00 | +0.00 | +0.01 | −1.00 | +0.00 |
+| 109 | Darius | −0.60 | −1.00 | −1.00 | +0.00 | −0.01 | −1.00 | +0.00 |
+| 110 | Zyra | −0.66 | −0.45 | −1.00 | −1.00 | −0.00 | −1.00 | +0.00 |
+| 111 | Gragas | −0.70 | −1.00 | −0.65 | −1.00 | +0.08 | −1.00 | +0.00 |
+| 112 | Lux | −0.72 | −0.68 | −1.00 | −1.00 | +0.01 | −1.00 | +0.00 |
+| 113 | Maokai | −0.77 | −1.00 | −1.00 | −1.00 | +0.21 | −1.00 | +0.00 |
+| 114 | Irelia | −0.77 | −1.00 | −1.00 | −0.98 | +0.18 | −1.00 | +0.00 |
+| 115 | Naafiri | −0.78 | −1.00 | −1.00 | −1.00 | +0.14 | −1.00 | +0.00 |
+| 116 | Ahri | −0.79 | −1.00 | −1.00 | −1.00 | +0.05 | −0.94 | +0.00 |
+| 117 | Nunu & Willump | −0.79 | −1.00 | −1.00 | −1.00 | +0.09 | −1.00 | +0.00 |
+| 118 | Taliyah | −0.79 | −1.00 | −1.00 | −1.00 | +0.08 | −1.00 | +0.00 |
+| 119 | Blitzcrank | −0.79 | −1.00 | −1.00 | −1.00 | +0.08 | −1.00 | +0.00 |
+| 120 | Nautilus | −0.79 | −1.00 | −1.00 | −1.00 | +0.06 | −1.00 | +0.00 |
+| 121 | Riven | −0.79 | −1.00 | −1.00 | −1.00 | +0.05 | −1.00 | +0.00 |
+| 122 | Garen | −0.80 | −1.00 | −1.00 | −1.00 | +0.03 | −1.00 | +0.00 |
+| 123 | Fizz | −0.80 | −1.00 | −1.00 | −1.00 | +0.02 | −1.00 | +0.00 |
+| 124 | Evelynn | −0.80 | −1.00 | −1.00 | −1.00 | +0.02 | −1.00 | +0.00 |
+| 125 | Twitch | −0.80 | −1.00 | −1.00 | −1.00 | +0.02 | −1.00 | +0.00 |
+| 126 | Xerath | −0.80 | −1.00 | −1.00 | −1.00 | −0.01 | −1.00 | +0.00 |
+| 127 | Veigar | −0.80 | −1.00 | −1.00 | −1.00 | −0.01 | −1.00 | +0.00 |
+| 128 | Zed | −0.80 | −1.00 | −1.00 | −1.00 | −0.03 | −1.00 | +0.00 |
+| 129 | Sett | −0.81 | −1.00 | −1.00 | −1.00 | −0.04 | −1.00 | +0.00 |
+| 130 | Galio | −0.81 | −1.00 | −1.00 | −1.00 | −0.05 | −1.00 | +0.00 |
+| 131 | Leona | −0.81 | −1.00 | −1.00 | −1.00 | −0.06 | −1.00 | +0.00 |
+| 132 | Sejuani | −0.81 | −1.00 | −1.00 | −1.00 | −0.08 | −1.00 | +0.00 |
+| 133 | Ekko | −0.81 | −1.00 | −1.00 | −1.00 | −0.09 | −1.00 | +0.00 |
+| 134 | Alistar | −0.81 | −1.00 | −1.00 | −1.00 | −0.10 | −1.00 | +0.00 |
+| 135 | Skarner | −0.82 | −1.00 | −1.00 | −1.00 | −0.10 | −1.00 | +0.00 |
+| 136 | Kha'Zix | −0.82 | −1.00 | −1.00 | −1.00 | −0.11 | −1.00 | +0.00 |
+| 137 | Talon | −0.82 | −1.00 | −1.00 | −1.00 | −0.11 | −1.00 | +0.00 |
+| 138 | Amumu | −0.82 | −1.00 | −1.00 | −1.00 | −0.12 | −1.00 | +0.00 |
+| 139 | Vladimir | −0.82 | −1.00 | −1.00 | −1.00 | −0.12 | −1.00 | +0.00 |
+| 140 | Katarina | −0.82 | −1.00 | −1.00 | −1.00 | −0.13 | −1.00 | +0.00 |
+| 141 | LeBlanc | −0.82 | −1.00 | −1.00 | −1.00 | −0.14 | −1.00 | +0.00 |
+| 142 | Kindred | −0.82 | −1.00 | −1.00 | −1.00 | −0.15 | −1.00 | +0.00 |
+| 143 | Hecarim | −0.83 | −1.00 | −1.00 | −1.00 | −0.17 | −1.00 | +0.00 |
+| 144 | Wukong | −0.83 | −1.00 | −1.00 | −1.00 | −0.17 | −1.00 | +0.00 |
+
+## Interaction ledger estimates
+
 Every champion ranked by what its kit does against Rakan's, from the interaction ledger: projectile blocks, spell shields,
 parries, dash stops, crowd control and its defenses, range and more (PLAN.md §5). This ranking is **partial**: it weighs the
 interactions but doesn't play the fight out. The duel simulator replaces it as each champion's behavior is verified.
@@ -8,71 +161,71 @@ interactions but doesn't play the fight out. The duel simulator replaces it as e
 A hard counter shuts down part of a kit every time it is used (projectile block, attack dodge, attack block, blind, disarm, attack speed slow, attack reflect, dash stop, grounding, range) with an impact of 0.4 or more (0.5 for range).
 Run `npm run matchup -- <champion> Rakan` for the full ledger of a matchup, with sources.
 
-## Top 10
+### Top 10
 
-### 1. Nocturne (net +1.37)
+#### 1. Nocturne (net +1.37)
 
 - **0.90** spell shield: Shroud of Darkness's spell shield blocks Rakan's Grand Entrance. Spell shield for 1.5 s, long enough to use ahead of Grand Entrance. A spell shield blocks only the first enemy ability that reaches it. (Nocturne W Shroud of Darkness → Rakan W Grand Entrance)
 - **0.80** spell shield: Shroud of Darkness's spell shield blocks Rakan's The Quickness. Spell shield for 1.5 s, long enough to use ahead of The Quickness. A spell shield blocks only the first enemy ability that reaches it. (Nocturne W Shroud of Darkness → Rakan R The Quickness)
 - **0.20** cc immunity: Paranoia is displacement immune, ignoring Rakan's Grand Entrance (airborne) during it. Only during Paranoia. (Nocturne R Paranoia → Rakan W Grand Entrance)
 - Watch out: Rakan's basic attacks reach 175 units farther than Nocturne's (300 vs 125 attack range).
 
-### 2. Fizz (net +1.35)
+#### 2. Fizz (net +1.35)
 
 - **1.00** untargetable: Playful makes Fizz untargetable, dodging Rakan's Grand Entrance. Untargetable for 0.75 s; Grand Entrance takes 0.38 s to land, enough to react. (Fizz E Playful → Rakan W Grand Entrance)
 - **0.80** untargetable: Playful makes Fizz untargetable, dodging Rakan's The Quickness. Untargetable for 0.75 s; The Quickness takes 0.5 s to land, enough to react. (Fizz E Playful → Rakan R The Quickness)
 - Watch out: Rakan's basic attacks reach 125 units farther than Fizz's (300 vs 175 attack range).
 
-### 3. Sivir (net +1.34)
+#### 3. Sivir (net +1.34)
 
 - **0.80** spell shield: Spell Shield's spell shield blocks Rakan's The Quickness. Spell shield for 1.5 s, long enough to use ahead of The Quickness. A spell shield blocks only the first enemy ability that reaches it. (Sivir E Spell Shield → Rakan R The Quickness)
 - **0.73** spell shield: Spell Shield's spell shield blocks Rakan's Grand Entrance. Spell shield for 1.5 s, long enough to use ahead of Grand Entrance. A spell shield blocks only the first enemy ability that reaches it. (Sivir E Spell Shield → Rakan W Grand Entrance)
 - **0.17** range: Sivir's basic attacks reach 200 units farther than Rakan's (500 vs 300 attack range). Rakan closes the gap with Battle Dance, Grand Entrance. (Sivir basic attacks → Rakan basic attacks)
 
-### 4. Maokai (net +1.27)
+#### 4. Maokai (net +1.27)
 
 - **1.00** untargetable: Twisted Advance makes Maokai untargetable, dodging Rakan's Grand Entrance. Untargetable for 1.4 s; Grand Entrance takes 0.38 s to land, enough to react. (Maokai W Twisted Advance → Rakan W Grand Entrance)
 - **0.80** untargetable: Twisted Advance makes Maokai untargetable, dodging Rakan's The Quickness. Untargetable for 1.4 s; The Quickness takes 0.5 s to land, enough to react. (Maokai W Twisted Advance → Rakan R The Quickness)
 - Watch out: Rakan's basic attacks reach 175 units farther than Maokai's (300 vs 125 attack range).
 
-### 5. Udyr (net +1.27)
+#### 5. Udyr (net +1.27)
 
 - **1.00** cc immunity: Blazing Stampede makes Udyr immune to Rakan's Grand Entrance (airborne). Immune for 1.5 s, long enough to use ahead of Grand Entrance. (Udyr E Blazing Stampede → Rakan W Grand Entrance)
 - **0.80** cc immunity: Blazing Stampede makes Udyr immune to Rakan's The Quickness (charm, slow). Immune for 1.5 s, long enough to use ahead of The Quickness. (Udyr E Blazing Stampede → Rakan R The Quickness)
 - Watch out: Rakan's basic attacks reach 175 units farther than Udyr's (300 vs 125 attack range).
 
-### 6. Fiora (net +1.25)
+#### 6. Fiora (net +1.25)
 
 - **0.90** parry: Riposte parries Rakan's The Quickness and stuns back. Parry for 0.75 s; The Quickness takes 0.5 s to land, enough to react. Negating The Quickness's immobilizing effect turns Riposte's slow into a stun (2 s). (Fiora W Riposte → Rakan R The Quickness)
 - **0.88** parry: Riposte parries Rakan's Grand Entrance and stuns back. Parry for 0.75 s; Grand Entrance takes 0.38 s to land, enough to react. Negating Grand Entrance's immobilizing effect turns Riposte's slow into a stun (2 s). (Fiora W Riposte → Rakan W Grand Entrance)
 - **0.07** attack speed slow: Riposte cuts Rakan's attack speed by 25% for 2 s. 2 s on a 16 s cooldown. (Fiora W Riposte → Rakan basic attacks)
 - Watch out: Rakan's basic attacks reach 150 units farther than Fiora's (300 vs 150 attack range).
 
-### 7. Morgana (net +1.25)
+#### 7. Morgana (net +1.25)
 
 - **0.80** cc immunity: Black Shield makes Morgana immune to Rakan's The Quickness (charm, slow). Immune for 5 s, long enough to use ahead of The Quickness. (Morgana E Black Shield → Rakan R The Quickness)
 - **0.78** cc immunity: Black Shield makes Morgana immune to Rakan's Grand Entrance (airborne). Immune for 5 s, long enough to use ahead of Grand Entrance. (Morgana E Black Shield → Rakan W Grand Entrance)
 - **0.06** range: Morgana's basic attacks reach 150 units farther than Rakan's (450 vs 300 attack range). Rakan closes the gap with Battle Dance, Grand Entrance. (Morgana basic attacks → Rakan basic attacks)
 
-### 8. Lissandra (net +1.22)
+#### 8. Lissandra (net +1.22)
 
 - **0.80** untargetable: Frozen Tomb makes Lissandra untargetable, dodging Rakan's The Quickness. Untargetable for 2.5 s, long enough to use ahead of The Quickness. (Lissandra R Frozen Tomb → Rakan R The Quickness)
 - **0.48** untargetable: Frozen Tomb makes Lissandra untargetable, dodging Rakan's Grand Entrance. Untargetable for 2.5 s, long enough to use ahead of Grand Entrance. (Lissandra R Frozen Tomb → Rakan W Grand Entrance)
 - **0.24** dash stop: Frozen Tomb's knockdown can stop Rakan's Grand Entrance mid-dash. Must land during the dash. Fails if the dashing unit is crowd control immune, displacement immune, untargetable or spell shielded. (Lissandra R Frozen Tomb → Rakan W Grand Entrance)
 
-### 9. Bard (net +1.17)
+#### 9. Bard (net +1.17)
 
 - **0.80** untargetable: Tempered Fate makes Bard untargetable, dodging Rakan's The Quickness. Untargetable for 2.5 s, long enough to use ahead of The Quickness. (Bard R Tempered Fate → Rakan R The Quickness)
 - **0.48** untargetable: Tempered Fate makes Bard untargetable, dodging Rakan's Grand Entrance. Untargetable for 2.5 s, long enough to use ahead of Grand Entrance. (Bard R Tempered Fate → Rakan W Grand Entrance)
 - **0.13** range: Bard's basic attacks reach 200 units farther than Rakan's (500 vs 300 attack range). Rakan closes the gap with Battle Dance, Grand Entrance. (Bard basic attacks → Rakan basic attacks)
 
-### 10. Aurora (net +1.15)
+#### 10. Aurora (net +1.15)
 
 - **0.75** untargetable: Between Worlds makes Aurora untargetable, dodging Rakan's The Quickness. Untargetable for 0.4 s; The Quickness takes 0.5 s to land, enough to react. Does not destroy inbound projectiles. (Aurora R Between Worlds → Rakan R The Quickness)
 - **0.46** untargetable: Between Worlds makes Aurora untargetable, dodging Rakan's Grand Entrance. Untargetable for 0.4 s; Grand Entrance takes 0.38 s to land, enough to react. Does not destroy inbound projectiles. (Aurora R Between Worlds → Rakan W Grand Entrance)
 - **0.20** cc immunity: Between Worlds is displacement immune, ignoring Rakan's Grand Entrance (airborne) during it. Only during Between Worlds (0.4 s). (Aurora R Between Worlds → Rakan W Grand Entrance)
 
-## Full ranking
+### Full ranking
 
 | # | Champion | Net | For | Against | Hard counters |
 |--:|---|--:|--:|--:|---|

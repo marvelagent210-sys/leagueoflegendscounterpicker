@@ -37,6 +37,18 @@ Notes:
 
 - Tidal Wave uses a separate empowered buff that has priority over the normal buff, and it will be used even if the full/current strength of the empowered buff is weaker than the full-strength normal buff.
     - If the normal buff remains ongoing when the empowered buff expires, it will then begin with full strength and completely decay over its remaining duration.
+- {{{{{1<noinclude>|Ability data</noinclude>}}}|Surging Tides|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}
+  |champion     = Nami
+  |skill        = I
+  |icon         = Surging Tides.png
+  |blurb        = {{sbc|Innate:}} {{cis|Nami}} {{tip|abilities}} grant a burst of {{sti|ms|{{as|movement speed}}}} to allied champions hit. The bonus is doubled from ''{{ai|Tidal Wave|Nami}}''.
+  |description  = {{sbc|Innate:}} '''Nami's''' {{tip|abilities}} grant {{sti|ms|{{as|100|ms}}}} {{as|(+ 25% AP)}} {{as|'''bonus''' movement speed}} to allied {{tip|champions}} hit, decaying over {{fd|1.5}} seconds. The bonus is{{ft|doubled|increased to {{as|200|ms}} {{as|(+ 50% AP)}}}}from ''{{ai|Tidal Wave|Nami}}''.
+  |targeting    = Passive
+  |affects      = Allies
+  |notes        = 
+  * ''Tidal Wave'' uses a separate empowered buff that has priority over the normal buff, and it will be used even if the full/current strength of the empowered buff is weaker than the full-strength normal buff.
+  ** If the normal buff remains ongoing when the empowered buff expires, it will then begin with full strength and completely decay over its '''remaining''' duration.
+  }}
 
 ## Q: Aqua Prison
 
@@ -63,6 +75,34 @@ Notes:
 
 - The combined time from the start of the cast time to the bubble landing is 0.264 + 0.726 = 0.99 seconds.
 - Aqua Prison provides the status effect that allows Last Breath to be cast.
+- {{{{{1<noinclude>|Ability data</noinclude>}}}|Aqua Prison|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}
+  |champion     = Nami
+  |skill        = Q
+  |icon         = Aqua Prison.png
+  |blurb        = {{sbc|Active:}} {{ci|Nami}} tosses a bubble that lands at the target location, dealing {{as|magic damage}} to enemies within as well as briefly {{tip|standard sight|revealing}} and {{tip|suspension|suspending}} them.
+  |blurb4      = {{sbc|{{tip|Suspension|nolink=true}}}} The target is stunned, but also marked as {{tip|airborne}}. Suspension can be reduced by {{sti|Tenacity}}.
+  |description  = {{sbc|Active:}} '''Nami''' launches a bubble at the target location that lands {{tt|after {{rutngt|0.7}}|after the cast time ends}}, dealing {{as|magic damage}} to enemies hit and {{tip|suspension|suspending}} them for {{fd|1.5}} seconds, during which they are {{tip|standard sight|revealed}}.
+  |description2 = ''Allied champions are granted {{ai|Surging Tides|Nami}} in a slightly larger area.''
+  |leveling     = {{st|Magic Damage|{{ap|90 to 310}} {{as|(+ 50% AP)}}}}
+  |target range = 850
+  |cooldown     = {{ap|12 to 8}}
+  |cast time    = {{fd|0.25}}
+  |effect radius= {{dv|{{tip|cr|icononly = true}} {{tt|200|Effect radius for enemies}}|{{tt|225|Effect radius for Surging Tides on allies, could also be 160 + edge radius, this is pending for test}}}}
+  |cost         = 60
+  |costtype     = mana
+  |targeting    = Location
+  |affects      = Enemies
+  |damagetype   = Magic
+  |spellshield  = True
+  |spelleffects = Area of effect
+  |projectile   = True
+  |grounded     = 
+  |knockdown    = 
+  |outofrange   = walk to location
+  |notes        = 
+  * The combined time from the start of the cast time to the bubble landing is {{rutngt|0.25}} + {{rutngt|0.7}} = {{fd|0.99}} seconds.
+  * ''Aqua Prison'' provides the status effect that allows {{ai|Last Breath|Yasuo}} to be cast.<ref>[http://www.reddit.com/r/leagueoflegends/comments/1s0gkx/were_the_yasuo_team_ama/cdsp1op Yasuo Reddit AMA]</ref>
+  }}
 
 ## W: Ebb and Flow
 
@@ -93,6 +133,34 @@ Notes:
 
 - If cast on an enemy with a spell shield they will not take damage but Ebb and Flow will still continue to bounce, and the target who blocked the ability may be targeted again by the final bounce.
 - If the target becomes untargetable, dies, or is too far away or no longer in sight during the cast time, this ability will cancel but does not go on cooldown nor pay its cost (if applicable).
+- {{{{{1<noinclude>|Ability data</noinclude>}}}|Ebb and Flow|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}
+  |champion     = Nami
+  |skill        = W
+  |icon         = Ebb and Flow.png
+  |blurb        = {{sbc|Active:}} {{ci|Nami}} unleashes a stream of water onto the target champion or herself, which then bounces to nearby champions up to twice, alternating between enemies and allies and Nami.
+  |blurb2      = ''Ebb and Flow'' {{tip|heal|heals}} allies and deals {{as|magic damage}} to enemies, with subsequent bounces becoming less potent.
+  |description  = {{sbc|Active:}} '''Nami''' unleashes a stream of water onto the target champion or herself, which then bounces to nearby unaffected champions up to twice, alternating between enemies and allies and '''Nami'''.
+  |description2 = ''Ebb and Flow'' {{tip|Heal|heals}} allies and deals {{as|magic damage}} to enemies, with each bounce modifying the effectiveness of the next by -20% {{as|(+ 15% per 100 AP)}}.
+  |leveling2    = {{st|Heal|{{ap|55 to 155}} {{as|(+ 40% AP)}}|Minimum Heal|{{ap|(55 to 155)*(1-0.2*2)}} {{as|(+ {{ap|40*(1-0.2*2)}}% AP)}}}}
+  {{st|Magic Damage|{{ap|60 to 200}} {{as|(+ 50% AP)}}|Minimum Damage|{{ap|(60 to 200)*(1-0.2*2)}} {{as|(+ {{ap|50*(1-0.2*2)}}% AP)}}}}
+  |target range = {{tip|cr|icononly = true}} 725
+  |effect radius= {{tip|cr|icononly = true}} {{tt|800|Bounce range}}
+  |speed        = {{dv|{{tt|2500|Initial speed}}|{{tt|1500|Bounce speed}}}}
+  |cooldown     = 10
+  |cost         = {{ap|70 to 90}}
+  |cast time    = {{fd|0.25}}
+  |costtype     = mana
+  |targeting    = Unit
+  |affects = Enemies, Allies
+  |damagetype   = Magic
+  |projectile   = True
+  |callforhelp  = True
+  |spelleffects = aoe
+  |spellshield  = True
+  |notes        = 
+  * If cast on an enemy with a {{tip|spell shield}} they will not take damage but ''Ebb and Flow'' will still continue to bounce, and the target who blocked the ability may be targeted again by the final bounce.
+  {{Unit-targeted cancel conditions}}
+  }}
 
 ## E: Tidecaller's Blessing
 
@@ -122,6 +190,34 @@ Notes:
 - The effect will not trigger against structures nor wards.
 - The empowerment given to allies respects enchantment redirection.
 - Damage instances of Tidecaller's Blessing beyond the first do not count as separate applications for the purposes of Electrocute.
+- {{{{{1<noinclude>|Ability data</noinclude>}}}|Tidecaller's Blessing|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}
+  |champion     = Nami
+  |skill        = E
+  |icon         = Tidecaller's Blessing.png
+  |blurb        = {{sbc|Active:}} {{ci|Nami}} blesses herself or an allied champion for a few seconds, empowering their next three basic attacks or abilities to deal {{as|'''bonus''' magic damage}} and briefly {{tip|slow}} enemies.
+  |description  = {{sbc|Active:}} '''Nami''' blesses herself or an allied champion for 6 seconds, empowering their next 3 [[basic attack]]s or [[champion ability|abilities]] to each deal {{as|'''bonus''' magic damage}} and {{tip|slow}} enemies for 1 second.
+  |leveling     = {{st|Bonus Magic Damage Per Hit|{{ap|20 to 80}} {{as|(+ 20% AP)}}|Total Bonus Magic Damage|{{ap|20*3 to 80*3}} {{as|(+ 60% AP)}}}}
+  {{st|Slow|{{ap|15 to 35}}% {{as|(+ 5% per 100 AP)}}}}
+  |description2 = Empowered abilities that apply {{tip|area damage}} only deal {{pp|key=%|33 to 66}} of the '''bonus''' damage to non-champions.
+  |target range = {{tip|cr|icononly=true}} 800
+  |cooldown     = 11
+  |cost         = {{ap|55 to 75}}
+  |cast time = none
+  |costtype     = mana
+  |targeting    = Unit
+  |affects = Self, Allies
+  |damagetype   = Magic
+  |spelleffects = proc
+  |spellshield  = False
+  |parry = True
+  |notes   = 
+  * ''Tidecaller's Blessing'' has a {{tip|forgiveness radius}} of 175 units.
+  * The effect will not trigger against [[structures]] nor [[ward]]s.
+  * The empowerment given to allies respects {{tip|enchantment redirection}}.
+  * Damage instances of ''Tidecaller's Blessing'' beyond the first do not count as separate applications for the purposes of {{ri|Electrocute}}.
+  |tips =
+  * Allied champions can apply {{iis|Imperial Mandate}} {{nie|Coordinated Fire}} and trigger it on subsequent attacks on their own if '''Nami''' owns the item and empowers the ally with ''Tidecaller's Blessing'' .
+  }}
 
 ## R: Tidal Wave
 
@@ -149,6 +245,38 @@ Notes:
 - This ability will cast from wherever the caster is at the end of the cast time.
 - Surging Tides will trigger immediately on Nami on-cast.
 - The wave travels over 3.267.
+- {{{{{1<noinclude>|Ability data</noinclude>}}}|Tidal Wave|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}
+  |champion     = Nami
+  |skill        = R
+  |icon         = Tidal Wave.png
+  |blurb        = {{sbc|Active:}} {{ci|Nami}} surges a tidal wave in the target direction that deals {{as|magic damage}} and briefly knocks up enemies hit. The wave also {{tip|slow|slows}} enemies based on the distance traveled.
+  |description  = {{sbc|Active:}} '''Nami''' surges a tidal wave in the target direction, granting {{tip|sight}} around its trajectory as it travels, dealing {{as|magic damage}} to enemies hit, {{tip|airborne|knocking them up}} for {{tt|{{fd|0.5}}|Estimated}} seconds, and {{tip|slow|slowing}} them by 70% for {{pp|type=distance traveled|2 to 4 by 0.2|0 to 2750|formula = ''Capped at 2750 range.''}} seconds.
+  |leveling     = {{st|Magic Damage|{{ap|150|250|350}} {{as|(+ 60% AP)}}}}
+  |target range = 2750
+  |speed        = 850
+  |width        = {{tip|er|icononly = true}} 500
+  |effect radius= {{tt|750|vision radius}}
+  |cooldown     = {{ap|120|110|100}}
+  |cast time    = {{fd|0.5}}
+  |cost         = 100
+  |costtype     = mana
+  |targeting    = Direction
+  |affects      = Enemies
+  |damagetype   = Magic
+  |spellshield  = True
+  |spelleffects = spellaoe
+  |projectile   = True
+  |grounded     = 
+  |knockdown    = 
+  |notes        = 
+  {{Effect at cast time end}}
+  * {{ai|Surging Tides|Nami}} will trigger immediately on '''Nami''' on-cast.
+  * The wave travels over {{rutngt|{{#expr:2750 / 850 round 4}}}}.
+  <!--* The wave places the caster slightly closer to '''Nami's''' cast position. ''what?''-->
+  <!--* {{tip|Suspension}} does not remove ''Tidal Wave's'' {{tip|airborne|knock up}}.{{bug}}-->
+  {{ct|cast|spells=true,false,false,false,false}}
+  |flavorsound = {{sm2|Nami_Original_R_5.ogg}} ''"Oceans, spill forth!"''
+  }}
 
 ## Game files
 
@@ -177,3 +305,98 @@ All 1 level-based formulas in the game files (1 linked to wiki values above):
 | Spell | Calculation | Rule | Level 1 | Level 18 | Level 20 |
 |---|---|---|--:|--:|--:|
 | NamiE | AoeMod | linear 0.33 → 0.66 over levels 1-18, continues past 18 | 0.33 | 0.66 | 0.698824 |
+
+## Duel simulator kit (level 20, every ability at max rank)
+
+What the duel simulator fights with (`kits/champions/Nami.ts`): values come from pinned wiki and versioned game-data records at level 20. Interpretations and missing evidence are listed under assumptions. Ratios are fractions of the stat (60% AD is 0.6 × AD).
+
+- Basic attack: range 550, missile at 1500/s.
+
+| Key | Ability | Cooldown (s) | Cast time (s) | Cost | Delivery | On the enemy | On itself |
+|---|---|--:|--:|---|---|---|---|
+| Q | Aqua Prison | 8 | 0.25 | 60 | circle of 200 radius (to the target's center) up to 850 away, lands after 0.726 s | 310 + 50% AP magic damage; suspension for 1.5 s; standardSight for 1.5 s | – |
+| W | Ebb and Flow | 10 | 0.25 | 90 | targeted, 725 range, missile at 2500/s | 200 + 50% AP magic damage | – |
+| W-self | Ebb and Flow (self) | 10 | 0.25 | 90 | self | – | – |
+| W-ally | Ebb and Flow (ally) | 10 | 0.25 | 90 | self | – | – |
+| E | Tidecaller's Blessing | 11 | 0 | 75 | self | – | – |
+| E-ally | Tidecaller's Blessing (ally) | 11 | 0 | 75 | self | – | – |
+| R | Tidal Wave | 100 | 0.5 | 100 | skillshot 2750 long, 500 wide, at 850/s | 350 + 60% AP magic damage; knock up over 0.5 s; slow 70% for 2 s | – |
+| E-proc | Tidecaller's Blessing | 0 | 0 | – | self | – | – |
+| W-bounce | Ebb and Flow | 0 | 0 | – | self | – | – |
+
+Effects marked by a mark or a role are completed by the kit's hooks (see the kit's source).
+
+### Assumptions
+
+- Surging Tides uses actual allied Champion-class bodies, including self, with a recipient-local100+25%AP flat bonus decaying linearly over1.5seconds. Tidal Wave's separate doubled buff has priority even when weaker; an overlapping normal buff resumes at full strength and decays over its remaining lifetime. Buff source/AP are Nami's, while recipient movement modifiers and soft caps remain local. No allied body is fabricated.
+- Aqua Prison retains the primary0.25second cast plus0.726second post-cast flight; the raw note's0.264+0.726=0.99 and binary metadata conflict are explicit rather than replacing the primary cast. Its200center-distance enemy radius and1.5second tenacity-sensitive suspension remain distinct from the225ally threshold. Suspension supplies Last Breath's existing entitlement and the associated standard sight does not expose invisibility or camouflage. The primary ally radius is explicitly pending a source test and remains uncertain. The bubble follows a fixed-time axial projectile path to its declared ground point, so projectile destruction removes the landing. Missing vertical trajectory is not invented.
+- Ebb and Flow has one initial2500-speed flight and up to two1500-speed bounces among real unaffected Champion-class bodies, alternating teams and admitting Nami. Source minimum60% after two bounces establishes additive signed20%-per-bounce reduction, with15% per100AP scaling, rather than compounded64%. Each launch snapshots its own damage/heal/AP multiplier; real recipient defenses and healing modifiers remain local. A spell-shielded enemy is not marked visited and may be the final bounce again; parried recipients remain visited. Equal-choice priority is unsourced: nearest current center then actual stable identity is the explicit deterministic arena policy. Invalid declared enemy/ally targets cancel before cost and cooldown. No imaginary third champion or minion bounce is supplied.
+- Tidecaller's Blessing starts empty and grants exactly three six-second entitlements to self or one actual allied Champion-class body. Own connected basics and damaging Q/W/R contacts, and actual allied connected basics, consume the real stock. One source cast shares an entitlement across its multiple actual recipients; defended root spell contacts do not consume stock, an explicit interpretation where the source does not resolve root/proc defense ordering. The separate proc retains its own parry/dodge/block restrictions without making the parent area spell dodgeable. Ability-instance identity is retained in each launched missile/zone instead of deducing it from damage packets. Proc damage uses current NamiAP, slows use recipient immunity/tenacity, and area procs against actual nonchampions use the primary extrapolated level20rate69.8824%, rather than the level18endpoint66%. No allied spell actor without supplied ability identity, item/rune activation, structure or ward is invented; enchantment redirection is outside the item-free arena.
+- Tidal Wave retains2750range/500fullwidth/850speed and primary estimated0.5second knockup. The distance-based70%slow interpolates the retained2-to4second series against actual axial flight distance and stays separate from airborne. Primary travel note3.267 conflicts with2750/850 and remains recorded. Moving wave crossings grant the doubled passive once per real ally, while Nami receives it on actual completed cast. Trajectory sight has a sourced750radius but arena vision has no ground-vision geometry; it is not equated with true sight or a target reveal. Hold/trade reserve R, completed trades retreat, and flee can heal, speed self or aim Q for peel.
+- Reference allocation prices ordinary Q/W/R damage plus at most three self Blessing procs per hasted E cooldown and one actual self-heal on W's first bounce. It adds no fabricated allied targets, damage bounces or ally stats. Actual casts still require resources, real target availability, incoming damage for healing and real contacts.
+
+### Source values read (61)
+
+| Ability | Value | Source version |
+|---|---|---|
+| Surging Tides | grant 100 (+ 25% AP) bonus movement speed | [3985614](https://wiki.leagueoflegends.com/en-us/Template:Data_Nami/Surging_Tides?oldid=3985614) |
+| Surging Tides | decaying over 1.5 seconds | [3985614](https://wiki.leagueoflegends.com/en-us/Template:Data_Nami/Surging_Tides?oldid=3985614) |
+| Surging Tides | bonus is doubled from Tidal Wave | [3985614](https://wiki.leagueoflegends.com/en-us/Template:Data_Nami/Surging_Tides?oldid=3985614) |
+| Surging Tides | separate empowered buff that has priority | [3985614](https://wiki.leagueoflegends.com/en-us/Template:Data_Nami/Surging_Tides?oldid=3985614) |
+| Surging Tides | begin with full strength and completely decay over its remaining duration | [3985614](https://wiki.leagueoflegends.com/en-us/Template:Data_Nami/Surging_Tides?oldid=3985614) |
+| Aqua Prison | targetRange: 850 | [4007696](https://wiki.leagueoflegends.com/en-us/Template:Data_Nami/Aqua_Prison?oldid=4007696) |
+| Aqua Prison | effectRadius (enemies): 200 • 225 | [4007696](https://wiki.leagueoflegends.com/en-us/Template:Data_Nami/Aqua_Prison?oldid=4007696) |
+| Aqua Prison | effectRadius (allies): 200 • 225 | [4007696](https://wiki.leagueoflegends.com/en-us/Template:Data_Nami/Aqua_Prison?oldid=4007696) |
+| Aqua Prison | lands after 0.726 | [4007696](https://wiki.leagueoflegends.com/en-us/Template:Data_Nami/Aqua_Prison?oldid=4007696) |
+| Aqua Prison | suspending them for 1.5 seconds | [4007696](https://wiki.leagueoflegends.com/en-us/Template:Data_Nami/Aqua_Prison?oldid=4007696) |
+| Aqua Prison | Magic Damage: 90 / 145 / 200 / 255 / 310 (+ 50% AP) | [4007696](https://wiki.leagueoflegends.com/en-us/Template:Data_Nami/Aqua_Prison?oldid=4007696) |
+| Aqua Prison | 0.264 + 0.726 = 0.99 | [4007696](https://wiki.leagueoflegends.com/en-us/Template:Data_Nami/Aqua_Prison?oldid=4007696) |
+| Aqua Prison | allows Last Breath to be cast | [4007696](https://wiki.leagueoflegends.com/en-us/Template:Data_Nami/Aqua_Prison?oldid=4007696) |
+| Aqua Prison | "name":"StunDuration","values":[1.5,1.5,1.5,1.5,1.5,1.5,1.5] | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/nami/nami.bin.json) |
+| Ebb and Flow | targetRange: 725 | [4007697](https://wiki.leagueoflegends.com/en-us/Template:Data_Nami/Ebb_and_Flow?oldid=4007697) |
+| Ebb and Flow | effectRadius: 800 | [4007697](https://wiki.leagueoflegends.com/en-us/Template:Data_Nami/Ebb_and_Flow?oldid=4007697) |
+| Ebb and Flow | speed (Initial): 2500 • 1500 | [4007697](https://wiki.leagueoflegends.com/en-us/Template:Data_Nami/Ebb_and_Flow?oldid=4007697) |
+| Ebb and Flow | speed (Bounce): 2500 • 1500 | [4007697](https://wiki.leagueoflegends.com/en-us/Template:Data_Nami/Ebb_and_Flow?oldid=4007697) |
+| Ebb and Flow | Magic Damage: 60 / 95 / 130 / 165 / 200 (+ 50% AP) | [4007697](https://wiki.leagueoflegends.com/en-us/Template:Data_Nami/Ebb_and_Flow?oldid=4007697) |
+| Ebb and Flow | Heal: 55 / 80 / 105 / 130 / 155 (+ 40% AP) | [4007697](https://wiki.leagueoflegends.com/en-us/Template:Data_Nami/Ebb_and_Flow?oldid=4007697) |
+| Ebb and Flow | -20% (+ 15% per 100 AP) | [4007697](https://wiki.leagueoflegends.com/en-us/Template:Data_Nami/Ebb_and_Flow?oldid=4007697) |
+| Ebb and Flow | "name":"MaxTargets","values":[3.0,3.0,3.0,3.0,3.0,3.0,3.0] | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/nami/nami.bin.json) |
+| Ebb and Flow | Minimum Heal | [4007697](https://wiki.leagueoflegends.com/en-us/Template:Data_Nami/Ebb_and_Flow?oldid=4007697) |
+| Ebb and Flow | target who blocked the ability may be targeted again by the final bounce | [4007697](https://wiki.leagueoflegends.com/en-us/Template:Data_Nami/Ebb_and_Flow?oldid=4007697) |
+| Ebb and Flow | does not go on cooldown nor pay its cost | [4007697](https://wiki.leagueoflegends.com/en-us/Template:Data_Nami/Ebb_and_Flow?oldid=4007697) |
+| Ebb and Flow | "mSpeed":1500.0 | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/nami/nami.bin.json) |
+| Ebb and Flow | "mSpeed":2500.0 | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/nami/nami.bin.json) |
+| Tidecaller's Blessing | for 6 seconds | [4042884](https://wiki.leagueoflegends.com/en-us/Template:Data_Nami/Tidecaller's_Blessing?oldid=4042884) |
+| Tidecaller's Blessing | next 3 basic attacks | [4042884](https://wiki.leagueoflegends.com/en-us/Template:Data_Nami/Tidecaller's_Blessing?oldid=4042884) |
+| Tidecaller's Blessing | slow enemies for 1 second | [4042884](https://wiki.leagueoflegends.com/en-us/Template:Data_Nami/Tidecaller's_Blessing?oldid=4042884) |
+| Tidecaller's Blessing | Bonus Magic Damage Per Hit: 20 / 35 / 50 / 65 / 80 (+ 20% AP) | [4042884](https://wiki.leagueoflegends.com/en-us/Template:Data_Nami/Tidecaller's_Blessing?oldid=4042884) |
+| Tidecaller's Blessing | targetRange: 800 | [4042884](https://wiki.leagueoflegends.com/en-us/Template:Data_Nami/Tidecaller's_Blessing?oldid=4042884) |
+| Tidecaller's Blessing | forgiveness radius of 175 units | [4042884](https://wiki.leagueoflegends.com/en-us/Template:Data_Nami/Tidecaller's_Blessing?oldid=4042884) |
+| Tidecaller's Blessing | Slow: 15 / 20 / 25 / 30 / 35% (+ 5% per 100 AP) | [4042884](https://wiki.leagueoflegends.com/en-us/Template:Data_Nami/Tidecaller's_Blessing?oldid=4042884) |
+| Tidecaller's Blessing | (+ 5% per 100 AP) | [4042884](https://wiki.leagueoflegends.com/en-us/Template:Data_Nami/Tidecaller's_Blessing?oldid=4042884) |
+| Tidecaller's Blessing | Empowered abilities that apply area damage only deal 33 – 66 (based on level)% of the bonus damage to non-champions. | [4042884](https://wiki.leagueoflegends.com/en-us/Template:Data_Nami/Tidecaller's_Blessing?oldid=4042884) |
+| Tidecaller's Blessing | effect will not trigger against structures nor wards | [4042884](https://wiki.leagueoflegends.com/en-us/Template:Data_Nami/Tidecaller's_Blessing?oldid=4042884) |
+| Tidecaller's Blessing | enchantment redirection | [4042884](https://wiki.leagueoflegends.com/en-us/Template:Data_Nami/Tidecaller's_Blessing?oldid=4042884) |
+| Tidal Wave | targetRange: 2750 | [3712330](https://wiki.leagueoflegends.com/en-us/Template:Data_Nami/Tidal_Wave?oldid=3712330) |
+| Tidal Wave | width: 500 | [3712330](https://wiki.leagueoflegends.com/en-us/Template:Data_Nami/Tidal_Wave?oldid=3712330) |
+| Tidal Wave | speed: 850 | [3712330](https://wiki.leagueoflegends.com/en-us/Template:Data_Nami/Tidal_Wave?oldid=3712330) |
+| Tidal Wave | Magic Damage: 150 / 250 / 350 (+ 60% AP) | [3712330](https://wiki.leagueoflegends.com/en-us/Template:Data_Nami/Tidal_Wave?oldid=3712330) |
+| Tidal Wave | knocking them up for 0.5 seconds | [3712330](https://wiki.leagueoflegends.com/en-us/Template:Data_Nami/Tidal_Wave?oldid=3712330) |
+| Tidal Wave | slowing them by 70% | [3712330](https://wiki.leagueoflegends.com/en-us/Template:Data_Nami/Tidal_Wave?oldid=3712330) |
+| Aqua Prison | cooldown: 12 / 11 / 10 / 9 / 8 | [4007696](https://wiki.leagueoflegends.com/en-us/Template:Data_Nami/Aqua_Prison?oldid=4007696) |
+| Ebb and Flow | cooldown: 10 | [4007697](https://wiki.leagueoflegends.com/en-us/Template:Data_Nami/Ebb_and_Flow?oldid=4007697) |
+| Tidecaller's Blessing | cooldown: 11 | [4042884](https://wiki.leagueoflegends.com/en-us/Template:Data_Nami/Tidecaller's_Blessing?oldid=4042884) |
+| Tidal Wave | cooldown: 120 / 110 / 100 | [3712330](https://wiki.leagueoflegends.com/en-us/Template:Data_Nami/Tidal_Wave?oldid=3712330) |
+| Tidal Wave | castTime: 0.5 | [3712330](https://wiki.leagueoflegends.com/en-us/Template:Data_Nami/Tidal_Wave?oldid=3712330) |
+| Tidal Wave | Active: Nami surges a tidal wave in the target direction, granting sight around its trajectory as it travels, dealing magic damage to enemies hit, knocking them up for 0.5 seconds, and slowing them by 70% for 2 / 2.2 / 2.4 / 2.6 / 2.8 / 3 / 3.2 / 3.4 / 3.6 / 3.8 / 4 (based on distance traveled) seconds. | [3712330](https://wiki.leagueoflegends.com/en-us/Template:Data_Nami/Tidal_Wave?oldid=3712330) |
+| Tidal Wave | trigger immediately on Nami on-cast | [3712330](https://wiki.leagueoflegends.com/en-us/Template:Data_Nami/Tidal_Wave?oldid=3712330) |
+| Tidal Wave | wave travels over 3.267 | [3712330](https://wiki.leagueoflegends.com/en-us/Template:Data_Nami/Tidal_Wave?oldid=3712330) |
+| Tidal Wave | effectRadius (vision): 750 | [3712330](https://wiki.leagueoflegends.com/en-us/Template:Data_Nami/Tidal_Wave?oldid=3712330) |
+| Tidal Wave | "mSpeed":850.0 | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/nami/nami.bin.json) |
+| Aqua Prison | cost: 60 | [4007696](https://wiki.leagueoflegends.com/en-us/Template:Data_Nami/Aqua_Prison?oldid=4007696) |
+| Aqua Prison | castTime: 0.25 | [4007696](https://wiki.leagueoflegends.com/en-us/Template:Data_Nami/Aqua_Prison?oldid=4007696) |
+| Ebb and Flow | cost: 70 / 75 / 80 / 85 / 90 | [4007697](https://wiki.leagueoflegends.com/en-us/Template:Data_Nami/Ebb_and_Flow?oldid=4007697) |
+| Ebb and Flow | castTime: 0.25 | [4007697](https://wiki.leagueoflegends.com/en-us/Template:Data_Nami/Ebb_and_Flow?oldid=4007697) |
+| Tidecaller's Blessing | cost: 55 / 60 / 65 / 70 / 75 | [4042884](https://wiki.leagueoflegends.com/en-us/Template:Data_Nami/Tidecaller's_Blessing?oldid=4042884) |
+| Tidecaller's Blessing | castTime: none | [4042884](https://wiki.leagueoflegends.com/en-us/Template:Data_Nami/Tidecaller's_Blessing?oldid=4042884) |
+| Tidal Wave | cost: 100 | [3712330](https://wiki.leagueoflegends.com/en-us/Template:Data_Nami/Tidal_Wave?oldid=3712330) |

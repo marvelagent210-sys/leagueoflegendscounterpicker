@@ -252,3 +252,131 @@ All 1 level-based formulas in the game files (0 linked to wiki values above):
 | Spell | Calculation | Rule | Level 1 | Level 18 | Level 20 |
 |---|---|---|--:|--:|--:|
 | LeeSinPassive | EnergyReturn | breakpoints at levels 7, 13 (level 1: 10) | 10 | 20 | 20 |
+
+## Duel simulator kit (level 20, every ability at max rank)
+
+What the duel simulator fights with (`kits/champions/LeeSin.ts`): values come from pinned wiki and versioned game-data records at level 20. Interpretations and missing evidence are listed under assumptions. Ratios are fractions of the stat (60% AD is 0.6 × AD).
+
+- Basic attack: range 125, melee.
+
+| Key | Ability | Cooldown (s) | Cast time (s) | Cost | Delivery | On the enemy | On itself |
+|---|---|--:|--:|---|---|---|---|
+| Q | Sonic Wave | 6 | 0.25 | 50 | skillshot 1200 long, 120 wide, at 1800/s | 180 + 90% bonus AD physical damage; marks it "leesin:sonic" for 3 s | – |
+| Q2 | Resonating Strike | 0 | 0 | 25 | self | – | – |
+| W | Safeguard | 7 | 0 | 50 | self | – | – |
+| W2 | Iron Will | 0 | 0 | 25 | self | – | – |
+| E | Tempest | 8 | 0.25 | 50 | self | – | – |
+| E2 | Cripple | 0 | 0 | 25 | self | – | – |
+| R | Dragon's Rage | 60 | 0.25 | – | targeted, 375 range | 625 + 200% bonus AD physical damage; knock back 800 units over 0.8 s, airborne 1 s | – |
+| Q2hit | Resonating Strike | 0 | 0 | – | self | – | – |
+| Ehit | Tempest | 0 | 0 | – | self | – | – |
+| E2hit | Cripple | 0 | 0 | – | self | – | – |
+| Rroot | Dragon's Rage (root) | 0 | 0 | – | self | – | – |
+| Rbody | Dragon's Rage (collision) | 0 | 0 | – | self | – | – |
+
+Effects marked by a mark or a role are completed by the kit's hooks (see the kit's source).
+
+### Assumptions
+
+- Flurry starts empty. Every completed real stage refreshes two unblocked on-hit basic contacts and one three-second40%AS buff; they restore40 then20energy at level20, including actual pets. Blind, dodge, block and parry grant no refund. No phantom attacks, preduel energy spending, wards or allied minions are supplied.
+- Q/W/E first stages each cost50energy and start their independent haste-scaled cooldown at declaration; each recast costs25 and owns its own source window. Q marks and true sight last3seconds from accepted first-body impact, and Q2 checks the actual marked champion or pet. Q2 tracks at the primary ideal1350+100%movement-speed speed, lands on top, samples missing health at impact, and retains its mark on interruption or tracking loss beyond2000. Blink-specific server races and distance-dependent dash bugs are unavailable.
+- Safeguard defaults to self-cast; an explicit aimed endpoint selects a real targetable friendly pet anchor within700, never a fabricated ward. It dashes to that anchor's declaration position at1350+100%movement speed, grants240+80%AP shield for2seconds on valid arrival, and grants the same to explicitly Champion-class non-clone allies. Minion anchors shield Lee; unknown summon classes are allowed as anchors without an invented shield classification. Self/champion casts recover50% of the7-second cooldown using the pinned binary; the stale primary blurb's halved rule is not extended to minions. Interrupted travel grants no shield except the source's Q/W dash replacement exception. W2 gains26%omnivamp for4seconds from resolved post-mitigation packets, including shields and damage later negated by Riposte under its explicit vamp rule. Invulnerability and stasis grant no damage-based healing.
+- Tempest resolves from the completion position in450radius, with per-body magic damage135+90%totalAD and a4-second mark. True sight applies only if the target was not invisible on contact; Cripple leaves this reveal intact. At least one accepted hit opens the independent3-second E2 window after0.1seconds. E2 requires an actual marked body within550 and applies a separately guarded75%slow decaying linearly over4seconds. Area and slow packets retain each pet's own defenses and ID.
+- Dragon's Rage roots over its0.25-second cast; an initial spell shield or parry denies the entire activation, while a shield gained later guards the kick. Invalid target cancellation costs no cooldown. Impact decides fixed knockback direction and deals625+200%bonusAD, moving the actual champion by the intended800 over the primary estimated0.8seconds with1second airborne. The source lists an inconsistent radius-dependent distance bug without its exact formula; intended distance is used. Actual secondary pets collide within the estimated160radius on the published estimated0.25-second checks, taking the same damage plus18%of primary bonusHP and1second airborne. Collision follows the body's actual movement and stops when airborne is removed; corpses retain a virtual displacement flight. The two-champion duel may finish before postmortem secondary collisions; no extra opposing champions are fabricated.
+- All movement is projected onto one line at30Hz. Real Q2 and W actions retain knockdown, ground/root and death guards; W2/E2 can overlay their travel. Source-described Q/W interrupted-dash E/R exceptions are omitted because ordinary Q/W do not permit other dash initiations. Reference budgets price ordinary Q/Q2 at full-health minimum, E, R, first W shield and Flurry's cast-limited extra attacks; they grant no free missing-health amplification, collision targets or preduel healing.
+
+### Source values read (91)
+
+| Ability | Value | Source version |
+|---|---|---|
+| Flurry | next 2 basic attacks | [4015078](https://wiki.leagueoflegends.com/en-us/Template:Data_Lee_Sin/Flurry?oldid=4015078) |
+| Flurry | within 3 seconds | [4015078](https://wiki.leagueoflegends.com/en-us/Template:Data_Lee_Sin/Flurry?oldid=4015078) |
+| Flurry | 40% bonus attack speed | [4015078](https://wiki.leagueoflegends.com/en-us/Template:Data_Lee_Sin/Flurry?oldid=4015078) |
+| Flurry | The first attack restores 20 / 30 / 40 (based on level) energy and the second attack restores 10 / 15 / 20 (based on level) energy. | [4015078](https://wiki.leagueoflegends.com/en-us/Template:Data_Lee_Sin/Flurry?oldid=4015078) |
+| Sonic Wave | Physical Damage: 60 / 90 / 120 / 150 / 180 (+ 90% bonus AD) | [4070797](https://wiki.leagueoflegends.com/en-us/Template:Data_Lee_Sin/Sonic_Wave?oldid=4070797) |
+| Sonic Wave | cooldown: 10 / 9 / 8 / 7 / 6 | [4070797](https://wiki.leagueoflegends.com/en-us/Template:Data_Lee_Sin/Sonic_Wave?oldid=4070797) |
+| Sonic Wave | castTime: 0.25 | [4070797](https://wiki.leagueoflegends.com/en-us/Template:Data_Lee_Sin/Sonic_Wave?oldid=4070797) |
+| Sonic Wave | targetRange: 1200 | [4070797](https://wiki.leagueoflegends.com/en-us/Template:Data_Lee_Sin/Sonic_Wave?oldid=4070797) |
+| Sonic Wave | width: 120 | [4070797](https://wiki.leagueoflegends.com/en-us/Template:Data_Lee_Sin/Sonic_Wave?oldid=4070797) |
+| Sonic Wave | speed: 1800 | [4070797](https://wiki.leagueoflegends.com/en-us/Template:Data_Lee_Sin/Sonic_Wave?oldid=4070797) |
+| Sonic Wave | marks them for 3 seconds | [4070797](https://wiki.leagueoflegends.com/en-us/Template:Data_Lee_Sin/Sonic_Wave?oldid=4070797) |
+| Sonic Wave | cooldownStart: on-cast | [4070797](https://wiki.leagueoflegends.com/en-us/Template:Data_Lee_Sin/Sonic_Wave?oldid=4070797) |
+| Sonic Wave | first enemy hit | [4070797](https://wiki.leagueoflegends.com/en-us/Template:Data_Lee_Sin/Sonic_Wave?oldid=4070797) |
+| Sonic Wave | wherever the caster is at the start of the cast time | [4070797](https://wiki.leagueoflegends.com/en-us/Template:Data_Lee_Sin/Sonic_Wave?oldid=4070797) |
+| Sonic Wave | {{tip\|true sight\|revealed}} | [4070797](https://wiki.leagueoflegends.com/en-us/Template:Data_Lee_Sin/Sonic_Wave?oldid=4070797) |
+| Resonating Strike | Minimum Physical Damage: 60 / 90 / 120 / 150 / 180 (+ 90% bonus AD) | [4026428](https://wiki.leagueoflegends.com/en-us/Template:Data_Lee_Sin/Resonating_Strike?oldid=4026428) |
+| Resonating Strike | Maximum Physical Damage: 120 / 180 / 240 / 300 / 360 (+ 180% bonus AD) | [4026428](https://wiki.leagueoflegends.com/en-us/Template:Data_Lee_Sin/Resonating_Strike?oldid=4026428) |
+| Resonating Strike | targetRange: 1250 | [4026428](https://wiki.leagueoflegends.com/en-us/Template:Data_Lee_Sin/Resonating_Strike?oldid=4026428) |
+| Resonating Strike | speed: 1350 + 100% movement speed | [4026428](https://wiki.leagueoflegends.com/en-us/Template:Data_Lee_Sin/Resonating_Strike?oldid=4026428) |
+| Resonating Strike | moves beyond 2000 units | [4026428](https://wiki.leagueoflegends.com/en-us/Template:Data_Lee_Sin/Resonating_Strike?oldid=4026428) |
+| Resonating Strike | Upon arrival, he consumes the mark and deals physical damage, increased by 0 / 10 / 20 / 30 / 40 / 50 / 60 / 70 / 80 / 90 / 100 (based on target's missing health)%. | [4026428](https://wiki.leagueoflegends.com/en-us/Template:Data_Lee_Sin/Resonating_Strike?oldid=4026428) |
+| Resonating Strike | will track the target if they change locations | [4026428](https://wiki.leagueoflegends.com/en-us/Template:Data_Lee_Sin/Resonating_Strike?oldid=4026428) |
+| Resonating Strike | without consuming the mark | [4026428](https://wiki.leagueoflegends.com/en-us/Template:Data_Lee_Sin/Resonating_Strike?oldid=4026428) |
+| Resonating Strike | on top of the target upon arrival | [4026428](https://wiki.leagueoflegends.com/en-us/Template:Data_Lee_Sin/Resonating_Strike?oldid=4026428) |
+| Resonating Strike | cannot be cast without the marked target nearby or if the target is untargetable | [4026428](https://wiki.leagueoflegends.com/en-us/Template:Data_Lee_Sin/Resonating_Strike?oldid=4026428) |
+| Resonating Strike | damage dealt by Resonating Strike can be negated if the target blinks | [4026428](https://wiki.leagueoflegends.com/en-us/Template:Data_Lee_Sin/Resonating_Strike?oldid=4026428) |
+| Safeguard | Shield Strength: 60 / 105 / 150 / 195 / 240 (+ 80% AP) | [4024314](https://wiki.leagueoflegends.com/en-us/Template:Data_Lee_Sin/Safeguard?oldid=4024314) |
+| Safeguard | cooldown: 7 | [4024314](https://wiki.leagueoflegends.com/en-us/Template:Data_Lee_Sin/Safeguard?oldid=4024314) |
+| Safeguard | targetRange: 700 | [4024314](https://wiki.leagueoflegends.com/en-us/Template:Data_Lee_Sin/Safeguard?oldid=4024314) |
+| Safeguard | speed: 1350 + 100% movement speed | [4024314](https://wiki.leagueoflegends.com/en-us/Template:Data_Lee_Sin/Safeguard?oldid=4024314) |
+| Safeguard | shield for 2 seconds | [4024314](https://wiki.leagueoflegends.com/en-us/Template:Data_Lee_Sin/Safeguard?oldid=4024314) |
+| Safeguard | within the next 3 seconds | [4024314](https://wiki.leagueoflegends.com/en-us/Template:Data_Lee_Sin/Safeguard?oldid=4024314) |
+| Safeguard | cooldownStart: on-cast | [4024314](https://wiki.leagueoflegends.com/en-us/Template:Data_Lee_Sin/Safeguard?oldid=4024314) |
+| Safeguard | cannot self-cast Safeguard while grounded or rooted | [4024314](https://wiki.leagueoflegends.com/en-us/Template:Data_Lee_Sin/Safeguard?oldid=4024314) |
+| Safeguard | any targetable allied unit excluding structures | [4024314](https://wiki.leagueoflegends.com/en-us/Template:Data_Lee_Sin/Safeguard?oldid=4024314) |
+| Safeguard | If the target is a minion or ward, Lee Sin also shields himself | [4024314](https://wiki.leagueoflegends.com/en-us/Template:Data_Lee_Sin/Safeguard?oldid=4024314) |
+| Safeguard | will not grant its shield if the dash is interrupted | [4024314](https://wiki.leagueoflegends.com/en-us/Template:Data_Lee_Sin/Safeguard?oldid=4024314) |
+| Safeguard | shield immediately rather than on arrival | [4024314](https://wiki.leagueoflegends.com/en-us/Template:Data_Lee_Sin/Safeguard?oldid=4024314) |
+| Safeguard | "name":"W1CooldownRecovered","values":[0.5,0.5,0.5,0.5,0.5,0.5,0.5] | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/leesin/leesin.bin.json) |
+| Iron Will | Omnivamp: 10 / 14 / 18 / 22 / 26% | [3992654](https://wiki.leagueoflegends.com/en-us/Template:Data_Lee_Sin/Iron_Will?oldid=3992654) |
+| Iron Will | for 4 seconds | [3992654](https://wiki.leagueoflegends.com/en-us/Template:Data_Lee_Sin/Iron_Will?oldid=3992654) |
+| Tempest | Magic Damage: 35 / 60 / 85 / 110 / 135 (+ 90% AD) | [4016969](https://wiki.leagueoflegends.com/en-us/Template:Data_Lee_Sin/Tempest?oldid=4016969) |
+| Tempest | cooldown: 8 | [4016969](https://wiki.leagueoflegends.com/en-us/Template:Data_Lee_Sin/Tempest?oldid=4016969) |
+| Tempest | castTime: 0.25 | [4016969](https://wiki.leagueoflegends.com/en-us/Template:Data_Lee_Sin/Tempest?oldid=4016969) |
+| Tempest | effectRadius: 450 | [4016969](https://wiki.leagueoflegends.com/en-us/Template:Data_Lee_Sin/Tempest?oldid=4016969) |
+| Tempest | marking them for 4 seconds | [4016969](https://wiki.leagueoflegends.com/en-us/Template:Data_Lee_Sin/Tempest?oldid=4016969) |
+| Tempest | within the next 3 seconds | [4016969](https://wiki.leagueoflegends.com/en-us/Template:Data_Lee_Sin/Tempest?oldid=4016969) |
+| Tempest | after a 0.1-second delay | [4016969](https://wiki.leagueoflegends.com/en-us/Template:Data_Lee_Sin/Tempest?oldid=4016969) |
+| Cripple | effectRadius: 550 | [4007641](https://wiki.leagueoflegends.com/en-us/Template:Data_Lee_Sin/Cripple?oldid=4007641) |
+| Cripple | Slow: 35 / 45 / 55 / 65 / 75% | [4007641](https://wiki.leagueoflegends.com/en-us/Template:Data_Lee_Sin/Cripple?oldid=4007641) |
+| Cripple | over 4 seconds | [4007641](https://wiki.leagueoflegends.com/en-us/Template:Data_Lee_Sin/Cripple?oldid=4007641) |
+| Tempest | cooldownStart: on-cast | [4016969](https://wiki.leagueoflegends.com/en-us/Template:Data_Lee_Sin/Tempest?oldid=4016969) |
+| Tempest | if they are not invisible when struck | [4016969](https://wiki.leagueoflegends.com/en-us/Template:Data_Lee_Sin/Tempest?oldid=4016969) |
+| Tempest | sight reveal is not removed when Lee Sin casts Cripple | [4016969](https://wiki.leagueoflegends.com/en-us/Template:Data_Lee_Sin/Tempest?oldid=4016969) |
+| Tempest | wherever the caster is at the end of the cast time | [4016969](https://wiki.leagueoflegends.com/en-us/Template:Data_Lee_Sin/Tempest?oldid=4016969) |
+| Cripple | A nearby marked enemy is required | [4007641](https://wiki.leagueoflegends.com/en-us/Template:Data_Lee_Sin/Cripple?oldid=4007641) |
+| Dragon's Rage | Physical Damage: 175 / 400 / 625 (+ 200% bonus AD) | [4032576](https://wiki.leagueoflegends.com/en-us/Template:Data_Lee_Sin/Dragon's_Rage?oldid=4032576) |
+| Dragon's Rage | cooldown: 110 / 85 / 60 | [4032576](https://wiki.leagueoflegends.com/en-us/Template:Data_Lee_Sin/Dragon's_Rage?oldid=4032576) |
+| Dragon's Rage | castTime: 0.25 | [4032576](https://wiki.leagueoflegends.com/en-us/Template:Data_Lee_Sin/Dragon's_Rage?oldid=4032576) |
+| Dragon's Rage | targetRange: 375 | [4032576](https://wiki.leagueoflegends.com/en-us/Template:Data_Lee_Sin/Dragon's_Rage?oldid=4032576) |
+| Dragon's Rage | up to 800 units | [4032576](https://wiki.leagueoflegends.com/en-us/Template:Data_Lee_Sin/Dragon's_Rage?oldid=4032576) |
+| Dragon's Rage | over 0.8 seconds | [4032576](https://wiki.leagueoflegends.com/en-us/Template:Data_Lee_Sin/Dragon's_Rage?oldid=4032576) |
+| Dragon's Rage | airborne for 1 second | [4032576](https://wiki.leagueoflegends.com/en-us/Template:Data_Lee_Sin/Dragon's_Rage?oldid=4032576) |
+| Dragon's Rage | collisionRadius: 160 | [4032576](https://wiki.leagueoflegends.com/en-us/Template:Data_Lee_Sin/Dragon's_Rage?oldid=4032576) |
+| Dragon's Rage | Checks for collision every 0.25 seconds | [4032576](https://wiki.leagueoflegends.com/en-us/Template:Data_Lee_Sin/Dragon's_Rage?oldid=4032576) |
+| Dragon's Rage | (+ 12 / 15 / 18% of primary target's bonus health) | [4032576](https://wiki.leagueoflegends.com/en-us/Template:Data_Lee_Sin/Dragon's_Rage?oldid=4032576) |
+| Dragon's Rage | direction is decided at the moment of impact | [4032576](https://wiki.leagueoflegends.com/en-us/Template:Data_Lee_Sin/Dragon's_Rage?oldid=4032576) |
+| Dragon's Rage | its ability to collide with enemies is removed | [4032576](https://wiki.leagueoflegends.com/en-us/Template:Data_Lee_Sin/Dragon's_Rage?oldid=4032576) |
+| Dragon's Rage | after they reach their destination | [4032576](https://wiki.leagueoflegends.com/en-us/Template:Data_Lee_Sin/Dragon's_Rage?oldid=4032576) |
+| Dragon's Rage | corpse to be displaced and collide | [4032576](https://wiki.leagueoflegends.com/en-us/Template:Data_Lee_Sin/Dragon's_Rage?oldid=4032576) |
+| Dragon's Rage | this ability will cancel but does not go on cooldown nor pay its cost | [4032576](https://wiki.leagueoflegends.com/en-us/Template:Data_Lee_Sin/Dragon's_Rage?oldid=4032576) |
+| Flurry | "name":"PassiveAS","values":[40.0,40.0,40.0,40.0,40.0,40.0,40.0] | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/leesin/leesin.bin.json) |
+| Sonic Wave | "mMissileWidth":60.0 | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/leesin/leesin.bin.json) |
+| Sonic Wave | "mSpeed":1800.0 | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/leesin/leesin.bin.json) |
+| Sonic Wave | "castRange":[1200.0,1200.0,1200.0,1200.0,1200.0,1200.0,1200.0] | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/leesin/leesin.bin.json) |
+| Resonating Strike | "castRange":[1250.0,1250.0,1250.0,1250.0,1250.0,1250.0,1250.0] | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/leesin/leesin.bin.json) |
+| Safeguard | "name":"DashSpeed","values":[1350.0,1350.0,1350.0,1350.0,1350.0,1350.0,1350.0] | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/leesin/leesin.bin.json) |
+| Iron Will | "mana":[25.0,25.0,25.0,25.0,25.0,25.0] | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/leesin/leesin.bin.json) |
+| Tempest | "name":"SlowDuration","values":[4.0,4.0,4.0,4.0,4.0,4.0,4.0] | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/leesin/leesin.bin.json) |
+| Cripple | "castRange":[575.0,575.0,575.0,575.0,575.0,575.0,575.0] | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/leesin/leesin.bin.json) |
+| Dragon's Rage | "name":"KickDistance","values":[800.0,800.0,800.0,800.0,800.0,800.0,800.0] | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/leesin/leesin.bin.json) |
+| Sonic Wave | cost: 50 | [4070797](https://wiki.leagueoflegends.com/en-us/Template:Data_Lee_Sin/Sonic_Wave?oldid=4070797) |
+| Resonating Strike | cost: 25 | [4026428](https://wiki.leagueoflegends.com/en-us/Template:Data_Lee_Sin/Resonating_Strike?oldid=4026428) |
+| Resonating Strike | castTime: none | [4026428](https://wiki.leagueoflegends.com/en-us/Template:Data_Lee_Sin/Resonating_Strike?oldid=4026428) |
+| Safeguard | cost: 50 | [4024314](https://wiki.leagueoflegends.com/en-us/Template:Data_Lee_Sin/Safeguard?oldid=4024314) |
+| Safeguard | castTime: none | [4024314](https://wiki.leagueoflegends.com/en-us/Template:Data_Lee_Sin/Safeguard?oldid=4024314) |
+| Iron Will | cost: 25 | [3992654](https://wiki.leagueoflegends.com/en-us/Template:Data_Lee_Sin/Iron_Will?oldid=3992654) |
+| Iron Will | castTime: none | [3992654](https://wiki.leagueoflegends.com/en-us/Template:Data_Lee_Sin/Iron_Will?oldid=3992654) |
+| Tempest | cost: 50 | [4016969](https://wiki.leagueoflegends.com/en-us/Template:Data_Lee_Sin/Tempest?oldid=4016969) |
+| Cripple | cost: 25 | [4007641](https://wiki.leagueoflegends.com/en-us/Template:Data_Lee_Sin/Cripple?oldid=4007641) |
+| Cripple | castTime: none | [4007641](https://wiki.leagueoflegends.com/en-us/Template:Data_Lee_Sin/Cripple?oldid=4007641) |

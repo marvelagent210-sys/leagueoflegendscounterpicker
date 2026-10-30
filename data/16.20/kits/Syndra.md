@@ -47,6 +47,33 @@ Notes:
 
 - Syndra's abilities gain additional visual effects when they reach their Splinter of Wrath thresholds. Her spells will also gain a red colored tint outlining the VFX.
     - Dark Sphere will cause fractures to appear in the earth when it is used.
+- {{{{{1<noinclude>|Ability data</noinclude>}}}|Transcendent|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}
+  |champion     = Syndra
+  |skill        = I
+  |icon         = Transcendent.png
+  |blurb        = {{sbc|Innate:}} {{ci|Syndra}} collects {{as|Splinters of Wrath|buzzword}} that enhance her {{tip|abilities}} based on the number of them collected, up to a maximum amount. She can collect them from dealing damage to enemy {{tip|champions}}, ranking up her abilities, and killing large {{tip|minions}}.
+  |blurb2       = Collecting a {{as|Splinter of Wrath|buzzword}} from an enemy restores {{sti|{{As|mana}}}} for '''Syndra'''.
+  |blurb3       = At the maximum amount of {{as|Splinters|buzzword}}, her {{sti|{{as|ability power}}}} is increased.
+  |description  = {{sbc|Innate:}} '''Syndra''' collects {{as|Splinters of Wrath|buzzword}} that enhance each of her abilities based on the number of them collected, {{tip|stack|stacking}} up to 120 times. She gains {{as|Splinters of Wrath|buzzword}} from the following:
+  * Dealing two instances of {{tip|champion ability|ability}} damage to an enemy champion within 4 seconds grants {{as|{{pp|1;2;3|1;11;18}} Splinters|buzzword}}. This cannot occur on the same target more than once every few seconds.
+  * Ranking up an ability with any skill points beyond level 1 grants {{as|5 Splinters|buzzword}}, up to {{as|85|buzzword}}.
+  * Killing a large minion grants {{as|1 Splinter|buzzword}}.
+  |description2 = Collecting a {{as|Splinter of Wrath|buzzword}} from an enemy restores {{sti|mana|{{as|{{pp|16+4*x for 6; then +6*x for 4; then +15*x for 5; then +20*x for 5|formula=15 + 4 per level until level 6, then + 6 per level until level 10, then + 15 per level until level 15, then + 20 per level.}} mana}}}}. {{as|Splinters of Wrath|buzzword}} are brought to '''Syndra''' from enemies over {{fd|0.6}} seconds.
+  |icon3        = Transcendent 2.png
+  |description3 = At {{as|120 Splinters of Wrath|buzzword}}, '''Syndra''' achieves ''Transcendence'', increasing her {{sti|{{as|ability power}}}} by 15%.
+  |description4 = '''''Syndra''' can collect {{as|Splinters of Wrath|buzzword}} from enemies even if she is at maximum stacks. These {{as|Splinters|buzzword}} do not grant any stacks, but will still restore {{as|mana}} for '''Syndra'''.''
+  |targeting    = Passive
+  |affects      = Self
+  |ontargetcdstatic = 8
+  |damagetype   = 
+  |spellshield  = 
+  |spelleffects = 
+  |grounded     = 
+  |knockdown    = 
+  |notes        = 
+  * '''Syndra's''' abilities gain additional visual effects when they reach their {{as|Splinter of Wrath|buzzword}} thresholds. Her spells will also gain a red colored tint outlining the VFX.
+  ** ''{{ai|Dark Sphere|Syndra}}'' will cause fractures to appear in the earth when it is used.
+  }}
 
 ## Q: Dark Sphere
 
@@ -75,6 +102,36 @@ Notes:
 - Dark Sphere can be conjured inside terrain, but cannot be thrown there with Force of Will.
 - There is no limit as to how many Dark Spheres can be active at a time.
 - After Syndra gains the Transcendent bonus, the number of Dark Sphere charges available is represented by small Sphere icons under her health bar, visible to the player only.
+- {{{{{1<noinclude>|Ability data</noinclude>}}}|Dark Sphere|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}
+  |champion     = Syndra
+  |skill        = Q
+  |icon         = Dark Sphere.png
+  |blurb        = {{sbc|Active:}} After a brief delay, {{ci|Syndra}} conjures a ''Dark Sphere'' at the target location that deals {{as|magic damage}} to nearby enemies. The ''Dark Sphere'' then remains on the ground for a few seconds.
+  |blurb4      = {{sbc|{{ai|Transcendent|Syndra}} Bonus:}} '''Syndra''' periodically stocks a ''Dark Sphere'' charge.
+  |description  = {{sbc|Active:}} '''Syndra''' conjures a ''Dark Sphere'' at the target location that appears after a {{fd|0.6}}-second delay, dealing {{as|magic damage}} to nearby enemies. The ''Dark Sphere'' then remains on the ground for 6 seconds.
+  |leveling     = {{st|Magic Damage|{{ap|90 to 230}} {{as|(+ 70% AP)}}}}
+  |icon2        = Dark Sphere 2.png
+  |description2 = {{sbc|{{ai|Transcendent|Syndra}} Bonus:}} Collecting {{as|40 Splinters of Wrath|buzzword}} causes '''Syndra''' to periodically [[stock]] a ''Dark Sphere'' charge, up to a maximum of 2.
+  |cooldown     = 7
+  |recharge     = {{tt|7|Recharge timer for Dark Sphere with the Transcendent bonus}}
+  |static       = {{tt|{{fd|1.25}}|Cooldown between casts for Dark Sphere with the Transcendent bonus}}
+  |cost         = {{ap|40 to 60}}
+  |costtype     = Mana
+  |target range = 800
+  |effect radius = {{tip|cr|icononly = true}} 210
+  |targeting    = Location
+  |cast time = none
+  |affects      = Enemies
+  |damagetype   = magic
+  |spelleffects = Aoe
+  |onhiteffects = 
+  |spellshield  = True
+  |outofrange   = cast at max
+  |notes        = 
+  * ''Dark Sphere'' can be conjured inside terrain, but cannot be thrown there with {{ai|Force of Will|Syndra}}.
+  * There is no limit as to how many ''Dark Spheres'' can be active at a time.
+  * After '''Syndra''' gains the {{ai|Transcendent|Syndra}} bonus, the number of ''Dark Sphere'' charges available is represented by small Sphere icons under her [[health bar]], visible to the player only.
+  }}
 
 ## W: Force of Will
 
@@ -123,6 +180,53 @@ Notes:
 - Grabbing a Dark Sphere will cause the duration on it to refresh, but only on the first cast, not when it is thrown.
 - Force of Will has additional effects when targeting the Blue Sentinel and Red Brambleback. Throwing the former will refund 10 mana to Syndra upon cast and will reduce the cooldown of Force of Will by 1 second, while throwing the latter will apply the Crest of Cinders burn to any affected units in the area of effect.
 - Force of Will's first cast uses a modified icon while it has the Transcendent bonus.
+- {{{{{1<noinclude>|Ability data</noinclude>}}}|Force of Will|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}
+  |champion     = Syndra
+  |skill        = W
+  |icon         = Force of Will.png
+  |blurb        = {{sbc|Active:}} {{ci|Syndra}} grabs the nearest ''{{ai|Dark Sphere|Syndra}}'', enemy {{tip|minion}} or non-epic {{tip|monster}} from the target location, and holds it for a few seconds.
+  |blurb2      = ''Force of Will'' can be recast while the target is grabbed.
+  |blurb3      = {{sbc|Recast:}} '''Syndra''' tosses the grabbed target to the target location, which deals {{as|magic damage}} and briefly {{tip|slows}} them and nearby enemies.
+  |blurb4      = {{sbc|{{ai|Transcendent|Syndra}} Bonus:}} ''Force of Will'' deals {{as|'''bonus''' true damage}}.
+  |description  = {{sbc|Active:}} '''Syndra''' telekinetically grabs the nearest ''{{ai|Dark Sphere|Syndra}}'', enemy {{tip|minion}} or non-epic {{tip|monster}} within 500 units from the target location, and holds the target near her for 5 seconds. If a ''Dark Sphere'' is grabbed, its duration is refreshed; if a minion or monster is grabbed, it is put in {{tip|stasis}}. She prioritizes grabbing the nearest unit, then ''{{ai|Dark Sphere|Syndra|Dark Spheres}}''.
+  |description2 = ''Force of Will'' can be recast while the target is being held.
+  |icon3        = Force of Will 2.png
+  |description3 = {{sbc|Recast:}} '''Syndra''' throws the grabbed target towards the target location, granting {{tip|sight}} of their surroundings as they fall and dealing {{as|magic damage}} to them and nearby enemies once they land. All targets hit are {{tip|slow|slowed}} by 25% for {{fd|1.5}} seconds.
+  |leveling3    = {{st|Magic Damage|{{ap|70 to 190}} {{as|(+ 65% AP)}}}}
+  |icon4        = Force of Will 4.png
+  |description4 = {{sbc|{{ai|Transcendent|Syndra}} Bonus:}} Collecting {{as|60 Splinters of Wrath|buzzword}} enhances ''Force of Will'' to deal {{sti|true damage|{{as|12%|true damage}}}} {{as|(+ 2% per 100 AP)}} {{as|'''bonus''' true damage}}.
+  |leveling4    = {{st|Bonus True Damage|{{ap|70*0.12 to 190*0.12|round=1}} {{as|(+ {{ap|70*0.02+65*0.12 to 190*0.02+65*0.12|round=1}}% AP)}} {{as|'''(+ {{fd|1.14}}% AP)<sup>2</sup>'''}}|Total Mixed Damage|{{ap|70*1.12 to 190*1.12|round=1}} {{as|(+ {{ap|70*0.02+65*1.12 to 190*0.02+65*1.12|round=1}}% AP)}} {{as|'''(+ {{fd|1.14}}% AP)<sup>2</sup>'''}}}}
+  |cooldown     = {{ap|13 to 9}}
+  |cdstart      = post-effect
+  |cost         = {{ap|60 to 100}}
+  |costtype     = Mana
+  |target range = {{dv|{{tip|cr|icononly = true}} {{tt|925|Grab range}}|{{tt|950|Throw range}}|{{tt|500|Nearest target grab range}}}}
+  |effect radius= {{tip|cr|icononly = true}} 225
+  |targeting    = {{dv|[[Unit-targeted|Unit]]|[[Location-targeted|Location]]}}
+  |cast time = none
+  |affects      = Enemies
+  |damagetype   = magic
+  |spelleffects = Aoe
+  |projectile = false
+  |onhiteffects = 
+  |spellshield  = True
+  |outofrange   = Walk in range of the target unit to cast (first cast)<br><br>Walk in range of the target location to cast (recast)
+  |notes        = 
+  * The initial cast does not count as an ability activation for the purposes of on-cast effects such as {{tip|Spellblade}} and triggering {{ais|Force Pulse|Kassadin}} passive.
+  **Detonating the ability manually does.
+  * If the ability is not recast within the duration, '''Syndra''' will release the unit or ''Dark Sphere'' that she is holding.
+  * ''Force of Will'' does not destroy in-flight {{tip|projectile|projectiles}} for the {{tip|minion}} or {{tip|monster}} grabbed.
+  * ''Force of Will'' {{tip|cleanse|cleanses}} the target {{tip|minion}} or {{tip|monster}} grabbed from all {{tip|crowd control}}.
+  * ''Force of Will'' prevents non-sphere targets from dying when picking them up.
+  * If the the thrown target was a {{tip|monster}}, it is {{tip|taunt|taunted}} for {{fd|0.25}} seconds after landing.
+  * '''Syndra''' can grab {{tip|pet|pets}}, such as {{cai|Jack in the Box|Shaco}}.
+  * Casting {{si|Teleport}} or {{si|Recall}}, or switching realms ({{cai|Realm of Death|Mordekaiser}}) will cause '''Syndra''' to cancel ''Force of Will'' autonomously and drop anything she is holding.
+  * Grabbing prioritizes ''Dark Spheres''.
+  * Enemy {{tip|pet|pets}} that passively have an effect on their surroundings will continue to affect the area around them while they are being held. For example, {{cai|Summon: Tibbers|Annie|Tibbers}} will continue to inflict burn damage on surrounding units while being held.
+  * Grabbing a {{ai|Dark Sphere|Syndra}} will cause the duration on it to refresh, but only on the first cast, not when it is thrown.
+  * ''Force of Will'' has additional effects when targeting the {{ui|Blue Sentinel}} and {{ui|Red Brambleback}}. Throwing the former will refund 10 {{tip|mana}} to '''Syndra''' upon cast and will reduce the {{sti|cooldown}} of ''Force of Will'' by 1 second, while throwing the latter will apply the {{bi|Crest of Cinders}} burn to any affected units in the [[area of effect]].
+  * ''Force of Will's'' first cast uses a [[File:Force of Will 3.png|20px|link=]] modified icon while it has the {{ai|Transcendent|Syndra}} bonus.
+  }}
 
 ## E: Scatter the Weak
 
@@ -162,6 +266,43 @@ Notes:
 - Scatter the Weak will delay the expiration of a Sphere until after it finishes being knocked back.
 - This ability will cast from wherever the caster is at the end of the cast time.
 - Once Scatter the Weak has been learned, an arrow directly in front of every Dark Sphere will appear to signify the direction the sphere will be knocked towards, each one corresponding to Syndra's position. This is only visible to Syndra.
+- {{{{{1<noinclude>|Ability data</noinclude>}}}|Scatter the Weak|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}
+  |champion     = Syndra
+  |skill        = E
+  |icon         = Scatter the Weak.png
+  |blurb        = {{sbc|Active:}} {{ci|Syndra}} propels a wave of force in a cone in the target direction that deals {{as|magic damage}} and {{tip|airborne|knocks back}} enemies hit based on proximity.
+  |blurb2      = A ''{{ai|Dark Sphere|Syndra}}'' can be knocked back further, which {{tip|airborne|knocks back}} enemies hit and briefly {{tip|stun|stuns}} and {{tip|standard sight|reveals}} them, dealing the same damage if they were not hit already.
+  |blurb4      = {{sbc|{{ai|Transcendent|Syndra}} Bonus:}} ''Scatter the Weak's'' scatter angle is increased and it briefly {{tip|slow|slows}} enemies hit.
+  |description  = {{sbc|Active:}} '''Syndra''' propels a wave of force in a cone in the target direction that deals {{as|magic damage}} to enemies hit and {{tip|airborne|knocks them back}} for 400 units and up to 800 units away from '''Syndra''' based on proximity, though not through terrain.
+  |leveling     = {{st|Magic Damage|{{ap|60 to 200}} {{as|(+ 60% AP)}}}}
+  |description2 = ''{{ai|Dark Sphere|Syndra|Dark Spheres}}'' can be knocked back for 950 units and up to 1200 units away from '''Syndra''' based on proximity, {{tip|airborne|knocking back}} enemies they hit over 70 units, though not through terrain. Targets hit are also {{tip|stun|stunned}} for {{fd|1.25}} seconds, during which they are also {{tip|standard sight|revealed}}, and dealt ''Scatter the Weak's'' damage if they were not damaged by the initial cast.
+  |icon3        = Scatter the Weak 2.png
+  |description3 = {{sbc|{{ai|Transcendent|Syndra}} Bonus:}} Collecting {{as|80 Splinters of Wrath|buzzword}} enhances ''Scatter the Weak'' to have an increased scatter angle and {{tip|slow}} enemies hit by 70% for {{fd|1.25}} seconds starting after the {{tip|airborne|knock back}} ends or if the target was hit by a pushed ''Dark Sphere'', after the {{tip|stun}} has ended.
+  |cooldown     = 15
+  |cost         = 50
+  |costtype     = Mana
+  |range = {{dv|{{tip|cr|icononly = true}} 700|{{tt|800|Dark Spheres}}|{{tt|1300|Maximum push range of 1200 with 100 bonus hit range of Spheres from Syndra's location at the time they are hit}}}}
+  |cast time    = {{fd|0.25}}
+  |angle        = {{dv|56{{degree}}|{{tt|84{{degree}}|Transcendent bonus}}}}
+  |speed        = {{dv|{{tt|2500|Visible cone missiles. 2 more waves of invisible cone missiles are spawned at 1600 and 1100 speed which hit only spheres spawned into the area late}}|{{tt|2000|Pushed spheres missile speed}}}}
+  |width        = {{dv|{{tip|er|icononly = true}} {{tt|120|Individual missiles making up the cone}}|{{tt|200|Pushed spheres missile width}}}}
+  |targeting    = Direction
+  |affects      = Enemies
+  |damagetype   = magic
+  |projectile   = special
+  |spelleffects = Aoe
+  |onhiteffects = 
+  |spellshield  = True
+  |notes        = 
+  * ''Scatter the Weak'' is blocked by the portion of {{ai|Wind Wall|Yasuo}} it collides with. ''Spheres'' thrown will stop upon colliding with the wall.
+  * ''Spheres'' spawned at close range of the ability are more likely to be hit.
+  * Enemies and spheres will be knocked into the direction directly away from '''Syndra''', and the knock back has no dispersion.
+  * ''Scatter the Weak'' will knock back ''Spheres'' even farther if they are inside terrain, up until they reach open space. If the terrain they're inside in cannot be surpassed, the ''Spheres'' will be knocked in the opposite direction.
+  * ''Scatter the Weak'' will delay the expiration of a ''Sphere'' until after it finishes being knocked back.
+  {{Effect at cast time end}}
+  * Once ''Scatter the Weak'' has been learned, an arrow directly in front of every {{ai|Dark Sphere|Syndra}} will appear to signify the direction the ''sphere'' will be knocked towards, each one corresponding to '''Syndra's''' position. This is only visible to '''Syndra'''.
+  [[File:Dark_Sphere_directional_arrows.png|center|250px]]
+  }}
 
 ## R: Unleashed Power
 
@@ -205,6 +346,48 @@ Notes:
 - Unleashed Power will not add a Sphere that Syndra is holding with Force of Will.
 - Spheres that are being pushed by Scatter the Weak (normally ones that were made late during the push) will not get picked up for Unleashed Power.
 - Spell shield will only block the damage of a single sphere.
+- {{{{{1<noinclude>|Ability data</noinclude>}}}|Unleashed Power|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}
+  |champion     = Syndra
+  |skill        = R
+  |icon         = false
+  |icon2        = Unleashed Power.png
+  |blurb        = {{sbc|Passive:}} ''{{ai|Dark Sphere|Syndra}}'' gains {{as|{{sti|ability haste}}}}.
+  |blurb2       = {{sbc|Active:}} {{ci|Syndra}} creates a few ''{{ai|Dark Sphere|Syndra|Dark Spheres}}'' and grabs a few more nearby, then barrages them at the target enemy champion. Each sphere deals {{as|magic damage}} upon hit, and remains on the ground for a few seconds.
+  |blurb4       = {{sbc|{{ai|Transcendent|Syndra}} Bonus:}} ''Unleashed Power'' {{tip|execute|executes}} enemies once they reach a certain {{sti|{{as|health}}}} threshold.
+  |description  = {{sbc|Passive:}} ''{{ais|Dark Sphere|Syndra}}'' cooldown is reduced equivalent to an amount of {{as|{{sti|ability haste}}}}.
+  |leveling     = {{st|Ability Haste|{{ap|10 to 30}}}}
+  |description2 = {{sbc|Active:}} '''Syndra''' conjures 3 ''{{ai|Dark Sphere|Syndra|Dark Spheres}}'' and additionally grabs up to 4 nearby live ones. Afterwards, she barrages the target enemy champion with all collected ''Dark Spheres'', each dealing {{as|magic damage}} upon hit.
+  |leveling2    = {{st|Magic Damage per Sphere|{{ap|80 to 160}} {{as|(+ 20% AP)}}}}
+  {{st|Minimum Magic Damage|{{ap|80*3 to 160*3}} {{as|(+ {{ap|20*3}}% AP)}}|Maximum Magic Damage|{{ap|80*7 to 160*7}} {{as|(+ {{ap|20*7}}% AP)}}}}
+  |description3 = The ''{{ai|Dark Sphere|Syndra|Dark Spheres}}'' will then remain on the ground next to the target's current location for 6 seconds.
+  |icon4        = Unleashed Power 2.png
+  |description4 = {{sbc|{{ai|Transcendent|Syndra}} Bonus:}} Collecting {{as|100 Splinters of Wrath|buzzword}} enhances ''Unleashed Power'' to {{tip|execute}} the target if it would damage them to below {{sti|{{as|15% of their '''maximum''' health}}}}.
+  |cooldown     = {{ap|120 to 80}}
+  |cdstart      = on-cast
+  |cost         = 100
+  |costtype     = Mana
+  |target range = {{tip|cr|icononly = true}} 675
+  |effect radius= {{tt|3000|Dark Sphere grab range}}
+  |cast time    = {{fd|0.25}}
+  |targeting    = Unit
+  |affects      = Enemies
+  |damagetype   = magic
+  |projectile   = true
+  |spelleffects = spell
+  |onhiteffects = 
+  |callforhelp  = true
+  |spellshield  = Special
+  |notes        = 
+  * ''Unleashed Power's'' effect takes place at the start of the cast time.
+  ** Additionally, ''Unleashed Power'' cannot be interrupted by any means, including death or {{tip|resurrection}}. ''Unleashed Power'' will complete its effect so long as '''Syndra''' has initiated its cast.
+  * Casting ''Unleashed Power'' on a target that becomes {{tip|untargetable}} while the ''spheres'' are in flight will not destroy them but will invalidate their effects.
+  * ''Spheres'' already in flight will still travel if '''Syndra's''' target dies, but any remaining ''spheres'' will not. However, their duration will still get reset.
+  * A ''sphere'' summoned very shortly before ''Unleashed Power'' '''will''' be used as one of the spheres that get thrown. 
+  ** Depending on how many ''spheres'' are on the map and how far away the enemy is upon casting ''Unleashed Power'' it is possible that '''Syndra''' would conjure the ''sphere'' behind her as if she was going to throw it, but she won't.
+  * ''Unleashed Power'' will not add a ''Sphere'' that '''Syndra''' is holding with {{ai|Force of Will|Syndra}}.
+  * ''Spheres'' that are being pushed by {{ai|Scatter the Weak|Syndra}} (normally ones that were made late during the push) will not get picked up for ''Unleashed Power''.
+  * {{tip|Spell shield}} will only block the damage of a single ''sphere''.
+  }}
 
 ## Game files
 
@@ -235,3 +418,131 @@ All 2 level-based formulas in the game files (1 linked to wiki values above):
 |---|---|---|--:|--:|--:|
 | SyndraPassive | StacksPerProc | breakpoints at levels 11, 18 (level 1: 1) | 1 | 3 | 3 |
 | SyndraPassive | ManaPerProc | breakpoints at levels 7, 11, 16 (level 1: 20) | 20 | 199 | 239 |
+
+## Duel simulator kit (level 20, every ability at max rank)
+
+What the duel simulator fights with (`kits/champions/Syndra.ts`): values come from pinned wiki and versioned game-data records at level 20. Interpretations and missing evidence are listed under assumptions. Ratios are fractions of the stat (60% AD is 0.6 × AD).
+
+- Basic attack: range 550, missile at 1800/s.
+- Options: additionalSplinters = 0.
+
+| Key | Ability | Cooldown (s) | Cast time (s) | Cost | Delivery | On the enemy | On itself |
+|---|---|--:|--:|---|---|---|---|
+| Q | Dark Sphere | 2 charges, one every 7 s (1.25 s between casts) | 0 | 60 | circle of 210 radius up to 800 away, lands after 0.6 s | 230 + 70% AP magic damage | – |
+| W | Force of Will | 9 (starts when its effect on the caster ends) | 0 | 100 | self | – | – |
+| E | Scatter the Weak | 15 | 0.25 | 50 | self | – | – |
+| R | Unleashed Power | 80 | 0.25 | 100 | self | – | – |
+| W2 | Force of Will: throw | 0 | 0 | – | self | – | – |
+| Qhit | Dark Sphere | 0 | 0 | – | self | 230 + 70% AP magic damage | – |
+| Econe | Scatter the Weak | 0 | 0 | – | self | 200 + 60% AP magic damage | – |
+| Eorb | Scatter the Weak: sphere | 0 | 0 | – | self | 200 + 60% AP magic damage | – |
+| Elate | Scatter the Weak: sphere-only wave | 0 | 0 | – | self | – | – |
+| Rorb | Unleashed Power: sphere | 0 | 0 | – | self | 160 + 20% AP magic damage | – |
+| Rschedule | Unleashed Power: committed release schedule | 0 | 0 | – | self | – | – |
+| Icollect | Transcendent: pickup | 0 | 0 | – | self | – | – |
+
+Effects marked by a mark or a role are completed by the kit's hooks (see the kit's source).
+
+### Assumptions
+
+- Explicit Splinters beyond maximum-rank skill progression: 0.
+- Max-ranked Q5/W5/E5/R3 grants85 Splinters from17 skill points beyond level1; no large-minion or champion history is invented. additionalSplinters is an explicit0–35 historical input. Q/W/E upgrades are therefore active at the ordinary85 baseline; R execute needs100 and15% totalAP needs120. Enemy procs cap stack gain but still restore mana once per pickup. An actually killed explicitly classified large minion sends one Splinter through the same0.6second pickup and once-per-pickup mana restoration, rather than granting an immediate stack. Exact level20 game ManaPerProc is239, not three times239 for a three-stack proc.
+- Passive two-instance tracking groups all packets belonging to one actual cast into one damage instance, including W magic/true, E cone/spheres and the whole R barrage; distinct Q casts qualify separately. The pinned sources do not settle multi-orb damage-instance grouping, so this conservative cast grouping is explicit. A qualifying proc uses actual positive HP/shield damage to an actual champion body; ordinary minion pets and attacks do not supply champion procs. Splinter pickup uses0.6seconds, independent of distance.
+- Q uses primary210 radius and0.6second delayed appearance, not binary180 radius or metadata spellCastTime0.375. Each real sphere persists6seconds without a count cap. The two-charge upgrade retains static1.25second cast spacing and7second recharge with purchased haste plus30 Q-only haste. No unsourced third charge is enabled. Sphere creation is independent of whether its damage is dodged or shielded.
+- W selects actual eligible sphere/minion pets within925 of Syndra and500 of the aimed point. The primary description prioritizes nearest units while its notes prioritize spheres; this kit explicitly uses sphere-first, then distance and stable id. Unclassified or epic monster bodies cannot be inferred from radius/name and are not invented. Pickup is not a cast activation, cleanses a real nonsphere before stasis, retains its identity/HP/outgoing missiles and attaches its actual position to Syndra. No favorable carrying offset is guessed. Expiry, owner death or resurrection drops the same body. Sphere duration refreshes only on pickup.
+- Pinned W command1450 missile metadata conflicts with its WCast movement20 and supplies no trusted gameplay throw flight/arc clock. This model explicitly places the real held body at the selected reachable landing point on manual recast, with no invented travel speed; separate paid pickup, manual cast, real landing, sight/slow and post-effect cooldown remain. An endpoint inside terrain is clipped to a near edge; the unknown lateral throw arc is outside scalar geometry. W uses primary9second rank5 cooldown/225 radius rather than binary8/195. Its true packet is full magic base times(12%+2%per100AP), preserving nonlinear AP squared rather than the malformed parsed linear expression. Blue/Red monster mechanics need actual classified monsters.
+- E uses primary700 hostile range,800 sphere acquisition,950 sphere push capped1200 from Syndra at contact and100 sphere hit radius. The1D axis cannot model56/84degree lateral cone coverage; both sourced angles remain evidence. Visible2500 wave can damage, while1600/1100 late waves only acquire late spheres. Every sphere has its own2000speed flight, wall interaction, delayed expiry and swept contacts. One E cast grants each victim damage once across cone/spheres while later sphere control remains possible. Unknown body knockback speed is represented by immediate sourced displacement constrained by terrain, omitting a temporal airborne travel duration. The upgrade slow starts after actual stun or instantaneous displacement; denied control does not invent a stun duration.
+- R commits at declaration with paid mana/cooldown and schedules exactly3 innate plus up to4 actual eligible ground spheres within3000; held/moving spheres are excluded. Every orb has its own accelerating projectile, spell shield, parry and target-invalidity state, then current-position landing and6second life. RSpell supplies initial1, acceleration7500 and cap10000; release staggering is unsourced, so the model explicitly releases one orb per30Hz simulation tick as an approximation, including after caster death/resurrection. Target death stops unlaunched orbs, refreshing their actual ground bodies; launched orbs continue. Untargetability invalidates effects without deleting the body. Only positive R-orb damage can trigger strict below15% execute at100 stacks.
+- Reference allocation prices sustained Q with Q-only haste, one actual sphere-supported W per cycle, one shared E damage per cycle and3+min(4,floor(6/Qrecharge)) sustain-available R spheres. It assumes no free opening W ammunition, fabricated minions/allies, guaranteed sphere-ray stuns or R executes. Scenarios still require mana, real ground spheres, contacts and legal mode policy; hold/trade reserve R and completed trades retreat.
+
+### Source values read (87)
+
+| Ability | Value | Source version |
+|---|---|---|
+| Transcendent | grants 5 Splinters | [4060367](https://wiki.leagueoflegends.com/en-us/Template:Data_Syndra/Transcendent?oldid=4060367) |
+| Transcendent | up to 85 | [4060367](https://wiki.leagueoflegends.com/en-us/Template:Data_Syndra/Transcendent?oldid=4060367) |
+| Transcendent | up to 120 times | [4060367](https://wiki.leagueoflegends.com/en-us/Template:Data_Syndra/Transcendent?oldid=4060367) |
+| Transcendent | within 4 seconds | [4060367](https://wiki.leagueoflegends.com/en-us/Template:Data_Syndra/Transcendent?oldid=4060367) |
+| Transcendent | targetCooldown: 8 | [4060367](https://wiki.leagueoflegends.com/en-us/Template:Data_Syndra/Transcendent?oldid=4060367) |
+| Transcendent | over 0.6 seconds | [4060367](https://wiki.leagueoflegends.com/en-us/Template:Data_Syndra/Transcendent?oldid=4060367) |
+| Transcendent | ability power by 15% | [4060367](https://wiki.leagueoflegends.com/en-us/Template:Data_Syndra/Transcendent?oldid=4060367) |
+| Transcendent | * Dealing two instances of ability damage to an enemy champion within 4 seconds grants 1 / 2 / 3 (based on level) Splinters. | [4060367](https://wiki.leagueoflegends.com/en-us/Template:Data_Syndra/Transcendent?oldid=4060367) |
+| Transcendent | grants 1 Splinter | [4060367](https://wiki.leagueoflegends.com/en-us/Template:Data_Syndra/Transcendent?oldid=4060367) |
+| Transcendent | "mLevel1Value":20.0 | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/syndra/syndra.bin.json) |
+| Transcendent | "mInitialBonusPerLevel":4.0 | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/syndra/syndra.bin.json) |
+| Transcendent | "mLevel":7,"mBonusPerLevelAtAndAfter":6.0 | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/syndra/syndra.bin.json) |
+| Transcendent | "mLevel":11,"mBonusPerLevelAtAndAfter":15.0 | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/syndra/syndra.bin.json) |
+| Transcendent | "mLevel":16,"mBonusPerLevelAtAndAfter":20.0 | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/syndra/syndra.bin.json) |
+| Dark Sphere | Magic Damage: 90 / 125 / 160 / 195 / 230 (+ 70% AP) | [4026460](https://wiki.leagueoflegends.com/en-us/Template:Data_Syndra/Dark_Sphere?oldid=4026460) |
+| Dark Sphere | a 0.6-second delay | [4026460](https://wiki.leagueoflegends.com/en-us/Template:Data_Syndra/Dark_Sphere?oldid=4026460) |
+| Dark Sphere | ground for 6 seconds | [4026460](https://wiki.leagueoflegends.com/en-us/Template:Data_Syndra/Dark_Sphere?oldid=4026460) |
+| Dark Sphere | targetRange: 800 | [4026460](https://wiki.leagueoflegends.com/en-us/Template:Data_Syndra/Dark_Sphere?oldid=4026460) |
+| Dark Sphere | effectRadius: 210 | [4026460](https://wiki.leagueoflegends.com/en-us/Template:Data_Syndra/Dark_Sphere?oldid=4026460) |
+| Dark Sphere | staticCooldown: 1.25 | [4026460](https://wiki.leagueoflegends.com/en-us/Template:Data_Syndra/Dark_Sphere?oldid=4026460) |
+| Dark Sphere | recharge: 7 | [4026460](https://wiki.leagueoflegends.com/en-us/Template:Data_Syndra/Dark_Sphere?oldid=4026460) |
+| Dark Sphere | maximum of 2 | [4026460](https://wiki.leagueoflegends.com/en-us/Template:Data_Syndra/Dark_Sphere?oldid=4026460) |
+| Unleashed Power | Ability Haste: 10 / 20 / 30 | [4024661](https://wiki.leagueoflegends.com/en-us/Template:Data_Syndra/Unleashed_Power?oldid=4024661) |
+| Force of Will | Magic Damage: 70 / 100 / 130 / 160 / 190 (+ 65% AP) | [4060368](https://wiki.leagueoflegends.com/en-us/Template:Data_Syndra/Force_of_Will?oldid=4060368) |
+| Force of Will | cooldown: 13 / 12 / 11 / 10 / 9 | [4060368](https://wiki.leagueoflegends.com/en-us/Template:Data_Syndra/Force_of_Will?oldid=4060368) |
+| Force of Will | for 5 seconds | [4060368](https://wiki.leagueoflegends.com/en-us/Template:Data_Syndra/Force_of_Will?oldid=4060368) |
+| Force of Will | targetRange (Grab range): 925 • 950 • 500 | [4060368](https://wiki.leagueoflegends.com/en-us/Template:Data_Syndra/Force_of_Will?oldid=4060368) |
+| Force of Will | targetRange (Throw range): 925 • 950 • 500 | [4060368](https://wiki.leagueoflegends.com/en-us/Template:Data_Syndra/Force_of_Will?oldid=4060368) |
+| Force of Will | targetRange (Nearest target): 925 • 950 • 500 | [4060368](https://wiki.leagueoflegends.com/en-us/Template:Data_Syndra/Force_of_Will?oldid=4060368) |
+| Force of Will | effectRadius: 225 | [4060368](https://wiki.leagueoflegends.com/en-us/Template:Data_Syndra/Force_of_Will?oldid=4060368) |
+| Force of Will | slowed by 25% | [4060368](https://wiki.leagueoflegends.com/en-us/Template:Data_Syndra/Force_of_Will?oldid=4060368) |
+| Force of Will | for 1.5 seconds | [4060368](https://wiki.leagueoflegends.com/en-us/Template:Data_Syndra/Force_of_Will?oldid=4060368) |
+| Force of Will | deal 12% | [4060368](https://wiki.leagueoflegends.com/en-us/Template:Data_Syndra/Force_of_Will?oldid=4060368) |
+| Force of Will | 2% per 100 AP | [4060368](https://wiki.leagueoflegends.com/en-us/Template:Data_Syndra/Force_of_Will?oldid=4060368) |
+| Force of Will | "mModifiedGameCalculation":"ThrowDamage" | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/syndra/syndra.bin.json) |
+| Force of Will | "mNumber":0.11999999731779099 | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/syndra/syndra.bin.json) |
+| Force of Will | "mCoefficient":0.019999999552965164 | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/syndra/syndra.bin.json) |
+| Force of Will | Collecting 60 Splinters | [4060368](https://wiki.leagueoflegends.com/en-us/Template:Data_Syndra/Force_of_Will?oldid=4060368) |
+| Scatter the Weak | Collecting 80 Splinters | [4064249](https://wiki.leagueoflegends.com/en-us/Template:Data_Syndra/Scatter_the_Weak?oldid=4064249) |
+| Unleashed Power | Collecting 100 Splinters | [4024661](https://wiki.leagueoflegends.com/en-us/Template:Data_Syndra/Unleashed_Power?oldid=4024661) |
+| Dark Sphere | Collecting 40 Splinters | [4026460](https://wiki.leagueoflegends.com/en-us/Template:Data_Syndra/Dark_Sphere?oldid=4026460) |
+| Scatter the Weak | Magic Damage: 60 / 95 / 130 / 165 / 200 (+ 60% AP) | [4064249](https://wiki.leagueoflegends.com/en-us/Template:Data_Syndra/Scatter_the_Weak?oldid=4064249) |
+| Scatter the Weak | range: 700 • 800 • 1300 | [4064249](https://wiki.leagueoflegends.com/en-us/Template:Data_Syndra/Scatter_the_Weak?oldid=4064249) |
+| Scatter the Weak | range (Dark Spheres): 700 • 800 • 1300 | [4064249](https://wiki.leagueoflegends.com/en-us/Template:Data_Syndra/Scatter_the_Weak?oldid=4064249) |
+| Scatter the Weak | range (Maximum push): 700 • 800 • 1300 | [4064249](https://wiki.leagueoflegends.com/en-us/Template:Data_Syndra/Scatter_the_Weak?oldid=4064249) |
+| Scatter the Weak | speed: 2500 • 2000 | [4064249](https://wiki.leagueoflegends.com/en-us/Template:Data_Syndra/Scatter_the_Weak?oldid=4064249) |
+| Scatter the Weak | speed (Pushed spheres): 2500 • 2000 | [4064249](https://wiki.leagueoflegends.com/en-us/Template:Data_Syndra/Scatter_the_Weak?oldid=4064249) |
+| Scatter the Weak | width (Individual missiles): 120 • 200 | [4064249](https://wiki.leagueoflegends.com/en-us/Template:Data_Syndra/Scatter_the_Weak?oldid=4064249) |
+| Scatter the Weak | width (Pushed spheres): 120 • 200 | [4064249](https://wiki.leagueoflegends.com/en-us/Template:Data_Syndra/Scatter_the_Weak?oldid=4064249) |
+| Scatter the Weak | for 400 units | [4064249](https://wiki.leagueoflegends.com/en-us/Template:Data_Syndra/Scatter_the_Weak?oldid=4064249) |
+| Scatter the Weak | up to 800 units | [4064249](https://wiki.leagueoflegends.com/en-us/Template:Data_Syndra/Scatter_the_Weak?oldid=4064249) |
+| Scatter the Weak | for 950 units | [4064249](https://wiki.leagueoflegends.com/en-us/Template:Data_Syndra/Scatter_the_Weak?oldid=4064249) |
+| Scatter the Weak | up to 1200 units | [4064249](https://wiki.leagueoflegends.com/en-us/Template:Data_Syndra/Scatter_the_Weak?oldid=4064249) |
+| Scatter the Weak | over 70 units | [4064249](https://wiki.leagueoflegends.com/en-us/Template:Data_Syndra/Scatter_the_Weak?oldid=4064249) |
+| Scatter the Weak | for 1.25 seconds | [4064249](https://wiki.leagueoflegends.com/en-us/Template:Data_Syndra/Scatter_the_Weak?oldid=4064249) |
+| Scatter the Weak | by 70% | [4064249](https://wiki.leagueoflegends.com/en-us/Template:Data_Syndra/Scatter_the_Weak?oldid=4064249) |
+| Scatter the Weak | 70% for 1.25 seconds | [4064249](https://wiki.leagueoflegends.com/en-us/Template:Data_Syndra/Scatter_the_Weak?oldid=4064249) |
+| Scatter the Weak | angle: 56° • 84° | [4064249](https://wiki.leagueoflegends.com/en-us/Template:Data_Syndra/Scatter_the_Weak?oldid=4064249) |
+| Scatter the Weak | "mSpeed":1600.0 | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/syndra/syndra.bin.json) |
+| Scatter the Weak | "mSpeed":1100.0 | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/syndra/syndra.bin.json) |
+| Unleashed Power | Magic Damage per Sphere: 80 / 120 / 160 (+ 20% AP) | [4024661](https://wiki.leagueoflegends.com/en-us/Template:Data_Syndra/Unleashed_Power?oldid=4024661) |
+| Unleashed Power | targetRange: 675 | [4024661](https://wiki.leagueoflegends.com/en-us/Template:Data_Syndra/Unleashed_Power?oldid=4024661) |
+| Unleashed Power | effectRadius: 3000 | [4024661](https://wiki.leagueoflegends.com/en-us/Template:Data_Syndra/Unleashed_Power?oldid=4024661) |
+| Unleashed Power | conjures 3 Dark Spheres | [4024661](https://wiki.leagueoflegends.com/en-us/Template:Data_Syndra/Unleashed_Power?oldid=4024661) |
+| Unleashed Power | up to 4 nearby live ones | [4024661](https://wiki.leagueoflegends.com/en-us/Template:Data_Syndra/Unleashed_Power?oldid=4024661) |
+| Unleashed Power | below 15% | [4024661](https://wiki.leagueoflegends.com/en-us/Template:Data_Syndra/Unleashed_Power?oldid=4024661) |
+| Unleashed Power | "mAcceleration":7500.0 | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/syndra/syndra.bin.json) |
+| Unleashed Power | "mInitialSpeed":1.0 | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/syndra/syndra.bin.json) |
+| Unleashed Power | "mMaxSpeed":10000.0 | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/syndra/syndra.bin.json) |
+| Unleashed Power | effect takes place at the start of the cast time | [4024661](https://wiki.leagueoflegends.com/en-us/Template:Data_Syndra/Unleashed_Power?oldid=4024661) |
+| Unleashed Power | including death or resurrection | [4024661](https://wiki.leagueoflegends.com/en-us/Template:Data_Syndra/Unleashed_Power?oldid=4024661) |
+| Unleashed Power | only block the damage of a single sphere | [4024661](https://wiki.leagueoflegends.com/en-us/Template:Data_Syndra/Unleashed_Power?oldid=4024661) |
+| Force of Will | initial cast does not count as an ability activation | [4060368](https://wiki.leagueoflegends.com/en-us/Template:Data_Syndra/Force_of_Will?oldid=4060368) |
+| Force of Will | does not destroy in-flight projectiles | [4060368](https://wiki.leagueoflegends.com/en-us/Template:Data_Syndra/Force_of_Will?oldid=4060368) |
+| Force of Will | Grabbing prioritizes Dark Spheres | [4060368](https://wiki.leagueoflegends.com/en-us/Template:Data_Syndra/Force_of_Will?oldid=4060368) |
+| Force of Will | nearest unit, then Dark Spheres | [4060368](https://wiki.leagueoflegends.com/en-us/Template:Data_Syndra/Force_of_Will?oldid=4060368) |
+| Force of Will | continue to affect the area around them while they are being held | [4060368](https://wiki.leagueoflegends.com/en-us/Template:Data_Syndra/Force_of_Will?oldid=4060368) |
+| Dark Sphere | cost: 40 / 45 / 50 / 55 / 60 | [4026460](https://wiki.leagueoflegends.com/en-us/Template:Data_Syndra/Dark_Sphere?oldid=4026460) |
+| Dark Sphere | castTime: none | [4026460](https://wiki.leagueoflegends.com/en-us/Template:Data_Syndra/Dark_Sphere?oldid=4026460) |
+| Force of Will | cost: 60 / 70 / 80 / 90 / 100 | [4060368](https://wiki.leagueoflegends.com/en-us/Template:Data_Syndra/Force_of_Will?oldid=4060368) |
+| Force of Will | castTime: none | [4060368](https://wiki.leagueoflegends.com/en-us/Template:Data_Syndra/Force_of_Will?oldid=4060368) |
+| Scatter the Weak | cooldown: 15 | [4064249](https://wiki.leagueoflegends.com/en-us/Template:Data_Syndra/Scatter_the_Weak?oldid=4064249) |
+| Scatter the Weak | cost: 50 | [4064249](https://wiki.leagueoflegends.com/en-us/Template:Data_Syndra/Scatter_the_Weak?oldid=4064249) |
+| Scatter the Weak | castTime: 0.25 | [4064249](https://wiki.leagueoflegends.com/en-us/Template:Data_Syndra/Scatter_the_Weak?oldid=4064249) |
+| Unleashed Power | cooldown: 120 / 100 / 80 | [4024661](https://wiki.leagueoflegends.com/en-us/Template:Data_Syndra/Unleashed_Power?oldid=4024661) |
+| Unleashed Power | cost: 100 | [4024661](https://wiki.leagueoflegends.com/en-us/Template:Data_Syndra/Unleashed_Power?oldid=4024661) |
+| Unleashed Power | castTime: 0.25 | [4024661](https://wiki.leagueoflegends.com/en-us/Template:Data_Syndra/Unleashed_Power?oldid=4024661) |

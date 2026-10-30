@@ -360,7 +360,8 @@ const heimerdinger: KitModule = {
             if (pet.owner !== self.side || (pet.spec.kind !== TURRET && pet.spec.kind !== APEX)) continue;
             const rate = pet.spec.kind === APEX ? apex.chargeRate : beamPerSecond;
             pet.memory.charge = Math.min(1, Number(pet.memory.charge ?? 0) + rate / 30);
-            if (Number(pet.memory.charge) >= 1 && enemy.alive && Math.abs(enemy.x - pet.x) - enemy.spec.base.radius <= beamReach) {
+            const held = pet.carriedBy !== undefined || pet.statuses?.some(status => status.key === "stasis" && (status.kind === "state" || status.kind === "cc"));
+            if (!held && Number(pet.memory.charge) >= 1 && enemy.alive && Math.abs(enemy.x - pet.x) - enemy.spec.base.radius <= beamReach) {
               fireBeam(ctx, pet, pet.spec.kind === APEX ? apexBeamSpec : beamSpec);
             }
             // The Apex Turret's shots charge it too: each new shot moves its next attack on.

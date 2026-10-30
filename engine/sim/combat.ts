@@ -21,8 +21,10 @@ import { abilityOf, setForm } from "./forms";
 import { terrainGap, terrainLimit } from "./terrain";
 import { damagePet, petEffects } from "./pets";
 import { petFormulaTarget } from "./petTarget";
+import { healthProtection } from "./healthProtection";
 import { channelIn, clearChannel } from "./channelState";
-import { type AbilitySpec, type AttackSplit, type BuffStat, type Effect, type HookContext, type PetDamageCategory, cooldownKeyOf } from "./spec";
+import { cancelTargetCast } from "./actions";
+import { type AbilitySpec, type ActualMovement, type AttackSplit, type BuffStat, type DamageReport, type Effect, type HookContext, type PetDamageCategory, cooldownKeyOf } from "./spec";
 import { type AttackHitOptions, type Pet, type Side, type Status, type Unit, type World, other } from "./state";
 
 export function log(world: World, side: Side, text: string): void {
@@ -33,19 +35,82 @@ export function addStatus(unit: Unit, status: Status): void {
   unit.statuses.push(status);
 }
 
+type MovementObservation = { target: Unit; targetPet?: Pet; movement: ActualMovement };
+const movementTransitions = new WeakMap<World, MovementObservation[]>();
+
+/** Replacement control settles before general end observers; the body's own hooks run immediately. */
+export function withMovementTransition<T>(world: World, apply: () => T): T {
+  if (movementTransitions.has(world)) return apply();
+  const pending: MovementObservation[] = [];
+  movementTransitions.set(world, pending);
+  try { return apply(); }
+  finally {
+    movementTransitions.delete(world);
+    for (const observation of pending) observeMovement(world, observation);
+  }
+}
+
+function observeMovement(world: World, observation: MovementObservation): void {
+  const { targetPet, movement } = observation;
+  // A pet formula view is a snapshot; observers read the canonical body's settled state.
+  const target = targetPet ? petFormulaTarget(targetPet, world.units[targetPet.owner], world.tick) : observation.target;
+  for (const observer of world.units) {
+    const hooks = observer.spec.hooks, callback = hooks?.onActualMovement;
+    if (!callback || (!observer.alive && !hooks?.movementEventsAfterDeath)) continue;
+    runHook(() => callback({ ...hookContext(world, observer), target, ...(targetPet ? { targetPet } : {}), movement }));
+  }
+}
+
+/** Observers see the actual moved body and endpoint, never its intended endpoint. */
+export function notifyActualMovement(world: World, target: Unit, from: number, movement: Omit<ActualMovement, "from" | "to">, targetPet?: Pet): void {
+  targetPet ??= target.petId === undefined ? undefined : world.pets.find(pet => pet.id === target.petId);
+  // A pet transaction can temporarily strip petId to suppress champion hooks.
+  // Its caller emits a correctly identified event when synchronizing the body.
+  if (!targetPet && world.units[target.side] !== target) return;
+  if (targetPet) targetPet.x = target.x;
+  if (from === target.x && (!movement.ended || movement.kind === "walk")) return;
+  if (!targetPet && world.units[target.side] === target) {
+    for (const pet of world.pets) {
+      if (pet.carriedBy !== target.side) continue;
+      const previous = pet.x;
+      pet.x = target.x;
+      notifyActualMovement(world, petFormulaTarget(pet, world.units[pet.owner], world.tick), previous,
+        { kind: "attached", endTick: world.tick, ended: false }, pet);
+    }
+  }
+  const observation: MovementObservation = { target, ...(targetPet ? { targetPet } : {}), movement: { ...movement, from, to: target.x } };
+  const pending = movement.ended && movement.kind !== "walk" ? movementTransitions.get(world) : undefined;
+  if (pending) pending.push(observation);
+  else observeMovement(world, observation);
+}
+
+/** Delete first so accepted end-of-move control cannot recursively end the same move. */
+export function endForcedMovement(world: World, target: Unit, targetPet?: Pet): void {
+  const forced = targetPet?.forced ?? target.forced;
+  if (!forced) return;
+  delete target.forced;
+  if (targetPet) delete targetPet.forced;
+  notifyActualMovement(world, target, target.x, { kind: "forced", endTick: world.tick, ended: true,
+    ...(forced.startTick !== undefined ? { startTick: forced.startTick } : {}), ...(forced.ability ? { ability: forced.ability } : {}) }, targetPet);
+}
+
 function stateStatus(unit: Unit, state: string): Status | undefined {
   return unit.statuses.find((s) => s.kind === "state" && s.key === state);
 }
 
 /** Consume one spell-shield charge and report only an actual champion's hostile block. */
-export function consumeSpellShield(world: World, source: Unit, target: Unit, ability?: AbilitySpec): boolean {
+export function consumeSpellShield(world: World, source: Unit, target: Unit, ability?: AbilitySpec, effects: readonly Effect[] = [], originX = source.x): boolean {
   const shield = stateStatus(target, "spellShield");
   if (!shield) return false;
   shield.charges = (shield.charges ?? 1) - 1;
   if (shield.charges <= 0) target.statuses = target.statuses.filter((status) => status !== shield);
+  if (target.petId !== undefined) {
+    const pet = world.pets.find(body => body.id === target.petId);
+    if (pet) pet.statuses = target.statuses;
+  }
   const blocked = target.spec.hooks?.onSpellShieldBlock;
   if (blocked && source.side !== target.side && target.petId === undefined && world.units[target.side] === target) {
-    runHook(() => blocked({ ...hookContext(world, target, undefined, source), source, shield, ...(ability ? { ability } : {}) }));
+    runHook(() => blocked({ ...hookContext(world, target, undefined, source), source, shield, effects, originX, ...(ability ? { ability } : {}) }));
   }
   return true;
 }
@@ -101,21 +166,26 @@ export function isHidden(unit: Unit): boolean {
  * Whether `by` can see the unit: nearsight shrinks its sight to the radius the crowd control
  * carries as its strength (Blinding Assault's 350), measured from its center to the unit's.
  */
-export function canSee(unit: Unit, by: Unit): boolean {
+export interface VisibilityPolicy { alliedInvisibility?: boolean }
+export function canSee(unit: Unit, by: Unit, camouflageObserver: Unit = by, policy?: VisibilityPolicy): boolean {
   const revealed = unit.statuses.some((status) => status.kind === "state" && status.key === "revealed" && (!status.revealWhileCC || unit.statuses.some((cc) => cc.kind === "cc" && cc.key === status.revealWhileCC && cc.source === status.source && cc.ability === status.ability)));
-  if (isHidden(unit) && !revealed) return false;
-  for (const s of by.statuses) if (s.kind === "cc" && s.key === "nearsight" && Math.abs(unit.x - by.x) > s.value) return false;
+  if (isHidden(unit) && !revealed && !(policy?.alliedInvisibility === true && unit.side === by.side)) return false;
+  if (!revealed && unit.side !== by.side && unit.statuses.some((s) => s.kind === "state" && s.key === "camouflage" && (camouflageObserver.petId !== undefined || camouflageObserver.side !== by.side || !camouflageObserver.alive || Math.abs(unit.x - camouflageObserver.x) > s.value + 1e-6))) return false;
+  for (const s of by.statuses) if (s.kind === "cc" && s.key === "nearsight" && Math.abs(unit.x - (s.x ?? by.x)) > s.value + 1e-6) return false;
+  for (const s of by.statuses) if (s.kind === "state" && s.key === "sightLimit" && Math.abs(unit.x - (s.x ?? by.x)) > s.value + 1e-6) return false;
   return true;
 }
 
 /** Whether `by` can start an attack or a unit-targeted spell on the unit. */
-export function canTarget(unit: Unit, by: Unit): boolean {
-  return !isUntargetable(unit, by) && canSee(unit, by);
+export function canTarget(unit: Unit, by: Unit, camouflageObserver: Unit = by, policy?: VisibilityPolicy): boolean {
+  return !isUntargetable(unit, by) && canSee(unit, by, camouflageObserver, policy);
 }
 
 /** Units per tick a unit at `from` moves to get closer to `to`. */
 export function directionTo(from: Unit, to: Unit): 1 | -1 {
-  if (to.x === from.x) return from.side === 0 ? 1 : -1;
+  // Match the simulator's 1e-6 spatial precision: mirrored leap arithmetic
+  // can otherwise leave physically coincident bodies a few ulps apart.
+  if (Math.abs(to.x - from.x) <= 1e-6) return from.side === 0 ? 1 : -1;
   return to.x > from.x ? 1 : -1;
 }
 
@@ -132,6 +202,10 @@ export function contactGap(a: Unit, b: Unit): number {
 // Damage and healing
 
 export interface DamageContext {
+  /** Actual spatial origin of a packet (a field's center or projectile approach). */
+  originX?: number;
+  /** Sourced alternative attack retains basic-attack interactions against actual pets. */
+  petBasicAttack?: boolean;
   petDamageCategory?: PetDamageCategory;
   attack?: boolean;
   /** This spell's basic damage benefits from life steal without being a basic attack. */
@@ -150,6 +224,17 @@ export interface DamageContext {
 /** How deep kit hooks are nested: a hook's damage can trigger hooks, but not without end. */
 let hookDepth = 0;
 
+/** A synchronous packet's spatial origin also belongs to its nested proc/hit hooks. */
+const damageOrigins: Array<{ world: World; source: Unit; x: number }> = [];
+function packetOrigin(world: World, source: Unit, explicit?: number): number {
+  return explicit ?? damageOrigins.findLast(entry => entry.world === world && entry.source === source)?.x ?? source.x;
+}
+function withDamageOrigin<T>(world: World, source: Unit, originX: number | undefined, run: () => T): T {
+  if (originX === undefined) return run();
+  damageOrigins.push({ world, source, x: originX });
+  try { return run(); } finally { damageOrigins.pop(); }
+}
+
 function runHook(fn: () => void): void {
   if (hookDepth >= 3) return;
   hookDepth += 1;
@@ -160,15 +245,65 @@ function runHook(fn: () => void): void {
   }
 }
 
+/** One resolved packet, once per live champion observer; existing hit hooks stay local. */
+export function observeDamage(world: World, source: Unit, target: Unit, report: DamageReport, attack: boolean, targetPet?: Pet): void {
+  if (!(report.mitigated > 0)) return;
+  for (const observer of world.units) {
+    const hook = observer.spec.hooks?.onDamageObserved;
+    if (hook && observer.alive && observer.hp > 0) runHook(() => hook({
+      ...hookContext(world, observer), ...report, source, target, attack, ...(targetPet ? { targetPet } : {}),
+    }));
+  }
+}
+
+/** Source-owned procs that precede the triggering packet, including actual pet bodies. */
+export function observeBeforeDamage(world: World, source: Unit, target: Unit, amount: number, raw: number, damageType: DamageType, attack: boolean, persistent: boolean, ability?: string, targetPet?: Pet): boolean {
+  if (!(amount > 0)) return false;
+  let observed = false;
+  for (const observer of world.units) {
+    const hook = observer.spec.hooks?.onBeforeDamageObserved;
+    if (!hook || !((observer.alive && observer.hp > 0) || observer.spec.hooks?.beforeDamageEventsAfterDeath === true)) continue;
+    if (targetPet && (!world.pets.includes(targetPet) || targetPet.hp <= 0)) break;
+    const currentTarget = targetPet ? petFormulaTarget(targetPet, world.units[targetPet.owner], world.tick) : target;
+    if (!currentTarget.alive || currentTarget.hp <= 0) break;
+    observed = true;
+    runHook(() => hook({
+      ...hookContext(world, observer), source, target: currentTarget, amount, raw, damageType, attack, persistent,
+      ...(ability ? { ability } : {}), ...(source.petId !== undefined ? { petSource: true } : {}), ...(targetPet ? { targetPet } : {}),
+    }));
+  }
+  return observed;
+}
+
+/** Whole pet hits are separate from damage packets: an on-hit may deal several packets. */
+export function observeOwnedPetBasicHit(world: World, pet: Pet, target: Unit, blocked: boolean, targetPet?: Pet): void {
+  const owner = world.units[pet.owner], hook = owner.spec.hooks?.onOwnedPetBasicHit;
+  if (hook && ((owner.alive && owner.hp > 0) || owner.spec.hooks?.ownedPetEventsAfterDeath === true)) runHook(() => hook({
+    ...hookContext(world, owner, undefined, target), pet, target, blocked, ...(targetPet ? { targetPet } : {}),
+  }));
+}
+
+/** Declaration is distinct from contact: blind, dodge and later cancellation do not undo it. */
+export function observeOwnedPetAttack(world: World, pet: Pet, target: Unit, targetPet?: Pet): void {
+  const owner = world.units[pet.owner], hook = owner.spec.hooks?.onOwnedPetAttack;
+  if (hook && ((owner.alive && owner.hp > 0) || owner.spec.hooks?.ownedPetEventsAfterDeath === true)) runHook(() => hook({
+    ...hookContext(world, owner, undefined, target), pet, target, ...(targetPet ? { targetPet } : {}),
+  }));
+}
+
 /** Deals one hit of damage; returns the health removed. */
 export function dealDamage(world: World, source: Unit, target: Unit, raw: number, type: DamageType, ctx: DamageContext = {}): number {
+  if (ctx.originX === undefined) return resolveDamage(world, source, target, raw, type, ctx);
+  return withDamageOrigin(world, source, ctx.originX, () => resolveDamage(world, source, target, raw, type, ctx));
+}
+function resolveDamage(world: World, source: Unit, target: Unit, raw: number, type: DamageType, ctx: DamageContext): number {
   if (raw <= 0 || !target.alive) return 0;
   if (target.petId !== undefined) {
     const pet = world.pets.find((candidate) => candidate.id === target.petId);
     if (!pet) return 0;
     const hp = pet.hp;
     const packet = ctx.crit ? raw * averageCritFactor(Math.min(1, Math.max(0, ctx.crit.chance)), ctx.crit.multiplier) + (ctx.crit.bonus ?? 0) : raw;
-    const actualBasic = ctx.attack === true && ctx.ability === undefined && (ctx.petDamageCategory === undefined || ctx.petDamageCategory === "basic");
+    const actualBasic = ctx.petBasicAttack === true || (ctx.attack === true && ctx.ability === undefined && (ctx.petDamageCategory === undefined || ctx.petDamageCategory === "basic"));
     const category = ctx.petDamageCategory ?? (actualBasic ? "basic" : ctx.persistent ? "persistent" : ctx.ability ? "singleTarget" : "proc");
     const areaScale = category === "area" || category === "persistent" ? pet.spec.areaTaken ?? 1 : 1;
     const dealt = damagePet(world, source, pet, packet * areaScale, type, actualBasic, ctx.ability, category);
@@ -182,7 +317,7 @@ export function dealDamage(world: World, source: Unit, target: Unit, raw: number
     return Math.max(0, hp) - Math.max(0, pet.hp);
   }
   const outsideGuard = target.statuses.some((status) => status.kind === "state" && status.key === "invulnerableFar" && Math.abs(source.x - target.x) > status.value + 1e-6);
-  if (hasState(target, "invulnerable") || outsideGuard || inStasis(target)) {
+  if (hasState(target, "invulnerable") || outsideGuard || inStasis(target) || healthProtection(world, target).invulnerable) {
     log(world, target.side, `is invulnerable: ${Math.round(raw)} ${type} damage ignored`);
     return 0;
   }
@@ -211,9 +346,17 @@ export function dealDamage(world: World, source: Unit, target: Unit, raw: number
     return adjustRaw ? Math.max(0, adjustRaw({ ...hookContext(world, target, undefined, source), raw: amount, damageType: type, attack: ctx.attack === true, persistent: ctx.persistent === true, ...(ctx.ability ? { ability: ctx.ability } : {}) })) : amount;
   };
   const splitCritical = ctx.crit && (criticalResist !== resist || flatReduction > 0 || adjustRaw);
-  const mitigated = splitCritical
+  let mitigated = splitCritical
     ? (critChance < 1 ? (1 - critChance) * mitigate(reduceRaw(beforeCrit + (ctx.crit!.bonus ?? 0)), type, resist, modifiers) : 0) + (critChance > 0 ? critChance * mitigate(reduceRaw(beforeCrit * ctx.crit!.multiplier + (ctx.crit!.bonus ?? 0)), type, criticalResist, modifiers) : 0)
     : mitigate(reduceRaw(raw), type, resist, modifiers);
+  const adjustMitigated = target.spec.hooks?.modifyDamageBeforeShields;
+  if (adjustMitigated && mitigated > 0) runHook(() => {
+    mitigated = Math.max(0, adjustMitigated({ ...hookContext(world, target, undefined, source), amount: mitigated, damageType: type, attack: ctx.attack === true, persistent: ctx.persistent === true, originX: packetOrigin(world, source, ctx.originX), ...(ctx.ability ? { ability: ctx.ability } : {}), ...(source.petId !== undefined ? { petSource: true } : {}) }));
+  });
+  const observedBeforeDamage = observeBeforeDamage(world, source, target, mitigated, raw, type, ctx.attack === true, ctx.persistent === true, ctx.ability);
+  // A preceding proc can kill the body or enter a protected resurrection state.
+  // Its initiating packet keeps its captured damage but cannot hit a vanished victim.
+  if (observedBeforeDamage && (target.hp <= 0 || !target.alive || hasState(target, "invulnerable") || inStasis(target) || healthProtection(world, target).invulnerable)) return 0;
   const before = target.spec.hooks?.beforeDamageTaken;
   if (before && mitigated > 0) runHook(() => before({ ...hookContext(world, target, undefined, source), amount: mitigated, damageType: type, attack: ctx.attack === true, persistent: ctx.persistent === true, ...(source.petId !== undefined ? { petSource: true } : {}), ...(ctx.ability ? { ability: ctx.ability } : {}) }));
   const shields = target.statuses.filter((st) => st.kind === "shield");
@@ -222,10 +365,15 @@ export function dealDamage(world: World, source: Unit, target: Unit, raw: number
     type: st.shieldType ?? "normal",
     endTick: st.endTick,
     ...(st.priority ? { priority: true } : {}),
+    ...(st.firstDamageBypass !== undefined ? { firstDamageBypass: st.firstDamageBypass } : {}),
   }));
   const unshielded = absorbWithShields(mitigated, type, views);
+  const absorbedShields: NonNullable<DamageReport["absorbedShields"]>[number][] = [];
   shields.forEach((st, i) => {
+    const amount = st.value - (views[i]?.amount ?? 0);
+    if (amount > 0) absorbedShields.push(Object.freeze({ shield: Object.freeze({ ...st }), amount }));
     st.value = views[i]?.amount ?? 0;
+    delete st.firstDamageBypass;
   });
   target.statuses = target.statuses.filter((st) => st.kind !== "shield" || st.value > 0);
   target.totals.absorbed += mitigated - unshielded;
@@ -240,10 +388,10 @@ export function dealDamage(world: World, source: Unit, target: Unit, raw: number
     target.statuses = target.statuses.filter((st) => st.kind !== "cc" || st.key !== "sleep");
     log(world, target.side, "wakes up");
   }
-  const floor = stateStatus(target, "minimumHealth")?.value;
+  const floor = Math.max(stateStatus(target, "minimumHealth")?.value ?? 0, healthProtection(world, target).minimumHealth);
   const hpBefore = target.hp;
   target.hp -= left;
-  if (floor !== undefined && target.hp < floor) target.hp = Math.min(hpBefore, floor);
+  if (floor > 0 && target.hp < floor) target.hp = Math.min(hpBefore, floor);
   // Overkill doesn't count as damage dealt.
   const removed = Math.max(0, hpBefore) - Math.max(0, target.hp);
   target.totals.damageTaken += removed;
@@ -252,13 +400,16 @@ export function dealDamage(world: World, source: Unit, target: Unit, raw: number
   if (target.hp <= 0) lethal(world, target, source);
   if ((ctx.appliesLifeSteal ?? ctx.attack) && !ctx.noLifeSteal && s.lifeSteal > 0) heal(world, source, resolvedDamage * s.lifeSteal, false, true);
   if (ctx.lifesteal) heal(world, source, resolvedDamage * ctx.lifesteal, false, true);
-  const report = { amount: removed, absorbed: mitigated - unshielded, ...(source.petId !== undefined ? { petSource: true } : {}), mitigated: resolvedDamage, raw, damageType: type, persistent: ctx.persistent === true, ...(ctx.ability ? { ability: ctx.ability } : {}) };
+  const report = { amount: removed, absorbed: mitigated - unshielded, ...(absorbedShields.length ? { absorbedShields: Object.freeze(absorbedShields) } : {}), ...(source.petId !== undefined ? { petSource: true } : {}), mitigated: resolvedDamage, raw, damageType: type, persistent: ctx.persistent === true, ...(ctx.ability ? { ability: ctx.ability } : {}) };
   const taken = target.spec.hooks?.onDamageTaken;
   if (taken && mitigated > 0) runHook(() => taken({ ...hookContext(world, target, undefined, source), ...report }));
   const dealt = source.spec.hooks?.onDamageDealt;
   if (dealt && mitigated > 0) {
     runHook(() => dealt({ ...hookContext(world, source, undefined, target), ...report, attack: ctx.attack === true, persistent: ctx.persistent === true, ...(ctx.ability ? { ability: ctx.ability } : {}) }));
   }
+  // Vamp observes the same pre-Riposte damage as life steal and onDamageDealt.
+  // Consumers requiring actual damage use amount + absorbed instead.
+  observeDamage(world, source, target, report, ctx.attack === true);
   return removed;
 }
 
@@ -287,6 +438,10 @@ export function notifyKill(world: World, killer: Unit, victim: Unit | Pet, damag
   // Deduplication above bounds kill callbacks; a legitimate chained kill must not
   // disappear merely because its lethal packet was nested inside another hook.
   if (hook) hook({ ...hookContext(world, credited, undefined, "side" in victim ? victim : undefined), victim, ...("side" in victim ? {} : { pet: victim }), ...(damage ? { damage } : {}) });
+  for (const observer of world.units) {
+    const observed = observer.spec.hooks?.onDeathObserved;
+    if (observed && observer.alive && observer.hp > 0) runHook(() => observed({ ...hookContext(world, observer), source: killer, victim, ...("side" in victim ? {} : { targetPet: victim }) }));
+  }
 }
 
 /** Attackable resurrection preserves an existing cast but forbids future declarations. */
@@ -305,12 +460,12 @@ export function beginResurrection(world: World, unit: Unit, options: { duration:
     notifyDashEnd(world, unit, action.ability, true);
   } else if (action?.kind === "windup") unit.action = undefined;
   delete unit.pendingAttack;
-  delete unit.forced;
+  endForcedMovement(world, unit);
   delete unit.attached;
   unit.move = 0;
   unit.moved = 0;
-  // Hostile CC and periodic debuffs dispel; self buffs and ordinary shields persist.
-  unit.statuses = unit.statuses.filter((status) => status.source === unit.side || !["cc", "dot", "mark", "grievousWounds", "stat"].includes(status.kind));
+  // Hostile debuffs dispel except explicitly sourced death-persistent effects.
+  unit.statuses = unit.statuses.filter((status) => status.persistThroughDeath || status.source === unit.side || !["cc", "dot", "mark", "grievousWounds", "stat"].includes(status.kind));
   unit.resurrection = { endTick, ...(options.ability ? { ability: options.ability } : {}) };
   const tag = "engine:resurrection";
   for (const key of ["noMovement", "noAttacks"] as const) addStatus(unit, { kind: "state", key, source: unit.side, startTick: world.tick, endTick, value: 0, ability: tag });
@@ -330,9 +485,9 @@ export function beginDeathDefied(world: World, unit: Unit, options: { duration: 
   const channel = channelIn(action);
   if (channel) { const ability = abilityOf(unit, channel.ability); if (ability) unit.spec.hooks?.onChannelInterrupt?.({ ...hookContext(world, unit, ability), reason: "death" }); }
   if (action?.kind === "dash") notifyDashEnd(world, unit, action.ability, true);
-  delete unit.pendingAttack; delete unit.forced; delete unit.attached;
+  delete unit.pendingAttack; endForcedMovement(world, unit); delete unit.attached;
   unit.move = 0; unit.moved = 0;
-  unit.statuses = [];
+  unit.statuses = unit.statuses.filter((status) => status.persistThroughDeath);
   const endTick = world.tick + toTicks(options.duration);
   unit.deathDefied = { endTick, ...(options.ability ? { ability: options.ability } : {}), ...(options.allowMovement !== undefined ? { allowMovement: options.allowMovement } : {}), ...(options.allowCasting !== undefined ? { allowCasting: options.allowCasting } : {}) };
   unit.fallen = true;
@@ -349,7 +504,10 @@ export function immediateDisplace(world: World, source: Unit, target: Unit, delt
   target.spec.hooks?.onCCAttempt?.({ ...hookContext(world, target, undefined, source), cc: "airborne", source, ...(ability ? { ability } : {}) });
   if (ccImmuneTo(target, source) || hasState(target, "displacementImmune") || blackShieldProtected(world, target) || negateImmobilization(world, target)) return false;
   interrupt(world, target, "airborne");
+  endForcedMovement(world, target);
+  const from = target.x;
   target.x += terrainLimit(world, target, delta, false);
+  notifyActualMovement(world, target, from, { kind: "forced", startTick: world.tick, endTick: world.tick, ended: true, ...(ability ? { ability } : {}) });
   notifyCCApplied(world, source, target, "airborne", ability);
   return true;
 }
@@ -360,8 +518,12 @@ export function immediateDisplace(world: World, source: Unit, target: Unit, delt
  * Death) are healed only by life steal and omnivamp (`lifesteal`).
  */
 export function heal(world: World, unit: Unit, amount: number, regeneration = false, lifesteal = false): void {
+  const pet = unit.petId === undefined ? undefined : world.pets.find((candidate) => candidate.id === unit.petId);
+  if (unit.petId !== undefined && !pet) return;
+  if (pet) unit.hp = pet.hp;
   if (!unit.alive || unit.hp <= 0 || amount <= 0) return;
   if (!lifesteal && hasState(unit, "noHealing")) return;
+  if (!regeneration && healthProtection(world, unit).preventHealing) return;
   const grievous = unit.statuses.some((s) => s.kind === "grievousWounds");
   const d = derive(unit);
   const cap = stateStatus(unit, "healthCap");
@@ -369,6 +531,7 @@ export function heal(world: World, unit: Unit, amount: number, regeneration = fa
   const healed = Math.min(most - unit.hp, healingReceived(amount * (1 + d.healingIncrease), grievous));
   if (healed <= 0) return;
   unit.hp += healed;
+  if (pet) pet.hp = unit.hp;
   if (regeneration) return;
   unit.totals.healing += healed;
   log(world, unit.side, `heals ${Math.round(healed)}`);
@@ -392,7 +555,8 @@ function interrupt(world: World, unit: Unit, type: CCType): void {
   if (heldChannel) {
     const heldAbility = abilityOf(unit, heldChannel.ability);
     const moves = heldAbility?.delivery.kind === "dash" || heldAbility?.delivery.kind === "blink";
-    if ((rule.interruptsChannels === "yes" || (rule.interruptsChannels === "movement" && moves)) && heldAbility?.channel?.interruptible !== false) {
+    const stops = heldAbility?.channel?.interrupts ? heldAbility.channel.interrupts.includes(type) : rule.interruptsChannels === "yes" || (rule.interruptsChannels === "movement" && moves);
+    if (stops && heldAbility?.channel?.interruptible !== false) {
       clearChannel(unit, heldChannel);
       if (heldAbility) unit.spec.hooks?.onChannelInterrupt?.({ ...hookContext(world, unit, heldAbility), reason: "cc", cc: type });
       log(world, unit.side, `${heldAbility?.name ?? "channel"} interrupted by ${type}`);
@@ -409,7 +573,7 @@ function interrupt(world: World, unit: Unit, type: CCType): void {
   } else if (action.kind === "channel") {
     const ability = abilityOf(unit, action.ability);
     const moves = ability?.delivery.kind === "dash" || ability?.delivery.kind === "blink";
-    const stops = rule.interruptsChannels === "yes" || (rule.interruptsChannels === "movement" && moves);
+    const stops = ability?.channel?.interrupts ? ability.channel.interrupts.includes(type) : rule.interruptsChannels === "yes" || (rule.interruptsChannels === "movement" && moves);
     if (stops && ability?.channel?.interruptible !== false) {
       unit.action = undefined;
       if (ability) unit.spec.hooks?.onChannelInterrupt?.({ ...hookContext(world, unit, ability), reason: "cc", cc: type });
@@ -420,9 +584,14 @@ function interrupt(world: World, unit: Unit, type: CCType): void {
     const ability = abilityOf(unit, action.ability);
     if (ability?.failCastOnCC?.includes(type)) unit.memory[`failedCast:${ability.key}`] = true;
     if (ability?.interruptible && rule.interruptsChannels === "yes") {
+      // Completion collects due casts before resolving either side. Invalidate
+      // that same captured action when accepted control interrupts it first.
+      action.cancelled = true;
       unit.action = undefined;
       const cost = action.cost ?? ability.costFor?.(unit, ability) ?? (typeof ability.cost === "object" ? evaluate(ability.cost, unit) : (ability.cost ?? 0));
-      if (ability.costType === "health") unit.hp -= cost;
+      if (ability.costType === "health") {
+        if (unit.hp >= healthProtection(world, unit).minimumHealth) unit.hp -= cost;
+      }
       else unit.resource -= cost;
       if (ability.interruptible.cooldown !== undefined) unit.cooldownReady[cooldownKeyOf(ability)] = world.tick + toTicks(ability.interruptible.cooldown);
       log(world, unit.side, `${ability.name} interrupted by ${type}`);
@@ -445,7 +614,7 @@ function ccImmuneTo(target: Unit, source: Unit): boolean {
   return target.statuses.some((status) => status.kind === "state" && status.key === "ccImmune" && (!status.hostileOnly || source.side !== target.side));
 }
 
-export function applyCC(world: World, source: Unit, target: Unit, type: CCType, duration: number, strength = 0, sticky = false, ability?: string, bypassSlowImmune = false): boolean {
+export function applyCC(world: World, source: Unit, target: Unit, type: CCType, duration: number, strength = 0, sticky = false, ability?: string, bypassSlowImmune = false, slowStackGroup?: string, fearOriginX?: number, whileCC?: CCType): boolean {
   if (!target.alive || inStasis(target)) return false;
   if (!isUntargetable(target, source)) target.spec.hooks?.onCCAttempt?.({ ...hookContext(world, target, undefined, source), cc: type, source, ...(ability ? { ability } : {}) });
   if (ccImmuneTo(target, source)) {
@@ -466,7 +635,7 @@ export function applyCC(world: World, source: Unit, target: Unit, type: CCType, 
   if (ticks <= 0) return false;
   // Topping up crowd control that is still on (a field's slow, pulse after pulse) isn't logged again.
   const ongoing = target.statuses.some((s) => s.kind === "cc" && s.key === type && s.source === source.side && s.value === strength && s.endTick > world.tick);
-  addStatus(target, { kind: "cc", key: type, source: source.side, startTick: world.tick, endTick: world.tick + ticks, value: strength, ...(sticky ? { sticky } : {}), ...(ability ? { ability } : {}), ...(bypassSlowImmune ? { bypassSlowImmune: true } : {}) });
+  addStatus(target, { kind: "cc", key: type, source: source.side, startTick: world.tick, endTick: world.tick + ticks, value: strength, ...(sticky ? { sticky } : {}), ...(ability ? { ability } : {}), ...(bypassSlowImmune ? { bypassSlowImmune: true } : {}), ...(slowStackGroup ? { slowStackGroup } : {}), ...(type === "fear" && fearOriginX !== undefined ? { fearOriginX } : {}), ...(whileCC ? { whileCC } : {}) });
   const shown = type === "nearsight" ? ` to ${Math.round(strength)} units` : strength ? ` ${Math.round(strength * 100)}%` : "";
   if (!ongoing) log(world, source.side, `inflicts ${type}${shown} for ${(ticks / 30).toFixed(2)} s`);
   interrupt(world, target, type);
@@ -486,10 +655,14 @@ function notifyCCApplied(world: World, source: Unit, target: Unit, cc: CCType, a
  * Knock ups, knock backs and pulls: airborne, plus forced movement while it lasts. With walls
  * nearby, a knock back that reaches the wall behind the target stops there and stuns it.
  */
-function displace(world: World, source: Unit, target: Unit, effect: Extract<Effect, { type: "displace" }>): void {
+function displace(world: World, source: Unit, target: Unit, effect: Extract<Effect, { type: "displace" }>, ability?: string): boolean {
+  return withMovementTransition(world, () => applyDisplacement(world, source, target, effect, ability));
+}
+
+function applyDisplacement(world: World, source: Unit, target: Unit, effect: Extract<Effect, { type: "displace" }>, ability?: string): boolean {
   const { direction, duration } = effect;
   const originX = effect.originX ?? source.x;
-  if (!applyCC(world, source, target, "airborne", effect.airborneDuration ?? duration)) return;
+  if (!applyCC(world, source, target, "airborne", effect.airborneDuration ?? duration, 0, false, ability)) return false;
   // Vault's recorded exception: its knockback even interrupts uncancellable windups.
   // Other displacements continue to respect the windup's ordinary protection.
   if (effect.interruptUncancellable && target.action?.kind === "windup") {
@@ -505,9 +678,12 @@ function displace(world: World, source: Unit, target: Unit, effect: Extract<Effe
   const ticks = Math.max(1, toTicks(duration));
   if (effect.over) {
     // Over the caster to the far side: along the line, through the caster and any terrain.
-    const toward = target.x === source.x ? (target.side === 0 ? 1 : -1) : source.x > target.x ? 1 : -1;
-    if (effect.distance > 0) target.forced = { endTick: world.tick + ticks, perTick: (toward * effect.distance) / ticks, over: true };
-    return;
+    const toward = target.x === originX ? (target.side === 0 ? 1 : -1) : originX > target.x ? 1 : -1;
+    if (effect.distance > 0) {
+      endForcedMovement(world, target);
+      target.forced = { startTick: world.tick, ...(ability ? { ability } : {}), endTick: world.tick + ticks, perTick: (toward * effect.distance) / ticks, over: true };
+    }
+    return true;
   }
   const env = world.settings.environment;
   // The wall behind the target: the lane's, with walls nearby, or terrain an ability raised.
@@ -517,18 +693,24 @@ function displace(world: World, source: Unit, target: Unit, effect: Extract<Effe
   let distance = intoWall ? wallAt : effect.distance;
   if (effect.to !== undefined) distance = Math.max(0, Math.min(distance, Math.abs(target.x - originX) - effect.to));
   const impact = intoWall ? Math.max(1, Math.ceil(ticks * distance / Math.max(effect.distance, 1e-6) - 1e-6)) : ticks;
-  if (distance > 0) target.forced = { endTick: world.tick + impact, perTick: ((direction === "away" ? 1 : -1) * (effect.originX === undefined ? 1 : away) * (intoWall ? effect.distance : distance)) / ticks, ...(effect.originX !== undefined ? { absolute: true } : {}), ...(intoWall ? { remaining: distance } : {}) };
+  if (distance > 0) {
+    endForcedMovement(world, target);
+    target.forced = { startTick: world.tick, ...(ability ? { ability } : {}), endTick: world.tick + impact, perTick: ((direction === "away" ? 1 : -1) * (effect.originX === undefined ? 1 : away) * (intoWall ? effect.distance : distance)) / ticks, ...(effect.originX !== undefined ? { absolute: true } : {}), ...(intoWall ? { remaining: distance } : {}), ...(effect.ignoreUnitCollision ? { ignoreUnitCollision: true } : {}) };
+  }
   if (intoWall && effect.wallStun !== undefined) {
     const effects: Effect[] = [...(effect.wallEffects ?? []), { type: "cc", cc: "stun", duration: effect.wallStun }];
     world.scheduled.push({ tick: world.tick + impact, owner: source.side, target: target.side, effects, scale: 1 });
     log(world, source.side, "knocks the target into a wall");
   }
+  return true;
 }
 
 // ---------------------------------------------------------------------------------------
 // Effects
 
 export interface HitContext {
+  originX?: number;
+  petDamageCategory?: PetDamageCategory;
   ability?: AbilitySpec;
   attack?: boolean;
   /** Share of damage that counts, for skillshots resolved by expected value. */
@@ -563,7 +745,7 @@ function dropTargeting(world: World, unit: Unit, missiles = true): void {
   if (action?.kind === "cast") {
     const ability = abilityOf(enemy, action.ability);
     // A targeted spell whose target vanishes during its cast time is cancelled without a cooldown.
-    if (ability?.delivery.kind === "target" && !ability.retainTargetOnInvalidation && !(ability.retainTargetOnVisibilityLoss && !missiles)) enemy.action = undefined;
+    if (ability?.delivery.kind === "target" && !ability.retainTargetOnInvalidation && !(ability.retainTargetOnVisibilityLoss && !missiles)) cancelTargetCast(world, enemy, ability, "target", action.cost);
   }
 }
 
@@ -571,11 +753,11 @@ export function applyEffect(world: World, caster: Unit, target: Unit, effect: Ef
   if (target.petId !== undefined && effect.type !== "damage") {
     const pet = world.pets.find((candidate) => candidate.id === target.petId);
     if (!pet) return false;
-    petEffects(world, caster, pet, [effect], ctx.attack ? "basic" : "singleTarget", ctx.ability?.name, ctx.scale);
+    const applied = petEffects(world, caster, pet, [effect], ctx.attack ? "basic" : "singleTarget", ctx.ability?.key, ctx.scale, ctx.originX);
     target.hp = pet.hp;
     target.alive = pet.hp > 0;
     target.statuses = pet.statuses ?? [];
-    return;
+    return applied;
   }
   const tick = world.tick;
   const formulaTarget = ctx.formulaTarget ?? target;
@@ -584,14 +766,16 @@ export function applyEffect(world: World, caster: Unit, target: Unit, effect: Ef
       const d = derive(caster);
       const amount = Math.max(effect.amountFor?.(caster, formulaTarget) ?? evaluate(effect.amount, caster, formulaTarget, ctx.critChance), effect.minimum ? evaluate(effect.minimum, caster, formulaTarget, ctx.critChance) : 0);
       dealDamage(world, caster, target, amount * ctx.scale, effect.damageType, {
+        ...(ctx.originX !== undefined ? { originX: ctx.originX } : {}),
         ...(effect.canCrit ? { crit: { chance: ctx.critChance ?? d.critChance, multiplier: effect.critMultiplier ?? d.critDamage } } : {}),
         ...(ctx.attack || ctx.ability?.flags?.basicDamage ? { attack: true } : {}),
+        ...(ctx.ability?.flags?.petBasicAttack ? { petBasicAttack: true } : {}),
         ...(ctx.ability?.flags?.appliesLifeSteal ? { appliesLifeSteal: true } : {}),
         ...(effect.label || ctx.ability ? { ability: effect.label ?? ctx.ability?.name } : {}),
         ...(effect.lifesteal ? { lifesteal: effect.lifesteal } : {}),
         ...(effect.noLifeSteal ? { noLifeSteal: true } : {}),
         ...(effect.persistent ? { persistent: true } : {}),
-        ...(effect.petDamageCategory ? { petDamageCategory: effect.petDamageCategory } : {}),
+        ...((effect.petDamageCategory ?? ctx.petDamageCategory) ? { petDamageCategory: effect.petDamageCategory ?? ctx.petDamageCategory } : {}),
       });
       return;
     }
@@ -604,11 +788,12 @@ export function applyEffect(world: World, caster: Unit, target: Unit, effect: Ef
         log(world, target.side, `spell shield blocks ${ctx.ability?.name ?? effect.cc}`);
         return false;
       }
-      return applyCC(world, caster, target, effect.cc, effect.duration, effect.strength ?? 0, effect.sticky, ctx.ability?.key, effect.bypassSlowImmune);
+      return applyCC(world, caster, target, effect.cc, effect.duration, effect.strength ?? 0, effect.sticky, ctx.ability?.key, effect.bypassSlowImmune, effect.slowStackGroup, effect.fearOriginX, effect.whileCC);
     }
     case "disrupt": {
       if (!target.alive || isUntargetable(target, caster) || inStasis(target) || ccImmuneTo(target, caster) || blackShieldProtected(world, target)) return false;
       interrupt(world, target, "silence");
+      target.spec.hooks?.onDisrupted?.({ ...hookContext(world, target, undefined, caster), source: caster, ...(ctx.ability ? { ability: ctx.ability.key } : {}) });
       return true;
     }
     case "knockdown": {
@@ -623,8 +808,7 @@ export function applyEffect(world: World, caster: Unit, target: Unit, effect: Ef
       return true;
     }
     case "displace":
-      displace(world, caster, target, effect);
-      return;
+      return displace(world, caster, target, effect, ctx.ability?.key);
     case "shield":
       addStatus(target, {
         kind: "shield",
@@ -636,6 +820,7 @@ export function applyEffect(world: World, caster: Unit, target: Unit, effect: Ef
         shieldType: effect.shieldType ?? "normal",
         ...(effect.priority ? { priority: true } : {}),
         ...(effect.blackShield ? { blackShield: true } : {}),
+        ...(effect.firstDamageBypass !== undefined ? { firstDamageBypass: effect.firstDamageBypass } : {}),
       });
       return;
     case "heal":
@@ -654,6 +839,7 @@ export function applyEffect(world: World, caster: Unit, target: Unit, effect: Ef
         ...(effect.tenacityGroup ? { tenacityGroup: effect.tenacityGroup } : {}),
         ...(effect.hostileOnly ? { hostileOnly: true } : {}),
         ...(effect.revealWhileCC ? { revealWhileCC: effect.revealWhileCC } : {}),
+        ...(effect.cleanseWithCC ? { cleanseWithCC: true } : {}),
         ...(ctx.ability ? { ability: ctx.ability.key } : {}),
         x: target.x,
       });
@@ -665,12 +851,16 @@ export function applyEffect(world: World, caster: Unit, target: Unit, effect: Ef
       const value = evaluate(effect.amount, caster, formulaTarget);
       // The same ability's buff or debuff refreshes instead of stacking.
       const memoKey = `${ctx.ability?.key ?? (ctx.attack ? "attack" : "effect")}:${effect.stat}`;
-      if (target.statuses.some((s) => s.kind === "stat" && s.source === caster.side && s.memoKey === memoKey)) {
+      const previous = target.statuses.find((s) => s.kind === "stat" && s.source === caster.side && s.memoKey === memoKey);
+      if (previous) {
         target.statuses = target.statuses.filter((s) => !(s.kind === "stat" && s.source === caster.side && s.memoKey === memoKey));
       }
-      addStatus(target, { kind: "stat", key: effect.stat, source: caster.side, startTick: tick, endTick: tick + toTicks(effect.duration), value, memoKey });
-      // Gaining maximum health heals by the same amount.
-      if (effect.stat === "health" && value > 0) target.hp += value;
+      addStatus(target, { kind: "stat", key: effect.stat, source: caster.side, startTick: tick, endTick: tick + toTicks(effect.duration), value, memoKey,
+        ...(effect.requiresShield ? { requiresShield: true, ability: ctx.ability?.key } : {}),
+        ...(effect.whileCC ? { whileCC: effect.whileCC, ability: ctx.ability?.key } : {}),
+      });
+      // Only newly gained maximum health grants current health; a refresh cannot heal twice.
+      if (effect.stat === "health") target.hp = Math.min(derive(target).maxHp, target.hp + Math.max(0, value - (previous?.value ?? 0)));
       return;
     }
     case "dot": {
@@ -694,6 +884,7 @@ export function applyEffect(world: World, caster: Unit, target: Unit, effect: Ef
         value: 0,
         ...(ctx.ability ? { ability: ctx.ability.key } : {}),
         dot: {
+          ...((ctx.originX ?? damageOrigins.findLast(entry => entry.world === world && entry.source === caster)?.x) !== undefined ? { originX: packetOrigin(world, caster, ctx.originX) } : {}),
           damageType: effect.damageType,
           perHit: (evaluate(effect.total, caster, formulaTarget) * ctx.scale) / hits,
           intervalTicks,
@@ -710,9 +901,10 @@ export function applyEffect(world: World, caster: Unit, target: Unit, effect: Ef
       const removable = (s: Status) =>
         (effect.types ? effect.types.includes(s.key as CCType) : s.key !== "stasis" && s.key !== "kinematics") && (!s.sticky || effect.sticky === true);
       const before = target.statuses.length;
-      target.statuses = target.statuses.filter((s) => s.kind !== "cc" || !removable(s));
+      const removedCC = target.statuses.some((s) => s.kind === "cc" && removable(s));
+      target.statuses = target.statuses.filter((s) => !((s.kind === "cc" || (s.kind === "state" && s.cleanseWithCC && effect.types === undefined)) && removable(s)));
       if (target.statuses.length < before) {
-        if (!target.statuses.some((s) => s.kind === "cc" && s.key === "airborne")) delete target.forced;
+        if (removedCC && !target.statuses.some((s) => s.kind === "cc" && s.key === "airborne")) endForcedMovement(world, target);
         log(world, target.side, "cleanses crowd control");
       }
       return;
@@ -747,10 +939,11 @@ export function applyEffect(world: World, caster: Unit, target: Unit, effect: Ef
     case "execute": {
       const threshold = evaluate(effect.threshold, caster, formulaTarget);
       if (!target.alive || target.hp > threshold) return;
-      if (hasState(target, "invulnerable") || inStasis(target)) return;
+      const protection = healthProtection(world, target);
+      if (hasState(target, "invulnerable") || inStasis(target) || protection.invulnerable) return;
       // Executes leave units under a minimum health threshold at that threshold (wiki: "Minimum health threshold").
       const protectedFloor = stateStatus(target, "minimumHealth");
-      const floor = protectedFloor ? Math.min(protectedFloor.value, Math.max(0, effect.minimumHealthFloor ?? protectedFloor.value)) : 0;
+      const floor = Math.max(protection.minimumHealth, protectedFloor ? Math.min(protectedFloor.value, Math.max(0, effect.minimumHealthFloor ?? protectedFloor.value)) : 0);
       const removed = Math.max(0, target.hp - floor);
       target.totals.damageTaken += removed;
       caster.totals.damageDealt += removed;
@@ -795,10 +988,12 @@ export function applyEffect(world: World, caster: Unit, target: Unit, effect: Ef
       });
       return;
     case "reposition": {
+      const from = target.x;
       const enemy = world.units[other(target.side)];
       const away = target.x === enemy.x ? (target.side === 0 ? -1 : 1) : target.x > enemy.x ? 1 : -1;
       const gap = Math.abs(target.x - enemy.x) - target.spec.base.pathingRadius - enemy.spec.base.pathingRadius;
       target.x += effect.direction === "away" ? away * effect.distance : -away * Math.min(effect.distance, Math.max(0, gap));
+      notifyActualMovement(world, target, from, { kind: "blink", startTick: tick, endTick: tick, ended: true, ...(ctx.ability ? { ability: ctx.ability.key } : {}) });
       log(world, target.side, `reappears ${effect.direction === "away" ? `${Math.round(effect.distance)} units away` : "beside the enemy"}`);
       return;
     }
@@ -841,7 +1036,11 @@ function reportParry(world: World, source: Unit, target: Unit, effects: Effect[]
 }
 
 /** An ability's effects reaching the enemy, after spell shields, parries, dodges and blocks. */
-export function abilityHit(world: World, caster: Unit, target: Unit, ability: AbilitySpec, effects: Effect[], scale = 1): void {
+export function abilityHit(world: World, caster: Unit, target: Unit, ability: AbilitySpec, effects: Effect[], scale = 1, originX?: number, petDamageCategory?: PetDamageCategory): void {
+  if (originX === undefined) return resolveAbilityHit(world, caster, target, ability, effects, scale, petDamageCategory);
+  return withDamageOrigin(world, caster, originX, () => resolveAbilityHit(world, caster, target, ability, effects, scale, petDamageCategory));
+}
+function resolveAbilityHit(world: World, caster: Unit, target: Unit, ability: AbilitySpec, effects: Effect[], scale: number, petDamageCategory?: PetDamageCategory): void {
   if (!target.alive || effects.length === 0) return;
   if (inStasis(target) || (!ability.flags?.hitsUntargetable && isUntargetable(target, caster))) {
     log(world, target.side, `is untargetable: ${ability.name} misses`);
@@ -849,12 +1048,12 @@ export function abilityHit(world: World, caster: Unit, target: Unit, ability: Ab
   }
   const defense = stateStatus(target, "parry") ? "parry"
     : stateStatus(target, "spellShield") && ability.flags?.spellShield !== false ? "spellShield"
-      : ability.flags?.parry && hasState(target, "dodgeAttacks") ? "dodge"
-        : ability.flags?.parry && hasState(target, "blockAttacks") ? "block"
+      : (ability.flags?.dodge ?? ability.flags?.parry) && hasState(target, "dodgeAttacks") ? "dodge"
+        : (ability.flags?.block ?? ability.flags?.parry) && hasState(target, "blockAttacks") ? "block"
           : ability.flags?.blockedByDisplacementImmunity && hasState(target, "displacementImmune") ? "immunity" : undefined;
   const contact = caster.spec.hooks?.onAbilityContact;
   if (contact) runHook(() => {
-    const replacement = contact({ ...hookContext(world, caster, ability, target), effects, scale, ...(defense ? { defense } : {}) });
+    const replacement = contact({ ...hookContext(world, caster, ability, target), effects, scale, originX: packetOrigin(world, caster), ...(defense ? { defense } : {}) });
     if (replacement) effects = replacement;
   });
   if (effects.length === 0) return;
@@ -864,24 +1063,24 @@ export function abilityHit(world: World, caster: Unit, target: Unit, ability: Ab
   if (stateStatus(target, "parry")) {
     log(world, target.side, `parries ${ability.name}`);
     reportParry(world, caster, target, effects);
-    for (const effect of effects) if (effect.type === "damage") applyEffect(world, caster, target, effect, { ability, scale });
-    if (ability.flags?.appliesOnHit) applyOnHit(world, caster, target, [], false, scale * (ability.onHitScale ?? 1), true);
+    for (const effect of effects) if (effect.type === "damage") applyEffect(world, caster, target, effect, { ability, scale, ...(petDamageCategory ? { petDamageCategory } : {}) });
+    if (ability.flags?.appliesOnHit && !(ability.flags.dodgeStopsOnHit && hasState(target, "dodgeAttacks"))) applyOnHit(world, caster, target, [], false, scale * (ability.onHitScale ?? 1), true);
     return;
   }
   const spellShield = stateStatus(target, "spellShield");
   if (spellShield && ability.flags?.spellShield !== false) {
-    consumeSpellShield(world, caster, target, ability);
+    consumeSpellShield(world, caster, target, ability, effects, packetOrigin(world, caster));
     log(world, target.side, `spell shield blocks ${ability.name}`);
     return;
   }
-  const dodged = ability.flags?.parry === true && hasState(target, "dodgeAttacks");
+  const dodged = (ability.flags?.dodge ?? ability.flags?.parry) === true && hasState(target, "dodgeAttacks");
   if (dodged) {
       log(world, target.side, `dodges ${ability.name}`);
       const avoided = target.spec.hooks?.onAttackAvoided;
       if (avoided) runHook(() => avoided(hookContext(world, target)));
       if (!ability.flags?.dodgeKeepsEffects) return;
   }
-  const blocked = dodged || (ability.flags?.parry === true && hasState(target, "blockAttacks"));
+  const blocked = dodged || ((ability.flags?.block ?? ability.flags?.parry) === true && hasState(target, "blockAttacks"));
   if (ability.flags?.blockedByDisplacementImmunity && hasState(target, "displacementImmune")) return;
   const before = caster.spec.hooks?.beforeAbilityHit;
   if (before) runHook(() => before({ ...hookContext(world, caster, ability, target), effects, scale }));
@@ -892,7 +1091,7 @@ export function abilityHit(world: World, caster: Unit, target: Unit, ability: Ab
     if (blocked && effect.type === "damage") continue;
     if (!target.alive && negates(effect)) continue;
     const share = effect.type === "damage" || effect.type === "dot" ? falloff : 1;
-    const applied = applyEffect(world, caster, target, effect, { ability, scale: scale * share });
+    const applied = applyEffect(world, caster, target, effect, { ability, scale: scale * share, ...(petDamageCategory ? { petDamageCategory } : {}) });
     if (effect.type === "cc" && ability.flags?.requiresCC === effect.cc && applied !== true) return;
   }
   if (ability.falloff) {
@@ -900,7 +1099,7 @@ export function abilityHit(world: World, caster: Unit, target: Unit, ability: Ab
     const { group, window } = ability.falloff;
     addStatus(target, { kind: "mark", key: `falloff:${group}:${world.nextId++}`, source: caster.side, startTick: world.tick, endTick: world.tick + toTicks(window), value: scale });
   }
-  if (ability.flags?.appliesOnHit) applyOnHit(world, caster, target, [], blocked, scale * (ability.onHitScale ?? 1), false, undefined, ability, dodged, undefined, scale);
+  if (ability.flags?.appliesOnHit && !(ability.flags.dodgeStopsOnHit && hasState(target, "dodgeAttacks"))) applyOnHit(world, caster, target, [], blocked, scale * (ability.onHitScale ?? 1), false, undefined, ability, dodged, undefined, scale);
   const onAbilityHit = caster.spec.hooks?.onAbilityHit;
   if (onAbilityHit) runHook(() => onAbilityHit({ ...hookContext(world, caster, ability, target), scale }));
   });
@@ -914,15 +1113,15 @@ function falloffShare(world: World, target: Unit, falloff: NonNullable<AbilitySp
 }
 
 /** Opt-in spell contact against a real pet, preserving its own guards and status state. */
-export function abilityHitPet(world: World, caster: Unit, pet: Pet, ability: AbilitySpec, effects: Effect[], category: PetDamageCategory = "singleTarget", scale = 1): void {
+export function abilityHitPet(world: World, caster: Unit, pet: Pet, ability: AbilitySpec, effects: Effect[], category: PetDamageCategory = "singleTarget", scale = 1, originX?: number): void {
   if (!world.pets.includes(pet) || pet.spec.untargetable) return;
   const target = petFormulaTarget(pet, caster, world.tick);
-  if (!ability.flags?.petContactHooks) { petEffects(world, caster, pet, effects, category, ability.key, scale); return; }
+  if (!ability.flags?.petContactHooks) { petEffects(world, caster, pet, effects, category, ability.key, scale, originX); return; }
   // Hooks may use either the actual summon or this contact view. Share their memory
   // during the packet so a direct pet update is not replaced by the older view.
   pet.memory = target.memory;
   const packets = effects.map((effect) => effect.type === "damage" ? { ...effect, petDamageCategory: effect.petDamageCategory ?? category } : effect);
-  abilityHit(world, caster, target, ability, packets, scale);
+  abilityHit(world, caster, target, ability, packets, scale, originX, category);
   pet.statuses = target.statuses;
   pet.memory = target.memory;
 }
@@ -949,11 +1148,20 @@ export function notifyIncomingOnHit(world: World, target: Unit, ability?: Abilit
 }
 
 /** A basic attack reaching its target; `split` deals its damage as shares of physical, magic and true damage. */
-export function attackHit(world: World, attacker: Unit, target: Unit, blinded: boolean, bonusOnHit: Effect[], split?: AttackSplit, hitsUntargetable = false, options: AttackHitOptions = {}, scale = 1): void {
+export function attackHit(world: World, attacker: Unit, target: Unit, blinded: boolean, bonusOnHit: Effect[], split?: AttackSplit, hitsUntargetable = false, options: AttackHitOptions = {}, scale = 1, originX?: number): void {
+  if (originX === undefined) return resolveAttackHit(world, attacker, target, blinded, bonusOnHit, split, hitsUntargetable, options, scale);
+  return withDamageOrigin(world, attacker, originX, () => resolveAttackHit(world, attacker, target, blinded, bonusOnHit, split, hitsUntargetable, options, scale));
+}
+function resolveAttackHit(world: World, attacker: Unit, target: Unit, blinded: boolean, bonusOnHit: Effect[], split: AttackSplit | undefined, hitsUntargetable: boolean, options: AttackHitOptions, scale: number): void {
   if (!(scale > 0) || !target.alive || inStasis(target) || (!hitsUntargetable && isUntargetable(target, attacker))) return;
   const critChance = Math.min(1, Math.max(0, options.critChance ?? derive(attacker).critChance));
   const targetPet = target.petId === undefined ? undefined : world.pets.find((pet) => pet.id === target.petId);
   const resolved = (blocked: boolean, missed: boolean) => {
+    if (targetPet) {
+      const hook = attacker.spec.hooks?.onAttackPetResolved;
+      if (hook) runHook(() => hook({ ...hookContext(world, attacker, undefined, target), pet: targetPet, blocked, missed }));
+      return;
+    }
     const hook = attacker.spec.hooks?.onAttackResolved;
     if (hook && !targetPet) runHook(() => hook({ ...hookContext(world, attacker, undefined, target), blocked, missed }));
   };
@@ -973,14 +1181,15 @@ export function attackHit(world: World, attacker: Unit, target: Unit, blinded: b
   if (!parried && options.breakShields) target.statuses = target.statuses.filter((status) => status.kind !== "shield");
   const spellShield = !parried && options.spellShield ? stateStatus(target, "spellShield") : undefined;
   if (spellShield) {
-    consumeSpellShield(world, attacker, target);
+    const baseType = options.baseDamage?.damageType ?? (split && split.physical <= 0 ? split.magic > 0 ? "magic" : "true" : "physical");
+    consumeSpellShield(world, attacker, target, undefined, [{ type: "damage", damageType: baseType, amount: options.baseDamage?.amount ?? { base: derive(attacker).ad } }, ...(attacker.spec.attack.onHit ?? []), ...bonusOnHit], packetOrigin(world, attacker));
     log(world, target.side, "spell shield blocks the empowered attack");
     resolved(true, false);
     return;
   }
   const onHitShield = !parried && options.spellShieldOnHit ? stateStatus(target, "spellShield") : undefined;
   if (onHitShield) {
-    consumeSpellShield(world, attacker, target);
+    consumeSpellShield(world, attacker, target, undefined, bonusOnHit, packetOrigin(world, attacker));
     log(world, target.side, "spell shield blocks the empowered on-hit packet");
     bonusOnHit = [];
   }
@@ -1014,7 +1223,12 @@ export function attackHit(world: World, attacker: Unit, target: Unit, blinded: b
       + (attacker.spec.attack.bonusPhysicalFor?.(attacker, target, options) ?? 0);
     const scaledBonus = bonus * scale;
     const crit = { chance: critChance, multiplier: options.critMultiplier ?? d.critDamage, bonus: scaledBonus };
-    if (split) {
+    if (options.baseDamage) {
+      const replacement = options.baseDamage;
+      dealDamage(world, attacker, target, evaluate(replacement.amount, attacker, target, critChance) * scale,
+        replacement.damageType, { attack: true, petBasicAttack: true, ...(replacement.label ? { ability: replacement.label } : {}),
+          ...(replacement.canCrit ? { crit: { chance: critChance, multiplier: options.critMultiplier ?? d.critDamage } } : {}) });
+    } else if (split) {
       if (split.physical > 0) dealDamage(world, attacker, target, damage * split.physical, "physical", { attack: true, crit });
       if (split.magic > 0) dealDamage(world, attacker, target, damage * split.magic, "magic", { attack: true, crit: { ...crit, bonus: 0 } });
       if ((split.true ?? 0) > 0) dealDamage(world, attacker, target, damage * (split.true ?? 0), "true", { attack: true, crit: { ...crit, bonus: 0 } });
@@ -1040,6 +1254,7 @@ export function attackHit(world: World, attacker: Unit, target: Unit, blinded: b
 }
 
 export function notifyDashEnd(world: World, unit: Unit, key: string, interrupted: boolean): void {
+  notifyActualMovement(world, unit, unit.x, { kind: "dash", endTick: world.tick, ended: true, ability: key });
   const ability = abilityOf(unit, key);
   const ended = unit.spec.hooks?.onDashEnd;
   if (ability && ended) runHook(() => ended({ ...hookContext(world, unit, ability), interrupted }));
@@ -1056,6 +1271,14 @@ export function hookContext(world: World, unit: Unit, ability?: AbilitySpec, ene
     self: unit,
     enemy,
     memory: unit.memory,
+    queueSplit(split) {
+      const validate = (entry: import("./actions").PendingSplit): void => {
+        if (!Number.isFinite(entry.chance) || entry.chance < 0 || entry.chance > 1) throw new Error("Invalid queued skillshot chance");
+        for (const follow of entry.followUps ?? []) validate(follow);
+      };
+      validate(split);
+      (world.pendingSplits ??= []).push(structuredClone(split));
+    },
     ...(ability ? { ability } : {}),
     apply(effect: Effect, toSelf = false) {
       applyEffect(world, unit, toSelf ? unit : enemy, effect, { scale: 1, ...(ability ? { ability } : {}) });

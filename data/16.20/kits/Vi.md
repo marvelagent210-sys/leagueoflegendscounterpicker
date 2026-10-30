@@ -212,3 +212,129 @@ All 1 level-based formulas in the game files (0 linked to wiki values above):
 | Spell | Calculation | Rule | Level 1 | Level 18 | Level 20 |
 |---|---|---|--:|--:|--:|
 | ViPassive | ShieldCooldown | breakpoints at levels 10, 19 (level 1: 16) | 16 | 7.5 | 0.5 |
+
+## Duel simulator kit (level 20, every ability at max rank)
+
+What the duel simulator fights with (`kits/champions/Vi.ts`): values come from pinned wiki and versioned game-data records at level 20. Interpretations and missing evidence are listed under assumptions. Ratios are fractions of the stat (60% AD is 0.6 × AD).
+
+- Basic attack: range 125, melee.
+
+| Key | Ability | Cooldown (s) | Cast time (s) | Cost | Delivery | On the enemy | On itself |
+|---|---|--:|--:|---|---|---|---|
+| Q | Vault Breaker | 6 (starts when its effect on the caster ends) | 0 | 90 | self; channel 4 s | – | – |
+| Q2 | Vault Breaker (release) | 0 | 0 | – | self; recast of Q within 4 s | – | – |
+| E | Relentless Force | 2 charges, one every 8 s (1 s between casts) | 0 | 50 | self | – | next 1 attack within 6 s (+50 range, resets the attack timer, uncancellable) |
+| R | Cease and Desist | 90 | 0.25 | 100 | targeted, 800 range | – | – |
+| I | Blast Shield | 0 | 0 | – | self | – | – |
+| Wproc | Denting Blows | 0 | 0 | – | self | – | – |
+| Qhit | Vault Breaker | 0 | 0 | – | self | – | – |
+| Eprimary | Relentless Force | 0 | 0 | – | self | – | – |
+| Econe | Relentless Force (cone) | 0 | 0 | – | self | – | – |
+| Rgrab | Cease and Desist | 0 | 0 | – | self | airborne for 1.3 s | – |
+| Rimpact | Cease and Desist | 0 | 0 | – | self | 350 + 90% bonus AD physical damage | – |
+| Rside | Cease and Desist (secondary) | 0 | 0 | – | self | 350 + 90% bonus AD physical damage; airborne for 0.25 s; stun for 0.75 s | – |
+
+Effects marked by a mark or a role are completed by the kit's hooks (see the kit's source).
+
+### Assumptions
+
+- Blast Shield: staticCooldown has no value past level 9; its level-9 value is used at 20.
+- Blast Shield starts ready with no preloaded Denting stacks. An actual Q/E/R hit grants10%maxHP shield for3seconds on a static12second level20 cooldown. Q triggers through spell shield, but parry does not; R requires an accepted grab or secondary hit. W never triggers it; each consumed three-stack W removes4seconds from its current clock. The primary capped12seconds takes precedence over the binary's extra level19 breakpoint.
+- Denting Blows is stored on each actual target for4seconds; basic hits and accepted Q contacts add one stack. Three consume for8%+3.5%per100bonusAD maxHP physical proc, before20%armor reduction and50%AS for4seconds. All nonchampion classes cap at300; only explicitly champion-class clones avoid the cap. Structures, wards, hit-count and fixed-damage objects never acquire stacks. Blind/dodge miss still applies W, but block/parry does not. Its proc cannot critically strike or life steal.
+- Q is an actual mobile interruptible4second channel with15%self slow, explicit release and half-mana timeout/interrupt refunds. CC interrupt uses static3seconds; timeout uses full hasted cooldown. Charge scales linearly to300+150%bonusAD,725range and1540speed at1.25seconds. The wiki4second duration and725range take precedence over binary6second internal duration/715client indicator. A swept55radius body contacts actual hitboxes, passes nonchampions and stops at champion-class bodies even under spell shield; a1.25second target lockout prevents repeats. Terrain allows at most the sourced50extra units to a clear endpoint. Q knockback distance and nonchampion pull distance/duration are absent from these sources: the champion0.75second airborne is modeled without invented displacement, and the unsized nonchampion pull has no forced movement. Facing is retained for any later sourced displacement implementation.
+- E stocks two real charges, recharges at8seconds hasted, pays50mana per cast and starts static1second cooldown after its real empowered attack resolves/expires. It resets the basic timer, adds50range, keeps the ordinary uncancellable basic windup, and captures the entitlement at declaration. The primary spell packet replaces ordinary AD damage with90+110%AD+100%AP plus100%AD times critical chance; basic-required/onhit effects still resolve once and W marks only this primary. A separately guarded600range forward cone copies that raw damage to actual secondary hitboxes without critical classification/onhits. Binary cone angle35degrees is retained; lateral cone width cannot be represented in the duel axis, and the primary600range overrides the older535client cone.
+- R validates its800range champion target through the0.25second cast and then follows actual relocation until within300. It uses the sourced initial800speed; the unpublished acceleration curve is not invented and generic binary missileSpeed1400 is not treated as dash speed. The1.05second estimated grab tracks the target to the opposite pathing boundary if terrain permits, applies1.3second airborne at grab start and350+90%bonusAD after0.75seconds. Spell shield guards the whole grab once; later damage retains ordinary invulnerability/stasis guards. Only displacement immunity is granted: stun still applies while the committed dash continues. Reveal/immunity/noattack/movement locks end with the grab; E alone may overlay. Actual secondary bodies encountered by Vi's swept physical hitbox receive full damage,0.25second airborne and0.75second stun with4second lockout. Their sourced350lateral knock-aside has no invented forward displacement in one dimension. A target beyond the estimated1500limit cancels and retains the sourced7second immunity bug. Untargetable pursuit stops immediately outside grab range because the brief forced-walk duration is unpublished; inside range it can still apply airborne without damage. No Urgot execution, summoner blink or ally bodies are fabricated.
+- Ordinary hold/trade reserve offensive R and completed trade retains retreat. Reference damage includes fully charged Q with its real1.25second charge, one E replacement addition per actual charge cycle, ordinary R, and target-local W constrained by achievable basic/Q contact cadence. Added W attack speed respects the ordinary cap; no free armor-shred damage multiplier or preduel stack/kill resources are supplied.
+
+### Source values read (88)
+
+| Ability | Value | Source version |
+|---|---|---|
+| Blast Shield | equal to 10% of her maximum health | [4064865](https://wiki.leagueoflegends.com/en-us/Template:Data_Vi/Blast_Shield?oldid=4064865) |
+| Blast Shield | health for 3 seconds | [4064865](https://wiki.leagueoflegends.com/en-us/Template:Data_Vi/Blast_Shield?oldid=4064865) |
+| Blast Shield | staticCooldown: 16 – 12 (based on level) | [4064865](https://wiki.leagueoflegends.com/en-us/Template:Data_Vi/Blast_Shield?oldid=4064865) |
+| Blast Shield | reduced by 4 seconds | [4064865](https://wiki.leagueoflegends.com/en-us/Template:Data_Vi/Blast_Shield?oldid=4064865) |
+| Blast Shield | Vault Breaker will trigger Blast Shield even if it's blocked by a spell shield | [4064865](https://wiki.leagueoflegends.com/en-us/Template:Data_Vi/Blast_Shield?oldid=4064865) |
+| Blast Shield | Cease and Desist will not | [4064865](https://wiki.leagueoflegends.com/en-us/Template:Data_Vi/Blast_Shield?oldid=4064865) |
+| Blast Shield | Denting Blows will not activate Blast Shield | [4064865](https://wiki.leagueoflegends.com/en-us/Template:Data_Vi/Blast_Shield?oldid=4064865) |
+| Vault Breaker | for up to 4 seconds | [3921391](https://wiki.leagueoflegends.com/en-us/Template:Data_Vi/Vault_Breaker?oldid=3921391) |
+| Vault Breaker | over the first 1.25 seconds | [3921391](https://wiki.leagueoflegends.com/en-us/Template:Data_Vi/Vault_Breaker?oldid=3921391) |
+| Vault Breaker | slowed by 15% | [3921391](https://wiki.leagueoflegends.com/en-us/Template:Data_Vi/Vault_Breaker?oldid=3921391) |
+| Vault Breaker | 50% of the mana cost | [3921391](https://wiki.leagueoflegends.com/en-us/Template:Data_Vi/Vault_Breaker?oldid=3921391) |
+| Vault Breaker | a 3-second cooldown | [3921391](https://wiki.leagueoflegends.com/en-us/Template:Data_Vi/Vault_Breaker?oldid=3921391) |
+| Vault Breaker | Minimum Physical Damage: 40 / 60 / 80 / 100 / 120 (+ 60% bonus AD) | [3921391](https://wiki.leagueoflegends.com/en-us/Template:Data_Vi/Vault_Breaker?oldid=3921391) |
+| Vault Breaker | Maximum Physical Damage: 100 / 150 / 200 / 250 / 300 (+ 150% bonus AD) | [3921391](https://wiki.leagueoflegends.com/en-us/Template:Data_Vi/Vault_Breaker?oldid=3921391) |
+| Vault Breaker | targetRange: 250 / 297.5 / 345 / 392.5 / 440 / 487.5 / 535 / 582.5 / 630 / 677.5 / 725 (based on channel time) | [3921391](https://wiki.leagueoflegends.com/en-us/Template:Data_Vi/Vault_Breaker?oldid=3921391) |
+| Vault Breaker | speed: 1450 / 1459 / 1468 / 1477 / 1486 / 1495 / 1504 / 1513 / 1522 / 1531 / 1540 (based on channel time) | [3921391](https://wiki.leagueoflegends.com/en-us/Template:Data_Vi/Vault_Breaker?oldid=3921391) |
+| Vault Breaker | collisionRadius: 55 | [3921391](https://wiki.leagueoflegends.com/en-us/Template:Data_Vi/Vault_Breaker?oldid=3921391) |
+| Vault Breaker | cooldown: 12 / 10.5 / 9 / 7.5 / 6 | [3921391](https://wiki.leagueoflegends.com/en-us/Template:Data_Vi/Vault_Breaker?oldid=3921391) |
+| Vault Breaker | cost: 50 / 60 / 70 / 80 / 90 | [3921391](https://wiki.leagueoflegends.com/en-us/Template:Data_Vi/Vault_Breaker?oldid=3921391) |
+| Vault Breaker | back over 0.75 seconds | [3921391](https://wiki.leagueoflegends.com/en-us/Template:Data_Vi/Vault_Breaker?oldid=3921391) |
+| Vault Breaker | up to 50 units | [3921391](https://wiki.leagueoflegends.com/en-us/Template:Data_Vi/Vault_Breaker?oldid=3921391) |
+| Vault Breaker | for about 1.25 seconds | [3921391](https://wiki.leagueoflegends.com/en-us/Template:Data_Vi/Vault_Breaker?oldid=3921391) |
+| Vault Breaker | knockback direction will be toward Vi's facing direction | [3921391](https://wiki.leagueoflegends.com/en-us/Template:Data_Vi/Vault_Breaker?oldid=3921391) |
+| Vault Breaker | Relentless Force and Cease and Desist can be cast during the dash | [3921391](https://wiki.leagueoflegends.com/en-us/Template:Data_Vi/Vault_Breaker?oldid=3921391) |
+| Vault Breaker | interrupts=death, ground, root, silence | [3921391](https://wiki.leagueoflegends.com/en-us/Template:Data_Vi/Vault_Breaker?oldid=3921391) |
+| Vault Breaker | cooldownStart: post-effect | [3921391](https://wiki.leagueoflegends.com/en-us/Template:Data_Vi/Vault_Breaker?oldid=3921391) |
+| Denting Blows | Bonus Physical Damage: 4 / 5 / 6 / 7 / 8% (+ 3.5% per 100 bonus AD) of target's maximum health | [3932548](https://wiki.leagueoflegends.com/en-us/Template:Data_Vi/Denting_Blows?oldid=3932548) |
+| Denting Blows | enemies hit for 4 seconds | [3932548](https://wiki.leagueoflegends.com/en-us/Template:Data_Vi/Denting_Blows?oldid=3932548) |
+| Denting Blows | stacking up to 3 times | [3932548](https://wiki.leagueoflegends.com/en-us/Template:Data_Vi/Denting_Blows?oldid=3932548) |
+| Denting Blows | capped at 300 | [3932548](https://wiki.leagueoflegends.com/en-us/Template:Data_Vi/Denting_Blows?oldid=3932548) |
+| Denting Blows | 20% armor reduction | [3932548](https://wiki.leagueoflegends.com/en-us/Template:Data_Vi/Denting_Blows?oldid=3932548) |
+| Denting Blows | Bonus Attack Speed: 30 / 35 / 40 / 45 / 50% | [3932548](https://wiki.leagueoflegends.com/en-us/Template:Data_Vi/Denting_Blows?oldid=3932548) |
+| Denting Blows | armor penetration will apply after the triggering damage | [3932548](https://wiki.leagueoflegends.com/en-us/Template:Data_Vi/Denting_Blows?oldid=3932548) |
+| Denting Blows | cannot be dodged nor missed while Vi is blinded | [3932548](https://wiki.leagueoflegends.com/en-us/Template:Data_Vi/Denting_Blows?oldid=3932548) |
+| Denting Blows | can be blocked | [3932548](https://wiki.leagueoflegends.com/en-us/Template:Data_Vi/Denting_Blows?oldid=3932548) |
+| Denting Blows | do not affect structures nor wards | [3932548](https://wiki.leagueoflegends.com/en-us/Template:Data_Vi/Denting_Blows?oldid=3932548) |
+| Relentless Force | Physical Damage: 10 / 30 / 50 / 70 / 90 (+ 110% AD) (+ 100% AP) | [3986710](https://wiki.leagueoflegends.com/en-us/Template:Data_Vi/Relentless_Force?oldid=3986710) |
+| Relentless Force | within 6 seconds | [3986710](https://wiki.leagueoflegends.com/en-us/Template:Data_Vi/Relentless_Force?oldid=3986710) |
+| Relentless Force | gain 50 bonus range | [3986710](https://wiki.leagueoflegends.com/en-us/Template:Data_Vi/Relentless_Force?oldid=3986710) |
+| Relentless Force | maximum of 2 | [3986710](https://wiki.leagueoflegends.com/en-us/Template:Data_Vi/Relentless_Force?oldid=3986710) |
+| Relentless Force | staticCooldown: 1 | [3986710](https://wiki.leagueoflegends.com/en-us/Template:Data_Vi/Relentless_Force?oldid=3986710) |
+| Relentless Force | recharge: 12 / 11 / 10 / 9 / 8 | [3986710](https://wiki.leagueoflegends.com/en-us/Template:Data_Vi/Relentless_Force?oldid=3986710) |
+| Relentless Force | effectRadius: 600 | [3986710](https://wiki.leagueoflegends.com/en-us/Template:Data_Vi/Relentless_Force?oldid=3986710) |
+| Relentless Force | for 100% AD bonus physical damage | [3986710](https://wiki.leagueoflegends.com/en-us/Template:Data_Vi/Relentless_Force?oldid=3986710) |
+| Relentless Force | uncancellable windup | [3986710](https://wiki.leagueoflegends.com/en-us/Template:Data_Vi/Relentless_Force?oldid=3986710) |
+| Relentless Force | same windup time as Vi's basic attacks | [3986710](https://wiki.leagueoflegends.com/en-us/Template:Data_Vi/Relentless_Force?oldid=3986710) |
+| Relentless Force | resets Vi's basic attack timer | [3986710](https://wiki.leagueoflegends.com/en-us/Template:Data_Vi/Relentless_Force?oldid=3986710) |
+| Relentless Force | Spell shield will block damage to secondary targets, but not to the primary target | [3986710](https://wiki.leagueoflegends.com/en-us/Template:Data_Vi/Relentless_Force?oldid=3986710) |
+| Relentless Force | only apply a stack of Denting Blows to the primary target | [3986710](https://wiki.leagueoflegends.com/en-us/Template:Data_Vi/Relentless_Force?oldid=3986710) |
+| Relentless Force | applies basic damage required effects on the primary target | [3986710](https://wiki.leagueoflegends.com/en-us/Template:Data_Vi/Relentless_Force?oldid=3986710) |
+| Relentless Force | cooldownStart: post-effect | [3986710](https://wiki.leagueoflegends.com/en-us/Template:Data_Vi/Relentless_Force?oldid=3986710) |
+| Cease and Desist | Physical Damage: 150 / 250 / 350 (+ 90% bonus AD) | [4004943](https://wiki.leagueoflegends.com/en-us/Template:Data_Vi/Cease_and_Desist?oldid=4004943) |
+| Cease and Desist | cooldown: 140 / 115 / 90 | [4004943](https://wiki.leagueoflegends.com/en-us/Template:Data_Vi/Cease_and_Desist?oldid=4004943) |
+| Cease and Desist | castTime: 0.25 | [4004943](https://wiki.leagueoflegends.com/en-us/Template:Data_Vi/Cease_and_Desist?oldid=4004943) |
+| Cease and Desist | targetRange: 800 | [4004943](https://wiki.leagueoflegends.com/en-us/Template:Data_Vi/Cease_and_Desist?oldid=4004943) |
+| Cease and Desist | speed: 800 | [4004943](https://wiki.leagueoflegends.com/en-us/Template:Data_Vi/Cease_and_Desist?oldid=4004943) |
+| Cease and Desist | within 300 units | [4004943](https://wiki.leagueoflegends.com/en-us/Template:Data_Vi/Cease_and_Desist?oldid=4004943) |
+| Cease and Desist | over 1.05 seconds | [4004943](https://wiki.leagueoflegends.com/en-us/Template:Data_Vi/Cease_and_Desist?oldid=4004943) |
+| Cease and Desist | up for 1.3 seconds | [4004943](https://wiki.leagueoflegends.com/en-us/Template:Data_Vi/Cease_and_Desist?oldid=4004943) |
+| Cease and Desist | after 0.75 seconds into the grab | [4004943](https://wiki.leagueoflegends.com/en-us/Template:Data_Vi/Cease_and_Desist?oldid=4004943) |
+| Cease and Desist | aside by 350 units | [4004943](https://wiki.leagueoflegends.com/en-us/Template:Data_Vi/Cease_and_Desist?oldid=4004943) |
+| Cease and Desist | over 0.25 seconds | [4004943](https://wiki.leagueoflegends.com/en-us/Template:Data_Vi/Cease_and_Desist?oldid=4004943) |
+| Cease and Desist | stunned for 0.75 seconds | [4004943](https://wiki.leagueoflegends.com/en-us/Template:Data_Vi/Cease_and_Desist?oldid=4004943) |
+| Cease and Desist | again for ~4 seconds | [4004943](https://wiki.leagueoflegends.com/en-us/Template:Data_Vi/Cease_and_Desist?oldid=4004943) |
+| Cease and Desist | beyond 1500 units | [4004943](https://wiki.leagueoflegends.com/en-us/Template:Data_Vi/Cease_and_Desist?oldid=4004943) |
+| Cease and Desist | remain for 7 seconds | [4004943](https://wiki.leagueoflegends.com/en-us/Template:Data_Vi/Cease_and_Desist?oldid=4004943) |
+| Cease and Desist | will track the target if they change locations | [4004943](https://wiki.leagueoflegends.com/en-us/Template:Data_Vi/Cease_and_Desist?oldid=4004943) |
+| Cease and Desist | displacement immunity | [4004943](https://wiki.leagueoflegends.com/en-us/Template:Data_Vi/Cease_and_Desist?oldid=4004943) |
+| Cease and Desist | will not resist the application of the stun | [4004943](https://wiki.leagueoflegends.com/en-us/Template:Data_Vi/Cease_and_Desist?oldid=4004943) |
+| Cease and Desist | will not dash through the target if she would not be able to land to the opposite side | [4004943](https://wiki.leagueoflegends.com/en-us/Template:Data_Vi/Cease_and_Desist?oldid=4004943) |
+| Cease and Desist | If the target becomes untargetable during the dash | [4004943](https://wiki.leagueoflegends.com/en-us/Template:Data_Vi/Cease_and_Desist?oldid=4004943) |
+| Cease and Desist | not deal any damage | [4004943](https://wiki.leagueoflegends.com/en-us/Template:Data_Vi/Cease_and_Desist?oldid=4004943) |
+| Cease and Desist | interrupts=death | [4004943](https://wiki.leagueoflegends.com/en-us/Template:Data_Vi/Cease_and_Desist?oldid=4004943) |
+| Cease and Desist | cooldownStart: on-cast | [4004943](https://wiki.leagueoflegends.com/en-us/Template:Data_Vi/Cease_and_Desist?oldid=4004943) |
+| Blast Shield | "name":"ShieldDuration","values":[3.0,3.0,3.0,3.0,3.0,3.0,3.0] | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/vi/vi.bin.json) |
+| Blast Shield | "name":"CDReductionOn3Hit","values":[4.0,4.0,4.0,4.0,4.0,4.0,4.0] | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/vi/vi.bin.json) |
+| Vault Breaker | "name":"MinDashRange","values":[250.0,250.0,250.0,250.0,250.0,250.0,250.0] | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/vi/vi.bin.json) |
+| Vault Breaker | "name":"DashWallCheating","values":[50.0,50.0,50.0,50.0,50.0,50.0,50.0] | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/vi/vi.bin.json) |
+| Denting Blows | "name":"MaxHealthDamage","values":[3.0,4.0,5.0,6.0,7.0,8.0,9.0] | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/vi/vi.bin.json) |
+| Denting Blows | "name":"StacksBeforeEffect","values":[2.0,2.0,2.0,2.0,2.0,2.0,2.0] | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/vi/vi.bin.json) |
+| Relentless Force | "mMaxAmmo":[2,2,2,2,2,2,2] | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/vi/vi.bin.json) |
+| Relentless Force | "castConeAngle":35.0 | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/vi/vi.bin.json) |
+| Cease and Desist | "name":"RBaseSpeed","values":[800.0,800.0,800.0,800.0,800.0,800.0,800.0] | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/vi/vi.bin.json) |
+| Cease and Desist | "name":"SecondaryTargetKnockbackDistance","values":[350.0,350.0,350.0,350.0,350.0,350.0,350.0] | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/vi/vi.bin.json) |
+| Vault Breaker | castTime: none | [3921391](https://wiki.leagueoflegends.com/en-us/Template:Data_Vi/Vault_Breaker?oldid=3921391) |
+| Relentless Force | cost: 26 / 32 / 38 / 44 / 50 | [3986710](https://wiki.leagueoflegends.com/en-us/Template:Data_Vi/Relentless_Force?oldid=3986710) |
+| Relentless Force | castTime: none | [3986710](https://wiki.leagueoflegends.com/en-us/Template:Data_Vi/Relentless_Force?oldid=3986710) |
+| Cease and Desist | cost: 100 | [4004943](https://wiki.leagueoflegends.com/en-us/Template:Data_Vi/Cease_and_Desist?oldid=4004943) |

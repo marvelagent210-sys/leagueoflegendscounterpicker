@@ -1,5 +1,158 @@
 # Counters to Hecarim (patch 26.20)
 
+## Simulated duels
+
+The duel simulator played each of the 144 other champions with a simulator kit against Hecarim: both at level 20 with 15,000 gold of plain stats, each side's spent against the other's, through six scenarios (PLAN.md §6). Scores run from −1 (Hecarim wins every time) to +1 (the champion does). Run `npm run duel -- <champion> Hecarim --log brawl` to watch a fight.
+
+| # | Champion | Score | You engage | Enemy engages | Brawl | Short trade | Spacing | Escape |
+|--:|---|--:|--:|--:|--:|--:|--:|--:|
+| 1 | K'Sante | +0.89 | +1.00 | +1.00 | +1.00 | +0.26 | +1.00 | +1.00 |
+| 2 | Ashe | +0.89 | +1.00 | +1.00 | +1.00 | +0.57 | +1.00 | +0.00 |
+| 3 | Aphelios | +0.88 | +1.00 | +1.00 | +1.00 | +0.55 | +1.00 | +0.00 |
+| 4 | Xayah | +0.88 | +1.00 | +1.00 | +1.00 | +0.53 | +1.00 | +0.00 |
+| 5 | Kayle | +0.88 | +1.00 | +1.00 | +1.00 | +0.53 | +1.00 | +0.00 |
+| 6 | Cassiopeia | +0.86 | +1.00 | +1.00 | +1.00 | +0.41 | +1.00 | +0.00 |
+| 7 | Teemo | +0.86 | +1.00 | +1.00 | +1.00 | +0.41 | +1.00 | +0.00 |
+| 8 | Kog'Maw | +0.86 | +1.00 | +1.00 | +1.00 | +0.37 | +1.00 | +0.00 |
+| 9 | Sivir | +0.85 | +1.00 | +1.00 | +1.00 | +0.34 | +1.00 | +0.00 |
+| 10 | Corki | +0.85 | +1.00 | +1.00 | +1.00 | +0.34 | +1.00 | +0.00 |
+| 11 | Lulu | +0.85 | +1.00 | +1.00 | +1.00 | +0.33 | +1.00 | +0.00 |
+| 12 | Gangplank | +0.85 | +1.00 | +1.00 | +1.00 | +0.10 | – | +1.00 |
+| 13 | Master Yi | +0.85 | +1.00 | +1.00 | +1.00 | +0.09 | – | +1.00 |
+| 14 | Vayne | +0.85 | +1.00 | +1.00 | +1.00 | +0.30 | +1.00 | +0.00 |
+| 15 | Twisted Fate | +0.84 | +1.00 | +1.00 | +1.00 | +0.30 | +1.00 | +0.00 |
+| 16 | Janna | +0.84 | +1.00 | +1.00 | +1.00 | +0.29 | +1.00 | +0.00 |
+| 17 | Gnar | +0.84 | +1.00 | +1.00 | +1.00 | +0.28 | +1.00 | +0.00 |
+| 18 | Fiora | +0.84 | +1.00 | +1.00 | +1.00 | +0.05 | – | +1.00 |
+| 19 | Smolder | +0.84 | +1.00 | +1.00 | +1.00 | +0.26 | +1.00 | +0.00 |
+| 20 | Udyr | +0.84 | +1.00 | +1.00 | +1.00 | +0.03 | – | +1.00 |
+| 21 | Quinn | +0.84 | +1.00 | +1.00 | +1.00 | +0.26 | +1.00 | +0.00 |
+| 22 | Annie | +0.84 | +1.00 | +1.00 | +1.00 | +0.25 | +1.00 | +0.00 |
+| 23 | Ryze | +0.84 | +1.00 | +1.00 | +1.00 | +0.25 | +1.00 | +0.00 |
+| 24 | Ambessa | +0.84 | +1.00 | +1.00 | +1.00 | +0.35 | – | +0.00 |
+| 25 | Trundle | +0.84 | +1.00 | +1.00 | +1.00 | +0.01 | – | +1.00 |
+| 26 | Swain | +0.83 | +1.00 | +1.00 | +1.00 | +0.23 | +1.00 | +0.00 |
+| 27 | Urgot | +0.83 | +1.00 | +1.00 | +1.00 | +0.22 | +1.00 | +0.00 |
+| 28 | Akshan | +0.83 | +1.00 | +1.00 | +1.00 | +0.21 | +1.00 | +0.00 |
+| 29 | Yorick | +0.83 | +1.00 | +1.00 | +1.00 | −0.04 | – | +1.00 |
+| 30 | Rakan | +0.83 | +1.00 | +1.00 | +1.00 | +0.17 | +1.00 | +0.00 |
+| 31 | Nasus | +0.82 | +1.00 | +1.00 | +1.00 | −0.07 | – | +1.00 |
+| 32 | Poppy | +0.82 | +1.00 | +1.00 | +1.00 | +0.26 | – | +0.00 |
+| 33 | Tristana | +0.82 | +1.00 | +1.00 | +1.00 | +0.14 | +1.00 | +0.00 |
+| 34 | Aurora | +0.82 | +1.00 | +1.00 | +1.00 | +0.13 | +1.00 | +0.00 |
+| 35 | Maokai | +0.82 | +1.00 | +1.00 | +1.00 | +0.25 | – | +0.00 |
+| 36 | Kennen | +0.82 | +1.00 | +1.00 | +1.00 | +0.13 | +1.00 | +0.00 |
+| 37 | Zeri | +0.82 | +1.00 | +1.00 | +1.00 | +0.12 | +1.00 | +0.00 |
+| 38 | Hwei | +0.82 | +1.00 | +1.00 | +1.00 | +0.12 | +1.00 | +0.00 |
+| 39 | Jinx | +0.82 | +1.00 | +0.98 | +0.99 | +0.19 | +0.95 | +0.00 |
+| 40 | Brand | +0.82 | +1.00 | +1.00 | +1.00 | +0.10 | +1.00 | +0.00 |
+| 41 | Cho'Gath | +0.82 | +1.00 | +1.00 | +1.00 | +0.22 | – | +0.00 |
+| 42 | Vel'Koz | +0.82 | +1.00 | +1.00 | +1.00 | +0.11 | +0.99 | +0.00 |
+| 43 | Rell | +0.81 | +1.00 | +1.00 | +1.00 | +0.10 | +1.00 | +0.00 |
+| 44 | Zoe | +0.81 | +1.00 | +1.00 | +1.00 | +0.09 | +1.00 | +0.00 |
+| 45 | Lux | +0.81 | +1.00 | +1.00 | +1.00 | +0.09 | +1.00 | +0.00 |
+| 46 | Jayce | +0.81 | +1.00 | +1.00 | +1.00 | +0.21 | – | +0.00 |
+| 47 | Jarvan IV | +0.81 | +1.00 | +1.00 | +1.00 | +0.20 | – | +0.00 |
+| 48 | Zaahen | +0.81 | +1.00 | +1.00 | +1.00 | +0.19 | – | +0.00 |
+| 49 | Warwick | +0.81 | +1.00 | +1.00 | +1.00 | +0.19 | – | +0.00 |
+| 50 | Heimerdinger | +0.81 | +0.99 | +0.99 | +1.00 | +0.09 | +1.00 | +0.00 |
+| 51 | Ezreal | +0.80 | +1.00 | +1.00 | +1.00 | +0.03 | +1.00 | +0.00 |
+| 52 | Vex | +0.80 | +0.98 | +1.00 | +1.00 | +0.06 | +1.00 | +0.00 |
+| 53 | Garen | +0.80 | +1.00 | +1.00 | +1.00 | +0.16 | – | +0.00 |
+| 54 | Neeko | +0.80 | +1.00 | +1.00 | +1.00 | +0.03 | +1.00 | +0.00 |
+| 55 | Malphite | +0.80 | +1.00 | +1.00 | +1.00 | +0.15 | – | +0.00 |
+| 56 | Illaoi | +0.80 | +1.00 | +1.00 | +1.00 | +0.15 | – | +0.00 |
+| 57 | Varus | +0.80 | +1.00 | +1.00 | +1.00 | +0.01 | +1.00 | +0.00 |
+| 58 | Kalista | +0.80 | +1.00 | +1.00 | +1.00 | +0.01 | +1.00 | +0.00 |
+| 59 | Samira | +0.80 | +1.00 | +1.00 | +1.00 | +0.01 | +1.00 | +0.00 |
+| 60 | Zyra | +0.80 | +1.00 | +1.00 | +0.95 | +0.08 | +1.00 | +0.00 |
+| 61 | Yasuo | +0.80 | +1.00 | +1.00 | +1.00 | +0.13 | – | +0.00 |
+| 62 | Karma | +0.80 | +1.00 | +1.00 | +1.00 | −0.01 | +1.00 | +0.00 |
+| 63 | Kai'Sa | +0.80 | +1.00 | +1.00 | +1.00 | −0.01 | +1.00 | +0.00 |
+| 64 | Morgana | +0.80 | +1.00 | +1.00 | +1.00 | −0.03 | +1.00 | +0.00 |
+| 65 | Soraka | +0.79 | +1.00 | +1.00 | +1.00 | +0.00 | +0.94 | +0.00 |
+| 66 | Sett | +0.79 | +1.00 | +1.00 | +1.00 | +0.10 | – | +0.00 |
+| 67 | Irelia | +0.79 | +1.00 | +1.00 | +1.00 | +0.10 | – | +0.00 |
+| 68 | Camille | +0.79 | +1.00 | +1.00 | +1.00 | +0.10 | – | +0.00 |
+| 69 | Pantheon | +0.79 | +1.00 | +1.00 | +1.00 | +0.09 | – | +0.00 |
+| 70 | Diana | +0.79 | +1.00 | +1.00 | +1.00 | +0.09 | – | +0.00 |
+| 71 | Ornn | +0.79 | +1.00 | +1.00 | +1.00 | +0.09 | – | +0.00 |
+| 72 | Xin Zhao | +0.79 | +1.00 | +1.00 | +1.00 | +0.08 | – | +0.00 |
+| 73 | Alistar | +0.79 | +1.00 | +1.00 | +1.00 | +0.08 | – | +0.00 |
+| 74 | Lee Sin | +0.79 | +1.00 | +1.00 | +1.00 | +0.08 | – | +0.00 |
+| 75 | Shen | +0.79 | +1.00 | +1.00 | +1.00 | +0.07 | – | +0.00 |
+| 76 | Aatrox | +0.79 | +1.00 | +1.00 | +1.00 | +0.05 | – | +0.00 |
+| 77 | Sion | +0.79 | +1.00 | +1.00 | +1.00 | +0.05 | – | +0.00 |
+| 78 | Mordekaiser | +0.78 | +1.00 | +1.00 | +1.00 | +0.04 | – | +0.00 |
+| 79 | Vi | +0.78 | +1.00 | +1.00 | +1.00 | +0.04 | – | +0.00 |
+| 80 | Darius | +0.78 | +1.00 | +1.00 | +1.00 | +0.04 | – | +0.00 |
+| 81 | Fizz | +0.78 | +1.00 | +1.00 | +1.00 | +0.04 | – | +0.00 |
+| 82 | Nami | +0.78 | +1.00 | +0.86 | +1.00 | +0.19 | +0.86 | +0.00 |
+| 83 | Jax | +0.78 | +1.00 | +1.00 | +1.00 | +0.02 | – | +0.00 |
+| 84 | Zed | +0.78 | +1.00 | +1.00 | +1.00 | +0.01 | – | +0.00 |
+| 85 | Rumble | +0.78 | +1.00 | +1.00 | +1.00 | −0.00 | – | +0.00 |
+| 86 | Renekton | +0.78 | +1.00 | +1.00 | +1.00 | −0.00 | – | +0.00 |
+| 87 | Tryndamere | +0.78 | +1.00 | +1.00 | +1.00 | −0.00 | – | +0.00 |
+| 88 | Taric | +0.78 | +1.00 | +1.00 | +1.00 | −0.01 | – | +0.00 |
+| 89 | Kled | +0.78 | +1.00 | +1.00 | +1.00 | −0.01 | – | +0.00 |
+| 90 | Gwen | +0.78 | +1.00 | +1.00 | +1.00 | −0.01 | – | +0.00 |
+| 91 | Olaf | +0.77 | +1.00 | +1.00 | +1.00 | −0.04 | – | +0.00 |
+| 92 | Braum | +0.77 | +1.00 | +1.00 | +1.00 | −0.04 | – | +0.00 |
+| 93 | Wukong | +0.77 | +1.00 | +1.00 | +1.00 | −0.06 | – | +0.00 |
+| 94 | Sejuani | +0.76 | +1.00 | +1.00 | +1.00 | −0.08 | – | +0.00 |
+| 95 | Singed | +0.76 | +1.00 | +1.00 | +1.00 | −0.08 | – | +0.00 |
+| 96 | Tahm Kench | +0.76 | +1.00 | +1.00 | +1.00 | −0.09 | – | +0.00 |
+| 97 | Amumu | +0.76 | +1.00 | +1.00 | +1.00 | −0.09 | – | +0.00 |
+| 98 | Nocturne | +0.76 | +1.00 | +1.00 | +1.00 | −0.09 | – | +0.00 |
+| 99 | Dr. Mundo | +0.76 | +1.00 | +1.00 | +1.00 | −0.10 | – | +0.00 |
+| 100 | Rammus | +0.76 | +1.00 | +1.00 | +1.00 | −0.11 | – | +0.00 |
+| 101 | Volibear | +0.76 | +1.00 | +0.96 | +1.00 | −0.06 | – | +0.00 |
+| 102 | Graves | +0.75 | +1.00 | +1.00 | +1.00 | +0.00 | +1.00 | −1.00 |
+| 103 | Lucian | +0.74 | +1.00 | +1.00 | +0.50 | +0.27 | +1.00 | +0.00 |
+| 104 | Viktor | +0.73 | +1.00 | +1.00 | +1.00 | +0.19 | +0.00 | +0.00 |
+| 105 | Lissandra | +0.72 | +1.00 | +1.00 | +1.00 | +0.17 | +0.00 | +0.00 |
+| 106 | Yone | +0.67 | +1.00 | +1.00 | +0.33 | +0.02 | – | +0.67 |
+| 107 | Rengar | +0.41 | +1.00 | +1.00 | −1.00 | +0.43 | – | +0.00 |
+| 108 | Senna | +0.40 | +0.95 | +0.95 | −1.00 | +0.20 | +0.95 | +0.00 |
+| 109 | Gragas | +0.40 | +1.00 | +1.00 | +0.00 | −0.01 | −1.00 | +0.00 |
+| 110 | Draven | +0.40 | +1.00 | +1.00 | −1.00 | −0.03 | +1.00 | +0.00 |
+| 111 | Ahri | +0.39 | +1.00 | +1.00 | −1.00 | −0.09 | +1.00 | +0.00 |
+| 112 | Akali | +0.35 | +1.00 | +1.00 | −1.00 | +0.08 | – | +0.00 |
+| 113 | Syndra | +0.34 | +1.00 | +1.00 | −1.00 | −0.07 | +0.50 | +0.00 |
+| 114 | Leona | +0.33 | +1.00 | +1.00 | −1.00 | +0.01 | – | +0.00 |
+| 115 | Kassadin | +0.33 | +1.00 | +1.00 | −1.00 | −0.01 | – | +0.00 |
+| 116 | LeBlanc | +0.21 | +1.00 | −1.00 | +0.50 | +0.09 | +0.95 | +0.00 |
+| 117 | Nautilus | +0.20 | +1.00 | +1.00 | −1.00 | −0.01 | −1.00 | +0.00 |
+| 118 | Orianna | +0.15 | −1.00 | +1.00 | +1.00 | +0.34 | −1.00 | +0.00 |
+| 119 | Anivia | +0.08 | +0.17 | +0.17 | −0.05 | −0.08 | +0.20 | +0.00 |
+| 120 | Riven | +0.05 | −1.00 | +1.00 | +0.00 | +0.27 | – | +0.00 |
+| 121 | Galio | +0.00 | +0.00 | +0.00 | +0.00 | +0.02 | – | +0.00 |
+| 122 | Karthus | −0.01 | +0.00 | +0.00 | +0.00 | +0.27 | −0.51 | +0.00 |
+| 123 | Malzahar | −0.05 | +0.00 | −1.00 | +1.00 | +0.02 | +0.00 | +0.00 |
+| 124 | Kindred | −0.07 | +1.00 | −1.00 | +0.00 | +0.17 | −1.00 | +0.00 |
+| 125 | Miss Fortune | −0.09 | +0.00 | −1.00 | +0.00 | +0.39 | +1.00 | +0.00 |
+| 126 | Jhin | −0.17 | −0.78 | −0.78 | +1.00 | +0.11 | +0.06 | +0.00 |
+| 127 | Twitch | −0.18 | +0.00 | +0.00 | −0.50 | +0.10 | −1.00 | +0.00 |
+| 128 | Sona | −0.27 | −1.00 | +1.00 | −1.00 | +0.22 | −1.00 | +0.00 |
+| 129 | Veigar | −0.47 | −0.94 | −0.71 | −0.17 | +0.13 | −0.41 | +0.00 |
+| 130 | Ziggs | −0.55 | −1.00 | −1.00 | −1.00 | +0.33 | +1.00 | +0.00 |
+| 131 | Caitlyn | −0.59 | −0.53 | −0.75 | −1.00 | +0.17 | −1.00 | +0.00 |
+| 132 | Evelynn | −0.74 | −1.00 | −1.00 | −1.00 | +0.22 | – | +0.00 |
+| 133 | Skarner | −0.76 | −1.00 | −1.00 | −1.00 | +0.13 | – | +0.00 |
+| 134 | Nunu & Willump | −0.76 | −1.00 | −1.00 | −1.00 | +0.10 | – | +0.00 |
+| 135 | Talon | −0.78 | −1.00 | −1.00 | −1.00 | +0.00 | – | +0.00 |
+| 136 | Naafiri | −0.78 | −1.00 | −1.00 | −1.00 | −0.01 | – | +0.00 |
+| 137 | Kha'Zix | −0.79 | −1.00 | −1.00 | −1.00 | −0.06 | – | +0.00 |
+| 138 | Taliyah | −0.79 | −1.00 | −1.00 | −1.00 | +0.08 | −1.00 | +0.00 |
+| 139 | Katarina | −0.79 | −1.00 | −1.00 | −1.00 | −0.07 | – | +0.00 |
+| 140 | Ekko | −0.79 | −1.00 | −1.00 | −1.00 | −0.09 | – | +0.00 |
+| 141 | Xerath | −0.80 | −1.00 | −1.00 | −1.00 | +0.03 | −1.00 | +0.00 |
+| 142 | Thresh | −0.80 | −1.00 | −1.00 | −1.00 | +0.03 | −1.00 | +0.00 |
+| 143 | Blitzcrank | −0.80 | −1.00 | −1.00 | −1.00 | −0.00 | −1.00 | +0.00 |
+| 144 | Vladimir | −0.80 | −1.00 | −1.00 | −1.00 | −0.01 | −1.00 | +0.00 |
+
+## Interaction ledger estimates
+
 Every champion ranked by what its kit does against Hecarim's, from the interaction ledger: projectile blocks, spell shields,
 parries, dash stops, crowd control and its defenses, range and more (PLAN.md §5). This ranking is **partial**: it weighs the
 interactions but doesn't play the fight out. The duel simulator replaces it as each champion's behavior is verified.
@@ -8,72 +161,72 @@ interactions but doesn't play the fight out. The duel simulator replaces it as e
 A hard counter shuts down part of a kit every time it is used (projectile block, attack dodge, attack block, blind, disarm, attack speed slow, attack reflect, dash stop, grounding, range) with an impact of 0.4 or more (0.5 for range).
 Run `npm run matchup -- <champion> Hecarim` for the full ledger of a matchup, with sources.
 
-## Top 10
+### Top 10
 
-### 1. Sivir (net +1.65)
+#### 1. Sivir (net +1.65)
 
 - **1.00** spell shield: Spell Shield's spell shield blocks Hecarim's Onslaught of Shadows. Spell shield for 1.5 s, long enough to use ahead of Onslaught of Shadows. A spell shield blocks only the first enemy ability that reaches it. (Sivir E Spell Shield → Hecarim R Onslaught of Shadows)
 - **0.75** spell shield: Spell Shield's spell shield blocks Hecarim's Devastating Charge. Spell shield for 1.5 s, long enough to use ahead of Devastating Charge. A spell shield blocks only the first enemy ability that reaches it. (Sivir E Spell Shield → Hecarim E Devastating Charge)
 - **0.27** range: Sivir's basic attacks reach 325 units farther than Hecarim's (500 vs 175 attack range). Hecarim closes the gap with Devastating Charge, Onslaught of Shadows. (Sivir basic attacks → Hecarim basic attacks)
 
-### 2. Morgana (net +1.51)
+#### 2. Morgana (net +1.51)
 
 - **1.00** cc immunity: Black Shield makes Morgana immune to Hecarim's Onslaught of Shadows (fear, slow). Immune for 5 s, long enough to use ahead of Onslaught of Shadows. (Morgana E Black Shield → Hecarim R Onslaught of Shadows)
 - **0.80** cc immunity: Black Shield makes Morgana immune to Hecarim's Devastating Charge (airborne, stun). Immune for 5 s, long enough to use ahead of Devastating Charge. (Morgana E Black Shield → Hecarim E Devastating Charge)
 - **0.11** range: Morgana's basic attacks reach 275 units farther than Hecarim's (450 vs 175 attack range). Hecarim closes the gap with Devastating Charge, Onslaught of Shadows. (Morgana basic attacks → Hecarim basic attacks)
 
-### 3. Nocturne (net +1.48)
+#### 3. Nocturne (net +1.48)
 
 - **1.00** spell shield: Shroud of Darkness's spell shield blocks Hecarim's Onslaught of Shadows. Spell shield for 1.5 s, long enough to use ahead of Onslaught of Shadows. A spell shield blocks only the first enemy ability that reaches it. (Nocturne W Shroud of Darkness → Hecarim R Onslaught of Shadows)
 - **0.80** spell shield: Shroud of Darkness's spell shield blocks Hecarim's Devastating Charge. Spell shield for 1.5 s, long enough to use ahead of Devastating Charge. A spell shield blocks only the first enemy ability that reaches it. (Nocturne W Shroud of Darkness → Hecarim E Devastating Charge)
 - **0.08** cc immunity: Paranoia is displacement immune, ignoring Hecarim's Devastating Charge (airborne) during it. Only during Paranoia. (Nocturne R Paranoia → Hecarim E Devastating Charge)
 
-### 4. Vladimir (net +1.45)
+#### 4. Vladimir (net +1.45)
 
 - **1.00** untargetable: Sanguine Pool makes Vladimir untargetable, dodging Hecarim's Onslaught of Shadows. Untargetable for 2 s, long enough to use ahead of Onslaught of Shadows. (Vladimir W Sanguine Pool → Hecarim R Onslaught of Shadows)
 - **0.80** untargetable: Sanguine Pool makes Vladimir untargetable, dodging Hecarim's Devastating Charge. Untargetable for 2 s, long enough to use ahead of Devastating Charge. (Vladimir W Sanguine Pool → Hecarim E Devastating Charge)
 - **0.10** range: Vladimir's basic attacks reach 275 units farther than Hecarim's (450 vs 175 attack range). Hecarim closes the gap with Devastating Charge, Onslaught of Shadows. (Vladimir basic attacks → Hecarim basic attacks)
 - Watch out: Onslaught of Shadows's fear interrupts Vladimir's Tides of Blood (charge-up).
 
-### 5. Xayah (net +1.42)
+#### 5. Xayah (net +1.42)
 
 - **1.00** untargetable: Featherstorm makes Xayah untargetable, dodging Hecarim's Onslaught of Shadows. Untargetable for 1.5 s, long enough to use ahead of Onslaught of Shadows. (Xayah R Featherstorm → Hecarim R Onslaught of Shadows)
 - **0.40** untargetable: Featherstorm makes Xayah untargetable, dodging Hecarim's Devastating Charge. Untargetable for 1.5 s, long enough to use ahead of Devastating Charge. (Xayah R Featherstorm → Hecarim E Devastating Charge)
 - **0.22** range: Xayah's basic attacks reach 350 units farther than Hecarim's (525 vs 175 attack range). Hecarim closes the gap with Devastating Charge, Onslaught of Shadows. (Xayah basic attacks → Hecarim basic attacks)
 
-### 6. Udyr (net +1.40)
+#### 6. Udyr (net +1.40)
 
 - **1.00** cc immunity: Blazing Stampede makes Udyr immune to Hecarim's Onslaught of Shadows (fear, slow). Immune for 1.5 s, long enough to use ahead of Onslaught of Shadows. (Udyr E Blazing Stampede → Hecarim R Onslaught of Shadows)
 - **0.80** cc immunity: Blazing Stampede makes Udyr immune to Hecarim's Devastating Charge (airborne, stun). Immune for 1.5 s, long enough to use ahead of Devastating Charge. (Udyr E Blazing Stampede → Hecarim E Devastating Charge)
 
-### 7. Master Yi (net +1.38)
+#### 7. Master Yi (net +1.38)
 
 - **1.00** untargetable: Alpha Strike makes Master Yi untargetable, dodging Hecarim's Onslaught of Shadows. Untargetable for ?; Onslaught of Shadows takes 1.37 s to land, enough to react. (Master Yi Q Alpha Strike → Hecarim R Onslaught of Shadows)
 - **0.45** untargetable: Alpha Strike makes Master Yi untargetable, dodging Hecarim's Devastating Charge. Untargetable for ?; Devastating Charge lands within 0 s, faster than a 0.25 s reaction, so it needs prediction. (Master Yi Q Alpha Strike → Hecarim E Devastating Charge)
 - **0.20** cleanse: Highlander cleanses Hecarim's Onslaught of Shadows (slow) after it lands. 85 s cooldown; usable while crowd controlled. Doesn't remove fear. (Master Yi R Highlander → Hecarim R Onslaught of Shadows)
 - Watch out: Onslaught of Shadows's fear interrupts Master Yi's Meditate (normal channel).
 
-### 8. Bard (net +1.34)
+#### 8. Bard (net +1.34)
 
 - **1.00** untargetable: Tempered Fate makes Bard untargetable, dodging Hecarim's Onslaught of Shadows. Untargetable for 2.5 s, long enough to use ahead of Onslaught of Shadows. (Bard R Tempered Fate → Hecarim R Onslaught of Shadows)
 - **0.42** untargetable: Tempered Fate makes Bard untargetable, dodging Hecarim's Devastating Charge. Untargetable for 2.5 s, long enough to use ahead of Devastating Charge. (Bard R Tempered Fate → Hecarim E Devastating Charge)
 - **0.21** range: Bard's basic attacks reach 325 units farther than Hecarim's (500 vs 175 attack range). Hecarim closes the gap with Devastating Charge, Onslaught of Shadows. (Bard basic attacks → Hecarim basic attacks)
 - Watch out: Onslaught of Shadows is displacement immune, ignoring Bard's Tempered Fate (stasis) during it.
 
-### 9. Lissandra (net +1.33)
+#### 9. Lissandra (net +1.33)
 
 - **1.00** untargetable: Frozen Tomb makes Lissandra untargetable, dodging Hecarim's Onslaught of Shadows. Untargetable for 2.5 s, long enough to use ahead of Onslaught of Shadows. (Lissandra R Frozen Tomb → Hecarim R Onslaught of Shadows)
 - **0.42** untargetable: Frozen Tomb makes Lissandra untargetable, dodging Hecarim's Devastating Charge. Untargetable for 2.5 s, long enough to use ahead of Devastating Charge. (Lissandra R Frozen Tomb → Hecarim E Devastating Charge)
 - **0.14** range: Lissandra's basic attacks reach 375 units farther than Hecarim's (550 vs 175 attack range). Hecarim closes the gap with Devastating Charge, Onslaught of Shadows. (Lissandra basic attacks → Hecarim basic attacks)
 - Watch out: Onslaught of Shadows is displacement immune, ignoring Lissandra's Frozen Tomb (knockdown) during it.
 
-### 10. Aurora (net +1.32)
+#### 10. Aurora (net +1.32)
 
 - **1.00** untargetable: Between Worlds makes Aurora untargetable, dodging Hecarim's Onslaught of Shadows. Untargetable for 0.4 s; Onslaught of Shadows takes 1.37 s to land, enough to react. Does not destroy inbound projectiles. (Aurora R Between Worlds → Hecarim R Onslaught of Shadows)
 - **0.24** untargetable: Between Worlds makes Aurora untargetable, dodging Hecarim's Devastating Charge. Untargetable for 0.4 s; Devastating Charge lands within 0 s, faster than a 0.25 s reaction, so it needs prediction. Does not destroy inbound projectiles. (Aurora R Between Worlds → Hecarim E Devastating Charge)
 - **0.18** range: Aurora's basic attacks reach 375 units farther than Hecarim's (550 vs 175 attack range). Hecarim closes the gap with Devastating Charge, Onslaught of Shadows. (Aurora basic attacks → Hecarim basic attacks)
 
-## Full ranking
+### Full ranking
 
 | # | Champion | Net | For | Against | Hard counters |
 |--:|---|--:|--:|--:|---|

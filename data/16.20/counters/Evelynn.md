@@ -1,5 +1,158 @@
 # Counters to Evelynn (patch 26.20)
 
+## Simulated duels
+
+The duel simulator played each of the 144 other champions with a simulator kit against Evelynn: both at level 20 with 15,000 gold of plain stats, each side's spent against the other's, through six scenarios (PLAN.md §6). Scores run from −1 (Evelynn wins every time) to +1 (the champion does). Run `npm run duel -- <champion> Evelynn --log brawl` to watch a fight.
+
+| # | Champion | Score | You engage | Enemy engages | Brawl | Short trade | Spacing | Escape |
+|--:|---|--:|--:|--:|--:|--:|--:|--:|
+| 1 | Master Yi | +0.86 | +1.00 | +1.00 | +1.00 | +0.07 | +1.00 | +1.00 |
+| 2 | Trundle | +0.85 | +1.00 | +1.00 | +1.00 | −0.01 | +1.00 | +1.00 |
+| 3 | Gangplank | +0.85 | +1.00 | +1.00 | +1.00 | +0.08 | – | +1.00 |
+| 4 | Udyr | +0.84 | +1.00 | +1.00 | +1.00 | −0.08 | +1.00 | +1.00 |
+| 5 | Rengar | +0.84 | +1.00 | +1.00 | +1.00 | +0.34 | – | +0.00 |
+| 6 | Jax | +0.83 | +1.00 | +1.00 | +1.00 | +0.21 | +1.00 | +0.00 |
+| 7 | Yorick | +0.83 | +1.00 | +1.00 | +1.00 | −0.02 | – | +1.00 |
+| 8 | Tristana | +0.82 | +1.00 | +1.00 | +1.00 | +0.14 | +1.00 | +0.00 |
+| 9 | Kindred | +0.82 | +1.00 | +1.00 | +1.00 | +0.11 | +1.00 | +0.00 |
+| 10 | Miss Fortune | +0.82 | +1.00 | +1.00 | +1.00 | +0.11 | +1.00 | +0.00 |
+| 11 | Kayle | +0.82 | +1.00 | +1.00 | +1.00 | +0.11 | +1.00 | +0.00 |
+| 12 | Orianna | +0.82 | +1.00 | +1.00 | +1.00 | +0.10 | +1.00 | +0.00 |
+| 13 | Heimerdinger | +0.82 | +1.00 | +1.00 | +1.00 | +0.10 | +1.00 | +0.00 |
+| 14 | Zeri | +0.82 | +1.00 | +1.00 | +1.00 | +0.10 | +1.00 | +0.00 |
+| 15 | Teemo | +0.81 | +1.00 | +1.00 | +1.00 | +0.09 | +1.00 | +0.00 |
+| 16 | Kennen | +0.81 | +1.00 | +1.00 | +1.00 | +0.07 | +1.00 | +0.00 |
+| 17 | Rell | +0.81 | +1.00 | +1.00 | +1.00 | +0.07 | +1.00 | +0.00 |
+| 18 | Zoe | +0.81 | +1.00 | +0.97 | +1.00 | +0.12 | +1.00 | +0.00 |
+| 19 | Samira | +0.81 | +1.00 | +1.00 | +1.00 | +0.06 | +1.00 | +0.00 |
+| 20 | Fizz | +0.81 | +1.00 | +1.00 | +1.00 | +0.19 | – | +0.00 |
+| 21 | Quinn | +0.81 | +1.00 | +1.00 | +1.00 | +0.06 | +1.00 | +0.00 |
+| 22 | Fiora | +0.81 | +1.00 | +1.00 | +1.00 | −0.15 | – | +1.00 |
+| 23 | Poppy | +0.81 | +1.00 | +1.00 | +1.00 | +0.18 | – | +0.00 |
+| 24 | Jarvan IV | +0.81 | +1.00 | +1.00 | +1.00 | +0.17 | – | +0.00 |
+| 25 | Aphelios | +0.81 | +1.00 | +1.00 | +1.00 | +0.04 | +1.00 | +0.00 |
+| 26 | Xayah | +0.81 | +1.00 | +1.00 | +1.00 | +0.04 | +1.00 | +0.00 |
+| 27 | Corki | +0.80 | +1.00 | +1.00 | +1.00 | +0.03 | +1.00 | +0.00 |
+| 28 | Swain | +0.80 | +1.00 | +1.00 | +1.00 | +0.03 | +1.00 | +0.00 |
+| 29 | Graves | +0.80 | +1.00 | +1.00 | +1.00 | +0.03 | +1.00 | +0.00 |
+| 30 | Ziggs | +0.80 | +1.00 | +1.00 | +1.00 | +0.03 | +1.00 | +0.00 |
+| 31 | Viktor | +0.80 | +1.00 | +1.00 | +1.00 | +0.02 | +1.00 | +0.00 |
+| 32 | Lucian | +0.80 | +1.00 | +1.00 | +1.00 | +0.02 | +1.00 | +0.00 |
+| 33 | Olaf | +0.80 | +1.00 | +1.00 | +1.00 | +0.02 | +1.00 | +0.00 |
+| 34 | Ryze | +0.80 | +1.00 | +1.00 | +1.00 | +0.01 | +1.00 | +0.00 |
+| 35 | Lulu | +0.80 | +1.00 | +1.00 | +1.00 | +0.01 | +1.00 | +0.00 |
+| 36 | Gnar | +0.80 | +1.00 | +1.00 | +1.00 | +0.00 | +1.00 | +0.00 |
+| 37 | Ezreal | +0.80 | +1.00 | +1.00 | +1.00 | +0.00 | +0.99 | +0.00 |
+| 38 | Diana | +0.80 | +1.00 | +1.00 | +1.00 | +0.12 | – | +0.00 |
+| 39 | Morgana | +0.80 | +1.00 | +1.00 | +1.00 | −0.01 | +1.00 | +0.00 |
+| 40 | Smolder | +0.80 | +1.00 | +1.00 | +1.00 | −0.01 | +1.00 | +0.00 |
+| 41 | Jhin | +0.80 | +1.00 | +1.00 | +1.00 | −0.02 | +1.00 | +0.00 |
+| 42 | Rakan | +0.80 | +1.00 | +1.00 | +1.00 | −0.02 | +1.00 | +0.00 |
+| 43 | Alistar | +0.80 | +1.00 | +1.00 | +1.00 | +0.11 | – | +0.00 |
+| 44 | Annie | +0.79 | +1.00 | +1.00 | +1.00 | −0.04 | +1.00 | +0.00 |
+| 45 | Skarner | +0.79 | +1.00 | +1.00 | +1.00 | +0.07 | – | +0.00 |
+| 46 | Ashe | +0.79 | +1.00 | +1.00 | +1.00 | −0.07 | +1.00 | +0.00 |
+| 47 | Tryndamere | +0.79 | +1.00 | +1.00 | +1.00 | +0.07 | – | +0.00 |
+| 48 | Urgot | +0.79 | +1.00 | +1.00 | +1.00 | −0.07 | +1.00 | +0.00 |
+| 49 | Ekko | +0.79 | +1.00 | +1.00 | +1.00 | +0.07 | – | +0.00 |
+| 50 | Sivir | +0.79 | +1.00 | +1.00 | +1.00 | −0.07 | +1.00 | +0.00 |
+| 51 | Akshan | +0.79 | +1.00 | +1.00 | +1.00 | −0.07 | +1.00 | +0.00 |
+| 52 | Yasuo | +0.79 | +1.00 | +1.00 | +1.00 | +0.07 | – | +0.00 |
+| 53 | Jinx | +0.79 | +1.00 | +1.00 | +1.00 | −0.08 | +1.00 | +0.00 |
+| 54 | Kalista | +0.79 | +1.00 | +1.00 | +1.00 | −0.08 | +1.00 | +0.00 |
+| 55 | Twitch | +0.79 | +1.00 | +1.00 | +1.00 | −0.09 | +1.00 | +0.00 |
+| 56 | Jayce | +0.79 | +1.00 | +1.00 | +1.00 | +0.05 | – | +0.00 |
+| 57 | Neeko | +0.79 | +1.00 | +1.00 | +1.00 | −0.09 | +1.00 | +0.00 |
+| 58 | Karma | +0.79 | +0.96 | +1.00 | +1.00 | −0.03 | +1.00 | +0.00 |
+| 59 | Aurora | +0.79 | +1.00 | +1.00 | +1.00 | −0.10 | +1.00 | +0.00 |
+| 60 | Maokai | +0.78 | +1.00 | +1.00 | +1.00 | +0.04 | – | +0.00 |
+| 61 | Renekton | +0.78 | +1.00 | +1.00 | +1.00 | +0.03 | – | +0.00 |
+| 62 | Vayne | +0.78 | +1.00 | +1.00 | +1.00 | −0.11 | +1.00 | +0.00 |
+| 63 | Warwick | +0.78 | +1.00 | +1.00 | +1.00 | +0.03 | – | +0.00 |
+| 64 | Talon | +0.78 | +1.00 | +1.00 | +1.00 | +0.03 | – | +0.00 |
+| 65 | Kog'Maw | +0.78 | +1.00 | +1.00 | +1.00 | −0.11 | +1.00 | +0.00 |
+| 66 | Galio | +0.78 | +1.00 | +1.00 | +1.00 | +0.03 | – | +0.00 |
+| 67 | Twisted Fate | +0.78 | +1.00 | +1.00 | +1.00 | −0.13 | +1.00 | +0.00 |
+| 68 | Vel'Koz | +0.78 | +1.00 | +1.00 | +1.00 | −0.13 | +1.00 | +0.00 |
+| 69 | Illaoi | +0.78 | +1.00 | +1.00 | +1.00 | −0.14 | +1.00 | +0.00 |
+| 70 | Hwei | +0.78 | +1.00 | +1.00 | +1.00 | −0.14 | +1.00 | +0.00 |
+| 71 | Akali | +0.78 | +1.00 | +1.00 | +1.00 | +0.00 | – | +0.00 |
+| 72 | Nautilus | +0.78 | +1.00 | +1.00 | +1.00 | +0.00 | – | +0.00 |
+| 73 | Garen | +0.78 | +1.00 | +1.00 | +1.00 | −0.00 | – | +0.00 |
+| 74 | Rammus | +0.78 | +1.00 | +1.00 | +1.00 | −0.00 | – | +0.00 |
+| 75 | Singed | +0.78 | +1.00 | +1.00 | +1.00 | −0.01 | – | +0.00 |
+| 76 | Taric | +0.78 | +1.00 | +1.00 | +1.00 | −0.01 | – | +0.00 |
+| 77 | Riven | +0.78 | +1.00 | +1.00 | +1.00 | −0.01 | – | +0.00 |
+| 78 | Draven | +0.78 | +1.00 | +1.00 | +1.00 | −0.16 | +1.00 | +0.00 |
+| 79 | Sett | +0.78 | +1.00 | +1.00 | +1.00 | −0.01 | – | +0.00 |
+| 80 | Rumble | +0.77 | +1.00 | +1.00 | +1.00 | −0.02 | – | +0.00 |
+| 81 | Volibear | +0.77 | +1.00 | +1.00 | +1.00 | −0.02 | – | +0.00 |
+| 82 | Wukong | +0.77 | +1.00 | +1.00 | +1.00 | −0.03 | – | +0.00 |
+| 83 | Zed | +0.77 | +1.00 | +1.00 | +1.00 | −0.03 | – | +0.00 |
+| 84 | Irelia | +0.77 | +1.00 | +1.00 | +1.00 | −0.04 | – | +0.00 |
+| 85 | Nasus | +0.77 | +1.00 | +1.00 | +1.00 | −0.20 | +1.00 | +0.00 |
+| 86 | Kled | +0.77 | +1.00 | +1.00 | +1.00 | −0.05 | – | +0.00 |
+| 87 | Dr. Mundo | +0.77 | +1.00 | +1.00 | +1.00 | −0.05 | – | +0.00 |
+| 88 | Malphite | +0.77 | +1.00 | +1.00 | +1.00 | −0.06 | – | +0.00 |
+| 89 | Kassadin | +0.77 | +1.00 | +1.00 | +1.00 | −0.06 | – | +0.00 |
+| 90 | Ornn | +0.77 | +1.00 | +1.00 | +1.00 | −0.06 | – | +0.00 |
+| 91 | Shen | +0.77 | +1.00 | +1.00 | +1.00 | −0.07 | – | +0.00 |
+| 92 | Tahm Kench | +0.77 | +1.00 | +1.00 | +1.00 | −0.07 | – | +0.00 |
+| 93 | Kai'Sa | +0.77 | +1.00 | +1.00 | +1.00 | −0.23 | +1.00 | +0.00 |
+| 94 | Ambessa | +0.77 | +1.00 | +1.00 | +1.00 | −0.07 | – | +0.00 |
+| 95 | Yone | +0.77 | +1.00 | +1.00 | +1.00 | −0.07 | – | +0.00 |
+| 96 | Sejuani | +0.76 | +1.00 | +1.00 | +1.00 | −0.09 | – | +0.00 |
+| 97 | Gragas | +0.76 | +1.00 | +1.00 | +1.00 | −0.09 | – | +0.00 |
+| 98 | Vi | +0.76 | +1.00 | +1.00 | +1.00 | −0.09 | – | +0.00 |
+| 99 | Mordekaiser | +0.76 | +1.00 | +1.00 | +1.00 | −0.09 | – | +0.00 |
+| 100 | Darius | +0.76 | +1.00 | +1.00 | +1.00 | −0.10 | – | +0.00 |
+| 101 | Aatrox | +0.76 | +1.00 | +1.00 | +1.00 | −0.11 | – | +0.00 |
+| 102 | Braum | +0.76 | +1.00 | +1.00 | +1.00 | −0.11 | – | +0.00 |
+| 103 | Cho'Gath | +0.76 | +1.00 | +1.00 | +1.00 | −0.11 | – | +0.00 |
+| 104 | Lee Sin | +0.76 | +1.00 | +1.00 | +1.00 | −0.12 | – | +0.00 |
+| 105 | Gwen | +0.76 | +1.00 | +1.00 | +1.00 | −0.12 | – | +0.00 |
+| 106 | K'Sante | +0.76 | +1.00 | +1.00 | +1.00 | −0.13 | – | +0.00 |
+| 107 | Nocturne | +0.76 | +1.00 | +1.00 | +1.00 | −0.13 | – | +0.00 |
+| 108 | Xin Zhao | +0.76 | +1.00 | +1.00 | +1.00 | −0.13 | – | +0.00 |
+| 109 | Camille | +0.76 | +1.00 | +1.00 | +1.00 | −0.13 | – | +0.00 |
+| 110 | Zaahen | +0.76 | +1.00 | +1.00 | +1.00 | −0.13 | – | +0.00 |
+| 111 | Amumu | +0.75 | +1.00 | +1.00 | +1.00 | −0.14 | – | +0.00 |
+| 112 | Pantheon | +0.75 | +1.00 | +1.00 | +1.00 | −0.16 | – | +0.00 |
+| 113 | Sion | +0.75 | +1.00 | +1.00 | +1.00 | −0.18 | – | +0.00 |
+| 114 | Leona | +0.75 | +1.00 | +1.00 | +1.00 | −0.18 | – | +0.00 |
+| 115 | Hecarim | +0.74 | +1.00 | +1.00 | +1.00 | −0.22 | – | +0.00 |
+| 116 | Brand | +0.72 | +0.75 | +0.95 | +1.00 | −0.02 | +1.00 | +0.00 |
+| 117 | Janna | +0.63 | +1.00 | +1.00 | +1.00 | +0.02 | −0.70 | +0.00 |
+| 118 | LeBlanc | +0.48 | +0.92 | +0.72 | +0.00 | −0.03 | +0.71 | +0.00 |
+| 119 | Nami | +0.46 | +0.76 | +0.76 | +0.95 | −0.09 | −0.92 | +0.00 |
+| 120 | Malzahar | +0.45 | +1.00 | +0.11 | +0.81 | +0.03 | +0.07 | +0.00 |
+| 121 | Syndra | +0.42 | +1.00 | +1.00 | −0.02 | +0.02 | −0.82 | +0.00 |
+| 122 | Lux | +0.36 | +0.37 | +0.37 | +0.91 | −0.12 | +0.14 | +0.00 |
+| 123 | Cassiopeia | +0.20 | −1.00 | +1.00 | +1.00 | +0.09 | −0.10 | +0.00 |
+| 124 | Ahri | +0.09 | +1.00 | −1.00 | +1.00 | −0.06 | −1.00 | +0.00 |
+| 125 | Anivia | +0.03 | +0.07 | +0.06 | −0.00 | −0.05 | +0.05 | +0.00 |
+| 126 | Varus | −0.08 | −0.73 | −0.73 | +1.00 | −0.11 | +1.00 | +0.00 |
+| 127 | Karthus | −0.10 | −0.13 | −0.10 | −0.16 | +0.04 | −0.18 | +0.00 |
+| 128 | Thresh | −0.15 | −0.93 | +0.45 | +0.51 | −0.23 | −1.00 | +0.00 |
+| 129 | Sona | −0.20 | −1.00 | −1.00 | +1.00 | −0.01 | +1.00 | +0.00 |
+| 130 | Nunu & Willump | −0.21 | −1.00 | +1.00 | −1.00 | +0.08 | – | +0.00 |
+| 131 | Naafiri | −0.21 | +1.00 | −1.00 | −1.00 | +0.06 | – | +0.00 |
+| 132 | Caitlyn | −0.27 | +0.08 | −0.14 | −0.96 | +0.00 | −0.60 | +0.00 |
+| 133 | Vex | −0.34 | −1.00 | −1.00 | +1.00 | −0.19 | −0.17 | +0.00 |
+| 134 | Lissandra | −0.41 | −1.00 | −1.00 | +0.00 | −0.06 | +0.95 | +0.00 |
+| 135 | Veigar | −0.42 | −1.00 | +0.02 | −0.44 | +0.03 | −0.92 | +0.00 |
+| 136 | Soraka | −0.52 | −0.28 | −1.00 | −0.53 | +0.02 | −1.00 | +0.00 |
+| 137 | Vladimir | −0.56 | +0.01 | −1.00 | −1.00 | −0.08 | −1.00 | +0.00 |
+| 138 | Xerath | −0.60 | −1.00 | −1.00 | −1.00 | +0.02 | +1.00 | +0.00 |
+| 139 | Katarina | −0.78 | −1.00 | −1.00 | −1.00 | +0.00 | – | +0.00 |
+| 140 | Zyra | −0.79 | −1.00 | −1.00 | −1.00 | +0.07 | −1.00 | +0.00 |
+| 141 | Kha'Zix | −0.79 | −1.00 | −1.00 | −1.00 | −0.08 | – | +0.00 |
+| 142 | Blitzcrank | −0.80 | −1.00 | −1.00 | −1.00 | −0.14 | – | +0.00 |
+| 143 | Taliyah | −0.80 | −1.00 | −1.00 | −1.00 | −0.00 | −1.00 | +0.00 |
+| 144 | Senna | −0.80 | −1.00 | −1.00 | −1.00 | −0.01 | −1.00 | +0.00 |
+
+## Interaction ledger estimates
+
 Every champion ranked by what its kit does against Evelynn's, from the interaction ledger: projectile blocks, spell shields,
 parries, dash stops, crowd control and its defenses, range and more (PLAN.md §5). This ranking is **partial**: it weighs the
 interactions but doesn't play the fight out. The duel simulator replaces it as each champion's behavior is verified.
@@ -8,78 +161,78 @@ interactions but doesn't play the fight out. The duel simulator replaces it as e
 A hard counter shuts down part of a kit every time it is used (projectile block, attack dodge, attack block, blind, disarm, attack speed slow, attack reflect, dash stop, grounding, range) with an impact of 0.4 or more (0.5 for range).
 Run `npm run matchup -- <champion> Evelynn` for the full ledger of a matchup, with sources.
 
-## Top 10
+### Top 10
 
-### 1. Sivir (net +1.61)
+#### 1. Sivir (net +1.61)
 
 - **0.90** spell shield: Spell Shield's spell shield blocks Evelynn's Last Caress. Spell shield for 1.5 s, long enough to use ahead of Last Caress. A spell shield blocks only the first enemy ability that reaches it. (Sivir E Spell Shield → Evelynn R Last Caress)
 - **0.59** spell shield: Spell Shield's spell shield blocks Evelynn's Empowered Whiplash. Spell shield for 1.5 s, long enough to use ahead of Empowered Whiplash. A spell shield blocks only the first enemy ability that reaches it. (Sivir E Spell Shield → Evelynn E Empowered Whiplash)
 - **0.31** range: Sivir's basic attacks reach 375 units farther than Evelynn's (500 vs 125 attack range). Evelynn closes the gap with Empowered Whiplash, Last Caress. (Sivir basic attacks → Evelynn basic attacks)
 
-### 2. Kayle (net +1.28)
+#### 2. Kayle (net +1.28)
 
 - **0.90** invulnerable: Divine Judgment makes Kayle invulnerable to Evelynn's Last Caress. Invulnerable for 2.5 s, long enough to use ahead of Last Caress. (Kayle R Divine Judgment → Evelynn R Last Caress)
 - **0.38** invulnerable: Divine Judgment makes Kayle invulnerable to Evelynn's Empowered Whiplash. Invulnerable for 2.5 s, long enough to use ahead of Empowered Whiplash. (Kayle R Divine Judgment → Evelynn E Empowered Whiplash)
 - **0.24** range: Kayle's basic attacks reach 500 units farther than Evelynn's (625 vs 125 attack range). Evelynn closes the gap with Empowered Whiplash, Last Caress. (Kayle basic attacks → Evelynn basic attacks)
 - Watch out: Last Caress makes Evelynn untargetable, dodging Kayle's Starfire Spellblade.
 
-### 3. Fiora (net +1.14)
+#### 3. Fiora (net +1.14)
 
 - **0.90** parry: Riposte parries Evelynn's Last Caress. Parry for 0.75 s; Last Caress takes 0.35 s to land, enough to react. (Fiora W Riposte → Evelynn R Last Caress)
 - **0.67** parry: Riposte parries Evelynn's Allure and stuns back. Parry for 0.75 s; Allure takes 0.25 s to land, enough to react. Negating Allure's immobilizing effect turns Riposte's slow into a stun (2 s). (Fiora W Riposte → Evelynn W Allure)
 - **0.62** parry: Riposte parries Evelynn's Empowered Whiplash. Parry for 0.75 s, timed to Empowered Whiplash. (Fiora W Riposte → Evelynn E Empowered Whiplash)
 - Watch out: Last Caress makes Evelynn untargetable, dodging Fiora's Riposte.
 
-### 4. Master Yi (net +1.01)
+#### 4. Master Yi (net +1.01)
 
 - **0.90** untargetable: Alpha Strike makes Master Yi untargetable, dodging Evelynn's Last Caress. Untargetable for ?; Last Caress takes 0.35 s to land, enough to react. (Master Yi Q Alpha Strike → Evelynn R Last Caress)
 - **0.59** untargetable: Alpha Strike makes Master Yi untargetable, dodging Evelynn's Empowered Whiplash. Untargetable for ?, timed to Empowered Whiplash. (Master Yi Q Alpha Strike → Evelynn E Empowered Whiplash)
 - **0.54** untargetable: Alpha Strike makes Master Yi untargetable, dodging Evelynn's Allure. Untargetable for ?; Allure takes 0.25 s to land, enough to react. (Master Yi Q Alpha Strike → Evelynn W Allure)
 - Watch out: Last Caress makes Evelynn untargetable, dodging Master Yi's Alpha Strike.
 
-### 5. Vladimir (net +1.00)
+#### 5. Vladimir (net +1.00)
 
 - **0.90** untargetable: Sanguine Pool makes Vladimir untargetable, dodging Evelynn's Last Caress. Untargetable for 2 s, long enough to use ahead of Last Caress. (Vladimir W Sanguine Pool → Evelynn R Last Caress)
 - **0.62** untargetable: Sanguine Pool makes Vladimir untargetable, dodging Evelynn's Empowered Whiplash. Untargetable for 2 s, long enough to use ahead of Empowered Whiplash. (Vladimir W Sanguine Pool → Evelynn E Empowered Whiplash)
 - **0.57** untargetable: Sanguine Pool makes Vladimir untargetable, dodging Evelynn's Allure. Untargetable for 2 s, long enough to use ahead of Allure. (Vladimir W Sanguine Pool → Evelynn W Allure)
 - Watch out: Last Caress makes Evelynn untargetable, dodging Vladimir's Hemoplague.
 
-### 6. Xayah (net +0.91)
+#### 6. Xayah (net +0.91)
 
 - **0.79** untargetable: Featherstorm makes Xayah untargetable, dodging Evelynn's Last Caress. Untargetable for 1.5 s, long enough to use ahead of Last Caress. (Xayah R Featherstorm → Evelynn R Last Caress)
 - **0.37** untargetable: Featherstorm makes Xayah untargetable, dodging Evelynn's Empowered Whiplash. Untargetable for 1.5 s, long enough to use ahead of Empowered Whiplash. (Xayah R Featherstorm → Evelynn E Empowered Whiplash)
 - **0.33** untargetable: Featherstorm makes Xayah untargetable, dodging Evelynn's Allure. Untargetable for 1.5 s, long enough to use ahead of Allure. (Xayah R Featherstorm → Evelynn W Allure)
 - Watch out: Last Caress makes Evelynn untargetable, dodging Xayah's Featherstorm.
 
-### 7. Aurora (net +0.85)
+#### 7. Aurora (net +0.85)
 
 - **0.79** untargetable: Between Worlds makes Aurora untargetable, dodging Evelynn's Last Caress. Untargetable for 0.4 s; Last Caress takes 0.35 s to land, enough to react. Does not destroy inbound projectiles. (Aurora R Between Worlds → Evelynn R Last Caress)
 - **0.37** untargetable: Between Worlds makes Aurora untargetable, dodging Evelynn's Empowered Whiplash. Untargetable for 0.4 s, timed to Empowered Whiplash. Does not destroy inbound projectiles. (Aurora R Between Worlds → Evelynn E Empowered Whiplash)
 - **0.33** untargetable: Between Worlds makes Aurora untargetable, dodging Evelynn's Allure. Untargetable for 0.4 s; Allure takes 0.25 s to land, enough to react. Does not destroy inbound projectiles. (Aurora R Between Worlds → Evelynn W Allure)
 - Watch out: Last Caress makes Evelynn untargetable, dodging Aurora's Between Worlds.
 
-### 8. Gwen (net +0.82)
+#### 8. Gwen (net +0.82)
 
 - **0.90** untargetable: Hallowed Mist makes Gwen untargetable, dodging Evelynn's Last Caress. Untargetable for ?; Last Caress takes 0.35 s to land, enough to react. Does not destroy inbound projectiles for non-champion missiles but does so for champion missiles that attempt to pass through the mist, special cased to be targetable to turrets and monsters as well as enemies inside the mist. (Gwen W Hallowed Mist → Evelynn R Last Caress)
 - **0.59** untargetable: Hallowed Mist makes Gwen untargetable, dodging Evelynn's Empowered Whiplash. Untargetable for ?, timed to Empowered Whiplash. Does not destroy inbound projectiles for non-champion missiles but does so for champion missiles that attempt to pass through the mist, special cased to be targetable to turrets and monsters as well as enemies inside the mist. (Gwen W Hallowed Mist → Evelynn E Empowered Whiplash)
 - **0.54** untargetable: Hallowed Mist makes Gwen untargetable, dodging Evelynn's Allure. Untargetable for ?; Allure takes 0.25 s to land, enough to react. Does not destroy inbound projectiles for non-champion missiles but does so for champion missiles that attempt to pass through the mist, special cased to be targetable to turrets and monsters as well as enemies inside the mist. (Gwen W Hallowed Mist → Evelynn W Allure)
 - Watch out: Last Caress makes Evelynn untargetable, dodging Gwen's Needlework.
 
-### 9. Yuumi (net +0.79)
+#### 9. Yuumi (net +0.79)
 
 - **0.90** untargetable: You and Me! makes Yuumi untargetable, dodging Evelynn's Last Caress. Untargetable for ?; Last Caress takes 0.35 s to land, enough to react. Does not destroy inbound projectiles, special cased to be targetable to turrets. (Yuumi W You and Me! → Evelynn R Last Caress)
 - **0.80** untargetable: You and Me! makes Yuumi untargetable, dodging Evelynn's Empowered Whiplash. Untargetable for ?, timed to Empowered Whiplash. Does not destroy inbound projectiles, special cased to be targetable to turrets. (Yuumi W You and Me! → Evelynn E Empowered Whiplash)
 - **0.70** untargetable: You and Me! makes Yuumi untargetable, dodging Evelynn's Allure. Untargetable for ?; Allure takes 0.25 s to land, enough to react. Does not destroy inbound projectiles, special cased to be targetable to turrets. (Yuumi W You and Me! → Evelynn W Allure)
 - Watch out: Last Caress makes Evelynn untargetable, dodging Yuumi's Final Chapter.
 
-### 10. Fizz (net +0.67)
+#### 10. Fizz (net +0.67)
 
 - **0.90** untargetable: Playful makes Fizz untargetable, dodging Evelynn's Last Caress. Untargetable for 0.75 s; Last Caress takes 0.35 s to land, enough to react. (Fizz E Playful → Evelynn R Last Caress)
 - **0.80** untargetable: Playful makes Fizz untargetable, dodging Evelynn's Empowered Whiplash. Untargetable for 0.75 s, timed to Empowered Whiplash. (Fizz E Playful → Evelynn E Empowered Whiplash)
 - **0.70** untargetable: Playful makes Fizz untargetable, dodging Evelynn's Allure. Untargetable for 0.75 s; Allure takes 0.25 s to land, enough to react. (Fizz E Playful → Evelynn W Allure)
 - Watch out: Last Caress makes Evelynn untargetable, dodging Fizz's Chum the Waters.
 
-## Full ranking
+### Full ranking
 
 | # | Champion | Net | For | Against | Hard counters |
 |--:|---|--:|--:|--:|---|

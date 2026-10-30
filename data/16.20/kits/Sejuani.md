@@ -47,6 +47,32 @@ Notes:
 - Icebreaker will not trigger if the basic attack is blocked or misses due to blind.
 - : Icebreaker's interactions with dodging effects via basic attack.
 - : Spell shield interaction with Icebreaker.
+- {{{{{1<noinclude>|Ability data</noinclude>}}}|Fury of the North|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}
+  |champion     = Sejuani
+  |skill        = I
+  |icon         = Fury of the North.png
+  |blurb        = {{sbc|Innate - Icebreaker:}} Enemies {{tip|stun|stunned}} by {{ci|Sejuani}} are also marked ''Frozen'' at the same time. Her next {{tip|basic attack}} or {{tip|ability}} against a ''Frozen'' target will consume the mark to deal {{as|'''bonus''' magic damage}} based on {{as|their '''maximum''' health}}.
+  |blurb2      = {{sbc|Innate - Frost Armor:}} '''Sejuani''' gains ''Frost Armor'', which lingers shortly after taking damage from enemy {{tip|champions}} or large {{tip|monsters}}. She restores it after a period without taking damage from them.
+  |blurb4      = [[File:Sejuani Frost Armor.png|20px|link=]]{{sbc|Frost Armor:}} Sejuani gains {{sti|armor|{{as|'''bonus''' armor}}}} and {{sti|mr|{{as|'''bonus''' magic resist}}}}, as well as {{tip|slow-immune|slow immunity}} and {{tip|cripple-immune|cripple immunity}}.
+  |description  = {{sbc|Innate - Icebreaker:}} Enemies {{tip|stun|stunned}} by '''Sejuani''' are marked ''Frozen'' for the disable's duration. '''Sejuani's''' next {{tip|basic attack}} or {{tip|ability}} against a ''Frozen'' enemy will consume the mark to deal {{as|'''bonus''' magic damage}} equal to {{as|10% of their '''maximum''' health}}, capped at 250 against epic monsters.
+  |description2 = {{sbc|Innate - Frost Armor:}} '''Sejuani''' gains ''Frost Armor'', which lingers for 3 seconds after taking damage from enemy {{tip|champions}}, {{tip|turrets}}, or large {{tip|monsters}}. She restores it after {{pp|12 - (12-6)/17*(x-1) for 20}} seconds without taking damage from them.
+  |icon3       = Sejuani Frost Armor.png
+  |description3 = {{sbc|Frost Armor:}} '''Sejuani''' gains {{tip|slow-immune|slow immunity}}, {{tip|cripple-immune|cripple immunity}}, {{sti|armor|{{as|10 (+ 75% '''bonus''' armor) '''bonus''' armor}}}}, and {{sti|mr|{{as|10 (+ 75% '''bonus''' magic resistance) '''bonus''' magic resistance}}}}.
+  |targeting    = Passive
+  |affects      = Self, Enemies
+  |damagetype   = Magic
+  |spelleffects = proc
+  |projectile   = 
+  |grounded     = 
+  |parry        = Unknown
+  |spellshield  = unknown
+  |knockdown    = 
+  |notes        = 
+  * Gaining ''Frost Armor'' does not remove any pre-existing {{tip|slow|slows}} or {{tip|cripple|cripples}}.
+  * ''Icebreaker'' will not trigger if the basic attack is {{tip|blocked}} or misses due to {{tip|blind}}.
+  * {{Pending for test}}: ''Icebreaker's '' interactions with {{tip|dodge|dodging}} effects via basic attack.
+  * {{Pending for test}}: {{tip|Spell shield}} interaction with ''Icebreaker''.
+  }}
 
 ## Q: Arctic Assault
 
@@ -76,6 +102,37 @@ Notes:
 - Champions will be slightly knocked back, while minions and monsters will instead be slightly pulled for a fixed distance. Neither can displace through terrain.
 - Casting Flash during Arctic Assault will end the dash and affect enemies at the new location.
 - If the dash collides with an enemy champion, Sejuani will be ordered to basic attack them.
+- {{{{{1<noinclude>|Ability data</noinclude>}}}|Arctic Assault|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}
+  |champion     = Sejuani
+  |skill        = Q
+  |icon         = Arctic Assault.png
+  |blurb        = {{sbc|Active:}} {{ci|Sejuani}} {{tip|dash|dashes}} to the target location, dealing {{as|magic damage}} and briefly {{tip|airborne|knocking up}} enemies she passes through. She will stop upon hitting an enemy {{tip|champion}}.
+  |description  = {{sbc|Active:}} '''{{ui|Bristle|nolink=true}}''' {{tip|dash|dashes}} to the target location until he collides with an enemy {{tip|champion}}, dealing {{as|magic damage}} to enemies he passes through and {{tip|airborne|knocking them up}} for {{fd|0.5}} seconds.
+  |description3 = ''Arctic Assault can be cast during her other abilities without cancelling them and vice versa.''
+  |leveling     = {{st|Magic Damage|{{ap|90 to 290}} {{as|(+ 75% AP)}}}}
+  |cooldown     = {{ap|18 to 12}}
+  |cost         = {{ap|60 to 80}}
+  |costtype     = Mana
+  |cast time = none
+  |target range = {{tt|650|Maximum dash distance}}
+  |collision radius= {{tip|er|icononly = true}} {{tt|75|Center-to-edge}}
+  |speed        = 1000
+  |targeting    = Location
+  |affects      = Enemies
+  |damagetype   = Magic
+  |spellshield  = True
+  |spelleffects = Area of effect
+  |projectile   = 
+  |grounded     = True
+  |knockdown    = True
+  |outofrange   = cast at max
+  |notes        = 
+  * ''Arctic Assault'' has no minimum dash range.
+  * Champions will be slightly {{tip|airborne|knocked back}}, while [[minion]]s and [[monster]]s will instead be slightly {{tip|airborne|pulled}} for a fixed distance. Neither can displace through terrain.
+  * Casting {{si|Flash}} during ''Arctic Assault'' will end the dash and affect enemies at the new location.
+  * If the dash collides with an enemy champion, '''Sejuani''' will be ordered to basic attack them.
+  |flavorsound  = {{sm2|Sejuani_Original_Q_0.ogg}} ''"Stampede!"''
+  }}
 
 ## W: Winter's Wrath
 
@@ -110,6 +167,38 @@ Notes:
 - Spell shields will block only a single instance of damage - either the swing or the lash.
 - This ability will cast from wherever the caster is at the end of the cast time.
     - Both swings will strike in the cast direction, but the second swing will do so from Sejuani's location at the end of the cast time.
+- {{{{{1<noinclude>|Ability data</noinclude>}}}|Winter's Wrath|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}
+  |champion     = Sejuani
+  |skill        = W
+  |icon         = Winter's Wrath.png
+  |blurb        = {{sbc|Active:}} {{ci|Sejuani}} swings her flail in a cone in the target direction that deals {{as|physical damage}} to enemies hit, {{tip|airborne|knocking back}} {{tip|minions}} and {{tip|monsters}}.
+  |blurb2       = She then lashes out the flail in a line in the same direction, dealing {{as|physical damage}} and briefly {{tip|slow|slowing}} enemies hit.
+  |blurb3       = '''Sejuani''' can move while casting ''Winter’s Wrath''.
+  |description  = {{sbc|Active:}} After {{fd|0.25}} seconds into the cast time, '''Sejuani''' swings her flail in a cone in the target direction that deals {{as|physical damage}} to enemies hit and {{tip|airborne|knocks back}} {{tip|minions}} and {{tip|monsters}} hit, though not through terrain.
+  |leveling     = {{st|Physical Damage|{{ap|5 to 45}} {{as|(+ 30% AP)}} {{as|(+ 4% of her '''maximum''' health)}}}}
+  |description2 = After the cast time, '''Sejuani''' lashes out with her flail in a line in the same direction, dealing {{as|physical damage}} to enemies hit and {{tip|slow|slowing}} them by 75% for {{fd|0.25}} seconds.
+  |leveling2    = {{st|Physical Damage|{{ap|5 to 85}} {{as|(+ 60% AP)}} {{as|(+ 8% of her '''maximum''' health)}}|Total Physical Damage|{{ap|5+5 to 45+85}} {{as|(+ {{ap|30+60}}% AP)}} {{as|(+ {{ap|8+4}}% of her '''maximum''' health)}}}}
+  |description3 = '''''Sejuani''' can move during Winter's Wrath's cast time.''
+  |cost         = 60
+  |costtype     = Mana
+  |cast time    = 1
+  |cooldown     = {{ap|9 to 5}}
+  |target range = 600
+  |angle        = 70{{degree}}
+  |width        = {{tip|er|icononly = true}} 150
+  |targeting    = Direction
+  |affects      = Enemies
+  |damagetype   = Physical
+  |spellshield  = Special
+  |spelleffects = spellaoe
+  |projectile   = False
+  |grounded     = 
+  |knockdown    = 
+  |notes        = 
+  * {{tip|Spell shield|Spell shields}} will block only a single instance of damage - either the swing or the lash.
+  {{Effect at cast time end}}
+  ** Both swings will strike in the cast direction, but the second swing will do so from '''Sejuani's''' location at the end of the cast time.
+  }}
 
 ## E: Permafrost
 
@@ -145,6 +234,42 @@ Notes:
 - : Permafrost's stack application interaction with parrying effects (dodge, blind).
 - Alpha Strike does not interact with Permafrost.
 - If the target becomes untargetable, dies, or is too far away or no longer in sight during the cast time, this ability will cancel but still go on cooldown and pay its cost.
+- {{{{{1<noinclude>|Ability data</noinclude>}}}|Permafrost|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}
+  |champion     = Sejuani
+  |skill        = E
+  |icon         = Sejuani Frost Stack.png
+  |blurbicon    = Sejuani Permafrost.png
+  |blurb        = {{sbc|Passive:}} {{ai|Winter's Wrath|Sejuani}} and both {{cis|Sejuani}} and nearby allied {{tip|melee}} champions' {{tip|basic attacks}} {{tip|on-hit}} apply {{tip|stacks}} of ''Frost'' against {{tip|champions}}, medium / large {{tip|monsters}} and large {{tip|minions}}, which lasts a few seconds and stacks up to a cap. '''Sejuani''' can cast ''Permafrost'' against an enemy with max stacks.
+  |blurb2       = {{sbc|Active:}} '''Sejuani''' hurls a trap at the target enemy that consumes their ''Frost'' stacks and {{tip|knockdown|knocks them down}}, dealing {{as|magic damage}} and briefly {{tip|stun|stunning}} them.
+  |blurb3       =  Once an enemy's ''Frost'' stacks are consumed, they cannot gain any more for a period.
+  |description  = {{sbc|Passive - Frostbrand:}} ''{{ai|Winter's Wrath|Sejuani}}'' and both '''Sejuani's''' and nearby allied {{tip|melee}} champions' {{tip|basic attacks}} {{tip|on-hit}} apply {{tip|stacks}} of ''Frost'' to enemy {{tip|champions}}, medium or large {{tip|monsters}}, and large {{tip|minions}} for 5 seconds, refreshing on subsequent applications and stacking up to 4 times, though not applying if the target is ''{{ai|Fury of the North|Sejuani|Frozen}}''. Enemies hit by ''Permafrost'' or ''{{ais|Glacial Prison|Sejuani}}'' bola have all of their ''Frost'' stacks consumed. Enemy champions cannot be affected by ''Frost'' for 8 seconds after having it consumed. <br/><br/>'''Sejuani''' can cast ''Permafrost'' against an enemy with 4 stacks.
+  |icon2        = Permafrost.png
+  |description2 = {{sbc|Active:}} '''Sejuani''' hurls a trap at the {{tip|sight|visible}} enemy with 4 stacks of ''Frost'' closest to the cursor, which deals {{as|magic damage}}, {{tt|displaces|Does not apply airborne nor is a knockdown. Applies a move block (forced movement) which can interrupt dashes and other displacements.}} them slightly, and {{tip|stun|stuns}} them for 1 second.
+  |leveling2    = {{st|Magic Damage|{{ap|55 to 255}} {{as|(+ 70% AP)}}}}
+  |description3 = ''Permafrost {{tip|basic attack reset|resets}} '''Sejuani's''' basic attack timer.''
+  |cost         = 20
+  |costtype     = Mana
+  |cast time    = {{fd|0.25}}
+  |cooldown     = {{fd|1.5}}
+  |target range = {{tip|cr|icononly=true}} 600
+  |effect radius= {{tt|1100|Frost stack aura}}
+  |targeting    = Unit
+  |affects      = Enemies, Allies, Self
+  |damagetype   = Magic
+  |spellshield  = True
+  |spelleffects = Single target
+  |projectile   = True
+  |callforhelp  = True
+  |parry = unknown
+  |grounded     = 
+  |knockdown    = 
+  |notes        = 
+  * ''Permafrost's'' targeting prioritizes champions within {{tip|cr|icononly=true}} 50 units of the cursor's selection, then non-champions within {{tip|cr|icononly=true}} 50 units of the cursor's selection, then champions within {{tip|cr|icononly=true}} 350 units of the cursor's selection, then the closest unit to the cursor within {{tip|cr|icononly=true}} 2500 units (the last case strictly applies if there is '''no''' target being selected).
+  * ''Frost'' stacks will not be applied if the basic attack is {{tip|blocked}}.
+  * {{Pending for test}}: ''Permafrost's'' stack application interaction with ''parrying'' effects ({{ai|Counter Strike|Jax|dodge}}, {{tip|blind}}).
+  * {{cai|Alpha Strike|Master Yi}} does '''not''' interact with ''Permafrost''.{{bug|2}}
+  * If the target becomes {{tip|untargetable}}, {{tip|death|dies}}, or is too far away or no longer in {{tip|sight}} during the cast time, this ability will cancel but still go on {{sti|cooldown}} and pay its cost.{{bug}}
+  }}
 
 ## R: Glacial Prison
 
@@ -184,6 +309,44 @@ Notes:
 - Spell shields will block only a single instance of damage.
 - This ability will cast from wherever the caster is at the end of the cast time.
 - Both areas of effect will be centered on the first champion struck, not at the location the missile collided with them.
+- {{{{{1<noinclude>|Ability data</noinclude>}}}|Glacial Prison|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}
+  |champion     = Sejuani
+  |skill        = R
+  |icon         = Glacial Prison.png
+  |blurb        = {{sbc|Active:}} {{ci|Sejuani}} throws an ice bola in the target direction that stops upon hitting an enemy champion, dealing {{as|magic damage}} and briefly {{tip|stun|stunning}} them.
+  |blurb2       = If the bola travels far enough, it becomes empowered to detonate upon reaching max range or hitting an enemy champion, gaining increased damage and stun duration. The detonation creates a frost storm that {{tip|slows}} enemies within and shatters after a few seconds, dealing the increased damage to all enemies within.
+  |blurb3       = After a brief moment, the storm shatters to deal {{as|magic damage}} and briefly {{tip|slow}} enemies within.
+  |description  = {{sbc|Active:}} '''Sejuani''' throws an ice bola in the target direction that stops upon hitting an enemy champion, dealing {{as|magic damage}} and {{tip|stun|stunning}} them for 1 second.
+  |leveling     = {{st|Magic Damage|{{ap|125 to 175}} {{as|(+ 40% AP)}}}}
+  |description2 =  If the bola travels at least 425 units, it becomes empowered to detonate upon reaching maximum range or hitting an enemy champion, dealing increased {{as|magic damage}} and {{tip|stun|stunning}} for {{fd|1.5}} seconds instead. For the same duration, a frost storm is created around the location of the detonation that {{tip|slows}} enemies within by 30% and grants {{tip|sight}} of the area in a smaller radius.
+  |leveling2    = {{st|Increased Damage|{{ap|200 to 400}} {{as|(+ 80% AP)}}}}
+  |description3 = After 2 seconds, the storm shatters to deal the increased {{as|magic damage}} to enemies within and {{tip|slow}} them by 80% for 1 second, as well as {{tip|standard sight|revealing}} them and granting {{tip|sight}} of the area for {{fd|0.5}} seconds.
+  |description4 = The enemy hit by the bola is unaffected by the storm's effects.
+  |cooldown     = {{ap|120 to 90}}
+  |cast time    = {{fd|0.25}}
+  |target range = 1300
+  |width        = {{tip|er|icononly = true}} 240
+  |effect radius= {{dv|{{tip|cr|icononly = true}} {{tt|450|Storm damage radius}}|{{tip|er|icononly = true}} {{tt|450|Storm slow radius}}|{{tip|sight|icononly=true}}{{tt|300|Storm sight radius}}}}
+  |cost         = 100
+  |costtype     = Mana
+  |speed        = 1600
+  |targeting    = Direction
+  |affects      = Enemies
+  |damagetype   = Magic
+  |spellshield  = Special
+  |spelleffects = Special
+  |projectile   = True
+  |grounded     = 
+  |knockdown    = 
+  |notes        = 
+  * Applies {{tip|spell damage}} to the primary target and {{tip|area damage}} to secondary targets in the ice storm.
+  * {{tip|Spell shield|Spell shields}} will block only a single instance of damage.
+  {{Effect at cast time end}}
+  * Both areas of effect will be centered on the first champion struck, not at the location the missile collided with them.
+  |tips=
+  * {{ai|Q|Sejuani}} can be used after casting ''Glacial Prison'' to hide the cast animation.
+  |flavorsound  = {{sm2|Sejuani_Original_R_0.ogg}} ''"A gift from the Freljord!"''
+  }}
 
 ## Game files
 
@@ -213,3 +376,129 @@ All 1 level-based formulas in the game files (1 linked to wiki values above):
 | Spell | Calculation | Rule | Level 1 | Level 18 | Level 20 |
 |---|---|---|--:|--:|--:|
 | SejuaniPassive | FrostArmorOOC | linear 12 → 6 over levels 1-18, continues past 18 | 12 | 6 | 5.29412 |
+
+## Duel simulator kit (level 20, every ability at max rank)
+
+What the duel simulator fights with (`kits/champions/Sejuani.ts`): values come from pinned wiki and versioned game-data records at level 20. Interpretations and missing evidence are listed under assumptions. Ratios are fractions of the stat (60% AD is 0.6 × AD).
+
+- Basic attack: range 150, melee.
+
+| Key | Ability | Cooldown (s) | Cast time (s) | Cost | Delivery | On the enemy | On itself |
+|---|---|--:|--:|---|---|---|---|
+| Q | Arctic Assault | 12 | 0 | 80 | dash toward 0–650 units at 1000/s, through the enemy | 290 + 75% AP magic damage; airborne for 0.5 s | – |
+| W | Winter's Wrath | 5 | 1 | 60 | self | – | – |
+| E | Permafrost | 1.5 | 0.25 | 20 | self | – | – |
+| R | Glacial Prison | 90 | 0.25 | 100 | skillshot 1300 long, 240 wide, at 1600/s | 400 + 80% AP magic damage; stun for 1.5 s | – |
+| Icebreaker | Fury of the North | 0 | 0 | – | self | – | – |
+| Qhit | Arctic Assault | 0 | 0 | – | self | 290 + 75% AP magic damage; airborne for 0.5 s | – |
+| Wfirst | Winter's Wrath | 0 | 0 | – | self | 45 + 30% AP + 4% maximum health physical damage | – |
+| Wsecond | Winter's Wrath | 0 | 0 | – | self | 85 + 60% AP + 8% maximum health physical damage; slow 75% for 0.25 s | – |
+| Eimpact | Permafrost | 0 | 0 | – | targeted, 600 range, missile at 2000/s | 255 + 70% AP magic damage; stun for 1 s | – |
+| Rslow | Glacial Prison | 0 | 0 | – | self | slow 30% for 0.033 s | – |
+| Rshatter | Glacial Prison | 0 | 0 | – | self | 400 + 80% AP magic damage; slow 80% for 1 s; standardSight for 0.5 s | – |
+| Rstorm | Glacial Prison | 0 | 0 | – | self | – | – |
+| Ewindup | Permafrost | 0 | 0 | – | self | 255 + 70% AP magic damage; stun for 1 s | – |
+| Rwindup | Glacial Prison | 0 | 0 | – | self | – | – |
+
+Effects marked by a mark or a role are completed by the kit's hooks (see the kit's source).
+
+### Assumptions
+
+- Frost Armor starts ready, grants primary10+75%external bonus armor/MR without recursive self-scaling, and blocks new slows/cripples. Its keyed contributions are recomputed from other actual buffs each tick. Existing slows keep bypassSlowImmune and existing cripples remain effective rather than being cleansed. The first qualifying champion/explicit large-monster damage packet starts one fixed3second linger; subsequent damage refreshes only the out-of-combat recovery clock. Level20 recovery retains the primary extrapolated5.29411764705882seconds (159ticks), overriding the binary's level18 endpoint6. No enemy turrets or ambient monsters are invented.
+- Icebreaker only marks an actual accepted Sejuani stun for its tenacity-adjusted duration; Q knockups do not count. The next guarded damaging ability or unblocked/nonblind basic consumes the target-local Frozen mark for10%maximumHP magic proc damage, capped250 only for explicitly epic monsters. Dodge/parry and the unresolved spell-shield interaction use ordinary shared proc guards; no successful hit or damage is inferred from a blocked packet. Frozen begins after its applying stun packet, so E/R cannot immediately trigger their newly created mark themselves. The primary does not resolve whether cleansing the stun also removes its independent Frozen mark; this model preserves the captured accepted-stun lifetime rather than inventing that removal rule.
+- Frostbrand starts empty on each actual target. Own unblocked basics and each accepted W swing add one of four5second stacks. An actual allied Champion-class pet with explicitly melee basic attacks within the sourced1100aura contributes one stack per connected unblocked basic, independently of damage-packet count; unknown ranged/melee metadata is excluded. No allied body or preduel stacks are fabricated. Only explicit Champion-class bodies, medium/large Monster-class bodies or large Minion-class bodies qualify; unknown size is not inferred from name/radius. E/R contact consumes Frost and gives actual champions8seconds of Frost immunity, including shielded contact; Frozen bodies cannot gain stacks. E selects an actual visible eligible four-stack body using sourced cursor priority, locks that recipient during its.25second cast, pays/cools down even if that body becomes invalid, resets the basic clock, then launches the exact2000speed E2 projectile. The source does not quantify its slight move-block displacement; after an accepted stun it interrupts an interruptible dash/forced movement without fabricated offset or airborne time.
+- Arctic Assault uses primary650range over binary625, primary1000speed and75center-to-edge sweep, stops at the first actual Champion-class body even through spell shielding, and hits each passed actual body once for290+75%AP with.5airborne. It has zero minimum aimed range, can overlay other cast clocks, and follows the shared terrain-crossing dash endpoint rule. The small champion knockback/nonchampion pull distance is unquantified and omitted; the sourced knockup remains. Winter's Wrath preserves an actual mobile1second cast, pays at declaration, uses the fixed cast direction, and resolves separate.25second/1second swings from the then-current caster positions. Its primary70degree cone is represented on the duel axis with600reach; binary half-angle35 and75half-width corroborate the primary150full line width. Unpublished nonchampion knockback distance is omitted, without invented airborne time.
+- Glacial Prison releases from cast completion and travels1300 at1600 with120collision radius. It passes nonchampions and stops at the first actual Champion-class body, including a real clone; contact at425travel empowers175+40%AP/1second into400+80%AP/1.5seconds. Accepted stun creates Frozen, including against a displacement-immune body but never CC immunity. Empowered collision centers the storm on the actual champion, excludes that same body from all storm effects, and survives caster death. A natural maximum-range miss creates its storm; destroying walls suppress it, while Braum interception keeps the one real champion collision and its legitimate storm. The primary ties initial30%slow to1.5seconds but separately states2seconds until shatter, conflicting with binary ZoneDuration2: preserve1.5seconds of slow and the independent2second shatter, disclosing the intervening.5second gap. Shatter deals one400+80%AP area packet,80%slow1second and.5second standard sight. Primary collision is single-target spell damage; no unsupported immediate secondary damage burst is invented at max range. Scalar sight records actual affected bodies, not unseen map objects.
+- Ordinary fight/trade/hold/flee use real Q/W/E/basic actions and reserve R in hold/trade; completed trades retreat before optional spells. Fight delays R only while real basic reach, available E mana/cooldown and landable basics can build Frost; it then uses E before R so R can consume the first Frozen and a later basic the new one. Existing Frozen/immunity, blind or attack avoidance, unavailable E, potential R finishing damage or a potentially lethal visible threat permit R immediately. No R delay is imposed throughout the larger W range. Legal E overlays remain available during other actions. Reference budgets price both W swings, primary empowered R, and E/Icebreaker at a four-stack cadence plus the target-local8second lockout, never E's unrestricted1.5second recharge. The armor multiplier prices only the nominal initial3seconds of the engine's10second defense window; ordinary simulation owns actual recovery and immunity clocks.
+- Defensive perception receives the two actual W packets at their separate absolute deadlines, one locked E cast-plus-flight packet, and R's current first Champion-class collision with its actual near/far damage and stun. An earlier real champion clone suppresses a direct owner forecast without changing missile collision entitlement. Released E keeps its actual projectile after caster death. A real secondary storm announces its own finite shatter deadline; its primary remains excluded. No root-cast estimate duplicates a stage packet, and reference W damage is priced once through its captured total-damage hint.
+
+### Source values read (86)
+
+| Ability | Value | Source version |
+|---|---|---|
+| Fury of the North | 10 (+ 75% bonus armor) | [3985822](https://wiki.leagueoflegends.com/en-us/Template:Data_Sejuani/Fury_of_the_North?oldid=3985822) |
+| Fury of the North | 10 (+ 75% bonus magic resistance) | [3985822](https://wiki.leagueoflegends.com/en-us/Template:Data_Sejuani/Fury_of_the_North?oldid=3985822) |
+| Fury of the North | lingers for 3 seconds | [3985822](https://wiki.leagueoflegends.com/en-us/Template:Data_Sejuani/Fury_of_the_North?oldid=3985822) |
+| Fury of the North | She restores it after 12 – 6 (based on level) seconds without taking damage from them. | [3985822](https://wiki.leagueoflegends.com/en-us/Template:Data_Sejuani/Fury_of_the_North?oldid=3985822) |
+| Fury of the North | equal to 10% of their maximum health | [3985822](https://wiki.leagueoflegends.com/en-us/Template:Data_Sejuani/Fury_of_the_North?oldid=3985822) |
+| Fury of the North | capped at 250 against epic monsters | [3985822](https://wiki.leagueoflegends.com/en-us/Template:Data_Sejuani/Fury_of_the_North?oldid=3985822) |
+| Fury of the North | slow immunity | [3985822](https://wiki.leagueoflegends.com/en-us/Template:Data_Sejuani/Fury_of_the_North?oldid=3985822) |
+| Fury of the North | cripple immunity | [3985822](https://wiki.leagueoflegends.com/en-us/Template:Data_Sejuani/Fury_of_the_North?oldid=3985822) |
+| Fury of the North | does not remove any pre-existing | [3985822](https://wiki.leagueoflegends.com/en-us/Template:Data_Sejuani/Fury_of_the_North?oldid=3985822) |
+| Fury of the North | will not trigger if the basic attack is blocked or misses due to blind | [3985822](https://wiki.leagueoflegends.com/en-us/Template:Data_Sejuani/Fury_of_the_North?oldid=3985822) |
+| Fury of the North | "name":"BonusArmorRatio","values":[0.75,0.75,0.75,0.75,0.75,0.75,0.75] | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/sejuani/sejuani.bin.json) |
+| Fury of the North | "name":"BonusMRBase","values":[10.0,10.0,10.0,10.0,10.0,10.0,10.0] | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/sejuani/sejuani.bin.json) |
+| Arctic Assault | Magic Damage: 90 / 140 / 190 / 240 / 290 (+ 75% AP) | [4007753](https://wiki.leagueoflegends.com/en-us/Template:Data_Sejuani/Arctic_Assault?oldid=4007753) |
+| Arctic Assault | targetRange: 650 | [4007753](https://wiki.leagueoflegends.com/en-us/Template:Data_Sejuani/Arctic_Assault?oldid=4007753) |
+| Arctic Assault | speed: 1000 | [4007753](https://wiki.leagueoflegends.com/en-us/Template:Data_Sejuani/Arctic_Assault?oldid=4007753) |
+| Arctic Assault | collisionRadius: 75 | [4007753](https://wiki.leagueoflegends.com/en-us/Template:Data_Sejuani/Arctic_Assault?oldid=4007753) |
+| Arctic Assault | knocking them up for 0.5 seconds | [4007753](https://wiki.leagueoflegends.com/en-us/Template:Data_Sejuani/Arctic_Assault?oldid=4007753) |
+| Arctic Assault | no minimum dash range | [4007753](https://wiki.leagueoflegends.com/en-us/Template:Data_Sejuani/Arctic_Assault?oldid=4007753) |
+| Arctic Assault | cast during her other abilities without cancelling them and vice versa | [4007753](https://wiki.leagueoflegends.com/en-us/Template:Data_Sejuani/Arctic_Assault?oldid=4007753) |
+| Arctic Assault | Champions will be slightly knocked back | [4007753](https://wiki.leagueoflegends.com/en-us/Template:Data_Sejuani/Arctic_Assault?oldid=4007753) |
+| Arctic Assault | "name":"MaxTravelDistance","values":[625.0,625.0,625.0,625.0,625.0,625.0,625.0] | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/sejuani/sejuani.bin.json) |
+| Arctic Assault | "cantCastWhileRooted":true | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/sejuani/sejuani.bin.json) |
+| Winter's Wrath | Physical Damage: 5 / 15 / 25 / 35 / 45 (+ 30% AP) (+ 4% of her maximum health) | [3971350](https://wiki.leagueoflegends.com/en-us/Template:Data_Sejuani/Winter's_Wrath?oldid=3971350) |
+| Winter's Wrath | Physical Damage: 5 / 25 / 45 / 65 / 85 (+ 60% AP) (+ 8% of her maximum health) | [3971350](https://wiki.leagueoflegends.com/en-us/Template:Data_Sejuani/Winter's_Wrath?oldid=3971350) |
+| Winter's Wrath | Total Physical Damage: 10 / 40 / 70 / 100 / 130 (+ 90% AP) (+ 12% of her maximum health) | [3971350](https://wiki.leagueoflegends.com/en-us/Template:Data_Sejuani/Winter's_Wrath?oldid=3971350) |
+| Winter's Wrath | targetRange: 600 | [3971350](https://wiki.leagueoflegends.com/en-us/Template:Data_Sejuani/Winter's_Wrath?oldid=3971350) |
+| Winter's Wrath | width: 150 | [3971350](https://wiki.leagueoflegends.com/en-us/Template:Data_Sejuani/Winter's_Wrath?oldid=3971350) |
+| Winter's Wrath | angle: 70° | [3971350](https://wiki.leagueoflegends.com/en-us/Template:Data_Sejuani/Winter's_Wrath?oldid=3971350) |
+| Winter's Wrath | After 0.25 seconds into the cast time | [3971350](https://wiki.leagueoflegends.com/en-us/Template:Data_Sejuani/Winter's_Wrath?oldid=3971350) |
+| Winter's Wrath | castTime: 1 | [3971350](https://wiki.leagueoflegends.com/en-us/Template:Data_Sejuani/Winter's_Wrath?oldid=3971350) |
+| Winter's Wrath | slowing them by 75% for 0.25 seconds | [3971350](https://wiki.leagueoflegends.com/en-us/Template:Data_Sejuani/Winter's_Wrath?oldid=3971350) |
+| Winter's Wrath | cooldown: 9 / 8 / 7 / 6 / 5 | [3971350](https://wiki.leagueoflegends.com/en-us/Template:Data_Sejuani/Winter's_Wrath?oldid=3971350) |
+| Winter's Wrath | can move during | [3971350](https://wiki.leagueoflegends.com/en-us/Template:Data_Sejuani/Winter's_Wrath?oldid=3971350) |
+| Winter's Wrath | Spell shields will block only a single instance of damage | [3971350](https://wiki.leagueoflegends.com/en-us/Template:Data_Sejuani/Winter's_Wrath?oldid=3971350) |
+| Winter's Wrath | second swing will do so from Sejuani's location at the end of the cast time | [3971350](https://wiki.leagueoflegends.com/en-us/Template:Data_Sejuani/Winter's_Wrath?oldid=3971350) |
+| Winter's Wrath | "coneAngleDegrees":35.0 | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/sejuani/sejuani.bin.json) |
+| Winter's Wrath | "coneRange":600.0 | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/sejuani/sejuani.bin.json) |
+| Winter's Wrath | "mCanMoveWhileChanneling":true | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/sejuani/sejuani.bin.json) |
+| Permafrost | Magic Damage: 55 / 105 / 155 / 205 / 255 (+ 70% AP) | [4061739](https://wiki.leagueoflegends.com/en-us/Template:Data_Sejuani/Permafrost?oldid=4061739) |
+| Permafrost | targetRange: 600 | [4061739](https://wiki.leagueoflegends.com/en-us/Template:Data_Sejuani/Permafrost?oldid=4061739) |
+| Permafrost | stacking up to 4 times | [4061739](https://wiki.leagueoflegends.com/en-us/Template:Data_Sejuani/Permafrost?oldid=4061739) |
+| Permafrost | for 5 seconds | [4061739](https://wiki.leagueoflegends.com/en-us/Template:Data_Sejuani/Permafrost?oldid=4061739) |
+| Permafrost | for 8 seconds | [4061739](https://wiki.leagueoflegends.com/en-us/Template:Data_Sejuani/Permafrost?oldid=4061739) |
+| Permafrost | stuns them for 1 second | [4061739](https://wiki.leagueoflegends.com/en-us/Template:Data_Sejuani/Permafrost?oldid=4061739) |
+| Permafrost | effectRadius: 1100 | [4061739](https://wiki.leagueoflegends.com/en-us/Template:Data_Sejuani/Permafrost?oldid=4061739) |
+| Permafrost | "mSpeed":2000.0 | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/sejuani/sejuani.bin.json) |
+| Permafrost | medium or large monsters, and large minions | [4061739](https://wiki.leagueoflegends.com/en-us/Template:Data_Sejuani/Permafrost?oldid=4061739) |
+| Permafrost | nearby allied melee champions | [4061739](https://wiki.leagueoflegends.com/en-us/Template:Data_Sejuani/Permafrost?oldid=4061739) |
+| Permafrost | not applying if the target is Frozen | [4061739](https://wiki.leagueoflegends.com/en-us/Template:Data_Sejuani/Permafrost?oldid=4061739) |
+| Permafrost | resets Sejuani's basic attack timer | [4061739](https://wiki.leagueoflegends.com/en-us/Template:Data_Sejuani/Permafrost?oldid=4061739) |
+| Permafrost | will cancel but still go on cooldown and pay its cost | [4061739](https://wiki.leagueoflegends.com/en-us/Template:Data_Sejuani/Permafrost?oldid=4061739) |
+| Permafrost | Does not apply airborne nor is a knockdown | [4061739](https://wiki.leagueoflegends.com/en-us/Template:Data_Sejuani/Permafrost?oldid=4061739) |
+| Permafrost | "name":"MaxStacks","values":[4.0,4.0,4.0,4.0,4.0,4.0,4.0] | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/sejuani/sejuani.bin.json) |
+| Glacial Prison | Magic Damage: 125 / 150 / 175 (+ 40% AP) | [4008031](https://wiki.leagueoflegends.com/en-us/Template:Data_Sejuani/Glacial_Prison?oldid=4008031) |
+| Glacial Prison | Increased Damage: 200 / 300 / 400 (+ 80% AP) | [4008031](https://wiki.leagueoflegends.com/en-us/Template:Data_Sejuani/Glacial_Prison?oldid=4008031) |
+| Glacial Prison | targetRange: 1300 | [4008031](https://wiki.leagueoflegends.com/en-us/Template:Data_Sejuani/Glacial_Prison?oldid=4008031) |
+| Glacial Prison | speed: 1600 | [4008031](https://wiki.leagueoflegends.com/en-us/Template:Data_Sejuani/Glacial_Prison?oldid=4008031) |
+| Glacial Prison | width: 240 | [4008031](https://wiki.leagueoflegends.com/en-us/Template:Data_Sejuani/Glacial_Prison?oldid=4008031) |
+| Glacial Prison | at least 425 units | [4008031](https://wiki.leagueoflegends.com/en-us/Template:Data_Sejuani/Glacial_Prison?oldid=4008031) |
+| Glacial Prison | stunning them for 1 second | [4008031](https://wiki.leagueoflegends.com/en-us/Template:Data_Sejuani/Glacial_Prison?oldid=4008031) |
+| Glacial Prison | stunning for 1.5 seconds | [4008031](https://wiki.leagueoflegends.com/en-us/Template:Data_Sejuani/Glacial_Prison?oldid=4008031) |
+| Glacial Prison | effectRadius (Storm damage radius): 450 • 450 • 300 | [4008031](https://wiki.leagueoflegends.com/en-us/Template:Data_Sejuani/Glacial_Prison?oldid=4008031) |
+| Glacial Prison | effectRadius (Storm sight radius): 450 • 450 • 300 | [4008031](https://wiki.leagueoflegends.com/en-us/Template:Data_Sejuani/Glacial_Prison?oldid=4008031) |
+| Glacial Prison | slows enemies within by 30% | [4008031](https://wiki.leagueoflegends.com/en-us/Template:Data_Sejuani/Glacial_Prison?oldid=4008031) |
+| Glacial Prison | After 2 seconds | [4008031](https://wiki.leagueoflegends.com/en-us/Template:Data_Sejuani/Glacial_Prison?oldid=4008031) |
+| Glacial Prison | slow them by 80% for 1 second | [4008031](https://wiki.leagueoflegends.com/en-us/Template:Data_Sejuani/Glacial_Prison?oldid=4008031) |
+| Glacial Prison | sight of the area for 0.5 seconds | [4008031](https://wiki.leagueoflegends.com/en-us/Template:Data_Sejuani/Glacial_Prison?oldid=4008031) |
+| Glacial Prison | enemy hit by the bola is unaffected by the storm's effects | [4008031](https://wiki.leagueoflegends.com/en-us/Template:Data_Sejuani/Glacial_Prison?oldid=4008031) |
+| Glacial Prison | centered on the first champion struck | [4008031](https://wiki.leagueoflegends.com/en-us/Template:Data_Sejuani/Glacial_Prison?oldid=4008031) |
+| Glacial Prison | Spell shields will block only a single instance of damage | [4008031](https://wiki.leagueoflegends.com/en-us/Template:Data_Sejuani/Glacial_Prison?oldid=4008031) |
+| Glacial Prison | "name":"ZoneDuration","values":[2.0,2.0,2.0,2.0,2.0,2.0,2.0] | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/sejuani/sejuani.bin.json) |
+| Glacial Prison | "mRequiredUnitTags":{"mObjectTagList":["{ea595ca6}"] | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/sejuani/sejuani.bin.json) |
+| Glacial Prison | "mMissileWidth":120.0 | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/sejuani/sejuani.bin.json) |
+| Permafrost | castTime: 0.25 | [4061739](https://wiki.leagueoflegends.com/en-us/Template:Data_Sejuani/Permafrost?oldid=4061739) |
+| Permafrost | cooldown: 1.5 | [4061739](https://wiki.leagueoflegends.com/en-us/Template:Data_Sejuani/Permafrost?oldid=4061739) |
+| Glacial Prison | castTime: 0.25 | [4008031](https://wiki.leagueoflegends.com/en-us/Template:Data_Sejuani/Glacial_Prison?oldid=4008031) |
+| Glacial Prison | cooldown: 120 / 105 / 90 | [4008031](https://wiki.leagueoflegends.com/en-us/Template:Data_Sejuani/Glacial_Prison?oldid=4008031) |
+| Permafrost | champions within 50 units | [4061739](https://wiki.leagueoflegends.com/en-us/Template:Data_Sejuani/Permafrost?oldid=4061739) |
+| Permafrost | champions within 350 units | [4061739](https://wiki.leagueoflegends.com/en-us/Template:Data_Sejuani/Permafrost?oldid=4061739) |
+| Permafrost | within 2500 units | [4061739](https://wiki.leagueoflegends.com/en-us/Template:Data_Sejuani/Permafrost?oldid=4061739) |
+| Arctic Assault | cooldown: 18 / 16.5 / 15 / 13.5 / 12 | [4007753](https://wiki.leagueoflegends.com/en-us/Template:Data_Sejuani/Arctic_Assault?oldid=4007753) |
+| Arctic Assault | cost: 60 / 65 / 70 / 75 / 80 | [4007753](https://wiki.leagueoflegends.com/en-us/Template:Data_Sejuani/Arctic_Assault?oldid=4007753) |
+| Arctic Assault | castTime: none | [4007753](https://wiki.leagueoflegends.com/en-us/Template:Data_Sejuani/Arctic_Assault?oldid=4007753) |
+| Winter's Wrath | cost: 60 | [3971350](https://wiki.leagueoflegends.com/en-us/Template:Data_Sejuani/Winter's_Wrath?oldid=3971350) |
+| Permafrost | cost: 20 | [4061739](https://wiki.leagueoflegends.com/en-us/Template:Data_Sejuani/Permafrost?oldid=4061739) |
+| Glacial Prison | cost: 100 | [4008031](https://wiki.leagueoflegends.com/en-us/Template:Data_Sejuani/Glacial_Prison?oldid=4008031) |

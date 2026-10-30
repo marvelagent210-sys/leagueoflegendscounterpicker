@@ -260,6 +260,17 @@
       "Spell shield will block the tether's application and initial damage but not the aftereffects of one already applied.",
       "The tether remains for a minimum of 0.25 seconds regardless of distance.",
       "This ability will cast from wherever the caster is at the end of the cast time."
+    ],
+    "gameSources": [
+      {
+        "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/leblanc/leblanc.bin.json",
+        "sha256": "c701b73e304bf408747f7feee6f019b1ba5817498cc9700e36791aade2fca44a",
+        "object": "Characters/Leblanc/Spells/LeblancEAbility/LeblancE",
+        "text": [
+          "mSpell.mCastingBreaksStealth: true"
+        ]
+      }
     ]
   },
   {
@@ -492,7 +503,7 @@
         "values": []
       },
       {
-        "text": "Sigil of Malice's orb deals 10 – 146 (based on level) bonus magic damage against minions and refunds 100% of its mana cost and 30% of its remaining cooldown if either the orb or its mark's consumption kills the target.",
+        "text": "Sigil of Malice's orb deals 10 \u2013 146 (based on level) bonus magic damage against minions and refunds 100% of its mana cost and 30% of its remaining cooldown if either the orb or its mark's consumption kills the target.",
         "leveling": [],
         "mechanics": [],
         "values": [
@@ -523,7 +534,7 @@
               ],
               "past18": "game files"
             },
-            "context": "Sigil of Malice's orb deals 10 – 146 (based on level) bonus magic damage against minions and refunds 100% of its mana cost and 30% of its remaining cooldown if either the orb or its mark's consumption kills the target."
+            "context": "Sigil of Malice's orb deals 10 \u2013 146 (based on level) bonus magic damage against minions and refunds 100% of its mana cost and 30% of its remaining cooldown if either the orb or its mark's consumption kills the target."
           }
         ]
       }
@@ -532,6 +543,17 @@
     "notes": [
       "Sigil of Malice and Mimic: Sigil of Malice can detonate each other's marks.",
       "The floating damage text upon the mark's detonation currently displays a real critical strike icon instead of a success indicator.* If the target becomes untargetable, dies, or is too far away or no longer in sight during the cast time, this ability will cancel but does not go on cooldown nor pay its cost (if applicable)."
+    ],
+    "gameSources": [
+      {
+        "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/leblanc/leblanc.bin.json",
+        "sha256": "c701b73e304bf408747f7feee6f019b1ba5817498cc9700e36791aade2fca44a",
+        "object": "Characters/Leblanc/Spells/LeblancQAbility/LeblancQ",
+        "text": [
+          "mSpell.mCastingBreaksStealth: true"
+        ]
+      }
     ]
   },
   {
@@ -783,6 +805,57 @@
     "notes": [
       "Mimic will default to Mimic: Sigil of Malice if LeBlanc ranks up Mimic without having used any abilities beforehand (even if she has not yet learned Sigil of Malice).",
       "Both Mimic: Ethereal Chains and Mimic: Sigil of Malice will apply damage twice if the original ability's condition to do so is met."
+    ],
+    "gameSources": [
+      {
+        "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/leblanc/leblanc.bin.json",
+        "sha256": "c701b73e304bf408747f7feee6f019b1ba5817498cc9700e36791aade2fca44a",
+        "object": "Characters/Leblanc/Spells/LeblancRQAbility/LeblancRQ",
+        "text": [
+          "mSpell.spellCastTime: 0.25",
+          "mSpell.mCastingBreaksStealth: true"
+        ]
+      },
+      {
+        "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/leblanc/leblanc.bin.json",
+        "sha256": "c701b73e304bf408747f7feee6f019b1ba5817498cc9700e36791aade2fca44a",
+        "object": "Characters/Leblanc/Spells/LeblancREAbility/LeblancRE",
+        "text": [
+          "mSpell.spellCastTime: 0.25",
+          "mSpell.mCastingBreaksStealth: true"
+        ]
+      },
+      {
+        "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/leblanc/leblanc.bin.json",
+        "sha256": "c701b73e304bf408747f7feee6f019b1ba5817498cc9700e36791aade2fca44a",
+        "object": "Characters/Leblanc/Spells/LeblancRAbility/LeblancR",
+        "text": [
+          "mSpell.mMaxAmmo: [2,2,2,2,2,2,2]",
+          "mSpell.mAmmoUsed: [0,0,0,0,0,0,0]",
+          "mSpell.mAmmoRechargeTime: [5.0,5.0,5.0,5.0,5.0,5.0,5.0]"
+        ]
+      },
+      {
+        "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/leblanc/leblanc.bin.json",
+        "sha256": "c701b73e304bf408747f7feee6f019b1ba5817498cc9700e36791aade2fca44a",
+        "object": "Characters/Leblanc/Spells/LeblancRWAbility/LeblancRWReturn",
+        "text": [
+          "mSpell.mCastingBreaksStealth: true"
+        ]
+      },
+      {
+        "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/leblanc/leblanc.bin.json",
+        "sha256": "c701b73e304bf408747f7feee6f019b1ba5817498cc9700e36791aade2fca44a",
+        "object": "Characters/Leblanc/Spells/LeblancRWAbility/LeblancRW",
+        "text": [
+          "mSpell.mCastingBreaksStealth: true"
+        ]
+      }
     ]
   },
   {
@@ -836,7 +909,7 @@
         "values": []
       },
       "targetRange": {
-        "text": "600 • Global",
+        "text": "600 \u2022 Global",
         "values": [
           {
             "series": {
@@ -954,6 +1027,28 @@
       "The initial cast counts as an ability activation for the purposes of on-cast effects such as Spellblade and triggering Force Pulse passive.\n  - Recasting the ability does not.\n  - Mimic: Distortion has the same properties.",
       "Distortion and Mimic: Distortion have independent return pads and LeBlanc can travel to both while they are active.",
       "Distortion's pad duration starts once the dash ends."
+    ],
+    "gameSources": [
+      {
+        "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/leblanc/leblanc.bin.json",
+        "sha256": "c701b73e304bf408747f7feee6f019b1ba5817498cc9700e36791aade2fca44a",
+        "object": "Characters/Leblanc/Spells/LeblancWAbility/LeblancW",
+        "text": [
+          "mSpell.spellCastTime: 0.25",
+          "mSpell.mCastingBreaksStealth: true",
+          "mSpell.castRadius: [220.0,220.0,220.0,220.0,220.0,220.0,220.0]"
+        ]
+      },
+      {
+        "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/leblanc/leblanc.bin.json",
+        "sha256": "c701b73e304bf408747f7feee6f019b1ba5817498cc9700e36791aade2fca44a",
+        "object": "Characters/Leblanc/Spells/LeblancWAbility/LeblancWReturn",
+        "text": [
+          "mSpell.mCastingBreaksStealth: true"
+        ]
+      }
     ]
   }
 ]

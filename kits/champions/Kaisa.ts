@@ -8,6 +8,7 @@ import { derive, evaluate } from "../../engine/sim/derived";
 import { petFormulaTarget } from "../../engine/sim/petTarget";
 import { projectileBlocked } from "../../engine/sim/projectileBlock";
 import { dashDistance } from "../../engine/sim/terrain";
+import { interceptProjectile } from "../../engine/sim/projectileIntercept";
 import type { AbilitySpec, Effect, HookContext } from "../../engine/sim/spec";
 import type { Pet, Unit } from "../../engine/sim/state";
 import { attackDamage, extraAttacks, scaled, ticks } from "./util";
@@ -75,7 +76,7 @@ const kaisa: KitModule = {
       applyEffect(ctx.world, ctx.self, ctx.enemy, { type: "mark", key: PLASMA, duration: plasmaSeconds, value: current }, { scale: 1 });
       applyEffect(ctx.world, ctx.self, ctx.enemy, { type: "mark", key: RECENT, duration: plasmaSeconds }, { scale: 1 });
     };
-    const cleanMissile = (ctx: HookContext, id: number) => { for (const suffix of ["release", "due", "origin", "pet", "repeat"]) delete ctx.memory[`kaisa:q:${id}:${suffix}`]; };
+    const cleanMissile = (ctx: HookContext, id: number) => { for (const suffix of ["group", "release", "due", "origin", "pet", "repeat"]) delete ctx.memory[`kaisa:q:${id}:${suffix}`]; };
     const behavior: Behavior = (view) => {
       const command = defaultBehavior(view);
       if (command?.kind === "cast" && command.ability === "R" && command.dodge === undefined) {
@@ -128,13 +129,14 @@ const kaisa: KitModule = {
           if (ctx.ability.key !== "Q") return;
           const chosen = targets(ctx.self, ctx.world), count = qEvolved(ctx.self) ? evolvedQMissiles : qMissiles, seen = new Set<number>();
           if (!chosen.length) return;
+          const group = ctx.world.nextId;
           for (let i = 0; i < count; i++) {
             const target = chosen[i % chosen.length]!, identity = target.pet?.id ?? -1, repeat = seen.has(identity), id = ctx.world.nextId++, prefix = `kaisa:q:${id}:`, release = ctx.tick + ticks(qReleaseSeconds * i / Math.max(1, count - 1)); seen.add(identity);
-            ctx.memory[`${prefix}release`] = release; ctx.memory[`${prefix}due`] = release + ticks(qDelay); ctx.memory[`${prefix}origin`] = ctx.self.x; ctx.memory[`${prefix}repeat`] = repeat;
+            ctx.memory[`${prefix}group`] = group; ctx.memory[`${prefix}release`] = release; ctx.memory[`${prefix}due`] = release + ticks(qDelay); ctx.memory[`${prefix}origin`] = ctx.self.x; ctx.memory[`${prefix}repeat`] = repeat;
             if (target.pet) ctx.memory[`${prefix}pet`] = target.pet.id;
             const minion = target.pet?.spec.targetClass === "minion";
             const onHit: Effect[] = [{ type: "damage", damageType: "physical", amount: scaled(qDamage, minion || !repeat ? 1 : qRepeat), amountFor: (self, victim) => evaluate(qDamage, self, victim) * (minion ? victim.hp < derive(victim).maxHp * qMinionThreshold ? 2 : 1 : repeat ? qRepeat : 1), ...(repeat ? { persistent: true } : {}), petDamageCategory: repeat ? "persistent" : "area" }];
-            ctx.world.missiles.push({ id, owner: ctx.self.side, source: repeat ? "Qrepeat" : "Qfirst", seenTick: ctx.tick, x: ctx.self.x, perTick: 0, homing: true, direction: target.unit.x >= ctx.self.x ? 1 : -1, travelLeft: Infinity, projectile: true, connects: false, scale: 1, onHit, impactTick: release + ticks(qDelay), expiresTick: release + ticks(qDelay) + 1, ...(target.pet ? { pet: target.pet.id } : {}) });
+            ctx.world.missiles.push({ id, owner: ctx.self.side, source: repeat ? "Qrepeat" : "Qfirst", seenTick: ctx.tick, x: ctx.self.x, perTick: 0, homing: true, direction: target.unit.x >= ctx.self.x ? 1 : -1, travelLeft: Infinity, projectile: true, connects: false, interceptable: true, scale: 1, onHit, impactTick: release + ticks(qDelay), expiresTick: release + ticks(qDelay) + 1, ...(target.pet ? { pet: target.pet.id } : {}) });
           }
         },
         onMissileTick(ctx) {
@@ -146,10 +148,19 @@ const kaisa: KitModule = {
           const target = pet ? petFormulaTarget(pet, ctx.self, ctx.tick) : ctx.enemy;
           if (!target.alive || isUntargetable(target, ctx.self) || inStasis(target)) { m.ended = true; cleanMissile(ctx, m.id); return; }
           if (ctx.tick === release) { ctx.memory[`${prefix}origin`] = ctx.self.x; m.x = ctx.self.x; }
-          const origin = Number(ctx.memory[`${prefix}origin`]), phase = Math.min(1, (ctx.tick - release) / Math.max(1, due - release)), next = origin + (target.x - origin) * phase;
-          if (projectileBlocked(ctx.world, ctx.self.side, m.x, next)) { m.ended = true; cleanMissile(ctx, m.id); return; }
+          const origin = Number(ctx.memory[`${prefix}origin`]), phase = Math.min(1, (ctx.tick - release) / Math.max(1, due - release)), from = m.x, next = origin + (target.x - origin) * phase;
+          if (interceptProjectile(ctx.world, m, from, next)) return;
+          if (projectileBlocked(ctx.world, ctx.self.side, from, next)) { m.ended = true; cleanMissile(ctx, m.id); return; }
           m.x = next;
-          if (ctx.tick >= due) { const ability = m.source === "Qfirst" ? qFirst : qRepeatAbility; if (pet) abilityHitPet(ctx.world, ctx.self, pet, ability, m.onHit, m.source === "Qfirst" ? "area" : "persistent"); else abilityHit(ctx.world, ctx.self, target, ability, m.onHit); m.ended = true; cleanMissile(ctx, m.id); }
+          if (ctx.tick >= due) { ctx.memory[`kaisa:qHit:${ctx.memory[`${prefix}group`]}:${pet?.id ?? "champion"}`] = true; const ability = m.source === "Qfirst" ? qFirst : qRepeatAbility; if (pet) abilityHitPet(ctx.world, ctx.self, pet, ability, m.onHit, m.source === "Qfirst" ? "area" : "persistent", 1, from); else abilityHit(ctx.world, ctx.self, target, ability, m.onHit, 1, from); m.ended = true; cleanMissile(ctx, m.id); }
+        },
+        onProjectileIntercept(ctx) {
+          if (!["Qfirst", "Qrepeat"].includes(ctx.missile.source)) return false;
+          const group = ctx.memory[`kaisa:q:${ctx.missile.id}:group`], key = `kaisa:qHit:${group}:champion`, ability = ctx.memory[key] ? qRepeatAbility : qFirst;
+          ctx.memory[key] = true;
+          // First/repeat and minion modifiers belong to the actual recipient, not the intended pet.
+          abilityHit(ctx.world, ctx.self, ctx.target, ability, ability.onHit!, 1, ctx.from);
+          return true;
         },
         onMissileEnd(ctx) { if (["Qfirst", "Qrepeat"].includes(ctx.missile.source)) cleanMissile(ctx, ctx.missile.id); },
         onAbilityHit(ctx) {

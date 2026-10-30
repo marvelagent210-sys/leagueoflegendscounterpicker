@@ -96,6 +96,7 @@ const annie: KitModule = {
         const absorbed = Math.min(hitTaken.dealt, Number(bear.memory.shield));
         bear.memory.shield = Number(bear.memory.shield) - absorbed;
         bear.hp += absorbed;
+        hitTaken.absorbed = (hitTaken.absorbed ?? 0) + absorbed;
         if (!bear.memory.shieldReacted && hitTaken.attacker.side !== bear.owner && !RETALIATION_EXCEPTIONS.has(hitTaken.ability ?? "")) {
           bear.memory.shieldReacted = true;
           const owner = hitTaken.world.units[bear.owner];
@@ -230,8 +231,9 @@ const annie: KitModule = {
             const moltenAge = (ctx.tick - Number(bear.memory.moltenStart ?? -1e9)) / 30;
             const speed = moveSpeed * (1 + (enraged ? enrageMove * Math.max(0, 1 - enrageAge / enrageSeconds) : 0) + (moltenAge < speedSeconds ? shieldSpeed * Math.max(0, 1 - moltenAge / speedSeconds) : 0));
             const gap = Math.max(0, Math.abs(ctx.enemy.x - bear.x) - ctx.enemy.spec.base.radius - attackRange);
-            if (!isUntargetable(ctx.enemy, ctx.self)) bear.x += Math.sign(ctx.enemy.x - bear.x) * Math.min(gap, speed / 30);
-            if (ctx.tick >= Number(bear.memory.attackAt ?? 0) && gap <= speed / 30 && !isUntargetable(ctx.enemy, ctx.self)) {
+            const held = bear.carriedBy !== undefined || bear.statuses?.some(status => status.key === "stasis" && (status.kind === "state" || status.kind === "cc"));
+            if (!held && !isUntargetable(ctx.enemy, ctx.self)) bear.x += Math.sign(ctx.enemy.x - bear.x) * Math.min(gap, speed / 30);
+            if (!held && ctx.tick >= Number(bear.memory.attackAt ?? 0) && gap <= speed / 30 && !isUntargetable(ctx.enemy, ctx.self)) {
               petHit(ctx.world, bear, ctx.enemy, [{ type: "damage", damageType: "magic", amount: hit, label: pet.name }], true);
               const count = Number(bear.memory.enrageAttacks ?? 0);
               bear.memory.enrageAttacks = count + 1;

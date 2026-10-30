@@ -1,5 +1,158 @@
 # Counters to Lee Sin (patch 26.20)
 
+## Simulated duels
+
+The duel simulator played each of the 144 other champions with a simulator kit against Lee Sin: both at level 20 with 15,000 gold of plain stats, each side's spent against the other's, through six scenarios (PLAN.md §6). Scores run from −1 (Lee Sin wins every time) to +1 (the champion does). Run `npm run duel -- <champion> LeeSin --log brawl` to watch a fight.
+
+| # | Champion | Score | You engage | Enemy engages | Brawl | Short trade | Spacing | Escape |
+|--:|---|--:|--:|--:|--:|--:|--:|--:|
+| 1 | Fiora | +0.83 | +1.00 | +1.00 | +1.00 | −0.03 | – | +1.00 |
+| 2 | Yorick | +0.82 | +1.00 | +1.00 | +1.00 | −0.06 | – | +1.00 |
+| 3 | Kalista | +0.82 | +1.00 | +1.00 | +1.00 | +0.15 | +1.00 | +0.00 |
+| 4 | Aphelios | +0.82 | +1.00 | +1.00 | +1.00 | +0.14 | +1.00 | +0.00 |
+| 5 | Trundle | +0.82 | +1.00 | +1.00 | +1.00 | −0.07 | – | +1.00 |
+| 6 | K'Sante | +0.81 | +1.00 | +1.00 | +1.00 | +0.10 | +1.00 | +0.00 |
+| 7 | Teemo | +0.81 | +1.00 | +1.00 | +1.00 | +0.07 | +1.00 | +0.00 |
+| 8 | Warwick | +0.81 | +1.00 | +1.00 | +1.00 | +0.17 | – | +0.00 |
+| 9 | Vayne | +0.81 | +1.00 | +1.00 | +1.00 | +0.04 | +1.00 | +0.00 |
+| 10 | Malphite | +0.80 | +1.00 | +1.00 | +1.00 | +0.12 | – | +0.00 |
+| 11 | Zaahen | +0.79 | +1.00 | +1.00 | +1.00 | +0.08 | – | +0.00 |
+| 12 | Aatrox | +0.79 | +1.00 | +1.00 | +1.00 | +0.07 | – | +0.00 |
+| 13 | Poppy | +0.79 | +1.00 | +1.00 | +1.00 | +0.07 | – | +0.00 |
+| 14 | Yasuo | +0.79 | +1.00 | +1.00 | +1.00 | +0.06 | – | +0.00 |
+| 15 | Illaoi | +0.78 | +1.00 | +1.00 | +1.00 | +0.03 | – | +0.00 |
+| 16 | Diana | +0.78 | +1.00 | +1.00 | +1.00 | +0.03 | – | +0.00 |
+| 17 | Cho'Gath | +0.78 | +1.00 | +1.00 | +1.00 | +0.01 | – | +0.00 |
+| 18 | Taric | +0.78 | +1.00 | +1.00 | +1.00 | +0.01 | – | +0.00 |
+| 19 | Jax | +0.78 | +1.00 | +1.00 | +1.00 | −0.00 | – | +0.00 |
+| 20 | Olaf | +0.78 | +1.00 | +1.00 | +1.00 | −0.02 | – | +0.00 |
+| 21 | Volibear | +0.77 | +1.00 | +1.00 | +1.00 | −0.03 | – | +0.00 |
+| 22 | Kled | +0.77 | +1.00 | +1.00 | +1.00 | −0.03 | – | +0.00 |
+| 23 | Renekton | +0.77 | +1.00 | +1.00 | +1.00 | −0.03 | – | +0.00 |
+| 24 | Nasus | +0.77 | +1.00 | +1.00 | +1.00 | −0.05 | – | +0.00 |
+| 25 | Darius | +0.77 | +1.00 | +1.00 | +1.00 | −0.06 | – | +0.00 |
+| 26 | Karma | +0.76 | +0.99 | +0.82 | +1.00 | +0.07 | +1.00 | +0.00 |
+| 27 | Braum | +0.76 | +1.00 | +1.00 | +1.00 | −0.08 | – | +0.00 |
+| 28 | Tryndamere | +0.76 | +1.00 | +1.00 | +1.00 | −0.13 | – | +0.00 |
+| 29 | Ezreal | +0.74 | +0.99 | +0.95 | +0.73 | +0.07 | +0.93 | +0.00 |
+| 30 | Ambessa | +0.62 | +1.00 | +1.00 | +0.00 | +0.38 | – | +0.00 |
+| 31 | Lulu | +0.61 | +1.00 | +1.00 | +1.00 | +0.04 | −1.00 | +0.00 |
+| 32 | Camille | +0.56 | +1.00 | +1.00 | +0.00 | +0.00 | – | +0.00 |
+| 33 | Quinn | +0.44 | +1.00 | +1.00 | +0.00 | +0.06 | −0.64 | +0.00 |
+| 34 | Corki | +0.42 | +1.00 | +1.00 | −1.00 | +0.15 | +1.00 | +0.00 |
+| 35 | Morgana | +0.42 | +0.83 | +0.67 | +0.00 | +0.12 | +0.29 | +0.00 |
+| 36 | Ashe | +0.42 | +1.00 | +1.00 | −1.00 | +0.12 | +0.98 | +0.00 |
+| 37 | Twisted Fate | +0.41 | +1.00 | +1.00 | −1.00 | +0.10 | +1.00 | +0.00 |
+| 38 | Neeko | +0.40 | +0.98 | +0.96 | −1.00 | +0.11 | +0.95 | +0.00 |
+| 39 | Yone | +0.37 | −0.02 | +1.00 | +0.49 | −0.04 | – | +0.00 |
+| 40 | Kog'Maw | +0.36 | +1.00 | +0.00 | +1.00 | +0.08 | −1.00 | +0.00 |
+| 41 | Gangplank | +0.35 | +1.00 | +1.00 | −1.00 | +0.09 | – | +0.00 |
+| 42 | Rammus | +0.33 | +1.00 | +1.00 | −1.00 | −0.04 | – | +0.00 |
+| 43 | Dr. Mundo | +0.29 | +0.10 | +0.14 | +1.00 | −0.01 | – | +0.00 |
+| 44 | Xin Zhao | +0.28 | −0.76 | +1.00 | +1.00 | −0.03 | – | +0.00 |
+| 45 | Garen | +0.28 | +1.00 | +0.00 | +0.00 | +0.03 | – | +0.00 |
+| 46 | Riven | +0.25 | −1.00 | +1.00 | +1.00 | +0.15 | – | +0.00 |
+| 47 | Jinx | +0.21 | +0.76 | +0.37 | −0.28 | +0.05 | −0.20 | +0.00 |
+| 48 | Xayah | +0.12 | +1.00 | −1.00 | +0.00 | +0.15 | +1.00 | +0.00 |
+| 49 | Sion | +0.10 | +0.00 | +0.00 | +0.50 | −0.06 | – | +0.00 |
+| 50 | Gnar | +0.10 | +0.93 | −0.18 | −1.00 | +0.06 | +0.99 | +0.00 |
+| 51 | Mordekaiser | +0.04 | −0.36 | +0.33 | +0.19 | +0.02 | – | +0.00 |
+| 52 | Jayce | +0.01 | +0.94 | −1.00 | −0.03 | +0.18 | – | +0.00 |
+| 53 | Tahm Kench | +0.01 | +0.02 | +0.02 | −0.03 | +0.01 | – | +0.00 |
+| 54 | Udyr | −0.01 | −1.00 | +1.00 | +0.00 | −0.04 | – | +0.00 |
+| 55 | Singed | −0.01 | +0.02 | −0.03 | +0.03 | −0.08 | – | +0.00 |
+| 56 | Lux | −0.05 | −1.00 | +0.78 | +0.00 | +0.09 | −0.05 | +0.00 |
+| 57 | Zeri | −0.05 | +0.00 | −1.00 | +1.00 | −0.01 | +0.00 | +0.00 |
+| 58 | Aurora | −0.10 | +0.09 | −0.07 | −0.55 | +0.03 | +0.04 | +0.00 |
+| 59 | Heimerdinger | −0.10 | −1.00 | +0.19 | +1.00 | +0.04 | −1.00 | +0.00 |
+| 60 | Anivia | −0.12 | −0.20 | −0.18 | +0.03 | −0.11 | −0.12 | +0.00 |
+| 61 | Gwen | −0.12 | −1.00 | −0.28 | +1.00 | +0.10 | – | +0.00 |
+| 62 | Kennen | −0.18 | −1.00 | −0.91 | +0.97 | +0.05 | +1.00 | +0.00 |
+| 63 | Maokai | −0.26 | +0.00 | −1.00 | +0.00 | +0.13 | – | +0.00 |
+| 64 | Ornn | −0.27 | −0.36 | −0.35 | −0.44 | +0.14 | – | +0.00 |
+| 65 | Irelia | −0.27 | −1.00 | −0.32 | +0.41 | +0.01 | – | +0.00 |
+| 66 | Kayle | −0.29 | −1.00 | +1.00 | −1.00 | +0.10 | −1.00 | +0.00 |
+| 67 | Orianna | −0.30 | −1.00 | +1.00 | −1.00 | −0.01 | −1.00 | +0.00 |
+| 68 | Hwei | −0.35 | −1.00 | −0.02 | −1.00 | +0.05 | +1.00 | +0.00 |
+| 69 | Vel'Koz | −0.36 | +0.60 | −1.00 | −1.00 | +0.28 | −1.00 | +0.00 |
+| 70 | Soraka | −0.43 | −0.44 | −0.07 | −1.00 | −0.01 | −1.00 | +0.00 |
+| 71 | Master Yi | −0.48 | −1.00 | −1.00 | +0.00 | +0.10 | – | +1.00 |
+| 72 | Graves | −0.49 | −1.00 | −1.00 | +0.00 | +0.07 | +0.00 | +0.00 |
+| 73 | Varus | −0.55 | −1.00 | +0.00 | −1.00 | −0.00 | −1.00 | +0.00 |
+| 74 | Janna | −0.55 | −1.00 | +0.00 | −1.00 | −0.01 | −1.00 | +0.00 |
+| 75 | Vi | −0.56 | −1.00 | −1.00 | +0.00 | −0.05 | – | +0.00 |
+| 76 | Shen | −0.59 | −1.00 | −1.00 | −0.19 | +0.06 | – | +0.00 |
+| 77 | Lucian | −0.59 | −1.00 | −1.00 | −1.00 | +0.04 | +1.00 | +0.00 |
+| 78 | Rakan | −0.61 | −1.00 | −1.00 | +0.00 | −0.04 | −1.00 | +0.00 |
+| 79 | Vex | −0.62 | −1.00 | −1.00 | −0.10 | +0.02 | −1.00 | +0.00 |
+| 80 | Lissandra | −0.62 | −1.00 | −1.00 | −1.00 | +0.05 | +0.71 | +0.00 |
+| 81 | Karthus | −0.72 | −1.00 | −0.64 | −1.00 | −0.05 | −1.00 | +0.00 |
+| 82 | Rengar | −0.72 | −1.00 | −1.00 | −1.00 | +0.34 | – | +0.00 |
+| 83 | Evelynn | −0.76 | −1.00 | −1.00 | −1.00 | +0.12 | – | +0.00 |
+| 84 | Skarner | −0.76 | −1.00 | −1.00 | −1.00 | +0.11 | – | +0.00 |
+| 85 | Galio | −0.76 | −1.00 | −1.00 | −1.00 | +0.08 | – | +0.00 |
+| 86 | Nami | −0.77 | −0.88 | −1.00 | −1.00 | +0.03 | −1.00 | +0.00 |
+| 87 | Jarvan IV | −0.77 | −1.00 | −1.00 | −1.00 | +0.06 | – | +0.00 |
+| 88 | Fizz | −0.77 | −1.00 | −1.00 | −1.00 | +0.04 | – | +0.00 |
+| 89 | Smolder | −0.77 | −1.00 | −1.00 | −1.00 | +0.19 | −1.00 | +0.00 |
+| 90 | Nautilus | −0.77 | −1.00 | −1.00 | −1.00 | +0.17 | −1.00 | +0.00 |
+| 91 | Sett | −0.78 | −1.00 | −1.00 | −1.00 | +0.01 | – | +0.00 |
+| 92 | Kassadin | −0.78 | −1.00 | −1.00 | −1.00 | +0.01 | – | +0.00 |
+| 93 | Naafiri | −0.78 | −1.00 | −1.00 | −1.00 | +0.01 | – | +0.00 |
+| 94 | Ziggs | −0.78 | −1.00 | −1.00 | −1.00 | +0.15 | −1.00 | +0.00 |
+| 95 | Nunu & Willump | −0.78 | −1.00 | −1.00 | −1.00 | −0.00 | – | +0.00 |
+| 96 | Annie | −0.78 | −1.00 | −1.00 | −1.00 | +0.13 | −1.00 | +0.00 |
+| 97 | Rell | −0.78 | −1.00 | −1.00 | −1.00 | +0.13 | −1.00 | +0.00 |
+| 98 | Amumu | −0.78 | −1.00 | −1.00 | −1.00 | −0.02 | – | +0.00 |
+| 99 | Nocturne | −0.78 | −1.00 | −1.00 | −1.00 | −0.03 | – | +0.00 |
+| 100 | Akshan | −0.78 | −1.00 | −1.00 | −1.00 | +0.11 | −1.00 | +0.00 |
+| 101 | Urgot | −0.78 | −1.00 | −1.00 | −1.00 | +0.10 | −1.00 | +0.00 |
+| 102 | Leona | −0.78 | −1.00 | −1.00 | −1.00 | −0.04 | – | +0.00 |
+| 103 | Pantheon | −0.78 | −1.00 | −1.00 | −1.00 | −0.04 | – | +0.00 |
+| 104 | Syndra | −0.79 | −1.00 | −1.00 | −1.00 | +0.09 | −1.00 | +0.00 |
+| 105 | Miss Fortune | −0.79 | −1.00 | −1.00 | −1.00 | +0.09 | −1.00 | +0.00 |
+| 106 | Taliyah | −0.79 | −1.00 | −1.00 | −1.00 | +0.09 | −1.00 | +0.00 |
+| 107 | Senna | −0.79 | −1.00 | −1.00 | −1.00 | +0.08 | −1.00 | +0.00 |
+| 108 | Draven | −0.79 | −1.00 | −1.00 | −1.00 | +0.08 | −1.00 | +0.00 |
+| 109 | Alistar | −0.79 | −1.00 | −1.00 | −1.00 | −0.07 | – | +0.00 |
+| 110 | Sivir | −0.79 | −1.00 | −1.00 | −1.00 | +0.07 | −1.00 | +0.00 |
+| 111 | Kha'Zix | −0.79 | −1.00 | −1.00 | −1.00 | −0.07 | – | +0.00 |
+| 112 | Hecarim | −0.79 | −1.00 | −1.00 | −1.00 | −0.08 | – | +0.00 |
+| 113 | Sejuani | −0.79 | −1.00 | −1.00 | −1.00 | −0.08 | – | +0.00 |
+| 114 | Caitlyn | −0.79 | −1.00 | −1.00 | −1.00 | +0.06 | −1.00 | +0.00 |
+| 115 | Tristana | −0.79 | −1.00 | −1.00 | −1.00 | +0.05 | −1.00 | +0.00 |
+| 116 | Xerath | −0.79 | −1.00 | −1.00 | −1.00 | +0.05 | −1.00 | +0.00 |
+| 117 | Veigar | −0.79 | −1.00 | −1.00 | −1.00 | +0.04 | −1.00 | +0.00 |
+| 118 | Ahri | −0.79 | −1.00 | −1.00 | −1.00 | +0.04 | −1.00 | +0.00 |
+| 119 | Rumble | −0.79 | −1.00 | −1.00 | −1.00 | −0.10 | – | +0.00 |
+| 120 | Swain | −0.80 | −1.00 | −0.98 | −1.00 | +0.00 | −1.00 | +0.00 |
+| 121 | Jhin | −0.80 | −1.00 | −1.00 | −1.00 | +0.03 | −1.00 | +0.00 |
+| 122 | Malzahar | −0.80 | −1.00 | −1.00 | −1.00 | +0.03 | −1.00 | +0.00 |
+| 123 | Wukong | −0.80 | −1.00 | −1.00 | −1.00 | −0.11 | – | +0.00 |
+| 124 | Zed | −0.80 | −1.00 | −1.00 | −1.00 | −0.11 | – | +0.00 |
+| 125 | Zyra | −0.80 | −1.00 | −1.00 | −1.00 | +0.02 | −1.00 | +0.00 |
+| 126 | Ryze | −0.80 | −1.00 | −1.00 | −1.00 | +0.02 | −1.00 | +0.00 |
+| 127 | Talon | −0.80 | −1.00 | −1.00 | −1.00 | −0.11 | – | +0.00 |
+| 128 | Brand | −0.80 | −1.00 | −1.00 | −1.00 | +0.01 | −1.00 | +0.00 |
+| 129 | Katarina | −0.80 | −1.00 | −1.00 | −1.00 | −0.13 | – | +0.00 |
+| 130 | Samira | −0.80 | −1.00 | −1.00 | −1.00 | −0.01 | −1.00 | +0.00 |
+| 131 | Cassiopeia | −0.80 | −1.00 | −1.00 | −1.00 | −0.01 | −1.00 | +0.00 |
+| 132 | Kai'Sa | −0.80 | −1.00 | −1.00 | −1.00 | −0.02 | −1.00 | +0.00 |
+| 133 | Zoe | −0.80 | −1.00 | −1.00 | −1.00 | −0.03 | −1.00 | +0.00 |
+| 134 | Twitch | −0.80 | −1.00 | −1.00 | −1.00 | −0.03 | −1.00 | +0.00 |
+| 135 | Ekko | −0.80 | −1.00 | −1.00 | −1.00 | −0.16 | – | +0.00 |
+| 136 | Sona | −0.80 | −1.00 | −1.00 | −1.00 | −0.03 | −1.00 | +0.00 |
+| 137 | Blitzcrank | −0.81 | −1.00 | −1.00 | −1.00 | −0.04 | −1.00 | +0.00 |
+| 138 | Viktor | −0.81 | −1.00 | −1.00 | −1.00 | −0.05 | −1.00 | +0.00 |
+| 139 | LeBlanc | −0.81 | −1.00 | −1.00 | −1.00 | −0.05 | −1.00 | +0.00 |
+| 140 | Kindred | −0.81 | −1.00 | −1.00 | −1.00 | −0.06 | −1.00 | +0.00 |
+| 141 | Gragas | −0.81 | −1.00 | −1.00 | −1.00 | −0.10 | −1.00 | +0.00 |
+| 142 | Vladimir | −0.82 | −1.00 | −1.00 | −1.00 | −0.15 | −1.00 | +0.00 |
+| 143 | Akali | −0.82 | −1.00 | −1.00 | −1.00 | −0.27 | – | +0.00 |
+| 144 | Thresh | −0.90 | −1.00 | −1.00 | −1.00 | −0.35 | −1.00 | −1.00 |
+
+## Interaction ledger estimates
+
 Every champion ranked by what its kit does against Lee Sin's, from the interaction ledger: projectile blocks, spell shields,
 parries, dash stops, crowd control and its defenses, range and more (PLAN.md §5). This ranking is **partial**: it weighs the
 interactions but doesn't play the fight out. The duel simulator replaces it as each champion's behavior is verified.
@@ -8,63 +161,63 @@ interactions but doesn't play the fight out. The duel simulator replaces it as e
 A hard counter shuts down part of a kit every time it is used (projectile block, attack dodge, attack block, blind, disarm, attack speed slow, attack reflect, dash stop, grounding, range) with an impact of 0.4 or more (0.5 for range).
 Run `npm run matchup -- <champion> LeeSin` for the full ledger of a matchup, with sources.
 
-## Top 10
+### Top 10
 
-### 1. Sivir (net +1.11)
+#### 1. Sivir (net +1.11)
 
 - **0.80** spell shield: Spell Shield's spell shield blocks Lee Sin's Dragon's Rage. Spell shield for 1.5 s, long enough to use ahead of Dragon's Rage. A spell shield blocks only the first enemy ability that reaches it. (Sivir E Spell Shield → Lee Sin R Dragon's Rage)
 - **0.31** range: Sivir's basic attacks reach 375 units farther than Lee Sin's (500 vs 125 attack range). Lee Sin closes the gap with Resonating Strike, Safeguard. (Sivir basic attacks → Lee Sin basic attacks)
 
-### 2. Morgana (net +0.98)
+#### 2. Morgana (net +0.98)
 
 - **0.80** cc immunity: Black Shield makes Morgana immune to Lee Sin's Dragon's Rage (airborne, root). Immune for 5 s, long enough to use ahead of Dragon's Rage. (Morgana E Black Shield → Lee Sin R Dragon's Rage)
 - **0.13** range: Morgana's basic attacks reach 325 units farther than Lee Sin's (450 vs 125 attack range). Lee Sin closes the gap with Resonating Strike, Safeguard. (Morgana basic attacks → Lee Sin basic attacks)
 - **0.09** cc immunity: Black Shield makes Morgana immune to Lee Sin's Cripple (slow). Immune for 5 s, long enough to use ahead of Cripple. (Morgana E Black Shield → Lee Sin E Cripple)
 
-### 3. Lissandra (net +0.97)
+#### 3. Lissandra (net +0.97)
 
 - **0.68** untargetable: Frozen Tomb makes Lissandra untargetable, dodging Lee Sin's Dragon's Rage. Untargetable for 2.5 s, long enough to use ahead of Dragon's Rage. (Lissandra R Frozen Tomb → Lee Sin R Dragon's Rage)
 - **0.19** dash stop: Frozen Tomb's knockdown can stop Lee Sin's Resonating Strike mid-dash. Must land during the dash. Fails if the dashing unit is crowd control immune, displacement immune, untargetable or spell shielded. (Lissandra R Frozen Tomb → Lee Sin Q Resonating Strike)
 - **0.18** dash stop: Frozen Tomb's knockdown can stop Lee Sin's Safeguard mid-dash. Must land during the dash. Fails if the dashing unit is crowd control immune, displacement immune, untargetable or spell shielded. (Lissandra R Frozen Tomb → Lee Sin W Safeguard)
 
-### 4. Fiora (net +0.93)
+#### 4. Fiora (net +0.93)
 
 - **0.90** parry: Riposte parries Lee Sin's Dragon's Rage and stuns back. Parry for 0.75 s; Dragon's Rage takes 0.25 s to land, enough to react. Negating Dragon's Rage's immobilizing effect turns Riposte's slow into a stun (2 s). (Fiora W Riposte → Lee Sin R Dragon's Rage)
 - **0.06** attack speed slow: Riposte cuts Lee Sin's attack speed by 25% for 2 s. 2 s on a 16 s cooldown. (Fiora W Riposte → Lee Sin basic attacks)
 
-### 5. Bard (net +0.92)
+#### 5. Bard (net +0.92)
 
 - **0.68** untargetable: Tempered Fate makes Bard untargetable, dodging Lee Sin's Dragon's Rage. Untargetable for 2.5 s, long enough to use ahead of Dragon's Rage. (Bard R Tempered Fate → Lee Sin R Dragon's Rage)
 - **0.24** range: Bard's basic attacks reach 375 units farther than Lee Sin's (500 vs 125 attack range). Lee Sin closes the gap with Resonating Strike, Safeguard. (Bard basic attacks → Lee Sin basic attacks)
 
-### 6. Nocturne (net +0.88)
+#### 6. Nocturne (net +0.88)
 
 - **0.80** spell shield: Shroud of Darkness's spell shield blocks Lee Sin's Dragon's Rage. Spell shield for 1.5 s, long enough to use ahead of Dragon's Rage. A spell shield blocks only the first enemy ability that reaches it. (Nocturne W Shroud of Darkness → Lee Sin R Dragon's Rage)
 - **0.08** cc immunity: Paranoia is displacement immune, ignoring Lee Sin's Dragon's Rage (airborne) during it. Only during Paranoia. (Nocturne R Paranoia → Lee Sin R Dragon's Rage)
 
-### 7. Vladimir (net +0.87)
+#### 7. Vladimir (net +0.87)
 
 - **0.80** untargetable: Sanguine Pool makes Vladimir untargetable, dodging Lee Sin's Dragon's Rage. Untargetable for 2 s, long enough to use ahead of Dragon's Rage. (Vladimir W Sanguine Pool → Lee Sin R Dragon's Rage)
 - **0.12** range: Vladimir's basic attacks reach 325 units farther than Lee Sin's (450 vs 125 attack range). Lee Sin closes the gap with Resonating Strike, Safeguard. (Vladimir basic attacks → Lee Sin basic attacks)
 - Watch out: Dragon's Rage's airborne interrupts Vladimir's Tides of Blood (charge-up).
 
-### 8. Xayah (net +0.87)
+#### 8. Xayah (net +0.87)
 
 - **0.61** untargetable: Featherstorm makes Xayah untargetable, dodging Lee Sin's Dragon's Rage. Untargetable for 1.5 s, long enough to use ahead of Dragon's Rage. (Xayah R Featherstorm → Lee Sin R Dragon's Rage)
 - **0.26** range: Xayah's basic attacks reach 400 units farther than Lee Sin's (525 vs 125 attack range). Lee Sin closes the gap with Resonating Strike, Safeguard. (Xayah basic attacks → Lee Sin basic attacks)
 
-### 9. Udyr (net +0.86)
+#### 9. Udyr (net +0.86)
 
 - **0.80** cc immunity: Blazing Stampede makes Udyr immune to Lee Sin's Dragon's Rage (airborne, root). Immune for 1.5 s, long enough to use ahead of Dragon's Rage. (Udyr E Blazing Stampede → Lee Sin R Dragon's Rage)
 - **0.11** cc immunity: Blazing Stampede makes Udyr immune to Lee Sin's Cripple (slow). Immune for 1.5 s, long enough to use ahead of Cripple. (Udyr E Blazing Stampede → Lee Sin E Cripple)
 
-### 10. Singed (net +0.85)
+#### 10. Singed (net +0.85)
 
 - **0.39** grounding: Mega Adhesive grounds Lee Sin, who then can't cast Resonating Strike. Grounded while in the area; 13 s cooldown. (Singed W Mega Adhesive → Lee Sin Q Resonating Strike)
 - **0.39** grounding: Mega Adhesive grounds Lee Sin, who then can't cast Safeguard. Grounded while in the area; 13 s cooldown. (Singed W Mega Adhesive → Lee Sin W Safeguard)
 - **0.18** anti-heal: Insanity Potion's Grievous Wounds cuts Lee Sin's healing from Iron Will by 40%. (Singed R Insanity Potion → Lee Sin W Iron Will)
 
-## Full ranking
+### Full ranking
 
 | # | Champion | Net | For | Against | Hard counters |
 |--:|---|--:|--:|--:|---|

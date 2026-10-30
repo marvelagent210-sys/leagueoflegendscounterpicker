@@ -122,7 +122,7 @@
       "control": "R or Alt + Right Click",
       "targeting": "Champion",
       "spelleffects": "Basic attacks do not apply spell effects.",
-      "leash": "1125",
+      "leash": "1125 (Leash range (estimated))",
       "abilities": "* When summoned, Mirror Image will automatically run away from the damage source that brought LeBlanc below 40% maximum health. If triggered without damage, Mirror Image will run in the direction LeBlanc is facing.\n** Mirror Image is visually different to LeBlanc and her allies but visually identical to her enemies (Mirror Image displays her real stats if clicked on).\n* Mirror Image's basic attacks do not apply on-hit effects (they do not apply life steal and critical strikes will not damage their target)."
     }
   }

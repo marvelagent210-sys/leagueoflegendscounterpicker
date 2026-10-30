@@ -42,6 +42,24 @@ Innate: Periodically, after casting an ability, Gragas heals himself for 5.5% of
 Notes:
 
 - No additional details.
+- {{{{{1<noinclude>|Ability data</noinclude>}}}|Happy Hour|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}
+  |champion     = Gragas
+  |skill        = I
+  |icon         = Happy Hour.png
+  |blurb        = {{sbc|Innate:}} Every few seconds, {{ci|Gragas}} will {{tip|heal}} a portion of {{as|his '''maximum''' health}} upon casting an {{tip|ability}}.
+  |description  = {{sbc|Innate:}} Periodically, after casting an {{tip|ability}}, '''Gragas''' {{tip|heals}} himself for {{as|{{sti|health|{{fd|5.5}}% of his '''maximum''' health}}}}.
+  |static       = {{pp|12 to 6|1;6;11;16}}
+  |targeting    = Passive
+  |affects      = Self
+  |damagetype   = 
+  |spellshield  = 
+  |spelleffects = 
+  |projectile   = 
+  |grounded     = 
+  |knockdown    = 
+  |notes        = 
+  * No additional details.
+  }}
 
 ## Q: Barrel Roll
 
@@ -83,6 +101,47 @@ Notes:
 - The charge-up countdown will only start once the cask stops rolling.
 - This ability will cast from wherever the caster is at the end of the cast time.
 - The ability will not preserve the caster's facing direction when using Flash and similar effects.
+- {{{{{1<noinclude>|Ability data</noinclude>}}}|Barrel Roll|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}
+  |champion     = Gragas
+  |skill        = Q
+  |icon         = Barrel Roll.png
+  |blurbicon    = Barrel Roll.png
+  |blurb        = {{sbc|Active:}} {{ci|Gragas}} rolls a cask to the target location that lingers for a short time before exploding. ''Barrel Roll'' can be recast within the duration once it fully travels.
+  |blurb2       = {{sbc|Recast:}} '''Gragas''' detonates the cast, dealing {{as|magic damage}} and {{tip|slow|slowing}} nearby enemies. The effects are increased based on how long the cask lingered.
+  |description  = {{sbc|Active:}} '''Gragas''' rolls a cask to the target location, remaining there for 4 seconds and granting {{tip|sight}} of the area. Upon arrival, the cask starts to ferment over the first 2 seconds of its duration to increase its {{ccs|damage|magic}} and the effectiveness of its {{tip|slow}}, up to a maximum of 150% of their initial values. ''Barrel Roll'' can be recast at any time within its duration after the cask has fully travelled, and does so automatically after its duration ends.
+  |icon2        = Barrel Roll 2.png
+  |description2 = {{sbc|Recast:}} '''Gragas''' detonates the cask, dealing {{as|magic damage}} to nearby enemies, reduced by 30% against {{tip|minion|minions}}, and {{tip|slow|slowing}} them for 2 seconds.
+  |leveling2    = {{st|Minimum Magic Damage|{{ap|80 to 240}} {{as|(+ 80% AP)}}|Maximum Magic Damage|{{ap|80*1.5 to 240*1.5}} {{as|(+ 120% AP)}}}}
+  {{st|Minimum Minion Damage|{{ap|80*0.7 to 240*0.7}} {{as|(+ 56% AP)}}|Maximum Minion Damage|{{ap|80*1.5*0.7 to 240*1.5*0.7}} {{as|(+ 84% AP)}}}}
+  {{st|Minimum Slow|{{ap|40 to 60}}%|Maximum Slow|{{ap|40*1.5 to 60*1.5}}%}}
+  |cooldown     = {{ap|10 to 6}}
+  |cdstart      = on-cast
+  |cast time    = {{fd|0.25}}
+  |cost         = 80
+  |costtype     = Mana
+  |target range = 850
+  |effect radius= 250
+  |speed        = 1000
+  |targeting    = [[Location-targeted|Location]] / [[Auto-targeted|Auto]]
+  |affects      = Enemies
+  |damagetype   = Magic
+  |spellshield  = True
+  |spelleffects = Area of effect
+  |projectile   = True
+  |grounded     = 
+  |knockdown    = 
+  |outofrange   = Walk in range of the target location to cast (first cast)
+  |notes        = 
+  *The initial cast counts as an ability activation for the purposes of on-cast effects such as {{tip|Spellblade}} and triggering {{ais|Force Pulse|Kassadin}} passive.
+  **Deactivating the ability manually does not.
+  * The cask ignores unit and terrain collision therefore it will only stop once it reaches the target location.
+  ** On arrival the cask will begin to glow ever brighter as it ferments until it turns bright red.
+  * ''Barrel Roll'' has an internal cooldown while traveling so that '''Gragas''' may only make it explode on arrival.
+  * The charge-up countdown will only start once the cask stops rolling.
+  {{Effect at cast time end}}
+  * The ability will not preserve the caster's facing direction when using {{si|Flash}} and similar effects.
+  
+  }}
 
 ## W: Drunken Rage
 
@@ -113,6 +172,37 @@ Notes:
 - The empowered attack will trigger against structures.
 - The empowered attack will trigger against wards but not be consumed nor apply its effects against wards.
 - The following table refers for interactions while Gragas is channeling:
+- {{{{{1<noinclude>|Ability data</noinclude>}}}|Drunken Rage|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}
+  |champion     = Gragas
+  |skill        = W
+  |icon         = Drunken Rage.png
+  |blurbicon         = Drunken Rage.png
+  |blurb        = {{sbc|Active:}} {{ci|Gragas}} {{tip|channel|channels}}, then gains damage reduction.
+  |blurb2       = His next {{tip|basic attack}} will deal {{as|'''bonus''' magic damage}} to the target and nearby enemies based on each {{as|target's '''maximum''' health}}.
+  |description  = {{sbc|Active:}} '''Gragas''' {{tip|channel|channels}} for {{fd|0.75}} seconds, drinking out of his brew, and gains damage reduction for {{fd|2.5}} seconds.
+  |leveling     = {{st|Damage Reduction|{{ap|10 to 26}}% {{as|(+ 4% per 100 AP)}}}}
+  |icon2        = Drunken Rage 2.png
+  |description2 = Upon completing the channel, '''Gragas''' empowers his next [[basic attack]] within 5 seconds to have an {{tip|uncancellable windup}}, gain {{sti|range|50 '''bonus''' range}} and deal {{as|'''bonus''' magic damage}} to the target and nearby enemies, reduced to 50% against [[structures]]. The damage based on the target's health ratio is capped at 300 against {{tip|monsters}}.
+  |leveling2    = {{st|Bonus Magic Damage|{{ap|20 to 140}} {{as|(+ 7% of target's '''maximum''' health)}} {{as|(+ 70% AP)}}}}
+  |cooldown     = {{tt|5|Starts post-effect}}
+  |cost         = 30
+  |cast time    = none
+  |costtype     = Mana
+  |effect radius= 250
+  |targeting    = Auto
+  |affects      = Enemies, Self
+  |damagetype   = Magic
+  |spellshield  = True
+  |spelleffects = spellaoe
+  |silence      = true
+  |parry        = True
+  |notes        = 
+  * The enhanced attack will apply other [[on-hit effect]]s and can {{tip|critical strike|critically strike}} as normal.
+  * The empowered attack will trigger against [[structures]].
+  * The empowered attack will trigger against [[ward]]s but not be consumed nor apply its effects against [[ward]]s.
+  * The following table refers for interactions while '''Gragas''' is {{tip|channel|channeling}}:
+  {{ct|channel|attack=false|cast=false|items=false,true|move=true|spells=true,true,false,false,false}}
+  }}
 
 ## E: Body Slam
 
@@ -143,6 +233,37 @@ Notes:
 - Flash can be casted during Body Slam, instantly ending it and affecting enemies at the flash location.
 - Units hit by Body Slam turn away from Gragas.
 - Displacement immunity will not resist the application of the stun.
+- {{{{{1<noinclude>|Ability data</noinclude>}}}|Body Slam|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}
+  |champion     = Gragas
+  |skill        = E
+  |icon         = Body Slam.png
+  |blurb        = {{sbc|Passive:}} {{ci|Gragas}} {{tip|dash|charges}} in the target direction, stopping upon the first enemy hit, which deals {{as|magic damage}} to nearby enemies, {{tip|airborne|knocks them back}}, and {{tip|stun|stuns}} them.
+  |blurb2       = If ''Body Slam'' hits an enemy, the cooldown is {{sti|ah|reduced}}.
+  |description  = {{sbc|Active:}} '''Gragas''' {{tip|dash|charges}} in the target direction and stops upon colliding with an enemy, dealing {{as|magic damage}} to all nearby enemies, {{tip|airborne|knocking them back}}, though not through terrain, and {{tip|stun|stunning}} them for 1 second.
+  |description2 = ''Body Slam's'' {{sti|'''current''' cooldown}} is reduced by 40% if '''Gragas''' hits an enemy.
+  |description3 = ''{{ai|Barrel Roll|Gragas}} and {{ai|Explosive Cask|Gragas}} can be cast during the dash.''
+  |leveling     = {{st|Magic Damage|{{ap|80 to 260}} {{as|(+ 60% AP)}}}}
+  |cooldown     = {{ap|14 to 12}}
+  |cost         = 50
+  |cast time    = none
+  |costtype     = Mana
+  |target range = 600
+  |effect radius= {{dv|{{tip|cr|icononly = true}} {{tt|180|Center-to-center collision radius}}|{{tip|er|icononly = true}} {{tt|180|Center-to-edge collision lollipop. This lollipop it located 30 units in front of his dash end location.}}}}
+  |speed        = 910
+  |targeting    = Direction
+  |affects      = Enemies
+  |damagetype   = Magic
+  |spellshield  = True
+  |spelleffects = spellaoe
+  |projectile   = 
+  |grounded     = True
+  |knockdown    = True
+  |parry        = 
+  |notes        = 
+  * {{si|Flash}} can be casted during ''Body Slam'', instantly ending it and affecting enemies at the flash location.
+  * Units hit by ''Body Slam'' turn away from '''Gragas'''.
+  * {{tip|Displacement immunity}} will not resist the application of the {{tip|stun}}.
+  }}
 
 ## R: Explosive Cask
 
@@ -166,6 +287,32 @@ Active: Gragas hurls a cask that travels to the target location over 0.5 seconds
 Notes:
 
 - This ability will cast from wherever the caster is at the end of the cast time.
+- {{{{{1<noinclude>|Ability data</noinclude>}}}|Explosive Cask|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}
+  |champion     = Gragas
+  |skill        = R
+  |icon         = Explosive Cask.png
+  |blurb        = {{sbc|Active:}} {{ci|Gragas}} hurls a cask to the target location that explodes upon impact, dealing {{as|magic damage}} to nearby enemies and {{tip|airborne|knocking them back}}.
+  |description  = {{sbc|Active:}} '''Gragas''' hurls a cask that travels to the target location over {{fd|0.5}} seconds, exploding on impact to deal {{as|magic damage}} to all enemies within the area and {{tip|airborne|knock them back}} 900 units, though not through terrain, from the epicenter of the explosion, as well as granting {{tip|sight}} of the area for 1 second.
+  |leveling     = {{st|Magic Damage|{{ap|200 to 400}} {{as|(+ 80% AP)}}}}
+  |cooldown     = {{ap|100 to 70}}
+  |cost         = 100
+  |costtype     = Mana
+  |cast time = {{fd|0.25}}
+  |target range = 1000
+  |effect radius= 400
+  |targeting    = Location
+  |affects      = Enemies
+  |damagetype   = Magic
+  |spellshield  = True
+  |spelleffects = Area of effect
+  |projectile   = true
+  |grounded     = 
+  |knockdown    =
+  |parry        = 
+  |outofrange   = walk to location
+  |notes        =
+  {{Effect at cast time end}}
+  }}
 
 ## Game files
 
@@ -181,3 +328,123 @@ Cooldowns and costs of each slot's main ability, wiki vs game files:
 | E: Body Slam | cost | 50 / 50 / 50 / 50 / 50 | 50 / 50 / 50 / 50 / 50 | yes |
 | R: Explosive Cask | cooldown | 100 / 85 / 70 | 100 / 85 / 70 | yes |
 | R: Explosive Cask | cost | 100 / 100 / 100 | 100 / 100 / 100 | yes |
+
+## Duel simulator kit (level 20, every ability at max rank)
+
+What the duel simulator fights with (`kits/champions/Gragas.ts`): values come from pinned wiki and versioned game-data records at level 20. Interpretations and missing evidence are listed under assumptions. Ratios are fractions of the stat (60% AD is 0.6 × AD).
+
+- Basic attack: range 125, melee.
+
+| Key | Ability | Cooldown (s) | Cast time (s) | Cost | Delivery | On the enemy | On itself |
+|---|---|--:|--:|---|---|---|---|
+| Q | Barrel Roll | 6 | 0.25 | 80 | self | – | – |
+| Q2 | Barrel Roll (detonate) | 0 | 0 | – | self | – | – |
+| W | Drunken Rage | 5 (starts when its effect on the caster ends) | 0 | 30 | self; channel 0.75 s | – | when the channel completes: next 1 attack within 5 s (+50 range, uncancellable) |
+| E | Body Slam | 12 | 0 | 50 | dash toward 0–600 units at 910/s, through the enemy | – | – |
+| R | Explosive Cask | 70 | 0.25 | 100 | self | – | – |
+| Qflight | Barrel Roll | 0 | 0 | – | self | – | – |
+| Qburst | Barrel Roll | 0 | 0 | – | self | – | – |
+| Wburst | Drunken Rage | 0 | 0 | – | self | – | – |
+| Wreduction | Drunken Rage | 0 | 0 | – | self | – | – |
+| Eimpact | Body Slam | 0 | 0 | – | self | – | – |
+| Rimpact | Explosive Cask | 0 | 0 | – | self | – | – |
+
+Effects marked by a mark or a role are completed by the kit's hooks (see the kit's source).
+
+### Assumptions
+
+- Happy Hour starts ready and heals5.5%maxHP only after an actual Q/W/E/R cast completes, once per independent static6seconds at level20. Q's manual detonation is not another activation. Idle ticks, failed deliveries, mere readiness and preduel time grant no heal; ordinary healing modifiers apply.
+- Barrel Roll costs80mana, starts its hasted6second cooldown at declaration, locks casting for0.25seconds, then throws a nonhoming1000speed cask to the requested ground point within850. It ignores bodies/terrain, while projectile blockers can destroy the flight. Only arrival arms its manual recast and starts the4second lifetime/2second linear fermentation from240+80%AP and60%slow to360+120%AP and90%slow. The two-second slow and30%minion-only damage reduction use each actual body's class; monsters and unclassified pets are not minions. Actual area resistance and each body's spellshield/parry/invulnerability/untargetability apply independently. Automatic expiry uses the same packet once. Cast-completion geometry sets the endpoint and the throw's ordinary scalar sidestep estimate is retained through fermentation; no additional stochastic branch is invented at recast. Released ground casks keep their lifetime through death/resurrection and can autoexplode; they do not require a living caster to hold a button.
+- Drunken Rage is a mobile0.75second interruptible channel with no attacks or other ability casts. Its26%+4%per100AP reduction begins immediately for2.5seconds, including the drink; primary timing overrides unused binary spellCastTime0.43935. Only successful channel completion grants a5second uncancellable real next basic with50range. Its ordinary AD critical snapshot, normal onhits and life steal remain one basic. Before that basic's normal damage/procs, a separate area packet deals140+70%AP+7%of EACH actual body's maxHP within250of the attacked body; only the maxHP component caps at300 against monsters. It never critically strikes or life steals. Primary blind/dodge/parry/block denies the area trigger; each secondary body independently checks its spellshield/parry and damage defenses. A primary spellshield denies only its own bonus magic packet, preserving ordinary basic damage/onhits and independently eligible secondary packets. The5second post-effect cooldown begins when the entitlement is spent, expires or the channel is interrupted. Its ward exception preserves empowerment against hit-count objects; no simulated structure exists, and the sourced50%structure multiplier is retained without reclassifying pets as structures.
+- Body Slam moves a real body at primary910speed up to600, crossing terrain only with a clear endpoint and clipping an obstructed endpoint. The exact binary900speed,0.25cast metadata and40forward hitbox conflict with primary910,no cast time and30forward lollipop; the primary wins. Swept180center-radius collision stops at the first actual enemy champion/pet, even if its spellshield/invulnerability denies damage. Nearby bodies receive260+60%AP, a separately guarded displacement attempt and a1second stun. Displacement immunity still permits stun; pet airborne/stun immunity are independent. Physical collision refunds40%of the CURRENT hasted cooldown once. Neither primary nor exact E record quantifies knockback distance/duration: guarded zero-distance immediate displacement models interruption without inventing a position offset or airborne time. Its final30forward/180edge lollipop is checked only on normal arrival. Q/R may overlay E; W and another E cannot. Knockdown, death and resurrection interrupt the real dash without creating arrival damage.
+- Explosive Cask locks casting for0.25seconds, then travels to the chosen ground center within primary1000range over exactly0.5seconds (exact GragasRBoom FixedTimeMovement agrees), independent of intervening bodies. Projectile blockers cancel its pending explosion. Primary400radius overrides binary castRadius350; primary1000overrides binary castRange1050. At landing each actual enemy body independently receives400+80%AP and is displaced900away from the explosion center, with no invented airborne duration: source timing is unquantified, so immediateDisplace clips terrain and applies normal CC/blackshield/displacement guards. A body exactly at the epicenter uses the saved throw direction, preserving reflection symmetry. The sight area lasts1second, without applying a reveal to units. Released flight survives caster death/resurrection; a still-uncompleted cast cannot launch during resurrection. No allies, lane waves, pet stand-ins or preduel buffs are created.
+- Behavior uses the ordinary fight/trade/hold/flee decisions, with a ready drink before close combat, two-second barrel fermentation unless the target is leaving, an aimed fleeing E, and an inward R center behind the target. Ready R remains reserved in hold/trade; the common completed-trade retreat takes priority over all new optional casts. All deadlines, endpoints and entitlements live in cloneable world primitives. Reference damage uses full-ferment Q, one W per realistic channel/attack/post-effect cycle, landed E's remaining-cooldown refund and R; passive healing is capped by actual spell cadence and its independent6second clock.
+
+### Source values read (84)
+
+| Ability | Value | Source version |
+|---|---|---|
+| Happy Hour | 5.5% of his maximum health | [3985369](https://wiki.leagueoflegends.com/en-us/Template:Data_Gragas/Happy_Hour?oldid=3985369) |
+| Happy Hour | staticCooldown: 12 / 10 / 8 / 6 (based on level) | [3985369](https://wiki.leagueoflegends.com/en-us/Template:Data_Gragas/Happy_Hour?oldid=3985369) |
+| Happy Hour | after casting an ability | [3985369](https://wiki.leagueoflegends.com/en-us/Template:Data_Gragas/Happy_Hour?oldid=3985369) |
+| Happy Hour | mSpell.DataValues.HealRatio.values: [0.054999999701976776,0.054999999701976776,0.054999999701976776,0.054999999701976776,0.054999999701976776,0.054999999701976776,0.054999999701976776] | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/gragas/gragas.bin.json) |
+| Happy Hour | "level":16 | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/gragas/gragas.bin.json) |
+| Barrel Roll | Minimum Magic Damage: 80 / 120 / 160 / 200 / 240 (+ 80% AP) | [3907002](https://wiki.leagueoflegends.com/en-us/Template:Data_Gragas/Barrel_Roll?oldid=3907002) |
+| Barrel Roll | Maximum Magic Damage: 120 / 180 / 240 / 300 / 360 (+ 120% AP) | [3907002](https://wiki.leagueoflegends.com/en-us/Template:Data_Gragas/Barrel_Roll?oldid=3907002) |
+| Barrel Roll | Minimum Slow: 40 / 45 / 50 / 55 / 60% | [3907002](https://wiki.leagueoflegends.com/en-us/Template:Data_Gragas/Barrel_Roll?oldid=3907002) |
+| Barrel Roll | Maximum Slow: 60 / 67.5 / 75 / 82.5 / 90% | [3907002](https://wiki.leagueoflegends.com/en-us/Template:Data_Gragas/Barrel_Roll?oldid=3907002) |
+| Barrel Roll | cooldown: 10 / 9 / 8 / 7 / 6 | [3907002](https://wiki.leagueoflegends.com/en-us/Template:Data_Gragas/Barrel_Roll?oldid=3907002) |
+| Barrel Roll | castTime: 0.25 | [3907002](https://wiki.leagueoflegends.com/en-us/Template:Data_Gragas/Barrel_Roll?oldid=3907002) |
+| Barrel Roll | targetRange: 850 | [3907002](https://wiki.leagueoflegends.com/en-us/Template:Data_Gragas/Barrel_Roll?oldid=3907002) |
+| Barrel Roll | effectRadius: 250 | [3907002](https://wiki.leagueoflegends.com/en-us/Template:Data_Gragas/Barrel_Roll?oldid=3907002) |
+| Barrel Roll | speed: 1000 | [3907002](https://wiki.leagueoflegends.com/en-us/Template:Data_Gragas/Barrel_Roll?oldid=3907002) |
+| Barrel Roll | remaining there for 4 seconds | [3907002](https://wiki.leagueoflegends.com/en-us/Template:Data_Gragas/Barrel_Roll?oldid=3907002) |
+| Barrel Roll | first 2 seconds | [3907002](https://wiki.leagueoflegends.com/en-us/Template:Data_Gragas/Barrel_Roll?oldid=3907002) |
+| Barrel Roll | maximum of 150% | [3907002](https://wiki.leagueoflegends.com/en-us/Template:Data_Gragas/Barrel_Roll?oldid=3907002) |
+| Barrel Roll | reduced by 30% against minions | [3907002](https://wiki.leagueoflegends.com/en-us/Template:Data_Gragas/Barrel_Roll?oldid=3907002) |
+| Barrel Roll | slowing them for 2 seconds | [3907002](https://wiki.leagueoflegends.com/en-us/Template:Data_Gragas/Barrel_Roll?oldid=3907002) |
+| Barrel Roll | cooldownStart: on-cast | [3907002](https://wiki.leagueoflegends.com/en-us/Template:Data_Gragas/Barrel_Roll?oldid=3907002) |
+| Barrel Roll | after the cask has fully travelled | [3907002](https://wiki.leagueoflegends.com/en-us/Template:Data_Gragas/Barrel_Roll?oldid=3907002) |
+| Barrel Roll | automatically after its duration ends | [3907002](https://wiki.leagueoflegends.com/en-us/Template:Data_Gragas/Barrel_Roll?oldid=3907002) |
+| Barrel Roll | The cask ignores unit and terrain collision | [3907002](https://wiki.leagueoflegends.com/en-us/Template:Data_Gragas/Barrel_Roll?oldid=3907002) |
+| Barrel Roll | Deactivating the ability manually does not | [3907002](https://wiki.leagueoflegends.com/en-us/Template:Data_Gragas/Barrel_Roll?oldid=3907002) |
+| Barrel Roll | The charge-up countdown will only start once the cask stops rolling | [3907002](https://wiki.leagueoflegends.com/en-us/Template:Data_Gragas/Barrel_Roll?oldid=3907002) |
+| Barrel Roll | mSpell.DataValues.BarrelCookMaxTime.values: [2.0,2.0,2.0,2.0,2.0,2.0,2.0] | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/gragas/gragas.bin.json) |
+| Barrel Roll | mSpell.mMissileSpec | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/gragas/gragas.bin.json) |
+| Drunken Rage | Damage Reduction: 10 / 14 / 18 / 22 / 26% (+ 4% per 100 AP) | [4013236](https://wiki.leagueoflegends.com/en-us/Template:Data_Gragas/Drunken_Rage?oldid=4013236) |
+| Drunken Rage | (+ 4% per 100 AP) | [4013236](https://wiki.leagueoflegends.com/en-us/Template:Data_Gragas/Drunken_Rage?oldid=4013236) |
+| Drunken Rage | Bonus Magic Damage: 20 / 50 / 80 / 110 / 140 (+ 7% of target's maximum health) (+ 70% AP) | [4013236](https://wiki.leagueoflegends.com/en-us/Template:Data_Gragas/Drunken_Rage?oldid=4013236) |
+| Drunken Rage | cooldown: 5 | [4013236](https://wiki.leagueoflegends.com/en-us/Template:Data_Gragas/Drunken_Rage?oldid=4013236) |
+| Drunken Rage | channels for 0.75 seconds | [4013236](https://wiki.leagueoflegends.com/en-us/Template:Data_Gragas/Drunken_Rage?oldid=4013236) |
+| Drunken Rage | damage reduction for 2.5 seconds | [4013236](https://wiki.leagueoflegends.com/en-us/Template:Data_Gragas/Drunken_Rage?oldid=4013236) |
+| Drunken Rage | next basic attack within 5 seconds | [4013236](https://wiki.leagueoflegends.com/en-us/Template:Data_Gragas/Drunken_Rage?oldid=4013236) |
+| Drunken Rage | gain 50 bonus range | [4013236](https://wiki.leagueoflegends.com/en-us/Template:Data_Gragas/Drunken_Rage?oldid=4013236) |
+| Drunken Rage | effectRadius: 250 | [4013236](https://wiki.leagueoflegends.com/en-us/Template:Data_Gragas/Drunken_Rage?oldid=4013236) |
+| Drunken Rage | capped at 300 against monsters | [4013236](https://wiki.leagueoflegends.com/en-us/Template:Data_Gragas/Drunken_Rage?oldid=4013236) |
+| Drunken Rage | reduced to 50% against structures | [4013236](https://wiki.leagueoflegends.com/en-us/Template:Data_Gragas/Drunken_Rage?oldid=4013236) |
+| Drunken Rage | uncancellable windup | [4013236](https://wiki.leagueoflegends.com/en-us/Template:Data_Gragas/Drunken_Rage?oldid=4013236) |
+| Drunken Rage | can critically strike as normal | [4013236](https://wiki.leagueoflegends.com/en-us/Template:Data_Gragas/Drunken_Rage?oldid=4013236) |
+| Drunken Rage | apply other on-hit effects | [4013236](https://wiki.leagueoflegends.com/en-us/Template:Data_Gragas/Drunken_Rage?oldid=4013236) |
+| Drunken Rage | not be consumed nor apply its effects against wards | [4013236](https://wiki.leagueoflegends.com/en-us/Template:Data_Gragas/Drunken_Rage?oldid=4013236) |
+| Drunken Rage | {{ct\|channel\|attack=false\|cast=false\|items=false,true\|move=true\|spells=true,true,false,false,false}} | [4013236](https://wiki.leagueoflegends.com/en-us/Template:Data_Gragas/Drunken_Rage?oldid=4013236) |
+| Drunken Rage | mSpell.mChannelDuration: [0.75,0.75,0.75,0.75,0.75,0.75,0.75] | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/gragas/gragas.bin.json) |
+| Drunken Rage | mSpell.mCanMoveWhileChanneling: true | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/gragas/gragas.bin.json) |
+| Drunken Rage | mSpell.mCantCancelWhileChanneling: true | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/gragas/gragas.bin.json) |
+| Drunken Rage | mSpell.DataValues.MonsterDamageCap.values: [300.0,300.0,300.0,300.0,300.0,300.0,300.0] | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/gragas/gragas.bin.json) |
+| Drunken Rage | mSpell.spellCastTime: 0.4393500089645386 | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/gragas/gragas.bin.json) |
+| Body Slam | Magic Damage: 80 / 125 / 170 / 215 / 260 (+ 60% AP) | [4007602](https://wiki.leagueoflegends.com/en-us/Template:Data_Gragas/Body_Slam?oldid=4007602) |
+| Body Slam | cooldown: 14 / 13.5 / 13 / 12.5 / 12 | [4007602](https://wiki.leagueoflegends.com/en-us/Template:Data_Gragas/Body_Slam?oldid=4007602) |
+| Body Slam | targetRange: 600 | [4007602](https://wiki.leagueoflegends.com/en-us/Template:Data_Gragas/Body_Slam?oldid=4007602) |
+| Body Slam | effectRadius (Center-to-center): 180 • 180 | [4007602](https://wiki.leagueoflegends.com/en-us/Template:Data_Gragas/Body_Slam?oldid=4007602) |
+| Body Slam | effectRadius (lollipop): 180 • 180 | [4007602](https://wiki.leagueoflegends.com/en-us/Template:Data_Gragas/Body_Slam?oldid=4007602) |
+| Body Slam | 30 units in front | [4007602](https://wiki.leagueoflegends.com/en-us/Template:Data_Gragas/Body_Slam?oldid=4007602) |
+| Body Slam | speed: 910 | [4007602](https://wiki.leagueoflegends.com/en-us/Template:Data_Gragas/Body_Slam?oldid=4007602) |
+| Body Slam | stunning them for 1 second | [4007602](https://wiki.leagueoflegends.com/en-us/Template:Data_Gragas/Body_Slam?oldid=4007602) |
+| Body Slam | reduced by 40% | [4007602](https://wiki.leagueoflegends.com/en-us/Template:Data_Gragas/Body_Slam?oldid=4007602) |
+| Body Slam | stops upon colliding with an enemy | [4007602](https://wiki.leagueoflegends.com/en-us/Template:Data_Gragas/Body_Slam?oldid=4007602) |
+| Body Slam | though not through terrain | [4007602](https://wiki.leagueoflegends.com/en-us/Template:Data_Gragas/Body_Slam?oldid=4007602) |
+| Body Slam | Displacement immunity will not resist the application of the stun | [4007602](https://wiki.leagueoflegends.com/en-us/Template:Data_Gragas/Body_Slam?oldid=4007602) |
+| Body Slam | Barrel Roll and Explosive Cask can be cast during the dash | [4007602](https://wiki.leagueoflegends.com/en-us/Template:Data_Gragas/Body_Slam?oldid=4007602) |
+| Body Slam | mSpell.DataValues.DashSpeed.values: [900.0,900.0,900.0,900.0,900.0,900.0,900.0] | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/gragas/gragas.bin.json) |
+| Body Slam | mSpell.DataValues.ForwardHitbox.values: [40.0,40.0,40.0,40.0,40.0,40.0,40.0] | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/gragas/gragas.bin.json) |
+| Body Slam | mSpell.spellCastTime: 0.25 | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/gragas/gragas.bin.json) |
+| Explosive Cask | Magic Damage: 200 / 300 / 400 (+ 80% AP) | [3906845](https://wiki.leagueoflegends.com/en-us/Template:Data_Gragas/Explosive_Cask?oldid=3906845) |
+| Explosive Cask | cooldown: 100 / 85 / 70 | [3906845](https://wiki.leagueoflegends.com/en-us/Template:Data_Gragas/Explosive_Cask?oldid=3906845) |
+| Explosive Cask | castTime: 0.25 | [3906845](https://wiki.leagueoflegends.com/en-us/Template:Data_Gragas/Explosive_Cask?oldid=3906845) |
+| Explosive Cask | targetRange: 1000 | [3906845](https://wiki.leagueoflegends.com/en-us/Template:Data_Gragas/Explosive_Cask?oldid=3906845) |
+| Explosive Cask | effectRadius: 400 | [3906845](https://wiki.leagueoflegends.com/en-us/Template:Data_Gragas/Explosive_Cask?oldid=3906845) |
+| Explosive Cask | over 0.5 seconds | [3906845](https://wiki.leagueoflegends.com/en-us/Template:Data_Gragas/Explosive_Cask?oldid=3906845) |
+| Explosive Cask | knock them back 900 units | [3906845](https://wiki.leagueoflegends.com/en-us/Template:Data_Gragas/Explosive_Cask?oldid=3906845) |
+| Explosive Cask | sight of the area for 1 second | [3906845](https://wiki.leagueoflegends.com/en-us/Template:Data_Gragas/Explosive_Cask?oldid=3906845) |
+| Explosive Cask | from the epicenter of the explosion | [3906845](https://wiki.leagueoflegends.com/en-us/Template:Data_Gragas/Explosive_Cask?oldid=3906845) |
+| Explosive Cask | though not through terrain | [3906845](https://wiki.leagueoflegends.com/en-us/Template:Data_Gragas/Explosive_Cask?oldid=3906845) |
+| Explosive Cask | from wherever the caster is at the end of the cast time | [3906845](https://wiki.leagueoflegends.com/en-us/Template:Data_Gragas/Explosive_Cask?oldid=3906845) |
+| Explosive Cask | "mTravelTime":0.5 | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/gragas/gragas.bin.json) |
+| Explosive Cask | mSpell.castRange: [1050.0,1050.0,1050.0,1050.0,1050.0,1050.0,1050.0] | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/gragas/gragas.bin.json) |
+| Explosive Cask | mSpell.castRadius: [350.0,350.0,350.0,350.0,350.0,350.0,350.0] | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/gragas/gragas.bin.json) |
+| Barrel Roll | cost: 80 | [3907002](https://wiki.leagueoflegends.com/en-us/Template:Data_Gragas/Barrel_Roll?oldid=3907002) |
+| Drunken Rage | cost: 30 | [4013236](https://wiki.leagueoflegends.com/en-us/Template:Data_Gragas/Drunken_Rage?oldid=4013236) |
+| Drunken Rage | castTime: none | [4013236](https://wiki.leagueoflegends.com/en-us/Template:Data_Gragas/Drunken_Rage?oldid=4013236) |
+| Body Slam | cost: 50 | [4007602](https://wiki.leagueoflegends.com/en-us/Template:Data_Gragas/Body_Slam?oldid=4007602) |
+| Body Slam | castTime: none | [4007602](https://wiki.leagueoflegends.com/en-us/Template:Data_Gragas/Body_Slam?oldid=4007602) |
+| Explosive Cask | cost: 100 | [3906845](https://wiki.leagueoflegends.com/en-us/Template:Data_Gragas/Explosive_Cask?oldid=3906845) |

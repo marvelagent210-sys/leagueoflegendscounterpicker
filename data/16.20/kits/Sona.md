@@ -51,6 +51,37 @@ Notes:
 - The triggering attack will apply other on-hit effects and can critically strike as normal.
 - Sona retains Power Chord's stacks when entering resurrection.
 - The empowered attack will trigger but not be consumed nor apply its effects against wards and jungle plants.
+- {{{{{1<noinclude>|Ability data</noinclude>}}}|Power Chord|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}
+  |champion     = Sona
+  |skill        = I
+  |icon         = Sona Power Chord.png
+  |blurb        = {{sbc|Innate - Accelerando:}} {{ci|Sona}} gains a permanent {{tip|stack}} of ''Accelerando'' each time she hits an enemy champion with ''{{ai|Hymn of Valor|Sona}}'' and each time she mitigates sufficient damage or heals damaged allies with ''{{ai|Aria of Perseverance|Sona}}''. If she has max stacks, she instead {{sti|cdr|reduces}} the cooldown of ''{{ai|Crescendo|Sona}}'' each time.
+  |blurb2      = [[File:Sona Power Chord 3.gif|20px|border|link=]] {{sbc|Innate - Melody:}} '''Sona's''' {{tip|abilities|basic abilities}} incur a {{sti|cd|brief}} cooldown on her other basic abilities, and cause her to generate a unique {{tip|aura}} for a short time that empowers herself and nearby allied champions.
+  |blurb3      = [[File:Sona Power Chord.png|20px|border|link=]] {{sbc|Innate - Power Chord:}} '''Sona's''' basic abilities generate permanent stacks of ''Power Chord''. At 3 stacks, her next basic attack consumes them all to become empowered with bonus magic damage and apply an additional effect based on the last basic ability cast.
+  |blurb4      = [[File:Power Chord.png|20px|border|link=]] {{sbc|Accelerando:}} For each stack, '''Sona''' gains {{sti|ah|basic ability haste}}.
+  |description = {{sbc|Innate - Accelerando:}} '''Sona''' generates a {{tip|stack}} of ''Accelerando'' each time she hits an enemy {{tip|champion}} with ''{{ai|Hymn of Valor|Sona}}'' and each time she mitigates sufficient damage or heals damaged allies with ''{{ai|Aria of Perseverance|Sona}}'', stacking up to 120 times. At maximum stacks, she instead reduces the {{sti|'''current''' cooldown}} of ''{{ai|Crescendo|Sona}}'' by {{fd|1.5}} seconds each time.<br/><br/>
+  [[File:Power Chord.png|20px|border|link=]] {{sbc|Accelerando:}} For each stack, '''Sona''' gains {{sti|{{as|{{fd|0.5}} basic ability haste}}}}, up to {{as|60|ah}} at maximum stacks.
+  |icon2        = Sona Power Chord 3.gif
+  |description2  = {{sbc|Innate - Melody:}} Whenever '''Sona''' casts a {{tip|ability|basic ability}}, her other basic abilities incur a {{sti|cd|{{fd|0.5}}-second}} global cooldown and she generates a unique {{tip|aura}} for 3 seconds that empowers herself and nearby allied champions. Only one aura can be active at a time.
+  |description3 = {{sbc|Innate - Power Chord:}} '''Sona's''' basic abilities generate a stack of ''Power Chord'', stacking up to 3 times. At 3 stacks, her next {{tip|basic attack}}<!--not on-hit--> is empowered to consume them all to have an {{tip|uncancellable windup}}, deal {{as|{{pp|20 to 80 for 7;90 + (240-90)/10*(x-1) for 13|formula=10 + 10 per level until level 8, then + 15 per level}}|magic damage}} {{as|(+ 20% AP)}} {{as|'''bonus''' magic damage}}, and apply an additional effect based on the last basic ability she cast:
+  * ''{{ai|Hymn of Valor|Sona}}'' - {{sbc|Staccato:}} '''Bonus''' damage is modified to {{as|{{pp|20*1.5 to 80*1.5 for 7;90*1.5 + (240*1.5-90*1.5)/10*(x-1) for 13|formula=15 + 15 per level until level 8, then + 22.5 per level}}|magic damage}} {{as|(+ 30% AP)}}.
+  * ''{{ai|Aria of Perseverance|Sona}}'' - {{sbc|Diminuendo:}} Reduces the target's {{tip|size}} by 8% and damage dealt by 25% {{as|(+ 4% per 100 AP)}} for 3 seconds.
+  * ''{{ai|Song of Celerity|Sona}}'' - {{sbc|Tempo:}} {{tip|Slows}} the target by 50% {{as|(+ 4% per 100 AP)}} for 2 seconds, capped at 99%.
+  |description4 = ''Gaining Power Chord's empowered attack {{tip|basic attack reset|resets}} '''Sona's''' basic attack timer.''
+  |targeting    = Passive
+  |affects      = Self
+  |damagetype   = Magic
+  |spellshield  = True
+  |spelleffects = proc
+  |parry        = True
+  |notes        = 
+  * ''Power Chord'' stacks are represented by a counter under '''Sona's''' [[health bar]], visible to the player only. It will light up when the empowered effect is available.
+  ** When ''Power Chord'' is ready, '''Sona''' gains a ring around her. This ring will have a different color depending on the last ability used (''{{ai|Hymn of Valor|Sona|blue}}, {{ai|Aria of Perseverance|Sona|green}} or {{ai|Song of Celerity|Sona|purple}}'').
+  ** The effect does not change if abilities are used while the projectile is in motion.
+  * The triggering attack will apply other {{tip|on-hit}} effects and can {{tip|critical strike|critically strike}} as normal.
+  * '''Sona''' retains ''Power Chord's'' stacks when entering {{tip|resurrection}}.
+  * The empowered attack will trigger but not be consumed nor apply its effects against {{tip|wards}} and [[jungle plants]].
+  }}
 
 ## Q: Hymn of Valor
 
@@ -82,6 +113,38 @@ Notes:
 - Sight of the targets' area is granted on-cast.
 - The Melody empowerment given to tagged allies respects enchantment redirection.
 - The empowered attack will trigger but not be consumed against wards.
+- {{{{{1<noinclude>|Ability data</noinclude>}}}|Hymn of Valor|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}
+  |champion     = Sona
+  |skill        = Q
+  |icon         = Hymn of Valor.png
+  |blurb        = {{sbc|Active:}} {{ci|Sona}} projects sound bolts to the two nearest enemies that each deal {{as|magic damage}}, and she gains a stack of ''{{ai|Power Chord|Sona|Accelerando}}'' for each bolt that damages an enemy {{tip|champion}}.
+  |blurb2      = [[File:Sona Hymn of Valor 2.png|20px|border|link=]] {{sbc|{{ai|Power Chord|Sona|Melody|image=*none*}} Bonus:}} '''Sona''' and tagged allied champions deal {{as|'''bonus''' magic damage}} on their next attack {{tip|on-hit}} within a few seconds.
+  |blurb4      = {{sbc|{{ai|Power Chord|Sona|Power Chord}} – Staccato:}} ''Power Chord'' deals {{as|'''increased''' magic damage}}.
+  |description  = {{sbc|Active:}} '''Sona''' sends out bolts of sound to the two nearest {{tip|sight|visible}} enemies, prioritizing champions. Each bolt deals {{as|magic damage}} and grants {{tip|sight}} of the area around the target for 1 second.<br><br>'''Sona''' gains a stack of ''{{ai|Power Chord|Sona|Accelerando}}'' for each bolt that hits an enemy {{tip|champion}}.
+  |leveling     = {{st|Magic Damage|{{ap|50 to 190}} {{as|(+ 40% AP)}}}}
+  |icon2        = Sona Hymn of Valor 2.png
+  |description2 = {{sbc|{{ai|Power Chord|Sona|Melody|image=*none*}} Bonus:}} '''Sona''' and tagged allied champions deal {{as|'''bonus''' magic damage}} on their next attack {{tip|on-hit}} within 5 seconds.
+  |leveling2    = {{st|Bonus Magic Damage|{{ap|10 to 30}} {{as|(+ 10% of '''Sona's''' AP)}}}}
+  |cooldown     = 8
+  |cost         = {{ap|50 to 70}}
+  |costtype     = mana
+  |cast time    = none
+  |effect radius= {{dv|{{tip|cr|icononly = true}} {{tt|825|Sound bolts search range}}|{{tip|er|icononly = true}} {{tt|400|Aura radius, center-to-edge}}}}
+  |speed        = {{tt|1300|Sound bolts missile speed}}
+  |targeting    = Auto
+  |affects      = Enemies
+  |damagetype   = Magic
+  |spellshield  = True
+  |spelleffects = special
+  |grounded     = 
+  |knockdown    = 
+  |projectile   = True
+  |notes        = 
+  * The bolts deal {{tip|area damage}} while the attacks, while the {{sbc|{{ai|Power Chord|Sona|Melody|image=*none*}}}} empowered attacks deal {{tip|proc damage}}.
+  * Sight of the targets' area is granted on-cast.
+  * The {{sbc|{{ai|Power Chord|Sona|Melody|image=*none*}}}} empowerment given to tagged allies respects {{tip|enchantment redirection}}.
+  * The empowered attack will trigger but not be consumed against [[ward]]s.
+  }}
 
 ## W: Aria of Perseverance
 
@@ -116,6 +179,39 @@ Notes:
 
 - If no one is injured, Aria of Perseverance will target the closest allied champion.
 - The projectile of Aria of Perseverance will follow an ally in stealth but will not reveal them.
+- {{{{{1<noinclude>|Ability data</noinclude>}}}|Aria of Perseverance|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}
+  |champion     = Sona
+  |skill        = W
+  |icon         = Aria of Perseverance.png
+  |blurb        = {{sbc|Active:}} {{ci|Sona}} {{tip|heals}} herself and projects a sound bolt that heals the most wounded allied champion nearby.
+  |blurb2      = [[File:Sona Aria of Perseverance 2.png|20px|border|link=]] {{sbc|{{ai|Power Chord|Sona|Melody|image=*none*}} Bonus:}} '''Sona''' and tagged allied champions receive a brief {{tip|shield}}.
+  |blurb3      = '''Sona''' gains a stack of ''{{ai|Power Chord|Sona|Accelerando}}'' whenever she {{tip|heals}} an ally or {{tip|shields}} a minimum amount of damage for an ally with ''Aria of Perseverance''.
+  |blurb4      = {{sbc|{{ai|Power Chord|Sona|Power Chord|Sona}} – Diminuendo:}} ''Power Chord'' reduces the target's [[size]] and damage output for a short time.
+  |description  = {{sbc|Active:}} '''Sona''' {{tip|heals}} herself and sends out a tone to heal the {{tt|most wounded|Based on greatest % missing health}} allied champion nearby.
+  |leveling     = {{st|Heal|{{ap|30 to 90}} {{as|(+ 30% AP)}}}}
+  |icon2        = Sona Aria of Perseverance 2.png
+  |description2 = {{sbc|{{ai|Power Chord|Sona|Melody|image=*none*}} Bonus:}} '''Sona''' and tagged allied champions are granted a {{tip|shield}} for {{fd|1.5}} seconds.
+  |leveling2    = {{st|Shield Strength|{{ap|25 to 105}} {{as|(+ 25% of '''Sona's''' AP)}}}}
+  |description3 = '''Sona''' gains a stack of ''{{ai|Power Chord|Sona|Accelerando}}'' whenever she {{tip|heals}} a wounded ally or {{tip|shields}} a minimum amount of damage for an ally with ''Aria of Perseverance''.
+  |leveling3    = {{st|Minimum Damage Mitigated|{{ap|25 to 105}}}}
+  |cooldown     = 10
+  |cost         = {{ap|80 to 100}}
+  |costtype     = mana
+  |cast time    = none
+  |effect radius= {{dv|{{tip|cr|icononly = true}} {{tt|1000|Heal search range}}|{{tip|er|icononly = true}} {{tt|400|Aura radius, center-to-edge}}}}
+  |speed        = {{tt|1300|Heal missile speed}}
+  |targeting    = Auto
+  |affects      = [[Self-targeted|Self]], Allies
+  |damagetype   = 
+  |spellshield  = 
+  |spelleffects = 
+  |projectile   = True
+  |grounded     = 
+  |knockdown    = 
+  |notes        = 
+  * If no one is injured, ''Aria of Perseverance'' will target the closest allied champion.
+  * The projectile of ''Aria of Perseverance'' will follow an ally in stealth but will not reveal them.
+  }}
 
 ## E: Song of Celerity
 
@@ -139,6 +235,28 @@ Melody Bonus: Tagged allied champions gain bonus movement speed for 3 seconds.
 Notes:
 
 - To achieve a 99% slow with the empowered attack via Power Chord, it would require at least 1225 AP.
+- {{{{{1<noinclude>|Ability data</noinclude>}}}|Song of Celerity|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}
+  |champion     = Sona
+  |skill        = E
+  |icon         = Song of Celerity.png
+  |blurb        = {{sbc|Active:}} {{ci|Sona}} gains {{sti|ms|{{as|'''bonus''' movement speed}}}} for a short time, which is extended to a few seconds if she does not take damage during this time.
+  |blurb2      = [[File:Sona Song of Celerity 2.png|20px|border|link=]] {{sbc|{{ai|Power Chord|Sona|Melody|image=*none*}} Bonus:}} Tagged allied champions gain {{sti|ms|{{as|'''bonus''' movement speed}}}} for a short time.
+  |blurb4      = {{sbc|{{ai|Power Chord|Sona|Power Chord}} – Tempo:}} ''Power Chord'' {{tip|slows}} the target for a short time.
+  |description  = {{sbc|Active:}} '''Sona''' gains {{sti|ms|{{as|20%|ms}} {{as|(+ 2% per 100 AP)}} {{as|'''bonus''' movement speed}}}} for 7 seconds. If she takes damage during this time, the duration ends prematurely once or if 3 seconds have elapsed.
+  |icon2        = Sona Song of Celerity 2.png
+  |description2 = {{sbc|{{ai|Power Chord|Sona|Melody|image=*none*}} Bonus:}} Tagged allied champions gain {{as|'''bonus''' movement speed}} for 3 seconds.
+  |leveling2    = {{st|Bonus Movement Speed|{{ap|10 to 18}}% {{as|(+ 2% per 100 of '''Sona's''' AP)}}}}
+  |cooldown     = 14
+  |cost         = 65
+  |costtype     = mana
+  |cast time    = none
+  |effect radius= {{tip|er|icononly = true}} {{tt|400|Aura radius, center-to-edge}}
+  |targeting    = Auto
+  |affects      = Self, Allies
+  |spellshield = 
+  |notes        = 
+  * To achieve a 99% {{tip|slow}} with the empowered attack via {{ai|Power Chord|Sona}}, it would require at least {{as|1225 AP}}.
+  }}
 
 ## R: Crescendo
 
@@ -164,6 +282,31 @@ Notes:
 
 - This ability will cast from wherever the caster is at the start of the cast time.
 - While stunned by Crescendo, enemies will perform their Dance emote.
+- {{{{{1<noinclude>|Ability data</noinclude>}}}|Crescendo|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}
+  |champion     = Sona
+  |skill        = R
+  |icon         = Crescendo.png
+  |blurb        = {{sbc|Active:}} {{ci|Sona}} strikes an irresistible chord in the target direction that deals {{as|magic damage}} to enemies hit and briefly {{tip|stuns}} them.
+  |description  = {{sbc|Active:}} '''Sona''' strikes an irresistible chord in the target direction that deals {{as|magic damage}} to enemies hit and {{tip|stuns}} them for {{fd|1.5}} seconds.
+  |leveling     = {{st|Magic Damage|{{ap|150|250|350}} {{as|(+ 50% AP)}}}}
+  |cooldown     = {{ap|140|120|100}}
+  |cost         = 100
+  |costtype     = mana
+  |cast time = {{fd|0.25}}
+  |range        = {{tip|cr|icononly = true}} 1000
+  |width        = {{tip|er|icononly = true}} 280
+  |speed        = 2400
+  |targeting    = Direction
+  |affects      = Enemies
+  |damagetype   = Magic
+  |spellshield  = True
+  |spelleffects = spellaoe
+  |projectile   = True
+  |notes        = 
+  {{Effect at cast time start}}
+  * While stunned by ''Crescendo'', enemies will perform their Dance emote.
+  |flavorsound  = {{sm2|Sona_Original_R_1.ogg}} ''"Crescendo!"''
+  }}
 
 ## Game files
 
@@ -194,3 +337,114 @@ All 2 level-based formulas in the game files (2 linked to wiki values above):
 |---|---|---|--:|--:|--:|
 | SonaQ | TotalStaccatoDamage | breakpoints at levels 9 (level 1: 30) | 30 | 360 | 405 |
 | SonaPassive | PowerChordDamage | breakpoints at levels 9 (level 1: 20) | 20 | 240 | 270 |
+
+## Duel simulator kit (level 20, every ability at max rank)
+
+What the duel simulator fights with (`kits/champions/Sona.ts`): values come from pinned wiki and versioned game-data records at level 20. Interpretations and missing evidence are listed under assumptions. Ratios are fractions of the stat (60% AD is 0.6 × AD).
+
+- Basic attack: range 550, missile at 1500/s.
+- Options: accelerando = 0.
+
+| Key | Ability | Cooldown (s) | Cast time (s) | Cost | Delivery | On the enemy | On itself |
+|---|---|--:|--:|---|---|---|---|
+| Q | Hymn of Valor | 8 (depends on stats) | 0 | 70 | self | – | – |
+| W | Aria of Perseverance | 10 (depends on stats) | 0 | 100 | self | – | – |
+| E | Song of Celerity | 14 (depends on stats) | 0 | 65 | self | – | – |
+| R | Crescendo | 100 | 0.25 | 100 | skillshot 1000 long, 280 wide, at 2400/s | 350 + 50% AP magic damage; stun for 1.5 s | – |
+| Q-bolt | Hymn of Valor | 0 | 0 | – | self | 190 + 40% AP magic damage | – |
+| W-tone | Aria of Perseverance | 0 | 0 | – | self | – | – |
+| W-shield | Aria of Perseverance | 0 | 0 | – | self | – | – |
+| I-Q | Power Chord – Staccato | 0 | 0 | – | self | 405 + 30% AP magic damage | – |
+| I-W | Power Chord – Diminuendo | 0 | 0 | – | self | 270 + 20% AP magic damage | – |
+| I-E | Power Chord – Tempo | 0 | 0 | – | self | 270 + 20% AP magic damage | – |
+
+Effects marked by a mark or a role are completed by the kit's hooks (see the kit's source).
+
+### Assumptions
+
+- Accelerando stacks already earned (0–120): 0.
+- Accelerando is explicit permanent preduel history, defaulting to zero and capped at120. Only actual accepted Q hits on Champion-class bodies and actual W healing or threshold shield absorption on another eligible allied Champion-class body earn stacks; self healing and shielding do not invent ally credit. Each actual shield grant credits at most one threshold event. Reaching120 grants60 basic-only haste; later events refund1.5seconds of R's current cooldown without arming a future refund. The shield threshold is the primary rank value105 and excludes its AP scaling. Purchased haste and basic-only haste add before Q/W/E cooldown calculation, while R receives only purchased haste.
+- Power Chord starts empty, stacks completed basic casts to three and resets the attack timer on first becoming ready. A real empowered basic declaration consumes the stacks and captures the last completed Q/W/E identity on that attack, so a later cast cannot recolor its missile. The windup is uncancellable except shared polymorph/death rules; blindness, dodge, parry and attack blocks deny the proc. The spell-shield flag applies to the separate bonus chord packet while ordinary basic damage and Melody remain separate. Primary level continuation gives270 normal and405 Staccato base damage at20. Stacks persist through resurrection. Ward/jungle-plant exceptions require real targeting metadata absent from this arena and are not inferred from unrelated summons. Diminuendo's8% visual size change has no pinned generic gameplay/pathing-radius conversion; damage reduction is implemented without guessing size geometry.
+- Each basic cast replaces the active three-second aura and imposes an unhasted0.5second floor on the other basic cooldown deadlines. Self and each real eligible ally can be tagged once per aura, including allies entering later; tagged benefits keep their own5/1.5/3second clocks after the aura changes or the body leaves. The400aura is explicitly center-to-edge. No allied body is fabricated. Q Melody snapshots Sona's AP at grant; ally procs use the actual attack actor and its available penetration metadata rather than another champion's action or resource state.
+- Hymn of Valor selects at most two real visible enemies in825center range, prioritizing actual Champion-class bodies then distance and stable body identity. Each selected body receives one1300speed homing projectile carrying area damage; no imaginary second bolt hits an isolated target. Selection grants one second of unit sight without inventing an unspecified area-vision radius. Spell shields, parry, projectile interception and target loss belong to each actual missile; an accepted Q contact, rather than a quoted blurb's conflicting damage-only wording, earns the primary description's Accelerando credit. The primary zero cast time overrides stale0.25binary spell metadata.
+- Aria heals self immediately and sends one1300speed tone to the real ally with greatest missing-health percentage within1000center range, breaking ties by proximity and body ID. A full-health eligible ally can receive a tone but earns no heal credit. The tone follows stealth without revealing it; actual death, stasis or untargetability prevents its heal. Its hostile projectile interception path remains the one-dimensional segment to that real ally. Self W grants no Accelerando. W shield snapshots the sourced105+0.25AP; exact standard-shield absorption records distinguish it from other shields and legacy refunds.
+- Song of Celerity grants self20%+0.0002AP movement speed for seven seconds, ending after the three-second minimum once actual HP/shield damage occurs. Its aura grants only actual allies18%+0.0002AP for three seconds. Crescendo retains the origin and direction at declaration, completes its0.25cast and sends a2400speed piercing1000range projectile with280fullwidth and1.5second stun. The source's cast-at-start note establishes origin, not an immediate pre-cast projectile. R remains reserved in hold/trade; ordinary fight uses it in real reach, and completed trades retreat before optional casts. Reference allocation prices self-only Q/W sustain, earned-history haste and a bounded ordinary chord cadence; no imaginary allied aura or shield credits enter the budget.
+
+### Source values read (74)
+
+| Ability | Value | Source version |
+|---|---|---|
+| Power Chord | stacking up to 120 times | [4047882](https://wiki.leagueoflegends.com/en-us/Template:Data_Sona/Power_Chord?oldid=4047882) |
+| Power Chord | 0.5 basic ability haste | [4047882](https://wiki.leagueoflegends.com/en-us/Template:Data_Sona/Power_Chord?oldid=4047882) |
+| Power Chord | by 1.5 seconds each time | [4047882](https://wiki.leagueoflegends.com/en-us/Template:Data_Sona/Power_Chord?oldid=4047882) |
+| Power Chord | At 3 stacks | [4047882](https://wiki.leagueoflegends.com/en-us/Template:Data_Sona/Power_Chord?oldid=4047882) |
+| Power Chord | 0.5-second global cooldown | [4047882](https://wiki.leagueoflegends.com/en-us/Template:Data_Sona/Power_Chord?oldid=4047882) |
+| Power Chord | a unique aura for 3 seconds | [4047882](https://wiki.leagueoflegends.com/en-us/Template:Data_Sona/Power_Chord?oldid=4047882) |
+| Power Chord | Only one aura can be active at a time | [4047882](https://wiki.leagueoflegends.com/en-us/Template:Data_Sona/Power_Chord?oldid=4047882) |
+| Power Chord | The effect does not change if abilities are used while the projectile is in motion | [4047882](https://wiki.leagueoflegends.com/en-us/Template:Data_Sona/Power_Chord?oldid=4047882) |
+| Power Chord | retains Power Chord's stacks when entering resurrection | [4047882](https://wiki.leagueoflegends.com/en-us/Template:Data_Sona/Power_Chord?oldid=4047882) |
+| Power Chord | Gaining Power Chord's empowered attack resets Sona's basic attack timer | [4047882](https://wiki.leagueoflegends.com/en-us/Template:Data_Sona/Power_Chord?oldid=4047882) |
+| Power Chord | spellshield = True | [4047882](https://wiki.leagueoflegends.com/en-us/Template:Data_Sona/Power_Chord?oldid=4047882) |
+| Power Chord | parry = True | [4047882](https://wiki.leagueoflegends.com/en-us/Template:Data_Sona/Power_Chord?oldid=4047882) |
+| Power Chord | "name":"AccelerandoAHPerStack","values":[0.5,0.5,0.5,0.5,0.5,0.5,0.5] | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/sona/sona.bin.json) |
+| Power Chord | At 3 stacks, her next basic attack is empowered to consume them all to have an uncancellable windup, deal 20 – 240 (based on level) (+ 20% AP) bonus magic damage, and apply an additional effect based on the last basic ability she cast: | [4047882](https://wiki.leagueoflegends.com/en-us/Template:Data_Sona/Power_Chord?oldid=4047882) |
+| Power Chord | (+ 20% AP) | [4047882](https://wiki.leagueoflegends.com/en-us/Template:Data_Sona/Power_Chord?oldid=4047882) |
+| Power Chord | * Hymn of Valor - Staccato: Bonus damage is modified to 30 – 360 (based on level) (+ 30% AP). | [4047882](https://wiki.leagueoflegends.com/en-us/Template:Data_Sona/Power_Chord?oldid=4047882) |
+| Power Chord | (+ 30% AP) | [4047882](https://wiki.leagueoflegends.com/en-us/Template:Data_Sona/Power_Chord?oldid=4047882) |
+| Power Chord | damage dealt by 25% | [4047882](https://wiki.leagueoflegends.com/en-us/Template:Data_Sona/Power_Chord?oldid=4047882) |
+| Power Chord | (+ 4% per 100 AP) | [4047882](https://wiki.leagueoflegends.com/en-us/Template:Data_Sona/Power_Chord?oldid=4047882) |
+| Power Chord | for 3 seconds | [4047882](https://wiki.leagueoflegends.com/en-us/Template:Data_Sona/Power_Chord?oldid=4047882) |
+| Power Chord | Slows the target by 50% | [4047882](https://wiki.leagueoflegends.com/en-us/Template:Data_Sona/Power_Chord?oldid=4047882) |
+| Power Chord | for 2 seconds | [4047882](https://wiki.leagueoflegends.com/en-us/Template:Data_Sona/Power_Chord?oldid=4047882) |
+| Power Chord | capped at 99% | [4047882](https://wiki.leagueoflegends.com/en-us/Template:Data_Sona/Power_Chord?oldid=4047882) |
+| Power Chord | size by 8% | [4047882](https://wiki.leagueoflegends.com/en-us/Template:Data_Sona/Power_Chord?oldid=4047882) |
+| Hymn of Valor | Magic Damage: 50 / 85 / 120 / 155 / 190 (+ 40% AP) | [4049803](https://wiki.leagueoflegends.com/en-us/Template:Data_Sona/Hymn_of_Valor?oldid=4049803) |
+| Hymn of Valor | Bonus Magic Damage: 10 / 15 / 20 / 25 / 30 (+ 10% of Sona's AP) | [4049803](https://wiki.leagueoflegends.com/en-us/Template:Data_Sona/Hymn_of_Valor?oldid=4049803) |
+| Hymn of Valor | 10% of Sona's AP | [4049803](https://wiki.leagueoflegends.com/en-us/Template:Data_Sona/Hymn_of_Valor?oldid=4049803) |
+| Hymn of Valor | effectRadius (Sound bolts search range): 825 • 400 | [4049803](https://wiki.leagueoflegends.com/en-us/Template:Data_Sona/Hymn_of_Valor?oldid=4049803) |
+| Hymn of Valor | effectRadius (Aura radius): 825 • 400 | [4049803](https://wiki.leagueoflegends.com/en-us/Template:Data_Sona/Hymn_of_Valor?oldid=4049803) |
+| Hymn of Valor | speed: 1300 | [4049803](https://wiki.leagueoflegends.com/en-us/Template:Data_Sona/Hymn_of_Valor?oldid=4049803) |
+| Hymn of Valor | within 5 seconds | [4049803](https://wiki.leagueoflegends.com/en-us/Template:Data_Sona/Hymn_of_Valor?oldid=4049803) |
+| Hymn of Valor | for 1 second | [4049803](https://wiki.leagueoflegends.com/en-us/Template:Data_Sona/Hymn_of_Valor?oldid=4049803) |
+| Hymn of Valor | "name":"EnemiesToHit","values":[2.0,2.0,2.0,2.0,2.0,2.0,2.0] | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/sona/sona.bin.json) |
+| Hymn of Valor | prioritizing champions | [4049803](https://wiki.leagueoflegends.com/en-us/Template:Data_Sona/Hymn_of_Valor?oldid=4049803) |
+| Hymn of Valor | The bolts deal area damage | [4049803](https://wiki.leagueoflegends.com/en-us/Template:Data_Sona/Hymn_of_Valor?oldid=4049803) |
+| Hymn of Valor | "mSpeed":1300.0 | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/sona/sona.bin.json) |
+| Aria of Perseverance | Heal: 30 / 45 / 60 / 75 / 90 (+ 30% AP) | [4008052](https://wiki.leagueoflegends.com/en-us/Template:Data_Sona/Aria_of_Perseverance?oldid=4008052) |
+| Aria of Perseverance | Shield Strength: 25 / 45 / 65 / 85 / 105 (+ 25% of Sona's AP) | [4008052](https://wiki.leagueoflegends.com/en-us/Template:Data_Sona/Aria_of_Perseverance?oldid=4008052) |
+| Aria of Perseverance | 25% of Sona's AP | [4008052](https://wiki.leagueoflegends.com/en-us/Template:Data_Sona/Aria_of_Perseverance?oldid=4008052) |
+| Aria of Perseverance | Minimum Damage Mitigated: 25 / 45 / 65 / 85 / 105 | [4008052](https://wiki.leagueoflegends.com/en-us/Template:Data_Sona/Aria_of_Perseverance?oldid=4008052) |
+| Aria of Perseverance | effectRadius (Heal search range): 1000 • 400 | [4008052](https://wiki.leagueoflegends.com/en-us/Template:Data_Sona/Aria_of_Perseverance?oldid=4008052) |
+| Aria of Perseverance | shield for 1.5 seconds | [4008052](https://wiki.leagueoflegends.com/en-us/Template:Data_Sona/Aria_of_Perseverance?oldid=4008052) |
+| Aria of Perseverance | speed: 1300 | [4008052](https://wiki.leagueoflegends.com/en-us/Template:Data_Sona/Aria_of_Perseverance?oldid=4008052) |
+| Aria of Perseverance | Based on greatest % missing health | [4008052](https://wiki.leagueoflegends.com/en-us/Template:Data_Sona/Aria_of_Perseverance?oldid=4008052) |
+| Aria of Perseverance | If no one is injured | [4008052](https://wiki.leagueoflegends.com/en-us/Template:Data_Sona/Aria_of_Perseverance?oldid=4008052) |
+| Aria of Perseverance | will follow an ally in stealth but will not reveal them | [4008052](https://wiki.leagueoflegends.com/en-us/Template:Data_Sona/Aria_of_Perseverance?oldid=4008052) |
+| Aria of Perseverance | "mSpeed":1300.0 | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/sona/sona.bin.json) |
+| Song of Celerity | gains 20% | [4012188](https://wiki.leagueoflegends.com/en-us/Template:Data_Sona/Song_of_Celerity?oldid=4012188) |
+| Song of Celerity | 2% per 100 AP | [4012188](https://wiki.leagueoflegends.com/en-us/Template:Data_Sona/Song_of_Celerity?oldid=4012188) |
+| Song of Celerity | for 7 seconds | [4012188](https://wiki.leagueoflegends.com/en-us/Template:Data_Sona/Song_of_Celerity?oldid=4012188) |
+| Song of Celerity | if 3 seconds have elapsed | [4012188](https://wiki.leagueoflegends.com/en-us/Template:Data_Sona/Song_of_Celerity?oldid=4012188) |
+| Song of Celerity | Bonus Movement Speed: 10 / 12 / 14 / 16 / 18% (+ 2% per 100 of Sona's AP) | [4012188](https://wiki.leagueoflegends.com/en-us/Template:Data_Sona/Song_of_Celerity?oldid=4012188) |
+| Song of Celerity | for 3 seconds | [4012188](https://wiki.leagueoflegends.com/en-us/Template:Data_Sona/Song_of_Celerity?oldid=4012188) |
+| Song of Celerity | effectRadius: 400 | [4012188](https://wiki.leagueoflegends.com/en-us/Template:Data_Sona/Song_of_Celerity?oldid=4012188) |
+| Song of Celerity | "name":"SelfMovementSpeedDurationMin","values":[3.0,3.0,3.0,3.0,3.0,3.0,3.0] | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/sona/sona.bin.json) |
+| Crescendo | Magic Damage: 150 / 250 / 350 (+ 50% AP) | [4047883](https://wiki.leagueoflegends.com/en-us/Template:Data_Sona/Crescendo?oldid=4047883) |
+| Crescendo | stuns them for 1.5 seconds | [4047883](https://wiki.leagueoflegends.com/en-us/Template:Data_Sona/Crescendo?oldid=4047883) |
+| Crescendo | range: 1000 | [4047883](https://wiki.leagueoflegends.com/en-us/Template:Data_Sona/Crescendo?oldid=4047883) |
+| Crescendo | width: 280 | [4047883](https://wiki.leagueoflegends.com/en-us/Template:Data_Sona/Crescendo?oldid=4047883) |
+| Crescendo | speed: 2400 | [4047883](https://wiki.leagueoflegends.com/en-us/Template:Data_Sona/Crescendo?oldid=4047883) |
+| Crescendo | This ability will cast from wherever the caster is at the start of the cast time | [4047883](https://wiki.leagueoflegends.com/en-us/Template:Data_Sona/Crescendo?oldid=4047883) |
+| Crescendo | "mLineWidth":140.0 | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/sona/sona.bin.json) |
+| Hymn of Valor | cooldown: 8 | [4049803](https://wiki.leagueoflegends.com/en-us/Template:Data_Sona/Hymn_of_Valor?oldid=4049803) |
+| Aria of Perseverance | cooldown: 10 | [4008052](https://wiki.leagueoflegends.com/en-us/Template:Data_Sona/Aria_of_Perseverance?oldid=4008052) |
+| Song of Celerity | cooldown: 14 | [4012188](https://wiki.leagueoflegends.com/en-us/Template:Data_Sona/Song_of_Celerity?oldid=4012188) |
+| Hymn of Valor | cost: 50 / 55 / 60 / 65 / 70 | [4049803](https://wiki.leagueoflegends.com/en-us/Template:Data_Sona/Hymn_of_Valor?oldid=4049803) |
+| Hymn of Valor | castTime: none | [4049803](https://wiki.leagueoflegends.com/en-us/Template:Data_Sona/Hymn_of_Valor?oldid=4049803) |
+| Aria of Perseverance | cost: 80 / 85 / 90 / 95 / 100 | [4008052](https://wiki.leagueoflegends.com/en-us/Template:Data_Sona/Aria_of_Perseverance?oldid=4008052) |
+| Aria of Perseverance | castTime: none | [4008052](https://wiki.leagueoflegends.com/en-us/Template:Data_Sona/Aria_of_Perseverance?oldid=4008052) |
+| Song of Celerity | cost: 65 | [4012188](https://wiki.leagueoflegends.com/en-us/Template:Data_Sona/Song_of_Celerity?oldid=4012188) |
+| Song of Celerity | castTime: none | [4012188](https://wiki.leagueoflegends.com/en-us/Template:Data_Sona/Song_of_Celerity?oldid=4012188) |
+| Crescendo | cooldown: 140 / 120 / 100 | [4047883](https://wiki.leagueoflegends.com/en-us/Template:Data_Sona/Crescendo?oldid=4047883) |
+| Crescendo | cost: 100 | [4047883](https://wiki.leagueoflegends.com/en-us/Template:Data_Sona/Crescendo?oldid=4047883) |
+| Crescendo | castTime: 0.25 | [4047883](https://wiki.leagueoflegends.com/en-us/Template:Data_Sona/Crescendo?oldid=4047883) |

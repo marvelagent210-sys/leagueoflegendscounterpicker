@@ -178,7 +178,7 @@ const ahri: KitModule = {
           observeTakedown(ctx);
         },
         onMissileEnd(ctx) {
-          if (ctx.missile.source !== "Q" || ctx.reason !== "range") return;
+          if (ctx.missile.source !== "Q" || ctx.reason !== "range" || ctx.missile.intercepted) return;
           turnCircle(ctx, ctx.missile, qSpec);
           const returning: Missile = { id: ctx.world.nextId++, owner: ctx.self.side, source: "Qreturn", seenTick: ctx.missile.seenTick, x: ctx.missile.x, perTick: orbReturnSpeed / 30, acceleration: { perTick: orbAcceleration / 900, maxPerTick: orbReturnCap / 30 }, homing: false, followOwner: true, direction: ctx.self.x >= ctx.missile.x ? 1 : -1, travelLeft: Infinity, expiresTick: ticks(ctx.world.settings.maxSeconds), projectile: true, connects: true, scale: 1, piercing: true, collisionPet: true, hitTargets: [], hitPets: [], onHit: returnSpec.onHit! };
           const centerGap = Math.abs(ctx.enemy.x - returning.x);

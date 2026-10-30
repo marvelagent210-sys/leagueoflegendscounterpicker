@@ -36,31 +36,58 @@ export async function simulatePairs(dataset: string, gold: number, pairs: Array<
   const shares: Array<Array<[number, string, string]>> = Array.from({ length: count }, () => []);
   pairs.forEach(([you, enemy], index) => shares[index % count]?.push([index, you, enemy]));
   const completed = shares.map(() => 0);
-  const parts = await Promise.all(
-    shares.map(
-      (share, shareIndex) =>
-        new Promise<PairResult[]>((resolve, reject) => {
-          const worker = new Worker(new URL("./worker.mjs", import.meta.url), { workerData: { dataset, gold, pairs: share, ...(checkpoint ? { checkpoint } : {}) } satisfies PoolTask });
-          let done = false;
-          worker.on("message", (results: PairResult[] | PoolProgress) => {
-            if (!Array.isArray(results)) {
-              completed[shareIndex] = results.completed;
-              onProgress?.(completed.reduce((sum, value) => sum + value, 0), pairs.length);
-              return;
-            }
-            done = true;
-            resolve(results);
-            void worker.terminate();
-          });
-          worker.once("error", (error) => {
-            done = true;
-            reject(error);
-          });
-          worker.once("exit", (code) => {
-            if (!done) reject(new Error(`Simulation worker stopped (exit code ${code}) before sending its results`));
-          });
-        }),
-    ),
-  );
-  return parts.flat().sort((a, b) => a.index - b.index);
+  const workers: Worker[] = [];
+  const terminations = new Map<Worker, Promise<number>>();
+  const terminate = (worker: Worker): Promise<number> => {
+    let pending = terminations.get(worker);
+    if (!pending) {
+      pending = Promise.resolve().then(() => worker.terminate());
+      terminations.set(worker, pending);
+    }
+    return pending;
+  };
+  let stopped = false;
+  try {
+    const parts = await Promise.all(
+      shares.map(
+        (share, shareIndex) =>
+          new Promise<PairResult[]>((resolve, reject) => {
+            const worker = new Worker(new URL("./worker.mjs", import.meta.url), { workerData: { dataset, gold, pairs: share, ...(checkpoint ? { checkpoint } : {}) } satisfies PoolTask });
+            workers.push(worker);
+            let done = false;
+            worker.on("message", (results: PairResult[] | PoolProgress) => {
+              if (stopped || done) return;
+              if (!Array.isArray(results)) {
+                completed[shareIndex] = results.completed;
+                onProgress?.(completed.reduce((sum, value) => sum + value, 0), pairs.length);
+                return;
+              }
+              done = true;
+              resolve(results);
+              void terminate(worker).catch(() => undefined);
+            });
+            worker.once("error", (error) => {
+              if (done) return;
+              done = true;
+              stopped = true;
+              reject(error);
+            });
+            worker.once("exit", (code) => {
+              if (!done) {
+                done = true;
+                stopped = true;
+                reject(new Error(`Simulation worker stopped (exit code ${code}) before sending its results`));
+              }
+            });
+          }),
+      ),
+    );
+    return parts.flat().sort((a, b) => a.index - b.index);
+  } finally {
+    // A rejected Promise.all does not cancel its siblings. Stop the remaining
+    // threads before returning; otherwise they keep the failed refresh alive,
+    // writing checkpoints and reporting progress for a result it cannot publish.
+    stopped = true;
+    await Promise.allSettled(workers.map(terminate));
+  }
 }

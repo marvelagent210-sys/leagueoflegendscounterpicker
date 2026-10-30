@@ -60,6 +60,9 @@ Notes:
     - At level 20, at minimum it grants 145.56 decaying movement speed.
 - Changing targets for the second shot will also acquire the new target.
 - The second shot, if the first shot's target was killed, will prioritize visible enemy champions, then minions on low health.
+- Static Cooldown: Unaffected by ability haste, starts upon the shield being destroyed or expiring.
+- 40+(240/17)*(x-1)*(0.7025+0.0175*(x-1))
+- Mark Consumption applies before the damage of his attacks (basic, Dirty Fighting second shot, and Heroic Swing attacks) but after damage of his non-attack spells (Avengerang and Comeuppance).
 
 ## Q: Avengerang
 
@@ -205,6 +208,10 @@ Notes:
 - Hook range including lollipop against walls and final dash distance and speed.
 - The following table refers for interactions while the hook is attached or in flight:
 - The following table refers for interactions while Akshan is swinging:
+- The shots critically strike for 150% damage with 50% bonus critical damage.
+- Despite this ability not triggering on-attack effects, it does trigger Navori Flickerblade Transcendence on each hit.
+- Avengerang and Going Rogue are disabled. Comeuppance is usable.
+- It can miss if the user is blinded.
 
 ## R: Comeuppance
 
@@ -253,6 +260,10 @@ Notes:
 - Comeuppance will cancel if the target becomes untargetable or dies during the channel.
 - Comeuppance is special cased to place Inherent Glamour on cooldown when targeting Neeko, and to break the disguise before damaging her.
 - The following table refers for interactions while Akshan is channeling:
+- The bullet damage is increased by 0 to 30% based on critical strike chance.
+- 2% per 1% of target's missing health, capped at 100% missing health
+- Avengerang and Going Rogue are disabled. Heroic Swing is usable.
+- Comeuppance is interrupted by death or silence.
 
 ## Game files
 
@@ -286,3 +297,149 @@ All 4 level-based formulas in the game files (2 linked to wiki values above):
 | AkshanPassive | TotalShieldAmount | along the stat growth curve 40 → 280 over levels 1-18, continues past 18 | 40 | 280 | 317.624 |
 | AkshanPassive | PassiveProcDamage | breakpoints at levels 6, 11, 16 (level 1: 15) | 15 | 150 | 150 |
 | AkshanPassive | PassiveCooldown | breakpoints at levels 6, 11, 16 (level 1: 16) | 16 | 4 | 4 |
+
+## Duel simulator kit (level 20, every ability at max rank)
+
+What the duel simulator fights with (`kits/champions/Akshan.ts`): values come from pinned wiki and versioned game-data records at level 20. Interpretations and missing evidence are listed under assumptions. Ratios are fractions of the stat (60% AD is 0.6 × AD).
+
+- Basic attack: range 500, missile at 2000/s.
+
+| Key | Ability | Cooldown (s) | Cast time (s) | Cost | Delivery | On the enemy | On itself |
+|---|---|--:|--:|---|---|---|---|
+| Q | Avengerang | 5 (starts when its effect on the caster ends) | 0.25 | 80 | self | – | – |
+| W | Going Rogue | 2 (starts when its effect on the caster ends) | 0.5 | 0 | self | – | – |
+| Wend | Going Rogue (end) | 0 | 0 | – | self | – | – |
+| E | Heroic Swing | 12 (starts when its effect on the caster ends) | 0 | 70 | self | – | – |
+| E2 | Heroic Swing (swing) | 0 | 0 | – | self | – | – |
+| E3 | Heroic Swing (dismount) | 0 | 0 | – | self | – | – |
+| Eshot | Heroic Swing (shot) | 0 | 0 | – | targeted, 500 range | 40 + 25% AD physical damage | – |
+| R | Comeuppance | 70 (starts when its effect on the caster ends) | 0 | 100 | targeted, 2500 range; channel 2.5 s | – | – |
+| Rrelease | Comeuppance (release) | 0 | 0 | – | self | – | – |
+| Rfire | Comeuppance (firing) | 0 | 0 | – | self; channel 1.05 s | – | – |
+| Rbullet | Comeuppance (bullet) | 0 | 0 | – | targeted, 2500 range, missile at 3200/s | 45 + 15% AD physical damage | – |
+| Qout | Avengerang | 0 | 0 | – | skillshot 850 long, 120 wide, at 1500/s | 165 + 70% bonus AD physical damage | – |
+| Qback | Avengerang | 0 | 0 | – | skillshot 850 long, 120 wide, at 2400/s | 165 + 70% bonus AD physical damage | – |
+
+Effects marked by a mark or a role are completed by the kit's hooks (see the kit's source).
+
+### Assumptions
+
+- Dirty Fighting uses the pinned wiki's five-second mark lifetime; the exact game file retains a conflicting 4.5-second DataValue. Marks belong to each actual champion or summon, consume before basic/E damage and after Q/R damage, and never borrow the summon owner's stacks. Hit-count props do not receive spell marks. E's proc damage receives its sourced 25% on-hit multiplier, while a connected E shot contributes one full stack.
+- The passive shield extrapolates the pinned wiki's explicit stat-progression formula to level 20, rather than capping its normalized level-18 display at 280. Its four-second static cooldown starts when the shield expires or is destroyed. Only actual champion-class contacts, including explicitly champion-class clones, grant the shield; no summon or clone grants an E takedown reset.
+- The second basic has independent critical expectation, full on-hits, life steal, 50% AD against champions and other summons, and 100% AD against explicitly minion-class summons. Its delay interprets the exact game's autoattack cast-time calculation of 2 as twice normal attack speed, bounded by its 0.1-second pre-cast lockout; the exported file does not expose the script's precise delay. Its attack cooldown begins on the second launch. Cancelling by moving or casting preserves the original first-shot attack timer and grants the sourced linearly decaying movement bonus. Default fight policy preserves the second shot unless an immediate defensive response is selected.
+- Avengerang traverses actual targets once on each pass. An outbound contact extends the endpoint only as far as 500 units beyond that contact, even through spell shield; return follows Akshan's current position. Each pass uses the ordinary independent sideways hit estimate. Revealed is the engine's shared sight status; separate ordinary sight and true sight are not distinguished, and map vision bubbles are absent.
+- Going Rogue lasts two seconds in open ground and refreshes only near actual terrain intervals within the exact game's 175-unit wall range or the scenario's brush. Detection checks the living rival champion within 800 units. The flee policy prepares W while terrain or brush maintains it, or uses it beyond detection for immediate concealment, preserving reactive defenses and retreat movement during the cast. It does not assume concealment inside detection or extend open-ground duration. The solo duel has no allied champion deaths, so Scoundrel gold, trails, chase movement/missing-mana regeneration, and ally resurrection are unavailable; Akshan's own death never creates a Scoundrel.
+- Heroic Swing requires a real live terrain interval within 800 units. The lane's abstract walls flag supplies no anchor coordinates and grants no E. Without pinned two-dimensional wall geometry, the anchored circle is conservatively projected as x = anchor + (startX-anchor) cos(speed × time/radius), stopping at the first real terrain interval expanded by 50 or enemy champion contact. This projection can undercount viable lateral swings and can never promise a full orbit. Clockwise and counterclockwise have the same one-axis projection. Nearby attachment recoils only to the documented 250-unit minimum radius, clipped by real terrain. The policy dismounts at its first legal opportunity; no sustained guaranteed full-hit swing is budgeted.
+- E shots are separate basic-damage spell instances with blind, dodge, block, parry, projectile interception and one-shot spell shields; they do not trigger on-attack events. Each E shot snapshots blindness when launched, preserving an in-flight attack through later blind application and retaining a launch-time miss through later cleansing. Actual hit-count props receive the explicit shared basic-attack pet packet, without spell marks. The pinned wiki's rendered 0.231-second shot spacing is used rather than the raw 0.2 script parameter. Dismount distance is the exact game's 350; its speed is explicitly pending in the wiki and absent from the bin, so dismount displacement is conservatively instantaneous and clipped by terrain rather than inventing travel speed. R overlays the swing and suppresses E shots while charging or firing.
+- Comeuppance begins with one stored bullet and stores the remaining bullets over 2.5 seconds. Early release is legal after 0.5 seconds; emitted bullets are separated by the exact game's 0.15-second cast-time parameter, with the first one interval after release. Both the mobile charging and firing phases suppress basics; silence or polymorph interrupts, while immobilization alone does not. Target death or untargetability cancels charging; invisibility does not cancel its reveal. Each homing bullet can collide with a real enemy summon first, with current missing-health/critical modifiers and life steal evaluated at contact. Only explicitly minion-class summons execute; unclassified pets and champion clones take ordinary physical damage. Structures, neutral units, ally resurrection and map sight are absent.
+- The reference budget counts two Q passes, passive procs from ordinary double basics and Q/R, one charged R per full cooldown and firing duration, and the shield's duration plus static cooldown. E contributes zero guaranteed reference damage because its real terrain eligibility and contacts are scenario-dependent. No damage or defense coefficients are tuned to matchup outcomes.
+
+### Source values read (105)
+
+| Ability | Value | Source version |
+|---|---|---|
+| Dirty Fighting | deals 50% AD physical damage | [4074628](https://wiki.leagueoflegends.com/en-us/Template:Data_Akshan/Dirty_Fighting?oldid=4074628) |
+| Dirty Fighting | increased to 100% AD against minions | [4074628](https://wiki.leagueoflegends.com/en-us/Template:Data_Akshan/Dirty_Fighting?oldid=4074628) |
+| Dirty Fighting | within 200 units beyond his basic attack range | [4074628](https://wiki.leagueoflegends.com/en-us/Template:Data_Akshan/Dirty_Fighting?oldid=4074628) |
+| Dirty Fighting | speed (Additional): 2000 • 5000 | [4074628](https://wiki.leagueoflegends.com/en-us/Template:Data_Akshan/Dirty_Fighting?oldid=4074628) |
+| Dirty Fighting | speed (Basic): 2000 • 5000 | [4074628](https://wiki.leagueoflegends.com/en-us/Template:Data_Akshan/Dirty_Fighting?oldid=4074628) |
+| Dirty Fighting | mSpell.mPreCastLockoutDeltaTime: 0.10000000149011612 | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/akshan/akshan.bin.json) |
+| Dirty Fighting | "mNumber":2.0,"__type":"NumberCalculationPart" | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/akshan/akshan.bin.json) |
+| Dirty Fighting | Starts the attack windup's cooldown after it is used, rather than when the first shot is | [4074628](https://wiki.leagueoflegends.com/en-us/Template:Data_Akshan/Dirty_Fighting?oldid=4074628) |
+| Dirty Fighting | The second shot, if the first shot's target was killed, will prioritize visible enemy champions, then minions on low health | [4074628](https://wiki.leagueoflegends.com/en-us/Template:Data_Akshan/Dirty_Fighting?oldid=4074628) |
+| Dirty Fighting | The additional shot applies on-hit effects, triggers on-attack effects, and is affected by critical strike modifiers | [4074628](https://wiki.leagueoflegends.com/en-us/Template:Data_Akshan/Dirty_Fighting?oldid=4074628) |
+| Dirty Fighting | to enemies for 5 seconds | [4074628](https://wiki.leagueoflegends.com/en-us/Template:Data_Akshan/Dirty_Fighting?oldid=4074628) |
+| Dirty Fighting | stacking up to 3 times | [4074628](https://wiki.leagueoflegends.com/en-us/Template:Data_Akshan/Dirty_Fighting?oldid=4074628) |
+| Dirty Fighting | 15 / 40 / 80 / 150 (based on level) (+ 60% AP) | [4074628](https://wiki.leagueoflegends.com/en-us/Template:Data_Akshan/Dirty_Fighting?oldid=4074628) |
+| Dirty Fighting | shield for 2 seconds | [4074628](https://wiki.leagueoflegends.com/en-us/Template:Data_Akshan/Dirty_Fighting?oldid=4074628) |
+| Dirty Fighting | 16 / 12 / 8 / 4 (based on level) | [4074628](https://wiki.leagueoflegends.com/en-us/Template:Data_Akshan/Dirty_Fighting?oldid=4074628) |
+| Dirty Fighting | Unaffected by ability haste, starts upon the shield being destroyed or expiring | [4074628](https://wiki.leagueoflegends.com/en-us/Template:Data_Akshan/Dirty_Fighting?oldid=4074628) |
+| Dirty Fighting | 40+(240/17)*(x-1)*(0.7025+0.0175*(x-1)) | [4074628](https://wiki.leagueoflegends.com/en-us/Template:Data_Akshan/Dirty_Fighting?oldid=4074628) |
+| Dirty Fighting | (+ 35% bonus AD) shield | [4074628](https://wiki.leagueoflegends.com/en-us/Template:Data_Akshan/Dirty_Fighting?oldid=4074628) |
+| Dirty Fighting | "mStartValue":20.0,"mEndValue":75.0 | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/akshan/akshan.bin.json) |
+| Dirty Fighting | decaying over 1 second | [4074628](https://wiki.leagueoflegends.com/en-us/Template:Data_Akshan/Dirty_Fighting?oldid=4074628) |
+| Dirty Fighting | (1 + 100% bonus attack speed) | [4074628](https://wiki.leagueoflegends.com/en-us/Template:Data_Akshan/Dirty_Fighting?oldid=4074628) |
+| Dirty Fighting | applies before the damage of his attacks | [4074628](https://wiki.leagueoflegends.com/en-us/Template:Data_Akshan/Dirty_Fighting?oldid=4074628) |
+| Avengerang | Physical Damage: 45 / 75 / 105 / 135 / 165 (+ 70% bonus AD) | [4074638](https://wiki.leagueoflegends.com/en-us/Template:Data_Akshan/Avengerang?oldid=4074638) |
+| Avengerang | range: 850 + up to 500 per enemy hit | [4074638](https://wiki.leagueoflegends.com/en-us/Template:Data_Akshan/Avengerang?oldid=4074638) |
+| Avengerang | speed: 1500 • 2400 | [4074638](https://wiki.leagueoflegends.com/en-us/Template:Data_Akshan/Avengerang?oldid=4074638) |
+| Avengerang | width: 120 | [4074638](https://wiki.leagueoflegends.com/en-us/Template:Data_Akshan/Avengerang?oldid=4074638) |
+| Avengerang | revealing them for 1 second | [4074638](https://wiki.leagueoflegends.com/en-us/Template:Data_Akshan/Avengerang?oldid=4074638) |
+| Avengerang | Non-Champion Damage: 40 / 50 / 60 / 70 / 80% | [4074638](https://wiki.leagueoflegends.com/en-us/Template:Data_Akshan/Avengerang?oldid=4074638) |
+| Avengerang | gains 20% (+ 5% per 100 AP) | [4074638](https://wiki.leagueoflegends.com/en-us/Template:Data_Akshan/Avengerang?oldid=4074638) |
+| Avengerang | decays over 1 second | [4074638](https://wiki.leagueoflegends.com/en-us/Template:Data_Akshan/Avengerang?oldid=4074638) |
+| Avengerang | Enemies can be hit only once per pass | [4074638](https://wiki.leagueoflegends.com/en-us/Template:Data_Akshan/Avengerang?oldid=4074638) |
+| Avengerang | Spell shield will only block a single hit. They do not prevent the initial throw from extending its range | [4074638](https://wiki.leagueoflegends.com/en-us/Template:Data_Akshan/Avengerang?oldid=4074638) |
+| Going Rogue | for 2 seconds otherwise | [3989407](https://wiki.leagueoflegends.com/en-us/Template:Data_Akshan/Going_Rogue?oldid=3989407) |
+| Going Rogue | recast after 1 second | [3989407](https://wiki.leagueoflegends.com/en-us/Template:Data_Akshan/Going_Rogue?oldid=3989407) |
+| Going Rogue | Detection Radius: 800 | [3989407](https://wiki.leagueoflegends.com/en-us/Template:Data_Akshan/Going_Rogue?oldid=3989407) |
+| Going Rogue | mSpell.DataValues.PassiveWallRange.values: [175.0 | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/akshan/akshan.bin.json) |
+| Going Rogue | lasts indefinitely while he is near terrain or inside brush | [3989407](https://wiki.leagueoflegends.com/en-us/Template:Data_Akshan/Going_Rogue?oldid=3989407) |
+| Going Rogue | Akshan can move during Going Rogue's cast time | [3989407](https://wiki.leagueoflegends.com/en-us/Template:Data_Akshan/Going_Rogue?oldid=3989407) |
+| Going Rogue | Attacking or casting abilities ends Going Rogue immediately | [3989407](https://wiki.leagueoflegends.com/en-us/Template:Data_Akshan/Going_Rogue?oldid=3989407) |
+| Going Rogue | Using a basic attack breaks the stealth at the start of the attack windup | [3989407](https://wiki.leagueoflegends.com/en-us/Template:Data_Akshan/Going_Rogue?oldid=3989407) |
+| Going Rogue | Enemy champions that kill Akshan will not be marked as Scoundrels nor increase their slay count | [3989407](https://wiki.leagueoflegends.com/en-us/Template:Data_Akshan/Going_Rogue?oldid=3989407) |
+| Going Rogue | Clones do not count for triggering Going Rogue's passive | [3989407](https://wiki.leagueoflegends.com/en-us/Template:Data_Akshan/Going_Rogue?oldid=3989407) |
+| Going Rogue | resurrects all dead allied champions that they have slain after 1 second | [3989407](https://wiki.leagueoflegends.com/en-us/Template:Data_Akshan/Going_Rogue?oldid=3989407) |
+| Heroic Swing | Physical Damage per Shot: 8 / 16 / 24 / 32 / 40 (+ 25% AD) × (1 + 0.3 per 100% bonus attack speed) | [4074661](https://wiki.leagueoflegends.com/en-us/Template:Data_Akshan/Heroic_Swing?oldid=4074661) |
+| Heroic Swing | (1 + 0.3 per 100% bonus attack speed) | [4074661](https://wiki.leagueoflegends.com/en-us/Template:Data_Akshan/Heroic_Swing?oldid=4074661) |
+| Heroic Swing | on-hit damage reduced to 25% effectiveness | [4074661](https://wiki.leagueoflegends.com/en-us/Template:Data_Akshan/Heroic_Swing?oldid=4074661) |
+| Heroic Swing | targetRange: 800 | [4074661](https://wiki.leagueoflegends.com/en-us/Template:Data_Akshan/Heroic_Swing?oldid=4074661) |
+| Heroic Swing | effectRadius: 500 | [4074661](https://wiki.leagueoflegends.com/en-us/Template:Data_Akshan/Heroic_Swing?oldid=4074661) |
+| Heroic Swing | collisionRadius: 50 | [4074661](https://wiki.leagueoflegends.com/en-us/Template:Data_Akshan/Heroic_Swing?oldid=4074661) |
+| Heroic Swing | speed (Hook): 2500 • 1200 • 3000 | [4074661](https://wiki.leagueoflegends.com/en-us/Template:Data_Akshan/Heroic_Swing?oldid=4074661) |
+| Heroic Swing | speed (orbital): 2500 • 1200 • 3000 | [4074661](https://wiki.leagueoflegends.com/en-us/Template:Data_Akshan/Heroic_Swing?oldid=4074661) |
+| Heroic Swing | speed (Automatic): 2500 • 1200 • 3000 | [4074661](https://wiki.leagueoflegends.com/en-us/Template:Data_Akshan/Heroic_Swing?oldid=4074661) |
+| Heroic Swing | last 4 seconds | [4074661](https://wiki.leagueoflegends.com/en-us/Template:Data_Akshan/Heroic_Swing?oldid=4074661) |
+| Heroic Swing | preparation for up to 2.125 seconds | [4074661](https://wiki.leagueoflegends.com/en-us/Template:Data_Akshan/Heroic_Swing?oldid=4074661) |
+| Heroic Swing | after 0.5 seconds of the second cast | [4074661](https://wiki.leagueoflegends.com/en-us/Template:Data_Akshan/Heroic_Swing?oldid=4074661) |
+| Heroic Swing | cooldown to 0.5 seconds | [4074661](https://wiki.leagueoflegends.com/en-us/Template:Data_Akshan/Heroic_Swing?oldid=4074661) |
+| Heroic Swing | every 0.231 | [4074661](https://wiki.leagueoflegends.com/en-us/Template:Data_Akshan/Heroic_Swing?oldid=4074661) |
+| Heroic Swing | recoil up to 250 units | [4074661](https://wiki.leagueoflegends.com/en-us/Template:Data_Akshan/Heroic_Swing?oldid=4074661) |
+| Heroic Swing | 50% bonus critical damage | [4074661](https://wiki.leagueoflegends.com/en-us/Template:Data_Akshan/Heroic_Swing?oldid=4074661) |
+| Heroic Swing | mSpell.castRange: [350.0 | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/akshan/akshan.bin.json) |
+| Heroic Swing | Hook range including lollipop against walls and final dash distance and speed | [4074661](https://wiki.leagueoflegends.com/en-us/Template:Data_Akshan/Heroic_Swing?oldid=4074661) |
+| Heroic Swing | Each shot is a separate cast instance | [4074661](https://wiki.leagueoflegends.com/en-us/Template:Data_Akshan/Heroic_Swing?oldid=4074661) |
+| Heroic Swing | It can miss if the user is blinded | [4074661](https://wiki.leagueoflegends.com/en-us/Template:Data_Akshan/Heroic_Swing?oldid=4074661) |
+| Heroic Swing | The swing will end prematurely if the terrain the hook was attached to no longer exists | [4074661](https://wiki.leagueoflegends.com/en-us/Template:Data_Akshan/Heroic_Swing?oldid=4074661) |
+| Heroic Swing | Heroic Swing's second and third cast can both be used while silenced | [4074661](https://wiki.leagueoflegends.com/en-us/Template:Data_Akshan/Heroic_Swing?oldid=4074661) |
+| Heroic Swing | Only Heroic Swing's first cast is disabled while grounded or rooted | [4074661](https://wiki.leagueoflegends.com/en-us/Template:Data_Akshan/Heroic_Swing?oldid=4074661) |
+| Heroic Swing | immediately fires one shot at the beginning of his swing and a final shot while dismounting | [4074661](https://wiki.leagueoflegends.com/en-us/Template:Data_Akshan/Heroic_Swing?oldid=4074661) |
+| Heroic Swing | cannot fire during the swing while it is active | [4074661](https://wiki.leagueoflegends.com/en-us/Template:Data_Akshan/Heroic_Swing?oldid=4074661) |
+| Heroic Swing | Takedowns against clones do not count | [4074661](https://wiki.leagueoflegends.com/en-us/Template:Data_Akshan/Heroic_Swing?oldid=4074661) |
+| Comeuppance | channeling for 2.5 seconds | [4074717](https://wiki.leagueoflegends.com/en-us/Template:Data_Akshan/Comeuppance?oldid=4074717) |
+| Comeuppance | recast after 0.5 seconds | [4074717](https://wiki.leagueoflegends.com/en-us/Template:Data_Akshan/Comeuppance?oldid=4074717) |
+| Comeuppance | 5-second cooldown | [4074717](https://wiki.leagueoflegends.com/en-us/Template:Data_Akshan/Comeuppance?oldid=4074717) |
+| Comeuppance | plus 2 seconds thereafter | [4074717](https://wiki.leagueoflegends.com/en-us/Template:Data_Akshan/Comeuppance?oldid=4074717) |
+| Comeuppance | Maximum Bullets Stored: 5 / 6 / 7 | [4074717](https://wiki.leagueoflegends.com/en-us/Template:Data_Akshan/Comeuppance?oldid=4074717) |
+| Comeuppance | Bullet Storing Interval Time: 0.625 / 0.520833 / 0.416667 seconds | [4074717](https://wiki.leagueoflegends.com/en-us/Template:Data_Akshan/Comeuppance?oldid=4074717) |
+| Comeuppance | Minimum Physical Damage per Bullet: 25 / 35 / 45 (+ 15% AD) | [4074717](https://wiki.leagueoflegends.com/en-us/Template:Data_Akshan/Comeuppance?oldid=4074717) |
+| Comeuppance | targetRange: 2500 | [4074717](https://wiki.leagueoflegends.com/en-us/Template:Data_Akshan/Comeuppance?oldid=4074717) |
+| Comeuppance | width: 120 | [4074717](https://wiki.leagueoflegends.com/en-us/Template:Data_Akshan/Comeuppance?oldid=4074717) |
+| Comeuppance | speed: 3200 | [4074717](https://wiki.leagueoflegends.com/en-us/Template:Data_Akshan/Comeuppance?oldid=4074717) |
+| Comeuppance | mSpell.DataValues.CastTimePerBullet.values: [0.15000000596046448 | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/akshan/akshan.bin.json) |
+| Comeuppance | increased by 0 to 30% based on critical strike chance | [4074717](https://wiki.leagueoflegends.com/en-us/Template:Data_Akshan/Comeuppance?oldid=4074717) |
+| Comeuppance | 2% per 1% of target's missing health | [4074717](https://wiki.leagueoflegends.com/en-us/Template:Data_Akshan/Comeuppance?oldid=4074717) |
+| Comeuppance | stacks on the target every 0.25 seconds | [4074717](https://wiki.leagueoflegends.com/en-us/Template:Data_Akshan/Comeuppance?oldid=4074717) |
+| Comeuppance | Each bullet's damage applies life steal and executes minions | [4074717](https://wiki.leagueoflegends.com/en-us/Template:Data_Akshan/Comeuppance?oldid=4074717) |
+| Comeuppance | Spell shield will not prevent the lock-on and will only block a single bullet | [4074717](https://wiki.leagueoflegends.com/en-us/Template:Data_Akshan/Comeuppance?oldid=4074717) |
+| Comeuppance | will cancel if the target becomes untargetable or dies during the channel | [4074717](https://wiki.leagueoflegends.com/en-us/Template:Data_Akshan/Comeuppance?oldid=4074717) |
+| Comeuppance | will not go on a reduced cooldown if Akshan dies during the channel | [4074717](https://wiki.leagueoflegends.com/en-us/Template:Data_Akshan/Comeuppance?oldid=4074717) |
+| Comeuppance | "mStat":8,"mDataValue":"CritDamageMod" | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/akshan/akshan.bin.json) |
+| Comeuppance | "mStat":9,"mCoefficient":1.0 | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/akshan/akshan.bin.json) |
+| Avengerang | castTime: 0.25 | [4074638](https://wiki.leagueoflegends.com/en-us/Template:Data_Akshan/Avengerang?oldid=4074638) |
+| Avengerang | cooldown: 9 / 8 / 7 / 6 / 5 | [4074638](https://wiki.leagueoflegends.com/en-us/Template:Data_Akshan/Avengerang?oldid=4074638) |
+| Going Rogue | cooldown: 18 / 14 / 10 / 6 / 2 | [3989407](https://wiki.leagueoflegends.com/en-us/Template:Data_Akshan/Going_Rogue?oldid=3989407) |
+| Heroic Swing | cooldown: 18 / 16.5 / 15 / 13.5 / 12 | [4074661](https://wiki.leagueoflegends.com/en-us/Template:Data_Akshan/Heroic_Swing?oldid=4074661) |
+| Comeuppance | cooldown: 100 / 85 / 70 | [4074717](https://wiki.leagueoflegends.com/en-us/Template:Data_Akshan/Comeuppance?oldid=4074717) |
+| Avengerang | cooldownStart: post-effect | [4074638](https://wiki.leagueoflegends.com/en-us/Template:Data_Akshan/Avengerang?oldid=4074638) |
+| Going Rogue | cooldownStart: post-effect | [3989407](https://wiki.leagueoflegends.com/en-us/Template:Data_Akshan/Going_Rogue?oldid=3989407) |
+| Heroic Swing | cooldownStart: post-effect | [4074661](https://wiki.leagueoflegends.com/en-us/Template:Data_Akshan/Heroic_Swing?oldid=4074661) |
+| Comeuppance | cooldownStart: post-effect | [4074717](https://wiki.leagueoflegends.com/en-us/Template:Data_Akshan/Comeuppance?oldid=4074717) |
+| Avengerang | cost: 60 / 65 / 70 / 75 / 80 | [4074638](https://wiki.leagueoflegends.com/en-us/Template:Data_Akshan/Avengerang?oldid=4074638) |
+| Going Rogue | cost: 40 / 30 / 20 / 10 / 0 | [3989407](https://wiki.leagueoflegends.com/en-us/Template:Data_Akshan/Going_Rogue?oldid=3989407) |
+| Going Rogue | castTime: 0.5 | [3989407](https://wiki.leagueoflegends.com/en-us/Template:Data_Akshan/Going_Rogue?oldid=3989407) |
+| Heroic Swing | cost: 70 | [4074661](https://wiki.leagueoflegends.com/en-us/Template:Data_Akshan/Heroic_Swing?oldid=4074661) |
+| Heroic Swing | castTime: none | [4074661](https://wiki.leagueoflegends.com/en-us/Template:Data_Akshan/Heroic_Swing?oldid=4074661) |
+| Comeuppance | cost: 100 | [4074717](https://wiki.leagueoflegends.com/en-us/Template:Data_Akshan/Comeuppance?oldid=4074717) |
+| Comeuppance | castTime: none | [4074717](https://wiki.leagueoflegends.com/en-us/Template:Data_Akshan/Comeuppance?oldid=4074717) |

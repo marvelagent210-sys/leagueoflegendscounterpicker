@@ -77,6 +77,26 @@
       "The empowered range for the mark will also be drawn as an indicator for Aphelios.",
       "Runaan's Hurricane bolts will use Calibrum's projectiles for Aphelios's attacks with Calibrum.",
       "If the target becomes untargetable, dies, or is too far away or no longer in sight during the empowered attack's cast time, it will still fire despite the target being invalid."
+    ],
+    "gameSources": [
+      {
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/aphelios/aphelios.bin.json",
+        "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "object": "Characters/Aphelios/Spells/ApheliosCalibrumAttack",
+        "sha256": "1c6c629c1af168cb9c88886bfebbc440b4cb09a5fb826c6997f3c88c914735bd",
+        "text": [
+          "mSpell.mMissileSpec.movementComponent: {\"mOffsetInitialTargetHeight\":70.0,\"mStartBoneName\":\"Calibrum_Orb\",\"mTargetBoneName\":\"C_Buffbone_Glb_Chest_Loc\",\"mSpeed\":3000.0,\"__type\":\"FixedSpeedMovement\"}"
+        ]
+      },
+      {
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/aphelios/aphelios.bin.json",
+        "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "object": "Characters/Aphelios/Spells/ApheliosCalibrumAttackOverride",
+        "sha256": "1c6c629c1af168cb9c88886bfebbc440b4cb09a5fb826c6997f3c88c914735bd",
+        "text": [
+          "mSpell: {\"mAffectsTypeFlags\":7919,\"mAffectsStatusFlags\":32,\"mAnimationName\":\"B_Spell1_Attack\",\"mImgIconName\":[\"ASSETS/Characters/Aphelios/HUD/Icons2D/Calibrum_U.dds\"],\"mCastTime\":0.30000001192092896,\"cooldownTime\":[0.0,0.0,0.0,0.0,0.0,0.0,0.0],\"Cooldown\":{\"values\":[0.0,0.0,0.0,0.0,0.0,0.0,0.0],\"{0a3e0478}\":0.0,\"__type\":\"{0a0eddc9}\"},\"canCastWhileDisabled\":true,\"mCantCancelWhileWindingUp\":true,\"alwaysSnapFacing\":true,\"useAnimatorFramerate\":true,\"mConsideredAsAutoAttack\":true,\"mRollForCriticalHit\":true,\"castRange\":[25000.0,25000.0,25000.0,25000.0,25000.0,25000.0,25000.0],\"castRangeValues\":{\"values\":[25000.0,25000.0,25000.0,25000.0,25000.0,25000.0,25000.0],\"{0a3e0478}\":25000.0,\"__type\":\"{0a0eddc9}\"},\"castRadius\":[100.0,100.0,100.0,100.0,100.0,100.0,100.0],\"castConeDistance\":100.0,\"missileSpeed\":1500.0,\"selectionPriority\":1,\"mCastingBreaksStealth\":true,\"mClientData\":{\"mUseTooltipFromAnotherSpell\":\"Characters/Aphelios/Spells/ApheliosCalibrumQAbility/ApheliosCalibrumQ\",\"__type\":\"SpellDataResourceClient\"},\"__type\":\"SpellDataResource\"}"
+        ]
+      }
     ]
   },
   {
@@ -238,7 +258,10 @@
     "notes": [
       "All Chakram stacks are lost if the Crescendum projectile is destroyed (i.e W, E).",
       "Due to the return time, at high attack speeds Crescendum will increase Aphelios' effective time to cast attacks, even when right next to his target.",
-      "Crescendum attack cannot exceed attack speed limit"
+      "Crescendum attack cannot exceed attack speed limit",
+      "Attacks with '''Crescendum''' are empowered to deal {{as|{{pp|0;then + 16; then + 14.5; then + 13; then + 11.5; then + 10; then + 8.5; then + 7; then + 5.5; then + 5*x|0 to 20 by 1|type=number of Chakrams|key=%|formula=Each Chakram grants less bonus damage than the last, starting at 16% and diminishing to 5% for 9+ Chakrams.}} AD}} {{as|'''additional''' physical damage}} and have a lower {{tip|attack windup|windup}} of {{ap|0.159999996423721/1.5*100|round=2}}%, further decreased to {{ap|0.100000001490116/1.5*100|round=2}}% when {{tip|critically strike|critically striking}}. The '''bonus''' damage from ''Chakrams'' is affected by {{tip|critical strike}} modifiers.",
+      "{{pp|5000 to 5000-6000*0.55|0 to 0.55 by 0.05|label=Missile Speed|label1=Time (s)|formula=5000 u/s initial speed, -6000 u/s² acceleration, and a minimum speed of 1700|showtype=false}}",
+      "600 {{as|(+ 75 per 10% '''bonus''' attack speed)}}"
     ]
   },
   {
@@ -311,7 +334,19 @@
     ],
     "notes": [
       "Gravitum's debuff applies even if the target is immune to slows (via slow immunity or cc-immunity).\n  - The only exception is E, which is special cased to negate the debuff with its slow-immunity.\n  - The target will be affected after losing their immunity.",
-      "Runaan's Hurricane bolts will use Gravitum's projectiles when Aphelios attacks with Gravitum."
+      "Runaan's Hurricane bolts will use Gravitum's projectiles when Aphelios attacks with Gravitum.",
+      "The only exception is {{cai|E|Skarner}}, which is special cased to negate the debuff with its slow-immunity."
+    ],
+    "gameSources": [
+      {
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/aphelios/aphelios.bin.json",
+        "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "object": "Characters/Aphelios/Spells/ApheliosGravitumAttack",
+        "sha256": "1c6c629c1af168cb9c88886bfebbc440b4cb09a5fb826c6997f3c88c914735bd",
+        "text": [
+          "mSpell.mMissileSpec.movementComponent: {\"mTargetHeightAugment\":190.0,\"mStartBoneName\":\"Gravitum_RingFront\",\"mTargetBoneName\":\"C_Buffbone_Glb_Center_Loc\",\"mSpeed\":1500.0,\"__type\":\"FixedSpeedMovement\"}"
+        ]
+      }
     ]
   },
   {
@@ -422,6 +457,17 @@
       "The main target is dealt basic damage, while secondary ones are dealt area basic proc damage without applying spell effects.",
       "Infernum's attack hit can be dodged by or missed against the primary target.\n  - This will not prevent the missile from dealing damage to secondary targets nor from splashing against additional targets behind the primary target. The damage cannot be dodged as or missed against a secondary target.",
       "Runaan's Hurricane bolts will use Infernum's projectiles when Aphelios attacks with Infernum.\n  - The bolts' attacks shoot 3 missiles, increased to 5 missiles when they critically strike."
+    ],
+    "gameSources": [
+      {
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/aphelios/aphelios.bin.json",
+        "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "object": "Characters/Aphelios/Spells/ApheliosInfernumAttack",
+        "sha256": "1c6c629c1af168cb9c88886bfebbc440b4cb09a5fb826c6997f3c88c914735bd",
+        "text": [
+          "mSpell.mMissileSpec.movementComponent: {\"mTargetHeightAugment\":190.0,\"mOffsetInitialTargetHeight\":100.0,\"mTargetBoneName\":\"C_BUFFBONE_GLB_CHEST_LOC\",\"mSpeed\":1700.0,\"__type\":\"FixedSpeedMovement\"}"
+        ]
+      }
     ]
   },
   {
@@ -622,7 +668,9 @@
       }
     ],
     "notes": [
-      "Runaan's Hurricane bolts will use Severum's attack animation instead of firing projectiles for Aphelios' attacks with Severum."
+      "Runaan's Hurricane bolts will use Severum's attack animation instead of firing projectiles for Aphelios' attacks with Severum.",
+      "Basic attacks with '''Severum''' are {{tip|projectile|non-projectile}} and have an {{tip|uncancellable windup}}. '''Severum's''' attacks {{tip|heal}} '''Aphelios''' for {{pp|key=%|2 to 8|formula=1.647% + 0.3529% * level, capped at level 18|color=heal}}<!--stops at 18-->  of the {{tt|post-mitigation damage|Damage calculated after modifiers}} dealt, increased to {{pp|5 to 20|key=%|formula=4.1176% + 0.8824% * level, capped at level 18|color=heal}}<!--stops at 18--> for attacks from abilities.",
+      "92400"
     ]
   },
   {
@@ -2016,7 +2064,29 @@
       "With Crescendum, 1 spectral chakram is generated for every target hit, meaning it is possible to generate up to 10 spectral chakrams with one cast of Moonlight Vigil if it hits 5 enemy champions.",
       "The locked-on attacks' can be dodged and blocked, but won't be prevented if Aphelios is blinded.\n  - Preventing the attack also prevents the additional effect (e.g. marking them with Gravitum or granting spectral chakrams).",
       "Moonlight Vigil has different visual effects changed accordingly to each weapon. This may vary depending on the skin, this showcases the default:",
-      "Moonlight_Vigil_(Calibrum)_screenshot.png"
+      "Moonlight_Vigil_(Calibrum)_screenshot.png",
+      "{{critical damage|100 to 130|0 to 30|critScaling=true}}",
+      "Performs ''Infernum's'' attacks and ''Infernum's'' bolts in a 400-radius circle: primary targets are dealt ''Infernum's'' primary damage; secondary targets are dealt 90% of ''Infernum's'' regular bolt damage; both are modified by ''Moonlight Vigil's'' {{sti|{{as|critical damage}}}} modifier."
+    ],
+    "gameSources": [
+      {
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/aphelios/aphelios.bin.json",
+        "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "object": "Characters/Aphelios/Spells/ApheliosRAbility/ApheliosR",
+        "sha256": "1c6c629c1af168cb9c88886bfebbc440b4cb09a5fb826c6997f3c88c914735bd",
+        "text": [
+          "mSpell.mSpellCalculations.CritDamageModCalc: {\"mSimpleTooltipCalculationDisplay\":5,\"mExpandedTooltipCalculationDisplay\":5,\"mFormulaParts\":[{\"mNumber\":1.0,\"__type\":\"NumberCalculationPart\"},{\"mPart1\":{\"mDataValue\":\"CritDamageMod\",\"__type\":\"NamedDataValueCalculationPart\"},\"mPart2\":{\"mPart1\":{\"mStat\":8,\"mCoefficient\":1.0,\"__type\":\"StatByCoefficientCalculationPart\"},\"mPart2\":{\"mSubparts\":[{\"mStat\":9,\"mCoefficient\":1.0,\"__type\":\"StatByCoefficientCalculationPart\"},{\"mNumber\":-1.0,\"__type\":\"NumberCalculationPart\"}],\"__type\":\"SumOfSubPartsCalculationPart\"},\"__type\":\"ProductOfSubPartsCalculationPart\"},\"__type\":\"ProductOfSubPartsCalculationPart\"}],\"mDisplayAsPercent\":true,\"__type\":\"GameCalculation\"}"
+        ]
+      },
+      {
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/aphelios/aphelios.bin.json",
+        "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "object": "Characters/Aphelios/Spells/ApheliosRAbility/ApheliosRMis",
+        "sha256": "1c6c629c1af168cb9c88886bfebbc440b4cb09a5fb826c6997f3c88c914735bd",
+        "text": [
+          "mSpell.mMissileSpec: {\"mMissileWidth\":125.0,\"movementComponent\":{\"mUseHeightOffsetAtEnd\":true,\"mTracksTarget\":false,\"mStartBoneName\":\"\",\"mSpeed\":2050.0,\"__type\":\"FixedSpeedMovement\"},\"heightSolver\":{\"__type\":\"GravityHeightSolver\"},\"verticalFacing\":{\"__type\":\"VerticalFacingFaceTarget\"},\"behaviors\":[{\"__type\":\"DestroyOnMovementComplete\"},{\"__type\":\"CastOnHit\"},{\"mDelayTime\":0.5,\"__type\":\"DelayStart\"}],\"__type\":\"MissileSpecification\"}"
+        ]
+      }
     ]
   },
   {

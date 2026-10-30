@@ -220,3 +220,128 @@ All 2 level-based formulas in the game files (1 linked to wiki values above):
 |---|---|---|--:|--:|--:|
 | TalonPassive | BleedDamage | linear 80 → 280 over levels 1-18, continues past 18 | 80 | 280 | 303.529 |
 | TalonQ | TotalHealing | linear 9 → 55 over levels 1-18, continues past 18 | 9 | 55 | 60.4118 |
+
+## Duel simulator kit (level 20, every ability at max rank)
+
+What the duel simulator fights with (`kits/champions/Talon.ts`): values come from pinned wiki and versioned game-data records at level 20. Interpretations and missing evidence are listed under assumptions. Ratios are fractions of the stat (60% AD is 0.6 × AD).
+
+- Basic attack: range 125, melee.
+
+| Key | Ability | Cooldown (s) | Cast time (s) | Cost | Delivery | On the enemy | On itself |
+|---|---|--:|--:|---|---|---|---|
+| Q | Noxian Diplomacy (close) | 6 | depends on stats (0.198 base) | 40 | targeted, 170 edge range | 217.5 + 150% bonus AD physical damage | – |
+| Qdash | Noxian Diplomacy (ranged) | 6 | 0 | 40 | dash target 575 units at 1400/s | 145 + 100% bonus AD physical damage | – |
+| W | Rake | 7 | 0.25 | 70 | self | – | – |
+| E | Assassin's Path | 2 | 0 | – | self | – | – |
+| R | Shadow Assault | 60 (starts when its effect on the caster ends) | 0 | 100 | self | – | – |
+| R2 | Shadow Assault (converge) | 0 | 0 | – | self | – | – |
+| Wout | Rake (outward) | 0 | 0 | – | self | 90 + 40% bonus AD physical damage | – |
+| Wreturn | Rake (return) | 0 | 0 | – | self | 180 + 90% bonus AD physical damage; slow 60% for 1 s | – |
+| Rout | Shadow Assault (outward) | 0 | 0 | – | self | 180 + 100% bonus AD physical damage | – |
+| Rreturn | Shadow Assault (return) | 0 | 0 | – | self | 180 + 100% bonus AD physical damage | – |
+| Bleed | Blade's End | 0 | 0 | – | self | – | – |
+
+Effects marked by a mark or a role are completed by the kit's hooks (see the kit's source).
+
+### Assumptions
+
+- Wounds belong to actual contacted champions, including explicitly Champion-class clones. Ordinary minion pets cannot receive Wounds; the engine does not classify any summoned monster as a large monster, so it does not infer large-monster eligibility from Monster class alone. Connected basics refresh existing stacks, including blocked attacks; blind, dodge and parry do not. At three stacks a connected basic consumes them even when a separate passive spell shield prevents the bleed. Damage blocks do not prevent the bleed. The raw pinned tooltip explicitly authors twenty passive levels, so level 20 is 303.529411764706 + 210% bonus AD, rather than capping the level-18 value at 280. Sixteen bleed pulses snapshot the proc's AD and use absolute ceil-rounded 0.125-second deadlines, ending at exactly two seconds; they do not trigger new Wounds and survive owner death.
+- Q has distinct close edge-range and ranged center-range branches, sharing Q's ordinary cooldown. Close Q uses the actual attack-speed windup, moves no closer than the primary tooltip's 150-unit offset during that cast and retains its damage clock through dash interruption. The ranged dash uses the primary explicitly estimated 1400 speed and 100-unit tracking offset; beyond the primary explicitly estimated 800 tracking distance it finishes at the previous target position while retaining the sourced remote hit. Neither Q branch is a basic attack or applies ordinary attack on-hits. Its guaranteed 150% close critical packet uses the primary formula and does not scale with ordinary basic critical chance. The next close-Q basic gains 75 range for one second. Cast-end target invalidation is free only for close Q. Q resets the actual basic timer and the ranged landing orders an ordinary basic through behavior. Kill healing follows the authored twenty-level series; it refunds half Q's remaining cooldown.
+- Rake's three-blade fan is represented by its central 900-unit axial blade on the duel line. The sourced side range, angle and full-width 150 remain evidence; lateral fan geometry is outside this scalar arena. It takes a fixed 0.35 seconds outward, pauses 0.7 seconds, then returns at 3000 to Talon's current position, including after death. Each pass has independent contact lists, spell-shield checks and a newly evaluated scalar sidestep weight. Missing outward does not suppress return damage. Walls destroy that blade and its remaining return; target relocation can make either pass miss. Rank-five returns fail beyond 20000 units. The initial blade starts from the cast-end location and declared facing.
+- Assassin's Path requires an actual active terrain interval in the requested direction, with a selectable near edge within 725 and a clear far-side endpoint within 800 total displacement. It never supplies a wall or a free open-ground dash. Every crossed interval has its own haste-scaled 60-second segment cooldown, independent of the two-second E cast cooldown. The scalar terrain interval is the lockout segment; the exact binary's 1250-unit lockout-width and 625 WallJumpDistance metadata do not replace the primary 800-unit maximum or define additional map geometry. Speed is the sourced 100% current movement speed, sampled at declaration. Stasis pauses and resumes the same dash. Ordinary knockdown interrupts it. E gives the sourced brief reveal when observed or an enemy is within 400 of landing; unobstructed vision has no additional obstruction model on the duel line.
+- Shadow Assault's twelve radial blades are represented by the two opposite axial blades crossing this one-dimensional arena. Per-target, per-pass contact guards prevent double damage or multiple shield consumption from overlapping representatives; no twelvefold damage is granted. Outward flight is 550 at 2400 and return is 4000. Blades really remain at their endpoints, and return to the current owner or actual basic/Q target position; the two passes each apply one Wound. Initial stealth lasts up to 2.5 seconds, recast is available after one second, and every convergence respects the 0.8-second minimum. Basic windup completion and Q release end stealth and select the attacked target, while W release or manual expiry returns to Talon. E's reveal exposes him without terminating the stealth. The primary instant R wins over the binary's 0.25 cast metadata. Cooldown begins when convergence starts and stealth/speed end. Already released blades complete after death; at death, remaining stealth runs to its original convergence deadline because no earlier death-convergence rule is sourced. Returns fail beyond 20000. Off-axis radial overlap, acceleration and unsourced server lifecycle details are not invented.
+- Ordinary hold and trade behavior reserve offensive Shadow Assault; a completed trade retains retreat. Reactive defense is still allowed when actually threatened. The reference budget values both W/R passes, the close Q packet, and one bleed per achievable three-spell-contact cycle constrained by its two-second lockout and actual basic speed. It assumes those packets contact for valuation; the duel resolves actual misses, defenses, resources and terrain. No numeric coefficient is fitted to matchup results.
+
+### Source values read (89)
+
+| Ability | Value | Source version |
+|---|---|---|
+| Blade's End | hit for 6 seconds | [4046483](https://wiki.leagueoflegends.com/en-us/Template:Data_Talon/Blade's_End?oldid=4046483) |
+| Blade's End | stacking up to 3 times | [4046483](https://wiki.leagueoflegends.com/en-us/Template:Data_Talon/Blade's_End?oldid=4046483) |
+| Blade's End | physical damage over 2 seconds | [4046483](https://wiki.leagueoflegends.com/en-us/Template:Data_Talon/Blade's_End?oldid=4046483) |
+| Blade's End | {{fd\|0.125}} seconds | [4046483](https://wiki.leagueoflegends.com/en-us/Template:Data_Talon/Blade's_End?oldid=4046483) |
+| Blade's End | Talon's next basic attack on-hit against an enemy with 3 Wound stacks is empowered to consume them all to cause the target to bleed, dealing 80 – 280 (based on level) (+ 210% bonus AD) total physical damage over 2 seconds. | [4046483](https://wiki.leagueoflegends.com/en-us/Template:Data_Talon/Blade's_End?oldid=4046483) |
+| Blade's End | (+ 210% bonus AD) | [4046483](https://wiki.leagueoflegends.com/en-us/Template:Data_Talon/Blade's_End?oldid=4046483) |
+| Blade's End | will still trigger if blocked | [4046483](https://wiki.leagueoflegends.com/en-us/Template:Data_Talon/Blade's_End?oldid=4046483) |
+| Blade's End | not if they are dodged or missed | [4046483](https://wiki.leagueoflegends.com/en-us/Template:Data_Talon/Blade's_End?oldid=4046483) |
+| Blade's End | still consuming all Wound stacks | [4046483](https://wiki.leagueoflegends.com/en-us/Template:Data_Talon/Blade's_End?oldid=4046483) |
+| Blade's End | Both passes of Rake and Shadow Assault apply a stack | [4046483](https://wiki.leagueoflegends.com/en-us/Template:Data_Talon/Blade's_End?oldid=4046483) |
+| Noxian Diplomacy | Physical Damage: 65 / 85 / 105 / 125 / 145 (+ 100% bonus AD) | [4015970](https://wiki.leagueoflegends.com/en-us/Template:Data_Talon/Noxian_Diplomacy?oldid=4015970) |
+| Noxian Diplomacy | Critical Physical Damage: 97.5 / 127.5 / 157.5 / 187.5 / 217.5 (+ 150% bonus AD) | [4015970](https://wiki.leagueoflegends.com/en-us/Template:Data_Talon/Noxian_Diplomacy?oldid=4015970) |
+| Noxian Diplomacy | cooldown: 8 / 7.5 / 7 / 6.5 / 6 | [4015970](https://wiki.leagueoflegends.com/en-us/Template:Data_Talon/Noxian_Diplomacy?oldid=4015970) |
+| Noxian Diplomacy | cost: 40 | [4015970](https://wiki.leagueoflegends.com/en-us/Template:Data_Talon/Noxian_Diplomacy?oldid=4015970) |
+| Noxian Diplomacy | targetRange (Ranged): 575 • 170 | [4015970](https://wiki.leagueoflegends.com/en-us/Template:Data_Talon/Noxian_Diplomacy?oldid=4015970) |
+| Noxian Diplomacy | targetRange (Close): 575 • 170 | [4015970](https://wiki.leagueoflegends.com/en-us/Template:Data_Talon/Noxian_Diplomacy?oldid=4015970) |
+| Noxian Diplomacy | speed: 1400 | [4015970](https://wiki.leagueoflegends.com/en-us/Template:Data_Talon/Noxian_Diplomacy?oldid=4015970) |
+| Noxian Diplomacy | grants him 75 bonus attack range | [4015970](https://wiki.leagueoflegends.com/en-us/Template:Data_Talon/Noxian_Diplomacy?oldid=4015970) |
+| Noxian Diplomacy | next basic attack within 1 second | [4015970](https://wiki.leagueoflegends.com/en-us/Template:Data_Talon/Noxian_Diplomacy?oldid=4015970) |
+| Noxian Diplomacy | "dashes to the target" (tooltip: to within 150 units, if Talon is not closer already) | [4015970](https://wiki.leagueoflegends.com/en-us/Template:Data_Talon/Noxian_Diplomacy?oldid=4015970) |
+| Noxian Diplomacy | offset of 100 units | [4015970](https://wiki.leagueoflegends.com/en-us/Template:Data_Talon/Noxian_Diplomacy?oldid=4015970) |
+| Noxian Diplomacy | beyond 800 units | [4015970](https://wiki.leagueoflegends.com/en-us/Template:Data_Talon/Noxian_Diplomacy?oldid=4015970) |
+| Noxian Diplomacy | If Noxian Diplomacy kills the target, Talon heals for 9 / 11.7059 / 14.4118 / 17.1176 / 19.8235 / 22.5294 / 25.2353 / 27.9412 / 30.6471 / 33.3529 / 36.0588 / 38.7647 / 41.4706 / 44.1765 / 46.8824 / 49.5882 / 52.2941 / 55 / 57.7059 / 60.4118 (based on level) and the ability's cooldown is reduced by 50%. | [4015970](https://wiki.leagueoflegends.com/en-us/Template:Data_Talon/Noxian_Diplomacy?oldid=4015970) |
+| Noxian Diplomacy | cooldown is reduced by 50% | [4015970](https://wiki.leagueoflegends.com/en-us/Template:Data_Talon/Noxian_Diplomacy?oldid=4015970) |
+| Noxian Diplomacy | resets Talon's basic attack timer | [4015970](https://wiki.leagueoflegends.com/en-us/Template:Data_Talon/Noxian_Diplomacy?oldid=4015970) |
+| Noxian Diplomacy | 100% of '''Talon's''' windup time | [4015970](https://wiki.leagueoflegends.com/en-us/Template:Data_Talon/Noxian_Diplomacy?oldid=4015970) |
+| Noxian Diplomacy | The damage will be dealt even if Talon's dash is interrupted | [4015970](https://wiki.leagueoflegends.com/en-us/Template:Data_Talon/Noxian_Diplomacy?oldid=4015970) |
+| Noxian Diplomacy | only applies to the close dash attack | [4015970](https://wiki.leagueoflegends.com/en-us/Template:Data_Talon/Noxian_Diplomacy?oldid=4015970) |
+| Noxian Diplomacy | While grounded or rooted | [4015970](https://wiki.leagueoflegends.com/en-us/Template:Data_Talon/Noxian_Diplomacy?oldid=4015970) |
+| Noxian Diplomacy | mSpell.castRange: [170.0,170.0,170.0,170.0,170.0,170.0,170.0] | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/talon/talon.bin.json) |
+| Noxian Diplomacy | mSpell.mUseAutoattackCastTimeData: {"__type":"UseAutoattackCastTimeData"} | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/talon/talon.bin.json) |
+| Noxian Diplomacy | mSpell.mCastingBreaksStealth: true | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/talon/talon.bin.json) |
+| Rake | Physical Damage: 50 / 60 / 70 / 80 / 90 (+ 40% bonus AD) | [4008077](https://wiki.leagueoflegends.com/en-us/Template:Data_Talon/Rake?oldid=4008077) |
+| Rake | Physical Damage: 60 / 90 / 120 / 150 / 180 (+ 90% bonus AD) | [4008077](https://wiki.leagueoflegends.com/en-us/Template:Data_Talon/Rake?oldid=4008077) |
+| Rake | cooldown: 9 / 8.5 / 8 / 7.5 / 7 | [4008077](https://wiki.leagueoflegends.com/en-us/Template:Data_Talon/Rake?oldid=4008077) |
+| Rake | castTime: 0.25 | [4008077](https://wiki.leagueoflegends.com/en-us/Template:Data_Talon/Rake?oldid=4008077) |
+| Rake | range (Center): 900 • 850 | [4008077](https://wiki.leagueoflegends.com/en-us/Template:Data_Talon/Rake?oldid=4008077) |
+| Rake | width: 150 | [4008077](https://wiki.leagueoflegends.com/en-us/Template:Data_Talon/Rake?oldid=4008077) |
+| Rake | speed (Returning): 2571 • 2429 • 3000 | [4008077](https://wiki.leagueoflegends.com/en-us/Template:Data_Talon/Rake?oldid=4008077) |
+| Rake | 0.35 seconds fixed travel time | [4008077](https://wiki.leagueoflegends.com/en-us/Template:Data_Talon/Rake?oldid=4008077) |
+| Rake | linger for 0.7 seconds | [4008077](https://wiki.leagueoflegends.com/en-us/Template:Data_Talon/Rake?oldid=4008077) |
+| Rake | Slow: 40 / 45 / 50 / 55 / 60% | [4008077](https://wiki.leagueoflegends.com/en-us/Template:Data_Talon/Rake?oldid=4008077) |
+| Rake | slowing them for 1 second | [4008077](https://wiki.leagueoflegends.com/en-us/Template:Data_Talon/Rake?oldid=4008077) |
+| Rake | 20000 units at rank 5 | [4008077](https://wiki.leagueoflegends.com/en-us/Template:Data_Talon/Rake?oldid=4008077) |
+| Rake | only once per pass | [4008077](https://wiki.leagueoflegends.com/en-us/Template:Data_Talon/Rake?oldid=4008077) |
+| Rake | projectiles will still complete their travel | [4008077](https://wiki.leagueoflegends.com/en-us/Template:Data_Talon/Rake?oldid=4008077) |
+| Rake | wherever the caster is at the end of the cast time | [4008077](https://wiki.leagueoflegends.com/en-us/Template:Data_Talon/Rake?oldid=4008077) |
+| Rake | range (Side): 900 • 850 | [4008077](https://wiki.leagueoflegends.com/en-us/Template:Data_Talon/Rake?oldid=4008077) |
+| Rake | angle: 22° | [4008077](https://wiki.leagueoflegends.com/en-us/Template:Data_Talon/Rake?oldid=4008077) |
+| Rake | mSpell.mMissileSpec.movementComponent.mTravelTime: 0.3499999940395355 | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/talon/talon.bin.json) |
+| Rake | mSpell.castRange: [5000.0,5000.0,5000.0,5000.0,5000.0,20000.0,20000.0] | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/talon/talon.bin.json) |
+| Assassin's Path | targetRange: 725 | [3907201](https://wiki.leagueoflegends.com/en-us/Template:Data_Talon/Assassin's_Path?oldid=3907201) |
+| Assassin's Path | dashes up to 800 units | [3907201](https://wiki.leagueoflegends.com/en-us/Template:Data_Talon/Assassin's_Path?oldid=3907201) |
+| Assassin's Path | speed: 100% movement speed | [3907201](https://wiki.leagueoflegends.com/en-us/Template:Data_Talon/Assassin's_Path?oldid=3907201) |
+| Assassin's Path | {{ap\|160\|135\|110\|85\|60}} | [3907201](https://wiki.leagueoflegends.com/en-us/Template:Data_Talon/Assassin's_Path?oldid=3907201) |
+| Assassin's Path | cooldown: 2 | [3907201](https://wiki.leagueoflegends.com/en-us/Template:Data_Talon/Assassin's_Path?oldid=3907201) |
+| Assassin's Path | castTime: none | [3907201](https://wiki.leagueoflegends.com/en-us/Template:Data_Talon/Assassin's_Path?oldid=3907201) |
+| Assassin's Path | {{fd\|0.6}} seconds | [3907201](https://wiki.leagueoflegends.com/en-us/Template:Data_Talon/Assassin's_Path?oldid=3907201) |
+| Assassin's Path | within 400 units | [3907201](https://wiki.leagueoflegends.com/en-us/Template:Data_Talon/Assassin's_Path?oldid=3907201) |
+| Assassin's Path | player-generated terrain | [3907201](https://wiki.leagueoflegends.com/en-us/Template:Data_Talon/Assassin's_Path?oldid=3907201) |
+| Assassin's Path | stop dashing upon entering | [3907201](https://wiki.leagueoflegends.com/en-us/Template:Data_Talon/Assassin's_Path?oldid=3907201) |
+| Assassin's Path | Affected by ability haste | [3907201](https://wiki.leagueoflegends.com/en-us/Template:Data_Talon/Assassin's_Path?oldid=3907201) |
+| Assassin's Path | mSpell.DataValues.WallJumpDistance.values: [625.0,625.0,625.0,625.0,625.0,625.0,625.0] | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/talon/talon.bin.json) |
+| Assassin's Path | mSpell.DataValues.WallLockoutWidth.values: [1250.0,1250.0,1250.0,1250.0,1250.0,1250.0,1250.0] | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/talon/talon.bin.json) |
+| Shadow Assault | Physical Damage: 90 / 135 / 180 (+ 100% bonus AD) | [4008078](https://wiki.leagueoflegends.com/en-us/Template:Data_Talon/Shadow_Assault?oldid=4008078) |
+| Shadow Assault | cooldown: 100 / 80 / 60 | [4008078](https://wiki.leagueoflegends.com/en-us/Template:Data_Talon/Shadow_Assault?oldid=4008078) |
+| Shadow Assault | cost: 100 | [4008078](https://wiki.leagueoflegends.com/en-us/Template:Data_Talon/Shadow_Assault?oldid=4008078) |
+| Shadow Assault | castTime: none | [4008078](https://wiki.leagueoflegends.com/en-us/Template:Data_Talon/Shadow_Assault?oldid=4008078) |
+| Shadow Assault | effectRadius: 550 | [4008078](https://wiki.leagueoflegends.com/en-us/Template:Data_Talon/Shadow_Assault?oldid=4008078) |
+| Shadow Assault | width: 280 | [4008078](https://wiki.leagueoflegends.com/en-us/Template:Data_Talon/Shadow_Assault?oldid=4008078) |
+| Shadow Assault | speed (Outward): 2400 • 4000 | [4008078](https://wiki.leagueoflegends.com/en-us/Template:Data_Talon/Shadow_Assault?oldid=4008078) |
+| Shadow Assault | speed (Returning): 2400 • 4000 | [4008078](https://wiki.leagueoflegends.com/en-us/Template:Data_Talon/Shadow_Assault?oldid=4008078) |
+| Shadow Assault | Bonus Movement Speed: 40 / 55 / 70% | [4008078](https://wiki.leagueoflegends.com/en-us/Template:Data_Talon/Shadow_Assault?oldid=4008078) |
+| Shadow Assault | up to 2.5 seconds | [4008078](https://wiki.leagueoflegends.com/en-us/Template:Data_Talon/Shadow_Assault?oldid=4008078) |
+| Shadow Assault | recast after 1 second | [4008078](https://wiki.leagueoflegends.com/en-us/Template:Data_Talon/Shadow_Assault?oldid=4008078) |
+| Shadow Assault | minimum lifetime of 0.8 seconds | [4008078](https://wiki.leagueoflegends.com/en-us/Template:Data_Talon/Shadow_Assault?oldid=4008078) |
+| Shadow Assault | more than 20000 units | [4008078](https://wiki.leagueoflegends.com/en-us/Template:Data_Talon/Shadow_Assault?oldid=4008078) |
+| Shadow Assault | basic attack breaks the stealth at the end of the attack windup | [4008078](https://wiki.leagueoflegends.com/en-us/Template:Data_Talon/Shadow_Assault?oldid=4008078) |
+| Shadow Assault | will converge the blades to the target instead | [4008078](https://wiki.leagueoflegends.com/en-us/Template:Data_Talon/Shadow_Assault?oldid=4008078) |
+| Shadow Assault | does not cancel Talon's basic attacks | [4008078](https://wiki.leagueoflegends.com/en-us/Template:Data_Talon/Shadow_Assault?oldid=4008078) |
+| Shadow Assault | 12 blades evenly distributed | [4008078](https://wiki.leagueoflegends.com/en-us/Template:Data_Talon/Shadow_Assault?oldid=4008078) |
+| Shadow Assault | Spell shield will block a single pass | [4008078](https://wiki.leagueoflegends.com/en-us/Template:Data_Talon/Shadow_Assault?oldid=4008078) |
+| Shadow Assault | cooldownStart: post-effect | [4008078](https://wiki.leagueoflegends.com/en-us/Template:Data_Talon/Shadow_Assault?oldid=4008078) |
+| Shadow Assault | mSpell.spellCastTime: 0.25 | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/talon/talon.bin.json) |
+| Shadow Assault | mSpell.castRange: [550.0,550.0,550.0,550.0,550.0,550.0,550.0] | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/talon/talon.bin.json) |
+| Shadow Assault | mSpell.mMissileSpec.mMissileWidth: 140.0 | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/talon/talon.bin.json) |
+| Shadow Assault | mSpell.castRange: [20000.0,20000.0,20000.0,20000.0,20000.0,20000.0,20000.0] | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/talon/talon.bin.json) |
+| Noxian Diplomacy | castTime (Close): None • 100% of Talon's windup time (0.198 at base attack speed) | [4015970](https://wiki.leagueoflegends.com/en-us/Template:Data_Talon/Noxian_Diplomacy?oldid=4015970) |
+| Rake | cost: 50 / 55 / 60 / 65 / 70 | [4008077](https://wiki.leagueoflegends.com/en-us/Template:Data_Talon/Rake?oldid=4008077) |

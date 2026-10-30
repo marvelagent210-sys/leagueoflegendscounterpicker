@@ -291,6 +291,8 @@ Notes:
     - Preventing the attack also prevents the additional effect (e.g. marking them with Gravitum or granting spectral chakrams).
 - Moonlight Vigil has different visual effects changed accordingly to each weapon. This may vary depending on the skin, this showcases the default:
 - Moonlight_Vigil_(Calibrum)_screenshot.png
+- {{critical damage|100 to 130|0 to 30|critScaling=true}}
+- Performs ''Infernum's'' attacks and ''Infernum's'' bolts in a 400-radius circle: primary targets are dealt ''Infernum's'' primary damage; secondary targets are dealt 90% of ''Infernum's'' regular bolt damage; both are modified by ''Moonlight Vigil's'' {{sti|{{as|critical damage}}}} modifier.
 
 ## Basic attack: Calibrum
 
@@ -347,6 +349,9 @@ Notes:
 - All Chakram stacks are lost if the Crescendum projectile is destroyed (i.e W, E).
 - Due to the return time, at high attack speeds Crescendum will increase Aphelios' effective time to cast attacks, even when right next to his target.
 - Crescendum attack cannot exceed attack speed limit
+- Attacks with '''Crescendum''' are empowered to deal {{as|{{pp|0;then + 16; then + 14.5; then + 13; then + 11.5; then + 10; then + 8.5; then + 7; then + 5.5; then + 5*x|0 to 20 by 1|type=number of Chakrams|key=%|formula=Each Chakram grants less bonus damage than the last, starting at 16% and diminishing to 5% for 9+ Chakrams.}} AD}} {{as|'''additional''' physical damage}} and have a lower {{tip|attack windup|windup}} of {{ap|0.159999996423721/1.5*100|round=2}}%, further decreased to {{ap|0.100000001490116/1.5*100|round=2}}% when {{tip|critically strike|critically striking}}. The '''bonus''' damage from ''Chakrams'' is affected by {{tip|critical strike}} modifiers.
+- {{pp|5000 to 5000-6000*0.55|0 to 0.55 by 0.05|label=Missile Speed|label1=Time (s)|formula=5000 u/s initial speed, -6000 u/s² acceleration, and a minimum speed of 1700|showtype=false}}
+- 600 {{as|(+ 75 per 10% '''bonus''' attack speed)}}
 
 ## Basic attack: Gravitum
 
@@ -370,6 +375,7 @@ Notes:
     - The only exception is E, which is special cased to negate the debuff with its slow-immunity.
     - The target will be affected after losing their immunity.
 - Runaan's Hurricane bolts will use Gravitum's projectiles when Aphelios attacks with Gravitum.
+- The only exception is {{cai|E|Skarner}}, which is special cased to negate the debuff with its slow-immunity.
 
 ## Basic attack: Infernum
 
@@ -420,6 +426,8 @@ Healing from Severum in excess of Aphelios' maximum health is converted into a s
 Notes:
 
 - Runaan's Hurricane bolts will use Severum's attack animation instead of firing projectiles for Aphelios' attacks with Severum.
+- Basic attacks with '''Severum''' are {{tip|projectile|non-projectile}} and have an {{tip|uncancellable windup}}. '''Severum's''' attacks {{tip|heal}} '''Aphelios''' for {{pp|key=%|2 to 8|formula=1.647% + 0.3529% * level, capped at level 18|color=heal}}<!--stops at 18-->  of the {{tt|post-mitigation damage|Damage calculated after modifiers}} dealt, increased to {{pp|5 to 20|key=%|formula=4.1176% + 0.8824% * level, capped at level 18|color=heal}}<!--stops at 18--> for attacks from abilities.
+- 92400
 
 ## Game files
 
@@ -462,3 +470,179 @@ All 20 level-based formulas in the game files (1 linked to wiki values above):
 | ApheliosCalibrumQ | SpellDamage | breakpoints at levels 3, 5, 7, 9, 11, 13 (level 1: 80) | 80 | 170 | 170 |
 | ApheliosCalibrumQ | SpellDamage | breakpoints at levels 3, 5, 7, 9, 11, 13 (level 1: 0.42) | 0.42 | 0.6 | 0.6 |
 | ApheliosCalibrumQ | CalibrumQCD | breakpoints at levels 3, 5, 7, 9, 11, 13 (level 1: 10) | 10 | 8.002 | 8.002 |
+
+## Duel simulator kit (level 20, every ability at max rank)
+
+What the duel simulator fights with (`kits/champions/Aphelios.ts`): values come from pinned wiki and versioned game-data records at level 20. Interpretations and missing evidence are listed under assumptions. Ratios are fractions of the stat (60% AD is 0.6 × AD).
+
+- Basic attack: range 550, melee.
+- Options: startingWeapons = -1.
+
+| Key | Ability | Cooldown (s) | Cast time (s) | Cost | Delivery | On the enemy | On itself |
+|---|---|--:|--:|---|---|---|---|
+| QCalibrum | Moonshot | 8 | 0.4 | 60 | skillshot 1450 long, 120 wide, at 1850/s | 170 + 60% bonus AD + 100% AP physical damage | – |
+| QSeverum | Onslaught | 8 (starts after the channel) | 0 | 60 | self; channel 1.75 s | – | – |
+| QGravitum | Binding Eclipse | 10 | 0.3 | 60 | self | – | – |
+| QInfernum | Duskwave | 5 | 0.4 | 60 | area 0 to 650 units ahead, lands after 0 s | 110 + 21% bonus AD + 70% AP physical damage | – |
+| QCrescendum | Sentry | 6 | 0.25 | 60 | self | – | – |
+| RCalibrum | Moonlight Vigil | 100 | 0.6 | 100 | skillshot 1300 long, 250 wide, at 1000/s | 225 + 20% bonus AD + 100% AP physical damage | – |
+| RSeverum | Moonlight Vigil | 100 | 0.6 | 100 | skillshot 1300 long, 250 wide, at 1000/s | 225 + 20% bonus AD + 100% AP physical damage | – |
+| RGravitum | Moonlight Vigil | 100 | 0.6 | 100 | skillshot 1300 long, 250 wide, at 1000/s | 225 + 20% bonus AD + 100% AP physical damage | – |
+| RInfernum | Moonlight Vigil | 100 | 0.6 | 100 | skillshot 1300 long, 250 wide, at 1000/s | 375 + 45% bonus AD + 100% AP physical damage | – |
+| RCrescendum | Moonlight Vigil | 100 | 0.6 | 100 | skillshot 1300 long, 250 wide, at 1000/s | 225 + 20% bonus AD + 100% AP physical damage | – |
+| W | Phase | 0.8 (unaffected by ability haste) | 0 | – | self | – | – |
+| Aphpending | Weapon follow-up | 0 | 0 | – | self | – | – |
+| Aphreturn | Returning Chakram | 0 | 0 | – | self | – | – |
+
+Effects marked by a mark or a role are completed by the kit's hooks (see the kit's source).
+
+### Assumptions
+
+- Starting weapon pair (-1 searches ten unordered full-ammunition pairs; 0 is Calibrum/Severum): -1.
+- The finite starting policy searches the ten unordered full-50-Moonlight pairs (or pins startingWeapons 0..9), starts the lower listed index in the main hand, and keeps the canonical order of the other three reserves. All pairs are an explicit preduel weapon-preparation assumption permitted by usage-based rearrangement; no ammo-history Cartesian search, preduel marks, shields or mirror Chakrams are granted. Phase makes either held weapon accessible. Each depleted weapon joins the reserve tail and returns with full ammo.
+- All 18 stat skill points maximize the three six-rank passive tracks. Ability level bands cap at their last stated level; Severum healing explicitly caps at 18, while its listed shield table continues through 20. The five Q cooldowns remain independent; Onslaught starts its cooldown after its mobile attack channel. Ammunition is spent on basic declaration, including canceled windups, and each Q spends at most the remaining Moonlight.
+- Calibrum marks are actual-target and require a connected ability or replica hit. Consuming a mark uses the current off hand (main hand when Calibrum is off), consumes every actual enemy mark and spends no on-attack ammunition. Its distance-shortened cast formula is unavailable, so the pinned 0.3-second client override is used conservatively. Its invalid-target firing bug is not treated as permission to damage untargetable units. Mark reveal is ordinary sight, not true sight.
+- Crescendum outbound attacks bypass projectile interception, as pinned by Calibrum's special interaction note; returning blades are interceptible and loss clears all mirror stacks. The exact outbound deceleration and bonus-AS return speed are retained. The uncertain wiki attack-speed-limit note is enforced using the engine's shared attack-speed cap. Phase releases the ordinary return lock and catch resets apply only while Crescendum remains main. Returned ability Chakrams generate stacks only when caught; Onslaught's explicit blocked-Crescendum exception still returns a mirror.
+- Sentry uses the primary ability's 125 +52% bonus AD +50% AP maximum-level damage, superseding the conflicting older pet-infobox 100 +60% bonus AD. It snapshots the off hand at placement, arms for 0.35 seconds, activates for four seconds on the nearest actual visible enemy, and otherwise expires at twenty seconds. An unspecified melee basic is modeled as destroying its six-health body, matching ordinary level-20 melee attack damage rather than inventing a fractional hit. Its unpinned windup/throw flight is zero; its weapon projectile flight, fixed damage taken, block/dodge and owner-local healing are real. Sentries disappear on owner death under the shared pet lifecycle; launched sentry shots persist.
+- Infernum primary attacks receive the listed 110% AD. Its multi-bolt fan has no pinned transverse bolt directions or reliable lesser-bolt range; ordinary fan collateral is omitted rather than awarding every fan a guaranteed hit. Moonlight Vigil uses its separately specified 400-radius explosion once per actually connected primary attack; actual secondary targets may receive overlapping explosions, each with independently averaged ultimate critical damage. Duskwave's one-dimensional cone reaches actual forward targets once, testing interception along the cast-origin-to-target segment without an invented wave speed, and schedules their independently guarded off-hand attacks. R illuminates enemy champions and actual champion-class clones, snapshots its weapon at cast, and preserves shield-independent follow-up lock-on. Neither ordinary minion-class pets nor imaginary allied champions add R contacts or Chakrams.
+- A champion-initiated uncertain illumination carries its hit share through secondary initial blasts, delayed attacks, flat Severum healing and Infernum collateral. A first actual pet/clone collision is deterministic under the shared missile policy and normalizes the whole R illumination to one. Duskwave follows the contact share supplied by its actual champion/pet transaction. Calibrum Sentry marks require real HP or shield damage; zero-damage immunity and stale parried attack reports do not produce marks or Severum healing.
+- All manual weapon abilities are excluded from generic damage terms to avoid double-counting. The reference budget averages five Q packets and one base R over their real cooldowns, ordinary Infernum's extra tenth of AD, and Severum's basic healing. It never grants pre-existing Chakram DPS or guaranteed fan/collateral hits; finite duel combat retains actual ammunition, reserve assembly, mana, attack guards and missile defenses.
+
+### Source values read (134)
+
+| Ability | Value | Source version |
+|---|---|---|
+| The Hitman and the Seer | have 50 Moonlight | [4022691](https://wiki.leagueoflegends.com/en-us/Template:Data_Aphelios/The_Hitman_and_the_Seer?oldid=4022691) |
+| The Hitman and the Seer | over 1 second | [4022691](https://wiki.leagueoflegends.com/en-us/Template:Data_Aphelios/The_Hitman_and_the_Seer?oldid=4022691) |
+| The Hitman and the Seer | on a 1.5-second cooldown | [4022691](https://wiki.leagueoflegends.com/en-us/Template:Data_Aphelios/The_Hitman_and_the_Seer?oldid=4022691) |
+| The Hitman and the Seer | ammunition, which is consumed upon basic attacking on-attack | [4022691](https://wiki.leagueoflegends.com/en-us/Template:Data_Aphelios/The_Hitman_and_the_Seer?oldid=4022691) |
+| The Hitman and the Seer | will not consume additional Moonlight | [4022691](https://wiki.leagueoflegends.com/en-us/Template:Data_Aphelios/The_Hitman_and_the_Seer?oldid=4022691) |
+| The Hitman and the Seer | they can be rearranged based on their usage | [4022691](https://wiki.leagueoflegends.com/en-us/Template:Data_Aphelios/The_Hitman_and_the_Seer?oldid=4022691) |
+| The Hitman and the Seer | Aphelios cannot cast Phase during the assembly | [4022691](https://wiki.leagueoflegends.com/en-us/Template:Data_Aphelios/The_Hitman_and_the_Seer?oldid=4022691) |
+| Weapon Queue System | reflects the next weapon that is in reserve | [3998993](https://wiki.leagueoflegends.com/en-us/Template:Data_Aphelios/Weapon_Queue_System?oldid=3998993) |
+| Weapons of the Faithful | The individual actives do not share a cooldown | [3963883](https://wiki.leagueoflegends.com/en-us/Template:Data_Aphelios/Weapons_of_the_Faithful?oldid=3963883) |
+| The Hitman and the Seer | 4 / 8 / 12 / 16 / 20 / 24 | [4022691](https://wiki.leagueoflegends.com/en-us/Template:Data_Aphelios/The_Hitman_and_the_Seer?oldid=4022691) |
+| The Hitman and the Seer | 9 / 18 / 27 / 36 / 45 / 54% | [4022691](https://wiki.leagueoflegends.com/en-us/Template:Data_Aphelios/The_Hitman_and_the_Seer?oldid=4022691) |
+| The Hitman and the Seer | 4.5 / 9 / 13.5 / 18 / 22.5 / 27 | [4022691](https://wiki.leagueoflegends.com/en-us/Template:Data_Aphelios/The_Hitman_and_the_Seer?oldid=4022691) |
+| Phase | over 0.25 seconds | [3970739](https://wiki.leagueoflegends.com/en-us/Template:Data_Aphelios/Phase?oldid=3970739) |
+| Phase | staticCooldown: 0.8 | [3970739](https://wiki.leagueoflegends.com/en-us/Template:Data_Aphelios/Phase?oldid=3970739) |
+| Phase | Switching does not interrupt any commands | [3970739](https://wiki.leagueoflegends.com/en-us/Template:Data_Aphelios/Phase?oldid=3970739) |
+| Phase | Toggled abilities do not count as ability activations | [3970739](https://wiki.leagueoflegends.com/en-us/Template:Data_Aphelios/Phase?oldid=3970739) |
+| Calibrum | cost: 1 | [4034686](https://wiki.leagueoflegends.com/en-us/Template:Data_Aphelios/Calibrum?oldid=4034686) |
+| Moonshot | cost: 10 Moonlight + 60 | [4064838](https://wiki.leagueoflegends.com/en-us/Template:Data_Aphelios/Moonshot?oldid=4064838) |
+| The Hitman and the Seer | instead consume all the remaining points | [4022691](https://wiki.leagueoflegends.com/en-us/Template:Data_Aphelios/The_Hitman_and_the_Seer?oldid=4022691) |
+| Calibrum | 100 bonus attack range | [4034686](https://wiki.leagueoflegends.com/en-us/Template:Data_Aphelios/Calibrum?oldid=4034686) |
+| Calibrum | 1800 range | [4034686](https://wiki.leagueoflegends.com/en-us/Template:Data_Aphelios/Calibrum?oldid=4034686) |
+| Calibrum | marked for 4.5 seconds | [4034686](https://wiki.leagueoflegends.com/en-us/Template:Data_Aphelios/Calibrum?oldid=4034686) |
+| Calibrum | 15 (+ 15% bonus AD) | [4034686](https://wiki.leagueoflegends.com/en-us/Template:Data_Aphelios/Calibrum?oldid=4034686) |
+| Calibrum | If Calibrum is the current off-hand weapon, the main weapon is used | [4034686](https://wiki.leagueoflegends.com/en-us/Template:Data_Aphelios/Calibrum?oldid=4034686) |
+| Calibrum | The mark will not be triggered by Onslaught attacks | [4034686](https://wiki.leagueoflegends.com/en-us/Template:Data_Aphelios/Calibrum?oldid=4034686) |
+| Calibrum | no other on-attack effects | [4034686](https://wiki.leagueoflegends.com/en-us/Template:Data_Aphelios/Calibrum?oldid=4034686) |
+| Gravitum | by 30% | [4064840](https://wiki.leagueoflegends.com/en-us/Template:Data_Aphelios/Gravitum?oldid=4064840) |
+| Gravitum | for 2.5 seconds | [4064840](https://wiki.leagueoflegends.com/en-us/Template:Data_Aphelios/Gravitum?oldid=4064840) |
+| Gravitum | after 0.7 seconds | [4064840](https://wiki.leagueoflegends.com/en-us/Template:Data_Aphelios/Gravitum?oldid=4064840) |
+| Gravitum | to 15% | [4064840](https://wiki.leagueoflegends.com/en-us/Template:Data_Aphelios/Gravitum?oldid=4064840) |
+| Gravitum | debuff applies even if the target is immune to slows | [4064840](https://wiki.leagueoflegends.com/en-us/Template:Data_Aphelios/Gravitum?oldid=4064840) |
+| Gravitum | The only exception is {{cai\|E\|Skarner}}, which is special cased to negate the debuff with its slow-immunity. | [4064840](https://wiki.leagueoflegends.com/en-us/Template:Data_Aphelios/Gravitum?oldid=4064840) |
+| Infernum | 110% AD | [4046493](https://wiki.leagueoflegends.com/en-us/Template:Data_Aphelios/Infernum?oldid=4046493) |
+| Infernum | Secondary targets hit by any bolt are dealt 75 / 100 (based on level)% of the triggering attack's damage | [4046493](https://wiki.leagueoflegends.com/en-us/Template:Data_Aphelios/Infernum?oldid=4046493) |
+| Infernum | This will not prevent the missile from dealing damage to secondary targets | [4046493](https://wiki.leagueoflegends.com/en-us/Template:Data_Aphelios/Infernum?oldid=4046493) |
+| Severum | 2 – 8 (based on level)% | [4064839](https://wiki.leagueoflegends.com/en-us/Template:Data_Aphelios/Severum?oldid=4064839) |
+| Severum | 5 – 20 (based on level)% | [4064839](https://wiki.leagueoflegends.com/en-us/Template:Data_Aphelios/Severum?oldid=4064839) |
+| Severum | Healing from Severum in excess of Aphelios' maximum health is converted into a shield for an amount of up to 10 / 20 / 30 / 40 / 50 / 60 / 70 / 80 / 90 / 100 / 110 / 120 / 130 / 140 / 150 / 160 (based on level) (+ 6% maximum health), lingering for up to 30 seconds. | [4064839](https://wiki.leagueoflegends.com/en-us/Template:Data_Aphelios/Severum?oldid=4064839) |
+| Severum | (+ 6% maximum health) | [4064839](https://wiki.leagueoflegends.com/en-us/Template:Data_Aphelios/Severum?oldid=4064839) |
+| Severum | up to 30 seconds | [4064839](https://wiki.leagueoflegends.com/en-us/Template:Data_Aphelios/Severum?oldid=4064839) |
+| Severum | non-projectile and have an uncancellable windup | [4064839](https://wiki.leagueoflegends.com/en-us/Template:Data_Aphelios/Severum?oldid=4064839) |
+| Crescendum | Attacks with Crescendum are empowered to deal 0 / 16 / 30.5 / 43.5 / 55 / 65 / 73.5 / 80.5 / 86 / 91 / 96 / 101 / 106 / 111 / 116 / 121 / 126 / 131 / 136 / 141 / 146 (based on number of Chakrams)% AD additional physical damage and have a lower windup of 10.6667%, further decreased to 6.66667% when critically striking. | [4064842](https://wiki.leagueoflegends.com/en-us/Template:Data_Aphelios/Crescendum?oldid=4064842) |
+| Crescendum | up to 20 | [4064842](https://wiki.leagueoflegends.com/en-us/Template:Data_Aphelios/Crescendum?oldid=4064842) |
+| Crescendum | last for 5 seconds | [4064842](https://wiki.leagueoflegends.com/en-us/Template:Data_Aphelios/Crescendum?oldid=4064842) |
+| Crescendum | for 0.2 seconds | [4064842](https://wiki.leagueoflegends.com/en-us/Template:Data_Aphelios/Crescendum?oldid=4064842) |
+| Crescendum | attack timer is reset once caught | [4064842](https://wiki.leagueoflegends.com/en-us/Template:Data_Aphelios/Crescendum?oldid=4064842) |
+| Crescendum | All Chakram stacks are lost if the Crescendum projectile is destroyed | [4064842](https://wiki.leagueoflegends.com/en-us/Template:Data_Aphelios/Crescendum?oldid=4064842) |
+| Crescendum | 5000 u/s initial speed | [4064842](https://wiki.leagueoflegends.com/en-us/Template:Data_Aphelios/Crescendum?oldid=4064842) |
+| Crescendum | -6000 u/s² acceleration | [4064842](https://wiki.leagueoflegends.com/en-us/Template:Data_Aphelios/Crescendum?oldid=4064842) |
+| Crescendum | minimum speed of 1700 | [4064842](https://wiki.leagueoflegends.com/en-us/Template:Data_Aphelios/Crescendum?oldid=4064842) |
+| Crescendum | 600 {{as\|(+ 75 per 10% '''bonus''' attack speed)}} | [4064842](https://wiki.leagueoflegends.com/en-us/Template:Data_Aphelios/Crescendum?oldid=4064842) |
+| Calibrum | "mSpeed":3000.0 | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/aphelios/aphelios.bin.json) |
+| Gravitum | "mSpeed":1500.0 | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/aphelios/aphelios.bin.json) |
+| Infernum | "mSpeed":1700.0 | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/aphelios/aphelios.bin.json) |
+| Calibrum | "mCastTime":0.30000001192092896 | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/aphelios/aphelios.bin.json) |
+| Binding Eclipse | for 1 second | [3983351](https://wiki.leagueoflegends.com/en-us/Template:Data_Aphelios/Binding_Eclipse?oldid=3983351) |
+| Moonlight Vigil | for 1.35 seconds | [4052070](https://wiki.leagueoflegends.com/en-us/Template:Data_Aphelios/Moonlight_Vigil?oldid=4052070) |
+| Moonlight Vigil | slow to 99% | [4052070](https://wiki.leagueoflegends.com/en-us/Template:Data_Aphelios/Moonlight_Vigil?oldid=4052070) |
+| Binding Eclipse | In-flight projectiles will be empowered | [3983351](https://wiki.leagueoflegends.com/en-us/Template:Data_Aphelios/Binding_Eclipse?oldid=3983351) |
+| Binding Eclipse | cannot expunge enemies affected by Gravitum that are untargetable | [3983351](https://wiki.leagueoflegends.com/en-us/Template:Data_Aphelios/Binding_Eclipse?oldid=3983351) |
+| Moonshot | 80 / 95 / 110 / 125 / 140 / 155 / 170 (based on level) (+ 42 / 45 / 48 / 51 / 54 / 57 / 60 (based on level)% bonus AD) (+ 100% AP) | [4064838](https://wiki.leagueoflegends.com/en-us/Template:Data_Aphelios/Moonshot?oldid=4064838) |
+| Binding Eclipse | 50 / 65 / 80 / 95 / 110 / 125 / 140 (based on level) (+ 32 / 35 / 38 / 41 / 44 / 47 / 50 (based on level)% bonus AD) (+ 70% AP) | [3983351](https://wiki.leagueoflegends.com/en-us/Template:Data_Aphelios/Binding_Eclipse?oldid=3983351) |
+| Duskwave | 20 / 35 / 50 / 65 / 80 / 95 / 110 (based on level) (+ 15 / 16 / 17 / 18 / 19 / 20 / 21 (based on level)% bonus AD) (+ 70% AP) | [4064841](https://wiki.leagueoflegends.com/en-us/Template:Data_Aphelios/Duskwave?oldid=4064841) |
+| Sentry | 35 / 50 / 65 / 80 / 95 / 110 / 125 (based on level) (+ 34 / 37 / 40 / 43 / 46 / 49 / 52 (based on level)% bonus AD) (+ 50% AP) | [4034689](https://wiki.leagueoflegends.com/en-us/Template:Data_Aphelios/Sentry?oldid=4034689) |
+| Onslaught | for 1.75 seconds | [4064859](https://wiki.leagueoflegends.com/en-us/Template:Data_Aphelios/Onslaught?oldid=4064859) |
+| Onslaught | up to 6 (+ 2 per 100% bonus attack speed) | [4064859](https://wiki.leagueoflegends.com/en-us/Template:Data_Aphelios/Onslaught?oldid=4064859) |
+| Onslaught | 20 / 23.5 / 27 / 30.5 / 34 / 37.5 / 41 (based on level)% AD | [4064859](https://wiki.leagueoflegends.com/en-us/Template:Data_Aphelios/Onslaught?oldid=4064859) |
+| Onslaught | 25% effectiveness | [4064859](https://wiki.leagueoflegends.com/en-us/Template:Data_Aphelios/Onslaught?oldid=4064859) |
+| Onslaught | effectRadius: 550 | [4064859](https://wiki.leagueoflegends.com/en-us/Template:Data_Aphelios/Onslaught?oldid=4064859) |
+| Onslaught | reduced to 410 | [4064859](https://wiki.leagueoflegends.com/en-us/Template:Data_Aphelios/Onslaught?oldid=4064859) |
+| Onslaught | 25% (+ 10% per 100 AP) | [4064859](https://wiki.leagueoflegends.com/en-us/Template:Data_Aphelios/Onslaught?oldid=4064859) |
+| Onslaught | Onslaught begins firing with Aphelios off-hand weapon | [4064859](https://wiki.leagueoflegends.com/en-us/Template:Data_Aphelios/Onslaught?oldid=4064859) |
+| Onslaught | cannot cast Phase nor Moonlight Vigil during Onslaught | [4064859](https://wiki.leagueoflegends.com/en-us/Template:Data_Aphelios/Onslaught?oldid=4064859) |
+| Onslaught | Crescendum will not deal damage if blocked by Wind Wall, but the stacks will still be gained | [4064859](https://wiki.leagueoflegends.com/en-us/Template:Data_Aphelios/Onslaught?oldid=4064859) |
+| Duskwave | After 0.25 seconds | [4064841](https://wiki.leagueoflegends.com/en-us/Template:Data_Aphelios/Duskwave?oldid=4064841) |
+| Moonlight Vigil | After 0.3 seconds | [4052070](https://wiki.leagueoflegends.com/en-us/Template:Data_Aphelios/Moonlight_Vigil?oldid=4052070) |
+| Duskwave | targetRange: 650 | [4064841](https://wiki.leagueoflegends.com/en-us/Template:Data_Aphelios/Duskwave?oldid=4064841) |
+| Duskwave | Aphelios is locked out of declaring attacks until the volley of attacks has resolved | [4064841](https://wiki.leagueoflegends.com/en-us/Template:Data_Aphelios/Duskwave?oldid=4064841) |
+| Sentry | after 0.35 seconds | [4034689](https://wiki.leagueoflegends.com/en-us/Template:Data_Aphelios/Sentry?oldid=4034689) |
+| Sentry | up to 20 seconds | [4034689](https://wiki.leagueoflegends.com/en-us/Template:Data_Aphelios/Sentry?oldid=4034689) |
+| Sentry | duration to 4 seconds | [4034689](https://wiki.leagueoflegends.com/en-us/Template:Data_Aphelios/Sentry?oldid=4034689) |
+| Sentry | targetRange: 475 | [4034689](https://wiki.leagueoflegends.com/en-us/Template:Data_Aphelios/Sentry?oldid=4034689) |
+| Sentry | have 6 health | [4034689](https://wiki.leagueoflegends.com/en-us/Template:Data_Aphelios/Sentry?oldid=4034689) |
+| Sentry | take 3 damage | [4034689](https://wiki.leagueoflegends.com/en-us/Template:Data_Aphelios/Sentry?oldid=4034689) |
+| Sentry | 4 damage per hit | [4034689](https://wiki.leagueoflegends.com/en-us/Template:Data_Aphelios/Sentry?oldid=4034689) |
+| Sentry | for 200% damage | [4034689](https://wiki.leagueoflegends.com/en-us/Template:Data_Aphelios/Sentry?oldid=4034689) |
+| Sentry | range: 500 | [4022591](https://wiki.leagueoflegends.com/en-us/Aphelios?oldid=4022591) |
+| Sentry | attackspeed: 0.64 base, 0.64 ratio | [4022591](https://wiki.leagueoflegends.com/en-us/Aphelios?oldid=4022591) |
+| Sentry | radius: 20 | [4022591](https://wiki.leagueoflegends.com/en-us/Aphelios?oldid=4022591) |
+| Sentry | * 6 damage from turret basic attacks | [4022591](https://wiki.leagueoflegends.com/en-us/Aphelios?oldid=4022591) |
+| Sentry | Minion | [4022591](https://wiki.leagueoflegends.com/en-us/Aphelios?oldid=4022591) |
+| Sentry | can be dodged and blocked, but not missed from being blinded | [4034689](https://wiki.leagueoflegends.com/en-us/Template:Data_Aphelios/Sentry?oldid=4034689) |
+| Moonlight Vigil | 125 / 175 / 225 (based on level) | [4052070](https://wiki.leagueoflegends.com/en-us/Template:Data_Aphelios/Moonlight_Vigil?oldid=4052070) |
+| Moonlight Vigil | (+ 20% bonus AD) | [4052070](https://wiki.leagueoflegends.com/en-us/Template:Data_Aphelios/Moonlight_Vigil?oldid=4052070) |
+| Moonlight Vigil | (+ 100% AP) | [4052070](https://wiki.leagueoflegends.com/en-us/Template:Data_Aphelios/Moonlight_Vigil?oldid=4052070) |
+| Moonlight Vigil | Infernum The initial blast deals 50 / 100 / 150 (based on level) (+ 25% bonus AD) bonus physical damage. | [4052070](https://wiki.leagueoflegends.com/en-us/Template:Data_Aphelios/Moonlight_Vigil?oldid=4052070) |
+| Moonlight Vigil | (+ 25% bonus AD) | [4052070](https://wiki.leagueoflegends.com/en-us/Template:Data_Aphelios/Moonlight_Vigil?oldid=4052070) |
+| Moonlight Vigil | Calibrum Applies an empowered mark that deals 50 / 80 / 110 (based on level) bonus physical damage per mark consumed. | [4052070](https://wiki.leagueoflegends.com/en-us/Template:Data_Aphelios/Moonlight_Vigil?oldid=4052070) |
+| Moonlight Vigil | Severum Heals Aphelios for 250 / 350 / 450 (based on level) if at least one enemy champion is hit. | [4052070](https://wiki.leagueoflegends.com/en-us/Template:Data_Aphelios/Moonlight_Vigil?oldid=4052070) |
+| Moonlight Vigil | Generates 5 additional spectral Chakrams | [4052070](https://wiki.leagueoflegends.com/en-us/Template:Data_Aphelios/Moonlight_Vigil?oldid=4052070) |
+| Moonlight Vigil | "mDataValue":"CritDamageMod" | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/aphelios/aphelios.bin.json) |
+| Moonlight Vigil | "mStat":9,"mCoefficient":1.0 | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/aphelios/aphelios.bin.json) |
+| Moonlight Vigil | "mNumber":-1.0,"__type":"NumberCalculationPart" | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/aphelios/aphelios.bin.json) |
+| Moonlight Vigil | {{critical damage\|100 to 130\|0 to 30\|critScaling=true}} | [4052070](https://wiki.leagueoflegends.com/en-us/Template:Data_Aphelios/Moonlight_Vigil?oldid=4052070) |
+| Moonlight Vigil | 400-radius circle | [4052070](https://wiki.leagueoflegends.com/en-us/Template:Data_Aphelios/Moonlight_Vigil?oldid=4052070) |
+| Moonlight Vigil | The attack instead deals 110% AD physical damage against locked-on targets, and causes an explosion of bolts in a 400-radius circle that deals 74.25 / 99 (based on level)% AD physical damage to targets hit. | [4052070](https://wiki.leagueoflegends.com/en-us/Template:Data_Aphelios/Moonlight_Vigil?oldid=4052070) |
+| Moonlight Vigil | secondary targets are dealt 90% of ''Infernum's'' regular bolt damage | [4052070](https://wiki.leagueoflegends.com/en-us/Template:Data_Aphelios/Moonlight_Vigil?oldid=4052070) |
+| Moonlight Vigil | "mMissileWidth":125.0 | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/aphelios/aphelios.bin.json) |
+| Moonlight Vigil | Changing weapons while Moonlight Vigil is in flight does not change the effect | [4052070](https://wiki.leagueoflegends.com/en-us/Template:Data_Aphelios/Moonlight_Vigil?oldid=4052070) |
+| Moonlight Vigil | does not prevent the attacks from locking-on | [4052070](https://wiki.leagueoflegends.com/en-us/Template:Data_Aphelios/Moonlight_Vigil?oldid=4052070) |
+| Moonlight Vigil | won't be prevented if Aphelios is blinded | [4052070](https://wiki.leagueoflegends.com/en-us/Template:Data_Aphelios/Moonlight_Vigil?oldid=4052070) |
+| Moonlight Vigil | Attacks do not apply on-attack effects | [4052070](https://wiki.leagueoflegends.com/en-us/Template:Data_Aphelios/Moonlight_Vigil?oldid=4052070) |
+| Moonshot | cooldown: 10 / 9.66667 / 9.33333 / 9 / 8.66667 / 8.33333 / 8 (based on level) | [4064838](https://wiki.leagueoflegends.com/en-us/Template:Data_Aphelios/Moonshot?oldid=4064838) |
+| Onslaught | cooldown: 10 / 9.66667 / 9.33333 / 9 / 8.66667 / 8.33333 / 8 (based on level) | [4064859](https://wiki.leagueoflegends.com/en-us/Template:Data_Aphelios/Onslaught?oldid=4064859) |
+| Binding Eclipse | cooldown: 12 / 11.6667 / 11.3333 / 11 / 10.6667 / 10.3333 / 10 (based on level) | [3983351](https://wiki.leagueoflegends.com/en-us/Template:Data_Aphelios/Binding_Eclipse?oldid=3983351) |
+| Duskwave | cooldown: 8 / 7.5 / 7 / 6.5 / 6 / 5.5 / 5 (based on level) | [4064841](https://wiki.leagueoflegends.com/en-us/Template:Data_Aphelios/Duskwave?oldid=4064841) |
+| Sentry | cooldown: 9 / 8.5 / 8 / 7.5 / 7 / 6.5 / 6 (based on level) | [4034689](https://wiki.leagueoflegends.com/en-us/Template:Data_Aphelios/Sentry?oldid=4034689) |
+| Moonlight Vigil | cooldown: 120 / 110 / 100 (based on level) | [4052070](https://wiki.leagueoflegends.com/en-us/Template:Data_Aphelios/Moonlight_Vigil?oldid=4052070) |
+| Moonlight Vigil | castTime: 0.6 | [4052070](https://wiki.leagueoflegends.com/en-us/Template:Data_Aphelios/Moonlight_Vigil?oldid=4052070) |
+| Moonlight Vigil | effectRadius: 300 | [4052070](https://wiki.leagueoflegends.com/en-us/Template:Data_Aphelios/Moonlight_Vigil?oldid=4052070) |
+| Sentry | armor: 0 | [4022591](https://wiki.leagueoflegends.com/en-us/Aphelios?oldid=4022591) |
+| Sentry | magicresist: 0 | [4022591](https://wiki.leagueoflegends.com/en-us/Aphelios?oldid=4022591) |
+| Severum | 92400 | [4064839](https://wiki.leagueoflegends.com/en-us/Template:Data_Aphelios/Severum?oldid=4064839) |
+| Moonshot | targetRange: 1450 | [4064838](https://wiki.leagueoflegends.com/en-us/Template:Data_Aphelios/Moonshot?oldid=4064838) |
+| Moonshot | castTime: 0.4 | [4064838](https://wiki.leagueoflegends.com/en-us/Template:Data_Aphelios/Moonshot?oldid=4064838) |
+| Moonshot | width: 120 | [4064838](https://wiki.leagueoflegends.com/en-us/Template:Data_Aphelios/Moonshot?oldid=4064838) |
+| Moonshot | speed: 1850 | [4064838](https://wiki.leagueoflegends.com/en-us/Template:Data_Aphelios/Moonshot?oldid=4064838) |
+| Onslaught | castTime: none | [4064859](https://wiki.leagueoflegends.com/en-us/Template:Data_Aphelios/Onslaught?oldid=4064859) |
+| Binding Eclipse | castTime: 0.3 | [3983351](https://wiki.leagueoflegends.com/en-us/Template:Data_Aphelios/Binding_Eclipse?oldid=3983351) |
+| Duskwave | castTime: 0.4 | [4064841](https://wiki.leagueoflegends.com/en-us/Template:Data_Aphelios/Duskwave?oldid=4064841) |
+| Sentry | castTime: 0.25 | [4034689](https://wiki.leagueoflegends.com/en-us/Template:Data_Aphelios/Sentry?oldid=4034689) |
+| Moonlight Vigil | cost: 100 | [4052070](https://wiki.leagueoflegends.com/en-us/Template:Data_Aphelios/Moonlight_Vigil?oldid=4052070) |
+| Moonlight Vigil | targetRange: 1300 | [4052070](https://wiki.leagueoflegends.com/en-us/Template:Data_Aphelios/Moonlight_Vigil?oldid=4052070) |
+| Moonlight Vigil | speed: 1000 | [4052070](https://wiki.leagueoflegends.com/en-us/Template:Data_Aphelios/Moonlight_Vigil?oldid=4052070) |

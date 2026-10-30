@@ -1,5 +1,158 @@
 # Counters to Wukong (patch 26.20)
 
+## Simulated duels
+
+The duel simulator played each of the 144 other champions with a simulator kit against Wukong: both at level 20 with 15,000 gold of plain stats, each side's spent against the other's, through six scenarios (PLAN.md §6). Scores run from −1 (Wukong wins every time) to +1 (the champion does). Run `npm run duel -- <champion> MonkeyKing --log brawl` to watch a fight.
+
+| # | Champion | Score | You engage | Enemy engages | Brawl | Short trade | Spacing | Escape |
+|--:|---|--:|--:|--:|--:|--:|--:|--:|
+| 1 | Vayne | +0.85 | +1.00 | +1.00 | +1.00 | +0.35 | +1.00 | +0.00 |
+| 2 | Quinn | +0.84 | +1.00 | +1.00 | +1.00 | +0.27 | +0.98 | +0.00 |
+| 3 | Poppy | +0.83 | +1.00 | +1.00 | +1.00 | +0.33 | – | +0.00 |
+| 4 | Cassiopeia | +0.83 | +1.00 | +1.00 | +1.00 | +0.18 | +1.00 | +0.00 |
+| 5 | Rakan | +0.83 | +1.00 | +1.00 | +1.00 | +0.17 | +1.00 | +0.00 |
+| 6 | Kog'Maw | +0.82 | +1.00 | +1.00 | +1.00 | +0.15 | +1.00 | +0.00 |
+| 7 | Annie | +0.82 | +1.00 | +1.00 | +1.00 | +0.14 | +1.00 | +0.00 |
+| 8 | Kayle | +0.82 | +1.00 | +1.00 | +1.00 | +0.14 | +1.00 | +0.00 |
+| 9 | K'Sante | +0.82 | +1.00 | +1.00 | +1.00 | +0.25 | – | +0.00 |
+| 10 | Aphelios | +0.82 | +1.00 | +1.00 | +1.00 | +0.13 | +1.00 | +0.00 |
+| 11 | Kalista | +0.82 | +1.00 | +1.00 | +1.00 | +0.13 | +1.00 | +0.00 |
+| 12 | Morgana | +0.82 | +1.00 | +1.00 | +1.00 | +0.12 | +1.00 | +0.00 |
+| 13 | Teemo | +0.82 | +1.00 | +1.00 | +1.00 | +0.11 | +1.00 | +0.00 |
+| 14 | Master Yi | +0.82 | +1.00 | +1.00 | +1.00 | +0.10 | +1.00 | +0.00 |
+| 15 | Graves | +0.82 | +1.00 | +1.00 | +1.00 | +0.10 | +1.00 | +0.00 |
+| 16 | Ambessa | +0.81 | +1.00 | +1.00 | +1.00 | +0.21 | – | +0.00 |
+| 17 | Jayce | +0.81 | +1.00 | +1.00 | +1.00 | +0.21 | – | +0.00 |
+| 18 | Gangplank | +0.81 | +1.00 | +1.00 | +1.00 | +0.20 | – | +0.00 |
+| 19 | Garen | +0.81 | +1.00 | +1.00 | +1.00 | +0.19 | – | +0.00 |
+| 20 | Kai'Sa | +0.81 | +1.00 | +1.00 | +1.00 | +0.06 | +1.00 | +0.00 |
+| 21 | Malphite | +0.81 | +1.00 | +1.00 | +1.00 | +0.19 | – | +0.00 |
+| 22 | Xin Zhao | +0.81 | +1.00 | +1.00 | +1.00 | +0.18 | – | +0.00 |
+| 23 | Zaahen | +0.81 | +1.00 | +1.00 | +1.00 | +0.17 | – | +0.00 |
+| 24 | Warwick | +0.81 | +1.00 | +1.00 | +1.00 | +0.17 | – | +0.00 |
+| 25 | Twisted Fate | +0.81 | +1.00 | +1.00 | +1.00 | +0.04 | +1.00 | +0.00 |
+| 26 | Xayah | +0.81 | +1.00 | +1.00 | +1.00 | +0.04 | +1.00 | +0.00 |
+| 27 | Yorick | +0.81 | +1.00 | +1.00 | +1.00 | +0.17 | – | +0.00 |
+| 28 | Karma | +0.81 | +1.00 | +1.00 | +1.00 | +0.04 | +1.00 | +0.00 |
+| 29 | Aatrox | +0.81 | +1.00 | +1.00 | +1.00 | +0.16 | – | +0.00 |
+| 30 | Alistar | +0.80 | +1.00 | +1.00 | +1.00 | +0.16 | – | +0.00 |
+| 31 | Lee Sin | +0.80 | +1.00 | +1.00 | +1.00 | +0.11 | – | +0.00 |
+| 32 | Diana | +0.80 | +1.00 | +1.00 | +1.00 | +0.11 | – | +0.00 |
+| 33 | Braum | +0.79 | +1.00 | +1.00 | +1.00 | +0.10 | – | +0.00 |
+| 34 | Olaf | +0.79 | +1.00 | +1.00 | +1.00 | +0.10 | – | +0.00 |
+| 35 | Sivir | +0.79 | +1.00 | +1.00 | +1.00 | −0.04 | +1.00 | +0.00 |
+| 36 | Trundle | +0.79 | +1.00 | +1.00 | +1.00 | +0.09 | – | +0.00 |
+| 37 | Maokai | +0.79 | +1.00 | +1.00 | +1.00 | +0.09 | – | +0.00 |
+| 38 | Darius | +0.79 | +1.00 | +1.00 | +1.00 | +0.09 | – | +0.00 |
+| 39 | Fiora | +0.79 | +1.00 | +1.00 | +1.00 | +0.08 | – | +0.00 |
+| 40 | Renekton | +0.79 | +1.00 | +1.00 | +1.00 | +0.07 | – | +0.00 |
+| 41 | Vi | +0.79 | +1.00 | +1.00 | +1.00 | +0.06 | – | +0.00 |
+| 42 | Kled | +0.79 | +1.00 | +1.00 | +1.00 | +0.05 | – | +0.00 |
+| 43 | Udyr | +0.79 | +1.00 | +1.00 | +1.00 | +0.05 | – | +0.00 |
+| 44 | Jax | +0.78 | +1.00 | +1.00 | +1.00 | +0.04 | – | +0.00 |
+| 45 | Dr. Mundo | +0.78 | +1.00 | +1.00 | +1.00 | +0.03 | – | +0.00 |
+| 46 | Tryndamere | +0.78 | +1.00 | +1.00 | +1.00 | +0.03 | – | +0.00 |
+| 47 | Cho'Gath | +0.78 | +1.00 | +1.00 | +1.00 | +0.02 | – | +0.00 |
+| 48 | Taric | +0.78 | +1.00 | +1.00 | +1.00 | +0.01 | – | +0.00 |
+| 49 | Illaoi | +0.77 | +1.00 | +1.00 | +1.00 | −0.02 | – | +0.00 |
+| 50 | Tahm Kench | +0.76 | +1.00 | +1.00 | +1.00 | −0.10 | – | +0.00 |
+| 51 | Mordekaiser | +0.76 | +0.92 | +0.98 | +0.98 | +0.06 | – | +0.00 |
+| 52 | Nasus | +0.76 | +1.00 | +1.00 | +1.00 | −0.14 | – | +0.00 |
+| 53 | Neeko | +0.73 | +1.00 | +1.00 | +1.00 | +0.19 | +0.00 | +0.00 |
+| 54 | Lulu | +0.63 | +1.00 | +1.00 | +1.00 | +0.17 | −1.00 | +0.00 |
+| 55 | Singed | +0.61 | +1.00 | +1.00 | +0.19 | +0.06 | – | +0.00 |
+| 56 | Samira | +0.60 | +1.00 | +1.00 | +1.00 | +0.03 | −1.00 | +0.00 |
+| 57 | Kennen | +0.60 | +1.00 | +1.00 | +1.00 | +0.02 | −1.00 | +0.00 |
+| 58 | Ashe | +0.60 | +1.00 | +1.00 | +1.00 | +0.01 | −1.00 | +0.00 |
+| 59 | Ezreal | +0.59 | +0.91 | +0.64 | +0.64 | +0.04 | +0.69 | +0.00 |
+| 60 | Shen | +0.58 | +1.00 | +1.00 | +0.00 | +0.14 | – | +0.00 |
+| 61 | Akshan | +0.56 | +0.00 | +1.00 | +1.00 | +0.04 | +1.00 | +0.00 |
+| 62 | Corki | +0.55 | +0.00 | +1.00 | +1.00 | +0.00 | +1.00 | +0.00 |
+| 63 | Swain | +0.52 | +0.41 | +0.81 | +0.81 | +0.04 | +0.41 | +0.00 |
+| 64 | Nocturne | +0.50 | +0.00 | +1.00 | +1.00 | −0.00 | – | +0.00 |
+| 65 | Syndra | +0.42 | +1.00 | +1.00 | −1.00 | +0.11 | +1.00 | +0.00 |
+| 66 | Kindred | +0.40 | +1.00 | +1.00 | +0.00 | +0.03 | −1.00 | +0.00 |
+| 67 | Sett | +0.35 | +1.00 | +1.00 | −1.00 | +0.12 | – | +0.00 |
+| 68 | Irelia | +0.33 | +0.50 | +0.14 | +0.68 | +0.02 | – | +0.00 |
+| 69 | Aurora | +0.30 | −1.00 | +1.00 | +1.00 | +0.02 | +1.00 | +0.00 |
+| 70 | Gwen | +0.24 | −1.00 | +1.00 | +1.00 | +0.11 | – | +0.00 |
+| 71 | Heimerdinger | +0.24 | −1.00 | +1.00 | +1.00 | +0.08 | +0.27 | +0.00 |
+| 72 | Sejuani | +0.23 | −1.00 | +1.00 | +1.00 | +0.05 | – | +0.00 |
+| 73 | Hwei | +0.17 | −1.00 | +1.00 | +1.00 | +0.14 | −0.50 | +0.00 |
+| 74 | Jinx | +0.16 | +0.58 | +0.26 | +0.26 | +0.03 | −1.00 | +0.00 |
+| 75 | Volibear | +0.16 | +0.32 | −0.01 | +0.32 | +0.01 | – | +0.00 |
+| 76 | Smolder | +0.12 | −1.00 | +1.00 | +1.00 | +0.15 | −1.00 | +0.00 |
+| 77 | Anivia | +0.12 | +0.10 | +0.18 | +0.18 | −0.05 | +0.17 | +0.00 |
+| 78 | Jarvan IV | +0.11 | −0.50 | +0.00 | +1.00 | +0.18 | – | +0.00 |
+| 79 | Lucian | +0.11 | −1.00 | +1.00 | +1.00 | +0.08 | −1.00 | +0.00 |
+| 80 | Rammus | +0.06 | +1.00 | +0.00 | −1.00 | +0.05 | – | +0.00 |
+| 81 | Orianna | +0.05 | +0.00 | −1.00 | +1.00 | +0.02 | +1.00 | +0.00 |
+| 82 | Sion | +0.02 | +0.00 | +0.00 | +0.00 | +0.11 | – | +0.00 |
+| 83 | LeBlanc | +0.02 | −1.00 | +0.81 | +0.81 | +0.01 | −1.00 | +0.00 |
+| 84 | Zeri | +0.00 | +0.00 | +0.00 | +0.00 | +0.02 | +0.00 | +0.00 |
+| 85 | Yone | −0.20 | +1.00 | −1.00 | −1.00 | +0.13 | – | +0.00 |
+| 86 | Yasuo | −0.20 | +1.00 | −1.00 | −1.00 | +0.12 | – | +0.00 |
+| 87 | Camille | −0.22 | +1.00 | −1.00 | −1.00 | +0.00 | – | +0.00 |
+| 88 | Miss Fortune | −0.29 | +1.00 | −1.00 | −1.00 | +0.06 | −1.00 | +0.00 |
+| 89 | Brand | −0.30 | +1.00 | −1.00 | −1.00 | +0.03 | −1.00 | +0.00 |
+| 90 | Jhin | −0.30 | +1.00 | −1.00 | −1.00 | +0.02 | −1.00 | +0.00 |
+| 91 | Riven | −0.30 | −1.00 | −1.00 | +1.00 | +0.20 | – | +0.00 |
+| 92 | Pantheon | −0.31 | −1.00 | −1.00 | +1.00 | +0.13 | – | +0.00 |
+| 93 | Rumble | −0.32 | −1.00 | −1.00 | +1.00 | +0.05 | – | +0.00 |
+| 94 | Viktor | −0.40 | −1.00 | −1.00 | +1.00 | +0.01 | −1.00 | +0.00 |
+| 95 | Vel'Koz | −0.42 | −1.00 | −1.00 | +0.87 | +0.07 | −1.00 | +0.00 |
+| 96 | Veigar | −0.55 | −0.04 | −1.00 | −1.00 | +0.05 | −1.00 | +0.00 |
+| 97 | Vex | −0.58 | −0.14 | −1.00 | −1.00 | +0.03 | −1.00 | +0.00 |
+| 98 | Draven | −0.58 | −1.00 | −1.00 | −1.00 | +0.12 | +1.00 | +0.00 |
+| 99 | Tristana | −0.60 | −1.00 | −1.00 | −1.00 | −0.02 | +1.00 | +0.00 |
+| 100 | Varus | −0.68 | −0.53 | −1.00 | −1.00 | +0.02 | −1.00 | +0.00 |
+| 101 | Rengar | −0.70 | −1.00 | −1.00 | −1.00 | +0.47 | – | +0.00 |
+| 102 | Ornn | −0.74 | −1.00 | −1.00 | −1.00 | +0.21 | – | +0.00 |
+| 103 | Nunu & Willump | −0.74 | −1.00 | −1.00 | −1.00 | +0.21 | – | +0.00 |
+| 104 | Skarner | −0.75 | −1.00 | −1.00 | −1.00 | +0.17 | – | +0.00 |
+| 105 | Gragas | −0.75 | −1.00 | −1.00 | −1.00 | +0.15 | – | +0.00 |
+| 106 | Urgot | −0.75 | −1.00 | −1.00 | −1.00 | +0.31 | −1.00 | +0.00 |
+| 107 | Naafiri | −0.76 | −1.00 | −1.00 | −1.00 | +0.12 | – | +0.00 |
+| 108 | Janna | −0.76 | −1.00 | −1.00 | −1.00 | +0.27 | −1.00 | +0.00 |
+| 109 | Kassadin | −0.76 | −1.00 | −1.00 | −1.00 | +0.10 | – | +0.00 |
+| 110 | Zed | −0.77 | −1.00 | −1.00 | −1.00 | +0.07 | – | +0.00 |
+| 111 | Fizz | −0.77 | −1.00 | −1.00 | −1.00 | +0.07 | – | +0.00 |
+| 112 | Ziggs | −0.77 | −1.00 | −1.00 | −1.00 | +0.22 | −1.00 | +0.00 |
+| 113 | Hecarim | −0.77 | −1.00 | −1.00 | −1.00 | +0.06 | – | +0.00 |
+| 114 | Ekko | −0.77 | −1.00 | −1.00 | −1.00 | +0.06 | – | +0.00 |
+| 115 | Talon | −0.77 | −1.00 | −1.00 | −1.00 | +0.03 | – | +0.00 |
+| 116 | Evelynn | −0.77 | −1.00 | −1.00 | −1.00 | +0.03 | – | +0.00 |
+| 117 | Leona | −0.77 | −1.00 | −1.00 | −1.00 | +0.03 | – | +0.00 |
+| 118 | Galio | −0.77 | −1.00 | −1.00 | −1.00 | +0.02 | – | +0.00 |
+| 119 | Ahri | −0.77 | −1.00 | −1.00 | −1.00 | +0.17 | −1.00 | +0.00 |
+| 120 | Katarina | −0.78 | −1.00 | −1.00 | −1.00 | +0.01 | – | +0.00 |
+| 121 | Kha'Zix | −0.78 | −1.00 | −1.00 | −1.00 | +0.01 | – | +0.00 |
+| 122 | Blitzcrank | −0.78 | −1.00 | −1.00 | −1.00 | +0.11 | −1.00 | +0.00 |
+| 123 | Amumu | −0.78 | −1.00 | −1.00 | −1.00 | −0.04 | – | +0.00 |
+| 124 | Malzahar | −0.79 | −1.00 | −1.00 | −1.00 | +0.08 | −1.00 | +0.00 |
+| 125 | Taliyah | −0.79 | −1.00 | −1.00 | −1.00 | +0.07 | −1.00 | +0.00 |
+| 126 | Akali | −0.79 | −1.00 | −1.00 | −1.00 | −0.08 | – | +0.00 |
+| 127 | Nautilus | −0.79 | −1.00 | −1.00 | −1.00 | +0.06 | −1.00 | +0.00 |
+| 128 | Xerath | −0.79 | −1.00 | −1.00 | −1.00 | +0.06 | −1.00 | +0.00 |
+| 129 | Rell | −0.79 | −1.00 | −1.00 | −1.00 | +0.05 | −1.00 | +0.00 |
+| 130 | Lux | −0.79 | −1.00 | −1.00 | −1.00 | +0.05 | −1.00 | +0.00 |
+| 131 | Gnar | −0.79 | −1.00 | −1.00 | −1.00 | +0.05 | −1.00 | +0.00 |
+| 132 | Soraka | −0.79 | −1.00 | −1.00 | −1.00 | +0.05 | −1.00 | +0.00 |
+| 133 | Zoe | −0.79 | −1.00 | −1.00 | −1.00 | +0.04 | −1.00 | +0.00 |
+| 134 | Karthus | −0.80 | −1.00 | −1.00 | −1.00 | +0.03 | −1.00 | +0.00 |
+| 135 | Sona | −0.80 | −1.00 | −1.00 | −1.00 | +0.03 | −1.00 | +0.00 |
+| 136 | Ryze | −0.80 | −1.00 | −1.00 | −1.00 | +0.02 | −1.00 | +0.00 |
+| 137 | Nami | −0.80 | −1.00 | −1.00 | −1.00 | +0.00 | −1.00 | +0.00 |
+| 138 | Lissandra | −0.80 | −1.00 | −1.00 | −1.00 | −0.00 | −1.00 | +0.00 |
+| 139 | Zyra | −0.80 | −1.00 | −1.00 | −1.00 | −0.00 | −1.00 | +0.00 |
+| 140 | Twitch | −0.80 | −1.00 | −1.00 | −1.00 | −0.02 | −1.00 | +0.00 |
+| 141 | Vladimir | −0.80 | −1.00 | −1.00 | −1.00 | −0.03 | −1.00 | +0.00 |
+| 142 | Caitlyn | −0.81 | −1.00 | −1.00 | −1.00 | −0.06 | −1.00 | +0.00 |
+| 143 | Senna | −0.81 | −1.00 | −1.00 | −1.00 | −0.09 | −1.00 | +0.00 |
+| 144 | Thresh | −0.86 | −1.00 | −1.00 | −1.00 | −0.05 | −1.00 | −1.00 |
+
+## Interaction ledger estimates
+
 Every champion ranked by what its kit does against Wukong's, from the interaction ledger: projectile blocks, spell shields,
 parries, dash stops, crowd control and its defenses, range and more (PLAN.md §5). This ranking is **partial**: it weighs the
 interactions but doesn't play the fight out. The duel simulator replaces it as each champion's behavior is verified.
@@ -8,72 +161,72 @@ interactions but doesn't play the fight out. The duel simulator replaces it as e
 A hard counter shuts down part of a kit every time it is used (projectile block, attack dodge, attack block, blind, disarm, attack speed slow, attack reflect, dash stop, grounding, range) with an impact of 0.4 or more (0.5 for range).
 Run `npm run matchup -- <champion> MonkeyKing` for the full ledger of a matchup, with sources.
 
-## Top 10
+### Top 10
 
-### 1. Bard (net +1.24)
+#### 1. Bard (net +1.24)
 
 - **0.80** untargetable: Tempered Fate makes Bard untargetable, dodging Wukong's Cyclone. Untargetable for 2.5 s, long enough to use ahead of Cyclone. (Bard R Tempered Fate → Wukong R Cyclone)
 - **0.36** untargetable: Tempered Fate makes Bard untargetable, dodging Wukong's Nimbus Strike. Untargetable for 2.5 s, long enough to use ahead of Nimbus Strike. (Bard R Tempered Fate → Wukong E Nimbus Strike)
 - **0.21** range: Bard's basic attacks reach 325 units farther than Wukong's (500 vs 175 attack range). Wukong closes the gap with Nimbus Strike, Warrior Trickster. (Bard basic attacks → Wukong basic attacks)
 
-### 2. Lissandra (net +1.21)
+#### 2. Lissandra (net +1.21)
 
 - **0.80** untargetable: Frozen Tomb makes Lissandra untargetable, dodging Wukong's Cyclone. Untargetable for 2.5 s, long enough to use ahead of Cyclone. (Lissandra R Frozen Tomb → Wukong R Cyclone)
 - **0.36** untargetable: Frozen Tomb makes Lissandra untargetable, dodging Wukong's Nimbus Strike. Untargetable for 2.5 s, long enough to use ahead of Nimbus Strike. (Lissandra R Frozen Tomb → Wukong E Nimbus Strike)
 - **0.21** dash stop: Frozen Tomb's knockdown can stop Wukong's Warrior Trickster mid-dash. Must land during the dash. Fails if the dashing unit is crowd control immune, displacement immune, untargetable or spell shielded. (Lissandra R Frozen Tomb → Wukong W Warrior Trickster)
 
-### 3. Xayah (net +1.20)
+#### 3. Xayah (net +1.20)
 
 - **0.75** untargetable: Featherstorm makes Xayah untargetable, dodging Wukong's Cyclone. Untargetable for 1.5 s, long enough to use ahead of Cyclone. (Xayah R Featherstorm → Wukong R Cyclone)
 - **0.35** untargetable: Featherstorm makes Xayah untargetable, dodging Wukong's Nimbus Strike. Untargetable for 1.5 s, long enough to use ahead of Nimbus Strike. (Xayah R Featherstorm → Wukong E Nimbus Strike)
 - **0.22** range: Xayah's basic attacks reach 350 units farther than Wukong's (525 vs 175 attack range). Wukong closes the gap with Nimbus Strike, Warrior Trickster. (Xayah basic attacks → Wukong basic attacks)
 
-### 4. Vladimir (net +1.19)
+#### 4. Vladimir (net +1.19)
 
 - **0.80** untargetable: Sanguine Pool makes Vladimir untargetable, dodging Wukong's Cyclone. Untargetable for 2 s, long enough to use ahead of Cyclone. (Vladimir W Sanguine Pool → Wukong R Cyclone)
 - **0.53** untargetable: Sanguine Pool makes Vladimir untargetable, dodging Wukong's Nimbus Strike. Untargetable for 2 s, long enough to use ahead of Nimbus Strike. (Vladimir W Sanguine Pool → Wukong E Nimbus Strike)
 - **0.28** untargetable: Sanguine Pool makes Vladimir untargetable, dodging Wukong's Crushing Blow. Untargetable for 2 s, long enough to use ahead of Crushing Blow. (Vladimir W Sanguine Pool → Wukong Q Crushing Blow)
 - Watch out: Cyclone's airborne interrupts Vladimir's Tides of Blood (charge-up).
 
-### 5. Hwei (net +1.11)
+#### 5. Hwei (net +1.11)
 
 - **0.40** dash stop: Grim Visage's knockdown can stop Wukong's Warrior Trickster mid-dash. Must land during the dash. Fails if the dashing unit is crowd control immune, displacement immune, untargetable or spell shielded. (Hwei Q Grim Visage → Wukong W Warrior Trickster)
 - **0.33** dash stop: Grim Visage's knockdown can stop Wukong's Nimbus Strike mid-dash. Must land during the dash. Fails if the dashing unit is crowd control immune, displacement immune, untargetable or spell shielded. (Hwei Q Grim Visage → Wukong E Nimbus Strike)
 - **0.20** reveal: Gaze of the Abyss reveals Wukong through Warrior Trickster's stealth. (Hwei W Gaze of the Abyss → Wukong W Warrior Trickster)
 
-### 6. Morgana (net +1.11)
+#### 6. Morgana (net +1.11)
 
 - **0.80** cc immunity: Black Shield makes Morgana immune to Wukong's Cyclone (airborne). Immune for 5 s, long enough to use ahead of Cyclone. (Morgana E Black Shield → Wukong R Cyclone)
 - **0.20** reveal: Soul Shackles reveals Wukong through Warrior Trickster's stealth. (Morgana R Soul Shackles → Wukong W Warrior Trickster)
 - **0.11** range: Morgana's basic attacks reach 275 units farther than Wukong's (450 vs 175 attack range). Wukong closes the gap with Nimbus Strike, Warrior Trickster. (Morgana basic attacks → Wukong basic attacks)
 
-### 7. Rek'Sai (net +1.07)
+#### 7. Rek'Sai (net +1.07)
 
 - **0.80** untargetable: Void Rush makes Rek'Sai untargetable, dodging Wukong's Cyclone. Untargetable for 1.5 s, long enough to use ahead of Cyclone. (Rek'Sai R Void Rush → Wukong R Cyclone)
 - **0.36** untargetable: Void Rush makes Rek'Sai untargetable, dodging Wukong's Nimbus Strike. Untargetable for 1.5 s, long enough to use ahead of Nimbus Strike. (Rek'Sai R Void Rush → Wukong E Nimbus Strike)
 - **0.20** reveal: Void Rush reveals Wukong through Warrior Trickster's stealth. (Rek'Sai R Void Rush → Wukong W Warrior Trickster)
 
-### 8. Sivir (net +1.05)
+#### 8. Sivir (net +1.05)
 
 - **0.51** spell shield: Spell Shield's spell shield blocks Wukong's Nimbus Strike. Spell shield for 1.5 s, long enough to use ahead of Nimbus Strike. A spell shield blocks only the first enemy ability that reaches it. (Sivir E Spell Shield → Wukong E Nimbus Strike)
 - **0.40** spell shield: Spell Shield's spell shield blocks part of Wukong's Cyclone. Spell shield for 1.5 s, long enough to use ahead of Cyclone. A spell shield blocks only the first enemy ability that reaches it. Spell shield will block one instance of damage.
   - Blocking the knock up will still grant immunity to it from either of Cyclone's casts. (Sivir E Spell Shield → Wukong R Cyclone)
 - **0.27** range: Sivir's basic attacks reach 325 units farther than Wukong's (500 vs 175 attack range). Wukong closes the gap with Nimbus Strike, Warrior Trickster. (Sivir basic attacks → Wukong basic attacks)
 
-### 9. Nocturne (net +1.04)
+#### 9. Nocturne (net +1.04)
 
 - **0.60** spell shield: Shroud of Darkness's spell shield blocks Wukong's Nimbus Strike. Spell shield for 1.5 s, long enough to use ahead of Nimbus Strike. A spell shield blocks only the first enemy ability that reaches it. (Nocturne W Shroud of Darkness → Wukong E Nimbus Strike)
 - **0.40** spell shield: Shroud of Darkness's spell shield blocks part of Wukong's Cyclone. Spell shield for 1.5 s, long enough to use ahead of Cyclone. A spell shield blocks only the first enemy ability that reaches it. Spell shield will block one instance of damage.
   - Blocking the knock up will still grant immunity to it from either of Cyclone's casts. (Nocturne W Shroud of Darkness → Wukong R Cyclone)
 - **0.32** spell shield: Shroud of Darkness's spell shield blocks Wukong's Crushing Blow. Spell shield for 1.5 s, long enough to use ahead of Crushing Blow. A spell shield blocks only the first enemy ability that reaches it. (Nocturne W Shroud of Darkness → Wukong Q Crushing Blow)
 
-### 10. Rengar (net +1.04)
+#### 10. Rengar (net +1.04)
 
 - **0.64** cleanse: Battle Roar cleanses Wukong's Cyclone (airborne) after it lands. 10 s cooldown; usable while crowd controlled. (Rengar W Battle Roar → Wukong R Cyclone)
 - **0.20** reveal: Bola Strike reveals Wukong through Warrior Trickster's stealth. (Rengar E Bola Strike → Wukong W Warrior Trickster)
 - **0.20** reveal: Thrill of the Hunt reveals Wukong through Warrior Trickster's stealth. (Rengar R Thrill of the Hunt → Wukong W Warrior Trickster)
 
-## Full ranking
+### Full ranking
 
 | # | Champion | Net | For | Against | Hard counters |
 |--:|---|--:|--:|--:|---|

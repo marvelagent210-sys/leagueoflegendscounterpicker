@@ -205,3 +205,113 @@ All 1 level-based formulas in the game files (0 linked to wiki values above):
 | Spell | Calculation | Rule | Level 1 | Level 18 | Level 20 |
 |---|---|---|--:|--:|--:|
 | JarvanIVMartialCadence | TooltipCooldown | breakpoints at levels 6, 11, 16 (level 1: 6) | 6 | 3 | 3 |
+
+## Duel simulator kit (level 20, every ability at max rank)
+
+What the duel simulator fights with (`kits/champions/JarvanIV.ts`): values come from pinned wiki and versioned game-data records at level 20. Interpretations and missing evidence are listed under assumptions. Ratios are fractions of the stat (60% AD is 0.6 × AD).
+
+- Basic attack: range 175, melee.
+
+| Key | Ability | Cooldown (s) | Cast time (s) | Cost | Delivery | On the enemy | On itself |
+|---|---|--:|--:|---|---|---|---|
+| Q | Dragon Strike | 6 | 0.4 | 65 | self | – | – |
+| W | Golden Aegis | 9 | 0 | 30 | self | – | – |
+| E | Demacian Standard | 10 | 0 | 55 | self | – | – |
+| R | Cataclysm | 90 (starts when its effect on the caster ends) | 0 | 100 | self | – | – |
+| R2 | Cataclysm (dismiss) | 0 | 0 | 0 | self | – | – |
+| Qdash | Dragon Strike (flag dash) | 0 | 0 | – | self | – | – |
+| Qlance | Dragon Strike | 0 | 0 | – | self | 250 + 145% bonus AD physical damage; armorReductionPercent 0.26 for 3 s | – |
+| Qknock | Dragon Strike (knockup) | 0 | 0 | – | self | airborne for 0.75 s | – |
+| Wslow | Golden Aegis | 0 | 0 | – | self | slow 35% for 2 s | – |
+| Eimpact | Demacian Standard | 0 | 0 | – | self | 240 + 80% AP magic damage | – |
+| Rimpact | Cataclysm | 0 | 0 | – | self | 450 + 180% bonus AD physical damage | – |
+| Rperimeter | Cataclysm (perimeter) | 0 | 0 | – | self | – | – |
+
+Effects marked by a mark or a role are completed by the kit's hooks (see the kit's source).
+
+### Assumptions
+
+- Martial Cadence snapshots8% actual target current HP before the ordinary basic, then deals its separate physical packet after that basic only if the body survived. Its20minimum,400non-champion cap and static3-second per-target clock are source-read. Champion-class summons and explicit clones are champions; unclassified pets receive the non-champion cap. Structures and explicitly Other props do not trigger it. Blind/dodge/parry/block preserve readiness; actual damage immunity can consume readiness. Pet-ID views synchronize their current statuses before the bonus packet.
+- Dragon Strike uses the primary0.4-second cast and65–785 lance geometry, deals250+145%bonusAD before26%armor shred for3seconds, then detects the furthest real own flag within0–850 detection length (including its65gameplay radius) in the selected direction. The actual dash travels1400units/second from the exact pinned EDashSpeed array, crossing terrain only with a clear endpoint. Root/ground do not deny its pull; knockdown can stop it. Each actual body gets one guarded0.75-second knockup attempt per dash. The random50–100 lateral knockup scatter is omitted in one dimension. The primary 136 damage / 300 flag widths are retained; lateral width cannot be resolved on the duel line. Champion lance damage uses the shared scalar skillshot fallback from the 0.4-second telegraph, while actual pet occupancy and dash knockup contacts stay geometric; the lance does not create an independent probability branch.
+- Demacian Standard grants30%permanent AS and a separate non-stacking30%aura within1000 of an actual8-second flag. Each flag is an enemy-untargetable Minion-class body with65gameplay/13.6pathing radius; its infinite HP is only a representation of enemy untargetability, never a hittable health target. No flag exists before E. Primary E has no cast time and publishes no landing delay; cosmetic missileSpeed1450 and binary spellCastTime0.25 do not prove script delivery timing, so flag placement/impact is immediate and this timing gap is explicit. E damage is240+80%AP within200; sight700 uses standard sight only. Owner death removes the flag under ordinary pet lifecycle; primary does not specify a death persistence exception.
+- Golden Aegis applies independently guarded35%slows for2seconds to actual nearby bodies within600, counts only accepted actual champion-class/clone contacts and grants140+70%bonusAD plus1.3%maxHP per counted champion for4seconds. CC immunity still counts an accepted spell; spell shield/parry/stasis/untargetability do not. It never assumes a second champion, ward, minion wave or imaginary summon.
+- Cataclysm targets a live visible actual enemy champion or explicitly Champion-class/clone summon within 650, retains the actual recipient ID, tracks its location over the primary0.35-second displacement-immune leap, and survives target invisibility/untargetability as an already declared leap. Landing damage remains separately guarded. Death during the leap cancels damage/terrain and starts its full cooldown. Landing creates two real impassable wall intervals at255–445 from its center for3.5seconds, blocking both sides, and applies the primary0.15-second inward/outward perimeter displacement. The two intervals project24circular wall units onto one dimension; individual Ornn segment removal and lateral exits are outside this arena. Primary350terrain radius approximates additional damage footprint because neither source labels a server damage radius; binary castRadius210/castRadiusSecondary340 remain exact conflicting targeting metadata. Targeted body's landing contact is always tested against that footprint. Pets receive guarded perimeter airborne but shared pet movement has no forced-displacement action. Sight1700is standard sight. Manual dismissal after0.75seconds is an actual activation; natural expiry is not. Post-effect R cooldown begins after dismissal/expiry; no preduel terrain is supplied.
+- Behavior evaluates common trade completion before offensive choices, reserves ready R in trade/hold, opens with W/E/Q in range, and dismisses an existing ring for escape. The budget adds one current-health Cadence at the half-health reference point per3seconds plus attack interval, Q/E/R by ordinary cast/cooldown and W's guaranteed base shield only. Aura AS receives source8-second flag uptime per E cycle. Runtime accepted contacts and actual terrain determine outcomes; no coefficients fit matchup scores.
+
+### Source values read (73)
+
+| Ability | Value | Source version |
+|---|---|---|
+| Martial Cadence | 8% of the target's current health | [4003791](https://wiki.leagueoflegends.com/en-us/Template:Data_Jarvan_IV/Martial_Cadence?oldid=4003791) |
+| Martial Cadence | minimum threshold of 20 | [4003791](https://wiki.leagueoflegends.com/en-us/Template:Data_Jarvan_IV/Martial_Cadence?oldid=4003791) |
+| Martial Cadence | capped at 400 | [4003791](https://wiki.leagueoflegends.com/en-us/Template:Data_Jarvan_IV/Martial_Cadence?oldid=4003791) |
+| Martial Cadence | targetCooldown: 6 / 5 / 4 / 3 (based on level) | [4003791](https://wiki.leagueoflegends.com/en-us/Template:Data_Jarvan_IV/Martial_Cadence?oldid=4003791) |
+| Martial Cadence | current health of the target before any damage of the attack has been dealt | [4003791](https://wiki.leagueoflegends.com/en-us/Template:Data_Jarvan_IV/Martial_Cadence?oldid=4003791) |
+| Martial Cadence | damage is dealt after the main attack damage | [4003791](https://wiki.leagueoflegends.com/en-us/Template:Data_Jarvan_IV/Martial_Cadence?oldid=4003791) |
+| Martial Cadence | If the target dies to the main attack damage | [4003791](https://wiki.leagueoflegends.com/en-us/Template:Data_Jarvan_IV/Martial_Cadence?oldid=4003791) |
+| Martial Cadence | will not trigger against structures | [4003791](https://wiki.leagueoflegends.com/en-us/Template:Data_Jarvan_IV/Martial_Cadence?oldid=4003791) |
+| Dragon Strike | Physical Damage: 90 / 130 / 170 / 210 / 250 (+ 145% bonus AD) | [4042687](https://wiki.leagueoflegends.com/en-us/Template:Data_Jarvan_IV/Dragon_Strike?oldid=4042687) |
+| Dragon Strike | Armor Reduction: 10 / 14 / 18 / 22 / 26% of target's armor | [4042687](https://wiki.leagueoflegends.com/en-us/Template:Data_Jarvan_IV/Dragon_Strike?oldid=4042687) |
+| Dragon Strike | armor reduction for 3 seconds | [4042687](https://wiki.leagueoflegends.com/en-us/Template:Data_Jarvan_IV/Dragon_Strike?oldid=4042687) |
+| Dragon Strike | for 0.75 seconds | [4042687](https://wiki.leagueoflegends.com/en-us/Template:Data_Jarvan_IV/Dragon_Strike?oldid=4042687) |
+| Dragon Strike | cooldown: 10 / 9 / 8 / 7 / 6 | [4042687](https://wiki.leagueoflegends.com/en-us/Template:Data_Jarvan_IV/Dragon_Strike?oldid=4042687) |
+| Dragon Strike | castTime: 0.4 | [4042687](https://wiki.leagueoflegends.com/en-us/Template:Data_Jarvan_IV/Dragon_Strike?oldid=4042687) |
+| Dragon Strike | range: 65 – 785 • 0 – 850 | [4042687](https://wiki.leagueoflegends.com/en-us/Template:Data_Jarvan_IV/Dragon_Strike?oldid=4042687) |
+| Dragon Strike | width (Damage): 136 • 300 | [4042687](https://wiki.leagueoflegends.com/en-us/Template:Data_Jarvan_IV/Dragon_Strike?oldid=4042687) |
+| Dragon Strike | width (Flag): 136 • 300 | [4042687](https://wiki.leagueoflegends.com/en-us/Template:Data_Jarvan_IV/Dragon_Strike?oldid=4042687) |
+| Dragon Strike | collisionRadius: 180 | [4042687](https://wiki.leagueoflegends.com/en-us/Template:Data_Jarvan_IV/Dragon_Strike?oldid=4042687) |
+| Dragon Strike | armor reduction is applied after the damage | [4042687](https://wiki.leagueoflegends.com/en-us/Template:Data_Jarvan_IV/Dragon_Strike?oldid=4042687) |
+| Dragon Strike | wherever the caster is at the end of the cast time | [4042687](https://wiki.leagueoflegends.com/en-us/Template:Data_Jarvan_IV/Dragon_Strike?oldid=4042687) |
+| Dragon Strike | even if he is immobilized or grounded | [4042687](https://wiki.leagueoflegends.com/en-us/Template:Data_Jarvan_IV/Dragon_Strike?oldid=4042687) |
+| Dragon Strike | can cast any of his abilities during the dash | [4042687](https://wiki.leagueoflegends.com/en-us/Template:Data_Jarvan_IV/Dragon_Strike?oldid=4042687) |
+| Dragon Strike | one furthest from his position | [4042687](https://wiki.leagueoflegends.com/en-us/Template:Data_Jarvan_IV/Dragon_Strike?oldid=4042687) |
+| Golden Aegis | Shield Strength: 60 / 80 / 100 / 120 / 140 (+ 70% bonus AD) | [3906940](https://wiki.leagueoflegends.com/en-us/Template:Data_Jarvan_IV/Golden_Aegis?oldid=3906940) |
+| Golden Aegis | increased by 1.3% | [3906940](https://wiki.leagueoflegends.com/en-us/Template:Data_Jarvan_IV/Golden_Aegis?oldid=3906940) |
+| Golden Aegis | shield for 4 seconds | [3906940](https://wiki.leagueoflegends.com/en-us/Template:Data_Jarvan_IV/Golden_Aegis?oldid=3906940) |
+| Golden Aegis | Slow: 15 / 20 / 25 / 30 / 35% | [3906940](https://wiki.leagueoflegends.com/en-us/Template:Data_Jarvan_IV/Golden_Aegis?oldid=3906940) |
+| Golden Aegis | for 2 seconds | [3906940](https://wiki.leagueoflegends.com/en-us/Template:Data_Jarvan_IV/Golden_Aegis?oldid=3906940) |
+| Golden Aegis | effectRadius: 600 | [3906940](https://wiki.leagueoflegends.com/en-us/Template:Data_Jarvan_IV/Golden_Aegis?oldid=3906940) |
+| Golden Aegis | cooldown: 9 | [3906940](https://wiki.leagueoflegends.com/en-us/Template:Data_Jarvan_IV/Golden_Aegis?oldid=3906940) |
+| Golden Aegis | for each enemy champion hit | [3906940](https://wiki.leagueoflegends.com/en-us/Template:Data_Jarvan_IV/Golden_Aegis?oldid=3906940) |
+| Golden Aegis | deals no damage | [3906940](https://wiki.leagueoflegends.com/en-us/Template:Data_Jarvan_IV/Golden_Aegis?oldid=3906940) |
+| Demacian Standard | Magic Damage: 80 / 120 / 160 / 200 / 240 (+ 80% AP) | [4013709](https://wiki.leagueoflegends.com/en-us/Template:Data_Jarvan_IV/Demacian_Standard?oldid=4013709) |
+| Demacian Standard | Bonus Attack Speed: 20 / 22.5 / 25 / 27.5 / 30% | [4013709](https://wiki.leagueoflegends.com/en-us/Template:Data_Jarvan_IV/Demacian_Standard?oldid=4013709) |
+| Demacian Standard | cooldown: 12 / 11.5 / 11 / 10.5 / 10 | [4013709](https://wiki.leagueoflegends.com/en-us/Template:Data_Jarvan_IV/Demacian_Standard?oldid=4013709) |
+| Demacian Standard | targetRange: 860 | [4013709](https://wiki.leagueoflegends.com/en-us/Template:Data_Jarvan_IV/Demacian_Standard?oldid=4013709) |
+| Demacian Standard | effectRadius (Impact): 200 • 1000 • 700 | [4013709](https://wiki.leagueoflegends.com/en-us/Template:Data_Jarvan_IV/Demacian_Standard?oldid=4013709) |
+| Demacian Standard | effectRadius (Aura): 200 • 1000 • 700 | [4013709](https://wiki.leagueoflegends.com/en-us/Template:Data_Jarvan_IV/Demacian_Standard?oldid=4013709) |
+| Demacian Standard | effectRadius (Sight): 200 • 1000 • 700 | [4013709](https://wiki.leagueoflegends.com/en-us/Template:Data_Jarvan_IV/Demacian_Standard?oldid=4013709) |
+| Demacian Standard | remains for 8 seconds | [4013709](https://wiki.leagueoflegends.com/en-us/Template:Data_Jarvan_IV/Demacian_Standard?oldid=4013709) |
+| Demacian Standard | a 65 gameplay radius | [4013709](https://wiki.leagueoflegends.com/en-us/Template:Data_Jarvan_IV/Demacian_Standard?oldid=4013709) |
+| Demacian Standard | 13.6 pathing radius | [4013709](https://wiki.leagueoflegends.com/en-us/Template:Data_Jarvan_IV/Demacian_Standard?oldid=4013709) |
+| Demacian Standard | aura from multiple Demacian Standards does not stack | [4013709](https://wiki.leagueoflegends.com/en-us/Template:Data_Jarvan_IV/Demacian_Standard?oldid=4013709) |
+| Demacian Standard | untargetable to enemies | [4013709](https://wiki.leagueoflegends.com/en-us/Template:Data_Jarvan_IV/Demacian_Standard?oldid=4013709) |
+| Demacian Standard | target type is the same as a minion | [4013709](https://wiki.leagueoflegends.com/en-us/Template:Data_Jarvan_IV/Demacian_Standard?oldid=4013709) |
+| Demacian Standard | "name":"EDashSpeed","values":[1400.0,1400.0,1400.0,1400.0,1400.0,1400.0,1400.0] | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/jarvaniv/jarvaniv.bin.json) |
+| Cataclysm | Physical Damage: 200 / 325 / 450 (+ 180% bonus AD) | [4017869](https://wiki.leagueoflegends.com/en-us/Template:Data_Jarvan_IV/Cataclysm?oldid=4017869) |
+| Cataclysm | cooldown: 120 / 105 / 90 | [4017869](https://wiki.leagueoflegends.com/en-us/Template:Data_Jarvan_IV/Cataclysm?oldid=4017869) |
+| Cataclysm | targetRange: 650 | [4017869](https://wiki.leagueoflegends.com/en-us/Template:Data_Jarvan_IV/Cataclysm?oldid=4017869) |
+| Cataclysm | over 0.35 seconds | [4017869](https://wiki.leagueoflegends.com/en-us/Template:Data_Jarvan_IV/Cataclysm?oldid=4017869) |
+| Cataclysm | effectRadius (Terrain): 350 • 1700 | [4017869](https://wiki.leagueoflegends.com/en-us/Template:Data_Jarvan_IV/Cataclysm?oldid=4017869) |
+| Cataclysm | effectRadius (Sight): 350 • 1700 | [4017869](https://wiki.leagueoflegends.com/en-us/Template:Data_Jarvan_IV/Cataclysm?oldid=4017869) |
+| Cataclysm | lasts for 3.5 seconds | [4017869](https://wiki.leagueoflegends.com/en-us/Template:Data_Jarvan_IV/Cataclysm?oldid=4017869) |
+| Cataclysm | recast after 0.75 seconds | [4017869](https://wiki.leagueoflegends.com/en-us/Template:Data_Jarvan_IV/Cataclysm?oldid=4017869) |
+| Cataclysm | over 0.15 seconds | [4017869](https://wiki.leagueoflegends.com/en-us/Template:Data_Jarvan_IV/Cataclysm?oldid=4017869) |
+| Cataclysm | Impassable perimeter: 255 | [4017869](https://wiki.leagueoflegends.com/en-us/Template:Data_Jarvan_IV/Cataclysm?oldid=4017869) |
+| Cataclysm | Impassable perimeter: 255 • 445 | [4017869](https://wiki.leagueoflegends.com/en-us/Template:Data_Jarvan_IV/Cataclysm?oldid=4017869) |
+| Cataclysm | cooldownStart: post-effect | [4017869](https://wiki.leagueoflegends.com/en-us/Template:Data_Jarvan_IV/Cataclysm?oldid=4017869) |
+| Cataclysm | Spell shield will block the damage but not the terrain generation | [4017869](https://wiki.leagueoflegends.com/en-us/Template:Data_Jarvan_IV/Cataclysm?oldid=4017869) |
+| Cataclysm | killed while leaping | [4017869](https://wiki.leagueoflegends.com/en-us/Template:Data_Jarvan_IV/Cataclysm?oldid=4017869) |
+| Cataclysm | 24 units with 95 pathing radius, 65 gameplay radius and 1350 sight radius | [4017869](https://wiki.leagueoflegends.com/en-us/Template:Data_Jarvan_IV/Cataclysm?oldid=4017869) |
+| Martial Cadence | objectPath: | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/jarvaniv/jarvaniv.bin.json) |
+| Dragon Strike | objectPath: | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/jarvaniv/jarvaniv.bin.json) |
+| Golden Aegis | objectPath: | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/jarvaniv/jarvaniv.bin.json) |
+| Demacian Standard | objectPath: | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/jarvaniv/jarvaniv.bin.json) |
+| Cataclysm | objectPath: | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/jarvaniv/jarvaniv.bin.json) |
+| Dragon Strike | cost: 45 / 50 / 55 / 60 / 65 | [4042687](https://wiki.leagueoflegends.com/en-us/Template:Data_Jarvan_IV/Dragon_Strike?oldid=4042687) |
+| Golden Aegis | cost: 30 | [3906940](https://wiki.leagueoflegends.com/en-us/Template:Data_Jarvan_IV/Golden_Aegis?oldid=3906940) |
+| Golden Aegis | castTime: none | [3906940](https://wiki.leagueoflegends.com/en-us/Template:Data_Jarvan_IV/Golden_Aegis?oldid=3906940) |
+| Demacian Standard | cost: 55 | [4013709](https://wiki.leagueoflegends.com/en-us/Template:Data_Jarvan_IV/Demacian_Standard?oldid=4013709) |
+| Demacian Standard | castTime: none | [4013709](https://wiki.leagueoflegends.com/en-us/Template:Data_Jarvan_IV/Demacian_Standard?oldid=4013709) |
+| Cataclysm | cost: 100 | [4017869](https://wiki.leagueoflegends.com/en-us/Template:Data_Jarvan_IV/Cataclysm?oldid=4017869) |
+| Cataclysm | castTime: none | [4017869](https://wiki.leagueoflegends.com/en-us/Template:Data_Jarvan_IV/Cataclysm?oldid=4017869) |

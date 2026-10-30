@@ -1,5 +1,158 @@
 # Counters to Aphelios (patch 26.20)
 
+## Simulated duels
+
+The duel simulator played each of the 144 other champions with a simulator kit against Aphelios: both at level 20 with 15,000 gold of plain stats, each side's spent against the other's, through six scenarios (PLAN.md §6). Scores run from −1 (Aphelios wins every time) to +1 (the champion does). Run `npm run duel -- <champion> Aphelios --log brawl` to watch a fight.
+
+| # | Champion | Score | You engage | Enemy engages | Brawl | Short trade | Spacing | Escape |
+|--:|---|--:|--:|--:|--:|--:|--:|--:|
+| 1 | Nasus | +0.82 | +1.00 | +1.00 | +1.00 | −0.17 | +1.00 | +1.00 |
+| 2 | Yorick | +0.82 | +1.00 | +1.00 | +1.00 | −0.20 | +1.00 | +1.00 |
+| 3 | Trundle | +0.82 | +1.00 | +1.00 | +1.00 | −0.23 | +1.00 | +1.00 |
+| 4 | Fiora | +0.80 | +1.00 | +1.00 | +1.00 | −0.35 | +1.00 | +1.00 |
+| 5 | Dr. Mundo | +0.79 | +1.00 | +1.00 | +1.00 | −0.08 | +1.00 | +0.00 |
+| 6 | Lulu | +0.78 | +1.00 | +1.00 | +1.00 | +0.01 | – | +0.00 |
+| 7 | Kayle | +0.78 | +1.00 | +1.00 | +1.00 | +0.01 | – | +0.00 |
+| 8 | Teemo | +0.78 | +1.00 | +1.00 | +1.00 | −0.01 | – | +0.00 |
+| 9 | Kog'Maw | +0.77 | +1.00 | +1.00 | +1.00 | −0.07 | – | +0.00 |
+| 10 | Vayne | +0.75 | +1.00 | +1.00 | +1.00 | −0.14 | – | +0.00 |
+| 11 | Yasuo | +0.48 | +0.50 | +0.98 | +0.00 | +0.08 | +0.51 | +0.87 |
+| 12 | Jax | +0.45 | +0.00 | +1.00 | +1.00 | +0.03 | +0.00 | +0.00 |
+| 13 | Tahm Kench | +0.42 | +1.00 | +1.00 | −1.00 | +0.17 | +0.97 | +0.00 |
+| 14 | Ashe | +0.33 | +1.00 | +1.00 | −1.00 | +0.01 | – | +0.00 |
+| 15 | K'Sante | +0.33 | +1.00 | −1.00 | +1.00 | −0.11 | +1.00 | +1.00 |
+| 16 | Poppy | +0.29 | +1.00 | −1.00 | +1.00 | −0.08 | +1.00 | +0.00 |
+| 17 | Anivia | +0.27 | +0.28 | +0.00 | +1.00 | −0.17 | – | +0.00 |
+| 18 | Varus | +0.19 | −0.06 | −0.06 | +1.00 | −0.01 | – | +0.00 |
+| 19 | Malphite | +0.04 | −1.00 | +0.00 | +1.00 | −0.05 | +1.00 | +0.00 |
+| 20 | Xayah | +0.04 | +1.00 | +0.00 | −1.00 | −0.10 | – | +0.00 |
+| 21 | Taric | −0.04 | +0.46 | +0.03 | −0.50 | +0.00 | −0.60 | +0.00 |
+| 22 | Caitlyn | −0.13 | +0.31 | +0.31 | −1.00 | +0.07 | −1.00 | +0.00 |
+| 23 | Gangplank | −0.15 | −1.00 | −1.00 | +1.00 | +0.02 | +1.00 | +1.00 |
+| 24 | Orianna | −0.21 | +1.00 | −1.00 | −1.00 | +0.05 | – | +0.00 |
+| 25 | Jayce | −0.29 | +1.00 | −1.00 | −1.00 | +0.08 | −1.00 | +0.00 |
+| 26 | Kennen | −0.31 | −1.00 | −1.00 | +1.00 | +0.11 | – | +0.00 |
+| 27 | Jinx | −0.32 | −1.00 | −1.00 | +0.99 | +0.07 | – | +0.00 |
+| 28 | Corki | −0.33 | −1.00 | −1.00 | +1.00 | +0.04 | – | +0.00 |
+| 29 | Annie | −0.35 | −1.00 | −1.00 | +1.00 | −0.08 | – | +0.00 |
+| 30 | Quinn | −0.35 | −1.00 | −1.00 | +1.00 | −0.10 | – | +0.00 |
+| 31 | Graves | −0.40 | −1.00 | −1.00 | +1.00 | −0.01 | −1.00 | +0.00 |
+| 32 | Heimerdinger | −0.41 | −1.00 | −1.00 | +1.00 | −0.06 | −1.00 | +0.00 |
+| 33 | Aurora | −0.41 | +0.31 | −1.00 | −1.00 | +0.00 | – | +0.00 |
+| 34 | Mordekaiser | −0.46 | −1.00 | −0.99 | −0.00 | −0.15 | +0.55 | +0.00 |
+| 35 | Yone | −0.49 | −1.00 | +0.24 | −1.00 | −0.22 | −1.00 | +0.62 |
+| 36 | Camille | −0.50 | −1.00 | +0.00 | −1.00 | +0.01 | −1.00 | +1.00 |
+| 37 | Neeko | −0.51 | −1.00 | −0.62 | −1.00 | −0.01 | +1.00 | +0.00 |
+| 38 | Udyr | −0.56 | −1.00 | −1.00 | −1.00 | −0.09 | +1.00 | +1.00 |
+| 39 | Twitch | −0.58 | −1.00 | −1.00 | +0.00 | −0.16 | – | +0.00 |
+| 40 | Tristana | −0.60 | −1.00 | −1.00 | −1.00 | −0.00 | +1.00 | +0.00 |
+| 41 | Karthus | −0.60 | −1.00 | −1.00 | +0.00 | −0.01 | −1.00 | +0.00 |
+| 42 | Vel'Koz | −0.62 | −1.00 | −1.00 | −1.00 | +0.32 | +0.34 | +0.00 |
+| 43 | Zeri | −0.62 | −1.00 | −0.50 | −1.00 | +0.12 | – | +0.00 |
+| 44 | Jhin | −0.73 | −0.92 | −0.92 | −0.92 | −0.09 | – | +0.00 |
+| 45 | Swain | −0.74 | −1.00 | −1.00 | −0.88 | +0.07 | – | +0.00 |
+| 46 | Hwei | −0.74 | −1.00 | −1.00 | −0.82 | −0.01 | – | +0.00 |
+| 47 | Rengar | −0.76 | −1.00 | −1.00 | −1.00 | +0.29 | −1.00 | +0.00 |
+| 48 | Master Yi | −0.76 | −1.00 | −1.00 | −1.00 | −0.08 | −1.00 | +1.00 |
+| 49 | Ziggs | −0.76 | −1.00 | −1.00 | −1.00 | +0.10 | – | +0.00 |
+| 50 | Rammus | −0.76 | −1.00 | −1.00 | −1.00 | −0.08 | −0.50 | +0.00 |
+| 51 | Riven | −0.77 | −1.00 | −1.00 | −1.00 | −0.14 | −1.00 | +1.00 |
+| 52 | Senna | −0.77 | −1.00 | −1.00 | −1.00 | +0.03 | – | +0.00 |
+| 53 | Taliyah | −0.77 | −1.00 | −1.00 | −1.00 | +0.03 | – | +0.00 |
+| 54 | Ezreal | −0.78 | −0.99 | −0.99 | −1.00 | −0.02 | – | +0.00 |
+| 55 | Syndra | −0.78 | −1.00 | −1.00 | −1.00 | −0.01 | – | +0.00 |
+| 56 | Soraka | −0.78 | −1.00 | −1.00 | −1.00 | −0.02 | – | +0.00 |
+| 57 | Nocturne | −0.78 | −1.00 | −1.00 | −1.00 | −0.22 | −1.00 | +1.00 |
+| 58 | Malzahar | −0.79 | −1.00 | −1.00 | −1.00 | −0.04 | – | +0.00 |
+| 59 | Viktor | −0.79 | −1.00 | −1.00 | −1.00 | −0.05 | – | +0.00 |
+| 60 | Lux | −0.79 | −1.00 | −1.00 | −1.00 | −0.05 | – | +0.00 |
+| 61 | Janna | −0.79 | −1.00 | −1.00 | −1.00 | −0.06 | – | +0.00 |
+| 62 | Vex | −0.79 | −1.00 | −1.00 | −1.00 | −0.07 | – | +0.00 |
+| 63 | Sona | −0.79 | −1.00 | −1.00 | −1.00 | −0.07 | – | +0.00 |
+| 64 | Nunu & Willump | −0.79 | −1.00 | −1.00 | −1.00 | +0.07 | −1.00 | +0.00 |
+| 65 | Draven | −0.79 | −1.00 | −1.00 | −1.00 | −0.07 | – | +0.00 |
+| 66 | Diana | −0.79 | −1.00 | −1.00 | −1.00 | +0.07 | −1.00 | +0.00 |
+| 67 | Volibear | −0.79 | −1.00 | −1.00 | −1.00 | −0.22 | −1.00 | +0.87 |
+| 68 | Nami | −0.79 | −1.00 | −1.00 | −1.00 | −0.08 | – | +0.00 |
+| 69 | Akshan | −0.79 | −1.00 | −1.00 | −1.00 | −0.08 | – | +0.00 |
+| 70 | Xerath | −0.79 | −1.00 | −1.00 | −1.00 | +0.06 | −1.00 | +0.00 |
+| 71 | Miss Fortune | −0.79 | −1.00 | −1.00 | −1.00 | −0.08 | – | +0.00 |
+| 72 | Twisted Fate | −0.79 | −1.00 | −1.00 | −1.00 | −0.10 | – | +0.00 |
+| 73 | Zoe | −0.79 | −1.00 | −1.00 | −1.00 | +0.04 | −1.00 | +0.00 |
+| 74 | Rell | −0.80 | −1.00 | −1.00 | −1.00 | +0.03 | −1.00 | +0.00 |
+| 75 | Karma | −0.80 | −1.00 | −0.98 | −1.00 | −0.14 | – | +0.00 |
+| 76 | Samira | −0.80 | −1.00 | −1.00 | −1.00 | −0.11 | – | +0.00 |
+| 77 | Ahri | −0.80 | −1.00 | −1.00 | −1.00 | −0.11 | – | +0.00 |
+| 78 | Jarvan IV | −0.80 | −1.00 | −1.00 | −1.00 | +0.02 | −1.00 | +0.00 |
+| 79 | Illaoi | −0.80 | −1.00 | −1.00 | −1.00 | +0.01 | −1.00 | +0.00 |
+| 80 | Cassiopeia | −0.80 | −1.00 | −1.00 | −1.00 | −0.12 | – | +0.00 |
+| 81 | Sejuani | −0.80 | −1.00 | −1.00 | −1.00 | +0.01 | −1.00 | +0.00 |
+| 82 | Nautilus | −0.80 | −1.00 | −1.00 | −1.00 | +0.00 | −1.00 | +0.00 |
+| 83 | Lissandra | −0.80 | −1.00 | −1.00 | −1.00 | −0.13 | – | +0.00 |
+| 84 | Naafiri | −0.80 | −1.00 | −1.00 | −1.00 | −0.01 | −1.00 | +0.00 |
+| 85 | Sivir | −0.80 | −1.00 | −1.00 | −1.00 | −0.15 | – | +0.00 |
+| 86 | Shen | −0.80 | −1.00 | −1.00 | −1.00 | −0.02 | −1.00 | +0.00 |
+| 87 | Evelynn | −0.81 | −1.00 | −1.00 | −1.00 | −0.04 | −1.00 | +0.00 |
+| 88 | Akali | −0.81 | −1.00 | −1.00 | −1.00 | −0.04 | −1.00 | +0.00 |
+| 89 | Gnar | −0.81 | −1.00 | −1.00 | −1.00 | −0.04 | −1.00 | +0.00 |
+| 90 | Alistar | −0.81 | −1.00 | −1.00 | −1.00 | −0.05 | −1.00 | +0.00 |
+| 91 | Fizz | −0.81 | −1.00 | −1.00 | −1.00 | −0.05 | −1.00 | +0.00 |
+| 92 | Lucian | −0.81 | −1.00 | −1.00 | −1.00 | −0.18 | – | +0.00 |
+| 93 | Maokai | −0.81 | −1.00 | −1.00 | −1.00 | −0.06 | −1.00 | +0.00 |
+| 94 | Smolder | −0.81 | −1.00 | −1.00 | −1.00 | −0.19 | – | +0.00 |
+| 95 | Veigar | −0.81 | −1.00 | −1.00 | −1.00 | −0.06 | −1.00 | +0.00 |
+| 96 | Pantheon | −0.81 | −1.00 | −1.00 | −1.00 | −0.06 | −1.00 | +0.00 |
+| 97 | Sion | −0.81 | −1.00 | −1.00 | −1.00 | −0.06 | −1.00 | +0.00 |
+| 98 | Rumble | −0.81 | −1.00 | −1.00 | −1.00 | −0.06 | −1.00 | +0.00 |
+| 99 | Kindred | −0.81 | −1.00 | −1.00 | −1.00 | −0.20 | – | +0.00 |
+| 100 | Amumu | −0.81 | −1.00 | −1.00 | −1.00 | −0.07 | −1.00 | +0.00 |
+| 101 | Ornn | −0.81 | −1.00 | −1.00 | −1.00 | −0.07 | −1.00 | +0.00 |
+| 102 | Blitzcrank | −0.81 | −1.00 | −1.00 | −1.00 | −0.08 | −1.00 | +0.00 |
+| 103 | Renekton | −0.81 | −1.00 | −1.00 | −1.00 | −0.09 | −1.00 | +0.00 |
+| 104 | Garen | −0.81 | −1.00 | −1.00 | −1.00 | −0.09 | −1.00 | +0.00 |
+| 105 | Irelia | −0.81 | −1.00 | −1.00 | −1.00 | −0.09 | −1.00 | +0.00 |
+| 106 | Urgot | −0.81 | −1.00 | −1.00 | −1.00 | −0.09 | −1.00 | +0.00 |
+| 107 | Zyra | −0.82 | −1.00 | −1.00 | −1.00 | −0.10 | −1.00 | +0.00 |
+| 108 | Brand | −0.82 | −1.00 | −1.00 | −1.00 | −0.11 | −1.00 | +0.00 |
+| 109 | Tryndamere | −0.82 | −1.00 | −1.00 | −1.00 | −0.11 | −1.00 | +0.00 |
+| 110 | Leona | −0.82 | −1.00 | −1.00 | −1.00 | −0.12 | −1.00 | +0.00 |
+| 111 | Braum | −0.82 | −1.00 | −1.00 | −1.00 | −0.12 | −1.00 | +0.00 |
+| 112 | Gragas | −0.82 | −1.00 | −1.00 | −1.00 | −0.13 | −1.00 | +0.00 |
+| 113 | Cho'Gath | −0.82 | −1.00 | −1.00 | −1.00 | −0.13 | −1.00 | +0.00 |
+| 114 | Kalista | −0.82 | −1.00 | −1.00 | −1.00 | −0.25 | – | +0.00 |
+| 115 | Wukong | −0.82 | −1.00 | −1.00 | −1.00 | −0.13 | −1.00 | +0.00 |
+| 116 | Skarner | −0.82 | −1.00 | −1.00 | −1.00 | −0.13 | −1.00 | +0.00 |
+| 117 | Kha'Zix | −0.82 | −1.00 | −1.00 | −1.00 | −0.13 | −1.00 | +0.00 |
+| 118 | LeBlanc | −0.82 | −1.00 | −1.00 | −1.00 | −0.14 | −1.00 | +0.00 |
+| 119 | Ryze | −0.82 | −1.00 | −1.00 | −1.00 | −0.14 | −1.00 | +0.00 |
+| 120 | Lee Sin | −0.82 | −1.00 | −1.00 | −1.00 | −0.14 | −1.00 | +0.00 |
+| 121 | Ekko | −0.82 | −1.00 | −1.00 | −1.00 | −0.15 | −1.00 | +0.00 |
+| 122 | Morgana | −0.82 | −1.00 | −1.00 | −1.00 | −0.15 | −1.00 | +0.00 |
+| 123 | Zed | −0.82 | −1.00 | −1.00 | −1.00 | −0.16 | −1.00 | +0.00 |
+| 124 | Kai'Sa | −0.82 | −1.00 | −1.00 | −1.00 | −0.28 | – | +0.00 |
+| 125 | Vladimir | −0.82 | −1.00 | −1.00 | −1.00 | −0.16 | −1.00 | +0.00 |
+| 126 | Kled | −0.82 | −1.00 | −1.00 | −1.00 | −0.17 | −1.00 | +0.00 |
+| 127 | Talon | −0.83 | −1.00 | −1.00 | −1.00 | −0.17 | −1.00 | +0.00 |
+| 128 | Rakan | −0.83 | −1.00 | −1.00 | −1.00 | −0.18 | −1.00 | +0.00 |
+| 129 | Katarina | −0.83 | −1.00 | −1.00 | −1.00 | −0.18 | −1.00 | +0.00 |
+| 130 | Zaahen | −0.83 | −1.00 | −1.00 | −1.00 | −0.18 | −1.00 | +0.00 |
+| 131 | Aatrox | −0.83 | −1.00 | −1.00 | −1.00 | −0.19 | −1.00 | +0.00 |
+| 132 | Galio | −0.83 | −1.00 | −1.00 | −1.00 | −0.20 | −1.00 | +0.00 |
+| 133 | Sett | −0.83 | −1.00 | −1.00 | −1.00 | −0.21 | −1.00 | +0.00 |
+| 134 | Darius | −0.83 | −1.00 | −1.00 | −1.00 | −0.22 | −1.00 | +0.00 |
+| 135 | Vi | −0.84 | −1.00 | −1.00 | −1.00 | −0.24 | −1.00 | +0.00 |
+| 136 | Xin Zhao | −0.84 | −1.00 | −1.00 | −1.00 | −0.25 | −1.00 | +0.00 |
+| 137 | Warwick | −0.84 | −1.00 | −1.00 | −1.00 | −0.29 | −1.00 | +0.00 |
+| 138 | Kassadin | −0.84 | −1.00 | −1.00 | −1.00 | −0.30 | −1.00 | +0.00 |
+| 139 | Olaf | −0.85 | −1.00 | −1.00 | −1.00 | −0.35 | −1.00 | +0.00 |
+| 140 | Thresh | −0.86 | −1.00 | −1.00 | −1.00 | −0.42 | −1.00 | +0.00 |
+| 141 | Singed | −0.88 | −1.00 | −1.00 | −1.00 | −0.50 | −1.00 | +0.00 |
+| 142 | Gwen | −0.88 | −1.00 | −1.00 | −1.00 | −0.54 | −1.00 | +0.00 |
+| 143 | Hecarim | −0.88 | −1.00 | −1.00 | −1.00 | −0.55 | −1.00 | +0.00 |
+| 144 | Ambessa | −0.88 | −1.00 | −1.00 | −1.00 | −0.55 | −1.00 | +0.00 |
+
+## Interaction ledger estimates
+
 Every champion ranked by what its kit does against Aphelios's, from the interaction ledger: projectile blocks, spell shields,
 parries, dash stops, crowd control and its defenses, range and more (PLAN.md §5). This ranking is **partial**: it weighs the
 interactions but doesn't play the fight out. The duel simulator replaces it as each champion's behavior is verified.
@@ -8,78 +161,78 @@ interactions but doesn't play the fight out. The duel simulator replaces it as e
 A hard counter shuts down part of a kit every time it is used (projectile block, attack dodge, attack block, blind, disarm, attack speed slow, attack reflect, dash stop, grounding, range) with an impact of 0.4 or more (0.5 for range).
 Run `npm run matchup -- <champion> Aphelios` for the full ledger of a matchup, with sources.
 
-## Top 10
+### Top 10
 
-### 1. Yuumi (net +1.01)
+#### 1. Yuumi (net +1.01)
 
 - **0.80** untargetable: You and Me! makes Yuumi untargetable, dodging Aphelios's Moonlight Vigil. Untargetable for ?; Moonlight Vigil takes 1.9 s to land, enough to react. Does not destroy inbound projectiles, special cased to be targetable to turrets. (Yuumi W You and Me! → Aphelios R Moonlight Vigil)
 - **0.70** untargetable: You and Me! makes Yuumi untargetable, dodging Aphelios's Binding Eclipse. Untargetable for ?; Binding Eclipse takes 0.3 s to land, enough to react. Does not destroy inbound projectiles, special cased to be targetable to turrets. (Yuumi W You and Me! → Aphelios Q Binding Eclipse)
 - **0.30** untargetable: You and Me! makes Yuumi untargetable, dodging Aphelios's Calibrum. Untargetable for ?, timed to Calibrum. Does not destroy inbound projectiles, special cased to be targetable to turrets. (Yuumi W You and Me! → Aphelios basic attacks)
 - Watch out: Aphelios's basic attacks reach 125 units farther than Yuumi's (550 vs 425 attack range).
 
-### 2. Xayah (net +1.00)
+#### 2. Xayah (net +1.00)
 
 - **0.80** untargetable: Featherstorm makes Xayah untargetable, dodging Aphelios's Moonlight Vigil. Untargetable for 1.5 s, long enough to use ahead of Moonlight Vigil. (Xayah R Featherstorm → Aphelios R Moonlight Vigil)
 - **0.32** untargetable: Featherstorm makes Xayah untargetable, dodging Aphelios's Binding Eclipse. Untargetable for 1.5 s, long enough to use ahead of Binding Eclipse. (Xayah R Featherstorm → Aphelios Q Binding Eclipse)
 - **0.14** untargetable: Featherstorm makes Xayah untargetable, dodging Aphelios's Calibrum. Untargetable for 1.5 s, long enough to use ahead of Calibrum. (Xayah R Featherstorm → Aphelios basic attacks)
 
-### 3. Master Yi (net +0.99)
+#### 3. Master Yi (net +0.99)
 
 - **0.80** untargetable: Alpha Strike makes Master Yi untargetable, dodging Aphelios's Moonlight Vigil. Untargetable for ?; Moonlight Vigil takes 1.9 s to land, enough to react. (Master Yi Q Alpha Strike → Aphelios R Moonlight Vigil)
 - **0.51** untargetable: Alpha Strike makes Master Yi untargetable, dodging Aphelios's Binding Eclipse. Untargetable for ?; Binding Eclipse takes 0.3 s to land, enough to react. (Master Yi Q Alpha Strike → Aphelios Q Binding Eclipse)
 - **0.22** untargetable: Alpha Strike makes Master Yi untargetable, dodging Aphelios's Calibrum. Untargetable for ?, timed to Calibrum. (Master Yi Q Alpha Strike → Aphelios basic attacks)
 - Watch out: Aphelios's basic attacks reach 375 units farther than Master Yi's (550 vs 175 attack range).
 
-### 4. Bard (net +0.93)
+#### 4. Bard (net +0.93)
 
 - **0.80** untargetable: Tempered Fate makes Bard untargetable, dodging Aphelios's Moonlight Vigil. Untargetable for 2.5 s, long enough to use ahead of Moonlight Vigil. (Bard R Tempered Fate → Aphelios R Moonlight Vigil)
 - **0.33** untargetable: Tempered Fate makes Bard untargetable, dodging Aphelios's Binding Eclipse. Untargetable for 2.5 s, long enough to use ahead of Binding Eclipse. (Bard R Tempered Fate → Aphelios Q Binding Eclipse)
 - **0.14** untargetable: Tempered Fate makes Bard untargetable, dodging Aphelios's Calibrum. Untargetable for 2.5 s, long enough to use ahead of Calibrum. (Bard R Tempered Fate → Aphelios basic attacks)
 - Watch out: Sentry makes Aphelios immune to Bard's Cosmic Binding (slow).
 
-### 5. Fizz (net +0.92)
+#### 5. Fizz (net +0.92)
 
 - **0.80** untargetable: Playful makes Fizz untargetable, dodging Aphelios's Moonlight Vigil. Untargetable for 0.75 s; Moonlight Vigil takes 1.9 s to land, enough to react. (Fizz E Playful → Aphelios R Moonlight Vigil)
 - **0.70** untargetable: Playful makes Fizz untargetable, dodging Aphelios's Binding Eclipse. Untargetable for 0.75 s; Binding Eclipse takes 0.3 s to land, enough to react. (Fizz E Playful → Aphelios Q Binding Eclipse)
 - **0.30** untargetable: Playful makes Fizz untargetable, dodging Aphelios's Calibrum. Untargetable for 0.75 s, timed to Calibrum. (Fizz E Playful → Aphelios basic attacks)
 - Watch out: Aphelios's basic attacks reach 375 units farther than Fizz's (550 vs 175 attack range).
 
-### 6. Aurora (net +0.90)
+#### 6. Aurora (net +0.90)
 
 - **0.80** untargetable: Between Worlds makes Aurora untargetable, dodging Aphelios's Moonlight Vigil. Untargetable for 0.4 s; Moonlight Vigil takes 1.9 s to land, enough to react. Does not destroy inbound projectiles. (Aurora R Between Worlds → Aphelios R Moonlight Vigil)
 - **0.32** untargetable: Between Worlds makes Aurora untargetable, dodging Aphelios's Binding Eclipse. Untargetable for 0.4 s; Binding Eclipse takes 0.3 s to land, enough to react. Does not destroy inbound projectiles. (Aurora R Between Worlds → Aphelios Q Binding Eclipse)
 - **0.14** untargetable: Between Worlds makes Aurora untargetable, dodging Aphelios's Calibrum. Untargetable for 0.4 s, timed to Calibrum. Does not destroy inbound projectiles. (Aurora R Between Worlds → Aphelios basic attacks)
 - Watch out: Sentry makes Aphelios immune to Aurora's Between Worlds (slow).
 
-### 7. Lissandra (net +0.88)
+#### 7. Lissandra (net +0.88)
 
 - **0.80** untargetable: Frozen Tomb makes Lissandra untargetable, dodging Aphelios's Moonlight Vigil. Untargetable for 2.5 s, long enough to use ahead of Moonlight Vigil. (Lissandra R Frozen Tomb → Aphelios R Moonlight Vigil)
 - **0.33** untargetable: Frozen Tomb makes Lissandra untargetable, dodging Aphelios's Binding Eclipse. Untargetable for 2.5 s, long enough to use ahead of Binding Eclipse. (Lissandra R Frozen Tomb → Aphelios Q Binding Eclipse)
 - **0.14** untargetable: Frozen Tomb makes Lissandra untargetable, dodging Aphelios's Calibrum. Untargetable for 2.5 s, long enough to use ahead of Calibrum. (Lissandra R Frozen Tomb → Aphelios basic attacks)
 - Watch out: Sentry makes Aphelios immune to Lissandra's Frozen Tomb (slow).
 
-### 8. Vladimir (net +0.86)
+#### 8. Vladimir (net +0.86)
 
 - **0.80** untargetable: Sanguine Pool makes Vladimir untargetable, dodging Aphelios's Moonlight Vigil. Untargetable for 2 s, long enough to use ahead of Moonlight Vigil. (Vladimir W Sanguine Pool → Aphelios R Moonlight Vigil)
 - **0.54** untargetable: Sanguine Pool makes Vladimir untargetable, dodging Aphelios's Binding Eclipse. Untargetable for 2 s, long enough to use ahead of Binding Eclipse. (Vladimir W Sanguine Pool → Aphelios Q Binding Eclipse)
 - **0.23** untargetable: Sanguine Pool makes Vladimir untargetable, dodging Aphelios's Calibrum. Untargetable for 2 s, long enough to use ahead of Calibrum. (Vladimir W Sanguine Pool → Aphelios basic attacks)
 - Watch out: Aphelios's basic attacks reach 100 units farther than Vladimir's (550 vs 450 attack range).
 
-### 9. Morgana (net +0.84)
+#### 9. Morgana (net +0.84)
 
 - **0.80** cc immunity: Black Shield makes Morgana immune to Aphelios's Moonlight Vigil (slow, root). Immune for 5 s, long enough to use ahead of Moonlight Vigil. (Morgana E Black Shield → Aphelios R Moonlight Vigil)
 - **0.54** cc immunity: Black Shield makes Morgana immune to Aphelios's Binding Eclipse (root, slow). Immune for 5 s, long enough to use ahead of Binding Eclipse. (Morgana E Black Shield → Aphelios Q Binding Eclipse)
 - **0.06** cc immunity: Black Shield makes Morgana immune to Aphelios's Gravitum (slow). Immune for 5 s, long enough to use ahead of Gravitum. (Morgana E Black Shield → Aphelios basic attacks)
 - Watch out: Aphelios's basic attacks reach 100 units farther than Morgana's (550 vs 450 attack range).
 
-### 10. Fiora (net +0.83)
+#### 10. Fiora (net +0.83)
 
 - **0.90** parry: Riposte parries Aphelios's Moonlight Vigil and stuns back. Parry for 0.75 s; Moonlight Vigil takes 1.9 s to land, enough to react. Negating Moonlight Vigil's immobilizing effect turns Riposte's slow into a stun (2 s). (Fiora W Riposte → Aphelios R Moonlight Vigil)
 - **0.64** parry: Riposte parries Aphelios's Binding Eclipse and stuns back. Parry for 0.75 s; Binding Eclipse takes 0.3 s to land, enough to react. Negating Binding Eclipse's immobilizing effect turns Riposte's slow into a stun (2 s). (Fiora W Riposte → Aphelios Q Binding Eclipse)
 - **0.23** parry: Riposte parries Aphelios's Calibrum. Parry for 0.75 s, timed to Calibrum. (Fiora W Riposte → Aphelios basic attacks)
 - Watch out: Aphelios's basic attacks reach 400 units farther than Fiora's (550 vs 150 attack range).
 
-## Full ranking
+### Full ranking
 
 | # | Champion | Net | For | Against | Hard counters |
 |--:|---|--:|--:|--:|---|

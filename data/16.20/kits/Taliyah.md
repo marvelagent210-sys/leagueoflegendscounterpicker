@@ -222,3 +222,153 @@ All 1 level-based formulas in the game files (0 linked to wiki values above):
 | Spell | Calculation | Rule | Level 1 | Level 18 | Level 20 |
 |---|---|---|--:|--:|--:|
 | TaliyahPassive | TotalMS | breakpoints at levels 9, 12, 15, 27, 30 (level 1: 0.1) | 0.1 | 0.4 | 0.4 |
+
+## Duel simulator kit (level 20, every ability at max rank)
+
+What the duel simulator fights with (`kits/champions/Taliyah.ts`): values come from pinned wiki and versioned game-data records at level 20. Interpretations and missing evidence are listed under assumptions. Ratios are fractions of the stat (60% AD is 0.6 × AD).
+
+- Basic attack: range 525, missile at 2100/s.
+
+| Key | Ability | Cooldown (s) | Cast time (s) | Cost | Delivery | On the enemy | On itself |
+|---|---|--:|--:|---|---|---|---|
+| Q | Threaded Volley | 3 | 0.25 | 75 | self | – | – |
+| Q-worked | Threaded Volley (Boulder) | 1.5 (depends on stats) | 0.25 | 10 | self | – | – |
+| Q-shard | Stone Shard | 0 | 0 | – | skillshot 1000 long, 200 wide, at 3600/s | 125 + 50% AP magic damage | – |
+| Q-boulder | Boulder | 0 | 0 | – | skillshot 1000 long, 200 wide, at 2000/s | 225 + 90% AP magic damage; slow 40% for 1.5 s | – |
+| Q-blast | Threaded Volley (explosion) | 0 | 0 | – | self | 125 + 50% AP magic damage | – |
+| W | Seismic Shove | 8 | 0.25 | 0 | circle of 225 radius up to 900 away, lands after 0.542 s | knock back 400 units over 1 s | – |
+| W-pull | Seismic Shove (toward caster) | 8 | 0.25 | 0 | circle of 225 radius up to 900 away, lands after 0.542 s | knock back 400 units over 1 s | – |
+| E | Unraveled Earth | 14 | 0.25 | 90 | self | – | – |
+| E-erupt | Unraveled Earth (eruption) | 0 | 0 | – | self | 240 + 60% AP magic damage | – |
+| E-mine | Unraveled Earth (detonation) | 0 | 0 | – | self | 85 + 30% AP magic damage | – |
+| E-slow | Unraveled Earth (field) | 0 | 0 | – | self | slow 20% for 0.067 s | – |
+| E-stun | Unraveled Earth (stun) | 0 | 0 | – | self | stun for 0.75 s | – |
+| R | Weaver's Wall | 120 (starts when its effect on the caster ends) | 0 | 100 | self; channel 1 s | – | – |
+| R-ride | Weaver's Wall (choose surf) | 0 | 0 | – | self | – | – |
+| R-surf | Weaver's Wall (surf) | 0 | 0 | – | dash away 6500 units at 1500/s | – | – |
+| R-jump | Weaver's Wall (jump off) | 0 | 0 | – | self | – | – |
+| R-landing | Weaver's Wall (jump) | 0 | 0 | – | dash away 700 units at 1200/s | – | – |
+| R-destroy | Weaver's Wall (destroy) | 0 | 0 | – | self | – | – |
+| R-wall | Weaver's Wall (emergence) | 0 | 0 | – | skillshot 6500 long, 240 wide, at 1500/s | stops an interruptible dash without an airborne duration; interrupts an interruptible channel without lasting crowd control | – |
+| Q-ground | Worked Ground | 0 | 0 | – | self | – | – |
+| E-row | Unraveled Earth (stones) | 0 | 0 | – | self | – | – |
+
+Effects marked by a mark or a role are completed by the kit's hooks (see the kit's source).
+
+### Assumptions
+
+- Normal Q creates one actual radius400 thirty-second Worked Ground patch at the declaration location; no patch exists at duel start. Worked Q consumes the oldest overlapping real patch, costs10mana and floors its post-haste cooldown at0.75seconds. Five independently committed stones launch after the initial0.25second cast at offsets0,.5,1,1.25,1.5seconds. Each originates50units ahead of Taliyah's actual current position toward her original axial aim. Stasis does not stop later shots; death stops unlaunched stones while released missiles persist. New Q waits for the volley to finish. Each real body's first physical explosion contact per cast receives full area damage and later contacts persistent area damage; a shielded contact still spends that first-contact tier. Every missile retains normal acceleration, interception, actual first-body collision and independent skillshot branching. Real pet impacts can splash nearby actual bodies; no pet or monster is invented.
+- W exposes separate away and toward-caster vector commands sharing one cooldown and the same actual anchored target location. Eruption occurs0.792seconds from declaration, with current target-local defenses and a real400unit one-second displacement. Other lateral vector directions are unavailable on this one-dimensional axis. The active binary WVC wrapper corroborates radius225, zero maximum-rank mana and eight-second cooldown; the obsolete child W is not substituted.
+- E commits at cast declaration with paid mana/cooldown and retains six declaration-based row clocks,22 authored stones (2 then4each), declaration origin,0.17second row spawning and four-second row lifetimes. The parsed primary wrongly labels detonation falloff as champion-level scaling: unchanged original fields, retained raw type=stones detonated and binary MineDamageFalloff=.25 establish factors1,.75,.5,.25 for up to four actual contacts. Exact lateral mine centers are not sourced. Six equally spaced axial row projections across800units each expose one shared contact opportunity; unlocated lateral stones grant no invented extra hits. Eruption hits each real body once per cast. Only actual swept dash/forced movement across spawned unspent projected rows detonates them; walking, blink and untargetable crossings do not. The first continuous swept displacement can receive up to four detonation packets; once that displacement ends, the primary once-per-cast target entitlement closes. Later movement can consume remaining projected stones but causes no new damage or stun. The first accepted detonation schedules one stun after actual displacement ends. Estimated80degree geometry is not certified server placement.
+- R wall emergence follows an uninterrupted one-second channel; an explicit free recast opts into surfing without a new ability activation. Direction-only wall casts always use the sourced full rank-three6500length, corroborated by the missile's project-to-cast-range flag; cursor distance does not shorten the effect. Initial root/ground restrictions and explicit root/silence channel interruptions remain distinct from later immobilization/silence dismounts. Source primary1500wall speed overrides binary RMis1700 and generic2000. Primary1200explicitly names jump-off dash speed, not independent surf velocity: surf follows the actual wall front at1500as a declared interpretation. Detailed channel tables lock the first0.65+0.35seconds of surf; after one second a cast or explicit jump can dismount, instead of using the conflicting0.75second prose sentence. Blockers stop future wall emergence while preserving existing terrain and stun a rider0.25seconds. Surf crosses only its own evolving terrain; actual foreign terrain preempts entry. Explicit jump commands use150minimum,700maximum and1200speed, clamped to clear endpoints. The sourced1000cross-terrain extension needs two-dimensional exit geometry and is not automatically granted on this axis. Unquantified lateral knock-aside and automatic exit coordinates do not fabricate axial escape: wall contacts apply guarded knockdown/disruption and automatic exits retain their actual position. Axial terrain blocks the lane, rather than modeling a navigable parallel two-dimensional wall. Segments expire four seconds after actual completion; unquantified gradual disintegration, map edges and the adjacent-expiry shield bug's missing range remain unsupported boundaries.
+- Rock Surfing reaches40%at level20 in quarter-value steps after0.4seconds near terrain and decays after three seconds away. The explicit nearby-wall setup qualifies; generated terrain qualifies at actual body contact because no primary proximity radius exists. Champion combat and ordinary casts reset the two-second lock; default/proc packets do not. Reference allocation prices the alternating ordinary/worked Q stationary cycle plus one E eruption per cooldown, without guaranteed detonation hits, fictional allies, monsters or R damage. Actual casts still pay resources and follow movement and counterplay clocks.
+
+### Source values read (105)
+
+| Ability | Value | Source version |
+|---|---|---|
+| Threaded Volley | cooldown: 7 / 6 / 5 / 4 / 3 | [4013247](https://wiki.leagueoflegends.com/en-us/Template:Data_Taliyah/Threaded_Volley?oldid=4013247) |
+| Threaded Volley | castTime: 0.25 | [4013247](https://wiki.leagueoflegends.com/en-us/Template:Data_Taliyah/Threaded_Volley?oldid=4013247) |
+| Unraveled Earth | cooldown: 14 | [3985881](https://wiki.leagueoflegends.com/en-us/Template:Data_Taliyah/Unraveled_Earth?oldid=3985881) |
+| Unraveled Earth | castTime: 0.25 | [3985881](https://wiki.leagueoflegends.com/en-us/Template:Data_Taliyah/Unraveled_Earth?oldid=3985881) |
+| Weaver's Wall | cooldown: 180 / 150 / 120 | [4008075](https://wiki.leagueoflegends.com/en-us/Template:Data_Taliyah/Weaver's_Wall?oldid=4008075) |
+| Rock Surfing | Innate: While near terrain, Taliyah gains 10 / 15 / 25 / 40 (based on level)% bonus movement speed, which builds up over 1 second while in range for at least 0.4 seconds, and decays at the same rate once out of range for at least 3 seconds. | [3986175](https://wiki.leagueoflegends.com/en-us/Template:Data_Taliyah/Rock_Surfing?oldid=3986175) |
+| Rock Surfing | in range for at least 0.4 seconds | [3986175](https://wiki.leagueoflegends.com/en-us/Template:Data_Taliyah/Rock_Surfing?oldid=3986175) |
+| Rock Surfing | out of range for at least 3 seconds | [3986175](https://wiki.leagueoflegends.com/en-us/Template:Data_Taliyah/Rock_Surfing?oldid=3986175) |
+| Rock Surfing | every 0.25 seconds | [3986175](https://wiki.leagueoflegends.com/en-us/Template:Data_Taliyah/Rock_Surfing?oldid=3986175) |
+| Rock Surfing | 25% of the maximum value | [3986175](https://wiki.leagueoflegends.com/en-us/Template:Data_Taliyah/Rock_Surfing?oldid=3986175) |
+| Rock Surfing | staticCooldown: 2 | [3986175](https://wiki.leagueoflegends.com/en-us/Template:Data_Taliyah/Rock_Surfing?oldid=3986175) |
+| Rock Surfing | default or proc damage does not put Rock Surfing on cooldown | [3986175](https://wiki.leagueoflegends.com/en-us/Template:Data_Taliyah/Rock_Surfing?oldid=3986175) |
+| Rock Surfing | player-generated terrain | [3986175](https://wiki.leagueoflegends.com/en-us/Template:Data_Taliyah/Rock_Surfing?oldid=3986175) |
+| Rock Surfing | "mLevel":15 | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/taliyah/taliyah.bin.json) |
+| Threaded Volley | Magic Damage: 55 / 72.5 / 90 / 107.5 / 125 (+ 50% AP) | [4013247](https://wiki.leagueoflegends.com/en-us/Template:Data_Taliyah/Threaded_Volley?oldid=4013247) |
+| Threaded Volley | Reduced Damage: 22 / 29 / 36 / 43 / 50 (+ 20% AP) | [4013247](https://wiki.leagueoflegends.com/en-us/Template:Data_Taliyah/Threaded_Volley?oldid=4013247) |
+| Threaded Volley | Total Magic Damage: 143 / 188.5 / 234 / 279.5 / 325 (+ 130% AP) | [4013247](https://wiki.leagueoflegends.com/en-us/Template:Data_Taliyah/Threaded_Volley?oldid=4013247) |
+| Threaded Volley | Empowered Damage: 99 / 130.5 / 162 / 193.5 / 225 (+ 90% AP) | [4013247](https://wiki.leagueoflegends.com/en-us/Template:Data_Taliyah/Threaded_Volley?oldid=4013247) |
+| Threaded Volley | Secondary Target Damage: 55 / 72.5 / 90 / 107.5 / 125 (+ 50% AP) | [4013247](https://wiki.leagueoflegends.com/en-us/Template:Data_Taliyah/Threaded_Volley?oldid=4013247) |
+| Threaded Volley | Bonus Monster Damage: 20 / 25 / 30 / 35 / 40 | [4013247](https://wiki.leagueoflegends.com/en-us/Template:Data_Taliyah/Threaded_Volley?oldid=4013247) |
+| Threaded Volley | Boulder Bonus Monster Damage: 36 / 45 / 54 / 63 / 72 | [4013247](https://wiki.leagueoflegends.com/en-us/Template:Data_Taliyah/Threaded_Volley?oldid=4013247) |
+| Threaded Volley | Slow: 20 / 25 / 30 / 35 / 40% | [4013247](https://wiki.leagueoflegends.com/en-us/Template:Data_Taliyah/Threaded_Volley?oldid=4013247) |
+| Threaded Volley | range: 1000 | [4013247](https://wiki.leagueoflegends.com/en-us/Template:Data_Taliyah/Threaded_Volley?oldid=4013247) |
+| Threaded Volley | width: 200 | [4013247](https://wiki.leagueoflegends.com/en-us/Template:Data_Taliyah/Threaded_Volley?oldid=4013247) |
+| Threaded Volley | effectRadius (Stone Shard): 175 • 225 | [4013247](https://wiki.leagueoflegends.com/en-us/Template:Data_Taliyah/Threaded_Volley?oldid=4013247) |
+| Threaded Volley | effectRadius (Boulder): 175 • 225 | [4013247](https://wiki.leagueoflegends.com/en-us/Template:Data_Taliyah/Threaded_Volley?oldid=4013247) |
+| Threaded Volley | originate 50 units in front of Taliyah | [4013247](https://wiki.leagueoflegends.com/en-us/Template:Data_Taliyah/Threaded_Volley?oldid=4013247) |
+| Threaded Volley | revealing them for 0.5 seconds | [4013247](https://wiki.leagueoflegends.com/en-us/Template:Data_Taliyah/Threaded_Volley?oldid=4013247) |
+| Threaded Volley | slowing all targets hit for 1.5 seconds | [4013247](https://wiki.leagueoflegends.com/en-us/Template:Data_Taliyah/Threaded_Volley?oldid=4013247) |
+| Threaded Volley | stunned for 3 seconds | [4013247](https://wiki.leagueoflegends.com/en-us/Template:Data_Taliyah/Threaded_Volley?oldid=4013247) |
+| Threaded Volley | over 1.5 seconds | [4013247](https://wiki.leagueoflegends.com/en-us/Template:Data_Taliyah/Threaded_Volley?oldid=4013247) |
+| Threaded Volley | both launched over 1 second | [4013247](https://wiki.leagueoflegends.com/en-us/Template:Data_Taliyah/Threaded_Volley?oldid=4013247) |
+| Threaded Volley | both launched over 0.5 seconds | [4013247](https://wiki.leagueoflegends.com/en-us/Template:Data_Taliyah/Threaded_Volley?oldid=4013247) |
+| Threaded Volley | mSpell.DataValues.GroundExhaustRadius.values: [400.0,400.0,400.0,400.0,400.0,400.0,400.0] | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/taliyah/taliyah.bin.json) |
+| Threaded Volley | mSpell.DataValues.GroundExhaustDuration.values: [30.0,30.0,30.0,30.0,30.0,30.0,30.0] | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/taliyah/taliyah.bin.json) |
+| Threaded Volley | mSpell.DataValues.BigRockManaCost.values: [10.0,10.0,10.0,10.0,10.0,10.0,10.0] | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/taliyah/taliyah.bin.json) |
+| Threaded Volley | mSpell.DataValues.WorkedGroundCDR.values: [0.5,0.5,0.5,0.5,0.5,0.5,0.5] | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/taliyah/taliyah.bin.json) |
+| Threaded Volley | mSpell.DataValues.MinimumWorkedGroundCD.values: [0.75,0.75,0.75,0.75,0.75,0.75,0.75] | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/taliyah/taliyah.bin.json) |
+| Threaded Volley | mSpell.mMissileSpec.movementComponent.mInitialSpeed: 3600.0 | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/taliyah/taliyah.bin.json) |
+| Threaded Volley | mSpell.mMissileSpec.movementComponent.mAcceleration: -5000.0 | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/taliyah/taliyah.bin.json) |
+| Threaded Volley | mSpell.mMissileSpec.movementComponent.mMinSpeed: 1500.0 | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/taliyah/taliyah.bin.json) |
+| Threaded Volley | mSpell.mMissileSpec.movementComponent.mSpeed: 2000.0 | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/taliyah/taliyah.bin.json) |
+| Threaded Volley | mSpell.mMissileSpec.mMissileWidth: 100.0 | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/taliyah/taliyah.bin.json) |
+| Threaded Volley | will continue casting while in stasis | [4013247](https://wiki.leagueoflegends.com/en-us/Template:Data_Taliyah/Threaded_Volley?oldid=4013247) |
+| Threaded Volley | Spell shield only prevents one instance of damage | [4013247](https://wiki.leagueoflegends.com/en-us/Template:Data_Taliyah/Threaded_Volley?oldid=4013247) |
+| Threaded Volley | unable to basic attack until she launches the third Stone Shard | [4013247](https://wiki.leagueoflegends.com/en-us/Template:Data_Taliyah/Threaded_Volley?oldid=4013247) |
+| Seismic Shove | After 0.792 seconds | [4028078](https://wiki.leagueoflegends.com/en-us/Template:Data_Taliyah/Seismic_Shove?oldid=4028078) |
+| Seismic Shove | enemies hit 400 units | [4028078](https://wiki.leagueoflegends.com/en-us/Template:Data_Taliyah/Seismic_Shove?oldid=4028078) |
+| Seismic Shove | over 1 second | [4028078](https://wiki.leagueoflegends.com/en-us/Template:Data_Taliyah/Seismic_Shove?oldid=4028078) |
+| Seismic Shove | targetRange: 900 | [4028078](https://wiki.leagueoflegends.com/en-us/Template:Data_Taliyah/Seismic_Shove?oldid=4028078) |
+| Seismic Shove | effectRadius: 225 | [4028078](https://wiki.leagueoflegends.com/en-us/Template:Data_Taliyah/Seismic_Shove?oldid=4028078) |
+| Seismic Shove | mSpell.DataValues.ThrowDistance.values: [400.0,400.0,400.0,400.0,400.0,400.0,400.0] | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/taliyah/taliyah.bin.json) |
+| Seismic Shove | mSpell.castRadius: [225.0,225.0,225.0,225.0,225.0,225.0,225.0] | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/taliyah/taliyah.bin.json) |
+| Seismic Shove | delay is measured from the start of the cast | [4028078](https://wiki.leagueoflegends.com/en-us/Template:Data_Taliyah/Seismic_Shove?oldid=4028078) |
+| Unraveled Earth | Magic Damage: 60 / 105 / 150 / 195 / 240 (+ 60% AP) | [3985881](https://wiki.leagueoflegends.com/en-us/Template:Data_Taliyah/Unraveled_Earth?oldid=3985881) |
+| Unraveled Earth | Detonation Magic Damage: 25 / 40 / 55 / 70 / 85 (+ 30% AP) | [3985881](https://wiki.leagueoflegends.com/en-us/Template:Data_Taliyah/Unraveled_Earth?oldid=3985881) |
+| Unraveled Earth | Total Maximum Detonation Damage: 62.5 / 100 / 137.5 / 175 / 212.5 (+ 75% AP) | [3985881](https://wiki.leagueoflegends.com/en-us/Template:Data_Taliyah/Unraveled_Earth?oldid=3985881) |
+| Unraveled Earth | effectRadius: 800 | [3985881](https://wiki.leagueoflegends.com/en-us/Template:Data_Taliyah/Unraveled_Earth?oldid=3985881) |
+| Unraveled Earth | fires 6 rows | [3985881](https://wiki.leagueoflegends.com/en-us/Template:Data_Taliyah/Unraveled_Earth?oldid=3985881) |
+| Unraveled Earth | field of 22 stones | [3985881](https://wiki.leagueoflegends.com/en-us/Template:Data_Taliyah/Unraveled_Earth?oldid=3985881) |
+| Unraveled Earth | first row has 2 stones | [3985881](https://wiki.leagueoflegends.com/en-us/Template:Data_Taliyah/Unraveled_Earth?oldid=3985881) |
+| Unraveled Earth | rest have 4 each | [3985881](https://wiki.leagueoflegends.com/en-us/Template:Data_Taliyah/Unraveled_Earth?oldid=3985881) |
+| Unraveled Earth | up to 4 stones | [3985881](https://wiki.leagueoflegends.com/en-us/Template:Data_Taliyah/Unraveled_Earth?oldid=3985881) |
+| Unraveled Earth | within the area by 20% | [3985881](https://wiki.leagueoflegends.com/en-us/Template:Data_Taliyah/Unraveled_Earth?oldid=3985881) |
+| Unraveled Earth | stunned for 0.75 seconds | [3985881](https://wiki.leagueoflegends.com/en-us/Template:Data_Taliyah/Unraveled_Earth?oldid=3985881) |
+| Unraveled Earth | increased to 2 seconds | [3985881](https://wiki.leagueoflegends.com/en-us/Template:Data_Taliyah/Unraveled_Earth?oldid=3985881) |
+| Unraveled Earth | in 0.17 second intervals | [3985881](https://wiki.leagueoflegends.com/en-us/Template:Data_Taliyah/Unraveled_Earth?oldid=3985881) |
+| Unraveled Earth | remain for 4 seconds | [3985881](https://wiki.leagueoflegends.com/en-us/Template:Data_Taliyah/Unraveled_Earth?oldid=3985881) |
+| Unraveled Earth | mSpell.DataValues.MineRadius.values: [85.0,85.0,85.0,85.0,85.0,85.0,85.0] | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/taliyah/taliyah.bin.json) |
+| Unraveled Earth | mSpell.DataValues.MineDamageFalloff.values: [0.25,0.25,0.25,0.25,0.25,0.25,0.25] | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/taliyah/taliyah.bin.json) |
+| Unraveled Earth | mSpell.DataValues.MonsterModPercent.values: [2.25,2.25,2.25,2.25,2.25,2.25,2.25] | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/taliyah/taliyah.bin.json) |
+| Unraveled Earth | type=stones detonated\|0 to 75 for 4 | [3985881](https://wiki.leagueoflegends.com/en-us/Template:Data_Taliyah/Unraveled_Earth?oldid=3985881) |
+| Unraveled Earth | stun is applied once the displacement ends | [3985881](https://wiki.leagueoflegends.com/en-us/Template:Data_Taliyah/Unraveled_Earth?oldid=3985881) |
+| Unraveled Earth | will not detonate against enemies that blink | [3985881](https://wiki.leagueoflegends.com/en-us/Template:Data_Taliyah/Unraveled_Earth?oldid=3985881) |
+| Unraveled Earth | dashes over the stones while being untargetable | [3985881](https://wiki.leagueoflegends.com/en-us/Template:Data_Taliyah/Unraveled_Earth?oldid=3985881) |
+| Unraveled Earth | Effect at cast time start | [3985881](https://wiki.leagueoflegends.com/en-us/Template:Data_Taliyah/Unraveled_Earth?oldid=3985881) |
+| Unraveled Earth | angle: 80° | [3985881](https://wiki.leagueoflegends.com/en-us/Template:Data_Taliyah/Unraveled_Earth?oldid=3985881) |
+| Weaver's Wall | targetRange (Wall length): 2500 / 4500 / 6500 • 900 | [4008075](https://wiki.leagueoflegends.com/en-us/Template:Data_Taliyah/Weaver's_Wall?oldid=4008075) |
+| Weaver's Wall | targetRange (Jump off command): 2500 / 4500 / 6500 • 900 | [4008075](https://wiki.leagueoflegends.com/en-us/Template:Data_Taliyah/Weaver's_Wall?oldid=4008075) |
+| Weaver's Wall | range (Jump off maximum): 700 • 1000 | [4008075](https://wiki.leagueoflegends.com/en-us/Template:Data_Taliyah/Weaver's_Wall?oldid=4008075) |
+| Weaver's Wall | range (extended): 700 • 1000 | [4008075](https://wiki.leagueoflegends.com/en-us/Template:Data_Taliyah/Weaver's_Wall?oldid=4008075) |
+| Weaver's Wall | speed: 1500 • 1200 | [4008075](https://wiki.leagueoflegends.com/en-us/Template:Data_Taliyah/Weaver's_Wall?oldid=4008075) |
+| Weaver's Wall | speed (Jump off): 1500 • 1200 | [4008075](https://wiki.leagueoflegends.com/en-us/Template:Data_Taliyah/Weaver's_Wall?oldid=4008075) |
+| Weaver's Wall | channels for 1 second | [4008075](https://wiki.leagueoflegends.com/en-us/Template:Data_Taliyah/Weaver's_Wall?oldid=4008075) |
+| Weaver's Wall | lasts for 4 seconds after completion | [4008075](https://wiki.leagueoflegends.com/en-us/Template:Data_Taliyah/Weaver's_Wall?oldid=4008075) |
+| Weaver's Wall | 3-second static cooldown | [4008075](https://wiki.leagueoflegends.com/en-us/Template:Data_Taliyah/Weaver's_Wall?oldid=4008075) |
+| Weaver's Wall | stunned for 0.25 seconds | [4008075](https://wiki.leagueoflegends.com/en-us/Template:Data_Taliyah/Weaver's_Wall?oldid=4008075) |
+| Weaver's Wall | another 0.65 seconds | [4008075](https://wiki.leagueoflegends.com/en-us/Template:Data_Taliyah/Weaver's_Wall?oldid=4008075) |
+| Weaver's Wall | Once 0.35 seconds | [4008075](https://wiki.leagueoflegends.com/en-us/Template:Data_Taliyah/Weaver's_Wall?oldid=4008075) |
+| Weaver's Wall | mSpell.DataValues.MinJumpRange.values: [150.0,150.0,150.0,150.0,150.0,150.0,150.0] | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/taliyah/taliyah.bin.json) |
+| Weaver's Wall | mSpell.mMissileSpec.mMissileWidth: 120.0 | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/taliyah/taliyah.bin.json) |
+| Weaver's Wall | mSpell.mMissileSpec.movementComponent.mSpeed: 1700.0 | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/taliyah/taliyah.bin.json) |
+| Weaver's Wall | "mProjectTargetToCastRange":true | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/taliyah/taliyah.bin.json) |
+| Weaver's Wall | "canCastWhileDisabled":true | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/taliyah/taliyah.bin.json) |
+| Weaver's Wall | neither recasts do | [4008075](https://wiki.leagueoflegends.com/en-us/Template:Data_Taliyah/Weaver's_Wall?oldid=4008075) |
+| Weaver's Wall | channel is not interrupted by ground | [4008075](https://wiki.leagueoflegends.com/en-us/Template:Data_Taliyah/Weaver's_Wall?oldid=4008075) |
+| Weaver's Wall | recast while grounded but not while rooted | [4008075](https://wiki.leagueoflegends.com/en-us/Template:Data_Taliyah/Weaver's_Wall?oldid=4008075) |
+| Weaver's Wall | does not destroy any initial terrain | [4008075](https://wiki.leagueoflegends.com/en-us/Template:Data_Taliyah/Weaver's_Wall?oldid=4008075) |
+| Weaver's Wall | cooldownStart: post-effect | [4008075](https://wiki.leagueoflegends.com/en-us/Template:Data_Taliyah/Weaver's_Wall?oldid=4008075) |
+| Threaded Volley | cost: 55 / 60 / 65 / 70 / 75 | [4013247](https://wiki.leagueoflegends.com/en-us/Template:Data_Taliyah/Threaded_Volley?oldid=4013247) |
+| Seismic Shove | cooldown: 14 / 12.5 / 11 / 9.5 / 8 | [4028078](https://wiki.leagueoflegends.com/en-us/Template:Data_Taliyah/Seismic_Shove?oldid=4028078) |
+| Seismic Shove | cost: 40 / 30 / 20 / 10 / 0 | [4028078](https://wiki.leagueoflegends.com/en-us/Template:Data_Taliyah/Seismic_Shove?oldid=4028078) |
+| Seismic Shove | castTime: 0.25 | [4028078](https://wiki.leagueoflegends.com/en-us/Template:Data_Taliyah/Seismic_Shove?oldid=4028078) |
+| Unraveled Earth | cost: 90 | [3985881](https://wiki.leagueoflegends.com/en-us/Template:Data_Taliyah/Unraveled_Earth?oldid=3985881) |
+| Weaver's Wall | cost: 100 | [4008075](https://wiki.leagueoflegends.com/en-us/Template:Data_Taliyah/Weaver's_Wall?oldid=4008075) |

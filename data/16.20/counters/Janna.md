@@ -1,5 +1,158 @@
 # Counters to Janna (patch 26.20)
 
+## Simulated duels
+
+The duel simulator played each of the 144 other champions with a simulator kit against Janna: both at level 20 with 15,000 gold of plain stats, each side's spent against the other's, through six scenarios (PLAN.md §6). Scores run from −1 (Janna wins every time) to +1 (the champion does). Run `npm run duel -- <champion> Janna --log brawl` to watch a fight.
+
+| # | Champion | Score | You engage | Enemy engages | Brawl | Short trade | Spacing | Escape |
+|--:|---|--:|--:|--:|--:|--:|--:|--:|
+| 1 | Kayle | +0.87 | +1.00 | +1.00 | +1.00 | +0.57 | – | +0.00 |
+| 2 | Fiora | +0.86 | +1.00 | +1.00 | +1.00 | +0.07 | +1.00 | +1.00 |
+| 3 | Master Yi | +0.84 | +1.00 | +1.00 | +1.00 | −0.04 | +1.00 | +1.00 |
+| 4 | K'Sante | +0.84 | +1.00 | +1.00 | +1.00 | −0.06 | +1.00 | +1.00 |
+| 5 | Rengar | +0.84 | +1.00 | +1.00 | +1.00 | +0.27 | +1.00 | +0.00 |
+| 6 | Zeri | +0.84 | +1.00 | +1.00 | +1.00 | +0.06 | – | +0.89 |
+| 7 | Yorick | +0.84 | +1.00 | +1.00 | +1.00 | −0.08 | +1.00 | +1.00 |
+| 8 | Poppy | +0.83 | +1.00 | +1.00 | +1.00 | +0.19 | +1.00 | +0.00 |
+| 9 | Trundle | +0.82 | +1.00 | +1.00 | +1.00 | −0.17 | +1.00 | +1.00 |
+| 10 | Diana | +0.81 | +1.00 | +1.00 | +1.00 | +0.09 | +1.00 | +0.00 |
+| 11 | Ziggs | +0.80 | +1.00 | +1.00 | +1.00 | +0.15 | – | +0.00 |
+| 12 | Tristana | +0.80 | +1.00 | +1.00 | +1.00 | +0.00 | +1.00 | +0.00 |
+| 13 | Neeko | +0.80 | +1.00 | +1.00 | +1.00 | −0.02 | +1.00 | +0.00 |
+| 14 | Maokai | +0.80 | +1.00 | +1.00 | +1.00 | −0.03 | +1.00 | +0.00 |
+| 15 | Pantheon | +0.79 | +1.00 | +1.00 | +1.00 | −0.04 | +1.00 | +0.00 |
+| 16 | Ambessa | +0.79 | +1.00 | +1.00 | +1.00 | −0.05 | +1.00 | +0.00 |
+| 17 | Fizz | +0.79 | +1.00 | +1.00 | +1.00 | −0.05 | +1.00 | +0.00 |
+| 18 | Caitlyn | +0.79 | +1.00 | +1.00 | +1.00 | −0.06 | +1.00 | +0.00 |
+| 19 | Annie | +0.79 | +1.00 | +1.00 | +1.00 | +0.08 | – | +0.00 |
+| 20 | Dr. Mundo | +0.79 | +1.00 | +1.00 | +1.00 | −0.08 | +1.00 | +0.00 |
+| 21 | Aphelios | +0.79 | +1.00 | +1.00 | +1.00 | +0.06 | – | +0.00 |
+| 22 | Samira | +0.79 | +1.00 | +1.00 | +1.00 | +0.06 | – | +0.00 |
+| 23 | Smolder | +0.79 | +1.00 | +1.00 | +1.00 | +0.05 | – | +0.00 |
+| 24 | Corki | +0.78 | +1.00 | +1.00 | +1.00 | +0.04 | – | +0.00 |
+| 25 | Nasus | +0.78 | +1.00 | +1.00 | +1.00 | −0.11 | +1.00 | +0.00 |
+| 26 | Swain | +0.78 | +1.00 | +1.00 | +1.00 | +0.02 | – | +0.00 |
+| 27 | Jax | +0.78 | +1.00 | +1.00 | +1.00 | −0.12 | +1.00 | +0.00 |
+| 28 | Miss Fortune | +0.78 | +1.00 | +1.00 | +1.00 | +0.02 | – | +0.00 |
+| 29 | Jinx | +0.78 | +1.00 | +1.00 | +1.00 | +0.01 | – | +0.00 |
+| 30 | Renekton | +0.78 | +1.00 | +1.00 | +1.00 | −0.14 | +1.00 | +0.00 |
+| 31 | Lulu | +0.78 | +1.00 | +1.00 | +1.00 | +0.01 | – | +0.00 |
+| 32 | Udyr | +0.78 | +1.00 | +1.00 | +1.00 | −0.14 | +1.00 | +0.00 |
+| 33 | Jhin | +0.78 | +1.00 | +1.00 | +1.00 | +0.00 | – | +0.00 |
+| 34 | Malzahar | +0.78 | +1.00 | +1.00 | +1.00 | −0.01 | – | +0.00 |
+| 35 | Cassiopeia | +0.78 | +1.00 | +1.00 | +1.00 | −0.01 | – | +0.00 |
+| 36 | Ashe | +0.78 | +1.00 | +1.00 | +1.00 | −0.01 | – | +0.00 |
+| 37 | Camille | +0.78 | +1.00 | +1.00 | +1.00 | −0.16 | +1.00 | +0.00 |
+| 38 | Orianna | +0.78 | +1.00 | +1.00 | +1.00 | −0.01 | – | +0.00 |
+| 39 | Tryndamere | +0.77 | +1.00 | +1.00 | +1.00 | −0.17 | +1.00 | +0.00 |
+| 40 | Xayah | +0.77 | +1.00 | +1.00 | +1.00 | −0.03 | – | +0.00 |
+| 41 | Draven | +0.77 | +1.00 | +1.00 | +1.00 | −0.03 | – | +0.00 |
+| 42 | Varus | +0.77 | +1.00 | +1.00 | +1.00 | −0.03 | – | +0.00 |
+| 43 | Nocturne | +0.77 | +1.00 | +1.00 | +1.00 | −0.19 | +1.00 | +0.00 |
+| 44 | Kog'Maw | +0.77 | +1.00 | +1.00 | +1.00 | −0.04 | – | +0.00 |
+| 45 | Kalista | +0.77 | +1.00 | +1.00 | +1.00 | −0.05 | – | +0.00 |
+| 46 | Teemo | +0.77 | +1.00 | +1.00 | +1.00 | −0.06 | – | +0.00 |
+| 47 | Jayce | +0.77 | +1.00 | +1.00 | +1.00 | −0.16 | +0.91 | +0.00 |
+| 48 | Vayne | +0.77 | +1.00 | +1.00 | +1.00 | −0.07 | – | +0.02 |
+| 49 | Yasuo | +0.77 | +1.00 | +0.98 | +1.00 | −0.08 | +0.82 | +0.00 |
+| 50 | Twisted Fate | +0.77 | +1.00 | +1.00 | +1.00 | −0.08 | – | +0.00 |
+| 51 | Sona | +0.76 | +0.95 | +1.00 | +1.00 | +0.00 | – | +0.00 |
+| 52 | Akshan | +0.76 | +1.00 | +1.00 | +1.00 | −0.08 | – | +0.00 |
+| 53 | Wukong | +0.76 | +1.00 | +1.00 | +1.00 | −0.27 | +1.00 | +0.00 |
+| 54 | Kindred | +0.76 | +1.00 | +1.00 | +1.00 | −0.11 | – | +0.00 |
+| 55 | Irelia | +0.76 | +1.00 | +1.00 | +0.77 | +0.04 | +1.00 | +0.00 |
+| 56 | Kai'Sa | +0.76 | +1.00 | +1.00 | +1.00 | −0.12 | – | +0.00 |
+| 57 | Quinn | +0.76 | +1.00 | +1.00 | +1.00 | −0.13 | – | +0.00 |
+| 58 | Aurora | +0.76 | +1.00 | +1.00 | +0.88 | +0.04 | – | +0.00 |
+| 59 | Karma | +0.76 | +1.00 | +0.92 | +1.00 | +0.00 | – | +0.00 |
+| 60 | Warwick | +0.75 | +1.00 | +1.00 | +1.00 | −0.31 | +1.00 | +0.00 |
+| 61 | Kennen | +0.75 | +1.00 | +1.00 | +1.00 | −0.14 | – | +0.00 |
+| 62 | Sion | +0.75 | +0.86 | +1.00 | +1.00 | −0.11 | +1.00 | +0.00 |
+| 63 | Braum | +0.74 | +0.92 | +0.89 | +0.97 | −0.04 | +1.00 | +0.00 |
+| 64 | Zoe | +0.72 | +1.00 | +1.00 | +0.61 | −0.02 | +1.00 | +0.00 |
+| 65 | Rumble | +0.71 | +0.88 | +0.92 | +1.00 | −0.13 | +0.82 | +0.00 |
+| 66 | Zaahen | +0.68 | +0.49 | +1.00 | +1.00 | +0.07 | +1.00 | +0.00 |
+| 67 | Olaf | +0.68 | +1.00 | +0.98 | +1.00 | −0.15 | +0.05 | +0.00 |
+| 68 | Gnar | +0.67 | +1.00 | +1.00 | +1.00 | −0.12 | −0.08 | +0.00 |
+| 69 | Vi | +0.67 | +1.00 | +1.00 | +1.00 | −0.22 | +0.00 | +0.00 |
+| 70 | Galio | +0.66 | +1.00 | +0.50 | +1.00 | −0.08 | +1.00 | +0.00 |
+| 71 | Gwen | +0.65 | +0.61 | +0.96 | +1.00 | −0.29 | +0.96 | +0.00 |
+| 72 | Heimerdinger | +0.65 | +1.00 | +0.55 | +1.00 | +0.03 | +0.55 | +0.00 |
+| 73 | Gangplank | +0.60 | +0.00 | +1.00 | +1.00 | −0.00 | +1.00 | +1.00 |
+| 74 | Nautilus | +0.59 | +0.24 | +0.95 | +0.94 | +0.05 | +0.99 | +0.00 |
+| 75 | Lee Sin | +0.55 | +0.00 | +1.00 | +1.00 | +0.01 | +1.00 | +0.00 |
+| 76 | Darius | +0.53 | +1.00 | +0.00 | +1.00 | −0.13 | +1.00 | +0.00 |
+| 77 | Lucian | +0.52 | +1.00 | +0.15 | +1.00 | −0.12 | – | +0.00 |
+| 78 | Malphite | +0.44 | +0.26 | +1.00 | +0.13 | −0.00 | +1.00 | +0.00 |
+| 79 | Mordekaiser | +0.41 | +0.12 | +0.48 | +0.95 | −0.16 | +0.91 | +0.00 |
+| 80 | Hwei | +0.37 | +0.78 | −0.06 | +0.78 | −0.03 | – | +0.00 |
+| 81 | Volibear | +0.36 | +0.87 | +0.27 | +0.87 | −0.17 | −0.74 | +0.00 |
+| 82 | Sett | +0.35 | +1.00 | −0.71 | +1.00 | −0.18 | +1.00 | +0.00 |
+| 83 | Kled | +0.30 | +1.00 | +0.00 | +0.00 | −0.00 | +0.50 | +0.00 |
+| 84 | Gragas | +0.28 | −1.00 | +1.00 | +1.00 | −0.12 | +1.00 | +0.00 |
+| 85 | Zed | +0.28 | +1.00 | −1.00 | +1.00 | −0.13 | +1.00 | +0.00 |
+| 86 | Kassadin | +0.28 | +1.00 | −1.00 | +1.00 | −0.14 | +1.00 | +0.00 |
+| 87 | Anivia | +0.22 | +0.36 | +0.26 | +0.30 | −0.10 | – | +0.00 |
+| 88 | Garen | +0.20 | +1.00 | −0.68 | +1.00 | −0.10 | −0.68 | +0.00 |
+| 89 | Xin Zhao | +0.19 | +1.00 | −0.42 | +0.39 | −0.12 | −0.16 | +0.00 |
+| 90 | Riven | +0.17 | +1.00 | −1.00 | +1.00 | −0.19 | +0.04 | +0.00 |
+| 91 | Rell | +0.11 | +1.00 | −1.00 | +1.00 | +0.06 | −1.00 | +0.00 |
+| 92 | Tahm Kench | +0.11 | +0.08 | +0.09 | +0.28 | −0.06 | +0.19 | +0.00 |
+| 93 | Illaoi | +0.09 | −0.41 | +0.04 | +1.00 | −0.08 | −0.09 | +0.00 |
+| 94 | Yone | +0.06 | −0.17 | −0.17 | +1.00 | −0.26 | −0.17 | +0.00 |
+| 95 | Sejuani | +0.05 | +0.84 | −1.00 | +0.00 | −0.08 | +1.00 | +0.00 |
+| 96 | Twitch | +0.04 | +1.00 | +0.00 | −1.00 | −0.10 | – | +0.00 |
+| 97 | Rammus | +0.04 | −0.07 | −0.08 | −0.07 | −0.06 | +1.00 | +0.00 |
+| 98 | Ryze | +0.03 | −0.39 | −0.18 | +0.99 | −0.04 | −0.18 | +0.00 |
+| 99 | Jarvan IV | −0.03 | +1.00 | −0.66 | −1.00 | −0.10 | +1.00 | +0.00 |
+| 100 | Aatrox | −0.04 | −0.09 | −0.88 | +1.00 | −0.23 | +0.42 | +0.00 |
+| 101 | Taric | −0.06 | −0.05 | −0.15 | +0.02 | +0.01 | −0.16 | +0.00 |
+| 102 | Vel'Koz | −0.07 | +1.00 | −0.83 | −0.30 | +0.25 | −0.89 | +0.00 |
+| 103 | Ornn | −0.15 | −0.16 | −0.20 | −0.10 | −0.08 | −0.23 | +0.00 |
+| 104 | Karthus | −0.24 | −0.35 | −0.26 | −0.34 | −0.02 | −0.19 | +0.00 |
+| 105 | Ahri | −0.26 | −1.00 | −0.69 | +1.00 | −0.09 | – | +0.00 |
+| 106 | Sivir | −0.35 | −1.00 | −1.00 | +1.00 | −0.07 | – | +0.00 |
+| 107 | Lux | −0.35 | −1.00 | −1.00 | +0.91 | −0.01 | – | +0.00 |
+| 108 | Viktor | −0.36 | −1.00 | −1.00 | +1.00 | −0.13 | – | +0.00 |
+| 109 | Cho'Gath | −0.40 | −1.00 | −1.00 | +1.00 | −0.14 | −0.80 | +0.00 |
+| 110 | Zyra | −0.40 | −1.00 | −1.00 | +1.00 | −0.01 | −1.00 | +0.00 |
+| 111 | Morgana | −0.41 | −1.00 | −1.00 | +1.00 | −0.04 | −1.00 | +0.00 |
+| 112 | Singed | −0.42 | −1.00 | −1.00 | +1.00 | −0.16 | −1.00 | +0.00 |
+| 113 | Ekko | −0.43 | −1.00 | −1.00 | +1.00 | −0.17 | −1.00 | +0.00 |
+| 114 | Leona | −0.45 | +0.46 | −1.00 | −1.00 | −0.08 | −1.00 | +0.00 |
+| 115 | Akali | −0.45 | −0.51 | −0.87 | −0.46 | −0.06 | +0.02 | +0.00 |
+| 116 | Ezreal | −0.45 | −0.97 | −0.94 | +0.34 | −0.01 | – | +0.00 |
+| 117 | Urgot | −0.46 | −1.00 | −1.00 | +0.72 | −0.05 | −1.00 | +0.00 |
+| 118 | Rakan | −0.52 | −1.00 | −1.00 | +0.50 | −0.16 | −0.93 | +0.00 |
+| 119 | Brand | −0.52 | −1.00 | −1.00 | +0.45 | −0.09 | −1.00 | +0.00 |
+| 120 | Skarner | −0.53 | −1.00 | −1.00 | +0.41 | −0.07 | −1.00 | +0.00 |
+| 121 | Graves | −0.55 | −0.86 | −1.00 | −1.00 | +0.10 | +1.00 | +0.00 |
+| 122 | Evelynn | −0.63 | −1.00 | −1.00 | −1.00 | −0.02 | +0.70 | +0.00 |
+| 123 | Shen | −0.65 | −1.00 | −1.00 | −0.17 | −0.09 | −1.00 | +0.00 |
+| 124 | Xerath | −0.66 | −0.45 | −1.00 | −1.00 | −0.01 | −1.00 | +0.00 |
+| 125 | Taliyah | −0.77 | −1.00 | −1.00 | −1.00 | +0.06 | – | +0.00 |
+| 126 | Syndra | −0.77 | −1.00 | −1.00 | −1.00 | +0.05 | – | +0.00 |
+| 127 | Nami | −0.77 | −0.98 | −1.00 | −1.00 | −0.00 | – | +0.00 |
+| 128 | Nunu & Willump | −0.77 | −1.00 | −1.00 | −1.00 | +0.19 | −1.00 | +0.00 |
+| 129 | Lissandra | −0.77 | −1.00 | −1.00 | −1.00 | +0.02 | – | +0.00 |
+| 130 | Senna | −0.78 | −1.00 | −1.00 | −1.00 | +0.02 | – | +0.00 |
+| 131 | Vex | −0.78 | −1.00 | −1.00 | −0.99 | +0.00 | – | +0.00 |
+| 132 | Soraka | −0.78 | −1.00 | −1.00 | −1.00 | −0.04 | – | +0.00 |
+| 133 | Blitzcrank | −0.80 | −1.00 | −1.00 | −1.00 | +0.00 | −1.00 | +0.00 |
+| 134 | Veigar | −0.80 | −1.00 | −1.00 | −1.00 | −0.02 | −1.00 | +0.00 |
+| 135 | Kha'Zix | −0.80 | −1.00 | −1.00 | −1.00 | −0.03 | −1.00 | +0.00 |
+| 136 | LeBlanc | −0.81 | −1.00 | −1.00 | −1.00 | −0.04 | −1.00 | +0.00 |
+| 137 | Amumu | −0.81 | −1.00 | −1.00 | −1.00 | −0.05 | −1.00 | +0.00 |
+| 138 | Alistar | −0.81 | −1.00 | −1.00 | −1.00 | −0.09 | −1.00 | +0.00 |
+| 139 | Katarina | −0.82 | −1.00 | −1.00 | −1.00 | −0.11 | −1.00 | +0.00 |
+| 140 | Vladimir | −0.82 | −1.00 | −1.00 | −1.00 | −0.13 | −1.00 | +0.00 |
+| 141 | Naafiri | −0.82 | −1.00 | −1.00 | −1.00 | −0.13 | −1.00 | +0.00 |
+| 142 | Talon | −0.82 | −1.00 | −1.00 | −1.00 | −0.19 | −0.94 | +0.00 |
+| 143 | Thresh | −0.82 | −1.00 | −1.00 | −1.00 | −0.15 | −1.00 | +0.00 |
+| 144 | Hecarim | −0.84 | −1.00 | −1.00 | −1.00 | −0.29 | −1.00 | +0.00 |
+
+## Interaction ledger estimates
+
 Every champion ranked by what its kit does against Janna's, from the interaction ledger: projectile blocks, spell shields,
 parries, dash stops, crowd control and its defenses, range and more (PLAN.md §5). This ranking is **partial**: it weighs the
 interactions but doesn't play the fight out. The duel simulator replaces it as each champion's behavior is verified.
@@ -8,78 +161,78 @@ interactions but doesn't play the fight out. The duel simulator replaces it as e
 A hard counter shuts down part of a kit every time it is used (projectile block, attack dodge, attack block, blind, disarm, attack speed slow, attack reflect, dash stop, grounding, range) with an impact of 0.4 or more (0.5 for range).
 Run `npm run matchup -- <champion> Janna` for the full ledger of a matchup, with sources.
 
-## Top 10
+### Top 10
 
-### 1. Rell (net +1.78)
+#### 1. Rell (net +1.78)
 
 - **0.40** interrupt: Ferromancy: Crash Down's airborne interrupts Janna's Monsoon (normal channel). Ferromancy: Crash Down must land during the channel. (Rell W Ferromancy: Crash Down → Janna R Monsoon)
 - **0.40** interrupt: Ferromancy: Mount Up's airborne interrupts Janna's Monsoon (normal channel). Ferromancy: Mount Up must land during the channel. (Rell W Ferromancy: Mount Up → Janna R Monsoon)
 - **0.40** interrupt: Full Tilt's stun interrupts Janna's Monsoon (normal channel). Full Tilt must land during the channel. (Rell E Full Tilt → Janna R Monsoon)
 - Watch out: Janna's basic attacks reach 375 units farther than Rell's (550 vs 175 attack range).
 
-### 2. Nocturne (net +1.50)
+#### 2. Nocturne (net +1.50)
 
 - **0.80** spell shield: Shroud of Darkness's spell shield blocks Janna's Monsoon. Spell shield for 1.5 s, long enough to use ahead of Monsoon. A spell shield blocks only the first enemy ability that reaches it. (Nocturne W Shroud of Darkness → Janna R Monsoon)
 - **0.70** spell shield: Shroud of Darkness's spell shield blocks Janna's Howling Gale. Spell shield for 1.5 s, long enough to use ahead of Howling Gale. A spell shield blocks only the first enemy ability that reaches it. (Nocturne W Shroud of Darkness → Janna Q Howling Gale)
 - **0.40** interrupt: Unspeakable Horror's fear interrupts Janna's Monsoon (normal channel). Unspeakable Horror must land during the channel. (Nocturne E Unspeakable Horror → Janna R Monsoon)
 - Watch out: Janna's basic attacks reach 425 units farther than Nocturne's (550 vs 125 attack range).
 
-### 3. Braum (net +1.48)
+#### 3. Braum (net +1.48)
 
 - **0.70** projectile block: Unbreakable blocks Janna's Howling Gale, a projectile. Unbreakable for 4 s, long enough to use ahead of Howling Gale. (Braum E Unbreakable → Janna Q Howling Gale)
 - **0.50** projectile block: Unbreakable blocks Janna's basic attacks, which are projectiles. Unbreakable lasts 4 s on a 8 s cooldown. (Braum E Unbreakable → Janna basic attacks)
 - **0.40** interrupt: Concussive Blows's stun interrupts Janna's Monsoon (normal channel). Concussive Blows must land during the channel. (Braum I Concussive Blows → Janna R Monsoon)
 - Watch out: Janna's basic attacks reach 425 units farther than Braum's (550 vs 125 attack range).
 
-### 4. Yasuo (net +1.47)
+#### 4. Yasuo (net +1.47)
 
 - **0.63** projectile block: Wind Wall blocks Janna's Howling Gale, a projectile. Wind Wall for 4 s, long enough to use ahead of Howling Gale. (Yasuo W Wind Wall → Janna Q Howling Gale)
 - **0.40** interrupt: Last Breath's airborne interrupts Janna's Monsoon (normal channel). Last Breath must land during the channel. (Yasuo R Last Breath → Janna R Monsoon)
 - **0.40** interrupt: Steel Tempest's airborne interrupts Janna's Monsoon (normal channel). Steel Tempest must land during the channel. (Yasuo Q Steel Tempest → Janna R Monsoon)
 - Watch out: Janna's basic attacks reach 375 units farther than Yasuo's (550 vs 175 attack range).
 
-### 5. Fizz (net +1.27)
+#### 5. Fizz (net +1.27)
 
 - **0.70** untargetable: Playful makes Fizz untargetable, dodging Janna's Howling Gale. Untargetable for 0.75 s; Howling Gale takes 1.25 s to land, enough to react. (Fizz E Playful → Janna Q Howling Gale)
 - **0.48** untargetable: Playful makes Fizz untargetable, dodging Janna's Monsoon. Untargetable for 0.75 s; Monsoon lands within 0 s, faster than a 0.25 s reaction, so it needs prediction. (Fizz E Playful → Janna R Monsoon)
 - **0.40** interrupt: Chum the Waters's airborne interrupts Janna's Monsoon (normal channel). Chum the Waters must land during the channel. (Fizz R Chum the Waters → Janna R Monsoon)
 - Watch out: Janna's basic attacks reach 375 units farther than Fizz's (550 vs 175 attack range).
 
-### 6. Zaahen (net +1.25)
+#### 6. Zaahen (net +1.25)
 
 - **0.48** cc immunity: Grim Deliverance makes Zaahen immune to Janna's Monsoon (airborne). Immune for ?; Monsoon lands within 0 s, faster than a 0.25 s reaction, so it needs prediction. (Zaahen R Grim Deliverance → Janna R Monsoon)
 - **0.40** interrupt: Dreaded Return's airborne interrupts Janna's Monsoon (normal channel). Dreaded Return must land during the channel. (Zaahen W Dreaded Return → Janna R Monsoon)
 - **0.40** interrupt: The Darkin Glaive's airborne interrupts Janna's Monsoon (normal channel). The Darkin Glaive must land during the channel. (Zaahen Q The Darkin Glaive → Janna R Monsoon)
 - Watch out: Janna's basic attacks reach 375 units farther than Zaahen's (550 vs 175 attack range).
 
-### 7. K'Sante (net +1.25)
+#### 7. K'Sante (net +1.25)
 
 - **0.40** interrupt: All Out's airborne interrupts Janna's Monsoon (normal channel). All Out must land during the channel. (K'Sante R All Out → Janna R Monsoon)
 - **0.40** interrupt: Ntofo Strikes's airborne interrupts Janna's Monsoon (normal channel). Ntofo Strikes must land during the channel. (K'Sante Q Ntofo Strikes → Janna R Monsoon)
 - **0.40** interrupt: Path Maker's airborne interrupts Janna's Monsoon (normal channel). Path Maker must land during the channel. (K'Sante W Path Maker → Janna R Monsoon)
 - Watch out: Janna's basic attacks reach 400 units farther than K'Sante's (550 vs 150 attack range).
 
-### 8. Alistar (net +1.23)
+#### 8. Alistar (net +1.23)
 
 - **0.64** cleanse: Unbreakable Will cleanses Janna's Monsoon (airborne) after it lands. 80 s cooldown; usable while crowd controlled. (Alistar R Unbreakable Will → Janna R Monsoon)
 - **0.40** interrupt: Pulverize's airborne interrupts Janna's Monsoon (normal channel). Pulverize must land during the channel. (Alistar Q Pulverize → Janna R Monsoon)
 - **0.40** interrupt: Trample's stun interrupts Janna's Monsoon (normal channel). Trample must land during the channel. (Alistar E Trample → Janna R Monsoon)
 - Watch out: Janna's basic attacks reach 425 units farther than Alistar's (550 vs 125 attack range).
 
-### 9. Rek'Sai (net +1.23)
+#### 9. Rek'Sai (net +1.23)
 
 - **0.80** untargetable: Void Rush makes Rek'Sai untargetable, dodging Janna's Monsoon. Untargetable for 1.5 s, long enough to use ahead of Monsoon. (Rek'Sai R Void Rush → Janna R Monsoon)
 - **0.40** interrupt: Unburrow's airborne interrupts Janna's Monsoon (normal channel). Unburrow must land during the channel. (Rek'Sai W Unburrow → Janna R Monsoon)
 - **0.35** untargetable: Void Rush makes Rek'Sai untargetable, dodging Janna's Howling Gale. Untargetable for 1.5 s, long enough to use ahead of Howling Gale. (Rek'Sai R Void Rush → Janna Q Howling Gale)
 - Watch out: Janna's basic attacks reach 375 units farther than Rek'Sai's (550 vs 175 attack range).
 
-### 10. Sivir (net +1.17)
+#### 10. Sivir (net +1.17)
 
 - **0.80** spell shield: Spell Shield's spell shield blocks Janna's Monsoon. Spell shield for 1.5 s, long enough to use ahead of Monsoon. A spell shield blocks only the first enemy ability that reaches it. (Sivir E Spell Shield → Janna R Monsoon)
 - **0.61** spell shield: Spell Shield's spell shield blocks Janna's Howling Gale. Spell shield for 1.5 s, long enough to use ahead of Howling Gale. A spell shield blocks only the first enemy ability that reaches it. (Sivir E Spell Shield → Janna Q Howling Gale)
 - **0.27** spell shield: Spell Shield's spell shield blocks Janna's Zephyr. Spell shield for 1.5 s, long enough to use ahead of Zephyr. A spell shield blocks only the first enemy ability that reaches it. (Sivir E Spell Shield → Janna W Zephyr)
 
-## Full ranking
+### Full ranking
 
 | # | Champion | Net | For | Against | Hard counters |
 |--:|---|--:|--:|--:|---|
