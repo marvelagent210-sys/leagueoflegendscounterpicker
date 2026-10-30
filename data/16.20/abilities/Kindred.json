@@ -202,8 +202,8 @@
     ],
     "gameSources": [
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/kindred/kindred.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/kindred/kindred.bin.json",
         "sha256": "ae871533c0b6379f188a0ea7805cd1f11eb1f8a026ed85c2b20d0b156cc2c391",
         "object": "Characters/Kindred/Spells/KindredEWrapperAbility/KindredE",
         "text": [
@@ -211,8 +211,8 @@
         ]
       },
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/kindred/kindred.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/kindred/kindred.bin.json",
         "sha256": "ae871533c0b6379f188a0ea7805cd1f11eb1f8a026ed85c2b20d0b156cc2c391",
         "object": "Characters/Kindred/Spells/KindredEWrapperAbility/KindredEWolfMissile",
         "text": [
@@ -220,8 +220,8 @@
         ]
       },
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/kindred/kindred.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/kindred/kindred.bin.json",
         "sha256": "ae871533c0b6379f188a0ea7805cd1f11eb1f8a026ed85c2b20d0b156cc2c391",
         "object": "Characters/Kindred/Spells/KindredEWrapperAbility/KindredEWrapper",
         "text": [
@@ -308,7 +308,7 @@
       },
       {
         "label": "Innate - Wolf",
-        "text": "Innate - Wolf: Starting at 2:53, Wolf periodically marks a random large monster within the enemy team's jungle for 180 seconds. The hunted camp is highlighted on the mini map to both teams. Once the hunted target is slain or the mark expires, Wolf will wait 45 seconds before selecting a new target.\nThe type of monster that Wolf can mark changes based on Kindred's current Mark of the Kindred stacks:\n* 0 : Rift Scuttler\n* 1 \u2013 3: Rift Scuttler, Crimson Raptor, Gromp\n* 4 \u2013 7: Ancient Krug, Blue Sentinel, Greater Murk Wolf, or Red Brambleback\n* 8 + : Rift Herald or Baron Nashor, Dragon or Elder Dragon",
+        "text": "Innate - Wolf: Starting at 2:53, Wolf periodically marks a random large monster within the enemy team's jungle for 180 seconds. The hunted camp is highlighted on the mini map to both teams. Once the hunted target is slain or the mark expires, Wolf will wait 45 seconds before selecting a new target.\nThe type of monster that Wolf can mark changes based on Kindred's current Mark of the Kindred stacks:\n* 0 : Rift Scuttler\n* 1 – 3: Rift Scuttler, Crimson Raptor, Gromp\n* 4 – 7: Ancient Krug, Blue Sentinel, Greater Murk Wolf, or Red Brambleback\n* 8 + : Rift Herald or Baron Nashor, Dragon or Elder Dragon",
         "leveling": [],
         "mechanics": [],
         "values": []
@@ -316,7 +316,7 @@
     ],
     "custom": [],
     "notes": [
-      "The selection of enemy champions to mark is offered through a special menu in the HUD that displays the portraits of up to 5 enemy champions. The player can mark an enemy by left-click clicking on their portrait or via the Champion Specific Interaction hotkeys (default: Shift+F1\u2013F5).\n  - Marked enemies have a trim around their portrait. Unavailable selections are greyed out.\n  - The portraits are ordered based on their spawn ID.",
+      "The selection of enemy champions to mark is offered through a special menu in the HUD that displays the portraits of up to 5 enemy champions. The player can mark an enemy by left-click clicking on their portrait or via the Champion Specific Interaction hotkeys (default: Shift+F1–F5).\n  - Marked enemies have a trim around their portrait. Unavailable selections are greyed out.\n  - The portraits are ordered based on their spawn ID.",
       "Takedowns on monsters occur if Kindred had damaged them within the last 6 seconds.\n  - This only includes if the monster was slain by Kindred or an ally.",
       "Only killing the large monster is required to claim Wolf's mark.",
       "Gaining stacks from champions that would change what constitutes a valid target for Wolf will not affect Kindred's ability to claim Wolf's current target.",
@@ -374,7 +374,7 @@
         "values": []
       },
       "targetRange": {
-        "text": "300 \u2022 400",
+        "text": "300 • 400",
         "values": [
           {
             "series": {
@@ -533,8 +533,8 @@
     ],
     "gameSources": [
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/kindred/kindred.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/kindred/kindred.bin.json",
         "sha256": "ae871533c0b6379f188a0ea7805cd1f11eb1f8a026ed85c2b20d0b156cc2c391",
         "object": "Characters/Kindred/Spells/KindredQAbility/KindredQMissile",
         "text": [
@@ -695,8 +695,8 @@
     ],
     "gameSources": [
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/kindred/kindred.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/kindred/kindred.bin.json",
         "sha256": "ae871533c0b6379f188a0ea7805cd1f11eb1f8a026ed85c2b20d0b156cc2c391",
         "object": "Characters/Kindred/Spells/KindredRAbility/KindredR",
         "text": [
@@ -800,7 +800,7 @@
     "parts": [
       {
         "label": "Passive",
-        "text": "Passive: Lamb generates 1 stack of Hunter's Vigor for every 27 units she travels by any means and 5 stacks on-attack, up to a maximum of 100 stacks. At maximum stacks, her next basic attack heals her for 0 / 25 / 50 / 75 / 100 (based on Missing health)% of 47 \u2013 81 (based on level). The heal is not triggered if Kindred is at full health.",
+        "text": "Passive: Lamb generates 1 stack of Hunter's Vigor for every 27 units she travels by any means and 5 stacks on-attack, up to a maximum of 100 stacks. At maximum stacks, her next basic attack heals her for 0 / 25 / 50 / 75 / 100 (based on Missing health)% of 47 – 81 (based on level). The heal is not triggered if Kindred is at full health.",
         "leveling": [],
         "mechanics": [
           {
@@ -814,7 +814,7 @@
             "type": "heal",
             "category": "defense",
             "wording": "heals",
-            "evidence": "At maximum stacks, her next basic attack heals her for 0 / 25 / 50 / 75 / 100 (based on Missing health)% of 47 \u2013 81 (based on level).",
+            "evidence": "At maximum stacks, her next basic attack heals her for 0 / 25 / 50 / 75 / 100 (based on Missing health)% of 47 – 81 (based on level).",
             "conditional": false
           }
         ],
@@ -838,7 +838,7 @@
                 100
               ]
             },
-            "context": "At maximum stacks, her next basic attack heals her for 0 / 25 / 50 / 75 / 100 (based on Missing health)% of 47 \u2013 81 (based on level)."
+            "context": "At maximum stacks, her next basic attack heals her for 0 / 25 / 50 / 75 / 100 (based on Missing health)% of 47 – 81 (based on level)."
           },
           {
             "series": {
@@ -867,7 +867,7 @@
               ],
               "past18": "wiki"
             },
-            "context": "At maximum stacks, her next basic attack heals her for 0 / 25 / 50 / 75 / 100 (based on Missing health)% of 47 \u2013 81 (based on level)."
+            "context": "At maximum stacks, her next basic attack heals her for 0 / 25 / 50 / 75 / 100 (based on Missing health)% of 47 – 81 (based on level)."
           }
         ],
         "tips": [
@@ -1058,8 +1058,8 @@
     ],
     "gameSources": [
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/kindredwolf/kindredwolf.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/kindredwolf/kindredwolf.bin.json",
         "sha256": "893932abab7632401551a31e4e593c7a15c4ccbbfc488f75e1c2fa5540a246cd",
         "object": "Characters/KindredWolf/CharacterRecords/Root",
         "text": [
@@ -1073,8 +1073,8 @@
         ]
       },
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/kindredwolf/kindredwolf.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/kindredwolf/kindredwolf.bin.json",
         "sha256": "893932abab7632401551a31e4e593c7a15c4ccbbfc488f75e1c2fa5540a246cd",
         "object": "Characters/KindredWolf/Spells/KindredWolfBasicAttack",
         "text": [

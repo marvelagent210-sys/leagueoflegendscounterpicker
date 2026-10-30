@@ -196,8 +196,8 @@
     ],
     "gameSources": [
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/janna/janna.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/janna/janna.bin.json",
         "sha256": "a822bf7b062a5df5b03f693b0dedc3abbd8415a71d6f91dc30cae149d9e265f2",
         "object": "Characters/Janna/Spells/EyeOfTheStormAbility/EyeOfTheStorm",
         "text": [
@@ -205,8 +205,8 @@
         ]
       },
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/janna/janna.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/janna/janna.bin.json",
         "sha256": "a822bf7b062a5df5b03f693b0dedc3abbd8415a71d6f91dc30cae149d9e265f2",
         "object": "Characters/Janna/Spells/EyeOfTheStormAbility/EyeOfTheStormEmpower",
         "text": [
@@ -214,8 +214,8 @@
         ]
       },
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/janna/janna.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/janna/janna.bin.json",
         "sha256": "a822bf7b062a5df5b03f693b0dedc3abbd8415a71d6f91dc30cae149d9e265f2",
         "object": "Characters/Janna/Spells/EyeOfTheStormAbility/Eye_Of_The_Storm",
         "text": [
@@ -223,8 +223,8 @@
         ]
       },
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/janna/janna.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/janna/janna.bin.json",
         "sha256": "a822bf7b062a5df5b03f693b0dedc3abbd8415a71d6f91dc30cae149d9e265f2",
         "object": "Characters/Janna/Spells/EyeOfTheStormAbility/EyeOfTheStormPassive",
         "text": [
@@ -306,8 +306,8 @@
     ],
     "gameSources": [
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/janna/janna.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/janna/janna.bin.json",
         "sha256": "a822bf7b062a5df5b03f693b0dedc3abbd8415a71d6f91dc30cae149d9e265f2",
         "object": "Characters/Janna/Spells/TailwindSelfAbility/Tailwind",
         "text": [
@@ -315,8 +315,8 @@
         ]
       },
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/janna/janna.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/janna/janna.bin.json",
         "sha256": "a822bf7b062a5df5b03f693b0dedc3abbd8415a71d6f91dc30cae149d9e265f2",
         "object": "Characters/Janna/Spells/TailwindSelfAbility/TailwindSelf",
         "text": [
@@ -665,8 +665,8 @@
     ],
     "gameSources": [
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/janna/janna.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/janna/janna.bin.json",
         "sha256": "a822bf7b062a5df5b03f693b0dedc3abbd8415a71d6f91dc30cae149d9e265f2",
         "object": "Characters/Janna/Spells/HowlingGaleAbility/Howling_Gale",
         "text": [
@@ -674,8 +674,8 @@
         ]
       },
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/janna/janna.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/janna/janna.bin.json",
         "sha256": "a822bf7b062a5df5b03f693b0dedc3abbd8415a71d6f91dc30cae149d9e265f2",
         "object": "Characters/Janna/Spells/HowlingGaleAbility/HowlingGale",
         "text": [
@@ -683,8 +683,8 @@
         ]
       },
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/janna/janna.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/janna/janna.bin.json",
         "sha256": "a822bf7b062a5df5b03f693b0dedc3abbd8415a71d6f91dc30cae149d9e265f2",
         "object": "Characters/Janna/Spells/HowlingGaleAbility/HowlingGale_URF",
         "text": [
@@ -692,8 +692,8 @@
         ]
       },
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/janna/janna.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/janna/janna.bin.json",
         "sha256": "a822bf7b062a5df5b03f693b0dedc3abbd8415a71d6f91dc30cae149d9e265f2",
         "object": "Characters/Janna/Spells/HowlingGaleAbility/HowlingGaleSpell",
         "text": [
@@ -888,8 +888,8 @@
     ],
     "gameSources": [
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/janna/janna.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/janna/janna.bin.json",
         "sha256": "a822bf7b062a5df5b03f693b0dedc3abbd8415a71d6f91dc30cae149d9e265f2",
         "object": "Characters/Janna/Spells/ReapTheWhirlwindAbility/ReapTheWhirlwind",
         "text": [
@@ -897,8 +897,8 @@
         ]
       },
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/janna/janna.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/janna/janna.bin.json",
         "sha256": "a822bf7b062a5df5b03f693b0dedc3abbd8415a71d6f91dc30cae149d9e265f2",
         "object": "Characters/Janna/Spells/ReapTheWhirlwindAbility/Reap_The_Whirlwind",
         "text": [
@@ -1159,8 +1159,8 @@
     ],
     "gameSources": [
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/janna/janna.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/janna/janna.bin.json",
         "sha256": "a822bf7b062a5df5b03f693b0dedc3abbd8415a71d6f91dc30cae149d9e265f2",
         "object": "Characters/Janna/Spells/SowTheWindAbility/SowTheWind",
         "text": [
@@ -1168,8 +1168,8 @@
         ]
       },
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/janna/janna.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/janna/janna.bin.json",
         "sha256": "a822bf7b062a5df5b03f693b0dedc3abbd8415a71d6f91dc30cae149d9e265f2",
         "object": "Characters/Janna/Spells/SowTheWindAbility/Zephyr",
         "text": [

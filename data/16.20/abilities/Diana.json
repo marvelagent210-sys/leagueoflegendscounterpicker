@@ -154,8 +154,8 @@
     ],
     "gameSources": [
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/diana/diana.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/diana/diana.bin.json",
         "sha256": "6d4c7b0b2e062a5e6440f07aeae384f348d2d0c4f3daf8109cf81ef283fe51ed",
         "object": "Characters/Diana/Spells/DianaTeleportAbility/DianaTeleport",
         "text": [
@@ -511,8 +511,8 @@
     ],
     "gameSources": [
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/diana/diana.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/diana/diana.bin.json",
         "sha256": "6d4c7b0b2e062a5e6440f07aeae384f348d2d0c4f3daf8109cf81ef283fe51ed",
         "object": "Characters/Diana/Spells/DianaQAbility/DianaQInnerMissile",
         "text": [
@@ -520,8 +520,8 @@
         ]
       },
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/diana/diana.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/diana/diana.bin.json",
         "sha256": "6d4c7b0b2e062a5e6440f07aeae384f348d2d0c4f3daf8109cf81ef283fe51ed",
         "object": "Characters/Diana/Spells/DianaQAbility/DianaQOuterMissile",
         "text": [
@@ -1023,8 +1023,8 @@
     ],
     "gameSources": [
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/diana/diana.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/diana/diana.bin.json",
         "sha256": "6d4c7b0b2e062a5e6440f07aeae384f348d2d0c4f3daf8109cf81ef283fe51ed",
         "object": "Characters/Diana/Spells/DianaOrbsAbility/DianaOrbsMissile",
         "text": [

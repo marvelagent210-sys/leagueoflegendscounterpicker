@@ -255,8 +255,8 @@
     ],
     "gameSources": [
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/viktor/viktor.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/viktor/viktor.bin.json",
         "sha256": "bc2c38ea6d95ac5fad04bd4ca45f794b120e2fe96e3cf53ecbfe15c215929367",
         "object": "Characters/Viktor/Spells/ViktorEAbility/ViktorEMissile",
         "text": [
@@ -264,8 +264,8 @@
         ]
       },
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/viktor/viktor.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/viktor/viktor.bin.json",
         "sha256": "bc2c38ea6d95ac5fad04bd4ca45f794b120e2fe96e3cf53ecbfe15c215929367",
         "object": "Characters/Viktor/Spells/ViktorEAbility/ViktorEMissile2",
         "text": [
@@ -325,8 +325,8 @@
     ],
     "gameSources": [
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/viktor/viktor.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/viktor/viktor.bin.json",
         "sha256": "bc2c38ea6d95ac5fad04bd4ca45f794b120e2fe96e3cf53ecbfe15c215929367",
         "object": "Characters/Viktor/Spells/ViktorPassiveAbility/ViktorPassive",
         "text": [
@@ -625,8 +625,8 @@
     ],
     "gameSources": [
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/viktor/viktor.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/viktor/viktor.bin.json",
         "sha256": "bc2c38ea6d95ac5fad04bd4ca45f794b120e2fe96e3cf53ecbfe15c215929367",
         "object": "Characters/Viktor/Spells/ViktorQAbility/ViktorQ",
         "text": [
@@ -634,8 +634,8 @@
         ]
       },
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/viktor/viktor.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/viktor/viktor.bin.json",
         "sha256": "bc2c38ea6d95ac5fad04bd4ca45f794b120e2fe96e3cf53ecbfe15c215929367",
         "object": "Characters/Viktor/Spells/ViktorQAbility/ViktorQBuff",
         "text": [
@@ -643,8 +643,8 @@
         ]
       },
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/viktor/viktor.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/viktor/viktor.bin.json",
         "sha256": "bc2c38ea6d95ac5fad04bd4ca45f794b120e2fe96e3cf53ecbfe15c215929367",
         "object": "Characters/Viktor/Spells/ViktorQAbility/ViktorQReturn",
         "text": [
@@ -930,8 +930,8 @@
     ],
     "gameSources": [
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/viktor/viktor.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/viktor/viktor.bin.json",
         "sha256": "bc2c38ea6d95ac5fad04bd4ca45f794b120e2fe96e3cf53ecbfe15c215929367",
         "object": "Characters/Viktor/Spells/ViktorRAbility/ViktorR",
         "text": [
@@ -939,8 +939,8 @@
         ]
       },
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/viktor/viktor.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/viktor/viktor.bin.json",
         "sha256": "bc2c38ea6d95ac5fad04bd4ca45f794b120e2fe96e3cf53ecbfe15c215929367",
         "object": "Characters/Viktor/Spells/ViktorRAbility/ViktorRGuide",
         "text": [
@@ -1155,8 +1155,8 @@
     ],
     "gameSources": [
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/viktor/viktor.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/viktor/viktor.bin.json",
         "sha256": "bc2c38ea6d95ac5fad04bd4ca45f794b120e2fe96e3cf53ecbfe15c215929367",
         "object": "Characters/Viktor/Spells/ViktorWAbility/ViktorW",
         "text": [

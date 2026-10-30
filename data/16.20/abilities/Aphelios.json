@@ -80,19 +80,19 @@
     ],
     "gameSources": [
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/aphelios/aphelios.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
-        "object": "Characters/Aphelios/Spells/ApheliosCalibrumAttack",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/aphelios/aphelios.bin.json",
         "sha256": "1c6c629c1af168cb9c88886bfebbc440b4cb09a5fb826c6997f3c88c914735bd",
+        "object": "Characters/Aphelios/Spells/ApheliosCalibrumAttack",
         "text": [
           "mSpell.mMissileSpec.movementComponent: {\"mOffsetInitialTargetHeight\":70.0,\"mStartBoneName\":\"Calibrum_Orb\",\"mTargetBoneName\":\"C_Buffbone_Glb_Chest_Loc\",\"mSpeed\":3000.0,\"__type\":\"FixedSpeedMovement\"}"
         ]
       },
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/aphelios/aphelios.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
-        "object": "Characters/Aphelios/Spells/ApheliosCalibrumAttackOverride",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/aphelios/aphelios.bin.json",
         "sha256": "1c6c629c1af168cb9c88886bfebbc440b4cb09a5fb826c6997f3c88c914735bd",
+        "object": "Characters/Aphelios/Spells/ApheliosCalibrumAttackOverride",
         "text": [
           "mSpell: {\"mAffectsTypeFlags\":7919,\"mAffectsStatusFlags\":32,\"mAnimationName\":\"B_Spell1_Attack\",\"mImgIconName\":[\"ASSETS/Characters/Aphelios/HUD/Icons2D/Calibrum_U.dds\"],\"mCastTime\":0.30000001192092896,\"cooldownTime\":[0.0,0.0,0.0,0.0,0.0,0.0,0.0],\"Cooldown\":{\"values\":[0.0,0.0,0.0,0.0,0.0,0.0,0.0],\"{0a3e0478}\":0.0,\"__type\":\"{0a0eddc9}\"},\"canCastWhileDisabled\":true,\"mCantCancelWhileWindingUp\":true,\"alwaysSnapFacing\":true,\"useAnimatorFramerate\":true,\"mConsideredAsAutoAttack\":true,\"mRollForCriticalHit\":true,\"castRange\":[25000.0,25000.0,25000.0,25000.0,25000.0,25000.0,25000.0],\"castRangeValues\":{\"values\":[25000.0,25000.0,25000.0,25000.0,25000.0,25000.0,25000.0],\"{0a3e0478}\":25000.0,\"__type\":\"{0a0eddc9}\"},\"castRadius\":[100.0,100.0,100.0,100.0,100.0,100.0,100.0],\"castConeDistance\":100.0,\"missileSpeed\":1500.0,\"selectionPriority\":1,\"mCastingBreaksStealth\":true,\"mClientData\":{\"mUseTooltipFromAnotherSpell\":\"Characters/Aphelios/Spells/ApheliosCalibrumQAbility/ApheliosCalibrumQ\",\"__type\":\"SpellDataResourceClient\"},\"__type\":\"SpellDataResource\"}"
         ]
@@ -339,10 +339,10 @@
     ],
     "gameSources": [
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/aphelios/aphelios.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
-        "object": "Characters/Aphelios/Spells/ApheliosGravitumAttack",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/aphelios/aphelios.bin.json",
         "sha256": "1c6c629c1af168cb9c88886bfebbc440b4cb09a5fb826c6997f3c88c914735bd",
+        "object": "Characters/Aphelios/Spells/ApheliosGravitumAttack",
         "text": [
           "mSpell.mMissileSpec.movementComponent: {\"mTargetHeightAugment\":190.0,\"mStartBoneName\":\"Gravitum_RingFront\",\"mTargetBoneName\":\"C_Buffbone_Glb_Center_Loc\",\"mSpeed\":1500.0,\"__type\":\"FixedSpeedMovement\"}"
         ]
@@ -460,10 +460,10 @@
     ],
     "gameSources": [
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/aphelios/aphelios.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
-        "object": "Characters/Aphelios/Spells/ApheliosInfernumAttack",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/aphelios/aphelios.bin.json",
         "sha256": "1c6c629c1af168cb9c88886bfebbc440b4cb09a5fb826c6997f3c88c914735bd",
+        "object": "Characters/Aphelios/Spells/ApheliosInfernumAttack",
         "text": [
           "mSpell.mMissileSpec.movementComponent: {\"mTargetHeightAugment\":190.0,\"mOffsetInitialTargetHeight\":100.0,\"mTargetBoneName\":\"C_BUFFBONE_GLB_CHEST_LOC\",\"mSpeed\":1700.0,\"__type\":\"FixedSpeedMovement\"}"
         ]
@@ -2070,19 +2070,19 @@
     ],
     "gameSources": [
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/aphelios/aphelios.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
-        "object": "Characters/Aphelios/Spells/ApheliosRAbility/ApheliosR",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/aphelios/aphelios.bin.json",
         "sha256": "1c6c629c1af168cb9c88886bfebbc440b4cb09a5fb826c6997f3c88c914735bd",
+        "object": "Characters/Aphelios/Spells/ApheliosRAbility/ApheliosR",
         "text": [
           "mSpell.mSpellCalculations.CritDamageModCalc: {\"mSimpleTooltipCalculationDisplay\":5,\"mExpandedTooltipCalculationDisplay\":5,\"mFormulaParts\":[{\"mNumber\":1.0,\"__type\":\"NumberCalculationPart\"},{\"mPart1\":{\"mDataValue\":\"CritDamageMod\",\"__type\":\"NamedDataValueCalculationPart\"},\"mPart2\":{\"mPart1\":{\"mStat\":8,\"mCoefficient\":1.0,\"__type\":\"StatByCoefficientCalculationPart\"},\"mPart2\":{\"mSubparts\":[{\"mStat\":9,\"mCoefficient\":1.0,\"__type\":\"StatByCoefficientCalculationPart\"},{\"mNumber\":-1.0,\"__type\":\"NumberCalculationPart\"}],\"__type\":\"SumOfSubPartsCalculationPart\"},\"__type\":\"ProductOfSubPartsCalculationPart\"},\"__type\":\"ProductOfSubPartsCalculationPart\"}],\"mDisplayAsPercent\":true,\"__type\":\"GameCalculation\"}"
         ]
       },
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/aphelios/aphelios.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
-        "object": "Characters/Aphelios/Spells/ApheliosRAbility/ApheliosRMis",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/aphelios/aphelios.bin.json",
         "sha256": "1c6c629c1af168cb9c88886bfebbc440b4cb09a5fb826c6997f3c88c914735bd",
+        "object": "Characters/Aphelios/Spells/ApheliosRAbility/ApheliosRMis",
         "text": [
           "mSpell.mMissileSpec: {\"mMissileWidth\":125.0,\"movementComponent\":{\"mUseHeightOffsetAtEnd\":true,\"mTracksTarget\":false,\"mStartBoneName\":\"\",\"mSpeed\":2050.0,\"__type\":\"FixedSpeedMovement\"},\"heightSolver\":{\"__type\":\"GravityHeightSolver\"},\"verticalFacing\":{\"__type\":\"VerticalFacingFaceTarget\"},\"behaviors\":[{\"__type\":\"DestroyOnMovementComplete\"},{\"__type\":\"CastOnHit\"},{\"mDelayTime\":0.5,\"__type\":\"DelayStart\"}],\"__type\":\"MissileSpecification\"}"
         ]

@@ -503,7 +503,7 @@
         "values": []
       },
       {
-        "text": "Sigil of Malice's orb deals 10 \u2013 146 (based on level) bonus magic damage against minions and refunds 100% of its mana cost and 30% of its remaining cooldown if either the orb or its mark's consumption kills the target.",
+        "text": "Sigil of Malice's orb deals 10 – 146 (based on level) bonus magic damage against minions and refunds 100% of its mana cost and 30% of its remaining cooldown if either the orb or its mark's consumption kills the target.",
         "leveling": [],
         "mechanics": [],
         "values": [
@@ -534,7 +534,7 @@
               ],
               "past18": "game files"
             },
-            "context": "Sigil of Malice's orb deals 10 \u2013 146 (based on level) bonus magic damage against minions and refunds 100% of its mana cost and 30% of its remaining cooldown if either the orb or its mark's consumption kills the target."
+            "context": "Sigil of Malice's orb deals 10 – 146 (based on level) bonus magic damage against minions and refunds 100% of its mana cost and 30% of its remaining cooldown if either the orb or its mark's consumption kills the target."
           }
         ]
       }
@@ -909,7 +909,7 @@
         "values": []
       },
       "targetRange": {
-        "text": "600 \u2022 Global",
+        "text": "600 • Global",
         "values": [
           {
             "series": {

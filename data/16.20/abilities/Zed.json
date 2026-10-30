@@ -210,8 +210,8 @@
     ],
     "gameSources": [
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/zed/zed.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/zed/zed.bin.json",
         "sha256": "475ea0d11b79d2cc4a97e9d41e4da1b7187500feaa02906de3a2650bcf9653fb",
         "object": "Characters/Zed/Spells/ZedEAbility/ZedE",
         "text": [
@@ -327,8 +327,8 @@
     ],
     "gameSources": [
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/zed/zed.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/zed/zed.bin.json",
         "sha256": "475ea0d11b79d2cc4a97e9d41e4da1b7187500feaa02906de3a2650bcf9653fb",
         "object": "Characters/Zed/Spells/ZedPassiveAbility/ZedPassive",
         "text": [
@@ -522,8 +522,8 @@
     ],
     "gameSources": [
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/zed/zed.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/zed/zed.bin.json",
         "sha256": "475ea0d11b79d2cc4a97e9d41e4da1b7187500feaa02906de3a2650bcf9653fb",
         "object": "Characters/Zed/Spells/ZedQAbility/ZedQ",
         "text": [
@@ -532,8 +532,8 @@
         ]
       },
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/zed/zed.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/zed/zed.bin.json",
         "sha256": "475ea0d11b79d2cc4a97e9d41e4da1b7187500feaa02906de3a2650bcf9653fb",
         "object": "Characters/Zed/Spells/ZedQAbility/ZedQMissile",
         "text": [
@@ -739,8 +739,8 @@
     ],
     "gameSources": [
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/zed/zed.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/zed/zed.bin.json",
         "sha256": "475ea0d11b79d2cc4a97e9d41e4da1b7187500feaa02906de3a2650bcf9653fb",
         "object": "Characters/Zed/Spells/ZedRAbility/ZedR",
         "text": [
@@ -935,8 +935,8 @@
     ],
     "gameSources": [
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/zed/zed.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/zed/zed.bin.json",
         "sha256": "475ea0d11b79d2cc4a97e9d41e4da1b7187500feaa02906de3a2650bcf9653fb",
         "object": "Characters/Zed/Spells/ZedWAbility/ZedW",
         "text": [

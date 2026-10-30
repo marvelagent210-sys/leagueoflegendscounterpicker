@@ -236,10 +236,10 @@
     "custom": [],
     "notes": [
       "Unspeakable Horror deals persistent damage, additionally tagged as indirect damage, and applies spell effects.",
-      "Feared enemies in a 180\u00b0 total angle within Nocturne's facing direction will trigger Unspeakable Horror's passive.",
+      "Feared enemies in a 180° total angle within Nocturne's facing direction will trigger Unspeakable Horror's passive.",
       "Casting Unspeakable Horror may grant Nocturne permanent ghosting until he has died.",
       "Spell shield will block the tether's application but not the damage and aftereffects of one already applied.",
-      "{{{{{1<noinclude>|Ability data</noinclude>}}}|Unspeakable Horror|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}\n|champion     = Nocturne\n|skill        = E\n|icon         = false\n|blurb        = {{sbc|Passive:}} {{ci|Nocturne}} gains {{sti|ms|{{as|'''bonus''' movement speed}}}} while moving towards {{tip|fear|feared}} targets.\n|blurb2      = {{sbc|Active:}} '''Nocturne''' torments the target, forming a {{tip|tether}} that continually deals {{as|magic damage}}.\n|blurb3      = If the tether is not broken after a short time, the target is briefly {{tip|fear|feared}} and {{tip|slow|slowed}}.\n|description  = {{sbc|Passive:}} '''Nocturne''' gains {{sti|ms|{{as|90% '''bonus''' movement speed}}}} while facing nearby {{tip|fear|feared}} targets.\n|icon2        =  Unspeakable Horror.png\n|description2 = {{sbc|Active:}} '''Nocturne''' torments the target, forming a {{tip|tether}} between himself and the target for 2 seconds, during which the target takes {{as|magic damage}} every {{fd|0.5}} seconds over the duration.\n|leveling2    = {{st|Total Magic Damage|{{ap|80 to 260}} {{as|(+ 100% AP)}}|Magic Damage per Tick|{{ap|80/4 to 260/4}} {{as|(+ {{ap|100/4}}% AP)}}}}\n|description3 = If the tether is not broken by the end of its duration, the target is {{tip|fear|feared}} for a duration while being {{tip|slow|slowed}} by 90%.\n|leveling3    = {{st|Disable Duration|{{ap|1.25 to 2.25}} seconds}}\n|effect radius= {{tip|cr|icononly = true}} {{tt|1000|Fear MS radius}}\n|target range = {{tip|cr|icononly = true}} 425\n|tether radius= {{tip|er|icononly = true}} 465\n|cooldown     = {{ap|15 to 11}}\n|cost         = {{ap|60 to 80}}\n|costtype     = mana\n|cast time    = none\n|targeting    = Unit\n|affects      = Enemies\n|damagetype   = Magic\n|spellshield  = Special\n|spelleffects = special\n|projectile   = False\n|callforhelp  = True\n|notes        = \n* ''Unspeakable Horror'' deals {{tip|persistent damage}}, additionally tagged as {{tip|indirect damage}}, and applies {{tip|spell effects}}.\n* Feared enemies in a {{tip|cr|icononly = true}} 180\u00b0 total angle within '''Nocturne's''' facing direction will trigger ''Unspeakable Horror's'' passive.\n* Casting ''Unspeakable Horror'' may grant '''Nocturne''' permanent {{tip|ghosting}} until he has [[death|died]].{{bug}}\n* {{tip|Spell shield}} will block the tether's application but not the damage and aftereffects of one already applied.\n}}"
+      "{{{{{1<noinclude>|Ability data</noinclude>}}}|Unspeakable Horror|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}\n|champion     = Nocturne\n|skill        = E\n|icon         = false\n|blurb        = {{sbc|Passive:}} {{ci|Nocturne}} gains {{sti|ms|{{as|'''bonus''' movement speed}}}} while moving towards {{tip|fear|feared}} targets.\n|blurb2      = {{sbc|Active:}} '''Nocturne''' torments the target, forming a {{tip|tether}} that continually deals {{as|magic damage}}.\n|blurb3      = If the tether is not broken after a short time, the target is briefly {{tip|fear|feared}} and {{tip|slow|slowed}}.\n|description  = {{sbc|Passive:}} '''Nocturne''' gains {{sti|ms|{{as|90% '''bonus''' movement speed}}}} while facing nearby {{tip|fear|feared}} targets.\n|icon2        =  Unspeakable Horror.png\n|description2 = {{sbc|Active:}} '''Nocturne''' torments the target, forming a {{tip|tether}} between himself and the target for 2 seconds, during which the target takes {{as|magic damage}} every {{fd|0.5}} seconds over the duration.\n|leveling2    = {{st|Total Magic Damage|{{ap|80 to 260}} {{as|(+ 100% AP)}}|Magic Damage per Tick|{{ap|80/4 to 260/4}} {{as|(+ {{ap|100/4}}% AP)}}}}\n|description3 = If the tether is not broken by the end of its duration, the target is {{tip|fear|feared}} for a duration while being {{tip|slow|slowed}} by 90%.\n|leveling3    = {{st|Disable Duration|{{ap|1.25 to 2.25}} seconds}}\n|effect radius= {{tip|cr|icononly = true}} {{tt|1000|Fear MS radius}}\n|target range = {{tip|cr|icononly = true}} 425\n|tether radius= {{tip|er|icononly = true}} 465\n|cooldown     = {{ap|15 to 11}}\n|cost         = {{ap|60 to 80}}\n|costtype     = mana\n|cast time    = none\n|targeting    = Unit\n|affects      = Enemies\n|damagetype   = Magic\n|spellshield  = Special\n|spelleffects = special\n|projectile   = False\n|callforhelp  = True\n|notes        = \n* ''Unspeakable Horror'' deals {{tip|persistent damage}}, additionally tagged as {{tip|indirect damage}}, and applies {{tip|spell effects}}.\n* Feared enemies in a {{tip|cr|icononly = true}} 180° total angle within '''Nocturne's''' facing direction will trigger ''Unspeakable Horror's'' passive.\n* Casting ''Unspeakable Horror'' may grant '''Nocturne''' permanent {{tip|ghosting}} until he has [[death|died]].{{bug}}\n* {{tip|Spell shield}} will block the tether's application but not the damage and aftereffects of one already applied.\n}}"
     ],
     "gameSources": [
       {
@@ -304,14 +304,14 @@
     "parts": [
       {
         "label": "Innate",
-        "text": "Innate: Periodically, Nocturne empowers his next basic attack to slash in a circle, dealing 120% AD physical damage to the target and nearby enemies and healing himself for 13 \u2013 30 (based on level) (+ 30% AP) per enemy hit. Against minions, Umbra Blades' damage to secondary targets and healing are reduced by 50% and it applies on-hit effects to all targets at 100% effectiveness.",
+        "text": "Innate: Periodically, Nocturne empowers his next basic attack to slash in a circle, dealing 120% AD physical damage to the target and nearby enemies and healing himself for 13 – 30 (based on level) (+ 30% AP) per enemy hit. Against minions, Umbra Blades' damage to secondary targets and healing are reduced by 50% and it applies on-hit effects to all targets at 100% effectiveness.",
         "leveling": [],
         "mechanics": [
           {
             "type": "heal",
             "category": "defense",
             "wording": "healing",
-            "evidence": "Innate: Periodically, Nocturne empowers his next basic attack to slash in a circle, dealing 120% AD physical damage to the target and nearby enemies and healing himself for 13 \u2013 30 (based on level) (+ 30% AP) per enemy hit.",
+            "evidence": "Innate: Periodically, Nocturne empowers his next basic attack to slash in a circle, dealing 120% AD physical damage to the target and nearby enemies and healing himself for 13 – 30 (based on level) (+ 30% AP) per enemy hit.",
             "conditional": false
           },
           {
@@ -350,7 +350,7 @@
               ],
               "past18": "wiki"
             },
-            "context": "Innate: Periodically, Nocturne empowers his next basic attack to slash in a circle, dealing 120% AD physical damage to the target and nearby enemies and healing himself for 13 \u2013 30 (based on level) (+ 30% AP) per enemy hit."
+            "context": "Innate: Periodically, Nocturne empowers his next basic attack to slash in a circle, dealing 120% AD physical damage to the target and nearby enemies and healing himself for 13 – 30 (based on level) (+ 30% AP) per enemy hit."
           }
         ]
       },

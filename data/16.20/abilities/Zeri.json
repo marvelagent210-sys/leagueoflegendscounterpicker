@@ -120,7 +120,7 @@
         "values": []
       },
       {
-        "text": "Afterwards, she gains Lightning Rounds for 5 seconds, empowering Burst Fire to deal bonus magic damage to the first enemy hit, increased by 0% \u2013 100% (based on critical strike chance), and pierce through enemies. Targets after the first take modified damage which does not apply on-hit effects or life steal nor trigger on-attack effects, but is affected by critical strike modifiers.",
+        "text": "Afterwards, she gains Lightning Rounds for 5 seconds, empowering Burst Fire to deal bonus magic damage to the first enemy hit, increased by 0% – 100% (based on critical strike chance), and pierce through enemies. Targets after the first take modified damage which does not apply on-hit effects or life steal nor trigger on-attack effects, but is affected by critical strike modifiers.",
         "leveling": [
           {
             "label": "Burst Fire Bonus Magic Damage",
@@ -248,8 +248,8 @@
     ],
     "gameSources": [
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/zeri/zeri.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/zeri/zeri.bin.json",
         "sha256": "4f2a9d404865a68f88f70522ae9c1328193c540475c19bcd6760e80eb5e2efe7",
         "object": "Characters/Zeri/Spells/ZeriEAbility/ZeriE",
         "text": [
@@ -270,7 +270,7 @@
     "ranks": 1,
     "fields": {
       "cost": {
-        "text": "10 \u2022 100",
+        "text": "10 • 100",
         "values": [
           {
             "series": {
@@ -329,7 +329,7 @@
         "values": []
       },
       {
-        "text": "Basic Attack: Zeri zaps the target, dealing 10 \u2013 25 (based on level) (+ 3% AP) magic damage, applying spell effects as spell damage, triggering on-cast effects and executing the target if they are below 70 \u2013 160 (based on level) (+ 20% AP) health. This cannot critically strike and does not apply nor trigger on-hit and on-attack effects.",
+        "text": "Basic Attack: Zeri zaps the target, dealing 10 – 25 (based on level) (+ 3% AP) magic damage, applying spell effects as spell damage, triggering on-cast effects and executing the target if they are below 70 – 160 (based on level) (+ 20% AP) health. This cannot critically strike and does not apply nor trigger on-hit and on-attack effects.",
         "leveling": [],
         "mechanics": [
           {
@@ -382,7 +382,7 @@
               ],
               "past18": "wiki"
             },
-            "context": "Basic Attack: Zeri zaps the target, dealing 10 \u2013 25 (based on level) (+ 3% AP) magic damage, applying spell effects as spell damage, triggering on-cast effects and executing the target if they are below 70 \u2013 160 (based on level) (+ 20% AP) health."
+            "context": "Basic Attack: Zeri zaps the target, dealing 10 – 25 (based on level) (+ 3% AP) magic damage, applying spell effects as spell damage, triggering on-cast effects and executing the target if they are below 70 – 160 (based on level) (+ 20% AP) health."
           },
           {
             "series": {
@@ -411,12 +411,12 @@
               ],
               "past18": "wiki"
             },
-            "context": "Basic Attack: Zeri zaps the target, dealing 10 \u2013 25 (based on level) (+ 3% AP) magic damage, applying spell effects as spell damage, triggering on-cast effects and executing the target if they are below 70 \u2013 160 (based on level) (+ 20% AP) health."
+            "context": "Basic Attack: Zeri zaps the target, dealing 10 – 25 (based on level) (+ 3% AP) magic damage, applying spell effects as spell damage, triggering on-cast effects and executing the target if they are below 70 – 160 (based on level) (+ 20% AP) health."
           }
         ]
       },
       {
-        "text": "At full charge, Zeri's next attack is empowered to consume all charge to deal 75 \u2013 160 (based on level) (+ 110% AP) (+ 1 \u2013 11 (based on level)% of target's maximum health) magic damage. The damage based on the target's health ratio is capped at 300 against monsters.",
+        "text": "At full charge, Zeri's next attack is empowered to consume all charge to deal 75 – 160 (based on level) (+ 110% AP) (+ 1 – 11 (based on level)% of target's maximum health) magic damage. The damage based on the target's health ratio is capped at 300 against monsters.",
         "leveling": [],
         "mechanics": [],
         "values": [
@@ -447,7 +447,7 @@
               ],
               "past18": "wiki"
             },
-            "context": "At full charge, Zeri's next attack is empowered to consume all charge to deal 75 \u2013 160 (based on level) (+ 110% AP) (+ 1 \u2013 11 (based on level)% of target's maximum health) magic damage."
+            "context": "At full charge, Zeri's next attack is empowered to consume all charge to deal 75 – 160 (based on level) (+ 110% AP) (+ 1 – 11 (based on level)% of target's maximum health) magic damage."
           },
           {
             "series": {
@@ -476,7 +476,7 @@
               ],
               "past18": "wiki"
             },
-            "context": "At full charge, Zeri's next attack is empowered to consume all charge to deal 75 \u2013 160 (based on level) (+ 110% AP) (+ 1 \u2013 11 (based on level)% of target's maximum health) magic damage."
+            "context": "At full charge, Zeri's next attack is empowered to consume all charge to deal 75 – 160 (based on level) (+ 110% AP) (+ 1 – 11 (based on level)% of target's maximum health) magic damage."
           }
         ]
       }
@@ -515,7 +515,7 @@
     "ranks": 5,
     "fields": {
       "staticCooldown": {
-        "text": "1 \u00f7 Zeri's attack speed",
+        "text": "1 ÷ Zeri's attack speed",
         "values": [
           {
             "series": {
@@ -554,7 +554,7 @@
         ]
       },
       "speed": {
-        "text": "2600 \u2022 3400",
+        "text": "2600 • 3400",
         "values": [
           {
             "series": {
@@ -573,7 +573,7 @@
         ]
       },
       "angle": {
-        "text": "5\u00b0 \u2022 2\u00b0",
+        "text": "5° • 2°",
         "values": [
           {
             "series": {
@@ -825,7 +825,7 @@
       "Burst Fire uses a modified icon when empowered by Spark Surge () and Lightning Crash () as well as both ().",
       "Destroying a ward that is targetable but not visible to Zeri's team (e.g. a Control Ward in Fog of War) via Burst Fire uniquely allows her to remove its accompanying ward timer (if it exists) without seeing the ward being destroyed.",
       "If Zeri is affected by an ally Tempered Fate during Burst Fire's cast time, she will be able to cast it during the effect.",
-      "The bonus AD calculates off of excess bonus attack speed percent - not the raw excess attack speed.\n  - For example, if she has 150% bonus attack speed percent, but needs only 135% to reach the 1.5 attack speed cap, she will gain 0.6 \u00d7 (150\u2212135)0.6 \u00d7 159 AD\n  - The excess attack speed is calculated after any cripple effects (like Frozen Heart Winter's Caress), meaning they can reduce both her attack speed and attack damage.\n  - The excess attack speed is calculated before Lightning Crash applies its effects. Using it won't change the attack damage, despite her gaining additional attack speed and the cap changing."
+      "The bonus AD calculates off of excess bonus attack speed percent - not the raw excess attack speed.\n  - For example, if she has 150% bonus attack speed percent, but needs only 135% to reach the 1.5 attack speed cap, she will gain 0.6 × (150−135)0.6 × 159 AD\n  - The excess attack speed is calculated after any cripple effects (like Frozen Heart Winter's Caress), meaning they can reduce both her attack speed and attack damage.\n  - The excess attack speed is calculated before Lightning Crash applies its effects. Using it won't change the attack damage, despite her gaining additional attack speed and the cap changing."
     ],
     "sources": [
       {
@@ -840,8 +840,8 @@
     ],
     "gameSources": [
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/zeri/zeri.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/zeri/zeri.bin.json",
         "sha256": "4f2a9d404865a68f88f70522ae9c1328193c540475c19bcd6760e80eb5e2efe7",
         "object": "Characters/Zeri/CharacterRecords/Root",
         "text": [
@@ -852,8 +852,8 @@
         ]
       },
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/zeri/zeri.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/zeri/zeri.bin.json",
         "sha256": "4f2a9d404865a68f88f70522ae9c1328193c540475c19bcd6760e80eb5e2efe7",
         "object": "Characters/Zeri/Spells/ZeriQAbility/ZeriQ",
         "text": [
@@ -862,8 +862,8 @@
         ]
       },
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/zeri/zeri.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/zeri/zeri.bin.json",
         "sha256": "4f2a9d404865a68f88f70522ae9c1328193c540475c19bcd6760e80eb5e2efe7",
         "object": "Characters/Zeri/Spells/ZeriQAbility/ZeriQMis",
         "text": [
@@ -871,8 +871,8 @@
         ]
       },
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/zeri/zeri.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/zeri/zeri.bin.json",
         "sha256": "4f2a9d404865a68f88f70522ae9c1328193c540475c19bcd6760e80eb5e2efe7",
         "object": "Characters/Zeri/Spells/ZeriQAbility/ZeriQMisEmpowered",
         "text": [
@@ -1092,8 +1092,8 @@
     ],
     "gameSources": [
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/zeri/zeri.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/zeri/zeri.bin.json",
         "sha256": "4f2a9d404865a68f88f70522ae9c1328193c540475c19bcd6760e80eb5e2efe7",
         "object": "Characters/Zeri/Spells/ZeriRAbility/ZeriR",
         "text": [
@@ -1182,7 +1182,7 @@
         ]
       },
       "range": {
-        "text": "1200 \u2022 -50 \u2013 1550",
+        "text": "1200 • -50 – 1550",
         "values": [
           {
             "series": {
@@ -1201,7 +1201,7 @@
         ]
       },
       "width": {
-        "text": "80 \u2022 200",
+        "text": "80 • 200",
         "values": [
           {
             "series": {
@@ -1399,14 +1399,14 @@
           "revid": 4060386
         },
         "text": [
-          "<!-- Damage values are defined as parameters.\n-->{{#vardefine:b1|30}}<!-- Generic/Normal rank 1 total base damage\n-->{{#vardefine:b5|190}}<!-- Generic/Normal rank 5 total base damage \n-->{{#vardefine:ad|100}}<!-- Generic/Normal total AD ratio as a PERCENTAGE\n-->{{#vardefine:ap|50}}<!-- Generic/Normal AP ratio as a PERCENTAGE\n-->{{#vardefine:crit|150}}<!-- Total critical strike damage as a PERCENTAGE\n-->{{#vardefine:ie_mod_W|50}}<!-- Infinity edge modifier as a PERCENTAGE\n-->{{#vardefine:ie_dam|{{#expr:{{#invoke:ItemData|get|item=Infinity Edge|datatype=critdamage}}*{{#var:ie_mod_W}}/10000}}}}<!-- Infinity Edge damage DO NOT CHANGE\n-->{{{{{1<noinclude>|Ability data</noinclude>}}}|Ultrashock Laser|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}\n|champion     = Zeri\n|skill        = W\n|icon         = Zeri Ultrashock Laser.png\n|blurb        = {{sbc|Active:}} {{ci|Zeri}} fires an electric pulse in the target direction that deals {{as|physical damage}} to the first enemy hit and {{tip|slows}} them for a short duration.\n|blurb2      = If this hits [[terrain]], it transforms into a laser that fires in a line, dealing {{as|physical damage}} to enemies hit and {{tip|critical strike|critically striking}} against {{tip|champions}} and {{tip|monsters}}.\n|description  = {{sbc|Active:}} '''Zeri''' fires an electric pulse in the target direction that deals {{as|physical damage}} to the first enemy hit and {{tip|slows}} them for 2 seconds.<br><br>If the pulse hits [[terrain]], it transforms into a laser in a line that grants {{tip|sight}} of the area for {{fd|1.75}} seconds and fires after {{fd|0.85}} seconds, applying the same effects to enemies hit and {{tip|critical strike|critically striking}} for {{as|{{critical damage|{{#var:crit}}|{{#var:ie_mod_W}}}}|critical damage}} damage against {{tip|champions}} and {{tip|monsters}}. \n|leveling     = {{st|Physical Damage|{{ap|{{#var:b1}} to {{#var:b5}}}} {{as|(+ {{#var:ad}}% AD)}} {{as|(+ {{#var:ap}}% AP)}}|Critical Strike Damage|{{ap|{{#var:b1}}*{{#var:crit}}/100 to {{#var:b5}}*{{#var:crit}}/100}} {{as|(+ {{ap|{{#var:ad}}*{{#var:crit}}/100}}% AD)}} {{as|(+ {{ap|{{#var:ap}}*{{#var:crit}}/100}}% AP)}}|Infinity Edge Damage|{{ap|{{#var:b1}}*({{#var:crit}}/100+{{#var:ie_dam}}) to {{#var:b5}}*({{#var:crit}}/100+{{#var:ie_dam}})}} {{as|(+ {{ap|{{#var:ad}}*({{#var:crit}}/100+{{#var:ie_dam}})}}% AD)}} {{as|(+ {{ap|{{#var:ap}}*({{#var:crit}}/100+{{#var:ie_dam}})}}% AP)}}}}\n{{st|Slow|{{ap|30 to 50}}%}}\n|cooldown     = {{ap|12 to 8}}\n|cast time    = {{as|{{pp|type='''bonus''' attack speed|round=3|0.55;0.528;0.495;0.462;0.429;0.396;0.363;0.33;0.3|key1=%|0;24.4444;61.1111;97.7778;134.444;171.111;207.778;244.444;277.778|formula=0.55-0.09 per 100% '''bonus''' attack speed. ''This is capped at 45.5% reduction at 277.8% '''bonus''' attack speed.''}}}}\n|cost         = {{ap|50 to 90}}\n|costtype     = Mana\n|range        = {{dv|{{tip|cr|icononly = true}} {{tt|1200|Initial missile}}|{{tip|er|icononly = true}} {{tt|-50 \u2013 1550|1600 units total empowered length}}}}\n|width        = {{dv|{{tip|er|icononly = true}} {{tt|80|Initial missile}}|{{tip|er|icononly = true}} {{tt|200|Laser beam width}}}}\n|speed        = {{tt|2500|Initial missile}}\n|targeting    = Direction\n|damagetype   = Magic\n|projectile   = special\n|affects      = Enemies\n|spelleffects = special\n|onhiteffects = \n|spellshield  = true\n|parry        = \n|callforhelp  = \n|notes        = \n* Applies {{tip|spell damage}} for the pulse and {{tip|area damage}} for the laser.\n* The pulse missile is blocked by {{tip|projectile|projectile-interception}} effects but not the laser.\n* ''Ultrashock Laser'' interacts with [[Terrain#Player-Generated|player-generated terrain]].\n{{Effect at cast time start}}\n}}"
+          "<!-- Damage values are defined as parameters.\n-->{{#vardefine:b1|30}}<!-- Generic/Normal rank 1 total base damage\n-->{{#vardefine:b5|190}}<!-- Generic/Normal rank 5 total base damage \n-->{{#vardefine:ad|100}}<!-- Generic/Normal total AD ratio as a PERCENTAGE\n-->{{#vardefine:ap|50}}<!-- Generic/Normal AP ratio as a PERCENTAGE\n-->{{#vardefine:crit|150}}<!-- Total critical strike damage as a PERCENTAGE\n-->{{#vardefine:ie_mod_W|50}}<!-- Infinity edge modifier as a PERCENTAGE\n-->{{#vardefine:ie_dam|{{#expr:{{#invoke:ItemData|get|item=Infinity Edge|datatype=critdamage}}*{{#var:ie_mod_W}}/10000}}}}<!-- Infinity Edge damage DO NOT CHANGE\n-->{{{{{1<noinclude>|Ability data</noinclude>}}}|Ultrashock Laser|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}\n|champion     = Zeri\n|skill        = W\n|icon         = Zeri Ultrashock Laser.png\n|blurb        = {{sbc|Active:}} {{ci|Zeri}} fires an electric pulse in the target direction that deals {{as|physical damage}} to the first enemy hit and {{tip|slows}} them for a short duration.\n|blurb2      = If this hits [[terrain]], it transforms into a laser that fires in a line, dealing {{as|physical damage}} to enemies hit and {{tip|critical strike|critically striking}} against {{tip|champions}} and {{tip|monsters}}.\n|description  = {{sbc|Active:}} '''Zeri''' fires an electric pulse in the target direction that deals {{as|physical damage}} to the first enemy hit and {{tip|slows}} them for 2 seconds.<br><br>If the pulse hits [[terrain]], it transforms into a laser in a line that grants {{tip|sight}} of the area for {{fd|1.75}} seconds and fires after {{fd|0.85}} seconds, applying the same effects to enemies hit and {{tip|critical strike|critically striking}} for {{as|{{critical damage|{{#var:crit}}|{{#var:ie_mod_W}}}}|critical damage}} damage against {{tip|champions}} and {{tip|monsters}}. \n|leveling     = {{st|Physical Damage|{{ap|{{#var:b1}} to {{#var:b5}}}} {{as|(+ {{#var:ad}}% AD)}} {{as|(+ {{#var:ap}}% AP)}}|Critical Strike Damage|{{ap|{{#var:b1}}*{{#var:crit}}/100 to {{#var:b5}}*{{#var:crit}}/100}} {{as|(+ {{ap|{{#var:ad}}*{{#var:crit}}/100}}% AD)}} {{as|(+ {{ap|{{#var:ap}}*{{#var:crit}}/100}}% AP)}}|Infinity Edge Damage|{{ap|{{#var:b1}}*({{#var:crit}}/100+{{#var:ie_dam}}) to {{#var:b5}}*({{#var:crit}}/100+{{#var:ie_dam}})}} {{as|(+ {{ap|{{#var:ad}}*({{#var:crit}}/100+{{#var:ie_dam}})}}% AD)}} {{as|(+ {{ap|{{#var:ap}}*({{#var:crit}}/100+{{#var:ie_dam}})}}% AP)}}}}\n{{st|Slow|{{ap|30 to 50}}%}}\n|cooldown     = {{ap|12 to 8}}\n|cast time    = {{as|{{pp|type='''bonus''' attack speed|round=3|0.55;0.528;0.495;0.462;0.429;0.396;0.363;0.33;0.3|key1=%|0;24.4444;61.1111;97.7778;134.444;171.111;207.778;244.444;277.778|formula=0.55-0.09 per 100% '''bonus''' attack speed. ''This is capped at 45.5% reduction at 277.8% '''bonus''' attack speed.''}}}}\n|cost         = {{ap|50 to 90}}\n|costtype     = Mana\n|range        = {{dv|{{tip|cr|icononly = true}} {{tt|1200|Initial missile}}|{{tip|er|icononly = true}} {{tt|-50 – 1550|1600 units total empowered length}}}}\n|width        = {{dv|{{tip|er|icononly = true}} {{tt|80|Initial missile}}|{{tip|er|icononly = true}} {{tt|200|Laser beam width}}}}\n|speed        = {{tt|2500|Initial missile}}\n|targeting    = Direction\n|damagetype   = Magic\n|projectile   = special\n|affects      = Enemies\n|spelleffects = special\n|onhiteffects = \n|spellshield  = true\n|parry        = \n|callforhelp  = \n|notes        = \n* Applies {{tip|spell damage}} for the pulse and {{tip|area damage}} for the laser.\n* The pulse missile is blocked by {{tip|projectile|projectile-interception}} effects but not the laser.\n* ''Ultrashock Laser'' interacts with [[Terrain#Player-Generated|player-generated terrain]].\n{{Effect at cast time start}}\n}}"
         ]
       }
     ],
     "gameSources": [
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/zeri/zeri.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/zeri/zeri.bin.json",
         "sha256": "4f2a9d404865a68f88f70522ae9c1328193c540475c19bcd6760e80eb5e2efe7",
         "object": "Characters/Zeri/Spells/ZeriWAbility/ZeriW",
         "text": [

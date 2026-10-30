@@ -198,8 +198,8 @@
     ],
     "gameSources": [
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/jarvaniv/jarvaniv.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/jarvaniv/jarvaniv.bin.json",
         "sha256": "824a62dd0e1fe6e67e9ac1c7d4dfa4e256c4485f02315347270a68b67f3ae845",
         "object": "Characters/JarvanIV/Spells/JarvanIVDemacianStandardAbility/JarvanIVDemacianStandard",
         "text": [
@@ -208,8 +208,8 @@
         ]
       },
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/jarvaniv/jarvaniv.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/jarvaniv/jarvaniv.bin.json",
         "sha256": "824a62dd0e1fe6e67e9ac1c7d4dfa4e256c4485f02315347270a68b67f3ae845",
         "object": "Characters/JarvanIV/Spells/JarvanIVDemacianStandardAbility/JarvanIVDemacianStandardSpellPassive",
         "text": [
@@ -301,8 +301,8 @@
     ],
     "gameSources": [
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/jarvaniv/jarvaniv.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/jarvaniv/jarvaniv.bin.json",
         "sha256": "824a62dd0e1fe6e67e9ac1c7d4dfa4e256c4485f02315347270a68b67f3ae845",
         "object": "Characters/JarvanIV/Spells/JarvanIVMartialCadenceAbility/JarvanIVMartialCadence",
         "text": [
@@ -311,8 +311,8 @@
         ]
       },
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/jarvaniv/jarvaniv.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/jarvaniv/jarvaniv.bin.json",
         "sha256": "824a62dd0e1fe6e67e9ac1c7d4dfa4e256c4485f02315347270a68b67f3ae845",
         "object": "Characters/JarvanIV/Spells/JarvanIVMartialCadenceAbility/JarvanIVMartialCadenceCheck",
         "text": [
@@ -321,8 +321,8 @@
         ]
       },
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/jarvaniv/jarvaniv.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/jarvaniv/jarvaniv.bin.json",
         "sha256": "824a62dd0e1fe6e67e9ac1c7d4dfa4e256c4485f02315347270a68b67f3ae845",
         "object": "Characters/JarvanIV/Spells/JarvanIVMartialCadenceAbility/JarvanIVMartialCadenceAttack",
         "text": [
@@ -565,8 +565,8 @@
     ],
     "gameSources": [
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/jarvaniv/jarvaniv.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/jarvaniv/jarvaniv.bin.json",
         "sha256": "824a62dd0e1fe6e67e9ac1c7d4dfa4e256c4485f02315347270a68b67f3ae845",
         "object": "Characters/JarvanIV/Spells/JarvanIVDragonStrikeAbility/JarvanIVDragonStrikePH2",
         "text": [
@@ -575,8 +575,8 @@
         ]
       },
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/jarvaniv/jarvaniv.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/jarvaniv/jarvaniv.bin.json",
         "sha256": "824a62dd0e1fe6e67e9ac1c7d4dfa4e256c4485f02315347270a68b67f3ae845",
         "object": "Characters/JarvanIV/Spells/JarvanIVDragonStrikeAbility/JarvanIVDragonStrike",
         "text": [
@@ -585,8 +585,8 @@
         ]
       },
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/jarvaniv/jarvaniv.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/jarvaniv/jarvaniv.bin.json",
         "sha256": "824a62dd0e1fe6e67e9ac1c7d4dfa4e256c4485f02315347270a68b67f3ae845",
         "object": "Characters/JarvanIV/Spells/JarvanIVDragonStrikeAbility/JarvanIVDragonStrikeDebuff",
         "text": [
@@ -810,8 +810,8 @@
     ],
     "gameSources": [
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/jarvaniv/jarvaniv.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/jarvaniv/jarvaniv.bin.json",
         "sha256": "824a62dd0e1fe6e67e9ac1c7d4dfa4e256c4485f02315347270a68b67f3ae845",
         "object": "Characters/JarvanIV/Spells/JarvanIVCataclysmAbility/JarvanIVCataclysmAttack",
         "text": [
@@ -820,8 +820,8 @@
         ]
       },
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/jarvaniv/jarvaniv.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/jarvaniv/jarvaniv.bin.json",
         "sha256": "824a62dd0e1fe6e67e9ac1c7d4dfa4e256c4485f02315347270a68b67f3ae845",
         "object": "Characters/JarvanIV/Spells/JarvanIVCataclysmAbility/JarvanIVCataclysm",
         "text": [
@@ -1006,8 +1006,8 @@
     ],
     "gameSources": [
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/jarvaniv/jarvaniv.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/jarvaniv/jarvaniv.bin.json",
         "sha256": "824a62dd0e1fe6e67e9ac1c7d4dfa4e256c4485f02315347270a68b67f3ae845",
         "object": "Characters/JarvanIV/Spells/JarvanIVGoldenAegisAbility/JarvanIVGoldenAegis",
         "text": [

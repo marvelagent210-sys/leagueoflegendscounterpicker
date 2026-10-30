@@ -367,8 +367,8 @@
     ],
     "gameSources": [
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/twistedfate/twistedfate.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/twistedfate/twistedfate.bin.json",
         "sha256": "af35647443a0cb448bddf19d1dfe8e71fb29c55203fe1181ba43c13618f44785",
         "object": "Characters/TwistedFate/Spells/WildCardsAbility/WildCards",
         "text": [
@@ -540,8 +540,8 @@
     ],
     "gameSources": [
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/twistedfate/twistedfate.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/twistedfate/twistedfate.bin.json",
         "sha256": "af35647443a0cb448bddf19d1dfe8e71fb29c55203fe1181ba43c13618f44785",
         "object": "Characters/TwistedFate/Spells/DestinyAbility/Gate",
         "text": [
@@ -1019,8 +1019,8 @@
     ],
     "gameSources": [
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/twistedfate/twistedfate.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/twistedfate/twistedfate.bin.json",
         "sha256": "af35647443a0cb448bddf19d1dfe8e71fb29c55203fe1181ba43c13618f44785",
         "object": "Characters/TwistedFate/Spells/PickACardAbility/PickACard",
         "text": [
@@ -1028,8 +1028,8 @@
         ]
       },
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/twistedfate/twistedfate.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/twistedfate/twistedfate.bin.json",
         "sha256": "af35647443a0cb448bddf19d1dfe8e71fb29c55203fe1181ba43c13618f44785",
         "object": "Characters/TwistedFate/Spells/BlueCardPreAttack",
         "text": [

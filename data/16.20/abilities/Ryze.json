@@ -185,8 +185,8 @@
     ],
     "gameSources": [
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/ryze/ryze.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/ryze/ryze.bin.json",
         "sha256": "5016862b0b9c7c9ffc5000762ed41aa1ad295523fca4a4410335ee091cf44fb6",
         "object": "Characters/Ryze/Spells/RyzeEAbility/RyzeE",
         "text": [
@@ -194,8 +194,8 @@
         ]
       },
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/ryze/ryze.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/ryze/ryze.bin.json",
         "sha256": "5016862b0b9c7c9ffc5000762ed41aa1ad295523fca4a4410335ee091cf44fb6",
         "object": "Characters/Ryze/Spells/RyzeEAbility/RyzeEMissile",
         "text": [
@@ -253,8 +253,8 @@
     ],
     "gameSources": [
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/ryze/ryze.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/ryze/ryze.bin.json",
         "sha256": "5016862b0b9c7c9ffc5000762ed41aa1ad295523fca4a4410335ee091cf44fb6",
         "object": "Characters/Ryze/Spells/RyzePassiveAbility/RyzePassive",
         "text": [
@@ -487,8 +487,8 @@
     ],
     "gameSources": [
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/ryze/ryze.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/ryze/ryze.bin.json",
         "sha256": "5016862b0b9c7c9ffc5000762ed41aa1ad295523fca4a4410335ee091cf44fb6",
         "object": "Characters/Ryze/Spells/RyzeQWrapperAbility/RyzeQWrapper",
         "text": [
@@ -496,8 +496,8 @@
         ]
       },
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/ryze/ryze.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/ryze/ryze.bin.json",
         "sha256": "5016862b0b9c7c9ffc5000762ed41aa1ad295523fca4a4410335ee091cf44fb6",
         "object": "Characters/Ryze/Spells/RyzeQWrapperAbility/RyzeQ",
         "text": [
@@ -505,8 +505,8 @@
         ]
       },
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/ryze/ryze.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/ryze/ryze.bin.json",
         "sha256": "5016862b0b9c7c9ffc5000762ed41aa1ad295523fca4a4410335ee091cf44fb6",
         "object": "Characters/Ryze/Spells/RyzeQWrapperAbility/RyzeQMissile",
         "text": [
@@ -753,8 +753,8 @@
     ],
     "gameSources": [
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/ryze/ryze.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/ryze/ryze.bin.json",
         "sha256": "5016862b0b9c7c9ffc5000762ed41aa1ad295523fca4a4410335ee091cf44fb6",
         "object": "Characters/Ryze/Spells/RyzeRAbility/RyzeR",
         "text": [
@@ -762,8 +762,8 @@
         ]
       },
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/ryze/ryze.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/ryze/ryze.bin.json",
         "sha256": "5016862b0b9c7c9ffc5000762ed41aa1ad295523fca4a4410335ee091cf44fb6",
         "object": "Characters/Ryze/Spells/RyzeRAbility/RyzeRChannel",
         "text": [
@@ -771,8 +771,8 @@
         ]
       },
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/ryze/ryze.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/ryze/ryze.bin.json",
         "sha256": "5016862b0b9c7c9ffc5000762ed41aa1ad295523fca4a4410335ee091cf44fb6",
         "object": "Characters/Ryze/Spells/RyzeRAbility/RyzeR2",
         "text": [
@@ -964,8 +964,8 @@
     ],
     "gameSources": [
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/ryze/ryze.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/ryze/ryze.bin.json",
         "sha256": "5016862b0b9c7c9ffc5000762ed41aa1ad295523fca4a4410335ee091cf44fb6",
         "object": "Characters/Ryze/Spells/RyzeWAbility/RyzeW",
         "text": [
@@ -973,8 +973,8 @@
         ]
       },
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/ryze/ryze.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/ryze/ryze.bin.json",
         "sha256": "5016862b0b9c7c9ffc5000762ed41aa1ad295523fca4a4410335ee091cf44fb6",
         "object": "Characters/Ryze/Spells/RyzeWAbility/RyzeWRoot",
         "text": [

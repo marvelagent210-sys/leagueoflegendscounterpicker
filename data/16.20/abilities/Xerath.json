@@ -230,8 +230,8 @@
     ],
     "gameSources": [
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/xerath/xerath.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/xerath/xerath.bin.json",
         "sha256": "7bf2c884ad79b8fa87b4e393dc6ff51e60a0c4fe3881ce6d7a6a1a55019867d4",
         "object": "Characters/Xerath/Spells/XerathMageSpearAbility/XerathMageSpear",
         "text": [
@@ -239,8 +239,8 @@
         ]
       },
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/xerath/xerath.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/xerath/xerath.bin.json",
         "sha256": "7bf2c884ad79b8fa87b4e393dc6ff51e60a0c4fe3881ce6d7a6a1a55019867d4",
         "object": "Characters/Xerath/Spells/XerathMageSpearAbility/XerathMageSpearMissile",
         "text": [
@@ -389,8 +389,8 @@
     ],
     "gameSources": [
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/xerath/xerath.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/xerath/xerath.bin.json",
         "sha256": "7bf2c884ad79b8fa87b4e393dc6ff51e60a0c4fe3881ce6d7a6a1a55019867d4",
         "object": "Characters/Xerath/Spells/XerathAscended2Ability/XerathAscended2",
         "text": [
@@ -398,8 +398,8 @@
         ]
       },
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/xerath/xerath.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/xerath/xerath.bin.json",
         "sha256": "7bf2c884ad79b8fa87b4e393dc6ff51e60a0c4fe3881ce6d7a6a1a55019867d4",
         "object": "Characters/Xerath/Spells/XerathBasicAttack",
         "text": [
@@ -701,8 +701,8 @@
     ],
     "gameSources": [
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/xerath/xerath.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/xerath/xerath.bin.json",
         "sha256": "7bf2c884ad79b8fa87b4e393dc6ff51e60a0c4fe3881ce6d7a6a1a55019867d4",
         "object": "Characters/Xerath/Spells/XerathArcanopulseChargeUpAbility/XerathArcanopulseChargeUp",
         "text": [
@@ -710,8 +710,8 @@
         ]
       },
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/xerath/xerath.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/xerath/xerath.bin.json",
         "sha256": "7bf2c884ad79b8fa87b4e393dc6ff51e60a0c4fe3881ce6d7a6a1a55019867d4",
         "object": "Characters/Xerath/Spells/XerathArcanopulse2",
         "text": [
@@ -1028,8 +1028,8 @@
     ],
     "gameSources": [
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/xerath/xerath.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/xerath/xerath.bin.json",
         "sha256": "7bf2c884ad79b8fa87b4e393dc6ff51e60a0c4fe3881ce6d7a6a1a55019867d4",
         "object": "Characters/Xerath/Spells/XerathLocusOfPower2Ability/XerathLocusOfPower2",
         "text": [
@@ -1037,8 +1037,8 @@
         ]
       },
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/xerath/xerath.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/xerath/xerath.bin.json",
         "sha256": "7bf2c884ad79b8fa87b4e393dc6ff51e60a0c4fe3881ce6d7a6a1a55019867d4",
         "object": "Characters/Xerath/Spells/XerathLocusOfPower2Ability/XerathLocusPulse",
         "text": [
@@ -1309,8 +1309,8 @@
     ],
     "gameSources": [
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/xerath/xerath.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/xerath/xerath.bin.json",
         "sha256": "7bf2c884ad79b8fa87b4e393dc6ff51e60a0c4fe3881ce6d7a6a1a55019867d4",
         "object": "Characters/Xerath/Spells/XerathArcaneBarrage2Ability/XerathArcaneBarrage2",
         "text": [

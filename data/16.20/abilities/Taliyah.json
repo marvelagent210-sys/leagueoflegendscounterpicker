@@ -55,7 +55,7 @@
         ]
       },
       "angle": {
-        "text": "80\u00b0",
+        "text": "80°",
         "values": [
           {
             "series": {
@@ -194,7 +194,7 @@
         "values": []
       },
       {
-        "text": "An enemy can detonate up to 4 stones, but the damage is reduced by 0 \u2013 75 (based on level)%. Unraveled Earth can affect targets only once per cast; the stones will still detonate but not apply their effects.",
+        "text": "An enemy can detonate up to 4 stones, but the damage is reduced by 0 – 75 (based on level)%. Unraveled Earth can affect targets only once per cast; the stones will still detonate but not apply their effects.",
         "leveling": [
           {
             "label": "Total Maximum Detonation Damage",
@@ -236,7 +236,7 @@
                 75
               ]
             },
-            "context": "An enemy can detonate up to 4 stones, but the damage is reduced by 0 \u2013 75 (based on level)%."
+            "context": "An enemy can detonate up to 4 stones, but the damage is reduced by 0 – 75 (based on level)%."
           }
         ]
       },
@@ -461,7 +461,7 @@
         ]
       },
       "effectRadius": {
-        "text": "175 \u2022 225",
+        "text": "175 • 225",
         "values": [
           {
             "series": {
@@ -492,14 +492,14 @@
         ]
       },
       "speed": {
-        "text": "3600 - 1800 \u2022 2000",
+        "text": "3600 - 1800 • 2000",
         "values": [
           {
             "series": {
               "kind": "constant",
               "value": 3600
             },
-            "label": "5000 units per second\u00b2 deceleration, minimum is 1500 speed but it reaches its destination earlier than it can slow down to it"
+            "label": "5000 units per second² deceleration, minimum is 1500 speed but it reaches its destination earlier than it can slow down to it"
           },
           {
             "series": {
@@ -822,7 +822,7 @@
           "revid": 4013247
         },
         "text": [
-          "{{{{{1<noinclude>|Ability data</noinclude>}}}|Threaded Volley|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}\n|champion     = Taliyah\n|skill        = Q\n|icon         = Threaded Volley.png\n|blurb        = {{sbc|Active:}} {{ci|Taliyah}} barrages out 5 ''Stone Shards'' that each explode upon the first enemy hit, dealing {{as|magic damage}} to nearby enemies. This also creates an area of {{as|Worked Ground|terrain}} under '''Taliyah's''' location that lasts for a while. \n|blurb2      = Casting ''Threaded Volley'' on {{as|Worked Ground|terrain}} will consume the area to become empowered with a new effect as well as reduced {{sti|{{as|mana cost}}}} and {{sti|cooldown}}.\n|blurb3      = {{sbc|Empowered Active:}} '''Taliyah''' hurls a ''Boulder'' that explodes upon the first enemy hit, dealing {{as|magic damage}} and briefly {{tip|slow|slowing}} nearby enemies. The first enemy hit takes {{ccs|increased|magic}} damage from the ''Boulder''.\n|blurb4      = '''Taliyah''' can move and cast other abilities while launching ''Stone Shards''.\n|description  = {{sbc|Active:}} '''Taliyah''' barrages 5 ''Stone Shards'' in the target direction over {{fd|1.5}} seconds that each shatter upon the first enemy hit, dealing {{as|magic damage}} to nearby enemies and {{tip|standard sight|revealing}} them for {{fd|0.5}} seconds. Subsequent hits deal 40% damage.\n|leveling     = {{st|Magic Damage|{{ap|55 to 125}} {{as|(+ 50% AP)}}|Reduced Damage|{{ap|55*0.4 to 125*0.4}} {{as|(+ {{ap|50*0.4}}% AP)}}|Total Magic Damage|{{ap|55*2.6 to 125*2.6}} {{as|(+ 130% AP)}}}}\n|description2 = '''Taliyah''' can move and cast other abilities while launching ''Stone Shards'', and is unable to basic attack until she launches the third ''Stone Shard''.\n|description3 = Casting ''Threaded Volley'' creates an area of {{as|Worked Ground|terrain}} at '''Taliyah's''' cast location that has a radius of 400 units and lasts 30 seconds. While '''Taliyah''' is within an area of {{as|Worked Ground|terrain}}, ''Threaded Volley's'' cast consumes the area to become empowered with a new effect, costing {{sti|{{as|10 mana}}}} and having {{sti|cd|50%}} reduced cooldown, though not below {{fd|0.75}} seconds.\n|icon4        = Threaded Volley 2.png\n|description4 = {{sbc|Empowered Active:}} '''Taliyah''' hurls a ''Boulder'' that explodes upon the first enemy hit, dealing {{ccs|180%|magic}} damage to them and normal damage to nearby enemies, {{tip|slow|slowing}} all targets hit for {{fd|1.5}} seconds, and {{tip|standard sight|revealing}} them for {{fd|0.5}} seconds. {{tip|Monsters}} hit are also {{tip|stun|stunned}} for 3 seconds.\n|leveling4    = {{st|Empowered Damage|{{ap|55*1.8 to 125*1.8}} {{as|(+ {{ap|50*1.8}}% AP)}}|Secondary Target Damage|{{ap|55 to 125}} {{as|(+ 50% AP)}}}}\n{{st|Slow|{{ap|20 to 40}}%}}\n|description5 = Against {{tip|monsters}}, ''Threaded Volley'' deals {{as|'''bonus''' magic damage}} per ''Stone Shard'', and the ''Boulder'' from the empowered cast deals 80% '''bonus''' damage against the primary target. This '''bonus''' damage is unaffected by the damage modifier from subsequent hits.\n|leveling5    = {{st|Bonus Monster Damage|{{ap|20 to 40}}|Boulder Bonus Monster Damage|{{ap|20*1.8 to 40*1.8}}}}\n|cooldown     = {{ap|7 to 3}}\n|cost         = {{ap|55 to 75}}\n|costtype     = Mana\n|cast time    = {{fd|0.25}}\n|effect radius= {{dv|{{tip|cr|icononly = true}} {{tt|175|Stone Shard radius}}|{{tip|cr|icononly = true}} {{tt|225|Boulder radius}}}}\n|range        = {{tip|cr|icononly = true}} {{tt|1000|From Taliyah, when each missile is launched. Missiles originate 50 units in front of Taliyah}}\n|width        = {{tip|er|icononly = true}} {{tt|200|Missile width, no offset to either side}}\n|speed        = {{dv|{{tt|3600 - 1800|5000 units per second\u00b2 deceleration, minimum is 1500 speed but it reaches its destination earlier than it can slow down to it}}|{{tt|2000|Empowered missile}}}}\n|queue time   = {{fd|0.5}}\n|targeting    = Direction\n|affects      = Enemies\n|damagetype   = magic\n|projectile   = true\n|spellshield  = Special\n|spelleffects = special\n|notes        = \n* ''Threaded Volley'' will continue casting while in {{tip|stasis}}.\n* The first ''Stone Shard'' hit on each target is considered {{tip|area damage}}, while additional ones of the same cast are considered {{tip|persistent area damage}}.\n** The ''Boulder'' applies {{tip|area damage}}.\n* The first ''Stone Shard'' is launched instantly after the cast time ends, then the second and third ''Stone Shards'' are both launched over 1 second, and finally the fourth and fifth ''Stone Shards'' are both launched over {{fd|0.5}} seconds. \n* {{tip|Spell shield}} only prevents one instance of damage.\n|flavorsound  = {{sm2|Taliyah_Original_Q_5.ogg}} ''\"If at first you don't succeed, '''throw another rock'''!\"''\n}}"
+          "{{{{{1<noinclude>|Ability data</noinclude>}}}|Threaded Volley|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}\n|champion     = Taliyah\n|skill        = Q\n|icon         = Threaded Volley.png\n|blurb        = {{sbc|Active:}} {{ci|Taliyah}} barrages out 5 ''Stone Shards'' that each explode upon the first enemy hit, dealing {{as|magic damage}} to nearby enemies. This also creates an area of {{as|Worked Ground|terrain}} under '''Taliyah's''' location that lasts for a while. \n|blurb2      = Casting ''Threaded Volley'' on {{as|Worked Ground|terrain}} will consume the area to become empowered with a new effect as well as reduced {{sti|{{as|mana cost}}}} and {{sti|cooldown}}.\n|blurb3      = {{sbc|Empowered Active:}} '''Taliyah''' hurls a ''Boulder'' that explodes upon the first enemy hit, dealing {{as|magic damage}} and briefly {{tip|slow|slowing}} nearby enemies. The first enemy hit takes {{ccs|increased|magic}} damage from the ''Boulder''.\n|blurb4      = '''Taliyah''' can move and cast other abilities while launching ''Stone Shards''.\n|description  = {{sbc|Active:}} '''Taliyah''' barrages 5 ''Stone Shards'' in the target direction over {{fd|1.5}} seconds that each shatter upon the first enemy hit, dealing {{as|magic damage}} to nearby enemies and {{tip|standard sight|revealing}} them for {{fd|0.5}} seconds. Subsequent hits deal 40% damage.\n|leveling     = {{st|Magic Damage|{{ap|55 to 125}} {{as|(+ 50% AP)}}|Reduced Damage|{{ap|55*0.4 to 125*0.4}} {{as|(+ {{ap|50*0.4}}% AP)}}|Total Magic Damage|{{ap|55*2.6 to 125*2.6}} {{as|(+ 130% AP)}}}}\n|description2 = '''Taliyah''' can move and cast other abilities while launching ''Stone Shards'', and is unable to basic attack until she launches the third ''Stone Shard''.\n|description3 = Casting ''Threaded Volley'' creates an area of {{as|Worked Ground|terrain}} at '''Taliyah's''' cast location that has a radius of 400 units and lasts 30 seconds. While '''Taliyah''' is within an area of {{as|Worked Ground|terrain}}, ''Threaded Volley's'' cast consumes the area to become empowered with a new effect, costing {{sti|{{as|10 mana}}}} and having {{sti|cd|50%}} reduced cooldown, though not below {{fd|0.75}} seconds.\n|icon4        = Threaded Volley 2.png\n|description4 = {{sbc|Empowered Active:}} '''Taliyah''' hurls a ''Boulder'' that explodes upon the first enemy hit, dealing {{ccs|180%|magic}} damage to them and normal damage to nearby enemies, {{tip|slow|slowing}} all targets hit for {{fd|1.5}} seconds, and {{tip|standard sight|revealing}} them for {{fd|0.5}} seconds. {{tip|Monsters}} hit are also {{tip|stun|stunned}} for 3 seconds.\n|leveling4    = {{st|Empowered Damage|{{ap|55*1.8 to 125*1.8}} {{as|(+ {{ap|50*1.8}}% AP)}}|Secondary Target Damage|{{ap|55 to 125}} {{as|(+ 50% AP)}}}}\n{{st|Slow|{{ap|20 to 40}}%}}\n|description5 = Against {{tip|monsters}}, ''Threaded Volley'' deals {{as|'''bonus''' magic damage}} per ''Stone Shard'', and the ''Boulder'' from the empowered cast deals 80% '''bonus''' damage against the primary target. This '''bonus''' damage is unaffected by the damage modifier from subsequent hits.\n|leveling5    = {{st|Bonus Monster Damage|{{ap|20 to 40}}|Boulder Bonus Monster Damage|{{ap|20*1.8 to 40*1.8}}}}\n|cooldown     = {{ap|7 to 3}}\n|cost         = {{ap|55 to 75}}\n|costtype     = Mana\n|cast time    = {{fd|0.25}}\n|effect radius= {{dv|{{tip|cr|icononly = true}} {{tt|175|Stone Shard radius}}|{{tip|cr|icononly = true}} {{tt|225|Boulder radius}}}}\n|range        = {{tip|cr|icononly = true}} {{tt|1000|From Taliyah, when each missile is launched. Missiles originate 50 units in front of Taliyah}}\n|width        = {{tip|er|icononly = true}} {{tt|200|Missile width, no offset to either side}}\n|speed        = {{dv|{{tt|3600 - 1800|5000 units per second² deceleration, minimum is 1500 speed but it reaches its destination earlier than it can slow down to it}}|{{tt|2000|Empowered missile}}}}\n|queue time   = {{fd|0.5}}\n|targeting    = Direction\n|affects      = Enemies\n|damagetype   = magic\n|projectile   = true\n|spellshield  = Special\n|spelleffects = special\n|notes        = \n* ''Threaded Volley'' will continue casting while in {{tip|stasis}}.\n* The first ''Stone Shard'' hit on each target is considered {{tip|area damage}}, while additional ones of the same cast are considered {{tip|persistent area damage}}.\n** The ''Boulder'' applies {{tip|area damage}}.\n* The first ''Stone Shard'' is launched instantly after the cast time ends, then the second and third ''Stone Shards'' are both launched over 1 second, and finally the fourth and fifth ''Stone Shards'' are both launched over {{fd|0.5}} seconds. \n* {{tip|Spell shield}} only prevents one instance of damage.\n|flavorsound  = {{sm2|Taliyah_Original_Q_5.ogg}} ''\"If at first you don't succeed, '''throw another rock'''!\"''\n}}"
         ]
       }
     ],
@@ -938,7 +938,7 @@
         "values": []
       },
       "targetRange": {
-        "text": "2500 / 4500 / 6500 \u2022 900",
+        "text": "2500 / 4500 / 6500 • 900",
         "values": [
           {
             "series": {
@@ -961,7 +961,7 @@
         ]
       },
       "range": {
-        "text": "700 \u2022 1000",
+        "text": "700 • 1000",
         "values": [
           {
             "series": {
@@ -980,7 +980,7 @@
         ]
       },
       "speed": {
-        "text": "1500 \u2022 1200",
+        "text": "1500 • 1200",
         "values": [
           {
             "series": {

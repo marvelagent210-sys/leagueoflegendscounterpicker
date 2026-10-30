@@ -203,8 +203,8 @@
     ],
     "gameSources": [
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/hwei/hwei.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/hwei/hwei.bin.json",
         "sha256": "f12b7f7fb3abcac2ee2974ae33edd6331566e304dfc68581e891f262945e0d60",
         "object": "Characters/Hwei/Spells/HweiEAbility/HweiEE",
         "text": [
@@ -212,8 +212,8 @@
         ]
       },
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/hwei/hwei.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/hwei/hwei.bin.json",
         "sha256": "f12b7f7fb3abcac2ee2974ae33edd6331566e304dfc68581e891f262945e0d60",
         "object": "Characters/Hwei/Spells/HweiEAbility/HweiEEPull",
         "text": [
@@ -452,8 +452,8 @@
     ],
     "gameSources": [
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/hwei/hwei.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/hwei/hwei.bin.json",
         "sha256": "f12b7f7fb3abcac2ee2974ae33edd6331566e304dfc68581e891f262945e0d60",
         "object": "Characters/Hwei/Spells/HweiQAbility/HweiQE",
         "text": [
@@ -461,8 +461,8 @@
         ]
       },
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/hwei/hwei.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/hwei/hwei.bin.json",
         "sha256": "f12b7f7fb3abcac2ee2974ae33edd6331566e304dfc68581e891f262945e0d60",
         "object": "Characters/Hwei/Spells/HweiQAbility/HweiQETell",
         "text": [
@@ -470,8 +470,8 @@
         ]
       },
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/hwei/hwei.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/hwei/hwei.bin.json",
         "sha256": "f12b7f7fb3abcac2ee2974ae33edd6331566e304dfc68581e891f262945e0d60",
         "object": "Characters/Hwei/Spells/HweiQAbility/HweiQESlow",
         "text": [
@@ -479,8 +479,8 @@
         ]
       },
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/hwei/hwei.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/hwei/hwei.bin.json",
         "sha256": "f12b7f7fb3abcac2ee2974ae33edd6331566e304dfc68581e891f262945e0d60",
         "object": "Characters/Hwei/Spells/HweiQAbility/HweiQELavaDPS",
         "text": [
@@ -671,8 +671,8 @@
     ],
     "gameSources": [
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/hwei/hwei.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/hwei/hwei.bin.json",
         "sha256": "f12b7f7fb3abcac2ee2974ae33edd6331566e304dfc68581e891f262945e0d60",
         "object": "Characters/Hwei/Spells/HweiWAbility/HweiWE",
         "text": [
@@ -680,8 +680,8 @@
         ]
       },
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/hwei/hwei.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/hwei/hwei.bin.json",
         "sha256": "f12b7f7fb3abcac2ee2974ae33edd6331566e304dfc68581e891f262945e0d60",
         "object": "Characters/Hwei/Spells/HweiWAbility/HweiWEBuffCounter",
         "text": [
@@ -776,8 +776,8 @@
     ],
     "gameSources": [
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/hwei/hwei.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/hwei/hwei.bin.json",
         "sha256": "f12b7f7fb3abcac2ee2974ae33edd6331566e304dfc68581e891f262945e0d60",
         "object": "Characters/Hwei/Spells/HweiEAbility/HweiE",
         "text": [
@@ -885,8 +885,8 @@
     ],
     "gameSources": [
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/hwei/hwei.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/hwei/hwei.bin.json",
         "sha256": "f12b7f7fb3abcac2ee2974ae33edd6331566e304dfc68581e891f262945e0d60",
         "object": "Characters/Hwei/Spells/HweiPassiveAbility/HweiPassive",
         "text": [
@@ -894,8 +894,8 @@
         ]
       },
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/hwei/hwei.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/hwei/hwei.bin.json",
         "sha256": "f12b7f7fb3abcac2ee2974ae33edd6331566e304dfc68581e891f262945e0d60",
         "object": "Characters/Hwei/Spells/HweiPassiveAbility/HweiSignature",
         "text": [
@@ -1061,8 +1061,8 @@
     ],
     "gameSources": [
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/hwei/hwei.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/hwei/hwei.bin.json",
         "sha256": "f12b7f7fb3abcac2ee2974ae33edd6331566e304dfc68581e891f262945e0d60",
         "object": "Characters/Hwei/Spells/HweiQAbility/HweiQQ",
         "text": [
@@ -1220,8 +1220,8 @@
     ],
     "gameSources": [
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/hwei/hwei.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/hwei/hwei.bin.json",
         "sha256": "f12b7f7fb3abcac2ee2974ae33edd6331566e304dfc68581e891f262945e0d60",
         "object": "Characters/Hwei/Spells/HweiWAbility/HweiWQ",
         "text": [
@@ -1229,8 +1229,8 @@
         ]
       },
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/hwei/hwei.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/hwei/hwei.bin.json",
         "sha256": "f12b7f7fb3abcac2ee2974ae33edd6331566e304dfc68581e891f262945e0d60",
         "object": "Characters/Hwei/Spells/HweiWAbility/HweiWQMoveSpeed",
         "text": [
@@ -1458,8 +1458,8 @@
     ],
     "gameSources": [
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/hwei/hwei.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/hwei/hwei.bin.json",
         "sha256": "f12b7f7fb3abcac2ee2974ae33edd6331566e304dfc68581e891f262945e0d60",
         "object": "Characters/Hwei/Spells/HweiEAbility/HweiEQ",
         "text": [
@@ -1467,8 +1467,8 @@
         ]
       },
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/hwei/hwei.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/hwei/hwei.bin.json",
         "sha256": "f12b7f7fb3abcac2ee2974ae33edd6331566e304dfc68581e891f262945e0d60",
         "object": "Characters/Hwei/Spells/HweiEAbility/HweiEQSlow",
         "text": [
@@ -1476,8 +1476,8 @@
         ]
       },
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/hwei/hwei.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/hwei/hwei.bin.json",
         "sha256": "f12b7f7fb3abcac2ee2974ae33edd6331566e304dfc68581e891f262945e0d60",
         "object": "Characters/Hwei/Spells/HweiEAbility/HweiEQFlee",
         "text": [
@@ -1572,8 +1572,8 @@
     ],
     "gameSources": [
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/hwei/hwei.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/hwei/hwei.bin.json",
         "sha256": "f12b7f7fb3abcac2ee2974ae33edd6331566e304dfc68581e891f262945e0d60",
         "object": "Characters/Hwei/Spells/HweiQAbility/HweiQ",
         "text": [
@@ -1881,8 +1881,8 @@
     ],
     "gameSources": [
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/hwei/hwei.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/hwei/hwei.bin.json",
         "sha256": "f12b7f7fb3abcac2ee2974ae33edd6331566e304dfc68581e891f262945e0d60",
         "object": "Characters/Hwei/Spells/HweiRAbility/HweiR",
         "text": [
@@ -1890,8 +1890,8 @@
         ]
       },
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/hwei/hwei.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/hwei/hwei.bin.json",
         "sha256": "f12b7f7fb3abcac2ee2974ae33edd6331566e304dfc68581e891f262945e0d60",
         "object": "Characters/Hwei/Spells/HweiRAbility/HweiRDespair",
         "text": [
@@ -1899,8 +1899,8 @@
         ]
       },
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/hwei/hwei.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/hwei/hwei.bin.json",
         "sha256": "f12b7f7fb3abcac2ee2974ae33edd6331566e304dfc68581e891f262945e0d60",
         "object": "Characters/Hwei/Spells/HweiRAbility/HweiRDespairSlow",
         "text": [
@@ -1966,8 +1966,8 @@
     ],
     "gameSources": [
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/hwei/hwei.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/hwei/hwei.bin.json",
         "sha256": "f12b7f7fb3abcac2ee2974ae33edd6331566e304dfc68581e891f262945e0d60",
         "object": "Characters/Hwei/Spells/HweiRAbility/HweiWashBrush",
         "text": [
@@ -2172,8 +2172,8 @@
     ],
     "gameSources": [
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/hwei/hwei.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/hwei/hwei.bin.json",
         "sha256": "f12b7f7fb3abcac2ee2974ae33edd6331566e304dfc68581e891f262945e0d60",
         "object": "Characters/Hwei/Spells/HweiEAbility/HweiEW",
         "text": [
@@ -2181,8 +2181,8 @@
         ]
       },
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/hwei/hwei.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/hwei/hwei.bin.json",
         "sha256": "f12b7f7fb3abcac2ee2974ae33edd6331566e304dfc68581e891f262945e0d60",
         "object": "Characters/Hwei/Spells/HweiEAbility/HweiEWTriggerMissile",
         "text": [
@@ -2190,8 +2190,8 @@
         ]
       },
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/hwei/hwei.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/hwei/hwei.bin.json",
         "sha256": "f12b7f7fb3abcac2ee2974ae33edd6331566e304dfc68581e891f262945e0d60",
         "object": "Characters/Hwei/Spells/HweiEAbility/HweiEWRoot",
         "text": [
@@ -2465,8 +2465,8 @@
     ],
     "gameSources": [
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/hwei/hwei.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/hwei/hwei.bin.json",
         "sha256": "f12b7f7fb3abcac2ee2974ae33edd6331566e304dfc68581e891f262945e0d60",
         "object": "Characters/Hwei/Spells/HweiWAbility/HweiWW",
         "text": [
@@ -2474,8 +2474,8 @@
         ]
       },
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/hwei/hwei.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/hwei/hwei.bin.json",
         "sha256": "f12b7f7fb3abcac2ee2974ae33edd6331566e304dfc68581e891f262945e0d60",
         "object": "Characters/Hwei/Spells/HweiWAbility/HweiWWShield",
         "text": [
@@ -2673,8 +2673,8 @@
     ],
     "gameSources": [
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/hwei/hwei.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/hwei/hwei.bin.json",
         "sha256": "f12b7f7fb3abcac2ee2974ae33edd6331566e304dfc68581e891f262945e0d60",
         "object": "Characters/Hwei/Spells/HweiQAbility/HweiQW",
         "text": [
@@ -2769,8 +2769,8 @@
     ],
     "gameSources": [
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/hwei/hwei.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/hwei/hwei.bin.json",
         "sha256": "f12b7f7fb3abcac2ee2974ae33edd6331566e304dfc68581e891f262945e0d60",
         "object": "Characters/Hwei/Spells/HweiWAbility/HweiW",
         "text": [

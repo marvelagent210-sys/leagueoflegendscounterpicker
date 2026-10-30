@@ -187,8 +187,8 @@
     ],
     "gameSources": [
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/vi/vi.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/vi/vi.bin.json",
         "sha256": "eb1a916d530dd1c8c8f96d9fdeffca172414a19d22c37d74aac35ad0a5ea4070",
         "object": "Characters/Vi/Spells/ViEAbility/ViE",
         "text": [
@@ -196,8 +196,8 @@
         ]
       },
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/vi/vi.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/vi/vi.bin.json",
         "sha256": "eb1a916d530dd1c8c8f96d9fdeffca172414a19d22c37d74aac35ad0a5ea4070",
         "object": "Characters/Vi/Spells/ViEArea",
         "text": [
@@ -205,8 +205,8 @@
         ]
       },
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/vi/vi.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/vi/vi.bin.json",
         "sha256": "eb1a916d530dd1c8c8f96d9fdeffca172414a19d22c37d74aac35ad0a5ea4070",
         "object": "Characters/Vi/Spells/ViEAttack",
         "text": [
@@ -214,8 +214,8 @@
         ]
       },
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/vi/vi.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/vi/vi.bin.json",
         "sha256": "eb1a916d530dd1c8c8f96d9fdeffca172414a19d22c37d74aac35ad0a5ea4070",
         "object": "Characters/Vi/Spells/ViEPunch",
         "text": [
@@ -235,7 +235,7 @@
     "ranks": 1,
     "fields": {
       "staticCooldown": {
-        "text": "16 \u2013 12 (based on level)",
+        "text": "16 – 12 (based on level)",
         "values": [
           {
             "series": {
@@ -311,8 +311,8 @@
     ],
     "gameSources": [
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/vi/vi.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/vi/vi.bin.json",
         "sha256": "eb1a916d530dd1c8c8f96d9fdeffca172414a19d22c37d74aac35ad0a5ea4070",
         "object": "Characters/Vi/Spells/ViPassiveAbility/ViPassive",
         "text": [
@@ -320,8 +320,8 @@
         ]
       },
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/vi/vi.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/vi/vi.bin.json",
         "sha256": "eb1a916d530dd1c8c8f96d9fdeffca172414a19d22c37d74aac35ad0a5ea4070",
         "object": "Characters/Vi/Spells/ViPassiveReady",
         "text": [
@@ -329,8 +329,8 @@
         ]
       },
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/vi/vi.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/vi/vi.bin.json",
         "sha256": "eb1a916d530dd1c8c8f96d9fdeffca172414a19d22c37d74aac35ad0a5ea4070",
         "object": "Characters/Vi/Spells/ViPassiveBuff",
         "text": [
@@ -701,8 +701,8 @@
     ],
     "gameSources": [
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/vi/vi.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/vi/vi.bin.json",
         "sha256": "eb1a916d530dd1c8c8f96d9fdeffca172414a19d22c37d74aac35ad0a5ea4070",
         "object": "Characters/Vi/Spells/ViQAbility/ViQ",
         "text": [
@@ -710,8 +710,8 @@
         ]
       },
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/vi/vi.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/vi/vi.bin.json",
         "sha256": "eb1a916d530dd1c8c8f96d9fdeffca172414a19d22c37d74aac35ad0a5ea4070",
         "object": "Characters/Vi/Spells/ViQDash",
         "text": [
@@ -719,8 +719,8 @@
         ]
       },
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/vi/vi.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/vi/vi.bin.json",
         "sha256": "eb1a916d530dd1c8c8f96d9fdeffca172414a19d22c37d74aac35ad0a5ea4070",
         "object": "Characters/Vi/Spells/ViQKnockback",
         "text": [
@@ -728,8 +728,8 @@
         ]
       },
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/vi/vi.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/vi/vi.bin.json",
         "sha256": "eb1a916d530dd1c8c8f96d9fdeffca172414a19d22c37d74aac35ad0a5ea4070",
         "object": "Characters/Vi/Spells/ViQLaunch",
         "text": [
@@ -965,8 +965,8 @@
     ],
     "gameSources": [
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/vi/vi.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/vi/vi.bin.json",
         "sha256": "eb1a916d530dd1c8c8f96d9fdeffca172414a19d22c37d74aac35ad0a5ea4070",
         "object": "Characters/Vi/Spells/ViRAbility/ViR",
         "text": [
@@ -974,8 +974,8 @@
         ]
       },
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/vi/vi.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/vi/vi.bin.json",
         "sha256": "eb1a916d530dd1c8c8f96d9fdeffca172414a19d22c37d74aac35ad0a5ea4070",
         "object": "Characters/Vi/Spells/ViRTarget",
         "text": [
@@ -983,8 +983,8 @@
         ]
       },
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/vi/vi.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/vi/vi.bin.json",
         "sha256": "eb1a916d530dd1c8c8f96d9fdeffca172414a19d22c37d74aac35ad0a5ea4070",
         "object": "Characters/Vi/Spells/ViRHit",
         "text": [
@@ -992,8 +992,8 @@
         ]
       },
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/vi/vi.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/vi/vi.bin.json",
         "sha256": "eb1a916d530dd1c8c8f96d9fdeffca172414a19d22c37d74aac35ad0a5ea4070",
         "object": "Characters/Vi/Spells/ViRKnockback",
         "text": [
@@ -1001,8 +1001,8 @@
         ]
       },
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/vi/vi.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/vi/vi.bin.json",
         "sha256": "eb1a916d530dd1c8c8f96d9fdeffca172414a19d22c37d74aac35ad0a5ea4070",
         "object": "Characters/Vi/Spells/ViRDunk",
         "text": [
@@ -1129,8 +1129,8 @@
     ],
     "gameSources": [
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/vi/vi.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/vi/vi.bin.json",
         "sha256": "eb1a916d530dd1c8c8f96d9fdeffca172414a19d22c37d74aac35ad0a5ea4070",
         "object": "Characters/Vi/Spells/ViWAbility/ViW",
         "text": [
@@ -1138,8 +1138,8 @@
         ]
       },
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/vi/vi.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/vi/vi.bin.json",
         "sha256": "eb1a916d530dd1c8c8f96d9fdeffca172414a19d22c37d74aac35ad0a5ea4070",
         "object": "Characters/Vi/Spells/ViWMarker",
         "text": [
@@ -1147,8 +1147,8 @@
         ]
       },
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/vi/vi.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/vi/vi.bin.json",
         "sha256": "eb1a916d530dd1c8c8f96d9fdeffca172414a19d22c37d74aac35ad0a5ea4070",
         "object": "Characters/Vi/Spells/ViWBuff",
         "text": [
@@ -1156,8 +1156,8 @@
         ]
       },
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/vi/vi.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/vi/vi.bin.json",
         "sha256": "eb1a916d530dd1c8c8f96d9fdeffca172414a19d22c37d74aac35ad0a5ea4070",
         "object": "Characters/Vi/Spells/ViWProc",
         "text": [

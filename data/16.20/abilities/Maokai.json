@@ -422,8 +422,8 @@
     ],
     "gameSources": [
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/maokai/maokai.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/maokai/maokai.bin.json",
         "sha256": "c4ccffe1b0de1c846d5eb8b66ecd00f5dd4522410adea5d39f6329a6bff58229",
         "object": "Characters/Maokai/Spells/MaokaiEAbility/MaokaiEMissileBrush",
         "text": [
@@ -470,8 +470,8 @@
         ]
       },
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/maokai/maokai.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/maokai/maokai.bin.json",
         "sha256": "c4ccffe1b0de1c846d5eb8b66ecd00f5dd4522410adea5d39f6329a6bff58229",
         "object": "Characters/Maokai/Spells/MaokaiEAbility/TrapLimiter_Maokai",
         "text": [
@@ -484,8 +484,8 @@
         ]
       },
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/maokai/maokai.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/maokai/maokai.bin.json",
         "sha256": "c4ccffe1b0de1c846d5eb8b66ecd00f5dd4522410adea5d39f6329a6bff58229",
         "object": "Characters/Maokai/Spells/MaokaiEAbility/MaokaiEMissile",
         "text": [
@@ -532,8 +532,8 @@
         ]
       },
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/maokai/maokai.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/maokai/maokai.bin.json",
         "sha256": "c4ccffe1b0de1c846d5eb8b66ecd00f5dd4522410adea5d39f6329a6bff58229",
         "object": "Characters/Maokai/Spells/MaokaiEAbility/MaokaiEMissileBrushTiny2",
         "text": [
@@ -586,8 +586,8 @@
         ]
       },
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/maokai/maokai.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/maokai/maokai.bin.json",
         "sha256": "c4ccffe1b0de1c846d5eb8b66ecd00f5dd4522410adea5d39f6329a6bff58229",
         "object": "Characters/Maokai/Spells/MaokaiEAbility/MaokaiEMissileBrushTiny",
         "text": [
@@ -640,8 +640,8 @@
         ]
       },
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/maokai/maokai.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/maokai/maokai.bin.json",
         "sha256": "c4ccffe1b0de1c846d5eb8b66ecd00f5dd4522410adea5d39f6329a6bff58229",
         "object": "Characters/Maokai/Spells/MaokaiEAbility/MaokaiSapling2",
         "text": [
@@ -652,8 +652,8 @@
         ]
       },
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/maokai/maokai.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/maokai/maokai.bin.json",
         "sha256": "c4ccffe1b0de1c846d5eb8b66ecd00f5dd4522410adea5d39f6329a6bff58229",
         "object": "Characters/Maokai/Spells/MaokaiEAbility/MaokaiEMark",
         "text": [
@@ -666,8 +666,8 @@
         ]
       },
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/maokai/maokai.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/maokai/maokai.bin.json",
         "sha256": "c4ccffe1b0de1c846d5eb8b66ecd00f5dd4522410adea5d39f6329a6bff58229",
         "object": "Characters/Maokai/Spells/MaokaiEAbility/MaokaiE",
         "text": [
@@ -902,8 +902,8 @@
     ],
     "gameSources": [
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/maokai/maokai.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/maokai/maokai.bin.json",
         "sha256": "c4ccffe1b0de1c846d5eb8b66ecd00f5dd4522410adea5d39f6329a6bff58229",
         "object": "Characters/Maokai/Spells/MaokaiPassiveAbility/MaokaiPassiveReady",
         "text": [
@@ -917,8 +917,8 @@
         ]
       },
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/maokai/maokai.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/maokai/maokai.bin.json",
         "sha256": "c4ccffe1b0de1c846d5eb8b66ecd00f5dd4522410adea5d39f6329a6bff58229",
         "object": "Characters/Maokai/Spells/MaokaiPassiveAbility/MaokaiPassive",
         "text": [
@@ -958,8 +958,8 @@
         ]
       },
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/maokai/maokai.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/maokai/maokai.bin.json",
         "sha256": "c4ccffe1b0de1c846d5eb8b66ecd00f5dd4522410adea5d39f6329a6bff58229",
         "object": "Characters/Maokai/Spells/MaokaiPassiveAbility/MaokaiPassiveAttack",
         "text": [
@@ -1265,8 +1265,8 @@
     ],
     "gameSources": [
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/maokai/maokai.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/maokai/maokai.bin.json",
         "sha256": "c4ccffe1b0de1c846d5eb8b66ecd00f5dd4522410adea5d39f6329a6bff58229",
         "object": "Characters/Maokai/Spells/MaokaiQAbility/MaokaiQKnockback",
         "text": [
@@ -1279,8 +1279,8 @@
         ]
       },
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/maokai/maokai.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/maokai/maokai.bin.json",
         "sha256": "c4ccffe1b0de1c846d5eb8b66ecd00f5dd4522410adea5d39f6329a6bff58229",
         "object": "Characters/Maokai/Spells/MaokaiQAbility/MaokaiQMissile",
         "text": [
@@ -1336,8 +1336,8 @@
         ]
       },
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/maokai/maokai.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/maokai/maokai.bin.json",
         "sha256": "c4ccffe1b0de1c846d5eb8b66ecd00f5dd4522410adea5d39f6329a6bff58229",
         "object": "Characters/Maokai/Spells/MaokaiQAbility/MaokaiQ",
         "text": [
@@ -1673,8 +1673,8 @@
     ],
     "gameSources": [
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/maokai/maokai.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/maokai/maokai.bin.json",
         "sha256": "c4ccffe1b0de1c846d5eb8b66ecd00f5dd4522410adea5d39f6329a6bff58229",
         "object": "Characters/Maokai/Spells/MaokaiRAbility/MaokaiRMisExtra",
         "text": [
@@ -1728,8 +1728,8 @@
         ]
       },
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/maokai/maokai.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/maokai/maokai.bin.json",
         "sha256": "c4ccffe1b0de1c846d5eb8b66ecd00f5dd4522410adea5d39f6329a6bff58229",
         "object": "Characters/Maokai/Spells/MaokaiRAbility/MaokaiRMoveSpeed",
         "text": [
@@ -1749,8 +1749,8 @@
         ]
       },
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/maokai/maokai.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/maokai/maokai.bin.json",
         "sha256": "c4ccffe1b0de1c846d5eb8b66ecd00f5dd4522410adea5d39f6329a6bff58229",
         "object": "Characters/Maokai/Spells/MaokaiRAbility/MaokaiRMis",
         "text": [
@@ -1806,8 +1806,8 @@
         ]
       },
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/maokai/maokai.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/maokai/maokai.bin.json",
         "sha256": "c4ccffe1b0de1c846d5eb8b66ecd00f5dd4522410adea5d39f6329a6bff58229",
         "object": "Characters/Maokai/Spells/MaokaiRAbility/MaokaiRRoot",
         "text": [
@@ -1820,8 +1820,8 @@
         ]
       },
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/maokai/maokai.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/maokai/maokai.bin.json",
         "sha256": "c4ccffe1b0de1c846d5eb8b66ecd00f5dd4522410adea5d39f6329a6bff58229",
         "object": "Characters/Maokai/Spells/MaokaiRAbility/MaokaiRSoundMis",
         "text": [
@@ -1875,8 +1875,8 @@
         ]
       },
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/maokai/maokai.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/maokai/maokai.bin.json",
         "sha256": "c4ccffe1b0de1c846d5eb8b66ecd00f5dd4522410adea5d39f6329a6bff58229",
         "object": "Characters/Maokai/Spells/MaokaiRAbility/MaokaiR",
         "text": [
@@ -2133,8 +2133,8 @@
     ],
     "gameSources": [
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/maokai/maokai.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/maokai/maokai.bin.json",
         "sha256": "c4ccffe1b0de1c846d5eb8b66ecd00f5dd4522410adea5d39f6329a6bff58229",
         "object": "Characters/Maokai/Spells/MaokaiWAbility/MaokaiW",
         "text": [
@@ -2197,8 +2197,8 @@
         ]
       },
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/maokai/maokai.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/maokai/maokai.bin.json",
         "sha256": "c4ccffe1b0de1c846d5eb8b66ecd00f5dd4522410adea5d39f6329a6bff58229",
         "object": "Characters/Maokai/Spells/MaokaiWAbility/MaokaiWRoot",
         "text": [

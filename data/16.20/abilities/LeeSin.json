@@ -119,8 +119,8 @@
     ],
     "gameSources": [
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/leesin/leesin.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/leesin/leesin.bin.json",
         "sha256": "ff772fc7e37822c6779d1a817931ac24e66fe667f5401ab838df3bcceaacaf54",
         "object": "Characters/LeeSin/Spells/LeeSinEOneAbility/LeeSinETwo",
         "text": [
@@ -128,8 +128,8 @@
         ]
       },
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/leesin/leesin.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/leesin/leesin.bin.json",
         "sha256": "ff772fc7e37822c6779d1a817931ac24e66fe667f5401ab838df3bcceaacaf54",
         "object": "Characters/LeeSin/Spells/LeeSinEOneAbility/LeeSinETwoDebuff",
         "text": [
@@ -137,8 +137,8 @@
         ]
       },
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/leesin/leesin.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/leesin/leesin.bin.json",
         "sha256": "ff772fc7e37822c6779d1a817931ac24e66fe667f5401ab838df3bcceaacaf54",
         "object": "Characters/LeeSin/Spells/LeeSinEOneAbility/LeeSinEOne",
         "text": [
@@ -303,8 +303,8 @@
     ],
     "gameSources": [
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/leesin/leesin.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/leesin/leesin.bin.json",
         "sha256": "ff772fc7e37822c6779d1a817931ac24e66fe667f5401ab838df3bcceaacaf54",
         "object": "Characters/LeeSin/Spells/LeeSinEOneAbility/LeeSinEOne",
         "text": [
@@ -400,8 +400,8 @@
     ],
     "gameSources": [
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/leesin/leesin.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/leesin/leesin.bin.json",
         "sha256": "ff772fc7e37822c6779d1a817931ac24e66fe667f5401ab838df3bcceaacaf54",
         "object": "Characters/LeeSin/Spells/LeeSinPassiveAbility/LeeSinPassive",
         "text": [
@@ -608,8 +608,8 @@
     ],
     "gameSources": [
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/leesin/leesin.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/leesin/leesin.bin.json",
         "sha256": "ff772fc7e37822c6779d1a817931ac24e66fe667f5401ab838df3bcceaacaf54",
         "object": "Characters/LeeSin/Spells/LeeSinQOneAbility/LeeSinQTwo",
         "text": [
@@ -617,8 +617,8 @@
         ]
       },
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/leesin/leesin.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/leesin/leesin.bin.json",
         "sha256": "ff772fc7e37822c6779d1a817931ac24e66fe667f5401ab838df3bcceaacaf54",
         "object": "Characters/LeeSin/Spells/LeeSinQOneAbility/LeeSinQOne",
         "text": [
@@ -811,8 +811,8 @@
     ],
     "gameSources": [
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/leesin/leesin.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/leesin/leesin.bin.json",
         "sha256": "ff772fc7e37822c6779d1a817931ac24e66fe667f5401ab838df3bcceaacaf54",
         "object": "Characters/LeeSin/Spells/LeeSinQOneAbility/LeeSinQOne",
         "text": [
@@ -1070,8 +1070,8 @@
     ],
     "gameSources": [
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/leesin/leesin.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/leesin/leesin.bin.json",
         "sha256": "ff772fc7e37822c6779d1a817931ac24e66fe667f5401ab838df3bcceaacaf54",
         "object": "Characters/LeeSin/Spells/LeeSinRAbility/LeeSinR",
         "text": [
@@ -1174,8 +1174,8 @@
     ],
     "gameSources": [
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/leesin/leesin.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/leesin/leesin.bin.json",
         "sha256": "ff772fc7e37822c6779d1a817931ac24e66fe667f5401ab838df3bcceaacaf54",
         "object": "Characters/LeeSin/Spells/LeeSinWOneAbility/LeeSinWTwo",
         "text": [
@@ -1183,8 +1183,8 @@
         ]
       },
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/leesin/leesin.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/leesin/leesin.bin.json",
         "sha256": "ff772fc7e37822c6779d1a817931ac24e66fe667f5401ab838df3bcceaacaf54",
         "object": "Characters/LeeSin/Spells/LeeSinWOneAbility/LeeSinWOne",
         "text": [
@@ -1353,8 +1353,8 @@
     ],
     "gameSources": [
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/leesin/leesin.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/leesin/leesin.bin.json",
         "sha256": "ff772fc7e37822c6779d1a817931ac24e66fe667f5401ab838df3bcceaacaf54",
         "object": "Characters/LeeSin/Spells/LeeSinWOneAbility/LeeSinWOne",
         "text": [

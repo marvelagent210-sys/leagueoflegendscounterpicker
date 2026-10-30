@@ -226,8 +226,8 @@
     ],
     "gameSources": [
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/vex/vex.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/vex/vex.bin.json",
         "sha256": "a119398a4f9857af030c8ede72b087aa4ed699601a94f1c813b4f5afa219daa9",
         "object": "Characters/Vex/Spells/VexEAbility/VexE",
         "text": [
@@ -582,8 +582,8 @@
     ],
     "gameSources": [
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/vex/vex.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/vex/vex.bin.json",
         "sha256": "a119398a4f9857af030c8ede72b087aa4ed699601a94f1c813b4f5afa219daa9",
         "object": "Characters/Vex/Spells/VexPAbility/VexP",
         "text": [
@@ -591,8 +591,8 @@
         ]
       },
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/vex/vex.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/vex/vex.bin.json",
         "sha256": "a119398a4f9857af030c8ede72b087aa4ed699601a94f1c813b4f5afa219daa9",
         "object": "Characters/Vex/Spells/VexPFear",
         "text": [
@@ -600,8 +600,8 @@
         ]
       },
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/vex/vex.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/vex/vex.bin.json",
         "sha256": "a119398a4f9857af030c8ede72b087aa4ed699601a94f1c813b4f5afa219daa9",
         "object": "Characters/Vex/Spells/VexPCooldown",
         "text": [
@@ -609,8 +609,8 @@
         ]
       },
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/vex/vex.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/vex/vex.bin.json",
         "sha256": "a119398a4f9857af030c8ede72b087aa4ed699601a94f1c813b4f5afa219daa9",
         "object": "Characters/Vex/Spells/VexPAbility",
         "text": [
@@ -618,8 +618,8 @@
         ]
       },
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/vex/vex.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/vex/vex.bin.json",
         "sha256": "a119398a4f9857af030c8ede72b087aa4ed699601a94f1c813b4f5afa219daa9",
         "object": "Characters/Vex/Spells/VexPDoom",
         "text": [
@@ -627,8 +627,8 @@
         ]
       },
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/vex/vex.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/vex/vex.bin.json",
         "sha256": "a119398a4f9857af030c8ede72b087aa4ed699601a94f1c813b4f5afa219daa9",
         "object": "Characters/Vex/Spells/VexPGloom",
         "text": [
@@ -811,8 +811,8 @@
     ],
     "gameSources": [
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/vex/vex.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/vex/vex.bin.json",
         "sha256": "a119398a4f9857af030c8ede72b087aa4ed699601a94f1c813b4f5afa219daa9",
         "object": "Characters/Vex/Spells/VexQAbility/VexQ",
         "text": [
@@ -1118,8 +1118,8 @@
     ],
     "gameSources": [
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/vex/vex.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/vex/vex.bin.json",
         "sha256": "a119398a4f9857af030c8ede72b087aa4ed699601a94f1c813b4f5afa219daa9",
         "object": "Characters/Vex/Spells/VexRAbility/VexR2",
         "text": [
@@ -1127,8 +1127,8 @@
         ]
       },
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/vex/vex.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/vex/vex.bin.json",
         "sha256": "a119398a4f9857af030c8ede72b087aa4ed699601a94f1c813b4f5afa219daa9",
         "object": "Characters/Vex/Spells/VexRAbility/VexR",
         "text": [
@@ -1136,8 +1136,8 @@
         ]
       },
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/vex/vex.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/vex/vex.bin.json",
         "sha256": "a119398a4f9857af030c8ede72b087aa4ed699601a94f1c813b4f5afa219daa9",
         "object": "Characters/Vex/Spells/VexRAbility/VexRSpellPassive",
         "text": [
@@ -1145,8 +1145,8 @@
         ]
       },
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/vex/vex.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/vex/vex.bin.json",
         "sha256": "a119398a4f9857af030c8ede72b087aa4ed699601a94f1c813b4f5afa219daa9",
         "object": "Characters/Vex/Spells/VexRAbility/VexRTarget",
         "text": [
@@ -1343,8 +1343,8 @@
     ],
     "gameSources": [
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/vex/vex.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/vex/vex.bin.json",
         "sha256": "a119398a4f9857af030c8ede72b087aa4ed699601a94f1c813b4f5afa219daa9",
         "object": "Characters/Vex/Spells/VexWAbility/VexW",
         "text": [

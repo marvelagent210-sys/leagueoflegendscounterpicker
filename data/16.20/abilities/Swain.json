@@ -292,8 +292,8 @@
     ],
     "gameSources": [
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/swain/swain.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/swain/swain.bin.json",
         "sha256": "c3669d990eb0d2af8be1387ff7fb3ff4380dfed1da496567392aa14a40d4a2fe",
         "object": "Characters/Swain/Spells/SwainEAbility/SwainE",
         "text": [
@@ -301,8 +301,8 @@
         ]
       },
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/swain/swain.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/swain/swain.bin.json",
         "sha256": "c3669d990eb0d2af8be1387ff7fb3ff4380dfed1da496567392aa14a40d4a2fe",
         "object": "Characters/Swain/Spells/SwainEAbility/SwainE",
         "text": [
@@ -310,8 +310,8 @@
         ]
       },
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/swain/swain.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/swain/swain.bin.json",
         "sha256": "c3669d990eb0d2af8be1387ff7fb3ff4380dfed1da496567392aa14a40d4a2fe",
         "object": "Characters/Swain/Spells/SwainEAbility/SwainEReturnMissile",
         "text": [
@@ -415,8 +415,8 @@
     ],
     "gameSources": [
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/swain/swain.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/swain/swain.bin.json",
         "sha256": "c3669d990eb0d2af8be1387ff7fb3ff4380dfed1da496567392aa14a40d4a2fe",
         "object": "Characters/Swain/Spells/SwainPassiveReturnBirdMissile",
         "text": [
@@ -424,8 +424,8 @@
         ]
       },
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/swain/swain.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/swain/swain.bin.json",
         "sha256": "c3669d990eb0d2af8be1387ff7fb3ff4380dfed1da496567392aa14a40d4a2fe",
         "object": "Characters/Swain/Spells/SwainPassiveAbility/SwainPassive",
         "text": [
@@ -652,8 +652,8 @@
     ],
     "gameSources": [
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/swain/swain.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/swain/swain.bin.json",
         "sha256": "c3669d990eb0d2af8be1387ff7fb3ff4380dfed1da496567392aa14a40d4a2fe",
         "object": "Characters/Swain/Spells/SwainQDummyMissile",
         "text": [
@@ -661,8 +661,8 @@
         ]
       },
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/swain/swain.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/swain/swain.bin.json",
         "sha256": "c3669d990eb0d2af8be1387ff7fb3ff4380dfed1da496567392aa14a40d4a2fe",
         "object": "Characters/Swain/Spells/SwainQAbility/SwainQ",
         "text": [
@@ -830,8 +830,8 @@
     ],
     "gameSources": [
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/swain/swain.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/swain/swain.bin.json",
         "sha256": "c3669d990eb0d2af8be1387ff7fb3ff4380dfed1da496567392aa14a40d4a2fe",
         "object": "Characters/Swain/Spells/SwainRMegaNovaMissile",
         "text": [
@@ -1080,8 +1080,8 @@
     ],
     "gameSources": [
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/swain/swain.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/swain/swain.bin.json",
         "sha256": "c3669d990eb0d2af8be1387ff7fb3ff4380dfed1da496567392aa14a40d4a2fe",
         "object": "Characters/Swain/Spells/SwainRAbility/SwainR",
         "text": [
@@ -1089,8 +1089,8 @@
         ]
       },
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/swain/swain.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/swain/swain.bin.json",
         "sha256": "c3669d990eb0d2af8be1387ff7fb3ff4380dfed1da496567392aa14a40d4a2fe",
         "object": "Characters/Swain/Spells/SwainRAbility/SwainR",
         "text": [
@@ -1327,8 +1327,8 @@
     ],
     "gameSources": [
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/swain/swain.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/swain/swain.bin.json",
         "sha256": "c3669d990eb0d2af8be1387ff7fb3ff4380dfed1da496567392aa14a40d4a2fe",
         "object": "Characters/Swain/Spells/SwainWAbility/SwainW",
         "text": [

@@ -202,8 +202,8 @@
     ],
     "gameSources": [
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/rakan/rakan.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/rakan/rakan.bin.json",
         "sha256": "ad43a676d9cd7edfe3bb873eb292d65fe2d920aa59640330a5abc2fc1c6f82c2",
         "object": "Characters/Rakan/Spells/RakanEAbility/RakanE",
         "text": [
@@ -211,8 +211,8 @@
         ]
       },
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/rakan/rakan.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/rakan/rakan.bin.json",
         "sha256": "ad43a676d9cd7edfe3bb873eb292d65fe2d920aa59640330a5abc2fc1c6f82c2",
         "object": "Characters/Rakan/Spells/RakanEAbility/RakanECast",
         "text": [
@@ -220,8 +220,8 @@
         ]
       },
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/rakan/rakan.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/rakan/rakan.bin.json",
         "sha256": "ad43a676d9cd7edfe3bb873eb292d65fe2d920aa59640330a5abc2fc1c6f82c2",
         "object": "Characters/Rakan/Spells/RakanEAbility/RakanECastXaya",
         "text": [
@@ -229,8 +229,8 @@
         ]
       },
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/rakan/rakan.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/rakan/rakan.bin.json",
         "sha256": "ad43a676d9cd7edfe3bb873eb292d65fe2d920aa59640330a5abc2fc1c6f82c2",
         "object": "Characters/Rakan/Spells/RakanEAbility/RakanERecast",
         "text": [
@@ -374,8 +374,8 @@
     ],
     "gameSources": [
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/rakan/rakan.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/rakan/rakan.bin.json",
         "sha256": "ad43a676d9cd7edfe3bb873eb292d65fe2d920aa59640330a5abc2fc1c6f82c2",
         "object": "Characters/Rakan/Spells/RakanPassiveAbility/RakanPassive",
         "text": [
@@ -621,8 +621,8 @@
     ],
     "gameSources": [
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/rakan/rakan.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/rakan/rakan.bin.json",
         "sha256": "ad43a676d9cd7edfe3bb873eb292d65fe2d920aa59640330a5abc2fc1c6f82c2",
         "object": "Characters/Rakan/Spells/RakanQAbility/RakanQ",
         "text": [
@@ -630,8 +630,8 @@
         ]
       },
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/rakan/rakan.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/rakan/rakan.bin.json",
         "sha256": "ad43a676d9cd7edfe3bb873eb292d65fe2d920aa59640330a5abc2fc1c6f82c2",
         "object": "Characters/Rakan/Spells/RakanQAbility/RakanQMis",
         "text": [
@@ -827,8 +827,8 @@
     ],
     "gameSources": [
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/rakan/rakan.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/rakan/rakan.bin.json",
         "sha256": "ad43a676d9cd7edfe3bb873eb292d65fe2d920aa59640330a5abc2fc1c6f82c2",
         "object": "Characters/Rakan/Spells/RakanRAbility/RakanR",
         "text": [
@@ -1033,8 +1033,8 @@
     ],
     "gameSources": [
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/rakan/rakan.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/rakan/rakan.bin.json",
         "sha256": "ad43a676d9cd7edfe3bb873eb292d65fe2d920aa59640330a5abc2fc1c6f82c2",
         "object": "Characters/Rakan/Spells/RakanWAbility/RakanW",
         "text": [
@@ -1042,8 +1042,8 @@
         ]
       },
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/rakan/rakan.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/rakan/rakan.bin.json",
         "sha256": "ad43a676d9cd7edfe3bb873eb292d65fe2d920aa59640330a5abc2fc1c6f82c2",
         "object": "Characters/Rakan/Spells/RakanWAbility/RakanWCast",
         "text": [

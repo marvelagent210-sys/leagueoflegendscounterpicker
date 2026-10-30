@@ -80,7 +80,7 @@
         ]
       },
       "speed": {
-        "text": "2500 \u2022 1200 \u2022 3000",
+        "text": "2500 • 1200 • 3000",
         "values": [
           {
             "series": {
@@ -184,7 +184,7 @@
           {
             "label": "Physical Damage per Shot",
             "amount": {
-              "text": "8 / 16 / 24 / 32 / 40 (+ 25% AD) \u00d7 (1 + 0.3 per 100% bonus attack speed)",
+              "text": "8 / 16 / 24 / 32 / 40 (+ 25% AD) × (1 + 0.3 per 100% bonus attack speed)",
               "base": {
                 "kind": "rank",
                 "values": [
@@ -205,7 +205,7 @@
                   "text": "(+ 25% AD)"
                 }
               ],
-              "unparsed": "\u00d7 (1 + 0.3 per 100% bonus attack speed)"
+              "unparsed": "× (1 + 0.3 per 100% bonus attack speed)"
             }
           }
         ],
@@ -339,8 +339,8 @@
     ],
     "gameSources": [
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/akshan/akshan.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/akshan/akshan.bin.json",
         "sha256": "1110fe2b5c8eac649768b6c08b662bd7d85fd3947b593a30d7394485926ca128",
         "object": "Characters/Akshan/Spells/AkshanEAbility/AkshanE",
         "text": [
@@ -365,8 +365,8 @@
         ]
       },
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/akshan/akshan.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/akshan/akshan.bin.json",
         "sha256": "1110fe2b5c8eac649768b6c08b662bd7d85fd3947b593a30d7394485926ca128",
         "object": "Characters/Akshan/Spells/AkshanEAbility/AkshanE3",
         "text": [
@@ -386,7 +386,7 @@
     "ranks": 1,
     "fields": {
       "speed": {
-        "text": "2000 \u2022 5000",
+        "text": "2000 • 5000",
         "values": [
           {
             "series": {
@@ -424,7 +424,7 @@
     "parts": [
       {
         "label": "Innate",
-        "text": "Innate: Whenever Akshan uses a basic attack, he fires an additional shot after a delay that deals 50% AD physical damage, increased to 100% AD against minions. Issuing an attack order on a different target before the additional shot has been launched causes Akshan to fire it at the new target. If the second shot is cancelled instead, he gains 20 \u2013 75 (based on level) \u00d7 (1 + 100% bonus attack speed) bonus movement speed decaying over 1 second.",
+        "text": "Innate: Whenever Akshan uses a basic attack, he fires an additional shot after a delay that deals 50% AD physical damage, increased to 100% AD against minions. Issuing an attack order on a different target before the additional shot has been launched causes Akshan to fire it at the new target. If the second shot is cancelled instead, he gains 20 – 75 (based on level) × (1 + 100% bonus attack speed) bonus movement speed decaying over 1 second.",
         "leveling": [],
         "mechanics": [],
         "values": [
@@ -455,7 +455,7 @@
               ],
               "past18": "wiki"
             },
-            "context": "If the second shot is cancelled instead, he gains 20 \u2013 75 (based on level) \u00d7 (1 + 100% bonus attack speed) bonus movement speed decaying over 1 second."
+            "context": "If the second shot is cancelled instead, he gains 20 – 75 (based on level) × (1 + 100% bonus attack speed) bonus movement speed decaying over 1 second."
           }
         ],
         "tips": [
@@ -495,7 +495,7 @@
       },
       {
         "label": "Innate",
-        "text": "Innate: Akshan's basic attacks on-hit and ability hits apply a stack of Dirty Fighting to enemies for 5 seconds, refreshing on subsequent applications and stacking up to 3 times. The third stack against a target consumes them all to deal them 15 / 40 / 80 / 150 (based on level) (+ 60% AP) bonus magic damage; if the target is a champion, Akshan will also gain a 40 \u2013 280 (based on level) (+ 35% bonus AD) shield for 2 seconds. The shield may be gained only once every few seconds.",
+        "text": "Innate: Akshan's basic attacks on-hit and ability hits apply a stack of Dirty Fighting to enemies for 5 seconds, refreshing on subsequent applications and stacking up to 3 times. The third stack against a target consumes them all to deal them 15 / 40 / 80 / 150 (based on level) (+ 60% AP) bonus magic damage; if the target is a champion, Akshan will also gain a 40 – 280 (based on level) (+ 35% bonus AD) shield for 2 seconds. The shield may be gained only once every few seconds.",
         "leveling": [],
         "mechanics": [
           {
@@ -513,7 +513,7 @@
               "kind": "constant",
               "value": 2
             },
-            "evidence": "The third stack against a target consumes them all to deal them 15 / 40 / 80 / 150 (based on level) (+ 60% AP) bonus magic damage; if the target is a champion, Akshan will also gain a 40 \u2013 280 (based on level) (+ 35% bonus AD) shield for 2 seconds.",
+            "evidence": "The third stack against a target consumes them all to deal them 15 / 40 / 80 / 150 (based on level) (+ 60% AP) bonus magic damage; if the target is a champion, Akshan will also gain a 40 – 280 (based on level) (+ 35% bonus AD) shield for 2 seconds.",
             "conditional": false
           }
         ],
@@ -535,7 +535,7 @@
                 150
               ]
             },
-            "context": "The third stack against a target consumes them all to deal them 15 / 40 / 80 / 150 (based on level) (+ 60% AP) bonus magic damage; if the target is a champion, Akshan will also gain a 40 \u2013 280 (based on level) (+ 35% bonus AD) shield for 2 seconds."
+            "context": "The third stack against a target consumes them all to deal them 15 / 40 / 80 / 150 (based on level) (+ 60% AP) bonus magic damage; if the target is a champion, Akshan will also gain a 40 – 280 (based on level) (+ 35% bonus AD) shield for 2 seconds."
           },
           {
             "series": {
@@ -564,7 +564,7 @@
               ],
               "past18": "wiki"
             },
-            "context": "The third stack against a target consumes them all to deal them 15 / 40 / 80 / 150 (based on level) (+ 60% AP) bonus magic damage; if the target is a champion, Akshan will also gain a 40 \u2013 280 (based on level) (+ 35% bonus AD) shield for 2 seconds."
+            "context": "The third stack against a target consumes them all to deal them 15 / 40 / 80 / 150 (based on level) (+ 60% AP) bonus magic damage; if the target is a champion, Akshan will also gain a 40 – 280 (based on level) (+ 35% bonus AD) shield for 2 seconds."
           }
         ]
       }
@@ -587,8 +587,8 @@
     ],
     "gameSources": [
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/akshan/akshan.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/akshan/akshan.bin.json",
         "sha256": "1110fe2b5c8eac649768b6c08b662bd7d85fd3947b593a30d7394485926ca128",
         "object": "Characters/Akshan/Spells/AkshanPassiveAbility/AkshanPassive",
         "text": [
@@ -612,8 +612,8 @@
         ]
       },
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/akshan/akshan.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/akshan/akshan.bin.json",
         "sha256": "1110fe2b5c8eac649768b6c08b662bd7d85fd3947b593a30d7394485926ca128",
         "object": "Characters/Akshan/Spells/AkshanPassiveAbility/AkshanPassiveAttack",
         "text": [
@@ -717,7 +717,7 @@
         ]
       },
       "speed": {
-        "text": "1500 \u2022 2400",
+        "text": "1500 • 2400",
         "values": [
           {
             "series": {
@@ -1264,8 +1264,8 @@
     ],
     "gameSources": [
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/akshan/akshan.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/akshan/akshan.bin.json",
         "sha256": "1110fe2b5c8eac649768b6c08b662bd7d85fd3947b593a30d7394485926ca128",
         "object": "Characters/Akshan/Spells/AkshanRAbility/AkshanR",
         "text": [
@@ -1454,8 +1454,8 @@
     ],
     "gameSources": [
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/akshan/akshan.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/akshan/akshan.bin.json",
         "sha256": "1110fe2b5c8eac649768b6c08b662bd7d85fd3947b593a30d7394485926ca128",
         "object": "Characters/Akshan/Spells/AkshanWAbility/AkshanW",
         "text": [

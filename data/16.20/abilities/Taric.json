@@ -171,8 +171,8 @@
     ],
     "gameSources": [
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/taric/taric.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/taric/taric.bin.json",
         "sha256": "c64241aff76ed12971f11238ee132a27c2ad0e752421bdff7b3fbb24f62670bb",
         "object": "Characters/Taric/Spells/TaricEAbility/TaricE",
         "text": [
@@ -307,8 +307,8 @@
     ],
     "gameSources": [
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/taric/taric.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/taric/taric.bin.json",
         "sha256": "c64241aff76ed12971f11238ee132a27c2ad0e752421bdff7b3fbb24f62670bb",
         "object": "Characters/Taric/Spells/TaricPassiveAbility/TaricPassive",
         "text": [
@@ -316,8 +316,8 @@
         ]
       },
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/taric/taric.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/taric/taric.bin.json",
         "sha256": "c64241aff76ed12971f11238ee132a27c2ad0e752421bdff7b3fbb24f62670bb",
         "object": "Characters/Taric/Spells/TaricPassiveAbility/TaricPassiveAttack",
         "text": [
@@ -325,8 +325,8 @@
         ]
       },
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/taric/taric.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/taric/taric.bin.json",
         "sha256": "c64241aff76ed12971f11238ee132a27c2ad0e752421bdff7b3fbb24f62670bb",
         "object": "Characters/Taric/Spells/TaricPassiveAbility/TaricPassiveAttack2",
         "text": [
@@ -471,8 +471,8 @@
     ],
     "gameSources": [
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/taric/taric.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/taric/taric.bin.json",
         "sha256": "c64241aff76ed12971f11238ee132a27c2ad0e752421bdff7b3fbb24f62670bb",
         "object": "Characters/Taric/Spells/TaricQAbility/TaricQ",
         "text": [
@@ -589,8 +589,8 @@
     ],
     "gameSources": [
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/taric/taric.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/taric/taric.bin.json",
         "sha256": "c64241aff76ed12971f11238ee132a27c2ad0e752421bdff7b3fbb24f62670bb",
         "object": "Characters/Taric/Spells/TaricRAbility/TaricR",
         "text": [
@@ -781,8 +781,8 @@
     ],
     "gameSources": [
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/taric/taric.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/taric/taric.bin.json",
         "sha256": "c64241aff76ed12971f11238ee132a27c2ad0e752421bdff7b3fbb24f62670bb",
         "object": "Characters/Taric/Spells/TaricWAbility/TaricW",
         "text": [

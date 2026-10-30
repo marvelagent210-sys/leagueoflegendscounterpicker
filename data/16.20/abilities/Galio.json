@@ -227,8 +227,8 @@
     ],
     "gameSources": [
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/galio/galio.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/galio/galio.bin.json",
         "sha256": "2f6af50833ece8ab8541363464cc288a55f40d36c169a70fcaa790056a80f508",
         "object": "Characters/Galio/Spells/GalioEAbility/GalioE",
         "text": [
@@ -376,8 +376,8 @@
     ],
     "gameSources": [
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/galio/galio.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/galio/galio.bin.json",
         "sha256": "2f6af50833ece8ab8541363464cc288a55f40d36c169a70fcaa790056a80f508",
         "object": "Characters/Galio/Spells/GalioPassiveAbility/GalioPassive",
         "text": [
@@ -385,8 +385,8 @@
         ]
       },
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/galio/galio.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/galio/galio.bin.json",
         "sha256": "2f6af50833ece8ab8541363464cc288a55f40d36c169a70fcaa790056a80f508",
         "object": "Characters/Galio/Spells/GalioPassiveAttack",
         "text": [
@@ -584,8 +584,8 @@
     ],
     "gameSources": [
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/galio/galio.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/galio/galio.bin.json",
         "sha256": "2f6af50833ece8ab8541363464cc288a55f40d36c169a70fcaa790056a80f508",
         "object": "Characters/Galio/Spells/GalioQAbility/GalioQ",
         "text": [
@@ -593,8 +593,8 @@
         ]
       },
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/galio/galio.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/galio/galio.bin.json",
         "sha256": "2f6af50833ece8ab8541363464cc288a55f40d36c169a70fcaa790056a80f508",
         "object": "Characters/Galio/Spells/GalioQAbility/GalioQMissile",
         "text": [
@@ -602,8 +602,8 @@
         ]
       },
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/galio/galio.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/galio/galio.bin.json",
         "sha256": "2f6af50833ece8ab8541363464cc288a55f40d36c169a70fcaa790056a80f508",
         "object": "Characters/Galio/Spells/GalioQAbility/GalioQMissileR",
         "text": [
@@ -611,8 +611,8 @@
         ]
       },
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/galio/galio.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/galio/galio.bin.json",
         "sha256": "2f6af50833ece8ab8541363464cc288a55f40d36c169a70fcaa790056a80f508",
         "object": "Characters/Galio/Spells/GalioQAbility/GalioQSuper",
         "text": [
@@ -848,8 +848,8 @@
     ],
     "gameSources": [
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/galio/galio.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/galio/galio.bin.json",
         "sha256": "2f6af50833ece8ab8541363464cc288a55f40d36c169a70fcaa790056a80f508",
         "object": "Characters/Galio/Spells/GalioRAbility/GalioR",
         "text": [
@@ -1341,8 +1341,8 @@
     ],
     "gameSources": [
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/galio/galio.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/galio/galio.bin.json",
         "sha256": "2f6af50833ece8ab8541363464cc288a55f40d36c169a70fcaa790056a80f508",
         "object": "Characters/Galio/Spells/GalioWAbility/GalioW",
         "text": [
@@ -1350,8 +1350,8 @@
         ]
       },
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/galio/galio.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/galio/galio.bin.json",
         "sha256": "2f6af50833ece8ab8541363464cc288a55f40d36c169a70fcaa790056a80f508",
         "object": "Characters/Galio/Spells/GalioWAbility/GalioW2",
         "text": [

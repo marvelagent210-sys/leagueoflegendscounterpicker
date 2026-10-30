@@ -201,8 +201,8 @@
     ],
     "gameSources": [
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/lulu/lulu.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/lulu/lulu.bin.json",
         "sha256": "637780a5697549faccde5abc3b7af9ce5b2c3086ee39ed78ef6ef675a19fe6de",
         "object": "Characters/Lulu/Spells/LuluEAbility/LuluEShield",
         "text": [
@@ -210,8 +210,8 @@
         ]
       },
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/lulu/lulu.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/lulu/lulu.bin.json",
         "sha256": "637780a5697549faccde5abc3b7af9ce5b2c3086ee39ed78ef6ef675a19fe6de",
         "object": "Characters/Lulu/Spells/LuluEAbility/LuluE",
         "text": [
@@ -219,8 +219,8 @@
         ]
       },
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/lulu/lulu.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/lulu/lulu.bin.json",
         "sha256": "637780a5697549faccde5abc3b7af9ce5b2c3086ee39ed78ef6ef675a19fe6de",
         "object": "Characters/Lulu/Spells/LuluEAbility/LuluEBurn",
         "text": [
@@ -400,8 +400,8 @@
     ],
     "gameSources": [
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/lulu/lulu.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/lulu/lulu.bin.json",
         "sha256": "637780a5697549faccde5abc3b7af9ce5b2c3086ee39ed78ef6ef675a19fe6de",
         "object": "Characters/Lulu/Spells/LuluPassiveAbility/LuluPassive",
         "text": [
@@ -409,8 +409,8 @@
         ]
       },
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/lulu/lulu.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/lulu/lulu.bin.json",
         "sha256": "637780a5697549faccde5abc3b7af9ce5b2c3086ee39ed78ef6ef675a19fe6de",
         "object": "Characters/Lulu/Spells/LuluPassiveAbility/LuluPassiveMissile",
         "text": [
@@ -418,8 +418,8 @@
         ]
       },
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/lulu/lulu.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/lulu/lulu.bin.json",
         "sha256": "637780a5697549faccde5abc3b7af9ce5b2c3086ee39ed78ef6ef675a19fe6de",
         "object": "Characters/Lulu/Spells/LuluPassiveAbility/LuluPassiveMissileController",
         "text": [
@@ -739,8 +739,8 @@
     ],
     "gameSources": [
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/lulu/lulu.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/lulu/lulu.bin.json",
         "sha256": "637780a5697549faccde5abc3b7af9ce5b2c3086ee39ed78ef6ef675a19fe6de",
         "object": "Characters/Lulu/Spells/LuluQAbility/LuluQSlow",
         "text": [
@@ -748,8 +748,8 @@
         ]
       },
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/lulu/lulu.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/lulu/lulu.bin.json",
         "sha256": "637780a5697549faccde5abc3b7af9ce5b2c3086ee39ed78ef6ef675a19fe6de",
         "object": "Characters/Lulu/Spells/LuluQAbility/LuluQMissile",
         "text": [
@@ -757,8 +757,8 @@
         ]
       },
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/lulu/lulu.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/lulu/lulu.bin.json",
         "sha256": "637780a5697549faccde5abc3b7af9ce5b2c3086ee39ed78ef6ef675a19fe6de",
         "object": "Characters/Lulu/Spells/LuluQAbility/LuluQMissileTwo",
         "text": [
@@ -766,8 +766,8 @@
         ]
       },
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/lulu/lulu.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/lulu/lulu.bin.json",
         "sha256": "637780a5697549faccde5abc3b7af9ce5b2c3086ee39ed78ef6ef675a19fe6de",
         "object": "Characters/Lulu/Spells/LuluQAbility/LuluQ",
         "text": [
@@ -962,8 +962,8 @@
     ],
     "gameSources": [
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/lulu/lulu.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/lulu/lulu.bin.json",
         "sha256": "637780a5697549faccde5abc3b7af9ce5b2c3086ee39ed78ef6ef675a19fe6de",
         "object": "Characters/Lulu/Spells/LuluRAbility/LuluR",
         "text": [
@@ -971,8 +971,8 @@
         ]
       },
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/lulu/lulu.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/lulu/lulu.bin.json",
         "sha256": "637780a5697549faccde5abc3b7af9ce5b2c3086ee39ed78ef6ef675a19fe6de",
         "object": "Characters/Lulu/Spells/LuluRAbility/LuluRSlow",
         "text": [
@@ -1180,8 +1180,8 @@
     ],
     "gameSources": [
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/lulu/lulu.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/lulu/lulu.bin.json",
         "sha256": "637780a5697549faccde5abc3b7af9ce5b2c3086ee39ed78ef6ef675a19fe6de",
         "object": "Characters/Lulu/Spells/LuluWAbility/LuluWBuff",
         "text": [
@@ -1189,8 +1189,8 @@
         ]
       },
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/lulu/lulu.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/lulu/lulu.bin.json",
         "sha256": "637780a5697549faccde5abc3b7af9ce5b2c3086ee39ed78ef6ef675a19fe6de",
         "object": "Characters/Lulu/Spells/LuluWAbility/LuluW",
         "text": [
@@ -1198,8 +1198,8 @@
         ]
       },
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/lulu/lulu.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/lulu/lulu.bin.json",
         "sha256": "637780a5697549faccde5abc3b7af9ce5b2c3086ee39ed78ef6ef675a19fe6de",
         "object": "Characters/Lulu/Spells/LuluWAbility/LuluWDebuff",
         "text": [
@@ -1207,8 +1207,8 @@
         ]
       },
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/lulu/lulu.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/lulu/lulu.bin.json",
         "sha256": "637780a5697549faccde5abc3b7af9ce5b2c3086ee39ed78ef6ef675a19fe6de",
         "object": "Characters/Lulu/Spells/LuluWAbility/LuluWTwo",
         "text": [
