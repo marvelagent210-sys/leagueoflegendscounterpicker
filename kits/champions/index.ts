@@ -12,6 +12,7 @@ import Annie from "./Annie";
 import Aphelios from "./Aphelios";
 import Ashe from "./Ashe";
 import Aurora from "./Aurora";
+import Belveth from "./Belveth";
 import Blitzcrank from "./Blitzcrank";
 import Brand from "./Brand";
 import Braum from "./Braum";
@@ -153,5 +154,5 @@ import Zoe from "./Zoe";
 import Zyra from "./Zyra";
 
 export const KITS: Readonly<Record<string, KitModule>> = Object.fromEntries(
-  [Aatrox, Ahri, Akali, Akshan, Alistar, Ambessa, Amumu, Anivia, Annie, Aphelios, Ashe, Aurora, Blitzcrank, Brand, Braum, Briar, Caitlyn, Camille, Cassiopeia, Chogath, Corki, Darius, Diana, DrMundo, Draven, Ekko, Evelynn, Ezreal, Fiora, Fizz, Galio, Gangplank, Garen, Gnar, Gragas, Graves, Gwen, Hecarim, Heimerdinger, Hwei, Illaoi, Irelia, Janna, JarvanIV, Jax, Jayce, Jhin, Jinx, KSante, Kaisa, Kalista, Karma, Karthus, Kassadin, Katarina, Kayle, Kennen, Khazix, Kindred, Kled, KogMaw, Leblanc, LeeSin, Leona, Lillia, Lissandra, Lucian, Lulu, Lux, Malphite, Malzahar, Maokai, MasterYi, MissFortune, MonkeyKing, Mordekaiser, Morgana, Naafiri, Nami, Nasus, Nautilus, Neeko, Nidalee, Nocturne, Nunu, Olaf, Orianna, Ornn, Pantheon, Poppy, Quinn, Rakan, Rammus, RekSai, Rell, Renekton, Rengar, Riven, Rumble, Ryze, Samira, Sejuani, Senna, Sett, Shen, Shyvana, Singed, Sion, Sivir, Skarner, Smolder, Sona, Soraka, Swain, Syndra, TahmKench, Taliyah, Talon, Taric, Teemo, Thresh, Tristana, Trundle, Tryndamere, TwistedFate, Twitch, Udyr, Urgot, Varus, Vayne, Veigar, Velkoz, Vex, Vi, Viktor, Vladimir, Volibear, Warwick, Xayah, Xerath, XinZhao, Yasuo, Yone, Yorick, Zaahen, Zac, Zed, Zeri, Ziggs, Zoe, Zyra].map((kit) => [kit.champion, kit]),
+  [Aatrox, Ahri, Akali, Akshan, Alistar, Ambessa, Amumu, Anivia, Annie, Aphelios, Ashe, Aurora, Belveth, Blitzcrank, Brand, Braum, Briar, Caitlyn, Camille, Cassiopeia, Chogath, Corki, Darius, Diana, DrMundo, Draven, Ekko, Evelynn, Ezreal, Fiora, Fizz, Galio, Gangplank, Garen, Gnar, Gragas, Graves, Gwen, Hecarim, Heimerdinger, Hwei, Illaoi, Irelia, Janna, JarvanIV, Jax, Jayce, Jhin, Jinx, KSante, Kaisa, Kalista, Karma, Karthus, Kassadin, Katarina, Kayle, Kennen, Khazix, Kindred, Kled, KogMaw, Leblanc, LeeSin, Leona, Lillia, Lissandra, Lucian, Lulu, Lux, Malphite, Malzahar, Maokai, MasterYi, MissFortune, MonkeyKing, Mordekaiser, Morgana, Naafiri, Nami, Nasus, Nautilus, Neeko, Nidalee, Nocturne, Nunu, Olaf, Orianna, Ornn, Pantheon, Poppy, Quinn, Rakan, Rammus, RekSai, Rell, Renekton, Rengar, Riven, Rumble, Ryze, Samira, Sejuani, Senna, Sett, Shen, Shyvana, Singed, Sion, Sivir, Skarner, Smolder, Sona, Soraka, Swain, Syndra, TahmKench, Taliyah, Talon, Taric, Teemo, Thresh, Tristana, Trundle, Tryndamere, TwistedFate, Twitch, Udyr, Urgot, Varus, Vayne, Veigar, Velkoz, Vex, Vi, Viktor, Vladimir, Volibear, Warwick, Xayah, Xerath, XinZhao, Yasuo, Yone, Yorick, Zaahen, Zac, Zed, Zeri, Ziggs, Zoe, Zyra].map((kit) => [kit.champion, kit]),
 );
