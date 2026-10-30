@@ -180,3 +180,94 @@ Cooldowns and costs of each slot's main ability, wiki vs game files:
 | W: Pick a Card | cost | 50 / 55 / 60 / 65 / 70 | 50 / 55 / 60 / 65 / 70 | yes |
 | R: Destiny | cooldown | 170 / 140 / 110 | 170 / 140 / 110 | yes |
 | R: Destiny | cost | 100 / 100 / 100 | 100 / 100 / 100 | yes |
+
+## Duel simulator kit (level 20, every ability at max rank)
+
+What the duel simulator fights with (`kits/champions/TwistedFate.ts`): values come from pinned wiki and versioned game-data records at level 20. Interpretations and missing evidence are listed under assumptions. Ratios are fractions of the stat (60% AD is 0.6 × AD).
+
+- Basic attack: range 525, missile at 1500/s.
+- Options: firstCard = 0, deckStacks = 0.
+
+| Key | Ability | Cooldown (s) | Cast time (s) | Cost | Delivery | On the enemy | On itself |
+|---|---|--:|--:|---|---|---|---|
+| Q | Wild Cards | 5 | 0.25 | 100 | skillshot 1450 long, 80 wide, at 1000/s | 240 + 50% bonus AD + 85% AP magic damage | – |
+| W | Pick a Card | 6 | 0 | 70 | self | – | – |
+| R | Destiny | 110 | 0 | 100 | self | – | – |
+| W-lock | Pick a Card (lock current card) | 0 | 0 | – | self | – | – |
+| Gate | Gate | 0 | 1.5 | – | self | – | – |
+| DestinyReveal | Destiny | 0 | 0 | – | self | revealed for 10 s | – |
+| RedSplash | Red Card (splash) | 0 | 0 | – | self | – | – |
+
+Effects marked by a mark or a role are completed by the kit's hooks (see the kit's source).
+
+### Assumptions
+
+- Explicit first hovered card (Blue0/Red1/Gold2; random server phase is not assumed known): 0.
+- Actual Stacked Deck stacks before the duel, without an assumed respawn: 0.
+- Pick a Card starts at the explicit firstCard=0; the server's random starting card is not silently optimized. Its three-card Blue→Red→Gold order uses the primary note's0.528-second interval, whose raw annotation remains pending test, rather than the contradictory0.5-second description. The six-second cycling window and separate six-second selected-card window use absolute clocks. One free internal lock selects only the currently hovered card, works under cast-inhibiting control, resets the basic timer and does not count as another cast. W's six-second hasted cooldown starts at attack launch or selected/cycling expiry. Exact server post-effect start between launch and impact is unquantified and this launch policy is explicit.
+- Selected cards use a fixed0.25-second attack windup and1500-speed missile. Their entire normal attack damage is replaced by the sourced magic formula and linear critical-chance multiplier, with no extra ordinary AD/critical packet. Target death, untargetability, stasis or range loss before launch cancel freely and retain the selected card within its original expiry. Cancelled windups do not create mana, splash or Stacked Deck. An already declared empowered windup or launched card retains its captured entitlement if the selection window expires, an explicit policy where that exact boundary is unsourced; expiry starts the cooldown once and a later launch cannot restart it. Blind/dodge/parry and whole-attack spell shields use ordinary defenses. A connected damage block denies base damage but retains card utility/on-hits, an explicit interpretation where the primary does not enumerate every block edge. Blue restores150mana on accepted basic contact, Red slows the actual primary and deals independently defended area damage to real nearby recipients only, Gold stuns for2seconds. Explicit ward bodies exclude both card empowerment and Stacked Deck; no ward, plant or structure is fabricated for a duel.
+- Stacked Deck starts at explicit history0, not an invented respawn. Actual connected champion/pet attacks generate one stack, and the next consumes three for165+20%bonusAD+40%AP noncritical proc magic. Damage-only blocks still trigger it; blind/dodge/parry preserve stacks. The permanent55%bonus attack speed participates in ordinary attack clocks. Loaded Dice records expected gold4+3×crit for actual hostile kills in memory only; pre-fight stat spending cannot be increased by future kills and no farming gold is fabricated.
+- Wild Cards is a piercing1450-range/80-width/1000-speed fan with56degrees between outer rays; all actual bodies lie on the central axial ray and receive at most one contact. Separate lateral rays and lateral recipients do not exist in this1D geometry. Cast origin is completion position, direction is declaration facing. Released cards survive owner death and actual projectile defenses remain enabled.
+- Destiny reveals currently targetable enemy champion bodies, including actual champion-class summons, for10seconds, subject to each body's spell shield and parry according to the primary spell-shield flag. Nearsight retains priority through normal visibility rules. It creates no allies or map knowledge. Gate becomes available after0.5seconds, is blocked and interrupted by accepted root/ground/silence, and uses an interruptible1.5-second channel represented by a cast lock; movement/attacks cannot bypass it. Its absolute selected endpoint clamps to5500, projects out of actual terrain, reports a real blink, and destroys hostile homing champion or pet projectiles targeting this actual champion. Projectiles targeting other actual bodies and nonhoming missiles remain. R's110-second hasted cooldown starts when Gate is declared or the recast window expires, including interrupted Gates. Ordinary duel AI uses Gate to flee, reserves utility in other modes, waits for legal Gold/Blue card phases and honors completed trades.
+- Budget values Q, permanent attack speed, one Stacked Deck proc per four basics, and a Gold Card replacement per hasted six-second cycle plus average observed phase wait and fixed windup. The replacement subtracts that attack's ordinary expected physical damage. No ally, splash victim, farming gold or teleport damage enters its price. Blue is chosen at low mana in runtime; resource clipping and actual card waiting remain combat outcomes.
+
+### Source values read (56)
+
+| Ability | Value | Source version |
+|---|---|---|
+| Stacked Deck | stacking up to 3 times | [3963571](https://wiki.leagueoflegends.com/en-us/Template:Data_Twisted_Fate/Stacked_Deck?oldid=3963571) |
+| Stacked Deck | Bonus Attack Speed: 15 / 25 / 35 / 45 / 55% | [3963571](https://wiki.leagueoflegends.com/en-us/Template:Data_Twisted_Fate/Stacked_Deck?oldid=3963571) |
+| Stacked Deck | Bonus Magic Damage: 65 / 90 / 115 / 140 / 165 (+ 20% bonus AD) (+ 40% AP) | [3963571](https://wiki.leagueoflegends.com/en-us/Template:Data_Twisted_Fate/Stacked_Deck?oldid=3963571) |
+| Stacked Deck | reduced to 50% against structures | [3963571](https://wiki.leagueoflegends.com/en-us/Template:Data_Twisted_Fate/Stacked_Deck?oldid=3963571) |
+| Stacked Deck | but cannot be blocked | [3963571](https://wiki.leagueoflegends.com/en-us/Template:Data_Twisted_Fate/Stacked_Deck?oldid=3963571) |
+| Stacked Deck | the on-hit effect is not consumed in either case | [3963571](https://wiki.leagueoflegends.com/en-us/Template:Data_Twisted_Fate/Stacked_Deck?oldid=3963571) |
+| Stacked Deck | gains maximum stacks of Stacked Deck upon respawning | [3963571](https://wiki.leagueoflegends.com/en-us/Template:Data_Twisted_Fate/Stacked_Deck?oldid=3963571) |
+| Loaded Dice | The expected bonus gold gained per unit killed is 4 | [4005221](https://wiki.leagueoflegends.com/en-us/Template:Data_Twisted_Fate/Loaded_Dice?oldid=4005221) |
+| Loaded Dice | The expected additional gold due to critical strike chance is 3 | [4005221](https://wiki.leagueoflegends.com/en-us/Template:Data_Twisted_Fate/Loaded_Dice?oldid=4005221) |
+| Wild Cards | Magic Damage: 60 / 105 / 150 / 195 / 240 (+ 50% bonus AD) (+ 85% AP) | [3950864](https://wiki.leagueoflegends.com/en-us/Template:Data_Twisted_Fate/Wild_Cards?oldid=3950864) |
+| Wild Cards | targetRange: 1450 | [3950864](https://wiki.leagueoflegends.com/en-us/Template:Data_Twisted_Fate/Wild_Cards?oldid=3950864) |
+| Wild Cards | width: 80 | [3950864](https://wiki.leagueoflegends.com/en-us/Template:Data_Twisted_Fate/Wild_Cards?oldid=3950864) |
+| Wild Cards | speed: 1000 | [3950864](https://wiki.leagueoflegends.com/en-us/Template:Data_Twisted_Fate/Wild_Cards?oldid=3950864) |
+| Wild Cards | angle: 56° | [3950864](https://wiki.leagueoflegends.com/en-us/Template:Data_Twisted_Fate/Wild_Cards?oldid=3950864) |
+| Wild Cards | Enemies can be damaged only once per pass | [3950864](https://wiki.leagueoflegends.com/en-us/Template:Data_Twisted_Fate/Wild_Cards?oldid=3950864) |
+| Wild Cards | wherever the caster is at the end of the cast time | [3950864](https://wiki.leagueoflegends.com/en-us/Template:Data_Twisted_Fate/Wild_Cards?oldid=3950864) |
+| Pick a Card | cycles through three cards for 6 seconds | [4004668](https://wiki.leagueoflegends.com/en-us/Template:Data_Twisted_Fate/Pick_a_Card?oldid=4004668) |
+| Pick a Card | interval until the next card is hovered is 0.528 every time | [4004668](https://wiki.leagueoflegends.com/en-us/Template:Data_Twisted_Fate/Pick_a_Card?oldid=4004668) |
+| Pick a Card | next basic attack within 6 seconds | [4004668](https://wiki.leagueoflegends.com/en-us/Template:Data_Twisted_Fate/Pick_a_Card?oldid=4004668) |
+| Pick a Card | have a 0.25-second cast time | [4004668](https://wiki.leagueoflegends.com/en-us/Template:Data_Twisted_Fate/Pick_a_Card?oldid=4004668) |
+| Pick a Card | cooldown: 6 | [4004668](https://wiki.leagueoflegends.com/en-us/Template:Data_Twisted_Fate/Pick_a_Card?oldid=4004668) |
+| Pick a Card | Mana Restored: 70 / 90 / 110 / 130 / 150 | [4004668](https://wiki.leagueoflegends.com/en-us/Template:Data_Twisted_Fate/Pick_a_Card?oldid=4004668) |
+| Pick a Card | Slow: 30 / 35 / 40 / 45 / 50% | [4004668](https://wiki.leagueoflegends.com/en-us/Template:Data_Twisted_Fate/Pick_a_Card?oldid=4004668) |
+| Pick a Card | slowed for 2.5 seconds | [4004668](https://wiki.leagueoflegends.com/en-us/Template:Data_Twisted_Fate/Pick_a_Card?oldid=4004668) |
+| Pick a Card | Stun Duration: 1 / 1.25 / 1.5 / 1.75 / 2 seconds | [4004668](https://wiki.leagueoflegends.com/en-us/Template:Data_Twisted_Fate/Pick_a_Card?oldid=4004668) |
+| Pick a Card | effectRadius: 325 | [4004668](https://wiki.leagueoflegends.com/en-us/Template:Data_Twisted_Fate/Pick_a_Card?oldid=4004668) |
+| Pick a Card | speed: 1500 | [4004668](https://wiki.leagueoflegends.com/en-us/Template:Data_Twisted_Fate/Pick_a_Card?oldid=4004668) |
+| Pick a Card | Magic Damage: 40 / 60 / 80 / 100 / 120 (+ 100% AD) (+ 100% AP) | [4004668](https://wiki.leagueoflegends.com/en-us/Template:Data_Twisted_Fate/Pick_a_Card?oldid=4004668) |
+| Pick a Card | Magic Damage: 30 / 45 / 60 / 75 / 90 (+ 100% AD) (+ 70% AP) | [4004668](https://wiki.leagueoflegends.com/en-us/Template:Data_Twisted_Fate/Pick_a_Card?oldid=4004668) |
+| Pick a Card | Magic Damage: 15 / 22.5 / 30 / 37.5 / 45 (+ 100% AD) (+ 50% AP) | [4004668](https://wiki.leagueoflegends.com/en-us/Template:Data_Twisted_Fate/Pick_a_Card?oldid=4004668) |
+| Wild Cards | cost: 60 / 70 / 80 / 90 / 100 | [3950864](https://wiki.leagueoflegends.com/en-us/Template:Data_Twisted_Fate/Wild_Cards?oldid=3950864) |
+| Pick a Card | cost: 50 / 55 / 60 / 65 / 70 | [4004668](https://wiki.leagueoflegends.com/en-us/Template:Data_Twisted_Fate/Pick_a_Card?oldid=4004668) |
+| Pick a Card | 0 / 5.75 / 11.5 / 17.25 / 23 / 28.75 / 34.5 / 40.25 / 46 / 51.75 / 57.5 | [4004668](https://wiki.leagueoflegends.com/en-us/Template:Data_Twisted_Fate/Pick_a_Card?oldid=4004668) |
+| Pick a Card | 0 / 3.5 / 7 / 10.5 / 14 / 17.5 / 21 / 24.5 / 28 / 31.5 / 35 | [4004668](https://wiki.leagueoflegends.com/en-us/Template:Data_Twisted_Fate/Pick_a_Card?oldid=4004668) |
+| Pick a Card | 0 / 2.5 / 5 / 7.5 / 10 / 12.5 / 15 / 17.5 / 20 / 22.5 / 25 | [4004668](https://wiki.leagueoflegends.com/en-us/Template:Data_Twisted_Fate/Pick_a_Card?oldid=4004668) |
+| Pick a Card | The recast can be used while affected by cast-inhibiting crowd control | [4004668](https://wiki.leagueoflegends.com/en-us/Template:Data_Twisted_Fate/Pick_a_Card?oldid=4004668) |
+| Pick a Card | Recasting the ability does not | [4004668](https://wiki.leagueoflegends.com/en-us/Template:Data_Twisted_Fate/Pick_a_Card?oldid=4004668) |
+| Pick a Card | it is cancelled but not consumed | [4004668](https://wiki.leagueoflegends.com/en-us/Template:Data_Twisted_Fate/Pick_a_Card?oldid=4004668) |
+| Pick a Card | cooldownStart: post-effect | [4004668](https://wiki.leagueoflegends.com/en-us/Template:Data_Twisted_Fate/Pick_a_Card?oldid=4004668) |
+| Destiny | Effect Duration: 6 / 8 / 10 seconds | [4017975](https://wiki.leagueoflegends.com/en-us/Template:Data_Twisted_Fate/Destiny?oldid=4017975) |
+| Destiny | recast after 0.5 seconds | [4017975](https://wiki.leagueoflegends.com/en-us/Template:Data_Twisted_Fate/Destiny?oldid=4017975) |
+| Destiny | channels for 1.5 seconds | [4017975](https://wiki.leagueoflegends.com/en-us/Template:Data_Twisted_Fate/Destiny?oldid=4017975) |
+| Destiny | targetRange: 5500 | [4017975](https://wiki.leagueoflegends.com/en-us/Template:Data_Twisted_Fate/Destiny?oldid=4017975) |
+| Destiny | cooldown: 170 / 140 / 110 | [4017975](https://wiki.leagueoflegends.com/en-us/Template:Data_Twisted_Fate/Destiny?oldid=4017975) |
+| Destiny | cannot recast Destiny while grounded or rooted | [4017975](https://wiki.leagueoflegends.com/en-us/Template:Data_Twisted_Fate/Destiny?oldid=4017975) |
+| Destiny | destroying enemy projectiles targeting him | [4017975](https://wiki.leagueoflegends.com/en-us/Template:Data_Twisted_Fate/Destiny?oldid=4017975) |
+| Destiny | Paranoia will overpower the reveal from Destiny | [4017975](https://wiki.leagueoflegends.com/en-us/Template:Data_Twisted_Fate/Destiny?oldid=4017975) |
+| Destiny | cooldownStart: post-effect | [4017975](https://wiki.leagueoflegends.com/en-us/Template:Data_Twisted_Fate/Destiny?oldid=4017975) |
+| Pick a Card | "name":"GoldCritMultiplier","values":[0.25 | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/twistedfate/twistedfate.bin.json) |
+| Pick a Card | mSpell.missileSpeed: 1500.0 | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/twistedfate/twistedfate.bin.json) |
+| Destiny | mSpell.castRange: [5500.0 | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/twistedfate/twistedfate.bin.json) |
+| Wild Cards | cooldown: 6 / 5.75 / 5.5 / 5.25 / 5 | [3950864](https://wiki.leagueoflegends.com/en-us/Template:Data_Twisted_Fate/Wild_Cards?oldid=3950864) |
+| Wild Cards | castTime: 0.25 | [3950864](https://wiki.leagueoflegends.com/en-us/Template:Data_Twisted_Fate/Wild_Cards?oldid=3950864) |
+| Pick a Card | castTime: none | [4004668](https://wiki.leagueoflegends.com/en-us/Template:Data_Twisted_Fate/Pick_a_Card?oldid=4004668) |
+| Destiny | cost: 100 | [4017975](https://wiki.leagueoflegends.com/en-us/Template:Data_Twisted_Fate/Destiny?oldid=4017975) |
+| Destiny | castTime: none | [4017975](https://wiki.leagueoflegends.com/en-us/Template:Data_Twisted_Fate/Destiny?oldid=4017975) |

@@ -209,3 +209,125 @@ All 1 level-based formulas in the game files (1 linked to wiki values above):
 | Spell | Calculation | Rule | Level 1 | Level 18 | Level 20 |
 |---|---|---|--:|--:|--:|
 | LeblancQ | BonusMinionDamage | breakpoints at levels none (level 1: 10) | 10 | 146 | 162 |
+
+## Duel simulator kit (level 20, every ability at max rank)
+
+What the duel simulator fights with (`kits/champions/Leblanc.ts`): values come from pinned wiki and versioned game-data records at level 20. Interpretations and missing evidence are listed under assumptions. Ratios are fractions of the stat (60% AD is 0.6 × AD).
+
+- Basic attack: range 525, missile at 1700/s.
+
+| Key | Ability | Cooldown (s) | Cast time (s) | Cost | Delivery | On the enemy | On itself |
+|---|---|--:|--:|---|---|---|---|
+| Q | Sigil of Malice | 6 | 0.25 | 50 | targeted, 700 range, missile at 2000/s | 165 + 40% AP magic damage | – |
+| W | Distortion | 10 | 0 | 100 | dash toward 0–600 units at 1450/s, through the enemy | 235 + 90% AP magic damage | – |
+| E | Ethereal Chains | 11 | 0.25 | 50 | skillshot 950 long, 110 wide, at 1750/s | 130 + 40% AP magic damage | – |
+| R | Mimic: Sigil of Malice | 25 | 0.25 | 0 | targeted, 700 range, missile at 2000/s | 230 + 40% AP magic damage | – |
+| RW | Mimic: Distortion | 25 | 0 | 0 | dash toward 0–600 units at 1450/s, through the enemy | 480 + 90% AP magic damage | – |
+| RE | Mimic: Ethereal Chains | 25 | 0.25 | 0 | skillshot 950 long, 110 wide, at 1750/s | 230 + 40% AP magic damage | – |
+| W2 | Distortion (return) | 0 | 0 | 0 | self | – | – |
+| RW2 | Mimic: Distortion (return) | 0 | 0 | 0 | self | – | – |
+| E2 | Ethereal Chains (fracture) | 0 | 0 | – | self | 240 + 85% AP magic damage; root for 1.5 s; revealed for 1.5 s | – |
+| RE2 | Mimic: Ethereal Chains (fracture) | 0 | 0 | – | self | 460 + 85% AP magic damage; root for 1.5 s; revealed for 1.5 s | – |
+
+Effects marked by a mark or a role are completed by the kit's hooks (see the kit's source).
+
+### Assumptions
+
+- Sigils belong to the actual contacted champion or pet. A successful damaging spell contact consumes existing Q/RQ marks before applying the new mark; cast declaration, misses, spell shields and parries do not. Each mark snapshots its damage at application, interpreting 'the same magic damage again'; the source does not explicitly define AP snapshot timing. Q's minion bonus is capped at level 18, despite the extracted formula extending to 20. Champion-class clones never receive that minion bonus/refund.
+- Distortion's wiki no-cast-time and 240 damage radius take precedence over the game file's 0.25 cast metadata and 220 castRadius, respectively. Its fixed 1D endpoint may pass the enemy; only arrival, never path crossing or return, deals one area hit. Knockdown stops the dash without arrival damage; a return pad is retained at its original origin on an interrupted dash as an explicit unsourced interrupt rule. The four-second pad and 0.2-second recast gate begin at actual dash end. W/RW origins and clocks are independent; return is instant, free, range-independent and does not count as an ability activation. Scalar terrain cannot reproduce every endpoint/wall overlap.
+- Mimic has finite Q/W/E memory, defaults to Q, and shares a single ordinary R cooldown across RQ/RW/RE. The root binary's hidden two-ammo metadata spends zero ammo and is not evidence of two usable ultimate charges; no extra R casts or five-second recharge is granted. RQ/RE use their actual subspell 0.25-second cast fields; RW copies W's no-cast-time. Recasts do not replace the remembered basic ability. No pre-fight cast is assumed.
+- Each E/RE contact starts its own tether, reveal and 1.5-second completion clock, with the pinned 0.25-second minimum duration. Tether distance is edge to edge (865 plus both gameplay radii). A one-tick watchdog checks current distance and target identity, including after LeBlanc dies. Fracture reads live AP at completion, bypasses a newly gained spell shield, and uses a separate parry/damage/root packet. Its root reveal lasts only while the actual root remains. Attached tethers persist through ordinary untargetability, but stasis denies completion; resurrection or target death breaks them. Source/target lifecycle and AP timing are explicit interpretations where server logic is absent.
+- Mirror Image starts ready and triggers only on positive HP damage leaving a living LeBlanc strictly below 40% maximum HP; merely starting low, full shield absorption and lethal damage do not summon it. The pet infobox gives HP as 100% of current health without a separate maximum-health rule; both the clone maximum and current HP use that spawn snapshot. The clone snapshots copied armor/MR/attack speed/movement speed/gameplay/pathing radii, has champion targeting class and actual clone classification, and survives at most eight seconds. Owner death removes it under the shared pet lifetime rule because its post-owner-death lifetime is absent from these sources.
+- The pet page's flee-away-from-damage-source instruction takes precedence over the passive template's random-forward destination. The deterministic 1D clone runs away up to the sourced 1900-unit destination, constrained by the explicitly estimated 1125 leash; outside the leash it walks back. After that it only performs cosmetic basic attacks on an eligible target already within 525 range. The source supplies no further autonomous command policy, so it does not chase or copy spells. Cosmetic attacks use the owner's attack timing and break clone invisibility at windup completion, with zero hit, on-hit, retaliation or damage events.
+- The budget values Q and RQ mark consumption and E fracture once per corresponding cooldown at full contact uptime, in addition to their normal initial packets; R uses the default Q branch. It does not price clone deception or guarantee tether uptime, and actual simulation resolves misses, returns and breaks. Offensive behavior reserves all Mimic variants in hold/trade modes and keeps offensive Distortion out of kite mode; reactive escapes and active return pads remain spatial choices.
+
+### Source values read (86)
+
+| Ability | Value | Source version |
+|---|---|---|
+| Mirror Image | below 40% maximum health | [4053330](https://wiki.leagueoflegends.com/en-us/LeBlanc?oldid=4053330) |
+| Mirror Image | staticCooldown: 60 | [4035723](https://wiki.leagueoflegends.com/en-us/Template:Data_LeBlanc/Mirror_Image?oldid=4035723) |
+| Mirror Image | invisible for 1 second | [4035723](https://wiki.leagueoflegends.com/en-us/Template:Data_LeBlanc/Mirror_Image?oldid=4035723) |
+| Mirror Image | lasts 8 seconds | [4035723](https://wiki.leagueoflegends.com/en-us/Template:Data_LeBlanc/Mirror_Image?oldid=4035723) |
+| Mirror Image | moving up to 1900 units | [4035723](https://wiki.leagueoflegends.com/en-us/Template:Data_LeBlanc/Mirror_Image?oldid=4035723) |
+| Mirror Image | 1125 (Leash range (estimated)) | [4053330](https://wiki.leagueoflegends.com/en-us/LeBlanc?oldid=4053330) |
+| Mirror Image | hp: 100% of LeBlanc's current health | [4053330](https://wiki.leagueoflegends.com/en-us/LeBlanc?oldid=4053330) |
+| Mirror Image | armor: 100% of LeBlanc's armor | [4053330](https://wiki.leagueoflegends.com/en-us/LeBlanc?oldid=4053330) |
+| Mirror Image | magicresist: 100% of LeBlanc's magic resistance | [4053330](https://wiki.leagueoflegends.com/en-us/LeBlanc?oldid=4053330) |
+| Mirror Image | movespeed: 100% of LeBlanc's movement speed | [4053330](https://wiki.leagueoflegends.com/en-us/LeBlanc?oldid=4053330) |
+| Mirror Image | attackspeed: 100% of LeBlanc's attack speed | [4053330](https://wiki.leagueoflegends.com/en-us/LeBlanc?oldid=4053330) |
+| Mirror Image | radius: 100% of LeBlanc's gameplay radius | [4053330](https://wiki.leagueoflegends.com/en-us/LeBlanc?oldid=4053330) |
+| Mirror Image | pathingradius: 100% of LeBlanc's pathing radius | [4053330](https://wiki.leagueoflegends.com/en-us/LeBlanc?oldid=4053330) |
+| Mirror Image | range: 525 | [4053330](https://wiki.leagueoflegends.com/en-us/LeBlanc?oldid=4053330) |
+| Mirror Image | damage: 0 | [4053330](https://wiki.leagueoflegends.com/en-us/LeBlanc?oldid=4053330) |
+| Mirror Image | Champion | [4053330](https://wiki.leagueoflegends.com/en-us/LeBlanc?oldid=4053330) |
+| Mirror Image | basic attacks do not apply on-hit effects | [4053330](https://wiki.leagueoflegends.com/en-us/LeBlanc?oldid=4053330) |
+| Mirror Image | automatically run away from the damage source | [4053330](https://wiki.leagueoflegends.com/en-us/LeBlanc?oldid=4053330) |
+| Mirror Image | basic attacks with no effect | [4035723](https://wiki.leagueoflegends.com/en-us/Template:Data_LeBlanc/Mirror_Image?oldid=4035723) |
+| Mirror Image | Using a basic attack breaks the stealth at the end of the attack windup | [4035723](https://wiki.leagueoflegends.com/en-us/Template:Data_LeBlanc/Mirror_Image?oldid=4035723) |
+| Mirror Image | her clone will not produce a fake tether | [4035723](https://wiki.leagueoflegends.com/en-us/Template:Data_LeBlanc/Mirror_Image?oldid=4035723) |
+| Sigil of Malice | Magic Damage: 65 / 90 / 115 / 140 / 165 (+ 40% AP) | [3985524](https://wiki.leagueoflegends.com/en-us/Template:Data_LeBlanc/Sigil_of_Malice?oldid=3985524) |
+| Sigil of Malice | marks them for 3.5 seconds | [3985524](https://wiki.leagueoflegends.com/en-us/Template:Data_LeBlanc/Sigil_of_Malice?oldid=3985524) |
+| Sigil of Malice | Sigil of Malice's orb deals 10 – 146 (based on level) bonus magic damage against minions and refunds 100% of its mana cost and 30% of its remaining cooldown if either the orb or its mark's consumption kills the target. | [3985524](https://wiki.leagueoflegends.com/en-us/Template:Data_LeBlanc/Sigil_of_Malice?oldid=3985524) |
+| Sigil of Malice | orb deals 10 – 146 | [3985524](https://wiki.leagueoflegends.com/en-us/Template:Data_LeBlanc/Sigil_of_Malice?oldid=3985524) |
+| Sigil of Malice | refunds 100% of its mana cost | [3985524](https://wiki.leagueoflegends.com/en-us/Template:Data_LeBlanc/Sigil_of_Malice?oldid=3985524) |
+| Sigil of Malice | 30% of its remaining cooldown | [3985524](https://wiki.leagueoflegends.com/en-us/Template:Data_LeBlanc/Sigil_of_Malice?oldid=3985524) |
+| Sigil of Malice | cost: 50 | [3985524](https://wiki.leagueoflegends.com/en-us/Template:Data_LeBlanc/Sigil_of_Malice?oldid=3985524) |
+| Sigil of Malice | Sigil of Malice and Mimic: Sigil of Malice can detonate each other's marks | [3985524](https://wiki.leagueoflegends.com/en-us/Template:Data_LeBlanc/Sigil_of_Malice?oldid=3985524) |
+| Sigil of Malice | this ability will cancel but does not go on cooldown nor pay its cost | [3985524](https://wiki.leagueoflegends.com/en-us/Template:Data_LeBlanc/Sigil_of_Malice?oldid=3985524) |
+| Sigil of Malice | targetRange: 700 | [3985524](https://wiki.leagueoflegends.com/en-us/Template:Data_LeBlanc/Sigil_of_Malice?oldid=3985524) |
+| Sigil of Malice | speed: 2000 | [3985524](https://wiki.leagueoflegends.com/en-us/Template:Data_LeBlanc/Sigil_of_Malice?oldid=3985524) |
+| Sigil of Malice | castTime: 0.25 | [3985524](https://wiki.leagueoflegends.com/en-us/Template:Data_LeBlanc/Sigil_of_Malice?oldid=3985524) |
+| Distortion | Magic Damage: 75 / 115 / 155 / 195 / 235 (+ 90% AP) | [4057468](https://wiki.leagueoflegends.com/en-us/Template:Data_LeBlanc/Distortion?oldid=4057468) |
+| Distortion | targetRange: 600 • Global | [4057468](https://wiki.leagueoflegends.com/en-us/Template:Data_LeBlanc/Distortion?oldid=4057468) |
+| Distortion | speed: 1450 | [4057468](https://wiki.leagueoflegends.com/en-us/Template:Data_LeBlanc/Distortion?oldid=4057468) |
+| Distortion | effectRadius: 240 | [4057468](https://wiki.leagueoflegends.com/en-us/Template:Data_LeBlanc/Distortion?oldid=4057468) |
+| Distortion | pad duration starts once the dash ends | [4057468](https://wiki.leagueoflegends.com/en-us/Template:Data_LeBlanc/Distortion?oldid=4057468) |
+| Distortion | cast location for 4 seconds | [4057468](https://wiki.leagueoflegends.com/en-us/Template:Data_LeBlanc/Distortion?oldid=4057468) |
+| Distortion | recast after 0.2 seconds | [4057468](https://wiki.leagueoflegends.com/en-us/Template:Data_LeBlanc/Distortion?oldid=4057468) |
+| Distortion | regardless of range | [4057468](https://wiki.leagueoflegends.com/en-us/Template:Data_LeBlanc/Distortion?oldid=4057468) |
+| Distortion | independent return pads | [4057468](https://wiki.leagueoflegends.com/en-us/Template:Data_LeBlanc/Distortion?oldid=4057468) |
+| Distortion | Recasting the ability does not | [4057468](https://wiki.leagueoflegends.com/en-us/Template:Data_LeBlanc/Distortion?oldid=4057468) |
+| Distortion | castTime: none | [4057468](https://wiki.leagueoflegends.com/en-us/Template:Data_LeBlanc/Distortion?oldid=4057468) |
+| Distortion | mSpell.spellCastTime: 0.25 | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/leblanc/leblanc.bin.json) |
+| Distortion | mSpell.castRadius: [220.0,220.0,220.0,220.0,220.0,220.0,220.0] | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/leblanc/leblanc.bin.json) |
+| Distortion | mSpell.mCastingBreaksStealth: true | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/leblanc/leblanc.bin.json) |
+| Ethereal Chains | Magic Damage: 50 / 70 / 90 / 110 / 130 (+ 40% AP) | [3954748](https://wiki.leagueoflegends.com/en-us/Template:Data_LeBlanc/Ethereal_Chains?oldid=3954748) |
+| Ethereal Chains | Fracture Magic Damage: 80 / 120 / 160 / 200 / 240 (+ 85% AP) | [3954748](https://wiki.leagueoflegends.com/en-us/Template:Data_LeBlanc/Ethereal_Chains?oldid=3954748) |
+| Ethereal Chains | targetRange: 950 | [3954748](https://wiki.leagueoflegends.com/en-us/Template:Data_LeBlanc/Ethereal_Chains?oldid=3954748) |
+| Ethereal Chains | width: 110 | [3954748](https://wiki.leagueoflegends.com/en-us/Template:Data_LeBlanc/Ethereal_Chains?oldid=3954748) |
+| Ethereal Chains | speed: 1750 | [3954748](https://wiki.leagueoflegends.com/en-us/Template:Data_LeBlanc/Ethereal_Chains?oldid=3954748) |
+| Ethereal Chains | tetherRadius: 865 | [3954748](https://wiki.leagueoflegends.com/en-us/Template:Data_LeBlanc/Ethereal_Chains?oldid=3954748) |
+| Ethereal Chains | for 1.5 seconds | [3954748](https://wiki.leagueoflegends.com/en-us/Template:Data_LeBlanc/Ethereal_Chains?oldid=3954748) |
+| Ethereal Chains | root them for 1.5 seconds | [3954748](https://wiki.leagueoflegends.com/en-us/Template:Data_LeBlanc/Ethereal_Chains?oldid=3954748) |
+| Ethereal Chains | minimum of 0.25 seconds | [3954748](https://wiki.leagueoflegends.com/en-us/Template:Data_LeBlanc/Ethereal_Chains?oldid=3954748) |
+| Ethereal Chains | separate debuffs | [3954748](https://wiki.leagueoflegends.com/en-us/Template:Data_LeBlanc/Ethereal_Chains?oldid=3954748) |
+| Ethereal Chains | not the aftereffects of one already applied | [3954748](https://wiki.leagueoflegends.com/en-us/Template:Data_LeBlanc/Ethereal_Chains?oldid=3954748) |
+| Ethereal Chains | Both the initial and the delayed damage can detonate Sigil of Malice | [3954748](https://wiki.leagueoflegends.com/en-us/Template:Data_LeBlanc/Ethereal_Chains?oldid=3954748) |
+| Ethereal Chains | cast from wherever the caster is at the end of the cast time | [3954748](https://wiki.leagueoflegends.com/en-us/Template:Data_LeBlanc/Ethereal_Chains?oldid=3954748) |
+| Mimic | Orb Magic Damage: 70 / 150 / 230 (+ 40% AP) | [4057469](https://wiki.leagueoflegends.com/en-us/Template:Data_LeBlanc/Mimic?oldid=4057469) |
+| Mimic | Mark Magic Damage: 140 / 300 / 460 (+ 80% AP) | [4057469](https://wiki.leagueoflegends.com/en-us/Template:Data_LeBlanc/Mimic?oldid=4057469) |
+| Mimic | Magic Damage: 150 / 315 / 480 (+ 90% AP) | [4057469](https://wiki.leagueoflegends.com/en-us/Template:Data_LeBlanc/Mimic?oldid=4057469) |
+| Mimic | Application Magic Damage: 70 / 150 / 230 (+ 40% AP) | [4057469](https://wiki.leagueoflegends.com/en-us/Template:Data_LeBlanc/Mimic?oldid=4057469) |
+| Mimic | Fracture Magic Damage: 140 / 300 / 460 (+ 85% AP) | [4057469](https://wiki.leagueoflegends.com/en-us/Template:Data_LeBlanc/Mimic?oldid=4057469) |
+| Mimic | cooldown: 45 / 35 / 25 | [4057469](https://wiki.leagueoflegends.com/en-us/Template:Data_LeBlanc/Mimic?oldid=4057469) |
+| Mimic | mSpell.spellCastTime: 0.25 | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/leblanc/leblanc.bin.json) |
+| Mimic | mSpell.spellCastTime: 0.25 | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/leblanc/leblanc.bin.json) |
+| Mimic | most recently used basic ability | [4057469](https://wiki.leagueoflegends.com/en-us/Template:Data_LeBlanc/Mimic?oldid=4057469) |
+| Mimic | default to Mimic: Sigil of Malice | [4057469](https://wiki.leagueoflegends.com/en-us/Template:Data_LeBlanc/Mimic?oldid=4057469) |
+| Mimic | mSpell.mMaxAmmo: [2,2,2,2,2,2,2] | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/leblanc/leblanc.bin.json) |
+| Mimic | mSpell.mAmmoUsed: [0,0,0,0,0,0,0] | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/leblanc/leblanc.bin.json) |
+| Mimic | mSpell.mAmmoRechargeTime: [5.0,5.0,5.0,5.0,5.0,5.0,5.0] | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/leblanc/leblanc.bin.json) |
+| Sigil of Malice | mSpell.mCastingBreaksStealth: true | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/leblanc/leblanc.bin.json) |
+| Ethereal Chains | mSpell.mCastingBreaksStealth: true | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/leblanc/leblanc.bin.json) |
+| Mimic | mSpell.mCastingBreaksStealth: true | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/leblanc/leblanc.bin.json) |
+| Mimic | mSpell.mCastingBreaksStealth: true | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/leblanc/leblanc.bin.json) |
+| Distortion | mSpell.mCastingBreaksStealth: true | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/leblanc/leblanc.bin.json) |
+| Mimic | mSpell.mCastingBreaksStealth: true | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/leblanc/leblanc.bin.json) |
+| Mimic | mSpell.mCastingBreaksStealth: true | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/leblanc/leblanc.bin.json) |
+| Sigil of Malice | cooldown: 6 | [3985524](https://wiki.leagueoflegends.com/en-us/Template:Data_LeBlanc/Sigil_of_Malice?oldid=3985524) |
+| Distortion | cooldown: 15 / 13.75 / 12.5 / 11.25 / 10 | [4057468](https://wiki.leagueoflegends.com/en-us/Template:Data_LeBlanc/Distortion?oldid=4057468) |
+| Distortion | cost: 60 / 70 / 80 / 90 / 100 | [4057468](https://wiki.leagueoflegends.com/en-us/Template:Data_LeBlanc/Distortion?oldid=4057468) |
+| Ethereal Chains | cooldown: 14 / 13.25 / 12.5 / 11.75 / 11 | [3954748](https://wiki.leagueoflegends.com/en-us/Template:Data_LeBlanc/Ethereal_Chains?oldid=3954748) |
+| Ethereal Chains | cost: 50 | [3954748](https://wiki.leagueoflegends.com/en-us/Template:Data_LeBlanc/Ethereal_Chains?oldid=3954748) |
+| Ethereal Chains | castTime: 0.25 | [3954748](https://wiki.leagueoflegends.com/en-us/Template:Data_LeBlanc/Ethereal_Chains?oldid=3954748) |

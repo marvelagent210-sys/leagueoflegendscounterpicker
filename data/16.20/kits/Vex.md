@@ -213,3 +213,105 @@ All 4 level-based formulas in the game files (1 linked to wiki values above):
 | VexP | FearDuration | breakpoints at levels 6, 9, 13 (level 1: 0.75) | 0.75 | 1.5 | 1.5 |
 | VexP | DoomCD | breakpoints at levels 6, 11, 16 (level 1: 25) | 25 | 16 | 16 |
 | VexP | GloomMinionMod | breakpoints at levels 6, 9, 13, 16 (level 1: 0.4) | 0.4 | 0.6 | 0.6 |
+
+## Duel simulator kit (level 20, every ability at max rank)
+
+What the duel simulator fights with (`kits/champions/Vex.ts`): values come from pinned wiki and versioned game-data records at level 20. Interpretations and missing evidence are listed under assumptions. Ratios are fractions of the stat (60% AD is 0.6 × AD).
+
+- Basic attack: range 550, missile at 2000/s.
+
+| Key | Ability | Cooldown (s) | Cast time (s) | Cost | Delivery | On the enemy | On itself |
+|---|---|--:|--:|---|---|---|---|
+| Q | Mistral Bolt | 4 | 0.15 | 65 | skillshot 1200 long, 360 wide, at 600/s | 250 + 70% AP magic damage | – |
+| W | Personal Space | 12 | 0.25 | 75 | self | – | – |
+| E | Looming Darkness | 12 | 0.25 | 110 | circle of 300 radius up to 800 away, projectile at 1300/s then lands after 0 s | 130 + 60% AP magic damage; slow 50% for 2 s | – |
+| R | Shadow Surge | 100 (starts when its effect on the caster ends) | 0.25 | 100 (depends on combat state) | skillshot 3000 long, 260 wide, at 1600/s | 175 + 20% AP magic damage | – |
+| R2 | Shadow Surge (recast) | 0 | 0 | 0 | self | – | – |
+
+Effects marked by a mark or a role are completed by the kit's hooks (see the kit's source).
+
+### Assumptions
+
+- Doom starts ready, is spent at basic-spell declaration even on a miss, and its static cooldown is not reduced by ability haste. Each released missile/area retains its own empowered packet. The fear slow interpolates the exact distance bands at impact and lasts only with the accepted fear. E fears away from its actual explosion epicenter. An accepted fear remains after Vex dies; expiry and cleanses still apply.
+- Mistral Bolt changes from600 speed/360 width to3200/160 after500 actual travel units. Its launch hit probability uses the shared model with the initial width/speed; the later narrower geometry is not an additional independent probability roll. The transition is sampled on the30Hz simulation grid, without inventing a client acceleration interval.
+- Looming Darkness interpolates radius between200 and300 over0–800 declared cast distance. The wiki intermediate distance points are unknown and client RadiusGrowthRate13 has no published time/distance unit, so its exact stepped growth remains unverified. Its absolute target location and cast distance are chosen at declaration; later enemy/caster movement cannot retarget or resize the explosion. The projectile launches from the completion position and can be destroyed before arrival, including when no champion is hit.
+- Gloom starts without preloaded marks. Only actual hostile champion, clone or native monster dash/blink events create marks; forced movement and the explicit Yone E return do not. E also marks actual native minions. Runtime pet bodies require summoned:false to identify native minions/monsters; a summoned minion-class pet is not a lane minion. Summoned pets remain excluded except explicit clones. Blink detection uses the origin, not an incoming destination. A single continuing dash grants one mark, with the sourced0.5second listener lockout; subsequent distinct eligible movements refresh it. Champion-class clones use non-champion damage/refund because they are not real champions.
+- Shadow Surge pierces nonchampion bodies and stops at the first champion or champion-class clone. The marked body identity, reveal, tracking dash and takedown credit remain separate. Dash speed2200 is explicitly estimated by the pinned wiki; it is retained as an uncertainty. A successful recast follows the actual marked body without a maximum distance, is displacement immune but grants no general CC/damage immunity, and may cross terrain. There are no fictional second champions or guaranteed resets in a duel.
+- A lethal first Shadow Surge hit can earn its own takedown reset because credit is installed before its damage. The free repeat is available only after0.5seconds and before its finite12second deadline. When an unused repeat window expires, the ordinary hasted100second cooldown begins. The primary only calls this cooldown post-effect and does not quantify the interaction with an unused reset; this explicit expiry policy is an unresolved server timing detail.
+
+### Source values read (72)
+
+| Ability | Value | Source version |
+|---|---|---|
+| Doom 'n Gloom | staticCooldown: 25 / 22 / 19 / 16 (based on level) | [3986733](https://wiki.leagueoflegends.com/en-us/Template:Data_Vex/Doom_'n_Gloom?oldid=3986733) |
+| Doom 'n Gloom | Passive - Doom: Periodically, Vex empowers her next basic ability to knock down and fear enemies hit for 0.75 / 1 / 1.25 / 1.5 (based on level) seconds, during which they are slowed by 60 / 63.9 / 67.8 / 71.7 / 75.6 / 79.5 / 83.4 / 87.3 / 91.2 / 95.1 / 99 (based on distance from Vex)%. | [3986733](https://wiki.leagueoflegends.com/en-us/Template:Data_Vex/Doom_'n_Gloom?oldid=3986733) |
+| Doom 'n Gloom | Gloom for 6 seconds | [3986733](https://wiki.leagueoflegends.com/en-us/Template:Data_Vex/Doom_'n_Gloom?oldid=3986733) |
+| Doom 'n Gloom | Gloom's detonation deals 40 – 150 (based on level) (+ 25% AP) bonus magic damage and refunds 25% of Doom's cooldown. | [3986733](https://wiki.leagueoflegends.com/en-us/Template:Data_Vex/Doom_'n_Gloom?oldid=3986733) |
+| Doom 'n Gloom | (+ 25% AP) | [3986733](https://wiki.leagueoflegends.com/en-us/Template:Data_Vex/Doom_'n_Gloom?oldid=3986733) |
+| Doom 'n Gloom | Against non-champions, this instead deals 40 / 45 / 50 / 55 / 60 (based on level)% damage and refunds 10% of Doom's cooldown. | [3986733](https://wiki.leagueoflegends.com/en-us/Template:Data_Vex/Doom_'n_Gloom?oldid=3986733) |
+| Doom 'n Gloom | refunds 25% of Doom's cooldown | [3986733](https://wiki.leagueoflegends.com/en-us/Template:Data_Vex/Doom_'n_Gloom?oldid=3986733) |
+| Doom 'n Gloom | refunds 10% of Doom's cooldown | [3986733](https://wiki.leagueoflegends.com/en-us/Template:Data_Vex/Doom_'n_Gloom?oldid=3986733) |
+| Doom 'n Gloom | effectRadius: 1600 | [3986733](https://wiki.leagueoflegends.com/en-us/Template:Data_Vex/Doom_'n_Gloom?oldid=3986733) |
+| Doom 'n Gloom | refresh to 0.5 seconds | [3986733](https://wiki.leagueoflegends.com/en-us/Template:Data_Vex/Doom_'n_Gloom?oldid=3986733) |
+| Doom 'n Gloom | "name":"DashLockoutTime","values":[0.5 | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/vex/vex.bin.json) |
+| Doom 'n Gloom | Nearby enemies that become displaced do not count | [3986733](https://wiki.leagueoflegends.com/en-us/Template:Data_Vex/Doom_'n_Gloom?oldid=3986733) |
+| Doom 'n Gloom | Soul Unbound recast does not cause | [3986733](https://wiki.leagueoflegends.com/en-us/Template:Data_Vex/Doom_'n_Gloom?oldid=3986733) |
+| Doom 'n Gloom | Gloom can mark clones, but not other pets | [3986733](https://wiki.leagueoflegends.com/en-us/Template:Data_Vex/Doom_'n_Gloom?oldid=3986733) |
+| Doom 'n Gloom | Gloom will mark enemies even if they are untargetable | [3986733](https://wiki.leagueoflegends.com/en-us/Template:Data_Vex/Doom_'n_Gloom?oldid=3986733) |
+| Doom 'n Gloom | inside the detection radius when they blink | [3986733](https://wiki.leagueoflegends.com/en-us/Template:Data_Vex/Doom_'n_Gloom?oldid=3986733) |
+| Doom 'n Gloom | Doom's cooldown starts as soon as the basic ability is cast | [3986733](https://wiki.leagueoflegends.com/en-us/Template:Data_Vex/Doom_'n_Gloom?oldid=3986733) |
+| Doom 'n Gloom | fear will not be removed when Vex dies | [3986733](https://wiki.leagueoflegends.com/en-us/Template:Data_Vex/Doom_'n_Gloom?oldid=3986733) |
+| Doom 'n Gloom | Spell shield will block all of Doom's effects but not Gloom's empowered attack nor mark | [3986733](https://wiki.leagueoflegends.com/en-us/Template:Data_Vex/Doom_'n_Gloom?oldid=3986733) |
+| Mistral Bolt | Magic Damage: 70 / 115 / 160 / 205 / 250 (+ 70% AP) | [4053302](https://wiki.leagueoflegends.com/en-us/Template:Data_Vex/Mistral_Bolt?oldid=4053302) |
+| Mistral Bolt | range: 1200 | [4053302](https://wiki.leagueoflegends.com/en-us/Template:Data_Vex/Mistral_Bolt?oldid=4053302) |
+| Mistral Bolt | width (Initial): 360 • 160 | [4053302](https://wiki.leagueoflegends.com/en-us/Template:Data_Vex/Mistral_Bolt?oldid=4053302) |
+| Mistral Bolt | width (Reduced): 360 • 160 | [4053302](https://wiki.leagueoflegends.com/en-us/Template:Data_Vex/Mistral_Bolt?oldid=4053302) |
+| Mistral Bolt | speed (Initial): 600 • 3200 | [4053302](https://wiki.leagueoflegends.com/en-us/Template:Data_Vex/Mistral_Bolt?oldid=4053302) |
+| Mistral Bolt | speed (Increased): 600 • 3200 | [4053302](https://wiki.leagueoflegends.com/en-us/Template:Data_Vex/Mistral_Bolt?oldid=4053302) |
+| Mistral Bolt | After travelling 500 units | [4053302](https://wiki.leagueoflegends.com/en-us/Template:Data_Vex/Mistral_Bolt?oldid=4053302) |
+| Mistral Bolt | "mSpeedValue":3200.0 | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/vex/vex.bin.json) |
+| Mistral Bolt | wherever Vex is at the end of the cast time | [4053302](https://wiki.leagueoflegends.com/en-us/Template:Data_Vex/Mistral_Bolt?oldid=4053302) |
+| Personal Space | Magic Damage: 80 / 120 / 160 / 200 / 240 (+ 30% AP) | [4008547](https://wiki.leagueoflegends.com/en-us/Template:Data_Vex/Personal_Space?oldid=4008547) |
+| Personal Space | Shield Strength: 50 / 75 / 100 / 125 / 150 (+ 75% AP) | [4008547](https://wiki.leagueoflegends.com/en-us/Template:Data_Vex/Personal_Space?oldid=4008547) |
+| Personal Space | shield for 2.5 seconds | [4008547](https://wiki.leagueoflegends.com/en-us/Template:Data_Vex/Personal_Space?oldid=4008547) |
+| Personal Space | effectRadius (Standard): 475 • 550 | [4008547](https://wiki.leagueoflegends.com/en-us/Template:Data_Vex/Personal_Space?oldid=4008547) |
+| Personal Space | effectRadius (Enhanced): 475 • 550 | [4008547](https://wiki.leagueoflegends.com/en-us/Template:Data_Vex/Personal_Space?oldid=4008547) |
+| Personal Space | before the cast time | [4008547](https://wiki.leagueoflegends.com/en-us/Template:Data_Vex/Personal_Space?oldid=4008547) |
+| Personal Space | move during Personal Space's cast time | [4008547](https://wiki.leagueoflegends.com/en-us/Template:Data_Vex/Personal_Space?oldid=4008547) |
+| Personal Space | "ObjectName":"VexW" | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/vex/vex.bin.json) |
+| Looming Darkness | Magic Damage: 50 / 70 / 90 / 110 / 130 (+ 40 / 45 / 50 / 55 / 60% AP) | [4034711](https://wiki.leagueoflegends.com/en-us/Template:Data_Vex/Looming_Darkness?oldid=4034711) |
+| Looming Darkness | Slow: 30 / 35 / 40 / 45 / 50% | [4034711](https://wiki.leagueoflegends.com/en-us/Template:Data_Vex/Looming_Darkness?oldid=4034711) |
+| Looming Darkness | slowing them for 2 seconds | [4034711](https://wiki.leagueoflegends.com/en-us/Template:Data_Vex/Looming_Darkness?oldid=4034711) |
+| Looming Darkness | targetRange: 800 | [4034711](https://wiki.leagueoflegends.com/en-us/Template:Data_Vex/Looming_Darkness?oldid=4034711) |
+| Looming Darkness | speed: 1300 | [4034711](https://wiki.leagueoflegends.com/en-us/Template:Data_Vex/Looming_Darkness?oldid=4034711) |
+| Looming Darkness | effectRadius: 200 / 213 / 226 / 239 / 252 / 265 / 278 / 291 / 300 (based on cast distance) | [4034711](https://wiki.leagueoflegends.com/en-us/Template:Data_Vex/Looming_Darkness?oldid=4034711) |
+| Looming Darkness | "name":"RadiusGrowthRate","values":[13.0 | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/vex/vex.bin.json) |
+| Looming Darkness | Killing an enemy with Looming Darkness refunds 10% | [4034711](https://wiki.leagueoflegends.com/en-us/Template:Data_Vex/Looming_Darkness?oldid=4034711) |
+| Shadow Surge | Magic Damage: 75 / 125 / 175 (+ 20% AP) | [4057925](https://wiki.leagueoflegends.com/en-us/Template:Data_Vex/Shadow_Surge?oldid=4057925) |
+| Shadow Surge | Magic Damage: 150 / 250 / 350 (+ 50% AP) | [4057925](https://wiki.leagueoflegends.com/en-us/Template:Data_Vex/Shadow_Surge?oldid=4057925) |
+| Shadow Surge | range: 2000 / 2500 / 3000 | [4057925](https://wiki.leagueoflegends.com/en-us/Template:Data_Vex/Shadow_Surge?oldid=4057925) |
+| Shadow Surge | width: 260 | [4057925](https://wiki.leagueoflegends.com/en-us/Template:Data_Vex/Shadow_Surge?oldid=4057925) |
+| Shadow Surge | speed (First): 1600 • 2200 | [4057925](https://wiki.leagueoflegends.com/en-us/Template:Data_Vex/Shadow_Surge?oldid=4057925) |
+| Shadow Surge | speed (Dash): 1600 • 2200 | [4057925](https://wiki.leagueoflegends.com/en-us/Template:Data_Vex/Shadow_Surge?oldid=4057925) |
+| Shadow Surge | mark them for 4 seconds | [4057925](https://wiki.leagueoflegends.com/en-us/Template:Data_Vex/Shadow_Surge?oldid=4057925) |
+| Shadow Surge | within 8 seconds of its application | [4057925](https://wiki.leagueoflegends.com/en-us/Template:Data_Vex/Shadow_Surge?oldid=4057925) |
+| Shadow Surge | again within 12 seconds | [4057925](https://wiki.leagueoflegends.com/en-us/Template:Data_Vex/Shadow_Surge?oldid=4057925) |
+| Shadow Surge | after 0.5 seconds | [4057925](https://wiki.leagueoflegends.com/en-us/Template:Data_Vex/Shadow_Surge?oldid=4057925) |
+| Shadow Surge | for 0.4 seconds each | [4057925](https://wiki.leagueoflegends.com/en-us/Template:Data_Vex/Shadow_Surge?oldid=4057925) |
+| Shadow Surge | effectRadius (Missile sight): 650 • Global | [4057925](https://wiki.leagueoflegends.com/en-us/Template:Data_Vex/Shadow_Surge?oldid=4057925) |
+| Shadow Surge | cost: 100 | [4057925](https://wiki.leagueoflegends.com/en-us/Template:Data_Vex/Shadow_Surge?oldid=4057925) |
+| Shadow Surge | no maximum tracking distance | [4057925](https://wiki.leagueoflegends.com/en-us/Template:Data_Vex/Shadow_Surge?oldid=4057925) |
+| Shadow Surge | cannot be recast while grounded or rooted | [4057925](https://wiki.leagueoflegends.com/en-us/Template:Data_Vex/Shadow_Surge?oldid=4057925) |
+| Shadow Surge | first 0.25 seconds of the dash | [4057925](https://wiki.leagueoflegends.com/en-us/Template:Data_Vex/Shadow_Surge?oldid=4057925) |
+| Shadow Surge | "ObjectName":"VexR2" | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/vex/vex.bin.json) |
+| Mistral Bolt | cooldown: 8 / 7 / 6 / 5 / 4 | [4053302](https://wiki.leagueoflegends.com/en-us/Template:Data_Vex/Mistral_Bolt?oldid=4053302) |
+| Mistral Bolt | cost: 45 / 50 / 55 / 60 / 65 | [4053302](https://wiki.leagueoflegends.com/en-us/Template:Data_Vex/Mistral_Bolt?oldid=4053302) |
+| Mistral Bolt | castTime: 0.15 | [4053302](https://wiki.leagueoflegends.com/en-us/Template:Data_Vex/Mistral_Bolt?oldid=4053302) |
+| Personal Space | cooldown: 16 / 15 / 14 / 13 / 12 | [4008547](https://wiki.leagueoflegends.com/en-us/Template:Data_Vex/Personal_Space?oldid=4008547) |
+| Personal Space | cost: 75 | [4008547](https://wiki.leagueoflegends.com/en-us/Template:Data_Vex/Personal_Space?oldid=4008547) |
+| Personal Space | castTime: 0.25 | [4008547](https://wiki.leagueoflegends.com/en-us/Template:Data_Vex/Personal_Space?oldid=4008547) |
+| Looming Darkness | cooldown: 12 | [4034711](https://wiki.leagueoflegends.com/en-us/Template:Data_Vex/Looming_Darkness?oldid=4034711) |
+| Looming Darkness | cost: 70 / 80 / 90 / 100 / 110 | [4034711](https://wiki.leagueoflegends.com/en-us/Template:Data_Vex/Looming_Darkness?oldid=4034711) |
+| Looming Darkness | castTime: 0.25 | [4034711](https://wiki.leagueoflegends.com/en-us/Template:Data_Vex/Looming_Darkness?oldid=4034711) |
+| Shadow Surge | cooldown: 140 / 120 / 100 | [4057925](https://wiki.leagueoflegends.com/en-us/Template:Data_Vex/Shadow_Surge?oldid=4057925) |
+| Shadow Surge | castTime: 0.25 • None | [4057925](https://wiki.leagueoflegends.com/en-us/Template:Data_Vex/Shadow_Surge?oldid=4057925) |

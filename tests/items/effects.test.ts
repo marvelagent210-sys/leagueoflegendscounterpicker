@@ -174,14 +174,14 @@ describe("item effects in fights", () => {
   it("Black Cleaver: physical damage stacks 6% armor reduction on the enemy, up to 30%", () => {
     const w = world(equip(fighter(), "Black Cleaver").spec);
     const [holder, enemy] = w.units;
-    for (let i = 0; i < 7; i++) holder.spec.hooks!.onDamageDealt!({ tick: i, world: w, self: holder, enemy, memory: holder.memory, apply: () => undefined, buff: () => undefined, regenerate: () => undefined, transform: () => undefined, log: () => undefined, amount: 50, absorbed: 0, mitigated: 50, raw: 100, damageType: "physical", persistent: false, attack: true });
+    for (let i = 0; i < 7; i++) holder.spec.hooks!.onDamageDealt!({ ...hookContext(w, holder), tick: i, amount: 50, absorbed: 0, mitigated: 50, raw: 100, damageType: "physical", persistent: false, attack: true });
     expect(derive(enemy).armorReduction.percent).toEqual([expect.closeTo(0.3, 10)]);
   });
 
   it("Mortal Reminder: physical damage inflicts Grievous Wounds, refreshed rather than stacked", () => {
     const w = world(equip(fighter(), "Mortal Reminder").spec);
     const [holder, enemy] = w.units;
-    const ctx = { world: w, self: holder, enemy, memory: holder.memory, apply: () => undefined, buff: () => undefined, regenerate: () => undefined, transform: () => undefined, log: () => undefined, amount: 50, absorbed: 0, mitigated: 50, raw: 100, persistent: false, attack: true };
+    const ctx = { ...hookContext(w, holder), amount: 50, absorbed: 0, mitigated: 50, raw: 100, persistent: false, attack: true };
     holder.spec.hooks!.onDamageDealt!({ ...ctx, tick: 0, damageType: "magic" });
     expect(enemy.statuses.filter((status) => status.kind === "grievousWounds")).toHaveLength(0);
     holder.spec.hooks!.onDamageDealt!({ ...ctx, tick: 0, damageType: "physical" });

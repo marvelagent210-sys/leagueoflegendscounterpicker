@@ -164,6 +164,26 @@
       "Phase Dive's attack can miss and be blocked and dodged, consuming the basic attack without dealing any damage.",
       "Phase Dive's attack breaks stealth at the start of its cast time.\n  - This is relevant for external sources of stealth such as Curse of the Black Mist.",
       "If the target becomes untargetable, dies, or is too far away during the empowered attack's cast time, it is cancelled but not consumed."
+    ],
+    "gameSources": [
+      {
+        "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/ekko/ekko.bin.json",
+        "sha256": "cd9b8eac17f55d150eed5a9f9dace5382dd07ccd5853d8591768ac4e26ae97e7",
+        "object": "Characters/Ekko/Spells/EkkoEAttack",
+        "text": [
+          "mSpell.mCantCancelWhileWindingUp: true"
+        ]
+      },
+      {
+        "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/ekko/ekko.bin.json",
+        "sha256": "cd9b8eac17f55d150eed5a9f9dace5382dd07ccd5853d8591768ac4e26ae97e7",
+        "object": "Characters/Ekko/Spells/EkkoEAbility/EkkoE",
+        "text": [
+          "mSpell.DataValues.DashDistance.values: [350.0,350.0,350.0,350.0,350.0,350.0,350.0]"
+        ]
+      }
     ]
   },
   {
@@ -598,6 +618,17 @@
     "notes": [
       "Spell shield will block only a single instance of damage.",
       "This ability will cast from wherever the caster is at the end of the cast time."
+    ],
+    "gameSources": [
+      {
+        "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/ekko/ekko.bin.json",
+        "sha256": "cd9b8eac17f55d150eed5a9f9dace5382dd07ccd5853d8591768ac4e26ae97e7",
+        "object": "Characters/Ekko/Spells/EkkoQAbility/EkkoQ",
+        "text": [
+          "mSpell.DataValues.SlowZoneRadius.values: [165.0,165.0,165.0,165.0,165.0,165.0,165.0]"
+        ]
+      }
     ]
   },
   {
@@ -854,6 +885,28 @@
       "A link can also be seen between the afterimage and Ekko that traces along his path.\n  - The link follows the same visibility rules as the afterimage.\n  - Upon activation, Ekko travels full distance through the link, and thus will detonate Parallel Convergence that the link passes through.",
       "Quicksilver Sash Quicksilver incurs a 1-second cooldown upon casting Chronobreak.",
       "Ekko's dash cannot be interrupted by forced movement displacements since he is immune to them.\n  - This is not to be confused with displacement immunity, which resists airborne displacements plus a number of other cases. Chronobreak provides immunity only to displacements that apply airborne."
+    ],
+    "sources": [
+      {
+        "page": {
+          "title": "Template:Data Ekko/Chronobreak",
+          "revid": 4012189
+        },
+        "text": [
+          "formula=3% per 1% of health lost in the last 4 seconds"
+        ]
+      }
+    ],
+    "gameSources": [
+      {
+        "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/ekko/ekko.bin.json",
+        "sha256": "cd9b8eac17f55d150eed5a9f9dace5382dd07ccd5853d8591768ac4e26ae97e7",
+        "object": "Characters/Ekko/Spells/EkkoRAbility/EkkoR",
+        "text": [
+          "mSpell.manaValues.values: [100.0,100.0,100.0,0.0,0.0,0.0]"
+        ]
+      }
     ]
   },
   {
@@ -1056,6 +1109,17 @@
       "The passive will proc with the attack that triggers the final stack of Resonance if it reduces a target's health below the 30% threshold.",
       "Ekko can detonate the expansion even while untargetable (i.e. Chronobreak dash), but not if he is resurrecting.",
       "Parallel Convergence will continue to slow enemies even if its expansion is detonated."
+    ],
+    "gameSources": [
+      {
+        "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/ekko/ekko.bin.json",
+        "sha256": "cd9b8eac17f55d150eed5a9f9dace5382dd07ccd5853d8591768ac4e26ae97e7",
+        "object": "Characters/Ekko/Spells/EkkoWAbility/EkkoW",
+        "text": [
+          "mSpell.DataValues.DelayBeforeDetonation.values: [3.0,3.0,3.0,3.0,3.0,3.0,3.0]"
+        ]
+      }
     ]
   }
 ]

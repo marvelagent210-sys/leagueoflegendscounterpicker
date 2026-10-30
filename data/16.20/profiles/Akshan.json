@@ -103,7 +103,8 @@
         "Only Heroic Swing's first cast is disabled while grounded or rooted. The third cast is still usable during those effects.",
         "Akshan will attempt to basic attack the target he fired at with the last shot after the third cast's dash ends, if there is no other input given.",
         "Spell shield will only block a single shot.",
-        "Hook range including lollipop against walls and final dash distance and speed."
+        "Hook range including lollipop against walls and final dash distance and speed.",
+        "It can miss if the user is blinded."
       ]
     },
     {
@@ -235,7 +236,8 @@
         "Spell shield will not prevent the lock-on and will only block a single bullet.",
         "Comeuppance will not go on a reduced cooldown if Akshan dies during the channel.",
         "Comeuppance will cancel if the target becomes untargetable or dies during the channel.",
-        "The following table refers for interactions while Akshan is channeling:"
+        "The following table refers for interactions while Akshan is channeling:",
+        "Comeuppance is interrupted by death or silence."
       ]
     },
     {

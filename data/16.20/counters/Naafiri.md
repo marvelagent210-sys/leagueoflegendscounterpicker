@@ -1,5 +1,158 @@
 # Counters to Naafiri (patch 26.20)
 
+## Simulated duels
+
+The duel simulator played each of the 144 other champions with a simulator kit against Naafiri: both at level 20 with 15,000 gold of plain stats, each side's spent against the other's, through six scenarios (PLAN.md §6). Scores run from −1 (Naafiri wins every time) to +1 (the champion does). Run `npm run duel -- <champion> Naafiri --log brawl` to watch a fight.
+
+| # | Champion | Score | You engage | Enemy engages | Brawl | Short trade | Spacing | Escape |
+|--:|---|--:|--:|--:|--:|--:|--:|--:|
+| 1 | Master Yi | +0.86 | +1.00 | +1.00 | +1.00 | +0.08 | +1.00 | +1.00 |
+| 2 | K'Sante | +0.86 | +1.00 | +1.00 | +1.00 | +0.17 | – | +1.00 |
+| 3 | Rengar | +0.84 | +1.00 | +1.00 | +1.00 | +0.37 | – | +0.00 |
+| 4 | Yorick | +0.83 | +1.00 | +1.00 | +1.00 | −0.02 | – | +1.00 |
+| 5 | Fiora | +0.83 | +1.00 | +1.00 | +1.00 | −0.03 | – | +1.00 |
+| 6 | Neeko | +0.83 | +1.00 | +1.00 | +1.00 | +0.17 | +1.00 | +0.00 |
+| 7 | Urgot | +0.83 | +1.00 | +1.00 | +1.00 | +0.17 | +1.00 | +0.00 |
+| 8 | Ambessa | +0.83 | +1.00 | +1.00 | +1.00 | +0.29 | – | +0.00 |
+| 9 | Janna | +0.82 | +1.00 | +1.00 | +1.00 | +0.13 | +1.00 | +0.00 |
+| 10 | Vayne | +0.82 | +1.00 | +1.00 | +1.00 | +0.12 | +1.00 | +0.00 |
+| 11 | Kog'Maw | +0.82 | +1.00 | +1.00 | +1.00 | +0.11 | +1.00 | +0.00 |
+| 12 | Corki | +0.82 | +1.00 | +1.00 | +1.00 | +0.11 | +1.00 | +0.00 |
+| 13 | Rell | +0.81 | +1.00 | +1.00 | +1.00 | +0.09 | +1.00 | +0.00 |
+| 14 | Udyr | +0.81 | +1.00 | +1.00 | +1.00 | −0.12 | – | +1.00 |
+| 15 | Trundle | +0.81 | +1.00 | +1.00 | +1.00 | −0.13 | – | +1.00 |
+| 16 | Smolder | +0.81 | +1.00 | +1.00 | +1.00 | +0.07 | +1.00 | +0.00 |
+| 17 | Teemo | +0.81 | +1.00 | +1.00 | +1.00 | +0.06 | +1.00 | +0.00 |
+| 18 | Graves | +0.81 | +1.00 | +1.00 | +1.00 | +0.06 | +1.00 | +0.00 |
+| 19 | Annie | +0.81 | +1.00 | +1.00 | +1.00 | +0.04 | +1.00 | +0.00 |
+| 20 | Garen | +0.81 | +1.00 | +1.00 | +1.00 | +0.17 | – | +0.00 |
+| 21 | Jhin | +0.80 | +1.00 | +1.00 | +1.00 | +0.03 | +1.00 | +0.00 |
+| 22 | Sivir | +0.80 | +1.00 | +1.00 | +1.00 | +0.01 | +1.00 | +0.00 |
+| 23 | Kayle | +0.80 | +1.00 | +1.00 | +1.00 | +0.01 | +1.00 | +0.00 |
+| 24 | Malphite | +0.80 | +1.00 | +1.00 | +1.00 | +0.14 | – | +0.00 |
+| 25 | Aphelios | +0.80 | +1.00 | +1.00 | +1.00 | +0.01 | +1.00 | +0.00 |
+| 26 | Varus | +0.80 | +1.00 | +1.00 | +1.00 | +0.01 | +1.00 | +0.00 |
+| 27 | Poppy | +0.80 | +1.00 | +1.00 | +1.00 | +0.14 | – | +0.00 |
+| 28 | Aurora | +0.80 | +1.00 | +1.00 | +1.00 | −0.00 | +1.00 | +0.00 |
+| 29 | Ryze | +0.80 | +1.00 | +1.00 | +1.00 | −0.00 | +1.00 | +0.00 |
+| 30 | Karma | +0.80 | +1.00 | +1.00 | +1.00 | −0.00 | +1.00 | +0.00 |
+| 31 | Quinn | +0.80 | +1.00 | +1.00 | +1.00 | −0.01 | +1.00 | +0.00 |
+| 32 | Viktor | +0.80 | +1.00 | +1.00 | +1.00 | −0.02 | +1.00 | +0.00 |
+| 33 | Gnar | +0.80 | +1.00 | +1.00 | +1.00 | −0.02 | +1.00 | +0.00 |
+| 34 | Jinx | +0.80 | +1.00 | +1.00 | +1.00 | −0.03 | +1.00 | +0.00 |
+| 35 | Lulu | +0.80 | +1.00 | +1.00 | +1.00 | −0.03 | +1.00 | +0.00 |
+| 36 | Ashe | +0.80 | +1.00 | +1.00 | +1.00 | −0.03 | +1.00 | +0.00 |
+| 37 | Tahm Kench | +0.80 | +1.00 | +1.00 | +1.00 | +0.11 | – | +0.00 |
+| 38 | Cho'Gath | +0.79 | +1.00 | +1.00 | +1.00 | +0.10 | – | +0.00 |
+| 39 | Galio | +0.79 | +1.00 | +1.00 | +1.00 | +0.10 | – | +0.00 |
+| 40 | Jayce | +0.79 | +1.00 | +1.00 | +1.00 | +0.10 | – | +0.00 |
+| 41 | Darius | +0.79 | +1.00 | +1.00 | +1.00 | +0.09 | – | +0.00 |
+| 42 | Swain | +0.79 | +1.00 | +1.00 | +1.00 | −0.05 | +1.00 | +0.00 |
+| 43 | Twisted Fate | +0.79 | +1.00 | +1.00 | +1.00 | −0.05 | +1.00 | +0.00 |
+| 44 | Orianna | +0.79 | +1.00 | +1.00 | +1.00 | −0.06 | +1.00 | +0.00 |
+| 45 | Diana | +0.79 | +1.00 | +1.00 | +1.00 | +0.07 | – | +0.00 |
+| 46 | Xayah | +0.79 | +1.00 | +1.00 | +1.00 | −0.07 | +1.00 | +0.00 |
+| 47 | Yasuo | +0.79 | +1.00 | +1.00 | +1.00 | +0.07 | – | +0.00 |
+| 48 | Samira | +0.79 | +1.00 | +1.00 | +1.00 | −0.07 | +1.00 | +0.00 |
+| 49 | Kennen | +0.79 | +1.00 | +1.00 | +1.00 | −0.08 | +1.00 | +0.00 |
+| 50 | Ezreal | +0.79 | +1.00 | +1.00 | +1.00 | −0.08 | +1.00 | +0.00 |
+| 51 | Akshan | +0.79 | +1.00 | +1.00 | +1.00 | −0.08 | +1.00 | +0.00 |
+| 52 | Skarner | +0.78 | +1.00 | +1.00 | +1.00 | +0.04 | – | +0.00 |
+| 53 | Aatrox | +0.78 | +1.00 | +1.00 | +1.00 | +0.03 | – | +0.00 |
+| 54 | Gangplank | +0.78 | +1.00 | +1.00 | +1.00 | +0.02 | – | +0.00 |
+| 55 | Maokai | +0.78 | +1.00 | +1.00 | +1.00 | +0.02 | – | +0.00 |
+| 56 | Irelia | +0.78 | +1.00 | +1.00 | +1.00 | +0.02 | – | +0.00 |
+| 57 | Riven | +0.78 | +1.00 | +1.00 | +1.00 | +0.01 | – | +0.00 |
+| 58 | Jax | +0.78 | +1.00 | +1.00 | +1.00 | +0.01 | – | +0.00 |
+| 59 | Rakan | +0.78 | +1.00 | +1.00 | +1.00 | −0.14 | +1.00 | +0.00 |
+| 60 | Hecarim | +0.78 | +1.00 | +1.00 | +1.00 | +0.01 | – | +0.00 |
+| 61 | Twitch | +0.78 | +0.95 | +1.00 | +1.00 | −0.05 | +1.00 | +0.00 |
+| 62 | Sion | +0.78 | +1.00 | +1.00 | +1.00 | −0.00 | – | +0.00 |
+| 63 | Mordekaiser | +0.78 | +1.00 | +1.00 | +1.00 | −0.01 | – | +0.00 |
+| 64 | Lee Sin | +0.78 | +1.00 | +1.00 | +1.00 | −0.01 | – | +0.00 |
+| 65 | Renekton | +0.78 | +1.00 | +1.00 | +1.00 | −0.01 | – | +0.00 |
+| 66 | Warwick | +0.78 | +1.00 | +1.00 | +1.00 | −0.01 | – | +0.00 |
+| 67 | Taric | +0.78 | +1.00 | +1.00 | +1.00 | −0.01 | – | +0.00 |
+| 68 | Gwen | +0.78 | +1.00 | +1.00 | +1.00 | −0.01 | – | +0.00 |
+| 69 | Sett | +0.78 | +1.00 | +1.00 | +1.00 | −0.02 | – | +0.00 |
+| 70 | Nocturne | +0.78 | +1.00 | +1.00 | +1.00 | −0.02 | – | +0.00 |
+| 71 | Singed | +0.77 | +1.00 | +1.00 | +1.00 | −0.02 | – | +0.00 |
+| 72 | Zeri | +0.77 | +1.00 | +1.00 | +1.00 | −0.17 | +1.00 | +0.00 |
+| 73 | Amumu | +0.77 | +1.00 | +1.00 | +1.00 | −0.03 | – | +0.00 |
+| 74 | Zaahen | +0.77 | +1.00 | +1.00 | +1.00 | −0.03 | – | +0.00 |
+| 75 | Camille | +0.77 | +1.00 | +1.00 | +1.00 | −0.03 | – | +0.00 |
+| 76 | Illaoi | +0.77 | +1.00 | +1.00 | +1.00 | −0.04 | – | +0.00 |
+| 77 | Kled | +0.77 | +1.00 | +1.00 | +1.00 | −0.04 | – | +0.00 |
+| 78 | Braum | +0.77 | +1.00 | +1.00 | +1.00 | −0.04 | – | +0.00 |
+| 79 | Rumble | +0.77 | +1.00 | +1.00 | +1.00 | −0.05 | – | +0.00 |
+| 80 | Fizz | +0.77 | +1.00 | +1.00 | +1.00 | −0.07 | – | +0.00 |
+| 81 | Kassadin | +0.77 | +1.00 | +1.00 | +1.00 | −0.07 | – | +0.00 |
+| 82 | Yone | +0.77 | +1.00 | +1.00 | +1.00 | −0.07 | – | +0.00 |
+| 83 | Tryndamere | +0.77 | +1.00 | +1.00 | +1.00 | −0.07 | – | +0.00 |
+| 84 | Draven | +0.76 | +0.95 | +0.96 | +1.00 | −0.08 | +1.00 | +0.00 |
+| 85 | Pantheon | +0.76 | +1.00 | +1.00 | +1.00 | −0.09 | – | +0.00 |
+| 86 | Nasus | +0.76 | +1.00 | +1.00 | +1.00 | −0.09 | – | +0.00 |
+| 87 | Alistar | +0.76 | +1.00 | +1.00 | +1.00 | −0.09 | – | +0.00 |
+| 88 | Vi | +0.76 | +1.00 | +1.00 | +1.00 | −0.09 | – | +0.00 |
+| 89 | Jarvan IV | +0.76 | +1.00 | +1.00 | +1.00 | −0.10 | – | +0.00 |
+| 90 | Olaf | +0.76 | +1.00 | +1.00 | +1.00 | −0.10 | – | +0.00 |
+| 91 | Xin Zhao | +0.76 | +1.00 | +1.00 | +1.00 | −0.11 | – | +0.00 |
+| 92 | Wukong | +0.76 | +1.00 | +1.00 | +1.00 | −0.12 | – | +0.00 |
+| 93 | Dr. Mundo | +0.76 | +1.00 | +1.00 | +1.00 | −0.12 | – | +0.00 |
+| 94 | Rammus | +0.76 | +1.00 | +1.00 | +1.00 | −0.12 | – | +0.00 |
+| 95 | Volibear | +0.76 | +1.00 | +1.00 | +1.00 | −0.14 | – | +0.00 |
+| 96 | Vel'Koz | +0.74 | +1.00 | +1.00 | +0.67 | +0.02 | +1.00 | +0.00 |
+| 97 | Morgana | +0.65 | +0.44 | +1.00 | +1.00 | −0.09 | +1.00 | +0.00 |
+| 98 | Akali | +0.64 | +1.00 | +1.00 | +0.43 | −0.08 | – | +0.00 |
+| 99 | Gragas | +0.64 | +0.50 | +1.00 | +1.00 | −0.01 | – | +0.00 |
+| 100 | Lux | +0.60 | +1.00 | +1.00 | +1.00 | −0.01 | −1.00 | +0.00 |
+| 101 | Tristana | +0.59 | +1.00 | +1.00 | +1.00 | −0.04 | −1.00 | +0.00 |
+| 102 | Kai'Sa | +0.59 | +1.00 | +1.00 | +1.00 | −0.09 | −1.00 | +0.00 |
+| 103 | Cassiopeia | +0.57 | +0.92 | +0.17 | +1.00 | −0.01 | +1.00 | +0.00 |
+| 104 | Syndra | +0.40 | +0.12 | +0.74 | +1.00 | −0.10 | +0.00 | +0.00 |
+| 105 | Nunu & Willump | +0.33 | +1.00 | +1.00 | −1.00 | +0.01 | – | +0.00 |
+| 106 | Hwei | +0.33 | +1.00 | −0.86 | +1.00 | −0.03 | +1.00 | +0.00 |
+| 107 | Kalista | +0.31 | +1.00 | −1.00 | +1.00 | +0.08 | +1.00 | +0.00 |
+| 108 | Evelynn | +0.21 | +1.00 | −1.00 | +1.00 | −0.06 | – | +0.00 |
+| 109 | Ekko | +0.21 | +1.00 | −1.00 | +1.00 | −0.08 | – | +0.00 |
+| 110 | Miss Fortune | +0.20 | +1.00 | +1.00 | −1.00 | +0.02 | −1.00 | +0.00 |
+| 111 | Malzahar | +0.20 | +1.00 | +1.00 | −1.00 | −0.04 | −0.96 | +0.00 |
+| 112 | Heimerdinger | +0.18 | +0.95 | +0.91 | −1.00 | +0.08 | −1.00 | +0.00 |
+| 113 | Kindred | +0.10 | −1.00 | +1.00 | +1.00 | −0.02 | −1.00 | +0.00 |
+| 114 | Leona | +0.01 | +0.24 | −1.00 | +1.00 | −0.03 | – | +0.00 |
+| 115 | Anivia | +0.00 | −0.00 | +0.07 | −0.02 | −0.12 | +0.08 | +0.00 |
+| 116 | Lissandra | +0.00 | −0.04 | +0.01 | +0.08 | −0.04 | −0.02 | +0.00 |
+| 117 | Ornn | +0.00 | −0.03 | −0.00 | −0.02 | +0.09 | – | +0.00 |
+| 118 | Brand | −0.01 | −0.96 | −0.12 | +0.88 | −0.05 | +0.89 | +0.00 |
+| 119 | Vex | −0.08 | −1.00 | −0.27 | +1.00 | −0.01 | +0.36 | +0.00 |
+| 120 | Soraka | −0.16 | −0.61 | −0.06 | +0.09 | −0.03 | −0.05 | +0.00 |
+| 121 | Ziggs | −0.19 | −1.00 | −1.00 | +1.00 | +0.06 | +1.00 | +0.00 |
+| 122 | Sejuani | −0.22 | −1.00 | +1.00 | −1.00 | −0.01 | – | +0.00 |
+| 123 | Zed | −0.24 | −1.00 | +1.00 | −1.00 | −0.08 | – | +0.00 |
+| 124 | Shen | −0.27 | −1.00 | +0.00 | +0.00 | +0.03 | – | +0.00 |
+| 125 | Karthus | −0.30 | −1.00 | −0.09 | −0.08 | −0.06 | −0.00 | +0.00 |
+| 126 | Caitlyn | −0.30 | +1.00 | −1.00 | −1.00 | +0.01 | −1.00 | +0.00 |
+| 127 | Nautilus | −0.38 | −0.96 | −1.00 | +0.00 | +0.08 | +1.00 | +0.00 |
+| 128 | Xerath | −0.40 | −1.00 | −1.00 | +1.00 | −0.00 | −1.00 | +0.00 |
+| 129 | Lucian | −0.52 | −1.00 | −1.00 | +0.00 | −0.11 | +0.00 | +0.00 |
+| 130 | Zyra | −0.57 | −1.00 | −0.08 | −1.00 | +0.02 | −1.00 | +0.00 |
+| 131 | Nami | −0.67 | −0.96 | −0.55 | −0.96 | −0.01 | −1.00 | +0.00 |
+| 132 | Zoe | −0.78 | −1.00 | −0.86 | −1.00 | −0.09 | −1.00 | +0.00 |
+| 133 | Kha'Zix | −0.79 | −1.00 | −1.00 | −1.00 | −0.09 | – | +0.00 |
+| 134 | Talon | −0.79 | −1.00 | −1.00 | −1.00 | −0.09 | – | +0.00 |
+| 135 | Katarina | −0.80 | −1.00 | −1.00 | −1.00 | −0.11 | – | +0.00 |
+| 136 | LeBlanc | −0.80 | −1.00 | −1.00 | −1.00 | +0.01 | −1.00 | +0.00 |
+| 137 | Blitzcrank | −0.80 | −1.00 | −1.00 | −1.00 | +0.01 | −1.00 | +0.00 |
+| 138 | Senna | −0.80 | −1.00 | −1.00 | −1.00 | +0.00 | −1.00 | +0.00 |
+| 139 | Taliyah | −0.80 | −1.00 | −1.00 | −1.00 | −0.02 | −1.00 | +0.00 |
+| 140 | Sona | −0.81 | −1.00 | −1.00 | −1.00 | −0.05 | −1.00 | +0.00 |
+| 141 | Veigar | −0.81 | −1.00 | −1.00 | −1.00 | −0.07 | −1.00 | +0.00 |
+| 142 | Ahri | −0.81 | −1.00 | −1.00 | −1.00 | −0.09 | −1.00 | +0.00 |
+| 143 | Vladimir | −0.82 | −1.00 | −1.00 | −1.00 | −0.14 | −1.00 | +0.00 |
+| 144 | Thresh | −0.84 | −1.00 | −1.00 | −1.00 | −0.11 | −1.00 | −0.50 |
+
+## Interaction ledger estimates
+
 Every champion ranked by what its kit does against Naafiri's, from the interaction ledger: projectile blocks, spell shields,
 parries, dash stops, crowd control and its defenses, range and more (PLAN.md §5). This ranking is **partial**: it weighs the
 interactions but doesn't play the fight out. The duel simulator replaces it as each champion's behavior is verified.
@@ -8,68 +161,68 @@ interactions but doesn't play the fight out. The duel simulator replaces it as e
 A hard counter shuts down part of a kit every time it is used (projectile block, attack dodge, attack block, blind, disarm, attack speed slow, attack reflect, dash stop, grounding, range) with an impact of 0.4 or more (0.5 for range).
 Run `npm run matchup -- <champion> Naafiri` for the full ledger of a matchup, with sources.
 
-## Top 10
+### Top 10
 
-### 1. Rell (net +2.25)
+#### 1. Rell (net +2.25)
 
 - **0.45** interrupt: Ferromancy: Crash Down's airborne interrupts Naafiri's Hounds' Pursuit (movement channel). Ferromancy: Crash Down must land during the channel. (Rell W Ferromancy: Crash Down → Naafiri R Hounds' Pursuit)
 - **0.45** interrupt: Ferromancy: Mount Up's airborne interrupts Naafiri's Hounds' Pursuit (movement channel). Ferromancy: Mount Up must land during the channel. (Rell W Ferromancy: Mount Up → Naafiri R Hounds' Pursuit)
 - **0.45** interrupt: Full Tilt's stun interrupts Naafiri's Hounds' Pursuit (movement channel). Full Tilt must land during the channel. (Rell E Full Tilt → Naafiri R Hounds' Pursuit)
 
-### 2. Singed (net +1.70)
+#### 2. Singed (net +1.70)
 
 - **0.45** interrupt: Fling's airborne interrupts Naafiri's Hounds' Pursuit (movement channel). Fling must land during the channel. (Singed E Fling → Naafiri R Hounds' Pursuit)
 - **0.44** grounding: Mega Adhesive grounds Naafiri, who then can't cast Hounds' Pursuit. Grounded while in the area; 13 s cooldown. (Singed W Mega Adhesive → Naafiri R Hounds' Pursuit)
 - **0.39** grounding: Mega Adhesive grounds Naafiri, who then can't cast Eviscerate. Grounded while in the area; 13 s cooldown. (Singed W Mega Adhesive → Naafiri E Eviscerate)
 
-### 3. Zac (net +1.64)
+#### 3. Zac (net +1.64)
 
 - **0.45** dash stop: Stretching Strikes's knockdown can stop Naafiri's Hounds' Pursuit mid-dash. Must land during the dash. Fails if the dashing unit is crowd control immune, displacement immune, untargetable or spell shielded. (Zac Q Stretching Strikes → Naafiri R Hounds' Pursuit)
 - **0.45** interrupt: Elastic Slingshot's airborne interrupts Naafiri's Hounds' Pursuit (movement channel). Elastic Slingshot must land during the channel. (Zac E Elastic Slingshot → Naafiri R Hounds' Pursuit)
 - **0.45** interrupt: Stretching Strikes's airborne interrupts Naafiri's Hounds' Pursuit (movement channel). Stretching Strikes must land during the channel. (Zac Q Stretching Strikes → Naafiri R Hounds' Pursuit)
 
-### 4. Camille (net +1.50)
+#### 4. Camille (net +1.50)
 
 - **0.84** untargetable: The Hextech Ultimatum makes Camille untargetable, dodging Naafiri's Hounds' Pursuit. Untargetable for 0.5 s; Hounds' Pursuit takes 0.5 s to land, enough to react. (Camille R The Hextech Ultimatum → Naafiri R Hounds' Pursuit)
 - **0.45** interrupt: Wall Dive's airborne interrupts Naafiri's Hounds' Pursuit (movement channel). Wall Dive must land during the channel. (Camille E Wall Dive → Naafiri R Hounds' Pursuit)
 - **0.42** interrupt: The Hextech Ultimatum's airborne interrupts Naafiri's Hounds' Pursuit (movement channel). The Hextech Ultimatum must land during the channel. (Camille R The Hextech Ultimatum → Naafiri R Hounds' Pursuit)
 
-### 5. Taliyah (net +1.39)
+#### 5. Taliyah (net +1.39)
 
 - **0.45** interrupt: Seismic Shove's airborne interrupts Naafiri's Hounds' Pursuit (movement channel). Seismic Shove must land during the channel. (Taliyah W Seismic Shove → Naafiri R Hounds' Pursuit)
 - **0.45** interrupt: Unraveled Earth's stun interrupts Naafiri's Hounds' Pursuit (movement channel). Unraveled Earth must land during the channel. (Taliyah E Unraveled Earth → Naafiri R Hounds' Pursuit)
 - **0.36** interrupt: Weaver's Wall's airborne interrupts Naafiri's Hounds' Pursuit (movement channel). Weaver's Wall must land during the channel. (Taliyah R Weaver's Wall → Naafiri R Hounds' Pursuit)
 
-### 6. Malzahar (net +1.38)
+#### 6. Malzahar (net +1.38)
 
 - **0.45** dash stop: Nether Grasp's knockdown can stop Naafiri's Hounds' Pursuit mid-dash. Must land during the dash. Fails if the dashing unit is crowd control immune, displacement immune, untargetable or spell shielded. (Malzahar R Nether Grasp → Naafiri R Hounds' Pursuit)
 - **0.45** interrupt: Call of the Void's silence interrupts Naafiri's Hounds' Pursuit (movement channel). Call of the Void must land during the channel. (Malzahar Q Call of the Void → Naafiri R Hounds' Pursuit)
 - **0.45** interrupt: Nether Grasp's suppression interrupts Naafiri's Hounds' Pursuit (movement channel). Nether Grasp must land during the channel. (Malzahar R Nether Grasp → Naafiri R Hounds' Pursuit)
 
-### 7. Lissandra (net +1.37)
+#### 7. Lissandra (net +1.37)
 
 - **0.90** untargetable: Frozen Tomb makes Lissandra untargetable, dodging Naafiri's Hounds' Pursuit. Untargetable for 2.5 s, long enough to use ahead of Hounds' Pursuit. (Lissandra R Frozen Tomb → Naafiri R Hounds' Pursuit)
 - **0.45** dash stop: Frozen Tomb's knockdown can stop Naafiri's Hounds' Pursuit mid-dash. Must land during the dash. Fails if the dashing unit is crowd control immune, displacement immune, untargetable or spell shielded. (Lissandra R Frozen Tomb → Naafiri R Hounds' Pursuit)
 - **0.45** interrupt: Frozen Tomb's stun interrupts Naafiri's Hounds' Pursuit (movement channel). Frozen Tomb must land during the channel. (Lissandra R Frozen Tomb → Naafiri R Hounds' Pursuit)
 
-### 8. Viktor (net +1.36)
+#### 8. Viktor (net +1.36)
 
 - **0.45** dash stop: Gravity Field's knockdown can stop Naafiri's Hounds' Pursuit mid-dash. Must land during the dash. Fails if the dashing unit is crowd control immune, displacement immune, untargetable or spell shielded. (Viktor W Gravity Field → Naafiri R Hounds' Pursuit)
 - **0.45** interrupt: Arcane Storm's disrupt interrupts Naafiri's Hounds' Pursuit (movement channel). Arcane Storm must land during the channel. (Viktor R Arcane Storm → Naafiri R Hounds' Pursuit)
 - **0.45** interrupt: Gravity Field's stun interrupts Naafiri's Hounds' Pursuit (movement channel). Gravity Field must land during the channel. (Viktor W Gravity Field → Naafiri R Hounds' Pursuit)
 
-### 9. Blitzcrank (net +1.35)
+#### 9. Blitzcrank (net +1.35)
 
 - **0.45** interrupt: Power Fist's airborne interrupts Naafiri's Hounds' Pursuit (movement channel). Power Fist must land during the channel. (Blitzcrank E Power Fist → Naafiri R Hounds' Pursuit)
 - **0.45** interrupt: Rocket Grab's airborne interrupts Naafiri's Hounds' Pursuit (movement channel). Rocket Grab must land during the channel. (Blitzcrank Q Rocket Grab → Naafiri R Hounds' Pursuit)
 - **0.45** interrupt: Static Field's silence interrupts Naafiri's Hounds' Pursuit (movement channel). Static Field must land during the channel. (Blitzcrank R Static Field → Naafiri R Hounds' Pursuit)
 
-### 10. Fizz (net +1.35)
+#### 10. Fizz (net +1.35)
 
 - **0.90** untargetable: Playful makes Fizz untargetable, dodging Naafiri's Hounds' Pursuit. Untargetable for 0.75 s; Hounds' Pursuit takes 0.5 s to land, enough to react. (Fizz E Playful → Naafiri R Hounds' Pursuit)
 - **0.45** interrupt: Chum the Waters's airborne interrupts Naafiri's Hounds' Pursuit (movement channel). Chum the Waters must land during the channel. (Fizz R Chum the Waters → Naafiri R Hounds' Pursuit)
 
-## Full ranking
+### Full ranking
 
 | # | Champion | Net | For | Against | Hard counters |
 |--:|---|--:|--:|--:|---|

@@ -163,6 +163,26 @@
       "If the target is very close to a wall and Katarina targets Shunpo behind the target, she can blink over the wall.",
       "Shunpo will still deal damage but not apply on-hit effects if dodged. It cannot be blocked nor can it be missed while Katarina is blinded.",
       "Shunpo does not require the enemy to be within targeting range to damage them. It only requires them to be within the max range around a unit that Shunpo allows them to blink to."
+    ],
+    "gameSources": [
+      {
+        "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/katarina/katarina.bin.json",
+        "sha256": "72d8881d64aee1a1bfc90422208060cea535dcf116c9fd882b2a93498b74b9cc",
+        "object": "Characters/Katarina/Spells/KatarinaEWrapperAbility/KatarinaEWrapper",
+        "text": [
+          "{\"castRadius\":[150.0,150.0,150.0,150.0,150.0,150.0,150.0]}"
+        ]
+      },
+      {
+        "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/katarina/katarina.bin.json",
+        "sha256": "72d8881d64aee1a1bfc90422208060cea535dcf116c9fd882b2a93498b74b9cc",
+        "object": "Characters/Katarina/Spells/KatarinaEWrapperAbility/KatarinaE",
+        "text": [
+          "{\"castRadius\":[225.0,225.0,225.0,225.0,225.0,225.0,225.0]}"
+        ]
+      }
     ]
   },
   {
@@ -475,6 +495,17 @@
       "Bouncing Blade will not be destroyed in-flight if the target dies before reaching them but it will on clones that expire.",
       "If the Dagger's intended landing position is inside terrain it will instead land at the closest spot that isn't inside terrain.",
       "Valid targets are determined after each bounce.* If the target becomes untargetable, dies, or is too far away or no longer in sight during the cast time, this ability will cancel but does not go on cooldown nor pay its cost (if applicable)."
+    ],
+    "gameSources": [
+      {
+        "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/katarina/katarina.bin.json",
+        "sha256": "72d8881d64aee1a1bfc90422208060cea535dcf116c9fd882b2a93498b74b9cc",
+        "object": "Characters/Katarina/Spells/KatarinaQAbility/KatarinaQ",
+        "text": [
+          "{\"name\":\"MaxBounces\",\"values\":[2.0,2.0,2.0,2.0,2.0,2.0,2.0],\"__type\":\"SpellDataValue\"}"
+        ]
+      }
     ]
   },
   {
@@ -732,7 +763,19 @@
       "Spell shield will block and be consumed by only one dagger.",
       "Each dagger counts as a separate hit for effects such as Conqueror, Electrocute, and Eclipse Ever Rising Moon.",
       "The on-attack modifier also incorrectly applies to various other damaging effects triggered by the same damage instance, including Hail of Blades*, Scorch, Blackfire Torch, Hextech Alternator, Liandry's Torment, Luden's Echo, Scout's Slingshot.",
-      "The following table refers for interactions while Katarina is channeling:\n  - Trying to cast a disabled active (excluding Hextech Rocketbelt) will buffer it to cast at the completion of the channel."
+      "The following table refers for interactions while Katarina is channeling:\n  - Trying to cast a disabled active (excluding Hextech Rocketbelt) will buffer it to cast at the completion of the channel.",
+      "{{ct|channel|cast=interrupts|move=Disabled in the first and last {{fd|0.25}} seconds of channel, otherwise, interrupts.|attack=Disabled in the first and last {{fd|0.25}} seconds of channel, otherwise, interrupts.|items=interrupts,true,,false,,false,false,false,melee|spells=true,interrupts,interrupts,false,false}}"
+    ],
+    "gameSources": [
+      {
+        "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/katarina/katarina.bin.json",
+        "sha256": "72d8881d64aee1a1bfc90422208060cea535dcf116c9fd882b2a93498b74b9cc",
+        "object": "Characters/Katarina/Spells/KatarinaRAbility/KatarinaR",
+        "text": [
+          "{\"name\":\"TicksPerSecond\",\"values\":[6.0,6.0,6.0,6.0,6.0,6.0,6.0],\"__type\":\"SpellDataValue\"}"
+        ]
+      }
     ]
   },
   {

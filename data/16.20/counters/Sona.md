@@ -1,5 +1,158 @@
 # Counters to Sona (patch 26.20)
 
+## Simulated duels
+
+The duel simulator played each of the 144 other champions with a simulator kit against Sona: both at level 20 with 15,000 gold of plain stats, each side's spent against the other's, through six scenarios (PLAN.md §6). Scores run from −1 (Sona wins every time) to +1 (the champion does). Run `npm run duel -- <champion> Sona --log brawl` to watch a fight.
+
+| # | Champion | Score | You engage | Enemy engages | Brawl | Short trade | Spacing | Escape |
+|--:|---|--:|--:|--:|--:|--:|--:|--:|
+| 1 | Rengar | +0.86 | +1.00 | +1.00 | +1.00 | +0.42 | +1.00 | +0.00 |
+| 2 | Camille | +0.85 | +1.00 | +1.00 | +1.00 | −0.01 | +1.00 | +1.00 |
+| 3 | Master Yi | +0.85 | +1.00 | +1.00 | +1.00 | −0.01 | +1.00 | +1.00 |
+| 4 | Fiora | +0.84 | +1.00 | +1.00 | +1.00 | −0.04 | +1.00 | +1.00 |
+| 5 | Riven | +0.84 | +1.00 | +1.00 | +1.00 | −0.05 | +1.00 | +1.00 |
+| 6 | Yasuo | +0.84 | +0.99 | +0.99 | +1.00 | +0.07 | +1.00 | +0.75 |
+| 7 | Yorick | +0.84 | +1.00 | +1.00 | +1.00 | −0.05 | +1.00 | +1.00 |
+| 8 | Udyr | +0.83 | +1.00 | +1.00 | +1.00 | −0.13 | +1.00 | +1.00 |
+| 9 | Trundle | +0.83 | +1.00 | +1.00 | +1.00 | −0.13 | +1.00 | +1.00 |
+| 10 | Vel'Koz | +0.83 | +1.00 | +1.00 | +1.00 | +0.20 | +1.00 | +0.00 |
+| 11 | Jarvan IV | +0.83 | +1.00 | +1.00 | +1.00 | +0.19 | +1.00 | +0.00 |
+| 12 | Skarner | +0.83 | +1.00 | +1.00 | +1.00 | +0.18 | +1.00 | +0.00 |
+| 13 | Tahm Kench | +0.83 | +1.00 | +1.00 | +1.00 | +0.17 | +1.00 | +0.00 |
+| 14 | Kled | +0.82 | +1.00 | +1.00 | +1.00 | +0.13 | +1.00 | +0.00 |
+| 15 | Xin Zhao | +0.82 | +1.00 | +1.00 | +1.00 | +0.11 | +1.00 | +0.00 |
+| 16 | Diana | +0.81 | +1.00 | +1.00 | +1.00 | +0.10 | +1.00 | +0.00 |
+| 17 | Tristana | +0.81 | +1.00 | +1.00 | +1.00 | +0.08 | +1.00 | +0.00 |
+| 18 | Nautilus | +0.81 | +1.00 | +1.00 | +1.00 | +0.07 | +1.00 | +0.00 |
+| 19 | Poppy | +0.81 | +1.00 | +1.00 | +1.00 | +0.05 | +1.00 | +0.00 |
+| 20 | Naafiri | +0.81 | +1.00 | +1.00 | +1.00 | +0.05 | +1.00 | +0.00 |
+| 21 | Jax | +0.81 | +1.00 | +1.00 | +1.00 | +0.05 | +1.00 | +0.00 |
+| 22 | Lee Sin | +0.80 | +1.00 | +1.00 | +1.00 | +0.03 | +1.00 | +0.00 |
+| 23 | Irelia | +0.80 | +1.00 | +1.00 | +1.00 | +0.03 | +1.00 | +0.00 |
+| 24 | Jayce | +0.80 | +1.00 | +1.00 | +1.00 | +0.03 | +1.00 | +0.00 |
+| 25 | Ziggs | +0.80 | +1.00 | +1.00 | +1.00 | +0.14 | – | +0.00 |
+| 26 | Heimerdinger | +0.80 | +1.00 | +1.00 | +1.00 | +0.01 | +1.00 | +0.00 |
+| 27 | Dr. Mundo | +0.80 | +1.00 | +1.00 | +1.00 | +0.01 | +1.00 | +0.00 |
+| 28 | Sejuani | +0.80 | +1.00 | +1.00 | +1.00 | +0.00 | +1.00 | +0.00 |
+| 29 | Rammus | +0.80 | +1.00 | +1.00 | +1.00 | +0.00 | +1.00 | +0.00 |
+| 30 | Gangplank | +0.80 | +1.00 | +1.00 | +1.00 | +0.00 | +1.00 | +0.00 |
+| 31 | Malphite | +0.80 | +1.00 | +1.00 | +1.00 | +0.00 | +1.00 | +0.00 |
+| 32 | Zoe | +0.80 | +1.00 | +1.00 | +1.00 | −0.00 | +1.00 | +0.00 |
+| 33 | Braum | +0.80 | +1.00 | +1.00 | +1.00 | −0.02 | +1.00 | +0.00 |
+| 34 | Neeko | +0.80 | +1.00 | +1.00 | +1.00 | −0.02 | +1.00 | +0.00 |
+| 35 | Maokai | +0.80 | +1.00 | +1.00 | +1.00 | −0.02 | +1.00 | +0.00 |
+| 36 | Wukong | +0.80 | +1.00 | +1.00 | +1.00 | −0.03 | +1.00 | +0.00 |
+| 37 | K'Sante | +0.79 | +1.00 | +1.00 | +1.00 | −0.03 | +1.00 | +0.00 |
+| 38 | Volibear | +0.79 | +1.00 | +1.00 | +1.00 | −0.04 | +1.00 | +0.00 |
+| 39 | Galio | +0.79 | +1.00 | +1.00 | +1.00 | −0.05 | +1.00 | +0.00 |
+| 40 | Sion | +0.79 | +1.00 | +1.00 | +1.00 | −0.05 | +1.00 | +0.00 |
+| 41 | Nasus | +0.79 | +1.00 | +1.00 | +1.00 | −0.05 | +1.00 | +0.00 |
+| 42 | Zeri | +0.79 | +1.00 | +1.00 | +1.00 | +0.09 | – | +0.00 |
+| 43 | Annie | +0.79 | +1.00 | +1.00 | +1.00 | +0.08 | – | +0.00 |
+| 44 | Fizz | +0.79 | +1.00 | +1.00 | +1.00 | −0.07 | +1.00 | +0.00 |
+| 45 | Sett | +0.79 | +1.00 | +1.00 | +1.00 | −0.07 | +1.00 | +0.00 |
+| 46 | Mordekaiser | +0.79 | +1.00 | +1.00 | +1.00 | −0.07 | +1.00 | +0.00 |
+| 47 | Smolder | +0.79 | +1.00 | +1.00 | +1.00 | +0.07 | – | +0.00 |
+| 48 | Zaahen | +0.79 | +1.00 | +1.00 | +1.00 | −0.07 | +1.00 | +0.00 |
+| 49 | Aphelios | +0.79 | +1.00 | +1.00 | +1.00 | +0.07 | – | +0.00 |
+| 50 | Rumble | +0.79 | +1.00 | +1.00 | +1.00 | −0.07 | +1.00 | +0.00 |
+| 51 | Gwen | +0.79 | +1.00 | +1.00 | +1.00 | −0.08 | +1.00 | +0.00 |
+| 52 | Cho'Gath | +0.79 | +1.00 | +1.00 | +1.00 | −0.08 | +1.00 | +0.00 |
+| 53 | Tryndamere | +0.79 | +1.00 | +1.00 | +1.00 | −0.09 | +1.00 | +0.00 |
+| 54 | Kassadin | +0.79 | +1.00 | +1.00 | +1.00 | −0.10 | +1.00 | +0.00 |
+| 55 | Kayle | +0.78 | +1.00 | +1.00 | +1.00 | +0.03 | – | +0.00 |
+| 56 | Corki | +0.78 | +1.00 | +1.00 | +1.00 | +0.03 | – | +0.00 |
+| 57 | Kennen | +0.78 | +1.00 | +1.00 | +1.00 | +0.03 | – | +0.00 |
+| 58 | Warwick | +0.78 | +1.00 | +1.00 | +1.00 | −0.12 | +1.00 | +0.00 |
+| 59 | Lulu | +0.78 | +1.00 | +1.00 | +1.00 | +0.02 | – | +0.00 |
+| 60 | Samira | +0.78 | +1.00 | +1.00 | +1.00 | +0.02 | – | +0.00 |
+| 61 | Cassiopeia | +0.78 | +1.00 | +1.00 | +1.00 | +0.02 | – | +0.00 |
+| 62 | Swain | +0.78 | +0.98 | +1.00 | +1.00 | +0.05 | – | +0.00 |
+| 63 | Darius | +0.78 | +1.00 | +1.00 | +1.00 | −0.13 | +1.00 | +0.00 |
+| 64 | Vayne | +0.78 | +1.00 | +1.00 | +1.00 | +0.01 | – | +0.00 |
+| 65 | Kalista | +0.78 | +1.00 | +1.00 | +1.00 | +0.01 | – | +0.00 |
+| 66 | Jhin | +0.78 | +1.00 | +1.00 | +1.00 | +0.01 | – | +0.00 |
+| 67 | Nocturne | +0.78 | +1.00 | +1.00 | +1.00 | −0.14 | +1.00 | +0.00 |
+| 68 | Miss Fortune | +0.78 | +1.00 | +1.00 | +1.00 | +0.00 | – | +0.00 |
+| 69 | Xayah | +0.78 | +1.00 | +1.00 | +1.00 | −0.00 | – | +0.00 |
+| 70 | Zed | +0.78 | +1.00 | +1.00 | +1.00 | −0.15 | +1.00 | +0.00 |
+| 71 | Varus | +0.78 | +1.00 | +1.00 | +1.00 | −0.01 | – | +0.00 |
+| 72 | Malzahar | +0.78 | +1.00 | +1.00 | +1.00 | −0.01 | – | +0.00 |
+| 73 | Orianna | +0.78 | +1.00 | +1.00 | +1.00 | −0.01 | – | +0.00 |
+| 74 | Aurora | +0.78 | +1.00 | +1.00 | +1.00 | −0.00 | – | +0.00 |
+| 75 | Teemo | +0.77 | +1.00 | +1.00 | +1.00 | −0.02 | – | +0.00 |
+| 76 | Draven | +0.77 | +1.00 | +1.00 | +1.00 | −0.02 | – | +0.00 |
+| 77 | Kog'Maw | +0.77 | +1.00 | +1.00 | +1.00 | −0.03 | – | +0.00 |
+| 78 | Akshan | +0.77 | +1.00 | +1.00 | +1.00 | −0.03 | – | +0.00 |
+| 79 | Twisted Fate | +0.77 | +1.00 | +1.00 | +1.00 | −0.04 | – | +0.00 |
+| 80 | Lucian | +0.77 | +1.00 | +1.00 | +1.00 | −0.04 | – | +0.00 |
+| 81 | Kindred | +0.77 | +1.00 | +1.00 | +1.00 | −0.05 | – | +0.00 |
+| 82 | Quinn | +0.77 | +1.00 | +1.00 | +1.00 | −0.06 | – | +0.00 |
+| 83 | Twitch | +0.77 | +1.00 | +1.00 | +1.00 | −0.06 | – | +0.00 |
+| 84 | Kai'Sa | +0.77 | +1.00 | +1.00 | +1.00 | −0.06 | – | +0.00 |
+| 85 | Gnar | +0.75 | +1.00 | +1.00 | +1.00 | −0.04 | +0.55 | +0.00 |
+| 86 | Karma | +0.74 | +0.93 | +0.92 | +1.00 | +0.01 | – | +0.00 |
+| 87 | Ashe | +0.64 | +0.51 | +0.99 | +1.00 | +0.01 | – | +0.00 |
+| 88 | Rell | +0.58 | +1.00 | +0.05 | +1.00 | +0.12 | +1.00 | +0.00 |
+| 89 | Garen | +0.53 | +1.00 | +0.25 | +1.00 | +0.10 | +0.00 | +0.00 |
+| 90 | Anivia | +0.48 | −0.02 | +1.00 | +1.00 | −0.07 | – | +0.00 |
+| 91 | Akali | +0.44 | +1.00 | +0.24 | +0.27 | −0.05 | +0.86 | +0.00 |
+| 92 | Ryze | +0.39 | +0.26 | +0.26 | +1.00 | −0.04 | +0.69 | +0.00 |
+| 93 | Aatrox | +0.39 | −0.17 | +0.59 | +1.00 | −0.12 | +1.00 | +0.00 |
+| 94 | Xerath | +0.38 | −0.03 | +0.94 | +1.00 | +0.00 | −0.48 | +0.00 |
+| 95 | Amumu | +0.33 | +0.10 | +0.09 | +1.00 | −0.02 | +0.90 | +0.00 |
+| 96 | Kha'Zix | +0.32 | +0.00 | +0.06 | +1.00 | +0.02 | +1.00 | +0.00 |
+| 97 | Graves | +0.32 | +0.00 | +0.00 | +1.00 | +0.12 | +1.00 | +0.00 |
+| 98 | Singed | +0.31 | +1.00 | −0.93 | +1.00 | −0.04 | +1.00 | +0.00 |
+| 99 | Katarina | +0.30 | +1.00 | −1.00 | +1.00 | −0.01 | +1.00 | +0.00 |
+| 100 | Pantheon | +0.29 | +1.00 | −1.00 | +1.00 | −0.04 | +1.00 | +0.00 |
+| 101 | Ambessa | +0.29 | −1.00 | +1.00 | +1.00 | −0.07 | +1.00 | +0.00 |
+| 102 | Hecarim | +0.27 | −1.00 | +1.00 | +1.00 | −0.22 | +1.00 | +0.00 |
+| 103 | Renekton | +0.23 | +0.07 | +0.09 | +1.00 | −0.07 | +0.01 | +0.00 |
+| 104 | Illaoi | +0.23 | −0.13 | −0.09 | +0.95 | −0.03 | +1.00 | +0.00 |
+| 105 | Olaf | +0.22 | −0.03 | −0.03 | +1.00 | −0.16 | +0.56 | +0.00 |
+| 106 | Evelynn | +0.20 | +1.00 | +1.00 | −1.00 | +0.01 | −1.00 | +0.00 |
+| 107 | Shen | +0.19 | +0.05 | −0.06 | +1.00 | −0.00 | −0.06 | +0.00 |
+| 108 | Leona | +0.17 | −0.08 | −0.09 | +1.00 | −0.05 | +0.20 | +0.00 |
+| 109 | Jinx | +0.13 | −0.06 | −0.29 | +1.00 | +0.05 | – | +0.00 |
+| 110 | Gragas | +0.11 | +0.17 | +0.15 | +0.11 | −0.03 | +0.17 | +0.00 |
+| 111 | Rakan | +0.03 | −0.07 | −1.00 | +1.00 | −0.04 | +1.00 | +0.00 |
+| 112 | Hwei | +0.01 | +0.09 | −0.83 | +1.00 | −0.02 | – | +0.00 |
+| 113 | Ahri | −0.04 | −1.00 | +0.06 | +1.00 | −0.04 | – | +0.00 |
+| 114 | Ornn | −0.05 | −0.06 | −0.10 | −0.02 | −0.05 | +0.02 | +0.00 |
+| 115 | Alistar | −0.05 | −0.08 | −0.04 | −0.08 | −0.01 | −0.05 | +0.00 |
+| 116 | Nami | −0.09 | −0.15 | −0.16 | +0.00 | −0.01 | – | +0.00 |
+| 117 | Ekko | −0.10 | −1.00 | −0.11 | +1.00 | −0.05 | −0.14 | +0.00 |
+| 118 | Talon | −0.11 | −1.00 | +1.00 | −1.00 | −0.04 | +1.00 | +0.00 |
+| 119 | Taric | −0.12 | −0.22 | −0.06 | −0.21 | +0.01 | −0.07 | +0.00 |
+| 120 | Urgot | −0.12 | −0.20 | −0.24 | −0.00 | −0.03 | −0.10 | +0.00 |
+| 121 | Yone | −0.19 | −0.47 | −0.47 | +0.24 | −0.18 | +0.24 | +0.00 |
+| 122 | Lux | −0.20 | −1.00 | −0.17 | +0.57 | +0.01 | – | +0.00 |
+| 123 | Karthus | −0.26 | −0.36 | −0.36 | −0.27 | −0.01 | −0.23 | +0.00 |
+| 124 | Ezreal | −0.34 | −0.77 | −0.16 | −0.35 | −0.01 | – | +0.00 |
+| 125 | Viktor | −0.34 | −1.00 | −1.00 | +1.00 | −0.06 | – | +0.00 |
+| 126 | Sivir | −0.35 | −1.00 | −1.00 | +1.00 | −0.09 | – | +0.00 |
+| 127 | Caitlyn | −0.39 | −1.00 | −1.00 | +1.00 | +0.05 | −1.00 | +0.00 |
+| 128 | Brand | −0.40 | −1.00 | −1.00 | +1.00 | −0.04 | −0.99 | +0.00 |
+| 129 | Soraka | −0.47 | −0.98 | −0.77 | +0.07 | +0.01 | – | +0.00 |
+| 130 | Veigar | −0.50 | −1.00 | −0.93 | +0.01 | −0.05 | −0.10 | +0.00 |
+| 131 | Zyra | −0.60 | −1.00 | −1.00 | +0.00 | +0.02 | −1.00 | +0.00 |
+| 132 | Janna | −0.76 | −1.00 | −0.95 | −1.00 | −0.00 | – | +0.00 |
+| 133 | Syndra | −0.77 | −1.00 | −0.95 | −1.00 | −0.01 | – | +0.00 |
+| 134 | Taliyah | −0.77 | −1.00 | −1.00 | −1.00 | +0.05 | – | +0.00 |
+| 135 | Nunu & Willump | −0.78 | −1.00 | −1.00 | −1.00 | +0.16 | −1.00 | +0.00 |
+| 136 | Senna | −0.78 | −1.00 | −1.00 | −1.00 | +0.00 | – | +0.00 |
+| 137 | Vex | −0.78 | −1.00 | −1.00 | −1.00 | −0.03 | – | +0.00 |
+| 138 | Lissandra | −0.79 | −1.00 | −1.00 | −1.00 | −0.06 | – | +0.00 |
+| 139 | Blitzcrank | −0.79 | −1.00 | −1.00 | −1.00 | +0.04 | −1.00 | +0.00 |
+| 140 | Vi | −0.80 | −1.00 | −1.00 | −1.00 | +0.01 | −1.00 | +0.00 |
+| 141 | LeBlanc | −0.80 | −1.00 | −1.00 | −1.00 | −0.03 | −1.00 | +0.00 |
+| 142 | Morgana | −0.81 | −1.00 | −1.00 | −0.99 | −0.05 | −1.00 | +0.00 |
+| 143 | Vladimir | −0.81 | −1.00 | −1.00 | −1.00 | −0.08 | −1.00 | +0.00 |
+| 144 | Thresh | −0.82 | −1.00 | −1.00 | −1.00 | −0.15 | −1.00 | +0.00 |
+
+## Interaction ledger estimates
+
 Every champion ranked by what its kit does against Sona's, from the interaction ledger: projectile blocks, spell shields,
 parries, dash stops, crowd control and its defenses, range and more (PLAN.md §5). This ranking is **partial**: it weighs the
 interactions but doesn't play the fight out. The duel simulator replaces it as each champion's behavior is verified.
@@ -8,66 +161,66 @@ interactions but doesn't play the fight out. The duel simulator replaces it as e
 A hard counter shuts down part of a kit every time it is used (projectile block, attack dodge, attack block, blind, disarm, attack speed slow, attack reflect, dash stop, grounding, range) with an impact of 0.4 or more (0.5 for range).
 Run `npm run matchup -- <champion> Sona` for the full ledger of a matchup, with sources.
 
-## Top 10
+### Top 10
 
-### 1. Samira (net +1.02)
+#### 1. Samira (net +1.02)
 
 - **0.80** projectile block: Blade Whirl blocks Sona's Crescendo, a projectile. Blade Whirl for 0.75 s; Crescendo takes 0.67 s to land, enough to react. (Samira W Blade Whirl → Sona R Crescendo)
 - **0.35** projectile block: Blade Whirl blocks Sona's basic attacks, which are projectiles. Blade Whirl lasts 0.75 s on a 22 s cooldown. (Samira W Blade Whirl → Sona basic attacks)
 - **0.17** projectile block: Blade Whirl blocks Sona's Hymn of Valor, a projectile. Blade Whirl for 0.75 s; Hymn of Valor lands within 0 s, faster than a 0.25 s reaction, so it needs prediction. (Samira W Blade Whirl → Sona Q Hymn of Valor)
 
-### 2. Mel (net +1.01)
+#### 2. Mel (net +1.01)
 
 - **0.80** projectile block: Rebuttal blocks Sona's Crescendo, a projectile. Rebuttal for 0.75 s; Crescendo takes 0.67 s to land, enough to react. (Mel W Rebuttal → Sona R Crescendo)
 - **0.34** projectile block: Rebuttal blocks Sona's basic attacks, which are projectiles. Rebuttal lasts 0.75 s on a 26 s cooldown. (Mel W Rebuttal → Sona basic attacks)
 - **0.16** projectile block: Rebuttal blocks Sona's Hymn of Valor, a projectile. Rebuttal for 0.75 s; Hymn of Valor lands within 0 s, faster than a 0.25 s reaction, so it needs prediction. (Mel W Rebuttal → Sona Q Hymn of Valor)
 
-### 3. Sivir (net +0.95)
+#### 3. Sivir (net +0.95)
 
 - **0.80** spell shield: Spell Shield's spell shield blocks Sona's Crescendo. Spell shield for 1.5 s, long enough to use ahead of Crescendo. A spell shield blocks only the first enemy ability that reaches it. (Sivir E Spell Shield → Sona R Crescendo)
 - **0.30** spell shield: Spell Shield's spell shield blocks Sona's Hymn of Valor. Spell shield for 1.5 s, long enough to use ahead of Hymn of Valor. A spell shield blocks only the first enemy ability that reaches it. (Sivir E Spell Shield → Sona Q Hymn of Valor)
 
-### 4. Bard (net +0.91)
+#### 4. Bard (net +0.91)
 
 - **0.80** untargetable: Tempered Fate makes Bard untargetable, dodging Sona's Crescendo. Untargetable for 2.5 s, long enough to use ahead of Crescendo. (Bard R Tempered Fate → Sona R Crescendo)
 - **0.21** untargetable: Tempered Fate makes Bard untargetable, dodging Sona's Hymn of Valor. Untargetable for 2.5 s, long enough to use ahead of Hymn of Valor. (Bard R Tempered Fate → Sona Q Hymn of Valor)
 
-### 5. Lissandra (net +0.91)
+#### 5. Lissandra (net +0.91)
 
 - **0.80** untargetable: Frozen Tomb makes Lissandra untargetable, dodging Sona's Crescendo. Untargetable for 2.5 s, long enough to use ahead of Crescendo. (Lissandra R Frozen Tomb → Sona R Crescendo)
 - **0.21** untargetable: Frozen Tomb makes Lissandra untargetable, dodging Sona's Hymn of Valor. Untargetable for 2.5 s, long enough to use ahead of Hymn of Valor. (Lissandra R Frozen Tomb → Sona Q Hymn of Valor)
 
-### 6. Xayah (net +0.90)
+#### 6. Xayah (net +0.90)
 
 - **0.80** untargetable: Featherstorm makes Xayah untargetable, dodging Sona's Crescendo. Untargetable for 1.5 s, long enough to use ahead of Crescendo. (Xayah R Featherstorm → Sona R Crescendo)
 - **0.20** untargetable: Featherstorm makes Xayah untargetable, dodging Sona's Hymn of Valor. Untargetable for 1.5 s, long enough to use ahead of Hymn of Valor. (Xayah R Featherstorm → Sona Q Hymn of Valor)
 
-### 7. Aurora (net +0.86)
+#### 7. Aurora (net +0.86)
 
 - **0.80** untargetable: Between Worlds makes Aurora untargetable, dodging Sona's Crescendo. Untargetable for 0.4 s; Crescendo takes 0.67 s to land, enough to react. Does not destroy inbound projectiles. (Aurora R Between Worlds → Sona R Crescendo)
 - **0.12** untargetable: Between Worlds makes Aurora untargetable, dodging Sona's Hymn of Valor. Untargetable for 0.4 s; Hymn of Valor lands within 0 s, faster than a 0.25 s reaction, so it needs prediction. Does not destroy inbound projectiles. (Aurora R Between Worlds → Sona Q Hymn of Valor)
 
-### 8. Yasuo (net +0.84)
+#### 8. Yasuo (net +0.84)
 
 - **0.80** projectile block: Wind Wall blocks Sona's Crescendo, a projectile. Wind Wall for 4 s, long enough to use ahead of Crescendo. (Yasuo W Wind Wall → Sona R Crescendo)
 - **0.45** projectile block: Wind Wall blocks Sona's basic attacks, which are projectiles. Wind Wall lasts 4 s on a 17 s cooldown. (Yasuo W Wind Wall → Sona basic attacks)
 - **0.31** projectile block: Wind Wall blocks Sona's Hymn of Valor, a projectile. Wind Wall for 4 s, long enough to use ahead of Hymn of Valor. (Yasuo W Wind Wall → Sona Q Hymn of Valor)
 - Watch out: Sona's basic attacks reach 375 units farther than Yasuo's (550 vs 175 attack range).
 
-### 9. Braum (net +0.79)
+#### 9. Braum (net +0.79)
 
 - **0.80** projectile block: Unbreakable blocks Sona's Crescendo, a projectile. Unbreakable for 4 s, long enough to use ahead of Crescendo. (Braum E Unbreakable → Sona R Crescendo)
 - **0.58** projectile block: Unbreakable blocks Sona's basic attacks, which are projectiles. Unbreakable lasts 4 s on a 8 s cooldown. (Braum E Unbreakable → Sona basic attacks)
 - **0.45** projectile block: Unbreakable blocks Sona's Hymn of Valor, a projectile. Unbreakable for 4 s, long enough to use ahead of Hymn of Valor. (Braum E Unbreakable → Sona Q Hymn of Valor)
 - Watch out: Sona's basic attacks reach 425 units farther than Braum's (550 vs 125 attack range).
 
-### 10. Fizz (net +0.75)
+#### 10. Fizz (net +0.75)
 
 - **0.80** untargetable: Playful makes Fizz untargetable, dodging Sona's Crescendo. Untargetable for 0.75 s; Crescendo takes 0.67 s to land, enough to react. (Fizz E Playful → Sona R Crescendo)
 - **0.27** untargetable: Playful makes Fizz untargetable, dodging Sona's Hymn of Valor. Untargetable for 0.75 s; Hymn of Valor lands within 0 s, faster than a 0.25 s reaction, so it needs prediction. (Fizz E Playful → Sona Q Hymn of Valor)
 - Watch out: Sona's basic attacks reach 375 units farther than Fizz's (550 vs 175 attack range).
 
-## Full ranking
+### Full ranking
 
 | # | Champion | Net | For | Against | Hard counters |
 |--:|---|--:|--:|--:|---|

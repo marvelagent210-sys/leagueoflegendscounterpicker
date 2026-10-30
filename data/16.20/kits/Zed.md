@@ -240,3 +240,129 @@ All 1 level-based formulas in the game files (0 linked to wiki values above):
 | Spell | Calculation | Rule | Level 1 | Level 18 | Level 20 |
 |---|---|---|--:|--:|--:|
 | ZedPassive | {6a1a62e9} | breakpoints at levels 7, 17, 25 (level 1: 0.05) | 0.05 | 0.1 | 0.1 |
+
+## Duel simulator kit (level 20, every ability at max rank)
+
+What the duel simulator fights with (`kits/champions/Zed.ts`): values come from pinned wiki and versioned game-data records at level 20. Interpretations and missing evidence are listed under assumptions. Ratios are fractions of the stat (60% AD is 0.6 × AD).
+
+- Basic attack: range 125, melee.
+
+| Key | Ability | Cooldown (s) | Cast time (s) | Cost | Delivery | On the enemy | On itself |
+|---|---|--:|--:|---|---|---|---|
+| Q | Razor Shuriken | 6 | 0.25 | 55 | self | – | – |
+| W | Living Shadow | 16 | 0 | 20 | self | – | – |
+| E | Shadow Slash | 3 | 0 | 40 | self | – | – |
+| R | Death Mark | 100 | 0 | – | targeted, 625 range | – | – |
+| W2 | Living Shadow (swap) | 0 | 0 | – | self | – | – |
+| R2 | Death Mark (swap) | 0 | 0 | – | self | – | – |
+| Qbolt | Razor Shuriken | 0 | 0 | – | skillshot 925 long, 100 wide, at 1700/s | 240 + 100% bonus AD physical damage | – |
+| Eslash | Shadow Slash | 0 | 0 | – | self | – | – |
+| Eslow | Shadow Slash (slow) | 0 | 0 | – | self | – | – |
+| Rmark | Death Mark (mark) | 0 | 0 | – | self | marks it "zed:deathMark" for 3 s | – |
+| Rdetonate | Death Mark (detonation) | 0 | 0 | – | self | – | – |
+| I | Contempt for the Weak | 0 | 0 | – | self | – | – |
+
+Effects marked by a mark or a role are completed by the kit's hooks (see the kit's source).
+
+### Assumptions
+
+- Shadows are actual untargetable Minion-class spell sources, never clones or champions. W and R own independent replacement identities, positions, lifetimes and one-use swaps. Their source supplies no HP, armor or radius because they cannot be contacted; structural 1-HP/zero-radius placeholders have no combat effect. W uses the primary's estimated 325 minimum, 650 maximum and 2500 speed over binary generic 700/1600 metadata. The W swap buff begins at cast while its 5.25-second stationary lifetime begins at placement; precise brief buff delay is unpublished. Published post-owner-death shadow persistence is explicit.
+- Each Q source aims at the same declared world location and fires a finite piercing 925-range, 100-width, 1700-speed projectile. Each missile separately deals full damage to its first actual enemy body, then the reduced formula to later bodies, including after a spell-shielded first contact. Shadow Q cast completion waits for placement and original Q cast completion; expiration cancels unreleased copies. W swapping during Q releases the original body bolt immediately and transfers the pending shadow bolt to the new caster position; R swapping waits for the cast. Projectile walls destroy each flight separately and released flights persist after death. Lateral evasion uses a per-source expected contact share without probabilistic branching; spatially hit pets take full packets independently.
+- Living Shadow refunds energy only after two distinct accepted sources hit the same actual target for the same Q/E cast, at most once per cast across all targets. Spell shield, parry, stasis and untargetability deny that source's contact; scalar Q refunds are weighted by the final source's contact share. E slashes are ordered shadow-first for the sourced spell-shield priority. Only the first slash may damage even when shielded; surviving accepted slashes determine the base/enhanced slow. Only an accepted owner slash against an actual Champion-class body reduces W cooldown by three seconds. Owner E is an instant overlay preserving basic windups and walking, while its ordinary cast remains locked by Q.
+- Contempt checks impact health before ordinary basic damage. Champion-class targets receive their own ten-second lock; other actual pets do not. Blind/dodge/parry deny contact and blocked basic damage consumes the champion lock without damage. Monster classification alone selects the 75%/175 cap. No structure or imaginary lane target is supplied.
+- Death Mark validates an actual visible enemy champion, spawns its R shadow immediately, waits 0.6 seconds and follows the target during an interruptible 0.35-second terrain-crossing dash, landing 125 units beyond along the reflected approach. The pre-dash 1950 cancellation uses a static 0.5-second cooldown. At 2200 tracking distance the last tracked endpoint is retained. Untargetability ends on actual dash end, including interruption, and the independent mark application can be spell-shielded. Its three-second ledger sums accepted pre-mitigation physical/magic damage reports from this owner against that exact champion, including absorbed damage, ordinary basics and shadow packets; true damage, blocked packets, unrelated pets and the detonation itself never enter it. Detonation reads current AD and ignores a newly acquired spell shield; attached ordinary untargetability permits the packet but stasis/invulnerability/parry still guard damage. The existing mark survives caster death. R ghosting uses the primary three seconds over binary four. The R swap window uses the primary 7.5-second buff plus 0.25 linger, bounded by the shadow's last-1.25-second prohibition.
+- Reference budget prices one ordinary Q/E per cooldown, one extra W-mimicked Q per W cooldown and an isolated R base plus one Q/E stored within its mark, with the low-health passive once per target cooldown at half uptime. Runtime never receives this forecast damage or guaranteed contacts. Offensive behavior reserves R in hold/trade, retreats after the common trade clock, and chooses swaps only when they improve the current approach or retreat distance. Standard shadow sight has no fog-of-war geometry and does not reveal stealth. Two cosmetic R dash silhouettes are not extra spell sources.
+
+### Source values read (89)
+
+| Ability | Value | Source version |
+|---|---|---|
+| Contempt for the Weak | below 50% maximum health | [4052367](https://wiki.leagueoflegends.com/en-us/Template:Data_Zed/Contempt_for_the_Weak?oldid=4052367) |
+| Contempt for the Weak | Innate: Zed's basic attacks on-hit against targets below 50% maximum health are empowered to deal 5 / 7.5 / 10 (based on level)% of the target's maximum health as bonus magic damage. | [4052367](https://wiki.leagueoflegends.com/en-us/Template:Data_Zed/Contempt_for_the_Weak?oldid=4052367) |
+| Contempt for the Weak | targetCooldown: 10 | [4052367](https://wiki.leagueoflegends.com/en-us/Template:Data_Zed/Contempt_for_the_Weak?oldid=4052367) |
+| Contempt for the Weak | deals 75% damage | [4052367](https://wiki.leagueoflegends.com/en-us/Template:Data_Zed/Contempt_for_the_Weak?oldid=4052367) |
+| Contempt for the Weak | capped at 175 | [4052367](https://wiki.leagueoflegends.com/en-us/Template:Data_Zed/Contempt_for_the_Weak?oldid=4052367) |
+| Contempt for the Weak | not consumed when dodged or missed, but it is consumed when blocked | [4052367](https://wiki.leagueoflegends.com/en-us/Template:Data_Zed/Contempt_for_the_Weak?oldid=4052367) |
+| Contempt for the Weak | health upon landing the attack | [4052367](https://wiki.leagueoflegends.com/en-us/Template:Data_Zed/Contempt_for_the_Weak?oldid=4052367) |
+| Contempt for the Weak | will not trigger against structures | [4052367](https://wiki.leagueoflegends.com/en-us/Template:Data_Zed/Contempt_for_the_Weak?oldid=4052367) |
+| Razor Shuriken | Physical Damage: 80 / 120 / 160 / 200 / 240 (+ 100% bonus AD) | [4006897](https://wiki.leagueoflegends.com/en-us/Template:Data_Zed/Razor_Shuriken?oldid=4006897) |
+| Razor Shuriken | Reduced Damage: 48 / 72 / 96 / 120 / 144 (+ 60% bonus AD) | [4006897](https://wiki.leagueoflegends.com/en-us/Template:Data_Zed/Razor_Shuriken?oldid=4006897) |
+| Razor Shuriken | targetRange: 925 | [4006897](https://wiki.leagueoflegends.com/en-us/Template:Data_Zed/Razor_Shuriken?oldid=4006897) |
+| Razor Shuriken | width: 100 | [4006897](https://wiki.leagueoflegends.com/en-us/Template:Data_Zed/Razor_Shuriken?oldid=4006897) |
+| Razor Shuriken | speed: 1700 | [4006897](https://wiki.leagueoflegends.com/en-us/Template:Data_Zed/Razor_Shuriken?oldid=4006897) |
+| Razor Shuriken | castTime: 0.25 | [4006897](https://wiki.leagueoflegends.com/en-us/Template:Data_Zed/Razor_Shuriken?oldid=4006897) |
+| Razor Shuriken | cooldown: 6 | [4006897](https://wiki.leagueoflegends.com/en-us/Template:Data_Zed/Razor_Shuriken?oldid=4006897) |
+| Razor Shuriken | Shurikens blocked by spell shield still count as being hit for the reduced pass-through damage | [4006897](https://wiki.leagueoflegends.com/en-us/Template:Data_Zed/Razor_Shuriken?oldid=4006897) |
+| Razor Shuriken | wherever the caster is at the end of the cast time | [4006897](https://wiki.leagueoflegends.com/en-us/Template:Data_Zed/Razor_Shuriken?oldid=4006897) |
+| Razor Shuriken | not lock out Living Shadow recast during its cast time | [4006897](https://wiki.leagueoflegends.com/en-us/Template:Data_Zed/Razor_Shuriken?oldid=4006897) |
+| Living Shadow | targetRange: 325 - 650 | [4053262](https://wiki.leagueoflegends.com/en-us/Template:Data_Zed/Living_Shadow?oldid=4053262) |
+| Living Shadow | effectRadius (Recast range): 2000 • Global | [4053262](https://wiki.leagueoflegends.com/en-us/Template:Data_Zed/Living_Shadow?oldid=4053262) |
+| Living Shadow | speed: 2500 | [4053262](https://wiki.leagueoflegends.com/en-us/Template:Data_Zed/Living_Shadow?oldid=4053262) |
+| Living Shadow | remains there for 5.25 seconds | [4053262](https://wiki.leagueoflegends.com/en-us/Template:Data_Zed/Living_Shadow?oldid=4053262) |
+| Living Shadow | Energy Restored: 30 / 35 / 40 / 45 / 50 | [4053262](https://wiki.leagueoflegends.com/en-us/Template:Data_Zed/Living_Shadow?oldid=4053262) |
+| Living Shadow | cooldown: 20 / 19 / 18 / 17 / 16 | [4053262](https://wiki.leagueoflegends.com/en-us/Template:Data_Zed/Living_Shadow?oldid=4053262) |
+| Living Shadow | cooldownStart: on-cast | [4053262](https://wiki.leagueoflegends.com/en-us/Template:Data_Zed/Living_Shadow?oldid=4053262) |
+| Living Shadow | This may only occur once per cast ability | [4053262](https://wiki.leagueoflegends.com/en-us/Template:Data_Zed/Living_Shadow?oldid=4053262) |
+| Living Shadow | energy refund is not granted if the mimicked ability is blocked by a spell shield | [4053262](https://wiki.leagueoflegends.com/en-us/Template:Data_Zed/Living_Shadow?oldid=4053262) |
+| Living Shadow | will cast that ability once it has been placed | [4053262](https://wiki.leagueoflegends.com/en-us/Template:Data_Zed/Living_Shadow?oldid=4053262) |
+| Living Shadow | Shadows will not disappear when Zed dies | [4053262](https://wiki.leagueoflegends.com/en-us/Template:Data_Zed/Living_Shadow?oldid=4053262) |
+| Living Shadow | previous Shadow will instantly disappear | [4053262](https://wiki.leagueoflegends.com/en-us/Template:Data_Zed/Living_Shadow?oldid=4053262) |
+| Living Shadow | the mimicked cast will be cancelled | [4053262](https://wiki.leagueoflegends.com/en-us/Template:Data_Zed/Living_Shadow?oldid=4053262) |
+| Shadow Slash | Physical Damage: 70 / 92.5 / 115 / 137.5 / 160 (+ 70% bonus AD) | [4016889](https://wiki.leagueoflegends.com/en-us/Template:Data_Zed/Shadow_Slash?oldid=4016889) |
+| Shadow Slash | effectRadius (from Zed): 315 • 290 | [4016889](https://wiki.leagueoflegends.com/en-us/Template:Data_Zed/Shadow_Slash?oldid=4016889) |
+| Shadow Slash | effectRadius (from Shadows): 315 • 290 | [4016889](https://wiki.leagueoflegends.com/en-us/Template:Data_Zed/Shadow_Slash?oldid=4016889) |
+| Shadow Slash | Slow: 20 / 25 / 30 / 35 / 40% | [4016889](https://wiki.leagueoflegends.com/en-us/Template:Data_Zed/Shadow_Slash?oldid=4016889) |
+| Shadow Slash | Enhanced Slow: 30 / 37.5 / 45 / 52.5 / 60% | [4016889](https://wiki.leagueoflegends.com/en-us/Template:Data_Zed/Shadow_Slash?oldid=4016889) |
+| Shadow Slash | slowed for 1.5 seconds | [4016889](https://wiki.leagueoflegends.com/en-us/Template:Data_Zed/Shadow_Slash?oldid=4016889) |
+| Shadow Slash | reduced by 3 seconds | [4016889](https://wiki.leagueoflegends.com/en-us/Template:Data_Zed/Shadow_Slash?oldid=4016889) |
+| Shadow Slash | cooldown: 5 / 4.5 / 4 / 3.5 / 3 | [4016889](https://wiki.leagueoflegends.com/en-us/Template:Data_Zed/Shadow_Slash?oldid=4016889) |
+| Shadow Slash | a target can only be damaged by one slash per cast | [4016889](https://wiki.leagueoflegends.com/en-us/Template:Data_Zed/Shadow_Slash?oldid=4016889) |
+| Shadow Slash | prioritizing blocking the slash from Zed's Shadow | [4016889](https://wiki.leagueoflegends.com/en-us/Template:Data_Zed/Shadow_Slash?oldid=4016889) |
+| Shadow Slash | does not interrupt attack, movement, or cast commands | [4016889](https://wiki.leagueoflegends.com/en-us/Template:Data_Zed/Shadow_Slash?oldid=4016889) |
+| Death Mark | targetRange: 625 | [4050166](https://wiki.leagueoflegends.com/en-us/Template:Data_Zed/Death_Mark?oldid=4050166) |
+| Death Mark | after a 0.6-second delay | [4050166](https://wiki.leagueoflegends.com/en-us/Template:Data_Zed/Death_Mark?oldid=4050166) |
+| Death Mark | over 0.35 seconds | [4050166](https://wiki.leagueoflegends.com/en-us/Template:Data_Zed/Death_Mark?oldid=4050166) |
+| Death Mark | 125 units beyond | [4050166](https://wiki.leagueoflegends.com/en-us/Template:Data_Zed/Death_Mark?oldid=4050166) |
+| Death Mark | Marked for Death for 3 seconds | [4050166](https://wiki.leagueoflegends.com/en-us/Template:Data_Zed/Death_Mark?oldid=4050166) |
+| Death Mark | casting position for 9 seconds | [4050166](https://wiki.leagueoflegends.com/en-us/Template:Data_Zed/Death_Mark?oldid=4050166) |
+| Death Mark | after 0.5 seconds of his reappearance | [4050166](https://wiki.leagueoflegends.com/en-us/Template:Data_Zed/Death_Mark?oldid=4050166) |
+| Death Mark | last 1.25 seconds | [4050166](https://wiki.leagueoflegends.com/en-us/Template:Data_Zed/Death_Mark?oldid=4050166) |
+| Death Mark | buff for 7.5 seconds | [4050166](https://wiki.leagueoflegends.com/en-us/Template:Data_Zed/Death_Mark?oldid=4050166) |
+| Death Mark | lingers for 0.25 seconds | [4050166](https://wiki.leagueoflegends.com/en-us/Template:Data_Zed/Death_Mark?oldid=4050166) |
+| Death Mark | 1950 or more units away | [4050166](https://wiki.leagueoflegends.com/en-us/Template:Data_Zed/Death_Mark?oldid=4050166) |
+| Death Mark | 0.5-second cooldown | [4050166](https://wiki.leagueoflegends.com/en-us/Template:Data_Zed/Death_Mark?oldid=4050166) |
+| Death Mark | 2200 or more units away | [4050166](https://wiki.leagueoflegends.com/en-us/Template:Data_Zed/Death_Mark?oldid=4050166) |
+| Death Mark | cooldown: 120 / 110 / 100 | [4050166](https://wiki.leagueoflegends.com/en-us/Template:Data_Zed/Death_Mark?oldid=4050166) |
+| Death Mark | Physical Damage: 100% AD (+ 25 / 40 / 55% of damage stored) | [4050166](https://wiki.leagueoflegends.com/en-us/Template:Data_Zed/Death_Mark?oldid=4050166) |
+| Death Mark | 100% AD (+ 25 / 40 / 55% of damage stored) | [4050166](https://wiki.leagueoflegends.com/en-us/Template:Data_Zed/Death_Mark?oldid=4050166) |
+| Death Mark | cooldownStart: on-cast | [4050166](https://wiki.leagueoflegends.com/en-us/Template:Data_Zed/Death_Mark?oldid=4050166) |
+| Death Mark | Spell shield will only block the mark's application | [4050166](https://wiki.leagueoflegends.com/en-us/Template:Data_Zed/Death_Mark?oldid=4050166) |
+| Death Mark | nor block the detonation from a mark that is already applied | [4050166](https://wiki.leagueoflegends.com/en-us/Template:Data_Zed/Death_Mark?oldid=4050166) |
+| Death Mark | will not be applied to the target if they are untargetable | [4050166](https://wiki.leagueoflegends.com/en-us/Template:Data_Zed/Death_Mark?oldid=4050166) |
+| Death Mark | The mark will still be applied regardless | [4050166](https://wiki.leagueoflegends.com/en-us/Template:Data_Zed/Death_Mark?oldid=4050166) |
+| Death Mark | does not store {{tip\|true damage}} | [4050166](https://wiki.leagueoflegends.com/en-us/Template:Data_Zed/Death_Mark?oldid=4050166) |
+| Shadow | Minion (untargetable) | [4026038](https://wiki.leagueoflegends.com/en-us/Zed?oldid=4026038) |
+| Shadow | towards the same targeted location | [4026038](https://wiki.leagueoflegends.com/en-us/Zed?oldid=4026038) |
+| Shadow | Only 1 Shadow each | [4026038](https://wiki.leagueoflegends.com/en-us/Zed?oldid=4026038) |
+| Shadow | may only swap places with a Shadow once | [4026038](https://wiki.leagueoflegends.com/en-us/Zed?oldid=4026038) |
+| Shadow | Do not count as ability activations | [4026038](https://wiki.leagueoflegends.com/en-us/Zed?oldid=4026038) |
+| Shadow | Are considered separate casts when they hit the same target | [4026038](https://wiki.leagueoflegends.com/en-us/Zed?oldid=4026038) |
+| Shadow | 700 | [4026038](https://wiki.leagueoflegends.com/en-us/Zed?oldid=4026038) |
+| Contempt for the Weak | mSpell.DataValues.PerUnitCD.values: [10.0,10.0,10.0,10.0,10.0,10.0,10.0] | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/zed/zed.bin.json) |
+| Razor Shuriken | "mMissileWidth":50.0 | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/zed/zed.bin.json) |
+| Razor Shuriken | "mSpeed":1700.0 | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/zed/zed.bin.json) |
+| Razor Shuriken | mSpell.castRange: [925.0,925.0,925.0,925.0,925.0,925.0,925.0] | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/zed/zed.bin.json) |
+| Living Shadow | mSpell.DataValues.ShadowDuration.values: [5.25,5.25,5.25,5.25,5.25,5.25,5.25] | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/zed/zed.bin.json) |
+| Living Shadow | mSpell.DataValues.EnergyRestoreDoubleHit.values: [25.0,30.0,35.0,40.0,45.0,50.0,55.0] | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/zed/zed.bin.json) |
+| Living Shadow | mSpell.castRange: [700.0,700.0,700.0,700.0,700.0,700.0,700.0] | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/zed/zed.bin.json) |
+| Living Shadow | mSpell.missileSpeed: 1600.0 | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/zed/zed.bin.json) |
+| Shadow Slash | mSpell.DataValues.ZedRadius.values: [315.0,315.0,315.0,315.0,315.0,315.0,315.0] | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/zed/zed.bin.json) |
+| Shadow Slash | mSpell.DataValues.ShadowRadius.values: [290.0,290.0,290.0,290.0,290.0,290.0,290.0] | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/zed/zed.bin.json) |
+| Death Mark | mSpell.DataValues.RGhostedDuration.values: [4.0,4.0,4.0,4.0,4.0,4.0,4.0] | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/zed/zed.bin.json) |
+| Death Mark | mSpell.DataValues.RDamageAmp.values: [0.10000000149011612,0.25,0.4000000059604645,0.550000011920929,0.699999988079071,0.8500000238418579,1.0] | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/zed/zed.bin.json) |
+| Razor Shuriken | cost: 75 / 70 / 65 / 60 / 55 | [4006897](https://wiki.leagueoflegends.com/en-us/Template:Data_Zed/Razor_Shuriken?oldid=4006897) |
+| Living Shadow | cost: 40 / 35 / 30 / 25 / 20 | [4053262](https://wiki.leagueoflegends.com/en-us/Template:Data_Zed/Living_Shadow?oldid=4053262) |
+| Living Shadow | castTime: none | [4053262](https://wiki.leagueoflegends.com/en-us/Template:Data_Zed/Living_Shadow?oldid=4053262) |
+| Shadow Slash | cost: 40 | [4016889](https://wiki.leagueoflegends.com/en-us/Template:Data_Zed/Shadow_Slash?oldid=4016889) |
+| Shadow Slash | castTime: none | [4016889](https://wiki.leagueoflegends.com/en-us/Template:Data_Zed/Shadow_Slash?oldid=4016889) |
+| Death Mark | castTime: none | [4050166](https://wiki.leagueoflegends.com/en-us/Template:Data_Zed/Death_Mark?oldid=4050166) |

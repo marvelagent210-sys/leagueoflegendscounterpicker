@@ -43,14 +43,14 @@ import {
   startCast,
 } from "./actions";
 import { type Behavior, type Command, defaultBehavior, perceive, traitsOf } from "./behavior";
-import { applyEffect, contactGap, dealDamage, directionTo, edgeDistance, heal, hookContext, log } from "./combat";
+import { applyEffect, contactGap, dealDamage, directionTo, edgeDistance, endForcedMovement, heal, hookContext, log, notifyActualMovement } from "./combat";
 import { canMove, ccTypes, derive, hasState } from "./derived";
 import { abilityOf } from "./forms";
-import { advancePets, petEffects } from "./pets";
+import { advancePets, expirePetHealth, petEffects } from "./pets";
 import { advanceLifecycles } from "./lifecycle";
 import { aroundFactor, expireTerrain, terrainLimit } from "./terrain";
 import type { FighterSpec } from "./spec";
-import { DEFAULT_SETTINGS, type LogEntry, type Mode, type Side, type SimSettings, type Unit, type World, cloneWorld, newUnit, other } from "./state";
+import { DEFAULT_SETTINGS, type Action, type LogEntry, type Mode, type Side, type SimSettings, type Unit, type World, cloneWorld, newUnit, other } from "./state";
 
 export interface FightSetup {
   fighters: [FighterSpec, FighterSpec];
@@ -127,6 +127,10 @@ export function createWorld(setup: FightSetup): World {
   for (const unit of units) unit.spec.hooks?.onStart?.(hookContext(world, unit));
   units.forEach((unit, i) => {
     unit.hp = derive(unit).maxHp * (setup.hp?.[i] ?? 1);
+    // Innate mana conversion establishes the full pool once, after setup. Later
+    // changes affect the cap without refunding mana spent during the fight.
+    if (unit.spec.resourceType === "Mana" && unit.spec.statConversions?.apToManaPercent !== undefined
+        && unit.spec.resourceStart === undefined) unit.resource = derive(unit).maxResource;
   });
   return world;
 }
@@ -159,13 +163,13 @@ function runScheduled(world: World): void {
 
 /** Kit hooks, damage over time and regeneration. */
 function upkeep(world: World, unit: Unit): void {
-  if (!unit.alive) return;
+  if (!unit.alive) { unit.spec.hooks?.onTickWhileDead?.(hookContext(world, unit)); return; }
   unit.spec.hooks?.onTick?.(hookContext(world, unit));
   for (const status of unit.statuses) {
     const dot = status.dot;
     if (status.kind !== "dot" || !dot || world.tick < dot.nextTick || world.tick > status.endTick) continue;
     dot.nextTick += dot.intervalTicks;
-    dealDamage(world, world.units[status.source], unit, dot.perHit, dot.damageType, { ability: dot.label ?? status.key, persistent: true });
+    dealDamage(world, world.units[status.source], unit, dot.perHit, dot.damageType, { ability: dot.label ?? status.key, persistent: true, ...(dot.originX !== undefined ? { originX: dot.originX } : {}) });
   }
   const { base } = unit.spec;
   heal(world, unit, base.hpRegen / 5 / 30, true);
@@ -180,7 +184,7 @@ function expire(world: World, unit: Unit, keepFinalDot = false): void {
     // Losing bonus maximum health doesn't take current health with it, but caps it.
     unit.hp = Math.min(unit.hp, derive(unit).maxHp);
   }
-  if (unit.forced && unit.forced.endTick <= world.tick) delete unit.forced;
+  if (unit.forced && unit.forced.endTick <= world.tick) endForcedMovement(world, unit);
   expireChains(world, unit);
   releaseCooldowns(world, unit);
   restockCharges(world, unit);
@@ -193,7 +197,11 @@ function completeActions(world: World, splits: PendingSplit[]): void {
       const unit = world.units[side];
       // A permitted spell can run alongside an older attack; both retain their own
       // completion times. Collect both before applying either side's due actions.
-      return [{ unit, action: unit.pendingAttack }, { unit, action: unit.action }];
+      const actions: Array<{ unit: Unit; action: Action | undefined; overlay?: Extract<Action, { kind: "dash" }> }> = [{ unit, action: unit.pendingAttack }, { unit, action: unit.action }];
+      // A permitted nonzero cast during a dash keeps its own deadline. The dash
+      // remains the movement action until its independently scheduled end.
+      if (unit.action?.kind === "dash" && unit.action.resume?.kind === "cast") actions.push({ unit, action: unit.action.resume, overlay: unit.action });
+      return actions;
     })
     .filter(({ unit, action }) => {
       if (!unit.alive || !action) return false;
@@ -202,12 +210,13 @@ function completeActions(world: World, splits: PendingSplit[]): void {
       const offset = abilityOf(unit, action.ability)?.deliveryDuringCastAt;
       return action.endTick <= world.tick || (!action.delivered && offset !== undefined && world.tick >= action.startTick + toTicks(offset));
     });
-  for (const { unit, action } of due) {
+  for (const { unit, action, overlay } of due) {
     if (action?.kind === "windup") {
       const split = launchAttack(world, unit, action);
       if (split) splits.push(split);
     }
     else if (action?.kind === "cast") {
+      if (action.cancelled) continue;
       const ability = abilityOf(unit, action.ability);
       if (!ability) continue;
       if (!action.delivered && ability.deliveryDuringCastAt !== undefined && world.tick >= action.startTick + toTicks(ability.deliveryDuringCastAt)) {
@@ -217,6 +226,7 @@ function completeActions(world: World, splits: PendingSplit[]): void {
       }
       if (action.endTick > world.tick) continue;
       if (unit.action === action) unit.action = action.resume;
+      else if (overlay?.resume === action) overlay.resume = action.resume;
       const split = completeCast(world, unit, ability, action.startTick, action.aim, action.cost);
       if (split) splits.push(split);
     }
@@ -250,7 +260,7 @@ function execute(world: World, unit: Unit, command: Command): { acted: boolean; 
         const ability = abilityOf(unit, action.ability);
         const cancelAfter = ability?.channel?.cancelAfter;
         if (cancelAfter !== undefined && !ability?.channel?.mobile) {
-          if (world.tick < action.startTick + toTicks(cancelAfter)) { unit.move = 0; return { acted: false }; }
+          if (world.tick < action.startTick + toTicks(cancelAfter) || (ability?.channel?.cancelBeforeEnd !== undefined && world.tick >= action.endTick - toTicks(ability.channel.cancelBeforeEnd))) { unit.move = 0; return { acted: false }; }
           unit.action = undefined;
           if (ability) unit.spec.hooks?.onChannelInterrupt?.({ ...hookContext(world, unit, ability), reason: "move" });
         }
@@ -269,8 +279,8 @@ function execute(world: World, unit: Unit, command: Command): { acted: boolean; 
         if (unit.action?.kind === "channel") {
           const action = unit.action;
           const ability = abilityOf(unit, action.ability);
-          const cancelAfter = ability?.channel?.cancelAttackOtherAfter;
-          if (cancelAfter === undefined || world.tick < action.startTick + toTicks(cancelAfter)) return { acted: false };
+          const cancelAfter = ability?.channel?.cancelAttackOtherAfter ?? ability?.channel?.cancelAttackAfter;
+          if (cancelAfter === undefined || world.tick < action.startTick + toTicks(cancelAfter) || (ability?.channel?.cancelBeforeEnd !== undefined && world.tick >= action.endTick - toTicks(ability.channel.cancelBeforeEnd))) return { acted: false };
           unit.action = undefined;
           if (!canStartAttackOnPet(world, unit, pet)) { unit.action = action; return { acted: false }; }
           if (ability) unit.spec.hooks?.onChannelInterrupt?.({ ...hookContext(world, unit, ability), reason: "attack" });
@@ -279,6 +289,15 @@ function execute(world: World, unit: Unit, command: Command): { acted: boolean; 
         if (pet.owner !== unit.side) beginTrade(world, unit);
         startAttack(world, unit, pet);
         return { acted: true };
+      }
+      if (unit.action?.kind === "channel") {
+        const action = unit.action;
+        const ability = abilityOf(unit, action.ability);
+        const cancelAfter = ability?.channel?.cancelAttackAfter;
+        if (cancelAfter === undefined || world.tick < action.startTick + toTicks(cancelAfter) || (ability?.channel?.cancelBeforeEnd !== undefined && world.tick >= action.endTick - toTicks(ability.channel.cancelBeforeEnd))) return { acted: false };
+        unit.action = undefined;
+        if (!canStartAttack(world, unit)) { unit.action = action; return { acted: false }; }
+        if (ability) unit.spec.hooks?.onChannelInterrupt?.({ ...hookContext(world, unit, ability), reason: "attack" });
       }
       if (!canStartAttack(world, unit)) return { acted: false };
       beginTrade(world, unit);
@@ -327,17 +346,20 @@ function walksDuringAction(unit: Unit): boolean {
 
 function walk(world: World, unit: Unit): void {
   if (!unit.alive || (unit.deathDefied && !unit.deathDefied.allowMovement)) return;
+  const from = unit.x;
   const enemy = world.units[other(unit.side)];
   if (unit.attached) {
     // Carried by the enemy: held at its side.
     if (world.tick < unit.attached.endTick && enemy.alive) {
       unit.x = enemy.x + unit.attached.dir * unit.attached.offset;
+      notifyActualMovement(world, unit, from, { kind: "attached", endTick: unit.attached.endTick, ended: false });
       unit.moved = 0;
       return;
     }
     delete unit.attached;
   }
   const toward = directionTo(unit, enemy);
+  const forced = unit.forced;
   let dx = 0;
   if (unit.forced) {
     dx = unit.forced.over || unit.forced.absolute ? unit.forced.perTick : -toward * unit.forced.perTick;
@@ -352,7 +374,12 @@ function walk(world: World, unit: Unit): void {
     if (!held && walksDuringAction(unit)) {
       if (types.has("taunt") || types.has("berserk")) direction = inAttackRange(unit, enemy) ? 0 : 1;
       else if (types.has("charm")) direction = 1;
-      else if (types.has("fear")) direction = -1;
+      else if (types.has("fear")) {
+        const fear = unit.statuses.findLast(status => status.kind === "cc" && status.key === "fear");
+        const origin = fear?.fearOriginX;
+        direction = origin === undefined ? -1 : Math.abs(unit.x - origin) <= 1e-6
+          ? (unit.side === 0 ? -1 : 1) * toward : Math.sign(unit.x - origin) * toward;
+      }
       else if (canMove(unit)) direction = unit.move;
     }
     dx = direction * toward * (derive(unit).moveSpeed / 30);
@@ -360,19 +387,24 @@ function walk(world: World, unit: Unit): void {
   if (unit.forced?.over) {
     // Thrown over the enemy: no collision, no terrain.
     unit.x += dx;
+    notifyActualMovement(world, unit, from, { kind: "forced", endTick: forced!.endTick, ended: false,
+      ...(forced!.startTick !== undefined ? { startTick: forced!.startTick } : {}), ...(forced!.ability ? { ability: forced!.ability } : {}) });
     unit.moved = 0;
     return;
   }
   // Champions collide: moving toward the enemy stops where their pathing radii touch.
   const postDeathGhosted = unit.deathDefied?.allowMovement && hasState(unit, "ghosted");
   const flyingGhosted = !unit.forced && hasState(unit, "terrainIgnore") && hasState(unit, "ghosted");
-  if (dx * toward > 0 && !postDeathGhosted && !flyingGhosted) dx = toward * Math.min(Math.abs(dx), Math.max(0, contactGap(unit, enemy)));
+  if (dx * toward > 0 && !unit.forced?.ignoreUnitCollision && !postDeathGhosted && !flyingGhosted) dx = toward * Math.min(Math.abs(dx), Math.max(0, contactGap(unit, enemy)));
   // Terrain stops knock backs, and walking into walls; walking around a round obstacle is slower along the line.
   const walking = !unit.forced;
   const limited = terrainLimit(world, unit, dx, walking);
-  if (limited !== dx && unit.forced) delete unit.forced;
+  const forcedStopped = limited !== dx && unit.forced !== undefined;
+  if (forcedStopped) delete unit.forced;
   dx = walking ? limited * aroundFactor(world, unit, limited) : limited;
   unit.x += dx;
+  notifyActualMovement(world, unit, from, { kind: walking ? "walk" : "forced", endTick: forcedStopped ? world.tick : forced?.endTick ?? world.tick,
+    ended: walking || forcedStopped, ...(forced?.startTick !== undefined ? { startTick: forced.startTick } : {}), ...(forced?.ability ? { ability: forced.ability } : {}) });
   if (walking && dx !== 0) unit.facing = dx > 0 ? 1 : -1;
   unit.moved = dx === 0 ? 0 : dx * toward > 0 ? 1 : -1;
 }
@@ -380,6 +412,7 @@ function walk(world: World, unit: Unit): void {
 function threatsInFlight(world: World, side: Side): boolean {
   return (
     world.missiles.some((m) => m.owner !== side) ||
+    (world.petMissiles ?? []).some((m) => m.owner !== side && m.target === side) ||
     world.zones.some((z) => z.owner !== side && z.kind === "delayedArea") ||
     world.scheduled.some((e) => e.target === side)
   );
@@ -403,7 +436,10 @@ function checkEnd(world: World): void {
     };
     return world.tick < toTicks(world.settings.maxSeconds) && (
       world.missiles.some((m) => m.owner === owner.side && (m.source === "attack" || m.attack !== undefined || persistent(m.source))) ||
+      (world.petMissiles ?? []).some((m) => m.owner === owner.side && m.target === survivor.side) ||
       world.zones.some((z) => z.owner === owner.side && (z.kind === "delayedArea" || (z.kind === "field" && z.endTick > world.tick && (z.nextTick ?? Infinity) < z.endTick)) && (z.onHit?.length ?? 0) > 0 && persistent(z.ability)) ||
+      world.zones.some((z) => z.owner === owner.side && z.pendingAfterDeath === true && z.endTick > world.tick
+        && abilityOf(owner, z.ability)?.persistsAfterDeath === true) ||
       world.scheduled.some((e) => e.owner === owner.side && e.target === survivor.side && persistent(e.ability)) ||
       survivor.statuses.some((status) => status.kind === "dot" && status.source === owner.side && status.dot && status.dot.perHit > 0 && status.dot.nextTick <= status.endTick && status.endTick > world.tick && persistent(status.ability ?? status.key))
     );
@@ -430,6 +466,7 @@ export function step(world: World, behaviors: [Behavior, Behavior]): PendingSpli
   // Incoming effects at t must not see protection that ended at t. DoTs intentionally
   // include their final scheduled pulse, which upkeep delivers before the second expiry.
   for (const side of sides) expire(world, world.units[side], true);
+  expirePetHealth(world);
   expireTerrain(world);
   runScheduled(world);
   for (const side of sides) upkeep(world, world.units[side]);
@@ -447,6 +484,10 @@ export function step(world: World, behaviors: [Behavior, Behavior]): PendingSpli
   for (const side of sides) cancelOutOfRange(world, world.units[side]);
   checkEnd(world);
   if (!world.result) world.tick += 1;
+  if (world.pendingSplits) {
+    splits.push(...world.pendingSplits);
+    delete world.pendingSplits;
+  }
   return splits;
 }
 

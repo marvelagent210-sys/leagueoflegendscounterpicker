@@ -7,7 +7,7 @@ import { abilityHit, applyEffect, directionTo, isUntargetable } from "../../engi
 import { derive, evaluate, hasState } from "../../engine/sim/derived";
 import { petEffects, spawnPet } from "../../engine/sim/pets";
 import { petFormulaTarget } from "../../engine/sim/petTarget";
-import { projectileBlocked } from "../../engine/sim/projectileBlock";
+import { projectileBlocked, projectileBlockPoint, projectileInterceptPoint } from "../../engine/sim/projectileBlock";
 import type { AbilitySpec, Effect, HookContext } from "../../engine/sim/spec";
 import type { Missile, Pet, Unit, Zone } from "../../engine/sim/state";
 import { flat, missingShare, ticks } from "./util";
@@ -46,6 +46,7 @@ const jhin: KitModule = {
     const eArm = e.quoted("after arming over 1 second"), eDuration = e.quoted("up to 180 seconds"), eRadius = e.field("effectRadius", "On-trigger reveal and explosion radius");
     const eTrigger = e.field("collisionRadius"), eSlow = e.quoted("by 35%") / 100, eBloom = e.quoted("for 2 seconds"), eFalloff = e.quoted("last 1 second");
     const eCharges = e.quoted("up to a maximum of 2"), eReveal = e.quoted("revealed for 4 seconds"), eRecharge = e.field("recharge");
+    e.quote("The Lotus Trap will stop upon encountering a Wind Wall or Unbreakable.");
     const lotus = kit.pet("Lotus Trap"), eHP = lotus.stat("hp");
     lotus.quote("stealths and becomes untargetable after 1 second");
     e.quote("Beauty in Death does not consume Lotus Trap charges");
@@ -191,7 +192,11 @@ const jhin: KitModule = {
           if (/^R[1-4]$/.test(ctx.ability.key)) { ctx.memory.jhinRround = Number(ctx.ability.key.slice(1)); ctx.memory[`castDirection:${ctx.ability.key}`] = Number(ctx.memory.jhinRdirection ?? directionTo(ctx.self, ctx.enemy)); }
         },
         onCast(ctx) {
-          if (ctx.ability.key === "E") { const x = ctx.self.x + directionTo(ctx.self, ctx.enemy) * (ctx.aim?.direction ?? 1) * Math.min(eRange, ctx.aim?.distance ?? Math.abs(ctx.enemy.x - ctx.self.x)); if (!projectileBlocked(ctx.world, ctx.self.side, ctx.self.x, x)) place(ctx, x); }
+          if (ctx.ability.key === "E") {
+            const from = ctx.self.x, wanted = from + directionTo(ctx.self, ctx.enemy) * (ctx.aim?.direction ?? 1) * Math.min(eRange, ctx.aim?.distance ?? Math.abs(ctx.enemy.x - from));
+            const stops = [projectileBlockPoint(ctx.world, ctx.self.side, from, wanted), projectileInterceptPoint(ctx.world, ctx.self.side, from, wanted)].filter((x): x is number => x !== undefined);
+            place(ctx, stops.sort((a, b) => Math.abs(a - from) - Math.abs(b - from))[0] ?? wanted);
+          }
           if (ctx.ability.key === "W") {
             const origin = Number(ctx.memory["castOrigin:W"] ?? ctx.self.x), direction = directionTo(ctx.self, ctx.enemy), championFront = (ctx.enemy.x - origin) * direction - ctx.enemy.spec.base.radius;
             for (const pet of [...ctx.world.pets]) { const forward = (pet.x - origin) * direction; if (pet.owner !== ctx.self.side && forward >= -pet.spec.radius && forward <= wRange + pet.spec.radius && forward - pet.spec.radius <= championFront + 1e-6 && !projectileBlocked(ctx.world, ctx.self.side, origin, pet.x - direction * pet.spec.radius)) petEffects(ctx.world, ctx.self, pet, [{ type: "damage", damageType: "physical", amount: wPetDamage }], "area", "W"); }

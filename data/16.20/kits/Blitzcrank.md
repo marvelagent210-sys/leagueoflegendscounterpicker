@@ -45,6 +45,26 @@ Notes:
 - Mana Barrier's interactions with other shield effects that trigger before taking damage that would reduce below 30% health:
     - Mana Barrier will trigger simultaneously with the Lifeline effect from Hexdrinker, Maw of Malmortius, or Immortal Shieldbow if Blitzcrank takes damage while above 30% health, and trigger before them when the damage is taken while below 30% health.
       - Mana Barrier will always trigger simultaneously with the Lifeline effect from Sterak's Gage if Blitzcrank takes damage while above or below 30% health.
+- {{{{{1<noinclude>|Ability data</noinclude>}}}|Mana Barrier|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}
+  |champion     = Blitzcrank
+  |skill        = I
+  |icon         = Mana Barrier.png
+  |blurb        = {{sbc|Innate:}} Periodically, when {{ci|Blitzcrank}} gets to {{as|low-health}}, ''Mana Barrier'' generates a {{tip|shield}} that scales with {{sti|mana|{{as|maximum mana}}}}.
+  |description  = {{sbc|Innate:}} Periodically, when damaged to {{as|{{sti|health|30% '''maximum''' health}}}}, '''Blitzcrank''' generates a {{tip|shield}} equal to {{sti|mana|{{as|35% of '''maximum''' mana}}}}, lasting for up to 10 seconds.
+  |static       = {{tt|90|Starts immediately when the shield is gained}}
+  |targeting    = Passive
+  |affects      = Self
+  |damagetype   =
+  |spellshield  = 
+  |spelleffects = 
+  |grounded     = 
+  |knockdown    = 
+  |notes        = 
+  * The shield will absorb the portion of incoming damage that would reduce health past 30%.
+  * ''Mana Barrier's'' interactions with other {{tip|shield}} effects that trigger before taking damage that would reduce below 30% health:
+  ** ''Mana Barrier'' will trigger simultaneously with the {{nie|Lifeline}} effect from {{ii|Hexdrinker}}, {{ii|Maw of Malmortius}}, or {{ii|Immortal Shieldbow}} if '''Blitzcrank''' takes damage while above 30% health, and trigger before them when the damage is taken while below 30% health.
+  *** ''Mana Barrier'' will always trigger simultaneously with the {{nie|Lifeline}} effect from {{ii|Sterak's Gage}} if '''Blitzcrank''' takes damage while above or below 30% health.
+  }}
 
 ## Q: Rocket Grab
 
@@ -86,6 +106,46 @@ Notes:
 - Blitzcrank will be ordered to basic attack the target once the target arrives.
 - If the target dies to Rocket Grab's damage, they will not be pulled.
 - This ability will cast from wherever the caster is at the end of the cast time.
+- {{{{{1<noinclude>|Ability data</noinclude>}}}|Rocket Grab|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}
+  |champion     = Blitzcrank
+  |skill        = Q
+  |icon         = Rocket Grab.png
+  |blurb        = {{sbc|Active:}} {{ci|Blitzcrank}} fires the right hand which deals {{as|magic damage}} and {{tip|stun|stuns}} the first enemy hit. The target is also {{tip|airborne|pulled}} towards '''Blitzcrank'''.
+  |description  = {{sbc|Active:}} '''Blitzcrank''' fires their right hand in the target direction that catches the first enemy hit, dealing them {{as|magic damage}}, {{tip|stun|stunning}} them for {{fd|0.65 seconds}}, and {{tip|airborne|pulling}} them towards '''Blitzcrank''', during which they are {{tip|standard sight|revealed}}.
+  |description2 = '''''Blitzcrank''' is {{tip|lockout|unable}} to move or attack while Rocket Grab is in flight and for {{tt|{{fd|0.25}}|Estimated}} seconds after it hits an enemy.''
+  |leveling     = {{st|Magic Damage|{{ap|110 to 310}} {{as|(+ 120% AP)}}}}
+  |cast time    = {{fd|0.25}}
+  |width        = {{dv|{{tip|er|icononly = true}} {{tt|140|Missile collision width}}|{{tip|cr|icononly = true}} {{tt|60|Width of rectangle check at the end, unusually thin}}}}
+  |range        = {{dv|{{tip|cr|icononly = true}} {{tt|1115|Missile + rectangle check combined range. Supposed to be 1150, but currently bugged}}|{{tip|er|icononly = true}} {{tt|1020|Maximum range via other check}}}}
+  |speed        = {{dv|{{tt|1800|Missile speed}}|{{tt|1800|Pull speed}}}}
+  |cooldown     = {{ap|20 to 16}}
+  |cost         = 100
+  |costtype     = mana
+  |targeting    = Direction
+  |affects      = Enemies
+  |damagetype   = Magic
+  |spellshield  = True
+  |spelleffects = spell
+  |grounded     = 
+  |knockdown    = 
+  |projectile   = True
+  |notes        = 
+  * ''Rocket Grab's'' range is composed of a missile with 1080 range, and a smaller center-range area check at the end (colloquially known as a 'lollipop').
+  ** The area check is currently half as long as it is supposed to be, reducing the intended 1150 range of the ability to 1115 range. 
+  *** Hitting an enemy with this area check only also fails to play the ability's hit SFX. This makes it possible to easily distinguish whether the target was picked up by the missile collision or 'lollipop'.
+  ** Targets {{tip|size|larger than 95 units in radius}} can be hit by a different edge-range circle check at the end of the missile.
+  * The {{tip|airborne}} debuff lasts for up-to 1 second but will end prematurely when the target's movement stops, while the stun will persist (if duration permits).
+  * {{tip|Displacement immunity}} will not resist the application of the {{tip|stun}}.
+  * The target's destination lies 75 units in front of '''Blitzcrank''' at the start of cast time. 
+  ** If the target is closer than this, the effect will still move them to this location.
+  ** If this location would be inside static terrain, the target's destination will end up on '''Blitzcrank's''' side, even if that means pulling them right on top of '''Blitzcrank'''.
+  *** This can occasionally fail.{{bug}}
+  * If '''Blitzcrank''' is being moved (e.g. {{tip|Airborne}}, {{tip|Kinematics}} or {{ai|Fate's Call|Kalista}}) during the grab, the target will be pulled towards '''Blitzcrank'''s old location.
+  * '''Blitzcrank''' will be ordered to {{tip|basic attack}} the target once the target arrives.
+  * If the target dies to ''Rocket Grab's'' damage, they will not be pulled.
+  {{Effect at cast time end}}
+  {{ct|cast|spells=true,false,false,false,false}}
+  }}
 
 ## W: Overdrive
 
@@ -113,6 +173,29 @@ Notes:
 
 - The movement speed boost's decay is linear. On the first stat update after the buff is gained, the boost does not decay.
 - The self-slow is affected by slow resist and Tenacity.
+- {{{{{1<noinclude>|Ability data</noinclude>}}}|Overdrive|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}
+  |champion     = Blitzcrank
+  |skill        = W
+  |icon         = Overdrive.png
+  |blurb        = {{sbc|Active:}} {{ci|Blitzcrank}} shifts into overdrive, gaining {{sti|{{as|'''bonus''' attack speed}}}} and a burst of {{sti|ms|{{as|movement speed}}}}.
+  |blurb2       = When the effect ends, '''Blitzcrank''' is briefly {{tip|slow|slowed}}.
+  |description  = {{sbc|Active:}} '''Blitzcrank''' shifts into overdrive, gaining {{sti|{{as|'''bonus''' attack speed}}}} for 5 seconds and {{sti|ms|{{as|'''bonus''' movement speed}}}} that decays to 10% over the first {{fd|2.9}} seconds.
+  |leveling     = {{st|Bonus Attack Speed|{{ap|30 to 70}}%}}{{st|Initial Bonus Movement Speed|{{ap|60 to 80}}%}}
+  |description2 = When ''Overdrive'' ends, '''Blitzcrank''' is {{tip|slow|slowed}} by 30% for {{fd|1.5}} seconds.
+  |cooldown     = 15
+  |cdstart      = on-cast
+  |cost         = 75
+  |costtype     = mana
+  |cast time    = none
+  |damagetype   = magic
+  |spelleffects = proc
+  |parry        = true
+  |targeting    = Auto
+  |affects      = Self
+  |notes = 
+  * The movement speed boost's decay is linear. On the first stat update after the buff is gained, the boost does not decay.
+  * The self-slow is affected by {{tip|slow resist}} and {{tip|Tenacity}}.
+  }}
 
 ## E: Power Fist
 
@@ -144,6 +227,34 @@ Notes:
 - The knockup does not trigger against structures, jungle plants, and wards.
     - The Power Fist buff does not get consumed if the knockup doesn't trigger, allowing Blitzcrank to repeatedly attack structures for bonus damage.
 - The target is displaced a short distance during the knockup in a random direction.
+- {{{{{1<noinclude>|Ability data</noinclude>}}}|Power Fist|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}
+  |champion     = Blitzcrank
+  |skill        = E
+  |icon         = Power Fist.png
+  |blurb        = {{sbc|Active:}} {{ci|Blitzcrank}} charges up a fist to make the next {{tip|basic damage|basic attack}} deal double damage and {{tip|airborne|knock up}} the target into the air.
+  |description  = {{sbc|Active:}} '''Blitzcrank''' empowers their next {{tip|basic attack}} within 5 seconds to have an {{tip|uncancellable windup}}, deal {{as|100% AD}} {{as|(+ 25% AP)}} {{as|'''bonus''' physical damage}} and {{tip|airborne|knock up}} the target for 1 second. This damage is affected by {{tip|critical strike}} modifiers.
+  |description3 = ''Power Fist {{tip|basic attack reset|resets}} '''Blitzcrank's''' basic attack timer.''
+  |cooldown     = {{ap|7 to 5}}
+  |cdstart      = post-effect
+  |cost         = 25
+  |costtype     = mana
+  |cast time    = none
+  |targeting    = Auto
+  |affects      = Enemy, Structure
+  |damagetype   = Physical
+  |spelleffects = Special
+  |spellshield  = true
+  |parry        = true
+  |notes = 
+  * ''Power Fist'' deals {{tip|basic damage}}, but also triggers spell effects by also being tagged as {{tip|spell damage}}.
+  ** This includes the {{tip|basic attack}} itself.
+  <!--* The {{tip|airborne|knockup}} is not applied if the attack is {{tip|block|blocked}}, {{tip|dodge|dodged}} or {{tip|blind|missed}}.-->
+  * {{tip|Spell shield}} prevents the {{tip|airborne|knockup}} and the damage, including the damage of the basic attack itself.{{bug|2}}
+  * The enhanced attack will still complete and hit the target even if they become {{tip|untargetable}} during the {{tip|attack windup|attack's windup}}.<!--still true in 26.8-->
+  * The knockup does not trigger against {{tip|structures}}, [[jungle plants]], and {{tip|wards}}.
+  ** The ''Power Fist'' buff does not get consumed if the knockup doesn't trigger, allowing '''Blitzcrank''' to repeatedly attack structures for bonus damage.{{bug|2}}
+  * The target is displaced a short distance during the {{tip|airborne|knockup}} in a random direction.
+  }}
 
 ## R: Static Field
 
@@ -177,6 +288,38 @@ Notes:
 - The lightning bolts deal spell damage while the static field applies area damage.
 - This ability will cast from wherever the caster is at the end of the cast time.
 - Even if Static Field is blocked by a spell shield, it will still destroy any existing damage shields on the target.
+- {{{{{1<noinclude>|Ability data</noinclude>}}}|Static Field|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}
+  |champion     = Blitzcrank
+  |skill        = R
+  |icon         = false
+  |blurb        = {{sbc|Passive:}} While ''Static Field'' is ready, {{cis|Blitzcrank}} {{tip|basic attacks}} apply a {{tip|stack}} of ''Static Field''.
+  |blurb2       = {{sbc|Active:}} '''Blitzcrank''' detonates a powerful static charge that destroys {{tip|shield|shields}}, deals {{as|magic damage}}, and {{tip|silence|silences}} nearby enemies.
+  |blurb4       = {{sbc|Static Field:}} A stack detonates every second, dealing {{as|magic damage}} to the target.
+  |description  = {{sbc|Passive:}} While ''Static Field'' is not on cooldown, '''Blitzcrank's''' {{tip|basic attacks}} apply a {{tip|stack}} to the target {{tip|on-hit}}. While the target is afflicted, one stack is consumed every 1 second to strike them with lightning, dealing {{as|magic damage}} each time.
+  |leveling     = {{st|Magic Damage|{{ap|50 to 150}} {{as|(+ {{ap|30 to 50}}% AP)}} {{as|(+ 2% '''maximum''' mana)}}}}
+  |icon2        = Static Field.png
+  |description2 = {{sbc|Active:}} '''Blitzcrank''' detonates a static field that destroys the damage-mitigating {{tip|shield|shields}} of all nearby enemies, excluding the shields of {{tip|monsters}}, and then deals them {{as|magic damage}} and {{tip|silence|silences}} them for {{fd|0.5}} seconds.
+  |leveling2    = {{st|Magic Damage|{{ap|275 to 525}} {{as|(+ 100% AP)}}}}
+  |cooldown     = {{ap|60 to 20}}
+  |cost         = 100
+  |cast time    = {{fd|0.25}}
+  |costtype     = mana
+  |effect radius= {{tip|cr|icononly = true}} 600
+  |targeting    = Auto
+  |affects      = Enemies
+  |parry        = special
+  |damagetype   = Magic
+  |spelleffects = Special
+  |spellshield  = true
+  |notes   = 
+  * '''Blitzcrank's''' attacks do not have to deal damage to apply the mark.
+  * '''Blitzcrank's''' attacks will not apply a mark if the attack is {{tip|dodge|dodged}} or missed while '''Blitzcrank''' is {{tip|blind|blinded}}.
+  ** A mark will still be applied if the attack is {{tip|block|blocked}}. 
+  * The mark will be consumed even if the target becomes {{tip|untargetable}}.
+  * The lightning bolts deal {{tip|spell damage}} while the static field applies {{tip|area damage}}.
+  {{Effect at cast time end}}
+  * Even if ''Static Field'' is blocked by a {{tip|spell shield}}, it will still destroy any existing damage {{tip|shield|shields}} on the target.
+  }}
 
 ## Game files
 
@@ -198,3 +341,109 @@ All 1 level-based formulas in the game files (0 linked to wiki values above):
 | Spell | Calculation | Rule | Level 1 | Level 18 | Level 20 |
 |---|---|---|--:|--:|--:|
 | Overdrive | {c01903c1} | breakpoints at levels 7 (level 1: 60) | 60 | 220 | 230 |
+
+## Duel simulator kit (level 20, every ability at max rank)
+
+What the duel simulator fights with (`kits/champions/Blitzcrank.ts`): values come from pinned wiki and versioned game-data records at level 20. Interpretations and missing evidence are listed under assumptions. Ratios are fractions of the stat (60% AD is 0.6 × AD).
+
+- Basic attack: range 125, melee.
+
+| Key | Ability | Cooldown (s) | Cast time (s) | Cost | Delivery | On the enemy | On itself |
+|---|---|--:|--:|---|---|---|---|
+| Q | Rocket Grab | 16 | 0.25 | 100 | skillshot 1115 long, 140 wide, at 1800/s | 310 + 120% AP magic damage; stun for 0.65 s | – |
+| W | Overdrive | 15 | 0 | 75 | self | – | attackSpeed 0.7 for 5 s; moveSpeedPercent 0.8 for 5 s |
+| E | Power Fist | 5 (starts after the empowered attacks) | 0 | 25 | self | – | next 1 attack within 5 s: 100% AD + 25% AP physical damage (Power Fist), can crit; knock up over 1 s (resets the attack timer, uncancellable) |
+| R | Static Field | 20 | 0.25 | 100 | around itself, 600 units | 525 + 100% AP magic damage; silence for 0.5 s | – |
+| R-passive | Static Field lightning | 0 | 0 | – | targeted, Infinity range | 150 + 50% AP + 2% maximum mana magic damage (Static Field lightning) | – |
+
+Effects marked by a mark or a role are completed by the kit's hooks (see the kit's source).
+
+### Assumptions
+
+- Mana Barrier uses 35% maximum mana, as the pinned primary template states; the exact 16.20 resource calculation is retained as evidence. No pre-duel damage or resource spending is invented.
+- Overdrive follows the pinned template's observed 2.9-second linear decay; the exact game file's MoveSpeedModMinTime is 2.5 seconds. The first simulation stat update retains the full initial bonus.
+- Rocket Grab uses its 1080-unit finite missile, 70-unit collision radius and first actual champion or damageable pet body, followed by the pinned 1115-unit center-range end check. Its one-dimensional rectangle has no lateral coordinate.
+- Power Fist's random lateral knockup displacement has no deterministic lane direction, so its one-second airborne uses zero lane displacement. Structures, plants and wards are unavailable duel bodies.
+- The allocator counts Overdrive's average attack-speed uptime, one queued Static Field bolt per second at most, and Mana Barrier shield per 90 seconds; actual fights resolve mana costs, R's passive downtime, health threshold, defenses and shield expiry.
+- Static Field queues one bolt per real connected on-hit, consuming one each second with no invented stack cap. Its 2% maximum-mana scaling follows both the primary text and executable PassiveDamage calculation; the unused 5% PassiveManaRatio data value is retained but not substituted.
+
+### Source values read (76)
+
+| Ability | Value | Source version |
+|---|---|---|
+| Mana Barrier | shield equal to 35% of maximum mana | [3908089](https://wiki.leagueoflegends.com/en-us/Template:Data_Blitzcrank/Mana_Barrier?oldid=3908089) |
+| Mana Barrier | damaged to 30% maximum health | [3908089](https://wiki.leagueoflegends.com/en-us/Template:Data_Blitzcrank/Mana_Barrier?oldid=3908089) |
+| Mana Barrier | lasting for up to 10 seconds | [3908089](https://wiki.leagueoflegends.com/en-us/Template:Data_Blitzcrank/Mana_Barrier?oldid=3908089) |
+| Mana Barrier | staticCooldown: 90 | [3908089](https://wiki.leagueoflegends.com/en-us/Template:Data_Blitzcrank/Mana_Barrier?oldid=3908089) |
+| Mana Barrier | The shield will absorb the portion of incoming damage that would reduce health past 30% | [3908089](https://wiki.leagueoflegends.com/en-us/Template:Data_Blitzcrank/Mana_Barrier?oldid=3908089) |
+| Mana Barrier | "name":"HealthThreshold","values":[0.30000001192092896,0.30000001192092896,0.30000001192092896,0.30000001192092896,0.30000001192092896,0.30000001192092896,0.30000001192092896] | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/blitzcrank/blitzcrank.bin.json) |
+| Mana Barrier | "name":"ManaPercent","values":[0.3499999940395355,0.3499999940395355,0.3499999940395355,0.3499999940395355,0.3499999940395355,0.3499999940395355,0.3499999940395355] | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/blitzcrank/blitzcrank.bin.json) |
+| Mana Barrier | "mCoefficient":0.3499999940395355,"__type":"AbilityResourceByCoefficientCalculationPart" | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/blitzcrank/blitzcrank.bin.json) |
+| Mana Barrier | "name":"ShieldDuration","values":[10.0,10.0,10.0,10.0,10.0,10.0,10.0] | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/blitzcrank/blitzcrank.bin.json) |
+| Mana Barrier | "name":"Cooldown","values":[90.0,90.0,90.0,90.0,90.0,90.0,90.0] | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/blitzcrank/blitzcrank.bin.json) |
+| Rocket Grab | range (Missile + rectangle check): 1115 • 1020 | [4026708](https://wiki.leagueoflegends.com/en-us/Template:Data_Blitzcrank/Rocket_Grab?oldid=4026708) |
+| Rocket Grab | speed (Missile speed): 1800 • 1800 | [4026708](https://wiki.leagueoflegends.com/en-us/Template:Data_Blitzcrank/Rocket_Grab?oldid=4026708) |
+| Rocket Grab | speed (Pull speed): 1800 • 1800 | [4026708](https://wiki.leagueoflegends.com/en-us/Template:Data_Blitzcrank/Rocket_Grab?oldid=4026708) |
+| Rocket Grab | width (Missile collision width): 140 • 60 | [4026708](https://wiki.leagueoflegends.com/en-us/Template:Data_Blitzcrank/Rocket_Grab?oldid=4026708) |
+| Rocket Grab | a missile with 1080 range | [4026708](https://wiki.leagueoflegends.com/en-us/Template:Data_Blitzcrank/Rocket_Grab?oldid=4026708) |
+| Rocket Grab | destination lies 75 units in front | [4026708](https://wiki.leagueoflegends.com/en-us/Template:Data_Blitzcrank/Rocket_Grab?oldid=4026708) |
+| Rocket Grab | stunning them for 0.65 seconds | [4026708](https://wiki.leagueoflegends.com/en-us/Template:Data_Blitzcrank/Rocket_Grab?oldid=4026708) |
+| Rocket Grab | for 0.25 seconds after it hits an enemy | [4026708](https://wiki.leagueoflegends.com/en-us/Template:Data_Blitzcrank/Rocket_Grab?oldid=4026708) |
+| Rocket Grab | debuff lasts for up-to 1 second | [4026708](https://wiki.leagueoflegends.com/en-us/Template:Data_Blitzcrank/Rocket_Grab?oldid=4026708) |
+| Rocket Grab | Displacement immunity will not resist the application of the stun | [4026708](https://wiki.leagueoflegends.com/en-us/Template:Data_Blitzcrank/Rocket_Grab?oldid=4026708) |
+| Rocket Grab | at the start of cast time | [4026708](https://wiki.leagueoflegends.com/en-us/Template:Data_Blitzcrank/Rocket_Grab?oldid=4026708) |
+| Rocket Grab | If this location would be inside static terrain, the target's destination will end up on Blitzcrank's side | [4026708](https://wiki.leagueoflegends.com/en-us/Template:Data_Blitzcrank/Rocket_Grab?oldid=4026708) |
+| Rocket Grab | If the target dies to Rocket Grab's damage, they will not be pulled | [4026708](https://wiki.leagueoflegends.com/en-us/Template:Data_Blitzcrank/Rocket_Grab?oldid=4026708) |
+| Rocket Grab | during which they are revealed | [4026708](https://wiki.leagueoflegends.com/en-us/Template:Data_Blitzcrank/Rocket_Grab?oldid=4026708) |
+| Rocket Grab | "castRange":[1080.0,1080.0,1080.0,1080.0,1080.0,1080.0,1080.0] | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/blitzcrank/blitzcrank.bin.json) |
+| Rocket Grab | "mMissileWidth":70.0 | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/blitzcrank/blitzcrank.bin.json) |
+| Rocket Grab | "mTracksTarget":false | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/blitzcrank/blitzcrank.bin.json) |
+| Rocket Grab | "mSpeed":1800.0 | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/blitzcrank/blitzcrank.bin.json) |
+| Overdrive | bonus attack speed for 5 seconds | [3906572](https://wiki.leagueoflegends.com/en-us/Template:Data_Blitzcrank/Overdrive?oldid=3906572) |
+| Overdrive | over the first 2.9 seconds | [3906572](https://wiki.leagueoflegends.com/en-us/Template:Data_Blitzcrank/Overdrive?oldid=3906572) |
+| Overdrive | decays to 10% | [3906572](https://wiki.leagueoflegends.com/en-us/Template:Data_Blitzcrank/Overdrive?oldid=3906572) |
+| Overdrive | Bonus Attack Speed: 30 / 40 / 50 / 60 / 70% | [3906572](https://wiki.leagueoflegends.com/en-us/Template:Data_Blitzcrank/Overdrive?oldid=3906572) |
+| Overdrive | Initial Bonus Movement Speed: 60 / 65 / 70 / 75 / 80% | [3906572](https://wiki.leagueoflegends.com/en-us/Template:Data_Blitzcrank/Overdrive?oldid=3906572) |
+| Overdrive | slowed by 30% for 1.5 seconds | [3906572](https://wiki.leagueoflegends.com/en-us/Template:Data_Blitzcrank/Overdrive?oldid=3906572) |
+| Overdrive | The movement speed boost's decay is linear | [3906572](https://wiki.leagueoflegends.com/en-us/Template:Data_Blitzcrank/Overdrive?oldid=3906572) |
+| Overdrive | On the first stat update after the buff is gained, the boost does not decay | [3906572](https://wiki.leagueoflegends.com/en-us/Template:Data_Blitzcrank/Overdrive?oldid=3906572) |
+| Overdrive | The self-slow is affected by slow resist and Tenacity | [3906572](https://wiki.leagueoflegends.com/en-us/Template:Data_Blitzcrank/Overdrive?oldid=3906572) |
+| Overdrive | "name":"MoveSpeedModMinTime","values":[2.5,2.5,2.5,2.5,2.5,2.5,2.5] | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/blitzcrank/blitzcrank.bin.json) |
+| Overdrive | "name":"AttackSpeedMod","values":[0.20000000298023224,0.30000001192092896,0.4000000059604645,0.5,0.6000000238418579,0.699999988079071,0.800000011920929] | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/blitzcrank/blitzcrank.bin.json) |
+| Power Fist | next basic attack within 5 seconds | [4041159](https://wiki.leagueoflegends.com/en-us/Template:Data_Blitzcrank/Power_Fist?oldid=4041159) |
+| Power Fist | knock up the target for 1 second | [4041159](https://wiki.leagueoflegends.com/en-us/Template:Data_Blitzcrank/Power_Fist?oldid=4041159) |
+| Power Fist | deal 100% AD (+ 25% AP) | [4041159](https://wiki.leagueoflegends.com/en-us/Template:Data_Blitzcrank/Power_Fist?oldid=4041159) |
+| Power Fist | This damage is affected by critical strike modifiers | [4041159](https://wiki.leagueoflegends.com/en-us/Template:Data_Blitzcrank/Power_Fist?oldid=4041159) |
+| Power Fist | Spell shield prevents the knockup and the damage, including the damage of the basic attack itself | [4041159](https://wiki.leagueoflegends.com/en-us/Template:Data_Blitzcrank/Power_Fist?oldid=4041159) |
+| Power Fist | The enhanced attack will still complete and hit the target even if they become untargetable during the attack's windup | [4041159](https://wiki.leagueoflegends.com/en-us/Template:Data_Blitzcrank/Power_Fist?oldid=4041159) |
+| Power Fist | Power Fist resets Blitzcrank's basic attack timer | [4041159](https://wiki.leagueoflegends.com/en-us/Template:Data_Blitzcrank/Power_Fist?oldid=4041159) |
+| Power Fist | "mStat":2,"mCoefficient":2.0 | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/blitzcrank/blitzcrank.bin.json) |
+| Power Fist | "mCoefficient":0.25,"__type":"StatByCoefficientCalculationPart" | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/blitzcrank/blitzcrank.bin.json) |
+| Power Fist | "mCantCancelWhileWindingUp":true | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/blitzcrank/blitzcrank.bin.json) |
+| Static Field | Magic Damage: 50 / 100 / 150 (+ 30 / 40 / 50% AP) (+ 2% maximum mana) | [3956748](https://wiki.leagueoflegends.com/en-us/Template:Data_Blitzcrank/Static_Field?oldid=3956748) |
+| Static Field | Magic Damage: 275 / 400 / 525 (+ 100% AP) | [3956748](https://wiki.leagueoflegends.com/en-us/Template:Data_Blitzcrank/Static_Field?oldid=3956748) |
+| Static Field | one stack is consumed every 1 second | [3956748](https://wiki.leagueoflegends.com/en-us/Template:Data_Blitzcrank/Static_Field?oldid=3956748) |
+| Static Field | silences them for 0.5 seconds | [3956748](https://wiki.leagueoflegends.com/en-us/Template:Data_Blitzcrank/Static_Field?oldid=3956748) |
+| Static Field | Blitzcrank's attacks do not have to deal damage to apply the mark | [3956748](https://wiki.leagueoflegends.com/en-us/Template:Data_Blitzcrank/Static_Field?oldid=3956748) |
+| Static Field | A mark will still be applied if the attack is blocked | [3956748](https://wiki.leagueoflegends.com/en-us/Template:Data_Blitzcrank/Static_Field?oldid=3956748) |
+| Static Field | The mark will be consumed even if the target becomes untargetable | [3956748](https://wiki.leagueoflegends.com/en-us/Template:Data_Blitzcrank/Static_Field?oldid=3956748) |
+| Static Field | Even if Static Field is blocked by a spell shield, it will still destroy any existing damage shields on the target | [3956748](https://wiki.leagueoflegends.com/en-us/Template:Data_Blitzcrank/Static_Field?oldid=3956748) |
+| Static Field | This ability will cast from wherever the caster is at the end of the cast time | [3956748](https://wiki.leagueoflegends.com/en-us/Template:Data_Blitzcrank/Static_Field?oldid=3956748) |
+| Static Field | The lightning bolts deal spell damage while the static field applies area damage | [3956748](https://wiki.leagueoflegends.com/en-us/Template:Data_Blitzcrank/Static_Field?oldid=3956748) |
+| Static Field | "name":"ZapCountdown","values":[1.0,1.0,1.0,1.0,1.0,1.0,1.0] | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/blitzcrank/blitzcrank.bin.json) |
+| Static Field | "mCoefficient":0.019999999552965164,"__type":"AbilityResourceByCoefficientCalculationPart" | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/blitzcrank/blitzcrank.bin.json) |
+| Static Field | "name":"PassiveManaRatio","values":[0.05000000074505806,0.05000000074505806,0.05000000074505806,0.05000000074505806,0.05000000074505806,0.05000000074505806,0.05000000074505806] | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/blitzcrank/blitzcrank.bin.json) |
+| Rocket Grab | cooldown: 20 / 19 / 18 / 17 / 16 | [4026708](https://wiki.leagueoflegends.com/en-us/Template:Data_Blitzcrank/Rocket_Grab?oldid=4026708) |
+| Rocket Grab | cost: 100 | [4026708](https://wiki.leagueoflegends.com/en-us/Template:Data_Blitzcrank/Rocket_Grab?oldid=4026708) |
+| Rocket Grab | castTime: 0.25 | [4026708](https://wiki.leagueoflegends.com/en-us/Template:Data_Blitzcrank/Rocket_Grab?oldid=4026708) |
+| Rocket Grab | Magic Damage: 110 / 160 / 210 / 260 / 310 (+ 120% AP) | [4026708](https://wiki.leagueoflegends.com/en-us/Template:Data_Blitzcrank/Rocket_Grab?oldid=4026708) |
+| Overdrive | cooldown: 15 | [3906572](https://wiki.leagueoflegends.com/en-us/Template:Data_Blitzcrank/Overdrive?oldid=3906572) |
+| Overdrive | cost: 75 | [3906572](https://wiki.leagueoflegends.com/en-us/Template:Data_Blitzcrank/Overdrive?oldid=3906572) |
+| Overdrive | castTime: none | [3906572](https://wiki.leagueoflegends.com/en-us/Template:Data_Blitzcrank/Overdrive?oldid=3906572) |
+| Power Fist | cooldown: 7 / 6.5 / 6 / 5.5 / 5 | [4041159](https://wiki.leagueoflegends.com/en-us/Template:Data_Blitzcrank/Power_Fist?oldid=4041159) |
+| Power Fist | cost: 25 | [4041159](https://wiki.leagueoflegends.com/en-us/Template:Data_Blitzcrank/Power_Fist?oldid=4041159) |
+| Power Fist | castTime: none | [4041159](https://wiki.leagueoflegends.com/en-us/Template:Data_Blitzcrank/Power_Fist?oldid=4041159) |
+| Static Field | cooldown: 60 / 40 / 20 | [3956748](https://wiki.leagueoflegends.com/en-us/Template:Data_Blitzcrank/Static_Field?oldid=3956748) |
+| Static Field | cost: 100 | [3956748](https://wiki.leagueoflegends.com/en-us/Template:Data_Blitzcrank/Static_Field?oldid=3956748) |
+| Static Field | castTime: 0.25 | [3956748](https://wiki.leagueoflegends.com/en-us/Template:Data_Blitzcrank/Static_Field?oldid=3956748) |
+| Static Field | effectRadius: 600 | [3956748](https://wiki.leagueoflegends.com/en-us/Template:Data_Blitzcrank/Static_Field?oldid=3956748) |

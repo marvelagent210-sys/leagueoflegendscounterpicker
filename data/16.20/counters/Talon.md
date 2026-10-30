@@ -1,5 +1,158 @@
 # Counters to Talon (patch 26.20)
 
+## Simulated duels
+
+The duel simulator played each of the 144 other champions with a simulator kit against Talon: both at level 20 with 15,000 gold of plain stats, each side's spent against the other's, through six scenarios (PLAN.md §6). Scores run from −1 (Talon wins every time) to +1 (the champion does). Run `npm run duel -- <champion> Talon --log brawl` to watch a fight.
+
+| # | Champion | Score | You engage | Enemy engages | Brawl | Short trade | Spacing | Escape |
+|--:|---|--:|--:|--:|--:|--:|--:|--:|
+| 1 | Vayne | +0.90 | +1.00 | +1.00 | +1.00 | +0.33 | +1.00 | +1.00 |
+| 2 | K'Sante | +0.88 | +1.00 | +1.00 | +1.00 | +0.30 | – | +1.00 |
+| 3 | Yorick | +0.87 | +1.00 | +1.00 | +1.00 | +0.22 | – | +1.00 |
+| 4 | Nasus | +0.87 | +1.00 | +1.00 | +1.00 | +0.13 | +1.00 | +1.00 |
+| 5 | Zeri | +0.86 | +1.00 | +1.00 | +1.00 | +0.09 | +1.00 | +1.00 |
+| 6 | Master Yi | +0.86 | +1.00 | +1.00 | +1.00 | +0.07 | +1.00 | +1.00 |
+| 7 | Rengar | +0.85 | +1.00 | +1.00 | +1.00 | +0.45 | – | +0.00 |
+| 8 | Trundle | +0.85 | +1.00 | +1.00 | +1.00 | +0.02 | +1.00 | +1.00 |
+| 9 | Camille | +0.85 | +1.00 | +1.00 | +1.00 | +0.08 | – | +1.00 |
+| 10 | Vel'Koz | +0.84 | +1.00 | +1.00 | +1.00 | +0.28 | +1.00 | +0.00 |
+| 11 | Fiora | +0.84 | +1.00 | +1.00 | +1.00 | +0.04 | – | +1.00 |
+| 12 | Urgot | +0.84 | +1.00 | +1.00 | +1.00 | +0.27 | +1.00 | +0.00 |
+| 13 | Smolder | +0.83 | +1.00 | +1.00 | +1.00 | +0.23 | +1.00 | +0.00 |
+| 14 | Kog'Maw | +0.83 | +1.00 | +1.00 | +1.00 | +0.22 | +1.00 | +0.00 |
+| 15 | Ambessa | +0.83 | +1.00 | +1.00 | +1.00 | +0.31 | – | +0.00 |
+| 16 | Graves | +0.83 | +1.00 | +1.00 | +1.00 | +0.19 | +1.00 | +0.00 |
+| 17 | Ziggs | +0.83 | +1.00 | +1.00 | +1.00 | +0.19 | +1.00 | +0.00 |
+| 18 | Neeko | +0.83 | +1.00 | +1.00 | +1.00 | +0.17 | +1.00 | +0.00 |
+| 19 | Aphelios | +0.83 | +1.00 | +1.00 | +1.00 | +0.17 | +1.00 | +0.00 |
+| 20 | Poppy | +0.82 | +1.00 | +1.00 | +1.00 | +0.28 | – | +0.00 |
+| 21 | Garen | +0.82 | +1.00 | +1.00 | +1.00 | +0.28 | – | +0.00 |
+| 22 | Hwei | +0.82 | +1.00 | +1.00 | +1.00 | +0.16 | +1.00 | +0.00 |
+| 23 | Kayle | +0.82 | +1.00 | +1.00 | +1.00 | +0.15 | +1.00 | +0.00 |
+| 24 | Rell | +0.82 | +1.00 | +1.00 | +1.00 | +0.15 | +1.00 | +0.00 |
+| 25 | Janna | +0.82 | +1.00 | +1.00 | +1.00 | +0.19 | +0.94 | +0.00 |
+| 26 | Jayce | +0.82 | +1.00 | +1.00 | +1.00 | +0.26 | – | +0.00 |
+| 27 | Twisted Fate | +0.82 | +1.00 | +1.00 | +1.00 | +0.13 | +1.00 | +0.00 |
+| 28 | Lulu | +0.82 | +1.00 | +1.00 | +1.00 | +0.13 | +1.00 | +0.00 |
+| 29 | Syndra | +0.82 | +1.00 | +1.00 | +1.00 | +0.13 | +1.00 | +0.00 |
+| 30 | Xayah | +0.82 | +1.00 | +1.00 | +1.00 | +0.12 | +1.00 | +0.00 |
+| 31 | Annie | +0.82 | +1.00 | +1.00 | +1.00 | +0.12 | +1.00 | +0.00 |
+| 32 | Teemo | +0.82 | +1.00 | +1.00 | +1.00 | +0.12 | +1.00 | +0.00 |
+| 33 | Orianna | +0.82 | +1.00 | +1.00 | +1.00 | +0.12 | +1.00 | +0.00 |
+| 34 | Rakan | +0.82 | +1.00 | +1.00 | +1.00 | +0.11 | +1.00 | +0.00 |
+| 35 | Ryze | +0.82 | +1.00 | +1.00 | +1.00 | +0.10 | +1.00 | +0.00 |
+| 36 | Lissandra | +0.81 | +1.00 | +1.00 | +1.00 | +0.10 | +1.00 | +0.00 |
+| 37 | Cassiopeia | +0.81 | +1.00 | +1.00 | +1.00 | +0.10 | +1.00 | +0.00 |
+| 38 | Karma | +0.81 | +1.00 | +1.00 | +1.00 | +0.09 | +1.00 | +0.00 |
+| 39 | Ornn | +0.81 | +1.00 | +1.00 | +1.00 | +0.21 | – | +0.00 |
+| 40 | Akshan | +0.81 | +1.00 | +1.00 | +1.00 | +0.09 | +1.00 | +0.00 |
+| 41 | Jarvan IV | +0.81 | +1.00 | +1.00 | +1.00 | +0.21 | – | +0.00 |
+| 42 | Miss Fortune | +0.81 | +1.00 | +1.00 | +1.00 | +0.08 | +1.00 | +0.00 |
+| 43 | Riven | +0.81 | +1.00 | +1.00 | +1.00 | +0.21 | – | +0.00 |
+| 44 | Udyr | +0.81 | +1.00 | +1.00 | +1.00 | +0.08 | +1.00 | +0.00 |
+| 45 | Olaf | +0.81 | +1.00 | +1.00 | +1.00 | +0.08 | +1.00 | +0.00 |
+| 46 | Malphite | +0.81 | +1.00 | +1.00 | +1.00 | +0.20 | – | +0.00 |
+| 47 | Jhin | +0.81 | +1.00 | +1.00 | +1.00 | +0.07 | +1.00 | +0.00 |
+| 48 | Gangplank | +0.81 | +1.00 | +1.00 | +1.00 | +0.20 | – | +0.00 |
+| 49 | Jinx | +0.81 | +0.98 | +1.00 | +1.00 | +0.11 | +0.99 | +0.00 |
+| 50 | Kai'Sa | +0.81 | +1.00 | +1.00 | +1.00 | +0.07 | +1.00 | +0.00 |
+| 51 | Jax | +0.81 | +1.00 | +1.00 | +1.00 | +0.07 | +1.00 | +0.00 |
+| 52 | Illaoi | +0.81 | +1.00 | +1.00 | +1.00 | +0.07 | +1.00 | +0.00 |
+| 53 | Aurora | +0.81 | +1.00 | +1.00 | +1.00 | +0.07 | +1.00 | +0.00 |
+| 54 | Gnar | +0.81 | +1.00 | +1.00 | +1.00 | +0.07 | +1.00 | +0.00 |
+| 55 | Vex | +0.81 | +1.00 | +1.00 | +1.00 | +0.06 | +1.00 | +0.00 |
+| 56 | Ashe | +0.81 | +1.00 | +1.00 | +1.00 | +0.06 | +1.00 | +0.00 |
+| 57 | Lux | +0.81 | +1.00 | +1.00 | +1.00 | +0.06 | +1.00 | +0.00 |
+| 58 | Samira | +0.81 | +1.00 | +1.00 | +1.00 | +0.05 | +1.00 | +0.00 |
+| 59 | Zoe | +0.81 | +1.00 | +1.00 | +1.00 | +0.05 | +1.00 | +0.00 |
+| 60 | Corki | +0.81 | +1.00 | +1.00 | +1.00 | +0.05 | +1.00 | +0.00 |
+| 61 | Heimerdinger | +0.81 | +0.85 | +1.00 | +1.00 | +0.29 | +1.00 | +0.00 |
+| 62 | Swain | +0.81 | +1.00 | +1.00 | +1.00 | +0.05 | +1.00 | +0.00 |
+| 63 | Tahm Kench | +0.81 | +1.00 | +1.00 | +1.00 | +0.18 | – | +0.00 |
+| 64 | LeBlanc | +0.81 | +1.00 | +1.00 | +1.00 | +0.05 | +1.00 | +0.00 |
+| 65 | Skarner | +0.81 | +1.00 | +1.00 | +1.00 | +0.17 | – | +0.00 |
+| 66 | Cho'Gath | +0.81 | +1.00 | +1.00 | +1.00 | +0.17 | – | +0.00 |
+| 67 | Aatrox | +0.81 | +1.00 | +1.00 | +1.00 | +0.17 | – | +0.00 |
+| 68 | Brand | +0.81 | +1.00 | +1.00 | +1.00 | +0.04 | +1.00 | +0.00 |
+| 69 | Malzahar | +0.81 | +1.00 | +1.00 | +1.00 | +0.04 | +1.00 | +0.00 |
+| 70 | Volibear | +0.81 | +1.00 | +1.00 | +1.00 | +0.17 | – | +0.00 |
+| 71 | Nunu & Willump | +0.81 | +1.00 | +1.00 | +1.00 | +0.17 | – | +0.00 |
+| 72 | Warwick | +0.81 | +1.00 | +1.00 | +1.00 | +0.16 | – | +0.00 |
+| 73 | Kennen | +0.80 | +1.00 | +1.00 | +1.00 | +0.03 | +1.00 | +0.00 |
+| 74 | Lucian | +0.80 | +1.00 | +1.00 | +1.00 | +0.03 | +1.00 | +0.00 |
+| 75 | Soraka | +0.80 | +1.00 | +1.00 | +1.00 | +0.03 | +1.00 | +0.00 |
+| 76 | Varus | +0.80 | +1.00 | +1.00 | +1.00 | +0.03 | +1.00 | +0.00 |
+| 77 | Draven | +0.80 | +1.00 | +1.00 | +1.00 | +0.03 | +1.00 | +0.00 |
+| 78 | Ezreal | +0.80 | +1.00 | +1.00 | +1.00 | +0.03 | +1.00 | +0.00 |
+| 79 | Zyra | +0.80 | +1.00 | +1.00 | +1.00 | +0.03 | +0.98 | +0.00 |
+| 80 | Gragas | +0.80 | +1.00 | +1.00 | +1.00 | +0.15 | – | +0.00 |
+| 81 | Kalista | +0.80 | +1.00 | +1.00 | +1.00 | +0.01 | +1.00 | +0.00 |
+| 82 | Zaahen | +0.80 | +1.00 | +1.00 | +1.00 | +0.14 | – | +0.00 |
+| 83 | Shen | +0.80 | +1.00 | +1.00 | +1.00 | +0.14 | – | +0.00 |
+| 84 | Quinn | +0.80 | +1.00 | +1.00 | +1.00 | +0.00 | +1.00 | +0.00 |
+| 85 | Sivir | +0.80 | +1.00 | +1.00 | +1.00 | +0.00 | +1.00 | +0.00 |
+| 86 | Diana | +0.80 | +1.00 | +1.00 | +1.00 | +0.13 | – | +0.00 |
+| 87 | Maokai | +0.80 | +1.00 | +1.00 | +1.00 | +0.13 | – | +0.00 |
+| 88 | Nautilus | +0.80 | +1.00 | +1.00 | +1.00 | +0.13 | – | +0.00 |
+| 89 | Irelia | +0.80 | +1.00 | +1.00 | +1.00 | +0.12 | – | +0.00 |
+| 90 | Yasuo | +0.80 | +1.00 | +1.00 | +1.00 | +0.12 | – | +0.00 |
+| 91 | Lee Sin | +0.80 | +1.00 | +1.00 | +1.00 | +0.11 | – | +0.00 |
+| 92 | Xin Zhao | +0.80 | +1.00 | +1.00 | +1.00 | +0.11 | – | +0.00 |
+| 93 | Pantheon | +0.80 | +1.00 | +1.00 | +1.00 | +0.11 | – | +0.00 |
+| 94 | Morgana | +0.80 | +1.00 | +1.00 | +1.00 | −0.03 | +1.00 | +0.00 |
+| 95 | Tristana | +0.80 | +1.00 | +1.00 | +1.00 | −0.03 | +1.00 | +0.00 |
+| 96 | Sion | +0.79 | +1.00 | +1.00 | +1.00 | +0.10 | – | +0.00 |
+| 97 | Mordekaiser | +0.79 | +1.00 | +1.00 | +1.00 | +0.10 | – | +0.00 |
+| 98 | Taric | +0.79 | +1.00 | +1.00 | +1.00 | +0.09 | – | +0.00 |
+| 99 | Fizz | +0.79 | +1.00 | +1.00 | +1.00 | +0.09 | – | +0.00 |
+| 100 | Sejuani | +0.79 | +1.00 | +1.00 | +1.00 | +0.09 | – | +0.00 |
+| 101 | Naafiri | +0.79 | +1.00 | +1.00 | +1.00 | +0.09 | – | +0.00 |
+| 102 | Galio | +0.79 | +1.00 | +1.00 | +1.00 | +0.08 | – | +0.00 |
+| 103 | Gwen | +0.79 | +1.00 | +1.00 | +1.00 | +0.08 | – | +0.00 |
+| 104 | Yone | +0.79 | +1.00 | +1.00 | +1.00 | +0.08 | – | +0.00 |
+| 105 | Zed | +0.79 | +1.00 | +1.00 | +1.00 | +0.07 | – | +0.00 |
+| 106 | Rumble | +0.79 | +1.00 | +1.00 | +1.00 | +0.07 | – | +0.00 |
+| 107 | Vi | +0.79 | +1.00 | +1.00 | +1.00 | +0.07 | – | +0.00 |
+| 108 | Leona | +0.79 | +1.00 | +1.00 | +1.00 | +0.07 | – | +0.00 |
+| 109 | Singed | +0.79 | +1.00 | +1.00 | +1.00 | +0.07 | – | +0.00 |
+| 110 | Sett | +0.79 | +1.00 | +1.00 | +1.00 | +0.06 | – | +0.00 |
+| 111 | Kassadin | +0.79 | +1.00 | +1.00 | +1.00 | +0.05 | – | +0.00 |
+| 112 | Kled | +0.79 | +1.00 | +1.00 | +1.00 | +0.05 | – | +0.00 |
+| 113 | Renekton | +0.78 | +1.00 | +1.00 | +1.00 | +0.04 | – | +0.00 |
+| 114 | Braum | +0.78 | +1.00 | +1.00 | +1.00 | +0.03 | – | +0.00 |
+| 115 | Rammus | +0.78 | +1.00 | +1.00 | +1.00 | +0.03 | – | +0.00 |
+| 116 | Alistar | +0.78 | +1.00 | +1.00 | +1.00 | +0.02 | – | +0.00 |
+| 117 | Tryndamere | +0.78 | +1.00 | +1.00 | +1.00 | +0.02 | – | +0.00 |
+| 118 | Nocturne | +0.78 | +1.00 | +1.00 | +1.00 | +0.02 | – | +0.00 |
+| 119 | Ekko | +0.78 | +1.00 | +1.00 | +1.00 | +0.01 | – | +0.00 |
+| 120 | Amumu | +0.78 | +1.00 | +1.00 | +1.00 | +0.00 | – | +0.00 |
+| 121 | Hecarim | +0.78 | +1.00 | +1.00 | +1.00 | −0.00 | – | +0.00 |
+| 122 | Darius | +0.78 | +1.00 | +1.00 | +1.00 | −0.01 | – | +0.00 |
+| 123 | Wukong | +0.77 | +1.00 | +1.00 | +1.00 | −0.03 | – | +0.00 |
+| 124 | Dr. Mundo | +0.77 | +1.00 | +1.00 | +1.00 | −0.04 | – | +0.00 |
+| 125 | Akali | +0.77 | +1.00 | +1.00 | +1.00 | −0.04 | – | +0.00 |
+| 126 | Ahri | +0.69 | +1.00 | +1.00 | +0.96 | +0.01 | +0.00 | +0.00 |
+| 127 | Nami | +0.34 | +0.03 | +0.94 | +0.94 | +0.07 | −1.00 | +0.00 |
+| 128 | Viktor | +0.31 | −1.00 | +1.00 | +1.00 | +0.04 | +1.00 | +0.00 |
+| 129 | Twitch | +0.19 | +0.00 | +0.50 | +0.00 | +0.08 | +0.50 | +0.00 |
+| 130 | Anivia | +0.18 | +0.14 | +0.34 | +0.21 | −0.04 | +0.20 | +0.00 |
+| 131 | Xerath | +0.15 | +1.00 | +0.00 | +0.00 | +0.00 | −1.00 | +0.00 |
+| 132 | Kindred | +0.11 | −1.00 | +1.00 | +1.00 | +0.08 | −1.00 | +0.00 |
+| 133 | Sona | +0.11 | −1.00 | +1.00 | +1.00 | +0.04 | −1.00 | +0.00 |
+| 134 | Veigar | +0.07 | +0.47 | −0.41 | +0.24 | +0.04 | −0.02 | +0.00 |
+| 135 | Karthus | +0.01 | −0.03 | −0.02 | +0.00 | +0.14 | −0.01 | +0.00 |
+| 136 | Senna | −0.28 | −0.85 | −0.02 | −0.02 | +0.10 | −0.72 | +0.00 |
+| 137 | Caitlyn | −0.74 | −1.00 | −0.91 | −0.88 | +0.06 | −1.00 | +0.00 |
+| 138 | Katarina | −0.77 | −1.00 | −1.00 | −1.00 | +0.06 | – | +0.00 |
+| 139 | Kha'Zix | −0.77 | −1.00 | −1.00 | −1.00 | +0.06 | – | +0.00 |
+| 140 | Blitzcrank | −0.77 | −1.00 | −1.00 | −1.00 | +0.06 | – | +0.00 |
+| 141 | Evelynn | −0.78 | −1.00 | −1.00 | −1.00 | −0.03 | – | +0.00 |
+| 142 | Taliyah | −0.79 | −1.00 | −1.00 | −1.00 | +0.08 | −1.00 | +0.00 |
+| 143 | Thresh | −0.79 | −1.00 | −1.00 | −1.00 | +0.05 | −1.00 | +0.00 |
+| 144 | Vladimir | −0.80 | −1.00 | −1.00 | −1.00 | +0.00 | −1.00 | +0.00 |
+
+## Interaction ledger estimates
+
 Every champion ranked by what its kit does against Talon's, from the interaction ledger: projectile blocks, spell shields,
 parries, dash stops, crowd control and its defenses, range and more (PLAN.md §5). This ranking is **partial**: it weighs the
 interactions but doesn't play the fight out. The duel simulator replaces it as each champion's behavior is verified.
@@ -8,69 +161,69 @@ interactions but doesn't play the fight out. The duel simulator replaces it as e
 A hard counter shuts down part of a kit every time it is used (projectile block, attack dodge, attack block, blind, disarm, attack speed slow, attack reflect, dash stop, grounding, range) with an impact of 0.4 or more (0.5 for range).
 Run `npm run matchup -- <champion> Talon` for the full ledger of a matchup, with sources.
 
-## Top 10
+### Top 10
 
-### 1. Yuumi (net +1.18)
+#### 1. Yuumi (net +1.18)
 
 - **0.80** untargetable: You and Me! makes Yuumi untargetable, dodging Talon's Noxian Diplomacy. Untargetable for ?; Noxian Diplomacy takes 0.61 s to land, enough to react. Does not destroy inbound projectiles, special cased to be targetable to turrets. (Yuumi W You and Me! → Talon Q Noxian Diplomacy)
 - **0.33** untargetable: You and Me! makes Yuumi untargetable, dodging Talon's Shadow Assault. Untargetable for ?; Shadow Assault lands within 0 s, faster than a 0.25 s reaction, so it needs prediction. Does not destroy inbound projectiles, special cased to be targetable to turrets. (Yuumi W You and Me! → Talon R Shadow Assault)
 - **0.21** range: Yuumi's basic attacks reach 300 units farther than Talon's (425 vs 125 attack range). Talon closes the gap with Assassin's Path, Noxian Diplomacy. (Yuumi basic attacks → Talon basic attacks)
 
-### 2. Sivir (net +1.10)
+#### 2. Sivir (net +1.10)
 
 - **0.55** spell shield: Spell Shield's spell shield blocks Talon's Shadow Assault. Spell shield for 1.5 s, long enough to use ahead of Shadow Assault. A spell shield blocks only the first enemy ability that reaches it. (Sivir E Spell Shield → Talon R Shadow Assault)
 - **0.48** spell shield: Spell Shield's spell shield blocks Talon's Noxian Diplomacy. Spell shield for 1.5 s, long enough to use ahead of Noxian Diplomacy. A spell shield blocks only the first enemy ability that reaches it. (Sivir E Spell Shield → Talon Q Noxian Diplomacy)
 - **0.31** range: Sivir's basic attacks reach 375 units farther than Talon's (500 vs 125 attack range). Talon closes the gap with Assassin's Path, Noxian Diplomacy. (Sivir basic attacks → Talon basic attacks)
 
-### 3. Singed (net +1.02)
+#### 3. Singed (net +1.02)
 
 - **0.44** grounding: Mega Adhesive grounds Talon, who then can't cast Assassin's Path. Grounded while in the area; 13 s cooldown. (Singed W Mega Adhesive → Talon E Assassin's Path)
 - **0.32** anti-heal: Insanity Potion's Grievous Wounds cuts Talon's healing from Noxian Diplomacy by 40%. (Singed R Insanity Potion → Talon Q Noxian Diplomacy)
 - **0.20** grounding: Mega Adhesive grounds Talon, who then can't cast Noxian Diplomacy. Grounded while in the area; 13 s cooldown. (Singed W Mega Adhesive → Talon Q Noxian Diplomacy)
 
-### 4. Fizz (net +0.99)
+#### 4. Fizz (net +0.99)
 
 - **0.68** untargetable: Playful makes Fizz untargetable, dodging Talon's Noxian Diplomacy. Untargetable for 0.75 s; Noxian Diplomacy takes 0.61 s to land, enough to react. (Fizz E Playful → Talon Q Noxian Diplomacy)
 - **0.33** untargetable: Playful makes Fizz untargetable, dodging Talon's Shadow Assault. Untargetable for 0.75 s; Shadow Assault lands within 0 s, faster than a 0.25 s reaction, so it needs prediction. (Fizz E Playful → Talon R Shadow Assault)
 - **0.14** reveal: Chum the Waters reveals Talon through Shadow Assault's stealth. (Fizz R Chum the Waters → Talon R Shadow Assault)
 
-### 5. Vladimir (net +0.92)
+#### 5. Vladimir (net +0.92)
 
 - **0.55** untargetable: Sanguine Pool makes Vladimir untargetable, dodging Talon's Shadow Assault. Untargetable for 2 s, long enough to use ahead of Shadow Assault. (Vladimir W Sanguine Pool → Talon R Shadow Assault)
 - **0.50** untargetable: Sanguine Pool makes Vladimir untargetable, dodging Talon's Noxian Diplomacy. Untargetable for 2 s, long enough to use ahead of Noxian Diplomacy. (Vladimir W Sanguine Pool → Talon Q Noxian Diplomacy)
 - **0.12** range: Vladimir's basic attacks reach 325 units farther than Talon's (450 vs 125 attack range). Talon closes the gap with Assassin's Path, Noxian Diplomacy. (Vladimir basic attacks → Talon basic attacks)
 
-### 6. Bard (net +0.89)
+#### 6. Bard (net +0.89)
 
 - **0.47** untargetable: Tempered Fate makes Bard untargetable, dodging Talon's Shadow Assault. Untargetable for 2.5 s, long enough to use ahead of Shadow Assault. (Bard R Tempered Fate → Talon R Shadow Assault)
 - **0.36** untargetable: Tempered Fate makes Bard untargetable, dodging Talon's Noxian Diplomacy. Untargetable for 2.5 s, long enough to use ahead of Noxian Diplomacy. (Bard R Tempered Fate → Talon Q Noxian Diplomacy)
 - **0.24** range: Bard's basic attacks reach 375 units farther than Talon's (500 vs 125 attack range). Talon closes the gap with Assassin's Path, Noxian Diplomacy. (Bard basic attacks → Talon basic attacks)
 
-### 7. Kayle (net +0.89)
+#### 7. Kayle (net +0.89)
 
 - **0.47** invulnerable: Divine Judgment makes Kayle invulnerable to Talon's Shadow Assault. Invulnerable for 2.5 s, long enough to use ahead of Shadow Assault. (Kayle R Divine Judgment → Talon R Shadow Assault)
 - **0.36** invulnerable: Divine Judgment makes Kayle invulnerable to Talon's Noxian Diplomacy. Invulnerable for 2.5 s, long enough to use ahead of Noxian Diplomacy. (Kayle R Divine Judgment → Talon Q Noxian Diplomacy)
 - **0.24** range: Kayle's basic attacks reach 500 units farther than Talon's (625 vs 125 attack range). Talon closes the gap with Assassin's Path, Noxian Diplomacy. (Kayle basic attacks → Talon basic attacks)
 
-### 8. Lissandra (net +0.87)
+#### 8. Lissandra (net +0.87)
 
 - **0.47** untargetable: Frozen Tomb makes Lissandra untargetable, dodging Talon's Shadow Assault. Untargetable for 2.5 s, long enough to use ahead of Shadow Assault. (Lissandra R Frozen Tomb → Talon R Shadow Assault)
 - **0.36** untargetable: Frozen Tomb makes Lissandra untargetable, dodging Talon's Noxian Diplomacy. Untargetable for 2.5 s, long enough to use ahead of Noxian Diplomacy. (Lissandra R Frozen Tomb → Talon Q Noxian Diplomacy)
 - **0.19** dash stop: Frozen Tomb's knockdown can stop Talon's Assassin's Path mid-dash. Must land during the dash. Fails if the dashing unit is crowd control immune, displacement immune, untargetable or spell shielded. (Lissandra R Frozen Tomb → Talon E Assassin's Path)
 
-### 9. Xayah (net +0.86)
+#### 9. Xayah (net +0.86)
 
 - **0.42** untargetable: Featherstorm makes Xayah untargetable, dodging Talon's Shadow Assault. Untargetable for 1.5 s, long enough to use ahead of Shadow Assault. (Xayah R Featherstorm → Talon R Shadow Assault)
 - **0.35** untargetable: Featherstorm makes Xayah untargetable, dodging Talon's Noxian Diplomacy. Untargetable for 1.5 s, long enough to use ahead of Noxian Diplomacy. (Xayah R Featherstorm → Talon Q Noxian Diplomacy)
 - **0.26** range: Xayah's basic attacks reach 400 units farther than Talon's (525 vs 125 attack range). Talon closes the gap with Assassin's Path, Noxian Diplomacy. (Xayah basic attacks → Talon basic attacks)
 
-### 10. Hwei (net +0.85)
+#### 10. Hwei (net +0.85)
 
 - **0.30** dash stop: Grim Visage's knockdown can stop Talon's Noxian Diplomacy mid-dash. Must land during the dash. Fails if the dashing unit is crowd control immune, displacement immune, untargetable or spell shielded. (Hwei Q Grim Visage → Talon Q Noxian Diplomacy)
 - **0.23** dash stop: Grim Visage's knockdown can stop Talon's Assassin's Path mid-dash. Must land during the dash. Fails if the dashing unit is crowd control immune, displacement immune, untargetable or spell shielded. (Hwei Q Grim Visage → Talon E Assassin's Path)
 - **0.15** range: Hwei's basic attacks reach 425 units farther than Talon's (550 vs 125 attack range). Talon closes the gap with Assassin's Path, Noxian Diplomacy. (Hwei basic attacks → Talon basic attacks)
 
-## Full ranking
+### Full ranking
 
 | # | Champion | Net | For | Against | Hard counters |
 |--:|---|--:|--:|--:|---|

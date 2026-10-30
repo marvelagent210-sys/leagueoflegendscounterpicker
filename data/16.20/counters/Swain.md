@@ -1,5 +1,158 @@
 # Counters to Swain (patch 26.20)
 
+## Simulated duels
+
+The duel simulator played each of the 144 other champions with a simulator kit against Swain: both at level 20 with 15,000 gold of plain stats, each side's spent against the other's, through six scenarios (PLAN.md §6). Scores run from −1 (Swain wins every time) to +1 (the champion does). Run `npm run duel -- <champion> Swain --log brawl` to watch a fight.
+
+| # | Champion | Score | You engage | Enemy engages | Brawl | Short trade | Spacing | Escape |
+|--:|---|--:|--:|--:|--:|--:|--:|--:|
+| 1 | Nasus | +0.83 | +1.00 | +1.00 | +1.00 | −0.10 | +1.00 | +1.00 |
+| 2 | Fiora | +0.83 | +1.00 | +1.00 | +1.00 | −0.13 | +1.00 | +1.00 |
+| 3 | Trundle | +0.83 | +1.00 | +1.00 | +1.00 | −0.16 | +1.00 | +1.00 |
+| 4 | Udyr | +0.82 | +1.00 | +1.00 | +1.00 | −0.08 | +1.00 | +0.62 |
+| 5 | Camille | +0.81 | +1.00 | +1.00 | +1.00 | +0.05 | +1.00 | +0.00 |
+| 6 | Garen | +0.80 | +1.00 | +1.00 | +1.00 | +0.03 | +1.00 | +0.00 |
+| 7 | Jax | +0.80 | +1.00 | +1.00 | +1.00 | +0.03 | +1.00 | +0.00 |
+| 8 | Maokai | +0.80 | +1.00 | +1.00 | +1.00 | +0.01 | +1.00 | +0.00 |
+| 9 | Lee Sin | +0.80 | +0.98 | +1.00 | +1.00 | −0.00 | +1.00 | +0.00 |
+| 10 | K'Sante | +0.79 | +1.00 | +1.00 | +1.00 | −0.04 | +1.00 | +0.00 |
+| 11 | Zaahen | +0.79 | +1.00 | +1.00 | +1.00 | −0.06 | +1.00 | +0.00 |
+| 12 | Dr. Mundo | +0.79 | +1.00 | +1.00 | +1.00 | −0.06 | +1.00 | +0.00 |
+| 13 | Kayle | +0.79 | +0.98 | +1.00 | +1.00 | −0.03 | +1.00 | +0.00 |
+| 14 | Yasuo | +0.79 | +1.00 | +1.00 | +1.00 | −0.06 | +1.00 | +0.00 |
+| 15 | Volibear | +0.79 | +1.00 | +1.00 | +1.00 | −0.06 | +1.00 | +0.00 |
+| 16 | Mordekaiser | +0.79 | +1.00 | +0.97 | +0.98 | −0.01 | +0.97 | +0.00 |
+| 17 | Gangplank | +0.78 | +0.99 | +0.96 | +1.00 | +0.01 | +0.96 | +0.00 |
+| 18 | Darius | +0.78 | +1.00 | +1.00 | +0.94 | −0.07 | +1.00 | +0.00 |
+| 19 | Sett | +0.78 | +0.95 | +1.00 | +0.98 | −0.04 | +1.00 | +0.00 |
+| 20 | Tryndamere | +0.78 | +1.00 | +1.00 | +1.00 | −0.16 | +1.00 | +0.00 |
+| 21 | Corki | +0.77 | +1.00 | +1.00 | +0.84 | +0.19 | – | +0.00 |
+| 22 | Poppy | +0.77 | +1.00 | +1.00 | +0.78 | +0.12 | +1.00 | +0.00 |
+| 23 | Vayne | +0.77 | +1.00 | +1.00 | +1.00 | −0.06 | – | +0.00 |
+| 24 | Lulu | +0.77 | +0.97 | +0.97 | +1.00 | +0.02 | – | +0.00 |
+| 25 | Zeri | +0.77 | +1.00 | +1.00 | +1.00 | −0.08 | – | +0.00 |
+| 26 | Fizz | +0.76 | +0.91 | +0.95 | +1.00 | +0.02 | +0.95 | +0.00 |
+| 27 | Vi | +0.76 | +1.00 | +1.00 | +0.93 | −0.19 | +1.00 | +0.00 |
+| 28 | Rumble | +0.75 | +0.92 | +0.96 | +1.00 | −0.08 | +0.96 | +0.00 |
+| 29 | Ambessa | +0.74 | +0.94 | +0.95 | +0.95 | −0.10 | +0.95 | +0.00 |
+| 30 | Aphelios | +0.74 | +1.00 | +1.00 | +0.88 | −0.07 | – | +0.00 |
+| 31 | Warwick | +0.74 | +0.94 | +0.92 | +0.94 | −0.06 | +0.92 | +0.00 |
+| 32 | Teemo | +0.73 | +0.92 | +0.93 | +1.00 | −0.05 | – | +0.00 |
+| 33 | Yorick | +0.68 | +0.53 | +1.00 | +1.00 | +0.01 | +1.00 | +0.00 |
+| 34 | Master Yi | +0.66 | +0.61 | +1.00 | +0.61 | −0.03 | +1.00 | +0.81 |
+| 35 | Jayce | +0.62 | +1.00 | +1.00 | +1.00 | −0.04 | −0.75 | +0.00 |
+| 36 | Cho'Gath | +0.61 | +0.63 | +0.78 | +0.99 | −0.10 | +0.78 | +0.00 |
+| 37 | Gnar | +0.56 | +0.67 | +0.91 | +1.00 | −0.13 | −0.15 | +0.00 |
+| 38 | Smolder | +0.55 | +0.53 | +0.78 | +0.79 | +0.08 | – | +0.00 |
+| 39 | Aatrox | +0.54 | +0.66 | +0.66 | +0.90 | −0.21 | +0.66 | +0.00 |
+| 40 | Xin Zhao | +0.52 | +0.68 | +0.41 | +1.00 | +0.04 | +0.41 | +0.00 |
+| 41 | Malphite | +0.48 | +0.71 | +0.51 | +0.66 | −0.07 | +0.51 | +0.00 |
+| 42 | Gwen | +0.46 | −0.27 | +1.00 | +1.00 | −0.14 | +1.00 | +0.00 |
+| 43 | Renekton | +0.45 | +0.49 | +0.49 | +0.86 | −0.12 | +0.49 | +0.00 |
+| 44 | Riven | +0.41 | +0.93 | −0.00 | +1.00 | −0.13 | −0.00 | +0.00 |
+| 45 | Kled | +0.40 | +1.00 | +0.99 | −0.98 | −0.03 | +0.99 | +0.00 |
+| 46 | Olaf | +0.30 | +1.00 | −0.38 | +1.00 | −0.09 | −0.38 | +0.00 |
+| 47 | Sejuani | +0.28 | +0.23 | +0.93 | −0.49 | −0.03 | +0.93 | +0.00 |
+| 48 | Quinn | +0.25 | +0.15 | +0.49 | +0.39 | −0.06 | – | +0.00 |
+| 49 | Aurora | +0.24 | −0.33 | +0.49 | +0.89 | −0.01 | – | +0.00 |
+| 50 | Twisted Fate | +0.23 | −0.59 | +0.69 | +1.00 | −0.09 | – | +0.00 |
+| 51 | Kog'Maw | +0.23 | +0.15 | −0.04 | +0.98 | −0.10 | – | +0.00 |
+| 52 | Graves | +0.22 | +0.62 | −0.00 | +0.30 | −0.00 | −0.00 | +0.00 |
+| 53 | Varus | +0.17 | −0.80 | +0.70 | +0.99 | −0.11 | – | +0.00 |
+| 54 | Sion | +0.15 | +0.85 | −0.04 | −0.18 | −0.09 | −0.04 | +0.00 |
+| 55 | Draven | +0.14 | −0.77 | +0.52 | +1.00 | −0.10 | – | +0.00 |
+| 56 | Orianna | +0.13 | +0.64 | +0.64 | −1.00 | −0.04 | – | +0.00 |
+| 57 | Irelia | +0.13 | +0.90 | −0.19 | −0.16 | +0.00 | −0.19 | +0.00 |
+| 58 | Diana | +0.08 | +0.09 | +0.09 | +0.09 | +0.05 | +0.09 | +0.00 |
+| 59 | Jhin | +0.05 | +0.21 | −0.88 | +1.00 | +0.06 | – | +0.00 |
+| 60 | Xayah | +0.03 | +0.24 | +0.71 | −0.99 | −0.07 | – | +0.00 |
+| 61 | Singed | +0.00 | −0.01 | −0.00 | +0.04 | −0.02 | −0.00 | +0.00 |
+| 62 | Gragas | −0.02 | −0.07 | +0.04 | −0.04 | −0.05 | +0.04 | +0.00 |
+| 63 | Ashe | −0.05 | −0.49 | −0.23 | +0.75 | −0.12 | – | +0.00 |
+| 64 | Kai'Sa | −0.06 | −1.00 | +0.04 | +1.00 | −0.09 | – | +0.00 |
+| 65 | Annie | −0.06 | −0.11 | −0.06 | −0.02 | −0.03 | −0.09 | +0.00 |
+| 66 | Akshan | −0.06 | −0.03 | −0.07 | −0.08 | −0.10 | – | +0.00 |
+| 67 | Tahm Kench | −0.08 | −0.12 | −0.12 | −0.02 | −0.04 | −0.12 | +0.00 |
+| 68 | Braum | −0.09 | −0.12 | −0.12 | −0.06 | −0.06 | −0.12 | +0.00 |
+| 69 | Rell | −0.11 | −0.13 | −0.19 | −0.11 | +0.10 | −0.19 | +0.00 |
+| 70 | Shen | −0.13 | −0.21 | −0.16 | −0.05 | −0.06 | −0.16 | +0.00 |
+| 71 | Amumu | −0.13 | −0.14 | −0.15 | −0.22 | −0.01 | −0.15 | +0.00 |
+| 72 | Urgot | −0.13 | −0.25 | −0.16 | −0.03 | −0.04 | −0.16 | +0.00 |
+| 73 | Leona | −0.13 | −0.16 | −0.16 | −0.14 | −0.06 | −0.16 | +0.00 |
+| 74 | Taric | −0.14 | −0.14 | −0.19 | −0.20 | +0.02 | −0.19 | +0.00 |
+| 75 | Akali | −0.16 | −0.21 | −0.12 | −0.26 | −0.07 | −0.12 | +0.00 |
+| 76 | Kennen | −0.17 | −0.30 | −0.99 | +0.88 | −0.03 | – | +0.00 |
+| 77 | Yone | −0.19 | +1.00 | −0.81 | −0.67 | −0.12 | −0.81 | +0.00 |
+| 78 | Nunu & Willump | −0.21 | −0.21 | −0.32 | −0.26 | +0.07 | −0.32 | +0.00 |
+| 79 | Ornn | −0.22 | −0.28 | −0.29 | −0.19 | −0.05 | −0.29 | +0.00 |
+| 80 | Tristana | −0.24 | −0.43 | −0.27 | −0.86 | +0.02 | +1.00 | +0.00 |
+| 81 | Rengar | −0.26 | −0.98 | −1.00 | +0.52 | +0.25 | +0.95 | +0.00 |
+| 82 | Anivia | −0.27 | −0.32 | −0.31 | −0.32 | −0.12 | – | +0.00 |
+| 83 | Nocturne | −0.27 | +1.00 | −0.90 | −0.91 | −0.14 | −0.90 | +0.00 |
+| 84 | Alistar | −0.29 | −0.41 | −0.31 | −0.41 | +0.02 | −0.31 | +0.00 |
+| 85 | Skarner | −0.31 | +0.76 | −0.98 | −0.74 | −0.10 | −0.98 | +0.00 |
+| 86 | Heimerdinger | −0.32 | −1.00 | −1.00 | +1.00 | +0.08 | – | +0.00 |
+| 87 | Samira | −0.34 | −1.00 | −1.00 | +1.00 | −0.01 | – | +0.00 |
+| 88 | Kindred | −0.34 | −1.00 | −0.94 | +1.00 | −0.14 | – | +0.00 |
+| 89 | Karthus | −0.38 | −0.47 | −0.48 | −0.46 | −0.06 | – | +0.00 |
+| 90 | Kha'Zix | −0.38 | −0.47 | −0.48 | −0.47 | −0.01 | −0.48 | +0.00 |
+| 91 | Kalista | −0.39 | −0.25 | −0.41 | −0.88 | −0.08 | – | +0.00 |
+| 92 | Illaoi | −0.40 | −0.78 | −1.00 | +0.80 | −0.11 | −1.00 | +0.00 |
+| 93 | Vladimir | −0.45 | −0.44 | −0.41 | −0.85 | −0.12 | – | +0.00 |
+| 94 | Galio | −0.45 | +0.36 | −1.00 | −1.00 | +0.04 | −1.00 | +0.00 |
+| 95 | Wukong | −0.52 | −0.81 | −0.41 | −0.81 | −0.04 | −0.41 | +0.00 |
+| 96 | Rakan | −0.61 | −1.00 | −1.00 | −0.12 | +0.10 | −1.00 | +0.00 |
+| 97 | Zoe | −0.65 | −0.77 | −0.76 | −1.00 | −0.02 | – | +0.00 |
+| 98 | Lucian | −0.67 | −0.55 | −1.00 | −1.00 | −0.12 | – | +0.00 |
+| 99 | Hwei | −0.68 | −0.71 | −0.96 | −0.92 | −0.07 | – | +0.00 |
+| 100 | Ekko | −0.70 | −1.00 | −0.67 | −1.00 | −0.07 | −0.67 | +0.00 |
+| 101 | Neeko | −0.76 | −0.93 | −1.00 | −1.00 | +0.01 | – | +0.00 |
+| 102 | Vel'Koz | −0.77 | −1.00 | −1.00 | −1.00 | +0.06 | – | +0.00 |
+| 103 | Malzahar | −0.77 | −1.00 | −1.00 | −1.00 | +0.02 | – | +0.00 |
+| 104 | Soraka | −0.78 | −0.95 | −1.00 | −1.00 | −0.06 | – | +0.00 |
+| 105 | Cassiopeia | −0.78 | −1.00 | −1.00 | −1.00 | +0.01 | – | +0.00 |
+| 106 | Ziggs | −0.78 | −1.00 | −1.00 | −1.00 | +0.01 | – | +0.00 |
+| 107 | Twitch | −0.78 | −1.00 | −0.94 | −1.00 | −0.11 | – | +0.00 |
+| 108 | Ryze | −0.78 | −1.00 | −1.00 | −1.00 | −0.01 | – | +0.00 |
+| 109 | Sona | −0.78 | −1.00 | −0.98 | −1.00 | −0.05 | – | +0.00 |
+| 110 | Janna | −0.78 | −1.00 | −1.00 | −1.00 | −0.02 | – | +0.00 |
+| 111 | Morgana | −0.78 | −1.00 | −1.00 | −1.00 | −0.05 | – | +0.00 |
+| 112 | Kassadin | −0.78 | −1.00 | −1.00 | −0.84 | −0.11 | −1.00 | +0.00 |
+| 113 | Ezreal | −0.78 | −1.00 | −0.99 | −1.00 | −0.05 | – | +0.00 |
+| 114 | Ahri | −0.79 | −1.00 | −1.00 | −1.00 | −0.05 | – | +0.00 |
+| 115 | Syndra | −0.79 | −1.00 | −1.00 | −1.00 | −0.05 | – | +0.00 |
+| 116 | Lissandra | −0.79 | −1.00 | −1.00 | −1.00 | −0.05 | – | +0.00 |
+| 117 | Nami | −0.79 | −1.00 | −1.00 | −1.00 | −0.06 | – | +0.00 |
+| 118 | Jinx | −0.79 | −1.00 | −1.00 | −1.00 | −0.07 | – | +0.00 |
+| 119 | LeBlanc | −0.79 | −1.00 | −1.00 | −1.00 | −0.06 | – | +0.00 |
+| 120 | Karma | −0.79 | −1.00 | −1.00 | −1.00 | −0.06 | – | +0.00 |
+| 121 | Zyra | −0.79 | −1.00 | −1.00 | −1.00 | −0.06 | – | +0.00 |
+| 122 | Vex | −0.79 | −1.00 | −1.00 | −1.00 | −0.06 | – | +0.00 |
+| 123 | Lux | −0.79 | −1.00 | −1.00 | −1.00 | −0.07 | – | +0.00 |
+| 124 | Brand | −0.79 | −1.00 | −1.00 | −1.00 | −0.07 | – | +0.00 |
+| 125 | Nautilus | −0.79 | −1.00 | −1.00 | −1.00 | +0.07 | −1.00 | +0.00 |
+| 126 | Xerath | −0.79 | −1.00 | −1.00 | −1.00 | −0.08 | – | +0.00 |
+| 127 | Naafiri | −0.79 | −1.00 | −1.00 | −1.00 | +0.05 | −1.00 | +0.00 |
+| 128 | Veigar | −0.79 | −1.00 | −1.00 | −1.00 | −0.09 | – | +0.00 |
+| 129 | Caitlyn | −0.79 | −1.00 | −0.95 | −1.00 | −0.05 | −1.00 | +0.00 |
+| 130 | Viktor | −0.80 | −1.00 | −1.00 | −1.00 | −0.11 | – | +0.00 |
+| 131 | Rammus | −0.80 | −0.96 | −1.00 | −1.00 | −0.05 | −1.00 | +0.00 |
+| 132 | Taliyah | −0.80 | −1.00 | −1.00 | −1.00 | −0.12 | – | +0.00 |
+| 133 | Senna | −0.80 | −1.00 | −1.00 | −1.00 | −0.13 | – | +0.00 |
+| 134 | Thresh | −0.80 | −1.00 | −1.00 | −1.00 | −0.15 | – | +0.00 |
+| 135 | Miss Fortune | −0.80 | −1.00 | −1.00 | −1.00 | −0.15 | – | +0.00 |
+| 136 | Sivir | −0.80 | −1.00 | −1.00 | −1.00 | −0.16 | – | +0.00 |
+| 137 | Evelynn | −0.80 | −1.00 | −1.00 | −1.00 | −0.03 | −1.00 | +0.00 |
+| 138 | Talon | −0.81 | −1.00 | −1.00 | −1.00 | −0.05 | −1.00 | +0.00 |
+| 139 | Katarina | −0.81 | −1.00 | −1.00 | −1.00 | −0.05 | −1.00 | +0.00 |
+| 140 | Blitzcrank | −0.81 | −1.00 | −1.00 | −1.00 | −0.06 | −1.00 | +0.00 |
+| 141 | Jarvan IV | −0.81 | −1.00 | −1.00 | −1.00 | −0.06 | −1.00 | +0.00 |
+| 142 | Zed | −0.82 | −1.00 | −1.00 | −1.00 | −0.15 | −1.00 | +0.00 |
+| 143 | Pantheon | −0.82 | −1.00 | −1.00 | −1.00 | −0.16 | −1.00 | +0.00 |
+| 144 | Hecarim | −0.83 | −1.00 | −1.00 | −1.00 | −0.23 | −1.00 | +0.00 |
+
+## Interaction ledger estimates
+
 Every champion ranked by what its kit does against Swain's, from the interaction ledger: projectile blocks, spell shields,
 parries, dash stops, crowd control and its defenses, range and more (PLAN.md §5). This ranking is **partial**: it weighs the
 interactions but doesn't play the fight out. The duel simulator replaces it as each champion's behavior is verified.
@@ -8,74 +161,74 @@ interactions but doesn't play the fight out. The duel simulator replaces it as e
 A hard counter shuts down part of a kit every time it is used (projectile block, attack dodge, attack block, blind, disarm, attack speed slow, attack reflect, dash stop, grounding, range) with an impact of 0.4 or more (0.5 for range).
 Run `npm run matchup -- <champion> Swain` for the full ledger of a matchup, with sources.
 
-## Top 10
+### Top 10
 
-### 1. Fizz (net +1.02)
+#### 1. Fizz (net +1.02)
 
 - **0.70** untargetable: Playful makes Fizz untargetable, dodging Swain's Nevermove. Untargetable for 0.75 s; Nevermove takes 1.01 s to land, enough to react. (Fizz E Playful → Swain E Nevermove)
 - **0.55** untargetable: Playful makes Fizz untargetable, dodging Swain's Demonflare. Untargetable for 0.75 s; Demonflare takes 0.25 s to land, enough to react. (Fizz E Playful → Swain R Demonflare)
 - **0.55** untargetable: Playful makes Fizz untargetable, dodging Swain's Demonic Ascension. Untargetable for 0.75 s; Demonic Ascension takes 0.5 s to land, enough to react. (Fizz E Playful → Swain R Demonic Ascension)
 - Watch out: Swain's basic attacks reach 350 units farther than Fizz's (525 vs 175 attack range).
 
-### 2. Maokai (net +0.89)
+#### 2. Maokai (net +0.89)
 
 - **0.70** untargetable: Twisted Advance makes Maokai untargetable, dodging Swain's Nevermove. Untargetable for 1.4 s; Nevermove takes 1.01 s to land, enough to react. (Maokai W Twisted Advance → Swain E Nevermove)
 - **0.55** untargetable: Twisted Advance makes Maokai untargetable, dodging Swain's Demonic Ascension. Untargetable for 1.4 s; Demonic Ascension takes 0.5 s to land, enough to react. (Maokai W Twisted Advance → Swain R Demonic Ascension)
 - **0.48** untargetable: Twisted Advance makes Maokai untargetable, dodging Swain's Demonflare. Untargetable for 1.4 s; Demonflare takes 0.25 s to land, enough to react. (Maokai W Twisted Advance → Swain R Demonflare)
 - Watch out: Swain's basic attacks reach 400 units farther than Maokai's (525 vs 125 attack range).
 
-### 3. Kayle (net +0.85)
+#### 3. Kayle (net +0.85)
 
 - **0.55** invulnerable: Divine Judgment makes Kayle invulnerable to Swain's Demonic Ascension. Invulnerable for 2.5 s, long enough to use ahead of Demonic Ascension. (Kayle R Divine Judgment → Swain R Demonic Ascension)
 - **0.18** range: Kayle's basic attacks reach 100 units farther than Swain's (625 vs 525 attack range). Swain has no dash or blink to close the gap. (Kayle basic attacks → Swain basic attacks)
 - **0.17** invulnerable: Divine Judgment makes Kayle invulnerable to Swain's Nevermove (its crowd control still applies). Invulnerable for 2.5 s, long enough to use ahead of Nevermove. (Kayle R Divine Judgment → Swain E Nevermove)
 
-### 4. Braum (net +0.84)
+#### 4. Braum (net +0.84)
 
 - **0.70** projectile block: Unbreakable blocks Swain's Nevermove, a projectile. Unbreakable for 4 s, long enough to use ahead of Nevermove. (Braum E Unbreakable → Swain E Nevermove)
 - **0.55** projectile block: Unbreakable blocks Swain's Demonflare, a projectile. Unbreakable for 4 s, long enough to use ahead of Demonflare. (Braum E Unbreakable → Swain R Demonflare)
 - **0.29** projectile block: Unbreakable blocks Swain's basic attacks, which are projectiles. Unbreakable lasts 4 s on a 8 s cooldown. (Braum E Unbreakable → Swain basic attacks)
 - Watch out: Swain's basic attacks reach 400 units farther than Braum's (525 vs 125 attack range).
 
-### 5. Fiora (net +0.82)
+#### 5. Fiora (net +0.82)
 
 - **0.64** parry: Riposte parries Swain's Nevermove and stuns back. Parry for 0.75 s; Nevermove takes 1.01 s to land, enough to react. Negating Nevermove's immobilizing effect turns Riposte's slow into a stun (2 s). (Fiora W Riposte → Swain E Nevermove)
 - **0.55** parry: Riposte parries Swain's Demonic Ascension. Parry for 0.75 s; Demonic Ascension takes 0.5 s to land, enough to react. (Fiora W Riposte → Swain R Demonic Ascension)
 - **0.39** parry: Riposte parries Swain's Demonflare. Parry for 0.75 s; Demonflare takes 0.25 s to land, enough to react. (Fiora W Riposte → Swain R Demonflare)
 - Watch out: Swain's basic attacks reach 375 units farther than Fiora's (525 vs 150 attack range).
 
-### 6. Aurora (net +0.78)
+#### 6. Aurora (net +0.78)
 
 - **0.55** untargetable: Between Worlds makes Aurora untargetable, dodging Swain's Demonic Ascension. Untargetable for 0.4 s; Demonic Ascension takes 0.5 s to land, enough to react. Does not destroy inbound projectiles. (Aurora R Between Worlds → Swain R Demonic Ascension)
 - **0.32** untargetable: Between Worlds makes Aurora untargetable, dodging Swain's Nevermove. Untargetable for 0.4 s; Nevermove takes 1.01 s to land, enough to react. Does not destroy inbound projectiles. (Aurora R Between Worlds → Swain E Nevermove)
 - **0.25** untargetable: Between Worlds makes Aurora untargetable, dodging Swain's Demonflare. Untargetable for 0.4 s; Demonflare takes 0.25 s to land, enough to react. Does not destroy inbound projectiles. (Aurora R Between Worlds → Swain R Demonflare)
 
-### 7. Bard (net +0.78)
+#### 7. Bard (net +0.78)
 
 - **0.55** untargetable: Tempered Fate makes Bard untargetable, dodging Swain's Demonic Ascension. Untargetable for 2.5 s, long enough to use ahead of Demonic Ascension. (Bard R Tempered Fate → Swain R Demonic Ascension)
 - **0.33** untargetable: Tempered Fate makes Bard untargetable, dodging Swain's Nevermove. Untargetable for 2.5 s, long enough to use ahead of Nevermove. (Bard R Tempered Fate → Swain E Nevermove)
 - **0.25** untargetable: Tempered Fate makes Bard untargetable, dodging Swain's Demonflare. Untargetable for 2.5 s, long enough to use ahead of Demonflare. (Bard R Tempered Fate → Swain R Demonflare)
 
-### 8. Lissandra (net +0.78)
+#### 8. Lissandra (net +0.78)
 
 - **0.55** untargetable: Frozen Tomb makes Lissandra untargetable, dodging Swain's Demonic Ascension. Untargetable for 2.5 s, long enough to use ahead of Demonic Ascension. (Lissandra R Frozen Tomb → Swain R Demonic Ascension)
 - **0.33** untargetable: Frozen Tomb makes Lissandra untargetable, dodging Swain's Nevermove. Untargetable for 2.5 s, long enough to use ahead of Nevermove. (Lissandra R Frozen Tomb → Swain E Nevermove)
 - **0.25** untargetable: Frozen Tomb makes Lissandra untargetable, dodging Swain's Demonflare. Untargetable for 2.5 s, long enough to use ahead of Demonflare. (Lissandra R Frozen Tomb → Swain R Demonflare)
 
-### 9. Xayah (net +0.77)
+#### 9. Xayah (net +0.77)
 
 - **0.55** untargetable: Featherstorm makes Xayah untargetable, dodging Swain's Demonic Ascension. Untargetable for 1.5 s, long enough to use ahead of Demonic Ascension. (Xayah R Featherstorm → Swain R Demonic Ascension)
 - **0.32** untargetable: Featherstorm makes Xayah untargetable, dodging Swain's Nevermove. Untargetable for 1.5 s, long enough to use ahead of Nevermove. (Xayah R Featherstorm → Swain E Nevermove)
 - **0.25** untargetable: Featherstorm makes Xayah untargetable, dodging Swain's Demonflare. Untargetable for 1.5 s, long enough to use ahead of Demonflare. (Xayah R Featherstorm → Swain R Demonflare)
 
-### 10. Vladimir (net +0.76)
+#### 10. Vladimir (net +0.76)
 
 - **0.55** untargetable: Sanguine Pool makes Vladimir untargetable, dodging Swain's Demonic Ascension. Untargetable for 2 s, long enough to use ahead of Demonic Ascension. (Vladimir W Sanguine Pool → Swain R Demonic Ascension)
 - **0.54** untargetable: Sanguine Pool makes Vladimir untargetable, dodging Swain's Nevermove. Untargetable for 2 s, long enough to use ahead of Nevermove. (Vladimir W Sanguine Pool → Swain E Nevermove)
 - **0.39** untargetable: Sanguine Pool makes Vladimir untargetable, dodging Swain's Demonflare. Untargetable for 2 s, long enough to use ahead of Demonflare. (Vladimir W Sanguine Pool → Swain R Demonflare)
 - Watch out: Nevermove's airborne interrupts Vladimir's Tides of Blood (charge-up).
 
-## Full ranking
+### Full ranking
 
 | # | Champion | Net | For | Against | Hard counters |
 |--:|---|--:|--:|--:|---|

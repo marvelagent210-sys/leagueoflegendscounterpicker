@@ -783,6 +783,18 @@
       "The dart applies spell damage and the spikes deal area damage.",
       "This ability will cast from wherever the caster is at the start of the cast time.",
       "Recasts can be buffered up to 0.5 seconds before becoming castable at a maximum range of approximately 500 units."
+    ],
+    "gameSources": [
+      {
+        "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/evelynn/evelynn.bin.json",
+        "sha256": "c424d7a6b41894f8f817e49748c860d41e0531ed7d331193d4326ab52939b328",
+        "object": "Characters/Evelynn/Spells/EvelynnQAbility/EvelynnQLineMissile",
+        "text": [
+          "\"mMissileWidth\": 90.0",
+          "{\"mUseHeightOffsetAtEnd\":true,\"mTracksTarget\":false,\"mStartBoneName\":\"C_Buffbone_Glb_Layout_Loc\",\"mTargetBoneName\":\"C_Buffbone_Glb_Layout_Loc\",\"mProjectTargetToCastRange\":true,\"mAcceleration\":-4200.0,\"mMinSpeed\":800.0,\"mMaxSpeed\":3000.0,\"mInitialSpeed\":3000.0,\"__type\":\"AcceleratingMovement\"}"
+        ]
+      }
     ]
   },
   {

@@ -226,3 +226,124 @@ All 1 level-based formulas in the game files (1 linked to wiki values above):
 | Spell | Calculation | Rule | Level 1 | Level 18 | Level 20 |
 |---|---|---|--:|--:|--:|
 | KindredW | AttackHeal | breakpoints at levels none (level 1: 47) | 47 | 81 | 85 |
+
+## Duel simulator kit (level 20, every ability at max rank)
+
+What the duel simulator fights with (`kits/champions/Kindred.ts`): values come from pinned wiki and versioned game-data records at level 20. Interpretations and missing evidence are listed under assumptions. Ratios are fractions of the stat (60% AD is 0.6 × AD).
+
+- Basic attack: range 500, missile at 2000/s.
+- Options: marks = 0, targetMarked = 0.
+
+| Key | Ability | Cooldown (s) | Cast time (s) | Cost | Delivery | On the enemy | On itself |
+|---|---|--:|--:|---|---|---|---|
+| I | Mark of the Kindred (select hunt) | 75 (unaffected by ability haste) | 0 | – | self | – | – |
+| Q | Dance of Arrows | 9 | 0 | 35 | dash toward 0–300 units at 500/s (adjusted by current stats) | – | resets the attack timer |
+| W | Wolf's Frenzy | 14 | 0 | 40 | self | – | – |
+| E | Mounting Dread | 8 | 0.25 | 50 | targeted, 500 edge range, missile at 1600/s | marks it "kindred:dread" for 4 s | – |
+| R | Lamb's Respite | 120 | 0.25 | 100 | self | – | – |
+| Qarrow | Dance of Arrows (arrow) | 0 | 0 | – | self | 140 + 75% bonus AD physical damage | – |
+| Ebite | Mounting Dread (Wolf's pounce) | 0 | 0 | – | self | 200 + 100% bonus AD physical damage, varies with combat state; formula is a reference | – |
+
+Effects marked by a mark or a role are completed by the kit's hooks (see the kit's source).
+
+### Assumptions
+
+- Marks of the Kindred collected before the duel (explicit farm/takedown history): 0.
+- Enemy champion already hunted before the duel (0/1): 0.
+- Before-duel marks and an already-hunted opponent are explicit options, both zero by default. Selecting a hunt is an actual non-cast HUD action with its75-second selection clock and8-second arming delay, permitted only after6 seconds out of champion combat. Only killing the genuinely hunted champion adds one mark; no jungle, farm kills or allied takedowns are created. Range follows the pinned4/7/.../25-mark breakpoints and caps at250.
+- Dance of Arrows dashes up to300 units using the wiki's estimated500+100%movement-speed travel rate, grants35%+5%per-mark AS for4 seconds and resets attacks at declaration. Each of at most three distinct visible nearby real targets gets one1600-speed homing area arrow after the dash; an isolated champion receives exactly one arrow. Current basic target is preferred. The wiki's400-unit wall extension has no automatic endpoint search in the one-dimensional terrain model. Q inside a real Wolf territory uses a2-second static cooldown; W only lowers an existing longer Q cooldown to2 seconds.
+- Wolf occupies a real fixed800-radius territory after the1400-speed initial dash to a caller-selected point up to500 units away. The exact16.20 companion CharacterRecord supplies0.5580000281 baseAS,200 reach,275 walk speed and0.3161000013-second base attack cast. His attack rate is baseAS*(1+25%Lamb bonusAS), with proportional windup scaling. No player level-growth stats are invented for this temporary unit. Target priority is Lamb's most recent basic target, champion, then nearest real summon. Wolf's untargetable attacks are area spell packets and do not trigger Lamb on-hits; explicit monster summons alone take165% damage, a capped health component and50% slow for2 seconds; terrain blocks his ordinary walking. Leaving territory or death ends him and starts(max(0,14-elapsed))/haste seconds of remaining W cooldown.
+- Hunter's Vigor begins empty, earns fractional movement progress at the wiki's estimated27 units/stack and5 stacks on declared attack, and heals on an accepted ordinary hit when capped. Its heal is85 at level20 times min(1,missingShare/0.8); it is not spent at full health. No structures or wards are supplied as healing targets.
+- Mounting Dread's initial projectile applies the slow and a target-local4-second mark; three accepted damaging basics refresh then consume it, releasing a separate2000-speed Wolf pounce. Each pounce reads the contacted unit's actual missing health. The current pinned4078261 template replaced the old low-health execute-critical rule with continuous critical scaling: full bite*(1+critChance*0.5*(critDamage-1)), confirmed by BaseBiteDamage/PercentBiteDamage in16.20. No obsolete health execute threshold is invented. Real pets use single-target bite damage; Only summons explicitly sourced as monsters receive the200 missing-health cap; ordinary summons keep the full ratio. The initial cast revalidates visibility, targetability and range; invalidation spends no mana but retains its normal cooldown.
+- Lamb's Respite creates a fixed535-radius shared zone at declaration for4 seconds, before its0.25-second cast lock. All eligible units on either side receive a10%maxHP floor before lethal processing and cannot receive healing at the floor, including lifesteal, while regeneration remains allowed. Final375 healing goes only to targetable units still inside after protection expires. Source conflict: the primary wiki radius535 differs from game AoERadius530; the pinned wiki is used. Zombie/clone units are excluded; neither allies nor resurrection are fabricated. The engine conservatively leaves hit-count props outside R protection/healing because their special health requires prop-specific evidence; the primary source excludes wards, structural turrets and plants but does not establish a blanket exception for every hit-count summon.
+
+### Source values read (86)
+
+| Ability | Value | Source version |
+|---|---|---|
+| Mark of the Kindred | Mark of the Kindred: Lamb gains 75 / 100 / 125 / 150 / 175 / 200 / 225 / 250 (based on marks) bonus range on her basic attacks and Mounting Dread. | [4069806](https://wiki.leagueoflegends.com/en-us/Template:Data_Kindred/Mark_of_the_Kindred?oldid=4069806) |
+| Mark of the Kindred | formula=+75 at 4 stacks | [4069806](https://wiki.leagueoflegends.com/en-us/Template:Data_Kindred/Mark_of_the_Kindred?oldid=4069806) |
+| Mark of the Kindred | after an 8-second delay | [4069806](https://wiki.leagueoflegends.com/en-us/Template:Data_Kindred/Mark_of_the_Kindred?oldid=4069806) |
+| Mark of the Kindred | every 75 seconds | [4069806](https://wiki.leagueoflegends.com/en-us/Template:Data_Kindred/Mark_of_the_Kindred?oldid=4069806) |
+| Mark of the Kindred | last 6 seconds | [4069806](https://wiki.leagueoflegends.com/en-us/Template:Data_Kindred/Mark_of_the_Kindred?oldid=4069806) |
+| Mark of the Kindred | targetCooldown: 240 | [4069806](https://wiki.leagueoflegends.com/en-us/Template:Data_Kindred/Mark_of_the_Kindred?oldid=4069806) |
+| Mark of the Kindred | Scoring a takedown against a hunted target collects a stack | [4069806](https://wiki.leagueoflegends.com/en-us/Template:Data_Kindred/Mark_of_the_Kindred?oldid=4069806) |
+| Mark of the Kindred | Only killing the large monster is required | [4069806](https://wiki.leagueoflegends.com/en-us/Template:Data_Kindred/Mark_of_the_Kindred?oldid=4069806) |
+| Dance of Arrows | Physical Damage: 40 / 65 / 90 / 115 / 140 (+ 75% bonus AD) | [4007746](https://wiki.leagueoflegends.com/en-us/Template:Data_Kindred/Dance_of_Arrows?oldid=4007746) |
+| Dance of Arrows | gaining 35% (+ 5% per mark) | [4007746](https://wiki.leagueoflegends.com/en-us/Template:Data_Kindred/Dance_of_Arrows?oldid=4007746) |
+| Dance of Arrows | bonus attack speed for 4 seconds | [4007746](https://wiki.leagueoflegends.com/en-us/Template:Data_Kindred/Dance_of_Arrows?oldid=4007746) |
+| Dance of Arrows | up to 3 nearby | [4007746](https://wiki.leagueoflegends.com/en-us/Template:Data_Kindred/Dance_of_Arrows?oldid=4007746) |
+| Dance of Arrows | targetRange (Maximum dash distance): 300 • 400 | [4007746](https://wiki.leagueoflegends.com/en-us/Template:Data_Kindred/Dance_of_Arrows?oldid=4007746) |
+| Dance of Arrows | speed: 500 + 100% movement speed | [4007746](https://wiki.leagueoflegends.com/en-us/Template:Data_Kindred/Dance_of_Arrows?oldid=4007746) |
+| Dance of Arrows | Static Cooldown: 4 / 3.5 / 3 / 2.5 / 2 seconds | [4007746](https://wiki.leagueoflegends.com/en-us/Template:Data_Kindred/Dance_of_Arrows?oldid=4007746) |
+| Dance of Arrows | cooldown: 9 | [4007746](https://wiki.leagueoflegends.com/en-us/Template:Data_Kindred/Dance_of_Arrows?oldid=4007746) |
+| Dance of Arrows | "missileSpeed":1600.0 | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/kindred/kindred.bin.json) |
+| Dance of Arrows | resets Lamb's basic attack timer | [4007746](https://wiki.leagueoflegends.com/en-us/Template:Data_Kindred/Dance_of_Arrows?oldid=4007746) |
+| Dance of Arrows | cast any of her abilities during the dash | [4007746](https://wiki.leagueoflegends.com/en-us/Template:Data_Kindred/Dance_of_Arrows?oldid=4007746) |
+| Dance of Arrows | current attack target within any proximity | [4007746](https://wiki.leagueoflegends.com/en-us/Template:Data_Kindred/Dance_of_Arrows?oldid=4007746) |
+| Dance of Arrows | The cooldown will not be modified if it cannot be reduced | [4007746](https://wiki.leagueoflegends.com/en-us/Template:Data_Kindred/Dance_of_Arrows?oldid=4007746) |
+| Dance of Arrows | effectRadius: 500 (+ 100% bonus attack range) | [4007746](https://wiki.leagueoflegends.com/en-us/Template:Data_Kindred/Dance_of_Arrows?oldid=4007746) |
+| Wolf's Frenzy | next 8.5 seconds | [4078260](https://wiki.leagueoflegends.com/en-us/Template:Data_Kindred/Wolf's_Frenzy?oldid=4078260) |
+| Wolf's Frenzy | effectRadius: 800 | [4078260](https://wiki.leagueoflegends.com/en-us/Template:Data_Kindred/Wolf's_Frenzy?oldid=4078260) |
+| Wolf's Frenzy | targetRange: 500 | [4078260](https://wiki.leagueoflegends.com/en-us/Template:Data_Kindred/Wolf's_Frenzy?oldid=4078260) |
+| Wolf's Frenzy | speed: 1400 | [4078260](https://wiki.leagueoflegends.com/en-us/Template:Data_Kindred/Wolf's_Frenzy?oldid=4078260) |
+| Wolf's Frenzy | cooldown: 18 / 17 / 16 / 15 / 14 | [4078260](https://wiki.leagueoflegends.com/en-us/Template:Data_Kindred/Wolf's_Frenzy?oldid=4078260) |
+| Wolf's Frenzy | 25% of Kindred's bonus attack speed | [4078260](https://wiki.leagueoflegends.com/en-us/Template:Data_Kindred/Wolf's_Frenzy?oldid=4078260) |
+| Wolf's Frenzy | Magic Damage: 25 / 30 / 35 / 40 / 45 (+ 20% bonus AD) (+ 20% AP) (+ 1.5% (+ 1% per mark) of target's current health) | [4078260](https://wiki.leagueoflegends.com/en-us/Template:Data_Kindred/Wolf's_Frenzy?oldid=4078260) |
+| Wolf's Frenzy | (+ 1.5% (+ 1% per mark) | [4078260](https://wiki.leagueoflegends.com/en-us/Template:Data_Kindred/Wolf's_Frenzy?oldid=4078260) |
+| Wolf's Frenzy | Monster Damage: 41.25 / 49.5 / 57.75 / 66 / 74.25 (+ 33% bonus AD) (+ 33% AP) (+ 2.475% (+ 1.65% per mark) of target's current health) | [4078260](https://wiki.leagueoflegends.com/en-us/Template:Data_Kindred/Wolf's_Frenzy?oldid=4078260) |
+| Wolf's Frenzy | deal 165% damage | [4078260](https://wiki.leagueoflegends.com/en-us/Template:Data_Kindred/Wolf's_Frenzy?oldid=4078260) |
+| Wolf's Frenzy | capped at 112.5 (+ 15 per mark) | [4078260](https://wiki.leagueoflegends.com/en-us/Template:Data_Kindred/Wolf's_Frenzy?oldid=4078260) |
+| Wolf's Frenzy | by 50% for 2 seconds | [4078260](https://wiki.leagueoflegends.com/en-us/Template:Data_Kindred/Wolf's_Frenzy?oldid=4078260) |
+| Wolf's Frenzy | every 27 units | [4078260](https://wiki.leagueoflegends.com/en-us/Template:Data_Kindred/Wolf's_Frenzy?oldid=4078260) |
+| Wolf's Frenzy | 5 stacks on-attack | [4078260](https://wiki.leagueoflegends.com/en-us/Template:Data_Kindred/Wolf's_Frenzy?oldid=4078260) |
+| Wolf's Frenzy | maximum of 100 stacks | [4078260](https://wiki.leagueoflegends.com/en-us/Template:Data_Kindred/Wolf's_Frenzy?oldid=4078260) |
+| Wolf's Frenzy | At maximum stacks, her next basic attack heals her for 0 / 25 / 50 / 75 / 100 (based on Missing health)% of 47 – 81 (based on level). | [4078260](https://wiki.leagueoflegends.com/en-us/Template:Data_Kindred/Wolf's_Frenzy?oldid=4078260) |
+| Wolf's Frenzy | capped at 80% | [4078260](https://wiki.leagueoflegends.com/en-us/Template:Data_Kindred/Wolf's_Frenzy?oldid=4078260) |
+| Wolf's Frenzy | Wolf's Frenzy ends immediately if Lamb leaves the area or dies | [4078260](https://wiki.leagueoflegends.com/en-us/Template:Data_Kindred/Wolf's_Frenzy?oldid=4078260) |
+| Wolf's Frenzy | prioritizing the last enemy Lamb has attacked, then enemy champions, then non-champions | [4078260](https://wiki.leagueoflegends.com/en-us/Template:Data_Kindred/Wolf's_Frenzy?oldid=4078260) |
+| Wolf's Frenzy | Wolf is untargetable and ghosted | [4078260](https://wiki.leagueoflegends.com/en-us/Template:Data_Kindred/Wolf's_Frenzy?oldid=4078260) |
+| Wolf's Frenzy | applies ability haste to its cooldown post-effect | [4078260](https://wiki.leagueoflegends.com/en-us/Template:Data_Kindred/Wolf's_Frenzy?oldid=4078260) |
+| Wolf's Frenzy | "attackSpeedModifiable":{"baseValue":0.5580000281333923 | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/kindredwolf/kindredwolf.bin.json) |
+| Wolf's Frenzy | "attackRangeModifiable":{"baseValue":200.0 | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/kindredwolf/kindredwolf.bin.json) |
+| Wolf's Frenzy | "baseMoveSpeedModifiable":{"baseValue":275.0 | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/kindredwolf/kindredwolf.bin.json) |
+| Wolf's Frenzy | "baseHPModifiable":{"baseValue":300.0 | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/kindredwolf/kindredwolf.bin.json) |
+| Wolf's Frenzy | "baseArmorModifiable":{"baseValue":13.0 | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/kindredwolf/kindredwolf.bin.json) |
+| Wolf's Frenzy | "baseMR":{"baseValue":30.0 | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/kindredwolf/kindredwolf.bin.json) |
+| Wolf's Frenzy | "selectionRadius":0.0 | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/kindredwolf/kindredwolf.bin.json) |
+| Wolf's Frenzy | "spellCastTime":0.31610000133514404 | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/kindredwolf/kindredwolf.bin.json) |
+| Mounting Dread | Additional Physical Damage: 80 / 110 / 140 / 170 / 200 (+ 100% bonus AD) (+ 5% (+ 0.5% per Mark) of target's missing health) | [4078261](https://wiki.leagueoflegends.com/en-us/Template:Data_Kindred/Mounting_Dread?oldid=4078261) |
+| Mounting Dread | (+ 5% (+ 0.5% per Mark) | [4078261](https://wiki.leagueoflegends.com/en-us/Template:Data_Kindred/Mounting_Dread?oldid=4078261) |
+| Mounting Dread | stacking up to 3 times | [4078261](https://wiki.leagueoflegends.com/en-us/Template:Data_Kindred/Mounting_Dread?oldid=4078261) |
+| Mounting Dread | marks them for 4 seconds | [4078261](https://wiki.leagueoflegends.com/en-us/Template:Data_Kindred/Mounting_Dread?oldid=4078261) |
+| Mounting Dread | for 1.5 seconds | [4078261](https://wiki.leagueoflegends.com/en-us/Template:Data_Kindred/Mounting_Dread?oldid=4078261) |
+| Mounting Dread | slows them by 30% (+ 5% per 100 AP) | [4078261](https://wiki.leagueoflegends.com/en-us/Template:Data_Kindred/Mounting_Dread?oldid=4078261) |
+| Mounting Dread | {{critical damage\|0 to 50\|critScaling=true}} | [4078261](https://wiki.leagueoflegends.com/en-us/Template:Data_Kindred/Mounting_Dread?oldid=4078261) |
+| Mounting Dread | "missileSpeed":1600.0 | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/kindred/kindred.bin.json) |
+| Mounting Dread | "missileSpeed":2000.0 | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/kindred/kindred.bin.json) |
+| Mounting Dread | capped at 200 against monsters | [4078261](https://wiki.leagueoflegends.com/en-us/Template:Data_Kindred/Mounting_Dread?oldid=4078261) |
+| Mounting Dread | "mStat":8,"mDataValue":"CritMod" | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/kindred/kindred.bin.json) |
+| Mounting Dread | "mStat":9,"mCoefficient":1.0 | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/kindred/kindred.bin.json) |
+| Mounting Dread | This ability cannot target a unit with Mounting Dread stacks | [4078261](https://wiki.leagueoflegends.com/en-us/Template:Data_Kindred/Mounting_Dread?oldid=4078261) |
+| Lamb's Respite | lasts for 4 seconds | [4024177](https://wiki.leagueoflegends.com/en-us/Template:Data_Kindred/Lamb's_Respite?oldid=4024177) |
+| Lamb's Respite | equal to 10% of their maximum health | [4024177](https://wiki.leagueoflegends.com/en-us/Template:Data_Kindred/Lamb's_Respite?oldid=4024177) |
+| Lamb's Respite | effectRadius: 535 | [4024177](https://wiki.leagueoflegends.com/en-us/Template:Data_Kindred/Lamb's_Respite?oldid=4024177) |
+| Lamb's Respite | Heal: 225 / 300 / 375 | [4024177](https://wiki.leagueoflegends.com/en-us/Template:Data_Kindred/Lamb's_Respite?oldid=4024177) |
+| Lamb's Respite | cannot be healed, but can still regenerate health | [4024177](https://wiki.leagueoflegends.com/en-us/Template:Data_Kindred/Lamb's_Respite?oldid=4024177) |
+| Lamb's Respite | All targetable units within the zone are healed when the blessing ends | [4024177](https://wiki.leagueoflegends.com/en-us/Template:Data_Kindred/Lamb's_Respite?oldid=4024177) |
+| Lamb's Respite | effects are applied before the cast time | [4024177](https://wiki.leagueoflegends.com/en-us/Template:Data_Kindred/Lamb's_Respite?oldid=4024177) |
+| Lamb's Respite | Health costs will ignore | [4024177](https://wiki.leagueoflegends.com/en-us/Template:Data_Kindred/Lamb's_Respite?oldid=4024177) |
+| Lamb's Respite | no effect on zombie state or clone units | [4024177](https://wiki.leagueoflegends.com/en-us/Template:Data_Kindred/Lamb's_Respite?oldid=4024177) |
+| Lamb's Respite | affect untargetable units | [4024177](https://wiki.leagueoflegends.com/en-us/Template:Data_Kindred/Lamb's_Respite?oldid=4024177) |
+| Lamb's Respite | cooldownStart: on-cast | [4024177](https://wiki.leagueoflegends.com/en-us/Template:Data_Kindred/Lamb's_Respite?oldid=4024177) |
+| Dance of Arrows | cost: 35 | [4007746](https://wiki.leagueoflegends.com/en-us/Template:Data_Kindred/Dance_of_Arrows?oldid=4007746) |
+| Dance of Arrows | castTime: none | [4007746](https://wiki.leagueoflegends.com/en-us/Template:Data_Kindred/Dance_of_Arrows?oldid=4007746) |
+| Wolf's Frenzy | cost: 40 | [4078260](https://wiki.leagueoflegends.com/en-us/Template:Data_Kindred/Wolf's_Frenzy?oldid=4078260) |
+| Wolf's Frenzy | castTime: none | [4078260](https://wiki.leagueoflegends.com/en-us/Template:Data_Kindred/Wolf's_Frenzy?oldid=4078260) |
+| Mounting Dread | cooldown: 14 / 12.5 / 11 / 9.5 / 8 | [4078261](https://wiki.leagueoflegends.com/en-us/Template:Data_Kindred/Mounting_Dread?oldid=4078261) |
+| Mounting Dread | cost: 50 | [4078261](https://wiki.leagueoflegends.com/en-us/Template:Data_Kindred/Mounting_Dread?oldid=4078261) |
+| Mounting Dread | castTime: 0.25 | [4078261](https://wiki.leagueoflegends.com/en-us/Template:Data_Kindred/Mounting_Dread?oldid=4078261) |
+| Mounting Dread | targetRange: 500 / 575 / 600 / 625 / 650 / 675 / 700 / 725 / 750 (based on Marks) | [4078261](https://wiki.leagueoflegends.com/en-us/Template:Data_Kindred/Mounting_Dread?oldid=4078261) |
+| Lamb's Respite | cooldown: 160 / 140 / 120 | [4024177](https://wiki.leagueoflegends.com/en-us/Template:Data_Kindred/Lamb's_Respite?oldid=4024177) |
+| Lamb's Respite | cost: 100 | [4024177](https://wiki.leagueoflegends.com/en-us/Template:Data_Kindred/Lamb's_Respite?oldid=4024177) |
+| Lamb's Respite | castTime: 0.25 | [4024177](https://wiki.leagueoflegends.com/en-us/Template:Data_Kindred/Lamb's_Respite?oldid=4024177) |

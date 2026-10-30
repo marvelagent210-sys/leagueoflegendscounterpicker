@@ -170,7 +170,8 @@
       "notes": [
         "In addition to already revealing herself, Katarina will reveal her location (400 radius) for 4.5 seconds every time she throws a dagger at an enemy while the enemy team does not otherwise have vision of her.\n  - Because of this, the vision on Katarina's location will persist for up-to 4.5 seconds after the channel ends.",
         "Spell shield will block and be consumed by only one dagger.",
-        "The following table refers for interactions while Katarina is channeling:\n  - Trying to cast a disabled active (excluding Hextech Rocketbelt) will buffer it to cast at the completion of the channel."
+        "The following table refers for interactions while Katarina is channeling:\n  - Trying to cast a disabled active (excluding Hextech Rocketbelt) will buffer it to cast at the completion of the channel.",
+        "{{ct|channel|cast=interrupts|move=Disabled in the first and last {{fd|0.25}} seconds of channel, otherwise, interrupts.|attack=Disabled in the first and last {{fd|0.25}} seconds of channel, otherwise, interrupts.|items=interrupts,true,,false,,false,false,false,melee|spells=true,interrupts,interrupts,false,false}}"
       ]
     },
     {

@@ -1,5 +1,158 @@
 # Counters to Graves (patch 26.20)
 
+## Simulated duels
+
+The duel simulator played each of the 144 other champions with a simulator kit against Graves: both at level 20 with 15,000 gold of plain stats, each side's spent against the other's, through six scenarios (PLAN.md §6). Scores run from −1 (Graves wins every time) to +1 (the champion does). Run `npm run duel -- <champion> Graves --log brawl` to watch a fight.
+
+| # | Champion | Score | You engage | Enemy engages | Brawl | Short trade | Spacing | Escape |
+|--:|---|--:|--:|--:|--:|--:|--:|--:|
+| 1 | Garen | +0.89 | +1.00 | +1.00 | +1.00 | +0.26 | +1.00 | +1.00 |
+| 2 | Yasuo | +0.85 | +1.00 | +1.00 | +1.00 | +0.02 | +1.00 | +1.00 |
+| 3 | K'Sante | +0.85 | +1.00 | +1.00 | +1.00 | +0.01 | +1.00 | +1.00 |
+| 4 | Vayne | +0.85 | +1.00 | +1.00 | +1.00 | −0.02 | +1.00 | +1.00 |
+| 5 | Jax | +0.85 | +1.00 | +1.00 | +1.00 | −0.03 | +1.00 | +1.00 |
+| 6 | Gangplank | +0.84 | +1.00 | +1.00 | +1.00 | −0.05 | +1.00 | +1.00 |
+| 7 | Malphite | +0.84 | +1.00 | +1.00 | +1.00 | +0.27 | +1.00 | +0.00 |
+| 8 | Tryndamere | +0.84 | +1.00 | +1.00 | +1.00 | −0.06 | +1.00 | +1.00 |
+| 9 | Yorick | +0.84 | +1.00 | +1.00 | +1.00 | −0.08 | +1.00 | +1.00 |
+| 10 | Camille | +0.84 | +1.00 | +1.00 | +1.00 | −0.08 | +1.00 | +1.00 |
+| 11 | Darius | +0.84 | +1.00 | +1.00 | +1.00 | −0.09 | +1.00 | +1.00 |
+| 12 | Nasus | +0.83 | +1.00 | +1.00 | +1.00 | −0.11 | +1.00 | +1.00 |
+| 13 | Udyr | +0.83 | +1.00 | +1.00 | +1.00 | −0.14 | +1.00 | +1.00 |
+| 14 | Trundle | +0.83 | +1.00 | +1.00 | +1.00 | −0.16 | +1.00 | +1.00 |
+| 15 | Fiora | +0.83 | +1.00 | +1.00 | +1.00 | −0.16 | +1.00 | +1.00 |
+| 16 | Zaahen | +0.82 | +1.00 | +1.00 | +1.00 | −0.17 | +1.00 | +1.00 |
+| 17 | Kled | +0.82 | +1.00 | +1.00 | +1.00 | +0.14 | +1.00 | +0.00 |
+| 18 | Maokai | +0.81 | +1.00 | +1.00 | +1.00 | +0.06 | +1.00 | +0.00 |
+| 19 | Poppy | +0.80 | +1.00 | +1.00 | +1.00 | +0.02 | +1.00 | +0.00 |
+| 20 | Orianna | +0.80 | +1.00 | +1.00 | +1.00 | +0.02 | +1.00 | +0.00 |
+| 21 | Xayah | +0.80 | +1.00 | +1.00 | +1.00 | −0.01 | +1.00 | +0.00 |
+| 22 | Urgot | +0.79 | +1.00 | +1.00 | +1.00 | +0.07 | – | +0.00 |
+| 23 | Cho'Gath | +0.79 | +1.00 | +1.00 | +1.00 | −0.09 | +1.00 | +0.00 |
+| 24 | Cassiopeia | +0.78 | +1.00 | +1.00 | +1.00 | −0.10 | +1.00 | +0.00 |
+| 25 | Dr. Mundo | +0.78 | +1.00 | +1.00 | +1.00 | −0.13 | +1.00 | +0.00 |
+| 26 | Teemo | +0.78 | +1.00 | +1.00 | +1.00 | −0.00 | – | +0.00 |
+| 27 | Samira | +0.77 | +1.00 | +1.00 | +1.00 | −0.04 | – | +0.00 |
+| 28 | Karma | +0.72 | +1.00 | +1.00 | +0.72 | −0.07 | +0.85 | +0.00 |
+| 29 | Mordekaiser | +0.70 | +0.75 | +0.88 | +1.00 | −0.12 | +0.97 | +0.33 |
+| 30 | Lulu | +0.70 | +1.00 | +1.00 | +1.00 | −0.07 | +0.13 | +0.00 |
+| 31 | Tahm Kench | +0.66 | +0.88 | +1.00 | +1.00 | −0.08 | +0.03 | +0.00 |
+| 32 | Illaoi | +0.65 | +0.91 | +0.96 | +0.78 | −0.10 | −0.13 | +1.00 |
+| 33 | Nocturne | +0.63 | +1.00 | +1.00 | +0.00 | −0.15 | +1.00 | +1.00 |
+| 34 | Janna | +0.55 | +1.00 | +0.86 | +1.00 | −0.10 | −1.00 | +0.00 |
+| 35 | Olaf | +0.53 | +1.00 | +1.00 | +0.00 | −0.16 | +0.05 | +1.00 |
+| 36 | Taric | +0.51 | +0.56 | +0.23 | +1.00 | +0.10 | +1.00 | +0.00 |
+| 37 | Lee Sin | +0.49 | +1.00 | +1.00 | +0.00 | −0.07 | +0.00 | +0.00 |
+| 38 | Zeri | +0.44 | +0.00 | +1.00 | +1.00 | −0.05 | +0.00 | +0.00 |
+| 39 | Renekton | +0.44 | +0.00 | +1.00 | +1.00 | −0.05 | +0.00 | +0.00 |
+| 40 | Gwen | +0.44 | +1.00 | +1.00 | −1.00 | −0.07 | +1.00 | +1.00 |
+| 41 | Aatrox | +0.42 | +1.00 | +1.00 | −1.00 | −0.21 | +1.00 | +1.00 |
+| 42 | Miss Fortune | +0.40 | +1.00 | +1.00 | −1.00 | +0.03 | +1.00 | +0.00 |
+| 43 | Aphelios | +0.40 | +1.00 | +1.00 | −1.00 | +0.01 | +1.00 | +0.00 |
+| 44 | Ashe | +0.38 | +1.00 | +1.00 | −1.00 | −0.12 | +1.00 | +0.00 |
+| 45 | Volibear | +0.34 | +0.99 | −0.92 | +1.00 | −0.18 | +1.00 | +0.99 |
+| 46 | Warwick | +0.33 | +1.00 | −1.00 | +1.00 | −0.12 | +1.00 | +1.00 |
+| 47 | Akshan | +0.32 | +1.00 | +1.00 | −1.00 | −0.07 | – | +0.00 |
+| 48 | Diana | +0.29 | +1.00 | −1.00 | +1.00 | −0.04 | +1.00 | +0.00 |
+| 49 | Kog'Maw | +0.22 | +0.00 | +0.00 | +1.00 | −0.00 | – | +0.00 |
+| 50 | Kayle | +0.20 | +1.00 | +1.00 | −1.00 | −0.00 | −1.00 | +0.00 |
+| 51 | Rumble | +0.17 | +0.83 | −1.00 | +0.86 | −0.01 | +0.43 | +0.00 |
+| 52 | Anivia | +0.17 | +0.25 | +0.33 | +0.15 | −0.12 | +0.16 | +0.00 |
+| 53 | Heimerdinger | +0.14 | −0.74 | +0.62 | +0.91 | +0.14 | −0.33 | +0.00 |
+| 54 | Master Yi | +0.12 | +1.00 | −1.00 | +1.00 | −0.20 | −1.00 | +1.00 |
+| 55 | Quinn | +0.07 | −1.00 | +1.00 | +1.00 | −0.18 | −1.00 | +0.00 |
+| 56 | Braum | −0.05 | −1.00 | +0.00 | +0.90 | −0.04 | +0.24 | +0.00 |
+| 57 | Vi | −0.07 | +0.00 | +1.00 | −1.00 | −0.13 | −1.00 | +0.00 |
+| 58 | Sion | −0.10 | +0.00 | +0.00 | −0.50 | −0.03 | +0.00 | +0.00 |
+| 59 | Yone | −0.18 | −1.00 | −1.00 | +1.00 | −0.07 | +1.00 | +0.52 |
+| 60 | Jhin | −0.19 | +0.92 | −0.94 | −1.00 | +0.05 | +0.03 | +0.00 |
+| 61 | Smolder | −0.20 | −1.00 | −1.00 | +1.00 | −0.03 | +1.00 | +0.00 |
+| 62 | Swain | −0.22 | +0.00 | −0.62 | −0.30 | +0.00 | +0.00 | +0.00 |
+| 63 | Ezreal | −0.22 | −0.99 | −1.00 | +0.96 | −0.11 | +0.98 | +0.00 |
+| 64 | Xin Zhao | −0.28 | −1.00 | −1.00 | +0.56 | −0.25 | +0.93 | +1.00 |
+| 65 | Tristana | −0.30 | −1.00 | +1.00 | −1.00 | +0.03 | −1.00 | +0.00 |
+| 66 | Varus | −0.30 | −0.71 | +0.76 | −1.00 | −0.05 | −1.00 | +0.00 |
+| 67 | Sona | −0.32 | +0.00 | +0.00 | −1.00 | −0.12 | −1.00 | +0.00 |
+| 68 | Lucian | −0.34 | −1.00 | −1.00 | +1.00 | −0.01 | – | +0.00 |
+| 69 | Shen | −0.35 | −1.00 | +0.00 | +0.00 | −0.01 | −1.00 | +0.00 |
+| 70 | Kennen | −0.36 | −1.00 | −1.00 | +1.00 | −0.02 | −0.56 | +0.00 |
+| 71 | Jinx | −0.40 | −0.36 | −0.36 | −1.00 | −0.04 | −0.11 | +0.00 |
+| 72 | Twitch | −0.41 | −1.00 | −1.00 | +1.00 | −0.04 | −1.00 | +0.00 |
+| 73 | Kai'Sa | −0.41 | −1.00 | −1.00 | +1.00 | −0.05 | −1.00 | +0.00 |
+| 74 | Twisted Fate | −0.42 | −1.00 | −1.00 | +1.00 | −0.11 | −1.00 | +0.00 |
+| 75 | Neeko | −0.45 | −1.00 | −1.00 | +0.24 | −0.01 | +0.08 | +0.00 |
+| 76 | Vel'Koz | −0.47 | −1.00 | +0.00 | −1.00 | +0.02 | −0.19 | +0.00 |
+| 77 | Ambessa | −0.53 | −1.00 | −1.00 | −1.00 | +0.13 | +1.00 | +1.00 |
+| 78 | Zed | −0.56 | −1.00 | −1.00 | +0.00 | −0.06 | −1.00 | +1.00 |
+| 79 | Ziggs | −0.57 | −1.00 | −1.00 | +0.00 | +0.23 | −1.00 | +0.00 |
+| 80 | Rammus | −0.57 | −1.00 | −1.00 | −0.50 | −0.15 | +0.50 | +0.00 |
+| 81 | Vex | −0.58 | −1.00 | −0.55 | −0.38 | −0.10 | −1.00 | +0.00 |
+| 82 | Corki | −0.60 | −1.00 | −1.00 | −1.00 | +0.01 | +1.00 | +0.00 |
+| 83 | Annie | −0.60 | −1.00 | −1.00 | +0.00 | −0.03 | −1.00 | +0.00 |
+| 84 | Kalista | −0.62 | −1.00 | −1.00 | −1.00 | −0.13 | +1.00 | +0.00 |
+| 85 | Riven | −0.63 | −1.00 | −1.00 | −0.50 | +0.11 | −1.00 | +1.00 |
+| 86 | Morgana | −0.65 | −1.00 | −1.00 | −0.26 | −0.19 | – | +0.00 |
+| 87 | Jayce | −0.69 | −1.00 | −1.00 | −0.45 | +0.02 | −1.00 | +0.00 |
+| 88 | Viktor | −0.71 | −1.00 | −1.00 | −1.00 | −0.08 | +0.00 | +0.00 |
+| 89 | Draven | −0.72 | −1.00 | −1.00 | −1.00 | −0.13 | −0.04 | +0.00 |
+| 90 | Soraka | −0.74 | −0.99 | −1.00 | −0.68 | −0.09 | −0.90 | +0.00 |
+| 91 | Jarvan IV | −0.74 | −1.00 | −1.00 | −1.00 | +0.06 | −1.00 | +1.00 |
+| 92 | Hecarim | −0.75 | −1.00 | −1.00 | −1.00 | −0.00 | −1.00 | +1.00 |
+| 93 | Pantheon | −0.76 | −1.00 | −1.00 | −1.00 | −0.05 | −1.00 | +1.00 |
+| 94 | Irelia | −0.77 | −1.00 | −1.00 | −1.00 | −0.10 | −1.00 | +1.00 |
+| 95 | Malzahar | −0.78 | −1.00 | −1.00 | −1.00 | −0.00 | – | +0.00 |
+| 96 | Karthus | −0.78 | −1.00 | −1.00 | −1.00 | −0.02 | – | +0.00 |
+| 97 | Skarner | −0.78 | −1.00 | −1.00 | −1.00 | +0.12 | −1.00 | +0.00 |
+| 98 | Rell | −0.78 | −1.00 | −1.00 | −1.00 | +0.11 | −1.00 | +0.00 |
+| 99 | Lissandra | −0.79 | −1.00 | −1.00 | −1.00 | +0.10 | −1.00 | +0.00 |
+| 100 | Taliyah | −0.79 | −1.00 | −1.00 | −1.00 | +0.09 | −1.00 | +0.00 |
+| 101 | Ornn | −0.79 | −1.00 | −1.00 | −1.00 | +0.08 | −1.00 | +0.00 |
+| 102 | Syndra | −0.79 | −1.00 | −1.00 | −1.00 | +0.05 | −1.00 | +0.00 |
+| 103 | Nunu & Willump | −0.79 | −1.00 | −1.00 | −1.00 | +0.05 | −1.00 | +0.00 |
+| 104 | Thresh | −0.80 | −1.00 | −1.00 | −1.00 | −0.11 | – | +0.00 |
+| 105 | Aurora | −0.80 | −1.00 | −1.00 | −1.00 | +0.02 | −1.00 | +0.00 |
+| 106 | Sett | −0.80 | −1.00 | −1.00 | −1.00 | +0.02 | −1.00 | +0.00 |
+| 107 | Nautilus | −0.80 | −1.00 | −1.00 | −1.00 | +0.02 | −1.00 | +0.00 |
+| 108 | Veigar | −0.80 | −1.00 | −1.00 | −1.00 | +0.02 | −1.00 | +0.00 |
+| 109 | Fizz | −0.80 | −1.00 | −1.00 | −1.00 | +0.02 | −1.00 | +0.00 |
+| 110 | Sivir | −0.80 | −1.00 | −1.00 | −1.00 | −0.13 | – | +0.00 |
+| 111 | Zoe | −0.80 | −1.00 | −1.00 | −1.00 | +0.01 | −1.00 | +0.00 |
+| 112 | Sejuani | −0.80 | −1.00 | −1.00 | −1.00 | −0.01 | −1.00 | +0.00 |
+| 113 | Vladimir | −0.80 | −1.00 | −1.00 | −1.00 | −0.15 | – | +0.00 |
+| 114 | Gnar | −0.80 | −1.00 | −1.00 | −1.00 | −0.03 | −1.00 | +0.00 |
+| 115 | Evelynn | −0.80 | −1.00 | −1.00 | −1.00 | −0.03 | −1.00 | +0.00 |
+| 116 | Gragas | −0.81 | −1.00 | −1.00 | −1.00 | −0.04 | −1.00 | +0.00 |
+| 117 | Alistar | −0.81 | −1.00 | −1.00 | −1.00 | −0.06 | −1.00 | +0.00 |
+| 118 | Zyra | −0.81 | −1.00 | −1.00 | −1.00 | −0.06 | −1.00 | +0.00 |
+| 119 | Ryze | −0.81 | −1.00 | −1.00 | −1.00 | −0.06 | −1.00 | +0.00 |
+| 120 | Naafiri | −0.81 | −1.00 | −1.00 | −1.00 | −0.06 | −1.00 | +0.00 |
+| 121 | Nami | −0.81 | −1.00 | −1.00 | −1.00 | −0.07 | −1.00 | +0.00 |
+| 122 | Hwei | −0.81 | −1.00 | −1.00 | −1.00 | −0.07 | −1.00 | +0.00 |
+| 123 | Rakan | −0.81 | −1.00 | −1.00 | −1.00 | −0.07 | −1.00 | +0.00 |
+| 124 | Kindred | −0.81 | −1.00 | −1.00 | −1.00 | −0.08 | −1.00 | +0.00 |
+| 125 | Brand | −0.81 | −1.00 | −1.00 | −1.00 | −0.08 | −1.00 | +0.00 |
+| 126 | Xerath | −0.81 | −1.00 | −1.00 | −1.00 | −0.08 | −1.00 | +0.00 |
+| 127 | Amumu | −0.81 | −1.00 | −1.00 | −1.00 | −0.09 | −1.00 | +0.00 |
+| 128 | Lux | −0.81 | −1.00 | −1.00 | −1.00 | −0.09 | −1.00 | +0.00 |
+| 129 | Blitzcrank | −0.81 | −1.00 | −1.00 | −1.00 | −0.09 | −1.00 | +0.00 |
+| 130 | Wukong | −0.82 | −1.00 | −1.00 | −1.00 | −0.10 | −1.00 | +0.00 |
+| 131 | Galio | −0.82 | −1.00 | −1.00 | −1.00 | −0.11 | −1.00 | +0.00 |
+| 132 | Kha'Zix | −0.82 | −1.00 | −1.00 | −1.00 | −0.11 | −1.00 | +0.00 |
+| 133 | Caitlyn | −0.82 | −1.00 | −1.00 | −1.00 | −0.12 | −1.00 | +0.00 |
+| 134 | Singed | −0.82 | −1.00 | −1.00 | −1.00 | −0.12 | −1.00 | +0.00 |
+| 135 | Ekko | −0.82 | −1.00 | −1.00 | −1.00 | −0.12 | −1.00 | +0.00 |
+| 136 | Leona | −0.82 | −1.00 | −1.00 | −1.00 | −0.12 | −1.00 | +0.00 |
+| 137 | Kassadin | −0.82 | −1.00 | −1.00 | −1.00 | −0.12 | −1.00 | +0.00 |
+| 138 | LeBlanc | −0.82 | −1.00 | −1.00 | −1.00 | −0.13 | −1.00 | +0.00 |
+| 139 | Ahri | −0.82 | −1.00 | −1.00 | −1.00 | −0.13 | −1.00 | +0.00 |
+| 140 | Rengar | −0.82 | −1.00 | −1.00 | −1.00 | −0.14 | −1.00 | +0.00 |
+| 141 | Katarina | −0.82 | −1.00 | −1.00 | −1.00 | −0.16 | −1.00 | +0.00 |
+| 142 | Senna | −0.82 | −1.00 | −1.00 | −1.00 | −0.17 | −1.00 | +0.00 |
+| 143 | Talon | −0.83 | −1.00 | −1.00 | −1.00 | −0.19 | −1.00 | +0.00 |
+| 144 | Akali | −0.85 | −1.00 | −1.00 | −1.00 | −0.32 | −1.00 | +0.00 |
+
+## Interaction ledger estimates
+
 Every champion ranked by what its kit does against Graves's, from the interaction ledger: projectile blocks, spell shields,
 parries, dash stops, crowd control and its defenses, range and more (PLAN.md §5). This ranking is **partial**: it weighs the
 interactions but doesn't play the fight out. The duel simulator replaces it as each champion's behavior is verified.
@@ -8,64 +161,64 @@ interactions but doesn't play the fight out. The duel simulator replaces it as e
 A hard counter shuts down part of a kit every time it is used (projectile block, attack dodge, attack block, blind, disarm, attack speed slow, attack reflect, dash stop, grounding, range) with an impact of 0.4 or more (0.5 for range).
 Run `npm run matchup -- <champion> Graves` for the full ledger of a matchup, with sources.
 
-## Top 10
+### Top 10
 
-### 1. Mel (net +1.03)
+#### 1. Mel (net +1.03)
 
 - **0.70** projectile block: Rebuttal blocks Graves's Collateral Damage, a projectile. Rebuttal for 0.75 s; Collateral Damage takes 0.77 s to land, enough to react. (Mel W Rebuttal → Graves R Collateral Damage)
 - **0.37** projectile block: Rebuttal blocks Graves's Smoke Screen, a projectile. Rebuttal for 0.75 s; Smoke Screen takes 0.88 s to land, enough to react. (Mel W Rebuttal → Graves W Smoke Screen)
 - **0.27** projectile block: Rebuttal blocks Graves's basic attacks, which are projectiles. Rebuttal lasts 0.75 s on a 26 s cooldown. (Mel W Rebuttal → Graves basic attacks)
 
-### 2. Samira (net +1.02)
+#### 2. Samira (net +1.02)
 
 - **0.70** projectile block: Blade Whirl blocks Graves's Collateral Damage, a projectile. Blade Whirl for 0.75 s; Collateral Damage takes 0.77 s to land, enough to react. (Samira W Blade Whirl → Graves R Collateral Damage)
 - **0.40** projectile block: Blade Whirl blocks Graves's Smoke Screen, a projectile. Blade Whirl for 0.75 s; Smoke Screen takes 0.88 s to land, enough to react. (Samira W Blade Whirl → Graves W Smoke Screen)
 - **0.27** projectile block: Blade Whirl blocks Graves's basic attacks, which are projectiles. Blade Whirl lasts 0.75 s on a 22 s cooldown. (Samira W Blade Whirl → Graves basic attacks)
 
-### 3. Yasuo (net +0.89)
+#### 3. Yasuo (net +0.89)
 
 - **0.70** projectile block: Wind Wall blocks Graves's Collateral Damage, a projectile. Wind Wall for 4 s, long enough to use ahead of Collateral Damage. (Yasuo W Wind Wall → Graves R Collateral Damage)
 - **0.45** projectile block: Wind Wall blocks Graves's Smoke Screen, a projectile. Wind Wall for 4 s, long enough to use ahead of Smoke Screen. (Yasuo W Wind Wall → Graves W Smoke Screen)
 - **0.35** projectile block: Wind Wall blocks Graves's basic attacks, which are projectiles. Wind Wall lasts 4 s on a 17 s cooldown. (Yasuo W Wind Wall → Graves basic attacks)
 - Watch out: Graves's basic attacks reach 250 units farther than Yasuo's (425 vs 175 attack range).
 
-### 4. Lissandra (net +0.84)
+#### 4. Lissandra (net +0.84)
 
 - **0.60** untargetable: Frozen Tomb makes Lissandra untargetable, dodging Graves's Collateral Damage. Untargetable for 2.5 s, long enough to use ahead of Collateral Damage. (Lissandra R Frozen Tomb → Graves R Collateral Damage)
 - **0.30** dash stop: Frozen Tomb's knockdown can stop Graves's Collateral Damage mid-dash. Must land during the dash. Fails if the dashing unit is crowd control immune, displacement immune, untargetable or spell shielded. (Lissandra R Frozen Tomb → Graves R Collateral Damage)
 - **0.15** dash stop: Frozen Tomb's knockdown can stop Graves's Quickdraw mid-dash. Must land during the dash. Fails if the dashing unit is crowd control immune, displacement immune, untargetable or spell shielded. (Lissandra R Frozen Tomb → Graves E Quickdraw)
 
-### 5. Braum (net +0.82)
+#### 5. Braum (net +0.82)
 
 - **0.70** projectile block: Unbreakable blocks Graves's Collateral Damage, a projectile. Unbreakable for 4 s, long enough to use ahead of Collateral Damage. (Braum E Unbreakable → Graves R Collateral Damage)
 - **0.45** projectile block: Unbreakable blocks Graves's basic attacks, which are projectiles. Unbreakable lasts 4 s on a 8 s cooldown. (Braum E Unbreakable → Graves basic attacks)
 - **0.45** projectile block: Unbreakable blocks Graves's Smoke Screen, a projectile. Unbreakable for 4 s, long enough to use ahead of Smoke Screen. (Braum E Unbreakable → Graves W Smoke Screen)
 - Watch out: Graves's basic attacks reach 300 units farther than Braum's (425 vs 125 attack range).
 
-### 6. Kayle (net +0.72)
+#### 6. Kayle (net +0.72)
 
 - **0.60** invulnerable: Divine Judgment makes Kayle invulnerable to Graves's Collateral Damage. Invulnerable for 2.5 s, long enough to use ahead of Collateral Damage. (Kayle R Divine Judgment → Graves R Collateral Damage)
 - **0.12** range: Kayle's basic attacks reach 200 units farther than Graves's (625 vs 425 attack range). Graves closes the gap with Collateral Damage, Quickdraw. (Kayle basic attacks → Graves basic attacks)
 
-### 7. Vladimir (net +0.70)
+#### 7. Vladimir (net +0.70)
 
 - **0.70** untargetable: Sanguine Pool makes Vladimir untargetable, dodging Graves's Collateral Damage. Untargetable for 2 s, long enough to use ahead of Collateral Damage. (Vladimir W Sanguine Pool → Graves R Collateral Damage)
 
-### 8. Yuumi (net +0.70)
+#### 8. Yuumi (net +0.70)
 
 - **0.70** untargetable: You and Me! makes Yuumi untargetable, dodging Graves's Collateral Damage. Untargetable for ?; Collateral Damage takes 0.77 s to land, enough to react. Does not destroy inbound projectiles, special cased to be targetable to turrets. (Yuumi W You and Me! → Graves R Collateral Damage)
 
-### 9. Bard (net +0.65)
+#### 9. Bard (net +0.65)
 
 - **0.60** untargetable: Tempered Fate makes Bard untargetable, dodging Graves's Collateral Damage. Untargetable for 2.5 s, long enough to use ahead of Collateral Damage. (Bard R Tempered Fate → Graves R Collateral Damage)
 - **0.05** range: Bard's basic attacks reach 75 units farther than Graves's (500 vs 425 attack range). Graves closes the gap with Collateral Damage, Quickdraw. (Bard basic attacks → Graves basic attacks)
 
-### 10. Fizz (net +0.60)
+#### 10. Fizz (net +0.60)
 
 - **0.70** untargetable: Playful makes Fizz untargetable, dodging Graves's Collateral Damage. Untargetable for 0.75 s; Collateral Damage takes 0.77 s to land, enough to react. (Fizz E Playful → Graves R Collateral Damage)
 - Watch out: Graves's basic attacks reach 250 units farther than Fizz's (425 vs 175 attack range).
 
-## Full ranking
+### Full ranking
 
 | # | Champion | Net | For | Against | Hard counters |
 |--:|---|--:|--:|--:|---|

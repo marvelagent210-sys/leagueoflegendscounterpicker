@@ -11,6 +11,11 @@ export function petFormulaTarget(pet: Pet, caster: Unit, tick = Number.NEGATIVE_
   const spec: FighterSpec = {
     id: pet.spec.kind,
     name: pet.spec.name,
+    ...(pet.spec.targetClass ? { targetClass: pet.spec.targetClass } : {}),
+    ...(pet.spec.unitClass ? { unitClass: pet.spec.unitClass } : {}),
+    ...(pet.spec.sizeClass ? { sizeClass: pet.spec.sizeClass } : {}),
+    ...(pet.spec.structureClass ? { structureClass: pet.spec.structureClass } : {}),
+    ...(pet.spec.ignoreOwnMoveSpeedModifiers ? { statConversions: { totalMoveSpeedOverride: pet.spec.moveSpeed } } : {}),
     base: {
       ...caster.spec.base,
       hp: pet.spec.hp,
@@ -23,7 +28,7 @@ export function petFormulaTarget(pet: Pet, caster: Unit, tick = Number.NEGATIVE_
       attackSpeed: { base: 0, ratio: 0, bonus: 0 },
       moveSpeed: pet.spec.moveSpeed,
       radius: pet.spec.radius,
-      pathingRadius: pet.spec.radius,
+      pathingRadius: pet.spec.pathingRadius ?? pet.spec.radius,
       critDamageModifier: 1,
     },
     attack: { range: 0, ranged: false, projectile: false },
@@ -32,6 +37,7 @@ export function petFormulaTarget(pet: Pet, caster: Unit, tick = Number.NEGATIVE_
   const target = newUnit(spec, pet.owner, pet.x, pet.spec.hp, 0);
   target.hp = pet.hp;
   target.petId = pet.id;
+  if (pet.forced) target.forced = { ...pet.forced };
   target.statuses = (pet.statuses ?? []).filter((status) => status.endTick > tick || (status.kind === "dot" && status.endTick === tick)).map((status) => ({ ...status, ...(status.dot ? { dot: { ...status.dot } } : {}) }));
   target.memory = { ...pet.memory };
   return target;

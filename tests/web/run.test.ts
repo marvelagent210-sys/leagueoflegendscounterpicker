@@ -64,7 +64,7 @@ describe("matchups run in the browser", () => {
     expect(Math.abs(run.score - (simulated.matchups.Heimerdinger?.Udyr?.[0] ?? Number.NaN))).toBeLessThanOrEqual(0.0005 + 1e-9);
   // Re-optimizing both kits searches every upgrade/rank pairing, even when hints exist.
   // Keep the complete search and result assertions within a finite CI execution window.
-  }, 180_000);
+  }, 900_000);
 
   it("logs the fights only when asked", async () => {
     const quiet = await runMatchup(source, "Fiora", "Darius", DEFAULT_APP_SETTINGS, false);

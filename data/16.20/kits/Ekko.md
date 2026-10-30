@@ -218,3 +218,125 @@ All 3 level-based formulas in the game files (1 linked to wiki values above):
 | EkkoPassive | BonusMS | breakpoints at levels 6, 11, 16 (level 1: 0.5) | 0.5 | 0.8 | 0.8 |
 | EkkoPassive | ThreeHitDamage | breakpoints at levels 7 (level 1: 30) | 30 | 140 | 150 |
 | EkkoPassive | SpeedDuration | breakpoints at levels 6, 11 (level 1: 2) | 2 | 3 | 3 |
+
+## Duel simulator kit (level 20, every ability at max rank)
+
+What the duel simulator fights with (`kits/champions/Ekko.ts`): values come from pinned wiki and versioned game-data records at level 20. Interpretations and missing evidence are listed under assumptions. Ratios are fractions of the stat (60% AD is 0.6 × AD).
+
+- Basic attack: range 125, melee.
+
+| Key | Ability | Cooldown (s) | Cast time (s) | Cost | Delivery | On the enemy | On itself |
+|---|---|--:|--:|---|---|---|---|
+| Q | Timewinder | 7 | 0.25 | 80 | self | – | – |
+| W | Parallel Convergence | 14 | 0.25 | 50 | self | – | – |
+| E | Phase Dive | 7 (starts when its effect on the caster ends) | 0 | 60 | self | – | – |
+| R | Chronobreak | 50 | 0.5 | 100 | self | – | as the cast starts: stasis for 1 s |
+| Resonance | Z-Drive Resonance | 0 | 0 | – | self | 150 + 80% AP magic damage | – |
+| Qout | Timewinder (outward) | 0 | 0 | – | skillshot 1100 long, 120 wide, at 1650/s | 140 + 30% AP magic damage | – |
+| Qreturn | Timewinder (return) | 0 | 0 | – | skillshot 1100 long, 200 wide, at 2300/s | 140 + 70% AP magic damage | – |
+| Qslow | Timewinder (Temporal Sickness) | 0 | 0 | – | self | slow 60% for 0.033 s | – |
+| Wzone | Parallel Convergence (chronosphere) | 0 | 0 | – | self | slow 40% for 0.033 s | – |
+| Wstun | Parallel Convergence (detonation) | 0 | 0 | – | self | stun for 2.25 s | – |
+| Rburst | Chronobreak (explosion) | 0 | 0 | – | self | 500 + 175% AP magic damage | – |
+
+Effects marked by a mark or a role are completed by the kit's hooks (see the kit's source).
+
+### Assumptions
+
+- Resonance stacks and its four-second post-proc lockout belong to each actual contacted enemy. Three accepted damaging contacts consume them; the proc is separately spell-shieldable and grants 80% movement speed for 3 seconds only against actual champions or explicitly Champion-class summons. Only explicit Monster summons take 270% proc damage. E's enhanced basic is one passive contact. Blind, dodge, block and parry do not generate basic stacks. The source's piecewise passive damage progression evaluates to 150 at the simulator's level 20. Fractional skillshot fallback adds contact weight and scales a completed proc by the final contact's bounded share, an explicit scalar approximation.
+- Timewinder flies at 1650 until its first actual Champion contact or 700 units, then covers the published 190 further units over 1.75 seconds before returning at 2300 to Ekko's current position. Outward and return each damage every actual target at most once and have separate spell-shield checks. The primary estimated 200 expansion speed is inconsistent with 190/1.75; the model interpolates the published distance over duration, and linearly grows the published 160-to-210 slow radius. The server's precise deceleration/growth curves are unavailable. The binary SlowZoneRadius 165 disagrees with the primary range; the primary endpoints win. Slows are membership states renewed each simulation tick, not repeated damaging contacts. Projectiles survive caster death and projectile walls erase the whole remaining flight. The return retains the outward scalar skillshot weight; independently correlated sidestep outcomes are not represented.
+- Parallel Convergence's sphere arms 3.25 seconds after declaration (the primary 2-second afterimage plus 1.25 travel), stays 1.5 seconds and slows 40%. The exact binary DelayBeforeDetonation 3 is retained as a source conflict. Enemy visibility begins 2 seconds after declaration. Actual Ekko entry, including a swept Chronobreak path during untargetability, grants one 180 + 150% AP shield for 2 seconds and separately attempts a 2.25-second stun on each actual enemy. The slow persists after detonation. Death or resurrection cannot invent an entering Ekko. W's basic passive checks below 30% after Resonance and before the ordinary basic packet, then deals max(15, (3% + 3% per 100 AP) * actual missing HP); only source-classified minions/monsters cap at 150.
+- Phase Dive's primary supplies 325 travel, 550 maximum wall extension, 3-second empowerment, 300 bonus attack range, 0.25-second empowered cast and estimated 125 landing range. The exact binary DashDistance array contains seven 350 values, conflicting with the primary's 325; primary 325 remains the runtime displacement. Neither it nor the exact 16.20 binary supplies dash speed. Its initial displacement is therefore immediate and terrain-aware; finite dash travel, knockdown timing and casting during that travel remain an explicit gap rather than inventing a speed. Wall extension occurs only as far as a clear endpoint needs, within 550. The empowered attack is an actual critical basic with E's separate 150 + 40% AP on-hit packet. It validates life, targetability and current reach again at launch, retains E on invalidation, and consumes it on blind/dodge/block. Root/ground remove extra range and suppress the blink; an accepted melee contact can still spend E. E's cooldown starts after the attack is spent or the 3-second window expires.
+- Chronobreak requires four seconds of real in-duel position history; no preduel location or damage history is fabricated. Cast declaration snapshots that historical endpoint, actual path and four-second health-loss total, enters stasis for 0.5 cast + 0.5 travel, then heals at cast completion and traverses the reversed path over 0.5 seconds before the endpoint explosion. Travel is distributed uniformly by recorded path length; exact traversal acceleration is unpublished. Healing is (200 + 60% AP) * (1 + 3 * min(1, actual HP lost in the previous 4 seconds / max HP)); shield absorption does not count and intervening healing does not erase real loss. The primary 100 mana cost wins over the exact binary's rank-3 zero, retained as evidence. No mana is restored. Incoming airborne displacements cannot interrupt the protected travel. Health costs bypassing damage reports and paths before duel start are outside the recorded history.
+- The behavior's contextual Chronobreak for survival or endpoint damage is reserved for fight and kite modes. Trade and hold retain the ordinary ultimate reservation and defensive reactions. The common short-trade clock runs before optional Phase Dive entry into an armed W sphere; a completed trade follows its ordinary retreat instead of entering the sphere or choosing a fresh offensive rewind.
+- The reference budget prices both Q passes, one E enhancement per post-effect cycle, one proc per achievable three-contact-plus-lockout cycle, W's passive at the midpoint of its below-30% window for 30% of attacks, and R's minimum heal/damage. W's shield is conditional on entry, so it receives no guaranteed reference defense. Runtime checks, history, shields, guard interactions and endpoint occupancy determine scored results; no coefficients are tuned to matchup scores.
+
+### Source values read (85)
+
+| Ability | Value | Source version |
+|---|---|---|
+| Z-Drive Resonance | enemies hit for 4 seconds | [4022978](https://wiki.leagueoflegends.com/en-us/Template:Data_Ekko/Z-Drive_Resonance?oldid=4022978) |
+| Z-Drive Resonance | stacking up to 3 times | [4022978](https://wiki.leagueoflegends.com/en-us/Template:Data_Ekko/Z-Drive_Resonance?oldid=4022978) |
+| Z-Drive Resonance | targetCooldown: 4 | [4022978](https://wiki.leagueoflegends.com/en-us/Template:Data_Ekko/Z-Drive_Resonance?oldid=4022978) |
+| Z-Drive Resonance | deals 270% damage against monsters | [4022978](https://wiki.leagueoflegends.com/en-us/Template:Data_Ekko/Z-Drive_Resonance?oldid=4022978) |
+| Z-Drive Resonance | The third stack consumes them all to deal 30 – 140 (based on level) (+ 80% AP) bonus magic damage. | [4022978](https://wiki.leagueoflegends.com/en-us/Template:Data_Ekko/Z-Drive_Resonance?oldid=4022978) |
+| Z-Drive Resonance | (+ 80% AP) | [4022978](https://wiki.leagueoflegends.com/en-us/Template:Data_Ekko/Z-Drive_Resonance?oldid=4022978) |
+| Z-Drive Resonance | Innate - Stolen Time: Triggering Resonance against a champion grants Ekko 50 / 60 / 70 / 80 (based on level)% bonus movement speed for 2 / 2.5 / 3 (based on level) seconds. | [4022978](https://wiki.leagueoflegends.com/en-us/Template:Data_Ekko/Z-Drive_Resonance?oldid=4022978) |
+| Z-Drive Resonance | Resonance stacks will not be applied nor consumed if the basic attack is dodged or blocked or if the attack misses | [4022978](https://wiki.leagueoflegends.com/en-us/Template:Data_Ekko/Z-Drive_Resonance?oldid=4022978) |
+| Timewinder | Initial Magic Damage: 80 / 95 / 110 / 125 / 140 (+ 30% AP) | [4067545](https://wiki.leagueoflegends.com/en-us/Template:Data_Ekko/Timewinder?oldid=4067545) |
+| Timewinder | Return Magic Damage: 40 / 65 / 90 / 115 / 140 (+ 70% AP) | [4067545](https://wiki.leagueoflegends.com/en-us/Template:Data_Ekko/Timewinder?oldid=4067545) |
+| Timewinder | cooldown: 9 / 8.5 / 8 / 7.5 / 7 | [4067545](https://wiki.leagueoflegends.com/en-us/Template:Data_Ekko/Timewinder?oldid=4067545) |
+| Timewinder | targetRange: 1100 | [4067545](https://wiki.leagueoflegends.com/en-us/Template:Data_Ekko/Timewinder?oldid=4067545) |
+| Timewinder | speed (Outward): 1650 • 200 • 2300 | [4067545](https://wiki.leagueoflegends.com/en-us/Template:Data_Ekko/Timewinder?oldid=4067545) |
+| Timewinder | speed (Returning): 1650 • 200 • 2300 | [4067545](https://wiki.leagueoflegends.com/en-us/Template:Data_Ekko/Timewinder?oldid=4067545) |
+| Timewinder | width: 120 • 200 | [4067545](https://wiki.leagueoflegends.com/en-us/Template:Data_Ekko/Timewinder?oldid=4067545) |
+| Timewinder | Slow: 40 / 45 / 50 / 55 / 60% | [4067545](https://wiki.leagueoflegends.com/en-us/Template:Data_Ekko/Timewinder?oldid=4067545) |
+| Timewinder | At 700 units | [4067545](https://wiki.leagueoflegends.com/en-us/Template:Data_Ekko/Timewinder?oldid=4067545) |
+| Timewinder | slows down for 1.75 seconds | [4067545](https://wiki.leagueoflegends.com/en-us/Template:Data_Ekko/Timewinder?oldid=4067545) |
+| Timewinder | travelling for another 190 units | [4067545](https://wiki.leagueoflegends.com/en-us/Template:Data_Ekko/Timewinder?oldid=4067545) |
+| Timewinder | effectRadius: 160 – 210 | [4067545](https://wiki.leagueoflegends.com/en-us/Template:Data_Ekko/Timewinder?oldid=4067545) |
+| Timewinder | castTime: 0.25 | [4067545](https://wiki.leagueoflegends.com/en-us/Template:Data_Ekko/Timewinder?oldid=4067545) |
+| Chronobreak | cooldown: 110 / 80 / 50 | [4012189](https://wiki.leagueoflegends.com/en-us/Template:Data_Ekko/Chronobreak?oldid=4012189) |
+| Timewinder | Enemies can be hit only once per pass | [4067545](https://wiki.leagueoflegends.com/en-us/Template:Data_Ekko/Timewinder?oldid=4067545) |
+| Timewinder | Spell shield will block only a single instance of damage | [4067545](https://wiki.leagueoflegends.com/en-us/Template:Data_Ekko/Timewinder?oldid=4067545) |
+| Timewinder | This ability will cast from wherever the caster is at the end of the cast time | [4067545](https://wiki.leagueoflegends.com/en-us/Template:Data_Ekko/Timewinder?oldid=4067545) |
+| Timewinder | speed (Temporal Sickness): 1650 • 200 • 2300 | [4067545](https://wiki.leagueoflegends.com/en-us/Template:Data_Ekko/Timewinder?oldid=4067545) |
+| Timewinder | mSpell.DataValues.SlowZoneRadius.values: [165.0,165.0,165.0,165.0,165.0,165.0,165.0] | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/ekko/ekko.bin.json) |
+| Parallel Convergence | targetRange: 1600 | [3956502](https://wiki.leagueoflegends.com/en-us/Template:Data_Ekko/Parallel_Convergence?oldid=3956502) |
+| Parallel Convergence | effectRadius: 375 | [3956502](https://wiki.leagueoflegends.com/en-us/Template:Data_Ekko/Parallel_Convergence?oldid=3956502) |
+| Parallel Convergence | after 2 seconds | [3956502](https://wiki.leagueoflegends.com/en-us/Template:Data_Ekko/Parallel_Convergence?oldid=3956502) |
+| Parallel Convergence | travelling over 1.25 seconds | [3956502](https://wiki.leagueoflegends.com/en-us/Template:Data_Ekko/Parallel_Convergence?oldid=3956502) |
+| Parallel Convergence | lasts for 1.5 seconds | [3956502](https://wiki.leagueoflegends.com/en-us/Template:Data_Ekko/Parallel_Convergence?oldid=3956502) |
+| Parallel Convergence | slows enemies within by 40% | [3956502](https://wiki.leagueoflegends.com/en-us/Template:Data_Ekko/Parallel_Convergence?oldid=3956502) |
+| Parallel Convergence | Shield Strength: 100 / 120 / 140 / 160 / 180 (+ 150% AP) | [3956502](https://wiki.leagueoflegends.com/en-us/Template:Data_Ekko/Parallel_Convergence?oldid=3956502) |
+| Parallel Convergence | a shield for 2 seconds | [3956502](https://wiki.leagueoflegends.com/en-us/Template:Data_Ekko/Parallel_Convergence?oldid=3956502) |
+| Parallel Convergence | stun enemies within for 2.25 seconds | [3956502](https://wiki.leagueoflegends.com/en-us/Template:Data_Ekko/Parallel_Convergence?oldid=3956502) |
+| Parallel Convergence | 2 seconds after casting | [3956502](https://wiki.leagueoflegends.com/en-us/Template:Data_Ekko/Parallel_Convergence?oldid=3956502) |
+| Parallel Convergence | equal to 3% | [3956502](https://wiki.leagueoflegends.com/en-us/Template:Data_Ekko/Parallel_Convergence?oldid=3956502) |
+| Parallel Convergence | (+ 3% per 100 AP) | [3956502](https://wiki.leagueoflegends.com/en-us/Template:Data_Ekko/Parallel_Convergence?oldid=3956502) |
+| Parallel Convergence | below 30% of their maximum health | [3956502](https://wiki.leagueoflegends.com/en-us/Template:Data_Ekko/Parallel_Convergence?oldid=3956502) |
+| Parallel Convergence | minimum threshold of 15 | [3956502](https://wiki.leagueoflegends.com/en-us/Template:Data_Ekko/Parallel_Convergence?oldid=3956502) |
+| Parallel Convergence | capped at 150 against minions and monsters | [3956502](https://wiki.leagueoflegends.com/en-us/Template:Data_Ekko/Parallel_Convergence?oldid=3956502) |
+| Parallel Convergence | The passive will proc with the attack that triggers the final stack of Resonance if it reduces a target's health below the 30% threshold | [3956502](https://wiki.leagueoflegends.com/en-us/Template:Data_Ekko/Parallel_Convergence?oldid=3956502) |
+| Parallel Convergence | Ekko can detonate the expansion even while untargetable | [3956502](https://wiki.leagueoflegends.com/en-us/Template:Data_Ekko/Parallel_Convergence?oldid=3956502) |
+| Parallel Convergence | but not if he is resurrecting | [3956502](https://wiki.leagueoflegends.com/en-us/Template:Data_Ekko/Parallel_Convergence?oldid=3956502) |
+| Parallel Convergence | Parallel Convergence will continue to slow enemies even if its expansion is detonated | [3956502](https://wiki.leagueoflegends.com/en-us/Template:Data_Ekko/Parallel_Convergence?oldid=3956502) |
+| Parallel Convergence | cooldownStart: on-cast | [3956502](https://wiki.leagueoflegends.com/en-us/Template:Data_Ekko/Parallel_Convergence?oldid=3956502) |
+| Parallel Convergence | mSpell.DataValues.DelayBeforeDetonation.values: [3.0,3.0,3.0,3.0,3.0,3.0,3.0] | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/ekko/ekko.bin.json) |
+| Phase Dive | targetRange (Dash distance): 325 • 550 | [4025604](https://wiki.leagueoflegends.com/en-us/Template:Data_Ekko/Phase_Dive?oldid=4025604) |
+| Phase Dive | targetRange (Maximum increased): 325 • 550 | [4025604](https://wiki.leagueoflegends.com/en-us/Template:Data_Ekko/Phase_Dive?oldid=4025604) |
+| Phase Dive | next basic attack within 3 seconds | [4025604](https://wiki.leagueoflegends.com/en-us/Template:Data_Ekko/Phase_Dive?oldid=4025604) |
+| Phase Dive | a 0.25-second cast time | [4025604](https://wiki.leagueoflegends.com/en-us/Template:Data_Ekko/Phase_Dive?oldid=4025604) |
+| Phase Dive | gain 300 bonus range | [4025604](https://wiki.leagueoflegends.com/en-us/Template:Data_Ekko/Phase_Dive?oldid=4025604) |
+| Phase Dive | blink within 125 range | [4025604](https://wiki.leagueoflegends.com/en-us/Template:Data_Ekko/Phase_Dive?oldid=4025604) |
+| Phase Dive | Bonus Magic Damage: 50 / 75 / 100 / 125 / 150 (+ 40% AP) | [4025604](https://wiki.leagueoflegends.com/en-us/Template:Data_Ekko/Phase_Dive?oldid=4025604) |
+| Phase Dive | cooldown: 9 / 8.5 / 8 / 7.5 / 7 | [4025604](https://wiki.leagueoflegends.com/en-us/Template:Data_Ekko/Phase_Dive?oldid=4025604) |
+| Phase Dive | While grounded or rooted, Ekko loses the bonus attack range from Phase Dive | [4025604](https://wiki.leagueoflegends.com/en-us/Template:Data_Ekko/Phase_Dive?oldid=4025604) |
+| Phase Dive | If the target becomes untargetable, dies, or is too far away during the empowered attack's cast time, it is cancelled but not consumed | [4025604](https://wiki.leagueoflegends.com/en-us/Template:Data_Ekko/Phase_Dive?oldid=4025604) |
+| Phase Dive | Phase Dive's attack can miss and be blocked and dodged, consuming the basic attack without dealing any damage | [4025604](https://wiki.leagueoflegends.com/en-us/Template:Data_Ekko/Phase_Dive?oldid=4025604) |
+| Phase Dive | Phase Dive's attack breaks stealth at the start of its cast time | [4025604](https://wiki.leagueoflegends.com/en-us/Template:Data_Ekko/Phase_Dive?oldid=4025604) |
+| Phase Dive | resets Ekko's basic attack timer | [4025604](https://wiki.leagueoflegends.com/en-us/Template:Data_Ekko/Phase_Dive?oldid=4025604) |
+| Phase Dive | Ekko can cast any of his abilities during the dash | [4025604](https://wiki.leagueoflegends.com/en-us/Template:Data_Ekko/Phase_Dive?oldid=4025604) |
+| Phase Dive | cooldownStart: post-effect | [4025604](https://wiki.leagueoflegends.com/en-us/Template:Data_Ekko/Phase_Dive?oldid=4025604) |
+| Phase Dive | mSpell.mCantCancelWhileWindingUp: true | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/ekko/ekko.bin.json) |
+| Phase Dive | mSpell.DataValues.DashDistance.values: [350.0,350.0,350.0,350.0,350.0,350.0,350.0] | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/ekko/ekko.bin.json) |
+| Chronobreak | tracks where he was 4 seconds ago | [4012189](https://wiki.leagueoflegends.com/en-us/Template:Data_Ekko/Chronobreak?oldid=4012189) |
+| Chronobreak | castTime: 0.5 | [4012189](https://wiki.leagueoflegends.com/en-us/Template:Data_Ekko/Chronobreak?oldid=4012189) |
+| Chronobreak | over 0.5 seconds | [4012189](https://wiki.leagueoflegends.com/en-us/Template:Data_Ekko/Chronobreak?oldid=4012189) |
+| Chronobreak | effectRadius (Damage): 375 • Global | [4012189](https://wiki.leagueoflegends.com/en-us/Template:Data_Ekko/Chronobreak?oldid=4012189) |
+| Chronobreak | Magic Damage: 200 / 350 / 500 (+ 175% AP) | [4012189](https://wiki.leagueoflegends.com/en-us/Template:Data_Ekko/Chronobreak?oldid=4012189) |
+| Chronobreak | Minimum Heal: 100 / 150 / 200 (+ 60% AP) | [4012189](https://wiki.leagueoflegends.com/en-us/Template:Data_Ekko/Chronobreak?oldid=4012189) |
+| Chronobreak | formula=3% per 1% of health lost in the last 4 seconds | [4012189](https://wiki.leagueoflegends.com/en-us/Template:Data_Ekko/Chronobreak?oldid=4012189) |
+| Chronobreak | Maximum Heal: 400 / 600 / 800 (+ 240% AP) | [4012189](https://wiki.leagueoflegends.com/en-us/Template:Data_Ekko/Chronobreak?oldid=4012189) |
+| Chronobreak | Ekko enters stasis at the start of the cast time | [4012189](https://wiki.leagueoflegends.com/en-us/Template:Data_Ekko/Chronobreak?oldid=4012189) |
+| Chronobreak | The afterimage's location will explode even if Ekko's dash is interrupted | [4012189](https://wiki.leagueoflegends.com/en-us/Template:Data_Ekko/Chronobreak?oldid=4012189) |
+| Chronobreak | travels full distance through the link | [4012189](https://wiki.leagueoflegends.com/en-us/Template:Data_Ekko/Chronobreak?oldid=4012189) |
+| Chronobreak | Chronobreak provides immunity only to displacements that apply airborne | [4012189](https://wiki.leagueoflegends.com/en-us/Template:Data_Ekko/Chronobreak?oldid=4012189) |
+| Chronobreak | mSpell.manaValues.values: [100.0,100.0,100.0,0.0,0.0,0.0] | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/ekko/ekko.bin.json) |
+| Timewinder | cost: 40 / 50 / 60 / 70 / 80 | [4067545](https://wiki.leagueoflegends.com/en-us/Template:Data_Ekko/Timewinder?oldid=4067545) |
+| Parallel Convergence | cooldown: 22 / 20 / 18 / 16 / 14 | [3956502](https://wiki.leagueoflegends.com/en-us/Template:Data_Ekko/Parallel_Convergence?oldid=3956502) |
+| Parallel Convergence | cost: 30 / 35 / 40 / 45 / 50 | [3956502](https://wiki.leagueoflegends.com/en-us/Template:Data_Ekko/Parallel_Convergence?oldid=3956502) |
+| Parallel Convergence | castTime: 0.25 | [3956502](https://wiki.leagueoflegends.com/en-us/Template:Data_Ekko/Parallel_Convergence?oldid=3956502) |
+| Phase Dive | cost: 40 / 45 / 50 / 55 / 60 | [4025604](https://wiki.leagueoflegends.com/en-us/Template:Data_Ekko/Phase_Dive?oldid=4025604) |
+| Phase Dive | castTime: none | [4025604](https://wiki.leagueoflegends.com/en-us/Template:Data_Ekko/Phase_Dive?oldid=4025604) |
+| Chronobreak | cost: 100 | [4012189](https://wiki.leagueoflegends.com/en-us/Template:Data_Ekko/Chronobreak?oldid=4012189) |

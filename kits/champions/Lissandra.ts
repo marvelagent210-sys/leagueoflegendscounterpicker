@@ -211,7 +211,7 @@ const lissandra: KitModule = {
         onMissileEnd(ctx) {
           const missile = ctx.missile;
           if (missile.source === "E") {
-            if (ctx.reason === "blocked") { delete ctx.memory.clawX; delete ctx.memory.clawUntil; delete ctx.memory.clawUnlock; }
+            if (ctx.reason === "blocked" || ctx.reason === "intercepted") { delete ctx.memory.clawX; delete ctx.memory.clawUntil; delete ctx.memory.clawUnlock; }
             else {
               ctx.memory.clawX = missile.x; ctx.memory.clawUntil = ctx.tick + ticks(clawGrace);
               ctx.memory.clawLateHit = missile.hitTargets?.includes(ctx.enemy.side) ?? false;

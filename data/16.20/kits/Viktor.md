@@ -35,6 +35,25 @@ Innate: Viktor can augment each of his abilities at the cost of 100 Hex Fragment
 
 Arcane Storm can be augmented after all of Viktor's basic abilities have been augmented.
 
+Notes:
+
+- {{{{{1<noinclude>|Ability data</noinclude>}}}|Glorious Evolution|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}
+  |champion     = Viktor
+  |skill        = I
+  |icon         = Glorious Evolution.png
+  |blurb        = {{sbc|Innate:}} {{ci|Viktor}} collects ''Hex Fragments'' from enemies he kills and enemy champion {{tip|takedown|takedowns}}.
+  |blurb2       = At 100 ''Hex Fragments'', he gains an Augment to apply to any of his {{tip|abilities}}, empowering them with additional effects.
+  |blurb3       = ''{{ai|Arcane Storm|Viktor}}'' can be augmented after all of '''Viktor's''' basic abilities have been augmented.
+  |description  = {{sbc|Innate:}} '''Viktor''' can augment each of his {{tip|abilities}} at the cost of 100 ''Hex Fragments'', which he gains from killing enemies:
+  * {{tip|Minions}} and {{tip|monsters}} generate 1 ''Hex Fragment''.
+  * Siege minions, super minions, and epic monsters generate 10 ''Hex Fragments''.
+  * Enemy {{tip|champion}} {{tip|takedown|takedowns}} generate 20 ''Hex Fragments''.
+  |description2 = ''{{ai|Arcane Storm|Viktor}}'' can be augmented after all of '''Viktor's''' basic abilities have been augmented.
+  |targeting    = Passive
+  |affects      = Self
+  |notes        = 
+  }}
+
 ## Q: Siphon Power
 
 Source: [Template:Data Viktor/Siphon Power](https://wiki.leagueoflegends.com/en-us/Template:Data_Viktor/Siphon_Power?oldid=3971354) (revision 3971354). Ranks: 5.
@@ -71,6 +90,47 @@ Notes:
 - Only the initial projectile can be intercepted.
 - The empowered attack will trigger against turrets but not be consumed nor apply its effects against wards.
 - If the target becomes untargetable, dies, or is too far away or no longer in sight during the cast time, this ability will cancel but does not go on cooldown nor pay its cost (if applicable).
+- {{{{{1<noinclude>|Ability data</noinclude>}}}|Siphon Power|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}
+  |champion     = Viktor
+  |skill        = Q
+  |icon         = Siphon Power.png
+  |icon2        = Discharge.png
+  |icon3        = Glorious Evolution 2.png
+  |description  = {{sbc|Active:}} '''Viktor''' throws a draining device at the target enemy that deals {{as|magic damage}}. He also grants himself a {{tip|shield}} for {{pp|40 to 140}} {{as|(+ 25% AP)}} for {{fd|2.5}} seconds and gains ''Discharge'' for 4 seconds.
+  |leveling     = {{st|Magic Damage|{{ap|60 to 120}} {{as|(+ 40% AP)}}}}
+  |description2 = {{sbc|Discharge:}} '''Viktor's''' next {{tip|basic attack}} is empowered to become {{tip|projectile|non-projectile}} and deal {{as|'''modified''' magic damage}}.
+  |leveling2    = {{st|Modified Magic Damage|{{ap|20 to 120}} {{as|(+ 100% AD)}} {{as|(+ 50% AP)}}}}
+  {{st|Total Magic Damage|{{ap|60+20 to 120+120}} {{as|(+ 100% AD)}} {{as|(+ {{ap|40+50}}% AP)}}}}
+  |description3 = {{Anchor|Augment: Turbocharge}}{{sbc|{{ai|Glorious Evolution|Viktor|Augment: Turbocharge}} — }} After the device hits, '''Viktor''' gains {{sti|ms|{{as|30% '''bonus''' movement speed}}}} for {{fd|2.5}} seconds and the shield's strength is increased{{ft|by 60%.|to {{pp|40*1.6 to 140*1.6}} {{as|(+ {{ap|25*1.6}}% AP)}}.}}
+  |target range = {{tip|er|icononly = true}} 600
+  |cooldown     = {{ap|9 to 5}}
+  |cdstart      = on-cast
+  |cost         = {{ap|45 to 65}}
+  |cast time    = {{fd|0.25}}
+  |costtype     = mana
+  |speed        = 2000
+  |targeting    = Unit
+  |affects      = Enemies / Self
+  |damagetype   = Magic
+  |spelleffects = spell
+  |spellshield  = True
+  |projectile   = special
+  |callforhelp  = True
+  |parry        = True
+  |knockdown    = 
+  |grounded     = 
+  |notes        = 
+  * ''Discharge'' does not convert the bonus damage dealt by {{tip|Spellblade}} to {{as|magic damage}} from {{as|physical|physical damage}}.{{bug}} <!--broke on V12.11-->
+  * ''Discharge'' disables the '''bonus''' damage from {{tip|critical strike|critical strikes}}.{{bug}}
+  * {{tip|Spell shield}} does not prevent '''Viktor''' from gaining ''Discharge''.
+  * Only the initial projectile can be {{tip|projectile|intercepted}}.
+  * The empowered attack will trigger against turrets but not be consumed nor apply its effects against {{tip|wards}}.
+  {{Unit-targeted cancel conditions}}
+  <!-- Blurb -->
+  |blurb        = {{sbc|Active:}} {{ci|Viktor}} throws a draining device at the target enemy that deals {{as|magic damage}}. He also gains ''Discharge'' and {{tip|shield|shields}} himself for a short time.
+  |blurb2       = {{sbc|{{ai|Discharge|Viktor}}:}} '''Viktor's''' next {{tip|basic attack}} with a short time will be modified to deal {{as|magic damage}}.
+  |blurb4       = {{sbc|{{ai|Glorious Evolution|Viktor|Augment}}:}} After the device hits, '''Viktor''' gains {{sti|ms|{{as|'''bonus''' movement speed}}}} for a short time, and the {{sti|shield}} is increased.
+  }}
 
 ## W: Gravity Field
 
@@ -108,6 +168,43 @@ Notes:
 - Gravity Field will remain active if Viktor dies.
 - Gravity Field's animation can be seen by both teams through fog of war.
 - If an enemy enters the area of effect while untargetable, they may generate stacks even after becoming stunned once, causing them to get stunned up-to 3 times by a single Gravity Field.
+- {{{{{1<noinclude>|Ability data</noinclude>}}}|Gravity Field|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}
+  |champion     = Viktor
+  |skill        = W
+  |icon         = Gravity Field.png
+  |description  = {{sbc|Active:}} '''Viktor''' deploys a gravity field at the target location for {{fd|4.5}} seconds. After a {{fd|0.75}}-second delay, it activates to {{tip|slow}} enemies within for 1 second, refreshing every {{fd|0.25}} seconds while they remain inside.
+  |leveling     = {{st|Slow|{{ap|33 to 45}}%}}
+  |description2 = The field applies a {{tip|stack}} of ''Heavy Gravity'' to enemies within every {{fd|0.25}} seconds, stacking up to 5 times. The fifth stack consumes them all to {{tip|knockdown|knock down}} and {{tip|stun}} the target for {{fd|1.5}} seconds. The knockdown and stun can be triggered only once per cast per enemy.
+  |icon3        = Glorious Evolution 3.png
+  |description3 = {{Anchor|Augment: Magnetize}}{{sbc|{{ai|Glorious Evolution|Viktor|Augment: Magnetize}} — }} '''Viktor's''' other abilities, excluding ''{{ais|Arcane Storm|Viktor}}'' persistent damage, {{tip|slow}} enemies hit by 20% for 1 second.
+  |target range = 800
+  |effect radius= 340
+  |cooldown     = {{ap|17 to 13}}
+  |cast time    = {{fd|0.25}}
+  |cost         = 65
+  |costtype     = mana
+  |targeting    = Location
+  |affects      = Enemies
+  |damagetype   = 
+  |spelleffects = 
+  |spellshield  = True
+  |projectile   = 
+  |knockdown    = 
+  |grounded     = 
+  |outofrange   = walk to location
+  |notes        = 
+  * ''Gravity Field'' applies a single debuff for both the slow and the stack.
+  ** Targets can be applied further stacks after having their stacks consumed for the first time.
+  *** Stacks are always consumed upon the fifth stack, but only the first instance of stacks being consumed can trigger the crowd control effects.
+  ** The debuff lasts for 1 second.
+  * ''Gravity Field'' will remain active if '''Viktor''' dies.
+  * ''Gravity Field's'' animation can be seen by both teams through {{tip|Sight|fog of war}}.
+  * If an enemy enters the area of effect while {{tip|untargetable}}, they may generate stacks even after becoming stunned once, causing them to get stunned up-to 3 times by a single ''Gravity Field''.{{bug}} <!-- Bugged since precisely 11.1-->
+  <!-- Blurb -->
+  |blurb        = {{sbc|Active:}} {{ci|Viktor}} deploys a gravity field that remains at the target location for a few seconds. After a brief delay, the field will activate to continually {{tip|slow}} enemies within and inflict {{tip|stack}} of ''Heavy Gravity''.
+  |blurb2       = {{sbc|Heavy Gravity:}} The fifth stack will consume them all to {{tip|knockdown|knock down}} and briefly {{tip|stun}} the target.
+  |blurb4       = {{sbc|{{ai|Glorious Evolution|Viktor|Augment}}:}} '''Viktor's''' basic abilities and the initial hit of {{ai|Arcane Storm|Viktor}} will briefly {{tip|slow}} enemies hit.
+  }}
 
 ## E: Hextech Ray
 
@@ -145,6 +242,45 @@ Notes:
     - However, the capability to be blocked only applies to the laser as it hits the ground. Viktor can cast the ability over the wall and it will not be destroyed or intercepted.
     - Augmented Hextech Ray will still cause the entire target area to explode even if the laser is blocked.
 - If Viktor dies while he is firing the beam it only deals damage up to the location at the time of his death.
+- {{{{{1<noinclude>|Ability data</noinclude>}}}|Hextech Ray|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}
+  |champion     = Viktor
+  |skill        = E
+  |icon         = Hextech Ray.png
+  |icon2        = Glorious Evolution 4.png
+  |description  = {{sbc|Active:}} '''Viktor''' fires an energy beam along the target path that deals {{as|magic damage}} to enemies hit and briefly grants {{tip|sight}} of the area.
+  |leveling     = {{st|Magic Damage|{{ap|70 to 230}} {{as|(+ 50% AP)}}}}
+  |description2 = {{Anchor|Augment: Aftershock}}{{sbc|{{ai|Glorious Evolution|Viktor|Augment: Aftershock}} — }} The path explodes along the beam's wake after 1 second, dealing {{as|magic damage}} to enemies hit.
+  |leveling2    = {{st|Magic Damage|{{ap|20 to 140}} {{as|(+ 80% AP)}}|Total Magic Damage|{{ap|70+20 to 230+140}} {{as|(+ 130% AP)}}}}
+  |effect radius = 500
+  |width        = {{tip|er|icononly = true}} {{tt|90|Missile width (both)}}
+  |target range = 550
+  |range        = {{tip|cr|icononly = true}} {{tt|500|Missile range (both)}}
+  |speed        = {{dv|{{tt|1050|Laser missile speed}}|{{tt|1500|Aftershock missile speed}}}}
+  |cooldown     = {{ap|12 to 8}}
+  |cost         = {{ap|60 to 100}}
+  |costtype     = mana
+  |targeting    = Vector
+  |affects      = Enemies
+  |cast time = none
+  |damagetype   = Magic
+  |spelleffects = spellaoe
+  |spellshield  = True
+  |projectile   = True
+  |knockdown    = 
+  |grounded     = 
+  |outofrange   = walk to location
+  |notes        = 
+  * '''Viktor''' may freely act while the ray is traveling.
+  ** The effected area is set upon casting, no matter how far away '''Viktor''' moves. Unlike a leash, ''Hextech Ray'' will not break off its own effect.
+  * The laser grants a moderate area of {{tip|sight}} around where the beam strikes the ground.
+  * If ''Hextech Ray'' is {{tip|projectile|intercepted}}, the initial ray is not destroyed.
+  ** However, the capability to be blocked only applies to the laser as it hits the ground. '''Viktor''' can cast the ability ''over'' the wall and it will not be destroyed or intercepted. 
+  ** ''Augmented Hextech Ray'' will still cause the entire target area to explode even if the laser is blocked.
+  * If '''Viktor''' dies while he is firing the beam it only deals damage up to the location at the time of his death.
+  <!-- Blurb -->
+  |blurb        = {{sbc|Active:}} {{ci|Viktor}} fires an energy beam along the target path that deals {{as|magic damage}} to enemies hit.
+  |blurb4       = {{sbc|{{ai|Glorious Evolution|Viktor|Augment}}:}} After a brief delay, the path explodes along the beam's wake, dealing {{as|magic damage}} to enemies hit.
+  }}
 
 ## R: Arcane Storm
 
@@ -203,6 +339,66 @@ Notes:
 - The disrupt is 'wrapped' into a status effect that causes affected champions to display the "Silenced" UI on their health bar for 0.25 seconds, without actually applying the disabling effects of the silence crowd control type (functions as an indicator of the target becoming disrupted). This however ensures that the disrupt is also prevented by effects that would negate silences (such as crowd control immunity).
 - After becoming augmented, an alternate icon is used for the recast of Arcane Storm.
 - The champion that Arcane Storm is following will have an overhead indicator.
+- {{{{{1<noinclude>|Ability data</noinclude>}}}|Arcane Storm|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}
+  |champion     = Viktor
+  |skill        = R
+  |icon         = Arcane Storm.png
+  |description  = {{sbc|Active:}} '''Viktor''' conjures an arcane singularity at the target location, dealing {{as|magic damage}} to enemies within the area and {{tip|disrupt|disrupting}} their {{tip|channel|channeled abilities}}.
+  |leveling     = {{st|Magic Damage|{{ap|100 to 250}} {{as|(+ 50% AP)}}}}
+  |icon2        = Viktor Arcane Storm chase indicator.png
+  |description2 = The singularity then remains active as a moving storm for {{fd|6.5}} seconds, striking a bolt of electricity onto enemies within it every second to deal {{as|magic damage}}, as well as granting {{tip|sight}} of the area within its radius and the {{tt|surrounding area|If radius is below 700 units}}. The singularity will target the nearest champion hit by its initial damage and will follow them. The singularity moves faster based on its proximity to '''Viktor'''.
+  |leveling2    = {{st|Magic Damage Per Tick|{{ap|65 to 145}} {{as|(+ 35% AP)}}|Total Magic Damage|{{ap|100+65*6 to 250+145*6}} {{as|(+ {{ap|50+35*6}}% AP)}}}}
+  |description3 = ''Arcane Storm'' can be recast at any time while the singularity is active.
+  |icon4        = Arcane Storm 2.png
+  |description4 = {{sbc|Recast:}} '''Viktor''' directs the singularity to the target location, or to follow the target enemy champion or himself for its remaining duration.
+  |icon5        = Glorious Evolution 5.png
+  |description5 = {{Anchor|Augment: Perfect Storm}}{{sbc|{{ai|Glorious Evolution|Viktor|Augment: Perfect Storm}} — }} The singularity moves 25% faster. Additionally, whenever an enemy champion is {{tip|takedown|taken down}} after being damaged by ''Arcane Storm'', the storm's size is increased by 40% and its duration is extended by 3 seconds. The storm's radius can be increased up to 6 times and the duration can be extended only up to the original duration.
+  |description6 = ''Arcane Storm's recast can be used while affected by {{tip|cast-inhibiting crowd control}}.''
+  |target range = 700
+  |effect radius= {{tt|325|Storm radius}}
+  |customlabel  = Perfect Storm Radius
+  |custominfo   = {{pp|325 to 1105|0;1;2;3;4;5;6|type=number of takedowns|formula=325 + (325 × 0.4 × takedowns)}}
+  |customlabel2 = Storm Sight Radius
+  |custominfo2  = {{tip|Sight|icononly=true}}{{tt|700|Standard sight radius}} or {{tt|Storm radius|If the radius of the storm is above 700 units (for Perfect Storm)}}
+  |customlabel3 = Storm Speed
+  |custominfo3  = {{pp|200 to 300|900 to 300 by 50|label=Speed|label1=Distance|showtype=false|formula=NON-AUGMENTED — Maximum speed of 300 achieved at or below 300 units away from Viktor; minimum speed of 200 achieved at or above 900 units from Viktor. Then, linearly interpolate.}}
+  |customlabel4 = Perfect Storm Speed
+  |custominfo4  = {{pp|200*1.25 to 300*1.25|900 to 300 by 50|label=Speed|label1=Distance|showtype=false|formula=PERFECT STORM — Maximum speed of 200 × 125% achieved at or below 300 units away from Viktor; minimum speed of 300 × 125% achieved at or above 900 units from Viktor. Then, linearly interpolate.}}
+  |cooldown     = {{ap|120 to 80}}
+  |cdstart      = post-effect
+  |cast time    = {{fd|0.25}}
+  |cost         = 100
+  |costtype     = mana
+  |targeting    = {{dv|[[Location-targeted|Location]]|[[Unit-targeted|Unit]]}}
+  |affects      = Enemies
+  |damagetype   = Magic
+  |spelleffects = spellaoe
+  |spellshield  = special
+  |projectile   = 
+  |knockdown    = 
+  |grounded     = 
+  |outofrange   = Walk in range of the target location to cast (first cast)
+  |notes        = 
+  * '''Viktor''' can command the singularity regardless of how far away he is from it.
+  * The singularity will remain active even if '''Viktor''' dies and will automatically follow the nearest enemy champion in range at the time of his death, if it wasn't locked on already.
+  ** The singularity will only be issued to automatically follow a nearby champion once; it will not lock on to a new target if its current target becomes invalid.
+  ** Any commands it was issued prior to his death will not be interrupted.
+  * {{tip|Spell shield}} will only block the initial damage.
+  * If ''Perfect Storm's'' singularity scores the killing blow on an enemy champion with the initial damage, it will spawn with the increased size.
+  ** If multiple champions are dealt the killing blow by the initial hit, the singularity will spawn with the increased size respective to the number of champions killed.
+  * The base duration allows for 7 strikes (including the initial one).
+  * The storm will follow its target even if they are not {{tip|sight|visible}}, effectively giving away their position.
+  * ''Arcane Storm'' is not obstructed by terrain.
+  * The {{tip|disrupt}} is 'wrapped' into a status effect that causes affected champions to display the "{{tip|silence|Silenced}}" UI on their [[Health bar#Disabled state|health bar]] for {{fd|0.25}} seconds, without actually applying the disabling effects of the {{tip|silence}} crowd control type (functions as an indicator of the target becoming ''disrupted''). This however ensures that the ''disrupt'' is also prevented by effects that would negate {{tip|silence|silences}} (such as {{tip|cc-immune|crowd control immunity}}).
+  * After becoming augmented, an [[File:Viktor Arcane Storm 3.png|20px|border]] alternate icon is used for the recast of ''Arcane Storm''.
+  * The champion that ''Arcane Storm'' is following will have an overhead indicator.
+  <!-- Blurb -->
+  |blurbicon    = Arcane Storm.png
+  |blurb        = {{sbc|Active:}} {{ci|Viktor}} conjures an arcane singularity at the target location that deals {{as|magic damage}} to enemies within and {{tip|disrupt|disrupts}} their channeled abilities. The singularity then remains for a duration, continually dealing {{as|magic damage}} to enemies within the area. If the initial hit has struck at least one enemy {{tip|champion}}, it will automatically follow the nearest one hit.
+  |blurb2       = ''Arcane Storm'' can be recast at any time while the singularity is active.
+  |blurb3       = {{sbc|Recast:}} '''Viktor''' directs the singularity to the target location or to follow the targeted enemy champion.
+  |blurb4       = {{sbc|{{ai|Glorious Evolution|Viktor|Augment}}:}} The singularity moves faster. Scoring a champion {{tip|takedown}} (up to 6) after the storm damages them will increase the singularity's size and duration.
+  }}
 
 ## Game files
 
@@ -232,3 +428,121 @@ All 1 level-based formulas in the game files (1 linked to wiki values above):
 | Spell | Calculation | Rule | Level 1 | Level 18 | Level 20 |
 |---|---|---|--:|--:|--:|
 | ViktorQ | ShieldLevelScaling | linear 40 → 140 over levels 1-18, continues past 18 | 40 | 140 | 151.765 |
+
+## Duel simulator kit (level 20, every ability at max rank)
+
+What the duel simulator fights with (`kits/champions/Viktor.ts`): values come from pinned wiki and versioned game-data records at level 20. Interpretations and missing evidence are listed under assumptions. Ratios are fractions of the stat (60% AD is 0.6 × AD).
+
+- Basic attack: range 525, missile at 2300/s.
+- Options: hexFragments = 0, augmentMask = -1.
+
+| Key | Ability | Cooldown (s) | Cast time (s) | Cost | Delivery | On the enemy | On itself |
+|---|---|--:|--:|---|---|---|---|
+| Q | Siphon Power | 5 | 0.25 | 65 | targeted, 600 range, missile at 2000/s | 120 + 40% AP magic damage | shield of 151.765 + 25% AP for 2.5 s |
+| W | Gravity Field | 13 | 0.25 | 65 | self | – | – |
+| E | Hextech Ray | 8 | 0 | 100 | skillshot 1050 long, 90 wide, at 1050/s | 230 + 50% AP magic damage | – |
+| R | Arcane Storm | 80 (starts when the area fades) | 0.25 | 100 | self | – | – |
+| Eafter | Hextech Ray (Aftershock) | 0 | 0 | – | self | 140 + 80% AP magic damage | – |
+| Rtick | Arcane Storm (pulse) | 0 | 0 | – | self | 145 + 35% AP magic damage | – |
+| Rguide | Arcane Storm (guide) | 0 | 0 | 0 | self | – | – |
+| Rself | Arcane Storm (guide) | 0 | 0 | 0 | self | – | – |
+| Rpoint | Arcane Storm (guide) | 0 | 0 | 0 | self | – | – |
+
+Effects marked by a mark or a role are completed by the kit's hooks (see the kit's source).
+
+### Assumptions
+
+- Actual preduel Hex Fragments (default0, no fabricated farm): 0.
+- Purchased augments Q1/W2/E4/R8; -1 searches legal whole sets: -1.
+- Explicit preduel history is 0 Hex Fragments and purchased augment mask0; default history is0. No farm, level-based kills, or ARAM fragment cadence is fabricated. Each purchased ability costs100; R requires Q/W/E first. The primary's100-per-ability wording is used, so a fourth purchase costs400 total; automatic R at300 is not explicit in this revision. Legal whole sets share one fragment budget. Actual hostile kills add fragments, including10 for explicitly classified siege/super minions and epic monsters; names and radius do not infer that classification. Pending purchases are not automatically spent during the duel.
+- Gravity Field uses primary4.5s/.25s/five stacks/340radius despite binary4s/.5s/six stacks/275radius. Its one-second marks and first stun entitlement belong to each real recipient and field. A dispelled slow clears its linked stacks; accepted slow duration and the stack expiry agree. Contact stacks can accumulate under slow immunity; the actual stun checks current CC immunity. Untargetable-entry multi-stun bug is unresolved and not generalized.
+- Siphon Power grants its initial shield and Discharge at successful completion independently of missile damage. Turbocharge contact multiplies the still-positive remaining own Q shield by1.6 without resurrecting a broken shield; no unsourced return delay is invented. Discharge replaces ordinary damage with sourced non-projectile magic and suppresses bonus critical damage, retaining attack avoidance/on-hits. Unsupported wards do not consume it.
+- Hextech Ray is a fixed one-dimensional two-point vector: aim.distance places its start up to550 ahead; aim.direction chooses outward/inward firing. AI starts it before the current enemy. Ground interception suppresses contacts on only the intercepted tick segment without destroying the ray. Initial ray decisions use the captured placed origin/direction before generic flight resolution. Augmented Aftershock traverses the whole original path after1s; its separate dodge decision includes the elapsed delay and recipient-specific flight from that origin, with ordinary chance thresholds and branch caps. Lateral vectors and casting over versus through a wall remain scalar geometry limits. Initial ray stops on death; an already scheduled Aftershock survives.
+- Arcane Storm follows the raw primary's explicit linear speed300 at≤300 and200 at≥900 from Viktor, then×1.25 when augmented; binary275/1000 disagrees. Initial burst disrupts without persistent silence; only initial damage checks spell shields. Six ordinary pulses occur at1..6s and extensions add actual later pulses. Each packet captures radius and recipients before damage; lethal growth affects later packets. Actual damaged champion deaths alone grow/extend it; expiry and clones do not. Guides are internal overlay commands allowed under cast-inhibiting CC, with live-owner/nonstasis guards.
+- Budget prices each selected spell and one actual replacement Discharge per available Q cycle once, subtracting the displaced ordinary basic. It assumes full E/R occupancy for its damage heuristic; hook-owned moving fields have limited generic defensive threat forecasts. Finite normal skillshot branching remains on the ray and Aftershock.
+
+### Source values read (81)
+
+| Ability | Value | Source version |
+|---|---|---|
+| Glorious Evolution | at the cost of 100 Hex Fragments | [3954293](https://wiki.leagueoflegends.com/en-us/Template:Data_Viktor/Glorious_Evolution?oldid=3954293) |
+| Glorious Evolution | "name":"EvolutionStackBreakpoint","values":[100.0 | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/viktor/viktor.bin.json) |
+| Glorious Evolution | Minions and monsters generate 1 Hex Fragment | [3954293](https://wiki.leagueoflegends.com/en-us/Template:Data_Viktor/Glorious_Evolution?oldid=3954293) |
+| Glorious Evolution | generate 10 Hex Fragments | [3954293](https://wiki.leagueoflegends.com/en-us/Template:Data_Viktor/Glorious_Evolution?oldid=3954293) |
+| Glorious Evolution | generate 20 Hex Fragments | [3954293](https://wiki.leagueoflegends.com/en-us/Template:Data_Viktor/Glorious_Evolution?oldid=3954293) |
+| Glorious Evolution | Arcane Storm can be augmented after all of Viktor's basic abilities have been augmented | [3954293](https://wiki.leagueoflegends.com/en-us/Template:Data_Viktor/Glorious_Evolution?oldid=3954293) |
+| Siphon Power | Magic Damage: 60 / 75 / 90 / 105 / 120 (+ 40% AP) | [3971354](https://wiki.leagueoflegends.com/en-us/Template:Data_Viktor/Siphon_Power?oldid=3971354) |
+| Siphon Power | Modified Magic Damage: 20 / 45 / 70 / 95 / 120 (+ 100% AD) (+ 50% AP) | [3971354](https://wiki.leagueoflegends.com/en-us/Template:Data_Viktor/Siphon_Power?oldid=3971354) |
+| Siphon Power | He also grants himself a shield for 40 – 140 (based on level) (+ 25% AP) for 2.5 seconds and gains Discharge for 4 seconds. | [3971354](https://wiki.leagueoflegends.com/en-us/Template:Data_Viktor/Siphon_Power?oldid=3971354) |
+| Siphon Power | (+ 25% AP) | [3971354](https://wiki.leagueoflegends.com/en-us/Template:Data_Viktor/Siphon_Power?oldid=3971354) |
+| Siphon Power | for 2.5 seconds and gains Discharge | [3971354](https://wiki.leagueoflegends.com/en-us/Template:Data_Viktor/Siphon_Power?oldid=3971354) |
+| Siphon Power | gains Discharge for 4 seconds | [3971354](https://wiki.leagueoflegends.com/en-us/Template:Data_Viktor/Siphon_Power?oldid=3971354) |
+| Siphon Power | strength is increased by 60% | [3971354](https://wiki.leagueoflegends.com/en-us/Template:Data_Viktor/Siphon_Power?oldid=3971354) |
+| Siphon Power | gains 30% bonus movement speed | [3971354](https://wiki.leagueoflegends.com/en-us/Template:Data_Viktor/Siphon_Power?oldid=3971354) |
+| Siphon Power | bonus movement speed for 2.5 seconds | [3971354](https://wiki.leagueoflegends.com/en-us/Template:Data_Viktor/Siphon_Power?oldid=3971354) |
+| Siphon Power | Spell shield does not prevent Viktor from gaining Discharge | [3971354](https://wiki.leagueoflegends.com/en-us/Template:Data_Viktor/Siphon_Power?oldid=3971354) |
+| Siphon Power | Discharge disables the bonus damage from critical strikes | [3971354](https://wiki.leagueoflegends.com/en-us/Template:Data_Viktor/Siphon_Power?oldid=3971354) |
+| Siphon Power | Only the initial projectile can be intercepted | [3971354](https://wiki.leagueoflegends.com/en-us/Template:Data_Viktor/Siphon_Power?oldid=3971354) |
+| Siphon Power | not be consumed nor apply its effects against wards | [3971354](https://wiki.leagueoflegends.com/en-us/Template:Data_Viktor/Siphon_Power?oldid=3971354) |
+| Siphon Power | "mSpeed":2000.0 | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/viktor/viktor.bin.json) |
+| Siphon Power | "mStat":2,"mCoefficient":1.0 | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/viktor/viktor.bin.json) |
+| Siphon Power | "ObjectName":"ViktorQBuff" | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/viktor/viktor.bin.json) |
+| Gravity Field | at the target location for 4.5 seconds | [4070086](https://wiki.leagueoflegends.com/en-us/Template:Data_Viktor/Gravity_Field?oldid=4070086) |
+| Gravity Field | After a 0.75-second delay | [4070086](https://wiki.leagueoflegends.com/en-us/Template:Data_Viktor/Gravity_Field?oldid=4070086) |
+| Gravity Field | every 0.25 seconds | [4070086](https://wiki.leagueoflegends.com/en-us/Template:Data_Viktor/Gravity_Field?oldid=4070086) |
+| Gravity Field | stacking up to 5 times | [4070086](https://wiki.leagueoflegends.com/en-us/Template:Data_Viktor/Gravity_Field?oldid=4070086) |
+| Gravity Field | for 1.5 seconds | [4070086](https://wiki.leagueoflegends.com/en-us/Template:Data_Viktor/Gravity_Field?oldid=4070086) |
+| Gravity Field | The debuff lasts for 1 second | [4070086](https://wiki.leagueoflegends.com/en-us/Template:Data_Viktor/Gravity_Field?oldid=4070086) |
+| Gravity Field | Slow: 33 / 36 / 39 / 42 / 45% | [4070086](https://wiki.leagueoflegends.com/en-us/Template:Data_Viktor/Gravity_Field?oldid=4070086) |
+| Gravity Field | effectRadius: 340 | [4070086](https://wiki.leagueoflegends.com/en-us/Template:Data_Viktor/Gravity_Field?oldid=4070086) |
+| Gravity Field | targetRange: 800 | [4070086](https://wiki.leagueoflegends.com/en-us/Template:Data_Viktor/Gravity_Field?oldid=4070086) |
+| Gravity Field | slow enemies hit by 20% for 1 second | [4070086](https://wiki.leagueoflegends.com/en-us/Template:Data_Viktor/Gravity_Field?oldid=4070086) |
+| Gravity Field | The knockdown and stun can be triggered only once per cast per enemy | [4070086](https://wiki.leagueoflegends.com/en-us/Template:Data_Viktor/Gravity_Field?oldid=4070086) |
+| Gravity Field | Gravity Field will remain active if Viktor dies | [4070086](https://wiki.leagueoflegends.com/en-us/Template:Data_Viktor/Gravity_Field?oldid=4070086) |
+| Gravity Field | "name":"StacksForStun","values":[6.0 | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/viktor/viktor.bin.json) |
+| Hextech Ray | Magic Damage: 70 / 110 / 150 / 190 / 230 (+ 50% AP) | [4008553](https://wiki.leagueoflegends.com/en-us/Template:Data_Viktor/Hextech_Ray?oldid=4008553) |
+| Hextech Ray | Magic Damage: 20 / 50 / 80 / 110 / 140 (+ 80% AP) | [4008553](https://wiki.leagueoflegends.com/en-us/Template:Data_Viktor/Hextech_Ray?oldid=4008553) |
+| Hextech Ray | targetRange: 550 | [4008553](https://wiki.leagueoflegends.com/en-us/Template:Data_Viktor/Hextech_Ray?oldid=4008553) |
+| Hextech Ray | range: 500 | [4008553](https://wiki.leagueoflegends.com/en-us/Template:Data_Viktor/Hextech_Ray?oldid=4008553) |
+| Hextech Ray | width: 90 | [4008553](https://wiki.leagueoflegends.com/en-us/Template:Data_Viktor/Hextech_Ray?oldid=4008553) |
+| Hextech Ray | speed (Laser): 1050 • 1500 | [4008553](https://wiki.leagueoflegends.com/en-us/Template:Data_Viktor/Hextech_Ray?oldid=4008553) |
+| Hextech Ray | speed (Aftershock): 1050 • 1500 | [4008553](https://wiki.leagueoflegends.com/en-us/Template:Data_Viktor/Hextech_Ray?oldid=4008553) |
+| Hextech Ray | after 1 second | [4008553](https://wiki.leagueoflegends.com/en-us/Template:Data_Viktor/Hextech_Ray?oldid=4008553) |
+| Hextech Ray | The effected area is set upon casting | [4008553](https://wiki.leagueoflegends.com/en-us/Template:Data_Viktor/Hextech_Ray?oldid=4008553) |
+| Hextech Ray | initial ray is not destroyed | [4008553](https://wiki.leagueoflegends.com/en-us/Template:Data_Viktor/Hextech_Ray?oldid=4008553) |
+| Hextech Ray | entire target area to explode even if the laser is blocked | [4008553](https://wiki.leagueoflegends.com/en-us/Template:Data_Viktor/Hextech_Ray?oldid=4008553) |
+| Hextech Ray | it only deals damage up to the location at the time of his death | [4008553](https://wiki.leagueoflegends.com/en-us/Template:Data_Viktor/Hextech_Ray?oldid=4008553) |
+| Hextech Ray | "mSpeed":1050.0 | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/viktor/viktor.bin.json) |
+| Hextech Ray | "mSpeed":1500.0 | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/viktor/viktor.bin.json) |
+| Arcane Storm | Magic Damage: 100 / 175 / 250 (+ 50% AP) | [4011945](https://wiki.leagueoflegends.com/en-us/Template:Data_Viktor/Arcane_Storm?oldid=4011945) |
+| Arcane Storm | Magic Damage Per Tick: 65 / 105 / 145 (+ 35% AP) | [4011945](https://wiki.leagueoflegends.com/en-us/Template:Data_Viktor/Arcane_Storm?oldid=4011945) |
+| Arcane Storm | moving storm for 6.5 seconds | [4011945](https://wiki.leagueoflegends.com/en-us/Template:Data_Viktor/Arcane_Storm?oldid=4011945) |
+| Arcane Storm | "name":"TickCadence","values":[1.0 | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/viktor/viktor.bin.json) |
+| Arcane Storm | "name":"MaxTicks","values":[6.0 | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/viktor/viktor.bin.json) |
+| Arcane Storm | "name":"MaxGrowths","values":[6.0 | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/viktor/viktor.bin.json) |
+| Arcane Storm | size is increased by 40% | [4011945](https://wiki.leagueoflegends.com/en-us/Template:Data_Viktor/Arcane_Storm?oldid=4011945) |
+| Arcane Storm | duration is extended by 3 seconds | [4011945](https://wiki.leagueoflegends.com/en-us/Template:Data_Viktor/Arcane_Storm?oldid=4011945) |
+| Arcane Storm | moves 25% faster | [4011945](https://wiki.leagueoflegends.com/en-us/Template:Data_Viktor/Arcane_Storm?oldid=4011945) |
+| Arcane Storm | effectRadius: 325 | [4011945](https://wiki.leagueoflegends.com/en-us/Template:Data_Viktor/Arcane_Storm?oldid=4011945) |
+| Arcane Storm | targetRange: 700 | [4011945](https://wiki.leagueoflegends.com/en-us/Template:Data_Viktor/Arcane_Storm?oldid=4011945) |
+| Arcane Storm | Maximum speed of 300 achieved at or below 300 units away from Viktor; minimum speed of 200 achieved at or above 900 units from Viktor. Then, linearly interpolate. | [4011945](https://wiki.leagueoflegends.com/en-us/Template:Data_Viktor/Arcane_Storm?oldid=4011945) |
+| Arcane Storm | will only be issued to automatically follow a nearby champion once | [4011945](https://wiki.leagueoflegends.com/en-us/Template:Data_Viktor/Arcane_Storm?oldid=4011945) |
+| Arcane Storm | will follow its target even if they are not visible | [4011945](https://wiki.leagueoflegends.com/en-us/Template:Data_Viktor/Arcane_Storm?oldid=4011945) |
+| Arcane Storm | Spell shield will only block the initial damage | [4011945](https://wiki.leagueoflegends.com/en-us/Template:Data_Viktor/Arcane_Storm?oldid=4011945) |
+| Arcane Storm | without actually applying the disabling effects of the silence crowd control type | [4011945](https://wiki.leagueoflegends.com/en-us/Template:Data_Viktor/Arcane_Storm?oldid=4011945) |
+| Arcane Storm | "canCastWhileDisabled":true | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/viktor/viktor.bin.json) |
+| Arcane Storm | "mDoesntBreakChannels":true | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/viktor/viktor.bin.json) |
+| Siphon Power | cooldown: 9 / 8 / 7 / 6 / 5 | [3971354](https://wiki.leagueoflegends.com/en-us/Template:Data_Viktor/Siphon_Power?oldid=3971354) |
+| Siphon Power | cost: 45 / 50 / 55 / 60 / 65 | [3971354](https://wiki.leagueoflegends.com/en-us/Template:Data_Viktor/Siphon_Power?oldid=3971354) |
+| Siphon Power | castTime: 0.25 | [3971354](https://wiki.leagueoflegends.com/en-us/Template:Data_Viktor/Siphon_Power?oldid=3971354) |
+| Siphon Power | targetRange: 600 | [3971354](https://wiki.leagueoflegends.com/en-us/Template:Data_Viktor/Siphon_Power?oldid=3971354) |
+| Siphon Power | speed: 2000 | [3971354](https://wiki.leagueoflegends.com/en-us/Template:Data_Viktor/Siphon_Power?oldid=3971354) |
+| Gravity Field | cooldown: 17 / 16 / 15 / 14 / 13 | [4070086](https://wiki.leagueoflegends.com/en-us/Template:Data_Viktor/Gravity_Field?oldid=4070086) |
+| Gravity Field | cost: 65 | [4070086](https://wiki.leagueoflegends.com/en-us/Template:Data_Viktor/Gravity_Field?oldid=4070086) |
+| Gravity Field | castTime: 0.25 | [4070086](https://wiki.leagueoflegends.com/en-us/Template:Data_Viktor/Gravity_Field?oldid=4070086) |
+| Hextech Ray | cooldown: 12 / 11 / 10 / 9 / 8 | [4008553](https://wiki.leagueoflegends.com/en-us/Template:Data_Viktor/Hextech_Ray?oldid=4008553) |
+| Hextech Ray | cost: 60 / 70 / 80 / 90 / 100 | [4008553](https://wiki.leagueoflegends.com/en-us/Template:Data_Viktor/Hextech_Ray?oldid=4008553) |
+| Hextech Ray | castTime: none | [4008553](https://wiki.leagueoflegends.com/en-us/Template:Data_Viktor/Hextech_Ray?oldid=4008553) |
+| Arcane Storm | cooldown: 120 / 100 / 80 | [4011945](https://wiki.leagueoflegends.com/en-us/Template:Data_Viktor/Arcane_Storm?oldid=4011945) |
+| Arcane Storm | cost: 100 | [4011945](https://wiki.leagueoflegends.com/en-us/Template:Data_Viktor/Arcane_Storm?oldid=4011945) |
+| Arcane Storm | castTime: 0.25 | [4011945](https://wiki.leagueoflegends.com/en-us/Template:Data_Viktor/Arcane_Storm?oldid=4011945) |

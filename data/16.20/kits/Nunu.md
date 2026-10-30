@@ -52,6 +52,36 @@ Notes:
 - The splash damage will critically strike when the basic attack does, but will not deal any bonus damage.
 - Call of the Freljord's maximum remaining duration is 44 seconds.
     - The buff has no cap for its maximum total duration.
+- {{{{{1<noinclude>|Ability data</noinclude>}}}|Call of the Freljord|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}
+  |champion     = Nunu
+  |skill        = I
+  |icon         = Call of the Freljord.png
+  |blurb        = {{sbc|Innate:}} When {{ci|Nunu}} and {{ui|Willump}} deal damage against an enemy {{tip|champion}}, large {{tip|monster}} or {{tip|turrets|structure}}, they and a nearby allied champion gain ''Call of the Freljord'' for a few seconds, prioritizing the ally with {{sti|{{as|'''highest''' attack speed}}}}.
+  |blurb2      = ''Call of the Freljord'' cannot be gained from the same enemy again for some time.
+  |blurb4      = {{sbc|Call of the Freljord:}} Gain {{sti|{{as|'''bonus''' attack speed}}}} and {{sti|ms|{{as|'''bonus''' movement speed}}}}. '''Willump's''' {{tip|basic attack|basic attacks}} additionally deal {{as|physical damage}} to secondary targets in a cone in front of him.
+  |description  = {{sbc|Innate:}} When '''Nunu''' and '''Willump''' deal damage against an enemy {{tip|champion}}, large {{tip|monster}} or {{tip|turrets|structure}}, they and a nearby allied champion gain ''Call of the Freljord'' for 4 seconds, prioritizing the ally with {{sti|{{as|'''highest''' attack speed}}}}.
+  |description2 = {{sbc|Call of the Freljord:}} Gain {{sti|{{as|20% '''bonus''' attack speed}}}} and {{sti|ms|{{as|10% '''bonus''' movement speed}}}}. '''Willump's''' {{tip|basic attack|basic attacks}} additionally deal {{as|30% AD}} {{as|physical damage}} to secondary targets in a cone in front of him.
+  |description3 = '''Nunu''' and '''Willump''' cannot trigger ''Call of the Freljord'' from the same enemy again for a time. Successive triggers of ''Call of the Freljord'' while it is active will extend the duration by 4 seconds.
+  |ontargetcdstatic= 10
+  |target range    = <!--Range behaviour pending for test--> {{dv|{{tt|1000|When damaging champions, epic monsters and structures}}|{{tt|700|When damaging large monsters}}}}
+  |effect radius   = <!--{{tip|er|icononly = true}} X-->
+  |angle           = <!--{{tip|er|icononly = true}} X{{degree}}-->
+  |targeting    = Passive
+  |affects      = Self, Allies
+  |damagetype   = Physical
+  |spellshield  = 
+  |spelleffects = special
+  |projectile   = 
+  |notes        = 
+  * Enemies that can trigger ''Call of the Freljord'' have a marker overhead.
+  ** This marker isn't present on inhibitors or the nexus (because they cannot hold buffs and debuffs including the one that hosts this VFX), but they still trigger ''Call of the Freljord'' when attacked.
+  * ''Call of the Freljord'' range to be shared with allies is based on '''Nunu''' and '''Willump's''' location.
+  ** If no ally is prioritized based on their stats, it will be given to the one closest to them.
+  * The cone deals {{tip|area damage|AoE}} {{tip|basic damage}} (though without applying {{tip|spell effects}}).
+  * The splash damage will critically strike when the basic attack does, but will not deal any bonus damage.
+  * ''Call of the Freljord's'' maximum remaining duration is 44 seconds.
+  ** The buff has no cap for its maximum total duration.
+  }}
 
 ## Q: Consume
 
@@ -89,6 +119,40 @@ Notes:
 - Spell shields will block the damage and the heal.
 - While not on cooldown, Consume's ability icon on the HUD can be pinged to announce its damage to monsters in the ally chat.
 - If the target becomes untargetable, dies, or is too far away or no longer in sight during the cast time, this ability will cancel but does not go on cooldown nor pay its cost (if applicable).
+- <!-- The following values are defined as parameters.
+  -->{{#vardefine:q_mod|1.5}}<!-- Low health healing modifier as a DECIMAL
+  -->{{#vardefine:q_min|0.6}}<!-- Champion healing modifier as a DECIMAL
+  -->{{{{{1<noinclude>|Ability data</noinclude>}}}|Consume|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}
+  |champion     = Nunu
+  |skill        = Q
+  |icon         = Consume.png
+  |blurb        = {{sbc|Active:}} {{ui|Willump}} takes a bite out of the target enemy, dealing damage and {{tip|healing}} himself. The heal is increased when he is {{as|below half health}}.
+  |blurb2      = Against {{tip|minions}} and {{tip|monsters}} he deals {{sti|{{as|true damage}}}}.
+  |blurb3      = Against {{tip|champions}} he deals {{as|magic damage}} and the heal is reduced.
+  |description  = {{sbc|Active:}} '''Willump''' takes a bite out of the target enemy, dealing damage and {{tip|healing}} himself. The heal is increased by {{ap|({{#var:q_mod}}-1)*100}}% while he is {{as|below 50% '''maximum''' health}}.
+  |description2 = Against {{tip|minions}} and {{tip|monsters}}, he deals {{sti|{{as|true damage}}}}. Additionally, if ''Consume'' would kill the target minion or small or medium monster, '''Willump''' devours the target, {{tip|stun|stunning}} and {{tip|airborne|pulling}} them towards him over the cast time.
+  |leveling2    = {{st|Non-Champion True Damage|{{ap|400 to 1200}}}}
+  {{st|Base Non-Champion Heal|{{ap|65 to 185}} {{as|(+ 90% AP)}} {{as|(+ 10% '''bonus''' health)}}|Empowered Non-Champion Heal|{{ap|65*{{#var:q_mod}} to 185*{{#var:q_mod}}}} {{as|(+ {{ap|90*{{#var:q_mod}}}}% AP)}} {{as|(+ {{ap|10*{{#var:q_mod}}}}% '''bonus''' health)}}}}
+  |description3 = Against {{tip|champions}}, he deals {{as|magic damage}} and the heal is reduced to {{ap|{{#var:q_min}}*100}}%.
+  |leveling3    = {{st|Champion Magic Damage|{{ap|60 to 220}} {{as|(+ 65% AP)}} {{as|(+ 5% '''bonus''' health)}}}}
+  {{st|Base Champion Heal|{{ap|65*{{#var:q_min}} to 185*{{#var:q_min}}}} {{as|(+ {{ap|90*{{#var:q_min}}}}% AP)}} {{as|(+ {{ap|10*{{#var:q_min}}}}% '''bonus''' health)}}|Empowered Champion Heal|{{ap|65*{{#var:q_min}}*{{#var:q_mod}} to 185*{{#var:q_min}}*{{#var:q_mod}}}} {{as|(+ {{ap|90*{{#var:q_min}}*{{#var:q_mod}}}}% AP)}} {{as|(+ {{ap|10*{{#var:q_min}}*{{#var:q_mod}}}}% '''bonus''' health)}}}}
+  |target range = {{tip|er|icononly = true}} 125
+  |cost         = 60
+  |costtype     = Mana
+  |cast time    = {{fd|0.3}}
+  |cooldown     = {{ap|13 to 9}}
+  |targeting    = Unit
+  |affects      = Enemies, Self
+  |damagetype   = Magic True
+  |spellshield  = True
+  |spelleffects = spell
+  |projectile   = 
+  |notes        = 
+  * Icon border glows when he is within the maximum healing threshold.
+  * {{tip|Spell shield|Spell shields}} will block the damage and the heal.
+  * While not on {{sti|cooldown}}, ''Consume's'' ability icon on the HUD can be [[ping|pinged]] to announce its damage to {{tip|monsters}} in the ally chat.
+  {{Unit-targeted cancel conditions}}
+  }}
 
 ## W: Biggest Snowball Ever!
 
@@ -148,6 +212,63 @@ Notes:
 - Biggest Snowball Ever! is disabled for the first 15 seconds of the game.
 - Displacement immunity will not resist the application of the stun.
 - The following table refers for interactions while Nunu & Willump are channeling:
+- {{{{{1<noinclude>|Ability data</noinclude>}}}|Biggest Snowball Ever!|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}
+  |champion     = Nunu
+  |skill        = W
+  |icon         = Biggest Snowball Ever!.png
+  |blurb        = {{sbc|Active:}} {{ui|Willump}} becomes {{tip|slow-immune}} and {{tip|ghosted}}, and {{tip|channel|channels}} for a long duration to create a {{ccib|Biggest Snowball Ever! Minimap.png||snowball}} that grows in size and speed. '''Willump''' can gradually steer the snowball during this time.
+  |blurb2       = When hitting {{tip|minions}} and small {{tip|monsters}}, the snowball rolls over them, dealing {{as|magic damage}}. When hitting an enemy {{tip|champion}}, large {{tip|monster}} or terrain, the snowball instead explodes, dealing {{as|magic damage}} to nearby enemies, and briefly {{tip|airborne|knocking them up}} then {{tip|stun|stunning}} them based on the snowball's size.<br/><br/>''Biggest Snowball Ever!'' can be recast during the channel, and does so automatically afterwards or if {{tip|interrupt|interrupted}}.
+  |blurb3       = {{sbc|Recast:}} '''Willump''' ends the channel and manually releases the snowball.
+  |description  = {{sbc|Active:}} '''Willump''' {{tip|cleanse|cleanses}} himself from all {{tip|slow|slows}} and {{tip|channel|channels}} for up to 10 seconds, becoming {{tip|ghosted}} and {{tip|slow-immune}} and creating a rolling {{ccib|Biggest Snowball Ever! Minimap.png||snowball}}. '''Willump''' automatically navigates his movement in the direction of the cursor and can steer the snowball at an increasing speed over time, which resets upon changing direction. The duo have their {{sti|{{as|movement speed}}}} reduced by {{as|50%|ms}} for the first 1 second, but after a delay they start gaining {{tt|{{as|14 movement speed}}|Estimated}} every {{fd|0.25}} seconds, {{tt|up to a cap|See notes.}}.
+  |description2 = The snowball increases in size and power linearly over the duration. Its size changes from ''small'' to ''medium'' after {{fd|2.5}} seconds, then to ''large'' after 5 seconds into the charge. ''Biggest Snowball Ever!'' can be recast after {{fd|0.5}} seconds during the channel, and does so automatically after the channel or if {{tip|interrupt|interrupted}}.
+  |description3 = The snowball explodes upon hitting an enemy {{tip|champion}}, {{tip|pet|large pet}}, medium or large {{tip|monster}}, or terrain, dealing {{as|magic damage}} to nearby enemies, increased by {{pp|type=charge time|key=%|0;0 to 400 for 5|0 to 5|formula=Increases linearly after 1 second into the duration.}}, {{tip|airborne|knocking them up}} for {{pp|type=charge time|0.5;0.5 to 0.75 for 5|0 to 5|formula=Increases linearly after 1 second into the duration.}} seconds and subsequently {{tip|stun|stunning}} them for {{pp|type=charge time|0;0;0;0 to 0.75 for 9|0;1;2;2.33 to 5|formula=Increases linearly after 2.33 seconds into the duration.}} seconds. If the snowball exploded while it was being steered, '''Willump''' becomes {{tip|stun|stunned}} for {{tt|{{rutngt|0.1}}|estimated; 0.1 seconds, but rounded up to the next game tick}}.
+  |leveling3    = {{st|Minimum Magic Damage|{{ap|36 to 72}} {{as|(+ 30% AP)}}|Maximum Magic Damage|{{ap|36*5 to 72*5}} {{as|(+ {{ap|30*5}}% AP)}}}}
+  |description4 = The snowball rolls over enemy {{tip|minion|minions}} and small monsters hit, dealing {{fd|33.3}}% of the damage as {{as|magic damage}}.
+  |leveling4    = {{st|Minimum Minion/Monster Roll Damage|{{ap|36*0.333 to 72*0.333}} {{as|(+ {{ap|30*0.333}}% AP)}}|Maximum Minion/Monster Roll Damage|{{ap|36*0.333*5 to 72*0.333*5}} {{as|(+ {{ap|30*0.333*5}}% AP)}}}}
+  |icon5        = Biggest Snowball Ever! 2.png
+  |description5 = {{sbc|Recast:}} '''Willump''' releases the snowball, sending it rolling forward up to a maximum distance during which it will not grow any larger and will explode upon hitting any enemy.
+  |cost         = {{ap|50 to 70}}
+  |costtype     = Mana
+  |speed        = ({{dv|{{tt|425|Small snowball missile speed (after being released from the recast)}}|{{tt|435 – 594|Medium snowball missile speed (after being released from the recast)}}|{{tt|595|Big snowball missile speed (after being released from the recast)}}}}){{plus}}{{as|100% '''bonus''' movement speed}}
+  |cooldown     = 14
+  |cdstart      = post-effect
+  |effect radius= {{dv|{{tip|er|icononly = true}} {{tt|130|Small snowball size/explosion radius}}|{{tip|er|icononly = true}} {{tt|260|Medium snowball size/explosion radius}}|{{tip|er|icononly = true}} {{tt|390|Big snowball size/explosion radius}}}}
+  |customlabel2 = Steer Speed
+  |custominfo2  = {{pp|57.2957;57.2957*1.75;57.2957*2.5;57.2957*3.25|0;1;2;3|key={{degree}}/s|type=charge time|formula=57.2957{{degree}} (1 rad) per second base steer speed, then linearly increases to 175% of the base amount over the first second, then linearly increases to 250% of the base amount over the next 2 seconds, then linearly increases to 325% of the base amount over the next 3 seconds. No ''acceleration'' is explicitly defined.|round=0|changedisplay=true}}
+  |target range = {{pp|type=charge time|750;750 to 1750 for 5|0 to 5|formula=Travel distance of the snowball after it gets released. Increases linearly after 1 second into the duration.}}
+  |cast time    = none
+  |queue time   = {{dv|{{tt|None|Initial cast}}|{{tt|{{fd|0.3}}|Recast}}}}
+  |targeting    = Direction
+  |affects      = Self, Enemies
+  |damagetype   = Magic
+  |spellshield  = True
+  |spelleffects = spellaoe
+  |grounded     = true
+  |projectile   = special
+  |silence      = true
+  |notes        = 
+  * The initial cast and the manual recast count as ability activations for the purposes of on-cast effects such as {{tip|Spellblade}} and {{ai|Force Pulse|Kassadin}}.
+  * The movement speed reduction the duo receive from initially casting ''Biggest Snowball Ever!'' is not considered a {{tip|slow}}, thus it will not be resisted by their {{tip|slow-immune|slow immunity}}.
+  * The time threshold to begin gaining bonus movement speed may be bugged, as Flat Bonus MS increases the time while % Bonus MS decreases the time.
+  ** The formula appears to be (X ÷ 100) - Y, where:
+  *** X = '''Total''' Flat MS after caps
+  *** Y = {{fd|0.1}} per 1% %MS 
+  ** The delay is not modified from its initially calculated value on-cast, even if additional movement speed is gained.
+  * '''Nunu and Willump''' keep all increases in {{as|movement speed}} at time of cast for the duration of the charge.
+  * '''Nunu and Willump's''' movement speed always increases in increments of ~14, reaching the greater value between {{ft|{{as|'''Total''' MS + {{pp|85 to 255}}|movement speed}}|{{as|'''Total'''|ms}} [[Movement_speed#Movement_speed_caps|Uncapped]] {{as|Flat MS + {{pp|85 to 255}}|movement speed}}}}
+  ** This takes 6 increments to reach the '''Total''' MS + 85, but may take more to reach the Uncapped Flat + 85. Due to flat bonuses increasing the time threshold, it is possible for the ability's effects to end before reaching the '''total''' uncapped movement speed.
+  ** The '''bonus''' movement speed ignores the [[Movement_speed#Movement_speed_caps|movement speed cap]].
+  * If '''Nunu''' turns continuously he will create a {{tt|600|Estimated}} unit circle, increased with '''bonus''' movement speed, striking the same point up to 3 times, for a maximum of {{as|{{ap|30*5 to 66*5}}|magic damage}} {{as|(+ {{ap|30*5}}% AP)}} {{as|magic damage}}. The damage can be further increased by detonating the snowball, for a '''total''' of {{as|{{ap|30*10 to 66*10}}|magic damage}} {{as|(+ {{ap|30*10}}% AP)}} {{as|magic damage}}.
+  * {{cai|Realm Warp|Ryze}} will only teleport '''Nunu and Willump''', leaving the {{ccib|Biggest Snowball Ever! Minimap.png||snowball}} behind.
+  * Hovering the cursor on the HUD (e.g [[Map (League of Legends)|mini map]] / champion portraits) does not affect the cast and steering of ''Biggest Snowball Ever!''.
+  * '''Nunu''' gains a slightly larger field of view during ''Biggest Snowball Ever!''.
+  * {{tip|Projectile|Projectile-interception}} effects will destroy the snowball only after it has been released.
+  * ''Biggest Snowball Ever!'' is disabled for the first 15 seconds of the game.
+  * {{tip|Displacement immunity}} will not resist the application of the {{tip|stun}}.
+  * The following table refers for interactions while '''Nunu & Willump''' are {{tip|channel|channeling}}:
+  {{ct|channel|attack=false|move=Allowed, but cannot input movement commands.|cast=false|items=false|consume=false|spells=true,false,false,false,false|interrupts=death, ground, root, silence}}
+  |flavorsound = {{sm2|Nunu Original W 2.ogg}} ''"This is gonna be the biggest snowball ever!"''
+  }}
 
 ## E: Snowball Barrage
 
@@ -191,6 +312,42 @@ Notes:
     - Each volley of snowballs is also a separate cast instance, allowing Snowball Barrage to generate 6 stacks of Conqueror.
     - Snowbound consumption does not trigger on-cast effects, neither does it count as a separate cast instance (e.g. for the purposes of Conqueror).
 - The three snowballs are thrown independently from one another over the 0.4 seconds and their direction is determined from Nunu & Willump's position at any given moment.
+- {{{{{1<noinclude>|Ability data</noinclude>}}}|Snowball Barrage|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}
+  |champion     = Nunu
+  |skill        = E
+  |icon         = Snowball Barrage.png
+  |blurb        = {{sbc|Active:}} {{ci|Nunu}} throws a volley of 3 snowballs in the target direction that each shatter upon hitting an enemy, dealing {{as|magic damage}} to enemies in a cone. Enemies hit 3 times are briefly {{tip|slow|slowed}}. {{tip|Champions}} and large {{tip|monsters}} hit once are marked ''Snowbound'' for a few seconds. <br/><br/>Shortly after activating ''Snowball Barrage'', ''Snowbound'' enemies near {{ui|Willump}} take {{as|magic damage}} and are briefly {{tip|root|rooted}}.
+  |blurb2      = ''Snowball Barrage'' can be recast twice within a short time.
+  |blurb3      = {{sbc|Recast:}} '''Nunu''' hurls another volley of snowballs.
+  |description  = {{sbc|Active:}} '''Nunu''' throws a volley of 3 snowballs in the target direction over {{fd|0.4}} seconds that each shatter upon hitting an enemy, dealing {{as|magic damage}} to enemies in a cone.
+  |leveling     = {{st|Magic Damage Per Hit|{{ap|15 to 45}} {{as|(+ 12% AP)}}|Total Magic Damage|{{ap|15*3 to 45*3}} {{as|(+ {{ap|12*3}}% AP)}}}}
+  |description2 = Enemies hit 3 times are {{tip|slow|slowed}} for 1 second. Enemy {{tip|champions}} and large {{tip|monsters}} hit once are marked ''Snowbound'' for 4 seconds, refreshing on subsequent hits. ''Snowball Barrage'' can be recast twice within 3 seconds at no additional cost and with a {{tt|1-second cooldown|Affected by ability haste}} between casts.
+  |leveling2 = {{st|Slow|{{ap|30 to 50}}%}}
+  |description3 = {{sbc|Recast:}} '''Nunu''' hurls another volley of snowballs, mimicking the first cast's effects. An enemy may be {{tip|slow|slowed}} only once for being hit by snowballs.
+  |leveling3    = {{st|Maximum Total Magic Damage|{{ap|15*3*3 to 45*3*3}} {{as|(+ {{ap|15*3*3}}% AP)}}}}
+  |description4 = After 3 seconds from the first cast, ''Snowbound'' enemies near '''Willump''' take {{as|magic damage}} and are {{tip|root|rooted}} for {{pp|0.5 + (1.5-0.5)/17*(x-1) for 20}} seconds.
+  |leveling4    = {{st|Magic Damage|{{ap|20 to 60}} {{as|(+ 80% AP)}}}}
+  |cost         = {{ap|50 to 70}}
+  |costtype     = Mana
+  |cooldown     = {{ap|14 to 10}}
+  |cdstart      = post-effect
+  |cast time    = {{dv|{{tt|None|Initial cast}}|{{tt|None|Recasts}}}}
+  |queue time   = {{dv|{{tt|{{fd|0.3}}|Initial cast}}|{{tt|{{fd|0.3}}|Recasts}}}}
+  |target range = 700
+  |targeting    = Direction
+  |width        = {{tip|er|icononly = true}} 50
+  |speed        = 2000
+  |affects      = Enemies
+  |damagetype   = Magic
+  |projectile   = true
+  |spellshield  = True
+  |spelleffects = aoe
+  |notes        = 
+  * Each cast volley of snowballs counts as an ability activation for the purposes of on-cast effects such as {{tip|Spellblade}} and triggering {{ais|Force Pulse|Kassadin}} passive.
+  ** Each volley of snowballs is also a separate {{tip|cast instance}}, allowing ''Snowball Barrage'' to generate 6 stacks of {{ri|Conqueror}}.
+  ** ''Snowbound'' consumption does not trigger on-cast effects, neither does it count as a separate {{tip|cast instance}} (e.g. for the purposes of {{ri|Conqueror}}).
+  * The three snowballs are thrown independently from one another over the {{fd|0.4}} seconds and their direction is determined from '''Nunu & Willump's''' position at any given moment.
+  }}
 
 ## R: Absolute Zero
 
@@ -224,6 +381,39 @@ Notes:
 - The affected area is hidden if the duo is not visible to the enemy team.
 - While it's unlikely to happen normally, it is possible to deal zero damage with Absolute Zero if canceled as soon as it's started.
 - The following table refers for interactions while Nunu & Willump are channeling:
+- {{{{{1<noinclude>|Ability data</noinclude>}}}|Absolute Zero|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}
+  |champion     = Nunu
+  |skill        = R
+  |icon         = Absolute Zero.png
+  |blurb        = {{sbc|Active:}} {{ci|Nunu}} and {{ui|Willump}} {{tip|channel}} a blizzard for a short time, gaining a {{tip|shield}} and gradually {{tip|slow|slowing}} nearby enemies.
+  |blurb2      = ''Absolute Zero'' can be recast during the channel, and does so automatically when the channel ends by any means.
+  |blurb3      = {{sbc|Recast:}} '''Nunu''' and '''Willump''' explode, dealing {{as|magic damage}} to nearby enemies. The effect is modified based on the channel time.
+  |description  = {{sbc|Active:}} '''Nunu''' and '''Willump''' {{tip|channel}} a blizzard for up to 3 seconds, granting themselves a {{tip|shield}} and {{tip|slow|slowing}} nearby enemies by {{pp|type=channel time|key=%|0;50 to 95 for 11;95|0 to 3|formula=Increases by 4.5% every 0.25 seconds. ''Starts at 0.25 seconds and finishes at 2.75 seconds''}}. 
+  |leveling     = {{st|Shield Strength|{{ap|65 to 85}} {{as|(+ 150% AP)}} {{as|(+ {{ap|30 to 50}}% '''bonus''' health)}}}}
+  |description2= ''Absolute Zero'' can be recast after {{fd|0.5}} seconds during the channel, and does so automatically when the channel ends by any means.
+  |icon3        = Absolute Zero 2.png
+  |description3= {{sbc|Recast:}} '''Nunu''' and '''Willump''' cause the blizzard to explode, dealing {{as|magic damage}} to nearby enemies, modified to {{pp|key=%|type=channel time|changedisplay=true|0 to 100|0 to 3 by 1|formula=Increases the damage by 1% of its maximum damage value every 0.03 seconds.}}. Affected enemies will remain {{tip|slow|slowed}} for {{pp|type=channel time|0 to 3 for 13|0 to 3}} seconds and any of the duo's remaining shield will decay over 3 seconds.
+  |leveling3    = {{st|Maximum Magic Damage|{{ap|625 to 1275}} {{as|(+ 300% AP)}}}}
+  |cooldown     = {{ap|110 to 90}}
+  |cdstart      = post-effect
+  |cost         = 100
+  |costtype     = Mana
+  |effect radius= {{tip|cr|icononly = true}} 650
+  |cast time    = none
+  |queue time   = {{dv|{{tt|None|Initial cast}}|{{tt|{{fd|0.3}}|Recast}}}}
+  |targeting    = Auto
+  |affects      = Enemies
+  |damagetype   = Magic
+  |spellshield  = True
+  |spelleffects = spellaoe
+  |silence      = true
+  |notes        = 
+  *The initial cast and the manual recast count as ability activations for the purposes of on-cast effects such as {{tip|Spellblade}} and {{ai|Force Pulse|Kassadin}}.
+  * The affected area is hidden if the duo is not {{tip|sight|visible}} to the enemy team.
+  * While it's unlikely to happen normally, it is possible to deal zero damage with ''Absolute Zero'' if canceled as soon as it's started.
+  * The following table refers for interactions while '''Nunu & Willump''' are {{tip|channel|channeling}}:
+  {{ct|channel|cast=interrupts|items=interrupts,true,,false|spells=true,interrupts,interrupts,interrupts,interrupts}}
+  }}
 
 ## Game files
 
@@ -254,3 +444,137 @@ All 1 level-based formulas in the game files (2 linked to wiki values above):
 | Spell | Calculation | Rule | Level 1 | Level 18 | Level 20 |
 |---|---|---|--:|--:|--:|
 | NunuE | RootDuration | linear 0.5 → 1.5 over levels 1-18, continues past 18 | 0.5 | 1.5 | 1.61765 |
+
+## Duel simulator kit (level 20, every ability at max rank)
+
+What the duel simulator fights with (`kits/champions/Nunu.ts`): values come from pinned wiki and versioned game-data records at level 20. Interpretations and missing evidence are listed under assumptions. Ratios are fractions of the stat (60% AD is 0.6 × AD).
+
+- Basic attack: range 125, melee.
+
+| Key | Ability | Cooldown (s) | Cast time (s) | Cost | Delivery | On the enemy | On itself |
+|---|---|--:|--:|---|---|---|---|
+| Q | Consume | 9 | 0.3 | 60 | self | – | – |
+| W | Biggest Snowball Ever! | 14 (starts after the channel) | 0 | 70 | self; channel 10 s | – | – |
+| W2 | Biggest Snowball Ever! (release) | 0 | 0 | – | self | – | – |
+| E | Snowball Barrage | 10 (starts when its effect on the caster ends) | 0 | 70 | self | – | lingering for 3 s |
+| E2 | Snowball Barrage (recast) | 0 | 0 | – | self | – | – |
+| R | Absolute Zero | 90 (starts after the channel) | 0 | 100 | self; channel 3 s | – | – |
+| R2 | Absolute Zero (release) | 0 | 0 | – | self | – | – |
+| Qbite | Consume | 0 | 0 | – | self | – | – |
+| Qdevour | Consume (devour) | 0 | 0 | – | self | – | – |
+| Wroll | Biggest Snowball Ever! | 0 | 0 | – | self | – | – |
+| Wburst | Biggest Snowball Ever! | 0 | 0 | – | self | – | – |
+| Eball | Snowball Barrage | 0 | 0 | – | self | – | – |
+| Eroot | Snowball Barrage (Snowbound) | 0 | 0 | – | self | – | – |
+| Rburst | Absolute Zero | 0 | 0 | – | self | 1275 + 300% AP magic damage | – |
+| Rchill | Absolute Zero | 0 | 0 | – | self | – | – |
+| Icleave | Call of the Freljord | 0 | 0 | – | self | – | – |
+| Wapproach | Biggest Snowball Ever! | 0 | 0 | – | self | – | – |
+
+Effects marked by a mark or a role are completed by the kit's hooks (see the kit's source).
+
+### Assumptions
+
+- Call of the Freljord starts inactive. Only actual damage by this champion to a Champion-class body or explicitly large/epic Monster-class pet earns a target-local static10-second trigger. Real absorbed damage counts; parry/invulnerability without HP/shield damage does not. Its20%AS/10%MS lasts4seconds per trigger, extending to at most44remaining seconds. An actual friendly Champion-class pet can receive the buff; none is fabricated. The client passive castRadius210 supplies the forward line extent, while no cone angle is published. Only actual secondary bodies are cleaved for30%AD as area basic damage; the primary is excluded, no on-hits repeat, and the primary source explicitly grants no extra critical damage to that splash.
+- Consume declares one real reachable target, preferring the enemy champion and otherwise the nearest targetable actual pet. The0.3-second cast revalidates that same body's125edge range/targetability, refunding cost/cooldown if it becomes invalid. Champion-class targets take220+65%AP+5%bonusHP magic damage; Minion/Monster-class bodies take1200true damage. Other unclassified pets conservatively receive the champion packet. A connected bite heals111+54%AP+6%bonusHP on champions,185+90%AP+10%bonusHP on minions/monsters, each50%more only strictly below halfHP. Spell shields deny damage and healing. Lethal minion or explicitly small/medium monster targets receive a guarded pull/stun during the actual cast; no food or jungle target is created.
+- W uses a10-second moving channel, cleanses ordinary slows and grants slow immunity/ghosting. The source selectively lists ground/root/silence/death as interruptions; other disables stop its manual movement while their shared CC remains active. The duel has one axis, so steering follows the declared absolute direction without invented turns or circles; the unsourced snowball-to-Willump offset is zero. Cast-time movement is snapshotted, the first second is50%slower, and the wiki's explicitly estimated14-per0.25s steps use its documented total-flat-MS/100 minus10times additive-percent-MS delay, capped at snapshotMS+255 at level20. Collision radius interpolates the exact75-to200 missile widths; primary explosion radius130-to390 takes precedence over client widths. Primary damage grows72+30%AP to360+150%AP after1to5seconds; air0.5to0.75 and subsequent stun0to0.75 use their full source curves. Minions/explicitly small monsters receive33.3%roll damage once per straight pass; only actual Champion-class/largePet/medium-or-large Monster-class bodies or terrain detonate a steered ball. The estimated0.1-second own stun is retained. Released balls freeze growth, use primary425small/435–594medium/595large plus preserved bonusMS, travel750to1750, collide with any actual enemy and become interceptable only after release. A wall destroys flight; an interception first resolves its real explosion. No first15seconds-of-game lock is imposed on a level20 duel that begins later in the match.
+- E throws three separately emitted projectiles per actual volley, at exact client0.15-second absolute boundaries within the primary0.4-second volley window. Each launches from Nunu's current position toward the enemy's current position, has700range/2000speed and primary50full width (client40width differs). First-body shatter uses the sourced225forward cone extent on the duel line; its22.5-degree off-axis cone cannot be expressed here. Each hit deals45+12%AP; the primary aggregate135%AP line disagrees with nine individual12%AP packets and is not substituted. Exactly two optional no-cost recasts fit the original3-second window with haste-scaled1-second gaps. Three hits slow once per target per E; actual Champion-class/large-monster contacts earn independent4-second Snowbound marks. At3seconds, living Willump roots only actually marked bodies within the exact450client radius for the primary level20 duration1.61764705882353 and60+80%AP damage. Marks outside that check cannot later fabricate a root; emitted balls persist after death, unthrown balls and the caster-owned root do not. Post-effect cooldown begins after the original3-second spell window.
+- Absolute Zero creates its own85+150%AP+50%bonusHP shield at the real cast and channels3seconds in primary650radius (client500radius differs). Its discrete slow starts50%at0.25seconds and grows4.5points per0.25seconds to95%; every real contact retains spell-shield/CC/untargetability rules. Recast after0.5seconds, movement, attacks, permitted other casts, CC, resurrection and death release exactly one explosion using1%of maximum1275+300%AP per0.03seconds, capped100%. The release slow lasts exactly the elapsed channel time. Remaining shield decays linearly from its actual release remainder over3seconds, without replenishing damage already absorbed; the unpublished exact decay curve is an explicit limit. Every area originates at the real moving/contact/explosion center, pets keep their own guards, and no allied buff, monster, precharged snowball or preduel shield is invented. Budget hints count actual maximum-rank packets and channel/post-effect time once; no auxiliary/recast ability is purchased again.
+
+### Source values read (93)
+
+| Ability | Value | Source version |
+|---|---|---|
+| Call of the Freljord | gain Call of the Freljord for 4 seconds | [4013400](https://wiki.leagueoflegends.com/en-us/Template:Data_Nunu/Call_of_the_Freljord?oldid=4013400) |
+| Call of the Freljord | targetCooldown: 10 | [4013400](https://wiki.leagueoflegends.com/en-us/Template:Data_Nunu/Call_of_the_Freljord?oldid=4013400) |
+| Call of the Freljord | Gain 20% bonus attack speed | [4013400](https://wiki.leagueoflegends.com/en-us/Template:Data_Nunu/Call_of_the_Freljord?oldid=4013400) |
+| Call of the Freljord | 10% bonus movement speed | [4013400](https://wiki.leagueoflegends.com/en-us/Template:Data_Nunu/Call_of_the_Freljord?oldid=4013400) |
+| Call of the Freljord | 30% AD physical damage | [4013400](https://wiki.leagueoflegends.com/en-us/Template:Data_Nunu/Call_of_the_Freljord?oldid=4013400) |
+| Call of the Freljord | maximum remaining duration is 44 seconds | [4013400](https://wiki.leagueoflegends.com/en-us/Template:Data_Nunu/Call_of_the_Freljord?oldid=4013400) |
+| Call of the Freljord | targetRange: 1000 • 700 | [4013400](https://wiki.leagueoflegends.com/en-us/Template:Data_Nunu/Call_of_the_Freljord?oldid=4013400) |
+| Call of the Freljord | mSpell.castRadius: [210.0,210.0,210.0,210.0,210.0,210.0,210.0] | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/nunu/nunu.bin.json) |
+| Call of the Freljord | mSpell.DataValues.BloodBoilBaseDuration.values: [4.0,4.0,4.0,4.0,4.0,4.0,4.0] | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/nunu/nunu.bin.json) |
+| Call of the Freljord | will critically strike when the basic attack does, but will not deal any bonus damage | [4013400](https://wiki.leagueoflegends.com/en-us/Template:Data_Nunu/Call_of_the_Freljord?oldid=4013400) |
+| Call of the Freljord | AoE basic damage | [4013400](https://wiki.leagueoflegends.com/en-us/Template:Data_Nunu/Call_of_the_Freljord?oldid=4013400) |
+| Consume | Champion Magic Damage: 60 / 100 / 140 / 180 / 220 (+ 65% AP) (+ 5% bonus health) | [3985877](https://wiki.leagueoflegends.com/en-us/Template:Data_Nunu/Consume?oldid=3985877) |
+| Consume | Non-Champion True Damage: 400 / 600 / 800 / 1000 / 1200 | [3985877](https://wiki.leagueoflegends.com/en-us/Template:Data_Nunu/Consume?oldid=3985877) |
+| Consume | Base Champion Heal: 39 / 57 / 75 / 93 / 111 (+ 54% AP) (+ 6% bonus health) | [3985877](https://wiki.leagueoflegends.com/en-us/Template:Data_Nunu/Consume?oldid=3985877) |
+| Consume | Base Non-Champion Heal: 65 / 95 / 125 / 155 / 185 (+ 90% AP) (+ 10% bonus health) | [3985877](https://wiki.leagueoflegends.com/en-us/Template:Data_Nunu/Consume?oldid=3985877) |
+| Consume | Empowered Champion Heal: 58.5 / 85.5 / 112.5 / 139.5 / 166.5 (+ 81% AP) (+ 9% bonus health) | [3985877](https://wiki.leagueoflegends.com/en-us/Template:Data_Nunu/Consume?oldid=3985877) |
+| Consume | Empowered Non-Champion Heal: 97.5 / 142.5 / 187.5 / 232.5 / 277.5 (+ 135% AP) (+ 15% bonus health) | [3985877](https://wiki.leagueoflegends.com/en-us/Template:Data_Nunu/Consume?oldid=3985877) |
+| Consume | cooldown: 13 / 12 / 11 / 10 / 9 | [3985877](https://wiki.leagueoflegends.com/en-us/Template:Data_Nunu/Consume?oldid=3985877) |
+| Consume | castTime: 0.3 | [3985877](https://wiki.leagueoflegends.com/en-us/Template:Data_Nunu/Consume?oldid=3985877) |
+| Consume | targetRange: 125 | [3985877](https://wiki.leagueoflegends.com/en-us/Template:Data_Nunu/Consume?oldid=3985877) |
+| Consume | cost: 60 | [3985877](https://wiki.leagueoflegends.com/en-us/Template:Data_Nunu/Consume?oldid=3985877) |
+| Consume | below 50% maximum health | [3985877](https://wiki.leagueoflegends.com/en-us/Template:Data_Nunu/Consume?oldid=3985877) |
+| Consume | Spell shields will block the damage and the heal | [3985877](https://wiki.leagueoflegends.com/en-us/Template:Data_Nunu/Consume?oldid=3985877) |
+| Consume | stunning and pulling them towards him over the cast time | [3985877](https://wiki.leagueoflegends.com/en-us/Template:Data_Nunu/Consume?oldid=3985877) |
+| Consume | mSpell.mCastTime: 0.30000001192092896 | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/nunu/nunu.bin.json) |
+| Consume | mSpell.mCantCancelWhileWindingUp: true | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/nunu/nunu.bin.json) |
+| Biggest Snowball Ever! | Minimum Magic Damage: 36 / 45 / 54 / 63 / 72 (+ 30% AP) | [4007735](https://wiki.leagueoflegends.com/en-us/Template:Data_Nunu/Biggest_Snowball_Ever!?oldid=4007735) |
+| Biggest Snowball Ever! | Maximum Magic Damage: 180 / 225 / 270 / 315 / 360 (+ 150% AP) | [4007735](https://wiki.leagueoflegends.com/en-us/Template:Data_Nunu/Biggest_Snowball_Ever!?oldid=4007735) |
+| Biggest Snowball Ever! | Minimum Minion/Monster Roll Damage: 11.988 / 14.985 / 17.982 / 20.979 / 23.976 (+ 9.99% AP) | [4007735](https://wiki.leagueoflegends.com/en-us/Template:Data_Nunu/Biggest_Snowball_Ever!?oldid=4007735) |
+| Biggest Snowball Ever! | Maximum Minion/Monster Roll Damage: 59.94 / 74.925 / 89.91 / 104.895 / 119.88 (+ 49.95% AP) | [4007735](https://wiki.leagueoflegends.com/en-us/Template:Data_Nunu/Biggest_Snowball_Ever!?oldid=4007735) |
+| Biggest Snowball Ever! | cooldown: 14 | [4007735](https://wiki.leagueoflegends.com/en-us/Template:Data_Nunu/Biggest_Snowball_Ever!?oldid=4007735) |
+| Biggest Snowball Ever! | cost: 50 / 55 / 60 / 65 / 70 | [4007735](https://wiki.leagueoflegends.com/en-us/Template:Data_Nunu/Biggest_Snowball_Ever!?oldid=4007735) |
+| Biggest Snowball Ever! | channels for up to 10 seconds | [4007735](https://wiki.leagueoflegends.com/en-us/Template:Data_Nunu/Biggest_Snowball_Ever!?oldid=4007735) |
+| Biggest Snowball Ever! | recast after 0.5 seconds | [4007735](https://wiki.leagueoflegends.com/en-us/Template:Data_Nunu/Biggest_Snowball_Ever!?oldid=4007735) |
+| Biggest Snowball Ever! | reduced by 50% for the first 1 second | [4007735](https://wiki.leagueoflegends.com/en-us/Template:Data_Nunu/Biggest_Snowball_Ever!?oldid=4007735) |
+| Biggest Snowball Ever! | 14 movement speed | [4007735](https://wiki.leagueoflegends.com/en-us/Template:Data_Nunu/Biggest_Snowball_Ever!?oldid=4007735) |
+| Biggest Snowball Ever! | every 0.25 seconds | [4007735](https://wiki.leagueoflegends.com/en-us/Template:Data_Nunu/Biggest_Snowball_Ever!?oldid=4007735) |
+| Biggest Snowball Ever! | 0.1 seconds, but rounded up | [4007735](https://wiki.leagueoflegends.com/en-us/Template:Data_Nunu/Biggest_Snowball_Ever!?oldid=4007735) |
+| Biggest Snowball Ever! | mSpell.DataValues.MaxDamageTime.values: [5.0,5.0,5.0,5.0,5.0,5.0,5.0] | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/nunu/nunu.bin.json) |
+| Biggest Snowball Ever! | mSpell.DataValues.MediumSnowballTime.values: [2.5,2.5,2.5,2.5,2.5,2.5,2.5] | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/nunu/nunu.bin.json) |
+| Biggest Snowball Ever! | mSpell.DataValues.SmallSnowballMissileWidth.values: [75.0,75.0,75.0,75.0,75.0,75.0,75.0] | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/nunu/nunu.bin.json) |
+| Biggest Snowball Ever! | mSpell.DataValues.LargeSnowballMissileWidth.values: [200.0,200.0,200.0,200.0,200.0,200.0,200.0] | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/nunu/nunu.bin.json) |
+| Biggest Snowball Ever! | mSpell.DataValues.MonsterCollisionRadiusScalar.values: [1.25,1.25,1.25,1.25,1.25,1.25,1.25] | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/nunu/nunu.bin.json) |
+| Biggest Snowball Ever! | mSpell.DataValues.MonsterImpactRadiusScalar.values: [1.75,1.75,1.75,1.75,1.75,1.75,1.75] | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/nunu/nunu.bin.json) |
+| Biggest Snowball Ever! | mSpell.DataValues.MinimumSnowballRollDistance.values: [750.0,750.0,750.0,750.0,750.0,750.0,750.0] | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/nunu/nunu.bin.json) |
+| Biggest Snowball Ever! | mSpell.DataValues.MaximumSnowballRollDistance.values: [1750.0,1750.0,1750.0,1750.0,1750.0,1750.0,1750.0] | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/nunu/nunu.bin.json) |
+| Biggest Snowball Ever! | speed: (425 • 435 – 594 • 595) + 100% bonus movement speed | [4007735](https://wiki.leagueoflegends.com/en-us/Template:Data_Nunu/Biggest_Snowball_Ever!?oldid=4007735) |
+| Biggest Snowball Ever! | effectRadius: 130 • 260 • 390 | [4007735](https://wiki.leagueoflegends.com/en-us/Template:Data_Nunu/Biggest_Snowball_Ever!?oldid=4007735) |
+| Biggest Snowball Ever! | The snowball explodes upon hitting an enemy champion, large pet, medium or large monster, or terrain, dealing magic damage to nearby enemies, increased by 0 / 0 / 100 / 200 / 300 / 400 (based on charge time)%, knocking them up for 0.5 / 0.5 / 0.5625 / 0.625 / 0.6875 / 0.75 (based on charge time) seconds and subsequently stunning them for 0 / 0 / 0 / 0 / 0.09375 / 0.1875 / 0.28125 / 0.375 / 0.46875 / 0.5625 / 0.65625 / 0.75 (based on charge time) seconds. | [4007735](https://wiki.leagueoflegends.com/en-us/Template:Data_Nunu/Biggest_Snowball_Ever!?oldid=4007735) |
+| Biggest Snowball Ever! | {{pp\|85 to 255}} | [4007735](https://wiki.leagueoflegends.com/en-us/Template:Data_Nunu/Biggest_Snowball_Ever!?oldid=4007735) |
+| Biggest Snowball Ever! | Projectile-interception}} effects will destroy the snowball only after it has been released | [4007735](https://wiki.leagueoflegends.com/en-us/Template:Data_Nunu/Biggest_Snowball_Ever!?oldid=4007735) |
+| Biggest Snowball Ever! | interrupts=death, ground, root, silence | [4007735](https://wiki.leagueoflegends.com/en-us/Template:Data_Nunu/Biggest_Snowball_Ever!?oldid=4007735) |
+| Biggest Snowball Ever! | Increases linearly after 1 second into the duration | [4007735](https://wiki.leagueoflegends.com/en-us/Template:Data_Nunu/Biggest_Snowball_Ever!?oldid=4007735) |
+| Biggest Snowball Ever! | will not grow any larger | [4007735](https://wiki.leagueoflegends.com/en-us/Template:Data_Nunu/Biggest_Snowball_Ever!?oldid=4007735) |
+| Biggest Snowball Ever! | will explode upon hitting any enemy | [4007735](https://wiki.leagueoflegends.com/en-us/Template:Data_Nunu/Biggest_Snowball_Ever!?oldid=4007735) |
+| Biggest Snowball Ever! | cooldownStart: post-effect | [4007735](https://wiki.leagueoflegends.com/en-us/Template:Data_Nunu/Biggest_Snowball_Ever!?oldid=4007735) |
+| Snowball Barrage | Magic Damage Per Hit: 15 / 22.5 / 30 / 37.5 / 45 (+ 12% AP) | [4013466](https://wiki.leagueoflegends.com/en-us/Template:Data_Nunu/Snowball_Barrage?oldid=4013466) |
+| Snowball Barrage | Magic Damage: 20 / 30 / 40 / 50 / 60 (+ 80% AP) | [4013466](https://wiki.leagueoflegends.com/en-us/Template:Data_Nunu/Snowball_Barrage?oldid=4013466) |
+| Snowball Barrage | cooldown: 14 / 13 / 12 / 11 / 10 | [4013466](https://wiki.leagueoflegends.com/en-us/Template:Data_Nunu/Snowball_Barrage?oldid=4013466) |
+| Snowball Barrage | cost: 50 / 55 / 60 / 65 / 70 | [4013466](https://wiki.leagueoflegends.com/en-us/Template:Data_Nunu/Snowball_Barrage?oldid=4013466) |
+| Snowball Barrage | targetRange: 700 | [4013466](https://wiki.leagueoflegends.com/en-us/Template:Data_Nunu/Snowball_Barrage?oldid=4013466) |
+| Snowball Barrage | width: 50 | [4013466](https://wiki.leagueoflegends.com/en-us/Template:Data_Nunu/Snowball_Barrage?oldid=4013466) |
+| Snowball Barrage | speed: 2000 | [4013466](https://wiki.leagueoflegends.com/en-us/Template:Data_Nunu/Snowball_Barrage?oldid=4013466) |
+| Snowball Barrage | Slow: 30 / 35 / 40 / 45 / 50% | [4013466](https://wiki.leagueoflegends.com/en-us/Template:Data_Nunu/Snowball_Barrage?oldid=4013466) |
+| Snowball Barrage | After 3 seconds from the first cast, Snowbound enemies near Willump take magic damage and are rooted for 0.5 – 1.5 (based on level) seconds. | [4013466](https://wiki.leagueoflegends.com/en-us/Template:Data_Nunu/Snowball_Barrage?oldid=4013466) |
+| Snowball Barrage | volley of 3 snowballs | [4013466](https://wiki.leagueoflegends.com/en-us/Template:Data_Nunu/Snowball_Barrage?oldid=4013466) |
+| Snowball Barrage | After 3 seconds from the first cast | [4013466](https://wiki.leagueoflegends.com/en-us/Template:Data_Nunu/Snowball_Barrage?oldid=4013466) |
+| Snowball Barrage | 1-second cooldown | [4013466](https://wiki.leagueoflegends.com/en-us/Template:Data_Nunu/Snowball_Barrage?oldid=4013466) |
+| Snowball Barrage | Snowbound for 4 seconds | [4013466](https://wiki.leagueoflegends.com/en-us/Template:Data_Nunu/Snowball_Barrage?oldid=4013466) |
+| Snowball Barrage | slowed for 1 second | [4013466](https://wiki.leagueoflegends.com/en-us/Template:Data_Nunu/Snowball_Barrage?oldid=4013466) |
+| Snowball Barrage | mSpell.DataValues.DelayBetweenSnowballs.values: [0.15000000596046448,0.15000000596046448,0.15000000596046448,0.15000000596046448,0.15000000596046448,0.15000000596046448,0.15000000596046448] | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/nunu/nunu.bin.json) |
+| Snowball Barrage | mSpell.DataValues.SplashConeLength.values: [225.0,225.0,225.0,225.0,225.0,225.0,225.0] | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/nunu/nunu.bin.json) |
+| Snowball Barrage | mSpell.castRadius: [450.0,450.0,450.0,450.0,450.0,450.0,450.0] | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/nunu/nunu.bin.json) |
+| Snowball Barrage | mSpell.DataValues.MaxBursts.values: [3.0,3.0,3.0,3.0,3.0,3.0,3.0] | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/nunu/nunu.bin.json) |
+| Snowball Barrage | "mSpeed":2000.0 | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/nunu/nunu.bin.json) |
+| Snowball Barrage | cooldownStart: post-effect | [4013466](https://wiki.leagueoflegends.com/en-us/Template:Data_Nunu/Snowball_Barrage?oldid=4013466) |
+| Snowball Barrage | An enemy may be slowed only once | [4013466](https://wiki.leagueoflegends.com/en-us/Template:Data_Nunu/Snowball_Barrage?oldid=4013466) |
+| Absolute Zero | Maximum Magic Damage: 625 / 950 / 1275 (+ 300% AP) | [4010574](https://wiki.leagueoflegends.com/en-us/Template:Data_Nunu/Absolute_Zero?oldid=4010574) |
+| Absolute Zero | Shield Strength: 65 / 75 / 85 (+ 150% AP) (+ 30 / 40 / 50% bonus health) | [4010574](https://wiki.leagueoflegends.com/en-us/Template:Data_Nunu/Absolute_Zero?oldid=4010574) |
+| Absolute Zero | cooldown: 110 / 100 / 90 | [4010574](https://wiki.leagueoflegends.com/en-us/Template:Data_Nunu/Absolute_Zero?oldid=4010574) |
+| Absolute Zero | cost: 100 | [4010574](https://wiki.leagueoflegends.com/en-us/Template:Data_Nunu/Absolute_Zero?oldid=4010574) |
+| Absolute Zero | effectRadius: 650 | [4010574](https://wiki.leagueoflegends.com/en-us/Template:Data_Nunu/Absolute_Zero?oldid=4010574) |
+| Absolute Zero | for up to 3 seconds | [4010574](https://wiki.leagueoflegends.com/en-us/Template:Data_Nunu/Absolute_Zero?oldid=4010574) |
+| Absolute Zero | recast after 0.5 seconds | [4010574](https://wiki.leagueoflegends.com/en-us/Template:Data_Nunu/Absolute_Zero?oldid=4010574) |
+| Absolute Zero | shield will decay over 3 seconds | [4010574](https://wiki.leagueoflegends.com/en-us/Template:Data_Nunu/Absolute_Zero?oldid=4010574) |
+| Absolute Zero | Active: Nunu and Willump channel a blizzard for up to 3 seconds, granting themselves a shield and slowing nearby enemies by 0 / 50 / 54.5 / 59 / 63.5 / 68 / 72.5 / 77 / 81.5 / 86 / 90.5 / 95 / 95 (based on channel time)%. | [4010574](https://wiki.leagueoflegends.com/en-us/Template:Data_Nunu/Absolute_Zero?oldid=4010574) |
+| Absolute Zero | every 0.25 seconds | [4010574](https://wiki.leagueoflegends.com/en-us/Template:Data_Nunu/Absolute_Zero?oldid=4010574) |
+| Absolute Zero | every 0.03 seconds | [4010574](https://wiki.leagueoflegends.com/en-us/Template:Data_Nunu/Absolute_Zero?oldid=4010574) |
+| Absolute Zero | by 1% of its maximum damage | [4010574](https://wiki.leagueoflegends.com/en-us/Template:Data_Nunu/Absolute_Zero?oldid=4010574) |
+| Absolute Zero | cooldownStart: post-effect | [4010574](https://wiki.leagueoflegends.com/en-us/Template:Data_Nunu/Absolute_Zero?oldid=4010574) |
+| Absolute Zero | automatically when the channel ends by any means | [4010574](https://wiki.leagueoflegends.com/en-us/Template:Data_Nunu/Absolute_Zero?oldid=4010574) |
+| Absolute Zero | cast=interrupts | [4010574](https://wiki.leagueoflegends.com/en-us/Template:Data_Nunu/Absolute_Zero?oldid=4010574) |
+| Absolute Zero | mSpell.mSpellRevealsChampion: false | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/nunu/nunu.bin.json) |

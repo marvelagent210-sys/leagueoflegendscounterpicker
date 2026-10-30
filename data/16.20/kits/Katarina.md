@@ -175,6 +175,7 @@ Notes:
 - The on-attack modifier also incorrectly applies to various other damaging effects triggered by the same damage instance, including Hail of Blades*, Scorch, Blackfire Torch, Hextech Alternator, Liandry's Torment, Luden's Echo, Scout's Slingshot.
 - The following table refers for interactions while Katarina is channeling:
     - Trying to cast a disabled active (excluding Hextech Rocketbelt) will buffer it to cast at the completion of the channel.
+- {{ct|channel|cast=interrupts|move=Disabled in the first and last {{fd|0.25}} seconds of channel, otherwise, interrupts.|attack=Disabled in the first and last {{fd|0.25}} seconds of channel, otherwise, interrupts.|items=interrupts,true,,false,,false,false,false,melee|spells=true,interrupts,interrupts,false,false}}
 
 ## Game files
 
@@ -204,3 +205,93 @@ All 5 level-based formulas in the game files (0 linked to wiki values above):
 | KatarinaPassive | TotalDamage | table of values per level (30 levels) | 68.1846 | 240.015 | 274.846 |
 | KatarinaPassive | TotalDamage | breakpoints at levels 6, 11, 16 (level 1: 0.7) | 0.7 | 1 | 1 |
 | KatarinaPassive | {e1ba6b0f} | breakpoints at levels 6, 11, 16 (level 1: 0.78) | 0.78 | 0.96 | 0.96 |
+
+## Duel simulator kit (level 20, every ability at max rank)
+
+What the duel simulator fights with (`kits/champions/Katarina.ts`): values come from pinned wiki and versioned game-data records at level 20. Interpretations and missing evidence are listed under assumptions. Ratios are fractions of the stat (60% AD is 0.6 × AD).
+
+- Basic attack: range 125, melee.
+
+| Key | Ability | Cooldown (s) | Cast time (s) | Cost | Delivery | On the enemy | On itself |
+|---|---|--:|--:|---|---|---|---|
+| Q | Bouncing Blade | 7 | 0.25 | – | self | 220 + 40% AP magic damage (Bouncing Blade) | – |
+| W | Preparation | 11 | 0 | – | self | – | ghosted for 1.25 s |
+| E | Shunpo | 8 | 0.15 | – | self | 60 + 40% AD + 25% AP magic damage (Shunpo) | – |
+| R | Death Lotus | 45 | 0 | – | self; channel 2.5 s | 16% bonus AD + 5000% of bonus attack speed per 100 bonus AD physical damage; 50 + 19% AP magic damage (Death Lotus); Grievous Wounds for 3 s | – |
+
+Effects marked by a mark or a role are completed by the kit's hooks (see the kit's source).
+
+### Assumptions
+
+- Daggers begin absent. Q lands 1.023 seconds after first contact, exactly 350 units beyond that target along the caster-to-target line; the primary calls the location slightly random without a distribution. Terrain moves a landing point to the nearest clear position on the arena line. Both Q bounces select the nearest unhit visible actual enemy inside the primary target's 450-unit radius; multidirectional bounce paths and map vision are not simulated.
+- The pinned ability descriptions and versioned game objects do not identify the dagger pickup trigger radius. Until separately sourced, pickup conservatively requires Katarina's center to reach or cross the actual landed dagger center; the 340-unit spin damage radius never stands in for pickup. Airborne daggers can be Shunpo anchors but cannot spin, and ground daggers expire after four seconds.
+- Shunpo projects cursor selection onto the arena line. The versioned wrapper's 150 castRadius is used for cursor selection/landing offset; the actual E object's 225 castRadius is used for its nearest-enemy damage search. These field interpretations are explicit. Without an aim, it prefers a nearby damaging dagger, then the enemy champion, then a real pet. Primary 775 dagger range takes precedence over the game object's conflicting 800. Ward/structure units are outside the arena; ordinary minion, monster, other summon and champion-clone classes remain valid anchors.
+- Preparation's movement speed decays linearly to zero over 1.25 seconds. Death Lotus launches 15 separate knives at cumulative sixth-second boundaries, including its last at 2.5 seconds; the first launch offset is unquantified. Each knife reads damage stats at impact and carries one magic/physical/on-hit/Grievous Wounds packet through projectile and spell defenses. Up to three real champion-class targets count; ordinary pets never receive Death Lotus. On-attack item/rune triggers do not exist in this plain-stat simulator.
+- The behavior holds an active Death Lotus channel. Trade and hold modes reserve Death Lotus; short trades use the normal burst clock and retreat after trade completion even when Q/W/E become ready again. Voluntary movement/attack cancellation is disabled during the first and last 0.25 seconds; explicit Q/W/E casts and disabling crowd control can interrupt. Automatic post-Shunpo attack-command bugs are not represented by the command API. No phantom takedowns or preduel daggers are awarded. The reference budget values one spin per Q/W cooldown, normal E cadence and one complete R per cooldown, without kill resets or extra E resets.
+
+### Source values read (62)
+
+| Ability | Value | Source version |
+|---|---|---|
+| Voracity | Innate - Sinister Steel: Whenever Katarina retrieves a Dagger, she slashes around herself to deal 68 – 240 (based on level) (+ 60% bonus AD) (+ 70 / 80 / 90 / 100 (based on level)% AP) magic damage to nearby enemies, apply on-hit effects to enemy champions hit, and reduce Shunpo's current cooldown by 78 / 84 / 90 / 96 (based on level)% of its total cooldown. | [4038392](https://wiki.leagueoflegends.com/en-us/Template:Data_Katarina/Voracity?oldid=4038392) |
+| Voracity | (+ 60% bonus AD) | [4038392](https://wiki.leagueoflegends.com/en-us/Template:Data_Katarina/Voracity?oldid=4038392) |
+| Voracity | effectRadius: 340 | [4038392](https://wiki.leagueoflegends.com/en-us/Template:Data_Katarina/Voracity?oldid=4038392) |
+| Voracity | on the ground for 4 seconds | [4038392](https://wiki.leagueoflegends.com/en-us/Template:Data_Katarina/Voracity?oldid=4038392) |
+| Voracity | within 3 seconds | [4038392](https://wiki.leagueoflegends.com/en-us/Template:Data_Katarina/Voracity?oldid=4038392) |
+| Voracity | by 15 seconds | [4038392](https://wiki.leagueoflegends.com/en-us/Template:Data_Katarina/Voracity?oldid=4038392) |
+| Voracity | may not slash until it has | [4038392](https://wiki.leagueoflegends.com/en-us/Template:Data_Katarina/Voracity?oldid=4038392) |
+| Voracity | will still take effect even after Katarina dies | [4038392](https://wiki.leagueoflegends.com/en-us/Template:Data_Katarina/Voracity?oldid=4038392) |
+| Voracity | apply on-hit effects to enemy champions hit | [4038392](https://wiki.leagueoflegends.com/en-us/Template:Data_Katarina/Voracity?oldid=4038392) |
+| Voracity | Single-use on-hit effects | [4038392](https://wiki.leagueoflegends.com/en-us/Template:Data_Katarina/Voracity?oldid=4038392) |
+| Voracity | will still deal damage but not apply on-hit effects if dodged | [4038392](https://wiki.leagueoflegends.com/en-us/Template:Data_Katarina/Voracity?oldid=4038392) |
+| Voracity | cannot be blocked nor can they be missed while Katarina is blinded | [4038392](https://wiki.leagueoflegends.com/en-us/Template:Data_Katarina/Voracity?oldid=4038392) |
+| Bouncing Blade | Magic Damage: 80 / 115 / 150 / 185 / 220 (+ 40% AP) | [4015158](https://wiki.leagueoflegends.com/en-us/Template:Data_Katarina/Bouncing_Blade?oldid=4015158) |
+| Bouncing Blade | targetRange: 625 | [4015158](https://wiki.leagueoflegends.com/en-us/Template:Data_Katarina/Bouncing_Blade?oldid=4015158) |
+| Bouncing Blade | speed: 1600 | [4015158](https://wiki.leagueoflegends.com/en-us/Template:Data_Katarina/Bouncing_Blade?oldid=4015158) |
+| Bouncing Blade | effectRadius: 450 | [4015158](https://wiki.leagueoflegends.com/en-us/Template:Data_Katarina/Bouncing_Blade?oldid=4015158) |
+| Bouncing Blade | over 0.15 seconds | [4015158](https://wiki.leagueoflegends.com/en-us/Template:Data_Katarina/Bouncing_Blade?oldid=4015158) |
+| Bouncing Blade | "name":"MaxBounces","values":[2.0,2.0,2.0,2.0,2.0,2.0,2.0] | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/katarina/katarina.bin.json) |
+| Bouncing Blade | lands 1.023 | [4015158](https://wiki.leagueoflegends.com/en-us/Template:Data_Katarina/Bouncing_Blade?oldid=4015158) |
+| Bouncing Blade | about 350 units | [4015158](https://wiki.leagueoflegends.com/en-us/Template:Data_Katarina/Bouncing_Blade?oldid=4015158) |
+| Bouncing Blade | Valid targets are determined after each bounce | [4015158](https://wiki.leagueoflegends.com/en-us/Template:Data_Katarina/Bouncing_Blade?oldid=4015158) |
+| Bouncing Blade | will not be destroyed in-flight if the target dies | [4015158](https://wiki.leagueoflegends.com/en-us/Template:Data_Katarina/Bouncing_Blade?oldid=4015158) |
+| Bouncing Blade | but it will on clones that expire | [4015158](https://wiki.leagueoflegends.com/en-us/Template:Data_Katarina/Bouncing_Blade?oldid=4015158) |
+| Preparation | after 1.25 seconds | [3845920](https://wiki.leagueoflegends.com/en-us/Template:Data_Katarina/Preparation?oldid=3845920) |
+| Preparation | Bonus Movement speed: 50 / 60 / 70 / 80 / 90% | [3845920](https://wiki.leagueoflegends.com/en-us/Template:Data_Katarina/Preparation?oldid=3845920) |
+| Shunpo | targetRange (Standard): 725 • 775 | [4007625](https://wiki.leagueoflegends.com/en-us/Template:Data_Katarina/Shunpo?oldid=4007625) |
+| Shunpo | targetRange (daggers): 725 • 775 | [4007625](https://wiki.leagueoflegends.com/en-us/Template:Data_Katarina/Shunpo?oldid=4007625) |
+| Shunpo | "castRadius":[150.0,150.0,150.0,150.0,150.0,150.0,150.0] | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/katarina/katarina.bin.json) |
+| Shunpo | "castRadius":[225.0,225.0,225.0,225.0,225.0,225.0,225.0] | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/katarina/katarina.bin.json) |
+| Shunpo | Magic Damage: 20 / 30 / 40 / 50 / 60 (+ 40% AD) (+ 25% AP) | [4007625](https://wiki.leagueoflegends.com/en-us/Template:Data_Katarina/Shunpo?oldid=4007625) |
+| Shunpo | effects occur before the cast time | [4007625](https://wiki.leagueoflegends.com/en-us/Template:Data_Katarina/Shunpo?oldid=4007625) |
+| Shunpo | does not reset Katarina's basic attack timer if it killed the target | [4007625](https://wiki.leagueoflegends.com/en-us/Template:Data_Katarina/Shunpo?oldid=4007625) |
+| Shunpo | any unit except structures and wards | [4007625](https://wiki.leagueoflegends.com/en-us/Template:Data_Katarina/Shunpo?oldid=4007625) |
+| Shunpo | Daggers that haven't landed yet | [4007625](https://wiki.leagueoflegends.com/en-us/Template:Data_Katarina/Shunpo?oldid=4007625) |
+| Shunpo | prioritizes damaging enemy champions | [4007625](https://wiki.leagueoflegends.com/en-us/Template:Data_Katarina/Shunpo?oldid=4007625) |
+| Shunpo | will still deal damage but not apply on-hit effects if dodged | [4007625](https://wiki.leagueoflegends.com/en-us/Template:Data_Katarina/Shunpo?oldid=4007625) |
+| Shunpo | cannot be blocked nor can it be missed while Katarina is blinded | [4007625](https://wiki.leagueoflegends.com/en-us/Template:Data_Katarina/Shunpo?oldid=4007625) |
+| Death Lotus | up to 2.5 seconds | [4044343](https://wiki.leagueoflegends.com/en-us/Template:Data_Katarina/Death_Lotus?oldid=4044343) |
+| Death Lotus | "name":"TicksPerSecond","values":[6.0,6.0,6.0,6.0,6.0,6.0,6.0] | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/katarina/katarina.bin.json) |
+| Death Lotus | effectRadius: 550 | [4044343](https://wiki.leagueoflegends.com/en-us/Template:Data_Katarina/Death_Lotus?oldid=4044343) |
+| Death Lotus | within 500 units | [4044343](https://wiki.leagueoflegends.com/en-us/Template:Data_Katarina/Death_Lotus?oldid=4044343) |
+| Death Lotus | speed: 2400 | [4044343](https://wiki.leagueoflegends.com/en-us/Template:Data_Katarina/Death_Lotus?oldid=4044343) |
+| Death Lotus | up to 3 | [4044343](https://wiki.leagueoflegends.com/en-us/Template:Data_Katarina/Death_Lotus?oldid=4044343) |
+| Death Lotus | for 3 seconds | [4044343](https://wiki.leagueoflegends.com/en-us/Template:Data_Katarina/Death_Lotus?oldid=4044343) |
+| Death Lotus | Magic Damage Per Dagger: 25 / 37.5 / 50 (+ 19% AP) | [4044343](https://wiki.leagueoflegends.com/en-us/Template:Data_Katarina/Death_Lotus?oldid=4044343) |
+| Death Lotus | Physical Damage Per Dagger: 16% (+ 50% per 100% bonus attack speed) bonus AD | [4044343](https://wiki.leagueoflegends.com/en-us/Template:Data_Katarina/Death_Lotus?oldid=4044343) |
+| Death Lotus | (+ 50% per 100% bonus attack speed) | [4044343](https://wiki.leagueoflegends.com/en-us/Template:Data_Katarina/Death_Lotus?oldid=4044343) |
+| Death Lotus | On-Hit/On-Attack Damage Effectiveness: 25 / 30 / 35% | [4044343](https://wiki.leagueoflegends.com/en-us/Template:Data_Katarina/Death_Lotus?oldid=4044343) |
+| Death Lotus | Disabled in the first and last {{fd\|0.25}} seconds | [4044343](https://wiki.leagueoflegends.com/en-us/Template:Data_Katarina/Death_Lotus?oldid=4044343) |
+| Death Lotus | does not have to be visible | [4044343](https://wiki.leagueoflegends.com/en-us/Template:Data_Katarina/Death_Lotus?oldid=4044343) |
+| Death Lotus | will not end if no enemies remain | [4044343](https://wiki.leagueoflegends.com/en-us/Template:Data_Katarina/Death_Lotus?oldid=4044343) |
+| Death Lotus | Spell shield will block and be consumed by only one dagger | [4044343](https://wiki.leagueoflegends.com/en-us/Template:Data_Katarina/Death_Lotus?oldid=4044343) |
+| Death Lotus | Each dagger counts as a separate hit | [4044343](https://wiki.leagueoflegends.com/en-us/Template:Data_Katarina/Death_Lotus?oldid=4044343) |
+| Death Lotus | for 4.5 seconds | [4044343](https://wiki.leagueoflegends.com/en-us/Template:Data_Katarina/Death_Lotus?oldid=4044343) |
+| Bouncing Blade | cooldown: 11 / 10 / 9 / 8 / 7 | [4015158](https://wiki.leagueoflegends.com/en-us/Template:Data_Katarina/Bouncing_Blade?oldid=4015158) |
+| Bouncing Blade | castTime: 0.25 | [4015158](https://wiki.leagueoflegends.com/en-us/Template:Data_Katarina/Bouncing_Blade?oldid=4015158) |
+| Preparation | cooldown: 15 / 14 / 13 / 12 / 11 | [3845920](https://wiki.leagueoflegends.com/en-us/Template:Data_Katarina/Preparation?oldid=3845920) |
+| Preparation | castTime: none | [3845920](https://wiki.leagueoflegends.com/en-us/Template:Data_Katarina/Preparation?oldid=3845920) |
+| Shunpo | cooldown: 12 / 11 / 10 / 9 / 8 | [4007625](https://wiki.leagueoflegends.com/en-us/Template:Data_Katarina/Shunpo?oldid=4007625) |
+| Shunpo | castTime: 0.15 | [4007625](https://wiki.leagueoflegends.com/en-us/Template:Data_Katarina/Shunpo?oldid=4007625) |
+| Death Lotus | cooldown: 75 / 60 / 45 | [4044343](https://wiki.leagueoflegends.com/en-us/Template:Data_Katarina/Death_Lotus?oldid=4044343) |
+| Death Lotus | castTime: none | [4044343](https://wiki.leagueoflegends.com/en-us/Template:Data_Katarina/Death_Lotus?oldid=4044343) |

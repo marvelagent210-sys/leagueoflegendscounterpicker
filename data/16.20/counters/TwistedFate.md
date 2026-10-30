@@ -1,5 +1,158 @@
 # Counters to Twisted Fate (patch 26.20)
 
+## Simulated duels
+
+The duel simulator played each of the 144 other champions with a simulator kit against Twisted Fate: both at level 20 with 15,000 gold of plain stats, each side's spent against the other's, through six scenarios (PLAN.md §6). Scores run from −1 (Twisted Fate wins every time) to +1 (the champion does). Run `npm run duel -- <champion> TwistedFate --log brawl` to watch a fight.
+
+| # | Champion | Score | You engage | Enemy engages | Brawl | Short trade | Spacing | Escape |
+|--:|---|--:|--:|--:|--:|--:|--:|--:|
+| 1 | Camille | +0.85 | +1.00 | +1.00 | +1.00 | +0.00 | +1.00 | +1.00 |
+| 2 | Poppy | +0.84 | +1.00 | +1.00 | +1.00 | +0.27 | +1.00 | +0.00 |
+| 3 | Kayle | +0.82 | +1.00 | +1.00 | +1.00 | +0.16 | +1.00 | +0.00 |
+| 4 | Fiora | +0.82 | +1.00 | +1.00 | +1.00 | +0.15 | +1.00 | +0.00 |
+| 5 | Tristana | +0.81 | +1.00 | +1.00 | +1.00 | +0.09 | +1.00 | +0.00 |
+| 6 | Gangplank | +0.81 | +1.00 | +1.00 | +1.00 | +0.09 | +1.00 | +0.00 |
+| 7 | Ashe | +0.80 | +1.00 | +1.00 | +1.00 | +0.13 | – | +0.00 |
+| 8 | Aphelios | +0.79 | +1.00 | +1.00 | +1.00 | +0.10 | – | +0.00 |
+| 9 | Kassadin | +0.79 | +1.00 | +1.00 | +1.00 | −0.05 | +1.00 | +0.00 |
+| 10 | Nocturne | +0.79 | +1.00 | +1.00 | +1.00 | −0.05 | +1.00 | +0.00 |
+| 11 | Yorick | +0.79 | +1.00 | +1.00 | +1.00 | −0.07 | +1.00 | +0.00 |
+| 12 | Nasus | +0.79 | +1.00 | +1.00 | +1.00 | −0.07 | +1.00 | +0.00 |
+| 13 | Jhin | +0.79 | +1.00 | +1.00 | +1.00 | +0.07 | – | +0.00 |
+| 14 | Dr. Mundo | +0.79 | +1.00 | +1.00 | +1.00 | −0.08 | +1.00 | +0.00 |
+| 15 | Olaf | +0.79 | +1.00 | +1.00 | +1.00 | −0.08 | +1.00 | +0.00 |
+| 16 | Kog'Maw | +0.78 | +1.00 | +1.00 | +1.00 | +0.04 | – | +0.00 |
+| 17 | Teemo | +0.78 | +1.00 | +1.00 | +1.00 | +0.04 | – | +0.00 |
+| 18 | Heimerdinger | +0.78 | +1.00 | +1.00 | +1.00 | +0.04 | – | +0.00 |
+| 19 | Trundle | +0.77 | +1.00 | +1.00 | +1.00 | −0.23 | +1.00 | +0.00 |
+| 20 | Tahm Kench | +0.68 | +0.81 | +0.81 | +0.96 | −0.04 | +0.91 | +0.00 |
+| 21 | Irelia | +0.65 | +0.96 | +1.00 | +0.39 | −0.01 | +0.80 | +0.00 |
+| 22 | Annie | +0.64 | +0.34 | +1.00 | +1.00 | +0.06 | +1.00 | +0.00 |
+| 23 | K'Sante | +0.63 | +1.00 | +1.00 | +1.00 | −0.14 | −1.00 | +1.00 |
+| 24 | Vayne | +0.50 | +1.00 | +0.00 | +1.00 | +0.00 | – | +0.00 |
+| 25 | Graves | +0.42 | +1.00 | +1.00 | −1.00 | +0.11 | +1.00 | +0.00 |
+| 26 | Miss Fortune | +0.35 | +1.00 | +1.00 | −1.00 | +0.08 | – | +0.00 |
+| 27 | Jayce | +0.31 | +1.00 | −1.00 | +1.00 | +0.07 | +1.00 | +0.00 |
+| 28 | Jax | +0.31 | +1.00 | −1.00 | +1.00 | +0.07 | +1.00 | +0.00 |
+| 29 | Cassiopeia | +0.27 | +0.00 | +0.10 | +1.00 | +0.10 | – | +0.00 |
+| 30 | Senna | +0.25 | +0.83 | +0.83 | −1.00 | +0.07 | – | +0.00 |
+| 31 | Yasuo | +0.25 | +0.89 | −1.00 | +1.00 | −0.08 | +0.89 | +0.00 |
+| 32 | Zaahen | +0.22 | +0.21 | +0.12 | +0.35 | +0.27 | +0.25 | +0.00 |
+| 33 | Kled | +0.19 | +1.00 | +1.00 | −1.00 | −0.04 | −1.00 | +0.00 |
+| 34 | Rammus | +0.18 | +1.00 | +1.00 | −1.00 | −0.11 | −1.00 | +0.00 |
+| 35 | Anivia | +0.18 | +0.23 | +0.21 | +0.34 | −0.11 | – | +0.00 |
+| 36 | Yone | +0.12 | +0.17 | +0.17 | +0.17 | −0.13 | +0.17 | +0.00 |
+| 37 | Volibear | +0.11 | +0.68 | −1.00 | +0.68 | −0.00 | +0.60 | +0.00 |
+| 38 | Orianna | +0.07 | +0.00 | +1.00 | −1.00 | +0.08 | – | +0.00 |
+| 39 | Xayah | −0.04 | +0.00 | −1.00 | +1.00 | +0.07 | – | +0.00 |
+| 40 | Lulu | −0.10 | −0.30 | −0.87 | +1.00 | +0.03 | – | +0.00 |
+| 41 | Maokai | −0.11 | −1.00 | +1.00 | −1.00 | −0.05 | +1.00 | +0.00 |
+| 42 | Taric | −0.14 | −0.16 | −0.18 | −0.21 | +0.05 | −0.19 | +0.00 |
+| 43 | Udyr | −0.21 | −1.00 | −1.00 | +1.00 | −0.06 | +1.00 | +0.00 |
+| 44 | Swain | −0.23 | −0.69 | +0.59 | −1.00 | +0.09 | – | +0.00 |
+| 45 | Sion | −0.26 | +0.33 | −1.00 | −1.00 | +0.07 | +1.00 | +0.00 |
+| 46 | Sejuani | −0.27 | −1.00 | −1.00 | +0.92 | +0.01 | +0.46 | +0.00 |
+| 47 | Garen | −0.31 | +1.00 | −1.00 | −1.00 | −0.03 | −1.00 | +0.00 |
+| 48 | Corki | −0.33 | −1.00 | −1.00 | +1.00 | +0.05 | – | +0.00 |
+| 49 | Lee Sin | −0.41 | −1.00 | −1.00 | +1.00 | −0.10 | −1.00 | +0.00 |
+| 50 | Tryndamere | −0.42 | −1.00 | −1.00 | +1.00 | −0.12 | −1.00 | +0.00 |
+| 51 | Amumu | −0.42 | −0.08 | −1.00 | −1.00 | −0.05 | +0.55 | +0.00 |
+| 52 | Xin Zhao | −0.43 | −0.87 | −0.50 | +0.09 | −0.06 | −1.00 | +0.00 |
+| 53 | Rumble | −0.43 | −1.00 | −1.00 | +0.88 | −0.07 | −1.00 | +0.00 |
+| 54 | Varus | −0.46 | −0.44 | −0.44 | −1.00 | +0.05 | – | +0.00 |
+| 55 | Samira | −0.49 | −1.00 | −0.00 | −1.00 | +0.08 | – | +0.00 |
+| 56 | Hwei | −0.50 | −1.00 | −1.00 | +0.22 | +0.05 | – | +0.00 |
+| 57 | Skarner | −0.50 | −1.00 | −1.00 | +0.61 | −0.17 | −1.00 | +0.00 |
+| 58 | Gwen | −0.51 | −1.00 | −1.00 | +0.71 | −0.36 | −1.00 | +0.00 |
+| 59 | Ziggs | −0.52 | −1.00 | −1.00 | +0.00 | +0.18 | – | +0.00 |
+| 60 | Lux | −0.55 | −1.00 | −1.00 | +0.00 | +0.02 | – | +0.00 |
+| 61 | Morgana | −0.61 | −1.00 | −0.98 | −0.20 | −0.13 | – | +0.00 |
+| 62 | Riven | −0.62 | −1.00 | −1.00 | +0.00 | −0.14 | −1.00 | +0.00 |
+| 63 | Darius | −0.63 | −1.00 | −1.00 | +0.00 | −0.18 | −1.00 | +0.00 |
+| 64 | Mordekaiser | −0.64 | −1.00 | −0.98 | −0.33 | −0.09 | −0.71 | +0.00 |
+| 65 | Karma | −0.72 | −0.83 | −0.99 | −1.00 | +0.04 | – | +0.00 |
+| 66 | Ryze | −0.73 | −0.93 | −0.93 | −1.00 | +0.07 | – | +0.00 |
+| 67 | Vel'Koz | −0.73 | −1.00 | −1.00 | −1.00 | +0.29 | – | +0.00 |
+| 68 | Rengar | −0.74 | −1.00 | −1.00 | −1.00 | +0.37 | −1.00 | +0.00 |
+| 69 | Zeri | −0.75 | −1.00 | −1.00 | −1.00 | +0.14 | – | +0.00 |
+| 70 | Kalista | −0.76 | −0.96 | −0.93 | −1.00 | −0.06 | – | +0.00 |
+| 71 | Taliyah | −0.76 | −1.00 | −1.00 | −1.00 | +0.11 | – | +0.00 |
+| 72 | Smolder | −0.76 | −1.00 | −1.00 | −1.00 | +0.11 | – | +0.00 |
+| 73 | Jinx | −0.76 | −1.00 | −1.00 | −1.00 | +0.10 | – | +0.00 |
+| 74 | Twitch | −0.76 | −1.00 | −1.00 | −1.00 | +0.10 | – | +0.00 |
+| 75 | Aurora | −0.76 | −1.00 | −1.00 | −1.00 | +0.09 | – | +0.00 |
+| 76 | Syndra | −0.76 | −1.00 | −1.00 | −1.00 | +0.09 | – | +0.00 |
+| 77 | Xerath | −0.76 | −1.00 | −1.00 | −1.00 | +0.08 | – | +0.00 |
+| 78 | Janna | −0.77 | −1.00 | −1.00 | −1.00 | +0.08 | – | +0.00 |
+| 79 | Neeko | −0.77 | −1.00 | −1.00 | −1.00 | +0.07 | – | +0.00 |
+| 80 | Nami | −0.77 | −1.00 | −1.00 | −1.00 | +0.06 | – | +0.00 |
+| 81 | Zyra | −0.77 | −1.00 | −1.00 | −1.00 | +0.06 | – | +0.00 |
+| 82 | Sona | −0.77 | −1.00 | −1.00 | −1.00 | +0.04 | – | +0.00 |
+| 83 | Zoe | −0.77 | −1.00 | −1.00 | −1.00 | +0.04 | – | +0.00 |
+| 84 | Draven | −0.77 | −1.00 | −1.00 | −1.00 | +0.04 | – | +0.00 |
+| 85 | Viktor | −0.77 | −1.00 | −1.00 | −1.00 | +0.03 | – | +0.00 |
+| 86 | Kindred | −0.77 | −1.00 | −1.00 | −1.00 | +0.02 | – | +0.00 |
+| 87 | Sivir | −0.77 | −1.00 | −1.00 | −1.00 | +0.02 | – | +0.00 |
+| 88 | Soraka | −0.77 | −1.00 | −1.00 | −1.00 | +0.02 | – | +0.00 |
+| 89 | Ahri | −0.78 | −1.00 | −1.00 | −1.00 | +0.02 | – | +0.00 |
+| 90 | Quinn | −0.78 | −1.00 | −1.00 | −1.00 | +0.01 | – | +0.00 |
+| 91 | LeBlanc | −0.78 | −1.00 | −1.00 | −1.00 | +0.01 | – | +0.00 |
+| 92 | Malzahar | −0.78 | −1.00 | −1.00 | −1.00 | +0.01 | – | +0.00 |
+| 93 | Veigar | −0.78 | −1.00 | −1.00 | −1.00 | +0.01 | – | +0.00 |
+| 94 | Brand | −0.78 | −1.00 | −1.00 | −1.00 | +0.01 | – | +0.00 |
+| 95 | Nunu & Willump | −0.78 | −1.00 | −1.00 | −1.00 | +0.15 | −1.00 | +0.00 |
+| 96 | Ezreal | −0.78 | −1.00 | −1.00 | −1.00 | +0.00 | – | +0.00 |
+| 97 | Akshan | −0.78 | −1.00 | −1.00 | −1.00 | −0.00 | – | +0.00 |
+| 98 | Vex | −0.78 | −1.00 | −1.00 | −1.00 | −0.01 | – | +0.00 |
+| 99 | Evelynn | −0.78 | −1.00 | −1.00 | −1.00 | +0.13 | −1.00 | +0.00 |
+| 100 | Karthus | −0.78 | −1.00 | −1.00 | −1.00 | −0.03 | – | +0.00 |
+| 101 | Diana | −0.78 | −1.00 | −1.00 | −1.00 | +0.12 | −1.00 | +0.00 |
+| 102 | Lissandra | −0.79 | −1.00 | −1.00 | −1.00 | −0.05 | – | +0.00 |
+| 103 | Caitlyn | −0.79 | −1.00 | −1.00 | −1.00 | +0.07 | −1.00 | +0.00 |
+| 104 | Kennen | −0.79 | −1.00 | −1.00 | −1.00 | −0.08 | – | +0.00 |
+| 105 | Naafiri | −0.79 | −1.00 | −1.00 | −1.00 | +0.05 | −1.00 | +0.00 |
+| 106 | Lucian | −0.79 | −1.00 | −1.00 | −1.00 | −0.09 | – | +0.00 |
+| 107 | Rell | −0.80 | −1.00 | −1.00 | −1.00 | +0.03 | −1.00 | +0.00 |
+| 108 | Blitzcrank | −0.80 | −1.00 | −1.00 | −1.00 | +0.03 | −1.00 | +0.00 |
+| 109 | Kai'Sa | −0.80 | −1.00 | −1.00 | −1.00 | −0.11 | – | +0.00 |
+| 110 | Vladimir | −0.80 | −1.00 | −1.00 | −1.00 | −0.12 | – | +0.00 |
+| 111 | Gnar | −0.80 | −1.00 | −1.00 | −1.00 | +0.01 | −1.00 | +0.00 |
+| 112 | Alistar | −0.80 | −1.00 | −1.00 | −1.00 | +0.01 | −1.00 | +0.00 |
+| 113 | Akali | −0.80 | −1.00 | −0.98 | −1.00 | −0.03 | −1.00 | +0.00 |
+| 114 | Jarvan IV | −0.80 | −1.00 | −1.00 | −1.00 | −0.01 | −1.00 | +0.00 |
+| 115 | Galio | −0.80 | −1.00 | −1.00 | −1.00 | −0.02 | −1.00 | +0.00 |
+| 116 | Singed | −0.80 | −1.00 | −1.00 | −1.00 | −0.02 | −1.00 | +0.00 |
+| 117 | Katarina | −0.80 | −1.00 | −1.00 | −1.00 | −0.02 | −1.00 | +0.00 |
+| 118 | Nautilus | −0.80 | −1.00 | −1.00 | −1.00 | −0.02 | −1.00 | +0.00 |
+| 119 | Braum | −0.80 | −1.00 | −1.00 | −1.00 | −0.02 | −1.00 | +0.00 |
+| 120 | Malphite | −0.80 | −1.00 | −1.00 | −1.00 | −0.03 | −1.00 | +0.00 |
+| 121 | Shen | −0.80 | −1.00 | −1.00 | −1.00 | −0.03 | −1.00 | +0.00 |
+| 122 | Thresh | −0.81 | −1.00 | −1.00 | −1.00 | −0.17 | – | +0.00 |
+| 123 | Wukong | −0.81 | −1.00 | −1.00 | −1.00 | −0.04 | −1.00 | +0.00 |
+| 124 | Urgot | −0.81 | −1.00 | −1.00 | −1.00 | −0.04 | −1.00 | +0.00 |
+| 125 | Illaoi | −0.81 | −1.00 | −1.00 | −1.00 | −0.05 | −1.00 | +0.00 |
+| 126 | Aatrox | −0.81 | −1.00 | −1.00 | −1.00 | −0.05 | −1.00 | +0.00 |
+| 127 | Renekton | −0.81 | −1.00 | −1.00 | −1.00 | −0.07 | −1.00 | +0.00 |
+| 128 | Kha'Zix | −0.81 | −1.00 | −1.00 | −1.00 | −0.07 | −1.00 | +0.00 |
+| 129 | Ambessa | −0.81 | −1.00 | −1.00 | −1.00 | −0.07 | −1.00 | +0.00 |
+| 130 | Master Yi | −0.81 | −1.00 | −1.00 | −1.00 | −0.08 | −1.00 | +0.00 |
+| 131 | Rakan | −0.81 | −1.00 | −1.00 | −1.00 | −0.08 | −1.00 | +0.00 |
+| 132 | Ornn | −0.81 | −1.00 | −1.00 | −1.00 | −0.08 | −1.00 | +0.00 |
+| 133 | Pantheon | −0.81 | −1.00 | −1.00 | −1.00 | −0.09 | −1.00 | +0.00 |
+| 134 | Leona | −0.81 | −1.00 | −1.00 | −1.00 | −0.09 | −1.00 | +0.00 |
+| 135 | Fizz | −0.81 | −1.00 | −1.00 | −1.00 | −0.09 | −1.00 | +0.00 |
+| 136 | Ekko | −0.82 | −1.00 | −1.00 | −1.00 | −0.11 | −1.00 | +0.00 |
+| 137 | Cho'Gath | −0.82 | −1.00 | −1.00 | −1.00 | −0.12 | −1.00 | +0.00 |
+| 138 | Talon | −0.82 | −1.00 | −1.00 | −1.00 | −0.13 | −1.00 | +0.00 |
+| 139 | Vi | −0.82 | −1.00 | −1.00 | −1.00 | −0.14 | −1.00 | +0.00 |
+| 140 | Zed | −0.82 | −1.00 | −1.00 | −1.00 | −0.14 | −1.00 | +0.00 |
+| 141 | Gragas | −0.82 | −1.00 | −1.00 | −1.00 | −0.14 | −1.00 | +0.00 |
+| 142 | Sett | −0.83 | −1.00 | −1.00 | −1.00 | −0.19 | −1.00 | +0.00 |
+| 143 | Warwick | −0.84 | −1.00 | −1.00 | −1.00 | −0.29 | −1.00 | +0.00 |
+| 144 | Hecarim | −0.84 | −1.00 | −1.00 | −1.00 | −0.30 | −1.00 | +0.00 |
+
+## Interaction ledger estimates
+
 Every champion ranked by what its kit does against Twisted Fate's, from the interaction ledger: projectile blocks, spell shields,
 parries, dash stops, crowd control and its defenses, range and more (PLAN.md §5). This ranking is **partial**: it weighs the
 interactions but doesn't play the fight out. The duel simulator replaces it as each champion's behavior is verified.
@@ -8,71 +161,71 @@ interactions but doesn't play the fight out. The duel simulator replaces it as e
 A hard counter shuts down part of a kit every time it is used (projectile block, attack dodge, attack block, blind, disarm, attack speed slow, attack reflect, dash stop, grounding, range) with an impact of 0.4 or more (0.5 for range).
 Run `npm run matchup -- <champion> TwistedFate` for the full ledger of a matchup, with sources.
 
-## Top 10
+### Top 10
 
-### 1. Rell (net +1.50)
+#### 1. Rell (net +1.50)
 
 - **0.35** interrupt: Ferromancy: Crash Down's airborne interrupts Twisted Fate's Destiny (movement channel). Ferromancy: Crash Down must land during the channel. (Rell W Ferromancy: Crash Down → Twisted Fate R Destiny)
 - **0.35** interrupt: Ferromancy: Mount Up's airborne interrupts Twisted Fate's Destiny (movement channel). Ferromancy: Mount Up must land during the channel. (Rell W Ferromancy: Mount Up → Twisted Fate R Destiny)
 - **0.35** interrupt: Full Tilt's stun interrupts Twisted Fate's Destiny (movement channel). Full Tilt must land during the channel. (Rell E Full Tilt → Twisted Fate R Destiny)
 - Watch out: Twisted Fate's basic attacks reach 350 units farther than Rell's (525 vs 175 attack range).
 
-### 2. Braum (net +1.26)
+#### 2. Braum (net +1.26)
 
 - **0.60** projectile block: Unbreakable blocks Twisted Fate's basic attacks, which are projectiles. Unbreakable lasts 4 s on a 8 s cooldown. (Braum E Unbreakable → Twisted Fate basic attacks)
 - **0.60** projectile block: Unbreakable blocks Twisted Fate's Pick a Card, a projectile. Unbreakable for 4 s, long enough to use ahead of Pick a Card. (Braum E Unbreakable → Twisted Fate W Pick a Card)
 - **0.35** interrupt: Concussive Blows's stun interrupts Twisted Fate's Destiny (movement channel). Concussive Blows must land during the channel. (Braum I Concussive Blows → Twisted Fate R Destiny)
 - Watch out: Twisted Fate's basic attacks reach 400 units farther than Braum's (525 vs 125 attack range).
 
-### 3. Yasuo (net +1.20)
+#### 3. Yasuo (net +1.20)
 
 - **0.47** projectile block: Wind Wall blocks Twisted Fate's basic attacks, which are projectiles. Wind Wall lasts 4 s on a 17 s cooldown. (Yasuo W Wind Wall → Twisted Fate basic attacks)
 - **0.43** projectile block: Wind Wall blocks Twisted Fate's Pick a Card, a projectile. Wind Wall for 4 s, long enough to use ahead of Pick a Card. (Yasuo W Wind Wall → Twisted Fate W Pick a Card)
 - **0.35** interrupt: Last Breath's airborne interrupts Twisted Fate's Destiny (movement channel). Last Breath must land during the channel. (Yasuo R Last Breath → Twisted Fate R Destiny)
 - Watch out: Twisted Fate's basic attacks reach 350 units farther than Yasuo's (525 vs 175 attack range).
 
-### 4. Lulu (net +0.93)
+#### 4. Lulu (net +0.93)
 
 - **0.40** disarm: Whimsy disarms Twisted Fate for 2 s: no basic attacks. Disarm for 2 s on a 18 s cooldown. (Lulu W Whimsy → Twisted Fate basic attacks)
 - **0.35** interrupt: Whimsy's polymorph interrupts Twisted Fate's Destiny (movement channel). Whimsy must land during the channel. (Lulu W Whimsy → Twisted Fate R Destiny)
 - **0.35** interrupt: Wild Growth's airborne interrupts Twisted Fate's Destiny (movement channel). Wild Growth must land during the channel. (Lulu R Wild Growth → Twisted Fate R Destiny)
 
-### 5. K'Sante (net +0.85)
+#### 5. K'Sante (net +0.85)
 
 - **0.35** interrupt: All Out's airborne interrupts Twisted Fate's Destiny (movement channel). All Out must land during the channel. (K'Sante R All Out → Twisted Fate R Destiny)
 - **0.35** interrupt: Ntofo Strikes's airborne interrupts Twisted Fate's Destiny (movement channel). Ntofo Strikes must land during the channel. (K'Sante Q Ntofo Strikes → Twisted Fate R Destiny)
 - **0.35** interrupt: Path Maker's airborne interrupts Twisted Fate's Destiny (movement channel). Path Maker must land during the channel. (K'Sante W Path Maker → Twisted Fate R Destiny)
 - Watch out: Twisted Fate's basic attacks reach 375 units farther than K'Sante's (525 vs 150 attack range).
 
-### 6. Heimerdinger (net +0.77)
+#### 6. Heimerdinger (net +0.77)
 
 - **0.35** interrupt: CH-2 Electron Storm Grenade's stun interrupts Twisted Fate's Destiny (movement channel). CH-2 Electron Storm Grenade must land during the channel. (Heimerdinger E CH-2 Electron Storm Grenade → Twisted Fate R Destiny)
 - **0.35** interrupt: CH-3X Lightning Grenade's stun interrupts Twisted Fate's Destiny (movement channel). CH-3X Lightning Grenade must land during the channel. (Heimerdinger E CH-3X Lightning Grenade → Twisted Fate R Destiny)
 - **0.07** cc immunity: H-28G Evolution Turret makes Heimerdinger immune to Twisted Fate's Pick a Card (slow). H-28G Evolution Turret lasts ? on a 20 s cooldown. (Heimerdinger Q H-28G Evolution Turret → Twisted Fate W Pick a Card)
 
-### 7. Anivia (net +0.74)
+#### 7. Anivia (net +0.74)
 
 - **0.35** interrupt: Crystallize's airborne interrupts Twisted Fate's Destiny (movement channel). Crystallize must land during the channel. (Anivia W Crystallize → Twisted Fate R Destiny)
 - **0.35** interrupt: Flash Frost's stun interrupts Twisted Fate's Destiny (movement channel). Flash Frost must land during the channel. (Anivia Q Flash Frost → Twisted Fate R Destiny)
 - **0.04** range: Anivia's basic attacks reach 75 units farther than Twisted Fate's (600 vs 525 attack range). Twisted Fate closes the gap with Destiny. (Anivia basic attacks → Twisted Fate basic attacks)
 
-### 8. Teemo (net +0.72)
+#### 8. Teemo (net +0.72)
 
 - **0.57** blind: Blinding Dart's blind makes Twisted Fate's basic attacks miss for 3 s. Blind for 3 s on a 7 s cooldown. (Teemo Q Blinding Dart → Twisted Fate basic attacks)
 - **0.46** blind: Blinding Dart's blind makes Twisted Fate's Pick a Card, an empowered attack, miss. Blind for 3 s. (Teemo Q Blinding Dart → Twisted Fate W Pick a Card)
 - Watch out: Destiny reveals Teemo through Guerrilla Warfare's stealth.
 
-### 9. Gnar (net +0.70)
+#### 9. Gnar (net +0.70)
 
 - **0.35** interrupt: GNAR!'s airborne interrupts Twisted Fate's Destiny (movement channel). GNAR! must land during the channel. (Gnar R GNAR! → Twisted Fate R Destiny)
 - **0.35** interrupt: Wallop's stun interrupts Twisted Fate's Destiny (movement channel). Wallop must land during the channel. (Gnar W Wallop → Twisted Fate R Destiny)
 
-### 10. Nami (net +0.70)
+#### 10. Nami (net +0.70)
 
 - **0.35** interrupt: Aqua Prison's suspension interrupts Twisted Fate's Destiny (movement channel). Aqua Prison must land during the channel. (Nami Q Aqua Prison → Twisted Fate R Destiny)
 - **0.35** interrupt: Tidal Wave's airborne interrupts Twisted Fate's Destiny (movement channel). Tidal Wave must land during the channel. (Nami R Tidal Wave → Twisted Fate R Destiny)
 
-## Full ranking
+### Full ranking
 
 | # | Champion | Net | For | Against | Hard counters |
 |--:|---|--:|--:|--:|---|

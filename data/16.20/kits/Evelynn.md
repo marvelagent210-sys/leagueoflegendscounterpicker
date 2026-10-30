@@ -260,3 +260,105 @@ All 2 level-based formulas in the game files (2 linked to wiki values above):
 |---|---|---|--:|--:|--:|
 | EvelynnPassive | HealingThresholdTOOLTIP | breakpoints at levels none (level 1: 250) | 250 | 590 | 630 |
 | EvelynnPassive | HealPerSecondTOOLTIP | linear 15 → 150 over levels 1-18, continues past 18 | 15 | 150 | 165.882 |
+
+## Duel simulator kit (level 20, every ability at max rank)
+
+What the duel simulator fights with (`kits/champions/Evelynn.ts`): values come from pinned wiki and versioned game-data records at level 20. Interpretations and missing evidence are listed under assumptions. Ratios are fractions of the stat (60% AD is 0.6 × AD).
+
+- Basic attack: range 125, melee.
+
+| Key | Ability | Cooldown (s) | Cast time (s) | Cost | Delivery | On the enemy | On itself |
+|---|---|--:|--:|---|---|---|---|
+| Q | Hate Spike | 4 | 0.3 | 60 | skillshot 800 long, 120 wide, at 2400/s | 45 + 25% AP magic damage; marks it "hateSpike" for 4 s | – |
+| Q2 | Hate Spike (spikes) | 0.5 | 0 | – | skillshot 680 long, 180 wide, at 3000/s | 45 + 25% AP magic damage | – |
+| W | Allure | 11 | 0.25 | 100 | targeted, 1600 range | marks it "allure" for 5 s | – |
+| E | Whiplash | 8 | 0.25 | 60 | targeted, 210 edge range | 180 + 3% target's maximum health + 1.5% of target's maximum health per 100 AP magic damage, varies with combat state; formula is a reference | moveSpeedPercent 0.5 for 2 s |
+| E2 | Empowered Whiplash | 8 | 0.25 | 60 | dash target 210 units at Infinity/s, hits within 0 | 240 + 4% target's maximum health + 2.5% of target's maximum health per 100 AP magic damage, varies with combat state; formula is a reference | moveSpeedPercent 0.5 for 2 s |
+| Epath | Empowered Whiplash (path) | 0 | 0 | – | self | 240 + 4% target's maximum health + 2.5% of target's maximum health per 100 AP magic damage, varies with combat state; formula is a reference | – |
+| R | Last Caress | 80 | 0.35 | 100 | area 0 to 500 units ahead, lands after 0 s | 375 + 75% AP magic damage, varies with combat state; formula is a reference | as the cast starts: untargetable for 0.85 s; noMovement for 0.85 s |
+
+Effects marked by a mark or a role are completed by the kit's hooks (see the kit's source).
+
+### Assumptions
+
+- The duel starts with no prepared Demon Shade, empowered Whiplash, Hate Spike mark or Allure. Demon Shade first arms after four seconds without a breaking action. Regeneration is evaluated each tick against the dynamic level-20 630 + 250% AP ceiling (the repository extrapolates the pinned level curve through level 20); health above that ceiling is never removed. Camouflage uses the actual observing champion and the pinned 700-unit detection radius.
+- Hate Spike recasts use the pinned game-file decelerating missile (3000 initial speed, -4200 acceleration, 800 floor), strike all actual contacts, and consume only marks on the contacted target. The initial dart does not consume the mark it creates. The one-dimensional policy prioritizes a visible champion in recast range, then a visible damageable pet; champion-only unit-targeted spells cannot be manually retargeted to pets by the current command interface.
+- Allure is applied at cast completion without a damaging projectile. The raw pin specifies the 0.25-second cast but no mark-delivery travel duration. Its mature MR reduction precedes the triggering packet independently of charm immunity. Mark removal restarts the pinned cooldown. Pets are not legal Allure targets unless their source explicitly classifies them as champions or qualifying monsters; this duel command interface targets the champion.
+- Empowered Whiplash uses an interruptible target-tracking dash with earliest-tick arrival: neither the exact wiki pin nor the versioned binary quantifies dash speed. The binary's generic missileSpeed is not treated as a dash-speed claim. It updates the actual target location at arrival; a relocation of at least the source's estimated 2000 units instead ends at the prior location. Invalid targets during the cast cancel without cost/cooldown; invalid targets after commitment stop the dash without damage. Path pets receive area damage without primary-target on-hits. Normal Whiplash is dodgeable; empowered Whiplash ignores dodge; both ignore blind and respect attack blocks, parry and spell shields.
+- Last Caress is a directed 500-unit interval on the one-dimensional line. It deals ordinary magic damage, with the 240% packet selected strictly below 30% health, never an execute. Its backwards blink follows the direction selected at declaration after the separate 0.5-second post-cast delay; untargetability and the movement lock end at that blink. The wiki's 500-unit radius is explicitly estimated. Terrain-specific blink relocation and lateral cone geometry are outside this model.
+- The ordinary policy reserves offensive Last Caress in hold and short-trade modes, preserves completed-trade retreat, and waits stationary for Allure in hold mode. Shared reactive defenses may still answer a real incoming threat.
+
+### Source values read (70)
+
+| Ability | Value | Source version |
+|---|---|---|
+| Demon Shade | break stealth for 4 seconds | [4038334](https://wiki.leagueoflegends.com/en-us/Template:Data_Evelynn/Demon_Shade?oldid=4038334) |
+| Demon Shade | reduced to 1.25 seconds from casting Last Caress | [4038334](https://wiki.leagueoflegends.com/en-us/Template:Data_Evelynn/Demon_Shade?oldid=4038334) |
+| Demon Shade | places it on a 1.5-second static cooldown | [4038334](https://wiki.leagueoflegends.com/en-us/Template:Data_Evelynn/Demon_Shade?oldid=4038334) |
+| Demon Shade | Demon Shade: While below 250 – 590 (based on level) (+ 250% AP) health, Evelynn heals herself for 15 – 150 (based on level) every second. | [4038334](https://wiki.leagueoflegends.com/en-us/Template:Data_Evelynn/Demon_Shade?oldid=4038334) |
+| Demon Shade | (+ 250% AP) health | [4038334](https://wiki.leagueoflegends.com/en-us/Template:Data_Evelynn/Demon_Shade?oldid=4038334) |
+| Demon Shade | Detection Radius: 700 | [4038334](https://wiki.leagueoflegends.com/en-us/Template:Data_Evelynn/Demon_Shade?oldid=4038334) |
+| Demon Shade | From level 6 onward | [4038334](https://wiki.leagueoflegends.com/en-us/Template:Data_Evelynn/Demon_Shade?oldid=4038334) |
+| Demon Shade | cooldown incurs upon starting the attack windup | [4038334](https://wiki.leagueoflegends.com/en-us/Template:Data_Evelynn/Demon_Shade?oldid=4038334) |
+| Hate Spike | Magic Damage: 25 / 30 / 35 / 40 / 45 (+ 25% AP) | [4012756](https://wiki.leagueoflegends.com/en-us/Template:Data_Evelynn/Hate_Spike?oldid=4012756) |
+| Hate Spike | Bonus Magic Damage: 15 / 25 / 35 / 45 / 55 (+ 25% AP) | [4012756](https://wiki.leagueoflegends.com/en-us/Template:Data_Evelynn/Hate_Spike?oldid=4012756) |
+| Hate Spike | marking them for 4 seconds | [4012756](https://wiki.leagueoflegends.com/en-us/Template:Data_Evelynn/Hate_Spike?oldid=4012756) |
+| Hate Spike | next 3 basic attacks | [4012756](https://wiki.leagueoflegends.com/en-us/Template:Data_Evelynn/Hate_Spike?oldid=4012756) |
+| Hate Spike | recast up to 3 times at no cost | [4012756](https://wiki.leagueoflegends.com/en-us/Template:Data_Evelynn/Hate_Spike?oldid=4012756) |
+| Hate Spike | Barrage Cooldown: 0.5 | [4012756](https://wiki.leagueoflegends.com/en-us/Template:Data_Evelynn/Hate_Spike?oldid=4012756) |
+| Hate Spike | cooldown: 4 | [4012756](https://wiki.leagueoflegends.com/en-us/Template:Data_Evelynn/Hate_Spike?oldid=4012756) |
+| Hate Spike | targetRange (Dart range): 800 • 680 | [4012756](https://wiki.leagueoflegends.com/en-us/Template:Data_Evelynn/Hate_Spike?oldid=4012756) |
+| Hate Spike | targetRange (Spike range): 800 • 680 | [4012756](https://wiki.leagueoflegends.com/en-us/Template:Data_Evelynn/Hate_Spike?oldid=4012756) |
+| Hate Spike | effectRadius: 550 | [4012756](https://wiki.leagueoflegends.com/en-us/Template:Data_Evelynn/Hate_Spike?oldid=4012756) |
+| Hate Spike | width (Dart width): 120 • 180 | [4012756](https://wiki.leagueoflegends.com/en-us/Template:Data_Evelynn/Hate_Spike?oldid=4012756) |
+| Hate Spike | width (Spike width): 120 • 180 | [4012756](https://wiki.leagueoflegends.com/en-us/Template:Data_Evelynn/Hate_Spike?oldid=4012756) |
+| Hate Spike | "mInitialSpeed":3000.0 | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/evelynn/evelynn.bin.json) |
+| Hate Spike | "mAcceleration":-4200.0 | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/evelynn/evelynn.bin.json) |
+| Hate Spike | "mMinSpeed":800.0 | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/evelynn/evelynn.bin.json) |
+| Hate Spike | The dart applies spell damage and the spikes deal area damage | [4012756](https://wiki.leagueoflegends.com/en-us/Template:Data_Evelynn/Hate_Spike?oldid=4012756) |
+| Hate Spike | This ability will cast from wherever the caster is at the start of the cast time | [4012756](https://wiki.leagueoflegends.com/en-us/Template:Data_Evelynn/Hate_Spike?oldid=4012756) |
+| Hate Spike | A nearby visible enemy is required to recast | [4012756](https://wiki.leagueoflegends.com/en-us/Template:Data_Evelynn/Hate_Spike?oldid=4012756) |
+| Allure | curse for 5 seconds | [4064061](https://wiki.leagueoflegends.com/en-us/Template:Data_Evelynn/Allure?oldid=4064061) |
+| Allure | marked for at least 2.5 seconds | [4064061](https://wiki.leagueoflegends.com/en-us/Template:Data_Evelynn/Allure?oldid=4064061) |
+| Allure | slowing them by 45% for 0.75 seconds | [4064061](https://wiki.leagueoflegends.com/en-us/Template:Data_Evelynn/Allure?oldid=4064061) |
+| Allure | Charm Duration: 1.25 / 1.5 / 1.75 / 2 / 2.25 seconds | [4064061](https://wiki.leagueoflegends.com/en-us/Template:Data_Evelynn/Allure?oldid=4064061) |
+| Allure | Magic Resistance Reduction: 35 / 37.5 / 40 / 42.5 / 45% | [4064061](https://wiki.leagueoflegends.com/en-us/Template:Data_Evelynn/Allure?oldid=4064061) |
+| Allure | magic resistance reduction for 4 seconds | [4064061](https://wiki.leagueoflegends.com/en-us/Template:Data_Evelynn/Allure?oldid=4064061) |
+| Allure | cost: 60 / 70 / 80 / 90 / 100 | [4064061](https://wiki.leagueoflegends.com/en-us/Template:Data_Evelynn/Allure?oldid=4064061) |
+| Allure | cooldown: 15 / 14 / 13 / 12 / 11 | [4064061](https://wiki.leagueoflegends.com/en-us/Template:Data_Evelynn/Allure?oldid=4064061) |
+| Allure | targetRange: 1200 / 1300 / 1400 / 1500 / 1600 | [4064061](https://wiki.leagueoflegends.com/en-us/Template:Data_Evelynn/Allure?oldid=4064061) |
+| Allure | Casting Allure does not break Demon Shade nor its fade into it | [4064061](https://wiki.leagueoflegends.com/en-us/Template:Data_Evelynn/Allure?oldid=4064061) |
+| Allure | mark application on a target cannot be blocked by spell shield | [4064061](https://wiki.leagueoflegends.com/en-us/Template:Data_Evelynn/Allure?oldid=4064061) |
+| Allure | mark's consumption will not occur if the ability is blocked by a spell shield | [4064061](https://wiki.leagueoflegends.com/en-us/Template:Data_Evelynn/Allure?oldid=4064061) |
+| Allure | reduction will be applied to the attack or ability that triggers it | [4064061](https://wiki.leagueoflegends.com/en-us/Template:Data_Evelynn/Allure?oldid=4064061) |
+| Allure | Allure will restart its cooldown whenever the mark debuff is removed | [4064061](https://wiki.leagueoflegends.com/en-us/Template:Data_Evelynn/Allure?oldid=4064061) |
+| Whiplash | Magic Damage: 60 / 90 / 120 / 150 / 180 (+ 3% (+ 1.5% per 100 AP) of target's maximum health) | [3909221](https://wiki.leagueoflegends.com/en-us/Template:Data_Evelynn/Whiplash?oldid=3909221) |
+| Empowered Whiplash | Empowered Magic Damage: 80 / 120 / 160 / 200 / 240 (+ 4% (+ 2.5% per 100 AP) of target's maximum health) | [3984296](https://wiki.leagueoflegends.com/en-us/Template:Data_Evelynn/Empowered_Whiplash?oldid=3984296) |
+| Whiplash | deals a minimum of 25 | [3909221](https://wiki.leagueoflegends.com/en-us/Template:Data_Evelynn/Whiplash?oldid=3909221) |
+| Whiplash | capped at 450 against monsters | [3909221](https://wiki.leagueoflegends.com/en-us/Template:Data_Evelynn/Whiplash?oldid=3909221) |
+| Empowered Whiplash | 2000 or more units away | [3984296](https://wiki.leagueoflegends.com/en-us/Template:Data_Evelynn/Empowered_Whiplash?oldid=3984296) |
+| Whiplash | Bonus Movement Speed: 30 / 35 / 40 / 45 / 50% | [3909221](https://wiki.leagueoflegends.com/en-us/Template:Data_Evelynn/Whiplash?oldid=3909221) |
+| Whiplash | movement speed for 2 seconds | [3909221](https://wiki.leagueoflegends.com/en-us/Template:Data_Evelynn/Whiplash?oldid=3909221) |
+| Whiplash | targetRange: 210 | [3909221](https://wiki.leagueoflegends.com/en-us/Template:Data_Evelynn/Whiplash?oldid=3909221) |
+| Whiplash | cooldown: 8 | [3909221](https://wiki.leagueoflegends.com/en-us/Template:Data_Evelynn/Whiplash?oldid=3909221) |
+| Whiplash | cost: 40 / 45 / 50 / 55 / 60 | [3909221](https://wiki.leagueoflegends.com/en-us/Template:Data_Evelynn/Whiplash?oldid=3909221) |
+| Whiplash | castTime: 0.25 | [3909221](https://wiki.leagueoflegends.com/en-us/Template:Data_Evelynn/Whiplash?oldid=3909221) |
+| Whiplash | can be dodged and blocked but may not miss if Evelynn is blinded | [3909221](https://wiki.leagueoflegends.com/en-us/Template:Data_Evelynn/Whiplash?oldid=3909221) |
+| Empowered Whiplash | can be blocked but cannot be dodged and/or missed if Evelynn is blinded | [3984296](https://wiki.leagueoflegends.com/en-us/Template:Data_Evelynn/Empowered_Whiplash?oldid=3984296) |
+| Empowered Whiplash | only applies on-hit effects to the primary target | [3984296](https://wiki.leagueoflegends.com/en-us/Template:Data_Evelynn/Empowered_Whiplash?oldid=3984296) |
+| Empowered Whiplash | will track the target if they change locations | [3984296](https://wiki.leagueoflegends.com/en-us/Template:Data_Evelynn/Empowered_Whiplash?oldid=3984296) |
+| Last Caress | Magic Damage: 125 / 250 / 375 (+ 75% AP) | [4006700](https://wiki.leagueoflegends.com/en-us/Template:Data_Evelynn/Last_Caress?oldid=4006700) |
+| Last Caress | Empowered Damage: 300 / 600 / 900 (+ 180% AP) | [4006700](https://wiki.leagueoflegends.com/en-us/Template:Data_Evelynn/Last_Caress?oldid=4006700) |
+| Last Caress | below 30% of their maximum health | [4006700](https://wiki.leagueoflegends.com/en-us/Template:Data_Evelynn/Last_Caress?oldid=4006700) |
+| Last Caress | After 0.5 seconds | [4006700](https://wiki.leagueoflegends.com/en-us/Template:Data_Evelynn/Last_Caress?oldid=4006700) |
+| Last Caress | blinks 700 units in the opposite direction | [4006700](https://wiki.leagueoflegends.com/en-us/Template:Data_Evelynn/Last_Caress?oldid=4006700) |
+| Last Caress | castTime: 0.35 | [4006700](https://wiki.leagueoflegends.com/en-us/Template:Data_Evelynn/Last_Caress?oldid=4006700) |
+| Last Caress | effectRadius: 500 | [4006700](https://wiki.leagueoflegends.com/en-us/Template:Data_Evelynn/Last_Caress?oldid=4006700) |
+| Last Caress | becoming untargetable at the start of the cast time | [4006700](https://wiki.leagueoflegends.com/en-us/Template:Data_Evelynn/Last_Caress?oldid=4006700) |
+| Last Caress | angle: 180° | [4006700](https://wiki.leagueoflegends.com/en-us/Template:Data_Evelynn/Last_Caress?oldid=4006700) |
+| Hate Spike | cost: 40 / 45 / 50 / 55 / 60 | [4012756](https://wiki.leagueoflegends.com/en-us/Template:Data_Evelynn/Hate_Spike?oldid=4012756) |
+| Hate Spike | castTime (Initial cast): 0.3 • None | [4012756](https://wiki.leagueoflegends.com/en-us/Template:Data_Evelynn/Hate_Spike?oldid=4012756) |
+| Hate Spike | speed: 2400 | [4012756](https://wiki.leagueoflegends.com/en-us/Template:Data_Evelynn/Hate_Spike?oldid=4012756) |
+| Allure | castTime: 0.25 | [4064061](https://wiki.leagueoflegends.com/en-us/Template:Data_Evelynn/Allure?oldid=4064061) |
+| Last Caress | cooldown: 120 / 100 / 80 | [4006700](https://wiki.leagueoflegends.com/en-us/Template:Data_Evelynn/Last_Caress?oldid=4006700) |
+| Last Caress | cost: 100 | [4006700](https://wiki.leagueoflegends.com/en-us/Template:Data_Evelynn/Last_Caress?oldid=4006700) |

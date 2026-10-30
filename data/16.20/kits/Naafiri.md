@@ -230,3 +230,148 @@ All 7 level-based formulas in the game files (0 linked to wiki values above):
 | NaafiriP | AOEDamageModifier | breakpoints at levels 16 (level 1: 0.76) | 0.76 | 0.505 | 0.475 |
 | NaafiriQ | MinionExecuteThreshold | breakpoints at levels 12 (level 1: 30) | 30 | 98 | 106 |
 | NaafiriW | ArmorShred | breakpoints at levels none (level 1: 6) | 6 | 40 | 44 |
+
+## Duel simulator kit (level 20, every ability at max rank)
+
+What the duel simulator fights with (`kits/champions/Naafiri.ts`): values come from pinned wiki and versioned game-data records at level 20. Interpretations and missing evidence are listed under assumptions. Ratios are fractions of the stat (60% AD is 0.6 × AD).
+
+- Basic attack: range 125, melee.
+
+| Key | Ability | Cooldown (s) | Cast time (s) | Cost | Delivery | On the enemy | On itself |
+|---|---|--:|--:|---|---|---|---|
+| Q | Darkin Daggers | 7 | 0.25 | 90 | skillshot 900 long, 100 wide, at 1700/s | 55 + 20% bonus AD physical damage; 135 + 80% bonus AD physical damage over 5 s | – |
+| Q2 | Darkin Daggers (recast) | 0 | 0.25 | 0 | skillshot 900 long, 100 wide, at 1700/s; recast of Q within 4 s, after 0.5 s | 55 + 20% bonus AD physical damage; 135 + 80% bonus AD physical damage over 5 s | – |
+| W | The Call of the Pack | 18 | 0.75 | 60 | self | – | – |
+| E | Eviscerate | 7 | 0 | 40 | dash toward 250–450 units at 900/s, through the enemy | – | – |
+| R | Hounds' Pursuit | 80 | 0 | 100 | self; channel 0.75 s | – | – |
+| R2 | Hounds' Pursuit (recast) | 0 | 0 | 0 | self; channel 0.75 s | – | – |
+| Eslash | Eviscerate (dash) | 0 | 0 | – | self | 55 + 40% bonus AD physical damage | – |
+| Eflurry | Eviscerate (flurry) | 0 | 0 | – | self | 160 + 80% bonus AD physical damage | – |
+| Rhit | Hounds' Pursuit (collision) | 0 | 0 | – | self | 275 + 100% bonus AD physical damage; slow 99% for 0.25 s | – |
+| Rpack | Hounds' Pursuit (Packmate collision) | 0 | 0 | – | self | 275 + 100% bonus AD physical damage; slow 99% for 0.25 s | – |
+| Rdash | Hounds' Pursuit (dash) | 0 | 0 | – | dash target 900 units at 1800/s, through the enemy | – | – |
+
+Effects marked by a mark or a role are completed by the kit's hooks (see the kit's source).
+
+### Assumptions
+
+- Darkin Daggers: "The bleed executes minions" has no value past level 11; its level-11 value is used at 20.
+- The level-20 duel starts with the five Packmates explicitly supplied at game start. Their primary level series provide335.645HP,35.397resistances,21.1764705882353+4%bonusAD damage,25radius and125reach. They are actual Minion-class bodies, never clones. No preduel attack commands, bleeds, Prey Drive or hunt are prepared. Ordinary owner death removes all Packmates.
+- Packmates inherit the owner's current attack speed and movement speed every tick. Actual accepted basic contacts command their actual champion or pet recipient for two seconds. Q commands only its first visible non-minion contact; E only the nearest visible flurry contact with champion priority. Commands retain actual pet IDs. Prey Drive stores three30%empowerments with a three-second refresh; blind/dodge/parry preserve them and a damage-blocked connected basic consumes one. Monsters alone receive155%normal pet attack damage; ordinary summons do not.
+- The primary1300pounce reach takes precedence over binary LeapMax1200; binary LeapSpeed1250 supplies finite travel. Root/ground/silence and disabling CC prevent pounces. No unsupported hard leash is invented: uncommanded pets return toward the owner, with the documented catch-up speed cap1000at700distance. Exact catch-up acceleration and 400–450threshold are unquantified, so the upper approximate450threshold is used and speed interpolates from inherited speed there to the cap at700units while the owner moves away. Formation and lateral positions collapse to the owner point. Brush navigation and ambient Minion Hunter last-hits require a lane wave and are absent.
+- Q uses two separate piercing900-range100-width1700-speed missiles and a free recast after0.5seconds within4seconds. The primary0.5lockout overrides binary0.75. Cooldown begins after recast or window expiry. Bleed uses ten actual half-second pulses overfive seconds. Rehitting consumes only this Naafiri's remaining bleed, using missing health before the payoff packet; min/max base and bonusAD scaling interpolate independently. Initial contact and each tick can execute explicit minions below70HP, excluding hit-count objects. Generic Monster metadata cannot establish large/non-epic status, so monster-only healing and execution are not invented. Champions heal105+40%bonusAD only on an accepted bleed payoff. Released Q and existing bleeds survive owner death.
+- W's five-second hunt begins at declaration, including immediate one-second untargetability/ghosting,0.9-second Packmate vanish and a moving0.75-second cast. The20%AD bonus is recomputed from AD excluding its own buff, and30%movement speed follows current hunt time. Two additional Packmates appear after1.25seconds and expire in spawn-ID order when the hunt ends. Casting R extends the remaining hunt by1.75seconds up tofive. E vanishes non-pursuing Packmates through its real900-speed dash and returns them healed to full. A knocked-down E returns its pets without granting flurry damage. Terrain crossing uses the shared clear-endpoint rule; the sourced650extended terrain endpoint has no exact server extension rule and is not fabricated.
+- R is an actual stationary0.75-second channel followed by an interruptible1800-speed chase to the primary approximate125-unit front offset. Channel root/ground/silence and ordinary interrupting control cancel it. The target gains true sight during channel and standard sight for1.5seconds afterward. Untargetability does not cancel tracking but guards actual collision; stasis guards damage. The source omits the maximum tracking distance: the existing900cast range bounds updates from the original cast position, then the last accepted location is retained. Packmates independently collide for27.5+10%bonusAD, bypassing spell shields as stated; the champion collision is shieldable. Only real champion kills during the seven-second window grant the one free12-second recast and its200+150%bonusAD three-second shield. No fictional second victim or allied assist is supplied.
+- The ordinary policy reserves R in trade/hold and honors completed-trade retreat before optional casts. Reference hints count an ordinary two-dagger bleed cycle and finite normal Packmate attacks; W's AD uptime and two temporary pets are averaged over its cooldown. They grant no guaranteed low-health payoff, R recast or takedown shield.
+- The exact pet article labels its base-damage progression a placeholder for a special formula. The retained primary level series is used at level 20; a separate verified server formula is unavailable. Packmates inherit the owner's effective movement speed and attack interval, ignoring additional body-local speed modifiers while retaining disables and their actual status objects. Temporary replacement Packmates above the ordinary cap expire with the hunt.
+- Blink propagation detects position discontinuities larger than normal walking outside a dash; it is not a complete teleport-event system. The binary exposes HealthRegenDelay and HealthRegenPercent without its server timing rule, so ordinary pet regeneration is not guessed. E's explicit full-health restoration is implemented. Standard sight does not expose invisibility or override nearsight, and no full fog-of-war model is supplied.
+
+### Source values read (105)
+
+| Ability | Value | Source version |
+|---|---|---|
+| We Are More | She may have up to 2 / 3 / 4 / 5 (based on level) Packmates at a time. | [4025780](https://wiki.leagueoflegends.com/en-us/Template:Data_Naafiri/We_Are_More?oldid=4025780) |
+| We Are More | staticCooldown: 30 / 25 / 20 / 15 / 10 (based on level) | [4025780](https://wiki.leagueoflegends.com/en-us/Template:Data_Naafiri/We_Are_More?oldid=4025780) |
+| We Are More | reduces the cooldown by 4 seconds | [4025780](https://wiki.leagueoflegends.com/en-us/Template:Data_Naafiri/We_Are_More?oldid=4025780) |
+| We Are More | reduces it by 1 second | [4025780](https://wiki.leagueoflegends.com/en-us/Template:Data_Naafiri/We_Are_More?oldid=4025780) |
+| We Are More | Naafiri summons the maximum number of Packmates when the game starts | [4025780](https://wiki.leagueoflegends.com/en-us/Template:Data_Naafiri/We_Are_More?oldid=4025780) |
+| We Are More | Packmates do not count as abilities | [4025780](https://wiki.leagueoflegends.com/en-us/Template:Data_Naafiri/We_Are_More?oldid=4025780) |
+| We Are More | Both hits of Eviscerate will trigger | [4025780](https://wiki.leagueoflegends.com/en-us/Template:Data_Naafiri/We_Are_More?oldid=4025780) |
+| Darkin Daggers | Initial Physical Damage: 35 / 40 / 45 / 50 / 55 (+ 20% bonus AD) | [4073795](https://wiki.leagueoflegends.com/en-us/Template:Data_Naafiri/Darkin_Daggers?oldid=4073795) |
+| Darkin Daggers | Total Bleed Physical Damage: 35 / 60 / 85 / 110 / 135 (+ 80% bonus AD) | [4073795](https://wiki.leagueoflegends.com/en-us/Template:Data_Naafiri/Darkin_Daggers?oldid=4073795) |
+| Darkin Daggers | Minimum Bonus Physical Damage: 30 / 42.5 / 55 / 67.5 / 80 (+ 40% bonus AD) | [4073795](https://wiki.leagueoflegends.com/en-us/Template:Data_Naafiri/Darkin_Daggers?oldid=4073795) |
+| Darkin Daggers | Maximum Bonus Physical Damage: 60 / 85 / 110 / 135 / 160 (+ 140% bonus AD) | [4073795](https://wiki.leagueoflegends.com/en-us/Template:Data_Naafiri/Darkin_Daggers?oldid=4073795) |
+| Darkin Daggers | Heal: 45 / 60 / 75 / 90 / 105 (+ 40% bonus AD) | [4073795](https://wiki.leagueoflegends.com/en-us/Template:Data_Naafiri/Darkin_Daggers?oldid=4073795) |
+| Darkin Daggers | every 0.5 seconds over 5 seconds | [4073795](https://wiki.leagueoflegends.com/en-us/Template:Data_Naafiri/Darkin_Daggers?oldid=4073795) |
+| Darkin Daggers | recast after 0.5 seconds | [4073795](https://wiki.leagueoflegends.com/en-us/Template:Data_Naafiri/Darkin_Daggers?oldid=4073795) |
+| Darkin Daggers | within 4 seconds | [4073795](https://wiki.leagueoflegends.com/en-us/Template:Data_Naafiri/Darkin_Daggers?oldid=4073795) |
+| Darkin Daggers | The bleed executes minions and non-epic monsters if they would be damaged below 30 – 70 (based on level) health. | [4073795](https://wiki.leagueoflegends.com/en-us/Template:Data_Naafiri/Darkin_Daggers?oldid=4073795) |
+| Darkin Daggers | targetRange: 900 | [4073795](https://wiki.leagueoflegends.com/en-us/Template:Data_Naafiri/Darkin_Daggers?oldid=4073795) |
+| Darkin Daggers | speed: 1700 | [4073795](https://wiki.leagueoflegends.com/en-us/Template:Data_Naafiri/Darkin_Daggers?oldid=4073795) |
+| Darkin Daggers | width: 100 | [4073795](https://wiki.leagueoflegends.com/en-us/Template:Data_Naafiri/Darkin_Daggers?oldid=4073795) |
+| Darkin Daggers | cooldown: 9 / 8.5 / 8 / 7.5 / 7 | [4073795](https://wiki.leagueoflegends.com/en-us/Template:Data_Naafiri/Darkin_Daggers?oldid=4073795) |
+| Darkin Daggers | castTime: 0.25 | [4073795](https://wiki.leagueoflegends.com/en-us/Template:Data_Naafiri/Darkin_Daggers?oldid=4073795) |
+| Darkin Daggers | based on missing health before applying the remaining bleed damage | [4073795](https://wiki.leagueoflegends.com/en-us/Template:Data_Naafiri/Darkin_Daggers?oldid=4073795) |
+| Darkin Daggers | cooldownStart: post-effect | [4073795](https://wiki.leagueoflegends.com/en-us/Template:Data_Naafiri/Darkin_Daggers?oldid=4073795) |
+| Darkin Daggers | "name":"RecastLockout","values":[0.75,0.75,0.75,0.75,0.75,0.75,0.75] | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/naafiri/naafiri.bin.json) |
+| The Call of the Pack | hunt for the next 5 seconds | [4058060](https://wiki.leagueoflegends.com/en-us/Template:Data_Naafiri/The_Call_of_the_Pack?oldid=4058060) |
+| The Call of the Pack | for the first 1 second | [4058060](https://wiki.leagueoflegends.com/en-us/Template:Data_Naafiri/The_Call_of_the_Pack?oldid=4058060) |
+| The Call of the Pack | first 0.9 seconds | [4058060](https://wiki.leagueoflegends.com/en-us/Template:Data_Naafiri/The_Call_of_the_Pack?oldid=4058060) |
+| The Call of the Pack | After 1.25 seconds | [4058060](https://wiki.leagueoflegends.com/en-us/Template:Data_Naafiri/The_Call_of_the_Pack?oldid=4058060) |
+| The Call of the Pack | summons 2 additional Packmates | [4058060](https://wiki.leagueoflegends.com/en-us/Template:Data_Naafiri/The_Call_of_the_Pack?oldid=4058060) |
+| The Call of the Pack | gains 20% AD | [4058060](https://wiki.leagueoflegends.com/en-us/Template:Data_Naafiri/The_Call_of_the_Pack?oldid=4058060) |
+| The Call of the Pack | Bonus Movement Speed: 20 / 22.5 / 25 / 27.5 / 30% | [4058060](https://wiki.leagueoflegends.com/en-us/Template:Data_Naafiri/The_Call_of_the_Pack?oldid=4058060) |
+| The Call of the Pack | cooldown: 26 / 24 / 22 / 20 / 18 | [4058060](https://wiki.leagueoflegends.com/en-us/Template:Data_Naafiri/The_Call_of_the_Pack?oldid=4058060) |
+| The Call of the Pack | castTime: 0.75 | [4058060](https://wiki.leagueoflegends.com/en-us/Template:Data_Naafiri/The_Call_of_the_Pack?oldid=4058060) |
+| The Call of the Pack | duration by 1.75 seconds | [4058060](https://wiki.leagueoflegends.com/en-us/Template:Data_Naafiri/The_Call_of_the_Pack?oldid=4058060) |
+| The Call of the Pack | Naafiri can move during | [4058060](https://wiki.leagueoflegends.com/en-us/Template:Data_Naafiri/The_Call_of_the_Pack?oldid=4058060) |
+| Eviscerate | Dash Physical Damage: 15 / 25 / 35 / 45 / 55 (+ 40% bonus AD) | [4007772](https://wiki.leagueoflegends.com/en-us/Template:Data_Naafiri/Eviscerate?oldid=4007772) |
+| Eviscerate | Flurry Physical Damage: 60 / 85 / 110 / 135 / 160 (+ 80% bonus AD) | [4007772](https://wiki.leagueoflegends.com/en-us/Template:Data_Naafiri/Eviscerate?oldid=4007772) |
+| Eviscerate | targetRange: 250 – 450 • 650 | [4007772](https://wiki.leagueoflegends.com/en-us/Template:Data_Naafiri/Eviscerate?oldid=4007772) |
+| Eviscerate | effectRadius: 230 | [4007772](https://wiki.leagueoflegends.com/en-us/Template:Data_Naafiri/Eviscerate?oldid=4007772) |
+| Eviscerate | speed: 900 | [4007772](https://wiki.leagueoflegends.com/en-us/Template:Data_Naafiri/Eviscerate?oldid=4007772) |
+| Eviscerate | collisionRadius: 50 | [4007772](https://wiki.leagueoflegends.com/en-us/Template:Data_Naafiri/Eviscerate?oldid=4007772) |
+| Eviscerate | cooldown: 11 / 10 / 9 / 8 / 7 | [4007772](https://wiki.leagueoflegends.com/en-us/Template:Data_Naafiri/Eviscerate?oldid=4007772) |
+| Eviscerate | healed to full health upon their reappearance | [4007772](https://wiki.leagueoflegends.com/en-us/Template:Data_Naafiri/Eviscerate?oldid=4007772) |
+| Eviscerate | will not be affected by Eviscerate while under the effect of Hounds' Pursuit | [4007772](https://wiki.leagueoflegends.com/en-us/Template:Data_Naafiri/Eviscerate?oldid=4007772) |
+| Hounds' Pursuit | Physical Damage: 125 / 200 / 275 (+ 100% bonus AD) | [4046586](https://wiki.leagueoflegends.com/en-us/Template:Data_Naafiri/Hounds'_Pursuit?oldid=4046586) |
+| Hounds' Pursuit | Physical Damage per Packmate: 12.5 / 20 / 27.5 (+ 10% bonus AD) | [4046586](https://wiki.leagueoflegends.com/en-us/Template:Data_Naafiri/Hounds'_Pursuit?oldid=4046586) |
+| Hounds' Pursuit | Shield: 100 / 150 / 200 (+ 150% bonus AD) | [4046586](https://wiki.leagueoflegends.com/en-us/Template:Data_Naafiri/Hounds'_Pursuit?oldid=4046586) |
+| Hounds' Pursuit | channel for 0.75 seconds | [4046586](https://wiki.leagueoflegends.com/en-us/Template:Data_Naafiri/Hounds'_Pursuit?oldid=4046586) |
+| Hounds' Pursuit | slows the target by 99% | [4046586](https://wiki.leagueoflegends.com/en-us/Template:Data_Naafiri/Hounds'_Pursuit?oldid=4046586) |
+| Hounds' Pursuit | 99% for 0.25 seconds | [4046586](https://wiki.leagueoflegends.com/en-us/Template:Data_Naafiri/Hounds'_Pursuit?oldid=4046586) |
+| Hounds' Pursuit | targetRange: 900 | [4046586](https://wiki.leagueoflegends.com/en-us/Template:Data_Naafiri/Hounds'_Pursuit?oldid=4046586) |
+| Hounds' Pursuit | speed: 1800 | [4046586](https://wiki.leagueoflegends.com/en-us/Template:Data_Naafiri/Hounds'_Pursuit?oldid=4046586) |
+| Hounds' Pursuit | lands ~125 units | [4046586](https://wiki.leagueoflegends.com/en-us/Template:Data_Naafiri/Hounds'_Pursuit?oldid=4046586) |
+| Hounds' Pursuit | within 7 seconds | [4046586](https://wiki.leagueoflegends.com/en-us/Template:Data_Naafiri/Hounds'_Pursuit?oldid=4046586) |
+| Hounds' Pursuit | within 12 seconds | [4046586](https://wiki.leagueoflegends.com/en-us/Template:Data_Naafiri/Hounds'_Pursuit?oldid=4046586) |
+| Hounds' Pursuit | shield for 3 seconds | [4046586](https://wiki.leagueoflegends.com/en-us/Template:Data_Naafiri/Hounds'_Pursuit?oldid=4046586) |
+| Hounds' Pursuit | for another 1.5 seconds | [4046586](https://wiki.leagueoflegends.com/en-us/Template:Data_Naafiri/Hounds'_Pursuit?oldid=4046586) |
+| Hounds' Pursuit | for 1 second | [4046586](https://wiki.leagueoflegends.com/en-us/Template:Data_Naafiri/Hounds'_Pursuit?oldid=4046586) |
+| Hounds' Pursuit | within for 4 seconds | [4046586](https://wiki.leagueoflegends.com/en-us/Template:Data_Naafiri/Hounds'_Pursuit?oldid=4046586) |
+| Hounds' Pursuit | effectRadius: 2100 | [4046586](https://wiki.leagueoflegends.com/en-us/Template:Data_Naafiri/Hounds'_Pursuit?oldid=4046586) |
+| Hounds' Pursuit | cooldown: 110 / 95 / 80 | [4046586](https://wiki.leagueoflegends.com/en-us/Template:Data_Naafiri/Hounds'_Pursuit?oldid=4046586) |
+| Hounds' Pursuit | cast and dash do not break stealth | [4046586](https://wiki.leagueoflegends.com/en-us/Template:Data_Naafiri/Hounds'_Pursuit?oldid=4046586) |
+| Hounds' Pursuit | Spell shield will block Naafiri's collision damage but cannot prevent collision damage from Packmates | [4046586](https://wiki.leagueoflegends.com/en-us/Template:Data_Naafiri/Hounds'_Pursuit?oldid=4046586) |
+| Hounds' Pursuit | but not if they become untargetable | [4046586](https://wiki.leagueoflegends.com/en-us/Template:Data_Naafiri/Hounds'_Pursuit?oldid=4046586) |
+| Packmate | hp: 80 – 301 (based on level) | [4025794](https://wiki.leagueoflegends.com/en-us/Naafiri?oldid=4025794) |
+| Packmate | armor: 0 – 30.6 (based on level) | [4025794](https://wiki.leagueoflegends.com/en-us/Naafiri?oldid=4025794) |
+| Packmate | magicresist: 0 – 30.6 (based on level) | [4025794](https://wiki.leagueoflegends.com/en-us/Naafiri?oldid=4025794) |
+| Packmate | radius: 25 | [4025794](https://wiki.leagueoflegends.com/en-us/Naafiri?oldid=4025794) |
+| Packmate | pathingradius: 25 | [4025794](https://wiki.leagueoflegends.com/en-us/Naafiri?oldid=4025794) |
+| Packmate | range: 125 | [4025794](https://wiki.leagueoflegends.com/en-us/Naafiri?oldid=4025794) |
+| Packmate | attackspeed: 100% of Naafiri's attack speed | [4025794](https://wiki.leagueoflegends.com/en-us/Naafiri?oldid=4025794) |
+| Packmate | movespeed: 100% of Naafiri's movement speed | [4025794](https://wiki.leagueoflegends.com/en-us/Naafiri?oldid=4025794) |
+| Packmate | damage: 10 – 20 (based on level) (+ 4% bonus AD) | [4025794](https://wiki.leagueoflegends.com/en-us/Naafiri?oldid=4025794) |
+| Packmate | (+ 4% bonus AD) | [4025794](https://wiki.leagueoflegends.com/en-us/Naafiri?oldid=4025794) |
+| Packmate | attack the target for 2 seconds | [4025794](https://wiki.leagueoflegends.com/en-us/Naafiri?oldid=4025794) |
+| Packmate | within 1300 units | [4025794](https://wiki.leagueoflegends.com/en-us/Naafiri?oldid=4025794) |
+| Packmate | deal 30% increased damage | [4025794](https://wiki.leagueoflegends.com/en-us/Naafiri?oldid=4025794) |
+| Packmate | within 3 seconds | [4025794](https://wiki.leagueoflegends.com/en-us/Naafiri?oldid=4025794) |
+| Packmate | up to 3 empowered attacks | [4025794](https://wiki.leagueoflegends.com/en-us/Naafiri?oldid=4025794) |
+| Packmate | 155% damage to monsters | [4025794](https://wiki.leagueoflegends.com/en-us/Naafiri?oldid=4025794) |
+| Packmate | 55% (based on level) damage from area damage | [4025794](https://wiki.leagueoflegends.com/en-us/Naafiri?oldid=4025794) |
+| Packmate | 200% damage from melee | [4025794](https://wiki.leagueoflegends.com/en-us/Naafiri?oldid=4025794) |
+| Packmate | 50% damage from non-epic monsters and minions | [4025794](https://wiki.leagueoflegends.com/en-us/Naafiri?oldid=4025794) |
+| We Are More | "name":"LeapSpeed","values":[1250.0,1250.0,1250.0,1250.0,1250.0,1250.0,1250.0] | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/naafiri/naafiri.bin.json) |
+| We Are More | "name":"LeapMax","values":[1200.0,1200.0,1200.0,1200.0,1200.0,1200.0,1200.0] | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/naafiri/naafiri.bin.json) |
+| Packmate | capping at a total of {{as\|1000 movement speed}} with a proximity of 700 units | [4025794](https://wiki.leagueoflegends.com/en-us/Naafiri?oldid=4025794) |
+| Packmate | approximately 400-450 or more units away | [4025794](https://wiki.leagueoflegends.com/en-us/Naafiri?oldid=4025794) |
+| Packmate | ''Packmates'' will die with '''Naafiri''' when she does | [4025794](https://wiki.leagueoflegends.com/en-us/Naafiri?oldid=4025794) |
+| Packmate | If '''Naafiri''' enters {{tip\|stealth}}, her ''Packmates'' will do so as well | [4025794](https://wiki.leagueoflegends.com/en-us/Naafiri?oldid=4025794) |
+| Packmate | retaining their relative position | [4025794](https://wiki.leagueoflegends.com/en-us/Naafiri?oldid=4025794) |
+| Packmate | cannot perform ''Pouncing Assault'' while | [4025794](https://wiki.leagueoflegends.com/en-us/Naafiri?oldid=4025794) |
+| Packmate | has a special formula, this is just placeholder | [4025794](https://wiki.leagueoflegends.com/en-us/Naafiri?oldid=4025794) |
+| Packmate | cannot have their attack speed and movement speed values be modified on their own | [4025794](https://wiki.leagueoflegends.com/en-us/Naafiri?oldid=4025794) |
+| We Are More | objectPath: | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/naafiri/naafiri.bin.json) |
+| Darkin Daggers | objectPath: | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/naafiri/naafiri.bin.json) |
+| The Call of the Pack | objectPath: | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/naafiri/naafiri.bin.json) |
+| Eviscerate | objectPath: | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/naafiri/naafiri.bin.json) |
+| Hounds' Pursuit | objectPath: | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/naafiri/naafiri.bin.json) |
+| Darkin Daggers | cost: 50 / 60 / 70 / 80 / 90 | [4073795](https://wiki.leagueoflegends.com/en-us/Template:Data_Naafiri/Darkin_Daggers?oldid=4073795) |
+| The Call of the Pack | cost: 60 | [4058060](https://wiki.leagueoflegends.com/en-us/Template:Data_Naafiri/The_Call_of_the_Pack?oldid=4058060) |
+| Eviscerate | cost: 40 | [4007772](https://wiki.leagueoflegends.com/en-us/Template:Data_Naafiri/Eviscerate?oldid=4007772) |
+| Eviscerate | castTime: none | [4007772](https://wiki.leagueoflegends.com/en-us/Template:Data_Naafiri/Eviscerate?oldid=4007772) |
+| Hounds' Pursuit | cost: 100 | [4046586](https://wiki.leagueoflegends.com/en-us/Template:Data_Naafiri/Hounds'_Pursuit?oldid=4046586) |
+| Hounds' Pursuit | castTime: none | [4046586](https://wiki.leagueoflegends.com/en-us/Template:Data_Naafiri/Hounds'_Pursuit?oldid=4046586) |
+| Packmate | Minion, does not count towards the minion kill tracking score | [4025794](https://wiki.leagueoflegends.com/en-us/Naafiri?oldid=4025794) |

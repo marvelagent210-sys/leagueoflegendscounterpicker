@@ -1,20 +1,39 @@
+import { readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
 import type { AbilityRecord } from "../engine/abilities";
-import { GAME_EXCERPTS, RECORD_CORRECTIONS, WIKI_ADDITIONS, attachEvidence, fieldAt, rawFieldAt } from "../pipeline/abilities/evidence";
+import { GAME_EXCERPTS, RECORD_CORRECTIONS, WIKI_ADDITIONS, attachEvidence, fieldAt, rawFieldAt, type GameExcerpt } from "../pipeline/abilities/evidence";
 import { records } from "./kits/helpers";
+
+const gameVersion = (JSON.parse(readFileSync(new URL("../data/16.20/manifest.json", import.meta.url), "utf8")) as { cdragon: { version: string } }).cdragon.version;
+
+function expectGameExcerpt(excerpt: GameExcerpt, record: AbilityRecord | undefined): void {
+  const where = `${excerpt.champion} ${excerpt.ability} ${excerpt.object}`;
+  const source = record?.gameSources?.find((g) => g.object === excerpt.object);
+  expect(source, where).toBeDefined();
+  if (excerpt.lines) expect(source!.text).toEqual(excerpt.lines);
+  else {
+    // A curated field is required once; later audits may retain more fields from
+    // the same exact object. Their source order is not the catalog's field order.
+    const projected = excerpt.fields!.map((field) => {
+      const lines = source!.text.filter((line) => line.startsWith(`${field}: `));
+      expect(lines, `${where}: ${field}`).toHaveLength(1);
+      expect(() => JSON.parse(lines[0]!.slice(field.length + 2)), `${where}: ${field} value`).not.toThrow();
+      return lines[0]!.slice(0, lines[0]!.indexOf(": "));
+    });
+    expect(projected).toEqual(excerpt.fields);
+  }
+  expect(source!.version, where).toBe(gameVersion);
+  expect(source!.sha256, where).toMatch(/^[a-f0-9]{64}$/);
+  const folder = excerpt.character.toLowerCase();
+  expect(source!.url, where).toBe(`https://raw.communitydragon.org/16.20/game/data/characters/${folder}/${folder}.bin.json`);
+}
 
 /** The curated evidence (pipeline/abilities/evidence.ts) that the build adds to ability records. */
 describe("curated ability evidence", () => {
   it("every game excerpt is in its committed ability record, attributed to its pinned game file", () => {
     for (const excerpt of GAME_EXCERPTS) {
       const record = records(excerpt.champion).find((r) => r.name === excerpt.ability);
-      const source = record?.gameSources?.find((g) => g.object === excerpt.object);
-      expect(source, `${excerpt.champion} ${excerpt.ability} ${excerpt.object}`).toBeDefined();
-      if (excerpt.lines) expect(source!.text).toEqual(excerpt.lines);
-      else expect(source!.text.map((line) => line.split(": ")[0])).toEqual(excerpt.fields);
-      expect(source!.sha256).toMatch(/^[a-f0-9]{64}$/);
-      const folder = excerpt.character.toLowerCase();
-      expect(source!.url).toBe(`https://raw.communitydragon.org/16.20/game/data/characters/${folder}/${folder}.bin.json`);
+      expectGameExcerpt(excerpt, record);
     }
   });
 
@@ -25,6 +44,22 @@ describe("curated ability evidence", () => {
       if (addition.source) expect(record.sources).toContainEqual(addition.source);
     }
   });
+
+  it.each(["missing field", "duplicate field", "different object", "malformed value", "different version", "invalid hash", "different file"] as const)("rejects expanded game evidence with %s", (problem) => {
+    const excerpt = GAME_EXCERPTS.find((entry) => entry.champion === "MonkeyKing")!;
+    const record = records(excerpt.champion).find((entry) => entry.name === excerpt.ability)!;
+    const source = record.gameSources!.find((entry) => entry.object === excerpt.object)!;
+    const field = excerpt.fields![0]!, line = source.text.find((entry) => entry.startsWith(`${field}: `))!;
+    if (problem === "missing field") source.text = source.text.filter((entry) => entry !== line);
+    if (problem === "duplicate field") source.text.push(line);
+    if (problem === "different object") source.object += "/Other";
+    if (problem === "malformed value") source.text = source.text.map((entry) => entry === line ? `${field}: not JSON` : entry);
+    if (problem === "different version") source.version = "16.19.1";
+    if (problem === "invalid hash") source.sha256 = "not a SHA-256";
+    if (problem === "different file") source.url = "https://raw.communitydragon.org/16.20/game/data/characters/other/other.bin.json";
+    expect(() => expectGameExcerpt(excerpt, record)).toThrow();
+  });
+
 
   it("every correction is in its committed ability record", () => {
     for (const correction of RECORD_CORRECTIONS) {

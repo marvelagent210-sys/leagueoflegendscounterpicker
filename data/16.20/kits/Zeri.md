@@ -179,7 +179,7 @@ Active: Zeri dashes in the target direction. She will dash farther across terrai
 
 - **Mechanics:** dash; reveal; reveal
 
-Afterwards, she gains Lightning Rounds for 5 seconds, empowering Burst Fire to deal bonus magic damage to the first enemy hit, increased by critical strike damage (based on critical strike chance), and pierce through enemies. Targets after the first take modified damage which does not apply on-hit effects or life steal nor trigger on-attack effects, but is affected by critical strike modifiers.
+Afterwards, she gains Lightning Rounds for 5 seconds, empowering Burst Fire to deal bonus magic damage to the first enemy hit, increased by 0% – 100% (based on critical strike chance), and pierce through enemies. Targets after the first take modified damage which does not apply on-hit effects or life steal nor trigger on-attack effects, but is affected by critical strike modifiers.
 
 - **Burst Fire Bonus Magic Damage:** 22 / 24 / 26 / 28 / 30 (+ 20% AP) → at max rank, level 20: 30 (+ 20% AP)
 - **Burst Fire Secondary Target Damage:** 80 / 85 / 90 / 95 / 100% → at max rank, level 20: 100%
@@ -274,3 +274,148 @@ All 5 level-based formulas in the game files (4 linked to wiki values above):
 | ZeriQ | PassiveMaxDamage | linear 75 → 160 over levels 1-18, continues past 18 | 75 | 160 | 170 |
 | ZeriQ | PassiveMaxChargePercentHealth | linear 0.01 → 0.11 over levels 1-18, continues past 18 | 0.01 | 0.11 | 0.121765 |
 | ZeriQ | PassiveExecuteThreshold | linear 70 → 160 over levels 1-18, continues past 18 | 70 | 160 | 170.588 |
+
+## Duel simulator kit (level 20, every ability at max rank)
+
+What the duel simulator fights with (`kits/champions/Zeri.ts`): values come from pinned wiki and versioned game-data records at level 20. Interpretations and missing evidence are listed under assumptions. Ratios are fractions of the stat (60% AD is 0.6 × AD).
+
+- Basic attack: range 550, melee.
+
+| Key | Ability | Cooldown (s) | Cast time (s) | Cost | Delivery | On the enemy | On itself |
+|---|---|--:|--:|---|---|---|---|
+| Q | Burst Fire | 0.667 (depends on stats) (unaffected by ability haste) | depends on stats (0.104 base) | – | self | – | – |
+| W | Ultrashock Laser | 8 | depends on stats (0.55 base) | 90 | self | – | – |
+| E | Spark Surge | 18 | 0 | 70 | self | – | – |
+| R | Lightning Crash | 70 (starts when its effect on the caster ends) | 0.25 | 100 | self | – | – |
+| zap | Living Battery | 0 | 0 | – | self | – | – |
+| chargedZap | Living Battery (charged) | 0 | 0 | – | self | – | – |
+| Qround | Burst Fire | 0 | 0 | – | self | – | – |
+| Qsecondary | Burst Fire (piercing) | 0 | 0 | – | self | – | – |
+| Eround | Spark Surge | 0 | 0 | – | self | – | – |
+| Wlaser | Ultrashock Laser (laser) | 0 | 0 | – | self | – | – |
+| Rchain | Lightning Crash (chain) | 0 | 0 | – | self | – | – |
+
+Effects marked by a mark or a role are completed by the kit's hooks (see the kit's source).
+
+### Assumptions
+
+- Living Battery replaces ordinary attacks at actual windup completion with a nonprojectile spell-damage zap, without ordinary AD, crits or on-hit/on-attack packets. It notifies enemy cast listeners once at committed launch, including a spellshielded charged zap. Uncharged zaps bypass spellshield, full charge is shieldable. Execute is checked before the damage against unshielded targets and respects shared invulnerability/minimum-health protection. Starts fully charged; fractional charge from every40units of actual displacement is kept and each declaredQ adds10. The level20 wiki formulas are used beyond18. Structures, wards/plants and respawn-only edge cases are outside ordinary duel entities; unclassified summons are not guessed to be structures.
+- Burst Fire fires seven real80width rounds across5degrees (three across2degrees during R), scheduled over its sourced windup fraction; all rounds share one crit chance snapshot. Circular target hitboxes intersect each ray independently, and the closest actual champion/pet intercepts each nonpiercing round. E rounds can pass to further actual targets; only the burst's first enemy gets one on-hit/attack event, later packets remain basic damage but secondary targets use area classification and no life steal. Hit-count props take one hit per burst and still stop later normal rounds. Blind deterministically fires away from the declared target as the one-dimensional random-direction approximation. No lateral sidestep branch is invented; actual axial movement, death, untargetability, dodge/block/parry and projectile walls determine contacts.
+- Q is usable during silence but must also pass ordinary attack/disarm and other cast CC guards; polymorph still denies it. It counts as one cast activation for enemy listeners, preserving a declared zap windup. There is no item Spellblade system. Q cooldown starts at declaration and is1/currentAS without haste;100% windup (80% R) is read from the pinned custom fields and root attack timings. Excess post-cripple bonusAS percent converts60% into AD; only R's30%AS can raise the1.5cap. Current external stats/cripples are recomputed each upkeep; RAS is excluded from conversion, so R does not itself grant convertedAD.
+- W uses physical damage despite its stale Magic damage-type flag, because the exact primary description/leveling and16.20 calculations agree. The normal2500speed pulse hits the closest real enemy or actual terrain. Actual wall contact anchors a laser from-50 to1550units (primary1600total; client WallBeamRange1500 conflicts), width200 after.85seconds; no environment-wall boolean invents a location. Pulse is single-target spell damage, laser area damage and150% versus champions/explicit monsters. Directional interception retains the actual pulse collision damage and debuff, then destroys its remaining flight without creating a terrain laser; it never erases an already anchored laser. Both custom rays and anchored laser packets retain their actual damage origins for directional defenses. Cast time follows primary.55-.09*bonusAS with pinned.3minimum; the targeter retains1.75seconds of ground warning/vision, with no invented global fog reveal.
+- E dashes300 at600+currentMS, and only actual terrain within50 at declaration extends the destination to its far clear edge, capped at pinned3000distance. Terrain thickness and landing clearance are axial, not a two-dimensional wall ride. Q/attacks are locked during the dash; W/R overlays remain available. E resets both attack and Q clocks immediately and grants its five-second piercing rounds after the dash ends. Interrupting E ends it at its actual position and still starts the postdash empowerment. Unobstructed800vision is descriptive because the duel has no terrain fog. E's magic bonus scales continuously with critical chance as its pinned calculation; refund occurs once per actual Q burst hit (.5–1.5seconds averaged by crit chance) or connected charged zap.
+- R nova hits actual targetable entities in825radius and enters five-second Overcharge only with champion/explicit clone contact, including a spellshielded contact. Each connected champion ability/chargedzap extends by2.5seconds capped atfive remaining, and grants1 or expected1–3 Hypercharged stacks for2.5seconds; Q uses only its first target. Wwall counts as critical against champions. A first contact with an actual trap body linked to a real trap zone cannot trigger electricity; hit-count alone does not make other props traps. Wards are absent from this duel. Chains seek up tofour distinct nearby visible actual enemies within650, exclude their triggering target and hit-count props, and deal proc physical damage without spellshield or attack-defense checks. Chains and Ebonus never recursively refreshR or grantstacks. Entering resurrection clears Hypercharge and prevents gaining it during that existing Overcharge; ordinary duel resurrection does not receive the game-respawn charge reset. R cooldown starts after Overcharge ends; no free stacks or infinite R are preloaded. The reference budget has finite sustainedQ, chargedzap every10casts, regularW and oneR cycle; it excludes E/R's conditional repeated empowerments/chains rather than assigning free secondary targets.
+
+### Source values read (109)
+
+| Ability | Value | Source version |
+|---|---|---|
+| Living Battery | attackRange: 550 | [4051663](https://wiki.leagueoflegends.com/en-us/Template:Data_Zeri/Living_Battery?oldid=4051663) |
+| Living Battery | maximum of 100 charge | [4051663](https://wiki.leagueoflegends.com/en-us/Template:Data_Zeri/Living_Battery?oldid=4051663) |
+| Living Battery | generates 1 charge | [4051663](https://wiki.leagueoflegends.com/en-us/Template:Data_Zeri/Living_Battery?oldid=4051663) |
+| Living Battery | every 40 units | [4051663](https://wiki.leagueoflegends.com/en-us/Template:Data_Zeri/Living_Battery?oldid=4051663) |
+| Living Battery | and 10 charge | [4051663](https://wiki.leagueoflegends.com/en-us/Template:Data_Zeri/Living_Battery?oldid=4051663) |
+| Living Battery | cost (Regular zaps): 10 • 100 | [4051663](https://wiki.leagueoflegends.com/en-us/Template:Data_Zeri/Living_Battery?oldid=4051663) |
+| Living Battery | cost (Full charge zap): 10 • 100 | [4051663](https://wiki.leagueoflegends.com/en-us/Template:Data_Zeri/Living_Battery?oldid=4051663) |
+| Living Battery | Basic Attack: Zeri zaps the target, dealing 10 – 25 (based on level) (+ 3% AP) magic damage, applying spell effects as spell damage, triggering on-cast effects and executing the target if they are below 70 – 160 (based on level) (+ 20% AP) health. | [4051663](https://wiki.leagueoflegends.com/en-us/Template:Data_Zeri/Living_Battery?oldid=4051663) |
+| Living Battery | (+ 3% AP) | [4051663](https://wiki.leagueoflegends.com/en-us/Template:Data_Zeri/Living_Battery?oldid=4051663) |
+| Living Battery | (+ 20% AP) | [4051663](https://wiki.leagueoflegends.com/en-us/Template:Data_Zeri/Living_Battery?oldid=4051663) |
+| Living Battery | At full charge, Zeri's next attack is empowered to consume all charge to deal 75 – 160 (based on level) (+ 110% AP) (+ 1 – 11 (based on level)% of target's maximum health) magic damage. | [4051663](https://wiki.leagueoflegends.com/en-us/Template:Data_Zeri/Living_Battery?oldid=4051663) |
+| Living Battery | (+ 110% AP) | [4051663](https://wiki.leagueoflegends.com/en-us/Template:Data_Zeri/Living_Battery?oldid=4051663) |
+| Living Battery | capped at 300 against monsters | [4051663](https://wiki.leagueoflegends.com/en-us/Template:Data_Zeri/Living_Battery?oldid=4051663) |
+| Living Battery | gains maximum charge when the game starts and upon respawning | [4051663](https://wiki.leagueoflegends.com/en-us/Template:Data_Zeri/Living_Battery?oldid=4051663) |
+| Living Battery | does not apply nor trigger on-hit and on-attack effects | [4051663](https://wiki.leagueoflegends.com/en-us/Template:Data_Zeri/Living_Battery?oldid=4051663) |
+| Living Battery | Uncharged attacks do not execute enemies that are shielded or invulnerable | [4051663](https://wiki.leagueoflegends.com/en-us/Template:Data_Zeri/Living_Battery?oldid=4051663) |
+| Living Battery | Uncharged attacks are not blocked | [4051663](https://wiki.leagueoflegends.com/en-us/Template:Data_Zeri/Living_Battery?oldid=4051663) |
+| Living Battery | Charged attacks only deal the base damage to structures | [4051663](https://wiki.leagueoflegends.com/en-us/Template:Data_Zeri/Living_Battery?oldid=4051663) |
+| Burst Fire | Total Physical Damage: 22 / 26 / 30 / 34 / 38 (+ 102 / 104 / 106 / 108 / 110% AD) | [4062236](https://wiki.leagueoflegends.com/en-us/Template:Data_Zeri/Burst_Fire?oldid=4062236) |
+| Burst Fire | burst of 7 rounds | [4062236](https://wiki.leagueoflegends.com/en-us/Template:Data_Zeri/Burst_Fire?oldid=4062236) |
+| Burst Fire | maximum of 1.5 attacks per second | [4062236](https://wiki.leagueoflegends.com/en-us/Template:Data_Zeri/Burst_Fire?oldid=4062236) |
+| Burst Fire | 60% of attack speed | [4062236](https://wiki.leagueoflegends.com/en-us/Template:Data_Zeri/Burst_Fire?oldid=4062236) |
+| Burst Fire | range: 750 + 100% bonus attack range | [4062236](https://wiki.leagueoflegends.com/en-us/Template:Data_Zeri/Burst_Fire?oldid=4062236) |
+| Burst Fire | width: 80 | [4062236](https://wiki.leagueoflegends.com/en-us/Template:Data_Zeri/Burst_Fire?oldid=4062236) |
+| Burst Fire | speed (Active spray missile speed): 2600 • 3400 | [4062236](https://wiki.leagueoflegends.com/en-us/Template:Data_Zeri/Burst_Fire?oldid=4062236) |
+| Burst Fire | speed (Empowered spray missile speed): 2600 • 3400 | [4062236](https://wiki.leagueoflegends.com/en-us/Template:Data_Zeri/Burst_Fire?oldid=4062236) |
+| Burst Fire | angle: 5° • 2° | [4062236](https://wiki.leagueoflegends.com/en-us/Template:Data_Zeri/Burst_Fire?oldid=4062236) |
+| Burst Fire | "mAttackCastTime":0.25 | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/zeri/zeri.bin.json) |
+| Burst Fire | "mAttackTotalTime":1.600000023841858 | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/zeri/zeri.bin.json) |
+| Burst Fire | 100% of Zeri's windup time | [4062236](https://wiki.leagueoflegends.com/en-us/Template:Data_Zeri/Burst_Fire?oldid=4062236) |
+| Burst Fire | 80% of Zeri's windup time | [4062236](https://wiki.leagueoflegends.com/en-us/Template:Data_Zeri/Burst_Fire?oldid=4062236) |
+| Burst Fire | "TriggerOncePerParent":true | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/zeri/zeri.bin.json) |
+| Burst Fire | "mSpeed":2600.0 | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/zeri/zeri.bin.json) |
+| Burst Fire | "mSpeed":3400.0 | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/zeri/zeri.bin.json) |
+| Burst Fire | can cast Burst Fire even while silenced | [4062236](https://wiki.leagueoflegends.com/en-us/Template:Data_Zeri/Burst_Fire?oldid=4062236) |
+| Burst Fire | does not trigger spell effects | [4062236](https://wiki.leagueoflegends.com/en-us/Template:Data_Zeri/Burst_Fire?oldid=4062236) |
+| Burst Fire | area of effect when damaging targets after the first | [4062236](https://wiki.leagueoflegends.com/en-us/Template:Data_Zeri/Burst_Fire?oldid=4062236) |
+| Burst Fire | does not cancel previous attack | [4062236](https://wiki.leagueoflegends.com/en-us/Template:Data_Zeri/Burst_Fire?oldid=4062236) |
+| Burst Fire | Burst Fire is parried by dodge and block | [4062236](https://wiki.leagueoflegends.com/en-us/Template:Data_Zeri/Burst_Fire?oldid=4062236) |
+| Burst Fire | Blind causes Burst Fire to cast in a random direction | [4062236](https://wiki.leagueoflegends.com/en-us/Template:Data_Zeri/Burst_Fire?oldid=4062236) |
+| Burst Fire | excess bonus attack speed percent | [4062236](https://wiki.leagueoflegends.com/en-us/Template:Data_Zeri/Burst_Fire?oldid=4062236) |
+| Burst Fire | after any cripple effects | [4062236](https://wiki.leagueoflegends.com/en-us/Template:Data_Zeri/Burst_Fire?oldid=4062236) |
+| Burst Fire | before Lightning Crash applies its effects | [4062236](https://wiki.leagueoflegends.com/en-us/Template:Data_Zeri/Burst_Fire?oldid=4062236) |
+| Burst Fire | Only attack speed granted by being Overcharged can exceed the cap | [4062236](https://wiki.leagueoflegends.com/en-us/Template:Data_Zeri/Burst_Fire?oldid=4062236) |
+| Burst Fire | counts as an ability activation | [4062236](https://wiki.leagueoflegends.com/en-us/Template:Data_Zeri/Burst_Fire?oldid=4062236) |
+| Burst Fire | does not count as an ability activation for Spellblade | [4062236](https://wiki.leagueoflegends.com/en-us/Template:Data_Zeri/Burst_Fire?oldid=4062236) |
+| Spark Surge | Burst Fire Bonus Magic Damage: 22 / 24 / 26 / 28 / 30 (+ 20% AP) | [4015351](https://wiki.leagueoflegends.com/en-us/Template:Data_Zeri/Spark_Surge?oldid=4015351) |
+| Spark Surge | Burst Fire Secondary Target Damage: 80 / 85 / 90 / 95 / 100% | [4015351](https://wiki.leagueoflegends.com/en-us/Template:Data_Zeri/Spark_Surge?oldid=4015351) |
+| Spark Surge | Lightning Rounds for 5 seconds | [4015351](https://wiki.leagueoflegends.com/en-us/Template:Data_Zeri/Spark_Surge?oldid=4015351) |
+| Spark Surge | reduced by 0.5 seconds | [4015351](https://wiki.leagueoflegends.com/en-us/Template:Data_Zeri/Spark_Surge?oldid=4015351) |
+| Spark Surge | to 1.5 seconds | [4015351](https://wiki.leagueoflegends.com/en-us/Template:Data_Zeri/Spark_Surge?oldid=4015351) |
+| Spark Surge | range: 300 | [4015351](https://wiki.leagueoflegends.com/en-us/Template:Data_Zeri/Spark_Surge?oldid=4015351) |
+| Spark Surge | within 50 units | [4015351](https://wiki.leagueoflegends.com/en-us/Template:Data_Zeri/Spark_Surge?oldid=4015351) |
+| Spark Surge | speed: 600 + 100% movement speed | [4015351](https://wiki.leagueoflegends.com/en-us/Template:Data_Zeri/Spark_Surge?oldid=4015351) |
+| Spark Surge | "name":"MaxDistanceOverWalls","values":[3000.0 | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/zeri/zeri.bin.json) |
+| Spark Surge | {{critical damage\|0 to 100\|critScaling=true}} | [4015351](https://wiki.leagueoflegends.com/en-us/Template:Data_Zeri/Spark_Surge?oldid=4015351) |
+| Spark Surge | does not apply on-hit effects or life steal nor trigger on-attack effects | [4015351](https://wiki.leagueoflegends.com/en-us/Template:Data_Zeri/Spark_Surge?oldid=4015351) |
+| Spark Surge | resets Zeri's basic attack timer and Burst Fire cooldown | [4015351](https://wiki.leagueoflegends.com/en-us/Template:Data_Zeri/Spark_Surge?oldid=4015351) |
+| Spark Surge | Q\|Zeri}} is disabled | [4015351](https://wiki.leagueoflegends.com/en-us/Template:Data_Zeri/Spark_Surge?oldid=4015351) |
+| Spark Surge | W\|Zeri}} and {{ai\|R\|Zeri}} are usable | [4015351](https://wiki.leagueoflegends.com/en-us/Template:Data_Zeri/Spark_Surge?oldid=4015351) |
+| Spark Surge | current cooldown | [4015351](https://wiki.leagueoflegends.com/en-us/Template:Data_Zeri/Spark_Surge?oldid=4015351) |
+| Ultrashock Laser | Physical Damage: 30 / 70 / 110 / 150 / 190 (+ 100% AD) (+ 50% AP) | [4060386](https://wiki.leagueoflegends.com/en-us/Template:Data_Zeri/Ultrashock_Laser?oldid=4060386) |
+| Ultrashock Laser | Critical Strike Damage: 45 / 105 / 165 / 225 / 285 (+ 150% AD) (+ 75% AP) | [4060386](https://wiki.leagueoflegends.com/en-us/Template:Data_Zeri/Ultrashock_Laser?oldid=4060386) |
+| Ultrashock Laser | Slow: 30 / 35 / 40 / 45 / 50% | [4060386](https://wiki.leagueoflegends.com/en-us/Template:Data_Zeri/Ultrashock_Laser?oldid=4060386) |
+| Ultrashock Laser | slows them for 2 seconds | [4060386](https://wiki.leagueoflegends.com/en-us/Template:Data_Zeri/Ultrashock_Laser?oldid=4060386) |
+| Ultrashock Laser | after 0.85 seconds | [4060386](https://wiki.leagueoflegends.com/en-us/Template:Data_Zeri/Ultrashock_Laser?oldid=4060386) |
+| Ultrashock Laser | for 1.75 seconds | [4060386](https://wiki.leagueoflegends.com/en-us/Template:Data_Zeri/Ultrashock_Laser?oldid=4060386) |
+| Ultrashock Laser | speed: 2500 | [4060386](https://wiki.leagueoflegends.com/en-us/Template:Data_Zeri/Ultrashock_Laser?oldid=4060386) |
+| Ultrashock Laser | range: 1200 • -50 – 1550 | [4060386](https://wiki.leagueoflegends.com/en-us/Template:Data_Zeri/Ultrashock_Laser?oldid=4060386) |
+| Ultrashock Laser | width: 80 • 200 | [4060386](https://wiki.leagueoflegends.com/en-us/Template:Data_Zeri/Ultrashock_Laser?oldid=4060386) |
+| Ultrashock Laser | 0.55-0.09 per 100% | [4060386](https://wiki.leagueoflegends.com/en-us/Template:Data_Zeri/Ultrashock_Laser?oldid=4060386) |
+| Ultrashock Laser | castTime: 0.55 / 0.528 / 0.495 / 0.462 / 0.429 / 0.396 / 0.363 / 0.33 / 0.3 (based on bonus attack speed) | [4060386](https://wiki.leagueoflegends.com/en-us/Template:Data_Zeri/Ultrashock_Laser?oldid=4060386) |
+| Ultrashock Laser | "name":"MinCastTime","values":[0.30000001192092896 | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/zeri/zeri.bin.json) |
+| Ultrashock Laser | Applies spell damage for the pulse and area damage for the laser | [4060386](https://wiki.leagueoflegends.com/en-us/Template:Data_Zeri/Ultrashock_Laser?oldid=4060386) |
+| Ultrashock Laser | blocked by projectile-interception effects but not the laser | [4060386](https://wiki.leagueoflegends.com/en-us/Template:Data_Zeri/Ultrashock_Laser?oldid=4060386) |
+| Ultrashock Laser | This ability will cast from wherever the caster is at the start | [4060386](https://wiki.leagueoflegends.com/en-us/Template:Data_Zeri/Ultrashock_Laser?oldid=4060386) |
+| Ultrashock Laser | "mSpeed":2500.0 | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/zeri/zeri.bin.json) |
+| Lightning Crash | Magic Damage: 150 / 250 / 350 (+ 60% bonus AD) (+ 110% AP) | [4016978](https://wiki.leagueoflegends.com/en-us/Template:Data_Zeri/Lightning_Crash?oldid=4016978) |
+| Lightning Crash | effectRadius: 825 | [4016978](https://wiki.leagueoflegends.com/en-us/Template:Data_Zeri/Lightning_Crash?oldid=4016978) |
+| Lightning Crash | Overcharged for 5 seconds | [4016978](https://wiki.leagueoflegends.com/en-us/Template:Data_Zeri/Lightning_Crash?oldid=4016978) |
+| Lightning Crash | duration by 2.5 seconds | [4016978](https://wiki.leagueoflegends.com/en-us/Template:Data_Zeri/Lightning_Crash?oldid=4016978) |
+| Lightning Crash | 30% bonus attack speed | [4016978](https://wiki.leagueoflegends.com/en-us/Template:Data_Zeri/Lightning_Crash?oldid=4016978) |
+| Lightning Crash | 15% bonus movement speed | [4016978](https://wiki.leagueoflegends.com/en-us/Template:Data_Zeri/Lightning_Crash?oldid=4016978) |
+| Lightning Crash | fires 3 rounds | [4016978](https://wiki.leagueoflegends.com/en-us/Template:Data_Zeri/Lightning_Crash?oldid=4016978) |
+| Lightning Crash | within 650 units | [4016978](https://wiki.leagueoflegends.com/en-us/Template:Data_Zeri/Lightning_Crash?oldid=4016978) |
+| Lightning Crash | up to 4 subsequent targets | [4016978](https://wiki.leagueoflegends.com/en-us/Template:Data_Zeri/Lightning_Crash?oldid=4016978) |
+| Lightning Crash | 40% AD physical damage | [4016978](https://wiki.leagueoflegends.com/en-us/Template:Data_Zeri/Lightning_Crash?oldid=4016978) |
+| Lightning Crash | last 2.5 seconds | [4016978](https://wiki.leagueoflegends.com/en-us/Template:Data_Zeri/Lightning_Crash?oldid=4016978) |
+| Lightning Crash | generates 1 stack | [4016978](https://wiki.leagueoflegends.com/en-us/Template:Data_Zeri/Lightning_Crash?oldid=4016978) |
+| Lightning Crash | increased to 3 on abilities | [4016978](https://wiki.leagueoflegends.com/en-us/Template:Data_Zeri/Lightning_Crash?oldid=4016978) |
+| Lightning Crash | 1.5% bonus movement speed | [4016978](https://wiki.leagueoflegends.com/en-us/Template:Data_Zeri/Lightning_Crash?oldid=4016978) |
+| Lightning Crash | up to 100,000 times | [4016978](https://wiki.leagueoflegends.com/en-us/Template:Data_Zeri/Lightning_Crash?oldid=4016978) |
+| Lightning Crash | Spell shield blocks Lightning Crash's initial nova but does not prevent Zeri from becoming Overcharged | [4016978](https://wiki.leagueoflegends.com/en-us/Template:Data_Zeri/Lightning_Crash?oldid=4016978) |
+| Lightning Crash | It does not block Burst Fire electricity chain | [4016978](https://wiki.leagueoflegends.com/en-us/Template:Data_Zeri/Lightning_Crash?oldid=4016978) |
+| Lightning Crash | nearest visible enemy | [4016978](https://wiki.leagueoflegends.com/en-us/Template:Data_Zeri/Lightning_Crash?oldid=4016978) |
+| Lightning Crash | Burst Fire grants stacks only against the first target hit | [4016978](https://wiki.leagueoflegends.com/en-us/Template:Data_Zeri/Lightning_Crash?oldid=4016978) |
+| Lightning Crash | will not chain across structures | [4016978](https://wiki.leagueoflegends.com/en-us/Template:Data_Zeri/Lightning_Crash?oldid=4016978) |
+| Lightning Crash | area damage for the nova and proc damage for the chain | [4016978](https://wiki.leagueoflegends.com/en-us/Template:Data_Zeri/Lightning_Crash?oldid=4016978) |
+| Lightning Crash | will not trigger if the first target hit is a ward or trap | [4016978](https://wiki.leagueoflegends.com/en-us/Template:Data_Zeri/Lightning_Crash?oldid=4016978) |
+| Lightning Crash | Entering resurrection causes Zeri to lose all stacks of Hypercharged | [4016978](https://wiki.leagueoflegends.com/en-us/Template:Data_Zeri/Lightning_Crash?oldid=4016978) |
+| Lightning Crash | will not be able to gain stacks of Hypercharged again after reviving while Overcharged is active | [4016978](https://wiki.leagueoflegends.com/en-us/Template:Data_Zeri/Lightning_Crash?oldid=4016978) |
+| Ultrashock Laser | cooldown: 12 / 11 / 10 / 9 / 8 | [4060386](https://wiki.leagueoflegends.com/en-us/Template:Data_Zeri/Ultrashock_Laser?oldid=4060386) |
+| Ultrashock Laser | cost: 50 / 60 / 70 / 80 / 90 | [4060386](https://wiki.leagueoflegends.com/en-us/Template:Data_Zeri/Ultrashock_Laser?oldid=4060386) |
+| Spark Surge | cooldown: 24 / 22.5 / 21 / 19.5 / 18 | [4015351](https://wiki.leagueoflegends.com/en-us/Template:Data_Zeri/Spark_Surge?oldid=4015351) |
+| Spark Surge | cost: 90 / 85 / 80 / 75 / 70 | [4015351](https://wiki.leagueoflegends.com/en-us/Template:Data_Zeri/Spark_Surge?oldid=4015351) |
+| Spark Surge | castTime: none | [4015351](https://wiki.leagueoflegends.com/en-us/Template:Data_Zeri/Spark_Surge?oldid=4015351) |
+| Lightning Crash | cooldown: 80 / 75 / 70 | [4016978](https://wiki.leagueoflegends.com/en-us/Template:Data_Zeri/Lightning_Crash?oldid=4016978) |
+| Lightning Crash | cost: 100 | [4016978](https://wiki.leagueoflegends.com/en-us/Template:Data_Zeri/Lightning_Crash?oldid=4016978) |
+| Lightning Crash | castTime: 0.25 | [4016978](https://wiki.leagueoflegends.com/en-us/Template:Data_Zeri/Lightning_Crash?oldid=4016978) |

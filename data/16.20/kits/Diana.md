@@ -205,3 +205,112 @@ All 2 level-based formulas in the game files (2 linked to wiki values above):
 |---|---|---|--:|--:|--:|
 | DianaPassive | CleaveDamage | breakpoints at levels 7, 12, 17 (level 1: 20) | 20 | 220 | 270 |
 | DianaPassive | BonusAS | linear 0.15 → 0.35 over levels 1-18, continues past 18 | 0.15 | 0.35 | 0.373529 |
+
+## Duel simulator kit (level 20, every ability at max rank)
+
+What the duel simulator fights with (`kits/champions/Diana.ts`): values come from pinned wiki and versioned game-data records at level 20. Interpretations and missing evidence are listed under assumptions. Ratios are fractions of the stat (60% AD is 0.6 × AD).
+
+- Basic attack: range 150, melee.
+
+| Key | Ability | Cooldown (s) | Cast time (s) | Cost | Delivery | On the enemy | On itself |
+|---|---|--:|--:|---|---|---|---|
+| Q | Crescent Strike | 6 | 0.25 | 50 | self | – | – |
+| W | Pale Cascade | 9 (starts when its effect on the caster ends) | 0 | 60 | self | – | shield of 105 + 30% AP + 14% bonus health for 5 s |
+| E | Lunar Rush | 14 | 0 | 60 | dash toward 825 units at Infinity/s | – | – |
+| R | Moonfall | 80 | 0.25 | 100 | self | pull 225 units over 0.5 s; slow 60% for 2 s; marks it "diana:standardSight" for 0.5 s | – |
+| Icleave | Moonsilver Blade | 0 | 0 | – | self | – | – |
+| Qbolt | Crescent Strike | 0 | 0 | – | self | 210 + 70% AP magic damage; marks it "diana:moonlight" for 3 s | – |
+| Qexplosion | Crescent Strike (explosion) | 0 | 0 | – | self | 210 + 70% AP magic damage; marks it "diana:moonlight" for 3 s | – |
+| Worb | Pale Cascade (sphere) | 0 | 0 | – | self | 68 + 18% AP magic damage | – |
+| Ehit | Lunar Rush | 0 | 0 | – | self | 130 + 60% AP magic damage | – |
+| Rbeam | Moonfall (moonlight) | 0 | 0 | – | self | 400 + 60% AP magic damage | – |
+
+Effects marked by a mark or a role are completed by the kit's hooks (see the kit's source).
+
+### Assumptions
+
+- Moonsilver Blade begins empty. Each accepted unblocked basic contact adds one global five-second stack; the third consumes both and applies an independently guarded175-radius cleave around the actual basic recipient, including real summons. Explicit monsters alone take270%. The level20 wiki values270damage and37.3529411765%AS are retained; each real spell refreshes the five-second112.0588235294%AS total, adding only the difference over the permanent innate. No item phantom on-hits, structures or preloaded attacks are supplied.
+- Q releases two finite70-width fixed-speed Hermite flights at1900/2100, from Diana's cast-completion position. Exact game spline offsets and tangents are interpreted in local lateral/forward coordinates, arc length is sampled numerically and its forward coordinate is projected onto the duel axis. The one-dimensional model cannot reproduce lateral sidestepping or determine undocumented server spline transforms. Contacts share one damage/mark per cast; a shielded bolt can still take a separately guarded endpoint explosion. The source does not provide the explosion radius, so that conservative endpoint packet requires its point to overlap an actual hitbox. Standard sight is recorded by Moonlight and does not invent true sight through invisibility. Each flight can be independently destroyed; released Q survives death.
+- W grants105+30%AP+14%bonusHP shield immediately and holds its cooldown until three spheres detonate or five seconds expire. Actual enemies entering the sourced200-radius projected contact envelope consume the three available spheres as independent area packets; projectile destruction counts as loss rather than detonation and prevents the refresh. All detonations reapply one full shield plus its surviving remainder and refresh five seconds. Exact game angular velocity5.199999809 exists, but initial phase and sphere collision radius are unpublished; finite orbital contact timing is omitted rather than assigning invented phases or collision parameters.
+- Lunar Rush uses the pinned825range and130+60%AP packet, then consumes only currently present Moonlight on every actual enemy at dash end, even interruption. Accepted marked contact or a marked target dying during travel reduces its current cooldown to a static0.25seconds; spell shielding consumes marks without resetting. The primary page and active game object publish no dash speed, travel time or overshoot offset. E retains an actual interruptible dash action and resolves at the earliest30Hz arrival tick, to the target's near pathing boundary, or far boundary inside400. Anti-dash interception, mid-dash casts and ending untargetability use shared dash/guard rules; the short unknown travel window and collision-boundary overshoot are explicit approximations. Primary cast time none takes precedence over generic binary mCastTime/spellCastTime0.25; generic missileSpeed20 is not used as dash speed.
+- Moonfall pulls actual enemy hitboxes within475 by at most225 over the primary approximate0.5second control window, and applies the60% two-second slow. Spell-shielded champions do not arm the beam; accepted CC/displacement-immune champions and explicitly Champion-class clones do. One second after completion, a separately guarded beam follows Diana's current position and deals400+60%AP plus85+15%AP per extra champion pulled, including real summons in its radius. The initial and final packets each check defenses separately; no allied bodies or clone classes are invented. Standard sight adds no true sight.
+- Reference hints price Q once, three W spheres, ordinary E once per cooldown, one isolated-champion R and ordinary third strikes. Added spell-AS uptime is capped by the normal attack-speed cap. Shield value budgets the guaranteed first shield; runtime contact determines the second. No reset damage or clone amplification is granted free in the reference.
+
+### Source values read (74)
+
+| Ability | Value | Source version |
+|---|---|---|
+| Moonsilver Blade | Innate: Diana gains 15 – 35 (based on level)% bonus attack speed. | [4047026](https://wiki.leagueoflegends.com/en-us/Template:Data_Diana/Moonsilver_Blade?oldid=4047026) |
+| Moonsilver Blade | After casting an ability, this bonus is tripled to 45 – 105 (based on level)% for 5 seconds. | [4047026](https://wiki.leagueoflegends.com/en-us/Template:Data_Diana/Moonsilver_Blade?oldid=4047026) |
+| Moonsilver Blade | for 5 seconds | [4047026](https://wiki.leagueoflegends.com/en-us/Template:Data_Diana/Moonsilver_Blade?oldid=4047026) |
+| Moonsilver Blade | a stack of Moonsilver Blade for 5 seconds | [4047026](https://wiki.leagueoflegends.com/en-us/Template:Data_Diana/Moonsilver_Blade?oldid=4047026) |
+| Moonsilver Blade | stacking up to 2 times | [4047026](https://wiki.leagueoflegends.com/en-us/Template:Data_Diana/Moonsilver_Blade?oldid=4047026) |
+| Moonsilver Blade | effectRadius: 175 | [4047026](https://wiki.leagueoflegends.com/en-us/Template:Data_Diana/Moonsilver_Blade?oldid=4047026) |
+| Moonsilver Blade | At 2 stacks, Diana empowers her next basic attack to consume the stacks on-hit to additionally cleave nearby enemies, dealing them 20 – 220 (based on level) (+ 50% AP) magic damage. | [4047026](https://wiki.leagueoflegends.com/en-us/Template:Data_Diana/Moonsilver_Blade?oldid=4047026) |
+| Moonsilver Blade | (+ 50% AP) | [4047026](https://wiki.leagueoflegends.com/en-us/Template:Data_Diana/Moonsilver_Blade?oldid=4047026) |
+| Moonsilver Blade | deals 270% damage against monsters | [4047026](https://wiki.leagueoflegends.com/en-us/Template:Data_Diana/Moonsilver_Blade?oldid=4047026) |
+| Moonsilver Blade | consume the stacks on-hit | [4047026](https://wiki.leagueoflegends.com/en-us/Template:Data_Diana/Moonsilver_Blade?oldid=4047026) |
+| Crescent Strike | Magic Damage: 70 / 105 / 140 / 175 / 210 (+ 70% AP) | [4007592](https://wiki.leagueoflegends.com/en-us/Template:Data_Diana/Crescent_Strike?oldid=4007592) |
+| Crescent Strike | cooldown: 8 / 7.5 / 7 / 6.5 / 6 | [4007592](https://wiki.leagueoflegends.com/en-us/Template:Data_Diana/Crescent_Strike?oldid=4007592) |
+| Crescent Strike | castTime: 0.25 | [4007592](https://wiki.leagueoflegends.com/en-us/Template:Data_Diana/Crescent_Strike?oldid=4007592) |
+| Crescent Strike | targetRange: 900 | [4007592](https://wiki.leagueoflegends.com/en-us/Template:Data_Diana/Crescent_Strike?oldid=4007592) |
+| Crescent Strike | Moonlight for 3 seconds | [4007592](https://wiki.leagueoflegends.com/en-us/Template:Data_Diana/Crescent_Strike?oldid=4007592) |
+| Crescent Strike | speed (Inner): 1900 • 2100 | [4007592](https://wiki.leagueoflegends.com/en-us/Template:Data_Diana/Crescent_Strike?oldid=4007592) |
+| Crescent Strike | speed (Outer): 1900 • 2100 | [4007592](https://wiki.leagueoflegends.com/en-us/Template:Data_Diana/Crescent_Strike?oldid=4007592) |
+| Crescent Strike | The bolt consists of two projectiles | [4007592](https://wiki.leagueoflegends.com/en-us/Template:Data_Diana/Crescent_Strike?oldid=4007592) |
+| Crescent Strike | Even if the target spell shields the bolt, they may still be damaged by the explosion | [4007592](https://wiki.leagueoflegends.com/en-us/Template:Data_Diana/Crescent_Strike?oldid=4007592) |
+| Crescent Strike | Moonlight is not applied to the protected target if blocked | [4007592](https://wiki.leagueoflegends.com/en-us/Template:Data_Diana/Crescent_Strike?oldid=4007592) |
+| Crescent Strike | {{tip\|standard sight\|revealed}} | [4007592](https://wiki.leagueoflegends.com/en-us/Template:Data_Diana/Crescent_Strike?oldid=4007592) |
+| Crescent Strike | wherever the caster is at the end of the cast time | [4007592](https://wiki.leagueoflegends.com/en-us/Template:Data_Diana/Crescent_Strike?oldid=4007592) |
+| Crescent Strike | "mStartPositionOffset":[20.888782501220703,0.0,81.77568817138672] | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/diana/diana.bin.json) |
+| Crescent Strike | "mControlPoint1":[1.1648650169372559,0.0,0.01497435662895441] | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/diana/diana.bin.json) |
+| Crescent Strike | "mControlPoint2":[-0.886760413646698,0.0,-0.04764879122376442] | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/diana/diana.bin.json) |
+| Crescent Strike | "mMissileWidth":70.0 | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/diana/diana.bin.json) |
+| Crescent Strike | "mStartPositionOffset":[20.888782501220703,0.0,81.77568817138672] | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/diana/diana.bin.json) |
+| Crescent Strike | "mControlPoint1":[1.8616324663162231,0.0,-0.003753664204850793] | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/diana/diana.bin.json) |
+| Crescent Strike | "mControlPoint2":[-1.3954554796218872,0.0,0.012537208385765553] | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/diana/diana.bin.json) |
+| Crescent Strike | "mMissileWidth":70.0 | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/diana/diana.bin.json) |
+| Pale Cascade | Shield Strength: 45 / 60 / 75 / 90 / 105 (+ 30% AP) (+ 14% bonus health) | [4078371](https://wiki.leagueoflegends.com/en-us/Template:Data_Diana/Pale_Cascade?oldid=4078371) |
+| Pale Cascade | Magic Damage per Orb: 20 / 32 / 44 / 56 / 68 (+ 18% AP) | [4078371](https://wiki.leagueoflegends.com/en-us/Template:Data_Diana/Pale_Cascade?oldid=4078371) |
+| Pale Cascade | for up to 5 seconds | [4078371](https://wiki.leagueoflegends.com/en-us/Template:Data_Diana/Pale_Cascade?oldid=4078371) |
+| Pale Cascade | Total Magic Damage: 60 / 96 / 132 / 168 / 204 (+ 54% AP) | [4078371](https://wiki.leagueoflegends.com/en-us/Template:Data_Diana/Pale_Cascade?oldid=4078371) |
+| Pale Cascade | effectRadius: 200 | [4078371](https://wiki.leagueoflegends.com/en-us/Template:Data_Diana/Pale_Cascade?oldid=4078371) |
+| Pale Cascade | cooldown: 15 / 13.5 / 12 / 10.5 / 9 | [4078371](https://wiki.leagueoflegends.com/en-us/Template:Data_Diana/Pale_Cascade?oldid=4078371) |
+| Pale Cascade | shield is reapplied, stacking with its original shield and refreshing the duration | [4078371](https://wiki.leagueoflegends.com/en-us/Template:Data_Diana/Pale_Cascade?oldid=4078371) |
+| Pale Cascade | cooldownStart: after sphere detonation | [4078371](https://wiki.leagueoflegends.com/en-us/Template:Data_Diana/Pale_Cascade?oldid=4078371) |
+| Pale Cascade | "mAngularVelocity":5.199999809265137 | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/diana/diana.bin.json) |
+| Lunar Rush | Magic Damage: 50 / 70 / 90 / 110 / 130 (+ 60% AP) | [3937024](https://wiki.leagueoflegends.com/en-us/Template:Data_Diana/Lunar_Rush?oldid=3937024) |
+| Lunar Rush | targetRange: 825 | [3937024](https://wiki.leagueoflegends.com/en-us/Template:Data_Diana/Lunar_Rush?oldid=3937024) |
+| Lunar Rush | cooldown: 22 / 20 / 18 / 16 / 14 | [3937024](https://wiki.leagueoflegends.com/en-us/Template:Data_Diana/Lunar_Rush?oldid=3937024) |
+| Lunar Rush | within 400 range | [3937024](https://wiki.leagueoflegends.com/en-us/Template:Data_Diana/Lunar_Rush?oldid=3937024) |
+| Lunar Rush | reduced to 0.25 seconds | [3937024](https://wiki.leagueoflegends.com/en-us/Template:Data_Diana/Lunar_Rush?oldid=3937024) |
+| Lunar Rush | consumes Moonlight from all enemies | [3937024](https://wiki.leagueoflegends.com/en-us/Template:Data_Diana/Lunar_Rush?oldid=3937024) |
+| Lunar Rush | even if interrupted | [3937024](https://wiki.leagueoflegends.com/en-us/Template:Data_Diana/Lunar_Rush?oldid=3937024) |
+| Lunar Rush | blocked by spell shield the Moonlight debuff is still consumed but Lunar Rush's cooldown is not reset | [3937024](https://wiki.leagueoflegends.com/en-us/Template:Data_Diana/Lunar_Rush?oldid=3937024) |
+| Lunar Rush | target dies during the dash while being affected by Moonlight | [3937024](https://wiki.leagueoflegends.com/en-us/Template:Data_Diana/Lunar_Rush?oldid=3937024) |
+| Lunar Rush | untargetable by the end of the dash | [3937024](https://wiki.leagueoflegends.com/en-us/Template:Data_Diana/Lunar_Rush?oldid=3937024) |
+| Lunar Rush | cast any of her abilities during the dash | [3937024](https://wiki.leagueoflegends.com/en-us/Template:Data_Diana/Lunar_Rush?oldid=3937024) |
+| Lunar Rush | only consumes present ''Moonlight'' | [3937024](https://wiki.leagueoflegends.com/en-us/Template:Data_Diana/Lunar_Rush?oldid=3937024) |
+| Lunar Rush | mSpell.mCastTime:0.25 | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/diana/diana.bin.json) |
+| Lunar Rush | mSpell.spellCastTime:0.25 | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/diana/diana.bin.json) |
+| Lunar Rush | mSpell.missileSpeed:20.0 | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/diana/diana.bin.json) |
+| Moonfall | Magic Damage: 200 / 300 / 400 (+ 60% AP) | [4007593](https://wiki.leagueoflegends.com/en-us/Template:Data_Diana/Moonfall?oldid=4007593) |
+| Moonfall | Bonus Damage Per Champion: 35 / 60 / 85 (+ 15% AP) | [4007593](https://wiki.leagueoflegends.com/en-us/Template:Data_Diana/Moonfall?oldid=4007593) |
+| Moonfall | effectRadius (Effect radius): 475 • 225 | [4007593](https://wiki.leagueoflegends.com/en-us/Template:Data_Diana/Moonfall?oldid=4007593) |
+| Moonfall | effectRadius (Maximum Pull): 475 • 225 | [4007593](https://wiki.leagueoflegends.com/en-us/Template:Data_Diana/Moonfall?oldid=4007593) |
+| Moonfall | approximately 0.5 seconds | [4007593](https://wiki.leagueoflegends.com/en-us/Template:Data_Diana/Moonfall?oldid=4007593) |
+| Moonfall | slows them for 2 seconds | [4007593](https://wiki.leagueoflegends.com/en-us/Template:Data_Diana/Moonfall?oldid=4007593) |
+| Moonfall | Slow: 40 / 50 / 60% | [4007593](https://wiki.leagueoflegends.com/en-us/Template:Data_Diana/Moonfall?oldid=4007593) |
+| Moonfall | after 1 second | [4007593](https://wiki.leagueoflegends.com/en-us/Template:Data_Diana/Moonfall?oldid=4007593) |
+| Moonfall | cooldown: 100 / 90 / 80 | [4007593](https://wiki.leagueoflegends.com/en-us/Template:Data_Diana/Moonfall?oldid=4007593) |
+| Moonfall | Crowd control immunity and displacement immunity still count | [4007593](https://wiki.leagueoflegends.com/en-us/Template:Data_Diana/Moonfall?oldid=4007593) |
+| Moonfall | Clones count as champions | [4007593](https://wiki.leagueoflegends.com/en-us/Template:Data_Diana/Moonfall?oldid=4007593) |
+| Moonfall | protected by spell shield do not count | [4007593](https://wiki.leagueoflegends.com/en-us/Template:Data_Diana/Moonfall?oldid=4007593) |
+| Moonfall | {{tip\|standard sight\|revealed}} | [4007593](https://wiki.leagueoflegends.com/en-us/Template:Data_Diana/Moonfall?oldid=4007593) |
+| Crescent Strike | cost: 50 | [4007592](https://wiki.leagueoflegends.com/en-us/Template:Data_Diana/Crescent_Strike?oldid=4007592) |
+| Pale Cascade | cost: 40 / 45 / 50 / 55 / 60 | [4078371](https://wiki.leagueoflegends.com/en-us/Template:Data_Diana/Pale_Cascade?oldid=4078371) |
+| Pale Cascade | castTime: none | [4078371](https://wiki.leagueoflegends.com/en-us/Template:Data_Diana/Pale_Cascade?oldid=4078371) |
+| Lunar Rush | cost: 40 / 45 / 50 / 55 / 60 | [3937024](https://wiki.leagueoflegends.com/en-us/Template:Data_Diana/Lunar_Rush?oldid=3937024) |
+| Lunar Rush | castTime: none | [3937024](https://wiki.leagueoflegends.com/en-us/Template:Data_Diana/Lunar_Rush?oldid=3937024) |
+| Moonfall | cost: 100 | [4007593](https://wiki.leagueoflegends.com/en-us/Template:Data_Diana/Moonfall?oldid=4007593) |
+| Moonfall | castTime: 0.25 | [4007593](https://wiki.leagueoflegends.com/en-us/Template:Data_Diana/Moonfall?oldid=4007593) |

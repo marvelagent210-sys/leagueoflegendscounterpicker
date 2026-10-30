@@ -245,3 +245,115 @@ All 7 level-based formulas in the game files (5 linked to wiki values above):
 | RengarW | TotalDamageEmpowered | table of values per level (30 levels) | 50 | 220 | 240 |
 | RengarE | TotalEmpoweredDamage | breakpoints at levels none (level 1: 50) | 50 | 305 | 335 |
 | RengarPassive | EmpoweredMS | breakpoints at levels 7, 13, 19, 25 (level 1: 0.3) | 0.3 | 0.5 | 0.6 |
+
+## Duel simulator kit (level 20, every ability at max rank)
+
+What the duel simulator fights with (`kits/champions/Rengar.ts`): values come from pinned wiki and versioned game-data records at level 20. Interpretations and missing evidence are listed under assumptions. Ratios are fractions of the stat (60% AD is 0.6 × AD).
+
+- Basic attack: range 125, melee.
+
+| Key | Ability | Cooldown (s) | Cast time (s) | Cost | Delivery | On the enemy | On itself |
+|---|---|--:|--:|---|---|---|---|
+| Q | Savagery | 4 (starts after the empowered attacks) | 0 | – | self | – | – |
+| Q2 | Savagery (Ferocity) | 0 | 0 | 4 | self | – | – |
+| W | Battle Roar | 10 | 0 | – | around itself, 450 units | 170 + 80% AP magic damage, varies with combat state; formula is a reference | – |
+| W2 | Battle Roar (Ferocity) | 0 | 0 | 4 | around itself, 450 units | 240 + 80% AP magic damage, varies with combat state; formula is a reference | cleanses crowd control |
+| E | Bola Strike | 10 | depends on stats (0.25 base) | – | skillshot 1000 long, 140 wide, at 1500/s | 235 + 80% bonus AD physical damage; slow 90% for 1.75 s; revealed for 2 s | – |
+| E2 | Bola Strike (Ferocity) | 0 | depends on stats (0.25 base) | 4 | skillshot 1000 long, 140 wide, at 1500/s | 335 + 80% bonus AD physical damage; root for 1.75 s; revealed for 2 s | – |
+| R | Thrill of the Hunt | 80 (starts when its effect on the caster ends) | 0 | – | self | – | lingering for 20 s; moveSpeedPercent 0.6 for 20 s |
+| leap | Unseen Predator | 0 | 0 | – | dash target 745 units at 1450/s | – | – |
+
+Effects marked by a mark or a role are completed by the kit's hooks (see the kit's source).
+
+### Assumptions
+
+- The duel starts with zero Ferocity and no Savagery, Thrill of the Hunt, recent damage, or Bonetooth trophies. The real resource holds at most four Ferocity; empowered Q/W/E are separate extra casts that spend all four without starting or resetting their ordinary counterpart's cooldown. No pre-duel takedowns, farm or Kha'Zix event trophy are granted. A real first unique champion kill in this duel can grant the sourced first trophy.
+- The environment's brush flag supplies abstract brush availability throughout the one-dimensional lane; no bush coordinates or invented movement into brush are available. With brush disabled, only actual camouflage grants Unseen Predator. Leaving brush availability retains the sourced 0.35-second linger. Leap range is 745 edge-to-edge, loses Savagery's 25 range while active, and is unavailable while rooted or grounded. The separately sourced 0.25-second range-transition delay is not simulated.
+- An Unseen Predator basic uses a real interruptible 1450-speed dash to 50 units before the target's location at leap start. Its captured basic packet hits on arrival even if the target moved or lost visibility; dead, removed, stasis and untargetable targets prevent the attack. Dash interruption cancels contact. Q/W/E/R may overlay a leap; E has no leap cast time. The ordinary attack timer starts at leap launch. General item/summoner movement overlays are outside this kit.
+- Savagery grants the pinned ordinary damage, not the outdated blurb's guaranteed critical strike. Each cast gives 40% AS for its next two declared attacks within three seconds. Ordinary and empowered AS instances stack; a later Savagery replaces a still-unused first-attack damage empowerment. Empowered Q additionally grants the level-20 107% AS for five seconds when its attack is consumed. Its ordinary cooldown begins at first attack launch or empowerment expiration. No miss-preservation or permanent-Ferocity bugs are invented.
+- Battle Roar heals from actual health lost in the preceding 1.5 seconds, excluding shield absorption and overkill. Monster-class sources store 100%; other sources store 50%. Grey health remains available to both normal and empowered casts until its original expiry. Each actual eligible area body receives separately guarded magic damage; only explicit monsters take the level-20 monster bonus. Empowered W cleanses all removable crowd control, including suppression, and is castable while disabled except during stasis; it grants no invented immunity. Q and W wait until Bola Strike's nonzero cast finishes rather than bypassing its sourced buffer rule; the simulator has no player-input queue.
+- Bola Strike is a finite first-contact projectile that independently respects spell shield, parry and projectile walls. Its empowered root inherits the ordinary 1.75-second control duration because the exact template says rooted instead of slowed without a separate duration. Both variants grant two seconds of true sight. The primary wiki 140 width and binary 70 collision radius agree; released bolas finish after caster death.
+- Thrill of the Hunt starts its 20-second duration on cast, gains camouflage after two seconds, and caps camouflage at 14 seconds. Primary wiki detection radius 710 takes precedence over the binary's conflicting 750. It reveals the actual opposing champion on entry to 3500 for the remaining effect, marks them within 1600, and breaks on attack declaration or non-Q ability declaration. Its extra basic damage precedes the four-second flat armor reduction and requires an unblocked connected attack. The source's unquantified very short residual attack mark is conservatively limited to the declared attack. No allies, alert UI, or multi-champion detection are invented.
+- The ordinary policy reserves offensive Thrill of the Hunt in hold and trade modes and preserves completed-trade retreat. Ferocity uses the wiki's level-20 extrapolations; the primary 50% empowered movement speed takes precedence over the binary's level-19 60% breakpoint.
+
+### Source values read (77)
+
+| Ability | Value | Source version |
+|---|---|---|
+| Unseen Predator | stacking up 4 times | [4059878](https://wiki.leagueoflegends.com/en-us/Template:Data_Rengar/Unseen_Predator?oldid=4059878) |
+| Unseen Predator | Ferocity for 1 second | [4059878](https://wiki.leagueoflegends.com/en-us/Template:Data_Rengar/Unseen_Predator?oldid=4059878) |
+| Unseen Predator | for 10 seconds after dealing or taking damage | [4059878](https://wiki.leagueoflegends.com/en-us/Template:Data_Rengar/Unseen_Predator?oldid=4059878) |
+| Unseen Predator | At maximum stacks, his next basic ability consumes them all to become empowered with an additional effect and grant him an additional cast along with 30 / 40 / 50 (based on level)% bonus movement speed for 1.5 seconds. | [4059878](https://wiki.leagueoflegends.com/en-us/Template:Data_Rengar/Unseen_Predator?oldid=4059878) |
+| Unseen Predator | movement speed for 1.5 seconds | [4059878](https://wiki.leagueoflegends.com/en-us/Template:Data_Rengar/Unseen_Predator?oldid=4059878) |
+| Unseen Predator | lingers for 0.35 seconds | [4059878](https://wiki.leagueoflegends.com/en-us/Template:Data_Rengar/Unseen_Predator?oldid=4059878) |
+| Unseen Predator | range: 745 (+ 100% bonus attack range) | [4059878](https://wiki.leagueoflegends.com/en-us/Template:Data_Rengar/Unseen_Predator?oldid=4059878) |
+| Unseen Predator | targetRange: 50 | [4059878](https://wiki.leagueoflegends.com/en-us/Template:Data_Rengar/Unseen_Predator?oldid=4059878) |
+| Unseen Predator | speed: 1450 | [4059878](https://wiki.leagueoflegends.com/en-us/Template:Data_Rengar/Unseen_Predator?oldid=4059878) |
+| Unseen Predator | generates 1 Ferocity | [4059878](https://wiki.leagueoflegends.com/en-us/Template:Data_Rengar/Unseen_Predator?oldid=4059878) |
+| Unseen Predator | within 3 seconds of damaging them | [4059878](https://wiki.leagueoflegends.com/en-us/Template:Data_Rengar/Unseen_Predator?oldid=4059878) |
+| Unseen Predator | Trophies grant bonus attack damage equal to 1 / 4 / 9 / 16 / 25 / 36 (based on Trophies)% bonus AD. | [4059878](https://wiki.leagueoflegends.com/en-us/Template:Data_Rengar/Unseen_Predator?oldid=4059878) |
+| Unseen Predator | not refreshing on subsequent triggers | [4059878](https://wiki.leagueoflegends.com/en-us/Template:Data_Rengar/Unseen_Predator?oldid=4059878) |
+| Unseen Predator | excluding damage dealt by damage over time or proc effects | [4059878](https://wiki.leagueoflegends.com/en-us/Template:Data_Rengar/Unseen_Predator?oldid=4059878) |
+| Unseen Predator | While grounded or rooted | [4059878](https://wiki.leagueoflegends.com/en-us/Template:Data_Rengar/Unseen_Predator?oldid=4059878) |
+| Unseen Predator | Go off even if Rengar loses sight of the target | [4059878](https://wiki.leagueoflegends.com/en-us/Template:Data_Rengar/Unseen_Predator?oldid=4059878) |
+| Unseen Predator | Not go off if the dash was interrupted | [4059878](https://wiki.leagueoflegends.com/en-us/Template:Data_Rengar/Unseen_Predator?oldid=4059878) |
+| Savagery | Additional Physical Damage: 20 / 55 / 90 / 125 / 160 (+ 5% AD) | [4052789](https://wiki.leagueoflegends.com/en-us/Template:Data_Rengar/Savagery?oldid=4052789) |
+| Savagery | Ferocity Bonus: Savagery's damage is modified to deal 35 – 240 (based on level) (+ 20% AD) bonus physical damage. | [4052789](https://wiki.leagueoflegends.com/en-us/Template:Data_Rengar/Savagery?oldid=4052789) |
+| Savagery | (+ 20% AD) | [4052789](https://wiki.leagueoflegends.com/en-us/Template:Data_Rengar/Savagery?oldid=4052789) |
+| Savagery | gains 40% bonus attack speed | [4052789](https://wiki.leagueoflegends.com/en-us/Template:Data_Rengar/Savagery?oldid=4052789) |
+| Savagery | next two basic attacks | [4052789](https://wiki.leagueoflegends.com/en-us/Template:Data_Rengar/Savagery?oldid=4052789) |
+| Savagery | within 3 seconds | [4052789](https://wiki.leagueoflegends.com/en-us/Template:Data_Rengar/Savagery?oldid=4052789) |
+| Savagery | gaining 25 bonus range | [4052789](https://wiki.leagueoflegends.com/en-us/Template:Data_Rengar/Savagery?oldid=4052789) |
+| Savagery | In addition to gaining another instance of the base attack speed on-cast, consuming the attack also grants 50 – 101 (based on level)% bonus attack speed for 5 seconds. | [4052789](https://wiki.leagueoflegends.com/en-us/Template:Data_Rengar/Savagery?oldid=4052789) |
+| Savagery | attack speed for 5 seconds | [4052789](https://wiki.leagueoflegends.com/en-us/Template:Data_Rengar/Savagery?oldid=4052789) |
+| Savagery | Casting Savagery does not break stealth | [4052789](https://wiki.leagueoflegends.com/en-us/Template:Data_Rengar/Savagery?oldid=4052789) |
+| Savagery | cooldownStart: post-effect | [4052789](https://wiki.leagueoflegends.com/en-us/Template:Data_Rengar/Savagery?oldid=4052789) |
+| Savagery | cooldown: 6 / 5.5 / 5 / 4.5 / 4 | [4052789](https://wiki.leagueoflegends.com/en-us/Template:Data_Rengar/Savagery?oldid=4052789) |
+| Battle Roar | cooldown: 16 / 14.5 / 13 / 11.5 / 10 | [4009100](https://wiki.leagueoflegends.com/en-us/Template:Data_Rengar/Battle_Roar?oldid=4009100) |
+| Bola Strike | cooldown: 10 | [4009137](https://wiki.leagueoflegends.com/en-us/Template:Data_Rengar/Bola_Strike?oldid=4009137) |
+| Thrill of the Hunt | cooldown: 100 / 90 / 80 | [4052301](https://wiki.leagueoflegends.com/en-us/Template:Data_Rengar/Thrill_of_the_Hunt?oldid=4052301) |
+| Battle Roar | Magic Damage: 50 / 80 / 110 / 140 / 170 (+ 80% AP) | [4009100](https://wiki.leagueoflegends.com/en-us/Template:Data_Rengar/Battle_Roar?oldid=4009100) |
+| Battle Roar | Ferocity Bonus: Battle Roar's damage is modified to deal 50 – 220 (based on level) (+ 80% AP) magic damage. | [4009100](https://wiki.leagueoflegends.com/en-us/Template:Data_Rengar/Battle_Roar?oldid=4009100) |
+| Battle Roar | (+ 80% AP) | [4009100](https://wiki.leagueoflegends.com/en-us/Template:Data_Rengar/Battle_Roar?oldid=4009100) |
+| Battle Roar | last 1.5 seconds | [4009100](https://wiki.leagueoflegends.com/en-us/Template:Data_Rengar/Battle_Roar?oldid=4009100) |
+| Battle Roar | stores 50% | [4009100](https://wiki.leagueoflegends.com/en-us/Template:Data_Rengar/Battle_Roar?oldid=4009100) |
+| Battle Roar | increased to 100% | [4009100](https://wiki.leagueoflegends.com/en-us/Template:Data_Rengar/Battle_Roar?oldid=4009100) |
+| Battle Roar | Active: Rengar roars, dealing magic damage to nearby enemies and 65 – 130 (based on level) bonus magic damage to monsters, and consuming his grey health to heal for the same amount. | [4009100](https://wiki.leagueoflegends.com/en-us/Template:Data_Rengar/Battle_Roar?oldid=4009100) |
+| Battle Roar | effectRadius: 450 | [4009100](https://wiki.leagueoflegends.com/en-us/Template:Data_Rengar/Battle_Roar?oldid=4009100) |
+| Battle Roar | Grey health will not be consumed upon casting Battle Roar | [4009100](https://wiki.leagueoflegends.com/en-us/Template:Data_Rengar/Battle_Roar?oldid=4009100) |
+| Battle Roar | cleanses himself from all crowd control | [4009100](https://wiki.leagueoflegends.com/en-us/Template:Data_Rengar/Battle_Roar?oldid=4009100) |
+| Bola Strike | Physical Damage: 55 / 100 / 145 / 190 / 235 (+ 80% bonus AD) | [4009137](https://wiki.leagueoflegends.com/en-us/Template:Data_Rengar/Bola_Strike?oldid=4009137) |
+| Bola Strike | Ferocity Bonus: Bola Strike's damage is modified to deal 50 – 305 (based on level) (+ 80% bonus AD) physical damage. | [4009137](https://wiki.leagueoflegends.com/en-us/Template:Data_Rengar/Bola_Strike?oldid=4009137) |
+| Bola Strike | Slow: 30 / 45 / 60 / 75 / 90% | [4009137](https://wiki.leagueoflegends.com/en-us/Template:Data_Rengar/Bola_Strike?oldid=4009137) |
+| Bola Strike | slows them for 1.75 seconds | [4009137](https://wiki.leagueoflegends.com/en-us/Template:Data_Rengar/Bola_Strike?oldid=4009137) |
+| Bola Strike | revealing them for 2 seconds | [4009137](https://wiki.leagueoflegends.com/en-us/Template:Data_Rengar/Bola_Strike?oldid=4009137) |
+| Bola Strike | targetRange: 1000 | [4009137](https://wiki.leagueoflegends.com/en-us/Template:Data_Rengar/Bola_Strike?oldid=4009137) |
+| Bola Strike | castTime: 0.25 • None | [4009137](https://wiki.leagueoflegends.com/en-us/Template:Data_Rengar/Bola_Strike?oldid=4009137) |
+| Bola Strike | width: 140 | [4009137](https://wiki.leagueoflegends.com/en-us/Template:Data_Rengar/Bola_Strike?oldid=4009137) |
+| Bola Strike | "mSpeed":1500.0 | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/rengar/rengar.bin.json) |
+| Bola Strike | "mMissileWidth":70.0 | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/rengar/rengar.bin.json) |
+| Bola Strike | "mMissileWidth":70.0 | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/rengar/rengar.bin.json) |
+| Bola Strike | The target is rooted instead of slowed | [4009137](https://wiki.leagueoflegends.com/en-us/Template:Data_Rengar/Bola_Strike?oldid=4009137) |
+| Bola Strike | This ability will cast from wherever the caster is at the end of the cast time | [4009137](https://wiki.leagueoflegends.com/en-us/Template:Data_Rengar/Bola_Strike?oldid=4009137) |
+| Bola Strike | he will buffer them and cast them when Bola Strike completes | [4009137](https://wiki.leagueoflegends.com/en-us/Template:Data_Rengar/Bola_Strike?oldid=4009137) |
+| Thrill of the Hunt | Effect Duration: 12 / 16 / 20 seconds | [4052301](https://wiki.leagueoflegends.com/en-us/Template:Data_Rengar/Thrill_of_the_Hunt?oldid=4052301) |
+| Thrill of the Hunt | Bonus Movement Speed: 40 / 50 / 60% | [4052301](https://wiki.leagueoflegends.com/en-us/Template:Data_Rengar/Thrill_of_the_Hunt?oldid=4052301) |
+| Thrill of the Hunt | After a 2-second delay | [4052301](https://wiki.leagueoflegends.com/en-us/Template:Data_Rengar/Thrill_of_the_Hunt?oldid=4052301) |
+| Thrill of the Hunt | camouflage can only last up to 14 seconds | [4052301](https://wiki.leagueoflegends.com/en-us/Template:Data_Rengar/Thrill_of_the_Hunt?oldid=4052301) |
+| Thrill of the Hunt | effectRadius: 2500 / 3000 / 3500 | [4052301](https://wiki.leagueoflegends.com/en-us/Template:Data_Rengar/Thrill_of_the_Hunt?oldid=4052301) |
+| Thrill of the Hunt | within 1600 range | [4052301](https://wiki.leagueoflegends.com/en-us/Template:Data_Rengar/Thrill_of_the_Hunt?oldid=4052301) |
+| Thrill of the Hunt | Detection Radius: 710 | [4052301](https://wiki.leagueoflegends.com/en-us/Template:Data_Rengar/Thrill_of_the_Hunt?oldid=4052301) |
+| Thrill of the Hunt | deals 100% AD | [4052301](https://wiki.leagueoflegends.com/en-us/Template:Data_Rengar/Thrill_of_the_Hunt?oldid=4052301) |
+| Thrill of the Hunt | Armor Reduction: 15 / 20 / 25 | [4052301](https://wiki.leagueoflegends.com/en-us/Template:Data_Rengar/Thrill_of_the_Hunt?oldid=4052301) |
+| Thrill of the Hunt | armor reduction for 4 seconds | [4052301](https://wiki.leagueoflegends.com/en-us/Template:Data_Rengar/Thrill_of_the_Hunt?oldid=4052301) |
+| Thrill of the Hunt | Attacking or casting abilities other than Savagery ends Thrill of the Hunt immediately | [4052301](https://wiki.leagueoflegends.com/en-us/Template:Data_Rengar/Thrill_of_the_Hunt?oldid=4052301) |
+| Thrill of the Hunt | cooldownStart: post-effect | [4052301](https://wiki.leagueoflegends.com/en-us/Template:Data_Rengar/Thrill_of_the_Hunt?oldid=4052301) |
+| Thrill of the Hunt | If the attack is prevented or blocked | [4052301](https://wiki.leagueoflegends.com/en-us/Template:Data_Rengar/Thrill_of_the_Hunt?oldid=4052301) |
+| Unseen Predator | "name":"MaxFerocity","values":[4.0,4.0,4.0,4.0,4.0,4.0,4.0] | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/rengar/rengar.bin.json) |
+| Battle Roar | "name":"HealingWindow","values":[1.5,1.5,1.5,1.5,1.5,1.5,1.5] | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/rengar/rengar.bin.json) |
+| Battle Roar | "SpecialCase_StasisLocked" | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/rengar/rengar.bin.json) |
+| Savagery | "name":"ASBonus","values":[40.0,40.0,40.0,40.0,40.0,40.0,40.0] | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/rengar/rengar.bin.json) |
+| Thrill of the Hunt | "name":"FadeTime","values":[2.0,2.0,2.0,2.0,2.0,2.0,2.0] | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/rengar/rengar.bin.json) |
+| Savagery | castTime: none | [4052789](https://wiki.leagueoflegends.com/en-us/Template:Data_Rengar/Savagery?oldid=4052789) |
+| Battle Roar | castTime: none | [4009100](https://wiki.leagueoflegends.com/en-us/Template:Data_Rengar/Battle_Roar?oldid=4009100) |
+| Thrill of the Hunt | castTime: none | [4052301](https://wiki.leagueoflegends.com/en-us/Template:Data_Rengar/Thrill_of_the_Hunt?oldid=4052301) |

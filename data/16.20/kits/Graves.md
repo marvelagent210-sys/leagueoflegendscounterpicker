@@ -264,3 +264,126 @@ All 1 level-based formulas in the game files (1 linked to wiki values above):
 | Spell | Calculation | Rule | Level 1 | Level 18 | Level 20 |
 |---|---|---|--:|--:|--:|
 | GravesPassive | SingleBulletDamage | table of values per level (30 levels) | 0.700002 | 1.00005 | 1.05044 |
+
+## Duel simulator kit (level 20, every ability at max rank)
+
+What the duel simulator fights with (`kits/champions/Graves.ts`): values come from pinned wiki and versioned game-data records at level 20. Interpretations and missing evidence are listed under assumptions. Ratios are fractions of the stat (60% AD is 0.6 × AD).
+
+- Basic attack: range 425, missile at 3800/s.
+
+| Key | Ability | Cooldown (s) | Cast time (s) | Cost | Delivery | On the enemy | On itself |
+|---|---|--:|--:|---|---|---|---|
+| Q | End of the Line | 6 | 0.25 | 80 | self | – | – |
+| W | Smoke Screen | 18 | 0.25 | 90 | self | – | – |
+| E | Quickdraw | 12 | 0 | 40 | dash toward 275–375 units at 750/s, through the enemy | – | resets the attack timer |
+| R | Collateral Damage | 60 | 0.25 | 100 | self | – | – |
+| pellet | New Destiny | 0 | 0 | – | self | – | – |
+| Qreturn | End of the Line (return) | 0 | 0 | – | self | – | – |
+| Wsmoke | Smoke Screen (smoke) | 0 | 0 | – | self | – | – |
+| Rcone | Collateral Damage (cone) | 0 | 0 | – | self | – | – |
+
+Effects marked by a mark or a role are completed by the kit's hooks (see the kit's source).
+
+### Assumptions
+
+- New Destiny starts with two shells. Spending occurs at launch, empty reload prevents attacks, one-shell idle reload begins after2.08seconds and E cancels either reload. The one-tick windup uses the primary note. The published reload formula is explicitly unknown: this model interpolates measured2.08s toward the level-dependent published minimum as external bonusAS rises to150%, scales one-shell reload by1.3/2.08, and caps there. Growth affects the minimum via level; the documented anomalous150–200% slowdown curve is unmodeled. This is a sourced-endpoint approximation, not an exact server formula.
+- Normal four-pellet24degree and critical six-pellet30degree fans use real circular hitboxes on the duel axis and closest actual target interception independently for each ray. Critical geometry is weighted by critical chance; critical pellets gain50% of bonus critical damage per the primary footnote (150% at ordinary200% critical damage). Only each target's first pellet deals basic damage/onhits; extras deal default damage with basic defenses and life steal. The wiki additional-pellet table uses.33302 while exact16.20 client calculation says.3330000043: the pinned primary table wins. The one-dimensional arena has no lateral movement, and blind deterministically fires away from the declared target rather than inventing a lateral random lane. Nonchampion knockback distance/duration are not published and are omitted rather than guessed.
+- Q has a real3000speed piercing outward missile, a two-second powder clock measured from launch, a terrain-triggered detonation at the versioned.2second delay, then a1600speed reverse wave. The parser's0.231 is a rutngt rendering artifact; exact source raw says0.2 rounded up to a game tick. Its endpoint rectangle occupies the sourced total900 versus800 forward reach, and each target can take the explosion/return only once. Projectile walls erase the trail. Actual raised terrain is checked; the environment walls boolean supplies no invented position. Unbreakable contact triggers the same sourced terrain fuse at the actual shield collision; its collision damage and delayed second effect remain independently guarded.
+- Smoke Screen launches at cast start at1500speed, then deals260+60%AP magic and50%slow for.5seconds in200radius. Its independent four-second field uses.25second pulses. Anchored250radius sight reduction (itself estimated in the primary tooltip) persists through CC immunity/cleanse and untargetability; the separately guarded nearsight cannot reapply after resistance/removal until exit/reentry. Leaving smoke immediately clears its sight limit. No allied shared vision is invented in this duel.
+- Quickdraw reloads one shell and resets the attack timer, grants one TrueGrit stack plus a second only when a visible targetable champion is ahead within1300 at some actual dash tick, caps8 and refreshes4seconds on damage to explicit non-minions. An unclassified summon is not assumed a non-minion. Each stack grants19armor and9.5MR. The dash uses pinned750speed and275–375distance with clear-endpoint terrain crossing. Only E begun during an actual reload enables Q/W/R overlays for that dash; ordinary dashes do not permit them.
+- R pierces actual pets with a single-target spell packet, explodes on champion contact even when spellshielded or at1100range, and applies the separate reduced area packet only to additional targets in its740reach cone anchored150behind contact. The cone intersects the duel axis, so transverse60degree coverage is not separately modeled. Recoil moves400 immediately along terrain-limited space as an explicit timing approximation; no movement speed or duration is published. Root, ground and airborne prevent it without preventing the shot. Its finite dash duration and anti-dash interaction are unmodeled. The stale GravesAutoAttackRecoil object contains Riven spell fields and is not treated as recoil-speed evidence. Launched projectiles and smoke survive Graves's death.
+- The reference budget replaces ordinary attacks with a two-shell/reload cycle using the same sourced-endpoint approximation and assumes the centerline target receives the full fan; E's defensive stacks and conditional reload acceleration are not free starting power. Q budgets both passes once per hasted cast cycle, W/R use their direct damage formulas.
+
+### Source values read (89)
+
+| Ability | Value | Source version |
+|---|---|---|
+| New Destiny | within 2 shells | [4038342](https://wiki.leagueoflegends.com/en-us/Template:Data_Graves/New_Destiny?oldid=4038342) |
+| New Destiny | sprays 4 pellets | [4038342](https://wiki.leagueoflegends.com/en-us/Template:Data_Graves/New_Destiny?oldid=4038342) |
+| New Destiny | spray 6 pellets | [4038342](https://wiki.leagueoflegends.com/en-us/Template:Data_Graves/New_Destiny?oldid=4038342) |
+| New Destiny | equal to 50% bonus critical damage | [4038342](https://wiki.leagueoflegends.com/en-us/Template:Data_Graves/New_Destiny?oldid=4038342) |
+| New Destiny | Innate - 12-Gauge: Graves basic attack sprays 4 pellets in a cone, each colliding with the first enemy unit in their path, dealing 70.0002 – 100.005 (based on level)% AD physical damage plus 23.3115 – 33.3037 (based on level)% AD additional physical damage for each subsequent pellet hitting the same target, up to 139.935 – 199.916 (based on level)% AD total physical damage against a single target. | [4038342](https://wiki.leagueoflegends.com/en-us/Template:Data_Graves/New_Destiny?oldid=4038342) |
+| New Destiny | range (Pellet collision reach): 625 • 565 | [4038342](https://wiki.leagueoflegends.com/en-us/Template:Data_Graves/New_Destiny?oldid=4038342) |
+| New Destiny | width: 40 | [4038342](https://wiki.leagueoflegends.com/en-us/Template:Data_Graves/New_Destiny?oldid=4038342) |
+| New Destiny | speed (Pellets missile speed): 3800 • 3000 • 3400 | [4038342](https://wiki.leagueoflegends.com/en-us/Template:Data_Graves/New_Destiny?oldid=4038342) |
+| New Destiny | angle: 24° • 30° | [4038342](https://wiki.leagueoflegends.com/en-us/Template:Data_Graves/New_Destiny?oldid=4038342) |
+| New Destiny | takes 2.08 seconds | [4038342](https://wiki.leagueoflegends.com/en-us/Template:Data_Graves/New_Destiny?oldid=4038342) |
+| New Destiny | and 1.3 seconds | [4038342](https://wiki.leagueoflegends.com/en-us/Template:Data_Graves/New_Destiny?oldid=4038342) |
+| New Destiny | for 2.08 seconds | [4038342](https://wiki.leagueoflegends.com/en-us/Template:Data_Graves/New_Destiny?oldid=4038342) |
+| New Destiny | between 150% | [4038342](https://wiki.leagueoflegends.com/en-us/Template:Data_Graves/New_Destiny?oldid=4038342) |
+| New Destiny | 0.65114 + | [4038342](https://wiki.leagueoflegends.com/en-us/Template:Data_Graves/New_Destiny?oldid=4038342) |
+| New Destiny | 0.89119 - | [4038342](https://wiki.leagueoflegends.com/en-us/Template:Data_Graves/New_Destiny?oldid=4038342) |
+| New Destiny | / 17 * | [4038342](https://wiki.leagueoflegends.com/en-us/Template:Data_Graves/New_Destiny?oldid=4038342) |
+| New Destiny | (x - 1) | [4038342](https://wiki.leagueoflegends.com/en-us/Template:Data_Graves/New_Destiny?oldid=4038342) |
+| New Destiny | Precise formula is unknown | [4038342](https://wiki.leagueoflegends.com/en-us/Template:Data_Graves/New_Destiny?oldid=4038342) |
+| New Destiny | Only the first pellet to hit each enemy applies on-hit effects | [4038342](https://wiki.leagueoflegends.com/en-us/Template:Data_Graves/New_Destiny?oldid=4038342) |
+| New Destiny | all additional pellets deal default damage | [4038342](https://wiki.leagueoflegends.com/en-us/Template:Data_Graves/New_Destiny?oldid=4038342) |
+| New Destiny | random direction that is always away | [4038342](https://wiki.leagueoflegends.com/en-us/Template:Data_Graves/New_Destiny?oldid=4038342) |
+| New Destiny | not counted toward the 150% | [4038342](https://wiki.leagueoflegends.com/en-us/Template:Data_Graves/New_Destiny?oldid=4038342) |
+| New Destiny | only 1 game tick | [4038342](https://wiki.leagueoflegends.com/en-us/Template:Data_Graves/New_Destiny?oldid=4038342) |
+| New Destiny | mSpell.mSpellCalculations.MultiBulletDamage.mMultiplier.mNumber: 0.3330000042915344 | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/graves/graves.bin.json) |
+| End of the Line | range: 800 • 900 | [4057465](https://wiki.leagueoflegends.com/en-us/Template:Data_Graves/End_of_the_Line?oldid=4057465) |
+| End of the Line | width: 80 • 500 • 200 | [4057465](https://wiki.leagueoflegends.com/en-us/Template:Data_Graves/End_of_the_Line?oldid=4057465) |
+| End of the Line | Physical Damage: 50 / 75 / 100 / 125 / 150 (+ 55% bonus AD) | [4057465](https://wiki.leagueoflegends.com/en-us/Template:Data_Graves/End_of_the_Line?oldid=4057465) |
+| End of the Line | Physical Damage: 80 / 125 / 170 / 215 / 260 (+ 45 / 60 / 75 / 90 / 105% bonus AD) | [4057465](https://wiki.leagueoflegends.com/en-us/Template:Data_Graves/End_of_the_Line?oldid=4057465) |
+| End of the Line | cooldown: 13 / 11.25 / 9.5 / 7.75 / 6 | [4057465](https://wiki.leagueoflegends.com/en-us/Template:Data_Graves/End_of_the_Line?oldid=4057465) |
+| End of the Line | castTime: 0.25 | [4057465](https://wiki.leagueoflegends.com/en-us/Template:Data_Graves/End_of_the_Line?oldid=4057465) |
+| End of the Line | After 2 seconds | [4057465](https://wiki.leagueoflegends.com/en-us/Template:Data_Graves/End_of_the_Line?oldid=4057465) |
+| End of the Line | mSpell.DataValues[TerrainCollisionDelay].values: [0.20000000298023224 | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/graves/graves.bin.json) |
+| End of the Line | mSpell.missileSpeed: 3000.0 | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/graves/graves.bin.json) |
+| End of the Line | mSpell.missileSpeed: 1600.0 | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/graves/graves.bin.json) |
+| End of the Line | Spell shields can only block one instance | [4057465](https://wiki.leagueoflegends.com/en-us/Template:Data_Graves/End_of_the_Line?oldid=4057465) |
+| End of the Line | Wind Wall will destroy the projectile entirely | [4057465](https://wiki.leagueoflegends.com/en-us/Template:Data_Graves/End_of_the_Line?oldid=4057465) |
+| End of the Line | Unbreakable is considered to be terrain | [4057465](https://wiki.leagueoflegends.com/en-us/Template:Data_Graves/End_of_the_Line?oldid=4057465) |
+| Smoke Screen | targetRange: 950 | [4067475](https://wiki.leagueoflegends.com/en-us/Template:Data_Graves/Smoke_Screen?oldid=4067475) |
+| Smoke Screen | effectRadius: 200 | [4067475](https://wiki.leagueoflegends.com/en-us/Template:Data_Graves/Smoke_Screen?oldid=4067475) |
+| Smoke Screen | mSpell.DataValues.SmokeRadius.values: [200.0 | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/graves/graves.bin.json) |
+| Smoke Screen | speed: 1500 | [4067475](https://wiki.leagueoflegends.com/en-us/Template:Data_Graves/Smoke_Screen?oldid=4067475) |
+| Smoke Screen | Magic Damage: 60 / 110 / 160 / 210 / 260 (+ 60% AP) | [4067475](https://wiki.leagueoflegends.com/en-us/Template:Data_Graves/Smoke_Screen?oldid=4067475) |
+| Smoke Screen | for 4 seconds | [4067475](https://wiki.leagueoflegends.com/en-us/Template:Data_Graves/Smoke_Screen?oldid=4067475) |
+| Smoke Screen | every 0.25 seconds | [4067475](https://wiki.leagueoflegends.com/en-us/Template:Data_Graves/Smoke_Screen?oldid=4067475) |
+| Smoke Screen | to 250 units | [4067475](https://wiki.leagueoflegends.com/en-us/Template:Data_Graves/Smoke_Screen?oldid=4067475) |
+| Smoke Screen | by 50% | [4067475](https://wiki.leagueoflegends.com/en-us/Template:Data_Graves/Smoke_Screen?oldid=4067475) |
+| Smoke Screen | for 0.5 seconds | [4067475](https://wiki.leagueoflegends.com/en-us/Template:Data_Graves/Smoke_Screen?oldid=4067475) |
+| Smoke Screen | Starts traveling at the start | [4067475](https://wiki.leagueoflegends.com/en-us/Template:Data_Graves/Smoke_Screen?oldid=4067475) |
+| Smoke Screen | relative to the center | [4067475](https://wiki.leagueoflegends.com/en-us/Template:Data_Graves/Smoke_Screen?oldid=4067475) |
+| Smoke Screen | nearsight untargetable units | [4067475](https://wiki.leagueoflegends.com/en-us/Template:Data_Graves/Smoke_Screen?oldid=4067475) |
+| Smoke Screen | prevent it from being reapplied while staying inside | [4067475](https://wiki.leagueoflegends.com/en-us/Template:Data_Graves/Smoke_Screen?oldid=4067475) |
+| Smoke Screen | cleanses have no effect | [4067475](https://wiki.leagueoflegends.com/en-us/Template:Data_Graves/Smoke_Screen?oldid=4067475) |
+| Quickdraw | targetRange: 275 - 375 | [4049953](https://wiki.leagueoflegends.com/en-us/Template:Data_Graves/Quickdraw?oldid=4049953) |
+| Quickdraw | mSpell.DataValues[DashSpeed].values: [750.0 | [16.20.8248524+branch.releases-16-20.content.release](https://raw.communitydragon.org/16.20/game/data/characters/graves/graves.bin.json) |
+| Quickdraw | for 4 seconds | [4049953](https://wiki.leagueoflegends.com/en-us/Template:Data_Graves/Quickdraw?oldid=4049953) |
+| Quickdraw | up to 8 times | [4049953](https://wiki.leagueoflegends.com/en-us/Template:Data_Graves/Quickdraw?oldid=4049953) |
+| Quickdraw | by 0.5 seconds | [4049953](https://wiki.leagueoflegends.com/en-us/Template:Data_Graves/Quickdraw?oldid=4049953) |
+| Quickdraw | Bonus Armor: 7 / 10 / 13 / 16 / 19 | [4049953](https://wiki.leagueoflegends.com/en-us/Template:Data_Graves/Quickdraw?oldid=4049953) |
+| Quickdraw | Bonus Magic Resistance: 3.5 / 5 / 6.5 / 8 / 9.5 | [4049953](https://wiki.leagueoflegends.com/en-us/Template:Data_Graves/Quickdraw?oldid=4049953) |
+| Quickdraw | within 1300 distance | [4049953](https://wiki.leagueoflegends.com/en-us/Template:Data_Graves/Quickdraw?oldid=4049953) |
+| Quickdraw | visible enemy champion is in front | [4049953](https://wiki.leagueoflegends.com/en-us/Template:Data_Graves/Quickdraw?oldid=4049953) |
+| Quickdraw | targetable to grant | [4049953](https://wiki.leagueoflegends.com/en-us/Template:Data_Graves/Quickdraw?oldid=4049953) |
+| Quickdraw | damage versus non-minions | [4049953](https://wiki.leagueoflegends.com/en-us/Template:Data_Graves/Quickdraw?oldid=4049953) |
+| Quickdraw | resets Graves basic attack timer | [4049953](https://wiki.leagueoflegends.com/en-us/Template:Data_Graves/Quickdraw?oldid=4049953) |
+| Collateral Damage | range: 1100 • 1690 | [4007499](https://wiki.leagueoflegends.com/en-us/Template:Data_Graves/Collateral_Damage?oldid=4007499) |
+| Collateral Damage | effectRadius: 740 | [4007499](https://wiki.leagueoflegends.com/en-us/Template:Data_Graves/Collateral_Damage?oldid=4007499) |
+| Collateral Damage | width: 200 | [4007499](https://wiki.leagueoflegends.com/en-us/Template:Data_Graves/Collateral_Damage?oldid=4007499) |
+| Collateral Damage | speed: 2100 | [4007499](https://wiki.leagueoflegends.com/en-us/Template:Data_Graves/Collateral_Damage?oldid=4007499) |
+| Collateral Damage | Physical Damage: 275 / 425 / 575 (+ 150% bonus AD) | [4007499](https://wiki.leagueoflegends.com/en-us/Template:Data_Graves/Collateral_Damage?oldid=4007499) |
+| Collateral Damage | Reduced Damage: 200 / 320 / 440 (+ 120% bonus AD) | [4007499](https://wiki.leagueoflegends.com/en-us/Template:Data_Graves/Collateral_Damage?oldid=4007499) |
+| Collateral Damage | recoil 400 units | [4007499](https://wiki.leagueoflegends.com/en-us/Template:Data_Graves/Collateral_Damage?oldid=4007499) |
+| Collateral Damage | 150 units behind | [4007499](https://wiki.leagueoflegends.com/en-us/Template:Data_Graves/Collateral_Damage?oldid=4007499) |
+| Collateral Damage | angle: 60° | [4007499](https://wiki.leagueoflegends.com/en-us/Template:Data_Graves/Collateral_Damage?oldid=4007499) |
+| Collateral Damage | including to non-champions struck before exploding | [4007499](https://wiki.leagueoflegends.com/en-us/Template:Data_Graves/Collateral_Damage?oldid=4007499) |
+| Collateral Damage | protected by a spell shield | [4007499](https://wiki.leagueoflegends.com/en-us/Template:Data_Graves/Collateral_Damage?oldid=4007499) |
+| Collateral Damage | grounded or rooted | [4007499](https://wiki.leagueoflegends.com/en-us/Template:Data_Graves/Collateral_Damage?oldid=4007499) |
+| Collateral Damage | if he is airborne | [4007499](https://wiki.leagueoflegends.com/en-us/Template:Data_Graves/Collateral_Damage?oldid=4007499) |
+| Quickdraw | If Graves dashes while reloading | [4049953](https://wiki.leagueoflegends.com/en-us/Template:Data_Graves/Quickdraw?oldid=4049953) |
+| End of the Line | cost: 80 | [4057465](https://wiki.leagueoflegends.com/en-us/Template:Data_Graves/End_of_the_Line?oldid=4057465) |
+| Smoke Screen | cooldown: 26 / 24 / 22 / 20 / 18 | [4067475](https://wiki.leagueoflegends.com/en-us/Template:Data_Graves/Smoke_Screen?oldid=4067475) |
+| Smoke Screen | cost: 70 / 75 / 80 / 85 / 90 | [4067475](https://wiki.leagueoflegends.com/en-us/Template:Data_Graves/Smoke_Screen?oldid=4067475) |
+| Smoke Screen | castTime: 0.25 | [4067475](https://wiki.leagueoflegends.com/en-us/Template:Data_Graves/Smoke_Screen?oldid=4067475) |
+| Quickdraw | cooldown: 16 / 15 / 14 / 13 / 12 | [4049953](https://wiki.leagueoflegends.com/en-us/Template:Data_Graves/Quickdraw?oldid=4049953) |
+| Quickdraw | cost: 40 | [4049953](https://wiki.leagueoflegends.com/en-us/Template:Data_Graves/Quickdraw?oldid=4049953) |
+| Quickdraw | castTime: none | [4049953](https://wiki.leagueoflegends.com/en-us/Template:Data_Graves/Quickdraw?oldid=4049953) |
+| Collateral Damage | cooldown: 100 / 80 / 60 | [4007499](https://wiki.leagueoflegends.com/en-us/Template:Data_Graves/Collateral_Damage?oldid=4007499) |
+| Collateral Damage | cost: 100 | [4007499](https://wiki.leagueoflegends.com/en-us/Template:Data_Graves/Collateral_Damage?oldid=4007499) |
+| Collateral Damage | castTime: 0.25 | [4007499](https://wiki.leagueoflegends.com/en-us/Template:Data_Graves/Collateral_Damage?oldid=4007499) |
+| New Destiny | targetRange: range 425 | [4038342](https://wiki.leagueoflegends.com/en-us/Template:Data_Graves/New_Destiny?oldid=4038342) |
