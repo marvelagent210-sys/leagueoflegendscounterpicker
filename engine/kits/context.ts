@@ -614,13 +614,17 @@ export class KitContext {
     return new PetData(record, this);
   }
 
-  /** An ability by its name ("Decisive Strike") or slot ("Q", "W", "E", "R", "I" for the innate). */
+  /**
+   * An ability by its name ("Decisive Strike"), slot ("Q", "W", "E", "R", "I" for the innate),
+   * or template page title when several records share a name ("Template:Data Kayn/The Darkin Scythe").
+   */
   ability(nameOrSlot: string): AbilityData {
     const cached = this.byName.get(nameOrSlot);
     if (cached) return cached;
     const current = this.records.filter((r) => !r.historical);
     const bySlot = /^[IQWER]$/.test(nameOrSlot) ? current.filter((r) => r.kind === nameOrSlot) : [];
-    const matches = bySlot.length > 0 ? bySlot : current.filter((r) => r.name === nameOrSlot);
+    const byPage = nameOrSlot.startsWith("Template:") ? current.filter((r) => r.page.title === nameOrSlot) : [];
+    const matches = bySlot.length > 0 ? bySlot : byPage.length > 0 ? byPage : current.filter((r) => r.name === nameOrSlot);
     if (matches.length !== 1 || !matches[0]) {
       const names = current.map((r) => `${r.kind} ${r.name}`).join(", ");
       throw new KitDataError(this.champion.id, nameOrSlot, matches.length === 0 ? `no such ability (has: ${names})` : `ambiguous (${matches.map((r) => r.name).join(", ")})`);
