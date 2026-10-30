@@ -212,6 +212,18 @@ export class AbilityData {
     return field.values.map((v) => this.at20(v.series, name));
   }
 
+  /** The raw series of a field that depends on something else (Formless Blade's cast time by bonus attack speed). */
+  fieldSeries(name: NumberField, label?: string): Series {
+    const field = this.record.fields[name];
+    if (!field || typeof field !== "object") this.fail(`no ${name} field`);
+    const values = label ? field.values.filter((v) => v.label?.toLowerCase().includes(label.toLowerCase())) : field.values;
+    const value = values[0];
+    if (!value) this.fail(`no ${name} value${label ? ` labeled "${label}"` : ""} in "${field.text}"`);
+    if (!label && values.length > 1) this.fail(`${name} has several values ("${field.text}"); pick one by label`);
+    this.note(`${name}${label ? ` (${label})` : ""}: ${field.text}`);
+    return value.series;
+  }
+
   /** The raw series of a number in the description that depends on something else ("based on missing health"). */
   seriesIn(context: string, index = 0): Series {
     const wanted = normalize(context);
