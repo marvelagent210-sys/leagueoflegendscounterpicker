@@ -109,6 +109,18 @@ describe("Ghostwater Dive", () => {
   });
 });
 
+describe("Pyke's behavior", () => {
+  it("dives away when fleeing, and takes Death from Below's execute when it's there", () => {
+    const w = worldFor(500);
+    step(w, idle);
+    const behavior = w.units[0].spec.behavior!;
+    const view = (mode: "flee" | "fight") => ({ world: w, self: w.units[0], enemy: w.units[1], mode, distance: 500 - 130, threats: [] });
+    expect(behavior(view("flee"))).toEqual({ kind: "cast", ability: "W" });
+    w.units[1].hp = 400;
+    expect(behavior(view("fight"))).toEqual({ kind: "cast", ability: "R" });
+  });
+});
+
 describe("Death from Below", () => {
   it("executes a champion below 550 (+ 80% bonus AD) (+ 1.5 per lethality), and Pyke blinks to it", () => {
     const w = worldFor(600, { ad: 100, lethality: 20 });

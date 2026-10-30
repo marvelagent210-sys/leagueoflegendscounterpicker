@@ -123,6 +123,10 @@ const pyke: KitModule = {
     const behavior: Behavior = (view) => {
       const { self, world } = view;
       const gap = Math.abs(view.enemy.x - self.x) - view.enemy.spec.base.radius;
+      // Death from Below the moment the enemy is below its threshold.
+      if (view.mode !== "idle" && canCast(world, self, rSpec) && view.enemy.hp <= evaluate(threshold, self, view.enemy) && Math.abs(view.enemy.x - self.x) <= r.field("targetRange") + xReach) return { kind: "cast", ability: "R" };
+      // Ghostwater Dive to get away: its speed comes from a hook, so it is decided here.
+      if ((view.mode === "flee" || view.mode === "kite") && canCast(world, self, wSpec) && !diving(self, world.tick)) return { kind: "cast", ability: "W" };
       // The harpoon is charged just long enough to reach the enemy.
       if ((view.mode === "fight" || view.mode === "trade") && canCast(world, self, qcSpec) && gap > thrustRange && gap <= reachAt(fullCharge)) {
         let seconds = quick;
