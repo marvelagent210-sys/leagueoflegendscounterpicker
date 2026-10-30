@@ -71,6 +71,7 @@ const pyke: KitModule = {
     r.quote("If Death from Below hits an enemy champion or at least one is killed inside the X by the execution or an ally, Pyke will blink to the center of the X.");
     r.quote("Spell shield does not prevent Pyke from blinking.");
     const xReach = 200;
+    const xRange = r.field("targetRange");
     kit.assume(`Death from Below's X reaches ${xReach} units along the duel's line (its 125 center circle and 282.5-long arms at 45°).`);
 
     const lethality = (unit: Unit) => derive(unit).lethality;
@@ -112,7 +113,7 @@ const pyke: KitModule = {
     };
     const rSpec: AbilitySpec = {
       key: "R", name: r.name, slot: "R", cooldown: r.cooldown(), cost: r.cost(), castTime: r.castTime(),
-      delivery: { kind: "circle", range: r.field("targetRange"), radius: xReach, delay: 0 },
+      delivery: { kind: "circle", range: xRange, radius: xReach, delay: 0 },
       onHit: [{ type: "execute", threshold }],
       flags: { spellShield: true, grounded: true },
       roles: ["finisher", "damage"],
@@ -124,7 +125,7 @@ const pyke: KitModule = {
       const { self, world } = view;
       const gap = Math.abs(view.enemy.x - self.x) - view.enemy.spec.base.radius;
       // Death from Below the moment the enemy is below its threshold.
-      if (view.mode !== "idle" && canCast(world, self, rSpec) && view.enemy.hp <= evaluate(threshold, self, view.enemy) && Math.abs(view.enemy.x - self.x) <= r.field("targetRange") + xReach) return { kind: "cast", ability: "R" };
+      if (view.mode !== "idle" && canCast(world, self, rSpec) && view.enemy.hp <= evaluate(threshold, self, view.enemy) && Math.abs(view.enemy.x - self.x) <= xRange + xReach) return { kind: "cast", ability: "R" };
       // Ghostwater Dive to get away: its speed comes from a hook, so it is decided here.
       if ((view.mode === "flee" || view.mode === "kite") && canCast(world, self, wSpec) && !diving(self, world.tick)) return { kind: "cast", ability: "W" };
       // The harpoon is charged just long enough to reach the enemy.
