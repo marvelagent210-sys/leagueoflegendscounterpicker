@@ -6,150 +6,150 @@ The duel simulator played each of the 144 other champions with a simulator kit a
 
 | # | Champion | Score | You engage | Enemy engages | Brawl | Short trade | Spacing | Escape |
 |--:|---|--:|--:|--:|--:|--:|--:|--:|
-| 1 | Ashe | +0.89 | +1.00 | +1.00 | +1.00 | +0.44 | +1.00 | +0.50 |
-| 2 | Kog'Maw | +0.86 | +1.00 | +1.00 | +1.00 | +0.42 | +1.00 | +0.00 |
-| 3 | Gangplank | +0.86 | +1.00 | +1.00 | +1.00 | +0.15 | – | +1.00 |
-| 4 | Teemo | +0.85 | +1.00 | +1.00 | +1.00 | +0.34 | +1.00 | +0.00 |
-| 5 | Twisted Fate | +0.84 | +1.00 | +1.00 | +1.00 | +0.29 | +1.00 | +0.00 |
-| 6 | Aphelios | +0.84 | +1.00 | +1.00 | +1.00 | +0.29 | +1.00 | +0.00 |
-| 7 | Yorick | +0.84 | +1.00 | +1.00 | +1.00 | +0.05 | – | +1.00 |
-| 8 | Sivir | +0.84 | +1.00 | +1.00 | +1.00 | +0.27 | +1.00 | +0.00 |
-| 9 | Vayne | +0.84 | +1.00 | +1.00 | +1.00 | +0.27 | +1.00 | +0.00 |
-| 10 | Morgana | +0.83 | +1.00 | +1.00 | +1.00 | +0.21 | +1.00 | +0.00 |
-| 11 | K'Sante | +0.83 | +1.00 | +1.00 | +1.00 | −0.03 | – | +1.00 |
-| 12 | Karma | +0.82 | +1.00 | +1.00 | +1.00 | +0.16 | +1.00 | +0.00 |
-| 13 | Olaf | +0.82 | +1.00 | +1.00 | +1.00 | +0.12 | +1.00 | +0.00 |
-| 14 | Trundle | +0.82 | +1.00 | +1.00 | +1.00 | −0.22 | +1.00 | +1.00 |
-| 15 | Neeko | +0.82 | +1.00 | +1.00 | +1.00 | +0.11 | +1.00 | +0.00 |
-| 16 | Zeri | +0.80 | +1.00 | +1.00 | +1.00 | +0.01 | +1.00 | +0.00 |
-| 17 | Kalista | +0.80 | +1.00 | +1.00 | +1.00 | +0.01 | +1.00 | +0.00 |
-| 18 | Aatrox | +0.80 | +1.00 | +1.00 | +1.00 | +0.13 | – | +0.00 |
-| 19 | Nasus | +0.80 | +1.00 | +1.00 | +1.00 | −0.03 | +1.00 | +0.00 |
-| 20 | Cho'Gath | +0.79 | +1.00 | +1.00 | +1.00 | +0.10 | – | +0.00 |
-| 21 | Jax | +0.79 | +1.00 | +1.00 | +1.00 | −0.05 | +1.00 | +0.00 |
-| 22 | Garen | +0.79 | +1.00 | +1.00 | +1.00 | +0.08 | – | +0.00 |
-| 23 | Yasuo | +0.79 | +1.00 | +1.00 | +1.00 | +0.07 | – | +0.00 |
-| 24 | Quinn | +0.78 | +1.00 | +1.00 | +1.00 | −0.11 | +1.00 | +0.00 |
-| 25 | Taric | +0.78 | +1.00 | +1.00 | +1.00 | +0.03 | – | +0.00 |
-| 26 | Volibear | +0.77 | +1.00 | +1.00 | +1.00 | −0.05 | – | +0.00 |
-| 27 | Zaahen | +0.77 | +1.00 | +1.00 | +1.00 | −0.07 | – | +0.00 |
-| 28 | Braum | +0.76 | +1.00 | +1.00 | +1.00 | −0.09 | – | +0.00 |
-| 29 | Tryndamere | +0.76 | +1.00 | +1.00 | +1.00 | −0.09 | – | +0.00 |
-| 30 | Dr. Mundo | +0.76 | +1.00 | +1.00 | +1.00 | −0.10 | – | +0.00 |
-| 31 | Darius | +0.76 | +1.00 | +1.00 | +1.00 | −0.10 | – | +0.00 |
-| 32 | Kled | +0.76 | +1.00 | +1.00 | +1.00 | −0.11 | – | +0.00 |
-| 33 | Lux | +0.76 | +1.00 | +0.90 | +0.95 | −0.01 | +0.95 | +0.00 |
-| 34 | Jinx | +0.76 | +0.99 | +0.95 | +0.88 | +0.07 | +0.85 | +0.00 |
-| 35 | Gwen | +0.75 | +1.00 | +1.00 | +1.00 | −0.14 | – | +0.00 |
-| 36 | Brand | +0.70 | +1.00 | +1.00 | +1.00 | +0.01 | +0.00 | +0.00 |
-| 37 | Ezreal | +0.64 | +0.99 | +0.64 | +0.53 | +0.17 | +1.00 | +0.00 |
-| 38 | Lulu | +0.62 | +1.00 | +1.00 | +1.00 | +0.12 | −1.00 | +0.00 |
-| 39 | Anivia | +0.59 | +0.55 | +1.00 | +1.00 | −0.14 | +0.26 | +0.00 |
-| 40 | Singed | +0.58 | +1.00 | +1.00 | +0.07 | +0.05 | – | +0.00 |
-| 41 | Riven | +0.56 | +1.00 | +1.00 | +0.00 | +0.04 | – | +0.00 |
-| 42 | Tahm Kench | +0.53 | +1.00 | +0.50 | +0.50 | +0.02 | – | +0.00 |
-| 43 | Renekton | +0.48 | +0.00 | +1.00 | +1.00 | −0.12 | – | +0.00 |
-| 44 | Viktor | +0.47 | +1.00 | +0.00 | +1.00 | +0.11 | +0.00 | +0.00 |
-| 45 | Illaoi | +0.30 | −1.00 | +1.00 | +1.00 | +0.03 | +1.00 | +0.00 |
-| 46 | Corki | +0.26 | −1.00 | +1.00 | +0.50 | +0.38 | +1.00 | +0.00 |
-| 47 | Senna | +0.20 | +0.13 | +1.00 | −1.00 | +0.16 | +0.92 | +0.00 |
-| 48 | Vex | +0.04 | +1.00 | −0.39 | −0.39 | +0.08 | −0.44 | +0.00 |
-| 49 | Hwei | +0.02 | +1.00 | −1.00 | −0.44 | +0.08 | +1.00 | +0.00 |
-| 50 | Heimerdinger | −0.02 | −1.00 | +0.62 | +0.76 | +0.14 | −1.00 | +0.00 |
-| 51 | Soraka | −0.04 | −0.10 | +0.09 | +0.03 | −0.00 | −0.40 | +0.00 |
-| 52 | Malzahar | −0.04 | +0.00 | −1.00 | +1.00 | +0.04 | +0.00 | +0.00 |
-| 53 | Rakan | −0.10 | +1.00 | −1.00 | −1.00 | −0.02 | +1.00 | +0.00 |
-| 54 | Jayce | −0.19 | +0.00 | +0.00 | −1.00 | +0.17 | – | +0.00 |
-| 55 | Smolder | −0.21 | −1.00 | +0.00 | +0.00 | +0.27 | +0.00 | +0.00 |
-| 56 | Nami | −0.22 | +0.96 | −0.85 | −0.86 | +0.10 | −0.92 | +0.00 |
-| 57 | Aurora | −0.22 | −1.00 | −0.02 | −0.02 | +0.12 | +0.14 | +0.00 |
-| 58 | Orianna | −0.26 | +1.00 | −1.00 | −1.00 | +0.28 | −1.00 | +0.00 |
-| 59 | Graves | −0.33 | +1.00 | −1.00 | −1.00 | +0.12 | −1.00 | −1.00 |
-| 60 | Xin Zhao | −0.36 | −1.00 | −1.00 | +1.00 | −0.15 | – | +0.00 |
-| 61 | Syndra | −0.40 | +0.53 | −1.00 | −1.00 | +0.15 | −1.00 | +0.00 |
-| 62 | Poppy | −0.49 | −1.00 | +0.00 | −1.00 | +0.03 | – | +0.00 |
-| 63 | Irelia | −0.52 | −1.00 | +0.00 | −1.00 | −0.10 | – | +0.00 |
-| 64 | Gnar | −0.53 | −1.00 | −1.00 | −1.00 | +0.43 | +1.00 | +0.00 |
-| 65 | Zyra | −0.54 | −1.00 | −1.00 | −0.03 | +0.13 | −0.54 | +0.00 |
-| 66 | Lissandra | −0.58 | −1.00 | −1.00 | −1.00 | +0.13 | +0.98 | +0.00 |
-| 67 | Lucian | −0.60 | −1.00 | −1.00 | −1.00 | +0.01 | +1.00 | +0.00 |
-| 68 | Kennen | −0.61 | −1.00 | −1.00 | −1.00 | −0.05 | +1.00 | +0.00 |
-| 69 | Master Yi | −0.62 | −1.00 | −1.00 | −1.00 | −0.12 | +1.00 | +0.00 |
-| 70 | Karthus | −0.65 | −1.00 | −0.50 | −1.00 | +0.15 | −1.00 | +0.00 |
-| 71 | Ziggs | −0.67 | −1.00 | −1.00 | −1.00 | +0.17 | +0.00 | +0.00 |
-| 72 | Vel'Koz | −0.68 | −1.00 | −1.00 | −1.00 | +0.30 | −0.21 | +0.00 |
-| 73 | Sion | −0.69 | −0.63 | −1.00 | −1.00 | −0.11 | – | +0.00 |
-| 74 | Rengar | −0.72 | −1.00 | −1.00 | −1.00 | +0.32 | – | +0.00 |
-| 75 | Camille | −0.73 | −1.00 | −1.00 | −1.00 | −0.03 | – | +1.00 |
-| 76 | Kayle | −0.73 | −1.00 | −1.00 | −1.00 | +0.45 | −1.00 | +0.00 |
-| 77 | Ornn | −0.73 | −1.00 | −1.00 | −1.00 | +0.27 | – | +0.00 |
-| 78 | Fiora | −0.73 | −1.00 | −1.00 | −1.00 | −0.07 | – | +1.00 |
-| 79 | Swain | −0.74 | −0.92 | −0.94 | −0.94 | +0.06 | −0.92 | +0.00 |
-| 80 | Xayah | −0.74 | −1.00 | −1.00 | −1.00 | +0.40 | −1.00 | +0.00 |
-| 81 | Nunu & Willump | −0.74 | −1.00 | −1.00 | −1.00 | +0.22 | – | +0.00 |
-| 82 | Gragas | −0.75 | −1.00 | −1.00 | −1.00 | +0.18 | – | +0.00 |
-| 83 | Maokai | −0.75 | −1.00 | −1.00 | −1.00 | +0.17 | – | +0.00 |
-| 84 | Galio | −0.75 | −1.00 | −1.00 | −1.00 | +0.15 | – | +0.00 |
-| 85 | Miss Fortune | −0.75 | −1.00 | −1.00 | −1.00 | +0.31 | −1.00 | +0.00 |
-| 86 | Janna | −0.75 | −1.00 | −1.00 | −1.00 | +0.31 | −1.00 | +0.00 |
-| 87 | Draven | −0.76 | −1.00 | −1.00 | −1.00 | +0.25 | −1.00 | +0.00 |
-| 88 | Alistar | −0.76 | −1.00 | −1.00 | −1.00 | +0.08 | – | +0.00 |
-| 89 | Udyr | −0.77 | −1.00 | −1.00 | −1.00 | −0.13 | −1.00 | +1.00 |
-| 90 | Urgot | −0.77 | −1.00 | −1.00 | −1.00 | +0.20 | −1.00 | +0.00 |
-| 91 | Mordekaiser | −0.77 | −1.00 | −1.00 | −1.00 | +0.04 | – | +0.00 |
-| 92 | Malphite | −0.77 | −1.00 | −1.00 | −1.00 | +0.03 | – | +0.00 |
-| 93 | Skarner | −0.77 | −1.00 | −1.00 | −1.00 | +0.03 | – | +0.00 |
-| 94 | Diana | −0.77 | −1.00 | −1.00 | −1.00 | +0.02 | – | +0.00 |
-| 95 | Akali | −0.78 | −1.00 | −1.00 | −1.00 | +0.01 | – | +0.00 |
-| 96 | Naafiri | −0.78 | −1.00 | −1.00 | −1.00 | +0.01 | – | +0.00 |
-| 97 | Akshan | −0.78 | −1.00 | −1.00 | −1.00 | +0.15 | −1.00 | +0.00 |
-| 98 | Sett | −0.78 | −1.00 | −1.00 | −1.00 | −0.00 | – | +0.00 |
-| 99 | Ryze | −0.78 | −1.00 | −1.00 | −1.00 | +0.14 | −1.00 | +0.00 |
-| 100 | Fizz | −0.78 | −1.00 | −1.00 | −1.00 | −0.01 | – | +0.00 |
-| 101 | Vi | −0.78 | −1.00 | −1.00 | −1.00 | −0.02 | – | +0.00 |
-| 102 | Amumu | −0.78 | −1.00 | −1.00 | −1.00 | −0.02 | – | +0.00 |
-| 103 | Rell | −0.78 | −1.00 | −1.00 | −1.00 | +0.13 | −1.00 | +0.00 |
-| 104 | Blitzcrank | −0.78 | −1.00 | −1.00 | −1.00 | −0.02 | – | +0.00 |
-| 105 | Sona | −0.78 | −1.00 | −1.00 | −1.00 | +0.12 | −1.00 | +0.00 |
-| 106 | Ekko | −0.78 | −1.00 | −1.00 | −1.00 | −0.03 | – | +0.00 |
-| 107 | Shen | −0.78 | −1.00 | −1.00 | −1.00 | −0.03 | – | +0.00 |
-| 108 | Evelynn | −0.78 | −1.00 | −1.00 | −1.00 | −0.03 | – | +0.00 |
-| 109 | Cassiopeia | −0.78 | −1.00 | −1.00 | −1.00 | +0.11 | −1.00 | +0.00 |
-| 110 | Ahri | −0.78 | −1.00 | −1.00 | −1.00 | +0.11 | −1.00 | +0.00 |
-| 111 | Nautilus | −0.78 | −1.00 | −1.00 | −1.00 | −0.04 | – | +0.00 |
-| 112 | Kassadin | −0.79 | −1.00 | −1.00 | −1.00 | −0.04 | – | +0.00 |
-| 113 | Sejuani | −0.79 | −1.00 | −1.00 | −1.00 | −0.05 | – | +0.00 |
-| 114 | Annie | −0.79 | −1.00 | −1.00 | −1.00 | +0.09 | −1.00 | +0.00 |
-| 115 | Twitch | −0.79 | −1.00 | −1.00 | −1.00 | +0.08 | −1.00 | +0.00 |
-| 116 | Jhin | −0.79 | −1.00 | −1.00 | −1.00 | +0.06 | −1.00 | +0.00 |
-| 117 | Rumble | −0.79 | −1.00 | −1.00 | −1.00 | −0.08 | – | +0.00 |
-| 118 | Taliyah | −0.79 | −1.00 | −1.00 | −1.00 | +0.06 | −1.00 | +0.00 |
-| 119 | Xerath | −0.79 | −1.00 | −1.00 | −1.00 | +0.06 | −1.00 | +0.00 |
-| 120 | Thresh | −0.79 | −1.00 | −1.00 | −1.00 | +0.06 | −1.00 | +0.00 |
-| 121 | Leona | −0.79 | −1.00 | −1.00 | −1.00 | −0.09 | – | +0.00 |
-| 122 | Caitlyn | −0.79 | −1.00 | −1.00 | −1.00 | +0.05 | −1.00 | +0.00 |
-| 123 | Katarina | −0.79 | −1.00 | −1.00 | −1.00 | −0.10 | – | +0.00 |
-| 124 | Yone | −0.80 | −1.00 | −1.00 | −1.00 | −0.10 | – | +0.00 |
-| 125 | Zed | −0.80 | −1.00 | −1.00 | −1.00 | −0.11 | – | +0.00 |
-| 126 | Ambessa | −0.80 | −1.00 | −1.00 | −1.00 | −0.13 | – | +0.00 |
-| 127 | Pantheon | −0.80 | −1.00 | −1.00 | −1.00 | −0.13 | – | +0.00 |
-| 128 | Jarvan IV | −0.80 | −1.00 | −1.00 | −1.00 | −0.13 | – | +0.00 |
-| 129 | Kindred | −0.80 | −1.00 | −1.00 | −1.00 | +0.01 | −1.00 | +0.00 |
-| 130 | Zoe | −0.80 | −1.00 | −1.00 | −1.00 | +0.00 | −1.00 | +0.00 |
-| 131 | Nocturne | −0.80 | −1.00 | −1.00 | −1.00 | −0.14 | – | +0.00 |
-| 132 | Samira | −0.80 | −1.00 | −1.00 | −1.00 | −0.01 | −1.00 | +0.00 |
-| 133 | Tristana | −0.80 | −1.00 | −1.00 | −1.00 | −0.02 | −1.00 | +0.00 |
-| 134 | LeBlanc | −0.80 | −1.00 | −1.00 | −1.00 | −0.02 | −1.00 | +0.00 |
-| 135 | Veigar | −0.80 | −1.00 | −1.00 | −1.00 | −0.02 | −1.00 | +0.00 |
-| 136 | Varus | −0.80 | −1.00 | −1.00 | −1.00 | −0.03 | −1.00 | +0.00 |
-| 137 | Vladimir | −0.80 | −1.00 | −1.00 | −1.00 | −0.03 | −1.00 | +0.00 |
-| 138 | Talon | −0.81 | −1.00 | −1.00 | −1.00 | −0.16 | – | +0.00 |
-| 139 | Lee Sin | −0.81 | −1.00 | −1.00 | −1.00 | −0.17 | – | +0.00 |
-| 140 | Wukong | −0.81 | −1.00 | −1.00 | −1.00 | −0.17 | – | +0.00 |
-| 141 | Kha'Zix | −0.81 | −1.00 | −1.00 | −1.00 | −0.18 | – | +0.00 |
-| 142 | Hecarim | −0.81 | −1.00 | −1.00 | −1.00 | −0.19 | – | +0.00 |
-| 143 | Rammus | −0.81 | −1.00 | −1.00 | −1.00 | −0.20 | – | +0.00 |
-| 144 | Kai'Sa | −0.82 | −1.00 | −1.00 | −1.00 | −0.11 | −1.00 | +0.00 |
+| 1 | Xayah | +0.89 | +1.00 | +1.00 | +1.00 | +0.60 | +1.00 | +0.00 |
+| 2 | Aphelios | +0.88 | +1.00 | +1.00 | +1.00 | +0.56 | +1.00 | +0.00 |
+| 3 | Sivir | +0.88 | +1.00 | +1.00 | +1.00 | +0.55 | +1.00 | +0.00 |
+| 4 | Ashe | +0.87 | +1.00 | +1.00 | +1.00 | +0.48 | +1.00 | +0.00 |
+| 5 | Kog'Maw | +0.85 | +1.00 | +1.00 | +1.00 | +0.36 | +1.00 | +0.00 |
+| 6 | K'Sante | +0.83 | +1.00 | +1.00 | +1.00 | +0.00 | – | +1.00 |
+| 7 | Yorick | +0.83 | +1.00 | +1.00 | +1.00 | −0.01 | – | +1.00 |
+| 8 | Trundle | +0.83 | +1.00 | +1.00 | +1.00 | −0.14 | +1.00 | +1.00 |
+| 9 | Olaf | +0.81 | +1.00 | +1.00 | +1.00 | +0.07 | +1.00 | +0.00 |
+| 10 | Hwei | +0.81 | +1.00 | +1.00 | +1.00 | +0.06 | +1.00 | +0.00 |
+| 11 | Nasus | +0.80 | +1.00 | +1.00 | +1.00 | −0.01 | +1.00 | +0.00 |
+| 12 | Cho'Gath | +0.80 | +1.00 | +1.00 | +1.00 | +0.11 | – | +0.00 |
+| 13 | Kalista | +0.79 | +1.00 | +1.00 | +1.00 | −0.04 | +1.00 | +0.00 |
+| 14 | Yasuo | +0.79 | +1.00 | +1.00 | +1.00 | +0.10 | – | +0.00 |
+| 15 | Garen | +0.79 | +1.00 | +1.00 | +1.00 | +0.08 | – | +0.00 |
+| 16 | Jax | +0.79 | +1.00 | +1.00 | +1.00 | −0.09 | +1.00 | +0.00 |
+| 17 | Taric | +0.78 | +1.00 | +1.00 | +1.00 | +0.00 | – | +0.00 |
+| 18 | Neeko | +0.77 | +1.00 | +1.00 | +1.00 | −0.19 | +1.00 | +0.00 |
+| 19 | Quinn | +0.77 | +1.00 | +1.00 | +1.00 | −0.19 | +1.00 | +0.00 |
+| 20 | Vayne | +0.77 | +1.00 | +1.00 | +1.00 | −0.22 | +1.00 | +0.00 |
+| 21 | Renekton | +0.76 | +1.00 | +1.00 | +1.00 | −0.08 | – | +0.00 |
+| 22 | Karma | +0.76 | +1.00 | +1.00 | +1.00 | −0.26 | +1.00 | +0.00 |
+| 23 | Darius | +0.76 | +1.00 | +1.00 | +1.00 | −0.10 | – | +0.00 |
+| 24 | Lux | +0.76 | +0.93 | +1.00 | +0.90 | +0.03 | +0.94 | +0.00 |
+| 25 | Volibear | +0.76 | +1.00 | +1.00 | +1.00 | −0.26 | – | +0.42 |
+| 26 | Tryndamere | +0.76 | +1.00 | +1.00 | +1.00 | −0.13 | – | +0.00 |
+| 27 | Aatrox | +0.74 | +1.00 | +1.00 | +1.00 | −0.21 | – | +0.00 |
+| 28 | Ezreal | +0.69 | +0.97 | +0.93 | +0.57 | +0.02 | +0.98 | +0.00 |
+| 29 | Zaahen | +0.69 | +0.84 | +0.84 | +1.00 | −0.00 | – | +0.00 |
+| 30 | Illaoi | +0.68 | +0.64 | +1.00 | +1.00 | −0.17 | +1.00 | +0.00 |
+| 31 | Lulu | +0.63 | +1.00 | +1.00 | +1.00 | +0.21 | −1.00 | +0.00 |
+| 32 | Jinx | +0.62 | +0.83 | +0.80 | +0.77 | −0.11 | +0.80 | +0.00 |
+| 33 | Zeri | +0.62 | +1.00 | +1.00 | +0.00 | +0.12 | +1.00 | +0.00 |
+| 34 | Singed | +0.59 | +1.00 | +1.00 | +0.18 | −0.04 | – | +0.00 |
+| 35 | Kayle | +0.48 | +1.00 | +1.00 | −1.00 | +0.52 | +1.00 | +0.00 |
+| 36 | Anivia | +0.42 | +0.05 | +1.00 | +1.00 | −0.21 | −0.14 | +0.00 |
+| 37 | Morgana | +0.39 | +1.00 | +1.00 | −1.00 | −0.05 | +1.00 | +0.00 |
+| 38 | Gangplank | +0.29 | +1.00 | −1.00 | +1.00 | +0.06 | – | +1.00 |
+| 39 | Twisted Fate | +0.25 | −1.00 | +1.00 | +1.00 | −0.32 | +1.00 | +0.00 |
+| 40 | Alistar | +0.25 | +1.00 | −1.00 | +1.00 | +0.14 | – | +0.00 |
+| 41 | Poppy | +0.24 | +1.00 | −1.00 | +1.00 | +0.11 | – | +0.00 |
+| 42 | Kled | +0.20 | +0.00 | +0.00 | +1.00 | −0.12 | – | +0.00 |
+| 43 | Lucian | −0.04 | +1.00 | −1.00 | −1.00 | +0.39 | +1.00 | +0.00 |
+| 44 | Malzahar | −0.04 | +0.00 | +1.00 | −1.00 | +0.05 | −1.00 | +0.00 |
+| 45 | Lissandra | −0.09 | −1.00 | +1.00 | −1.00 | +0.08 | +1.00 | +0.00 |
+| 46 | Master Yi | −0.21 | −1.00 | −1.00 | +1.00 | −0.06 | +1.00 | +0.00 |
+| 47 | Riven | −0.25 | −1.00 | +0.00 | +0.00 | +0.19 | – | +0.00 |
+| 48 | Orianna | −0.26 | −1.00 | +1.00 | −1.00 | +0.27 | −1.00 | +0.00 |
+| 49 | Teemo | −0.30 | −1.00 | −0.95 | +1.00 | +0.56 | −1.00 | +0.00 |
+| 50 | Kennen | −0.33 | −1.00 | −1.00 | +1.00 | −0.02 | −0.28 | +0.00 |
+| 51 | Gwen | −0.35 | −1.00 | −1.00 | +1.00 | −0.12 | – | +0.00 |
+| 52 | Graves | −0.36 | −1.00 | +1.00 | −1.00 | −0.06 | −1.00 | −1.00 |
+| 53 | Heimerdinger | −0.39 | −1.00 | −1.00 | +1.00 | +0.05 | −1.00 | +0.00 |
+| 54 | Corki | −0.44 | −1.00 | −0.50 | −1.00 | +0.26 | +1.00 | +0.00 |
+| 55 | Irelia | −0.51 | +0.00 | −1.00 | −1.00 | −0.05 | – | +0.00 |
+| 56 | Brand | −0.53 | −1.00 | +0.00 | −1.00 | +0.16 | −1.00 | +0.00 |
+| 57 | Rammus | −0.53 | −1.00 | +0.00 | −1.00 | −0.16 | – | +0.00 |
+| 58 | Swain | −0.53 | −0.94 | −0.92 | +0.04 | +0.15 | −0.94 | +0.00 |
+| 59 | Aurora | −0.59 | −1.00 | −1.00 | −1.00 | +0.08 | +1.00 | +0.00 |
+| 60 | Cassiopeia | −0.59 | −1.00 | −1.00 | −1.00 | +0.04 | +1.00 | +0.00 |
+| 61 | Vex | −0.61 | −1.00 | −1.00 | −0.01 | −0.02 | −1.00 | +0.00 |
+| 62 | Gnar | −0.62 | −1.00 | −1.00 | −1.00 | −0.15 | +1.00 | +0.00 |
+| 63 | Vel'Koz | −0.64 | −1.00 | −1.00 | −1.00 | −0.21 | +0.95 | +0.00 |
+| 64 | Rell | −0.69 | −1.00 | −1.00 | −1.00 | +0.07 | +0.00 | +0.00 |
+| 65 | Miss Fortune | −0.71 | −1.00 | −1.00 | −1.00 | +0.57 | −1.00 | +0.00 |
+| 66 | Nami | −0.71 | −0.84 | −0.84 | −0.99 | −0.06 | −0.86 | +0.00 |
+| 67 | Fiora | −0.73 | −1.00 | −1.00 | −1.00 | −0.03 | – | +1.00 |
+| 68 | Rengar | −0.73 | −1.00 | −1.00 | −1.00 | +0.28 | – | +0.00 |
+| 69 | Jayce | −0.75 | −1.00 | −1.00 | −1.00 | +0.14 | – | +0.00 |
+| 70 | Galio | −0.75 | −1.00 | −1.00 | −1.00 | +0.14 | – | +0.00 |
+| 71 | Malphite | −0.76 | −1.00 | −1.00 | −1.00 | +0.11 | – | +0.00 |
+| 72 | Ambessa | −0.76 | −1.00 | −1.00 | −1.00 | +0.11 | – | +0.00 |
+| 73 | Evelynn | −0.76 | −1.00 | −1.00 | −1.00 | +0.10 | – | +0.00 |
+| 74 | Tristana | −0.77 | −1.00 | −1.00 | −1.00 | +0.23 | −1.00 | +0.00 |
+| 75 | Diana | −0.77 | −1.00 | −1.00 | −1.00 | +0.07 | – | +0.00 |
+| 76 | Sett | −0.77 | −1.00 | −1.00 | −1.00 | +0.07 | – | +0.00 |
+| 77 | Ryze | −0.77 | −1.00 | −1.00 | −1.00 | +0.22 | −1.00 | +0.00 |
+| 78 | Maokai | −0.77 | −1.00 | −1.00 | −1.00 | +0.06 | – | +0.00 |
+| 79 | Ornn | −0.77 | −1.00 | −1.00 | −1.00 | +0.05 | – | +0.00 |
+| 80 | Kassadin | −0.77 | −1.00 | −1.00 | −1.00 | +0.04 | – | +0.00 |
+| 81 | Annie | −0.78 | −1.00 | −1.00 | −1.00 | +0.17 | −1.00 | +0.00 |
+| 82 | Sona | −0.78 | −1.00 | −1.00 | −1.00 | +0.17 | −1.00 | +0.00 |
+| 83 | Akshan | −0.78 | −1.00 | −1.00 | −1.00 | +0.16 | −1.00 | +0.00 |
+| 84 | Smolder | −0.78 | −1.00 | −1.00 | −1.00 | +0.16 | −1.00 | +0.00 |
+| 85 | Tahm Kench | −0.78 | −1.00 | −1.00 | −1.00 | +0.01 | – | +0.00 |
+| 86 | Shen | −0.78 | −1.00 | −1.00 | −1.00 | +0.00 | – | +0.00 |
+| 87 | Hecarim | −0.78 | −1.00 | −1.00 | −1.00 | −0.00 | – | +0.00 |
+| 88 | Akali | −0.78 | −1.00 | −1.00 | −1.00 | −0.03 | – | +0.00 |
+| 89 | Jarvan IV | −0.78 | −1.00 | −1.00 | −1.00 | −0.03 | – | +0.00 |
+| 90 | Braum | −0.78 | −1.00 | −1.00 | −1.00 | −0.03 | – | +0.00 |
+| 91 | Fizz | −0.78 | −1.00 | −1.00 | −1.00 | −0.04 | – | +0.00 |
+| 92 | Twitch | −0.78 | −1.00 | −1.00 | −1.00 | +0.10 | −1.00 | +0.00 |
+| 93 | Leona | −0.78 | −1.00 | −1.00 | −1.00 | −0.04 | – | +0.00 |
+| 94 | Viktor | −0.79 | −1.00 | −1.00 | −1.00 | +0.09 | −1.00 | +0.00 |
+| 95 | Lee Sin | −0.79 | −1.00 | −1.00 | −1.00 | −0.05 | – | +0.00 |
+| 96 | Zyra | −0.79 | −1.00 | −1.00 | −1.00 | +0.08 | −1.00 | +0.00 |
+| 97 | Vi | −0.79 | −1.00 | −1.00 | −1.00 | −0.06 | – | +0.00 |
+| 98 | Ekko | −0.79 | −1.00 | −1.00 | −1.00 | −0.06 | – | +0.00 |
+| 99 | Nunu & Willump | −0.79 | −1.00 | −1.00 | −1.00 | −0.07 | – | +0.00 |
+| 100 | Naafiri | −0.79 | −1.00 | −1.00 | −1.00 | −0.08 | – | +0.00 |
+| 101 | Blitzcrank | −0.79 | −1.00 | −1.00 | −1.00 | −0.08 | – | +0.00 |
+| 102 | Karthus | −0.79 | −1.00 | −1.00 | −1.00 | +0.06 | −1.00 | +0.00 |
+| 103 | Nautilus | −0.79 | −1.00 | −1.00 | −1.00 | −0.09 | – | +0.00 |
+| 104 | Kindred | −0.79 | −1.00 | −1.00 | −1.00 | +0.05 | −1.00 | +0.00 |
+| 105 | Caitlyn | −0.79 | −1.00 | −1.00 | −1.00 | +0.04 | −1.00 | +0.00 |
+| 106 | Kha'Zix | −0.80 | −1.00 | −1.00 | −1.00 | −0.11 | – | +0.00 |
+| 107 | Gragas | −0.80 | −1.00 | −1.00 | −1.00 | −0.11 | – | +0.00 |
+| 108 | Zoe | −0.80 | −1.00 | −1.00 | −1.00 | +0.03 | −1.00 | +0.00 |
+| 109 | Sion | −0.80 | −1.00 | −1.00 | −1.00 | −0.11 | – | +0.00 |
+| 110 | Soraka | −0.80 | −1.00 | −1.00 | −1.00 | +0.02 | −1.00 | +0.00 |
+| 111 | Rumble | −0.80 | −1.00 | −1.00 | −1.00 | −0.12 | – | +0.00 |
+| 112 | Zed | −0.80 | −1.00 | −1.00 | −1.00 | −0.12 | – | +0.00 |
+| 113 | Urgot | −0.80 | −1.00 | −1.00 | −1.00 | +0.01 | −1.00 | +0.00 |
+| 114 | Talon | −0.80 | −1.00 | −1.00 | −1.00 | −0.13 | – | +0.00 |
+| 115 | Camille | −0.80 | −1.00 | −1.00 | −1.00 | −0.13 | – | +0.00 |
+| 116 | Mordekaiser | −0.80 | −1.00 | −1.00 | −1.00 | −0.13 | – | +0.00 |
+| 117 | Samira | −0.80 | −1.00 | −1.00 | −1.00 | +0.00 | −1.00 | +0.00 |
+| 118 | Xin Zhao | −0.80 | −1.00 | −1.00 | −1.00 | −0.13 | – | +0.00 |
+| 119 | Katarina | −0.80 | −1.00 | −1.00 | −1.00 | −0.14 | – | +0.00 |
+| 120 | Ziggs | −0.80 | −1.00 | −1.00 | −1.00 | −0.01 | −1.00 | +0.00 |
+| 121 | Vladimir | −0.80 | −1.00 | −1.00 | −1.00 | −0.01 | −1.00 | +0.00 |
+| 122 | Veigar | −0.80 | −1.00 | −1.00 | −1.00 | −0.02 | −1.00 | +0.00 |
+| 123 | Sejuani | −0.80 | −1.00 | −1.00 | −1.00 | −0.16 | – | +0.00 |
+| 124 | LeBlanc | −0.81 | −1.00 | −1.00 | −1.00 | −0.04 | −1.00 | +0.00 |
+| 125 | Amumu | −0.81 | −1.00 | −1.00 | −1.00 | −0.17 | – | +0.00 |
+| 126 | Skarner | −0.81 | −1.00 | −1.00 | −1.00 | −0.17 | – | +0.00 |
+| 127 | Pantheon | −0.81 | −1.00 | −1.00 | −1.00 | −0.17 | – | +0.00 |
+| 128 | Nocturne | −0.81 | −1.00 | −1.00 | −1.00 | −0.17 | – | +0.00 |
+| 129 | Udyr | −0.81 | −1.00 | −1.00 | −1.00 | −0.05 | −1.00 | +0.00 |
+| 130 | Janna | −0.81 | −1.00 | −1.00 | −1.00 | −0.05 | −1.00 | +0.00 |
+| 131 | Varus | −0.81 | −1.00 | −1.00 | −1.00 | −0.06 | −1.00 | +0.00 |
+| 132 | Dr. Mundo | −0.81 | −1.00 | −1.00 | −1.00 | −0.19 | – | +0.00 |
+| 133 | Thresh | −0.81 | −1.00 | −1.00 | −1.00 | −0.10 | −1.00 | +0.00 |
+| 134 | Xerath | −0.82 | −1.00 | −1.00 | −1.00 | −0.11 | −1.00 | +0.00 |
+| 135 | Yone | −0.82 | −1.00 | −1.00 | −1.00 | −0.24 | – | +0.00 |
+| 136 | Jhin | −0.82 | −1.00 | −1.00 | −1.00 | −0.13 | −1.00 | +0.00 |
+| 137 | Draven | −0.82 | −1.00 | −1.00 | −1.00 | −0.15 | −1.00 | +0.00 |
+| 138 | Kai'Sa | −0.83 | −1.00 | −1.00 | −1.00 | −0.19 | −1.00 | +0.00 |
+| 139 | Syndra | −0.83 | −1.00 | −1.00 | −1.00 | −0.22 | −1.00 | +0.00 |
+| 140 | Taliyah | −0.84 | −1.00 | −1.00 | −1.00 | −0.26 | −1.00 | +0.00 |
+| 141 | Rakan | −0.84 | −1.00 | −1.00 | −1.00 | −0.26 | −1.00 | +0.00 |
+| 142 | Ahri | −0.85 | −1.00 | −1.00 | −1.00 | −0.31 | −1.00 | +0.00 |
+| 143 | Senna | −0.86 | −1.00 | −1.00 | −1.00 | −0.39 | −1.00 | +0.00 |
+| 144 | Wukong | −0.86 | −1.00 | −1.00 | −1.00 | −0.19 | – | −1.00 |
 
 ## Interaction ledger estimates
 
@@ -224,129 +224,10 @@ Run `npm run matchup -- <champion> Warwick` for the full ledger of a matchup, wi
 
 #### 8. Nilah (net +1.28)
 
-- **1.00** attack dodge: Jubilant Veil dodges Warwick's Infinite Duress, which applies on-hit effects. Jubilant Veil lasts 2.25 s on a 22 s cooldown. {{{{{1<noinclude>|Ability data</noinclude>}}}|Infinite Duress|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}
-|champion     = Warwick
-|skill        = R
-|icon         = Infinite Duress.png
-|description  = {{sbc|Active:}} '''Warwick''' {{tip|dash|leaps}} in the target direction with {{tip|cc-immune|crowd control immunity}}, stopping upon hitting an enemy champion. He then {{tip|knockdown|knocks them down}} and {{tip|channel|channels}} for up to {{fd|1.5}} seconds to {{tip|suppression|suppress}}, {{tip|true sight|reveal}}, and deal {{as|magic damage}} every {{fd|0.25}} seconds, {{tip|sight|revealing}} himself in the process. This damage {{tip|applies life steal|applies}} {{as|{{sti|life steal}}}}.
-|leveling    = {{st|Total Magic Damage|{{ap|175 to 525}} {{as|(+ 167% '''bonus''' AD)}}}}
-|description3 = '''Warwick''' {{tip|heals}} for 100% of all {{tt|post-mitigation damage|Damage calculated after resistances and modifiers.}} he deals to the target during ''Infinite Duress''.
-|description4 = ''Infinite Duress'' both applies {{tip|on-hit}} effects and triggers {{tip|on-attack}} effects 3 times over its duration.
-|description5 = ''{{ai|Primal Howl|Warwick}} can be cast during the dash.''
-|cooldown     = {{ap|110 to 70}}
-|cdstart      = on-cast
-|cost         = 100
-|costtype     = Mana
-|range        = {{tt|{{as|250% movement speed}}|Measures the average of this percentage of movement speed in the last 2.5 seconds. Updates every 0.25 seconds.}}
-|collision radius = {{tip|cr|icononly = true}} 205
-|targeting        = Direction
-|affects          = Enemies
-|damagetype       = Magic
-|cast time        = {{fd|0.1}}
-|spelleffects     = Special
-|spellshield      = special
-|onhiteffects     = True
-|parry            = true
-|grounded         = True
-|knockdown        = False
-|silence          = true
-|notes            = 
-* ''Infinite Duress'' deals {{tip|basic damage}}, but also triggers spell effects by also being tagged as {{tip|spell damage}}.
-* The minimum range of the ability is 275 units, based on the minimum movement speed that a champion can have (110) while still being able to move. The "base" range of this ability is {{fd|837.5}} because of his 335 base movement speed.
-** Considering movement speed soft caps, with {{ai|Blood Hunt|Warwick}}, this range increases to {{ap|(335*1.35*0.8+83)*2.5|(335*1.425*0.8+83)*2.5|(335*1.5*0.5+230)*2.5|(335*1.575*0.5+230)*2.5|(335*1.65*0.5+230)*2.5}}, further increased to {{ap|(335*(1+0.35*2)*0.5+230)*2.5|(335*(1+0.425*2)*0.5+230)*2.5|(335*(1+0.5*2)*0.5+230)*2.5|(335*(1+0.575*2)*0.5+230)*2.5|(335*(1+0.65*2)*0.5+230)*2.5}} toward enemy champions {{as|below 25% health}}.
-* ''Infinite Duress'' deals a total of 6 damage instances:
-** The 1st, 3rd, and 5th ticks deals 2/9ths of the total damage as a single instance while applying both spell and on-hit effects, and triggering on-attack effects.
-** The 2nd, 4th, and 6th ticks deal 1/9ths of the total damage as a single instance while applying spell effects but not on-hit effects.
-* If '''Warwick''' does not collide with a champion, he will slide a {{tt|fixed distance|estimated 150 units}} past the maximum range during which he is no longer crowd control immune and unable to declare basic attacks or cast movement abilities, including {{si|Flash}}, but being able to cast {{ai|Jaws of the Beast|Warwick}} and {{ai|Blood Hunt|Warwick}}, with the former also interrupting the slide.
-** '''Warwick''' is able to cast {{ai|Primal Howl|Warwick}} at any time during the dash.
-* Activating {{ii|Zhonya's Hourglass}} during the dash interrupts it.<!--wtf why-->
-* Each hit counts as a separate {{tip|cast instance}} for effects such as {{ri|Electrocute}} and {{iis|Eclipse}} {{nie|Ever Rising Moon}}.
-* '''Warwick''' gains the {{tip|cc-immune|cc-immunity}} at the start of the cast time.
-* {{tip|Cleanse|Cleansing}} the {{tip|suppression}} does not interrupt the {{tip|channel}} and '''Warwick''' will continue to strike but not deal any damage.
-** ''Infinite Duress'' is special cased to have its channel interrupted by {{ai|Fate's Call|Kalista}}.
-* During the ''suppresion'', '''Warwick''' is {{tip|cc-immune}} to {{cai|E|Singed}}, however, he is not ''immune'' to {{cai|E|Urgot|Fling}}, {{cai|Ferromancy: Mount Up|Rell|Fling}} or other effects. {{bug|2|Singed was special cased on V10.11}}
-* If the target is {{tip|cc-immune|crowd control immune}} or protected by {{tip|spell shield}} upon collision, '''Warwick''' will not start the {{tip|channel}}.
-** {{tip|Spell shield}} will not prevent the effects of ''Infinite Duress'' if '''Warwick''' is already channeling.
-* If the target is in a {{tip|zombie state}}, '''Warwick''' will stop the channel after ~{{fd|0.5}} seconds of hitting them.{{bug}}
-* ''Infinite Duress'' covers '''Warwick's''' hitbox, meaning he will collide with enemy champions that are particularly close to him.
-* {{iis|Experimental Hexplate}} {{nie|Overdrive}}, {{iis|Fiendhunter Bolts}} {{nie|Opening Barrage}}, and {{iis|Zeke's Convergence}} {{nie|Frostfire Tempest}} will activate at the end of the dash. If the dash collides with an enemy, the items are instead activated after {{fd|0.45}} seconds into the {{tip|channel}}, and the buff's duration is refreshed at the end of the channel.
-* The following table refers for interactions while '''Warwick''' is in cast time:
-{{ct|cast|spells=true,false,false,false,false}}
-* The following table refers for interactions while '''Warwick''' is {{tip|channel|channeling}}:
-{{ct|channel|move=false|cast=false|attack=false|items=false, true|spells=true, false, false, false, false}}
-|yvideo       = eGvgl9ZbCBY
-<!-- Blurb -->
-|blurbicon    = Infinite Duress.png
-|blurb        = {{sbc|Active:}} {{ci|Warwick}} {{tip|dash|leaps}} a huge distance toward the target direction, stopping on the first champion he collides with, {{tip|suppression|suppressing}} them while he {{tip|channel|channels}} for a brief time. He mauls them over the duration, dealing {{as|magic damage}} and {{as|{{sti|healing}}}} for 100% of the damage dealt. ''Infinite Duress'' applies {{tip|on-hit}} effects and {{sti|{{as|life steal}}}}, as well as triggers {{tip|on-attack}} effects, 3 times.
-|blurb2       = The leap's range scales with '''Warwick's''' {{sti|{{as|movement speed}}}} and he gains {{tip|cc-immune|cc-immunity}} during it.
-|blurb4       = {{sbc|{{tip|cc-immune|Cc-immunity|nolink=true}}}}: {{tip|Crowd control}} cannot be applied during this time.
-}}. (Nilah W Jubilant Veil → Warwick R Infinite Duress)
+- **1.00** attack dodge: Jubilant Veil dodges Warwick's Infinite Duress, which applies on-hit effects. Jubilant Veil lasts 2.25 s on a 22 s cooldown. (Nilah W Jubilant Veil → Warwick R Infinite Duress)
 - **0.46** interrupt: Apotheosis's airborne interrupts Warwick's Infinite Duress (normal channel). Apotheosis must land during the channel. If Warwick does not collide with a champion, he will slide a fixed distance past the maximum range during which he is no longer crowd control immune and unable to declare basic attacks or cast movement abilities, including Flash, but being able to cast Jaws of the Beast and Blood Hunt, with the former also interrupting the slide.
   - Warwick is able to cast Primal Howl at any time during the dash. Activating Zhonya's Hourglass during the dash interrupts it. (Nilah R Apotheosis → Warwick R Infinite Duress)
-- **0.45** attack dodge: Jubilant Veil dodges Warwick's Jaws of the Beast, which applies on-hit effects. Jubilant Veil lasts 2.25 s on a 22 s cooldown. {{{{{1<noinclude>|Ability data</noinclude>}}}|Jaws of the Beast|{{{2|}}}|{{{3|}}}|{{{4|}}}|{{{5|}}}
-|champion     = Warwick
-|skill        = Q
-|icon         = Jaws of the Beast.png
-|description  = {{sbc|Active:}} '''Warwick''' {{tip|lunge|lunges}} at the target enemy over {{rutngt|0.2475}} and bites them, dealing {{as|magic damage}}, {{tip|heal|healing}} himself for a percentage of the {{tt|post-mitigation damage|Damage calculated after resistances and most modifiers.}} dealt, applying {{tip|on-hit}} effects and {{as|{{sti|life steal}}}}, and triggering {{tip|on-attack}} effects. The damage based on the target's health ratio is capped against {{tip|monster|monsters}}.
-|leveling     =
-{{st|Magic Damage|{{as|{{ap|6 to 10}}% of target's '''maximum''' health}} {{as|(+ 120% AD)}} {{as|(+ 100% AP)}}}}
-{{st|Capped Monster Damage|{{ap|150 to 210}} {{as|(+ 120% AD)}} {{as|(+ 100% AP)}}}}
-{{st|Healing Percentage|{{ap|25 to 75}}%}}
-|description2 = While ''Jaws of the Beast'' is active, '''Warwick''' is {{tip|displacement immune}} and clamps his jaw on the target, following '''all''' of their movement. The ability can be held for additional effects.
-|description3 = {{sbc|Hold:}} '''Warwick''' performs the bite, and then begins to {{tip|channel|charge}} for {{fd|0.5 seconds}}, extended if the target is under effects of a {{tip|dash}} or {{tip|airborne|displacement}}. During the charge, he {{tip|dash|leaps}} behind the target.
-|cooldown     = {{ap|8 to 6}}
-|cdstart      = post-effect
-|cost         = {{ap|80 to 100}}
-|cast time    = {{tt|none|See notes}}
-|costtype     = Mana
-|target range = {{tip|cr|icononly = true}} 365
-|range        = {{tt|Global|Tracking/following range while jaw is clamped on the target}}
-|targeting    = Unit
-|affects      = Enemies, Self
-|damagetype   = Magic
-|spelleffects = Special
-|spellshield  = True
-|parry        = True
-|grounded     = special
-|knockdown    = Special
-|silence      = true
-|callforhelp  = True
-|notes = 
-'''Details'''
-* ''Jaws of the Beast'' deals {{tip|basic damage}}, but also triggers spell effects by also being tagged as {{tip|spell damage}}.
-* ''Jaws of the Beast'' has a {{rutngt|0.2475}} cast ''delay'', which is the amount of time required for the bite to occur from the start of the cast. This should not be confused with a [[cast time|cast ''time'']].
-** If the cast started beforehand, both the damage and the heal occur even after '''Warwick's''' {{tip|death}}, or during {{tip|resurrection}}.
-* If the target dies prior to '''Warwick''' reaching them, ''Jaws of the Beast'' refunds its cooldown when tapped. The ability can be still held, however, '''Warwick''' is no longer eligible for the refund in this case. <br> {{Note|1}} The refund can occasionally fail. {{bug}}
-** The mana cost is not refunded in either case.
-* The healing is calculated only from ''Jaws of the Beast's'' damage, while additional effects, such as on-hits, are not.
-* While the bite always occurs after the same delay, the time spent lunging does not, which depends on the range ''Jaws of the Beast'' was cast away from the target, up to {{fd|0.5}} seconds when cast at maximum range.
-** This does not affect the {{tip|lockout}} timer, which is the same as the bite's delay.
-* The lunge always places '''Warwick''' to his attack range to the center of his target, while the dash will place him up to the edge of his attack range from the target's edge.
-* It has been special cased so '''Warwick''' never follows an enemy that uses a {{tip|blink}} with a destination that is their [[spawn]] platform (such as {{si|Recall}}), or {{ci|Sion}} when he respawns after his {{ai|Glory in Death|Sion}} ends. This only applies to the charge when the ability is held.<br>{{Note|1}} This may occasionally fail. The rule does not apply to the tapped cast; '''Warwick''' will still be able follow an enemy into their spawn if ''Jaws of the Beast'' was not held with its cast.{{bug}}
-* ''Jaws of the Beast's'' channel cannot be initiated while {{tip|ground|grounded}} or {{tip|root|rooted}}. '''Warwick''' can only use the normal cast.
-** The channel will '''not''' be interrupted by either of the two effects, despite the lock-on being a [[Channel#Movement Channels|movement channel]].
-'''Interactions & Other'''
-* In order to hit the cap, the target monster needs to have at least {{as|{{ap|(150 to 210)/((6 to 10)/100)|round=ceil}} health}}.
-* ''Jaws of the Beast'' is the only ability in the game that combines {{tip|channel|channeling}} with {{tip|displacement immune|displacement immunity}}. Every {{tip|interrupt|interrupting}} crowd control effect that is not resisted by the displacement immunity will prematurely stop the {{tip|dash}}.
-** The bite can still occur if cast before the crowd control application, but '''Warwick''' cannot start channeling.
-** Abilities that apply both {{tip|stun}} and {{tip|airborne}} at the same time will cause '''Warwick''' to ignore the displacement, but prematurely stop the channel and the dash.
-*** This occurs unless the ability's {{tip|stun}} portion is able to be resisted by {{tip|displacement immunity}}, in which case '''Warwick''' will ignore both the displacement and the stun and be able to continue the channel and dash.
-* '''Warwick''' will follow enemies that move via {{tip|attach|attachment}} effects but the lock-on will '''not''' be extended.
-* While ''Jaws of the Beast'' does not use Quick Casting by default, click-and-hold is comparable to the input required to use {{ai|Bone Skewer|Pyke}} or {{ai|Comet Spear|Pantheon}}. It does not accept two-click input (e.g. First Cast and Recast) that abilities like {{ai|Piercing Arrow|Varus}} or {{ai|Decimating Smash|Sion}} use in Standard Casting.
-* '''Warwick''' will attempt to basic attack the target after a short delay.
-* The following table refers for interactions while '''Warwick''' is {{tip|channel|channeling}}:
-** {{si|Flash}}, {{si|Teleport}}, {{si|Hexflash}}, and {{si|Recall}} are disabled during the first {{fd|0.4}} seconds of the channel.
-{{ct|charge|attack = false|cast = {{ai|Primal Howl|Warwick}} is usable. {{ai|Blood Hunt|Warwick}} and {{ai|Infinite Duress|Warwick}} are disabled.|move=false|spells=true,interrupts,interrupts,interrupts,interrupts|items=interrupts,true,interrupts,false,interrupts,melee|consume=true}}
-'''Known Issues'''
-* ''Jaws of the Beast'' will also refund its {{sti|cooldown}} if it kills the target after being held for exactly its bite delay. {{bug|1|Started in patch 10.1}}
-* The ability may briefly cast on a dead target, with the ability going on cooldown.{{bug|1|Started in patch 10.1}}
-|yvideo       = gihtOP7Pvcw
-<!-- Blurb -->
-|blurbicon    = Jaws of the Beast.png
-|blurb        = {{sbc|Active:}} {{ci|Warwick}} lunges at his target and bites them, dealing {{as|magic damage}} that is increased based on the {{as|target's '''maximum''' health}} and {{as|{{sti|healing}}}} himself for a portion of the damage dealt. When held, he also {{tip|channel|charges}} briefly, {{tip|dash|leaping}} behind his target. 
-|blurb2       = While ''Jaws of the Beast'' is in effect, '''Warwick''' gains {{tip|displacement immunity}} and also follows '''all''' of his target's movements.
-|blurb4       = ''Jaws of the Beast'' applies {{tip|on-hit}} effects and {{as|{{sti|life steal}}}}.
-}}. (Nilah W Jubilant Veil → Warwick Q Jaws of the Beast)
+- **0.45** attack dodge: Jubilant Veil dodges Warwick's Jaws of the Beast, which applies on-hit effects. Jubilant Veil lasts 2.25 s on a 22 s cooldown. (Nilah W Jubilant Veil → Warwick Q Jaws of the Beast)
 - Watch out: Infinite Duress makes Warwick immune to Nilah's Apotheosis (airborne, slow).
 
 #### 9. Sion (net +1.25)

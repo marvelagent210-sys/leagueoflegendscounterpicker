@@ -299,6 +299,17 @@ allies and spell histories are required where an ability depends on them.
 Private packaging requires archive integrity, five actual startup checks and
 preservation of all fifteen previous previews before publication.
 
+On 30 October batches 7 to 15 were merged into this branch on the 91-kit import they
+grew from, keeping this branch's own Gragas, Hecarim, Warwick and Wukong, the Yasuo
+review and the item work. Coverage is 145 of 173 champions, with 28 remaining and
+10,440 unordered pairings. All 10,440 pairs were computed under fingerprint
+`3f852499…`; a container restart stopped the refresh once, and it resumed from 4,746
+verified checkpoints of that fingerprint. The 19,740 directed entries without Gragas,
+Hecarim, Warwick or Wukong match the private build's matrix exactly; the 1,140 with
+them differ because those four are this branch's kits. The full suite passes: 7,473
+tests pass and the five existing ones are skipped. The production build passes too.
+Validation is recorded in [ACCURACY.md](ACCURACY.md).
+
 Each batch must read pinned source values, check meaningful damage/timing/counterplay
 cases, exercise ordinary behavior, regenerate all affected duels, and pass type/build
 checks before updating the private preview. Unresolved source conflicts and model

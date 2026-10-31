@@ -1719,6 +1719,36 @@ fingerprint branch of the existing private repository. The fifteen earlier
 private previews, main branch and local HEAD must remain unchanged. No Codespace
 or public hosting is created by this delivery workflow.
 
+## Merge into this branch, 30–31 October 2026
+
+Batches 7 to 15 were merged on the 91-kit import they grew from, so this branch keeps
+its own Gragas, Hecarim, Warwick and Wukong (with their tests and data), the Yasuo
+review and the item work.
+
+Model fingerprint:
+`3f85249931932b5e6580192c3834a28abcd8ce49689ddba6900eeb5059660975`.
+
+The refresh computed all **10,440 pairs** on four workers. A container restart stopped
+it after 4,746 verified pair checkpoints of this same fingerprint; the resumed run
+reused those and computed the other 5,694 in **8,583.3 seconds**, writing **323**
+simulator and ledger files. All 145 rows and 20,880 directed entries are complete,
+`npm run build:sim -- --check` passes for the fingerprint above, and every directed
+score is the exact negative of its mirror. Both TypeScript projects pass.
+
+Against the private build's matrix (`244198f8…`), **19,740 of the 20,880 directed
+entries** are identical, every scenario value included. The **1,140** that differ are
+exactly the entries of Gragas, Hecarim, Warwick and Wukong, whose kits are this
+branch's. The largest is Warwick against Xayah, from +0.74 in the private build to
+−0.89 here. By mean score against the other 144, Warwick ranks **29th** (+0.302, 102
+wins), Wukong **57th** (+0.150, 89 wins), Gragas **81st** (−0.054, 67 wins) and Hecarim
+**130th** (−0.519, 22 wins); the private build's versions ranked 47th, 84th, 104th and
+133rd.
+
+The full suite ran **7,478 tests across 190 files** on one worker in **1,203.2
+seconds**: **7,473 passed** and the five existing tests were skipped, the Heimerdinger–Udyr
+full variant search included within its unchanged 180-second limit. `npm run build:web`
+passes.
+
 ## Remaining limits
 
 - Only 145 of the dataset's 173 champions have simulator kits. Other pairings use the

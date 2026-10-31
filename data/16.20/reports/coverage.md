@@ -41,10 +41,10 @@ A simulator kit is implemented coverage, not a certification of every mechanic. 
 | Gangplank | Gangplank | 58 | 5 |
 | Garen | Garen | 32 | 3 |
 | Gnar | Gnar | 70 | 7 |
-| Gragas | Gragas | 84 | 6 |
+| Gragas | Gragas | 57 | 3 |
 | Graves | Graves | 90 | 7 |
 | Gwen | Gwen | 52 | 5 |
-| Hecarim | Hecarim | 89 | 5 |
+| Hecarim | Hecarim | 73 | 11 |
 | Heimerdinger | Heimerdinger | 79 | 9 |
 | Hwei | Hwei | 144 | 10 |
 | Illaoi | Illaoi | 70 | 12 |
@@ -80,7 +80,7 @@ A simulator kit is implemented coverage, not a certification of every mechanic. 
 | Maokai | Maokai | 90 | 6 |
 | Master Yi | MasterYi | 51 | 5 |
 | Miss Fortune | MissFortune | 62 | 6 |
-| Wukong | MonkeyKing | 92 | 5 |
+| Wukong | MonkeyKing | 85 | 9 |
 | Mordekaiser | Mordekaiser | 38 | 5 |
 | Morgana | Morgana | 45 | 4 |
 | Naafiri | Naafiri | 107 | 10 |
@@ -140,7 +140,7 @@ A simulator kit is implemented coverage, not a certification of every mechanic. 
 | Viktor | Viktor | 84 | 8 |
 | Vladimir | Vladimir | 64 | 10 |
 | Volibear | Volibear | 50 | 4 |
-| Warwick | Warwick | 87 | 5 |
+| Warwick | Warwick | 67 | 5 |
 | Xayah | Xayah | 75 | 7 |
 | Xerath | Xerath | 67 | 8 |
 | Xin Zhao | XinZhao | 65 | 6 |
