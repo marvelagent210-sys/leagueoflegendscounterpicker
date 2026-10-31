@@ -213,8 +213,8 @@
     ],
     "gameSources": [
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/orianna/orianna.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/orianna/orianna.bin.json",
         "sha256": "6d24efd8a5dd4beed5c83765e3e045e0bad4a6c9a9f0e2e58b041d0a51992c4c",
         "object": "Characters/Orianna/Spells/OrianaRedactCommandAbility/OrianaRedactShield",
         "text": [
@@ -222,8 +222,8 @@
         ]
       },
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/orianna/orianna.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/orianna/orianna.bin.json",
         "sha256": "6d24efd8a5dd4beed5c83765e3e045e0bad4a6c9a9f0e2e58b041d0a51992c4c",
         "object": "Characters/Orianna/Spells/OrianaRedactCommandAbility/OrianaRedactCommand",
         "text": [
@@ -231,8 +231,8 @@
         ]
       },
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/orianna/orianna.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/orianna/orianna.bin.json",
         "sha256": "6d24efd8a5dd4beed5c83765e3e045e0bad4a6c9a9f0e2e58b041d0a51992c4c",
         "object": "Characters/Orianna/Spells/OrianaRedactCommandAbility/OrianaRedact",
         "text": [
@@ -409,8 +409,8 @@
     ],
     "gameSources": [
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/orianna/orianna.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/orianna/orianna.bin.json",
         "sha256": "6d24efd8a5dd4beed5c83765e3e045e0bad4a6c9a9f0e2e58b041d0a51992c4c",
         "object": "Characters/Orianna/Spells/OriannaPAbility/OriannaPSelf",
         "text": [
@@ -418,8 +418,8 @@
         ]
       },
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/orianna/orianna.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/orianna/orianna.bin.json",
         "sha256": "6d24efd8a5dd4beed5c83765e3e045e0bad4a6c9a9f0e2e58b041d0a51992c4c",
         "object": "Characters/Orianna/Spells/OriannaPAbility/OriannaP",
         "text": [
@@ -427,8 +427,8 @@
         ]
       },
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/orianna/orianna.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/orianna/orianna.bin.json",
         "sha256": "6d24efd8a5dd4beed5c83765e3e045e0bad4a6c9a9f0e2e58b041d0a51992c4c",
         "object": "Characters/Orianna/Spells/OriannaPAbility/OriannaPStack",
         "text": [
@@ -628,8 +628,8 @@
     ],
     "gameSources": [
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/orianna/orianna.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/orianna/orianna.bin.json",
         "sha256": "6d24efd8a5dd4beed5c83765e3e045e0bad4a6c9a9f0e2e58b041d0a51992c4c",
         "object": "Characters/Orianna/Spells/OrianaIzunaCommandAbility/OrianaIzunaCommand",
         "text": [
@@ -637,8 +637,8 @@
         ]
       },
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/orianna/orianna.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/orianna/orianna.bin.json",
         "sha256": "6d24efd8a5dd4beed5c83765e3e045e0bad4a6c9a9f0e2e58b041d0a51992c4c",
         "object": "Characters/Orianna/Spells/OrianaIzunaCommandAbility/OrianaIzuna",
         "text": [
@@ -794,8 +794,8 @@
     ],
     "gameSources": [
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/orianna/orianna.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/orianna/orianna.bin.json",
         "sha256": "6d24efd8a5dd4beed5c83765e3e045e0bad4a6c9a9f0e2e58b041d0a51992c4c",
         "object": "Characters/Orianna/Spells/OrianaDetonateCommandAbility/OrianaDetonateCommand",
         "text": [
@@ -803,8 +803,8 @@
         ]
       },
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/orianna/orianna.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/orianna/orianna.bin.json",
         "sha256": "6d24efd8a5dd4beed5c83765e3e045e0bad4a6c9a9f0e2e58b041d0a51992c4c",
         "object": "Characters/Orianna/Spells/OrianaDetonateCommandAbility/OrianaStun",
         "text": [
@@ -976,8 +976,8 @@
     ],
     "gameSources": [
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/orianna/orianna.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/orianna/orianna.bin.json",
         "sha256": "6d24efd8a5dd4beed5c83765e3e045e0bad4a6c9a9f0e2e58b041d0a51992c4c",
         "object": "Characters/Orianna/Spells/OrianaDissonanceCommandAbility/OrianaDissonanceAlly",
         "text": [
@@ -985,8 +985,8 @@
         ]
       },
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/orianna/orianna.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/orianna/orianna.bin.json",
         "sha256": "6d24efd8a5dd4beed5c83765e3e045e0bad4a6c9a9f0e2e58b041d0a51992c4c",
         "object": "Characters/Orianna/Spells/OrianaDissonanceCommandAbility/OrianaDissonanceCommand",
         "text": [
@@ -994,8 +994,8 @@
         ]
       },
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/orianna/orianna.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/orianna/orianna.bin.json",
         "sha256": "6d24efd8a5dd4beed5c83765e3e045e0bad4a6c9a9f0e2e58b041d0a51992c4c",
         "object": "Characters/Orianna/Spells/OrianaDissonanceCommandAbility/OrianaDissonanceEnemy",
         "text": [

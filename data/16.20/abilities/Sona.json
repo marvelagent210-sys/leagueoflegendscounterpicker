@@ -122,8 +122,8 @@
     ],
     "gameSources": [
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/sona/sona.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/sona/sona.bin.json",
         "sha256": "682d46bfcdcb56ae7a3677881f3a0ff17b484124d373118b5be6094b1aff4968",
         "object": "Characters/Sona/Spells/SonaEAbility/SonaESelfHaste",
         "text": [
@@ -131,8 +131,8 @@
         ]
       },
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/sona/sona.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/sona/sona.bin.json",
         "sha256": "682d46bfcdcb56ae7a3677881f3a0ff17b484124d373118b5be6094b1aff4968",
         "object": "Characters/Sona/Spells/SonaEAbility/SonaEHaste",
         "text": [
@@ -140,8 +140,8 @@
         ]
       },
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/sona/sona.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/sona/sona.bin.json",
         "sha256": "682d46bfcdcb56ae7a3677881f3a0ff17b484124d373118b5be6094b1aff4968",
         "object": "Characters/Sona/Spells/SonaEAbility/SonaE",
         "text": [
@@ -149,8 +149,8 @@
         ]
       },
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/sona/sona.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/sona/sona.bin.json",
         "sha256": "682d46bfcdcb56ae7a3677881f3a0ff17b484124d373118b5be6094b1aff4968",
         "object": "Characters/Sona/Spells/SonaEAbility/SonaEPassiveDebuff",
         "text": [
@@ -158,8 +158,8 @@
         ]
       },
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/sona/sona.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/sona/sona.bin.json",
         "sha256": "682d46bfcdcb56ae7a3677881f3a0ff17b484124d373118b5be6094b1aff4968",
         "object": "Characters/Sona/Spells/SonaEAbility/SonaEPassiveAttack",
         "text": [
@@ -339,8 +339,8 @@
     ],
     "gameSources": [
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/sona/sona.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/sona/sona.bin.json",
         "sha256": "682d46bfcdcb56ae7a3677881f3a0ff17b484124d373118b5be6094b1aff4968",
         "object": "Characters/Sona/Spells/SonaPassiveAbility/SonaPMissile2",
         "text": [
@@ -348,8 +348,8 @@
         ]
       },
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/sona/sona.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/sona/sona.bin.json",
         "sha256": "682d46bfcdcb56ae7a3677881f3a0ff17b484124d373118b5be6094b1aff4968",
         "object": "Characters/Sona/Spells/SonaPassiveAbility/SonaPMissile3",
         "text": [
@@ -357,8 +357,8 @@
         ]
       },
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/sona/sona.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/sona/sona.bin.json",
         "sha256": "682d46bfcdcb56ae7a3677881f3a0ff17b484124d373118b5be6094b1aff4968",
         "object": "Characters/Sona/Spells/SonaPassiveAbility/SonaPassiveAccelerandoCount",
         "text": [
@@ -366,8 +366,8 @@
         ]
       },
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/sona/sona.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/sona/sona.bin.json",
         "sha256": "682d46bfcdcb56ae7a3677881f3a0ff17b484124d373118b5be6094b1aff4968",
         "object": "Characters/Sona/Spells/SonaPassiveAbility/SonaPMissile",
         "text": [
@@ -375,8 +375,8 @@
         ]
       },
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/sona/sona.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/sona/sona.bin.json",
         "sha256": "682d46bfcdcb56ae7a3677881f3a0ff17b484124d373118b5be6094b1aff4968",
         "object": "Characters/Sona/Spells/SonaPassiveAbility/SonaPassive",
         "text": [
@@ -384,8 +384,8 @@
         ]
       },
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/sona/sona.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/sona/sona.bin.json",
         "sha256": "682d46bfcdcb56ae7a3677881f3a0ff17b484124d373118b5be6094b1aff4968",
         "object": "Characters/Sona/Spells/SonaPassiveAbility/SonaPassiveAttack",
         "text": [
@@ -603,8 +603,8 @@
     ],
     "gameSources": [
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/sona/sona.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/sona/sona.bin.json",
         "sha256": "682d46bfcdcb56ae7a3677881f3a0ff17b484124d373118b5be6094b1aff4968",
         "object": "Characters/Sona/Spells/SonaQAbility/SonaQPassiveAttack",
         "text": [
@@ -612,8 +612,8 @@
         ]
       },
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/sona/sona.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/sona/sona.bin.json",
         "sha256": "682d46bfcdcb56ae7a3677881f3a0ff17b484124d373118b5be6094b1aff4968",
         "object": "Characters/Sona/Spells/SonaQAbility/SonaQ",
         "text": [
@@ -621,8 +621,8 @@
         ]
       },
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/sona/sona.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/sona/sona.bin.json",
         "sha256": "682d46bfcdcb56ae7a3677881f3a0ff17b484124d373118b5be6094b1aff4968",
         "object": "Characters/Sona/Spells/SonaQAbility/SonaQMissile",
         "text": [
@@ -630,8 +630,8 @@
         ]
       },
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/sona/sona.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/sona/sona.bin.json",
         "sha256": "682d46bfcdcb56ae7a3677881f3a0ff17b484124d373118b5be6094b1aff4968",
         "object": "Characters/Sona/Spells/SonaQAbility/SonaQOnHit",
         "text": [
@@ -802,8 +802,8 @@
     ],
     "gameSources": [
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/sona/sona.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/sona/sona.bin.json",
         "sha256": "682d46bfcdcb56ae7a3677881f3a0ff17b484124d373118b5be6094b1aff4968",
         "object": "Characters/Sona/Spells/SonaRAbility/SonaR",
         "text": [
@@ -1055,8 +1055,8 @@
     ],
     "gameSources": [
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/sona/sona.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/sona/sona.bin.json",
         "sha256": "682d46bfcdcb56ae7a3677881f3a0ff17b484124d373118b5be6094b1aff4968",
         "object": "Characters/Sona/Spells/SonaWAbility/SonaWPassiveAttack",
         "text": [
@@ -1064,8 +1064,8 @@
         ]
       },
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/sona/sona.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/sona/sona.bin.json",
         "sha256": "682d46bfcdcb56ae7a3677881f3a0ff17b484124d373118b5be6094b1aff4968",
         "object": "Characters/Sona/Spells/SonaWAbility/SonaWPassiveDebuff",
         "text": [
@@ -1073,8 +1073,8 @@
         ]
       },
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/sona/sona.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/sona/sona.bin.json",
         "sha256": "682d46bfcdcb56ae7a3677881f3a0ff17b484124d373118b5be6094b1aff4968",
         "object": "Characters/Sona/Spells/SonaWAbility/SonaWMissile",
         "text": [
@@ -1082,8 +1082,8 @@
         ]
       },
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/sona/sona.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/sona/sona.bin.json",
         "sha256": "682d46bfcdcb56ae7a3677881f3a0ff17b484124d373118b5be6094b1aff4968",
         "object": "Characters/Sona/Spells/SonaWAbility/SonaWShield",
         "text": [
@@ -1091,8 +1091,8 @@
         ]
       },
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/sona/sona.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/sona/sona.bin.json",
         "sha256": "682d46bfcdcb56ae7a3677881f3a0ff17b484124d373118b5be6094b1aff4968",
         "object": "Characters/Sona/Spells/SonaWAbility/SonaW",
         "text": [

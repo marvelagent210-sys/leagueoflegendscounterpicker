@@ -171,10 +171,10 @@
     ],
     "gameSources": [
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/braum/braum.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
-        "object": "Characters/Braum/Spells/BraumEAbility/BraumE",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/braum/braum.bin.json",
         "sha256": "021c833daa1083bad73c9be385ccbb98c8c89498a15d8a6fc7511ff6b58bc0e6",
+        "object": "Characters/Braum/Spells/BraumEAbility/BraumE",
         "text": [
           "{\"objectPath\":\"Characters/Braum/Spells/BraumEAbility/BraumE\",\"mSpell\":{\"DataValues\":[{\"name\":\"RangedReflect\",\"values\":[0.15000000596046448,0.15000000596046448,0.15000000596046448,0.15000000596046448,0.15000000596046448,0.15000000596046448,0.15000000596046448],\"__type\":\"SpellDataValue\"},{\"name\":\"ShieldHoldDuration\",\"values\":[2.75,3.0,3.25,3.5,3.75,4.0,4.25],\"__type\":\"SpellDataValue\"},{\"name\":\"ShieldFacingDRAmount\",\"values\":[30.0,35.0,40.0,45.0,50.0,55.0,60.0],\"__type\":\"SpellDataValue\"},{\"name\":\"MoveSpeedPercent\",\"values\":[10.0,10.0,10.0,10.0,10.0,10.0,10.0],\"__type\":\"SpellDataValue\"}],\"mCastTime\":0.009999999776482582,\"castRadius\":[350.0,350.0,350.0,350.0,350.0,350.0,350.0],\"mClientData\":{\"mTooltipData\":{\"mObjectName\":\"BraumE\",\"mFormat\":\"{d7c27163}\",\"mLocKeys\":{\"keyName\":\"Spell_BraumE_Name\",\"keySummary\":\"Spell_BraumE_Summary\",\"keyTooltip\":\"Spell_BraumE_Tooltip\"},\"mLists\":{\"LevelUp\":{\"levelCount\":5,\"Elements\":[{\"type\":\"ShieldHoldDuration\",\"nameOverride\":\"Spell_ListType_Duration\",\"__type\":\"TooltipInstanceListElement\"},{\"type\":\"ShieldFacingDRAmount\",\"nameOverride\":\"Spell_ListType_DamageReduction\",\"Style\":1,\"__type\":\"TooltipInstanceListElement\"},{\"type\":\"Cooldown\",\"__type\":\"TooltipInstanceListElement\"},{\"type\":\"Cost\",\"__type\":\"TooltipInstanceListElement\"}],\"__type\":\"TooltipInstanceList\"}},\"__type\":\"TooltipInstanceSpell\"},\"mTargeterDefinitions\":[{\"endLocator\":{\"basePosition\":3,\"__type\":\"DrawablePositionLocator\"},\"lineWidth\":{\"mPerLevelValues\":[170.0,170.0,170.0,170.0,170.0,170.0],\"mValueType\":2,\"__type\":\"FloatPerSpellLevel\"},\"overrideBaseRange\":{\"mPerLevelValues\":[435.0,435.0,435.0,435.0,435.0,435.0],\"mValueType\":2,\"__type\":\"FloatPerSpellLevel\"},\"textureBaseOverrideName\":\"assets/characters/braum/hud/textures/reticle_freljordrectangle_base_e_01.tex\",\"textureTargetOverrideName\":\"assets/spells/textures/blank.tex\",\"__type\":\"TargeterDefinitionLine\"}],\"__type\":\"SpellDataResourceClient\"}}}"
         ]
@@ -343,10 +343,10 @@
     ],
     "gameSources": [
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/braum/braum.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
-        "object": "Characters/Braum/Spells/BraumPassiveAbility/BraumPassive",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/braum/braum.bin.json",
         "sha256": "021c833daa1083bad73c9be385ccbb98c8c89498a15d8a6fc7511ff6b58bc0e6",
+        "object": "Characters/Braum/Spells/BraumPassiveAbility/BraumPassive",
         "text": [
           "{\"objectPath\":\"Characters/Braum/Spells/BraumPassiveAbility/BraumPassive\",\"mSpell\":{\"DataValues\":[{\"name\":\"StackDuration\",\"values\":[4.0,4.0,4.0,4.0,4.0,4.0,4.0],\"__type\":\"SpellDataValue\"},{\"name\":\"StackCap\",\"values\":[4.0,4.0,4.0,4.0,4.0,4.0,4.0],\"__type\":\"SpellDataValue\"},{\"name\":\"AlreadyStunnedDamageAmp\",\"values\":[0.4000000059604645,0.4000000059604645,0.4000000059604645,0.4000000059604645,0.4000000059604645,0.4000000059604645,0.4000000059604645],\"__type\":\"SpellDataValue\"}]}}"
         ]
@@ -534,19 +534,19 @@
     ],
     "gameSources": [
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/braum/braum.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
-        "object": "Characters/Braum/Spells/BraumQAbility/BraumQ",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/braum/braum.bin.json",
         "sha256": "021c833daa1083bad73c9be385ccbb98c8c89498a15d8a6fc7511ff6b58bc0e6",
+        "object": "Characters/Braum/Spells/BraumQAbility/BraumQ",
         "text": [
           "{\"objectPath\":\"Characters/Braum/Spells/BraumQAbility/BraumQ\",\"mSpell\":{\"DataValues\":[{\"name\":\"BaseDamage\",\"values\":[30.0,75.0,120.0,165.0,210.0,255.0,300.0],\"__type\":\"SpellDataValue\"},{\"name\":\"MaxHPDamageValue\",\"values\":[0.02500000037252903,0.02500000037252903,0.02500000037252903,0.02500000037252903,0.02500000037252903,0.02500000037252903,0.02500000037252903],\"__type\":\"SpellDataValue\"},{\"name\":\"InitialSlow\",\"values\":[70.0,70.0,70.0,70.0,70.0,70.0,70.0],\"__type\":\"SpellDataValue\"},{\"name\":\"MinSlow\",\"values\":[30.0,30.0,30.0,30.0,30.0,30.0,30.0],\"__type\":\"SpellDataValue\"},{\"name\":\"SlowDuration\",\"values\":[2.0,2.0,2.0,2.0,2.0,2.0,2.0],\"__type\":\"SpellDataValue\"},{\"name\":\"MissileRange\",\"values\":[1050.0,1050.0,1050.0,1050.0,1050.0,1050.0,1050.0],\"__type\":\"SpellDataValue\"},{\"name\":\"DebuffDuration\",\"values\":[4.0,4.0,4.0,4.0,4.0,4.0,4.0],\"__type\":\"SpellDataValue\"}],\"mCastTime\":0.25,\"missileSpeed\":1100.0,\"mLineWidth\":70.0}}"
         ]
       },
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/braum/braum.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
-        "object": "Characters/Braum/Spells/BraumQAbility/BraumQMissile",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/braum/braum.bin.json",
         "sha256": "021c833daa1083bad73c9be385ccbb98c8c89498a15d8a6fc7511ff6b58bc0e6",
+        "object": "Characters/Braum/Spells/BraumQAbility/BraumQMissile",
         "text": [
           "{\"objectPath\":\"Characters/Braum/Spells/BraumQAbility/BraumQMissile\",\"mSpell\":{\"castRange\":[1050.0,1050.0,1050.0,1050.0,1050.0,1050.0,1050.0],\"missileSpeed\":1700.0,\"mLineWidth\":60.0,\"mMissileSpec\":{\"mMissileWidth\":60.0,\"movementComponent\":{\"mUseHeightOffsetAtEnd\":true,\"mTracksTarget\":false,\"mOffsetInitialTargetHeight\":100.0,\"mStartBoneName\":\"Shield\",\"mProjectTargetToCastRange\":true,\"mSpeed\":1700.0,\"__type\":\"FixedSpeedMovement\"},\"heightSolver\":{\"__type\":\"BlendedLinearHeightSolver\"},\"verticalFacing\":{\"__type\":\"VerticalFacingFaceTarget\"},\"behaviors\":[{\"__type\":\"CastOnHit\"},{\"__type\":\"DestroyOnMovementComplete\"},{\"__type\":\"DestroyOnHit\"}],\"__type\":\"MissileSpecification\"}}}"
         ]
@@ -829,19 +829,19 @@
     ],
     "gameSources": [
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/braum/braum.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
-        "object": "Characters/Braum/Spells/BraumRWrapperAbility/BraumRWrapper",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/braum/braum.bin.json",
         "sha256": "021c833daa1083bad73c9be385ccbb98c8c89498a15d8a6fc7511ff6b58bc0e6",
+        "object": "Characters/Braum/Spells/BraumRWrapperAbility/BraumRWrapper",
         "text": [
           "{\"objectPath\":\"Characters/Braum/Spells/BraumRWrapperAbility/BraumRWrapper\",\"mSpell\":{\"DataValues\":[{\"name\":\"BaseDamage\",\"values\":[50.0,150.0,250.0,350.0,450.0,550.0,650.0],\"__type\":\"SpellDataValue\"},{\"name\":\"KnockupDuration\",\"values\":[0.6000000238418579,0.6000000238418579,0.6000000238418579,0.6000000238418579,0.6000000238418579,0.6000000238418579,0.6000000238418579],\"__type\":\"SpellDataValue\"},{\"name\":\"FirstKnockupDuration\",\"values\":[0.5,1.0,1.5,2.0,2.5,3.0,3.5],\"__type\":\"SpellDataValue\"},{\"name\":\"MoveSpeedMod\",\"values\":[30.0,40.0,50.0,60.0,70.0,80.0,90.0],\"__type\":\"SpellDataValue\"},{\"name\":\"SlowZoneDuration\",\"values\":[4.0,4.0,4.0,4.0,4.0,4.0,4.0],\"__type\":\"SpellDataValue\"},{\"name\":\"SlowDebuffDuration\",\"values\":[0.25,0.25,0.25,0.25,0.25,0.25,0.25],\"__type\":\"SpellDataValue\"},{\"name\":\"MinKnockup\",\"values\":[0.6000000238418579,0.6000000238418579,0.6000000238418579,0.6000000238418579,0.6000000238418579,0.6000000238418579,0.6000000238418579],\"__type\":\"SpellDataValue\"},{\"name\":\"MaxKnockup\",\"values\":[0.5,1.0,1.5,2.0,2.5,3.0,3.5],\"__type\":\"SpellDataValue\"},{\"name\":\"MaxKnockupRatio\",\"values\":[0.8999999761581421,0.8999999761581421,0.8999999761581421,0.8999999761581421,0.8999999761581421,0.8999999761581421,0.8999999761581421],\"__type\":\"SpellDataValue\"}],\"mCastTime\":0.5,\"spellCastTime\":0.25,\"castRadius\":[210.0,210.0,210.0,210.0,210.0,210.0,210.0],\"castRangeDisplayOverride\":[1250.0,1250.0,1250.0,1250.0,1250.0,1250.0,1250.0],\"missileSpeed\":1200.0,\"mLineWidth\":80.0}}"
         ]
       },
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/braum/braum.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
-        "object": "Characters/Braum/Spells/BraumRWrapperAbility/BraumRMissile",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/braum/braum.bin.json",
         "sha256": "021c833daa1083bad73c9be385ccbb98c8c89498a15d8a6fc7511ff6b58bc0e6",
+        "object": "Characters/Braum/Spells/BraumRWrapperAbility/BraumRMissile",
         "text": [
           "{\"objectPath\":\"Characters/Braum/Spells/BraumRWrapperAbility/BraumRMissile\",\"mSpell\":{\"castRange\":[1200.0,1200.0,1200.0,1200.0,1200.0,1200.0,1200.0],\"missileSpeed\":1400.0,\"mLineWidth\":115.0,\"mMissileSpec\":{\"mMissileWidth\":115.0,\"movementComponent\":{\"mUseHeightOffsetAtEnd\":true,\"mTracksTarget\":false,\"mOffsetInitialTargetHeight\":100.0,\"mStartBoneName\":\"root\",\"mProjectTargetToCastRange\":true,\"mSpeed\":1400.0,\"__type\":\"FixedSpeedMovement\"},\"heightSolver\":{\"__type\":\"BlendedLinearHeightSolver\"},\"verticalFacing\":{\"__type\":\"VerticalFacingFaceTarget\"},\"behaviors\":[{\"__type\":\"CastOnHit\"},{\"__type\":\"DestroyOnMovementComplete\"}],\"__type\":\"MissileSpecification\"}}}"
         ]
@@ -1098,10 +1098,10 @@
     ],
     "gameSources": [
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/braum/braum.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
-        "object": "Characters/Braum/Spells/BraumWAbility/BraumW",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/braum/braum.bin.json",
         "sha256": "021c833daa1083bad73c9be385ccbb98c8c89498a15d8a6fc7511ff6b58bc0e6",
+        "object": "Characters/Braum/Spells/BraumWAbility/BraumW",
         "text": [
           "{\"objectPath\":\"Characters/Braum/Spells/BraumWAbility/BraumW\",\"mSpell\":{\"DataValues\":[{\"name\":\"RangedDamageThreshold\",\"values\":[400.0,400.0,400.0,400.0,400.0,400.0,400.0],\"__type\":\"SpellDataValue\"},{\"name\":\"AllyArmorPercent\",\"values\":[0.11999999731779099,0.11999999731779099,0.11999999731779099,0.11999999731779099,0.11999999731779099,0.11999999731779099,0.11999999731779099],\"__type\":\"SpellDataValue\"},{\"name\":\"BraumArmorPercent\",\"values\":[0.36000001430511475,0.36000001430511475,0.36000001430511475,0.36000001430511475,0.36000001430511475,0.36000001430511475,0.36000001430511475],\"__type\":\"SpellDataValue\"},{\"name\":\"BaseResists\",\"values\":[15.0,20.0,25.0,30.0,35.0,40.0,45.0],\"__type\":\"SpellDataValue\"},{\"name\":\"Duration\",\"values\":[3.0,3.0,3.0,3.0,3.0,3.0,3.0],\"__type\":\"SpellDataValue\"},{\"name\":\"BonusDashSpeed\",\"values\":[750.0,750.0,750.0,750.0,750.0,750.0,750.0],\"__type\":\"SpellDataValue\"}],\"mSpellCalculations\":{\"GrantedAllyArmor\":{\"mFormulaParts\":[{\"mDataValue\":\"BaseResists\",\"__type\":\"NamedDataValueCalculationPart\"},{\"mStat\":1,\"mStatFormula\":2,\"mDataValue\":\"AllyArmorPercent\",\"__type\":\"StatByNamedDataValueCalculationPart\"}],\"__type\":\"GameCalculation\"},\"GrantedAllyMR\":{\"mFormulaParts\":[{\"mDataValue\":\"BaseResists\",\"__type\":\"NamedDataValueCalculationPart\"},{\"mStat\":6,\"mStatFormula\":2,\"mDataValue\":\"AllyArmorPercent\",\"__type\":\"StatByNamedDataValueCalculationPart\"}],\"__type\":\"GameCalculation\"},\"GrantedBraumArmor\":{\"mFormulaParts\":[{\"mDataValue\":\"BaseResists\",\"__type\":\"NamedDataValueCalculationPart\"},{\"mStat\":1,\"mStatFormula\":2,\"mDataValue\":\"BraumArmorPercent\",\"__type\":\"StatByNamedDataValueCalculationPart\"}],\"__type\":\"GameCalculation\"},\"GrantedBraumMR\":{\"mFormulaParts\":[{\"mDataValue\":\"BaseResists\",\"__type\":\"NamedDataValueCalculationPart\"},{\"mStat\":6,\"mStatFormula\":2,\"mDataValue\":\"BraumArmorPercent\",\"__type\":\"StatByNamedDataValueCalculationPart\"}],\"__type\":\"GameCalculation\"}},\"mEffectAmount\":[{\"value\":[3.0,3.0,3.0,3.0,3.0,3.0,3.0],\"__type\":\"SpellEffectAmount\"},{\"value\":[750.0,750.0,750.0,750.0,750.0,750.0,750.0],\"__type\":\"SpellEffectAmount\"},{\"__type\":\"SpellEffectAmount\"},{\"__type\":\"SpellEffectAmount\"},{\"__type\":\"SpellEffectAmount\"},{\"value\":[40.0,40.0,40.0,40.0,40.0,40.0,40.0],\"__type\":\"SpellEffectAmount\"},{\"__type\":\"SpellEffectAmount\"},{\"__type\":\"SpellEffectAmount\"},{\"__type\":\"SpellEffectAmount\"},{\"__type\":\"SpellEffectAmount\"}],\"castRange\":[650.0,650.0,650.0,650.0,650.0,650.0,650.0],\"missileSpeed\":1500.0}}"
         ]

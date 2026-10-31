@@ -209,8 +209,8 @@
     ],
     "gameSources": [
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/rell/rell.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/rell/rell.bin.json",
         "sha256": "3c0e33f17ac0b58b88558a3f39ed98e598f746319718a396553deec399a66baa",
         "object": "Characters/Rell/Spells/RellEAbility/RellE",
         "text": [
@@ -337,8 +337,8 @@
     ],
     "gameSources": [
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/rell/rell.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/rell/rell.bin.json",
         "sha256": "3c0e33f17ac0b58b88558a3f39ed98e598f746319718a396553deec399a66baa",
         "object": "Characters/Rell/Spells/RellPAbility/RellP",
         "text": [
@@ -567,8 +567,8 @@
     ],
     "gameSources": [
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/rell/rell.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/rell/rell.bin.json",
         "sha256": "3c0e33f17ac0b58b88558a3f39ed98e598f746319718a396553deec399a66baa",
         "object": "Characters/Rell/Spells/RellQAbility/RellQ",
         "text": [
@@ -789,8 +789,8 @@
     ],
     "gameSources": [
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/rell/rell.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/rell/rell.bin.json",
         "sha256": "3c0e33f17ac0b58b88558a3f39ed98e598f746319718a396553deec399a66baa",
         "object": "Characters/Rell/Spells/RellRAbility/RellR",
         "text": [
@@ -1067,8 +1067,8 @@
     ],
     "gameSources": [
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/rell/rell.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/rell/rell.bin.json",
         "sha256": "3c0e33f17ac0b58b88558a3f39ed98e598f746319718a396553deec399a66baa",
         "object": "Characters/Rell/Spells/RellW_DismountAbility/RellW_Dismount",
         "text": [
@@ -1236,8 +1236,8 @@
     ],
     "gameSources": [
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/rell/rell.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/rell/rell.bin.json",
         "sha256": "3c0e33f17ac0b58b88558a3f39ed98e598f746319718a396553deec399a66baa",
         "object": "Characters/Rell/Spells/RellW_DismountAbility/RellW_MountUp",
         "text": [
@@ -1245,8 +1245,8 @@
         ]
       },
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/rell/rell.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/rell/rell.bin.json",
         "sha256": "3c0e33f17ac0b58b88558a3f39ed98e598f746319718a396553deec399a66baa",
         "object": "Characters/Rell/Spells/RellW_DismountAbility/RellWEmpoweredAttack",
         "text": [

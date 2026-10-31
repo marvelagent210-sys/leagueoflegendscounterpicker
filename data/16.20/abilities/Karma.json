@@ -174,8 +174,8 @@
     ],
     "gameSources": [
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/karma/karma.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/karma/karma.bin.json",
         "sha256": "fc02295c7e5d8b417c6266806f0e729ebe799167bf8f836d03ccc6129ff35256",
         "object": "Characters/Karma/Spells/KarmaSolKimShieldAbility/KarmaSolKimShield",
         "text": [
@@ -183,8 +183,8 @@
         ]
       },
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/karma/karma.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/karma/karma.bin.json",
         "sha256": "fc02295c7e5d8b417c6266806f0e729ebe799167bf8f836d03ccc6129ff35256",
         "object": "Characters/Karma/Spells/KarmaSolKimShieldAbility/ScarmaAwesomeWaveSpeed",
         "text": [
@@ -192,8 +192,8 @@
         ]
       },
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/karma/karma.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/karma/karma.bin.json",
         "sha256": "fc02295c7e5d8b417c6266806f0e729ebe799167bf8f836d03ccc6129ff35256",
         "object": "Characters/Karma/Spells/KarmaSolKimShieldAbility/KarmaSolKimShieldLocket",
         "text": [
@@ -201,8 +201,8 @@
         ]
       },
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/karma/karma.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/karma/karma.bin.json",
         "sha256": "fc02295c7e5d8b417c6266806f0e729ebe799167bf8f836d03ccc6129ff35256",
         "object": "Characters/Karma/Spells/KarmaMantraAbility/KarmaMantra",
         "text": [
@@ -348,8 +348,8 @@
     ],
     "gameSources": [
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/karma/karma.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/karma/karma.bin.json",
         "sha256": "fc02295c7e5d8b417c6266806f0e729ebe799167bf8f836d03ccc6129ff35256",
         "object": "Characters/Karma/Spells/KarmaSolKimShieldAbility/KarmaSolKimShield",
         "text": [
@@ -357,8 +357,8 @@
         ]
       },
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/karma/karma.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/karma/karma.bin.json",
         "sha256": "fc02295c7e5d8b417c6266806f0e729ebe799167bf8f836d03ccc6129ff35256",
         "object": "Characters/Karma/Spells/KarmaSolKimShieldAbility/ScarmaAwesomeWaveSpeed",
         "text": [
@@ -366,8 +366,8 @@
         ]
       },
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/karma/karma.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/karma/karma.bin.json",
         "sha256": "fc02295c7e5d8b417c6266806f0e729ebe799167bf8f836d03ccc6129ff35256",
         "object": "Characters/Karma/Spells/KarmaSolKimShieldAbility/KarmaSolKimShieldLocket",
         "text": [
@@ -423,8 +423,8 @@
     ],
     "gameSources": [
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/karma/karma.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/karma/karma.bin.json",
         "sha256": "fc02295c7e5d8b417c6266806f0e729ebe799167bf8f836d03ccc6129ff35256",
         "object": "Characters/Karma/Spells/KarmaPassiveAbility/KarmaPassive",
         "text": [
@@ -627,8 +627,8 @@
     ],
     "gameSources": [
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/karma/karma.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/karma/karma.bin.json",
         "sha256": "fc02295c7e5d8b417c6266806f0e729ebe799167bf8f836d03ccc6129ff35256",
         "object": "Characters/Karma/Spells/KarmaQAbility/KarmaQMissile",
         "text": [
@@ -636,8 +636,8 @@
         ]
       },
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/karma/karma.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/karma/karma.bin.json",
         "sha256": "fc02295c7e5d8b417c6266806f0e729ebe799167bf8f836d03ccc6129ff35256",
         "object": "Characters/Karma/Spells/KarmaQAbility/KarmaQMissileMantraSlow",
         "text": [
@@ -645,8 +645,8 @@
         ]
       },
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/karma/karma.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/karma/karma.bin.json",
         "sha256": "fc02295c7e5d8b417c6266806f0e729ebe799167bf8f836d03ccc6129ff35256",
         "object": "Characters/Karma/Spells/KarmaQAbility/KarmaQMissileMantra",
         "text": [
@@ -654,8 +654,8 @@
         ]
       },
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/karma/karma.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/karma/karma.bin.json",
         "sha256": "fc02295c7e5d8b417c6266806f0e729ebe799167bf8f836d03ccc6129ff35256",
         "object": "Characters/Karma/Spells/KarmaQAbility/KarmaQ",
         "text": [
@@ -663,8 +663,8 @@
         ]
       },
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/karma/karma.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/karma/karma.bin.json",
         "sha256": "fc02295c7e5d8b417c6266806f0e729ebe799167bf8f836d03ccc6129ff35256",
         "object": "Characters/Karma/Spells/KarmaQAbility/KarmaQMissileSlow",
         "text": [
@@ -935,8 +935,8 @@
     ],
     "gameSources": [
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/karma/karma.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/karma/karma.bin.json",
         "sha256": "fc02295c7e5d8b417c6266806f0e729ebe799167bf8f836d03ccc6129ff35256",
         "object": "Characters/Karma/Spells/KarmaQAbility/KarmaQMissile",
         "text": [
@@ -944,8 +944,8 @@
         ]
       },
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/karma/karma.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/karma/karma.bin.json",
         "sha256": "fc02295c7e5d8b417c6266806f0e729ebe799167bf8f836d03ccc6129ff35256",
         "object": "Characters/Karma/Spells/KarmaQAbility/KarmaQMissileMantraSlow",
         "text": [
@@ -953,8 +953,8 @@
         ]
       },
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/karma/karma.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/karma/karma.bin.json",
         "sha256": "fc02295c7e5d8b417c6266806f0e729ebe799167bf8f836d03ccc6129ff35256",
         "object": "Characters/Karma/Spells/KarmaQAbility/KarmaQMissileMantra",
         "text": [
@@ -962,8 +962,8 @@
         ]
       },
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/karma/karma.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/karma/karma.bin.json",
         "sha256": "fc02295c7e5d8b417c6266806f0e729ebe799167bf8f836d03ccc6129ff35256",
         "object": "Characters/Karma/Spells/KarmaQAbility/KarmaQ",
         "text": [
@@ -971,8 +971,8 @@
         ]
       },
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/karma/karma.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/karma/karma.bin.json",
         "sha256": "fc02295c7e5d8b417c6266806f0e729ebe799167bf8f836d03ccc6129ff35256",
         "object": "Characters/Karma/Spells/KarmaQAbility/KarmaQMissileSlow",
         "text": [
@@ -980,8 +980,8 @@
         ]
       },
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/karma/karma.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/karma/karma.bin.json",
         "sha256": "fc02295c7e5d8b417c6266806f0e729ebe799167bf8f836d03ccc6129ff35256",
         "object": "Characters/Karma/Spells/KarmaMantraAbility/KarmaMantra",
         "text": [
@@ -1063,8 +1063,8 @@
     ],
     "gameSources": [
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/karma/karma.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/karma/karma.bin.json",
         "sha256": "fc02295c7e5d8b417c6266806f0e729ebe799167bf8f836d03ccc6129ff35256",
         "object": "Characters/Karma/Spells/KarmaMantraAbility/KarmaMantra",
         "text": [
@@ -1326,8 +1326,8 @@
     ],
     "gameSources": [
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/karma/karma.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/karma/karma.bin.json",
         "sha256": "fc02295c7e5d8b417c6266806f0e729ebe799167bf8f836d03ccc6129ff35256",
         "object": "Characters/Karma/Spells/KarmaSpiritBindAbility/KarmaWBeamMantra",
         "text": [
@@ -1335,8 +1335,8 @@
         ]
       },
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/karma/karma.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/karma/karma.bin.json",
         "sha256": "fc02295c7e5d8b417c6266806f0e729ebe799167bf8f836d03ccc6129ff35256",
         "object": "Characters/Karma/Spells/KarmaSpiritBindAbility/KarmaSpiritBind",
         "text": [
@@ -1344,8 +1344,8 @@
         ]
       },
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/karma/karma.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/karma/karma.bin.json",
         "sha256": "fc02295c7e5d8b417c6266806f0e729ebe799167bf8f836d03ccc6129ff35256",
         "object": "Characters/Karma/Spells/KarmaSpiritBindAbility/KarmaSpiritBindRoot",
         "text": [
@@ -1353,8 +1353,8 @@
         ]
       },
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/karma/karma.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/karma/karma.bin.json",
         "sha256": "fc02295c7e5d8b417c6266806f0e729ebe799167bf8f836d03ccc6129ff35256",
         "object": "Characters/Karma/Spells/KarmaSpiritBindAbility/KarmaWBeam",
         "text": [
@@ -1500,8 +1500,8 @@
     ],
     "gameSources": [
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/karma/karma.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/karma/karma.bin.json",
         "sha256": "fc02295c7e5d8b417c6266806f0e729ebe799167bf8f836d03ccc6129ff35256",
         "object": "Characters/Karma/Spells/KarmaSpiritBindAbility/KarmaWBeamMantra",
         "text": [
@@ -1509,8 +1509,8 @@
         ]
       },
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/karma/karma.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/karma/karma.bin.json",
         "sha256": "fc02295c7e5d8b417c6266806f0e729ebe799167bf8f836d03ccc6129ff35256",
         "object": "Characters/Karma/Spells/KarmaSpiritBindAbility/KarmaSpiritBind",
         "text": [
@@ -1518,8 +1518,8 @@
         ]
       },
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/karma/karma.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/karma/karma.bin.json",
         "sha256": "fc02295c7e5d8b417c6266806f0e729ebe799167bf8f836d03ccc6129ff35256",
         "object": "Characters/Karma/Spells/KarmaSpiritBindAbility/KarmaSpiritBindRoot",
         "text": [
@@ -1527,8 +1527,8 @@
         ]
       },
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/karma/karma.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/karma/karma.bin.json",
         "sha256": "fc02295c7e5d8b417c6266806f0e729ebe799167bf8f836d03ccc6129ff35256",
         "object": "Characters/Karma/Spells/KarmaSpiritBindAbility/KarmaWBeam",
         "text": [
@@ -1536,8 +1536,8 @@
         ]
       },
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/karma/karma.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/karma/karma.bin.json",
         "sha256": "fc02295c7e5d8b417c6266806f0e729ebe799167bf8f836d03ccc6129ff35256",
         "object": "Characters/Karma/Spells/KarmaMantraAbility/KarmaMantra",
         "text": [

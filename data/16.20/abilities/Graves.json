@@ -222,7 +222,7 @@
         ]
       },
       "range": {
-        "text": "625 \u2022 565",
+        "text": "625 • 565",
         "values": [
           {
             "series": {
@@ -253,7 +253,7 @@
         ]
       },
       "speed": {
-        "text": "3800 \u2022 3000 \u2022 3400",
+        "text": "3800 • 3000 • 3400",
         "values": [
           {
             "series": {
@@ -279,7 +279,7 @@
         ]
       },
       "angle": {
-        "text": "24\u00b0 \u2022 30\u00b0",
+        "text": "24° • 30°",
         "values": [
           {
             "series": {
@@ -345,7 +345,7 @@
       },
       {
         "label": "Innate - 12-Gauge",
-        "text": "Innate - 12-Gauge: Graves basic attack sprays 4 pellets in a cone, each colliding with the first enemy unit in their path, dealing 70.0002 \u2013 100.005 (based on level)% AD physical damage plus 23.3115 \u2013 33.3037 (based on level)% AD additional physical damage for each subsequent pellet hitting the same target, up to 139.935 \u2013 199.916 (based on level)% AD total physical damage against a single target. Pellets deal 25% reduced damage against structures.",
+        "text": "Innate - 12-Gauge: Graves basic attack sprays 4 pellets in a cone, each colliding with the first enemy unit in their path, dealing 70.0002 – 100.005 (based on level)% AD physical damage plus 23.3115 – 33.3037 (based on level)% AD additional physical damage for each subsequent pellet hitting the same target, up to 139.935 – 199.916 (based on level)% AD total physical damage against a single target. Pellets deal 25% reduced damage against structures.",
         "leveling": [],
         "mechanics": [],
         "values": [
@@ -376,7 +376,7 @@
               ],
               "past18": "wiki"
             },
-            "context": "Innate - 12-Gauge: Graves basic attack sprays 4 pellets in a cone, each colliding with the first enemy unit in their path, dealing 70.0002 \u2013 100.005 (based on level)% AD physical damage plus 23.3115 \u2013 33.3037 (based on level)% AD additional physical damage for each subsequent pellet hitting the same target, up to 139.935 \u2013 199.916 (based on level)% AD total physical damage against a single target."
+            "context": "Innate - 12-Gauge: Graves basic attack sprays 4 pellets in a cone, each colliding with the first enemy unit in their path, dealing 70.0002 – 100.005 (based on level)% AD physical damage plus 23.3115 – 33.3037 (based on level)% AD additional physical damage for each subsequent pellet hitting the same target, up to 139.935 – 199.916 (based on level)% AD total physical damage against a single target."
           },
           {
             "series": {
@@ -405,7 +405,7 @@
               ],
               "past18": "wiki"
             },
-            "context": "Innate - 12-Gauge: Graves basic attack sprays 4 pellets in a cone, each colliding with the first enemy unit in their path, dealing 70.0002 \u2013 100.005 (based on level)% AD physical damage plus 23.3115 \u2013 33.3037 (based on level)% AD additional physical damage for each subsequent pellet hitting the same target, up to 139.935 \u2013 199.916 (based on level)% AD total physical damage against a single target."
+            "context": "Innate - 12-Gauge: Graves basic attack sprays 4 pellets in a cone, each colliding with the first enemy unit in their path, dealing 70.0002 – 100.005 (based on level)% AD physical damage plus 23.3115 – 33.3037 (based on level)% AD additional physical damage for each subsequent pellet hitting the same target, up to 139.935 – 199.916 (based on level)% AD total physical damage against a single target."
           },
           {
             "series": {
@@ -434,7 +434,7 @@
               ],
               "past18": "wiki"
             },
-            "context": "Innate - 12-Gauge: Graves basic attack sprays 4 pellets in a cone, each colliding with the first enemy unit in their path, dealing 70.0002 \u2013 100.005 (based on level)% AD physical damage plus 23.3115 \u2013 33.3037 (based on level)% AD additional physical damage for each subsequent pellet hitting the same target, up to 139.935 \u2013 199.916 (based on level)% AD total physical damage against a single target."
+            "context": "Innate - 12-Gauge: Graves basic attack sprays 4 pellets in a cone, each colliding with the first enemy unit in their path, dealing 70.0002 – 100.005 (based on level)% AD physical damage plus 23.3115 – 33.3037 (based on level)% AD additional physical damage for each subsequent pellet hitting the same target, up to 139.935 – 199.916 (based on level)% AD total physical damage against a single target."
           }
         ]
       },
@@ -506,11 +506,11 @@
     ],
     "custom": [],
     "notes": [
-      "Graves takes 2.08 seconds to reload 2 shells (when the clip is empty) and 1.3 seconds to reload 1 shell. He must idle with 1 shell for 2.08 seconds before he starts reloading. These values can be improved with bonus attack speed.\n  - Values of bonus attack speed between 150% and 200% have a negative effect on Graves' reload speed.\n  - Attack speed growth will always have a positive effect on Graves' reload speed and is not counted toward the 150% and 200% attack speed thresholds. For example, Graves gains 58.995% bonus attack speed from attack speed growth at level 20; meaning the thresholds at level 20 are at 208.995% and 258.995% respectively.\n  - Maximum reload speed is 0.65114 \u2013 0.89119 (based on level), which equates to a reload timer of 1.5357680376 \u2013 1.12209517611 (based on level) seconds, which is the shortest reload time at the 150% threshold.\n    - Precise formula is unknown, but it is confirmed to be confusing. [https://www.youtube.com/watch?v=WXmXsCdqAyw&t=520s]",
+      "Graves takes 2.08 seconds to reload 2 shells (when the clip is empty) and 1.3 seconds to reload 1 shell. He must idle with 1 shell for 2.08 seconds before he starts reloading. These values can be improved with bonus attack speed.\n  - Values of bonus attack speed between 150% and 200% have a negative effect on Graves' reload speed.\n  - Attack speed growth will always have a positive effect on Graves' reload speed and is not counted toward the 150% and 200% attack speed thresholds. For example, Graves gains 58.995% bonus attack speed from attack speed growth at level 20; meaning the thresholds at level 20 are at 208.995% and 258.995% respectively.\n  - Maximum reload speed is 0.65114 – 0.89119 (based on level), which equates to a reload timer of 1.5357680376 – 1.12209517611 (based on level) seconds, which is the shortest reload time at the 150% threshold.\n    - Precise formula is unknown, but it is confirmed to be confusing. [https://www.youtube.com/watch?v=WXmXsCdqAyw&t=520s]",
       "The in-game HUD for the champion's stat panel incorrectly displays Graves \"reload speed\" for reloading 2 shells as his attack speed, instead of displaying his actual attack speed which behaves normally like any other champion. This displayed value more accurately represents his reloads per second, and not attacks per second as the attack speed tooltip in the HUD would suggest.",
       "Graves can hit multiple individual enemies with a single shot from his basic attack. The first pellet hitting an enemy:\n  - Deals the highest damage out of all other pellets.\n  - Applies and triggers on-hit effects.\n    - \"Single-use\" on-hit effects such as Spellblade items will be applied to the very first enemy hit by a pellet (closest one in this case).\n  - Applies basic damage, while all additional pellets deal default damage.\n  - Is reduced by Warden's Mail Rock Solid.",
       "Graves attack windup is based on such a low value that it will always take only 1 game tick, even at the lowest possible attack speed of 0.2.",
-      "When Graves has his attack range increased by 35% to 573.75 via Rapid Firecannon Sharpshooter, it has special effects on the cone spread of his basic attack:\n  - The reach of the individual missiles is also increased by 35% to 843.75 / 783.75.\n  - The spread of the individual missiles is decreased by 35% (angle \u00d7 1/1.35) to 17.7\u00b0 / 22.2\u00b0.",
+      "When Graves has his attack range increased by 35% to 573.75 via Rapid Firecannon Sharpshooter, it has special effects on the cone spread of his basic attack:\n  - The reach of the individual missiles is also increased by 35% to 843.75 / 783.75.\n  - The spread of the individual missiles is decreased by 35% (angle × 1/1.35) to 17.7° / 22.2°.",
       "Pellets will not hit wards nor jungle plants.\n  - When Graves performs a basic attack against these units, he will fire a standard ranged homing missile at the target to successfully hit it.\n    - This same missile is also used for when his basic attack is empowered by an Energized effect.",
       "Pellets can be dodged and blocked, but not missed while Graves is blinded.\n  - While Graves is blinded, the pellets are special cased to fire in a random direction that is always away from the primary target of his basic attack.\n    - Enemies within range of the pellets in their randomly fired direction will be hit as the pellets cannot be missed.",
       "Basic attack resets other than Quickdraw do not affect Graves basic attack timer.",
@@ -597,7 +597,7 @@
         ]
       },
       "range": {
-        "text": "800 \u2022 900",
+        "text": "800 • 900",
         "values": [
           {
             "series": {
@@ -616,7 +616,7 @@
         ]
       },
       "width": {
-        "text": "80 \u2022 500 \u2022 200",
+        "text": "80 • 500 • 200",
         "values": [
           {
             "series": {
@@ -858,7 +858,7 @@
         ]
       },
       "range": {
-        "text": "1100 \u2022 1690",
+        "text": "1100 • 1690",
         "values": [
           {
             "series": {
@@ -913,7 +913,7 @@
         ]
       },
       "angle": {
-        "text": "60\u00b0",
+        "text": "60°",
         "values": [
           {
             "series": {

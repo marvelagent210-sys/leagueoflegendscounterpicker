@@ -1192,8 +1192,10 @@ export function progressChannel(world: World, unit: Unit): void {
   const onPets = (effects: Effect[]) => {
     if (channel.range !== undefined) areaOnPets(world, unit, unit.x - channel.range, unit.x + channel.range, effects);
   };
+  // Pulses that spell shields let through (Apotheosis) hit as an ability without the flag.
+  const pulse = channel.pulsesPassSpellShields ? { ...ability, flags: { ...ability.flags, spellShield: false } } : ability;
   while (world.tick >= action.nextTick && world.tick <= action.endTick) {
-    if (inRange && channel.onTick) abilityHit(world, unit, enemy, ability, channel.onTick);
+    if (inRange && channel.onTick) abilityHit(world, unit, enemy, pulse, channel.onTick);
     if (channel.onTick) onPets(channel.onTick);
     if (action.pulseCount) {
       action.pulsesDone = (action.pulsesDone ?? 0) + 1;

@@ -240,8 +240,8 @@
     ],
     "gameSources": [
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/nami/nami.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/nami/nami.bin.json",
         "sha256": "36b992b52743459aa62347905627145c9fb791003b55e17c838ca565ad42197c",
         "object": "Characters/Nami/Spells/NamiEAbility/NamiESlowtt",
         "text": [
@@ -249,8 +249,8 @@
         ]
       },
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/nami/nami.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/nami/nami.bin.json",
         "sha256": "36b992b52743459aa62347905627145c9fb791003b55e17c838ca565ad42197c",
         "object": "Characters/Nami/Spells/NamiEAbility/NamiE",
         "text": [
@@ -258,8 +258,8 @@
         ]
       },
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/nami/nami.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/nami/nami.bin.json",
         "sha256": "36b992b52743459aa62347905627145c9fb791003b55e17c838ca565ad42197c",
         "object": "Characters/Nami/Spells/NamiEAbility/NamiEtt",
         "text": [
@@ -314,8 +314,8 @@
     ],
     "gameSources": [
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/nami/nami.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/nami/nami.bin.json",
         "sha256": "36b992b52743459aa62347905627145c9fb791003b55e17c838ca565ad42197c",
         "object": "Characters/Nami/Spells/NamiPassiveAbility/NamiPassive",
         "text": [
@@ -323,8 +323,8 @@
         ]
       },
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/nami/nami.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/nami/nami.bin.json",
         "sha256": "36b992b52743459aa62347905627145c9fb791003b55e17c838ca565ad42197c",
         "object": "Characters/Nami/Spells/NamiPassiveAbility/NamiPassivett",
         "text": [
@@ -508,8 +508,8 @@
     ],
     "gameSources": [
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/nami/nami.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/nami/nami.bin.json",
         "sha256": "36b992b52743459aa62347905627145c9fb791003b55e17c838ca565ad42197c",
         "object": "Characters/Nami/Spells/NamiQAbility/NamiQDummyMissile",
         "text": [
@@ -517,8 +517,8 @@
         ]
       },
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/nami/nami.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/nami/nami.bin.json",
         "sha256": "36b992b52743459aa62347905627145c9fb791003b55e17c838ca565ad42197c",
         "object": "Characters/Nami/Spells/NamiQAbility/NamiQDebuff",
         "text": [
@@ -526,8 +526,8 @@
         ]
       },
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/nami/nami.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/nami/nami.bin.json",
         "sha256": "36b992b52743459aa62347905627145c9fb791003b55e17c838ca565ad42197c",
         "object": "Characters/Nami/Spells/NamiQAbility/NamiQ",
         "text": [
@@ -535,8 +535,8 @@
         ]
       },
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/nami/nami.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/nami/nami.bin.json",
         "sha256": "36b992b52743459aa62347905627145c9fb791003b55e17c838ca565ad42197c",
         "object": "Characters/Nami/Spells/NamiQAbility/NamiQMissile",
         "text": [
@@ -544,8 +544,8 @@
         ]
       },
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/nami/nami.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/nami/nami.bin.json",
         "sha256": "36b992b52743459aa62347905627145c9fb791003b55e17c838ca565ad42197c",
         "object": "Characters/Nami/Spells/NamiQAbility/NamiQtt",
         "text": [
@@ -821,8 +821,8 @@
     ],
     "gameSources": [
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/nami/nami.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/nami/nami.bin.json",
         "sha256": "36b992b52743459aa62347905627145c9fb791003b55e17c838ca565ad42197c",
         "object": "Characters/Nami/Spells/NamiRAbility/NamiRtt",
         "text": [
@@ -830,8 +830,8 @@
         ]
       },
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/nami/nami.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/nami/nami.bin.json",
         "sha256": "36b992b52743459aa62347905627145c9fb791003b55e17c838ca565ad42197c",
         "object": "Characters/Nami/Spells/NamiRAbility/NamiR",
         "text": [
@@ -839,8 +839,8 @@
         ]
       },
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/nami/nami.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/nami/nami.bin.json",
         "sha256": "36b992b52743459aa62347905627145c9fb791003b55e17c838ca565ad42197c",
         "object": "Characters/Nami/Spells/NamiRAbility/NamiRVision",
         "text": [
@@ -848,8 +848,8 @@
         ]
       },
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/nami/nami.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/nami/nami.bin.json",
         "sha256": "36b992b52743459aa62347905627145c9fb791003b55e17c838ca565ad42197c",
         "object": "Characters/Nami/Spells/NamiRAbility/NamiRPassive",
         "text": [
@@ -857,8 +857,8 @@
         ]
       },
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/nami/nami.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/nami/nami.bin.json",
         "sha256": "36b992b52743459aa62347905627145c9fb791003b55e17c838ca565ad42197c",
         "object": "Characters/Nami/Spells/NamiRAbility/NamiRMissile",
         "text": [
@@ -1126,8 +1126,8 @@
     ],
     "gameSources": [
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/nami/nami.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/nami/nami.bin.json",
         "sha256": "36b992b52743459aa62347905627145c9fb791003b55e17c838ca565ad42197c",
         "object": "Characters/Nami/Spells/NamiWAbility/NamiWMissileEnemy",
         "text": [
@@ -1135,8 +1135,8 @@
         ]
       },
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/nami/nami.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/nami/nami.bin.json",
         "sha256": "36b992b52743459aa62347905627145c9fb791003b55e17c838ca565ad42197c",
         "object": "Characters/Nami/Spells/NamiWAbility/NamiWMissileAlly",
         "text": [
@@ -1144,8 +1144,8 @@
         ]
       },
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/nami/nami.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/nami/nami.bin.json",
         "sha256": "36b992b52743459aa62347905627145c9fb791003b55e17c838ca565ad42197c",
         "object": "Characters/Nami/Spells/NamiWAbility/NamiWEnemy",
         "text": [
@@ -1153,8 +1153,8 @@
         ]
       },
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/nami/nami.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/nami/nami.bin.json",
         "sha256": "36b992b52743459aa62347905627145c9fb791003b55e17c838ca565ad42197c",
         "object": "Characters/Nami/Spells/NamiWAbility/NamiWAlly",
         "text": [
@@ -1162,8 +1162,8 @@
         ]
       },
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/nami/nami.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/nami/nami.bin.json",
         "sha256": "36b992b52743459aa62347905627145c9fb791003b55e17c838ca565ad42197c",
         "object": "Characters/Nami/Spells/NamiWAbility/NamiW",
         "text": [

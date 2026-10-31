@@ -218,8 +218,8 @@
     ],
     "gameSources": [
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/khazix/khazix.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/khazix/khazix.bin.json",
         "sha256": "a245ce53e1b2e489ba9b359b3e6be299f28aeade045b9e1914a013cceb2de931",
         "object": "Characters/Khazix/Spells/KhazixEAbility/KhazixE",
         "text": [
@@ -333,8 +333,8 @@
     ],
     "gameSources": [
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/khazix/khazix.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/khazix/khazix.bin.json",
         "sha256": "a245ce53e1b2e489ba9b359b3e6be299f28aeade045b9e1914a013cceb2de931",
         "object": "Characters/Khazix/Spells/KhazixPassiveAbility/KhazixPassive",
         "text": [
@@ -578,8 +578,8 @@
     ],
     "gameSources": [
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/khazix/khazix.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/khazix/khazix.bin.json",
         "sha256": "a245ce53e1b2e489ba9b359b3e6be299f28aeade045b9e1914a013cceb2de931",
         "object": "Characters/Khazix/Spells/KhazixQAbility/KhazixQ",
         "text": [
@@ -781,8 +781,8 @@
     ],
     "gameSources": [
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/khazix/khazix.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/khazix/khazix.bin.json",
         "sha256": "a245ce53e1b2e489ba9b359b3e6be299f28aeade045b9e1914a013cceb2de931",
         "object": "Characters/Khazix/Spells/KhazixRAbility/KhazixR",
         "text": [
@@ -890,8 +890,8 @@
     ],
     "gameSources": [
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/khazix/khazix.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/khazix/khazix.bin.json",
         "sha256": "a245ce53e1b2e489ba9b359b3e6be299f28aeade045b9e1914a013cceb2de931",
         "object": "Characters/Khazix/Spells/KhazixWAbility/KhazixWLong",
         "text": [
@@ -1108,8 +1108,8 @@
     ],
     "gameSources": [
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/khazix/khazix.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/khazix/khazix.bin.json",
         "sha256": "a245ce53e1b2e489ba9b359b3e6be299f28aeade045b9e1914a013cceb2de931",
         "object": "Characters/Khazix/Spells/KhazixWAbility/KhazixW",
         "text": [

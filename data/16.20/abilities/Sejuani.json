@@ -201,8 +201,8 @@
     ],
     "gameSources": [
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/sejuani/sejuani.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/sejuani/sejuani.bin.json",
         "sha256": "30ed12996a58c7e8e630bd80b6cc4332fdf3e2374875e47762eed04a1a9fc634",
         "object": "Characters/Sejuani/Spells/SejuaniEAbility/SejuaniE",
         "text": [
@@ -210,8 +210,8 @@
         ]
       },
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/sejuani/sejuani.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/sejuani/sejuani.bin.json",
         "sha256": "30ed12996a58c7e8e630bd80b6cc4332fdf3e2374875e47762eed04a1a9fc634",
         "object": "Characters/Sejuani/Spells/SejuaniEAbility/SejuaniE2",
         "text": [
@@ -335,8 +335,8 @@
     ],
     "gameSources": [
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/sejuani/sejuani.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/sejuani/sejuani.bin.json",
         "sha256": "30ed12996a58c7e8e630bd80b6cc4332fdf3e2374875e47762eed04a1a9fc634",
         "object": "Characters/Sejuani/Spells/SejuaniPassiveAbility/SejuaniPassive",
         "text": [
@@ -528,8 +528,8 @@
     ],
     "gameSources": [
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/sejuani/sejuani.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/sejuani/sejuani.bin.json",
         "sha256": "30ed12996a58c7e8e630bd80b6cc4332fdf3e2374875e47762eed04a1a9fc634",
         "object": "Characters/Sejuani/Spells/SejuaniQAbility/SejuaniQ",
         "text": [
@@ -840,8 +840,8 @@
     ],
     "gameSources": [
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/sejuani/sejuani.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/sejuani/sejuani.bin.json",
         "sha256": "30ed12996a58c7e8e630bd80b6cc4332fdf3e2374875e47762eed04a1a9fc634",
         "object": "Characters/Sejuani/Spells/SejuaniRAbility/SejuaniR",
         "text": [
@@ -849,8 +849,8 @@
         ]
       },
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/sejuani/sejuani.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/sejuani/sejuani.bin.json",
         "sha256": "30ed12996a58c7e8e630bd80b6cc4332fdf3e2374875e47762eed04a1a9fc634",
         "object": "Characters/Sejuani/Spells/SejuaniRAbility/SejuaniRMissile",
         "text": [
@@ -1128,8 +1128,8 @@
     ],
     "gameSources": [
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/sejuani/sejuani.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/sejuani/sejuani.bin.json",
         "sha256": "30ed12996a58c7e8e630bd80b6cc4332fdf3e2374875e47762eed04a1a9fc634",
         "object": "Characters/Sejuani/Spells/SejuaniWAbility/SejuaniW",
         "text": [
@@ -1137,8 +1137,8 @@
         ]
       },
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/sejuani/sejuani.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/sejuani/sejuani.bin.json",
         "sha256": "30ed12996a58c7e8e630bd80b6cc4332fdf3e2374875e47762eed04a1a9fc634",
         "object": "Characters/Sejuani/Spells/SejuaniWDummy",
         "text": [

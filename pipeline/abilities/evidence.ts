@@ -15,6 +15,7 @@
  */
 import { createHash } from "node:crypto";
 import type { AbilityRecord } from "../../engine/abilities";
+import { PRIVATE_ADDITIONS, PRIVATE_CORRECTIONS, PRIVATE_EXCERPTS } from "./evidencePrivate";
 
 export interface GameExcerpt {
   /** Data Dragon id of the champion whose ability record gets the excerpt. */
@@ -31,6 +32,8 @@ export interface GameExcerpt {
    */
   fields?: string[];
   exact?: boolean;
+  /** The whole object as written in the file, as one line without the whitespace between its tokens. */
+  whole?: boolean;
   /**
    * Lines written by hand instead, each checked against the file: "path: value" must have the
    * field's value; "path.label {…}" must match an object somewhere under path (its entries).
@@ -43,10 +46,19 @@ export interface WikiAddition {
   ability: string;
   /** A note the parser drops, as written into the record's notes. */
   note?: string;
+  /** A note that is the whole wikitext of a downloaded page, at the revision it was read from. */
+  pageNote?: { title: string; revid: number };
   /** Wikitext the ability's template must still contain for the note to stand. */
   anchor?: string;
-  /** Text from another wiki page (rendered by hand), with the revision it was read from. */
-  source?: { page: { title: string; revid: number }; text: string[] };
+  /**
+   * Text from another wiki page (rendered by hand), with the revision it was read from. Without
+   * `text`, the page's whole downloaded wikitext.
+   */
+  source?: { page: { title: string; revid: number }; text?: string[] };
+  /** Why `source` can't be checked against the downloads: the page isn't among them. */
+  unfetched?: string;
+  /** Added before the game excerpts, so the record lists its sources first (the private workspace's records do). */
+  early?: boolean;
 }
 
 export interface RecordCorrection {
@@ -136,6 +148,7 @@ export const GAME_EXCERPTS: GameExcerpt[] = [
   { champion: "Xayah", ability: "Clean Cuts", character: "Xayah", object: "Characters/Xayah/Spells/XayahBasicAttack", fields: ["mSpell.missileSpeed"], exact: true },
   { champion: "Xayah", ability: "Double Daggers", character: "Xayah", object: "Characters/Xayah/Spells/XayahQAbility/XayahQ", fields: ["mSpell.DataValues.Missile1DelayTime.values", "mSpell.DataValues.Missile2DelayTime.values", "mSpell.DataValues.Missile1DelaySpeed.values", "mSpell.DataValues.Missile2DelaySpeed.values"], exact: true },
   { champion: "Xayah", ability: "Featherstorm", character: "Xayah", object: "Characters/Xayah/Spells/XayahRAbility/XayahRMissile", fields: ["mSpell.missileSpeed", "mSpell.mMissileSpec.mMissileWidth"], exact: true },
+  ...PRIVATE_EXCERPTS,
 ];
 
 export const WIKI_ADDITIONS: WikiAddition[] = [
@@ -244,6 +257,7 @@ export const WIKI_ADDITIONS: WikiAddition[] = [
     note: "Curated source conflict: the exact pinned template metadata says damagetype = Magic, while its active text and Physical Damage leveling formula say physical damage. The damageType flag follows the explicit description and formula.",
     anchor: "|damagetype   = Magic",
   },
+  ...PRIVATE_ADDITIONS,
 ];
 
 export const RECORD_CORRECTIONS: RecordCorrection[] = [
@@ -290,6 +304,7 @@ export const RECORD_CORRECTIONS: RecordCorrection[] = [
     reason: "The template's damagetype says Magic; its description and Physical Damage leveling say physical damage (the record's note records the conflict).",
     anchor: "|damagetype   = Magic",
   },
+  ...PRIVATE_CORRECTIONS,
 ];
 
 /** The characters whose game files the excerpts read. */
@@ -299,14 +314,25 @@ export function excerptCharacters(): string[] {
 
 /** A field of a game object by its dotted path. */
 export function fieldAt(object: unknown, path: string): unknown {
+  const named = (list: unknown[], name: string) => list.find((entry) => typeof entry === "object" && entry !== null && (entry as { name?: unknown }).name === name);
   let node: unknown = object;
   for (const token of path.split(".")) {
-    const match = /^([^[\]]+)((?:\[\d+\])*)$/.exec(token);
+    // An array's item by position ("mFormulaParts.0").
+    if (Array.isArray(node) && /^\d+$/.test(token)) {
+      node = node[Number(token)];
+      if (node === undefined) throw new Error(`No game field "${path}"`);
+      continue;
+    }
+    const match = /^([^[\]]+)((?:\[[^\]]+\])*)$/.exec(token);
     if (!match?.[1]) throw new Error(`Bad game field path "${path}"`);
     const key = match[1];
-    if (Array.isArray(node)) node = node.find((entry) => typeof entry === "object" && entry !== null && (entry as { name?: unknown }).name === key);
+    if (Array.isArray(node)) node = named(node, key);
     else node = typeof node === "object" && node !== null ? (node as Record<string, unknown>)[key] : undefined;
-    for (const index of (match[2] ?? "").matchAll(/\[(\d+)\]/g)) node = Array.isArray(node) ? node[Number(index[1])] : undefined;
+    // [n] by position; [Name] by the entry's name ("DataValues[DashSpeed]").
+    for (const index of (match[2] ?? "").matchAll(/\[([^\]]+)\]/g)) {
+      const at = index[1]!;
+      node = !Array.isArray(node) ? undefined : /^\d+$/.test(at) ? node[Number(at)] : named(node, at);
+    }
     if (node === undefined) throw new Error(`No game field "${path}"`);
   }
   return node;
@@ -376,6 +402,36 @@ export function rawFieldAt(text: string, object: string, path: string): string {
   return text.slice(span.start, span.end);
 }
 
+/** A game object as written in the file, without the whitespace between its tokens. */
+export function rawObjectAt(text: string, object: string): string {
+  const span = members(text, skipSpace(text, 0)).find((member) => member.key === object);
+  if (!span) throw new Error(`No game object "${object}"`);
+  let out = "";
+  for (let i = span.start; i < span.end; i++) {
+    if (text[i] === '"') {
+      const end = valueEnd(text, i);
+      out += text.slice(i, end);
+      i = end - 1;
+    } else if (!/\s/.test(text[i]!)) out += text[i];
+  }
+  return out;
+}
+
+/** Whether `node` has everything `part` has, the same values at the same keys and the same arrays. */
+function covers(node: unknown, part: unknown): boolean {
+  if (Array.isArray(part)) return Array.isArray(node) && node.length === part.length && part.every((item, i) => covers(node[i], item));
+  if (typeof part === "object" && part !== null) {
+    return typeof node === "object" && node !== null && !Array.isArray(node) && Object.entries(part).every(([key, value]) => covers((node as Record<string, unknown>)[key], value));
+  }
+  return JSON.stringify(node) === JSON.stringify(part);
+}
+
+/** Whether `node`, or something under it, covers `part`. */
+function contains(node: unknown, part: unknown): boolean {
+  if (covers(node, part)) return true;
+  return typeof node === "object" && node !== null && Object.values(node).some((child) => contains(child, part));
+}
+
 /** Whether `node` is, or holds somewhere, an object with all of `entries`. */
 function holds(node: unknown, entries: Record<string, unknown>): boolean {
   if (Array.isArray(node)) return node.some((item) => holds(item, entries));
@@ -386,10 +442,16 @@ function holds(node: unknown, entries: Record<string, unknown>): boolean {
 
 /** A hand-written excerpt line must still say what the game object says. */
 function checkLine(object: unknown, line: string, where: string): void {
-  const colon = line.indexOf(": ");
+  // A line that is an object, or an object's member ("key": value): the game object, or part of it.
+  if (line.startsWith("{") || line.startsWith('"')) {
+    if (!contains(object, JSON.parse(line.startsWith("{") ? line : `{${line}}`))) throw new Error(`${where}: its excerpt object no longer matches the game file`);
+    return;
+  }
+  // "path: value", or "path:value".
+  const colon = line.indexOf(":");
   if (colon > 0 && !line.slice(0, colon).includes(" ")) {
     const path = line.slice(0, colon);
-    if (JSON.stringify(JSON.parse(line.slice(colon + 2))) !== JSON.stringify(fieldAt(object, path))) throw new Error(`${where}: ${path} no longer has the value its excerpt gives`);
+    if (JSON.stringify(JSON.parse(line.slice(colon + 1))) !== JSON.stringify(fieldAt(object, path))) throw new Error(`${where}: ${path} no longer has the value its excerpt gives`);
     return;
   }
   const space = line.indexOf(" ");
@@ -449,6 +511,27 @@ export function attachEvidence(records: AbilityRecord[], champion: string, input
     anchored(record, correction.anchor, "correction");
     correct(record, correction);
   }
+  const pinned = (page: { title: string; revid: number }, ability: string) => {
+    const fetched = input.revision(page.title);
+    if (fetched !== page.revid) throw new Error(`${page.title} is at revision ${fetched ?? "none (not fetched)"}, not ${page.revid}: check the curated text on ${ability} again`);
+  };
+  const wholePage = (title: string) => {
+    const text = input.wikitext(title);
+    if (text === undefined) throw new Error(`Curated evidence cites the whole of ${title}, which wasn't downloaded`);
+    return text;
+  };
+  const add = (addition: WikiAddition) => {
+    const record = recordFor(addition.ability);
+    anchored(record, addition.anchor, "note");
+    if (addition.source !== undefined && addition.unfetched === undefined) pinned(addition.source.page, addition.ability);
+    if (addition.pageNote !== undefined) {
+      pinned(addition.pageNote, addition.ability);
+      record.notes.push(wholePage(addition.pageNote.title));
+    }
+    if (addition.note !== undefined) record.notes.push(addition.note);
+    if (addition.source !== undefined) (record.sources ??= []).push({ page: addition.source.page, text: addition.source.text ?? [wholePage(addition.source.page.title)] });
+  };
+  for (const addition of additions.filter((a) => a.champion === champion && a.early)) add(addition);
   for (const excerpt of excerpts.filter((e) => e.champion === champion)) {
     const text = input.bin(excerpt.character);
     if (text === undefined) throw new Error(`Missing the game file of ${excerpt.character}; run npm run fetch`);
@@ -461,19 +544,9 @@ export function attachEvidence(records: AbilityRecord[], champion: string, input
       url: `https://raw.communitydragon.org/${input.dataset}/game/data/characters/${folder}/${folder}.bin.json`,
       sha256: createHash("sha256").update(text).digest("hex"),
       object: excerpt.object,
-      text: excerpt.lines ?? (excerpt.fields ?? []).map((field) => `${field}: ${excerpt.exact ? rawFieldAt(text, excerpt.object, field) : JSON.stringify(fieldAt(object, field))}`),
+      text: excerpt.whole ? [rawObjectAt(text, excerpt.object)] : excerpt.lines ?? (excerpt.fields ?? []).map((field) => `${field}: ${excerpt.exact ? rawFieldAt(text, excerpt.object, field) : JSON.stringify(fieldAt(object, field))}`),
     });
     for (const line of excerpt.lines ?? []) checkLine(object, line, `${excerpt.character}'s ${excerpt.object}`);
   }
-  for (const addition of additions.filter((a) => a.champion === champion)) {
-    const record = recordFor(addition.ability);
-    anchored(record, addition.anchor, "note");
-    if (addition.source !== undefined) {
-      const { title, revid } = addition.source.page;
-      const fetched = input.revision(title);
-      if (fetched !== revid) throw new Error(`${title} is at revision ${fetched ?? "none (not fetched)"}, not ${revid}: check the curated text on ${addition.ability} again`);
-    }
-    if (addition.note !== undefined) record.notes.push(addition.note);
-    if (addition.source !== undefined) (record.sources ??= []).push(addition.source);
-  }
+  for (const addition of additions.filter((a) => a.champion === champion && !a.early)) add(addition);
 }

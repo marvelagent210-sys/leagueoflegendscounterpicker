@@ -1,17 +1,23 @@
 import { readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
 import type { AbilityRecord } from "../engine/abilities";
-import { GAME_EXCERPTS, RECORD_CORRECTIONS, WIKI_ADDITIONS, attachEvidence, fieldAt, rawFieldAt, type GameExcerpt } from "../pipeline/abilities/evidence";
+import { GAME_EXCERPTS, RECORD_CORRECTIONS, WIKI_ADDITIONS, attachEvidence, fieldAt, rawFieldAt, rawObjectAt, type GameExcerpt } from "../pipeline/abilities/evidence";
 import { records } from "./kits/helpers";
 
 const gameVersion = (JSON.parse(readFileSync(new URL("../data/16.20/manifest.json", import.meta.url), "utf8")) as { cdragon: { version: string } }).cdragon.version;
 
 function expectGameExcerpt(excerpt: GameExcerpt, record: AbilityRecord | undefined): void {
   const where = `${excerpt.champion} ${excerpt.ability} ${excerpt.object}`;
-  const source = record?.gameSources?.find((g) => g.object === excerpt.object);
+  // A record can quote one object twice (Swain's Nevermove): the excerpt's own entry.
+  const sameObject = record?.gameSources?.filter((g) => g.object === excerpt.object) ?? [];
+  const source = sameObject.find((g) => (excerpt.lines ? JSON.stringify(g.text) === JSON.stringify(excerpt.lines) : excerpt.whole ? g.text.length === 1 && g.text[0]!.startsWith("{") : excerpt.fields!.every((field) => g.text.some((line) => line.startsWith(`${field}: `))))) ?? sameObject[0];
   expect(source, where).toBeDefined();
   if (excerpt.lines) expect(source!.text).toEqual(excerpt.lines);
-  else {
+  else if (excerpt.whole) {
+    // The whole object, as one line.
+    expect(source!.text, where).toHaveLength(1);
+    expect(typeof JSON.parse(source!.text[0]!), where).toBe("object");
+  } else {
     // A curated field is required once; later audits may retain more fields from
     // the same exact object. Their source order is not the catalog's field order.
     const projected = excerpt.fields!.map((field) => {
@@ -41,7 +47,13 @@ describe("curated ability evidence", () => {
     for (const addition of WIKI_ADDITIONS) {
       const record = records(addition.champion).find((r) => r.name === addition.ability)!;
       if (addition.note) expect(record.notes).toContain(addition.note);
-      if (addition.source) expect(record.sources).toContainEqual(addition.source);
+      if (addition.source?.text) expect(record.sources).toContainEqual(addition.source);
+      else if (addition.source) {
+        const { title, revid } = addition.source.page;
+        expect(record.sources?.some((source) => source.page.title === title && source.page.revid === revid), `${addition.champion} ${addition.ability} ${title}`).toBe(true);
+      }
+      // A whole-page note is the text of the page the record cites.
+      if (addition.pageNote) expect(record.notes).toContain(record.sources?.find((source) => source.page.title === addition.pageNote!.title)?.text[0]);
     }
   });
 
@@ -94,12 +106,21 @@ describe("curated ability evidence", () => {
       const record = records(addition.champion).find((r) => r.name === addition.ability)!;
       const fresh = (): AbilityRecord[] => [{ ...record, notes: [], sources: undefined }];
       const { title, revid } = addition.source!.page;
-      const input = (revision: number | undefined) => ({ bin: () => undefined, wikitext: () => undefined, revision: (t: string) => (t === title ? revision : undefined), version: "16.20.1", dataset: "16.20" });
+      const page = `the whole of ${title}`;
+      const input = (revision: number | undefined) => ({ bin: () => undefined, wikitext: (t: string) => (t === title ? page : undefined), revision: (t: string) => (t === title ? revision : undefined), version: "16.20.1", dataset: "16.20" });
+      if (addition.unfetched) {
+        // The downloads don't have the page: the curated text stands as written.
+        const kept = fresh();
+        attachEvidence(kept, addition.champion, input(undefined), [], [addition], []);
+        expect(kept[0]!.sources).toEqual([addition.source]);
+        continue;
+      }
       expect(() => attachEvidence(fresh(), addition.champion, input(revid + 1), [], [addition], [])).toThrow(/check the curated text/);
       expect(() => attachEvidence(fresh(), addition.champion, input(undefined), [], [addition], [])).toThrow(/not fetched/);
       const kept = fresh();
       attachEvidence(kept, addition.champion, input(revid), [], [addition], []);
-      expect(kept[0]!.sources).toEqual([addition.source]);
+      // Without text, the source is the page's whole downloaded wikitext.
+      expect(kept[0]!.sources).toEqual([{ page: addition.source!.page, text: addition.source!.text ?? [page] }]);
     }
   });
 
@@ -128,6 +149,45 @@ describe("curated ability evidence", () => {
     expect(kept[0]!.gameSources![0]!.text).toEqual(["mSpell.missileSpeed: 2250", 'mSpell.Calc.breakpoint {"mLevel":7,"bonus":0.5}']);
     expect(() => attachEvidence(synthetic(), "Xayah", binInput, lines(["mSpell.missileSpeed: 2300"]), [], [])).toThrow(/no longer has the value/);
     expect(() => attachEvidence(synthetic(), "Xayah", binInput, lines(['mSpell.Calc.breakpoint {"mLevel":8}']), [], [])).toThrow(/nothing under/);
+  });
+
+  it("writes a whole object as the file has it, and checks object and member lines by what the object contains", () => {
+    const whole = synthetic();
+    attachEvidence(whole, "Xayah", binInput, [{ champion: "Xayah", ability: "Test", character: "C", object: "Obj", whole: true }], [], []);
+    expect(whole[0]!.gameSources![0]!.text).toEqual(['{"mSpell":{"missileSpeed":2250.0,"DataValues":[{"name":"A","values":[1.0,2.5]}],"Calc":{"parts":[{"breakpoints":[{"mLevel":7,"bonus":0.5,"__type":"Breakpoint"}]}]}}}']);
+    expect(rawObjectAt('{"Obj": {"a": "x y", "b": [1.0, 2]}}', "Obj")).toBe('{"a":"x y","b":[1.0,2]}');
+    const lines = (text: string[]) => [{ champion: "Xayah", ability: "Test", character: "C", object: "Obj", lines: text }];
+    attachEvidence(synthetic(), "Xayah", binInput, lines(['{"mSpell":{"missileSpeed":2250.0}}', '"missileSpeed": 2250.0', '{"name":"A","values":[1.0,2.5]}']), [], []);
+    expect(() => attachEvidence(synthetic(), "Xayah", binInput, lines(['"missileSpeed": 1.5']), [], [])).toThrow(/no longer matches/);
+    expect(() => attachEvidence(synthetic(), "Xayah", binInput, lines(['{"name":"A","values":[1.0]}']), [], [])).toThrow(/no longer matches/);
+  });
+
+  it("reads paths written with a name in brackets, a position after a dot, or no space after the colon", () => {
+    const object = (JSON.parse(bin) as Record<string, unknown>).Obj;
+    expect(fieldAt(object, "mSpell.DataValues[A].values")).toEqual([1, 2.5]);
+    expect(fieldAt(object, "mSpell.DataValues[A].values.1")).toBe(2.5);
+    expect(() => fieldAt(object, "mSpell.DataValues[B].values")).toThrow(/No game field/);
+    attachEvidence(synthetic(), "Xayah", binInput, [{ champion: "Xayah", ability: "Test", character: "C", object: "Obj", lines: ["mSpell.missileSpeed:2250.0"] }], [], []);
+  });
+
+  it("adds a whole page as a note or a source, and lists sources first when asked", () => {
+    const page = { title: "Template:Data Xayah/Test", revid: 7 };
+    const input = { ...binInput, wikitext: (t: string) => (t === page.title ? "{{page}}" : undefined), revision: (t: string) => (t === page.title ? 7 : undefined) };
+    const excerpt = { champion: "Xayah", ability: "Test", character: "C", object: "Obj", fields: ["mSpell.missileSpeed"] };
+    // A record without either key yet, so the order is the one the evidence gives.
+    const bare = (): AbilityRecord[] => {
+      const { sources: _sources, gameSources: _gameSources, ...rest } = synthetic()[0]!;
+      return [rest as AbilityRecord];
+    };
+    const late = bare();
+    attachEvidence(late, "Xayah", input, [excerpt], [{ champion: "Xayah", ability: "Test", source: { page } }, { champion: "Xayah", ability: "Test", pageNote: page }], []);
+    expect(late[0]!.sources).toEqual([{ page, text: ["{{page}}"] }]);
+    expect(late[0]!.notes).toEqual(["x", "{{page}}"]);
+    expect(Object.keys(late[0]!).slice(-2)).toEqual(["gameSources", "sources"]);
+    const early = bare();
+    attachEvidence(early, "Xayah", input, [excerpt], [{ champion: "Xayah", ability: "Test", source: { page }, early: true }], []);
+    expect(Object.keys(early[0]!).slice(-2)).toEqual(["sources", "gameSources"]);
+    expect(() => attachEvidence(synthetic(), "Xayah", { ...input, revision: () => 8 }, [], [{ champion: "Xayah", ability: "Test", pageNote: page }], [])).toThrow(/check the curated text/);
   });
 
   it("applies a correction only while the parser still gives what it corrects", () => {

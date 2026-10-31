@@ -223,8 +223,8 @@
     ],
     "gameSources": [
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/alistar/alistar.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/alistar/alistar.bin.json",
         "sha256": "dc95c7a923147d8b3eceb0f00755ee24e085611f231a4d3222d463c30d2e1f0a",
         "object": "Characters/Alistar/Spells/AlistarEAbility/AlistarE",
         "text": [
@@ -350,8 +350,8 @@
     ],
     "gameSources": [
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/alistar/alistar.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/alistar/alistar.bin.json",
         "sha256": "dc95c7a923147d8b3eceb0f00755ee24e085611f231a4d3222d463c30d2e1f0a",
         "object": "Characters/Alistar/Spells/AlistarPassiveAbility/AlistarPassive",
         "text": [
@@ -529,8 +529,8 @@
     ],
     "gameSources": [
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/alistar/alistar.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/alistar/alistar.bin.json",
         "sha256": "dc95c7a923147d8b3eceb0f00755ee24e085611f231a4d3222d463c30d2e1f0a",
         "object": "Characters/Alistar/Spells/PulverizeAbility/Pulverize",
         "text": [
@@ -652,8 +652,8 @@
     ],
     "gameSources": [
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/alistar/alistar.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/alistar/alistar.bin.json",
         "sha256": "dc95c7a923147d8b3eceb0f00755ee24e085611f231a4d3222d463c30d2e1f0a",
         "object": "Characters/Alistar/Spells/FerociousHowlAbility/FerociousHowl",
         "text": [
@@ -849,8 +849,8 @@
     ],
     "gameSources": [
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/alistar/alistar.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/alistar/alistar.bin.json",
         "sha256": "dc95c7a923147d8b3eceb0f00755ee24e085611f231a4d3222d463c30d2e1f0a",
         "object": "Characters/Alistar/Spells/HeadbuttAbility/Headbutt",
         "text": [

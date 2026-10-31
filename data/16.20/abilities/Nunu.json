@@ -385,8 +385,8 @@
     ],
     "gameSources": [
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/nunu/nunu.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/nunu/nunu.bin.json",
         "sha256": "22203ef5c49ac91e1f3a26ef0a30bb48df529ccae437608d6ebe6cb5c51c9424",
         "object": "Characters/Nunu/Spells/NunuEAbility/NunuE",
         "text": [
@@ -402,8 +402,8 @@
         ]
       },
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/nunu/nunu.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/nunu/nunu.bin.json",
         "sha256": "22203ef5c49ac91e1f3a26ef0a30bb48df529ccae437608d6ebe6cb5c51c9424",
         "object": "Characters/Nunu/Spells/NunuEAbility/NunuESnowballBurstFire",
         "text": [
@@ -411,8 +411,8 @@
         ]
       },
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/nunu/nunu.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/nunu/nunu.bin.json",
         "sha256": "22203ef5c49ac91e1f3a26ef0a30bb48df529ccae437608d6ebe6cb5c51c9424",
         "object": "Characters/Nunu/Spells/NunuEAbility/NunuESnowballMissile",
         "text": [
@@ -521,8 +521,8 @@
     ],
     "gameSources": [
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/nunu/nunu.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/nunu/nunu.bin.json",
         "sha256": "22203ef5c49ac91e1f3a26ef0a30bb48df529ccae437608d6ebe6cb5c51c9424",
         "object": "Characters/Nunu/Spells/NunuPassiveAbility/NunuPassive",
         "text": [
@@ -890,8 +890,8 @@
     ],
     "gameSources": [
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/nunu/nunu.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/nunu/nunu.bin.json",
         "sha256": "22203ef5c49ac91e1f3a26ef0a30bb48df529ccae437608d6ebe6cb5c51c9424",
         "object": "Characters/Nunu/Spells/NunuQAbility/NunuQ",
         "text": [
@@ -1288,8 +1288,8 @@
     ],
     "gameSources": [
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/nunu/nunu.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/nunu/nunu.bin.json",
         "sha256": "22203ef5c49ac91e1f3a26ef0a30bb48df529ccae437608d6ebe6cb5c51c9424",
         "object": "Characters/Nunu/Spells/NunuRAbility/NunuR",
         "text": [
@@ -1853,8 +1853,8 @@
     ],
     "gameSources": [
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/nunu/nunu.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/nunu/nunu.bin.json",
         "sha256": "22203ef5c49ac91e1f3a26ef0a30bb48df529ccae437608d6ebe6cb5c51c9424",
         "object": "Characters/Nunu/Spells/NunuWAbility/NunuW",
         "text": [
@@ -1899,8 +1899,8 @@
         ]
       },
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/nunu/nunu.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/nunu/nunu.bin.json",
         "sha256": "22203ef5c49ac91e1f3a26ef0a30bb48df529ccae437608d6ebe6cb5c51c9424",
         "object": "Characters/Nunu/Spells/NunuWAbility/NunuWSnowballMissile",
         "text": [

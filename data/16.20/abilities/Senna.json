@@ -128,8 +128,8 @@
     ],
     "gameSources": [
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/senna/senna.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/senna/senna.bin.json",
         "sha256": "872181c999e995ef3eef416fdcb26162a048ebe448b583574360598f82d44a25",
         "object": "Characters/Senna/Spells/SennaBasicAttack",
         "text": [
@@ -316,8 +316,8 @@
     ],
     "gameSources": [
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/senna/senna.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/senna/senna.bin.json",
         "sha256": "872181c999e995ef3eef416fdcb26162a048ebe448b583574360598f82d44a25",
         "object": "Characters/Senna/Spells/SennaEAbility/SennaE",
         "text": [
@@ -531,8 +531,8 @@
     ],
     "gameSources": [
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/senna/senna.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/senna/senna.bin.json",
         "sha256": "872181c999e995ef3eef416fdcb26162a048ebe448b583574360598f82d44a25",
         "object": "Characters/Senna/Spells/SennaPassiveAbility/SennaPassive",
         "text": [
@@ -854,8 +854,8 @@
     ],
     "gameSources": [
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/senna/senna.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/senna/senna.bin.json",
         "sha256": "872181c999e995ef3eef416fdcb26162a048ebe448b583574360598f82d44a25",
         "object": "Characters/Senna/Spells/SennaQAbility/SennaQ",
         "text": [
@@ -1102,8 +1102,8 @@
     ],
     "gameSources": [
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/senna/senna.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/senna/senna.bin.json",
         "sha256": "872181c999e995ef3eef416fdcb26162a048ebe448b583574360598f82d44a25",
         "object": "Characters/Senna/Spells/SennaRAbility/SennaR",
         "text": [
@@ -1113,8 +1113,8 @@
         ]
       },
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/senna/senna.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/senna/senna.bin.json",
         "sha256": "872181c999e995ef3eef416fdcb26162a048ebe448b583574360598f82d44a25",
         "object": "Characters/Senna/Spells/SennaRAbility/SennaRAlly",
         "text": [
@@ -1332,8 +1332,8 @@
     ],
     "gameSources": [
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/senna/senna.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/senna/senna.bin.json",
         "sha256": "872181c999e995ef3eef416fdcb26162a048ebe448b583574360598f82d44a25",
         "object": "Characters/Senna/Spells/SennaWAbility/SennaW",
         "text": [

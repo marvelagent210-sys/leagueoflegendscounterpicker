@@ -21,7 +21,7 @@
         ]
       },
       "castTime": {
-        "text": "0.25 \u2022 None",
+        "text": "0.25 • None",
         "values": [
           {
             "series": {
@@ -181,7 +181,7 @@
       },
       {
         "label": "Ferocity Bonus",
-        "text": "Ferocity Bonus: Bola Strike's damage is modified to deal 50 \u2013 305 (based on level) (+ 80% bonus AD) physical damage. The target is rooted instead of slowed.",
+        "text": "Ferocity Bonus: Bola Strike's damage is modified to deal 50 – 305 (based on level) (+ 80% bonus AD) physical damage. The target is rooted instead of slowed.",
         "leveling": [],
         "mechanics": [
           {
@@ -237,7 +237,7 @@
               ],
               "past18": "wiki"
             },
-            "context": "Ferocity Bonus: Bola Strike's damage is modified to deal 50 \u2013 305 (based on level) (+ 80% bonus AD) physical damage."
+            "context": "Ferocity Bonus: Bola Strike's damage is modified to deal 50 – 305 (based on level) (+ 80% bonus AD) physical damage."
           }
         ]
       }
@@ -261,8 +261,8 @@
     ],
     "gameSources": [
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/rengar/rengar.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/rengar/rengar.bin.json",
         "sha256": "aa1e14a66f18f2d40a782c6be70b724d6ea926781b9d436dcdb25ad466c86c9e",
         "object": "Characters/Rengar/Spells/RengarEAbility/RengarE",
         "text": [
@@ -270,8 +270,8 @@
         ]
       },
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/rengar/rengar.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/rengar/rengar.bin.json",
         "sha256": "aa1e14a66f18f2d40a782c6be70b724d6ea926781b9d436dcdb25ad466c86c9e",
         "object": "Characters/Rengar/Spells/RengarEAbility/RengarEMis",
         "text": [
@@ -279,8 +279,8 @@
         ]
       },
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/rengar/rengar.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/rengar/rengar.bin.json",
         "sha256": "aa1e14a66f18f2d40a782c6be70b724d6ea926781b9d436dcdb25ad466c86c9e",
         "object": "Characters/Rengar/Spells/RengarEEmpAbility/RengarEEmpMis",
         "text": [
@@ -486,8 +486,8 @@
     ],
     "gameSources": [
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/rengar/rengar.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/rengar/rengar.bin.json",
         "sha256": "aa1e14a66f18f2d40a782c6be70b724d6ea926781b9d436dcdb25ad466c86c9e",
         "object": "Characters/Rengar/Spells/RengarPassiveAbility/RengarPassive",
         "text": [
@@ -610,7 +610,7 @@
       },
       {
         "label": "Ferocity Bonus",
-        "text": "Ferocity Bonus: Savagery's damage is modified to deal 35 \u2013 240 (based on level) (+ 20% AD) bonus physical damage. In addition to gaining another instance of the base attack speed on-cast, consuming the attack also grants 50 \u2013 101 (based on level)% bonus attack speed for 5 seconds.",
+        "text": "Ferocity Bonus: Savagery's damage is modified to deal 35 – 240 (based on level) (+ 20% AD) bonus physical damage. In addition to gaining another instance of the base attack speed on-cast, consuming the attack also grants 50 – 101 (based on level)% bonus attack speed for 5 seconds.",
         "leveling": [],
         "mechanics": [],
         "values": [
@@ -641,7 +641,7 @@
               ],
               "past18": "wiki"
             },
-            "context": "Ferocity Bonus: Savagery's damage is modified to deal 35 \u2013 240 (based on level) (+ 20% AD) bonus physical damage."
+            "context": "Ferocity Bonus: Savagery's damage is modified to deal 35 – 240 (based on level) (+ 20% AD) bonus physical damage."
           },
           {
             "series": {
@@ -670,7 +670,7 @@
               ],
               "past18": "wiki"
             },
-            "context": "In addition to gaining another instance of the base attack speed on-cast, consuming the attack also grants 50 \u2013 101 (based on level)% bonus attack speed for 5 seconds."
+            "context": "In addition to gaining another instance of the base attack speed on-cast, consuming the attack also grants 50 – 101 (based on level)% bonus attack speed for 5 seconds."
           }
         ]
       },
@@ -708,8 +708,8 @@
     ],
     "gameSources": [
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/rengar/rengar.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/rengar/rengar.bin.json",
         "sha256": "aa1e14a66f18f2d40a782c6be70b724d6ea926781b9d436dcdb25ad466c86c9e",
         "object": "Characters/Rengar/Spells/RengarQAbility/RengarQ",
         "text": [
@@ -945,8 +945,8 @@
     ],
     "gameSources": [
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/rengar/rengar.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/rengar/rengar.bin.json",
         "sha256": "aa1e14a66f18f2d40a782c6be70b724d6ea926781b9d436dcdb25ad466c86c9e",
         "object": "Characters/Rengar/Spells/RengarRAbility/RengarR",
         "text": [
@@ -1028,7 +1028,7 @@
       },
       {
         "label": "Active",
-        "text": "Active: Rengar roars, dealing magic damage to nearby enemies and 65 \u2013 130 (based on level) bonus magic damage to monsters, and consuming his grey health to heal for the same amount.",
+        "text": "Active: Rengar roars, dealing magic damage to nearby enemies and 65 – 130 (based on level) bonus magic damage to monsters, and consuming his grey health to heal for the same amount.",
         "leveling": [
           {
             "label": "Magic Damage",
@@ -1063,7 +1063,7 @@
             "type": "heal",
             "category": "defense",
             "wording": "heal",
-            "evidence": "Active: Rengar roars, dealing magic damage to nearby enemies and 65 \u2013 130 (based on level) bonus magic damage to monsters, and consuming his grey health to heal for the same amount.",
+            "evidence": "Active: Rengar roars, dealing magic damage to nearby enemies and 65 – 130 (based on level) bonus magic damage to monsters, and consuming his grey health to heal for the same amount.",
             "conditional": false
           }
         ],
@@ -1095,13 +1095,13 @@
               ],
               "past18": "wiki"
             },
-            "context": "Active: Rengar roars, dealing magic damage to nearby enemies and 65 \u2013 130 (based on level) bonus magic damage to monsters, and consuming his grey health to heal for the same amount."
+            "context": "Active: Rengar roars, dealing magic damage to nearby enemies and 65 – 130 (based on level) bonus magic damage to monsters, and consuming his grey health to heal for the same amount."
           }
         ]
       },
       {
         "label": "Ferocity Bonus",
-        "text": "Ferocity Bonus: Battle Roar's damage is modified to deal 50 \u2013 220 (based on level) (+ 80% AP) magic damage. Rengar cleanses himself from all crowd control.",
+        "text": "Ferocity Bonus: Battle Roar's damage is modified to deal 50 – 220 (based on level) (+ 80% AP) magic damage. Rengar cleanses himself from all crowd control.",
         "leveling": [],
         "mechanics": [
           {
@@ -1140,7 +1140,7 @@
               ],
               "past18": "wiki"
             },
-            "context": "Ferocity Bonus: Battle Roar's damage is modified to deal 50 \u2013 220 (based on level) (+ 80% AP) magic damage."
+            "context": "Ferocity Bonus: Battle Roar's damage is modified to deal 50 – 220 (based on level) (+ 80% AP) magic damage."
           }
         ]
       }
@@ -1162,8 +1162,8 @@
     ],
     "gameSources": [
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/rengar/rengar.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/rengar/rengar.bin.json",
         "sha256": "aa1e14a66f18f2d40a782c6be70b724d6ea926781b9d436dcdb25ad466c86c9e",
         "object": "Characters/Rengar/Spells/RengarWAbility/RengarW",
         "text": [

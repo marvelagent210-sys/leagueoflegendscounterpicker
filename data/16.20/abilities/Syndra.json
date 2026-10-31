@@ -44,7 +44,7 @@
         ]
       },
       "range": {
-        "text": "700 \u2022 800 \u2022 1300",
+        "text": "700 • 800 • 1300",
         "values": [
           {
             "series": {
@@ -69,7 +69,7 @@
         ]
       },
       "width": {
-        "text": "120 \u2022 200",
+        "text": "120 • 200",
         "values": [
           {
             "series": {
@@ -88,7 +88,7 @@
         ]
       },
       "speed": {
-        "text": "2500 \u2022 2000",
+        "text": "2500 • 2000",
         "values": [
           {
             "series": {
@@ -107,7 +107,7 @@
         ]
       },
       "angle": {
-        "text": "56\u00b0 \u2022 84\u00b0",
+        "text": "56° • 84°",
         "values": [
           {
             "series": {
@@ -281,8 +281,8 @@
     ],
     "gameSources": [
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/syndra/syndra.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/syndra/syndra.bin.json",
         "sha256": "c22be9912eea173d78c518d7914b7bbbd5c5b13cd6cf4438a4d9d0deaaa855ef",
         "object": "Characters/Syndra/Spells/SyndraEAbility/SyndraE",
         "text": [
@@ -290,8 +290,8 @@
         ]
       },
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/syndra/syndra.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/syndra/syndra.bin.json",
         "sha256": "c22be9912eea173d78c518d7914b7bbbd5c5b13cd6cf4438a4d9d0deaaa855ef",
         "object": "Characters/Syndra/Spells/SyndraEAbility/SyndraEMissile",
         "text": [
@@ -299,8 +299,8 @@
         ]
       },
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/syndra/syndra.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/syndra/syndra.bin.json",
         "sha256": "c22be9912eea173d78c518d7914b7bbbd5c5b13cd6cf4438a4d9d0deaaa855ef",
         "object": "Characters/Syndra/Spells/SyndraEAbility/SyndraEMissile2",
         "text": [
@@ -308,8 +308,8 @@
         ]
       },
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/syndra/syndra.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/syndra/syndra.bin.json",
         "sha256": "c22be9912eea173d78c518d7914b7bbbd5c5b13cd6cf4438a4d9d0deaaa855ef",
         "object": "Characters/Syndra/Spells/SyndraEAbility/SyndraEMissile3",
         "text": [
@@ -317,8 +317,8 @@
         ]
       },
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/syndra/syndra.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/syndra/syndra.bin.json",
         "sha256": "c22be9912eea173d78c518d7914b7bbbd5c5b13cd6cf4438a4d9d0deaaa855ef",
         "object": "Characters/Syndra/Spells/SyndraEAbility/SyndraESphereMissile",
         "text": [
@@ -385,7 +385,7 @@
         ]
       },
       {
-        "text": "Collecting a Splinter of Wrath from an enemy restores 20 \u2013 199 (based on level) mana. Splinters of Wrath are brought to Syndra from enemies over 0.6 seconds.",
+        "text": "Collecting a Splinter of Wrath from an enemy restores 20 – 199 (based on level) mana. Splinters of Wrath are brought to Syndra from enemies over 0.6 seconds.",
         "leveling": [],
         "mechanics": [],
         "values": [
@@ -416,7 +416,7 @@
               ],
               "past18": "wiki"
             },
-            "context": "Collecting a Splinter of Wrath from an enemy restores 20 \u2013 199 (based on level) mana."
+            "context": "Collecting a Splinter of Wrath from an enemy restores 20 – 199 (based on level) mana."
           }
         ]
       },
@@ -451,8 +451,8 @@
     ],
     "gameSources": [
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/syndra/syndra.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/syndra/syndra.bin.json",
         "sha256": "c22be9912eea173d78c518d7914b7bbbd5c5b13cd6cf4438a4d9d0deaaa855ef",
         "object": "Characters/Syndra/Spells/SyndraPassiveAbility/SyndraPassive",
         "text": [
@@ -460,8 +460,8 @@
         ]
       },
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/syndra/syndra.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/syndra/syndra.bin.json",
         "sha256": "c22be9912eea173d78c518d7914b7bbbd5c5b13cd6cf4438a4d9d0deaaa855ef",
         "object": "Characters/Syndra/Spells/SyndraPassiveAbility/SyndraPassiveMissile",
         "text": [
@@ -637,8 +637,8 @@
     ],
     "gameSources": [
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/syndra/syndra.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/syndra/syndra.bin.json",
         "sha256": "c22be9912eea173d78c518d7914b7bbbd5c5b13cd6cf4438a4d9d0deaaa855ef",
         "object": "Characters/Syndra/Spells/SyndraQAbility/SyndraQ",
         "text": [
@@ -646,8 +646,8 @@
         ]
       },
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/syndra/syndra.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/syndra/syndra.bin.json",
         "sha256": "c22be9912eea173d78c518d7914b7bbbd5c5b13cd6cf4438a4d9d0deaaa855ef",
         "object": "Characters/Syndra/Spells/SyndraQAbility/SyndraQUpgrade",
         "text": [
@@ -655,8 +655,8 @@
         ]
       },
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/syndra/syndra.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/syndra/syndra.bin.json",
         "sha256": "c22be9912eea173d78c518d7914b7bbbd5c5b13cd6cf4438a4d9d0deaaa855ef",
         "object": "Characters/Syndra/Spells/SyndraQAbility/SyndraQSpell",
         "text": [
@@ -906,8 +906,8 @@
     ],
     "gameSources": [
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/syndra/syndra.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/syndra/syndra.bin.json",
         "sha256": "c22be9912eea173d78c518d7914b7bbbd5c5b13cd6cf4438a4d9d0deaaa855ef",
         "object": "Characters/Syndra/Spells/SyndraRAbility/SyndraR",
         "text": [
@@ -915,8 +915,8 @@
         ]
       },
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/syndra/syndra.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/syndra/syndra.bin.json",
         "sha256": "c22be9912eea173d78c518d7914b7bbbd5c5b13cd6cf4438a4d9d0deaaa855ef",
         "object": "Characters/Syndra/Spells/SyndraRAbility/SyndraRSpell",
         "text": [
@@ -976,7 +976,7 @@
         "values": []
       },
       "targetRange": {
-        "text": "925 \u2022 950 \u2022 500",
+        "text": "925 • 950 • 500",
         "values": [
           {
             "series": {
@@ -1229,8 +1229,8 @@
     ],
     "gameSources": [
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/syndra/syndra.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/syndra/syndra.bin.json",
         "sha256": "c22be9912eea173d78c518d7914b7bbbd5c5b13cd6cf4438a4d9d0deaaa855ef",
         "object": "Characters/Syndra/Spells/SyndraWAbility/SyndraW",
         "text": [
@@ -1238,8 +1238,8 @@
         ]
       },
       {
-        "url": "https://raw.communitydragon.org/16.20/game/data/characters/syndra/syndra.bin.json",
         "version": "16.20.8248524+branch.releases-16-20.content.release",
+        "url": "https://raw.communitydragon.org/16.20/game/data/characters/syndra/syndra.bin.json",
         "sha256": "c22be9912eea173d78c518d7914b7bbbd5c5b13cd6cf4438a4d9d0deaaa855ef",
         "object": "Characters/Syndra/Spells/SyndraWAbility/SyndraWCast",
         "text": [
