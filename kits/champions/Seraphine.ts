@@ -83,7 +83,8 @@ const seraphine: KitModule = {
       ...(free ? { usable: (unit: Unit) => unit.memory["seraphine:echo"] === key } : {}),
       delivery: { kind: "self" },
       onSelf: [{ type: "shield", amount: w.formula("Shield Strength"), duration: soundSeconds }],
-      roles: ["defense"],
+      // A shield with speed: used in the fight, not held back for a threat.
+      roles: ["buff"],
     });
     const eBase = (key: string, free: boolean): AbilitySpec => ({
       key, name: free ? `${e.name} (echo)` : e.name, slot: "E", cooldown: free ? 0 : e.cooldown(), cost: free ? 0 : e.cost(), castTime: free ? 0 : e.castTime(),
