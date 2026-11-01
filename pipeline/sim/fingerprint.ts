@@ -26,6 +26,25 @@ async function sources(dir: string): Promise<string[]> {
 }
 
 export async function simulationProvenance(dataset: string): Promise<SimulationProvenance> {
+  return { schema: 1, fingerprint: fingerprintEntries(await simulationInputs(dataset)) };
+}
+
+/**
+ * The build matrix's inputs: the simulation's, and the item effects, their hints, the build
+ * search, the item catalog and the build matrix's own pipeline (npm run build:builds).
+ */
+export async function buildsProvenance(dataset: string): Promise<SimulationProvenance> {
+  const code = [
+    ...await sources(path.join(REPO_ROOT, "items")),
+    ...await sources(path.join(REPO_ROOT, "pipeline", "items")),
+    ...["pipeline/itemData.ts", "pipeline/sim/builds.ts", "pipeline/sim/buildsWorker.ts", "pipeline/sim/buildsWorker.mjs", "pipeline/sim/buildsCheckpoint.ts"].map((file) => path.join(REPO_ROOT, file)),
+  ];
+  const items = [path.join(datasetDir(dataset), "items.json")];
+  const entries = await Promise.all([...code, ...items].map(async (file): Promise<[string, Uint8Array]> => [path.relative(REPO_ROOT, file).replaceAll(path.sep, "/"), await readFile(file)]));
+  return { schema: 1, fingerprint: fingerprintEntries([...(await simulationInputs(dataset)), ...entries]) };
+}
+
+async function simulationInputs(dataset: string): Promise<Array<[string, Uint8Array]>> {
   const dir = datasetDir(dataset);
   const ids = Object.keys(KITS).sort();
   const code = [
@@ -47,6 +66,5 @@ export async function simulationProvenance(dataset: string): Promise<SimulationP
     ...(await readdir(path.join(dir, "pets"))).filter((file) => file.endsWith(".json")).map((file) => path.join(dir, "pets", file)),
     ...(await readdir(path.join(dir, "profiles"))).filter((file) => file.endsWith(".json")).map((file) => path.join(dir, "profiles", file)),
   ];
-  const entries = await Promise.all([...code, ...data].map(async (file): Promise<[string, Uint8Array]> => [path.relative(REPO_ROOT, file).replaceAll(path.sep, "/"), await readFile(file)]));
-  return { schema: 1, fingerprint: fingerprintEntries(entries) };
+  return Promise.all([...code, ...data].map(async (file): Promise<[string, Uint8Array]> => [path.relative(REPO_ROOT, file).replaceAll(path.sep, "/"), await readFile(file)]));
 }

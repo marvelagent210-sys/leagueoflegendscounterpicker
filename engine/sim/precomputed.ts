@@ -18,8 +18,53 @@ export interface PrecomputedMatchups {
 
 const object = (value: unknown): value is Record<string, unknown> => value !== null && typeof value === "object" && !Array.isArray(value);
 
+/**
+ * The build matrix (npm run build:builds, PLAN.md §13): each pairing played with the item builds
+ * the build search finds for its two sides, instead of plain stats.
+ */
+export interface PrecomputedBuilds {
+  dataset: string;
+  patch: string;
+  /** The build format: six items ("sixItems"), or five items and boots. */
+  format: string;
+  values: string[];
+  simulation?: SimulationProvenance;
+  matchups: Record<string, Record<string, Array<number | null>>>;
+  /** The items the builds name, by index. */
+  items: string[];
+  /** Each side's build against the other, as indices into `items`: builds[you][enemy] is yours. */
+  builds: Record<string, Record<string, number[]>>;
+  variants?: Record<string, Record<string, Record<string, number>>>;
+}
+
 export function precomputedCurrent(raw: unknown, dataset: string, patch: string, fingerprint: string | undefined, gold: number, kitIds: string[]): boolean {
   if (!object(raw) || !object(raw.simulation) || !fingerprint || raw.simulation.schema !== 1 || raw.simulation.fingerprint !== fingerprint || raw.dataset !== dataset || raw.patch !== patch || raw.gold !== gold) return false;
+  return matchupsComplete(raw, kitIds);
+}
+
+/** Whether a build matrix is the current inputs' (`fingerprint`, buildsProvenance) and complete: every pairing scored, both builds named. */
+export function precomputedBuildsCurrent(raw: unknown, dataset: string, patch: string, fingerprint: string | undefined, format: string, kitIds: string[]): boolean {
+  if (!object(raw) || !object(raw.simulation) || !fingerprint || raw.simulation.schema !== 1 || raw.simulation.fingerprint !== fingerprint || raw.dataset !== dataset || raw.patch !== patch || raw.format !== format) return false;
+  return buildsComplete(raw, kitIds) && matchupsComplete(raw, kitIds);
+}
+
+/** Every pairing has both sides' builds: one to six different items each, by index into `items`. */
+export function buildsComplete(raw: Record<string, unknown>, kitIds: string[]): boolean {
+  if (!object(raw.builds) || !Array.isArray(raw.items) || !raw.items.every((item) => typeof item === "string" && item.length > 0)) return false;
+  const builds = raw.builds;
+  const count = raw.items.length;
+  return kitIds.every((you) => {
+    const row = builds[you];
+    return object(row) && kitIds.every((enemy) => {
+      if (you === enemy) return !(enemy in row);
+      const items = row[enemy];
+      return Array.isArray(items) && items.length >= 1 && items.length <= 6 && items.every((item) => Number.isSafeInteger(item) && item >= 0 && item < count) && new Set(items).size === items.length;
+    });
+  });
+}
+
+/** Every pairing scored both ways, each the other's negative, its aggregate the scenarios' weighted mean. */
+function matchupsComplete(raw: Record<string, unknown>, kitIds: string[]): boolean {
   const expectedValues = ["score", ...SCENARIOS];
   if (!Array.isArray(raw.values) || raw.values.length !== expectedValues.length || !raw.values.every((value, i) => value === expectedValues[i])) return false;
   if (!object(raw.matchups) || Object.keys(raw.matchups).length !== kitIds.length) return false;
