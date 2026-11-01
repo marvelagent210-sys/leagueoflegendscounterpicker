@@ -2,14 +2,15 @@
 
 A kit-based 1v1 counter picker for top lane: pick the enemy champion, get every champion ranked by how well its kit beats theirs at level 20, with the reasoning behind each result. No win rates or statistics.
 
-Status: milestones 1 to 4 of 8 are done, milestone 5 is built and waiting for review, milestone 6 is built, and milestone 7 has its first part (the second wave of top laners) built:
+Status: milestones 1 to 4 of 8 are done, milestone 5 is built and waiting for review, milestones 6 and 7 are built, and milestone 8 (items and runes) is in progress:
 
 - the data pipeline and level-20 stats;
 - every champion's abilities;
 - the interaction ledger, with a first counter ranking;
 - the duel simulator's core, which applies the game's rules and is tested on synthetic kits;
 - waves 1 and 2: 49 top laners, plus all 124 other champions in nineteen expansion batches, with source-backed mechanics tests;
-- the web app: picker, matchup, kit and settings pages, with a private Codespaces preview.
+- the web app: picker, matchup, kit and settings pages, with a private Codespaces preview;
+- items: the item catalog, every item's effects, duels with fixed or searched builds, and the build matrix, which plays the build search for every pairing and which the app shows once built.
 
 Every champion has a kit, so between any two the ranking comes from simulated duels under the displayed settings and kit assumptions. Beside it, the ledger estimates how the abilities interact without playing the fight out. The app labels these bases **Simulated** and **Interaction estimate**; neither certifies every mechanic or decision. See [PLAN.md](PLAN.md) for the plan and progress.
 
@@ -22,6 +23,8 @@ npm ci
 npm run typecheck
 npm run build:sim -- --threads 4   # refresh duels, counter pages, ledger rankings and reports after engine changes
 npm run build:sim -- --check       # check whether committed duel results match current inputs
+npm run build:builds -- --threads 4   # the duels with item builds: the build search for every pairing (about 18 hours on four threads)
+npm run build:builds -- --check       # check whether the committed build matrix matches current inputs
 npm test
 ```
 
@@ -41,6 +44,8 @@ The app has four pages:
 - the settings (`#/settings`).
 
 Results at the default settings are precomputed by `npm run build:data`, or refreshed from committed parsed data with `npm run build:sim` without fetching raw sources. Each matrix records a fingerprint of its simulator, kits and input data. The browser reruns outdated results instead of presenting them as current. Changed settings, including weights that affect kit variant choices, run again in Web Workers. Settings stay in the browser.
+
+Where the dataset has a current build matrix (`simulated-builds.json`, from `npm run build:builds`), the picker ranks the duels with item builds by default, and each row opens on both sides' builds; the matchup page shows the result with builds above the plain-stats fights, which stay the ones to watch tick by tick. Plain stats are a click away on both pages and in the settings. The build search is too slow for the browser, so the builds hold at the default fight settings: scenario weights reweigh their scenarios, the plain stats' gold doesn't enter them, and any other changed setting shows plain stats instead. A build matrix that doesn't match the current inputs is left out.
 
 The [private mobile preview](https://codespaces.new/marvelagent210-sys/leagueoflegendscounterpicker/tree/counter-picker-download-244198f8?quickstart=1) uses a packaged build in a GitHub Codespace. Preview updates follow validation of each batch. Its `README-MOBILE.md` explains startup, phone access and resuming it. Keep port 8000's visibility **Private**. The downloadable package also includes the exact working source and parsed inputs in `SOURCE`, with computer setup instructions in `README-PRIVATE.md`.
 
@@ -71,6 +76,13 @@ npm run duel -- Ahri Malphite --search       # the build search picks both build
 With `--items` and `--enemy-items`, each side holds a build of up to six items instead of the stat budget, checked against the build rules (`pipeline/items/rules.ts`): one pair of boots, no item twice, one item of each one-per-build group. A full build is six items, or five items and boots: the two formats the build search will toggle between. Tear items are fully stacked (Manamune is Muramana) unless `--unstacked`, and `--item-option "Heartsteel.stacked=600"` changes an item's option. The output lists what each build's items leave out and assumes. Every item's effects are modeled from its wiki text, or left out with a reason ([item effects](data/16.20/reports/item-effects.md)).
 
 With `--search`, the build search (`pipeline/items/search.ts`, PLAN.md M8) picks both builds: it fills each side's build slot by slot by a quick estimate, keeping the best build of each profile (AD, crit, attack speed, AP, tank) as a route; the sides answer each other's best build until a pair of best builds comes back; then each side's routes fight the other's in a screen of the all-in scenarios, each side takes the route whose worst result is best, and that pair plays every scenario. The quick estimate counts items' stats, stat statuses, critical strike damage and on-hit effects, and what their passives and actives give on average over a ten-second fight (`items/hints.ts`), with each kit's damage, attacks and casts calibrated first to a fight of its own (`pipeline/items/calibrate.ts`); the fights between routes settle the rest.
+
+```sh
+npm run build:builds -- --smoke --threads 4   # each kit against the next (172 pairings): a check before a full run
+npm run build:builds -- --threads 4           # all 14,878 pairings, resuming from checkpoints
+```
+
+`npm run build:builds` plays the build search for every pairing, six items each (`--format fiveItemsWithBoots` for five and boots), and writes `simulated-builds.json` and [the build report](data/16.20/reports/builds.md): each champion's most-built items across its matchups. A pairing takes about 18 s on one of four threads, so a full run takes about 18 hours on four. Each pairing is checkpointed as it finishes (`.cache/builds/`, not committed), so a run that stops resumes where it left off, as long as the inputs are the same: the simulator's, the item code, the build search and the item catalog. A pairing that fails is reported and the rest go on; nothing is written until every pairing has played.
 
 The simulator plays a duel out at 30 ticks per second, in one dimension. Both champions spend the same gold on plain stats, with penetration capped near what items give. Each prints a score from -1 to +1 for these scenarios:
 
@@ -139,7 +151,8 @@ Each patch gets a folder named after its Data Dragon version, e.g. `data/16.20/`
 | `counters/<champion>.md` | Every champion ranked against this one: by simulated duels, and by interaction estimates, with the strongest reasons |
 | `rankings.json` | The ledger rankings, machine-readable |
 | `simulated.json` | Every simulated matchup between champions with kits: the score and each scenario's, and the options played by kits with a choice |
-| `items.json` | The item catalog (M8): the 106 finished items and 7 tier-2 boots with stats, effects (their notes and values by level) and limits, the 3 transformed Tear items, the game file's one-per-build groups, the stat cross-check, and the wiki rule pages item effects quote. Item builds use it in `npm run duel`; the precomputed matrix doesn't yet |
+| `simulated-builds.json` | Every simulated matchup with item builds (`npm run build:builds`): the score and each scenario's, each side's build, and the options played by kits with a choice |
+| `items.json` | The item catalog (M8): the 106 finished items and 7 tier-2 boots with stats, effects (their notes and values by level) and limits, the 3 transformed Tear items, the game file's one-per-build groups, the stat cross-check, and the wiki rule pages item effects quote. Item builds use it in `npm run duel` and the build matrix |
 | `oracle/level20.json` | The wiki's level-20 stat table, which the tests check the stat math against |
 | `manifest.json`, `wiki-revisions.json` | The exact source versions and wiki revisions used |
 | `reports/level20-stats.md` | Base stats of every form at level 20 |
@@ -149,12 +162,14 @@ Each patch gets a folder named after its Data Dragon version, e.g. `data/16.20/`
 | `reports/simulator.md` | The simulated standings, the golden matchups with their scores, and what the stat budget buys each champion |
 | `reports/items.md` | The item catalog, readable: how it's chosen, the one-per-build groups, the cross-check against the game file, and every item's stats and effects |
 | `reports/item-effects.md` | What the simulator makes of each item: the effects it models, what it leaves out and why, its simplifications and options |
+| `reports/builds.md` | The build matrix's run, and each champion's most-built items across its matchups |
 
 Tests run offline against the committed data.
 
 See [ACCURACY.md](ACCURACY.md) for the validation workflow, source-backed corrections,
 and the model's remaining limits. Rebuild the committed rankings with `npm run build:sim`
-after changing simulator inputs; `npm run build:sim -- --check` detects stale results.
+after changing simulator inputs; `npm run build:sim -- --check` detects stale results, and
+`npm run build:builds -- --check` a stale build matrix.
 
 ## Data sources and attribution
 
