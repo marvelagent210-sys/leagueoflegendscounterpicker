@@ -26,7 +26,7 @@ import { effectiveResist, resistMultiplier } from "./rules/damage";
 import { averageCritFactor, healingReceived } from "./rules/defense";
 import { cooldownAfterHaste } from "./rules/timing";
 import { toSeconds, toTicks } from "./rules/time";
-import { derive, evaluate } from "./sim/derived";
+import { derive, evaluate, withSettledStats } from "./sim/derived";
 import { createWorld } from "./sim/simulate";
 import { type AbilitySpec, type BonusStats, type DamageByType, type Effect, type FighterSpec, type Formula, cooldownKeyOf } from "./sim/spec";
 import { type Unit, newUnit } from "./sim/state";
@@ -363,11 +363,50 @@ function termDamage(term: DamageTerm, self: Unit, target: Unit): number {
   return amount * (term.canCrit ? averageCritFactor(d.critChance, term.critMultiplier ?? d.critDamage) : 1) * times;
 }
 
+/** What a valuation (budgetScope) has worked out once: units don't change while it runs. */
+interface Scope {
+  raw: Map<Unit, Map<Unit, DamageMix>>;
+  abilities: Map<Unit, Map<Unit, DamageMix>>;
+  multipliers: Map<Unit, Map<Unit, DamageMix>>;
+  uses: Map<Unit, ReturnType<typeof budgetUses>>;
+}
+
+let scope: Scope | undefined;
+
+/** The value `make` gives for a pair of units, once per scope. */
+function once(table: keyof Omit<Scope, "uses">, a: Unit, b: Unit, make: () => DamageMix): DamageMix {
+  if (!scope) return make();
+  let row = scope[table].get(a);
+  if (!row) scope[table].set(a, (row = new Map()));
+  let value = row.get(b);
+  if (!value) row.set(b, (value = make()));
+  return value;
+}
+
+/**
+ * Runs `read` as one valuation: units' derived stats, their damage per second, damage
+ * multipliers and ability uses are worked out once each and reused until it returns. Callers
+ * must not change the units meanwhile (the build search's estimate values finished units).
+ */
+export function budgetScope<T>(read: () => T): T {
+  if (scope) return read();
+  scope = { raw: new Map(), abilities: new Map(), multipliers: new Map(), uses: new Map() };
+  try {
+    return withSettledStats(read);
+  } finally {
+    scope = undefined;
+  }
+}
+
 /**
  * Damage per second by type before the target's resistances: attacks with on-hit effects,
  * abilities once per cooldown, and what the kit says its hooks add.
  */
 function rawDamage(self: Unit, target: Unit): DamageMix {
+  return once("raw", self, target, () => rawDamageOf(self, target));
+}
+
+function rawDamageOf(self: Unit, target: Unit): DamageMix {
   const raw = attackDamage(self, target);
   const extra = self.spec.budget?.damage?.(self, target);
   raw.physical += extra?.physical ?? 0;
@@ -434,6 +473,10 @@ function abilityDamage(self: Unit, target: Unit, raw: DamageMix): DamageMix {
  * multiply, and true damage only takes increases.
  */
 function multipliers(attacker: Unit, target: Unit): DamageMix {
+  return once("multipliers", attacker, target, () => multipliersOf(attacker, target));
+}
+
+function multipliersOf(attacker: Unit, target: Unit): DamageMix {
   const a = derive(attacker);
   const t = derive(target);
   const modified = (type: keyof DamageMix, received: number[]) =>
@@ -560,7 +603,7 @@ export function budgetMultipliers(attacker: Unit, target: Unit): DamageMix {
 
 /** The kit's abilities' damage per second against the target, by type, before resistances (what item passives on ability damage scale with). */
 export function budgetAbilityDamage(self: Unit, target: Unit): DamageMix {
-  return abilityDamage(self, target, { physical: 0, magic: 0, true: 0 });
+  return once("abilities", self, target, () => abilityDamage(self, target, { physical: 0, magic: 0, true: 0 }));
 }
 
 /**
@@ -619,6 +662,14 @@ export function budgetCasts(self: Unit): { casts: number; damaging: number } {
  * count (an ultimate, crowd control, stealth).
  */
 export function budgetUses(self: Unit): Array<{ ability: AbilitySpec; perSecond: number; cycle: number; casts: number; damaging: boolean }> {
+  const known = scope?.uses.get(self);
+  if (known) return known;
+  const uses = usesNow(self);
+  scope?.uses.set(self, uses);
+  return uses;
+}
+
+function usesNow(self: Unit): Array<{ ability: AbilitySpec; perSecond: number; cycle: number; casts: number; damaging: boolean }> {
   const abilities = abilitiesOf(self.spec);
   let groups = castCache.get(abilities);
   if (!groups) {

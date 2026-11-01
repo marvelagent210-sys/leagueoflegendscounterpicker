@@ -156,10 +156,35 @@ function sameDerivedInputs(unit: Unit, previous: DerivedCache): boolean {
   return true;
 }
 
+/** Units' derived stats while `withSettledStats` runs: derived and checked once, then reused. */
+let settled: Map<Unit, Derived> | undefined;
+
+/**
+ * Runs `read` with every unit's derived stats settled: the first derive of a unit is checked as
+ * usual, and the rest reuse it until `read` returns. For callers that only read units while it
+ * runs: the build search's quick estimate values finished units thousands of times, and checking
+ * their statuses on every derive was half its time.
+ */
+export function withSettledStats<T>(read: () => T): T {
+  if (settled) return read();
+  settled = new Map();
+  try {
+    return read();
+  } finally {
+    settled = undefined;
+  }
+}
+
 export function derive(unit: Unit): Derived {
+  const known = settled?.get(unit);
+  if (known) return known;
   const hit = cache.get(unit);
-  if (hit && sameDerivedInputs(unit, hit)) return hit.value;
+  if (hit && sameDerivedInputs(unit, hit)) {
+    settled?.set(unit, hit.value);
+    return hit.value;
+  }
   const value = computeDerived(unit);
+  settled?.set(unit, value);
   cache.set(unit, {
     base: { ...unit.spec.base, attackSpeed: { ...unit.spec.base.attackSpeed } },
     bonus: unit.spec.bonus ? { ...unit.spec.bonus } : undefined,

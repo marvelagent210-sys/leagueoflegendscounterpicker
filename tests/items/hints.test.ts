@@ -215,3 +215,47 @@ describe("Spellblade's procs against fights, across kits", () => {
     expect(Math.exp(errors.reduce((sum, e) => sum + e, 0) / errors.length)).toBeLessThan(1.25);
   });
 });
+
+describe("defensive hints against a steady attacker", () => {
+  // The holder, Darius with 12,000 gold of plain stats, stands idle, so that only its items'
+  // hooks keep it alive; the attacker deals 250 damage a second before resistances, physical by
+  // attacks or magic by an ability, in small hits. The time it lives longer, times that damage
+  // after its resistances, is the health the hooks add: what the hint adds to the budget's pool.
+  // Left out: healing over time (Unending Despair), which a fight this long counts beyond the
+  // budget's ten seconds, and omnivamp, which needs the holder to fight (Maw of Malmortius).
+  const darius = kit("Darius").spec;
+  const [plain] = allocateBoth(darius, kit("Garen").spec, 12000, prices, 2);
+  const holder: FighterSpec = { ...darius, bonus: plain.bonus };
+  const attacker = (type: "physical" | "magic"): FighterSpec =>
+    type === "magic"
+      ? fighter({ id: "caster", base: { ad: 0, armor: 0, mr: 0, hp: 1e6 }, abilities: [ability({ key: "Q", cooldown: 0.25, delivery: { kind: "target", range: 1000 }, onHit: [{ type: "damage", damageType: "magic", amount: { base: 62.5 } }] })] })
+      : fighter({ id: "attacker", base: { ad: 100, armor: 0, mr: 0, hp: 1e6, attackSpeed: { base: 2.5, ratio: 2.5, bonus: 0 } } });
+  const hookless = (name: string): EquipOptions => {
+    const module = equip.modules[name]!;
+    return { ...equip, modules: { ...equip.modules, [name]: { ...module, build: (item, f, o) => { const d = module.build(item, f, o); return { ...(d.bonus ? { bonus: d.bonus } : {}), ...(d.mana ? { mana: d.mana } : {}), ...(d.permanent ? { permanent: d.permanent } : {}), ...(d.onHit ? { onHit: d.onHit } : {}) }; } } } };
+  };
+  const lasts = (spec: FighterSpec, enemy: FighterSpec) => {
+    const outcome = runWorld(createWorld({ fighters: [spec, enemy], distance: 0, modes: ["fight", "fight"], settings: { maxSeconds: 120, maxBranches: 1 } }), [idle, undefined]);
+    return { seconds: outcome.seconds, rate: outcome.damage[1] / outcome.seconds };
+  };
+
+  it.each<[string, "physical" | "magic", number]>([
+    ["Sterak's Gage", "physical", 0], ["Immortal Shieldbow", "physical", 0], ["Seraph's Embrace", "physical", 0], ["Death's Dance", "physical", 0], ["Protoplasm Harness", "physical", 0],
+    // Guardian Angel's four seconds of stasis keep the holder alive without adding health.
+    ["Guardian Angel", "physical", 4],
+    ["Kaenic Rookern", "magic", 0], ["Banshee's Veil", "magic", 0], ["Edge of Night", "magic", 0], ["Death's Dance", "magic", 0],
+  ])("%s against %s damage: the hint's health within 30% of the fight's", (item, type, stasis) => {
+    const enemy = attacker(type);
+    const record = findItem(catalog, item);
+    const without = lasts(equipItems(holder, [record], hookless(item)).spec, enemy);
+    const withHooks = lasts(equipItems(holder, [record], equip).spec, enemy);
+    const fought = (withHooks.seconds - without.seconds - stasis) * without.rate;
+    const [held] = parts(holder, item);
+    const hinted = estimatePair(holder, [held!], estimateSide(enemy, [], 1));
+    const plainPool = estimatePair(holder, [{ ...held!, budget: undefined, haste: [] }], estimateSide(enemy, [], 1));
+    const hint = budgetPool(hinted.self, hinted.foe) - budgetPool(plainPool.self, plainPool.foe);
+    expect(fought).toBeGreaterThan(0);
+    expect(hint / fought).toBeGreaterThan(0.7);
+    expect(hint / fought).toBeLessThan(1.3);
+  });
+});

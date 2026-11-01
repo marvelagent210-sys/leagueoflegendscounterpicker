@@ -11,7 +11,7 @@
  * - its hint (ItemBudget): what its hooks and actives give on average over the budget's
  *   ten-second reference fight, as stats, statuses on the enemy, damage, healing and shields.
  */
-import { budgetDamage, budgetMultipliers, budgetPool, budgetUnit, budgetValue } from "../engine/budget";
+import { budgetDamage, budgetMultipliers, budgetPool, budgetScope, budgetUnit, budgetValue } from "../engine/budget";
 import { CRIT_DAMAGE, averageCritFactor } from "../engine/rules/defense";
 import { addStatus } from "../engine/sim/combat";
 import { derive } from "../engine/sim/derived";
@@ -181,7 +181,9 @@ function debuffs(parts: readonly ItemParts[], self: Unit, enemy: Unit): Array<re
  */
 function addHookStats(unit: Unit, parts: readonly ItemParts[], enemy: Unit): void {
   for (const late of [false, true]) {
-    const stats = parts.flatMap((part) => (part.budget?.stats && Boolean(part.budget.late) === late ? part.budget.stats(unit, enemy).map((status) => [part.item, status] as const) : []));
+    const hinted = parts.filter((part) => part.budget?.stats && Boolean(part.budget.late) === late);
+    if (hinted.length === 0) continue;
+    const stats = budgetScope(() => hinted.flatMap((part) => part.budget!.stats!(unit, enemy).map((status) => [part.item, status] as const)));
     for (const [item, status] of stats) give(unit, item, status, unit.side);
   }
 }
@@ -211,13 +213,16 @@ export function estimatePair(you: FighterSpec, yours: readonly ItemParts[], enem
     addHookStats(self, yours, enemy.unit);
     addHookStats(foe, enemy.parts, self);
   }
-  const ours = debuffs(yours, self, foe);
-  const theirs = debuffs(enemy.parts, foe, self);
+  // Each step reads the units (budgetScope: worked out once) and then changes them.
+  const [ours, theirs] = budgetScope(() => [debuffs(yours, self, foe), debuffs(enemy.parts, foe, self)]);
   for (const [item, status] of theirs) give(self, item, status, 1);
   // Cutting the enemy's heals shortens the time to kill it: its health pool, before and after.
   const cuts = ours.some(([, status]) => "grievousWounds" in status) && !foe.statuses.some((s) => s.kind === "grievousWounds");
-  const before = cuts ? budgetPool(foe, self) : 0;
+  const before = cuts ? budgetScope(() => budgetPool(foe, self)) : 0;
   for (const [item, status] of ours) give(foe, item, status, 0);
-  const value = budgetValue(self, foe);
-  return { self, foe, value: cuts ? value + Math.log(before) - Math.log(budgetPool(foe, self)) : value };
+  const value = budgetScope(() => {
+    const objective = budgetValue(self, foe);
+    return cuts ? objective + Math.log(before) - Math.log(budgetPool(foe, self)) : objective;
+  });
+  return { self, foe, value };
 }

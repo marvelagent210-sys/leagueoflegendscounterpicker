@@ -8,7 +8,7 @@ import { DATA_DIR } from "../../pipeline/config";
 import { latestDataset } from "../../pipeline/datasets";
 import { equipBuild, equipOptions, findItem, loadItemCatalog } from "../../pipeline/itemData";
 import { REVIEWED_GROUPS, buildProblems } from "../../pipeline/items/rules";
-import { type Candidate, candidatesFor, chooseRoutes, fits, names, profileOf, searchSide } from "../../pipeline/items/search";
+import { type Build, type Candidate, candidatesFor, chooseRoutes, fits, names, profileOf, screenScore, searchSide, withCycle } from "../../pipeline/items/search";
 import { loadSimData } from "../../pipeline/simData";
 import { kit } from "../kits/helpers";
 
@@ -131,5 +131,28 @@ describe("picking between routes (Udyr's rule)", () => {
 
   it("ties go to the earlier route, the better by the estimate", () => {
     expect(chooseRoutes([[0, 0], [0, 0]])).toEqual([0, 0]);
+  });
+});
+
+describe("the answers' cycle and the route screen", () => {
+  it("a side's routes keep its best build, then the cycle's other best builds, then its other routes", () => {
+    const build = (...items: string[]): Build => ({ items: items.map((name) => ({ record: findItem(catalog, name) }) as Candidate), value: 0 });
+    const a = build("Infinity Edge", "Phantom Dancer");
+    const b = build("Guardian Angel", "Sterak's Gage");
+    const c = build("Trinity Force", "Black Cleaver");
+    const d = build("Kraken Slayer", "Terminus");
+    // The answers went a, b, a: b answers the enemy's other build, and its fights should see it.
+    expect(withCycle([a, c, d], [a, b], 3)).toEqual([a, b, c]);
+    expect(withCycle([a, c, d], [], 3)).toEqual([a, c, d]);
+    // The same build twice counts once.
+    expect(withCycle([a, c], [a, build("Phantom Dancer", "Infinity Edge")], 3)).toEqual([a, c]);
+  });
+
+  it("screens a matchup by its all-in scenarios: a mirror is even, and scores stay within -1 and +1", () => {
+    const mirror = equipBuild(darius, ["Trinity Force", "Sterak's Gage"], catalog).spec;
+    expect(screenScore(mirror, mirror)).toBeCloseTo(0, 9);
+    const score = screenScore(equipBuild(darius, ["Trinity Force", "Sterak's Gage"], catalog).spec, equipBuild(garen, ["Sunfire Aegis"], catalog).spec);
+    expect(score).toBeGreaterThanOrEqual(-1);
+    expect(score).toBeLessThanOrEqual(1);
   });
 });

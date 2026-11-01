@@ -11,12 +11,15 @@
  *    route, and one-item swaps then polish each route's best build.
  * 3. The sides answer each other's best build for a few rounds.
  * 4. Each side's route builds fight the other's, and each side takes the build that does best
- *    against the other's best answer: the rule Udyr's rank splits use (bestMatchup).
+ *    against the other's best answer: the rule Udyr's rank splits use (bestMatchup). The route
+ *    fights are a screen, the all-in scenarios with one branch each (screenScore); the pair
+ *    taken then plays every scenario, for the matchup's result.
  *
  * The result is the best build found within the model, not a guaranteed optimum.
  */
 import type { StatPrices } from "../../engine/budget";
-import { runScenarios } from "../../engine/sim/scenarios";
+import { type MatchupResult, SCENARIO_WEIGHTS, engageRange, fightScore, runScenarios } from "../../engine/sim/scenarios";
+import { fairFight } from "../../engine/sim/simulate";
 import type { FighterSpec } from "../../engine/sim/spec";
 import { type EquipOptions, type ItemParts, itemParts, matchupSpecs } from "../../items/equip";
 import { type EstimateSide, estimateAgainst, estimateSide } from "../../items/estimate";
@@ -63,7 +66,7 @@ export interface SearchOptions {
   width?: number;
   /** Builds of each profile the beam keeps at each slot. */
   perProfile?: number;
-  /** Rounds in which the sides answer each other. */
+  /** Rounds in which the sides answer each other, at most: they stop once a pair of best builds comes back. */
   rounds?: number;
   /** Route builds per side that fight the other side's. */
   routes?: number;
@@ -71,9 +74,11 @@ export interface SearchOptions {
   stacked?: boolean;
   /** Each kit's estimate calibrated to a fight of its own (pipeline/items/calibrate.ts); the default. */
   calibrate?: boolean;
+  /** Routes chosen by a screen of the all-in scenarios (screenScore), the default, or by every scenario. */
+  screen?: boolean;
 }
 
-const DEFAULTS: Required<SearchOptions> = { format: "sixItems", width: 20, perProfile: 3, rounds: 4, routes: 3, stacked: true, calibrate: true };
+const DEFAULTS: Required<SearchOptions> = { format: "sixItems", width: 8, perProfile: 1, rounds: 4, routes: 3, stacked: true, calibrate: true, screen: true };
 
 export function names(build: Build): string[] {
   return build.items.map((item) => item.record.name);
@@ -194,11 +199,15 @@ function polish(build: Build, candidates: readonly Candidate[], score: (items: C
 export interface SearchedMatchup {
   /** Each side's route builds, best by the estimate first, against the other's best. */
   routes: [Build[], Build[]];
-  /** Fight scores, yours, of each of your routes (rows) against each of theirs (columns). */
+  /** Fight scores, yours, of each of your routes (rows) against each of theirs (columns): screens, or every scenario. */
   scores: number[][];
   /** The routes each side takes by Udyr's rule. */
   chosen: [number, number];
+  /** The chosen builds' matchup, every scenario played. */
+  result: MatchupResult;
   score: number;
+  /** Rounds the sides answered each other in: until a pair of best builds came back. */
+  rounds: number;
   /** Each kit's calibration, when the search calibrates. */
   calibrations?: [CalibrationFight, CalibrationFight];
   seconds: { calibration: number; search: number; fights: number };
@@ -217,19 +226,58 @@ export function searchMatchup(you: FighterSpec, enemy: FighterSpec, catalog: Ite
   const partsOf = (build: Build | undefined) => build?.items.map((item) => item.parts) ?? [];
   let mine: Build[] = [];
   let theirs: Build[] = [];
-  for (let round = 0; round < o.rounds; round++) {
+  let rounds = 0;
+  // Each side's best answer by round, until a pair of them comes back: the answers settle, or
+  // go round a cycle (often two builds each, one answering the other's).
+  const bests: Array<[Build, Build]> = [];
+  let cycle: Array<[Build, Build]> = [];
+  while (rounds < o.rounds) {
     mine = searchSide(mySpec, mineCandidates, estimateSide(theirSpec, partsOf(theirs[0]), 1), o);
     theirs = searchSide(theirSpec, theirCandidates, estimateSide(mySpec, partsOf(mine[0]), 1), o);
+    rounds++;
+    const pair: [Build, Build] = [mine[0]!, theirs[0]!];
+    const seen = bests.findIndex(([a, b]) => keyOf(a.items) === keyOf(pair[0].items) && keyOf(b.items) === keyOf(pair[1].items));
+    if (seen >= 0) {
+      cycle = bests.slice(seen);
+      break;
+    }
+    bests.push(pair);
   }
   const searched = performance.now();
-  const routes: [Build[], Build[]] = [mine.slice(0, o.routes), theirs.slice(0, o.routes)];
+  // The last round's routes, with the cycle's other best answers first, so that fights see them.
+  const routes: [Build[], Build[]] = [withCycle(mine, cycle.map(([a]) => a), o.routes), withCycle(theirs, cycle.map(([, b]) => b), o.routes)];
   const build = { stacked: o.stacked };
   const equippedMine = routes[0].map((b) => equipBuild(you, names(b), catalog, build));
   const equippedTheirs = routes[1].map((b) => equipBuild(enemy, names(b), catalog, build));
-  const scores = equippedMine.map((a) => equippedTheirs.map((b) => runScenarios(...matchupSpecs(a, b)).score));
+  const scores = equippedMine.map((a) => equippedTheirs.map((b) => (o.screen ? screenScore(...matchupSpecs(a, b)) : runScenarios(...matchupSpecs(a, b)).score)));
   const [row, column] = chooseRoutes(scores);
+  const result = runScenarios(...matchupSpecs(equippedMine[row]!, equippedTheirs[column]!));
   const fought = performance.now();
-  return { routes, scores, chosen: [row, column], score: scores[row]![column]!, ...(calibrations ? { calibrations } : {}), seconds: { calibration: (ready - started) / 1000, search: (searched - ready) / 1000, fights: (fought - searched) / 1000 } };
+  return { routes, scores, chosen: [row, column], result, score: result.score, rounds, ...(calibrations ? { calibrations } : {}), seconds: { calibration: (ready - started) / 1000, search: (searched - ready) / 1000, fights: (fought - searched) / 1000 } };
+}
+
+/**
+ * A screen of a matchup for choosing between routes: the all-in scenarios (engaging either way,
+ * and a brawl), which carry most of the scenarios' weight, with one branch each, weighted as
+ * runScenarios weighs them. Against every scenario on ten matchups it chose another pair of
+ * routes in half of them, whose full score was within 0.05 of the full choice's, in a fifth to
+ * a half of the time (PLAN.md §13).
+ */
+export function screenScore(you: FighterSpec, enemy: FighterSpec): number {
+  const settings = { maxBranches: 1 };
+  const run = (distance: number) => fightScore(fairFight({ fighters: [you, enemy], distance, modes: ["fight", "fight"], settings }));
+  const w = SCENARIO_WEIGHTS;
+  return (w.youEngage * run(engageRange(you, enemy, settings)) + w.enemyEngages * run(engageRange(enemy, you, settings)) + w.brawl * run(0)) / (w.youEngage + w.enemyEngages + w.brawl);
+}
+
+/** A side's routes: its best build, the cycle's other best builds, then its other routes, `count` in all. */
+export function withCycle(last: Build[], cycle: Build[], count: number): Build[] {
+  const routes: Build[] = [];
+  for (const build of [last[0]!, ...cycle, ...last.slice(1)]) {
+    if (routes.length >= count) break;
+    if (!routes.some((route) => keyOf(route.items) === keyOf(build.items))) routes.push(build);
+  }
+  return routes;
 }
 
 /**

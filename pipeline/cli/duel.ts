@@ -128,7 +128,7 @@ async function main(): Promise<void> {
     const format = (option(args, "--format") ?? "sixItems") as BuildFormat;
     if (!(format in BUILD_FORMATS)) throw new Error(`--format takes one of: ${Object.keys(BUILD_FORMATS).join(", ")}`);
     const found = searchMatchup(mine.spec, theirs.spec, catalog, equipOptions(catalog, build.options), data.prices, { format, stacked: build.stacked });
-    console.log(`Build search (${BUILD_FORMATS[format].label}): ${found.seconds.calibration.toFixed(1)} s calibrating, ${found.seconds.search.toFixed(1)} s searching, ${found.seconds.fights.toFixed(1)} s of fights between the routes`);
+    console.log(`Build search (${BUILD_FORMATS[format].label}): ${found.seconds.calibration.toFixed(1)} s calibrating, ${found.seconds.search.toFixed(1)} s searching (${found.rounds} rounds), ${found.seconds.fights.toFixed(1)} s of fights between the routes`);
     found.calibrations?.forEach((c, side) => {
       const share = (x: number) => `${Math.round(x * 100)}%`;
       console.log(`  ${side === 0 ? you.name : enemy.name}'s fights against the estimate's counts: damage ${share(c.damage)}, attacks ${share(c.attacks)}, casts ${share(c.casts)}`);
@@ -137,9 +137,9 @@ async function main(): Promise<void> {
       console.log(`${side === 0 ? you.name : enemy.name}'s routes (quick estimate against the other's best):`);
       routes.forEach((route, i) => console.log(`  ${i + 1}. ${profileOf(route.items)}: ${buildNames(route).join(", ")} (${route.value.toFixed(3)})`));
     });
-    console.log(`Fight scores for ${you.name} (rows: ${you.name}'s routes; columns: ${enemy.name}'s):`);
+    console.log(`Screen scores for ${you.name}, the all-in scenarios with one branch each (rows: ${you.name}'s routes; columns: ${enemy.name}'s):`);
     for (const line of found.scores) console.log(`  ${line.map((score) => signed(score)).join("  ")}`);
-    console.log(`Each side takes the route whose worst result is best: ${you.name} ${found.chosen[0] + 1}, ${enemy.name} ${found.chosen[1] + 1}.\n`);
+    console.log(`Each side takes the route whose worst result is best: ${you.name} ${found.chosen[0] + 1}, ${enemy.name} ${found.chosen[1] + 1}; every scenario played, ${signed(found.score)}.\n`);
     myItems = buildNames(found.routes[0][found.chosen[0]]!);
     theirItems = buildNames(found.routes[1][found.chosen[1]]!);
   }
