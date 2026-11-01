@@ -280,11 +280,11 @@ function withItemHaste(ability: AbilitySpec, haste: NonNullable<ItemDefinition["
 }
 
 /**
- * Crowd control that stops item actives (confirmed on review, 20 October): knock-ups and stuns.
- * Suppression, sleep and stasis stop a champion at least as fully as a stun, so they stop
- * items too. The wiki's "Cast-inhibiting crowd control" page says every cast-inhibiting type
- * stops items, silence included; the review's rule is the one used. Kit abilities keep the
- * wiki's rule (the engine's `canCastUnderCC`).
+ * Crowd control that stops item actives, as confirmed on review: knock-ups and stuns (20
+ * October), with suppression counting as a stun (1 November). Sleep and stasis stop a champion
+ * at least as fully as a stun, so they stop items too. The wiki's "Cast-inhibiting crowd
+ * control" page says every cast-inhibiting type stops items, silence included; the review's
+ * rule is the one used. Kit abilities keep the wiki's rule (the engine's `canCastUnderCC`).
  */
 export const STOPS_ITEMS: ReadonlySet<CCType> = new Set(["airborne", "suspension", "stun", "suppression", "sleep", "stasis"]);
 /** What stops the cleanse item, which works under stuns: knock-ups (suspension keeps one up), and stasis. */
