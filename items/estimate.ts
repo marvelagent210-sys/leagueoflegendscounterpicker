@@ -81,25 +81,30 @@ function attackDamage(self: Unit): number {
   if (self.spec.budget?.attacks === false) return 0;
   const d = derive(self);
   const split = self.spec.budget?.attackSplit ?? { physical: 1, magic: 0 };
-  return d.ad * averageCritFactor(d.critChance, d.critDamage) * d.attackSpeed * split.physical;
+  return d.ad * averageCritFactor(d.critChance, d.critDamage) * d.attackSpeed * split.physical * (self.spec.budget?.calibration?.damage ?? 1);
 }
 
-/** The kit's budget hints with the items' damage, healing and shields added. */
+/**
+ * The kit's budget hints with the items' damage, healing and shields added. A calibrated kit's
+ * own damage hint, its passives' damage, takes its share as the rest of its damage does.
+ */
 function estimateHints(kit: BudgetHints | undefined, parts: readonly ItemParts[]): BudgetHints | undefined {
   const hinted = parts.filter((part) => part.budget);
   const lifeSteal = lifeStealOf(parts);
   const omnivamp = parts.reduce((sum, part) => sum + part.omnivamp, 0);
-  if (hinted.length === 0 && lifeSteal === 0 && omnivamp === 0) return kit;
+  const share = kit?.calibration?.damage ?? 1;
+  if (hinted.length === 0 && lifeSteal === 0 && omnivamp === 0 && (share === 1 || !kit?.damage)) return kit;
+  const own = kit?.damage && share !== 1 ? (self: Unit, target: Unit) => scaled(kit.damage!(self, target), share) : kit?.damage;
   const damaging = hinted.filter((part) => part.budget!.damage);
   const healing = hinted.filter((part) => part.budget!.healing);
   const shielding = hinted.filter((part) => part.budget!.shielding);
   return {
     ...kit,
-    ...(damaging.length
+    ...(damaging.length || own !== kit?.damage
       ? {
-          damage(self, target) {
+          damage(self: Unit, target: Unit) {
             const total: DamageByType = { physical: 0, magic: 0, true: 0 };
-            for (const add of [kit?.damage?.(self, target), ...damaging.map((part) => part.budget!.damage!(self, target))]) {
+            for (const add of [own?.(self, target), ...damaging.map((part) => part.budget!.damage!(self, target))]) {
               total.physical += add?.physical ?? 0;
               total.magic += add?.magic ?? 0;
               total.true += add?.true ?? 0;
@@ -133,6 +138,8 @@ function estimateHints(kit: BudgetHints | undefined, parts: readonly ItemParts[]
       : {}),
   };
 }
+
+const scaled = (mix: Partial<DamageByType>, share: number): Partial<DamageByType> => ({ physical: (mix.physical ?? 0) * share, magic: (mix.magic ?? 0) * share, true: (mix.true ?? 0) * share });
 
 /** Gives the unit a status the estimate counts, under the item's own key. */
 function give(unit: Unit, item: string, status: EstimateStatus, source: 0 | 1): void {

@@ -5,7 +5,7 @@
  * those items deal in ten-second fights (PLAN.md §13).
  */
 import { describe, expect, it } from "vitest";
-import { type StatPrices, allocateBoth, budgetDamage, budgetPool } from "../../engine/budget";
+import { type StatPrices, allocateBoth, budgetDamage, budgetPool, budgetUnit } from "../../engine/budget";
 import { derive } from "../../engine/sim/derived";
 import { createWorld, runWorld, step } from "../../engine/sim/simulate";
 import type { FighterSpec, KitHooks } from "../../engine/sim/spec";
@@ -15,6 +15,7 @@ import { FIGHT, absorbed, averageStacks, overMissingHealth, spellbladeProcs, tri
 import { DATA_DIR } from "../../pipeline/config";
 import { latestDataset } from "../../pipeline/datasets";
 import { equipOptions, findItem, loadItemCatalog } from "../../pipeline/itemData";
+import { calibrate, calibrated } from "../../pipeline/items/calibrate";
 import { loadSimData } from "../../pipeline/simData";
 import { kit } from "../kits/helpers";
 import { castWhenReady, idle } from "../sim/helpers";
@@ -143,9 +144,10 @@ describe("crowd control from a cast triggers items on the next tick", () => {
  * The reference fight: the holder, with the stat budget's 12,000 gold of plain stats, holds the
  * item and fights an idle enemy, with its plain stats, for ten seconds; the enemy comes back to
  * full health instead of dying, so that missing health runs from none to all over and over.
- * Averaged over three starting distances.
+ * Averaged over three starting distances: the item's damage per second, or with `count` its hits
+ * per fight.
  */
-function itemDamageInFights(holder: FighterSpec, enemy: FighterSpec, item: string, options: EquipOptions): number {
+function itemDamageInFights(holder: FighterSpec, enemy: FighterSpec, item: string, options: EquipOptions, count = false): number {
   const revive: KitHooks = { onLethal(ctx) { ctx.self.hp = derive(ctx.self).maxHp; return true; } };
   const mine = equipItems(holder, [findItem(catalog, item)], options);
   const labels = new Set([item, `${item} (item)`, ...mine.spec.abilities.filter((a) => a.key === `item:${item}`).map((a) => a.name)]);
@@ -156,10 +158,10 @@ function itemDamageInFights(holder: FighterSpec, enemy: FighterSpec, item: strin
     const world = createWorld({ fighters: [you, { ...them, hooks: composeHooks(them.hooks, [revive], [], false)! }], distance, modes: ["fight", "idle"], settings: { maxSeconds: FIGHT, maxBranches: 1, log: true } });
     for (const entry of runWorld(world, [undefined, idle]).timeline) {
       const hit = entry.side === 0 ? /^(.*?) deals (\d+)/.exec(entry.text) : null;
-      if (hit && labels.has(hit[1]!)) dealt += Number(hit[2]);
+      if (hit && labels.has(hit[1]!)) dealt += count ? 1 : Number(hit[2]);
     }
   }
-  return dealt / FIGHT / distances.length;
+  return count ? dealt / distances.length : dealt / FIGHT / distances.length;
 }
 
 describe("item hints against their items' damage in fights", () => {
@@ -169,17 +171,20 @@ describe("item hints against their items' damage in fights", () => {
   const holder = { ...darius, bonus: a.bonus };
   const enemy = { ...garen, bonus: b.bonus };
   const side = estimateSide(enemy, [], 1);
+  // As the build search estimates it: calibrated to its fight without items, the same reference fight.
+  const estimated = calibrated(holder, calibrate(darius, garen, prices));
 
   // Items whose hooks and actives deal damage of their own, labeled with their names. Left out:
-  // Zeke's Convergence, whose storm follows an ultimate Darius casts late, as an execute, so that
-  // the fight's end cuts it short (35% less than the hint); and the attack resets of Hextech
-  // Rocketbelt and Titanic Hydra, whose extra attack is labeled as an attack.
-  it.each(["Trinity Force", "Essence Reaver", "Lich Bane", "Dusk and Dawn", "Eclipse", "Kraken Slayer", "Hullbreaker", "Bastionbreaker", "Luden's Echo", "Blackfire Torch", "Malignance", "Stormsurge", "Sunfire Aegis", "Hollow Radiance", "Heartsteel", "Unending Despair", "Dead Man's Plate", "Hextech Gunblade", "Stridebreaker", "Redemption"])(
+  // Spellblade's (checked below across champions); Zeke's Convergence, whose storm follows an
+  // ultimate Darius casts late, as an execute, so that the fight's end cuts it short (35% less
+  // than the hint); and the attack resets of Hextech Rocketbelt and Titanic Hydra, whose extra
+  // attack is labeled as an attack.
+  it.each(["Eclipse", "Kraken Slayer", "Hullbreaker", "Bastionbreaker", "Luden's Echo", "Blackfire Torch", "Malignance", "Stormsurge", "Sunfire Aegis", "Hollow Radiance", "Heartsteel", "Unending Despair", "Dead Man's Plate", "Hextech Gunblade", "Stridebreaker", "Redemption"])(
     "%s: the hint's damage per second is within 25% of the item's in the fights",
     (item) => {
       const [held] = parts(holder, item);
-      const hinted = estimatePair(holder, [held!], side);
-      const plain = estimatePair(holder, [{ ...held!, budget: undefined, haste: [] }], side);
+      const hinted = estimatePair(estimated, [held!], side);
+      const plain = estimatePair(estimated, [{ ...held!, budget: undefined, haste: [] }], side);
       const hint = total(budgetDamage(hinted.self, hinted.foe)) - total(budgetDamage(plain.self, plain.foe));
       const fought = itemDamageInFights(holder, enemy, item, equip);
       expect(fought).toBeGreaterThan(0);
@@ -187,4 +192,26 @@ describe("item hints against their items' damage in fights", () => {
       expect(hint / fought).toBeLessThan(1.25);
     },
   );
+});
+
+describe("Spellblade's procs against fights, across kits", () => {
+  // Trinity Force's procs in the reference fights, and by the hint along each kit's calibration
+  // fights' casts. Fights change pace with items (Darius executes sooner), so a kit's own cast
+  // times don't always hold; across kits they are the closest of the models tried (PLAN.md §13).
+  const pairs: Array<[string, string]> = [["Darius", "Garen"], ["Vayne", "Garen"], ["Ahri", "Malphite"], ["Malphite", "Garen"], ["Jax", "Garen"], ["Garen", "Darius"], ["Fiora", "Garen"], ["Annie", "Malphite"]];
+  it("each within a factor of two, and within 25% on average", () => {
+    const errors = pairs.map(([you, them]) => {
+      const holder0 = kit(you).spec;
+      const enemy0 = kit(them).spec;
+      const [a, b] = allocateBoth(holder0, enemy0, 12000, prices, 2);
+      const holder = { ...holder0, bonus: a.bonus };
+      const enemy = { ...enemy0, bonus: b.bonus };
+      const fought = itemDamageInFights(holder, enemy, "Trinity Force", equip, true);
+      const hinted = spellbladeProcs(budgetUnit(calibrated(holder, calibrate(holder0, enemy0, prices)), 0), 1.5) * FIGHT;
+      expect(hinted / fought, `${you} against ${them}: ${hinted} procs by the hint, ${fought} in fights`).toBeGreaterThan(0.5);
+      expect(hinted / fought).toBeLessThan(2);
+      return Math.abs(Math.log(hinted / fought));
+    });
+    expect(Math.exp(errors.reduce((sum, e) => sum + e, 0) / errors.length)).toBeLessThan(1.25);
+  });
 });

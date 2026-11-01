@@ -15,9 +15,9 @@ import type { ItemBudget, ItemDefinition } from "./equip";
 /** The reference fight's length in seconds. */
 export const FIGHT = SUSTAIN_WINDOW;
 
-/** Basic attacks per second the holder makes in the reference fight: none when its kit doesn't attack (budget hint `attacks`). */
+/** Basic attacks per second the holder makes in the reference fight: none when its kit doesn't attack (budget hint `attacks`), fewer when its fights have fewer (its calibration). */
 export function attacks(self: Unit): number {
-  return self.spec.budget?.attacks === false ? 0 : derive(self).attackSpeed;
+  return self.spec.budget?.attacks === false ? 0 : derive(self).attackSpeed * (self.spec.budget?.calibration?.attacks ?? 1);
 }
 
 /** Ability casts per second in the reference fight, recasts included (engine/budget.ts budgetCasts). */
@@ -74,17 +74,72 @@ export function triggers(cooldown: number, wait = 0): number {
   return (cycle > 0 ? 1 + Math.floor((FIGHT - wait) / cycle - 1e-9) : 0) / FIGHT;
 }
 
+/** Seconds between casts that start together, and between an ability's recasts. */
+const STAGGER = 0.25;
+const RECAST = 1;
+
+/**
+ * When the kit casts in the reference fight, one list per fight. A calibrated kit's are its own
+ * fights' (pipeline/items/calibrate.ts). Otherwise each ability that `match`es casts from the
+ * start, one after another, then once per cycle, with its recasts a second apart. Passives with
+ * a cooldown of their own (Spellblade) or a duration (Liandry's Torment's burn) depend on when
+ * the casts come, not only how many: abilities cast together at the start trigger them once.
+ */
+export function castTimes(self: Unit, match: (use: { ability: AbilitySpec; damaging: boolean }) => boolean = () => true): number[][] {
+  const uses = budgetUses(self);
+  const schedule = self.spec.budget?.calibration?.schedule;
+  if (schedule) {
+    const wanted = new Set(uses.filter((use) => match(use)).map((use) => use.ability.name));
+    const known = new Set(uses.map((use) => use.ability.name));
+    // Casts the reference doesn't count (recasts, other forms) go with every match.
+    return schedule.map((fight) => fight.filter((cast) => wanted.has(cast.ability) || !known.has(cast.ability)).map((cast) => cast.at));
+  }
+  const times: number[] = [];
+  uses.forEach((use, i) => {
+    if (!match(use) || !(use.cycle > 0)) return;
+    for (let start = i * STAGGER; start < FIGHT - 1e-9; start += use.cycle) {
+      for (let recast = 0; recast < use.casts && start + recast * RECAST < FIGHT - 1e-9; recast++) times.push(start + recast * RECAST);
+    }
+  });
+  return [times.sort((a, b) => a - b)];
+}
+
+/** The average over the fights' cast times of what `measure` makes of each. */
+export function overFights(fights: readonly (readonly number[])[], measure: (times: readonly number[]) => number): number {
+  return fights.length ? fights.reduce((sum, times) => sum + measure(times), 0) / fights.length : 0;
+}
+
+/** The share of the fight within `seconds` after one of the `times`. */
+export function coverage(times: readonly number[], seconds: number): number {
+  let covered = 0;
+  let until = 0;
+  for (const t of times) {
+    const from = Math.max(t, until);
+    const to = Math.min(FIGHT, t + seconds);
+    if (to > from) covered += to - from;
+    until = Math.max(until, t + seconds);
+  }
+  return covered / FIGHT;
+}
+
 /**
  * Spellblade's procs per second: an empowered attack half an attack after a cast, then
- * `cooldown` seconds before a cast arms it again. With casts every P seconds, a proc every P
- * times the casts that cooldown and wait take.
+ * `cooldown` seconds before a cast arms it again, along the kit's casts (castTimes).
  */
 export function spellbladeProcs(self: Unit, cooldown: number): number {
   const rate = attacks(self);
-  const cast = casts(self);
-  if (rate <= 0 || cast <= 0) return 0;
-  const every = 1 / cast;
-  return 1 / (every * Math.max(1, Math.ceil((cooldown + 0.5 / rate) / every - 1e-9)));
+  if (rate <= 0) return 0;
+  const wait = 0.5 / rate;
+  return overFights(castTimes(self), (times) => {
+    let ready = 0;
+    let procs = 0;
+    for (const t of times) {
+      if (t < ready - 1e-9 || t + wait >= FIGHT) continue;
+      procs++;
+      ready = t + wait + cooldown;
+    }
+    return procs / FIGHT;
+  });
 }
 
 /** The stacks held on average over the fight, gaining `rate` a second from none up to `most` (a stack that would expire is renewed first). */

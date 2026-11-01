@@ -368,6 +368,16 @@ function termDamage(term: DamageTerm, self: Unit, target: Unit): number {
  * abilities once per cooldown, and what the kit says its hooks add.
  */
 function rawDamage(self: Unit, target: Unit): DamageMix {
+  const raw = attackDamage(self, target);
+  const extra = self.spec.budget?.damage?.(self, target);
+  raw.physical += extra?.physical ?? 0;
+  raw.magic += extra?.magic ?? 0;
+  raw.true += extra?.true ?? 0;
+  return abilityDamage(self, target, raw);
+}
+
+/** The basic attacks' damage per second with their on-hit effects, before the target's resistances (a calibrated kit's share of its damage). */
+function attackDamage(self: Unit, target: Unit): DamageMix {
   const d = derive(self);
   const hints = self.spec.budget;
   const attacks = hints?.attacks !== false;
@@ -380,16 +390,19 @@ function rawDamage(self: Unit, target: Unit): DamageMix {
   if (attacks && self.spec.attack.beforeDamage) {
     for (const term of onHitTerms(self.spec.attack.beforeDamage)) raw[term.damageType] += termDamage(term, self, target) * d.attackSpeed;
   }
-  const extra = hints?.damage?.(self, target);
-  raw.physical += extra?.physical ?? 0;
-  raw.magic += extra?.magic ?? 0;
-  raw.true += extra?.true ?? 0;
-  return abilityDamage(self, target, raw);
+  const share = hints?.calibration?.damage ?? 1;
+  if (share !== 1) {
+    raw.physical *= share;
+    raw.magic *= share;
+    raw.true *= share;
+  }
+  return raw;
 }
 
-/** Adds the kit's abilities' damage per second to `raw`: of versions sharing a cooldown, the strongest sustained damage into this target. */
+/** Adds the kit's abilities' damage per second to `raw`: of versions sharing a cooldown, the strongest sustained damage into this target (a calibrated kit's share of it). */
 function abilityDamage(self: Unit, target: Unit, raw: DamageMix): DamageMix {
   const mitigation = multipliers(self, target);
+  const share = self.spec.budget?.calibration?.damage ?? 1;
   for (const alternatives of usesOf(abilitiesOf(self.spec))) {
     let best: DamageMix | undefined;
     let bestTotal = -1;
@@ -407,9 +420,9 @@ function abilityDamage(self: Unit, target: Unit, raw: DamageMix): DamageMix {
       }
     }
     if (!best) continue;
-    raw.physical += best.physical / bestCooldown;
-    raw.magic += best.magic / bestCooldown;
-    raw.true += best.true / bestCooldown;
+    raw.physical += (best.physical / bestCooldown) * share;
+    raw.magic += (best.magic / bestCooldown) * share;
+    raw.true += (best.true / bestCooldown) * share;
   }
   return raw;
 }
@@ -550,6 +563,17 @@ export function budgetAbilityDamage(self: Unit, target: Unit): DamageMix {
   return abilityDamage(self, target, { physical: 0, magic: 0, true: 0 });
 }
 
+/**
+ * The budget's damage per second against the target after resistances, in its three parts: the
+ * basic attacks with their on-hit effects, the abilities, and what the kit's hooks add (its
+ * `damage` hint). What a kit's calibration compares with its fights.
+ */
+export function budgetDamageParts(self: Unit, target: Unit): { attacks: number; abilities: number; hooks: number } {
+  const m = multipliers(self, target);
+  const post = (mix: Partial<DamageMix> | undefined) => (mix?.physical ?? 0) * m.physical + (mix?.magic ?? 0) * m.magic + (mix?.true ?? 0) * m.true;
+  return { attacks: post(attackDamage(self, target)), abilities: post(abilityDamage(self, target, { physical: 0, magic: 0, true: 0 })), hooks: post(self.spec.budget?.damage?.(self, target)) };
+}
+
 /** The budget's damage per second of a unit against the target, by type, after resistances (what omnivamp heals from). */
 export function budgetDamage(self: Unit, target: Unit): DamageMix {
   const raw = rawDamage(self, target);
@@ -594,7 +618,7 @@ export function budgetCasts(self: Unit): { casts: number; damaging: number } {
  * with its recasts and whether it deals damage: what item passives that follow some abilities
  * count (an ultimate, crowd control, stealth).
  */
-export function budgetUses(self: Unit): Array<{ ability: AbilitySpec; perSecond: number; casts: number; damaging: boolean }> {
+export function budgetUses(self: Unit): Array<{ ability: AbilitySpec; perSecond: number; cycle: number; casts: number; damaging: boolean }> {
   const abilities = abilitiesOf(self.spec);
   let groups = castCache.get(abilities);
   if (!groups) {
@@ -608,15 +632,16 @@ export function budgetUses(self: Unit): Array<{ ability: AbilitySpec; perSecond:
     groups = [...byKey.values()];
     castCache.set(abilities, groups);
   }
-  const uses: Array<{ ability: AbilitySpec; perSecond: number; casts: number; damaging: boolean }> = [];
+  const uses: Array<{ ability: AbilitySpec; perSecond: number; cycle: number; casts: number; damaging: boolean }> = [];
+  const share = self.spec.budget?.calibration?.casts ?? 1;
   for (const alternatives of groups) {
     let best: (typeof uses)[number] | undefined;
     for (const use of alternatives) {
       const cycle = cycleOf(use.timing, self);
       if (cycle <= 0) continue;
-      const perSecond = Math.ceil(SUSTAIN_WINDOW / cycle) / SUSTAIN_WINDOW;
+      const perSecond = (Math.ceil(SUSTAIN_WINDOW / cycle) / SUSTAIN_WINDOW) * share;
       if (best && use.casts * perSecond <= best.casts * best.perSecond) continue;
-      best = { ability: use.ability, perSecond, casts: use.casts, damaging: use.damaging };
+      best = { ability: use.ability, perSecond, cycle: cycle / share, casts: use.casts, damaging: use.damaging };
     }
     if (best) uses.push(best);
   }

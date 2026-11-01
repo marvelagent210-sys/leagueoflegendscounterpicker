@@ -128,7 +128,11 @@ async function main(): Promise<void> {
     const format = (option(args, "--format") ?? "sixItems") as BuildFormat;
     if (!(format in BUILD_FORMATS)) throw new Error(`--format takes one of: ${Object.keys(BUILD_FORMATS).join(", ")}`);
     const found = searchMatchup(mine.spec, theirs.spec, catalog, equipOptions(catalog, build.options), data.prices, { format, stacked: build.stacked });
-    console.log(`Build search (${BUILD_FORMATS[format].label}): ${found.seconds.search.toFixed(1)} s searching, ${found.seconds.fights.toFixed(1)} s of fights between the routes`);
+    console.log(`Build search (${BUILD_FORMATS[format].label}): ${found.seconds.calibration.toFixed(1)} s calibrating, ${found.seconds.search.toFixed(1)} s searching, ${found.seconds.fights.toFixed(1)} s of fights between the routes`);
+    found.calibrations?.forEach((c, side) => {
+      const share = (x: number) => `${Math.round(x * 100)}%`;
+      console.log(`  ${side === 0 ? you.name : enemy.name}'s fights against the estimate's counts: damage ${share(c.damage)}, attacks ${share(c.attacks)}, casts ${share(c.casts)}`);
+    });
     found.routes.forEach((routes, side) => {
       console.log(`${side === 0 ? you.name : enemy.name}'s routes (quick estimate against the other's best):`);
       routes.forEach((route, i) => console.log(`  ${i + 1}. ${profileOf(route.items)}: ${buildNames(route).join(", ")} (${route.value.toFixed(3)})`));

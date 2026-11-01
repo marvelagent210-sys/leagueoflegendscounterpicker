@@ -20,6 +20,7 @@ import { runScenarios } from "../../engine/sim/scenarios";
 import type { FighterSpec } from "../../engine/sim/spec";
 import { type EquipOptions, type ItemParts, itemParts, matchupSpecs } from "../../items/equip";
 import { type EstimateSide, estimateAgainst, estimateSide } from "../../items/estimate";
+import { type CalibrationFight, calibrate, calibrated } from "./calibrate";
 import { equipBuild, findItem } from "../itemData";
 import type { ItemCatalog, ItemRecord } from "./records";
 import { BUILD_FORMATS, BUILD_SLOTS, type BuildFormat, REVIEWED_GROUPS } from "./rules";
@@ -68,9 +69,11 @@ export interface SearchOptions {
   routes?: number;
   /** Tear items held stacked (Muramana), as in fights; the default. */
   stacked?: boolean;
+  /** Each kit's estimate calibrated to a fight of its own (pipeline/items/calibrate.ts); the default. */
+  calibrate?: boolean;
 }
 
-const DEFAULTS: Required<SearchOptions> = { format: "sixItems", width: 20, perProfile: 3, rounds: 4, routes: 3, stacked: true };
+const DEFAULTS: Required<SearchOptions> = { format: "sixItems", width: 20, perProfile: 3, rounds: 4, routes: 3, stacked: true, calibrate: true };
 
 export function names(build: Build): string[] {
   return build.items.map((item) => item.record.name);
@@ -196,21 +199,27 @@ export interface SearchedMatchup {
   /** The routes each side takes by Udyr's rule. */
   chosen: [number, number];
   score: number;
-  seconds: { search: number; fights: number };
+  /** Each kit's calibration, when the search calibrates. */
+  calibrations?: [CalibrationFight, CalibrationFight];
+  seconds: { calibration: number; search: number; fights: number };
 }
 
 /** Both sides' builds, each answering the other's, settled by fights between their routes. */
 export function searchMatchup(you: FighterSpec, enemy: FighterSpec, catalog: ItemCatalog, equip: EquipOptions, prices: StatPrices, options: SearchOptions = {}): SearchedMatchup {
   const o = { ...DEFAULTS, ...options };
   const started = performance.now();
+  // The estimate's kits, calibrated to their fights; the fights between routes use the kits themselves.
+  const calibrations: [CalibrationFight, CalibrationFight] | undefined = o.calibrate ? [calibrate(you, enemy, prices), calibrate(enemy, you, prices)] : undefined;
+  const [mySpec, theirSpec] = calibrations ? [calibrated(you, calibrations[0]), calibrated(enemy, calibrations[1])] : [you, enemy];
+  const ready = performance.now();
   const mineCandidates = candidatesFor(you, catalog, equip, prices, o.format, o.stacked);
   const theirCandidates = candidatesFor(enemy, catalog, equip, prices, o.format, o.stacked);
   const partsOf = (build: Build | undefined) => build?.items.map((item) => item.parts) ?? [];
   let mine: Build[] = [];
   let theirs: Build[] = [];
   for (let round = 0; round < o.rounds; round++) {
-    mine = searchSide(you, mineCandidates, estimateSide(enemy, partsOf(theirs[0]), 1), o);
-    theirs = searchSide(enemy, theirCandidates, estimateSide(you, partsOf(mine[0]), 1), o);
+    mine = searchSide(mySpec, mineCandidates, estimateSide(theirSpec, partsOf(theirs[0]), 1), o);
+    theirs = searchSide(theirSpec, theirCandidates, estimateSide(mySpec, partsOf(mine[0]), 1), o);
   }
   const searched = performance.now();
   const routes: [Build[], Build[]] = [mine.slice(0, o.routes), theirs.slice(0, o.routes)];
@@ -220,7 +229,7 @@ export function searchMatchup(you: FighterSpec, enemy: FighterSpec, catalog: Ite
   const scores = equippedMine.map((a) => equippedTheirs.map((b) => runScenarios(...matchupSpecs(a, b)).score));
   const [row, column] = chooseRoutes(scores);
   const fought = performance.now();
-  return { routes, scores, chosen: [row, column], score: scores[row]![column]!, seconds: { search: (searched - started) / 1000, fights: (fought - searched) / 1000 } };
+  return { routes, scores, chosen: [row, column], score: scores[row]![column]!, ...(calibrations ? { calibrations } : {}), seconds: { calibration: (ready - started) / 1000, search: (searched - ready) / 1000, fights: (fought - searched) / 1000 } };
 }
 
 /**

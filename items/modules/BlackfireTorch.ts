@@ -1,6 +1,6 @@
 import { derive } from "../../engine/sim/derived";
 import type { ItemModule } from "../equip";
-import { damagingCasts } from "../hints";
+import { castTimes, coverage, overFights } from "../hints";
 import { activeKey, follow, memo } from "../runtime";
 import { applyFrom, joinHooks } from "./shared";
 
@@ -18,7 +18,7 @@ export const BlackfireTorch: ItemModule = {
     const burnKey = activeKey(item.label);
     item.assume("Baleful Blaze burns on the kit's ability damage, its damage over time included; a new burn replaces the one running.");
     // Burning while ability damage renews it.
-    const uptime = (self: Parameters<typeof derive>[0]) => Math.min(1, damagingCasts(self) * seconds);
+    const uptime = (self: Parameters<typeof derive>[0]) => overFights(castTimes(self, (use) => use.damaging), (times) => coverage(times, seconds));
     return {
       budget: {
         damage: (self) => ({ magic: ((perTick + apPerTick * derive(self).ap) / interval) * uptime(self) }),
