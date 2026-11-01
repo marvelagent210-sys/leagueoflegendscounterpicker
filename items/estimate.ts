@@ -22,7 +22,11 @@ import { memo, setStat } from "./runtime";
 
 /** The champion's spec holding the items, as far as the estimate values them. */
 export function estimateSpec(spec: FighterSpec, parts: readonly ItemParts[]): FighterSpec {
-  if (parts.length === 0) return spec;
+  if (parts.length === 0) {
+    // No items, but a calibrated kit's own damage hint takes its share as with them.
+    const budget = estimateHints(spec.budget, parts);
+    return budget === spec.budget ? spec : { ...spec, ...(budget ? { budget } : {}) };
+  }
   const bonus: BonusStats = { ...spec.bonus };
   let critDamage = 0;
   let mana = 0;

@@ -4,9 +4,13 @@
  * them. The stat budget never calibrates, so its results don't change.
  */
 import { describe, expect, it } from "vitest";
-import { type StatPrices, budgetCasts, budgetDamageParts, budgetUnit } from "../../engine/budget";
+import { type StatPrices, budgetCasts, budgetDamage, budgetDamageParts, budgetUnit } from "../../engine/budget";
 import type { FighterSpec } from "../../engine/sim/spec";
+import { itemParts } from "../../items/equip";
+import { estimateUnit } from "../../items/estimate";
 import { attacks } from "../../items/hints";
+import { equipOptions, findItem, loadItemCatalog } from "../../pipeline/itemData";
+import { fighter } from "../sim/kits";
 import { DATA_DIR } from "../../pipeline/config";
 import { latestDataset } from "../../pipeline/datasets";
 import { calibrate, calibrated } from "../../pipeline/items/calibrate";
@@ -54,5 +58,18 @@ describe("a calibrated kit in the estimate", () => {
     expect(after.abilities).toBeCloseTo(before.abilities * 1.5, 9);
     expect(budgetCasts(scaled).casts).toBeCloseTo(budgetCasts(plain).casts * 0.5, 9);
     expect(attacks(scaled)).toBeCloseTo(attacks(plain) * 0.8, 12);
+  });
+});
+
+describe("a calibrated kit's own damage hint", () => {
+  it("takes its share with items and without: an empty build is valued as builds are", async () => {
+    const catalog = await loadItemCatalog(dataset);
+    const passive: FighterSpec = { ...fighter(), budget: { attacks: false, damage: () => ({ true: 100 }) } };
+    const spec = calibrated(passive, { damage: 0.5, attacks: 1, casts: 1 });
+    const foe = budgetUnit(fighter(), 1);
+    // A hundred true damage a second from its hooks, half of it in its fights, with or without items.
+    expect(budgetDamage(estimateUnit(spec, [], 0), foe).true).toBeCloseTo(50, 9);
+    const held = itemParts(spec, findItem(catalog, "Rabadon's Deathcap"), equipOptions(catalog));
+    expect(budgetDamage(estimateUnit(spec, [held], 0), foe).true).toBeCloseTo(50, 9);
   });
 });

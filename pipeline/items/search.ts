@@ -131,8 +131,10 @@ export function searchSide(you: FighterSpec, candidates: readonly Candidate[], e
   const o = { ...DEFAULTS, ...options };
   const score = (items: Candidate[]): Build => ({ items, value: estimateAgainst(you, items.map((item) => item.parts), enemy) });
   const bare = score([]).value;
-  // Items that add nothing to the estimate on their own aren't worth a slot.
-  const useful = candidates.filter((item) => score([item]).value > bare + 1e-12);
+  // Items that add nothing to the estimate on their own aren't worth a slot, unless too few do
+  // to fill a build (the one-per-group rules taking their share): then every item may.
+  const helping = candidates.filter((item) => score([item]).value > bare + 1e-12);
+  const useful = helping.length >= 2 * BUILD_SLOTS ? helping : candidates;
   let beam: Build[] = [{ items: [], value: bare }];
   for (let slot = 0; slot < BUILD_SLOTS; slot++) {
     const next = new Map<string, Build>();
@@ -235,7 +237,8 @@ export function searchMatchup(you: FighterSpec, enemy: FighterSpec, catalog: Ite
     mine = searchSide(mySpec, mineCandidates, estimateSide(theirSpec, partsOf(theirs[0]), 1), o);
     theirs = searchSide(theirSpec, theirCandidates, estimateSide(mySpec, partsOf(mine[0]), 1), o);
     rounds++;
-    const pair: [Build, Build] = [mine[0]!, theirs[0]!];
+    if (!mine[0] || !theirs[0]) throw new Error(`${mine[0] ? enemy.name : you.name}: the build search found no full build`);
+    const pair: [Build, Build] = [mine[0], theirs[0]];
     const seen = bests.findIndex(([a, b]) => keyOf(a.items) === keyOf(pair[0].items) && keyOf(b.items) === keyOf(pair[1].items));
     if (seen >= 0) {
       cycle = bests.slice(seen);
