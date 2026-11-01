@@ -1,6 +1,7 @@
 import { toTicks } from "../../engine/rules/time";
 import { derive } from "../../engine/sim/derived";
 import type { ItemModule } from "../equip";
+import { FIGHT, attacks } from "../hints";
 import { memo, until } from "../runtime";
 
 export const YunTalWildarrows: ItemModule = {
@@ -24,6 +25,16 @@ export const YunTalWildarrows: ItemModule = {
     const ready = memo(item.name, "ready");
     return {
       bonus: { critChance: Math.min(cap, (stacks * pick(perStack)) / 100) },
+      // From the first attack, then again once hits have taken the cooldown down.
+      budget: {
+        stats(self) {
+          const rate = attacks(self);
+          if (rate <= 0) return [];
+          const cycle = cooldown / (1 + rate * (perHit + derive(self).critChance * (perCrit - perHit)));
+          const up = Math.min(FIGHT, seconds + Math.max(0, FIGHT - cycle) * Math.min(1, seconds / cycle));
+          return [{ stat: "attackSpeed", value: speed * (up / FIGHT) }];
+        },
+      },
       hooks: {
         onAttackLaunch(ctx) {
           if (ctx.targetPet || ctx.tick < until(ctx.self, ready)) return;

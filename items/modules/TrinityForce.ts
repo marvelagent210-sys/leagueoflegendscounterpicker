@@ -1,7 +1,7 @@
 import { derive } from "../../engine/sim/derived";
 import type { ItemModule } from "../equip";
 import { memo } from "../runtime";
-import { applyFrom, joinHooks, spellblade } from "./shared";
+import { applyFrom, joinHooks, spellblade, spellbladeRate } from "./shared";
 
 export const TrinityForce: ItemModule = {
   item: "Trinity Force",
@@ -13,7 +13,9 @@ export const TrinityForce: ItemModule = {
     const words = "Basic attacks on-hit grant 20 bonus movement speed for 2 seconds";
     const speed = quicken.quoted(words);
     const seconds = quicken.quoted(words, 1);
+    const procs = spellbladeRate(blade);
     return {
+      budget: { damage: (self) => ({ physical: share * derive(self).baseAd * procs(self) }) },
       hooks: joinHooks(
         spellblade(item.name, blade, {
           onHit: (ctx, scale) => applyFrom(ctx, item.label, { type: "damage", damageType: "physical", amount: { base: 0, ratios: { baseAD: share } }, label: item.label, ...(lifeSteal ? { lifesteal: derive(ctx.self).lifeSteal } : {}) }, false, scale),

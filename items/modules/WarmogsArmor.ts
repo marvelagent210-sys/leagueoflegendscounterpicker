@@ -17,8 +17,11 @@ export const WarmogsArmor: ItemModule = {
     item.assume("Warmog's Vitality's 12% is of the health the build's items give in the shop.");
     const hit = memo(item.name, "lastHit");
     const next = memo(item.name, "next");
+    const own = item.record.stats.hp ?? 0;
     return {
       bonus: { hp: vitality * fromItems },
+      // Vitality of the other items' health: the holder's bought health is its items'.
+      budget: { stats: (self) => [{ stat: "health", value: vitality * Math.max(0, (self.spec.bonus?.hp ?? 0) - own * (1 + vitality)) }] },
       hooks: {
         onDamageTaken(ctx) {
           ctx.self.memory[hit] = ctx.tick;

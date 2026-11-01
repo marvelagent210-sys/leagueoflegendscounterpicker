@@ -2,6 +2,7 @@ import { toTicks } from "../../engine/rules/time";
 import { derive } from "../../engine/sim/derived";
 import type { HookContext } from "../../engine/sim/spec";
 import type { ItemModule } from "../equip";
+import { attacks, overMissingHealth } from "../hints";
 import { memo } from "../runtime";
 import { applyFrom } from "./shared";
 
@@ -36,6 +37,8 @@ export const KrakenSlayer: ItemModule = {
       applyFrom(ctx, item.label, { type: "damage", damageType: "physical", amount: { base: amount }, label: item.label, ...(lifeSteal ? { lifesteal: derive(ctx.self).lifeSteal } : {}) }, false, scale);
     };
     return {
+      // Every third attack, against health missing evenly over the fight.
+      budget: { damage: (self) => ({ physical: damage * (1 + top * overMissingHealth(at)) * attacks(self) / (maxStacks + 1) }) },
       hooks: {
         // Ranged: stacks and the empowered attack are decided as the attack launches.
         onAttackLaunch(ctx) {

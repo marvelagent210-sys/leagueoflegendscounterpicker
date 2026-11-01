@@ -3,7 +3,7 @@ import { describe, expect, it } from "vitest";
 import { createWorld } from "../../engine/sim/simulate";
 import type { FighterSpec } from "../../engine/sim/spec";
 import { itemParts } from "../../items/equip";
-import { estimate, estimateSpec, estimateUnit } from "../../items/estimate";
+import { estimate, estimateSide, estimateSpec, estimateUnit } from "../../items/estimate";
 import { DATA_DIR } from "../../pipeline/config";
 import { latestDataset } from "../../pipeline/datasets";
 import { equipBuild, equipOptions, findItem, loadItemCatalog } from "../../pipeline/itemData";
@@ -93,7 +93,7 @@ describe("the build rules the search keeps", () => {
 });
 
 describe("a side's search", () => {
-  const routes = searchSide(darius, candidatesFor(darius, catalog, equip, prices, "fiveItemsWithBoots"), estimateUnit(garen, [], 1), { format: "fiveItemsWithBoots", width: 6, perProfile: 2 });
+  const routes = searchSide(darius, candidatesFor(darius, catalog, equip, prices, "fiveItemsWithBoots"), estimateSide(garen, [], 1), { format: "fiveItemsWithBoots", width: 6, perProfile: 2 });
 
   it("finds full builds within the rules, one route per profile, best first", () => {
     expect(routes.length).toBeGreaterThan(1);
@@ -109,7 +109,7 @@ describe("a side's search", () => {
   it("no single swap that keeps its profile improves a route", () => {
     const best = routes[0]!;
     const useful = candidatesFor(darius, catalog, equip, prices, "fiveItemsWithBoots");
-    const enemy = estimateUnit(garen, [], 1);
+    const enemy = estimateSide(garen, [], 1);
     for (let i = 0; i < best.items.length; i++) {
       const rest = best.items.filter((_, j) => j !== i);
       for (const candidate of useful) {
@@ -119,7 +119,7 @@ describe("a side's search", () => {
         expect(estimate(darius, swapped.map((c) => c.parts), garen, []), names({ items: swapped, value: 0 }).join(", ")).toBeLessThanOrEqual(best.value + 1e-9);
       }
     }
-    expect(enemy.spec.id).toBe(garen.id);
+    expect(enemy.unit.spec.id).toBe(garen.id);
   });
 });
 

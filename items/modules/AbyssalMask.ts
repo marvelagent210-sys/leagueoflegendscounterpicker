@@ -12,6 +12,7 @@ export const AbyssalMask: ItemModule = {
     const share = unmake.quoted(words, 1) / 100;
     const key = memo(item.name, "curse");
     return {
+      budget: { enemyStats: () => [{ state: "magicReduction", value: -share }] },
       hooks: {
         onTick(ctx) {
           const cursed = ownStatus(ctx.enemy, key);

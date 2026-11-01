@@ -20,9 +20,11 @@ import { CRIT_DAMAGE } from "../engine/rules/defense";
 import { traitsOf } from "../engine/sim/behavior";
 import { addStatus } from "../engine/sim/combat";
 import { ccTypes, derive } from "../engine/sim/derived";
-import type { AbilitySpec, BaseStats, BonusStats, BuffStat, Effect, FighterSpec, HookContext, KitHooks, StateType } from "../engine/sim/spec";
+import type { AbilitySpec, BaseStats, BonusStats, BuffStat, DamageByType, Effect, FighterSpec, HookContext, KitHooks, StateType } from "../engine/sim/spec";
+import type { Unit } from "../engine/sim/state";
 import type { ItemRecord } from "../pipeline/items/records";
 import { ItemContext, type ItemData, ItemDataError, type ItemEvidence, type ItemSource } from "./context";
+import { activeBudget } from "./hints";
 import { type CombatStatus, type Energized, type Hit, activeKey, combatStatus, energizedPool, inItemStasis, isAbilityDamage, isItemActive, memo, omnivampHooks, setStat } from "./runtime";
 
 /** What an item knows about its holder while it is built: one form of the champion, before items. */
@@ -78,10 +80,38 @@ export interface ItemDefinition {
   stasis?: boolean;
   /** What the item does that the simulator leaves out, each with why. */
   unmodeled?: string[];
+  /** What the build search's quick estimate counts of the hooks and actives, which it doesn't play. */
+  budget?: ItemBudget;
 }
 
 /** A permanent stat or state. */
 export type Permanent = { stat: BuffStat; value: number } | { state: StateType; value?: number; charges?: number };
+
+/** A stat or state the quick estimate gives a unit, or Grievous Wounds. */
+export type EstimateStatus = Permanent | { grievousWounds: true };
+
+/**
+ * What the build search's quick estimate (items/estimate.ts) counts of an item's hooks and
+ * actives: their average over the stat budget's ten-second reference fight (engine/budget.ts),
+ * given the holder and the enemy with their whole builds on. Fights play the hooks themselves;
+ * these only rank builds, and tests/items/hints.test.ts checks each against a fight.
+ */
+export interface ItemBudget {
+  /** Stats the holder has on average from the hooks (Rabadon's Deathcap's AP, Liandry's Torment's Suffering). */
+  stats?: (self: Unit, enemy: Unit) => Permanent[];
+  /** Its stats read the other items' hook stats, so they come last (Rabadon's Deathcap's share of all AP). */
+  late?: boolean;
+  /** Statuses the hooks give the enemy on average (Black Cleaver's armor reduction, Grievous Wounds). */
+  enemyStats?: (self: Unit, enemy: Unit) => EstimateStatus[];
+  /** Damage per second the hooks and actives deal, by type, before the enemy's resistances. */
+  damage?: (self: Unit, enemy: Unit) => Partial<DamageByType>;
+  /** Healing per second: healing increases and Grievous Wounds change it. */
+  healing?: (self: Unit, enemy: Unit) => number;
+  /** Shielding per second, and damage the hooks keep from landing (Sterak's Gage's Lifeline: its shield over the ten seconds). */
+  shielding?: (self: Unit, enemy: Unit) => number;
+  /** The kit's ability as the hooks change it (Navori Flickerblade's shorter cooldowns), the same object when they don't. */
+  ability?: (ability: AbilitySpec) => AbilitySpec;
+}
 
 export interface ItemModule {
   /** The item's name in the catalog. */
@@ -261,7 +291,7 @@ function ownDamageOnly(hooks: KitHooks): KitHooks {
  * Item haste for some abilities: the engine divides the cooldown by 1 + haste / 100 of all
  * ability haste, so the cooldown it reads is scaled to come out as divided by the sum.
  */
-function withItemHaste(ability: AbilitySpec, haste: NonNullable<ItemDefinition["haste"]>): AbilitySpec {
+export function withItemHaste(ability: AbilitySpec, haste: NonNullable<ItemDefinition["haste"]>): AbilitySpec {
   if (ability.staticCooldown || isItemActive(ability)) return ability;
   let extra = 0;
   for (const entry of haste) {
@@ -522,22 +552,76 @@ export interface ItemParts {
   statuses: Array<{ stat: BuffStat; value: number }>;
   critDamage: number;
   onHit: Effect[];
+  /** Omnivamp from its shop stats, as a fraction. */
+  omnivamp: number;
+  /** Bonus maximum mana from its shop stats and passives, for mana champions. */
+  mana: number;
+  /** Ability haste for some abilities (ItemDefinition.haste). */
+  haste: NonNullable<ItemDefinition["haste"]>;
+  /** Its hint, with what its actives deal and shield per use over the reference fight. */
+  budget?: ItemBudget;
 }
 
 export function itemParts(spec: FighterSpec, record: ItemRecord, equip: EquipOptions): ItemParts {
   const context = new ItemContext(equip.source);
   const item = context.item(record, reservedNames(spec));
   const stats = shopStats(record, spec);
-  const parts: ItemParts = { item: record.name, bonus: { ...stats.bonus }, statuses: [], critDamage: stats.critDamage, onHit: [] };
+  const parts: ItemParts = { item: record.name, bonus: { ...stats.bonus }, statuses: [], critDamage: stats.critDamage, onHit: [], omnivamp: stats.omnivamp, mana: stats.mana, haste: [] };
   const stat = (status: Permanent): status is { stat: BuffStat; value: number } => "stat" in status;
   parts.statuses.push(...stats.statuses.filter(stat));
   const module = equip.modules[record.name];
   if (!module) return parts;
-  const definition = module.build(item, itemFighter(spec, [record], context, new Set([item.label])).fighter, chosenOptions(module, equip.options?.[record.name]));
+  const fighter = itemFighter(spec, [record], context, new Set([item.label])).fighter;
+  const definition = module.build(item, fighter, chosenOptions(module, equip.options?.[record.name]));
   addBonus(parts.bonus, definition.bonus);
   parts.statuses.push(...(definition.permanent ?? []).filter(stat));
-  parts.onHit.push(...(definition.onHit ?? []));
+  parts.onHit.push(...(definition.onHit ?? []).map(atHalfHealth));
+  if (definition.mana && fighter.mana) parts.mana += definition.mana;
+  parts.haste.push(...(definition.haste ?? []));
+  const budget = joinBudgets(definition.budget, activeBudget(definition.actives ?? []));
+  if (budget) parts.budget = budget;
   return parts;
+}
+
+/**
+ * An on-hit effect as the estimate values it: a share of the target's current health is a share
+ * of half its maximum, the target's average over a fight from full health to none (Blade of the
+ * Ruined King's Mist's Edge). The estimate's target is always at full health.
+ */
+function atHalfHealth(effect: Effect): Effect {
+  if (effect.type !== "damage" || !effect.amount.ratios?.targetCurrentHP) return effect;
+  const { targetCurrentHP, ...ratios } = effect.amount.ratios;
+  return { ...effect, amount: { ...effect.amount, ratios: { ...ratios, targetMaxHP: (ratios.targetMaxHP ?? 0) + targetCurrentHP / 2 } } };
+}
+
+/** Two hints as one: their stats and statuses together, their damage, healing and shields added. */
+export function joinBudgets(a: ItemBudget | undefined, b: ItemBudget | undefined): ItemBudget | undefined {
+  if (!a || !b) return a ?? b;
+  const both = <T>(f: ((self: Unit, enemy: Unit) => T[]) | undefined, g: ((self: Unit, enemy: Unit) => T[]) | undefined) =>
+    f && g ? (self: Unit, enemy: Unit) => [...f(self, enemy), ...g(self, enemy)] : (f ?? g);
+  const sum = (f: ((self: Unit, enemy: Unit) => number) | undefined, g: ((self: Unit, enemy: Unit) => number) | undefined) =>
+    f && g ? (self: Unit, enemy: Unit) => f(self, enemy) + g(self, enemy) : (f ?? g);
+  const damage = a.damage && b.damage
+    ? (self: Unit, enemy: Unit) => {
+        const x = a.damage!(self, enemy);
+        const y = b.damage!(self, enemy);
+        return { physical: (x.physical ?? 0) + (y.physical ?? 0), magic: (x.magic ?? 0) + (y.magic ?? 0), true: (x.true ?? 0) + (y.true ?? 0) };
+      }
+    : (a.damage ?? b.damage);
+  const joined: ItemBudget = {};
+  const stats = both(a.stats, b.stats);
+  const enemyStats = both(a.enemyStats, b.enemyStats);
+  const healing = sum(a.healing, b.healing);
+  const shielding = sum(a.shielding, b.shielding);
+  if (stats) joined.stats = stats;
+  if (a.late || b.late) joined.late = true;
+  const ability = a.ability && b.ability ? (spec: AbilitySpec) => b.ability!(a.ability!(spec)) : (a.ability ?? b.ability);
+  if (ability) joined.ability = ability;
+  if (enemyStats) joined.enemyStats = enemyStats;
+  if (damage) joined.damage = damage;
+  if (healing) joined.healing = healing;
+  if (shielding) joined.shielding = shielding;
+  return joined;
 }
 
 /** Both sides of a matchup, each with the hooks the other's items put on it. */

@@ -1,6 +1,8 @@
 import { toTicks } from "../../engine/rules/time";
+import { budgetMultipliers } from "../../engine/budget";
 import type { ItemModule } from "../equip";
-import { memo } from "../runtime";
+import { FIGHT } from "../hints";
+import { bonusHealth, memo } from "../runtime";
 import { within } from "./aura";
 import { applyFrom } from "./shared";
 
@@ -15,7 +17,12 @@ export const UnendingDespair: ItemModule = {
     const healShare = anguish.quoted(words, 3) / 100;
     const combat = fighter.combat();
     const pulses = memo(item.name, "pulses");
+    const perSecond = Math.floor(FIGHT / every + 1e-9) / FIGHT;
     return {
+      budget: {
+        damage: (self) => ({ magic: share * bonusHealth(self) * perSecond }),
+        healing: (self, enemy) => healShare * share * bonusHealth(self) * perSecond * budgetMultipliers(self, enemy).magic,
+      },
       hooks: {
         onTick(ctx) {
           const seconds = combat.seconds(ctx.self, ctx.tick);

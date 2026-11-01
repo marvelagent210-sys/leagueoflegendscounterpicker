@@ -11,6 +11,7 @@ export const EndlessHunger: ItemModule = {
     const ratio = (fighter.ranged ? share.ranged : share.melee) / 100;
     return {
       hooks: follow(memo(item.name, "haste"), "abilityHaste", (self) => base + ratio * derive(self).bonusAd),
+      budget: { stats: (self) => [{ stat: "abilityHaste", value: base + ratio * derive(self).bonusAd }] },
       unmodeled: ["Feast: a takedown ends the duel."],
     };
   },

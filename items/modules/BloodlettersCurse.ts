@@ -1,5 +1,7 @@
 import { toTicks } from "../../engine/rules/time";
+import { budgetAbilityDamage } from "../../engine/budget";
 import type { ItemModule } from "../equip";
+import { averageStacks, damagingCasts } from "../hints";
 import { memo, setStat, until } from "../runtime";
 
 export const BloodlettersCurse: ItemModule = {
@@ -14,6 +16,8 @@ export const BloodlettersCurse: ItemModule = {
     const stacks = memo(item.name, "stacks");
     const expires = memo(item.name, "until");
     return {
+      // A stack from each damaging cast when the kit's abilities deal magic damage.
+      budget: { enemyStats: (self, enemy) => (budgetAbilityDamage(self, enemy).magic > 0 ? [{ stat: "mrReductionPercent", value: perStack * averageStacks(maxStacks, damagingCasts(self)) }] : []) },
       hooks: {
         onDamageDealt(ctx) {
           if (ctx.damageType !== "magic" || !fighter.isAbilityDamage(ctx)) return;

@@ -1,5 +1,8 @@
 import { derive } from "../../engine/sim/derived";
+import { budgetMultipliers } from "../../engine/budget";
+import { averageCritFactor } from "../../engine/rules/defense";
 import type { ItemModule } from "../equip";
+import { FIGHT, attacks } from "../hints";
 import { activeKey, memo, ownStatus } from "../runtime";
 import { addStatus } from "../../engine/sim/combat";
 
@@ -14,6 +17,13 @@ export const Bloodthirster: ItemModule = {
     const before = memo(item.name, "hp");
     const key = memo(item.name, "shield");
     return {
+      // The life steal of the fight's first second, at full health, fills it.
+      budget: {
+        shielding(self, enemy) {
+          const d = derive(self);
+          return Math.min(most, d.lifeSteal * d.ad * averageCritFactor(d.critChance, d.critDamage) * attacks(self) * budgetMultipliers(self, enemy).physical) / FIGHT;
+        },
+      },
       hooks: {
         onTick(ctx) {
           ctx.self.memory[before] = ctx.self.hp;

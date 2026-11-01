@@ -1,5 +1,7 @@
 import { toTicks } from "../../engine/rules/time";
+import { derive } from "../../engine/sim/derived";
 import type { ItemModule } from "../equip";
+import { stealths, usesOf } from "../hints";
 import { memo, until } from "../runtime";
 import { applyFrom } from "./shared";
 
@@ -16,6 +18,8 @@ export const UmbralGlaive: ItemModule = {
     const armed = memo(item.name, "armedUntil");
     const visible = (self: { statuses: Array<{ kind: string; key: string }> }) => !self.statuses.some((s) => s.kind === "state" && s.key === "invisible") || self.statuses.some((s) => s.kind === "state" && s.key === "revealed");
     return {
+      // An empowered attack after each use of an ability that makes the holder invisible.
+      budget: { damage: (self) => ({ true: (base + perLethality * derive(self).lethality) * usesOf(self, stealths) }) },
       hooks: {
         onTick(ctx) {
           if (!visible(ctx.self)) {

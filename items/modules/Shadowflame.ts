@@ -1,3 +1,4 @@
+import { budgetAbilityDamage } from "../../engine/budget";
 import { derive } from "../../engine/sim/derived";
 import type { ItemModule } from "../equip";
 
@@ -8,7 +9,11 @@ export const Shadowflame: ItemModule = {
     const bloom = item.effect("Cinderbloom");
     const multiplier = bloom.quoted(words) / 100;
     const below = bloom.quoted(words, 1) / 100;
+    // Below 40% health the rest of the enemy's health takes 120%: as much faster to deal, on average.
+    const amplified = 1 / (1 - below + below / multiplier) - 1;
     return {
+      // Magic damage as the enemy's magic damage taken; the kit's true damage as more of it.
+      budget: { enemyStats: () => [{ state: "magicReduction", value: -amplified }], damage: (self, enemy) => ({ true: amplified * budgetAbilityDamage(self, enemy).true }) },
       // What the enemy takes from the holder's magic and true damage.
       enemyHooks: {
         modifyDamageTakenRaw(ctx) {

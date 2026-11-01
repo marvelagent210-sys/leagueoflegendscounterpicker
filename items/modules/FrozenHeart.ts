@@ -12,6 +12,7 @@ export const FrozenHeart: ItemModule = {
     item.assume("Winter's Caress takes 20% off the enemy's attack speed as a multiplier, added to its other attack speed multipliers; it isn't crowd control.");
     const key = memo(item.name, "cripple");
     return {
+      budget: { enemyStats: () => [{ stat: "attackSpeedMultiplier", value: -share }] },
       hooks: {
         onTick: (ctx) => setStat(ctx.enemy, key, "attackSpeedMultiplier", within(ctx.self, ctx.enemy, radius) ? -share : 0, ctx.tick, Number.POSITIVE_INFINITY, ctx.self.side),
       },

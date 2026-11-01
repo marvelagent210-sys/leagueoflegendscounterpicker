@@ -2,7 +2,8 @@
 import { toTicks } from "../../engine/rules/time";
 import type { ItemData } from "../context";
 import type { ItemDefinition } from "../equip";
-import { memo, until } from "../runtime";
+import { nearby } from "../hints";
+import { bonusHealth, memo, until } from "../runtime";
 import { within } from "./aura";
 import { applyFrom } from "./shared";
 
@@ -22,6 +23,8 @@ export function immolate(item: ItemData, damage: string): ItemDefinition {
     self.memory[active] = tick + toTicks(seconds);
   };
   return {
+    // Always burning in a duel, while the enemy is near.
+    budget: { damage: (self) => ({ magic: ((base + share * bonusHealth(self)) / interval) * nearby(self, radius) }) },
     hooks: {
       onDamageDealt: (ctx) => wake(ctx.self, ctx.tick),
       onDamageTaken: (ctx) => wake(ctx.self, ctx.tick),

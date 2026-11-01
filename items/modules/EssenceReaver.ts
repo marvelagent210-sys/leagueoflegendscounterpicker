@@ -1,7 +1,7 @@
 import { derive, evaluate } from "../../engine/sim/derived";
 import type { Formula } from "../../engine/sim/spec";
 import type { ItemModule } from "../equip";
-import { applyFrom, spellblade } from "./shared";
+import { applyFrom, spellblade, spellbladeRate } from "./shared";
 
 export const EssenceReaver: ItemModule = {
   item: "Essence Reaver",
@@ -15,7 +15,9 @@ export const EssenceReaver: ItemModule = {
     const mana = blade.quoted("restores mana equal to 50% of that amount") / 100;
     const lifeSteal = item.tagged("OnHitAppliesLifeSteal");
     const amount: Formula = { base: 0, ratios: { baseAD: share, critChance: perCrit } };
+    const procs = spellbladeRate(blade);
     return {
+      budget: { damage: (self, enemy) => ({ physical: evaluate(amount, self, enemy) * procs(self) }) },
       hooks: spellblade(item.name, blade, {
         onHit(ctx, scale) {
           applyFrom(ctx, item.label, { type: "damage", damageType: "physical", amount, label: item.label, ...(lifeSteal ? { lifesteal: derive(ctx.self).lifeSteal } : {}) }, false, scale);

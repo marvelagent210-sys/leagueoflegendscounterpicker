@@ -23,7 +23,7 @@
  * items give (PENETRATION_CAPS).
  */
 import { effectiveResist, resistMultiplier } from "./rules/damage";
-import { averageCritFactor } from "./rules/defense";
+import { averageCritFactor, healingReceived } from "./rules/defense";
 import { cooldownAfterHaste } from "./rules/timing";
 import { toSeconds, toTicks } from "./rules/time";
 import { derive, evaluate } from "./sim/derived";
@@ -384,7 +384,11 @@ function rawDamage(self: Unit, target: Unit): DamageMix {
   raw.physical += extra?.physical ?? 0;
   raw.magic += extra?.magic ?? 0;
   raw.true += extra?.true ?? 0;
-  // Of versions sharing a cooldown, the strongest sustained damage into this target.
+  return abilityDamage(self, target, raw);
+}
+
+/** Adds the kit's abilities' damage per second to `raw`: of versions sharing a cooldown, the strongest sustained damage into this target. */
+function abilityDamage(self: Unit, target: Unit, raw: DamageMix): DamageMix {
   const mitigation = multipliers(self, target);
   for (const alternatives of usesOf(abilitiesOf(self.spec))) {
     let best: DamageMix | undefined;
@@ -395,7 +399,7 @@ function rawDamage(self: Unit, target: Unit): DamageMix {
       if (cooldown <= 0) continue;
       const mix: DamageMix = { physical: 0, magic: 0, true: 0 };
       for (const term of use.terms) mix[term.damageType] += termDamage(term, self, target);
-      const total = (mix.physical * mitigation.physical + mix.magic * mitigation.magic + mix.true) / cooldown;
+      const total = (mix.physical * mitigation.physical + mix.magic * mitigation.magic + mix.true * mitigation.true) / cooldown;
       if (total > bestTotal) {
         best = mix;
         bestTotal = total;
@@ -410,13 +414,21 @@ function rawDamage(self: Unit, target: Unit): DamageMix {
   return raw;
 }
 
-/** The target's armor and magic resistance multipliers against the attacker, after its penetration. */
-function multipliers(attacker: Unit, target: Unit): { physical: number; magic: number } {
+/**
+ * The share of each damage type that reaches the target: its armor and magic resistance after
+ * the attacker's penetration, and the damage modifiers both have, as the fight applies them
+ * (engine/rules/damage.ts mitigate): damage dealt modifiers add up, damage received modifiers
+ * multiply, and true damage only takes increases.
+ */
+function multipliers(attacker: Unit, target: Unit): DamageMix {
   const a = derive(attacker);
   const t = derive(target);
+  const modified = (type: keyof DamageMix, received: number[]) =>
+    (1 + a.damageDealt.reduce((sum, m) => sum + (type === "true" ? Math.max(0, m) : m), 0)) * received.reduce((product, m) => product * (1 - (type === "true" ? Math.min(0, m) : m)), 1);
   return {
-    physical: resistMultiplier(effectiveResist(t.armor, t.armorReduction, { flat: a.lethality, percent: a.armorPen, bonusPercent: a.bonusArmorPen })),
-    magic: resistMultiplier(effectiveResist(t.mr, t.mrReduction, { flat: a.magicPen, percent: a.magicPenPercent })),
+    physical: resistMultiplier(effectiveResist(t.armor, t.armorReduction, { flat: a.lethality, percent: a.armorPen, bonusPercent: a.bonusArmorPen })) * modified("physical", [...t.damageReduction, ...t.physicalReduction]),
+    magic: resistMultiplier(effectiveResist(t.mr, t.mrReduction, { flat: a.magicPen, percent: a.magicPenPercent })) * modified("magic", [...t.damageReduction, ...t.magicReduction]),
+    true: modified("true", t.damageReduction),
   };
 }
 
@@ -426,7 +438,7 @@ export function damagePerSecond(spec: FighterSpec, enemy: FighterSpec): DamageMi
   const target = unitOf(valued(enemy, enemy.bonus ?? {}), 1);
   const raw = rawDamage(self, target);
   const m = multipliers(self, target);
-  return { physical: raw.physical * m.physical, magic: raw.magic * m.magic, true: raw.true };
+  return { physical: raw.physical * m.physical, magic: raw.magic * m.magic, true: raw.true * m.true };
 }
 
 interface SustainUse extends ReferenceTiming {
@@ -435,8 +447,8 @@ interface SustainUse extends ReferenceTiming {
 
 const sustainCache = new WeakMap<AbilitySpec[], SustainUse[][]>();
 
-/** Shields and heals abilities give their caster over the reference fight. */
-function sustain(self: Unit, incoming: DamageMix): number {
+/** Shields and heals abilities give their caster over the reference fight; `heals` scales the heals (healFactor). */
+function sustain(self: Unit, incoming: DamageMix, heals = 1): number {
   const abilities = abilitiesOf(self.spec);
   let sources = sustainCache.get(abilities);
   if (!sources) {
@@ -465,7 +477,7 @@ function sustain(self: Unit, incoming: DamageMix): number {
       for (const effect of source.effects) {
         // A type-specific shield cannot absorb damage of an unrelated type.
         if (effect.type === "shield" && effect.shieldType && effect.shieldType !== "normal" && incoming[effect.shieldType] <= 0) continue;
-        amount += evaluate(effect.amount, self);
+        amount += evaluate(effect.amount, self) * (effect.type === "heal" ? heals : 1);
       }
       best = Math.max(best, uses * amount);
     }
@@ -474,13 +486,25 @@ function sustain(self: Unit, incoming: DamageMix): number {
   return total;
 }
 
+/** What heals give the unit, as the fight's heal does: more with healing increases, 40% less under Grievous Wounds. */
+function healFactor(self: Unit): number {
+  return healingReceived(1 + derive(self).healingIncrease, self.statuses.some((status) => status.kind === "grievousWounds"));
+}
+
+/** The health the unit has to lose over the reference fight, before resistances: its maximum health, shields and heals. */
+function pool(self: Unit, enemy: Unit, raw: DamageMix): number {
+  const hints = self.spec.budget;
+  const heals = healFactor(self);
+  const hooks = ((hints?.healing?.(self, enemy) ?? 0) * heals + (hints?.shielding?.(self, enemy) ?? 0)) * SUSTAIN_WINDOW;
+  return derive(self).maxHp + sustain(self, raw, heals) + hooks;
+}
+
 function health(self: Unit, enemy: Unit, raw = rawDamage(enemy, self)): number {
   const total = raw.physical + raw.magic + raw.true;
   const shares = total > 0 ? { physical: raw.physical / total, magic: raw.magic / total, true: raw.true / total } : { physical: 0.5, magic: 0.5, true: 0 };
   const m = multipliers(enemy, self);
-  const taken = shares.physical * m.physical + shares.magic * m.magic + shares.true;
-  const healing = (self.spec.budget?.healing?.(self, enemy) ?? 0) * SUSTAIN_WINDOW;
-  return (derive(self).maxHp + sustain(self, raw) + healing) / taken;
+  const taken = shares.physical * m.physical + shares.magic * m.magic + shares.true * m.true;
+  return pool(self, enemy, raw) / taken;
 }
 
 /**
@@ -495,7 +519,7 @@ export function effectiveHealth(spec: FighterSpec, enemy: FighterSpec): number {
 function value(self: Unit, enemy: Unit): number {
   const raw = rawDamage(self, enemy);
   const m = multipliers(self, enemy);
-  const dps = raw.physical * m.physical + raw.magic * m.magic + raw.true;
+  const dps = raw.physical * m.physical + raw.magic * m.magic + raw.true * m.true;
   const incoming = rawDamage(enemy, self);
   const incomingDps = incoming.physical + incoming.magic + incoming.true;
   // Survival is effective health / incoming raw DPS. The latter is not constant when the
@@ -514,6 +538,98 @@ export function budgetValue(self: Unit, enemy: Unit): number {
 /** A unit as the budget sees it: bought stats through the kit's multipliers, and its innate starts. */
 export function budgetUnit(spec: FighterSpec, side: 0 | 1): Unit {
   return unitOf(valued(spec, spec.bonus ?? {}), side);
+}
+
+/** The share of each of the attacker's damage types that reaches the target, after resistances and damage modifiers. */
+export function budgetMultipliers(attacker: Unit, target: Unit): DamageMix {
+  return multipliers(attacker, target);
+}
+
+/** The kit's abilities' damage per second against the target, by type, before resistances (what item passives on ability damage scale with). */
+export function budgetAbilityDamage(self: Unit, target: Unit): DamageMix {
+  return abilityDamage(self, target, { physical: 0, magic: 0, true: 0 });
+}
+
+/** The budget's damage per second of a unit against the target, by type, after resistances (what omnivamp heals from). */
+export function budgetDamage(self: Unit, target: Unit): DamageMix {
+  const raw = rawDamage(self, target);
+  const m = multipliers(self, target);
+  return { physical: raw.physical * m.physical, magic: raw.magic * m.magic, true: raw.true * m.true };
+}
+
+/** The health a unit has to lose over the reference fight against the enemy, before resistances: maximum health, shields and heals. */
+export function budgetPool(self: Unit, enemy: Unit): number {
+  return pool(self, enemy, rawDamage(enemy, self));
+}
+
+interface CastUse {
+  ability: AbilitySpec;
+  timing: ReferenceTiming;
+  /** Casts per use: the ability and its recasts. */
+  casts: number;
+  damaging: boolean;
+}
+
+const castCache = new WeakMap<AbilitySpec[], CastUse[][]>();
+
+/**
+ * The kit's ability casts per second in the reference fight, recasts included, and how many of
+ * its uses per second deal damage: what item passives that follow casts (Spellblade) or ability
+ * damage (Liandry's Torment's burn) count. Abilities are ready when the fight starts, as for
+ * sustain: an ability on a fifteen-second cooldown is cast once in the ten seconds. Of versions
+ * that share a cooldown, the most casts.
+ */
+export function budgetCasts(self: Unit): { casts: number; damaging: number } {
+  let casts = 0;
+  let damaging = 0;
+  for (const { casts: count, damaging: hits, perSecond } of budgetUses(self)) {
+    casts += count * perSecond;
+    if (hits) damaging += perSecond;
+  }
+  return { casts, damaging };
+}
+
+/**
+ * Each castable ability's uses per second in the reference fight, as budgetCasts counts them,
+ * with its recasts and whether it deals damage: what item passives that follow some abilities
+ * count (an ultimate, crowd control, stealth).
+ */
+export function budgetUses(self: Unit): Array<{ ability: AbilitySpec; perSecond: number; casts: number; damaging: boolean }> {
+  const abilities = abilitiesOf(self.spec);
+  let groups = castCache.get(abilities);
+  if (!groups) {
+    const byKey = new Map<string, CastUse[]>();
+    for (const ability of abilities) {
+      if (ability.chain || ability.activation === "internal" || ability.countsAsCast === false || !["Q", "W", "E", "R"].includes(ability.slot)) continue;
+      const stages = abilities.filter((stage) => stage.chain?.root === ability.key && stage.activation !== "internal" && stage.countsAsCast !== false);
+      const key = cooldownKeyOf(ability);
+      byKey.set(key, [...(byKey.get(key) ?? []), { ability, timing: timingOf(ability), casts: 1 + stages.length, damaging: [ability, ...stages].some((stage) => damageTerms(stage).length > 0) }]);
+    }
+    groups = [...byKey.values()];
+    castCache.set(abilities, groups);
+  }
+  const uses: Array<{ ability: AbilitySpec; perSecond: number; casts: number; damaging: boolean }> = [];
+  for (const alternatives of groups) {
+    let best: (typeof uses)[number] | undefined;
+    for (const use of alternatives) {
+      const cycle = cycleOf(use.timing, self);
+      if (cycle <= 0) continue;
+      const perSecond = Math.ceil(SUSTAIN_WINDOW / cycle) / SUSTAIN_WINDOW;
+      if (best && use.casts * perSecond <= best.casts * best.perSecond) continue;
+      best = { ability: use.ability, perSecond, casts: use.casts, damaging: use.damaging };
+    }
+    if (best) uses.push(best);
+  }
+  return uses;
+}
+
+/** The damage of one basic attack's on-hit effects against the target, by type, before resistances (what Guinsoo's Rageblade's Phantom Hit repeats). */
+export function budgetOnHit(self: Unit, target: Unit): DamageMix {
+  const mix: DamageMix = { physical: 0, magic: 0, true: 0 };
+  for (const effects of [self.spec.attack.onHit, self.spec.attack.beforeDamage]) {
+    if (effects) for (const term of onHitTerms(effects)) mix[term.damageType] += termDamage(term, self, target);
+  }
+  return mix;
 }
 
 function validateBudget(gold: number, prices: StatPrices): void {

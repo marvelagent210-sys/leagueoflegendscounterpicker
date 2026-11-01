@@ -1,5 +1,8 @@
 import { toTicks } from "../../engine/rules/time";
+import { derive } from "../../engine/sim/derived";
+import type { AbilitySpec } from "../../engine/sim/spec";
 import type { ItemModule } from "../equip";
+import { FIGHT, abilityHas, usesOf } from "../hints";
 import { memo, setStat, until } from "../runtime";
 import { within } from "./aura";
 import { applyFrom } from "./shared";
@@ -36,8 +39,15 @@ export const Malignance: ItemModule = {
     const ends = memo(item.name, "until");
     const next = memo(item.name, "next");
     const ready = memo(item.name, "ready");
+    // Each ultimate that deals damage makes a zone the target stands in, up to once per cooldown.
+    const damagingUltimate = (ability: AbilitySpec) => ability.slot === "R" && abilityHas(ability, (e) => e.type === "damage" || e.type === "dot");
+    const zones = (self: Parameters<typeof derive>[0]) => Math.min(usesOf(self, damagingUltimate), 1 / cooldown);
     return {
       haste: [ultimateHaste(item.effect("Scorn"), "Gain 20 ultimate haste.")],
+      budget: {
+        damage: (self) => ({ magic: (base + ap * derive(self).ap) * (seconds / every) * zones(self) }),
+        enemyStats: (self) => [{ stat: "mrReduction", value: shred * Math.min(1, zones(self) * seconds) }],
+      },
       hooks: {
         onDamageDealt(ctx) {
           if (ctx.attack || ctx.petSource || !ctx.ability || !ultimate.has(ctx.ability) || ctx.tick < until(ctx.self, ready)) return;

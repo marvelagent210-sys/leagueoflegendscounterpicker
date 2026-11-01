@@ -1,6 +1,7 @@
 import { toTicks } from "../../engine/rules/time";
 import { derive } from "../../engine/sim/derived";
 import type { ItemModule } from "../equip";
+import { damagingCasts } from "../hints";
 import { follow, memo, until } from "../runtime";
 import { applyFrom, itemDamage, joinHooks } from "./shared";
 
@@ -15,6 +16,11 @@ export const Muramana: ItemModule = {
     const share = (fighter.ranged ? ability.ranged : ability.melee) / 100;
     if (!fighter.mana) return { unmodeled: ["Awe: the champion has no mana.", "Shock: its damage is a share of mana, which the champion doesn't have."] };
     return {
+      // Shock once for each damaging cast, at most once per cast every 6.5 seconds.
+      budget: {
+        stats: (self) => [{ stat: "AD", value: awe * derive(self).maxResource }],
+        damage: (self) => ({ physical: share * derive(self).maxResource * Math.min(damagingCasts(self), 3 / once) }),
+      },
       onHit: [itemDamage(item.label, "physical", { base: 0, ratios: { maxMana: onHit } }, item.tagged("OnHitAppliesLifeSteal"))],
       hooks: joinHooks(follow(memo(item.name, "AD"), "AD", (self) => awe * derive(self).maxResource), {
         onDamageDealt(ctx) {

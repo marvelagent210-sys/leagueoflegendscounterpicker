@@ -1,6 +1,7 @@
 import { toTicks } from "../../engine/rules/time";
 import { derive } from "../../engine/sim/derived";
 import type { ItemModule } from "../equip";
+import { FIGHT, absorbed, incoming } from "../hints";
 import { memo, ownStatus } from "../runtime";
 import { itemShield } from "./shared";
 
@@ -15,6 +16,8 @@ export const KaenicRookern: ItemModule = {
     item.assume("Magebane's shield is up when the fight starts.");
     const grant = (ctx: Parameters<typeof itemShield>[0]) => itemShield(ctx, item.name, share * derive(ctx.self).maxHp, 1e6, false, "magic");
     return {
+      // Up when the fight starts: it absorbs the enemy's magic damage until destroyed.
+      budget: { shielding: (self, enemy) => absorbed(share * derive(self).maxHp, FIGHT, incoming(self, enemy).magic, false) / FIGHT },
       hooks: {
         onStart: (ctx) => grant(ctx),
         onDamageTaken(ctx) {

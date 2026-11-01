@@ -1,5 +1,7 @@
 import { toTicks } from "../../engine/rules/time";
+import { budgetAbilityDamage } from "../../engine/budget";
 import type { ItemModule } from "../equip";
+import { averageStacks, damagingCasts } from "../hints";
 import { memo, until } from "../runtime";
 
 export const SpearOfShojin: ItemModule = {
@@ -20,6 +22,14 @@ export const SpearOfShojin: ItemModule = {
     const expires = memo(item.name, "until");
     return {
       haste: [{ slots: ["Q", "W", "E"], haste }],
+      // A stack from each damaging cast; the bonus on the kit's ability damage.
+      budget: {
+        damage(self, enemy) {
+          const share = perStack * averageStacks(maxStacks, damagingCasts(self));
+          const abilities = budgetAbilityDamage(self, enemy);
+          return { physical: abilities.physical * share, magic: abilities.magic * share, true: abilities.true * share };
+        },
+      },
       hooks: {
         onDamageDealt(ctx) {
           if (!fromCasts(ctx)) return;

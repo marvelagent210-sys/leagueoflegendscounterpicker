@@ -2,6 +2,7 @@ import { toTicks } from "../../engine/rules/time";
 import { derive, evaluate } from "../../engine/sim/derived";
 import type { Formula } from "../../engine/sim/spec";
 import type { ItemModule } from "../equip";
+import { attacks, triggers } from "../hints";
 import { memo, ownStatus, setStat, until } from "../runtime";
 import { applyFrom } from "./shared";
 
@@ -22,7 +23,13 @@ export const Heartsteel: ItemModule = {
     const ready = memo(item.name, "ready");
     const health = memo(item.name, "health");
     item.assume("Colossal Consumption stacks while the enemy is within 700 units of the holder's edge; the permanent health it gives is pre-mitigation damage's 10%.");
+    // Its stacks take three seconds; then the next attack.
+    const procs = (self: Parameters<typeof attacks>[0]) => (attacks(self) > 0 ? triggers(cooldown, maxStacks + 0.5 / attacks(self)) : 0);
     return {
+      budget: {
+        damage: (self, enemy) => ({ physical: evaluate(amount, self, enemy) * procs(self) }),
+        stats: () => (options.stacked ? [{ stat: "health", value: options.stacked }] : []),
+      },
       hooks: {
         onStart(ctx) {
           if (options.stacked) setStat(ctx.self, health, "health", options.stacked, ctx.tick);

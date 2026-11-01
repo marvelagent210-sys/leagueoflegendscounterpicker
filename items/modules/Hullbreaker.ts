@@ -1,6 +1,7 @@
 import { toTicks } from "../../engine/rules/time";
 import { derive } from "../../engine/sim/derived";
 import type { ItemModule } from "../equip";
+import { attacks } from "../hints";
 import { memo, until } from "../runtime";
 import { applyFrom } from "./shared";
 
@@ -19,6 +20,7 @@ export const Hullbreaker: ItemModule = {
     const expires = memo(item.name, "stacksUntil");
     const pick = (pair: { melee: number; ranged: number }) => (fighter.ranged ? pair.ranged : pair.melee) / 100;
     return {
+      budget: { damage: (self) => ({ physical: (pick(ad) * derive(self).baseAd + pick(health) * derive(self).maxHp) * attacks(self) / (at + 1) }) },
       hooks: {
         onAttackHit(ctx) {
           if (ctx.blocked) return;

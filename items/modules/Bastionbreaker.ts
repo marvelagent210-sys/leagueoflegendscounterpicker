@@ -1,5 +1,7 @@
 import { toTicks } from "../../engine/rules/time";
+import { derive } from "../../engine/sim/derived";
 import type { ItemModule } from "../equip";
+import { damagingCasts, triggers } from "../hints";
 import { memo, until } from "../runtime";
 import { applyFrom } from "./shared";
 
@@ -14,6 +16,7 @@ export const Bastionbreaker: ItemModule = {
     const pick = (pair: { melee: number; ranged: number }) => (fighter.ranged ? pair.ranged : pair.melee);
     const ready = memo(item.name, "ready");
     return {
+      budget: { damage: (self) => ({ true: (pick(base) + pick(perLethality) * derive(self).lethality) * Math.min(damagingCasts(self), triggers(cooldown)) }) },
       hooks: {
         onDamageDealt(ctx) {
           if (!fighter.isAbilityDamage(ctx) || ctx.persistent || ctx.tick < until(ctx.self, ready)) return;

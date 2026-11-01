@@ -1,4 +1,5 @@
 import type { ItemModule } from "../equip";
+import { triggers } from "../hints";
 import { activeKey } from "../runtime";
 import { applyFrom } from "./shared";
 
@@ -12,10 +13,12 @@ export const Redemption: ItemModule = {
     const share = intervention.quoted("while enemy champions within take 10% of target's maximum health as true damage.") / 100;
     const heal = intervention.level("Allies within the area are healed for");
     item.assume("Intervention strikes where the enemy stands; it heals the holder too when the holder is within its radius of the enemy.");
+    const cooldown = intervention.cooldown();
     return {
+      budget: { healing: () => heal * triggers(cooldown) },
       actives: [{
         name: intervention.name,
-        cooldown: intervention.cooldown(),
+        cooldown,
         delivery: { kind: "circle", range: intervention.range(), radius, delay },
         onHit: [{ type: "damage", damageType: "true", amount: { base: 0, ratios: { targetMaxHP: share } } }],
       }],

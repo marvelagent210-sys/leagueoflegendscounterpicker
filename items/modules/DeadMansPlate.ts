@@ -1,5 +1,7 @@
 import { toTicks } from "../../engine/rules/time";
+import { derive } from "../../engine/sim/derived";
 import type { ItemModule } from "../equip";
+import { FIGHT } from "../hints";
 import { memo, setStat } from "../runtime";
 import { applyFrom } from "./shared";
 
@@ -24,6 +26,8 @@ export const DeadMansPlate: ItemModule = {
     const show = (ctx: { self: Parameters<typeof setStat>[0]; tick: number }, held: number) => setStat(ctx.self, memo(item.name, "speed"), "moveSpeedFlat", (speed * held) / maxStacks, ctx.tick);
     return {
       permanent: [{ stat: "slowResist", value: resist }],
+      // The fight's first attack, at full Momentum; a duel moves too little to fill it again.
+      budget: { damage: (self) => ({ physical: (perStack * maxStacks + sharePerStack * maxStacks * derive(self).baseAd) / FIGHT }) },
       hooks: {
         onStart(ctx) {
           ctx.self.memory[stacks] = maxStacks;

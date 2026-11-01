@@ -1,4 +1,6 @@
+import { derive } from "../../engine/sim/derived";
 import type { ItemModule } from "../equip";
+import { energized as energizedRate } from "../hints";
 import { memo } from "../runtime";
 import { applyFrom } from "./shared";
 
@@ -20,6 +22,11 @@ export const VoltaicCyclosword: ItemModule = {
       },
     });
     return {
+      // The target's current health is half its maximum on average over the fight.
+      budget: {
+        damage: (self, enemy) => ({ physical: (pick(share) / 100) * 0.5 * derive(enemy).maxHp * energizedRate(self, energized.rule) }),
+        stats: (self) => [{ stat: "lethality", value: pick(lethality) * Math.min(1, energizedRate(self, energized.rule) * seconds) }],
+      },
       hooks: {
         onDamageDealt(ctx) {
           if (fighter.isAbilityDamage(ctx) && !ctx.persistent) energized.spend(ctx, 1);

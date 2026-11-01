@@ -1,5 +1,6 @@
 import { toTicks } from "../../engine/rules/time";
 import type { ItemModule } from "../equip";
+import { FIGHT, ultimate, usesOf } from "../hints";
 import { memo, until } from "../runtime";
 import { ultimateHaste } from "./ultimate";
 
@@ -15,6 +16,8 @@ export const ExperimentalHexplate: ItemModule = {
     const ready = memo(item.name, "ready");
     return {
       haste: [ultimateHaste(item.effect("Hexcharged"), "Gain 30 ultimate haste.")],
+      // Once a fight, from the ultimate's first cast.
+      budget: { stats: (self) => (usesOf(self, ultimate) > 0 ? [{ stat: "attackSpeed", value: pick(speed) * Math.min(1, seconds / FIGHT) }] : []) },
       hooks: {
         onCast(ctx) {
           if (ctx.ability.slot !== "R" || ctx.ability.countsAsCast === false || ctx.tick < until(ctx.self, ready)) return;

@@ -18,9 +18,8 @@
 import type { StatPrices } from "../../engine/budget";
 import { runScenarios } from "../../engine/sim/scenarios";
 import type { FighterSpec } from "../../engine/sim/spec";
-import type { Unit } from "../../engine/sim/state";
 import { type EquipOptions, type ItemParts, itemParts, matchupSpecs } from "../../items/equip";
-import { estimateAgainst, estimateUnit } from "../../items/estimate";
+import { type EstimateSide, estimateAgainst, estimateSide } from "../../items/estimate";
 import { equipBuild, findItem } from "../itemData";
 import type { ItemCatalog, ItemRecord } from "./records";
 import { BUILD_FORMATS, BUILD_SLOTS, type BuildFormat, REVIEWED_GROUPS } from "./rules";
@@ -119,8 +118,8 @@ export function fits(items: readonly Candidate[], item: Candidate, format: Build
 
 const keyOf = (items: readonly Candidate[]) => items.map((item) => item.record.name).sort().join("|");
 
-/** The routes `you` finds against the enemy unit: the best full build of each profile, best first. */
-export function searchSide(you: FighterSpec, candidates: readonly Candidate[], enemy: Unit, options: SearchOptions = {}): Build[] {
+/** The routes `you` finds against the enemy side: the best full build of each profile, best first. */
+export function searchSide(you: FighterSpec, candidates: readonly Candidate[], enemy: EstimateSide, options: SearchOptions = {}): Build[] {
   const o = { ...DEFAULTS, ...options };
   const score = (items: Candidate[]): Build => ({ items, value: estimateAgainst(you, items.map((item) => item.parts), enemy) });
   const bare = score([]).value;
@@ -210,8 +209,8 @@ export function searchMatchup(you: FighterSpec, enemy: FighterSpec, catalog: Ite
   let mine: Build[] = [];
   let theirs: Build[] = [];
   for (let round = 0; round < o.rounds; round++) {
-    mine = searchSide(you, mineCandidates, estimateUnit(enemy, partsOf(theirs[0]), 1), o);
-    theirs = searchSide(enemy, theirCandidates, estimateUnit(you, partsOf(mine[0]), 1), o);
+    mine = searchSide(you, mineCandidates, estimateSide(enemy, partsOf(theirs[0]), 1), o);
+    theirs = searchSide(enemy, theirCandidates, estimateSide(you, partsOf(mine[0]), 1), o);
   }
   const searched = performance.now();
   const routes: [Build[], Build[]] = [mine.slice(0, o.routes), theirs.slice(0, o.routes)];
