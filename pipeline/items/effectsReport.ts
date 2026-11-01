@@ -61,7 +61,7 @@ export function itemEffectsReport(catalog: ItemCatalog): string {
     "",
     `The rules the items follow beyond their own text come from pinned wiki pages: ${catalog.rulePages.map((page) => `${page.title} (revision ${page.revid})`).join(", ")}.`,
     "",
-    "Actives can be used under any crowd control but knock-ups and stuns (suppression, sleep and stasis count as stuns), and Mercurial Scimitar's Quicksilver under stuns too, never knocked up; a dash not while rooted or grounded either (confirmed on review, 20 October; the wiki's own rule stops items under every cast-inhibiting type).",
+    "Actives can be used under any crowd control but knock-ups and stuns (suppression, sleep and stasis count as stuns), and Mercurial Scimitar's Quicksilver under stuns too, never knocked up; a dash not while rooted or grounded either (confirmed on review, 20 October, and for suppression on 1 November; the wiki's own rule stops items under every cast-inhibiting type).",
     "",
   ];
   for (const [title, list] of [["Finished items", catalog.items.filter((r) => r.kind === "legendary")], ["Boots", catalog.items.filter((r) => r.kind === "boots")], ["Transformed items", catalog.transforms]] as const) {
